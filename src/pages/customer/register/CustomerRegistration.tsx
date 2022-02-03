@@ -2,55 +2,51 @@ import {
   Divider,
   Grid,
   Typography,
-  Stack,
   Button,
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
-import CustomerRegistrationForm from '../../../components/forms/CustomerRegistrationForm';
+import CustomerRegistrationFormInstance from '../../../components/forms/CustomerRegistrationFormInstance';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import AgentsForm from '../../../components/forms/AgentsForm';
 import Notes from './../../../components/lists/Notes';
+import { addCustomers } from '../../../api/kintone/customers/POST';
 
 
-interface CRFProps {
-  index: string | number,
-  removeCustomerHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
-}
+const initialFormObject = {
+  fullName: '',
+  fullNameReading: '',
+  gender: '',
+  birthYear: '',
+  birthMonth : '',
+  birthDay : '',
+  contacts : [
+    {
+      contactType: '電話番号１',
+      contactValue: '',
+      classification: '',
+    },
+  ],
+  address: {
+    postal: '',
+    address1: '',
+    address2: '',
+  },
 
-const defaultFormObject = { name: '', nameReading: '', age: 0, ageGuess: -1, gender: -1 };
-
-
-const CRF = ({ index, removeCustomerHandler } : CRFProps) => {
-  const isLinkedCustomer = index > 0;
-
-  return (
-    <Stack spacing={1}>
-      <Divider />
-      <Stack direction="row" spacing={2} justifyContent="space-between">
-        <Typography variant="h5">{`【契約者${+index + 1}】`}</Typography>
-        {
-          Boolean(index) &&
-          <Button id={`${index}`} variant="contained" color="error" startIcon={<PersonRemoveIcon />} onClick={removeCustomerHandler}>
-            削除
-          </Button>
-        }
-      </Stack>
-      <CustomerRegistrationForm {...{ isLinkedCustomer }} />
-    </Stack>
-  );
 };
 
+/* Main Form */
 export default function CustomerRegistration() {
-  // const [customerCount, setCustomerCount] = useState<number>(6);
-  const [customers, setCustomers] = useState([{ ...defaultFormObject }]);
+
+  const [customers, setCustomers] = useState([{ ...initialFormObject }]);
+
+
   const maxCustomers = 3;
 
   const addCustomerHandler = () => {
-    setCustomers(prev => ([...prev, { ...defaultFormObject }]));
+    setCustomers(prev => ([...prev, { ...initialFormObject }]));
   };
 
   const removeCustomerHandler = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -60,20 +56,44 @@ export default function CustomerRegistration() {
       const reducedCustomers = [...prev];
       reducedCustomers.splice(index, 1);
       return reducedCustomers;
-
     });
+  };
+
+  const handleSubmit = (e : React.FormEvent<HTMLFormElement> | undefined) => {
+    e?.preventDefault();
+
+    const convertedRecords = customers.map(
+      ({ fullName, fullNameReading }) => {
+        return {
+          fullName: {
+            value: fullName,
+          },
+          fullNameReading: {
+            value: fullNameReading,
+          },
+        };
+      });
+
+    console.log(convertedRecords, addCustomers(convertedRecords));
+
+  };
+
+  const handleCustomerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('hello', e);
   };
 
   const isMaxCustomers = customers.length >= maxCustomers;
 
   console.log(customers);
+
   return (
+    <form noValidate onSubmit={handleSubmit}>
     <Grid container spacing={2} overflow="auto" justifyContent="center">
       <Grid item xs={12} p={2} sx={{ backgroundColor: '#9CDAF9' }}>
         <Typography variant="h4">顧客登録（個人）</Typography>
       </Grid>
       <Grid item md={6} >
-        {customers.map((_, i) => <CRF key={i} index={i} {...{ removeCustomerHandler }} />)}
+        {customers.map((_, i) => <CustomerRegistrationFormInstance  key={i} index={i} {...{ handleCustomerChange, removeCustomerHandler }} />)}
         {!isMaxCustomers &&
         <Button fullWidth variant="contained" color="success" startIcon={<PersonAddIcon />} onClick={addCustomerHandler}>
           契約者を追加する
@@ -94,5 +114,6 @@ export default function CustomerRegistration() {
         </Button>
       </Grid>
     </Grid>
+    </form>
   );
 }

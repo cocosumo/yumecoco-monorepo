@@ -3,11 +3,14 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-// hello
+
+const Dotenv = require('dotenv-webpack');
+
 
 module.exports = {
   mode: "development",
   plugins: [
+    new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output

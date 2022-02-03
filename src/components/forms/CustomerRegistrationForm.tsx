@@ -1,17 +1,19 @@
 import {
   Grid,
   TextField,
-  // /InputAdornment,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Box,
+  FormHelperText,
 } from '@mui/material';
-import {Box} from '@mui/system';
-import {useState} from 'react';
+
+import { useState } from 'react';
 import SeparatedDatePicker from '../ui/datetimepickers/SeparatedDatePicker';
+
 
 interface ContactFieldProps {
   label: string,
@@ -21,13 +23,16 @@ interface ContactFieldProps {
 
 interface CustomerRegistrationFormProps {
   isLinkedCustomer : boolean
+  handleCustomerChange: (event: React.ChangeEvent<HTMLInputElement>)=>void
 }
 
 const ContactField = ({
   label,
   isRequired = false,
-  placeholder = '07014529898'
+  placeholder = '07014529898',
 } : ContactFieldProps) => {
+
+
   const classification = ['契約者', '配偶者', '婚約者', '家「固定電話」', '子', '祖父母', '兄弟姉妹', '同居人', '会社（固定電話）', '法人担当者', 'その他'];
   return (
     <Grid item container p={1} spacing={2}>
@@ -36,25 +41,27 @@ const ContactField = ({
       </Grid>
       <Grid item md={6}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">詳細年齢不明な場合使用</InputLabel>
+          <InputLabel>種別</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            label="詳細年齢不明な場合使用"
+            label="種別"
           >
             {classification.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
 
-
           </Select>
+          <FormHelperText>連絡先の種別を選択してください</FormHelperText>
         </FormControl>
       </Grid>
     </Grid>
   );
 };
 
-export default function CustomerRegistrationForm({isLinkedCustomer} : CustomerRegistrationFormProps) {
+export default function CustomerRegistrationForm({ handleCustomerChange, isLinkedCustomer } : CustomerRegistrationFormProps) {
+
   const [isSameToMain, setIsSameToMain] = useState(true);
 
   const isHideDetails = isLinkedCustomer && isSameToMain;
+
+
 
   console.log(isLinkedCustomer);
   return (
@@ -62,10 +69,10 @@ export default function CustomerRegistrationForm({isLinkedCustomer} : CustomerRe
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField fullWidth required label="氏名" placeholder="高橋　加奈" />
+          <TextField onChange={handleCustomerChange} fullWidth label="氏名" placeholder="高橋 加奈" />
         </Grid>
         <Grid item xs={12}>
-          <TextField fullWidth required label="氏名フリガナ" />
+          <TextField onChange={handleCustomerChange} fullWidth required label="氏名フリガナ" />
         </Grid>
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
@@ -88,7 +95,7 @@ export default function CustomerRegistrationForm({isLinkedCustomer} : CustomerRe
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox defaultChecked checked={isSameToMain} onClick={()=>setIsSameToMain(prev=> !prev)} />}
+              <Checkbox checked={isSameToMain} onClick={()=>setIsSameToMain(prev=> !prev)} />}
             label="住所と連絡先は【契約者１】と同じ"
           />
         </Grid>

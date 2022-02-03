@@ -17,16 +17,16 @@ export const getRecordPath = (
   {
     recordId,
     appId,
-    domain = ""
+    domain = '',
   }: AppRecord) : string => {
-  const isDomainEmpty = domain.length > 0
-  const _domain = isDomainEmpty ? domain : window.location.href;
-  const _device = isMobile ? 'k/m' : 'k';
-  const _record = recordId
+  // const isDomainEmpty = domain.length > 0;
+  const resolvedDomain = domain.length > 0 ? domain : window.location.href;
+  const device = isMobile ? 'k/m' : 'k';
+  const record = recordId
     ? `show${isMobile ? '?' : '#'}record=${recordId}`
     : '';
 
-  return `https://${_domain}/${_device}/${appId}/${_record}`;
+  return `https://${resolvedDomain}/${device}/${appId}/${record}`;
 
 };
 
@@ -80,7 +80,7 @@ export const onFieldChange = (fields : string | string[]) : string[] =>
         `app.record.edit.change.${curr}`,
         `mobile.app.record.edit.change.${curr}`,
         `app.record.create.change.${curr}`,
-        `mobile.app.record.create.change.${curr}`
+        `mobile.app.record.create.change.${curr}`,
       );
     }, [],
   );

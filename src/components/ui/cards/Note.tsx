@@ -2,14 +2,14 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import NordicWalkingIcon from '@mui/icons-material/NordicWalking';
 import TimeToLeaveIcon from '@mui/icons-material/TimeToLeave';
-import {Stack, Typography, Grid} from '@mui/material';
+import { Stack, Typography, Grid } from '@mui/material';
 import Caption from '../typohraphies/Caption';
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 interface NoteProps {
   type: string
 }
 
-const Icon = ({type}: NoteProps) => {
+const Icon = ({ type }: NoteProps) => {
   switch (type) {
     case 'メール':
       return <EmailIcon />;
@@ -23,13 +23,13 @@ const Icon = ({type}: NoteProps) => {
   return <EmailIcon />;
 };
 
-export default function Note({type}:NoteProps) {
+export default function Note({ type }:NoteProps) {
   const testDate = format(new Date(), 'M月d日 HH:mm');
 
-  console.log(testDate, 'testDate');
+
   return (
     <Grid container className="notes_note">
-      <Grid container item xs={3} justifyContent="center" ><Icon {...{type}} /></Grid>
+      <Grid container item xs={3} justifyContent="center" ><Icon {...{ type }} /></Grid>
       <Grid item xs={9}>
         <Stack spacing={2}>
           <Typography variant="subtitle1">{type}</Typography>

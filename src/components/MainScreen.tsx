@@ -1,19 +1,20 @@
 
 import * as React from 'react';
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import {useMediaQuery} from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import PersistentAppBar from './appBars/PersistentAppBar';
 import PersistentDesktopDrawer from './nav/persistentNav/PersistentDesktopDrawer';
-import MainContentRouter from './contents/MainContentRouter';
+
+import Router from '../pages/Router';
 // import UnderConstruction from '../../ui/contents/UnderConstruction';
 
 const drawerWidth = 240;
 
-const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
-}>(({theme, open}) => ({
+}>(({ theme, open }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {
@@ -30,7 +31,7 @@ const Main = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
   }),
 }));
 
-const DrawerHeader = styled('div')(({theme}) => ({
+const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
@@ -52,13 +53,13 @@ export default function MainScreen() {
 
 
   return (
-    <Box sx={{display: 'flex'}}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <PersistentAppBar {...{handleDrawerOpen}} />
-      <PersistentDesktopDrawer {...{handleDrawerClose, open, drawerWidth}} />
+      <PersistentAppBar {...{ handleDrawerOpen }} />
+      <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
       <Main open={open}>
         <DrawerHeader />
-        <MainContentRouter />
+        <Router />
       </Main>
     </Box>
   );

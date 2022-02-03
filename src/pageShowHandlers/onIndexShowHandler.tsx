@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 
 import App from '../components/App';
 
-import {generateRoot} from '../helpers/utils';
+import { generateRoot } from '../helpers/utils';
 
 
 export default function onIndexShowHandler() {

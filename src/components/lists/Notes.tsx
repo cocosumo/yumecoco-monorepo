@@ -1,7 +1,7 @@
-import {Box} from '@mui/system';
-import {Typography, Stack, Paper} from '@mui/material';
-import Note from '../../../ui/cards/Note';
-import InputMemoDialog from '../../../ui/dialogs/InputMemoDialog';
+
+import { Typography, Stack, Paper, Box } from '@mui/material';
+import Note from '../ui/cards/Note';
+import InputMemoDialog from '../ui/dialogs/InputMemoDialog';
 
 
 export default function Notes() {

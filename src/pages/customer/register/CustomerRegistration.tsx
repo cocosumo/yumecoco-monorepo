@@ -3,17 +3,17 @@ import {
   Grid,
   Typography,
   Stack,
-  Button
+  Button,
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 
-import CustomerRegistrationForm from '../../../forms/CustomerRegistrationForm';
+import CustomerRegistrationForm from '../../../components/forms/CustomerRegistrationForm';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import {useState} from 'react';
-import AgentsForm from '../../../forms/AgentsForm';
-import Notes from './Notes';
+import { useState } from 'react';
+import AgentsForm from '../../../components/forms/AgentsForm';
+import Notes from './../../../components/lists/Notes';
 
 
 interface CRFProps {
@@ -21,10 +21,10 @@ interface CRFProps {
   removeCustomerHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
 }
 
-const defaultFormObject = {name: '', nameReading: '', age: 0, ageGuess: -1, gender: -1};
+const defaultFormObject = { name: '', nameReading: '', age: 0, ageGuess: -1, gender: -1 };
 
 
-const CRF = ({index, removeCustomerHandler} : CRFProps) => {
+const CRF = ({ index, removeCustomerHandler } : CRFProps) => {
   const isLinkedCustomer = index > 0;
 
   return (
@@ -39,18 +39,18 @@ const CRF = ({index, removeCustomerHandler} : CRFProps) => {
           </Button>
         }
       </Stack>
-      <CustomerRegistrationForm {...{isLinkedCustomer}} />
+      <CustomerRegistrationForm {...{ isLinkedCustomer }} />
     </Stack>
   );
 };
 
 export default function CustomerRegistration() {
   // const [customerCount, setCustomerCount] = useState<number>(6);
-  const [customers, setCustomers] = useState([{...defaultFormObject}]);
+  const [customers, setCustomers] = useState([{ ...defaultFormObject }]);
   const maxCustomers = 3;
 
   const addCustomerHandler = () => {
-    setCustomers(prev => ([...prev, {...defaultFormObject}]));
+    setCustomers(prev => ([...prev, { ...defaultFormObject }]));
   };
 
   const removeCustomerHandler = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -69,11 +69,11 @@ export default function CustomerRegistration() {
   console.log(customers);
   return (
     <Grid container spacing={2} overflow="auto" justifyContent="center">
-      <Grid item xs={12} p={2} sx={{backgroundColor: '#9CDAF9'}}>
+      <Grid item xs={12} p={2} sx={{ backgroundColor: '#9CDAF9' }}>
         <Typography variant="h4">顧客登録（個人）</Typography>
       </Grid>
       <Grid item md={6} >
-        {customers.map((_, i) => <CRF key={i} index={i} {...{removeCustomerHandler}} />)}
+        {customers.map((_, i) => <CRF key={i} index={i} {...{ removeCustomerHandler }} />)}
         {!isMaxCustomers &&
         <Button fullWidth variant="contained" color="success" startIcon={<PersonAddIcon />} onClick={addCustomerHandler}>
           契約者を追加する

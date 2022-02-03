@@ -1,5 +1,5 @@
 
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import CustomerRegistration from './customer/register/CustomerRegistration';
 import UnderConstruction from './UnderConstruction';
 
@@ -9,7 +9,7 @@ import UnderConstruction from './UnderConstruction';
 // and /schedule routes will match any pathname that starts
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
-const MainContentRouter = () => (
+const Router = () => (
   <main>
     <Routes>
       <Route path="/" element={<UnderConstruction />} />
@@ -19,4 +19,4 @@ const MainContentRouter = () => (
   </main>
 );
 
-export default MainContentRouter;
+export default Router;

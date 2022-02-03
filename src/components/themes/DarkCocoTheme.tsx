@@ -1,6 +1,5 @@
-
-import {ThemeProvider, createTheme} from '@mui/material/styles';
-import {isMobile} from '@yumetetsu/library';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { isMobile } from './../../helpers/kintone';
 
 
 const background = '#434343';
@@ -15,60 +14,60 @@ const darkTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
-          backgroundColor: 'white'
+          backgroundColor: 'white',
 
-        }
-      }
+        },
+      },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          background: background
-        }
-      }
+          background: background,
+        },
+      },
     },
     MuiDrawer: {
       styleOverrides: {
         root: {
-          overflowY: 'auto'
-        }
-      }
+          overflowY: 'auto',
+        },
+      },
     },
     MuiFab: {
       styleOverrides: {
         root: {
           background: background,
           ':hover': {
-            background: background
-          }
-        }
-      }
+            background: background,
+          },
+        },
+      },
     },
     MuiFormLabel: {
       styleOverrides: {
         asterisk: {
           color: '#db3131',
-        }
-      }
+        },
+      },
     },
     MuiListItemText: {
       styleOverrides: {
         root: {
-          color: 'rgba(0, 0, 0, 0.87)'
-        }
-      }
+          color: 'rgba(0, 0, 0, 0.87)',
+        },
+      },
     },
     MuiTypography: {
       styleOverrides: {
         caption: {
-          color: '#d4d7d7'
-        }
-      }
-    }
+          color: '#d4d7d7',
+        },
+      },
+    },
   },
 });
 
-export default function EnableColorOnDarkAppBar({children}: Props) {
+export default function EnableColorOnDarkAppBar({ children }: Props) {
   console.log(isMobile);
   return (
     <ThemeProvider theme={darkTheme}>

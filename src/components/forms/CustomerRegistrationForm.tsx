@@ -76,27 +76,27 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField name="fullName" error={customer.fullName.hasError} onError={() => {console.log('ERROR');}} onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth label="氏名" placeholder="高橋 加奈" required/>
+          <TextField name="fullName" helperText={customer.fullName.errorMsg} error={customer.fullName.hasError} onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth label="氏名" placeholder="高橋 加奈" required/>
         </Grid>
         <Grid item xs={12}>
-          <TextField name="fullNameReading" onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth required label="氏名フリガナ" />
+          <TextField name="fullNameReading" error={customer.fullNameReading.hasError} onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth required label="氏名フリガナ" />
         </Grid>
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">性別</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              // value={age}
-              label="性別"
-            >
-              <MenuItem value={10}>女性</MenuItem>
-              <MenuItem value={20}>男性</MenuItem>
-              <MenuItem value={30}>指定しない</MenuItem>
+            <InputLabel>性別</InputLabel>
+            <Select name="gender" label="性別" value={customer.gender.value} onChange={(e)=>dispatch({ type: 'SELECT_CHANGE', payload: e, index: componentIdx })}>
+              <MenuItem value={'女性'}>女性</MenuItem>
+              <MenuItem value={'男性'}>男性</MenuItem>
+              <MenuItem value={'指定しない'}>指定しない</MenuItem>
             </Select>
           </FormControl>
         </Grid>
         <Grid item xs={12} md={8}>
-          <SeparatedDatePicker />
+          <SeparatedDatePicker value={{
+            year: customer.birthYear.value,
+            month: customer.birthMonth.value,
+            day: customer.birthDay.value,
+          }}  handleChange={(e) => dispatch({ type:'CHANGE_BIRTHDATE', payload: e, index: componentIdx })}/>
         </Grid>
         {isLinkedCustomer &&
         <Grid item xs={12}>

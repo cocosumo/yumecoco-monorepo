@@ -15,6 +15,7 @@
   "include": [
     "./src/**/*",
     "./src/types/forms.d.ts",
+    "./node_modules/@mui/material",
     "./node_modules/@kintone/dts-gen/kintone.d.ts"
   ],
   "rules": {

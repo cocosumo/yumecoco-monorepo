@@ -1,7 +1,9 @@
+import { CustomerForm } from '../types/forms';
+
 const initialFormState : CustomerForm = { customers :
   [
     {
-      fullName: { value: '', touched:false, hasError: true, errorMsg: '' },
+      fullName: { value: '', touched:false, hasError: false, errorMsg: '' },
       fullNameReading: { value: '', touched:false, hasError: false, errorMsg: '' },
       gender: { value: '', touched:false, hasError: false, errorMsg: '' },
       birthYear: { value: '', touched:false, hasError: false, errorMsg: '' },

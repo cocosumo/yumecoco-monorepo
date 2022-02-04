@@ -1,6 +1,10 @@
-interface FieldValidation { value: string, touched:boolean, hasError: boolean, errorMsg: string }
+import { SelectChangeEvent } from '@mui/material';
 
-interface CustomerBasicInformation {
+
+
+export interface FieldValidation { value: string, touched:boolean, hasError: boolean, errorMsg: string }
+
+export interface CustomerBasicInformation {
   fullName: FieldValidation,
   fullNameReading: FieldValidation,
   gender: FieldValidation,
@@ -25,13 +29,14 @@ interface CustomerBasicInformation {
   },
 }
 
-interface CustomerForm {
+export interface CustomerForm {
   customers : CustomerBasicInformation[],
 }
 
-type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
-
-type FieldActionType =
+export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ;
+export type FieldActionType =
 | { type: 'CHANGE', payload: InputChangeType, index?: number }
 | { type: 'ADD' }
-| { type: 'REMOVE', index: number };
+| { type: 'REMOVE', index: number }
+| { type: 'CHANGE_BIRTHDATE', payload: Date, index: number }
+| { type: 'SELECT_CHANGE', payload: SelectChangeEvent<string>, index?: number };

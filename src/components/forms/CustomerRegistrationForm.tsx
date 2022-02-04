@@ -11,7 +11,8 @@ import {
   FormHelperText,
 } from '@mui/material';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import CustomerFormContext from '../../context/CustomerFormContext';
 import SeparatedDatePicker from '../ui/datetimepickers/SeparatedDatePicker';
 
 
@@ -23,7 +24,7 @@ interface ContactFieldProps {
 
 interface CustomerRegistrationFormProps {
   isLinkedCustomer : boolean
-  handleCustomerChange: (event: React.ChangeEvent<HTMLInputElement>)=>void
+  index: number
 }
 
 const ContactField = ({
@@ -55,11 +56,17 @@ const ContactField = ({
   );
 };
 
-export default function CustomerRegistrationForm({ handleCustomerChange, isLinkedCustomer } : CustomerRegistrationFormProps) {
+export default function CustomerRegistrationForm({ isLinkedCustomer, index } : CustomerRegistrationFormProps) {
 
   const [isSameToMain, setIsSameToMain] = useState(true);
-
+  const formContext = useContext(CustomerFormContext);
+  const dispatch  = formContext!.dispatch;
+  const formState = formContext!.formState;
   const isHideDetails = isLinkedCustomer && isSameToMain;
+
+  const componentIdx = index || 0;
+
+  const customer = formState.customers[index];
 
 
 
@@ -69,10 +76,10 @@ export default function CustomerRegistrationForm({ handleCustomerChange, isLinke
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField onChange={handleCustomerChange} fullWidth label="氏名" placeholder="高橋 加奈" />
+          <TextField name="fullName" error={customer.fullName.hasError} onError={() => {console.log('ERROR');}} onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth label="氏名" placeholder="高橋 加奈" required/>
         </Grid>
         <Grid item xs={12}>
-          <TextField onChange={handleCustomerChange} fullWidth required label="氏名フリガナ" />
+          <TextField name="fullNameReading" onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth required label="氏名フリガナ" />
         </Grid>
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>

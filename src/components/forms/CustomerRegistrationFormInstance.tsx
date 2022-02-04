@@ -1,17 +1,19 @@
 import { Stack, Divider, Typography, Button } from '@mui/material';
 import CustomerRegistrationForm from './CustomerRegistrationForm';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import React from 'react';
+import React, { useContext } from 'react';
+import CustomerFormContext from '../../context/CustomerFormContext';
 
 interface CRFProps {
   index: string | number,
-  removeCustomerHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>void
-  handleCustomerChange: (event: React.ChangeEvent<HTMLInputElement>)=>void
 }
 
 /* Form for every customer instance */
-const CustomerRegistrationFormInstance = ({ index, handleCustomerChange, removeCustomerHandler } : CRFProps) => {
+const CustomerRegistrationFormInstance: React.FC<CRFProps> = ({ index }) => {
   const isLinkedCustomer = index > 0;
+  const formContext = useContext(CustomerFormContext);
+  const dispatch = formContext!.dispatch;
+
 
   return (
     <Stack spacing={1}>
@@ -20,12 +22,12 @@ const CustomerRegistrationFormInstance = ({ index, handleCustomerChange, removeC
         <Typography variant="h5">{`【契約者${+index + 1}】`}</Typography>
         {
           Boolean(index) &&
-          <Button  id={`${index}`} variant="contained" color="error" startIcon={<PersonRemoveIcon />} onClick={removeCustomerHandler}>
+          <Button  id={`customer-${index}`} variant="contained" color="error" startIcon={<PersonRemoveIcon />} onClick={() => dispatch({ type: 'REMOVE', index: +index })}>
             削除
           </Button>
         }
       </Stack>
-      <CustomerRegistrationForm {...{ handleCustomerChange, isLinkedCustomer }} />
+      <CustomerRegistrationForm {...{ isLinkedCustomer, index: +index }} />
     </Stack>
   );
 };

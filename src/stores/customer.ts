@@ -3,8 +3,8 @@ import { CustomerForm } from '../types/forms';
 const initialFormState : CustomerForm = { customers :
   [
     {
-      fullName: { value: '', touched:false, hasError: false, errorMsg: '' },
-      fullNameReading: { value: '', touched:false, hasError: false, errorMsg: '' },
+      fullName: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      fullNameReading: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
       gender: { value: '', touched:false, hasError: false, errorMsg: '' },
       birthYear: { value: '', touched:false, hasError: false, errorMsg: '' },
       birthMonth : { value: '', touched:false, hasError: false, errorMsg: '' },
@@ -14,17 +14,37 @@ const initialFormState : CustomerForm = { customers :
         {
           type: '電話番号１',
           value: '',
-          classification: '',
+          classification: { value: '', touched:false, hasError: false, errorMsg: '' },
           touched: false,
           hasError: false,
           errorMsg: '',
+          isRequired: true,
+          inputType: 'tel',
+        },
+        {
+          type: '電話番号２',
+          value: '',
+          classification: { value: '', touched:false, hasError: false, errorMsg: '' },
+          touched: false,
+          hasError: false,
+          errorMsg: '',
+          inputType: 'tel',
+        },
+        {
+          type: 'メール',
+          value: '',
+          classification: { value: '', touched:false, hasError: false, errorMsg: '' },
+          touched: false,
+          hasError: false,
+          errorMsg: '',
+          inputType: 'email',
         },
       ],
-      address: {
-        postal: { value: '', touched:false, hasError: false, errorMsg: '' },
-        address1: { value: '', touched:false, hasError: false, errorMsg: '' },
-        address2: { value: '', touched:false, hasError: false, errorMsg: '' },
-      },
+
+      postal: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, inputType: 'postal' },
+      address1: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      address2: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+
     },
   ],
 

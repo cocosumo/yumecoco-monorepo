@@ -1,4 +1,4 @@
-import { CustomerForm } from '../../types/forms';
+import { CustomerForm } from '../../../types/forms';
 
 const removeCustomer = (state: CustomerForm, index: number) => {
   const customersCopy = [...state.customers];

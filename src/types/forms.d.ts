@@ -1,32 +1,28 @@
 import { SelectChangeEvent } from '@mui/material';
 
+type PatternType = 'email' | 'tel' | 'postal';
 
+export interface InputField { value: string, touched: boolean, hasError: boolean, errorMsg: string, isRequired?:boolean, inputType?: PatternType }
 
-export interface FieldValidation { value: string, touched:boolean, hasError: boolean, errorMsg: string }
+export interface ContactField extends InputField {
+  type: '電話番号１' | '電話番号２' | 'メール',
+  classification: InputField,
+}
+
 
 export interface CustomerBasicInformation {
-  fullName: FieldValidation,
-  fullNameReading: FieldValidation,
-  gender: FieldValidation,
-  birthYear: FieldValidation,
-  birthMonth : FieldValidation,
-  birthDay : FieldValidation,
+  [key: string]: InputField | ContactField[] | boolean,
+  fullName: InputField,
+  fullNameReading: InputField,
+  gender: InputField,
+  birthYear: InputField,
+  birthMonth : InputField,
+  birthDay : InputField,
   isSameAsMain: boolean,
-  contacts : [
-    {
-      type: '電話番号１' | '電話番号2' | 'メール',
-      value: string,
-      classification: '',
-      touched: false,
-      hasError: false,
-      errorMsg: '',
-    },
-  ],
-  address: {
-    postal: FieldValidation,
-    address1: FieldValidation,
-    address2: FieldValidation,
-  },
+  contacts : ContactField[],
+  postal: InputField,
+  address1: InputField,
+  address2: InputField,
 }
 
 export interface CustomerForm {
@@ -34,9 +30,13 @@ export interface CustomerForm {
 }
 
 export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ;
+export type ContactPayload = { contactIdx: number, customerIdx: number, element: InputChangeType | SelectChangeEvent<string> };
+
 export type FieldActionType =
-| { type: 'CHANGE', payload: InputChangeType, index?: number }
+| { type: 'CHANGE', payload: InputChangeType, index: number }
 | { type: 'ADD' }
 | { type: 'REMOVE', index: number }
-| { type: 'CHANGE_BIRTHDATE', payload: Date, index: number }
-| { type: 'SELECT_CHANGE', payload: SelectChangeEvent<string>, index?: number };
+| { type: 'CHANGE_BIRTHYEAR', payload: Date, index: number }
+| { type: 'SELECT_CHANGE', payload: SelectChangeEvent<string>, index: number }
+| { type: 'CHANGE_CONTACT_TEXT', payload: ContactPayload }
+| { type: 'CHANGE_CONTACT_CLASS', payload: ContactPayload };

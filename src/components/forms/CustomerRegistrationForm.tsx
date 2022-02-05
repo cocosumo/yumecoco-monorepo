@@ -8,53 +8,22 @@ import {
   FormControlLabel,
   Checkbox,
   Box,
-  FormHelperText,
 } from '@mui/material';
 
 import { useContext, useState } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
-import SeparatedDatePicker from '../ui/datetimepickers/SeparatedDatePicker';
+import SeparatedBirthDatePicker from '../ui/datetimepickers/SeparatedBirthDatePicker';
+import { InputChangeType } from './../../types/forms';
+import ContactFieldGroup from './ContactFieldGroup';
 
 
-interface ContactFieldProps {
-  label: string,
-  isRequired?: boolean,
-  placeholder?: string
-}
 
 interface CustomerRegistrationFormProps {
   isLinkedCustomer : boolean
   index: number
 }
 
-const ContactField = ({
-  label,
-  isRequired = false,
-  placeholder = '07014529898',
-} : ContactFieldProps) => {
 
-
-  const classification = ['契約者', '配偶者', '婚約者', '家「固定電話」', '子', '祖父母', '兄弟姉妹', '同居人', '会社（固定電話）', '法人担当者', 'その他'];
-  return (
-    <Grid item container p={1} spacing={2}>
-      <Grid item md={6} >
-        <TextField fullWidth required={isRequired} label={label} placeholder={placeholder} />
-      </Grid>
-      <Grid item md={6}>
-        <FormControl fullWidth>
-          <InputLabel>種別</InputLabel>
-          <Select
-            label="種別"
-          >
-            {classification.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
-
-          </Select>
-          <FormHelperText>連絡先の種別を選択してください</FormHelperText>
-        </FormControl>
-      </Grid>
-    </Grid>
-  );
-};
 
 export default function CustomerRegistrationForm({ isLinkedCustomer, index } : CustomerRegistrationFormProps) {
 
@@ -68,7 +37,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
 
   const customer = formState.customers[index];
 
-
+  const handleTextFieldChange = (e: InputChangeType)  => dispatch({ type: 'CHANGE', payload: e, index: componentIdx });
 
   console.log(isLinkedCustomer);
   return (
@@ -76,10 +45,10 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField name="fullName" helperText={customer.fullName.errorMsg} error={customer.fullName.hasError} onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth label="氏名" placeholder="高橋 加奈" required/>
+          <TextField name="fullName" helperText={customer.fullName.errorMsg} error={customer.fullName.hasError} onBlur={handleTextFieldChange} fullWidth label="氏名" placeholder="高橋 加奈" required={customer.fullName.isRequired} />
         </Grid>
         <Grid item xs={12}>
-          <TextField name="fullNameReading" error={customer.fullNameReading.hasError} onBlur={(e)=>dispatch({ type: 'CHANGE', payload: e, index: componentIdx })} fullWidth required label="氏名フリガナ" />
+          <TextField name="fullNameReading" helperText={customer.fullNameReading.errorMsg} error={customer.fullNameReading.hasError} onBlur={handleTextFieldChange} fullWidth label="氏名フリガナ" required={customer.fullName.isRequired}/>
         </Grid>
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
@@ -92,11 +61,11 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
           </FormControl>
         </Grid>
         <Grid item xs={12} md={8}>
-          <SeparatedDatePicker value={{
-            year: customer.birthYear.value,
-            month: customer.birthMonth.value,
-            day: customer.birthDay.value,
-          }}  handleChange={(e) => dispatch({ type:'CHANGE_BIRTHDATE', payload: e, index: componentIdx })}/>
+          <SeparatedBirthDatePicker dispatch={dispatch} value={{
+            birthYear: customer.birthYear.value,
+            birthMonth: customer.birthMonth.value,
+            birthDay: customer.birthDay.value,
+          }} index={componentIdx} />
         </Grid>
         {isLinkedCustomer &&
         <Grid item xs={12}>
@@ -111,18 +80,18 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
         {!isHideDetails &&
         <>
           <Grid item xs={12} >
-            <TextField required label="郵便番号" placeholder="441-8124" />
+            <TextField  name="postal" helperText={customer.postal.errorMsg} error={customer.postal.hasError} onBlur={handleTextFieldChange} label="郵便番号" placeholder="441-8124" required={customer.postal.isRequired} />
           </Grid>
           <Grid item xs={12}>
-            <TextField fullWidth required label="住所" placeholder="愛知県豊川" />
+            <TextField name="address1" helperText={customer.address1.errorMsg} error={customer.address1.hasError} onBlur={handleTextFieldChange}  fullWidth label="住所" placeholder="愛知県豊川" required={customer.postal.isRequired} />
           </Grid>
           <Grid item xs={12} mb={4}>
-            <TextField fullWidth required label="住所（番地以降）" placeholder="１９番地１６　６１２" />
+            <TextField name="address2" helperText={customer.address2.errorMsg} error={customer.address2.hasError} onBlur={handleTextFieldChange} fullWidth label="住所（番地以降）" placeholder="１９番地１６　６１２" required={customer.postal.isRequired} />
           </Grid>
 
-          <ContactField label="電話番号１" isRequired />
-          <ContactField label="電話番号2" />
-          <ContactField label="メール" placeholder="cocosumo.rpa03@gmail.com" />
+          <ContactFieldGroup customerIdx={index} contactIdx={0} label="電話番号1" isRequired />
+          <ContactFieldGroup  customerIdx={index} contactIdx={1} label="電話番号2" />
+          <ContactFieldGroup customerIdx={index} contactIdx={2} label="メール" placeholder="cocosumo.rpa03@gmail.com" inputType='email'/>
         </>
         }
       </Grid>

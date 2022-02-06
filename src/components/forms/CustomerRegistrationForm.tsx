@@ -13,6 +13,7 @@ import {
 import { useContext } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
 import SeparatedBirthDatePicker from '../ui/datetimepickers/SeparatedBirthDatePicker';
+import CustomerField from '../ui/textfield/CustomerField';
 import { ElementTarget } from './../../types/forms';
 import ContactFieldGroup from './ContactFieldGroup';
 
@@ -36,7 +37,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
 
   const customer = formState.customers[index];
 
-  const { isSameAsMain, fullName } = customer;
+  const { isSameAsMain } = customer;
 
   const isHideDetails = isLinkedCustomer && isSameAsMain;
 
@@ -47,7 +48,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField name="fullName" helperText={fullName.errorMsg} error={fullName.hasError} onBlur={handleFieldChange} fullWidth label="氏名" placeholder="高橋 加奈" required={fullName.isRequired} />
+          <CustomerField fieldname='fullName' customer={customer} handleFieldChange={handleFieldChange} />
         </Grid>
         <Grid item xs={12}>
           <TextField name="fullNameReading" helperText={customer.fullNameReading.errorMsg} error={customer.fullNameReading.hasError} onBlur={handleFieldChange} fullWidth label="氏名フリガナ" required={customer.fullName.isRequired}/>

@@ -25,6 +25,7 @@ export interface CustomerBasicInformation {
 }
 
 export interface CustomerForm {
+  isSubmitted: boolean,
   customers : CustomerBasicInformation[],
 }
 
@@ -33,6 +34,8 @@ export interface ElementTarget {
 }
 
 export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ;
+
+export type HandleFieldChangeFunc = (e: ElementTarget) => void;
 
 export type Payload = { customerIdx : number };
 

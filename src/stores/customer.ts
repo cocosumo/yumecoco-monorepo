@@ -1,6 +1,8 @@
 import { CustomerForm } from '../types/forms';
 
-const initialFormState : CustomerForm = { customers :
+const initialFormState : CustomerForm = {
+  isSubmitted: false,
+  customers :
   [
     {
       fullName: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },

@@ -7,6 +7,9 @@ import MuiDatePicker from '@mui/lab/DatePicker';
 import { FormControl, FormGroup, FormHelperText, Stack, Box } from '@mui/material';
 import BasicSelect from '../selects/BasicSelect';
 import { ElementTarget, FieldActionType } from '../../../types/forms';
+import YearIcon from '../icons/YearIcon';
+
+
 
 
 const monthOptions: Options = [...Array(12)].map((_, i) => ({ key: i + 1, text: `${i + 1}月` }));
@@ -20,7 +23,8 @@ interface SeparatedDatePickerProps {
     birthDay: string
   }
 }
- 
+
+
 const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
   const { value, dispatch, index } = props;
 
@@ -33,19 +37,24 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
     dispatch({ type:'CHANGE_BIRTHYEAR', payload: { element: { target: { name: 'birthYear', value: year } }, customerIdx: index } });
   };
 
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
       <FormControl>
         <FormGroup>
           <Stack direction="row" spacing={1}>
-            <Box minWidth={150}>
+            <Box minWidth={110}>
               <MuiDatePicker
                 views={['year']}
                 label="生年"
-                inputFormat="yyyy年"
+                inputFormat="yyyy"
                 maxDate={new Date()}
+                components={                  {
+                  OpenPickerIcon: YearIcon,
+                }                }
                 value={value.birthYear.length === 0 ? null : value.birthYear}
                 onChange={handleYearChange}
+              
                 renderInput={(params) => <TextField error={false} fullWidth {...params} />}
               />
             </Box>

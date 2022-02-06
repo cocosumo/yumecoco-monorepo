@@ -1,7 +1,7 @@
 
 type PatternType = 'email' | 'tel' | 'postal';
 
-export interface InputField {label: string, value: string, touched: boolean, hasError: boolean, errorMsg: string, isRequired?:boolean, inputType?: PatternType }
+export interface InputField {label: string, value: string, touched: boolean, hasError: boolean, errorMsg: string, placeholder?: string, isRequired?:boolean, inputType?: PatternType }
 
 export interface ContactClassification extends InputField  {
   classification: InputField

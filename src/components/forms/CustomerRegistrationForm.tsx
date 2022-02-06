@@ -1,6 +1,5 @@
 import {
   Grid,
-  TextField,
   FormControl,
   InputLabel,
   Select,
@@ -56,7 +55,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
             <InputLabel>性別</InputLabel>
-            <Select name="gender" label="性別" value={customer.gender.value} onChange={handleFieldChange}>
+            <Select name="gender" label={customer.gender.label} value={customer.gender.value} onChange={handleFieldChange}>
               <MenuItem value={'女性'}>女性</MenuItem>
               <MenuItem value={'男性'}>男性</MenuItem>
               <MenuItem value={'指定しない'}>指定しない</MenuItem>
@@ -82,14 +81,14 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
 
         {!isHideDetails &&
         <>
-          <Grid item xs={12} >
-            <TextField  name="postal" helperText={customer.postal.errorMsg} error={customer.postal.hasError} onBlur={handleFieldChange} label="郵便番号" placeholder="441-8124" required={customer.postal.isRequired} />
+          <Grid item xs={12} md={6} >
+            <CustomerField fieldname='postal' customer={customer} handleFieldChange={handleFieldChange} />
           </Grid>
           <Grid item xs={12}>
-            <TextField name="address1" helperText={customer.address1.errorMsg} error={customer.address1.hasError} onBlur={handleFieldChange}  fullWidth label="住所" placeholder="愛知県豊川" required={customer.postal.isRequired} />
+            <CustomerField fieldname='address1' customer={customer} handleFieldChange={handleFieldChange} />
           </Grid>
           <Grid item xs={12} mb={4}>
-            <TextField name="address2" helperText={customer.address2.errorMsg} error={customer.address2.hasError} onBlur={handleFieldChange} fullWidth label="住所（番地以降）" placeholder="１９番地１６　６１２" required={customer.postal.isRequired} />
+            <CustomerField fieldname='address2' customer={customer} handleFieldChange={handleFieldChange} />          
           </Grid>
 
           <ContactFieldGroup fieldname='tel1' customer={customer} handleFieldChange={handleContactFieldChange}/>

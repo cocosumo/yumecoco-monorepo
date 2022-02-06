@@ -5,8 +5,8 @@ const initialFormState : CustomerForm = {
   customers :
   [
     {
-      fullName: { label: '氏名', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
-      fullNameReading: { label: 'シメイ', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      fullName: { label: '氏名', value: '', touched:false, hasError: false, errorMsg: '', placeholder: '高橋　加奈', isRequired: true },
+      fullNameReading: { label: 'シメイ', value: '', touched:false, hasError: false, errorMsg: '', placeholder: 'タカハシ　カナ', isRequired: true },
       gender: { label: '性別', value: '', touched:false, hasError: false, errorMsg: '' },
       birthYear: { label: '生年', value: '', touched:false, hasError: false, errorMsg: '' },
       birthMonth : { label: '月', value: '', touched:false, hasError: false, errorMsg: '' },
@@ -43,9 +43,9 @@ const initialFormState : CustomerForm = {
         },
       },
 
-      postal: { label: '郵便番号', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, inputType: 'postal' },
-      address1: { label: '住所',  value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
-      address2: { label: '住所（番地以降）',  value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      postal: { label: '郵便番号', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, inputType: 'postal', placeholder: '442-0888' },
+      address1: { label: '住所',  value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, placeholder: '愛知県豊川市千歳通３丁目' },
+      address2: { label: '住所（番地以降）',  value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, placeholder: '10-1'  },
 
     },
   ],

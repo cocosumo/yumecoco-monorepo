@@ -1,4 +1,3 @@
-import { SelectChangeEvent } from '@mui/material';
 
 type PatternType = 'email' | 'tel' | 'postal';
 
@@ -29,14 +28,24 @@ export interface CustomerForm {
   customers : CustomerBasicInformation[],
 }
 
+export interface ElementTarget {
+  target :  { name: string, value: string }
+}
+
 export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ;
-export type ContactPayload = { contactIdx: number, customerIdx: number, element: InputChangeType | SelectChangeEvent<string> };
+
+export type Payload = { customerIdx : number };
+
+export interface ContactPayload extends Payload { contactIdx: number, element: ElementTarget }
+
+export interface FieldPayload extends Payload {element: ElementTarget }
 
 export type FieldActionType =
-| { type: 'CHANGE', payload: InputChangeType, index: number }
+| { type: 'CHANGE', payload: FieldPayload }
+| { type: 'SELECT_CHANGE', payload: FieldPayload }
 | { type: 'ADD' }
-| { type: 'REMOVE', index: number }
-| { type: 'CHANGE_BIRTHYEAR', payload: Date, index: number }
-| { type: 'SELECT_CHANGE', payload: SelectChangeEvent<string>, index: number }
+| { type: 'SET_SAME_AS_MAIN', payload: Payload }
+| { type: 'REMOVE', payload: Payload }
+| { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
 | { type: 'CHANGE_CONTACT_TEXT', payload: ContactPayload }
 | { type: 'CHANGE_CONTACT_CLASS', payload: ContactPayload };

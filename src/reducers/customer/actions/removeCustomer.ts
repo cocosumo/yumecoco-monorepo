@@ -1,8 +1,10 @@
-import { CustomerForm } from '../../../types/forms';
+import { CustomerForm, Payload } from '../../../types/forms';
 
-const removeCustomer = (state: CustomerForm, index: number) => {
+type RemoveFunction = (state: CustomerForm, payload: Payload ) => CustomerForm;
+
+const removeCustomer : RemoveFunction = (state, payload) => {
   const customersCopy = [...state.customers];
-  customersCopy.splice(index, 1);
+  customersCopy.splice(payload.customerIdx, 1);
 
   return { ...state, customers: customersCopy };
 };

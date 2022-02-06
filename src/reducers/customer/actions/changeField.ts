@@ -1,5 +1,5 @@
 import  { validate } from '../../../helpers/validations';
-import { CustomerForm, InputField } from './../../../types/forms';
+import { CustomerForm, FieldPayload, InputField } from './../../../types/forms';
 
 interface UpdateCustomerStateParam {
   state: CustomerForm,
@@ -8,11 +8,9 @@ interface UpdateCustomerStateParam {
   index: number
 }
 
-interface ElementTarget {
-  target :  { name: string, value: string }
-}
 
-type ChangeFunction = (state: CustomerForm, event: ElementTarget, index: number ) => CustomerForm;
+
+type ChangeFunction = (state: CustomerForm, payload: FieldPayload ) => CustomerForm;
 
 
 
@@ -34,10 +32,12 @@ const updateCustomerState = ({ state, name, value, index } : UpdateCustomerState
 
 
 
-const changeTextField: ChangeFunction = (state, event, index) => {
-  if (typeof index === 'undefined') return state;
-  const name = event.target.name;
-  const value = event.target.value;
+const changeTextField: ChangeFunction = (state, payload) => {
+  const { element, customerIdx } = payload;
+
+  const name = element.target.name;
+  const value = element.target.value;
+  const index = customerIdx;
 
   return updateCustomerState({ state, name, value, index });
   

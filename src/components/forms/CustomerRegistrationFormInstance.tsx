@@ -5,7 +5,7 @@ import React, { useContext } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
 
 interface CRFProps {
-  index: string | number,
+  index: number,
 }
 
 /* Form for every customer instance */
@@ -22,7 +22,7 @@ const CustomerRegistrationFormInstance: React.FC<CRFProps> = ({ index }) => {
         <Typography variant="h5">{`【契約者${+index + 1}】`}</Typography>
         {
           Boolean(index) &&
-          <Button  id={`customer-${index}`} variant="contained" color="error" startIcon={<PersonRemoveIcon />} onClick={() => dispatch({ type: 'REMOVE', index: +index })}>
+          <Button  id={`customer-${index}`} variant="contained" color="error" startIcon={<PersonRemoveIcon />} onClick={() => dispatch({ type: 'REMOVE', payload: { customerIdx: index } })}>
             削除
           </Button>
         }

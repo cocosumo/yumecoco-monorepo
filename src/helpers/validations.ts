@@ -6,10 +6,10 @@ type ValueValidator = (value: string) => boolean;
 
 /**
  * Validates based on natTextfield's native validity property.
+ * @deprecated Unreliable, as some field types doesn't have validity property. Use validate() instead.
  * 
  * @param validity 
- * @returns void
- * @deprecated Unreliable, as some field types doesn't have validity property, use validate instead.
+ * @returns error message
  */
 const validationMessage = (validity: ValidityState) => {
   console.log(validity);
@@ -60,13 +60,14 @@ export const validate: Validate = (field) => {
     if (value.length === 0){
       hasError = true;
       errors.push('必須です。');
+    } else {
+      hasError = false;
     }
   } 
 
-
   switch (inputType){
     case 'email':
-      hasError = !isEmail(value);
+      hasError =  !isEmail(value);
       if (hasError) errors.push('有効なメールアドレスを入力ください。例：info@cocosumo.jp' );
       break;
     case 'tel':
@@ -79,10 +80,15 @@ export const validate: Validate = (field) => {
       if (hasError) errors.push('正しくありません。例：441-8122。');
       break;
   }
-    
-  
 
-  errorMsg = errors.join('');
+
+  /* Remove error if optional and not empty*/
+  if (!isRequired && value.length === 0) {
+    hasError = false;
+    errorMsg = '';
+  } else {
+    errorMsg = errors.join('');
+  }
 
   return { ...field, ...{ hasError, errorMsg } };
 };

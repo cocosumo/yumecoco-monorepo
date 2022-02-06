@@ -10,10 +10,10 @@ import {
   Box,
 } from '@mui/material';
 
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
 import SeparatedBirthDatePicker from '../ui/datetimepickers/SeparatedBirthDatePicker';
-import { InputChangeType } from './../../types/forms';
+import { ElementTarget } from './../../types/forms';
 import ContactFieldGroup from './ContactFieldGroup';
 
 
@@ -27,33 +27,35 @@ interface CustomerRegistrationFormProps {
 
 export default function CustomerRegistrationForm({ isLinkedCustomer, index } : CustomerRegistrationFormProps) {
 
-  const [isSameToMain, setIsSameToMain] = useState(true);
   const formContext = useContext(CustomerFormContext);
   const dispatch  = formContext!.dispatch;
   const formState = formContext!.formState;
-  const isHideDetails = isLinkedCustomer && isSameToMain;
+  
 
   const componentIdx = index || 0;
 
   const customer = formState.customers[index];
 
-  const handleTextFieldChange = (e: InputChangeType)  => dispatch({ type: 'CHANGE', payload: e, index: componentIdx });
+  const { isSameAsMain, fullName } = customer;
 
-  console.log(isLinkedCustomer);
+  const isHideDetails = isLinkedCustomer && isSameAsMain;
+
+  const handleFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE', payload: { element: e, customerIdx: index } });
+
   return (
 
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TextField name="fullName" helperText={customer.fullName.errorMsg} error={customer.fullName.hasError} onBlur={handleTextFieldChange} fullWidth label="氏名" placeholder="高橋 加奈" required={customer.fullName.isRequired} />
+          <TextField name="fullName" helperText={fullName.errorMsg} error={fullName.hasError} onBlur={handleFieldChange} fullWidth label="氏名" placeholder="高橋 加奈" required={fullName.isRequired} />
         </Grid>
         <Grid item xs={12}>
-          <TextField name="fullNameReading" helperText={customer.fullNameReading.errorMsg} error={customer.fullNameReading.hasError} onBlur={handleTextFieldChange} fullWidth label="氏名フリガナ" required={customer.fullName.isRequired}/>
+          <TextField name="fullNameReading" helperText={customer.fullNameReading.errorMsg} error={customer.fullNameReading.hasError} onBlur={handleFieldChange} fullWidth label="氏名フリガナ" required={customer.fullName.isRequired}/>
         </Grid>
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
             <InputLabel>性別</InputLabel>
-            <Select name="gender" label="性別" value={customer.gender.value} onChange={(e)=>dispatch({ type: 'SELECT_CHANGE', payload: e, index: componentIdx })}>
+            <Select name="gender" label="性別" value={customer.gender.value} onChange={handleFieldChange}>
               <MenuItem value={'女性'}>女性</MenuItem>
               <MenuItem value={'男性'}>男性</MenuItem>
               <MenuItem value={'指定しない'}>指定しない</MenuItem>
@@ -71,7 +73,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox checked={isSameToMain} onClick={()=>setIsSameToMain(prev=> !prev)} />}
+              <Checkbox checked={isSameAsMain} onClick={()=>dispatch({ type:'SET_SAME_AS_MAIN', payload: { customerIdx: index } })} />}
             label="住所と連絡先は【契約者１】と同じ"
           />
         </Grid>
@@ -80,13 +82,13 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
         {!isHideDetails &&
         <>
           <Grid item xs={12} >
-            <TextField  name="postal" helperText={customer.postal.errorMsg} error={customer.postal.hasError} onBlur={handleTextFieldChange} label="郵便番号" placeholder="441-8124" required={customer.postal.isRequired} />
+            <TextField  name="postal" helperText={customer.postal.errorMsg} error={customer.postal.hasError} onBlur={handleFieldChange} label="郵便番号" placeholder="441-8124" required={customer.postal.isRequired} />
           </Grid>
           <Grid item xs={12}>
-            <TextField name="address1" helperText={customer.address1.errorMsg} error={customer.address1.hasError} onBlur={handleTextFieldChange}  fullWidth label="住所" placeholder="愛知県豊川" required={customer.postal.isRequired} />
+            <TextField name="address1" helperText={customer.address1.errorMsg} error={customer.address1.hasError} onBlur={handleFieldChange}  fullWidth label="住所" placeholder="愛知県豊川" required={customer.postal.isRequired} />
           </Grid>
           <Grid item xs={12} mb={4}>
-            <TextField name="address2" helperText={customer.address2.errorMsg} error={customer.address2.hasError} onBlur={handleTextFieldChange} fullWidth label="住所（番地以降）" placeholder="１９番地１６　６１２" required={customer.postal.isRequired} />
+            <TextField name="address2" helperText={customer.address2.errorMsg} error={customer.address2.hasError} onBlur={handleFieldChange} fullWidth label="住所（番地以降）" placeholder="１９番地１６　６１２" required={customer.postal.isRequired} />
           </Grid>
 
           <ContactFieldGroup customerIdx={index} contactIdx={0} label="電話番号1" isRequired />

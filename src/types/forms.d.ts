@@ -1,16 +1,21 @@
 
 type PatternType = 'email' | 'tel' | 'postal';
 
-export interface InputField { value: string, touched: boolean, hasError: boolean, errorMsg: string, isRequired?:boolean, inputType?: PatternType }
+export interface InputField {label: string, value: string, touched: boolean, hasError: boolean, errorMsg: string, isRequired?:boolean, inputType?: PatternType }
 
-export interface ContactField extends InputField {
-  type: '電話番号１' | '電話番号２' | 'メール',
-  classification: InputField,
+export interface ContactClassification extends InputField  {
+  classification: InputField
+}
+export interface ContactField  {
+  [key: string]: ContactClassification,
+  tel1: ContactClassification,
+  tel2: ContactClassification,
+  email: ContactClassification
 }
 
 
 export interface CustomerBasicInformation {
-  [key: string]: InputField | ContactField[] | boolean,
+  [key: string]: InputField | ContactField | boolean,
   fullName: InputField,
   fullNameReading: InputField,
   gender: InputField,
@@ -18,7 +23,7 @@ export interface CustomerBasicInformation {
   birthMonth : InputField,
   birthDay : InputField,
   isSameAsMain: boolean,
-  contacts : ContactField[],
+  contacts : ContactField,
   postal: InputField,
   address1: InputField,
   address2: InputField,
@@ -50,5 +55,5 @@ export type FieldActionType =
 | { type: 'SET_SAME_AS_MAIN', payload: Payload }
 | { type: 'REMOVE', payload: Payload }
 | { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
-| { type: 'CHANGE_CONTACT_TEXT', payload: ContactPayload }
-| { type: 'CHANGE_CONTACT_CLASS', payload: ContactPayload };
+| { type: 'CHANGE_CONTACT_TEXT', payload: FieldPayload }
+| { type: 'CHANGE_CONTACT_CLASS', payload: FieldPayload };

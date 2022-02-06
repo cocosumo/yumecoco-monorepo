@@ -42,16 +42,16 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
   const isHideDetails = isLinkedCustomer && isSameAsMain;
 
   const handleFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE', payload: { element: e, customerIdx: index } });
+  const handleContactFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE_CONTACT_TEXT', payload: { element: e, customerIdx: index } });
 
   return (
-
     <Box p={2}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <CustomerField fieldname='fullName' customer={customer} handleFieldChange={handleFieldChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField name="fullNameReading" helperText={customer.fullNameReading.errorMsg} error={customer.fullNameReading.hasError} onBlur={handleFieldChange} fullWidth label="氏名フリガナ" required={customer.fullName.isRequired}/>
+          <CustomerField fieldname='fullNameReading' customer={customer} handleFieldChange={handleFieldChange} />
         </Grid>
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
@@ -92,9 +92,9 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
             <TextField name="address2" helperText={customer.address2.errorMsg} error={customer.address2.hasError} onBlur={handleFieldChange} fullWidth label="住所（番地以降）" placeholder="１９番地１６　６１２" required={customer.postal.isRequired} />
           </Grid>
 
-          <ContactFieldGroup customerIdx={index} contactIdx={0} label="電話番号1" isRequired />
-          <ContactFieldGroup  customerIdx={index} contactIdx={1} label="電話番号2" />
-          <ContactFieldGroup customerIdx={index} contactIdx={2} label="メール" placeholder="cocosumo.rpa03@gmail.com" inputType='email'/>
+          <ContactFieldGroup fieldname='tel1' customer={customer} handleFieldChange={handleContactFieldChange}/>
+          <ContactFieldGroup fieldname='tel2' customer={customer} handleFieldChange={handleContactFieldChange}/>
+          <ContactFieldGroup fieldname='email' customer={customer} handleFieldChange={handleContactFieldChange}/>
         </>
         }
       </Grid>

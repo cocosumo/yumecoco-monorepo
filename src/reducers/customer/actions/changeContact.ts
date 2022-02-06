@@ -1,24 +1,23 @@
 import  { validate } from '../../../helpers/validations';
-import { CustomerForm, ContactPayload, ContactField } from '../../../types/forms';
+import { CustomerForm, FieldPayload } from '../../../types/forms';
 
 
 
-type Action = (state: CustomerForm, payload: ContactPayload, isClassification?: boolean) => CustomerForm;
+type Action = (state: CustomerForm, payload: FieldPayload, isClassification?: boolean) => CustomerForm;
 
 /**
  * Updates both text, and classification state of contact instance. See type definition for details
  * 
  * @param state 
- * @param payload 
- * @param isClassification true: selectfield passed, false: textfield passed   
+ * @param payload  
  * @returns 
  */
-export const changeContact: Action = (state, payload, isClassification = false) =>  {
+export const changeContact: Action = (state, payload) =>  {
 
-  const { contactIdx, customerIdx, element } = payload;
+  const { element, customerIdx } = payload;
 
-  const value = element.target.value;
-
+  const name = element.target.name; // tel, tel2, email
+  const value = element.target.value; 
 
   /* Immutably update contact state */
   return { ...state, 
@@ -26,24 +25,18 @@ export const changeContact: Action = (state, payload, isClassification = false) 
       ...state.customers.map(
         (customer, idx)=> {
           if (idx === customerIdx){
+
+
             return { 
-              ...customer, 
-              contacts: [
-                ...customer.contacts.map(
-                  (contact, cidx)=> {
-                    if (cidx === contactIdx) {
-                      if (isClassification){
-                        return { ...contact, classification: { ...contact.classification, ...{ value, touched: true } } };
-                      } 
-                      const newContactState = <ContactField>validate({ ...contact, ...{ value, touched: true } });
-                      return newContactState;
-                    }
-                    return contact;
-                  },
-                ),
-              ], 
+              ...customer, contacts : {
+                ...customer.contacts, [name] : {
+                  ...customer.contacts[name], ...validate({ ...customer.contacts[name], value }),
+                },
+              },
             };
           }
+
+          
           return customer;
         },
       ),

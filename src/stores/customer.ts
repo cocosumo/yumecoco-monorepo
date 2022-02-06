@@ -5,47 +5,47 @@ const initialFormState : CustomerForm = {
   customers :
   [
     {
-      fullName: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
-      fullNameReading: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
-      gender: { value: '', touched:false, hasError: false, errorMsg: '' },
-      birthYear: { value: '', touched:false, hasError: false, errorMsg: '' },
-      birthMonth : { value: '', touched:false, hasError: false, errorMsg: '' },
-      birthDay : { value: '', touched:false, hasError: false, errorMsg: '' },
+      fullName: { label: '氏名', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      fullNameReading: { label: 'シメイ', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      gender: { label: '性別', value: '', touched:false, hasError: false, errorMsg: '' },
+      birthYear: { label: '生年', value: '', touched:false, hasError: false, errorMsg: '' },
+      birthMonth : { label: '月', value: '', touched:false, hasError: false, errorMsg: '' },
+      birthDay : { label: '日', value: '', touched:false, hasError: false, errorMsg: '' },
       isSameAsMain: true,
-      contacts : [
-        {
-          type: '電話番号１',
+      contacts : {
+        tel1: {
+          label: '電話番号１',
           value: '',
-          classification: { value: '', touched:false, hasError: false, errorMsg: '' },
+          classification: { label: '種別', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
           touched: false,
           hasError: false,
           errorMsg: '',
           isRequired: true,
           inputType: 'tel',
         },
-        {
-          type: '電話番号２',
+        tel2 :{
+          label: '電話番号１',
           value: '',
-          classification: { value: '', touched:false, hasError: false, errorMsg: '' },
+          classification: { label: '種別', value: '', touched:false, hasError: false, errorMsg: '' },
           touched: false,
           hasError: false,
           errorMsg: '',
           inputType: 'tel',
         },
-        {
-          type: 'メール',
+        email:{
+          label: 'メール',
           value: '',
-          classification: { value: '', touched:false, hasError: false, errorMsg: '' },
+          classification: { label: '種別', value: '', touched:false, hasError: false, errorMsg: '' },
           touched: false,
           hasError: false,
           errorMsg: '',
           inputType: 'email',
         },
-      ],
+      },
 
-      postal: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, inputType: 'postal' },
-      address1: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
-      address2: { value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      postal: { label: '郵便番号', value: '', touched:false, hasError: false, errorMsg: '', isRequired: true, inputType: 'postal' },
+      address1: { label: '住所',  value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
+      address2: { label: '住所（番地以降）',  value: '', touched:false, hasError: false, errorMsg: '', isRequired: true },
 
     },
   ],

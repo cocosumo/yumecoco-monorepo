@@ -23,6 +23,7 @@ const customerReducer = (state: CustomerForm, action: FieldActionType) : Custome
     case 'CHANGE_BIRTHYEAR':
       return changeField(state, action.payload);
     case 'CHANGE_CONTACT_TEXT':
+      console.log(action.payload, 'CONTACTPAYLOAD');
       return changeContact(state, action.payload);
     case 'CHANGE_CONTACT_CLASS':
       return changeContact(state, action.payload, true);

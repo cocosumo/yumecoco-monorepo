@@ -1,7 +1,7 @@
 
-import { ContactField, InputField } from './../types/forms';
+import { InputField } from './../types/forms';
 
-type Validate = (field: InputField | ContactField) => InputField | ContactField;
+type Validate = (field: InputField ) => InputField ;
 type ValueValidator = (value: string) => boolean;
 
 /**
@@ -71,7 +71,9 @@ export const validate: Validate = (field) => {
       if (hasError) errors.push('有効なメールアドレスを入力ください。例：info@cocosumo.jp' );
       break;
     case 'tel':
+      
       hasError = !isPhoneNumber(value);
+      console.log(field, value, 'TELLL', hasError);
       if (hasError) errors.push('半角数字。例：070-1264-1265');
       break;
     case 'postal':

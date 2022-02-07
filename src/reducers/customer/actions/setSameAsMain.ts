@@ -1,10 +1,10 @@
-import { CustomerForm, Payload } from '../../../types/forms';
+import { CustomerForm, CustomerInstancePayload } from '../../../types/forms';
 
-type SetSameAsMain = (state: CustomerForm, payload: Payload) => CustomerForm;
+type SetSameAsMain = (state: CustomerForm, payload: CustomerInstancePayload) => CustomerForm;
 
 const setSameAsMain: SetSameAsMain = (state, payload) => {
 
-  return { 
+  return {
     ...state, customers: [
       ...state.customers.map(
         (customer, custIdx) => {
@@ -14,7 +14,7 @@ const setSameAsMain: SetSameAsMain = (state, payload) => {
           return customer;
         },
       ),
-    ], 
+    ],
   };
 };
 

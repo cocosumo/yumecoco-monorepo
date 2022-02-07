@@ -1,6 +1,6 @@
-import { CustomerForm, Payload } from '../../../types/forms';
+import { CustomerForm, CustomerInstancePayload } from '../../../types/forms';
 
-type RemoveFunction = (state: CustomerForm, payload: Payload ) => CustomerForm;
+type RemoveFunction = (state: CustomerForm, payload: CustomerInstancePayload ) => CustomerForm;
 
 const removeCustomer : RemoveFunction = (state, payload) => {
   const customersCopy = [...state.customers];

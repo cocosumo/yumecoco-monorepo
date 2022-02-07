@@ -28,8 +28,10 @@ export default function CustomerRegistration() {
   const maxCustomers = 3;
 
 
-  const handleSubmit = (e : React.FormEvent<HTMLFormElement> | undefined) => {
-    e?.preventDefault();
+  const handleSubmit = (e : React.FormEvent<HTMLFormElement> ) => {
+    e.preventDefault();
+
+    dispatch({ type: 'SUBMIT' });
   };
 
   const isMaxCustomers = formState.customers.length >= maxCustomers;

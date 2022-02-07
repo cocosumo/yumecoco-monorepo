@@ -7,8 +7,8 @@ type ValueValidator = (value: string) => boolean;
 /**
  * Validates based on natTextfield's native validity property.
  * @deprecated Unreliable, as some field types doesn't have validity property. Use validate() instead.
- * 
- * @param validity 
+ *
+ * @param validity
  * @returns error message
  */
 const validationMessage = (validity: ValidityState) => {
@@ -41,14 +41,14 @@ export const isPostal: ValueValidator = (value) => {
 
 /**
  * Validates based on field's current state
- * 
- * @param field 
- * @returns updated state
+ *
+ * @param field
+ * @returns immutably updated state.
  */
 export const validate: Validate = (field) => {
   let errors: string[] = [];
 
-  let { 
+  let {
     hasError = false,
     errorMsg = '',
     inputType,
@@ -63,7 +63,7 @@ export const validate: Validate = (field) => {
     } else {
       hasError = false;
     }
-  } 
+  }
 
   switch (inputType){
     case 'email':
@@ -71,7 +71,7 @@ export const validate: Validate = (field) => {
       if (hasError) errors.push('有効なメールアドレスを入力ください。例：info@cocosumo.jp' );
       break;
     case 'tel':
-      
+
       hasError = !isPhoneNumber(value);
       console.log(field, value, 'TELLL', hasError);
       if (hasError) errors.push('半角数字。例：070-1264-1265');

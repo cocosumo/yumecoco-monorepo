@@ -5,7 +5,7 @@ const initialFormState : CustomerForm = {
   customers :
   [
     {
-      fullName: { label: '氏名', value: '', touched:false, hasError: false, errorMsg: '', placeholder: '高橋　加奈', isRequired: true },
+      fullName: { label: '氏名', value: '', touched:false, hasError: true, errorMsg: '必須です。', placeholder: '高橋　加奈', isRequired: true },
       fullNameReading: { label: 'シメイ', value: '', touched:false, hasError: false, errorMsg: '', placeholder: 'タカハシ　カナ', isRequired: true },
       gender: { label: '性別', value: '', touched:false, hasError: false, errorMsg: '' },
       birthYear: { label: '生年', value: '', touched:false, hasError: false, errorMsg: '' },

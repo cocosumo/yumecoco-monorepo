@@ -42,18 +42,19 @@ export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaE
 
 export type HandleFieldChangeFunc = (e: ElementTarget) => void;
 
-export type Payload = { customerIdx : number };
+export type CustomerInstancePayload = { customerIdx : number };
 
-export interface ContactPayload extends Payload { contactIdx: number, element: ElementTarget }
+export interface ContactPayload extends CustomerInstancePayload { contactIdx: number, element: ElementTarget }
 
-export interface FieldPayload extends Payload {element: ElementTarget }
+export interface FieldPayload extends CustomerInstancePayload {element: ElementTarget }
 
 export type FieldActionType =
 | { type: 'CHANGE', payload: FieldPayload }
 | { type: 'SELECT_CHANGE', payload: FieldPayload }
 | { type: 'ADD' }
-| { type: 'SET_SAME_AS_MAIN', payload: Payload }
-| { type: 'REMOVE', payload: Payload }
+| { type: 'SUBMIT' }
+| { type: 'SET_SAME_AS_MAIN', payload: CustomerInstancePayload }
+| { type: 'REMOVE', payload: CustomerInstancePayload }
 | { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
 | { type: 'CHANGE_CONTACT_TEXT', payload: FieldPayload }
 | { type: 'CHANGE_CONTACT_CLASS', payload: FieldPayload };

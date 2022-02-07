@@ -15,6 +15,9 @@
   "include": [
     "./src/**/*",
     "./src/types/forms.d.ts",
+    "./src/types/api.d.ts",
+    "./src/types/data.stores.d.ts",
+    "./src/types/data.stores.d.ts",
     "./node_modules/@mui/material",
     "./node_modules/@kintone/dts-gen/kintone.d.ts"
   ],

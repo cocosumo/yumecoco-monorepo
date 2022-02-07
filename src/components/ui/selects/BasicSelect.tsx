@@ -15,7 +15,7 @@ export default function BasicSelect({ label, hasError, name, options, value, hel
     <FormControl required={isRequired} fullWidth>
       <InputLabel>{label}</InputLabel>
       <Select error={hasError} name={name} label={label} required={isRequired} value={value} onChange={onChange}>
-        {options.map((option) => <MenuItem key={option.value || option.label} value={option.label || option.value}>{option.label}</MenuItem>)}
+        {options.map((option) => <MenuItem key={option.value || option.label} value={option.value || option.label}>{option.label}</MenuItem>)}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>

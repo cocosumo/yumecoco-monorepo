@@ -51,8 +51,8 @@ const initialFormState : CustomerForm = {
   ],
   store:  { label: '店舗', value: '', touched:false, hasError: false, helperText: '' },
   personsInCharge: {
-    emp1: { label: '営業担当者１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
-    emp2: { label: '営業担当者２', value: '', touched:false, hasError: true, helperText: '', isRequired: true, infoText: '営業担当者が2名いる場合選択してください。' },
+    coco1: { label: '営業担当者１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
+    coco2: { label: '営業担当者２', value: '', touched:false, hasError: true, helperText: '', isRequired: true, infoText: '営業担当者が2名いる場合選択してください。' },
     yume1: { label: 'ゆめてつAG１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
     yume2: { label: 'ゆめてつAG２', value: '', touched:false, hasError: true, helperText: '', isRequired: true, infoText: '営業担当者が2名いる場合選択してください。'  },
   },

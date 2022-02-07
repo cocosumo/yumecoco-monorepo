@@ -41,8 +41,9 @@ export interface CustomerBasicInformation {
 }
 
 export interface PersonsInCharge {
-  emp1: InputField,
-  emp2: InputField,
+  [key: string]: InputField
+  coco1: InputField,
+  coco2: InputField,
   yume1: InputField,
   yume2: InputField,
 }
@@ -66,11 +67,16 @@ export type CustomerInstancePayload = { customerIdx : number };
 
 export interface ContactPayload extends CustomerInstancePayload { contactIdx: number, element: ElementTarget }
 
-export interface FieldPayload extends CustomerInstancePayload {element: ElementTarget }
+// export interface FieldPayload extends CustomerInstancePayload { element: ElementTarget }
+
+export type FieldPayload = BasicField & CustomerInstancePayload;
+
+export interface BasicField { element: ElementTarget }
 
 export type FieldActionType =
 | { type: 'CHANGE_CUST_INSTANCE', payload: FieldPayload }
-| { type: 'CHANGE', payload: InputChangeType }
+| { type: 'CHANGE_AGENT', payload: BasicField }
+| { type: 'CHANGE_STORE', payload: BasicField }
 | { type: 'SELECT_CHANGE', payload: FieldPayload }
 | { type: 'ADD' }
 | { type: 'SUBMIT' }

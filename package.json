@@ -12,7 +12,10 @@
         "build": "webpack",
         "deploy": "npm run build:prod && npm run upload:prod",
         "build:prod": "webpack --mode production",
-        "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 149 --type-name Data --namespace KintoneTypes -o src/types/kintone.data.d.ts"
+        "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 149 --type-name Data --namespace KintoneTypes -o src/types/kintone.data.d.ts",
+        "dtsgen:stores": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 19 --type-name Data --namespace StoreTypes -o src/types/data.stores.d.ts",
+        "dtsgen:employees": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 34 --type-name Data --namespace EmployeeTypes -o src/types/data.employees.d.ts"
+
     },
     "keywords": [
         "Autoprefixer",

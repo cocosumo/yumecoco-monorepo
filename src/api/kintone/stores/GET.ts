@@ -1,9 +1,18 @@
 import { APP_ID } from './config';
 import { KintoneRecord } from '../config';
 
-export const getAllStores = async () => {
-  return KintoneRecord.getAllRecords({ app: APP_ID });
+
+
+
+
+export const getAllStores  = async (params ?: GetRecordParams) => {
+  return KintoneRecord.getRecords({ app: APP_ID, fields: params?.fields, query: params?.query  });
 };
 
 
-export const getStoresAsOptions = async () => (await getAllStores()).map(({ $id, 店舗名 }) => ({ value: $id?.value as string || '', label: 店舗名?.value as string || '' }));
+export const getStoresAsOptions = async () => (await getAllStores({ 
+  fields : ['$id', '店舗名'], 
+  query : `isStore = ${+true}`,
+}))
+  .records
+  .map(({ $id, 店舗名 }) => ({ value: $id?.value as string || '', label: 店舗名?.value as string || '' }));

@@ -50,7 +50,7 @@ export const validate: Validate = (field) => {
 
   let {
     hasError = false,
-    errorMsg = '',
+    helperText = '',
     inputType,
     value,
     isRequired,
@@ -73,11 +73,11 @@ export const validate: Validate = (field) => {
     case 'tel':
 
       hasError = !isPhoneNumber(value);
-      console.log(field, value, 'TELLL', hasError);
+
       if (hasError) errors.push('半角数字。例：070-1264-1265');
       break;
     case 'postal':
-      console.log('POSTAL');
+
       hasError = !isPostal(value);
       if (hasError) errors.push('正しくありません。例：441-8122。');
       break;
@@ -87,12 +87,12 @@ export const validate: Validate = (field) => {
   /* Remove error if optional and not empty*/
   if (!isRequired && value.length === 0) {
     hasError = false;
-    errorMsg = '';
+    helperText = '';
   } else {
-    errorMsg = errors.join('');
+    helperText = errors.join('');
   }
 
-  return { ...field, ...{ hasError, errorMsg } };
+  return { ...field, ...{ hasError, helperText } };
 };
 
 

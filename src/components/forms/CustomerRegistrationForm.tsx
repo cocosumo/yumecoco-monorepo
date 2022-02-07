@@ -30,7 +30,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
   const formContext = useContext(CustomerFormContext);
   const dispatch  = formContext!.dispatch;
   const formState = formContext!.formState;
-  
+
 
   const componentIdx = index || 0;
 
@@ -88,7 +88,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
             <CustomerField fieldname='address1' customer={customer} handleFieldChange={handleFieldChange} />
           </Grid>
           <Grid item xs={12} mb={4}>
-            <CustomerField fieldname='address2' customer={customer} handleFieldChange={handleFieldChange} />          
+            <CustomerField fieldname='address2' customer={customer} handleFieldChange={handleFieldChange} />
           </Grid>
 
           <ContactFieldGroup fieldname='tel1' customer={customer} handleFieldChange={handleContactFieldChange}/>

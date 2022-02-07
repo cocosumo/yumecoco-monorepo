@@ -26,7 +26,7 @@ const ContactField = ({
   return (
     <Grid item container p={1} spacing={2}>
       <Grid item md={6} >
-        <TextField name={fieldname} type={contact.inputType} onBlur={handleFieldChange} helperText={contact.errorMsg} error={contact.hasError} fullWidth required={contact.isRequired} label={contact.label} />
+        <TextField name={fieldname} type={contact.inputType} onBlur={handleFieldChange} helperText={contact.helperText} error={contact.hasError} fullWidth required={contact.isRequired} label={contact.label} />
       </Grid>
       <Grid item md={6}>
         <FormControl required={contact.isRequired} fullWidth>

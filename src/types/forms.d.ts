@@ -69,7 +69,8 @@ export interface ContactPayload extends CustomerInstancePayload { contactIdx: nu
 export interface FieldPayload extends CustomerInstancePayload {element: ElementTarget }
 
 export type FieldActionType =
-| { type: 'CHANGE', payload: FieldPayload }
+| { type: 'CHANGE_CUST_INSTANCE', payload: FieldPayload }
+| { type: 'CHANGE', payload: InputChangeType }
 | { type: 'SELECT_CHANGE', payload: FieldPayload }
 | { type: 'ADD' }
 | { type: 'SUBMIT' }

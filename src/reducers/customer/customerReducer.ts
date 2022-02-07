@@ -15,6 +15,8 @@ const customerReducer = (state: CustomerForm, action: FieldActionType) : Custome
   switch (action.type){
     case 'CHANGE':
       return changeField(state, action.payload);
+    case 'CHANGE_CUST_INSTANCE':
+      return changeField(state, action.payload);
     case 'ADD':
       return { ...state, customers: [...state.customers.concat(initialFormState.customers) ] };
     case 'REMOVE':

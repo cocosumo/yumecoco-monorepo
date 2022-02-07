@@ -39,7 +39,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
 
   const isHideDetails = isLinkedCustomer && isSameAsMain;
 
-  const handleFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE', payload: { element: e, customerIdx: index } });
+  const handleFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE_CUST_INSTANCE', payload: { element: e, customerIdx: index } });
   const handleContactFieldChange = (isClassification: boolean = false) => (e: ElementTarget)  => dispatch({ type: `CHANGE_CONTACT_${isClassification ? 'CLASS' : 'TEXT'}`, payload: { element: e, customerIdx: index } });
 
   return (

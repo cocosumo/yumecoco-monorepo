@@ -3,7 +3,7 @@ import { InputField } from '../../../types/forms';
 
 
 
-interface BasicSelectProps extends Partial<InputField> {
+export interface BasicSelectProps extends Partial<InputField> {
   options: Options,
   name: string
   onChange?: ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined

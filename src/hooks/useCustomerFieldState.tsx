@@ -9,7 +9,6 @@ const useCustomerFieldState : UseShowErrorFunc = ({ hasError, touched }) => {
 
   return {
     hasError: hasError && (touched || isSubmitted),
-
   };
 };
 

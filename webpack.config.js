@@ -57,7 +57,7 @@ module.exports = {
           'css-loader',
         ],
       },
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules/ },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,

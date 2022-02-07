@@ -5,7 +5,7 @@ const initialFormState : CustomerForm = {
   customers :
   [
     {
-      fullName: { label: '氏名', value: '', touched:false, hasError: true, helperText: '必須です。', placeholder: '高橋　加奈', isRequired: true },
+      fullName: { label: '氏名', value: '', touched:false, hasError: true, helperText: '', placeholder: '高橋　加奈', isRequired: true },
       fullNameReading: { label: 'シメイ', value: '', touched:false, hasError: true, helperText: '', placeholder: 'タカハシ　カナ', isRequired: true },
       gender: { label: '性別', value: '', touched:false, hasError: false, helperText: '' },
       birthYear: { label: '生年', value: '', touched:false, hasError: false, helperText: '' },
@@ -47,10 +47,15 @@ const initialFormState : CustomerForm = {
           inputType: 'email',
         },
       },
-
-
     },
   ],
+  store:  { label: '店舗', value: '', touched:false, hasError: false, helperText: '' },
+  personsInCharge: {
+    emp1: { label: '営業担当者１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
+    emp2: { label: '営業担当者２', value: '', touched:false, hasError: true, helperText: '', isRequired: true, infoText: '営業担当者が2名いる場合選択してください。' },
+    yume1: { label: 'ゆめてつAG１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
+    yume2: { label: 'ゆめてつAG２', value: '', touched:false, hasError: true, helperText: '', isRequired: true, infoText: '営業担当者が2名いる場合選択してください。'  },
+  },
 
 };
 

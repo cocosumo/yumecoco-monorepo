@@ -1,11 +1,22 @@
 
 type PatternType = 'email' | 'tel' | 'postal';
 
-export interface InputField {label: string, value: string, touched: boolean, hasError: boolean, helperText: string, placeholder?: string, isRequired?:boolean, inputType?: PatternType }
+export interface InputField {
+  label: string,
+  value: string,
+  touched: boolean,
+  hasError: boolean,
+  helperText: string,
+  placeholder?: string,
+  isRequired?:boolean,
+  inputType?: PatternType,
+  infoText?: string
+}
 
 export interface ContactClassification extends InputField  {
   classification: InputField
 }
+
 export interface ContactField  {
   [key: string]: ContactClassification,
   tel1: ContactClassification,
@@ -29,9 +40,18 @@ export interface CustomerBasicInformation {
   address2: InputField,
 }
 
+export interface PersonsInCharge {
+  emp1: InputField,
+  emp2: InputField,
+  yume1: InputField,
+  yume2: InputField,
+}
+
 export interface CustomerForm {
   isSubmitted: boolean,
   customers : CustomerBasicInformation[],
+  store: InputField,
+  personsInCharge: PersonsInCharge
 }
 
 export interface ElementTarget {

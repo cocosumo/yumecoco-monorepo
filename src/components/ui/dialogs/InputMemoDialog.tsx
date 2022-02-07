@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import {useState} from 'react';
+import { useState } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import BasicSelect from '../selects/BasicSelect';
@@ -19,12 +19,12 @@ import Caption from '../typohraphies/Caption';
 import LabeledCheckBox from '../checkboxes/LabeledCheckBox';
 
 const options = [
-  {text: '顧客情報'},
-  {text: '打ち合わせ'},
-  {text: '契約内容'},
-  {text: '工事場所情報'},
-  {text: '問い合わせ'},
-  {text: 'その他'},
+  { label: '顧客情報' },
+  { label: '打ち合わせ' },
+  { label: '契約内容' },
+  { label: '工事場所情報' },
+  { label: '問い合わせ' },
+  { label: 'その他' },
 
 ];
 
@@ -36,7 +36,7 @@ const AgentCheckbox = () => {
   const [agents, setAgents] = useState<AgentsCheckValues>({
     'ここすも営業': true,
     'ここすも工事': true,
-    'ゆめてつAG': true
+    'ゆめてつAG': true,
   });
 
 
@@ -52,7 +52,7 @@ const AgentCheckbox = () => {
                 key={key}
                 label={key}
                 checked={value}
-                setCheckedHandler={()=>setAgents((prev)=> ({...prev, [key]: !prev[key]}))}
+                setCheckedHandler={()=>setAgents((prev)=> ({ ...prev, [key]: !prev[key] }))}
               />);
           })}
 
@@ -91,7 +91,7 @@ export default function InputMemoDialog() {
         <DialogContent>
           <Stack spacing={2} p={1}>
             <Stack direction="row" justifyContent="end">顧客名：田中一郎</Stack>
-            <BasicSelect label="登録内容" options={options} />
+            <BasicSelect name='temp' value='temp' hasError={false} helperText='temp'  label="登録内容" options={options} />
             <TextField
               label="メモ"
               fullWidth

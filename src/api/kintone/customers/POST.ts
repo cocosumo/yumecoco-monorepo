@@ -1,4 +1,4 @@
-import { CUSTOMER_APPID } from '../../../helpers/constants';
+import { APP_ID } from './config';
 import { KintoneRecord } from '../config';
 import { RecordParam, AddRecordResult, AddRecordsResult } from './customers';
 
@@ -13,7 +13,7 @@ export const addCustomer = async (record : RecordParam = {}) : Promise<AddRecord
   try {
     return {
       ok: true,
-      result: await KintoneRecord.addRecord({ app: CUSTOMER_APPID, record }),
+      result: await KintoneRecord.addRecord({ app: APP_ID, record }),
     };
   } catch (error) {
     return { ok: false, result: error };
@@ -30,7 +30,7 @@ export const addCustomers  = async (records : RecordParam[]) : Promise<AddRecord
   try {
     return {
       ok: true,
-      result: await KintoneRecord.addRecords({ app: CUSTOMER_APPID, records }),
+      result: await KintoneRecord.addRecords({ app: APP_ID, records }),
     };
   } catch (error) {
     return { ok: false, result: error };

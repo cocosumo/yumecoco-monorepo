@@ -31,7 +31,6 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
   const dispatch  = formContext!.dispatch;
   const formState = formContext!.formState;
 
-
   const componentIdx = index || 0;
 
   const customer = formState.customers[index];
@@ -41,7 +40,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
   const isHideDetails = isLinkedCustomer && isSameAsMain;
 
   const handleFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE', payload: { element: e, customerIdx: index } });
-  const handleContactFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE_CONTACT_TEXT', payload: { element: e, customerIdx: index } });
+  const handleContactFieldChange = (isClassification: boolean = false) => (e: ElementTarget)  => dispatch({ type: `CHANGE_CONTACT_${isClassification ? 'CLASS' : 'TEXT'}`, payload: { element: e, customerIdx: index } });
 
   return (
     <Box p={2}>

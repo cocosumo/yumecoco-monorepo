@@ -10,7 +10,7 @@ import {  CustomerBasicInformation, HandleFieldChangeFunc } from '../../types/fo
 interface CustomerFieldProps {
   customer: CustomerBasicInformation,
   fieldname: string,
-  handleFieldChange: HandleFieldChangeFunc
+  handleFieldChange: (isClassification: boolean) => HandleFieldChangeFunc
 }
 
 const ContactField = ({
@@ -26,15 +26,16 @@ const ContactField = ({
   return (
     <Grid item container p={1} spacing={2}>
       <Grid item md={6} >
-        <TextField name={fieldname} type={contact.inputType} onBlur={handleFieldChange} helperText={contact.helperText} error={contact.hasError} fullWidth required={contact.isRequired} label={contact.label} />
+        <TextField name={fieldname} type={contact.inputType} onBlur={handleFieldChange(false)} helperText={contact.helperText} error={contact.hasError} fullWidth required={contact.isRequired} label={contact.label} />
       </Grid>
       <Grid item md={6}>
         <FormControl required={contact.isRequired} fullWidth>
           <InputLabel>種別</InputLabel>
           <Select
             label="種別"
+            name={ fieldname }
             value={contact.classification.value}
-            onChange={handleFieldChange}
+            onChange={handleFieldChange(true)}
           >
             {classification.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
 

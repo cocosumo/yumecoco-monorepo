@@ -12,7 +12,7 @@ import YearIcon from '../icons/YearIcon';
 
 
 
-const monthOptions: Options = [...Array(12)].map((_, i) => ({ key: i + 1, text: `${i + 1}月` }));
+const monthOptions: Options = [...Array(12)].map((_, i) => ({ value: (i + 1).toString(), label: `${i + 1}月` }));
 
 interface SeparatedDatePickerProps {
   index: number,
@@ -28,12 +28,12 @@ interface SeparatedDatePickerProps {
 const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
   const { value, dispatch, index } = props;
 
-  const dayOptions: Options = [...Array(31)].map((_, i) => ({ key: i + 1, text: `${i + 1}日` }));
- 
+  const dayOptions: Options = [...Array(31)].map((_, i) => ({ value: (i + 1).toString(), label: `${i + 1}日` }));
+
   const handleChange = (e: ElementTarget) => dispatch({ type:'SELECT_CHANGE', payload: { element: e, customerIdx: index } });
   const handleYearChange = (e: Date) => {
     /* Sanitize date here to a string of year because payload.target.value only accepts string. */
-    const year = e !== null ? e.getFullYear().toString() : ''; 
+    const year = e !== null ? e.getFullYear().toString() : '';
     dispatch({ type:'CHANGE_BIRTHYEAR', payload: { element: { target: { name: 'birthYear', value: year } }, customerIdx: index } });
   };
 
@@ -54,7 +54,7 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
                 }                }
                 value={value.birthYear.length === 0 ? null : value.birthYear}
                 onChange={handleYearChange}
-              
+
                 renderInput={(params) => <TextField error={false} fullWidth {...params} />}
               />
             </Box>

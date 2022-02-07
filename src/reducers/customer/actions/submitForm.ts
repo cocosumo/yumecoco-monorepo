@@ -17,15 +17,20 @@ const traverseState = (state: any) => {
 
   let newState: any;
   if (isObject(state)){
+
+    /* validate if field */
     if (isField(state as object)){
-      console.log("it's a field", state);
       return validate((state as InputField));
     }
+
+    /* If not a field, traverse property node */
     newState = Object.entries(state)
       .reduce((prev, [fieldName, value])=>{
         return { ...prev, [fieldName]: traverseState(value) };
       }, {});
   } else if (isArray(state)){
+
+    // traverse array node
     newState = (state as any[]).map((item) => {
       return traverseState(item);
     });

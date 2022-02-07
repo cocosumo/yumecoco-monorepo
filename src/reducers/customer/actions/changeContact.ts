@@ -7,42 +7,52 @@ type Action = (state: CustomerForm, payload: FieldPayload, isClassification?: bo
 
 /**
  * Updates both text, and classification state of contact instance. See type definition for details
- * 
- * @param state 
- * @param payload  
- * @returns 
+ *
+ * @param state
+ * @param payload
+ * @param isClassification
+ * @returns
  */
-export const changeContact: Action = (state, payload) =>  {
+export const changeContact: Action = (state, payload, isClassification) =>  {
 
   const { element, customerIdx } = payload;
 
   const name = element.target.name; // tel, tel2, email
-  const value = element.target.value; 
-
+  const value = element.target.value;
+  console.log(value, 'CLASSIFCATIOn');
   /* Immutably update contact state */
-  return { ...state, 
+  return { ...state,
     customers: [
       ...state.customers.map(
         (customer, idx)=> {
           if (idx === customerIdx){
+            let newValue = {};
 
+            if (isClassification){
 
-            return { 
+              newValue = { ...customer.contacts[name], classification: {
+                ...customer.contacts[name].classification, ...validate({ ...customer.contacts[name].classification, value }) },
+              };
+
+            } else {
+              newValue = validate({ ...customer.contacts[name], value }) ;
+
+            }
+
+            return {
               ...customer, contacts : {
-                ...customer.contacts, [name] : {
-                  ...customer.contacts[name], ...validate({ ...customer.contacts[name], value }),
-                },
+                ...customer.contacts, [name] : { ...customer.contacts[name], ...newValue },
               },
             };
           }
 
-          
+
           return customer;
         },
       ),
-    ], 
+    ],
   } ;
-  
+
 };
 
 

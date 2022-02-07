@@ -92,7 +92,7 @@ export const validate: Validate = (field) => {
     helperText = errors.join('');
   }
 
-  return { ...field, ...{ hasError, helperText } };
+  return { ...field, ...{ hasError, helperText, touched: true } };
 };
 
 

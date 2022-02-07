@@ -1,21 +1,21 @@
 import { FormControl, Select, MenuItem, InputLabel, FormHelperText, SelectChangeEvent } from '@mui/material';
+import { InputField } from '../../../types/forms';
 
-interface BasicSelectProps {
-  label: string,
+
+
+interface BasicSelectProps extends Partial<InputField> {
   options: Options,
-  name?: string,
-  value?: string,
-  helperText?: string,
-  required?: boolean,
+  name: string
   onChange?: ((event: SelectChangeEvent<string>, child: React.ReactNode) => void) | undefined
 }
 
-export default function BasicSelect({ label, name, options, value, helperText, required, onChange } : BasicSelectProps) {
+export default function BasicSelect({ label, hasError, name, options, value, helperText, isRequired, onChange } : BasicSelectProps) {
+
   return (
-    <FormControl required={required} fullWidth>
+    <FormControl required={isRequired} fullWidth>
       <InputLabel>{label}</InputLabel>
-      <Select name={name} label={label} required={required} value={value} onChange={onChange}>
-        {options.map((option) => <MenuItem key={option.key || option.text} value={option.key || option.text}>{option.text}</MenuItem>)}
+      <Select error={hasError} name={name} label={label} required={isRequired} value={value} onChange={onChange}>
+        {options.map((option) => <MenuItem key={option.value || option.label} value={option.label || option.value}>{option.label}</MenuItem>)}
       </Select>
       <FormHelperText>{helperText}</FormHelperText>
     </FormControl>

@@ -10,8 +10,8 @@ interface Props {
 }
 
 type Option = {
-  key?: string | number,
-  text: string
+  label: string | number,
+  value?: string
 };
 
 type Options = Option[];

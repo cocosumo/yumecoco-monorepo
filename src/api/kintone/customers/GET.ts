@@ -1,8 +1,8 @@
-import { CUSTOMER_APPID } from '../../../helpers/constants';
+import { APP_ID } from './config';
 import { KintoneRecord } from '../config';
 
 export const getAllCustomers = () => {
-  KintoneRecord.getAllRecords({ app: CUSTOMER_APPID })
+  KintoneRecord.getAllRecords({ app: APP_ID })
     .then((resp)=>{
       console.log(resp);
     });

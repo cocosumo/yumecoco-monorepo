@@ -8,17 +8,17 @@ import removeCustomer from './actions/removeCustomer';
 import setSameAsMain from './actions/setSameAsMain';
 import submitForm from './actions/submitForm';
 import changeAgent from './actions/changeAgent';
+import { validate } from '../../helpers/validations';
 
 
 const customerReducer = (state: CustomerForm, action: FieldActionType) : CustomerForm => {
-  console.log(state);
 
   switch (action.type){
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);
 
     case 'CHANGE_STORE':
-      return { ...state, store: { ...state.store, value: action.payload.element.target.value } };
+      return { ...state, store: validate({ ...state.store, value: action.payload.element.target.value }) };
 
     case 'CHANGE_CUST_INSTANCE':
       return changeField(state, action.payload);
@@ -45,7 +45,7 @@ const customerReducer = (state: CustomerForm, action: FieldActionType) : Custome
 
     case 'SUBMIT':
       return submitForm(state);
-      
+
     default:
       throw new Error('わざとエラーです。Lenz! Fix this! lenzras@gmail.com');
   }

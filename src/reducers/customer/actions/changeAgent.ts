@@ -1,4 +1,5 @@
 import { BasicField, CustomerForm } from '../../../types/forms';
+import { validate } from './../../../helpers/validations';
 
 type ChangeAgentAction = (state: CustomerForm, payload: BasicField, isClassification?: boolean) => CustomerForm;
 
@@ -6,12 +7,9 @@ const changeAgent : ChangeAgentAction = (state, payload) => {
 
   const { name, value } = payload.element.target;
 
-  console.log(payload);
   return { 
     ...state, personsInCharge : {
-      ...state.personsInCharge,  [name] : {
-        ...state.personsInCharge[name], value: value,
-      },
+      ...state.personsInCharge,  [name] : validate({ ...state.personsInCharge[name], value: value }),
     }, 
   };
 

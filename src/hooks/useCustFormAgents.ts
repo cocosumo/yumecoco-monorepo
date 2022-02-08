@@ -14,6 +14,7 @@ interface Result {
   stores: Options
   storeState: InputField
   agentForm: PersonsInCharge,
+  isSubmitted: boolean,
   groupedEmpOptions : GroupedEmpOptions,
   dispatch: (action: FieldActionType) => void
 }
@@ -29,6 +30,7 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
   const [empOptions, setEmpOptions] = useState(initialEmpOptions);
 
   const formState = context!.formState;
+  const isSubmitted = formState.isSubmitted;
   const personsInCharge = formState.personsInCharge;
   const storeState = formState.store;
   const dispatch = context!.dispatch;
@@ -36,7 +38,6 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
 
   useEffect(()=>{
     if (!loading && storeState.value.length !== 0 ){
-      console.log('EXECUTED');
 
       setEmpOptions(employees.reduce((prev, curr)=> {
         const { storeNumber, $id, 文字列＿氏名: empName, affiliation } = curr;
@@ -63,6 +64,7 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
     stores: stores,
     storeState: storeState,
     agentForm: personsInCharge,
+    isSubmitted: isSubmitted,
     groupedEmpOptions: {
       coco: empOptions.coco,
       yume: empOptions.yume,

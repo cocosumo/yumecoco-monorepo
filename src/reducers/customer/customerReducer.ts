@@ -44,6 +44,7 @@ const customerReducer = (state: CustomerForm, action: FieldActionType) : Custome
       return setSameAsMain(state, action.payload);
 
     case 'SUBMIT':
+      
       return submitForm(state);
 
     default:

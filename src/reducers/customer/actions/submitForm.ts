@@ -1,12 +1,18 @@
+import { addCustomers } from '../../../api/kintone/customers/POST';
 import { validate } from '../../../helpers/validations';
 import { CustomerForm, InputField } from './../../../types/forms';
+import { isArray, isObject, isField } from './../../../helpers/utils';
+import { convertCustFormState } from '../../../helpers/normalizers';
+import { AddRecordResult } from './../../../api/kintone/customers/customers';
 
 type SubmitForm = (state: CustomerForm) => CustomerForm;
 
-const isArray = (value : any) => Array.isArray(value);
-const isObject = (value : any) => !!(value && typeof value === 'object' && !isArray(value));
-const isField = (value: object) =>  ('label' in value && 'value' in value);
 
+const addCustomersByFormState = async (state: CustomerForm) : Promise<AddRecordResult> => {
+  return addCustomers(convertCustFormState(state));
+};
+
+let hasError = false;
 /**
  * Traverses each node in the form state and validates it.
  *
@@ -16,24 +22,27 @@ const isField = (value: object) =>  ('label' in value && 'value' in value);
 const traverseState = (state: any) => {
 
   let newState: any;
+  
   if (isObject(state)){
 
-    /* validate if field */
+    /*if field object, validate field, then pop out of the function */
     if (isField(state as object)){
-      return validate((state as InputField));
+      const newFieldState = validate((state as InputField));
+      if (newFieldState.hasError) hasError = true;
+      return newFieldState;
     }
 
-    /* If not a field, traverse property node */
     newState = Object.entries(state)
       .reduce((prev, [fieldName, value])=>{
         return { ...prev, [fieldName]: traverseState(value) };
       }, {});
+
   } else if (isArray(state)){
 
-    // traverse array node
     newState = (state as any[]).map((item) => {
       return traverseState(item);
     });
+
   } else {
 
     return state;
@@ -45,7 +54,15 @@ const traverseState = (state: any) => {
 
 const submitForm : SubmitForm = (state) => {
   /** Toggle isSubmitted, then validate each field */
-  return traverseState({ ...state, isSubmitted: true });
+
+  hasError = false;
+  const validatedForm = { ...traverseState({ ...state, isSubmitted: true }), hasError };
+
+  if (!hasError){
+    addCustomersByFormState(state);
+  }
+
+  return validatedForm;
 };
 
 export default submitForm;

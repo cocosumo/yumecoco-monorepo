@@ -10,7 +10,8 @@ export interface InputField {
   placeholder?: string,
   isRequired?:boolean,
   inputType?: PatternType,
-  infoText?: string
+  infoText?: string,
+  isDisabled?: boolean
 }
 
 export interface ContactClassification extends InputField  {
@@ -27,6 +28,7 @@ export interface ContactField  {
 
 export interface CustomerBasicInformation {
   [key: string]: InputField | ContactField | boolean,
+
   fullName: InputField,
   fullNameReading: InputField,
   gender: InputField,
@@ -35,7 +37,7 @@ export interface CustomerBasicInformation {
   birthDay : InputField,
   isSameAsMain: boolean,
   contacts : ContactField,
-  postal: InputField,
+  postalCode: InputField,
   address1: InputField,
   address2: InputField,
 }
@@ -50,9 +52,10 @@ export interface PersonsInCharge {
 
 export interface CustomerForm {
   isSubmitted: boolean,
+  hasError: boolean,
   customers : CustomerBasicInformation[],
   store: InputField,
-  personsInCharge: PersonsInCharge
+  agents: PersonsInCharge
 }
 
 export interface ElementTarget {

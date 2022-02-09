@@ -8,8 +8,8 @@ const changeAgent : ChangeAgentAction = (state, payload) => {
   const { name, value } = payload.element.target;
 
   return { 
-    ...state, personsInCharge : {
-      ...state.personsInCharge,  [name] : validate({ ...state.personsInCharge[name], value: value }),
+    ...state, agents : {
+      ...state.agents,  [name] : validate({ ...state.agents[name], value: value }),
     }, 
   };
 

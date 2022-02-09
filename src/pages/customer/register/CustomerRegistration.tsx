@@ -30,7 +30,6 @@ export default function CustomerRegistration() {
 
   const handleSubmit = (e : React.FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
-
     dispatch({ type: 'SUBMIT' });
   };
 

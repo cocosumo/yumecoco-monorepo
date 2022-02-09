@@ -64,6 +64,15 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          '&.Mui-disabled': {
+            'background': 'lightgrey',
+          },
+        },
+      },
+    },
   },
 });
 

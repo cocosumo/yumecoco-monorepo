@@ -4,21 +4,21 @@ import BasicSelect, { BasicSelectProps } from './BasicSelect';
 
 
 
-const CustomerFormSelect = ({ label, hasError, name, options, value, helperText, isRequired, onChange }: BasicSelectProps) => {
+const CustomerFormSelect = ({ label, hasError, name, options, value, helperText, isRequired, isDisabled, onChange }: BasicSelectProps) => {
 
   const isEmptyOptions = options.length === 0;
-  const isDisabled = isEmptyOptions;
+  const disabled = isDisabled || isEmptyOptions;
 
   return (
     <BasicSelect
       options={options}
-      helperText={helperText}
-      hasError={hasError && !isDisabled}
+      helperText={disabled ? '' : helperText}
+      hasError={hasError && !disabled}
       name={name} label={label}
-      isRequired={isRequired} 
+      isRequired={disabled ? false : isRequired} 
       value={value} 
       onChange={onChange} 
-      disabled={isDisabled} 
+      disabled={disabled} 
       />
 
   );

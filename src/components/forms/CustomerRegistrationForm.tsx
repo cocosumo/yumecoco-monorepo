@@ -81,7 +81,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
         {!isHideDetails &&
         <>
           <Grid item xs={12} md={6} >
-            <CustomerField fieldname='postal' customer={customer} handleFieldChange={handleFieldChange} />
+            <CustomerField fieldname='postalCode' customer={customer} handleFieldChange={handleFieldChange} />
           </Grid>
           <Grid item xs={12}>
             <CustomerField fieldname='address1' customer={customer} handleFieldChange={handleFieldChange} />

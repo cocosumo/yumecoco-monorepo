@@ -13,6 +13,7 @@
     "strictNullChecks": true
   },
   "include": [
+    "./jest/**/*",
     "./src/**/*",
     "./src/types/forms.d.ts",
     "./src/types/api.d.ts",

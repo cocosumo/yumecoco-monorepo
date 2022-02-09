@@ -31,7 +31,7 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
 
   const formState = context!.formState;
   const isSubmitted = formState.isSubmitted;
-  const personsInCharge = formState.personsInCharge;
+  const personsInCharge = formState.agents;
   const storeState = formState.store;
   const dispatch = context!.dispatch;
 

@@ -11,6 +11,7 @@ export default function AgentsForm() {
   const handleChangeStore = (e : ElementTarget) => {
   
     dispatch({ type: 'CHANGE_STORE', payload: { element: e } });
+    
     /* Reset Agents */
     Object.keys(agentForm).map(fieldName => {
       dispatch({ type: 'CHANGE_AGENT', payload: { element: { target: { name: fieldName, value: '' } } } });
@@ -30,7 +31,11 @@ export default function AgentsForm() {
         .map(([fieldName, fieldState]) => {
           const { label, helperText, value, isRequired, infoText, hasError, touched } : InputField =  fieldState;
           const group = fieldName.includes('coco') ? 'coco' : 'yume';
-          return <CustomerFormSelect key={fieldName} value={value} hasError={hasError && (isSubmitted || touched)} name={fieldName} label={label} helperText={helperText + (infoText || '') } options={groupedEmpOptions[group]} isRequired={isRequired} onChange={(e) => dispatch({ type: 'CHANGE_AGENT', payload: { element: e } })} />;
+          let isDisabled = false;
+          
+          if (fieldName.includes('2')) isDisabled = !!!(agentForm[`${group}1`].value);
+
+          return <CustomerFormSelect key={fieldName} value={value} hasError={hasError && (isSubmitted || touched)} name={fieldName} label={label} helperText={helperText + (infoText || '') } options={groupedEmpOptions[group]} isRequired={isRequired} isDisabled={isDisabled} onChange={(e) => dispatch({ type: 'CHANGE_AGENT', payload: { element: e } })} />;
         })}
 
     </Stack>

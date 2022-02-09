@@ -1,5 +1,4 @@
-import { APP_ID } from './config';
-import { KintoneRecord } from '../config';
+import { APP_ID, KintoneRecord } from './config';
 import { RecordParam, AddRecordResult, AddRecordsResult } from './customers';
 
 
@@ -27,6 +26,7 @@ export const addCustomer = async (record : RecordParam = {}) : Promise<AddRecord
  * @returns an array of objects that include id and revision of created records.
  */
 export const addCustomers  = async (records : RecordParam[]) : Promise<AddRecordsResult> => {
+  
   try {
     return {
       ok: true,
@@ -36,3 +36,7 @@ export const addCustomers  = async (records : RecordParam[]) : Promise<AddRecord
     return { ok: false, result: error };
   }
 };
+
+
+
+

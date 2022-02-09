@@ -3,6 +3,8 @@ import { BASE_URL } from './helpers/contants';
 
 /* Use session authentication */
 
+
+
 const KintoneClient = new KintoneRestAPIClient(
   {
     baseUrl: BASE_URL,

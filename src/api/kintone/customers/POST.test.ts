@@ -1,8 +1,4 @@
 
-/**
- * @jest-environment jsdom
- */
-
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -13,16 +9,12 @@ import { addCustomers } from './POST';
 
 
 describe('Multiple Customer Registration', ()=>{
-  test('is registered', ()=>{
+  test('is registered', async ()=>{
     return addCustomers([{ fullName: { value: 'SUCCESS' } }])
       .then(result => {
         console.log(result);
-        expect(result).toHaveProperty('ok');
+        expect(result).toHaveProperty('ok', true);
       });
   });
 
-  test('has window', ()=>{
-    console.log(window.location.hostname);
-    expect(window).toBeTruthy();
-  });
 });

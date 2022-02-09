@@ -27,12 +27,16 @@ export const convertCustFormState = (state: CustomerForm) : Partial<CustomerType
       const [fieldName, value] = curr;
       if (isField(value)){
         return { ...prev, [fieldName]: { value: (value as InputField).value } };
-      } else if (fieldName === 'contacts'){
+      } 
 
-        return { ...prev, [fieldName] : convertContactsObj(value as ContactField) };
+      switch (fieldName){
+        case 'contacts':
+          return { ...prev, [fieldName] : convertContactsObj(value as ContactField) };
       }
+
       return prev;
-    }, {});
+
+    }, { store: { value: state.store.value } });
 
   });
 

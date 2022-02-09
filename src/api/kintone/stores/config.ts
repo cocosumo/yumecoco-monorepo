@@ -7,7 +7,7 @@ console.log(STORES_APITOKEN, BASE_URL?.includes(window.location.hostname), 'base
 
 const options = {
   baseUrl: BASE_URL,
-  auth: BASE_URL?.includes(window.location.hostname) ? undefined : {
+  auth: BASE_URL?.includes(window?.location.hostname) ? undefined : {
     apiToken: STORES_APITOKEN,
   },
 };

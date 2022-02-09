@@ -8,7 +8,7 @@ import { AddRecordResult } from './../../../api/kintone/customers/customers';
 type SubmitForm = (state: CustomerForm) => CustomerForm;
 
 
-const addCustomersByFormState = async (state: CustomerForm) : Promise<AddRecordResult> => {
+export const addCustomersByFormState = async (state: CustomerForm) : Promise<AddRecordResult> => {
   return addCustomers(convertCustFormState(state));
 };
 

@@ -26,7 +26,7 @@ export const addCustomer = async (record : RecordParam = {}) : Promise<AddRecord
  * @returns an array of objects that include id and revision of created records.
  */
 export const addCustomers  = async (records : RecordParam[]) : Promise<AddRecordsResult> => {
-  
+
   try {
     return {
       ok: true,

@@ -26,7 +26,6 @@
         "Babel"
     ],
     "jest": {
-        "testEnvironment": "jsdom",
         "setupFiles": [
             "<rootDir>/jest/setEnvVars.ts"
         ]

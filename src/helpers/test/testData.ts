@@ -50,7 +50,7 @@ export const custFormStateTestData : CustomerForm = {
       },
     },
   ],
-  store:  { label: '店舗', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
+  store:  { label: '店舗', value: '21', touched:false, hasError: true, helperText: '', isRequired: true },
   agents: {
     coco1: { label: '営業担当者１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
     coco2: { label: '営業担当者２', value: '', touched:false, hasError: true, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。' },

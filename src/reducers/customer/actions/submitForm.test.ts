@@ -7,7 +7,8 @@ import { addCustomersByFormState } from './submitForm';
 
 describe('Submit', ()=> {
   test('is successful', async ()=> {
-    await addCustomersByFormState(custFormStateTestData)
+
+    await addCustomersByFormState(custFormStateTestData())
       .then((resp) => {
 
         expect(resp).toMatchSnapshot({ ok: true });
@@ -16,5 +17,7 @@ describe('Submit', ()=> {
 
         expect(error).toMatchSnapshot({ ok: false });
       });
+
+
   });
 });

@@ -19,7 +19,7 @@ Object {
   },
   "contacts": Any<Object>,
   "fullName": Object {
-    "value": "Ras, Lorenz T",
+    "value": "Heather 中村",
   },
   "fullNameReading": Object {
     "value": "ラス　ロレンズ　トンボ",
@@ -29,6 +29,9 @@ Object {
   },
   "postalCode": Object {
     "value": "441-8124",
+  },
+  "store": Object {
+    "value": "11",
   },
 }
 `;

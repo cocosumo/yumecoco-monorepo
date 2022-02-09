@@ -1,12 +1,16 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { CustomerForm } from './../../types/forms';
+import { faker } from '@faker-js/faker';
+faker.locale = 'ja';
 
-export const custFormStateTestData : CustomerForm = {
+
+export const custFormStateTestData = () : CustomerForm => ({
   hasError: true,
   isSubmitted: false,
   customers :
   [
     {
-      fullName: { label: '氏名', value: 'Ras, Lorenz T', touched:false, hasError: true, helperText: '', placeholder: '高橋　加奈', isRequired: true },
+      fullName: { label: '氏名', value: faker.name.findName(), touched:false, hasError: true, helperText: '', placeholder: '高橋　加奈', isRequired: true },
       fullNameReading: { label: 'シメイ', value: 'ラス　ロレンズ　トンボ', touched:false, hasError: true, helperText: '', placeholder: 'タカハシ　カナ', isRequired: true },
       gender: { label: '性別', value: '男性', touched:false, hasError: false, helperText: '' },
       birthYear: { label: '生年', value: '2000', touched:false, hasError: false, helperText: '' },
@@ -21,8 +25,8 @@ export const custFormStateTestData : CustomerForm = {
       contacts : {
         tel1: {
           label: '電話番号１',
-          value: '',
-          classification: { label: '種別', value: '07014529707', touched:false, hasError: false, helperText: '', isRequired: true },
+          value: '07014529707',
+          classification: { label: '種別', value: '父', touched:false, hasError: false, helperText: '', isRequired: true },
           touched: false,
           hasError: false,
           helperText: '',
@@ -50,7 +54,7 @@ export const custFormStateTestData : CustomerForm = {
       },
     },
   ],
-  store:  { label: '店舗', value: '21', touched:false, hasError: true, helperText: '', isRequired: true },
+  store:  { label: '店舗', value: '11', touched:false, hasError: true, helperText: '', isRequired: true },
   agents: {
     coco1: { label: '営業担当者１', value: '', touched:false, hasError: true, helperText: '', isRequired: true },
     coco2: { label: '営業担当者２', value: '', touched:false, hasError: true, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。' },
@@ -58,4 +62,4 @@ export const custFormStateTestData : CustomerForm = {
     yume2: { label: 'ゆめてつAG２', value: '', touched:false, hasError: true, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。'  },
   },
 
-};
+});

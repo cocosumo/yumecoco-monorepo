@@ -1,4 +1,5 @@
-import { APP_ID, KintoneRecord } from './config';
+import { APP_ID } from './config';
+import { KintoneRecord } from './../config';
 import { RecordParam, AddRecordResult, AddRecordsResult } from './customers';
 
 

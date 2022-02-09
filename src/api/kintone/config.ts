@@ -1,16 +1,17 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
-import { BASE_URL } from './helpers/contants';
+import { BASE_URL, CUSTOMERS_APITOKEN, STORES_APITOKEN, EMPLOYEES_TOKEN } from './helpers/contants';
+import { isBrowser } from '../../helpers/utils';
 
 /* Use session authentication */
 
-
-
-const KintoneClient = new KintoneRestAPIClient(
-  {
-    baseUrl: BASE_URL,
+const options = {
+  baseUrl: BASE_URL,
+  auth: isBrowser() ? undefined : {
+    apiToken: [CUSTOMERS_APITOKEN, STORES_APITOKEN, EMPLOYEES_TOKEN],
   },
+};
 
-  // Omitted auth to use session authentication
+const KintoneClient = new KintoneRestAPIClient(  options,
 );
 
 export const KintoneRecord = KintoneClient.record;

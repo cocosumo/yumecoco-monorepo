@@ -7,7 +7,7 @@ describe('Converters', ()=> {
   });
   
   test('returns a kintone record', ()=>{
-    const fn = convertCustFormState(custFormStateTestData);
+    const fn = convertCustFormState(custFormStateTestData());
     expect(fn[0]).toMatchSnapshot({
       contacts: expect.any(Object),
     });

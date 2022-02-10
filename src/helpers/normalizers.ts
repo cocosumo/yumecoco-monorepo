@@ -1,21 +1,19 @@
 import { isField } from './utils';
-import { ContactField, CustomerForm, InputField } from './../types/forms';
+import { CustomerForm, ContactField, InputField } from './../types/forms';
 
 
-const convertContactsObj = (contactsObj : ContactField) : Omit<CustomerTypes.Data['contacts'], 'type'> => {
+const convertContactsObj = (stateContacts : ContactField[]) : Omit<CustomerTypes.Data['contacts'], 'type'> => {
+
   return {
-    
-    value: Object.values(contactsObj).map(({ classification, value, label })=>{
+    value: stateContacts.map((item)=>{
+      console.log(item);
       return {
         id: '',
         value: {
-          contactType: { value: label },
-          contactValue: { value },
-          classification: {
-            value: classification.value,
-          },
-        },
-      };
+          contactType: { value: item.contactType.value },
+          contactValue: { value: item.contactValue.value },
+          classification : { value: item.classification.value },
+        } };
     }),
   };
 };
@@ -27,11 +25,11 @@ export const convertCustFormState = (state: CustomerForm) : Partial<CustomerType
       const [fieldName, value] = curr;
       if (isField(value)){
         return { ...prev, [fieldName]: { value: (value as InputField).value } };
-      } 
+      }
 
       switch (fieldName){
         case 'contacts':
-          return { ...prev, [fieldName] : convertContactsObj(value as ContactField) };
+          return { ...prev, [fieldName] : convertContactsObj(value as ContactField[])  };
       }
 
       return prev;

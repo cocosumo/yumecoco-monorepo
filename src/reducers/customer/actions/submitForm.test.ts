@@ -1,7 +1,7 @@
 
 import 'regenerator-runtime/runtime';
 import { custFormStateTestData } from '../../../helpers/test/testData';
- 
+
 
 import { addCustomersByFormState } from './submitForm';
 
@@ -10,12 +10,8 @@ describe('Submit', ()=> {
 
     await addCustomersByFormState(custFormStateTestData())
       .then((resp) => {
-
+        console.log(resp);
         expect(resp).toMatchSnapshot({ ok: true });
-      })
-      .catch((error) => {
-
-        expect(error).toMatchSnapshot({ ok: false });
       });
 
 

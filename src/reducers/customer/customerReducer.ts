@@ -12,7 +12,7 @@ import { validate } from '../../helpers/validations';
 
 
 const customerReducer = (state: CustomerForm, action: FieldActionType) : CustomerForm => {
-
+  console.log(state.customers[0].contacts[0].classification, 'classification');
   switch (action.type){
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);
@@ -34,17 +34,14 @@ const customerReducer = (state: CustomerForm, action: FieldActionType) : Custome
     case 'CHANGE_BIRTHYEAR':
       return changeField(state, action.payload);
 
-    case 'CHANGE_CONTACT_TEXT':
+    case 'CHANGE_CONTACT_VALUE':
       return changeContact(state, action.payload);
-
-    case 'CHANGE_CONTACT_CLASS':
-      return changeContact(state, action.payload, true);
 
     case 'SET_SAME_AS_MAIN':
       return setSameAsMain(state, action.payload);
 
     case 'SUBMIT':
-      
+
       return submitForm(state);
 
     default:

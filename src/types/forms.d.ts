@@ -19,15 +19,14 @@ export interface ContactClassification extends InputField  {
 }
 
 export interface ContactField  {
-  [key: string]: ContactClassification,
-  tel1: ContactClassification,
-  tel2: ContactClassification,
-  email: ContactClassification
+  contactType: { value: string },
+  contactValue : InputField,
+  classification: InputField
 }
 
 
 export interface CustomerBasicInformation {
-  [key: string]: InputField | ContactField | boolean,
+  [key: string]: InputField | ContactField[] | boolean,
 
   fullName: InputField,
   fullNameReading: InputField,
@@ -36,7 +35,7 @@ export interface CustomerBasicInformation {
   birthMonth : InputField,
   birthDay : InputField,
   isSameAsMain: boolean,
-  contacts : ContactField,
+  contacts : ContactField[],
   postalCode: InputField,
   address1: InputField,
   address2: InputField,
@@ -68,7 +67,7 @@ export type HandleFieldChangeFunc = (e: ElementTarget) => void;
 
 export type CustomerInstancePayload = { customerIdx : number };
 
-export interface ContactPayload extends CustomerInstancePayload { contactIdx: number, element: ElementTarget }
+export interface ContactPayload extends CustomerInstancePayload { contactIdx: number, fieldName: 'contactValue' | 'classification', value: string }
 
 // export interface FieldPayload extends CustomerInstancePayload { element: ElementTarget }
 
@@ -86,5 +85,4 @@ export type FieldActionType =
 | { type: 'SET_SAME_AS_MAIN', payload: CustomerInstancePayload }
 | { type: 'REMOVE', payload: CustomerInstancePayload }
 | { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
-| { type: 'CHANGE_CONTACT_TEXT', payload: FieldPayload }
-| { type: 'CHANGE_CONTACT_CLASS', payload: FieldPayload };
+| { type: 'CHANGE_CONTACT_VALUE', payload: ContactPayload };

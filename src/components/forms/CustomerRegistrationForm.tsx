@@ -15,6 +15,7 @@ import SeparatedBirthDatePicker from '../ui/datetimepickers/SeparatedBirthDatePi
 import CustomerField from '../ui/textfield/CustomerField';
 import { ElementTarget } from './../../types/forms';
 import ContactFieldGroup from './ContactFieldGroup';
+//import ContactFieldGroup from './ContactFieldGroup';
 
 
 
@@ -40,7 +41,6 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
   const isHideDetails = isLinkedCustomer && isSameAsMain;
 
   const handleFieldChange = (e: ElementTarget)  => dispatch({ type: 'CHANGE_CUST_INSTANCE', payload: { element: e, customerIdx: index } });
-  const handleContactFieldChange = (isClassification: boolean = false) => (e: ElementTarget)  => dispatch({ type: `CHANGE_CONTACT_${isClassification ? 'CLASS' : 'TEXT'}`, payload: { element: e, customerIdx: index } });
 
   return (
     <Box p={2}>
@@ -90,9 +90,9 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
             <CustomerField fieldname='address2' customer={customer} handleFieldChange={handleFieldChange} />
           </Grid>
 
-          <ContactFieldGroup fieldname='tel1' customer={customer} handleFieldChange={handleContactFieldChange}/>
-          <ContactFieldGroup fieldname='tel2' customer={customer} handleFieldChange={handleContactFieldChange}/>
-          <ContactFieldGroup fieldname='email' customer={customer} handleFieldChange={handleContactFieldChange}/>
+          {customer.contacts.map((_, contactIdx)=>{
+            return <ContactFieldGroup key={_.contactType.value} custIdx={index} contactIdx={contactIdx} />;
+          })}
         </>
         }
       </Grid>

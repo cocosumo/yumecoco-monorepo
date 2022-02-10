@@ -5,11 +5,10 @@ describe('Converters', ()=> {
   test('is hello', ()=> {
     expect(testFunc()).toBe('hello');
   });
-  
+
   test('returns a kintone record', ()=>{
     const fn = convertCustFormState(custFormStateTestData());
-    expect(fn[0]).toMatchSnapshot({
-      contacts: expect.any(Object),
-    });
+    console.log(fn[0].contacts);
+    expect(fn[0].contacts).toHaveProperty('value');
   });
 });

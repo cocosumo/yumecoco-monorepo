@@ -9,7 +9,9 @@ type SubmitForm = (state: CustomerForm) => CustomerForm;
 
 
 export const addCustomersByFormState = async (state: CustomerForm) : Promise<AddRecordResult> => {
-  return addCustomers(convertCustFormState(state));
+  const kintoneRecord = convertCustFormState(state);
+  console.log(kintoneRecord);
+  return addCustomers(kintoneRecord);
 };
 
 let hasError = false;
@@ -22,7 +24,7 @@ let hasError = false;
 const traverseState = (state: any) => {
 
   let newState: any;
-  
+
   if (isObject(state)){
 
     /*if field object, validate field, then pop out of the function */
@@ -40,6 +42,11 @@ const traverseState = (state: any) => {
   } else if (isArray(state)){
 
     newState = (state as any[]).map((item) => {
+      if (isField(item)){
+        const newFieldState = validate((state as InputField));
+        if (newFieldState.hasError) hasError = true;
+        return newFieldState;
+      }
       return traverseState(item);
     });
 

@@ -18,36 +18,23 @@ const initialFormState : CustomerForm = {
       address1: { label: '住所',  value: '', touched:false, hasError: true, helperText: '', isRequired: true, placeholder: '愛知県豊川市千歳通３丁目' },
       address2: { label: '住所（番地以降）',  value: '', touched:false, hasError: false, helperText: '', isRequired: true, placeholder: '10-1'  },
 
-      contacts : {
-        tel1: {
-          label: '電話番号１',
-          value: '',
-          classification: { label: '種別', value: '', touched:false, hasError: false, helperText: '', isRequired: true },
-          touched: false,
-          hasError: false,
-          helperText: '',
-          isRequired: true,
-          inputType: 'tel',
+      contacts : [
+        {
+          contactType: { value: '電話番号１' },
+          contactValue: { label: '電話番号1',  value: '', touched:false, hasError: false, helperText: '', isRequired: true, placeholder: '07014529707', inputType: 'tel'  },
+          classification: { label: '種別',  value: '', touched:false, hasError: false, helperText: '', isRequired: true },
         },
-        tel2 :{
-          label: '電話番号',
-          value: '',
-          classification: { label: '種別', value: '', touched:false, hasError: false, helperText: '' },
-          touched: false,
-          hasError: false,
-          helperText: '',
-          inputType: 'tel',
+        {
+          contactType: { value: '電話番号２' },
+          contactValue: { label: '電話番号２',  value: '', touched:false, hasError: false, helperText: '', isRequired: false, placeholder: '07014529707', inputType: 'tel'  },
+          classification: { label: '種別',  value: '', touched:false, hasError: false, helperText: '', isRequired: false },
         },
-        email:{
-          label: 'メール',
-          value: '',
-          classification: { label: '種別', value: '', touched:false, hasError: false, helperText: '' },
-          touched: false,
-          hasError: false,
-          helperText: '',
-          inputType: 'email',
+        {
+          contactType: { value: 'メールアドレス' },
+          contactValue: { label: 'メールアドレス',  value: '', touched:false, hasError: false, helperText: '', isRequired: false, placeholder: 'info@cocosumo.net', inputType: 'email'  },
+          classification: { label: '種別',  value: '', touched:false, hasError: false, helperText: '', isRequired: false },
         },
-      },
+      ],
     },
   ],
   store:  { label: '店舗', value: '', touched:false, hasError: true, helperText: '', isRequired: true },

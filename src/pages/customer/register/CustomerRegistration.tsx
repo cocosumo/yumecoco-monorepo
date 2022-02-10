@@ -11,7 +11,7 @@ import CustomerRegistrationFormInstance from '../../../components/forms/Customer
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import React, { useReducer } from 'react';
 import AgentsForm from '../../../components/forms/AgentsForm';
-import Notes from './../../../components/lists/Notes';
+// import Notes from './../../../components/lists/Notes';
 
 import customerReducer from '../../../reducers/customer/customerReducer';
 import initialFormState from '../../../stores/customer';
@@ -54,9 +54,9 @@ export default function CustomerRegistration() {
         <Grid item md={3}>
           <AgentsForm />
         </Grid>
-        <Grid item md={3}>
+        {/* <Grid item md={3}>
           <Notes />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}><Divider /></Grid>
         <Grid container item md={4} justifyContent="center">
           <Button size="large" variant="contained" color="primary" type="submit" startIcon={<SaveAltIcon />}>

@@ -21,10 +21,11 @@ export const changeContact: Action = (state, payload) =>  {
       if (idx === payload.customerIdx){
         return { ...customer, contacts: [
           ...customer.contacts.map((contact, cIdx)=>{
+            console.log(cIdx, payload.contactIdx );
             if (cIdx === payload.contactIdx){
               return { ...contact, [payload.fieldName]: validate({ ...contact[payload.fieldName], value: payload.value }) };
             }
-            return contact;
+            return { ...contact };
           })] };
       }
       return customer;

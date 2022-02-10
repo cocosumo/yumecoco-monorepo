@@ -21,7 +21,7 @@ export const changeContact: Action = (state, payload) =>  {
       if (idx === payload.customerIdx){
         return { ...customer, contacts: [
           ...customer.contacts.map((contact, cIdx)=>{
-            if (cIdx === payload.customerIdx){
+            if (cIdx === payload.contactIdx){
               return { ...contact, [payload.fieldName]: validate({ ...contact[payload.fieldName], value: payload.value }) };
             }
             return contact;

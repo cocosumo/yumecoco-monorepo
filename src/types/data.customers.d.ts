@@ -13,18 +13,18 @@ declare namespace CustomerTypes {
     birthYear: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
-          agentType: kintone.fieldTypes.DropDown;
+          agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
         };
       }[];
     };
     contacts: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {

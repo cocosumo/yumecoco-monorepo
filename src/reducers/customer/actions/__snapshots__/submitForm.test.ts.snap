@@ -5,11 +5,11 @@ Object {
   "ok": true,
   "result": Object {
     "ids": Array [
-      "60",
+      "71",
     ],
     "records": Array [
       Object {
-        "id": "60",
+        "id": "71",
         "revision": "1",
       },
     ],

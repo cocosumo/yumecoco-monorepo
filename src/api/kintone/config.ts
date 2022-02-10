@@ -1,5 +1,5 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
-import { BASE_URL, CUSTOMERS_APITOKEN, STORES_APITOKEN, EMPLOYEES_TOKEN } from './helpers/contants';
+import { BASE_URL, CUSTOMERS_APITOKEN, STORES_APITOKEN, EMPLOYEES_TOKEN } from './helpers/constants';
 import { isBrowser } from '../../helpers/utils';
 
 /* Use session authentication */
@@ -10,6 +10,7 @@ const options = {
     apiToken: [CUSTOMERS_APITOKEN, STORES_APITOKEN, EMPLOYEES_TOKEN],
   },
 };
+
 
 const KintoneClient = new KintoneRestAPIClient(  options,
 );

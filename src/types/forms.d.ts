@@ -69,8 +69,6 @@ export type CustomerInstancePayload = { customerIdx : number };
 
 export interface ContactPayload extends CustomerInstancePayload { contactIdx: number, fieldName: 'contactValue' | 'classification', value: string }
 
-// export interface FieldPayload extends CustomerInstancePayload { element: ElementTarget }
-
 export type FieldPayload = BasicField & CustomerInstancePayload;
 
 export interface BasicField { element: ElementTarget }

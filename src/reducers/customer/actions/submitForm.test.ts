@@ -10,7 +10,7 @@ describe('Submit', ()=> {
 
     await addCustomersByFormState(custFormStateTestData())
       .then((resp) => {
-        console.log(resp);
+        console.log(resp, 'ERES');
         expect(resp).toMatchSnapshot({ ok: true });
       });
 

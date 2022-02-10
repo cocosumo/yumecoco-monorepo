@@ -10,7 +10,6 @@ type SubmitForm = (state: CustomerForm) => CustomerForm;
 
 export const addCustomersByFormState = async (state: CustomerForm) : Promise<AddRecordResult> => {
   const kintoneRecord = convertCustFormState(state);
-  console.log(kintoneRecord);
   return addCustomers(kintoneRecord);
 };
 

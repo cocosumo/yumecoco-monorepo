@@ -14,7 +14,6 @@ export const custFormStateTestData = (): CustomerForm => {
     customers:
       [
         {
-          custId: '',
           fullName: { label: '氏名', value: `${faker.name.lastName()}　${faker.name.firstName()}`, touched: false, hasError: true, helperText: '', placeholder: '高橋　加奈', isRequired: true },
           fullNameReading: { label: 'シメイ', value: 'テスト　テスト', touched: false, hasError: true, helperText: '', placeholder: 'タカハシ　カナ', isRequired: true },
           gender: { label: '性別', value: faker.random.arrayElement(['男性', '女性']), touched: false, hasError: false, helperText: '' },

@@ -28,8 +28,6 @@ export interface ContactField {
 export interface CustomerBasicInformation {
   [key: string]: InputField | ContactField[] | boolean | string | undefined,
 
-  custId?: string,
-  revision?: string,
   fullName: InputField,
   fullNameReading: InputField,
   gender: InputField,
@@ -54,8 +52,6 @@ export interface PersonsInCharge {
 export interface CustomerForm {
   isSubmitted: boolean,
   hasError: boolean,
-  groupId?: string,
-  revision?: string,
   customers: CustomerBasicInformation[],
   store: InputField,
   agents: PersonsInCharge

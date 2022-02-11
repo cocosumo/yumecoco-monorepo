@@ -1,27 +1,42 @@
 import { isField } from './utils';
 import { CustomerForm, ContactField, InputField, PersonsInCharge } from './../types/forms';
 
-
-const convertContactsObj = (stateContacts : ContactField[]) : Omit<CustomerTypes.Data['contacts'], 'type'> => {
-
+export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['members'] => {
   return {
-    value: stateContacts.map((item)=>{
+    type: 'SUBTABLE',
+    value: ids.map(item => {
+      return {
+        id: '',
+        value: {
+          customerId: { value: item },
+          customerName: { value: '' },
+        },
+      };
+    }),
+  };
+};
+
+const convertContactsObj = (stateContacts: ContactField[]): CustomerTypes.Data['contacts'] => {
+  return {
+    type: 'SUBTABLE',
+    value: stateContacts.map((item) => {
       return {
         id: '',
         value: {
           contactType: { value: item.contactType.value },
           contactValue: { value: item.contactValue.value },
-          classification : { value: item.classification.value },
-        } };
+          classification: { value: item.classification.value },
+        },
+      };
     }),
   };
 };
 
-const convertAgentsObj = (agents : PersonsInCharge) : CustomerTypes.Data['agents'] => {
+const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents'] => {
   return {
     type: 'SUBTABLE',
     value: Object.values(agents).reduce((prev, curr) => {
-      if (curr.value.length !== 0){
+      if (curr.value.length !== 0) {
 
         return prev.concat([{
           id: '',
@@ -38,36 +53,35 @@ const convertAgentsObj = (agents : PersonsInCharge) : CustomerTypes.Data['agents
   };
 };
 
-export const convertCustFormState = (state: CustomerForm) : Partial<CustomerTypes.SavedData>[] => {
+export const convertCustFormState = (state: CustomerForm): { customers: Partial<CustomerTypes.SavedData>[], group: Partial<CustomerGroupTypes.Data> } => {
 
+  const groupRecord = {
+    storeId: { value: state.store.value },
+    agents: convertAgentsObj(state.agents as PersonsInCharge),
+  };
 
-  const kintoneRecord = state.customers.map((cust) => {
-
-    const initialReduceState = {
-      store: { value: state.store.value },
-      agents: convertAgentsObj(state.agents as PersonsInCharge),
-    };
+  const customerRecords = state.customers.map((cust) => {
 
 
     return Object.entries(cust).reduce((prev, curr) => {
       const [fieldName, value] = curr;
-      if (isField(value)){
+      if (isField(value)) {
         return { ...prev, [fieldName]: { value: (value as InputField).value } };
       }
 
-      switch (fieldName){
+      switch (fieldName) {
         case 'contacts':
-          return { ...prev, [fieldName] : convertContactsObj(value as ContactField[])  };
+          return { ...prev, [fieldName]: convertContactsObj(value as ContactField[]) };
 
       }
 
       return prev;
 
-    }, initialReduceState);
+    }, {});
   });
 
 
-  return kintoneRecord;
+  return { customers: customerRecords, group: groupRecord };
 };
 
 export const testFunc = () => {

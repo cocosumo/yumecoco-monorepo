@@ -8,34 +8,36 @@ export interface InputField {
   hasError: boolean,
   helperText: string,
   placeholder?: string,
-  isRequired?:boolean,
+  isRequired?: boolean,
   inputType?: PatternType,
   infoText?: string,
   isDisabled?: boolean
 }
 
-export interface ContactClassification extends InputField  {
+export interface ContactClassification extends InputField {
   classification: InputField
 }
 
-export interface ContactField  {
+export interface ContactField {
   contactType: { value: string },
-  contactValue : InputField,
+  contactValue: InputField,
   classification: InputField
 }
 
 
 export interface CustomerBasicInformation {
-  [key: string]: InputField | ContactField[] | boolean,
+  [key: string]: InputField | ContactField[] | boolean | string | undefined,
 
+  custId?: string,
+  revision?: string,
   fullName: InputField,
   fullNameReading: InputField,
   gender: InputField,
   birthYear: InputField,
-  birthMonth : InputField,
-  birthDay : InputField,
+  birthMonth: InputField,
+  birthDay: InputField,
   isSameAsMain: boolean,
-  contacts : ContactField[],
+  contacts: ContactField[],
   postalCode: InputField,
   address1: InputField,
   address2: InputField,
@@ -52,20 +54,22 @@ export interface PersonsInCharge {
 export interface CustomerForm {
   isSubmitted: boolean,
   hasError: boolean,
-  customers : CustomerBasicInformation[],
+  groupId?: string,
+  revision?: string,
+  customers: CustomerBasicInformation[],
   store: InputField,
   agents: PersonsInCharge
 }
 
 export interface ElementTarget {
-  target :  { name: string, value: string }
+  target: { name: string, value: string }
 }
 
-export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ;
+export type InputChangeType = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
 export type HandleFieldChangeFunc = (e: ElementTarget) => void;
 
-export type CustomerInstancePayload = { customerIdx : number };
+export type CustomerInstancePayload = { customerIdx: number };
 
 export interface ContactPayload extends CustomerInstancePayload { contactIdx: number, fieldName: 'contactValue' | 'classification', value: string }
 
@@ -74,13 +78,13 @@ export type FieldPayload = BasicField & CustomerInstancePayload;
 export interface BasicField { element: ElementTarget }
 
 export type FieldActionType =
-| { type: 'CHANGE_CUST_INSTANCE', payload: FieldPayload }
-| { type: 'CHANGE_AGENT', payload: BasicField }
-| { type: 'CHANGE_STORE', payload: BasicField }
-| { type: 'SELECT_CHANGE', payload: FieldPayload }
-| { type: 'ADD' }
-| { type: 'SUBMIT' }
-| { type: 'SET_SAME_AS_MAIN', payload: CustomerInstancePayload }
-| { type: 'REMOVE', payload: CustomerInstancePayload }
-| { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
-| { type: 'CHANGE_CONTACT_VALUE', payload: ContactPayload };
+  | { type: 'CHANGE_CUST_INSTANCE', payload: FieldPayload }
+  | { type: 'CHANGE_AGENT', payload: BasicField }
+  | { type: 'CHANGE_STORE', payload: BasicField }
+  | { type: 'SELECT_CHANGE', payload: FieldPayload }
+  | { type: 'ADD' }
+  | { type: 'SUBMIT' }
+  | { type: 'SET_SAME_AS_MAIN', payload: CustomerInstancePayload }
+  | { type: 'REMOVE', payload: CustomerInstancePayload }
+  | { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
+  | { type: 'CHANGE_CONTACT_VALUE', payload: ContactPayload };

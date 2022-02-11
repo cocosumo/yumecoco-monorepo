@@ -5,3 +5,5 @@ export const CUSTOMERS_APITOKEN = process.env.CUSTOMERS_APITOKEN;
 export const EMPLOYEES_TOKEN = process.env.EMPLOYEES_APITOKEN;
 
 export const STORES_APITOKEN = process.env.STORES_APITOKEN;
+
+export const CUST_GROUP_APITOKEN = process.env.CUST_GROUP_APITOKEN;

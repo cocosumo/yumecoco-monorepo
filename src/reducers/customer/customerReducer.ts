@@ -11,9 +11,9 @@ import changeAgent from './actions/changeAgent';
 import { validate } from '../../helpers/validations';
 
 
-const customerReducer = (state: CustomerForm, action: FieldActionType) : CustomerForm => {
+const customerReducer = (state: CustomerForm, action: FieldActionType): CustomerForm => {
   console.log(state.customers[0].contacts[0].classification, 'classification');
-  switch (action.type){
+  switch (action.type) {
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);
 
@@ -24,7 +24,7 @@ const customerReducer = (state: CustomerForm, action: FieldActionType) : Custome
       return changeField(state, action.payload);
 
     case 'ADD':
-      return { ...state, customers: [...state.customers.concat(initialFormState.customers) ] };
+      return { ...state, customers: [...state.customers.concat(initialFormState.customers)] };
     case 'REMOVE':
       return removeCustomer(state, action.payload);
 

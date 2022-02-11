@@ -1,4 +1,4 @@
-import { Route, Routes, RouteMatch, useParams } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import CustomerRegistration from './customer/register/CustomerRegistration';
 import UnderConstruction from './UnderConstruction';
 
@@ -10,10 +10,9 @@ import UnderConstruction from './UnderConstruction';
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
 
-const TestComponent = () => {
-  const params = useParams();
-  return <>Success {params.id} </>;
-};
+// RouteMatch, useParams : TS access to dynamic route
+
+
 
 const Router = () => (
   <main>
@@ -21,7 +20,7 @@ const Router = () => (
       <Route path="/" element={<UnderConstruction />} />
       <Route path="/customer/register" element={<CustomerRegistration />} />
       
-      <Route path="/test/:id" element={<TestComponent />} />
+      <Route path="/test/:id" element={<CustomerRegistration />} />
     </Routes>
   </main>
 );

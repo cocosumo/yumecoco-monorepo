@@ -21,11 +21,11 @@ import CustomerFormContext from '../../../context/CustomerFormContext';
 export default function CustomerRegistration() {
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
 
-  const providerState = {
-    formState, dispatch,
-  };
+  const stateProvider = { formState, dispatch };
 
   const maxCustomers = 3;
+
+  console.log('RELOSADED', formState);
 
 
   const handleSubmit = (e : React.FormEvent<HTMLFormElement> ) => {
@@ -36,7 +36,7 @@ export default function CustomerRegistration() {
   const isMaxCustomers = formState.customers.length >= maxCustomers;
 
   return (
-    <CustomerFormContext.Provider value={providerState}>
+    <CustomerFormContext.Provider value={stateProvider}>
       <form noValidate onSubmit={handleSubmit}>
       <Grid container spacing={2} overflow="auto" justifyContent="center">
         <Grid item xs={12} p={2} sx={{ backgroundColor: '#9CDAF9' }}>

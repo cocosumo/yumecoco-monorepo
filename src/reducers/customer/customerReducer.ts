@@ -12,7 +12,7 @@ import { validate } from '../../helpers/validations';
 
 
 const customerReducer = (state: CustomerForm, action: FieldActionType): CustomerForm => {
-  console.log(state.customers[0].contacts[0].classification, 'classification');
+  console.log(state);
   switch (action.type) {
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);

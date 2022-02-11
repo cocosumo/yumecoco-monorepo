@@ -1,5 +1,4 @@
-import { isField } from './utils';
-import { CustomerForm, ContactField, InputField, PersonsInCharge } from './../types/forms';
+import { CustomerForm, ContactField, PersonsInCharge } from './../types/forms';
 
 export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['members'] => {
   return {
@@ -53,31 +52,37 @@ const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents']
   };
 };
 
-export const convertCustFormState = (state: CustomerForm): { customers: Partial<CustomerTypes.SavedData>[], group: Partial<CustomerGroupTypes.Data> } => {
+export const convertCustFormState = (state: CustomerForm) => {
+
+  const mainCustomer = state.customers[0];
+  const mainContacts = convertContactsObj(mainCustomer.contacts);
+  const mainAgents = convertAgentsObj(state.agents);
 
   const groupRecord = {
-    storeId: { value: state.store.value },
-    agents: convertAgentsObj(state.agents as PersonsInCharge),
+    store: { value: state.store.value },
+    agents: mainAgents,
   };
 
+
   const customerRecords = state.customers.map((cust) => {
+    const { fullName, fullNameReading, birthYear, birthMonth, birthDay, postalCode, address1, address2, contacts, gender, isSameAsMain } = cust;
 
 
-    return Object.entries(cust).reduce((prev, curr) => {
-      const [fieldName, value] = curr;
-      if (isField(value)) {
-        return { ...prev, [fieldName]: { value: (value as InputField).value } };
-      }
+    return {
 
-      switch (fieldName) {
-        case 'contacts':
-          return { ...prev, [fieldName]: convertContactsObj(value as ContactField[]) };
+      fullName: { value: fullName.value },
+      fullNameReading: { value: fullNameReading.value },
+      gender: { value: gender.value },
+      birthYear: { value: birthYear.value },
+      birthMonth: { value: birthMonth.value },
+      birthDay: { value: birthDay.value },
+      postalCode: { value: isSameAsMain ? mainCustomer.postalCode.value : postalCode.value },
+      address1: { value: isSameAsMain ? mainCustomer.address1.value : address1.value },
+      address2: { value: isSameAsMain ? mainCustomer.address2.value : address2.value },
+      contacts: isSameAsMain ? mainContacts : convertContactsObj(contacts),
 
-      }
+    };
 
-      return prev;
-
-    }, {});
   });
 
 

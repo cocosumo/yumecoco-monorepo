@@ -28,6 +28,9 @@ export const addCustomer = async (record : RecordParam = {}) : Promise<AddRecord
  */
 export const addCustomers  = async (records : RecordParam[]) : Promise<AddRecordsResult> => {
 
+  await KintoneRecord.addRecords({ app: APP_ID, records });
+
+
   try {
     return {
       ok: true,

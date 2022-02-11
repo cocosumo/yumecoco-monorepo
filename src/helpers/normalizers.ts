@@ -1,10 +1,10 @@
-import { isField } from './utils';
-import { CustomerForm, ContactField, InputField, PersonsInCharge } from './../types/forms';
+import { CustomerForm, ContactField, PersonsInCharge } from './../types/forms';
 
 
-const convertContactsObj = (stateContacts : ContactField[]) : Omit<CustomerTypes.Data['contacts'], 'type'> => {
+const convertContactsObj = (stateContacts : ContactField[]) : CustomerTypes.Data['contacts'] => {
 
   return {
+    type:'SUBTABLE',
     value: stateContacts.map((item)=>{
       return {
         id: '',
@@ -40,34 +40,40 @@ const convertAgentsObj = (agents : PersonsInCharge) : CustomerTypes.Data['agents
 
 export const convertCustFormState = (state: CustomerForm) : Partial<CustomerTypes.SavedData>[] => {
 
+  const mainCustomer = state.customers[0];
+  const mainContacts = convertContactsObj(mainCustomer.contacts); 
+  const mainAgents = convertAgentsObj(state.agents);
+
+  const commonFields = {
+    store: { value: state.store.value },
+    agents: mainAgents,
+  };
+
 
   const kintoneRecord = state.customers.map((cust) => {
+    const { fullName, fullNameReading, birthYear, birthMonth, birthDay, postalCode, address1, address2, contacts, gender, isSameAsMain } = cust;
+  
 
-    const initialReduceState = {
-      store: { value: state.store.value },
-      agents: convertAgentsObj(state.agents as PersonsInCharge),
+    return { ...cust, 
+      fullName: { value: fullName.value },
+      fullNameReading: { value: fullNameReading.value },
+      gender: { value: gender.value },
+      birthYear: { value: birthYear.value },
+      birthMonth: { value: birthMonth.value },
+      birthDay: { value: birthDay.value },
+      postalCode: { value: isSameAsMain ? mainCustomer.postalCode.value : postalCode.value },
+      address1: { value: isSameAsMain ? mainCustomer.address1.value : address1.value },
+      address2: { value: isSameAsMain ? mainCustomer.address2.value : address2.value },
+      contacts: isSameAsMain ? mainContacts : convertContactsObj(contacts),
+      ...commonFields,
+
     };
 
-
-    return Object.entries(cust).reduce((prev, curr) => {
-      const [fieldName, value] = curr;
-      if (isField(value)){
-        return { ...prev, [fieldName]: { value: (value as InputField).value } };
-      }
-
-      switch (fieldName){
-        case 'contacts':
-          return { ...prev, [fieldName] : convertContactsObj(value as ContactField[])  };
-
-      }
-
-      return prev;
-
-    }, initialReduceState);
   });
 
 
   return kintoneRecord;
+
 };
 
 export const testFunc = () => {

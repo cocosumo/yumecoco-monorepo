@@ -16,10 +16,11 @@ interface Result {
   agentForm: PersonsInCharge,
   isSubmitted: boolean,
   groupedEmpOptions : GroupedEmpOptions,
+  isWithCocoAgents: boolean,
   dispatch: (action: FieldActionType) => void
 }
 
-const initialEmpOptions: GroupedEmpOptions = { coco: [], yume: [] }; 
+const initialEmpOptions: GroupedEmpOptions = { coco: [], yume: [] };
 
 type UseCustFormAgentsFunc = () => Result;
 
@@ -52,7 +53,7 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
 
           return { ...prev, ...{ [group]: prev[group].concat({ label: empName.value, value: $id.value }) } };
         }
-        
+
         return prev;
       }, initialEmpOptions));
     }
@@ -69,6 +70,7 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
       coco: empOptions.coco,
       yume: empOptions.yume,
     },
+    isWithCocoAgents: empOptions.coco.length > 0,
     dispatch,
   };
 };

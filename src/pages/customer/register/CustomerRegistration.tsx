@@ -6,31 +6,53 @@ import {
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-
 import CustomerRegistrationFormInstance from '../../../components/forms/CustomerRegistrationFormInstance';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import AgentsForm from '../../../components/forms/AgentsForm';
-// import Notes from './../../../components/lists/Notes';
 
 import customerReducer from '../../../reducers/customer/customerReducer';
 import initialFormState from '../../../stores/customer';
 import CustomerFormContext from '../../../context/CustomerFormContext';
+import addTransactCustomers from '../../../reducers/customer/actions/addTransactCustomers';
+import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
+
 
 /* Main Form */
 export default function CustomerRegistration() {
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
+  const [snack, setSnack] = useState({ open: false });
 
   const stateProvider = { formState, dispatch };
-
+  const { submitState, hasError, isSubmitted } = formState;
   const maxCustomers = 3;
 
-  console.log('RELOSADED', formState);
+  useEffect(()=>{
+    if (submitState === 'VALIDATE' && !hasError){
+      setSnack({ open: true });
+      addTransactCustomers(formState)
+        .then((resp)=>{
+          console.log('Success', resp);
+          dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'SUCCESS' } });
+          setSnack({ open: true });
+        })
+        .catch((resp) => {
+          console.log('Server error:', resp);
+          dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCH_ERROR' } });
+          setSnack({ open: true });
+        });
+    } else if (hasError && isSubmitted)  {
+      setSnack({ open: true });
+      dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE_ERROR' } });
+    }
 
+  }, [submitState, hasError]);
 
   const handleSubmit = (e : React.FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
-    dispatch({ type: 'SUBMIT' });
+    dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
+    setSnack({ open: true });
+
   };
 
   const isMaxCustomers = formState.customers.length >= maxCustomers;
@@ -65,6 +87,7 @@ export default function CustomerRegistration() {
         </Grid>
       </Grid>
       </form>
+      <CustomerFormSnack open={snack.open} handleClose={() => setSnack({ open: false })} formState={formState}/>
     </CustomerFormContext.Provider>
   );
 }

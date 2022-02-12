@@ -59,7 +59,7 @@ export const convertCustFormState = (state: CustomerForm) => {
   const mainAgents = convertAgentsObj(state.agents);
 
   const groupRecord = {
-    store: { value: state.store.value },
+    storeId: { value: state.store.value },
     agents: mainAgents,
   };
 

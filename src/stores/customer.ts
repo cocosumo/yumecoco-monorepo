@@ -1,6 +1,7 @@
 import { CustomerForm } from '../types/forms';
 
 const initialFormState: CustomerForm = {
+  submitState: 'EDITTING',
   hasError: true,
   isSubmitted: false,
   customers:

@@ -9,6 +9,7 @@ export const custFormStateTestData = (): CustomerForm => {
   const birthDay = faker.date.between('1920/01/01', '1988/01/01');
 
   return ({
+    submitState: 'EDITTING',
     hasError: true,
     isSubmitted: false,
     customers:

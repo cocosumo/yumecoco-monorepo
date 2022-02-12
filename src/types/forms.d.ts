@@ -49,7 +49,11 @@ export interface PersonsInCharge {
   yume2: InputField,
 }
 
+type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS';
+type SubmitPayload = { submitState: SubmitStatus };
+
 export interface CustomerForm {
+  submitState: SubmitStatus,
   isSubmitted: boolean,
   hasError: boolean,
   customers: CustomerBasicInformation[],
@@ -79,7 +83,8 @@ export type FieldActionType =
   | { type: 'CHANGE_STORE', payload: BasicField }
   | { type: 'SELECT_CHANGE', payload: FieldPayload }
   | { type: 'ADD' }
-  | { type: 'SUBMIT' }
+  | { type: 'CHANGE_SUBMITSTATE', payload: SubmitPayload }
+  | { type: 'SUBMIT' | 'VALIDATE' }
   | { type: 'SET_SAME_AS_MAIN', payload: CustomerInstancePayload }
   | { type: 'REMOVE', payload: CustomerInstancePayload }
   | { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }

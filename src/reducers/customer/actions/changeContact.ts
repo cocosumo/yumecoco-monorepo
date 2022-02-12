@@ -1,17 +1,15 @@
-// import  { validate } from '../../../helpers/validations';
 import { validate } from '../../../helpers/validations';
 import { ContactPayload, CustomerForm } from '../../../types/forms';
 
 
 
-type Action = (state: CustomerForm, payload: ContactPayload, isClassification?: boolean) => CustomerForm;
+type Action = (state: CustomerForm, payload: ContactPayload) => CustomerForm;
 
 /**
  * Updates both text, and classification state of contact instance. See type definition for details
  *
  * @param state
  * @param payload
- * @param isClassification
  * @returns
  */
 export const changeContact: Action = (state, payload) =>  {

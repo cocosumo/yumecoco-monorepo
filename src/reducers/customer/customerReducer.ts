@@ -9,6 +9,7 @@ import setSameAsMain from './actions/setSameAsMain';
 import submitForm from './actions/submitForm';
 import changeAgent from './actions/changeAgent';
 import { validate } from '../../helpers/validations';
+import changeSubmitState from './actions/changeSubmitState';
 
 
 const customerReducer = (state: CustomerForm, action: FieldActionType): CustomerForm => {
@@ -41,8 +42,13 @@ const customerReducer = (state: CustomerForm, action: FieldActionType): Customer
       return setSameAsMain(state, action.payload);
 
     case 'SUBMIT':
-
       return submitForm(state);
+
+    case 'CHANGE_SUBMITSTATE':
+      return changeSubmitState(state, action.payload);
+
+    case 'VALIDATE' :
+      console.log('validating');
 
     default:
       throw new Error('わざとエラーです。Lenz! Fix this! lenzras@gmail.com');

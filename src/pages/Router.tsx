@@ -19,8 +19,7 @@ const Router = () => (
     <Routes>
       <Route path="/" element={<UnderConstruction />} />
       <Route path="/customer/register" element={<CustomerRegistration />} />
-      
-      <Route path="/test/:id" element={<CustomerRegistration />} />
+      <Route path="/group/:id" element={<CustomerRegistration />} />
     </Routes>
   </main>
 );

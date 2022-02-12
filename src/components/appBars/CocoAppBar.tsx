@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import Toolbar from '@mui/material/Toolbar';
 import CocoLogo from './../../assets/logo-cocosumo-system.png';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface CocoAppBarProps extends Props {
   handleDrawerToggle: any,
@@ -19,13 +19,13 @@ interface CocoAppBarProps extends Props {
  * @deprecated
  *
  */
-const CocoAppBar = ({handleDrawerToggle, drawerWidth}: CocoAppBarProps) => {
+const CocoAppBar = ({ handleDrawerToggle, drawerWidth }: CocoAppBarProps) => {
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: {sm: `calc(100% - ${drawerWidth}px)`},
-        ml: {sm: `${drawerWidth}px`},
+        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        ml: { sm: `${drawerWidth}px` },
       }}
     >
       <Toolbar>
@@ -34,7 +34,7 @@ const CocoAppBar = ({handleDrawerToggle, drawerWidth}: CocoAppBarProps) => {
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{mr: 2, display: {sm: 'none'}}}
+          sx={{ mr: 2, display: { sm: 'none' } }}
         >
           <MenuIcon />
         </IconButton>

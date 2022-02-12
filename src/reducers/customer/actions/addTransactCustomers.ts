@@ -5,6 +5,11 @@ import { addCustomersInGroup } from '../../../api/kintone/transactions/addCustom
 const addTransactCustomers = async (state: CustomerGroupForm) => {
   const kintoneRecord = convertCustFormState(state);
 
+  if (state.groupId != undefined){
+    console.log('JUST UPDATE');
+
+
+  }
 
 
   return addCustomersInGroup(kintoneRecord);

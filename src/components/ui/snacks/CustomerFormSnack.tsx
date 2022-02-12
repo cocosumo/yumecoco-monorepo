@@ -1,11 +1,11 @@
 
 import { Alert, AlertColor, Snackbar } from '@mui/material';
-import { CustomerForm } from '../../../types/forms';
+import { CustomerGroupForm } from '../../../types/forms';
 
 interface CustomerFormSnackProps {
   open: boolean,
   handleClose: ()=>void,
-  formState: CustomerForm
+  formState: CustomerGroupForm
 }
 
 const CustomerFormSnack : React.FC<CustomerFormSnackProps> = ({ open, handleClose, formState }) => {

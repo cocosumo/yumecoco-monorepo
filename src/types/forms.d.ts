@@ -1,4 +1,6 @@
 
+import { AddCustomersInGroupResult } from '../api/kintone/transactions/addCustomersInGroup';
+
 type PatternType = 'email' | 'tel' | 'postal';
 
 export interface InputField {
@@ -27,7 +29,8 @@ export interface ContactField {
 
 export interface CustomerBasicInformation {
   [key: string]: InputField | ContactField[] | boolean | string | undefined,
-
+  custId?: string,
+  revision?: string,
   fullName: InputField,
   fullNameReading: InputField,
   gender: InputField,
@@ -50,9 +53,11 @@ export interface PersonsInCharge {
 }
 
 type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS';
-type SubmitPayload = { submitState: SubmitStatus };
+type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: AddCustomersInGroupResult };
 
-export interface CustomerForm {
+export interface CustomerGroupForm {
+  groupId?: string,
+  revision?: string,
   submitState: SubmitStatus,
   isSubmitted: boolean,
   hasError: boolean,

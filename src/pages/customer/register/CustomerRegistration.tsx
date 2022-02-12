@@ -18,11 +18,15 @@ import addTransactCustomers from '../../../reducers/customer/actions/addTransact
 import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
 
 
+import { useNavigate } from 'react-router-dom';
+
+
+
 /* Main Form */
 export default function CustomerRegistration() {
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
   const [snack, setSnack] = useState({ open: false });
-
+  const navigate = useNavigate();
   const stateProvider = { formState, dispatch };
   const { submitState, hasError, isSubmitted } = formState;
   const maxCustomers = 3;
@@ -33,8 +37,9 @@ export default function CustomerRegistration() {
       addTransactCustomers(formState)
         .then((resp)=>{
           console.log('Success', resp);
-          dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'SUCCESS' } });
+          dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'SUCCESS', fetchResponse: resp } });
           setSnack({ open: true });
+          navigate(`/custgroup/${resp.group.id}/edit`);
         })
         .catch((resp) => {
           console.log('Server error:', resp);

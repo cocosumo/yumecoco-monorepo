@@ -1,6 +1,6 @@
-import { CustomerForm, CustomerInstancePayload } from '../../../types/forms';
+import { CustomerGroupForm, CustomerInstancePayload } from '../../../types/forms';
 
-type SetSameAsMain = (state: CustomerForm, payload: CustomerInstancePayload) => CustomerForm;
+type SetSameAsMain = (state: CustomerGroupForm, payload: CustomerInstancePayload) => CustomerGroupForm;
 
 const setSameAsMain: SetSameAsMain = (state, payload) => {
 

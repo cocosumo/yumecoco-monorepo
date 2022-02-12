@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { CustomerForm } from './../../types/forms';
+import { CustomerGroupForm } from './../../types/forms';
 import { faker } from '@faker-js/faker';
 faker.locale = 'ja';
 
 
-export const custFormStateTestData = (): CustomerForm => {
+export const custFormStateTestData = (): CustomerGroupForm => {
 
   const birthDay = faker.date.between('1920/01/01', '1988/01/01');
 

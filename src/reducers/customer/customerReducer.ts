@@ -1,4 +1,4 @@
-import { CustomerForm, FieldActionType } from './../../types/forms';
+import { CustomerGroupForm, FieldActionType } from './../../types/forms';
 
 
 import initialFormState from '../../stores/customer';
@@ -12,7 +12,7 @@ import { validate } from '../../helpers/validations';
 import changeSubmitState from './actions/changeSubmitState';
 
 
-const customerReducer = (state: CustomerForm, action: FieldActionType): CustomerForm => {
+const customerReducer = (state: CustomerGroupForm, action: FieldActionType): CustomerGroupForm => {
   console.log(state);
   switch (action.type) {
     case 'CHANGE_AGENT':

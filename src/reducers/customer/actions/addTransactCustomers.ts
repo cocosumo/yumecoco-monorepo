@@ -1,10 +1,13 @@
-import { CustomerForm } from './../../../types/forms';
+import { CustomerGroupForm } from './../../../types/forms';
 import { convertCustFormState } from '../../../helpers/normalizers';
-import { addCustomersWithGroup } from '../../../api/kintone/transactions/addCustomersWithGroup';
+import { addCustomersInGroup } from '../../../api/kintone/transactions/addCustomersInGroup';
 
-const addTransactCustomers = async (state: CustomerForm) => {
+const addTransactCustomers = async (state: CustomerGroupForm) => {
   const kintoneRecord = convertCustFormState(state);
-  return addCustomersWithGroup(kintoneRecord);
+
+
+
+  return addCustomersInGroup(kintoneRecord);
 
 };
 

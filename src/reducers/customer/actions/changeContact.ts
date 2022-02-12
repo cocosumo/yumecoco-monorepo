@@ -1,9 +1,9 @@
 import { validate } from '../../../helpers/validations';
-import { ContactPayload, CustomerForm } from '../../../types/forms';
+import { ContactPayload, CustomerGroupForm } from '../../../types/forms';
 
 
 
-type Action = (state: CustomerForm, payload: ContactPayload) => CustomerForm;
+type Action = <T extends CustomerGroupForm>(state: T, payload: ContactPayload) => T;
 
 /**
  * Updates both text, and classification state of contact instance. See type definition for details

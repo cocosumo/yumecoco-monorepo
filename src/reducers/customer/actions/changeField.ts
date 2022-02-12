@@ -1,8 +1,8 @@
 import  { validate } from '../../../helpers/validations';
-import { CustomerForm, FieldPayload, InputField } from './../../../types/forms';
+import { CustomerGroupForm, FieldPayload, InputField } from './../../../types/forms';
 
 interface UpdateCustomerStateParam {
-  state: CustomerForm,
+  state: CustomerGroupForm,
   name: string,
   value: string,
   index: number
@@ -10,7 +10,7 @@ interface UpdateCustomerStateParam {
 
 
 
-type ChangeFunction = (state: CustomerForm, payload: FieldPayload ) => CustomerForm;
+type ChangeFunction = (state: CustomerGroupForm, payload: FieldPayload ) => CustomerGroupForm;
 
 
 
@@ -40,18 +40,18 @@ const changeTextField: ChangeFunction = (state, payload) => {
   const index = customerIdx;
 
   return updateCustomerState({ state, name, value, index });
-  
+
 };
 
 
-export const changeBirthYear = (state: CustomerForm, date: Date, index: number | undefined) : CustomerForm => {
+export const changeBirthYear = (state: CustomerGroupForm, date: Date, index: number | undefined) : CustomerGroupForm => {
   if (typeof index === 'undefined') return state;
 
   const year = date?.getFullYear().toString();
 
   return updateCustomerState({
-    state, 
-    name: 'birthYear', 
+    state,
+    name: 'birthYear',
     value: year ? year : '',
     index,
   });

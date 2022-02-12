@@ -1,8 +1,8 @@
-import { CustomerForm } from './../../../types/forms';
+import { CustomerGroupForm } from './../../../types/forms';
 import validateFormState from './validateFormState';
 import addTransactCustomers from './addTransactCustomers';
 
-type SubmitForm = (state: CustomerForm) => CustomerForm;
+type SubmitForm = <T extends CustomerGroupForm>(state: T) => T;
 
 /**
  * Validate then submit the form if no errors

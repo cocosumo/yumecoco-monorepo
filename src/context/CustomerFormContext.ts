@@ -1,8 +1,8 @@
 import React from 'react';
-import { CustomerForm, FieldActionType } from './../types/forms';
+import { CustomerGroupForm, FieldActionType } from './../types/forms';
 
 interface IContextProps {
-  formState: CustomerForm;
+  formState: CustomerGroupForm;
   dispatch: (action: FieldActionType) => void;
 }
 

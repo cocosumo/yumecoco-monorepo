@@ -1,6 +1,6 @@
-import { CustomerForm } from '../types/forms';
+import { CustomerGroupForm } from '../types/forms';
 
-const initialFormState: CustomerForm = {
+const initialFormState: CustomerGroupForm = {
   submitState: 'EDITTING',
   hasError: true,
   isSubmitted: false,

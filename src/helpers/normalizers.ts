@@ -1,4 +1,4 @@
-import { CustomerForm, ContactField, PersonsInCharge } from './../types/forms';
+import { CustomerGroupForm, ContactField, PersonsInCharge } from './../types/forms';
 
 export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['members'] => {
   return {
@@ -52,7 +52,7 @@ const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents']
   };
 };
 
-export const convertCustFormState = (state: CustomerForm) => {
+export const convertCustFormState = (state: CustomerGroupForm) => {
 
   const mainCustomer = state.customers[0];
   const mainContacts = convertContactsObj(mainCustomer.contacts);

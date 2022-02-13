@@ -19,11 +19,11 @@ const setKintoneRecordIds : ChangeSubmitState = (state, payload : Required<Submi
 const changeSubmitState : ChangeSubmitState = (state, payload) =>{
   switch (payload.submitState) {
     case 'VALIDATE':
-      return { ...validateFormState(state), submitState: 'VALIDATE' };
-    case 'SUCCESS':
-      console.log('SUCCESS!', payload);
-      return setKintoneRecordIds(state, payload);
+      const validatedResult  = validateFormState(state);
+      return { ...validatedResult, submitState: validatedResult.hasError ? 'VALIDATE_ERROR' : 'VALIDATE_SUCCESS' };
 
+    case 'SUCCESS':
+      return setKintoneRecordIds(state, payload);
     case 'VALIDATE_ERROR':
     case 'FETCHING':
     case 'FETCH_ERROR':

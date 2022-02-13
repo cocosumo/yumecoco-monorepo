@@ -52,7 +52,7 @@ export interface PersonsInCharge {
   yume2: InputField,
 }
 
-type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS';
+type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS';
 type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: AddCustomersInGroupResult };
 
 export interface CustomerGroupForm {

@@ -18,8 +18,6 @@ export default function UnderConstruction() {
         alt="construction"
       />
 
-
-      {/* <iframe width="100%" height="100%" src="https://rdmuhwtt6gx7.cybozu.com/k/84/edit" title="W3Schools Free Online Web Tutorials" /> */}
     </Box>
 
   );

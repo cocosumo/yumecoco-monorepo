@@ -13,7 +13,9 @@ type AddCustomersInGroup = (transactionPayload: { customers: RecordParam[], grou
 
 export const addCustomersInGroup : AddCustomersInGroup  = async (transactionPayload) => {
   const { customers, group } = transactionPayload;
+
   const resultCust = await addCustomers(customers);
+
   const resultGroup = await addCustGroup({ ...group, members: custIdsToGroupMems(resultCust.ids) });
 
   return { customers: resultCust, group: resultGroup };

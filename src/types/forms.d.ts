@@ -20,6 +20,10 @@ export interface ContactClassification extends InputField {
   classification: InputField
 }
 
+export interface StoreInputField extends InputField {
+  territory?: string | '東' | '西'
+}
+
 export interface ContactField {
   contactType: { value: string },
   contactValue: InputField,
@@ -44,6 +48,8 @@ export interface CustomerBasicInformation {
   address2: InputField,
 }
 
+
+
 export interface PersonsInCharge {
   [key: string]: InputField
   coco1: InputField,
@@ -62,7 +68,7 @@ export interface CustomerGroupForm {
   isSubmitted: boolean,
   hasError: boolean,
   customers: CustomerBasicInformation[],
-  store: InputField,
+  store: StoreInputField,
   agents: PersonsInCharge
 }
 

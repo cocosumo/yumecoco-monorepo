@@ -2,7 +2,7 @@ import { Divider, Stack, Typography } from '@mui/material';
 import useCustFormAgents from '../../hooks/useCustFormAgents';
 import { ElementTarget, InputField } from '../../types/forms';
 import BasicSelect from '../ui/selects/BasicSelect';
-import CustomerFormSelect from '../ui/selects/CustomerFormSelect';
+import AgentFormSelect from '../ui/selects/AgentFormSelect';
 
 
 export default function AgentsForm() {
@@ -15,6 +15,7 @@ export default function AgentsForm() {
     isWithCocoAgents,
     isSubmitted,
   } = useCustFormAgents();
+
 
   const handleChangeStore = (e : ElementTarget) => {
 
@@ -45,7 +46,7 @@ export default function AgentsForm() {
 
           if (fieldName.includes('2')) isDisabled = !!!(agentForm[`${group}1`].value);
 
-          return <CustomerFormSelect key={fieldName} value={value} hasError={hasError && (isSubmitted || touched)} name={fieldName} label={label} helperText={helperText + (infoText || '') } options={groupedEmpOptions[group]} isRequired={isRequired} isDisabled={isDisabled} onChange={(e) => dispatch({ type: 'CHANGE_AGENT', payload: { element: e } })} />;
+          return <AgentFormSelect key={fieldName} value={value} hasError={hasError && (isSubmitted || touched)} name={fieldName} label={label} helperText={helperText + (infoText || '') } options={groupedEmpOptions[group]} isRequired={isRequired} isDisabled={isDisabled} onChange={(e) => dispatch({ type: 'CHANGE_AGENT', payload: { element: e } })} />;
         })}
 
     </Stack>

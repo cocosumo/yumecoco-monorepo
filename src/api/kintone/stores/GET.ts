@@ -8,13 +8,13 @@ export const getAllStores  = async (params ?: GetRecordParams) => {
 };
 
 
-export const getStoresAsOptions = async () => (await getAllStores({ 
-  fields : ['$id', '店舗名', 'territory'], 
+export const getStoresAsOptions = async () : Promise<Options> => (await getAllStores({
+  fields : ['$id', '店舗名', 'territory'],
   query : 'sortNumber > 0 order by sortNumber desc',
 }))
   .records
-  .map(({ $id, 店舗名, territory }) => ({ 
-    value: $id?.value as string || '', 
-    label: 店舗名?.value as string || '', 
-    territory: territory.value,
+  .map(({ $id, 店舗名, territory }) => ({
+    value: $id?.value as string || '',
+    label: 店舗名?.value as string || '',
+    secondaryLabel: territory.value as string,
   }));

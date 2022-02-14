@@ -40,9 +40,9 @@ const ContactFieldGroup = ({
       </Grid>
       <Grid item md={6}>
         <FormControl error={cClass.hasError} required={cClass.isRequired} fullWidth>
-          <InputLabel error={cClass.hasError}>種別</InputLabel>
+          <InputLabel error={cClass.hasError}>{cClass.label}</InputLabel>
           <Select
-            label="種別"
+            label={cClass.label}
             value={cClass.value}
             error={cClass.hasError}
             onChange={handleValueChange('classification')}
@@ -50,7 +50,7 @@ const ContactFieldGroup = ({
             {classificationOptions.map(item => <MenuItem key={item} value={item}>{item}</MenuItem>)}
 
           </Select>
-          <FormHelperText>連絡先の種別を選択してください</FormHelperText>
+          <FormHelperText>連絡先の{cClass.label}を選択してください</FormHelperText>
         </FormControl>
       </Grid>
     </Grid>

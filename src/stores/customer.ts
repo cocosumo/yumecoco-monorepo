@@ -7,33 +7,33 @@ const initialFormState: CustomerGroupForm = {
   customers:
     [
       {
-        fullName: { label: '氏名', value: '', touched: false, hasError: true, helperText: '', placeholder: '高橋　加奈', isRequired: true },
-        fullNameReading: { label: 'シメイ', value: '', touched: false, hasError: true, helperText: '', placeholder: 'タカハシ　カナ', isRequired: true },
+        fullName: { label: '氏名', value: '', touched: false, hasError: true, helperText: '', placeholder: '山田　太郎', isRequired: true },
+        fullNameReading: { label: '氏名フリガナ', value: '', touched: false, hasError: true, helperText: '', placeholder: 'ヤマダ　タロウ', isRequired: true },
         gender: { label: '性別', value: '', touched: false, hasError: false, helperText: '' },
         birthYear: { label: '生年', value: '', touched: false, hasError: false, helperText: '' },
         birthMonth: { label: '月', value: '', touched: false, hasError: false, helperText: '' },
         birthDay: { label: '日', value: '', touched: false, hasError: false, helperText: '' },
         isSameAsMain: true,
 
-        postalCode: { label: '郵便番号', value: '', touched: false, hasError: true, helperText: '', isRequired: true, inputType: 'postal', placeholder: '442-0888' },
-        address1: { label: '住所', value: '', touched: false, hasError: true, helperText: '', isRequired: true, placeholder: '愛知県豊川市千歳通３丁目' },
-        address2: { label: '住所（番地以降）', value: '', touched: false, hasError: false, helperText: '', isRequired: true, placeholder: '10-1' },
+        postalCode: { label: '郵便番号', value: '', touched: false, hasError: true, helperText: '', isRequired: true, inputType: 'postal', placeholder: '471-0041' },
+        address1: { label: '住所', value: '', touched: false, hasError: true, helperText: '', isRequired: true, placeholder: '愛知県豊田市汐見町8丁目87-8' },
+        address2: { label: '住所（建物名）', value: '', touched: false, hasError: false, helperText: '', isRequired: true, placeholder: 'マンション山豊101' },
 
         contacts: [
           {
             contactType: { value: '電話番号１' },
             contactValue: { label: '電話番号1', value: '', touched: false, hasError: false, helperText: '', isRequired: true, placeholder: '07014529707', inputType: 'tel' },
-            classification: { label: '種別', value: '', touched: false, hasError: false, helperText: '', isRequired: true },
+            classification: { label: '続柄', value: '', touched: false, hasError: false, helperText: '', isRequired: true },
           },
           {
             contactType: { value: '電話番号２' },
             contactValue: { label: '電話番号２', value: '', touched: false, hasError: false, helperText: '', isRequired: false, placeholder: '07014529707', inputType: 'tel' },
-            classification: { label: '種別', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
+            classification: { label: '続柄', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
           },
           {
             contactType: { value: 'メールアドレス' },
             contactValue: { label: 'メールアドレス', value: '', touched: false, hasError: false, helperText: '', isRequired: false, placeholder: 'info@cocosumo.net', inputType: 'email' },
-            classification: { label: '種別', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
+            classification: { label: '続柄', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
           },
         ],
       },

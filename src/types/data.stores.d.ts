@@ -1,13 +1,14 @@
 declare namespace StoreTypes {
   interface Data {
     area: kintone.fieldTypes.SingleLineText;
-    isStore: kintone.fieldTypes.Number;
     文字列__1行_: kintone.fieldTypes.SingleLineText;
+    sortNumber: kintone.fieldTypes.Number;
     Eメール: kintone.fieldTypes.SingleLineText;
     住所: kintone.fieldTypes.SingleLineText;
     TEL: kintone.fieldTypes.SingleLineText;
     FAX: kintone.fieldTypes.SingleLineText;
     店舗名: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

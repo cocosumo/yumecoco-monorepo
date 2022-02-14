@@ -7,12 +7,13 @@ type UseEmployees = (storeId?: number) => { employees: EmployeeTypes.SavedData[]
 const useEmployees : UseEmployees = () => {
 
   const { data,  error, loading } = usePromise(getEmployees);
-  
-  return { 
+
+
+  return {
     employees: (data as EmployeeTypes.SavedData[]),
-    error, 
-    loading, 
-  }; 
+    error,
+    loading,
+  };
 
 };
 

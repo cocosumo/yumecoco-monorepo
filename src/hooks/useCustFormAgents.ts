@@ -25,7 +25,9 @@ const initialEmpOptions: GroupedEmpOptions = { coco: [], yume: [] };
 type UseCustFormAgentsFunc = () => Result;
 
 const useCustFormAgents : UseCustFormAgentsFunc = () => {
+
   const { stores } = useStores();
+
   const context = useContext(CustomerFormContext);
   const { employees, loading } = useEmployees();
   const [empOptions, setEmpOptions] = useState(initialEmpOptions);
@@ -38,16 +40,21 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
 
   useEffect(()=>{
     if (!loading && storeState.value.length !== 0 ){
-      const territory = stores.find(store => store.value === storeState.value)?.territory;
-      const storesInTerritory  = stores.filter(store => store.territory === territory).map( store => store.value );
+      //const territory = stores.find(store => store.value === storeState.value)?.territory;
+      //const storesInTerritory  = stores.filter(store => store.territory === territory).map( store => store.value );
 
       setEmpOptions(employees.reduce((prev, curr)=> {
-        const { storeNumber, $id, 文字列＿氏名: empName, affiliation } = curr;
+        const { mainStoreId, $id, 文字列＿氏名: empName, affiliation, affiliateStores } = curr;
+
+        const flatAffStores = affiliateStores.value.map(({ value: row })=>(row.storeId.value));
+        console.log(flatAffStores, 'hey');
         let group = '';
 
-        if (affiliation.value === 'ゆめてつ' && storeNumber.value === storeState.value) {
+        const isIncluded =  mainStoreId.value === storeState.value || flatAffStores.includes(storeState.value);
+
+        if (affiliation.value === 'ゆめてつ' && isIncluded) {
           group = 'yume';
-        } else if (affiliation.value === 'ここすも' && storesInTerritory.includes(storeNumber.value)  ){
+        } else if (affiliation.value === 'ここすも' && isIncluded ){
           group = 'coco';
         }
 

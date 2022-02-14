@@ -39,8 +39,6 @@ export default function CustomerRegistration() {
   const maxCustomers = 3;
 
   useEffect(()=>{
-    console.log(submitState, hasError, 'useEffect');
-
     switch (submitState) {
       case 'VALIDATE':
         setSnack({ open: true, severity: 'info', message: 'フォームを確認中です。' });
@@ -69,13 +67,12 @@ export default function CustomerRegistration() {
         setSnack({ open: true, severity: 'info', message: 'サーバとをやり取り中です。' });
         break;
       case 'EDITTING':
-        console.log('editting');
         break;
     }
 
     if (!snack.open) {
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
-      console.log('snack closed');
+
     }
 
   }, [submitState, hasError, snack.open]);
@@ -118,11 +115,11 @@ export default function CustomerRegistration() {
         </Grid>
       </Grid>
       </form>
-      <CustomerFormSnack 
-      snackState={snack} 
+      <CustomerFormSnack
+      snackState={snack}
       handleClose={() => {
         setSnack((prev) => ({ ...prev, open: false }));
-              
+
       }}/>
     </CustomerFormContext.Provider>
   );

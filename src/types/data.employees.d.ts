@@ -2,18 +2,18 @@ declare namespace EmployeeTypes {
   interface Data {
     文字列＿氏名: kintone.fieldTypes.SingleLineText;
     ルックアップ＿店舗名: kintone.fieldTypes.SingleLineText;
-    storeNumber: kintone.fieldTypes.Number;
     文字列__1行_: kintone.fieldTypes.SingleLineText;
     日付＿誕生日: kintone.fieldTypes.Date;
-    文字列__1行__0: kintone.fieldTypes.SingleLineText;
     入社日: kintone.fieldTypes.Date;
-    文字列__1行__1: kintone.fieldTypes.SingleLineText;
+    mainStoreId: kintone.fieldTypes.Number;
     役職: kintone.fieldTypes.DropDown;
     affiliation: kintone.fieldTypes.DropDown;
     誕生日＿月日: kintone.fieldTypes.SingleLineText;
-    所属チーム: kintone.fieldTypes.SingleLineText;
     状態: kintone.fieldTypes.DropDown;
     氏名ふりがな: kintone.fieldTypes.SingleLineText;
+    文字列__1行__0: kintone.fieldTypes.SingleLineText;
+    文字列__1行__1: kintone.fieldTypes.SingleLineText;
+    所属チーム: kintone.fieldTypes.SingleLineText;
 
     account: kintone.fieldTypes.UserSelect;
     テーブル: {
@@ -23,6 +23,17 @@ declare namespace EmployeeTypes {
         value: {
           文字列__1行__4: kintone.fieldTypes.SingleLineText;
           日付: kintone.fieldTypes.Date;
+        };
+      }[];
+    };
+    affiliateStores: {
+      type: 'SUBTABLE';
+      value: {
+        id: string;
+        value: {
+          storeName: kintone.fieldTypes.SingleLineText;
+          storeId: kintone.fieldTypes.Number;
+          affiliationState: kintone.fieldTypes.RadioButton;
         };
       }[];
     };

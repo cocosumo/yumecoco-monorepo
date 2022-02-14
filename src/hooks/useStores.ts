@@ -10,7 +10,8 @@ type UseStores = () => { stores: Store[] };
 
 const useStores : UseStores = () => {
   const { data, error, loading } = usePromise(getStoresAsOptions);
-  return { stores: (data as Store[]), error, loading }; 
+
+  return { stores: (data as Store[]), error, loading };
 
 };
 

@@ -1,3 +1,4 @@
+import { CustomersInGroupRecords } from '../api/kintone/transactions/addCustomersInGroup';
 import { CustomerGroupForm, ContactField, PersonsInCharge } from './../types/forms';
 
 export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['members'] => {
@@ -52,7 +53,9 @@ const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents']
   };
 };
 
-export const convertCustFormState = (state: CustomerGroupForm) => {
+
+
+export const convertCustFormState = (state: CustomerGroupForm) : CustomersInGroupRecords => {
 
   const mainCustomer = state.customers[0];
   const mainContacts = convertContactsObj(mainCustomer.contacts);
@@ -63,13 +66,10 @@ export const convertCustFormState = (state: CustomerGroupForm) => {
     agents: mainAgents,
   };
 
-
   const customerRecords = state.customers.map((cust) => {
-    const { fullName, fullNameReading, birthYear, birthMonth, birthDay, postalCode, address1, address2, contacts, gender, isSameAsMain } = cust;
-
+    const {  fullName, fullNameReading, birthYear, birthMonth, birthDay, postalCode, address1, address2, contacts, gender, isSameAsMain } = cust;
 
     return {
-
       fullName: { value: fullName.value },
       fullNameReading: { value: fullNameReading.value },
       gender: { value: gender.value },
@@ -80,13 +80,24 @@ export const convertCustFormState = (state: CustomerGroupForm) => {
       address1: { value: isSameAsMain ? mainCustomer.address1.value : address1.value },
       address2: { value: isSameAsMain ? mainCustomer.address2.value : address2.value },
       contacts: isSameAsMain ? mainContacts : convertContactsObj(contacts),
-
     };
 
   });
 
-
   return { customers: customerRecords, group: groupRecord };
+};
+
+
+export const convertFormStateForUpdate = (state: CustomerGroupForm) => {
+  const { customers, group } = convertCustFormState(state);
+
+  return {
+    customers: customers.map((cust, custIdx)  => ({
+      id: state.customers[custIdx].custId as string,
+      record: cust,
+    })),
+    group: { ...group,  id: state.groupId as string },
+  };
 };
 
 export const testFunc = () => {

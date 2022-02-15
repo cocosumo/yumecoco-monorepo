@@ -6,14 +6,13 @@ import changeField from './actions/changeField';
 import { changeContact } from './actions/changeContact';
 import removeCustomer from './actions/removeCustomer';
 import setSameAsMain from './actions/setSameAsMain';
-import submitForm from './actions/submitForm';
 import changeAgent from './actions/changeAgent';
 import { validate } from '../../helpers/validations';
 import changeSubmitState from './actions/changeSubmitState';
 
 
 const customerReducer = (state: CustomerGroupForm, action: FieldActionType): CustomerGroupForm => {
-  console.log(state);
+
   switch (action.type) {
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);
@@ -40,9 +39,6 @@ const customerReducer = (state: CustomerGroupForm, action: FieldActionType): Cus
 
     case 'SET_SAME_AS_MAIN':
       return setSameAsMain(state, action.payload);
-
-    case 'SUBMIT':
-      return submitForm(state);
 
     case 'CHANGE_SUBMITSTATE':
       return changeSubmitState(state, action.payload);

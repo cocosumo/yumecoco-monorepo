@@ -1,7 +1,7 @@
 import { APP_ID } from './config';
 import { KintoneRecord } from './../config';
 
-import { AddRecordResult, RecordParam } from '../restapi';
+import { AddRecordResult, UpdateRecordParam, RecordParam } from '../restapi';
 
 
 
@@ -22,5 +22,12 @@ export const addCustomers = async (records: RecordParam[]) => {
 };
 
 
+
+export const updateCustomers = async (records : UpdateRecordParam[]) => {
+  return KintoneRecord.updateRecords({
+    app: APP_ID,
+    records,
+  });
+};
 
 

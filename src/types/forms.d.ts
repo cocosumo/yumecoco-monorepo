@@ -1,5 +1,6 @@
 
 import { AddCustomersInGroupResult } from '../api/kintone/transactions/addCustomersInGroup';
+import { UpdateCustomersInGroupResult } from '../api/kintone/transactions/updateCustomersInGroup';
 
 type PatternType = 'email' | 'tel' | 'postal';
 
@@ -33,6 +34,7 @@ export interface ContactField {
 
 export interface CustomerBasicInformation {
   [key: string]: InputField | ContactField[] | boolean | string | undefined,
+  changed?: boolean,
   custId?: string,
   revision?: string,
   fullName: InputField,
@@ -58,10 +60,11 @@ export interface PersonsInCharge {
   yume2: InputField,
 }
 
-type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS';
-type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: AddCustomersInGroupResult };
+type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS' | 'SUCCES_UPDATE';
+type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: AddCustomersInGroupResult | UpdateCustomersInGroupResult };
 
 export interface CustomerGroupForm {
+  changed?: boolean,
   groupId?: string,
   revision?: string,
   submitState: SubmitStatus,

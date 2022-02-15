@@ -1,14 +1,20 @@
 import { addCustomers } from '../customers/POST';
 import { addCustGroup } from '../custgroups/POST';
-import { AddRecordResult, AddRecordsResult, RecordParam } from '../restapi';
+import { RecordParam } from '../restapi';
 import { custIdsToGroupMems } from '../../../helpers/normalizers';
 
 
 export type AddCustomersInGroupResult = {
-  customers: AddRecordsResult,
-  group: AddRecordResult
+  /* To do */
+  customers: any,
+  group: any
 };
-type AddCustomersInGroup = (transactionPayload: { customers: RecordParam[], group: RecordParam }) => Promise<AddCustomersInGroupResult>;
+
+export interface CustomersInGroupRecords {
+  customers: RecordParam[],
+  group: RecordParam
+}
+type AddCustomersInGroup = (transactionPayload: CustomersInGroupRecords) => Promise<AddCustomersInGroupResult>;
 
 
 export const addCustomersInGroup : AddCustomersInGroup  = async (transactionPayload) => {

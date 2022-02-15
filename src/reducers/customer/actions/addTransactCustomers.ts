@@ -1,18 +1,21 @@
 import { CustomerGroupForm } from './../../../types/forms';
-import { convertCustFormState } from '../../../helpers/normalizers';
+import { convertCustFormState, convertFormStateForUpdate } from '../../../helpers/normalizers';
 import { addCustomersInGroup } from '../../../api/kintone/transactions/addCustomersInGroup';
 
+import { updateCustomersInGroup } from '../../../api/kintone/transactions/updateCustomersInGroup';
+
+
 const addTransactCustomers = async (state: CustomerGroupForm) => {
-  const kintoneRecord = convertCustFormState(state);
+  console.log(state.groupId, !!state.groupId );
+  if (!!!state.groupId){
+    const kintoneRecord = convertCustFormState(state);
+    return addCustomersInGroup(kintoneRecord);
 
-  if (state.groupId != undefined){
-    console.log('JUST UPDATE');
-
+  } else {
+    const updateRecord =  convertFormStateForUpdate(state);
+    return updateCustomersInGroup(updateRecord);
 
   }
-
-
-  return addCustomersInGroup(kintoneRecord);
 
 };
 

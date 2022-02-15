@@ -1,9 +1,11 @@
 
 
+
 export type AddRecordFn = (record: RecordParam) => Promise<AddRecordResult>;
 
 export interface RecordParam {
   [fieldCode: string]: { value: unknown }
+
 }
 
 export interface AppRecord {
@@ -14,6 +16,12 @@ export interface AppRecord {
 export interface AddRecordResult {
   id: string,
   revision: string
+}
+
+export interface UpdateRecordParam {
+  id: string;
+  record?: RecordParam;
+  revision?: string;
 }
 
 export interface AddRecordsResult {

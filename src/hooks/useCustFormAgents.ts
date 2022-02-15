@@ -40,14 +40,12 @@ const useCustFormAgents : UseCustFormAgentsFunc = () => {
 
   useEffect(()=>{
     if (!loading && storeState.value.length !== 0 ){
-      //const territory = stores.find(store => store.value === storeState.value)?.territory;
-      //const storesInTerritory  = stores.filter(store => store.territory === territory).map( store => store.value );
 
       setEmpOptions(employees.reduce((prev, curr)=> {
         const { mainStoreId, $id, 文字列＿氏名: empName, affiliation, affiliateStores } = curr;
 
         const flatAffStores = affiliateStores.value.map(({ value: row })=>(row.storeId.value));
-        console.log(flatAffStores, 'hey');
+
         let group = '';
 
         const isIncluded =  mainStoreId.value === storeState.value || flatAffStores.includes(storeState.value);

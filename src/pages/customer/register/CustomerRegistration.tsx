@@ -19,7 +19,7 @@ import addTransactCustomers from '../../../reducers/customer/actions/addTransact
 import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
 
 
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 
 export interface CustRegSnackProp {
   open: boolean,
@@ -33,10 +33,12 @@ export default function CustomerRegistration() {
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
 
   const [snack, setSnack] = useState<CustRegSnackProp>({ open: false, severity: 'info' });
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const stateProvider = { formState, dispatch };
   const { submitState, hasError } = formState;
   const maxCustomers = 3;
+  const isMaxCustomers = formState.customers.length >= maxCustomers;
+  const isEdit = !!formState?.groupId;
 
   useEffect(()=>{
     switch (submitState) {
@@ -47,13 +49,13 @@ export default function CustomerRegistration() {
         dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCHING' } });
         addTransactCustomers(formState)
           .then((resp)=>{
-            console.log('SUCCESS');
-            dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'SUCCESS', fetchResponse: resp } });
+
+            dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: isEdit ? 'SUCCES_UPDATE' : 'SUCCESS', fetchResponse: resp } });
             setSnack({ open: true, severity: 'success', message: '保存が出来ました。' });
-            navigate(`/custgroup/${resp.group.id}/edit`);
+            //navigate(`/custgroup/${resp.group.id}/edit`);
           })
           .catch((resp) => {
-            console.log('Server error:', resp);
+
             dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCH_ERROR' } });
             setSnack({ open: true, severity: 'error', message: `サーバエラ―！これを管理者にお知らせください。 ${resp}` });
           });
@@ -65,8 +67,6 @@ export default function CustomerRegistration() {
 
       case 'FETCHING':
         setSnack({ open: true, severity: 'info', message: 'サーバとをやり取り中です。' });
-        break;
-      case 'EDITTING':
         break;
     }
 
@@ -83,7 +83,7 @@ export default function CustomerRegistration() {
 
   };
 
-  const isMaxCustomers = formState.customers.length >= maxCustomers;
+
 
   return (
     <CustomerFormContext.Provider value={stateProvider}>

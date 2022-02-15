@@ -18,6 +18,12 @@ export interface AddRecordResult {
   revision: string
 }
 
+export type FetchResult = AddRecordResult;
+
+export interface UpdatesResult {
+  records: FetchResult[]
+}
+
 export interface UpdateRecordParam {
   id: string;
   record?: RecordParam;

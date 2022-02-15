@@ -22,8 +22,9 @@ export const addCustomers = async (records: RecordParam[]) => {
 };
 
 
-
 export const updateCustomers = async (records : UpdateRecordParam[]) => {
+
+
   return KintoneRecord.updateRecords({
     app: APP_ID,
     records,

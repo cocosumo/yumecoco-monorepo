@@ -96,7 +96,7 @@ export const convertFormStateForUpdate = (state: CustomerGroupForm) => {
       id: state.customers[custIdx].custId as string,
       record: cust,
     })),
-    group: { ...group,  id: state.groupId as string },
+    group: { id: state.groupId as string, record: group },
   };
 };
 

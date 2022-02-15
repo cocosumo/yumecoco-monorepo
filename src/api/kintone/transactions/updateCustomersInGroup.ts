@@ -1,18 +1,14 @@
 
-import { AddRecordResult, UpdateRecordParam } from '../restapi';
-import { updateCustomers } from '../customers/POST';
+import { UpdatesResult, UpdateRecordParam, FetchResult } from '../restapi';
+import {  updateCustomers } from '../customers/POST';
+import { updateGroup } from '../custgroups/POST';
 
 
-interface UpdatesResult {
-  records: {
-    id: string;
-    revision: string;
-  }[]
-}
+
 
 export type UpdateCustomersInGroupResult = {
   customers: UpdatesResult,
-  group: AddRecordResult | null
+  group: FetchResult
 };
 
 export interface CustomersInGroupRecords {
@@ -26,10 +22,9 @@ type AddCustomersInGroup = (transactionPayload: CustomersInGroupRecords) => Prom
 export const updateCustomersInGroup : AddCustomersInGroup  = async (transactionPayload) => {
   const { customers, group } = transactionPayload;
 
-  console.log(group, 'customers');
-
   const resultCust = await updateCustomers(customers);
+  const resultGroup = await updateGroup(group);
 
-  console.log(resultCust, 'RESULT');
-  return { customers: resultCust, group: null };
+
+  return { customers: resultCust, group: { ...resultGroup, id: group.id } };
 };

@@ -6,7 +6,7 @@ import { updateCustomersInGroup } from '../../../api/kintone/transactions/update
 
 
 const addTransactCustomers = async (state: CustomerGroupForm) => {
-  console.log(state.groupId, !!state.groupId );
+
   if (!!!state.groupId){
     const kintoneRecord = convertCustFormState(state);
     return addCustomersInGroup(kintoneRecord);

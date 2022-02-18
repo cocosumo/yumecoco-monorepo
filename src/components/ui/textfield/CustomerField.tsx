@@ -15,7 +15,7 @@ const CustomerField : React.FC<CustomerFieldProps> = (props) => {
   const { hasError } = useCustomerFieldState(cust);
 
   return (
-    <TextField name={fieldname} helperText={cust.helperText} error={hasError} onBlur={handleFieldChange} fullWidth label={cust.label} placeholder={cust.placeholder} required={cust.isRequired} />
+    <TextField value={cust.value} name={fieldname} helperText={cust.helperText} error={hasError} onBlur={handleFieldChange} fullWidth label={cust.label} placeholder={cust.placeholder} required={cust.isRequired} />
 
   );
 

@@ -90,6 +90,11 @@ export type FieldPayload = BasicField & CustomerInstancePayload;
 
 export interface BasicField { element: ElementTarget }
 
+export interface CustGroupRecord {
+  group: CustomerGroupTypes.SavedData,
+  customers: CustomerTypes.SavedData[]
+}
+
 export type FieldActionType =
   | { type: 'CHANGE_CUST_INSTANCE', payload: FieldPayload }
   | { type: 'CHANGE_AGENT', payload: BasicField }
@@ -97,8 +102,9 @@ export type FieldActionType =
   | { type: 'SELECT_CHANGE', payload: FieldPayload }
   | { type: 'ADD' }
   | { type: 'CHANGE_SUBMITSTATE', payload: SubmitPayload }
-  | { type: 'SUBMIT' | 'VALIDATE' }
+  | { type: 'SUBMIT' }
   | { type: 'SET_SAME_AS_MAIN', payload: CustomerInstancePayload }
   | { type: 'REMOVE', payload: CustomerInstancePayload }
   | { type: 'CHANGE_BIRTHYEAR', payload: FieldPayload }
-  | { type: 'CHANGE_CONTACT_VALUE', payload: ContactPayload };
+  | { type: 'CHANGE_CONTACT_VALUE', payload: ContactPayload }
+  | { type: 'GET_GROUP_DATA', payload: CustGroupRecord };

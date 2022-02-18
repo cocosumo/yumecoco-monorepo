@@ -18,6 +18,7 @@ declare namespace CustomerGroupTypes {
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
+          agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
         };
       }[];

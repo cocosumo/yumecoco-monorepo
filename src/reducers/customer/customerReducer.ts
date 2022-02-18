@@ -9,6 +9,7 @@ import setSameAsMain from './actions/setSameAsMain';
 import changeAgent from './actions/changeAgent';
 import { validate } from '../../helpers/validations';
 import changeSubmitState from './actions/changeSubmitState';
+import { getGroupData } from './actions/getGroupData';
 
 
 const customerReducer = (state: CustomerGroupForm, action: FieldActionType): CustomerGroupForm => {
@@ -43,11 +44,12 @@ const customerReducer = (state: CustomerGroupForm, action: FieldActionType): Cus
     case 'CHANGE_SUBMITSTATE':
       return changeSubmitState(state, action.payload);
 
-    case 'VALIDATE' :
-      console.log('validating');
+    case 'GET_GROUP_DATA':
+      return getGroupData(state, action.payload);
+
 
     default:
-      throw new Error('わざとエラーです。Lenz! Fix this! lenzras@gmail.com');
+      throw new Error('わざとエラーです。Lenz! Fix this! lenzras@gmail.com. Unhandled action ' + action.type);
   }
 
 

@@ -35,13 +35,13 @@ const convertContactsObj = (stateContacts: ContactField[]): CustomerTypes.Data['
 const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents'] => {
   return {
     type: 'SUBTABLE',
-    value: Object.values(agents).reduce((prev, curr) => {
+    value: Object.entries(agents).reduce((prev, [key, curr]) => {
       if (curr.value.length !== 0) {
 
         return prev.concat([{
           id: '',
           value: {
-            agentType: { value: curr.label },
+            agentType: { value: key },
             employeeName: { value: curr.value },
             employeeId: { value: curr.value },
           },

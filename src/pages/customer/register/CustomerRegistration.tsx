@@ -18,8 +18,12 @@ import CustomerFormContext from '../../../context/CustomerFormContext';
 import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers';
 import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
 
+import Notes from '../../../components/lists/Notes';
 
-import { useNavigate } from 'react-router-dom';
+
+import { useNavigate, useParams } from 'react-router-dom';
+import { getCustGroup } from '../../../api/kintone/custgroups/GET';
+import { getCustomersByIds } from '../../../api/kintone/customers/GET';
 
 export interface CustRegSnackProp {
   open: boolean,
@@ -34,11 +38,12 @@ export default function CustomerRegistration() {
 
   const [snack, setSnack] = useState<CustRegSnackProp>({ open: false, severity: 'info' });
   const navigate = useNavigate();
+  const groupId = useParams().groupId;
   const stateProvider = { formState, dispatch };
   const { submitState, hasError } = formState;
   const maxCustomers = 3;
   const isMaxCustomers = formState.customers.length >= maxCustomers;
-  const isEdit = !!formState?.groupId;
+  const isEdit = !!groupId;
 
   useEffect(()=>{
     switch (submitState) {
@@ -77,13 +82,31 @@ export default function CustomerRegistration() {
 
   }, [submitState, hasError, snack.open]);
 
+  useEffect(()=>{
+    if (groupId && !formState.groupId ){
+      /* Edit mode state */
+      console.log('Update this shit');
+
+      getCustGroup(groupId).then(({ record: groupRec }) => {
+        const memberIds = (groupRec.members as CustomerGroupTypes.Data['members']).value.map(row => row.value.customerId.value);
+        getCustomersByIds(memberIds).then((custRec) => {
+          console.log(groupRec);
+          dispatch({ type: 'GET_GROUP_DATA', payload: {
+            group: groupRec as unknown as CustomerGroupTypes.SavedData,
+            customers: custRec.records as unknown as CustomerTypes.SavedData[],
+          } });
+        });
+      } );
+
+    }
+  }, [groupId]);
+
+
   const handleSubmit = (e : React.FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
     dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
 
   };
-
-
 
   return (
     <CustomerFormContext.Provider value={stateProvider}>
@@ -104,9 +127,9 @@ export default function CustomerRegistration() {
         <Grid item md={3}>
           <AgentsForm />
         </Grid>
-        {/* <Grid item md={3}>
+        {isEdit && <Grid item md={3}>
           <Notes />
-        </Grid> */}
+        </Grid> }
         <Grid item xs={12}><Divider /></Grid>
         <Grid container item md={4} justifyContent="center">
           <Button disabled={formState.submitState !== 'EDITTING'} size="large" variant="contained" color="primary" type="submit" startIcon={<SaveAltIcon />}>

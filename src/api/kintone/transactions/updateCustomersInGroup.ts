@@ -1,10 +1,11 @@
 
-import { UpdatesResult, UpdateRecordParam, FetchResult } from '../restapi';
-import {  updateCustomers } from '../customers/POST';
+import { UpdateCustFn } from '../restapi';
+import {  updateCustomers } from '../customers/PUT';
 import { updateGroup } from '../custgroups/POST';
+import { resultToStrArray } from '../helpers/utils';
 
 
-
+/*
 
 export type UpdateCustomersInGroupResult = {
   customers: UpdatesResult,
@@ -18,13 +19,14 @@ export interface CustomersInGroupRecords {
 
 type AddCustomersInGroup = (transactionPayload: CustomersInGroupRecords) => Promise<UpdateCustomersInGroupResult>;
 
+ */
 
-export const updateCustomersInGroup : AddCustomersInGroup  = async (transactionPayload) => {
+
+export const updateCustomersInGroup : UpdateCustFn  = async (transactionPayload) => {
   const { customers, group } = transactionPayload;
 
   const resultCust = await updateCustomers(customers);
   const resultGroup = await updateGroup(group);
 
-
-  return { customers: resultCust, group: { ...resultGroup, id: group.id } };
+  return { customers: resultToStrArray(resultCust), group: { ...resultGroup, id: group.id } };
 };

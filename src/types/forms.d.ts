@@ -1,6 +1,5 @@
+import { UpsertCustInGrpResult } from './../api/kintone/restapi';
 
-import { AddCustomersInGroupResult } from '../api/kintone/transactions/addCustomersInGroup';
-import { UpdateCustomersInGroupResult } from '../api/kintone/transactions/updateCustomersInGroup';
 
 type PatternType = 'email' | 'tel' | 'postal';
 
@@ -61,7 +60,7 @@ export interface PersonsInCharge {
 }
 
 type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS' | 'SUCCES_UPDATE';
-type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: AddCustomersInGroupResult | UpdateCustomersInGroupResult };
+type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: UpsertCustInGrpResult };
 
 export interface CustomerGroupForm {
   changed?: boolean,

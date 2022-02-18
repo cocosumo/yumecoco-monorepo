@@ -1,27 +1,20 @@
 
 
 
-export type AddRecordFn = (record: RecordParam) => Promise<AddRecordResult>;
+export type AddRecordFn = (record: RecordParam) => Promise<UpsertRecordResult>;
 
-export interface RecordParam {
-  [fieldCode: string]: { value: unknown }
+export type RecordParam = { [fieldCode: string]: { value: unknown } };
 
-}
+
 
 export interface AppRecord {
   app: string,
   record: RecordParam
 }
 
-export interface AddRecordResult {
+export interface UpsertRecordResult {
   id: string,
   revision: string
-}
-
-export type FetchResult = AddRecordResult;
-
-export interface UpdatesResult {
-  records: FetchResult[]
 }
 
 export interface UpdateRecordParam {
@@ -30,9 +23,28 @@ export interface UpdateRecordParam {
   revision?: string;
 }
 
-export interface AddRecordsResult {
-  ids: string[],
-  revisions: string[],
-  records: AddRecordResult[];
+export interface UpdateCustInGrpRecsParam {
+  customers: UpdateRecordParam[],
+  group: UpdateRecordParam
 }
 
+export interface UpsertRecordsResult {
+  ids: string[],
+  revisions: string[],
+  records?: UpsertRecordResult[];
+}
+
+export type UpsertCustInGrpResult = {
+  customers: UpsertRecordsResult,
+  group: UpsertRecordResult
+};
+
+export interface CustInGrpRecsParam {
+  customers: RecordParam[],
+  group: RecordParam
+}
+
+
+
+export type AddCustFn = (transactionPayload: CustInGrpRecsParam) => Promise<UpsertCustInGrpResult>;
+export type UpdateCustFn = (transactionPayload: UpdateCustInGrpRecsParam) => Promise<UpsertCustInGrpResult>;

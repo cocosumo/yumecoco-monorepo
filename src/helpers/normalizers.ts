@@ -1,4 +1,4 @@
-import { CustomersInGroupRecords } from '../api/kintone/transactions/addCustomersInGroup';
+import { CustInGrpRecsParam } from '../api/kintone/restapi';
 import { CustomerGroupForm, ContactField, PersonsInCharge } from './../types/forms';
 
 export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['members'] => {
@@ -55,7 +55,7 @@ const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents']
 
 
 
-export const convertCustFormState = (state: CustomerGroupForm) : CustomersInGroupRecords => {
+export const convertCustFormState = (state: CustomerGroupForm) : CustInGrpRecsParam => {
 
   const mainCustomer = state.customers[0];
   const mainContacts = convertContactsObj(mainCustomer.contacts);
@@ -84,6 +84,8 @@ export const convertCustFormState = (state: CustomerGroupForm) : CustomersInGrou
 
   });
 
+
+
   return { customers: customerRecords, group: groupRecord };
 };
 
@@ -92,7 +94,7 @@ export const convertFormStateForUpdate = (state: CustomerGroupForm) => {
   const { customers, group } = convertCustFormState(state);
 
   return {
-    customers: customers.map((cust, custIdx)  => ({
+    customers: customers?.map((cust, custIdx)  => ({
       id: state.customers[custIdx].custId as string,
       record: cust,
     })),

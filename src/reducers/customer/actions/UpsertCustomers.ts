@@ -1,0 +1,22 @@
+import { CustomerGroupForm } from '../../../types/forms';
+import { convertCustFormState, convertFormStateForUpdate } from '../../../helpers/normalizers';
+import { addCustomersInGroup } from '../../../api/kintone/transactions/addCustomersInGroup';
+
+import { updateCustomersInGroup } from '../../../api/kintone/transactions/updateCustomersInGroup';
+
+
+const UpsertCustomers = async (state: CustomerGroupForm) => {
+
+  if (!!!state.groupId){
+    /* new record */
+    const kintoneRecord = convertCustFormState(state);
+    return addCustomersInGroup(kintoneRecord);
+
+  } else {
+    const updateRecord =  convertFormStateForUpdate(state);
+    return updateCustomersInGroup(updateRecord);
+  }
+
+};
+
+export default UpsertCustomers;

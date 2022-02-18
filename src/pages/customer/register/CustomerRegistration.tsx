@@ -15,7 +15,7 @@ import AgentsForm from '../../../components/forms/AgentsForm';
 import customerReducer from '../../../reducers/customer/customerReducer';
 import initialFormState from '../../../stores/customer';
 import CustomerFormContext from '../../../context/CustomerFormContext';
-import addTransactCustomers from '../../../reducers/customer/actions/addTransactCustomers';
+import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers';
 import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
 
 
@@ -47,7 +47,7 @@ export default function CustomerRegistration() {
 
       case 'VALIDATE_SUCCESS':
         dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCHING' } });
-        addTransactCustomers(formState)
+        UpsertCustomers(formState)
           .then((resp)=>{
 
             dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: isEdit ? 'SUCCES_UPDATE' : 'SUCCESS', fetchResponse: resp } });

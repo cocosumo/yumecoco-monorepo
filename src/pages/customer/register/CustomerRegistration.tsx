@@ -19,7 +19,7 @@ import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers'
 import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
 
 
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export interface CustRegSnackProp {
   open: boolean,
@@ -33,7 +33,7 @@ export default function CustomerRegistration() {
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
 
   const [snack, setSnack] = useState<CustRegSnackProp>({ open: false, severity: 'info' });
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const stateProvider = { formState, dispatch };
   const { submitState, hasError } = formState;
   const maxCustomers = 3;
@@ -52,7 +52,7 @@ export default function CustomerRegistration() {
 
             dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: isEdit ? 'SUCCES_UPDATE' : 'SUCCESS', fetchResponse: resp } });
             setSnack({ open: true, severity: 'success', message: '保存が出来ました。' });
-            //navigate(`/custgroup/${resp.group.id}/edit`);
+            navigate(`/custgroup/${resp.group.id}/edit`);
           })
           .catch((resp) => {
 

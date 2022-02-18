@@ -26,7 +26,7 @@ const changeSubmitState : ChangeSubmitState = (state, payload) =>{
     case 'SUCCESS':
       return setKintoneRecordIds(state, payload);
     case 'SUCCES_UPDATE':
-      return state;
+      return setKintoneRecordIds(state, payload);
     case 'VALIDATE_ERROR':
     case 'FETCHING':
     case 'FETCH_ERROR':

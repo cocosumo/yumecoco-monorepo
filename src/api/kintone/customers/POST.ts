@@ -18,6 +18,8 @@ export const addCustomer = (record: RecordParam = {}): Promise<UpsertRecordResul
  * @returns an array of objects that include id and revision of created records.
  */
 export const addCustomers = async (records: RecordParam[]) => {
+  if (records.length === 0) throw new Error('Array is empty.' + records );
+
   return KintoneRecord.addRecords({ app: APP_ID, records });
 };
 

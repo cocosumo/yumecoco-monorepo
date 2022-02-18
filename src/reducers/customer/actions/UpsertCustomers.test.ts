@@ -3,11 +3,11 @@ import 'regenerator-runtime/runtime';
 import { custFormStateTestData } from '../../../helpers/test/testData';
 
 
-import  addTransactCustomers from './addTransactCustomers';
+import  UpsertCustomers from './UpsertCustomers';
 
 describe('Submit', () => {
   test('is successful', async () => {
-    const result = await addTransactCustomers(custFormStateTestData());
+    const result = await UpsertCustomers(custFormStateTestData());
     expect(result).toHaveProperty('customers');
     console.log(result);
   });

@@ -29,17 +29,17 @@ export const custFormStateTestData = (): CustomerGroupForm => {
 
           contacts: [
             {
-              contactType: { value: '電話番号' },
+              contactType: { value: 'tel' },
               contactValue: { label: '電話番号1', value: faker.phone.phoneNumber(), touched: false, hasError: false, helperText: '', isRequired: true, placeholder: '07014529707', inputType: 'tel' },
               classification: { label: '種別', value: faker.random.arrayElement(['父', '母']), touched: false, hasError: false, helperText: '', isRequired: true },
             },
             {
-              contactType: { value: '電話番号' },
+              contactType: { value: 'tel' },
               contactValue: { label: '電話番号2', value: faker.phone.phoneNumber(), touched: false, hasError: false, helperText: '', isRequired: false, placeholder: '07014529707', inputType: 'tel' },
               classification: { label: '種別', value: faker.random.arrayElement(['父', '母']), touched: false, hasError: false, helperText: '', isRequired: true },
             },
             {
-              contactType: { value: 'メールアドレス' },
+              contactType: { value: 'email' },
               contactValue: { label: 'メールアドレス', value: faker.internet.email(), touched: false, hasError: false, helperText: '', isRequired: false, placeholder: 'info@cocosumo.net', inputType: 'email' },
               classification: { label: '種別', value: faker.random.arrayElement(['父', '母']), touched: false, hasError: false, helperText: '', isRequired: false },
             },

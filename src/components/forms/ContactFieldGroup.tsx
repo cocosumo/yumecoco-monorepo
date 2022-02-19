@@ -1,5 +1,5 @@
 import { Grid, TextField, FormControl, InputLabel, Select, FormHelperText, MenuItem } from '@mui/material';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
 import {  ContactPayload, HandleFieldChangeFunc } from '../../types/forms';
 
@@ -23,10 +23,11 @@ const ContactFieldGroup = ({
   const contactRow = formContext!.formState.customers[custIdx].contacts[contactIdx];
   const cVal = contactRow.contactValue;
   const cClass = contactRow.classification;
+  const [contactVal, setContactVal] = useState('');
 
+  useEffect(()=>setContactVal(cVal.value), [cVal.value]);
 
   const handleValueChange  = (fieldName: ContactPayload['fieldName']) : HandleFieldChangeFunc=> (e) => {
-
     dispatch({ type:'CHANGE_CONTACT_VALUE', payload: { customerIdx: custIdx, fieldName: fieldName, contactIdx: contactIdx, value: e.target.value } });
   };
 
@@ -36,7 +37,7 @@ const ContactFieldGroup = ({
   return (
     <Grid item container p={1} spacing={2}>
       <Grid item md={6} >
-        <TextField type={cVal.inputType} onBlur={handleValueChange('contactValue')} helperText={cVal.helperText} error={cVal.hasError} fullWidth required={cVal.isRequired} label={cVal.label} />
+        <TextField value={contactVal} type={cVal.inputType} onBlur={handleValueChange('contactValue')} onChange={(e)=>setContactVal(e.target.value)} helperText={cVal.helperText} error={cVal.hasError} fullWidth required={cVal.isRequired} label={cVal.label} />
       </Grid>
       <Grid item md={6}>
         <FormControl error={cClass.hasError} required={cClass.isRequired} fullWidth>

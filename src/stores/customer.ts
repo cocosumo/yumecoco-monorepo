@@ -21,17 +21,17 @@ const initialFormState: CustomerGroupForm = {
 
         contacts: [
           {
-            contactType: { value: '電話番号１' },
+            contactType: { value: 'tel' },
             contactValue: { label: '電話番号1', value: '', touched: false, hasError: false, helperText: '', isRequired: true, placeholder: '07014529707', inputType: 'tel' },
             classification: { label: '続柄', value: '', touched: false, hasError: false, helperText: '', isRequired: true },
           },
           {
-            contactType: { value: '電話番号２' },
+            contactType: { value: 'tel' },
             contactValue: { label: '電話番号２', value: '', touched: false, hasError: false, helperText: '', isRequired: false, placeholder: '07014529707', inputType: 'tel' },
             classification: { label: '続柄', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
           },
           {
-            contactType: { value: 'メールアドレス' },
+            contactType: { value: 'email' },
             contactValue: { label: 'メールアドレス', value: '', touched: false, hasError: false, helperText: '', isRequired: false, placeholder: 'info@cocosumo.net', inputType: 'email' },
             classification: { label: '続柄', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
           },
@@ -41,9 +41,9 @@ const initialFormState: CustomerGroupForm = {
   store: { label: '店舗', territory: '東', value: '', touched: false, hasError: true, helperText: '', isRequired: true },
   agents: {
     coco1: { label: '営業担当者１', value: '', touched: false, hasError: true, helperText: '', isRequired: true },
-    coco2: { label: '営業担当者２', value: '', touched: false, hasError: true, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。' },
-    yume1: { label: 'ゆめてつAG１', value: '', touched: false, hasError: true, helperText: '', isRequired: false },
-    yume2: { label: 'ゆめてつAG２', value: '', touched: false, hasError: true, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。' },
+    coco2: { label: '営業担当者２', value: '', touched: false, hasError: false, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。' },
+    yume1: { label: 'ゆめてつAG１', value: '', touched: false, hasError: false, helperText: '', isRequired: false },
+    yume2: { label: 'ゆめてつAG２', value: '', touched: false, hasError: false, helperText: '', isRequired: false, infoText: '営業担当者が2名いる場合選択してください。' },
   },
 
 };

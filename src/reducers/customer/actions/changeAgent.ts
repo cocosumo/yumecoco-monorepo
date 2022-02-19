@@ -7,6 +7,7 @@ const changeAgent : ChangeAgentAction = (state, payload) => {
 
   const { name, value } = payload.element.target;
 
+
   return {
     ...state, agents : {
       ...state.agents,  [name] : validate({ ...state.agents[name], value: value }),

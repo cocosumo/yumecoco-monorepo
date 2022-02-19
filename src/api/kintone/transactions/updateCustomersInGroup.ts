@@ -15,9 +15,6 @@ export const updateCustomersInGroup : UpdateCustFn  = async (transactionPayload)
 
   let updatedCust : UpsertRecordsResult = resultCust ;
 
-  console.log(resultCust, 'resultCust');
-  console.log(unregisteredCust, 'unregisteredCust');
-
   if (unregisteredCust.length > 0) {
     /*
     Commenting this as kintone have inconsistencies in API rules.
@@ -26,14 +23,12 @@ export const updateCustomersInGroup : UpdateCustFn  = async (transactionPayload)
      */
     const newCust = await addCustomers(unregisteredCust.map((cust) => cust.record as RecordParam));
 
-    console.log(newCust);
     /* Combine updates and add */
     updatedCust = { ...resultCust,
       ids: resultCust.ids.concat(newCust.ids),
       revisions: resultCust.revisions.concat(newCust.revisions),
     };
 
-    console.log('updatedCust', updatedCust);
   }
 
   const resultGroup = await updateGroup({
@@ -43,8 +38,6 @@ export const updateCustomersInGroup : UpdateCustFn  = async (transactionPayload)
       members: custIdsToGroupMems(updatedCust.ids),
     },
   } );
-
-  console.log(resultGroup, 'resultGroup');
 
   return { customers: updatedCust, group: { ...resultGroup, id: group.id } };
 };

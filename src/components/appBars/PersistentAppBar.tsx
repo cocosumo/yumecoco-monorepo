@@ -3,10 +3,10 @@
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import CocoLogo from './../../assets/logo-cocosumo-system.png';
-import {styled, useTheme} from '@mui/material/styles';
-import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
-import {Stack, Typography, useMediaQuery} from '@mui/material';
-import {Link} from 'react-router-dom';
+import { styled, useTheme } from '@mui/material/styles';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { Stack, Typography, useMediaQuery } from '@mui/material';
+import { Link } from 'react-router-dom';
 // import SearchField from '../../ui/textfield/SearchField';
 // import HelpIcon from '@mui/icons-material/Help';
 
@@ -17,7 +17,7 @@ interface AppBarProps extends MuiAppBarProps {
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({theme}) => ({
+})<AppBarProps>(({ theme }) => ({
   zIndex: 5000,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
@@ -27,7 +27,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 
-export default function PersistentAppBar({handleDrawerOpen}: AppBarProps) {
+export default function PersistentAppBar({ handleDrawerOpen }: AppBarProps) {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -49,7 +49,7 @@ export default function PersistentAppBar({handleDrawerOpen}: AppBarProps) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{mx: 2}}
+            sx={{ mx: 2 }}
           >
             <MenuIcon />
           </IconButton>

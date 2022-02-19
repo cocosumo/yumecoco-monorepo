@@ -2,13 +2,13 @@
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import MainMenu from '../MainMenu';
-import {styled, useTheme} from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import {useMediaQuery} from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 
-const DrawerHeader = styled('div')(({theme}) => ({
+const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
@@ -24,7 +24,7 @@ interface PersDeskProps {
 }
 
 
-export default function PersistentDesktopDrawer({drawerWidth, handleDrawerClose, open}: PersDeskProps) {
+export default function PersistentDesktopDrawer({ drawerWidth, handleDrawerClose, open }: PersDeskProps) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 

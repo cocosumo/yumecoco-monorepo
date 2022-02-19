@@ -54,7 +54,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
         <Grid item xs={12} md={4} mb={4}>
           <FormControl fullWidth>
             <InputLabel>性別</InputLabel>
-            <Select name="gender" label={customer.gender.label} value={customer.gender.value} onChange={handleFieldChange}>
+            <Select name="gender" label={customer.gender.label} value={customer.gender.value ?? ''} onChange={handleFieldChange}>
               <MenuItem value={'女性'}>女性</MenuItem>
               <MenuItem value={'男性'}>男性</MenuItem>
               <MenuItem value={'指定しない'}>指定しない</MenuItem>
@@ -91,7 +91,7 @@ export default function CustomerRegistrationForm({ isLinkedCustomer, index } : C
           </Grid>
 
           {customer.contacts.map((_, contactIdx)=>{
-            return <ContactFieldGroup key={_.contactType.value} custIdx={index} contactIdx={contactIdx} />;
+            return <ContactFieldGroup key={_.contactValue.label} custIdx={index} contactIdx={contactIdx} />;
           })}
         </>
         }

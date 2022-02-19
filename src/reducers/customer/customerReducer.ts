@@ -13,7 +13,7 @@ import { getGroupData } from './actions/getGroupData';
 
 
 const customerReducer = (state: CustomerGroupForm, action: FieldActionType): CustomerGroupForm => {
-
+  console.log(state, action, 'ACTION');
   switch (action.type) {
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);
@@ -46,7 +46,6 @@ const customerReducer = (state: CustomerGroupForm, action: FieldActionType): Cus
 
     case 'GET_GROUP_DATA':
       return getGroupData(state, action.payload);
-
 
     default:
       throw new Error('わざとエラーです。Lenz! Fix this! lenzras@gmail.com. Unhandled action ' + action.type);

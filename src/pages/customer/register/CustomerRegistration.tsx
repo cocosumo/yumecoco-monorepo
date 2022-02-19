@@ -34,11 +34,12 @@ export interface CustRegSnackProp {
 
 /* Main Form */
 export default function CustomerRegistration() {
+  const groupId = useParams().groupId;
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
 
   const [snack, setSnack] = useState<CustRegSnackProp>({ open: false, severity: 'info' });
   const navigate = useNavigate();
-  const groupId = useParams().groupId;
+
   const stateProvider = { formState, dispatch };
   const { submitState, hasError } = formState;
   const maxCustomers = 3;
@@ -46,6 +47,7 @@ export default function CustomerRegistration() {
   const isEdit = !!groupId;
 
   useEffect(()=>{
+
     switch (submitState) {
       case 'VALIDATE':
         setSnack({ open: true, severity: 'info', message: 'フォームを確認中です。' });
@@ -75,7 +77,7 @@ export default function CustomerRegistration() {
         break;
     }
 
-    if (!snack.open) {
+    if (!snack.open && submitState !== 'EDITTING') {
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
 
     }
@@ -83,20 +85,22 @@ export default function CustomerRegistration() {
   }, [submitState, hasError, snack.open]);
 
   useEffect(()=>{
-    if (groupId && !formState.groupId ){
+    if (groupId){
       /* Edit mode state */
-      console.log('Update this shit');
 
-      getCustGroup(groupId).then(({ record: groupRec }) => {
-        const memberIds = (groupRec.members as CustomerGroupTypes.Data['members']).value.map(row => row.value.customerId.value);
-        getCustomersByIds(memberIds).then((custRec) => {
-          console.log(groupRec);
-          dispatch({ type: 'GET_GROUP_DATA', payload: {
-            group: groupRec as unknown as CustomerGroupTypes.SavedData,
-            customers: custRec.records as unknown as CustomerTypes.SavedData[],
-          } });
-        });
-      } );
+      getCustGroup(groupId)
+        .then(({ record: groupRec }) => {
+          const memberIds = (groupRec.members as CustomerGroupTypes.Data['members']).value.map(row => row.value.customerId.value);
+          getCustomersByIds(memberIds)
+            .then((custRec) => {
+              dispatch({ type: 'GET_GROUP_DATA', payload: {
+                group: groupRec as unknown as CustomerGroupTypes.SavedData,
+                customers: custRec.records as unknown as CustomerTypes.SavedData[],
+              } });
+
+
+            });
+        } );
 
     }
   }, [groupId]);
@@ -108,6 +112,7 @@ export default function CustomerRegistration() {
 
   };
 
+  console.log(formState);
   return (
     <CustomerFormContext.Provider value={stateProvider}>
       <form noValidate onSubmit={handleSubmit}>

@@ -18,7 +18,7 @@ const Router = () => (
   <main>
     <Routes>
       <Route path="/" element={<UnderConstruction />} />
-      <Route path="/customer/register" element={<CustomerRegistration />} />
+      <Route path="/customer/register" element={<CustomerRegistration key={'register'} />} />
       <Route path="/custgroup/:groupId/edit" element={<CustomerRegistration />} />
     </Routes>
   </main>

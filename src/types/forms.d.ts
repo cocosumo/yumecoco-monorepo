@@ -25,7 +25,7 @@ export interface StoreInputField extends InputField {
 }
 
 export interface ContactField {
-  contactType: { value: string },
+  contactType: { value: PatternType },
   contactValue: InputField,
   classification: InputField
 }

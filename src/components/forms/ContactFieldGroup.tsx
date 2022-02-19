@@ -1,7 +1,7 @@
 import { Grid, TextField, FormControl, InputLabel, Select, FormHelperText, MenuItem } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
-import {  ContactPayload, HandleFieldChangeFunc } from '../../types/forms';
+import {  ContactPayload, HandleFieldChangeFunc } from '../../types/form.customer';
 
 
 // type ContactFieldType = 'CHANGE_CONTACT_TEXT' | 'CHANGE_CONTACT_CLASS';

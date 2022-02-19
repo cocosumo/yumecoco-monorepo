@@ -1,5 +1,6 @@
 import  { validate } from '../../../helpers/validations';
-import { CustomerGroupForm, FieldPayload, InputField } from './../../../types/forms';
+import { CustomerGroupForm, FieldPayload } from '../../../types/form.customer';
+import { InputField } from '../../../types/forms';
 
 interface UpdateCustomerStateParam {
   state: CustomerGroupForm,

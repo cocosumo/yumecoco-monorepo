@@ -1,5 +1,5 @@
 
-import { InputField } from './../types/forms';
+import { InputField } from '../types/forms';
 
 type Validate = (field: InputField ) => InputField ;
 type ValueValidator = (value: string) => boolean;

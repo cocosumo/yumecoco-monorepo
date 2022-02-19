@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import CustomerFormContext from '../context/CustomerFormContext';
-import { FieldActionType, InputField, PersonsInCharge } from '../types/forms';
+import { FieldActionType, PersonsInCharge } from '../types/form.customer';
+import { InputField } from '../types/forms';
 import useStores from './useStores';
 import useEmployees from './useEmployees';
 

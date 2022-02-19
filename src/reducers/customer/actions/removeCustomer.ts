@@ -1,4 +1,4 @@
-import { CustomerGroupForm, CustomerInstancePayload } from '../../../types/forms';
+import { CustomerGroupForm, CustomerInstancePayload } from '../../../types/form.customer';
 
 type RemoveFunction = (state: CustomerGroupForm, payload: CustomerInstancePayload ) => CustomerGroupForm;
 

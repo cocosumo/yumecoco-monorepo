@@ -1,4 +1,4 @@
-import { CustomerGroupForm, FieldActionType } from './../../types/forms';
+import { CustomerGroupForm, FieldActionType } from '../../types/form.customer';
 
 
 import initialFormState from '../../stores/customer';

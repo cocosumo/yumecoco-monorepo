@@ -1,5 +1,6 @@
 import { validate } from '../../../helpers/validations';
-import { CustomerGroupForm, InputField } from './../../../types/forms';
+import { CustomerGroupForm } from '../../../types/form.customer';
+import { InputField } from '../../../types/forms';
 
 const validateFormState = <T extends CustomerGroupForm>(state: T): T => {
   let hasError = false;

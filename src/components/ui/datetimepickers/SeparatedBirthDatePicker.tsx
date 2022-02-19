@@ -6,7 +6,8 @@ import MuiDatePicker from '@mui/lab/DatePicker';
 
 import { FormControl, FormGroup, FormHelperText, Stack, Box } from '@mui/material';
 import BasicSelect from '../selects/BasicSelect';
-import { ElementTarget, FieldActionType } from '../../../types/forms';
+import { FieldActionType } from '../../../types/form.customer';
+import { ElementTarget } from '../../../types/forms';
 import YearIcon from '../icons/YearIcon';
 
 

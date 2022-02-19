@@ -1,4 +1,4 @@
-import { BasicField, CustomerGroupForm } from '../../../types/forms';
+import { BasicField, CustomerGroupForm } from '../../../types/form.customer';
 import { validate } from './../../../helpers/validations';
 
 type ChangeAgentAction = (state: CustomerGroupForm, payload: BasicField, isClassification?: boolean) => CustomerGroupForm;

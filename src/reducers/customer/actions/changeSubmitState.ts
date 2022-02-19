@@ -1,4 +1,4 @@
-import { CustomerGroupForm, SubmitPayload } from '../../../types/forms';
+import { CustomerGroupForm, SubmitPayload } from '../../../types/form.customer';
 import validateFormState from './validateFormState';
 
 type ChangeSubmitState = <T extends CustomerGroupForm>(state: T, payload: SubmitPayload) => T;

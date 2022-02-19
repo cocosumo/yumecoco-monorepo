@@ -1,4 +1,4 @@
-import { CustomerGroupForm } from '../types/forms';
+import { CustomerGroupForm } from '../types/form.customer';
 
 const initialFormState: CustomerGroupForm = {
   submitState: 'EDITTING',

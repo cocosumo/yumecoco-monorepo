@@ -1,5 +1,5 @@
 import { validate } from '../../../helpers/validations';
-import { ContactPayload, CustomerGroupForm } from '../../../types/forms';
+import { ContactPayload, CustomerGroupForm } from '../../../types/form.customer';
 
 
 

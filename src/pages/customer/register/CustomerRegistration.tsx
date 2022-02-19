@@ -36,11 +36,11 @@ export interface CustRegSnackProp {
 export default function CustomerRegistration() {
   const groupId = useParams().groupId;
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
-
+  const stateProvider = { formState, dispatch };
   const [snack, setSnack] = useState<CustRegSnackProp>({ open: false, severity: 'info' });
   const navigate = useNavigate();
 
-  const stateProvider = { formState, dispatch };
+
   const { submitState, hasError } = formState;
   const maxCustomers = 3;
   const isMaxCustomers = formState.customers.length >= maxCustomers;
@@ -133,7 +133,7 @@ export default function CustomerRegistration() {
           <AgentsForm />
         </Grid>
         {isEdit && <Grid item md={3}>
-          <Notes />
+          <Notes/>
         </Grid> }
         <Grid item xs={12}><Divider /></Grid>
         <Grid container item md={4} justifyContent="center">

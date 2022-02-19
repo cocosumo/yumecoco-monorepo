@@ -1,5 +1,6 @@
 
-import { CustomerBasicInformation, InputField, HandleFieldChangeFunc } from './../../../types/forms';
+import { CustomerBasicInformation, HandleFieldChangeFunc } from '../../../types/form.customer';
+import { InputField } from '../../../types/forms';
 import TextField from '@mui/material/TextField';
 import useCustomerFieldState from '../../../hooks/useCustomerFieldState';
 import { useEffect, useState } from 'react';

@@ -1,4 +1,4 @@
-import { CustomerGroupForm } from '../../../types/forms';
+import { CustomerGroupForm } from '../../../types/form.customer';
 import { convertCustFormState, convertFormStateForUpdate } from '../../../helpers/normalizers';
 import { addCustomersInGroup } from '../../../api/kintone/transactions/addCustomersInGroup';
 

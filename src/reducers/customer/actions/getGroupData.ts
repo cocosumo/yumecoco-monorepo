@@ -1,6 +1,7 @@
 
 
-import { CustGroupRecord, CustomerGroupForm, InputField } from '../../../types/forms';
+import { ContactField, CustGroupRecord, CustomerGroupForm } from '../../../types/form.customer';
+import { InputField } from '../../../types/forms';
 
 
 const adjustCustomerLength = (state: CustomerGroupForm, size: number) : CustomerGroupForm => {
@@ -18,7 +19,6 @@ export const getGroupData = (state: CustomerGroupForm, payload : CustGroupRecord
 
   const newState = adjustCustomerLength(state, customers.length);
 
-  console.log(customers, group);
 
   return { ...newState,
 
@@ -46,7 +46,8 @@ export const getGroupData = (state: CustomerGroupForm, payload : CustGroupRecord
             if (recVal.type !== 'SUBTABLE'){
               return { ...prev, [key]: { ...(curr as InputField), value: recVal.value } };
             } else if (key === 'contacts') {
-              return { ...prev, [key] : (curr as any[]).map((contact, contactIdx) => {
+
+              return { ...prev, [key] : (curr as ContactField[]).map((contact, contactIdx) => {
                 const recContactRow  = cust[key].value[contactIdx].value;
                 const currentRow = prev[key][contactIdx];
 

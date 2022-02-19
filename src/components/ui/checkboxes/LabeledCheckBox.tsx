@@ -1,4 +1,4 @@
-import {FormControlLabel, Checkbox} from '@mui/material';
+import { FormControlLabel, Checkbox } from '@mui/material';
 
 interface LabeledCheckBoxProps {
   label?: string,
@@ -15,7 +15,7 @@ export default function LabeledCheckBox({
   return (
     <FormControlLabel
       control={
-        <Checkbox defaultChecked checked={checked} onChange={setCheckedHandler} />}
+        <Checkbox checked={checked} onChange={setCheckedHandler} />}
       label={label}
     />
   );

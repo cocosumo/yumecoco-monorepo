@@ -46,6 +46,12 @@ export const isPostal: ValueValidator = (value) => {
  * @returns immutably updated state.
  */
 export const validate: Validate = (field) => {
+  /*
+  Hyphen, の対策
+    replace(/[-－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]/g, '-')
+  */
+
+
   let errors: string[] = [];
 
   let {
@@ -66,6 +72,8 @@ export const validate: Validate = (field) => {
   }
 
   switch (inputType){
+
+
     case 'email':
       hasError =  !isEmail(value);
       if (hasError) errors.push('有効なメールアドレスを入力ください。例：info@cocosumo.jp' );

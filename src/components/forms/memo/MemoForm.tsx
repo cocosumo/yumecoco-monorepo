@@ -26,18 +26,25 @@ export interface MemoFormProps {
 const MemoForm : React.FC<MemoFormProps> = (props) => {
   const [isNotify, setIsNotify] = useState(false);
   const { formState, dispatch } = props;
-  const { custName, memoType } = formState;
+  const { custName, memoType, memoContents } = formState;
 
   const handleChange = (e : ElementTarget) => {
     dispatch({ type: 'CHANGE_MEMO_VALUE', payload: e });
   };
 
-  console.log(formState);
-
   return (
     <Stack spacing={2} p={1}>
     <Stack direction="row" justifyContent="end">顧客名：{custName}</Stack>
-    <BasicSelect name={'memoType'} value={memoType.value} label={memoType.label} placeholder={memoType.placeholder}  hasError={memoType.hasError} options={options} onChange={handleChange} />
+    <BasicSelect
+      name={'memoType'}
+      value={memoType.value}
+      label={memoType.label}
+      placeholder={memoType.placeholder}
+      helperText={memoType.hasError ? memoType.helperText : ''}
+      hasError={memoType.hasError && (memoType.touched || formState.isSubmitted) }
+      options={options} onChange={handleChange} isRequired={memoType.isRequired}
+    />
+
     <TextField
       name="memoContents"
       label="メモ"
@@ -45,6 +52,9 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
       variant="outlined"
       multiline
       onBlur={handleChange}
+      helperText={memoContents.hasError ? memoContents.helperText : ''}
+      error={memoContents.hasError && (memoContents.touched || formState.isSubmitted)}
+      required={memoContents.isRequired}
     />
     <Stack direction="row" justifyContent="space-between">
 

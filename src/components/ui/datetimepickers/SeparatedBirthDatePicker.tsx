@@ -33,6 +33,7 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
 
   const handleChange = (e: ElementTarget) => dispatch({ type:'SELECT_CHANGE', payload: { element: e, customerIdx: index } });
   const handleYearChange = (e: Date) => {
+    console.log(e, 'year');
     /* Sanitize date here to a string of year because payload.target.value only accepts string. */
     const year = e !== null ? e.getFullYear().toString() : '';
     dispatch({ type:'CHANGE_BIRTHYEAR', payload: { element: { target: { name: 'birthYear', value: year } }, customerIdx: index } });
@@ -71,3 +72,4 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
 };
 
 export default SeparatedDatePicker;
+

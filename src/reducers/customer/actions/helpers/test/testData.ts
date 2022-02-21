@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { CustomerGroupForm } from '../../types/form.customer';
+
+import { CustomerGroupForm } from '../../../../../types/form.customer';
 import { faker } from '@faker-js/faker';
 faker.locale = 'ja';
 

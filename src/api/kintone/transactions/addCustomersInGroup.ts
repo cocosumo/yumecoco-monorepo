@@ -1,7 +1,8 @@
 import { addCustomers } from '../customers/POST';
 import { addCustGroup } from '../custgroups/POST';
 import { AddCustFn } from '../restapi';
-import { custIdsToGroupMems } from '../../../helpers/normalizers';
+
+import { custIdsToGroupMems } from '../../../reducers/customer/actions/helpers/converters';
 
 
 

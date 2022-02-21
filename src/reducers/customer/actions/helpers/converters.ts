@@ -1,5 +1,5 @@
-import { CustInGrpRecsParam } from '../api/kintone/restapi';
-import { CustomerGroupForm, ContactField, PersonsInCharge } from '../types/form.customer';
+import { CustInGrpRecsParam } from './../../../../api/kintone/restapi';
+import { CustomerGroupForm, ContactField, PersonsInCharge } from './../../../../types/form.customer';
 
 export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['members'] => {
   return {

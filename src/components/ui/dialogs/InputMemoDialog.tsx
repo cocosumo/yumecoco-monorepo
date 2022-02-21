@@ -19,14 +19,23 @@ import MemoForm from '../../forms/memo/MemoForm';
 import initialMemoState from '../../../stores/memo';
 import memoReducer from '../../../reducers/memo/memo';
 import CustomerFormContext from '../../../context/CustomerFormContext';
-
-
+import useSubmitState from '../../../hooks/useSubmitState';
+import FormSnack from '../snacks/FormSnack';
+import { addMemo } from '../../../api/kintone/memo/POST';
 
 
 export default function InputMemoDialog() {
   const [open, setOpen] = useState(false);
-
   const [formState, dispatch]  = useReducer(memoReducer, initialMemoState);
+
+  const { snackState, handleClose } = useSubmitState({
+    formState,
+    dispatch,
+    saveToDb: () => addMemo({
+      groupId: { value:  formState.groupId },
+      memoType: { value: formState.memoType.value },
+    }),
+  });
 
   const custFormContext = useContext(CustomerFormContext);
   const custFormState = custFormContext!.formState;
@@ -38,15 +47,13 @@ export default function InputMemoDialog() {
     setOpen(true);
   };
 
-  const closeDialogHandler = () => {
-    setOpen(false);
-  };
-
-
+  const closeDialogHandler = () =>  setOpen(false);
   const submitHandler = () => {
     console.log('submitted');
+    dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
     setOpen(false);
   };
+
 
   return (
     <>
@@ -67,9 +74,13 @@ export default function InputMemoDialog() {
             <MemoForm formState={formState} dispatch={dispatch} />
           </DialogContent>
           <DialogActions>
-            <Button type="submit" variant="contained" onClick={submitHandler}>登録</Button>
+            <Button variant="contained" onClick={submitHandler}>登録</Button>
           </DialogActions>
         </Dialog>
+        <FormSnack
+          snackState={snackState}
+          handleClose={handleClose}
+        />
       </>
   );
 }

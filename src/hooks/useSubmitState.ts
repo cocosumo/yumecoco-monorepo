@@ -1,0 +1,80 @@
+import { AlertColor } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { FieldActionType } from '../types/form.memo';
+
+import { FormState } from '../types/forms';
+
+interface UseSubmitState {
+  formState : FormState,
+  dispatch: (action: FieldActionType)=>void,
+  saveToDb: () => Promise<any>
+}
+
+interface SnackState {
+  open: boolean,
+  message: string,
+  severity: AlertColor
+}
+
+const useSubmitState = (form: UseSubmitState) => {
+  const [snackState, setSnackState] = useState<SnackState>({ open: false, message: '', severity: 'info' });
+
+  const { formState, dispatch, saveToDb } = form;
+
+  useEffect(()=>{
+    console.log('TRIGGGERED SUBMIT');
+    switch (formState.submitState) {
+      case 'VALIDATE_ERROR':
+        setSnackState(prev => ({ ...prev,
+          open: true,
+          message: '入力内容をご確認ください。',
+          severity: 'error',
+        }));
+        break;
+      case 'VALIDATE_SUCCESS':
+        setSnackState(prev=> ({ ...prev,
+          open: true,
+          message: '処理中',
+          severity: 'info',
+        }));
+        saveToDb()
+          .then(() => {
+            dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'SUCCESS' } });
+          })
+          .catch((error)=>{
+            console.log(error);
+            dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCH_ERROR' } });
+          });
+
+        break;
+      case 'FETCH_ERROR':
+        setSnackState(prev=> ({ ...prev,
+          open: true,
+          message: 'エラーが発生しました。',
+          severity: 'error',
+        }));
+        break;
+      case 'SUCCESS':
+        setSnackState(prev=> ({ ...prev,
+          open: true,
+          message: 'メモが保存出来ました！',
+          severity: 'success',
+        }));
+    }
+
+  }, [formState.submitState]);
+
+
+
+  return {
+    snackState,
+    handleClose: ()=> {
+      console.log('CLOSING SNACK');
+      setSnackState(prev => ({ ...prev, open: false }));
+      dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
+    },
+  };
+
+};
+
+export default useSubmitState;

@@ -1,4 +1,4 @@
-import { convertCustFormState, testFunc } from './normalizers';
+import { convertCustFormState, testFunc } from './converters';
 import { custFormStateTestData } from './test/testData';
 
 describe('Converters', () => {

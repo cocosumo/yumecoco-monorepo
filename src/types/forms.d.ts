@@ -18,3 +18,11 @@ export interface InputField {
   infoText?: string,
   isDisabled?: boolean
 }
+
+export type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS' | 'SUCCES_UPDATE';
+
+
+export interface FormState {
+  isSubmitted: boolean,
+  submitState: SubmitStatus
+}

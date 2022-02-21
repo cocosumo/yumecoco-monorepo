@@ -16,7 +16,7 @@ import customerReducer from '../../../reducers/customer/customerReducer';
 import initialFormState from '../../../stores/customer';
 import CustomerFormContext from '../../../context/CustomerFormContext';
 import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers';
-import CustomerFormSnack from '../../../components/ui/snacks/CustomerFormSnack';
+import FormSnack from '../../..../../../components/ui/snacks/FormSnack';
 
 import Notes from '../../../components/lists/Notes';
 
@@ -143,7 +143,7 @@ export default function CustomerRegistration() {
         </Grid>
       </Grid>
       </form>
-      <CustomerFormSnack
+      <FormSnack
       snackState={snack}
       handleClose={() => {
         setSnack((prev) => ({ ...prev, open: false }));

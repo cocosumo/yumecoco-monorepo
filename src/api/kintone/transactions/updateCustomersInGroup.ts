@@ -3,8 +3,8 @@ import { RecordParam, UpdateCustFn, UpsertRecordsResult } from '../restapi';
 import {  updateCustomers } from '../customers/PUT';
 import { addCustomers } from '../customers/POST';
 import { updateGroup } from '../custgroups/PUT';
-import { custIdsToGroupMems } from '../../../helpers/normalizers';
 
+import { custIdsToGroupMems } from '../../../reducers/customer/actions/helpers/converters';
 
 export const updateCustomersInGroup : UpdateCustFn  = async (transactionPayload) => {
   const { customers, group } = transactionPayload;

@@ -1,6 +1,7 @@
 
 import 'regenerator-runtime/runtime';
-import { custFormStateTestData } from '../../../helpers/test/testData';
+
+import { custFormStateTestData } from './../actions/helpers/test/testData';
 
 
 import  UpsertCustomers from './UpsertCustomers';

@@ -1,5 +1,5 @@
 import { CustomerGroupForm } from '../../../types/form.customer';
-import { convertCustFormState, convertFormStateForUpdate } from '../../../helpers/normalizers';
+import { convertCustFormState, convertFormStateForUpdate } from './../actions/helpers/converters';
 import { addCustomersInGroup } from '../../../api/kintone/transactions/addCustomersInGroup';
 
 import { updateCustomersInGroup } from '../../../api/kintone/transactions/updateCustomersInGroup';

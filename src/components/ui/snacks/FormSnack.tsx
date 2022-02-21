@@ -1,17 +1,18 @@
 
 import { Alert, Snackbar } from '@mui/material';
 
-import { CustRegSnackProp } from './../../../pages/customer/register/CustomerRegistration';
+import { CustRegSnackProp } from '../../../pages/customer/register/CustomerRegistration';
 
-interface CustomerFormSnackProps {
+interface FormSnackProps {
   snackState : CustRegSnackProp
   handleClose: ()=>void,
 
 }
 
-const CustomerFormSnack : React.FC<CustomerFormSnackProps> = ({ snackState, handleClose }) => {
+const FormSnack : React.FC<FormSnackProps> = ({ snackState, handleClose }) => {
 
-  const { open, message, severity }  = snackState; 
+  const { open, message, severity }  = snackState;
+
   return (
     <Snackbar
 
@@ -27,4 +28,4 @@ const CustomerFormSnack : React.FC<CustomerFormSnackProps> = ({ snackState, hand
   );
 };
 
-export default CustomerFormSnack;
+export default FormSnack;

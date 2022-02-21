@@ -7,6 +7,7 @@ describe('Memo', () => {
     return addMemo(
       {
         groupId: { value: '130' },
+        notifRecipient: { value: [{ code: '' }] },
       } as CustomerMemoTypes.SavedData,
     ).then((result) => {
       console.log(result);

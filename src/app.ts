@@ -7,5 +7,5 @@ import { onIndexShow } from './helpers/kintone';
 
 (async () => {
   kintone.events.on(onIndexShow, onIndexShowHandler);
-  console.log(process.env.FUCK);
+
 })();

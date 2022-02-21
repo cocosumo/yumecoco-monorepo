@@ -13,7 +13,7 @@ import { getGroupData } from './actions/getGroupData';
 
 
 const customerReducer = (state: CustomerGroupForm, action: FieldActionType): CustomerGroupForm => {
-  console.log(state, action, 'ACTION');
+
   switch (action.type) {
     case 'CHANGE_AGENT':
       return changeAgent(state, action.payload);

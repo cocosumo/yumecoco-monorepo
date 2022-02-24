@@ -7,6 +7,7 @@ import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
 import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
 import { ElementTarget } from '../../../types/forms';
+import { format } from 'date-fns';
 
 const options = [
   { label: '顧客情報' },
@@ -67,8 +68,8 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
 
       <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>setIsNotify(prev=> !prev)} />
       <Stack>
-        <Caption text="作成日時：2022.1.28T12:10" />
-        <Caption text="作成者：健太郎" />
+        <Caption text={`作成日時：${format(new Date(), 'yyyy.MM.d H:mm')}`} />
+        <Caption text={`作成者：${kintone.getLoginUser().name}`} />
       </Stack>
     </Stack>
     {isNotify && <MemoFormAgentCheckBox />}

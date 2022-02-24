@@ -8,7 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 
 import {
-  Stack,
+  Chip,
+  Stack, Typography,
 
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
@@ -22,10 +23,18 @@ import CustomerFormContext from '../../../context/CustomerFormContext';
 import useSubmitState from '../../../hooks/useSubmitState';
 import FormSnack from '../snacks/FormSnack';
 import { addMemo } from '../../../api/kintone/memo/POST';
+import ConfirmationDialog from './ConfirmationDialog';
 
+type Answer = 'ok' | 'cancel' | '';
+
+interface ConfirmState {
+  open: boolean,
+  answer?: Answer
+}
 
 export default function InputMemoDialog() {
-  const [open, setOpen] = useState(false);
+  const [memoOpen, setMemoOpen] = useState(false);
+  const [confirmState, setConfirmState] = useState<ConfirmState>({ open: false, answer: '' });
   const [formState, dispatch]  = useReducer(memoReducer, initialMemoState);
 
   const { snackState, handleClose } = useSubmitState({
@@ -42,35 +51,44 @@ export default function InputMemoDialog() {
 
   useEffect(()=>{
     if (formState.submitState === 'VALIDATE_SUCCESS'){
-      setOpen(false);
+      setConfirmState({ open: true });
     }
   }, [formState.submitState]);
 
+  useEffect(()=>{
+    if (!confirmState.open && confirmState.answer === 'ok'){
+      dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'CONFIRM_SAVE' } });
+      setMemoOpen(false);
+    } else {
+      dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
+    }
+  }, [confirmState.open]);
 
-  const openDialogHandler = () => {
+
+  const handleMemoOpen = () => {
     const { groupId = '', customers } = custFormState;
     dispatch({ type: 'SET_INITIAL', payload: { groupId, custId: customers[0].custId ?? '', custName: customers[0].fullName.value  } });
-    setOpen(true);
+    setMemoOpen(true);
   };
 
-  const closeDialogHandler = () =>  setOpen(false);
-  const submitHandler = () => {
-    console.log('submitted');
+  const handleMemoClose = () =>  setMemoOpen(false);
+  const handleConfirmClose = (answer: Answer) => setConfirmState({ open: false, answer });
+  const handleSubmit = () =>  {
     dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
   };
 
 
   return (
     <>
-      <Button variant="contained" onClick={openDialogHandler} size="small" startIcon={<AddCommentIcon />}>
+      <Button variant="contained" onClick={handleMemoOpen} size="small" startIcon={<AddCommentIcon />}>
         メモを追加
       </Button>
 
-        <Dialog open={open} onClose={closeDialogHandler} fullWidth>
+        <Dialog open={memoOpen} onClose={handleMemoClose} fullWidth>
           <DialogTitle>
             <Stack direction="row" justifyContent="space-between">
               メモを追加
-              <IconButton color="primary" component="span" onClick={closeDialogHandler}>
+              <IconButton color="primary" component="span" onClick={handleMemoClose}>
                 <CloseIcon />
               </IconButton>
             </Stack>
@@ -79,13 +97,20 @@ export default function InputMemoDialog() {
             <MemoForm formState={formState} dispatch={dispatch} />
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" onClick={submitHandler}>登録</Button>
+            <Button variant="contained" onClick={handleSubmit}>登録</Button>
           </DialogActions>
         </Dialog>
         <FormSnack
           snackState={snackState}
           handleClose={handleClose}
         />
+        <ConfirmationDialog state={{ open: confirmState.open, handleConfirmClose }} >
+          <Stack spacing={2}>
+            <Chip sx={{ borderRadius: '5px' }} label={formState.memoType.value}/>
+
+            <Typography variant="body1">{formState.memoContents.value}</Typography>
+         </Stack>
+        </ConfirmationDialog>
       </>
   );
 }

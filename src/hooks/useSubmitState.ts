@@ -22,7 +22,9 @@ const useSubmitState = (form: UseSubmitState) => {
   const { formState, dispatch, saveToDb } = form;
 
   useEffect(()=>{
-    console.log('TRIGGGERED SUBMIT');
+
+    console.log(formState.submitState);
+
     switch (formState.submitState) {
       case 'VALIDATE_ERROR':
         setSnackState(prev => ({ ...prev,
@@ -31,7 +33,8 @@ const useSubmitState = (form: UseSubmitState) => {
           severity: 'error',
         }));
         break;
-      case 'VALIDATE_SUCCESS':
+
+      case 'CONFIRM_SAVE':
         setSnackState(prev=> ({ ...prev,
           open: true,
           message: '処理中',
@@ -45,8 +48,8 @@ const useSubmitState = (form: UseSubmitState) => {
             console.log(error);
             dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCH_ERROR' } });
           });
-
         break;
+
       case 'FETCH_ERROR':
         setSnackState(prev=> ({ ...prev,
           open: true,
@@ -54,12 +57,14 @@ const useSubmitState = (form: UseSubmitState) => {
           severity: 'error',
         }));
         break;
+
       case 'SUCCESS':
         setSnackState(prev=> ({ ...prev,
           open: true,
           message: 'メモが保存出来ました！',
           severity: 'success',
         }));
+        break;
     }
 
   }, [formState.submitState]);
@@ -69,7 +74,6 @@ const useSubmitState = (form: UseSubmitState) => {
   return {
     snackState,
     handleClose: ()=> {
-      console.log('CLOSING SNACK');
       setSnackState(prev => ({ ...prev, open: false }));
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
     },

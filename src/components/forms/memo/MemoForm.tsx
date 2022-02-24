@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField/TextField';
 import LabeledCheckBox from '../../ui/checkboxes/LabeledCheckBox';
 import Caption from '../../ui/typohraphies/Caption';
 import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
-import { useState } from 'react';
+import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
 import { ElementTarget } from '../../../types/forms';
 
@@ -27,10 +27,15 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
   const [isNotify, setIsNotify] = useState(false);
   const { formState, dispatch } = props;
   const { custName, memoType, memoContents } = formState;
+  const [contents, setContents] = useState(memoContents.value);
 
   const handleChange = (e : ElementTarget) => {
     dispatch({ type: 'CHANGE_MEMO_VALUE', payload: e });
   };
+
+  /*  useEffect(()=>{
+
+  } ); */
 
   return (
     <Stack spacing={2} p={1}>
@@ -52,6 +57,8 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
       variant="outlined"
       multiline
       onBlur={handleChange}
+      onChange={(e)=>setContents(e.target.value)}
+      value={contents}
       helperText={memoContents.hasError ? memoContents.helperText : ''}
       error={memoContents.hasError && (memoContents.touched || formState.isSubmitted)}
       required={memoContents.isRequired}

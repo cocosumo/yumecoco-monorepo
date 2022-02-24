@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { useState, useReducer, useContext } from 'react';
+import { useState, useEffect, useReducer, useContext } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 
@@ -40,6 +40,12 @@ export default function InputMemoDialog() {
   const custFormContext = useContext(CustomerFormContext);
   const custFormState = custFormContext!.formState;
 
+  useEffect(()=>{
+    if (formState.submitState === 'VALIDATE_SUCCESS'){
+      setOpen(false);
+    }
+  }, [formState.submitState]);
+
 
   const openDialogHandler = () => {
     const { groupId = '', customers } = custFormState;
@@ -51,7 +57,6 @@ export default function InputMemoDialog() {
   const submitHandler = () => {
     console.log('submitted');
     dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
-    setOpen(false);
   };
 
 

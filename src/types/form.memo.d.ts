@@ -30,4 +30,5 @@ export type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: UpsertR
 export type FieldActionType =
 | { type: 'CHANGE_MEMO_VALUE', payload: ElementTarget  }
 | { type: 'CHANGE_SUBMITSTATE', payload: SubmitPayload  }
-| { type: 'SET_INITIAL', payload: InitialMemoPayload  };
+| { type: 'SET_INITIAL', payload: InitialMemoPayload  }
+| { type: 'RESET' };

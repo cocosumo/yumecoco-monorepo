@@ -20,8 +20,6 @@ const CustomerField : React.FC<CustomerFieldProps> = (props) => {
 
   useEffect(()=> setValue(cust.value), [cust.value]);
 
-
-
   return (
     <TextField value={value} name={fieldname} helperText={cust.helperText} error={hasError} onBlur={handleFieldChange} fullWidth label={cust.label} placeholder={cust.placeholder} required={cust.isRequired} onChange={(e)=>setValue(e.target.value)} />
 

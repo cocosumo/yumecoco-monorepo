@@ -20,9 +20,6 @@ interface ConfirmationDialogProps {
 export default function ConfirmationDialog(props: ConfirmationDialogProps) {
   const { open, handleConfirmClose } = props.state;
 
-
-
-
   return (
     <div>
       <Dialog

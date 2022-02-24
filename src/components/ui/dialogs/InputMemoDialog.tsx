@@ -3,9 +3,8 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import { useState, useEffect, useReducer, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import DialogTitle from '@mui/material/DialogTitle';
-import AddCommentIcon from '@mui/icons-material/AddComment';
 
 import {
   Chip,
@@ -17,13 +16,14 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import MemoForm from '../../forms/memo/MemoForm';
 
-import initialMemoState from '../../../stores/memo';
-import memoReducer from '../../../reducers/memo/memo';
-import CustomerFormContext from '../../../context/CustomerFormContext';
+/* import initialMemoState from '../../../stores/memo';
+import memoReducer from '../../../reducers/memo/memo'; */
 import useSubmitState from '../../../hooks/useSubmitState';
 import FormSnack from '../snacks/FormSnack';
 import { addMemo } from '../../../api/kintone/memo/POST';
 import ConfirmationDialog from './ConfirmationDialog';
+import { FieldActionType, MemoFormState } from '../../../types/form.memo';
+import { updateMemo } from '../../../api/kintone/memo/PUT';
 
 type Answer = 'ok' | 'cancel' | '';
 
@@ -32,44 +32,55 @@ interface ConfirmState {
   answer?: Answer
 }
 
-export default function InputMemoDialog() {
-  const [memoOpen, setMemoOpen] = useState(false);
+interface InputMemoDialogProps {
+  state: {
+    formState: MemoFormState,
+    dispatch: (action: FieldActionType)=>void
+    memoOpen: boolean,
+    setMemoOpen: (prev: boolean) => void
+  }
+}
+
+export default function InputMemoDialog(props : InputMemoDialogProps) {
+  const { memoOpen, setMemoOpen, formState, dispatch } = props.state;
   const [confirmState, setConfirmState] = useState<ConfirmState>({ open: false, answer: '' });
-  const [formState, dispatch]  = useReducer(memoReducer, initialMemoState);
+
+  const record = {
+    groupId: { value:  formState.groupId },
+    memoType: { value: formState.memoType.value },
+    contents: { value: formState.memoContents.value },
+    custId: { value: formState.custId ?? '' },
+  };
+
+  const addMemoFn = () => addMemo(record);
+  const updateMemoFn = () => updateMemo({ ...record, $id: { type: '__ID__', value: formState.$id ?? '' } });
 
   const { snackState, handleClose } = useSubmitState({
     formState,
     dispatch,
-    saveToDb: () => addMemo({
-      groupId: { value:  formState.groupId },
-      memoType: { value: formState.memoType.value },
-    }),
+    saveToDb: () => !!formState.$id ? updateMemoFn() : addMemoFn(),
   });
 
-  const custFormContext = useContext(CustomerFormContext);
-  const custFormState = custFormContext!.formState;
 
   useEffect(()=>{
-    if (formState.submitState === 'VALIDATE_SUCCESS'){
-      setConfirmState({ open: true });
+    switch (formState.submitState){
+      case 'VALIDATE_SUCCESS':
+        setConfirmState({ open: true });
+        break;
+      case 'SUCCESS':
+        setMemoOpen(false);
+        break;
     }
   }, [formState.submitState]);
 
   useEffect(()=>{
     if (!confirmState.open && confirmState.answer === 'ok'){
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'CONFIRM_SAVE' } });
-      setMemoOpen(false);
     } else {
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
     }
   }, [confirmState.open]);
 
-
-  const handleMemoOpen = () => {
-    const { groupId = '', customers } = custFormState;
-    dispatch({ type: 'SET_INITIAL', payload: { groupId, custId: customers[0].custId ?? '', custName: customers[0].fullName.value  } });
-    setMemoOpen(true);
-  };
 
   const handleMemoClose = () =>  setMemoOpen(false);
   const handleConfirmClose = (answer: Answer) => setConfirmState({ open: false, answer });
@@ -77,40 +88,36 @@ export default function InputMemoDialog() {
     dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
   };
 
-
   return (
     <>
-      <Button variant="contained" onClick={handleMemoOpen} size="small" startIcon={<AddCommentIcon />}>
-        メモを追加
-      </Button>
 
-        <Dialog open={memoOpen} onClose={handleMemoClose} fullWidth>
-          <DialogTitle>
-            <Stack direction="row" justifyContent="space-between">
-              メモを追加
-              <IconButton color="primary" component="span" onClick={handleMemoClose}>
-                <CloseIcon />
-              </IconButton>
-            </Stack>
-          </DialogTitle>
-          <DialogContent>
-            <MemoForm formState={formState} dispatch={dispatch} />
-          </DialogContent>
-          <DialogActions>
-            <Button variant="contained" onClick={handleSubmit}>登録</Button>
-          </DialogActions>
-        </Dialog>
-        <FormSnack
-          snackState={snackState}
-          handleClose={handleClose}
-        />
-        <ConfirmationDialog state={{ open: confirmState.open, handleConfirmClose }} >
-          <Stack spacing={2}>
-            <Chip sx={{ borderRadius: '5px' }} label={formState.memoType.value}/>
+      <Dialog open={memoOpen} onClose={handleMemoClose} fullWidth>
+        <DialogTitle>
+          <Stack direction="row" justifyContent="space-between">
+            メモを追加
+            <IconButton color="primary" component="span" onClick={handleMemoClose}>
+              <CloseIcon />
+            </IconButton>
+          </Stack>
+        </DialogTitle>
+        <DialogContent>
+          <MemoForm formState={formState} dispatch={dispatch} />
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleSubmit}>登録</Button>
+        </DialogActions>
+      </Dialog>
+      <FormSnack
+        snackState={snackState}
+        handleClose={handleClose}
+      />
+      <ConfirmationDialog state={{ open: confirmState.open, handleConfirmClose }} >
+        <Stack spacing={2}>
+          <Chip sx={{ borderRadius: '5px' }} label={formState.memoType.value}/>
 
-            <Typography variant="body1">{formState.memoContents.value}</Typography>
-         </Stack>
-        </ConfirmationDialog>
-      </>
+          <Typography whiteSpace={'break-spaces'} variant="body1">{formState.memoContents.value}</Typography>
+        </Stack>
+      </ConfirmationDialog>
+    </>
   );
 }

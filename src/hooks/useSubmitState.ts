@@ -23,8 +23,6 @@ const useSubmitState = (form: UseSubmitState) => {
 
   useEffect(()=>{
 
-    console.log(formState.submitState);
-
     switch (formState.submitState) {
       case 'VALIDATE_ERROR':
         setSnackState(prev => ({ ...prev,

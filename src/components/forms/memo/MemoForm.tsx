@@ -25,18 +25,14 @@ export interface MemoFormProps {
 }
 
 const MemoForm : React.FC<MemoFormProps> = (props) => {
-  const [isNotify, setIsNotify] = useState(false);
+
   const { formState, dispatch } = props;
-  const { custName, memoType, memoContents } = formState;
+  const { custName, memoType, memoContents, isNotify } = formState;
   const [contents, setContents] = useState(memoContents.value);
 
   const handleChange = (e : ElementTarget) => {
     dispatch({ type: 'CHANGE_MEMO_VALUE', payload: e });
   };
-
-  /*  useEffect(()=>{
-
-  } ); */
 
   return (
     <Stack spacing={2} p={1}>
@@ -66,13 +62,15 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
     />
     <Stack direction="row" justifyContent="space-between">
 
-      <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>setIsNotify(prev=> !prev)} />
+      <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>dispatch({ type: 'CHANGE_ISNOTIFY' })} />
+
+
       <Stack>
         <Caption text={`作成日時：${format(new Date(), 'yyyy.MM.d H:mm')}`} />
         <Caption text={`作成者：${kintone.getLoginUser().name}`} />
       </Stack>
     </Stack>
-    {isNotify && <MemoFormAgentCheckBox />}
+    {isNotify && <MemoFormAgentCheckBox dispatch={dispatch} formState={formState} />}
   </Stack>
   );
 };

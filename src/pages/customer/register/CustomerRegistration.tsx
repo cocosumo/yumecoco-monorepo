@@ -18,7 +18,7 @@ import CustomerFormContext from '../../../context/CustomerFormContext';
 import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers';
 import FormSnack from '../../..../../../components/ui/snacks/FormSnack';
 
-import Notes from '../../../components/lists/Notes';
+import Memos from '../../../components/lists/Memos';
 
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -133,7 +133,7 @@ export default function CustomerRegistration() {
           <AgentsForm />
         </Grid>
         {isEdit && <Grid item md={3}>
-          <Notes/>
+          <Memos/>
         </Grid> }
         <Grid item xs={12}><Divider /></Grid>
         <Grid container item md={4} justifyContent="center">
@@ -143,6 +143,7 @@ export default function CustomerRegistration() {
         </Grid>
       </Grid>
       </form>
+
       <FormSnack
       snackState={snack}
       handleClose={() => {

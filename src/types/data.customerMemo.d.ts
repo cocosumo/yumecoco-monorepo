@@ -6,7 +6,7 @@ declare namespace CustomerMemoTypes {
     contents: kintone.fieldTypes.MultiLineText;
     custId: kintone.fieldTypes.Number;
 
-    notifRecipient: kintone.fieldTypes.UserSelect;
+    notifyTo: kintone.fieldTypes.UserSelect;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

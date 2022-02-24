@@ -1,4 +1,5 @@
 import 'regenerator-runtime/runtime';
+import { getUserCodesByIds } from '../users/GET';
 
 import { addMemo } from './POST';
 
@@ -7,7 +8,7 @@ describe('Memo', () => {
     return addMemo(
       {
         groupId: { value: '130' },
-        notifRecipient: { value: [{ code: '' }] },
+        notifyTo: { value: await getUserCodesByIds(['44', '45']) },
       } as CustomerMemoTypes.SavedData,
     ).then((result) => {
       console.log(result);

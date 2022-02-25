@@ -9,7 +9,7 @@ import BasicSelect from '../selects/BasicSelect';
 import { FieldActionType } from '../../../types/form.customer';
 import { ElementTarget } from '../../../types/forms';
 import YearIcon from '../icons/YearIcon';
-import { useState } from 'react';
+import {  useState } from 'react';
 
 
 
@@ -34,9 +34,11 @@ type YearErrorState = {
 
 const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
   const { value, dispatch, index } = props;
+
   const [yearError, setYearError] = useState<YearErrorState>({ error: false, helperText: '' });
 
   const dayOptions: Options = [...Array(31)].map((_, i) => ({ value: (i + 1).toString(), label: `${i + 1}日` }));
+
 
   const handleChange = (e: ElementTarget) => dispatch({ type:'SELECT_CHANGE', payload: { element: e, customerIdx: index } });
   const handleYearChange = (e: Date) => {
@@ -62,18 +64,18 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
           <Stack direction="row" spacing={1}>
             <Box minWidth={110}>
               <MuiDatePicker
+
                 views={['year']}
+                ignoreInvalidInputs
                 onError={handleYearError}
                 label="生年"
                 inputFormat="yyyy"
                 disableFuture
-                components={                  {
-                  OpenPickerIcon: YearIcon,
-                }                }
+                components={ { OpenPickerIcon: YearIcon } }
                 value={value.birthYear.length === 0 ? null : value.birthYear}
                 onChange={handleYearChange}
 
-                renderInput={(params) => <TextField error={yearError.error} helperText={yearError.helperText} fullWidth {...params} />}
+                renderInput={(params) => <TextField  error={true} helperText={yearError.helperText} fullWidth {...params} />}
               />
             </Box>
 

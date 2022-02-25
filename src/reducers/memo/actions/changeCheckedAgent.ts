@@ -5,7 +5,7 @@ const changeCheckedAgent = (state : MemoFormState, payload : KeyPayload ): MemoF
 
   return { ...state, notifyTo: {
     ...state.notifyTo,
-    [payload.key]: !state.notifyTo[payload.key],
+    [payload.key]: { ...state.notifyTo[payload.key], isNotify: !state.notifyTo[payload.key].isNotify },
   } };
 };
 

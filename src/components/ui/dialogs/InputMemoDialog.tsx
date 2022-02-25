@@ -16,14 +16,13 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import MemoForm from '../../forms/memo/MemoForm';
 
-/* import initialMemoState from '../../../stores/memo';
-import memoReducer from '../../../reducers/memo/memo'; */
 import useSubmitState from '../../../hooks/useSubmitState';
 import FormSnack from '../snacks/FormSnack';
 import { addMemo } from '../../../api/kintone/memo/POST';
 import ConfirmationDialog from './ConfirmationDialog';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
 import { updateMemo } from '../../../api/kintone/memo/PUT';
+import { ConvertedMemo, convertMemo } from '../../../reducers/memo/actions/helpers/converters';
 
 type Answer = 'ok' | 'cancel' | '';
 
@@ -42,18 +41,26 @@ interface InputMemoDialogProps {
 }
 
 export default function InputMemoDialog(props : InputMemoDialogProps) {
-  const { memoOpen, setMemoOpen, formState, dispatch } = props.state;
+  const { memoOpen, formState, setMemoOpen, dispatch } = props.state;
   const [confirmState, setConfirmState] = useState<ConfirmState>({ open: false, answer: '' });
-
-  const record = {
+  const [convertedMemo, setConvertedMemo] = useState<ConvertedMemo>({
     groupId: { value:  formState.groupId },
     memoType: { value: formState.memoType.value },
     contents: { value: formState.memoContents.value },
     custId: { value: formState.custId ?? '' },
-  };
+  });
 
-  const addMemoFn = () => addMemo(record);
-  const updateMemoFn = () => updateMemo({ ...record, $id: { type: '__ID__', value: formState.$id ?? '' } });
+  useEffect(()=>{
+    if (formState.submitState === 'VALIDATE_SUCCESS'){
+      convertMemo(formState).then(resp => {
+        console.log(resp, 'RESP');
+        setConvertedMemo(resp);
+      });
+    }
+  }, [formState.submitState]);
+
+  const addMemoFn = () => addMemo(convertedMemo);
+  const updateMemoFn = () => updateMemo({ ...convertedMemo, $id: { type: '__ID__', value: formState.$id ?? '' } });
 
   const { snackState, handleClose } = useSubmitState({
     formState,

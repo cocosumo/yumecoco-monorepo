@@ -9,7 +9,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import CustomerRegistrationFormInstance from '../../../components/forms/CustomerRegistrationFormInstance';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useReducer, useEffect, useState, useCallback } from 'react';
 import AgentsForm from '../../../components/forms/AgentsForm';
 
 import customerReducer from '../../../reducers/customer/customerReducer';
@@ -19,11 +19,12 @@ import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers'
 import FormSnack from '../../..../../../components/ui/snacks/FormSnack';
 
 import Memos from '../../../components/lists/Memos';
-
+import debounce from 'lodash.debounce';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
 import { getCustomersByIds } from '../../../api/kintone/customers/GET';
+
 
 export interface CustRegSnackProp {
   open: boolean,
@@ -109,16 +110,18 @@ export default function CustomerRegistration() {
   }, [groupId]);
 
 
-  const handleSubmit = (e : React.FormEvent<HTMLFormElement> ) => {
-    e.preventDefault();
-    dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
 
+
+  const handleSubmit = () => {
+    dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'VALIDATE' } });
   };
+
+  const debouncedHandleSubmit = useCallback((debounce(handleSubmit, 1000)), []);
 
   console.log(formState);
   return (
     <CustomerFormContext.Provider value={stateProvider}>
-      <form noValidate onSubmit={handleSubmit}>
+      <form noValidate>
       <Grid container spacing={2} overflow="auto" justifyContent="center">
         <Grid item xs={12} p={2} sx={{ backgroundColor: '#9CDAF9' }}>
           <Typography variant="h4">顧客登録（個人）</Typography>
@@ -140,7 +143,7 @@ export default function CustomerRegistration() {
         </Grid> }
         <Grid item xs={12}><Divider /></Grid>
         <Grid container item md={4} justifyContent="center">
-          <Button disabled={formState.submitState !== 'EDITTING'} size="large" variant="contained" color="primary" type="submit" startIcon={<SaveAltIcon />}>
+          <Button onClick={debouncedHandleSubmit} disabled={formState.submitState !== 'EDITTING'} size="large" variant="contained" color="primary" startIcon={<SaveAltIcon />} >
             保存
           </Button>
         </Grid>

@@ -7,7 +7,7 @@ import AddCommentIcon from '@mui/icons-material/AddComment';
 import Memo from '../ui/cards/Memo';
 
 import InputMemoDialog from '../ui/dialogs/InputMemoDialog';
-import Caption from '../ui/typohraphies/Caption';
+import Caption from '../ui/typographies/Caption';
 import CustomerFormContext from './../../context/CustomerFormContext';
 import memoReducer from '../../reducers/memo/memo';
 import initialMemoState from '../../stores/memo';
@@ -30,6 +30,7 @@ export default function Memos() {
       getAllMemosByGroupId(groupId).then((res) => {
         setMemoList(res as unknown as CustomerMemoTypes.SavedData[]);
       });
+
     }
   }, [memoOpen]);
 
@@ -39,8 +40,15 @@ export default function Memos() {
   };
 
   const handleMemoOpen = () => {
-    const {  customers } = custFormState;
-    dispatch({ type: 'SET_INITIAL', payload: {  groupId: groupId ?? '', custId: customers[0].custId ?? '', custName: customers[0].fullName.value  } });
+    const {  customers, agents } = custFormState;
+    const { coco1, coco2, yume1, yume2 } = agents;
+    dispatch({ type: 'SET_INITIAL', payload: {
+      groupId: groupId ?? '',
+      custId: customers[0].custId ?? '',
+      custName: customers[0].fullName.value,
+      cocoAg: [coco1.value, coco2.value],
+      yumeAg: [yume1.value, yume2.value],
+    } });
     setMemoOpen(true);
   };
 

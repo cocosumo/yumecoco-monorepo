@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack/Stack';
 import BasicSelect from '../../ui/selects/BasicSelect';
 import TextField from '@mui/material/TextField/TextField';
 import LabeledCheckBox from '../../ui/checkboxes/LabeledCheckBox';
-import Caption from '../../ui/typohraphies/Caption';
+import Caption from '../../ui/typographies/Caption';
 import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
 import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';

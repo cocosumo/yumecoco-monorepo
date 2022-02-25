@@ -8,6 +8,8 @@ import submitMemo from './actions/submitMemo';
 
 
 const memoReducer = (state: MemoFormState, action: FieldActionType): MemoFormState => {
+  console.log(state);
+
   switch (action.type) {
     case 'CHANGE_MEMO_VALUE':
       return changeMemoValue(state, action.payload);

@@ -9,9 +9,9 @@ const initialMemoState : MemoFormState = {
   isNotify: false,
   hasError: false,
   notifyTo: {
-    'ここすも営業': false,
-    'ここすも工事': false,
-    'ゆめてつAG': false,
+    'ここすも営業': { isNotify: false, ids: [] },
+    'ここすも工事': { isNotify: false, ids: [] },
+    'ゆめてつAG': { isNotify: false, ids: [] },
   },
 };
 

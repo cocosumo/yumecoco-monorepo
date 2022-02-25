@@ -1,7 +1,7 @@
 
 import { Box, FormControl, Stack, FormHelperText } from '@mui/material/';
 import LabeledCheckBox from '../../ui/checkboxes/LabeledCheckBox';
-import { EmployeesToNotify, FieldActionType, MemoFormState } from '../../../types/form.memo';
+import { EmployeesToNotify, FieldActionType, MemoFormState, NotifyAgent } from '../../../types/form.memo';
 
 /* interface AgentsCheckValues {
   [key: string] : boolean
@@ -18,11 +18,7 @@ const MemoFormAgentCheckBox = (props : MemoFormAgentCheckBoxProps) => {
   const { formState, dispatch } = props;
 
   const notifyTo = formState!.notifyTo;
-  /*   const [agents, setAgents] = useState<AgentsCheckValues>({
-    'ここすも営業': true,
-    'ここすも工事': true,
-    'ゆめてつAG': true,
-  }); */
+
 
   const handleCheckAgent = (key: keyof EmployeesToNotify) => {
     dispatch({ type: 'CHANGE_CHECKED_AGENT', payload: { key } });
@@ -39,7 +35,7 @@ const MemoFormAgentCheckBox = (props : MemoFormAgentCheckBoxProps) => {
                 <LabeledCheckBox
                   key={key}
                   label={key}
-                  checked={value}
+                  checked={(value as NotifyAgent).isNotify}
                   setCheckedHandler={()=>handleCheckAgent(key as keyof EmployeesToNotify)}
                 />);
             })}

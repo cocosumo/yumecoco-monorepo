@@ -28,5 +28,5 @@ export const getUserCodeById = async (empId : string) => (await getKintoneUserBy
 export const getUserCodesByIds = async (empIds: string[]) => {
   return (await getKintoneUsers())
     .filter((user) => empIds.includes(user.employeeNumber))
-    .map((item) => ({ code: item.code }));
+    .map((item) => ({ name: '', code: item.code }));
 };

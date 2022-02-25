@@ -2,10 +2,14 @@
 import { UpsertRecordResult } from '../api/kintone/restapi';
 import { InputField, ElementTarget, SubmitStatus } from './forms';
 
+export type NotifyAgent = {
+  isNotify: boolean, ids: string[]
+};
+
 export interface EmployeesToNotify {
-  'ここすも営業': boolean,
-  'ここすも工事': boolean,
-  'ゆめてつAG': boolean,
+  'ここすも営業': NotifyAgent,
+  'ここすも工事': NotifyAgent,
+  'ゆめてつAG': NotifyAgent,
 }
 
 export interface MemoFormState {
@@ -16,7 +20,6 @@ export interface MemoFormState {
   custName?: string,
   memoType: InputField,
   memoContents: InputField,
-  mainCustomerName?: string,
   createdTime?: Date,
   createdBy?: string,
   createdByName?: string,
@@ -26,7 +29,7 @@ export interface MemoFormState {
   hasError: boolean
 }
 
-export type InitialMemoPayload = { groupId: string, custId: string, custName: string };
+export type InitialMemoPayload = { groupId: string, custId: string, custName: string, cocoAg: string[], yumeAg: string[] };
 
 export type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: UpsertRecordResult };
 

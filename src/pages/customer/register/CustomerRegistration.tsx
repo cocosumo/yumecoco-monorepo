@@ -47,6 +47,7 @@ export default function CustomerRegistration() {
   const isEdit = !!groupId;
 
   useEffect(()=>{
+    console.log(submitState);
 
     switch (submitState) {
       case 'VALIDATE':
@@ -56,10 +57,8 @@ export default function CustomerRegistration() {
         dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'FETCHING' } });
         UpsertCustomers(formState)
           .then((resp)=>{
-
-            dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: isEdit ? 'SUCCES_UPDATE' : 'SUCCESS', fetchResponse: resp } });
             setSnack({ open: true, severity: 'success', message: '保存が出来ました。' });
-            navigate(`/custgroup/${resp.group.id}/edit`);
+            dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: isEdit ? 'SUCCES_UPDATE' : 'SUCCESS', fetchResponse: resp } });
           })
           .catch((resp) => {
 
@@ -78,8 +77,12 @@ export default function CustomerRegistration() {
     }
 
     if (!snack.open && submitState !== 'EDITTING') {
-      dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
-
+      /* When save was successful and snack closed, navigate to edit route */
+      if (submitState === 'SUCCESS'){
+        navigate(`/custgroup/${formState.groupId}/edit`);
+      } else {
+        dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
+      }
     }
 
   }, [submitState, hasError, snack.open]);

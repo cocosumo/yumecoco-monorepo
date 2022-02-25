@@ -12,6 +12,7 @@ const setKintoneRecordIds : ChangeSubmitState = (state, payload : Required<Submi
   return { ...state,
     groupId: group.id,
     revision: group.revision,
+    submitState: payload.submitState,
     customers: state.customers.map((cust, custIdx) => {
       return { ...cust, custId: customers!.ids[custIdx], revision: customers!.revisions[custIdx] };
     } ) };

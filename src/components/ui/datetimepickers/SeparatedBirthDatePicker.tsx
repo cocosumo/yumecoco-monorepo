@@ -9,6 +9,7 @@ import BasicSelect from '../selects/BasicSelect';
 import { FieldActionType } from '../../../types/form.customer';
 import { ElementTarget } from '../../../types/forms';
 import YearIcon from '../icons/YearIcon';
+import { useState } from 'react';
 
 
 
@@ -25,18 +26,32 @@ interface SeparatedDatePickerProps {
   }
 }
 
+type YearErrorState = {
+  error: boolean,
+  helperText: string
+};
+
 
 const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
   const { value, dispatch, index } = props;
+  const [yearError, setYearError] = useState<YearErrorState>({ error: false, helperText: '' });
 
   const dayOptions: Options = [...Array(31)].map((_, i) => ({ value: (i + 1).toString(), label: `${i + 1}日` }));
 
   const handleChange = (e: ElementTarget) => dispatch({ type:'SELECT_CHANGE', payload: { element: e, customerIdx: index } });
   const handleYearChange = (e: Date) => {
-    console.log(e, 'year');
     /* Sanitize date here to a string of year because payload.target.value only accepts string. */
-    const year = e !== null ? e.getFullYear().toString() : '';
+    const year = e?.getFullYear().toString() ?? '';
     dispatch({ type:'CHANGE_BIRTHYEAR', payload: { element: { target: { name: 'birthYear', value: year } }, customerIdx: index } });
+  };
+  const handleYearError = (err : any) => {
+    console.log(err);
+    switch (err){
+      case 'minDate':
+      case 'maxDate':
+        setYearError({ error: true, helperText: '範囲外の値です。' });
+        break;
+    }
   };
 
 
@@ -48,16 +63,17 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
             <Box minWidth={110}>
               <MuiDatePicker
                 views={['year']}
+                onError={handleYearError}
                 label="生年"
                 inputFormat="yyyy"
-                maxDate={new Date()}
+                disableFuture
                 components={                  {
                   OpenPickerIcon: YearIcon,
                 }                }
                 value={value.birthYear.length === 0 ? null : value.birthYear}
                 onChange={handleYearChange}
 
-                renderInput={(params) => <TextField error={false} fullWidth {...params} />}
+                renderInput={(params) => <TextField error={yearError.error} helperText={yearError.helperText} fullWidth {...params} />}
               />
             </Box>
 

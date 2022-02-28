@@ -1,8 +1,9 @@
 
-import { Checkbox, Grid, TextField, FormControlLabel, FormControl, FormHelperText } from '@mui/material';
+import {  Grid, TextField } from '@mui/material';
 import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
 import BasicSelect from '../../../../../components/ui/selects/BasicSelect';
 import ConstructionAgent from './ConstructionAgent';
+import LabeledCheckBox from '../../../../../components/ui/checkboxes/LabeledCheckBox';
 
 const ConstructionInfo = () => {
   const tempOptions: Options = ['新築工事', 'リフォーム工事', '新築付帯工事', '太陽工事', '蓄電池', '造成・外構工事', '解体・撤去工事', '営繕工事', '設備交換工事', '物品販売', 'その他工事', '自社工事', 'アフターメンテ']
@@ -30,15 +31,7 @@ const ConstructionInfo = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <FormControl>
-            <FormControlLabel
-            label="工事担当者を確定する"
-            control={<Checkbox/>}
-          />
-            <FormHelperText>※工事担当者が未定の場合はチェックしないでください。</FormHelperText>
-
-          </FormControl>
-
+          <LabeledCheckBox label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
         </Grid>
 
       </Grid>

@@ -36,8 +36,8 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
 
   return (
     <Stack spacing={2} p={1}>
-    <Stack direction="row" justifyContent="end">顧客名：{custName}</Stack>
-    <BasicSelect
+      <Stack direction="row" justifyContent="end">顧客名：{custName}</Stack>
+      <BasicSelect
       name={'memoType'}
       value={memoType.value}
       label={memoType.label}
@@ -47,7 +47,7 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
       options={options} onChange={handleChange} isRequired={memoType.isRequired}
     />
 
-    <TextField
+      <TextField
       name="memoContents"
       label="メモ"
       fullWidth
@@ -60,18 +60,18 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
       error={memoContents.hasError && (memoContents.touched || formState.isSubmitted)}
       required={memoContents.isRequired}
     />
-    <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" justifyContent="space-between">
 
-      <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>dispatch({ type: 'CHANGE_ISNOTIFY' })} />
+        <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>dispatch({ type: 'CHANGE_ISNOTIFY' })} />
 
 
-      <Stack>
-        <Caption text={`作成日時：${format(new Date(), 'yyyy.MM.d H:mm')}`} />
-        <Caption text={`作成者：${kintone.getLoginUser().name}`} />
+        <Stack>
+          <Caption text={`作成日時：${format(new Date(), 'yyyy.MM.d H:mm')}`} />
+          <Caption text={`作成者：${kintone.getLoginUser().name}`} />
+        </Stack>
       </Stack>
+      {isNotify && <MemoFormAgentCheckBox dispatch={dispatch} formState={formState} />}
     </Stack>
-    {isNotify && <MemoFormAgentCheckBox dispatch={dispatch} formState={formState} />}
-  </Stack>
   );
 };
 

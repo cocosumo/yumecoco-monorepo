@@ -1,7 +1,6 @@
 import {
   Divider,
   Grid,
-  Typography,
   Button,
   AlertColor,
 } from '@mui/material';
@@ -24,7 +23,8 @@ import debounce from 'lodash.debounce';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
 import { getCustomersByIds } from '../../../api/kintone/customers/GET';
-
+import MainContainer from '../../../components/ui/containers/MainContainer';
+import PageTitle from '../../../components/ui/labels/PageTitle';
 
 export interface CustRegSnackProp {
   open: boolean,
@@ -48,7 +48,7 @@ export default function CustomerRegistration() {
   const isEdit = !!groupId;
 
   useEffect(()=>{
-    console.log(submitState);
+
 
     switch (submitState) {
       case 'VALIDATE':
@@ -118,36 +118,33 @@ export default function CustomerRegistration() {
 
   const debouncedHandleSubmit = useCallback((debounce(handleSubmit, 1000)), []);
 
-  console.log(formState);
   return (
     <CustomerFormContext.Provider value={stateProvider}>
       <form noValidate>
-      <Grid container spacing={2} overflow="auto" justifyContent="center">
-        <Grid item xs={12} p={2} sx={{ backgroundColor: '#9CDAF9' }}>
-          <Typography variant="h4">顧客登録（個人）</Typography>
-        </Grid>
-        <Grid item md={6} >
-          {formState.customers.map((_, i) => <CustomerRegistrationFormInstance  key={i} index={i} {...{ dispatch }} />)}
-          {!isMaxCustomers &&
-          <Button fullWidth variant="contained" color="success" startIcon={<PersonAddIcon />} onClick={() => dispatch({ type: 'ADD' })}>
-            契約者を追加する
-          </Button>
+        <MainContainer>
+          <PageTitle label="顧客登録（個人）"/>
+          <Grid item md={6} >
+            {formState.customers.map((_, i) => <CustomerRegistrationFormInstance  key={i} index={i} {...{ dispatch }} />)}
+            {!isMaxCustomers &&
+            <Button fullWidth variant="contained" color="success" startIcon={<PersonAddIcon />} onClick={() => dispatch({ type: 'ADD' })}>
+              契約者を追加する
+            </Button>
           }
 
-        </Grid>
-        <Grid item md={3}>
-          <AgentsForm />
-        </Grid>
-        {isEdit && <Grid item md={3}>
-          <Memos/>
-        </Grid> }
-        <Grid item xs={12}><Divider /></Grid>
-        <Grid container item md={4} justifyContent="center">
-          <Button onClick={debouncedHandleSubmit} disabled={formState.submitState !== 'EDITTING'} size="large" variant="contained" color="primary" startIcon={<SaveAltIcon />} >
-            保存
-          </Button>
-        </Grid>
-      </Grid>
+          </Grid>
+          <Grid item md={3}>
+            <AgentsForm />
+          </Grid>
+          {isEdit && <Grid item md={3}>
+            <Memos/>
+          </Grid> }
+          <Grid item xs={12}><Divider /></Grid>
+          <Grid container item xs={12} justifyContent="center">
+            <Button onClick={debouncedHandleSubmit} disabled={formState.submitState !== 'EDITTING'} size="large" variant="contained" color="primary" startIcon={<SaveAltIcon />} >
+              保存
+            </Button>
+          </Grid>
+        </MainContainer>
       </form>
 
       <FormSnack

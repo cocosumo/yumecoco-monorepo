@@ -1,18 +1,19 @@
 import Collapse from '@mui/material/Collapse';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ListItemButton from '@mui/material/ListItemButton';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Link } from 'react-router-dom';
 
+import TableChartIcon from '@mui/icons-material/TableChart';
 
-export default function CustomerMenu() {
+
+export default function ConstructionMenu() {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -23,27 +24,28 @@ export default function CustomerMenu() {
     <>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
-          <PermIdentityIcon />
+          <EngineeringIcon />
         </ListItemIcon>
-        <ListItemText primary="顧客" />
+        <ListItemText primary="工事情報" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link to="customer/register">
+          <Link to="construction/register">
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
-                <AppRegistrationIcon />
+                <NoteAddIcon />
               </ListItemIcon>
               <ListItemText primary="新規登録" />
             </ListItemButton>
           </Link>
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
-              <PersonSearchIcon />
+              <TableChartIcon />
             </ListItemIcon>
-            <ListItemText primary="顧客検索" />
+            <ListItemText primary="一覧" />
           </ListItemButton>
+
         </List>
       </Collapse>
     </>

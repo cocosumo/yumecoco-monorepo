@@ -1,7 +1,7 @@
 import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import {useState} from 'react';
+import { useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -20,36 +20,36 @@ export default function ContractMenu() {
   };
 
   return (
-    <>
-      <ListItemButton onClick={handleClick}>
-        <ListItemIcon>
-          <HistoryEduIcon />
-        </ListItemIcon>
-        <ListItemText primary="契約申請書" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{pl: 4}}>
-            <ListItemIcon>
-              <NoteAddIcon />
-            </ListItemIcon>
-            <ListItemText primary="新規作成" />
-          </ListItemButton>
-          <ListItemButton sx={{pl: 4}}>
-            <ListItemIcon>
-              <ContentPasteSearchIcon />
-            </ListItemIcon>
-            <ListItemText primary="契約確認" />
-          </ListItemButton>
-          <ListItemButton sx={{pl: 4}}>
-            <ListItemIcon>
-              <CancelScheduleSendIcon />
-            </ListItemIcon>
-            <ListItemText primary="申請取り下げ" />
-          </ListItemButton>
-        </List>
-      </Collapse>
-    </>
+	<>
+		<ListItemButton onClick={handleClick}>
+			<ListItemIcon>
+				<HistoryEduIcon />
+			</ListItemIcon>
+			<ListItemText primary="契約申請書" />
+			{open ? <ExpandLess /> : <ExpandMore />}
+		</ListItemButton>
+		<Collapse in={open} timeout="auto" unmountOnExit>
+			<List component="div" disablePadding>
+				<ListItemButton sx={{ pl: 4 }}>
+					<ListItemIcon>
+						<NoteAddIcon />
+					</ListItemIcon>
+					<ListItemText primary="新規作成" />
+				</ListItemButton>
+				<ListItemButton sx={{ pl: 4 }}>
+					<ListItemIcon>
+						<ContentPasteSearchIcon />
+					</ListItemIcon>
+					<ListItemText primary="契約確認" />
+				</ListItemButton>
+				<ListItemButton sx={{ pl: 4 }}>
+					<ListItemIcon>
+						<CancelScheduleSendIcon />
+					</ListItemIcon>
+					<ListItemText primary="申請取り下げ" />
+				</ListItemButton>
+			</List>
+		</Collapse>
+	</>
   );
 }

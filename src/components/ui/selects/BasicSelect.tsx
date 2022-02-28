@@ -26,7 +26,7 @@ export default function BasicSelect({ label, hasError, name, options, value, hel
               {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
               <div>{option.label}</div>
             </Stack>
-            </MenuItem>)
+          </MenuItem>)
         }
       </Select>
       <FormHelperText error={hasError}>{helperText}</FormHelperText>

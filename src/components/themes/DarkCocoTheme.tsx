@@ -11,6 +11,17 @@ const darkTheme = createTheme({
     htmlFontSize: isMobile ? 10 : 18,
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        containedSecondary: {
+          color: '#030303',
+          background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(205,205,205,1) 100%);',
+          ':hover': {
+            backgroundColor: '#CDCFFF',
+          },
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
@@ -77,7 +88,7 @@ const darkTheme = createTheme({
 });
 
 export default function EnableColorOnDarkAppBar({ children }: Props) {
-  console.log(isMobile);
+
   return (
     <ThemeProvider theme={darkTheme}>
       {children}

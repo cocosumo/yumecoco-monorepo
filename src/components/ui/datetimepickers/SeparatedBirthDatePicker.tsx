@@ -58,12 +58,12 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
 
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
-      <FormControl>
-        <FormGroup>
-          <Stack direction="row" spacing={1}>
-            <Box minWidth={110}>
-              <MuiDatePicker
+	<LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
+		<FormControl>
+			<FormGroup>
+				<Stack direction="row" spacing={1}>
+					<Box minWidth={110}>
+						<MuiDatePicker
 
                 views={['year']}
                 ignoreInvalidInputs
@@ -77,15 +77,15 @@ const SeparatedDatePicker = (props : SeparatedDatePickerProps) => {
 
                 renderInput={(params) => <TextField  error={true} helperText={yearError.helperText} fullWidth {...params} />}
               />
-            </Box>
+					</Box>
 
-            <BasicSelect label="月" name="birthMonth" value={value.birthMonth} options={monthOptions} onChange={handleChange}/>
-            <BasicSelect label="日" name="birthDay" value={value.birthDay} options={dayOptions} onChange={handleChange}/>
-          </Stack>
-        </FormGroup>
-        <FormHelperText>{'<任意>個別設定可'}</FormHelperText>
-      </FormControl>
-    </LocalizationProvider>
+					<BasicSelect label="月" name="birthMonth" value={value.birthMonth} options={monthOptions} onChange={handleChange}/>
+					<BasicSelect label="日" name="birthDay" value={value.birthDay} options={dayOptions} onChange={handleChange}/>
+				</Stack>
+			</FormGroup>
+			<FormHelperText>{'<任意>個別設定可'}</FormHelperText>
+		</FormControl>
+	</LocalizationProvider>
   );
 };
 

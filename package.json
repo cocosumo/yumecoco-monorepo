@@ -91,6 +91,7 @@
     "axios": "^0.26.0",
     "date-fns": "^2.25.0",
     "fork-ts-checker-webpack-plugin": "^6.4.0",
+    "formik": "^2.2.9",
     "i": "^0.3.7",
     "img-loader": "^4.0.0",
     "lodash.debounce": "^4.0.8",
@@ -102,6 +103,7 @@
     "react-router-dom": "^6.2.1",
     "react-to-print": "^2.14.0",
     "ts-loader": "^9.2.6",
-    "ts-node": "^10.5.0"
+    "ts-node": "^10.5.0",
+    "yup": "^0.32.11"
   }
 }

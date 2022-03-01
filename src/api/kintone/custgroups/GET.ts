@@ -12,3 +12,11 @@ export const getCustGroup = (id: string) : Promise<Result> => {
   return KintoneRecord.getRecord({ app: APP_ID, id });
 
 };
+
+export const searchCustGroup = (searchStr: string) => {
+
+  return KintoneRecord.getRecords({
+    app: APP_ID,
+    query: `${'customerName'} like "${searchStr}"`,
+  });
+};

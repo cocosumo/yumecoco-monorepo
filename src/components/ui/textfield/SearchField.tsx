@@ -19,6 +19,7 @@ const SearchField = (props : SearchFieldProps) => {
     <TextField
       fullWidth
       label={label}
+      required
       helperText={'※顧客情報登録を先にしてください。'}
       InputProps={{
         endAdornment: <InputAdornment position="end"><SearchIcon/></InputAdornment>,

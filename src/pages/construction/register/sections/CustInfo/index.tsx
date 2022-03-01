@@ -1,7 +1,9 @@
 import { Grid, Stack } from '@mui/material';
 import GrayBox from '../../../../../components/ui/containers/GrayBox';
 import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
-import SearchField from '../../../../../components/ui/textfield/SearchField';
+import FormikSearchField from '../../../../../components/ui/textfield/FormikSearchField';
+
+//import SearchField from '../../../../../components/ui/textfield/SearchField';
 
 const CustInfo = () => {
 
@@ -11,7 +13,7 @@ const CustInfo = () => {
     <>
       <PageSubTitle label="顧客情報"/>
       <Grid item xs={12} md={4} >
-        <SearchField label='氏名'/>
+        <FormikSearchField name={'custGroupId'} label='氏名' helperText='※顧客情報登録を先にしてください。' required/>
       </Grid>
 
       <Grid item xs={12}>

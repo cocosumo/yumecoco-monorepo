@@ -14,7 +14,6 @@ import { validationSchema, initialValues } from './index.form';
 
 const ConstructionRegister  = () => {
 
-
   return (
     <Formik
       initialValues={initialValues}

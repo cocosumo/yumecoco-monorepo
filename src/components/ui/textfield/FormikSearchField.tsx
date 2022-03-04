@@ -1,9 +1,7 @@
 import { TextField, Autocomplete, Stack } from '@mui/material';
-import { format } from 'date-fns';
 import { useField } from 'formik';
 import debounce from 'lodash.debounce';
 import { useCallback, useState } from 'react';
-import { searchCustGroup } from '../../../api/kintone/custgroups/GET';
 import Caption from '../typographies/Caption';
 
 
@@ -12,9 +10,10 @@ interface FormikSearchFieldProps {
   label: string,
   helperText?: string,
   required?: boolean
+  renderOptionsFn : (value: string) => Promise<SearchOptions[]>
 }
 
-interface CustomersOptions {
+export interface SearchOptions {
   name: string,
   id: string,
   subTitle?: string,
@@ -22,34 +21,13 @@ interface CustomersOptions {
 }
 
 const FormikSearchField = (props: FormikSearchFieldProps) => {
-  const [options, setOptions] = useState<readonly CustomersOptions[]>([{ name: 'haller', id: '35' }]);
+  const [options, setOptions] = useState<readonly SearchOptions[]>([]);
   const [field, meta, helpers] = useField(props);
 
   const handleChange = useCallback(debounce((value: string) => {
     console.log(value);
-    searchCustGroup(value)
-      .then(res => {
-        const newOptions = res.records.reduce<CustomersOptions[]>((accu, curr)=>{
-          const custGrpRec =  (curr as unknown as  CustomerGroupTypes.SavedData);
-          const mainCust = custGrpRec.members.value[0].value.customerName.value;
-          if (mainCust.includes(value)){
-            return accu.concat({
-              name: mainCust,
-              id: custGrpRec.$id.value,
-              secondaryLabel: format(Date.parse(custGrpRec.作成日時.value), 'yyyy-MM-dd'),
-              subTitle: custGrpRec.storeName.value,
-            });
-          }
-
-          return accu;
-
-        }, []);
-
-        console.log(newOptions);
-
-        setOptions(newOptions);
-
-      });
+    props.renderOptionsFn(value)
+      .then(res => setOptions(res));
 
   }, 1000), []);
 

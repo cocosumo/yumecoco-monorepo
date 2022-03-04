@@ -11,6 +11,7 @@ interface FormikSearchFieldProps {
   helperText?: string,
   required?: boolean
   renderOptionsFn : (value: string) => Promise<SearchOptions[]>
+  setRecord?: (record: any) => void
 }
 
 export interface SearchOptions {
@@ -18,6 +19,7 @@ export interface SearchOptions {
   id: string,
   subTitle?: string,
   secondaryLabel?: string
+  record?: any
 }
 
 const FormikSearchField = (props: FormikSearchFieldProps) => {
@@ -37,6 +39,7 @@ const FormikSearchField = (props: FormikSearchFieldProps) => {
       onChange={ (_, newState) => {
         helpers.setValue(newState?.id ?? '');
 
+        if (props.setRecord) props.setRecord(newState?.record);
       }}
 
       onBlur={field.onBlur}
@@ -44,12 +47,12 @@ const FormikSearchField = (props: FormikSearchFieldProps) => {
         return option.id === value.id;
       }}
 
-      getOptionLabel={(option) => option.name}
+      getOptionLabel={(option) => option.name || ''}
 
       options={options}
       filterOptions={(x) => x}
 
-      renderInput={(params) => <TextField {...props} {...params}
+      renderInput={(params) => <TextField name={props.name} label={props.label} {...params}
         error={meta.touched && Boolean(meta.error)}
         helperText={meta.error || props.helperText}
         onChange = {(ev) => {

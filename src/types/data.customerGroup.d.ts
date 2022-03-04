@@ -7,6 +7,7 @@ declare namespace CustomerGroupTypes {
       value: {
         id: string;
         value: {
+          address: kintone.fieldTypes.SingleLineText;
           customerId: kintone.fieldTypes.Number;
           customerName: kintone.fieldTypes.SingleLineText;
         };

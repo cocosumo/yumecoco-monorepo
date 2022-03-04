@@ -4,8 +4,8 @@ import { searchCustGroup } from './GET';
 
 describe('CustGroup', () => {
   it('has been searched', async ()=>{
-    const res = await searchCustGroup('斎藤');
-    console.log(res.records[0], 'hello');
+    const res = await searchCustGroup('高橋');
+    console.log(res, 'hello');
     expect(res).toHaveProperty('records');
   });
 });

@@ -10,6 +10,7 @@ export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['memb
         value: {
           customerId: { value: item },
           customerName: { value: '' },
+          address: { value: '' },
         },
       };
     }),

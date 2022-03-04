@@ -5,15 +5,20 @@ import { format } from 'date-fns';
 const renderOptions = async (value : string) => {
   return searchCustGroup(value)
     .then(res => {
+      console.log('fire!', res, value);
       const newOptions = res.records.reduce<SearchOptions[]>((accu, curr)=>{
         const custGrpRec =  (curr as unknown as  CustomerGroupTypes.SavedData);
-        const mainCust = custGrpRec.members.value[0].value.customerName.value;
-        if (mainCust.includes(value)){
+        const { $id, storeName, 作成日時, members } = custGrpRec;
+        const mainCust = members.value[0].value;
+        const mainCustName = mainCust.customerName.value;
+
+        if (mainCustName.includes(value)){
           return accu.concat({
-            name: mainCust,
-            id: custGrpRec.$id.value,
-            secondaryLabel: format(Date.parse(custGrpRec.作成日時.value), 'yyyy-MM-dd'),
-            subTitle: custGrpRec.storeName.value,
+            name: mainCustName,
+            id: $id.value,
+            subTitle: `${storeName.value} ${mainCust.address.value}`,
+            secondaryLabel: format(Date.parse(作成日時.value), 'yyyy-MM-dd' ),
+            record: custGrpRec,
           });
         }
 

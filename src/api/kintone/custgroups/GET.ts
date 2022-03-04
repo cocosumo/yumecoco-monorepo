@@ -14,7 +14,7 @@ export const getCustGroup = (id: string) : Promise<Result> => {
 };
 
 export const searchCustGroup = (searchStr: string) => {
-
+  console.log(searchStr, 'searchString');
   return KintoneRecord.getRecords({
     app: APP_ID,
     query: `${'customerName'} like "${searchStr}"`,

@@ -13,8 +13,8 @@ const GrayBox = (props: GrayBoxProps) => {
   return (
     <Box
       borderRadius={2}
-      bgcolor={'#EFEFEF'}
-      py={3} px={3}
+      bgcolor={'#f5f5f5'}
+      p={4}
     >
       <Stack spacing={1}>
         <Typography color={'rgba(0, 0, 0, 0.6)'} variant={'subtitle2'}>{label}</Typography>

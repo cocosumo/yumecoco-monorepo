@@ -14,7 +14,7 @@ export interface FormikSelecProps {
 
 export function FormikSelect(props : FormikSelecProps) {
   const [fields, meta, helpers] = useField(props);
-  console.log(fields);
+
   return (
     <FormControl required={props.isRequired} fullWidth error={!!meta.error}>
       <InputLabel error={!!meta.error}>{props.label}</InputLabel>

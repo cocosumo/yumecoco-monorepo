@@ -27,10 +27,8 @@ const FormikSearchField = (props: FormikSearchFieldProps) => {
   const [field, meta, helpers] = useField(props);
 
   const handleChange = useCallback(debounce((value: string) => {
-    console.log(value);
     props.renderOptionsFn(value)
       .then(res => setOptions(res));
-
   }, 1000), []);
 
   return (

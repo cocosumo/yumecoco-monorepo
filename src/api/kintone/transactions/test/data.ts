@@ -1,4 +1,4 @@
-import { UpdateRecordParam } from '../../restapi';
+import { UpdateRecordParam } from '../../types/restapi';
 
 export const dtArrOfCusts : UpdateRecordParam[] = [{
   id: '241',

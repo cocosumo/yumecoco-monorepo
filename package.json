@@ -18,7 +18,8 @@
     "dtsgen:employees": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 34 --type-name Data --namespace EmployeeTypes -o src/types/data.employees.d.ts",
     "dtsgen:customers": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 173 --type-name Data --namespace CustomerTypes -o src/types/data.customers.d.ts",
     "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
-    "dtsgen:memo": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 181 --type-name Data --namespace CustomerMemoTypes -o src/types/data.customerMemo.d.ts"
+    "dtsgen:memo": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 181 --type-name Data --namespace CustomerMemoTypes -o src/types/data.customerMemo.d.ts",
+    "dtsgen:constType": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 190 --type-name Data --namespace ConstructionTypes -o src/types/data.construction.d.ts"
   },
   "keywords": [
     "Autoprefixer",

@@ -1,5 +1,5 @@
 
-import { RecordParam, UpdateCustFn, UpsertRecordsResult } from '../restapi';
+import { RecordParam, UpdateCustFn, UpsertRecordsResult } from '../types/restapi';
 import {  updateCustomers } from '../customers/PUT';
 import { addCustomers } from '../customers/POST';
 import { updateGroup } from '../custgroups/PUT';

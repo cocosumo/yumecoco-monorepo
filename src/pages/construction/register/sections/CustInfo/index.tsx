@@ -1,5 +1,4 @@
 import { Grid, Stack } from '@mui/material';
-import { useField } from 'formik';
 import { useState } from 'react';
 import { getCustomerById } from '../../../../../api/kintone/customers/GET';
 import GrayBox from '../../../../../components/ui/containers/GrayBox';
@@ -17,24 +16,24 @@ enum AgentType {
 
 const CustInfo = () => {
   const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
-  const [field] = useField('custGroupId');
+
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
 
-  const handleCustomerChange = async (custGroupRecord: CustomerGroupTypes.SavedData) => {
+  const handleCustomerChange = async (record: CustomerGroupTypes.SavedData) => {
     const {
       members : {
         value: members,
       },
-    } = custGroupRecord;
+    } = record;
+
 
     const custId = members[0].value.customerId.value;
     console.log(custId, 'record');
     setCustomerRecord((await getCustomerById(custId)).record as unknown as CustomerTypes.SavedData);
-    setCustGroupRecord(custGroupRecord);
+    setCustGroupRecord(record);
   };
 
 
-  console.log(custRecord);
   return (
     <>
       <PageSubTitle label="顧客情報"/>
@@ -59,8 +58,10 @@ const CustInfo = () => {
                 {custGroupRecord?.agents
                   .value
                   .map(({ value: { agentType, employeeName } }) => {
-                    return <div key={agentType.value}>
-                      {AgentType[agentType.value as keyof typeof AgentType]} : {employeeName.value}</div>;
+                    return (
+                      <LabeledInfo key={agentType.value} label={AgentType[agentType.value as keyof typeof AgentType]} data={employeeName.value} />
+
+                    );
                   })}
               </Stack>
 

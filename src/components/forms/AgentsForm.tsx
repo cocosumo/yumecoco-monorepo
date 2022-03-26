@@ -3,7 +3,7 @@ import useCustFormAgents from '../../hooks/useCustFormAgents';
 import { ElementTarget,  InputField } from '../../types/forms';
 
 import BasicSelect from '../ui/selects/BasicSelect';
-import AgentFormSelect from '../ui/selects/AgentFormSelect';
+import { AgentFormSelect } from '../ui/selects/';
 
 
 export default function AgentsForm() {

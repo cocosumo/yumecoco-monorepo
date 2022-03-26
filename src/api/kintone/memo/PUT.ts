@@ -1,5 +1,5 @@
 import { KintoneRecord } from '../config';
-import { RecordParam } from '../restapi';
+import { RecordParam } from '../types/restapi';
 import { APP_ID } from './config';
 
 

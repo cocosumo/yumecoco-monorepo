@@ -3,7 +3,7 @@ import BasicSelect from './BasicSelect';
 
 
 
-export default function StoreSelect() {
+export function StoreSelect() {
   /* TODO: Pull from database */
   const stores: Options = [
     {

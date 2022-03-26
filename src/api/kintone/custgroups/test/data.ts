@@ -1,4 +1,4 @@
-import { UpdateRecordParam } from '../../restapi';
+import { UpdateRecordParam } from '../../types/restapi';
 
 export const dtGroup: UpdateRecordParam = {
   id: '121',

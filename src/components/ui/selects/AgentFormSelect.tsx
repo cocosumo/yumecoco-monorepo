@@ -4,9 +4,9 @@ import BasicSelect, { BasicSelectProps } from './BasicSelect';
 
 
 
-const AgentFormSelect = ({ label, hasError, name, options, value, helperText, isRequired, isDisabled, onChange }: BasicSelectProps) => {
+export const AgentFormSelect = ({ label, hasError, name, options, value, helperText, isRequired, isDisabled, onChange }: BasicSelectProps) => {
 
-  const isEmptyOptions = options.length === 0;
+  const isEmptyOptions = options?.length === 0;
   const disabled = isDisabled || isEmptyOptions;
 
   return (
@@ -23,5 +23,3 @@ const AgentFormSelect = ({ label, hasError, name, options, value, helperText, is
 
   );
 };
-
-export default AgentFormSelect;

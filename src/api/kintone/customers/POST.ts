@@ -1,7 +1,7 @@
 import { APP_ID } from './config';
 import { KintoneRecord } from './../config';
 
-import { RecordParam, UpsertRecordResult } from '../restapi';
+import { RecordParam, UpsertRecordResult } from '../types/restapi';
 
 
 

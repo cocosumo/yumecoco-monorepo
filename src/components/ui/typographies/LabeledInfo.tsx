@@ -5,7 +5,7 @@ interface LabeledInfoProps {
   data?: string
 }
 
-const LabeledInfo = ({ label, data }: LabeledInfoProps) =>{
+const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
 
   return (
     <Grid container>

@@ -14,6 +14,13 @@ export const getCustomersByIds = (ids: string[]) => {
   });
 };
 
+export const getCustomerById = (id: string) =>  KintoneRecord
+  .getRecord({
+    app: APP_ID,
+    id,
+  });
+
+
 
 export const searchCustomers = (searchStr: string) => {
   console.log(`${'fullName' as keyof CustomerTypes.SavedData} like ${searchStr}`);

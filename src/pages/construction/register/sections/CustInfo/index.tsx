@@ -1,26 +1,40 @@
 import { Grid, Stack } from '@mui/material';
 import { useField } from 'formik';
 import { useState } from 'react';
+import { getCustomerById } from '../../../../../api/kintone/customers/GET';
 import GrayBox from '../../../../../components/ui/containers/GrayBox';
 import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
 import FormikSearchField from '../../../../../components/ui/textfield/FormikSearchField';
 import LabeledInfo from '../../../../../components/ui/typographies/LabeledInfo';
 import renderOptions from './renderOptions';
 
-//import SearchField from '../../../../../components/ui/textfield/SearchField';
+enum AgentType {
+  coco1 = '営業担当者1',
+  coco2 = '営業担当者2',
+  yume1 = 'ゆめてつAG1',
+  yume2 = 'ゆめてつAG2',
+}
 
 const CustInfo = () => {
   const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
   const [field] = useField('custGroupId');
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
 
-  const handleCustomerChange = (record: CustomerTypes.SavedData) => {
-    const { $id } = record;
+  const handleCustomerChange = async (custGroupRecord: CustomerGroupTypes.SavedData) => {
+    const {
+      members : {
+        value: members,
+      },
+    } = custGroupRecord;
 
-    console.log($id, 'record!');
+    const custId = members[0].value.customerId.value;
+    console.log(custId, 'record');
+    setCustomerRecord((await getCustomerById(custId)).record as unknown as CustomerTypes.SavedData);
+    setCustGroupRecord(custGroupRecord);
   };
 
 
+  console.log(custRecord);
   return (
     <>
       <PageSubTitle label="顧客情報"/>
@@ -33,18 +47,21 @@ const CustInfo = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Stack spacing={2}>
-                {/* {['顧客氏名', '現住所', '連絡先', 'メールアドレス' ].map(item => <div key={item}>{item} : </div>)} */}
-                <LabeledInfo label="氏名" data={custGroupRecord?.members.value[0].value.customerName.value}/>
-                <LabeledInfo label="氏名フリガナ" data={custGroupRecord?.members.value[0].value.customerName.value}/>
 
-                {/* <Caption text='顧客氏名'/>{custGroupRecord?.members.value[0].value.customerName.value} */}
+                <LabeledInfo label="氏名" data={custRecord?.fullName.value}/>
+                <LabeledInfo label="氏名フリガナ" data={custRecord?.fullNameReading.value}/>
+
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6}>
 
               <Stack spacing={2}>
-
-                {['営業担当者1', '営業担当者2', 'ゆめてつAG1', 'ゆめてつAG2' ].map(item => <div key={item}>{item} : </div>)}
+                {custGroupRecord?.agents
+                  .value
+                  .map(({ value: { agentType, employeeName } }) => {
+                    return <div key={agentType.value}>
+                      {AgentType[agentType.value as keyof typeof AgentType]} : {employeeName.value}</div>;
+                  })}
               </Stack>
 
             </Grid>

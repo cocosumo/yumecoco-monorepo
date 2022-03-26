@@ -1,4 +1,4 @@
-import BasicSelect from '../../../../../components/ui/selects/BasicSelect';
+import { FormikSelect } from '../../../../../components/ui/selects';
 
 interface ConstructionAgentProps {
   number?: number
@@ -13,8 +13,8 @@ const ConstructionAgent = (props: ConstructionAgentProps) => {
   const helperText = number > 1 ? '※工事担当者が2名いる場合選択してください。' : undefined;
 
   return (
-    <BasicSelect
-    name='constnAgent'
+    <FormikSelect
+    name={`constnAgent${number}`}
     label={`工事担当者${number}`}
     options={tempAgents}
     helperText={helperText}

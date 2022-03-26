@@ -9,16 +9,17 @@ export interface FormikSelecProps {
   options?: Options,
   name: string,
   label: string
-  isRequired?: boolean
+  required?: boolean
+  helperText?: string
 }
 
 export function FormikSelect(props : FormikSelecProps) {
   const [fields, meta, helpers] = useField(props);
 
   return (
-    <FormControl required={props.isRequired} fullWidth error={!!meta.error}>
+    <FormControl required={props.required} fullWidth error={!!meta.error}>
       <InputLabel error={!!meta.error}>{props.label}</InputLabel>
-      <Select error={!!meta.error} name={props.name} label={props.label} required={props.isRequired} value={fields.value  ?? ''} onChange={ (e) => helpers.setValue(e.target.value)}>
+      <Select  error={!!meta.error} name={props.name} label={props.label} required={props.required} value={fields.value  ?? ''} onChange={ (e) => helpers.setValue(e.target.value)}>
 
         {
           props.options &&
@@ -31,6 +32,7 @@ export function FormikSelect(props : FormikSelecProps) {
         }
       </Select>
       <FormHelperText error={!!meta.error}>{meta.error}</FormHelperText>
+      {props.helperText && <FormHelperText>{props.helperText}</FormHelperText>}
     </FormControl>
   );
 }

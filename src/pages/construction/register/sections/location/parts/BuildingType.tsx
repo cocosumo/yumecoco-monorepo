@@ -1,9 +1,11 @@
 import { Radio,  RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import ChoiceContainer from '../../../../../../components/ui/containers/ChoiceContainer';
+import { useField } from 'formik';
 
 const buildingTypes =  ['戸建て', 'マンション', '店舗/事務所', 'その他'];
 
 const BuildingType = () => {
+  const [field] = useField('buildingType');
   return (
     <FormControl fullWidth>
       <FormLabel>建物種別</FormLabel>
@@ -11,7 +13,7 @@ const BuildingType = () => {
         <RadioGroup
         sx={{ justifyContent: 'space-around' }}
         row
-        name="buildingType"
+        {...field}
       >
           {buildingTypes.map(item => <FormControlLabel key={item} value={item} control={<Radio />} label={item}/>)}
 

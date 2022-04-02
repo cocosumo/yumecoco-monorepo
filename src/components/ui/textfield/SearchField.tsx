@@ -11,7 +11,7 @@ interface SearchFieldProps {
   returnField?: string
 }
 
-const SearchField = (props : SearchFieldProps) => {
+export const SearchField = (props : SearchFieldProps) => {
   const {
     label,
   } = props;
@@ -28,4 +28,3 @@ const SearchField = (props : SearchFieldProps) => {
   );
 };
 
-export default SearchField;

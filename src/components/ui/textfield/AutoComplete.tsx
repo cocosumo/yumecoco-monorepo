@@ -133,7 +133,7 @@ const top100Films = [
   { label: 'Monty Python and the Holy Grail', year: 1975 },
 ];
 
-export default function AutoComplete() {
+export function AutoComplete() {
   return (
     <Autocomplete
       disablePortal

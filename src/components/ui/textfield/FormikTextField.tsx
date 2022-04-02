@@ -12,7 +12,7 @@ interface FormikTextFieldProps {
 
 }
 
-const FormikTextField = (props: FormikTextFieldProps) => {
+export const FormikTextField = (props: FormikTextFieldProps) => {
   const { helperText } = props;
   const [field, meta] = useField(props);
 
@@ -25,5 +25,3 @@ const FormikTextField = (props: FormikTextFieldProps) => {
     />
   );
 };
-
-export default FormikTextField;

@@ -22,7 +22,7 @@ export interface SearchOptions {
   record?: any
 }
 
-const FormikSearchField = (props: FormikSearchFieldProps) => {
+export const FormikSearchField = (props: FormikSearchFieldProps) => {
   const [options, setOptions] = useState<readonly SearchOptions[]>([]);
   const [field, meta, helpers] = useField(props);
 

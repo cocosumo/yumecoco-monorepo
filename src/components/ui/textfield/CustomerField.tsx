@@ -11,7 +11,7 @@ interface CustomerFieldProps {
   handleFieldChange: HandleFieldChangeFunc
 }
 
-const CustomerField : React.FC<CustomerFieldProps> = (props) => {
+export const CustomerField : React.FC<CustomerFieldProps> = (props) => {
 
   const { fieldname, customer, handleFieldChange } = props;
   const cust = customer[fieldname] as InputField;
@@ -27,4 +27,3 @@ const CustomerField : React.FC<CustomerFieldProps> = (props) => {
 
 };
 
-export default CustomerField;

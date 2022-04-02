@@ -7,7 +7,7 @@ interface LabeledCheckBoxProps {
   setCheckedHandler?: ()=>void,
 }
 
-export default function LabeledCheckBox(props : LabeledCheckBoxProps) {
+export function LabeledCheckBox(props : LabeledCheckBoxProps) {
   const {
     label = '',
     checked = false,

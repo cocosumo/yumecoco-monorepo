@@ -12,7 +12,7 @@ import {
 import { useContext } from 'react';
 import CustomerFormContext from '../../context/CustomerFormContext';
 import SeparatedBirthDatePicker from '../ui/datetimepickers/SeparatedBirthDatePicker';
-import CustomerField from '../ui/textfield/CustomerField';
+import { CustomerField } from '../ui/textfield';
 import { ElementTarget } from '../../types/forms';
 import ContactFieldGroup from './ContactFieldGroup';
 //import ContactFieldGroup from './ContactFieldGroup';

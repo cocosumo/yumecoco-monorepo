@@ -3,11 +3,11 @@ import {  Grid } from '@mui/material';
 import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
 //　import BasicSelect from '../../../../../components/ui/selects/BasicSelect';
 import ConstructionAgent from './ConstructionAgent';
-import LabeledCheckBox from '../../../../../components/ui/checkboxes/LabeledCheckBox';
+import { LabeledCheckBox } from '../../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../../api/kintone';
 import { FormikSelect } from '../../../../../components/ui/selects';
-import FormikTextField from '../../../../../components/ui/textfield/FormikTextField';
+import { FormikTextField } from '../../../../../components/ui/textfield/';
 
 
 

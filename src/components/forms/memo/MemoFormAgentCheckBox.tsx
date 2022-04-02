@@ -1,6 +1,6 @@
 
 import { FormControl, Stack, FormHelperText } from '@mui/material/';
-import LabeledCheckBox from '../../ui/checkboxes/LabeledCheckBox';
+import { LabeledCheckBox } from '../../ui/checkboxes';
 import { EmployeesToNotify, FieldActionType, MemoFormState, NotifyAgent } from '../../../types/form.memo';
 import ChoiceContainer from '../../ui/containers/ChoiceContainer';
 

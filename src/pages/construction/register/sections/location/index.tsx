@@ -5,7 +5,16 @@ import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
 import BuildingType from './parts/BuildingType';
 import { FormikTextField } from '../../../../../components/ui/textfield';
 
+import { initialValues } from '../../index.form';
+import { useFormikContext } from 'formik';
+
 const ConstructionLocation = () => {
+  const {
+    values : {
+      isChkAddressKari,
+    },
+  } = useFormikContext<typeof initialValues>();
+
   return (
     <>
       <PageSubTitle label="工事場所情報"/>
@@ -19,16 +28,25 @@ const ConstructionLocation = () => {
       <Grid item md={9}/>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address" label="住所" />
+        <FormikTextField name="address1" label="住所" />
       </Grid>
 
       <Grid item xs={12} md={8}>
         <FormikTextField name="address2" label="住所（番地以降）" />
       </Grid>
 
+
       <Grid item xs={12} md={4}>
-        <FormikLabeledCheckBox label="仮換地地番を入力する" name='addressKari' />
+        <FormikLabeledCheckBox label="仮換地地番を入力する" name={'isChkAddressKari' as keyof typeof initialValues} />
       </Grid>
+
+      {
+        isChkAddressKari &&
+        <Grid item xs={12} md={8}>
+          <FormikTextField name="addressKari" label="仮換地住所" />
+        </Grid>
+      }
+
 
       <Grid item xs={12} md={8}>
         <BuildingType/>

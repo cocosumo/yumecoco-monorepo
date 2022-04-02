@@ -1,9 +1,8 @@
 
 import {  Grid } from '@mui/material';
 import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
-//　import BasicSelect from '../../../../../components/ui/selects/BasicSelect';
 import ConstructionAgent from './ConstructionAgent';
-import { LabeledCheckBox } from '../../../../../components/ui/checkboxes';
+import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../../api/kintone';
 import { FormikSelect } from '../../../../../components/ui/selects';
@@ -49,7 +48,8 @@ const ConstructionInfo = () => {
         }
 
         <Grid item xs={12} md={4}>
-          <LabeledCheckBox label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
+          <FormikLabeledCheckBox name='confirmAgent' label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
+
         </Grid>
 
       </Grid>

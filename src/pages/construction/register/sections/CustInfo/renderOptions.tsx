@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 const renderOptions = async (value : string) => {
   return searchCustGroup(value)
     .then(res => {
-      console.log('fire!', res, value);
+
       const newOptions = res.records.reduce<SearchOptions[]>((accu, curr)=>{
         const custGrpRec =  (curr as unknown as  CustomerGroupTypes.SavedData);
         const { $id, storeName, 作成日時, members } = custGrpRec;

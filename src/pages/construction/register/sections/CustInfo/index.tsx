@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { getCustomerById } from '../../../../../api/kintone/customers/GET';
 import GrayBox from '../../../../../components/ui/containers/GrayBox';
 import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
-import FormikSearchField from '../../../../../components/ui/textfield/FormikSearchField';
+import { FormikSearchField } from '../../../../../components/ui/textfield/';
 import LabeledInfo from '../../../../../components/ui/typographies/LabeledInfo';
 import renderOptions from './renderOptions';
 
@@ -60,7 +60,6 @@ const CustInfo = () => {
                   .map(({ value: { agentType, employeeName } }) => {
                     return (
                       <LabeledInfo key={agentType.value} label={AgentType[agentType.value as keyof typeof AgentType]} data={employeeName.value} />
-
                     );
                   })}
               </Stack>

@@ -11,19 +11,29 @@ import { Formik, Form } from 'formik';
 
 import { validationSchema, initialValues } from './form';
 import { saveConstructionData } from '../../../api/kintone/construction/POST';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 
-const ConstructionRegister  = () => {
+export const ConstructionForm  = () => {
+  const [initialState, setInitialState] = useState(initialValues);
+  const constructionId  = useParams().constructionId;
+
+  /* TODO: Add edit */
+  useEffect(()=>{
+    console.log(constructionId);
+  }, [constructionId]);
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialState}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         saveConstructionData(values)
           .then((resp)=>{
             console.log('SAVED!', resp);
             setSubmitting(false);
+
           });
       }}
     >
@@ -44,5 +54,3 @@ const ConstructionRegister  = () => {
 
   );
 };
-
-export default ConstructionRegister;

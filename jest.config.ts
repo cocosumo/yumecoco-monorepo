@@ -1,11 +1,15 @@
-import type {Config} from '@jest/types';
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+'use strict';
 
-export default async (): Promise<Config.InitialOptions> => {
-  return {
-    verbose: true,
-    transformIgnorePatterns: ['node_modules/(?!minifaker)'],
-    setupFiles: [
-      "<rootDir>/jest/env.ts"
-    ]
-  };
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  setupFiles: ['dotenv/config'],
+  modulePathIgnorePatterns: ['dist/'],
+  verbose: true,
+  globals: {
+    'ts-jest': {
+      isolatedModules: true,
+    },
+  },
 };

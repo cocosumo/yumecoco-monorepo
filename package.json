@@ -21,7 +21,6 @@
     "dtsgen:memo": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 181 --type-name Data --namespace CustomerMemoTypes -o src/types/data.customerMemo.d.ts",
     "dtsgen:constType": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 190 --type-name Data --namespace ConstructionTypes -o src/types/data.constructionType.d.ts",
     "dtsgen:constDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ConstructionDetails -o src/types/data.constructionDetails.d.ts"
-
   },
   "keywords": [
     "Autoprefixer",
@@ -73,6 +72,7 @@
     "regenerator-runtime": "^0.13.9",
     "source-map-loader": "^3.0.0",
     "style-loader": "^2.0.0",
+    "ts-jest": "^27.1.4",
     "typescript": "^4.5.2",
     "url-loader": "^4.1.1",
     "webpack": "^5.40.0",

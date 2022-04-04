@@ -7,8 +7,8 @@ describe('Raw Values', ()=>{
     expect(convertToKintone(initialValues)).toMatchSnapshot();
   });
 
-  it('is saved', ()=>{
-    console.log(process.env.API_CONSTRUCTION_TYPE);
-    expect(saveConstructionData(initialValues)).toMatchSnapshot();
+  it('is saved', async ()=>{
+    console.log(process.env.API_CONSTRUCTION_DETAILS);
+    expect(await saveConstructionData(initialValues)).toMatchSnapshot();
   });
 });

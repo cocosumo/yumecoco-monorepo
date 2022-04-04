@@ -80,7 +80,7 @@ export default function CustomerRegistration() {
     if (!snack.open && submitState !== 'EDITTING') {
       /* When save was successful and snack closed, navigate to edit route */
       if (submitState === 'SUCCESS'){
-        navigate(`/custgroup/${formState.groupId}/edit`);
+        navigate(`/custgroup/edit/${formState.groupId}`);
       } else {
         dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });
       }

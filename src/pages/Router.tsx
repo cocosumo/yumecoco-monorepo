@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import ConstructionRegister from './construction/register';
+import { ConstructionForm } from './construction';
 import CustomerRegistration from './customer/register/CustomerRegistration';
 import UnderConstruction from './UnderConstruction';
 
@@ -19,9 +19,10 @@ const Router = () => (
 
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
-    <Route path="/construction/register" element={<ConstructionRegister/>} />
+    <Route path="/construction/register" element={<ConstructionForm/>} />
+    <Route path="/construction/edit/:constructionId/" element={<ConstructionForm/>} />
     <Route path="/customer/register" element={<CustomerRegistration key={'register'} />} />
-    <Route path="/custgroup/:groupId/edit" element={<CustomerRegistration />} />
+    <Route path="/custgroup/edit/:groupId/" element={<CustomerRegistration />} />
   </Routes>
 
 );

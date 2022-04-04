@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../../api/kintone';
 import { FormikSelect } from '../../../../../components/ui/selects';
 import { FormikTextField } from '../../../../../components/ui/textfield/';
+import { KeyOfConstructionDetails } from './../../form';
 
 
 
@@ -30,11 +31,11 @@ const ConstructionInfo = () => {
       <PageSubTitle label='工事情報' />
       <Grid container item xs={12} md={6} spacing={2}>
         <Grid item xs={12} md={8} >
-          <FormikSelect name='constType' label={'工事種別'} options={constructionTypeOptions} required />
+          <FormikSelect name={'constructionTypeId' as KeyOfConstructionDetails} label={'工事種別'} options={constructionTypeOptions} required />
         </Grid>
         <Grid item xs={12}>
           {/* <TextField fullWidth label="工事名称" placeholder='氏名/会社名様邸　工事種別' /> */}
-          <FormikTextField name='constName' label="工事名称" placeholder="氏名/会社名様邸　工事種別" />
+          <FormikTextField name={'constructionName' as KeyOfConstructionDetails} label="工事名称" placeholder="氏名/会社名様邸　工事種別" />
         </Grid>
       </Grid>
 

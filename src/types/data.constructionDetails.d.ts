@@ -11,7 +11,9 @@ declare namespace ConstructionDetails {
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     agent2Id: kintone.fieldTypes.Number;
     custGroupId: kintone.fieldTypes.Number;
+    constructionName: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
+    isChkAddressKari: kintone.fieldTypes.Number;
     buildingType: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {

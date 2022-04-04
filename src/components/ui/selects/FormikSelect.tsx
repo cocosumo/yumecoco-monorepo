@@ -14,12 +14,12 @@ export interface FormikSelecProps {
 }
 
 export function FormikSelect(props : FormikSelecProps) {
-  const [fields, meta, helpers] = useField(props);
+  const [fields, meta] = useField(props);
 
   return (
     <FormControl required={props.required} fullWidth error={!!meta.error}>
       <InputLabel error={!!meta.error}>{props.label}</InputLabel>
-      <Select  error={!!meta.error} name={props.name} label={props.label} required={props.required} value={fields.value  ?? ''} onChange={ (e) => helpers.setValue(e.target.value)}>
+      <Select  error={!!meta.error} label={props.label} required={props.required} {...fields}>
 
         {
           props.options &&

@@ -13,6 +13,7 @@ const options = {
       process.env.API_CUST_GROUP,
       process.env.API_CUST_MEMO,
       process.env.API_CONSTRUCTION_TYPE,
+      process.env.API_CONSTRUCTION_DETAILS,
     ],
   },
 };
@@ -24,11 +25,11 @@ export enum APPIDS {
   custGroup = 185,
   custMemo = 181,
   constructionType = 190,
+  constructionDetails = 194,
 }
 
 
-const KintoneClient = new KintoneRestAPIClient(options,
-);
+const KintoneClient = new KintoneRestAPIClient(options);
 
 export const KintoneRecord = KintoneClient.record;
 

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Raw Values is converterd 1`] = `
+Object {
+  "address1": Object {
+    "value": "",
+  },
+  "address2": Object {
+    "value": "",
+  },
+  "addressKari": Object {
+    "value": "",
+  },
+  "agent1Id": Object {
+    "value": "",
+  },
+  "agent2Id": Object {
+    "value": "",
+  },
+  "buildingType": Object {
+    "value": "戸建て",
+  },
+  "constructionName": Object {
+    "value": "",
+  },
+  "constructionTypeId": Object {
+    "value": "",
+  },
+  "custGroupId": Object {
+    "value": "",
+  },
+  "isAgentConfirmed": Object {
+    "value": false,
+  },
+  "isChkAddressKari": Object {
+    "value": false,
+  },
+  "postal": Object {
+    "value": "",
+  },
+}
+`;
+
+exports[`Raw Values is saved 1`] = `Promise {}`;

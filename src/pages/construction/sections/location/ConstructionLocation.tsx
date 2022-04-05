@@ -2,17 +2,31 @@ import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
 import { Grid } from '@mui/material';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { BuildingType, ConstructionSearch } from './parts';
-import { FormikTextField } from '../../../../components/ui/textfield';
+import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textfield';
 
 import { initialValues, KeyOfConstructionDetails } from '../../form';
 import { useFormikContext } from 'formik';
+import { getAddressByPostal } from '../../../../api/others/postal';
+import debounce from 'lodash.debounce';
+import { useCallback } from 'react';
+
 
 export const ConstructionLocation = () => {
+
   const {
     values : {
       isChkAddressKari,
     },
+    setFieldValue,
   } = useFormikContext<typeof initialValues>();
+
+  const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
+    const postal = e.target.value;
+    getAddressByPostal(postal)
+      .then(resp => {
+        setFieldValue('address1', resp);
+      });
+  }, 500), []);
 
   return (
     <>
@@ -21,17 +35,17 @@ export const ConstructionLocation = () => {
 
 
       <Grid item xs={12} md={3}>
-        <FormikTextField name="postal" label="郵便番号" />
+        <FormikTextField name="postal" label="郵便番号" placeholder='442-0888' inputComponent={TextMaskPostal} onChange={handleGenerateAddress} required/>
       </Grid>
 
       <Grid item md={9}/>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address1" label="住所" />
+        <FormikTextField name="address1" label="住所"/>
       </Grid>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address2" label="住所（番地以降）" />
+        <FormikTextField name="address2" label="住所（番地以降）"  />
       </Grid>
 
 

@@ -2,7 +2,6 @@ import {
   Divider,
   Grid,
   Button,
-  AlertColor,
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
@@ -15,7 +14,7 @@ import customerReducer from '../../../reducers/customer/customerReducer';
 import initialFormState from '../../../stores/customer';
 import CustomerFormContext from '../../../context/CustomerFormContext';
 import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers';
-import FormSnack from '../../..../../../components/ui/snacks/FormSnack';
+import FormSnack, { SnackState } from '../../..../../../components/ui/snacks/FormSnack';
 
 import Memos from '../../../components/lists/Memos';
 import debounce from 'lodash.debounce';
@@ -26,11 +25,7 @@ import { getCustomersByIds } from '../../../api/kintone/customers/GET';
 import MainContainer from '../../../components/ui/containers/MainContainer';
 import PageTitle from '../../../components/ui/labels/PageTitle';
 
-export interface CustRegSnackProp {
-  open: boolean,
-  severity?: AlertColor,
-  message?: string
-}
+
 
 
 /* Main Form */
@@ -38,7 +33,7 @@ export default function CustomerRegistration() {
   const groupId = useParams().groupId;
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
   const stateProvider = { formState, dispatch };
-  const [snack, setSnack] = useState<CustRegSnackProp>({ open: false, severity: 'info' });
+  const [snack, setSnack] = useState<SnackState>({ open: false, severity: 'info' });
   const navigate = useNavigate();
 
 

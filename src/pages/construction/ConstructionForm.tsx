@@ -6,10 +6,23 @@ import { Foot, Submit } from './sections/bottom';
 import { ConstructionLocation, CustInfo } from './sections';
 import { Divider, Grid } from '@mui/material';
 
-import {  Form } from 'formik';
+import {  Form, useFormikContext } from 'formik';
+import { SnackState } from '../../components/ui/snacks/FormSnack';
+import { useEffect } from 'react';
 
+interface ConstructionFormProps {
+  handleSnack:  (snackState: SnackState) => void
+}
 
-export const ConstructionForm  = () => {
+export const ConstructionForm  = (props: ConstructionFormProps) => {
+  const { handleSnack } = props;
+  const { isValid, isSubmitting } = useFormikContext();
+
+  useEffect(()=>{
+    if (!isValid && !isSubmitting){
+      handleSnack({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
+    }
+  }, [isSubmitting]);
 
   return (
 
@@ -25,6 +38,7 @@ export const ConstructionForm  = () => {
         <Submit/>
         <Foot/>
       </MainContainer>
+
     </Form>
 
   );

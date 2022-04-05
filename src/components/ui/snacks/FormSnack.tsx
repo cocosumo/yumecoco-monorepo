@@ -1,11 +1,17 @@
 
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, AlertColor } from '@mui/material';
 
-import { CustRegSnackProp } from '../../../pages/customer/register/CustomerRegistration';
+
+
+export interface SnackState {
+  open: boolean,
+  severity?: AlertColor,
+  message?: string
+}
 
 interface FormSnackProps {
-  snackState : CustRegSnackProp
-  handleClose: ()=>void,
+  snackState : SnackState
+  handleClose?: ()=>void,
 
 }
 
@@ -20,11 +26,11 @@ const FormSnack : React.FC<FormSnackProps> = ({ snackState, handleClose }) => {
     autoHideDuration={2000}
     onClose={handleClose}
   >
-    <Alert variant='filled' onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
-          {message}
-    </Alert>
+      <Alert variant='filled' onClose={handleClose} severity={severity} sx={{ width: '100%' }}>
+        {message}
+      </Alert>
 
-  </Snackbar>
+    </Snackbar>
   );
 };
 

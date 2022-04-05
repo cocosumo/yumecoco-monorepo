@@ -10,7 +10,6 @@ interface FormikSearchFieldProps {
   label: string,
   helperText?: string,
   required?: boolean
-  initialOptions: SearchOptions[] | [],
   renderOptionsFn : (value: string) => Promise<SearchOptions[]>
   setRecord?: (record: any) => void
 }
@@ -24,7 +23,7 @@ export interface SearchOptions {
 }
 
 export const FormikSearchField = (props: FormikSearchFieldProps) => {
-  const [options, setOptions] = useState<readonly SearchOptions[]>(props.initialOptions);
+  const [options, setOptions] = useState<readonly SearchOptions[]>([]);
   const [field, meta, helpers] = useField(props);
 
   const handleChange = useCallback(debounce((value: string) => {
@@ -44,7 +43,6 @@ export const FormikSearchField = (props: FormikSearchFieldProps) => {
 
       onBlur={field.onBlur}
       isOptionEqualToValue={(option, value) => {
-        console.log('options', option, field.value);
         return option.id === value.id;
       }}
 

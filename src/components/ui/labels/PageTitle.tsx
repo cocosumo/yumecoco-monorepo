@@ -14,7 +14,6 @@ const PageTitle = (props: PageTitleProps) => {
     label,
   } =  props;
 
-  console.log(color);
   return (
     <Grid item xs={12} p={2} sx={{ backgroundColor: color }}>
       <Typography color={textColor} variant="h4">{label}</Typography>

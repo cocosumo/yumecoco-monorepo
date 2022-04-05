@@ -25,6 +25,8 @@ export const CustInfo = () => {
   const custGroupId = useFormikContext<ConstructionDetailsValues>().values.custGroupId;
 
   const handleCustomerChange = async (record: CustomerGroupTypes.SavedData) => {
+    if (!record) return;
+
     const {
       members : {
         value: members,
@@ -53,7 +55,7 @@ export const CustInfo = () => {
     <>
       <PageSubTitle label="顧客情報"/>
       <Grid item xs={12} md={4} >
-        <FormikSearchField initialOptions={[]} renderOptionsFn={renderOptions} name={'custGroupId'} setRecord={handleCustomerChange} label='氏名（検索）' helperText='※顧客情報登録を先にしてください。' required/>
+        <FormikSearchField renderOptionsFn={renderOptions} name={'custGroupId'} setRecord={handleCustomerChange} label='氏名（検索）' helperText='※顧客情報登録を先にしてください。' required/>
       </Grid>
 
       <Grid item xs={12}>

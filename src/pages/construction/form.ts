@@ -31,8 +31,13 @@ export const initialValues: ConstructionDetailsValues = {
  * Set Validation for fields that requires it.
  * Refer to YUM documentation.
  */
-export const validationSchema =  Yup.object({
-  custGroupId: Yup
-    .string()
-    .required('必須です。'),
-});
+export const validationSchema =  Yup.object(
+  {
+    custGroupId: Yup
+      .string()
+      .required('必須です。'),
+    postal: Yup
+      .string()
+      .required('必須です。'),
+  } as Partial<Record<KeyOfConstructionDetails, any>>,
+);

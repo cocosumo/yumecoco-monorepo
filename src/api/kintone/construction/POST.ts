@@ -20,7 +20,10 @@ export const convertToKintone = (rawValues: ConstructionDetailsValues) => {
  * @param rawValues
  * @returns
  */
-export const saveConstructionData = (rawValues: ConstructionDetailsValues) =>{
+export const saveConstructionData = async (rawValues: ConstructionDetailsValues) : Promise<{
+  id: string,
+  revision: string,
+}> =>{
   const { $id } = rawValues;
   const record = convertToKintone(rawValues);
 
@@ -29,11 +32,17 @@ export const saveConstructionData = (rawValues: ConstructionDetailsValues) =>{
       app: APPIDS.constructionDetails,
       id: $id as string,
       record,
-    });
+    })
+      .then((result) => ({
+        id: $id.toString(),
+        revision: result.revision,
+      }));
+  } else {
+    return KintoneRecord.addRecord({ app: APPIDS.constructionDetails, record })
+      .catch(err => {
+        console.log(err.errors);
+        throw new Error('err');
+      });
   }
-  return KintoneRecord.addRecord({ app: APPIDS.constructionDetails, record })
-    .catch(err => {
-      console.log(err.errors);
-      throw new Error('err');
-    });
+
 };

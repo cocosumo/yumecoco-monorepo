@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getConstructionAgents } from '../../../../../api/kintone/employees/GET';
-import { FormikSelect } from '../../../../../components/ui/selects';
+import { getConstructionAgents } from '../../../../api/kintone/employees/GET';
+import { FormikSelect } from '../../../../components/ui/selects';
 import { KeyOfConstructionDetails } from '../../form';
 
 interface ConstructionAgentProps {
   number?: number
 }
 
-const ConstructionAgent = (props: ConstructionAgentProps) => {
+export const ConstructionAgent = (props: ConstructionAgentProps) => {
   const [agents, setAgents] = useState<Options>([]);
   const { number = 1 } = props;
 
@@ -33,5 +33,3 @@ const ConstructionAgent = (props: ConstructionAgentProps) => {
     />
   );
 };
-
-export default ConstructionAgent;

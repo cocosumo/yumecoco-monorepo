@@ -1,14 +1,13 @@
-import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
-import ConstructionSearch from './parts/ConstructionSearch';
+import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
 import { Grid } from '@mui/material';
-import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
-import BuildingType from './parts/BuildingType';
-import { FormikTextField } from '../../../../../components/ui/textfield';
+import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
+import { BuildingType, ConstructionSearch } from './parts';
+import { FormikTextField } from '../../../../components/ui/textfield';
 
 import { initialValues, KeyOfConstructionDetails } from '../../form';
 import { useFormikContext } from 'formik';
 
-const ConstructionLocation = () => {
+export const ConstructionLocation = () => {
   const {
     values : {
       isChkAddressKari,
@@ -57,6 +56,3 @@ const ConstructionLocation = () => {
     </>
   );
 };
-
-
-export default ConstructionLocation;

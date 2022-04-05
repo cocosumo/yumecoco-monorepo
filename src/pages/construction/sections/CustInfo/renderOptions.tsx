@@ -1,8 +1,8 @@
-import { searchCustGroup } from '../../../../../api/kintone/custgroups/GET';
-import { SearchOptions } from '../../../../../components/ui/textfield/FormikSearchField';
+import { searchCustGroup } from '../../../../api/kintone/custgroups/GET';
+import { SearchOptions } from '../../../../components/ui/textfield';
 import { format } from 'date-fns';
 
-const renderOptions = async (value : string) => {
+export const renderOptions = async (value : string) => {
   return searchCustGroup(value)
     .then(res => {
 
@@ -30,5 +30,3 @@ const renderOptions = async (value : string) => {
 
     });
 };
-
-export default renderOptions;

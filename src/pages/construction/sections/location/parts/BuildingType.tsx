@@ -1,11 +1,11 @@
 import { Radio,  RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
-import ChoiceContainer from '../../../../../../components/ui/containers/ChoiceContainer';
+import ChoiceContainer from '../../../../../components/ui/containers/ChoiceContainer';
 import { useField } from 'formik';
 import { BuildingTypeVals } from '../../../form';
 
 const buildingTypes : BuildingTypeVals[] =  ['戸建て', 'マンション', '店舗/事務所', 'その他'];
 
-const BuildingType = () => {
+export const BuildingType = () => {
   const [field] = useField('buildingType');
   return (
     <FormControl fullWidth>
@@ -23,5 +23,3 @@ const BuildingType = () => {
     </FormControl>
   );
 };
-
-export default BuildingType;

@@ -1,6 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { convertToKintone, saveConstructionData } from './POST';
-import { initialValues } from './../../../pages/construction/register/form'; //'src/pages/construction/register/form';
+import { initialValues } from '../../../pages/construction/form'; //'src/pages/construction/register/form';
 
 describe('Raw Values', ()=>{
   it('is converterd', ()=>{

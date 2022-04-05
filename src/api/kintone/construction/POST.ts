@@ -1,4 +1,4 @@
-import { ConstructionDetailsValues } from '../../../pages/construction/register/form';
+import { ConstructionDetailsValues } from '../../../pages/construction/form';
 import { APPIDS, KintoneRecord } from '../config';
 
 export const convertToKintone = (rawValues: ConstructionDetailsValues) => {
@@ -14,8 +14,23 @@ export const convertToKintone = (rawValues: ConstructionDetailsValues) => {
 
 };
 
+/**
+ * Upserts records
+ *
+ * @param rawValues
+ * @returns
+ */
 export const saveConstructionData = (rawValues: ConstructionDetailsValues) =>{
+  const { $id } = rawValues;
   const record = convertToKintone(rawValues);
+
+  if ($id){
+    return KintoneRecord.updateRecord({
+      app: APPIDS.constructionDetails,
+      id: $id as string,
+      record,
+    });
+  }
   return KintoneRecord.addRecord({ app: APPIDS.constructionDetails, record })
     .catch(err => {
       console.log(err.errors);

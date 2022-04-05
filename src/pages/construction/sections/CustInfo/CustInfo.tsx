@@ -1,11 +1,11 @@
 import { Grid, Stack } from '@mui/material';
 import { useState } from 'react';
-import { getCustomerById } from '../../../../../api/kintone/customers/GET';
-import GrayBox from '../../../../../components/ui/containers/GrayBox';
-import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
-import { FormikSearchField } from '../../../../../components/ui/textfield/';
-import LabeledInfo from '../../../../../components/ui/typographies/LabeledInfo';
-import renderOptions from './renderOptions';
+import { getCustomerById } from '../../../../api/kintone/customers/GET';
+import GrayBox from '../../../../components/ui/containers/GrayBox';
+import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
+import { FormikSearchField } from '../../../../components/ui/textfield';
+import LabeledInfo from '../../../../components/ui/typographies/LabeledInfo';
+import { renderOptions } from './renderOptions';
 
 enum AgentType {
   coco1 = '営業担当者1',
@@ -14,7 +14,7 @@ enum AgentType {
   yume2 = 'ゆめてつAG2',
 }
 
-const CustInfo = () => {
+export const CustInfo = () => {
   const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
 
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
@@ -71,6 +71,3 @@ const CustInfo = () => {
     </>
   );
 };
-
-
-export default CustInfo;

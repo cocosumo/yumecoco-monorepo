@@ -1,17 +1,17 @@
 
 import {  Grid } from '@mui/material';
-import PageSubTitle from '../../../../../components/ui/labels/PageSubTitle';
-import ConstructionAgent from './ConstructionAgent';
-import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
+import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
+import { ConstructionAgent } from './ConstructionAgent';
+import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
-import { APPIDS, KintoneRecord } from '../../../../../api/kintone';
-import { FormikSelect } from '../../../../../components/ui/selects';
-import { FormikTextField } from '../../../../../components/ui/textfield/';
-import { KeyOfConstructionDetails } from './../../form';
+import { APPIDS, KintoneRecord } from '../../../../api/kintone';
+import { FormikSelect } from '../../../../components/ui/selects';
+import { FormikTextField } from '../../../../components/ui/textfield';
+import { KeyOfConstructionDetails } from '../../form';
 
 
 
-const ConstructionInfo = () => {
+export const ConstructionInfo = () => {
   const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
 
   useEffect(()=>{
@@ -60,5 +60,3 @@ const ConstructionInfo = () => {
   );
 
 };
-
-export default ConstructionInfo;

@@ -15,6 +15,11 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
 
   const [field, meta, helpers] = useField(props);
 
+  let dirtyVal = meta.value ?? false;
+
+  if (typeof meta.value === 'string'){
+    dirtyVal = Boolean(+meta.value);
+  }
 
 
   return (
@@ -23,7 +28,7 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
       name={field.name}
       label={label}
       control={
-        <Checkbox checked={meta.value ?? false} onClick={() => helpers.setValue(!meta.value)} />}
+        <Checkbox checked={dirtyVal} onClick={() => helpers.setValue(!meta.value)} />}
 
   />
       <FormHelperText>{helperText}</FormHelperText>

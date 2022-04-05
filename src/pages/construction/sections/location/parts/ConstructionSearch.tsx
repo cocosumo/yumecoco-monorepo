@@ -1,7 +1,7 @@
 import { Grid, FormControl, FormHelperText, Button } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const ConstructionSearch = () => {
+export const ConstructionSearch = () => {
   return (
     <Grid item xs={12} justifyContent={'flex-start'}>
       <FormControl>
@@ -11,5 +11,3 @@ const ConstructionSearch = () => {
     </Grid>
   );
 };
-
-export default ConstructionSearch;

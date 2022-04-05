@@ -10,6 +10,7 @@ interface FormikSearchFieldProps {
   label: string,
   helperText?: string,
   required?: boolean
+  initialOptions: SearchOptions[] | [],
   renderOptionsFn : (value: string) => Promise<SearchOptions[]>
   setRecord?: (record: any) => void
 }
@@ -23,7 +24,7 @@ export interface SearchOptions {
 }
 
 export const FormikSearchField = (props: FormikSearchFieldProps) => {
-  const [options, setOptions] = useState<readonly SearchOptions[]>([]);
+  const [options, setOptions] = useState<readonly SearchOptions[]>(props.initialOptions);
   const [field, meta, helpers] = useField(props);
 
   const handleChange = useCallback(debounce((value: string) => {
@@ -35,13 +36,15 @@ export const FormikSearchField = (props: FormikSearchFieldProps) => {
     <Autocomplete
 
       onChange={ (_, newState) => {
-        helpers.setValue(newState?.id ?? '');
 
+        helpers.setValue(newState?.id ?? '');
+        /**If setRecord is set, trigger */
         if (props.setRecord) props.setRecord(newState?.record);
       }}
 
       onBlur={field.onBlur}
       isOptionEqualToValue={(option, value) => {
+        console.log('options', option, field.value);
         return option.id === value.id;
       }}
 
@@ -50,12 +53,16 @@ export const FormikSearchField = (props: FormikSearchFieldProps) => {
       options={options}
       filterOptions={(x) => x}
 
-      renderInput={(params) => <TextField name={props.name} label={props.label} {...params}
+      renderInput={(params) => <TextField
+        name={props.name}
+        label={props.label}
+        {...params}
+
         error={meta.touched && Boolean(meta.error)}
         helperText={meta.error || props.helperText}
         onChange = {(ev) => {
+
           if (ev.target.value) {
-            console.log(ev.target.value);
             handleChange(ev.target.value);
           }
         }}
@@ -80,5 +87,3 @@ export const FormikSearchField = (props: FormikSearchFieldProps) => {
 
   );
 };
-
-export default FormikSearchField;

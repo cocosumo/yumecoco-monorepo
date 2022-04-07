@@ -2,7 +2,7 @@
 import { FormControl, Stack, FormHelperText } from '@mui/material/';
 import { LabeledCheckBox } from '../../ui/checkboxes';
 import { EmployeesToNotify, FieldActionType, MemoFormState, NotifyAgent } from '../../../types/form.memo';
-import ChoiceContainer from '../../ui/containers/ChoiceContainer';
+import { BorderedContainer } from '../../ui/containers/';
 
 /* interface AgentsCheckValues {
   [key: string] : boolean
@@ -28,7 +28,7 @@ const MemoFormAgentCheckBox = (props : MemoFormAgentCheckBoxProps) => {
   return (
     <FormControl>
       <FormHelperText>{'<通知する担当者を選択してください>'}</FormHelperText>
-      <ChoiceContainer>
+      <BorderedContainer>
 
         <Stack direction="row" justifyContent="space-around">
           {Object.entries(notifyTo).map(([key, value]) => {
@@ -44,7 +44,7 @@ const MemoFormAgentCheckBox = (props : MemoFormAgentCheckBoxProps) => {
 
         </Stack>
 
-      </ChoiceContainer>
+      </BorderedContainer>
     </FormControl>
   );
 

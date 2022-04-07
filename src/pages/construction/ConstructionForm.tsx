@@ -1,6 +1,6 @@
 
-import MainContainer from '../../components/ui/containers/MainContainer';
-import PageTitle from '../../components/ui/labels/PageTitle';
+import { MainContainer } from '../../components/ui/containers';
+import { PageTitle } from '../../components/ui/labels/';
 import { ConstructionInfo } from './sections/ConstructionInfo';
 import { Foot, Submit } from './sections/bottom';
 import { ConstructionLocation, CustInfo } from './sections';

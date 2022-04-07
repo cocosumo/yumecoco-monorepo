@@ -30,7 +30,7 @@ export default function CustomerMenu() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link to="customer/register">
+          <Link to="custgroup/register">
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <AppRegistrationIcon />
@@ -38,12 +38,14 @@ export default function CustomerMenu() {
               <ListItemText primary="新規登録" />
             </ListItemButton>
           </Link>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <PersonSearchIcon />
-            </ListItemIcon>
-            <ListItemText primary="顧客検索" />
-          </ListItemButton>
+          <Link to="customer/search">
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <PersonSearchIcon />
+              </ListItemIcon>
+              <ListItemText primary="顧客検索" />
+            </ListItemButton>
+          </Link>
         </List>
       </Collapse>
     </>

@@ -27,8 +27,6 @@ export const FormikConstruction  = () => {
     }
   }, [constructionId]);
 
-
-  console.log(initialState);
   return (
     <>
       <Formik
@@ -40,7 +38,6 @@ export const FormikConstruction  = () => {
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });
             setSubmitting(false);
-            console.log(resp);
             navigate(`/construction/edit/${resp.id}`);
           });
       }}

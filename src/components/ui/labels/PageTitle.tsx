@@ -7,7 +7,7 @@ interface PageTitleProps {
   label: string
 }
 
-const PageTitle = (props: PageTitleProps) => {
+export const PageTitle = (props: PageTitleProps) => {
   const {
     color = '#9CDAF9',
     textColor = '#000',

@@ -5,7 +5,7 @@ interface GrayBoxProps {
   children: React.ReactNode
 }
 
-const GrayBox = (props: GrayBoxProps) => {
+export const GrayBox = (props: GrayBoxProps) => {
   const {
     children,
     label = '【参照結果】',

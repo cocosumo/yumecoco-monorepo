@@ -6,11 +6,11 @@ import Chip from '@mui/material/Chip';
 
 
 export interface FormikSelecProps {
-  options?: Options,
   name: string,
   label: string
   required?: boolean
   helperText?: string
+  options?: Options,
 }
 
 export function FormikSelect(props : FormikSelecProps) {

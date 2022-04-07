@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
 
-const MainContainer : React.FC = ({ children }) => {
+export const MainContainer : React.FC = ({ children }) => {
   return (
-    <Grid container spacing={2} justifyContent="flex-start">
+    <Grid container spacing={2} alignItems="flex-start" justifyContent="flex-start">
       {children}
     </Grid>
   );

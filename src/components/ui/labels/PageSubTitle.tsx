@@ -5,7 +5,7 @@ interface PageSubTitleProps {
   label: string
 }
 
-const PageSubTitle = (props: PageSubTitleProps) => {
+export const PageSubTitle = (props: PageSubTitleProps) => {
   const { label } = props;
 
   return (

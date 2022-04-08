@@ -21,9 +21,9 @@ export type FormFieldNames = keyof typeof initialValues;
 export const initialValues = {
   custType: '全て' as CustomerTypeVals,
   storeId: '',
-  kokoAG: '',
-  kokoConstruction: '',
+  cocoAG: '',
   yumeAG: '',
+  cocoConst: '',
   recordStatus: '',
   custName: '',
   contactNum: '',

@@ -1,9 +1,13 @@
 import { APP_ID } from './config';
-import { KintoneRecord } from './../config';
+import { APPIDS, KintoneRecord } from './../config';
 
 
 interface Result {
   record: CustomerGroupTypes.SavedData
+}
+
+export interface AdvancedSearchCustGroupParam {
+  storeId?: string
 }
 
 export const getCustGroup = (id: string) => {
@@ -17,9 +21,29 @@ export const getCustGroup = (id: string) => {
  * @returns {Record}
  */
 export const searchCustGroup = (searchStr: string) => {
-  console.log(searchStr, 'searchString');
+
   return KintoneRecord.getRecords({
     app: APP_ID,
     query: `${'customerName'} like "${searchStr}"`,
   });
+};
+
+
+
+
+export const advancedSearchCustGroup = <Key extends Partial<keyof CustomerGroupTypes.SavedData>>(params : AdvancedSearchCustGroupParam) => {
+  const {
+    storeId,
+  } = params;
+
+  console.log('storeId', storeId);
+
+  return KintoneRecord.getAllRecords({
+    app: APPIDS.custGroup,
+    condition: [
+      `${'storeId' as Key} = "${storeId}"`,
+    ].join(' and '),
+    orderBy: '更新日時 desc',
+  });
+
 };

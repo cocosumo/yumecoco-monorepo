@@ -25,6 +25,12 @@ const initialEmpOptions: GroupedEmpOptions = { coco: [], yume: [] };
 
 type UseCustFormAgentsFunc = () => Result;
 
+/**
+ * This hook is too specialized.
+ * Will deprecate this soon in favor of Formik implementation.
+ *
+ * @returns
+ */
 const useCustFormAgents : UseCustFormAgentsFunc = () => {
 
   const { stores } = useStores();

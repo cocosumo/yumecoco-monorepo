@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getConstructionAgents } from '../../../../api/kintone/employees/GET';
+import { getCocoConst } from '../../../../api/kintone/employees/GET';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { KeyOfConstructionDetails } from '../../form';
 
@@ -12,7 +12,7 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
   const { number = 1 } = props;
 
   useEffect(()=>{
-    getConstructionAgents()
+    getCocoConst()
       .then(records => {
         setAgents(
           records.map<Option>(({ $id, 文字列＿氏名: name, mainStore  })=>{

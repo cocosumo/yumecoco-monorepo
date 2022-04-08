@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,16 +8,14 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-import { Grid } from '@mui/material';
+import { Grid, Button } from '@mui/material';
+import { useAdvancedSearchCustGroup } from '../../../../hooks';
+import { useEffect, useState } from 'react';
+import { useFormikContext } from 'formik';
 
 interface Data {
   '顧客ID': string,
@@ -34,11 +32,15 @@ interface Data {
 
 const rows : Data[]  = [
   { '顧客ID': '12345', '状況': '999', '顧客種別': 'test', '顧客氏名/会社名': 'test', '現住所': 'test',  '店舗': 'test店',
-    'ここすも営業': 'test', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2021-11-5',
+    'ここすも営業': 'あ', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2021-11-5',
   },
   { '顧客ID': '22345', '状況': '999', '顧客種別': 'test', '顧客氏名/会社名': 'test', '現住所': 'test',  '店舗': 'test店',
-    'ここすも営業': 'test', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2022-10-5',
+    'ここすも営業': 'か', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2022-10-5',
   },
+  { '顧客ID': '69999', '状況': '999', '顧客種別': 'test', '顧客氏名/会社名': 'test', '現住所': 'test',  '店舗': 'test店',
+    'ここすも営業': 'さ', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2022-10-5',
+  },
+
 ];
 
 const headCells : (keyof Data)[] = ['顧客ID', '状況', '顧客種別', '顧客氏名/会社名', '現住所', '店舗', 'ここすも営業', 'ここすも工事', '登録日時', '更新日時'];
@@ -85,7 +87,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     <TableHead>
       <TableRow>
         <TableCell padding="normal">
-          hello
+
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -113,12 +115,36 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 
 export function TableResult() {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Data>('更新日時');
+  const data = useAdvancedSearchCustGroup({ storeId: '7' });
+  const { isSubmitting } = useFormikContext();
 
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = useState<Order>('asc');
+  const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
+
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  /* const [rows, setRows] = useState<Data[]>();
+
+  useEffect(()=>{
+    if (!isSubmitting && data){
+      setRows(data.map(({
+        $id, storeName, members,
+      }) => {
+        const { address, customerName } = members.value[0].value;
+        return {
+          '顧客ID': $id.value,
+          '状況': 'XXX',
+          '店舗': storeName.value,
+          '顧客種別': '個人',
+          '現住所': address.value,
+          '顧客氏名/会社名': customerName.value,
+
+        };
+      }));
+    }
+  }, [isSubmitting]); */
+
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -183,13 +209,14 @@ export function TableResult() {
 
                     return (
                       <TableRow
+
                       hover
                       tabIndex={-1}
                       key={row.顧客ID}
 
                     >
                         <TableCell padding="normal">
-                          Hello
+                          <Button variant='outlined'>詳細</Button>
                         </TableCell>
                         <TableCell
                         component="th"
@@ -227,7 +254,7 @@ export function TableResult() {
         </Paper>
         <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+        label="密なパディング"
       />
       </Box>
     </Grid>

@@ -6,6 +6,4 @@ export * from './RecordStatus';
 export * from './StoreSelect';
 export * from './Submit';
 export * from './TableResult';
-export * from './TantouKokoAG';
-export * from './TantouKokoConstruction';
-export * from './TantouYumeAG';
+export * from './TantouSelects';

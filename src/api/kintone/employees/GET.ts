@@ -1,7 +1,19 @@
 import { APP_ID } from './config';
 import { APPIDS, KintoneRecord } from './../config';
+import { resolveAffiliations, resolveRoles } from './helpers';
+
 
 type KeyOfEmployee = keyof EmployeeTypes.SavedData;
+
+export type EmployeeType = 'yumeAG' | 'cocoAG' | 'cocoConst' | 'sutekura';
+export type EmpAffiliations = 'ここすも' | 'すてくら' | 'ゆめてつ';
+export type EmpRoles = '店長' | '主任' | '営業' | '工務';
+
+export interface Params {
+  type : EmployeeType | EmployeeType[],
+  isActiveOnly?: boolean,
+  storeId ?: string
+}
 
 export const getEmployees  = async (params ?: GetRecordParams) => {
   const queryArray = ['状態 in ("有効")', '役職 in ("店長", "主任", "営業", "工務")'];
@@ -13,7 +25,8 @@ export const getEmployees  = async (params ?: GetRecordParams) => {
   });
 };
 
-export const getConstructionAgents = async () => {
+
+export const getCocoConst = async () => {
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.employees,
@@ -26,3 +39,31 @@ export const getConstructionAgents = async () => {
   }) as unknown as Promise<EmployeeTypes.SavedData[]>;
 };
 
+export const getSpecifiedEmployees = async (params: Params) => {
+  const {
+    type = 'yumeAG',
+    isActiveOnly = true,
+    storeId,
+  } = params;
+
+  const affiliations = resolveAffiliations(type)
+    .map(item => `"${item}"`).join(',');
+
+  const roles = resolveRoles(type)
+    .map(item => `"${item}"`).join(',');
+
+  return KintoneRecord.getAllRecords({
+    app: APPIDS.employees,
+    fields: ['$id', 'mainStore', '文字列＿氏名'] as KeyOfEmployee[],
+    condition: [
+      ...(isActiveOnly ? [`${'状態' as KeyOfEmployee} in ("有効")`] : []),
+
+      ...(storeId ? [`(${'mainStoreId' as KeyOfEmployee} = "${storeId}" or ${'storeId' as KeyOfEmployee} in ("${storeId}"))`] : []),
+
+      `${'affiliation' as KeyOfEmployee} in (${affiliations})`,
+
+      `${'役職' as KeyOfEmployee} in (${roles})`,
+
+    ].join(' and '),
+  });
+};

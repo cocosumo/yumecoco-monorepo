@@ -1,4 +1,4 @@
-import { UpsertCustInGrpResult } from '../api/kintone/restapi';
+import { UpsertCustInGrpResult } from '../api/kintone/types/restapi';
 import { InputField, PatternType, ElementTarget } from './forms';
 
 

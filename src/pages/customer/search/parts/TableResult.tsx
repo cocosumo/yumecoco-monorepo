@@ -13,12 +13,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
-import { useAdvancedSearchCustGroup } from '../../../../hooks';
+
 import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
+import { initialValues } from './../form';
+import { advancedSearchCustGroup } from './../../../../api/kintone/custgroups/GET';
 
 interface Data {
-  '顧客ID': string,
+  '顧客ID': number,
   '状況': string,
   '顧客種別': string,
   '顧客氏名/会社名': string,
@@ -30,18 +32,6 @@ interface Data {
   '更新日時': string,
 }
 
-const rows : Data[]  = [
-  { '顧客ID': '12345', '状況': '999', '顧客種別': 'test', '顧客氏名/会社名': 'test', '現住所': 'test',  '店舗': 'test店',
-    'ここすも営業': 'あ', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2021-11-5',
-  },
-  { '顧客ID': '22345', '状況': '999', '顧客種別': 'test', '顧客氏名/会社名': 'test', '現住所': 'test',  '店舗': 'test店',
-    'ここすも営業': 'か', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2022-10-5',
-  },
-  { '顧客ID': '69999', '状況': '999', '顧客種別': 'test', '顧客氏名/会社名': 'test', '現住所': 'test',  '店舗': 'test店',
-    'ここすも営業': 'さ', 'ここすも工事': 'test', '登録日時': '2021-12-01', '更新日時': '2022-10-5',
-  },
-
-];
 
 const headCells : (keyof Data)[] = ['顧客ID', '状況', '顧客種別', '顧客氏名/会社名', '現住所', '店舗', 'ここすも営業', 'ここすも工事', '登録日時', '更新日時'];
 
@@ -115,8 +105,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 
 export function TableResult() {
-  const data = useAdvancedSearchCustGroup({ storeId: '7' });
-  const { isSubmitting } = useFormikContext();
+  //const data = useAdvancedSearchCustGroup({ storeId: '7' });
+  const { isSubmitting, values } = useFormikContext<typeof initialValues>();
 
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
@@ -124,26 +114,37 @@ export function TableResult() {
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  /* const [rows, setRows] = useState<Data[]>();
+  const [rows, setRows] = useState<Data[]>([]);
 
   useEffect(()=>{
-    if (!isSubmitting && data){
-      setRows(data.map(({
-        $id, storeName, members,
-      }) => {
-        const { address, customerName } = members.value[0].value;
-        return {
-          '顧客ID': $id.value,
-          '状況': 'XXX',
-          '店舗': storeName.value,
-          '顧客種別': '個人',
-          '現住所': address.value,
-          '顧客氏名/会社名': customerName.value,
+    if (!isSubmitting){
+      advancedSearchCustGroup({
+        storeId: values.storeId,
+        custName: values.custName,
+      })
+        .then( data => {
+          setRows((data as unknown as CustomerGroupTypes.SavedData[])?.map(({
+            $id, storeName, members, 更新日時: updatedDate, 作成日時: createdDate,
+          }) => {
+            const { address, customerName } = members.value?.[0]?.value || {} ;
 
-        };
-      }));
+            return {
+              '顧客ID': +$id.value,
+              '状況': 'XXX',
+              '店舗': storeName.value,
+              '顧客種別': '個人',
+              '現住所': address?.value ?? '-',
+              '顧客氏名/会社名': customerName?.value ?? '-',
+              'ここすも営業': 'テスト',
+              'ここすも工事': 'テスト',
+              '登録日時':updatedDate.value,
+              '更新日時': createdDate.value,
+            };
+          }));
+        });
+
     }
-  }, [isSubmitting]); */
+  }, [isSubmitting]);
 
 
   const handleRequestSort = (
@@ -202,7 +203,7 @@ export function TableResult() {
               <TableBody>
                 {/* if you don't need to support IE11, you can replace the `stableSort` call with:
               rows.slice().sort(getComparator(order, orderBy)) */}
-                {rows.slice().sort(getComparator(order, orderBy))
+                {rows?.slice().sort(getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const labelId = `enhanced-table-checkbox-${index}`;

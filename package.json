@@ -96,6 +96,7 @@
     "@types/jest": "^27.0.2",
     "@types/node": "^16.10.4",
     "axios": "^0.26.0",
+    "compression-webpack-plugin": "^9.2.0",
     "date-fns": "^2.25.0",
     "fork-ts-checker-webpack-plugin": "^6.4.0",
     "formik": "^2.2.9",

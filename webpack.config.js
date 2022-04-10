@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
-    new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(), 
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional

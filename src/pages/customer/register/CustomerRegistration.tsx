@@ -29,7 +29,7 @@ import PageTitle from '../../../components/ui/labels/PageTitle';
 
 
 /* Main Form */
-export default function CustomerRegistration() {
+export function CustomerRegistration() {
   const groupId = useParams().groupId;
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);
   const stateProvider = { formState, dispatch };
@@ -96,7 +96,6 @@ export default function CustomerRegistration() {
                 group: groupRec as unknown as CustomerGroupTypes.SavedData,
                 customers: custRec.records as unknown as CustomerTypes.SavedData[],
               } });
-
 
             });
         } );

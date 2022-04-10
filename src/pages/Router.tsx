@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './construction';
-import CustomerRegistration from './customer/register/CustomerRegistration';
+import { CustomerRegistration, FormikIndividualCustomer } from './customer/register/';
 import { FormikCustomerSearch } from './customer/search';
 import UnderConstruction from './UnderConstruction';
 
@@ -17,13 +17,14 @@ import UnderConstruction from './UnderConstruction';
 
 
 const Router = () => (
-
+  
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
     <Route path="/construction/register" element={<FormikConstruction/>} key={'register'}/>
     <Route path="/construction/edit/:constructionId/" element={<FormikConstruction/>} />
     <Route path="/customer/search" element={<FormikCustomerSearch />} />
-    <Route path="/custgroup/register" element={<CustomerRegistration key={'register'} />} />
+    
+    <Route path="/custgroup/register" element={<FormikIndividualCustomer key={'register'} />} />
     <Route path="/custgroup/edit/:groupId/" element={<CustomerRegistration />} />
   </Routes>
 

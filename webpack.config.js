@@ -1,5 +1,5 @@
 const path = require('path');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -12,6 +12,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
+    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
@@ -78,10 +79,33 @@ module.exports = {
   },
 
   optimization: {
-    minimizer: [
+    splitChunks: {
+      cacheGroups: {
+          default: false,
+          vendors: false,
+          // vendor chunk
+          vendor: {
+              // sync + async chunks
+              name: 'vendor',
+              chunks: 'all',
+              // import file path containing node_modules
+              test: /node_modules/
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'async',
+            priority: 10,
+            reuseExistingChunk: true,
+            enforce: true
+          }
+      }
+  },
+  minimizer: [
       new ForkTsCheckerWebpackPlugin(),
       '...',
       new CssMinimizerPlugin(),
     ],
   },
+  
 };

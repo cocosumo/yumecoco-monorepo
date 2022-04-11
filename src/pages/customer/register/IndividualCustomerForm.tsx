@@ -7,6 +7,7 @@ import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../../components/ui/snacks/FormSnack';
 import { useEffect } from 'react';
 import { Customers } from './parts/Customers/Customers';
+import { Agents } from './parts/Agents';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -28,6 +29,7 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
       <MainContainer>
         <PageTitle label="顧客登録（個人）"/>
         <Customers/>
+        <Agents/>
       </MainContainer>
 
     </Form>

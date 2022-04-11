@@ -30,6 +30,11 @@ type Customers = {
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
 export const initialValues = {
+  store: '',
+  cocoAG1: '',
+  cocoAG2: '',
+  yumeAG1: '',
+  yumeAG2: '',
   customers: [{
     custName: '',
     custNameReading: '',
@@ -49,7 +54,8 @@ export const initialValues = {
 };
 
 export type CustomerForm = typeof initialValues;
-export type  CustomerFormKeys = (keyof typeof CustomerFieldNames);
+export type CustomerFormKeys = keyof CustomerForm;
+export type  CustomerInstanceKeys = (keyof typeof CustomerFieldNames);
 
 /**
  * Set Validation for fields that requires it.

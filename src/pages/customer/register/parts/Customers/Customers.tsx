@@ -5,14 +5,14 @@ import { SelectGender } from './SelectGender';
 import { SelectBirtdate } from './SelectBirtdate';
 import { Contacts } from './Contacts';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
-import { CustomerForm, CustomerFormKeys } from '../../form';
+import { CustomerForm, CustomerFormKeys, CustomerInstanceKeys } from '../../form';
 
 
 interface CustomerProps extends ArrayHelpers{
   namePrefix: string,
 }
 
-const Customer =  <T extends CustomerFormKeys>(props: CustomerProps) => {
+const Customer =  <T extends CustomerInstanceKeys>(props: CustomerProps) => {
   const {
     namePrefix,
   } = props;
@@ -44,10 +44,11 @@ const Customer =  <T extends CustomerFormKeys>(props: CustomerProps) => {
   );
 };
 
-export const Customers = <C extends CustomerForm>() => {
-  const { values: { customers } } = useFormikContext<C>();
-  const arrayFieldName = 'customers' as keyof CustomerForm;
+export const Customers = () => {
+  const { values: { customers } } = useFormikContext<CustomerForm>();
+  const arrayFieldName = 'customers' as CustomerFormKeys;
 
+  console.log(customers, 'customers');
   return (
     <FieldArray
       name={arrayFieldName}

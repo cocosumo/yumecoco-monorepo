@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { FormikSelect } from '../../../../../components/ui/selects';
 import { FormikTextField } from '../../../../../components/ui/textfield';
-import { CustomerFormKeys } from '../../form';
+import { CustomerInstanceKeys } from '../../form';
 
 interface ContactProps {
   name: string,
@@ -28,12 +28,12 @@ export const Contact = (props: ContactProps) => {
   );
 };
 
-export const Contacts = <T extends CustomerFormKeys>(props : { namePrefix: string }) => {
+export const Contacts = <T extends CustomerInstanceKeys>(props : { namePrefix: string }) => {
   return (<>
     {
       [
         { name: `${props.namePrefix}${'phone1' as T}`, label: '電話番号1', type: 'tel' },
-        { name: `${props.namePrefix}${'phone5' as CustomerFormKeys}`, label: '電話番号2', type: 'tel' },
+        { name: `${props.namePrefix}${'phone2' as T}`, label: '電話番号2', type: 'tel' },
         { name: `${props.namePrefix}${'email' as T}`, label: 'メールアドレス', type: 'email' },
 
       ]

@@ -10,7 +10,8 @@
     "lib": ["es5","es2017", "es6", "dom", "dom.iterable"],
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "importHelpers": true
   },
   "include": [
     "./jest/**/*",

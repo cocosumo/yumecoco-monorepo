@@ -12,6 +12,7 @@ export interface FormikSelecProps {
   required?: boolean
   helperText?: string
   options?: Options,
+  variant?: 'standard' | 'outlined' | 'filled'
 }
 
 export function FormikSelect(props : FormikSelecProps) {
@@ -20,6 +21,7 @@ export function FormikSelect(props : FormikSelecProps) {
     label,
     options,
     helperText,
+    variant = 'outlined',
   } = props;
   const [field, meta] = useField(props);
   const { setFieldValue } = useFormikContext();
@@ -34,7 +36,7 @@ export function FormikSelect(props : FormikSelecProps) {
   return (
     <FormControl required={required} fullWidth error={!!meta.error}>
       <InputLabel error={!!meta.error}>{label}</InputLabel>
-      <Select  error={!!meta.error} label={label} required={required} {...field}>
+      <Select variant={variant}  error={!!meta.error} label={label} required={required} {...field}>
 
         {
           options &&

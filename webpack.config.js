@@ -38,11 +38,12 @@ module.exports = {
   module: {
 
     rules: [
+
       {
         test: /\.(png|jpg|gif)$/i,
         use: [
           {
-            loader: "url-loader"
+            loader: "url-loader",
           },
         ],
       },
@@ -65,10 +66,12 @@ module.exports = {
         use: {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
+            plugins: ['lodash'],
             presets: [
               ['@babel/preset-react', {
                 runtime: 'automatic',
               }],
+              ['@babel/env', { 'targets': { 'node': 6 } }]
             ],
 
           },
@@ -80,25 +83,42 @@ module.exports = {
 
   optimization: {
     splitChunks: {
+      minSize: 20000,
+      
       cacheGroups: {
           default: false,
-          vendors: false,
-          // vendor chunk
-          vendor: {
-              // sync + async chunks
-              name: 'vendor',
-              chunks: 'all',
-              // import file path containing node_modules
-              test: /node_modules/
-          },
           common: {
             name: 'common',
             minChunks: 2,
             chunks: 'async',
-            priority: 10,
+            priority: 20,
             reuseExistingChunk: true,
             enforce: true
-          }
+          },
+          assets: {
+            chunks: "all",
+            name: "assets",
+            test: /[\\/]assets[\\/]/,
+            priority: -30,
+          },
+          mui: {
+            chunks: "all",
+            name: "vendor-mui",
+            
+            test: /[\\/]@mui[\\/]/,
+            priority: 0,
+          },
+          vendors: {
+             // sync + async chunks
+             name: 'vendor',
+             chunks: 'initial',
+             priority: -10,
+             // import file path containing node_modules
+             test: /node_modules/,
+             
+          },
+          
+
       }
   },
   minimizer: [

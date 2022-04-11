@@ -2,12 +2,13 @@ import {
   Divider,
   Grid,
   Button,
+  debounce,
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import CustomerRegistrationFormInstance from '../../../components/forms/CustomerRegistrationFormInstance';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import React, { useReducer, useEffect, useState, useCallback } from 'react';
+import { useReducer, useEffect, useState, useCallback } from 'react';
 import AgentsForm from '../../../components/forms/AgentsForm';
 
 import customerReducer from '../../../reducers/customer/customerReducer';
@@ -17,13 +18,14 @@ import UpsertCustomers from '../../../reducers/customer/actions/UpsertCustomers'
 import FormSnack, { SnackState } from '../../..../../../components/ui/snacks/FormSnack';
 
 import Memos from '../../../components/lists/Memos';
-import debounce from 'lodash.debounce';
+/* import debounce from 'lodash.debounce'; */
+
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
 import { getCustomersByIds } from '../../../api/kintone/customers/GET';
-import MainContainer from '../../../components/ui/containers/MainContainer';
-import PageTitle from '../../../components/ui/labels/PageTitle';
+import { MainContainer } from '../../../components/ui/containers/';
+import { PageTitle } from '../../../components/ui/labels/';
 
 
 

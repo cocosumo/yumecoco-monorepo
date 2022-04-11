@@ -6,7 +6,7 @@ import { PageTitle } from '../../../components/ui/labels/';
 import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../../components/ui/snacks/FormSnack';
 import { useEffect } from 'react';
-import { Customers } from './parts/Customers';
+import { Customers } from './parts/Customers/Customers';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void

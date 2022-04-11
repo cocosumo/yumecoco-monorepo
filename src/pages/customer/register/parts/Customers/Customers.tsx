@@ -1,8 +1,11 @@
 import { Grid } from '@mui/material';
-import { PageSubTitle } from '../../../../components/ui/labels';
-import { FormikTextField } from '../../../../components/ui/textfield';
+import { PageSubTitle } from '../../../../../components/ui/labels';
+import { FormikTextField } from '../../../../../components/ui/textfield';
+import { SelectGender } from './SelectGender';
+import { SelectBirtdate } from './SelectBirtdate';
 
 export const Customers = () => {
+  console.log('customerss');
   return (
     <Grid container item xs={6} spacing={2}>
       <PageSubTitle label='契約者１' />
@@ -12,6 +15,8 @@ export const Customers = () => {
       <Grid item xs={12}>
         <FormikTextField name='custNameReading' label="氏名フリガナ" placeholder='ヤマダ　タロウ' />
       </Grid>
+      <SelectGender />
+      <SelectBirtdate />
      
     </Grid>
   );

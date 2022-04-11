@@ -1,6 +1,6 @@
 
 import {  Grid } from '@mui/material';
-import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
+import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';

@@ -7,7 +7,7 @@ import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
 import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
 import { ElementTarget } from '../../../types/forms';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 const options = [
   { label: '顧客情報' },

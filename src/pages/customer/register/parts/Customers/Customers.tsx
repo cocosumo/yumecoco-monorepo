@@ -10,16 +10,18 @@ import { CustomerForm, CustomerFormKeys, CustomerInstanceKeys } from '../../form
 
 interface CustomerProps extends ArrayHelpers{
   namePrefix: string,
+  index: number,
 }
 
 const Customer =  <T extends CustomerInstanceKeys>(props: CustomerProps) => {
   const {
     namePrefix,
+    index,
   } = props;
 
   return (
     <Grid container item xs={6} spacing={2}>
-      <PageSubTitle label='契約者１' />
+      <PageSubTitle label={`契約者${index + 1}`} />
       <Grid item xs={12}>
         <FormikTextField name={`${namePrefix}${'custName' as T}`} label="氏名" placeholder='山田　太郎' />
       </Grid>
@@ -38,7 +40,6 @@ const Customer =  <T extends CustomerInstanceKeys>(props: CustomerProps) => {
       <Grid item xs={12} mb={2}>
         <FormikTextField name={`${namePrefix}${'address2' as T}`} label="住所（建物名）" placeholder='マンション山豊101'/>
       </Grid>
-
       <Contacts namePrefix={namePrefix}/>
     </Grid>
   );
@@ -58,7 +59,7 @@ export const Customers = () => {
             customers.map((_, index) => {
               const namePrefix = `${arrayFieldName}[${index}].`;
               return (
-                <Customer key={index} namePrefix={namePrefix} {...arrHelpers}/>
+                <Customer key={index} index={index} namePrefix={namePrefix} {...arrHelpers}/>
               );
             })
           }

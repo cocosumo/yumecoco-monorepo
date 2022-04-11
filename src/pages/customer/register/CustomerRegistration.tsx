@@ -31,6 +31,10 @@ import { PageTitle } from '../../../components/ui/labels/';
 
 
 /* Main Form */
+/**
+ * @deprecated in favor of formik form
+ * @returns
+ */
 export function CustomerRegistration() {
   const groupId = useParams().groupId;
   const [formState, dispatch]  = useReducer(customerReducer, initialFormState);

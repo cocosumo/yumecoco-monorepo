@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
-    new BundleAnalyzerPlugin(), 
+    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
@@ -77,14 +77,21 @@ module.exports = {
           },
         },
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader' },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          experimentalWatchApi: true,
+        },
+      },
     ],
   },
 
   optimization: {
     splitChunks: {
       minSize: 20000,
-      
+
       cacheGroups: {
           default: false,
           common: {
@@ -104,7 +111,7 @@ module.exports = {
           mui: {
             chunks: "all",
             name: "vendor-mui",
-            
+
             test: /[\\/]@mui[\\/]/,
             priority: 0,
           },
@@ -115,9 +122,9 @@ module.exports = {
              priority: -10,
              // import file path containing node_modules
              test: /node_modules/,
-             
+
           },
-          
+
 
       }
   },
@@ -127,5 +134,5 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
-  
+
 };

@@ -5,20 +5,51 @@ import * as Yup from 'yup';
 export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
+enum CustomerFieldNames  {
+  'custName',
+  'custNameReading',
+  'gender',
+  'birthYear',
+  'birthMonth',
+  'birthDay',
+  'postal',
+  'address1',
+  'address2',
+  'phone1',
+  'phone1Type',
+  'phone2',
+  'phone2Type',
+  'email',
+}
+
+type Customers = {
+  [K in keyof typeof CustomerFieldNames ]: string;
+};
+
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
-export const initialValues: ConstructionDetailsValues = {
-  constructionTypeId: '',
-  constructionName: '',
-  agent1Id: '',
-  agent2Id: '',
-  isAgentConfirmed: false,
-  postal: '',
-  address1: '',
-  address2: '',
-  addressKari: '',
+export const initialValues = {
+  customers: [{
+    custName: '',
+    custNameReading: '',
+    gender: '',
+    birthYear: '',
+    birthMonth: '',
+    birthDay: '',
+    postal: '',
+    address1: '',
+    address2: '',
+    phone1: '',
+    phone1Type: '',
+    phone2: '',
+    phone2Type: '',
+    email: '',
+  }] as Customers[],
 };
+
+export type CustomerForm = typeof initialValues;
+export type  CustomerFormKeys = (keyof typeof CustomerFieldNames);
 
 /**
  * Set Validation for fields that requires it.

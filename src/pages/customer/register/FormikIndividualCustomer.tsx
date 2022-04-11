@@ -1,32 +1,32 @@
 import { Formik } from 'formik';
 import { initialValues, validationSchema } from './form';
 import { IndividualCustomerForm } from './IndividualCustomerForm';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import FormSnack, { SnackState } from '../../../components/ui/snacks/FormSnack';
-import { getFlatConstDetails } from '../../../api/kintone/construction';
-import { useParams } from 'react-router-dom';
+//import { getFlatConstDetails } from '../../../api/kintone/construction';
+// import { useParams } from 'react-router-dom';
 
 export const FormikIndividualCustomer = () => {
   const [snackState, setSnackState] = useState<SnackState>({ open:false });
-  const [initialState, setInitialState] = useState(initialValues);
-  const constructionId  = useParams().constructionId;
+  //const [initialState, setInitialState] = useState(initialValues);
+  //const constructionId  = useParams().constructionId;
   //const navigate = useNavigate();
-
+  /**
   useEffect(()=>{
-    /** If edit mode */
+     If edit mode
     if (constructionId){
-      getFlatConstDetails(constructionId)
+       getFlatConstDetails(constructionId)
         .then((flatRecord) => {
           setInitialState(flatRecord);
         });
     }
   }, [constructionId]);
-
-  return ( 
+*/
+  return (
     <>
       <Formik
     enableReinitialize
-    initialValues={initialState}
+    initialValues={initialValues}
     validationSchema={validationSchema}
     onSubmit={(values, { setSubmitting }) => {
       console.log(values );

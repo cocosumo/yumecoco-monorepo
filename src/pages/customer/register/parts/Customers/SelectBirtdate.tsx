@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { FormikSelect } from '../../../../../components/ui/selects';
-import { CustomerForm, getFieldName } from '../../form';
+import { CustomerForm, getCustFieldName } from '../../form';
 import koyomi from 'koyomi';
 import { daysInMonth } from '../../../../../helpers/utils';
 import { useFormikContext } from 'formik';
@@ -29,7 +29,7 @@ export const SelectBirtdate = (props: {
     <Grid container item xs={12} md={8} spacing={1} >
       <Grid item xs={6}>
         <FormikSelect
-        name={`${namePrefix}${getFieldName('birthYear')}`}
+        name={`${namePrefix}${getCustFieldName('birthYear')}`}
         label="生年"
         helperText='<任意>個別設定可'
         options={[...Array(maxAge).keys()].map((n) => {
@@ -40,7 +40,7 @@ export const SelectBirtdate = (props: {
       </Grid>
       <Grid item xs={3}>
         <FormikSelect
-        name={`${namePrefix}${getFieldName('birthMonth')}`}
+        name={`${namePrefix}${getCustFieldName('birthMonth')}`}
         label="月"
         options={[...Array(12).keys()].map( n => {
           const m = n + 1;
@@ -50,7 +50,7 @@ export const SelectBirtdate = (props: {
       </Grid>
       <Grid item xs={3}>
         <FormikSelect
-        name={`${namePrefix}${getFieldName('birthDay')}`}
+        name={`${namePrefix}${getCustFieldName('birthDay')}`}
         label="日"
         options={[...Array(days).keys()].map(n => {
           const d = n + 1;

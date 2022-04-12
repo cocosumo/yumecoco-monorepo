@@ -25,24 +25,25 @@ export const FormikIndividualCustomer = () => {
   return (
     <>
       <Formik
-    enableReinitialize
-    initialValues={initialValues}
-    validationSchema={validationSchema}
-    onSubmit={(values, { setSubmitting }) => {
-      console.log(values );
-      /* saveConstructionData({ ...values, $id: constructionId })
-        .then((resp)=>{
-          setSnackState({ open: true, message: '保存出来ました。' });
-          setSubmitting(false);
-          navigate(`/construction/edit/${resp.id}`);
-        }); */
 
-      setSubmitting(false);
-    }}
-  >
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log(values );
+          /* saveConstructionData({ ...values, $id: constructionId })
+            .then((resp)=>{
+              setSnackState({ open: true, message: '保存出来ました。' });
+              setSubmitting(false);
+              navigate(`/construction/edit/${resp.id}`);
+            }); */
+
+          setSubmitting(false);
+        }}
+      >
         <IndividualCustomerForm handleSnack={(snackParam) => setSnackState(snackParam)} />
 
       </Formik>
       <FormSnack snackState={snackState} handleClose={()=> setSnackState(prev => ({ ...prev, open: false }))}/>
-    </>);
+    </>
+  );
 };

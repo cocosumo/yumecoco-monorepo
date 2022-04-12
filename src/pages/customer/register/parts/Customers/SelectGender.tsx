@@ -8,11 +8,7 @@ export const SelectGender = (props: { namePrefix: string }) => {
       <FormikSelect
       name={`${props.namePrefix}${'gender' as CustomerFormKeys}`}
       label="性別"
-      options={[
-        { label: '女性' },
-        { label: '男性' },
-        { label: '指定しない' },
-      ]}/>
+      options={['女性', '男性', '指定なし'].map((item) => ({ label: item, value: item }))}/>
     </Grid>
   );
 };

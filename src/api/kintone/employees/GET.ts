@@ -12,7 +12,8 @@ export type EmpRoles = '店長' | '主任' | '営業' | '工務';
 export interface Params {
   type : EmployeeType | EmployeeType[],
   isActiveOnly?: boolean,
-  storeId ?: string
+  storeId ?: string,
+  isStoreIdRequired ?: boolean
 }
 
 export const getEmployees  = async (params ?: GetRecordParams) => {
@@ -43,8 +44,11 @@ export const getSpecifiedEmployees = async (params: Params) => {
   const {
     type = 'yumeAG',
     isActiveOnly = true,
+    isStoreIdRequired = false,
     storeId,
   } = params;
+
+  if (isStoreIdRequired && !storeId) return [];
 
   const affiliations = resolveAffiliations(type)
     .map(item => `"${item}"`).join(',');

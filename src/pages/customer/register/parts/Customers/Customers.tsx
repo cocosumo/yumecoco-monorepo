@@ -4,7 +4,7 @@ import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
 import { SelectBirtdate } from './SelectBirtdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
-import { CustomerForm, CustomerFormKeys, CustomerInstanceKeys, initialCustomerValue } from '../../form';
+import { CustomerForm, CustomerFormKeys, getCustFieldName, initialCustomerValue } from '../../form';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
@@ -16,7 +16,7 @@ interface CustomerProps extends ArrayHelpers{
   index: number,
 }
 
-const Customer =  <T extends CustomerInstanceKeys>(props: CustomerProps) => {
+const Customer = (props: CustomerProps) => {
   const {
     namePrefix,
     index,
@@ -44,10 +44,10 @@ const Customer =  <T extends CustomerInstanceKeys>(props: CustomerProps) => {
 
 
       <Grid item xs={12}>
-        <FormikTextField name={`${namePrefix}${'custName' as T}`} label="氏名" placeholder='山田　太郎' />
+        <FormikTextField name={`${namePrefix}${getCustFieldName('custName')}`} label="氏名" placeholder='山田　太郎' required/>
       </Grid>
       <Grid item xs={12}>
-        <FormikTextField name={`${namePrefix}${'custNameReading' as T}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' />
+        <FormikTextField name={`${namePrefix}${getCustFieldName('custNameReading')}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
       <SelectBirtdate namePrefix={namePrefix} index={index}/>

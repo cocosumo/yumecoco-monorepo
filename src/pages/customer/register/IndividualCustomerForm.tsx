@@ -6,6 +6,7 @@ import { SnackState } from '../../../components/ui/snacks/FormSnack';
 import { useEffect } from 'react';
 import { Customers } from './parts/Customers/Customers';
 import { Agents } from './parts/Agents';
+import { FabSave } from '../../../components/ui/fabs/FabSave';
 //import { Grid } from '@mui/material';
 
 interface ConstructionFormProps {
@@ -14,7 +15,7 @@ interface ConstructionFormProps {
 
 export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
   const { handleSnack } = props;
-  const { isValid, isSubmitting } = useFormikContext();
+  const { isValid, isSubmitting, submitForm } = useFormikContext();
 
   useEffect(()=>{
     if (!isValid && !isSubmitting){
@@ -29,6 +30,7 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
         <PageTitle label="顧客登録（個人）"/>
         <Customers/>
         <Agents/>
+        <FabSave onClick={submitForm}/>
       </MainContainer>
     </Form>
 

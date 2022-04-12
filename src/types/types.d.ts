@@ -12,7 +12,7 @@ interface Props {
 
 type Option = {
   label: string | number,
-  value?: string,
+  value: string,
   secondaryLabel?: string | null
 };
 

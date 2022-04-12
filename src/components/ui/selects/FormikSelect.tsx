@@ -11,6 +11,7 @@ export interface FormikSelecProps {
   required?: boolean
   helperText?: string
   options?: Options,
+  disabled?: boolean,
   variant?: 'standard' | 'outlined' | 'filled'
 }
 
@@ -20,27 +21,36 @@ export function FormikSelect(props : FormikSelecProps) {
     label,
     options,
     helperText,
+    disabled = false,
     variant = 'outlined',
   } = props;
-  const [field, meta] = useField(props);
+  const [
+    field,
+    meta,
+  ] = useField(props);
+
+  const {
+    touched,
+  } = meta;
+
   const { setFieldValue } = useFormikContext();
   const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
+  const isShowError = touched && !!meta.error && !disabled;
 
   useEffect(()=>{
-    if (!isExistInOptions){
+    if (!isExistInOptions || disabled){
       setFieldValue(field.name, '');
     }
-  }, [isExistInOptions]);
-
+  }, [isExistInOptions, disabled]);
 
   return (
-    <FormControl required={required} fullWidth error={!!meta.error}>
-      <InputLabel error={!!meta.error}>{label}</InputLabel>
-      <Select variant={variant}  error={!!meta.error} label={label} required={required} {...field}>
+    <FormControl required={required} fullWidth error={isShowError }>
+      <InputLabel error={isShowError}>{label}</InputLabel>
+      <Select variant={variant}  error={isShowError} label={label} required={required} {...field} disabled={disabled}>
 
         {
           options &&
-          options.map((option) => <MenuItem key={option.value || option.label} value={option.value || option.label}>
+          options.map((option) => <MenuItem key={option.value || option.label} value={option.value || ''}>
             <Stack direction="row" spacing={1}>
               {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
               <div>{option.label}</div>
@@ -48,7 +58,7 @@ export function FormikSelect(props : FormikSelecProps) {
           </MenuItem>)
         }
       </Select>
-      <FormHelperText error={!!meta.error}>{meta.error}</FormHelperText>
+      {isShowError && <FormHelperText error={isShowError}>{meta.error}</FormHelperText>}
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );

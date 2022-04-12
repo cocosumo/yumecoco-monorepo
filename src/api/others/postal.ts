@@ -9,6 +9,8 @@ interface PostalAPIResponse {
 }
 
 export const getAddressByPostal = async (postal: string) => {
+  if (!postal) return '';
+
   return kintone.proxy(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${postal}`, 'GET', {}, {})
     .then(([body]: any[]) => {
       const { status, results } : PostalAPIResponse = JSON.parse(body as string);

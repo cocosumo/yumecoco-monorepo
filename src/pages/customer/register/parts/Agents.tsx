@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material/node';
+import { Grid } from '@mui/material';
 import { PageSubTitle } from '../../../../components/ui/labels';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { CustomerForm, CustomerFormKeys } from '../form';

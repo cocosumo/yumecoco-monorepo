@@ -1,13 +1,12 @@
 
 import { MainContainer } from '../../../components/ui/containers';
 import { PageTitle } from '../../../components/ui/labels/';
-
-
 import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../../components/ui/snacks/FormSnack';
 import { useEffect } from 'react';
 import { Customers } from './parts/Customers/Customers';
 import { Agents } from './parts/Agents';
+//import { Grid } from '@mui/material';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -31,7 +30,6 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
         <Customers/>
         <Agents/>
       </MainContainer>
-
     </Form>
 
   );

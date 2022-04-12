@@ -20,10 +20,29 @@ enum CustomerFieldNames  {
   'phone2',
   'phone2Type',
   'email',
+  'isSameAddress',
 }
 
-type Customers = {
-  [K in keyof typeof CustomerFieldNames ]: string;
+type Customer = {
+  [K in keyof typeof CustomerFieldNames ]: string | boolean;
+};
+
+export const initialCustomerValue: Customer = {
+  custName: '',
+  isSameAddress: true,
+  custNameReading: '',
+  gender: '',
+  birthYear: '',
+  birthMonth: '',
+  birthDay: '',
+  postal: '',
+  address1: '',
+  address2: '',
+  phone1: '',
+  phone1Type: '',
+  phone2: '',
+  phone2Type: '',
+  email: '',
 };
 
 /**
@@ -35,22 +54,7 @@ export const initialValues = {
   cocoAG2: '',
   yumeAG1: '',
   yumeAG2: '',
-  customers: [{
-    custName: '',
-    custNameReading: '',
-    gender: '',
-    birthYear: '',
-    birthMonth: '',
-    birthDay: '',
-    postal: '',
-    address1: '',
-    address2: '',
-    phone1: '',
-    phone1Type: '',
-    phone2: '',
-    phone2Type: '',
-    email: '',
-  }] as Customers[],
+  customers: [initialCustomerValue],
 };
 
 export type CustomerForm = typeof initialValues;
@@ -71,3 +75,6 @@ export const validationSchema =  Yup.object(
       .required('必須です。'),
   } as Partial<Record<KeyOfConstructionDetails, any>>,
 );
+
+
+export const getFieldName = (fieldName : CustomerInstanceKeys) => fieldName;

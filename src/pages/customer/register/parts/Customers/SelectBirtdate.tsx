@@ -12,7 +12,7 @@ export const SelectBirtdate = (props: {
 }) => {
   const { namePrefix, index } = props;
   const { values: { customers } } = useFormikContext<CustomerForm>();
-  const { birthYear, birthMonth } = customers[index];
+  const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
 
   const dateToday = new Date();
   const minAge = 18;

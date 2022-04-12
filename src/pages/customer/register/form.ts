@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
-
-
+import { nativeMath, string as randomStr } from 'random-js';
 
 export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
 export const initialCustomerValue = {
+  key: randomStr()(nativeMath, 5),
   custName: '',
   isSameAddress: true,
   custNameReading: '',

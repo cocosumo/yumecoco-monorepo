@@ -1,6 +1,5 @@
 import { TextField, Autocomplete, Stack, debounce } from '@mui/material';
 import { useField } from 'formik';
-/* import debounce from 'lodash.debounce'; */
 import { useCallback, useState } from 'react';
 import Caption from '../typographies/Caption';
 

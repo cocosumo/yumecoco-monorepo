@@ -33,6 +33,9 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.json','.ts','.tsx' ,'.jsx'],
+    fallback: {
+      "crypto": false
+    }
   },
 
   module: {
@@ -59,7 +62,7 @@ module.exports = {
           'css-loader',
         ],
       },
-     /*  { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules/ }, */
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules/ },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
@@ -68,7 +71,7 @@ module.exports = {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
             module: false,
-            plugins: ['lodash'],
+        
             presets: [
               ['@babel/preset-react', {
                 runtime: 'automatic',

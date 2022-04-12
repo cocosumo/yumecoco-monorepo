@@ -7,7 +7,6 @@ import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textf
 import { initialValues, KeyOfConstructionDetails } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
-/* import debounce from 'lodash.debounce'; */
 import { useCallback } from 'react';
 
 

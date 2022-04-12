@@ -3,6 +3,7 @@ import { useField } from 'formik';
 
 interface FormikLabeledCheckBoxProps {
   label?: string,
+  defaultVal?: boolean
   name: string
   helperText?: string,
 }
@@ -11,11 +12,12 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
   const {
     label = '',
     helperText = '',
+    defaultVal = false,
   } = props;
 
   const [field, meta, helpers] = useField(props);
 
-  let dirtyVal = meta.value ?? false;
+  let dirtyVal: boolean = meta.value ?? defaultVal;
 
   if (typeof meta.value === 'string'){
     dirtyVal = Boolean(+meta.value);

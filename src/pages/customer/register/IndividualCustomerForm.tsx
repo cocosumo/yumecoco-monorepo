@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { Customers } from './parts/Customers/Customers';
 import { Agents } from './parts/Agents';
 import { FabSave } from '../../../components/ui/fabs/FabSave';
+import { ScrollToFieldError } from './../../../components/utils/ScrollToFieldError';
 //import { Grid } from '@mui/material';
 
 interface ConstructionFormProps {
@@ -32,6 +33,7 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
         <Agents/>
         <FabSave onClick={submitForm}/>
       </MainContainer>
+      <ScrollToFieldError/>
     </Form>
 
   );

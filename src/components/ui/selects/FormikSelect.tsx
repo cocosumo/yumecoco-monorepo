@@ -22,6 +22,7 @@ export function FormikSelect(props : FormikSelecProps) {
     options,
     helperText,
     disabled = false,
+    
     variant = 'outlined',
   } = props;
   const [
@@ -46,7 +47,7 @@ export function FormikSelect(props : FormikSelecProps) {
   return (
     <FormControl required={required} fullWidth error={isShowError }>
       <InputLabel error={isShowError}>{label}</InputLabel>
-      <Select variant={variant}  error={isShowError} label={label} required={required} {...field} disabled={disabled}>
+      <Select {...field} variant={variant}  error={isShowError} label={label} required={required} value={field.value ?? ''} disabled={disabled}>
 
         {
           options &&

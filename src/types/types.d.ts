@@ -3,6 +3,8 @@ declare module '*.jpg'
 declare module '*.jpeg'
 declare module '*.png'
 
+declare module 'koyomi'
+
 
 interface Props {
   children?: React.ReactNode

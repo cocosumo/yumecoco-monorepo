@@ -50,7 +50,7 @@ const Customer =  <T extends CustomerInstanceKeys>(props: CustomerProps) => {
         <FormikTextField name={`${namePrefix}${'custNameReading' as T}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' />
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
-      <SelectBirtdate namePrefix={namePrefix}/>
+      <SelectBirtdate namePrefix={namePrefix} index={index}/>
       <Address namePrefix={namePrefix} index={index}/>
 
       {
@@ -71,7 +71,7 @@ export const Customers = () => {
   const arrayFieldName: CustomerFormKeys = 'customers';
 
   return (
-    <Grid container item xs={6} spacing={2} justifyContent="space-between">
+    <Grid container item xs={12} md={6} spacing={2} justifyContent="space-between">
       <FieldArray
       name={arrayFieldName}
       render={(arrHelpers) => (

@@ -5,7 +5,6 @@ import Chip from '@mui/material/Chip';
 import { useEffect } from 'react';
 
 
-
 export interface FormikSelecProps {
   name: string,
   label: string
@@ -32,6 +31,7 @@ export function FormikSelect(props : FormikSelecProps) {
       setFieldValue(field.name, '');
     }
   }, [isExistInOptions]);
+
 
   return (
     <FormControl required={required} fullWidth error={!!meta.error}>

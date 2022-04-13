@@ -1,8 +1,8 @@
-import { Button, Grid, Grow  } from '@mui/material';
+import { Button, Grid, Slide  } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
-import { SelectBirtdate } from './SelectBirtdate';
+import { SelectBirthdate } from './SelectBirthdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
 import { CustomerForm, CustomerFormKeys, getCustFieldName, initialCustomerValue } from '../../form';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -35,9 +35,10 @@ const Customer =  (props: CustomerProps) => {
   const isFirstCustomer = !index;
 
 
-  return (
 
-    <Grid container item xs={12} spacing={2} justifyContent="space-between" >
+  return (
+    <>
+ 
       <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8}/>
       {
         !isFirstCustomer &&
@@ -63,20 +64,27 @@ const Customer =  (props: CustomerProps) => {
         <FormikTextField name={`${namePrefix}${getCustFieldName('custNameReading')}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
-      <SelectBirtdate namePrefix={namePrefix} index={index}/>
+      <SelectBirthdate namePrefix={namePrefix} index={index}/>
       <Address namePrefix={namePrefix} index={index}/>
 
       {
         isLastCustomer && !isMaxCust &&
         
           <Grid item xs={12}>
-            <Button variant="outlined" color="success" startIcon={<PersonAddIcon />} onClick={() => push({ ...initialCustomerValue, key: randomStr()(nativeMath, 5) })} fullWidth>
+            <Button 
+              variant="outlined" 
+              color="success" 
+              startIcon={<PersonAddIcon />} 
+              onClick={() => {
+                push({ ...initialCustomerValue, key: randomStr()(nativeMath, 5) });
+              }} 
+              fullWidth>
               契約者を追加する
             </Button>
           </Grid>
       }
 
-    </Grid>
+    </>
 
   );
 };
@@ -102,14 +110,11 @@ export const Customers = () => {
               const namePrefix = `${arrayFieldName}[${index}].`;
   
               return (
-                index ?
-                  <Grow key={_.key}>
-                    <Grid container item xs={12}>
-                      <Customer index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
-                    </Grid>
-                  </Grow>
-                  : <Customer key={_.key} index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
-                
+                <Slide appear={!!index} key={_.key} direction={'up'}>
+                  <Grid container item xs={12} spacing={2} justifyContent="space-between">
+                    <Customer index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
+                  </Grid>
+                </Slide>
               );
             })
           }

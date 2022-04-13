@@ -1,14 +1,14 @@
 import { TextField } from '@mui/material';
 import { useField } from 'formik';
-import React from 'react';
+import { FocusEvent, ChangeEvent } from 'react';
 
 
 interface FormikTextFieldProps {
   name: string,
   label: string,
   value?: string,
-  onBlur?: (e: React.FocusEvent<any, Element>)=>void,
-  onChange?: (e: React.ChangeEvent<any>) => void,
+  onBlur?: (e: FocusEvent<any, Element>)=>void,
+  onChange?: (e: ChangeEvent<any>) => void,
   placeholder?: string,
   helperText?: string,
   required?: boolean,
@@ -20,6 +20,13 @@ interface FormikTextFieldProps {
 export const FormikTextField = (props: FormikTextFieldProps) => {
   const { helperText, label, placeholder, required } = props;
   const [field, meta] = useField(props);
+
+  const handleChange = ((e: any)=>{
+    field.onChange(e);
+    if (props.onChange){
+      props.onChange(e);
+    }
+  });
 
   return (
     <TextField  {...field}
@@ -34,12 +41,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
         props.onBlur(e);
       }
     }}
-    onChange={(e) => {
-      field.onChange(e);
-      if (props.onChange){
-        props.onChange(e);
-      }
-    }}
+    onChange={handleChange}
     value={field.value || ''}
     error={meta.touched && Boolean(meta.error)}
     helperText={meta.error || helperText}

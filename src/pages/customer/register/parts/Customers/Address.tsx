@@ -45,7 +45,10 @@ export const Address = (props: AddressProps) => {
   const isFirstCustomer = !index;
 
   useLazyEffect(()=>{
-    console.log('triggered postal!', postal);
+    document.querySelectorAll('main')[1].scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [customers.length, isSameAddress], 1000);
+
+  useLazyEffect(()=>{
     getAddressByPostal(postal as string).then((address)=>{
       setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
     });
@@ -63,6 +66,7 @@ export const Address = (props: AddressProps) => {
       }
 
       {isFirstCustomer && <>{ AddressFields(namePrefix) }</>}
+
       <Grid item xs={12} >
         <TransitionGroup>
           {(!isSameAddress && !isFirstCustomer) && <Collapse timeout={600}>{AddressFields(namePrefix)}</Collapse>}

@@ -11,9 +11,9 @@ export default function App() {
     <HashRouter>
       <CssBaseline />
       <Overlay>
-        {/* <ResponsiveNav /> */}
+
         <MainScreen />
-        {/* <ShortCuts /> */}
+     
       </Overlay>
     </HashRouter>
   );

@@ -4,7 +4,7 @@ import { CustomerFormKeys } from '../../form';
 
 export const SelectGender = (props: { namePrefix: string }) => {
   return (
-    <Grid item xs={12} md={4}>
+    <Grid item xs={12} md={3}>
       <FormikSelect
       name={`${props.namePrefix}${'gender' as CustomerFormKeys}`}
       label="性別"

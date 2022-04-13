@@ -2,7 +2,7 @@ import { FormControl, Select, MenuItem, InputLabel, FormHelperText, Stack } from
 
 import { useField, useFormikContext } from 'formik';
 import Chip from '@mui/material/Chip';
-import { useEffect } from 'react';
+import { memo, useMemo, useEffect } from 'react';
 
 
 export interface FormikSelecProps {
@@ -16,6 +16,7 @@ export interface FormikSelecProps {
 }
 
 export function FormikSelect(props : FormikSelecProps) {
+  
   const {
     required,
     label,
@@ -44,23 +45,29 @@ export function FormikSelect(props : FormikSelecProps) {
     }
   }, [isExistInOptions, disabled]);
 
+
+  const optionMenus = useMemo(() => options?.map((option) => {
+    return (<MenuItem key={option.value || option.label} value={option.value || ''}>
+      <Stack direction="row" spacing={1}>
+        {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
+        <div>{option.label}</div>
+      </Stack>
+    </MenuItem>);
+  }), [options]); 
+
+
+
   return (
     <FormControl required={required} fullWidth error={isShowError }>
       <InputLabel error={isShowError}>{label}</InputLabel>
       <Select {...field} variant={variant}  error={isShowError} label={label} required={required} value={field.value ?? ''} disabled={disabled}>
-
-        {
-          options &&
-          options.map((option) => <MenuItem key={option.value || option.label} value={option.value || ''}>
-            <Stack direction="row" spacing={1}>
-              {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
-              <div>{option.label}</div>
-            </Stack>
-          </MenuItem>)
-        }
+        {optionMenus}
+        
       </Select>
       {isShowError && <FormHelperText error={isShowError}>{meta.error}</FormHelperText>}
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 }
+
+export const MemoizedFormikSelect = memo(FormikSelect);

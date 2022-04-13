@@ -1,8 +1,8 @@
-import { Button, Grid, Slide  } from '@mui/material';
+import { Button, Grid,  Grow, Stack } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
-import { SelectBirthdate } from './SelectBirthdate';
+import { MemoizedSelectBirthdate } from './SelectBirthdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
 import { CustomerForm, CustomerFormKeys, getCustFieldName, initialCustomerValue } from '../../form';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
@@ -12,12 +12,14 @@ import { TransitionGroup } from 'react-transition-group';
 
 import { nativeMath, string as randomStr } from 'random-js';
 
+
 interface CustomerProps extends ArrayHelpers{
   customers: CustomerForm['customers']
   namePrefix: string,
   index: number,
 }
 
+const maxCust = 3;
 
 
 const Customer =  (props: CustomerProps) => {
@@ -25,19 +27,19 @@ const Customer =  (props: CustomerProps) => {
   const {
     namePrefix,
     index,
-    push,
     remove,
-    customers: { length },
+
   } = props;
-  const maxCust = 3;
-  const isLastCustomer = index === length - 1;
-  const isMaxCust = maxCust === length;
+  
+  const { values: { customers } } = useFormikContext<CustomerForm>();
+  const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
+
   const isFirstCustomer = !index;
 
 
 
   return (
-    <>
+    <Grid container item xs={12} spacing={2}>
  
       <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8}/>
       {
@@ -64,27 +66,11 @@ const Customer =  (props: CustomerProps) => {
         <FormikTextField name={`${namePrefix}${getCustFieldName('custNameReading')}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
-      <SelectBirthdate namePrefix={namePrefix} index={index}/>
+      <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
       <Address namePrefix={namePrefix} index={index}/>
+      
 
-      {
-        isLastCustomer && !isMaxCust &&
-        
-          <Grid item xs={12}>
-            <Button 
-              variant="outlined" 
-              color="success" 
-              startIcon={<PersonAddIcon />} 
-              onClick={() => {
-                push({ ...initialCustomerValue, key: randomStr()(nativeMath, 5) });
-              }} 
-              fullWidth>
-              契約者を追加する
-            </Button>
-          </Grid>
-      }
-
-    </>
+    </Grid>
 
   );
 };
@@ -93,38 +79,62 @@ const Customer =  (props: CustomerProps) => {
 export const Customers = () => {
   const { values: { customers } } = useFormikContext<CustomerForm>();
   const arrayFieldName: CustomerFormKeys = 'customers';
-
+  const isMaxCust = maxCust === customers.length;
 
   return (
 
     
-    <Grid container item xs={12} md={6} spacing={2}>
+    <Grid className='fieldarray' container item xs={12} md={6} spacing={2}>
 
-      <FieldArray
-      name={arrayFieldName}
-      
-      render={(arrHelpers) => (
-        <TransitionGroup component={null}>
-          {
-            customers.map((_, index) => {
-              const namePrefix = `${arrayFieldName}[${index}].`;
-  
-              return (
-                <Slide appear={!!index} key={_.key} direction={'up'}>
-                  <Grid container item xs={12} spacing={2} justifyContent="space-between">
-                    <Customer index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
-                  </Grid>
-                </Slide>
-              );
-            })
-          }
-        </TransitionGroup>
+      <Grid item xs={12}>
+        <FieldArray
+        name={arrayFieldName}
         
-      )}
-    />
-
+        render={(arrHelpers) => (
+          <Stack spacing={2}>
+          
+            <TransitionGroup component={null}>
+              {
+              customers.map((_, index) => {
+                const namePrefix = `${arrayFieldName}[${index}].`;
+                
+                return (
+                  
+                  <Grow key={_.key} appear={!!index} timeout={500} unmountOnExit>
+                    <Stack spacing={2} >
+                      <Customer index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
+                    </Stack>
+                  </Grow>
+      
+                );
+              })
+            }
+          
+            </TransitionGroup>
   
+            <Grow appear={false} in={!isMaxCust} timeout={1000} unmountOnExit> 
+              
+              <Button 
+      
+                variant="outlined" 
+                color="success" 
+                startIcon={<PersonAddIcon />} 
+                onClick={() => {
+                  arrHelpers.push({ ...initialCustomerValue, key: randomStr()(nativeMath, 5) });
+                }} 
+                fullWidth>
+                契約者を追加する
+              </Button>
+              
+            </Grow>
 
+          </Stack>
+          
+          
+        )}
+      />
+      </Grid>
+     
     </Grid>
 
 

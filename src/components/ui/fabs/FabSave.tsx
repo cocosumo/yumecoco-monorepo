@@ -1,5 +1,5 @@
 
-import Fab from '@mui/material/Fab';
+import { Fab, Grid } from '@mui/material/';
 import Save from '@mui/icons-material/Save';
 
 interface Props {
@@ -11,14 +11,21 @@ export const FabSave = (props: Props) => {
     onClick,
   } = props;
   return (
-    <Fab
-    onClick={onClick}
-    color="primary"
-    size="large"
-    aria-label="add"
-    sx={{ position: 'fixed', bottom: 16, right: 24, zIndex: 3000 }}
-    >
-      <Save />
-    </Fab>
+    <Grid container justifyContent={'center'} width={'100%'} left={0} bottom={'24px'} position="fixed"> 
+      <Fab
+        variant='extended'
+        onClick={onClick}
+        size="large"
+        aria-label="add"
+    
+        sx={{ 
+          p: 4,
+          zIndex: 3000, 
+        }}
+        >
+        <Save sx={{ mr: 1 }}/>
+        保存
+      </Fab>
+    </Grid>
   );
 };

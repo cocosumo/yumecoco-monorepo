@@ -47,9 +47,11 @@ const darkTheme = createTheme({
     MuiFab: {
       styleOverrides: {
         root: {
+          color: 'whitesmoke',
           background: background,
           ':hover': {
             background: background,
+    
           },
         },
       },
@@ -90,7 +92,7 @@ const darkTheme = createTheme({
 export default function EnableColorOnDarkAppBar({ children }: Props) {
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider  theme={darkTheme}>
       {children}
     </ThemeProvider>
 

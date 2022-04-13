@@ -7,7 +7,7 @@ import { CustomerForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
 import { getAddressByPostal } from '../../../../../api/others/postal';
-import { TransitionGroup } from 'react-transition-group';
+
 
 
 interface AddressProps {
@@ -65,12 +65,12 @@ export const Address = (props: AddressProps) => {
       </Grid>
       }
 
-      {isFirstCustomer && <>{ AddressFields(namePrefix) }</>}
-
       <Grid item xs={12} >
-        <TransitionGroup>
-          {(!isSameAddress && !isFirstCustomer) && <Collapse timeout={600}>{AddressFields(namePrefix)}</Collapse>}
-        </TransitionGroup>
+         
+        <Collapse appear={!isFirstCustomer} timeout={1000} in={(!isSameAddress || isFirstCustomer)} unmountOnExit>
+          {AddressFields(namePrefix)}
+        </Collapse>
+    
       </Grid>
     </>
   );

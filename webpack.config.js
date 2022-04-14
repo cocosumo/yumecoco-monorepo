@@ -71,11 +71,19 @@ module.exports = {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
             module: false,
-        
+
             presets: [
               ['@babel/preset-react', {
                 runtime: 'automatic',
               }],
+              [
+                "@babel/preset-env",
+                {
+                  "targets": {
+                    "node": "current"
+                  }
+                }
+              ]
             ],
 
           },

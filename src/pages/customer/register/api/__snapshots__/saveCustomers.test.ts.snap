@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Save 1`] = `
+Array [
+  Object {
+    "id": "323",
+    "revision": "1",
+  },
+  Object {
+    "id": "324",
+    "revision": "1",
+  },
+]
+`;

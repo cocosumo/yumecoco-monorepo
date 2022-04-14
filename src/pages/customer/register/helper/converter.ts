@@ -60,7 +60,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
     });
 };
 
-export const formToKintConst = (formData: CustomerForm, customerIds: string[] | [] = []): Partial<ConstructionDetails.SavedData> => {
+export const formToKintConst = (formData: CustomerForm, customerIds: { id: string, revision: string }[] | [] = []): Partial<ConstructionDetails.SavedData> => {
   const {
     store,
     cocoAG1,
@@ -85,11 +85,11 @@ export const formToKintConst = (formData: CustomerForm, customerIds: string[] | 
     storeId: { value: store },
     members: {
       type: 'SUBTABLE',
-      value: customerIds?.map(custId => {
+      value: customerIds?.map(({ id }) => {
         return {
           id: '',
           value: {
-            customerId: { value: custId },
+            customerId: { value: id },
             address: { value: '' }, // lookup copy field
             customerName: { value: '' }, // lookup copy field
           },

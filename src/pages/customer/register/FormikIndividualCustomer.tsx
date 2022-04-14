@@ -3,6 +3,7 @@ import { initialValues, validationSchema } from './form';
 import { IndividualCustomerForm } from './IndividualCustomerForm';
 import { useState } from 'react';
 import FormSnack, { SnackState } from '../../../components/ui/snacks/FormSnack';
+import { saveFormData } from './api/saveFormData';
 //import { getFlatConstDetails } from '../../../api/kintone/construction';
 // import { useParams } from 'react-router-dom';
 
@@ -33,6 +34,12 @@ export const FormikIndividualCustomer = () => {
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
           console.log(values );
+          saveFormData(values)
+            .then(()=>{
+              setSnackState({ open: true, message: '保存出来ました。' });
+              setSubmitting(false);
+              //navigate(`/construction/edit/${resp.id}`);
+            });
           /* saveConstructionData({ ...values, $id: constructionId })
             .then((resp)=>{
               setSnackState({ open: true, message: '保存出来ました。' });

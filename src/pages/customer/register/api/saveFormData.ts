@@ -1,11 +1,13 @@
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { CustomerForm } from '../form';
+import { formToKintConst } from '../helper';
 import { saveCustomers } from './saveCustomers';
 
-export const saveFormInformation = (formData: CustomerForm) => {
-  const savedCustomers = saveCustomers(formData);
+export const saveFormData = async (formData: CustomerForm) => {
+  const savedCustomers = await saveCustomers(formData);
 
   return KintoneRecord.addRecord({
     app: APPIDS.constructionDetails,
+    record: formToKintConst(formData, savedCustomers),
   });
 };

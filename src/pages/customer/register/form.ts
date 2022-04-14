@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { nativeMath, string as randomStr } from 'random-js';
+import { phoneRegExp } from '../../../helpers/yupValidator';
 
 export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
@@ -52,6 +53,30 @@ export const validationSchema =  Yup.object().shape(
     'cocoAG1' : Yup
       .string()
       .required('必須です。'),
+    'customers': Yup.array()
+      .of(
+        Yup.object().shape({
+          'custName': Yup.string().required('必須です。'),
+          'custNameReading': Yup.string().required('必須です。'),
+          'phone1': Yup.string()
+            .matches(phoneRegExp, '半角数字。例：07012641265')
+            .required('必須です。'),
+          'phone2': Yup.string()
+            .matches(phoneRegExp, '半角数字。例：07012641265'),
+          'email': Yup.string()
+            .email('有効なメールアドレスを入力ください。例：info@cocosumo.jp'),
+          'phone1Type': Yup.string().required('連絡先の続柄を選択してください'),
+          'phone2Type': Yup.string().when('phone2', {
+            is: (val: string) => !!val,
+            then: Yup.string().required('連絡先の続柄を選択してください'),
+          }),
+          'emailType': Yup.string().when('email', {
+            is: (val: string) => !!val,
+            then: Yup.string().required('連絡先の続柄を選択してください。'),
+          }),
+
+        } as Partial<Record<CustomerInstanceKeys, any>>),
+      ),
 
 
   } as Partial<Record<CustomerFormKeys, any>>,

@@ -6,6 +6,8 @@ import FormSnack, { SnackState } from '../../../components/ui/snacks/FormSnack';
 //import { getFlatConstDetails } from '../../../api/kintone/construction';
 // import { useParams } from 'react-router-dom';
 
+
+
 export const FormikIndividualCustomer = () => {
   const [snackState, setSnackState] = useState<SnackState>({ open:false });
   //const [initialState, setInitialState] = useState(initialValues);

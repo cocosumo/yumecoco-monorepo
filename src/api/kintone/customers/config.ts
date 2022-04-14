@@ -1,2 +1,4 @@
-export const APP_ID = 173;
+import { APPIDS } from '../config';
+
+export const APP_ID = APPIDS.customers;
 

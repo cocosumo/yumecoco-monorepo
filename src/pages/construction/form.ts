@@ -6,18 +6,19 @@ export type BuildingTypeVals =
 | '店舗/事務所'
 | 'その他';
 
-export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
+export type KeyOfConstructionDetails = keyof typeof initialValues;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
-export const initialValues: ConstructionDetailsValues = {
+export const initialValues = {
+  id: '',
   constructionTypeId: '',
   constructionName: '',
-  agent1Id: '',
-  agent2Id: '',
   isAgentConfirmed: false,
+  cocoConst1: '',
+  cocoConst2: '',
   postal: '',
   address1: '',
   address2: '',

@@ -33,7 +33,7 @@ const convertContactsObj = (stateContacts: ContactField[]): CustomerTypes.Data['
   };
 };
 
-const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents'] => {
+const convertAgentsObj = (agents: PersonsInCharge): ConstructionDetails.Data['agents'] => {
   return {
     type: 'SUBTABLE',
     value: Object.entries(agents).reduce((prev, [key, curr]) => {
@@ -50,7 +50,7 @@ const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents']
       }
 
       return prev;
-    }, [] as CustomerTypes.Data['agents']['value']),
+    }, [] as ConstructionDetails.Data['agents']['value']),
   };
 };
 

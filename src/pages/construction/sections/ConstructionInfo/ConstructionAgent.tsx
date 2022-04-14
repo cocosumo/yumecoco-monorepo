@@ -26,7 +26,7 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
 
   return (
     <FormikSelect
-    name={`agent${number}Id` as KeyOfConstructionDetails}
+    name={`cocoConst${number}` as KeyOfConstructionDetails}
     label={`工事担当者${number}`}
     options={agents}
     helperText={helperText}

@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { validationSchema, initialValues } from './form';
 import {
   saveConstructionData,
-  getFlatConstDetails,
+  //getFlatConstDetails,
 } from '../../api/kintone/construction/';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -13,17 +13,17 @@ import FormSnack, { SnackState } from '../../components/ui/snacks/FormSnack';
 
 export const FormikConstruction  = () => {
   const [snackState, setSnackState] = useState<SnackState>({ open:false });
-  const [initialState, setInitialState] = useState(initialValues);
+  //const [initialState, setInitialState] = useState(initialValues);
   const constructionId  = useParams().constructionId;
   const navigate = useNavigate();
 
   useEffect(()=>{
     /** If edit mode */
     if (constructionId){
-      getFlatConstDetails(constructionId)
+      /*  getFlatConstDetails(constructionId)
         .then((flatRecord) => {
           setInitialState(flatRecord);
-        });
+        }); */
     }
   }, [constructionId]);
 
@@ -31,10 +31,10 @@ export const FormikConstruction  = () => {
     <>
       <Formik
       enableReinitialize
-      initialValues={initialState}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        saveConstructionData({ ...values, $id: constructionId })
+        saveConstructionData({ ...values, id: constructionId })
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });
             setSubmitting(false);

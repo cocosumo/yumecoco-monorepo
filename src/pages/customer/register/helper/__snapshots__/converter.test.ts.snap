@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Converter 1`] = `
+Object {
+  "groups": Object {
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "",
+          "value": Object {
+            "agentType": Object {
+              "value": "cocoAG",
+            },
+            "employeeId": Object {
+              "value": "40",
+            },
+            "employeeName": Object {
+              "value": "",
+            },
+          },
+        },
+        Object {
+          "id": "",
+          "value": Object {
+            "agentType": Object {
+              "value": "cocoAG",
+            },
+            "employeeId": Object {
+              "value": "43",
+            },
+            "employeeName": Object {
+              "value": "",
+            },
+          },
+        },
+        Object {
+          "id": "",
+          "value": Object {
+            "agentType": Object {
+              "value": "yumeAG",
+            },
+            "employeeId": Object {
+              "value": "28",
+            },
+            "employeeName": Object {
+              "value": "",
+            },
+          },
+        },
+        Object {
+          "id": "",
+          "value": Object {
+            "agentType": Object {
+              "value": "yumeAG",
+            },
+            "employeeId": Object {
+              "value": "65",
+            },
+            "employeeName": Object {
+              "value": "",
+            },
+          },
+        },
+      ],
+    },
+    "members": Object {
+      "type": "SUBTABLE",
+      "value": Array [],
+    },
+    "storeId": Object {
+      "value": "11",
+    },
+  },
+  "members": Array [
+    Object {
+      "address1": Object {
+        "value": "愛知県豊橋市野依町",
+      },
+      "address2": Object {
+        "value": "",
+      },
+      "birthDay": Object {
+        "value": "11",
+      },
+      "birthMonth": Object {
+        "value": "6",
+      },
+      "birthYear": Object {
+        "value": "1995",
+      },
+      "contacts": Object {
+        "type": "SUBTABLE",
+        "value": Array [
+          Object {
+            "id": "",
+            "value": Object {
+              "classification": Object {
+                "value": "祖父母",
+              },
+              "contactType": Object {
+                "value": "tel",
+              },
+              "contactValue": Object {
+                "value": "07014529634",
+              },
+            },
+          },
+          Object {
+            "id": "",
+            "value": Object {
+              "classification": Object {
+                "value": "",
+              },
+              "contactType": Object {
+                "value": "tel",
+              },
+              "contactValue": Object {
+                "value": "",
+              },
+            },
+          },
+          Object {
+            "id": "",
+            "value": Object {
+              "classification": Object {
+                "value": "",
+              },
+              "contactType": Object {
+                "value": "email",
+              },
+              "contactValue": Object {
+                "value": "lenzras@gmail.com",
+              },
+            },
+          },
+        ],
+      },
+      "fullName": Object {
+        "value": "てすと",
+      },
+      "fullNameReading": Object {
+        "value": "テスト",
+      },
+      "gender": Object {
+        "value": "女性",
+      },
+      "postalCode": Object {
+        "value": "441-8124",
+      },
+    },
+    Object {
+      "address1": Object {
+        "value": "ててててて",
+      },
+      "address2": Object {
+        "value": "",
+      },
+      "birthDay": Object {
+        "value": "11",
+      },
+      "birthMonth": Object {
+        "value": "6",
+      },
+      "birthYear": Object {
+        "value": "1995",
+      },
+      "contacts": Object {
+        "type": "SUBTABLE",
+        "value": Array [
+          Object {
+            "id": "",
+            "value": Object {
+              "classification": Object {
+                "value": "祖父母",
+              },
+              "contactType": Object {
+                "value": "tel",
+              },
+              "contactValue": Object {
+                "value": "07014529634",
+              },
+            },
+          },
+          Object {
+            "id": "",
+            "value": Object {
+              "classification": Object {
+                "value": "",
+              },
+              "contactType": Object {
+                "value": "tel",
+              },
+              "contactValue": Object {
+                "value": "",
+              },
+            },
+          },
+          Object {
+            "id": "",
+            "value": Object {
+              "classification": Object {
+                "value": "",
+              },
+              "contactType": Object {
+                "value": "email",
+              },
+              "contactValue": Object {
+                "value": "lenzras@gmail.com",
+              },
+            },
+          },
+        ],
+      },
+      "fullName": Object {
+        "value": "てすと２",
+      },
+      "fullNameReading": Object {
+        "value": "テスト",
+      },
+      "gender": Object {
+        "value": "女性",
+      },
+      "postalCode": Object {
+        "value": "441-8134",
+      },
+    },
+  ],
+}
+`;

@@ -26,7 +26,7 @@ export const FormikIndividualCustomer = () => {
     <>
       <Formik
         validateOnChange={false}
-        validateOnMount={false}
+        validateOnMount={true}
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {

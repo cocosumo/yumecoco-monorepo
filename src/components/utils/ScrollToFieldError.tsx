@@ -25,7 +25,9 @@ export const getFieldErrorNames = (formikErrors: FormikErrors<unknown>) => {
 export const ScrollToFieldError = () => {
   const { submitCount, isValid, errors } = useFormikContext();
 
+
   useEffect(() => {
+
     if (isValid) return;
 
     const fieldErrorNames = getFieldErrorNames(errors);
@@ -34,10 +36,11 @@ export const ScrollToFieldError = () => {
     const element = document.querySelector(
       `input[name='${fieldErrorNames[0]}']`,
     );
+
     if (!element) return;
 
     // Scroll to first known error into view
-    
+
     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     const parentInputEl = element.closest('.MuiFormControl-root');
@@ -50,7 +53,7 @@ export const ScrollToFieldError = () => {
       parentInputEl.classList.remove('shakes');
     }, 1000);
 
-  }, [submitCount]); 
+  }, [submitCount]);
 
   return null;
 };

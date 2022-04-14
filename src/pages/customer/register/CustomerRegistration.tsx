@@ -20,13 +20,14 @@ import FormSnack, { SnackState } from '../../..../../../components/ui/snacks/For
 import Memos from '../../../components/lists/Memos';
 
 
-import { useNavigate, useParams } from 'react-router-dom';
+/* import { useNavigate, useParams } from 'react-router-dom'; */
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
 import { getCustomersByIds } from '../../../api/kintone/customers/GET';
 import { MainContainer } from '../../../components/ui/containers/';
 import { PageTitle } from '../../../components/ui/labels/';
 
 
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 /* Main Form */

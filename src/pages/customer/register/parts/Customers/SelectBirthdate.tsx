@@ -19,7 +19,6 @@ const monthOptions = [...Array(12).keys()].map( n => {
 
 const yearOptions = [...Array(maxAge).keys()].map((n) => {
   const y = maxBirthYear - n;
-  console.log(y);
   return ({ label:  koyomi.format(y.toString(), 'GGN年'), value: y.toString(), secondaryLabel: y.toString() });
 });
 
@@ -27,19 +26,19 @@ const yearOptions = [...Array(maxAge).keys()].map((n) => {
  * Select menus are large so I memoiz this.
  * I also opted on using the formik's context on this component
  * as it always forces a rerender.
- * 
+ *
  */
 export const SelectBirthdate = (props: {
   namePrefix: string,
   birthYear: string,
   birthMonth: string
 }) => {
-  const { 
-    namePrefix, 
-    birthMonth = '', 
+  const {
+    namePrefix,
+    birthMonth = '',
     birthYear = '',
   } = props;
- 
+
   const [dayOptions, setDayOptions ] = useState<Options>([]);
 
 
@@ -51,7 +50,7 @@ export const SelectBirthdate = (props: {
     setDayOptions([...Array(days).keys()].map(n => {
       const d = n + 1;
       return ({ label: `${d}日`, value: d.toString() });
-    })); 
+    }));
 
   }, [birthMonth, birthYear]);
 

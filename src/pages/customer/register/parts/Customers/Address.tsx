@@ -7,6 +7,7 @@ import { CustomerForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
 import { getAddressByPostal } from '../../../../../api/others/postal';
+import { useRef } from 'react';
 
 
 
@@ -32,6 +33,7 @@ const AddressFields = (namePrefix: string) => (
 );
 
 export const Address = (props: AddressProps) => {
+
   const {
     setFieldValue,
     values: { customers },
@@ -43,9 +45,12 @@ export const Address = (props: AddressProps) => {
 
   const { isSameAddress, postal } = customers[index] ?? { isSameAddress: true, postal: '' };
   const isFirstCustomer = !index;
+  const divRef = useRef<HTMLDivElement>(null);
 
   useLazyEffect(()=>{
-    document.querySelectorAll('main')[1].scrollIntoView({ behavior: 'smooth', block: 'end' });
+    if (customers.length > 1) {
+      divRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   }, [customers.length, isSameAddress], 1000);
 
   useLazyEffect(()=>{
@@ -53,9 +58,6 @@ export const Address = (props: AddressProps) => {
       setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
     });
   }, [postal], 300);
-
-
-
 
   return (
     <>
@@ -65,12 +67,10 @@ export const Address = (props: AddressProps) => {
       </Grid>
       }
 
-      <Grid item xs={12} >
-         
+      <Grid item xs={12} ref={divRef}>
         <Collapse appear={!isFirstCustomer} timeout={1000} in={(!isSameAddress || isFirstCustomer)} unmountOnExit>
           {AddressFields(namePrefix)}
         </Collapse>
-    
       </Grid>
     </>
   );

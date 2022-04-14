@@ -27,13 +27,14 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
   return (
 
     <Form noValidate>
+      <ScrollToFieldError/>
       <MainContainer>
         <PageTitle label="顧客登録（個人）"/>
         <Customers/>
         <Agents/>
-        <FabSave onClick={submitForm}/>
+        <FabSave onClick={submitForm} url="custgroup"/>
       </MainContainer>
-      <ScrollToFieldError/>
+
     </Form>
 
   );

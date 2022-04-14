@@ -44,7 +44,7 @@ export type  CustomerInstanceKeys = (keyof typeof initialCustomerValue);
  * Set Validation for fields that requires it.
  * Refer to YUM documentation.
  */
-export const validationSchema =  Yup.object(
+export const validationSchema =  Yup.object().shape(
   {
     'store' : Yup
       .string()
@@ -52,6 +52,7 @@ export const validationSchema =  Yup.object(
     'cocoAG1' : Yup
       .string()
       .required('必須です。'),
+
 
   } as Partial<Record<CustomerFormKeys, any>>,
 );

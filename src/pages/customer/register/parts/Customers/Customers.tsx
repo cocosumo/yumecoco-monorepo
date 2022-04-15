@@ -84,7 +84,7 @@ export const Customers = () => {
   return (
 
 
-    <Grid className='fieldarray' container item xs={12} md={6} spacing={2}>
+    <>
 
       <Grid item xs={12}>
         <FieldArray
@@ -93,7 +93,7 @@ export const Customers = () => {
         render={(arrHelpers) => (
           <Stack spacing={2}>
 
-            <TransitionGroup component={null} enter={false}>
+            <TransitionGroup component={null} >
               {
               customers.map((_, index) => {
                 const namePrefix = `${arrayFieldName}[${index}].`;
@@ -133,7 +133,7 @@ export const Customers = () => {
       />
       </Grid>
 
-    </Grid>
+    </>
 
 
   );

@@ -54,7 +54,7 @@ export const Agents = () => {
 
 
   return (
-    <Grid container item xs={12} md={3} spacing={2}>
+    <>
       <PageSubTitle label='担当情報'/>
       <Grid item xs={12}>
         <FormikSelect name={getFieldName('store')} label="店舗" options={stores} required onChange={handleStoreChange}/>
@@ -72,6 +72,6 @@ export const Agents = () => {
         <FormikSelect name={getFieldName('yumeAG2')} label="ゆめてつAG2"  options={yumeAGOptions2} disabled={!store || !yumeAG1}/>
       </Grid>
 
-    </Grid>
+    </>
   );
 };

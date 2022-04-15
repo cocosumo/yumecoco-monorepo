@@ -33,7 +33,7 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
         </DialogTitle>
         <DialogContent>
 
-            {props.children}
+          {props.children}
 
         </DialogContent>
         <DialogActions>

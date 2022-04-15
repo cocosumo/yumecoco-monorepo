@@ -7,6 +7,8 @@ export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails,
 
 export const initialCustomerValue = {
   key: randomStr()(nativeMath, 5),
+  id: '',
+  revision: '',
   custName: '',
   isSameAddress: true,
   custNameReading: '',
@@ -18,17 +20,19 @@ export const initialCustomerValue = {
   address1: '',
   address2: '',
   phone1: '',
-  phone1Type: '',
+  phone1Rel: '',
   phone2: '',
-  phone2Type: '',
+  phone2Rel: '',
   email: '',
-  emailType: '',
+  emailRel: '',
 } ;
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
 export const initialValues = {
+  id: '' as undefined | string,
+  revision: '',
   store: '',
   cocoAG1: '',
   cocoAG2: '',
@@ -65,12 +69,12 @@ export const validationSchema =  Yup.object().shape(
             .matches(phoneRegExp, '半角数字。例：07012641265'),
           'email': Yup.string()
             .email('有効なメールアドレスを入力ください。例：info@cocosumo.jp'),
-          'phone1Type': Yup.string().required('連絡先の続柄を選択してください'),
-          'phone2Type': Yup.string().when('phone2', {
+          'phone1Rel': Yup.string().required('連絡先の続柄を選択してください'),
+          'phone2Rel': Yup.string().when('phone2', {
             is: (val: string) => !!val,
             then: Yup.string().required('連絡先の続柄を選択してください'),
           }),
-          'emailType': Yup.string().when('email', {
+          'emailRel': Yup.string().when('email', {
             is: (val: string) => !!val,
             then: Yup.string().required('連絡先の続柄を選択してください。'),
           }),

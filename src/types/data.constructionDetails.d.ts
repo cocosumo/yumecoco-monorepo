@@ -14,7 +14,7 @@ declare namespace ConstructionDetails {
     isChkAddressKari: kintone.fieldTypes.Number;
     buildingType: kintone.fieldTypes.SingleLineText;
     agents: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: {
         id: string;
         value: {
@@ -25,7 +25,7 @@ declare namespace ConstructionDetails {
       }[];
     };
     members: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: {
         id: string;
         value: {

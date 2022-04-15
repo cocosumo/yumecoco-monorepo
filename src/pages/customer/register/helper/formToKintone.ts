@@ -8,17 +8,17 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
   return customers
     .map(({
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
-      postal, address1, address2, phone1, phone1Type, phone2, phone2Type,
-      email, emailType, isSameAddress,
+      postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
+      email, emailRel, isSameAddress,
     } )=> {
 
       let deps = {
         postal,
         address1,
         address2,
-        phone1, phone1Type,
-        phone2, phone2Type,
-        email, emailType,
+        phone1, phone1Rel,
+        phone2, phone2Rel,
+        email, emailRel,
       };
 
       if (isSameAddress){
@@ -41,16 +41,16 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
         contacts: {
           type: 'SUBTABLE',
           value: [
-            ['tel', deps.phone1, deps.phone1Type],
-            ['tel', deps.phone2, deps.phone2Type],
-            ['email', deps.email, deps.emailType],
+            ['tel', deps.phone1, deps.phone1Rel],
+            ['tel', deps.phone2, deps.phone2Rel],
+            ['email', deps.email, deps.emailRel],
           ]
-            .map(([type, val, classif]) => ({
+            .map(([type, val, rel]) => ({
               id: '',
               value: {
                 contactValue: { value: val },
                 contactType: { value: type },
-                classification: { value: classif },
+                relation: { value: rel },
               },
             })),
 
@@ -109,13 +109,5 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
         };
       }) || [],
     },
-  };
-};
-
-
-export const formToKintone = (formData: CustomerForm) => {
-  return {
-    members: formToKintCust(formData),
-    groups: formToKintConst(formData),
   };
 };

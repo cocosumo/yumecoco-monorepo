@@ -26,7 +26,7 @@ const convertContactsObj = (stateContacts: ContactField[]): CustomerTypes.Data['
         value: {
           contactType: { value: item.contactType.value },
           contactValue: { value: item.contactValue.value },
-          classification: { value: item.classification.value },
+          relation: { value: item.classification.value },
         },
       };
     }),

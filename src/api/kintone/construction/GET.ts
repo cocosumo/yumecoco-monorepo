@@ -7,6 +7,11 @@ export const getConstDetails = async (recordId: string) => {
   });
 };
 
+/**
+ * Will reorganize code to put specialized api in
+ * the directory of the caller.
+ * @deprecated
+ */
 export const getFlatConstDetails = async (recordId:　string) => {
   const kintoneRecord = await getConstDetails(recordId);
 

@@ -6,6 +6,7 @@ declare namespace CustomerTypes {
     address1: kintone.fieldTypes.SingleLineText;
     postalCode: kintone.fieldTypes.SingleLineText;
     fullName: kintone.fieldTypes.SingleLineText;
+    isSameAsMain: kintone.fieldTypes.SingleLineText;
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;
     nationality: kintone.fieldTypes.SingleLineText;
@@ -17,7 +18,7 @@ declare namespace CustomerTypes {
         value: {
           contactValue: kintone.fieldTypes.SingleLineText;
           contactType: kintone.fieldTypes.SingleLineText;
-          classification: kintone.fieldTypes.SingleLineText;
+          relation: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

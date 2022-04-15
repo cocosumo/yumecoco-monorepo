@@ -54,7 +54,7 @@ export const getGroupData = (state: CustomerGroupForm, payload : CustGroupRecord
                 return { ...currentRow,
                   classification: {
                     ...currentRow.classification,
-                    value: recContactRow.classification.value,
+                    value: recContactRow.relation.value,
                   },
                   contactType: {
                     ...currentRow.contactType,

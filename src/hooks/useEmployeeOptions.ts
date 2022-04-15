@@ -3,6 +3,12 @@ import { useCallback } from 'react';
 import { getSpecifiedEmployees, Params } from '../api/kintone/employees/GET';
 import usePromise from './usePromise';
 
+/**
+ *
+ * @param params
+ * @param params.isStoreRequired
+ * @returns
+ */
 export const useEmployeeOptions = (params: Params): Options | undefined => {
 
   /* useCallBack to avoid inifinite re-render  */

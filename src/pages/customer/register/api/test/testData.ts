@@ -1,6 +1,8 @@
 import { CustomerForm } from '../../form';
 
 export const testData: CustomerForm =  {
+  id: undefined,
+  revision: '',
   store: '11',
   cocoAG1: '40',
   cocoAG2: '43',
@@ -9,6 +11,8 @@ export const testData: CustomerForm =  {
   customers: [
     {
       key: '',
+      id: '',
+      revision: '',
       custName: 'てすと',
       isSameAddress: true,
       custNameReading: 'テスト',
@@ -20,14 +24,16 @@ export const testData: CustomerForm =  {
       address1: '愛知県豊橋市野依町',
       address2: 'banchi1',
       phone1: '07014529634',
-      phone1Type: '祖父母',
+      phone1Rel: '祖父母',
       phone2: '',
-      phone2Type: '',
+      phone2Rel: '',
       email: 'lenzras@gmail.com',
-      emailType: '',
+      emailRel: '',
     },
     {
       key: '',
+      id: '',
+      revision: '',
       custName: 'てすと２',
       isSameAddress: false,
       custNameReading: 'テスト',
@@ -39,11 +45,11 @@ export const testData: CustomerForm =  {
       address1: 'ててててて',
       address2: 'banchi2',
       phone1: '07014529634',
-      phone1Type: '祖父母',
+      phone1Rel: '祖父母',
       phone2: '',
-      phone2Type: '',
+      phone2Rel: '',
       email: 'lenzras@gmail.com',
-      emailType: '',
+      emailRel: '',
     },
   ],
 } ;

@@ -3,17 +3,21 @@ import { useFormikContext } from 'formik';
 import { PageSubTitle } from '../../../../components/ui/labels';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions, useStores } from '../../../../hooks';
-import { getFieldName, CustomerForm } from '../form';
+import { getFieldName, CustomerForm, CustomerFormKeys } from '../form';
 
 
 export const Agents = () => {
   const {
-    values: {
-      store,
-      cocoAG1,
-      yumeAG1,
-    },
+    values,
+    setFieldValue,
   } = useFormikContext<CustomerForm>();
+
+
+  const {
+    store,
+    cocoAG1,
+    yumeAG1,
+  } = values;
   const { stores } = useStores();
 
   const cocoAGOptions = useEmployeeOptions({
@@ -34,11 +38,18 @@ export const Agents = () => {
   const yumeAGOptions2 = yumeAGOptions
     ?.filter((item) => item.value !==  yumeAG1);
 
+
+  const handleStoreChange = () => {
+    (['cocoAG1', 'cocoAG2', 'yumeAG1', 'yumeAG2'] as CustomerFormKeys[])
+      .forEach( item=> setFieldValue(item, '') );
+  };
+
+
   return (
     <Grid container item xs={12} md={3} spacing={2}>
       <PageSubTitle label='担当情報'/>
       <Grid item xs={12}>
-        <FormikSelect name={getFieldName('store')} label="店舗" options={stores} required/>
+        <FormikSelect name={getFieldName('store')} label="店舗" options={stores} required onChange={handleStoreChange}/>
       </Grid>
       <Grid item xs={12}>
         <FormikSelect name={getFieldName('cocoAG1')} label="営業担当者1" options={cocoAGOptions} disabled={!store} required/>

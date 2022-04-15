@@ -7,7 +7,6 @@ export const getAllCustomers = () => {
 
 export const getCustomersByIds = (ids: string[]) => {
   const query = ids.map((id) => `$id = "${id}"`).join(' or ');
-
   return KintoneRecord.getRecords({
     app: APP_ID,
     query,
@@ -19,7 +18,6 @@ export const getCustomerById = (id: string) =>  KintoneRecord
     app: APP_ID,
     id,
   });
-
 
 
 export const searchCustomers = (searchStr: string) => {

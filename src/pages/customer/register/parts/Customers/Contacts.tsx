@@ -25,7 +25,7 @@ export const Contact = (props: ContactProps) => {
         <FormikTextField {...props}/>
       </Grid>
       <Grid item xs={6}>
-        <FormikSelect name={`${name}Type`} label="続柄" options={typeOptions} required={required}/>
+        <FormikSelect name={`${name}Rel`} label="続柄" options={typeOptions} required={required}/>
       </Grid>
     </>
   );

@@ -16,13 +16,13 @@ const convertAgs = (notifyTo: EmployeesToNotify ) => {
 };
 
 export const convertMemo = async (state: MemoFormState) : Promise<ConvertedMemo> => {
-  const { groupId, memoType, memoContents, notifyTo, custId, isNotify } = state;
+  const { groupId, memoType, memoContents, notifyTo, isNotify } = state;
 
   return {
     contents: { value: memoContents.value },
-    groupId: { value:  groupId },
+    recordId: { value:  groupId },
     memoType: { value: memoType.value },
-    custId: { value: custId ?? '' },
+
     notifyTo: { value: isNotify ? await getUserCodesByIds(convertAgs(notifyTo)) : [] },
   };
 };

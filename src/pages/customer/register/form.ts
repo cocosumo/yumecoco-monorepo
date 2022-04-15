@@ -81,8 +81,6 @@ export const validationSchema =  Yup.object().shape(
 
         } as Partial<Record<CustomerInstanceKeys, any>>),
       ),
-
-
   } as Partial<Record<CustomerFormKeys, any>>,
 );
 

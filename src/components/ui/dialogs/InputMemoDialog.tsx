@@ -44,10 +44,10 @@ export default function InputMemoDialog(props : InputMemoDialogProps) {
   const { memoOpen, formState, setMemoOpen, dispatch } = props.state;
   const [confirmState, setConfirmState] = useState<ConfirmState>({ open: false, answer: '' });
   const [convertedMemo, setConvertedMemo] = useState<ConvertedMemo>({
-    groupId: { value:  formState.groupId },
+    recordId: { value:  formState.groupId },
     memoType: { value: formState.memoType.value },
     contents: { value: formState.memoContents.value },
-    custId: { value: formState.custId ?? '' },
+
   });
 
   useEffect(()=>{

@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { getAllMemosByGroupId } from '../../api/kintone/memo/GET';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Memo from '../ui/cards/Memo';
-
 import InputMemoDialog from '../ui/dialogs/InputMemoDialog';
 import Caption from '../ui/typographies/Caption';
 import CustomerFormContext from './../../context/CustomerFormContext';
@@ -70,7 +69,7 @@ export default function Memos() {
           <>
             <Caption text={`${memoList.length}件`} />
             <List>
-            {memoList.map((item) => <Memo key={item.$id.value} record={item} handleTouched={()=>handleClickMemo(item)}  />)}
+              {memoList.map((item) => <Memo key={item.$id.value} record={item} handleTouched={()=>handleClickMemo(item)}  />)}
             </List>
           </>
           }

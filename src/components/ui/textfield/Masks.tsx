@@ -16,9 +16,11 @@ export const TextMaskPostal = React.forwardRef<HTMLElement, CustomProps>(
     return (
       <IMaskInput
         {...other}
+
         mask="000-0000"
         onAccept={(value: any) => onChange({ target: { name: props.name, value } })}
         overwrite
+
       />
     );
   },

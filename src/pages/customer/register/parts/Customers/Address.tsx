@@ -19,7 +19,7 @@ interface AddressProps {
 const AddressFields = (namePrefix: string) => (
   <Grid container item xs={12} spacing={2}>
     <Grid item xs={12} md={4} >
-      <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal}/>
+      <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={true}/>
     </Grid>
     <Grid item xs={12} md={8} />
     <Grid item xs={12} >

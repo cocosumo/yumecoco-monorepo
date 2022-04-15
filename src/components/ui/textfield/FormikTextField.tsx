@@ -14,11 +14,15 @@ interface FormikTextFieldProps {
   required?: boolean,
   inputComponent?: any,
   endAdornment?: JSX.Element
+  shrink?: boolean
 
 }
 
 export const FormikTextField = (props: FormikTextFieldProps) => {
-  const { helperText, label, placeholder, required } = props;
+  const {
+    helperText, label, placeholder, required,
+    shrink = undefined,
+  } = props;
   const [field, meta] = useField(props);
 
   const handleChange = ((e: any)=>{
@@ -47,6 +51,9 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     helperText={meta.error || helperText}
     InputProps={{
       inputComponent: props?.inputComponent,
+    }}
+    InputLabelProps={{
+      shrink,
     }}
     fullWidth
     />

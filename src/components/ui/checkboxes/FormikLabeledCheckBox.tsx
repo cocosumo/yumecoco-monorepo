@@ -17,11 +17,13 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
 
   const [field, meta, helpers] = useField(props);
 
-  let dirtyVal: boolean = meta.value ?? defaultVal;
+  let dirtyVal: boolean = field.value ?? defaultVal;
 
-  if (typeof meta.value === 'string'){
-    dirtyVal = Boolean(+meta.value);
+  if (typeof field.value === 'string'){
+    dirtyVal = Boolean(+field.value);
   }
+
+  console.log(field.name, field.value);
 
 
   return (

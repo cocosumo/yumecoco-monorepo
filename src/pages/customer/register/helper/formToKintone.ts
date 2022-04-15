@@ -7,6 +7,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
 
   return customers
     .map(({
+      id,
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
       postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
       email, emailRel, isSameAddress,
@@ -29,6 +30,10 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
       }
 
       return {
+        $id: {
+          type: '__ID__',
+          value: id,
+        },
         fullName: { value: custName },
         fullNameReading: { value: custNameReading },
         postalCode: { value: deps.postal },
@@ -38,6 +43,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
         birthYear: { value: birthYear },
         birthMonth: { value: birthMonth },
         birthDay: { value: birthDay },
+        isSameAsMain: { value: (+isSameAddress).toString() },
         contacts: {
           type: 'SUBTABLE',
           value: [

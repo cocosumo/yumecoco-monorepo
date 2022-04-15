@@ -23,7 +23,6 @@ export const FormikIndividualCustomer = () => {
 
   }, [recordId]);
 
-  console.log(initialState, 'InitialState');
 
   return (
     <>

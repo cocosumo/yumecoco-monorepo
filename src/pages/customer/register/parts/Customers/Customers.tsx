@@ -30,7 +30,7 @@ const Customer =  (props: CustomerProps) => {
     remove,
 
   } = props;
-  
+
   const { values: { customers } } = useFormikContext<CustomerForm>();
   const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
 
@@ -40,21 +40,21 @@ const Customer =  (props: CustomerProps) => {
 
   return (
     <Grid container item xs={12} spacing={2}>
- 
+
       <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8}/>
       {
         !isFirstCustomer &&
         <Grid container justifyContent={'flex-end'} item xs={4}>
 
-          <Button variant="outlined" color="error" 
-          onClick={()=>{ 
+          <Button variant="outlined" color="error"
+          onClick={()=>{
             console.log('removing index', index);
             remove(index);
-          }} 
+          }}
             startIcon={<PersonRemoveIcon />} fullWidth>
             削除
           </Button>
- 
+
         </Grid>
       }
 
@@ -68,7 +68,7 @@ const Customer =  (props: CustomerProps) => {
       <SelectGender namePrefix={namePrefix}/>
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
       <Address namePrefix={namePrefix} index={index}/>
-      
+
 
     </Grid>
 
@@ -83,58 +83,56 @@ export const Customers = () => {
 
   return (
 
-    
+
     <Grid className='fieldarray' container item xs={12} md={6} spacing={2}>
 
       <Grid item xs={12}>
         <FieldArray
         name={arrayFieldName}
-        
+
         render={(arrHelpers) => (
           <Stack spacing={2}>
-          
-            <TransitionGroup component={null}>
+
+            <TransitionGroup component={null} enter={false}>
               {
               customers.map((_, index) => {
                 const namePrefix = `${arrayFieldName}[${index}].`;
-                
                 return (
-                  
-                  <Grow key={_.key} appear={!!index} timeout={500} unmountOnExit>
+                  <Grow key={_.key} appear={!!index} timeout={500}>
                     <Stack spacing={2} >
                       <Customer index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
                     </Stack>
                   </Grow>
-      
+
                 );
               })
             }
-          
+
             </TransitionGroup>
-  
-            <Grow appear={false} in={!isMaxCust} timeout={1000} unmountOnExit> 
-              
-              <Button 
-      
-                variant="outlined" 
-                color="success" 
-                startIcon={<PersonAddIcon />} 
+
+            <Grow appear={false} in={!isMaxCust} timeout={1000} unmountOnExit>
+
+              <Button
+
+                variant="outlined"
+                color="success"
+                startIcon={<PersonAddIcon />}
                 onClick={() => {
                   arrHelpers.push({ ...initialCustomerValue, key: randomStr()(nativeMath, 5) });
-                }} 
+                }}
                 fullWidth>
                 契約者を追加する
               </Button>
-              
+
             </Grow>
 
           </Stack>
-          
-          
+
+
         )}
       />
       </Grid>
-     
+
     </Grid>
 
 

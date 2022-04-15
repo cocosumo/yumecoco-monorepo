@@ -3,10 +3,10 @@
     "scope": "ALL",
     "desktop": {
         "js": [
-            "./dist/dist/customize.js",
-            "./dist/dist/vendor.js",
-            "./dist/dist/vendor-mui.js",
-            "./dist/dist/assets.js"
+            "./dist/customize.js",
+            "./dist/vendor.js",
+            "./dist/vendor-mui.js",
+            "./dist/assets.js"
         ],
         "css": [
             "./dist/customize.css"
@@ -14,10 +14,10 @@
     },
     "mobile": {
         "js": [
-            "./dist/dist/customize.js",
-            "./dist/dist/vendor.js",
-            "./dist/dist/vendor-mui.js",
-            "./dist/dist/assets.js"
+            "./dist/customize.js",
+            "./dist/vendor.js",
+            "./dist/vendor-mui.js",
+            "./dist/assets.js"
         ],
         "css": [
             "./dist/customize.css"

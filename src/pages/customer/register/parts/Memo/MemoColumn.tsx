@@ -3,8 +3,10 @@ import { PageSubTitle } from '../../../../../components/ui/labels';
 import AddIcon from '@mui/icons-material/Add';
 
 export const MemoColumn = () => {
-  return (
 
+
+
+  return (
     <Grid container item xs={12} spacing={2} mt={2}>
       <PageSubTitle label={'メモ'} xs={7}/>
       <Grid item xs={5}>

@@ -29,7 +29,7 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
 
     <Form noValidate>
       <ScrollToFieldError/>
-      <MainContainer>
+      <MainContainer >
         <PageTitle label="顧客登録（個人）"/>
         <Grid className='fieldarray' container item xs={12} md={8} spacing={2}>
           <Customers/>

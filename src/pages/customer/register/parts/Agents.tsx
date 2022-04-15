@@ -40,8 +40,16 @@ export const Agents = () => {
 
 
   const handleStoreChange = () => {
+    /* Reset agent form on store change  */
     (['cocoAG1', 'cocoAG2', 'yumeAG1', 'yumeAG2'] as CustomerFormKeys[])
       .forEach( item=> setFieldValue(item, '') );
+  };
+
+  const handleAGChange = (mainValue :string, compareField: CustomerFormKeys) => {
+    /* Clear compareField when it is the same as the main field value */
+    if (mainValue === values[compareField]){
+      setFieldValue(compareField, '');
+    }
   };
 
 
@@ -52,13 +60,13 @@ export const Agents = () => {
         <FormikSelect name={getFieldName('store')} label="店舗" options={stores} required onChange={handleStoreChange}/>
       </Grid>
       <Grid item xs={12}>
-        <FormikSelect name={getFieldName('cocoAG1')} label="営業担当者1" options={cocoAGOptions} disabled={!store} required/>
+        <FormikSelect name={getFieldName('cocoAG1')} label="営業担当者1" options={cocoAGOptions} disabled={!store} required onChange={(e)=> handleAGChange(e.target.value, 'cocoAG2')}/>
       </Grid>
       <Grid item xs={12}>
         <FormikSelect name={getFieldName('cocoAG2')} label="営業担当者2" options={cocoAGOptions2} disabled={!store || !cocoAG1}  />
       </Grid>
       <Grid item xs={12}>
-        <FormikSelect name={getFieldName('yumeAG1')} label="ゆめてつAG1" options={yumeAGOptions} disabled={!store}/>
+        <FormikSelect name={getFieldName('yumeAG1')} label="ゆめてつAG1" options={yumeAGOptions} disabled={!store} onChange={(e)=> handleAGChange(e.target.value, 'yumeAG2')}/>
       </Grid>
       <Grid item xs={12}>
         <FormikSelect name={getFieldName('yumeAG2')} label="ゆめてつAG2"  options={yumeAGOptions2} disabled={!store || !yumeAG1}/>

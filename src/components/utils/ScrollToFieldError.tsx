@@ -57,6 +57,7 @@ export const ScrollToFieldError = () => {
 
   useEffect(() => {
 
+
     if (isValid) return;
 
     const fieldErrorNames = getFieldErrorNames(errors);

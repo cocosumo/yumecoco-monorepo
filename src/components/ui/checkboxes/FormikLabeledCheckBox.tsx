@@ -23,9 +23,6 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
     dirtyVal = Boolean(+field.value);
   }
 
-  console.log(field.name, field.value);
-
-
   return (
     <FormControl>
       <FormControlLabel

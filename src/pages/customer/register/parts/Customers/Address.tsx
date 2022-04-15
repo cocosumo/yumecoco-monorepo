@@ -48,10 +48,10 @@ export const Address = (props: AddressProps) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   useLazyEffect(()=>{
-    if (customers.length > 1) {
+    if (customers.length > 1 ) {
       divRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [customers.length, isSameAddress], 1000);
+  }, [customers.length, isSameAddress ], 1000);
 
   useLazyEffect(()=>{
     getAddressByPostal(postal as string).then((address)=>{

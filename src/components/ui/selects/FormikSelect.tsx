@@ -68,7 +68,7 @@ export function FormikSelect(props : FormikSelecProps) {
       error={isShowError}
       label={label}
       required={required}
-      value={field.value}
+      value={field.value ?? ''}
       disabled={disabled}
       onChange={
         (e)=>{

@@ -9,7 +9,8 @@ export const recordStatuses = [
   '工事進行中',
   '工事完了(未精算)',
   '工事完了(精算済)',
-] as const;
+]
+  .map(item=>({ label: item, value: item }));
 
 export type CustomerTypeVals = typeof customerTypes[number];
 export type RecordStatus = typeof recordStatuses[number];

@@ -1,10 +1,12 @@
 import * as Yup from 'yup';
+import { AgentTypes } from '../../../../../../types/forms';
 
 export const initialValues = {
   recordId: '',
   memoType: '',
   contents: '',
-  notifyTo: '',
+  notifyTo: [] as AgentTypes[],
+  isNotify: false,
 };
 
 export type MemoFormType = typeof initialValues;

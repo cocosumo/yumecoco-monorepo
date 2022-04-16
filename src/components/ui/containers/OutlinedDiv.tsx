@@ -5,7 +5,8 @@ import React from 'react';
 interface OutlinedDivProps {
   children: React.ReactNode,
   label: string
-
+  helperText?: string
+  errorMessage?: string
 
 }
 
@@ -15,11 +16,17 @@ const InputComponent =  React.forwardRef(
   },
 );
 
-export const OutlinedDiv = ({ children, label } : OutlinedDivProps) => {
+export const OutlinedDiv = ({ 
+  children, 
+  label, 
+  helperText,
+  errorMessage,
+} : OutlinedDivProps) => {
   return (
     <TextField
       size='small'
-
+      error={!!errorMessage}
+      helperText={errorMessage ?? helperText }
       margin='none'
       fullWidth
       variant="outlined"

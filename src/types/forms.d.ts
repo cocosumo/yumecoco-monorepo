@@ -1,6 +1,7 @@
 
 
 export type PatternType = 'email' | 'tel' | 'postal';
+export type AgentTypes = 'cocoAG' | 'yumeAG' | 'cocoConst';
 
 export interface ElementTarget {
   target: { name: string, value: string }

@@ -36,8 +36,8 @@ export function FormikSelect(props : FormikSelecProps) {
     touched,
   } = meta;
 
-  //const { setFieldValue } = useFormikContext<CustomerForm>();
-  //const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
+
+  const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
   const isShowError = touched && !!meta.error && !disabled;
 
   /*  useEffect(()=>{
@@ -69,7 +69,7 @@ export function FormikSelect(props : FormikSelecProps) {
       error={isShowError}
       label={label}
       required={required}
-      value={field.value ?? ''}
+      value={isExistInOptions ? field.value ?? '' : ''}
       disabled={disabled}
       onChange={
         (e)=>{

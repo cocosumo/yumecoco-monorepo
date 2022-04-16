@@ -1,5 +1,6 @@
 
-import { Grid, Collapse } from '@mui/material';
+import { Grid, Collapse,  IconButton } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import {  FormikTextField, TextMaskPostal } from '../../../../../components/ui/textfield';
 import { Contacts } from './Contacts';
 import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
@@ -16,12 +17,19 @@ interface AddressProps {
   index: number
 }
 
-const AddressFields = (namePrefix: string, postal: string) => (
+const AddressFields = (namePrefix: string, postal: string, handlePostalSearch: ()=>void) => (
   <Grid container item xs={12} spacing={2}>
-    <Grid item xs={12} md={4} >
+    <Grid item xs={8} md={4} >
       <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={!!postal}/>
     </Grid>
-    <Grid item xs={12} md={8} />
+    <Grid item xs={4} md={2} >
+      <IconButton color={'primary'} size={'small'} onClick={handlePostalSearch}>
+        〒<SearchIcon sx={{ ml: '-6px', mt: '8px' }} fontSize="large" color={'primary'}/>
+      </IconButton>
+    </Grid>
+
+    <Grid item xs={12} md={6} /> {/* Offset */}
+
     <Grid item xs={12} >
       <FormikTextField name={`${namePrefix}${getCustFieldName('address1')}`} label="住所" placeholder='愛知県豊田市汐見町8丁目87-8'/>
     </Grid>
@@ -36,16 +44,27 @@ export const Address = (props: AddressProps) => {
 
   const {
     setFieldValue,
+    
     values: { customers },
   } = useFormikContext<CustomerForm>();
+
+
   const {
     namePrefix,
     index,
   } = props;
 
-  const { isSameAddress, postal } = customers[index] ?? { isSameAddress: true, postal: '' };
+  const { isSameAddress, postal, address1 } = customers[index] ?? { isSameAddress: true, postal: '' };
   const isFirstCustomer = !index;
   const divRef = useRef<HTMLDivElement>(null);
+
+  const handlePostalSearch = () => {
+    if (postal && !address1){
+      getAddressByPostal(postal as string).then((address)=>{
+        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
+      });
+    }
+  };
 
   useLazyEffect(()=>{
     if (customers.length > 1 ) {
@@ -53,13 +72,9 @@ export const Address = (props: AddressProps) => {
     }
   }, [customers.length, isSameAddress ], 1000);
 
-  useLazyEffect(()=>{
-    if (postal){
-      getAddressByPostal(postal as string).then((address)=>{
-        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
-      });
-    }
-  }, [postal], 300);
+  useLazyEffect( handlePostalSearch, [postal], 300);
+
+ 
 
   return (
     <>
@@ -71,7 +86,7 @@ export const Address = (props: AddressProps) => {
 
       <Grid item xs={12} ref={divRef}>
         <Collapse appear={!isFirstCustomer} timeout={1000} in={(!isSameAddress || isFirstCustomer)} unmountOnExit>
-          {AddressFields(namePrefix, postal)}
+          {AddressFields(namePrefix, postal, handlePostalSearch)}
         </Collapse>
       </Grid>
     </>

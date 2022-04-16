@@ -1,4 +1,4 @@
-import {  Button, Grid,  Grow, Stack } from '@mui/material';
+import {  Button, Zoom, Grid, Stack } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
@@ -86,35 +86,33 @@ export const Customers = () => {
       <Grid item xs={12}>
         <FieldArray
         name={arrayFieldName}
-        render={(arrHelpers) => {
-  
-          
+        render={(arrHelpers) => {         
 
           return (
             <Stack key={arrayFieldName} spacing={2}>
               {/* Render first element without animating */}
               <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers} customers={customers}/>
-
+              
               <TransitionGroup component={null} >
                 {
-                  customers.map((_, index) => {                
-                    return (
-                      <Grow key={_.key} appear={!!index} timeout={500} unmountOnExit>
-                        <Stack key={_.key} spacing={2} >
-                          {index !== 0 &&
-                            <Customer key={_.key}  index={index} namePrefix={`${arrayFieldName}[${index}].`} {...arrHelpers} customers={customers}/>
-                          }
-                        </Stack>
+                  customers
+                    .filter((_, index)=> index !== 0)
+                    .map((_, index) => {                
+                      return (
+                        <Zoom key={_.key} >
+                          <Stack key={_.key} spacing={2} >
+                            <Customer key={_.key}  index={index + 1} namePrefix={`${arrayFieldName}[${index + 1}].`} {...arrHelpers} customers={customers}/>
+                          </Stack>
                           
-                      </Grow>
-                    );
-                  })
+                        </Zoom>
+                      );
+                    })
+  
                 }
 
               </TransitionGroup>
        
-              <Grow appear={false} in={!isMaxCust} timeout={1000}  unmountOnExit>
-
+              <Zoom in={!isMaxCust} style={{ transitionDelay: '500ms' }}>
                 <Button
                 variant="outlined"
                 color="success"
@@ -130,8 +128,7 @@ export const Customers = () => {
                   契約者を追加する
                 </Button>
 
-              </Grow>
-
+              </Zoom>
             </Stack>);
 
 

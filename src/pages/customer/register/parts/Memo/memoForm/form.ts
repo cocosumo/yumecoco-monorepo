@@ -14,13 +14,19 @@ export type MemoFormKeys = keyof MemoFormType;
 
 export const validationSchema =  Yup.object().shape(
   {
-    'store' : Yup
-      .string(),
+    'memoType' : Yup
+      .string()
+      .required('必須です。'),
       
-    'cocoAG1' : Yup
-      .string(),
+    'contents' : Yup
+      .string()
+      .required('必須です。'),
+    'notifyTo': Yup.array().when('isNotify', {
+      is: true,
+      then: Yup.array().min(1, '「担当者を通知する」に☑を入れましたが、担当者が選択されていません。'),
+    }),
     
-  },
+  } as Partial<Record<MemoFormKeys, any>>,
 );
 
 export const getFieldName = <T extends MemoFormKeys>(fn : T) : T => fn;

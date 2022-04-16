@@ -89,7 +89,7 @@ export const Customers = () => {
         render={(arrHelpers) => {         
 
           return (
-            <Stack key={arrayFieldName} spacing={2}>
+            <Stack key={arrayFieldName} spacing={2} >
               {/* Render first element without animating */}
               <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers} customers={customers}/>
               

@@ -18,7 +18,7 @@ interface AddressProps {
 }
 
 const AddressFields = (namePrefix: string, postal: string, handlePostalSearch: ()=>void) => (
-  <Grid container item xs={12} spacing={2}>
+  <Grid container item xs={12} spacing={2} mt={1}>
     <Grid item xs={8} md={4} >
       <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={!!postal}/>
     </Grid>
@@ -70,7 +70,7 @@ export const Address = (props: AddressProps) => {
     if (customers.length > 1 ) {
       divRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-  }, [customers.length, isSameAddress ], 1000);
+  }, [customers.length, isSameAddress ], 300);
 
   useLazyEffect( handlePostalSearch, [postal], 300);
 
@@ -85,7 +85,7 @@ export const Address = (props: AddressProps) => {
       }
 
       <Grid item xs={12} ref={divRef}>
-        <Collapse appear={!isFirstCustomer} timeout={1000} in={(!isSameAddress || isFirstCustomer)} unmountOnExit>
+        <Collapse appear={!isFirstCustomer} in={(!isSameAddress || isFirstCustomer)} >
           {AddressFields(namePrefix, postal, handlePostalSearch)}
         </Collapse>
       </Grid>

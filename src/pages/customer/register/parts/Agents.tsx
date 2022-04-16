@@ -47,7 +47,7 @@ export const Agents = () => {
 
   const handleAGChange = (mainValue :string, compareField: CustomerFormKeys) => {
     /* Clear compareField when it is the same as the main field value */
-    if (mainValue === values[compareField]){
+    if (!mainValue || mainValue === values[compareField]){
       setFieldValue(compareField, '');
     }
   };

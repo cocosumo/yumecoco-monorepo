@@ -17,9 +17,8 @@ export const getFieldErrorNames = (formikErrors: FormikErrors<unknown>) => {
       let nextKey = key ;
 
       if (prefix){
-        if ( isArr){
+        if (isArr){
           nextKey = `${prefix}[${key}].`;
-          console.log('Is');
         } else {
           nextKey = `${prefix}${key}`;
         }
@@ -56,8 +55,7 @@ export const ScrollToFieldError = () => {
   const { submitCount, isValid, errors } = useFormikContext();
 
   useEffect(() => {
-
-
+    if (submitCount === 0) return;
     if (isValid) return;
 
     const fieldErrorNames = getFieldErrorNames(errors);

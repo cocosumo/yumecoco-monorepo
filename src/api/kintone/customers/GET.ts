@@ -6,7 +6,8 @@ export const getAllCustomers = () => {
 };
 
 export const getCustomersByIds = (ids: string[]) => {
-  const query = ids.map((id) => `$id = "${id}"`).join(' or ');
+  const query = ids.map((id) => `$id = "${id}" `).join(' or ') + ' order by index asc';
+  
   return KintoneRecord.getRecords({
     app: APP_ID,
     query,

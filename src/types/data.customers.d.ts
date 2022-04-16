@@ -6,13 +6,14 @@ declare namespace CustomerTypes {
     address1: kintone.fieldTypes.SingleLineText;
     postalCode: kintone.fieldTypes.SingleLineText;
     fullName: kintone.fieldTypes.SingleLineText;
-    isSameAsMain: kintone.fieldTypes.SingleLineText;
+    index: kintone.fieldTypes.SingleLineText;
+    isSameAsMain: kintone.fieldTypes.Number;
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;
     nationality: kintone.fieldTypes.SingleLineText;
     birthYear: kintone.fieldTypes.Number;
     contacts: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {

@@ -15,6 +15,8 @@ interface FormikTextFieldProps {
   inputComponent?: any,
   endAdornment?: JSX.Element
   shrink?: boolean
+  multiline?: boolean,
+  rows?: number
 
 }
 
@@ -22,6 +24,8 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
   const {
     helperText, label, placeholder, required,
     shrink = undefined,
+    multiline = undefined,
+    rows = undefined,
   } = props;
   const [field, meta] = useField(props);
 
@@ -56,6 +60,8 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
       shrink,
     }}
     fullWidth
+    multiline={multiline}
+    rows={rows}
     />
   );
 };

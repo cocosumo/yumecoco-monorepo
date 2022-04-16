@@ -24,7 +24,7 @@ const Router = () => (
     <Route path="/construction/edit/:constructionId/" element={<FormikConstruction/>} />
     <Route path="/customer/search" element={<FormikCustomerSearch />} />
     <Route path="/custgroup/register" element={<FormikIndividualCustomer key={'register'} />} />
-    <Route path="/custgroup/edit/:recordId/" element={<FormikIndividualCustomer key={'edit'} />} />
+    <Route path="/custgroup/edit/:recordId/" element={<FormikIndividualCustomer />} />
   </Routes>
 
 );

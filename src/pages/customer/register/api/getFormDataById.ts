@@ -1,6 +1,8 @@
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
 import { CustomerForm } from '../form';
+import { nativeMath, string as randomStr } from 'random-js';
+
 
 const getConstRecord = async (id: string) => {
   return KintoneRecord.getRecord({
@@ -22,7 +24,8 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   /* Get customer record based on ids on main record */
   const {
     records: customerRecords,
-  } = await getCustomersByIds(customers.map(cust => cust.value.customerId.value));
+  } = await getCustomersByIds( customers.map(cust => cust.value.customerId.value));
+
 
   /* Group cocoAG and yumeAG */
   const Ags = agents.value.reduce((accu, curr) => {
@@ -49,7 +52,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
         $id: custId,
         $revision: custRevision,
         fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
-        postalCode, address1, address2, isSameAsMain,
+        postalCode, address1, address2, isSameAsMain, index,
         contacts : { value : contacts },
       } = cust as unknown as CustomerTypes.SavedData;
 
@@ -57,8 +60,9 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
       const email = contacts.find(c => c.value.contactType.value === 'email');
 
       return {
-        key: custId.value,
+        key: randomStr()(nativeMath, 5),
         id: custId.value,
+        index: +index.value,
         revision: custRevision.value,
         custName: fullName.value,
         custNameReading: fullNameReading.value,

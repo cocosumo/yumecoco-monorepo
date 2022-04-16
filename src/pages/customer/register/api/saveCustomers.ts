@@ -13,6 +13,18 @@ export const saveCustomers = async (formData: CustomerForm) => {
     }).then(resp => resp.records);
   }
 
+
+  /* Save new customer in edit mode */
+  const unsavedCust = transformedCust.filter(cust => !cust.$id?.value);
+  let savedRecords = [] as { id: string, revision: string }[];
+
+  if (unsavedCust.length > 0){
+    savedRecords = await KintoneRecord.addRecords({
+      app: APPIDS.customers,
+      records: unsavedCust,
+    }).then(resp => resp.records);
+  }
+
   /* Update record */
   return KintoneRecord.updateRecords({
     app: APPIDS.customers,
@@ -24,7 +36,7 @@ export const saveCustomers = async (formData: CustomerForm) => {
           record: cust,
         };
       }),
-  }).then(resp => resp.records);
+  }).then(resp => resp.records.concat(savedRecords));
 
 
 };

@@ -5,13 +5,15 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
     customers,
   } = formData;
 
+  console.log(customers);
+
   return customers
     .map(({
       id,
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
       postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
-      email, emailRel, isSameAddress,
-    } )=> {
+      email, emailRel, isSameAddress, 
+    }, index )=> {
 
       let deps = {
         postal,
@@ -34,6 +36,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
           type: '__ID__',
           value: id,
         },
+        index: { value: index.toString() },
         fullName: { value: custName },
         fullNameReading: { value: custNameReading },
         postalCode: { value: deps.postal },
@@ -75,6 +78,8 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     yumeAG2,
   } = formData;
 
+  console.log('transformedForm', formData);
+
   /* Only include specified agents */
   const agents = Object.entries({
     cocoAG1,
@@ -85,7 +90,9 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     if (value){
       return [...accu, [key.replace(/\d+/g, ''), value]];
     }
-  }, []);
+    return accu;
+  }, [] as Array<[string, string]>);
+
 
   return {
     storeId: { value: store },

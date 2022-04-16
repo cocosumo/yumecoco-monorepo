@@ -3,6 +3,8 @@ import { Formik } from 'formik';
 import { initialValues, validationSchema } from './form';
 import { MemoForm } from './MemoForm';
 
+
+
 export const FormikMemo = () => {
   return (
     <Formik
@@ -16,7 +18,7 @@ export const FormikMemo = () => {
       setSubmitting(false);
     }}
     >
-      <MemoForm/>
+      <MemoForm />
     </Formik>
   );
 };

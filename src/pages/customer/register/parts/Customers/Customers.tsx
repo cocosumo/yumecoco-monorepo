@@ -1,10 +1,10 @@
-import { Button, Grid,  Grow, Stack } from '@mui/material';
+import {  Button, Grid,  Grow, Stack } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
 import { MemoizedSelectBirthdate } from './SelectBirthdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
-import { CustomerForm, CustomerFormKeys, getCustFieldName, initialCustomerValue } from '../../form';
+import { CustomerForm, CustomerFormKeys, CustomerInstance, getCustFieldName, initialCustomerValue } from '../../form';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
@@ -28,10 +28,10 @@ const Customer =  (props: CustomerProps) => {
     namePrefix,
     index,
     remove,
+    customers,
 
   } = props;
 
-  const { values: { customers } } = useFormikContext<CustomerForm>();
   const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
 
   const isFirstCustomer = !index;
@@ -48,7 +48,6 @@ const Customer =  (props: CustomerProps) => {
 
           <Button variant="outlined" color="error"
           onClick={()=>{
-            console.log('removing index', index);
             remove(index);
           }}
             startIcon={<PersonRemoveIcon />} fullWidth>
@@ -75,61 +74,68 @@ const Customer =  (props: CustomerProps) => {
   );
 };
 
-
 export const Customers = () => {
   const { values: { customers } } = useFormikContext<CustomerForm>();
   const arrayFieldName: CustomerFormKeys = 'customers';
   const isMaxCust = maxCust === customers.length;
 
+
   return (
-
-
     <>
 
       <Grid item xs={12}>
         <FieldArray
         name={arrayFieldName}
+        render={(arrHelpers) => {
+  
+          
 
-        render={(arrHelpers) => (
-          <Stack spacing={2}>
+          return (
+            <Stack key={arrayFieldName} spacing={2}>
+              {/* Render first element without animating */}
+              <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers} customers={customers}/>
 
-            <TransitionGroup component={null} >
-              {
-              customers.map((_, index) => {
-                const namePrefix = `${arrayFieldName}[${index}].`;
-                return (
-                  <Grow key={_.key} appear={!!index} timeout={500}>
-                    <Stack spacing={2} >
-                      <Customer index={index} namePrefix={namePrefix} {...arrHelpers} customers={customers}/>
-                    </Stack>
-                  </Grow>
+              <TransitionGroup component={null} >
+                {
+                  customers.map((_, index) => {                
+                    return (
+                      <Grow key={_.key} appear={!!index} timeout={500} unmountOnExit>
+                        <Stack key={_.key} spacing={2} >
+                          {index !== 0 &&
+                            <Customer key={_.key}  index={index} namePrefix={`${arrayFieldName}[${index}].`} {...arrHelpers} customers={customers}/>
+                          }
+                        </Stack>
+                          
+                      </Grow>
+                    );
+                  })
+                }
 
-                );
-              })
-            }
+              </TransitionGroup>
+       
+              <Grow appear={false} in={!isMaxCust} timeout={1000}  unmountOnExit>
 
-            </TransitionGroup>
-
-            <Grow appear={false} in={!isMaxCust} timeout={1000} unmountOnExit>
-
-              <Button
-
+                <Button
                 variant="outlined"
                 color="success"
                 startIcon={<PersonAddIcon />}
                 onClick={() => {
-                  arrHelpers.push({ ...initialCustomerValue, key: randomStr()(nativeMath, 5) });
+                  arrHelpers.push({ 
+                    ...initialCustomerValue, 
+                    key: randomStr()(nativeMath, 5),
+                    isSameAddress: true,
+                  } as CustomerInstance);
                 }}
                 fullWidth>
-                契約者を追加する
-              </Button>
+                  契約者を追加する
+                </Button>
 
-            </Grow>
+              </Grow>
 
-          </Stack>
+            </Stack>);
 
 
-        )}
+        }}
       />
       </Grid>
 

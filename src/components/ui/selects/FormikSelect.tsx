@@ -49,12 +49,13 @@ export function FormikSelect(props : FormikSelecProps) {
  */
 
   const optionMenus = useMemo(() => options?.map((option) => {
-    return (<MenuItem key={option.value || option.label} value={option.value || ''}>
-      <Stack direction="row" spacing={1}>
-        {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
-        <div>{option.label}</div>
-      </Stack>
-    </MenuItem>);
+    return (
+      <MenuItem key={option.value || option.label} value={option.value || ''}>
+        <Stack direction="row" spacing={1}>
+          {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
+          <div>{option.label}</div>
+        </Stack>
+      </MenuItem>);
   }), [options]);
 
 

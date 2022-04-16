@@ -6,7 +6,8 @@ import { Alert, Snackbar, AlertColor } from '@mui/material';
 export interface SnackState {
   open: boolean,
   severity?: AlertColor,
-  message?: string
+  message?: string,
+  handleClose?: ()=>void
 }
 
 interface FormSnackProps {

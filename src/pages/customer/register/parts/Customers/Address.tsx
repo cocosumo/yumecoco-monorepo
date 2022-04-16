@@ -16,10 +16,10 @@ interface AddressProps {
   index: number
 }
 
-const AddressFields = (namePrefix: string) => (
+const AddressFields = (namePrefix: string, postal: string) => (
   <Grid container item xs={12} spacing={2}>
     <Grid item xs={12} md={4} >
-      <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={true}/>
+      <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={!!postal}/>
     </Grid>
     <Grid item xs={12} md={8} />
     <Grid item xs={12} >
@@ -54,9 +54,11 @@ export const Address = (props: AddressProps) => {
   }, [customers.length, isSameAddress ], 1000);
 
   useLazyEffect(()=>{
-    getAddressByPostal(postal as string).then((address)=>{
-      setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
-    });
+    if (postal){
+      getAddressByPostal(postal as string).then((address)=>{
+        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
+      });
+    }
   }, [postal], 300);
 
   return (
@@ -69,7 +71,7 @@ export const Address = (props: AddressProps) => {
 
       <Grid item xs={12} ref={divRef}>
         <Collapse appear={!isFirstCustomer} timeout={1000} in={(!isSameAddress || isFirstCustomer)} unmountOnExit>
-          {AddressFields(namePrefix)}
+          {AddressFields(namePrefix, postal)}
         </Collapse>
       </Grid>
     </>

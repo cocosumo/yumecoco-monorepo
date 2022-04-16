@@ -7,16 +7,18 @@ export const initialValues = {
   notifyTo: '',
 };
 
-export type MemoForm = typeof initialValues;
-export type MemoFormKeys = keyof MemoForm;
+export type MemoFormType = typeof initialValues;
+export type MemoFormKeys = keyof MemoFormType;
 
 export const validationSchema =  Yup.object().shape(
   {
     'store' : Yup
-      .string()
-      .required('必須です。'),
+      .string(),
+      
     'cocoAG1' : Yup
-      .string()
-      .required('必須です。'),
+      .string(),
+    
   },
 );
+
+export const getFieldName = <T extends MemoFormKeys>(fn : T) : T => fn;

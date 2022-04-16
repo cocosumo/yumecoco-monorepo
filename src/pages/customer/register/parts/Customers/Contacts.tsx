@@ -12,6 +12,7 @@ interface ContactProps {
 
 const typeOptions = ['契約者', '配偶者', '婚約者', '家「固定電話」', '子', '祖父母', '兄弟姉妹', '同居人', '会社（固定電話）', '法人担当者', 'その他']
   .map(item => ({ label: item, value: item }));
+typeOptions.unshift({ label: '---', value: '' });
 
 export const Contact = (props: ContactProps) => {
   const {
@@ -25,7 +26,10 @@ export const Contact = (props: ContactProps) => {
         <FormikTextField {...props}/>
       </Grid>
       <Grid item xs={6}>
-        <FormikSelect name={`${name}Rel`} label="続柄" options={typeOptions} required={required}/>
+        <FormikSelect 
+        name={`${name}Rel`} label="続柄" 
+        options={typeOptions} 
+        required={required}/>
       </Grid>
     </>
   );

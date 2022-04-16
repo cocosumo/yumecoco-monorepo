@@ -12,6 +12,7 @@ export const testData: CustomerForm =  {
     {
       key: '',
       id: '',
+      index: 2,
       revision: '',
       custName: 'てすと',
       isSameAddress: true,
@@ -33,6 +34,7 @@ export const testData: CustomerForm =  {
     {
       key: '',
       id: '',
+      index: 1,
       revision: '',
       custName: 'てすと２',
       isSameAddress: false,

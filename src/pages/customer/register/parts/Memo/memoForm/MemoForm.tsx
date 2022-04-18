@@ -7,14 +7,14 @@ import { getFieldName, MemoFormType } from './form';
 import { FormikSelect } from '../../../../../../components/ui/selects';
 import { FormikTextField } from '../../../../../../components/ui/textfield';
 import { FormikCheckBoxes, FormikLabeledCheckBox } from '../../../../../../components/ui/checkboxes';
-import { AgentTypes } from '../../../../../../types/forms';
+import { AgentType } from '../../../../../../types/forms';
 
 const options: Options = ['打ち合わせ']
   .map(item => ({ label: item, value: item }));
 
 const notifOptions: Array<{
   label: string,
-  value: AgentTypes
+  value: AgentType
 }> = [
   { label: 'ここすも営業', value: 'cocoAG' },
   { label: 'ここすも工事', value: 'cocoConst' },
@@ -28,7 +28,15 @@ export const MemoForm = () => {
       isNotify,
     }, 
   } = useFormikContext<MemoFormType>();
-  const { memoOpen, handleClose } = useContext(MemoContext);
+  const { 
+    memoOpen, 
+    memoState, 
+    handleClose, 
+  } = useContext(MemoContext);
+
+  const {
+    custName,
+  } = memoState!;
 
   return (
 
@@ -45,7 +53,7 @@ export const MemoForm = () => {
         <DialogContent>
           <Stack spacing={2} pt={2} minWidth={360}>
             <Stack justifyContent={'flex-end'} direction={'row'}>
-              顧客名：レンズ
+              顧客名：{custName}
             </Stack>
             <FormikSelect name={getFieldName('memoType')} label="登録内容" options={options}/>
             <FormikTextField name={getFieldName('contents')}  label={'メモ'} multiline rows={3}/>

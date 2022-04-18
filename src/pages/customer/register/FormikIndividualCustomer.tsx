@@ -72,7 +72,7 @@ export const FormikIndividualCustomer = () => {
         <IndividualCustomerForm handleSnack={(snackParam) => setSnackState(snackParam)} />
 
       </Formik>
-      <FormikMemo/>
+      <FormikMemo  />
       <FormSnack 
         snackState={snackState} 
         handleClose={()=> {

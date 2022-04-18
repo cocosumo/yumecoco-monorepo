@@ -1,11 +1,13 @@
 import * as Yup from 'yup';
-import { AgentTypes } from '../../../../../../types/forms';
+import { AgentType } from '../../../../../../types/forms';
 
 export const initialValues = {
   recordId: '',
+  custName: '',
+  memoId: '',
   memoType: '',
   contents: '',
-  notifyTo: [] as AgentTypes[],
+  notifyTo: [] as AgentType[],
   isNotify: false,
 };
 

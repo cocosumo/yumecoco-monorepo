@@ -49,7 +49,7 @@ export const MemoList = (props: Props) => {
   const { memos } = props;
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {memos.map((prop) => <MemoItem key={prop.id} { ...prop } />)
+      {memos.map((prop) => <MemoItem key={prop.memoId} { ...prop } />)
 
       }
       

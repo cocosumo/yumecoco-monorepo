@@ -1,18 +1,21 @@
 import { createContext, useState } from 'react';
+import { initialValues, MemoFormType } from './form';
 
 export interface MemoItemProps {
-  id: string,
+  memoId: string,
   createDate: string,
   commenter: string,
   title: string,
   content: string,
+  
 }
 
 
-interface MemoContextValue {
+export interface MemoContextValue {
   memoOpen: boolean,
-  handleOpen: ()=> void,
-  handleClose: ( reason: 'backdropClick' | 'escapeKeyDown', formState?: MemoItemProps ) => void,
+  memoState?: MemoFormType,
+  handleOpen: (params: Partial<MemoFormType>)=> void,
+  handleClose: ( reason: 'backdropClick' | 'escapeKeyDown' | 'submitted', formState?: MemoItemProps ) => void,
 }
 
 export const MemoContext = createContext <MemoContextValue>({
@@ -23,9 +26,11 @@ export const MemoContext = createContext <MemoContextValue>({
 
 export const MemoContextProvider : React.FC = (props) => {
   const [memoOpen, setMemoOpen] = useState(false);
+  const [memoState, setMemoState] = useState<MemoFormType>(initialValues);
 
-  const handleOpen = () => {
-    console.log('openMemo');
+
+  const handleOpen: MemoContextValue['handleOpen'] = (params) => {
+    setMemoState(prev => ({ ...prev, ...params }));
     setMemoOpen(true);
   };
   const handleClose : MemoContextValue['handleClose'] = (reason) => {
@@ -35,6 +40,7 @@ export const MemoContextProvider : React.FC = (props) => {
 
   const contextValue = {
     memoOpen,
+    memoState,
     handleOpen,
     handleClose,
   };

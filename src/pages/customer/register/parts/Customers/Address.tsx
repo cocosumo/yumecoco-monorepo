@@ -59,20 +59,27 @@ export const Address = (props: AddressProps) => {
   const divRef = useRef<HTMLDivElement>(null);
 
   const handlePostalSearch = () => {
-    if (postal && !address1){
-      getAddressByPostal(postal as string).then((address)=>{
-        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
-      });
-    }
+ 
+    getAddressByPostal(postal as string).then((address)=>{
+      setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
+    });
+   
   };
 
   useLazyEffect(()=>{
+
     if (customers.length > 1 ) {
       divRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
+    
   }, [customers.length, isSameAddress ], 300);
 
-  useLazyEffect( handlePostalSearch, [postal], 300);
+  useLazyEffect(()=>{
+    /* Automatically retrieve address if address is empty */
+    if (postal && !address1){
+      handlePostalSearch();
+    }
+  }, [postal], 300);
 
  
 

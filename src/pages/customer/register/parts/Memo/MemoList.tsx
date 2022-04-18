@@ -1,21 +1,39 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
-import { MemoItemProps } from './memoForm/MemoContext';
 
 
+import { TransitionGroup } from 'react-transition-group';
+import { 
+  Collapse, 
+  IconButton, 
+  Typography, Avatar, ListItemAvatar,  
+  ListItemText, Divider, ListItem, List, Stack,
+
+} from '@mui/material';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+import { useContext, useState } from 'react';
+import { MemoItemMenu, MenuProps } from './MemoItemMenu';
+import { MemoContext } from './memoForm/MemoContext';
 
 
-interface Props {
-  memos: Array<MemoItemProps>
+import { MemoFormType } from './memoForm/form';
+
+
+interface MemoListProps {
+  memos: Array<MemoFormType>,
+  custName: string,
+  recordId: string,
 }
 
-const MemoItem = (props: MemoItemProps) => {
-  const { content, title, createDate, commenter } = props;
+interface MemoItemProps {
+  memoItem : MemoFormType,
+  handleClickMenu: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, memoItem: MemoFormType )=>void
+}
+
+
+const MemoListItem = (props: MemoItemProps) => {
+  const { memoItem, handleClickMenu } = props;
+  const { contents, memoType, createDate, commenter } = memoItem;
+
   return (
     <>
       <ListItem alignItems="flex-start">
@@ -23,20 +41,32 @@ const MemoItem = (props: MemoItemProps) => {
           <Avatar alt="Remy Sharp" src="#" />
         </ListItemAvatar>
         <ListItemText
-          primary={title}
-          secondary={
-            <>
-              <Typography
+          primary={
+            <Stack direction={'row'} justifyContent="space-between">
+              <span>
+                {memoType}<br/> 
+                <Typography
                 sx={{ display: 'inline' }}
                 component="span"
                 variant="body2"
                 color="text.primary"
               >
-                {commenter}
-              </Typography>
-              <div>{content}</div>
-              <div>{createDate}</div>
-            </>
+                  {commenter}
+                </Typography>
+
+              </span>
+              
+              
+              <IconButton onClick={(e) => handleClickMenu(e, memoItem )}>
+                <MoreVertIcon />
+              </IconButton>
+            </Stack>
+            }
+          secondary={
+            <Stack component={'span'}>
+              {contents} <br />
+              {createDate}
+            </Stack>
           }
         />
       </ListItem>
@@ -46,14 +76,49 @@ const MemoItem = (props: MemoItemProps) => {
 };
 
 
-export const MemoList = (props: Props) => {
-  const { memos } = props;
+export const MemoList = (props: MemoListProps) => {
+  const { memos, custName, recordId } = props;
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MemoFormType>();
+
+  const { handleOpen } = useContext(MemoContext)!;
+
+  const handleClickMenu: MemoItemProps['handleClickMenu'] = (e, memoItem) => {
+    setSelectedMenuItem(memoItem);
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleClose: MenuProps['handleClose'] = (e, memoItem, method) => {
+    console.log('memoItem', memoItem, method);
+    switch (method){
+      case '編集':
+        handleOpen({ ...memoItem, custName, recordId });
+        break;
+
+      case '削除':
+        break;
+    }
+    setAnchorEl(null);
+  };
+
+
   return (
-    <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      {
-      memos.map((prop) => <MemoItem key={prop.memoId} { ...prop } />)
+    <>
+      <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+        <TransitionGroup>
+        
+          {
+      memos.map((prop) => (
+        <Collapse key={prop.memoId}>
+          <div >
+            <MemoListItem handleClickMenu={handleClickMenu} memoItem={prop} />
+          </div>
+        </Collapse>))
       }
+        </TransitionGroup>
       
-    </List>
+      </List>
+      <MemoItemMenu memoItem={selectedMenuItem!} {...{ handleClose, anchorEl }}/>
+    </>
   );
 };

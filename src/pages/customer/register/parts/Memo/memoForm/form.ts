@@ -9,6 +9,9 @@ export const initialValues = {
   contents: '',
   notifyTo: [] as AgentType[],
   isNotify: false,
+  updateTime: '',
+  commenter: '',
+  createDate: '',
 };
 
 export type MemoFormType = typeof initialValues;

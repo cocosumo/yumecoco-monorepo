@@ -1,9 +1,10 @@
 import { APPIDS, KintoneRecord } from '../../../../../../../api/kintone';
-import { MemoItemProps } from '../MemoContext';
+import { MemoFormType } from '../form';
 
 
 export const getMemoList = async <T extends CustomerMemoTypes.SavedData>(recordId: string) => {
-  console.log('Record id', recordId);
+  console.log('retrieving memolist!');
+  if (!recordId) throw new Error('Please provide record id.');
   return KintoneRecord.getAllRecords({
     app: APPIDS.custMemo,
     condition: `${'recordId' as keyof T} = "${recordId}" `,
@@ -16,15 +17,17 @@ export const getMemoList = async <T extends CustomerMemoTypes.SavedData>(recordI
         memoType,
         createdTime,
         更新者: updater,
+        recordId: recId,
       }) =>{
         return (
           {
+            recordId: recId.value,
             memoId: $id.value,
-            content: contents.value,
+            contents: contents.value,
             createDate: createdTime.value,
-            title: memoType.value,
+            memoType: memoType.value,
             commenter: updater.value.name,
-          } as MemoItemProps
+          } as MemoFormType
         );
       });
   });

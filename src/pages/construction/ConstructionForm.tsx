@@ -2,13 +2,13 @@
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels/';
 import { ConstructionInfo } from './sections/ConstructionInfo';
-import { Foot, Submit } from './sections/bottom';
 import { ConstructionLocation, CustInfo } from './sections';
-import { Divider, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../components/ui/snacks/FormSnack';
 import { useEffect } from 'react';
+import { FabSave } from '../../components/ui/fabs/FabSave';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -16,7 +16,7 @@ interface ConstructionFormProps {
 
 export const ConstructionForm  = (props: ConstructionFormProps) => {
   const { handleSnack } = props;
-  const { isValid, isSubmitting } = useFormikContext();
+  const { isValid, isSubmitting, submitForm } = useFormikContext();
 
   useEffect(()=>{
     if (!isValid && !isSubmitting){
@@ -28,15 +28,17 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
 
     <Form noValidate>
       <MainContainer>
+
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
-        <CustInfo/>
-        <ConstructionInfo />
-        <ConstructionLocation/>
+        <Grid container item xl={8} spacing={2} mb={12}>
 
-        <Grid item xs={12}><Divider/></Grid>
-
-        <Submit/>
-        <Foot/>
+        
+          <CustInfo/>
+          <ConstructionInfo />
+          <ConstructionLocation/>
+         
+        </Grid>
+        <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>
 
     </Form>

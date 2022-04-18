@@ -41,6 +41,15 @@ const formDataToKintone = async (params: MemoFormType) : Promise<Partial<Custome
 
 export const saveMemo = async (params: MemoFormType) => {
 
+  if (params.memoId){
+    /* Update Record */
+    return KintoneRecord.updateRecord({
+      app: APPIDS.custMemo,
+      id: params.memoId,
+      record: await formDataToKintone(params),
+    });
+  }
+
   /* Add record */
   return KintoneRecord.addRecord({
     app: APPIDS.custMemo,

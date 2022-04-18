@@ -19,22 +19,20 @@ export const FormikMemo = () => {
     enableReinitialize
     validationSchema={validationSchema}
     onSubmit={(values, { setSubmitting, resetForm }) => {
-      console.log(values);
+     
       saveMemo(values)
         .then(resp => {
           console.log(resp);
-         
+          console.log('RESET!!!', values, resp);
+          resetForm();
           setSubmitting(false);
           handleClose('submitted');
+
         })
         .catch((err)=>{
           console.error('Save failed.', err);
         });
         
-      resetForm();
-      setSubmitting(false);
-      handleClose('submitted');
-    
     }}
     >
       <MemoForm />

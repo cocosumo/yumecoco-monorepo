@@ -29,20 +29,17 @@ export const MemoForm = () => {
   const { 
     submitForm, 
     values: { 
+      custName,
       isNotify,
     }, 
   } = useFormikContext<MemoFormType>();
 
   const { 
     memoOpen, 
-    memoFormState, 
     handleClose, 
     handleUpdateMemoList,
   } = useContext(MemoContext)!;
 
-  const {
-    custName,
-  } = memoFormState!;
 
   useEffect(()=>{
     if (recordId){

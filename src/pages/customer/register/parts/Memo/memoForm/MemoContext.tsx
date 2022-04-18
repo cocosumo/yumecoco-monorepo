@@ -2,23 +2,16 @@ import { createContext, useState } from 'react';
 import { getMemoList } from './api/getMemoList';
 import { initialValues, MemoFormType } from './form';
 
-export interface MemoItemProps {
-  memoId: string,
-  createDate: string,
-  commenter: string,
-  title: string,
-  content: string,
-}
 
 
 export interface MemoContextValue {
   memoOpen: boolean,
-  memoList?: MemoItemProps[]
+  memoList?: MemoFormType[]
   memoFormState?: MemoFormType,
   handleSetMemoState: (params: Partial<MemoFormType>)=> void,
   handleUpdateMemoList: (recordId: string) => void,
   handleOpen: (params: Partial<MemoFormType>)=> void,
-  handleClose: ( reason: 'backdropClick' | 'escapeKeyDown' | 'submitted', formState?: MemoItemProps ) => void,
+  handleClose: ( reason: 'backdropClick' | 'escapeKeyDown' | 'submitted', formState?: MemoFormType ) => void,
 }
 
 
@@ -31,7 +24,7 @@ export const MemoContextProvider : React.FC = (props) => {
 
   const [memoOpen, setMemoOpen] = useState(false);
   const [memoFormState, setMemoFormState] = useState<MemoFormType>(initialValues);
-  const [memoList, setMemoList] = useState<MemoItemProps[]>();
+  const [memoList, setMemoList] = useState<MemoFormType[]>();
 
   const handleSetMemoState : MemoContextValue['handleSetMemoState'] = (params) => {
     setMemoFormState(prev => ({ ...prev, ...params }));
@@ -45,6 +38,7 @@ export const MemoContextProvider : React.FC = (props) => {
     if (reason === 'submitted'){
       getMemoList(memoFormState.recordId).then(resp => setMemoList(resp));
     }
+    setMemoFormState(initialValues);
 
     setMemoOpen(false);
   };

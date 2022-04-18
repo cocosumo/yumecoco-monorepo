@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import { getMemoList } from './api/getMemoList';
 import { initialValues, MemoFormType } from './form';
 
 export interface MemoItemProps {
@@ -7,41 +8,58 @@ export interface MemoItemProps {
   commenter: string,
   title: string,
   content: string,
-  
 }
 
 
 export interface MemoContextValue {
   memoOpen: boolean,
-  memoState?: MemoFormType,
+  memoList?: MemoItemProps[]
+  memoFormState?: MemoFormType,
+  handleSetMemoState: (params: Partial<MemoFormType>)=> void,
+  handleUpdateMemoList: (recordId: string) => void,
   handleOpen: (params: Partial<MemoFormType>)=> void,
   handleClose: ( reason: 'backdropClick' | 'escapeKeyDown' | 'submitted', formState?: MemoItemProps ) => void,
 }
 
-export const MemoContext = createContext <MemoContextValue>({
-  memoOpen: false,
-  handleClose: ()=> {},
-  handleOpen: () => {},
-});
+
+
+export const MemoContext = createContext <MemoContextValue | undefined>(undefined);
+
+
 
 export const MemoContextProvider : React.FC = (props) => {
-  const [memoOpen, setMemoOpen] = useState(false);
-  const [memoState, setMemoState] = useState<MemoFormType>(initialValues);
 
+  const [memoOpen, setMemoOpen] = useState(false);
+  const [memoFormState, setMemoFormState] = useState<MemoFormType>(initialValues);
+  const [memoList, setMemoList] = useState<MemoItemProps[]>();
+
+  const handleSetMemoState : MemoContextValue['handleSetMemoState'] = (params) => {
+    setMemoFormState(prev => ({ ...prev, ...params }));
+  };
 
   const handleOpen: MemoContextValue['handleOpen'] = (params) => {
-    setMemoState(prev => ({ ...prev, ...params }));
+    handleSetMemoState(params);
     setMemoOpen(true);
   };
   const handleClose : MemoContextValue['handleClose'] = (reason) => {
-    console.log(reason, memoOpen);
+    if (reason === 'submitted'){
+      getMemoList(memoFormState.recordId).then(resp => setMemoList(resp));
+    }
+
     setMemoOpen(false);
   };
 
-  const contextValue = {
+  const handleUpdateMemoList: MemoContextValue['handleUpdateMemoList'] = (recordId) => {
+    getMemoList(recordId).then(res => setMemoList(res));
+  };
+
+  const contextValue: MemoContextValue = {
     memoOpen,
-    memoState,
+    memoFormState,
+    memoList,
     handleOpen,
+    handleSetMemoState,
+    handleUpdateMemoList,
     handleClose,
   };
 

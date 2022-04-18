@@ -1,4 +1,4 @@
-import { Grid, Button　} from '@mui/material';
+import { Grid, Button, Stack } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import AddIcon from '@mui/icons-material/Add';
 import { MemoList } from './MemoList';
@@ -10,13 +10,18 @@ import { CustomerForm } from '../../form';
 
 export const MemoColumn = () => {
   const { values: { id, customers } } = useFormikContext<CustomerForm>();
-  const { handleOpen } = useContext(MemoContext);
+  const { handleOpen, memoList } = useContext(MemoContext)!;
+
+  
 
   return (
-    <Grid container item xs={12} spacing={2} mt={2}>
-      <PageSubTitle label={'メモ'} xs={7}/>
-      <Grid item xs={5}>
-        <Button 
+    <Grid item xs={12} xl={6}>
+      <Stack spacing={2} direction={'column'}>
+
+        <Grid container item xs={12} spacing={2}>
+          <PageSubTitle label={'メモ'} xs={7}/>
+          <Grid item xs={5}>
+            <Button 
           variant="outlined" startIcon={< AddIcon />} 
           fullWidth onClick={
             ()=> handleOpen({ 
@@ -26,28 +31,14 @@ export const MemoColumn = () => {
             })
           }
           >
-          追加
-        </Button>
-      </Grid>
-      <Grid item xs={12}>
-        <MemoList memos={[
-          {
-            memoId: '1',
-            commenter: 'Lorenz',
-            createDate: '2022-04-16T16:00',
-            content: '出来たよね。ねねねねねねね。',
-            title: 'メール',
-          },
-          {
-            memoId: '2',
-            commenter: 'Lorenz',
-            createDate: '2022-04-16T16:00',
-            content: '出来たよね。ねねねねねねね。',
-            title: 'メール',
-          },
-        ]} />
-      </Grid>
-
+              追加
+            </Button>
+          </Grid>
+        </Grid>
+     
+        <MemoList memos={memoList ?? []} />
+  
+      </Stack>
     </Grid>
 
 

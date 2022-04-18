@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import {  CustomerForm, initialValues, validationSchema } from './form';
 import { IndividualCustomerForm } from './IndividualCustomerForm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect  } from 'react';
 import FormSnack, { SnackState } from '../../../components/ui/snacks/FormSnack';
 import { saveFormData } from './api/saveFormData';
 
@@ -9,6 +9,7 @@ import { useNavigate, useParams  } from 'react-router-dom';
 import { getFormDataById } from './api/getFormDataById';
 import { MemoContextProvider } from './parts/Memo/memoForm/MemoContext';
 import { FormikMemo } from './parts/Memo/memoForm/FormikMemo';
+
 
 
 export const FormikIndividualCustomer = () => {

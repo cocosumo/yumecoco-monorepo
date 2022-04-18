@@ -1,13 +1,14 @@
 import { Form, useFormikContext } from 'formik';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Stack, FormLabel, Collapse  } from '@mui/material';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { MemoContext } from './MemoContext';
 import { getFieldName, MemoFormType } from './form';
 import { FormikSelect } from '../../../../../../components/ui/selects';
 import { FormikTextField } from '../../../../../../components/ui/textfield';
 import { FormikCheckBoxes, FormikLabeledCheckBox } from '../../../../../../components/ui/checkboxes';
 import { AgentType } from '../../../../../../types/forms';
+import { useParams } from 'react-router-dom';
 
 const options: Options = ['打ち合わせ']
   .map(item => ({ label: item, value: item }));
@@ -19,24 +20,36 @@ const notifOptions: Array<{
   { label: 'ここすも営業', value: 'cocoAG' },
   { label: 'ここすも工事', value: 'cocoConst' },
   { label: 'ゆめてつAG', value: 'yumeAG' },
+
 ];
 
 export const MemoForm = () => {
+  const recordId  = useParams().recordId;
+
   const { 
     submitForm, 
     values: { 
       isNotify,
     }, 
   } = useFormikContext<MemoFormType>();
+
   const { 
     memoOpen, 
-    memoState, 
+    memoFormState, 
     handleClose, 
-  } = useContext(MemoContext);
+    handleUpdateMemoList,
+  } = useContext(MemoContext)!;
 
   const {
     custName,
-  } = memoState!;
+  } = memoFormState!;
+
+  useEffect(()=>{
+    if (recordId){
+      console.log('triggerd!!!');
+      handleUpdateMemoList(recordId);
+    }
+  }, [recordId]);
 
   return (
 

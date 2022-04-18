@@ -8,14 +8,14 @@ import { MemoForm } from './MemoForm';
 
 
 export const FormikMemo = () => {
-  const { memoState, handleClose } = useContext(MemoContext);
+  const { memoFormState, handleClose } = useContext(MemoContext)!;
 
 
   return (
     <Formik
     validateOnChange={false}
     validateOnMount
-    initialValues={{ ...initialValues, ...memoState }}
+    initialValues={{ ...initialValues, ...memoFormState }}
     enableReinitialize
     validationSchema={validationSchema}
     onSubmit={(values, { setSubmitting, resetForm }) => {

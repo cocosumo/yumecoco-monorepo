@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { PageSubTitle } from '../../../../components/ui/labels';
 import { FormikSelect } from '../../../../components/ui/selects';
@@ -54,24 +54,24 @@ export const Agents = () => {
 
 
   return (
-    <>
-      <PageSubTitle label='担当情報'/>
-      <Grid item xs={12}>
+    <Grid item xs={12} lg={12} xl={6}>
+      <Stack direction={'column'} spacing={2}>
+        <PageSubTitle label='担当情報'/>
+     
         <FormikSelect name={getFieldName('store')} label="店舗" options={stores} required onChange={handleStoreChange}/>
-      </Grid>
-      <Grid item xs={12}>
+ 
+      
         <FormikSelect name={getFieldName('cocoAG1')} label="営業担当者1" options={cocoAGOptions} disabled={!store} required onChange={(e)=> handleAGChange(e.target.value, 'cocoAG2')}/>
-      </Grid>
-      <Grid item xs={12}>
+     
+      
         <FormikSelect name={getFieldName('cocoAG2')} label="営業担当者2" options={cocoAGOptions2} disabled={!store || !cocoAG1}  />
-      </Grid>
-      <Grid item xs={12}>
+ 
         <FormikSelect name={getFieldName('yumeAG1')} label="ゆめてつAG1" options={yumeAGOptions} disabled={!store} onChange={(e)=> handleAGChange(e.target.value, 'yumeAG2')}/>
-      </Grid>
-      <Grid item xs={12}>
+   
         <FormikSelect name={getFieldName('yumeAG2')} label="ゆめてつAG2"  options={yumeAGOptions2} disabled={!store || !yumeAG1}/>
-      </Grid>
+    
 
-    </>
+      </Stack>
+    </Grid>
   );
 };

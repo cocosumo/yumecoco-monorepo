@@ -29,6 +29,7 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
     }
     setInitialLoad(false);
   }, [isSubmitting]);
+  
 
   return (
   
@@ -36,12 +37,17 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
       <ScrollToFieldError/>
       <MainContainer >
         <PageTitle label="顧客登録（個人）"/>
-        <Grid className='fieldarray' container item xs={12} md={8} spacing={2}>
-          <Customers/>
-        </Grid>
-        <Grid container item xs={12} md={4} spacing={2}>
-          <Agents/>
-          {isEditMode && <MemoColumn/>}
+        <Grid container item xs={12} md={11} lg={10} xl={9} spacing={2} alignItems="flex-start" justifyContent={'center'}>
+          <Grid className='fieldarray' container item xs={12} md={8} lg={5} spacing={2} >
+            <Customers/>
+          </Grid>
+
+          <Grid container item xs={12} md={4} lg={6} spacing={4} justifyContent="center">
+            
+            <Agents/>
+            {isEditMode && <MemoColumn/>}
+          </Grid>
+          
         </Grid>
         <FabSave onClick={submitForm} url="custgroup"/>
       </MainContainer>

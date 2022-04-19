@@ -16,7 +16,9 @@ interface ConfirmationDialogProps {
   },
   children: React.ReactNode
 }
-
+/**
+ * @deprecated will use Formik to manage forms.
+ *  */
 export default function ConfirmationDialog(props: ConfirmationDialogProps) {
   const { open, handleConfirmClose } = props.state;
 

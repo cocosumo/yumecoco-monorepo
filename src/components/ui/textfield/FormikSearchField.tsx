@@ -1,7 +1,7 @@
 import { TextField, Autocomplete, Stack, debounce } from '@mui/material';
 import { useField } from 'formik';
 import { useCallback, useState } from 'react';
-import Caption from '../typographies/Caption';
+import { Caption } from '../typographies';
 
 
 interface FormikSearchFieldProps {

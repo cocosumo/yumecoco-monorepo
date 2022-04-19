@@ -30,6 +30,7 @@ export const FormikConstruction  = () => {
   return (
     <>
       <Formik
+      validateOnMount
       enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}

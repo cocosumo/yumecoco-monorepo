@@ -92,7 +92,7 @@ export const MemoList = (props: MemoListProps) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose: MenuProps['handleClose'] = (e, memoItem, method) => {
+  const handleClose: MenuProps['handleClose'] = (memoItem, method) => {
     console.log('memoItem', memoItem, method);
     switch (method){
       case '編集':

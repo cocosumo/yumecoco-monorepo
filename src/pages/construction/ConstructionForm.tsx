@@ -9,6 +9,7 @@ import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../components/ui/snacks/FormSnack';
 import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
+import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -27,16 +28,17 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
   return (
 
     <Form noValidate>
+      <ScrollToFieldError/>
       <MainContainer>
 
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8} spacing={2} mb={12}>
 
-        
+
           <CustInfo/>
           <ConstructionInfo />
           <ConstructionLocation/>
-         
+
         </Grid>
         <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>

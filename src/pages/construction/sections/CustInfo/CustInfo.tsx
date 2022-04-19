@@ -4,19 +4,17 @@ import { useEffect, useState } from 'react';
 import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
 
 import { getCustomerById } from '../../../../api/kintone/customers/GET';
-import GrayBox from '../../../../components/ui/containers/GrayBox';
-import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
+import { GrayBox } from '../../../../components/ui/containers';
+import { PageSubTitle } from '../../../../components/ui/labels/';
 import { FormikSearchField } from '../../../../components/ui/textfield';
-import LabeledInfo from '../../../../components/ui/typographies/LabeledInfo';
+import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
 import { ConstructionDetailsValues } from '../../form';
 import { renderOptions } from './renderOptions';
 
-enum AgentType {
-  coco1 = '営業担当者1',
-  coco2 = '営業担当者2',
-  yume1 = 'ゆめてつAG1',
-  yume2 = 'ゆめてつAG2',
-}
+const AGLabels = {
+  cocoAG : '営業担当者',
+  yumeAG : 'ゆめてつAG',
+};
 
 export const CustInfo = () => {
   const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
@@ -74,11 +72,18 @@ export const CustInfo = () => {
               <Stack spacing={2}>
                 {custGroupRecord?.agents
                   .value
-                  .map(({ value: { agentType, employeeName } }) => {
-                    return (
-                      <LabeledInfo key={agentType.value} label={AgentType[agentType.value as keyof typeof AgentType]} data={employeeName.value} />
-                    );
-                  })}
+                  .reduce((accu, { id, value: { agentType, employeeName } })=>{
+                    const rawLabel = AGLabels[agentType.value as keyof typeof AGLabels];
+                    const numberedLabel = `${rawLabel}1`;
+                    const isExist = accu.some(item => item.label === numberedLabel);
+                    const resolvedLabel = isExist ?  `${rawLabel}2` : numberedLabel;
+
+                    return [...accu, { key: id, label: resolvedLabel, data: employeeName.value }];
+                  }, [] as Array<LabeledInfoProps & { key: string }>)
+                  .map(({ key, label, data }) => {
+                    return <LabeledInfo key={key}  {...{ label, data }} />;
+                  })
+                }
               </Stack>
 
             </Grid>

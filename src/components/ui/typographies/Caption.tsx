@@ -4,7 +4,7 @@ interface TypographyProps {
   text: string,
 }
 
-export default function Caption({ text }:TypographyProps) {
+export  function Caption({ text }:TypographyProps) {
   return (
     <Typography variant="caption">{text}</Typography>
   );

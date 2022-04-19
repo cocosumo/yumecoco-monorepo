@@ -6,7 +6,7 @@ import { getAllMemosByGroupId } from '../../api/kintone/memo/GET';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Memo from '../ui/cards/Memo';
 import InputMemoDialog from '../ui/dialogs/InputMemoDialog';
-import Caption from '../ui/typographies/Caption';
+import { Caption } from '../ui/typographies';
 import CustomerFormContext from './../../context/CustomerFormContext';
 import memoReducer from '../../reducers/memo/memo';
 import initialMemoState from '../../stores/memo';

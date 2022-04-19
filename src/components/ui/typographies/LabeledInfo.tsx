@@ -1,11 +1,11 @@
 import { Grid, Typography } from '@mui/material';
 
-interface LabeledInfoProps {
+export interface LabeledInfoProps {
   label: string,
   data?: string
 }
 
-const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
+export const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
 
   return (
     <Grid container>

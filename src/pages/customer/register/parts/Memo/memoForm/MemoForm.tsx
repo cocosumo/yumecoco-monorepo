@@ -9,9 +9,16 @@ import { FormikTextField } from '../../../../../../components/ui/textfield';
 import { FormikCheckBoxes, FormikLabeledCheckBox } from '../../../../../../components/ui/checkboxes';
 import { AgentType } from '../../../../../../types/forms';
 import { useParams } from 'react-router-dom';
+import { ConfirmSave } from './parts/ConfirmSave';
+import { format } from 'date-fns';
 
-const options: Options = ['打ち合わせ']
+const memoTypes = ['顧客情報', '打ち合わせ', '契約内容', '工事場所情報', '問い合わせ', 'その他'] as const;
+
+
+const memoOptions = memoTypes
   .map(item => ({ label: item, value: item }));
+
+export type MemoType = typeof memoTypes[number];
 
 const notifOptions: Array<{
   label: string,
@@ -23,20 +30,27 @@ const notifOptions: Array<{
 
 ];
 
+
 export const MemoForm = () => {
   const recordId  = useParams().recordId;
 
-  const { 
-    submitForm, 
-    values: { 
-      custName,
-      isNotify,
-    }, 
+  const {
+
+    submitForm,
+    values: memoFormValues,
   } = useFormikContext<MemoFormType>();
 
-  const { 
-    memoOpen, 
-    handleClose, 
+  const {
+    custName,
+    isNotify,
+    createDate,
+    commenter,
+  } = memoFormValues;
+
+  const {
+    memoOpen,
+    confirmSaveOpen,
+    handleClose,
     handleUpdateMemoList,
   } = useContext(MemoContext)!;
 
@@ -52,8 +66,8 @@ export const MemoForm = () => {
 
     <Form noValidate >
 
-      <Dialog 
-        open={memoOpen} 
+      <Dialog
+        open={memoOpen}
         onClose={(_, reason)=> handleClose(reason)}
         maxWidth={'md'}
       >
@@ -65,17 +79,17 @@ export const MemoForm = () => {
             <Stack justifyContent={'flex-end'} direction={'row'}>
               顧客名：{custName}
             </Stack>
-            <FormikSelect name={getFieldName('memoType')} label="登録内容" options={options}/>
+            <FormikSelect name={getFieldName('memoType')} label="登録内容" options={memoOptions}/>
             <FormikTextField name={getFieldName('contents')}  label={'メモ'} multiline rows={3}/>
             <Stack direction={'row'} justifyContent="space-between">
               <FormikLabeledCheckBox name={getFieldName('isNotify') } label={'担当者に通知する'} />
               <Stack>
-                <FormLabel>作成日時: {'2022年4月16日'}</FormLabel>
-                <FormLabel>作成者: {'ラス'}</FormLabel>
+                <FormLabel>作成日時: {createDate || format(new Date(), 'yyyy年MM年dd日')}</FormLabel>
+                <FormLabel>作成者: {commenter || kintone.getLoginUser().name}</FormLabel>
               </Stack>
-              
+
             </Stack>
-  
+
             <Collapse in={isNotify}>
               <div style={{ paddingTop: '8px' }}>
                 <FormikCheckBoxes name={getFieldName('notifyTo')} label={'担当者'} choices={notifOptions} helperText="通知する担当者を選択してください"/>
@@ -85,10 +99,10 @@ export const MemoForm = () => {
           </Stack>
         </DialogContent>
         <DialogActions>
-
           <Button type="submit" onClick={submitForm} variant="outlined">保存</Button>
         </DialogActions>
       </Dialog>
+      {confirmSaveOpen && <ConfirmSave />}
     </Form>
 
   );

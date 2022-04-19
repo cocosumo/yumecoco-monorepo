@@ -5,7 +5,7 @@ import { MemoFormType } from './memoForm/form';
 export interface MenuProps {
   anchorEl: HTMLElement | null,
   handleClose: (
-    e?: React.MouseEvent<HTMLLIElement>, 
+    e?: React.MouseEvent<HTMLLIElement>,
     memoItem?: MemoFormType,
     method?: '削除' | '編集'
   )=>void
@@ -21,7 +21,7 @@ export const MemoItemMenu = (props: MenuProps) => {
 
   const open = Boolean(anchorEl);
 
-  
+
 
   return (
     <Menu
@@ -30,7 +30,7 @@ export const MemoItemMenu = (props: MenuProps) => {
         onClose={()=> handleClose()}
       >
       <MenuItem onClick={(e) =>handleClose(e, memoItem, '編集')}>編集</MenuItem>
-      <MenuItem onClick={(e) => handleClose(e, memoItem, '削除')}>削除</MenuItem>
+      {/*  <MenuItem onClick={(e) => handleClose(e, memoItem, '削除')}>削除</MenuItem> */}
     </Menu>
   );
 };

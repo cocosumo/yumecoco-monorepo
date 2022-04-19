@@ -1,10 +1,10 @@
 
 
 import { TransitionGroup } from 'react-transition-group';
-import { 
-  Collapse, 
-  IconButton, 
-  Typography, Avatar, ListItemAvatar,  
+import {
+  Collapse,
+  IconButton,
+  Typography, Avatar, ListItemAvatar,
   ListItemText, Divider, ListItem, List, Stack,
 
 } from '@mui/material';
@@ -16,6 +16,9 @@ import { MemoContext } from './memoForm/MemoContext';
 
 
 import { MemoFormType } from './memoForm/form';
+import { MemoIcon } from './memoForm/parts/MemoIcon';
+import { MemoType } from './memoForm/MemoForm';
+import { format, parseISO } from 'date-fns';
 
 
 interface MemoListProps {
@@ -38,13 +41,13 @@ const MemoListItem = (props: MemoItemProps) => {
     <>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src="#" />
+          <Avatar src="#" ><MemoIcon type={memoType as MemoType} /></Avatar>
         </ListItemAvatar>
         <ListItemText
           primary={
             <Stack direction={'row'} justifyContent="space-between">
               <span>
-                {memoType}<br/> 
+                {memoType}<br/>
                 <Typography
                 sx={{ display: 'inline' }}
                 component="span"
@@ -55,8 +58,8 @@ const MemoListItem = (props: MemoItemProps) => {
                 </Typography>
 
               </span>
-              
-              
+
+
               <IconButton onClick={(e) => handleClickMenu(e, memoItem )}>
                 <MoreVertIcon />
               </IconButton>
@@ -65,7 +68,7 @@ const MemoListItem = (props: MemoItemProps) => {
           secondary={
             <Stack component={'span'}>
               {contents} <br />
-              {createDate}
+              {format(parseISO(createDate), 'yyyy年MM月dd日')}
             </Stack>
           }
         />
@@ -106,7 +109,7 @@ export const MemoList = (props: MemoListProps) => {
     <>
       <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
         <TransitionGroup>
-        
+
           {
       memos.map((prop) => (
         <Collapse key={prop.memoId}>
@@ -116,7 +119,7 @@ export const MemoList = (props: MemoListProps) => {
         </Collapse>))
       }
         </TransitionGroup>
-      
+
       </List>
       <MemoItemMenu memoItem={selectedMenuItem!} {...{ handleClose, anchorEl }}/>
     </>

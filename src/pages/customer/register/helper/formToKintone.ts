@@ -12,9 +12,10 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
       id,
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
       postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
-      email, emailRel, isSameAddress, 
+      email, emailRel, isSameAddress,
     }, index )=> {
 
+      console.log('validation', index, isSameAddress);
       let deps = {
         postal,
         address1,
@@ -46,7 +47,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
         birthYear: { value: birthYear },
         birthMonth: { value: birthMonth },
         birthDay: { value: birthDay },
-        isSameAsMain: { value: (+isSameAddress).toString() },
+        isSameAsMain: { value: (index === 0 ? 0 : +isSameAddress).toString() }, // 0 or 1, mainCustomer always 0/false
         contacts: {
           type: 'SUBTABLE',
           value: [

@@ -27,19 +27,19 @@ export const MemoColumn = () => {
 
 
   return (
-    <Grid item xs={12} xl={6}>
+    <Grid item xs={12} lg={6} xl={6}>
       <Stack spacing={2} direction={'column'}>
 
         <Grid container item xs={12} spacing={2}>
           <PageSubTitle label={'メモ'} xs={7}/>
           <Grid item xs={5}>
-            <Button 
-          variant="outlined" startIcon={< AddIcon />} 
+            <Button
+          variant="outlined" startIcon={< AddIcon />}
           fullWidth onClick={
-            ()=> handleOpen({ 
-              recordId: id!, 
-              custName: mainCust.custName, 
-              
+            ()=> handleOpen({
+              recordId: id!,
+              custName: mainCust.custName,
+
             })
           }
           >
@@ -47,10 +47,18 @@ export const MemoColumn = () => {
             </Button>
           </Grid>
         </Grid>
-        {pageCount > 0 && <Pagination count={pageCount} onChange={handleMemoPageChange} variant="outlined" siblingCount={0} boundaryCount={1}/>}
-      
+        {pageCount > 0 &&
+          <Pagination
+            count={pageCount}
+            onChange={handleMemoPageChange}
+            variant="outlined"
+            siblingCount={0}
+            boundaryCount={1}
+            size={'small'}
+            />}
+
         <MemoList memos={memosInPage ?? []} custName={mainCust.custName} recordId={id!}/>
-  
+
       </Stack>
     </Grid>
 

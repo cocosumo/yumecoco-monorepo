@@ -19,6 +19,7 @@ import { MemoFormType } from './memoForm/form';
 import { MemoIcon } from './memoForm/parts/MemoIcon';
 import { MemoType } from './memoForm/MemoForm';
 import { format, parseISO } from 'date-fns';
+import { deleteMemo } from './memoForm/api/deleteMemo';
 
 
 interface MemoListProps {
@@ -84,7 +85,7 @@ export const MemoList = (props: MemoListProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedMenuItem, setSelectedMenuItem] = useState<MemoFormType>();
 
-  const { handleOpen } = useContext(MemoContext)!;
+  const { handleOpen, handleUpdateMemoList } = useContext(MemoContext)!;
 
   const handleClickMenu: MemoItemProps['handleClickMenu'] = (e, memoItem) => {
     setSelectedMenuItem(memoItem);
@@ -99,8 +100,12 @@ export const MemoList = (props: MemoListProps) => {
         break;
 
       case '削除':
+        deleteMemo(selectedMenuItem!).then(()=>{
+          handleUpdateMemoList(recordId);
+        });
         break;
     }
+
     setAnchorEl(null);
   };
 

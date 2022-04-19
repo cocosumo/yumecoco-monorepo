@@ -30,7 +30,7 @@ export const MemoItemMenu = (props: MenuProps) => {
         onClose={()=> handleClose()}
       >
       <MenuItem onClick={(e) =>handleClose(e, memoItem, '編集')}>編集</MenuItem>
-      {/*  <MenuItem onClick={(e) => handleClose(e, memoItem, '削除')}>削除</MenuItem> */}
+      <MenuItem onClick={(e) => handleClose(e, memoItem, '削除')}>削除</MenuItem>
     </Menu>
   );
 };

@@ -11,7 +11,7 @@ export interface MemoContextValue {
   confirmSaveOpen: boolean,
   handleConfirmSaveOpen: (open: boolean) => void,
   handleSetMemoState: (params: Partial<MemoFormType>)=> void,
-  handleUpdateMemoList: (recordId: string) => void,
+  handleUpdateMemoList: (recordId?: string) => void,
   handleOpen: (params: Partial<MemoFormType>)=> void,
   handleClose: ( reason: 'backdropClick' | 'escapeKeyDown' | 'submitted', formState?: MemoFormType ) => void,
 }
@@ -40,19 +40,23 @@ export const MemoContextProvider : React.FC = (props) => {
     handleSetMemoState(params);
     setMemoOpen(true);
   };
+
+  const handleUpdateMemoList: MemoContextValue['handleUpdateMemoList'] = (recordId = memoFormState.recordId) => {
+    getMemoList(recordId).then(res => setMemoList(res));
+  };
+
+  /* Close MemoFormDialog */
   const handleClose : MemoContextValue['handleClose'] = (reason) => {
     if (reason === 'submitted'){
       setConfirmSaveOpen(false);
-      getMemoList(memoFormState.recordId).then(resp => setMemoList(resp));
+      handleUpdateMemoList(memoFormState.recordId);
     }
     setMemoFormState(initialValues);
     setMemoOpen(false);
 
   };
 
-  const handleUpdateMemoList: MemoContextValue['handleUpdateMemoList'] = (recordId) => {
-    getMemoList(recordId).then(res => setMemoList(res));
-  };
+
 
   const contextValue: MemoContextValue = {
     memoOpen,

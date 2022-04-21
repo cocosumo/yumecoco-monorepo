@@ -29,7 +29,7 @@ export const FormikIndividualCustomer = () => {
       .then(resp => {
         setInitialState(resp);
       });
-    
+
   }, [recordId]);
 
 
@@ -37,8 +37,8 @@ export const FormikIndividualCustomer = () => {
   return (
     <MemoContextProvider>
       <Formik
-       
-        validateOnChange={false}
+
+        validateOnChange={true}
         validateOnMount
         initialValues={initialState}
         enableReinitialize
@@ -47,18 +47,18 @@ export const FormikIndividualCustomer = () => {
           console.log('submitState', values);
           saveFormData({ ...values, id: recordId })
             .then((resp)=>{
-              setSnackState(()=>{ 
-                return { 
-                  open: true, 
+              setSnackState(()=>{
+                return {
+                  open: true,
                   message: '保存出来ました。',
                   handleClose: ()=> {
                     navigate(`/custgroup/edit/${resp.id}`);
                     setSnackState(prev => ({ ...prev, open: false }));
                   },
-                }; 
+                };
               });
               setSubmitting(false);
-              
+
             })
             .catch(err => {
               console.error(err);
@@ -66,7 +66,7 @@ export const FormikIndividualCustomer = () => {
               setSubmitting(false);
             });
 
-       
+
         }}
       >
 
@@ -74,11 +74,11 @@ export const FormikIndividualCustomer = () => {
 
       </Formik>
       <FormikMemo  />
-      <FormSnack 
-        snackState={snackState} 
+      <FormSnack
+        snackState={snackState}
         handleClose={()=> {
           if (snackState.handleClose){
-            snackState?.handleClose(); 
+            snackState?.handleClose();
           } else {
             setSnackState(prev => ({ ...prev, open: false }));
           }

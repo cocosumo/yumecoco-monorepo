@@ -14,18 +14,18 @@ import FormSnack, { SnackState } from '../../components/ui/snacks/FormSnack';
 export const FormikConstruction  = () => {
   const [snackState, setSnackState] = useState<SnackState>({ open:false });
   //const [initialState, setInitialState] = useState(initialValues);
-  const constructionId  = useParams().constructionId;
+  const recordId  = useParams().recordId;
   const navigate = useNavigate();
 
   useEffect(()=>{
     /** If edit mode */
-    if (constructionId){
+    if (recordId){
       /*  getFlatConstDetails(constructionId)
         .then((flatRecord) => {
           setInitialState(flatRecord);
         }); */
     }
-  }, [constructionId]);
+  }, [recordId]);
 
   return (
     <>
@@ -35,7 +35,7 @@ export const FormikConstruction  = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        saveConstructionData({ ...values, id: constructionId })
+        saveConstructionData({ ...values, custGroupId: recordId })
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });
             setSubmitting(false);

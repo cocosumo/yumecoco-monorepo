@@ -4,7 +4,7 @@ import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
 
 
-const getConstRecord = async (id: string) => {
+export const getConstRecord = async (id: string) => {
   return KintoneRecord.getRecord({
     app: APPIDS.constructionDetails,
     id,

@@ -22,3 +22,10 @@ export const getFlatConstDetails = async (recordId:　string) => {
   }, {});
 
 };
+
+export const getConstRecord = async (id: string) => {
+  return KintoneRecord.getRecord({
+    app: APPIDS.constructionDetails,
+    id,
+  }).then(resp => resp.record as unknown as ConstructionDetails.SavedData);
+};

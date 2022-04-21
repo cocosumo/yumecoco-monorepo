@@ -6,14 +6,14 @@ export type BuildingTypeVals =
 | '店舗/事務所'
 | 'その他';
 
-export type KeyOfConstructionDetails = keyof typeof initialValues;
+export type ConstructionDetailsType = typeof initialValues;
+export type KeyOfConstructionDetails = keyof ConstructionDetailsType;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
 export const initialValues = {
-  id: '',
   constructionTypeId: '',
   constructionName: '',
   isAgentConfirmed: false,

@@ -1,6 +1,6 @@
 import { Grid, Stack } from '@mui/material';
-import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
 
 import { getCustomerById } from '../../../../api/kintone/customers/GET';
@@ -8,7 +8,6 @@ import { GrayBox } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import { FormikSearchField } from '../../../../components/ui/textfield';
 import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
-import { ConstructionDetailsValues } from '../../form';
 import { renderOptions } from './renderOptions';
 
 const AGLabels = {
@@ -20,7 +19,9 @@ export const CustInfo = () => {
   const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
 
-  const custGroupId = useFormikContext<ConstructionDetailsValues>().values.custGroupId;
+  //const custGroupId = useFormikContext<ConstructionDetailsValues>().values.custGroupId;
+
+  const custGroupId = useParams().recordId;
 
   const handleCustomerChange = async (record: CustomerGroupTypes.SavedData) => {
     if (!record) return;
@@ -31,7 +32,7 @@ export const CustInfo = () => {
       },
     } = record;
 
-    /** Get Id of main customer */
+
     const custId = members[0].value.customerId.value;
 
     setCustomerRecord((await getCustomerById(custId)).record as unknown as CustomerTypes.SavedData);

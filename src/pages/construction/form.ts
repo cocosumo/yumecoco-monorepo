@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 
+
 export type BuildingTypeVals =
 | '戸建て'
 | 'マンション'

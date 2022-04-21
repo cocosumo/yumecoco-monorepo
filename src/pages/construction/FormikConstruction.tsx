@@ -9,21 +9,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ConstructionForm } from './ConstructionForm';
 import FormSnack, { SnackState } from '../../components/ui/snacks/FormSnack';
+import { getFormDataById } from './api/getFormDataById';
 
 
 export const FormikConstruction  = () => {
   const [snackState, setSnackState] = useState<SnackState>({ open:false });
-  //const [initialState, setInitialState] = useState(initialValues);
+  const [initialState, setInitialState] = useState(initialValues);
   const recordId  = useParams().recordId;
   const navigate = useNavigate();
 
   useEffect(()=>{
     /** If edit mode */
     if (recordId){
-      /*  getFlatConstDetails(constructionId)
-        .then((flatRecord) => {
-          setInitialState(flatRecord);
-        }); */
+      getFormDataById(recordId)
+        .then((resp) => {
+          setInitialState(resp);
+        });
     }
   }, [recordId]);
 
@@ -32,7 +33,7 @@ export const FormikConstruction  = () => {
       <Formik
       validateOnMount
       enableReinitialize
-      initialValues={initialValues}
+      initialValues={initialState}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         saveConstructionData({ ...values, custGroupId: recordId })

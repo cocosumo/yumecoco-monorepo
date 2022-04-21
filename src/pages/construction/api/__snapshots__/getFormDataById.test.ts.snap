@@ -2,99 +2,17 @@
 
 exports[`Construction Data 1`] = `
 Object {
-  "$id": Object {
-    "type": "__ID__",
-    "value": "81",
-  },
-  "$revision": Object {
-    "type": "__REVISION__",
-    "value": "1",
-  },
-  "address1": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "愛知県豊橋市野依町",
-  },
-  "address2": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "",
-  },
-  "addressKari": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "",
-  },
-  "agents": Object {
-    "type": "SUBTABLE",
-    "value": Array [],
-  },
-  "buildingType": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "戸建て",
-  },
-  "constructionName": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "",
-  },
-  "constructionType": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "",
-  },
-  "constructionTypeId": Object {
-    "type": "NUMBER",
-    "value": "",
-  },
-  "custGroupId": Object {
-    "type": "NUMBER",
-    "value": "78",
-  },
-  "isAgentConfirmed": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "0",
-  },
-  "isChkAddressKari": Object {
-    "type": "NUMBER",
-    "value": "0",
-  },
-  "members": Object {
-    "type": "SUBTABLE",
-    "value": Array [],
-  },
-  "postal": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "441-8124",
-  },
-  "storeId": Object {
-    "type": "NUMBER",
-    "value": "",
-  },
-  "storeName": Object {
-    "type": "SINGLE_LINE_TEXT",
-    "value": "",
-  },
-  "レコード番号": Object {
-    "type": "RECORD_NUMBER",
-    "value": "81",
-  },
-  "作成日時": Object {
-    "type": "CREATED_TIME",
-    "value": "2022-04-21T04:18:00Z",
-  },
-  "作成者": Object {
-    "type": "CREATOR",
-    "value": Object {
-      "code": "RPA03",
-      "name": "ラス ロレンズ",
-    },
-  },
-  "更新日時": Object {
-    "type": "UPDATED_TIME",
-    "value": "2022-04-21T04:18:00Z",
-  },
-  "更新者": Object {
-    "type": "MODIFIER",
-    "value": Object {
-      "code": "RPA03",
-      "name": "ラス ロレンズ",
-    },
-  },
+  "address1": "愛知県豊橋市野依町",
+  "address2": "",
+  "addressKari": "",
+  "buildingType": "戸建て",
+  "cocoConst1": undefined,
+  "cocoConst2": undefined,
+  "constructionName": "",
+  "constructionTypeId": "",
+  "custGroupId": "81",
+  "isAgentConfirmed": true,
+  "isChkAddressKari": true,
+  "postal": "441-8124",
 }
 `;

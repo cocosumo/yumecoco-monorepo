@@ -40,13 +40,6 @@ export function FormikSelect(props : FormikSelecProps) {
   const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
   const isShowError = touched && !!meta.error && !disabled;
 
-  /*  useEffect(()=>{
-    // Clears field, @deprecated, changing approach as this also clear initialValues of edit
-    if (!isExistInOptions || disabled){
-      setFieldValue(field.name, '');
-    }
-  }, [isExistInOptions, disabled]);
- */
 
   const optionMenus = useMemo(() => options?.map((option) => {
     return (

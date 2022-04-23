@@ -6,7 +6,7 @@ declare namespace CustomerTypes {
     address1: kintone.fieldTypes.SingleLineText;
     postalCode: kintone.fieldTypes.SingleLineText;
     fullName: kintone.fieldTypes.SingleLineText;
-    index: kintone.fieldTypes.SingleLineText;
+    index: kintone.fieldTypes.Number;
     isSameAsMain: kintone.fieldTypes.Number;
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;

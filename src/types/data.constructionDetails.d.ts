@@ -7,12 +7,12 @@ declare namespace ConstructionDetails {
     address1: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
-    custGroupId: kintone.fieldTypes.Number;
     constructionName: kintone.fieldTypes.SingleLineText;
     storeName: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     buildingType: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
     agents: {
       type: 'SUBTABLE';
       value: {

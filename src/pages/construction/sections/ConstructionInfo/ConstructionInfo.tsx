@@ -17,6 +17,7 @@ export const ConstructionInfo = () => {
   useEffect(()=>{
     KintoneRecord.getRecords({
       app: APPIDS.constructionType,
+      query: 'order by レコード番号 asc',
     }).then((res) => {
       const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
       setConstructionTypeOptions(

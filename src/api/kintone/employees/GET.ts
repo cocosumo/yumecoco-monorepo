@@ -13,7 +13,8 @@ export interface Params {
   type : EmployeeType | EmployeeType[],
   isActiveOnly?: boolean,
   storeId ?: string,
-  isStoreIdRequired ?: boolean
+  isStoreIdRequired ?: boolean,
+  territory?: '西' | '東'
 }
 
 export const getEmployees  = async (params ?: GetRecordParams) => {
@@ -46,6 +47,7 @@ export const getSpecifiedEmployees = async (params: Params) => {
     isActiveOnly = true,
     isStoreIdRequired = false,
     storeId,
+    territory,
   } = params;
 
   if (isStoreIdRequired && !storeId) return [];
@@ -58,11 +60,13 @@ export const getSpecifiedEmployees = async (params: Params) => {
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.employees,
-    fields: ['$id', 'mainStore', '文字列＿氏名'] as KeyOfEmployee[],
+    fields: ['$id', 'mainStore', '文字列＿氏名', 'affiliation', 'territory'] as KeyOfEmployee[],
     condition: [
       ...(isActiveOnly ? [`${'状態' as KeyOfEmployee} in ("有効")`] : []),
 
       ...(storeId ? [`(${'mainStoreId' as KeyOfEmployee} = "${storeId}" or ${'storeId' as KeyOfEmployee} in ("${storeId}"))`] : []),
+
+      ...(territory ? [`${'territory' as KeyOfEmployee} = "${territory}"`] : []),
 
       `${'affiliation' as KeyOfEmployee} in (${affiliations})`,
 

@@ -9,6 +9,8 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import { FormikSearchField } from '../../../../components/ui/textfield';
 import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
 import { renderOptions } from './renderOptions';
+import { useFormikContext } from 'formik';
+import { ConstructionDetailsType } from '../../form';
 
 const AGLabels = {
   cocoAG : '営業担当者',
@@ -19,7 +21,7 @@ export const CustInfo = () => {
   const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
 
-  //const custGroupId = useFormikContext<ConstructionDetailsValues>().values.custGroupId;
+  const { setFieldValue } = useFormikContext<ConstructionDetailsType>();
 
   const custGroupId = useParams().recordId;
 
@@ -27,12 +29,13 @@ export const CustInfo = () => {
     if (!record) return;
 
     const {
+      storeId,
       members : {
         value: members,
       },
     } = record;
 
-
+    setFieldValue('storeId', storeId.value);
     const custId = members[0].value.customerId.value;
 
     setCustomerRecord((await getCustomerById(custId)).record as unknown as CustomerTypes.SavedData);

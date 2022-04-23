@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { postalRegExp } from '../../helpers/yupValidator';
 
 
 export type BuildingTypeVals =
@@ -25,6 +26,8 @@ export const initialValues = {
   address2: '',
   addressKari: '',
   custGroupId: '',
+  storeId: '',
+  territory: '' as '西' | '東',
   buildingType: '戸建て' as BuildingTypeVals,
   isChkAddressKari: false,
 };
@@ -40,6 +43,7 @@ export const validationSchema =  Yup.object(
       .required('必須です。'),
     postal: Yup
       .string()
+      .matches(postalRegExp, '半角数字。例：4418124')
       .required('必須です。'),
   } as Partial<Record<KeyOfConstructionDetails, any>>,
 );

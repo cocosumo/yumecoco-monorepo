@@ -14,6 +14,7 @@ declare namespace EmployeeTypes {
     文字列__1行__0: kintone.fieldTypes.SingleLineText;
     文字列__1行__1: kintone.fieldTypes.SingleLineText;
     所属チーム: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
 
     account: kintone.fieldTypes.UserSelect;
     テーブル: {

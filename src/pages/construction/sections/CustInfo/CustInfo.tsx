@@ -111,13 +111,12 @@ export const CustInfo = (props : {
                 {
                   custGroupRecord?.members.value.reduce((accu, curr, index: number) => {
                     if (index > 0){
-
-                      return [...accu, <LabeledInfo key={curr.id} label={`契約者${index}`} data={curr.value.customerName.value}/>];
+                      return [...accu, <LabeledInfo key={curr.id} label={`契約者${index + 1}`} data={curr.value.customerName.value}/>];
                     }
                     return accu;
                   }, [] as typeof LabeledInfo[])
                 }
-                <LabeledInfo label="氏名フリガナ" data={fullNameReading?.value}/>
+
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6}>

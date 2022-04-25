@@ -5,7 +5,7 @@ import { EmployeeType } from '../../../../api/kintone/employees/GET';
 
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooks';
-import { FormFieldNames, initialValues } from '../form';
+import { FormFieldKeys, initialValues } from '../form';
 
 
 
@@ -28,7 +28,7 @@ const TantouSelect = (props: { name: EmployeeType }) => {
 
   return (
     <Grid item xs={12} md={2}>
-      <FormikSelect name={props.name as FormFieldNames } label={resolveLabel(props.name)} options={options}/>
+      <FormikSelect name={props.name as FormFieldKeys } label={resolveLabel(props.name)} options={options}/>
     </Grid>
   );
 };

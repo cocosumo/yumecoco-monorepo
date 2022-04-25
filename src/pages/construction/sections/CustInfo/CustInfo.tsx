@@ -76,6 +76,7 @@ export const CustInfo = (props : {
   }, [recordId, custGroupId]);
 
 
+  console.log(custGroupRecord);
   return (
     <>
       <PageSubTitle label="顧客情報"/>

@@ -17,23 +17,12 @@ import { Grid, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 import { initialValues } from './../form';
-import { advancedSearchCustGroup } from './../../../../api/kintone/custgroups/GET';
-
-interface Data {
-  '顧客ID': number,
-  '状況': string,
-  '顧客種別': string,
-  '顧客氏名/会社名': string,
-  '現住所': string,
-  '店舗': string,
-  'ここすも営業': string,
-  'ここすも工事': string,
-  '登録日時': string,
-  '更新日時': string,
-}
+import { getSearchData, ISearchData as Data } from '../api/getSearchData';
 
 
-const headCells : (keyof Data)[] = ['顧客ID', '状況', '顧客種別', '顧客氏名/会社名', '現住所', '店舗', 'ここすも営業', 'ここすも工事', '登録日時', '更新日時'];
+
+
+const headCells : (keyof Data)[] = ['顧客ID', '状況', '顧客種別', '顧客氏名・会社名', '現住所', '店舗', 'ここすも営業', 'ここすも工事', '登録日時', '更新日時'];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -118,30 +107,12 @@ export function TableResult() {
 
   useEffect(()=>{
     if (!isSubmitting){
-      advancedSearchCustGroup({
+      getSearchData({
         storeId: values.storeId,
         custName: values.custName,
-      })
-        .then( data => {
-          setRows((data as unknown as CustomerGroupTypes.SavedData[])?.map(({
-            $id, storeName, members, 更新日時: updatedDate, 作成日時: createdDate,
-          }) => {
-            const { address, customerName } = members.value?.[0]?.value || {} ;
-
-            return {
-              '顧客ID': +$id.value,
-              '状況': 'XXX',
-              '店舗': storeName.value,
-              '顧客種別': '個人',
-              '現住所': address?.value ?? '-',
-              '顧客氏名/会社名': customerName?.value ?? '-',
-              'ここすも営業': 'テスト',
-              'ここすも工事': 'テスト',
-              '登録日時':updatedDate.value,
-              '更新日時': createdDate.value,
-            };
-          }));
-        });
+      }).then(data => {
+        setRows(data);
+      });
 
     }
   }, [isSubmitting]);
@@ -197,7 +168,7 @@ export function TableResult() {
           >
               <EnhancedTableHead
               order={order}
-              orderBy={orderBy}
+              orderBy={orderBy as string}
               onRequestSort={handleRequestSort}
             />
               <TableBody>
@@ -229,7 +200,7 @@ export function TableResult() {
                         </TableCell>
                         <TableCell align="right">{row.状況}</TableCell>
                         <TableCell align="right">{row['顧客種別']}</TableCell>
-                        <TableCell align="right">{row['顧客氏名/会社名']}</TableCell>
+                        <TableCell align="right">{row['顧客氏名・会社名']}</TableCell>
                         <TableCell align="right">{row['現住所']}</TableCell>
                         <TableCell align="right">{row['店舗']}</TableCell>
                         <TableCell align="right">{row['ここすも営業']}</TableCell>

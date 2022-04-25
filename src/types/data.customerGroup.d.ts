@@ -3,6 +3,16 @@ declare namespace CustomerGroupTypes {
     storeId: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
+    projects: {
+      type: 'SUBTABLE';
+      value: {
+        id: string;
+        value: {
+          constructionName: kintone.fieldTypes.SingleLineText;
+          constructionId: kintone.fieldTypes.Number;
+        };
+      }[];
+    };
     agents: {
       type: 'SUBTABLE';
       value: {

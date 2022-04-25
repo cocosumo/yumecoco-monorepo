@@ -43,19 +43,21 @@ export const convertToKintone = (
 
 };
 
+
 /**
  * Upserts records
  *
  * @param rawValues
  * @returns
  */
-export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise<{
+export const saveConstructionData = async (
+  rawValues: ConstructionDetailsType,
+) : Promise<{
   id: string,
   revision: string,
-}> =>{
+}> => {
   const { recordId } = rawValues;
   const record = convertToKintone(rawValues);
-
 
   console.log(record, 'SAVE');
   if (recordId){
@@ -79,5 +81,17 @@ export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise
         throw new Error('err');
       });
   }
+};
+
+
+export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise<{
+  id: string,
+  revision: string,
+}> =>{
+  return saveConstructionData(rawValues)
+    .then(resp => {
+      /* Todo add projects to customer form */
+      return resp;
+    });
 
 };

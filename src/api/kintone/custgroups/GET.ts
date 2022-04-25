@@ -35,7 +35,9 @@ export const searchCustGroup = (searchStr: string) => {
 export const advancedSearchCustGroup = <
   Key extends Partial<keyof CustomerGroupTypes.SavedData>,
   CustKey extends  Partial<keyof CustomerGroupTypes.SavedData['members']['value'][0]['value']>,
->(params : AdvancedSearchCustGroupParam) => {
+>(
+    params : AdvancedSearchCustGroupParam,
+  ) => {
   const {
     storeId,
     custName,
@@ -53,6 +55,6 @@ export const advancedSearchCustGroup = <
     app: APPIDS.custGroup,
     condition: query ?? undefined,
     orderBy: '更新日時 desc',
-  });
+  }) ;
 
 };

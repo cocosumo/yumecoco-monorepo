@@ -1,8 +1,8 @@
 
 import { Grid } from '@mui/material';
 import { FormikSelect } from '../../../../components/ui/selects';
-import useStores from '../../../../hooks/useStores';
-import { FormFieldNames } from '../form';
+import { useStores } from '../../../../hooks/useStores';
+import { FormFieldKeys } from '../form';
 
 
 export const StoreSelect = () => {
@@ -10,7 +10,7 @@ export const StoreSelect = () => {
 
   return (
     <Grid item xs={12} md={3}>
-      <FormikSelect name={'storeId' as FormFieldNames } label='店舗' options={stores}/>
+      <FormikSelect name={'storeId' as FormFieldKeys } label='店舗' options={stores}/>
     </Grid>
   );
 };

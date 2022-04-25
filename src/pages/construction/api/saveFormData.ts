@@ -12,7 +12,6 @@ export const convertToKintone = (
     buildingType, custGroupId,
   } = rawValues;
 
-  console.log(cocoConst1, 'COCOONST');
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),

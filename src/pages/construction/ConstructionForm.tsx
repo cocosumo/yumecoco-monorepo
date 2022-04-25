@@ -39,9 +39,8 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8} spacing={2} mb={12}>
           <CustInfo custGroupRecord={custGroupRecord} handleSetCustGroupRecord={(record) => setCustGroupRecord(record)}/>
-          <ConstructionInfo storeId={storeId?.value ?? ''} territory={territory?.value as GetEmployeesParams['territory']} />
           <ConstructionLocation/>
-
+          <ConstructionInfo storeId={storeId?.value ?? ''} territory={territory?.value as GetEmployeesParams['territory']} />
         </Grid>
         <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>

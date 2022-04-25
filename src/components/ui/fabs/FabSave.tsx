@@ -16,7 +16,7 @@ export const FabSave = (props: Props) => {
   } = props;
   return (
 
-    <Grid container justifyContent={'flex-end'} width={'100%'} left={0}  bottom={'24px'} position="fixed">
+    <Grid container justifyContent={'flex-end'} width={'100%'} left={0}  top={'74px'} position="fixed">
       <Zoom in={!url || pathname.includes(url)} timeout={1000}>
         <Fab
         variant='extended'

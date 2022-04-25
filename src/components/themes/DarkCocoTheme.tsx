@@ -48,10 +48,11 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           color: 'whitesmoke',
+          borderColor: '#9ecaed',
+          boxShadow: '0 0 10px #9ecaed',
           background: background,
           ':hover': {
             background: background,
-    
           },
         },
       },

@@ -12,11 +12,12 @@ export const convertToKintone = (
     buildingType, custGroupId,
   } = rawValues;
 
+  console.log(rawValues, 'rawValues');
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
 
-    constructionType: { value: constructionTypeId },
+    constructionTypeId: { value: constructionTypeId },
     constructionName: { value: constructionName },
     isAgentConfirmed: { value: (+isAgentConfirmed).toString() },
     postal: { value: postal },
@@ -52,21 +53,27 @@ export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise
   id: string,
   revision: string,
 }> =>{
-  const { custGroupId } = rawValues;
+  const { recordId } = rawValues;
   const record = convertToKintone(rawValues);
 
-  if (custGroupId){
+
+  console.log(record, 'SAVE');
+  if (recordId){
+    /* Update */
     return KintoneRecord.updateRecord({
       app: APPIDS.constructionDetails,
-      id: custGroupId as string,
+      id: recordId as string,
       record,
     })
       .then((result) => ({
-        id: custGroupId.toString(),
+        id: recordId.toString(),
         revision: result.revision,
       }));
   } else {
-    return KintoneRecord.addRecord({ app: APPIDS.constructionDetails, record })
+    return KintoneRecord.addRecord({
+      app: APPIDS.constructionDetails,
+      record,
+    })
       .catch(err => {
         console.log(err.errors);
         throw new Error('err');

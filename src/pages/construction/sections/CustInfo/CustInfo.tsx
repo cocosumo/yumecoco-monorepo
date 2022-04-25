@@ -11,10 +11,16 @@ import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typogra
 import { renderOptions } from './renderOptions';
 import { useFormikContext } from 'formik';
 import { ConstructionDetailsType } from '../../form';
+import { KeyOfConstructionDetails } from '../..';
 
 const AGLabels = {
   cocoAG : '営業担当者',
   yumeAG : 'ゆめてつAG',
+};
+
+const contactLabels = {
+  tel: '電話番号',
+  email: 'メールアドレス',
 };
 
 
@@ -25,40 +31,49 @@ export const CustInfo = (props : {
 }) => {
   const { custGroupRecord, handleSetCustGroupRecord } = props;
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
+  const { values, setFieldValue } = useFormikContext<ConstructionDetailsType>();
 
-  const { setFieldValue } = useFormikContext<ConstructionDetailsType>();
 
-  const custGroupId = useParams().recordId;
+  const {
+    postalCode,  address1, address2,
+    fullName, fullNameReading,
+    contacts,
+  } = custRecord ?? {};
+
+
+  const {
+    custGroupId,
+  } = values;
+
+  const recordId = useParams().recordId;
 
 
   const handleCustomerChange = async (record: CustomerGroupTypes.SavedData) => {
     if (!record) return;
-
     const {
-      storeId,
+      $id,
       members : {
         value: members,
       },
     } = record;
 
-    setFieldValue('storeId', storeId.value);
-
-    const custId = members[0].value.customerId.value;
-
+    setFieldValue('custGroupId' as KeyOfConstructionDetails, $id.value);
+    const mainCustId = members[0].value.customerId.value;
     /* Retrieve data from each customer in the group */
-    setCustomerRecord((await getCustomerById(custId)).record as unknown as CustomerTypes.SavedData);
+    setCustomerRecord((await getCustomerById(mainCustId)).record as unknown as CustomerTypes.SavedData);
     handleSetCustGroupRecord(record);
   };
 
   useEffect(()=>{
-    if (custGroupId){
-      getCustGroup(custGroupId.toString())
+    if (recordId && custGroupId){
+      getCustGroup(custGroupId)
         .then(resp => {
           handleCustomerChange(resp.record);
         });
-    }
-  }, [custGroupId]);
 
+
+    }
+  }, [recordId, custGroupId]);
 
 
   return (
@@ -73,11 +88,36 @@ export const CustInfo = (props : {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <Stack spacing={2}>
+                <LabeledInfo label="氏名" data={fullName?.value}/>
+                <LabeledInfo label="氏名フリガナ" data={fullNameReading?.value}/>
+                <LabeledInfo
+                  label="現住所"
+                  data={[postalCode?.value, address1?.value, address2?.value]
+                    .join(' ')}
+                />
+                {
+                  contacts?.value
+                    .filter(item => item.value.contactValue.value)
+                    .map(({ id: rowId, value: { contactType, contactValue, relation } }) => {
+                      return <LabeledInfo
+                    key={rowId}
+                    label={contactLabels[contactType?.value as keyof typeof contactLabels] ?? '連絡先'}
+                    data={[contactValue?.value, relation?.value].join(', ')}
+                    />;
 
-                <LabeledInfo label="氏名" data={custRecord?.fullName.value}/>
-                <LabeledInfo label="氏名フリガナ" data={custRecord?.fullNameReading.value}/>
-                <LabeledInfo label={'グループ番号'} data={custGroupRecord?.$id.value} />
-                <LabeledInfo label={'顧客番号'} data={custRecord?.$id.value} />
+                    })
+                }
+
+                {
+                  custGroupRecord?.members.value.reduce((accu, curr, index: number) => {
+                    if (index > 0){
+
+                      return [...accu, <LabeledInfo key={curr.id} label={`契約者${index}`} data={curr.value.customerName.value}/>];
+                    }
+                    return accu;
+                  }, [] as typeof LabeledInfo[])
+                }
+                <LabeledInfo label="氏名フリガナ" data={fullNameReading?.value}/>
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -97,6 +137,8 @@ export const CustInfo = (props : {
                     return <LabeledInfo key={key}  {...{ label, data }} />;
                   })
                 }
+                <LabeledInfo label={'グループ番号'} data={custGroupId} />
+                <LabeledInfo label={'顧客番号'} data={custRecord?.$id.value} />
               </Stack>
 
             </Grid>

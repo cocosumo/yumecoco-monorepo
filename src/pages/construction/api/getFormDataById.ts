@@ -4,19 +4,24 @@ import { BuildingTypeVals, ConstructionDetailsType } from '../form';
 import { AgentType } from './../../../types/forms';
 
 export const getFormDataById = async (recordId: string): Promise<ConstructionDetailsType> => {
+  const constructionRecord = await getConstRecord(recordId);
   const {
-    $id, constructionTypeId, constructionName,
+    constructionTypeId, constructionName,
+    custGroupId, $id,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
-  } = await getConstRecord(recordId);
+    constructionType,
+  } = constructionRecord;
 
   const cocoConst = agents.value.filter(item => {
     return (item.value.agentType.value as AgentType) === 'cocoConst';
   }).map(item => item.value.employeeId.value);
 
   return {
-    custGroupId: $id.value,
+    recordId: $id.value,
+    custGroupId: custGroupId.value,
     constructionTypeId: constructionTypeId.value,
+    constructionType: constructionType.value,
     constructionName: constructionName.value,
     isAgentConfirmed: Boolean(isAgentConfirmed.value),
     postal: postal.value,
@@ -27,6 +32,6 @@ export const getFormDataById = async (recordId: string): Promise<ConstructionDet
     cocoConst1: cocoConst?.[0],
     cocoConst2: cocoConst?.[1],
     addressKari: addressKari.value,
-    //agentsId: agents.value.map(item => item.id),
+
   };
 };

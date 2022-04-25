@@ -14,6 +14,7 @@ export const ConstructionLocation = () => {
 
   const {
     values : {
+      address1,
       isChkAddressKari,
     },
     setFieldValue,
@@ -21,11 +22,16 @@ export const ConstructionLocation = () => {
 
   const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
     const postal = e.target.value;
-    getAddressByPostal(postal)
-      .then(resp => {
-        setFieldValue('address1', resp);
-      });
-  }, 500), []);
+
+    if (postal && !address1){
+
+      getAddressByPostal(postal)
+        .then(resp => {
+          setFieldValue('address1', resp);
+        });
+
+    }
+  }, 500), [address1]);
 
   return (
     <>

@@ -35,7 +35,7 @@ export const FormikConstruction  = () => {
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
-        saveFormData({ ...values, custGroupId: recordId })
+        saveFormData({ ...values, recordId })
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });
             setSubmitting(false);

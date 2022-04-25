@@ -4,11 +4,11 @@ import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
 
 
-export const getConstRecord = async (id: string) => {
+export const getCustGroupRecord = async (id: string) => {
   return KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
+    app: APPIDS.custGroup,
     id,
-  }).then(resp => resp.record as unknown as ConstructionDetails.SavedData);
+  }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
 };
 
 
@@ -19,7 +19,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   const {
     $id, $revision, agents, storeId,
     members : { value: customers },
-  } = await getConstRecord(id) ;
+  } = await getCustGroupRecord(id) ;
 
   /* Get customer record based on ids on main record */
   const {

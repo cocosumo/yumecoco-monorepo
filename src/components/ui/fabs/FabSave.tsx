@@ -25,7 +25,7 @@ export const FabSave = (props: Props) => {
         aria-label="add"
 
         sx={{
-          mr: 8,
+          mr: { xs: 4, md: 8 },
           p: 4,
           zIndex: 3000,
         }}

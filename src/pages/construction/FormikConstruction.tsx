@@ -1,15 +1,13 @@
 import { Formik } from 'formik';
 
 import { validationSchema, initialValues } from './form';
-import {
-  saveConstructionData,
-  //getFlatConstDetails,
-} from '../../api/kintone/construction/';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ConstructionForm } from './ConstructionForm';
 import FormSnack, { SnackState } from '../../components/ui/snacks/FormSnack';
 import { getFormDataById } from './api/getFormDataById';
+import { saveFormData } from './api/saveFormData';
 
 
 export const FormikConstruction  = () => {
@@ -36,7 +34,8 @@ export const FormikConstruction  = () => {
       initialValues={initialState}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        saveConstructionData({ ...values, custGroupId: recordId })
+        console.log(values);
+        saveFormData({ ...values, custGroupId: recordId })
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });
             setSubmitting(false);

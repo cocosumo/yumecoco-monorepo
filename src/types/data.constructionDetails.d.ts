@@ -5,33 +5,20 @@ declare namespace ConstructionDetails {
     address2: kintone.fieldTypes.SingleLineText;
     addressKari: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
-    storeId: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     constructionName: kintone.fieldTypes.SingleLineText;
-    storeName: kintone.fieldTypes.SingleLineText;
+    custGroupId: kintone.fieldTypes.Number;
     postal: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     buildingType: kintone.fieldTypes.SingleLineText;
-    territory: kintone.fieldTypes.SingleLineText;
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
-        };
-      }[];
-    };
-    members: {
-      type: 'SUBTABLE';
-      value: {
-        id: string;
-        value: {
-          address: kintone.fieldTypes.SingleLineText;
-          customerId: kintone.fieldTypes.Number;
-          customerName: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

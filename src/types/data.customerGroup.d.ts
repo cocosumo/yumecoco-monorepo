@@ -1,18 +1,8 @@
 declare namespace CustomerGroupTypes {
   interface Data {
-    storeName: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.Number;
-    members: {
-      type: 'SUBTABLE';
-      value: {
-        id: string;
-        value: {
-          address: kintone.fieldTypes.SingleLineText;
-          customerId: kintone.fieldTypes.Number;
-          customerName: kintone.fieldTypes.SingleLineText;
-        };
-      }[];
-    };
+    storeName: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
     agents: {
       type: 'SUBTABLE';
       value: {
@@ -21,6 +11,17 @@ declare namespace CustomerGroupTypes {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
+        };
+      }[];
+    };
+    members: {
+      type: 'SUBTABLE';
+      value: {
+        id: string;
+        value: {
+          address: kintone.fieldTypes.SingleLineText;
+          customerId: kintone.fieldTypes.Number;
+          customerName: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

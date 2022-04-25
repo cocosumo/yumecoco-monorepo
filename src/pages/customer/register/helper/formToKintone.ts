@@ -70,7 +70,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
     });
 };
 
-export const formToKintConst = (formData: CustomerForm, customerIds: { id: string, revision: string }[] | [] = []): Partial<ConstructionDetails.SavedData> => {
+export const formToKintConst = (formData: CustomerForm, customerIds: { id: string, revision: string }[] | [] = []): Partial<CustomerGroupTypes.SavedData> => {
   const {
     store,
     cocoAG1,

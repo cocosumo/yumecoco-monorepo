@@ -8,8 +8,6 @@ export const getFormDataById = async (recordId: string): Promise<ConstructionDet
     $id, constructionTypeId, constructionName,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
-    storeId,
-    territory,
   } = await getConstRecord(recordId);
 
   const cocoConst = agents.value.filter(item => {
@@ -29,7 +27,6 @@ export const getFormDataById = async (recordId: string): Promise<ConstructionDet
     cocoConst1: cocoConst?.[0],
     cocoConst2: cocoConst?.[1],
     addressKari: addressKari.value,
-    storeId: storeId.value,
-    territory: territory.value as '西' | '東',
+    //agentsId: agents.value.map(item => item.id),
   };
 };

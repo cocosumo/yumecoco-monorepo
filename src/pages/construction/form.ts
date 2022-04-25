@@ -8,29 +8,30 @@ export type BuildingTypeVals =
 | '店舗/事務所'
 | 'その他';
 
-export type ConstructionDetailsType = typeof initialValues;
-export type KeyOfConstructionDetails = keyof ConstructionDetailsType;
-export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
 export const initialValues = {
+  custGroupId: undefined  as undefined | string,
   constructionTypeId: '',
   constructionName: '',
   isAgentConfirmed: false,
+  //agentsId: [] as string[],
   cocoConst1: '',
   cocoConst2: '',
   postal: '',
   address1: '',
   address2: '',
   addressKari: '',
-  custGroupId: '',
-  storeId: '',
-  territory: '' as '西' | '東',
   buildingType: '戸建て' as BuildingTypeVals,
   isChkAddressKari: false,
 };
+
+export type ConstructionDetailsType = typeof initialValues;
+export type KeyOfConstructionDetails = keyof ConstructionDetailsType;
+export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
+
 
 /**
  * Set Validation for fields that requires it.

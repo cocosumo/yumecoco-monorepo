@@ -1,16 +1,17 @@
 
+import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooks';
-import { KeyOfConstructionDetails, ConstructionDetailsType } from '../../form';
-import { useFormikContext } from 'formik';
+import { KeyOfConstructionDetails } from '../../form';
 
 interface ConstructionAgentProps {
   number?: number
-
+  storeId: string,
+  territory?:  GetEmployeesParams['territory'],
 }
 
 export const ConstructionAgent = (props: ConstructionAgentProps) => {
-  const { values: { storeId, territory } } = useFormikContext<ConstructionDetailsType>();
+  const { storeId, territory } = props;
   const agents = useEmployeeOptions({
     type: 'cocoConst',
     storeId,

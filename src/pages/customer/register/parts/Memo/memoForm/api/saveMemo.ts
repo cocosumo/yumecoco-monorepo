@@ -7,7 +7,7 @@ const getAgentIds = async (recordId: string, agentTypes: AgentType[] = [] ) => {
   console.log('agentTypes', agentTypes);
 
   return KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
+    app: APPIDS.custGroup,
     id: recordId,
   })
     .then(resp => {
@@ -27,15 +27,15 @@ const formDataToKintone = async (params: MemoFormType) : Promise<Partial<Custome
     contents: { value: contents },
     recordId: { value: recordId },
   };
-  
+
   if (isNotify){
-    const agentIds = await getAgentIds(recordId, notifyTo); 
+    const agentIds = await getAgentIds(recordId, notifyTo);
     const agentUserCodes = await getUserCodesByIds(agentIds);
     return { ...commonFields, notifyTo: { value: agentUserCodes } };
   }
 
 
-  
+
   return commonFields;
 };
 

@@ -9,12 +9,12 @@ export type EmployeeType = 'yumeAG' | 'cocoAG' | 'cocoConst' | 'sutekura';
 export type EmpAffiliations = 'ここすも' | 'すてくら' | 'ゆめてつ';
 export type EmpRoles = '店長' | '主任' | '営業' | '工務';
 
-export interface Params {
+export interface GetEmployeesParams {
   type : EmployeeType | EmployeeType[],
   isActiveOnly?: boolean,
   storeId ?: string,
   isStoreIdRequired ?: boolean,
-  territory?: '西' | '東'
+  territory?: '西' | '東' | null
 }
 
 export const getEmployees  = async (params ?: GetRecordParams) => {
@@ -41,7 +41,7 @@ export const getCocoConst = async () => {
   }) as unknown as Promise<EmployeeTypes.SavedData[]>;
 };
 
-export const getSpecifiedEmployees = async (params: Params) => {
+export const getSpecifiedEmployees = async (params: GetEmployeesParams) => {
   const {
     type = 'yumeAG',
     isActiveOnly = true,

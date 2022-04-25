@@ -17,13 +17,19 @@ const AGLabels = {
   yumeAG : 'ゆめてつAG',
 };
 
-export const CustInfo = () => {
-  const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
+
+
+export const CustInfo = (props : {
+  custGroupRecord?: CustomerGroupTypes.SavedData,
+  handleSetCustGroupRecord: (record: CustomerGroupTypes.SavedData) => void
+}) => {
+  const { custGroupRecord, handleSetCustGroupRecord } = props;
   const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
 
   const { setFieldValue } = useFormikContext<ConstructionDetailsType>();
 
   const custGroupId = useParams().recordId;
+
 
   const handleCustomerChange = async (record: CustomerGroupTypes.SavedData) => {
     if (!record) return;
@@ -36,10 +42,12 @@ export const CustInfo = () => {
     } = record;
 
     setFieldValue('storeId', storeId.value);
+
     const custId = members[0].value.customerId.value;
 
+    /* Retrieve data from each customer in the group */
     setCustomerRecord((await getCustomerById(custId)).record as unknown as CustomerTypes.SavedData);
-    setCustGroupRecord(record);
+    handleSetCustGroupRecord(record);
   };
 
   useEffect(()=>{
@@ -68,7 +76,8 @@ export const CustInfo = () => {
 
                 <LabeledInfo label="氏名" data={custRecord?.fullName.value}/>
                 <LabeledInfo label="氏名フリガナ" data={custRecord?.fullNameReading.value}/>
-
+                <LabeledInfo label={'グループ番号'} data={custGroupRecord?.$id.value} />
+                <LabeledInfo label={'顧客番号'} data={custRecord?.$id.value} />
               </Stack>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -78,7 +87,7 @@ export const CustInfo = () => {
                   .value
                   .reduce((accu, { id, value: { agentType, employeeName } })=>{
                     const rawLabel = AGLabels[agentType.value as keyof typeof AGLabels];
-                    const numberedLabel = `${rawLabel}1`;
+                    const numberedLabel = `${rawLabel ?? '担当者'}1`;
                     const isExist = accu.some(item => item.label === numberedLabel);
                     const resolvedLabel = isExist ?  `${rawLabel}2` : numberedLabel;
 

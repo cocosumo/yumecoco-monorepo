@@ -1,9 +1,9 @@
 
 import { useCallback } from 'react';
-import { getSpecifiedEmployees, Params } from '../api/kintone/employees/GET';
+import { getSpecifiedEmployees, GetEmployeesParams } from '../api/kintone/employees/GET';
 import usePromise from './usePromise';
 
-interface EmployeeOptionsParams extends Params {
+interface EmployeeOptionsParams extends GetEmployeesParams {
   secondaryLabel?: keyof EmployeeTypes.SavedData
 }
 

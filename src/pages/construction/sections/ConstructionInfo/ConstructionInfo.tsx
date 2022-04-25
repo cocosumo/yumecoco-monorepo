@@ -8,10 +8,16 @@ import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { KeyOfConstructionDetails } from '../../form';
+import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 
 
-
-export const ConstructionInfo = () => {
+export const ConstructionInfo = (
+  props : {
+    storeId: string,
+    territory?:  GetEmployeesParams['territory']
+  },
+) => {
+  const { storeId, territory } = props;
   const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
 
   useEffect(()=>{
@@ -44,7 +50,7 @@ export const ConstructionInfo = () => {
         {
           [1, 2].map((num) => (
             <Grid key={num} item xs={12} md={4}>
-              <ConstructionAgent number={num}/>
+              <ConstructionAgent number={num} {...{ storeId, territory }}/>
             </Grid>
           ))
         }

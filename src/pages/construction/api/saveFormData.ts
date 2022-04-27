@@ -60,7 +60,6 @@ export const saveConstructionData = async (
   const { recordId } = rawValues;
   const record = convertToKintone(rawValues);
 
-  console.log(record, 'SAVE');
   if (recordId){
     /* Update */
     return KintoneRecord.updateRecord({
@@ -85,8 +84,6 @@ export const saveConstructionData = async (
 };
 
 
-
-
 export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise<{
   id: string,
   revision: string,
@@ -94,7 +91,11 @@ export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise
   return saveConstructionData(rawValues)
     .then(async resp => {
       /* Todo add projects to customer form */
-      await saveProjectToCustGroup(resp.id, rawValues.custGroupId!);
+      await saveProjectToCustGroup(
+        resp.id,
+        rawValues.custGroupId!,
+        [rawValues.cocoConst1, rawValues.cocoConst2],
+      );
 
       return resp;
     }).catch((err) => {

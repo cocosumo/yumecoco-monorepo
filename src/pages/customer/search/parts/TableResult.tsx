@@ -9,8 +9,8 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
 
@@ -22,7 +22,12 @@ import { getSearchData, ISearchData as Data } from '../api/getSearchData';
 
 
 
-const headCells : (keyof Data)[][] = [['顧客ID', '状況', '顧客種別'], ['顧客氏名・会社名', '現住所'],  ['店舗', 'ここすも営業', 'ここすも工事'], ['登録日時', '更新日時']];
+const headCells : (keyof Data)[][] = [
+  ['顧客ID',  '顧客種別', '状況' ],
+  ['顧客氏名・会社名', '現住所'],
+  ['店舗', 'ここすも営業', 'ここすも工事', '案件数'],
+  ['登録日時', '更新日時'],
+];
 
 
 
@@ -104,25 +109,23 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 export function TableResult() {
   const { isSubmitting, values } = useFormikContext<typeof initialValues>();
 
-  const [order, setOrder] = useState<Order>('asc');
+  const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
 
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
+  //const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState<Data[]>([]);
 
 
   useEffect(()=>{
     if (!isSubmitting){
-      console.log('triggered!');
+
       getSearchData({
         storeId: values.storeId,
         custName: values.custName,
       }).then(({ normalizedData }) => {
-        console.log(normalizedData.length);
         setRows(normalizedData);
-
       });
 
     }
@@ -150,9 +153,9 @@ export function TableResult() {
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+  /* const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDense(event.target.checked);
-  };
+  }; */
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -176,7 +179,7 @@ export function TableResult() {
             <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size="small"
           >
               <EnhancedTableHead
               order={order}
@@ -187,7 +190,7 @@ export function TableResult() {
                 {/* if we need to support IE11, replace
                 rows.slice().sort(getComparator(order, orderBy)) with `stableSort` */}
                 {rows?.slice().sort(getComparator(order, orderBy))
-                  //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -205,13 +208,18 @@ export function TableResult() {
                         {headCells.map(headCellGroup => (
                           <TableCell
                           key={headCellGroup.join('-')}
-                          component="th"
                           id={labelId}
                           scope="row"
-                          padding="none"
+                          padding="normal"
                         >
                             {headCellGroup.map(headCellItem => (
-                              <div key={headCellItem}>{row[headCellItem]}</div>
+
+                              <div key={headCellItem}>
+
+                                {row[headCellItem] }
+                                {!row[headCellItem] && <br />}
+                              </div>
+
                             ))}
 
 
@@ -224,7 +232,7 @@ export function TableResult() {
                 {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 33 * emptyRows, //(dense ? 33 : 53) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -235,10 +243,10 @@ export function TableResult() {
           </TableContainer>
 
         </Paper>
-        <FormControlLabel
+        {/*  <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="密なパディング"
-      />
+      /> */}
       </Box>
     </Grid>
   );

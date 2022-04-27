@@ -1,15 +1,21 @@
 declare namespace CustomerGroupTypes {
   interface Data {
     storeId: kintone.fieldTypes.Number;
+    custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
+    status: kintone.fieldTypes.SingleLineText;
     projects: {
       type: 'SUBTABLE';
       value: {
         id: string;
         value: {
+          cocoConst2: kintone.fieldTypes.Number;
+          cocoConst1: kintone.fieldTypes.Number;
+          cocoConst2Name: kintone.fieldTypes.SingleLineText;
           constructionName: kintone.fieldTypes.SingleLineText;
           constructionId: kintone.fieldTypes.Number;
+          cocoConst1Name: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

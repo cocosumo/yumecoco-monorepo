@@ -1,3 +1,4 @@
+import { dateStrToJA } from '../../../../helpers/utils';
 import { advancedSearchCustGroup, AdvancedSearchCustGroupParam } from './advancedSearchCustGroup';
 
 export interface ISearchData {
@@ -34,7 +35,7 @@ export const dataLabelMap: Partial<Record<keyof ISearchData, keyof CustomerGroup
 export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
 
 
-  const { records, totalCount } = (await advancedSearchCustGroup(
+  const records = (await advancedSearchCustGroup(
     params,
   ));
 
@@ -43,29 +44,37 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
       record,
     ) => {
       const {
-        $id, storeName, members, 更新日時: updatedDate, 作成日時: createdDate,
+        $id,
+        storeName,
+        custType,
+        status,
+        members,
+        projects,
+        agents,
+        更新日時: updatedDate,
+        作成日時: createdDate,
       } = record as unknown as CustomerGroupTypes.SavedData;
 
       const { address, customerName  } = members?.value?.[0]?.value ?? {} ;
 
       return {
         '顧客ID': +($id?.value ?? 0),
-        '状況': 'XXX',
-        '案件数': '0',
+        '状況': status?.value ?? '情報登録のみ',
+        '案件数': projects.value.length.toString(),
         '店舗': storeName?.value,
-        '顧客種別': '個人',
+        '顧客種別': custType?.value ?? '個人',
         '現住所': address?.value ?? '-',
         '顧客氏名・会社名': customerName?.value ?? '-',
-        'ここすも営業': 'テスト',
-        'ここすも工事': 'テスト',
-        '登録日時':updatedDate?.value,
-        '更新日時': createdDate?.value,
+        'ここすも営業': agents.value[0]?.value.employeeName.value ?? '',
+        'ここすも工事': projects?.value[0]?.value.cocoConst1Name.value ?? '',
+        '登録日時': dateStrToJA(createdDate.value),
+        '更新日時': dateStrToJA(updatedDate.value),
       };
     });
 
 
   return {
     normalizedData,
-    totalCount: +(totalCount  ?? 0),
+    totalCount: normalizedData.length,
   };
 };

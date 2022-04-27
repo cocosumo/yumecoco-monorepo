@@ -1,3 +1,5 @@
+import { format, parseISO } from 'date-fns';
+
 /* eslint-disable @typescript-eslint/no-implied-eval */
 export const generateRoot = () => {
   const root = document.createElement('div');
@@ -14,5 +16,9 @@ export const isBrowser = new Function('try {return this===window;}catch(e){ retu
 export function daysInMonth(month: number, year : number) {
   return new Date(year, month, 0).getDate();
 }
+
+export const dateStrToJA = (dateStr: string) => {
+  return dateStr ? format(parseISO(dateStr), 'yyyy年MM月dd日 hh:mm') : '';
+};
 
 export default {};

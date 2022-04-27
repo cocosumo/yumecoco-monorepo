@@ -8,13 +8,16 @@ interface UpdateRequest {
   payload: {
     app: string,
     id: string,
-    record: {
-      projects: CustomerGroupTypes.Data['projects']
-    }
+    record: Partial<CustomerGroupTypes.SavedData>
   }
 }
 
-
+/**
+ * The project id might exist in someother custGroup,
+ * so this resolves request to clean up before saving.
+ * @param projectId
+ * @returns
+ */
 const resolveDeleteRequest = async (projectId: string) => {
   return (await getCustGroupByProjectId(projectId))
     .map < UpdateRequest >(({ $id, $revision, projects }) => {
@@ -36,7 +39,15 @@ const resolveDeleteRequest = async (projectId: string) => {
   });
 };
 
-const resolveSaveRequest = async (projectId: string, custGroupId: string) => {
+/**
+ * Get custgroup record, then add the projectId.
+ * API calls: 2
+ * @param projectId
+ * @param custGroupId
+ * @param cocoConst Agent names
+ * @returns
+ */
+const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoConst: string[]) => {
   const { projects } = await KintoneRecord.getRecord({
     app: APPIDS.custGroup,
     id: custGroupId,
@@ -58,6 +69,10 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string) => {
               value: {
                 constructionId: { value: projectId },
                 constructionName: { value: 'auto' },
+                cocoConst1: { value: cocoConst[0] },
+                cocoConst2: { value: cocoConst[1] },
+                cocoConst1Name : { value: 'auto' },
+                cocoConst2Name : { value: 'auto' },
               },
             }]),
         },
@@ -74,18 +89,21 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string) => {
  * Current purpose of saving the projectId in customerGroup is
  * to minimize code overhead when querying number of projects per customerGroup
  *
+ * Will rollback in case of failure.
+ *
  * @param projectId
  * @param custGroupId
  * @returns
  */
-export const saveProjectToCustGroup = async (projectId: string, custGroupId: string) => {
+export const saveProjectToCustGroup = async (projectId: string, custGroupId: string, cocoConst: string[]) => {
 
   if (!custGroupId) throw new Error('No custgroup id supplied in saveConstructionData.');
 
+  console.log(cocoConst);
 
   const requests : Parameters<typeof KintoneClient.bulkRequest>[0]['requests'] = [
     ...await resolveDeleteRequest(projectId),
-    ...await resolveSaveRequest(projectId, custGroupId),
+    ...await resolveSaveRequest(projectId, custGroupId, cocoConst),
   ];
 
   if (requests.length){

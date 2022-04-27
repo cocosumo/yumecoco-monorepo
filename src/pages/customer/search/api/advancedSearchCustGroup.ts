@@ -23,13 +23,10 @@ export const advancedSearchCustGroup = async <
     .join(' and ');
 
 
-  return KintoneRecord.getRecords({
+  return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,
-    query: [
-      (query ?? ''),
-      `order by ${'更新日時' as Key}`,
-    ].join(' '),
-    totalCount: true,
+    condition: query ?? undefined,
+    orderBy:  `${'更新日時' as Key} desc`,
   });
 
 };

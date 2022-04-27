@@ -19,7 +19,6 @@ export const initialValues = {
   constructionTypeId: '',
   constructionName: '',
   isAgentConfirmed: false,
-  //agentsId: [] as string[],
   cocoConst1: '',
   cocoConst2: '',
   postal: '',

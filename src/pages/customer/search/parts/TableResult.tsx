@@ -29,6 +29,13 @@ const headCells : (keyof Data)[][] = [
   ['登録日時', '更新日時'],
 ];
 
+const cellWidth = [
+  '',
+  '30%',
+  '25%',
+  '',
+];
+
 
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -76,10 +83,11 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
         </TableCell>
 
-        {headCells.map((headCellGroup) => (
+        {headCells.map((headCellGroup, headIdx) => (
           <TableCell
           key={headCellGroup.join('-')}
-        >
+          width={cellWidth[headIdx]}
+          > 
             {headCellGroup.map((headCellItem) => (
 
               <TableSortLabel
@@ -203,7 +211,7 @@ export function TableResult() {
                       key={row.顧客ID}
 
                     >
-                        <TableCell padding="normal">
+                        <TableCell padding="normal" width={'10%'}>
                           <Button variant='outlined'>詳細</Button>
                         </TableCell>
                         {headCells.map(headCellGroup => (
@@ -212,6 +220,7 @@ export function TableResult() {
                           id={labelId}
                           scope="row"
                           padding="normal"
+                          
                         >
                             {headCellGroup.map(headCellItem => (
 

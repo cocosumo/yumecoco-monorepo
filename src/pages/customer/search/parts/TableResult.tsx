@@ -23,9 +23,9 @@ import { getSearchData, ISearchData as Data } from '../api/getSearchData';
 
 
 const headCells : (keyof Data)[][] = [
-  ['顧客ID',  '顧客種別', '状況' ],
+  ['顧客ID',  '顧客種別', '状況', '案件数' ],
   ['顧客氏名・会社名', '現住所'],
-  ['店舗', 'ここすも営業', 'ここすも工事', '案件数'],
+  ['店舗', 'ここすも営業', 'ここすも工事', 'ゆめてつAG'],
   ['登録日時', '更新日時'],
 ];
 
@@ -124,6 +124,7 @@ export function TableResult() {
       getSearchData({
         storeId: values.storeId,
         custName: values.custName,
+        phone: values.contactNum,
       }).then(({ normalizedData }) => {
         setRows(normalizedData);
       });
@@ -217,7 +218,7 @@ export function TableResult() {
                               <div key={headCellItem}>
 
                                 {row[headCellItem] }
-                                {!row[headCellItem] && <br />}
+                                {!row[headCellItem] && '-'}
                               </div>
 
                             ))}

@@ -9,8 +9,11 @@ export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['memb
         id: '',
         value: {
           customerId: { value: item },
-          customerName: { value: '' },
-          address: { value: '' },
+          customerName: { value: 'auto' },
+          address1: { value: 'auto' },
+          address2: { value: 'auto' },
+          postal: { value: 'auto' },
+          contacts: { value: 'auto' },
         },
       };
     }),

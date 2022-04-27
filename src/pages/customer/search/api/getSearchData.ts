@@ -1,4 +1,5 @@
 import { dateStrToJA } from '../../../../helpers/utils';
+import { AgentType } from '../../../../types/forms';
 import { advancedSearchCustGroup, AdvancedSearchCustGroupParam } from './advancedSearchCustGroup';
 
 export interface ISearchData {
@@ -9,12 +10,14 @@ export interface ISearchData {
   '顧客氏名・会社名': string,
   '現住所': string,
   '店舗': string,
+  'ゆめてつAG': string,
   'ここすも営業': string,
   'ここすも工事': string,
   '登録日時': string,
   '更新日時': string,
 }
 
+/** @deprecated serverSide pagination not practical due kintone limitation */
 export const dataLabelMap: Partial<Record<keyof ISearchData, keyof CustomerGroupTypes.SavedData>> = {
   '顧客ID': 'レコード番号',
   '状況': 'レコード番号',
@@ -55,7 +58,7 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
         作成日時: createdDate,
       } = record as unknown as CustomerGroupTypes.SavedData;
 
-      const { address, customerName  } = members?.value?.[0]?.value ?? {} ;
+      const { address1, address2, postal,  customerName  } = members?.value?.[0]?.value ?? {} ;
 
       return {
         '顧客ID': +($id?.value ?? 0),
@@ -63,10 +66,19 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
         '案件数': projects.value.length.toString(),
         '店舗': storeName?.value,
         '顧客種別': custType?.value ?? '個人',
-        '現住所': address?.value ?? '-',
+        '現住所': `${[postal, address1, address2]
+          .map(item=> item?.value ?? '')
+          .join(' ')}` ?? '',
+        'ゆめてつAG': agents.value
+          .filter(item => item.value.agentType.value === 'yumeAG' as AgentType)
+          ?.map(item => item.value.employeeName.value)
+          .join('、 ') ?? '',
         '顧客氏名・会社名': customerName?.value ?? '-',
-        'ここすも営業': agents.value[0]?.value.employeeName.value ?? '',
-        'ここすも工事': projects?.value[0]?.value.cocoConst1Name.value ?? '',
+        'ここすも営業': agents.value
+          .filter(item => item.value.agentType.value === 'cocoAG' as AgentType)
+          ?.map(item => item.value.employeeName.value)
+          .join('、 ') ?? '',
+        'ここすも工事': projects?.value[projects?.value.length - 1]?.value.cocoConst1Name.value ?? '',
         '登録日時': dateStrToJA(createdDate.value),
         '更新日時': dateStrToJA(updatedDate.value),
       };

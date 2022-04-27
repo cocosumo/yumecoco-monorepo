@@ -3,6 +3,7 @@ import { KintoneRecord, APPIDS } from '../../../../api/kintone';
 export interface AdvancedSearchCustGroupParam {
   storeId?: string,
   custName?: string,
+  phone?: string
 }
 export const advancedSearchCustGroup = async <
   Key extends Partial<keyof CustomerGroupTypes.SavedData>,
@@ -13,12 +14,14 @@ export const advancedSearchCustGroup = async <
   const {
     storeId,
     custName,
+    phone,
   } = params;
 
 
   const query = [
     ...(storeId ? [`${'storeId' as Key} = "${storeId}"`] : []),
-    ...(custName ? [`${'customerName' as CustKey} in ("${custName}")`] : []),
+    ...(custName ? [`${'customerName' as CustKey} like "${custName}"`] : []),
+    ...(phone ? [`${'contacts' as CustKey} like "${phone}"`] : []),
   ]
     .join(' and ');
 

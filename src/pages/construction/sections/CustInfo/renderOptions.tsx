@@ -11,7 +11,7 @@ export const convertRecordToOption = (value: string, record: CustomerGroupTypes.
     return {
       name: mainCustName,
       id: $id.value,
-      subTitle: `${storeName.value} ${mainCust.address.value}`,
+      subTitle: `${storeName.value} ${mainCust.address2.value}`,
       secondaryLabel: format(Date.parse(作成日時.value), 'yyyy-MM-dd' ),
       record: record,
     };

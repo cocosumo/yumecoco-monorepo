@@ -77,6 +77,7 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     cocoAG2,
     yumeAG1,
     yumeAG2,
+    customers,
   } = formData;
 
   console.log('transformedForm', formData);
@@ -99,13 +100,16 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     storeId: { value: store },
     members: {
       type: 'SUBTABLE',
-      value: customerIds?.map(({ id }) => {
+      value: customerIds?.map(({ id }, index) => {
         return {
           id: '',
           value: {
             customerId: { value: id },
-            address: { value: '' }, // lookup copy field
-            customerName: { value: '' }, // lookup copy field
+            address1: { value: 'auto' },
+            address2: { value: 'auto' },
+            postal: { value: 'auto' },
+            customerName: { value: 'auto' },
+            contacts: { value: JSON.stringify(customers[index]) },
           },
         };
       }) || [],

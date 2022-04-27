@@ -35,9 +35,12 @@ declare namespace CustomerGroupTypes {
       value: {
         id: string;
         value: {
-          address: kintone.fieldTypes.SingleLineText;
+          address2: kintone.fieldTypes.SingleLineText;
+          address1: kintone.fieldTypes.SingleLineText;
           customerId: kintone.fieldTypes.Number;
+          postal: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
+          contacts: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

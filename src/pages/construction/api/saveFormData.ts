@@ -1,6 +1,7 @@
 import { ConstructionDetailsType } from '../../../pages/construction/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { AgentType } from '../../../types/forms';
+import { saveProjectToCustGroup } from './saveProjectToCustGroup';
 
 
 export const convertToKintone = (
@@ -84,14 +85,20 @@ export const saveConstructionData = async (
 };
 
 
+
+
 export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise<{
   id: string,
   revision: string,
 }> =>{
   return saveConstructionData(rawValues)
-    .then(resp => {
+    .then(async resp => {
       /* Todo add projects to customer form */
+      await saveProjectToCustGroup(resp.id, rawValues.custGroupId!);
+
       return resp;
+    }).catch((err) => {
+      throw new Error('Error occured, contact administrator' + err);
     });
 
 };

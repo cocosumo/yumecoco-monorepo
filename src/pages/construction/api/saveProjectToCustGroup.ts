@@ -1,0 +1,99 @@
+import { KintoneRecord, KintoneClient, APPIDS } from '../../../api/kintone';
+import { getCustGroupByProjectId } from './getCustGroupByProjectId';
+
+
+interface UpdateRequest {
+  method: 'PUT',
+  api: '/k/v1/record.json',
+  payload: {
+    app: string,
+    id: string,
+    record: {
+      projects: CustomerGroupTypes.Data['projects']
+    }
+  }
+}
+
+
+const resolveDeleteRequest = async (projectId: string) => {
+  return (await getCustGroupByProjectId(projectId))
+    .map < UpdateRequest >(({ $id, $revision, projects }) => {
+    return {
+      method: 'PUT',
+      api: '/k/v1/record.json',
+      payload: {
+        app: APPIDS.custGroup.toString(),
+        id: $id.value,
+        revision: $revision.value,
+        record: {
+          projects: {
+            type: 'SUBTABLE',
+            value: projects.value.filter(item => item.value.constructionId.value !== projectId),
+          },
+        },
+      },
+    };
+  });
+};
+
+const resolveSaveRequest = async (projectId: string, custGroupId: string) => {
+  const { projects } = await KintoneRecord.getRecord({
+    app: APPIDS.custGroup,
+    id: custGroupId,
+  }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
+
+  return [{
+    method: 'PUT',
+    api: '/k/v1/record.json',
+    payload: {
+      app: APPIDS.custGroup.toString(),
+      id: custGroupId,
+      record: {
+        projects: {
+          type: 'SUBTABLE',
+          value: projects.value
+            .filter(item => item.value.constructionId.value !== projectId)
+            .concat([{
+              id: '',
+              value: {
+                constructionId: { value: projectId },
+                constructionName: { value: 'auto' },
+              },
+            }]),
+        },
+      },
+    },
+  },
+  ] as UpdateRequest[];
+};
+
+/**
+ * Transaction to delete projectId on other customerGroups
+ * prior to saving the projectId on designated customerGroup.
+ *
+ * Current purpose of saving the projectId in customerGroup is
+ * to minimize code overhead when querying number of projects per customerGroup
+ *
+ * @param projectId
+ * @param custGroupId
+ * @returns
+ */
+export const saveProjectToCustGroup = async (projectId: string, custGroupId: string) => {
+
+  if (!custGroupId) throw new Error('No custgroup id supplied in saveConstructionData.');
+
+
+  const requests : Parameters<typeof KintoneClient.bulkRequest>[0]['requests'] = [
+    ...await resolveDeleteRequest(projectId),
+    ...await resolveSaveRequest(projectId, custGroupId),
+  ];
+
+  if (requests.length){
+    return KintoneClient.bulkRequest({
+      requests,
+    });
+  } else {
+    throw new Error('Bulk request is empty. ' + requests);
+  }
+
+};

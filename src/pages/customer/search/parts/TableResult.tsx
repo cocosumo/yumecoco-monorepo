@@ -22,7 +22,9 @@ import { getSearchData, ISearchData as Data } from '../api/getSearchData';
 
 
 
-const headCells : (keyof Data)[] = ['顧客ID', '状況', '顧客種別', '顧客氏名・会社名', '現住所', '店舗', 'ここすも営業', 'ここすも工事', '登録日時', '更新日時'];
+const headCells : (keyof Data)[][] = [['顧客ID', '状況', '顧客種別'], ['顧客氏名・会社名', '現住所'],  ['店舗', 'ここすも営業', 'ここすも工事'], ['登録日時', '更新日時']];
+
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -68,23 +70,29 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         <TableCell padding="normal">
 
         </TableCell>
-        {headCells.map((headCell) => (
+
+        {headCells.map((headCellGroup) => (
           <TableCell
-            key={headCell}
-            sortDirection={orderBy === headCell ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell}
-              direction={orderBy === headCell ? order : 'asc'}
-              onClick={createSortHandler(headCell)}
+          key={headCellGroup.join('-')}
+        >
+            {headCellGroup.map((headCellItem) => (
+
+              <TableSortLabel
+              sx={{ display: 'block' }}
+              key={headCellItem}
+              active={orderBy === headCellItem}
+              direction={orderBy === headCellItem ? order : 'asc'}
+              onClick={createSortHandler(headCellItem)}
             >
-              {headCell}
-              {orderBy === headCell ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+                {headCellItem}
+                {orderBy === headCellItem ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+
+            ))}
           </TableCell>
         ))}
       </TableRow>
@@ -94,7 +102,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 
 export function TableResult() {
-  //const data = useAdvancedSearchCustGroup({ storeId: '7' });
   const { isSubmitting, values } = useFormikContext<typeof initialValues>();
 
   const [order, setOrder] = useState<Order>('asc');
@@ -102,16 +109,20 @@ export function TableResult() {
 
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState<Data[]>([]);
+
 
   useEffect(()=>{
     if (!isSubmitting){
+      console.log('triggered!');
       getSearchData({
         storeId: values.storeId,
         custName: values.custName,
-      }).then(data => {
-        setRows(data);
+      }).then(({ normalizedData }) => {
+        console.log(normalizedData.length);
+        setRows(normalizedData);
+
       });
 
     }
@@ -134,6 +145,7 @@ export function TableResult() {
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
@@ -153,7 +165,7 @@ export function TableResult() {
           <TableContainer>
             <TablePagination
               labelRowsPerPage="表示件数を変更"
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[10, 25, 50]}
               component="div"
               count={rows.length}
               rowsPerPage={rowsPerPage}
@@ -172,10 +184,10 @@ export function TableResult() {
               onRequestSort={handleRequestSort}
             />
               <TableBody>
-                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
+                {/* if we need to support IE11, replace
+                rows.slice().sort(getComparator(order, orderBy)) with `stableSort` */}
                 {rows?.slice().sort(getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  //.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -190,23 +202,22 @@ export function TableResult() {
                         <TableCell padding="normal">
                           <Button variant='outlined'>詳細</Button>
                         </TableCell>
-                        <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                          {row.顧客ID}
-                        </TableCell>
-                        <TableCell align="right">{row.状況}</TableCell>
-                        <TableCell align="right">{row['顧客種別']}</TableCell>
-                        <TableCell align="right">{row['顧客氏名・会社名']}</TableCell>
-                        <TableCell align="right">{row['現住所']}</TableCell>
-                        <TableCell align="right">{row['店舗']}</TableCell>
-                        <TableCell align="right">{row['ここすも営業']}</TableCell>
-                        <TableCell align="right">{row['ここすも工事']}</TableCell>
-                        <TableCell align="right">{row['登録日時']}</TableCell>
-                        <TableCell align="right">{row['更新日時']}</TableCell>
+                        {headCells.map(headCellGroup => (
+                          <TableCell
+                          key={headCellGroup.join('-')}
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                            {headCellGroup.map(headCellItem => (
+                              <div key={headCellItem}>{row[headCellItem]}</div>
+                            ))}
+
+
+                          </TableCell>
+
+                        ))}
                       </TableRow>
                     );
                   })}

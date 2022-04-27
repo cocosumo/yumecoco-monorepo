@@ -8,7 +8,9 @@ interface Result {
 
 export interface AdvancedSearchCustGroupParam {
   storeId?: string,
-  custName?: string
+  custName?: string,
+  limit?: string,
+  offset?: string,
 }
 
 export const getCustGroup = (id: string) => {
@@ -41,6 +43,8 @@ export const advancedSearchCustGroup = <
   const {
     storeId,
     custName,
+    limit,
+    offset,
   } = params;
 
 
@@ -54,6 +58,7 @@ export const advancedSearchCustGroup = <
   return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,
     condition: query ?? undefined,
+
     orderBy: '更新日時 desc',
   }) ;
 

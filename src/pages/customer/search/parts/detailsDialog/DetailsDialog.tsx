@@ -50,7 +50,7 @@ export const DetailsDialog = (props : {
     >
       <DialogTitle>
         <Stack spacing={2} direction="row" justifyContent={'space-between'}>
-          <Typography variant='h6' >契約者の詳細</Typography>
+          <Typography variant='h6' >詳細</Typography>
           <FormLabel sx={{ ml: 2 }}>id: {custGroupId}</FormLabel>
           <Link to={`/custgroup/edit/${custGroupId}`} target="_blank" rel="noopener noreferrer">
             <IconButton>

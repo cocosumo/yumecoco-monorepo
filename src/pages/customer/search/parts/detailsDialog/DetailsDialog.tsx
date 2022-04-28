@@ -1,11 +1,13 @@
-import { IconButton, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Stack, Typography, Skeleton } from '@mui/material';
-import { useState, useEffect, forwardRef } from 'react';
-import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
+import { IconButton, Button,
+  Dialog, DialogActions, DialogContent,
+  DialogTitle, FormLabel, Stack, Typography } from '@mui/material';
+import {  forwardRef } from 'react';
+
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-import { DetailsContent } from './DetailsContent';
+import { DetailsTabs } from './DetailsTabs';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -23,10 +25,10 @@ export const DetailsDialog = (props : {
   handleClose: ()=>void,
 }) => {
   const { custGroupId, open, handleClose } = props;
-  const [record, setRecord] = useState<CustomerGroupTypes.SavedData>();
-  const [loading, setLoading] = useState<boolean>(true);
+  //const [record, setRecord] = useState<CustomerGroupTypes.SavedData>();
+  //const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(()=>{
+  /*   useEffect(()=>{
     if (custGroupId){
       setLoading(true);
       getCustGroup(custGroupId)
@@ -36,14 +38,14 @@ export const DetailsDialog = (props : {
           setRecord(resp.record as unknown as CustomerGroupTypes.SavedData);
         });
     }
-  }, [custGroupId]);
+  }, [custGroupId]); */
 
 
   return (
     <Dialog
       TransitionComponent={Transition}
       onClose={handleClose}
-      open={open && !loading}
+      open={open}
       maxWidth="md"
     >
       <DialogTitle>
@@ -61,10 +63,7 @@ export const DetailsDialog = (props : {
       <DialogContent sx={{
         scrollbarGutter: 'stable',
       }}>
-        {loading && <Skeleton />}
-
-        <DetailsContent record={record} loading={loading} />
-
+        <DetailsTabs custGroupId={custGroupId}/>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" onClick={handleClose}>閉じる</Button>

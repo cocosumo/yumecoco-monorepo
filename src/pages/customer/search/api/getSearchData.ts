@@ -63,7 +63,7 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
       return {
         '顧客ID': +($id?.value ?? 0),
         '状況': status?.value ?? '情報登録のみ',
-        '案件数': projects.value.length.toString(),
+        '案件数': projects.value.filter(item=>item.value.constructionId.value).length.toString() ?? '',
         '店舗': storeName?.value,
         '顧客種別': custType?.value ?? '個人',
         '現住所': `${[postal, address1, address2]

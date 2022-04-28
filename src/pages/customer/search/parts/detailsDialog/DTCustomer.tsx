@@ -4,11 +4,14 @@ import { PageSubTitle } from '../../../../../components/ui/labels';
 import { LabeledDetail } from './LabeledDetail';
 import { AGLabels, EmployeeType } from '../../../../../api/kintone/employees/GET';
 
-export const DetailsContent = (props: {
-  record?: CustomerGroupTypes.SavedData
+
+export const DTCustomer = (props: {
+  record?: CustomerGroupTypes.SavedData,
   loading: boolean,
 }) => {
   const { record, loading } = props;
+
+
 
   const { agents, members, projects } = record ?? {};
 
@@ -69,22 +72,12 @@ export const DetailsContent = (props: {
 
       <Stack spacing={2}>
         <PageSubTitle  label={'担当者'} />
-        {/* {agents?.value.map(({
-          id,
-          value: {
-            agentType,
-            employeeName,
-          },
-        }) => {
-          return <LabeledDetail
-            key={id} label={AGLabels[agentType.value as EmployeeType]} value={employeeName.value}/>;
-        })} */}
 
         {
           Object.entries(groupedCustAgents ?? {})
             .map(([key, value]) => <LabeledDetail
                 key={key}
-                label={AGLabels[key as EmployeeType]}
+                label={AGLabels[key as EmployeeType] ?? '担当者'}
                 value={value.filter(Boolean).join(', ')}
               />)
         }

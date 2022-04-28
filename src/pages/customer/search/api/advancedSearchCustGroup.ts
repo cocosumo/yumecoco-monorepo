@@ -49,11 +49,14 @@ export const advancedSearchCustGroup = async <
     ...(address ? [
       `(${
         (['dump',
+          'address1',
+          'address2',
+          'postal',
           'projectAddress1',
           'projectAddress2',
           'kariAddress',
           'projectPostal',
-        ] as CustKey[] | ProjectKey[])
+        ] as CustKey[] | ProjectKey[] | CustKey[])
           .map(item => `${item} like "${address}"`)
           .join(' or ')
       })`] : []),

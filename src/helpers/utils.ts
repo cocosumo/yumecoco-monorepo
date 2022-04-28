@@ -1,5 +1,7 @@
 import { format, parseISO } from 'date-fns';
 
+
+
 /* eslint-disable @typescript-eslint/no-implied-eval */
 export const generateRoot = () => {
   const root = document.createElement('div');
@@ -18,7 +20,10 @@ export function daysInMonth(month: number, year : number) {
 }
 
 export const dateStrToJA = (dateStr: string) => {
-  return dateStr ? format(parseISO(dateStr), 'yyyy年MM月dd日 hh:mm') : '';
+
+  return dateStr ? format( parseISO(dateStr + '9:00'), 'yyyy年MM月dd日 HH:mm') : '';
 };
+
+
 
 export default {};

@@ -12,11 +12,7 @@ import { renderOptions } from './renderOptions';
 import { useFormikContext } from 'formik';
 import { ConstructionDetailsType } from '../../form';
 import { KeyOfConstructionDetails } from '../..';
-
-const AGLabels = {
-  cocoAG : '営業担当者',
-  yumeAG : 'ゆめてつAG',
-};
+import { AGLabels } from '../../../../api/kintone/employees/GET';
 
 const contactLabels = {
   tel: '電話番号',
@@ -68,10 +64,8 @@ export const CustInfo = (props : {
     if (recordId && custGroupId){
       getCustGroup(custGroupId)
         .then(resp => {
-          handleCustomerChange(resp.record);
+          handleCustomerChange(resp.record as unknown as CustomerGroupTypes.SavedData);
         });
-
-
     }
   }, [recordId, custGroupId]);
 

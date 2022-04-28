@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 import { initialValues } from './../form';
 import { getSearchData, ISearchData as Data } from '../api/getSearchData';
+import { DetailsDialog } from './detailsDialog/DetailsDialog';
 
 
 
@@ -125,6 +126,8 @@ export function TableResult() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState<Data[]>([]);
 
+  const [detailsDialogState, setDetailsDialogState] = useState<{ open: boolean, custGroupdId: string }>();
+
 
   useEffect(()=>{
     if (!isSubmitting){
@@ -220,7 +223,12 @@ export function TableResult() {
 
                     >
                         <TableCell padding="normal" width={'10%'}>
-                          <Button variant='outlined'>詳細</Button>
+                          <Button
+                            variant='outlined'
+                            onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
+                          >
+                            詳細
+                          </Button>
                         </TableCell>
                         {headCells.map(headCellGroup => (
                           <TableCell
@@ -266,6 +274,10 @@ export function TableResult() {
         label="密なパディング"
       /> */}
       </Box>
+      <DetailsDialog
+      open={Boolean(detailsDialogState?.open)}
+      custGroupId={detailsDialogState?.custGroupdId}
+      handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}}/>
     </Grid>
   );
 }

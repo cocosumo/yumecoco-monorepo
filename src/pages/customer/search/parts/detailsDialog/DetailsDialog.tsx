@@ -25,20 +25,6 @@ export const DetailsDialog = (props : {
   handleClose: ()=>void,
 }) => {
   const { custGroupId, open, handleClose } = props;
-  //const [record, setRecord] = useState<CustomerGroupTypes.SavedData>();
-  //const [loading, setLoading] = useState<boolean>(true);
-
-  /*   useEffect(()=>{
-    if (custGroupId){
-      setLoading(true);
-      getCustGroup(custGroupId)
-        .then(resp => {
-          console.log('triggered!');
-          setLoading(false);
-          setRecord(resp.record as unknown as CustomerGroupTypes.SavedData);
-        });
-    }
-  }, [custGroupId]); */
 
 
   return (

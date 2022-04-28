@@ -2,6 +2,7 @@ import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
+import { RecordStatus } from '../../search/form';
 
 
 export const getCustGroupRecord = async (id: string) => {
@@ -18,6 +19,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   /* Get main record */
   const {
     $id, $revision, agents, storeId,
+    status,
     members : { value: customers },
   } = await getCustGroupRecord(id) ;
 
@@ -42,6 +44,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   return {
     id: $id.value,
     revision: $revision.value,
+    recordStatus: (status.value ?? '情報登録のみ') as RecordStatus,
     store: storeId.value,
     cocoAG1: Ags?.cocoAGs?.[0] || '',
     cocoAG2: Ags?.cocoAGs?.[1] || '',

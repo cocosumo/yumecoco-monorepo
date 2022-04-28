@@ -78,6 +78,7 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     yumeAG1,
     yumeAG2,
     customers,
+    recordStatus,
   } = formData;
 
   console.log('transformedForm', formData);
@@ -98,6 +99,7 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
 
   return {
     storeId: { value: store },
+    status: { value: recordStatus },
     members: {
       type: 'SUBTABLE',
       value: customerIds?.map(({ id }, index) => {

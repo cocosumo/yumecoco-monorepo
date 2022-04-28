@@ -11,6 +11,7 @@ import { ScrollToFieldError } from './../../../components/utils/ScrollToFieldErr
 import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
+import { RecordStatus } from './parts/RecordStatus';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -39,17 +40,15 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
       <MainContainer >
 
         <PageTitle label="顧客登録（個人）"/>
-        <Grid item xs={12}>
-          Hello
-        </Grid>
+        <RecordStatus />
+        <Grid container item xs={12} md={12} lg={12} xl={9} spacing={2} alignItems="flex-start" justifyContent={'flex-start'}>
 
-        <Grid container item xs={12} md={12} lg={12} xl={9} spacing={2} alignItems="flex-start" justifyContent={'center'}>
           <Grid className='fieldarray' container item xs={12} md={8} lg={5} spacing={2} >
+
             <Customers/>
           </Grid>
 
           <Grid container item xs={12} md={4} lg={6} spacing={4} justifyContent="center">
-
             <Agents/>
             {isEditMode && <MemoColumn/>}
           </Grid>

@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 import { nativeMath, string as randomStr } from 'random-js';
 import { phoneRegExp, postalRegExp } from '../../../helpers/yupValidator';
+import { RecordStatus } from '../search/form';
 
 export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
@@ -33,6 +34,7 @@ export const initialCustomerValue = {
  */
 export const initialValues = {
   id: '' as undefined | string,
+  recordStatus: '情報登録のみ' as RecordStatus,
   revision: '',
   store: '',
   cocoAG1: '',

@@ -12,20 +12,20 @@ interface FormikRadioProps {
 
 export const FormikCheckBoxes = (props: FormikRadioProps) => {
   const { choices, label, helperText, name } = props;
-  
+
   const [field, meta, helpers] = useField<Array<any>>(name);
 
   const handleChange = (el: React.SyntheticEvent<HTMLInputElement>, isChecked: boolean) => {
     const chkValue = el.currentTarget.value;
 
     if (isChecked){
-      if (!field.value.some(item => item === chkValue)){
-        helpers.setValue([...field.value, chkValue]);
+      if (!field.value.includes(chkValue)){
+        helpers.setValue([...field.value ?? [], chkValue]);
       }
     } else {
-      helpers.setValue(field.value.filter(item => item !== chkValue));
+      helpers.setValue(field.value?.filter(item => item !== chkValue) ?? []);
     }
-   
+
   };
 
   return (
@@ -42,7 +42,7 @@ export const FormikCheckBoxes = (props: FormikRadioProps) => {
         </FormGroup>
       </FormControl>
     </OutlinedDiv>
-      
-  
+
+
   );
 };

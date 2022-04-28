@@ -13,7 +13,7 @@ export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['memb
           address1: { value: 'auto' },
           address2: { value: 'auto' },
           postal: { value: 'auto' },
-          contacts: { value: 'auto' },
+          dump: { value: 'auto' },
         },
       };
     }),

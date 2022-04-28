@@ -87,7 +87,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
           key={headCellGroup.join('-')}
           width={cellWidth[headIdx]}
-          > 
+          >
             {headCellGroup.map((headCellItem) => (
 
               <TableSortLabel
@@ -129,10 +129,18 @@ export function TableResult() {
   useEffect(()=>{
     if (!isSubmitting){
 
+      const { storeId,
+        custName, contactNum : phone,
+        address, email,
+        yumeAG, cocoAG, cocoConst,
+        custType,  recordStatus,
+      } = values;
+
       getSearchData({
-        storeId: values.storeId,
-        custName: values.custName,
-        phone: values.contactNum,
+        storeId, custName, phone,
+        address, email, yumeAG, cocoAG, cocoConst,
+        custType: custType !== '全て' ? custType : undefined,
+        recordStatus,
       }).then(({ normalizedData }) => {
         setRows(normalizedData);
       });
@@ -220,7 +228,7 @@ export function TableResult() {
                           id={labelId}
                           scope="row"
                           padding="normal"
-                          
+
                         >
                             {headCellGroup.map(headCellItem => (
 

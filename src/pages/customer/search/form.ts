@@ -9,8 +9,7 @@ export const recordStatuses = [
   '工事進行中',
   '工事完了(未精算)',
   '工事完了(精算済)',
-]
-  .map(item=>({ label: item, value: item }));
+] as const;
 
 export type CustomerTypeVals = typeof customerTypes[number];
 export type RecordStatus = typeof recordStatuses[number];
@@ -25,7 +24,7 @@ export const initialValues = {
   cocoAG: '',
   yumeAG: '',
   cocoConst: '',
-  recordStatus: '',
+  recordStatus: [] as RecordStatus[],
   custName: '',
   contactNum: '',
   email: '',

@@ -6,7 +6,7 @@ declare namespace CustomerGroupTypes {
     territory: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     projects: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
@@ -24,7 +24,7 @@ declare namespace CustomerGroupTypes {
       }[];
     };
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
@@ -35,7 +35,7 @@ declare namespace CustomerGroupTypes {
       }[];
     };
     members: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
@@ -43,8 +43,8 @@ declare namespace CustomerGroupTypes {
           address1: kintone.fieldTypes.SingleLineText;
           customerId: kintone.fieldTypes.Number;
           postal: kintone.fieldTypes.SingleLineText;
+          dump: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
-          contacts: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

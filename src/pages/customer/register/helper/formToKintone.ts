@@ -109,7 +109,7 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
             address2: { value: 'auto' },
             postal: { value: 'auto' },
             customerName: { value: 'auto' },
-            contacts: { value: JSON.stringify(customers[index]) },
+            dump: { value: JSON.stringify(customers[index]) },
           },
         };
       }) || [],

@@ -39,6 +39,9 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
       <MainContainer >
 
         <PageTitle label="顧客登録（個人）"/>
+        <Grid item xs={12}>
+          Hello
+        </Grid>
 
         <Grid container item xs={12} md={12} lg={12} xl={9} spacing={2} alignItems="flex-start" justifyContent={'center'}>
           <Grid className='fieldarray' container item xs={12} md={8} lg={5} spacing={2} >

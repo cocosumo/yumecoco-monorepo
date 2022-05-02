@@ -1,5 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { isMobile } from './../../helpers/kintone';
+import { grey } from '@mui/material/colors';
+
 
 
 const background = '#434343';
@@ -19,6 +21,9 @@ const darkTheme = createTheme({
           ':hover': {
             backgroundColor: '#CDCFFF',
           },
+        },
+        textSecondary: {
+          color: grey[700],
         },
       },
     },

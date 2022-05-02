@@ -12,8 +12,9 @@ export const DTCustomer = (props: {
   const { record, loading } = props;
 
 
+  // Customer group record
+  const { agents, storeName, members, projects } = record ?? {};
 
-  const { agents, members, projects } = record ?? {};
 
   const groupedCustAgents = agents?.value.reduce((accu, curr) => {
     const { value: {
@@ -71,7 +72,9 @@ export const DTCustomer = (props: {
       }
 
       <Stack spacing={2}>
-        <PageSubTitle  label={'担当者'} />
+        <PageSubTitle  label={'担当情報'} />
+        <LabeledDetail label='店舗名' value={storeName?.value ?? '店舗無し。管理者に連絡ください。'}/>
+
 
         {
           Object.entries(groupedCustAgents ?? {})

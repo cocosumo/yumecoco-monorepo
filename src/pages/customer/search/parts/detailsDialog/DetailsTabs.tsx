@@ -8,19 +8,36 @@ import { DTCustomer } from './DTCustomer';
 import { DTProject } from './DTProject';
 import { useState, useEffect } from 'react';
 import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
+import { ButtonEdit } from './ButtonEdit';
+import { getConstRecordByIds } from '../../../../../api/kintone/construction';
 
 export function DetailsTabs(props : {
   custGroupId?: string,
 }) {
   const { custGroupId } = props;
-  const [value, setValue] = React.useState('1');
+  const [tabValue, setTabValue] = React.useState('1');
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+    setTabValue(newValue);
   };
 
   const [record, setRecord] = useState<CustomerGroupTypes.SavedData>();
+  const [fetchedProjects, setFetchedProjects] = useState<ConstructionDetails.SavedData[]>();
   const [loading, setLoading] = useState<boolean>(true);
+  const projectIds =  record?.projects?.value
+    .map(item => item.value.constructionId.value)
+    .filter(Boolean) ?? [];
+
+  useEffect(()=>{
+    if (projectIds.length && !fetchedProjects && tabValue === '2'){
+      getConstRecordByIds(
+        projectIds,
+      ).then(result => {
+        console.log('triggered');
+        setFetchedProjects(result.records as unknown as ConstructionDetails.SavedData[]);
+      });
+    }
+  }, [JSON.stringify(projectIds), fetchedProjects, tabValue]);
 
   useEffect(()=>{
     if (custGroupId){
@@ -34,22 +51,29 @@ export function DetailsTabs(props : {
     }
   }, [custGroupId]);
 
-  const isWithProject = Boolean(record?.projects.value.filter(item=>item.id));
+  const isWithProject = Boolean(record?.projects.value
+    .filter(item=>item.value.constructionId.value)
+    .length);
 
+  console.log(isWithProject, record?.projects.value);
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext value={value}>
+      <TabContext  value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList onChange={handleChange} aria-label="lab API tabs example">
+          <TabList variant='fullWidth' onChange={handleChange} >
             <Tab label="顧客情報" value="1" />
             <Tab label="工事情報" value="2" disabled={!isWithProject} />
           </TabList>
         </Box>
         <TabPanel value="1">
           <DTCustomer {...{ record, loading }} />
+          <ButtonEdit link={`/custgroup/edit/${custGroupId}`}/>
         </TabPanel>
         <TabPanel value="2">
-          <DTProject projects={record?.projects} loading={loading} />
+          {
+            fetchedProjects &&
+            <DTProject loading={loading} fetchedProjects={fetchedProjects} />
+          }
         </TabPanel>
       </TabContext>
     </Box>

@@ -13,7 +13,13 @@ export const DTCustomer = (props: {
 
 
   // Customer group record
-  const { agents, storeName, members, projects } = record ?? {};
+  const {
+    agents,
+    storeName,
+    members,
+    status,
+    custType,
+    projects } = record ?? {};
 
 
   const groupedCustAgents = agents?.value.reduce((accu, curr) => {
@@ -28,6 +34,11 @@ export const DTCustomer = (props: {
 
   return (
     <Collapse in={!loading}>
+      <Stack spacing={2} mb={2}>
+        <LabeledDetail label='ステータス' value={status?.value}/>
+        <LabeledDetail label='種別' value={custType?.value}/>
+      </Stack>
+
       {
         members?.value.map(({
           id, value : {
@@ -38,8 +49,6 @@ export const DTCustomer = (props: {
           },
         }, idx) => {
 
-
-
           const {
             custName,
             custNameReading,
@@ -47,6 +56,7 @@ export const DTCustomer = (props: {
             email, emailRel, gender,
             phone1, phone1Rel,
             phone2, phone2Rel,
+            isSameAddress,
           } = JSON.parse(dump.value || 'null') as CustomerInstance ?? {};
 
           const resolveAddress = (postal.value || address1.value || address2.value) ? `${postal.value}  ${address1.value}${address2.value}` : '';
@@ -54,18 +64,27 @@ export const DTCustomer = (props: {
             .filter(([value]) => value )
             .map(([value, suffix]) => `${value}${suffix}`).join('');
 
+          const resolvedIsSameAddress = Boolean(+isSameAddress);
           return (
             <Stack key={id} spacing={1} mb={2}>
+
+
               <PageSubTitle  label={`契約者 ${idx + 1} `} />
               <LabeledDetail label='顧客番号' value={customerId.value}/>
               <LabeledDetail label='氏名' value={customerName.value ?? custName}/>
               <LabeledDetail label='氏名フリガナ' value={custNameReading}/>
               <LabeledDetail label='性別' value={gender}/>
               <LabeledDetail label='誕生日' value={resolveBirthDate}/>
-              <LabeledDetail label='住所' value={resolveAddress}/>
-              <LabeledDetail label='電話番号1' value={[phone1, phone1Rel].filter(Boolean).join(', ')}/>
-              <LabeledDetail label='電話番号2' value={[phone2, phone2Rel].filter(Boolean).join(', ')}/>
-              <LabeledDetail label='メアド' value={[email, emailRel].filter(Boolean).join(', ')}/>
+              {resolvedIsSameAddress && <LabeledDetail label='住所' value={'契約者１と同じ'}/> }
+              {!resolvedIsSameAddress &&
+              <>
+                <LabeledDetail label='住所' value={resolveAddress}/>
+                <LabeledDetail label='電話番号1' value={[phone1, phone1Rel].filter(Boolean).join(', ')}/>
+                <LabeledDetail label='電話番号2' value={[phone2, phone2Rel].filter(Boolean).join(', ')}/>
+                <LabeledDetail label='メアド' value={[email, emailRel].filter(Boolean).join(', ')}/>
+              </>
+              }
+
             </Stack>
           );
         })

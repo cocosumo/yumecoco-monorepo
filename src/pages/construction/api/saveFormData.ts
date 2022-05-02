@@ -15,6 +15,8 @@ export const convertToKintone = (
 
   console.log(rawValues, 'rawValues');
 
+  console.log(isAgentConfirmed, (+isAgentConfirmed).toString(), 'isAgentConfirmed');
+
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
 
@@ -88,6 +90,7 @@ export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise
   id: string,
   revision: string,
 }> =>{
+
   return saveConstructionData(rawValues)
     .then(async resp => {
       /* Todo add projects to customer form */

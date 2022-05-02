@@ -28,9 +28,15 @@ export const DetailsDialog = (props : {
   return (
     <Dialog
       TransitionComponent={Transition}
+      PaperProps={{
+        sx: {
+          height: '80vh',
+        },
+      }}
       onClose={handleClose}
       open={open}
-      maxWidth="md"
+      fullWidth
+      maxWidth="sm"
     >
       <DialogTitle>
         <Stack spacing={2} direction="row" justifyContent={'space-between'}>

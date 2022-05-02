@@ -103,7 +103,6 @@ export const saveProjectToCustGroup = async (projectId: string, custGroupId: str
 
   if (!custGroupId) throw new Error('No custgroup id supplied in saveConstructionData.');
 
-  console.log(cocoConst);
 
   const requests : Parameters<typeof KintoneClient.bulkRequest>[0]['requests'] = [
     ...await resolveDeleteRequest(projectId),

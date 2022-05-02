@@ -1,23 +1,20 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+
+import { Box, Tab,  Skeleton  } from '@mui/material';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { DTCustomer } from './DTCustomer';
 import { DTProject } from './DTProject';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SyntheticEvent } from 'react';
 import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
 import { ButtonEdit } from './ButtonEdit';
-import { getConstRecordByIds } from '../../../../../api/kintone/construction';
+import { getConstRecordByIds } from '../../../../../api/kintone/construction/GET';
 
 export function DetailsTabs(props : {
   custGroupId?: string,
 }) {
   const { custGroupId } = props;
-  const [tabValue, setTabValue] = React.useState('1');
+  const [tabValue, setTabValue] = useState('1');
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (event: SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
   };
 
@@ -72,7 +69,12 @@ export function DetailsTabs(props : {
         <TabPanel value="2">
           {
             fetchedProjects &&
-            <DTProject loading={loading} fetchedProjects={fetchedProjects} />
+            <DTProject fetchedProjects={fetchedProjects} />
+          }
+
+          {
+            !fetchedProjects &&
+            <Skeleton variant="rectangular" width={210} height={118}/>
           }
         </TabPanel>
       </TabContext>

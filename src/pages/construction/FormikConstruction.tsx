@@ -18,13 +18,19 @@ export const FormikConstruction  = () => {
 
   useEffect(()=>{
     /** If edit mode */
+    console.log(recordId, 'recordId');
+
     if (recordId){
       getFormDataById(recordId)
         .then((resp) => {
           setInitialState(resp);
         });
+    } else {
+      setInitialState(initialValues);
     }
   }, [recordId]);
+
+
 
   return (
     <>
@@ -34,7 +40,7 @@ export const FormikConstruction  = () => {
       initialValues={initialState}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+
         saveFormData({ ...values, recordId })
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });

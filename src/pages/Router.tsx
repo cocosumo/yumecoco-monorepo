@@ -20,8 +20,8 @@ const Router = () => (
 
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
-    <Route path="/construction/register" element={<FormikConstruction/>} key={'register'}/>
-    <Route path="/construction/edit/:recordId/" element={<FormikConstruction/>} />
+    <Route path="/construction/register" element={<FormikConstruction />} key={'regConst'}/>
+    <Route path="/construction/edit/:recordId/" element={<FormikConstruction />} key={'edit'}/>
     <Route path="/customer/search" element={<FormikCustomerSearch />} />
     <Route path="/custgroup/register" element={<FormikIndividualCustomer key={'register'} />} />
     <Route path="/custgroup/edit/:recordId/" element={<FormikIndividualCustomer />} />

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { KeyOfConstructionDetails } from '../../form';
+import { getFieldName, KeyOfConstructionDetails } from '../../form';
 import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 
 
@@ -56,7 +56,7 @@ export const ConstructionInfo = (
         }
 
         <Grid item xs={12} md={4}>
-          <FormikLabeledCheckBox name='confirmAgent' label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
+          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
 
         </Grid>
 

@@ -33,6 +33,7 @@ export type ConstructionDetailsType = typeof initialValues;
 export type KeyOfConstructionDetails = keyof ConstructionDetailsType;
 export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
+export const getFieldName = (fieldName: KeyOfConstructionDetails) => fieldName;
 
 /**
  * Set Validation for fields that requires it.

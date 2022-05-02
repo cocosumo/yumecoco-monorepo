@@ -61,11 +61,14 @@ export const CustInfo = (props : {
   };
 
   useEffect(()=>{
+
     if (recordId && custGroupId){
       getCustGroup(custGroupId)
         .then(resp => {
           handleCustomerChange(resp.record as unknown as CustomerGroupTypes.SavedData);
         });
+    } else {
+      setCustomerRecord(undefined);
     }
   }, [recordId, custGroupId]);
 

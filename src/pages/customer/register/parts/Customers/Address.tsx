@@ -8,7 +8,9 @@ import { CustomerForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
 import { getAddressByPostal } from '../../../../../api/others/postal';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { getPrefectures } from '../../../../../api/others/address';
+import { AddressDialog } from './AddressDialog';
 
 
 
@@ -17,13 +19,13 @@ interface AddressProps {
   index: number
 }
 
-const AddressFields = (namePrefix: string, postal: string, handlePostalSearch: ()=>void) => (
+const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: ()=>void) => (
   <Grid container item xs={12} spacing={2} mt={1}>
     <Grid item xs={8} md={4} >
       <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={!!postal}/>
     </Grid>
     <Grid item xs={4} md={2} >
-      <IconButton color={'primary'} size={'small'} onClick={handlePostalSearch}>
+      <IconButton color={'primary'} size={'small'} onClick={handleAddressSearch}>
         〒<SearchIcon sx={{ ml: '-6px', mt: '8px' }} fontSize="large" color={'primary'}/>
       </IconButton>
     </Grid>
@@ -41,10 +43,9 @@ const AddressFields = (namePrefix: string, postal: string, handlePostalSearch: (
 );
 
 export const Address = (props: AddressProps) => {
-
+  const [openAddressDialog, setOpenAddressDialog] = useState<boolean>(false);
   const {
     setFieldValue,
-    
     values: { customers },
   } = useFormikContext<CustomerForm>();
 
@@ -58,12 +59,8 @@ export const Address = (props: AddressProps) => {
   const isFirstCustomer = !index;
   const divRef = useRef<HTMLDivElement>(null);
 
-  const handlePostalSearch = () => {
- 
-    getAddressByPostal(postal as string).then((address)=>{
-      setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
-    });
-   
+  const handleAddressSearch = () => {
+    setOpenAddressDialog(true);
   };
 
   useLazyEffect(()=>{
@@ -71,17 +68,18 @@ export const Address = (props: AddressProps) => {
     if (customers.length > 1 ) {
       divRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
-    
+
   }, [customers.length, isSameAddress ], 300);
 
   useLazyEffect(()=>{
+    getPrefectures();
     /* Automatically retrieve address if address is empty */
     if (postal && !address1){
-      handlePostalSearch();
+      getAddressByPostal(postal as string).then((address)=>{
+        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
+      });
     }
   }, [postal], 300);
-
- 
 
   return (
     <>
@@ -93,9 +91,16 @@ export const Address = (props: AddressProps) => {
 
       <Grid item xs={12} ref={divRef}>
         <Collapse appear={!isFirstCustomer} in={(!isSameAddress || isFirstCustomer)} >
-          {AddressFields(namePrefix, postal, handlePostalSearch)}
+          {AddressFields(namePrefix, postal, handleAddressSearch)}
         </Collapse>
       </Grid>
+
+      <AddressDialog
+        open={openAddressDialog}
+        handleClose={()=>{
+          setOpenAddressDialog(false);
+        }}
+      />
     </>
   );
 };

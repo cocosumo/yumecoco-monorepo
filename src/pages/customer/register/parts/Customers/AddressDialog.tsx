@@ -91,6 +91,13 @@ export const AddressDialog = (props: {
   }, [addressDetails.city]);
 
   useEffect(()=>{
+    if (addressDetails.postal){
+      console.log(addressDetails.postal);
+    }
+
+  }, [addressDetails.postal]);
+
+  useEffect(()=>{
     if (open){
       setAddressDetails(initialAddressDetailsState);
     }

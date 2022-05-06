@@ -1,45 +1,13 @@
-import { DialogTitle, Dialog, DialogContent, Button, Grid, Divider, Typography, Stack } from '@mui/material';
+import { DialogTitle, Dialog, DialogContent, Grid, DialogActions, Button, Typography, CircularProgress } from '@mui/material';
+import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { getPrefectures, getCities, getTowns, GetTownsResponseLocation, GetCitiesRespLocation } from '../../../../../api/others/address';
 import { usePrefectureArea } from '../../../../../hooks/usePrefectureArea';
-
-interface AddressDetails {
-  area: string,
-  prefecture: string,
-  city: string,
-  town: string,
-  postal: string,
-}
-
-export const Choices = (props: {
-  name: keyof AddressDetails,
-  choices: string[]
-  handleClick : (name: keyof AddressDetails, value: string, postal?: string) => void
-}) => {
-
-  const { choices, handleClick, name } = props;
-  return (
-    <>
-      {
-      choices?.map(
-        item => (
-          <Grid key={item} item xs={'auto'}>
-            <Button
-              key={item}
-              variant={'outlined'}
-              onClick={()=>{
-                handleClick(name, item);
-              }}
-            >{item}</Button>
-          </Grid>
-        ),
-      )
-    }
-    </>
-  );
-};
+import { SimpleChoices, SortedCities, SortedTowns } from './AddressDialogParts/';
 
 
+
+export type AddressDetails = typeof initialAddressDetailsState;
 
 const initialAddressDetailsState = {
   area: '',
@@ -58,44 +26,62 @@ const alphabeticalReducer = (accu: any, curr: any, groupKey: string)=>{
 
 export const AddressDialog = (props: {
   open: boolean,
+  postalFN: string,
+  address1FN: string,
   handleClose: ()=>void
 }) => {
+  const { setFieldValue } = useFormikContext();
   const { areas } = usePrefectureArea();
   const [prefectures, setPrefectures] = useState<string[]>([]);
   const [cities, setCities] = useState<GetCitiesRespLocation>([]);
   const [towns, setTowns] = useState<GetTownsResponseLocation>([]);
   const [addressDetails, setAddressDetails] = useState<AddressDetails>(initialAddressDetailsState);
+  const [isLoading, setIsLoading] = useState(false);
+  const { area, city, postal, prefecture, town } = addressDetails;
 
-
-  const { open, handleClose } = props;
+  const { open, postalFN, address1FN, handleClose } = props;
 
   const handleClick = (name: keyof AddressDetails, value: string) => {
     setAddressDetails(prev => ({ ...prev, [name]: value }));
   };
 
   useEffect(()=>{
-    if (!addressDetails.area) return;
-    getPrefectures(addressDetails.area).then(resp => setPrefectures(resp));
-  }, [addressDetails.area]);
+    if (!area) return;
+    setIsLoading(true);
+    getPrefectures(area).then(resp => {
+      setIsLoading(false);
+      setPrefectures(resp);
+    });
+  }, [area]);
 
   useEffect(()=>{
-    if (!addressDetails.prefecture) return;
-    getCities({ prefecture: addressDetails.prefecture })
-      .then(resp => setCities(resp));
-  }, [addressDetails.prefecture]);
+    if (!prefecture) return;
+    setIsLoading(true);
+    getCities({ prefecture: prefecture })
+      .then(resp => {
+        setIsLoading(false);
+        setCities(resp);
+      });
+  }, [prefecture]);
 
   useEffect(()=>{
-    if (!addressDetails.city) return;
-    getTowns({ city: addressDetails.city })
-      .then(resp => setTowns(resp));
-  }, [addressDetails.city]);
+    if (!city) return;
+    setIsLoading(true);
+    getTowns({ city: city })
+      .then(resp => {
+        setIsLoading(false);
+        setTowns(resp);
+      });
+  }, [city]);
 
   useEffect(()=>{
-    if (addressDetails.postal){
-      console.log(addressDetails.postal);
+    if (postal){
+      handleClose();
+      setFieldValue(postalFN, postal );
+      setFieldValue(address1FN, `${prefecture}${city}${town}` );
     }
 
-  }, [addressDetails.postal]);
+  }, [postal]);
 
   useEffect(()=>{
     if (open){
@@ -114,109 +100,67 @@ export const AddressDialog = (props: {
     <Dialog
 
       open={open}
+      PaperProps={{ sx: { height: '80vh' } }}
       onClose={handleClose}
       fullWidth
       maxWidth={'xs'}
 
     >
-      <DialogTitle>
-        選択してください。
+      <DialogTitle >
+        選択してください。<br />
+
+        <Typography variant='subtitle1' component={'span'} fontWeight={600}>
+          {`${postal ? '〒' + postal : ''} ${prefecture}${city}${town}`}
+        </Typography>
       </DialogTitle>
-      <DialogContent>
-        <Grid container spacing={2}>
-          {!addressDetails.area &&
-            <Choices name='area' choices={areas} handleClick={handleClick} />
+      <DialogContent dividers>
+        <Grid container spacing={2} justifyContent="center" alignContent={'center'}>
+          {isLoading &&
+            <Grid item xs={8}><CircularProgress size={200} /></Grid>
           }
 
-          {addressDetails.area && !addressDetails.prefecture &&
-            <Choices name='prefecture' choices={prefectures} handleClick={handleClick} />
+          {!addressDetails.area && !isLoading &&
+            <SimpleChoices name='area' choices={areas} handleClick={handleClick} />
           }
 
-          {addressDetails.prefecture && !addressDetails.city &&
-            Object.entries(groupedCities)
-              .sort(([a], [b])=>{
-                return a.includes('そのた') ? 0 : a.localeCompare(b);
-              })
-              .map(([groupKey, values]) => {
-                return (
-                  <Grid key={groupKey} container item xs={12} spacing={2}>
-                    <Grid item xs={12}>
-                      <Divider textAlign='left'>{groupKey} </Divider>
-                    </Grid>
-                    {
-                      values.map(({ city_kana, city }) => {
-
-                        return (
-                          <Grid key={city_kana} item xs={'auto'}>
-                            <Button
-                              variant={'outlined'}
-                              onClick={() =>
-                                setAddressDetails(prev => (
-                                  { ...prev, city }
-                                ))
-                              }
-                            >
-                              <Stack>
-                                {city}
-
-                              </Stack>
-                            </Button>
-                          </Grid>
-                        );
-                      })
-                    }
-
-                  </Grid>
-                );
-              })
+          {addressDetails.area && !addressDetails.prefecture && !isLoading &&
+            <SimpleChoices name='prefecture' choices={prefectures} handleClick={handleClick} />
           }
 
-          { addressDetails.city && !addressDetails.town &&
-            Object.entries(groupedTowns)
-              .sort(([a], [b])=>{
-                return a.includes('そのた') ? 0 : a.localeCompare(b);
-              })
-              .map(([groupKey, values]) => {
-                return (
-                  <Grid key={groupKey} container item xs={12} spacing={2}>
-                    <Grid item xs={12}>
-                      <Divider textAlign='left'>{groupKey} </Divider>
-                    </Grid>
-                    {
-                      values.map(({ town_kana, postal, town }) => {
+          {addressDetails.prefecture && !addressDetails.city && !isLoading &&
+            <SortedCities
+              groupedCities={groupedCities}
+              handleChoice={(val) => {
+                setAddressDetails(prev => (
+                  { ...prev, city: val }
+                ));
+              }}
+            />
+          }
 
-                        return (
-                          <Grid key={town_kana} item xs={'auto'}>
-                            <Button
-                              variant={'outlined'}
-                              onClick={() =>
-                                setAddressDetails(prev => (
-                                  { ...prev,
-                                    town,
-                                    postal,
-                                  }
-                                ))
-                              }
-                            >
-                              <Stack>
-                                {town}
-                                <Typography variant="caption">
-                                  〒 {postal.slice(0, 3) + '-' + postal.slice(3)}
-                                </Typography>
-                              </Stack>
-                            </Button>
-                          </Grid>
-                        );
-                      })
-                    }
-                  </Grid>
+          { addressDetails.city && !addressDetails.town && !isLoading &&
+            <SortedTowns
+              groupedTowns={groupedTowns}
+              handleChoice={(_postal, _town) => {
+                setAddressDetails(prev => (
+                  { ...prev,
+                    postal: _postal,
+                    town: _town,
+                  }
+                ));
+              }}
+            />
 
-                );
-              })
           }
 
         </Grid>
       </DialogContent>
+      <DialogActions sx={{
+        justifyContent: 'space-between',
+      }}>
+        <Typography variant="caption">出典:「位置参照情報」(国土交通省)の加工情報・「HeartRails Geo API」(HeartRails Inc.)</Typography>
+        <Button onClick={handleClose}>閉じる</Button>
+      </DialogActions>
     </Dialog>
   );
 };

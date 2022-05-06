@@ -97,6 +97,8 @@ export const Address = (props: AddressProps) => {
 
       <AddressDialog
         open={openAddressDialog}
+        postalFN={`${namePrefix}${getCustFieldName('postal')}`}
+        address1FN={`${namePrefix}${getCustFieldName('address1')}`}
         handleClose={()=>{
           setOpenAddressDialog(false);
         }}

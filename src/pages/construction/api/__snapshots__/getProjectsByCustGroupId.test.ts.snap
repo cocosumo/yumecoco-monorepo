@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Projects Data 1`] = `
+Array [
+  Object {
+    "$id": Object {
+      "type": "__ID__",
+      "value": "9",
+    },
+    "$revision": Object {
+      "type": "__REVISION__",
+      "value": "8",
+    },
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "469127",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "cocoAG",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "47",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "三上　誠一",
+            },
+          },
+        },
+      ],
+    },
+    "custType": Object {
+      "type": "RADIO_BUTTON",
+      "value": "個人",
+    },
+    "members": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "469128",
+          "value": Object {
+            "address1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "島根県飯石郡飯南町赤名",
+            },
+            "address2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "customerId": Object {
+              "type": "NUMBER",
+              "value": "412",
+            },
+            "customerName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "山口",
+            },
+            "dump": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "{\\"key\\":\\"y5isV\\",\\"id\\":\\"412\\",\\"index\\":0,\\"revision\\":\\"1\\",\\"custName\\":\\"山口\\",\\"custNameReading\\":\\"ラス　ロレンズ\\",\\"gender\\":null,\\"birthYear\\":\\"1999\\",\\"birthMonth\\":\\"\\",\\"birthDay\\":\\"\\",\\"postal\\":\\"690-3511\\",\\"address1\\":\\"島根県飯石郡飯南町赤名\\",\\"address2\\":\\"\\",\\"phone1\\":\\"0701452907\\",\\"phone1Rel\\":\\"子\\",\\"phone2\\":\\"\\",\\"phone2Rel\\":\\"\\",\\"email\\":\\"\\",\\"emailRel\\":\\"\\",\\"isSameAddress\\":false}",
+            },
+            "postal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "690-3511",
+            },
+          },
+        },
+      ],
+    },
+    "projects": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "469132",
+          "value": Object {
+            "cocoConst1": Object {
+              "type": "NUMBER",
+              "value": "61",
+            },
+            "cocoConst1Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "水谷　恭輔",
+            },
+            "cocoConst2": Object {
+              "type": "NUMBER",
+              "value": "61",
+            },
+            "cocoConst2Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "水谷　恭輔",
+            },
+            "constructionId": Object {
+              "type": "NUMBER",
+              "value": "101",
+            },
+            "constructionName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "sdsdsd",
+            },
+            "kariAddress": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "projectAddress1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊橋市野依町",
+            },
+            "projectAddress2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "sdsdsdds",
+            },
+            "projectPostal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "441-8124",
+            },
+          },
+        },
+        Object {
+          "id": "469137",
+          "value": Object {
+            "cocoConst1": Object {
+              "type": "NUMBER",
+              "value": "61",
+            },
+            "cocoConst1Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "水谷　恭輔",
+            },
+            "cocoConst2": Object {
+              "type": "NUMBER",
+              "value": "60",
+            },
+            "cocoConst2Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "黒木　麻衣子",
+            },
+            "constructionId": Object {
+              "type": "NUMBER",
+              "value": "102",
+            },
+            "constructionName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "サンプル",
+            },
+            "kariAddress": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "projectAddress1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊橋市野依町",
+            },
+            "projectAddress2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "projectPostal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "441-8124",
+            },
+          },
+        },
+      ],
+    },
+    "status": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "情報登録のみ",
+    },
+    "storeId": Object {
+      "type": "NUMBER",
+      "value": "7",
+    },
+    "storeName": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "千種大久手店",
+    },
+    "territory": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "9",
+    },
+    "作成日時": Object {
+      "type": "CREATED_TIME",
+      "value": "2022-02-11T13:08:00Z",
+    },
+    "作成者": Object {
+      "type": "CREATOR",
+      "value": Object {
+        "code": "coco.takahashi.k",
+        "name": "高橋 加奈",
+      },
+    },
+    "更新日時": Object {
+      "type": "UPDATED_TIME",
+      "value": "2022-05-06T05:12:00Z",
+    },
+    "更新者": Object {
+      "type": "MODIFIER",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+  },
+]
+`;

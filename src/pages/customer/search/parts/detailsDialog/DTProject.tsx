@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 
 import { ButtonEdit } from './ButtonEdit';
 import { LabeledDetail } from './LabeledDetail';
@@ -24,7 +24,7 @@ export const DTProject = (props: {
         }) => {
 
           return (
-            <Stack key={$id.value} spacing={2}>
+            <Stack key={$id.value} spacing={2} mb={2}>
               <LabeledDetail label="工事番号" value={$id.value} />
               <LabeledDetail label="工事種別" value={constructionType.value} />
               <LabeledDetail label="工事名称" value={constructionName.value} />
@@ -47,6 +47,7 @@ export const DTProject = (props: {
               <LabeledDetail label="仮換地地番" value={addressKari.value} />
 
               <ButtonEdit link={`/construction/edit/${$id.value}`}/>
+              <Divider light/>
             </Stack>
           );
         })

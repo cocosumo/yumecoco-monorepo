@@ -25,6 +25,10 @@ const darkTheme = createTheme({
         textSecondary: {
           color: grey[700],
         },
+        outlinedSecondary: {
+          color: grey[700],
+          borderColor: grey[300],
+        },
       },
     },
     MuiInputBase: {

@@ -1,26 +1,50 @@
 declare namespace CustomerGroupTypes {
   interface Data {
-    storeName: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.Number;
-    members: {
-      type: 'SUBTABLE';
+    custType: kintone.fieldTypes.RadioButton;
+    storeName: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
+    status: kintone.fieldTypes.SingleLineText;
+    projects: {
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
-          address: kintone.fieldTypes.SingleLineText;
-          customerId: kintone.fieldTypes.Number;
-          customerName: kintone.fieldTypes.SingleLineText;
+          cocoConst2: kintone.fieldTypes.Number;
+          kariAddress: kintone.fieldTypes.SingleLineText;
+          cocoConst1: kintone.fieldTypes.Number;
+          cocoConst2Name: kintone.fieldTypes.SingleLineText;
+          projectPostal: kintone.fieldTypes.SingleLineText;
+          constructionName: kintone.fieldTypes.SingleLineText;
+          constructionId: kintone.fieldTypes.Number;
+          cocoConst1Name: kintone.fieldTypes.SingleLineText;
+          projectAddress1: kintone.fieldTypes.SingleLineText;
+          projectAddress2: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
+        };
+      }[];
+    };
+    members: {
+      type: "SUBTABLE";
+      value: {
+        id: string;
+        value: {
+          address2: kintone.fieldTypes.SingleLineText;
+          address1: kintone.fieldTypes.SingleLineText;
+          customerId: kintone.fieldTypes.Number;
+          postal: kintone.fieldTypes.SingleLineText;
+          dump: kintone.fieldTypes.SingleLineText;
+          customerName: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

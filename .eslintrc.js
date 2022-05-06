@@ -23,8 +23,16 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["@mui/*/*/*", "!@mui/material/test-utils/*"]
+      }
+    ],
     "react/react-in-jsx-scope": 0,
     "react/prop-types": "off",
-    "react/jsx-indent": [2, 2]
+    "react/jsx-indent": [2, 2],
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
   },
 };

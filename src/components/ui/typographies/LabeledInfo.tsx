@@ -1,15 +1,15 @@
 import { Grid, Typography } from '@mui/material';
 
-interface LabeledInfoProps {
+export interface LabeledInfoProps {
   label: string,
   data?: string
 }
 
-const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
+export const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
 
   return (
     <Grid container>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12}  sm={4} md={6}>
         <Typography fontWeight={600}  variant='subtitle2'>{label} </Typography>
       </Grid>
       <Grid item xs>

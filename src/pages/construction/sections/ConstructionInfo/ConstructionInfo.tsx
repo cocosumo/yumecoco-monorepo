@@ -1,22 +1,29 @@
 
 import {  Grid } from '@mui/material';
-import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
+import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { KeyOfConstructionDetails } from '../../form';
+import { getFieldName, KeyOfConstructionDetails } from '../../form';
+import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 
 
-
-export const ConstructionInfo = () => {
+export const ConstructionInfo = (
+  props : {
+    storeId: string,
+    territory?:  GetEmployeesParams['territory']
+  },
+) => {
+  const { storeId, territory } = props;
   const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
 
   useEffect(()=>{
     KintoneRecord.getRecords({
       app: APPIDS.constructionType,
+      query: 'order by レコード番号 asc',
     }).then((res) => {
       const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
       setConstructionTypeOptions(
@@ -43,13 +50,13 @@ export const ConstructionInfo = () => {
         {
           [1, 2].map((num) => (
             <Grid key={num} item xs={12} md={4}>
-              <ConstructionAgent number={num}/>
+              <ConstructionAgent number={num} {...{ storeId, territory }}/>
             </Grid>
           ))
         }
 
         <Grid item xs={12} md={4}>
-          <FormikLabeledCheckBox name='confirmAgent' label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
+          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
 
         </Grid>
 

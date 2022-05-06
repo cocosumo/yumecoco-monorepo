@@ -3,7 +3,11 @@ import { TextField } from '@mui/material';
 import { TextMaskPostal } from './Masks';
 import { useState, ChangeEvent } from 'react';
 
-/* Sample of mask */
+/**
+ * Sample of mask
+ * @deprecated
+ *
+ * */
 export function FormikMaskTextField() {
   const [value, setValue] = useState<string>();
 

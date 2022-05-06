@@ -9,8 +9,11 @@ export const custIdsToGroupMems = (ids: string[]): CustomerGroupTypes.Data['memb
         id: '',
         value: {
           customerId: { value: item },
-          customerName: { value: '' },
-          address: { value: '' },
+          customerName: { value: 'auto' },
+          address1: { value: 'auto' },
+          address2: { value: 'auto' },
+          postal: { value: 'auto' },
+          dump: { value: 'auto' },
         },
       };
     }),
@@ -26,14 +29,14 @@ const convertContactsObj = (stateContacts: ContactField[]): CustomerTypes.Data['
         value: {
           contactType: { value: item.contactType.value },
           contactValue: { value: item.contactValue.value },
-          classification: { value: item.classification.value },
+          relation: { value: item.classification.value },
         },
       };
     }),
   };
 };
 
-const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents'] => {
+const convertAgentsObj = (agents: PersonsInCharge): ConstructionDetails.Data['agents'] => {
   return {
     type: 'SUBTABLE',
     value: Object.entries(agents).reduce((prev, [key, curr]) => {
@@ -50,7 +53,7 @@ const convertAgentsObj = (agents: PersonsInCharge): CustomerTypes.Data['agents']
       }
 
       return prev;
-    }, [] as CustomerTypes.Data['agents']['value']),
+    }, [] as ConstructionDetails.Data['agents']['value']),
   };
 };
 

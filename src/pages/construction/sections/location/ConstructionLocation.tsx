@@ -1,5 +1,5 @@
-import PageSubTitle from '../../../../components/ui/labels/PageSubTitle';
-import { Grid } from '@mui/material';
+import { PageSubTitle } from '../../../../components/ui/labels/PageSubTitle';
+import { Grid, debounce } from '@mui/material';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { BuildingType, ConstructionSearch } from './parts';
 import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textfield';
@@ -7,7 +7,6 @@ import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textf
 import { initialValues, KeyOfConstructionDetails } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
-import debounce from 'lodash.debounce';
 import { useCallback } from 'react';
 
 
@@ -15,6 +14,7 @@ export const ConstructionLocation = () => {
 
   const {
     values : {
+      address1,
       isChkAddressKari,
     },
     setFieldValue,
@@ -22,11 +22,16 @@ export const ConstructionLocation = () => {
 
   const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
     const postal = e.target.value;
-    getAddressByPostal(postal)
-      .then(resp => {
-        setFieldValue('address1', resp);
-      });
-  }, 500), []);
+
+    if (postal && !address1){
+
+      getAddressByPostal(postal)
+        .then(resp => {
+          setFieldValue('address1', resp);
+        });
+
+    }
+  }, 500), [address1]);
 
   return (
     <>

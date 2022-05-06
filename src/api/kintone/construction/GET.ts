@@ -1,4 +1,3 @@
-import { initialValues } from '../../../pages/construction/form';
 import { APPIDS, KintoneRecord } from '../config';
 
 export const getConstDetails = async (recordId: string) => {
@@ -8,14 +7,34 @@ export const getConstDetails = async (recordId: string) => {
   });
 };
 
+/**
+ * Will reorganize code to put specialized api in
+ * the directory of the caller.
+ * @deprecated
+ */
 export const getFlatConstDetails = async (recordId:　string) => {
   const kintoneRecord = await getConstDetails(recordId);
-  console.log(kintoneRecord);
+
   return Object.entries(kintoneRecord.record).reduce((acc, [key, val]) => {
-    if (key in initialValues){
-      return { ...acc, [key]: val.value };
-    }
-    return acc;
+
+    return { ...acc, [key]: val.value };
+
   }, {});
 
+};
+
+export const getConstRecord = async (id: string) => {
+  return KintoneRecord.getRecord({
+    app: APPIDS.constructionDetails,
+    id,
+  }).then(resp => resp.record as unknown as ConstructionDetails.SavedData);
+};
+
+export const getConstRecordByIds = async (ids: string[]) => {
+  return KintoneRecord.getRecords({
+    app: APPIDS.constructionDetails,
+    query: ids
+      .map(id => `${'$id' as keyof ConstructionDetails.SavedData} = "${id}"`)
+      .join(' or '),
+  });
 };

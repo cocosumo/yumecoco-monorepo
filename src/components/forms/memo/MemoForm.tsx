@@ -1,23 +1,16 @@
-import Stack from '@mui/material/Stack/Stack';
+import Stack from '@mui/material/Stack';
 import BasicSelect from '../../ui/selects/BasicSelect';
-import TextField from '@mui/material/TextField/TextField';
+import TextField from '@mui/material/TextField';
 import { LabeledCheckBox } from '../../ui/checkboxes';
-import Caption from '../../ui/typographies/Caption';
+import { Caption } from '../../ui/typographies';
 import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
 import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
 import { ElementTarget } from '../../../types/forms';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
-const options = [
-  { label: '顧客情報' },
-  { label: '打ち合わせ' },
-  { label: '契約内容' },
-  { label: '工事場所情報' },
-  { label: '問い合わせ' },
-  { label: 'その他' },
-
-];
+const options = ['顧客情報', '打ち合わせ', '契約内容', '工事場所情報', '問い合わせ', 'その他']
+  .map(item => ({ label: item, value: item }));
 
 export interface MemoFormProps {
   formState: MemoFormState,

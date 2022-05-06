@@ -2,13 +2,15 @@
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels/';
 import { ConstructionInfo } from './sections/ConstructionInfo';
-import { Foot, Submit } from './sections/bottom';
 import { ConstructionLocation, CustInfo } from './sections';
-import { Divider, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../components/ui/snacks/FormSnack';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { FabSave } from '../../components/ui/fabs/FabSave';
+import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
+import { GetEmployeesParams } from '../../api/kintone/employees/GET';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -16,7 +18,11 @@ interface ConstructionFormProps {
 
 export const ConstructionForm  = (props: ConstructionFormProps) => {
   const { handleSnack } = props;
-  const { isValid, isSubmitting } = useFormikContext();
+  const { isValid, isSubmitting, submitForm } = useFormikContext();
+  const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
+
+
+  const { storeId, territory } = custGroupRecord ?? {};
 
   useEffect(()=>{
     if (!isValid && !isSubmitting){
@@ -27,16 +33,16 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
   return (
 
     <Form noValidate>
+      <ScrollToFieldError/>
       <MainContainer>
+
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
-        <CustInfo/>
-        <ConstructionInfo />
-        <ConstructionLocation/>
-
-        <Grid item xs={12}><Divider/></Grid>
-
-        <Submit/>
-        <Foot/>
+        <Grid container item xl={8} spacing={2} mb={12}>
+          <CustInfo custGroupRecord={custGroupRecord} handleSetCustGroupRecord={(record) => setCustGroupRecord(record)}/>
+          <ConstructionLocation/>
+          <ConstructionInfo storeId={storeId?.value ?? ''} territory={territory?.value as GetEmployeesParams['territory']} />
+        </Grid>
+        <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>
 
     </Form>

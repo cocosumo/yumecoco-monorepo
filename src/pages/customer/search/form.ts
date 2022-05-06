@@ -13,7 +13,7 @@ export const recordStatuses = [
 
 export type CustomerTypeVals = typeof customerTypes[number];
 export type RecordStatus = typeof recordStatuses[number];
-export type FormFieldNames = keyof typeof initialValues;
+export type FormFieldKeys = keyof typeof initialValues;
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
@@ -24,7 +24,7 @@ export const initialValues = {
   cocoAG: '',
   yumeAG: '',
   cocoConst: '',
-  recordStatus: '',
+  recordStatus: [] as RecordStatus[],
   custName: '',
   contactNum: '',
   email: '',

@@ -9,10 +9,20 @@ export type EmployeeType = 'yumeAG' | 'cocoAG' | 'cocoConst' | 'sutekura';
 export type EmpAffiliations = 'ここすも' | 'すてくら' | 'ゆめてつ';
 export type EmpRoles = '店長' | '主任' | '営業' | '工務';
 
-export interface Params {
+export const AGLabels : Record<EmployeeType, string> = {
+  cocoAG : '営業担当者',
+  yumeAG : 'ゆめてつAG',
+  cocoConst : '工事担当者',
+  sutekura: 'すてくら',
+};
+
+
+export interface GetEmployeesParams {
   type : EmployeeType | EmployeeType[],
   isActiveOnly?: boolean,
-  storeId ?: string
+  storeId ?: string,
+  isStoreIdRequired ?: boolean,
+  territory?: '西' | '東' | null
 }
 
 export const getEmployees  = async (params ?: GetRecordParams) => {
@@ -39,12 +49,16 @@ export const getCocoConst = async () => {
   }) as unknown as Promise<EmployeeTypes.SavedData[]>;
 };
 
-export const getSpecifiedEmployees = async (params: Params) => {
+export const getSpecifiedEmployees = async (params: GetEmployeesParams) => {
   const {
     type = 'yumeAG',
     isActiveOnly = true,
+    isStoreIdRequired = false,
     storeId,
+    territory,
   } = params;
+
+  if (isStoreIdRequired && !storeId) return [];
 
   const affiliations = resolveAffiliations(type)
     .map(item => `"${item}"`).join(',');
@@ -54,11 +68,13 @@ export const getSpecifiedEmployees = async (params: Params) => {
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.employees,
-    fields: ['$id', 'mainStore', '文字列＿氏名'] as KeyOfEmployee[],
+    fields: ['$id', 'mainStore', '文字列＿氏名', 'affiliation', 'territory'] as KeyOfEmployee[],
     condition: [
       ...(isActiveOnly ? [`${'状態' as KeyOfEmployee} in ("有効")`] : []),
 
       ...(storeId ? [`(${'mainStoreId' as KeyOfEmployee} = "${storeId}" or ${'storeId' as KeyOfEmployee} in ("${storeId}"))`] : []),
+
+      ...(territory ? [`${'territory' as KeyOfEmployee} = "${territory}"`] : []),
 
       `${'affiliation' as KeyOfEmployee} in (${affiliations})`,
 

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "commonjs",
+    "module": "es6",
     "target": "es6",
     "jsx": "react-jsx",
     "esModuleInterop": true,
@@ -10,14 +10,16 @@
     "lib": ["es5","es2017", "es6", "dom", "dom.iterable"],
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "importHelpers": true,
+    "moduleResolution": "Node"
   },
   "include": [
     "./jest/**/*",
     "./src/**/*",
     "./src/types/api.d.ts",
     "./src/types/data.stores.d.ts",
-    "./node_modules/@mui/material",
+
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
     "jest/.env.ts" // will deprecate it in favor of jest.config
    ],

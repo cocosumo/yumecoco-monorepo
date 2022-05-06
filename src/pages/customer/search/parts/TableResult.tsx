@@ -9,31 +9,35 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
 
 import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 import { initialValues } from './../form';
-import { advancedSearchCustGroup } from './../../../../api/kintone/custgroups/GET';
-
-interface Data {
-  '顧客ID': number,
-  '状況': string,
-  '顧客種別': string,
-  '顧客氏名/会社名': string,
-  '現住所': string,
-  '店舗': string,
-  'ここすも営業': string,
-  'ここすも工事': string,
-  '登録日時': string,
-  '更新日時': string,
-}
+import { getSearchData, ISearchData as Data } from '../api/getSearchData';
+import { DetailsDialog } from './detailsDialog/DetailsDialog';
 
 
-const headCells : (keyof Data)[] = ['顧客ID', '状況', '顧客種別', '顧客氏名/会社名', '現住所', '店舗', 'ここすも営業', 'ここすも工事', '登録日時', '更新日時'];
+
+
+const headCells : (keyof Data)[][] = [
+  ['顧客ID',  '顧客種別', '状況', '案件数' ],
+  ['顧客氏名・会社名', '現住所'],
+  ['店舗', 'ここすも営業', 'ここすも工事', 'ゆめてつAG'],
+  ['登録日時', '更新日時'],
+];
+
+const cellWidth = [
+  '',
+  '30%',
+  '25%',
+  '',
+];
+
+
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -79,23 +83,30 @@ function EnhancedTableHead(props: EnhancedTableProps) {
         <TableCell padding="normal">
 
         </TableCell>
-        {headCells.map((headCell) => (
+
+        {headCells.map((headCellGroup, headIdx) => (
           <TableCell
-            key={headCell}
-            sortDirection={orderBy === headCell ? order : false}
+          key={headCellGroup.join('-')}
+          width={cellWidth[headIdx]}
           >
-            <TableSortLabel
-              active={orderBy === headCell}
-              direction={orderBy === headCell ? order : 'asc'}
-              onClick={createSortHandler(headCell)}
+            {headCellGroup.map((headCellItem) => (
+
+              <TableSortLabel
+              sx={{ display: 'block' }}
+              key={headCellItem}
+              active={orderBy === headCellItem}
+              direction={orderBy === headCellItem ? order : 'asc'}
+              onClick={createSortHandler(headCellItem)}
             >
-              {headCell}
-              {orderBy === headCell ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+                {headCellItem}
+                {orderBy === headCellItem ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+
+            ))}
           </TableCell>
         ))}
       </TableRow>
@@ -105,43 +116,37 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 
 export function TableResult() {
-  //const data = useAdvancedSearchCustGroup({ storeId: '7' });
   const { isSubmitting, values } = useFormikContext<typeof initialValues>();
 
-  const [order, setOrder] = useState<Order>('asc');
+  const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
 
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  //const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState<Data[]>([]);
+
+  const [detailsDialogState, setDetailsDialogState] = useState<{ open: boolean, custGroupdId: string }>();
+
 
   useEffect(()=>{
     if (!isSubmitting){
-      advancedSearchCustGroup({
-        storeId: values.storeId,
-        custName: values.custName,
-      })
-        .then( data => {
-          setRows((data as unknown as CustomerGroupTypes.SavedData[])?.map(({
-            $id, storeName, members, 更新日時: updatedDate, 作成日時: createdDate,
-          }) => {
-            const { address, customerName } = members.value?.[0]?.value || {} ;
 
-            return {
-              '顧客ID': +$id.value,
-              '状況': 'XXX',
-              '店舗': storeName.value,
-              '顧客種別': '個人',
-              '現住所': address?.value ?? '-',
-              '顧客氏名/会社名': customerName?.value ?? '-',
-              'ここすも営業': 'テスト',
-              'ここすも工事': 'テスト',
-              '登録日時':updatedDate.value,
-              '更新日時': createdDate.value,
-            };
-          }));
-        });
+      const { storeId,
+        custName, contactNum : phone,
+        address, email,
+        yumeAG, cocoAG, cocoConst,
+        custType,  recordStatus,
+      } = values;
+
+      getSearchData({
+        storeId, custName, phone,
+        address, email, yumeAG, cocoAG, cocoConst,
+        custType: custType !== '全て' ? custType : undefined,
+        recordStatus,
+      }).then(({ normalizedData }) => {
+        setRows(normalizedData);
+      });
 
     }
   }, [isSubmitting]);
@@ -163,13 +168,14 @@ export function TableResult() {
   };
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
+  /* const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDense(event.target.checked);
-  };
+  }; */
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -182,7 +188,7 @@ export function TableResult() {
           <TableContainer>
             <TablePagination
               labelRowsPerPage="表示件数を変更"
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[10, 25, 50]}
               component="div"
               count={rows.length}
               rowsPerPage={rowsPerPage}
@@ -193,16 +199,16 @@ export function TableResult() {
             <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
+            size="small"
           >
               <EnhancedTableHead
               order={order}
-              orderBy={orderBy}
+              orderBy={orderBy as string}
               onRequestSort={handleRequestSort}
             />
               <TableBody>
-                {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
+                {/* if we need to support IE11, replace
+                rows.slice().sort(getComparator(order, orderBy)) with `stableSort` */}
                 {rows?.slice().sort(getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
@@ -216,33 +222,43 @@ export function TableResult() {
                       key={row.顧客ID}
 
                     >
-                        <TableCell padding="normal">
-                          <Button variant='outlined'>詳細</Button>
+                        <TableCell padding="normal" width={'10%'}>
+                          <Button
+                            variant='outlined'
+                            onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
+                          >
+                            詳細
+                          </Button>
                         </TableCell>
-                        <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                      >
-                          {row.顧客ID}
-                        </TableCell>
-                        <TableCell align="right">{row.状況}</TableCell>
-                        <TableCell align="right">{row['顧客種別']}</TableCell>
-                        <TableCell align="right">{row['顧客氏名/会社名']}</TableCell>
-                        <TableCell align="right">{row['現住所']}</TableCell>
-                        <TableCell align="right">{row['店舗']}</TableCell>
-                        <TableCell align="right">{row['ここすも営業']}</TableCell>
-                        <TableCell align="right">{row['ここすも工事']}</TableCell>
-                        <TableCell align="right">{row['登録日時']}</TableCell>
-                        <TableCell align="right">{row['更新日時']}</TableCell>
+                        {headCells.map(headCellGroup => (
+                          <TableCell
+                          key={headCellGroup.join('-')}
+                          id={labelId}
+                          scope="row"
+                          padding="normal"
+
+                        >
+                            {headCellGroup.map(headCellItem => (
+
+                              <div key={headCellItem}>
+
+                                {row[headCellItem] }
+                                {!row[headCellItem] && '-'}
+                              </div>
+
+                            ))}
+
+
+                          </TableCell>
+
+                        ))}
                       </TableRow>
                     );
                   })}
                 {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 33 * emptyRows, //(dense ? 33 : 53) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -253,11 +269,15 @@ export function TableResult() {
           </TableContainer>
 
         </Paper>
-        <FormControlLabel
+        {/*  <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="密なパディング"
-      />
+      /> */}
       </Box>
+      <DetailsDialog
+      open={Boolean(detailsDialogState?.open)}
+      custGroupId={detailsDialogState?.custGroupdId}
+      handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}}/>
     </Grid>
   );
 }

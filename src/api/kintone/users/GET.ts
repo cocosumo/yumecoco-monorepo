@@ -1,5 +1,6 @@
 import { CONFIG, URL } from './config';
 import axios from 'axios';
+import { isBrowser } from '../../../helpers/utils';
 
 interface User {
   code: string,
@@ -7,7 +8,34 @@ interface User {
   employeeNumber: string,
 }
 
+interface UserAPI {
+  size?: number,
+  offset: number
+}
+
+export const getAllUsers = async (body : UserAPI = {
+  offset : 0,
+}  ): Promise<User[]> => {
+  
+
+  const users: User[] = (await kintone.api(kintone.api.url('/v1/users', true), 'GET', body))?.users;
+
+  if (users.length === 0){
+    return [];
+  } else {
+    return users.concat(await getAllUsers({ size: 100, offset : body.offset + 100 }));
+  }
+
+
+};
+
+
 export const getKintoneUsers = async () : Promise<User[]> => {
+  
+  if (isBrowser()){
+    return getAllUsers();
+  }
+
   return axios.get(
     URL,
     CONFIG,

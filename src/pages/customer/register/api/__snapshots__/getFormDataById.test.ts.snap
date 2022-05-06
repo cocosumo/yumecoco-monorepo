@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cust get 1`] = `
+Object {
+  "cocoAG1": "25",
+  "cocoAG2": "59",
+  "customers": Array [
+    Object {
+      "address1": "愛知県豊橋市野依町",
+      "address2": "マンション２",
+      "birthDay": "6",
+      "birthMonth": "3",
+      "birthYear": "1998",
+      "custName": "Lorenz Ras",
+      "custNameReading": "ラス　ロレンズ",
+      "email": "lenzras@gmail.com",
+      "emailRel": "",
+      "gender": "男性",
+      "id": "333",
+      "isSameAddress": false,
+      "key": "333",
+      "phone1": "07014529707",
+      "phone1Rel": "",
+      "phone2": "07014529706",
+      "phone2Rel": "",
+      "postal": "441-8124",
+      "revision": "1",
+    },
+  ],
+  "id": "45",
+  "revision": "1",
+  "store": "6",
+  "yumeAG1": "22",
+  "yumeAG2": "23",
+}
+`;

@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
-    new BundleAnalyzerPlugin(), 
+    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
@@ -33,16 +33,20 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.json','.ts','.tsx' ,'.jsx'],
+    fallback: {
+      "crypto": false
+    }
   },
 
   module: {
 
     rules: [
+
       {
         test: /\.(png|jpg|gif)$/i,
         use: [
           {
-            loader: "url-loader"
+            loader: "url-loader",
           },
         ],
       },
@@ -62,43 +66,78 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
+
         use: {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
+            module: false,
+
             presets: [
               ['@babel/preset-react', {
                 runtime: 'automatic',
               }],
+              [
+                "@babel/preset-env",
+                {
+                  "targets": {
+                    "node": "current"
+                  }
+                }
+              ]
             ],
 
           },
         },
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader' },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          experimentalWatchApi: true,
+        },
+      },
     ],
   },
 
   optimization: {
     splitChunks: {
+      minSize: 20000,
+
       cacheGroups: {
           default: false,
-          vendors: false,
-          // vendor chunk
-          vendor: {
-              // sync + async chunks
-              name: 'vendor',
-              chunks: 'all',
-              // import file path containing node_modules
-              test: /node_modules/
-          },
           common: {
             name: 'common',
             minChunks: 2,
             chunks: 'async',
-            priority: 10,
+            priority: 20,
             reuseExistingChunk: true,
             enforce: true
-          }
+          },
+          assets: {
+            chunks: "all",
+            name: "assets",
+            test: /[\\/]assets[\\/]/,
+            priority: -30,
+          },
+          mui: {
+            chunks: "all",
+            name: "vendor-mui",
+
+            test: /[\\/]@mui[\\/]/,
+            priority: 0,
+          },
+          vendors: {
+             // sync + async chunks
+             name: 'vendor',
+             chunks: 'initial',
+             priority: -10,
+             // import file path containing node_modules
+             test: /node_modules/,
+
+          },
+
+
       }
   },
   minimizer: [
@@ -107,5 +146,5 @@ module.exports = {
       new CssMinimizerPlugin(),
     ],
   },
-  
+
 };

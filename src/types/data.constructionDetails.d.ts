@@ -5,16 +5,23 @@ declare namespace ConstructionDetails {
     address2: kintone.fieldTypes.SingleLineText;
     addressKari: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
-    agent2: kintone.fieldTypes.SingleLineText;
-    agent1: kintone.fieldTypes.SingleLineText;
-    agent1Id: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
-    agent2Id: kintone.fieldTypes.Number;
-    custGroupId: kintone.fieldTypes.Number;
     constructionName: kintone.fieldTypes.SingleLineText;
+    custGroupId: kintone.fieldTypes.Number;
     postal: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     buildingType: kintone.fieldTypes.SingleLineText;
+    agents: {
+      type: 'SUBTABLE';
+      value: {
+        id: string;
+        value: {
+          employeeName: kintone.fieldTypes.SingleLineText;
+          agentType: kintone.fieldTypes.SingleLineText;
+          employeeId: kintone.fieldTypes.Number;
+        };
+      }[];
+    };
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

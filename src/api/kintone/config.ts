@@ -29,7 +29,7 @@ export enum APPIDS {
 }
 
 
-const KintoneClient = new KintoneRestAPIClient(options);
+export const KintoneClient = new KintoneRestAPIClient(options);
 
 export const KintoneRecord = KintoneClient.record;
 

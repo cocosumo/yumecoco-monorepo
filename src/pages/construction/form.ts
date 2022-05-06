@@ -1,4 +1,6 @@
 import * as Yup from 'yup';
+import { postalRegExp } from '../../helpers/yupValidator';
+
 
 export type BuildingTypeVals =
 | '戸建て'
@@ -6,26 +8,32 @@ export type BuildingTypeVals =
 | '店舗/事務所'
 | 'その他';
 
-export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
-export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
-export const initialValues: ConstructionDetailsValues = {
+export const initialValues = {
+  recordId: '' as string | undefined,
+  custGroupId: undefined  as undefined | string,
+  constructionType: '',
   constructionTypeId: '',
   constructionName: '',
-  agent1Id: '',
-  agent2Id: '',
   isAgentConfirmed: false,
+  cocoConst1: '',
+  cocoConst2: '',
   postal: '',
   address1: '',
   address2: '',
   addressKari: '',
-  custGroupId: '',
   buildingType: '戸建て' as BuildingTypeVals,
   isChkAddressKari: false,
 };
+
+export type ConstructionDetailsType = typeof initialValues;
+export type KeyOfConstructionDetails = keyof ConstructionDetailsType;
+export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
+
+export const getFieldName = (fieldName: KeyOfConstructionDetails) => fieldName;
 
 /**
  * Set Validation for fields that requires it.
@@ -38,6 +46,7 @@ export const validationSchema =  Yup.object(
       .required('必須です。'),
     postal: Yup
       .string()
+      .matches(postalRegExp, '半角数字。例：4418124')
       .required('必須です。'),
   } as Partial<Record<KeyOfConstructionDetails, any>>,
 );

@@ -24,17 +24,17 @@ export const saveConstructionData = async (rawValues: ConstructionDetailsValues)
   id: string,
   revision: string,
 }> =>{
-  const { $id } = rawValues;
+  const { custGroupId } = rawValues;
   const record = convertToKintone(rawValues);
 
-  if ($id){
+  if (custGroupId){
     return KintoneRecord.updateRecord({
       app: APPIDS.constructionDetails,
-      id: $id as string,
+      id: custGroupId as string,
       record,
     })
       .then((result) => ({
-        id: $id.toString(),
+        id: custGroupId.toString(),
         revision: result.revision,
       }));
   } else {

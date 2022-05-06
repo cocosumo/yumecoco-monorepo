@@ -1,6 +1,6 @@
 import { searchCustGroup } from '../../../../api/kintone/custgroups/GET';
 import { SearchOptions } from '../../../../components/ui/textfield';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 export const convertRecordToOption = (value: string, record: CustomerGroupTypes.SavedData) => {
   const { $id, storeName, 作成日時, members } = record;
@@ -11,7 +11,7 @@ export const convertRecordToOption = (value: string, record: CustomerGroupTypes.
     return {
       name: mainCustName,
       id: $id.value,
-      subTitle: `${storeName.value} ${mainCust.address.value}`,
+      subTitle: `${storeName.value} ${mainCust.address2.value}`,
       secondaryLabel: format(Date.parse(作成日時.value), 'yyyy-MM-dd' ),
       record: record,
     };

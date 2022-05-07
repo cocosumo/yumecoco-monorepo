@@ -36,7 +36,6 @@ export const SearchDialog = (props: {
     }
   }, [custGroupId, open]);
 
-  console.log('records', records);
 
   return (
     <Dialog
@@ -49,7 +48,6 @@ export const SearchDialog = (props: {
       <DialogContent>
         <List>
           {records?.map(({ constructionName, postal, address1, address2 }, idx) => {
-            console.log(constructionName);
             return (
               <ListItem
                 key={constructionName}

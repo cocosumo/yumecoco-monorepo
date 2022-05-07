@@ -6,13 +6,14 @@ import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
 import { getCustomerById } from '../../../../api/kintone/customers/GET';
 import { GrayBox } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
-import { FormikSearchField } from '../../../../components/ui/textfield';
+//import { FormikSearchField } from '../../../../components/ui/textfield';
 import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
-import { renderOptions } from './renderOptions';
+//import { renderOptions } from './renderOptions';
 import { useFormikContext } from 'formik';
 import { ConstructionDetailsType } from '../../form';
 import { KeyOfConstructionDetails } from '../..';
 import { AGLabels } from '../../../../api/kintone/employees/GET';
+import { CustGroupSearchField } from './CustGroupSearchField';
 
 const contactLabels = {
   tel: '電話番号',
@@ -73,12 +74,13 @@ export const CustInfo = (props : {
   }, [recordId, custGroupId]);
 
 
-  console.log(custGroupRecord);
   return (
     <>
       <PageSubTitle label="顧客情報"/>
       <Grid item xs={12} md={4} >
-        <FormikSearchField renderOptionsFn={renderOptions} name={'custGroupId'} setRecord={handleCustomerChange} label='氏名（検索）' helperText='※顧客情報登録を先にしてください。' required/>
+        {/*  <FormikSearchField renderOptionsFn={renderOptions} name={'custGroupId'} setRecord={handleCustomerChange} label='氏名（検索）' helperText='※顧客情報登録を先にしてください。' required/> */}
+        <CustGroupSearchField />
+
       </Grid>
 
       <Grid item xs={12}>

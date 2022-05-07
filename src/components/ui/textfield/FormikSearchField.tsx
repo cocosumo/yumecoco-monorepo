@@ -32,7 +32,7 @@ export const FormikSearchField = (props: FormikSearchFieldProps) => {
 
   return (
     <Autocomplete
-
+      noOptionsText={'無し'}
       onChange={ (_, newState) => {
 
         helpers.setValue(newState?.id ?? '');

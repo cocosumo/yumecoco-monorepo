@@ -7,19 +7,25 @@ import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { getFieldName, KeyOfConstructionDetails } from '../../form';
+import { ConstructionDetailsType, getFieldName, KeyOfConstructionDetails } from '../../form';
 import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
+import { useFormikContext } from 'formik';
 
 
 export const ConstructionInfo = (
   props : {
     storeId: string,
+    constructionTypeId?: string,
     territory?:  GetEmployeesParams['territory']
   },
 ) => {
-  const { storeId, territory } = props;
+  const { storeId, territory, constructionTypeId } = props;
   const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
+  const { setFieldValue, values: {
+    cocoConst1,
+  } } = useFormikContext<ConstructionDetailsType>();
 
+  /*Todo: Refactor this as custom hook */
   useEffect(()=>{
     KintoneRecord.getRecords({
       app: APPIDS.constructionType,
@@ -33,6 +39,13 @@ export const ConstructionInfo = (
     });
   }, []);
 
+
+  useEffect(()=>{
+    const constTypeName =  constructionTypeOptions?.find(item => item.value === constructionTypeId)?.label;
+    setFieldValue('constructionType' as KeyOfConstructionDetails, constTypeName);
+  }, [constructionTypeId]);
+
+
   return (
     <>
       <PageSubTitle label='工事情報' />
@@ -42,7 +55,7 @@ export const ConstructionInfo = (
         </Grid>
         <Grid item xs={12}>
           {/* <TextField fullWidth label="工事名称" placeholder='氏名/会社名様邸　工事種別' /> */}
-          <FormikTextField name={'constructionName' as KeyOfConstructionDetails} label="工事名称" placeholder="氏名/会社名様邸　工事種別" />
+          <FormikTextField name={'constructionName' as KeyOfConstructionDetails} label="工事名称" placeholder="氏名/会社名様邸　工事種別" required/>
         </Grid>
       </Grid>
 
@@ -50,7 +63,7 @@ export const ConstructionInfo = (
         {
           [1, 2].map((num) => (
             <Grid key={num} item xs={12} md={4}>
-              <ConstructionAgent number={num} {...{ storeId, territory }}/>
+              <ConstructionAgent number={num} {...{ storeId, territory }} disabled={!cocoConst1 && num === 2}/>
             </Grid>
           ))
         }

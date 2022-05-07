@@ -23,6 +23,7 @@ export const CustInfo = () => {
     members,
     storeId,
     territory,
+    storeName,
   } = custGroupRecord ?? {};
 
   const {
@@ -30,7 +31,7 @@ export const CustInfo = () => {
     address1,
     address2,
     postal: postalCode,
-    customerName: fullName,
+    customerName,
     dump,
   } = members?.value[0]?.value ?? {}; // Main Customer
 
@@ -45,6 +46,7 @@ export const CustInfo = () => {
 
   const {
     custGroupId,
+    constructionType,
   } = values;
 
   useEffect(()=>{
@@ -61,8 +63,14 @@ export const CustInfo = () => {
     if (storeId?.value){
       setFieldValue('storeId' as KeyOfConstructionDetails, storeId?.value);
       setFieldValue('territory' as KeyOfConstructionDetails, territory?.value);
+      setFieldValue('constructionName' as KeyOfConstructionDetails, `${customerName?.value}様邸`);
     }
-  }, [storeId?.value, territory?.value]);
+  }, [storeId?.value, territory?.value, customerName?.value]);
+
+
+  useEffect(()=>{
+    setFieldValue('constructionName' as KeyOfConstructionDetails, `${customerName?.value ?? '--'}様邸 ${constructionType ?? '--'}`);
+  }, [customerName?.value, constructionType]);
 
 
 
@@ -78,7 +86,7 @@ export const CustInfo = () => {
           <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12} sm={6}>
               <Stack spacing={2}>
-                <LabeledInfo label="氏名" data={fullName?.value}/>
+                <LabeledInfo label="氏名" data={customerName?.value}/>
                 <LabeledInfo label="氏名フリガナ" data={custNameReading}/>
                 <LabeledInfo
                   label="現住所"
@@ -100,9 +108,10 @@ export const CustInfo = () => {
 
               </Stack>
             </Grid>
-            <Grid item xs={12} sm={6}>
 
+            <Grid item xs={12} sm={6}>
               <Stack spacing={2}>
+                <LabeledInfo label={'店舗名'} data={storeName?.value} />
                 {custGroupRecord?.agents
                   .value
                   .reduce((accu, { id, value: { agentType, employeeName } })=>{

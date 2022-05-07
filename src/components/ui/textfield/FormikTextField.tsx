@@ -40,7 +40,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     <TextField  {...field}
     label={label}
     placeholder={placeholder}
-    required={required}
+    required={ required}
     onBlur={(e)=> {
       /* Call formiks default onBlur */
       field.onBlur(e);

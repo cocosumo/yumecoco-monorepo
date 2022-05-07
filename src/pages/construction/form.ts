@@ -47,9 +47,25 @@ export const validationSchema =  Yup.object(
     custGroupId: Yup
       .string()
       .required('必須です。'),
+
+    constructionTypeId: Yup
+      .string()
+      .required('必須です。'),
+    constructionName: Yup
+      .string()
+      .required('必須です。'),
+    cocoConst1: Yup
+      .string()
+      .required('必須です。'),
     postal: Yup
       .string()
       .matches(postalRegExp, '半角数字。例：4418124')
+      .required('必須です。'),
+    address1: Yup
+      .string()
+      .required('必須です。'),
+    address2: Yup
+      .string()
       .required('必須です。'),
   } as Partial<Record<KeyOfConstructionDetails, any>>,
 );

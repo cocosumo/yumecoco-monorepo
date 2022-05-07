@@ -24,6 +24,7 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
     submitForm, values : {
       storeId,
       territory,
+      constructionTypeId,
     },
   } = useFormikContext<ConstructionDetailsType>();
 
@@ -47,7 +48,12 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
         <Grid container item xl={8} spacing={2} mb={12}>
           <CustInfo />
           <ConstructionLocation/>
-          <ConstructionInfo storeId={storeId} territory={territory as GetEmployeesParams['territory']} />
+          <ConstructionInfo
+            storeId={storeId}
+            territory={territory as GetEmployeesParams['territory']}
+            constructionTypeId={constructionTypeId}
+
+            />
         </Grid>
         <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>

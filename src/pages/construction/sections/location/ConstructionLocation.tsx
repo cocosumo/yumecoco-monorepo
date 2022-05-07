@@ -44,11 +44,11 @@ export const ConstructionLocation = () => {
       <Grid item md={9}/>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address1" label="住所"/>
+        <FormikTextField name="address1" label="住所" required/>
       </Grid>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address2" label="住所（番地以降）"  />
+        <FormikTextField name="address2" label="住所（番地以降）"  required/>
       </Grid>
 
 

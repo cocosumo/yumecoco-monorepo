@@ -34,6 +34,7 @@ export const CustGroupSearchField = () => {
 
   return (
     <Autocomplete
+    noOptionsText="入力してください"
     value={fieldValue}
     onChange={(e, option: SearchOption) => {
       setFieldValue(option);

@@ -8,10 +8,11 @@ interface ConstructionAgentProps {
   number?: number
   storeId: string,
   territory?:  GetEmployeesParams['territory'],
+  disabled: boolean
 }
 
 export const ConstructionAgent = (props: ConstructionAgentProps) => {
-  const { storeId, territory } = props;
+  const { storeId, territory, disabled = false } = props;
   const agents = useEmployeeOptions({
     type: 'cocoConst',
     storeId,
@@ -26,10 +27,12 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
 
   return (
     <FormikSelect
-    name={`cocoConst${number}` as KeyOfConstructionDetails}
-    label={`工事担当者${number}`}
-    options={agents}
-    helperText={helperText}
+      name={`cocoConst${number}` as KeyOfConstructionDetails}
+      label={`工事担当者${number}`}
+      options={agents}
+      helperText={helperText}
+      required={number === 1}
+      disabled={disabled}
     />
   );
 };

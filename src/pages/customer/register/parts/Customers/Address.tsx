@@ -9,7 +9,6 @@ import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
 import { getAddressByPostal } from '../../../../../api/others/postal';
 import { useRef, useState } from 'react';
-import { getPrefectures } from '../../../../../api/others/address';
 import { AddressDialog } from './AddressDialog';
 
 
@@ -22,7 +21,11 @@ interface AddressProps {
 const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: ()=>void) => (
   <Grid container item xs={12} spacing={2} mt={1}>
     <Grid item xs={8} md={4} >
-      <FormikTextField name={`${namePrefix}${getCustFieldName('postal')}`} label="郵便番号" placeholder='471-0041' inputComponent={TextMaskPostal} shrink={!!postal}/>
+      <FormikTextField
+      name={`${namePrefix}${getCustFieldName('postal')}`}
+      label="郵便番号" placeholder='471-0041'
+      inputComponent={TextMaskPostal}
+      shrink={!!postal}/>
     </Grid>
     <Grid item xs={4} md={2} >
       <IconButton color={'primary'} size={'small'} onClick={handleAddressSearch}>
@@ -46,16 +49,16 @@ export const Address = (props: AddressProps) => {
   const [openAddressDialog, setOpenAddressDialog] = useState<boolean>(false);
   const {
     setFieldValue,
+    dirty,
     values: { customers },
   } = useFormikContext<CustomerForm>();
-
 
   const {
     namePrefix,
     index,
   } = props;
 
-  const { isSameAddress, postal, address1 } = customers[index] ?? { isSameAddress: true, postal: '' };
+  const { isSameAddress = true, postal, address1 } = customers[index] ?? {};
   const isFirstCustomer = !index;
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -65,16 +68,17 @@ export const Address = (props: AddressProps) => {
 
   useLazyEffect(()=>{
 
-    if (customers.length > 1 ) {
+    if (customers.length > 1 && dirty) {
       divRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
   }, [customers.length, isSameAddress ], 300);
 
   useLazyEffect(()=>{
-    getPrefectures();
+
     /* Automatically retrieve address if address is empty */
     if (postal && !address1){
+
       getAddressByPostal(postal as string).then((address)=>{
         setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
       });

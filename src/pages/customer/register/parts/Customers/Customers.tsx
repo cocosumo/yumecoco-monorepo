@@ -86,40 +86,40 @@ export const Customers = () => {
       <Grid item xs={12}>
         <FieldArray
         name={arrayFieldName}
-        render={(arrHelpers) => {         
+        render={(arrHelpers) => {
 
           return (
             <Stack key={arrayFieldName} spacing={2} >
               {/* Render first element without animating */}
               <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers} customers={customers}/>
-              
+
               <TransitionGroup component={null} >
                 {
                   customers
-                    .filter((_, index)=> index !== 0)
-                    .map((_, index) => {                
+                    .filter((_, index)=> index !== 0 && _.key)
+                    .map((_, index) => {
                       return (
                         <Zoom key={_.key} >
-                          <Stack key={_.key} spacing={2} >
-                            <Customer key={_.key}  index={index + 1} namePrefix={`${arrayFieldName}[${index + 1}].`} {...arrHelpers} customers={customers}/>
+                          <Stack  spacing={2} >
+                            <Customer index={index + 1} namePrefix={`${arrayFieldName}[${index + 1}].`} {...arrHelpers} customers={customers}/>
                           </Stack>
-                          
+
                         </Zoom>
                       );
                     })
-  
+
                 }
 
               </TransitionGroup>
-       
+
               <Zoom in={!isMaxCust} style={{ transitionDelay: '500ms' }}>
                 <Button
                 variant="outlined"
                 color="success"
                 startIcon={<PersonAddIcon />}
                 onClick={() => {
-                  arrHelpers.push({ 
-                    ...initialCustomerValue, 
+                  arrHelpers.push({
+                    ...initialCustomerValue,
                     key: randomStr()(nativeMath, 5),
                     isSameAddress: true,
                   } as CustomerInstance);

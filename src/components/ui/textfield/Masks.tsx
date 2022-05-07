@@ -9,16 +9,18 @@ interface CustomProps {
 }
 
 export const TextMaskPostal = React.forwardRef<HTMLElement, CustomProps>(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function TextMaskCustom(props, _) {
 
+  function TextMaskCustom(props, _) {
     const { onChange, ...other } = props;
     return (
       <IMaskInput
         {...other}
-
         mask="000-0000"
-        onAccept={(value: any) => onChange({ target: { name: props.name, value } })}
+        onAccept={(value: any) => {
+          if (value){ // Have to check for value as this assign value even on unmounted item of formik's fieldArray
+            onChange({ target: { name: props.name, value } });
+          }
+        }}
         overwrite
 
       />

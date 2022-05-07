@@ -37,8 +37,8 @@ export const AddressDialog = (props: {
   const [towns, setTowns] = useState<GetTownsResponseLocation>([]);
   const [addressDetails, setAddressDetails] = useState<AddressDetails>(initialAddressDetailsState);
   const [isLoading, setIsLoading] = useState(false);
-  const { area, city, postal, prefecture, town } = addressDetails;
 
+  const { area, city, postal, prefecture, town } = addressDetails;
   const { open, postalFN, address1FN, handleClose } = props;
 
   const handleClick = (name: keyof AddressDetails, value: string) => {
@@ -76,6 +76,7 @@ export const AddressDialog = (props: {
 
   useEffect(()=>{
     if (postal){
+      console.log('hey');
       handleClose();
       setFieldValue(postalFN, postal );
       setFieldValue(address1FN, `${prefecture}${city}${town}` );

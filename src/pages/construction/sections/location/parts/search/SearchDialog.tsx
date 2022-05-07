@@ -18,6 +18,7 @@ export const SearchDialog = (props: {
   const handleCopy = () => {
     if (selected !== null && records) {
       const { postal, address1, address2 } = records[selected];
+      console.log('Copying!');
 
       setFieldValue('postal' as KeyOfConstructionDetails, postal);
       setFieldValue('address1' as KeyOfConstructionDetails, address1);

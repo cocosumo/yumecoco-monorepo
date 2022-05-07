@@ -3,7 +3,6 @@ import { MemoFormType } from '../form';
 
 
 export const getMemoList = async <T extends CustomerMemoTypes.SavedData>(recordId: string) => {
-  console.log('retrieving memolist!');
   if (!recordId) throw new Error('Please provide record id.');
   return KintoneRecord.getAllRecords({
     app: APPIDS.custMemo,
@@ -12,8 +11,8 @@ export const getMemoList = async <T extends CustomerMemoTypes.SavedData>(recordI
   }).then(res => {
     return (res as unknown as T[])
       .map(({
-        $id, 
-        contents, 
+        $id,
+        contents,
         memoType,
         createdTime,
         更新者: updater,

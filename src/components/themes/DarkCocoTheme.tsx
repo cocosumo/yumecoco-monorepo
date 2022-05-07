@@ -16,10 +16,11 @@ const darkTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         containedSecondary: {
-          color: '#030303',
-          background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(205,205,205,1) 100%);',
+          color: grey[700],
+          background: grey[100],
           ':hover': {
-            backgroundColor: '#CDCFFF',
+            backgroundColor: grey[700],
+            color : grey[100],
           },
         },
         textSecondary: {
@@ -35,7 +36,6 @@ const darkTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'white',
-
         },
       },
     },

@@ -14,6 +14,7 @@ export const ConstructionLocation = () => {
 
   const {
     values : {
+      custGroupId,
       address1,
       isChkAddressKari,
     },
@@ -36,7 +37,7 @@ export const ConstructionLocation = () => {
   return (
     <>
       <PageSubTitle label="工事場所情報"/>
-      <ConstructionSearch/>
+      <ConstructionSearch disabled={!custGroupId}/>
       <Grid item xs={12} md={3}>
         <FormikTextField name="postal" label="郵便番号" placeholder='442-0888' inputComponent={TextMaskPostal} onChange={handleGenerateAddress} required/>
       </Grid>

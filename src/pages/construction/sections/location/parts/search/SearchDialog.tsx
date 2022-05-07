@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Radio } from '@mui/material';
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Radio } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { getProjectsByCustGroupId, SearchItems } from '../../../../api/getProjectsByCustGroupId';
@@ -12,11 +12,13 @@ export const SearchDialog = (props: {
   const { open, handleClose } = props;
   const [records, setRecords] = useState<SearchItems | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
+  const [loading, setLoading] = useState(true);
   const { setFieldValue, values: { custGroupId } } = useFormikContext<ConstructionDetailsType>();
 
   const handleCopy = () => {
     if (selected !== null && records) {
       const { postal, address1, address2 } = records[selected];
+
       setFieldValue('postal' as KeyOfConstructionDetails, postal);
       setFieldValue('address1' as KeyOfConstructionDetails, address1);
       setFieldValue('address2' as KeyOfConstructionDetails, address2);
@@ -29,13 +31,18 @@ export const SearchDialog = (props: {
 
   useEffect(()=> {
     if (custGroupId && open){
+      setLoading(true);
       getProjectsByCustGroupId(custGroupId)
         .then((resp) => {
           setRecords(resp);
+          setLoading(false);
         });
     }
   }, [custGroupId, open]);
 
+  const isWithRecord = Boolean(records?.length);
+
+  const title = isWithRecord ? '過去プロジェクトの工事場所をコピーしますか。' : '';
 
   return (
     <Dialog
@@ -43,35 +50,45 @@ export const SearchDialog = (props: {
       onClose={handleClose}
     >
       <DialogTitle>
-        過去プロジェクトの工事場所をコピーしますか。
+        {title}
       </DialogTitle>
       <DialogContent>
-        <List>
-          {records?.map(({ constructionName, postal, address1, address2 }, idx) => {
-            return (
-              <ListItem
-                key={constructionName}
-                divider
-              >
-                <ListItemButton onClick={()=>setSelected(idx)}>
-                  <ListItemIcon>
-                    <Radio checked={selected === idx} disableRipple/>
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={constructionName}
-                    secondary={`${postal} ${address1}${address2}`}
-                  />
-                </ListItemButton>
-              </ListItem>
+        {loading &&
+          <CircularProgress />
+        }
+        {!isWithRecord && !loading &&
+          <>選択した顧客に案件がありません。</>
+        }
+        {isWithRecord && !loading &&
+          <List>
+            {records?.map(({ constructionName, postal, address1, address2 }, idx) => {
+              return (
+                <ListItem
+                  key={constructionName}
+                  divider
+                >
+                  <ListItemButton onClick={()=>setSelected(idx)}>
+                    <ListItemIcon>
+                      <Radio checked={selected === idx} disableRipple/>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={constructionName}
+                      secondary={`${postal} ${address1}${address2}`}
+                    />
+                  </ListItemButton>
+                </ListItem>
 
-            );
-          })}
-
-        </List>
+              );
+            })}
+          </List>
+        }
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" color="secondary" onClick={handleClose}>キャンセル</Button>
-        <Button variant="contained" disabled={selected === null} onClick={handleCopy}>確定</Button>
+        {isWithRecord &&
+          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>確定</Button>
+        }
+
       </DialogActions>
 
     </Dialog>

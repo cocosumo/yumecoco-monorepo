@@ -1,5 +1,4 @@
-import { APP_ID } from './config';
-import {  KintoneRecord } from './../config';
+import {  APPIDS, KintoneRecord } from './../config';
 
 
 
@@ -11,7 +10,8 @@ export interface AdvancedSearchCustGroupParam {
 }
 
 export const getCustGroup = (id: string) => {
-  return KintoneRecord.getRecord({ app: APP_ID, id });
+  return KintoneRecord.getRecord({ app: APPIDS.custGroup, id })
+    .then(resp => resp.record as unknown as CustomerGroupTypes.SavedData );
 };
 
 /**
@@ -23,7 +23,7 @@ export const getCustGroup = (id: string) => {
 export const searchCustGroup = (searchStr: string) => {
 
   return KintoneRecord.getRecords({
-    app: APP_ID,
+    app: APPIDS.custGroup,
     query: `${'customerName'} like "${searchStr}"`,
   });
 };

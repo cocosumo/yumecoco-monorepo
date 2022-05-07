@@ -6,10 +6,11 @@ import { ConstructionLocation, CustInfo } from './sections';
 import { Grid } from '@mui/material';
 import {  Form, useFormikContext } from 'formik';
 import { SnackState } from '../../components/ui/snacks/FormSnack';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { GetEmployeesParams } from '../../api/kintone/employees/GET';
+import { ConstructionDetailsType } from './form';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -17,11 +18,18 @@ interface ConstructionFormProps {
 
 export const ConstructionForm  = (props: ConstructionFormProps) => {
   const { handleSnack } = props;
-  const { isValid, isSubmitting, submitForm } = useFormikContext();
-  const [custGroupRecord, setCustGroupRecord] = useState<CustomerGroupTypes.SavedData>();
+  const {
+    isValid,
+    isSubmitting,
+    submitForm, values : {
+      storeId,
+      territory,
+    },
+  } = useFormikContext<ConstructionDetailsType>();
 
 
-  const { storeId, territory } = custGroupRecord ?? {};
+
+  //const { storeId, territory } = custGroupRecord ?? {};
 
   useEffect(()=>{
     if (!isValid && !isSubmitting){
@@ -37,9 +45,9 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
 
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8} spacing={2} mb={12}>
-          <CustInfo custGroupRecord={custGroupRecord} handleSetCustGroupRecord={(record) => setCustGroupRecord(record)}/>
+          <CustInfo />
           <ConstructionLocation/>
-          <ConstructionInfo storeId={storeId?.value ?? ''} territory={territory?.value as GetEmployeesParams['territory']} />
+          <ConstructionInfo storeId={storeId} territory={territory as GetEmployeesParams['territory']} />
         </Grid>
         <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>

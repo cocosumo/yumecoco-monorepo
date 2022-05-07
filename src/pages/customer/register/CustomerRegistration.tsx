@@ -94,12 +94,12 @@ export function CustomerRegistration() {
       /* Edit mode state */
 
       getCustGroup(groupId)
-        .then(({ record: groupRec }) => {
-          const memberIds = (groupRec.members as CustomerGroupTypes.Data['members']).value.map(row => row.value.customerId.value);
+        .then((resp) => {
+          const memberIds = (resp.members as CustomerGroupTypes.Data['members']).value.map(row => row.value.customerId.value);
           getCustomersByIds(memberIds)
             .then((custRec) => {
               dispatch({ type: 'GET_GROUP_DATA', payload: {
-                group: groupRec as unknown as CustomerGroupTypes.SavedData,
+                group: resp,
                 customers: custRec.records as unknown as CustomerTypes.SavedData[],
               } });
 

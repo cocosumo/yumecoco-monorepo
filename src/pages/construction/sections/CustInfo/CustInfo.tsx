@@ -1,112 +1,93 @@
-import { Grid, Stack } from '@mui/material';
+import { Button, Grid, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
-
-import { getCustomerById } from '../../../../api/kintone/customers/GET';
 import { GrayBox } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
-//import { FormikSearchField } from '../../../../components/ui/textfield';
+import EditIcon from '@mui/icons-material/Edit';
 import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
-//import { renderOptions } from './renderOptions';
+import { Link } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { ConstructionDetailsType } from '../../form';
-import { KeyOfConstructionDetails } from '../..';
+import { ConstructionDetailsType, KeyOfConstructionDetails } from '../../form';
 import { AGLabels } from '../../../../api/kintone/employees/GET';
 import { CustGroupSearchField } from './CustGroupSearchField';
-
-const contactLabels = {
-  tel: '電話番号',
-  email: 'メールアドレス',
-};
+import { CustomerInstance } from '../../../customer/register/form';
 
 
+export const CustInfo = () => {
 
-export const CustInfo = (props : {
-  custGroupRecord?: CustomerGroupTypes.SavedData,
-  handleSetCustGroupRecord: (record: CustomerGroupTypes.SavedData) => void
-}) => {
-  const { custGroupRecord, handleSetCustGroupRecord } = props;
-  const [custRecord, setCustomerRecord] = useState<CustomerTypes.SavedData>();
+  const [custGroupRecord, setCustomerRecord] = useState<CustomerGroupTypes.SavedData>();
   const { values, setFieldValue } = useFormikContext<ConstructionDetailsType>();
 
 
   const {
-    postalCode,  address1, address2,
-    fullName, fullNameReading,
-    contacts,
-  } = custRecord ?? {};
+    members,
+    storeId,
+    territory,
+  } = custGroupRecord ?? {};
+
+  const {
+    customerId,
+    address1,
+    address2,
+    postal: postalCode,
+    customerName: fullName,
+    dump,
+  } = members?.value[0]?.value ?? {}; // Main Customer
+
+  const {
+    custNameReading,
+    email, emailRel,
+    phone1, phone1Rel,
+    phone2, phone2Rel,
+  } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
+
 
 
   const {
     custGroupId,
   } = values;
 
-  const recordId = useParams().recordId;
-
-
-  const handleCustomerChange = async (record: CustomerGroupTypes.SavedData) => {
-    if (!record) return;
-    const {
-      $id,
-      members : {
-        value: members,
-      },
-    } = record;
-
-    setFieldValue('custGroupId' as KeyOfConstructionDetails, $id.value);
-    const mainCustId = members[0].value.customerId.value;
-    /* Retrieve data from each customer in the group */
-    setCustomerRecord((await getCustomerById(mainCustId)).record as unknown as CustomerTypes.SavedData);
-    handleSetCustGroupRecord(record);
-  };
-
   useEffect(()=>{
 
-    if (recordId && custGroupId){
+    if (custGroupId){
       getCustGroup(custGroupId)
-        .then(resp => {
-          handleCustomerChange(resp.record as unknown as CustomerGroupTypes.SavedData);
-        });
+        .then(resp => setCustomerRecord(resp));
     } else {
       setCustomerRecord(undefined);
     }
-  }, [recordId, custGroupId]);
+  }, [custGroupId]);
+
+  useEffect(()=>{
+    if (storeId?.value){
+      setFieldValue('storeId' as KeyOfConstructionDetails, storeId?.value);
+      setFieldValue('territory' as KeyOfConstructionDetails, territory?.value);
+    }
+  }, [storeId?.value, territory?.value]);
+
 
 
   return (
     <>
-      <PageSubTitle label="顧客情報"/>
+      <PageSubTitle label="顧客情報" />
       <Grid item xs={12} md={4} >
-        {/*  <FormikSearchField renderOptionsFn={renderOptions} name={'custGroupId'} setRecord={handleCustomerChange} label='氏名（検索）' helperText='※顧客情報登録を先にしてください。' required/> */}
         <CustGroupSearchField />
-
       </Grid>
 
       <Grid item xs={12}>
         <GrayBox label='【参照結果】'>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12} sm={6}>
               <Stack spacing={2}>
                 <LabeledInfo label="氏名" data={fullName?.value}/>
-                <LabeledInfo label="氏名フリガナ" data={fullNameReading?.value}/>
+                <LabeledInfo label="氏名フリガナ" data={custNameReading}/>
                 <LabeledInfo
                   label="現住所"
                   data={[postalCode?.value, address1?.value, address2?.value]
-                    .join(' ')}
+                    .join('')}
                 />
-                {
-                  contacts?.value
-                    .filter(item => item.value.contactValue.value)
-                    .map(({ id: rowId, value: { contactType, contactValue, relation } }) => {
-                      return <LabeledInfo
-                    key={rowId}
-                    label={contactLabels[contactType?.value as keyof typeof contactLabels] ?? '連絡先'}
-                    data={[contactValue?.value, relation?.value].join(', ')}
-                    />;
-
-                    })
-                }
+                <LabeledInfo label="メアド" data={email ? [email, emailRel].join(',') : ''}/>
+                <LabeledInfo label="電話番号１" data={phone1 ? [phone1, phone1Rel].join(',') : ''}/>
+                <LabeledInfo label="電話番号２" data={phone2 ? [phone2, phone2Rel].join(',') : ''}/>
 
                 {
                   custGroupRecord?.members.value.reduce((accu, curr, index: number) => {
@@ -137,10 +118,32 @@ export const CustInfo = (props : {
                   })
                 }
                 <LabeledInfo label={'グループ番号'} data={custGroupId} />
-                <LabeledInfo label={'顧客番号'} data={custRecord?.$id.value} />
+                <LabeledInfo label={'顧客番号'} data={customerId?.value} />
               </Stack>
 
             </Grid>
+            {custGroupId &&
+
+              <Grid item xs={3}>
+                <Link
+                  to={`/custgroup/edit/${custGroupId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+
+                  >
+                  <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<EditIcon />}
+                  fullWidth
+                >
+                    編集
+                  </Button>
+                </Link>
+
+              </Grid>
+            }
+
           </Grid>
         </GrayBox>
       </Grid>

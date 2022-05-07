@@ -1,3 +1,4 @@
+
 import * as Yup from 'yup';
 import { postalRegExp } from '../../helpers/yupValidator';
 
@@ -15,6 +16,8 @@ export type BuildingTypeVals =
 export const initialValues = {
   recordId: '' as string | undefined,
   custGroupId: undefined  as undefined | string,
+  storeId: '',
+  territory: '',
   constructionType: '',
   constructionTypeId: '',
   constructionName: '',

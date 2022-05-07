@@ -43,7 +43,7 @@ export function DetailsTabs(props : {
         .then(resp => {
           console.log('triggered!');
           setLoading(false);
-          setRecord(resp.record as unknown as CustomerGroupTypes.SavedData);
+          setRecord(resp);
         });
     }
   }, [custGroupId]);

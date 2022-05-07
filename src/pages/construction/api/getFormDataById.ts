@@ -32,6 +32,7 @@ export const getFormDataById = async (recordId: string): Promise<ConstructionDet
     cocoConst1: cocoConst?.[0],
     cocoConst2: cocoConst?.[1],
     addressKari: addressKari.value,
-
+    storeId: '',
+    territory: '',
   };
 };

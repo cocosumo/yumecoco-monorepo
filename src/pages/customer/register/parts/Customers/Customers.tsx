@@ -57,7 +57,6 @@ const Customer =  (props: CustomerProps) => {
         </Grid>
       }
 
-
       <Grid item xs={12}>
         <FormikTextField name={`${namePrefix}${getCustFieldName('custName')}`} label="氏名" placeholder='山田　太郎' required/>
       </Grid>

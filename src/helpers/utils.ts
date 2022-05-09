@@ -31,6 +31,23 @@ export const hiraToKana = (str: string) =>  {
   });
 };
 
+export const getKanaRow = (str: string) => {
+  if (/[あ-お]$/.test(str)) return 'あ';
+  if (/[か-こ]$/.test(str)) return 'か';
+  if (/[さ-そ]$/.test(str)) return 'さ';
+  if (/[た-と]$/.test(str)) return 'た';
+  if (/[な-の]$/.test(str)) return 'な';
+  if (/[は-ほ]$/.test(str)) return 'は';
+  if (/[ま-も]$/.test(str)) return 'ま';
+  if (/[や-よ]$/.test(str)) return 'や';
+  if (/[ら-ろ]$/.test(str)) return 'ら';
+  if (/[わ*]$/.test(str)) return 'わ';
+
+
+  return '他';
+
+};
+
 
 
 export default {};

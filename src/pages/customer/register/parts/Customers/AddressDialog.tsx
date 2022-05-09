@@ -2,6 +2,7 @@ import { DialogTitle, Dialog, DialogContent, Grid, DialogActions, Button, Typogr
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { getPrefectures, getCities, getTowns, GetTownsResponseLocation, GetCitiesRespLocation } from '../../../../../api/others/address';
+import { getKanaRow } from '../../../../../helpers/utils';
 import { usePrefectureArea } from '../../../../../hooks/usePrefectureArea';
 import { SimpleChoices, SortedCities, SortedTowns } from './AddressDialogParts/';
 
@@ -19,7 +20,8 @@ const initialAddressDetailsState = {
 
 const alphabeticalReducer = (accu: any, curr: any, groupKey: string)=>{
   let firstChar = curr[groupKey].charAt(0);
-  if (firstChar === '(') firstChar = curr[groupKey]; // そのた
+  firstChar = firstChar === '(' ? firstChar = curr[groupKey] : getKanaRow(firstChar);
+  // そのた
   return { ...accu, [firstChar]: [...accu?.[firstChar] ?? [], curr] };
 };
 
@@ -97,6 +99,11 @@ export const AddressDialog = (props: {
   const groupedCities : { [key : string]: GetCitiesRespLocation } = cities
     .reduce((accu, curr) => alphabeticalReducer(accu, curr, 'city_kana'), {} );
 
+  const sortedCities = Object.entries(groupedCities)
+    .sort(([a], [b])=>{
+      return a.includes('そのた') ? 0 : a.localeCompare(b);
+    });
+
   return (
     <Dialog
 
@@ -115,7 +122,7 @@ export const AddressDialog = (props: {
         </Typography>
       </DialogTitle>
       <DialogContent dividers>
-        <Grid container spacing={2} justifyContent="center" alignContent={'center'}>
+        <Grid container spacing={2} justifyContent="center" alignContent={'center'} >
           {isLoading &&
             <Grid item xs={8}><CircularProgress size={200} /></Grid>
           }
@@ -130,7 +137,7 @@ export const AddressDialog = (props: {
 
           {addressDetails.prefecture && !addressDetails.city && !isLoading &&
             <SortedCities
-              groupedCities={groupedCities}
+              sortedCities={sortedCities}
               handleChoice={(val) => {
                 setAddressDetails(prev => (
                   { ...prev, city: val }

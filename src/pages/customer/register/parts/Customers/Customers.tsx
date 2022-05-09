@@ -9,8 +9,10 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
-
+import historykana from 'historykana';
 import { nativeMath, string as randomStr } from 'random-js';
+import { useEffect, useRef } from 'react';
+import { hiraToKana } from '../../../../../helpers/utils';
 
 
 interface CustomerProps extends ArrayHelpers{
@@ -32,11 +34,18 @@ const Customer =  (props: CustomerProps) => {
 
   } = props;
 
-  const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
-
+  const { birthYear, birthMonth, custName } = customers[index] ?? { birthYear: '', birthMonth: '' };
+  const { setFieldValue } = useFormikContext<CustomerForm>();
+  const inputHistories = useRef<string[]>([]);
   const isFirstCustomer = !index;
 
-
+  useEffect(()=>{
+    inputHistories.current.push(custName);
+    setFieldValue(
+      `${namePrefix}${getCustFieldName('custNameReading')}`,
+      hiraToKana(historykana(inputHistories.current)),
+    );
+  }, [custName]);
 
   return (
     <Grid container item xs={12} spacing={2}>
@@ -58,7 +67,12 @@ const Customer =  (props: CustomerProps) => {
       }
 
       <Grid item xs={12}>
-        <FormikTextField name={`${namePrefix}${getCustFieldName('custName')}`} label="氏名" placeholder='山田　太郎' required/>
+        <FormikTextField
+          name={`${namePrefix}${getCustFieldName('custName')}`}
+          label="氏名"
+          placeholder='山田　太郎'
+          required
+          />
       </Grid>
       <Grid item xs={12}>
         <FormikTextField name={`${namePrefix}${getCustFieldName('custNameReading')}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>

@@ -4,11 +4,18 @@ import App from '../components/App';
 
 import { generateRoot } from '../helpers/utils';
 
+let container: HTMLElement  | null = null;
 
 export default function onIndexShowHandler() {
 
-  generateRoot();
-  const container = document.getElementById('app');
-  const root = createRoot( container!);
-  root.render(<App />);
+  // Client side navigation triggers this callback so
+  // If container already exist, prevent createRoot from triggering.
+
+  if (!container){
+    generateRoot();
+    console.log('ROOOT');
+    container = document.getElementById('app');
+    const root = createRoot( container!);
+    root.render(<App />);
+  }
 }

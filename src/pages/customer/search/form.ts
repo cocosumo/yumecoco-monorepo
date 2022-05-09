@@ -9,6 +9,8 @@ export const recordStatuses = [
   '工事進行中',
   '工事完了(未精算)',
   '工事完了(精算済)',
+  '中止',
+  '他決',
 ] as const;
 
 export type CustomerTypeVals = typeof customerTypes[number];

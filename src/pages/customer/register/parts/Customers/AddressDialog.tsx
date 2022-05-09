@@ -1,6 +1,6 @@
 import { DialogTitle, Dialog, DialogContent, Grid, DialogActions, Button, Typography, CircularProgress } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getPrefectures, getCities, getTowns, GetTownsResponseLocation, GetCitiesRespLocation } from '../../../../../api/others/address';
 import { getKanaRow } from '../../../../../helpers/utils';
 import { usePrefectureArea } from '../../../../../hooks/usePrefectureArea';
@@ -38,6 +38,7 @@ export const AddressDialog = (props: {
   const [cities, setCities] = useState<GetCitiesRespLocation>([]);
   const [towns, setTowns] = useState<GetTownsResponseLocation>([]);
   const [addressDetails, setAddressDetails] = useState<AddressDetails>(initialAddressDetailsState);
+  const kanaRows = useRef<Array<HTMLElement | null>>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const { area, city, postal, prefecture, town } = addressDetails;
@@ -138,6 +139,7 @@ export const AddressDialog = (props: {
           {addressDetails.prefecture && !addressDetails.city && !isLoading &&
             <SortedCities
               sortedCities={sortedCities}
+              kanaRows={kanaRows}
               handleChoice={(val) => {
                 setAddressDetails(prev => (
                   { ...prev, city: val }

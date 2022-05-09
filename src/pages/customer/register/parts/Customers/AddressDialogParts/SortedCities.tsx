@@ -1,5 +1,5 @@
 import { Grid, Divider, Button, Stack, Chip } from '@mui/material';
-import { useRef } from 'react';
+import { MutableRefObject } from 'react';
 
 export type SortedItems = Array<[string, {
   city: string;
@@ -9,10 +9,10 @@ export type SortedItems = Array<[string, {
 export const SortedCities = (props : {
   sortedCities :  SortedItems,
   handleChoice: (city: string) => void
-
+  kanaRows : MutableRefObject<(HTMLElement | null)[]>
 }) => {
-  const { sortedCities, handleChoice } = props;
-  const kanaRows = useRef<Array<HTMLElement | null>>([]);
+  const { sortedCities, kanaRows, handleChoice } = props;
+  //const kanaRows = useRef<Array<HTMLElement | null>>([]);
 
   return (<>
 

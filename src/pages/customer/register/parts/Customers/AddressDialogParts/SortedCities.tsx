@@ -1,13 +1,15 @@
-import { Grid, Divider, Button, Stack, Chip } from '@mui/material';
+import { Grid, Divider, Button, Stack } from '@mui/material';
 import { MutableRefObject } from 'react';
+import { KanaNavigation } from './KanaNavigation';
 
-export type SortedItems = Array<[string, {
+
+export type SortedCityItems = Array<[string, {
   city: string;
   city_kana: string;
 }[]]>;
 
 export const SortedCities = (props : {
-  sortedCities :  SortedItems,
+  sortedCities :  SortedCityItems,
   handleChoice: (city: string) => void
   kanaRows : MutableRefObject<(HTMLElement | null)[]>
 }) => {
@@ -15,20 +17,10 @@ export const SortedCities = (props : {
   //const kanaRows = useRef<Array<HTMLElement | null>>([]);
 
   return (<>
-
-    <Stack direction={'column'} sx={{ position: 'absolute', right: '1rem' }} spacing={1} p={1}>
-      {
-        sortedCities.map(([groupKey], kanaIdx) => (
-          <Chip
-            key={groupKey}
-            label={`${groupKey}`}
-            size='small'
-            onClick={()=>{
-              kanaRows.current[kanaIdx]?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-            }} />
-        ))
-      }
-    </Stack>
+    <KanaNavigation
+      kanaKeys={sortedCities.map(([key]) => key)}
+      kanaRowsRef={kanaRows}
+    />
 
     {
       sortedCities

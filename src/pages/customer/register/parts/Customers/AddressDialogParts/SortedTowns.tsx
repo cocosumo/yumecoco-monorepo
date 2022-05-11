@@ -1,23 +1,33 @@
 import { Grid, Divider, Button, Stack, Typography } from '@mui/material';
 import { GetTownsResponseLocation } from '../../../../../../api/others/address';
+import { MutableRefObject } from 'react';
+import { KanaNavigation } from './KanaNavigation';
+
+export type SortedTownItems = Array<[string, GetTownsResponseLocation]>;
 
 export const SortedTowns = (props : {
-  groupedTowns: {
-    [key: string]: GetTownsResponseLocation
-  },
-  handleChoice: (postal: string, town: string) => void
+  sortedTowns: SortedTownItems,
+  handleChoice: (postal: string, town: string) => void,
+  kanaRows : MutableRefObject<(HTMLElement | null)[]>
 }) => {
 
-  const { groupedTowns, handleChoice } = props;
+  const { sortedTowns, handleChoice, kanaRows } = props;
 
   return (<>
-    {Object.entries(groupedTowns)
-      .sort(([a], [b])=>{
-        return a.includes('そのた') ? 0 : a.localeCompare(b);
-      })
-      .map(([groupKey, values]) => {
+    <KanaNavigation
+      kanaKeys={sortedTowns.map((([k])=>k))}
+      kanaRowsRef={kanaRows}
+    />
+    {sortedTowns
+      .map(([groupKey, values], index) => {
         return (
-          <Grid key={groupKey} container item xs={12} spacing={2}>
+          <Grid
+            key={groupKey}
+            ref={(el) =>  kanaRows.current[index] = el}
+            container
+            item xs={12}
+            spacing={2}
+          >
             <Grid item xs={12}>
               <Divider textAlign='left'>{groupKey} </Divider>
             </Grid>

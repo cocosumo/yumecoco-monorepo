@@ -10,6 +10,9 @@ import { SimpleChoices, SortedCities, SortedTowns } from './AddressDialogParts/'
 
 export type AddressDetails = typeof initialAddressDetailsState;
 
+
+
+
 const initialAddressDetailsState = {
   area: '',
   prefecture: '',
@@ -20,9 +23,13 @@ const initialAddressDetailsState = {
 
 const alphabeticalReducer = (accu: any, curr: any, groupKey: string)=>{
   let firstChar = curr[groupKey].charAt(0);
-  firstChar = firstChar === '(' ? firstChar = curr[groupKey] : getKanaRow(firstChar);
+  firstChar = firstChar === '(' ? firstChar = '他' : getKanaRow(firstChar);
   // そのた
   return { ...accu, [firstChar]: [...accu?.[firstChar] ?? [], curr] };
+};
+
+const sorter = ([a]: any, [b]: any)=>{
+  return a === '他' ? 0 : a.localeCompare(b);
 };
 
 
@@ -78,8 +85,7 @@ export const AddressDialog = (props: {
   }, [city]);
 
   useEffect(()=>{
-    if (postal){
-      console.log('hey');
+    if (postal) {
       handleClose();
       setFieldValue(postalFN, postal );
       setFieldValue(address1FN, `${prefecture}${city}${town}` );
@@ -94,6 +100,7 @@ export const AddressDialog = (props: {
   }, [open]);
 
 
+
   const groupedTowns :  { [key : string]: GetTownsResponseLocation } = towns
     .reduce((accu, curr) => alphabeticalReducer(accu, curr, 'town_kana'), {} );
 
@@ -101,9 +108,9 @@ export const AddressDialog = (props: {
     .reduce((accu, curr) => alphabeticalReducer(accu, curr, 'city_kana'), {} );
 
   const sortedCities = Object.entries(groupedCities)
-    .sort(([a], [b])=>{
-      return a.includes('そのた') ? 0 : a.localeCompare(b);
-    });
+    .sort(sorter);
+  const sortedTowns = Object.entries(groupedTowns)
+    .sort(sorter);
 
   return (
     <Dialog
@@ -150,7 +157,8 @@ export const AddressDialog = (props: {
 
           { addressDetails.city && !addressDetails.town && !isLoading &&
             <SortedTowns
-              groupedTowns={groupedTowns}
+              sortedTowns={sortedTowns}
+              kanaRows={kanaRows}
               handleChoice={(_postal, _town) => {
                 setAddressDetails(prev => (
                   { ...prev,

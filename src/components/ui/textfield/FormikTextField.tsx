@@ -6,6 +6,7 @@ import { FocusEvent, ChangeEvent } from 'react';
 interface FormikTextFieldProps {
   name: string,
   label: string,
+  id?: string,
   value?: string,
   onBlur?: (e: FocusEvent<any, Element>)=>void,
   onChange?: (e: ChangeEvent<any>) => void,
@@ -26,6 +27,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     shrink = undefined,
     multiline = undefined,
     rows = undefined,
+    id = undefined,
   } = props;
   const [field, meta] = useField(props);
 
@@ -39,6 +41,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
   return (
     <TextField  {...field}
     label={label}
+    id={id}
     placeholder={placeholder}
     required={ required}
     onBlur={(e)=> {

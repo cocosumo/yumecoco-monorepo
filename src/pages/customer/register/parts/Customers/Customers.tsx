@@ -13,6 +13,7 @@ import historykana from 'historykana';
 import { nativeMath, string as randomStr } from 'random-js';
 import { ChangeEvent, useEffect, useRef } from 'react';
 import { hiraToKana } from '../../../../../helpers/utils';
+import * as AutoKana from 'vanilla-autokana';
 
 
 interface CustomerProps extends ArrayHelpers{
@@ -39,6 +40,13 @@ const Customer =  (props: CustomerProps) => {
   const inputHistories = useRef<string[]>([]);
   const isFirstCustomer = !index;
 
+  const custNameFN = `${namePrefix}${getCustFieldName('custName')}`;
+  const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
+
+  useEffect(()=>{
+    AutoKana.bind(`#${custNameFN}`, `#${custNameReadingFN}`);
+  }, []);
+
   useEffect(()=>{
     if (inputHistories.current.at(-3) === custName){
       inputHistories.current = inputHistories.current.filter(Boolean);
@@ -47,7 +55,7 @@ const Customer =  (props: CustomerProps) => {
 
   const handleSetReading = () =>{
     setFieldValue(
-      `${namePrefix}${getCustFieldName('custNameReading')}`,
+      custNameReadingFN,
       hiraToKana(historykana(inputHistories.current)),
     );
   };
@@ -77,7 +85,8 @@ const Customer =  (props: CustomerProps) => {
 
       <Grid item xs={12}>
         <FormikTextField
-          name={`${namePrefix}${getCustFieldName('custName')}`}
+          name={custNameFN}
+          id={custNameFN}
           label="氏名"
           placeholder='山田　太郎'
           required
@@ -88,7 +97,7 @@ const Customer =  (props: CustomerProps) => {
           />
       </Grid>
       <Grid item xs={12}>
-        <FormikTextField name={`${namePrefix}${getCustFieldName('custNameReading')}`} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>
+        <FormikTextField name={custNameReadingFN} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />

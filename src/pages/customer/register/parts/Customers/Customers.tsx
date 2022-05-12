@@ -11,7 +11,7 @@ import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
 import historykana from 'historykana';
 import { nativeMath, string as randomStr } from 'random-js';
-import { useEffect, useRef } from 'react';
+import { ChangeEvent, useEffect, useRef } from 'react';
 import { hiraToKana } from '../../../../../helpers/utils';
 
 
@@ -40,12 +40,21 @@ const Customer =  (props: CustomerProps) => {
   const isFirstCustomer = !index;
 
   useEffect(()=>{
-    inputHistories.current.push(custName);
+    if (inputHistories.current.at(-3) === custName){
+      inputHistories.current = inputHistories.current.filter(Boolean);
+    }
+  }, [custName]);
+
+  const handleSetReading = () =>{
     setFieldValue(
       `${namePrefix}${getCustFieldName('custNameReading')}`,
       hiraToKana(historykana(inputHistories.current)),
     );
-  }, [custName]);
+  };
+
+  useEffect(()=>{
+    handleSetReading();
+  }, [inputHistories.current.length]);
 
   return (
     <Grid container item xs={12} spacing={2}>
@@ -72,6 +81,10 @@ const Customer =  (props: CustomerProps) => {
           label="氏名"
           placeholder='山田　太郎'
           required
+          onBlur={()=>handleSetReading()}
+          onChange={(e: ChangeEvent<HTMLInputElement>)=>{
+            inputHistories.current.push(e.target.value);
+          }}
           />
       </Grid>
       <Grid item xs={12}>

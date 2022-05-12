@@ -11,9 +11,10 @@ declare namespace CustomerTypes {
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;
     nationality: kintone.fieldTypes.SingleLineText;
+    isDeleted: kintone.fieldTypes.Number;
     birthYear: kintone.fieldTypes.Number;
     contacts: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {

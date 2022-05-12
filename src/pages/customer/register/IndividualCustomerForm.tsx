@@ -12,6 +12,7 @@ import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
 import { RecordStatus } from './parts/RecordStatus';
+import { ShortCuts } from  './parts/ShortCuts';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -19,9 +20,15 @@ interface ConstructionFormProps {
 
 export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
   const { handleSnack } = props;
-  const { isValid, isSubmitting, submitForm, values } = useFormikContext<CustomerForm>();
+  const { isValid,
+    isSubmitting,
+    submitForm,
+    values : {
+      id: custGroupId,
+    },
+  } = useFormikContext<CustomerForm>();
   const [initialLoad, setInitialLoad] = useState(true);
-  const isEditMode = !!values.id;
+  const isEditMode = !!custGroupId;
 
   useEffect(()=>{
 
@@ -55,6 +62,10 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
 
         </Grid>
         <FabSave onClick={submitForm} url="custgroup"/>
+        {
+          isEditMode &&  <ShortCuts handleSnack={handleSnack} custGroupId={custGroupId} />
+        }
+
       </MainContainer>
 
     </Form>

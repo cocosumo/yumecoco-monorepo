@@ -1,5 +1,5 @@
 
-import { Fab, Grid, Zoom } from '@mui/material/';
+import { Fab, Box, Zoom } from '@mui/material/';
 import Save from '@mui/icons-material/Save';
 import { useLocation } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ export const FabSave = (props: Props) => {
   } = props;
   return (
 
-    <Grid container justifyContent={'flex-end'} width={'100%'} left={0}  top={'74px'} position="fixed">
+    <Box  sx={{ position: 'fixed', top: 72, right: 36, zIndex: 3000 }}>
       <Zoom in={!url || pathname.includes(url)} timeout={1000}>
         <Fab
         variant='extended'
@@ -25,16 +25,14 @@ export const FabSave = (props: Props) => {
         aria-label="add"
 
         sx={{
-          mr: { xs: 4, md: 8 },
           p: 4,
-          zIndex: 3000,
         }}
         >
           <Save sx={{ mr: 1 }}/>
           保存
         </Fab>
       </Zoom>
-    </Grid>
+    </Box>
 
 
   );

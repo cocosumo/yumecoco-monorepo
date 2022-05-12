@@ -14,17 +14,26 @@ import UnderConstruction from './UnderConstruction';
 
 // RouteMatch, useParams : TS access to dynamic route
 
+export const pages = {
+  custGroupReg: '/custgroup/register',
+  projEdit: '/construction/edit/',
+  custGroupEdit: '/custgroup/edit/',
+  projReg: '/construction/register',
+  custSearch: '/customer/search',
+};
+
 
 
 const Router = () => (
 
+
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
-    <Route path="/construction/register" element={<FormikConstruction />} key={'regConst'}/>
-    <Route path="/construction/edit/:recordId/" element={<FormikConstruction />} key={'edit'}/>
-    <Route path="/customer/search" element={<FormikCustomerSearch />} />
-    <Route path="/custgroup/register" element={<FormikIndividualCustomer key={'register'} />} />
-    <Route path="/custgroup/edit/:recordId/" element={<FormikIndividualCustomer />} />
+    <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'}/>
+    <Route path={`${pages.projEdit}:recordId/`} element={<FormikConstruction />} key={'edit'}/>
+    <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
+    <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
+    <Route path={`${pages.custGroupEdit}:recordId/`} element={<FormikIndividualCustomer />} />
   </Routes>
 
 );

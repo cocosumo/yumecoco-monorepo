@@ -20,7 +20,7 @@ export default function ShortCuts() {
 
     <SpeedDial
       ariaLabel="SpeedDial basic example"
-      sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: 3000 }}
+      sx={{ position: 'fixed', bottom: 16, right: 36, zIndex: 3000 }}
       icon={<SpeedDialIcon />}
     >
       {actions.map((action) => (

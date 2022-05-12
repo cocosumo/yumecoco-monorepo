@@ -79,9 +79,9 @@ export const FormikIndividualCustomer = () => {
         handleClose={()=> {
           if (snackState.handleClose){
             snackState?.handleClose();
-          } else {
-            setSnackState(prev => ({ ...prev, open: false }));
           }
+          setSnackState(prev => ({ ...prev, open: false }));
+
         }}/>
     </MemoContextProvider>
   );

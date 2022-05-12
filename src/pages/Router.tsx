@@ -29,8 +29,10 @@ const Router = () => (
 
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
+
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'}/>
     <Route path={`${pages.projEdit}:recordId/`} element={<FormikConstruction />} key={'edit'}/>
+
     <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
     <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
     <Route path={`${pages.custGroupEdit}:recordId/`} element={<FormikIndividualCustomer />} />

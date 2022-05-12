@@ -10,7 +10,8 @@ import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { GetEmployeesParams } from '../../api/kintone/employees/GET';
-import { ConstructionDetailsType } from './form';
+import { ConstructionDetailsType, getFieldName } from './form';
+import { useQuery } from '../../hooks/useQuery';
 
 interface ConstructionFormProps {
   handleSnack:  (snackState: SnackState) => void
@@ -21,16 +22,22 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
   const {
     isValid,
     isSubmitting,
-    submitForm, values : {
+    submitForm,
+    setFieldValue,
+    values : {
       storeId,
       territory,
       constructionTypeId,
     },
   } = useFormikContext<ConstructionDetailsType>();
+  let passedCustGroupId = useQuery().get(getFieldName('custGroupId'));
 
 
-
-  //const { storeId, territory } = custGroupRecord ?? {};
+  useEffect(()=>{
+    if (passedCustGroupId){
+      setFieldValue(getFieldName('custGroupId'), passedCustGroupId);
+    }
+  }, [passedCustGroupId]);
 
   useEffect(()=>{
     if (!isValid && !isSubmitting){

@@ -4,12 +4,15 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CarpenterIcon from '@mui/icons-material/Carpenter';
 import { useState } from 'react';
 import { ConfirmDialog } from '../../../../components/ui/dialogs/ConfirmDialog';
 import { softDeleteById } from '../api/softDeleteById';
 import { SnackState } from '../../../../components/ui/snacks/FormSnack';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../../Router';
+
+
 
 export  function ShortCuts(props : {
   custGroupId: string
@@ -47,10 +50,17 @@ export  function ShortCuts(props : {
       sx={{ position: 'fixed', bottom: 16, right: 36, zIndex: 3000 }}
       icon={<SpeedDialIcon />}
     >
+        <SpeedDialAction
+          icon={<CarpenterIcon />}
+          tooltipTitle={'工事を登録する'}
+          tooltipOpen
+          onClick={()=>navigate(`${pages.projReg}?custGroupId=${custGroupId}`)}
+        />
 
         <SpeedDialAction
           icon={<DeleteIcon />}
           tooltipTitle={'削除'}
+          tooltipOpen
           onClick={handleConfirmOpen}
         />
 

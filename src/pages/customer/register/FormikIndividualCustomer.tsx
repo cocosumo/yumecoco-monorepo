@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import {  CustomerForm, initialValues, validationSchema } from './form';
 import { IndividualCustomerForm } from './IndividualCustomerForm';
-import { useState, useEffect  } from 'react';
+import { useState, useEffect, useRef  } from 'react';
 import FormSnack, { SnackState } from '../../../components/ui/snacks/FormSnack';
 import { saveFormData } from './api/saveFormData';
 
@@ -9,17 +9,27 @@ import { useNavigate, useParams  } from 'react-router-dom';
 import { getFormDataById } from './api/getFormDataById';
 import { MemoContextProvider } from './parts/Memo/memoForm/MemoContext';
 import { FormikMemo } from './parts/Memo/memoForm/FormikMemo';
+import { ConfirmDialog } from '../../../components/ui/dialogs/ConfirmDialog';
+import { pages } from '../../Router';
 
 
 
 export const FormikIndividualCustomer = () => {
   const [snackState, setSnackState] = useState<SnackState>({ open:false });
+  const [confirmNavigate, setConfirmNavigate] = useState(false);
   const [initialState, setInitialState] = useState<CustomerForm>(initialValues);
+  const savedCustGroupId = useRef<string>();
 
   const recordId  = useParams().recordId;
   const navigate = useNavigate();
 
 
+  const handleNavigate = (isYes: boolean) => {
+    if (isYes)  navigate(`${pages.projReg}`);
+    if (!isYes)  navigate(`${pages.custGroupEdit}${savedCustGroupId.current}`);
+
+    setConfirmNavigate(false);
+  };
 
   useEffect(()=>{
 
@@ -47,15 +57,17 @@ export const FormikIndividualCustomer = () => {
           console.log('submitState', values);
           saveFormData({ ...values, id: recordId })
             .then((resp)=>{
+              savedCustGroupId.current = resp.id;
+
               setSnackState(()=>{
                 return {
                   open: true,
                   message: '保存出来ました。',
                   handleClose: ()=> {
-                    navigate(`/custgroup/edit/${resp.id}`);
-                    setSnackState(prev => ({ ...prev, open: false }));
+                    setConfirmNavigate(true);
                   },
                 };
+
               });
               setSubmitting(false);
 
@@ -83,6 +95,13 @@ export const FormikIndividualCustomer = () => {
           setSnackState(prev => ({ ...prev, open: false }));
 
         }}/>
+      <ConfirmDialog
+        open={confirmNavigate}
+        title={'次へ'}
+        content={'工事情報を登録しますか'}
+        handleAnswer={handleNavigate}
+
+      />
     </MemoContextProvider>
   );
 };

@@ -9,6 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Link } from 'react-router-dom';
+import CarpenterIcon from '@mui/icons-material/Carpenter';
 
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { pages } from '../../../pages/Router';
@@ -35,12 +36,12 @@ export default function ConstructionMenu() {
           <Link to={pages.projReg}>
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
-                <NoteAddIcon />
+                <CarpenterIcon />
               </ListItemIcon>
               <ListItemText primary="新規登録" />
             </ListItemButton>
           </Link>
-          <Link to="construction/register">
+          <Link to={pages.projProspect}>
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <NoteAddIcon />

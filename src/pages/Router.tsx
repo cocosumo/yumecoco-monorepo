@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './construction';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
+import { FormikProjProspect } from './projProspect';
 import UnderConstruction from './UnderConstruction';
 
 
@@ -19,8 +20,9 @@ export const pages = {
   custGroupEdit: '/custgroup/edit/',
 
   projEdit: '/construction/edit/',
-
   projReg: '/construction/register',
+
+  projProspect: '/prospect',
   custSearch: '/customer/search',
 };
 
@@ -32,12 +34,21 @@ const Router = () => (
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
 
+    {/* 顧客グループ */}
+    <Route path={`${pages.custGroupEdit}:recordId/`} element={<FormikIndividualCustomer />} />
+    <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
+    <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
+
+    {/* 工事情報 */}
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'}/>
     <Route path={`${pages.projEdit}:recordId/`} element={<FormikConstruction />} key={'edit'}/>
 
-    <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
-    <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
-    <Route path={`${pages.custGroupEdit}:recordId/`} element={<FormikIndividualCustomer />} />
+    {/* 見込み登録 */}
+    <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'}/>
+
+
+
+
   </Routes>
 
 );

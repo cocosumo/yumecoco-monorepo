@@ -1,6 +1,6 @@
-import { TextField } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 import { useField } from 'formik';
-import { FocusEvent, ChangeEvent } from 'react';
+import { FocusEvent, ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
 
 interface FormikTextFieldProps {
@@ -15,16 +15,18 @@ interface FormikTextFieldProps {
   helperText?: string,
   required?: boolean,
   inputComponent?: any,
-  endAdornment?: JSX.Element
+  endAdornment?: JSX.Element | string,
   shrink?: boolean
   multiline?: boolean,
   rows?: number
-
+  type?: HTMLInputTypeAttribute,
 }
 
 export const FormikTextField = (props: FormikTextFieldProps) => {
   const {
     helperText, label, placeholder, required,
+    type = undefined,
+    endAdornment,
     shrink = undefined,
     multiline = undefined,
     rows = undefined,
@@ -47,6 +49,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     id={id}
     placeholder={placeholder}
     required={ required}
+    type={type}
     onBlur={(e)=> {
       /* Call formiks default onBlur */
       field.onBlur(e);
@@ -62,6 +65,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     helperText={meta.error || helperText}
     InputProps={{
       inputComponent: props?.inputComponent,
+      endAdornment: <InputAdornment position='end'>{endAdornment}</InputAdornment>,
     }}
     InputLabelProps={{
       shrink,

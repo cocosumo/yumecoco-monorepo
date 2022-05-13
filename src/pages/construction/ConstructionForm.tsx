@@ -50,7 +50,6 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
     <Form noValidate>
       <ScrollToFieldError/>
       <MainContainer>
-
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8} spacing={2} mb={12}>
           <CustInfo />

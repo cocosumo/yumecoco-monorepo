@@ -86,18 +86,19 @@ export const CustInfo = () => {
           <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12} sm={6}>
               <Stack spacing={2}>
-                <LabeledInfo label="氏名" data={customerName?.value}/>
-                <LabeledInfo label="氏名フリガナ" data={custNameReading}/>
-                <LabeledInfo
+                <>
+                  <LabeledInfo label="氏名" data={customerName?.value}/>
+                  <LabeledInfo label="氏名フリガナ" data={custNameReading}/>
+                  <LabeledInfo
                   label="現住所"
                   data={[postalCode?.value, address1?.value, address2?.value]
                     .join('')}
                 />
-                <LabeledInfo label="メアド" data={email ? [email, emailRel].join(',') : ''}/>
-                <LabeledInfo label="電話番号１" data={phone1 ? [phone1, phone1Rel].join(',') : ''}/>
-                <LabeledInfo label="電話番号２" data={phone2 ? [phone2, phone2Rel].join(',') : ''}/>
+                  <LabeledInfo label="メアド" data={email ? [email, emailRel].join(',') : ''}/>
+                  <LabeledInfo label="電話番号１" data={phone1 ? [phone1, phone1Rel].join(',') : ''}/>
+                  <LabeledInfo label="電話番号２" data={phone2 ? [phone2, phone2Rel].join(',') : ''}/>
 
-                {
+                  {
                   custGroupRecord?.members.value.reduce((accu, curr, index: number) => {
                     if (index > 0){
                       return [...accu, <LabeledInfo key={curr.id} label={`契約者${index + 1}`} data={curr.value.customerName.value}/>];
@@ -105,7 +106,7 @@ export const CustInfo = () => {
                     return accu;
                   }, [] as typeof LabeledInfo[])
                 }
-
+                </>
               </Stack>
             </Grid>
 

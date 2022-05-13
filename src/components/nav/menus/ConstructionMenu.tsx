@@ -11,6 +11,7 @@ import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Link } from 'react-router-dom';
 
 import TableChartIcon from '@mui/icons-material/TableChart';
+import { pages } from '../../../pages/Router';
 
 
 export default function ConstructionMenu() {
@@ -31,12 +32,20 @@ export default function ConstructionMenu() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link to="construction/register">
+          <Link to={pages.projReg}>
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <NoteAddIcon />
               </ListItemIcon>
               <ListItemText primary="新規登録" />
+            </ListItemButton>
+          </Link>
+          <Link to="construction/register">
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <NoteAddIcon />
+              </ListItemIcon>
+              <ListItemText primary="見込み登録" />
             </ListItemButton>
           </Link>
           <ListItemButton sx={{ pl: 4 }}>

@@ -9,11 +9,12 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
-import historykana from 'historykana';
+
 import { nativeMath, string as randomStr } from 'random-js';
-import { ChangeEvent, useEffect, useRef } from 'react';
-import { hiraToKana } from '../../../../../helpers/utils';
+import {  useEffect, useRef, startTransition } from 'react';
 import * as AutoKana from 'vanilla-autokana';
+
+
 
 
 interface CustomerProps extends ArrayHelpers{
@@ -35,34 +36,23 @@ const Customer =  (props: CustomerProps) => {
 
   } = props;
 
-  const { birthYear, birthMonth, custName } = customers[index] ?? { birthYear: '', birthMonth: '' };
+  const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
   const { setFieldValue } = useFormikContext<CustomerForm>();
-  const inputHistories = useRef<string[]>([]);
+  const autokana = useRef<AutoKana.AutoKana>();
+  //const inputHistories = useRef<string[]>([]);
   const isFirstCustomer = !index;
 
   const custNameFN = `${namePrefix}${getCustFieldName('custName')}`;
   const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
 
   useEffect(()=>{
-    AutoKana.bind(`#${custNameFN}`, `#${custNameReadingFN}`);
-  }, []);
-
-  useEffect(()=>{
-    if (inputHistories.current.at(-3) === custName){
-      inputHistories.current = inputHistories.current.filter(Boolean);
-    }
-  }, [custName]);
-
-  const handleSetReading = () =>{
-    setFieldValue(
-      custNameReadingFN,
-      hiraToKana(historykana(inputHistories.current)),
+    autokana.current = AutoKana.bind(
+      `#${custNameFN}`, `#${custNameReadingFN}`,
+      {
+        katakana: true,
+      },
     );
-  };
-
-  useEffect(()=>{
-    handleSetReading();
-  }, [inputHistories.current.length]);
+  }, []);
 
   return (
     <Grid container item xs={12} spacing={2}>
@@ -90,14 +80,23 @@ const Customer =  (props: CustomerProps) => {
           label="氏名"
           placeholder='山田　太郎'
           required
-          onBlur={()=>handleSetReading()}
-          onChange={(e: ChangeEvent<HTMLInputElement>)=>{
-            inputHistories.current.push(e.target.value);
+          onInput={()=>{
+            startTransition(()=>
+              setFieldValue(
+                custNameReadingFN,
+                autokana.current?.getFurigana(),
+              ),
+            );
           }}
+
           />
       </Grid>
       <Grid item xs={12}>
-        <FormikTextField name={custNameReadingFN} label="氏名フリガナ" placeholder='ヤマダ　タロウ' required/>
+        <FormikTextField
+          id={custNameReadingFN}
+          name={custNameReadingFN}
+          label="氏名フリガナ"
+          placeholder='ヤマダ　タロウ' required/>
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />

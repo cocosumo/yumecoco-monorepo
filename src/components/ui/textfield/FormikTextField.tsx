@@ -10,6 +10,7 @@ interface FormikTextFieldProps {
   value?: string,
   onBlur?: (e: FocusEvent<any, Element>)=>void,
   onChange?: (e: ChangeEvent<any>) => void,
+  onInput?:(e: ChangeEvent<any>) => void,
   placeholder?: string,
   helperText?: string,
   required?: boolean,
@@ -28,6 +29,8 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     multiline = undefined,
     rows = undefined,
     id = undefined,
+    onInput,
+    value,
   } = props;
   const [field, meta] = useField(props);
 
@@ -53,7 +56,8 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
       }
     }}
     onChange={handleChange}
-    value={field.value || ''}
+    onInput={onInput}
+    value={value || field.value || ''}
     error={meta.touched && Boolean(meta.error)}
     helperText={meta.error || helperText}
     InputProps={{

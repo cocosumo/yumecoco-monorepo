@@ -22,7 +22,9 @@ export const MemoContext = createContext <MemoContextValue | undefined>(undefine
 
 
 
-export const MemoContextProvider : React.FC = (props) => {
+export const MemoContextProvider = (props : {
+  children: React.ReactNode
+}) => {
   const [confirmSaveOpen, setConfirmSaveOpen] = useState<boolean>(false);
   const [memoOpen, setMemoOpen] = useState(false);
   const [memoFormState, setMemoFormState] = useState<MemoFormType>(initialValues);

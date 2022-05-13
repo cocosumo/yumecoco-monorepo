@@ -16,8 +16,10 @@ import UnderConstruction from './UnderConstruction';
 
 export const pages = {
   custGroupReg: '/custgroup/register',
-  projEdit: '/construction/edit/',
   custGroupEdit: '/custgroup/edit/',
+
+  projEdit: '/construction/edit/',
+
   projReg: '/construction/register',
   custSearch: '/customer/search',
 };

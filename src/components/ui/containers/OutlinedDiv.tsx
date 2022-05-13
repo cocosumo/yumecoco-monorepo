@@ -11,14 +11,15 @@ interface OutlinedDivProps {
 }
 
 const InputComponent =  React.forwardRef(
-  function test(props, ref) {
-    return <div {...ref} { ...props} />;
+  function test(props, _ref ) {
+
+    return <div  { ...props} />;
   },
 );
 
-export const OutlinedDiv = ({ 
-  children, 
-  label, 
+export const OutlinedDiv = ({
+  children,
+  label,
   helperText,
   errorMessage,
 } : OutlinedDivProps) => {

@@ -1,9 +1,9 @@
 
 import { getConstRecord } from '../../../api/kintone/construction';
-import { BuildingTypeVals, ConstructionDetailsType } from '../form';
+import { BuildingTypeVals, TypeOfProjForm } from '../form';
 import { AgentType } from './../../../types/forms';
 
-export const getFormDataById = async (recordId: string): Promise<ConstructionDetailsType> => {
+export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm> => {
   const constructionRecord = await getConstRecord(recordId);
   const {
     constructionTypeId, constructionName,

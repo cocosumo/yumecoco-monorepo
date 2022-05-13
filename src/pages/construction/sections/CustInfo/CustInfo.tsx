@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
 import { Link } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { ConstructionDetailsType, KeyOfConstructionDetails } from '../../form';
+import { TypeOfProjForm, KeyOfProjForm } from '../../form';
 import { AGLabels } from '../../../../api/kintone/employees/GET';
 import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
@@ -16,7 +16,7 @@ import { CustomerInstance } from '../../../customer/register/form';
 export const CustInfo = () => {
 
   const [custGroupRecord, setCustomerRecord] = useState<CustomerGroupTypes.SavedData>();
-  const { values, setFieldValue } = useFormikContext<ConstructionDetailsType>();
+  const { values, setFieldValue } = useFormikContext<TypeOfProjForm>();
 
 
   const {
@@ -61,15 +61,15 @@ export const CustInfo = () => {
 
   useEffect(()=>{
     if (storeId?.value){
-      setFieldValue('storeId' as KeyOfConstructionDetails, storeId?.value);
-      setFieldValue('territory' as KeyOfConstructionDetails, territory?.value);
-      setFieldValue('constructionName' as KeyOfConstructionDetails, `${customerName?.value}様邸`);
+      setFieldValue('storeId' as KeyOfProjForm, storeId?.value);
+      setFieldValue('territory' as KeyOfProjForm, territory?.value);
+      setFieldValue('constructionName' as KeyOfProjForm, `${customerName?.value}様邸`);
     }
   }, [storeId?.value, territory?.value, customerName?.value]);
 
 
   useEffect(()=>{
-    setFieldValue('constructionName' as KeyOfConstructionDetails, `${customerName?.value ?? '--'}様邸 ${constructionType ?? '--'}`);
+    setFieldValue('constructionName' as KeyOfProjForm, `${customerName?.value ?? '--'}様邸 ${constructionType ?? '--'}`);
   }, [customerName?.value, constructionType]);
 
 

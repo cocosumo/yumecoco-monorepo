@@ -4,7 +4,7 @@ import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { BuildingType, ConstructionSearch } from './parts';
 import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textfield';
 
-import { initialValues, KeyOfConstructionDetails } from '../../form';
+import { initialValues, KeyOfProjForm } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
 import { useCallback } from 'react';
@@ -54,7 +54,7 @@ export const ConstructionLocation = () => {
 
 
       <Grid item xs={12} md={4}>
-        <FormikLabeledCheckBox label="仮換地地番を入力する" name={'isChkAddressKari' as KeyOfConstructionDetails} />
+        <FormikLabeledCheckBox label="仮換地地番を入力する" name={'isChkAddressKari' as KeyOfProjForm} />
       </Grid>
 
       {

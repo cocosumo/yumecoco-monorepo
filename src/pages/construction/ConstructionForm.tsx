@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { GetEmployeesParams } from '../../api/kintone/employees/GET';
-import { ConstructionDetailsType, getFieldName } from './form';
+import { TypeOfProjForm, getFieldName } from './form';
 import { useQuery } from '../../hooks/useQuery';
 
 interface ConstructionFormProps {
@@ -29,7 +29,7 @@ export const ConstructionForm  = (props: ConstructionFormProps) => {
       territory,
       constructionTypeId,
     },
-  } = useFormikContext<ConstructionDetailsType>();
+  } = useFormikContext<TypeOfProjForm>();
   let passedCustGroupId = useQuery().get(getFieldName('custGroupId'));
 
 

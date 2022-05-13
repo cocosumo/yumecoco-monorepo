@@ -2,7 +2,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { getProjectsByCustGroupId, SearchItems } from '../../../../api/getProjectsByCustGroupId';
-import { ConstructionDetailsType, KeyOfConstructionDetails } from '../../../../form';
+import { TypeOfProjForm, KeyOfProjForm } from '../../../../form';
 
 
 export const SearchDialog = (props: {
@@ -13,16 +13,16 @@ export const SearchDialog = (props: {
   const [records, setRecords] = useState<SearchItems | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-  const { setFieldValue, values: { custGroupId } } = useFormikContext<ConstructionDetailsType>();
+  const { setFieldValue, values: { custGroupId } } = useFormikContext<TypeOfProjForm>();
 
   const handleCopy = () => {
     if (selected !== null && records) {
       const { postal, address1, address2 } = records[selected];
       console.log('Copying!');
 
-      setFieldValue('postal' as KeyOfConstructionDetails, postal);
-      setFieldValue('address1' as KeyOfConstructionDetails, address1);
-      setFieldValue('address2' as KeyOfConstructionDetails, address2);
+      setFieldValue('postal' as KeyOfProjForm, postal);
+      setFieldValue('address1' as KeyOfProjForm, address1);
+      setFieldValue('address2' as KeyOfProjForm, address2);
 
     }
 

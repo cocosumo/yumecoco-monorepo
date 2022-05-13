@@ -2,7 +2,7 @@
 import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooks';
-import { KeyOfConstructionDetails } from '../../form';
+import { KeyOfProjForm } from '../../form';
 
 interface ConstructionAgentProps {
   number?: number
@@ -27,7 +27,7 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
 
   return (
     <FormikSelect
-      name={`cocoConst${number}` as KeyOfConstructionDetails}
+      name={`cocoConst${number}` as KeyOfProjForm}
       label={`工事担当者${number}`}
       options={agents}
       helperText={helperText}

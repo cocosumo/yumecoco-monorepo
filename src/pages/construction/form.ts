@@ -32,11 +32,11 @@ export const initialValues = {
   isChkAddressKari: false,
 };
 
-export type ConstructionDetailsType = typeof initialValues;
-export type KeyOfConstructionDetails = keyof ConstructionDetailsType;
-export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
+export type TypeOfProjForm = typeof initialValues;
+export type KeyOfProjForm = keyof TypeOfProjForm;
+export type ConstructionDetailsValues = Partial<Record<KeyOfProjForm, string | number | boolean>>;
 
-export const getFieldName = (fieldName: KeyOfConstructionDetails) => fieldName;
+export const getFieldName = (fieldName: KeyOfProjForm) => fieldName;
 
 /**
  * Set Validation for fields that requires it.
@@ -67,5 +67,5 @@ export const validationSchema =  Yup.object(
     address2: Yup
       .string()
       .required('必須です。'),
-  } as Partial<Record<KeyOfConstructionDetails, any>>,
+  } as Partial<Record<KeyOfProjForm, any>>,
 );

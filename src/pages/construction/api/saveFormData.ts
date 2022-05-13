@@ -1,11 +1,11 @@
-import { ConstructionDetailsType } from '../../../pages/construction/form';
+import { TypeOfProjForm } from '../../../pages/construction/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { AgentType } from '../../../types/forms';
 import { saveProjectToCustGroup } from './saveProjectToCustGroup';
 
 
 export const convertToKintone = (
-  rawValues: ConstructionDetailsType,
+  rawValues: TypeOfProjForm,
 ): Partial<ConstructionDetails.SavedData>  => {
   const {
     cocoConst1, cocoConst2, constructionTypeId, constructionName,
@@ -54,7 +54,7 @@ export const convertToKintone = (
  * @returns
  */
 export const saveConstructionData = async (
-  rawValues: ConstructionDetailsType,
+  rawValues: TypeOfProjForm,
 ) : Promise<{
   id: string,
   revision: string,
@@ -86,7 +86,7 @@ export const saveConstructionData = async (
 };
 
 
-export const saveFormData = async (rawValues: ConstructionDetailsType) : Promise<{
+export const saveFormData = async (rawValues: TypeOfProjForm) : Promise<{
   id: string,
   revision: string,
 }> =>{

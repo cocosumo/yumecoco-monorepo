@@ -13,7 +13,7 @@ interface DatePickerProps {
 }
 
 /* TODO: Pass the state up */
-export default function FormikDatePicker(props: DatePickerProps) {
+export const FormikDatePicker = (props: DatePickerProps) => {
 
   const [field, meta, helpers] = useField(props);
 
@@ -39,4 +39,4 @@ export default function FormikDatePicker(props: DatePickerProps) {
 
     </LocalizationProvider>
   );
-}
+};

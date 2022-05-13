@@ -1,14 +1,16 @@
-import { Form } from 'formik';
+import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { Divider, Grid } from '@mui/material';
 import { FormikSelect } from '../../components/ui/selects';
-import { getFieldName } from './form';
+import { getFieldName, TypeOfForm } from './form';
 import { FormikTextField } from '../../components/ui/textfield';
-import FormikDatePicker from '../../components/ui/datetimepickers/FormikDatePicker';
+import { FormikDatePicker } from '../../components/ui/datetimepickers/';
 import { SearchProjField } from './parts/SearchProjField';
 
 export const ProjProspectForm = () => {
+  const {} = useFormikContext<TypeOfForm>();
+
   return (
     <Form noValidate>
       <MainContainer>

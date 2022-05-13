@@ -8,6 +8,7 @@ import { ConstructionForm } from './ConstructionForm';
 import FormSnack, { SnackState } from '../../components/ui/snacks/FormSnack';
 import { getFormDataById } from './api/getFormDataById';
 import { saveFormData } from './api/saveFormData';
+import { pages } from '../Router';
 
 
 export const FormikConstruction  = () => {
@@ -45,7 +46,7 @@ export const FormikConstruction  = () => {
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。' });
             setSubmitting(false);
-            navigate(`/construction/edit/${resp.id}`);
+            navigate(`${pages.projEdit}${resp.id}`);
           });
       }}
     >

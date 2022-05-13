@@ -10,7 +10,7 @@ export const initialValues = {
   memo: '',
 };
 
-export type TypeOfInitialValues =  typeof initialValues;
-export type KeyOfInitialValues = keyof TypeOfInitialValues;
+export type TypeOfForm =  typeof initialValues;
+export type KeyOfForm = keyof TypeOfForm;
 
-export const getFieldName = (s: KeyOfInitialValues) => s;
+export const getFieldName = (s: KeyOfForm) => s;

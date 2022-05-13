@@ -46,9 +46,6 @@ const Router = () => (
     {/* 見込み登録 */}
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'}/>
 
-
-
-
   </Routes>
 
 );

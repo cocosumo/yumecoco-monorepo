@@ -1,15 +1,21 @@
 declare namespace ConstructionDetails {
   interface Data {
+    schedContractDate: kintone.fieldTypes.Date;
     constructionTypeId: kintone.fieldTypes.Number;
     constructionType: kintone.fieldTypes.SingleLineText;
-    address2: kintone.fieldTypes.SingleLineText;
     addressKari: kintone.fieldTypes.SingleLineText;
-    address1: kintone.fieldTypes.SingleLineText;
-    isAgentConfirmed: kintone.fieldTypes.SingleLineText;
+    memo: kintone.fieldTypes.SingleLineText;
+    schedContractPrice: kintone.fieldTypes.Number;
+    rank: kintone.fieldTypes.SingleLineText;
     constructionName: kintone.fieldTypes.SingleLineText;
     custGroupId: kintone.fieldTypes.Number;
-    postal: kintone.fieldTypes.SingleLineText;
+    estatePurchaseDate: kintone.fieldTypes.Date;
     isChkAddressKari: kintone.fieldTypes.Number;
+    planApplicationDate: kintone.fieldTypes.Date;
+    address2: kintone.fieldTypes.SingleLineText;
+    address1: kintone.fieldTypes.SingleLineText;
+    isAgentConfirmed: kintone.fieldTypes.SingleLineText;
+    postal: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     agents: {
       type: 'SUBTABLE';

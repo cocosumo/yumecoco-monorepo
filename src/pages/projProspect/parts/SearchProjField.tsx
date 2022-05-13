@@ -54,6 +54,7 @@ export const SearchProjField = (props: {
         name = {field.name}
         label={props.label}
         error={Boolean(error && touched)}
+        helperText={error ? error : ''}
         />}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;

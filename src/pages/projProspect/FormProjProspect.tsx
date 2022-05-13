@@ -5,11 +5,15 @@ import { Divider, Grid } from '@mui/material';
 import { FormikSelect } from '../../components/ui/selects';
 import { getFieldName, TypeOfForm } from './form';
 import { FormikTextField } from '../../components/ui/textfield';
-import { FormikDatePicker } from '../../components/ui/datetimepickers/';
+import { FormikDatePicker } from '../../components/ui/datetimepickers';
 import { SearchProjField } from './parts/SearchProjField';
+import { FabSave } from '../../components/ui/fabs/FabSave';
 
-export const ProjProspectForm = () => {
-  const {} = useFormikContext<TypeOfForm>();
+
+export const FormProjProspect = () => {
+  const { submitForm } = useFormikContext<TypeOfForm>();
+
+
 
   return (
     <Form noValidate>
@@ -50,6 +54,7 @@ export const ProjProspectForm = () => {
 
         </Grid>
       </MainContainer>
+      <FabSave onClick={submitForm}/>
     </Form>
   );
 };

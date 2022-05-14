@@ -110,6 +110,7 @@
     "formik": "^2.2.9",
     "historykana": "^1.0.5",
     "img-loader": "^4.0.0",
+    "immer": "^9.0.14",
     "js-crypto-random": "^1.0.4",
     "koyomi": "^0.5.1",
     "npm": "^8.2.0",

@@ -8,9 +8,13 @@ interface FormikTextFieldProps {
   label: string,
   id?: string,
   value?: string,
+  onClick?: ()=>void,
+  onFocus?: ()=>void,
   onBlur?: (e: FocusEvent<any, Element>)=>void,
   onChange?: (e: ChangeEvent<any>) => void,
   onInput?:(e: ChangeEvent<any>) => void,
+  onCompositionStart?: ()=>void,
+  onCompositionEnd?: ()=>void,
   placeholder?: string,
   helperText?: string,
   required?: boolean,
@@ -25,6 +29,9 @@ interface FormikTextFieldProps {
 export const FormikTextField = (props: FormikTextFieldProps) => {
   const {
     helperText, label, placeholder, required,
+    onClick, onFocus,
+    onCompositionEnd,
+    onCompositionStart,
     type = undefined,
     endAdornment,
     shrink = undefined,
@@ -50,6 +57,10 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     placeholder={placeholder}
     required={ required}
     type={type}
+    onClick={onClick}
+    onFocus={onFocus}
+    onCompositionStart={onCompositionStart}
+    onCompositionEnd={onCompositionEnd}
     onBlur={(e)=> {
       /* Call formiks default onBlur */
       field.onBlur(e);

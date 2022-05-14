@@ -8,12 +8,31 @@ import { FormikTextField } from '../../components/ui/textfield';
 import { FormikDatePicker } from '../../components/ui/datetimepickers';
 import { SearchProjField } from './parts/SearchProjField';
 import { FabSave } from '../../components/ui/fabs/FabSave';
-
+import { useEffect } from 'react';
+import { getFormDataById } from './api/fetchRecord';
+import { produce } from 'immer';
 
 export const FormProjProspect = () => {
-  const { submitForm } = useFormikContext<TypeOfForm>();
+  const { 
+    dirty,
+    resetForm,
+    submitForm,
+    setFormikState,
+    values, 
+  } = useFormikContext<TypeOfForm>();
 
+  const { projId } = values;
 
+  useEffect(()=>{
+    if (projId){  
+      getFormDataById(projId)
+        .then((r) => setFormikState(prev => produce(prev, draft=> { draft.values = r; })));
+    } else if (!projId && dirty) {
+      resetForm();
+    }
+  },  [projId]);
+
+  console.log(values);
 
   return (
     <Form noValidate>

@@ -5,20 +5,17 @@ import { initialValues, validationSchema, getFieldName, TypeOfForm } from './for
 import { FormProjProspect } from './FormProjProspect';
 import { useQuery } from '../../hooks/useQuery';
 import { useEffect, useState } from 'react';
-import { getFormDataById } from './api/fetchRecord';
+
 
 export const FormikProjProspect = () => {
   const [formValues, setFormValues] = useState<TypeOfForm>(initialValues);
-  const projId = useQuery().get(getFieldName('projId'));
+
+  const projIdFromURL = useQuery().get(getFieldName('projId'));
 
   useEffect(()=>{
-    if (!projId) return;
-
-    getFormDataById(projId).then(r => setFormValues(r));
-
-
-
-  }, [projId]);
+    if (!projIdFromURL) return;
+    setFormValues({ ...initialValues, projId: projIdFromURL });
+  }, [projIdFromURL]);
 
   return (
     <Formik

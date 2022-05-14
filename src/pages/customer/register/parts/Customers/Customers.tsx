@@ -11,8 +11,9 @@ import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
 
 import { nativeMath, string as randomStr } from 'random-js';
-import {  useEffect, useRef, startTransition } from 'react';
-import * as AutoKana from 'vanilla-autokana';
+import {  useRef } from 'react';
+import historykana from 'historykana';
+import { hiraToKana } from '../../../../../helpers/utils';
 
 
 
@@ -38,21 +39,13 @@ const Customer =  (props: CustomerProps) => {
 
   const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
   const { setFieldValue } = useFormikContext<CustomerForm>();
-  const autokana = useRef<AutoKana.AutoKana>();
-  //const inputHistories = useRef<string[]>([]);
+  //const autokana = useRef<AutoKana.AutoKana>();
+  const inputHistories = useRef<string[]>([]);
   const isFirstCustomer = !index;
 
   const custNameFN = `${namePrefix}${getCustFieldName('custName')}`;
   const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
 
-  useEffect(()=>{
-    autokana.current = AutoKana.bind(
-      `#${custNameFN}`, `#${custNameReadingFN}`,
-      {
-        katakana: true,
-      },
-    );
-  }, []);
 
   return (
     <Grid container item xs={12} spacing={2}>
@@ -80,13 +73,12 @@ const Customer =  (props: CustomerProps) => {
           label="氏名"
           placeholder='山田　太郎'
           required
-          onInput={()=>{
-            startTransition(()=>
-              setFieldValue(
-                custNameReadingFN,
-                autokana.current?.getFurigana(),
-              ),
-            );
+          onInput={(e: any)=>{
+            const text = e.target.value;
+           
+            inputHistories.current.push(text);
+           
+            
           }}
 
           />
@@ -96,7 +88,9 @@ const Customer =  (props: CustomerProps) => {
           id={custNameReadingFN}
           name={custNameReadingFN}
           label="氏名フリガナ"
-          placeholder='ヤマダ　タロウ' required/>
+          placeholder='ヤマダ　タロウ' required
+          onFocus={()=>setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)))}
+          />
       </Grid>
       <SelectGender namePrefix={namePrefix}/>
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />

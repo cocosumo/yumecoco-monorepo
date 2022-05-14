@@ -16,7 +16,7 @@ interface FormSnackProps {
 
 }
 
-const FormSnack : React.FC<FormSnackProps> = ({ snackState, handleClose }) => {
+export const FormSnack : React.FC<FormSnackProps> = ({ snackState, handleClose }) => {
 
   const { open, message, severity }  = snackState;
 

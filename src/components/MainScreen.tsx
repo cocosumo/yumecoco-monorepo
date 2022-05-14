@@ -6,7 +6,7 @@ import { useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import PersistentAppBar from './appBars/PersistentAppBar';
 import PersistentDesktopDrawer from './nav/persistentNav/PersistentDesktopDrawer';
-
+import { GlobalSnackBar } from './ui/snacks/GlobalSnackBar';
 import Router from '../pages/Router';
 // import UnderConstruction from '../../ui/contents/UnderConstruction';
 
@@ -53,14 +53,16 @@ export default function MainScreen() {
 
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <PersistentAppBar {...{ handleDrawerOpen }} />
-      <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
-      <Main open={open}>
-        <DrawerHeader />
-        <Router />
-      </Main>
-    </Box>
+    <GlobalSnackBar>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <PersistentAppBar {...{ handleDrawerOpen }} />
+        <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
+        <Main open={open}>
+          <DrawerHeader />
+          <Router />
+        </Main>
+      </Box>
+    </GlobalSnackBar>
   );
 }

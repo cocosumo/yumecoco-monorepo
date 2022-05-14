@@ -1,37 +1,63 @@
 
-import { Fab, Box, Zoom } from '@mui/material/';
+import { Fab, Box, Zoom, CircularProgress, Typography  } from '@mui/material/';
 import Save from '@mui/icons-material/Save';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
+
 
 interface Props {
   onClick?: ()=>void,
-  url?: string
+  url?: string,
+  loading?: boolean,
+  appear?: boolean,
 }
 
 export const FabSave = (props: Props) => {
   const { pathname } = useLocation();
   const {
     onClick,
+    loading = false,
+    appear = true,
     url,
   } = props;
+
+  const [throttle, setThrottle] = useState(false);
+
+  const handleClick = () => {
+    if (!onClick) return;
+    onClick();
+    setThrottle(true);
+
+    setTimeout(()=>{
+      setThrottle(false);
+    }, 1500);
+  };
+
+  const isLoading = loading || throttle;
+
+ 
   return (
 
     <Box  sx={{ position: 'fixed', top: 72, right: 36, zIndex: 3000 }}>
-      <Zoom in={!url || pathname.includes(url)} timeout={1000}>
+
+      <Zoom in={(!url || pathname.includes(url)) && appear} timeout={500}>
         <Fab
         variant='extended'
-        onClick={onClick}
+        onClick={handleClick}
         size="large"
         aria-label="add"
-
+        disabled={isLoading}
         sx={{
           p: 4,
         }}
-        >
-          <Save sx={{ mr: 1 }}/>
-          保存
+        > 
+          {isLoading && <CircularProgress size={25}/>}
+          {!isLoading && <Save/>}
+          
+          <Typography ml={1}>保存</Typography>
         </Fab>
       </Zoom>
+
     </Box>
 
 

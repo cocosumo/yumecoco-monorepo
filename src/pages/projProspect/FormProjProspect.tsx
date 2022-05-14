@@ -73,7 +73,9 @@ export const FormProjProspect = () => {
 
         </Grid>
       </MainContainer>
-      <FabSave onClick={submitForm}/>
+      <FabSave onClick={()=> {
+        submitForm();
+      }}/>
     </Form>
   );
 };

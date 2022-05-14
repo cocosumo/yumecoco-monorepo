@@ -4,7 +4,7 @@ import { InputField } from '../types/forms';
 
 type UseShowErrorFunc = (field: InputField) => Partial<InputField>;
 
-const useCustomerFieldState : UseShowErrorFunc = ({ hasError, touched }) => {
+export const useCustomerFieldState : UseShowErrorFunc = ({ hasError, touched }) => {
   const isSubmitted = useContext(CustomerFormContext)!.formState.isSubmitted;
 
   return {

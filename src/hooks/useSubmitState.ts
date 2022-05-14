@@ -16,7 +16,7 @@ interface SnackState {
   severity: AlertColor
 }
 
-const useSubmitState = (form: UseSubmitState) => {
+export const useSubmitState = (form: UseSubmitState) => {
   const [snackState, setSnackState] = useState<SnackState>({ open: false, message: '', severity: 'info' });
 
   const { formState, dispatch, saveToDb } = form;

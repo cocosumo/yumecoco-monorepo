@@ -17,10 +17,11 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
     content,
     handleAnswer,
   } = props;
+
   return (
     <Dialog
       open={open}
-      onClose={()=>handleAnswer(false)}
+      // /onClose={()=>handleAnswer(false)}
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>

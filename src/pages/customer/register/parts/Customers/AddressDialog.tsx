@@ -1,9 +1,10 @@
 import { DialogTitle, Dialog, DialogContent, Grid, DialogActions, Button, Typography, CircularProgress } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, startTransition } from 'react';
 import { getPrefectures, getCities, getTowns, GetTownsResponseLocation, GetCitiesRespLocation } from '../../../../../api/others/address';
 import { getKanaRow } from '../../../../../helpers/utils';
 import { usePrefectureArea } from '../../../../../hooks/usePrefectureArea';
+import { CustomerForm } from '../../form';
 import { SimpleChoices, SortedCities, SortedTowns } from './AddressDialogParts/';
 
 
@@ -39,7 +40,7 @@ export const AddressDialog = (props: {
   address1FN: string,
   handleClose: ()=>void
 }) => {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue } = useFormikContext<CustomerForm>();
   const { areas } = usePrefectureArea();
   const [prefectures, setPrefectures] = useState<string[]>([]);
   const [cities, setCities] = useState<GetCitiesRespLocation>([]);
@@ -58,9 +59,11 @@ export const AddressDialog = (props: {
   useEffect(()=>{
     if (!area) return;
     setIsLoading(true);
+    setPrefectures([]);
     getPrefectures(area).then(resp => {
-      setIsLoading(false);
       setPrefectures(resp);
+      setCities([]);
+      setIsLoading(false);
     });
   }, [area]);
 
@@ -69,8 +72,9 @@ export const AddressDialog = (props: {
     setIsLoading(true);
     getCities({ prefecture: prefecture })
       .then(resp => {
-        setIsLoading(false);
         setCities(resp);
+        setTowns([]);
+        setIsLoading(false);
       });
   }, [prefecture]);
 
@@ -79,16 +83,21 @@ export const AddressDialog = (props: {
     setIsLoading(true);
     getTowns({ city: city })
       .then(resp => {
-        setIsLoading(false);
         setTowns(resp);
+        setIsLoading(false);
       });
   }, [city]);
 
   useEffect(()=>{
     if (postal) {
+      console.log(postal);
       handleClose();
-      setFieldValue(postalFN, postal );
-      setFieldValue(address1FN, `${prefecture}${city}${town}` );
+      startTransition(()=>{
+        setFieldValue(postalFN, postal );
+        setFieldValue(address1FN, `${prefecture}${city}${town}` ); 
+      });
+
+ 
     }
 
   }, [postal]);

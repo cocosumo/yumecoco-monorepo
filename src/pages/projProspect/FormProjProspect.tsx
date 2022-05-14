@@ -11,6 +11,7 @@ import { FabSave } from '../../components/ui/fabs/FabSave';
 import { useEffect } from 'react';
 import { getFormDataById } from './api/fetchRecord';
 import { produce } from 'immer';
+import { useSnackBar } from '../../hooks/useSnackBar';
 
 export const FormProjProspect = () => {
   const { 
@@ -18,8 +19,12 @@ export const FormProjProspect = () => {
     resetForm,
     submitForm,
     setFormikState,
+    isSubmitting,
+    isValid,
     values, 
   } = useFormikContext<TypeOfForm>();
+
+  const { setSnackState } = useSnackBar();
 
   const { projId } = values;
 
@@ -32,7 +37,11 @@ export const FormProjProspect = () => {
     }
   },  [projId]);
 
-  console.log(values);
+  useEffect(()=>{
+    if (!isValid && !isSubmitting){
+      setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
+    }
+  }, [isSubmitting]);
 
   return (
     <Form noValidate>

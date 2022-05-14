@@ -1,41 +1,39 @@
 
 import { MainContainer } from '../../../components/ui/containers';
-import { PageTitle } from '../../../components/ui/labels/';
+import { PageTitle } from '../../../components/ui/labels';
 import {  Form, useFormikContext } from 'formik';
-import { SnackState } from '../../../components/ui/snacks/FormSnack';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Customers } from './parts/Customers/Customers';
 import { Agents } from './parts/Agents';
 import { FabSave } from '../../../components/ui/fabs/FabSave';
-import { ScrollToFieldError } from './../../../components/utils/ScrollToFieldError';
+import { ScrollToFieldError } from '../../../components/utils/ScrollToFieldError';
 import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
 import { RecordStatus } from './parts/RecordStatus';
 import { ShortCuts } from  './parts/ShortCuts';
+import { useSnackBar } from '../../../hooks';
 
-interface ConstructionFormProps {
-  handleSnack:  (snackState: SnackState) => void
-}
 
-export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
-  const { handleSnack } = props;
-  const { isValid,
+export const FormIndividualCustomer  = () => {
+  const { setSnackState } = useSnackBar();
+  const { 
+    isValid,
     isSubmitting,
+    
     submitForm,
     values : {
       id: custGroupId,
     },
   } = useFormikContext<CustomerForm>();
-  const [initialLoad, setInitialLoad] = useState(true);
+  
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{
-
-    if (!isValid && !isSubmitting && !initialLoad){
-      handleSnack({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
+    if (!isValid && !isSubmitting){
+      setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
-    setInitialLoad(false);
+
   }, [isSubmitting]);
 
 
@@ -63,7 +61,7 @@ export const IndividualCustomerForm  = (props: ConstructionFormProps) => {
         </Grid>
         <FabSave onClick={submitForm} url="custgroup"/>
         {
-          isEditMode &&  <ShortCuts handleSnack={handleSnack} custGroupId={custGroupId} />
+          isEditMode &&  <ShortCuts custGroupId={custGroupId} />
         }
 
       </MainContainer>

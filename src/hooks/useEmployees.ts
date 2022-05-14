@@ -11,7 +11,7 @@ type UseEmployees = (storeId?: number) => { employees: EmployeeTypes.SavedData[]
  * of more customizeable useEmployeeOptions Hook
  * @returns
  */
-const useEmployees : UseEmployees = () => {
+export const useEmployees : UseEmployees = () => {
 
   const { data,  error, loading } = usePromise(getEmployees);
 

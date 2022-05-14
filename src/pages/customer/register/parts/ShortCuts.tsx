@@ -8,19 +8,20 @@ import CarpenterIcon from '@mui/icons-material/Carpenter';
 import { useState } from 'react';
 import { ConfirmDialog } from '../../../../components/ui/dialogs/ConfirmDialog';
 import { softDeleteById } from '../api/softDeleteById';
-import { SnackState } from '../../../../components/ui/snacks/FormSnack';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../../Router';
+import { useSnackBar } from '../../../../hooks';
 
 
 
 export  function ShortCuts(props : {
   custGroupId: string
-  handleSnack: (snackState: SnackState) => void
+ 
 }) {
 
+  const { setSnackState } = useSnackBar();
   const navigate = useNavigate();
-  const { custGroupId, handleSnack } = props;
+  const { custGroupId } = props;
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleConfirmOpen = () => {
@@ -30,7 +31,7 @@ export  function ShortCuts(props : {
   const handleDelete = () => {
     softDeleteById(custGroupId).then((resp)=>{
       if (resp.revision){
-        handleSnack({
+        setSnackState({
           open: true,
           message: '削除できました。',
           severity: 'warning',

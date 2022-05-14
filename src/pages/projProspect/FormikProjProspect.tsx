@@ -11,7 +11,7 @@ import { useSnackBar } from '../../hooks/useSnackBar';
 
 export const FormikProjProspect = () => {
   const [formValues, setFormValues] = useState<TypeOfForm>(initialValues);
-  const { setValue } = useSnackBar();
+  const { setSnackState } = useSnackBar();
 
   const projIdFromURL = useQuery().get(getFieldName('projId'));
 
@@ -29,7 +29,7 @@ export const FormikProjProspect = () => {
       onSubmit={(values, { setSubmitting }) => {
         saveForm(values)
           .then((r) => {
-            setValue({ open: true, message: `保存が出来ました。 ${r?.revision}回目`, severity: 'success' });
+            setSnackState({ open: true, message: `保存が出来ました。 ${r?.revision}回目`, severity: 'success' });
             setSubmitting(false);
           });
 

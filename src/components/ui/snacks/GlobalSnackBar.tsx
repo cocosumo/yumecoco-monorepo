@@ -11,21 +11,24 @@ export interface SnackState {
 
 
 export interface ISnackBarProvider {
-  value: SnackState,
-  setValue: (value?: SnackState) => void
+  snackState: SnackState,
+  setSnackState: (value?: SnackState) => void
 }
 
 const initialState : ISnackBarProvider = {
-  value: { 
+  snackState: { 
     open: false,
   },
-  setValue: ()=>{return;},
+  setSnackState: ()=>{return;},
 };
 
 
-const FormSnack = ({ snackState }: { snackState: SnackState }) => {
+const FormSnack = ({ snackState, handleClose }: { 
+  snackState: SnackState,
+  handleClose: ()=>void
+}) => {
 
-  const { open, message, severity,  handleClose }  = snackState;
+  const { open, message, severity }  = snackState;
 
   return (
     <Snackbar
@@ -55,23 +58,26 @@ export const GlobalSnackBar = ({
     open: false,
   });
 
-  const handleClose = () => setState(prev => ({ ...prev, open: false }));
+  const handleClose = () => {
+    if (state.handleClose) state.handleClose();
+    setState(prev => ({ ...prev, open: false, handleClose: undefined }));
+  };
+
   
 
   const provider = {
-    value: state,
-    setValue: (value: SnackState) => setState({ 
+    snackState: state,
+    setSnackState: (value: SnackState) => setState({ 
       ...state, 
-      handleClose: handleClose, 
-      ...value }),
+      ...value,
+    }),
   };
 
-  console.log(state);
 
   return (
     <SnackBarContext.Provider value={provider}>
       {children}
-      <FormSnack snackState={state}/>
+      <FormSnack snackState={state} handleClose={handleClose}/>
     </SnackBarContext.Provider>
   );
 }; 

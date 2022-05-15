@@ -1,13 +1,6 @@
 
 import { createContext, ReactNode, useState } from 'react';
-import { Alert, Snackbar, AlertColor } from '@mui/material';
-
-export interface SnackState {
-  open: boolean,
-  severity?: AlertColor,
-  message?: string,
-  handleClose?: ()=>void
-}
+import { FormSnack, SnackState } from './FormSnack';
 
 
 export interface ISnackBarProvider {
@@ -22,7 +15,7 @@ const initialState : ISnackBarProvider = {
   setSnackState: ()=>{return;},
 };
 
-
+/* 
 const FormSnack = ({ snackState, handleClose }: { 
   snackState: SnackState,
   handleClose: ()=>void
@@ -44,7 +37,7 @@ const FormSnack = ({ snackState, handleClose }: {
 
     </Snackbar>
   );
-};
+}; */
 
 
 export const SnackBarContext = createContext<ISnackBarProvider>(initialState);

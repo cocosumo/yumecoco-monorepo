@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { getFormDataById } from './api/fetchRecord';
 import { produce } from 'immer';
 import { useSnackBar } from '../../hooks/useSnackBar';
+import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 
 export const FormProjProspect = () => {
   const { 
@@ -45,6 +46,7 @@ export const FormProjProspect = () => {
 
   return (
     <Form noValidate>
+      <ScrollToFieldError />
       <MainContainer>
         <PageTitle label='見込み登録'/>
         <Grid container item xl={8} spacing={2} mb={12}>

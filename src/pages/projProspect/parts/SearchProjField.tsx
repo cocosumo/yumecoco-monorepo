@@ -1,6 +1,6 @@
 import { Autocomplete, TextField, Stack } from '@mui/material';
 import { useField } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLazyEffect } from '../../../hooks';
 import { searchProjects } from '../api';
 import { Caption } from '../../../components/ui/typographies';
@@ -13,14 +13,15 @@ type Opt = {
 export const SearchProjField = (props: {
   name: string,
   label: string,
+  projName: string,
 }) => {
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<Opt | null>(null);
   const [options, setOptions] = useState<Array<Opt>>([]);
-
   const [field, meta, helpers] = useField(props);
-
   const { error, touched } = meta;
+
+  const { projName } = props;
 
   useLazyEffect(()=>{
     if (!inputVal) return;
@@ -29,9 +30,20 @@ export const SearchProjField = (props: {
         setOptions(r.map(({ $id, constructionName })=>{
           return { id: $id.value, projName: constructionName.value };
         }));
+
       });
 
   }, [inputVal], 1000);
+
+  useEffect(()=>{
+
+    if (options.length === 0 && projName) {
+      const singleOpt = { projName, id: field.value };
+      setOptions([singleOpt]);
+      setFieldVal(singleOpt);
+    }
+
+  }, [field.value, projName]);
 
   return (
     <Autocomplete

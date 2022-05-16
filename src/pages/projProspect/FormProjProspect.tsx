@@ -15,22 +15,22 @@ import { useSnackBar } from '../../hooks/useSnackBar';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 
 export const FormProjProspect = () => {
-  const { 
+  const {
     dirty,
     resetForm,
     submitForm,
     setFormikState,
     isSubmitting,
     isValid,
-    values, 
+    values,
   } = useFormikContext<TypeOfForm>();
 
   const { setSnackState } = useSnackBar();
 
-  const { projId } = values;
+  const { projId, projName } = values;
 
   useEffect(()=>{
-    if (projId){  
+    if (projId){
       getFormDataById(projId)
         .then((r) => setFormikState(prev => produce(prev, draft=> { draft.values = r; })));
     } else if (!projId && dirty) {
@@ -51,7 +51,11 @@ export const FormProjProspect = () => {
         <PageTitle label='見込み登録'/>
         <Grid container item xl={8} spacing={2} mb={12}>
           <Grid item xs={12} md={4}>
-            <SearchProjField label="工事情報の検索" name={getFieldName('projId')} />
+            <SearchProjField
+              label="工事情報の検索"
+              name={getFieldName('projId')}
+              projName={projName}
+              />
           </Grid>
 
           <Grid item xs={12}>

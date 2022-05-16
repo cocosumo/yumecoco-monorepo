@@ -22,7 +22,7 @@ export  const  CustGroupShortcuts = (props : {
       if (resp.revision){
         setSnackState({
           open: true,
-          message: '削除できました。',
+          message: '削除しました。',
           severity: 'warning',
           handleClose: ()=>{
             navigate(pages.custGroupReg);

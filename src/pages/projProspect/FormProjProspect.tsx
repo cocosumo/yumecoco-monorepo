@@ -13,6 +13,7 @@ import { getFormDataById } from './api/fetchRecord';
 import { produce } from 'immer';
 import { useSnackBar } from '../../hooks/useSnackBar';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
+import { ProspectShortcuts } from './parts/ProspectShortcuts';
 
 export const FormProjProspect = () => {
   const {
@@ -88,6 +89,7 @@ export const FormProjProspect = () => {
 
         </Grid>
       </MainContainer>
+      <ProspectShortcuts />
       <FabSave onClick={()=> {
         submitForm();
       }}/>

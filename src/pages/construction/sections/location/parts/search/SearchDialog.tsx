@@ -87,7 +87,7 @@ export const SearchDialog = (props: {
       <DialogActions>
         <Button variant="outlined" color="secondary" onClick={handleClose}>キャンセル</Button>
         {isWithRecord &&
-          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>確定</Button>
+          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>OK</Button>
         }
 
       </DialogActions>

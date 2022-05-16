@@ -15,8 +15,11 @@ export const ProjectShortCuts = () => {
         type: 'custGroup',
         handleClick: ()=>navigate(`${pages.custGroupEdit}${custGroupId}?projId=${recordId}`),
       },
+      {
+        type: 'prospect',
+        handleClick: ()=>navigate(`${pages.projProspect}?projId=${recordId}`),
+      },
     ]}
-
 
   />);
 };

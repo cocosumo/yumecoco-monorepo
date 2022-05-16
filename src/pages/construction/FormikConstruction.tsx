@@ -5,17 +5,22 @@ import { validationSchema, initialValues } from './form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { ConstructionForm } from './ConstructionForm';
-import FormSnack, { SnackState } from '../../components/ui/snacks/FormSnack';
 import { getFormDataById } from './api/getFormDataById';
 import { saveFormData } from './api/saveFormData';
 import { pages } from '../Router';
+import { useSnackBar } from '../../hooks';
+import { useConfirmDialog } from '../../hooks/useConfirmDialog';
+import { NextStepChoices } from './parts/NextStepChoices';
+
+
 
 
 export const FormikConstruction  = () => {
-  const [snackState, setSnackState] = useState<SnackState>({ open:false });
   const [initialState, setInitialState] = useState(initialValues);
+  const { setDialogState } = useConfirmDialog();
   const recordId  = useParams().recordId;
   const navigate = useNavigate();
+  const { setSnackState } = useSnackBar();
 
   useEffect(()=>{
     /** If edit mode */
@@ -44,16 +49,22 @@ export const FormikConstruction  = () => {
 
         saveFormData({ ...values, recordId })
           .then((resp)=>{
-            setSnackState({ open: true, message: '保存出来ました。' });
+            setSnackState({ open: true, message: '保存出来ました。', severity: 'success' });
             setSubmitting(false);
+            setDialogState({
+              title: '次へ進む',
+              content: <NextStepChoices recordId={recordId} />,
+              withYes: false,
+              noText: '閉じる',
+            });
+
             navigate(`${pages.projEdit}${resp.id}`);
           });
       }}
     >
-        <ConstructionForm handleSnack={(snackParam) => setSnackState(snackParam)}/>
+        <ConstructionForm />
 
       </Formik>
-      <FormSnack snackState={snackState} handleClose={()=> setSnackState(prev => ({ ...prev, open: false }))}/>
     </>
   );
 };

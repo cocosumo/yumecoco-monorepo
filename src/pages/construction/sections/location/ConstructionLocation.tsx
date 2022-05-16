@@ -23,6 +23,7 @@ export const ConstructionLocation = () => {
 
   const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
     const postal = e.target.value;
+    console.log(postal, address1);
 
     if (postal && !address1){
 
@@ -30,16 +31,23 @@ export const ConstructionLocation = () => {
         .then(resp => {
           setFieldValue('address1', resp);
         });
-
     }
+
   }, 500), [address1]);
+
+
 
   return (
     <>
       <PageSubTitle label="工事場所情報"/>
       <ConstructionSearch disabled={!custGroupId}/>
       <Grid item xs={12} md={3}>
-        <FormikTextField name="postal" label="郵便番号" placeholder='442-0888' inputComponent={TextMaskPostal} onChange={handleGenerateAddress} required/>
+        <FormikTextField
+        name="postal"
+        label="郵便番号"
+        placeholder='442-0888'
+        inputComponent={TextMaskPostal}
+        onChange={handleGenerateAddress} required/>
       </Grid>
 
       <Grid item md={9}/>

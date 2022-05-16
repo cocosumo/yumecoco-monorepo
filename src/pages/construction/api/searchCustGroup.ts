@@ -1,6 +1,15 @@
 import { KintoneRecord, APPIDS } from '../../../api/kintone';
 import format from 'date-fns/format';
 
+/* export const projectFields :KeyOfProjectDetails[] = [
+  '$id', '$revision', 'address1',
+  'address2', 'address2', 'agents',
+  'buildingType', 'constructionName',
+  'constructionType', 'constructionTypeId',
+  'custGroupId', 'isAgentConfirmed',
+  'isChkAddressKari', 'postal',
+]; */
+
 export interface SearchOption {
   name: string,
   id: string,
@@ -15,11 +24,14 @@ export const searchCustGroup = async (searchStr: string) => {
 
   return KintoneRecord.getRecords({
     app: APPIDS.custGroup,
-    query: `${'customerName'} like "${searchStr}"`,
-  }).then((resp) => resp.records as unknown as CustomerGroupTypes.SavedData[]);
+    query: [
+      `${'customerName' as KeyOfCustomerGroupItem} like "${searchStr}"`,
+      `${'isDeleted' as KeyOfCustomerGroup} < "${+true}"`,
+    ].join(' and '),
+  }).then((resp) => resp.records as unknown as TypeOfCustomerGroup[]);
 };
 
-const convertRecordToOption = (value: string, record: CustomerGroupTypes.SavedData) => {
+const convertRecordToOption = (value: string, record: TypeOfCustomerGroup) => {
   const { $id, storeName, 作成日時, members } = record;
   const mainCust = members.value[0].value;
   const mainCustName = mainCust.customerName.value;

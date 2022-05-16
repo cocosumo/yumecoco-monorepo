@@ -1,5 +1,20 @@
 import { APPIDS, KintoneRecord } from '../config';
 
+export const projectFields :KeyOfProjectDetails[] = [
+  '$id', '$revision', 'address1',
+  'address2', 'address2', 'agents',
+  'buildingType', 'constructionName',
+  'constructionType', 'constructionTypeId',
+  'custGroupId', 'isAgentConfirmed',
+  'isChkAddressKari', 'postal',
+];
+
+export const projectProspectFields: KeyOfProjectDetails[] = [
+  'rank', '$id', 'schedContractDate',
+  'memo', 'planApplicationDate', 'schedContractPrice',
+  'estatePurchaseDate',
+];
+
 export const getConstDetails = async (recordId: string) => {
   return KintoneRecord.getRecord({
     app: APPIDS.constructionDetails,

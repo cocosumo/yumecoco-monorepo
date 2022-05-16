@@ -83,7 +83,7 @@ export const FormProjProspect = () => {
           </Grid>
 
           <Grid item xs={12} >
-            <FormikTextField label="備考" name={getFieldName('memo')} multiline rows={3}/>
+            <FormikTextField label="備考" name={getFieldName('memo')} multiline/>
           </Grid>
 
         </Grid>

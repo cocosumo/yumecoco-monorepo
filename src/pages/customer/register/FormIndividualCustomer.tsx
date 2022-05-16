@@ -11,22 +11,22 @@ import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
 import { RecordStatus } from './parts/RecordStatus';
-import { ShortCuts } from  './parts/ShortCuts';
+import { CustGroupShortcut } from  './parts/CustGroupShortcut';
 import { useSnackBar } from '../../../hooks';
 
 
 export const FormIndividualCustomer  = () => {
   const { setSnackState } = useSnackBar();
-  const { 
+  const {
     isValid,
     isSubmitting,
-    
+
     submitForm,
     values : {
       id: custGroupId,
     },
   } = useFormikContext<CustomerForm>();
-  
+
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{
@@ -61,7 +61,7 @@ export const FormIndividualCustomer  = () => {
         </Grid>
         <FabSave onClick={submitForm} url="custgroup"/>
         {
-          isEditMode &&  <ShortCuts custGroupId={custGroupId} />
+          isEditMode &&  <CustGroupShortcut custGroupId={custGroupId} />
         }
 
       </MainContainer>

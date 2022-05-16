@@ -23,8 +23,7 @@ export const FormikConstruction  = () => {
   const { setSnackState } = useSnackBar();
 
   useEffect(()=>{
-    /** If edit mode */
-    console.log(recordId, 'recordId');
+
 
     if (recordId){
       getFormDataById(recordId)

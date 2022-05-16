@@ -8,16 +8,14 @@ import { useNavigate, useParams  } from 'react-router-dom';
 import { getFormDataById } from './api/getFormDataById';
 import { MemoContextProvider } from './parts/Memo/memoForm/MemoContext';
 import { FormikMemo } from './parts/Memo/memoForm/FormikMemo';
-import { ConfirmDialog } from '../../../components/ui/dialogs/ConfirmDialog';
+//import { ConfirmDialog } from '../../../components/ui/dialogs/ConfirmDialog';
 import { pages } from '../../Router';
-import { useSnackBar } from  './../../../hooks';
+import { useConfirmDialog, useSnackBar } from  './../../../hooks';
 
 
 
 export const FormikIndividualCustomer = () => {
-  
-  //const [snackState, setSnackState] = useState<SnackState>({ open:false });
-  const [confirmNavigate, setConfirmNavigate] = useState(false);
+  const { setDialogState } = useConfirmDialog();
   const [initialState, setInitialState] = useState<CustomerForm>(initialValues);
   const { setSnackState } = useSnackBar();
   const savedCustGroupId = useRef<string>();
@@ -26,10 +24,13 @@ export const FormikIndividualCustomer = () => {
   const navigate = useNavigate();
 
 
-  const handleNavigate = (isYes: boolean) => {
-    if (isYes)  navigate(`${pages.projReg}`);
-    if (!isYes)  navigate(`${pages.custGroupEdit}${savedCustGroupId.current}`);
-    setConfirmNavigate(false);
+  const handleNavigate = () => {
+    setDialogState({
+      title: '次へ進む',
+      content: '工事情報を登録しますか。',
+      handleYes: ()=>navigate(`${pages.projReg}?custGroupId=${savedCustGroupId.current}`),
+    });
+
   };
 
   useEffect(()=>{
@@ -42,6 +43,8 @@ export const FormikIndividualCustomer = () => {
       });
 
   }, [recordId]);
+
+
 
   return (
     <MemoContextProvider>
@@ -57,13 +60,12 @@ export const FormikIndividualCustomer = () => {
           saveFormData({ ...values, id: recordId })
             .then((resp)=>{
               savedCustGroupId.current = resp.id;
-              setSnackState({ open: true, 
-                message: '保存出来ました。', 
+              setSnackState({ open: true,
+                message: '保存出来ました。',
                 severity: 'success',
-                handleClose: ()=>setConfirmNavigate(true),
               });
-      
-            
+              setTimeout(handleNavigate, 500);
+
             })
             .catch(err => {
               setSnackState({ open: true, message: 'エラーが発生しました。このエラーの再現について、管理者を連絡してください。' + err });
@@ -80,14 +82,6 @@ export const FormikIndividualCustomer = () => {
 
       </Formik>
       <FormikMemo  />
-
-      <ConfirmDialog
-        open={confirmNavigate}
-        title={'次へ'}
-        content={'工事情報を登録しますか'}
-        handleAnswer={handleNavigate}
-
-      />
     </MemoContextProvider>
   );
 };

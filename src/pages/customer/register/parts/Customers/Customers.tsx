@@ -11,7 +11,7 @@ import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
 
 import { nativeMath, string as randomStr } from 'random-js';
-import {  useRef } from 'react';
+import {   useRef } from 'react';
 import historykana from 'historykana';
 import { hiraToKana } from '../../../../../helpers/utils';
 
@@ -75,12 +75,8 @@ const Customer =  (props: CustomerProps) => {
           required
           onInput={(e: any)=>{
             const text = e.target.value;
-           
             inputHistories.current.push(text);
-           
-            
           }}
-
           />
       </Grid>
       <Grid item xs={12}>
@@ -107,14 +103,15 @@ export const Customers = () => {
   const arrayFieldName: CustomerFormKeys = 'customers';
   const isMaxCust = maxCust === customers.length;
 
-
   return (
     <>
 
       <Grid item xs={12}>
         <FieldArray
         name={arrayFieldName}
+
         render={(arrHelpers) => {
+          console.log('inside array', arrHelpers.form.values);
 
           return (
             <Stack key={arrayFieldName} spacing={2} >

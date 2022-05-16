@@ -11,7 +11,7 @@ import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
 import { RecordStatus } from './parts/RecordStatus';
-import { CustGroupShortcut } from  './parts/CustGroupShortcut';
+import { CustGroupShortcuts } from  './parts/CustGroupShortcuts';
 import { useSnackBar } from '../../../hooks';
 
 
@@ -20,7 +20,6 @@ export const FormIndividualCustomer  = () => {
   const {
     isValid,
     isSubmitting,
-
     submitForm,
     values : {
       id: custGroupId,
@@ -35,6 +34,7 @@ export const FormIndividualCustomer  = () => {
     }
 
   }, [isSubmitting]);
+
 
 
   return (
@@ -61,7 +61,7 @@ export const FormIndividualCustomer  = () => {
         </Grid>
         <FabSave onClick={submitForm} url="custgroup"/>
         {
-          isEditMode &&  <CustGroupShortcut custGroupId={custGroupId} />
+          isEditMode &&  <CustGroupShortcuts custGroupId={custGroupId} />
         }
 
       </MainContainer>

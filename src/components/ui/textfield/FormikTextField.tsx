@@ -45,6 +45,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
 
   const handleChange = ((e: any)=>{
     field.onChange(e);
+
     if (props.onChange){
       props.onChange(e);
     }

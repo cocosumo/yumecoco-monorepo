@@ -6,7 +6,8 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AttributionIcon from '@mui/icons-material/Attribution';
-type ShortCutType = 'project' | 'prospect' | 'delete' | 'custGroup';
+
+export type ShortCutType = 'project' | 'prospect' | 'delete' | 'custGroup';
 
 const getIcon = (type: ShortCutType) => {
   switch (type){

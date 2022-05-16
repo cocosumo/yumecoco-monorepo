@@ -80,6 +80,7 @@ export const validationSchema =  Yup.object().shape(
               is: false,
               then: Yup.string().matches(phoneRegExp, '半角数字。例：07012641265').required('必須です。'),
             }),
+
           'phone1Rel': Yup.string()
             .when('isSameAddress' as CustomerInstanceKeys, {
               is: false,

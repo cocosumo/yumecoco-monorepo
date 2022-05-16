@@ -1,6 +1,6 @@
 
 import { MainContainer } from '../../components/ui/containers';
-import { PageTitle } from '../../components/ui/labels/';
+import { PageTitle } from '../../components/ui/labels';
 import { ConstructionInfo } from './sections/ConstructionInfo';
 import { ConstructionLocation, CustInfo } from './sections';
 import { Grid } from '@mui/material';
@@ -12,10 +12,11 @@ import { GetEmployeesParams } from '../../api/kintone/employees/GET';
 import { TypeOfProjForm, getFieldName } from './form';
 import { useQuery } from '../../hooks/useQuery';
 import { useSnackBar } from '../../hooks';
+import { ProjectShortCuts } from './parts/ProjectShortCuts';
 
 
 
-export const ConstructionForm  = () => {
+export const FormConstruction  = () => {
   const { setSnackState } = useSnackBar();
 
   const {
@@ -24,6 +25,7 @@ export const ConstructionForm  = () => {
     submitForm,
     setFieldValue,
     values : {
+      recordId,
       storeId,
       territory,
       constructionTypeId,
@@ -31,6 +33,7 @@ export const ConstructionForm  = () => {
   } = useFormikContext<TypeOfProjForm>();
   let passedCustGroupId = useQuery().get(getFieldName('custGroupId'));
 
+  const isEditMode = !!recordId;
 
   useEffect(()=>{
     if (passedCustGroupId){
@@ -62,6 +65,8 @@ export const ConstructionForm  = () => {
         </Grid>
         <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>
+
+      {isEditMode && <ProjectShortCuts />}
 
     </Form>
 

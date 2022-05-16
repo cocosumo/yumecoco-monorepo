@@ -4,7 +4,7 @@ import { validationSchema, initialValues } from './form';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ConstructionForm } from './ConstructionForm';
+import { FormConstruction } from './FormConstruction';
 import { getFormDataById } from './api/getFormDataById';
 import { saveFormData } from './api/saveFormData';
 import { pages } from '../Router';
@@ -61,7 +61,7 @@ export const FormikConstruction  = () => {
           });
       }}
     >
-        <ConstructionForm />
+        <FormConstruction />
 
       </Formik>
     </>

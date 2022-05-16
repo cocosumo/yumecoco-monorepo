@@ -2,17 +2,19 @@
 
 import { softDeleteById } from '../api/softDeleteById';
 import { useNavigate } from 'react-router-dom';
+import { useQuery, useSnackBar, useConfirmDialog } from '../../../../hooks';
 import { pages } from '../../../Router';
-import { useSnackBar, useConfirmDialog } from '../../../../hooks';
-import { Shortcuts } from '../../../../components/ui/speedDials/Shortcuts';
 
-export  const  CustGroupShortcut = (props : {
+import { Shortcuts, ShortCutType } from '../../../../components/ui/speedDials/Shortcuts';
+
+export  const  CustGroupShortcuts = (props : {
   custGroupId: string
 
 }) => {
   const { setDialogState } = useConfirmDialog();
   const { setSnackState } = useSnackBar();
   const navigate = useNavigate();
+  let passedProjId = useQuery().get('projId');
   const { custGroupId } = props;
 
   const handleDelete = () => {
@@ -35,14 +37,17 @@ export  const  CustGroupShortcut = (props : {
 
     <Shortcuts
       shortcuts={[
-        {
-          type: 'project',
-          handleClick: ()=>navigate(`${pages.projReg}?custGroupId=${custGroupId}`),
-        },
+
+        ...(passedProjId ? [{
+          type: 'project' as ShortCutType,
+          handleClick: ()=>navigate(`${pages.projEdit}${passedProjId}`),
+        }] : []),
+
         {
           type: 'delete',
           handleClick: ()=>setDialogState({ title: '確認', content: '削除しますか。', handleYes:  handleDelete }),
         },
+
       ]}
     />
   );

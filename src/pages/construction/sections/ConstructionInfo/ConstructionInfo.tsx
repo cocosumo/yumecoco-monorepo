@@ -34,15 +34,16 @@ export const ConstructionInfo = (
       const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
       setConstructionTypeOptions(
         rawConstOpts
-          .map(({ label, $id })=> ({ label: label.value, value: $id.value })),
+          .map(({ label, $id, projectName })=> ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),
       );
     });
   }, []);
 
 
   useEffect(()=>{
-    const constTypeName =  constructionTypeOptions?.find(item => item.value === constructionTypeId)?.label;
-    setFieldValue('constructionType' as KeyOfProjForm, constTypeName);
+    const selectedPojType =  constructionTypeOptions?.find(item => item.value === constructionTypeId);
+    const projTypeName = selectedPojType?.hiddenValue || selectedPojType?.label;
+    setFieldValue('constructionType' as KeyOfProjForm, projTypeName);
   }, [constructionTypeId]);
 
 

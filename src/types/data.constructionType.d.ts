@@ -2,6 +2,7 @@ declare namespace ConstructionTypes {
   interface Data {
     description: kintone.fieldTypes.MultiLineText;
     label: kintone.fieldTypes.SingleLineText;
+    projectName: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

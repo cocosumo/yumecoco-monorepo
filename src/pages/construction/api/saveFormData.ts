@@ -10,7 +10,7 @@ export const convertToKintone = (
   const {
     cocoConst1, cocoConst2, constructionTypeId, constructionName,
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,
-    buildingType, custGroupId,
+    buildingType, custGroupId, status,
   } = rawValues;
 
   console.log(rawValues, 'rawValues');
@@ -42,6 +42,7 @@ export const convertToKintone = (
         };
       }),
     },
+    status: {  value: status  },
   };
 
 };
@@ -74,9 +75,10 @@ export const saveConstructionData = async (
         revision: result.revision,
       }));
   } else {
+    /* New Record */
     return KintoneRecord.addRecord({
       app: APPIDS.constructionDetails,
-      record,
+      record: record,
     })
       .catch(err => {
         console.log(err.errors);

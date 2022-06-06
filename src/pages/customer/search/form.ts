@@ -1,20 +1,12 @@
 import * as Yup from 'yup';
+import { RecordStatus } from '../../../config/formValues';
+//import { recordStatuses } from '../../../config/formValues';
 
 export const customerTypes = [  '全て',  '個人',  '法人' ] as const;
-export const recordStatuses = [
-  '情報登録のみ',
-  '追客中',
-  '契約申請中',
-  '契約済',
-  '工事進行中',
-  '工事完了(未精算)',
-  '工事完了(精算済)',
-  '中止',
-  '他決',
-] as const;
+
 
 export type CustomerTypeVals = typeof customerTypes[number];
-export type RecordStatus = typeof recordStatuses[number];
+//export type RecordStatus = typeof recordStatuses[number];
 export type FormFieldKeys = keyof typeof initialValues;
 
 /**

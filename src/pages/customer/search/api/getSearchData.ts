@@ -4,7 +4,6 @@ import { advancedSearchCustGroup, AdvancedSearchCustGroupParam } from './advance
 
 export interface ISearchData {
   '顧客ID': number,
-  '状況': string,
   '顧客種別': string,
   '案件数': string,
   '顧客氏名・会社名': string,
@@ -20,7 +19,6 @@ export interface ISearchData {
 /** @deprecated serverSide pagination not practical due kintone limitation */
 export const dataLabelMap: Partial<Record<keyof ISearchData, keyof CustomerGroupTypes.SavedData>> = {
   '顧客ID': 'レコード番号',
-  '状況': 'レコード番号',
   '顧客種別': 'レコード番号',
   '案件数': 'レコード番号',
   '顧客氏名・会社名': 'members',
@@ -50,7 +48,7 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
         $id,
         storeName,
         custType,
-        status,
+
         members,
         projects,
         agents,
@@ -62,7 +60,7 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
 
       return {
         '顧客ID': +($id?.value ?? 0),
-        '状況': status?.value ?? '情報登録のみ',
+
         '案件数': projects.value.filter(item=>item.value.constructionId.value).length.toString() ?? '',
         '店舗': storeName?.value,
         '顧客種別': custType?.value ?? '個人',

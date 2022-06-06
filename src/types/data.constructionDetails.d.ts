@@ -17,6 +17,7 @@ declare namespace ConstructionDetails {
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
+    status: kintone.fieldTypes.SingleLineText;
     agents: {
       type: 'SUBTABLE';
       value: {

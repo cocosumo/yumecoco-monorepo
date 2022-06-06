@@ -40,12 +40,12 @@ export const advancedSearchCustGroup = async <
     ...(custName ? [`${'customerName' as CustKey} like "${custName}"`] : []),
     ...(phone ? [`${'dump' as CustKey} like "${phone}"`] : []),
     ...(email ? [`${'dump' as CustKey} like "${email}"`] : []),
-    ...(recordStatus?.length ? [
+    /*     ...(recordStatus?.length ? [
       `(${recordStatus
         .map(item => `${'status' as Key} = "${item}"`)
         .join(' or ')
       })`,
-    ] : []),
+    ] : []), */
     ...(address ? [
       `(${
         (['dump',

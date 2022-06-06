@@ -41,6 +41,7 @@ const resolveDeleteRequest = async (projectId: string) => {
 
 /**
  * Get custgroup record, then add the projectId.
+ * This keep the projects subtable updated in customer groups app.
  * API calls: 2
  * @param projectId
  * @param custGroupId
@@ -67,6 +68,7 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
             .concat([{
               id: '',
               value: {
+
                 constructionId: { value: projectId },
                 constructionName: { value: 'auto' },
                 cocoConst1: { value: cocoConst[0] },
@@ -77,6 +79,7 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
                 projectAddress1:  { value: 'auto' },
                 projectAddress2:  { value: 'auto' },
                 projectPostal:  { value: 'auto' },
+                status: { value: 'auto' },
               },
             }]),
         },

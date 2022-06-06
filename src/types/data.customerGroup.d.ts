@@ -5,7 +5,6 @@ declare namespace CustomerGroupTypes {
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    status: kintone.fieldTypes.SingleLineText;
     projects: {
       type: 'SUBTABLE';
       value: {
@@ -21,6 +20,7 @@ declare namespace CustomerGroupTypes {
           cocoConst1Name: kintone.fieldTypes.SingleLineText;
           projectAddress1: kintone.fieldTypes.SingleLineText;
           projectAddress2: kintone.fieldTypes.SingleLineText;
+          status: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

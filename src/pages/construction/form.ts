@@ -1,5 +1,6 @@
 
 import * as Yup from 'yup';
+import { RecordStatus } from '../../config/formValues';
 import { postalRegExp } from '../../helpers/yupValidator';
 
 
@@ -30,6 +31,7 @@ export const initialValues = {
   addressKari: '',
   buildingType: '戸建て' as BuildingTypeVals,
   isChkAddressKari: false,
+  status: '追客中' as RecordStatus,
 };
 
 export type TypeOfProjForm = typeof initialValues;

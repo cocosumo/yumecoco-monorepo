@@ -10,7 +10,6 @@ import { ScrollToFieldError } from '../../../components/utils/ScrollToFieldError
 import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
-import { RecordStatus } from './parts/RecordStatus';
 import { CustGroupShortcuts } from  './parts/CustGroupShortcuts';
 import { useSnackBar } from '../../../hooks';
 
@@ -45,7 +44,7 @@ export const FormIndividualCustomer  = () => {
       <MainContainer >
 
         <PageTitle label="顧客登録（個人）"/>
-        <RecordStatus />
+
         <Grid container item xs={12} md={12} lg={12} xl={9} spacing={2} alignItems="flex-start" justifyContent={'flex-start'}>
 
           <Grid className='fieldarray' container item xs={12} md={8} lg={5} spacing={2} >

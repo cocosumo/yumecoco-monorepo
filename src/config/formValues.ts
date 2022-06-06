@@ -8,6 +8,7 @@ export const recordStatuses = [
   '工事完了(精算済)',
   '中止',
   '他決',
+  '削除',
 ] as const;
 
 export type RecordStatus = typeof recordStatuses[number];

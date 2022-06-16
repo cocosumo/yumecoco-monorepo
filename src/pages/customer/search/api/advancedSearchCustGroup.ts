@@ -1,4 +1,30 @@
 import { KintoneRecord, APPIDS } from '../../../../api/kintone';
+import { RecordStatus } from '../../../../config/formValues';
+
+export const resolveRecordStatusQuery = <
+Key extends Partial<keyof CustomerGroupTypes.SavedData>,
+>(statuses?: RecordStatus[]) => {
+
+  if (!statuses || !statuses.length) return [];
+
+  const queryStr = (s: RecordStatus) => {
+    switch (s) {
+      case '情報登録のみ':
+        return  `${'projectCount' as Key} = "0" or ${'projectCount' as Key} = ""`;
+      case '追客中':
+        return  `${'projectCount' as Key} > 0`;
+      default: return null;
+    }
+  };
+
+  const completeQueryStr = statuses.map((item) => {
+    return queryStr(item);
+  } ).filter(Boolean).join(' or ');
+
+  return `(${completeQueryStr})`;
+
+
+};
 
 export interface AdvancedSearchCustGroupParam {
   storeId?: string,
@@ -10,7 +36,7 @@ export interface AdvancedSearchCustGroupParam {
   cocoAG?: string,
   cocoConst?: string,
   custType?: string,
-  recordStatus?: string[],
+  recordStatus?: RecordStatus[],
 }
 
 export const advancedSearchCustGroup = async <
@@ -31,7 +57,10 @@ export const advancedSearchCustGroup = async <
   } = params;
 
 
+  console.log('record', recordStatus);
+
   const query = [
+    resolveRecordStatusQuery(recordStatus),
     ...(custType ? [`${'custType' as Key} in ("${custType}")`] : []),
     ...(storeId ? [`${'storeId' as Key} = "${storeId}"`] : []),
     ...(yumeAG ? [`${'employeeId' as AgentsKey} in ("${yumeAG}")`] : []),
@@ -40,6 +69,7 @@ export const advancedSearchCustGroup = async <
     ...(custName ? [`${'customerName' as CustKey} like "${custName}"`] : []),
     ...(phone ? [`${'dump' as CustKey} like "${phone}"`] : []),
     ...(email ? [`${'dump' as CustKey} like "${email}"`] : []),
+
     /*     ...(recordStatus?.length ? [
       `(${recordStatus
         .map(item => `${'status' as Key} = "${item}"`)

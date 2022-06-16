@@ -6,7 +6,7 @@ export const getMemoList = async <T extends CustomerMemoTypes.SavedData>(recordI
   if (!recordId) throw new Error('Please provide record id.');
   return KintoneRecord.getAllRecords({
     app: APPIDS.custMemo,
-    condition: `${'recordId' as keyof T} = "${recordId}" `,
+    condition: `${String('recordId' as keyof T)} = "${recordId}" `,
     orderBy: 'createdTime desc',
   }).then(res => {
     return (res as unknown as T[])

@@ -11,12 +11,13 @@ export const ConfirmDialogV2 = ({
   withYes = true,
   handleYes,
   handleNo,
+  cancellable,
 }: IDialogState) => {
   return (
     <Dialog
     open={open}
 
-    // /onClose={()=>handleAnswer(false)}
+    onClose={cancellable ? handleNo : undefined}
   >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>

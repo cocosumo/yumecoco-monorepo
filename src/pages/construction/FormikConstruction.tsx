@@ -24,10 +24,9 @@ export const FormikConstruction  = () => {
 
   useEffect(()=>{
 
-    if (recordId){
+    if (recordId) {
       getFormDataById(recordId)
         .then((resp) => {
-
           setInitialState(resp);
         });
     } /* else {

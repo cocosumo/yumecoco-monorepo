@@ -25,8 +25,7 @@ export const ConstructionLocation = () => {
     const postal = e.target.value;
     console.log(postal, address1);
 
-    if (postal && !address1){
-
+    if (postal && !address1) {
       getAddressByPostal(postal)
         .then(resp => {
           setFieldValue('address1', resp);

@@ -1,9 +1,13 @@
 import { KintoneRecord, APPIDS } from '../../../../api/kintone';
 import { RecordStatus } from '../../../../config/formValues';
 
-export const resolveRecordStatusQuery = <
-Key extends Partial<keyof CustomerGroupTypes.SavedData>,
->(statuses?: RecordStatus[]) => {
+type ProjectKey = Partial<keyof CustomerGroupTypes.SavedData['projects']['value'][0]['value']>;
+type AgentsKey = Partial<keyof CustomerGroupTypes.SavedData['agents']['value'][0]['value']>;
+type Key = Partial<keyof CustomerGroupTypes.SavedData>;
+type CustKey = Partial<keyof CustomerGroupTypes.SavedData['members']['value'][0]['value']>;
+
+
+export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
 
   if (!statuses || !statuses.length) return [];
 
@@ -13,6 +17,15 @@ Key extends Partial<keyof CustomerGroupTypes.SavedData>,
         return  `${'projectCount' as Key} = "0" or ${'projectCount' as Key} = ""`;
       case '追客中':
         return  `${'projectCount' as Key} > 0`;
+      case '中止':
+        return `${'cancelStatus' as ProjectKey} like "中止"`;
+      case '他決':
+        return `${'cancelStatus' as ProjectKey} like "他決"`;
+      case '削除 (工事)':
+        return `${'cancelStatus' as ProjectKey} like "削除"`;
+      case '削除':
+        return `${'isDeleted' as Key} = "1"`;
+
       default: return null;
     }
   };
@@ -39,12 +52,7 @@ export interface AdvancedSearchCustGroupParam {
   recordStatus?: RecordStatus[],
 }
 
-export const advancedSearchCustGroup = async <
-  Key extends Partial<keyof CustomerGroupTypes.SavedData>,
-  CustKey extends  Partial<keyof CustomerGroupTypes.SavedData['members']['value'][0]['value']>,
-  ProjectKey extends Partial<keyof CustomerGroupTypes.SavedData['projects']['value'][0]['value']>,
-  AgentsKey extends Partial<keyof CustomerGroupTypes.SavedData['agents']['value'][0]['value']>,
->(
+export const advancedSearchCustGroup = async (
   params : AdvancedSearchCustGroupParam,
 ) => {
   const {
@@ -57,8 +65,6 @@ export const advancedSearchCustGroup = async <
   } = params;
 
 
-  console.log('record', recordStatus);
-
   const query = [
     resolveRecordStatusQuery(recordStatus),
     ...(custType ? [`${'custType' as Key} in ("${custType}")`] : []),
@@ -69,13 +75,6 @@ export const advancedSearchCustGroup = async <
     ...(custName ? [`${'customerName' as CustKey} like "${custName}"`] : []),
     ...(phone ? [`${'dump' as CustKey} like "${phone}"`] : []),
     ...(email ? [`${'dump' as CustKey} like "${email}"`] : []),
-
-    /*     ...(recordStatus?.length ? [
-      `(${recordStatus
-        .map(item => `${'status' as Key} = "${item}"`)
-        .join(' or ')
-      })`,
-    ] : []), */
     ...(address ? [
       `(${
         (['dump',

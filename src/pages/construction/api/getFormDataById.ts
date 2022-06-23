@@ -2,7 +2,7 @@
 import { getConstRecord } from '../../../api/kintone/construction';
 import { BuildingTypeVals, TypeOfProjForm } from '../form';
 import { AgentType } from './../../../types/forms';
-import { RecordStatus } from '../../../config/formValues';
+import { RecordCancelStatus, RecordStatus } from '../../../config/formValues';
 
 export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm> => {
   const constructionRecord = await getConstRecord(recordId);
@@ -13,6 +13,7 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm>
     buildingType, isChkAddressKari, agents, addressKari,
     constructionType,
     status,
+    cancelStatus,
 
   } = constructionRecord;
 
@@ -38,5 +39,6 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm>
     storeId: '',
     territory: '',
     status: (status?.value as RecordStatus) || '追客中',
+    cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
   };
 };

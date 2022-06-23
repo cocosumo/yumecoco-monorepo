@@ -27,7 +27,7 @@ export const saveConstructionData = async (rawValues: ConstructionDetailsValues)
   const { custGroupId } = rawValues;
   const record = convertToKintone(rawValues);
 
-  if (custGroupId){
+  if (custGroupId) {
     return KintoneRecord.updateRecord({
       app: APPIDS.constructionDetails,
       id: custGroupId as string,

@@ -11,6 +11,7 @@ export const convertToKintone = (
     cocoConst1, cocoConst2, constructionTypeId, constructionName,
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,
     buildingType, custGroupId, status,
+    cancelStatus,
   } = rawValues;
 
   console.log(rawValues, 'rawValues');
@@ -43,6 +44,7 @@ export const convertToKintone = (
       }),
     },
     status: {  value: status  },
+    cancelStatus: { value: cancelStatus.join(',') },
   };
 
 };
@@ -95,7 +97,7 @@ export const saveFormData = async (rawValues: TypeOfProjForm) : Promise<{
 
   return saveConstructionData(rawValues)
     .then(async resp => {
-      /* Todo add projects to customer form */
+
       await saveProjectToCustGroup(
         resp.id,
         rawValues.custGroupId!,

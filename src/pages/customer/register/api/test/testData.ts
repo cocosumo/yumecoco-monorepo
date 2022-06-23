@@ -8,6 +8,7 @@ export const testData: CustomerForm =  {
   cocoAG2: '43',
   yumeAG1: '28',
   yumeAG2: '65',
+  isDeleted: '',
   customers: [
     {
       key: '',

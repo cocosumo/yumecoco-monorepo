@@ -41,6 +41,7 @@ export const initialValues = {
   yumeAG1: '',
   yumeAG2: '',
   customers: [initialCustomerValue],
+  isDeleted: '',
 } ;
 
 export type CustomerForm = typeof initialValues;

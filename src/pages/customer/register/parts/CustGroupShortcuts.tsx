@@ -7,6 +7,7 @@ import { pages } from '../../../Router';
 
 import { Shortcuts, ShortCutType } from '../../../../components/ui/speedDials/Shortcuts';
 
+
 export  const  CustGroupShortcuts = (props : {
   custGroupId: string
 
@@ -14,12 +15,13 @@ export  const  CustGroupShortcuts = (props : {
   const { setDialogState } = useConfirmDialog();
   const { setSnackState } = useSnackBar();
   const navigate = useNavigate();
+
   let passedProjId = useQuery().get('projId');
   const { custGroupId } = props;
 
   const handleDelete = () => {
     softDeleteById(custGroupId).then((resp)=>{
-      if (resp.revision){
+      if (resp.revision) {
         setSnackState({
           open: true,
           message: '削除しました。',

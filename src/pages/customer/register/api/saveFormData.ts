@@ -11,7 +11,7 @@ export const saveFormData = async (formData: CustomerForm) => {
 
 
   /* Create record */
-  if (!formData.id){
+  if (!formData.id) {
     return KintoneRecord.addRecord({
       app: APPIDS.custGroup,
       record: transformedForm,

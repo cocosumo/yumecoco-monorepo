@@ -18,7 +18,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   /* Get main record */
   const {
     $id, $revision, agents, storeId,
-
+    isDeleted,
     members : { value: customers },
   } = await getCustGroupRecord(id) ;
 
@@ -42,6 +42,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   /* Map the result to the form */
   return {
     id: $id.value,
+    isDeleted: isDeleted.value,
     revision: $revision.value,
     store: storeId.value,
     cocoAG1: Ags?.cocoAGs?.[0] || '',
@@ -81,7 +82,6 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
         email: email?.value.contactValue.value || '',
         emailRel: email?.value.relation.value || '',
         isSameAddress: Boolean(+isSameAsMain.value),
-
 
       };
     }),

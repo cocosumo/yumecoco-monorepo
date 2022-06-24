@@ -18,7 +18,14 @@ export interface SearchOption {
   record?: any
 }
 
-
+/**
+ * Search customer group app by string.
+ * Except for records that were soft deleted
+ * as indicated in isDeleted field.
+ *
+ * @param searchStr The search string.
+ * @returns Array of Customer group records
+ */
 export const searchCustGroup = async (searchStr: string) => {
 
 
@@ -36,7 +43,7 @@ const convertRecordToOption = (value: string, record: TypeOfCustomerGroup) => {
   const mainCust = members.value[0].value;
   const mainCustName = mainCust.customerName.value;
 
-  if (mainCustName.includes(value)){
+  if (mainCustName.includes(value)) {
     return {
       name: mainCustName,
       id: $id.value,
@@ -54,7 +61,7 @@ export const getCustGroupOptions = async (value : string) => {
       const newOptions = records.reduce<SearchOption[]>((accu, curr)=>{
         const custGrpRec =  curr;
         const convertedOption = convertRecordToOption(value, custGrpRec);
-        if (convertedOption){
+        if (convertedOption) {
           return accu.concat(convertedOption);
         }
 

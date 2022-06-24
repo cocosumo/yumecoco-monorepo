@@ -26,7 +26,7 @@ export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
       case '削除':
         return `${'isDeleted' as Key} = "1"`;
 
-      default: return null;
+      default: return undefined;
     }
   };
 
@@ -65,7 +65,8 @@ export const advancedSearchCustGroup = async (
   } = params;
 
 
-  const query = [
+
+  const queryArr = [
     resolveRecordStatusQuery(recordStatus),
     ...(custType ? [`${'custType' as Key} in ("${custType}")`] : []),
     ...(storeId ? [`${'storeId' as Key} = "${storeId}"`] : []),
@@ -89,8 +90,13 @@ export const advancedSearchCustGroup = async (
           .map(item => `${item} like "${address}"`)
           .join(' or ')
       })`] : []),
-  ].join(' and ');
+  ];
 
+  const query = queryArr
+    .filter((arr) => arr.length)
+    .join(' and ');
+
+  console.log(queryArr);
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,

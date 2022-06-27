@@ -20,8 +20,9 @@ export const FormIndividualCustomer  = () => {
   const {
     isValid,
     isSubmitting,
+    touched,
     submitForm,
-
+    submitCount,
     values : {
       id: custGroupId,
       isDeleted,
@@ -38,7 +39,9 @@ export const FormIndividualCustomer  = () => {
   }, [isSubmitting]);
 
 
-  const isDeletedStatus = Boolean(+isDeleted);
+  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount)  ;
+
+  console.log('touched', touched.isDeleted, submitCount);
 
   return (
 
@@ -62,7 +65,7 @@ export const FormIndividualCustomer  = () => {
           </Grid>
 
         </Grid>
-        {!isDeletedStatus && <FabSave onClick={submitForm} url="custgroup"/>}
+        <FabSave onClick={submitForm} url="custgroup" appear={!Boolean(+isDeleted) }/>
         {
           isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
         }

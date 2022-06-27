@@ -18,7 +18,7 @@ import { hiraToKana } from '../../../../../helpers/utils';
 
 
 
-interface CustomerProps extends ArrayHelpers{
+interface CustomerProps extends ArrayHelpers {
   customers: CustomerForm['customers']
   namePrefix: string,
   index: number,
@@ -111,7 +111,6 @@ export const Customers = () => {
         name={arrayFieldName}
 
         render={(arrHelpers) => {
-          console.log('inside array', arrHelpers.form.values);
 
           return (
             <Stack key={arrayFieldName} spacing={2} >

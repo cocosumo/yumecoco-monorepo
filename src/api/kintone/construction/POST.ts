@@ -1,4 +1,4 @@
-import { ConstructionDetailsValues } from '../../../pages/construction/form';
+import { ConstructionDetailsValues } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../config';
 
 export const convertToKintone = (rawValues: ConstructionDetailsValues) => {

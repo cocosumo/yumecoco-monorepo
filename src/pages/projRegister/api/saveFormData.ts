@@ -1,4 +1,4 @@
-import { TypeOfProjForm } from '../../../pages/construction/form';
+import { TypeOfProjForm } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { AgentType } from '../../../types/forms';
 import { saveProjectToCustGroup } from './saveProjectToCustGroup';

@@ -65,7 +65,7 @@ export const FormConstruction  = () => {
             />
           {isEditMode && <StatusControls />}
         </Grid>
-        <FabSave onClick={submitForm} url="construction"/>
+        <FabSave onClick={submitForm} url="project"/>
       </MainContainer>
 
       {isEditMode && <ProjectShortCuts />}

@@ -1,5 +1,6 @@
 
 import * as Yup from 'yup';
+import { RecordStatus, RecordCancelStatus } from '../../config/formValues';
 import { postalRegExp } from '../../helpers/yupValidator';
 
 
@@ -30,11 +31,13 @@ export const initialValues = {
   addressKari: '',
   buildingType: '戸建て' as BuildingTypeVals,
   isChkAddressKari: false,
+  status: '追客中' as RecordStatus,
+  cancelStatus: [] as RecordCancelStatus[],
 };
 
 export type TypeOfProjForm = typeof initialValues;
 export type KeyOfProjForm = keyof TypeOfProjForm;
-export type ConstructionDetailsValues = Partial<Record<KeyOfProjForm, string | number | boolean>>;
+export type ConstructionDetailsValues = Partial<Record<KeyOfProjForm, string | number | boolean | Array<any>>>;
 
 export const getFieldName = (fieldName: KeyOfProjForm) => fieldName;
 

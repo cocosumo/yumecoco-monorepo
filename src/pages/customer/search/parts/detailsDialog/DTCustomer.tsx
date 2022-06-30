@@ -17,7 +17,6 @@ export const DTCustomer = (props: {
     agents,
     storeName,
     members,
-    status,
     custType,
     projects } = record ?? {};
 
@@ -35,7 +34,6 @@ export const DTCustomer = (props: {
   return (
     <Collapse in={!loading}>
       <Stack spacing={2} mb={2}>
-        <LabeledDetail label='ステータス' value={status?.value}/>
         <LabeledDetail label='種別' value={custType?.value}/>
       </Stack>
 

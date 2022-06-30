@@ -24,7 +24,7 @@ import { DetailsDialog } from './detailsDialog/DetailsDialog';
 
 
 const headCells : (keyof Data)[][] = [
-  ['顧客ID',  '顧客種別', '状況', '案件数' ],
+  ['顧客ID',  '顧客種別', '案件数' ],
   ['顧客氏名・会社名', '現住所'],
   ['店舗', 'ここすも営業', 'ここすも工事', 'ゆめてつAG'],
   ['登録日時', '更新日時'],

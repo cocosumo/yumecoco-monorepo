@@ -2,7 +2,7 @@
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { ConstructionInfo } from './sections/ConstructionInfo';
-import { ConstructionLocation, CustInfo } from './sections';
+import { ConstructionLocation, CustInfo, StatusControls } from './sections';
 import { Grid } from '@mui/material';
 import {  Form, useFormikContext } from 'formik';
 import { useEffect } from 'react';
@@ -13,6 +13,7 @@ import { TypeOfProjForm, getFieldName } from './form';
 import { useQuery } from '../../hooks/useQuery';
 import { useSnackBar } from '../../hooks';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
+
 
 
 
@@ -36,13 +37,13 @@ export const FormConstruction  = () => {
   const isEditMode = !!recordId;
 
   useEffect(()=>{
-    if (passedCustGroupId){
+    if (passedCustGroupId) {
       setFieldValue(getFieldName('custGroupId'), passedCustGroupId);
     }
   }, [passedCustGroupId]);
 
   useEffect(()=>{
-    if (!isValid && !isSubmitting){
+    if (!isValid && !isSubmitting) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
   }, [isSubmitting]);
@@ -62,6 +63,7 @@ export const FormConstruction  = () => {
             constructionTypeId={constructionTypeId}
 
             />
+          {isEditMode && <StatusControls />}
         </Grid>
         <FabSave onClick={submitForm} url="construction"/>
       </MainContainer>

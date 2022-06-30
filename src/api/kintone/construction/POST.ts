@@ -1,4 +1,4 @@
-import { ConstructionDetailsValues } from '../../../pages/construction/form';
+import { ConstructionDetailsValues } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../config';
 
 export const convertToKintone = (rawValues: ConstructionDetailsValues) => {
@@ -27,7 +27,7 @@ export const saveConstructionData = async (rawValues: ConstructionDetailsValues)
   const { custGroupId } = rawValues;
   const record = convertToKintone(rawValues);
 
-  if (custGroupId){
+  if (custGroupId) {
     return KintoneRecord.updateRecord({
       app: APPIDS.constructionDetails,
       id: custGroupId as string,

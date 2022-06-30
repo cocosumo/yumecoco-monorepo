@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { FormikConstruction } from './construction';
+import { FormikConstruction } from './projRegister';
+import { FormikContractPreview } from './projContracts/preview';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
@@ -18,18 +19,22 @@ import UnderConstruction from './UnderConstruction';
 export const pages = {
   custGroupReg: '/custgroup/register',
   custGroupEdit: '/custgroup/edit/',
-
-  projEdit: '/construction/edit/',
-  projReg: '/construction/register',
-
-  projProspect: '/prospect',
   custSearch: '/customer/search',
+
+  projEdit: '/project/edit/',
+  projReg: '/project/register',
+
+  projProspect: '/project/prospect',
+
+  projContractPreview: '/project/contract/preview',
+
+
 };
 
 
 
 const Router = () => (
-  
+
 
   <Routes>
     <Route path="/" element={<UnderConstruction />} />
@@ -45,6 +50,9 @@ const Router = () => (
 
     {/* 見込み登録 */}
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'}/>
+
+    {/* 契約 */}
+    <Route path={`${pages.projContractPreview}`} element={<FormikContractPreview />} />
 
   </Routes>
 

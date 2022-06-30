@@ -1,4 +1,4 @@
-import { TypeOfProjForm } from '../../../pages/construction/form';
+import { TypeOfProjForm } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { AgentType } from '../../../types/forms';
 import { saveProjectToCustGroup } from './saveProjectToCustGroup';
@@ -10,7 +10,8 @@ export const convertToKintone = (
   const {
     cocoConst1, cocoConst2, constructionTypeId, constructionName,
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,
-    buildingType, custGroupId,
+    buildingType, custGroupId, status,
+    cancelStatus,
   } = rawValues;
 
   console.log(rawValues, 'rawValues');
@@ -42,6 +43,8 @@ export const convertToKintone = (
         };
       }),
     },
+    status: {  value: status  },
+    cancelStatus: { value: cancelStatus.join(',') },
   };
 
 };
@@ -62,7 +65,7 @@ export const saveConstructionData = async (
   const { recordId } = rawValues;
   const record = convertToKintone(rawValues);
 
-  if (recordId){
+  if (recordId) {
     /* Update */
     return KintoneRecord.updateRecord({
       app: APPIDS.constructionDetails,
@@ -74,9 +77,10 @@ export const saveConstructionData = async (
         revision: result.revision,
       }));
   } else {
+    /* New Record */
     return KintoneRecord.addRecord({
       app: APPIDS.constructionDetails,
-      record,
+      record: record,
     })
       .catch(err => {
         console.log(err.errors);
@@ -93,7 +97,7 @@ export const saveFormData = async (rawValues: TypeOfProjForm) : Promise<{
 
   return saveConstructionData(rawValues)
     .then(async resp => {
-      /* Todo add projects to customer form */
+
       await saveProjectToCustGroup(
         resp.id,
         rawValues.custGroupId!,

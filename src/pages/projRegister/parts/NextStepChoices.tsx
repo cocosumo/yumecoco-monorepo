@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/material';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useSnackBar } from '../../../hooks';
 import { useConfirmDialog } from '../../../hooks/useConfirmDialog';
 import { pages } from '../../Router';
@@ -11,7 +11,6 @@ export const NextStepChoices = ({ recordId }: {
   const { handleClose } = useConfirmDialog();
   const navigate = useNavigate();
 
-  console.log('recordId', recordId, useParams(), useLocation());
   return (
     <Stack width={300} spacing={2}>
       <Button

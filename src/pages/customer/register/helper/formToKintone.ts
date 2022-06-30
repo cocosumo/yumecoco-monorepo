@@ -25,7 +25,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
         email, emailRel,
       };
 
-      if (isSameAddress){
+      if (isSameAddress) {
         const mainCust =  customers[0];
         Object.keys(deps).forEach((key : keyof typeof deps) => {
           deps[key] = mainCust[key];
@@ -78,7 +78,7 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     yumeAG1,
     yumeAG2,
     customers,
-    recordStatus,
+    isDeleted,
   } = formData;
 
   console.log('transformedForm', formData);
@@ -90,7 +90,7 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     yumeAG1,
     yumeAG2,
   }).reduce((accu, [key, value]) => {
-    if (value){
+    if (value) {
       return [...accu, [key.replace(/\d+/g, ''), value]];
     }
     return accu;
@@ -98,8 +98,8 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
 
 
   return {
+    isDeleted: { value: isDeleted },
     storeId: { value: store },
-    status: { value: recordStatus },
     members: {
       type: 'SUBTABLE',
       value: customerIds?.map(({ id }, index) => {

@@ -1,4 +1,43 @@
 import { KintoneRecord, APPIDS } from '../../../../api/kintone';
+import { RecordStatus } from '../../../../config/formValues';
+
+type ProjectKey = Partial<keyof CustomerGroupTypes.SavedData['projects']['value'][0]['value']>;
+type AgentsKey = Partial<keyof CustomerGroupTypes.SavedData['agents']['value'][0]['value']>;
+type Key = Partial<keyof CustomerGroupTypes.SavedData>;
+type CustKey = Partial<keyof CustomerGroupTypes.SavedData['members']['value'][0]['value']>;
+
+
+export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
+
+  if (!statuses || !statuses.length) return [];
+
+  const queryStr = (s: RecordStatus) => {
+    switch (s) {
+      case '情報登録のみ':
+        return  `${'projectCount' as Key} = "0" or ${'projectCount' as Key} = ""`;
+      case '追客中':
+        return  `${'projectCount' as Key} > 0`;
+      case '中止':
+        return `${'cancelStatus' as ProjectKey} like "中止"`;
+      case '他決':
+        return `${'cancelStatus' as ProjectKey} like "他決"`;
+      case '削除 (工事)':
+        return `${'cancelStatus' as ProjectKey} like "削除"`;
+      case '削除':
+        return `${'isDeleted' as Key} = "1"`;
+
+      default: return undefined;
+    }
+  };
+
+  const completeQueryStr = statuses.map((item) => {
+    return queryStr(item);
+  } ).filter(Boolean).join(' or ');
+
+  return `(${completeQueryStr})`;
+
+
+};
 
 export interface AdvancedSearchCustGroupParam {
   storeId?: string,
@@ -10,15 +49,10 @@ export interface AdvancedSearchCustGroupParam {
   cocoAG?: string,
   cocoConst?: string,
   custType?: string,
-  recordStatus?: string[],
+  recordStatus?: RecordStatus[],
 }
 
-export const advancedSearchCustGroup = async <
-  Key extends Partial<keyof CustomerGroupTypes.SavedData>,
-  CustKey extends  Partial<keyof CustomerGroupTypes.SavedData['members']['value'][0]['value']>,
-  ProjectKey extends Partial<keyof CustomerGroupTypes.SavedData['projects']['value'][0]['value']>,
-  AgentsKey extends Partial<keyof CustomerGroupTypes.SavedData['agents']['value'][0]['value']>,
->(
+export const advancedSearchCustGroup = async (
   params : AdvancedSearchCustGroupParam,
 ) => {
   const {
@@ -31,7 +65,9 @@ export const advancedSearchCustGroup = async <
   } = params;
 
 
-  const query = [
+
+  const queryArr = [
+    resolveRecordStatusQuery(recordStatus),
     ...(custType ? [`${'custType' as Key} in ("${custType}")`] : []),
     ...(storeId ? [`${'storeId' as Key} = "${storeId}"`] : []),
     ...(yumeAG ? [`${'employeeId' as AgentsKey} in ("${yumeAG}")`] : []),
@@ -40,12 +76,6 @@ export const advancedSearchCustGroup = async <
     ...(custName ? [`${'customerName' as CustKey} like "${custName}"`] : []),
     ...(phone ? [`${'dump' as CustKey} like "${phone}"`] : []),
     ...(email ? [`${'dump' as CustKey} like "${email}"`] : []),
-    ...(recordStatus?.length ? [
-      `(${recordStatus
-        .map(item => `${'status' as Key} = "${item}"`)
-        .join(' or ')
-      })`,
-    ] : []),
     ...(address ? [
       `(${
         (['dump',
@@ -60,8 +90,13 @@ export const advancedSearchCustGroup = async <
           .map(item => `${item} like "${address}"`)
           .join(' or ')
       })`] : []),
-  ].join(' and ');
+  ];
 
+  const query = queryArr
+    .filter((arr) => arr.length)
+    .join(' and ');
+
+  console.log(queryArr);
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,

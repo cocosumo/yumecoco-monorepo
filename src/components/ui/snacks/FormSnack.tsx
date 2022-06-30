@@ -7,6 +7,7 @@ export interface SnackState {
   open: boolean,
   severity?: AlertColor,
   message?: string,
+  autoHideDuration?: number,
   handleClose?: ()=>void
 }
 
@@ -19,13 +20,19 @@ interface FormSnackProps {
 
 export const FormSnack : React.FC<FormSnackProps> = ({ snackState, handleClose }) => {
 
-  const { open, message, severity }  = snackState;
+  const {
+    open,
+    message,
+    severity,
+    autoHideDuration = 2000,
+  }  = snackState;
 
   return (
     <Snackbar
     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     open={open}
-    autoHideDuration={2000}
+    autoHideDuration={autoHideDuration}
+
     onClose={handleClose}
     sx={{ zIndex: 5001 }}
   >

@@ -10,9 +10,9 @@ import { ScrollToFieldError } from '../../../components/utils/ScrollToFieldError
 import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
 import { CustomerForm } from './form';
-import { RecordStatus } from './parts/RecordStatus';
 import { CustGroupShortcuts } from  './parts/CustGroupShortcuts';
 import { useSnackBar } from '../../../hooks';
+import { CustomerStatus } from './parts/CustomerStatus';
 
 
 export const FormIndividualCustomer  = () => {
@@ -20,22 +20,28 @@ export const FormIndividualCustomer  = () => {
   const {
     isValid,
     isSubmitting,
+    touched,
     submitForm,
+    submitCount,
     values : {
       id: custGroupId,
+      isDeleted,
     },
   } = useFormikContext<CustomerForm>();
 
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{
-    if (!isValid && !isSubmitting){
+    if (!isValid && !isSubmitting) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
 
   }, [isSubmitting]);
 
 
+  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount)  ;
+
+  console.log('touched', touched.isDeleted, submitCount);
 
   return (
 
@@ -45,11 +51,11 @@ export const FormIndividualCustomer  = () => {
       <MainContainer >
 
         <PageTitle label="顧客登録（個人）"/>
-        <RecordStatus />
+
         <Grid container item xs={12} md={12} lg={12} xl={9} spacing={2} alignItems="flex-start" justifyContent={'flex-start'}>
+          {isDeletedStatus && <CustomerStatus/>}
 
           <Grid className='fieldarray' container item xs={12} md={8} lg={5} spacing={2} >
-
             <Customers/>
           </Grid>
 
@@ -59,9 +65,9 @@ export const FormIndividualCustomer  = () => {
           </Grid>
 
         </Grid>
-        <FabSave onClick={submitForm} url="custgroup"/>
+        <FabSave onClick={submitForm} url="custgroup" appear={!Boolean(+isDeleted) }/>
         {
-          isEditMode &&  <CustGroupShortcuts custGroupId={custGroupId} />
+          isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
         }
 
       </MainContainer>

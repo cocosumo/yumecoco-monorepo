@@ -1,16 +1,17 @@
 declare namespace CustomerGroupTypes {
   interface Data {
+    projectCount: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
     isDeleted: kintone.fieldTypes.Number;
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    status: kintone.fieldTypes.SingleLineText;
     projects: {
-      type: 'SUBTABLE';
-      value: {
+      type: "SUBTABLE";
+      value: Array<{
         id: string;
         value: {
+          cancelStatus: kintone.fieldTypes.SingleLineText;
           cocoConst2: kintone.fieldTypes.Number;
           kariAddress: kintone.fieldTypes.SingleLineText;
           cocoConst1: kintone.fieldTypes.Number;
@@ -21,23 +22,24 @@ declare namespace CustomerGroupTypes {
           cocoConst1Name: kintone.fieldTypes.SingleLineText;
           projectAddress1: kintone.fieldTypes.SingleLineText;
           projectAddress2: kintone.fieldTypes.SingleLineText;
+          status: kintone.fieldTypes.SingleLineText;
         };
-      }[];
+      }>;
     };
     agents: {
-      type: 'SUBTABLE';
-      value: {
+      type: "SUBTABLE";
+      value: Array<{
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
         };
-      }[];
+      }>;
     };
     members: {
-      type: 'SUBTABLE';
-      value: {
+      type: "SUBTABLE";
+      value: Array<{
         id: string;
         value: {
           address2: kintone.fieldTypes.SingleLineText;
@@ -47,7 +49,7 @@ declare namespace CustomerGroupTypes {
           dump: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
         };
-      }[];
+      }>;
     };
   }
   interface SavedData extends Data {

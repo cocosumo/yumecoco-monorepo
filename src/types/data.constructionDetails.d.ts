@@ -4,6 +4,7 @@ declare namespace ConstructionDetails {
     constructionTypeId: kintone.fieldTypes.Number;
     constructionType: kintone.fieldTypes.SingleLineText;
     addressKari: kintone.fieldTypes.SingleLineText;
+    cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
     rank: kintone.fieldTypes.SingleLineText;
@@ -17,16 +18,17 @@ declare namespace ConstructionDetails {
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
+    status: kintone.fieldTypes.SingleLineText;
     agents: {
       type: 'SUBTABLE';
-      value: {
+      value: Array<{
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
         };
-      }[];
+      }>;
     };
   }
   interface SavedData extends Data {

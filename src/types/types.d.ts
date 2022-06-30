@@ -13,7 +13,8 @@ interface Props {
 type Option = {
   label: string | number,
   value: string,
-  secondaryLabel?: string | null
+  secondaryLabel?: string | null,
+  hiddenValue?: string
 };
 
 type Options = Option[];

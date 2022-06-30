@@ -3,12 +3,12 @@ import { CustomerForm } from '../../form';
 export const testData: CustomerForm =  {
   id: undefined,
   revision: '',
-  recordStatus: '情報登録のみ',
   store: '11',
   cocoAG1: '40',
   cocoAG2: '43',
   yumeAG1: '28',
   yumeAG2: '65',
+  isDeleted: '',
   customers: [
     {
       key: '',

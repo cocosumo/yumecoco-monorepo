@@ -41,6 +41,7 @@ const resolveDeleteRequest = async (projectId: string) => {
 
 /**
  * Get custgroup record, then add the projectId.
+ * This keep the projects subtable updated in customer groups app.
  * API calls: 2
  * @param projectId
  * @param custGroupId
@@ -53,6 +54,27 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
     id: custGroupId,
   }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
 
+  const newProjects = projects.value
+    .filter(item => item.value.constructionId.value !== projectId)
+    .concat([{
+      id: '',
+      value: {
+
+        constructionId: { value: projectId },
+        constructionName: { value: 'auto' },
+        cocoConst1: { value: cocoConst[0] },
+        cocoConst2: { value: cocoConst[1] },
+        cocoConst1Name : { value: 'auto' },
+        cocoConst2Name : { value: 'auto' },
+        kariAddress :  { value: 'auto' },
+        projectAddress1:  { value: 'auto' },
+        projectAddress2:  { value: 'auto' },
+        projectPostal:  { value: 'auto' },
+        status: { value: 'auto' },
+        cancelStatus: { value: 'auto' },
+      },
+    }]);
+
   return [{
     method: 'PUT',
     api: '/k/v1/record.json',
@@ -62,24 +84,9 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
       record: {
         projects: {
           type: 'SUBTABLE',
-          value: projects.value
-            .filter(item => item.value.constructionId.value !== projectId)
-            .concat([{
-              id: '',
-              value: {
-                constructionId: { value: projectId },
-                constructionName: { value: 'auto' },
-                cocoConst1: { value: cocoConst[0] },
-                cocoConst2: { value: cocoConst[1] },
-                cocoConst1Name : { value: 'auto' },
-                cocoConst2Name : { value: 'auto' },
-                kariAddress :  { value: 'auto' },
-                projectAddress1:  { value: 'auto' },
-                projectAddress2:  { value: 'auto' },
-                projectPostal:  { value: 'auto' },
-              },
-            }]),
+          value: newProjects,
         },
+        projectCount: { value: newProjects.length.toString() },
       },
     },
   },
@@ -109,7 +116,7 @@ export const saveProjectToCustGroup = async (projectId: string, custGroupId: str
     ...await resolveSaveRequest(projectId, custGroupId, cocoConst),
   ];
 
-  if (requests.length){
+  if (requests.length) {
     return KintoneClient.bulkRequest({
       requests,
     });

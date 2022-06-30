@@ -31,7 +31,7 @@ export const FormProjProspect = () => {
   const { projId, projName } = values;
 
   useEffect(()=>{
-    if (projId){
+    if (projId) {
       getFormDataById(projId)
         .then((r) => setFormikState(prev => produce(prev, draft=> { draft.values = r; })));
     } else if (!projId && dirty) {
@@ -40,7 +40,7 @@ export const FormProjProspect = () => {
   },  [projId]);
 
   useEffect(()=>{
-    if (!isValid && !isSubmitting){
+    if (!isValid && !isSubmitting) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
   }, [isSubmitting]);

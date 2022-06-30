@@ -7,7 +7,11 @@ import { getFormDataById } from './api/fetchRecord';
 import { produce } from 'immer';
 import { useSnackBar } from '../../../hooks/useSnackBar';
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
-import { TypeOfForm } from './form';
+import { getFieldName, TypeOfForm } from './form';
+import { Grid } from '@mui/material';
+import { SearchProjField } from './parts/SearchProjField';
+import { SendContract } from './parts/SendContract';
+import { Preview } from './parts/Preview';
 
 export const FormContractPreview = () => {
   const {
@@ -21,7 +25,7 @@ export const FormContractPreview = () => {
 
   const { setSnackState } = useSnackBar();
 
-  const { projId } = values;
+  const { projId, projName } = values;
 
   useEffect(()=>{
     if (projId) {
@@ -38,12 +42,28 @@ export const FormContractPreview = () => {
     }
   }, [isSubmitting]);
 
+  console.log('env', process.env.NODE_ENV);
+
   return (
     <Form noValidate>
 
       <MainContainer>
         <PageTitle label='契約確認'/>
-
+        <Grid container item xl={8} spacing={2} mb={12} alignItems={'center'}>
+          <Grid item xs={12} md={4}>
+            <SearchProjField
+              label="工事情報の検索"
+              name={getFieldName('projId')}
+              projName={projName}
+              />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <SendContract projId={projId}/>
+          </Grid>
+          <Grid item xs={12} md={10}>
+            <Preview />
+          </Grid>
+        </Grid>
       </MainContainer>
       <ProspectShortcuts />
 

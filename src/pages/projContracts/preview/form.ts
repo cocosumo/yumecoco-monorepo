@@ -5,7 +5,6 @@ export const initialValues = {
   projId: '',
   projName: '',
 
-
 };
 
 export type TypeOfForm =  typeof initialValues;

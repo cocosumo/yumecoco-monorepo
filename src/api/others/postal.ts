@@ -15,7 +15,7 @@ export const getAddressByPostal = async (postal: string) => {
     .then(([body]: any[]) => {
       const { status, results } : PostalAPIResponse = JSON.parse(body as string);
       console.log(status);
-      if (status == 200 && results){
+      if (status == 200 && results) {
         const { address1, address2, address3 } = results[0];
         return [address1, address2, address3].join('');
       }

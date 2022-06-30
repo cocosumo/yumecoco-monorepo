@@ -1,7 +1,7 @@
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 
 export const searchProjects = async <
-  T extends KeyOfConstructionDetails,
+  T extends KeyOfProjectDetails,
 >(search: string) => {
 
   return KintoneRecord.getRecords({

@@ -46,7 +46,7 @@ export const DTProject = (props: {
               <LabeledDetail label="担当確定" value={Boolean(+isAgentConfirmed.value) ? 'はい' : 'いいえ'} />
               <LabeledDetail label="仮換地地番" value={addressKari.value} />
 
-              <ButtonEdit link={`/construction/edit/${$id.value}`}/>
+              <ButtonEdit link={`/project/edit/${$id.value}`}/>
               <Divider light/>
             </Stack>
           );

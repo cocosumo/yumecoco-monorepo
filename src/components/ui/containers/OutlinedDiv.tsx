@@ -26,6 +26,7 @@ export const OutlinedDiv = ({
   return (
     <TextField
       size='small'
+      
       error={!!errorMessage}
       helperText={errorMessage ?? helperText }
       margin='none'
@@ -36,6 +37,7 @@ export const OutlinedDiv = ({
       InputLabelProps={{ shrink: true }}
       InputProps={{
         inputComponent: InputComponent,
+        sx: { 'cursor': 'default' },
       }}
       inputProps={{ children: children }}
     />

@@ -10,7 +10,6 @@ import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
-import { SendContract } from './parts/SendContract';
 import { Preview } from './parts/Preview';
 
 export const FormContractPreview = () => {
@@ -57,11 +56,9 @@ export const FormContractPreview = () => {
               projName={projName}
               />
           </Grid>
-          <Grid item xs={12} md={4}>
-            <SendContract projId={projId}/>
-          </Grid>
-          <Grid item xs={12} md={10}>
-            <Preview />
+  
+          <Grid item xs={12} >
+            <Preview projId={projId} />
           </Grid>
         </Grid>
       </MainContainer>

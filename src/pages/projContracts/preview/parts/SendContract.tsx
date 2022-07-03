@@ -3,6 +3,7 @@ import {  useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useConfirmDialog, useSnackBar } from '../../../../hooks';
+import { Tooltip } from '@mui/material';
 
 
 
@@ -18,6 +19,7 @@ export const SendContract = (props: { projId: string })=>{
     setSnackState({
       open: true,
       message: `送信が成功しました。${result.envelopeId}`,
+      autoHideDuration: 20000,
     });
   };
 
@@ -32,15 +34,18 @@ export const SendContract = (props: { projId: string })=>{
   };
 
   return (
-    <LoadingButton
-    disabled={!props.projId}
-    loading={isLoading}
-    onClick={handleConfirmSend}
-    variant="contained"
-    endIcon={<SendIcon />}
-    loadingPosition="end"
-    fullWidth>
-      送信
-    </LoadingButton>
+    <Tooltip title="契約書を送信する" arrow>
+
+      <LoadingButton
+      
+        disabled={!props.projId}
+        loading={isLoading}
+        onClick={handleConfirmSend}
+        variant="contained"
+        loadingPosition="center"
+      >
+        <SendIcon />
+      </LoadingButton>
+    </Tooltip>
   );
 };

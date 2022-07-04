@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 export const initialValues = {
   projId: '',
   projName: '',
+  dsEnvIdUkeoi : '',
 
 };
 

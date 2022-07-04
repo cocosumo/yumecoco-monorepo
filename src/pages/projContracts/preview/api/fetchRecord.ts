@@ -11,13 +11,14 @@ export const fetchRecord = async (recordId: string) => {
 export const getFormDataById = async (recordId: string): Promise<TypeOfForm> => {
 
   const {
-
+    dsEnvIdUkeoi,
     constructionName,
   } = await fetchRecord(recordId);
 
   return {
     projId: recordId,
     projName: constructionName.value,
+    dsEnvIdUkeoi: dsEnvIdUkeoi.value,
   };
 
 };

@@ -20,13 +20,9 @@ export const SendContract = (props: { projId: string })=>{
 
     setSnackState({
       open: true,
-<<<<<<< Updated upstream
-      message: `送信が成功しました。${result.envelopeId}`,
       autoHideDuration: 20000,
-=======
       severity: isSuccess ? 'success' : 'error',
       message: isSuccess ? `送信が成功しました。${result.envelopeId}` : `問題が発生しました。管理者に報告してください。 ${result}`,
->>>>>>> Stashed changes
     });
   };
 
@@ -44,7 +40,7 @@ export const SendContract = (props: { projId: string })=>{
     <Tooltip title="契約書を送信する" arrow>
 
       <LoadingButton
-      
+
         disabled={!props.projId}
         loading={isLoading}
         onClick={handleConfirmSend}

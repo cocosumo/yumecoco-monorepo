@@ -16,10 +16,17 @@ export const SendContract = (props: { projId: string })=>{
     setIsLoading(true);
     const result = await sendContract(props.projId);
     setIsLoading(false);
+    const isSuccess = result.envelopeId;
+
     setSnackState({
       open: true,
+<<<<<<< Updated upstream
       message: `送信が成功しました。${result.envelopeId}`,
       autoHideDuration: 20000,
+=======
+      severity: isSuccess ? 'success' : 'error',
+      message: isSuccess ? `送信が成功しました。${result.envelopeId}` : `問題が発生しました。管理者に報告してください。 ${result}`,
+>>>>>>> Stashed changes
     });
   };
 

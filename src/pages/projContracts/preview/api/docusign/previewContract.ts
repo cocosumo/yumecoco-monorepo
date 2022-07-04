@@ -8,13 +8,11 @@ export const previewContract = async (projId: string) => {
     user: kintone.getLoginUser().code,
   };
 
-  console.log('Psss', data);
-
   return kintone.proxy(
     endpoint,
     'POST',
-    { 
-      'Content-Type': 'application/json', 
+    {
+      'Content-Type': 'application/json',
 
     },
     data,

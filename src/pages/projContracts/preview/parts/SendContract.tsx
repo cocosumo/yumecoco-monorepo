@@ -7,14 +7,20 @@ import { Tooltip } from '@mui/material';
 
 
 
-export const SendContract = (props: { projId: string })=>{
+export const SendContract = ({
+  projId,
+  isBusy,
+}: {
+  projId: string,
+  isBusy: boolean,
+})=>{
   const [isLoading, setIsLoading] = useState(false);
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
 
   const handleSendContract = async () => {
     setIsLoading(true);
-    const result = await sendContract(props.projId);
+    const result = await sendContract(projId);
     setIsLoading(false);
     const isSuccess = result.envelopeId;
 
@@ -38,17 +44,18 @@ export const SendContract = (props: { projId: string })=>{
 
   return (
     <Tooltip title="契約書を送信する" arrow>
+      <div> {/* Tooltip doesn't like disabled element, so I added extra layer */}
+        <LoadingButton
 
-      <LoadingButton
-
-        disabled={!props.projId}
+        disabled={!projId || isBusy}
         loading={isLoading}
         onClick={handleConfirmSend}
         variant="contained"
         loadingPosition="center"
       >
-        <SendIcon />
-      </LoadingButton>
+          <SendIcon />
+        </LoadingButton>
+      </div>
     </Tooltip>
   );
 };

@@ -4,7 +4,7 @@ export const sendContract = async (projId: string) => {
 
   if (!projId) throw new Error('Invalid Project Id.');
   const endpoint = `${yumecocoDocusign.baseUrl}/docusign/send/ukeoi`;
-  console.log(endpoint);
+
   const data = {
     projId: projId,
   };

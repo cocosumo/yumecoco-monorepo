@@ -24,7 +24,7 @@ export const FormContractPreview = () => {
 
   const { setSnackState } = useSnackBar();
 
-  const { projId, projName } = values;
+  const { projId, projName, dsEnvIdUkeoi } = values;
 
   useEffect(()=>{
     if (projId) {
@@ -56,9 +56,9 @@ export const FormContractPreview = () => {
               projName={projName}
               />
           </Grid>
-  
+
           <Grid item xs={12} >
-            <Preview projId={projId} />
+            <Preview projId={projId} envelopeId={dsEnvIdUkeoi} />
           </Grid>
         </Grid>
       </MainContainer>

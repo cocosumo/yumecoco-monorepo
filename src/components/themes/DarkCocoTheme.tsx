@@ -105,6 +105,11 @@ const darkTheme = createTheme({
       },
     },
   },
+  palette : {
+    secondary: {
+      main: grey[700],
+    },
+  },
 });
 
 export default function EnableColorOnDarkAppBar({ children }: Props) {

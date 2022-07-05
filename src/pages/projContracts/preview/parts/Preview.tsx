@@ -86,10 +86,14 @@ export const Preview = ({
         <Grid item xs={6}>
           <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
             <DownloadContract projId={projId}/>
+            {envStatus == '下書き' &&
             <SendContract
-              projId={projId}
-              isBusy={loading}
-            />
+                projId={projId}
+                isBusy={loading}
+                envelopeId={envelopeId}
+              />
+            }
+
           </Stack>
         </Grid>
         <Grid item xs={12}>

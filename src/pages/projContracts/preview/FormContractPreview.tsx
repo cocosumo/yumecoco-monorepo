@@ -2,10 +2,6 @@ import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../../components/ui/containers';
 import { PageTitle } from '../../../components/ui/labels';
 
-import { useEffect } from 'react';
-import { getFormDataById } from './api/fetchRecord';
-import { produce } from 'immer';
-import { useSnackBar } from '../../../hooks/useSnackBar';
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
@@ -14,34 +10,24 @@ import { Preview } from './parts/Preview';
 
 export const FormContractPreview = () => {
   const {
-    dirty,
-    resetForm,
-    setFormikState,
-    isSubmitting,
-    isValid,
     values,
   } = useFormikContext<TypeOfForm>();
 
-  const { setSnackState } = useSnackBar();
+
 
   const { projId, projName, dsEnvIdUkeoi } = values;
 
-  useEffect(()=>{
+  /*   useEffect(()=>{
     if (projId) {
       getFormDataById(projId)
         .then((r) => setFormikState(prev => produce(prev, draft=> { draft.values = r; })));
     } else if (!projId && dirty) {
       resetForm();
     }
-  },  [projId]);
+  },  [projId]); */
 
-  useEffect(()=>{
-    if (!isValid && !isSubmitting) {
-      setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
-    }
-  }, [isSubmitting]);
 
-  console.log('env', process.env.NODE_ENV);
+  console.log('env', projId, values);
 
   return (
     <Form noValidate>

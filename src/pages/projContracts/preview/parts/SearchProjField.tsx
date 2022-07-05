@@ -33,7 +33,7 @@ export const SearchProjField = (props: {
 
       });
 
-  }, [inputVal], 1000);
+  }, [inputVal], 2000);
 
   useEffect(()=>{
 
@@ -45,6 +45,8 @@ export const SearchProjField = (props: {
 
   }, [field.value, projName]);
 
+  console.log('Field val', fieldVal);
+
   return (
     <Autocomplete
       value={fieldVal}
@@ -52,9 +54,9 @@ export const SearchProjField = (props: {
         setInputVal(value);
       }}
       onChange={(_, val)=>{
+        console.log('Onchange', val?.id);
         helpers.setValue(val?.id);
         setFieldVal(val);
-
       }}
 
       options={options}

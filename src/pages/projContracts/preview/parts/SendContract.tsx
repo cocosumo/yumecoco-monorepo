@@ -10,26 +10,33 @@ import { Tooltip } from '@mui/material';
 export const SendContract = ({
   projId,
   isBusy,
+  envelopeId,
 }: {
   projId: string,
   isBusy: boolean,
+  envelopeId: string,
 })=>{
   const [isLoading, setIsLoading] = useState(false);
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
 
+
   const handleSendContract = async () => {
     setIsLoading(true);
-    const result = await sendContract(projId);
+    const result = await sendContract(projId, envelopeId );
     setIsLoading(false);
-    const isSuccess = result.envelopeId;
+    const isSuccess = Boolean(result.url);
 
     setSnackState({
       open: true,
       autoHideDuration: 20000,
       severity: isSuccess ? 'success' : 'error',
-      message: isSuccess ? `送信が成功しました。${result.envelopeId}` : `問題が発生しました。管理者に報告してください。 ${result}`,
+      message: isSuccess ? '送信が成功しました。' : `問題が発生しました。管理者に報告してください。 ${JSON.stringify(result)}`,
     });
+
+    if (isSuccess) {
+      window.location.href = result.url;
+    }
   };
 
 

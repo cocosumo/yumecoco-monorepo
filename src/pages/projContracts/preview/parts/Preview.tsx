@@ -3,14 +3,25 @@ import { OutlinedDiv } from '../../../../components/ui/containers';
 
 import { SendContract } from './SendContract';
 import { DownloadContract } from './DownloadContract';
-import { previewContract, TPreviewResp } from '../api/docusign/previewContract';
+//import { previewContract, TPreviewResp } from '../api/docusign/previewContract';
 import { useEffect, useState } from 'react';
-import { Image } from 'mui-image';
 import { useSnackBar } from '../../../../hooks';
 import { Loading } from './Loading';
-import { useField } from 'formik';
-import { getFieldName } from '../form';
+//import { useField } from 'formik';
+//import { getFieldName } from '../form';
+import { downloadContract } from '../api/docusign/downloadContract';
 
+
+
+function base64ToBlob( base64 : string, type = 'application/octet-stream' ) {
+  const binStr = window.atob( base64 );
+  const len = binStr.length;
+  const arr = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    arr[ i ] = binStr.charCodeAt( i );
+  }
+  return new Blob( [ arr ], { type: type } );
+}
 
 export const Preview = ({
   projId,
@@ -20,18 +31,21 @@ export const Preview = ({
   envelopeId: string,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState('');
+  //const [previewUrl, setPreviewUrl] = useState('');
+  const [pdfData, setPdfData] = useState('');
   const [envStatus, setEnvStatus] = useState('');
   const { setSnackState } = useSnackBar();
-  const [,,helper] = useField(getFieldName('dsEnvIdUkeoi'));
+  //const [,,helper] = useField(getFieldName('dsEnvIdUkeoi'));
 
 
 
   const handlePreview = async () => {
     setLoading(true);
-    const res = await previewContract(projId) as TPreviewResp | { error: string };
+    const res = await downloadContract(projId, 'pdf');
 
     if (!res) return;
+    if (pdfData) URL.revokeObjectURL(pdfData); // free Memory
+
     if ('error' in res) {
       setSnackState({
         open: true,
@@ -41,38 +55,26 @@ export const Preview = ({
       setLoading(false);
       return;
     }
-    console.log(res.status);
+
+    const base64 = res.data;
+
     setEnvStatus(res.status);
 
-    console.log('ENV', res.envelopeId);
+    const blob = base64ToBlob( base64, 'application/pdf' );
+    const url = URL.createObjectURL( blob );
+    setPdfData(url);
 
-    /*
-      atobでASCIIからBinaryへ変換し、それを1文字ずつUnicodeの数値に変換し、その数字を配列化します。
-      この配列をBlobコンストラクタに入れてtypeをExcelの形式で指定します。
-      このBlobをcreateObjectURLでブラウザのメモリに展開してaタグを作成し、強制的にクリックしたことにしてダウンロードさせます。
-    */
-    const binary = window.atob(res.imgB64);
-
-    const decodedArray = new Uint8Array(Array.prototype.map.call(binary, (c: any) => c.charCodeAt()));
-
-    const blob = new Blob([decodedArray], { type: 'image/png' });
-
-    const url = window.URL.createObjectURL(blob);
-    setPreviewUrl(url);
-    /*     const a = document.createElement('a');
-    a.href = url;
-    a.download = 'a.png';
-    a.click(); */
+    console.log('RUL', url);
 
     setLoading(false);
-    helper.setValue(res.envelopeId);
+
   };
 
   useEffect(()=>{
+    if (!projId) return;
     handlePreview();
   }, [projId]);
 
-  console.log(envelopeId);
 
   return (
     <OutlinedDiv label='プレビュー' >
@@ -99,10 +101,10 @@ export const Preview = ({
         <Grid item xs={12}>
           <Divider/>
         </Grid>
-        {!loading &&
-          <Grid item xs={12} >
+        {!loading && pdfData &&
+          <Grid item xs={12}>
             <Paper>
-              <Image src={previewUrl}/>
+              <embed src={pdfData} width="100%" height='900px' />
             </Paper>
           </Grid>
         }

@@ -11,7 +11,7 @@ export default function onIndexShowHandler() {
   // Client side navigation triggers this callback so
   // If container already exist, prevent createRoot from triggering.
 
-  if (!container){
+  if (!container) {
     generateRoot();
     console.log('ROOOT');
     container = document.getElementById('app');

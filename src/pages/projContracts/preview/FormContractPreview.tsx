@@ -31,7 +31,6 @@ export const FormContractPreview = () => {
   },  [projId]);
 
 
-  console.log('form', values);
 
   return (
     <Form noValidate>

@@ -6,7 +6,7 @@ export const initialValues = {
   projName: '',
   envelopeId: '',
   envelopeStatus: '' as TEnvelopeStatus,
-  documents: [] as string[],
+  envDocFileKeys: [] as string[],
   //dsEnvIdUkeoi : '',
 
 };

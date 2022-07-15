@@ -14,17 +14,17 @@ export const getFormDataById = async (recordId: string) => {
     constructionName,
     envelopeId,
     envelopeStatus,
-    documents,
+    envDocFileKeys,
   } = await fetchRecord(recordId);
 
-  console.log('PROJNAME', constructionName.value);
+  console.log('PROJNAME', envDocFileKeys);
 
   return {
     projId: recordId,
     projName: constructionName.value,
     envelopeId: envelopeId.value,
     envelopeStatus: envelopeStatus.value,
-    documents: documents.value.map(e => e.fileKey),
+    envDocFileKeys: envDocFileKeys.value.map(e => e.fileKey),
   } as TypeOfForm;
 
 };

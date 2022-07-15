@@ -11,7 +11,8 @@ import { EnvelopeStatus } from './EnvelopeStatus';
 import { PreviewToolBar } from './PreviewToolBar';
 
 export const Preview = (form : TypeOfForm) => {
-  const { projId, envelopeId, envelopeStatus } = form;
+
+  const { projId, projName, envelopeId, envelopeStatus } = form;
   const [loading, setLoading] = useState(false);
   const [pdfData, setPdfData] = useState('');
   const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
@@ -26,8 +27,6 @@ export const Preview = (form : TypeOfForm) => {
 
     if (!res) return;
     if (pdfData) URL.revokeObjectURL(pdfData); // free Memory
-
-
 
     const {
       documents = [],
@@ -57,9 +56,9 @@ export const Preview = (form : TypeOfForm) => {
   };
 
   useEffect(()=>{
-    if (!projId) return;
+    if (!projId || !projName) return;
     handlePreview();
-  }, [projId]);
+  }, [projId, projName]);
 
   return (
     <OutlinedDiv label='プレビュー' >
@@ -80,6 +79,7 @@ export const Preview = (form : TypeOfForm) => {
             </Paper>
           </Grid>
         }
+
         {loading && projId &&
         <Grid item xs={12}>
           <Loading/>
@@ -93,6 +93,14 @@ export const Preview = (form : TypeOfForm) => {
         <Grid item xs={12}>
           <Typography variant="caption">
             プロジェクトを選択してください。
+          </Typography>
+        </Grid>
+        }
+
+        {envelopeId &&
+        <Grid item xs={12}>
+          <Typography variant="caption">
+            Envelope Id: {envelopeId}
           </Typography>
         </Grid>
         }

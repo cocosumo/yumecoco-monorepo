@@ -2,15 +2,7 @@ import { yumecocoDocusign } from '../../../../../config/settings';
 import { TypeOfForm } from '../../form';
 
 
-/* const getContentType = (fileType: string) => {
-  switch (fileType) {
-    case 'xlsx':
-      return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-    case 'pdf' :
-      return 'application/pdf+base64';
-  }
-};
- */
+
 export const downloadContract = async ( {
   form,
   fileType,
@@ -20,7 +12,7 @@ export const downloadContract = async ( {
   fileType: 'pdf' | 'xlsx',
 },
 ) : Promise<{
-  data?: string,
+  documents?: string[], // Base64
   envelopeStatus?: TEnvelopeStatus,
   error?: string,
 }> => {

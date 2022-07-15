@@ -26,7 +26,16 @@ export const Preview = (form : TypeOfForm) => {
 
     if (!res) return;
     if (pdfData) URL.revokeObjectURL(pdfData); // free Memory
-    if ('error' in res) {
+
+
+
+    const {
+      documents = [],
+      envelopeStatus: newEnvStatus,
+      error,
+    } = res;
+
+    if (error || !documents.length) {
       setSnackState({
         open: true,
         severity: 'error',
@@ -35,8 +44,10 @@ export const Preview = (form : TypeOfForm) => {
       setLoading(false);
       return;
     }
-    const base64 = res.data;
-    setEnvStatus(res?.envelopeStatus ?? '');
+
+    const base64 = documents[0]; // Get first document
+
+    setEnvStatus(newEnvStatus ?? '');
     if (base64) {
       const blob = base64ToBlob( base64, 'application/pdf' );
       const url = URL.createObjectURL( blob );

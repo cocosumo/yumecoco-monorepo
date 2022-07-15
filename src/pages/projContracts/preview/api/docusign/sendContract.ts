@@ -3,13 +3,15 @@ import { yumecocoDocusign } from '../../../../../config/settings';
 export const sendContract = async (projId: string, envelopeId: string) => {
 
   if (!projId) throw new Error('Invalid Project Id.');
-  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/send/ukeoi`;
+  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/ukeoi/send/direct`;
 
   const data = {
     projId: projId,
     envelopeId: envelopeId,
     origin: window.location.href,
   };
+
+  console.log(data, endpoint);
 
   return kintone.proxy(
     endpoint,

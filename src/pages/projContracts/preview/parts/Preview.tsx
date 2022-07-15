@@ -1,8 +1,5 @@
-import {  Divider, Grid, Paper, Stack, Typography } from '@mui/material';
+import {  Divider, Grid, Paper, Typography } from '@mui/material';
 import { OutlinedDiv } from '../../../../components/ui/containers';
-
-import { SendContract } from './SendContract';
-import { DownloadContract } from './DownloadContract';
 import { useEffect, useState } from 'react';
 import { useSnackBar } from '../../../../hooks';
 import { Loading } from './Loading';
@@ -11,6 +8,7 @@ import { downloadContract } from '../api/docusign/downloadContract';
 import { TypeOfForm } from '../form';
 import { base64ToBlob } from '../../../../lib';
 import { EnvelopeStatus } from './EnvelopeStatus';
+import { PreviewToolBar } from './PreviewToolBar';
 
 export const Preview = (form : TypeOfForm) => {
   const { projId, envelopeId, envelopeStatus } = form;
@@ -55,20 +53,11 @@ export const Preview = (form : TypeOfForm) => {
   return (
     <OutlinedDiv label='プレビュー' >
       <Grid container justifyContent={'flex-end'} alignContent={'flex-start'} spacing={2} p={2}>
-        <EnvelopeStatus envStatus={envStatus} loading={loading} />
-
         <Grid item xs={6}>
-          <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
-            <DownloadContract projId={projId}/>
-            {envStatus == '' &&
-            <SendContract
-                projId={projId}
-                isBusy={loading}
-                envelopeId={envelopeId}
-              />
-            }
-
-          </Stack>
+          <EnvelopeStatus envStatus={envStatus} loading={loading} />
+        </Grid>
+        <Grid item xs={6}>
+          <PreviewToolBar {...{ envelopeId, envStatus, loading, projId }} />
         </Grid>
         <Grid item xs={12}>
           <Divider/>

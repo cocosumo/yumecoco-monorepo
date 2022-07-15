@@ -1,4 +1,4 @@
-import { Grid, Chip, Tooltip } from '@mui/material';
+import { Chip, Tooltip } from '@mui/material';
 import { jaEnvelopeStatus } from '../../../../lib';
 
 export const EnvelopeStatus = (
@@ -16,12 +16,12 @@ export const EnvelopeStatus = (
     <>
       {
         isShow &&
-          <Grid item xs={6}>
-            <Tooltip title={desc} >
-              <Chip label={ja} color="secondary" sx={{ cursor: 'help' }} />
-            </Tooltip>
 
-          </Grid>
+        <Tooltip title={desc} >
+          <Chip label={ja} color="secondary" sx={{ cursor: 'help' }} />
+        </Tooltip>
+
+
       }
     </>
 

@@ -4,7 +4,10 @@ import * as Yup from 'yup';
 export const initialValues = {
   projId: '',
   projName: '',
-  dsEnvIdUkeoi : '',
+  envelopeId: '',
+  envelopeStatus: '' as TEnvelopeStatus,
+  documents: [] as string[],
+  //dsEnvIdUkeoi : '',
 
 };
 

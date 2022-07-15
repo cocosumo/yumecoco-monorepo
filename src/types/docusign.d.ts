@@ -1,0 +1,1 @@
+type TEnvelopeStatus = 'sent' | 'completed' | 'delivered' | '';

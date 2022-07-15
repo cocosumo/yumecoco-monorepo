@@ -20,7 +20,9 @@ export const FormikContractPreview = () => {
     if (!projIdFromURL) return;
     setFormValues({ ...initialValues, projId: projIdFromURL });
 
-  }, []);
+  }, [projIdFromURL]);
+
+  console.log('url', projIdFromURL);
 
   return (
     <Formik

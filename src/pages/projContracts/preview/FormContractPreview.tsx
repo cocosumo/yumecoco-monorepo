@@ -7,27 +7,31 @@ import { getFieldName, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { Preview } from './parts/Preview';
+import { useEffect } from 'react';
+import { getFormDataById } from './api/fetchRecord';
+import { produce } from 'immer';
 
 export const FormContractPreview = () => {
   const {
     values,
+    dirty,
+    setFormikState,
+    resetForm,
   } = useFormikContext<TypeOfForm>();
 
+  const { projName, projId } = values;
 
-
-  const { projId, projName, dsEnvIdUkeoi } = values;
-
-  /*   useEffect(()=>{
+  useEffect(()=>{
     if (projId) {
       getFormDataById(projId)
         .then((r) => setFormikState(prev => produce(prev, draft=> { draft.values = r; })));
     } else if (!projId && dirty) {
       resetForm();
     }
-  },  [projId]); */
+  },  [projId]);
 
 
-  console.log('env', projId, values);
+  console.log('form', values);
 
   return (
     <Form noValidate>
@@ -44,7 +48,7 @@ export const FormContractPreview = () => {
           </Grid>
 
           <Grid item xs={12} >
-            <Preview projId={projId} envelopeId={dsEnvIdUkeoi} />
+            <Preview {...values} />
           </Grid>
         </Grid>
       </MainContainer>

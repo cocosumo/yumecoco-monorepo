@@ -1,51 +1,33 @@
-import {  Chip, Divider, Grid, Paper, Stack, Typography } from '@mui/material';
+import {  Divider, Grid, Paper, Stack, Typography } from '@mui/material';
 import { OutlinedDiv } from '../../../../components/ui/containers';
 
 import { SendContract } from './SendContract';
 import { DownloadContract } from './DownloadContract';
-//import { previewContract, TPreviewResp } from '../api/docusign/previewContract';
 import { useEffect, useState } from 'react';
 import { useSnackBar } from '../../../../hooks';
 import { Loading } from './Loading';
-//import { useField } from 'formik';
-//import { getFieldName } from '../form';
+
 import { downloadContract } from '../api/docusign/downloadContract';
+import { TypeOfForm } from '../form';
+import { base64ToBlob } from '../../../../lib';
+import { EnvelopeStatus } from './EnvelopeStatus';
 
-
-
-function base64ToBlob( base64 : string, type = 'application/octet-stream' ) {
-  const binStr = window.atob( base64 );
-  const len = binStr.length;
-  const arr = new Uint8Array(len);
-  for (let i = 0; i < len; i++) {
-    arr[ i ] = binStr.charCodeAt( i );
-  }
-  return new Blob( [ arr ], { type: type } );
-}
-
-export const Preview = ({
-  projId,
-  envelopeId,
-} : {
-  projId: string
-  envelopeId: string,
-}) => {
+export const Preview = (form : TypeOfForm) => {
+  const { projId, envelopeId, envelopeStatus } = form;
   const [loading, setLoading] = useState(false);
-  //const [previewUrl, setPreviewUrl] = useState('');
   const [pdfData, setPdfData] = useState('');
-  const [envStatus, setEnvStatus] = useState('');
+  const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
   const { setSnackState } = useSnackBar();
-  //const [,,helper] = useField(getFieldName('dsEnvIdUkeoi'));
-
-
 
   const handlePreview = async () => {
     setLoading(true);
-    const res = await downloadContract(projId, 'pdf');
+    const res = await downloadContract({
+      form,
+      fileType: 'pdf',
+    });
 
     if (!res) return;
     if (pdfData) URL.revokeObjectURL(pdfData); // free Memory
-
     if ('error' in res) {
       setSnackState({
         open: true,
@@ -55,19 +37,14 @@ export const Preview = ({
       setLoading(false);
       return;
     }
-
     const base64 = res.data;
-
-    setEnvStatus(res.status);
-
-    const blob = base64ToBlob( base64, 'application/pdf' );
-    const url = URL.createObjectURL( blob );
-    setPdfData(url);
-
-    console.log('RUL', url);
-
+    setEnvStatus(res?.envelopeStatus ?? '');
+    if (base64) {
+      const blob = base64ToBlob( base64, 'application/pdf' );
+      const url = URL.createObjectURL( blob );
+      setPdfData(url);
+    }
     setLoading(false);
-
   };
 
   useEffect(()=>{
@@ -75,20 +52,15 @@ export const Preview = ({
     handlePreview();
   }, [projId]);
 
-
   return (
     <OutlinedDiv label='プレビュー' >
       <Grid container justifyContent={'flex-end'} alignContent={'flex-start'} spacing={2} p={2}>
-        {envelopeId && !loading && envStatus &&
-        <Grid item xs={6}>
-          <Chip label={envStatus} color="secondary" />
-        </Grid>
-        }
+        <EnvelopeStatus envStatus={envStatus} loading={loading} />
 
         <Grid item xs={6}>
           <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
             <DownloadContract projId={projId}/>
-            {envStatus == '下書き' &&
+            {envStatus == '' &&
             <SendContract
                 projId={projId}
                 isBusy={loading}

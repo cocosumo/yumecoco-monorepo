@@ -8,17 +8,23 @@ export const fetchRecord = async (recordId: string) => {
   }).then(r => r.record as unknown as TypeOfProjectDetails);
 };
 
-export const getFormDataById = async (recordId: string): Promise<TypeOfForm> => {
+export const getFormDataById = async (recordId: string) => {
 
   const {
-    dsEnvIdUkeoi,
     constructionName,
+    envelopeId,
+    envelopeStatus,
+    documents,
   } = await fetchRecord(recordId);
+
+  console.log('PROJNAME', constructionName.value);
 
   return {
     projId: recordId,
     projName: constructionName.value,
-    dsEnvIdUkeoi: dsEnvIdUkeoi.value,
-  };
+    envelopeId: envelopeId.value,
+    envelopeStatus: envelopeStatus.value,
+    documents: documents.value.map(e => e.fileKey),
+  } as TypeOfForm;
 
 };

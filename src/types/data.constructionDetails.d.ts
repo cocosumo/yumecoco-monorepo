@@ -7,21 +7,27 @@ declare namespace ConstructionDetails {
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
+    envelopeId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
     constructionName: kintone.fieldTypes.SingleLineText;
     custGroupId: kintone.fieldTypes.Number;
     estatePurchaseDate: kintone.fieldTypes.Date;
     dsEnvIdUkeoi: kintone.fieldTypes.SingleLineText;
+    voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     planApplicationDate: kintone.fieldTypes.Date;
+    envelopeRecipients: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
+    envelopeStatus: kintone.fieldTypes.SingleLineText;
+
+    documents: kintone.fieldTypes.File;
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

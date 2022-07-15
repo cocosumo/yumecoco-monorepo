@@ -45,8 +45,6 @@ export const SearchProjField = (props: {
 
   }, [field.value, projName]);
 
-  console.log('Field val', fieldVal);
-
   return (
     <Autocomplete
       value={fieldVal}

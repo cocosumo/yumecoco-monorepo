@@ -6,7 +6,7 @@ import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
-import { Preview } from './parts/Preview';
+import { PreviewContainer } from './parts/PreviewContainer';
 import { useEffect } from 'react';
 import { getFormDataById } from './api/fetchRecord';
 import { produce } from 'immer';
@@ -47,7 +47,7 @@ export const FormContractPreview = () => {
           </Grid>
 
           <Grid item xs={12} >
-            <Preview {...values} />
+            <PreviewContainer {...values} />
           </Grid>
         </Grid>
       </MainContainer>

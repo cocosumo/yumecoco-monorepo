@@ -13,7 +13,7 @@ export const PreviewToolBar = ({
 
   return (
     <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
-      <DownloadContract projId={projId}/>
+      {!!projId && <DownloadContract projId={projId}/>}
       {envStatus == '' &&
       <SendContract
         projId={projId}

@@ -24,7 +24,7 @@ const dlFromCocoServer = async ({
     } = form;
 
     if (!projId) throw new Error('Invalid Project Id.');
-    const endpoint = `${yumecocoDocusign.baseUrl}/docusign/ukeoi/download?`;
+    const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?`;
     const data = {
       projId: projId,
       fileType: fileType,

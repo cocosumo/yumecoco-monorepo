@@ -8,7 +8,7 @@ export const DownloadContract = (props : {
   projId: string
 }) => {
 
-  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/ukeoi/download?projId=${props.projId}&fileType=xlsx`;
+  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?projId=${props.projId}&fileType=xlsx`;
 
   return (
     <Tooltip title="契約書をダウンロードする" arrow>
@@ -17,7 +17,7 @@ export const DownloadContract = (props : {
       disabled={!props.projId}
       loadingPosition="center"
     >
-        <RiFileExcel2Fill color='green' size={'2em'} />
+        <RiFileExcel2Fill color='green' size={24} />
       </LoadingButton>
     </Tooltip>
   );

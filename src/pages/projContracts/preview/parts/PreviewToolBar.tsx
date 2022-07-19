@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { DownloadContract } from './DownloadContract';
 import { SendContract } from './SendContract';
+import { SenderViewButton } from './SenderViewButton';
 
 export const PreviewToolBar = ({
   projId, envStatus, envelopeId, loading,
@@ -14,13 +15,20 @@ export const PreviewToolBar = ({
   return (
     <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
       {!!projId && <DownloadContract projId={projId}/>}
-      {envStatus == '' &&
-      <SendContract
-        projId={projId}
-        isBusy={loading}
-        envelopeId={envelopeId}
-      />
-            }
+
+      {envStatus == '' && !loading &&
+        <SendContract
+          projId={projId}
+          isBusy={loading}
+          envelopeId={envelopeId}
+        />
+      }
+
+      {envStatus != '' && envStatus != 'completed' && !loading &&
+      <SenderViewButton
+          envelopeId={envelopeId}
+        />
+      }
     </Stack>
   );
 };

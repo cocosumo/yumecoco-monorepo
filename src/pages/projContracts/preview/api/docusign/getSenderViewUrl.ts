@@ -1,15 +1,19 @@
 import { yumecocoDocusign } from '../../../../../config/settings';
 
-export const sendContract = async (projId: string, envelopeId: string) => {
+export const getSenderViewUrl = async (
+  params :
+  {
+    envelopeId: string,
+    returnUrl: string,
+  },
+) : Promise<{
+  url: string,
+}> => {
 
-  if (!projId) throw new Error('Invalid Project Id.');
-  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/send/direct`;
+  if (!params.envelopeId) throw new Error('Invalid Project Id.');
+  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/senderViewUrl`;
 
-  const data = {
-    projId: projId,
-    envelopeId: envelopeId,
-    origin: window.location.href,
-  };
+  const data = params;
 
   console.log(data, endpoint);
 

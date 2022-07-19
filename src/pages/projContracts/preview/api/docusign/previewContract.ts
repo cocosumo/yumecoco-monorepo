@@ -6,9 +6,15 @@ export type TPreviewResp = {
   status: string
 };
 
+/**
+ *
+ * @param projId
+ * @returns {TPreviewResp} Preview
+ * @deprecated Use downloadContract instead
+ */
 export const previewContract = async (projId: string) => {
   if (!projId) return;
-  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/send/ukeoi/preview`;
+  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/send/contract/preview`;
   console.log('Requesting to endpoint ' + endpoint);
 
 

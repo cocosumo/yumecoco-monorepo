@@ -2,6 +2,7 @@ import { yumecocoDocusign } from '../../../../../config/settings';
 
 export const voidContract = async (params: IVoidReq) => {
 
+  if (!params.envelopeId) throw new Error('エンヴェロープ番号は定義されていません。');
   const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/void`;
 
   const data = params;
@@ -18,7 +19,7 @@ export const voidContract = async (params: IVoidReq) => {
   if (status === 200) {
     return JSON.parse(body) as IVoidRes ;
   } else {
-    throw new Error(`Unknown response. ${status} ${body}`);
+    throw new Error(`Unknown response. ${status} ${Object.keys(JSON.parse(body))}`);
   }
 
 };

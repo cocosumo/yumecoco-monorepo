@@ -47,7 +47,7 @@ export const GlobalConfirmDialog = ({ children } : {
       if (params.handleYes) {
         params.handleYes();
       }
-      if (params.willCloseOnYes) {
+      if (params.willCloseOnYes || typeof params.willCloseOnYes === 'undefined') {
         handleClose();
       }
 

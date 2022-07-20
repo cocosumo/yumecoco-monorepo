@@ -51,7 +51,7 @@ export default function InputMemoDialog(props : InputMemoDialogProps) {
   });
 
   useEffect(()=>{
-    if (formState.submitState === 'VALIDATE_SUCCESS'){
+    if (formState.submitState === 'VALIDATE_SUCCESS') {
       convertMemo(formState).then(resp => {
         console.log(resp, 'RESP');
         setConvertedMemo(resp);
@@ -70,7 +70,7 @@ export default function InputMemoDialog(props : InputMemoDialogProps) {
 
 
   useEffect(()=>{
-    switch (formState.submitState){
+    switch (formState.submitState) {
       case 'VALIDATE_SUCCESS':
         setConfirmState({ open: true });
         break;
@@ -81,7 +81,7 @@ export default function InputMemoDialog(props : InputMemoDialogProps) {
   }, [formState.submitState]);
 
   useEffect(()=>{
-    if (!confirmState.open && confirmState.answer === 'ok'){
+    if (!confirmState.open && confirmState.answer === 'ok') {
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'CONFIRM_SAVE' } });
     } else {
       dispatch({ type: 'CHANGE_SUBMITSTATE', payload: { submitState: 'EDITTING' } });

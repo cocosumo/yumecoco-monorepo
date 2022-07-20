@@ -1,9 +1,12 @@
 import { Button, MenuItem, TextField } from '@mui/material';
-import { useConfirmDialog } from '../../../../../hooks';
+import { useConfirmDialog, useSnackBar } from '../../../../../hooks';
 import { CustomDialogContent } from '../../../../../components/ui/dialogs/CustomDialogContent';
 import { Box } from '@mui/system';
 import { useRef } from 'react';
 import { useBackdrop } from '../../../../../hooks/useBackdrop';
+import { voidContract } from '../../api/docusign/voidContract';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 
 const ReasonForm = ({
   handleSetReason,
@@ -30,25 +33,70 @@ export const MenuVoidContract = (
     handleClose: () => void
   },
 ) => {
-
+  const {
+    values,
+    setValues,
+  } = useFormikContext<TypeOfForm>();
+  const { envelopeId } = values;
   const {
     setDialogState,
     handleClose: handleCloseDialog,
   } = useConfirmDialog();
 
   const { setBackdropState } = useBackdrop();
+  const { setSnackState } = useSnackBar();
 
   const reasonRef = useRef('');
   const { handleClose } = props;
 
 
-  const handleSubmitVoidReason = () => {
+  const handleSubmitVoidReason = async () => {
     console.log('Rason ', reasonRef.current);
+    handleCloseDialog();
+
+
+    try {
+      if (!reasonRef.current) throw new Error('理由を入力してください。');
+
+      setBackdropState({
+        open: true,
+      });
+
+      await voidContract({
+        envelopeId,
+        voidedReason: reasonRef.current,
+      });
+
+      setSnackState({
+        open: true,
+        severity: 'success',
+        message: `無効になりました。エンヴェロープ番号: ${envelopeId}`,
+      });
+
+      setValues({
+        ...values,
+        envDocFileKeys: [],
+        envelopeId: '',
+        envelopeStatus: '',
+      });
+
+    } catch (err) {
+
+      setSnackState({
+        open: true,
+        severity: 'error',
+        message: `エラーが発生しました。${err.message}`,
+      });
+
+    }
+
+
+
     setBackdropState({
-      open: true,
+      open: false,
     });
 
-    handleCloseDialog();
+
   };
 
   const handleCaptureVoidReason = () => {

@@ -1,8 +1,9 @@
 import { Tooltip } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaFileSignature } from 'react-icons/fa';
 import { getSenderViewUrl } from '../api/docusign/getSenderViewUrl';
+import { useBackdrop } from '../../../../hooks/useBackdrop';
 
 
 
@@ -13,6 +14,7 @@ export const SenderViewButton = ({
   envelopeId: string,
 
 }) => {
+  const { setBackdropState } = useBackdrop();
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -32,6 +34,12 @@ export const SenderViewButton = ({
     }
     setIsLoading(false);
   };
+
+  useEffect(()=>{
+    setBackdropState({
+      open: isLoading,
+    });
+  }, [isLoading]);
 
   return (
     <Tooltip title="Docusignで開く" arrow>

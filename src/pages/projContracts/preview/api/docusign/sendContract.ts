@@ -4,28 +4,35 @@ export const sendContract = async (
   projId: string,
 ) : Promise<ISendEnvelopeResponse> => {
 
-  if (!projId) throw new Error('Invalid Project Id.');
-  const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/send/direct`;
+  try {
 
-  const data = {
-    projId: projId,
-    origin: window.location.href,
-  };
+    if (!projId) throw new Error('Invalid Project Id.');
+    const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/send/direct`;
 
-  console.log(data, endpoint);
+    const data = {
+      projId: projId,
+      origin: window.location.href,
+    };
 
-  return kintone.proxy(
-    endpoint,
-    'POST',
-    { 'Content-Type': 'application/json' },
-    data,
-  )
-    .then(([body, status]: any[]) => {
+    console.log(data, endpoint);
 
-      if (status == 200 && body) {
-        return JSON.parse(body);
-      } else {
-        throw new Error(`Unknown response ${status} ${body}`);
-      }
-    });
+    const [body, status] = await kintone.proxy(
+      endpoint,
+      'POST',
+      { 'Content-Type': 'application/json' },
+      data,
+    );
+
+    if (status == 200 && body) {
+      return JSON.parse(body);
+    } else {
+      throw new Error(`Unknown response ${status} ${body}`);
+    }
+
+
+  } catch (err) {
+    throw new Error(`エラーが発生しました。${err.message}`);
+  }
+
+
 };

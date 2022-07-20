@@ -9,21 +9,22 @@ import { base64ToBlob } from '../../../../lib';
 import { EnvelopeStatus } from './EnvelopeStatus';
 import { PreviewToolBar } from './PreviewToolBar';
 import { OutlinedDiv } from '../../../../components/ui/containers';
+import { useFormikContext } from 'formik';
 
 
 
-export const Preview = (form : TypeOfForm) => {
-
-  const { projId, projName, envelopeId, envelopeStatus } = form;
+export const Preview = () => {
+  const { values, setValues } = useFormikContext<TypeOfForm>();
+  const { projId, projName, envelopeId, envelopeStatus } = values;
   const [loading, setLoading] = useState(true);
   const [previewUrl, setPreviewUrl] = useState('');
-  const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
+  //const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
   const { setSnackState } = useSnackBar();
 
   const handlePreview = async () => {
     setLoading(true);
     const res = await downloadContract({
-      form,
+      form: values,
       fileType: 'pdf',
     });
 
@@ -48,7 +49,10 @@ export const Preview = (form : TypeOfForm) => {
 
     const base64 = documents[0]; // Get first document
 
-    setEnvStatus(newEnvStatus ?? '');
+    setValues({
+      ...values,
+      envelopeStatus: newEnvStatus ?? envelopeStatus,
+    });
 
     if (base64) {
       const blob = base64ToBlob( base64, 'application/pdf' );
@@ -63,15 +67,17 @@ export const Preview = (form : TypeOfForm) => {
     handlePreview();
   }, [projId, projName]);
 
+
+  console.log(values);
   return (
     <OutlinedDiv label="プレビュー">
 
       <Grid container justifyContent={'flex-end'} alignContent={'flex-start'} spacing={2} p={2}>
         <Grid item xs={6}>
-          <EnvelopeStatus envStatus={envStatus} loading={loading} isVisible={!!projId}/>
+          <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/>
         </Grid>
         <Grid item xs={6}>
-          <PreviewToolBar {...{ envelopeId, envStatus, loading, projId }} />
+          <PreviewToolBar {...{ envelopeId, envelopeStatus, loading, projId }} />
         </Grid>
         <Grid item xs={12}>
           <Divider/>

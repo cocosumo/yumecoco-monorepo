@@ -5,7 +5,7 @@ export const PreviewContainer = (form : TypeOfForm) => {
 
   return (
     <>
-      { form.projId && <Preview {...form} /> }
+      { form.projId && <Preview /> }
     </>
   );
 };

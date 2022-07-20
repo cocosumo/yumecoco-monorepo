@@ -4,10 +4,10 @@ import { SendContract } from './SendContract';
 import { SenderViewButton } from './SenderViewButton';
 
 export const PreviewToolBar = ({
-  projId, envStatus, envelopeId, loading,
+  projId, envelopeStatus, envelopeId, loading,
 }: {
   projId: string,
-  envStatus: TEnvelopeStatus,
+  envelopeStatus: TEnvelopeStatus,
   envelopeId: string,
   loading: boolean,
 }) => {
@@ -16,15 +16,14 @@ export const PreviewToolBar = ({
     <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
       {!!projId && <DownloadContract projId={projId}/>}
 
-      {envStatus == '' && !loading &&
+      {envelopeStatus == '' && !loading &&
         <SendContract
           projId={projId}
           isBusy={loading}
-          envelopeId={envelopeId}
         />
       }
 
-      {envStatus != '' && envStatus != 'completed' && !loading &&
+      {envelopeStatus != '' && envelopeStatus != 'completed' && !loading &&
       <SenderViewButton
           envelopeId={envelopeId}
         />

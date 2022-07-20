@@ -4,29 +4,38 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useConfirmDialog, useSnackBar } from '../../../../hooks';
 import { Tooltip } from '@mui/material';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../form';
 
 
 
 export const SendContract = ({
   projId,
   isBusy,
-  envelopeId,
 }: {
   projId: string,
   isBusy: boolean,
-  envelopeId: string,
 })=>{
 
   const [isLoading, setIsLoading] = useState(false);
+  const { values, setValues } = useFormikContext<TypeOfForm>();
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
 
 
   const handleSendContract = async () => {
     setIsLoading(true);
-    const result = await sendContract(projId, envelopeId );
+    const result = await sendContract(projId );
     setIsLoading(false);
     const isSuccess = Boolean(result.envelopeStatus);
+
+    if (isSuccess) {
+      setValues({
+        ...values,
+        envelopeId: result.envelopeId,
+        envelopeStatus: result.envelopeStatus,
+      });
+    }
 
     setSnackState({
       open: true,

@@ -2,7 +2,6 @@ import { yumecocoDocusign } from '../../../../../config/settings';
 
 export const sendContract = async (
   projId: string,
-  envelopeId: string,
 ) : Promise<ISendEnvelopeResponse> => {
 
   if (!projId) throw new Error('Invalid Project Id.');
@@ -10,7 +9,6 @@ export const sendContract = async (
 
   const data = {
     projId: projId,
-    envelopeId: envelopeId,
     origin: window.location.href,
   };
 

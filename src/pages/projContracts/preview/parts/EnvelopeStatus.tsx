@@ -14,6 +14,7 @@ export const EnvelopeStatus = (
 
   const isShow = !loading && ja && isVisible ;
 
+  console.log(envStatus, ja, desc);
   return (
     <>
       {

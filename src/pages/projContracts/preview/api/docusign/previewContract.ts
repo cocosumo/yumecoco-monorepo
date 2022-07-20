@@ -36,7 +36,6 @@ export const previewContract = async (projId: string) => {
   )
     .then(([body, status]: [string, number]) => {
 
-
       if (status == 200 && body) {
         return JSON.parse(body);
       }

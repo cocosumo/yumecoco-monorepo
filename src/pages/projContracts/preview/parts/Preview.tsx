@@ -16,7 +16,7 @@ export const Preview = (form : TypeOfForm) => {
 
   const { projId, projName, envelopeId, envelopeStatus } = form;
   const [loading, setLoading] = useState(true);
-  const [pdfData, setPdfData] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
   const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
   const { setSnackState } = useSnackBar();
 
@@ -28,7 +28,7 @@ export const Preview = (form : TypeOfForm) => {
     });
 
     if (!res) return;
-    if (pdfData) URL.revokeObjectURL(pdfData); // free Memory
+    if (previewUrl) URL.revokeObjectURL(previewUrl); // free Memory
 
     const {
       documents = [],
@@ -49,10 +49,11 @@ export const Preview = (form : TypeOfForm) => {
     const base64 = documents[0]; // Get first document
 
     setEnvStatus(newEnvStatus ?? '');
+
     if (base64) {
       const blob = base64ToBlob( base64, 'application/pdf' );
       const url = URL.createObjectURL( blob );
-      setPdfData(url);
+      setPreviewUrl(url);
     }
     setLoading(false);
   };
@@ -75,10 +76,10 @@ export const Preview = (form : TypeOfForm) => {
         <Grid item xs={12}>
           <Divider/>
         </Grid>
-        {!loading && pdfData &&
+        {!loading && previewUrl &&
           <Grid item xs={12}>
             <Paper>
-              <embed src={pdfData} width="100%" height='900px' />
+              <embed src={previewUrl} width="100%" height='900px' />
             </Paper>
           </Grid>
         }

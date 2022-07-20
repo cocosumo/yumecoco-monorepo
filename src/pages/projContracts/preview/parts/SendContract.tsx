@@ -16,6 +16,7 @@ export const SendContract = ({
   isBusy: boolean,
   envelopeId: string,
 })=>{
+
   const [isLoading, setIsLoading] = useState(false);
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
@@ -25,7 +26,7 @@ export const SendContract = ({
     setIsLoading(true);
     const result = await sendContract(projId, envelopeId );
     setIsLoading(false);
-    const isSuccess = Boolean(result.url);
+    const isSuccess = Boolean(result.envelopeStatus);
 
     setSnackState({
       open: true,
@@ -33,10 +34,6 @@ export const SendContract = ({
       severity: isSuccess ? 'success' : 'error',
       message: isSuccess ? '送信が成功しました。' : `問題が発生しました。管理者に報告してください。 ${JSON.stringify(result)}`,
     });
-
-    if (isSuccess) {
-      window.location.href = result.url;
-    }
   };
 
 

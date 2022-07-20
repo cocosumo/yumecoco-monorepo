@@ -20,6 +20,11 @@ export const jaEnvelopeStatus  = (
         ja: '完了',
         desc: '封筒はすべての受信者によって完成されました。',
       };
+    case 'voided':
+      return {
+        ja: '無効化',
+        desc: '無効化',
+      };
     case '': {
       return {
         ja: '下書き',

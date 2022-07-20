@@ -1,8 +1,13 @@
-type TEnvelopeStatus = 'sent' | 'completed' | 'delivered' | '';
 
-interface ISendEnvelopeResponse {
-  /** base64 files */
-  documents: string[],
-  envelopeStatus: TEnvelopeStatus,
+
+//interface ISendEnvelopeResponse {
+//  /** base64 files */
+//  documents: string[],
+//  envelopeStatus: TEnvelopeStatus,
+//  envelopeId: string,
+//}
+
+/* interface IVoidReq {
   envelopeId: string,
-}
+  voidedReason: string
+} */

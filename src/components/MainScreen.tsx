@@ -9,6 +9,7 @@ import PersistentDesktopDrawer from './nav/persistentNav/PersistentDesktopDrawer
 import { GlobalSnackBar } from './ui/snacks/GlobalSnackBar';
 import Router from '../pages/Router';
 import { GlobalConfirmDialog } from './ui/dialogs/GlobalConfirmDialog';
+import { GlobalBackdrop } from './ui/backdrop/GlobalBackdrop';
 // import UnderConstruction from '../../ui/contents/UnderConstruction';
 
 const drawerWidth = 240;
@@ -56,16 +57,19 @@ export default function MainScreen() {
   return (
     <GlobalSnackBar>
       <GlobalConfirmDialog>
-        <Box sx={{ display: 'flex' }}>
-          <CssBaseline />
-          <PersistentAppBar {...{ handleDrawerOpen }} />
-          <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
-          <Main open={open}>
-            <DrawerHeader />
-            <Router />
-          </Main>
-        </Box>
+        <GlobalBackdrop>
+          <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <PersistentAppBar {...{ handleDrawerOpen }} />
+            <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
+            <Main open={open}>
+              <DrawerHeader />
+              <Router />
+            </Main>
+          </Box>
+        </GlobalBackdrop>
       </GlobalConfirmDialog>
     </GlobalSnackBar>
+
   );
 }

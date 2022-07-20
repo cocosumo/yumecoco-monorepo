@@ -20,6 +20,7 @@
     "./src/types/api.d.ts",
     "./src/types/data.stores.d.ts",
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
+    "./../yumekoko-docusign/src/types/docusign.d.ts",
     "jest/.env.ts" // will deprecate it in favor of jest.config
    ],
   "rules": {

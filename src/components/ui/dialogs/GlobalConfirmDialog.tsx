@@ -11,6 +11,7 @@ export interface IDialogState {
   withNo?: boolean,
   handleYes?: () => void,
   handleNo?: () => void,
+  willCloseOnYes?: boolean
   cancellable?: boolean
 }
 
@@ -18,6 +19,7 @@ const initialState: IDialogState = {
   open: false,
   title: '確認',
   content: '',
+  willCloseOnYes: true,
 };
 
 export type HandleDialogStateFN = (params: IDialogState) => void;
@@ -37,18 +39,24 @@ export const GlobalConfirmDialog = ({ children } : {
 }) => {
   const [state, setState] = useState<IDialogState>(initialState);
 
-  const handleClose = () => setState(prev => ({ ...prev, open: false }));
+  const handleClose = () => setState(prev => ({ ...prev, open: false, willCloseOnYes: true }));
 
   const handleState : HandleDialogStateFN = (params) => setState({
     ...params,
     handleYes: () => {
-      if (params.handleYes) params.handleYes();
-      handleClose();
-    },
+      if (params.handleYes) {
+        params.handleYes();
+      }
+      if (params.willCloseOnYes) {
+        handleClose();
+      }
 
+    },
     handleNo: () => {
       if (params.handleNo) params.handleNo();
+
       handleClose();
+
     },
 
   });

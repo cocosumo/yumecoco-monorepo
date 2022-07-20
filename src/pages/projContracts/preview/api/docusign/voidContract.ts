@@ -1,28 +1,24 @@
 import { yumecocoDocusign } from '../../../../../config/settings';
 
-export const voidContract = async (projId: string) => {
+export const voidContract = async (params: IVoidReq) => {
 
-  if (!projId) throw new Error('Invalid Project Id.');
   const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/void`;
 
-  const data = {
-    projId: projId,
-    origin: window.location.href,
-  };
+  const data = params;
 
   console.log(data, endpoint);
 
-  return kintone.proxy(
+  const [body, status] = await kintone.proxy(
     endpoint,
     'POST',
     { 'Content-Type': 'application/json' },
     data,
-  )
-    .then(([body, status]: any[]) => {
-      console.log(body);
-      console.log(status);
-      if (status == 200 && body) {
-        return JSON.parse(body) as { url: string };
-      }
-    });
+  );
+
+  if (status === 200) {
+    return JSON.parse(body) as IVoidRes ;
+  } else {
+    throw new Error(`Unknown response. ${status} ${body}`);
+  }
+
 };

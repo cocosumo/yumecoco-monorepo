@@ -1,21 +1,97 @@
-import { MenuItem } from '@mui/material';
+import { Button, MenuItem, TextField } from '@mui/material';
+import { useConfirmDialog } from '../../../../../hooks';
+import { CustomDialogContent } from '../../../../../components/ui/dialogs/CustomDialogContent';
+import { Box } from '@mui/system';
+import { useRef } from 'react';
+import { useBackdrop } from '../../../../../hooks/useBackdrop';
+
+const ReasonForm = ({
+  handleSetReason,
+}: {
+  handleSetReason: (reason: string) => void
+}) => {
+
+  return (
+    <Box pt={2}>
+      <TextField
+        label={'理由'}
+        onChange={(event) => {
+          handleSetReason(event.target.value);
+        }}
+        helperText="すでにエンベロープへの署名を完了した受信者には、エンベロープが無効になったことを示すメールが送信されます。"
+        multiline fullWidth />
+    </Box>
+  );
+};
+
 
 export const MenuVoidContract = (
   props: {
     handleClose: () => void
   },
 ) => {
-  const { handleClose } = props;
-  const handleVoidContract = () => {
 
-    handleClose();
+  const {
+    setDialogState,
+    handleClose: handleCloseDialog,
+  } = useConfirmDialog();
+
+  const { setBackdropState } = useBackdrop();
+
+  const reasonRef = useRef('');
+  const { handleClose } = props;
+
+
+  const handleSubmitVoidReason = () => {
+    console.log('Rason ', reasonRef.current);
+    setBackdropState({
+      open: true,
+    });
+
+    handleCloseDialog();
+  };
+
+  const handleCaptureVoidReason = () => {
+    setDialogState({
+      title: '無効にする理由を入力してください。',
+      willCloseOnYes: false,
+      yesText: '無効にする',
+      noText: 'やっぱやめる',
+      handleYes: handleSubmitVoidReason,
+      content: <ReasonForm
+        handleSetReason={(r)=> {
+          reasonRef.current = r;
+        } }/>,
+    });
   };
 
 
+  const handleVoidContract = () => {
+    setDialogState({
+      title: 'エンヴェロープを無効にしますか。',
+      cancellable: true,
+      willCloseOnYes: false,
+      handleYes: handleCaptureVoidReason,
+      content: <CustomDialogContent
+        severity='warning'
+        message={
+          <>
+            エンベロープを無効にすると、ココアスで契約のステースは「下書き」に戻り、受信者はそのエンベロープを表示したり署名したりできなくなります。
+            <Button fullWidth target="_blank" href='https://support.docusign.com/s/articles/How-do-I-void-or-cancel-an-envelope?language=ja&rsc_301'>
+              無効化についてもっと知りたい
+            </Button>
+          </>
+        }
+        />,
+
+    });
+    handleClose();
+  };
 
   return (
     <MenuItem onClick={handleVoidContract}>
       無効化
+
     </MenuItem>
   );
 };

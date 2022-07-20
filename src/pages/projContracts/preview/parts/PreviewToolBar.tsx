@@ -1,10 +1,11 @@
 import { Stack } from '@mui/material';
 import { DownloadContract } from './DownloadContract';
+import { MenuContainer } from './PreviewMenu/MenuContainer';
 import { SendContract } from './SendContract';
-import { SenderViewButton } from './SenderViewButton';
+
 
 export const PreviewToolBar = ({
-  projId, envelopeStatus, envelopeId, loading,
+  projId, envelopeStatus, loading,
 }: {
   projId: string,
   envelopeStatus: TEnvelopeStatus,
@@ -23,10 +24,8 @@ export const PreviewToolBar = ({
         />
       }
 
-      {envelopeStatus != '' && envelopeStatus != 'completed' && !loading &&
-      <SenderViewButton
-          envelopeId={envelopeId}
-        />
+      {envelopeStatus != '' && !loading &&
+        <MenuContainer/>
       }
     </Stack>
   );

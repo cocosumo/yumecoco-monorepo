@@ -16,9 +16,10 @@ export const getFormDataById = async (recordId: string) => {
     envelopeStatus,
     envDocFileKeys,
     custGroupId,
+    $revision,
   } = await fetchRecord(recordId);
 
-  console.log('PROJNAME', envDocFileKeys);
+  //console.log('PROJNAME', envDocFileKeys);
 
   return {
     projId: recordId,
@@ -27,6 +28,7 @@ export const getFormDataById = async (recordId: string) => {
     envelopeId: envelopeId.value,
     envelopeStatus: envelopeStatus.value,
     envDocFileKeys: envDocFileKeys.value.map(e => e.fileKey),
+    revision: $revision.value,
   } as TypeOfForm;
 
 };

@@ -8,6 +8,7 @@ export const initialValues = {
   envelopeId: '',
   envelopeStatus: '' as TEnvelopeStatus,
   envDocFileKeys: [] as string[],
+  revision: '',
   //dsEnvIdUkeoi : '',
 
 };

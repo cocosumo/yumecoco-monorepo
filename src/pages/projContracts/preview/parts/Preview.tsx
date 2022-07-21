@@ -15,7 +15,7 @@ import { useFormikContext } from 'formik';
 
 export const Preview = () => {
   const { values, setValues } = useFormikContext<TypeOfForm>();
-  const { projId, projName, envelopeId, envelopeStatus } = values;
+  const { projId, projName, envelopeId, envelopeStatus, revision } = values;
   const [loading, setLoading] = useState(true);
   const [previewUrl, setPreviewUrl] = useState('');
   //const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
@@ -65,10 +65,10 @@ export const Preview = () => {
   useEffect(()=>{
     if (!projId || !projName) return;
     handlePreview();
-  }, [projId, projName, envelopeStatus]);
+  }, [projId, projName, envelopeStatus, revision]);
 
 
-  console.log(values);
+
   return (
     <OutlinedDiv label="プレビュー">
 

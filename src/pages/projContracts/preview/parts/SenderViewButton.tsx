@@ -6,7 +6,12 @@ import { getSenderViewUrl } from '../api/docusign/getSenderViewUrl';
 import { useBackdrop } from '../../../../hooks/useBackdrop';
 
 
-
+/**
+ *
+ * @param param0
+ * @returns
+ * @deprecated in favor if sendContract
+ */
 export const SenderViewButton = ({
 
   envelopeId,
@@ -36,6 +41,7 @@ export const SenderViewButton = ({
   };
 
   useEffect(()=>{
+    console.log('Setting backdrop state', isLoading);
     setBackdropState({
       open: isLoading,
     });

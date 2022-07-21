@@ -1,11 +1,11 @@
 import { sendContract } from '../api/docusign/sendContract';
-import {  useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useConfirmDialog, useSnackBar } from '../../../../hooks';
 import { Tooltip } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
+import { useBackdrop } from '../../../../hooks/useBackdrop';
 
 
 
@@ -17,16 +17,21 @@ export const SendContract = ({
   isBusy: boolean,
 })=>{
 
-  const [isLoading, setIsLoading] = useState(false);
+
   const { values, setValues } = useFormikContext<TypeOfForm>();
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
+  const { setBackdropState, backdropState: { open } } = useBackdrop();
 
 
   const handleSendContract = async () => {
-    setIsLoading(true);
+    setBackdropState({
+      open: true,
+    });
     const result = await sendContract(projId );
-    setIsLoading(false);
+    setBackdropState({
+      open: false,
+    });
     const isSuccess = Boolean(result.envelopeStatus);
 
     if (isSuccess) {
@@ -61,7 +66,7 @@ export const SendContract = ({
         <LoadingButton
 
         disabled={!projId || isBusy}
-        loading={isLoading}
+        loading={open}
         onClick={handleConfirmSend}
         variant="contained"
         loadingPosition="center"

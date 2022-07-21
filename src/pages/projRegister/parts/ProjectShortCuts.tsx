@@ -13,7 +13,7 @@ export const ProjectShortCuts = () => {
     shortcuts={[
       {
         type: 'custGroup',
-        handleClick: ()=>navigate(`${pages.custGroupEdit}${custGroupId}?projId=${recordId}`),
+        handleClick: ()=>navigate(`${pages.custGroupEdit}?groupId=${custGroupId}&projId=${recordId}`),
       },
       {
         type: 'prospect',

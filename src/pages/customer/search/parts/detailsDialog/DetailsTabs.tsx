@@ -26,7 +26,7 @@ export function DetailsTabs(props : {
     .filter(Boolean) ?? [];
 
   useEffect(()=>{
-    if (projectIds.length && !fetchedProjects && tabValue === '2'){
+    if (projectIds.length && !fetchedProjects && tabValue === '2') {
       getConstRecordByIds(
         projectIds,
       ).then(result => {
@@ -37,7 +37,7 @@ export function DetailsTabs(props : {
   }, [JSON.stringify(projectIds), fetchedProjects, tabValue]);
 
   useEffect(()=>{
-    if (custGroupId){
+    if (custGroupId) {
       setLoading(true);
       getCustGroup(custGroupId)
         .then(resp => {
@@ -64,7 +64,7 @@ export function DetailsTabs(props : {
         </Box>
         <TabPanel value="1">
           <DTCustomer {...{ record, loading }} />
-          <ButtonEdit link={`/custgroup/edit/${custGroupId}`}/>
+          <ButtonEdit link={`/custgroup/edit?groupId=${custGroupId}`}/>
         </TabPanel>
         <TabPanel value="2">
           {

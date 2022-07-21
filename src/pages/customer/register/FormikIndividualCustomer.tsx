@@ -4,13 +4,13 @@ import { FormIndividualCustomer } from './FormIndividualCustomer';
 import { useState, useEffect, useRef  } from 'react';
 import { saveFormData } from './api/saveFormData';
 
-import { useNavigate, useParams  } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 import { getFormDataById } from './api/getFormDataById';
 import { MemoContextProvider } from './parts/Memo/memoForm/MemoContext';
 import { FormikMemo } from './parts/Memo/memoForm/FormikMemo';
 //import { ConfirmDialog } from '../../../components/ui/dialogs/ConfirmDialog';
 import { pages } from '../../Router';
-import { useConfirmDialog, useSnackBar } from  './../../../hooks';
+import { useConfirmDialog, useQuery, useSnackBar } from  './../../../hooks';
 
 
 
@@ -20,7 +20,7 @@ export const FormikIndividualCustomer = () => {
   const { setSnackState } = useSnackBar();
   const savedCustGroupId = useRef<string>();
 
-  const recordId  = useParams().recordId;
+  const recordId = useQuery().get('groupId') ?? undefined;
   const navigate = useNavigate();
 
 
@@ -28,7 +28,7 @@ export const FormikIndividualCustomer = () => {
     setDialogState({
       title: '次へ進む',
       content: '工事情報を登録しますか。',
-      handleYes: ()=>navigate(`${pages.projReg}?custGroupId=${savedCustGroupId.current}`),
+      handleYes: ()=>navigate(`${pages.projReg}?groupId=${savedCustGroupId.current}`),
     });
 
   };

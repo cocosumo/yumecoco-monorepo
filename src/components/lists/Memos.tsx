@@ -1,7 +1,6 @@
 
 import { Typography, Stack, Paper, Box, List, Button } from '@mui/material';
 import { useEffect, useState, useContext, useReducer } from 'react';
-import { useParams } from 'react-router-dom';
 import { getAllMemosByGroupId } from '../../api/kintone/memo/GET';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Memo from '../ui/cards/Memo';
@@ -10,6 +9,7 @@ import { Caption } from '../ui/typographies';
 import CustomerFormContext from './../../context/CustomerFormContext';
 import memoReducer from '../../reducers/memo/memo';
 import initialMemoState from '../../stores/memo';
+import { useQuery } from '../../hooks';
 
 
 export default function Memos() {
@@ -18,14 +18,14 @@ export default function Memos() {
   const [formState, dispatch]  = useReducer(memoReducer, initialMemoState);
 
   const [memoList, setMemoList] = useState<CustomerMemoTypes.SavedData[] | undefined>();
-  const groupId = useParams().groupId;
+  const groupId = useQuery().get('groupId') ?? undefined;
 
   const custFormContext = useContext(CustomerFormContext);
   const custFormState = custFormContext!.formState;
 
 
   useEffect(()=>{
-    if (!memoOpen){
+    if (!memoOpen) {
       getAllMemosByGroupId(groupId).then((res) => {
         setMemoList(res as unknown as CustomerMemoTypes.SavedData[]);
       });

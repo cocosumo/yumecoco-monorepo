@@ -42,7 +42,7 @@ export  const  CustGroupShortcuts = (props : {
 
         ...(passedProjId ? [{
           type: 'project' as ShortCutType,
-          handleClick: ()=>navigate(`${pages.projEdit}${passedProjId}`),
+          handleClick: ()=>navigate(`${pages.projEdit}?projId=${passedProjId}`),
         }] : []),
 
         {

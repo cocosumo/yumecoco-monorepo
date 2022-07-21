@@ -18,10 +18,10 @@ import UnderConstruction from './UnderConstruction';
 
 export const pages = {
   custGroupReg: '/custgroup/register',
-  custGroupEdit: '/custgroup/edit/',
+  custGroupEdit: '/custgroup/edit',
   custSearch: '/customer/search',
 
-  projEdit: '/project/edit/',
+  projEdit: '/project/edit',
   projReg: '/project/register',
 
   projProspect: '/project/prospect',
@@ -40,13 +40,13 @@ const Router = () => (
     <Route path="/" element={<UnderConstruction />} />
 
     {/* 顧客グループ */}
-    <Route path={`${pages.custGroupEdit}:recordId/`} element={<FormikIndividualCustomer />} />
+    <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />
     <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
     <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
 
     {/* 工事情報 */}
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'}/>
-    <Route path={`${pages.projEdit}:recordId/`} element={<FormikConstruction />} key={'edit'}/>
+    <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'}/>
 
     {/* 見込み登録 */}
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'}/>

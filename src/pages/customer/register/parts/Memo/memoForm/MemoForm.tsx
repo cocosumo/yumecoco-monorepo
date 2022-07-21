@@ -56,7 +56,7 @@ export const MemoForm = () => {
 
 
   useEffect(()=>{
-    if (recordId){
+    if (recordId) {
       console.log('triggerd!!!');
       handleUpdateMemoList(recordId);
     }

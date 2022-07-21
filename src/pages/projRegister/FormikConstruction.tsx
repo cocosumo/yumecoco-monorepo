@@ -1,14 +1,14 @@
 import { Formik } from 'formik';
 
-import { validationSchema, initialValues } from './form';
+import { validationSchema, initialValues, getFieldName } from './form';
 
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FormConstruction } from './FormConstruction';
 import { getFormDataById } from './api/getFormDataById';
 import { saveFormData } from './api/saveFormData';
 import { pages } from '../Router';
-import { useSnackBar } from '../../hooks';
+import { useQuery, useSnackBar } from '../../hooks';
 import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
 
@@ -18,21 +18,24 @@ import { NextStepChoices } from './parts/NextStepChoices';
 export const FormikConstruction  = () => {
   const [initialState, setInitialState] = useState(initialValues);
   const { setDialogState } = useConfirmDialog();
-  const recordId  = useParams().recordId;
+
+  const projIdFromURL = useQuery().get('projId') ?? undefined;
+
+
   const navigate = useNavigate();
   const { setSnackState } = useSnackBar();
 
   useEffect(()=>{
 
-    if (recordId) {
-      getFormDataById(recordId)
+    if (projIdFromURL) {
+      getFormDataById(projIdFromURL)
         .then((resp) => {
           setInitialState(resp);
         });
     } /* else {
       setInitialState(initialValues);
     } */
-  }, [recordId]);
+  }, [projIdFromURL]);
 
 
   return (
@@ -44,18 +47,18 @@ export const FormikConstruction  = () => {
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
 
-        saveFormData({ ...values, recordId })
+        saveFormData({ ...values, recordId: projIdFromURL })
           .then((resp)=>{
             setSnackState({ open: true, message: '保存出来ました。', severity: 'success' });
             setSubmitting(false);
             setDialogState({
               title: '次へ進む',
-              content: <NextStepChoices recordId={recordId} />,
+              content: <NextStepChoices recordId={projIdFromURL} />,
               withYes: false,
               noText: '閉じる',
             });
 
-            navigate(`${pages.projEdit}${resp.id}`);
+            navigate(`${pages.projEdit}?projId=${resp.id}`);
           });
       }}
     >

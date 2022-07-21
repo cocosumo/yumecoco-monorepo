@@ -40,10 +40,21 @@ export  const  CustGroupShortcuts = (props : {
     <Shortcuts
       shortcuts={[
 
-        ...(passedProjId ? [{
-          type: 'project' as ShortCutType,
-          handleClick: ()=>navigate(`${pages.projEdit}?projId=${passedProjId}`),
-        }] : []),
+        ...(passedProjId ? [
+
+          {
+            type: 'contract' as ShortCutType,
+            handleClick: ()=>navigate(`${pages.projContractPreview}?projId=${passedProjId}`),
+          },
+          {
+            type: 'project' as ShortCutType,
+            handleClick: ()=>navigate(`${pages.projEdit}?projId=${passedProjId}`),
+          },
+          {
+            type: 'prospect' as ShortCutType,
+            handleClick: ()=>navigate(`${pages.projProspect}?projId=${passedProjId}`),
+          },
+        ] : []),
 
         {
           type: 'delete',

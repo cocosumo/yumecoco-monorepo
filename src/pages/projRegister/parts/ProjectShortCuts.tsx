@@ -19,6 +19,10 @@ export const ProjectShortCuts = () => {
         type: 'prospect',
         handleClick: ()=>navigate(`${pages.projProspect}?projId=${recordId}`),
       },
+      {
+        type: 'contract',
+        handleClick: ()=>navigate(`${pages.projContractPreview}?projId=${recordId}`),
+      },
     ]}
 
   />);

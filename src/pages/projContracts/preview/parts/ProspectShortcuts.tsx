@@ -7,6 +7,7 @@ import { pages } from '../../../Router';
 export const ProspectShortcuts = () => {
   const { values: {
     projId,
+    custGroupId,
   } } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
@@ -14,10 +15,20 @@ export const ProspectShortcuts = () => {
     <>
       {projId &&
       <Shortcuts
-        shortcuts={[{
-          type: 'project',
-          handleClick: ()=>navigate(`${pages.projEdit}?projId=${projId}`),
-        }]}
+        shortcuts={[
+          {
+            type: 'project',
+            handleClick: ()=>navigate(`${pages.projEdit}?projId=${projId}`),
+          },
+          {
+            type: 'custGroup',
+            handleClick: ()=>navigate(`${pages.custGroupEdit}?groupId=${custGroupId}&projId=${projId}`),
+          },
+          {
+            type: 'prospect',
+            handleClick: ()=>navigate(`${pages.projProspect}?projId=${projId}`),
+          },
+        ]}
 
       />
       }

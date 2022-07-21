@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 
-import { validationSchema, initialValues, getFieldName } from './form';
+import { validationSchema, initialValues } from './form';
 
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';

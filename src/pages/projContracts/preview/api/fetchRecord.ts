@@ -15,12 +15,14 @@ export const getFormDataById = async (recordId: string) => {
     envelopeId,
     envelopeStatus,
     envDocFileKeys,
+    custGroupId,
   } = await fetchRecord(recordId);
 
   console.log('PROJNAME', envDocFileKeys);
 
   return {
     projId: recordId,
+    custGroupId: custGroupId.value,
     projName: constructionName.value,
     envelopeId: envelopeId.value,
     envelopeStatus: envelopeStatus.value,

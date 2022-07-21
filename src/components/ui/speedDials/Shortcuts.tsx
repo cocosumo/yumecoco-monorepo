@@ -6,25 +6,33 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AttributionIcon from '@mui/icons-material/Attribution';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 
-export type ShortCutType = 'project' | 'prospect' | 'delete' | 'custGroup';
+export type ShortCutType =
+| 'project'
+| 'prospect'
+| 'contract'
+| 'delete'
+| 'custGroup';
 
 const getIcon = (type: ShortCutType) => {
-  switch (type){
+  switch (type) {
     case 'delete': return <DeleteIcon/>;
     case 'project': return <CarpenterIcon/>;
     case 'custGroup': return <PeopleAltIcon />;
     case 'prospect' : return <AttributionIcon/>;
+    case 'contract' : return <HistoryEduIcon/>;
     default : return <AutorenewIcon />;
   }
 };
 
 const getTooltipTitle = (type: ShortCutType) => {
-  switch (type){
+  switch (type) {
     case 'delete': return '削除';
     case 'project': return '工事情報編集';
     case 'custGroup': return '顧客編集';
     case 'prospect' : return '見込み管理';
+    case 'contract' : return '契約';
     default : return <AutorenewIcon />;
   }
 };

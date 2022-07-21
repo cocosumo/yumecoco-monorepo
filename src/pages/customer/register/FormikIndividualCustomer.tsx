@@ -21,16 +21,18 @@ export const FormikIndividualCustomer = () => {
   const savedCustGroupId = useRef<string>();
 
   const recordId = useQuery().get('groupId') ?? undefined;
+  const passedProjId = useQuery().get('projId') ;
   const navigate = useNavigate();
 
 
   const handleNavigate = () => {
-    setDialogState({
-      title: '次へ進む',
-      content: '工事情報を登録しますか。',
-      handleYes: ()=>navigate(`${pages.projReg}?groupId=${savedCustGroupId.current}`),
-    });
-
+    if (!passedProjId) {
+      setDialogState({
+        title: '次へ進む',
+        content: '工事情報を登録しますか。',
+        handleYes: ()=>navigate(`${pages.projReg}?groupId=${savedCustGroupId.current}`),
+      });
+    }
   };
 
   useEffect(()=>{
@@ -56,11 +58,12 @@ export const FormikIndividualCustomer = () => {
         enableReinitialize
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log('entered');
+
           saveFormData({ ...values, id: recordId })
             .then((resp)=>{
               savedCustGroupId.current = resp.id;
-              setSnackState({ open: true,
+              setSnackState({
+                open: true,
                 message: '保存出来ました。',
                 severity: 'success',
               });

@@ -1,12 +1,13 @@
 
 import { Alert, Snackbar, AlertColor } from '@mui/material';
+import { ReactNode } from 'react';
 
 
 
 export interface SnackState {
   open: boolean,
   severity?: AlertColor,
-  message?: string,
+  message?: ReactNode,
   autoHideDuration?: number,
   handleClose?: ()=>void
 }

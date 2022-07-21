@@ -1,3 +1,4 @@
+import { ErrorDetails } from 'docusign-esign';
 import { yumecocoDocusign } from '../../../../../config/settings';
 
 export const sendContract = async (
@@ -26,12 +27,14 @@ export const sendContract = async (
     if (status == 200 && body) {
       return JSON.parse(body);
     } else {
-      throw new Error(`Unknown response ${status} ${body}`);
+      const error: ErrorDetails =  JSON.parse(body);
+
+      throw new Error(`${status} ${error.message}`);
     }
 
 
   } catch (err) {
-    throw new Error(`エラーが発生しました。${err.message}`);
+    throw new Error(`${err.message}`);
   }
 
 

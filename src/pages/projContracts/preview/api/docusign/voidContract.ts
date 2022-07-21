@@ -23,10 +23,7 @@ export const voidContract = async (params: IVoidReq) => {
     if (status === 200) {
       return JSON.parse(body) as IVoidRes ;
     } else {
-
       const error: ErrorDetails =  JSON.parse(body);
-      console.log(JSON.parse(body));
-
       throw new Error(error.message);
     }
 

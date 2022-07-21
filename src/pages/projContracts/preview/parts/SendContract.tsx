@@ -2,10 +2,12 @@ import { sendContract } from '../api/docusign/sendContract';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { useConfirmDialog, useSnackBar } from '../../../../hooks';
-import { Tooltip } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
 import { useBackdrop } from '../../../../hooks/useBackdrop';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../../../Router';
 
 
 
@@ -19,35 +21,61 @@ export const SendContract = ({
 
 
   const { values, setValues } = useFormikContext<TypeOfForm>();
+  const { custGroupId } = values;
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
   const { setBackdropState, backdropState: { open } } = useBackdrop();
+  const navigate = useNavigate();
 
 
   const handleSendContract = async () => {
-    setBackdropState({
-      open: true,
-    });
-    const result = await sendContract(projId );
-    setBackdropState({
-      open: false,
-    });
-    const isSuccess = Boolean(result.envelopeStatus);
+    try {
+      setBackdropState({
+        open: true,
+      });
+      const result = await sendContract(projId );
+      setBackdropState({
+        open: false,
+      });
 
-    if (isSuccess) {
+
+
       setValues({
         ...values,
         envelopeId: result.envelopeId,
         envelopeStatus: result.envelopeStatus,
       });
+
+
+      setSnackState({
+        open: true,
+        autoHideDuration: 20000,
+        severity: 'success',
+        message: '送信が成功しました。',
+      });
+
+    } catch (err) {
+
+      setSnackState({
+        open: true,
+        autoHideDuration: 20000,
+        severity: 'error',
+        message: <>
+          {err.message}
+          <Button
+            variant='contained'
+            onClick={()=>navigate(`${pages.custGroupEdit}?groupId=${custGroupId}&projId=${projId}`)}
+          >
+            顧客
+          </Button>
+        </>,
+      });
+      setBackdropState({
+        open: false,
+      });
+
     }
 
-    setSnackState({
-      open: true,
-      autoHideDuration: 20000,
-      severity: isSuccess ? 'success' : 'error',
-      message: isSuccess ? '送信が成功しました。' : `問題が発生しました。管理者に報告してください。 ${JSON.stringify(result)}`,
-    });
   };
 
 

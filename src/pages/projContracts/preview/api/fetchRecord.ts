@@ -27,7 +27,8 @@ export const getFormDataById = async (recordId: string) => {
     projName: constructionName.value,
     envelopeId: envelopeId.value,
     envelopeStatus: envelopeStatus.value,
-    envDocFileKeys: envDocFileKeys.value.map(e => e.fileKey),
+    envDocFileKeys: envDocFileKeys.value,
+    envSelectedDoc: envDocFileKeys.value[0]?.fileKey,
     revision: $revision.value,
   } as TypeOfForm;
 

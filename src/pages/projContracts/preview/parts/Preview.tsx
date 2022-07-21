@@ -10,62 +10,62 @@ import { EnvelopeStatus } from './EnvelopeStatus';
 import { PreviewToolBar } from './PreviewToolBar';
 import { OutlinedDiv } from '../../../../components/ui/containers';
 import { useFormikContext } from 'formik';
+import { DocumentsSelect } from './SelectDocuments';
 
 
 
 export const Preview = () => {
-  const { values, setValues } = useFormikContext<TypeOfForm>();
-  const { projId, projName, envelopeId, envelopeStatus, revision } = values;
+  const { values } = useFormikContext<TypeOfForm>();
+  const { projId, projName, envelopeId, envelopeStatus, envSelectedDoc, revision } = values;
   const [loading, setLoading] = useState(true);
   const [previewUrl, setPreviewUrl] = useState('');
   //const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
   const { setSnackState } = useSnackBar();
 
   const handlePreview = async () => {
-    setLoading(true);
-    const res = await downloadContract({
-      form: values,
-      fileType: 'pdf',
-    });
+    try {
 
-    if (!res) return;
-    if (previewUrl) URL.revokeObjectURL(previewUrl); // free Memory
+      setLoading(true);
+      const res = await downloadContract({
+        form: values,
+        fileType: 'pdf',
+      });
 
-    const {
-      documents = [],
-      envelopeStatus: newEnvStatus,
-      error,
-    } = res;
+      if (!res) return;
+      if (previewUrl) URL.revokeObjectURL(previewUrl); // free Memory
 
-    if (error || !documents.length) {
+      const base64 = res; // Get first document
+
+      /*       setValues({
+        ...values,
+        envelopeStatus: newEnvStatus ?? envelopeStatus,
+      }); */
+
+      if (base64) {
+        const blob = base64ToBlob( base64, 'application/pdf' );
+        const url = URL.createObjectURL( blob );
+        setPreviewUrl(url);
+      }
+      setLoading(false);
+
+    } catch (err) {
+
       setSnackState({
         open: true,
         severity: 'error',
-        message: `プレビューの取得が失敗しました。管理者をご連絡ください。${res.error}`,
+        message: `プレビューの取得が失敗しました。管理者をご連絡ください。${err.message}`,
       });
+
+    } finally {
       setLoading(false);
-      return;
     }
 
-    const base64 = documents[0]; // Get first document
-
-    setValues({
-      ...values,
-      envelopeStatus: newEnvStatus ?? envelopeStatus,
-    });
-
-    if (base64) {
-      const blob = base64ToBlob( base64, 'application/pdf' );
-      const url = URL.createObjectURL( blob );
-      setPreviewUrl(url);
-    }
-    setLoading(false);
   };
 
   useEffect(()=>{
     if (!projId || !projName) return;
     handlePreview();
-  }, [projId, projName, envelopeStatus, revision]);
+  }, [projId, projName, envelopeStatus,  revision, envSelectedDoc]);
 
 
 
@@ -85,7 +85,9 @@ export const Preview = () => {
         {!loading && previewUrl &&
           <Grid item xs={12}>
             <Paper>
+              <DocumentsSelect />
               <embed src={previewUrl} width="100%" height='900px' />
+
             </Paper>
           </Grid>
         }

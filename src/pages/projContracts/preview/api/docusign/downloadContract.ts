@@ -15,7 +15,7 @@ const dlFromCocoServer = async ({
 {
   form: TypeOfForm,
   fileType: 'pdf' | 'xlsx',
-}) : Promise<DownloadResponse> => {
+}) : Promise<string> => {
   try {
 
 
@@ -39,37 +39,38 @@ const dlFromCocoServer = async ({
     );
 
     if (status == 200 && body) {
-      return JSON.parse(body) ;
+      const dlresp = JSON.parse(body) as DownloadResponse;
+      return dlresp.documents?.[0] ?? '' ;
     } else {
       throw new Error(`Unhandled response status ${status}`);
     }
 
   } catch (err :any) {
-    return {
-      error: err.message,
-    };
+    throw new Error(err.message);
   }
 };
 
-const dlFilesFromKintone = async (
+export const dlSingleFileFromKintone = async (fk: string) => {
+  const arrayBuffer = await KintoneClient.file.downloadFile({
+    fileKey: fk,
+  });
+  const base64String =  window.btoa(new Uint8Array(arrayBuffer).reduce(
+    function (data, byte) {
+      return data + String.fromCharCode(byte);
+    },
+    '',
+  ));
+  return base64String;
+};
+
+export const dlFilesFromKintone = async (
   form: TypeOfForm,
 ): Promise<DownloadResponse> => {
   const { envDocFileKeys, envelopeStatus } = form;
 
   try {
 
-    const downloadPromises = envDocFileKeys.map(async (f) => {
-      const arrayBuffer = await KintoneClient.file.downloadFile({
-        fileKey: f,
-      });
-      const base64String =  window.btoa(new Uint8Array(arrayBuffer).reduce(
-        function (data, byte) {
-          return data + String.fromCharCode(byte);
-        },
-        '',
-      ));
-      return base64String;
-    });
+    const downloadPromises = envDocFileKeys.map((f)=>dlSingleFileFromKintone(f.fileKey));
 
     return {
       documents: await Promise.all(downloadPromises),
@@ -89,7 +90,7 @@ export const downloadContract = async (
     form: TypeOfForm,
     fileType: 'pdf' | 'xlsx',
   },
-) : Promise<DownloadResponse> => {
+) : Promise<string> => {
 
   const { fileType, form  } = params;
   const { envDocFileKeys } = form;
@@ -98,9 +99,9 @@ export const downloadContract = async (
   if ( fileType === 'xlsx' || !envDocFileKeys.length) {
     return dlFromCocoServer(params);
   } else if (fileType === 'pdf' && envDocFileKeys.length) {
-    return dlFilesFromKintone(form);
+    return dlSingleFileFromKintone(form.envSelectedDoc);
   } else {
-    return { error: 'Unknown command. Contact administrator.' };
+    throw new Error('Uknown download action');
   }
 
 };

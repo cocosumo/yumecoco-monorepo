@@ -1,13 +1,11 @@
 import { Button, Stack } from '@mui/material';
 import {  useNavigate } from 'react-router-dom';
-import { useSnackBar } from '../../../hooks';
 import { useConfirmDialog } from '../../../hooks/useConfirmDialog';
 import { pages } from '../../Router';
 
 export const NextStepChoices = ({ recordId }: {
   recordId?: string,
 }) => {
-  const { setSnackState } = useSnackBar();
   const { handleClose } = useConfirmDialog();
   const navigate = useNavigate();
 
@@ -29,7 +27,7 @@ export const NextStepChoices = ({ recordId }: {
       fullWidth
         onClick={()=>{
           handleClose();
-          setSnackState({ open: true, message: 'まだ作成中です', severity: 'warning' });
+          navigate(`${pages.projContractPreview}?projId=${recordId}`);
         }}
       >
         契約登録

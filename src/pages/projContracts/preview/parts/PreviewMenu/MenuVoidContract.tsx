@@ -22,7 +22,7 @@ const ReasonForm = ({
           handleSetReason(event.target.value);
         }}
         helperText="すでにエンベロープへの署名を完了した受信者には、エンベロープが無効になったことを示すメールが送信されます。"
-        multiline fullWidth />
+        multiline fullWidth required />
     </Box>
   );
 };
@@ -51,12 +51,8 @@ export const MenuVoidContract = (
 
 
   const handleSubmitVoidReason = async () => {
-    console.log('Rason ', reasonRef.current);
     handleCloseDialog();
-
-
     try {
-      if (!reasonRef.current) throw new Error('理由を入力してください。');
 
       setBackdropState({
         open: true,
@@ -85,17 +81,15 @@ export const MenuVoidContract = (
       setSnackState({
         open: true,
         severity: 'error',
+        autoHideDuration: 10000,
         message: `エラーが発生しました。${err.message}`,
       });
 
     }
 
-
-
     setBackdropState({
       open: false,
     });
-
 
   };
 

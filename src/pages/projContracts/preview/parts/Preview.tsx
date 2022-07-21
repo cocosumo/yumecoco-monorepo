@@ -65,7 +65,7 @@ export const Preview = () => {
   useEffect(()=>{
     if (!projId || !projName) return;
     handlePreview();
-  }, [projId, projName]);
+  }, [projId, projName, envelopeStatus]);
 
 
   console.log(values);

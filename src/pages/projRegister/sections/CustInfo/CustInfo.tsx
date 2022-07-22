@@ -5,19 +5,22 @@ import { GrayBox } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import { LabeledInfoProps, LabeledInfo } from '../../../../components/ui/typographies/';
-import { Link } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { TypeOfProjForm, KeyOfProjForm } from '../../form';
 import { AGLabels } from '../../../../api/kintone/employees/GET';
 import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
+import { pages } from '../../../Router';
 
 
 export const CustInfo = () => {
 
   const [custGroupRecord, setCustomerRecord] = useState<CustomerGroupTypes.SavedData>();
-  const { values, setFieldValue } = useFormikContext<TypeOfProjForm>();
+  const { status, values, setFieldValue } = useFormikContext<TypeOfProjForm>();
+  const navigate = useNavigate();
 
+  const isReadOnly = (status as TFormStatus ) === 'disabled';
 
   const {
     members,
@@ -47,11 +50,12 @@ export const CustInfo = () => {
   const {
     custGroupId,
     constructionType,
+    recordId,
   } = values;
 
   useEffect(()=>{
 
-    if (custGroupId){
+    if (custGroupId) {
       getCustGroup(custGroupId)
         .then(resp => setCustomerRecord(resp));
     } else {
@@ -60,7 +64,7 @@ export const CustInfo = () => {
   }, [custGroupId]);
 
   useEffect(()=>{
-    if (storeId?.value){
+    if (storeId?.value) {
       setFieldValue('storeId' as KeyOfProjForm, storeId?.value);
       setFieldValue('territory' as KeyOfProjForm, territory?.value);
       setFieldValue('constructionName' as KeyOfProjForm, `${customerName?.value}様邸`);
@@ -78,7 +82,7 @@ export const CustInfo = () => {
     <>
       <PageSubTitle label="顧客情報" />
       <Grid item xs={12} md={4} >
-        <CustGroupSearchField />
+        {!isReadOnly && <CustGroupSearchField />}
       </Grid>
 
       <Grid item xs={12}>
@@ -100,7 +104,7 @@ export const CustInfo = () => {
 
                   {
                   custGroupRecord?.members.value.reduce((accu, curr, index: number) => {
-                    if (index > 0){
+                    if (index > 0) {
                       return [...accu, <LabeledInfo key={curr.id} label={`契約者${index + 1}`} data={curr.value.customerName.value}/>];
                     }
                     return accu;
@@ -132,24 +136,21 @@ export const CustInfo = () => {
               </Stack>
 
             </Grid>
-            {custGroupId &&
+            {custGroupId && !isReadOnly &&
 
               <Grid item xs={3}>
-                <Link
-                  to={`/custgroup/edit/${custGroupId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
 
-                  >
-                  <Button
+                <Button
                   variant="outlined"
                   color="secondary"
                   startIcon={<EditIcon />}
+                  onClick={()=>navigate(`${pages.custGroupEdit}?groupId=${custGroupId}&projId=${recordId}`)}
                   fullWidth
+
                 >
-                    編集
-                  </Button>
-                </Link>
+                  編集
+                </Button>
+
 
               </Grid>
             }

@@ -6,6 +6,7 @@ interface FormikLabeledCheckBoxProps {
   defaultVal?: boolean
   name: string
   helperText?: string,
+  disabled?: boolean,
 }
 
 export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
@@ -13,23 +14,25 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
     label = '',
     helperText = '',
     defaultVal = false,
+    disabled = false,
   } = props;
 
   const [field, meta, helpers] = useField(props);
 
   let dirtyVal: boolean = field.value ?? defaultVal;
 
-  if (typeof field.value === 'string'){
+  if (typeof field.value === 'string') {
     dirtyVal = Boolean(+field.value);
   }
 
   return (
-    <FormControl>
+    <FormControl >
       <FormControlLabel
       name={field.name}
       label={label}
+
       control={
-        <Checkbox checked={dirtyVal} onClick={() => helpers.setValue(!meta.value)} />}
+        <Checkbox disabled={disabled} checked={dirtyVal} onClick={() => helpers.setValue(!meta.value)} />}
 
   />
       <FormHelperText>{helperText}</FormHelperText>

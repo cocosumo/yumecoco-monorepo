@@ -36,17 +36,19 @@ export const FormConstruction  = () => {
       envelopeStatus,
     },
   } = useFormikContext<TypeOfProjForm>();
-  let passedCustGroupId = useQuery().get(getFieldName('custGroupId'));
+  let passedGroupId = useQuery().get('groupId');
 
-  const isEditMode = !!recordId;
+  const isEditMode = window.location.href.includes('edit');
   const isAbleToSave = (status as TFormStatus) === '';
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
   useEffect(()=>{
-    if (passedCustGroupId) {
-      setFieldValue(getFieldName('custGroupId'), passedCustGroupId);
+    console.log(status);
+    if (!!!status && passedGroupId && !isEditMode) {
+      console.log('Update ', recordId, !!recordId, isEditMode);
+      setFieldValue(getFieldName('custGroupId'), passedGroupId);
     }
-  }, [passedCustGroupId]);
+  }, [passedGroupId, isEditMode, status]);
 
   useEffect(()=>{
     if (!isValid && !isSubmitting) {
@@ -63,6 +65,8 @@ export const FormConstruction  = () => {
           setValues(resp);
           setStatus(((s: TFormStatus) => s )(resp.envelopeStatus === '' ? '' : 'disabled'));
         });
+    } else {
+      setStatus('');
     }
   }, [projIdFromURL]);
 

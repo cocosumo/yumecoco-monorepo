@@ -31,6 +31,7 @@ export const FormikIndividualCustomer = () => {
         title: '次へ進む',
         content: '工事情報を登録しますか。',
         handleYes: ()=>navigate(`${pages.projReg}?groupId=${savedCustGroupId.current}`),
+        handleNo: ()=>navigate(`${pages.custGroupEdit}?groupId=${savedCustGroupId.current}`),
       });
     }
   };

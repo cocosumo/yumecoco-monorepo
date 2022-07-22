@@ -24,6 +24,7 @@ interface FormikTextFieldProps {
   multiline?: boolean,
   rows?: number
   type?: HTMLInputTypeAttribute,
+  disabled?: boolean,
 }
 
 export const FormikTextField = (props: FormikTextFieldProps) => {
@@ -40,13 +41,14 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     id = undefined,
     onInput,
     value,
+    disabled,
   } = props;
   const [field, meta] = useField(props);
 
   const handleChange = ((e: any)=>{
     field.onChange(e);
 
-    if (props.onChange){
+    if (props.onChange) {
       props.onChange(e);
     }
   });
@@ -55,6 +57,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     <TextField  {...field}
     label={label}
     id={id}
+    disabled={disabled}
     placeholder={placeholder}
     required={ required}
     type={type}
@@ -65,7 +68,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     onBlur={(e)=> {
       /* Call formiks default onBlur */
       field.onBlur(e);
-      if (props.onBlur){
+      if (props.onBlur) {
         /* Call custom onBlur */
         props.onBlur(e);
       }

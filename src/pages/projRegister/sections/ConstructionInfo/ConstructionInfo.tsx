@@ -16,14 +16,21 @@ export const ConstructionInfo = (
   props : {
     storeId: string,
     constructionTypeId?: string,
-    territory?:  GetEmployeesParams['territory']
+    territory?:  GetEmployeesParams['territory'],
+
   },
 ) => {
   const { storeId, territory, constructionTypeId } = props;
   const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
-  const { setFieldValue, values: {
-    cocoConst1,
-  } } = useFormikContext<TypeOfProjForm>();
+  const {
+    status,
+    setFieldValue,
+    values: {
+      cocoConst1,
+    } } = useFormikContext<TypeOfProjForm>();
+
+  const isReadOnly = (status as TFormStatus ) === 'disabled';
+
 
   /*Todo: Refactor this as custom hook */
   useEffect(()=>{
@@ -52,11 +59,11 @@ export const ConstructionInfo = (
       <PageSubTitle label='工事情報' />
       <Grid container item xs={12} md={6} spacing={2}>
         <Grid item xs={12} md={8} >
-          <FormikSelect name={'constructionTypeId' as KeyOfProjForm} label={'工事種別'} options={constructionTypeOptions} required />
+          <FormikSelect  name={'constructionTypeId' as KeyOfProjForm} label={'工事種別'} disabled={isReadOnly} options={constructionTypeOptions} required />
         </Grid>
         <Grid item xs={12}>
           {/* <TextField fullWidth label="工事名称" placeholder='氏名/会社名様邸　工事種別' /> */}
-          <FormikTextField name={'constructionName' as KeyOfProjForm} label="工事名称" placeholder="氏名/会社名様邸　工事種別" required/>
+          <FormikTextField name={'constructionName' as KeyOfProjForm} label="工事名称" placeholder="氏名/会社名様邸　工事種別" disabled={isReadOnly} required/>
         </Grid>
       </Grid>
 
@@ -64,13 +71,13 @@ export const ConstructionInfo = (
         {
           [1, 2].map((num) => (
             <Grid key={num} item xs={12} md={4}>
-              <ConstructionAgent number={num} {...{ storeId, territory }} disabled={!cocoConst1 && num === 2}/>
+              <ConstructionAgent number={num} {...{ storeId, territory }} disabled={(!cocoConst1 && num === 2) || isReadOnly}/>
             </Grid>
           ))
         }
 
         <Grid item xs={12} md={4}>
-          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'/>
+          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。' disabled={isReadOnly} />
 
         </Grid>
 

@@ -37,7 +37,7 @@ export const FormikConstruction  = () => {
             setSubmitting(false);
             setDialogState({
               title: '次へ進む',
-              content: <NextStepChoices recordId={values.recordId} />,
+              content: <NextStepChoices recordId={resp.id} />,
               withYes: false,
               noText: '閉じる',
             });

@@ -7,14 +7,18 @@ interface FormikRadioProps {
   name: string,
   label: string,
   choices : readonly string[]
+  disabled?: boolean
 }
 
 export const FormikRadio = (props: FormikRadioProps) => {
-  const { choices, label, name } = props;
+  const { choices,
+    label,
+    name,
+    disabled = false } = props;
   const [field] = useField(name);
 
   return (
-    <OutlinedDiv label={label}>
+    <OutlinedDiv label={label} disabled={disabled}>
       <FormControl fullWidth>
         {/* <ChoiceContainer> */}
         {/* <FormLabel htmlFor='test'>{label}</FormLabel> */}
@@ -25,7 +29,7 @@ export const FormikRadio = (props: FormikRadioProps) => {
         row
         {...field}
       >
-          {choices.map(item => <FormControlLabel key={item} value={item} control={<Radio />} label={item}/>)}
+          {choices.map(item => <FormControlLabel disabled={disabled} key={item} value={item} control={<Radio />} label={item}/>)}
 
         </RadioGroup>
         {/*       </ChoiceContainer> */}

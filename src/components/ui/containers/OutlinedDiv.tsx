@@ -7,6 +7,7 @@ interface OutlinedDivProps {
   label: string
   helperText?: string
   errorMessage?: string
+  disabled?: boolean,
 
 }
 
@@ -22,11 +23,12 @@ export const OutlinedDiv = ({
   label,
   helperText,
   errorMessage,
+  disabled = false,
 } : OutlinedDivProps) => {
   return (
     <TextField
       size='small'
-      
+      disabled={disabled}
       error={!!errorMessage}
       helperText={errorMessage ?? helperText }
       margin='none'

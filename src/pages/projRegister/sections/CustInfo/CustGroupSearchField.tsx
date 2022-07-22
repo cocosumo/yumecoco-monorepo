@@ -21,7 +21,7 @@ export const CustGroupSearchField = () => {
   const { error, touched } = meta;
 
   useLazyEffect(()=>{
-    if (inputValue){
+    if (inputValue) {
       getCustGroupOptions(inputValue)
         .then(resp => setOptions(resp))
         .catch(err => console.error('Incorrect Input ', err.message));

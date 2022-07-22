@@ -1,13 +1,13 @@
 import { Form, useFormikContext } from 'formik';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Stack, FormLabel, Collapse  } from '@mui/material';
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { MemoContext } from './MemoContext';
 import { getFieldName, MemoFormType } from './form';
 import { FormikSelect } from '../../../../../../components/ui/selects';
 import { FormikTextField } from '../../../../../../components/ui/textfield';
 import { FormikCheckBoxes, FormikLabeledCheckBox } from '../../../../../../components/ui/checkboxes';
-import { useParams } from 'react-router-dom';
+
 import { ConfirmSave } from './parts/ConfirmSave';
 import { format } from 'date-fns';
 
@@ -31,7 +31,7 @@ const notifOptions: Array<{
 
 
 export const MemoForm = () => {
-  const recordId  = useParams().recordId;
+  //const recordId  = useParams().recordId;
 
   const {
 
@@ -44,22 +44,19 @@ export const MemoForm = () => {
     isNotify,
     createDate,
     commenter,
+    recordId,
   } = memoFormValues;
 
   const {
     memoOpen,
     confirmSaveOpen,
     handleClose,
-    handleUpdateMemoList,
   } = useContext(MemoContext)!;
 
 
-  useEffect(()=>{
-    if (recordId) {
-      console.log('triggerd!!!');
-      handleUpdateMemoList(recordId);
-    }
-  }, [recordId]);
+
+
+  console.log('memo', recordId, memoFormValues);
 
   return (
 

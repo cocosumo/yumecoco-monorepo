@@ -49,7 +49,7 @@ export const MemoContextProvider = (props : {
 
   /* Close MemoFormDialog */
   const handleClose : MemoContextValue['handleClose'] = (reason) => {
-    if (reason === 'submitted'){
+    if (reason === 'submitted') {
       setConfirmSaveOpen(false);
       handleUpdateMemoList(memoFormState.recordId);
     }

@@ -41,7 +41,6 @@ export const FormIndividualCustomer  = () => {
 
   const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount)  ;
 
-  console.log('touched', touched.isDeleted, submitCount);
 
   return (
 

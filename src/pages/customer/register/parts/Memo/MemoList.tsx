@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MemoItemMenu, MenuProps } from './MemoItemMenu';
 import { MemoContext } from './memoForm/MemoContext';
 
@@ -94,7 +94,7 @@ export const MemoList = (props: MemoListProps) => {
 
   const handleClose: MenuProps['handleClose'] = (memoItem, method) => {
     console.log('memoItem', memoItem, method);
-    switch (method){
+    switch (method) {
       case '編集':
         handleOpen({ ...memoItem, custName, recordId });
         break;
@@ -109,6 +109,13 @@ export const MemoList = (props: MemoListProps) => {
     setAnchorEl(null);
   };
 
+
+  useEffect(()=>{
+    if (recordId) {
+      console.log('triggerd!!!');
+      handleUpdateMemoList(recordId);
+    }
+  }, [recordId]);
 
   return (
     <>

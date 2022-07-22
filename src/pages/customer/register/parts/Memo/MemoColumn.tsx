@@ -10,7 +10,8 @@ import { CustomerForm } from '../../form';
 const maxItems = 6;
 
 export const MemoColumn = () => {
-  const { values: { id, customers: [mainCust] } } = useFormikContext<CustomerForm>();
+  const { values } = useFormikContext<CustomerForm>();
+  const { id, customers: [mainCust] } = values;
   const { handleOpen, memoList } = useContext(MemoContext)!;
   const [pageNum, setPageNum] = useState(1);
   const pageCount = Math.ceil(( memoList?.length ??  0) /  maxItems);
@@ -25,6 +26,7 @@ export const MemoColumn = () => {
     setMemosInPage(memoList?.slice(offset, offset + maxItems));
   }, [pageNum, memoList]);
 
+  console.log('recordId', id, values);
 
   return (
     <Grid item xs={12} lg={6} xl={6}>

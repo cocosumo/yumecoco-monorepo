@@ -19,10 +19,12 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfForm> => 
     planApplicationDate,
     constructionName,
     custGroupId,
+    envelopeStatus,
   } = await fetchRecord(recordId);
 
   return {
     projId: recordId,
+    envelopeStatus: envelopeStatus.value as TEnvelopeStatus,
     custGroupId: custGroupId.value,
     projName: constructionName.value,
     rank: rank.value,

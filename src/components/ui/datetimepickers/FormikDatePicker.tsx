@@ -10,10 +10,12 @@ import { format } from 'date-fns';
 interface DatePickerProps {
   label: string,
   name: string,
+  disabled?: boolean,
 }
 
 /* TODO: Pass the state up */
 export const FormikDatePicker = (props: DatePickerProps) => {
+  const { disabled = false } = props;
 
   const [field, meta, helpers] = useField(props);
 
@@ -24,6 +26,7 @@ export const FormikDatePicker = (props: DatePickerProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
       <DatePicker
+        disabled={disabled}
         label={props.label}
         value={field.value}
         onAccept={handleAccept}

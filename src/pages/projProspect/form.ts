@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 export const initialValues = {
   projId: '',
   custGroupId: '',
+  envelopeStatus: '' as TEnvelopeStatus,
   projName: '',
   rank: '',
   schedContractPrice: '',

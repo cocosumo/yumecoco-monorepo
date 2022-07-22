@@ -72,14 +72,15 @@ export const FormProjProspect = () => {
           {isReadOnly &&  <UneditableInfo projId={projId} />}
 
           <Grid item xs={12} md={4}>
-            {!isReadOnly &&
+
             <SearchProjField
+              disabled={isReadOnly}
               label="工事情報の検索"
               name={getFieldName('projId')}
               projName={projName}
               />
 
-            }
+
 
           </Grid>
 

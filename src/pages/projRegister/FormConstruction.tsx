@@ -80,7 +80,7 @@ export const FormConstruction  = () => {
       <MainContainer>
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8} spacing={2} mb={12}>
-          {isFormDisabled && <UneditableInfo/>}
+          {isFormDisabled && <UneditableInfo projId={recordId}/>}
           <CustInfo />
           <ConstructionLocation/>
           <ConstructionInfo

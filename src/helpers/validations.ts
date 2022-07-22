@@ -1,5 +1,4 @@
 
-import { InputField } from '../types/forms';
 
 type Validate = (field: InputField ) => InputField ;
 type ValueValidator = (value: string) => boolean;
@@ -13,8 +12,8 @@ type ValueValidator = (value: string) => boolean;
  */
 const validationMessage = (validity: ValidityState) => {
   console.log(validity);
-  if (!validity.valid){
-    if (validity.valueMissing){
+  if (!validity.valid) {
+    if (validity.valueMissing) {
       return '必須です。';
     }
   }
@@ -62,8 +61,8 @@ export const validate: Validate = (field) => {
     isRequired,
   } = field;
 
-  if (isRequired){
-    if (value.length === 0){
+  if (isRequired) {
+    if (value.length === 0) {
       hasError = true;
       errors.push('必須です。');
     } else {
@@ -71,7 +70,7 @@ export const validate: Validate = (field) => {
     }
   }
 
-  switch (inputType){
+  switch (inputType) {
 
 
     case 'email':

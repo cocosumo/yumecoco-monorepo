@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import { AgentType } from '../../../../../../types/forms';
 
 export const initialValues = {
   recordId: '',
@@ -22,7 +21,7 @@ export const validationSchema =  Yup.object().shape(
     'memoType' : Yup
       .string()
       .required('必須です。'),
-      
+
     'contents' : Yup
       .string()
       .required('必須です。'),
@@ -30,7 +29,7 @@ export const validationSchema =  Yup.object().shape(
       is: true,
       then: Yup.array().min(1, '「担当者を通知する」に☑を入れましたが、担当者が選択されていません。'),
     }),
-    
+
   } as Partial<Record<MemoFormKeys, any>>,
 );
 

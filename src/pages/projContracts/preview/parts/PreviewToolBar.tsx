@@ -13,6 +13,8 @@ export const PreviewToolBar = ({
   loading: boolean,
 }) => {
 
+  const voidable = envelopeStatus === 'sent';
+
   return (
     <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
       {!!projId && <DownloadContract projId={projId}/>}
@@ -24,7 +26,7 @@ export const PreviewToolBar = ({
         />
       }
 
-      {!!envelopeStatus  && !loading &&
+      {!!voidable  && !loading &&
         <MenuContainer/>
       }
     </Stack>

@@ -6,7 +6,6 @@ import { Caption } from '../../ui/typographies';
 import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
 import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
-import { ElementTarget } from '../../../types/forms';
 import format from 'date-fns/format';
 
 const options = ['顧客情報', '打ち合わせ', '契約内容', '工事場所情報', '問い合わせ', 'その他']

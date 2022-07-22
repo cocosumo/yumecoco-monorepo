@@ -1,5 +1,4 @@
 import { FormControl, Select, MenuItem, InputLabel, FormHelperText, SelectChangeEvent, Stack } from '@mui/material';
-import { InputField } from '../../../types/forms';
 import Chip from '@mui/material/Chip';
 
 

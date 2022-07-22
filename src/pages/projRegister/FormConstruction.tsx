@@ -13,16 +13,19 @@ import { TypeOfProjForm, getFieldName } from './form';
 import { useQuery } from '../../hooks/useQuery';
 import { useSnackBar } from '../../hooks';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
-
-
+import { getFormDataById } from './api/getFormDataById';
+import { UneditableInfo } from '../../components/ui/information/UneditableInfo';
 
 
 export const FormConstruction  = () => {
   const { setSnackState } = useSnackBar();
 
   const {
+    status,
     isValid,
     isSubmitting,
+    setValues,
+    setStatus,
     submitForm,
     setFieldValue,
     values : {
@@ -30,11 +33,14 @@ export const FormConstruction  = () => {
       storeId,
       territory,
       constructionTypeId,
+      envelopeStatus,
     },
   } = useFormikContext<TypeOfProjForm>();
   let passedCustGroupId = useQuery().get(getFieldName('custGroupId'));
 
   const isEditMode = !!recordId;
+  const isAbleToSave = (status as TFormStatus) === '';
+  const isFormDisabled = (status as TFormStatus) === 'disabled';
 
   useEffect(()=>{
     if (passedCustGroupId) {
@@ -48,13 +54,29 @@ export const FormConstruction  = () => {
     }
   }, [isSubmitting]);
 
+  const projIdFromURL = useQuery().get('projId') ?? undefined;
+  useEffect(()=>{
+
+    if (projIdFromURL) {
+      getFormDataById(projIdFromURL)
+        .then((resp) => {
+          setValues(resp);
+          setStatus(((s: TFormStatus) => s )(resp.envelopeStatus === '' ? '' : 'disabled'));
+        });
+    }
+  }, [projIdFromURL]);
+
+
+
   return (
 
     <Form noValidate>
       <ScrollToFieldError/>
+
       <MainContainer>
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8} spacing={2} mb={12}>
+          {isFormDisabled && <UneditableInfo/>}
           <CustInfo />
           <ConstructionLocation/>
           <ConstructionInfo
@@ -63,9 +85,9 @@ export const FormConstruction  = () => {
             constructionTypeId={constructionTypeId}
 
             />
-          {isEditMode && <StatusControls />}
+          {isEditMode && !envelopeStatus && <StatusControls />}
         </Grid>
-        <FabSave onClick={submitForm} url="project"/>
+        {isAbleToSave && <FabSave onClick={submitForm} url="project"/>}
       </MainContainer>
 
       {isEditMode && <ProjectShortCuts />}

@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import CustomerFormContext from '../context/CustomerFormContext';
-import { InputField } from '../types/forms';
 
 type UseShowErrorFunc = (field: InputField) => Partial<InputField>;
 

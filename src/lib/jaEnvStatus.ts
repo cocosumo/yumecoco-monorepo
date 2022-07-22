@@ -5,6 +5,11 @@ export const jaEnvelopeStatus  = (
   desc: string,
 } => {
   switch (status) {
+    case 'created':
+      return {
+        ja: 'ドラフト',
+        desc: '受信者はドラフト状態です。 これは、ドラフトエンベロープ（作成済みステータスのエンベロープ）にのみ関連付けられます。',
+      };
     case 'sent':
       return {
         ja: '送済み',
@@ -27,8 +32,8 @@ export const jaEnvelopeStatus  = (
       };
     case '': {
       return {
-        ja: '下書き',
-        desc: '封筒はドラフト状態であり、署名のために発送されていません。',
+        ja: '未作成',
+        desc: '契約はDocusign上でまだ作成していません。',
       };
     }
   }

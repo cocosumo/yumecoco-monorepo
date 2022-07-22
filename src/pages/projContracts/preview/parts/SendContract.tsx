@@ -81,8 +81,8 @@ export const SendContract = ({
 
   const handleConfirmSend = () => {
     setDialogState({
-      title: '操作確認',
-      content: '契約を送信しますか。',
+      title: '契約を送信しますか。',
+      content: '「送信済み」状態になり、ココアスで当プロジェクトの情報の修正が出来なくなります。',
       handleYes: handleSendContract,
 
     });

@@ -2,7 +2,6 @@ import { AlertColor } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { FieldActionType } from '../types/form.memo';
 
-import { FormState } from '../types/forms';
 
 interface UseSubmitState {
   formState : FormState,

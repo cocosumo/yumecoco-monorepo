@@ -1,5 +1,4 @@
 import { dateStrToJA } from '../../../../helpers/utils';
-import { AgentType } from '../../../../types/forms';
 import { advancedSearchCustGroup, AdvancedSearchCustGroupParam } from './advancedSearchCustGroup';
 
 export interface ISearchData {

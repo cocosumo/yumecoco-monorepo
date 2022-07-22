@@ -7,7 +7,6 @@ import { getFieldName, MemoFormType } from './form';
 import { FormikSelect } from '../../../../../../components/ui/selects';
 import { FormikTextField } from '../../../../../../components/ui/textfield';
 import { FormikCheckBoxes, FormikLabeledCheckBox } from '../../../../../../components/ui/checkboxes';
-import { AgentType } from '../../../../../../types/forms';
 import { useParams } from 'react-router-dom';
 import { ConfirmSave } from './parts/ConfirmSave';
 import { format } from 'date-fns';

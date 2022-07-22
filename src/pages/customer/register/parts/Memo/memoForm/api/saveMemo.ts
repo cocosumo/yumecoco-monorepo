@@ -1,7 +1,6 @@
 import { APPIDS, KintoneRecord } from '../../../../../../../api/kintone';
 import { getUserCodesByIds } from '../../../../../../../api/kintone/users/GET';
 import { MemoFormType } from '../form';
-import { AgentType } from './../../../../../../../types/forms';
 
 const getAgentIds = async (recordId: string, agentTypes: AgentType[] = [] ) => {
   console.log('agentTypes', agentTypes);
@@ -28,7 +27,7 @@ const formDataToKintone = async (params: MemoFormType) : Promise<Partial<Custome
     recordId: { value: recordId },
   };
 
-  if (isNotify){
+  if (isNotify) {
     const agentIds = await getAgentIds(recordId, notifyTo);
     const agentUserCodes = await getUserCodesByIds(agentIds);
     return { ...commonFields, notifyTo: { value: agentUserCodes } };
@@ -41,7 +40,7 @@ const formDataToKintone = async (params: MemoFormType) : Promise<Partial<Custome
 
 export const saveMemo = async (params: MemoFormType) => {
 
-  if (params.memoId){
+  if (params.memoId) {
     /* Update Record */
     return KintoneRecord.updateRecord({
       app: APPIDS.custMemo,

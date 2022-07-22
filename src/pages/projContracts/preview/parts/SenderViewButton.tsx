@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useEffect, useState } from 'react';
-import { FaFileSignature } from 'react-icons/fa';
+import { FaFileSignature } from '@react-icons/all-files/fa/FaFileSignature';
 import { getSenderViewUrl } from '../api/docusign/getSenderViewUrl';
 import { useBackdrop } from '../../../../hooks/useBackdrop';
 

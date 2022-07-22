@@ -32,6 +32,7 @@ export const initialValues = {
   buildingType: '戸建て' as BuildingTypeVals,
   isChkAddressKari: false,
   status: '追客中' as RecordStatus,
+  envelopeStatus: '' as TEnvelopeStatus,
   cancelStatus: [] as RecordCancelStatus[],
 };
 

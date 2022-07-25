@@ -38,8 +38,6 @@ export const SendContract = ({
         open: false,
       });
 
-
-
       setValues({
         ...values,
         envelopeId: result.envelopeId,

@@ -15,15 +15,17 @@ import { DocumentsSelect } from './SelectDocuments';
 
 
 export const Preview = () => {
-  const { values, setStatus, status } = useFormikContext<TypeOfForm>();
+  const { values, status } = useFormikContext<TypeOfForm>();
   const { projId, projName, envelopeId, envelopeStatus, envSelectedDoc, revision } = values;
   const [previewUrl, setPreviewUrl] = useState('');
+  const [previewLoading, setPreviewLoading] = useState(true);
   const { setSnackState } = useSnackBar();
 
   const handlePreview = async () => {
     try {
 
-      setStatus('busy' as TFormStatus);
+
+      setPreviewLoading(true);
       const res = await downloadContract({
         form: values,
         fileType: 'pdf',
@@ -38,6 +40,8 @@ export const Preview = () => {
         const blob = base64ToBlob( base64, 'application/pdf' );
         const url = URL.createObjectURL( blob );
         setPreviewUrl(url);
+      } else {
+        setPreviewUrl('');
       }
 
     } catch (err) {
@@ -49,19 +53,21 @@ export const Preview = () => {
       });
 
     } finally {
-      setStatus('' as TFormStatus);
+      setPreviewLoading(false);
     }
 
   };
 
   useEffect(()=>{
-    if (!projId || !projName) return;
+
+    if (!projId || !projName || (status as TFormStatus) === 'busy') return;
+
     handlePreview();
   }, [projId, projName, envelopeStatus,  revision, envSelectedDoc]);
 
 
 
-  const loading = (status as TFormStatus) === 'busy';
+  const loading = (status as TFormStatus) === 'busy' || previewLoading;
   //console.log('status', status);
 
   return (
@@ -72,7 +78,7 @@ export const Preview = () => {
           <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/>
         </Grid>
         <Grid item xs={6}>
-          <PreviewToolBar {...{ envelopeId, envelopeStatus, loading, projId }} />
+          <PreviewToolBar {...{ envelopeId, envelopeStatus, loading, projId, projName, previewLoading }} />
         </Grid>
         <Grid item xs={12}>
           <Divider/>

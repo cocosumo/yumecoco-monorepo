@@ -3,7 +3,7 @@ import { MainContainer } from '../../../components/ui/containers';
 import { PageTitle } from '../../../components/ui/labels';
 
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
-import { getFieldName, TypeOfForm } from './form';
+import { getFieldName, initialValues, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { PreviewContainer } from './parts/PreviewContainer';
@@ -19,7 +19,6 @@ export const FormContractPreview = () => {
     values,
     setValues,
     setStatus,
-    setFieldValue,
 
   } = useFormikContext<TypeOfForm>();
 
@@ -27,18 +26,22 @@ export const FormContractPreview = () => {
 
   useEffect(()=>{
     if (projId) {
+      //resetForm();
       setStatus('busy' as TFormStatus);
+      console.log('REFRESHING');
       getFormDataById(projId)
         .then((r) => {
           setValues(r);
-          //setStatus('' as TFormStatus);
+          setStatus('' as TFormStatus);
         });
     }
   },  [projId]);
 
   useEffect(()=>{
     if (projIdFromURL) {
-      setFieldValue(getFieldName('projId'), projIdFromURL);
+      setValues({ ...initialValues, projId: projIdFromURL });
+      // /setFieldValue(getFieldName('projId'), projIdFromURL);
+
     }
   }, [projIdFromURL]);
 

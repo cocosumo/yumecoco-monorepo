@@ -1,32 +1,18 @@
 import { Formik } from 'formik';
-//import { saveForm } from './api/saveForm';
-import { initialValues, validationSchema, getFieldName, TypeOfForm } from './form';
+import { initialValues, validationSchema } from './form';
 
 import { FormContractPreview } from './FormContractPreview';
-import { useQuery } from '../../../hooks/useQuery';
-import { useEffect, useState } from 'react';
-//import { useSnackBar } from '../../../hooks/useSnackBar';
+
 
 
 
 export const FormikContractPreview = () => {
-  const [formValues, setFormValues] = useState<TypeOfForm>(initialValues);
-  //const { setSnackState } = useSnackBar();
 
-  const projIdFromURL = useQuery().get(getFieldName('projId'));
-
-  useEffect(()=>{
-
-    if (!projIdFromURL) return;
-    setFormValues({ ...initialValues, projId: projIdFromURL });
-
-  }, [projIdFromURL]);
-
-  console.log('url', projIdFromURL);
 
   return (
     <Formik
-      initialValues={formValues}
+      initialValues={initialValues}
+      initialStatus={'busy' as TFormStatus}
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {

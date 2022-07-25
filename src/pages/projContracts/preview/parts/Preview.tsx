@@ -15,17 +15,15 @@ import { DocumentsSelect } from './SelectDocuments';
 
 
 export const Preview = () => {
-  const { values } = useFormikContext<TypeOfForm>();
+  const { values, setStatus, status } = useFormikContext<TypeOfForm>();
   const { projId, projName, envelopeId, envelopeStatus, envSelectedDoc, revision } = values;
-  const [loading, setLoading] = useState(true);
   const [previewUrl, setPreviewUrl] = useState('');
-  //const [envStatus, setEnvStatus] = useState<TEnvelopeStatus>(envelopeStatus);
   const { setSnackState } = useSnackBar();
 
   const handlePreview = async () => {
     try {
 
-      setLoading(true);
+      setStatus('busy' as TFormStatus);
       const res = await downloadContract({
         form: values,
         fileType: 'pdf',
@@ -34,19 +32,13 @@ export const Preview = () => {
       if (!res) return;
       if (previewUrl) URL.revokeObjectURL(previewUrl); // free Memory
 
-      const base64 = res; // Get first document
-
-      /*       setValues({
-        ...values,
-        envelopeStatus: newEnvStatus ?? envelopeStatus,
-      }); */
+      const base64 = res;
 
       if (base64) {
         const blob = base64ToBlob( base64, 'application/pdf' );
         const url = URL.createObjectURL( blob );
         setPreviewUrl(url);
       }
-      setLoading(false);
 
     } catch (err) {
 
@@ -57,7 +49,7 @@ export const Preview = () => {
       });
 
     } finally {
-      setLoading(false);
+      setStatus('' as TFormStatus);
     }
 
   };
@@ -68,6 +60,9 @@ export const Preview = () => {
   }, [projId, projName, envelopeStatus,  revision, envSelectedDoc]);
 
 
+
+  const loading = (status as TFormStatus) === 'busy';
+  //console.log('status', status);
 
   return (
     <OutlinedDiv label="プレビュー">

@@ -9,26 +9,38 @@ import { SearchProjField } from './parts/SearchProjField';
 import { PreviewContainer } from './parts/PreviewContainer';
 import { useEffect } from 'react';
 import { getFormDataById } from './api/fetchRecord';
-import { produce } from 'immer';
+import { useQuery } from '../../../hooks';
 
 export const FormContractPreview = () => {
+
+  const projIdFromURL = useQuery().get(getFieldName('projId'));
+
   const {
     values,
-    dirty,
-    setFormikState,
-    resetForm,
+    setValues,
+    setStatus,
+    setFieldValue,
+
   } = useFormikContext<TypeOfForm>();
 
   const { projName, projId } = values;
 
   useEffect(()=>{
     if (projId) {
+      setStatus('busy' as TFormStatus);
       getFormDataById(projId)
-        .then((r) => setFormikState(prev => produce(prev, draft=> { draft.values = r; })));
-    } else if (!projId && dirty) {
-      resetForm();
+        .then((r) => {
+          setValues(r);
+          //setStatus('' as TFormStatus);
+        });
     }
   },  [projId]);
+
+  useEffect(()=>{
+    if (projIdFromURL) {
+      setFieldValue(getFieldName('projId'), projIdFromURL);
+    }
+  }, [projIdFromURL]);
 
 
 

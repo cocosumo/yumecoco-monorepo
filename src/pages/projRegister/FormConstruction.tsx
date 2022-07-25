@@ -60,10 +60,14 @@ export const FormConstruction  = () => {
   useEffect(()=>{
 
     if (projIdFromURL) {
+      setStatus(((s: TFormStatus) => s )('busy'));
       getFormDataById(projIdFromURL)
         .then((resp) => {
           setValues(resp);
           setStatus(((s: TFormStatus) => s )(resp.envelopeStatus === '' ? '' : 'disabled'));
+        }).catch((e)=>{
+          setStatus('');
+          setSnackState({ open: true, message: `エラーが発生しました。 管理者にご連絡ください。${e.message}`, severity: 'error' });
         });
     } else {
       setStatus('');

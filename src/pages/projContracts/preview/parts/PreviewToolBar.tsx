@@ -15,18 +15,20 @@ export const PreviewToolBar = ({
 
   const voidable = envelopeStatus === 'sent';
 
+  console.log('loading', loading, envelopeStatus, projId);
+
   return (
     <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
       {!!projId && <DownloadContract projId={projId}/>}
 
-      {!!!envelopeStatus && !!!envelopeId  && !loading &&
+      {!loading && !!!envelopeStatus && !!!envelopeId  && !voidable &&
         <SendContract
           projId={projId}
           isBusy={loading}
         />
       }
 
-      {!!voidable  && !loading &&
+      {!loading && !!voidable && !!envelopeId  &&
         <MenuContainer/>
       }
     </Stack>

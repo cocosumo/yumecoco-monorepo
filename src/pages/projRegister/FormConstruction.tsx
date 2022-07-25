@@ -91,8 +91,9 @@ export const FormConstruction  = () => {
             storeId={storeId}
             territory={territory as GetEmployeesParams['territory']}
             constructionTypeId={constructionTypeId}
-
             />
+
+
           {isEditMode && !envelopeStatus && <StatusControls />}
         </Grid>
         {isAbleToSave && <FabSave onClick={submitForm} url="project"/>}

@@ -20,6 +20,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
     $id, $revision, agents, storeId,
     isDeleted,
     members : { value: customers },
+    projects,
   } = await getCustGroupRecord(id) ;
 
   /* Get customer record based on ids on main record */
@@ -49,6 +50,15 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
     cocoAG2: Ags?.cocoAGs?.[1] || '',
     yumeAG1: Ags?.yumeAGs?.[0] || '',
     yumeAG2: Ags?.yumeAGs?.[1] || '',
+    projects: projects.value.map(({ value: {
+      constructionName,
+      constructionId,
+    } }) => {
+      return {
+        projName: constructionName.value,
+        projId: constructionId.value,
+      };
+    }),
     customers: customerRecords.map(cust => {
       const {
         $id: custId,

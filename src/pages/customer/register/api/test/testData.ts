@@ -9,6 +9,7 @@ export const testData: CustomerForm =  {
   yumeAG1: '28',
   yumeAG2: '65',
   isDeleted: '',
+  projects: [],
   customers: [
     {
       key: '',

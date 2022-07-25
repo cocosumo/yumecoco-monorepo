@@ -41,8 +41,14 @@ export const initialValues = {
   yumeAG1: '',
   yumeAG2: '',
   customers: [initialCustomerValue],
+  projects: [] as {
+    projName: string,
+    projId: string,
+  }[],
   isDeleted: '',
 } ;
+
+
 
 export type CustomerForm = typeof initialValues;
 export type CustomerFormKeys = keyof CustomerForm;

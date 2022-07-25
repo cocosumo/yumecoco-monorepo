@@ -13,6 +13,7 @@ import { CustomerForm } from './form';
 import { CustGroupShortcuts } from  './parts/CustGroupShortcuts';
 import { useSnackBar } from '../../../hooks';
 import { CustomerStatus } from './parts/CustomerStatus';
+import { RelatedProjects } from './parts/Related/RelatedProjects';
 
 
 export const FormIndividualCustomer  = () => {
@@ -61,6 +62,11 @@ export const FormIndividualCustomer  = () => {
           <Grid container item xs={12} md={4} lg={6} spacing={4} justifyContent="center">
             <Agents/>
             {isEditMode && <MemoColumn/>}
+          </Grid>
+
+          <Grid container item xs={12} spacing={2}>
+            {isEditMode && <RelatedProjects />}
+
           </Grid>
 
         </Grid>

@@ -11,10 +11,10 @@ export const FilterContainer = () => {
 
   return (
     <Grid container item xs={12} >
-      <Grid item xs={12} md={9}>
+      <Grid item xs={12} md={10}>
         <FilterItems />
       </Grid>
-      <Grid container item xs={12} md={3} justifyContent={'flex-end'}>
+      <Grid container item xs={12} md={2} alignItems="flex-start" justifyContent={'flex-end'}>
         <Button
         startIcon={<FilterListIcon/>}
         onClick={handleOpenFilterDialog}

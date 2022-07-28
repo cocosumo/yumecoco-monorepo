@@ -6,6 +6,7 @@ export const FormikProjProspectSearch = () => {
   return (
     <Formik
       initialValues={initialValues}
+      validateOnChange={false}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
         setSubmitting(false);

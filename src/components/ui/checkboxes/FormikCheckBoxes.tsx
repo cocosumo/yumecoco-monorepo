@@ -18,8 +18,8 @@ export const FormikCheckBoxes = (props: FormikRadioProps) => {
   const handleChange = (el: React.SyntheticEvent<HTMLInputElement>, isChecked: boolean) => {
     const chkValue = el.currentTarget.value;
 
-    if (isChecked){
-      if (!field.value.includes(chkValue)){
+    if (isChecked) {
+      if (!field.value.includes(chkValue)) {
         helpers.setValue([...field.value ?? [], chkValue]);
       }
     } else {
@@ -37,7 +37,14 @@ export const FormikCheckBoxes = (props: FormikRadioProps) => {
           row
         >
           {choices.map(item => (
-            <FormControlLabel key={item.label} value={item.value} control={<Checkbox />} label={item.label} onChange={handleChange}/>
+            <FormControlLabel
+            checked={field.value.includes(item.value)}
+            key={item.label}
+            value={item.value}
+            control={<Checkbox />}
+            label={item.label}
+            onChange={handleChange}
+            />
           ))}
         </FormGroup>
       </FormControl>

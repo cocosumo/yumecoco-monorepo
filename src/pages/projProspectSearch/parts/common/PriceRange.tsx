@@ -1,10 +1,9 @@
 import { Grid, Stack  } from '@mui/material';
 import {  KeyOfForm } from '../../form';
-import { FormikDatePicker } from '../../../../components/ui/datetimepickers';
+import { FormikTextField } from '../../../../components/ui/textfield';
 import { RangeIcon } from './RangeIcon';
 
-
-export const DateRange = (props : {
+export const PriceRange = (props : {
   fieldNames : [KeyOfForm, KeyOfForm],
   label: string,
 }) => {
@@ -13,9 +12,9 @@ export const DateRange = (props : {
   return (
     <Grid item xs={12}>
       <Stack direction={'row'} spacing={2} alignItems={'center'}>
-        <FormikDatePicker name={fromField} label={label} size={'small'} />
+        <FormikTextField  name={fromField} label={label} size={'small'} type={'number'} endAdornment={'万円'} />
         <RangeIcon/>
-        <FormikDatePicker name={toField} label={label} size={'small'} />
+        <FormikTextField name={toField} label={label} size={'small'} type={'number'} endAdornment={'万円'} />
       </Stack>
     </Grid>
   );

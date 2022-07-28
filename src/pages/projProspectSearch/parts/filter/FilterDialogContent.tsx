@@ -3,6 +3,7 @@ import { FormikCheckBoxes } from '../../../../components/ui/checkboxes';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { getFieldName } from '../../form';
 import { DateRange } from '../common/DateRange';
+import { PriceRange } from '../common/PriceRange';
 
 
 export const FilterDialogContent = () => {
@@ -31,7 +32,7 @@ export const FilterDialogContent = () => {
       </Grid>
 
 
-
+      <PriceRange fieldNames={['schedContractPriceMin', 'schedContractPriceMax']} label={'契約予定金額'} />
       <DateRange fieldNames={['planApplicationDateMin', 'planApplicationDateMax']} label={'設計申し込み日'} />
       <DateRange fieldNames={['estatePurchaseDateMin', 'estatePurchaseDateMax']} label={'不動産決済日'} />
       <DateRange fieldNames={['schedContractDateMin', 'schedContractDateMax']} label={'契約予定日'} />

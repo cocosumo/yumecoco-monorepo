@@ -5,6 +5,7 @@ import {  FormikIndividualCustomer } from './customer/register/FormikIndividualC
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import UnderConstruction from './UnderConstruction';
+import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 
 
 
@@ -24,7 +25,8 @@ export const pages = {
   projEdit: '/project/edit',
   projReg: '/project/register',
 
-  projProspect: '/project/prospect',
+  projProspect: '/project/prospect/register',
+  projProspectSearch: '/project/prospect/search',
 
   projContractPreview: '/project/contract/preview',
 
@@ -48,8 +50,13 @@ const Router = () => (
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'}/>
     <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'}/>
 
+
+    {/* 見込み検索 */}
+    <Route path={`${pages.projProspectSearch}`} element={<FormikProjProspectSearch />} key={'search'}/>
+
     {/* 見込み登録 */}
-    <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'}/>
+    <Route path={`${pages.projProspect}`} element={<FormikProjProspect />}   key={'edit'} />
+
 
     {/* 契約 */}
     <Route path={`${pages.projContractPreview}`} element={<FormikContractPreview />} />

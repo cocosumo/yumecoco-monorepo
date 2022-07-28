@@ -49,13 +49,14 @@ export default function ConstructionMenu() {
               <ListItemText primary="見込み登録" />
             </ListItemButton>
           </Link>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <TableChartIcon />
-            </ListItemIcon>
-            <ListItemText primary="一覧" />
-          </ListItemButton>
-
+          <Link to={pages.projProspectSearch}>
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <TableChartIcon />
+              </ListItemIcon>
+              <ListItemText primary="見込み検索" />
+            </ListItemButton>
+          </Link>
         </List>
       </Collapse>
     </>

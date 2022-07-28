@@ -11,11 +11,15 @@ interface DatePickerProps {
   label: string,
   name: string,
   disabled?: boolean,
+  size?: 'small' | 'medium'
 }
 
 /* TODO: Pass the state up */
 export const FormikDatePicker = (props: DatePickerProps) => {
-  const { disabled = false } = props;
+  const {
+    disabled = false,
+    size = 'medium',
+  } = props;
 
   const [field, meta, helpers] = useField(props);
 
@@ -23,12 +27,14 @@ export const FormikDatePicker = (props: DatePickerProps) => {
     helpers.setValue(format(date, 'yyyy-MM-dd'));
   };
 
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
       <DatePicker
+
         disabled={disabled}
         label={props.label}
-        value={field.value}
+        value={field.value ?? null}
         onAccept={handleAccept}
         onChange={()=>{}}
         renderInput={(params) =>
@@ -36,6 +42,7 @@ export const FormikDatePicker = (props: DatePickerProps) => {
           {...params}
           error={!!meta.error}
           helperText={meta.error}
+          size={size}
           fullWidth
         />}
       />

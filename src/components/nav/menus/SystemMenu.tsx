@@ -5,7 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 import List from '@mui/material/List';
-import {ListItemButton} from '@mui/material';
+import { ListItemButton } from '@mui/material';
 
 
 export default function SystemMenu() {

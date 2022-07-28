@@ -25,6 +25,7 @@ interface FormikTextFieldProps {
   rows?: number
   type?: HTMLInputTypeAttribute,
   disabled?: boolean,
+  size?: 'small' | 'medium'
 }
 
 export const FormikTextField = (props: FormikTextFieldProps) => {
@@ -42,6 +43,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     onInput,
     value,
     disabled,
+    size = 'medium',
   } = props;
   const [field, meta] = useField(props);
 
@@ -55,6 +57,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
 
   return (
     <TextField  {...field}
+    size={size}
     label={label}
     id={id}
     disabled={disabled}

@@ -16,8 +16,8 @@ export const getFieldErrorNames = (formikErrors: FormikErrors<unknown>) => {
 
       let nextKey = key ;
 
-      if (prefix){
-        if (isArr){
+      if (prefix) {
+        if (isArr) {
           nextKey = `${prefix}[${key}].`;
         } else {
           nextKey = `${prefix}${key}`;

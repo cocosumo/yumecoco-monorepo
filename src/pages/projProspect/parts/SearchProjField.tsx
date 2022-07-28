@@ -24,7 +24,6 @@ export const SearchProjField = (props: {
 
   const {
     projName,
-    disabled = false,
   } = props;
 
   useLazyEffect(()=>{
@@ -51,7 +50,7 @@ export const SearchProjField = (props: {
 
   return (
     <Autocomplete
-      disabled={disabled}
+      //disabled={disabled}
       value={fieldVal}
       onInputChange={(_, value)=>{
         setInputVal(value);

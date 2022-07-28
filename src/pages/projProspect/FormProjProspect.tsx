@@ -69,7 +69,9 @@ export const FormProjProspect = () => {
       <MainContainer>
         <PageTitle label='見込み登録'/>
         <Grid container item xl={8} spacing={2} mb={12}>
-          {isReadOnly &&  <UneditableInfo projId={projId} />}
+
+          <UneditableInfo isVisible={isReadOnly} projId={projId} />
+
 
           <Grid item xs={12} md={4}>
 

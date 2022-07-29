@@ -23,7 +23,7 @@ export const FilterDialog = (props: {
       fullWidth
     >
       <DialogTitle>絞り込む</DialogTitle>
-      <DialogContent >
+      <DialogContent dividers >
         <FilterDialogContent />
       </DialogContent>
 

@@ -27,13 +27,24 @@ declare namespace ConstructionDetails {
 
     envDocFileKeys: kintone.fieldTypes.File;
     agents: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
+    custGroup: {
+      type: 'SUBTABLE';
+      value: Array<{
+        id: string;
+        value: {
+          custNameReading: kintone.fieldTypes.SingleLineText;
+          custId: kintone.fieldTypes.Number;
+          custName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

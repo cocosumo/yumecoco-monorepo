@@ -1,10 +1,12 @@
 import { TypeOfProjForm } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { saveProjectToCustGroup } from './saveProjectToCustGroup';
+import { getCustGroupById } from './getCustGroupById';
 
 
 export const convertToKintone = (
   rawValues: TypeOfProjForm,
+  custGroupRecord: TypeOfCustomerGroup,
 ): Partial<ConstructionDetails.SavedData>  => {
   const {
     cocoConst1, cocoConst2, constructionTypeId, constructionName,
@@ -13,9 +15,13 @@ export const convertToKintone = (
     cancelStatus,
   } = rawValues;
 
+  const {
+    members,
+    agents: custGroupAgents,
+  } = custGroupRecord;
+
   console.log(rawValues, 'rawValues');
 
-  console.log(isAgentConfirmed, (+isAgentConfirmed).toString(), 'isAgentConfirmed');
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
@@ -31,13 +37,41 @@ export const convertToKintone = (
     buildingType: { value: buildingType },
     agents: {
       type: 'SUBTABLE',
-      value: [cocoConst1, cocoConst2].map(item => {
+      value: [cocoConst1, cocoConst2]
+        .filter(Boolean)
+        .map(item => {
+          return {
+            id: '',
+            value: {
+              agentType: { value: 'cocoConst' as AgentType },
+              employeeId: { value: item as string },
+              employeeName: { value: '' },
+            },
+          };
+        }).concat(custGroupAgents.value.map(cga => {
+          const { employeeId, agentType } = cga.value;
+          return {
+            id: '',
+            value: {
+              agentType: { value: agentType.value as AgentType },
+              employeeId: { value: employeeId.value },
+              employeeName: { value: 'auto' },
+            },
+          };
+
+        }) ),
+    },
+
+    custGroup: {
+      type: 'SUBTABLE',
+      value: members.value.map(m => {
+        const { customerId } = m.value;
         return {
           id: '',
           value: {
-            agentType: { value: 'cocoConst' as AgentType },
-            employeeId: { value: item as string },
-            employeeName: { value: '' },
+            custId: customerId,
+            custName: { value: 'auto' },
+            custNameReading: { value: 'auto' },
           },
         };
       }),
@@ -61,30 +95,35 @@ export const saveConstructionData = async (
   id: string,
   revision: string,
 }> => {
-  const { recordId } = rawValues;
-  const record = convertToKintone(rawValues);
+  try {
 
-  if (recordId) {
+
+    const { recordId, custGroupId } = rawValues;
+    // Also retrieve and save latest custGroup Record to ProjDetails Record.
+    const custGroupRecord = await getCustGroupById(custGroupId);
+    const record = convertToKintone(rawValues, custGroupRecord);
+
+
+    if (recordId) {
     /* Update */
-    return KintoneRecord.updateRecord({
-      app: APPIDS.constructionDetails,
-      id: recordId as string,
-      record,
-    })
-      .then((result) => ({
-        id: recordId.toString(),
-        revision: result.revision,
-      }));
-  } else {
+      return await KintoneRecord.updateRecord({
+        app: APPIDS.constructionDetails,
+        id: recordId as string,
+        record,
+      })
+        .then((result) => ({
+          id: recordId.toString(),
+          revision: result.revision,
+        }));
+    } else {
     /* New Record */
-    return KintoneRecord.addRecord({
-      app: APPIDS.constructionDetails,
-      record: record,
-    })
-      .catch(err => {
-        console.log(err.errors);
-        throw new Error('err');
+      return await KintoneRecord.addRecord({
+        app: APPIDS.constructionDetails,
+        record,
       });
+    }
+  } catch (err) {
+    throw new Error(err.message);
   }
 };
 

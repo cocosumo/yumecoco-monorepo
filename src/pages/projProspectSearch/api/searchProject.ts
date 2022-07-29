@@ -15,7 +15,7 @@ const mainSearchCondition = (mainSearch?: string) => {
   if (!mainSearch) return undefined;
 
   let fieldsToCompare : KeyOfFlatProjDetails[]  = [
-    '$id', 'constructionName', 'custGroupId', 'memo', 'employeeName',
+    '$id', 'constructionName', 'custGroupId', 'memo', 'agentName',
     'custName', 'custNameReading',
   ];
 
@@ -48,10 +48,10 @@ const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
       memo: memo.value,
       projName: constructionName.value,
       agents: agents.value.map(a => {
-        const { agentType, employeeName } = a.value;
+        const { agentType, agentName } = a.value;
         return {
           agentType: agentType.value,
-          employeeName: employeeName.value,
+          agentName: agentName.value,
         };
       }),
       custGroupId: custGroupId.value,

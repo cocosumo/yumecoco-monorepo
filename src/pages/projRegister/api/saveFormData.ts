@@ -44,22 +44,26 @@ export const convertToKintone = (
             id: '',
             value: {
               agentType: { value: 'cocoConst' as AgentType },
-              employeeId: { value: item as string },
-              employeeName: { value: '' },
+              agentId: { value: item as string },
+              agentName: { value: '' },
             },
           };
-        }).concat(custGroupAgents.value.map(cga => {
-          const { employeeId, agentType } = cga.value;
-          return {
-            id: '',
-            value: {
-              agentType: { value: agentType.value as AgentType },
-              employeeId: { value: employeeId.value },
-              employeeName: { value: 'auto' },
-            },
-          };
+        }),
+    },
+    custGroupAgents: {
+      type: 'SUBTABLE',
+      value: custGroupAgents.value.map(cga => {
+        const { employeeId, agentType } = cga.value;
+        return {
+          id: '',
+          value: {
+            custAgentType: { value: agentType.value as AgentType },
+            custAgentId: { value: employeeId.value },
+            custAgentName: { value: 'auto' },
+          },
+        };
 
-        }) ),
+      }),
     },
 
     custGroup: {

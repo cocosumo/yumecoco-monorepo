@@ -38,8 +38,8 @@ export const DTProject = (props: {
                   } />
               <LabeledDetail label="工事担当" value={
                 agents.value
-                  .filter(item=>item.value.employeeId.value)
-                  .map(item=>item.value.employeeName.value)
+                  .filter(item=>item.value.agentId.value)
+                  .map(item=>item.value.agentName.value)
                   .join(', ')
                 } />
 

@@ -14,7 +14,7 @@ const getAgentIds = async (recordId: string, agentTypes: AgentType[] = [] ) => {
       console.log(agents);
       return agents.value
         .filter(item => agentTypes.includes(item.value.agentType.value as AgentType || agentTypes.length === 0))
-        .map(item => item.value.employeeId.value);
+        .map(item => item.value.agentId.value);
     });
 };
 

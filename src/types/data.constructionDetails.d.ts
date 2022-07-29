@@ -26,19 +26,30 @@ declare namespace ConstructionDetails {
     envelopeStatus: kintone.fieldTypes.SingleLineText;
 
     envDocFileKeys: kintone.fieldTypes.File;
-    agents: {
-      type: 'SUBTABLE';
+    custGroupAgents: {
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          employeeName: kintone.fieldTypes.SingleLineText;
+          custAgentType: kintone.fieldTypes.SingleLineText;
+          custAgentName: kintone.fieldTypes.SingleLineText;
+          custAgentId: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
+    agents: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          agentId: kintone.fieldTypes.Number;
           agentType: kintone.fieldTypes.SingleLineText;
-          employeeId: kintone.fieldTypes.Number;
+          agentName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
     custGroup: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

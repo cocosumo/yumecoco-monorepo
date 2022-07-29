@@ -19,7 +19,7 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm>
 
   const cocoConst = agents.value.filter(item => {
     return (item.value.agentType.value as AgentType) === 'cocoConst';
-  }).map(item => item.value.employeeId.value);
+  }).map(item => item.value.agentId.value);
 
   return {
     recordId: $id.value,

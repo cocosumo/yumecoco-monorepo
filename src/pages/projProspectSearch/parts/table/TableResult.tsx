@@ -1,16 +1,26 @@
-import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from '@mui/material';
+import {
+  Button, Grid, Paper, Table, TableBody, TableCell,
+  TableCellProps,
+  TableContainer, TableHead, TablePagination,
+  TableRow, TableSortLabel, Tooltip,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { visuallyHidden } from '@mui/utils';
 import { useState } from 'react';
 import { getComparator } from '../../../../helpers/table';
 import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
 
+
 const headCells : (TKeyOfSearchResult)[][] = [
-  ['顧客番号', '工事番号'],
+  ['ランク', '顧客番号', '工事番号'],
   ['顧客名', '工事名'],
   ['店舗名', 'ここすもAG', 'ゆめてつAG', 'ここすも工事'],
-  ['更新日時', '作成日時', '更新者'],
+  ['契約予定金額', '不動産決済日', '設計申し込み日', '契約予定日'],
+  ['更新日時', '作成日時'],
 ];
+
+const cellAlign: TableCellProps['align'][]  = ['center', 'left', 'left', 'right', 'right'];
+
 
 
 
@@ -26,31 +36,34 @@ function EnhancedTableHead(props: EnhancedTableProps<TKeyOfSearchResult>) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="normal">
 
-        </TableCell>
 
-        {headCells.map((headCellGroup) => (
+        {headCells.map((headCellGroup, colIdx) => (
           <TableCell
           key={headCellGroup.join('-')}
+          align = { cellAlign[colIdx]}
           //width={cellWidth[headIdx]}
           >
             {headCellGroup.map((headCellItem) => (
+              <div key={headCellItem}>
 
-              <TableSortLabel
-              sx={{ display: 'block' }}
-              key={headCellItem}
-              active={orderBy === headCellItem}
-              direction={orderBy === headCellItem ? order : 'asc'}
-              onClick={createSortHandler(headCellItem)}
-            >
-                {headCellItem}
-                {orderBy === headCellItem ? (
-                  <Box component="span" sx={visuallyHidden}>
-                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                  </Box>
-                ) : null}
-              </TableSortLabel>
+                <TableSortLabel
+              //sx={{ display: 'inline-block' }}
+
+                    active={orderBy === headCellItem}
+                    direction={orderBy === headCellItem ? order : 'asc'}
+                    onClick={createSortHandler(headCellItem)}
+                  >
+                  {headCellItem}
+                  {orderBy === headCellItem ? (
+                    <Box component="span" sx={visuallyHidden}>
+                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                    </Box>
+                  ) : null}
+
+                </TableSortLabel>
+                <br />
+              </div>
 
             ))}
           </TableCell>
@@ -98,7 +111,7 @@ export const TableResult = ({
   console.log('LIST', list);
 
   return (
-    <Grid item xs={12} md={10}>
+    <Grid item xs={12} >
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
           <TableContainer >
@@ -113,7 +126,7 @@ export const TableResult = ({
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
             <Table
-            sx={{ minWidth: 750 }}
+
             aria-labelledby="tableTitle"
             size="small"
           >
@@ -138,31 +151,32 @@ export const TableResult = ({
                       key={row.顧客番号 + row.工事番号}
 
                     >
-                        <TableCell padding="normal" width={'10%'}>
-                          <Button
-                            variant='outlined'
-                            //onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
-                          >
-                            詳細
-                          </Button>
-                        </TableCell>
-                        {headCells.map(headCellGroup => (
+
+                        {headCells.map((headCellGroup, colIdx) => (
                           <TableCell
                           key={headCellGroup.join('-')}
                           id={labelId}
                           scope="row"
                           padding="normal"
-
+                          align = {cellAlign[colIdx]}
                         >
-                            {headCellGroup.map(headCellItem => (
+                            {headCellGroup.map(headCellItem => {
+                              const cellValue = row[headCellItem];
+                              const isProjId = cellValue && headCellItem === '工事番号';
+                              const isCustGroupId = cellValue && headCellItem === '顧客番号';
 
-                              <div key={headCellItem}>
+                              return (
+                                <Tooltip key={headCellItem} title={headCellItem} arrow>
+                                  <div >
+                                    {isProjId && <Button>{cellValue}</Button>}
+                                    {isCustGroupId && <Button>{cellValue}</Button>}
+                                    {!isProjId && !isCustGroupId && cellValue }
+                                    {!cellValue && '-'}
+                                  </div>
+                                </Tooltip>
 
-                                {row[headCellItem] }
-                                {!row[headCellItem] && '-'}
-                              </div>
-
-                            ))}
+                              );
+                            })}
 
 
                           </TableCell>

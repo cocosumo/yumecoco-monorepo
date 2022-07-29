@@ -9,8 +9,6 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
 
@@ -19,6 +17,7 @@ import { useFormikContext } from 'formik';
 import { initialValues } from './../form';
 import { getSearchData, ISearchData as Data } from '../api/getSearchData';
 import { DetailsDialog } from './detailsDialog/DetailsDialog';
+import { getComparator } from '../../../../helpers/table';
 
 
 
@@ -36,31 +35,6 @@ const cellWidth = [
   '25%',
   '',
 ];
-
-
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-  ) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
 
 
 function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {

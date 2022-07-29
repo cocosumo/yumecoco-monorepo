@@ -1,4 +1,5 @@
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
+import { dateStrToJA } from '../../../helpers/utils';
 import { TypeOfForm } from '../form';
 
 // Unpack a promise
@@ -46,7 +47,10 @@ const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
     const {
       $id, memo, constructionName, custGroupId,
       custGroup, agents, custGroupAgents,
-      store, 更新日時, 作成日時, 更新者,
+      store, rank,
+      更新日時, 作成日時,
+      schedContractDate, estatePurchaseDate, planApplicationDate,
+      schedContractPrice,
     } = r;
 
 
@@ -67,15 +71,17 @@ const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
         ?.filter(({ value: { agentId, agentType } }) => !!agentId?.value && agentType?.value === 'cocoConst' as AgentType)
         ?.map(({ value: { agentName } }) => agentName.value)
         .join('、 ') ?? '',
-
+      ランク: rank.value,
       顧客番号: custGroupId.value,
       顧客名: `${custGroup?.value?.[0]?.value?.custName?.value ?? ''}`,
       全顧客: custGroup?.value?.map(({ value: { custName } }) => custName.value).join(', '),
       店舗名: store.value,
-      更新日時: 更新日時?.value,
-      作成日時: 作成日時?.value,
-      更新者: 更新者?.value?.name,
-
+      更新日時:  dateStrToJA(更新日時?.value),
+      作成日時: dateStrToJA(作成日時?.value),
+      契約予定金額: schedContractPrice?.value ? `${schedContractPrice.value}円` : '',
+      不動産決済日: dateStrToJA(estatePurchaseDate.value, false),
+      設計申し込み日: dateStrToJA(planApplicationDate.value, false),
+      契約予定日: dateStrToJA(schedContractDate.value, false),
     };
   });
 
@@ -86,8 +92,10 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
   const fields : KeyOfProjectDetails[] = [
     'constructionName', '$id', 'custGroupId', 'memo',
     'agents', 'custGroupAgents',
-    'custGroup',
-    'store', '更新日時', '作成日時', '更新者',
+    'custGroup', 'rank',
+    'store', '更新日時', '作成日時',
+    'schedContractDate', 'estatePurchaseDate', 'planApplicationDate',
+    'schedContractPrice',
   ];
 
   const allConditions = [

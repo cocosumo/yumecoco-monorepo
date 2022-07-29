@@ -19,9 +19,15 @@ export function daysInMonth(month: number, year : number) {
   return new Date(year, month, 0).getDate();
 }
 
-export const dateStrToJA = (dateStr: string) => {
+export const dateStrToJA = (dateStr: string, withTime = true) => {
 
-  return dateStr ? format( parseISO(dateStr + '9:00'), 'yyyy年MM月dd日 HH:mm') : '';
+  if (!dateStr) return '';
+  if (withTime) {
+    return format( parseISO(dateStr + '9:00'), 'yyyy年MM月dd日 HH:mm');
+  } else {
+    return format(new Date(dateStr), 'yyyy年MM月dd日');
+  }
+
 };
 
 export const hiraToKana = (str: string) =>  {

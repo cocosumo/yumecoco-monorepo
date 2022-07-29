@@ -44,7 +44,6 @@ export const MemoForm = () => {
     isNotify,
     createDate,
     commenter,
-    recordId,
   } = memoFormValues;
 
   const {
@@ -52,11 +51,6 @@ export const MemoForm = () => {
     confirmSaveOpen,
     handleClose,
   } = useContext(MemoContext)!;
-
-
-
-
-  console.log('memo', recordId, memoFormValues);
 
   return (
 

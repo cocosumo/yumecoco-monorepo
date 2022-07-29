@@ -24,3 +24,4 @@ type KeyOfCustomerGroup  = keyof TypeOfCustomerGroup;
 type KeyOfCustomerGroupItem = keyof TypeOfCustomerGroup['members']['value'][0]['value'];
 
 type TProjRank = 'A' | 'B' | 'C' | 'D' | '';
+

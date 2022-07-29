@@ -85,7 +85,11 @@ const Customer =  (props: CustomerProps) => {
           name={custNameReadingFN}
           label="氏名フリガナ"
           placeholder='ヤマダ　タロウ' required
-          onFocus={()=>setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)))}
+          onFocus={() => {
+            if (!custNameReadingFN) {
+              setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)));
+            }
+          }}
           />
       </Grid>
       <SelectGender namePrefix={namePrefix}/>

@@ -1,73 +1,25 @@
-
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Paper from '@mui/material/Paper';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Switch from '@mui/material/Switch';
+import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, TableSortLabel } from '@mui/material';
+import { Box } from '@mui/system';
 import { visuallyHidden } from '@mui/utils';
-import { Grid, Button } from '@mui/material';
+import { useState } from 'react';
+import { getComparator } from '../../../../helpers/table';
+import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
 
-import { useEffect, useState } from 'react';
-import { useFormikContext } from 'formik';
-import { initialValues } from './../form';
-import { getSearchData, ISearchData as Data } from '../api/getSearchData';
-import { DetailsDialog } from './detailsDialog/DetailsDialog';
-
-
-
-
-const headCells : (keyof Data)[][] = [
-  ['顧客ID',  '顧客種別', '案件数' ],
-  ['顧客氏名・会社名', '現住所'],
-  ['店舗', 'ここすも営業', 'ここすも工事', 'ゆめてつAG'],
-  ['登録日時', '更新日時'],
-];
-
-const cellWidth = [
-  '',
-  '30%',
-  '25%',
-  '',
+const headCells : (TKeyOfSearchResult)[][] = [
+  ['顧客番号', '工事番号'],
+  ['顧客名', '工事名'],
+  ['店舗名', 'ここすもAG', 'ゆめてつAG', 'ここすも工事'],
+  ['更新日時', '作成日時', '更新者'],
 ];
 
 
 
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
 
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key,
-): (
-    a: { [key in Key]: number | string },
-    b: { [key in Key]: number | string },
-  ) => number {
-  return order === 'desc'
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-
-function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {
+function EnhancedTableHead(props: EnhancedTableProps<TKeyOfSearchResult>) {
   const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: TKeyOfSearchResult) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -78,10 +30,10 @@ function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {
 
         </TableCell>
 
-        {headCells.map((headCellGroup, headIdx) => (
+        {headCells.map((headCellGroup) => (
           <TableCell
           key={headCellGroup.join('-')}
-          width={cellWidth[headIdx]}
+          //width={cellWidth[headIdx]}
           >
             {headCellGroup.map((headCellItem) => (
 
@@ -108,54 +60,26 @@ function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {
   );
 }
 
-
-export function TableResult() {
-  const { isSubmitting, values } = useFormikContext<typeof initialValues>();
-
+export const TableResult = ({
+  list,
+}: {
+  list: TSearchResult
+}) => {
+  //const { isSubmitting, values } = useFormikContext<TypeOfForm>();
   const [order, setOrder] = useState<Order>('desc');
-  const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
-
+  const [orderBy, setOrderBy] = useState<TKeyOfSearchResult>('更新日時');
   const [page, setPage] = useState(0);
-  //const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setRows] = useState<Data[]>([]);
-
-  const [detailsDialogState, setDetailsDialogState] = useState<{ open: boolean, custGroupdId: string }>();
-
-
-  useEffect(()=>{
-    if (!isSubmitting) {
-
-      const { storeId,
-        custName, contactNum : phone,
-        address, email,
-        yumeAG, cocoAG, cocoConst,
-        custType,  recordStatus,
-      } = values;
-
-      getSearchData({
-        storeId, custName, phone,
-        address, email, yumeAG, cocoAG, cocoConst,
-        custType: custType !== '全て' ? custType : undefined,
-        recordStatus,
-      }).then(({ normalizedData }) => {
-        setRows(normalizedData);
-      });
-
-    }
-  }, [isSubmitting]);
-
+  const rows = list;
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: TKeyOfSearchResult,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
-
-
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -167,19 +91,17 @@ export function TableResult() {
     setPage(0);
   };
 
-  /* const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  }; */
-
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+
+  console.log('LIST', list);
+
   return (
-    <Grid item xs={12} >
+    <Grid item xs={12} md={10}>
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2 }}>
-          <TableContainer>
+          <TableContainer >
             <TablePagination
               labelRowsPerPage="表示件数を変更"
               rowsPerPageOptions={[10, 25, 50]}
@@ -213,13 +135,13 @@ export function TableResult() {
 
                       hover
                       tabIndex={-1}
-                      key={row.顧客ID}
+                      key={row.顧客番号 + row.工事番号}
 
                     >
                         <TableCell padding="normal" width={'10%'}>
                           <Button
                             variant='outlined'
-                            onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
+                            //onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
                           >
                             詳細
                           </Button>
@@ -263,15 +185,13 @@ export function TableResult() {
           </TableContainer>
 
         </Paper>
-        {/*  <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="密なパディング"
-      /> */}
+
       </Box>
-      <DetailsDialog
+      {/*       <DetailsDialog
       open={Boolean(detailsDialogState?.open)}
       custGroupId={detailsDialogState?.custGroupdId}
-      handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}}/>
+      handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}}/> */}
     </Grid>
   );
-}
+
+};

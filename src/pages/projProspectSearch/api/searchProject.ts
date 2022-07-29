@@ -1,14 +1,17 @@
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
+// Unpack a promise
+type Unpack<T> = T extends Promise<infer U> ? U : T;
+export type TSearchResult =  Unpack<ReturnType<typeof searchProject>>;
+export type TKeyOfSearchResult = keyof TSearchResult[number];
+
 type KeyOfAgents = keyof TypeOfProjectDetails['agents']['value'][number]['value'];
 type KeyOfCustGroup = keyof TypeOfProjectDetails['custGroup']['value'][number]['value'];
 type KeyOfFlatProjDetails = (KeyOfProjectDetails | KeyOfAgents | KeyOfCustGroup);
 
 
-const fields : KeyOfProjectDetails[] = [
-  'constructionName', '$id', 'custGroupId', 'memo', 'agents', 'custGroup',
-];
+
 
 
 const mainSearchCondition = (mainSearch?: string) => {
@@ -37,32 +40,42 @@ const mainSearchCondition = (mainSearch?: string) => {
 const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
   if (!records.length) return [];
 
+  console.log(records);
+
   return records.map((r) => {
     const {
       $id, memo, constructionName, custGroupId,
-      custGroup, agents,
+      custGroup, agents, custGroupAgents,
+      store, 更新日時, 作成日時, 更新者,
     } = r;
 
+
+
     return {
-      $id: $id.value,
-      memo: memo.value,
-      projName: constructionName.value,
-      agents: agents.value.map(a => {
-        const { agentType, agentName } = a.value;
-        return {
-          agentType: agentType.value,
-          agentName: agentName.value,
-        };
-      }),
-      custGroupId: custGroupId.value,
-      custGroup: custGroup.value.map(c => {
-        const { custName, custNameReading, custId } = c.value;
-        return {
-          custId: custId.value,
-          custName: custName.value,
-          custNameReading: custNameReading.value,
-        };
-      }),
+      工事番号: $id.value,
+      メモ: memo.value,
+      工事名: constructionName.value,
+      ゆめてつAG: custGroupAgents.value
+        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'yumeAG' as AgentType)
+        ?.map(({ value: { custAgentName } }) => custAgentName?.value)
+        .join('、 ') ?? '',
+      ここすもAG: custGroupAgents.value
+        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'cocoAG' as AgentType)
+        ?.map(({ value: { custAgentName } }) => custAgentName?.value)
+        .join('、 ') ?? '',
+      ここすも工事: agents.value
+        ?.filter(({ value: { agentId, agentType } }) => !!agentId?.value && agentType?.value === 'cocoConst' as AgentType)
+        ?.map(({ value: { agentName } }) => agentName.value)
+        .join('、 ') ?? '',
+
+      顧客番号: custGroupId.value,
+      顧客名: `${custGroup?.value?.[0]?.value?.custName?.value ?? ''}`,
+      全顧客: custGroup?.value?.map(({ value: { custName } }) => custName.value).join(', '),
+      店舗名: store.value,
+      更新日時: 更新日時?.value,
+      作成日時: 作成日時?.value,
+      更新者: 更新者?.value?.name,
+
     };
   });
 
@@ -70,17 +83,25 @@ const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
 
 export const searchProject = async (form : Partial<TypeOfForm>) => {
   const { mainSearch } = form;
+  const fields : KeyOfProjectDetails[] = [
+    'constructionName', '$id', 'custGroupId', 'memo',
+    'agents', 'custGroupAgents',
+    'custGroup',
+    'store', '更新日時', '作成日時', '更新者',
+  ];
 
-
-  const condition = [
+  const allConditions = [
     mainSearchCondition(mainSearch),
-  ].join(' and ');
+    `(${((k: KeyOfProjectDetails)=>k)('constructionName')} != "")`,
+  ]
+    .filter(Boolean)
+    .join(' and ');
 
-  console.log(condition);
+  console.log(allConditions);
 
   const result = await KintoneRecord.getAllRecords({
     app: APPIDS.constructionDetails,
-    condition: condition,
+    condition: allConditions,
     fields: fields,
   });
 

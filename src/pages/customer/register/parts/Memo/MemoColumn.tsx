@@ -26,8 +26,6 @@ export const MemoColumn = () => {
     setMemosInPage(memoList?.slice(offset, offset + maxItems));
   }, [pageNum, memoList]);
 
-  console.log('recordId', id, values);
-
   return (
     <Grid item xs={12} lg={6} xl={6}>
       <Stack spacing={2} direction={'column'}>

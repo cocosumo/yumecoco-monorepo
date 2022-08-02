@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik';
 import { initialValues, KeyOfForm, TypeOfForm } from '../../form';
 
 export const FilterItems = () => {
-  const { values, setFieldValue } = useFormikContext<TypeOfForm>();
+  const { values, setFieldValue, submitForm } = useFormikContext<TypeOfForm>();
   const {
     rank, projName, custGroupId, projId, memo,
     schedContractPriceMin, schedContractPriceMax,
@@ -46,9 +46,9 @@ export const FilterItems = () => {
     } else {
       setFieldValue(name, initialValues[name]);
     }
-  };
 
-  console.log(items);
+    submitForm();
+  };
 
   return (
     <Grid container spacing={1} justifyContent="flex-start">

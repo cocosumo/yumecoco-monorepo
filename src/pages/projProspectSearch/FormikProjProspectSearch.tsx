@@ -1,23 +1,34 @@
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSnackBar } from '../../hooks';
-import { searchProject, TSearchResult } from './api/searchProject';
+import { initialSearch, searchProject, TSearchResult } from './api/searchProject';
 import { initialValues } from './form';
 import { FormProjProspectSearch } from './FormProjProspectSearch';
 
 
 
 export const FormikProjProspectSearch = () => {
-  const [list, setList] = useState<TSearchResult>();
+  const [list, setList] = useState<TSearchResult>([]);
+
   const { setSnackState } = useSnackBar();
 
-  console.log(list);
+
+  useEffect(()=>{
+    console.log('INITIAL SEARCh');
+    initialSearch()
+      .then((res) => setList(res));
+  }, []);
+
   return (
     <Formik
       initialValues={initialValues}
       validateOnChange={false}
-      onSubmit={(values, { setSubmitting }) => {
 
+      onReset={()=>{
+        setList([]);
+
+      }}
+      onSubmit={(values, { setSubmitting }) => {
         setTimeout(()=>{
           searchProject(values)
             .then(res => {

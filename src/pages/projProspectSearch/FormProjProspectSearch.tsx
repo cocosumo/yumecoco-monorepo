@@ -1,8 +1,10 @@
-import { Form } from 'formik';
+import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
-import UnderConstruction from '../UnderConstruction';
 import { TSearchResult } from './api/searchProject';
+import { TypeOfForm } from './form';
+import { InitialResult } from './parts/common/InitialResult';
+import { NoResult } from './parts/common/NoResult';
 import { FilterContainer } from './parts/filter/FilterContainer';
 import { MainSearch } from './parts/MainSearch';
 import { TableResult } from './parts/table/TableResult';
@@ -12,6 +14,8 @@ export const FormProjProspectSearch = ({
 }: {
   list?: TSearchResult
 }) => {
+  const { dirty } = useFormikContext<TypeOfForm>();
+  const isWithResult = Boolean(list?.length);
 
   return (
     <Form noValidate>
@@ -19,8 +23,9 @@ export const FormProjProspectSearch = ({
         <PageTitle label="見込み検索" />
         <MainSearch />
         <FilterContainer />
-        {list && <TableResult list={list} />}
-        {!list && <UnderConstruction />}
+        {isWithResult && <TableResult list={list!} />}
+        {!isWithResult && dirty && <NoResult />}
+        {!isWithResult && !dirty && <InitialResult />}
 
       </MainContainer>
     </Form>

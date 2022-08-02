@@ -11,9 +11,7 @@ type KeyOfAgents = keyof TypeOfProjectDetails['agents']['value'][number]['value'
 type KeyOfCustGroup = keyof TypeOfProjectDetails['custGroup']['value'][number]['value'];
 type KeyOfFlatProjDetails = (KeyOfProjectDetails | KeyOfAgents | KeyOfCustGroup);
 
-
-
-
+const getKeyOfProj = (k: KeyOfFlatProjDetails ) => k;
 
 const mainSearchCondition = (mainSearch?: string) => {
   if (!mainSearch) return undefined;
@@ -42,8 +40,19 @@ const rankCondition = (rank?: TProjRank[]) => {
   return `(${condition})`;
 };
 
+
+
 export const searchProject = async (form : Partial<TypeOfForm>) => {
-  const { mainSearch, rank } = form;
+  const {
+    mainSearch, rank, custGroupId, projId, projName,
+
+    schedContractPriceMin, schedContractPriceMax,
+    schedContractDateMin, schedContractDateMax,
+    planApplicationDateMin, planApplicationDateMax,
+    estatePurchaseDateMin, estatePurchaseDateMax,
+
+    memo,
+  } = form;
   const fields : KeyOfProjectDetails[] = [
     'constructionName', '$id', 'custGroupId', 'memo',
     'agents', 'custGroupAgents',
@@ -53,15 +62,34 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     'schedContractPrice',
   ];
 
+  console.log(form);
+
   const allConditions = [
-    `(${((k: KeyOfProjectDetails)=>k)('constructionName')} != "")`,
+    //`(${getKeyOfProj('constructionName')} != "")`,
     mainSearchCondition(mainSearch),
     rankCondition(rank),
+    custGroupId ? `(${getKeyOfProj('custGroupId')} = "${custGroupId}")` : undefined,
+    projId ? `(${getKeyOfProj('$id')} = "${projId}")` : undefined,
+    projName ? `(${getKeyOfProj('constructionName')} like "${projName}")` : undefined,
+    schedContractPriceMin?.toString() ? `(${getKeyOfProj('schedContractPrice')} >= ${schedContractPriceMin} and ${getKeyOfProj('schedContractPrice')} != "")` : undefined,
+    schedContractPriceMax?.toString() ? `(${getKeyOfProj('schedContractPrice')} <= ${schedContractPriceMax})` : undefined,
+
+    schedContractDateMin ? `(${getKeyOfProj('schedContractDate')} >= "${schedContractDateMin}")` : undefined,
+    schedContractDateMax ? `(${getKeyOfProj('schedContractDate')} <= "${schedContractDateMax}")` : undefined,
+
+    planApplicationDateMin ? `(${getKeyOfProj('planApplicationDate')} >= "${planApplicationDateMin}")` : undefined,
+    planApplicationDateMax ? `(${getKeyOfProj('planApplicationDate')} <= "${planApplicationDateMax}")` : undefined,
+
+    estatePurchaseDateMin ? `(${getKeyOfProj('estatePurchaseDate')} >= "${estatePurchaseDateMin}")` : undefined,
+    estatePurchaseDateMax ? `(${getKeyOfProj('estatePurchaseDate')} <= "${estatePurchaseDateMax}")` : undefined,
+
+    memo ? `(${getKeyOfProj('memo')} like "${memo}")` : undefined,
+
   ]
     .filter(Boolean)
     .join(' and ');
 
-  console.log(allConditions);
+  console.log('AllConditions', allConditions);
 
   const result = await KintoneRecord.getAllRecords({
     app: APPIDS.constructionDetails,

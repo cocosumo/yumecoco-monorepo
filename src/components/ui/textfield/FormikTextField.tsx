@@ -80,7 +80,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     onChange={handleChange}
     onInput={onInput}
     onKeyUp={onKeyUp}
-    value={value || field.value || ''}
+    value={value || field.value?.toString() || ''}
     error={meta.touched && Boolean(meta.error)}
     helperText={meta.error || helperText}
     InputProps={{

@@ -1,9 +1,9 @@
-import { InputAdornment, TextField } from '@mui/material';
+import { InputAdornment, StandardTextFieldProps, TextField } from '@mui/material';
 import { useField } from 'formik';
 import { FocusEvent, ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
 
-interface FormikTextFieldProps {
+interface FormikTextFieldProps extends StandardTextFieldProps {
   name: string,
   label: string,
   id?: string,
@@ -44,8 +44,9 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     value,
     disabled,
     size = 'medium',
+    onKeyUp,
   } = props;
-  const [field, meta] = useField(props);
+  const [field, meta] = useField(props.name);
 
   const handleChange = ((e: any)=>{
     field.onChange(e);
@@ -78,6 +79,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     }}
     onChange={handleChange}
     onInput={onInput}
+    onKeyUp={onKeyUp}
     value={value || field.value || ''}
     error={meta.touched && Boolean(meta.error)}
     helperText={meta.error || helperText}

@@ -14,6 +14,12 @@ export const MainSearch = () => {
         <FormikTextField
             name={getFieldName('mainSearch')}
             label={'検索'}
+            onKeyUp={(e)=>{
+              console.log(e.key);
+              if (e.key === 'Enter') {
+                submitForm();
+              }
+            }}
             />
         <LoadingButton
             variant='contained'

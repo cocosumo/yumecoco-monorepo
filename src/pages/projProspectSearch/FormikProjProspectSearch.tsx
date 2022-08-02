@@ -14,7 +14,6 @@ export const FormikProjProspectSearch = () => {
 
 
   useEffect(()=>{
-    console.log('INITIAL SEARCh');
     initialSearch()
       .then((res) => setList(res));
   }, []);
@@ -41,7 +40,6 @@ export const FormikProjProspectSearch = () => {
               setList(res);
             })
             .catch(err => {
-              console.log(err);
               setSnackState({
                 open:true,
                 autoHideDuration: 20000,

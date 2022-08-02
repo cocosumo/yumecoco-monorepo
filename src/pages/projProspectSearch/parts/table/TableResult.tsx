@@ -1,77 +1,19 @@
 import {
-  Button, Grid, Paper, Table, TableBody, TableCell,
-  TableCellProps,
-  TableContainer, TableHead, TablePagination,
-  TableRow, TableSortLabel, Tooltip,
+  Grid,  Paper, Table, TableBody, TableCell,
+  TableContainer, TablePagination,
+  TableRow, Tooltip,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import { visuallyHidden } from '@mui/utils';
 import { useState } from 'react';
 import { getComparator } from '../../../../helpers/table';
 import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
-
-
-const headCells : (TKeyOfSearchResult)[][] = [
-  ['ランク', '顧客番号', '工事番号'],
-  ['顧客名', '工事名'],
-  ['店舗名', 'ここすもAG', 'ゆめてつAG', 'ここすも工事'],
-  ['契約予定金額', '不動産決済日', '設計申し込み日', '契約予定日'],
-  ['更新日時', '作成日時'],
-];
-
-const cellAlign: TableCellProps['align'][]  = ['center', 'left', 'left', 'right', 'right'];
+import { EnhancedTableHead } from './EnhancedTableHead';
+import { headCells, cellAlign } from './constants';
+import { Link } from 'react-router-dom';
+import { pages } from '../../../Router';
 
 
 
-
-
-function EnhancedTableHead(props: EnhancedTableProps<TKeyOfSearchResult>) {
-  const { order, orderBy, onRequestSort } =
-    props;
-  const createSortHandler =
-    (property: TKeyOfSearchResult) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
-
-  return (
-    <TableHead>
-      <TableRow>
-
-
-        {headCells.map((headCellGroup, colIdx) => (
-          <TableCell
-          key={headCellGroup.join('-')}
-          align = { cellAlign[colIdx]}
-          //width={cellWidth[headIdx]}
-          >
-            {headCellGroup.map((headCellItem) => (
-              <div key={headCellItem}>
-
-                <TableSortLabel
-              //sx={{ display: 'inline-block' }}
-
-                    active={orderBy === headCellItem}
-                    direction={orderBy === headCellItem ? order : 'asc'}
-                    onClick={createSortHandler(headCellItem)}
-                  >
-                  {headCellItem}
-                  {orderBy === headCellItem ? (
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                    </Box>
-                  ) : null}
-
-                </TableSortLabel>
-                <br />
-              </div>
-
-            ))}
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
 
 export const TableResult = ({
   list,
@@ -89,8 +31,8 @@ export const TableResult = ({
     event: React.MouseEvent<unknown>,
     property: TKeyOfSearchResult,
   ) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isDesc = orderBy === property && order === 'desc';
+    setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
 
@@ -166,10 +108,16 @@ export const TableResult = ({
                               const isCustGroupId = cellValue && headCellItem === '顧客番号';
 
                               return (
-                                <Tooltip key={headCellItem} title={headCellItem} arrow>
+                                <Tooltip key={headCellItem} title={headCellItem} placement="right" arrow>
                                   <div >
-                                    {isProjId && <Button>{cellValue}</Button>}
-                                    {isCustGroupId && <Button>{cellValue}</Button>}
+                                    {isProjId &&
+                                    <Link to={`${pages.projEdit}?projId=${row['工事番号']}` } target="_blank" rel="noopener noreferrer">
+                                      {cellValue}
+                                    </Link>}
+                                    {isCustGroupId &&
+                                    <Link to={`${pages.custGroupEdit}?projId=${row['工事番号']}&groupId=${row['顧客番号']}`} target="_blank" rel="noopener noreferrer">
+                                      {cellValue}
+                                    </Link> }
                                     {!isProjId && !isCustGroupId && cellValue }
                                     {!cellValue && '-'}
                                   </div>

@@ -21,6 +21,12 @@ export const FormikProjProspectSearch = () => {
         setTimeout(()=>{
           searchProject(values)
             .then(res => {
+              setSnackState({
+                open:true,
+                autoHideDuration: 5000,
+                severity: 'success',
+                message: `結果：${res.length}件`,
+              });
               setList(res);
             })
             .catch(err => {
@@ -36,7 +42,7 @@ export const FormikProjProspectSearch = () => {
               setSubmitting(false);
             });
 
-        }, 2000);
+        }, 1000); // Throttle search
 
       }}
     >

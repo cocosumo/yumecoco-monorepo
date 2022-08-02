@@ -9,8 +9,6 @@ import { dateStrToJA } from '../../../helpers/utils';
 export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
   if (!records.length) return [];
 
-  console.log(records);
-
   return records.map((r) => {
     const {
       $id, memo, constructionName, custGroupId,

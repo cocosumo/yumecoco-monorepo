@@ -62,7 +62,6 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     'schedContractPrice',
   ];
 
-  console.log(form);
 
   const allConditions = [
     //`(${getKeyOfProj('constructionName')} != "")`,

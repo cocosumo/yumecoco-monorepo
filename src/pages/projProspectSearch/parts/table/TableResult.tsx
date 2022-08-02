@@ -9,10 +9,7 @@ import { getComparator } from '../../../../helpers/table';
 import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
 import { EnhancedTableHead } from './EnhancedTableHead';
 import { headCells, cellAlign } from './constants';
-import { Link } from 'react-router-dom';
-import { pages } from '../../../Router';
-
-
+import { CellItem } from './CellItem';
 
 
 export const TableResult = ({
@@ -68,7 +65,6 @@ export const TableResult = ({
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
             <Table
-
             aria-labelledby="tableTitle"
             size="small"
           >
@@ -96,6 +92,7 @@ export const TableResult = ({
 
                         {headCells.map((headCellGroup, colIdx) => (
                           <TableCell
+                          sx={{ maxWidth: '10%' }}
                           key={headCellGroup.join('-')}
                           id={labelId}
                           scope="row"
@@ -103,26 +100,15 @@ export const TableResult = ({
                           align = {cellAlign[colIdx]}
                         >
                             {headCellGroup.map(headCellItem => {
-                              const cellValue = row[headCellItem];
-                              const isProjId = cellValue && headCellItem === '工事番号';
-                              const isCustGroupId = cellValue && headCellItem === '顧客番号';
 
                               return (
                                 <Tooltip key={headCellItem} title={headCellItem} placement="right" arrow>
                                   <div >
-                                    {isProjId &&
-                                    <Link to={`${pages.projEdit}?projId=${row['工事番号']}` } target="_blank" rel="noopener noreferrer">
-                                      {cellValue}
-                                    </Link>}
-                                    {isCustGroupId &&
-                                    <Link to={`${pages.custGroupEdit}?projId=${row['工事番号']}&groupId=${row['顧客番号']}`} target="_blank" rel="noopener noreferrer">
-                                      {cellValue}
-                                    </Link> }
-                                    {!isProjId && !isCustGroupId && cellValue }
-                                    {!cellValue && '-'}
+                                    <CellItem cellHeader={headCellItem} row={row}  />
+                                    <br/><br/>
                                   </div>
-                                </Tooltip>
 
+                                </Tooltip>
                               );
                             })}
 

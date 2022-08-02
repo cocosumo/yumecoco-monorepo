@@ -28,6 +28,7 @@ export const EnhancedTableHead = (props: EnhancedTableProps<TKeyOfSearchResult>)
               <div key={headCellItem}>
 
                 <TableSortLabel
+                  sx={{ flexDirection: cellAlign[colIdx] === 'right' ? 'row-reverse' : 'row' }}
               //sx={{ display: 'inline-block' }}
                     active={orderBy === headCellItem}
                     direction={orderBy === headCellItem ? order : 'desc'}
@@ -45,6 +46,7 @@ export const EnhancedTableHead = (props: EnhancedTableProps<TKeyOfSearchResult>)
               </div>
 
             ))}
+
           </TableCell>
         ))}
       </TableRow>

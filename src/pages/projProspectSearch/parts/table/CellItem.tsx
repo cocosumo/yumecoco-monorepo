@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { dateStrToJA } from '../../../../helpers/utils';
 import { pages } from '../../../Router';
 import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
+import { numerals } from 'jp-numerals';
 
 export const CellItem = (
   props:
@@ -13,6 +14,11 @@ export const CellItem = (
 
   const { cellHeader, row } = props;
   const cellValue = row[cellHeader];
+
+  if (!cellValue ) {
+    return <>-</>;
+  }
+
   switch (cellHeader) {
     case '工事番号': return (
       <Link to={`${pages.projEdit}?projId=${row['工事番号']}` } target="_blank" rel="noopener noreferrer">
@@ -29,9 +35,13 @@ export const CellItem = (
       <>{dateStrToJA(cellValue?.toString())}</>
     );
 
+    case '契約予定金額': return (
+      <>{numerals(+cellValue).toString()}円</>
+    );
+
     case '不動産決済日':
-    case '契約予定日':
-    case '設計申し込み日': return (
+    case '契約予定':
+    case '設計申込日': return (
       <>{dateStrToJA(cellValue?.toString(), false)}</>
     );
 
@@ -41,7 +51,7 @@ export const CellItem = (
 
 
     default: return (
-      <> {cellValue ?? '-'} </>
+      <> {cellValue} </>
     );
   }
 

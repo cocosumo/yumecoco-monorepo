@@ -1,5 +1,5 @@
 import {
-  Grid,  Paper, Table, TableBody, TableCell,
+  Grid,  Paper, Stack, Table, TableBody, TableCell,
   TableContainer, TablePagination,
   TableRow, Tooltip,
 } from '@mui/material';
@@ -46,9 +46,6 @@ export const TableResult = ({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-
-  console.log('LIST', list);
-
   return (
     <Grid item xs={12} >
       <Box sx={{ width: '100%' }}>
@@ -92,25 +89,27 @@ export const TableResult = ({
 
                         {headCells.map((headCellGroup, colIdx) => (
                           <TableCell
-                          sx={{ maxWidth: '10%' }}
+                          sx={{ maxWidth: '10%', verticalAlign: 'top' }}
                           key={headCellGroup.join('-')}
                           id={labelId}
                           scope="row"
                           padding="normal"
                           align = {cellAlign[colIdx]}
                         >
-                            {headCellGroup.map(headCellItem => {
+                            <Stack spacing={2} alignContent="flex-start">
+                              {headCellGroup.map(headCellItem => {
 
-                              return (
-                                <Tooltip key={headCellItem} title={headCellItem} placement="right" arrow>
-                                  <div >
-                                    <CellItem cellHeader={headCellItem} row={row}  />
-                                    <br/><br/>
-                                  </div>
+                                return (
+                                  <Tooltip key={headCellItem} title={headCellItem} placement="right" arrow>
+                                    <div >
+                                      <CellItem cellHeader={headCellItem} row={row}  />
+                                    </div>
+                                  </Tooltip>
+                                );
+                              })}
 
-                                </Tooltip>
-                              );
-                            })}
+                            </Stack>
+
 
 
                           </TableCell>

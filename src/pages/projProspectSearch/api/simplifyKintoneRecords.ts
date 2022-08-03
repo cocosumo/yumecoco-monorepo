@@ -44,10 +44,10 @@ export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
       店舗名: store.value,
       更新日時:  更新日時?.value,
       作成日時: 作成日時?.value,
-      契約予定金額: schedContractPrice?.value ? `${schedContractPrice.value}円` : '',
-      不動産決済日: estatePurchaseDate.value,
-      設計申し込み日: planApplicationDate.value,
-      契約予定日: schedContractDate.value,
+      契約予定金額: schedContractPrice?.value ? `${schedContractPrice.value}` : '',
+      不動産決済日: estatePurchaseDate?.value ?? '',
+      設計申込日: planApplicationDate?.value ?? '',
+      契約予定: schedContractDate?.value ?? '',
       経過日数: differenceInDays(new Date(), parseISO(更新日時.value)),
     };
   });

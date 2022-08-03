@@ -1,7 +1,9 @@
-import { Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Grid, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { PageSubTitle } from '../../../../../components/ui/labels';
+import { LabeledDetail } from '../../../../../components/ui/typographies/LabeledDetail';
+import { jaEnvelopeStatus } from '../../../../../lib/jaEnvStatus';
 import { pages } from '../../../../Router';
 import { CustomerForm } from '../../form';
 
@@ -16,27 +18,17 @@ export const RelatedProjects = () => {
         <PageSubTitle label='関連プロジェクト' />
       </Grid>
       {
-      projects.map(({ projName, projId })=>{
+      projects.map(({ projName, projId, envelopeStatus })=>{
 
         return (
           <Grid item xs={12} md={6} lg={4} key={projName}>
             <Card>
               <CardContent>
-                <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                  工事番号
-                </Typography>
-                <Typography variant="h6" component="div" gutterBottom>
-                  {projId}
-                </Typography>
-
-                <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                  工事名
-                </Typography>
-                <Typography variant="h6" component="div">
-                  {projName}
-                </Typography>
-
-
+                <Stack spacing={2}>
+                  <LabeledDetail label='工事番号' value={projId} direction={'column'} />
+                  <LabeledDetail label='工事名' value={projName} direction={'column'} />
+                  <LabeledDetail label='契約状態' value={jaEnvelopeStatus(envelopeStatus).ja} direction={'column'} />
+                </Stack>
               </CardContent>
               <CardActions>
                 <Button

@@ -1,7 +1,7 @@
 import { Collapse, Stack  } from '@mui/material';
 import { CustomerInstance } from '../../../register/form';
 import { PageSubTitle } from '../../../../../components/ui/labels';
-import { LabeledDetail } from './LabeledDetail';
+import { LabeledDetail } from '../../../../../components/ui/typographies/LabeledDetail';
 import { AGLabels, EmployeeType } from '../../../../../api/kintone/employees/GET';
 
 

@@ -53,10 +53,12 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
     projects: projects.value.map(({ value: {
       constructionName,
       constructionId,
+      envStatus,
     } }) => {
       return {
         projName: constructionName.value,
         projId: constructionId.value,
+        envelopeStatus: envStatus.value as TEnvelopeStatus,
       };
     }),
     customers: customerRecords.map(cust => {

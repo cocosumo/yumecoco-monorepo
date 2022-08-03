@@ -44,6 +44,7 @@ export const initialValues = {
   projects: [] as {
     projName: string,
     projId: string,
+    envelopeStatus: TEnvelopeStatus,
   }[],
   isDeleted: '',
 } ;

@@ -2,7 +2,7 @@ import { Divider, Stack } from '@mui/material';
 import { jaEnvelopeStatus } from '../../../../../lib/jaEnvStatus';
 
 import { ButtonEdit } from './ButtonEdit';
-import { LabeledDetail } from './LabeledDetail';
+import { LabeledDetail } from '../../../../../components/ui/typographies/LabeledDetail';
 
 export const DTProject = (props: {
   fetchedProjects : ConstructionDetails.SavedData[],

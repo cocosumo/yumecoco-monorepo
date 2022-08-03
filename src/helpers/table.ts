@@ -17,11 +17,11 @@ export function descendingComparator<T>(x: T, y: T, orderBy: keyof T) {
   if (!isNumber(a[orderBy]) || !isNumber(b[orderBy]) ) {
     console.log(a ?? '無', b ?? '無');
     console.log(typeof a);
-    if (a === '' || a === null) return 1;
-    if (b === '' || b === null) return -1;
+    if (a === '' || a === null) return -1;
+    if (b === '' || b === null) return 1;
     if (a === b) return 0;
 
-    return (a < b) ? -1 : 1;
+    return (b < a) ? -1 : 1;
 
   } else {
     return (b as any) - (a as any);

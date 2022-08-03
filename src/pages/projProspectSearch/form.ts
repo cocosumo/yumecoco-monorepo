@@ -17,6 +17,8 @@ export const initialValues = {
   schedContractDateMax : '',
   memo: '',
   mainSearch: '',
+
+
 };
 
 

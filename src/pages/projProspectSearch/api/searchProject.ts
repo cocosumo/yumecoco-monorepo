@@ -88,8 +88,6 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     .filter(Boolean)
     .join(' and ');
 
-  console.log('AllConditions', allConditions);
-
   const result = await KintoneRecord.getAllRecords({
     app: APPIDS.constructionDetails,
     condition: allConditions,

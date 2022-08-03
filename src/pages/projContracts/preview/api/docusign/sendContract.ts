@@ -3,6 +3,7 @@ import { yumecocoDocusign } from '../../../../../config/settings';
 
 export const sendContract = async (
   projId: string,
+  custGroupId: string,
 ) : Promise<ISendEnvelopeResponse> => {
 
   try {
@@ -12,6 +13,7 @@ export const sendContract = async (
 
     const data = {
       projId: projId,
+      custGroupId: custGroupId,
       origin: window.location.href,
     };
 

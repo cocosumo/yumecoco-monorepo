@@ -33,7 +33,9 @@ export const SendContract = ({
       setBackdropState({
         open: true,
       });
-      const result = await sendContract(projId );
+
+      const result = await sendContract(projId, custGroupId);
+
       setBackdropState({
         open: false,
       });

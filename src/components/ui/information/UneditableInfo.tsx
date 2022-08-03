@@ -19,12 +19,12 @@ export const UneditableInfo = ({
         severity="warning"
 
         >
-          <AlertTitle>修正出来ません</AlertTitle>
-          契約書は「送信済み」状態なので、修正が出来ません。
+          <AlertTitle>編集出来ません</AlertTitle>
+          契約書は「送信済み」です。
           <br/>
-          契約を「無効」ににすれば、修正出来ます。
+          編集する場合は、契約を「無効」にしてください。
           <br/>
-          契約は「完了」状態になったら、「無効化」出来ないので、注意してください。
+          契約は「完了」状態になると「無効」にできないため、ご注意ください。
           <br/>
           {projId &&
           <Button

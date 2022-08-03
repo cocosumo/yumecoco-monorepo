@@ -6,6 +6,10 @@ type AgentsKey = Partial<keyof CustomerGroupTypes.SavedData['agents']['value'][0
 type Key = Partial<keyof CustomerGroupTypes.SavedData>;
 type CustKey = Partial<keyof CustomerGroupTypes.SavedData['members']['value'][0]['value']>;
 
+type TKeyOfFlatCustGroup = ProjectKey | AgentsKey | Key | CustKey;
+
+const getCGKey = (k: TKeyOfFlatCustGroup) => k;
+
 
 export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
 
@@ -14,17 +18,22 @@ export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
   const queryStr = (s: RecordStatus) => {
     switch (s) {
       case '情報登録のみ':
-        return  `${'projectCount' as Key} = "0" or ${'projectCount' as Key} = ""`;
+        return  `${getCGKey('projectCount')} = "0" or ${'projectCount' as Key} = ""`;
+      case '契約申請中':
+        return `${getCGKey('envStatus')} like "${((k: TEnvelopeStatus)=>k)('sent')}"`;
+      case '契約済':
+        return `${getCGKey('envStatus')} like "${((k: TEnvelopeStatus)=>k)('completed')}"`;
+
       case '追客中':
-        return  `${'projectCount' as Key} > 0`;
+        return  `${getCGKey('projectCount')} > 0`;
       case '中止':
-        return `${'cancelStatus' as ProjectKey} like "中止"`;
+        return `${getCGKey('cancelStatus')} like "中止"`;
       case '他決':
-        return `${'cancelStatus' as ProjectKey} like "他決"`;
+        return `${getCGKey('cancelStatus')} like "他決"`;
       case '削除 (工事)':
-        return `${'cancelStatus' as ProjectKey} like "削除"`;
+        return `${getCGKey('cancelStatus')} like "削除"`;
       case '削除':
-        return `${'isDeleted' as Key} = "1"`;
+        return `${getCGKey('isDeleted')} = "1"`;
 
       default: return undefined;
     }

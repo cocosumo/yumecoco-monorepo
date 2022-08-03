@@ -1,4 +1,5 @@
 import { Divider, Stack } from '@mui/material';
+import { jaEnvelopeStatus } from '../../../../../lib/jaEnvStatus';
 
 import { ButtonEdit } from './ButtonEdit';
 import { LabeledDetail } from './LabeledDetail';
@@ -21,6 +22,7 @@ export const DTProject = (props: {
           buildingType,
           isAgentConfirmed,
           agents,
+          envelopeStatus,
         }) => {
 
           return (
@@ -45,6 +47,7 @@ export const DTProject = (props: {
 
               <LabeledDetail label="担当確定" value={Boolean(+isAgentConfirmed.value) ? 'はい' : 'いいえ'} />
               <LabeledDetail label="仮換地地番" value={addressKari.value} />
+              <LabeledDetail label="契約" value={jaEnvelopeStatus(envelopeStatus.value as  TEnvelopeStatus).ja} />
 
               <ButtonEdit link={`/project/edit?projId=${$id.value}`}/>
               <Divider light/>

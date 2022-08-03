@@ -72,6 +72,7 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
         projectPostal:  { value: 'auto' },
         status: { value: 'auto' },
         cancelStatus: { value: 'auto' },
+        envStatus: { value: 'auto' },
       },
     }]);
 

@@ -7,27 +7,28 @@ declare namespace CustomerGroupTypes {
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
     projects: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
           cancelStatus: kintone.fieldTypes.SingleLineText;
-          cocoConst2: kintone.fieldTypes.Number;
           kariAddress: kintone.fieldTypes.SingleLineText;
-          cocoConst1: kintone.fieldTypes.Number;
           cocoConst2Name: kintone.fieldTypes.SingleLineText;
+          constructionId: kintone.fieldTypes.Number;
+          projectAddress1: kintone.fieldTypes.SingleLineText;
+          envStatus: kintone.fieldTypes.SingleLineText;
+          projectAddress2: kintone.fieldTypes.SingleLineText;
+          cocoConst2: kintone.fieldTypes.Number;
+          cocoConst1: kintone.fieldTypes.Number;
           projectPostal: kintone.fieldTypes.SingleLineText;
           constructionName: kintone.fieldTypes.SingleLineText;
-          constructionId: kintone.fieldTypes.Number;
           cocoConst1Name: kintone.fieldTypes.SingleLineText;
-          projectAddress1: kintone.fieldTypes.SingleLineText;
-          projectAddress2: kintone.fieldTypes.SingleLineText;
           status: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
     agents: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {
@@ -38,7 +39,7 @@ declare namespace CustomerGroupTypes {
       }>;
     };
     members: {
-      type: "SUBTABLE";
+      type: 'SUBTABLE';
       value: Array<{
         id: string;
         value: {

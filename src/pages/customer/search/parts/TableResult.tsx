@@ -12,10 +12,10 @@ import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
 
-import { useEffect, useState } from 'react';
-import { useFormikContext } from 'formik';
-import { initialValues } from './../form';
-import { getSearchData, ISearchData as Data } from '../api/getSearchData';
+import {  useState } from 'react';
+//import { useFormikContext } from 'formik';
+//import { initialValues } from './../form';
+import { ISearchData as Data, ISearchData } from '../api/getSearchData';
 import { DetailsDialog } from './detailsDialog/DetailsDialog';
 import { getComparator } from '../../../../helpers/table';
 
@@ -83,8 +83,12 @@ function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {
 }
 
 
-export function TableResult() {
-  const { isSubmitting, values } = useFormikContext<typeof initialValues>();
+export function TableResult({
+  rows,
+}: {
+  rows: ISearchData[]
+}) {
+  //const { isSubmitting, values } = useFormikContext<typeof initialValues>();
 
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
@@ -92,11 +96,11 @@ export function TableResult() {
   const [page, setPage] = useState(0);
   //const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setRows] = useState<Data[]>([]);
+  //const [rows, setRows] = useState<Data[]>([]);
 
   const [detailsDialogState, setDetailsDialogState] = useState<{ open: boolean, custGroupdId: string }>();
 
-
+  /*
   useEffect(()=>{
     if (!isSubmitting) {
 
@@ -117,7 +121,7 @@ export function TableResult() {
       });
 
     }
-  }, [isSubmitting]);
+  }, [isSubmitting]); */
 
 
   const handleRequestSort = (

@@ -1,26 +1,37 @@
 
-import { Button, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useFormikContext } from 'formik';
+import { LoadingButton } from '@mui/lab';
+import { useState } from 'react';
 
 
 export const Submit = () => {
-  const { isSubmitting } = useFormikContext();
+  const { isSubmitting, submitForm } = useFormikContext();
+  const [isThrottle, setIsThrottle] = useState(false);
+  const handleSubmit = () => {
+    setIsThrottle(true);
+    setTimeout(async ()=>{
+      await submitForm();
+      setIsThrottle(false);
+    }, 2000);
+
+  };
+
+  const loading = isThrottle || isSubmitting;
 
   return (
     <Grid container item xs={12} md={4} justifyContent="center">
-      <Button
-
-        key="submit"
+      <LoadingButton
         fullWidth
-        disabled={isSubmitting}
-        type={'submit'}
+        loading={loading}
+        onClick={handleSubmit}
         variant="contained"
-        size="large"
-        startIcon={<SearchIcon/>}
-      >
-        検索
-      </Button>
+        loadingPosition="center"
+        >
+        <SearchIcon /> 検索
+      </LoadingButton>
+
     </Grid>
   );
 };

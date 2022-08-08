@@ -105,7 +105,7 @@ export const advancedSearchCustGroup = async (
     .filter((arr) => arr.length)
     .join(' and ');
 
-  console.log(queryArr);
+
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,

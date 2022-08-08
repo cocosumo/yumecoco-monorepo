@@ -11,10 +11,8 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
-
 import {  useState } from 'react';
-//import { useFormikContext } from 'formik';
-//import { initialValues } from './../form';
+
 import { ISearchData as Data, ISearchData } from '../api/getSearchData';
 import { DetailsDialog } from './detailsDialog/DetailsDialog';
 import { getComparator } from '../../../../helpers/table';
@@ -94,34 +92,9 @@ export function TableResult({
   const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
 
   const [page, setPage] = useState(0);
-  //const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  //const [rows, setRows] = useState<Data[]>([]);
 
   const [detailsDialogState, setDetailsDialogState] = useState<{ open: boolean, custGroupdId: string }>();
-
-  /*
-  useEffect(()=>{
-    if (!isSubmitting) {
-
-      const { storeId,
-        custName, contactNum : phone,
-        address, email,
-        yumeAG, cocoAG, cocoConst,
-        custType,  recordStatus,
-      } = values;
-
-      getSearchData({
-        storeId, custName, phone,
-        address, email, yumeAG, cocoAG, cocoConst,
-        custType: custType !== '全て' ? custType : undefined,
-        recordStatus,
-      }).then(({ normalizedData }) => {
-        setRows(normalizedData);
-      });
-
-    }
-  }, [isSubmitting]); */
 
 
   const handleRequestSort = (

@@ -1,12 +1,13 @@
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
+import { useSnackBar } from '../../../hooks';
 import { getSearchData, ISearchData } from './api/getSearchData';
 import { initialValues } from './form';
 import { SearchForm } from './SearchForm';
 
 export const FormikCustomerSearch = () => {
   const [rows, setRows] = useState<ISearchData[]>([]);
-
+  const { setSnackState } = useSnackBar();
 
   const handleSearch = async (values: typeof initialValues) => {
     const { storeId,
@@ -24,6 +25,8 @@ export const FormikCustomerSearch = () => {
     });
 
     setRows(normalizedData);
+
+    return normalizedData;
   };
 
   useEffect(()=>{
@@ -33,14 +36,16 @@ export const FormikCustomerSearch = () => {
   return (<Formik
   initialValues={initialValues}
   onSubmit={async (values, { setSubmitting }) => {
-
-    await handleSearch(values);
-
+    const { length } = await handleSearch(values);
+    setSnackState({
+      severity: 'success',
+      message: `${length ?? 0}件 見つかりました。`,
+      open: true,
+    });
     setSubmitting(false);
   }} >
 
     <SearchForm rows={rows} />
-
 
   </Formik>);
 };

@@ -13,7 +13,7 @@ export default function onIndexShowHandler() {
 
   if (!container) {
     generateRoot();
-    console.log('ROOOT');
+
     container = document.getElementById('app');
     const root = createRoot( container!);
     root.render(<App />);

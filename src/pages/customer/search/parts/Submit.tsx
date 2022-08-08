@@ -14,7 +14,7 @@ export const Submit = () => {
     setTimeout(async ()=>{
       await submitForm();
       setIsThrottle(false);
-    }, 2000);
+    }, 800);
 
   };
 

@@ -6,7 +6,7 @@ import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import UnderConstruction from './UnderConstruction';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
-import { Components } from './manuals/Components';
+import HelpComponents from './manuals/HelpComponents';
 
 
 
@@ -64,7 +64,7 @@ const Router = () => (
     <Route path={`${pages.projContractPreview}`} element={<FormikContractPreview />} />
 
     {/* ヘルプ */}
-    <Route path={`${pages.help}`} element={<Components />} />
+    <Route path={`${pages.help}/*`} element={<HelpComponents />} />
   </Routes>
 
 );

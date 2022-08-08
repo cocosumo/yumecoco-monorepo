@@ -1,7 +1,7 @@
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { pages } from '../../Router';
-import HelpIcon from '@mui/icons-material/Help';
+import InfoIcon from '@mui/icons-material/Info';
 
 /**
  * ココアスとは(説明)
@@ -13,9 +13,9 @@ const AboutKokoas = ()=> {
       <Link to={pages.help}>
         <ListItemButton>
           <ListItemIcon>
-            <HelpIcon />
+            <InfoIcon />
           </ListItemIcon>
-          <ListItemText primary="ヘルプ" />
+          <ListItemText primary="ココアスとは" />
         </ListItemButton>
       </Link>
     </List>

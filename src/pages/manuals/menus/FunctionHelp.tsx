@@ -1,4 +1,5 @@
-import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 /**
  * 各機能のヘルプ
@@ -7,35 +8,16 @@ import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui
 const FunctionHelp = () => {
   return (
     <>
-      <ListItemButton /* onClick={handleClick} */>
-        <ListItemIcon>
-          {/* <ManageAccountsIcon /> */}
-        </ListItemIcon>
-        <ListItemText primary="顧客管理" />
-        {/* open ? <ExpandLess /> : <ExpandMore /> */}
-      </ListItemButton>
-      <Collapse /* in={open} */ timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
+      <List>
+        <Link to='{pages.help}'>
+          <ListItemButton>
             <ListItemIcon>
-              {/* <AccountBalanceIcon /> */}
+              {/* <InfoIcon /> */}
             </ListItemIcon>
-            <ListItemText primary="資金計画作成" />
+            <ListItemText primary="顧客を登録する" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              {/* <CurrencyYenIcon /> */}
-            </ListItemIcon>
-            <ListItemText primary="見積作成書" />
-          </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              {/* <UpdateIcon /> */}
-            </ListItemIcon>
-            <ListItemText primary="見込管理" />
-          </ListItemButton>
-        </List>
-      </Collapse>
+        </Link>
+      </List>
     </>
   );
 };

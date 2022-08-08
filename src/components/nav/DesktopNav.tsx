@@ -5,13 +5,13 @@ interface DesktopNavProps {
   drawerWidth: number
 }
 
-export default function DesktopNav({drawerWidth}: DesktopNavProps) {
+export default function DesktopNav({ drawerWidth }: DesktopNavProps) {
   return (
     <Drawer
       variant="permanent"
       sx={{
-        display: {xs: 'none', sm: 'block'},
-        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+        display: { xs: 'none', sm: 'block' },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
       }}
       open
     >

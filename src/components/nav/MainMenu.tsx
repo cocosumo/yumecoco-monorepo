@@ -10,19 +10,19 @@ import ConstructionMenu from './menus/ConstructionMenu';
 
 export default function MainMenu() {
   return (
-	<div>
+    <div>
 
-		<Divider />
-		<List>
-			<CustomerMenu />
-			<ConstructionMenu />
-			{/* <CustomerManagementMenu /> */}
-			<ContractMenu />
-		</List>
-		<Divider />
-		<SystemMenu />
-		<Divider />
-		<KintoneButton />
-	</div>
+      <Divider />
+      <List>
+        <CustomerMenu />
+        <ConstructionMenu />
+        {/* <CustomerManagementMenu /> */}
+        <ContractMenu />
+      </List>
+      <Divider />
+      <SystemMenu />
+      <Divider />
+      <KintoneButton />
+    </div>
   );
 }

@@ -42,14 +42,14 @@ export const getConstRecord = async (id: string) => {
   return KintoneRecord.getRecord({
     app: APPIDS.constructionDetails,
     id,
-  }).then(resp => resp.record as unknown as ConstructionDetails.SavedData);
+  }).then(resp => resp.record as unknown as ProjectDetails.SavedData);
 };
 
 export const getConstRecordByIds = async (ids: string[]) => {
   return KintoneRecord.getRecords({
     app: APPIDS.constructionDetails,
     query: ids
-      .map(id => `${'$id' as keyof ConstructionDetails.SavedData} = "${id}"`)
+      .map(id => `${'$id' as keyof ProjectDetails.SavedData} = "${id}"`)
       .join(' or '),
   });
 };

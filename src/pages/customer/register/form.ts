@@ -2,8 +2,8 @@ import * as Yup from 'yup';
 import { nativeMath, string as randomStr } from 'random-js';
 import { phoneRegExp, postalRegExp } from '../../../helpers/yupValidator';
 
-export type KeyOfConstructionDetails = keyof ConstructionDetails.SavedData;
-export type ConstructionDetailsValues = Partial<Record<KeyOfConstructionDetails, string | number | boolean>>;
+export type KeyOfProjectDetails = keyof ProjectDetails.SavedData;
+export type ProjectDetailsValues = Partial<Record<KeyOfProjectDetails, string | number | boolean>>;
 
 export const initialCustomerValue = {
   key: randomStr()(nativeMath, 5),

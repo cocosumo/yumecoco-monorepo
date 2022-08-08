@@ -20,7 +20,7 @@ export function DetailsTabs(props : {
   };
 
   const [record, setRecord] = useState<CustomerGroupTypes.SavedData>();
-  const [fetchedProjects, setFetchedProjects] = useState<ConstructionDetails.SavedData[]>();
+  const [fetchedProjects, setFetchedProjects] = useState<ProjectDetails.SavedData[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const projectIds =  record?.projects?.value
     .map(item => item.value.constructionId.value)
@@ -32,7 +32,7 @@ export function DetailsTabs(props : {
         projectIds,
       ).then(result => {
         console.log('triggered');
-        setFetchedProjects(result.records as unknown as ConstructionDetails.SavedData[]);
+        setFetchedProjects(result.records as unknown as ProjectDetails.SavedData[]);
       });
     }
   }, [JSON.stringify(projectIds), fetchedProjects, tabValue]);

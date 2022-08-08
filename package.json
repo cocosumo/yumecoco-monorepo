@@ -20,7 +20,7 @@
     "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
     "dtsgen:memo": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 181 --type-name Data --namespace CustomerMemoTypes -o src/types/data.customerMemo.d.ts",
     "dtsgen:projType": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 190 --type-name Data --namespace ConstructionTypes -o src/types/data.constructionType.d.ts",
-    "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ConstructionDetails -o src/types/data.constructionDetails.d.ts"
+    "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.constructionDetails.d.ts"
   },
   "keywords": [
     "Autoprefixer",

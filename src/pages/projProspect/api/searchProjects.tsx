@@ -10,5 +10,5 @@ export const searchProjects = async <
     fields: ['constructionName', '$id' ] as T[],
     totalCount: true,
   })
-    .then(r => r.records as unknown as ConstructionDetails.SavedData[]);
+    .then(r => r.records as unknown as ProjectDetails.SavedData[]);
 };

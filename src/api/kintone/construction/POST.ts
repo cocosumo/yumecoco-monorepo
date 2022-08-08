@@ -1,7 +1,7 @@
-import { ConstructionDetailsValues } from '../../../pages/projRegister/form';
+import { ProjectDetailsValues } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../config';
 
-export const convertToKintone = (rawValues: ConstructionDetailsValues) => {
+export const convertToKintone = (rawValues: ProjectDetailsValues) => {
   return Object.entries(rawValues)
     .reduce((acc, [key, rawVal])=>{
       /*
@@ -20,7 +20,7 @@ export const convertToKintone = (rawValues: ConstructionDetailsValues) => {
  * @param rawValues
  * @returns
  */
-export const saveConstructionData = async (rawValues: ConstructionDetailsValues) : Promise<{
+export const saveConstructionData = async (rawValues: ProjectDetailsValues) : Promise<{
   id: string,
   revision: string,
 }> =>{

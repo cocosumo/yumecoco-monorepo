@@ -5,7 +5,7 @@ import { ButtonEdit } from './ButtonEdit';
 import { LabeledDetail } from '../../../../../components/ui/typographies/LabeledDetail';
 
 export const DTProject = (props: {
-  fetchedProjects : ConstructionDetails.SavedData[],
+  fetchedProjects : ProjectDetails.SavedData[],
 }) => {
 
   const { fetchedProjects } = props;

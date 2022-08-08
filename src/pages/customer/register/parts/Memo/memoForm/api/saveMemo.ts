@@ -10,7 +10,7 @@ const getAgentIds = async (recordId: string, agentTypes: AgentType[] = [] ) => {
     id: recordId,
   })
     .then(resp => {
-      const { agents } = resp.record as unknown as ConstructionDetails.SavedData;
+      const { agents } = resp.record as unknown as ProjectDetails.SavedData;
       console.log(agents);
       return agents.value
         .filter(item => agentTypes.includes(item.value.agentType.value as AgentType || agentTypes.length === 0))

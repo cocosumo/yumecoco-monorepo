@@ -7,7 +7,7 @@ import { getCustGroupById } from './getCustGroupById';
 export const convertToKintone = (
   rawValues: TypeOfProjForm,
   custGroupRecord: TypeOfCustomerGroup,
-): Partial<ConstructionDetails.SavedData>  => {
+): Partial<ProjectDetails.SavedData>  => {
   const {
     cocoConst1, cocoConst2, constructionTypeId, constructionName,
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,

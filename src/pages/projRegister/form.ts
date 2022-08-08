@@ -38,7 +38,7 @@ export const initialValues = {
 
 export type TypeOfProjForm = typeof initialValues;
 export type KeyOfProjForm = keyof TypeOfProjForm;
-export type ConstructionDetailsValues = Partial<Record<KeyOfProjForm, string | number | boolean | Array<any>>>;
+export type ProjectDetailsValues = Partial<Record<KeyOfProjForm, string | number | boolean | Array<any>>>;
 
 export const getFieldName = (fieldName: KeyOfProjForm) => fieldName;
 

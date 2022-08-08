@@ -15,7 +15,7 @@ export default function SystemMenu() {
 
   return (
     <List>
-      <Link to={pages.help}>
+      <Link to={`${pages.help}?menuOpen=0`} target="_blank" rel="noopener noreferrer" >
         <ListItemButton>
           <ListItemIcon>
             <HelpIcon />

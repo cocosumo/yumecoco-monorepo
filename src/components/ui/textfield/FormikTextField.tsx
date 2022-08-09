@@ -56,8 +56,6 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     }
   });
 
-  console.log(field.value);
-
   return (
     <TextField  {...field}
     size={size}

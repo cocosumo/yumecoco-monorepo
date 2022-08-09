@@ -71,6 +71,8 @@ export const FormContractPreview = () => {
             {!projId && <EmptyProject {...{ handleSearchTTOpen, handleSearchTTClose }} />}
           </Grid>
         </Grid>
+
+
       </MainContainer>
       <ProspectShortcuts />
 

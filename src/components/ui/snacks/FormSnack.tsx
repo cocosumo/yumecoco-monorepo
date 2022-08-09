@@ -25,14 +25,20 @@ export const FormSnack : React.FC<FormSnackProps> = ({ snackState, handleClose }
     open,
     message,
     severity,
-    autoHideDuration = 2000,
+    autoHideDuration,
   }  = snackState;
+
+  let dynamicDuration = 2000;
+
+  if (severity === 'error' && !autoHideDuration) {
+    dynamicDuration = 20000;
+  }
 
   return (
     <Snackbar
     anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
     open={open}
-    autoHideDuration={autoHideDuration}
+    autoHideDuration={dynamicDuration}
 
     onClose={handleClose}
     sx={{ zIndex: 5001 }}

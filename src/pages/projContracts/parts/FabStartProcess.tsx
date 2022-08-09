@@ -1,6 +1,6 @@
 
 import { Fab, Box, Zoom, CircularProgress, Typography  } from '@mui/material/';
-import Save from '@mui/icons-material/Save';
+import StartIcon from '@mui/icons-material/Start';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -12,7 +12,7 @@ interface Props {
   appear?: boolean,
 }
 
-export const FabSave = (props: Props) => {
+export const FabStartProcess = (props: Props) => {
   const { pathname } = useLocation();
   const {
     onClick,
@@ -38,23 +38,20 @@ export const FabSave = (props: Props) => {
 
   return (
 
-    <Box  sx={{ position: 'fixed', top: 72, right: 36, zIndex: 3000 }}>
+    <Box  sx={{ position: 'fixed', top: 142, right: 36, zIndex: 3000 }}>
 
       <Zoom in={(!url || pathname.includes(url)) && appear} timeout={500}>
         <Fab
         variant='extended'
         onClick={handleClick}
-        size="large"
-        aria-label="add"
+        size="small"
         disabled={isLoading}
-        sx={{
-          p: 4,
-        }}
+        sx={{ p: 2 }}
         >
+          <Typography mr={1}>契約手続き開始</Typography>
           {isLoading && <CircularProgress size={25}/>}
-          {!isLoading && <Save/>}
+          {!isLoading && <StartIcon/>}
 
-          <Typography ml={1}>保存</Typography>
         </Fab>
       </Zoom>
 

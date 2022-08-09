@@ -1,22 +1,20 @@
-import { FormControl, Select, MenuItem, InputLabel, FormHelperText, Stack, SelectChangeEvent } from '@mui/material';
+import { FormControl, Select, MenuItem, InputLabel, FormHelperText, SelectChangeEvent } from '@mui/material';
 
 import { useField } from 'formik';
-import Chip from '@mui/material/Chip';
 import { memo, useMemo } from 'react';
 
 
-export interface FormikSelecProps {
+
+export function FormikSelectAdvanced(props : {
   name: string,
   label: string
   required?: boolean
   helperText?: string
-  options?: Options,
+  options?: OptionNode[],
   disabled?: boolean,
   onChange?: (e: SelectChangeEvent) => void
   variant?: 'standard' | 'outlined' | 'filled'
-}
-
-export function FormikSelect(props : FormikSelecProps) {
+}) {
 
   const {
     required,
@@ -37,17 +35,13 @@ export function FormikSelect(props : FormikSelecProps) {
   } = meta;
 
 
-  const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
   const isShowError = touched && !!meta.error && !disabled;
 
 
   const optionMenus = useMemo(() => options?.map((option) => {
     return (
-      <MenuItem key={option.value || option.label} value={option.value || ''}>
-        <Stack direction="row" spacing={1}>
-          {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
-          <div>{option.label}</div>
-        </Stack>
+      <MenuItem key={option.key} value={option.value}>
+        {option.component}
       </MenuItem>
     );
   }), [options]);
@@ -63,7 +57,7 @@ export function FormikSelect(props : FormikSelecProps) {
       error={isShowError}
       label={label}
       required={required}
-      value={isExistInOptions ? field.value ?? '' : ''}
+      value={field.value ?? ''}
       disabled={disabled}
       onChange={
         (e)=>{
@@ -81,4 +75,4 @@ export function FormikSelect(props : FormikSelecProps) {
   );
 }
 
-export const MemoizedFormikSelect = memo(FormikSelect);
+export const MemoizedFormikSelect = memo(FormikSelectAdvanced);

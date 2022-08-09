@@ -1,10 +1,11 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
-import { useFormikContext } from 'formik';
+//import { useFormikContext } from 'formik';
 import { useState } from 'react';
-import { FabSave } from '../../../components/ui/fabs/FabSave';
+//import { FabSave } from '../../../components/ui/fabs/FabSave';
 import { FabStartProcess } from './FabStartProcess';
-import { DetailsInput } from './TabInput/DetailsInput';
+import { SelectProjEstimates } from './ProjEstimates/SelectProjEstimate';
+//import { DetailsInput } from './TabInput/DetailsInput';
 
 import { Preview } from './TabPreview/Preview';
 
@@ -15,7 +16,7 @@ const previewTab : TContractTab =  'preview';
 
 export const ContractContainer = () => {
   const [currTab, setCurrTab ] = useState<TContractTab>('form');
-  const { submitForm } = useFormikContext();
+  //const { submitForm } = useFormikContext();
   const handleChange = (event: React.SyntheticEvent, newValue: TContractTab) => {
     setCurrTab(newValue);
   };
@@ -31,12 +32,12 @@ export const ContractContainer = () => {
         </TabList>
       </Box>
       <TabPanel value={formTab}>
-        <DetailsInput />
+        <SelectProjEstimates />
       </TabPanel>
       <TabPanel value={previewTab}>
         <Preview />
       </TabPanel>
-      <FabSave onClick={submitForm} appear={currTab === formTab}/>
+      {/* <FabSave onClick={submitForm} appear={currTab === formTab}/> */}
       <FabStartProcess appear={currTab === formTab}/>
     </TabContext>
   );

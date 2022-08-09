@@ -1,3 +1,4 @@
+
 declare module '*.css'
 declare module '*.jpg'
 declare module '*.jpeg'
@@ -14,7 +15,13 @@ type Option = {
   label: string | number,
   value: string,
   secondaryLabel?: string | null,
-  hiddenValue?: string
+  hiddenValue?: any
+};
+
+type OptionNode = {
+  value: string | number,
+  key: string,
+  component: React.ReactNode
 };
 
 type Options = Option[];

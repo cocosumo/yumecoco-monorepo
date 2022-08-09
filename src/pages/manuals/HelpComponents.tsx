@@ -1,32 +1,31 @@
-import { Divider } from '@mui/material'; /* , Drawer, List, Toolbar, useMediaQuery  */
-// import { styled, useTheme } from '@mui/material/styles';
+import { CssBaseline, Divider, styled } from '@mui/material';
 import ManualMenus from './ManualMenus';
-import FunctionHelp from './menus/FunctionHelp';
-// import HelpHeader from './menus/HelpHeader';
 import ManualRouter from './ManualRouter';
+import { Box } from '@mui/system';
 
-/* const menuWidth = 240;
+export const manualMenusWidth = '240';
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
- */
+const ExplanationMain = styled('div')`
+  color: red;
+  padding: 10px 50px;
+  display: flex;
+  alignItems: start;
+  justifyContent: center;
+`;
+
 export default function HelpComponents() {
-  // const theme = useTheme();
-  // const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  
   return (
-    <>
-      <ManualRouter />
-      <Divider />
+    <Box 
+    sx={{
+      display: 'flex',
+      height: '100vh',
+    }}>
+      <CssBaseline />
       <ManualMenus />
-      <Divider />
-      <FunctionHelp />
-    </>
+      <Divider orientation="vertical" flexItem />
+      <ExplanationMain>
+        <ManualRouter />
+      </ExplanationMain>
+    </Box>
   );
 }

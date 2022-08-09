@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
  * 各機能のヘルプ
  * @returns 
  */
-const FunctionHelp = () => {
+export default function FunctionHelp() {
   return (
     <>
       <List>
@@ -20,6 +20,4 @@ const FunctionHelp = () => {
       </List>
     </>
   );
-};
-
-export default FunctionHelp;
+}

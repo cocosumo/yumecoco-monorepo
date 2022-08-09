@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { FormikTextField } from '../../../../../components/ui/textfield';
+import { FormikTextField } from '../../../../components/ui/textfield';
 import { getFieldName } from '../../form';
 
 export const DetailsInput = () => {

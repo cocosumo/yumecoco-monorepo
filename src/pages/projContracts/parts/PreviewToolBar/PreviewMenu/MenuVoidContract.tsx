@@ -1,9 +1,9 @@
 import { Button, MenuItem, TextField } from '@mui/material';
-import { useConfirmDialog, useSnackBar } from '../../../../../../hooks';
-import { CustomDialogContent } from '../../../../../../components/ui/dialogs/CustomDialogContent';
+import { useConfirmDialog, useSnackBar } from '../../../../../hooks';
+import { CustomDialogContent } from '../../../../../components/ui/dialogs/CustomDialogContent';
 import { Box } from '@mui/system';
 import { useRef } from 'react';
-import { useBackdrop } from '../../../../../../hooks/useBackdrop';
+import { useBackdrop } from '../../../../../hooks/useBackdrop';
 import { voidContract } from '../../../api/docusign/voidContract';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../../form';

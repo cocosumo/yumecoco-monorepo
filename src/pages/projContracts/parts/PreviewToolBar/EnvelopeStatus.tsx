@@ -1,11 +1,11 @@
 import { Chip, Grow, Tooltip, CircularProgress } from '@mui/material';
-import { jaEnvelopeStatus } from '../../../../../lib';
+import { jaEnvelopeStatus } from '../../../../lib';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useState } from 'react';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { getFormDataById } from '../../api/fetchRecord';
-import { useSnackBar } from '../../../../../hooks';
+import { useSnackBar } from '../../../../hooks';
 
 
 export const EnvelopeStatus = (

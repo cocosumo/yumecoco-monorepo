@@ -1,6 +1,6 @@
 import { Form, useFormikContext } from 'formik';
-import { MainContainer } from '../../../components/ui/containers';
-import { PageTitle } from '../../../components/ui/labels';
+import { MainContainer } from '../../components/ui/containers';
+import { PageTitle } from '../../components/ui/labels';
 
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName, initialValues, TypeOfForm } from './form';
@@ -9,7 +9,7 @@ import { SearchProjField } from './parts/SearchProjField';
 import { ContractContainer } from './parts/ContractContainer';
 import { useEffect, useState } from 'react';
 import { getFormDataById } from './api/fetchRecord';
-import { useQuery } from '../../../hooks';
+import { useQuery } from '../../hooks';
 import { EmptyProject } from './parts/EmptyProject';
 
 export const FormContractPreview = () => {

@@ -1,13 +1,13 @@
 import {  Divider, Grid, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSnackBar } from '../../../../../hooks';
+import { useSnackBar } from '../../../../hooks';
 import { Loading } from './Loading';
 
 import { downloadContract } from '../../api/docusign/downloadContract';
 import { TypeOfForm } from '../../form';
-import { base64ToBlob } from '../../../../../lib';
+import { base64ToBlob } from '../../../../lib';
 import { PreviewToolBar } from '../PreviewToolBar/PreviewToolBar';
-import { OutlinedDiv } from '../../../../../components/ui/containers';
+import { OutlinedDiv } from '../../../../components/ui/containers';
 import { useFormikContext } from 'formik';
 import { DocumentsSelect } from './SelectDocuments';
 import { RefreshButton } from '../PreviewToolBar/RefreshButton';

@@ -1,4 +1,4 @@
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
+import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
 export const fetchRecord = async (recordId: string) => {

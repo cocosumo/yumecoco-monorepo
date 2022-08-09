@@ -1,4 +1,4 @@
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
+import { APPIDS, KintoneRecord } from '../../../api/kintone';
 
 export const searchProjects = async <
   T extends KeyOfProjectDetails,

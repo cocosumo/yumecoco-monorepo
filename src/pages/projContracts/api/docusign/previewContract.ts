@@ -1,4 +1,4 @@
-import { yumecocoDocusign } from '../../../../../config/settings';
+import { yumecocoDocusign } from '../../../../config/settings';
 
 export type TPreviewResp = {
   imgB64: string,

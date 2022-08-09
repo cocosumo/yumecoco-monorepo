@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './projRegister';
-import { FormikContractPreview } from './projContracts/preview';
+import { FormikContractPreview } from './projContracts/';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';

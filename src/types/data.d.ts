@@ -1,12 +1,6 @@
-/**
- * @deprecated use KeyOfProjectDetails
- */
-type KeyOfProjectDetails = keyof ProjectDetails.SavedData;
 
-/**
- * @deprecated use TypeOfProjectDetails
- */
-type ProjectDetailsValues = Partial<Record<KeyOfProjectDetails, string | number | boolean>>;
+
+
 
 type KeyOfProjectDetails = keyof ProjectDetails.SavedData;
 type TypeOfProjectDetails = ProjectDetails.SavedData;

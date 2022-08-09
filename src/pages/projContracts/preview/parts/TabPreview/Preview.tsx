@@ -1,16 +1,16 @@
 import {  Divider, Grid, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSnackBar } from '../../../../hooks';
+import { useSnackBar } from '../../../../../hooks';
 import { Loading } from './Loading';
 
-import { downloadContract } from '../api/docusign/downloadContract';
-import { TypeOfForm } from '../form';
-import { base64ToBlob } from '../../../../lib';
-import { EnvelopeStatus } from './EnvelopeStatus';
-import { PreviewToolBar } from './PreviewToolBar';
-import { OutlinedDiv } from '../../../../components/ui/containers';
+import { downloadContract } from '../../api/docusign/downloadContract';
+import { TypeOfForm } from '../../form';
+import { base64ToBlob } from '../../../../../lib';
+import { PreviewToolBar } from '../PreviewToolBar/PreviewToolBar';
+import { OutlinedDiv } from '../../../../../components/ui/containers';
 import { useFormikContext } from 'formik';
 import { DocumentsSelect } from './SelectDocuments';
+import { RefreshButton } from '../PreviewToolBar/RefreshButton';
 
 
 
@@ -75,7 +75,8 @@ export const Preview = () => {
 
       <Grid container justifyContent={'flex-end'} alignContent={'flex-start'} spacing={2} p={2}>
         <Grid item xs={6}>
-          <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/>
+          {/* <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/> */}
+          <RefreshButton loading={loading} isVisible={!!projId}/>
         </Grid>
         <Grid item xs={6}>
           <PreviewToolBar {...{ envelopeId, envelopeStatus, loading, projId, projName, previewLoading }} />

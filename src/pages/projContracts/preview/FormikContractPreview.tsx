@@ -16,17 +16,10 @@ export const FormikContractPreview = () => {
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
-        setSubmitting(false);
-        /*  saveForm(values)
-          .then((r) => {
-            setSnackState({ open: true, message: `保存が出来ました。 ${r?.revision}回目`, severity: 'success' });
-            setSubmitting(false);
-          }); */
 
+        setSubmitting(false);
       }}
     >
-
       <FormContractPreview/>
     </Formik>
   );

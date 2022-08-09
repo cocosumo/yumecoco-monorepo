@@ -12,8 +12,12 @@ export const initialValues = {
   envDocFileKeys: [] as kintone.fieldTypes.File['value'],
   envSelectedDoc: '',
   revision: '',
-  //dsEnvIdUkeoi : '',
+  signMethod: '' as TSignMethod,
 
+  //InputFields
+  contractPrice: 0,
+
+  //dsEnvIdUkeoi : '',
 };
 
 export type TypeOfForm =  typeof initialValues;

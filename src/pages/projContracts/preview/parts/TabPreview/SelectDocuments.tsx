@@ -1,6 +1,6 @@
 import {  Chip, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { getFieldName, TypeOfForm } from '../form';
+import { getFieldName, TypeOfForm } from '../../form';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 
 

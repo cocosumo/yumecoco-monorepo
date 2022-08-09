@@ -21,6 +21,7 @@ export const PreviewToolBar = ({
 
   return (
     <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
+
       {!!projId && <DownloadContract projId={projId}/>}
 
       {!loading && !!!envelopeStatus && !!!envelopeId  && !voidable && !!projName && !previewLoading &&

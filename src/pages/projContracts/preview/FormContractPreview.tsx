@@ -6,13 +6,14 @@ import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName, initialValues, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
-import { PreviewContainer } from './parts/PreviewContainer';
-import { useEffect } from 'react';
+import { ContractContainer } from './parts/ContractContainer';
+import { useEffect, useState } from 'react';
 import { getFormDataById } from './api/fetchRecord';
 import { useQuery } from '../../../hooks';
+import { EmptyProject } from './parts/EmptyProject';
 
 export const FormContractPreview = () => {
-
+  const [searchTTOpen, setSearchTTOpen] = useState(false);
   const projIdFromURL = useQuery().get(getFieldName('projId'));
 
   const {
@@ -46,23 +47,28 @@ export const FormContractPreview = () => {
   }, [projIdFromURL]);
 
 
+  const handleSearchTTClose = () => setSearchTTOpen(false);
+  const handleSearchTTOpen = () => setSearchTTOpen(true);
+
 
   return (
     <Form noValidate>
-
       <MainContainer>
-        <PageTitle label='契約確認'/>
+        <PageTitle label='契約'/>
         <Grid container item xl={8} spacing={2} mb={12} alignItems={'center'}>
           <Grid item xs={12} md={4}>
             <SearchProjField
               label="工事情報の検索"
               name={getFieldName('projId')}
               projName={projName}
+              handleSearchTTClose={handleSearchTTClose}
+              handleSearchTTOpen={handleSearchTTOpen}
+              searchTTOpen={searchTTOpen}
               />
           </Grid>
-
           <Grid item xs={12} >
-            <PreviewContainer {...values} />
+            {projId && <ContractContainer />}
+            {!projId && <EmptyProject {...{ handleSearchTTOpen, handleSearchTTClose }} />}
           </Grid>
         </Grid>
       </MainContainer>

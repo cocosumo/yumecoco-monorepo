@@ -1,4 +1,4 @@
-import { Autocomplete, TextField, Stack } from '@mui/material';
+import { Autocomplete, TextField, Stack, Tooltip } from '@mui/material';
 import { useField } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLazyEffect } from '../../../../hooks';
@@ -14,6 +14,9 @@ export const SearchProjField = (props: {
   name: string,
   label: string,
   projName: string,
+  handleSearchTTOpen: ()=>void,
+  handleSearchTTClose: ()=>void,
+  searchTTOpen: boolean,
 }) => {
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<Opt | null>(null);
@@ -21,7 +24,7 @@ export const SearchProjField = (props: {
   const [field, meta, helpers] = useField(props);
   const { error, touched } = meta;
 
-  const { projName } = props;
+  const { projName, searchTTOpen, handleSearchTTOpen, handleSearchTTClose } = props;
 
   useLazyEffect(()=>{
     if (!inputVal) return;
@@ -46,7 +49,15 @@ export const SearchProjField = (props: {
   }, [field.value, projName]);
 
   return (
-    <Autocomplete
+    <Tooltip
+      title="こちらで工事名が検索出来ます。"
+      open={searchTTOpen} onOpen={handleSearchTTOpen}
+      onClose={handleSearchTTClose}
+      placement="right"
+      arrow
+
+    >
+      <Autocomplete
       value={fieldVal}
       onInputChange={(_, value)=>{
         setInputVal(value);
@@ -81,5 +92,7 @@ export const SearchProjField = (props: {
       }}
 
     />
+
+    </Tooltip>
   );
 };

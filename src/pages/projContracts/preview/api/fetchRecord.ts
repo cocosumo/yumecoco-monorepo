@@ -16,6 +16,7 @@ export const getFormDataById = async (recordId: string) => {
     envelopeStatus,
     envDocFileKeys,
     custGroupId,
+    signMethod,
     $revision,
   } = await fetchRecord(recordId);
 
@@ -30,6 +31,8 @@ export const getFormDataById = async (recordId: string) => {
     envDocFileKeys: envDocFileKeys.value,
     envSelectedDoc: envDocFileKeys.value[0]?.fileKey,
     revision: $revision.value,
+    signMethod: signMethod.value,
+    contractPrice: 0,
   } as TypeOfForm;
 
 };

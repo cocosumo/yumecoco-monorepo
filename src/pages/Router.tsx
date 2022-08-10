@@ -7,6 +7,7 @@ import { FormikProjProspect } from './projProspect';
 import UnderConstruction from './UnderConstruction';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import HelpComponents from './manuals/HelpComponents';
+import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 
 
 
@@ -25,6 +26,8 @@ export const pages = {
 
   projEdit: '/project/edit',
   projReg: '/project/register',
+
+  projEstimate: '/project/estimate/register',
 
   projProspect: '/project/prospect/register',
   projProspectSearch: '/project/prospect/search',
@@ -59,6 +62,8 @@ const Router = () => (
     {/* 見込み登録 */}
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />}   key={'edit'} />
 
+    {/* 見積もり登録 */}
+    <Route path={`${pages.projEstimate}`} element={<FormikProjEstimate />} />
 
     {/* 契約 */}
     <Route path={`${pages.projContractPreview}`} element={<FormikContractPreview />} />

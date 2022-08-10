@@ -4,16 +4,17 @@ import { PageTitle } from '../../components/ui/labels';
 
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName, initialValues, TypeOfForm } from './form';
-import {  Grid, Grow } from '@mui/material';
+import {  Grid, Grow, LinearProgress } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { useEffect, useState } from 'react';
 import { getFormDataById } from './api/fetchRecord';
 import { useQuery } from '../../hooks';
-import { EmptyProject } from './parts/EmptyProject';
 import { SelectProjEstimates } from './parts/ProjEstimates/SelectProjEstimate';
 import { ItemEstimate } from './parts/ProjEstimates/ItemEstimate';
 import { getProjEstimates } from './api/getProjEstimates';
 import { Box } from '@mui/system';
+import { ContractInfo } from './parts/ContractInfo';
+import { EmptyBox } from '../../components/ui/information/EmptyBox';
 
 export const FormContractPreview = () => {
   const [searchTTOpen, setSearchTTOpen] = useState(false);
@@ -75,6 +76,7 @@ export const FormContractPreview = () => {
       <MainContainer>
         <PageTitle label='契約'/>
         <Grid container item xl={8} spacing={2} mb={12} alignItems={'center'} >
+
           <Grid item xs={12} md={4} >
             <SearchProjField
               label="工事情報の検索"
@@ -87,18 +89,29 @@ export const FormContractPreview = () => {
           </Grid>
 
           <Grid item xs={12} md={8} >
-            <Grow in={!!projId && status === '' } timeout={1000}>
+
+            <Grow in={!!projId && status === '' } timeout={1000} mountOnEnter unmountOnExit>
               <Box sx={{ position: 'relative' }}>
                 {!!projId && <SelectProjEstimates {...{ options, status }} />}
               </Box>
             </Grow>
 
-            <Grow in={!!!projId && status === ''} timeout={1000}>
+            <Grow in={!!!projId && status === ''} timeout={1000} mountOnEnter unmountOnExit>
               <Box sx={{ position: 'relative' }}>
-                {!!!projId && <EmptyProject {...{ handleSearchTTOpen, handleSearchTTClose }} />}
+                {!!!projId &&
+                  <EmptyBox onMouseEnter={handleSearchTTOpen} onMouseLeave={handleSearchTTClose }>
+                    工事名で検索してください
+                  </EmptyBox>}
               </Box>
             </Grow>
           </Grid>
+
+
+
+
+          {(status as TFormStatus) === 'busy' && <Grid item xs={12}><LinearProgress /></Grid>}
+
+          <ContractInfo />
 
         </Grid>
 

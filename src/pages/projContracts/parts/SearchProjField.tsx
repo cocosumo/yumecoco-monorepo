@@ -74,7 +74,6 @@ export const SearchProjField = (props: {
         helpers.setValue(val?.id);
         setFieldVal(val);
         if (val) {
-          console.log('Value', val);
           setStatus('busy' as TFormStatus);
         }
       }}

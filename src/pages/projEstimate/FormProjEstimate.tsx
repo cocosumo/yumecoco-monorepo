@@ -1,16 +1,18 @@
-import { Divider, Grid } from '@mui/material';
+import { Button, Divider, FormControl, Grid, Input } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { PageTitle } from '../../components/ui/labels';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { getFieldName, initialValues } from './form';
+import { buzaiListInit } from './constantDefinition';
+import { getFieldName, TypeOfForm } from './form';
+import DenseTable from './Tables/ExtimateTable';
 
 export default function FormProjEstimate() {
-  const { submitForm } = useFormikContext();
+  const { values, submitForm } = useFormikContext<TypeOfForm>();
 
-  console.log('initialValues.items', initialValues.items);
+  console.log('values', values.items);
 
   return (
     <Form noValidate>
@@ -24,7 +26,13 @@ export default function FormProjEstimate() {
 
 
             {/* 工事情報の検索 */}
-
+            <div>
+              工事情報の検索：未対応
+              <FormControl variant="standard">
+                {/* <InputLabel htmlFor="component-simple">テスト</InputLabel> */}
+                <Input id="component-simple" value={name}/*  onChange={handleChange} */ />
+              </FormControl>              
+            </div>
 
 
           </Grid>
@@ -47,28 +55,22 @@ export default function FormProjEstimate() {
 
           <Grid item xs={12} md={12}>
             {/* 見積もり用のテーブル */}
-            {/* 大項目(ルックアップ)｜中項目(ルックアップ)｜部材名(手入力)｜原価｜数量｜利益率｜単位｜税(課税・非課税)｜単価｜金額 */}
             <FieldArray
               name={getFieldName('items')}
               render={arrayHelpers => (
                 <div>
-                  {initialValues.items.map((item, index) => (
-                    <div key={index}>
-                      {/** both these conventions do the same */}
-                      <FormikTextField name={`items[${index}].majorItem`} label="大項目" />
-                      <FormikTextField name={`items.${index}.middleItem`} label="中項目" />
-
-                      <button type="button" onClick={() => arrayHelpers.remove(index)}>
-                        -
-                      </button>
-                    </div>
-                  ))}
-                  <button
-                    type="button"
-                    onClick={() => arrayHelpers.push({ majorItem: '', middleItem: '' })}
+                  <div>
+                    <DenseTable arrayHelpers={arrayHelpers} />
+                  </div>
+                  <Button
+                    variant="outlined"
+                    onClick={() => arrayHelpers.push(buzaiListInit)}
+                    sx={{
+                      textAlign: 'right',
+                    }}
                   >
-                    +
-                  </button>
+                    追加
+                  </Button>
                 </div>
               )}
             />

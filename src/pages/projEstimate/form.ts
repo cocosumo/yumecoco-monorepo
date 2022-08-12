@@ -1,27 +1,44 @@
 
 import * as Yup from 'yup';
 
+type TMaterials = {
+  number: number,
+  majorItem: string,
+  middleItem: string,
+  element: string,
+  costPrice: string,
+  quantity: string,
+  elemProfRate: number,
+  unit: string,
+  tax: string,
+  unitPrice: number,
+  price: number,
+};
+export const materialsNameList = [
+  'No.', '大項目', '中項目', '部材', '原価', '数量', '利益率', '単位', '税(課税 / 非課税)', '単価', '金額',
+];
+
 export const initialValues = {
   projId: '',
   costomerName: '',
   constructionType: '', /* 工事種別(ルックアップ) */
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */
+
   /* 見積もり用配列要素 */
-  items: [] as {
-    majorItem: '',  /* 大項目 */
-    middleItem: '', /* 中項目 */
-  }[],
-
-  element: '',    /* 部材 */
-  costPrice: '',  /* 原価 */
-  quantity: '',   /* 数量 */
-  elemProfRate: 0, /* 利益率(部材) */
-  unit: '', /* 単位 */
-  tax: '',  /* 税(課税/非課税) */
-  unitPrice: 0, /* 単価(原価*利益率(部材)) */
-  price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
-
+  items: [
+    { number: 0,
+      majorItem: '',  /* 大項目 */
+      middleItem: '', /* 中項目 */
+      element: '',    /* 部材 */
+      costPrice: '',  /* 原価 */
+      quantity: '',   /* 数量 */
+      elemProfRate: 0, /* 利益率(部材) */
+      unit: '', /* 単位 */
+      tax: '',  /* 税(課税/非課税) */
+      unitPrice: 0, /* 単価(原価*利益率(部材)) */
+      price: 0 /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */ },
+  ] as TMaterials[],
 
   /* 合計 */
   totalCost: 0, /* 原価合計 */

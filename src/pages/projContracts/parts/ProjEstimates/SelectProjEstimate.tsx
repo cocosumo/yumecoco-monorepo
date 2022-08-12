@@ -15,7 +15,7 @@ export const SelectProjEstimates = ({
 
   const isWithOptions = !!options.length;
 
-  console.log('is', isWithOptions);
+
 
   return (
     <>

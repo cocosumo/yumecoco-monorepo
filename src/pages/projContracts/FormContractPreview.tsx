@@ -20,7 +20,9 @@ import { Preview } from './parts/Preview/Preview';
 export const FormContractPreview = () => {
   const [searchTTOpen, setSearchTTOpen] = useState(false);
   const [options, setOptions] = useState<OptionNode[]>([]);
+
   const projIdFromURL = useQuery().get(getFieldName('projId'));
+  const projEstimateIdFromURL = useQuery().get(getFieldName('projEstimateId'));
 
   const {
     values,
@@ -29,7 +31,7 @@ export const FormContractPreview = () => {
     status,
   } = useFormikContext<TypeOfForm>();
 
-  const { projName, projId } = values;
+  const { projName, projId, projEstimateId } = values;
 
   const handleInitForm = async () => {
     setStatus('busy' as TFormStatus);
@@ -46,7 +48,7 @@ export const FormContractPreview = () => {
     });
 
     setOptions(newOptions);
-    setValues(projDetails);
+    setValues((prev)=>({ ...prev, ...projDetails }));
     setStatus('' as TFormStatus);
   };
 
@@ -61,16 +63,20 @@ export const FormContractPreview = () => {
 
   useEffect(()=>{
     if (projIdFromURL) {
-      setValues({ ...initialValues, projId: projIdFromURL });
+      setValues({
+        ...initialValues,
+        projEstimateId: projEstimateIdFromURL ?? '',
+        projId: projIdFromURL,
+      });
       // /setFieldValue(getFieldName('projId'), projIdFromURL);
     }
-  }, [projIdFromURL]);
+  }, [projIdFromURL, projEstimateIdFromURL]);
 
 
   const handleSearchTTClose = () => setSearchTTOpen(false);
   const handleSearchTTOpen = () => setSearchTTOpen(true);
 
-  console.log(projId, status, options.length);
+  console.log('projEstimateId', projEstimateId);
 
   return (
     <Form noValidate>
@@ -89,6 +95,7 @@ export const FormContractPreview = () => {
               />
           </Grid>
 
+          {/* Just for eyecandy as the form looks too empty when nothing is selected. */}
           <Grid item xs={12} md={8} >
 
             <Grow in={!!projId && status === '' } timeout={1000} mountOnEnter unmountOnExit>
@@ -99,22 +106,32 @@ export const FormContractPreview = () => {
 
             <Grow in={!!!projId && status === ''} timeout={1000} mountOnEnter unmountOnExit>
               <Box sx={{ position: 'relative' }}>
-                {!!!projId &&
+                {!projId &&
                   <EmptyBox onMouseEnter={handleSearchTTOpen} onMouseLeave={handleSearchTTClose }>
                     工事名で検索してください
-                  </EmptyBox>}
+                  </EmptyBox>
+                  }
               </Box>
             </Grow>
           </Grid>
 
-          {(status as TFormStatus) === 'busy' && <Grid item xs={12}><LinearProgress /></Grid>}
-
-          <ContractInfo />
+          {/* 契約のプレビュー */}
+          {!!projEstimateId &&  <Preview/>}
+          {!projEstimateId && !!projId && !!options.length &&
           <Grid item xs={12}>
-            <Preview/>
+            <EmptyBox>
+              見積を選択してください。
+            </EmptyBox>
           </Grid>
 
+          }
 
+          {/* 契約内容 */}
+          <ContractInfo />
+
+
+
+          {(status as TFormStatus) === 'busy' && <Grid item xs={12}><LinearProgress /></Grid>}
         </Grid>
 
 

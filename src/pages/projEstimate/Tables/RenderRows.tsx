@@ -1,4 +1,4 @@
-import { Button, FormControl, Input, InputLabel, TableCell, TableRow } from '@mui/material';
+import { Button, FormControl, Input, TableCell, TableRow } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
 
@@ -45,12 +45,15 @@ export default function RenderRows(arrayHelpers) {
           {Object.keys(item).map((rowitem, rowIdx) => {
             console.log('rowitem', rowIdx, '::', item[rowitem]);
             return (
-              <TableCell key={`${rowitem}_header`}>
+              <TableCell
+                key={`${rowitem}_header`}
+                sx={{ padding: 1 }}
+              >
                 <FormControl variant="standard">
                   <Input
                     id="component-simple"
                     value={item[rowitem].value}
-                    /*  onChange={handleChange} */
+                  /*  onChange={handleChange} */
                   />
                 </FormControl>
               </TableCell>

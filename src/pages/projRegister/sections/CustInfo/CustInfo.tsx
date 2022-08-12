@@ -13,6 +13,7 @@ import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
+import { generateParams } from '../../../../helpers/url';
 
 
 export const CustInfo = () => {
@@ -147,7 +148,10 @@ export const CustInfo = () => {
                     variant="outlined"
                     color="inherit"
                     startIcon={<EditIcon />}
-                    onClick={()=>navigate(`${pages.custGroupEdit}?groupId=${custGroupId}&projId=${recordId}`)}
+                    onClick={()=>navigate(`${pages.custGroupEdit}?${generateParams({
+                      custGroupId,
+                      projId: recordId,
+                    })}`)}
                     fullWidth
 
                   >

@@ -21,6 +21,7 @@ export const FormContractPreview = () => {
   const [searchTTOpen, setSearchTTOpen] = useState(false);
   const [options, setOptions] = useState<OptionNode[]>([]);
 
+
   const projIdFromURL = useQuery().get(getFieldName('projId'));
   const projEstimateIdFromURL = useQuery().get(getFieldName('projEstimateId'));
 

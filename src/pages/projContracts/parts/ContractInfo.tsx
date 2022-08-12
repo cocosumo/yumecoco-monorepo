@@ -1,14 +1,16 @@
-import { Button, Divider, Grid, Grow } from '@mui/material';
+import { Button, Divider, Grid, Grow, Tooltip } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { OutlinedDiv } from '../../../components/ui/containers';
 import { LabeledInfo } from '../../../components/ui/typographies';
-import { generateParams, getParams } from '../../../helpers/url';
+import { generateParams } from '../../../helpers/url';
 import { pages } from '../../Router';
 import { TypeOfForm } from '../form';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const ContractInfo = () => {
+  const navigate = useNavigate();
   const { values: {
     projId,
     projEstimateId,
@@ -16,6 +18,7 @@ export const ContractInfo = () => {
     custName, custAddress, store,
     cocoAg, yumeAg, constAg,
     projAddress,
+    custGroupId,
   } } = useFormikContext<TypeOfForm>();
 
 
@@ -33,9 +36,23 @@ export const ContractInfo = () => {
         <OutlinedDiv label='契約内容'>
 
           <Grid container spacing={2} p={2}>
-
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <LabeledInfo label={'店舗'} data={store} />
+            </Grid>
+            <Grid container item xs={6} justifyContent={'flex-end'}>
+              <Tooltip title="顧客を編集する画面にいく">
+                <Button
+                onClick={()=>navigate(`${pages.custGroupEdit}?${generateParams({
+                  custGroupId,
+                  projId,
+                  projEstimateId,
+                })}`)}
+                size={'small'}
+                color="secondary"
+                >
+                  <EditIcon />
+                </Button>
+              </Tooltip>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -53,16 +70,30 @@ export const ContractInfo = () => {
               <LabeledInfo label={'ゆめてつAG'} data={yumeAg} />
             </Grid>
 
-            <Grid container item xs={12} >
-              <Button size={'small'} color="inherit" variant="contained" >顧客編集</Button>
-            </Grid>
+
 
             <Grid item xs={12} >
               <Divider/>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <LabeledInfo label={'工事名'} data={constAg} />
+            </Grid>
+
+            <Grid container item xs={6} justifyContent={'flex-end'} >
+              <Tooltip title="工事情報を編集する画面にいく">
+                <Button
+                onClick={()=>navigate(`${pages.projEdit}?${generateParams({
+                  custGroupId,
+                  projId,
+                  projEstimateId,
+                })}`)}
+                size={'small'}
+                color="secondary"
+                 >
+                  <EditIcon/>
+                </Button>
+              </Tooltip>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -73,20 +104,7 @@ export const ContractInfo = () => {
               <LabeledInfo label={'工事住所'} data={projAddress} />
             </Grid>
 
-            <Grid container item xs={12} >
-              <Link to={`${pages.projEdit}?${generateParams({
-                ...getParams(),
-                projId,
-                projEstimateId,
-              })}`}>
-                <Button
-                  size={'small'} color="secondary"
-                  variant="contained" >
-                  工事情報編集
-                </Button>
-              </Link>
 
-            </Grid>
 
           </Grid>
         </OutlinedDiv>

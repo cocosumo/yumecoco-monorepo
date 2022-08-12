@@ -55,6 +55,7 @@ export const FormContractPreview = () => {
 
   useEffect(()=>{
     if (projId) {
+      console.log('ENtered');
       handleInitForm();
     } else {
       setStatus('');
@@ -76,8 +77,6 @@ export const FormContractPreview = () => {
 
   const handleSearchTTClose = () => setSearchTTOpen(false);
   const handleSearchTTOpen = () => setSearchTTOpen(true);
-
-  console.log('projEstimateId', projEstimateId);
 
   return (
     <Form noValidate>

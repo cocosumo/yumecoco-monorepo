@@ -17,10 +17,10 @@ export const ContractInfo = () => {
 
 
   return (
-    <Grow in={!!projEstimateId}>
+    <Grow in={!!projEstimateId} mountOnEnter unmountOnExit>
       <Grid item xs={12} >
         <OutlinedDiv label='契約内容'>
-
+          ここに契約内容です
         </OutlinedDiv>
       </Grid>
     </Grow>

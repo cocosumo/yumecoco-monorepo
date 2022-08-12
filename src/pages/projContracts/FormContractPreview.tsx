@@ -15,6 +15,7 @@ import { getProjEstimates } from './api/getProjEstimates';
 import { Box } from '@mui/system';
 import { ContractInfo } from './parts/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
+import { Preview } from './parts/Preview/Preview';
 
 export const FormContractPreview = () => {
   const [searchTTOpen, setSearchTTOpen] = useState(false);
@@ -106,12 +107,13 @@ export const FormContractPreview = () => {
             </Grow>
           </Grid>
 
-
-
-
           {(status as TFormStatus) === 'busy' && <Grid item xs={12}><LinearProgress /></Grid>}
 
           <ContractInfo />
+          <Grid item xs={12}>
+            <Preview/>
+          </Grid>
+
 
         </Grid>
 

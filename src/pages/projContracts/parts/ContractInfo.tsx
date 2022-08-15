@@ -33,7 +33,7 @@ export const ContractInfo = () => {
   return (
     <Grow in={!!projId} mountOnEnter unmountOnExit>
       <Grid item xs={12} >
-        <OutlinedDiv label='契約内容'>
+        <OutlinedDiv label='内容'>
 
           <Grid container spacing={2} p={2}>
             <Grid item xs={6}>
@@ -73,11 +73,11 @@ export const ContractInfo = () => {
 
 
             <Grid item xs={12} >
-              <Divider/>
+              <Divider />
             </Grid>
 
             <Grid item xs={6}>
-              <LabeledInfo label={'工事名'} data={constAg} />
+              <LabeledInfo label={'工事名'} data={projName} />
             </Grid>
 
             <Grid container item xs={6} justifyContent={'flex-end'} >
@@ -97,7 +97,7 @@ export const ContractInfo = () => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <LabeledInfo label={'工事担当者'} data={projName} />
+              <LabeledInfo label={'工事担当者'} data={constAg} />
             </Grid>
 
             <Grid item xs={12} md={6}>

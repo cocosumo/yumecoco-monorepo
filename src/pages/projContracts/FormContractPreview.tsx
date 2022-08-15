@@ -3,12 +3,11 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
-import { getFieldName, initialValues, TypeOfForm } from './form';
-import {  Grid, Grow, LinearProgress } from '@mui/material';
+import { getFieldName, TypeOfForm } from './form';
+import {  Button, Grid, Grow, LinearProgress } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { useEffect, useState } from 'react';
 import { getFormDataById } from './api/fetchRecord';
-import { useQuery } from '../../hooks';
 import { SelectProjEstimates } from './parts/ProjEstimates/SelectProjEstimate';
 import { ItemEstimate } from './parts/ProjEstimates/ItemEstimate';
 import { getProjEstimates } from './api/getProjEstimates';
@@ -16,14 +15,16 @@ import { Box } from '@mui/system';
 import { ContractInfo } from './parts/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { Preview } from './parts/Preview/Preview';
+import { getParam } from '../../helpers/url';
+import { useNavigate } from 'react-router-dom';
 
 export const FormContractPreview = () => {
   const [searchTTOpen, setSearchTTOpen] = useState(false);
   const [options, setOptions] = useState<OptionNode[]>([]);
+  const navigate = useNavigate();
 
-
-  const projIdFromURL = useQuery().get(getFieldName('projId'));
-  const projEstimateIdFromURL = useQuery().get(getFieldName('projEstimateId'));
+  const projIdFromURL = getParam('projId');
+  const projEstimateIdFromURL = getParam('projEstimateId');
 
   const {
     values,
@@ -39,16 +40,34 @@ export const FormContractPreview = () => {
     const projDetails = await getFormDataById(projId);
     const estimates = await getProjEstimates(projId);
 
-    const newOptions = estimates.map<OptionNode>((rec)=>{
-      const { contractPrice, $id, 作成日時 } = rec;
-      return {
-        value: $id.value,
-        key: $id.value,
-        component: <ItemEstimate contractPrice={contractPrice.value} dateCreated={作成日時.value} id={$id.value}/>,
-      };
-    });
+    if (estimates.length) {
 
-    setOptions(newOptions);
+      let newOptions: OptionNode[] = [{
+        value: '',
+        key: 'clear',
+        component: '---',
+      }];
+
+      newOptions.push(...estimates.map<OptionNode>((rec)=>{
+        const { contractPrice, $id, 作成日時 } = rec;
+        return {
+          value: $id.value,
+          key: $id.value,
+          component: <ItemEstimate contractPrice={contractPrice.value} dateCreated={作成日時.value} id={$id.value}/>,
+        };
+      }));
+
+      newOptions.push({
+        value: '',
+        key: 'new',
+        component: <Button onClick={()=>navigate('/')} variant="text" color={'inherit'} fullWidth disableRipple>見積作成</Button>,
+      });
+      setOptions(newOptions);
+
+    }
+
+
+
     setValues((prev)=>({ ...prev, ...projDetails }));
     setStatus('' as TFormStatus);
   };
@@ -65,11 +84,11 @@ export const FormContractPreview = () => {
 
   useEffect(()=>{
     if (projIdFromURL) {
-      setValues({
-        ...initialValues,
+      setValues((prev)=>({
+        ...prev,
         projEstimateId: projEstimateIdFromURL ?? '',
         projId: projIdFromURL,
-      });
+      }));
       // /setFieldValue(getFieldName('projId'), projIdFromURL);
     }
   }, [projIdFromURL, projEstimateIdFromURL]);

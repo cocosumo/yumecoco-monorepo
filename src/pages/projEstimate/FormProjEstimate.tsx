@@ -7,7 +7,31 @@ import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { buzaiListInit } from './constantDefinition';
 import { getFieldName, TypeOfForm } from './form';
-import DenseTable from './Tables/ExtimateTable';
+import QuoteTable from './Tables/QuoteTable';
+
+const renderFunc = (arrayHelpers) => {
+  const { form } = arrayHelpers;
+  const { values } = form;
+  console.log('arrayHelpers::main', arrayHelpers);
+  console.log('renderFunc', values);
+
+  return (
+    <div>
+      <div>
+        <QuoteTable arrayHelpers={arrayHelpers} values={values} />
+      </div>
+      <Button
+      variant="outlined"
+      onClick={() => arrayHelpers.push(buzaiListInit)}
+      sx={{
+        textAlign: 'right',
+      }}
+    >
+        追加
+      </Button>
+    </div>
+  );
+};
 
 export default function FormProjEstimate() {
   const { values, submitForm } = useFormikContext<TypeOfForm>();
@@ -31,7 +55,7 @@ export default function FormProjEstimate() {
               <FormControl variant="standard">
                 {/* <InputLabel htmlFor="component-simple">テスト</InputLabel> */}
                 <Input id="component-simple" value={name}/*  onChange={handleChange} */ />
-              </FormControl>              
+              </FormControl>
             </div>
 
 
@@ -57,22 +81,7 @@ export default function FormProjEstimate() {
             {/* 見積もり用のテーブル */}
             <FieldArray
               name={getFieldName('items')}
-              render={arrayHelpers => (
-                <div>
-                  <div>
-                    <DenseTable arrayHelpers={arrayHelpers} />
-                  </div>
-                  <Button
-                    variant="outlined"
-                    onClick={() => arrayHelpers.push(buzaiListInit)}
-                    sx={{
-                      textAlign: 'right',
-                    }}
-                  >
-                    追加
-                  </Button>
-                </div>
-              )}
+              render={renderFunc}
             />
           </Grid>
 

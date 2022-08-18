@@ -1,7 +1,10 @@
 
 import * as Yup from 'yup';
 
-type TMaterials = {
+/**
+ * 見積もりアイテムの型定義
+ */
+export type TMaterials = {
   number: number,
   majorItem: string,
   middleItem: string,
@@ -14,8 +17,20 @@ type TMaterials = {
   unitPrice: number,
   price: number,
 };
+export const materialsLabelList = [
+  'number', 'majorItem', 'middleItem', 'element', 'costPrice',
+  'quantity', 'elemProfRate', 'unit', 'tax', 'unitPrice', 'price',
+];
+
+export type TFullMaterials = {
+  items: Array<TMaterials>,
+};
+
+/**
+ * 見積もりアイテムのラベル定義
+ */
 export const materialsNameList = [
-  'No.', '大項目', '中項目', '部材', '原価', '数量', '利益率', '単位', '税(課税 / 非課税)', '単価', '金額',
+  'No.', '大項目*', '中項目', '部材', '原価*', '数量*', '利益率', '単位', '税(課税 / 非課税)', '単価', '金額',
 ];
 
 export const initialValues = {
@@ -27,7 +42,8 @@ export const initialValues = {
 
   /* 見積もり用配列要素 */
   items: [
-    { number: 0,
+    {
+      number: 0,
       majorItem: '',  /* 大項目 */
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */
@@ -37,7 +53,8 @@ export const initialValues = {
       unit: '', /* 単位 */
       tax: '',  /* 税(課税/非課税) */
       unitPrice: 0, /* 単価(原価*利益率(部材)) */
-      price: 0 /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */ },
+      price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
+    },
   ] as TMaterials[],
 
   /* 合計 */
@@ -52,12 +69,12 @@ export const initialValues = {
   itemSubtotal: 0, /* 大項目小計 */
 };
 
-export type TypeOfForm =  typeof initialValues;
+export type TypeOfForm = typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
 
 export const getFieldName = (s: KeyOfForm) => s;
 
-export const validationSchema =  Yup.object(
+export const validationSchema = Yup.object(
   {
     'projId': Yup
       .string()
@@ -66,10 +83,11 @@ export const validationSchema =  Yup.object(
       .number(),
     'taxRate': Yup
       .number()
-      .required('必須です。'),     
+      .required('必須です。'),
     'items': Yup.array()
       .of(
         Yup.object().shape({
+          'number': Yup.number(),
           'majorItem': Yup.string().required('必須です。'),
           'middleItem': Yup.string(), /* 中項目 */
           'element': Yup.string(),    /* 部材 */

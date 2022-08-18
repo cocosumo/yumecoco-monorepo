@@ -7,6 +7,7 @@ import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { buzaiListInit } from './constantDefinition';
 import { getFieldName, TypeOfForm } from './form';
+import SummaryTable from './SummaryTable/SummaryTable';
 import QuoteTable from './Tables/QuoteTable';
 
 const renderFunc = (arrayHelpers) => {
@@ -76,6 +77,9 @@ export default function FormProjEstimate() {
           </Grid>
           <Grid item md={3} />
 
+          <Grid item xs={12} md={12}>
+            <SummaryTable />
+          </Grid>
 
           <Grid item xs={12} md={12}>
             {/* 見積もり用のテーブル */}

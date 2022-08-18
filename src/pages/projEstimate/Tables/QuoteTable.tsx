@@ -5,10 +5,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { materialsNameList } from '../form';
 import RenderRows from './RenderRows';
+import { materialsNameList, TFullMaterials } from '../form';
 
-export default function ExtimateTable(arrayHelpers) {
+export type QuoteTableProps = {
+  arrayHelpers: any, 
+  values: TFullMaterials,
+};
+
+/**
+ * 見積もりテーブルを作成する
+ * @param arrayHelpers 
+ * @returns 
+ */
+export default function QuoteTable(props : QuoteTableProps) {
+  const { arrayHelpers, values } = props;
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -20,7 +32,7 @@ export default function ExtimateTable(arrayHelpers) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {RenderRows(arrayHelpers)}
+          <RenderRows arrayHelpers={arrayHelpers} values={values} />
         </TableBody>
       </Table>
     </TableContainer>

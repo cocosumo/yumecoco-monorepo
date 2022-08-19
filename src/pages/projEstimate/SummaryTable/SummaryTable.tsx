@@ -1,6 +1,6 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { summaryLabelList, summaryNameList } from '../constantDefinition';
-import { getFieldName } from '../form';
+import DisplayCellContent from './DisplayCellContent';
 
 export default function SummaryTable() {
 
@@ -10,15 +10,19 @@ export default function SummaryTable() {
         <TableHead>
           <TableRow>
             {summaryNameList.map((item)=>{
-              return (<TableCell key={`${item}_header`}>{item}</TableCell>);
+              return (<TableCell key={`${item}_header`}>
+                <Typography variant="subtitle2" gutterBottom>{item}</Typography>
+              </TableCell>);
             })}
           </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
             {summaryLabelList.map((item)=>{
-              return (<TableCell key={`${item}_header`}>{item}</TableCell>);
-            })}
+              return (<TableCell key={`${item}_header`}>
+                <DisplayCellContent name={item} />
+              </TableCell>);
+            })} 
           </TableRow>
         </TableBody>
       </Table>

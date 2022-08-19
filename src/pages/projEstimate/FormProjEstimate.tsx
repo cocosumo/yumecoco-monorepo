@@ -8,12 +8,12 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { buzaiListInit } from './constantDefinition';
 import { getFieldName, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
-import QuoteTable from './Tables/QuoteTable';
+import QuoteTable from './QuoteTable/QuoteTable';
 
 const renderFunc = (arrayHelpers) => {
   const { form } = arrayHelpers;
   const { values } = form;
-  console.log('arrayHelpers::main', arrayHelpers);
+  // console.log('arrayHelpers::main', arrayHelpers);
   console.log('renderFunc', values);
 
   return (
@@ -36,7 +36,6 @@ const renderFunc = (arrayHelpers) => {
 
 export default function FormProjEstimate() {
   const { values, submitForm } = useFormikContext<TypeOfForm>();
-
   console.log('values', values.items);
 
   return (

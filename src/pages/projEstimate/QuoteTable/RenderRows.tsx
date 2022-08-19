@@ -1,11 +1,11 @@
 import { Button, TableCell, TableRow } from '@mui/material';
 import { materialsLabelList } from '../constantDefinition';
-import { TFullMaterials } from '../form';
-import CellContent from './CellContent';
+import { TypeOfForm } from '../form';
+import InputCellContent from './InputCellContent';
 
 export type RenderRowsProps = {
   arrayHelpers: any,
-  values: TFullMaterials,
+  values: TypeOfForm,
 };
 
 export default function RenderRows(props: RenderRowsProps) {
@@ -29,7 +29,7 @@ export default function RenderRows(props: RenderRowsProps) {
                         verticalAlign: 'top',
                       }}
                     >
-                      <CellContent name={`items[${itemsIdx}][${materialsLabelList[rowIdx]}]`}/>
+                      <InputCellContent name={`items[${itemsIdx}][${Object.keys(materialsLabelList)[rowIdx]}]`}/>
                     </TableCell>
                   );
                 })}

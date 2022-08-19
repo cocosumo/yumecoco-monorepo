@@ -9,17 +9,13 @@ export type TMaterials = {
   majorItem: string,
   middleItem: string,
   element: string,
-  costPrice: string,
-  quantity: string,
+  costPrice: number,
+  quantity: number,
   elemProfRate: number,
   unit: string,
   tax: string,
   unitPrice: number,
   price: number,
-};
-
-export type TFullMaterials = {
-  items: Array<TMaterials>,
 };
 
 export const initialValues = {
@@ -36,8 +32,8 @@ export const initialValues = {
       majorItem: '',  /* 大項目 */
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */
-      costPrice: '',  /* 原価 */
-      quantity: '',   /* 数量 */
+      costPrice: 0,  /* 原価 */
+      quantity: 0,   /* 数量 */
       elemProfRate: 0, /* 利益率(部材) */
       unit: '', /* 単位 */
       tax: '',  /* 税(課税/非課税) */
@@ -80,8 +76,8 @@ export const validationSchema = Yup.object(
           'majorItem': Yup.string().required('必須です。'),
           'middleItem': Yup.string(), /* 中項目 */
           'element': Yup.string(),    /* 部材 */
-          'costPrice': Yup.string().required('必須です。'), /* 原価 */
-          'quantity': Yup.string().required('必須です。'), /* 数量 */
+          'costPrice': Yup.number().required('必須です。'), /* 原価 */
+          'quantity': Yup.number().required('必須です。'), /* 数量 */
           'elemProfRate': Yup.number(), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
           'tax': Yup.string(),  /* 税(課税/非課税) */

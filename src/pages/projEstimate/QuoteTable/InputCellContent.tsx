@@ -2,12 +2,12 @@ import { FormControl, FormHelperText, Input } from '@mui/material';
 import { useField } from 'formik';
 
 
-export type CellContentProps = {
+export type InputCellContentProps = {
   name: string,
   /* value: string, */
 };
 
-const CellContent = (props : CellContentProps) => {
+const InputCellContent = (props : InputCellContentProps) => {
   const [field, meta] = useField(props);
   const { error, touched } = meta;
   
@@ -22,4 +22,4 @@ const CellContent = (props : CellContentProps) => {
   );
 };
 
-export default CellContent;
+export default InputCellContent;

@@ -6,12 +6,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import RenderRows from './RenderRows';
-import { TFullMaterials } from '../form';
+import { TypeOfForm } from '../form';
 import { materialsNameList } from '../constantDefinition';
 
 export type QuoteTableProps = {
   arrayHelpers: any, 
-  values: TFullMaterials,
+  values: TypeOfForm,
 };
 
 /**

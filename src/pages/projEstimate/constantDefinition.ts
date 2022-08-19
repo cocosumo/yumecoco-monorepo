@@ -6,8 +6,8 @@ export const buzaiListInit = {
   majorItem: '',
   middleItem: '',
   element: '',
-  costPrice: '',
-  quantity: '',
+  costPrice: 0,
+  quantity: 1,
   elemProfRate: 0,
   unit: '',
   tax: '',
@@ -18,10 +18,19 @@ export const buzaiListInit = {
 /**
  * 見積もりテーブルのkeyリスト
  */
-export const materialsLabelList = [
-  'number', 'majorItem', 'middleItem', 'element', 'costPrice',
-  'quantity', 'elemProfRate', 'unit', 'tax', 'unitPrice', 'price',
-];
+export const materialsLabelList = {
+  'number': 'display',
+  'majorItem': 'pulldown',
+  'middleItem': 'pulldown',
+  'element': 'pullldownAndInput',
+  'costPrice': 'input',
+  'quantity': 'input',
+  'elemProfRate': 'input',
+  'unit': 'input',
+  'tax': 'pulldown',
+  'unitPrice': 'display',
+  'price': 'display',
+};
 
 /**
  * 見積もりアイテムのラベル定義

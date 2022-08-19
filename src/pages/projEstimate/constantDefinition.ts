@@ -26,7 +26,7 @@ export const materialsLabelList = {
   'costPrice': 'input',
   'quantity': 'input',
   'elemProfRate': 'input',
-  'unit': 'input',
+  'unit': 'pullldownAndInput',
   'tax': 'pulldown',
   'unitPrice': 'display',
   'price': 'display',

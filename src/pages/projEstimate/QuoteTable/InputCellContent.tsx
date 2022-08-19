@@ -45,12 +45,6 @@ const InputCellContent = (props: InputCellContentProps) => {
             return (<MenuItem value={item} key={`${field.name}_${item}`}>{item}</MenuItem>);
           })
           }
-          {/* <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem> */}
         </Select>
         {(!!error && touched) &&
           <FormHelperText error={!!error && touched}>

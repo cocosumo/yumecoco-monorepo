@@ -13,7 +13,6 @@ const InputCellContent = (props: InputCellContentProps) => {
   const [field, meta] = useField(props);
   const { error, touched } = meta;
   const chkName = field.name.split('[')[2].replace(']', '');
-  // console.log('コンポーネント種類のチェック', materialsLabelList[chkName]);
 
   if (materialsLabelList[chkName] === 'input') {
     return (
@@ -34,9 +33,8 @@ const InputCellContent = (props: InputCellContentProps) => {
     );
   } else if (materialsLabelList[chkName] === 'pulldown') {
     const output: string[] = quotePulldown(chkName);
-    // console.log('pulldown用マップ', output);
     return (
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} size='small'>
         <Select {...field}>
           <MenuItem value="">
             <em>-</em>

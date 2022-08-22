@@ -11,13 +11,11 @@ export type RenderRowsProps = {
 export default function RenderRows(props: RenderRowsProps) {
   const { arrayHelpers, values } = props;
 
-  console.log(' RenderRows(arrayHelpers)', values);
   return (
     (values.items && (values.items.length > 0)) ?
       (
         <>
           {values.items.map((item, itemsIdx) => {
-            /* console.log(`item ${itemsIdx}`, item); */
             return (
               <TableRow key={`${item}${itemsIdx}_row`}>
                 {Object.keys(item).map((rowitem, rowIdx) => {

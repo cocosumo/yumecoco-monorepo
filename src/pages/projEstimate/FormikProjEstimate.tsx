@@ -14,7 +14,7 @@ export const FormikProjEstimate = () => {
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
+        // console.log(values);
         /* kintoneに保存する処理を追加する */
         setSubmitting(false);
       }}

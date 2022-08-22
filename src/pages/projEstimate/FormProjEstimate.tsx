@@ -13,8 +13,8 @@ import QuoteTable from './QuoteTable/QuoteTable';
 const renderFunc = (arrayHelpers) => {
   const { form } = arrayHelpers;
   const { values } = form;
-  // console.log('arrayHelpers::main', arrayHelpers);
-  console.log('renderFunc', values);
+
+  // console.log('renderFunc', values);
 
   return (
     <div>
@@ -36,6 +36,11 @@ const renderFunc = (arrayHelpers) => {
 
 export default function FormProjEstimate() {
   const { values, submitForm } = useFormikContext<TypeOfForm>();
+
+  /* フォームプルダウンに使用する配列の入れ物の定義 */
+  /* フォームプルダウンに使用する配列の更新処理 */
+  /* 何かをトリガにuseEffectで更新する？？ */
+
   console.log('values', values.items);
 
   return (

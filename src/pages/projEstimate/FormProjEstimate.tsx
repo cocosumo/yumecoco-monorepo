@@ -9,6 +9,7 @@ import { buzaiListInit } from './constantDefinition';
 import { getFieldName, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
 import QuoteTable from './QuoteTable/QuoteTable';
+import { useEffect } from 'react';
 
 const renderFunc = (arrayHelpers) => {
   const { form } = arrayHelpers;
@@ -16,18 +17,30 @@ const renderFunc = (arrayHelpers) => {
 
   // console.log('renderFunc', values);
 
+  // 部材の中の最大値を取得する
+  const newNumber = () => {
+    const newNum = values.items.map((item) => {
+      return item.number;
+    });
+    // console.log('test', newNum);
+    return Math.max.apply(null, newNum) + 1;
+  };
+
   return (
     <div>
       <div>
         <QuoteTable arrayHelpers={arrayHelpers} values={values} />
       </div>
       <Button
-      variant="outlined"
-      onClick={() => arrayHelpers.push(buzaiListInit)}
-      sx={{
-        textAlign: 'right',
-      }}
-    >
+        variant="outlined"
+        onClick={() => arrayHelpers.push({
+          ...buzaiListInit,
+          number: newNumber(),
+        })}
+        sx={{
+          textAlign: 'right',
+        }}
+      >
         追加
       </Button>
     </div>
@@ -35,13 +48,24 @@ const renderFunc = (arrayHelpers) => {
 };
 
 export default function FormProjEstimate() {
-  const { values, submitForm } = useFormikContext<TypeOfForm>();
+  const { values, submitForm, setFieldValue } = useFormikContext<TypeOfForm>();
+
+  const costPriceFields = values.items.map(({ costPrice }) => costPrice);
+  const totalCostPrice = costPriceFields.reduce((acc, cur) => {
+    acc += +cur;
+    return acc;
+  }, 0);
+  console.log('totalCostPrice', totalCostPrice);
+
+  useEffect(() => {
+    setFieldValue('totalCost', totalCostPrice);
+  }, [totalCostPrice]);
 
   /* フォームプルダウンに使用する配列の入れ物の定義 */
   /* フォームプルダウンに使用する配列の更新処理 */
   /* 何かをトリガにuseEffectで更新する？？ */
 
-  console.log('values', values.items);
+  console.log('values', values);
 
   return (
     <Form noValidate>

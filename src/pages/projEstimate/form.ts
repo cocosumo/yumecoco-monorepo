@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 /**
  * 見積もりアイテムの型定義
  */
-export type TMaterials = {
+/* export type TMaterials = {
   number: number,
   majorItem: string,
   middleItem: string,
@@ -16,7 +16,9 @@ export type TMaterials = {
   tax: string,
   unitPrice: number,
   price: number,
-};
+}; */
+export type TMaterials = TypeOfForm['items'][0];
+export type TKMaterials = keyof TMaterials;
 
 export const initialValues = {
   projId: '',
@@ -28,7 +30,7 @@ export const initialValues = {
   /* 見積もり用配列要素 */
   items: [
     {
-      number: 0,
+      number: 1,
       majorItem: '',  /* 大項目 */
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */
@@ -40,7 +42,7 @@ export const initialValues = {
       unitPrice: 0, /* 単価(原価*利益率(部材)) */
       price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
     },
-  ] as TMaterials[],
+  ],
 
   /* 合計 */
   totalCost: 0, /* 原価合計 */

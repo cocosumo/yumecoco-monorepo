@@ -12,7 +12,6 @@ export const getParams = () => {
 export const generateParams = (obj: URLParams) => {
   // Remove undefined
   Object.keys(obj).forEach(key => (obj[key] === undefined || obj[key] === '' ) && delete obj[key]);
-  console.log(obj);
   return new URLSearchParams(obj as Record<string, string>).toString();
 };
 

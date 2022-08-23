@@ -66,8 +66,6 @@ export const FormContractPreview = () => {
 
     }
 
-
-
     setValues((prev)=>({ ...prev, ...projDetails }));
     setStatus('' as TFormStatus);
   };

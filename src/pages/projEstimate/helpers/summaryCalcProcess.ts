@@ -1,17 +1,20 @@
-import { summaryLabelList } from '../constantDefinition';
+// import { summaryLabelList } from '../constantDefinition';
+import { KeyOfForm } from '../form';
 
 export default function summaryCalcProcess(field, values) {
   let output = '-';
   let sum = 0;
   const len = values.items.length;
+  const summaryLabelList = (['totalCost', 'grossProfit', 'grossProfitMargin', 
+    'taxAmount', 'taxExcludedAmount', 'amountIncludingTax'] as KeyOfForm[]);
 
-  if (field.name === summaryLabelList[0]) {
-    /* 原価合計の算出処理 : 原価*数量の合計 */
-    for (let i = 0; i < len; i++) {
+  /* if (field.name === summaryLabelList[0]) { */
+  /* 原価合計の算出処理 : 原価*数量の合計 */
+  /* for (let i = 0; i < len; i++) {
       sum += Number(values.items[i].costPrice) * Number(values.items[i].quantity);
     }
     output = sum.toString();
-  } else if (field.name === summaryLabelList[1]) {
+  } else */ if (field.name === summaryLabelList[1]) {
     /* 粗利の算出処理 : 原価*数量*利益率の合計 */
     for (let i = 0; i < len; i++) {
       sum += Number(values.items[i].costPrice) * Number(values.items[i].quantity)

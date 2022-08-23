@@ -1,7 +1,5 @@
 import { Typography } from '@mui/material';
-import { useField, useFormikContext } from 'formik';
-import { TypeOfForm } from '../form';
-import summaryCalcProcess from '../helpers/summaryCalcProcess';
+import { useField } from 'formik';
 
 export type DisplayCellContentProps = {
   name: string,
@@ -9,14 +7,14 @@ export type DisplayCellContentProps = {
 };
 const DisplayCellContent = (props: DisplayCellContentProps) => {
   const [field] = useField(props);
-  const { values } = useFormikContext<TypeOfForm>();
+  // const { values } = useFormikContext<TypeOfForm>();
 
   /* 表示内容の算出処理 */
-  const output = summaryCalcProcess(field, values);
+  // const output = summaryCalcProcess(field, values);
   
   return (
-    <Typography variant='body2' {...field} >
-      {output}
+    <Typography variant='body2' >
+      {field.value}
     </Typography>
   );
 };

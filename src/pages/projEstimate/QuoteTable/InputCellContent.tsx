@@ -14,17 +14,20 @@ const InputCellContent = (props: InputCellContentProps) => {
   const { error, touched } = meta;
   const chkName = field.name.split('[')[2].replace(']', '');
 
-  const changeHandler: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
+  // INPUT用onchange処理
+  const changeHandlerInput
+  : React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
    = debounce((el) => {
-     console.log('2s後chk', el.target.value);
+     console.log('2s after chk', el.target.value);
 
      helpers.setValue(el.target.value, true);
    }, 2000);
 
+ 
   if (materialsLabelList[chkName] === 'input') {
     return (
       <FormControl variant="standard">
-        <Input {...field} error={!!error && touched} onChange={changeHandler} value={undefined} />
+        <Input {...field} error={!!error && touched} onChange={changeHandlerInput} value={undefined} />
         {(!!error && touched) &&
           <FormHelperText error={!!error && touched}>
             {error}
@@ -33,9 +36,9 @@ const InputCellContent = (props: InputCellContentProps) => {
     );
   } else if (materialsLabelList[chkName] === 'display') {
     const output = quoteCalcProcessDisplay(chkName, field);
-    console.log('display field chk', field);
+    // console.log('display field', field);
     return (
-      <Typography variant='body2' /* {...field} */ >
+      <Typography variant='body2' {...field} >
         {output}
       </Typography>
     );

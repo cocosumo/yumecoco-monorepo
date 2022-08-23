@@ -7,7 +7,7 @@ export default function quotePulldown(target: string) {
   } else if (target === 'majorItem') {
     /* kintoneから大項目を取得する */
     const majorItemList = fetchRecords('majourItems');
-    console.log('majorItemList', majorItemList);
+    // console.log('majorItemList', majorItemList);
 
     /* 大項目の配列をvalに格納する */
 

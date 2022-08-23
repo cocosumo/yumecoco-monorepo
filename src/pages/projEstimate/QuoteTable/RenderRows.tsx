@@ -1,7 +1,6 @@
-import { Button, TableCell, TableRow } from '@mui/material';
-import { materialsLabelList } from '../constantDefinition';
+import { TableRow } from '@mui/material';
 import { TypeOfForm } from '../form';
-import InputCellContent from './InputCellContent';
+import { RowContent } from './RowContent';
 
 export type RenderRowsProps = {
   arrayHelpers: any,
@@ -10,6 +9,11 @@ export type RenderRowsProps = {
 
 export default function RenderRows(props: RenderRowsProps) {
   const { arrayHelpers, values } = props;
+  // console.log('row values', values);
+
+  const removeRow = (rowIdx:number) => {
+    arrayHelpers.remove(rowIdx);
+  };
 
   return (
     (values.items && (values.items.length > 0)) ?
@@ -17,29 +21,7 @@ export default function RenderRows(props: RenderRowsProps) {
         <>
           {values.items.map((item, itemsIdx) => {
             return (
-              <TableRow key={`${item}${itemsIdx}_row`}>
-                {Object.keys(item).map((rowitem, rowIdx) => {
-                  return (
-                    <TableCell
-                      key={`${rowitem}_header`}
-                      sx={{
-                        padding: 1,
-                        verticalAlign: 'top',
-                      }}
-                    >
-                      <InputCellContent name={`items[${itemsIdx}][${Object.keys(materialsLabelList)[rowIdx]}]`}/>
-                    </TableCell>
-                  );
-                })}
-                <TableCell key={`${item}_delBtn`}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => arrayHelpers.remove(itemsIdx)}
-                  >
-                    -
-                  </Button>
-                </TableCell>
-              </TableRow>
+              <RowContent row={item} rowIdx={itemsIdx} removeRow={removeRow} key={values.items[itemsIdx].number} />
             );
           })}
         </>

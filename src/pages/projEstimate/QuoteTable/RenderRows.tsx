@@ -1,10 +1,10 @@
 import { TableRow } from '@mui/material';
+import { FieldArrayRenderProps } from 'formik';
 import { TypeOfForm } from '../form';
-import { TArrayHelpers } from '../types';
 import { RowContent } from './RowContent';
 
 export type RenderRowsProps = {
-  arrayHelpers: TArrayHelpers,
+  arrayHelpers: FieldArrayRenderProps,
   values: TypeOfForm,
 };
 

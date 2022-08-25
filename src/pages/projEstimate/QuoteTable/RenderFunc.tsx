@@ -1,11 +1,12 @@
 import QuoteTable from './QuoteTable';
 import { buzaiListInit } from '../constantDefinition';
 import { Button } from '@mui/material';
-import { TArrayHelpers } from '../types';
+import { FieldArrayRenderProps, FormikProps } from 'formik';
+import { TypeOfForm } from '../form';
 
-export const RenderFunc = (arrayHelpers: TArrayHelpers) => {
+export const RenderFunc = (arrayHelpers: FieldArrayRenderProps) => {
   const { form } = arrayHelpers;
-  const { values } = form;
+  const { values } = form as FormikProps<TypeOfForm>;
 
   // console.log('renderFunc', values);
 

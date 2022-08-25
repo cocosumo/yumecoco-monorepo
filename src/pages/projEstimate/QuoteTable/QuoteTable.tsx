@@ -8,9 +8,10 @@ import Paper from '@mui/material/Paper';
 import RenderRows from './RenderRows';
 import { TypeOfForm } from '../form';
 import { materialsNameList } from '../constantDefinition';
+import { FieldArrayRenderProps } from 'formik';
 
 export type QuoteTableProps = {
-  arrayHelpers: any, 
+  arrayHelpers: FieldArrayRenderProps, 
   values: TypeOfForm,
 };
 

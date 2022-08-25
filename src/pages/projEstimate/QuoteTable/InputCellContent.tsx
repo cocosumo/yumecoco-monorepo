@@ -1,7 +1,6 @@
 import { debounce, FormControl, FormHelperText, Input, MenuItem, Select, Typography } from '@mui/material';
 import { useField } from 'formik';
 import { materialsLabelList } from '../constantDefinition';
-import quoteCalcProcessDisplay from '../helpers/quoteCalcProcess';
 import quotePulldown from '../helpers/quotePulldown';
 
 export type InputCellContentProps = {
@@ -35,11 +34,9 @@ const InputCellContent = (props: InputCellContentProps) => {
       </FormControl>
     );
   } else if (materialsLabelList[chkName] === 'display') {
-    const output = quoteCalcProcessDisplay(chkName, field);
-    // console.log('display field', field);
     return (
-      <Typography variant='body2' {...field} >
-        {output}
+      <Typography variant='body2'>
+        {field.value}
       </Typography>
     );
   } else if (materialsLabelList[chkName] === 'pulldown') {

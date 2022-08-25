@@ -46,7 +46,7 @@ KEstimateAppId,
   },
   elements: {
 
-    //fields: ['部材名', '原価', '単位'] as Array<keyof Estimates.materials.SavedData>,
+    fields: ['部材名', '原価', '単位'] as Array<keyof Estimates.materials.SavedData>,
     query: 'レコード番号 < 10',
   },
 };

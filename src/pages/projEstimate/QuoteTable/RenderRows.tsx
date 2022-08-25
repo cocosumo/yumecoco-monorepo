@@ -12,7 +12,7 @@ export default function RenderRows(props: RenderRowsProps) {
   const { arrayHelpers, values } = props;
   // console.log('row values', values);
 
-  const removeRow = (rowIdx:number) => {
+  const removeRow = (rowIdx: number) => {
     arrayHelpers.remove(rowIdx);
   };
 
@@ -22,7 +22,13 @@ export default function RenderRows(props: RenderRowsProps) {
         <>
           {values.items.map((item, itemsIdx) => {
             return (
-              <RowContent row={item} rowIdx={itemsIdx} removeRow={removeRow} key={values.items[itemsIdx].number} />
+              <RowContent
+                taxRate={values.taxRate}
+                row={item}
+                rowIdx={itemsIdx}
+                removeRow={removeRow}
+                key={values.items[itemsIdx].number}
+              />
             );
           })}
         </>

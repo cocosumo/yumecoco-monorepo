@@ -1,4 +1,4 @@
-import { fetchRecords } from '../api/fetchRecords';
+// import { fetchRecords } from '../api/fetchRecords';
 
 export default function quotePulldown(target: string) {
   let val: string[] = [];
@@ -6,8 +6,8 @@ export default function quotePulldown(target: string) {
     val = Array.of('課税', '非課税');
   } else if (target === 'majorItem') {
     /* kintoneから大項目を取得する */
-    const majorItemList = fetchRecords('majourItems');
-    // console.log('majorItemList', majorItemList);
+    /* 要編集 */
+    /* const majorItemList = fetchRecords('majourItems'); */
 
     /* 大項目の配列をvalに格納する */
 

@@ -36,7 +36,7 @@ const InputCellContent = (props: InputCellContentProps) => {
   } else if (materialsLabelList[chkName] === 'display') {
     return (
       <Typography variant='body2'>
-        {field.value}
+        {field.value + '円'}
       </Typography>
     );
   } else if (materialsLabelList[chkName] === 'pulldown') {

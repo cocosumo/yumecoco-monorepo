@@ -13,24 +13,25 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
   removeRow: (rowIdx: number) => void
 }) => {
   const { setFieldValue } = useFormikContext<TypeOfForm>();
-  const { costPrice, quantity, elemProfRate, unitPrice, tax } = row;
+  const { costPrice, quantity, elemProfRate, tax } = row;
 
   // 各行の単価・金額の算出処理
   useEffect(() => {
     // 単価の算出処理 : IF(原価 <= 0, 0 , 原価  * ( 1 + (内訳利益率/100)))
     const newUnitPrice = +(costPrice) <= 0 ? 0
       : +(costPrice) * (1 + (elemProfRate) / 100);
-    setFieldValue(`items[${rowIdx}].unitPrice`, newUnitPrice);
+    setFieldValue(`items[${rowIdx}].unitPrice`, Math.round(newUnitPrice).toLocaleString());
 
     // 金額の算出処理 : IF(原価 <= 0, 原価, IF ( 税="課税", (単価*数量) * (1 + (税率/100)), (単価*数量)))
-    const tentative = +unitPrice * +quantity;
+    const tentative = newUnitPrice * +quantity;
 
     const newPrice = +(costPrice) <= 0 ? costPrice
       : (tax === '課税') ?
         tentative * (1 + +(taxRate) / 100) : tentative;
-    setFieldValue(`items[${rowIdx}].price`, newPrice);
+    // 金額を四捨五入で表示(切り捨ての場合はMath.ceil(数値)、切り捨ての場合はMath.floor(数値))
+    setFieldValue(`items[${rowIdx}].price`, Math.round(newPrice).toLocaleString());
 
-  }, [costPrice, quantity, elemProfRate, unitPrice, tax]);
+  }, [costPrice, quantity, elemProfRate, tax]);
 
   return (<TableRow key={rowIdx}>
     {Object.keys(row).map((rowitem, itemIdx) => {

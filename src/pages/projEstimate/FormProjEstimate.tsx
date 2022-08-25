@@ -13,16 +13,24 @@ import { RenderFunc } from './QuoteTable/RenderFunc';
 export default function FormProjEstimate() {
   const { values, submitForm, setFieldValue } = useFormikContext<TypeOfForm>();
 
-  const costPriceFields = values.items.map(({ costPrice }) => costPrice);
+  const costPriceFields = values.items.map(({ costPrice, quantity }) => +costPrice * +quantity);
   const totalCostPrice = costPriceFields.reduce((acc, cur) => {
-    acc += +cur;
-    return acc;
+    return acc + cur;
   }, 0);
-  console.log('totalCostPrice', totalCostPrice);
+
+  const grossProfitFields = values.items.map(({ costPrice, quantity, elemProfRate }) =>{
+    return ((+costPrice * +quantity) * (+elemProfRate / 100));
+  });
+  const grossProfitVal = grossProfitFields.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
+
+  console.log('totalgrossProfit', grossProfitVal);
 
   useEffect(() => {
     setFieldValue('totalCost', totalCostPrice);
-  }, [totalCostPrice]);
+    setFieldValue('grossProfit', grossProfitVal);
+  }, [totalCostPrice, grossProfitVal]);
 
   /* フォームプルダウンに使用する配列の入れ物の定義 */
   /* フォームプルダウンに使用する配列の更新処理 */

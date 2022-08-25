@@ -1,22 +1,29 @@
-import { FormControlLabel, Checkbox } from '@mui/material';
+import { FormControlLabel, Checkbox, FormControl, FormHelperText } from '@mui/material';
 
 interface LabeledCheckBoxProps {
   label?: string,
   checked? : boolean,
+  helperText?: string,
   setCheckedHandler?: ()=>void,
 }
 
-export default function LabeledCheckBox({
-  label = '',
-  checked = false,
-  setCheckedHandler,
-}: LabeledCheckBoxProps) {
+export function LabeledCheckBox(props : LabeledCheckBoxProps) {
+  const {
+    label = '',
+    checked = false,
+    setCheckedHandler,
+    helperText,
+  } = props;
+
 
   return (
-    <FormControlLabel
+    <FormControl>
+      <FormControlLabel
       control={
         <Checkbox checked={checked} onChange={setCheckedHandler} />}
       label={label}
     />
+      <FormHelperText>{helperText}</FormHelperText>
+    </FormControl>
   );
 }

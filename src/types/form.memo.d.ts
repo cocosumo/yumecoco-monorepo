@@ -1,5 +1,5 @@
 
-import { UpsertRecordResult } from '../api/kintone/restapi';
+
 import { InputField, ElementTarget, SubmitStatus } from './forms';
 
 export type NotifyAgent = {
@@ -31,7 +31,7 @@ export interface MemoFormState {
 
 export type InitialMemoPayload = { groupId: string, custId: string, custName: string, cocoAg: string[], yumeAg: string[] };
 
-export type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: UpsertRecordResult };
+export type SubmitPayload = { submitState: SubmitStatus, fetchResponse?: any };
 
 export type KeyPayload = { key: keyof EmployeesToNotify };
 

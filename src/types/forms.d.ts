@@ -1,12 +1,14 @@
 
 
-export type PatternType = 'email' | 'tel' | 'postal';
+type PatternType = 'email' | 'tel' | 'postal';
+type AgentType = 'cocoAG' | 'yumeAG' | 'cocoConst';
+type TFormStatus = 'busy' | 'disabled' | '';
 
-export interface ElementTarget {
+interface ElementTarget {
   target: { name: string, value: string }
 }
 
-export interface InputField {
+interface InputField {
   label: string,
   value: string,
   touched: boolean,
@@ -19,10 +21,18 @@ export interface InputField {
   isDisabled?: boolean
 }
 
-export type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'CONFIRM_SAVE' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS' | 'SUCCES_UPDATE';
+type SubmitStatus = 'EDITTING' |  'VALIDATE' | 'VALIDATE_SUCCESS' | 'VALIDATE_ERROR' | 'CONFIRM_SAVE' | 'FETCHING' | 'FETCH_ERROR' | 'SUCCESS' | 'SUCCES_UPDATE';
 
 
-export interface FormState {
+interface FormState {
   isSubmitted: boolean,
   submitState: SubmitStatus
 }
+
+interface URLParams {
+  projId?: string
+  projEstimateId?: string,
+  custGroupId?: string,
+}
+
+type KeyOfUrlParams = keyof URLParams;

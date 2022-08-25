@@ -1,27 +1,56 @@
 declare namespace CustomerGroupTypes {
   interface Data {
-    storeName: kintone.fieldTypes.SingleLineText;
+    projectCount: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
-    members: {
+    isDeleted: kintone.fieldTypes.Number;
+    custType: kintone.fieldTypes.RadioButton;
+    storeName: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
+    projects: {
       type: 'SUBTABLE';
-      value: {
+      value: Array<{
         id: string;
         value: {
-          customerId: kintone.fieldTypes.Number;
-          customerName: kintone.fieldTypes.SingleLineText;
+          cancelStatus: kintone.fieldTypes.SingleLineText;
+          kariAddress: kintone.fieldTypes.SingleLineText;
+          cocoConst2Name: kintone.fieldTypes.SingleLineText;
+          constructionId: kintone.fieldTypes.Number;
+          projectAddress1: kintone.fieldTypes.SingleLineText;
+          envStatus: kintone.fieldTypes.SingleLineText;
+          projectAddress2: kintone.fieldTypes.SingleLineText;
+          cocoConst2: kintone.fieldTypes.Number;
+          cocoConst1: kintone.fieldTypes.Number;
+          projectPostal: kintone.fieldTypes.SingleLineText;
+          constructionName: kintone.fieldTypes.SingleLineText;
+          cocoConst1Name: kintone.fieldTypes.SingleLineText;
+          status: kintone.fieldTypes.SingleLineText;
         };
-      }[];
+      }>;
     };
     agents: {
       type: 'SUBTABLE';
-      value: {
+      value: Array<{
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
         };
-      }[];
+      }>;
+    };
+    members: {
+      type: 'SUBTABLE';
+      value: Array<{
+        id: string;
+        value: {
+          address2: kintone.fieldTypes.SingleLineText;
+          address1: kintone.fieldTypes.SingleLineText;
+          customerId: kintone.fieldTypes.Number;
+          postal: kintone.fieldTypes.SingleLineText;
+          dump: kintone.fieldTypes.SingleLineText;
+          customerName: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
     };
   }
   interface SavedData extends Data {

@@ -1,8 +1,8 @@
 declare namespace EmployeeTypes {
   interface Data {
     文字列＿氏名: kintone.fieldTypes.SingleLineText;
-    ルックアップ＿店舗名: kintone.fieldTypes.SingleLineText;
     文字列__1行_: kintone.fieldTypes.SingleLineText;
+    mainStore: kintone.fieldTypes.SingleLineText;
     日付＿誕生日: kintone.fieldTypes.Date;
     入社日: kintone.fieldTypes.Date;
     mainStoreId: kintone.fieldTypes.Number;
@@ -14,6 +14,7 @@ declare namespace EmployeeTypes {
     文字列__1行__0: kintone.fieldTypes.SingleLineText;
     文字列__1行__1: kintone.fieldTypes.SingleLineText;
     所属チーム: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
 
     account: kintone.fieldTypes.UserSelect;
     テーブル: {

@@ -1,23 +1,15 @@
-import Stack from '@mui/material/Stack/Stack';
+import Stack from '@mui/material/Stack';
 import BasicSelect from '../../ui/selects/BasicSelect';
-import TextField from '@mui/material/TextField/TextField';
-import LabeledCheckBox from '../../ui/checkboxes/LabeledCheckBox';
-import Caption from '../../ui/typographies/Caption';
+import TextField from '@mui/material/TextField';
+import { LabeledCheckBox } from '../../ui/checkboxes';
+import { Caption } from '../../ui/typographies';
 import MemoFormAgentCheckBox from './MemoFormAgentCheckBox';
 import {  useState } from 'react';
 import { FieldActionType, MemoFormState } from '../../../types/form.memo';
-import { ElementTarget } from '../../../types/forms';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
-const options = [
-  { label: '顧客情報' },
-  { label: '打ち合わせ' },
-  { label: '契約内容' },
-  { label: '工事場所情報' },
-  { label: '問い合わせ' },
-  { label: 'その他' },
-
-];
+const options = ['顧客情報', '打ち合わせ', '契約内容', '工事場所情報', '問い合わせ', 'その他']
+  .map(item => ({ label: item, value: item }));
 
 export interface MemoFormProps {
   formState: MemoFormState,
@@ -36,8 +28,8 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
 
   return (
     <Stack spacing={2} p={1}>
-    <Stack direction="row" justifyContent="end">顧客名：{custName}</Stack>
-    <BasicSelect
+      <Stack direction="row" justifyContent="end">顧客名：{custName}</Stack>
+      <BasicSelect
       name={'memoType'}
       value={memoType.value}
       label={memoType.label}
@@ -47,7 +39,7 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
       options={options} onChange={handleChange} isRequired={memoType.isRequired}
     />
 
-    <TextField
+      <TextField
       name="memoContents"
       label="メモ"
       fullWidth
@@ -60,18 +52,18 @@ const MemoForm : React.FC<MemoFormProps> = (props) => {
       error={memoContents.hasError && (memoContents.touched || formState.isSubmitted)}
       required={memoContents.isRequired}
     />
-    <Stack direction="row" justifyContent="space-between">
+      <Stack direction="row" justifyContent="space-between">
 
-      <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>dispatch({ type: 'CHANGE_ISNOTIFY' })} />
+        <LabeledCheckBox label="担当者に通知する" checked={isNotify} setCheckedHandler={()=>dispatch({ type: 'CHANGE_ISNOTIFY' })} />
 
 
-      <Stack>
-        <Caption text={`作成日時：${format(new Date(), 'yyyy.MM.d H:mm')}`} />
-        <Caption text={`作成者：${kintone.getLoginUser().name}`} />
+        <Stack>
+          <Caption text={`作成日時：${format(new Date(), 'yyyy.MM.d H:mm')}`} />
+          <Caption text={`作成者：${kintone.getLoginUser().name}`} />
+        </Stack>
       </Stack>
+      {isNotify && <MemoFormAgentCheckBox dispatch={dispatch} formState={formState} />}
     </Stack>
-    {isNotify && <MemoFormAgentCheckBox dispatch={dispatch} formState={formState} />}
-  </Stack>
   );
 };
 

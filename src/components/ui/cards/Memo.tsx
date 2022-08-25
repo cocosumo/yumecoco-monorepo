@@ -7,7 +7,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import {  Typography, ListItemText, ListItem, ListItemAvatar, Stack, Divider } from '@mui/material';
 
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 
 
 interface NoteProps {
@@ -41,10 +41,10 @@ export default function Memo({ record, handleTouched }:NoteProps) {
 
   return (
     <>
-    <ListItem onClick={handleTouched}>
-      <ListItemAvatar><Icon type={memoType.value} /></ListItemAvatar>
+      <ListItem onClick={handleTouched}>
+        <ListItemAvatar><Icon type={memoType.value} /></ListItemAvatar>
 
-      <ListItemText
+        <ListItemText
           primary={memoType.value}
           secondary={
             <Stack component={'span'}>
@@ -60,8 +60,8 @@ export default function Memo({ record, handleTouched }:NoteProps) {
             </Stack>
           }
         />
-    </ListItem>
-    <Divider variant="inset" component="li" />
+      </ListItem>
+      <Divider variant="inset" component="li" />
     </>
 
   );

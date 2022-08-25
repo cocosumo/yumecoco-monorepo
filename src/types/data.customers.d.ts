@@ -6,31 +6,21 @@ declare namespace CustomerTypes {
     address1: kintone.fieldTypes.SingleLineText;
     postalCode: kintone.fieldTypes.SingleLineText;
     fullName: kintone.fieldTypes.SingleLineText;
-    store: kintone.fieldTypes.Number;
+    index: kintone.fieldTypes.Number;
+    isSameAsMain: kintone.fieldTypes.Number;
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;
     nationality: kintone.fieldTypes.SingleLineText;
+    isDeleted: kintone.fieldTypes.Number;
     birthYear: kintone.fieldTypes.Number;
-    storeName: kintone.fieldTypes.SingleLineText;
-    agents: {
-      type: 'SUBTABLE';
-      value: {
-        id: string;
-        value: {
-          employeeName: kintone.fieldTypes.SingleLineText;
-          agentType: kintone.fieldTypes.SingleLineText;
-          employeeId: kintone.fieldTypes.Number;
-        };
-      }[];
-    };
     contacts: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: {
         id: string;
         value: {
           contactValue: kintone.fieldTypes.SingleLineText;
           contactType: kintone.fieldTypes.SingleLineText;
-          classification: kintone.fieldTypes.SingleLineText;
+          relation: kintone.fieldTypes.SingleLineText;
         };
       }[];
     };

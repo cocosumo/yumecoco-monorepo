@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cust 1`] = `
+Object {
+  "agents": Object {
+    "type": "SUBTABLE",
+    "value": Array [
+      Object {
+        "id": "",
+        "value": Object {
+          "agentType": Object {
+            "value": "cocoAG",
+          },
+          "employeeId": Object {
+            "value": "40",
+          },
+          "employeeName": Object {
+            "value": "",
+          },
+        },
+      },
+      Object {
+        "id": "",
+        "value": Object {
+          "agentType": Object {
+            "value": "cocoAG",
+          },
+          "employeeId": Object {
+            "value": "43",
+          },
+          "employeeName": Object {
+            "value": "",
+          },
+        },
+      },
+      Object {
+        "id": "",
+        "value": Object {
+          "agentType": Object {
+            "value": "yumeAG",
+          },
+          "employeeId": Object {
+            "value": "28",
+          },
+          "employeeName": Object {
+            "value": "",
+          },
+        },
+      },
+      Object {
+        "id": "",
+        "value": Object {
+          "agentType": Object {
+            "value": "yumeAG",
+          },
+          "employeeId": Object {
+            "value": "65",
+          },
+          "employeeName": Object {
+            "value": "",
+          },
+        },
+      },
+    ],
+  },
+  "members": Object {
+    "type": "SUBTABLE",
+    "value": Array [],
+  },
+  "storeId": Object {
+    "value": "11",
+  },
+}
+`;

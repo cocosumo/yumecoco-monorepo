@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`resolve 1`] = `
+Array [
+  "ゆめてつ",
+]
+`;
+
+exports[`resolve 2`] = `
+Array [
+  "ゆめてつ",
+  "ここすも",
+]
+`;

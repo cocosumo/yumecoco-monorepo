@@ -1,14 +1,32 @@
-import { APP_ID } from './config';
-import { KintoneRecord } from './../config';
+import {  APPIDS, KintoneRecord } from './../config';
 
-import { OneOf } from '@kintone/rest-api-client/lib/KintoneFields/types/field';
 
-interface Result {
-  record: Record<keyof CustomerGroupTypes.SavedData,  OneOf>
+
+export interface AdvancedSearchCustGroupParam {
+  storeId?: string,
+  custName?: string,
+  limit?: string,
+  offset?: string,
 }
 
-export const getCustGroup = (id: string) : Promise<Result> => {
-
-  return KintoneRecord.getRecord({ app: APP_ID, id });
-
+export const getCustGroup = (id: string) => {
+  return KintoneRecord.getRecord({ app: APPIDS.custGroup, id })
+    .then(resp => resp.record as unknown as CustomerGroupTypes.SavedData );
 };
+
+/**
+ * Search customer by name
+ *
+ * @param searchStr
+ * @returns {Record}
+ */
+export const searchCustGroup = (searchStr: string) => {
+
+  return KintoneRecord.getRecords({
+    app: APPIDS.custGroup,
+    query: `${'customerName'} like "${searchStr}"`,
+  });
+};
+
+
+

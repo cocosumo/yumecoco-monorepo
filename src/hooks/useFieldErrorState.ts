@@ -6,7 +6,7 @@ type UseShowErrorFunc = (formState: {
   hasError: boolean
 }) => { hasError: boolean };
 
-const useFieldErrorState : UseShowErrorFunc = ({ touched, isSubmitted, hasError } ) => {
+export const useFieldErrorState : UseShowErrorFunc = ({ touched, isSubmitted, hasError } ) => {
 
   return {
     hasError: hasError && (touched || isSubmitted),

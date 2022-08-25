@@ -1,5 +1,5 @@
 const path = require('path');
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
@@ -12,6 +12,7 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new ForkTsCheckerWebpackPlugin(),
+    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
@@ -32,16 +33,20 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.json','.ts','.tsx' ,'.jsx'],
+    fallback: {
+      "crypto": false
+    }
   },
 
   module: {
 
     rules: [
+
       {
         test: /\.(png|jpg|gif)$/i,
         use: [
           {
-            loader: "url-loader"
+            loader: "url-loader",
           },
         ],
       },
@@ -61,27 +66,85 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
+
         use: {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
+            module: false,
+
             presets: [
               ['@babel/preset-react', {
                 runtime: 'automatic',
               }],
+              [
+                "@babel/preset-env",
+                {
+                  "targets": {
+                    "node": "current"
+                  }
+                }
+              ]
             ],
 
           },
         },
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader' },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          experimentalWatchApi: true,
+        },
+      },
     ],
   },
 
   optimization: {
-    minimizer: [
+    splitChunks: {
+      minSize: 20000,
+
+      cacheGroups: {
+          default: false,
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'async',
+            priority: 20,
+            reuseExistingChunk: true,
+            enforce: true
+          },
+          assets: {
+            chunks: "all",
+            name: "assets",
+            test: /[\\/]assets[\\/]/,
+            priority: -30,
+          },
+          mui: {
+            chunks: "all",
+            name: "vendor-mui",
+
+            test: /[\\/]@mui[\\/]/,
+            priority: 0,
+          },
+          vendors: {
+             // sync + async chunks
+             name: 'vendor',
+             chunks: 'initial',
+             priority: -10,
+             // import file path containing node_modules
+             test: /node_modules/,
+
+          },
+
+
+      }
+  },
+  minimizer: [
       new ForkTsCheckerWebpackPlugin(),
       '...',
       new CssMinimizerPlugin(),
     ],
   },
+
 };

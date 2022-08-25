@@ -1,5 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { isMobile } from './../../helpers/kintone';
+import { grey } from '@mui/material/colors';
+
 
 
 const background = '#434343';
@@ -11,11 +13,29 @@ const darkTheme = createTheme({
     htmlFontSize: isMobile ? 10 : 18,
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        containedSecondary: {
+          color: grey[700],
+          background: grey[100],
+          ':hover': {
+            backgroundColor: grey[700],
+            color : grey[100],
+          },
+        },
+        textSecondary: {
+          color: grey[700],
+        },
+        outlinedSecondary: {
+          color: grey[700],
+          borderColor: grey[300],
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {
           backgroundColor: 'white',
-
         },
       },
     },
@@ -36,6 +56,9 @@ const darkTheme = createTheme({
     MuiFab: {
       styleOverrides: {
         root: {
+          color: 'whitesmoke',
+          borderColor: '#9ecaed',
+          boxShadow: '0 0 10px #9ecaed',
           background: background,
           ':hover': {
             background: background,
@@ -73,13 +96,26 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiPagination: {
+      styleOverrides: {
+        root: {
+          display: 'flex',
+          justifyContent: 'center',
+        },
+      },
+    },
+  },
+  palette : {
+    secondary: {
+      main: grey[700],
+    },
   },
 });
 
 export default function EnableColorOnDarkAppBar({ children }: Props) {
-  console.log(isMobile);
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <ThemeProvider  theme={darkTheme}>
       {children}
     </ThemeProvider>
 

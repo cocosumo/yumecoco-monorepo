@@ -2,7 +2,6 @@ import { AlertColor } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { FieldActionType } from '../types/form.memo';
 
-import { FormState } from '../types/forms';
 
 interface UseSubmitState {
   formState : FormState,
@@ -16,7 +15,7 @@ interface SnackState {
   severity: AlertColor
 }
 
-const useSubmitState = (form: UseSubmitState) => {
+export const useSubmitState = (form: UseSubmitState) => {
   const [snackState, setSnackState] = useState<SnackState>({ open: false, message: '', severity: 'info' });
 
   const { formState, dispatch, saveToDb } = form;

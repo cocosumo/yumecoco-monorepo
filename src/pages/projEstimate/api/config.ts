@@ -20,22 +20,35 @@ export enum EstimateAppId {
   elements = 69,
 }
 
+export type KEstimateAppId = keyof typeof EstimateAppId;
+
+
 /**
  * レコード一括取得時のオプション設定
  */
-export const estimateFields = {
+export const estimateFields : Record<
+KEstimateAppId,
+{
+  fields?:
+  | Array<keyof Estimates.majorItems.SavedData>
+  | Array<keyof Estimates.middleItems.SavedData>
+  | Array<keyof Estimates.materials.SavedData>
+  query?: string,
+}
+> = {
   majourItems: {
-    fields: ['レコード番号', '大項目名'],
+    fields: ['レコード番号', '大項目名'] as Array<keyof Estimates.majorItems.SavedData>,
     query: undefined,
   },
   middleItems: {
-    fields: ['レコード番号', '大項目', '中項目名'],
+    fields: ['レコード番号', '大項目', '中項目名'] as Array<keyof Estimates.middleItems.SavedData>,
     query: 'レコード番号 < 10',
   },
   elements: {
-    fields: ['部材名', '原価', '単位'],
+
+    //fields: ['部材名', '原価', '単位'] as Array<keyof Estimates.materials.SavedData>,
     query: 'レコード番号 < 10',
-  }, 
+  },
 };
 
 export const KintoneClient = new KintoneRestAPIClient(options);

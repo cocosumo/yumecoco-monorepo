@@ -1,51 +1,14 @@
-import { Button, Divider, FormControl, Grid, Input } from '@mui/material';
+import { Divider, FormControl, Grid, Input } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { PageTitle } from '../../components/ui/labels';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { buzaiListInit } from './constantDefinition';
 import { getFieldName, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
-import QuoteTable from './QuoteTable/QuoteTable';
 import { useEffect } from 'react';
-
-const renderFunc = (arrayHelpers) => {
-  const { form } = arrayHelpers;
-  const { values } = form;
-
-  // console.log('renderFunc', values);
-
-  // 部材の中の最大値を取得する
-  const newNumber = () => {
-    const newNum = values.items.map((item) => {
-      return item.number;
-    });
-    // console.log('test', newNum);
-    return Math.max.apply(null, newNum) + 1;
-  };
-
-  return (
-    <div>
-      <div>
-        <QuoteTable arrayHelpers={arrayHelpers} values={values} />
-      </div>
-      <Button
-        variant="outlined"
-        onClick={() => arrayHelpers.push({
-          ...buzaiListInit,
-          number: newNumber(),
-        })}
-        sx={{
-          textAlign: 'right',
-        }}
-      >
-        追加
-      </Button>
-    </div>
-  );
-};
+import { RenderFunc } from './QuoteTable/RenderFunc';
 
 export default function FormProjEstimate() {
   const { values, submitForm, setFieldValue } = useFormikContext<TypeOfForm>();
@@ -113,7 +76,7 @@ export default function FormProjEstimate() {
             {/* 見積もり用のテーブル */}
             <FieldArray
               name={getFieldName('items')}
-              render={renderFunc}
+              render={RenderFunc}
             />
           </Grid>
 

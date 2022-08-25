@@ -1,8 +1,9 @@
-import QuoteTable from '../QuoteTable/QuoteTable';
+import QuoteTable from './QuoteTable';
 import { buzaiListInit } from '../constantDefinition';
 import { Button } from '@mui/material';
+import { TArrayHelpers } from '../types';
 
-export const RenderFunc = (arrayHelpers) => {
+export const RenderFunc = (arrayHelpers: TArrayHelpers) => {
   const { form } = arrayHelpers;
   const { values } = form;
 

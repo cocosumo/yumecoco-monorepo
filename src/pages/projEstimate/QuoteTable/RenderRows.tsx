@@ -1,9 +1,10 @@
 import { TableRow } from '@mui/material';
 import { TypeOfForm } from '../form';
+import { TArrayHelpers } from '../types';
 import { RowContent } from './RowContent';
 
 export type RenderRowsProps = {
-  arrayHelpers: any,
+  arrayHelpers: TArrayHelpers,
   values: TypeOfForm,
 };
 

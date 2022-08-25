@@ -8,9 +8,10 @@ import Paper from '@mui/material/Paper';
 import RenderRows from './RenderRows';
 import { TypeOfForm } from '../form';
 import { materialsNameList } from '../constantDefinition';
+import { TArrayHelpers } from '../types';
 
 export type QuoteTableProps = {
-  arrayHelpers: any, 
+  arrayHelpers: TArrayHelpers, 
   values: TypeOfForm,
 };
 

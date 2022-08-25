@@ -35,7 +35,7 @@ const InputCellContent = (props: InputCellContentProps) => {
     );
   } else if (materialsLabelList[chkName] === 'display') {
     return (
-      <Typography variant='body2' {...field} >
+      <Typography variant='body2'>
         {field.value}
       </Typography>
     );

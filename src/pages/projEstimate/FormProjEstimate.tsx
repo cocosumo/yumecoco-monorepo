@@ -10,6 +10,12 @@ import SummaryTable from './SummaryTable/SummaryTable';
 import { useEffect } from 'react';
 import { RenderFunc } from './QuoteTable/RenderFunc';
 
+const amountDisplayFormat = (amount: number) => {
+  const newAmount = amount;
+
+  return (newAmount.toString() + '円');
+};
+
 export default function FormProjEstimate() {
   const { values, submitForm, setFieldValue } = useFormikContext<TypeOfForm>();
 
@@ -46,13 +52,12 @@ export default function FormProjEstimate() {
 
   // 合計欄の更新処理
   useEffect(() => {
-    setFieldValue('totalCost', totalCostPrice);
-    setFieldValue('grossProfit', grossProfitVal);
+    setFieldValue('totalCost', amountDisplayFormat(totalCostPrice));
+    setFieldValue('grossProfit', amountDisplayFormat(grossProfitVal));
     setFieldValue('grossProfitMargin', grossProfitMarginVal);
-    setFieldValue('taxAmount', (amountIncludingTaxVal - taxExcludedAmountVal));
-    setFieldValue('taxExcludedAmount', taxExcludedAmountVal);
-    setFieldValue('amountIncludingTax', amountIncludingTaxVal);
-
+    setFieldValue('taxAmount', amountDisplayFormat(amountIncludingTaxVal - taxExcludedAmountVal));
+    setFieldValue('taxExcludedAmount', amountDisplayFormat(taxExcludedAmountVal));
+    setFieldValue('amountIncludingTax', amountDisplayFormat(amountIncludingTaxVal));
   }, [totalCostPrice, grossProfitVal, grossProfitMarginVal, taxExcludedAmountVal, amountIncludingTaxVal]);
 
   /* フォームプルダウンに使用する配列の入れ物の定義 */

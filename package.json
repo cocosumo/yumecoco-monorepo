@@ -23,7 +23,7 @@
     "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.constructionDetails.d.ts",
     "dtsgen:estimatesMajorItems": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 67 --type-name Data --namespace Estimates.majorItems -o src/types/data.estimates.majorItems.d.ts",
     "dtsgen:estimatesMiddleItems": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 68 --type-name Data --namespace Estimates.middleItems -o src/types/data.estimates.middleItems.d.ts",
-    "dtsgen:estimatesMaterials": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 68 --type-name Data --namespace Estimates.materials -o src/types/data.estimates.materials.d.ts"
+    "dtsgen:estimatesMaterials": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 69 --type-name Data --namespace Estimates.materials -o src/types/data.estimates.materials.d.ts"
 
   },
   "keywords": [

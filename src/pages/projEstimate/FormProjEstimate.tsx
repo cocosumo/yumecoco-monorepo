@@ -10,11 +10,6 @@ import SummaryTable from './SummaryTable/SummaryTable';
 import { useEffect } from 'react';
 import { RenderFunc } from './QuoteTable/RenderFunc';
 
-const amountDisplayFormat = (amount: number) => {
-  const newAmount = Math.round(amount).toLocaleString();
-  return (newAmount.toString() + '円');
-};
-
 export default function FormProjEstimate() {
   const { values, submitForm, setFieldValue } = useFormikContext<TypeOfForm>();
 
@@ -35,7 +30,7 @@ export default function FormProjEstimate() {
   // 利益率の算出処理
   const provVal = (grossProfitVal / totalCostPrice) * 100;
   const grossProfitMarginVal = isNaN(provVal) ? '-'
-    : provVal.toFixed(2) + '%';
+    : parseFloat(provVal.toFixed(2));
 
   // 税抜金額の算出処理
   const taxExcludedAmountFields = values.items.map(({ costPrice, quantity, elemProfRate }) => {
@@ -46,19 +41,19 @@ export default function FormProjEstimate() {
   }, 0);
 
   // 税込金額の算出処理
-  const amountIncludingTaxFields = values.items.map(({ price })=> price);
+  const amountIncludingTaxFields = values.items.map(({ price })=> +price);
   const amountIncludingTaxVal = amountIncludingTaxFields.reduce((acc, cur) => {
     return acc + cur;
   }, 0);
 
   // 合計欄の更新処理
   useEffect(() => {
-    setFieldValue('totalCost', amountDisplayFormat(totalCostPrice));
-    setFieldValue('grossProfit', amountDisplayFormat(grossProfitVal));
+    setFieldValue('totalCost', Math.round(totalCostPrice));
+    setFieldValue('grossProfit', Math.round(grossProfitVal));
     setFieldValue('grossProfitMargin', grossProfitMarginVal);
-    setFieldValue('taxAmount', amountDisplayFormat(amountIncludingTaxVal - taxExcludedAmountVal));
-    setFieldValue('taxExcludedAmount', amountDisplayFormat(taxExcludedAmountVal));
-    setFieldValue('amountIncludingTax', amountDisplayFormat(amountIncludingTaxVal));
+    setFieldValue('taxAmount', Math.round(amountIncludingTaxVal - taxExcludedAmountVal));
+    setFieldValue('taxExcludedAmount', Math.round(taxExcludedAmountVal));
+    setFieldValue('amountIncludingTax', Math.round(amountIncludingTaxVal));
   }, [totalCostPrice, grossProfitVal, grossProfitMarginVal, taxExcludedAmountVal, amountIncludingTaxVal]);
 
   /* フォームプルダウンに使用する配列の入れ物の定義 */
@@ -106,6 +101,7 @@ export default function FormProjEstimate() {
           <Grid item md={3} />
 
           <Grid item xs={12} md={12}>
+            {/* 合計欄テーブル */}
             <SummaryTable />
           </Grid>
 

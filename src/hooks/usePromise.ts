@@ -12,7 +12,6 @@ export const usePromise : UsePromise = ( promiseFunc, initialValue ) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(()=> {
-    console.log('EEEEEE', data);
     promiseFunc()
       .then(resp => setData(resp ))
       .catch(setError)

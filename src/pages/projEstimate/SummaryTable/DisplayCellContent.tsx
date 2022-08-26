@@ -7,14 +7,14 @@ export type DisplayCellContentProps = {
 };
 const DisplayCellContent = (props: DisplayCellContentProps) => {
   const [field] = useField(props);
-  // const { values } = useFormikContext<TypeOfForm>();
 
-  /* 表示内容の算出処理 */
-  // const output = summaryCalcProcess(field, values);
-  
+  // 粗利率のみ単位を%、その他は3桁ごとにカンマ+単位に円を付与する
+  const dispVal = (field.name === 'grossProfitMargin') ? (field.value + ' %')
+    : (field.value.toLocaleString() + '円');
+
   return (
     <Typography variant='body2' >
-      {field.value}
+      {dispVal}
     </Typography>
   );
 };

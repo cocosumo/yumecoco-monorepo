@@ -33,3 +33,5 @@ interface EnhancedTableProps<T> {
   order: Order;
   orderBy: string;
 }
+
+type Unpack<T> = T extends Promise<infer U> ? U : T;

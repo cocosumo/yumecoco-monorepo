@@ -1,12 +1,14 @@
-import { EstimateAppId, estimateFields, KintoneEstimateRecord } from './config';
+import { EstimateAppId, estimateFields, KEstimateAppId, KintoneEstimateRecord } from './config';
 
 
-export const fetchRecords = async (appName: string) => {
+export const fetchRecords = async <T extends KEstimateAppId>(
+  appName: T,
+) => {
   return KintoneEstimateRecord.getRecords({
     app: EstimateAppId[appName],
     /* query: estimateFields[appName].query, */
     fields: estimateFields[appName].fields,
-  }).then(r => r.records as unknown as TypeOfProjectDetails);
+  }).then(r => r.records);
 };
 
 /* export const getFormDataById = async (appName: string): Promise<TypeOfForm> => {

@@ -9,7 +9,7 @@ import { usePromise } from '../../../hooks';
  * of more customizeable useEmployeeOptions Hook
  * @returns
  */
-export const useMaterials  = () => {
+/* export const useMaterials  = () => {
 
   const { data,  error, loading } = usePromise(getEmployees);
 
@@ -20,4 +20,4 @@ export const useMaterials  = () => {
     loading,
   };
 
-};
+}; */

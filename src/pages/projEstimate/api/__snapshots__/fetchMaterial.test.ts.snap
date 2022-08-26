@@ -1,0 +1,296 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get Materials API should be able to get MajorItems 1`] = `
+Array [
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "30",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "申請費用",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "29",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "屋根工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "28",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "断熱工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "27",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "建材・新建材",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "26",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "美装工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "25",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "金物工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "24",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "雑工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "23",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "地盤工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "22",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "補修工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "21",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "造成工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "20",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "外構工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "19",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "住設工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "18",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "家具工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "16",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "外壁工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "15",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "防水工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "14",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "左官工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "13",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "建具工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "12",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "塗装工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "11",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "空調・照明機器工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "10",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "給排水衛生設備工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "9",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "電気工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "8",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "住宅設備機器工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "7",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "内装工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "6",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "木工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "5",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "値引き",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "4",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "防蟻工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "3",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "仮設工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "2",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "基礎工事",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "1",
+    },
+    "大項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "大項目テスト",
+    },
+  },
+]
+`;

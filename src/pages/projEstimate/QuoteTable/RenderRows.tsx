@@ -27,7 +27,7 @@ export default function RenderRows(props: RenderRowsProps) {
                 row={item}
                 rowIdx={itemsIdx}
                 removeRow={removeRow}
-                key={values.items[itemsIdx].number}
+                key={item.number}
               />
             );
           })}

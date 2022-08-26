@@ -1,3 +1,5 @@
+import { TKMaterials } from './form';
+
 /**
  * 見積もりテーブルの初期値
  */
@@ -18,7 +20,7 @@ export const buzaiListInit = {
 /**
  * 見積もりテーブルのkeyリスト
  */
-export const materialsLabelList = {
+export const materialsLabelList: Record<TKMaterials, 'display' | 'pulldown' | 'pullldownAndInput' | 'input'> = {
   'number': 'display',
   'majorItem': 'pulldown',
   'middleItem': 'pulldown',
@@ -30,14 +32,14 @@ export const materialsLabelList = {
   'tax': 'pulldown',
   'unitPrice': 'display',
   'price': 'display',
-};
+} as const;
 
 /**
  * 見積もりアイテムのラベル定義
  */
 export const materialsNameList = [
   'No.', '大項目*', '中項目', '部材', '原価*', '数量*', '利益率', '単位', '税(課税 / 非課税)', '単価', '金額',
-];
+] as const;
 
 /**
  * 合計欄のkeyリスト
@@ -51,4 +53,4 @@ export const materialsNameList = [
  */
 export const summaryNameList = [
   '原価合計', '粗利', '粗利率', '税(円)', '税抜金額', '税込金額',
-];
+] as const;

@@ -1,23 +1,38 @@
 import { usePromise } from '../../../hooks';
+import { fetchMajorItems, fetchMiddleItems } from '../api/fetchMaterials';
 
 
 
 /**
- * Get all yume employees.
- * Will adjust hook name to getYumeEmployees
- * on next refactoring. Or I'll deprecate this in favor
- * of more customizeable useEmployeeOptions Hook
- * @returns
+ * Cached all Materials and expose filter functions.
+ *
+ * This is to save API calls.
  */
-/* export const useMaterials  = () => {
+export const useMaterials  = () => {
+  const majorItems = usePromise<Estimates.majorItems.SavedData[]>(fetchMajorItems);
+  const middleItems = usePromise<Estimates.middleItems.SavedData[]>(fetchMiddleItems);
+  const materials = usePromise<Estimates.middleItems.SavedData[]>(fetchMiddleItems);
 
-  const { data,  error, loading } = usePromise(getEmployees);
+  const filterMiddleItems = (majorItemdName: string) => middleItems.data
+    ?.filter(({ 大項目名 }) => 大項目名.value === majorItemdName  );
 
+  const filterMaterials = ({
+    selMajorItemName, selMiddleItemName,
+  } : {
+    selMajorItemName?: string,
+    selMiddleItemName?: string,
+  }) => materials.data
+    ?.filter(({ 大項目名, 中項目名 }) =>
+      大項目名.value === selMajorItemName ||
+      中項目名.value === selMiddleItemName,
+    );
 
   return {
-    employees: (data as EmployeeTypes.SavedData[]),
-    error,
-    loading,
+    filterMiddleItems,
+    filterMaterials,
+    majorItems,
+    middleItems,
+    materials,
   };
 
-}; */
+};

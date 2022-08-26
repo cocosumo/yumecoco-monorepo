@@ -11,8 +11,7 @@ import { useEffect } from 'react';
 import { RenderFunc } from './QuoteTable/RenderFunc';
 
 const amountDisplayFormat = (amount: number) => {
-  const newAmount = amount;
-
+  const newAmount = Math.round(amount).toLocaleString();
   return (newAmount.toString() + '円');
 };
 
@@ -34,7 +33,9 @@ export default function FormProjEstimate() {
   }, 0);
 
   // 利益率の算出処理
-  const grossProfitMarginVal = ((grossProfitVal / totalCostPrice) * 100 + '%').toString();
+  const provVal = (grossProfitVal / totalCostPrice) * 100;
+  const grossProfitMarginVal = isNaN(provVal) ? '-'
+    : provVal.toFixed(2) + '%';
 
   // 税抜金額の算出処理
   const taxExcludedAmountFields = values.items.map(({ costPrice, quantity, elemProfRate }) => {

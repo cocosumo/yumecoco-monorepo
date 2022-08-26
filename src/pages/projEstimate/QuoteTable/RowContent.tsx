@@ -31,7 +31,7 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
     setFieldValue(`items[${rowIdx}].price`, Math.round(newPrice).toLocaleString());
 
   }, [costPrice, quantity, elemProfRate, tax]);
-  return (<TableRow key={rowIdx}>
+  return (<TableRow >
     {(Object.keys(row) as TKMaterials[]).map((rowitem) => {
       return (
         <TableCell

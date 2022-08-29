@@ -17,20 +17,27 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
   // 各行の単価・金額の算出処理
   useEffect(() => {
     // 単価の算出処理 : IF(原価 <= 0, 0 , 原価  * ( 1 + (内訳利益率/100)))
-    const newUnitPrice = +(costPrice) <= 0 ? 0
-      : +(costPrice) * (1 + (elemProfRate) / 100);
-    setFieldValue(`items[${rowIdx}].unitPrice`, Math.round(newUnitPrice).toLocaleString());
+    let newUnitPrice = 0; // 入力値がエラー(数値でない)時は0にする
+    if (!(isNaN(costPrice) || isNaN(elemProfRate)) && ((costPrice) > 0)) {
+      newUnitPrice = Math.round(+costPrice * (1 + (+elemProfRate / 100)));
+    }
+    setFieldValue(`items[${rowIdx}].unitPrice`, newUnitPrice);
 
     // 金額の算出処理 : IF(原価 <= 0, 原価, IF ( 税="課税", (単価*数量) * (1 + (税率/100)), (単価*数量)))
-    const tentative = newUnitPrice * +quantity;
+    let newPrice = 0; // 入力値がエラー(数値でない)時は0にする
+    if (+costPrice <= 0 ) {
+      newPrice = costPrice;
+    } else if ((newUnitPrice !== 0) && !(isNaN(quantity))) {
+      if (tax === '課税') {
+        newPrice = Math.round((newUnitPrice * +quantity) * (1 + (+taxRate / 100)));
+      } else { /* 非課税 */
+        newPrice = Math.round(newUnitPrice * +quantity);
+      }
+    }
+    setFieldValue(`items[${rowIdx}].price`, newPrice);
 
-    const newPrice = +(costPrice) <= 0 ? costPrice
-      : (tax === '課税') ?
-        tentative * (1 + +(taxRate) / 100) : tentative;
-    // 金額を四捨五入で表示(切り捨ての場合はMath.ceil(数値)、切り捨ての場合はMath.floor(数値))
-    setFieldValue(`items[${rowIdx}].price`, Math.round(newPrice).toLocaleString());
+  }, [costPrice, quantity, elemProfRate, tax, taxRate]);
 
-  }, [costPrice, quantity, elemProfRate, tax]);
   return (<TableRow >
     {(Object.keys(row) as TKMaterials[]).map((rowitem) => {
       return (

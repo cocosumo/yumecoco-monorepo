@@ -59,12 +59,17 @@ export const validationSchema = Yup.object(
       .of(
         Yup.object().shape({
           'number': Yup.number(),
-          'majorItem': Yup.string().required('必須です。'),
+          'majorItem': Yup.string().required('必須です'),
           'middleItem': Yup.string(), /* 中項目 */
           'element': Yup.string(),    /* 部材 */
-          'costPrice': Yup.number().required('必須です。'), /* 原価 */
-          'quantity': Yup.number().required('必須です。'), /* 数量 */
-          'elemProfRate': Yup.number(), /* 利益率(部材) */
+          'costPrice': Yup.number().typeError('数値で入力してください').required('必須です'), /* 原価 */
+          'quantity': Yup.number()
+            .typeError('数値で入力してください')
+            .min(0, '0以上の数字を入力してください')
+            .required('必須です'), /* 数量 */
+          'elemProfRate': Yup.number()
+            .typeError('数値で入力してください')          
+            .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
           'tax': Yup.string(),  /* 税(課税/非課税) */
           'unitPrice': Yup.number(), /* 単価(原価*利益率(部材)) */

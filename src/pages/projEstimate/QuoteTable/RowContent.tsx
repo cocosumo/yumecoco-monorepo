@@ -26,10 +26,6 @@ export const RowContent = (
     <TableRow >
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'number')} />
-      </TableCell>
-
-      <TableCell>
         <FormikPulldown name={getItemFieldName(rowIdx, 'majorItem')} options={[]} />
       </TableCell>
 
@@ -50,40 +46,41 @@ export const RowContent = (
       </TableCell>
 
       <TableCell>
-        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
+        <FormikPulldown
+          name={getItemFieldName(rowIdx, 'unit')}
+          options={unitChoices.map((c) => ({ label: c, value: c }))}
+        />
       </TableCell>
 
       <TableCell>
-        <FormikPulldown
-        name={getItemFieldName(rowIdx, 'unit')}
-        options={unitChoices.map((c) => ({ label: c, value: c }))}
-        />
+        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
       </TableCell>
 
       <TableCell>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'tax')}
           options={taxChoices.map((c) => ({ label: c, value: c }))}
-          />
+        />
       </TableCell>
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'unitPrice')} suffix={'円'}/>
+        <Display name={getItemFieldName(rowIdx, 'unitPrice')} suffix={'円'} />
       </TableCell>
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'}/>
+        <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'} />
       </TableCell>
 
 
       <TableCell >
         <Button
-        variant="outlined"
-        onClick={() => removeRow(rowIdx)}
-      >
+          variant="outlined"
+          onClick={() => removeRow(rowIdx)}
+        >
           -
         </Button>
       </TableCell>
+
     </TableRow>
   );
 };

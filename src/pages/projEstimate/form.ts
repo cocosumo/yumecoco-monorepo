@@ -1,26 +1,11 @@
 
 import * as Yup from 'yup';
 
-/**
- * 見積もりアイテムの型定義
- */
-/* export type TMaterials = {
-  number: number,
-  majorItem: string,
-  middleItem: string,
-  element: string,
-  costPrice: number,
-  quantity: number,
-  elemProfRate: number,
-  unit: string,
-  tax: string,
-  unitPrice: number,
-  price: number,
-}; */
-
-
 export const taxChoices = ['課税', '非課税'] as const;
-export const unitChoices = ['㎡'] as const; //　更新お願いします。
+export const unitChoices = [
+  '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
+  'ケース', '台', '組', '袋', '箱', 'kg', 't',
+] as const; //　更新お願いします。
 
 export type TMaterials = TypeOfForm['items'][0];
 export type TKMaterials = keyof TMaterials;
@@ -42,8 +27,8 @@ export const initialValues = {
       costPrice: 0,  /* 原価 */
       quantity: 0,   /* 数量 */
       elemProfRate: 0, /* 利益率(部材) */
-      unit: '' as typeof unitChoices[number], /* 単位 */
-      tax: '' as typeof taxChoices[number],  /* 税(課税/非課税) */
+      unit: '式' as typeof unitChoices[number], /* 単位 */
+      tax: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
       unitPrice: 0, /* 単価(原価*利益率(部材)) */
       price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
     },

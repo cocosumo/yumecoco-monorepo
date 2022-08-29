@@ -1,65 +1,89 @@
 
 import { Button, TableCell, TableRow } from '@mui/material';
-import { useFormikContext } from 'formik';
-import { useEffect } from 'react';
-import { TKMaterials, TypeOfForm } from '../form';
-import InputCellContent from './InputCellContent';
+import { Display } from '../fieldComponents/Display';
+import { FormikInput } from '../fieldComponents/FormikInput';
+import { FormikPulldown } from '../fieldComponents/FormikPulldown';
+import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
+import { useCalculateRow } from '../hooks/useCalculateRow';
 
-export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
-  taxRate: number,
-  row: TypeOfForm['items'][number],
-  rowIdx: number,
-  removeRow: (rowIdx: number) => void
-}) => {
-  const { setFieldValue } = useFormikContext<TypeOfForm>();
-  const { costPrice, quantity, elemProfRate, tax } = row;
+const itemsName = getFieldName('items');
 
-  // 各行の単価・金額の算出処理
-  useEffect(() => {
-    // 単価の算出処理 : IF(原価 <= 0, 0 , 原価  * ( 1 + (内訳利益率/100)))
-    let newUnitPrice = 0; // 入力値がエラー(数値でない)時は0にする
-    if (!(isNaN(costPrice) || isNaN(elemProfRate)) && ((costPrice) > 0)) {
-      newUnitPrice = Math.round(+costPrice * (1 + (+elemProfRate / 100)));
-    }
-    setFieldValue(`items[${rowIdx}].unitPrice`, newUnitPrice);
+const getItemFieldName = (
+  rowIdx: number, fieldName: TKMaterials,
+) => `${itemsName}[${rowIdx}].${fieldName}`;
 
-    // 金額の算出処理 : IF(原価 <= 0, 原価, IF ( 税="課税", (単価*数量) * (1 + (税率/100)), (単価*数量)))
-    let newPrice = 0; // 入力値がエラー(数値でない)時は0にする
-    if (+costPrice <= 0 ) {
-      newPrice = costPrice;
-    } else if ((newUnitPrice !== 0) && !(isNaN(quantity))) {
-      if (tax === '課税') {
-        newPrice = Math.round((newUnitPrice * +quantity) * (1 + (+taxRate / 100)));
-      } else { /* 非課税 */
-        newPrice = Math.round(newUnitPrice * +quantity);
-      }
-    }
-    setFieldValue(`items[${rowIdx}].price`, newPrice);
+export const RowContent = (
+  { rowIdx,
+    removeRow,
+  }: {
+    rowIdx: number,
+    removeRow: (rowIdx: number) => void
+  }) => {
 
-  }, [costPrice, quantity, elemProfRate, tax, taxRate]);
+  useCalculateRow(rowIdx);
 
-  return (<TableRow >
-    {(Object.keys(row) as TKMaterials[]).map((rowitem) => {
-      return (
-        <TableCell
-          key={`${rowitem}_header`}
-          sx={{
-            padding: 1,
-            verticalAlign: 'top',
-          }}
-        >
-          <InputCellContent fieldName={rowitem} rowIdx={rowIdx} />
-        </TableCell>
-      );
-    })}
-    <TableCell key={`${row}_delBtn`}>
-      <Button
+  return (
+    <TableRow >
+
+      <TableCell>
+        <Display name={getItemFieldName(rowIdx, 'number')} />
+      </TableCell>
+
+      <TableCell>
+        <FormikPulldown name={getItemFieldName(rowIdx, 'majorItem')} options={[]} />
+      </TableCell>
+
+      <TableCell>
+        <FormikPulldown name={getItemFieldName(rowIdx, 'middleItem')} options={[]} />
+      </TableCell>
+
+      <TableCell>
+        <FormikPulldown name={getItemFieldName(rowIdx, 'element')} options={[]} />
+      </TableCell>
+
+      <TableCell>
+        <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} />
+      </TableCell>
+
+      <TableCell>
+        <FormikInput name={getItemFieldName(rowIdx, 'quantity')} />
+      </TableCell>
+
+      <TableCell>
+        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
+      </TableCell>
+
+      <TableCell>
+        <FormikPulldown
+        name={getItemFieldName(rowIdx, 'unit')}
+        options={unitChoices.map((c) => ({ label: c, value: c }))}
+        />
+      </TableCell>
+
+      <TableCell>
+        <FormikPulldown
+          name={getItemFieldName(rowIdx, 'tax')}
+          options={taxChoices.map((c) => ({ label: c, value: c }))}
+          />
+      </TableCell>
+
+      <TableCell>
+        <Display name={getItemFieldName(rowIdx, 'unitPrice')} suffix={'円'}/>
+      </TableCell>
+
+      <TableCell>
+        <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'}/>
+      </TableCell>
+
+
+      <TableCell >
+        <Button
         variant="outlined"
         onClick={() => removeRow(rowIdx)}
       >
-        -
-      </Button>
-    </TableCell>
-  </TableRow>
+          -
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 };

@@ -5,8 +5,7 @@ import { useEffect } from 'react';
 import { Display } from '../fieldComponents/Display';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getFieldName, TKMaterials, TypeOfForm } from '../form';
-import InputCellContent from './InputCellContent';
+import { getFieldName, taxChoices, TKMaterials, TypeOfForm, unitChoices } from '../form';
 
 const itemsName = getFieldName('items');
 
@@ -82,14 +81,14 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
       <TableCell>
         <FormikPulldown
         name={getItemFieldName(rowIdx, 'unit')}
-        options={['課税', '非課ｓ税'].map((c) => ({ label: c, value: c }))}
+        options={unitChoices.map((c) => ({ label: c, value: c }))}
         />
       </TableCell>
 
       <TableCell>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'tax')}
-          options={['課税', '非課税']}
+          options={taxChoices.map((c) => ({ label: c, value: c }))}
           />
       </TableCell>
 

@@ -23,8 +23,6 @@ export default function RenderRows(props: RenderRowsProps) {
           {values.items.map((item, itemsIdx) => {
             return (
               <RowContent
-                taxRate={values.taxRate}
-                row={item}
                 rowIdx={itemsIdx}
                 removeRow={removeRow}
                 key={item.number}

@@ -17,16 +17,23 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
   // 各行の単価・金額の算出処理
   useEffect(() => {
     // 単価の算出処理 : IF(原価 <= 0, 0 , 原価  * ( 1 + (内訳利益率/100)))
-    const newUnitPrice = (isNaN(costPrice) || isNaN(elemProfRate)) ? '-'
-      : +(costPrice) <= 0 ? 0
-        : Math.round(+(costPrice) * (1 + (elemProfRate) / 100));
+    let newUnitPrice = 0; // 入力値がエラー(数値でない)時は0にする
+    if (!(isNaN(costPrice) || isNaN(elemProfRate)) && ((costPrice) > 0)) {
+      newUnitPrice = Math.round(+costPrice * (1 + (+elemProfRate / 100)));
+    }
     setFieldValue(`items[${rowIdx}].unitPrice`, newUnitPrice);
 
     // 金額の算出処理 : IF(原価 <= 0, 原価, IF ( 税="課税", (単価*数量) * (1 + (税率/100)), (単価*数量)))
-    const newPrice = +(costPrice) <= 0 ? costPrice
-      : (newUnitPrice === '-' || isNaN(quantity)) ? '-'
-        : (tax === '課税') ? Math.round((newUnitPrice * +quantity) * (1 + +(taxRate) / 100))
-          : Math.round(newUnitPrice * +quantity);
+    let newPrice = 0; // 入力値がエラー(数値でない)時は0にする
+    if (+costPrice <= 0 ) {
+      newPrice = costPrice;
+    } else if ((newUnitPrice !== 0) && !(isNaN(quantity))) {
+      if (tax === '課税') {
+        newPrice = Math.round((newUnitPrice * +quantity) * (1 + (+taxRate / 100)));
+      } else { /* 非課税 */
+        newPrice = Math.round(newUnitPrice * +quantity);
+      }
+    }
     setFieldValue(`items[${rowIdx}].price`, newPrice);
 
   }, [costPrice, quantity, elemProfRate, tax, taxRate]);

@@ -2,8 +2,11 @@
 import { Button, TableCell, TableRow } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
-import { TKMaterials, TypeOfForm } from '../form';
-import InputCellContent from './InputCellContent';
+import { taxPulldownOpt, unitPulldownOpt } from '../constantDefinition';
+import { Display } from '../fieldComponents/Display';
+import { FormikInput } from '../fieldComponents/FormikInput';
+import { FormikPulldown } from '../fieldComponents/FormikPulldown';
+import { TypeOfForm } from '../form';
 
 export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
   taxRate: number,
@@ -25,7 +28,7 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
 
     // 金額の算出処理 : IF(原価 <= 0, 原価, IF ( 税="課税", (単価*数量) * (1 + (税率/100)), (単価*数量)))
     let newPrice = 0; // 入力値がエラー(数値でない)時は0にする
-    if (+costPrice <= 0 ) {
+    if (+costPrice <= 0) {
       newPrice = costPrice;
     } else if ((newUnitPrice !== 0) && !(isNaN(quantity))) {
       if (tax === '課税') {
@@ -38,28 +41,69 @@ export const RowContent = ({ taxRate, row, rowIdx, removeRow }: {
 
   }, [costPrice, quantity, elemProfRate, tax, taxRate]);
 
-  return (<TableRow >
-    {(Object.keys(row) as TKMaterials[]).map((rowitem) => {
-      return (
-        <TableCell
-          key={`${rowitem}_header`}
-          sx={{
-            padding: 1,
-            verticalAlign: 'top',
-          }}
+  return (
+    <TableRow >
+
+      {/* 大項目 */}
+      <TableCell key={'majorItem_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikPulldown name={`items[${rowIdx}][majorItem]`} options={taxPulldownOpt} />
+      </TableCell>
+
+      {/* 中項目 */}
+      <TableCell key={'middleItem_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikPulldown name={`items[${rowIdx}][middleItem]`} options={taxPulldownOpt} />
+      </TableCell>
+
+      {/* 部材 */}
+      <TableCell key={'element_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikPulldown name={`items[${rowIdx}][element]`} options={taxPulldownOpt} />
+      </TableCell>
+
+      {/* 原価 */}
+      <TableCell key={'costPrice_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikInput name={`items[${rowIdx}][costPrice]`} />
+      </TableCell>
+
+      {/* 数量 */}
+      <TableCell key={'quantity_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikInput name={`items[${rowIdx}][quantity]`} />
+      </TableCell>
+
+      {/* 単位 */}
+      <TableCell key={'unit_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikPulldown name={`items[${rowIdx}][unit]`} options={unitPulldownOpt} />
+      </TableCell>
+
+      {/* 利益率(部材) */}
+      <TableCell key={'elemProfRate_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikInput name={`items[${rowIdx}][elemProfRate]`} />
+      </TableCell>
+
+      {/* 税(課税/非課税) */}
+      <TableCell key={'tax_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <FormikPulldown name={`items[${rowIdx}][tax]`} options={taxPulldownOpt} />
+      </TableCell>
+
+      {/* 単価 */}
+      <TableCell key={'unitPrice_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <Display name={`items[${rowIdx}][unitPrice]`} suffix={'円'} />
+      </TableCell>
+
+      {/* 金額 */}
+      <TableCell key={'price_header'} sx={{ padding: 1, verticalAlign: 'top' }}>
+        <Display name={`items[${rowIdx}][price]`} suffix={'円'} />
+      </TableCell>
+
+      {/* 行削除ボタン */}
+      <TableCell key={`${row}_delBtn`}>
+        <Button
+          variant="outlined"
+          onClick={() => removeRow(rowIdx)}
         >
-          <InputCellContent fieldName={rowitem} rowIdx={rowIdx} />
-        </TableCell>
-      );
-    })}
-    <TableCell key={`${row}_delBtn`}>
-      <Button
-        variant="outlined"
-        onClick={() => removeRow(rowIdx)}
-      >
-        -
-      </Button>
-    </TableCell>
-  </TableRow>
+          -
+        </Button>
+      </TableCell>
+
+    </TableRow>
   );
 };

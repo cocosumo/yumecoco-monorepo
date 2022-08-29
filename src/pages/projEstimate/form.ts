@@ -1,22 +1,6 @@
 
 import * as Yup from 'yup';
 
-/**
- * 見積もりアイテムの型定義
- */
-/* export type TMaterials = {
-  number: number,
-  majorItem: string,
-  middleItem: string,
-  element: string,
-  costPrice: number,
-  quantity: number,
-  elemProfRate: number,
-  unit: string,
-  tax: string,
-  unitPrice: number,
-  price: number,
-}; */
 export type TMaterials = TypeOfForm['items'][0];
 export type TKMaterials = keyof TMaterials;
 
@@ -37,8 +21,8 @@ export const initialValues = {
       costPrice: 0,  /* 原価 */
       quantity: 0,   /* 数量 */
       elemProfRate: 0, /* 利益率(部材) */
-      unit: '', /* 単位 */
-      tax: '',  /* 税(課税/非課税) */
+      unit: '式', /* 単位 */
+      tax: '課税',  /* 税(課税/非課税) */
       unitPrice: 0, /* 単価(原価*利益率(部材)) */
       price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
     },

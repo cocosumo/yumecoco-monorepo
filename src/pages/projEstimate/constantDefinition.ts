@@ -42,13 +42,6 @@ export const materialsNameList = [
 ] as const;
 
 /**
- * 合計欄のkeyリスト
- */
-/* export const summaryLabelList = [
-  'totalCost', 'grossProfit', 'grossProfitMargin', 'taxAmount', 'taxExcludedAmount', 'amountIncludingTax',
-]; */
-
-/**
  * 合計欄のラベル定義
  */
 export const summaryNameList = [

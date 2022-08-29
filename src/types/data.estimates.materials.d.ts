@@ -4,7 +4,7 @@ declare namespace Estimates.materials {
     原価: kintone.fieldTypes.Number;
     部材名: kintone.fieldTypes.SingleLineText;
     大項目名: kintone.fieldTypes.SingleLineText;
-    ルックアップ: kintone.fieldTypes.Number;
+    中項目: kintone.fieldTypes.Number;
     単位: kintone.fieldTypes.DropDown;
   }
   interface SavedData extends Data {

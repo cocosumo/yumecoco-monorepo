@@ -44,7 +44,7 @@ const InputCellContent = ({
     case 'display': return (
       /* errorを使用して、バリデーションエラー時に表示を変更する */
       <Typography variant='body2'>
-        {field.value + '円'}
+        {field.value.toLocaleString() + '円'}
       </Typography>
     );
 

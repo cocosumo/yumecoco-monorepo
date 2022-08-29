@@ -1,9 +1,9 @@
 declare namespace Estimates.middleItems {
   interface Data {
+    備考: kintone.fieldTypes.SingleLineText;
     大項目: kintone.fieldTypes.Number;
     中項目名: kintone.fieldTypes.SingleLineText;
     大項目名: kintone.fieldTypes.SingleLineText;
-    文字列__1行__1: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

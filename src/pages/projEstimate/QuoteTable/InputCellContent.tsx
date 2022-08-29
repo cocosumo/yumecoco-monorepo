@@ -1,5 +1,7 @@
-import { debounce, 
-  FormControl, FormHelperText, Input, MenuItem, Select, Typography } from '@mui/material';
+import {
+  debounce,
+  FormControl, FormHelperText, Input, MenuItem, Select, Typography,
+} from '@mui/material';
 import { useField } from 'formik';
 import { materialsLabelList } from '../constantDefinition';
 import { TKMaterials } from '../form';
@@ -22,11 +24,10 @@ const InputCellContent = ({
   // INPUT用onchange処理
   const changeHandlerInput
   : React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
-   = debounce((el) => {
-     console.log('2s after chk', el.target.value);
-
-     helpers.setValue(el.target.value, true);
-   }, 2000);
+    = debounce((el) => {
+      console.log('2s after chk', el.target.value);
+      helpers.setValue(+el.target.value, true);
+    }, 2000);
 
   switch (materialsLabelList[fieldName]) {
 
@@ -41,6 +42,7 @@ const InputCellContent = ({
     );
 
     case 'display': return (
+      /* errorを使用して、バリデーションエラー時に表示を変更する */
       <Typography variant='body2'>
         {field.value + '円'}
       </Typography>
@@ -57,12 +59,12 @@ const InputCellContent = ({
             {output.map((item) => {
               return (<MenuItem value={item} key={`${field.name}_${item}`}>{item}</MenuItem>);
             })
-          }
+            }
           </Select>
           {(!!error && touched) &&
-          <FormHelperText error={!!error && touched}>
-            {error}
-          </FormHelperText>}
+            <FormHelperText error={!!error && touched}>
+              {error}
+            </FormHelperText>}
         </FormControl>
       );
     })();
@@ -78,7 +80,7 @@ const InputCellContent = ({
         </Select>
       </FormControl>
     );
-    default : return  (<div>表示エラーです</div>);
+    default: return (<div>表示エラーです</div>);
   }
 
 };

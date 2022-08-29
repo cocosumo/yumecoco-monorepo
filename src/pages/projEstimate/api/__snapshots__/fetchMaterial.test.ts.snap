@@ -294,3 +294,699 @@ Array [
   },
 ]
 `;
+
+exports[`Get Materials API should be able to get Materials 1`] = `
+Array [
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "7",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "26",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": "台",
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "1280",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "点検口枠T(neo-V配合)",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "6",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "26",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": "台",
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "1590",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "なんとか点検口",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "5",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "12",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": "セット",
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "100000",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "Scaffolding",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "4",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "6",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": "式",
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "0",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "-",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "3",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": "袋",
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "3000",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "wewewewe",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "2",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "21",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": "本",
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "2000",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "Plank",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "1",
+    },
+    "中項目": Object {
+      "type": "NUMBER",
+      "value": "1",
+    },
+    "単位": Object {
+      "type": "DROP_DOWN",
+      "value": null,
+    },
+    "原価": Object {
+      "type": "NUMBER",
+      "value": "1200",
+    },
+    "部材名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "部材1",
+    },
+  },
+]
+`;
+
+exports[`Get Materials API should be able to get MiddleItems 1`] = `
+Array [
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "42",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "補助制度申請費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "30",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "41",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "建築確認申請費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "30",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "40",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "住宅保証登録費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "30",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "39",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ｴｺｼﾞｮｰｽﾞ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "38",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ｴｺｷｭｰﾄ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "37",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "手洗い器",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "36",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "2Fﾄｲﾚ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "35",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "1Fﾄｲﾚ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "34",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "洗面化粧台",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "33",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ﾕﾆｯﾄﾊﾞｽ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "32",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ｶｯﾌﾟﾎﾞｰﾄﾞ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "31",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ｼｽﾃﾑｷｯﾁﾝ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "19",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "30",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ﾊﾞﾙｺﾆｰ笠木",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "29",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "29",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "破風鼻隠し",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "29",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "28",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "屋根葺き",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "29",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "27",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "床材、建具、階段材",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "27",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "26",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "壁点検口",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "27",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "25",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "床下点検口",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "27",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "24",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "荷揚げ・荷下ろし費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "27",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "23",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "石膏ﾎﾞｰﾄﾞ　壁",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "27",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "22",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "石膏ﾎﾞｰﾄﾞ　天井",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "27",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "21",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "造作金物費用",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "6",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "20",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "造作基本工賃",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "6",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "19",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "上棟費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "6",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "18",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "防蟻",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "4",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "17",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "産業廃棄物処理費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "16",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "仮設ﾄｲﾚ等",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "15",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "養生ﾃｰﾌﾟ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "14",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "養生ﾎﾞｰﾄﾞ",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "13",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "内部足場",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "12",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "外部足場使用料",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "3",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "11",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "重機回送費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "2",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "10",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "残土処分費",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "2",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "9",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "雑コンクリート",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "2",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "8",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ポンプ車",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "2",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "7",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "ベタ基礎",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "2",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "6",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "-",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "5",
+    },
+  },
+  Object {
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "1",
+    },
+    "中項目名": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "中項目テスト",
+    },
+    "大項目": Object {
+      "type": "NUMBER",
+      "value": "1",
+    },
+  },
+]
+`;

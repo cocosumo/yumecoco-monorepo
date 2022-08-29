@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
 
-type UsePromise = (promiseFunc: () => Promise<any>, initialValue?: null | object) => { data: object | null, error: object, loading: boolean };
+type UsePromise = <T>(
+  promiseFunc: () => Promise<any>, initialValue?: T
+  ) => {
+    data?: T, error: object, loading: boolean
+  };
 
-export const usePromise : UsePromise = ( promiseFunc, initialValue = null ) => {
+export const usePromise : UsePromise = ( promiseFunc, initialValue ) => {
   const [data, setData] = useState(initialValue);
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(()=> {
     promiseFunc()
-      .then(resp => setData(resp))
+      .then(resp => setData(resp ))
       .catch(setError)
       .finally(() => setLoading(false));
   }, [promiseFunc]);

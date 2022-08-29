@@ -1,13 +1,19 @@
 import { usePromise } from '../../../hooks';
 import { fetchMajorItems, fetchMiddleItems } from '../api/fetchMaterials';
 
-
+export type TMaterialOptions = {
+  majorItems: Estimates.majorItems.SavedData[],
+  middleItems: Estimates.middleItems.SavedData[],
+  materials: Estimates.materials.SavedData[],
+};
 
 /**
  * Cached all Materials and expose filter functions.
  *
  * This is to save API calls.
  */
+
+
 export const useMaterials  = () => {
   const majorItems = usePromise<Estimates.majorItems.SavedData[]>(fetchMajorItems);
   const middleItems = usePromise<Estimates.middleItems.SavedData[]>(fetchMiddleItems);

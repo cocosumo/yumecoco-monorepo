@@ -42,7 +42,7 @@ const InputCellContent = ({
 
     case 'display': return (
       <Typography variant='body2'>
-        {field.value + '円'}
+        {field.value.toLocaleString() + '円'}
       </Typography>
     );
 

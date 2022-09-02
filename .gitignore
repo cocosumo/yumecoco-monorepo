@@ -112,3 +112,4 @@ dist
 *.xlsx
 *.pem
 **/build/*
+*.snap

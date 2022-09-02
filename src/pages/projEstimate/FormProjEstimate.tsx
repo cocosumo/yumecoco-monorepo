@@ -9,6 +9,7 @@ import { getFieldName, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
 
 import { RenderFunc } from './QuoteTable/RenderFunc';
+import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 // import { useCalculateTotals } from './hooks/useCalculateTotals';
 
 export default function FormProjEstimate() {
@@ -65,6 +66,11 @@ export default function FormProjEstimate() {
               name={getFieldName('items')}
               render={RenderFunc}
             />
+          </Grid>
+
+          <Grid item xs={12} md={4}>
+            {/* 大項目ごとの表示テーブル */}
+            <SubTotalTable />
           </Grid>
 
 

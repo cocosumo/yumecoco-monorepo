@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get wrapper for projectTypes Should get projectType by name 1`] = `
+Object {
+  "$id": Object {
+    "type": "__ID__",
+    "value": "5",
+  },
+  "$revision": Object {
+    "type": "__REVISION__",
+    "value": "3",
+  },
+  "description": Object {
+    "type": "MULTI_LINE_TEXT",
+    "value": "",
+  },
+  "label": Object {
+    "type": "SINGLE_LINE_TEXT",
+    "value": "蓄電池",
+  },
+  "profitRate": Object {
+    "type": "NUMBER",
+    "value": "",
+  },
+  "projectName": Object {
+    "type": "SINGLE_LINE_TEXT",
+    "value": "蓄電池設置工事",
+  },
+  "レコード番号": Object {
+    "type": "RECORD_NUMBER",
+    "value": "5",
+  },
+  "作成日時": Object {
+    "type": "CREATED_TIME",
+    "value": "2022-03-26T05:53:00Z",
+  },
+  "作成者": Object {
+    "type": "CREATOR",
+    "value": Object {
+      "code": "RPA03",
+      "name": "ラス ロレンズ",
+    },
+  },
+  "更新日時": Object {
+    "type": "UPDATED_TIME",
+    "value": "2022-05-09T01:36:00Z",
+  },
+  "更新者": Object {
+    "type": "MODIFIER",
+    "value": Object {
+      "code": "RPA03",
+      "name": "ラス ロレンズ",
+    },
+  },
+}
+`;

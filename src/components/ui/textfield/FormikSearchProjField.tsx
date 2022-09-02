@@ -58,10 +58,14 @@ export const FormikSearchProjField = (props: {
 
   return (
     <Autocomplete
-
       value={fieldVal}
       onInputChange={(_, value)=>{
         setInputVal(value);
+        if (!touched) helpers.setTouched(true);
+
+      }}
+      onBlur={()=>{
+        if (!touched) helpers.setTouched(true);
       }}
       onChange={(_, val)=>{
         helpers.setValue(val?.id);
@@ -78,7 +82,7 @@ export const FormikSearchProjField = (props: {
         name = {field.name}
         label={props.label}
         error={Boolean(error && touched)}
-        helperText={error ? error : ''}
+        helperText={Boolean(error && touched) ? error : ''}
         InputProps={isLoading ?  { endAdornment: <CircularProgress size={20}/> } : params.InputProps }
         />}
       renderOption={(p, opt) => {

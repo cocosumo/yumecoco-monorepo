@@ -13,7 +13,7 @@ export type TKMaterials = keyof TMaterials;
 export const initialValues = {
   projId: '',
   projName: '',
-  costomerName: '',
+  customerName: '',
   constructionType: '', /* 工事種別(ルックアップ) */
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */

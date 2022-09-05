@@ -27,6 +27,7 @@ export const FormikSearchProjField = (props: {
   const {
     projName,
     isLoading = false,
+    disabled = false,
   } = props;
 
   useLazyEffect(()=>{
@@ -58,6 +59,7 @@ export const FormikSearchProjField = (props: {
 
   return (
     <Autocomplete
+      disabled={disabled}
       value={fieldVal}
       onInputChange={(_, value)=>{
         setInputVal(value);

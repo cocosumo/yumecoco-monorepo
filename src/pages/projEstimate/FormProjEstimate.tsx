@@ -1,4 +1,4 @@
-import { Divider, FormControl, Grid, Input } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { FabSave } from '../../components/ui/fabs/FabSave';
@@ -9,12 +9,15 @@ import { getFieldName, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
 
 import { RenderFunc } from './QuoteTable/RenderFunc';
+import { FormikSearchProjField } from '../../components/ui/textfield/FormikSearchProjField';
+import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 // import { useCalculateTotals } from './hooks/useCalculateTotals';
 
 export default function FormProjEstimate() {
-  const { submitForm } = useFormikContext<TypeOfForm>();
+  const { submitForm, values } = useFormikContext<TypeOfForm>();
+  const { projName } = values;
 
-  // useCalculateTotals();
+  const { isLoading } = useUpdateProjectId();
 
   return (
     <Form noValidate>
@@ -25,17 +28,14 @@ export default function FormProjEstimate() {
         <Grid container item xl={8} spacing={2} mb={12}>
           <Grid item xs={12} md={4}>
 
-
-
             {/* 工事情報の検索 */}
-            <div>
-              工事情報の検索：未対応
-              <FormControl variant="standard">
-                {/* <InputLabel htmlFor="component-simple">テスト</InputLabel> */}
-                <Input id="component-simple" value={name}/*  onChange={handleChange} */ />
-              </FormControl>
-            </div>
-
+            <FormikSearchProjField
+              label='工事情報の検索'
+              name={getFieldName('projId')}
+              projName={projName}
+              isLoading={isLoading}
+              disabled={isLoading}
+            />
 
           </Grid>
 
@@ -44,10 +44,10 @@ export default function FormProjEstimate() {
           </Grid>
 
           <Grid item xs={12} md={3}>
-            <FormikTextField name={getFieldName('constructionType')} label="工事種別名" />
+            <FormikTextField name={getFieldName('constructionType')} label="工事種別名" disabled />
           </Grid>
           <Grid item xs={12} md={3}>
-            <FormikTextField name={getFieldName('profitRate')} label="利益率" />
+            <FormikTextField name={getFieldName('profitRate')} label="利益率" disabled />
           </Grid>
           <Grid item xs={12} md={3}>
             <FormikTextField name={getFieldName('taxRate')} label="税率" />

@@ -20,7 +20,7 @@ export const useMaterialsOptions = (
   /* Change handlers */
 
   const handleMajorItemChange = () => {
-    setValues((prev) => produce(prev, (draft ) => {
+    setValues((prev) => produce(prev, (draft) => {
       draft.items[rowIdx].element = '';
       draft.items[rowIdx].middleItem = '';
     }));
@@ -29,22 +29,24 @@ export const useMaterialsOptions = (
   const handleMiddleItemChange = (newVal: string) => {
     setFieldValue(getItemFieldName(rowIdx, 'element'), '');
     if (newVal) {
-      const selectedMiddleItem = middleItems.find(({ 中項目名 })=>中項目名.value === newVal);
+      const selectedMiddleItem = middleItems.find(({ 中項目名 }) => 中項目名.value === newVal);
       setFieldValue(getItemFieldName(rowIdx, 'majorItem'), selectedMiddleItem?.大項目名.value);
     }
   };
 
   const handleMaterialChange = (newVal: string) => {
     if (newVal) {
-      const selectedMaterial = materials.find(({ 部材名 })=>部材名.value === newVal);
+      const selectedMaterial = materials.find(({ 部材名 }) => 部材名.value === newVal);
       if (selectedMaterial) {
-      
+
+        const newUnit = (selectedMaterial?.単位?.value ?? '') as typeof unitChoices[number];
+
         setValues(
-          (prev) => produce(prev, (draft ) => {
+          (prev) => produce(prev, (draft) => {
             draft.items[rowIdx].majorItem = selectedMaterial.大項目名.value;
             draft.items[rowIdx].middleItem = selectedMaterial.中項目名.value;
-            draft.items[rowIdx].costPrice = +selectedMaterial.原価.value; 
-            draft.items[rowIdx].unit = selectedMaterial.単位.value as  typeof unitChoices[number];
+            draft.items[rowIdx].costPrice = +selectedMaterial.原価.value;
+            draft.items[rowIdx].unit = newUnit;
           }),
         );
 
@@ -60,7 +62,7 @@ export const useMaterialsOptions = (
   const majorItemOpts = majorItems.map<Option>(({ 大項目名 }) => ({
     label: 大項目名.value,
     value: 大項目名.value,
-  })) ;
+  }));
 
   const middleItemOpts = middleItems.reduce((accu, { 大項目名, 中項目名 }) => {
     if (!majorItem || 大項目名?.value === majorItem) {
@@ -72,9 +74,9 @@ export const useMaterialsOptions = (
     return accu;
   }, [] as Options);
 
-  const materialOpts = materials.reduce((accu, {  中項目名, 部材名 }) => {
-
-    if (!middleItem || 中項目名?.value === middleItem) {
+  const materialOpts = materials.reduce((accu, { 大項目名, 中項目名, 部材名 }) => {
+    if ((majorItem && 大項目名?.value === majorItem) ||
+      (!majorItem && (!middleItem || 中項目名?.value === middleItem))) {
       accu.push({
         label: 部材名?.value,
         value: 部材名?.value,

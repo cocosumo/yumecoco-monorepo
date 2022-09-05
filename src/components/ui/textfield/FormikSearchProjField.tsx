@@ -1,57 +1,55 @@
-import { Autocomplete, TextField, Stack, Tooltip } from '@mui/material';
-import { useField, useFormikContext } from 'formik';
+import { Autocomplete, TextField, Stack, CircularProgress } from '@mui/material';
+import { useField } from 'formik';
 import { useEffect, useState } from 'react';
+import { searchProjects } from '../../../api/kintone/construction';
 import { useLazyEffect } from '../../../hooks';
-import { searchProjects } from '../api';
-import { Caption } from '../../../components/ui/typographies';
-import { TypeOfForm } from '../form';
+
+import { Caption } from '../typographies';
 
 type Opt = {
   id: string,
   projName: string
 };
 
-export const SearchProjField = (props: {
+export const FormikSearchProjField = (props: {
   name: string,
   label: string,
   projName: string,
-  handleSearchTTOpen: ()=>void,
-  handleSearchTTClose: ()=>void,
-  searchTTOpen: boolean,
+  disabled?: boolean,
+  isLoading?: boolean
 }) => {
-  const { setStatus } = useFormikContext<TypeOfForm>();
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<Opt | null>(null);
   const [options, setOptions] = useState<Array<Opt>>([]);
   const [field, meta, helpers] = useField(props);
-  const [isInit, setIsInit] = useState(true);
-
   const { error, touched } = meta;
 
   const {
     projName,
-    searchTTOpen,
-    handleSearchTTOpen,
-    handleSearchTTClose,
+    isLoading = false,
+    disabled = false,
   } = props;
 
-
   useLazyEffect(()=>{
-    if (!inputVal || isInit) return; // prevent API call on initial load, and when input is empty
-
+    if (!inputVal) return;
     searchProjects(inputVal)
       .then(r => {
-        setOptions(r.map(({ $id, constructionName })=>{
-          return { id: $id.value, projName: constructionName.value };
+        setOptions(r.map((projRec)=>{
+          const { $id, constructionName } = projRec;
+          return {
+            id: $id.value,
+            projName: constructionName.value,
+          };
         }));
 
       });
 
-  }, [inputVal], 2000);
+  }, [inputVal], 1000);
 
   useEffect(()=>{
 
     if (options.length === 0 && projName) {
+
       const singleOpt = { projName, id: field.value };
       setOptions([singleOpt]);
       setFieldVal(singleOpt);
@@ -60,31 +58,22 @@ export const SearchProjField = (props: {
   }, [field.value, projName]);
 
   return (
-    <Tooltip
-      title="こちらで工事名が検索出来ます。"
-      open={searchTTOpen} onOpen={handleSearchTTOpen}
-      onClose={handleSearchTTClose}
-      placement="top-end"
-      arrow
-
-    >
-      <Autocomplete
-      sx={{ transition: 'all .3s ease-in-out;' }}
+    <Autocomplete
+      disabled={disabled}
       value={fieldVal}
       onInputChange={(_, value)=>{
         setInputVal(value);
+        if (!touched) helpers.setTouched(true);
 
+      }}
+      onBlur={()=>{
+        if (!touched) helpers.setTouched(true);
       }}
       onChange={(_, val)=>{
         helpers.setValue(val?.id);
         setFieldVal(val);
 
-        if (val) {
-          setStatus('busy' as TFormStatus);
-        }
       }}
-
-      onFocus={()=>setIsInit(false)}
 
       options={options}
       getOptionLabel={(opt)=> opt.projName}
@@ -95,7 +84,8 @@ export const SearchProjField = (props: {
         name = {field.name}
         label={props.label}
         error={Boolean(error && touched)}
-        helperText={error ? error : ''}
+        helperText={Boolean(error && touched) ? error : ''}
+        InputProps={isLoading ?  { endAdornment: <CircularProgress size={20}/> } : params.InputProps }
         />}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;
@@ -110,7 +100,5 @@ export const SearchProjField = (props: {
       }}
 
     />
-
-    </Tooltip>
   );
 };

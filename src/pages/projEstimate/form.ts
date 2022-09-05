@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 
 export const taxChoices = ['課税', '非課税'] as const;
 export const unitChoices = [
-  '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
+  '', '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
   'ケース', '台', '組', '袋', '箱', 'kg', 't',
 ] as const;
 
@@ -12,7 +12,8 @@ export type TKMaterials = keyof TMaterials;
 
 export const initialValues = {
   projId: '',
-  costomerName: '',
+  projName: '',
+  customerName: '',
   constructionType: '', /* 工事種別(ルックアップ) */
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */

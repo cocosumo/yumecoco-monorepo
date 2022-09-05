@@ -34,6 +34,7 @@ export default function FormProjEstimate() {
               name={getFieldName('projId')}
               projName={projName}
               isLoading={isLoading}
+              disabled={isLoading}
             />
 
           </Grid>

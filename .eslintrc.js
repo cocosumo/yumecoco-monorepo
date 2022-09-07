@@ -36,6 +36,6 @@ module.exports = {
     "react/jsx-indent": [2, 2],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
-    "ignorePatterns": ["types/data.*d.ts"],
+
   },
 };

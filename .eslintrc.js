@@ -4,10 +4,11 @@ module.exports = {
     es2021: true,
   },
   extends: [
-
     'plugin:react/recommended',
-    "plugin:import/recommended",
+    'plugin:import/recommended',
     'airbnb-typescript',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -35,6 +36,7 @@ module.exports = {
     "react/jsx-indent": [2, 2],
 
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
+
   },
 };

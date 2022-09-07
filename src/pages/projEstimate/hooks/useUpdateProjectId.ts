@@ -5,10 +5,10 @@ import { getConstRecord } from '../../../api/kintone/construction';
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
 import { getProjTypeByLabel } from '../../../api/kintone/projectType/GET';
 import { useSnackBar } from '../../../hooks';
-import { TypeOfForm } from '../form';
+import { initialValues, TypeOfForm } from '../form';
 
 export const useUpdateProjectId = () => {
-  const { values, resetForm, dirty, setValues } = useFormikContext<TypeOfForm>();
+  const { values, dirty, setValues } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { projId } = values;
   const [loading, setLoading] = useState(false);
@@ -54,7 +54,13 @@ export const useUpdateProjectId = () => {
         });
 
     } else if (!projId && dirty) {
-      resetForm();
+      setValues((prev) => produce(prev, draft => {
+        draft.projId = initialValues.projId;
+        draft.projName = initialValues.customerName;
+        draft.constructionType = initialValues.constructionType;
+        draft.profitRate = initialValues.profitRate;
+        draft.customerName = initialValues.customerName;
+      }));
     }
   },  [projId]);
 

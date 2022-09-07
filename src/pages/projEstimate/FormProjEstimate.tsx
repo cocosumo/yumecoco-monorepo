@@ -12,6 +12,7 @@ import { RenderFunc } from './QuoteTable/RenderFunc';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { FormikSearchProjField } from '../../components/ui/textfield/FormikSearchProjField';
+import { FormActions } from './fieldComponents/FormActions';
 // import { useCalculateTotals } from './hooks/useCalculateTotals';
 
 export default function FormProjEstimate() {
@@ -75,7 +76,7 @@ export default function FormProjEstimate() {
 
 
         </Grid>
-        <FabSave onClick={submitForm} />
+        <FormActions />
       </MainContainer>
     </Form>
   );

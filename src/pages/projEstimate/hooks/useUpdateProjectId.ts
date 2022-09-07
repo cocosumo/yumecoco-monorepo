@@ -55,7 +55,7 @@ export const useUpdateProjectId = () => {
       setValues((prev) => produce(prev, draft => {
         draft.projId = initialValues.projId;
         draft.projName = initialValues.customerName;
-        draft.constructionType = initialValues.constructionType;
+        draft.projType = initialValues.projType;
         draft.profitRate = initialValues.profitRate;
         draft.customerName = initialValues.customerName;
       }));

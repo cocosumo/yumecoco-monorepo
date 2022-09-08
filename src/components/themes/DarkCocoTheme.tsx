@@ -15,6 +15,15 @@ const darkTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        containedPrimary: {
+          color: 'whitesmoke',
+          borderColor: '#9ecaed',
+          boxShadow: '0 0 10px #9ecaed',
+          background: background,
+          ':hover': {
+            background: background,
+          },
+        },
         containedSecondary: {
           color: grey[700],
           background: grey[100],
@@ -115,7 +124,7 @@ const darkTheme = createTheme({
 export default function EnableColorOnDarkAppBar({ children }: Props) {
 
   return (
-    <ThemeProvider  theme={darkTheme}>
+    <ThemeProvider theme={darkTheme}>
       {children}
     </ThemeProvider>
 

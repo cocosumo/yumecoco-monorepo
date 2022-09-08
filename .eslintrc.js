@@ -50,6 +50,10 @@ module.exports = {
     "react/jsx-wrap-multilines": [2],
     "react/jsx-tag-spacing": [2],
     "no-unused-vars": "off",
+    "no-nested-ternary": [2],
+    "react/no-array-index-key": [2],
+    "no-loop-func": [2], // Disallow function declarations that contain unsafe references inside loop statements
+
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
 
   },

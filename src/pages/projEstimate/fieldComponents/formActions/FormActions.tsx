@@ -1,7 +1,6 @@
 
 
 import { useFormikContext } from 'formik';
-import {  useState } from 'react';
 import { TypeOfForm } from '../../form';
 import { ActionButtons } from './ActionButtons';
 import { Processing } from './Processing';
@@ -14,18 +13,11 @@ import { Processing } from './Processing';
 export const FormActions = () => {
 
   const { submitForm, isSubmitting } = useFormikContext<TypeOfForm>();
-  const  throttle = isSubmitting;
-  const handleSave = ()=>{
-
-    submitForm();
-
-
-  };
 
   return (
     <>
-      <ActionButtons handleSave={handleSave} throttle={throttle}  />
-      <Processing throttle={throttle} />
+      <ActionButtons handleSave={submitForm} throttle={isSubmitting}  />
+      <Processing throttle={isSubmitting} />
     </>
   );
 };

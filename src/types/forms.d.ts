@@ -2,7 +2,7 @@
 
 type PatternType = 'email' | 'tel' | 'postal';
 type AgentType = 'cocoAG' | 'yumeAG' | 'cocoConst';
-type TFormStatus = 'busy' | 'disabled' | '';
+type TFormStatus = 'busy' | 'disabled' | 'saveError' | '';
 
 interface ElementTarget {
   target: { name: string, value: string }

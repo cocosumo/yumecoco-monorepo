@@ -12,16 +12,13 @@ import { Processing } from './Processing';
  * */
 
 export const FormActions = () => {
-  const [throttle, setThrottle] = useState(false);
-  const { submitForm } = useFormikContext<TypeOfForm>();
-  const handleSave = ()=>{
-    if (throttle) return;
 
-    setThrottle(true);
-    setTimeout(()=>{
-      submitForm();
-      setThrottle(false);
-    }, 1500);
+  const { submitForm, isSubmitting } = useFormikContext<TypeOfForm>();
+  const  throttle = isSubmitting;
+  const handleSave = ()=>{
+
+    submitForm();
+
 
   };
 

@@ -1,11 +1,11 @@
 import { Formik } from 'formik';
-/// import { saveForm } from './api/saveForm';
+import { useSnackBar } from '../../hooks';
 import { initialValues, validationSchema } from './form';
 import FormProjEstimate from './FormProjEstimate';
-// import { useSnackBar } from '../../hooks/useSnackBar';
+
 
 export const FormikProjEstimate = () => {
-  // const { setSnackState } = useSnackBar();
+  const { setSnackState } = useSnackBar();
 
   return (
     <Formik
@@ -15,7 +15,15 @@ export const FormikProjEstimate = () => {
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         /* kintoneに保存する処理を追加する */
-        setSubmitting(false);
+
+        setTimeout(()=>{
+          setSnackState({
+            open: true,
+            message: '保存が成功しました。',
+          });
+          setSubmitting(false);
+        }, 1500);
+
       }}
     >
 

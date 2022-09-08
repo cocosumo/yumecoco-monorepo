@@ -52,8 +52,10 @@ module.exports = {
     "no-unused-vars": "off",
     "no-nested-ternary": [2],
     "react/no-array-index-key": [2],
-    "no-loop-func": [2], // Disallow function declarations that contain unsafe references inside loop statements
-
+    "no-console": "warn",
+    "no-loop-func": [2],
+    "react/jsx-no-constructed-context-values": [2], //https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
+    "react/jsx-pascal-case": [2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
 
   },

@@ -15,12 +15,34 @@ const darkTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        
+        outlinedPrimary: {
+          color: grey[700],
+          borderColor: grey[300],
+          ':hover': {
+            borderColor: grey[700],
+          },
+        },
+        outlinedSecondary: {
+          color: grey[700],
+          borderColor: grey[300],
+          ':hover': {
+            borderColor: grey[300],
+            background: 'whitesmoke',
+          },
+        },
+        outlinedWarning: {
+          ':hover': {
+            background: 'whitesmoke',
+          },
+        },
         containedPrimary: {
           color: 'whitesmoke',
           borderColor: '#9ecaed',
           boxShadow: '0 0 10px #9ecaed',
-          background: background,
+          background: grey[900],
           ':hover': {
+            borderColor: grey[300],
             background: background,
           },
         },
@@ -35,10 +57,7 @@ const darkTheme = createTheme({
         textSecondary: {
           color: grey[700],
         },
-        outlinedSecondary: {
-          color: grey[700],
-          borderColor: grey[300],
-        },
+
       },
     },
     MuiInputBase: {

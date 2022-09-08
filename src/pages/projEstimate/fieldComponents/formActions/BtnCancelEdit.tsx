@@ -3,12 +3,9 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import { useState } from 'react';
 import { Box } from '@mui/system';
 
+
 /** 編集をやめる */
-export const BtnCancelEdit = ({
-  throttle,
-} : {
-  throttle: boolean
-}) => {
+export const BtnCancelEdit = () => {
   const [showText, setShowText] = useState(false);
 
   return (
@@ -20,7 +17,6 @@ export const BtnCancelEdit = ({
       sx={{ opacity: showText ? 1 : 0.5 }}
       onMouseEnter={()=>setShowText(true)}
       onMouseLeave={()=>setShowText(false)}
-      disabled={throttle}
     >
       <CancelIcon />
       <Collapse in={showText} orientation={'horizontal'}

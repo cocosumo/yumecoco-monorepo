@@ -19,7 +19,7 @@ export const FormikProjEstimate = () => {
         setTimeout(()=>{
           setSnackState({
             open: true,
-            message: '保存が成功しました。',
+            message: '保存しました。',
           });
           setSubmitting(false);
         }, 1500);

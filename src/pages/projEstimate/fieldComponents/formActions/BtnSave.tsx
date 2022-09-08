@@ -1,16 +1,13 @@
 import { Box, Button, Collapse } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 
 
 /** 保存 */
-export const BtnSave = ({
-  handleSave, throttle,
-}: {
-  throttle: boolean,
-  handleSave: ()=>void
-}) => {
-
+export const BtnSave = () => {
+  const { submitForm } = useFormikContext<TypeOfForm>();
   const [showText, setShowText] = useState(false);
 
   return (
@@ -22,8 +19,7 @@ export const BtnSave = ({
       sx={{ opacity: showText ? 1 : 0.5 }}
       onMouseEnter={()=>setShowText(true)}
       onMouseLeave={()=>setShowText(false)}
-      onClick={handleSave}
-      disabled={throttle}
+      onClick={submitForm}
     >
       <SaveIcon />
 
@@ -31,7 +27,7 @@ export const BtnSave = ({
         mountOnEnter unmountOnExit
       >
         <Box ml={1} width={'40px'}>
-          {throttle && showText  ? '保存中' : '保存'}
+          保存
         </Box>
       </Collapse>
 

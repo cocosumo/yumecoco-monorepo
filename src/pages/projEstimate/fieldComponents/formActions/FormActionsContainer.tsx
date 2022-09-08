@@ -10,7 +10,7 @@ export const FormActionsContainer = ({
 
 
   return (
-    <Box sx={{ position: 'fixed', top: 72, right: 36, zIndex: 3000 }}>
+    <Box sx={{ position: 'fixed', top: 72, right: 36, zIndex: 3000, minWidth: '350px' }}>
       {children}
     </Box>
   );

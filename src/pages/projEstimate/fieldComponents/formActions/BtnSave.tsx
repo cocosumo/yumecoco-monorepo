@@ -8,11 +8,12 @@ import { TypeOfForm } from '../../form';
 
 /** 保存 */
 export const BtnSave = () => {
-  const { submitForm } = useFormikContext<TypeOfForm>();
+  const { submitForm, setValues } = useFormikContext<TypeOfForm>();
 
   const [showText, setShowText] = useState(false);
 
   const handleSave = useCallback(() => {
+    setValues(prev => ({ ...prev, saveMethod: 'normal' }));
     submitForm();
   }, []);
 

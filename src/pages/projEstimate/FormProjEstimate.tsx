@@ -11,6 +11,7 @@ import { RenderFunc } from './QuoteTable/RenderFunc';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
+import { FormActions } from './fieldComponents/formActions/FormActions';
 // import { useCalculateTotals } from './hooks/useCalculateTotals';
 
 export default function FormProjEstimate() {
@@ -36,7 +37,7 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('constructionType')} label="工事種別名" disabled />
+          <FormikTextField name={getFieldName('projType')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
           <FormikTextField name={getFieldName('profitRate')} label="利益率" disabled />

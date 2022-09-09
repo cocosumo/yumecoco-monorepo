@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
 
-export const subTotalCalc = (): Array<[string, number]> => {
+export const useSubTotalCalc = (): Array<[string, number]> => {
   const { values } = useFormikContext<TypeOfForm>();
   const { items } = values;
 

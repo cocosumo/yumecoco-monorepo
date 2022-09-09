@@ -1,10 +1,10 @@
 import { Paper, Table, TableBody, TableContainer, TableHead } from '@mui/material';
-import { subTotalCalc } from './subTotalCalc';
+import { useSubTotalCalc } from '../hooks/useSubTotalCalc';
 import SubTotalHead from './SubTotalHead';
 import { SubTotalRow } from './SubTotalRow';
 
 export const SubTotalTable = () => {
-  const rows = subTotalCalc();
+  const rows = useSubTotalCalc();
 
   return (
     <TableContainer component={Paper}>

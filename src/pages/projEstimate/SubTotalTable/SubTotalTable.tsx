@@ -1,13 +1,14 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableContainer, TableHead } from '@mui/material';
+import SubTotalHead from './SubTotalHead';
 import { SubTotalRow } from './SubTotalRow';
 
 export const SubTotalTable = () => {
-// <-- テストデータです。計算のHookはここに入れ替えます。 本ブランチで対応します
+  // <-- テストデータです。計算のHookはここに入れ替えます。 本ブランチで対応します
   const rows: Array<[string, number]> = [
-    ['建材・新建材', 28110.72 ],
-    ['補修工事', -6533 ],
-    ['金物工事', 5280  ],
-    ['家具工事', 256256 ],
+    ['建材・新建材', 28110.72],
+    ['補修工事', -6533],
+    ['金物工事', 5280],
+    ['家具工事', 256256],
   ];
   // テストデータ -->
 
@@ -15,17 +16,10 @@ export const SubTotalTable = () => {
     <TableContainer component={Paper}>
       <Table size="small">
         <TableHead>
-          <TableRow>
-            <TableCell>
-              大項目
-            </TableCell>
-            <TableCell align='right'>
-              大項目小計
-            </TableCell>
-          </TableRow>
+          <SubTotalHead />
         </TableHead>
         <TableBody>
-          {rows.map(([key, value])=> <SubTotalRow key={key} majorItem={key} value={value} />)}
+          {rows.map(([key, value]) => <SubTotalRow key={key} majorItem={key} value={value} />)}
         </TableBody>
       </Table>
     </TableContainer>

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useMemo, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Backdrop } from '@mui/material';
 
@@ -34,16 +34,13 @@ export const GlobalBackdrop = ({ children }: {
     open: false,
   });
 
-  console.log('backdrop', state);
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const providerValue = {
+  const providerValue = useMemo(()=>({
     backdropState: state,
     setBackdropState: (params: IBackdropState) => {
-      console.log('entered');
       setState(prev => ({ ...prev, ...params }));
     },
     handleClose: handleClose,
-  };
+  }), [setState]);
 
 
   return (

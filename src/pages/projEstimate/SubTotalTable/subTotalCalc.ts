@@ -8,7 +8,7 @@ export const subTotalCalc = (): Array<[string, number]> => {
   const result = items.reduce((acc, { majorItem, price })=> {
     const target = acc.find(([key]) => key === majorItem);
     if (target) {
-      target[1] += price;
+      target[1] += +price;
     } else {
       acc.push([majorItem, price]);
     }

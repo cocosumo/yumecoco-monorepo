@@ -11,11 +11,15 @@ export type TMaterials = TypeOfForm['items'][0];
 export type TKMaterials = keyof TMaterials;
 
 export const initialValues = {
+  /** 「一時保存」か「保存」 */
+  saveMode: 'normal' as  'temporary' | 'normal',
   estimateId: '',
   projId: '',
   projName: '',
   customerName: '',
-  projType: '', /* 工事種別(ルックアップ) */
+
+  /** 工事種別 */
+  projType: '',
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */
 
@@ -43,9 +47,6 @@ export const initialValues = {
   taxAmount: 0, /* 税(円) */
   taxExcludedAmount: 0, /* 税抜金額 */
   amountIncludingTax: 0, /* 税込金額 */
-  /* 大項目ごとの小計 */
-  majorItemName: '', /* 大項目 */
-  itemSubtotal: 0, /* 大項目小計 */
 };
 
 export type TypeOfForm = typeof initialValues;

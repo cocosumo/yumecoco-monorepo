@@ -1,6 +1,6 @@
 import { Box, Button, Collapse } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
@@ -12,10 +12,10 @@ export const BtnSave = () => {
 
   const [showText, setShowText] = useState(false);
 
-  const handleSave = useCallback(() => {
-    setValues(prev => ({ ...prev, saveMethod: 'normal' }));
+  const handleSave = () => {
+    setValues(prev => ({ ...prev, saveMode: 'normal' }));
     submitForm();
-  }, []);
+  };
 
   return (
     <Button

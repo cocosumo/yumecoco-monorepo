@@ -23,6 +23,7 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'plugin:react-hooks/recommended'
   ],
   rules: {
     "react/jsx-uses-react": "error",

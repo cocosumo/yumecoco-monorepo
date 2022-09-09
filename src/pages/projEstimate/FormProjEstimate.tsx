@@ -1,4 +1,4 @@
-import { Divider, Grid } from '@mui/material';
+import { Divider, Grid, Stack } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
@@ -10,6 +10,7 @@ import SummaryTable from './SummaryTable/SummaryTable';
 import { RenderFunc } from './QuoteTable/RenderFunc';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { useUpdateProjectId } from './hooks/useUpdateProjectId';
+import { NoCustomerWarning } from './fieldComponents/NoCustomerWarning';
 import { FormikSearchProjField } from '../../components/ui/textfield/FormikSearchProjField';
 import { FormActions } from './fieldComponents/formActions';
 
@@ -53,6 +54,7 @@ export default function FormProjEstimate() {
           <FormikTextField name={getFieldName('taxRate')} label="税率" />
         </Grid>
         <Grid item md={3} />
+        {/*  */}
 
         <Grid item xs={12} md={12}>
           {/* 合計欄テーブル */}

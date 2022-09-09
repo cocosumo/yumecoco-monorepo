@@ -21,7 +21,7 @@ export const useUpdateProjectId = () => {
           constructionName, constructionType,
           custGroupId,
         }) => {
-          
+
           const [
             custGroup,
             { profitRate },
@@ -48,7 +48,7 @@ export const useUpdateProjectId = () => {
           setSnackState({
             open: true,
             severity: 'error',
-            message: `レコード取得が失敗しました。管理者をご連絡ください。useUpdateProjectId ${err.message}`,
+            message: `レコード取得が失敗しました。管理者にご連絡ください。useUpdateProjectId ${err.message}`,
           });
           setLoading(false);
         });

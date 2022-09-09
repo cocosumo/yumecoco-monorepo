@@ -1,16 +1,10 @@
 import { Paper, Table, TableBody, TableContainer, TableHead } from '@mui/material';
+import { subTotalCalc } from './subTotalCalc';
 import SubTotalHead from './SubTotalHead';
 import { SubTotalRow } from './SubTotalRow';
 
 export const SubTotalTable = () => {
-  // <-- テストデータです。計算のHookはここに入れ替えます。 本ブランチで対応します
-  const rows: Array<[string, number]> = [
-    ['建材・新建材', 28110.72],
-    ['補修工事', -6533],
-    ['金物工事', 5280],
-    ['家具工事', 256256],
-  ];
-  // テストデータ -->
+  const rows = subTotalCalc();
 
   return (
     <TableContainer component={Paper}>

@@ -27,7 +27,7 @@ export const FormikInput = (
     <FormControl variant="standard">
       <Input
         {...field} error={!!error && touched}
-        onInput ={(el)=>{
+        onInput={(el)=>{
           // 入力中コンポーネント内のInputのステートを更新
           if (!touched)  helpers.setTouched(true);
 
@@ -35,7 +35,7 @@ export const FormikInput = (
         }}
         value={inputVal === null ? field.value : inputVal} // inputValは空なら、入力中ではないということなので、本フォームのfield.valueを反映させる。
         onChange={changeHandlerInput}
-        />
+      />
       {(!!error && touched) &&
         <FormHelperText error={!!error && touched}>
           {error}

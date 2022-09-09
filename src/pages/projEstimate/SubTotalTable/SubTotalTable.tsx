@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import { SubTotalRow } from './SubTotalRow';
 
 export const SubTotalTable = () => {
-// <-- テストデータです。計算のHookはここに入れ替えます。
+// <-- テストデータです。計算のHookはここに入れ替えます。 本ブランチで対応します
   const rows: Array<[string, number]> = [
     ['建材・新建材', 28110.72 ],
     ['補修工事', -6533 ],
@@ -16,8 +16,12 @@ export const SubTotalTable = () => {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>大項目</TableCell>
-            <TableCell align='right'>大項目小計</TableCell>
+            <TableCell>
+              大項目
+            </TableCell>
+            <TableCell align='right'>
+              大項目小計
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

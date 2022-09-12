@@ -35,7 +35,7 @@ export const initialValues = {
     },
   ],
 
-  /* 合計 */
+  /* 合計 ※削除する */
   totalCost: 0, /* 原価合計 */
   grossProfit: 0, /* 粗利 */
   grossProfitMargin: 0, /* 粗利率 */

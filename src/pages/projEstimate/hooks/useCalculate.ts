@@ -37,7 +37,7 @@ export const useCalculate = (rowIdx: number) => {
 
     // 単価の算出処理 : IF(原価 <= 0, 0 , 原価  * ( 1 + (内訳利益率/100)))
     let newUnitPrice = 0; // 入力値がエラー(数値でない)時は0にする
-    if (!(isNaN(costPrice) || isNaN(elemProfRate)) && ((costPrice) > 0)) {
+    if (!(isNaN(costPrice) || isNaN(elemProfRate))) {
       newUnitPrice = Math.round(+costPrice * (1 + (+elemProfRate / 100)));
     }
 

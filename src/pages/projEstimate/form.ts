@@ -34,14 +34,6 @@ export const initialValues = {
       price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
     },
   ],
-
-  /* 合計 ※削除する */
-  totalCost: 0, /* 原価合計 */
-  grossProfit: 0, /* 粗利 */
-  grossProfitMargin: 0, /* 粗利率 */
-  taxAmount: 0, /* 税(円) */
-  taxExcludedAmount: 0, /* 税抜金額 */
-  amountIncludingTax: 0, /* 税込金額 */
 };
 
 export type TypeOfForm = typeof initialValues;

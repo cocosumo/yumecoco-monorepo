@@ -30,8 +30,6 @@ export const initialValues = {
       elemProfRate: 0, /* 利益率(部材) */
       unit: '式' as typeof unitChoices[number], /* 単位 */
       tax: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
-      unitPrice: 0, /* 単価(原価*利益率(部材)) */
-      price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
     },
   ],
 };
@@ -81,8 +79,6 @@ export const validationSchema = Yup.object(
             .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
           'tax': Yup.string(),  /* 税(課税/非課税) */
-          'unitPrice': Yup.number(), /* 単価(原価*利益率(部材)) */
-          'price': Yup.number(), /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
         }),
       )
       .required('Must have items')

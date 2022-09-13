@@ -15,15 +15,18 @@ export const FormikInput = (
   const [inputVal, setInputVal] = useState<string | null>(null);
   const { error, touched } = meta;
 
+  const flg = false;
+  
   const changeHandlerInput
   : React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined
 
     = debounce((el: ChangeEvent<HTMLInputElement>) => {
-      if (name.indexOf('costPrice')) {
+      if (name.indexOf('costPrice') !== -1) {
         // 原価がマイナスに変わった時のみ、値をセットする
         if ((field.value >= 0) && (Number(el.target.value) < 0)) {
-          console.log('ここに処理を追加する');
-          // 数量を1、利益率を0にする
+          console.log('ここに処理を追加する?');
+          // 数量を1、利益率を0にする、税を非課税にする
+          // useSetWhenCostMinus(flg, name);
         }
       }
       field.onChange(el);

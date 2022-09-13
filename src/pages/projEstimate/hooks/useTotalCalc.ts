@@ -1,15 +1,20 @@
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
+import { calcPrice } from '../helpers/calcPrice';
+import { calcUnitPrice } from '../helpers/calcUnitPrice';
 
 export const useTotalCalc = (): Array<[string, number]> => {
   const { values } = useFormikContext<TypeOfForm>();
+  const { taxRate } = values;
 
   // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
   const result = values.items.reduce((acc, cur) => {
     const totalCostPrice = +cur.costPrice * +cur.quantity;
     const grossProfitVal = (totalCostPrice * (+cur.elemProfRate / 100));
     const taxExcludedAmountVal = ((+cur.costPrice * +cur.quantity) * (1 + (+cur.elemProfRate / 100)));
-    const amountIncludingTaxVal = +cur.price;
+    const newUnitPrice = calcUnitPrice(cur.costPrice, cur.elemProfRate);
+    const amountIncludingTaxVal = calcPrice(newUnitPrice, cur.quantity, taxRate, cur.tax);
+
     return ({
       totalCostPrice: acc.totalCostPrice + totalCostPrice,
       grossProfitVal: acc.grossProfitVal + grossProfitVal,

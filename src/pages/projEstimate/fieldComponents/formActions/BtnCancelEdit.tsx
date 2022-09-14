@@ -1,27 +1,38 @@
-import { Button, Collapse, Typography } from '@mui/material';
+import { Button, Collapse, Stack, Typography, useTheme, Zoom } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useState } from 'react';
 import { Box } from '@mui/system';
 import { useConfirmDialog } from '../../../../hooks';
-import PanToolIcon from '@mui/icons-material/PanTool';
+import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutLineWarning';
 
 
 /** 編集をやめる */
 export const BtnCancelEdit = () => {
   const [showText, setShowText] = useState(false);
   const { setDialogState } = useConfirmDialog();
+  const { palette } = useTheme();
 
   const handleClose = () => {
     setDialogState({
       open: true,
-      title: '保存せずに閉じますか。',
+      title: '確認',
       cancellable: true,
       withYes: true,
       withNo: true,
       content: (
-        <Typography fontSize={'32px'}>
-          <PanToolIcon color='warning' />
-        </Typography>),
+        <Stack >
+          <Zoom in={true} timeout={200}>
+            <Typography textAlign={'center'} fontSize={'64px'} color={palette.warning.main}>
+              <AiOutlineWarning />
+            </Typography>
+          </Zoom>
+
+          <Typography textAlign={'center'} fontSize={'16px'}>
+            保存せずにとじますか。
+          </Typography>
+        </Stack>
+
+      ),
       handleYes: () => self?.window?.close(),
     });
   };

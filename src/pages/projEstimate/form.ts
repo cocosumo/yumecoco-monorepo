@@ -30,7 +30,7 @@ export const initialValues = {
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */
       costPrice: 0,  /* 原価 */
-      quantity: 0,   /* 数量 */
+      quantity: 1,   /* 数量 */
       elemProfRate: 0, /* 利益率(部材) */
       unit: '式' as typeof unitChoices[number], /* 単位 */
       tax: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */

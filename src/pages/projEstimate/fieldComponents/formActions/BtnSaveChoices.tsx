@@ -1,24 +1,19 @@
 import { Button, Stack } from '@mui/material';
 import { SaveLoading } from '../../../../components/ui/icons/SaveLoading';
-import { useBackdrop, useSnackBar } from '../../../../hooks';
-import { TypeOfForm } from '../../form';
+import { useBackdrop } from '../../../../hooks';
 
 
 export const BtnSaveChoices = ({
   handleClose,
-  setSubmitting,
+  handleSave,
 }:{
   handleClose: () => void,
-  setSubmitting: (isSubmitting: boolean) => void,
-  values: TypeOfForm
+  handleSave: (actionAfterSave?: ()=> void) => void,
 }) => {
   const { setBackdropState } = useBackdrop();
-  const { setSnackState } = useSnackBar();
-
-
 
   /* 保存処理 */
-  const handleSave = (
+  const handleClickSave = (
     actionAfterSave: () => void,
   ) => {
 
@@ -32,17 +27,10 @@ export const BtnSaveChoices = ({
     });
 
     /** ここで保存処理 */
-    setTimeout(()=>{
-      setSnackState({
-        open: true,
-        severity: 'success',
-        message: '保存しました。',
-        handleClose: actionAfterSave,
-      });
-    }, 2000);
+    handleSave(actionAfterSave);
   };
 
-  const handleBackSuccess = () => {
+  const handleSuccess = () => {
 
     /** ローディング後、成功を表示 */
     setBackdropState({
@@ -55,17 +43,16 @@ export const BtnSaveChoices = ({
       setBackdropState({
         open: false,
       });
-      setSubmitting(false);
     }, 1000);
   };
 
-  const handleSaveThenClose = () => handleSave(()=>{
-    handleBackSuccess();
+  const handleSaveThenClose = () => handleClickSave(()=>{
+    handleSuccess();
     self?.window?.close();
   });
 
-  const handleSaveThenEdit = () => handleSave(()=>{
-    handleBackSuccess();
+  const handleSaveThenEdit = () => handleClickSave(()=>{
+    handleSuccess();
   });
 
 

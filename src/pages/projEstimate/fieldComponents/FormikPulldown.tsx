@@ -13,19 +13,23 @@ export const FormikPulldown = (
   const { touched, error } = meta;
 
   return (
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} size='small'>
+    <FormControl variant="standard" sx={{ minWidth: 60 }} size='small'>
       <Select {...field} onChange={(event)=>{
 
         if (handleChange) handleChange(event.target.value);
         field.onChange(event);
-      }}>
+      }}
+      >
         <MenuItem value="">
-          <em>-</em>
+          <em>
+            -
+          </em>
         </MenuItem>
         {options.map(({ label, value }) => {
-          return (<MenuItem value={value} key={value}>{label}</MenuItem>);
-        })
-          }
+          return (<MenuItem value={value} key={value}>
+            {label}
+          </MenuItem>);
+        })}
       </Select>
       {(!!error && touched) &&
       <FormHelperText error={!!error && touched}>

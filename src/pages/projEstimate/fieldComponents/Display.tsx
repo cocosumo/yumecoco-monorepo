@@ -11,8 +11,9 @@ export const Display = ({
   const [field] = useField(name);
 
   return (
-    <Typography variant='body2'>
-      {field.value}{suffix}
+    <Typography variant='body2' sx={{ minWidth: 70 }}>
+      {field.value}
+      {suffix}
     </Typography>
   );
 };

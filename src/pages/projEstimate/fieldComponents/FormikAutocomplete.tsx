@@ -21,16 +21,17 @@ export const FormikAutocomplete = (
     }, 1000), [JSON.stringify(options)]);
 
   return (
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} size='small'>
+    <FormControl variant="standard" sx={{ minWidth: 100 }} size='small'>
       <Autocomplete {...field}
         freeSolo
         options={options.map(({ value }) => value)}
         renderInput={(params) =>
-          <TextField {...params}
-            type="search"
-            variant="standard"
-          />
-        }
+          (
+            <TextField {...params}
+              type="search"
+              variant="standard"
+            />
+          )}
         onInputChange={handleInputChange}
       />
       {(!!error && touched) &&

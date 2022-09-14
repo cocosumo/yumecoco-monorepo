@@ -20,7 +20,7 @@ export const FormikProjEstimate = () => {
       }}
     >
 
-      <FormProjEstimate/>
+      <FormProjEstimate />
     </Formik>
   );
 };

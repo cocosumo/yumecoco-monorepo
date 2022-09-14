@@ -13,7 +13,7 @@ export const FormikPulldown = (
   const { touched, error } = meta;
 
   return (
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }} size='small'>
+    <FormControl variant="standard" sx={{ minWidth: 60 }} size='small'>
       <Select {...field} onChange={(event)=>{
 
         if (handleChange) handleChange(event.target.value);

@@ -35,6 +35,7 @@ export const FormikInput = (
         }}
         value={inputVal === null ? field.value : inputVal} // inputValは空なら、入力中ではないということなので、本フォームのfield.valueを反映させる。
         onChange={changeHandlerInput}
+        sx={{ minWidth: 60 }}
       />
       {(!!error && touched) &&
         <FormHelperText error={!!error && touched}>

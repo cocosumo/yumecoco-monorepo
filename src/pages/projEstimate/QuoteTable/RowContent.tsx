@@ -37,6 +37,9 @@ export const RowContent = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx, materialOptions);
 
+  const handleChangeCostPrice = () => {
+    
+  };
 
   return (
     <TableRow >
@@ -66,7 +69,7 @@ export const RowContent = (
       </TableCell>
 
       <TableCell>
-        <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} />
+        <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} handleChange={handleChangeCostPrice} />
       </TableCell>
 
       <TableCell>

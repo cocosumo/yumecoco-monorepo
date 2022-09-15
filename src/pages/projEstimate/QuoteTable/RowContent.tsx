@@ -101,7 +101,6 @@ export const RowContent = (
         <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'} />
       </TableCell>
 
-      {/* T118 This is where we start. */}
       <TableCell >
         <RowControls
           rowIdx={rowIdx}

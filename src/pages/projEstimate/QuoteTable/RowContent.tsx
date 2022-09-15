@@ -8,6 +8,7 @@ import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
+import { RowOrderControls } from './RowOrderControls';
 
 const itemsName = getFieldName('items');
 
@@ -40,6 +41,10 @@ export const RowContent = (
 
   return (
     <TableRow >
+
+
+      <RowOrderControls />
+
 
       <TableCell>
         <FormikPulldown

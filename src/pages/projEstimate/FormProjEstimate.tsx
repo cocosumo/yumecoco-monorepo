@@ -19,8 +19,6 @@ export default function FormProjEstimate() {
   const { projName, customerName, projId } = values;
 
   const { isLoading } = useUpdateProjectId();
-
-  console.log('values', values);
   
   return (
     <Form noValidate>
@@ -51,7 +49,7 @@ export default function FormProjEstimate() {
           <FormikSelect
             name={getFieldName('status')}
             label='ステータス'
-            options={statusChoices.map((c) => ({ label: c, value: c }))}
+            options={statusChoices.map((c) => ({ label: c || '-', value: c }))}
           />
         </Grid>
 

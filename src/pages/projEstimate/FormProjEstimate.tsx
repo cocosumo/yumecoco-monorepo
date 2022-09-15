@@ -12,7 +12,7 @@ import { RenderFunc } from './QuoteTable/RenderFunc';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
-import { FormikStatus } from './fieldComponents/FormikStatus';
+import { FormikSelect } from '../../components/ui/selects';
 
 export default function FormProjEstimate() {
   const { submitForm, values } = useFormikContext<TypeOfForm>();
@@ -20,6 +20,8 @@ export default function FormProjEstimate() {
 
   const { isLoading } = useUpdateProjectId();
 
+  console.log('values', values);
+  
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -46,9 +48,9 @@ export default function FormProjEstimate() {
           <FormikTextField name={getFieldName('taxRate')} label="税率" />
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikStatus
+          <FormikSelect
             name={getFieldName('status')}
-            labelMain='ステータス'
+            label='ステータス'
             options={statusChoices.map((c) => ({ label: c, value: c }))}
           />
         </Grid>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { initialValues, TypeOfForm } from '../../form';
 import { v4 as uuidv4 } from 'uuid';
 
-export const RowControls = ({
+export const QtRowAddDelete = ({
   rowIdx, arrayHelpers,
 } :{
   rowIdx: number
@@ -20,7 +20,7 @@ export const RowControls = ({
   const currentItem = items[rowIdx];
 
   const isJustOneRow = items.length === 1;
-  
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,7 +63,7 @@ export const RowControls = ({
           下に追加
         </MenuItem>
 
-        <MenuItem 
+        <MenuItem
           disabled={isJustOneRow}
           onClick={handleRemoveRow}
         >

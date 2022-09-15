@@ -1,11 +1,11 @@
-import { IconButton, Stack, SxProps, TableCell, Theme } from '@mui/material';
+import { IconButton, Stack, SxProps, Theme } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { FieldArrayRenderProps, FormikProps } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useState } from 'react';
 
-export const RowOrderControls = ({
+export const QtRowMove = ({
   rowIdx, arrayHelpers,
 }: {
   rowIdx: number
@@ -17,7 +17,7 @@ export const RowOrderControls = ({
 
   const transitionStyle = (isTop: boolean) : SxProps<Theme> => {
     const shiftPx = isTop ? -14 : 14;
-    return { 
+    return {
       top: expandBtns ? shiftPx : 0,
       transition: 'top 0.5s ease 0s',
       position: 'relative',
@@ -36,43 +36,39 @@ export const RowOrderControls = ({
   };
 
   return (
-    <TableCell 
-      size='small' 
-      sx={{
-        pl: 1, pr: 0,
-      }}
+
+    <Stack spacing={-2}
       onMouseEnter={()=>setExpandBtns(true)}
       onMouseLeave={()=>setExpandBtns(false)}
     >
-      <Stack spacing={-2}>
-        <IconButton 
-          size='small' 
-          disabled={isAtTop}
-          onClick={handleMoveRowUp}
-          sx={transitionStyle(true)}
-        >
-          <KeyboardArrowUpIcon />
-        </IconButton>
+      <IconButton
+        size='small'
+        disabled={isAtTop}
+        onClick={handleMoveRowUp}
+        sx={transitionStyle(true)}
+      >
+        <KeyboardArrowUpIcon />
+      </IconButton>
 
-        <IconButton 
-          size='small' 
-          onClick={handleMoveAny}
-        >
-          {rowIdx + 1}
-        </IconButton>
+      <IconButton
+        size='small'
+        onClick={handleMoveAny}
+      >
+        {rowIdx + 1}
+      </IconButton>
 
-        <IconButton 
-          size='small' 
-          disabled={isAtBottom}
-          onClick={handleMoveRowDown}
-          sx={transitionStyle(false)}
-        >
-          <KeyboardArrowDownIcon />
-        </IconButton>
+      <IconButton
+        size='small'
+        disabled={isAtBottom}
+        onClick={handleMoveRowDown}
+        sx={transitionStyle(false)}
+      >
+        <KeyboardArrowDownIcon />
+      </IconButton>
 
-      </Stack>
+    </Stack>
 
-    </TableCell>
+
 
   );
 };

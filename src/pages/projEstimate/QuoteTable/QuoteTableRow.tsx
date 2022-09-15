@@ -9,8 +9,8 @@ import {  getItemFieldName, taxChoices, unitChoices } from '../form';
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
-import { RowOrderControls } from './RowControls/RowOrderControls';
-import { RowControls } from './RowControls/';
+import { QtRowAddDelete, QtRowMove } from './rowActions';
+
 
 
 export const QuoteTableRow = (
@@ -39,10 +39,13 @@ export const QuoteTableRow = (
   return (
     <TableRow >
 
-
-      <RowOrderControls rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
-
-
+      <TableCell
+        sx={{
+          pl: 1, pr: 0,
+        }}
+      >
+        <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+      </TableCell>
       <TableCell>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'majorItem')}
@@ -102,7 +105,7 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell >
-        <RowControls
+        <QtRowAddDelete
           rowIdx={rowIdx}
           arrayHelpers={arrayHelpers}
         />

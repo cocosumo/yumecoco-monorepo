@@ -46,7 +46,7 @@ export const RowContent = (
     <TableRow >
 
 
-      <RowOrderControls />
+      <RowOrderControls rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
 
 
       <TableCell>

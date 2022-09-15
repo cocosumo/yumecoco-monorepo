@@ -3,6 +3,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
 import { initialValues, TMaterials } from '../form';
+import { v4 as uuidv4 } from 'uuid';
 
 export const RowControls = ({
   rowIdx, arrayHelpers, currentItem,
@@ -32,12 +33,12 @@ export const RowControls = ({
   };
 
   const handleAddToRowBelow = () => {
-    insert(rowIdx + 1, initialValues.items[0]);
+    insert(rowIdx + 1, { ...initialValues.items[0], key: uuidv4() });
     handleClose();
   };
 
   const handleCopyToRowBelow = () => {
-    insert(rowIdx + 1, currentItem);
+    insert(rowIdx + 1, { ...currentItem, key: uuidv4() });
     handleClose();
   };
 

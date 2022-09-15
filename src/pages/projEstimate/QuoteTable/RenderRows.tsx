@@ -28,7 +28,7 @@ export default function RenderRows(props: RenderRowsProps) {
                   middleItems: middleItems.data ?? [],
                   materials: materials.data ?? [],
                 }}
-                key={item.number}
+                key={item.key}
               />
             );
           })}

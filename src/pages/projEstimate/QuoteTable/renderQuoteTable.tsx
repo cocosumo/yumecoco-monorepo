@@ -1,24 +1,17 @@
 import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
-import RenderRows from './RenderRows';
-import { TypeOfForm } from '../form';
-import { FieldArrayRenderProps } from 'formik';
-import { QuoteTableHead } from './QuoteTableHead';
 
-export type QuoteTableProps = {
-  arrayHelpers: FieldArrayRenderProps,
-  values: TypeOfForm,
-};
+import { FieldArrayRenderProps } from 'formik';
+import { QuoteTableHead, QuoteTableBody } from './';
+
 
 /**
  * 見積もりテーブルを作成する
  * @param arrayHelpers
  * @returns
  */
-export default function QuoteTable(props : QuoteTableProps) {
-  const { arrayHelpers, values } = props;
+export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
 
   return (
     <TableContainer component={Paper} >
@@ -30,9 +23,7 @@ export default function QuoteTable(props : QuoteTableProps) {
         }} 
       >
         <QuoteTableHead />
-        <TableBody>
-          <RenderRows arrayHelpers={arrayHelpers} values={values} />
-        </TableBody>
+        <QuoteTableBody arrayHelpers={arrayHelpers}  />
       </Table>
     </TableContainer>
   );

@@ -9,15 +9,11 @@ import {  getItemFieldName, taxChoices, TMaterials, unitChoices } from '../form'
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
-import { RowOrderControls } from './RowOrder/RowOrderControls';
-import { RowControls } from './RowControls';
+import { RowOrderControls } from './RowControls/RowOrderControls';
+import { RowControls } from './RowControls/';
 
 
-/* const getItemFieldName = (
-  rowIdx: number, fieldName: TKMaterials,
-) => `${itemsName}[${rowIdx}].${fieldName}`; */
-
-export const RowContent = (
+export const QuoteTableRow = (
   {
     rowIdx,
     arrayHelpers,

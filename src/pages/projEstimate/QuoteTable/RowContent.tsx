@@ -1,30 +1,33 @@
 
-import { Button, TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow } from '@mui/material';
+import { FieldArrayRenderProps } from 'formik';
 import { Display } from '../fieldComponents/Display';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
+import {  getItemFieldName, taxChoices, TMaterials, unitChoices } from '../form';
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
 import { RowOrderControls } from './RowOrderControls';
+import { RowControls } from './RowControls';
 
-const itemsName = getFieldName('items');
 
-const getItemFieldName = (
+/* const getItemFieldName = (
   rowIdx: number, fieldName: TKMaterials,
-) => `${itemsName}[${rowIdx}].${fieldName}`;
+) => `${itemsName}[${rowIdx}].${fieldName}`; */
 
 export const RowContent = (
   {
     rowIdx,
-    removeRow,
+    arrayHelpers,
     materialOptions,
+    currentItem,
   }: {
     rowIdx: number,
-    removeRow: (rowIdx: number) => void,
+    arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
+    currentItem: TMaterials
   }) => {
 
   useCalculate(rowIdx);
@@ -104,14 +107,12 @@ export const RowContent = (
         <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'} />
       </TableCell>
 
-
       <TableCell >
-        <Button
-          variant="outlined"
-          onClick={() => removeRow(rowIdx)}
-        >
-          -
-        </Button>
+        <RowControls
+          rowIdx={rowIdx}
+          currentItem={currentItem}
+          arrayHelpers={arrayHelpers}
+        />
       </TableCell>
 
     </TableRow>

@@ -1,18 +1,16 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import { FieldArrayRenderProps, useFormikContext } from 'formik';
+import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
-import { initialValues, TypeOfForm } from '../form';
+import { initialValues, TMaterials } from '../form';
 
 export const RowControls = ({
-  rowIdx, arrayHelpers,
+  rowIdx, arrayHelpers, currentItem,
 } :{
   rowIdx: number
   arrayHelpers: FieldArrayRenderProps
+  currentItem: TMaterials
 }) => {
-  const { values: {
-    items: { [rowIdx]: currRow },
-  } } = useFormikContext<TypeOfForm>();
 
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -38,7 +36,8 @@ export const RowControls = ({
   };
 
   const handleCopyToRowBelow = () => {
-    insert(rowIdx + 1, currRow);
+    insert(rowIdx + 1, currentItem);
+    handleClose();
   };
 
   return (

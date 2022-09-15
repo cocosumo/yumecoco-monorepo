@@ -21,6 +21,7 @@ export default function RenderRows(props: RenderRowsProps) {
             return (
               <RowContent
                 rowIdx={itemsIdx}
+                currentItem={item}
                 arrayHelpers={arrayHelpers}
                 materialOptions={{
                   majorItems: majorItems.data ?? [],

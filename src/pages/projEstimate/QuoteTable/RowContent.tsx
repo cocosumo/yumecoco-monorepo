@@ -5,27 +5,28 @@ import { Display } from '../fieldComponents/Display';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
+import {  getItemFieldName, taxChoices, TMaterials, unitChoices } from '../form';
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
 import { RowControls } from './RowControls';
 
-const itemsName = getFieldName('items');
 
-const getItemFieldName = (
+/* const getItemFieldName = (
   rowIdx: number, fieldName: TKMaterials,
-) => `${itemsName}[${rowIdx}].${fieldName}`;
+) => `${itemsName}[${rowIdx}].${fieldName}`; */
 
 export const RowContent = (
   {
     rowIdx,
     arrayHelpers,
     materialOptions,
+    currentItem,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
+    currentItem: TMaterials
   }) => {
 
   useCalculate(rowIdx);
@@ -104,6 +105,7 @@ export const RowContent = (
       <TableCell >
         <RowControls
           rowIdx={rowIdx}
+          currentItem={currentItem}
           arrayHelpers={arrayHelpers}
         />
       </TableCell>

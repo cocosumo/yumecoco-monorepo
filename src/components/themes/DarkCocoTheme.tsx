@@ -15,7 +15,6 @@ const darkTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        
         outlinedPrimary: {
           color: grey[700],
           borderColor: grey[300],

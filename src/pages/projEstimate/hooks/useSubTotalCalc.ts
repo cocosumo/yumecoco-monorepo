@@ -15,7 +15,7 @@ export const useSubTotalCalc = (): Array<[string, number]> => {
     const target = acc.find(([key]) => key === majorItem);
     if (target) {
       target[1] += +price;
-    } else {
+    } else if (majorItem !== '') {
       acc.push([majorItem, price]);
     }
     return acc;

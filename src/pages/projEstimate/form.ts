@@ -6,6 +6,9 @@ export const unitChoices = [
   '', '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
   'ケース', '台', '組', '袋', '箱', 'kg', 't',
 ] as const;
+export const statusChoices = [
+  '', '契約', '銀行用', '工事実行', '追加', '追加減額',
+] as const;
 
 export type TMaterials = TypeOfForm['items'][0];
 export type TKMaterials = keyof TMaterials;
@@ -17,6 +20,7 @@ export const initialValues = {
   constructionType: '', /* 工事種別(ルックアップ) */
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */
+  status: '' as typeof statusChoices[number], /* ステータス */
 
   /* 見積もり用配列要素 */
   items: [

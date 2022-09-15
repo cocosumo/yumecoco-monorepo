@@ -3,6 +3,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material';
 import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
 import { initialValues, TMaterials } from '../form';
+import { v4 as uuidv4 } from 'uuid';
 
 export const RowControls = ({
   rowIdx, arrayHelpers, currentItem,
@@ -17,6 +18,7 @@ export const RowControls = ({
   const open = Boolean(anchorEl);
   const { remove, insert } = arrayHelpers;
 
+  const isAtTop = rowIdx === 0;
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,12 +33,12 @@ export const RowControls = ({
   };
 
   const handleAddToRowBelow = () => {
-    insert(rowIdx + 1, initialValues.items[0]);
+    insert(rowIdx + 1, { ...initialValues.items[0], key: uuidv4() });
     handleClose();
   };
 
   const handleCopyToRowBelow = () => {
-    insert(rowIdx + 1, currentItem);
+    insert(rowIdx + 1, { ...currentItem, key: uuidv4() });
     handleClose();
   };
 
@@ -62,12 +64,18 @@ export const RowControls = ({
         <MenuItem onClick={handleAddToRowBelow}>
           下に追加
         </MenuItem>
-        <MenuItem onClick={handleRemoveRow}>
+
+        <MenuItem 
+          disabled={isAtTop}
+          onClick={handleRemoveRow}
+        >
           削除
         </MenuItem>
+
         <MenuItem onClick={handleCopyToRowBelow}>
           下にコピー
         </MenuItem>
+
       </Menu>
     </>
 

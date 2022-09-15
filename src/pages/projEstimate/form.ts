@@ -1,5 +1,6 @@
 
 import * as Yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 
 export const taxChoices = ['課税', '非課税'] as const;
 export const unitChoices = [
@@ -25,7 +26,7 @@ export const initialValues = {
   /* 見積もり用配列要素 */
   items: [
     {
-      number: 1,
+      key: uuidv4(),
       majorItem: '',  /* 大項目 */
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */

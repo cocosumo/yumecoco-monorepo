@@ -40,7 +40,7 @@ export const GlobalBackdrop = ({ children }: {
       setState(prev => ({ ...prev, ...params }));
     },
     handleClose: handleClose,
-  }), [setState, state]);
+  }), [setState]);
 
 
   return (

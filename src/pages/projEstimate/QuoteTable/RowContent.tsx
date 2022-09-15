@@ -1,5 +1,6 @@
 
-import { Button, TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow } from '@mui/material';
+import { FieldArrayRenderProps } from 'formik';
 import { Display } from '../fieldComponents/Display';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
@@ -8,6 +9,7 @@ import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
+import { RowControls } from './RowControls';
 
 const itemsName = getFieldName('items');
 
@@ -18,11 +20,11 @@ const getItemFieldName = (
 export const RowContent = (
   {
     rowIdx,
-    removeRow,
+    arrayHelpers,
     materialOptions,
   }: {
     rowIdx: number,
-    removeRow: (rowIdx: number) => void,
+    arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
   }) => {
 
@@ -101,12 +103,10 @@ export const RowContent = (
 
       {/* T118 This is where we start. */}
       <TableCell >
-        <Button
-          variant="outlined"
-          onClick={() => removeRow(rowIdx)}
-        >
-          -
-        </Button>
+        <RowControls
+          rowIdx={rowIdx}
+          arrayHelpers={arrayHelpers}
+        />
       </TableCell>
 
     </TableRow>

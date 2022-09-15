@@ -9,17 +9,17 @@ export const useTotalCalc = (): Array<[string, number]> => {
 
   // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
   const result = values.items.reduce((acc, cur) => {
+    const elemProfPercentage = (+cur.elemProfRate / 100);
     const totalCostPrice = +cur.costPrice * +cur.quantity;
-    const grossProfitVal = (totalCostPrice * (+cur.elemProfRate / 100));
-    const taxExcludedAmountVal = ((+cur.costPrice * +cur.quantity) * (1 + (+cur.elemProfRate / 100)));
+    const grossProfitVal = (totalCostPrice * elemProfPercentage);
     const newUnitPrice = calcUnitPrice(cur.costPrice, cur.elemProfRate);
+    const taxExcludedAmountVal = newUnitPrice * +cur.quantity;
     const amountIncludingTaxVal = calcPrice(newUnitPrice, cur.quantity, taxRate, cur.tax);
 
     return ({
+      ...acc,
       totalCostPrice: acc.totalCostPrice + totalCostPrice,
       grossProfitVal: acc.grossProfitVal + grossProfitVal,
-      grossProfitMargin: acc.grossProfitMargin,
-      taxAmount: acc.taxAmount,
       taxExcludedAmountVal: acc.taxExcludedAmountVal + taxExcludedAmountVal,
       amountIncludingTaxVal: acc.amountIncludingTaxVal + amountIncludingTaxVal,
     });

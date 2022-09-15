@@ -2,7 +2,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
-import { initialValues, TMaterials } from '../form';
+import { initialValues, TMaterials, TypeOfForm } from '../form';
 import { v4 as uuidv4 } from 'uuid';
 
 export const RowControls = ({
@@ -16,9 +16,11 @@ export const RowControls = ({
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { remove, insert } = arrayHelpers;
+  const { form, remove, insert } = arrayHelpers;
+  const { items } = form.values as TypeOfForm;
 
-  const isAtTop = rowIdx === 0;
+  const isJustOneRow = items.length === 1;
+  
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,10 +57,6 @@ export const RowControls = ({
           vertical: 'top',
           horizontal: 'left',
         }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
 
       >
         <MenuItem onClick={handleAddToRowBelow}>
@@ -66,7 +64,7 @@ export const RowControls = ({
         </MenuItem>
 
         <MenuItem 
-          disabled={isAtTop}
+          disabled={isJustOneRow}
           onClick={handleRemoveRow}
         >
           削除

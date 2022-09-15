@@ -66,7 +66,7 @@ export const RowControls = ({
           削除
         </MenuItem>
         <MenuItem onClick={handleCopyToRowBelow}>
-          下にコーピー
+          下にコピー
         </MenuItem>
       </Menu>
     </>

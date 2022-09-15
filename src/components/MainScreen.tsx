@@ -6,12 +6,9 @@ import { useMediaQuery } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import PersistentAppBar from './appBars/PersistentAppBar';
 import PersistentDesktopDrawer from './nav/persistentNav/PersistentDesktopDrawer';
-import { GlobalSnackBar } from './ui/snacks/GlobalSnackBar';
 import Router from '../pages/Router';
-import { GlobalConfirmDialog } from './ui/dialogs/GlobalConfirmDialog';
-import { GlobalBackdrop } from './ui/backdrop/GlobalBackdrop';
 import { useQuery } from '../hooks';
-// import UnderConstruction from '../../ui/contents/UnderConstruction';
+import { MainScreenContainer } from './MainScreenContainer';
 
 const drawerWidth = 240;
 
@@ -57,21 +54,17 @@ export default function MainScreen() {
 
 
   return (
-    <GlobalSnackBar>
-      <GlobalConfirmDialog>
-        <GlobalBackdrop>
-          <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <PersistentAppBar {...{ handleDrawerOpen }} />
-            <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
-            <Main open={open}>
-              <DrawerHeader />
-              <Router />
-            </Main>
-          </Box>
-        </GlobalBackdrop>
-      </GlobalConfirmDialog>
-    </GlobalSnackBar>
+    <MainScreenContainer>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <PersistentAppBar {...{ handleDrawerOpen }} />
+        <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
+        <Main open={open}>
+          <DrawerHeader />
+          <Router />
+        </Main>
+      </Box>
+    </MainScreenContainer>
 
   );
 }

@@ -17,6 +17,7 @@ export const RowControls = ({
   const open = Boolean(anchorEl);
   const { remove, insert } = arrayHelpers;
 
+  const isAtTop = rowIdx === 0;
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -62,12 +63,18 @@ export const RowControls = ({
         <MenuItem onClick={handleAddToRowBelow}>
           下に追加
         </MenuItem>
-        <MenuItem onClick={handleRemoveRow}>
+
+        <MenuItem 
+          disabled={isAtTop}
+          onClick={handleRemoveRow}
+        >
           削除
         </MenuItem>
+
         <MenuItem onClick={handleCopyToRowBelow}>
           下にコピー
         </MenuItem>
+
       </Menu>
     </>
 

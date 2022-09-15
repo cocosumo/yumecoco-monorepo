@@ -21,8 +21,14 @@ export default function QuoteTable(props : QuoteTableProps) {
   const { arrayHelpers, values } = props;
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+    <TableContainer component={Paper} >
+      <Table 
+        size="small" 
+        sx={{ 
+          minWidth: 650, 
+          overflow: 'hidden',
+        }} 
+      >
         <QuoteTableHead />
         <TableBody>
           <RenderRows arrayHelpers={arrayHelpers} values={values} />

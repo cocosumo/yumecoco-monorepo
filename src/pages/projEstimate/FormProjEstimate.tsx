@@ -4,7 +4,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { getFieldName, TypeOfForm } from './form';
+import { getFieldName, statusChoices, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
 
 import { RenderFunc } from './QuoteTable/RenderFunc';
@@ -12,14 +12,14 @@ import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
-// import { useCalculateTotals } from './hooks/useCalculateTotals';
+import { FormikSelect } from '../../components/ui/selects';
 
 export default function FormProjEstimate() {
   const { values } = useFormikContext<TypeOfForm>();
   const { projName, customerName, projId } = values;
 
   const { isLoading } = useUpdateProjectId();
-
+  
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -45,7 +45,13 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md={3}>
           <FormikTextField name={getFieldName('taxRate')} label="税率" />
         </Grid>
-        <Grid item md={3} />
+        <Grid item xs={12} md={3}>
+          <FormikSelect
+            name={getFieldName('status')}
+            label='ステータス'
+            options={statusChoices.map((c) => ({ label: c || '-', value: c }))}
+          />
+        </Grid>
 
         <Grid item xs={12} md={12}>
           {/* 合計欄テーブル */}

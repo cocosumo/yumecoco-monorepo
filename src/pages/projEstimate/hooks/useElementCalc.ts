@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
-import { calcPrice } from '../helpers/calcPrice';
+import { calcTotalUnitPrice } from '../helpers/calcTotalUnitPrice';
 import { calcUnitPrice } from '../helpers/calcUnitPrice';
 
 
@@ -15,6 +15,6 @@ export const useElementCalc = (rowIdx: number) => {
 
   return {
     unitPrice: newUnitPrice,
-    price: calcPrice(newUnitPrice, quantity, taxRate, tax),
+    price: calcTotalUnitPrice(newUnitPrice, quantity, taxRate, tax),
   };
 };

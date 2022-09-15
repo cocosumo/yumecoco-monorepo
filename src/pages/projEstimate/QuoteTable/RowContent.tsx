@@ -1,6 +1,6 @@
 
 import { Button, TableCell, TableRow } from '@mui/material';
-import { Display } from '../fieldComponents/Display';
+import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
@@ -92,11 +92,11 @@ export const RowContent = (
       </TableCell>
 
       <TableCell>
-        <Display value={result.unitPrice} suffix={'円'} />
+        <DisplayNumber value={result.unitPrice} suffix={'円'} />
       </TableCell>
 
       <TableCell>
-        <Display value={result.price} suffix={'円'} />
+        <DisplayNumber value={result.price} suffix={'円'} />
       </TableCell>
 
 

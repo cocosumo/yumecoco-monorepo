@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 
 
-export const Display = ({
+export const DisplayNumber = ({
   value, suffix,
 }: {
   value: number,

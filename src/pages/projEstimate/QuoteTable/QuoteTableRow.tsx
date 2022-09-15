@@ -5,7 +5,7 @@ import { Display } from '../fieldComponents/Display';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import {  getItemFieldName, taxChoices, TMaterials, unitChoices } from '../form';
+import {  getItemFieldName, taxChoices, unitChoices } from '../form';
 import { useCalculate } from '../hooks/useCalculate';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
@@ -18,12 +18,10 @@ export const QuoteTableRow = (
     rowIdx,
     arrayHelpers,
     materialOptions,
-    currentItem,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
-    currentItem: TMaterials
   }) => {
 
   useCalculate(rowIdx);
@@ -106,7 +104,6 @@ export const QuoteTableRow = (
       <TableCell >
         <RowControls
           rowIdx={rowIdx}
-          currentItem={currentItem}
           arrayHelpers={arrayHelpers}
         />
       </TableCell>

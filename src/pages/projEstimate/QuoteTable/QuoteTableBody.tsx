@@ -27,7 +27,6 @@ export  function QuoteTableBody(props: {
             
             <QuoteTableRow
               rowIdx={itemsIdx}
-              currentItem={item}
               arrayHelpers={arrayHelpers}
               materialOptions={{
                 majorItems: majorItems.data ?? [],

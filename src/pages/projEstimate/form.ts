@@ -6,6 +6,9 @@ export const unitChoices = [
   '', '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
   'ケース', '台', '組', '袋', '箱', 'kg', 't',
 ] as const;
+export const statusChoices = [
+  '', '契約', '銀行用', '工事実行', '追加', '追加減額',
+] as const;
 
 export type TMaterials = TypeOfForm['items'][0];
 export type TKMaterials = keyof TMaterials;
@@ -17,6 +20,7 @@ export const initialValues = {
   constructionType: '', /* 工事種別(ルックアップ) */
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */
+  status: '' as typeof statusChoices[number], /* ステータス */
 
   /* 見積もり用配列要素 */
   items: [
@@ -26,22 +30,12 @@ export const initialValues = {
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */
       costPrice: 0,  /* 原価 */
-      quantity: 0,   /* 数量 */
+      quantity: 1,   /* 数量 */
       elemProfRate: 0, /* 利益率(部材) */
       unit: '式' as typeof unitChoices[number], /* 単位 */
-      tax: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
-      unitPrice: 0, /* 単価(原価*利益率(部材)) */
-      price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
+      taxType: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
     },
   ],
-
-  /* 合計 */
-  totalCost: 0, /* 原価合計 */
-  grossProfit: 0, /* 粗利 */
-  grossProfitMargin: 0, /* 粗利率 */
-  taxAmount: 0, /* 税(円) */
-  taxExcludedAmount: 0, /* 税抜金額 */
-  amountIncludingTax: 0, /* 税込金額 */
 };
 
 export type TypeOfForm = typeof initialValues;
@@ -88,9 +82,7 @@ export const validationSchema = Yup.object(
             .typeError('数値で入力してください')
             .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
-          'tax': Yup.string(),  /* 税(課税/非課税) */
-          'unitPrice': Yup.number(), /* 単価(原価*利益率(部材)) */
-          'price': Yup.number(), /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
+          'taxType': Yup.string(),  /* 税(課税/非課税) */
         }),
       )
       .required('Must have items')

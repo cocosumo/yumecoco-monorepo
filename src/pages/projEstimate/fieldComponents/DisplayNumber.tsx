@@ -1,18 +1,16 @@
 import { Typography } from '@mui/material';
-import { useField } from 'formik';
 
 
-export const Display = ({
-  name, suffix,
+export const DisplayNumber = ({
+  value, suffix,
 }: {
-  name: string,
+  value: number,
   suffix?: string
 }) => {
-  const [field] = useField(name);
 
   return (
     <Typography variant='body2'>
-      {field.value}
+      {Math.round(value).toLocaleString()}
       {suffix}
     </Typography>
   );

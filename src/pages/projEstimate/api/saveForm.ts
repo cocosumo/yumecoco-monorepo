@@ -13,7 +13,7 @@ const convertToKintone = ({
     value: items.map(({
       majorItem, middleItem, element,
       costPrice, quantity, unit, elemProfRate,
-      tax,
+      taxType,
     }) => {
       return {
         id: '', // 自動生成
@@ -25,7 +25,7 @@ const convertToKintone = ({
           数量 : { value: quantity.toString() },
           単位: { value: unit },
           部材利益率: { value: elemProfRate.toString() },
-          税: { value: tax },
+          税: { value: taxType },
         },
       };
     }),

@@ -1,17 +1,19 @@
 import { Stack } from '@mui/material';
 import { FormikSearchProjField } from '../../../components/ui/textfield/FormikSearchProjField';
 import { getFieldName } from '../form';
+import { useUpdateProjectId } from '../hooks/useUpdateProjectId';
 import { NoCustomerWarning } from './NoCustomerWarning';
 
 export const SearchProject = ({
-  projName, isLoading, projId, customerName,
+  projName, projId, customerName,
 }: {
   projName: string,
-  isLoading: boolean,
   customerName: string,
   projId: string,
 }) => {
-  console.log(projId, customerName, isLoading);
+
+  const { isLoading, handleStartLoading } = useUpdateProjectId();
+
 
   return (
     <Stack spacing={1}>
@@ -21,6 +23,7 @@ export const SearchProject = ({
         projName={projName}
         isLoading={isLoading}
         disabled={isLoading}
+        handleChange={handleStartLoading}
       />
       {!!projId && !customerName && !isLoading &&
       <NoCustomerWarning projId={projId} />}

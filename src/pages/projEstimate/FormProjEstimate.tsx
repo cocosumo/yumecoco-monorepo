@@ -10,15 +10,12 @@ import SummaryTable from './SummaryTable/SummaryTable';
 
 import { RenderFunc } from './QuoteTable/RenderFunc';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
-import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormikSelect } from '../../components/ui/selects';
 
 export default function FormProjEstimate() {
   const { submitForm, values } = useFormikContext<TypeOfForm>();
   const { projName, customerName, projId } = values;
-
-  const { isLoading } = useUpdateProjectId();
   
   return (
     <Form noValidate>
@@ -29,7 +26,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md={5}>
 
           {/* 工事情報の検索 */}
-          <SearchProject {...{ customerName, projId, isLoading, projName }} />
+          <SearchProject {...{ customerName, projId, projName }} />
         </Grid>
 
         <Grid item xs={12}>

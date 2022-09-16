@@ -1,10 +1,12 @@
 
 import { Button, TableCell, TableRow } from '@mui/material';
+import { useFormikContext } from 'formik';
+import { produce } from 'immer';
 import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
+import { getFieldName, taxChoices, TKMaterials, TypeOfForm, unitChoices } from '../form';
 import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
@@ -25,6 +27,7 @@ export const RowContent = (
     removeRow: (rowIdx: number) => void,
     materialOptions: TMaterialOptions,
   }) => {
+  const { setValues } = useFormikContext<TypeOfForm>();
 
   const result = useElementCalc(rowIdx);
 
@@ -37,12 +40,23 @@ export const RowContent = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx, materialOptions);
 
-  const handleChangeCostPrice = () => {
-    
+  const handleChangeCostPrice = (inputVal: string) => {
+    setValues(
+      (prev) => produce(prev, (draft) => {
+        if ((+inputVal < 0) && (draft.items[rowIdx].costPrice >= 0)) {
+          draft.items[rowIdx].costPrice = +inputVal;
+          draft.items[rowIdx].quantity = 1;
+          draft.items[rowIdx].elemProfRate = 0;
+          draft.items[rowIdx].taxType = '非課税' as typeof taxChoices[number];
+        } else {          
+          draft.items[rowIdx].costPrice = +inputVal;
+        }
+      }),
+    );
   };
 
   return (
-    <TableRow >
+    <TableRow>
 
       <TableCell>
         <FormikPulldown
@@ -103,7 +117,7 @@ export const RowContent = (
       </TableCell>
 
 
-      <TableCell >
+      <TableCell>
         <Button
           variant="outlined"
           onClick={() => removeRow(rowIdx)}

@@ -1,17 +1,19 @@
 import { useFormikContext } from 'formik';
 import { ComponentProps } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Shortcuts } from '../../components/ui/speedDials/Shortcuts';
-import { generateParams } from '../../helpers/url';
-import { pages } from '../Router';
-import { TypeOfForm } from './form';
+import { Shortcuts } from '../../../components/ui/speedDials/Shortcuts';
+import { generateParams } from '../../../helpers/url';
+import { pages } from '../../Router';
+import { TypeOfForm } from '../form';
 
 type TShortCuts = ComponentProps<typeof Shortcuts>['shortcuts'];
 
 export const ProjEstimateShortcuts = () => {
-  const { values: {
-    projId, custGroupId, estimateId,
-  } } = useFormikContext<TypeOfForm>();
+  const {
+    values: {
+      projId, custGroupId, estimateId,
+    },
+  } = useFormikContext<TypeOfForm>();
 
   const navigate = useNavigate();
 

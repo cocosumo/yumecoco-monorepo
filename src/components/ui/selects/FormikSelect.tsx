@@ -45,8 +45,10 @@ export function FormikSelect(props : FormikSelecProps) {
     return (
       <MenuItem key={option.value || option.label} value={option.value || ''}>
         <Stack direction="row" spacing={1}>
-          {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small"/>}
-          <div>{option.label}</div>
+          {option.secondaryLabel && <Chip label={option.secondaryLabel} variant="outlined" size="small" />}
+          <div>
+            {option.label}
+          </div>
         </Stack>
       </MenuItem>
     );
@@ -55,17 +57,19 @@ export function FormikSelect(props : FormikSelecProps) {
 
 
   return (
-    <FormControl required={required} fullWidth error={isShowError }>
-      <InputLabel error={isShowError}>{label}</InputLabel>
+    <FormControl required={required} fullWidth error={isShowError}>
+      <InputLabel error={isShowError}>
+        {label}
+      </InputLabel>
       <Select
-      {...field}
-      variant={variant}
-      error={isShowError}
-      label={label}
-      required={required}
-      value={isExistInOptions ? field.value ?? '' : ''}
-      disabled={disabled}
-      onChange={
+        {...field}
+        variant={variant}
+        error={isShowError}
+        label={label}
+        required={required}
+        value={isExistInOptions ? field.value ?? '' : ''}
+        disabled={disabled}
+        onChange={
         (e)=>{
           if (onChange) onChange(e);
           field.onChange(e);
@@ -75,8 +79,12 @@ export function FormikSelect(props : FormikSelecProps) {
         {optionMenus}
 
       </Select>
-      {isShowError && <FormHelperText error={isShowError}>{meta.error}</FormHelperText>}
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {isShowError && <FormHelperText error={isShowError}>
+        {meta.error}
+      </FormHelperText>}
+      {helperText && <FormHelperText>
+        {helperText}
+      </FormHelperText>}
     </FormControl>
   );
 }

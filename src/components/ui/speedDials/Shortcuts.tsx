@@ -7,24 +7,21 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AttributionIcon from '@mui/icons-material/Attribution';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
-export type ShortCutType =
-| 'project'
-| 'prospect'
-| 'contract'
-| 'delete'
-| 'custGroup';
 
-const getIcon = (type: ShortCutType) => {
-  switch (type) {
-    case 'delete': return <DeleteIcon/>;
-    case 'project': return <CarpenterIcon/>;
-    case 'custGroup': return <PeopleAltIcon />;
-    case 'prospect' : return <AttributionIcon/>;
-    case 'contract' : return <HistoryEduIcon/>;
-    default : return <AutorenewIcon />;
-  }
-};
+
+const shortcutIcons = {
+  'delete' : <DeleteIcon />,
+  'project' : <CarpenterIcon />,
+  'custGroup' : <PeopleAltIcon />,
+  'prospect' : <AttributionIcon />,
+  'contract' : <HistoryEduIcon />,
+  'estimate' : <FormatListNumberedIcon />,
+} as const;
+
+export type ShortCutType = keyof typeof shortcutIcons;
+
 
 const getTooltipTitle = (type: ShortCutType) => {
   switch (type) {
@@ -56,12 +53,12 @@ export const Shortcuts = ({
       {shortcuts.map(({ type, handleClick }) => {
         return (
           <SpeedDialAction
-          key={type}
-          icon={getIcon(type)}
-          tooltipTitle={getTooltipTitle(type)}
-          tooltipOpen
-          onClick={handleClick}
-        />
+            key={type}
+            icon={shortcutIcons[type]}
+            tooltipTitle={getTooltipTitle(type)}
+            tooltipOpen
+            onClick={handleClick}
+          />
         );
       })}
 

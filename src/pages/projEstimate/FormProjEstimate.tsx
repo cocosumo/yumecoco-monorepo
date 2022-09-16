@@ -13,13 +13,15 @@ import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
+import { ProjEstimateShortcuts } from './ProjEstimateShortcuts';
 
 export default function FormProjEstimate() {
   const { values } = useFormikContext<TypeOfForm>();
   const { projName, customerName, projId } = values;
 
   const { isLoading } = useUpdateProjectId();
-  
+
+
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -74,6 +76,8 @@ export default function FormProjEstimate() {
 
 
         <FormActions />
+        <FabSave onClick={submitForm} />
+        <ProjEstimateShortcuts />
       </MainContainer>
     </Form>
   );

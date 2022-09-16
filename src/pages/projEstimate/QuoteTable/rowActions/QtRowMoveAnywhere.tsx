@@ -46,6 +46,10 @@ export const QtRowMoveAnywhere = ({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        anchorOrigin={{
+          horizontal: 'left',
+          vertical: 'top',
+        }}
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,

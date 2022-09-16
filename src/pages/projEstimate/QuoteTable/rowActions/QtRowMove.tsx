@@ -4,6 +4,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { FieldArrayRenderProps, FormikProps } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useState } from 'react';
+import { QtRowMoveAnywhere } from './QtRowMoveAnywhere';
 
 export const QtRowMove = ({
   rowIdx, arrayHelpers,
@@ -31,16 +32,13 @@ export const QtRowMove = ({
 
   const handleMoveRowDown = () => move(rowIdx, rowIdx + 1);
 
-  const handleMoveAny = () => {
-
-  };
-
   return (
 
     <Stack spacing={-2}
       onMouseEnter={()=>setExpandBtns(true)}
       onMouseLeave={()=>setExpandBtns(false)}
     >
+      {/* 上に移動 */}
       <IconButton
         size='small'
         disabled={isAtTop}
@@ -50,13 +48,15 @@ export const QtRowMove = ({
         <KeyboardArrowUpIcon />
       </IconButton>
 
-      <IconButton
-        size='small'
-        onClick={handleMoveAny}
-      >
-        {rowIdx + 1}
-      </IconButton>
+      {/* どこでも移動 */}
+      <QtRowMoveAnywhere
+        rowIdx={rowIdx}
+        rowsCount={items.length}
+        resetArrows={() => setExpandBtns(false)}
+        move={move}
+      />
 
+      {/* 下に移動 */}
       <IconButton
         size='small'
         disabled={isAtBottom}

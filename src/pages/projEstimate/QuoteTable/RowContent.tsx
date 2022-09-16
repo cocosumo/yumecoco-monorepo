@@ -47,7 +47,7 @@ export const RowContent = (
           draft.items[rowIdx].costPrice = +inputVal;
           draft.items[rowIdx].quantity = 1;
           draft.items[rowIdx].elemProfRate = 0;
-          draft.items[rowIdx].taxType = '非課税' as typeof taxChoices[number];
+          draft.items[rowIdx].taxType = '非課税';
         } else {          
           draft.items[rowIdx].costPrice = +inputVal;
         }

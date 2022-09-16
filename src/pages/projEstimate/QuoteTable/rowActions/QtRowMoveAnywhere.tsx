@@ -62,7 +62,7 @@ export const QtRowMoveAnywhere = ({
             selected={option === rowIdx}
             onClick={() => handleMoveAnywhere(option)}
           >
-            {option}
+            {option + 1}
           </MenuItem>
         ))}
 

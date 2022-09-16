@@ -1,11 +1,11 @@
 
 import { Button, TableCell, TableRow } from '@mui/material';
-import { Display } from '../fieldComponents/Display';
+import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getFieldName, taxChoices, TKMaterials, unitChoices } from '../form';
-import { useCalculate } from '../hooks/useCalculate';
+import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
 
@@ -26,7 +26,7 @@ export const RowContent = (
     materialOptions: TMaterialOptions,
   }) => {
 
-  useCalculate(rowIdx);
+  const result = useElementCalc(rowIdx);
 
   const {
     majorItemOpts,
@@ -86,17 +86,17 @@ export const RowContent = (
 
       <TableCell>
         <FormikPulldown
-          name={getItemFieldName(rowIdx, 'tax')}
+          name={getItemFieldName(rowIdx, 'taxType')}
           options={taxChoices.map((c) => ({ label: c, value: c }))}
         />
       </TableCell>
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'unitPrice')} suffix={'円'} />
+        <DisplayNumber value={result.unitPrice} suffix={'円'} />
       </TableCell>
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'} />
+        <DisplayNumber value={result.price} suffix={'円'} />
       </TableCell>
 
 

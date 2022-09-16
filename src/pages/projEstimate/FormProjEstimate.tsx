@@ -13,7 +13,8 @@ import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
-import { ProjEstimateShortcuts } from './ProjEstimateShortcuts';
+import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
+
 
 export default function FormProjEstimate() {
   const { values } = useFormikContext<TypeOfForm>();

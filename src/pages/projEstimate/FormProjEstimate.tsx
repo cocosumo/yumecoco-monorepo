@@ -73,11 +73,8 @@ export default function FormProjEstimate() {
           <SubTotalTable />
         </Grid>
 
-
-
         <FormActions />
-        <FabSave onClick={submitForm} />
-        <ProjEstimateShortcuts />
+        {projId && <ProjEstimateShortcuts />}
       </MainContainer>
     </Form>
   );

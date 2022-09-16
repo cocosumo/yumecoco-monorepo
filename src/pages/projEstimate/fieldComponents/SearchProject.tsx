@@ -11,6 +11,8 @@ export const SearchProject = ({
   customerName: string,
   projId: string,
 }) => {
+  console.log(projId, customerName, isLoading);
+
   return (
     <Stack spacing={1}>
       <FormikSearchProjField
@@ -20,7 +22,7 @@ export const SearchProject = ({
         isLoading={isLoading}
         disabled={isLoading}
       />
-      {!!projId && !customerName &&
+      {!!projId && !customerName && !isLoading &&
       <NoCustomerWarning projId={projId} />}
     </Stack>
   );

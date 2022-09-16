@@ -33,19 +33,9 @@ export const initialValues = {
       quantity: 1,   /* 数量 */
       elemProfRate: 0, /* 利益率(部材) */
       unit: '式' as typeof unitChoices[number], /* 単位 */
-      tax: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
-      unitPrice: 0, /* 単価(原価*利益率(部材)) */
-      price: 0, /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
+      taxType: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
     },
   ],
-
-  /* 合計 */
-  totalCost: 0, /* 原価合計 */
-  grossProfit: 0, /* 粗利 */
-  grossProfitMargin: 0, /* 粗利率 */
-  taxAmount: 0, /* 税(円) */
-  taxExcludedAmount: 0, /* 税抜金額 */
-  amountIncludingTax: 0, /* 税込金額 */
 };
 
 export type TypeOfForm = typeof initialValues;
@@ -92,9 +82,7 @@ export const validationSchema = Yup.object(
             .typeError('数値で入力してください')
             .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
-          'tax': Yup.string(),  /* 税(課税/非課税) */
-          'unitPrice': Yup.number(), /* 単価(原価*利益率(部材)) */
-          'price': Yup.number(), /* 金額(課税：(単価*数量) * (1 + (税率/100)), 非課税：(単価*数量)) */
+          'taxType': Yup.string(),  /* 税(課税/非課税) */
         }),
       )
       .required('Must have items')

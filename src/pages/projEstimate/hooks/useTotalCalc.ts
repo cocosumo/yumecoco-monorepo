@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
-import { calcTotalUnitPrice } from '../helpers/calcTotalUnitPrice';
+import { calcGrossPrice } from '../helpers/calcGrossPrice';
 import { calcUnitPrice } from '../helpers/calcUnitPrice';
 
 const summaryInit = {
@@ -14,7 +14,7 @@ const summaryInit = {
 export type SummaryElem = keyof typeof summaryInit;
 
 
-export const useTotalCalc = (): Array<[string, number]> => {
+export const useTotalCalc = () => {
   const { values } = useFormikContext<TypeOfForm>();
   const { taxRate } = values;
 
@@ -26,7 +26,7 @@ export const useTotalCalc = (): Array<[string, number]> => {
     const grossProfitVal = (totalCostPrice * elemProfPercentage);
     const newUnitPrice = calcUnitPrice(cur.costPrice, cur.elemProfRate);
     const totalAmountExclTaxVal = newUnitPrice * +cur.quantity;
-    const totalAmountInclTaxVal = calcTotalUnitPrice(newUnitPrice, cur.quantity, taxRate, cur.tax);
+    const totalAmountInclTaxVal = calcGrossPrice(newUnitPrice, cur.quantity, taxRate, cur.taxType);
 
     return ({
       ...acc,
@@ -44,5 +44,5 @@ export const useTotalCalc = (): Array<[string, number]> => {
     ...result,
     grossProfitMargin: isNaN(provVal) ? 0 : parseFloat(provVal.toFixed(2)),
     taxAmount: result.totalAmountInclTax - result.totalAmountExclTax,
-  });
+  }) as Array<[SummaryElem, number]>;
 };

@@ -86,7 +86,7 @@ export const RowContent = (
 
       <TableCell>
         <FormikPulldown
-          name={getItemFieldName(rowIdx, 'tax')}
+          name={getItemFieldName(rowIdx, 'taxType')}
           options={taxChoices.map((c) => ({ label: c, value: c }))}
         />
       </TableCell>

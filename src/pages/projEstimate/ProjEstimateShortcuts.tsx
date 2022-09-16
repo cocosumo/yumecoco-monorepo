@@ -10,7 +10,7 @@ type TShortCuts = ComponentProps<typeof Shortcuts>['shortcuts'];
 
 export const ProjEstimateShortcuts = () => {
   const { values: {
-    projId,
+    projId, custGroupId, estimateId,
   } } = useFormikContext<TypeOfForm>();
 
   const navigate = useNavigate();
@@ -20,11 +20,15 @@ export const ProjEstimateShortcuts = () => {
     shortcuts = [
       {
         type: 'project',
-        handleClick: ()=>navigate(`${pages.projEdit}?${generateParams({ projId })}`),
+        handleClick: ()=>navigate(`${pages.projEdit}?${generateParams({ projId, estimateId })}`),
       },
       {
         type: 'prospect',
-        handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({ projId })}`),
+        handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({ projId, estimateId })}`),
+      },
+      {
+        type: 'custGroup',
+        handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId, estimateId })}`),
       },
     ];
   }

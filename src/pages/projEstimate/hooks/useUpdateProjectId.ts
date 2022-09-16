@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import { useEffect, useState } from 'react';
 import { getConstRecord } from '../../../api/kintone/construction';
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
-import { getProjTypeByLabel } from '../../../api/kintone/projectType/GET';
+import { getProjTypeById } from '../../../api/kintone/projectType/GET';
 import { useSnackBar } from '../../../hooks';
 import { initialValues, TypeOfForm } from '../form';
 
@@ -19,6 +19,7 @@ export const useUpdateProjectId = () => {
       getConstRecord(projId)
         .then(async ({
           constructionName, constructionType,
+          constructionTypeId,
           custGroupId,
         }) => {
 
@@ -27,14 +28,17 @@ export const useUpdateProjectId = () => {
             { profitRate },
           ] = await Promise.all([
             custGroupId?.value ? getCustGroup(custGroupId.value) : undefined,
-            getProjTypeByLabel(constructionType.value),
+            getProjTypeById(constructionTypeId.value),
           ]);
+
+
 
           const mainCustName = custGroup?.members?.value[0].value.customerName.value ?? '';
 
           // Throttle speed to avoid request spam.
           setTimeout(()=> {
             setValues((prev) => produce(prev, draft => {
+              draft.custGroupId = custGroupId.value;
               draft.projName = constructionName.value;
               draft.projType = constructionType.value;
               draft.profitRate = +profitRate.value;

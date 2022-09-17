@@ -21,7 +21,7 @@ export const SelectProjEstimates = ({
     <>
       {
       isWithOptions &&
-        <FormikSelectAdvanced label='見積もりリスト' name={getFieldName('projEstimateId') } options={options}/>
+        <FormikSelectAdvanced label='見積もりリスト' name={getFieldName('projEstimateId')} options={options} />
       }
 
       {!isWithOptions &&
@@ -33,10 +33,11 @@ export const SelectProjEstimates = ({
             </Button>
           }
         >
-          <AlertTitle>見積は未ありません。 </AlertTitle>
+          <AlertTitle>
+            見積は未ありません。
+          </AlertTitle>
           契約を作成するのに、見積もりが必要です。右のボタンで新規登録出来ます。
-        </Alert>
-      }
+        </Alert>}
     </>
 
   );

@@ -1,5 +1,5 @@
 import {  Divider, Grid, Paper, Typography } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSnackBar } from '../../../../hooks';
 import { Loading } from './Loading';
 
@@ -25,7 +25,7 @@ export const Preview = () => {
   const [previewLoading, setPreviewLoading] = useState(true);
   const { setSnackState } = useSnackBar();
 
-  const handlePreview = useCallback(async () => {
+  const handlePreview = async () => {
     try {
       setPreviewLoading(true);
       const res = await downloadContract({
@@ -58,7 +58,7 @@ export const Preview = () => {
       setPreviewLoading(false);
     }
 
-  }, [previewUrl, setPreviewLoading, setSnackState, values  ]);
+  };
 
   useEffect(()=>{
 
@@ -72,18 +72,16 @@ export const Preview = () => {
     revision,
     envSelectedDoc,
     status,
-    handlePreview,
   ]);
 
 
 
   const loading = (status as TFormStatus) === 'busy' || previewLoading;
-  //console.log('status', status);
+
 
   return (
     <PreviewContainer>
       <Grid item xs={6}>
-        {/* <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/> */}
         <RefreshButton loading={loading} isVisible={!!projId} />
       </Grid>
       <Grid item xs={6}>

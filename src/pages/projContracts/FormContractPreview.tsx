@@ -2,7 +2,7 @@ import { Form } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 
-import { ProspectShortcuts } from './parts/ProspectShortcuts';
+import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
 import { getFieldName } from './form';
 import {  Grid, LinearProgress } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
@@ -77,7 +77,9 @@ export const FormContractPreview = () => {
           </Grid>}
 
       </MainContainer>
-      <ProspectShortcuts />
+
+      {!!projId &&  <ContractPageShortcuts />}
+
 
     </Form>
   );

@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { getParam } from '../../../helpers/url';
 import { TypeOfForm } from '../form';
 
+/**
+ * URLで渡されたものを処理する
+ */
 export const useResolveParams = () => {
   const projIdFromURL = getParam('projId');
   const projEstimateIdFromURL = getParam('projEstimateId');
@@ -12,7 +15,7 @@ export const useResolveParams = () => {
   } = useFormikContext<TypeOfForm>();
 
   useEffect(()=>{
-    /* URLで渡された時の副作用 */
+
     if (projIdFromURL) {
       setValues((prev)=>({
         ...prev,

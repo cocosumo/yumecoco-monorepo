@@ -12,11 +12,14 @@ import { Preview } from './parts/Preview/Preview';
 import { ProjEstimatesField } from './parts/ProjEstimates/ProjEstimatesField';
 import { useUpdateProjId } from './hooks/useUpdateProjId';
 import { useState } from 'react';
+import { useResolveParams } from './hooks/useResolveParams';
 
 export const FormContractPreview = () => {
 
   // State for search field's tooltip.
   const [searchTTOpen, setSearchTTOpen] = useState(false);
+
+  useResolveParams();
 
   const {
     estimatesRec,

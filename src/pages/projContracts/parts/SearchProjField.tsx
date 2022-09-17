@@ -30,6 +30,7 @@ export const SearchProjField = (props: {
 
   const {
     projName,
+    label,
     searchTTOpen,
     handleSearchTTOpen,
     handleSearchTTClose,
@@ -69,47 +70,43 @@ export const SearchProjField = (props: {
 
     >
       <Autocomplete
-      sx={{ transition: 'all .3s ease-in-out;' }}
-      value={fieldVal}
-      onInputChange={(_, value)=>{
-        setInputVal(value);
+        sx={{ transition: 'all .3s ease-in-out;' }}
+        value={fieldVal}
+        onInputChange={(_, value)=>{
+          setInputVal(value);
 
-      }}
-      onChange={(_, val)=>{
-        helpers.setValue(val?.id);
-        setFieldVal(val);
+        }}
+        onChange={(_, val)=>{
+          helpers.setValue(val?.id);
+          setFieldVal(val);
 
-        if (val) {
-          setStatus('busy' as TFormStatus);
-        }
-      }}
-
-      onFocus={()=>setIsInit(false)}
-
-      options={options}
-      getOptionLabel={(opt)=> opt.projName}
-      isOptionEqualToValue={(opt, value) => opt.id === value.id}
-
-      renderInput={(params) => <TextField
-        {...params}
-        name = {field.name}
-        label={props.label}
-        error={Boolean(error && touched)}
-        helperText={error ? error : ''}
-        />}
-      renderOption={(p, opt) => {
-        const key = `listItem-${opt.id}`;
-        return (
-          <li {...p} key={key}>
-            <Stack>
-              {opt.projName}
-              <Caption text={`id: ${opt.id}` } />
-            </Stack>
-          </li>
-        );
-      }}
-
-    />
+          if (val) {
+            setStatus('busy' as TFormStatus);
+          }
+        }}
+        onFocus={()=>setIsInit(false)}
+        options={options}
+        getOptionLabel={(opt)=> opt.projName}
+        isOptionEqualToValue={(opt, value) => opt.id === value.id}
+        renderInput={(params) => (<TextField
+          {...params}
+          name={field.name}
+          label={label}
+          error={Boolean(error && touched)}
+          helperText={error ? error : ''}
+                                  />)}
+        renderOption={(p, opt) => {
+          const key = `listItem-${opt.id}`;
+          return (
+            <li {...p} key={key}>
+              <Stack>
+                {opt.projName}
+                <Caption text={`id: ${opt.id}`} />
+              </Stack>
+            </li>
+          );
+        }}
+      />
 
     </Tooltip>
   );

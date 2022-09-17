@@ -39,25 +39,19 @@ export const EnvelopeStatus = (
     }, 2000);
   };
 
-
-  return (
-    <>
-      {
-        isShow &&
-        <Grow in={isShow}>
-          <Tooltip title={desc + 'クリックすれば、リフレッシュ出来ます'} >
-            <Chip
-            icon={disabled ? <CircularProgress size={18} /> : <RefreshIcon />}
-            label={ja}
-            color="secondary"
-            onClick={handleRefresh}
-            disabled={disabled}
-            />
-          </Tooltip>
-        </Grow>
-
-      }
-    </>
-
+  if (isShow) return (
+    <Grow in={isShow}>
+      <Tooltip title={desc + 'クリックすれば、リフレッシュ出来ます'} >
+        <Chip
+          icon={disabled ? <CircularProgress size={18} /> : <RefreshIcon />}
+          label={ja}
+          color="secondary"
+          onClick={handleRefresh}
+          disabled={disabled}
+        />
+      </Tooltip>
+    </Grow>
   );
+
+  return <div />;
 };

@@ -20,20 +20,18 @@ export const PreviewToolBar = ({
   // console.log('loading', loading, voidable, envelopeId, projName, previewLoading);
 
   return (
-    <Stack  direction={'row'} spacing={2} justifyContent={'flex-end'}>
+    <Stack direction={'row'} spacing={2} justifyContent={'flex-end'}>
 
-      {!!projId && <DownloadContract projId={projId}/>}
+      {!!projId && <DownloadContract projId={projId} />}
 
-      {!loading && !!!envelopeStatus && !!!envelopeId  && !voidable && !!projName && !previewLoading &&
+      {!loading && !envelopeStatus && !envelopeId  && !voidable && !!projName && !previewLoading &&
         <SendContract
           projId={projId}
           isBusy={loading}
-        />
-      }
+        />}
 
       {!loading && !!voidable && !!envelopeId  && !!projName && !previewLoading &&
-        <MenuContainer/>
-      }
+        <MenuContainer />}
     </Stack>
   );
 };

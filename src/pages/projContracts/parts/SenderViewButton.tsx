@@ -31,17 +31,12 @@ export const SenderViewButton = ({
     });
 
     if (url) {
-      console.log(url);
-
-
-      // Redirect
       window.location.replace(url);
     }
     setIsLoading(false);
   };
 
   useEffect(()=>{
-    console.log('Setting backdrop state', isLoading);
     setBackdropState({
       open: isLoading,
     });
@@ -49,14 +44,16 @@ export const SenderViewButton = ({
 
   return (
     <Tooltip title="Docusignで開く" arrow>
-      <div> {/* Tooltip doesn't like disabled element, so I added extra layer */}
+      <div>
+        {' '}
+        {/* Tooltip doesn't like disabled element, so I added extra layer */}
         <LoadingButton
           loading={isLoading}
           onClick={handleConfirmVoid}
           variant="text"
           loadingPosition="center"
         >
-          <FaFileSignature size={24}/>
+          <FaFileSignature size={24} />
         </LoadingButton>
       </div>
     </Tooltip>

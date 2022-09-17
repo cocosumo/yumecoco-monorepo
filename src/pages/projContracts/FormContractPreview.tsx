@@ -52,6 +52,7 @@ export const FormContractPreview = () => {
         {/* 見積もり選択フィールド */}
         <ProjEstimatesField
           projId={projId}
+          projEstimateId={projEstimateId}
           estimatesRecord={estimatesRec}
           status={formStatus}
           handleSearchTTClose={handleSearchTTClose}

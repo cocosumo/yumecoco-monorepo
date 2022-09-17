@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { getFormDataById } from '../api/fetchRecord';
 import { getKintoneProjEstimates } from '../api/getKintoneProjEstimates';
-import { initialValues, TypeOfForm } from '../form';
+import {  TypeOfForm } from '../form';
 
 export const useUpdateProjId = () => {
   const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
@@ -25,8 +25,10 @@ export const useUpdateProjId = () => {
 
   const memSetSnackState = useMemo(() => setSnackState, []);
 
+
   useEffect(()=>{
     if (projId) {
+
       setStatusSafe('busy');
 
       Promise.all([
@@ -34,8 +36,25 @@ export const useUpdateProjId = () => {
         getKintoneProjEstimates(projId),
       ])
         .then(([formData, _estimatesRecord]) => {
-          setValues( { ...initialValues, ...formData } );
+
+          setValues( (prev) => {
+            const { projEstimateId } = prev;
+
+            const isValidProjEstimatesId = _estimatesRecord
+              .some(({ レコード番号: dbProjEstimatesId }) =>
+                dbProjEstimatesId.value ===  projEstimateId);
+
+            return {
+              ...prev,
+              ...formData,
+
+              /** 現在の見積番号は取得した見積もりにない場合、リセットする。*/
+              projEstimateId: isValidProjEstimatesId ? projEstimateId : '',
+            };
+          });
+
           setEstimatesRec(_estimatesRecord);
+
         })
         .catch((err) => {
           memSetSnackState({
@@ -58,6 +77,5 @@ export const useUpdateProjId = () => {
     estimatesRec,
     formStatus,
     values,
-
   };
 };

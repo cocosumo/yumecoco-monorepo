@@ -10,12 +10,14 @@ import { ItemEstimate } from './ItemEstimate';
 
 export const ProjEstimatesField = ({
   projId,
+  projEstimateId,
   status,
   estimatesRecord,
   handleSearchTTClose, handleSearchTTOpen,
 }: {
   projId: string,
   status: TFormStatus,
+  projEstimateId: string,
   estimatesRecord: ProjectEstimates.SavedData[],
   handleSearchTTOpen: () => void,
   handleSearchTTClose: () => void
@@ -58,6 +60,8 @@ export const ProjEstimatesField = ({
   const isWithProjIdWithEstimates = isWithProjId && !!estimatesRecord.length;
   const isWithProjIdNoEstimates = isWithProjId && !estimatesRecord.length;
 
+  console.log('Profestimateid', projEstimateId);
+
   return (
 
     <Grid item xs={12} md={8} >
@@ -73,6 +77,7 @@ export const ProjEstimatesField = ({
           <FormikSelectAdvanced
             label='見積もりリスト'
             name={getFieldName('projEstimateId')}
+            selectedValue={projEstimateId}
             options={[emptyOption, ...actualOptions, registerNewOption  ]}
           />}
 

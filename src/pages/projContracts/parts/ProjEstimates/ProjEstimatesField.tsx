@@ -2,9 +2,11 @@ import { Grid, Grow, Button } from '@mui/material';
 import { Box } from '@mui/system';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
+import { FormikSelectAdvanced } from '../../../../components/ui/selects/FormikSelectAdvanced';
+import { getFieldName } from '../../form';
+import { ErrorNoEstimates } from './ErrorNoEstimates';
+import { ErrorNoProjSelected } from './ErrorNoProjSelected';
 import { ItemEstimate } from './ItemEstimate';
-import { SelectProjEstimates } from './SelectProjEstimate';
 
 export const ProjEstimatesField = ({
   projId,
@@ -52,32 +54,44 @@ export const ProjEstimatesField = ({
     };
   });
 
+  const isWithProjId = !!projId && status === '';
+  const isWithProjIdWithEstimates = isWithProjId && !!estimatesRecord.length;
+  const isWithProjIdNoEstimates = isWithProjId && !estimatesRecord.length;
 
   return (
 
     <Grid item xs={12} md={8} >
 
-      <Grow in={!!projId && status === ''} timeout={1000} mountOnEnter
+
+      <Grow in={true} timeout={1000} mountOnEnter
         unmountOnExit
       >
-        <Box sx={{ position: 'relative' }}>
-          {!!projId &&
-          <SelectProjEstimates
+        <Box sx={{ position: 'relative', top: 0 }}>
+
+          {/* 工事名が選択されている場合 */}
+          {isWithProjIdWithEstimates &&
+          <FormikSelectAdvanced
+            label='見積もりリスト'
+            name={getFieldName('projEstimateId')}
             options={[emptyOption, ...actualOptions, registerNewOption  ]}
           />}
+
+          {/* 工事名が選択されているが、見積もりがない場合 */}
+          {isWithProjIdNoEstimates &&
+          <ErrorNoEstimates />}
+
+          {/* 工事名が選択されていない場合 */}
+          {!isWithProjId &&
+          <ErrorNoProjSelected
+            isWithProjId={isWithProjId}
+            handleSearchTTOpen={handleSearchTTOpen}
+            handleSearchTTClose={handleSearchTTClose}
+          />}
+
+
         </Box>
       </Grow>
 
-      <Grow in={!projId && status === ''} timeout={1000} mountOnEnter
-        unmountOnExit
-      >
-        <Box sx={{ position: 'relative' }}>
-          {!projId &&
-          <EmptyBox onMouseEnter={handleSearchTTOpen} onMouseLeave={handleSearchTTClose}>
-            工事名で検索してください
-          </EmptyBox>}
-        </Box>
-      </Grow>
     </Grid>
   );
 };

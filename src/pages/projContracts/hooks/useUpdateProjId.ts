@@ -1,11 +1,13 @@
 import { useFormikContext } from 'formik';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSnackBar } from '../../../hooks';
 import { getFormDataById } from '../api/fetchRecord';
 import { getKintoneProjEstimates } from '../api/getKintoneProjEstimates';
-import { TypeOfForm } from '../form';
+import { initialValues, TypeOfForm } from '../form';
 
 export const useUpdateProjId = () => {
   const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
+  const { setSnackState } = useSnackBar();
 
   const isWithEstimates = Boolean(estimatesRec.length);
 
@@ -21,6 +23,8 @@ export const useUpdateProjId = () => {
 
   const setStatusSafe = useCallback((s: TFormStatus) => setStatus(s), [setStatus]);
 
+  const memSetSnackState = useMemo(() => setSnackState, []);
+
   useEffect(()=>{
     if (projId) {
       setStatusSafe('busy');
@@ -30,21 +34,30 @@ export const useUpdateProjId = () => {
         getKintoneProjEstimates(projId),
       ])
         .then(([formData, _estimatesRecord]) => {
-          setValues((prev)=>({ ...prev, ...formData }));
+          setValues( { ...initialValues, ...formData } );
           setEstimatesRec(_estimatesRecord);
-          setStatusSafe('');
-        });
+        })
+        .catch((err) => {
+          memSetSnackState({
+            open: true,
+            message: `レコード取得にエラーが発生しました。${err.message}`,
+            severity: 'error',
+          });
+        })
+        .finally(() => setStatusSafe(''));
 
     } else {
       setStatusSafe('');
+      setEstimatesRec([]);
     }
   },
-  [projId, setStatusSafe, setValues]);
+  [projId, setStatusSafe, setValues, memSetSnackState ]);
 
   return {
     isWithEstimates,
     estimatesRec,
     formStatus,
     values,
+
   };
 };

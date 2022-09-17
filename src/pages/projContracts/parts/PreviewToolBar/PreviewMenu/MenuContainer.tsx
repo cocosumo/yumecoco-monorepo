@@ -23,7 +23,7 @@ export const MenuContainer = () => {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <MoreIcon/>
+        <MoreIcon />
       </Button>
       <Menu
         id="basic-menu"

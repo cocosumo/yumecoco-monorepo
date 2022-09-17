@@ -4,7 +4,7 @@ import { TypeOfForm } from '../form';
 const convertToKintone = ({
   customerName, projName, projType,
   profitRate, taxRate,
-  items,
+  items, projId,
 }: TypeOfForm) => {
 
   /* itemsの変換処理 */
@@ -33,7 +33,7 @@ const convertToKintone = ({
 
   /* 変換処理 */
   const kintoneRecord: Partial<Estimates.main.SavedData> = {
-
+    projId: { value: projId },
     顧客名: { value: customerName },
     工事名称: { value: projName },
     工事種別名: { value: projType },

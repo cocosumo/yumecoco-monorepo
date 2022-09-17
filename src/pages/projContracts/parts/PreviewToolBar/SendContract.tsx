@@ -94,15 +94,16 @@ export const SendContract = ({
 
   return (
     <Tooltip title="契約書を送信する" arrow>
-      <div> {/* Tooltip doesn't like disabled element, so I added extra layer */}
+      <div>
+        {' '}
+        {/* Tooltip doesn't like disabled element, so I added extra layer */}
         <LoadingButton
-
-        disabled={!projId || isBusy}
-        loading={open}
-        onClick={handleConfirmSend}
-        variant="contained"
-        loadingPosition="center"
-      >
+          disabled={!projId || isBusy}
+          loading={open}
+          onClick={handleConfirmSend}
+          variant="contained"
+          loadingPosition="center"
+        >
           <SendIcon />
         </LoadingButton>
       </div>

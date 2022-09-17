@@ -4,13 +4,17 @@ import { useField } from 'formik';
 import { memo, useMemo } from 'react';
 
 
-
+/**
+ * FormikSelectと違い、
+ * optionsの内容は自由
+ *  */
 export function FormikSelectAdvanced(props : {
   name: string,
   label: string
   required?: boolean
   helperText?: string
   options?: OptionNode[],
+  selectedValue?: string,
   disabled?: boolean,
   onChange?: (e: SelectChangeEvent) => void
   variant?: 'standard' | 'outlined' | 'filled'
@@ -22,6 +26,7 @@ export function FormikSelectAdvanced(props : {
     options,
     helperText,
     disabled = false,
+    selectedValue,
     onChange,
     variant = 'outlined',
   } = props;
@@ -39,27 +44,30 @@ export function FormikSelectAdvanced(props : {
 
 
   const optionMenus = useMemo(() => options?.map((option) => {
+    const isSelected = option.value === selectedValue;
     return (
-      <MenuItem key={option.key} value={option.value}>
+      <MenuItem key={option.key} value={option.value} selected={isSelected}>
         {option.component}
       </MenuItem>
     );
-  }), [options]);
+  }), [options, selectedValue]);
 
 
 
   return (
-    <FormControl required={required} fullWidth error={isShowError }>
-      <InputLabel error={isShowError}>{label}</InputLabel>
+    <FormControl required={required} fullWidth error={isShowError}>
+      <InputLabel error={isShowError}>
+        {label}
+      </InputLabel>
       <Select
-      {...field}
-      variant={variant}
-      error={isShowError}
-      label={label}
-      required={required}
-      value={field.value ?? ''}
-      disabled={disabled}
-      onChange={
+        {...field}
+        variant={variant}
+        error={isShowError}
+        label={label}
+        required={required}
+        value={field.value ?? ''}
+        disabled={disabled}
+        onChange={
         (e)=>{
           if (onChange) onChange(e);
           field.onChange(e);
@@ -69,8 +77,12 @@ export function FormikSelectAdvanced(props : {
         {optionMenus}
 
       </Select>
-      {isShowError && <FormHelperText error={isShowError}>{meta.error}</FormHelperText>}
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {isShowError && <FormHelperText error={isShowError}>
+        {meta.error}
+      </FormHelperText>}
+      {helperText && <FormHelperText>
+        {helperText}
+      </FormHelperText>}
     </FormControl>
   );
 }

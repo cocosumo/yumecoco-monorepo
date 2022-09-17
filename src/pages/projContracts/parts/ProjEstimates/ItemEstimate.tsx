@@ -24,7 +24,9 @@ export const ItemEstimate = ({
     ['番号', id],
   ];
   return (
-    <Stack width={'100%'} direction={'row'} spacing={2} alignItems="center" justifyContent="space-around" divider={<Divider orientation="vertical" flexItem />}>
+    <Stack width={'100%'} direction={'row'} spacing={2}
+      alignItems="center" justifyContent="space-around" divider={<Divider orientation="vertical" flexItem />}
+    >
       {
       contents.map(([label, info, unit])=>{
         const isInfoNum = isNumber(info);
@@ -37,8 +39,12 @@ export const ItemEstimate = ({
 
         return (
           <Stack direction={'column'} key={label} width={'33%'}>
-            <Typography textAlign={align} variant="caption">{label}</Typography>
-            <Typography textAlign={align} variant="body1">{`${normInfo}${unit ?? ''}`}</Typography>
+            <Typography textAlign={align} variant="caption">
+              {label}
+            </Typography>
+            <Typography textAlign={align} variant="body1">
+              {`${normInfo}${unit ?? ''}`}
+            </Typography>
           </Stack>
         );
       })

@@ -36,7 +36,7 @@ export const FormikContractPreview = () => {
 
       }}
     >
-      <FormContractPreview/>
+      <FormContractPreview />
     </Formik>
   );
 };

@@ -6,7 +6,6 @@ import { generateParams } from '../../../helpers/url';
 import { pages } from '../../Router';
 import { TypeOfForm } from '../form';
 
-type TShortCuts = ComponentProps<typeof Shortcuts>['shortcuts'];
 
 export const ProjEstimateShortcuts = () => {
   const {
@@ -19,23 +18,20 @@ export const ProjEstimateShortcuts = () => {
 
   const navigate = useNavigate();
 
-  let shortcuts : TShortCuts = [];
-  if (projId) {
-    shortcuts = [
-      {
-        type: 'project',
-        handleClick: ()=>navigate(`${pages.projEdit}?${generateParams({ projId, projEstimateId })}`),
-      },
-      {
-        type: 'prospect',
-        handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({ projId, projEstimateId })}`),
-      },
-      {
-        type: 'custGroup',
-        handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId, projEstimateId })}`),
-      },
-    ];
-  }
+  const shortcuts : ComponentProps<typeof Shortcuts>['shortcuts'] = [
+    {
+      type: 'project',
+      handleClick: ()=>navigate(`${pages.projEdit}?${generateParams({ projId, projEstimateId })}`),
+    },
+    {
+      type: 'prospect',
+      handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({ projId, projEstimateId })}`),
+    },
+    {
+      type: 'custGroup',
+      handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId, projEstimateId })}`),
+    },
+  ];
 
 
   return (

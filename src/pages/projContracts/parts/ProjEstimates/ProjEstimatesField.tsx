@@ -60,8 +60,6 @@ export const ProjEstimatesField = ({
   const isWithProjIdWithEstimates = isWithProjId && !!estimatesRecord.length;
   const isWithProjIdNoEstimates = isWithProjId && !estimatesRecord.length;
 
-  console.log('Profestimateid', projEstimateId);
-
   return (
 
     <Grid item xs={12} md={8} >

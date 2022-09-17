@@ -1,5 +1,5 @@
 import {  Divider, Grid, Paper, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSnackBar } from '../../../../hooks';
 import { Loading } from './Loading';
 
@@ -7,10 +7,10 @@ import { downloadContract } from '../../api/docusign/downloadContract';
 import { TypeOfForm } from '../../form';
 import { base64ToBlob } from '../../../../lib';
 import { PreviewToolBar } from '../PreviewToolBar/PreviewToolBar';
-import { OutlinedDiv } from '../../../../components/ui/containers';
 import { useFormikContext } from 'formik';
 import { DocumentsSelect } from './SelectDocuments';
 import { RefreshButton } from '../PreviewToolBar/RefreshButton';
+import { PreviewContainer } from './PreviewContainer';
 
 
 
@@ -25,10 +25,8 @@ export const Preview = () => {
   const [previewLoading, setPreviewLoading] = useState(true);
   const { setSnackState } = useSnackBar();
 
-  const handlePreview = async () => {
+  const handlePreview = useCallback(async () => {
     try {
-
-
       setPreviewLoading(true);
       const res = await downloadContract({
         form: values,
@@ -60,14 +58,22 @@ export const Preview = () => {
       setPreviewLoading(false);
     }
 
-  };
+  }, [previewUrl, setPreviewLoading, setSnackState, values  ]);
 
   useEffect(()=>{
 
     if (!projId || !projName || (status as TFormStatus) === 'busy') return;
 
     handlePreview();
-  }, [projId, projName, envelopeStatus,  revision, envSelectedDoc]);
+  }, [
+    projId,
+    projName,
+    envelopeStatus,
+    revision,
+    envSelectedDoc,
+    status,
+    handlePreview,
+  ]);
 
 
 
@@ -75,58 +81,51 @@ export const Preview = () => {
   //console.log('status', status);
 
   return (
-    <Grid item xs={12} >
-      <OutlinedDiv label="プレビュー">
+    <PreviewContainer>
+      <Grid item xs={6}>
+        {/* <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/> */}
+        <RefreshButton loading={loading} isVisible={!!projId} />
+      </Grid>
+      <Grid item xs={6}>
+        <PreviewToolBar {...{ envelopeId, envelopeStatus, loading, projId, projName, previewLoading }} />
+      </Grid>
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
+      {!loading && previewUrl &&
+      <Grid item xs={12}>
+        <Paper>
+          <DocumentsSelect />
+          <embed src={previewUrl} width="100%" height='900px' />
 
-        <Grid container justifyContent={'flex-end'} alignContent={'flex-start'} spacing={2} p={2}>
-          <Grid item xs={6}>
-            {/* <EnvelopeStatus envStatus={envelopeStatus} loading={loading} isVisible={!!projId}/> */}
-            <RefreshButton loading={loading} isVisible={!!projId}/>
-          </Grid>
-          <Grid item xs={6}>
-            <PreviewToolBar {...{ envelopeId, envelopeStatus, loading, projId, projName, previewLoading }} />
-          </Grid>
-          <Grid item xs={12}>
-            <Divider/>
-          </Grid>
-          {!loading && previewUrl &&
-            <Grid item xs={12}>
-              <Paper>
-                <DocumentsSelect />
-                <embed src={previewUrl} width="100%" height='900px' />
+        </Paper>
+      </Grid>}
 
-              </Paper>
-            </Grid>
-        }
+      {loading && projId &&
+      <Grid item xs={12}>
+        <Loading />
+        <Typography variant="caption">
+          書類を作成しています。少々お待ちください。
+        </Typography>
+      </Grid>}
 
-          {loading && projId &&
-            <Grid item xs={12}>
-              <Loading/>
-              <Typography variant="caption">
-                書類を作成しています。少々お待ちください。
-              </Typography>
-            </Grid>
-        }
+      {loading && !projId &&
+      <Grid item xs={12}>
+        <Typography variant="caption">
+          プロジェクトを選択してください。
+        </Typography>
+      </Grid>}
 
-          {loading && !projId &&
-            <Grid item xs={12}>
-              <Typography variant="caption">
-                プロジェクトを選択してください。
-              </Typography>
-            </Grid>
-        }
+      {envelopeId &&
+      <Grid item xs={12}>
+        <Typography variant="caption">
+          Envelope Id:
+          {' '}
+          {envelopeId}
+        </Typography>
+      </Grid>}
 
-          {envelopeId &&
-            <Grid item xs={12}>
-              <Typography variant="caption">
-                Envelope Id: {envelopeId}
-              </Typography>
-            </Grid>
-        }
-
-        </Grid>
-      </OutlinedDiv>
-    </Grid>
+    </PreviewContainer>
 
   );
 };

@@ -6,7 +6,7 @@ import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { getFieldName } from './form';
 import {  Grid, LinearProgress } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
-import { ContractInfo } from './parts/ContractInfo';
+import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { Preview } from './parts/Preview/Preview';
 import { ProjEstimatesField } from './parts/ProjEstimates/ProjEstimatesField';

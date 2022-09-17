@@ -22,7 +22,8 @@ const ReasonForm = ({
           handleSetReason(event.target.value);
         }}
         helperText="すでにエンベロープへの署名を完了した受信者には、エンベロープが無効になったことを示すメールが送信されます。"
-        multiline fullWidth required />
+        multiline fullWidth required
+      />
     </Box>
   );
 };
@@ -103,7 +104,8 @@ export const MenuVoidContract = (
       content: <ReasonForm
         handleSetReason={(r)=> {
           reasonRef.current = r;
-        } }/>,
+        }} 
+               />,
     });
   };
 
@@ -124,7 +126,7 @@ export const MenuVoidContract = (
             </Button>
           </>
         }
-        />,
+               />,
 
     });
     handleClose();

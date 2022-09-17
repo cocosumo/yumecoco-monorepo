@@ -38,12 +38,11 @@ export const RefreshButton = (
       <Tooltip title={'このレコード再読み込みします。'}>
 
         <IconButton
-        size='large'
-        color="secondary"
-        onClick={handleRefresh}
-        disabled={disabled}
-
-      >
+          size='large'
+          color="secondary"
+          onClick={handleRefresh}
+          disabled={disabled}
+        >
           {disabled ? <CircularProgress size={18} /> : <RefreshIcon />}
         </IconButton>
       </Tooltip>

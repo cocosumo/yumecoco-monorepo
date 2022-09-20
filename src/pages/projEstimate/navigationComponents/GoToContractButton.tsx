@@ -29,7 +29,6 @@ export const GoToContractButton = () => {
     })}`);
   };
 
-
   return (
     <Stack spacing={4} direction={'row'} justifyContent={'center'} >
 
@@ -37,6 +36,11 @@ export const GoToContractButton = () => {
         variant={'contained'}
         color={'secondary'}
         sx={{ maxHeight: '40px' }}
+        onClick={() => {
+          document
+            ?.querySelector('#summaryTable')
+            ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }}
       >
         <KeyboardDoubleArrowUpIcon />
       </Button>

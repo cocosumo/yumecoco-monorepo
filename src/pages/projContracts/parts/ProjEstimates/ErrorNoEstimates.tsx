@@ -1,11 +1,22 @@
 import { Alert, AlertTitle, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { generateParams } from '../../../../helpers/url';
+import { pages } from '../../../Router';
 
-export const ErrorNoEstimates = () => {
+export const ErrorNoEstimates = ({
+  projId,
+}: {
+  projId: string
+}) => {
+
+  const navigate = useNavigate();
+
   return (
     <Alert
       severity='info'
       action={
         <Button
+          onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projId })}`)}
           size='large'
           color="inherit"
           variant="outlined"

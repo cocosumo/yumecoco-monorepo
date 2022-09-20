@@ -77,7 +77,6 @@ export const dlFilesFromKintone = async (
       envelopeStatus,
     };
   }  catch (err) {
-    console.log(err.message);
     return {
       error: 'Download files from kintone failed. Please Contact administrator.' + err.message,
     };
@@ -95,7 +94,6 @@ export const downloadContract = async (
   const { fileType, form  } = params;
   const { envDocFileKeys } = form;
 
-  console.log('download', params,  envDocFileKeys);
   if ( fileType === 'xlsx' || !envDocFileKeys.length) {
     return dlFromCocoServer(params);
   } else if (fileType === 'pdf' && envDocFileKeys.length) {

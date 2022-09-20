@@ -15,17 +15,22 @@ export type TPreviewResp = {
 export const previewContract = async (projId: string) => {
   if (!projId) return;
   const endpoint = `${yumecocoDocusign.baseUrl}/docusign/send/contract/preview`;
+  console.log('Requesting to endpoint ' + endpoint);
+
 
   const data = {
     projId: projId,
     user: kintone.getLoginUser().code,
   };
 
+  console.log('Requesting preview');
+
   return kintone.proxy(
     endpoint,
     'POST',
     {
       'Content-Type': 'application/json',
+
     },
     data,
   )

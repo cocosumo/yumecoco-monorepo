@@ -13,10 +13,6 @@ export default function RenderRows(props: RenderRowsProps) {
   const { arrayHelpers, values } = props;
   const { majorItems, middleItems, materials } = useMaterials();
 
-  const removeRow = (rowIdx: number) => {
-    arrayHelpers.remove(rowIdx);
-  };
-
   return (
     (values.items && (values.items.length > 0)) ?
       (
@@ -25,13 +21,14 @@ export default function RenderRows(props: RenderRowsProps) {
             return (
               <RowContent
                 rowIdx={itemsIdx}
-                removeRow={removeRow}
+                currentItem={item}
+                arrayHelpers={arrayHelpers}
                 materialOptions={{
                   majorItems: majorItems.data ?? [],
                   middleItems: middleItems.data ?? [],
                   materials: materials.data ?? [],
                 }}
-                key={item.number}
+                key={item.key}
               />
             );
           })}

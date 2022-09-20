@@ -29,6 +29,7 @@ const dlFromCocoServer = async ({
 
     const data : TReqDownloadParams = {
       projId,
+      userCode: kintone.getLoginUser().code,
       projEstimateId,
       fileType,
     };

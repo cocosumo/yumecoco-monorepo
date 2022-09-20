@@ -1,9 +1,10 @@
-import { Button, FormHelperText } from '@mui/material';
+import { Button, FormHelperText, Box } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { generateParams } from '../../../helpers/url';
+
 
 export const GoToContractButton = () => {
 
@@ -30,21 +31,27 @@ export const GoToContractButton = () => {
 
   return (
 
+    <Box width={'100%'} justifyContent={'center'} display="flex">
+      <div>
 
-    <div>
-      <Button
-        variant={'contained'}
-        disabled={!isEnabled}
-        sx={{ minHeight: '40px' }}
-        onClick={handleGoToContractPage}
-      >
-        契約画面へいく
-      </Button>
 
-      {!isEnabled &&
+        <Button
+          variant={'contained'}
+          disabled={!isEnabled}
+          sx={{
+            minHeight: '40px',
+            minWidth: '200px',
+          }}
+          onClick={handleGoToContractPage}
+        >
+          契約画面へいく
+        </Button>
+
+        {!isEnabled &&
         <FormHelperText>
-          保存されていない変更があります。
+          {!estimateId ? '保存してください。' : '保存されていない変更があります。' }
         </FormHelperText>}
-    </div>
+      </div>
+    </Box>
   );
 };

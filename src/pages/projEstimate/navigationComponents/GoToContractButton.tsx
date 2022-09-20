@@ -1,5 +1,4 @@
-import { Button, FormHelperText, Stack } from '@mui/material';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import { Button, FormHelperText } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
 import { useNavigate } from 'react-router-dom';
@@ -30,38 +29,22 @@ export const GoToContractButton = () => {
   };
 
   return (
-    <Stack spacing={4} direction={'row'} justifyContent={'center'} >
 
+
+    <div>
       <Button
         variant={'contained'}
-        color={'secondary'}
-        sx={{ maxHeight: '40px' }}
-        onClick={() => {
-          document
-            ?.querySelector('#summaryTable')
-            ?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        }}
+        disabled={!isEnabled}
+        sx={{ minHeight: '40px' }}
+        onClick={handleGoToContractPage}
       >
-        <KeyboardDoubleArrowUpIcon />
+        契約画面へいく
       </Button>
 
-      <div>
-        <Button
-          variant={'contained'}
-          disabled={!isEnabled}
-          sx={{ minHeight: '40px' }}
-          onClick={handleGoToContractPage}
-        >
-          契約画面へいく
-        </Button>
-
-        {!isEnabled &&
+      {!isEnabled &&
         <FormHelperText>
           保存されていない変更があります。
         </FormHelperText>}
-      </div>
-
-
-    </Stack>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import { TableBody } from '@mui/material';
 import { FieldArrayRenderProps } from 'formik';
-import { TransitionGroup } from 'react-transition-group';
 import { TypeOfForm } from '../form';
 import { useMaterials } from '../hooks/useMaterials';
 import { QuoteTableRow } from './QuoteTableRow';
@@ -19,25 +18,21 @@ export  function QuoteTableBody(props: {
   return (
 
     <TableBody>
-      <TransitionGroup component={null}>
-
-
-        {items.map((item, itemsIdx) => {
-          return (
+      {items.map((item, itemsIdx) => {
+        return (
             
-            <QuoteTableRow
-              rowIdx={itemsIdx}
-              arrayHelpers={arrayHelpers}
-              materialOptions={{
-                majorItems: majorItems.data ?? [],
-                middleItems: middleItems.data ?? [],
-                materials: materials.data ?? [],
-              }}
-              key={item.key}
-            />
-          );
-        })}
-      </TransitionGroup>
+          <QuoteTableRow
+            rowIdx={itemsIdx}
+            arrayHelpers={arrayHelpers}
+            materialOptions={{
+              majorItems: majorItems.data ?? [],
+              middleItems: middleItems.data ?? [],
+              materials: materials.data ?? [],
+            }}
+            key={item.key}
+          />
+        );
+      })}
     </TableBody>
   ); 
   

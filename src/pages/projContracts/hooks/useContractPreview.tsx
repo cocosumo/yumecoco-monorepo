@@ -68,7 +68,7 @@ export const useContractPreview = () => {
 
   useEffect(()=>{
 
-    if (!projId || !projName || (status as TFormStatus) === 'busy') return;
+    if (!projId || !projName || (formStatus === 'busy')) return;
 
     handlePreview();
   }, [
@@ -77,7 +77,7 @@ export const useContractPreview = () => {
     envelopeStatus,
     revision,
     envSelectedDoc,
-    status,
+    formStatus,
   ]);
 
   return {

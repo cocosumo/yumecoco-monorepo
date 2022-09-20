@@ -36,12 +36,12 @@ export const Preview = () => {
       <Grid item xs={12}>
         <Divider />
       </Grid>
+
       {!formLoading && previewUrl &&
       <Grid item xs={12}>
         <Paper>
           <DocumentsSelect />
           <embed src={previewUrl} width="100%" height='900px' />
-
         </Paper>
       </Grid>}
 

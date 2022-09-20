@@ -1,12 +1,14 @@
 
+
 import { TableCell, TableRow } from '@mui/material';
-import { FieldArrayRenderProps } from 'formik';
-import { Display } from '../fieldComponents/Display';
+import { FieldArrayRenderProps, useFormikContext } from 'formik';
+import { produce } from 'immer';
+import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import {  getItemFieldName, taxChoices, unitChoices } from '../form';
-import { useCalculate } from '../hooks/useCalculate';
+import {  getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
+import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
@@ -23,8 +25,9 @@ export const QuoteTableRow = (
     arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
   }) => {
+  const { setValues } = useFormikContext<TypeOfForm>();
 
-  useCalculate(rowIdx);
+  const result = useElementCalc(rowIdx);
 
   const {
     majorItemOpts,
@@ -35,9 +38,23 @@ export const QuoteTableRow = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx, materialOptions);
 
+  const handleChangeCostPrice = (inputVal: string) => {
+    setValues(
+      (prev) => produce(prev, (draft) => {
+        if ((+inputVal < 0) && (draft.items[rowIdx].costPrice >= 0)) {
+          draft.items[rowIdx].costPrice = +inputVal;
+          draft.items[rowIdx].quantity = 1;
+          draft.items[rowIdx].elemProfRate = 0;
+          draft.items[rowIdx].taxType = '非課税';
+        } else {
+          draft.items[rowIdx].costPrice = +inputVal;
+        }
+      }),
+    );
+  };
 
   return (
-    <TableRow >
+    <TableRow>
 
       <TableCell
         sx={{
@@ -71,7 +88,7 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell>
-        <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} />
+        <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} handleChange={handleChangeCostPrice} />
       </TableCell>
 
       <TableCell>
@@ -91,17 +108,17 @@ export const QuoteTableRow = (
 
       <TableCell>
         <FormikPulldown
-          name={getItemFieldName(rowIdx, 'tax')}
+          name={getItemFieldName(rowIdx, 'taxType')}
           options={taxChoices.map((c) => ({ label: c, value: c }))}
         />
       </TableCell>
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'unitPrice')} suffix={'円'} />
+        <DisplayNumber value={result.unitPrice} suffix={'円'} />
       </TableCell>
 
       <TableCell>
-        <Display name={getItemFieldName(rowIdx, 'price')} suffix={'円'} />
+        <DisplayNumber value={result.price} suffix={'円'} />
       </TableCell>
 
       <TableCell >

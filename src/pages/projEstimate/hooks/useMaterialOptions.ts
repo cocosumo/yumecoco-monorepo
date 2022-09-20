@@ -47,6 +47,7 @@ export const useMaterialsOptions = (
             draft.items[rowIdx].majorItem = selectedMaterial.大項目名.value;
             draft.items[rowIdx].middleItem = selectedMaterial.中項目名.value;
             draft.items[rowIdx].costPrice = +selectedMaterial.原価.value;
+            draft.items[rowIdx].elemProfRate = +selectedMaterial.部材利益率.value;
             draft.items[rowIdx].unit = newUnit;
           }),
         );

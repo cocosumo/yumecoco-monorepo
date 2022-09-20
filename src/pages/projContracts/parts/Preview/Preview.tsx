@@ -18,10 +18,6 @@ export const Preview = () => {
 
   const { envelopeId, envelopeStatus, projId, projName } = values;
 
-
-
-
-
   return (
     <PreviewContainer>
       <Grid item xs={6}>

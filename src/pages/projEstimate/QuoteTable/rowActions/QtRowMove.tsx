@@ -52,7 +52,7 @@ export const QtRowMove = ({
       <QtRowMoveAnywhere
         rowIdx={rowIdx}
         rowsCount={items.length}
-        resetArrows={() => setExpandBtns(false)}
+        resetArrowsAnimation={() => setExpandBtns(false)}
         move={move}
       />
 

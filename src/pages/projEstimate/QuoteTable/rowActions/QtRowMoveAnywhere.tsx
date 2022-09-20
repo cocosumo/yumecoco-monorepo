@@ -7,11 +7,11 @@ const ITEM_HEIGHT = 48;
 export const QtRowMoveAnywhere = ({
   rowIdx, rowsCount,
   move,
-  resetArrows,
+  resetArrowsAnimation,
 }: {
   rowIdx : number,
   rowsCount: number,
-  resetArrows: () => void, // reset arrow animations
+  resetArrowsAnimation: () => void, 
   move: FieldArrayRenderProps['move'],
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -19,9 +19,10 @@ export const QtRowMoveAnywhere = ({
 
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    resetArrows();
+    resetArrowsAnimation();
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -29,7 +30,6 @@ export const QtRowMoveAnywhere = ({
   const handleMoveAnywhere = (selectedRowIdx : number) => {
     move(rowIdx, selectedRowIdx);
     handleClose();
-
   };
 
 

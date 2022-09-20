@@ -1,9 +1,11 @@
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { summaryNameList } from '../constantDefinition';
 import DisplayCellContent from './DisplayCellContent';
-import { KeyOfForm } from '../form';
+import { useTotalCalc } from '../hooks/useTotalCalc';
 
 export default function SummaryTable() {
+
+  const total = useTotalCalc();
 
   return (
     <TableContainer component={Paper}>
@@ -21,17 +23,13 @@ export default function SummaryTable() {
         </TableHead>
         <TableBody>
           <TableRow>
-            {/* {(['costPrice'] as TKMaterials[]).map((item)=>item)} */}
-            {/* {Object.keys(initialValues.items).map((item) => { */}
-            {(['totalCost', 'grossProfit', 'grossProfitMargin', 
-              'taxAmount', 'taxExcludedAmount', 'amountIncludingTax'] as KeyOfForm[])
-              .map((item)=> {
-                return (
-                  <TableCell key={`${item}_header`}>
-                    <DisplayCellContent name={item} />
-                  </TableCell>
-                );
-              })}
+            {total.map(([key, value]) => {
+              return (
+                <TableCell key={`${key}_header`}>
+                  <DisplayCellContent name={key} value={value} />
+                </TableCell>
+              );
+            })}
           </TableRow>
         </TableBody>
       </Table>

@@ -11,7 +11,7 @@ export const buzaiListInit = {
   quantity: 1,
   elemProfRate: 0,
   unit: '式',
-  tax: '課税',
+  taxType: '課税',
   unitPrice: 0,
   price: 0,
 };

@@ -36,7 +36,7 @@ export const useUpdateProjectId = () => {
           setTimeout(()=> {
             setValues((prev) => produce(prev, draft => {
               draft.projName = constructionName.value;
-              draft.constructionType = constructionType.value;
+              draft.projType = constructionType.value;
               draft.profitRate = +profitRate.value;
               draft.customerName = mainCustName;
             }));
@@ -57,7 +57,7 @@ export const useUpdateProjectId = () => {
       setValues((prev) => produce(prev, draft => {
         draft.projId = initialValues.projId;
         draft.projName = initialValues.customerName;
-        draft.constructionType = initialValues.constructionType;
+        draft.projType = initialValues.projType;
         draft.profitRate = initialValues.profitRate;
         draft.customerName = initialValues.customerName;
       }));

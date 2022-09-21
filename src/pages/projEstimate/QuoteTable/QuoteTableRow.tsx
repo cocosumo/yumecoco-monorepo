@@ -7,24 +7,23 @@ import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import {  getItemFieldName, taxChoices, TMaterials, TypeOfForm, unitChoices } from '../form';
+import {  getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
 import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
-import { RowControls } from './RowControls';
+import { QtRowAddDelete, QtRowMove } from './rowActions';
 
 
-export const RowContent = (
+
+export const QuoteTableRow = (
   {
     rowIdx,
     arrayHelpers,
     materialOptions,
-    currentItem,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
-    currentItem: TMaterials
   }) => {
   const { setValues } = useFormikContext<TypeOfForm>();
 
@@ -57,6 +56,13 @@ export const RowContent = (
   return (
     <TableRow>
 
+      <TableCell
+        sx={{
+          pl: 1, pr: 0,
+        }}
+      >
+        <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+      </TableCell>
       <TableCell>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'majorItem')}
@@ -116,9 +122,8 @@ export const RowContent = (
       </TableCell>
 
       <TableCell >
-        <RowControls
+        <QtRowAddDelete
           rowIdx={rowIdx}
-          currentItem={currentItem}
           arrayHelpers={arrayHelpers}
         />
       </TableCell>

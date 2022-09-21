@@ -19,6 +19,7 @@ export const initialValues = {
   saveMode: 'normal' as  'temporary' | 'normal',
   estimateId: '',
   projId: '',
+  custGroupId: '',
   projName: '',
   customerName: '',
 

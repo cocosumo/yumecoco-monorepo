@@ -4,6 +4,7 @@ import { useSnackBar } from '../../../hooks';
 import { getProjDataById } from '../api/getProjDataById';
 import { fetchProjEstimatesById, getProjEstimatesDataById } from '../api/getProjEstimatesDataById';
 import {  TypeOfForm } from '../form';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export const useUpdateProjId = () => {
   const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
@@ -72,19 +73,27 @@ export const useUpdateProjId = () => {
   },
   [projId, setStatusSafe, setValues, memSetSnackState ]);
 
-  useEffect(() => {
-    if (projEstimateId) {
-      setStatusSafe('busy');
+
+
+  useDeepCompareEffect(() => {
+    console.log('proj', projEstimateId, projId);
+    if (projEstimateId ) {
+
       getProjEstimatesDataById(estimatesRec, projEstimateId)
         .then((formData) => {
-          setValues((prev) => ({ ...prev, formData }));
+          /* 見積もりのものを */
+          setValues((prev) => {
+            return { ...prev, ...formData };
+          });
         })
-        .finally(() => () => setStatusSafe(''));
-
+        .catch((err: any)=>{
+          console.log(`handle error here. ${err.message}`);
+        })
+        .finally(() => setStatusSafe(''));
     }
   },
   /* estimatesRec is object, unstable as dependency */
-  [projEstimateId]);
+  [projEstimateId, estimatesRec]);
 
   return {
     isWithEstimates,

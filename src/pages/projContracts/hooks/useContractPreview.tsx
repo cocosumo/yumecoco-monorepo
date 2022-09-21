@@ -19,9 +19,7 @@ import { TypeOfForm } from '../form';
 export const useContractPreview = () => {
   const { values, status } = useFormikContext<TypeOfForm>();
   const {
-    projId, projName,
-    envelopeStatus, envSelectedDoc,
-    revision,
+    projEstimateId,
   } = values;
   const [previewUrl, setPreviewUrl] = useState('');
   const [previewLoading, setPreviewLoading] = useState(true);
@@ -68,17 +66,11 @@ export const useContractPreview = () => {
 
   useEffect(()=>{
 
-    if (!projId || !projName || (formStatus === 'busy')) return;
+    if (projEstimateId) {
+      handlePreview();
+    }
 
-    handlePreview();
-  }, [
-    projId,
-    projName,
-    envelopeStatus,
-    revision,
-    envSelectedDoc,
-    formStatus,
-  ]);
+  }, [projEstimateId]);
 
   return {
     formStatus,

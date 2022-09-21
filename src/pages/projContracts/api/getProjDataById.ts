@@ -1,34 +1,14 @@
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
+import { fetchCustGroup, fetchProj } from './fetchRecord';
 
-
-export const fetchProj = async (recordId: string) => {
-  const result = await KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
-    id: recordId,
-  });
-
-  return result.record as unknown as TypeOfProjectDetails;
-};
-
-export const fetchCustGroup = async (recordId: string) => {
-  const result = await KintoneRecord.getRecord({
-    app: APPIDS.custGroup,
-    id: recordId,
-  });
-
-  return result.record as unknown as TypeOfCustomerGroup;
-};
-
-export const getFormDataById = async (projId: string) => {
+export const getProjDataById = async (
+  projId: string,
+) : Promise<Partial<TypeOfForm>> => {
 
   const {
     constructionName,
-
     custGroupId,
-    signMethod,
     $revision,
-    contractPrice,
     store,
     agents: projOfficers,
     postal: pPostal,
@@ -79,8 +59,7 @@ export const getFormDataById = async (projId: string) => {
     projAddress: `〒${pPostal.value} ${pAddress1.value}${pAddress2.value}`,
 
     revision: $revision.value,
-    signMethod: signMethod.value,
-    contractPrice: +contractPrice.value ?? 0,
-  } as TypeOfForm;
+
+  };
 
 };

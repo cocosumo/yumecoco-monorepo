@@ -23,5 +23,5 @@ export const useResolveParams = () => {
         projId: projIdFromURL,
       }));
     }
-  }, [projIdFromURL, projEstimateIdFromURL]);
+  }, [projIdFromURL, projEstimateIdFromURL, setValues]);
 };

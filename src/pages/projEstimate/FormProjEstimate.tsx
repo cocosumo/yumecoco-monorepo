@@ -9,7 +9,6 @@ import SummaryTable from './SummaryTable/SummaryTable';
 
 import { renderQuoteTable } from './QuoteTable/';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
-import { useUpdateProjectId } from './hooks/useUpdateProjectId';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
@@ -21,10 +20,6 @@ export default function FormProjEstimate() {
   const { values } = useFormikContext<TypeOfForm>();
   const { projName, customerName, projId } = values;
 
-
-  const { isLoading } = useUpdateProjectId();
-
-
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -34,7 +29,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md={5}>
 
           {/* 工事情報の検索 */}
-          <SearchProject {...{ customerName, projId, isLoading, projName }} />
+          <SearchProject {...{ customerName, projId, projName }} />
         </Grid>
 
         <Grid item xs={12}>

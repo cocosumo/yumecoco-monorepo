@@ -32,6 +32,7 @@ interface FormState {
 interface URLParams {
   projId?: string
   projEstimateId?: string,
+  estimateId?: string,
   custGroupId?: string,
 }
 

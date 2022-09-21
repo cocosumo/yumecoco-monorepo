@@ -7,7 +7,7 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { getFieldName, statusChoices, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
 
-import { RenderFunc } from './QuoteTable/RenderFunc';
+import { renderQuoteTable } from './QuoteTable/';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
@@ -59,7 +59,7 @@ export default function FormProjEstimate() {
           {/* 見積もり用のテーブル */}
           <FieldArray
             name={getFieldName('items')}
-            render={RenderFunc}
+            render={renderQuoteTable}
           />
         </Grid>
 

@@ -17,8 +17,6 @@ export const DownloadContract = ({
 
   const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?${basicParams}&fileType=xlsx`;
 
-
-
   return (
     <Tooltip title="契約書をダウンロードする" arrow>
       <LoadingButton

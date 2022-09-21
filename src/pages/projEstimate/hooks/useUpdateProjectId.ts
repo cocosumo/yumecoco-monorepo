@@ -13,6 +13,8 @@ export const useUpdateProjectId = () => {
   const { projId } = values;
   const [loading, setLoading] = useState(false);
 
+  const handleStartLoading = () => setLoading(true);
+
   useEffect(
     ()=>{
       if (projId) {

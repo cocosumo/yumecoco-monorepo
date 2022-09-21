@@ -1,30 +1,28 @@
 
-import { Button, TableCell, TableRow } from '@mui/material';
-import { useFormikContext } from 'formik';
+
+import { TableCell, TableRow } from '@mui/material';
+import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getFieldName, taxChoices, TKMaterials, TypeOfForm, unitChoices } from '../form';
+import {  getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
 import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
+import { QtRowAddDelete, QtRowMove } from './rowActions';
 
-const itemsName = getFieldName('items');
 
-const getItemFieldName = (
-  rowIdx: number, fieldName: TKMaterials,
-) => `${itemsName}[${rowIdx}].${fieldName}`;
 
-export const RowContent = (
+export const QuoteTableRow = (
   {
     rowIdx,
-    removeRow,
+    arrayHelpers,
     materialOptions,
   }: {
     rowIdx: number,
-    removeRow: (rowIdx: number) => void,
+    arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
   }) => {
   const { setValues } = useFormikContext<TypeOfForm>();
@@ -48,7 +46,7 @@ export const RowContent = (
           draft.items[rowIdx].quantity = 1;
           draft.items[rowIdx].elemProfRate = 0;
           draft.items[rowIdx].taxType = '非課税';
-        } else {          
+        } else {
           draft.items[rowIdx].costPrice = +inputVal;
         }
       }),
@@ -58,6 +56,13 @@ export const RowContent = (
   return (
     <TableRow>
 
+      <TableCell
+        sx={{
+          pl: 1, pr: 0,
+        }}
+      >
+        <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+      </TableCell>
       <TableCell>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'majorItem')}
@@ -116,14 +121,11 @@ export const RowContent = (
         <DisplayNumber value={result.price} suffix={'円'} />
       </TableCell>
 
-
-      <TableCell>
-        <Button
-          variant="outlined"
-          onClick={() => removeRow(rowIdx)}
-        >
-          -
-        </Button>
+      <TableCell >
+        <QtRowAddDelete
+          rowIdx={rowIdx}
+          arrayHelpers={arrayHelpers}
+        />
       </TableCell>
 
     </TableRow>

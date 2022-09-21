@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { DownloadContract } from './DownloadContract';
 import { MenuContainer } from './PreviewMenu/MenuContainer';
-import { SendContract } from './SendContract';
+import { StartContract } from './startContract/';
 
 
 export const PreviewToolBar = ({
@@ -27,7 +27,7 @@ export const PreviewToolBar = ({
       {!!projId && <DownloadContract projEstimateId={projEstimateId} />}
 
       {!loading && !envelopeStatus && !envelopeId  && !voidable && !!projName && !previewLoading &&
-        <SendContract
+        <StartContract
           projId={projId}
           isBusy={loading}
         />}

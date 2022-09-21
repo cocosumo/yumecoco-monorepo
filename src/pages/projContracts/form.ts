@@ -4,20 +4,25 @@ import * as Yup from 'yup';
 
 
 export const initialValues = {
+
+  /* 工事 */
   projId: '',
   projEstimateId: '',
-  custGroupId: '',
+  projName: '',
+  projAddress: '',
 
+  /* 顧客 */
+  custGroupId: '',
   custName: '',
   custAddress: '',
+
+  /* 担当 */
   store: '',
   cocoAg: '',
   yumeAg: '',
   constAg: '',
 
-  projName: '',
-  projAddress: '',
-
+  /* 見積も契約 */
   envelopeId: '',
   envelopeStatus: '' as TEnvelopeStatus,
   envDocFileKeys: [] as kintone.fieldTypes.File['value'],

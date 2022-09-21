@@ -1,9 +1,10 @@
 import { useFormikContext } from 'formik';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSnackBar } from '../../../hooks';
-import { getFormDataById } from '../api/fetchRecord';
-import { getKintoneProjEstimates } from '../api/getKintoneProjEstimates';
+import { getProjDataById } from '../api/getProjDataById';
+import { fetchProjEstimatesById, getProjEstimatesDataById } from '../api/getProjEstimatesDataById';
 import {  TypeOfForm } from '../form';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export const useUpdateProjId = () => {
   const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
@@ -18,7 +19,7 @@ export const useUpdateProjId = () => {
     status,
   } = useFormikContext<TypeOfForm>();
 
-  const { projId } = values;
+  const { projId, projEstimateId } = values;
   const formStatus: TFormStatus = status;
 
   const setStatusSafe = useCallback((s: TFormStatus) => setStatus(s), [setStatus]);
@@ -32,24 +33,24 @@ export const useUpdateProjId = () => {
       setStatusSafe('busy');
 
       Promise.all([
-        getFormDataById(projId),
-        getKintoneProjEstimates(projId),
+        getProjDataById(projId),
+        fetchProjEstimatesById(projId),
       ])
         .then(([formData, _estimatesRecord]) => {
 
           setValues( (prev) => {
-            const { projEstimateId } = prev;
+            const { projEstimateId: locProjEstimateId } = prev;
 
+            /* Set estimateId is it exist in the new list of projEstimate records */
             const isValidProjEstimatesId = _estimatesRecord
               .some(({ レコード番号: dbProjEstimatesId }) =>
-                dbProjEstimatesId.value ===  projEstimateId);
+                dbProjEstimatesId.value ===  locProjEstimateId);
 
             return {
               ...prev,
               ...formData,
 
-              /** 現在の見積番号は取得した見積もりにない場合、リセットする。*/
-              projEstimateId: isValidProjEstimatesId ? projEstimateId : '',
+              projEstimateId: isValidProjEstimatesId ? locProjEstimateId : '',
             };
           });
 
@@ -71,6 +72,28 @@ export const useUpdateProjId = () => {
     }
   },
   [projId, setStatusSafe, setValues, memSetSnackState ]);
+
+
+
+  useDeepCompareEffect(() => {
+    console.log('proj', projEstimateId, projId);
+    if (projEstimateId ) {
+
+      getProjEstimatesDataById(estimatesRec, projEstimateId)
+        .then((formData) => {
+          /* 見積もりのものを */
+          setValues((prev) => {
+            return { ...prev, ...formData };
+          });
+        })
+        .catch((err: any)=>{
+          console.log(`handle error here. ${err.message}`);
+        })
+        .finally(() => setStatusSafe(''));
+    }
+  },
+  /* estimatesRec is object, unstable as dependency */
+  [projEstimateId, estimatesRec]);
 
   return {
     isWithEstimates,

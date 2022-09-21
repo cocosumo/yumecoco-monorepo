@@ -50,6 +50,7 @@ export const FormContractPreview = () => {
         </Grid>
 
         {/* 見積もり選択フィールド */}
+
         <ProjEstimatesField
           projId={projId}
           projEstimateId={projEstimateId}
@@ -58,6 +59,9 @@ export const FormContractPreview = () => {
           handleSearchTTClose={handleSearchTTClose}
           handleSearchTTOpen={handleSearchTTOpen}
         />
+
+        {/* 契約内容 */}
+        <ContractInfo />
 
         {/* 契約のプレビュー */}
         {!!projEstimateId &&  <Preview />}
@@ -69,8 +73,7 @@ export const FormContractPreview = () => {
             </EmptyBox>
           </Grid>}
 
-        {/* 契約内容 */}
-        <ContractInfo />
+
 
         {(formStatus) === 'busy' && <Grid item xs={12}>
           <LinearProgress />

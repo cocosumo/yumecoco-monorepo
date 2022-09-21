@@ -1,7 +1,6 @@
 import { Divider, Grid } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
-import { FabSave } from '../../components/ui/fabs/FabSave';
 import { PageTitle } from '../../components/ui/labels';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
@@ -11,10 +10,11 @@ import SummaryTable from './SummaryTable/SummaryTable';
 import { RenderFunc } from './QuoteTable/RenderFunc';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { SearchProject } from './fieldComponents/SearchProject';
+import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
 
 export default function FormProjEstimate() {
-  const { submitForm, values } = useFormikContext<TypeOfForm>();
+  const { values } = useFormikContext<TypeOfForm>();
   const { projName, customerName, projId } = values;
   
   return (
@@ -34,7 +34,7 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('constructionType')} label="工事種別名" disabled />
+          <FormikTextField name={getFieldName('projType')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
           <FormikTextField name={getFieldName('profitRate')} label="利益率" disabled />
@@ -70,7 +70,7 @@ export default function FormProjEstimate() {
 
 
 
-        <FabSave onClick={submitForm} />
+        <FormActions />
       </MainContainer>
     </Form>
   );

@@ -1,5 +1,6 @@
 
 import * as Yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 
 export const taxChoices = ['課税', '非課税'] as const;
 export const unitChoices = [
@@ -14,10 +15,16 @@ export type TMaterials = TypeOfForm['items'][0];
 export type TKMaterials = keyof TMaterials;
 
 export const initialValues = {
+  /** 「一時保存」か「保存」 */
+  saveMode: 'normal' as  'temporary' | 'normal',
+  estimateId: '',
   projId: '',
+  custGroupId: '',
   projName: '',
   customerName: '',
-  constructionType: '', /* 工事種別(ルックアップ) */
+
+  /** 工事種別 */
+  projType: '',
   profitRate: 0.5, /* 利益率(自動計算) */
   taxRate: 10, /* 税率 */
   status: '' as typeof statusChoices[number], /* ステータス */
@@ -25,7 +32,7 @@ export const initialValues = {
   /* 見積もり用配列要素 */
   items: [
     {
-      number: 1,
+      key: uuidv4(),
       majorItem: '',  /* 大項目 */
       middleItem: '', /* 中項目 */
       element: '',    /* 部材 */

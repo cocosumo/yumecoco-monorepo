@@ -28,7 +28,6 @@ const dlFromCocoServer = async ({
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?`;
 
     const data : TReqDownloadParams = {
-      projId,
       userCode: kintone.getLoginUser().code,
       projEstimateId,
       fileType,

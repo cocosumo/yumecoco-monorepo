@@ -16,7 +16,7 @@ export const Preview = () => {
     previewUrl,
   } = useContractPreview();
 
-  const { envelopeId, envelopeStatus, projId, projName } = values;
+  const { envelopeId, envelopeStatus, projId, projName, projEstimateId } = values;
 
   return (
     <PreviewContainer>
@@ -30,7 +30,9 @@ export const Preview = () => {
           loading: formLoading,
           projId,
           projName,
-          previewLoading }}
+          previewLoading,
+          projEstimateId,
+        }}
         />
       </Grid>
       <Grid item xs={12}>

@@ -19,8 +19,6 @@ export const PreviewToolBar = ({
 
   const voidable = envelopeStatus === 'sent';
 
-  // console.log('loading', loading, voidable, envelopeId, projName, previewLoading);
-
   return (
     <Stack direction={'row'} spacing={2} justifyContent={'flex-end'}>
 
@@ -28,7 +26,6 @@ export const PreviewToolBar = ({
 
       {!loading && !envelopeStatus && !envelopeId  && !voidable && !!projName && !previewLoading &&
         <StartContract
-          projId={projId}
           isBusy={loading}
         />}
 

@@ -6,19 +6,23 @@ import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../hooks';
 import { pages } from '../../Router';
 import { sendContract } from '../api/docusign/sendContract';
 import { TypeOfForm } from '../form';
+import { MethodChoice } from '../parts/PreviewToolBar/startContract/MethodChoices';
 
 export const useStartContractProcess = () => {
   const { values, setValues } = useFormikContext<TypeOfForm>();
   const { custGroupId, projId } = values;
   const { setDialogState } = useConfirmDialog();
   const { setSnackState }  = useSnackBar();
-  const { setBackdropState } = useBackdrop();
+  const {
+    setBackdropState,
+    backdropState: { open },
+  } = useBackdrop();
   const navigate = useNavigate();
+
+  const isBackdropOpen = open;
 
 
   const handleSendContract = async () => {
-
-
 
     try {
       setBackdropState({
@@ -77,14 +81,19 @@ export const useStartContractProcess = () => {
   const handleClickStart = () => {
     setDialogState({
       title: '契約手続きを開始',
-      content: '「送信済み」状態になり、ココアスで当プロジェクトの情報の修正が出来なくなります。',
+      content: <MethodChoice />,
       handleYes: handleSendContract,
+      withYes: false,
+      withNo: true,
+      noText: 'キャンセル',
 
     });
   };
 
   return {
     handleClickStart,
+    isBackdropOpen,
+    values,
   };
 
 };

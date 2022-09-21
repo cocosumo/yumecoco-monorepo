@@ -2,15 +2,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
-import { initialValues, TMaterials, TypeOfForm } from '../form';
+import { initialValues, TypeOfForm } from '../../form';
 import { v4 as uuidv4 } from 'uuid';
 
-export const RowControls = ({
-  rowIdx, arrayHelpers, currentItem,
+export const QtRowAddDelete = ({
+  rowIdx, arrayHelpers,
 } :{
   rowIdx: number
   arrayHelpers: FieldArrayRenderProps
-  currentItem: TMaterials
 }) => {
 
 
@@ -18,9 +17,10 @@ export const RowControls = ({
   const open = Boolean(anchorEl);
   const { form, remove, insert } = arrayHelpers;
   const { items } = form.values as TypeOfForm;
+  const currentItem = items[rowIdx];
 
   const isJustOneRow = items.length === 1;
-  
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -63,7 +63,7 @@ export const RowControls = ({
           下に追加
         </MenuItem>
 
-        <MenuItem 
+        <MenuItem
           disabled={isJustOneRow}
           onClick={handleRemoveRow}
         >

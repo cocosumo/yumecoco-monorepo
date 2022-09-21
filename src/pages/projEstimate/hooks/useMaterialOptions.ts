@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik';
 import { TypeOfForm, getItemFieldName, unitChoices } from '../form';
 import { TMaterialOptions } from './useMaterials';
 import { produce } from 'immer';
+import { useCallback } from 'react';
 
 
 
@@ -34,7 +35,7 @@ export const useMaterialsOptions = (
     }
   };
 
-  const handleMaterialChange = (newVal: string) => {
+  const handleMaterialChange = useCallback((newVal: string) => {
     if (newVal) {
       const selectedMaterial = materials.find(({ 部材名 }) => 部材名.value === newVal);
       if (selectedMaterial) {
@@ -50,11 +51,9 @@ export const useMaterialsOptions = (
             draft.items[rowIdx].unit = newUnit;
           }),
         );
-
       }
-
     }
-  };
+  }, [rowIdx, setValues, materials]); 
 
   /**
    * Options filters

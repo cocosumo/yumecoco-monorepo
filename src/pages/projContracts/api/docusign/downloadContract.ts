@@ -21,13 +21,16 @@ const dlFromCocoServer = async ({
 
     const {
       projId,
+      projEstimateId,
     } = form;
 
     if (!projId) throw new Error('Invalid Project Id.');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?`;
-    const data = {
-      projId: projId,
-      fileType: fileType,
+
+    const data : TReqDownloadParams = {
+      userCode: kintone.getLoginUser().code,
+      projEstimateId,
+      fileType,
     };
 
     const u = new URLSearchParams(data).toString();
@@ -97,6 +100,7 @@ export const downloadContract = async (
   if ( fileType === 'xlsx' || !envDocFileKeys.length) {
     return dlFromCocoServer(params);
   } else if (fileType === 'pdf' && envDocFileKeys.length) {
+    console.log('selectDoc', form.envSelectedDoc);
     return dlSingleFileFromKintone(form.envSelectedDoc);
   } else {
     throw new Error('Uknown download action');

@@ -61,6 +61,7 @@ export const useUpdateProjectId = () => {
           });
 
       } else if (!projId && dirty) {
+        setLoading(false);
         setValues((prev) => produce(prev, draft => {
           draft.projId = initialValues.projId;
           draft.projName = initialValues.customerName;

@@ -17,6 +17,7 @@ export const FormikSearchProjField = (props: {
   projName: string,
   disabled?: boolean,
   isLoading?: boolean
+  handleChange?: () => void
 }) => {
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<Opt | null>(null);
@@ -28,6 +29,8 @@ export const FormikSearchProjField = (props: {
     projName,
     isLoading = false,
     disabled = false,
+    label,
+    handleChange,
   } = props;
 
   useLazyEffect(()=>{
@@ -47,7 +50,7 @@ export const FormikSearchProjField = (props: {
   }, [inputVal], 1000);
 
   useEffect(()=>{
-
+    /* When projId is already available, make it the sole option  */
     if (options.length === 0 && projName) {
 
       const singleOpt = { projName, id: field.value };
@@ -55,7 +58,7 @@ export const FormikSearchProjField = (props: {
       setFieldVal(singleOpt);
     }
 
-  }, [field.value, projName]);
+  }, [field.value, options.length, projName]);
 
   return (
     <Autocomplete
@@ -72,28 +75,27 @@ export const FormikSearchProjField = (props: {
       onChange={(_, val)=>{
         helpers.setValue(val?.id);
         setFieldVal(val);
-
+        handleChange?.();
       }}
-
       options={options}
       getOptionLabel={(opt)=> opt.projName}
       isOptionEqualToValue={(opt, value) => opt.id === value.id}
-
-      renderInput={(params) => <TextField
-        {...params}
-        name = {field.name}
-        label={props.label}
-        error={Boolean(error && touched)}
-        helperText={Boolean(error && touched) ? error : ''}
-        InputProps={isLoading ?  { endAdornment: <CircularProgress size={20}/> } : params.InputProps }
-        />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          name={field.name}
+          label={label}
+          error={Boolean(error && touched)}
+          helperText={error && touched ? error : ''}
+          InputProps={isLoading ?  { endAdornment: <CircularProgress size={20} /> } : params.InputProps}
+        />)}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;
         return (
           <li {...p} key={key}>
             <Stack>
               {opt.projName}
-              <Caption text={`id: ${opt.id}` } />
+              <Caption text={`id: ${opt.id}`} />
             </Stack>
           </li>
         );

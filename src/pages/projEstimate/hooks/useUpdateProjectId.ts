@@ -13,6 +13,8 @@ export const useUpdateProjectId = () => {
   const { projId } = values;
   const [loading, setLoading] = useState(false);
 
+  const handleStartLoading = () => setLoading(true);
+
   useEffect(
     ()=>{
       if (projId) {
@@ -59,6 +61,7 @@ export const useUpdateProjectId = () => {
           });
 
       } else if (!projId && dirty) {
+        setLoading(false);
         setValues((prev) => produce(prev, draft => {
           draft.projId = initialValues.projId;
           draft.projName = initialValues.customerName;
@@ -73,5 +76,6 @@ export const useUpdateProjectId = () => {
 
   return {
     isLoading: loading,
+    handleStartLoading,
   };
 };

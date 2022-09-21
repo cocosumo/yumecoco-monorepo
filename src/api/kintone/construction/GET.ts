@@ -53,3 +53,23 @@ export const getConstRecordByIds = async (ids: string[]) => {
       .join(' or '),
   });
 };
+
+/**
+ * Get projects by partial search string.
+ *
+ * @param search Search string
+ * @returns
+ */
+
+export const searchProjects = async <
+  T extends KeyOfProjectDetails,
+>(search: string) => {
+
+  return KintoneRecord.getRecords({
+    app: APPIDS.constructionDetails,
+    query: `${'constructionName' as T} like "${search}"`,
+    fields: ['constructionName', '$id' ] as T[],
+    totalCount: true,
+  })
+    .then(r => r.records as unknown as ProjectDetails.SavedData[]);
+};

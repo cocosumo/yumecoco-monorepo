@@ -1,15 +1,18 @@
-import { Button, FormHelperText, Paper, Stack, Typography } from '@mui/material';
+import { Button, FormHelperText, Stack, Typography } from '@mui/material';
 
 export const ChoiceButton = ({
   mainLabel,
   secondaryLabel,
+  handleClick,
 }: {
   mainLabel: string,
   secondaryLabel: string,
+  handleClick: () => void
 }) => {
   return (
     <Button
       variant='outlined'
+      onClick={handleClick}
     >
       <Stack
         direction={'column'}

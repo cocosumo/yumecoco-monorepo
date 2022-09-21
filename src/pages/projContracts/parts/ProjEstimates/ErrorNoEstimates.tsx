@@ -1,11 +1,22 @@
 import { Alert, AlertTitle, Button } from '@mui/material';
+import { useConfirmDialog } from '../../../../hooks';
 
 export const ErrorNoEstimates = () => {
+  const { setDialogState } = useConfirmDialog();
+
   return (
     <Alert
       severity='info'
       action={
         <Button
+          onClick={() => {
+            setDialogState({
+              open: true,
+              title: 'お詫び',
+              content: '見積もり画面はまだ作成中です。少々お待ちください',
+              withNo: false,
+            });
+          }}
           size='large'
           color="inherit"
           variant="outlined"

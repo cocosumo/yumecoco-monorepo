@@ -6,9 +6,11 @@ import { SendContract } from './SendContract';
 
 export const PreviewToolBar = ({
   projId, envelopeStatus, loading, envelopeId, projName, previewLoading,
+  projEstimateId,
 }: {
   projId: string,
   projName: string,
+  projEstimateId: string,
   envelopeStatus: TEnvelopeStatus,
   envelopeId: string,
   loading: boolean,
@@ -22,7 +24,7 @@ export const PreviewToolBar = ({
   return (
     <Stack direction={'row'} spacing={2} justifyContent={'flex-end'}>
 
-      {!!projId && <DownloadContract projId={projId} />}
+      {!!projId && <DownloadContract projEstimateId={projEstimateId} />}
 
       {!loading && !envelopeStatus && !envelopeId  && !voidable && !!projName && !previewLoading &&
         <SendContract

@@ -3,7 +3,8 @@ import { grey } from '@mui/material/colors';
 import { ComponentProps } from 'react';
 
 
-interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
+export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
+  text: string,
   required?: boolean
   rightAligned?: boolean,
   helperText?: string,
@@ -18,9 +19,9 @@ interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
  */
 export const QtHeadCell = (props: QtHeadCellProps) => {
   const { 
+    text,
     required, 
     rightAligned, 
-    children, 
     helperText,
     ...others } = props;
     
@@ -29,15 +30,16 @@ export const QtHeadCell = (props: QtHeadCellProps) => {
       {...others} 
       align={rightAligned ? 'right' : others.align}
     >
+    
       <Typography 
         color={grey[600]} 
         fontWeight={500} 
         component={'span'}
         noWrap
       >
-        {children}
+        {text}
       </Typography>
-
+  
       {required && (
       <Typography 
         ml={1} 

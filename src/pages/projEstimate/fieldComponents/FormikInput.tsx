@@ -33,7 +33,7 @@ export const FormikInput = (
 
 
   return (
-    <FormControl variant="standard">
+    <FormControl variant="standard" fullWidth>
       <Input
         {...field} error={!!error && touched}
         onInput={(el) => {
@@ -44,7 +44,6 @@ export const FormikInput = (
         }}
         value={inputVal === null ? field.value : inputVal} // inputValは空なら、入力中ではないということなので、本フォームのfield.valueを反映させる。
         onChange={changeHandlerInput}
-        sx={{ minWidth: 60 }}
         inputProps={{ style: { textAlign: align } }}
       />
       {(!!error && touched) &&

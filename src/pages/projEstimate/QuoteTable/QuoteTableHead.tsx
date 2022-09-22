@@ -26,13 +26,13 @@ export const QuoteTableHead = () => {
       <TableRow>
 
         {/* Offset for move row controls */}
-        <TableCell /> 
+        <TableCell padding="none" /> 
 
         {heads
           .map((props) => <QtHeadCell key={props.text} {...props} />)}
 
         {/* Offset for add / delete row controls  */}
-        <TableCell />
+        <TableCell padding="none"  />
 
       </TableRow>
     </TableHead>

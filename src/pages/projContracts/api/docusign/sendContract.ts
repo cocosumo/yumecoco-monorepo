@@ -2,22 +2,22 @@ import { ErrorDetails } from 'docusign-esign';
 import { yumecocoDocusign } from '../../../../config/settings';
 
 export const sendContract = async (
-  projId: string,
-  custGroupId: string,
+  {
+    projEstimateId,
+  }: {
+    projEstimateId: string
+  },
 ) : Promise<ISendEnvelopeResponse> => {
 
   try {
 
-    if (!projId) throw new Error('Invalid Project Id.');
+    if (projEstimateId) throw new Error('Invalid Project Id.');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/send/direct`;
 
-    const data = {
-      projId: projId,
-      custGroupId: custGroupId,
-      origin: window.location.href,
+    const data : ReqSendContract = {
+      projEstimateId,
+      userCode: kintone.getLoginUser().code,
     };
-
-    console.log(data, endpoint);
 
     const [body, status] = await kintone.proxy(
       endpoint,
@@ -30,7 +30,6 @@ export const sendContract = async (
       return JSON.parse(body);
     } else {
       const error: ErrorDetails =  JSON.parse(body);
-
       throw new Error(`${status} ${error.message}`);
     }
 

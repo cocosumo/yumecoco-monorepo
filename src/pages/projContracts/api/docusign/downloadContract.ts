@@ -44,7 +44,9 @@ const dlFromCocoServer = async ({
       const dlresp = JSON.parse(body) as DownloadResponse;
       return dlresp.documents?.[0] ?? '' ;
     } else {
-      throw new Error(`Unhandled response status ${status}`);
+      const error: any =  JSON.parse(body);
+      console.log(body);
+      throw new Error(`${status} ${error.message}`);
     }
 
   } catch (err :any) {

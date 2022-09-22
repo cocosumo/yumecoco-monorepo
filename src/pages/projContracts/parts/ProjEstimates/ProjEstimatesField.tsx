@@ -1,8 +1,9 @@
-import { Grid, Grow, Button } from '@mui/material';
-import { Box } from '@mui/system';
+import { Grid, Grow, Button, Box } from '@mui/material';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../../../../components/ui/selects/FormikSelectAdvanced';
+import { generateParams } from '../../../../helpers/url';
+import { pages } from '../../../Router';
 import { getFieldName } from '../../form';
 import { ErrorNoEstimates } from './ErrorNoEstimates';
 import { ErrorNoProjSelected } from './ErrorNoProjSelected';
@@ -25,6 +26,7 @@ export const ProjEstimatesField = ({
 
   const navigate = useNavigate();
 
+
   const emptyOption: OptionNode = useMemo(() =>  ({
     value: '',
     key: 'clear',
@@ -36,7 +38,7 @@ export const ProjEstimatesField = ({
     key: 'new',
     component: (
       <Button
-        onClick={()=>navigate('/')}
+        onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projId })}`)}
         variant="text" color={'inherit'}
         fullWidth disableRipple
       >
@@ -45,7 +47,7 @@ export const ProjEstimatesField = ({
     ),
   }),
   /** navigateは依存配列として不安定 */
-  []);
+  [projId]);
 
   const actualOptions: OptionNode[] = estimatesRecord.map<OptionNode>((rec)=>{
     const { contractPrice, $id, 作成日時 } = rec;
@@ -81,7 +83,7 @@ export const ProjEstimatesField = ({
 
           {/* 工事名が選択されているが、見積もりがない場合 */}
           {isWithProjIdNoEstimates &&
-          <ErrorNoEstimates />}
+          <ErrorNoEstimates projId={projId} />}
 
           {/* 工事名が選択されていない場合 */}
           {!isWithProjId &&

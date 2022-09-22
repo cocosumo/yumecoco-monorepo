@@ -12,9 +12,11 @@ import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
-import { ProjEstimateShortcuts } from './ProjEstimateShortcuts';
+import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
+import { GoToContractButton } from './navigationComponents/GoToContractButton';
 
 export default function FormProjEstimate() {
+
   const { values } = useFormikContext<TypeOfForm>();
   const { projName, customerName, projId } = values;
 
@@ -51,7 +53,9 @@ export default function FormProjEstimate() {
           />
         </Grid>
 
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12}
+          id={'summaryTable'}
+        >
           {/* 合計欄テーブル */}
           <SummaryTable />
         </Grid>
@@ -67,6 +71,14 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md={4}>
           {/* 大項目ごとの表示テーブル */}
           <SubTotalTable />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+
+        <Grid item xs={12}>
+          <GoToContractButton />
         </Grid>
 
         <FormActions />

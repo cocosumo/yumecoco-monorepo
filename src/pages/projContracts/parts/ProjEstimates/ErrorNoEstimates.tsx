@@ -1,22 +1,22 @@
 import { Alert, AlertTitle, Button } from '@mui/material';
-import { useConfirmDialog } from '../../../../hooks';
+import { useNavigate } from 'react-router-dom';
+import { generateParams } from '../../../../helpers/url';
+import { pages } from '../../../Router';
 
-export const ErrorNoEstimates = () => {
-  const { setDialogState } = useConfirmDialog();
+export const ErrorNoEstimates = ({
+  projId,
+}: {
+  projId: string
+}) => {
+
+  const navigate = useNavigate();
 
   return (
     <Alert
       severity='info'
       action={
         <Button
-          onClick={() => {
-            setDialogState({
-              open: true,
-              title: 'お詫び',
-              content: '見積もり画面はまだ作成中です。少々お待ちください',
-              withNo: false,
-            });
-          }}
+          onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projId })}`)}
           size='large'
           color="inherit"
           variant="outlined"

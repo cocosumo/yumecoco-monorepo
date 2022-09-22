@@ -76,7 +76,6 @@ export const useUpdateProjId = () => {
 
 
   useDeepCompareEffect(() => {
-    console.log('proj', projEstimateId, projId);
     if (projEstimateId ) {
 
       getProjEstimatesDataById(estimatesRec, projEstimateId)
@@ -86,8 +85,12 @@ export const useUpdateProjId = () => {
             return { ...prev, ...formData };
           });
         })
-        .catch((err: any)=>{
-          console.log(`handle error here. ${err.message}`);
+        .catch((err) => {
+          memSetSnackState({
+            open: true,
+            message: `レコード取得にエラーが発生しました。${err.message}`,
+            severity: 'error',
+          });
         })
         .finally(() => setStatusSafe(''));
     }

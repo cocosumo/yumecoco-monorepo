@@ -28,18 +28,28 @@ export const useSendElectronicContract = () => {
 
       setSnackState({
         open: true,
-        autoHideDuration: 20000,
+        autoHideDuration: 10000,
         severity: 'success',
         message: '送信が成功しました。',
       });
 
       /* 操作を有効化するため */
-      setBackdropState({ open: true });
-    } catch (err: any) {
 
+    } catch (err: any) {
+      setSnackState({
+        open: true,
+        autoHideDuration: 20000,
+        severity: 'error',
+        message: err.message,
+      });
+
+    } finally {
+      setBackdropState({ open: false });
     }
 
+  };
 
-
+  return {
+    handleSendContract,
   };
 };

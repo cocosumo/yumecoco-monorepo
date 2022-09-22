@@ -87,11 +87,11 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} handleChange={handleChangeCostPrice} />
       </TableCell>
 
-      <TableCell>
+      <TableCell align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'quantity')} />
       </TableCell>
 
@@ -102,7 +102,7 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
       </TableCell>
 

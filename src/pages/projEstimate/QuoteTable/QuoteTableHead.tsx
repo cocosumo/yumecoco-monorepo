@@ -1,5 +1,4 @@
 import { TableCell, TableHead, TableRow } from '@mui/material';
-import { materialsNameList } from '../constantDefinition';
 
 export const QuoteTableHead = () => {
   return (
@@ -7,11 +6,46 @@ export const QuoteTableHead = () => {
       <TableRow>
         <TableCell padding='none' />
 
-        {materialsNameList.map((item)=>{
-          return (<TableCell key={`${item}_header`}>
-            {item}
-          </TableCell>);
-        })}
+        <TableCell>
+          {'大項目'}
+        </TableCell>
+
+        <TableCell>
+          {'中項目'}
+        </TableCell>
+
+        <TableCell>
+          {'部材(手入力可)'}
+        </TableCell>
+
+        <TableCell align='right'>
+          {'原価*'}
+        </TableCell>
+
+        <TableCell align='right'>
+          {'数量*'}
+        </TableCell>
+
+        <TableCell>
+          {'単位'}
+        </TableCell>
+
+        <TableCell align='right'>
+          {'利益率(%)'}
+        </TableCell>
+
+        <TableCell>
+          {'税(課税 / 非課税)'}
+        </TableCell>
+
+        <TableCell align='right'>
+          {'単価'}
+        </TableCell>
+
+        <TableCell align='right'>
+          {'金額'}
+        </TableCell>
+
       </TableRow>
     </TableHead>
   );

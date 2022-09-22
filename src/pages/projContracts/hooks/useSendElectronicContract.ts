@@ -1,24 +1,29 @@
-import { useFormikContext } from 'formik';
+import { FormikContextType } from 'formik';
 import { useBackdrop, useSnackBar } from '../../../hooks';
 import { sendContract } from '../api/docusign/sendContract';
 import { TypeOfForm } from '../form';
 
-export const useSendElectronicContract = () => {
+export const useSendElectronicContract = (
+  formikContext: FormikContextType<TypeOfForm>,
+) => {
   const {
     setValues,
     values: {
       projEstimateId,
     },
-  } = useFormikContext<TypeOfForm>();
+  } = formikContext;
   const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
 
-  const handleSendContract = async () => {
+  const handleSendElectronicContract = async () => {
     try {
       /* 操作を無効化するため */
       setBackdropState({ open: true });
 
-      const { envelopeId, envelopeStatus } = await sendContract({ projEstimateId });
+      const { envelopeId, envelopeStatus } = await sendContract({
+        projEstimateId,
+        userCode: kintone.getLoginUser().code,
+      });
 
       setValues( (prev) => ({
         ...prev,
@@ -33,8 +38,6 @@ export const useSendElectronicContract = () => {
         message: '送信が成功しました。',
       });
 
-      /* 操作を有効化するため */
-
     } catch (err: any) {
       setSnackState({
         open: true,
@@ -44,12 +47,13 @@ export const useSendElectronicContract = () => {
       });
 
     } finally {
+      /* 操作を有効化するため */
       setBackdropState({ open: false });
     }
 
   };
 
   return {
-    handleSendContract,
+    handleSendElectronicContract,
   };
 };

@@ -4,19 +4,21 @@ import { yumecocoDocusign } from '../../../../config/settings';
 export const sendContract = async (
   {
     projEstimateId,
+    userCode,
   }: {
     projEstimateId: string
+    userCode: string,
   },
 ) : Promise<ISendEnvelopeResponse> => {
 
   try {
 
-    if (projEstimateId) throw new Error('Invalid Project Id.');
+    if (!projEstimateId) throw new Error('見積番号は設定されていません。');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/send/direct`;
 
     const data : ReqSendContract = {
       projEstimateId,
-      userCode: kintone.getLoginUser().code,
+      userCode,
     };
 
     const [body, status] = await kintone.proxy(

@@ -97,6 +97,8 @@ export const downloadContract = async (
   const { fileType, form  } = params;
   const { envDocFileKeys } = form;
 
+  console.log(envDocFileKeys);
+
   if ( fileType === 'xlsx' || !envDocFileKeys.length) {
     return dlFromCocoServer(params);
   } else if (fileType === 'pdf' && envDocFileKeys.length) {

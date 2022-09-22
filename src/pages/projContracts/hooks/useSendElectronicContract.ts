@@ -6,13 +6,13 @@ import { TypeOfForm } from '../form';
 /* 
   Passing Formik's context here because this hook 
   is being called inside a global context hook (useConfirmDialog) 
-  that is outside the scope the Formik&s context.
+  that is outside the scope of Formik's context.
 
-  Hopefully, new requirements will hopefully improve this spaghetty code on next iterations.
+  Hopefully, new requirements will improve this spaghetty code on next iterations.
   Should you find a way to untangle this, fill free to make a PR.
 
   ~ Ras 2022.09.22
-  
+
 */
 
 export const useSendElectronicContract = (

@@ -14,10 +14,9 @@ const dlFromCocoServer = async ({
 } :
 {
   form: TypeOfForm,
-  fileType: 'pdf' | 'xlsx',
+  fileType: ReqDownloadParams['fileType'],
 }) : Promise<string> => {
   try {
-
 
     const {
       projId,
@@ -27,7 +26,7 @@ const dlFromCocoServer = async ({
     if (!projId) throw new Error('Invalid Project Id.');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?`;
 
-    const data : TReqDownloadParams = {
+    const data : ReqDownloadParams = {
       userCode: kintone.getLoginUser().code,
       projEstimateId,
       fileType,

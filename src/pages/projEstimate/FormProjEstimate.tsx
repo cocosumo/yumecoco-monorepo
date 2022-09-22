@@ -31,6 +31,12 @@ export default function FormProjEstimate() {
           {/* 工事情報の検索 */}
           <SearchProject {...{ customerName, projId, projName }} />
         </Grid>
+        
+        <Grid item xs={12} md={5}>
+
+          {/* 見積もりの検索 */}
+          {'見積もり検索フィールドの設定'}
+        </Grid>
 
         <Grid item xs={12}>
           <Divider />

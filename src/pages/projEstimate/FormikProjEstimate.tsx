@@ -16,19 +16,25 @@ export const FormikProjEstimate = () => {
       initialStatus={((s: TFormStatus)=>s)('busy')}
       enableReinitialize
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, setValues }) => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         const { saveMode } = values;
 
         const handleSave = (actionAfterSave?: () => void) => setTimeout(() => {
           saveForm(values)
             .then(({ id: estimateId })=>{
-              setValues((prev) => ({ ...prev, estimateId }));
+
               setSnackState({
                 open: true,
                 severity: 'success',
                 message: '保存しました。',
                 handleClose: actionAfterSave,
               });
+
+              /*
+                保存が成功したら、フォームのmeta (dirtyやtouched) をリセットする。
+                これで、Formikのdirtyで保存されていない変更があるかどうか判定出来る。
+              */
+              resetForm({ values: { ...values, estimateId } });
             })
             .catch((err)=>{
               setSnackState({

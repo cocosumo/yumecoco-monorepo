@@ -80,7 +80,6 @@ export const dlFilesFromKintone = async (
       envelopeStatus,
     };
   }  catch (err) {
-    console.log(err.message);
     return {
       error: 'Download files from kintone failed. Please Contact administrator.' + err.message,
     };

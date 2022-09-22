@@ -1,52 +1,53 @@
-import { TableCell, TableHead, TableRow } from '@mui/material';
+import { TableHead, TableRow } from '@mui/material';
+import { QtHeadCell } from './QtHeadCell';
 
 export const QuoteTableHead = () => {
   return (
-    <TableHead>
+    <TableHead> 
       <TableRow>
-        <TableCell padding='none' />
+        <QtHeadCell />
 
-        <TableCell>
+        <QtHeadCell>
           {'大項目'}
-        </TableCell>
+        </QtHeadCell>
 
-        <TableCell>
+        <QtHeadCell>
           {'中項目'}
-        </TableCell>
+        </QtHeadCell>
 
-        <TableCell>
-          {'部材(手入力可)'}
-        </TableCell>
+        <QtHeadCell helperText='手入力可'>
+          {'部材'}
+        </QtHeadCell>
 
-        <TableCell align='right'>
-          {'原価*'}
-        </TableCell>
+        <QtHeadCell required rightAligned>
+          {'原価'}
+        </QtHeadCell>
 
-        <TableCell align='right'>
-          {'数量*'}
-        </TableCell>
+        <QtHeadCell required rightAligned>
+          {'数量'}
+        </QtHeadCell>
 
-        <TableCell>
+        <QtHeadCell>
           {'単位'}
-        </TableCell>
+        </QtHeadCell>
 
-        <TableCell align='right'>
+        <QtHeadCell rightAligned>
           {'利益率(%)'}
-        </TableCell>
+        </QtHeadCell>
 
-        <TableCell>
-          {'税(課税 / 非課税)'}
-        </TableCell>
+        <QtHeadCell helperText='課税 / 非課税'>
+          {'税'}
+        </QtHeadCell>
 
-        <TableCell align='right'>
+        <QtHeadCell rightAligned>
           {'単価'}
-        </TableCell>
+        </QtHeadCell>
 
-        <TableCell align='right'>
+        <QtHeadCell rightAligned>
           {'金額'}
-        </TableCell>
+        </QtHeadCell>
 
-        <TableCell padding='none' />
+        <QtHeadCell />
 
       </TableRow>
     </TableHead>

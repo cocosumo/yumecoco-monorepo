@@ -32,8 +32,8 @@ interface FormState {
 interface URLParams {
   projId?: string
   projEstimateId?: string,
-  estimateId?: string,
   custGroupId?: string,
+  menuOpen?: number,
 }
 
 type KeyOfUrlParams = keyof URLParams;

@@ -7,7 +7,9 @@ import { useSendElectronicContract } from './useSendElectronicContract';
 export const useStartContractProcess = () => {
   const formikContext = useFormikContext<TypeOfForm>();
   const { values } = formikContext;
-  const { setDialogState } = useConfirmDialog();
+  const {
+    setDialogState,
+    handleClose: handleCloseDialog } = useConfirmDialog();
   const {
     backdropState: { open },
   } = useBackdrop();
@@ -21,7 +23,10 @@ export const useStartContractProcess = () => {
       title: '契約手続きを開始',
       content: (
         <MethodChoice
-          handleSendElectronicContract={handleSendElectronicContract}
+          handleSendElectronicContract={() => {
+            handleCloseDialog();
+            handleSendElectronicContract();
+          }}
         />),
       withYes: false,
       withNo: true,

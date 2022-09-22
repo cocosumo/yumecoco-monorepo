@@ -97,14 +97,14 @@ export const QuoteTableRow = (
         <FormikInput name={getItemFieldName(rowIdx, 'quantity')} />
       </TableCell>
 
-      <TableCell width={'5%'}> 
+      <TableCell width={'8%'}> 
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'unit')}
           options={unitChoices.map((c) => ({ label: c, value: c }))}
         />
       </TableCell>
 
-      <TableCell width={'8%'} align='right'>
+      <TableCell width={'6%'} align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
       </TableCell>
 

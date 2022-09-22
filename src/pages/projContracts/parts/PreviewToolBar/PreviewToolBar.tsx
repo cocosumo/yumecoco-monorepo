@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { DownloadContract } from './DownloadContract';
 import { MenuContainer } from './PreviewMenu/MenuContainer';
-import { SendContract } from './SendContract';
+import { StartContract } from './startContract/';
 
 
 export const PreviewToolBar = ({
@@ -19,16 +19,13 @@ export const PreviewToolBar = ({
 
   const voidable = envelopeStatus === 'sent';
 
-  // console.log('loading', loading, voidable, envelopeId, projName, previewLoading);
-
   return (
     <Stack direction={'row'} spacing={2} justifyContent={'flex-end'}>
 
       {!!projId && <DownloadContract projEstimateId={projEstimateId} />}
 
       {!loading && !envelopeStatus && !envelopeId  && !voidable && !!projName && !previewLoading &&
-        <SendContract
-          projId={projId}
+        <StartContract
           isBusy={loading}
         />}
 

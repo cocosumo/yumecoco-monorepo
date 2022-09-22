@@ -19,11 +19,10 @@ const dlFromCocoServer = async ({
   try {
 
     const {
-      projId,
       projEstimateId,
     } = form;
 
-    if (!projId) throw new Error('Invalid Project Id.');
+    if (!projEstimateId) throw new Error('見積は存在していません。');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?`;
 
     const data : ReqDownloadParams = {

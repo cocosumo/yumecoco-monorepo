@@ -46,6 +46,8 @@ export const QuoteTableHead = () => {
           {'金額'}
         </TableCell>
 
+        <TableCell padding='none' />
+
       </TableRow>
     </TableHead>
   );

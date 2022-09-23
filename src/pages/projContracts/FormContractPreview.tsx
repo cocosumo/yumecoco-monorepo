@@ -11,13 +11,9 @@ import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { Preview } from './parts/Preview/Preview';
 import { ProjEstimatesField } from './parts/ProjEstimates/ProjEstimatesField';
 import { useUpdateProjId } from './hooks/useUpdateProjId';
-import { useState } from 'react';
 import { useResolveParams } from './hooks/useResolveParams';
 
 export const FormContractPreview = () => {
-
-  // State for search field's tooltip.
-  const [searchTTOpen, setSearchTTOpen] = useState(false);
 
   useResolveParams();
 
@@ -27,10 +23,6 @@ export const FormContractPreview = () => {
     isWithEstimates,
     values: { projEstimateId, projId, projName },
   } = useUpdateProjId();
-
-
-  const handleSearchTTClose = () => setSearchTTOpen(false);
-  const handleSearchTTOpen = () => setSearchTTOpen(true);
 
   return (
     <Form noValidate>
@@ -43,9 +35,6 @@ export const FormContractPreview = () => {
             label="工事情報の検索"
             name={getFieldName('projId')}
             projName={projName}
-            handleSearchTTClose={handleSearchTTClose}
-            handleSearchTTOpen={handleSearchTTOpen}
-            searchTTOpen={searchTTOpen}
           />
         </Grid>
 
@@ -56,8 +45,6 @@ export const FormContractPreview = () => {
         >
           <ProjEstimatesField
             estimatesRecord={estimatesRec}
-            handleSearchTTClose={handleSearchTTClose}
-            handleSearchTTOpen={handleSearchTTOpen}
           />
 
         </Grid>

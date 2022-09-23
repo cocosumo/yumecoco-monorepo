@@ -4,34 +4,34 @@ import { PreviewToolBar } from '../PreviewToolBar/PreviewToolBar';
 import { DocumentsSelect } from './SelectDocuments';
 import { RefreshButton } from '../PreviewToolBar/RefreshButton';
 import { PreviewContainer } from './PreviewContainer';
-import { useContractPreview } from '../../hooks/useContractPreview';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 
 
 
 export const Preview = ({
-  estimatesRec,
+  previewLoading,
+  previewUrl,
 } : {
-  estimatesRec: ProjectEstimates.SavedData[]
+  previewLoading: boolean,
+  previewUrl: string
 }) => {
   const {
     values,
-    previewLoading,
-    formLoading,
-    previewUrl,
-  } = useContractPreview(estimatesRec);
+  } = useFormikContext<TypeOfForm>();
 
   const { envelopeId, envelopeStatus, projId, projName, projEstimateId } = values;
 
   return (
     <PreviewContainer>
       <Grid item xs={6}>
-        <RefreshButton loading={formLoading} isVisible={!!projId} />
+        <RefreshButton loading={previewLoading} isVisible={!!projId} />
       </Grid>
       <Grid item xs={6}>
         <PreviewToolBar {...{
           envelopeId,
           envelopeStatus,
-          loading: formLoading,
+          loading: previewLoading,
           projId,
           projName,
           previewLoading,
@@ -43,7 +43,7 @@ export const Preview = ({
         <Divider />
       </Grid>
 
-      {!formLoading && previewUrl &&
+      {!previewLoading && previewUrl &&
       <Grid item xs={12}>
         <Paper>
           <DocumentsSelect />
@@ -51,7 +51,7 @@ export const Preview = ({
         </Paper>
       </Grid>}
 
-      {formLoading && projId &&
+      {previewLoading && projId &&
       <Grid item xs={12}>
         <Loading />
         <Typography variant="caption">
@@ -59,7 +59,7 @@ export const Preview = ({
         </Typography>
       </Grid>}
 
-      {formLoading && !projId &&
+      {previewLoading && !projId &&
       <Grid item xs={12}>
         <Typography variant="caption">
           プロジェクトを選択してください。

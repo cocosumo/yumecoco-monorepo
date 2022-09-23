@@ -25,6 +25,8 @@ export const FormContractPreview = () => {
 
   const {
     handleChangeEstimate,
+    previewUrl,
+    previewLoading,
   } = useEstimateChangeHandler();
 
   return (
@@ -59,7 +61,11 @@ export const FormContractPreview = () => {
         <ContractInfo />
 
         {/* 契約のプレビュー */}
-        {!!projEstimateId &&  <Preview estimatesRec={estimatesRec} />}
+        {!!projEstimateId &&  
+        <Preview 
+          previewUrl={previewUrl}
+          previewLoading={previewLoading}
+        />}
 
         {!projEstimateId &&
           <Grid item xs={12}>

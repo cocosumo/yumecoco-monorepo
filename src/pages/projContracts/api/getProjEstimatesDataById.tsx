@@ -1,4 +1,3 @@
-import { TypeOfForm } from '..';
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 
 export const fetchProjEstimatesById =  async (projId: string) => {
@@ -11,30 +10,3 @@ export const fetchProjEstimatesById =  async (projId: string) => {
 
   return result.records as unknown as Estimates.main.SavedData[];
 };
-
-export const getProjEstimatesDataById = async (
-  records: ProjectEstimates.SavedData[],
-  projEstimatesId: string,
-): Promise<Partial<TypeOfForm>> => {
-
-  const selectedProjEstimate = records.find(({ $id }) => $id.value === projEstimatesId );
-
-  if (!selectedProjEstimate) return {};
-
-  const { envStatus, envDocFileKeys, envId } = selectedProjEstimate;
-
-  return {
-    envelopeId: envId.value,
-    envelopeStatus: envStatus.value as TEnvelopeStatus,
-    envDocFileKeys: envDocFileKeys.value,
-    envSelectedDoc: envDocFileKeys.value[0]?.fileKey,
-  };
-};
-
-/*
-
-  envelopeId: envelopeId.value,
-    envelopeStatus: envelopeStatus.value,
-    envDocFileKeys: envDocFileKeys.value,
-    envSelectedDoc: envDocFileKeys.value[0]?.fileKey,
-*/

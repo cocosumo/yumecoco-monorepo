@@ -13,6 +13,7 @@ export const useEstimateChangeHandler = () => {
   const { 
     previewUrl, 
     previewLoading, 
+    formLoading,
     handlePreview, 
     setValues,
   } = useContractPreview();
@@ -21,6 +22,7 @@ export const useEstimateChangeHandler = () => {
     selected?: Estimates.main.SavedData,
     projEstimateId?: string,
   ) => {
+
 
     setSelectedEstimate(selected);
     setValues((prev) => {
@@ -35,7 +37,9 @@ export const useEstimateChangeHandler = () => {
         envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
       };
 
-      handlePreview(newForm);
+
+      if (projEstimateId) handlePreview(newForm);
+ 
       return newForm;
     });
   };
@@ -45,5 +49,6 @@ export const useEstimateChangeHandler = () => {
     handleChangeEstimate,
     previewUrl,
     previewLoading,
+    formLoading,
   };
 };

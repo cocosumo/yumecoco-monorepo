@@ -1,7 +1,7 @@
 import { Divider, Grid } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
-import { PageTitle } from '../../components/ui/labels';
+import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { getFieldName, statusChoices, TypeOfForm } from './form';
@@ -53,11 +53,19 @@ export default function FormProjEstimate() {
           />
         </Grid>
 
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label="合計欄"  />
+        </Grid>
+
         <Grid item xs={12} md={12}
           id={'summaryTable'}
         >
           {/* 合計欄テーブル */}
           <SummaryTable />
+        </Grid>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label="内訳"  />
         </Grid>
 
         <Grid item xs={12} md={12}>
@@ -68,7 +76,14 @@ export default function FormProjEstimate() {
           />
         </Grid>
 
-        <Grid item xs={12} md={4}>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label="大項目小計欄"  />
+        </Grid>
+        <Grid item xs={12} 
+          md={4}
+          lg={3}
+        >
           {/* 大項目ごとの表示テーブル */}
           <SubTotalTable />
         </Grid>

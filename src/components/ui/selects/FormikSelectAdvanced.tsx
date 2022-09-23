@@ -87,4 +87,4 @@ export function FormikSelectAdvanced(props : {
   );
 }
 
-export const MemoizedFormikSelect = memo(FormikSelectAdvanced);
+export const MemoizedFormikSelectAdvanced = memo(FormikSelectAdvanced);

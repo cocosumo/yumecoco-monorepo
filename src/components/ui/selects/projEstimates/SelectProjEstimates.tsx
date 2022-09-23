@@ -1,13 +1,13 @@
 import {  Button } from '@mui/material';
 import { ChangeEvent, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FormikSelectAdvanced } from '../../../../components/ui/selects/FormikSelectAdvanced';
+import { FormikSelectAdvanced } from '../FormikSelectAdvanced';
 import { generateParams } from '../../../../helpers/url';
-import { pages } from '../../../Router';
-import { useEstimateRecords } from '../../hooks/useEstimatesRecords';
+import { pages } from '../../../../pages/Router';
+import { useEstimateRecords } from '../../../../pages/projContracts/hooks/useEstimatesRecords';
 import { ItemEstimate } from './ItemEstimate';
 
-export const ProjEstimatesField = ({
+export const SelectProjEstimates = ({
   projId,
   projEstimateId,
   name = 'projEstimateId',

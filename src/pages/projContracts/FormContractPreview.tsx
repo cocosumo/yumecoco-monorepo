@@ -9,10 +9,13 @@ import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { Preview } from './parts/Preview/Preview';
-import { ProjEstimatesField } from './parts/ProjEstimates/ProjEstimatesField';
-import { useUpdateProjId } from './hooks/useUpdateProjId';
-import { useResolveParams } from './hooks/useResolveParams';
-import { useEstimateChangeHandler } from './hooks/useEstimateChangeHandler';
+import { 
+  useUpdateProjId, 
+  useResolveParams, 
+  useEstimateChangeHandler } from './hooks/';
+
+
+import { SelectProjEstimates } from '../../components/ui/selects';
 
 export const FormContractPreview = () => {
 
@@ -48,7 +51,7 @@ export const FormContractPreview = () => {
           md={8}
           lg={6}
         >
-          <ProjEstimatesField
+          <SelectProjEstimates
             projId={projId}
             projEstimateId={projEstimateId}
             handleChange={handleChangeEstimate}

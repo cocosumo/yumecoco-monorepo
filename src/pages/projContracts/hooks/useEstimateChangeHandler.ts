@@ -24,7 +24,6 @@ export const useEstimateChangeHandler = () => {
 
     setSelectedEstimate(selected);
     setValues((prev) => {
-
       const { envStatus, envDocFileKeys, envId } = selected ?? {};
 
       const newForm = {

@@ -7,7 +7,7 @@ import {  TypeOfForm } from '../form';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export const useUpdateProjId = () => {
-  const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
+  const [estimatesRec, setEstimatesRec] = useState<Estimates.main.SavedData[]>([]);
   const { setSnackState } = useSnackBar();
 
   const isWithEstimates = Boolean(estimatesRec.length);

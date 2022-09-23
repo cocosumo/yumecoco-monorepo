@@ -1,28 +1,31 @@
-import { Grid, Grow, Button, Box } from '@mui/material';
+import {  Grow, Button, Box } from '@mui/material';
+import { useFormikContext } from 'formik';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../../../../components/ui/selects/FormikSelectAdvanced';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../Router';
-import { getFieldName } from '../../form';
+import { getFieldName, TypeOfForm } from '../../form';
 import { ErrorNoEstimates } from './ErrorNoEstimates';
 import { ErrorNoProjSelected } from './ErrorNoProjSelected';
 import { ItemEstimate } from './ItemEstimate';
 
 export const ProjEstimatesField = ({
-  projId,
-  projEstimateId,
-  status,
   estimatesRecord,
-  handleSearchTTClose, handleSearchTTOpen,
+  handleSearchTTClose, 
+  handleSearchTTOpen,
 }: {
-  projId: string,
-  status: TFormStatus,
-  projEstimateId: string,
-  estimatesRecord: ProjectEstimates.SavedData[],
+  estimatesRecord: Estimates.main.SavedData[],
   handleSearchTTOpen: () => void,
   handleSearchTTClose: () => void
 }) => {
+
+  const { 
+    values: {
+      projId, projEstimateId,
+    },
+    status,
+  } = useFormikContext<TypeOfForm>();
 
   const navigate = useNavigate();
 
@@ -50,11 +53,14 @@ export const ProjEstimatesField = ({
   [projId]);
 
   const actualOptions: OptionNode[] = estimatesRecord.map<OptionNode>((rec)=>{
-    const { contractPrice, $id, 作成日時 } = rec;
+    const { $id } = rec;
     return {
       value: $id.value,
       key: $id.value,
-      component: <ItemEstimate contractPrice={contractPrice.value} dateCreated={作成日時.value} id={$id.value} />,
+      component: (
+        <ItemEstimate 
+          estimateRecord={rec}
+        />),
     };
   });
 
@@ -64,16 +70,16 @@ export const ProjEstimatesField = ({
 
   return (
 
-    <Grid item xs={12} md={8} >
+    
 
 
-      <Grow in={true} timeout={1000} mountOnEnter
-        unmountOnExit
-      >
-        <Box sx={{ position: 'relative', top: 0 }}>
+    <Grow in={true} timeout={1000} mountOnEnter
+      unmountOnExit
+    >
+      <Box sx={{ position: 'relative', top: 0 }}>
 
-          {/* 工事名が選択されている場合 */}
-          {isWithProjIdWithEstimates &&
+        {/* 工事名が選択されている場合 */}
+        {isWithProjIdWithEstimates &&
           <FormikSelectAdvanced
             label='見積もりリスト'
             name={getFieldName('projEstimateId')}
@@ -81,12 +87,12 @@ export const ProjEstimatesField = ({
             options={[emptyOption, ...actualOptions, registerNewOption  ]}
           />}
 
-          {/* 工事名が選択されているが、見積もりがない場合 */}
-          {isWithProjIdNoEstimates &&
+        {/* 工事名が選択されているが、見積もりがない場合 */}
+        {isWithProjIdNoEstimates &&
           <ErrorNoEstimates projId={projId} />}
 
-          {/* 工事名が選択されていない場合 */}
-          {!isWithProjId &&
+        {/* 工事名が選択されていない場合 */}
+        {!isWithProjId &&
           <ErrorNoProjSelected
             isWithProjId={isWithProjId}
             handleSearchTTOpen={handleSearchTTOpen}
@@ -94,9 +100,9 @@ export const ProjEstimatesField = ({
           />}
 
 
-        </Box>
-      </Grow>
+      </Box>
+    </Grow>
 
-    </Grid>
+   
   );
 };

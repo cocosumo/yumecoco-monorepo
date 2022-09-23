@@ -50,15 +50,18 @@ export const FormContractPreview = () => {
         </Grid>
 
         {/* 見積もり選択フィールド */}
+        <Grid item xs={12} 
+          md={8}
+          lg={6}
+        >
+          <ProjEstimatesField
+            estimatesRecord={estimatesRec}
+            handleSearchTTClose={handleSearchTTClose}
+            handleSearchTTOpen={handleSearchTTOpen}
+          />
 
-        <ProjEstimatesField
-          projId={projId}
-          projEstimateId={projEstimateId}
-          estimatesRecord={estimatesRec}
-          status={formStatus}
-          handleSearchTTClose={handleSearchTTClose}
-          handleSearchTTOpen={handleSearchTTOpen}
-        />
+        </Grid>
+  
 
         {/* 契約内容 */}
         <ContractInfo />

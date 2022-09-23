@@ -1,54 +1,73 @@
-import { Divider, Stack, Typography } from '@mui/material';
-import { numerals } from 'jp-numerals';
+import { Chip, Stack, Typography } from '@mui/material';
 
-import { ComponentProps } from 'react';
-import { dateStrToJA } from '../../../../helpers/utils';
-import { isNumber } from 'lodash';
+import { format, parseISO } from 'date-fns';
+
+const LabeledInfo = ({
+  label,
+  info,
+  align = 'left',
+  widthRatio,
+} : {
+  label: string,
+  info: string,
+  align?: 'left' | 'right'
+  widthRatio: number
+}) => {
+  return (
+    <Stack direction={'column'} width={`${widthRatio}%`}>
+      <Typography textAlign={align} variant="caption">
+        {label}
+      </Typography>
+      <Typography textAlign={align} variant="body1">
+        {`${info}`}
+      </Typography>
+    </Stack>
+  );
+};
+
 
 export const ItemEstimate = ({
-  dateCreated,
-  contractPrice,
-  id,
+  estimateRecord,
 }: {
-  dateCreated: string,
-  contractPrice: string,
-  id: string,
+  estimateRecord: Estimates.main.SavedData
 }) => {
 
-  /**
-   * [label, info, unit?][]
-   */
-  const contents = [
-    ['作成日', dateStrToJA(dateCreated)],
-    ['契約金額', `${contractPrice}`, '円'],
-    ['番号', id],
-  ];
+  const {
+    $id: id,
+    作成日時: dateCreated, 
+    contractPrice,
+    estimateStatus,
+    envStatus,
+  } = estimateRecord;
+
   return (
     <Stack width={'100%'} direction={'row'} spacing={2}
-      alignItems="center" justifyContent="space-around" divider={<Divider orientation="vertical" flexItem />}
+      alignItems="center" justifyContent="space-around" 
     >
-      {
-      contents.map(([label, info, unit])=>{
-        const isInfoNum = isNumber(info);
-        const align: ComponentProps<typeof Typography>['textAlign']  = isInfoNum ? 'right' : 'left';
-        let normInfo = info;
+      
+      <Stack width={'40%'} spacing={1} direction={'row'}>
+        <Chip label={estimateStatus.value} color={'info'} size={'small'} />
+        {!!envStatus.value &&
+          <Chip label={'契約'} color={'success'} size={'small'} />}
+        
+      </Stack>
 
-        if (unit === '円' && isInfoNum) {
-          normInfo = numerals(+info).toString();
-        }
-
-        return (
-          <Stack direction={'column'} key={label} width={'33%'}>
-            <Typography textAlign={align} variant="caption">
-              {label}
-            </Typography>
-            <Typography textAlign={align} variant="body1">
-              {`${normInfo}${unit ?? ''}`}
-            </Typography>
-          </Stack>
-        );
-      })
-      }
+      <LabeledInfo
+        label='番号'
+        info={id.value}
+        widthRatio={10}
+      />
+      <LabeledInfo
+        label='作成日'
+        info={format(parseISO(dateCreated.value), 'yy/MM/dd')}
+        widthRatio={20}
+      />
+      <LabeledInfo
+        label='契約金額'
+        info={`${(+contractPrice.value).toLocaleString() || 0} 円`}
+        widthRatio={30}
+        align={'right'}
+      />
 
     </Stack>
   );

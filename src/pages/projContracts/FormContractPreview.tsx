@@ -59,7 +59,7 @@ export const FormContractPreview = () => {
         <ContractInfo />
 
         {/* 契約のプレビュー */}
-        {!!projEstimateId &&  <Preview />}
+        {!!projEstimateId &&  <Preview estimatesRec={estimatesRec} />}
 
         {!projEstimateId &&
           <Grid item xs={12}>

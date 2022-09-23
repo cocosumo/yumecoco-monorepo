@@ -54,31 +54,6 @@ export const useUpdateProjId = () => {
   },
   [projId, setStatusSafe, setValues, memSetSnackState ]);
 
-
-
-  /*   useDeepCompareEffect(() => {
-    if (projEstimateId ) {
-
-      getProjEstimatesDataById(estimatesRec, projEstimateId)
-        .then((formData) => {
-
-          setValues((prev) => {
-            return { ...prev, ...formData };
-          });
-        })
-        .catch((err) => {
-          memSetSnackState({
-            open: true,
-            message: `レコード取得にエラーが発生しました。${err.message}`,
-            severity: 'error',
-          });
-        })
-        .finally(() => setStatusSafe(''));
-    }
-  },
- 
-  [projEstimateId, ]); */
-
   return {
     formStatus,
     values,

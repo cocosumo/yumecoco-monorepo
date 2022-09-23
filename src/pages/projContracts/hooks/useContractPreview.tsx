@@ -1,14 +1,15 @@
 import { useFormikContext } from 'formik';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { base64ToBlob } from '../../../lib';
 import { downloadContract } from '../api/docusign/downloadContract';
+import { getProjEstimatesDataById } from '../api/getProjEstimatesDataById';
 import { TypeOfForm } from '../form';
-
+import useDeepCompareEffect from 'use-deep-compare-effect';
 /**
  * Hook for generating preview url.
  * This also wraps some of useFormikContext's props.
- *
+ * @param {ProjectEstimates.SavedData[]}
  * @return {Object} result
  * @return {string} previewUrl - The URL of the preview.
  * @return {TFormStatus} result.formStatus - wraps Formik's status to a safer type.
@@ -16,8 +17,8 @@ import { TypeOfForm } from '../form';
  * @return {boolean} result.previewLoading - whether preview is still loading
  * @return {boolean} result.formLoading - whether form is busy.
  */
-export const useContractPreview = () => {
-  const { values, status } = useFormikContext<TypeOfForm>();
+export const useContractPreview = (estimatesRec: ProjectEstimates.SavedData[]) => {
+  const { values, status, setValues } = useFormikContext<TypeOfForm>();
   const {
     projEstimateId,
   } = values;
@@ -28,12 +29,12 @@ export const useContractPreview = () => {
   const formStatus: TFormStatus = status;
   const formLoading = formStatus === 'busy' || previewLoading;
 
-  const handlePreview = async () => {
+  const handlePreview = async (newForm: TypeOfForm) => {
     try {
       setPreviewLoading(true);
 
       const res = await downloadContract({
-        form: values,
+        form: newForm,
         fileType: 'pdf',
       });
 
@@ -64,13 +65,34 @@ export const useContractPreview = () => {
 
   };
 
-  useEffect(()=>{
+  useDeepCompareEffect(()=>{
 
-    if (projEstimateId) {
-      handlePreview();
+    if (
+      projEstimateId
+      && formStatus !== 'busy'
+      && estimatesRec.length
+    ) {
+
+      getProjEstimatesDataById(estimatesRec, projEstimateId)
+        .then((formData) => {
+
+          /* 見積もりのものをフォームに格納 */
+          setValues((prev) => {
+            const newFormState = { ...prev, ...formData };
+            handlePreview(newFormState);
+            return newFormState;
+          });
+        })
+        .catch((err) => {
+          setSnackState({
+            open: true,
+            message: `レコード取得にエラーが発生しました。${err.message}`,
+            severity: 'error',
+          });
+        });
     }
 
-  }, [projEstimateId]);
+  }, [projEstimateId, estimatesRec]);
 
   return {
     formStatus,

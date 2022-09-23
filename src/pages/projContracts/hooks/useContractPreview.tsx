@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { base64ToBlob } from '../../../lib';
 import { downloadContract } from '../api/docusign/downloadContract';
@@ -18,11 +18,12 @@ export const useContractPreview = () => {
   const { values, status, setValues } = useFormikContext<TypeOfForm>();
 
   const [previewUrl, setPreviewUrl] = useState('');
-  const [previewLoading, setPreviewLoading] = useState(true);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const { setSnackState } = useSnackBar();
 
   const formStatus: TFormStatus = status;
   const formLoading = formStatus === 'busy' || previewLoading;
+  const { projEstimateId, projId } = values;
 
   const handlePreview = async (newForm: TypeOfForm) => {
     try {
@@ -59,6 +60,12 @@ export const useContractPreview = () => {
     }
 
   };
+
+  useEffect(() =>{
+    if (!projId || !projEstimateId) {
+      setPreviewUrl('');
+    }
+  }, [projId, projEstimateId]);
 
 
   return {

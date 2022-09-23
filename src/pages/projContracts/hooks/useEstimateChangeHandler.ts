@@ -19,6 +19,7 @@ export const useEstimateChangeHandler = () => {
 
   const handleChangeEstimate = (
     selected?: Estimates.main.SavedData,
+    projEstimateId?: string,
   ) => {
 
     setSelectedEstimate(selected);
@@ -28,6 +29,7 @@ export const useEstimateChangeHandler = () => {
 
       const newForm = {
         ...prev,
+        projEstimateId: projEstimateId ?? '',
         envelopeId: envId?.value ?? '',
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
         envDocFileKeys: envDocFileKeys?.value ?? [],

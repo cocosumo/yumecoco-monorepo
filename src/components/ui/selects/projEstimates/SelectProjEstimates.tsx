@@ -12,10 +12,12 @@ export const SelectProjEstimates = ({
   projEstimateId,
   name = 'projEstimateId',
   handleChange,
+  disabled = false, 
 }: {
   projId: string,
   projEstimateId: string,
   name?: string
+  disabled?: boolean
   /** Can pass an optional handleChange
    * to capture selected 見積 and projEstimateId to process it.
    */
@@ -67,6 +69,7 @@ export const SelectProjEstimates = ({
 
   /* 選択された見積レコードと番号をhandleChangeに渡す。 */
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+
     handleChange?.(
       projEstimateRecords
         .find(({ $id }) => $id.value === e.target.value),
@@ -74,16 +77,18 @@ export const SelectProjEstimates = ({
     );
   };
   
+  const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
 
   return (
 
     <FormikSelectAdvanced
-      disabled={!projId || !projEstimateRecords.length}
-      label='見積もりリスト'
+      disabled={disabled || !projId || !projEstimateRecords.length}
+      label='見積選択'
       name={name}
       onChange={onChange}
-      selectedValue={projEstimateId}
-      options={[emptyOption, ...actualOptions, registerNewOption  ]}
+      selectedValue={projId ? projEstimateId : ''}
+      options={options}
+      helperText={projId ? '' : '工事を選択してください'}
     />
    
   );

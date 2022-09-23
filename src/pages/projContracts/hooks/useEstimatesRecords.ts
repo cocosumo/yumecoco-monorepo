@@ -12,7 +12,7 @@ export const useEstimateRecords = (projId: string) => {
   );
 
   return {
-    projEstimateRecords: data,
+    projEstimateRecords: projId ? data : [],
     loading,
   };
 };

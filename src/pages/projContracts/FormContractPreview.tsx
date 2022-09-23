@@ -55,6 +55,7 @@ export const FormContractPreview = () => {
             projId={projId}
             projEstimateId={projEstimateId}
             handleChange={handleChangeEstimate}
+            disabled={previewLoading}
           />
 
         </Grid>

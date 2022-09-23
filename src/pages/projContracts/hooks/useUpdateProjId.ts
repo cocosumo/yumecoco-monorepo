@@ -11,7 +11,6 @@ export const useUpdateProjId = () => {
     values,
     setValues,
     setStatus,
-    resetForm,
     status,
   } = useFormikContext<TypeOfForm>();
 
@@ -50,11 +49,10 @@ export const useUpdateProjId = () => {
         .finally(() => setStatusSafe(''));
 
     } else {
-      resetForm();
       setStatusSafe('');
     }
   },
-  [projId, resetForm, setStatusSafe, setValues, memSetSnackState ]);
+  [projId,  setStatusSafe, setValues, memSetSnackState ]);
 
   return {
     formStatus,

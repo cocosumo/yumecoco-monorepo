@@ -1,6 +1,7 @@
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
+import { APPIDS, KintoneRecord } from '../config';
 
-export const fetchProjEstimatesById =  async (projId: string) => {
+
+export const fetchEstimatesByProjId =  async (projId: string) => {
   if (!projId) throw new Error('Invalid project id.');
 
   const result = await KintoneRecord.getRecords({

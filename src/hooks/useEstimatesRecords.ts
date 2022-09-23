@@ -1,12 +1,12 @@
-import { usePromiseWithNotify } from '../../../hooks/usePromiseWithNotify';
-import { fetchProjEstimatesById } from '../api/getProjEstimatesDataById';
+import { fetchEstimatesByProjId } from './../api/kintone/estimates/GET';
+import { usePromiseWithNotify } from './usePromiseWithNotify';
 
 
 export const useEstimateRecords = (projId: string) => {
 
   const { data, loading } = usePromiseWithNotify<Estimates.main.SavedData[]>(
     {
-      promiseFunc: projId ? () => fetchProjEstimatesById(projId) : null,
+      promiseFunc: projId ? () => fetchEstimatesByProjId(projId) : null,
       initialValue: [],
     },
   );

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../FormikSelectAdvanced';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../../pages/Router';
-import { useEstimateRecords } from '../../../../pages/projContracts/hooks/useEstimatesRecords';
+import { useEstimateRecords } from '../../../../hooks/';
 import { ItemEstimate } from './ItemEstimate';
 
 export const SelectProjEstimates = ({

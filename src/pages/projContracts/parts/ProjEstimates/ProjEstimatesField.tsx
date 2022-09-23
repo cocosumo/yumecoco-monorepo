@@ -1,28 +1,28 @@
-import {  Button, Box } from '@mui/material';
-import { useFormikContext } from 'formik';
+import {  Button } from '@mui/material';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../../../../components/ui/selects/FormikSelectAdvanced';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../Router';
-import { getFieldName, TypeOfForm } from '../../form';
+import { useEstimateRecords } from '../../hooks/useEstimatesRecords';
 import { ItemEstimate } from './ItemEstimate';
 
 export const ProjEstimatesField = ({
-  estimatesRecord,
+  projId,
+  projEstimateId,
+  name = 'projEstimateId',
 }: {
-  estimatesRecord: Estimates.main.SavedData[],
+  projId: string,
+  projEstimateId: string,
+  name?: string
 }) => {
 
-  const { 
-    values: {
-      projId, projEstimateId,
-    },
-    status,
-  } = useFormikContext<TypeOfForm>();
+  const {
+    projEstimateRecords,
+  } = useEstimateRecords(projId);
+
 
   const navigate = useNavigate();
-
 
   const emptyOption: OptionNode = useMemo(() =>  ({
     value: '',
@@ -35,7 +35,7 @@ export const ProjEstimatesField = ({
     key: 'new',
     component: (
       <Button
-        onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projId })}`)}
+        onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projId, projEstimateId })}`)}
         variant="text" color={'inherit'}
         fullWidth disableRipple
       >
@@ -46,7 +46,7 @@ export const ProjEstimatesField = ({
   /** navigateは依存配列として不安定 */
   [projId]);
 
-  const actualOptions: OptionNode[] = estimatesRecord.map<OptionNode>((rec)=>{
+  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec)=>{
     const { $id } = rec;
     return {
       value: $id.value,
@@ -58,15 +58,12 @@ export const ProjEstimatesField = ({
     };
   });
 
-  const isWithProjId = !!projId && status === '';
-  const isWithProjIdNoEstimates = isWithProjId && !estimatesRecord.length;
-
   return (
 
     <FormikSelectAdvanced
-      disabled={!isWithProjId || isWithProjIdNoEstimates}
+      disabled={!projId || !projEstimateRecords.length}
       label='見積もりリスト'
-      name={getFieldName('projEstimateId')}
+      name={name}
       selectedValue={projEstimateId}
       options={[emptyOption, ...actualOptions, registerNewOption  ]}
     />

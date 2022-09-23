@@ -18,9 +18,7 @@ export const FormContractPreview = () => {
   useResolveParams();
 
   const {
-    estimatesRec,
     formStatus,
-    isWithEstimates,
     values: { projEstimateId, projId, projName },
   } = useUpdateProjId();
 
@@ -44,7 +42,8 @@ export const FormContractPreview = () => {
           lg={6}
         >
           <ProjEstimatesField
-            estimatesRecord={estimatesRec}
+            projId={projId}
+            projEstimateId={projEstimateId}
           />
 
         </Grid>
@@ -56,7 +55,7 @@ export const FormContractPreview = () => {
         {/* 契約のプレビュー */}
         {!!projEstimateId &&  <Preview />}
 
-        {!projEstimateId && !!projId && isWithEstimates &&
+        {!projEstimateId &&
           <Grid item xs={12}>
             <EmptyBox>
               見積を選択してください。

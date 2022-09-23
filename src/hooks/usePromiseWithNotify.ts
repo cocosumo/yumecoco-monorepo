@@ -5,7 +5,7 @@ import { useSnackBar } from './useSnackBar';
  * Just like usePromise, but displays a snackbar based on settings.
  * 
  * @param param0 The parameters names should be self-explanatory.
- * @returns {object} Contains, data, loading state, and error string. 
+ * @returns {object} Contains data, loading state, and error string. 
  */
 export const usePromiseWithNotify : <T>(param: {
   promiseFunc: (() => Promise<any>) | null, 
@@ -29,7 +29,7 @@ export const usePromiseWithNotify : <T>(param: {
   const { setSnackState } = useSnackBar();
 
   useEffect(()=> {
-    
+
     if (!promiseFunc) return;
 
     promiseFunc()

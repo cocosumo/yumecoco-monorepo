@@ -17,7 +17,7 @@ export const SelectProjEstimates = ({
   projEstimateId: string,
   name?: string
   /** Can pass an optional handleChange
-   * to capture selected 見積 and projEstimateId and process it.
+   * to capture selected 見積 and projEstimateId to process it.
    */
   handleChange?: ( 
     selected?: Estimates.main.SavedData, 
@@ -65,6 +65,7 @@ export const SelectProjEstimates = ({
     };
   });
 
+  /* 選択された見積レコードと番号をhandleChangeに渡す。 */
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     handleChange?.(
       projEstimateRecords

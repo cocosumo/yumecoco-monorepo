@@ -12,6 +12,7 @@ import { Preview } from './parts/Preview/Preview';
 import { ProjEstimatesField } from './parts/ProjEstimates/ProjEstimatesField';
 import { useUpdateProjId } from './hooks/useUpdateProjId';
 import { useResolveParams } from './hooks/useResolveParams';
+import { useEstimateChangeHandler } from './hooks/useEstimateChangeHandler';
 
 export const FormContractPreview = () => {
 
@@ -21,6 +22,10 @@ export const FormContractPreview = () => {
     formStatus,
     values: { projEstimateId, projId, projName },
   } = useUpdateProjId();
+
+  const {
+    handleChangeEstimate,
+  } = useEstimateChangeHandler();
 
   return (
     <Form noValidate>
@@ -44,6 +49,7 @@ export const FormContractPreview = () => {
           <ProjEstimatesField
             projId={projId}
             projEstimateId={projEstimateId}
+            handleChange={handleChangeEstimate}
           />
 
         </Grid>

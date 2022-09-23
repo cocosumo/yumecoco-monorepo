@@ -1,5 +1,5 @@
 import {  Button } from '@mui/material';
-import { useMemo } from 'react';
+import { ChangeEvent, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../../../../components/ui/selects/FormikSelectAdvanced';
 import { generateParams } from '../../../../helpers/url';
@@ -11,10 +11,17 @@ export const ProjEstimatesField = ({
   projId,
   projEstimateId,
   name = 'projEstimateId',
+  handleChange,
 }: {
   projId: string,
   projEstimateId: string,
   name?: string
+  /** Can pass an optional handleChange
+   * to capture selected 見積 and projEstimateId and process it.
+   */
+  handleChange?: ( 
+    selected?: Estimates.main.SavedData, 
+    projEstimateId?: string) => void
 }) => {
 
   const {
@@ -58,12 +65,22 @@ export const ProjEstimatesField = ({
     };
   });
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChange?.(
+      projEstimateRecords
+        .find(({ $id }) => $id.value === e.target.value),
+      e.target.value,
+    );
+  };
+  
+
   return (
 
     <FormikSelectAdvanced
       disabled={!projId || !projEstimateRecords.length}
       label='見積もりリスト'
       name={name}
+      onChange={onChange}
       selectedValue={projEstimateId}
       options={[emptyOption, ...actualOptions, registerNewOption  ]}
     />

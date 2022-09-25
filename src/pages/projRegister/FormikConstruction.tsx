@@ -11,6 +11,7 @@ import { pages } from '../Router';
 import {  useSnackBar } from '../../hooks';
 import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
+import { generateParams } from '../../helpers/url';
 
 
 
@@ -41,7 +42,9 @@ export const FormikConstruction  = () => {
               noText: '閉じる',
             });
 
-            navigate(`${pages.projEdit}?projId=${resp.id}`);
+            navigate(`${pages.projEdit}?${generateParams({
+              projId: resp.id,
+            })}`);
           });
       }}
     >

@@ -24,9 +24,7 @@ export const DTProjects = (props: {
                 >
                   <ProjectDetails projectDetailsData={projectDetailsData} />
                 
-                  <div>
-                    Hello
-                  </div>
+                  <div />
                 </Stack>
               </Card>
             </Stack>

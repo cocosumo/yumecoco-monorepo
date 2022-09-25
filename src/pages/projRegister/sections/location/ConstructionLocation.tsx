@@ -27,7 +27,6 @@ export const ConstructionLocation = () => {
 
   const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
     const postal = e.target.value;
-    console.log(postal, address1);
 
     if (postal && !address1) {
       getAddressByPostal(postal)

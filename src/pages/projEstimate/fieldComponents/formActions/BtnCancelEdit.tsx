@@ -52,7 +52,7 @@ export const BtnCancelEdit = () => {
       <Collapse in={showText} orientation={'horizontal'}
         mountOnEnter unmountOnExit
       >
-        <Box ml={1} width={'80px'}>
+        <Box ml={1} width={'90px'}>
           編集をやめる
         </Box>
       </Collapse>

@@ -11,31 +11,30 @@ export const ProjectShortCuts = () => {
 
   return (
     <Shortcuts
-    shortcuts={[
-      {
-        type: 'custGroup',
-        handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({
-          ...getParams(),
-          projId: recordId,
-          custGroupId: custGroupId,
-        })}`),
-      },
-      {
-        type: 'prospect',
-        handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({
-          ...getParams(),
-          projId: recordId,
-        })}`),
-      },
-      {
-        type: 'contract',
-        handleClick: ()=>navigate(`${pages.projContractPreview}?${generateParams({
-          ...getParams(),
-          projId: recordId,
-        })}`),
+      shortcuts={[
+        {
+          type: 'custGroup',
+          handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({
+            ...getParams(),
+            projId: recordId,
+            custGroupId: custGroupId,
+          })}`),
+        },
+        {
+          type: 'prospect',
+          handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({
+            ...getParams(),
+            projId: recordId,
+          })}`),
+        },
+        {
+          type: 'contract',
+          handleClick: ()=>navigate(`${pages.projContractPreview}?${generateParams({
+            ...getParams(),
+            projId: recordId,
+          })}`),
 
-      },
-    ]}
-
-  />);
+        },
+      ]}
+    />);
 };

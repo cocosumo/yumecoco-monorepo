@@ -42,29 +42,34 @@ export const ConstructionLocation = () => {
 
   return (
     <>
-      <PageSubTitle label="工事場所情報"/>
-      { !isReadOnly && <ConstructionSearch disabled={!custGroupId}/>}
+      <PageSubTitle label="工事場所情報" />
+      { !isReadOnly && <ConstructionSearch disabled={!custGroupId} />}
 
       <Grid item xs={12} md={3}>
         <FormikTextField
-        name="postal"
-        label="郵便番号"
-        placeholder='442-0888'
-        disabled={isReadOnly}
-        inputComponent={TextMaskPostal}
-        onChange={handleGenerateAddress}
-        shrink={true}
-        required/>
+          name="postal"
+          label="郵便番号"
+          placeholder='442-0888'
+          disabled={isReadOnly}
+          inputComponent={TextMaskPostal}
+          onChange={handleGenerateAddress}
+          shrink={true}
+          required 
+        />
       </Grid>
 
-      <Grid item md={9}/>
+      <Grid item md={9} />
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address1" label="住所" disabled={isReadOnly} required/>
+        <FormikTextField name="address1" label="住所" disabled={isReadOnly}
+          required
+        />
       </Grid>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address2" label="住所（番地以降）" disabled={isReadOnly}  required/>
+        <FormikTextField name="address2" label="住所（番地以降）" disabled={isReadOnly}
+          required
+        />
       </Grid>
 
 
@@ -81,7 +86,7 @@ export const ConstructionLocation = () => {
 
 
       <Grid item xs={12} md={8}>
-        <BuildingType disabled={isReadOnly}/>
+        <BuildingType disabled={isReadOnly} />
       </Grid>
 
 

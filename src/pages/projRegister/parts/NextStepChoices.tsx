@@ -23,8 +23,8 @@ export const NextStepChoices = ({ recordId }: {
 
       </Button>
       <Button
-      variant='outlined'
-      fullWidth
+        variant='outlined'
+        fullWidth
         onClick={()=>{
           handleClose();
           navigate(`${pages.projContractPreview}?projId=${recordId}`);

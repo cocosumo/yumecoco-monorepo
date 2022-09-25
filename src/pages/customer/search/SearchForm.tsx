@@ -13,8 +13,8 @@ export const SearchForm = ({
     <Form noValidate>
       <MainContainer>
         <PageTitle label="顧客検索" color="#FFCB92" textColor='#333333' />
-        <Fields/>
-        <TableResult rows={rows}/>
+        <Fields />
+        <TableResult rows={rows} />
       </MainContainer>
 
     </Form>

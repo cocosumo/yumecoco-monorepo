@@ -22,9 +22,8 @@ export const FormikConstruction  = () => {
   const { setSnackState } = useSnackBar();
 
   return (
-    <>
-      <Formik
-      initialStatus={ ((s: TFormStatus)=> s)('busy')}
+    <Formik
+      initialStatus={((s: TFormStatus)=> s)('busy')}
       validateOnMount
       //enableReinitialize
       initialValues={initialValues}
@@ -46,9 +45,8 @@ export const FormikConstruction  = () => {
           });
       }}
     >
-        <FormConstruction />
+      <FormConstruction />
 
-      </Formik>
-    </>
+    </Formik>
   );
 };

@@ -47,9 +47,14 @@ export const StatusButton = (
     setDialogState({
       title: '操作確認',
       content: (
-        <>ステースは本当に
-          <Typography component="span" fontWeight={'bold'} color="red" fontSize={'2rem'}>
-            「{statusType}」
+        <>
+          ステースは本当に
+          <Typography component="span" fontWeight={'bold'} color="red"
+            fontSize={'2rem'}
+          >
+            「
+            {statusType}
+            」
           </Typography>
           にしますか
         </>
@@ -64,11 +69,13 @@ export const StatusButton = (
   };
 
 
-  return <Button
+  return (<Button
     variant={hasMatchStatus ? 'contained' : 'outlined'}
     color={'error'}
     onClick={handleStatusClick}
-  >{children}</Button>;
+          >
+    {children}
+  </Button>);
 };
 
 const StatusButtons = () => {
@@ -78,7 +85,9 @@ const StatusButtons = () => {
     <Stack direction={'row'} spacing={2} mt={2}>
       {statuses.map((s) => {
         return (
-          <StatusButton key={s} statusType={s}>{s}</StatusButton>
+          <StatusButton key={s} statusType={s}>
+            {s}
+          </StatusButton>
         );
       })}
     </Stack>

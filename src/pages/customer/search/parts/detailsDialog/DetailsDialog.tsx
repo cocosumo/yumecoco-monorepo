@@ -40,19 +40,28 @@ export const DetailsDialog = (props : {
     >
       <DialogTitle>
         <Stack spacing={2} direction="row" justifyContent={'space-between'}>
-          <Typography variant='h6' >詳細</Typography>
-          <FormLabel sx={{ ml: 2 }}>id: {custGroupId}</FormLabel>
+          <Typography variant='h6' >
+            詳細
+          </Typography>
+          <FormLabel sx={{ ml: 2 }}>
+            id:
+            {' '}
+            {custGroupId}
+          </FormLabel>
 
         </Stack>
       </DialogTitle>
 
       <DialogContent sx={{
         scrollbarGutter: 'stable',
-      }}>
-        <DetailsTabs custGroupId={custGroupId}/>
+      }}
+      >
+        <DetailsTabs custGroupId={custGroupId} />
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" onClick={handleClose}>閉じる</Button>
+        <Button variant="outlined" onClick={handleClose}>
+          閉じる
+        </Button>
       </DialogActions>
 
     </Dialog>

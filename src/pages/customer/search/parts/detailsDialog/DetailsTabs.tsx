@@ -1,6 +1,6 @@
 
 import { Box, Tab,  Skeleton  } from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
+import {  TabList, TabPanel } from '@mui/lab';
 import { DTCustomer } from './DTCustomer';
 import { DTProject } from './DTProject';
 import { useState, useEffect, SyntheticEvent } from 'react';
@@ -9,6 +9,7 @@ import { ButtonEdit } from './ButtonEdit';
 import { getConstRecordByIds } from '../../../../../api/kintone/construction/GET';
 import { pages } from '../../../../Router';
 import { generateParams } from '../../../../../helpers/url';
+import { TabContextContainer } from './TabContextContainer';
 
 export function DetailsTabs(props : {
   custGroupId?: string,
@@ -32,7 +33,6 @@ export function DetailsTabs(props : {
       getConstRecordByIds(
         projectIds,
       ).then(result => {
-        console.log('triggered');
         setFetchedProjects(result.records as unknown as ProjectDetails.SavedData[]);
       });
     }
@@ -43,7 +43,6 @@ export function DetailsTabs(props : {
       setLoading(true);
       getCustGroup(custGroupId)
         .then(resp => {
-          console.log('triggered!');
           setLoading(false);
           setRecord(resp);
         });
@@ -53,35 +52,34 @@ export function DetailsTabs(props : {
   const isWithProject = Boolean(record?.projects.value
     .filter(item=>item.value.constructionId.value)
     .length);
-
-  console.log(isWithProject, record?.projects.value);
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext  value={tabValue}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <TabList variant='fullWidth' onChange={handleChange} >
-            <Tab label="顧客情報" value="1" />
-            <Tab label="工事情報" value="2" disabled={!isWithProject} />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <DTCustomer {...{ record, loading }} />
-          <ButtonEdit link={`${pages.custGroupEdit}?${generateParams({
-            custGroupId,
-          })}`}/>
-        </TabPanel>
-        <TabPanel value="2">
-          {
+    <TabContextContainer tabValue={tabValue}>
+
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <TabList variant='fullWidth' onChange={handleChange} >
+          <Tab label="顧客情報" value="1" />
+          <Tab label="工事情報" value="2" disabled={!isWithProject} />
+        </TabList>
+      </Box>
+      <TabPanel value="1">
+        <DTCustomer {...{ record, loading }} />
+        <ButtonEdit link={`${pages.custGroupEdit}?${generateParams({
+          custGroupId,
+        })}`}
+        />
+      </TabPanel>
+      <TabPanel value="2">
+        {
             fetchedProjects &&
             <DTProject fetchedProjects={fetchedProjects} />
           }
 
-          {
+        {
             !fetchedProjects &&
-            <Skeleton variant="rectangular" width={210} height={118}/>
+            <Skeleton variant="rectangular" width={210} height={118} />
           }
-        </TabPanel>
-      </TabContext>
-    </Box>
+      </TabPanel>
+    </TabContextContainer>
+
   );
 }

@@ -30,6 +30,7 @@ const getTooltipTitle = (type: ShortCutType) => {
     case 'custGroup': return '顧客編集';
     case 'prospect' : return '見込み管理';
     case 'contract' : return '契約';
+    case 'estimate' : return '見積登録';
     default : return <AutorenewIcon />;
   }
 };

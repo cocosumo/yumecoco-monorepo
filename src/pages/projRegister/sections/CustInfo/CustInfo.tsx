@@ -150,7 +150,6 @@ export const CustInfo = () => {
                     編集
                   </Button>
 
-
                 </Grid>}
 
             </Grid>

@@ -11,8 +11,14 @@ export const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
   return (
 
     <Stack direction={'column'}>
-      <FormLabel  >{label} </FormLabel>
-      <Typography fontSize={16} >{!!data ? data : '-'} </Typography>
+      <FormLabel  >
+        {label}
+        {' '}
+      </FormLabel>
+      <Typography fontSize={16} >
+        {data ? data : '-'}
+        {' '}
+      </Typography>
     </Stack>
 
   );

@@ -2,7 +2,7 @@
 import { Box, Tab,  Skeleton  } from '@mui/material';
 import {  TabList, TabPanel } from '@mui/lab';
 import { DTCustomer } from './customers/DTCustomer';
-import { DTProject } from './projects/DTProject';
+import { DTProjects } from './projects/DTProjects';
 import { useState, useEffect, SyntheticEvent } from 'react';
 import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
 import { ButtonEdit } from './ButtonEdit';
@@ -71,7 +71,7 @@ export function DetailsTabs(props : {
       <TabPanel value="2">
         {
             fetchedProjects &&
-            <DTProject fetchedProjects={fetchedProjects} />
+            <DTProjects fetchedProjects={fetchedProjects} />
           }
 
         {

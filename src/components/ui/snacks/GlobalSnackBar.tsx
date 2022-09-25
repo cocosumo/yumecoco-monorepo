@@ -38,7 +38,6 @@ export const GlobalSnackBar = ({
     setSnackState: setState,
   }), [state]);
 
-
   return (
     <SnackBarContext.Provider value={provider}>
       {children}

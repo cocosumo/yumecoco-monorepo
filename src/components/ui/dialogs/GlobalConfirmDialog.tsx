@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 import { ConfirmDialogV2 } from './ConfirmDialogV2';
 
 export interface IDialogState {
@@ -70,9 +70,7 @@ export const GlobalConfirmDialog = ({ children } : {
   }, [handleState, handleClose]);
 
 
-  useEffect(() => {
-    console.log('hello  useEffect');
-  }, [provider]);
+
 
 
 

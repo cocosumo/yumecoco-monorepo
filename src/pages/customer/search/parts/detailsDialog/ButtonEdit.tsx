@@ -2,12 +2,14 @@ import { Button, Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
 
-export const ButtonEdit = (props: {
+export const ButtonEdit = ({ 
+  link,
+}: {
   link: string
 }) => {
   return (
     <Stack direction="row" justifyContent={'center'}>
-      <Link to={props.link}  target="_blank" rel="noopener noreferrer">
+      <Link to={link} target="_blank" rel="noopener noreferrer">
         <Button color='secondary' variant={'text'} startIcon={<EditIcon />}>
           編集
         </Button>

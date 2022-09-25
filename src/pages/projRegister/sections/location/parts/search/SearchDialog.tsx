@@ -31,7 +31,7 @@ export const SearchDialog = (props: {
   };
 
   useEffect(()=> {
-    if (custGroupId && open){
+    if (custGroupId && open) {
       setLoading(true);
       getProjectsByCustGroupId(custGroupId)
         .then((resp) => {
@@ -55,11 +55,11 @@ export const SearchDialog = (props: {
       </DialogTitle>
       <DialogContent>
         {loading &&
-          <CircularProgress />
-        }
+          <CircularProgress />}
         {!isWithRecord && !loading &&
-          <>選択した顧客に案件がありません。</>
-        }
+          <>
+            選択した顧客に案件がありません。
+          </>}
         {isWithRecord && !loading &&
           <List>
             {records?.map(({ constructionName, postal, address1, address2 }, idx) => {
@@ -70,7 +70,7 @@ export const SearchDialog = (props: {
                 >
                   <ListItemButton onClick={()=>setSelected(idx)}>
                     <ListItemIcon>
-                      <Radio checked={selected === idx} disableRipple/>
+                      <Radio checked={selected === idx} disableRipple />
                     </ListItemIcon>
                     <ListItemText
                       primary={constructionName}
@@ -81,14 +81,16 @@ export const SearchDialog = (props: {
 
               );
             })}
-          </List>
-        }
+          </List>}
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" color="secondary" onClick={handleClose}>キャンセル</Button>
+        <Button variant="outlined" color="secondary" onClick={handleClose}>
+          キャンセル
+        </Button>
         {isWithRecord &&
-          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>OK</Button>
-        }
+          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>
+            OK
+          </Button>}
 
       </DialogActions>
 

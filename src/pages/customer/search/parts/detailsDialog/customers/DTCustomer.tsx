@@ -1,8 +1,8 @@
 import { Collapse, Stack  } from '@mui/material';
-import { CustomerInstance } from '../../../register/form';
-import { PageSubTitle } from '../../../../../components/ui/labels';
-import { LabeledDetail } from '../../../../../components/ui/typographies/LabeledDetail';
-import { AGLabels, EmployeeType } from '../../../../../api/kintone/employees/GET';
+import { CustomerInstance } from '../../../../register/form';
+import { PageSubTitle } from '../../../../../../components/ui/labels';
+import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
+import { AGLabels, EmployeeType } from '../../../../../../api/kintone/employees/GET';
 
 
 export const DTCustomer = (props: {
@@ -34,7 +34,7 @@ export const DTCustomer = (props: {
   return (
     <Collapse in={!loading}>
       <Stack spacing={2} mb={2}>
-        <LabeledDetail label='種別' value={custType?.value}/>
+        <LabeledDetail label='種別' value={custType?.value} />
       </Stack>
 
       {
@@ -67,21 +67,20 @@ export const DTCustomer = (props: {
             <Stack key={id} spacing={1} mb={2}>
 
 
-              <PageSubTitle  label={`契約者 ${idx + 1} `} />
-              <LabeledDetail label='顧客番号' value={customerId.value}/>
-              <LabeledDetail label='氏名' value={customerName.value ?? custName}/>
-              <LabeledDetail label='氏名フリガナ' value={custNameReading}/>
-              <LabeledDetail label='性別' value={gender}/>
-              <LabeledDetail label='誕生日' value={resolveBirthDate}/>
-              {resolvedIsSameAddress && <LabeledDetail label='住所' value={'契約者１と同じ'}/> }
+              <PageSubTitle label={`契約者 ${idx + 1} `} />
+              <LabeledDetail label='顧客番号' value={customerId.value} />
+              <LabeledDetail label='氏名' value={customerName.value ?? custName} />
+              <LabeledDetail label='氏名フリガナ' value={custNameReading} />
+              <LabeledDetail label='性別' value={gender} />
+              <LabeledDetail label='誕生日' value={resolveBirthDate} />
+              {resolvedIsSameAddress && <LabeledDetail label='住所' value={'契約者１と同じ'} /> }
               {!resolvedIsSameAddress &&
               <>
-                <LabeledDetail label='住所' value={resolveAddress}/>
-                <LabeledDetail label='電話番号1' value={[phone1, phone1Rel].filter(Boolean).join(', ')}/>
-                <LabeledDetail label='電話番号2' value={[phone2, phone2Rel].filter(Boolean).join(', ')}/>
-                <LabeledDetail label='メアド' value={[email, emailRel].filter(Boolean).join(', ')}/>
-              </>
-              }
+                <LabeledDetail label='住所' value={resolveAddress} />
+                <LabeledDetail label='電話番号1' value={[phone1, phone1Rel].filter(Boolean).join(', ')} />
+                <LabeledDetail label='電話番号2' value={[phone2, phone2Rel].filter(Boolean).join(', ')} />
+                <LabeledDetail label='メアド' value={[email, emailRel].filter(Boolean).join(', ')} />
+              </>}
 
             </Stack>
           );
@@ -89,17 +88,18 @@ export const DTCustomer = (props: {
       }
 
       <Stack spacing={2}>
-        <PageSubTitle  label={'担当情報'} />
-        <LabeledDetail label='店舗名' value={storeName?.value ?? '店舗無し。管理者に連絡ください。'}/>
+        <PageSubTitle label={'担当情報'} />
+        <LabeledDetail label='店舗名' value={storeName?.value ?? '店舗無し。管理者に連絡ください。'} />
 
 
         {
           Object.entries(groupedCustAgents ?? {})
-            .map(([key, value]) => <LabeledDetail
+            .map(([key, value]) => (
+              <LabeledDetail
                 key={key}
                 label={AGLabels[key as EmployeeType] ?? '担当者'}
                 value={value.filter(Boolean).join(', ')}
-              />)
+              />))
         }
 
         {projects?.value.map(({

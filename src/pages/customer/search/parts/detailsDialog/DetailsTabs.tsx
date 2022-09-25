@@ -1,8 +1,8 @@
 
 import { Box, Tab,  Skeleton  } from '@mui/material';
 import {  TabList, TabPanel } from '@mui/lab';
-import { DTCustomer } from './DTCustomer';
-import { DTProject } from './DTProject';
+import { DTCustomer } from './customers/DTCustomer';
+import { DTProject } from './projects/DTProject';
 import { useState, useEffect, SyntheticEvent } from 'react';
 import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
 import { ButtonEdit } from './ButtonEdit';

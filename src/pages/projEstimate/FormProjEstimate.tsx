@@ -14,8 +14,8 @@ import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
-import { useResolveParams } from '../projContracts/hooks/useResolveParams';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
+import { useResolveParams } from './hooks/useResolveParams';
 
 export default function FormProjEstimate() {
 
@@ -24,6 +24,8 @@ export default function FormProjEstimate() {
 
   useResolveParams();
   useUpdateEstimateId();
+
+  console.log(values);
   
   return (
     <Form noValidate>

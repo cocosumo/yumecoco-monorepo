@@ -11,6 +11,7 @@ import { pages } from '../Router';
 import {  useSnackBar } from '../../hooks';
 import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
+import { generateParams } from '../../helpers/url';
 
 
 
@@ -22,9 +23,8 @@ export const FormikConstruction  = () => {
   const { setSnackState } = useSnackBar();
 
   return (
-    <>
-      <Formik
-      initialStatus={ ((s: TFormStatus)=> s)('busy')}
+    <Formik
+      initialStatus={((s: TFormStatus)=> s)('busy')}
       validateOnMount
       //enableReinitialize
       initialValues={initialValues}
@@ -42,13 +42,14 @@ export const FormikConstruction  = () => {
               noText: '閉じる',
             });
 
-            navigate(`${pages.projEdit}?projId=${resp.id}`);
+            navigate(`${pages.projEdit}?${generateParams({
+              projId: resp.id,
+            })}`);
           });
       }}
     >
-        <FormConstruction />
+      <FormConstruction />
 
-      </Formik>
-    </>
+    </Formik>
   );
 };

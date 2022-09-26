@@ -1,4 +1,5 @@
-import { FormLabel, Stack, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import { Caption } from './Caption';
 
 export interface LabeledInfoProps {
   label: string,
@@ -11,8 +12,11 @@ export const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
   return (
 
     <Stack direction={'column'}>
-      <FormLabel  >{label} </FormLabel>
-      <Typography fontSize={16} >{!!data ? data : '-'} </Typography>
+      <Caption text={label} />
+      <Typography fontSize={16} >
+        {data ? data : '-'}
+        {' '}
+      </Typography>
     </Stack>
 
   );

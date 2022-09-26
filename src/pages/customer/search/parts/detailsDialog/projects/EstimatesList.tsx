@@ -1,15 +1,25 @@
 import { Card, CardContent } from '@mui/material';
+import { useEstimateRecords } from '../../../../../../hooks';
 
 export const EstimatesList = ({
   projId,
 }: {
   projId: string
 }) => {
-  return (
-    <Card>
-      <CardContent>
+  const { projEstimateRecords } = useEstimateRecords(projId);
 
-      </CardContent>
-    </Card>
+
+  return (
+    projEstimateRecords
+      ?.map(({
+        $id,
+        envStatus,
+        estimateStatus,
+        signMethod,
+        作成日時: dateCreated,
+        内訳: materials,
+      }) => {
+
+      })
   );
 };

@@ -1,11 +1,11 @@
 
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, Dispatch, ReactNode, useMemo, useState } from 'react';
 import { FormSnack, SnackState } from './FormSnack';
 
 
 export interface ISnackBarProvider {
   snackState: SnackState,
-  setSnackState: (value?: SnackState) => void
+  setSnackState: Dispatch<React.SetStateAction<SnackState>>
 }
 
 const initialState : ISnackBarProvider = {
@@ -33,20 +33,15 @@ export const GlobalSnackBar = ({
   };
 
 
-
-  const provider = {
+  const provider = useMemo(() => ({
     snackState: state,
-    setSnackState: (value: SnackState) => setState({
-      ...state,
-      ...value,
-    }),
-  };
-
+    setSnackState: setState,
+  }), [state]);
 
   return (
     <SnackBarContext.Provider value={provider}>
       {children}
-      <FormSnack snackState={state} handleClose={handleClose}/>
+      <FormSnack snackState={state} handleClose={handleClose} />
     </SnackBarContext.Provider>
   );
 };

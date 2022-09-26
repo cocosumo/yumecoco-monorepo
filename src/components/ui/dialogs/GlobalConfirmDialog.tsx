@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 import { ConfirmDialogV2 } from './ConfirmDialogV2';
 
 export interface IDialogState {
@@ -25,7 +25,6 @@ const initialState: IDialogState = {
 export type HandleDialogStateFN = (params: IDialogState) => void;
 
 interface IConfirmDialogContext {
-  dialogState: IDialogState,
   setDialogState: HandleDialogStateFN
   handleClose : () => void
 }
@@ -39,9 +38,11 @@ export const GlobalConfirmDialog = ({ children } : {
 }) => {
   const [state, setState] = useState<IDialogState>(initialState);
 
-  const handleClose = () => setState(prev => ({ ...prev, open: false, willCloseOnYes: true }));
+  const handleClose = useCallback(() => setState(
+    prev => ({ ...prev, open: false, willCloseOnYes: true }),
+  ), []);
 
-  const handleState : HandleDialogStateFN = (params) => setState({
+  const handleState : HandleDialogStateFN = useCallback((params) => setState({
     ...params,
     handleYes: () => {
       if (params.handleYes) {
@@ -59,16 +60,22 @@ export const GlobalConfirmDialog = ({ children } : {
 
     },
 
-  });
+  }), [handleClose]);
+
+  const provider = useMemo(() => {
+    return {
+      setDialogState: handleState,
+      handleClose: handleClose,
+    };
+  }, [handleState, handleClose]);
+
+
+
 
 
 
   return (
-    <ConfirmDialogContext.Provider value={{
-      dialogState: state,
-      setDialogState: handleState,
-      handleClose: handleClose,
-    }}>
+    <ConfirmDialogContext.Provider value={provider}>
 
       {children}
       <ConfirmDialogV2 {...state} />

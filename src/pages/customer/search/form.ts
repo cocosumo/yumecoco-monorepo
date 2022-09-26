@@ -1,6 +1,4 @@
-//import * as Yup from 'yup';
 import { RecordStatus } from '../../../config/formValues';
-//import { recordStatuses } from '../../../config/formValues';
 
 export const customerTypes = [  '全て',  '個人',  '法人' ] as const;
 
@@ -25,16 +23,3 @@ export const initialValues = {
   address: '',
 };
 
-/**
- * Set Validation for fields that requires it.
- * Refer to YUM documentation.
- */
-/* export const validationSchema =  Yup.object(
-  {
-    custGroupId: Yup
-      .string()
-      .required('必須です。'),
-
-  },
-);
- */

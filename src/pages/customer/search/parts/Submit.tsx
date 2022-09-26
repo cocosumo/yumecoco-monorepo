@@ -21,15 +21,19 @@ export const Submit = () => {
   const loading = isThrottle || isSubmitting;
 
   return (
-    <Grid container item xs={12} md={4} justifyContent="center">
+    <Grid container item xs={12}
+      md={4} justifyContent="center"
+    >
       <LoadingButton
         fullWidth
         loading={loading}
         onClick={handleSubmit}
         variant="contained"
         loadingPosition="center"
-        >
-        <SearchIcon /> 検索
+      >
+        <SearchIcon />
+        {' '}
+        検索
       </LoadingButton>
 
     </Grid>

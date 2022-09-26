@@ -1,5 +1,6 @@
 import { Button, Stack } from '@mui/material';
 import {  useNavigate } from 'react-router-dom';
+import { generateParams } from '../../../helpers/url';
 import { useConfirmDialog } from '../../../hooks/useConfirmDialog';
 import { pages } from '../../Router';
 
@@ -9,6 +10,10 @@ export const NextStepChoices = ({ recordId }: {
   const { handleClose } = useConfirmDialog();
   const navigate = useNavigate();
 
+  const urlParams = generateParams({
+    projId: recordId,
+  });
+
   return (
     <Stack width={300} spacing={2}>
       <Button
@@ -16,21 +21,21 @@ export const NextStepChoices = ({ recordId }: {
         fullWidth
         onClick={()=> {
           handleClose();
-          navigate(`${pages.projProspect}?projId=${recordId}`);
+          navigate(`${pages.projProspect}?${urlParams}`);
         }}
       >
         見込み登録
 
       </Button>
       <Button
-      variant='outlined'
-      fullWidth
+        variant='outlined'
+        fullWidth
         onClick={()=>{
           handleClose();
-          navigate(`${pages.projContractPreview}?projId=${recordId}`);
+          navigate(`${pages.projEstimate}?${urlParams}`);
         }}
       >
-        契約登録
+        見積登録
       </Button>
     </Stack>
   );

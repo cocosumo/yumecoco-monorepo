@@ -7,15 +7,15 @@ import { FormFieldKeys } from '../form';
 import { recordStatuses } from '../../../../config/formValues';
 
 export const RecordStatus = () => {
-  console.log(recordStatuses);
   const recordOptions = useRef(recordStatuses.map(item=>({ label: item, value: item })));
 
   return (
     <Grid item xs={12}>
       <FormikCheckBoxes
-        name={'recordStatus' as FormFieldKeys }
+        name={'recordStatus' as FormFieldKeys}
         label='状態'
-        choices={recordOptions.current}/>
+        choices={recordOptions.current} 
+      />
     </Grid>
   );
 };

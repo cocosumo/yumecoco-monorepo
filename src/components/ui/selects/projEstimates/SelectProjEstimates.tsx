@@ -40,7 +40,7 @@ export const SelectProjEstimates = ({
   const refEstimateRecords = useRef(projEstimateRecords);
   useDeepCompareEffect(() => {
     refEstimateRecords.current = projEstimateRecords;
-  }, [refEstimateRecords]);
+  }, [refEstimateRecords || {}]);
 
   /**
    * リファレンス安定しないhandleChangeが渡されても、対応する。
@@ -74,6 +74,9 @@ export const SelectProjEstimates = ({
    * */
   [projId]);
 
+  /**
+   * 本選択肢
+   */
   const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec)=>{
     const { $id } = rec;
     return {

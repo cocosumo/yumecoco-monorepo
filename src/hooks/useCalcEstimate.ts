@@ -7,11 +7,13 @@ export const useCalcEstimate = (estimateRecord: Estimates.main.SavedData) => {
   const [calcResult, setCalcResult] = useState<Awaited<ReturnType<typeof calculateEstimateRecord>>>(Object.create(null));
 
   useDeepCompareEffect(() => {
+    if ('$id' in estimateRecord) {
 
-    calculateEstimateRecord(estimateRecord)
-      .then((result) => setCalcResult(result));
+      calculateEstimateRecord(estimateRecord)
+        .then((result) => setCalcResult(result));
+    }
 
-  }, [estimateRecord]);
+  }, [estimateRecord || {}]);
 
   return calcResult;
 };

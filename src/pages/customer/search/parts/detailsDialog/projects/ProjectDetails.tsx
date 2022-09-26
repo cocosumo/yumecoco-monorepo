@@ -21,7 +21,7 @@ export const ProjectDetails = ({
 
   return (
 
-    <CardContent sx={{ width: '30%' }}>
+    <CardContent sx={{ width: '40%' }}>
       <Stack spacing={1}>
         <LabeledInfo label="工事番号" data={$id.value} />
         <LabeledInfo label="工事種別" data={constructionType.value} />
@@ -34,7 +34,7 @@ export const ProjectDetails = ({
             .map(item=>item)
             .join(' ')}
         />
-        <LabeledInfo 
+        <LabeledInfo
           label="工事担当"
           data={constructionOfficer}
         />

@@ -1,4 +1,5 @@
 import { Card, Divider, Stack } from '@mui/material';
+import { EstimatesList } from './EstimatesList';
 import { ProjectDetails } from './ProjectDetails';
 
 export const ProjectDetailsContainer = (props: {
@@ -9,7 +10,7 @@ export const ProjectDetailsContainer = (props: {
 
 
   return (
-    <div>
+    <>
       {
         fetchedProjects?.map((projectDetailsData) => {
           const { $id } = projectDetailsData;
@@ -24,13 +25,13 @@ export const ProjectDetailsContainer = (props: {
                 >
                   <ProjectDetails projectDetailsData={projectDetailsData} />
 
-                  <div />
+                  <EstimatesList projId={$id.value} />
                 </Stack>
               </Card>
             </Stack>
           );
         })
       }
-    </div>
+    </>
   );
 };

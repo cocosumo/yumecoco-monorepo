@@ -1,19 +1,28 @@
-import { Card, CardContent } from '@mui/material';
+import { Card, CardContent, Stack, Typography } from '@mui/material';
+import { Caption, LabeledInfo } from '../../../../../../components/ui/typographies';
+import { dateStrToJA } from '../../../../../../helpers/utils';
+import { useCalcEstimate } from '../../../../../../hooks/useCalcEstimate';
 
 export const EstimatesListItem = ({
-  tags,
-  amount,
-  projEstimateId,
-  date,
+  estimateRecord,
 }: {
-  tags: string[],
-  amount: number,
-  projEstimateId: number,
-  date: string,
+  estimateRecord: Estimates.main.SavedData
 }) => {
+  const { 作成日時: createdDate } = estimateRecord;
+  const {
+    totalAmountInclTax,
+  } = useCalcEstimate(estimateRecord);
+
   return (
-    <Card>
+    <Card variant='outlined'>
       <CardContent>
+        <Stack spacing={1}>
+
+        </Stack>
+        <Typography variant='h5' textAlign={'right'}>
+          {`${totalAmountInclTax?.toLocaleString() || 0} 円`}
+        </Typography>
+        <Caption text={`${dateStrToJA(createdDate.value)}`} />
 
       </CardContent>
     </Card>

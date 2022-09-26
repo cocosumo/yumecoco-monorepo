@@ -1,7 +1,7 @@
 import { Card, Divider, Stack } from '@mui/material';
 import { ProjectDetails } from './ProjectDetails';
 
-export const DTProjects = (props: {
+export const ProjectDetailsContainer = (props: {
   fetchedProjects : ProjectDetails.SavedData[],
 }) => {
 
@@ -14,8 +14,8 @@ export const DTProjects = (props: {
         fetchedProjects?.map((projectDetailsData) => {
           const { $id } = projectDetailsData;
           return (
-            <Stack key={$id.value} 
-              spacing={2} 
+            <Stack key={$id.value}
+              spacing={2}
               mb={2}
             >
               <Card variant='outlined'>
@@ -23,7 +23,7 @@ export const DTProjects = (props: {
                   divider={<Divider orientation="vertical" flexItem />}
                 >
                   <ProjectDetails projectDetailsData={projectDetailsData} />
-                
+
                   <div />
                 </Stack>
               </Card>

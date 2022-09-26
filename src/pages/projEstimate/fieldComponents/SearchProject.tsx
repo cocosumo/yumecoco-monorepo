@@ -4,16 +4,13 @@ import { getFieldName } from '../form';
 import { useUpdateProjectId } from '../hooks/useUpdateProjectId';
 import { NoCustomerWarning } from './NoCustomerWarning';
 
-export const SearchProject = ({
-  projName, projId, customerName,
-}: {
-  projName: string,
-  customerName: string,
-  projId: string,
-}) => {
+export const SearchProject = () => {
 
-  const { isLoading, handleStartLoading } = useUpdateProjectId();
+  const { isLoading, handleStartLoading, values } = useUpdateProjectId();
 
+  const {
+    projName, projId, customerName,
+  } = values;
 
   return (
     <Stack spacing={1}>

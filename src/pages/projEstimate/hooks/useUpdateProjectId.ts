@@ -11,13 +11,14 @@ export const useUpdateProjectId = () => {
   const { values, dirty, setValues } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { projId } = values;
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleStartLoading = () => setLoading(true);
 
   useEffect(
     ()=>{
       if (projId) {
+
         setLoading(true);
         getConstRecord(projId)
           .then(async ({
@@ -39,16 +40,16 @@ export const useUpdateProjectId = () => {
             const mainCustName = custGroup?.members?.value[0].value.customerName.value ?? '';
 
             // Throttle speed to avoid request spam.
-            setTimeout(()=> {
-              setValues((prev) => produce(prev, draft => {
-                draft.custGroupId = custGroupId.value;
-                draft.projName = constructionName.value;
-                draft.projType = constructionType.value;
-                draft.profitRate = +profitRate.value;
-                draft.customerName = mainCustName;
-              }));
-              setLoading(false);
-            }, 1000);
+          
+            setValues((prev) => produce(prev, draft => {
+              draft.custGroupId = custGroupId.value;
+              draft.projName = constructionName.value;
+              draft.projType = constructionType.value;
+              draft.profitRate = +profitRate.value;
+              draft.customerName = mainCustName;
+            }));
+            setLoading(false);
+           
 
           })
           .catch((err) => {
@@ -77,5 +78,6 @@ export const useUpdateProjectId = () => {
   return {
     isLoading: loading,
     handleStartLoading,
+    values,
   };
 };

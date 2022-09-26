@@ -11,3 +11,12 @@ export const fetchEstimatesByProjId =  async (projId: string) => {
 
   return result.records as unknown as Estimates.main.SavedData[];
 };
+
+export const fetchEstimatesById = async (projEstimateId: string) => {
+  const result = await KintoneRecord.getRecord({
+    app: APPIDS.projectEstimate,
+    id: projEstimateId,
+  });
+
+  return result.record as unknown as Estimates.main.SavedData ;
+};

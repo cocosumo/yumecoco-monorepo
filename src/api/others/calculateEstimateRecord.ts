@@ -7,8 +7,6 @@ export const calculateEstimateRecord = async (estimateRecord: Estimates.main.Sav
     税率: { value: tax },
   } = estimateRecord;
 
-  console.log();
-
   const result = calculateEstimate({
     tax: +tax,
     materials: estimateTable.map(({ value: {
@@ -26,9 +24,6 @@ export const calculateEstimateRecord = async (estimateRecord: Estimates.main.Sav
     }),
   });
 
-  console.log('RESULT', result);
-
   return result;
-
 
 };

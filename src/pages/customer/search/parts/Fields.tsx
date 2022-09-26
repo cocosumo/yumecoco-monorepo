@@ -9,12 +9,18 @@ import { RecordStatus } from './RecordStatus';
 
 export const Fields = () => {
   return (
-    <Grid container item xs={12} alignItems={'center'} justifyContent="flex-start" spacing={2}>
-      <CustType/>
+    <Grid container item 
+      spacing={2}
+      xs={12}
+      alignItems={'center'} 
+      justifyContent="flex-start" 
+    
+    >
+      <CustType />
       <StoreSelect />
-      <TantouSelects/>
-      <RecordStatus/>
-      <KeywordSearch/>
+      <TantouSelects />
+      <RecordStatus />
+      <KeywordSearch />
     </Grid>
   );
 };

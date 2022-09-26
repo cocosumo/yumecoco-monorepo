@@ -18,14 +18,24 @@ export const KeywordSearch = () => {
 
   return (
     <>
-      <Grid item xs={12} mb={-2}><FormLabel>キーワード検索</FormLabel></Grid>
+      <Grid item xs={12} mb={-2}>
+        <FormLabel>
+          キーワード検索
+        </FormLabel>
+      </Grid>
 
       {basicDetailsFields
         .map(({ name, label })=> {
-          return <Grid key={name} item xs={12} md={4}><FormikTextField {...{ name, label }}/> </Grid>;
+          return (<Grid key={name} item xs={12}
+            md={4}
+                  >
+            <FormikTextField {...{ name, label }} />
+          </Grid>);
         })}
-      <Grid item xs={12} md={8} ><FormikTextField name={'address' as FormFieldKeys} label="現住所/工事場所住所" /> </Grid>
-      <Submit/>
+      <Grid item xs={12} md={8} >
+        <FormikTextField name={'address' as FormFieldKeys} label="現住所/工事場所住所" />
+      </Grid>
+      <Submit />
 
     </>
 

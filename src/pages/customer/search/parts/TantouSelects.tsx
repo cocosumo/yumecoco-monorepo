@@ -22,13 +22,17 @@ const resolveLabel = (name: EmployeeType) => {
   }
 };
 
-const TantouSelect = (props: { name: EmployeeType }) => {
+const TantouSelect = ({
+  name,
+}: { 
+  name: EmployeeType 
+}) => {
   const { values } = useFormikContext<typeof initialValues>();
-  const options = useEmployeeOptions({ type: props.name, storeId: values.storeId });
+  const options = useEmployeeOptions({ type: name, storeId: values.storeId });
 
   return (
     <Grid item xs={12} md={2}>
-      <FormikSelect name={props.name as FormFieldKeys } label={resolveLabel(props.name)} options={options}/>
+      <FormikSelect name={name as FormFieldKeys} label={resolveLabel(name)} options={options} />
     </Grid>
   );
 };
@@ -40,7 +44,7 @@ export const TantouSelects = () => {
     <>
       {(['cocoAG', 'cocoConst', 'yumeAG'] as EmployeeType[])
         .map(item => {
-          return <TantouSelect key={item} name={item}/>;
+          return <TantouSelect key={item} name={item} />;
         })}
     </>
   );

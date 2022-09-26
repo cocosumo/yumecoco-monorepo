@@ -34,7 +34,6 @@ export const usePromiseWithNotify : <T>(param: {
 
     promiseFunc()
       .then(resp => {
-        console.log('API called!');
         setData(resp);
         if (isNotifSuccess) {
           setSnackState({

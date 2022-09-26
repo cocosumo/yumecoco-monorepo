@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useContractPreview } from './useContractPreview';
 
 
@@ -19,6 +19,9 @@ export const useEstimateChangeHandler = () => {
     setValues,
   } = useContractPreview();
 
+  const clearSelectedEstimate = useCallback(() => setSelectedEstimate(Object.create(null)), []);
+
+
   const handleChangeEstimate = (
     selected: Estimates.main.SavedData,
     projEstimateId?: string,
@@ -38,17 +41,22 @@ export const useEstimateChangeHandler = () => {
       };
 
 
-      if (projEstimateId) handlePreview(newForm);
-
+      if (projEstimateId) {
+        handlePreview(newForm);
+      } else {
+        clearSelectedEstimate();
+      }
       return newForm;
     });
   };
 
 
 
+
   return {
     selectedEstimate,
     handleChangeEstimate,
+    clearSelectedEstimate,
     previewUrl,
     previewLoading,
     formLoading,

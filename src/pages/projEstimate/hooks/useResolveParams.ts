@@ -12,20 +12,23 @@ export const useResolveParams = () => {
 
   const {
     setValues,
-    setStatus,
   } = useFormikContext<TypeOfForm>();
 
 
   useEffect(()=>{
-
-    if (projIdFromURL || projEstimateIdFromURL) {
-      setStatus('busy');
+    // If projEstimateId got passed, no need to save projId.
+    if (projEstimateIdFromURL) {
       setValues((prev)=>({
         ...prev,
-        projEstimateId: projEstimateIdFromURL || '',
-        projId: projIdFromURL || '',
+        projEstimateId: projEstimateIdFromURL,
+      }));
+    } else if (projIdFromURL) {
+      setValues((prev)=>({
+        ...prev,
+        projId: projIdFromURL,
       }));
     }
+
   }, [projIdFromURL, projEstimateIdFromURL, setValues]);
 
 

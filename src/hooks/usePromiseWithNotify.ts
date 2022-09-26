@@ -3,22 +3,22 @@ import { useSnackBar } from './useSnackBar';
 
 /**
  * Just like usePromise, but displays a snackbar based on settings.
- * 
+ *
  * @param param0 The parameters names should be self-explanatory.
- * @returns {object} Contains data, loading state, and error string. 
+ * @returns {object} Contains data, loading state, and error string.
  */
 export const usePromiseWithNotify : <T>(param: {
-  promiseFunc: (() => Promise<any>) | null, 
+  promiseFunc: (() => Promise<any>) | null,
   initialValue: T,
   isNotifSuccess?: boolean
   successMessage?: string
 }) => {
   data: T, error: string, loading: boolean
-} = ( 
+} = (
   {
-    promiseFunc, 
+    promiseFunc,
     initialValue,
-    isNotifSuccess = false, 
+    isNotifSuccess = false,
     successMessage = '成功しました。',
   },
 ) => {
@@ -34,6 +34,7 @@ export const usePromiseWithNotify : <T>(param: {
 
     promiseFunc()
       .then(resp => {
+        console.log('API called!');
         setData(resp);
         if (isNotifSuccess) {
           setSnackState({

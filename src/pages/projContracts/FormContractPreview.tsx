@@ -9,17 +9,19 @@ import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { Preview } from './parts/Preview/Preview';
-import { 
-  useUpdateProjId, 
-  useResolveParams, 
+import {
+  useUpdateProjId,
+  useResolveParams,
   useEstimateChangeHandler } from './hooks/';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+
 
 
 import { SelectProjEstimates } from '../../components/ui/selects';
 
 export const FormContractPreview = () => {
 
-  useResolveParams();
+  const { projEstimateIdFromURL } = useResolveParams();
 
   const {
     formStatus,
@@ -30,7 +32,20 @@ export const FormContractPreview = () => {
     handleChangeEstimate,
     previewUrl,
     previewLoading,
+    selectedEstimate,
   } = useEstimateChangeHandler();
+
+
+  useDeepCompareEffect(() => {
+    if (projEstimateIdFromURL && selectedEstimate && projId) {
+      /*
+        Triggers when projEstimateId was passed from the url,
+        but ensures that selectedEstimate and projId are not empty
+        to avoid pre-mature rendering.
+      */
+      handleChangeEstimate(selectedEstimate, projEstimateIdFromURL);
+    }
+  }, [selectedEstimate, projEstimateIdFromURL, projId]);
 
   return (
     <Form noValidate>
@@ -47,7 +62,7 @@ export const FormContractPreview = () => {
         </Grid>
 
         {/* 見積もり選択フィールド */}
-        <Grid item xs={12} 
+        <Grid item xs={12}
           md={8}
           lg={6}
         >
@@ -59,14 +74,14 @@ export const FormContractPreview = () => {
           />
 
         </Grid>
-  
+
 
         {/* 契約内容 */}
         <ContractInfo />
 
         {/* 契約のプレビュー */}
-        {!!projEstimateId &&  
-        <Preview 
+        {!!projEstimateId &&
+        <Preview
           previewUrl={previewUrl}
           previewLoading={previewLoading}
         />}

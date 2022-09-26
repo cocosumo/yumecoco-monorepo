@@ -11,9 +11,10 @@ export const StoreSelect = () => {
   return (
     <Grid item xs={12} md={3}>
       <FormikSelect
-      name={'storeId' as FormFieldKeys }
-      label='店舗'
-      options={[{ label: '--', value: '' }, ...stores ?? []]}/>
+        name={'storeId' as FormFieldKeys}
+        label='店舗'
+        options={[{ label: '--', value: '' }, ...stores ?? []]} 
+      />
     </Grid>
   );
 };

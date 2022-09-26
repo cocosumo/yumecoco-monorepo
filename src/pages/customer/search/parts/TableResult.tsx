@@ -3,12 +3,10 @@ import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
 import {  useState } from 'react';
@@ -16,6 +14,7 @@ import {  useState } from 'react';
 import { ISearchData as Data, ISearchData } from '../api/getSearchData';
 import { DetailsDialog } from './detailsDialog/DetailsDialog';
 import { getComparator } from '../../../../helpers/table';
+import { TableResultContainer } from './TableResultContainer';
 
 
 
@@ -52,18 +51,18 @@ function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {
 
         {headCells.map((headCellGroup, headIdx) => (
           <TableCell
-          key={headCellGroup.join('-')}
-          width={cellWidth[headIdx]}
+            key={headCellGroup.join('-')}
+            width={cellWidth[headIdx]}
           >
             {headCellGroup.map((headCellItem) => (
 
               <TableSortLabel
-              sx={{ display: 'block' }}
-              key={headCellItem}
-              active={orderBy === headCellItem}
-              direction={orderBy === headCellItem ? order : 'asc'}
-              onClick={createSortHandler(headCellItem)}
-            >
+                sx={{ display: 'block' }}
+                key={headCellItem}
+                active={orderBy === headCellItem}
+                direction={orderBy === headCellItem ? order : 'asc'}
+                onClick={createSortHandler(headCellItem)}
+              >
                 {headCellItem}
                 {orderBy === headCellItem ? (
                   <Box component="span" sx={visuallyHidden}>
@@ -128,101 +127,92 @@ export function TableResult({
 
   return (
     <Grid item xs={12} >
-      <Box sx={{ width: '100%' }}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
-          <TableContainer>
-            <TablePagination
-              labelRowsPerPage="表示件数を変更"
-              rowsPerPageOptions={[10, 25, 50]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-            <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size="small"
-          >
-              <EnhancedTableHead
-              order={order}
-              orderBy={orderBy as string}
-              onRequestSort={handleRequestSort}
-            />
-              <TableBody>
-                {/* if we need to support IE11, replace
+
+      <TableResultContainer>
+        <TablePagination
+          labelRowsPerPage="表示件数を変更"
+          rowsPerPageOptions={[10, 25, 50]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+        <Table
+          sx={{ minWidth: 750 }}
+          aria-labelledby="tableTitle"
+          size="small"
+        >
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy as string}
+            onRequestSort={handleRequestSort}
+          />
+          <TableBody>
+            {/* if we need to support IE11, replace
                 rows.slice().sort(getComparator(order, orderBy)) with `stableSort` */}
-                {rows?.slice().sort(getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`;
+            {rows?.slice().sort(getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
+                return (
+                  <TableRow
+                    hover
+                    tabIndex={-1}
+                    key={row.顧客ID}
+                  >
+                    <TableCell padding="normal" width={'10%'}>
+                      <Button
+                        variant='outlined'
+                        onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
+                      >
+                        詳細
+                      </Button>
+                    </TableCell>
+                    {headCells.map(headCellGroup => (
+                      <TableCell
+                        key={headCellGroup.join('-')}
+                        id={labelId}
+                        scope="row"
+                        padding="normal"
+                      >
+                        {headCellGroup.map(headCellItem => (
 
-                      hover
-                      tabIndex={-1}
-                      key={row.顧客ID}
+                          <div key={headCellItem}>
 
-                    >
-                        <TableCell padding="normal" width={'10%'}>
-                          <Button
-                            variant='outlined'
-                            onClick={()=>{setDetailsDialogState({ open: true, custGroupdId: row.顧客ID.toString() });}}
-                          >
-                            詳細
-                          </Button>
-                        </TableCell>
-                        {headCells.map(headCellGroup => (
-                          <TableCell
-                          key={headCellGroup.join('-')}
-                          id={labelId}
-                          scope="row"
-                          padding="normal"
-
-                        >
-                            {headCellGroup.map(headCellItem => (
-
-                              <div key={headCellItem}>
-
-                                {row[headCellItem] }
-                                {!row[headCellItem] && '-'}
-                              </div>
-
-                            ))}
-
-
-                          </TableCell>
+                            {row[headCellItem] }
+                            {!row[headCellItem] && '-'}
+                          </div>
 
                         ))}
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 33 * emptyRows, //(dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
 
-        </Paper>
-        {/*  <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="密なパディング"
-      /> */}
-      </Box>
+
+                      </TableCell>
+
+                    ))}
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+            <TableRow
+              style={{
+                height: 33 * emptyRows, //(dense ? 33 : 53) * emptyRows,
+              }}
+            >
+              <TableCell colSpan={6} />
+            </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableResultContainer>
+
       <DetailsDialog
-      open={Boolean(detailsDialogState?.open)}
-      custGroupId={detailsDialogState?.custGroupdId}
-      handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}}/>
+        open={Boolean(detailsDialogState?.open)}
+        custGroupId={detailsDialogState?.custGroupdId}
+        handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}} 
+      />
     </Grid>
   );
 }

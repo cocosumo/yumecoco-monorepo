@@ -33,19 +33,21 @@ export const FormikCustomerSearch = () => {
     handleSearch(initialValues);
   }, []);
 
-  return (<Formik
-  initialValues={initialValues}
-  onSubmit={async (values, { setSubmitting }) => {
-    const { length } = await handleSearch(values);
-    setSnackState({
-      severity: 'success',
-      message: `${length ?? 0}件 見つかりました。`,
-      open: true,
-    });
-    setSubmitting(false);
-  }} >
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={async (values, { setSubmitting }) => {
+        const { length } = await handleSearch(values);
+        setSnackState({
+          severity: 'success',
+          message: `${length ?? 0}件 見つかりました。`,
+          open: true,
+        });
+        setSubmitting(false);
+      }}
+    >
 
-    <SearchForm rows={rows} />
+      <SearchForm rows={rows} />
 
-  </Formik>);
+    </Formik>);
 };

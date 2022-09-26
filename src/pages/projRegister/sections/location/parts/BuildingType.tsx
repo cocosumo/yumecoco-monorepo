@@ -9,5 +9,8 @@ export const BuildingType = ({
 }: {
   disabled: boolean
 }) => {
-  return <FormikRadio name="buildingType" label="建物種別" choices={buildingTypes} disabled={disabled}/>;
+  return (
+    <FormikRadio name="buildingType" label="建物種別" choices={buildingTypes}
+      disabled={disabled}
+    />);
 };

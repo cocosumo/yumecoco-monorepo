@@ -57,27 +57,39 @@ export const ConstructionInfo = (
   return (
     <>
       <PageSubTitle label='工事情報' />
-      <Grid container item xs={12} md={6} spacing={2}>
+      <Grid container item spacing={2}
+        xs={12}
+        md={6} 
+      >
         <Grid item xs={12} md={8} >
-          <FormikSelect  name={'constructionTypeId' as KeyOfProjForm} label={'工事種別'} disabled={isReadOnly} options={constructionTypeOptions} required />
+          <FormikSelect name={'constructionTypeId' as KeyOfProjForm} label={'工事種別'} disabled={isReadOnly}
+            options={constructionTypeOptions} required
+          />
         </Grid>
         <Grid item xs={12}>
-          {/* <TextField fullWidth label="工事名称" placeholder='氏名/会社名様邸　工事種別' /> */}
-          <FormikTextField name={'constructionName' as KeyOfProjForm} label="工事名称" placeholder="氏名/会社名様邸　工事種別" disabled={isReadOnly} required/>
+          <FormikTextField name={'constructionName' as KeyOfProjForm} label="工事名称" placeholder="氏名/会社名様邸　工事種別"
+            disabled={isReadOnly} required
+          />
         </Grid>
       </Grid>
 
-      <Grid container item xs={12} spacing={2}>
+      <Grid container item xs={12}
+        spacing={2}
+      >
         {
           [1, 2].map((num) => (
-            <Grid key={num} item xs={12} md={4}>
-              <ConstructionAgent number={num} {...{ storeId, territory }} disabled={(!cocoConst1 && num === 2) || isReadOnly}/>
+            <Grid key={num} item xs={12}
+              md={4}
+            >
+              <ConstructionAgent number={num} {...{ storeId, territory }} disabled={(!cocoConst1 && num === 2) || isReadOnly} />
             </Grid>
           ))
         }
 
         <Grid item xs={12} md={4}>
-          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。' disabled={isReadOnly} />
+          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'
+            disabled={isReadOnly}
+          />
 
         </Grid>
 

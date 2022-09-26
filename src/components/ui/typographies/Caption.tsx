@@ -6,6 +6,8 @@ interface TypographyProps {
 
 export  function Caption({ text }:TypographyProps) {
   return (
-    <Typography variant="caption">{text}</Typography>
+    <Typography variant="caption">
+      {text}
+    </Typography>
   );
 }

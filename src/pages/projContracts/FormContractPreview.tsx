@@ -37,7 +37,7 @@ export const FormContractPreview = () => {
 
 
   useDeepCompareEffect(() => {
-    if (projEstimateIdFromURL && selectedEstimate && projId) {
+    if (projEstimateIdFromURL && selectedEstimate && formStatus !== 'busy') {
       /*
         Triggers when projEstimateId was passed from the url,
         but ensures that selectedEstimate and projId are not empty
@@ -45,7 +45,7 @@ export const FormContractPreview = () => {
       */
       handleChangeEstimate(selectedEstimate, projEstimateIdFromURL);
     }
-  }, [selectedEstimate || {}, projEstimateIdFromURL, projId]);
+  }, [selectedEstimate || {}, projEstimateIdFromURL, formStatus]);
 
   return (
     <Form noValidate>

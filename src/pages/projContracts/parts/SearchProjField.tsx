@@ -14,7 +14,7 @@ type Opt = {
 export const SearchProjField = (props: {
   name: string,
   label: string,
-  projName: string, 
+  projName: string,
 }) => {
   const { setStatus, setFieldValue } = useFormikContext<TypeOfForm>();
 
@@ -23,9 +23,9 @@ export const SearchProjField = (props: {
 
   // Selected value state
   const [fieldVal, setFieldVal] = useState<Opt | null>(null);
- 
+
   const [options, setOptions] = useState<Array<Opt>>([]);
-  
+
   const [field, meta, helpers] = useField(props);
   const [isInit, setIsInit] = useState(true);
 
@@ -38,9 +38,9 @@ export const SearchProjField = (props: {
 
 
   useLazyEffect(()=>{
-    /* 
+    /*
       Prevent doing anything on initial render
-      to save API call when projId was 
+      to save API call when projId was
       initialized by URL parameters
      */
     if (isInit) return;
@@ -54,12 +54,12 @@ export const SearchProjField = (props: {
           }));
 
         });
-    } 
+    }
 
   }, [inputVal], 2000);
 
   useEffect(()=>{
-    /* 
+    /*
       When there is no option but with projName,
       make a single option.
     */
@@ -83,7 +83,7 @@ export const SearchProjField = (props: {
 
         helpers.setValue(val?.id);
         setFieldVal(val);
- 
+
         if (val) {
           setStatus('busy' as TFormStatus);
         } else {

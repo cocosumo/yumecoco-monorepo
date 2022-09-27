@@ -1,7 +1,6 @@
 import { Form } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
-
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
 import { getFieldName } from './form';
 import {  Grid, LinearProgress } from '@mui/material';
@@ -16,7 +15,7 @@ import {
 } from './hooks/';
 
 import { SelectProjEstimates } from '../../components/ui/selects';
-import { PaymentSchedule } from './parts/paymentSchedule/';
+import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 
 export const FormContractPreview = () => {
 

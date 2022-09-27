@@ -46,31 +46,42 @@ export const FormIndividualCustomer  = () => {
   return (
 
     <Form noValidate>
-      <ScrollToFieldError/>
+      <ScrollToFieldError />
 
       <MainContainer >
 
-        <PageTitle label="顧客登録（個人）"/>
+        <PageTitle label="顧客登録（個人）" />
 
-        <Grid container item xs={12} md={12} lg={12} xl={9} spacing={2} alignItems="flex-start" justifyContent={'flex-start'}>
-          {isDeletedStatus && <CustomerStatus/>}
+        <Grid container item xs={12}
+          md={12} lg={12} xl={9}
+          spacing={2} alignItems="flex-start" justifyContent={'flex-start'}
+        >
+          {isDeletedStatus && <CustomerStatus />}
 
-          <Grid className='fieldarray' container item xs={12} md={8} lg={5} spacing={2} >
-            <Customers/>
+          <Grid className='fieldarray' container item
+            xs={12} md={8} lg={5}
+            spacing={2}
+          >
+            <Customers />
           </Grid>
 
-          <Grid container item xs={12} md={4} lg={6} spacing={4} justifyContent="center">
-            <Agents/>
-            {isEditMode && <MemoColumn/>}
+          <Grid container item xs={12}
+            md={4} lg={6} spacing={4}
+            justifyContent="center"
+          >
+            <Agents />
+            {isEditMode && <MemoColumn />}
           </Grid>
 
-          <Grid container item xs={12} spacing={2}>
+          <Grid container item xs={12}
+            spacing={2}
+          >
             {isEditMode && <RelatedProjects />}
 
           </Grid>
 
         </Grid>
-        <FabSave onClick={submitForm} url="custgroup" appear={!Boolean(+isDeleted) }/>
+        <FabSave onClick={submitForm} url="custgroup" appear={!+isDeleted} />
         {
           isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
         }

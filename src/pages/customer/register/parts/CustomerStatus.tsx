@@ -28,23 +28,25 @@ export const CustomerStatus = () => {
 
   return (
 
-    <Grid container item xs={12} spacing={2} >
+    <Grid container item xs={12}
+      spacing={2}
+    >
       <Grid item xs={12} md={6}>
         <Alert
-        severity={isDeleted ? 'info' : 'warning'}
-        variant={isDeleted ? 'outlined' : 'filled'}
-        action={
+          severity={isDeleted ? 'info' : 'warning'}
+          variant={isDeleted ? 'outlined' : 'filled'}
+          action={
 
-          <Button
-            onClick={handleClickUndelete}
-            color="inherit"
-            size="small"
-            startIcon={isDeleted ? <SettingsBackupRestoreIcon /> : <DeleteIcon/>}
+            <Button
+              onClick={handleClickUndelete}
+              color="inherit"
+              size="small"
+              startIcon={isDeleted ? <SettingsBackupRestoreIcon /> : <DeleteIcon />}
             >
-            {isDeleted ? '復帰する' : '元に戻す'}
-          </Button>
+              {isDeleted ? '復帰する' : '元に戻す'}
+            </Button>
         }
-      >
+        >
           {message}
         </Alert>
 

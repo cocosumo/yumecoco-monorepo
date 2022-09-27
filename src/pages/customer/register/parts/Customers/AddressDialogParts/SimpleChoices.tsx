@@ -22,7 +22,9 @@ export const SimpleChoices = (props: {
               onClick={()=>{
                 handleClick(name, item);
               }}
-            >{item}</Button>
+            >
+              {item}
+            </Button>
           </Grid>
         ),
       )

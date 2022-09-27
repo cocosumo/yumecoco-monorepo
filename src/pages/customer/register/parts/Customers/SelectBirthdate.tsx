@@ -57,27 +57,29 @@ export const SelectBirthdate = (props: {
 
 
   return (
-    <Grid container item xs={12} md={9} spacing={1} >
+    <Grid container item xs={12}
+      md={9} spacing={1}
+    >
       <Grid item xs={6}>
         <MemoizedFormikSelect
-        name={`${namePrefix}${getCustFieldName('birthYear')}`}
-        label="生年"
-        helperText='<任意>個別設定可'
-        options={yearOptions}
+          name={`${namePrefix}${getCustFieldName('birthYear')}`}
+          label="生年"
+          helperText='<任意>個別設定可'
+          options={yearOptions}
         />
       </Grid>
       <Grid item xs={3}>
         <MemoizedFormikSelect
-        name={`${namePrefix}${getCustFieldName('birthMonth')}`}
-        label="月"
-        options={monthOptions}
+          name={`${namePrefix}${getCustFieldName('birthMonth')}`}
+          label="月"
+          options={monthOptions}
         />
       </Grid>
       <Grid item xs={3}>
         <MemoizedFormikSelect
-        name={`${namePrefix}${getCustFieldName('birthDay')}`}
-        label="日"
-        options={dayOptions}
+          name={`${namePrefix}${getCustFieldName('birthDay')}`}
+          label="日"
+          options={dayOptions}
         />
       </Grid>
     </Grid>

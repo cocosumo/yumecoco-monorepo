@@ -45,7 +45,7 @@ module.exports = {
     "react/jsx-equals-spacing": [2, "never"],
     "react/jsx-max-props-per-line": [2, { "maximum": 3 }],
     "react/jsx-max-depth": [2, {"max": 3}],
-    "react/jsx-no-useless-fragment": [2],
+    "react/jsx-no-useless-fragment": [2, {allowExpressions: true}],
     "react/jsx-props-no-multi-spaces": [1],
     "react/jsx-one-expression-per-line":[2],
     "react/jsx-wrap-multilines": [2],

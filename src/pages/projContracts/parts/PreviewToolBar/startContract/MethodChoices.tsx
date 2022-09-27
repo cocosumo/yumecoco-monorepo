@@ -1,14 +1,20 @@
 import { Stack } from '@mui/material';
+
 import { ChoiceButton } from './ChoiceButton';
 
-export const MethodChoice = () => {
+export const MethodChoice = ({
+  handleSendElectronicContract,
+}:{
+  handleSendElectronicContract: () => void
+}) => {
+
   return (
     <Stack spacing={2} direction={'column'}>
 
       <ChoiceButton
         mainLabel='電子手続き'
         secondaryLabel='顧客と担当者が電子サインしたら、店長と経理が最終確認を行います。'
-        handleClick={() => alert('申し訳ございませんが、開発中です。')}
+        handleClick={handleSendElectronicContract}
       />
 
       <ChoiceButton

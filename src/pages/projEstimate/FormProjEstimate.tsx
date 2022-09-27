@@ -14,11 +14,16 @@ import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
+import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
+import { useResolveParams } from './hooks/useResolveParams';
 
 export default function FormProjEstimate() {
 
   const { values } = useFormikContext<TypeOfForm>();
-  const { projName, customerName, projId } = values;
+  const { projId } = values;
+
+  useResolveParams();
+  useUpdateEstimateId();
 
   return (
     <Form noValidate>
@@ -29,7 +34,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md={5}>
 
           {/* 工事情報の検索 */}
-          <SearchProject {...{ customerName, projId, projName }} />
+          <SearchProject  />
         </Grid>
 
         <Grid item xs={12}>

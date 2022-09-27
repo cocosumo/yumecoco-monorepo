@@ -57,13 +57,15 @@ export const QuoteTableRow = (
     <TableRow>
 
       <TableCell
+        width={'3%'}
         sx={{
           pl: 1, pr: 0,
         }}
       >
         <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
       </TableCell>
-      <TableCell>
+      
+      <TableCell width={'10%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'majorItem')}
           handleChange={handleMajorItemChange}
@@ -71,7 +73,7 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell width={'10%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'middleItem')}
           handleChange={handleMiddleItemChange}
@@ -79,7 +81,7 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell>
+      <TableCell width={'12%'}>
         <FormikAutocomplete
           name={getItemFieldName(rowIdx, 'element')}
           handleChange={handleMaterialChange}
@@ -87,26 +89,26 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell align='right'>
+      <TableCell width={'10%'} align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} handleChange={handleChangeCostPrice} />
       </TableCell>
 
-      <TableCell align='right'>
+      <TableCell width={'8%'} align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'quantity')} />
       </TableCell>
 
-      <TableCell>
+      <TableCell width={'8%'}> 
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'unit')}
           options={unitChoices.map((c) => ({ label: c, value: c }))}
         />
       </TableCell>
 
-      <TableCell align='right'>
+      <TableCell width={'6%'} align='right'>
         <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
       </TableCell>
 
-      <TableCell>
+      <TableCell width={'8%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'taxType')}
           options={taxChoices.map((c) => ({ label: c, value: c }))}
@@ -121,7 +123,7 @@ export const QuoteTableRow = (
         <DisplayNumber value={result.price} suffix={'円'} />
       </TableCell>
 
-      <TableCell >
+      <TableCell width={'3%'}>
         <QtRowAddDelete
           rowIdx={rowIdx}
           arrayHelpers={arrayHelpers}

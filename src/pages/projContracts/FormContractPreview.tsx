@@ -34,7 +34,6 @@ export const FormContractPreview = () => {
   } = useEstimateChangeHandler();
 
 
-
   return (
     <Form noValidate>
       <MainContainer>

@@ -2,9 +2,9 @@ import { useFormikContext } from 'formik';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { getProjDataById } from '../api/getProjDataById';
-import { fetchProjEstimatesById, getProjEstimatesDataById } from '../api/getProjEstimatesDataById';
+import { fetchProjEstimatesById } from '../api/getProjEstimatesDataById';
 import {  TypeOfForm } from '../form';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+
 
 export const useUpdateProjId = () => {
   const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
@@ -19,7 +19,7 @@ export const useUpdateProjId = () => {
     status,
   } = useFormikContext<TypeOfForm>();
 
-  const { projId, projEstimateId } = values;
+  const { projId } = values;
   const formStatus: TFormStatus = status;
 
   const setStatusSafe = useCallback((s: TFormStatus) => setStatus(s), [setStatus]);
@@ -49,7 +49,6 @@ export const useUpdateProjId = () => {
             return {
               ...prev,
               ...formData,
-
               projEstimateId: isValidProjEstimatesId ? locProjEstimateId : '',
             };
           });
@@ -72,31 +71,6 @@ export const useUpdateProjId = () => {
     }
   },
   [projId, setStatusSafe, setValues, memSetSnackState ]);
-
-
-
-  useDeepCompareEffect(() => {
-    if (projEstimateId ) {
-
-      getProjEstimatesDataById(estimatesRec, projEstimateId)
-        .then((formData) => {
-          /* 見積もりのものを */
-          setValues((prev) => {
-            return { ...prev, ...formData };
-          });
-        })
-        .catch((err) => {
-          memSetSnackState({
-            open: true,
-            message: `レコード取得にエラーが発生しました。${err.message}`,
-            severity: 'error',
-          });
-        })
-        .finally(() => setStatusSafe(''));
-    }
-  },
-  /* estimatesRec is object, unstable as dependency */
-  [projEstimateId, estimatesRec]);
 
   return {
     isWithEstimates,

@@ -10,13 +10,14 @@ declare namespace Estimates.main {
     顧客名: kintone.fieldTypes.SingleLineText;
     contractPrice: kintone.fieldTypes.Number;
     税率: kintone.fieldTypes.Number;
+    estimateStatus: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     工事種別名: kintone.fieldTypes.SingleLineText;
     signMethod: kintone.fieldTypes.SingleLineText;
 
     envDocFileKeys: kintone.fieldTypes.File;
     内訳: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

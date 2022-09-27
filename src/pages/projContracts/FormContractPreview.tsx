@@ -16,6 +16,7 @@ import {
 
 import { SelectProjEstimates } from '../../components/ui/selects';
 import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
+import { GridNextDivider } from './parts/GridNextDivider';
 
 export const FormContractPreview = () => {
 
@@ -34,7 +35,7 @@ export const FormContractPreview = () => {
 
   return (
     <Form noValidate>
-      <MainContainer>
+      <MainContainer justifyContent={'space-between'}>
         <PageTitle label='契約' />
 
 
@@ -59,13 +60,15 @@ export const FormContractPreview = () => {
 
         </Grid>
 
-
         {/* 契約内容 */}
         <ContractInfo />
+
+        <GridNextDivider isShow={!!projEstimateId} />
 
         {/* 支払い予定入力 */}
         {!!projEstimateId &&
         <PaymentSchedule />}
+
 
 
         {/* 契約のプレビュー */}

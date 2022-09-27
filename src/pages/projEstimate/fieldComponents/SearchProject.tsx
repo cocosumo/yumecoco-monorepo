@@ -6,8 +6,12 @@ import { NoCustomerWarning } from './NoCustomerWarning';
 
 export const SearchProject = () => {
 
-  const { isLoading, handleStartLoading, values } = useUpdateProjectId();
-  console.log(isLoading);
+  const {
+    isLoading,
+    handleStartLoading,
+    values,
+  } = useUpdateProjectId();
+
   const {
     projName, projId, customerName,
   } = values;

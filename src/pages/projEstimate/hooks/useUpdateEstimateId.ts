@@ -7,8 +7,8 @@ import { produce } from 'immer';
 
 /**
  * ※ 緊急修正
- * 
- * 仮ファイルです、用更新 
+ *
+ * 仮ファイルです、用更新
  * PR#100マージされたらにグロバルフックフックあり。
  */
 
@@ -25,17 +25,16 @@ const getEstimateById = async (projEstimateId: string) => {
 
 
 export const useUpdateEstimateId = () => {
-  const { 
+  const {
     values: {
       estimateId,
-    }, 
+    },
     setValues,
   } = useFormikContext<TypeOfForm>();
 
   useEffect(() => {
-    
+
     if (estimateId) {
-      console.log('Fire');
       getEstimateById(estimateId)
         .then(({
           projId,
@@ -86,7 +85,7 @@ export const useUpdateEstimateId = () => {
 
         });
     }
- 
+
 
   }, [estimateId, setValues]);
 };

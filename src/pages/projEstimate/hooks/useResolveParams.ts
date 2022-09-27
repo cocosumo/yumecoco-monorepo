@@ -16,12 +16,11 @@ export const useResolveParams = () => {
 
 
   useEffect(()=>{
-    
     // If projEstimateId got passed, no need to save projId.
     if (projEstimateIdFromURL) {
       setValues((prev)=>({
         ...prev,
-        projEstimateId: projEstimateIdFromURL,
+        estimateId: projEstimateIdFromURL,
       }));
     } else if (projIdFromURL) {
       setValues((prev)=>({

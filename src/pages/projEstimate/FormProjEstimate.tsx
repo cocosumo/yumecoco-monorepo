@@ -25,8 +25,6 @@ export default function FormProjEstimate() {
   useResolveParams();
   useUpdateEstimateId();
 
-  console.log(values);
-  
   return (
     <Form noValidate>
       <ScrollToFieldError />

@@ -11,14 +11,15 @@ export const useUpdateProjectId = () => {
   const { values, dirty, setValues } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { projId } = values;
-  const [loading, setLoading] = useState(true);
+  const [isInitial, setIsInitial] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleStartLoading = () => setLoading(true);
 
   useEffect(
     ()=>{
       if (projId) {
-
+        setIsInitial(false);
         setLoading(true);
         getConstRecord(projId)
           .then(async ({
@@ -40,7 +41,7 @@ export const useUpdateProjectId = () => {
             const mainCustName = custGroup?.members?.value[0].value.customerName.value ?? '';
 
             // Throttle speed to avoid request spam.
-          
+
             setValues((prev) => produce(prev, draft => {
               draft.custGroupId = custGroupId.value;
               draft.projName = constructionName.value;
@@ -49,7 +50,7 @@ export const useUpdateProjectId = () => {
               draft.customerName = mainCustName;
             }));
             setLoading(false);
-           
+
 
           })
           .catch((err) => {
@@ -76,7 +77,7 @@ export const useUpdateProjectId = () => {
   );
 
   return {
-    isLoading: loading,
+    isLoading: loading || isInitial,
     handleStartLoading,
     values,
   };

@@ -15,9 +15,8 @@ import {
   useEstimateChangeHandler,
 } from './hooks/';
 
-
-
 import { SelectProjEstimates } from '../../components/ui/selects';
+import { PaymentSchedule } from './parts/paymentSchedule/';
 
 export const FormContractPreview = () => {
 
@@ -65,8 +64,13 @@ export const FormContractPreview = () => {
         {/* 契約内容 */}
         <ContractInfo />
 
-        {/* 契約のプレビュー */}
+        {/* 支払い予定入力 */}
         {!!projEstimateId &&
+        <PaymentSchedule />}
+
+
+        {/* 契約のプレビュー */}
+        {!!projEstimateId && previewUrl &&
         <Preview
           previewUrl={previewUrl}
           previewLoading={previewLoading}

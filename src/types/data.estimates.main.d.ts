@@ -17,7 +17,7 @@ declare namespace Estimates.main {
 
     envDocFileKeys: kintone.fieldTypes.File;
     内訳: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

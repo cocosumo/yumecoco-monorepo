@@ -5,6 +5,7 @@ const convertToKintone = ({
   customerName, projName, projType,
   profitRate, taxRate,
   items, projId,
+  status,
 }: TypeOfForm) => {
 
   /* itemsの変換処理 */
@@ -39,6 +40,7 @@ const convertToKintone = ({
     工事種別名: { value: projType },
     利益率: { value: profitRate.toString() },
     税率: { value: taxRate.toString() },
+    estimateStatus : { value: status },
     内訳: kintoneItems,
 
   };

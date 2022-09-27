@@ -8,13 +8,17 @@ import { useContractPreview } from '../../hooks/useContractPreview';
 
 
 
-export const Preview = () => {
+export const Preview = ({
+  estimatesRec,
+} : {
+  estimatesRec: ProjectEstimates.SavedData[]
+}) => {
   const {
     values,
     previewLoading,
     formLoading,
     previewUrl,
-  } = useContractPreview();
+  } = useContractPreview(estimatesRec);
 
   const { envelopeId, envelopeStatus, projId, projName, projEstimateId } = values;
 

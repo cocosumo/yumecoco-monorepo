@@ -25,7 +25,7 @@ const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: 
     <Grid item xs={8} md={4} >
       <FormikTextField
         name={`${namePrefix}${getCustFieldName('postal')}`}
-        label="郵便番号" placeholder='471-0041'
+        label="郵便番号" placeholder='4710041'
       />
     </Grid>
     <Grid item xs={4} md={2} >

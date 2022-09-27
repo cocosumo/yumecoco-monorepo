@@ -34,7 +34,7 @@ export const FormikAutocomplete = (
     }, 1000), [setFieldValue, name, handleChange]);
 
   return (
-    <FormControl variant="standard" sx={{ minWidth: 100 }} size='small'>
+    <FormControl variant="standard" size='small' fullWidth>
       <Autocomplete {...field}
         freeSolo
         options={options.map(({ value }) => value)}

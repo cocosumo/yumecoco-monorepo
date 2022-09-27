@@ -55,7 +55,12 @@ export function FormikSelectAdvanced(props : {
 
 
   return (
-    <FormControl required={required} fullWidth error={isShowError}>
+    <FormControl 
+      required={required} 
+      fullWidth 
+      error={isShowError}
+      disabled={disabled}
+    >
       <InputLabel error={isShowError}>
         {label}
       </InputLabel>
@@ -87,4 +92,4 @@ export function FormikSelectAdvanced(props : {
   );
 }
 
-export const MemoizedFormikSelect = memo(FormikSelectAdvanced);
+export const MemoizedFormikSelectAdvanced = memo(FormikSelectAdvanced);

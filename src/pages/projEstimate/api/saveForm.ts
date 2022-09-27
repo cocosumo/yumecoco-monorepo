@@ -40,6 +40,7 @@ const convertToKintone = ({
     工事種別名: { value: projType },
     利益率: { value: profitRate.toString() },
     税率: { value: taxRate.toString() },
+    estimateStatus : { value: status },
     内訳: kintoneItems,
     estimateStatus: { value: status },
   };

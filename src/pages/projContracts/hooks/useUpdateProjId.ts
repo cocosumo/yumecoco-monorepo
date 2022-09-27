@@ -1,16 +1,11 @@
 import { useFormikContext } from 'formik';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { getProjDataById } from '../api/getProjDataById';
-import { fetchProjEstimatesById } from '../api/getProjEstimatesDataById';
 import {  TypeOfForm } from '../form';
 
-
 export const useUpdateProjId = () => {
-  const [estimatesRec, setEstimatesRec] = useState<ProjectEstimates.SavedData[]>([]);
   const { setSnackState } = useSnackBar();
-
-  const isWithEstimates = Boolean(estimatesRec.length);
 
   const {
     values,
@@ -32,28 +27,16 @@ export const useUpdateProjId = () => {
 
       setStatusSafe('busy');
 
-      Promise.all([
-        getProjDataById(projId),
-        fetchProjEstimatesById(projId),
-      ])
-        .then(([formData, _estimatesRecord]) => {
+      getProjDataById(projId)
+        .then((formData) => {
 
           setValues( (prev) => {
-            const { projEstimateId: locProjEstimateId } = prev;
-
-            /* Set estimateId is it exist in the new list of projEstimate records */
-            const isValidProjEstimatesId = _estimatesRecord
-              .some(({ レコード番号: dbProjEstimatesId }) =>
-                dbProjEstimatesId.value ===  locProjEstimateId);
-
             return {
               ...prev,
               ...formData,
-              projEstimateId: isValidProjEstimatesId ? locProjEstimateId : '',
             };
           });
 
-          setEstimatesRec(_estimatesRecord);
 
         })
         .catch((err) => {
@@ -67,14 +50,11 @@ export const useUpdateProjId = () => {
 
     } else {
       setStatusSafe('');
-      setEstimatesRec([]);
     }
   },
-  [projId, setStatusSafe, setValues, memSetSnackState ]);
+  [projId,  setStatusSafe, setValues, memSetSnackState ]);
 
   return {
-    isWithEstimates,
-    estimatesRec,
     formStatus,
     values,
   };

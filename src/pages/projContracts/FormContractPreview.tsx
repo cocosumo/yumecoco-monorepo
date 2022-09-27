@@ -9,28 +9,43 @@ import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { Preview } from './parts/Preview/Preview';
-import { ProjEstimatesField } from './parts/ProjEstimates/ProjEstimatesField';
-import { useUpdateProjId } from './hooks/useUpdateProjId';
-import { useState } from 'react';
-import { useResolveParams } from './hooks/useResolveParams';
+import {
+  useUpdateProjId,
+  useResolveParams,
+  useEstimateChangeHandler } from './hooks/';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+
+
+
+import { SelectProjEstimates } from '../../components/ui/selects';
 
 export const FormContractPreview = () => {
 
-  // State for search field's tooltip.
-  const [searchTTOpen, setSearchTTOpen] = useState(false);
-
-  useResolveParams();
+  const { projEstimateIdFromURL } = useResolveParams();
 
   const {
-    estimatesRec,
     formStatus,
-    isWithEstimates,
     values: { projEstimateId, projId, projName },
   } = useUpdateProjId();
 
+  const {
+    handleChangeEstimate,
+    previewUrl,
+    previewLoading,
+    selectedEstimate,
+  } = useEstimateChangeHandler();
 
-  const handleSearchTTClose = () => setSearchTTOpen(false);
-  const handleSearchTTOpen = () => setSearchTTOpen(true);
+
+  useDeepCompareEffect(() => {
+    if (projEstimateIdFromURL && selectedEstimate && formStatus !== 'busy') {
+      /*
+        Triggers when projEstimateId was passed from the url,
+        but ensures that selectedEstimate and projId are not empty
+        to avoid pre-mature rendering.
+      */
+      handleChangeEstimate(selectedEstimate, projEstimateIdFromURL);
+    }
+  }, [selectedEstimate || {}, projEstimateIdFromURL, formStatus]);
 
   return (
     <Form noValidate>
@@ -43,30 +58,35 @@ export const FormContractPreview = () => {
             label="工事情報の検索"
             name={getFieldName('projId')}
             projName={projName}
-            handleSearchTTClose={handleSearchTTClose}
-            handleSearchTTOpen={handleSearchTTOpen}
-            searchTTOpen={searchTTOpen}
           />
         </Grid>
 
         {/* 見積もり選択フィールド */}
+        <Grid item xs={12}
+          md={8}
+          lg={6}
+        >
+          <SelectProjEstimates
+            projId={projId}
+            projEstimateId={projEstimateId}
+            handleChange={handleChangeEstimate}
+            disabled={previewLoading}
+          />
 
-        <ProjEstimatesField
-          projId={projId}
-          projEstimateId={projEstimateId}
-          estimatesRecord={estimatesRec}
-          status={formStatus}
-          handleSearchTTClose={handleSearchTTClose}
-          handleSearchTTOpen={handleSearchTTOpen}
-        />
+        </Grid>
+
 
         {/* 契約内容 */}
         <ContractInfo />
 
         {/* 契約のプレビュー */}
-        {!!projEstimateId &&  <Preview estimatesRec={estimatesRec} />}
+        {!!projEstimateId &&
+        <Preview
+          previewUrl={previewUrl}
+          previewLoading={previewLoading}
+        />}
 
-        {!projEstimateId && !!projId && isWithEstimates &&
+        {!projEstimateId &&
           <Grid item xs={12}>
             <EmptyBox>
               見積を選択してください。

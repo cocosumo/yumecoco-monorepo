@@ -3,27 +3,22 @@ import {  useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { base64ToBlob } from '../../../lib';
 import { downloadContract } from '../api/docusign/downloadContract';
-import { getProjEstimatesDataById } from '../api/getProjEstimatesDataById';
 import { TypeOfForm } from '../form';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 /**
  * Hook for generating preview url.
  * This also wraps some of useFormikContext's props.
- * @param {ProjectEstimates.SavedData[]}
  * @return {Object} result
  * @return {string} previewUrl - The URL of the preview.
  * @return {TFormStatus} result.formStatus - wraps Formik's status to a safer type.
  * @return {TypeOfForm} result.values - Formik values as is.
  * @return {boolean} result.previewLoading - whether preview is still loading
- * @return {boolean} result.formLoading - whether form is busy.
+ * @return {boolean} result.formLoading - whether form is busy overall.
  */
-export const useContractPreview = (estimatesRec: ProjectEstimates.SavedData[]) => {
-  const { values, status, setValues } = useFormikContext<TypeOfForm>();
-  const {
-    projEstimateId,
-  } = values;
+export const useContractPreview = () => {
+  const { status, setValues } = useFormikContext<TypeOfForm>();
+
   const [previewUrl, setPreviewUrl] = useState('');
-  const [previewLoading, setPreviewLoading] = useState(true);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const { setSnackState } = useSnackBar();
 
   const formStatus: TFormStatus = status;
@@ -65,40 +60,12 @@ export const useContractPreview = (estimatesRec: ProjectEstimates.SavedData[]) =
 
   };
 
-  useDeepCompareEffect(()=>{
-
-    if (
-      projEstimateId
-      && formStatus !== 'busy'
-      && estimatesRec.length
-    ) {
-
-      getProjEstimatesDataById(estimatesRec, projEstimateId)
-        .then((formData) => {
-
-          /* 見積もりのものをフォームに格納 */
-          setValues((prev) => {
-            const newFormState = { ...prev, ...formData };
-            handlePreview(newFormState);
-            return newFormState;
-          });
-        })
-        .catch((err) => {
-          setSnackState({
-            open: true,
-            message: `レコード取得にエラーが発生しました。${err.message}`,
-            severity: 'error',
-          });
-        });
-    }
-
-  }, [projEstimateId, estimatesRec]);
-
   return {
+    handlePreview,
     formStatus,
     previewLoading,
     formLoading,
     previewUrl,
-    values,
+    setValues,
   };
 };

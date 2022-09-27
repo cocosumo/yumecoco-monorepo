@@ -9,7 +9,11 @@ export const DisplayNumber = ({
 }) => {
 
   return (
-    <Typography variant='body2' textAlign={'right'}>
+    <Typography 
+      variant='body2' 
+      textAlign={'right'}
+      noWrap
+    >
       {Math.round(value).toLocaleString()}
       {suffix}
     </Typography>

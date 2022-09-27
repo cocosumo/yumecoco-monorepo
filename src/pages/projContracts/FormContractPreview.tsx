@@ -12,8 +12,8 @@ import { Preview } from './parts/Preview/Preview';
 import {
   useUpdateProjId,
   useResolveParams,
-  useEstimateChangeHandler } from './hooks/';
-import useDeepCompareEffect from 'use-deep-compare-effect';
+  useEstimateChangeHandler,
+} from './hooks/';
 
 
 
@@ -21,7 +21,7 @@ import { SelectProjEstimates } from '../../components/ui/selects';
 
 export const FormContractPreview = () => {
 
-  const { projEstimateIdFromURL } = useResolveParams();
+  useResolveParams();
 
   const {
     formStatus,
@@ -29,23 +29,11 @@ export const FormContractPreview = () => {
   } = useUpdateProjId();
 
   const {
-    handleChangeEstimate,
     previewUrl,
     previewLoading,
-    selectedEstimate,
   } = useEstimateChangeHandler();
 
 
-  useDeepCompareEffect(() => {
-    if (projEstimateIdFromURL && selectedEstimate && formStatus !== 'busy') {
-      /*
-        Triggers when projEstimateId was passed from the url,
-        but ensures that selectedEstimate and projId are not empty
-        to avoid pre-mature rendering.
-      */
-      handleChangeEstimate(selectedEstimate, projEstimateIdFromURL);
-    }
-  }, [selectedEstimate || {}, projEstimateIdFromURL, formStatus]);
 
   return (
     <Form noValidate>
@@ -69,7 +57,6 @@ export const FormContractPreview = () => {
           <SelectProjEstimates
             projId={projId}
             projEstimateId={projEstimateId}
-            handleChange={handleChangeEstimate}
             disabled={previewLoading}
           />
 

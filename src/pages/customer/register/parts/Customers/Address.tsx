@@ -1,7 +1,7 @@
 
 import { Grid, Collapse,  IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {  FormikTextField, TextMaskPostal } from '../../../../../components/ui/textfield';
+import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { Contacts } from './Contacts';
 import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
 import { CustomerForm, getCustFieldName } from '../../form';
@@ -26,8 +26,6 @@ const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: 
       <FormikTextField
         name={`${namePrefix}${getCustFieldName('postal')}`}
         label="郵便番号" placeholder='471-0041'
-        inputComponent={TextMaskPostal}
-        shrink={!!postal} 
       />
     </Grid>
     <Grid item xs={4} md={2} >
@@ -37,7 +35,7 @@ const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: 
       </IconButton>
     </Grid>
 
-    <Grid item xs={12} md={6} /> 
+    <Grid item xs={12} md={6} />
     {' '}
     {/* Offset */}
 

@@ -32,6 +32,7 @@ const convertToKintone = ({
     }),
   };
 
+  console.log(status);
   /* 変換処理 */
   const kintoneRecord: Partial<Estimates.main.SavedData> = {
     projId: { value: projId },

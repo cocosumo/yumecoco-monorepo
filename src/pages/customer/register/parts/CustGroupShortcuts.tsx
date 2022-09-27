@@ -16,7 +16,7 @@ export  const  CustGroupShortcuts = (props : {
   const { setSnackState } = useSnackBar();
   const navigate = useNavigate();
 
-  let passedProjId = useQuery().get('projId');
+  const passedProjId = useQuery().get('projId');
   const { custGroupId } = props;
 
   const handleDelete = () => {

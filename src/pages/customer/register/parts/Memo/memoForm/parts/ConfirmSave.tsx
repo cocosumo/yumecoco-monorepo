@@ -52,50 +52,57 @@ export const ConfirmSave = () => {
 
   return (
     <Dialog
-        open={confirmSaveOpen}
-        onClose={()=> handleConfirmSaveOpen(false)}
-        maxWidth={'md'}
-      >
+      open={confirmSaveOpen}
+      onClose={()=> handleConfirmSaveOpen(false)}
+      maxWidth={'md'}
+    >
       <DialogTitle>
         この内容で登録しますか。
       </DialogTitle>
       <DialogContent>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
-            <Avatar src="#" ><MemoIcon type={memoType as MemoType} /></Avatar>
+            <Avatar src="#" >
+              <MemoIcon type={memoType as MemoType} />
+            </Avatar>
           </ListItemAvatar>
           <ListItemText
-          primary={
-            <Stack direction={'row'} justifyContent="space-between">
-              <span>
-                {memoType}<br/>
-                <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                  {commenter}
-                </Typography>
+            primary={
+              <Stack direction={'row'} justifyContent="space-between">
+                <span>
+                  {memoType}
+                  <br />
+                  <Typography
+                    sx={{ display: 'inline' }}
+                    component="span"
+                    variant="body2"
+                    color="text.primary"
+                  >
+                    {commenter}
+                  </Typography>
 
-              </span>
-            </Stack>
+                </span>
+              </Stack>
             }
-          secondary={
-            <Stack component={'span'}>
-              {contents} <br />
-              {format((createDate ? parseISO(createDate) :  new Date()), 'yyyy年MM月dd日')}
-            </Stack>
+            secondary={
+              <Stack component={'span'}>
+                {contents} 
+                {' '}
+                <br />
+                {format((createDate ? parseISO(createDate) :  new Date()), 'yyyy年MM月dd日')}
+              </Stack>
           }
-        />
+          />
         </ListItem>
 
       </DialogContent>
-      <DialogActions
-        // sx={{ justifyContent: 'center' }} To center the buttons
-      >
-        <Button onClick={handleSave} variant="outlined">はい</Button>
-        <Button onClick={()=> handleConfirmSaveOpen(false)} variant="outlined" color={'error'}>いいえ</Button>
+      <DialogActions >
+        <Button onClick={handleSave} variant="outlined">
+          はい
+        </Button>
+        <Button onClick={()=> handleConfirmSaveOpen(false)} variant="outlined" color={'error'}>
+          いいえ
+        </Button>
       </DialogActions>
     </Dialog>
   );

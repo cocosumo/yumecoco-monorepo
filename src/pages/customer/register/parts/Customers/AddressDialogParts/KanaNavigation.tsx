@@ -7,7 +7,9 @@ export const KanaNavigation = (props: {
 }) => {
   const { kanaRowsRef, kanaKeys } = props;
   return (
-    <Stack direction={'column'} sx={{ position: 'absolute', right: '1rem' }} spacing={1} p={1}>
+    <Stack direction={'column'} sx={{ position: 'absolute', right: '1rem' }} spacing={1}
+      p={1}
+    >
       {
       kanaKeys.map((groupKey, kanaIdx) => (
         <Chip
@@ -16,7 +18,8 @@ export const KanaNavigation = (props: {
           size='small'
           onClick={()=>{
             kanaRowsRef.current[kanaIdx]?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-          }} />
+          }}
+        />
       ))
     }
     </Stack>

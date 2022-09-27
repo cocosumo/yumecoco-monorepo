@@ -42,7 +42,6 @@ const convertToKintone = ({
     税率: { value: taxRate.toString() },
     estimateStatus : { value: status },
     内訳: kintoneItems,
-    estimateStatus: { value: status },
   };
 
   return kintoneRecord;

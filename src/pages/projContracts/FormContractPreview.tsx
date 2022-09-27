@@ -45,7 +45,7 @@ export const FormContractPreview = () => {
       */
       handleChangeEstimate(selectedEstimate, projEstimateIdFromURL);
     }
-  }, [selectedEstimate || {}, projEstimateIdFromURL, formStatus]);
+  }, [projEstimateIdFromURL, formStatus, selectedEstimate || {}]);
 
   return (
     <Form noValidate>

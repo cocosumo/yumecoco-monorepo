@@ -24,9 +24,12 @@ export const initialValues = {
   customerName: '',
 
   /** 工事種別 */
-  projType: '',
-  profitRate: 0.5, /* 利益率(自動計算) */
-  taxRate: 10, /* 税率 */
+  projTypeName: '',
+  projTypeId: '',
+  projTypeProfit: 50, /* 利益率 */
+
+  //profitRate: 0.5,
+  tax: 10, /* 税率 */
   status: '' as typeof statusChoices[number], /* ステータス */
 
   /* 見積もり用配列要素 */

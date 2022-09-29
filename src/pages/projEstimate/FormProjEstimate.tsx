@@ -42,20 +42,20 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('projType')} label="工事種別名" disabled />
+          <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField 
-            name={getFieldName('profitRate')} 
-            label="利益率" 
+          <FormikTextField
+            name={getFieldName('projTypeProfit')}
+            label="利益率"
             align='right'
             disabled
           />
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField 
-            name={getFieldName('taxRate')}
-            label="税率" 
+          <FormikTextField
+            name={getFieldName('tax')}
+            label="税率"
             align='right'
           />
         </Grid>
@@ -94,7 +94,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} mt={4}>
           <PageSubTitle label="大項目小計欄"  />
         </Grid>
-        <Grid item xs={12} 
+        <Grid item xs={12}
           md={4}
           lg={3}
         >

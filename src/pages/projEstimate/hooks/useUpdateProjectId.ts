@@ -45,8 +45,8 @@ export const useUpdateProjectId = () => {
             setValues((prev) => produce(prev, draft => {
               draft.custGroupId = custGroupId.value;
               draft.projName = constructionName.value;
-              draft.projType = constructionType.value;
-              draft.profitRate = +profitRate.value;
+              draft.projTypeName = constructionType.value;
+              draft.projTypeProfit = +profitRate.value;
               draft.customerName = mainCustName;
             }));
             setLoading(false);
@@ -67,8 +67,8 @@ export const useUpdateProjectId = () => {
         setValues((prev) => produce(prev, draft => {
           draft.projId = initialValues.projId;
           draft.projName = initialValues.customerName;
-          draft.projType = initialValues.projType;
-          draft.profitRate = initialValues.profitRate;
+          draft.projTypeName = initialValues.projTypeName;
+          draft.projTypeProfit = initialValues.projTypeProfit;
           draft.customerName = initialValues.customerName;
         }));
       }

@@ -16,11 +16,16 @@ import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortc
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
 import { useResolveParams } from './hooks/useResolveParams';
+import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 
 export default function FormProjEstimate() {
 
   const { values } = useFormikContext<TypeOfForm>();
-  const { projId } = values;
+  const {
+    projId,
+    projTypeProfit,
+    projTypeProfitLatest,
+  } = values;
 
   useResolveParams();
   useUpdateEstimateId();
@@ -51,6 +56,9 @@ export default function FormProjEstimate() {
             align='right'
             disabled
           />
+          {projTypeProfitLatest !== null && +projTypeProfit !== +projTypeProfitLatest &&
+          <MismatchedProfit />}
+
         </Grid>
         <Grid item xs={12} md={3}>
           <FormikTextField

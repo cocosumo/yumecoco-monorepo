@@ -28,6 +28,9 @@ export const initialValues = {
   projTypeId: '',
   projTypeProfit: 50, /* 利益率 */
 
+  /* 工事種別に対して最新の利益設定 */
+  projTypeProfitLatest: null as null | number,
+
   //profitRate: 0.5,
   tax: 10, /* 税率 */
   status: '' as typeof statusChoices[number], /* ステータス */

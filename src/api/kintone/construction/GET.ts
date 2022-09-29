@@ -27,7 +27,7 @@ export const getConstDetails = async (recordId: string) => {
  * the directory of the caller.
  * @deprecated
  */
-export const getFlatConstDetails = async (recordId:　string) => {
+export const getFlatConstDetails = async (recordId: string) => {
   const kintoneRecord = await getConstDetails(recordId);
 
   return Object.entries(kintoneRecord.record).reduce((acc, [key, val]) => {

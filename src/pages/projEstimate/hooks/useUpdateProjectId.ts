@@ -48,7 +48,7 @@ export const useUpdateProjectId = () => {
               draft.projName = projName.value;
               draft.projTypeName = projTypeName.value;
               draft.projTypeId = projTypeId.value;
-              draft.projTypeProfitLatest = profitRate.value ? +profitRate.value : null;
+              draft.projTypeProfitLatest = +profitRate.value;
               draft.customerName = mainCustName;
             }));
             setLoading(false);

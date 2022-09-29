@@ -54,9 +54,11 @@ export default function FormProjEstimate() {
             name={getFieldName('projTypeProfit')}
             label="利益率"
             align='right'
-            disabled
+            disabled={projTypeProfitLatest !== 0}
           />
-          {projTypeProfitLatest !== null && +projTypeProfit !== +projTypeProfitLatest &&
+          {projTypeProfitLatest !== null &&
+          projTypeProfitLatest !== 0 &&
+          +projTypeProfit !== +projTypeProfitLatest &&
           <MismatchedProfit />}
 
         </Grid>

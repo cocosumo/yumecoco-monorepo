@@ -8,6 +8,7 @@ import UnderConstruction from './UnderConstruction';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import HelpComponents from './manuals/HelpComponents';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
+import { SettingsPage } from './settingsPage/SettingsPage';
 
 
 
@@ -33,8 +34,9 @@ export const pages = {
   projProspectSearch: '/project/prospect/search',
 
   projContractPreview: '/project/contract/preview',
-  
+
   help: '/help',
+  settings: '/settings',
 
 };
 
@@ -52,15 +54,15 @@ const Router = () => (
     <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
 
     {/* 工事情報 */}
-    <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'}/>
-    <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'}/>
+    <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'} />
+    <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'} />
 
 
     {/* 見込み検索 */}
-    <Route path={`${pages.projProspectSearch}`} element={<FormikProjProspectSearch />} key={'search'}/>
+    <Route path={`${pages.projProspectSearch}`} element={<FormikProjProspectSearch />} key={'search'} />
 
     {/* 見込み登録 */}
-    <Route path={`${pages.projProspect}`} element={<FormikProjProspect />}   key={'edit'} />
+    <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} />
 
     {/* 見積もり登録 */}
     <Route path={`${pages.projEstimate}`} element={<FormikProjEstimate />} />
@@ -70,6 +72,11 @@ const Router = () => (
 
     {/* ヘルプ */}
     <Route path={`${pages.help}/*`} element={<HelpComponents />} />
+
+    {/* 設定 */}
+    <Route path={`${pages.settings}/*`} element={<SettingsPage />} />
+
+
   </Routes>
 
 );

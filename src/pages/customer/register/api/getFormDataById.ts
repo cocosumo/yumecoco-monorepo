@@ -51,13 +51,13 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
     yumeAG1: Ags?.yumeAGs?.[0] || '',
     yumeAG2: Ags?.yumeAGs?.[1] || '',
     projects: projects.value.map(({ value: {
-      constructionName,
-      constructionId,
+      projName,
+      projId,
       envStatus,
     } }) => {
       return {
-        projName: constructionName.value,
-        projId: constructionId.value,
+        projName: projName.value,
+        projId: projId.value,
         envelopeStatus: envStatus.value as TEnvelopeStatus,
       };
     }),

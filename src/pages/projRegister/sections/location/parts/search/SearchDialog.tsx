@@ -64,10 +64,10 @@ export const SearchDialog = (props: {
           </>}
         {isWithRecord && !loading &&
           <List>
-            {records?.map(({ constructionName, postal, address1, address2 }, idx) => {
+            {records?.map(({ projName, postal, address1, address2 }, idx) => {
               return (
                 <ListItem
-                  key={constructionName}
+                  key={projName}
                   divider
                 >
                   <ListItemButton onClick={()=>setSelected(idx)}>
@@ -75,7 +75,7 @@ export const SearchDialog = (props: {
                       <Radio checked={selected === idx} disableRipple />
                     </ListItemIcon>
                     <ListItemText
-                      primary={constructionName}
+                      primary={projName}
                       secondary={`${postal} ${address1}${address2}`}
                     />
                   </ListItemButton>

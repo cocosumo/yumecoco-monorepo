@@ -31,7 +31,7 @@ const resolveDeleteRequest = async (projectId: string) => {
         record: {
           projects: {
             type: 'SUBTABLE',
-            value: projects.value.filter(item => item.value.constructionId.value !== projectId),
+            value: projects.value.filter(item => item.value.projId.value !== projectId),
           },
         },
       },
@@ -55,13 +55,13 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
   }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
 
   const newProjects = projects.value
-    .filter(item => item.value.constructionId.value !== projectId)
+    .filter(item => item.value.projId.value !== projectId)
     .concat([{
       id: '',
       value: {
 
-        constructionId: { value: projectId },
-        constructionName: { value: 'auto' },
+        projId: { value: projectId },
+        projName: { value: 'auto' },
         cocoConst1: { value: cocoConst[0] },
         cocoConst2: { value: cocoConst[1] },
         cocoConst1Name : { value: 'auto' },

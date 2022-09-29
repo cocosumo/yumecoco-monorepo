@@ -23,8 +23,7 @@ describe('advancedSearch', ()=>{
 
     const updatedRecords = records.map<TUpload>((item) => {
       const updatedProjsCount = item.projects.value
-        .filter((i) => i.value.constructionId.value);
-      // console.log(item.$id.value, updatedProjsCount?.[0]?.value.constructionId.value);
+        .filter((i) => i.value.projId.value);
       return {
         id: item.$id.value,
         record: {

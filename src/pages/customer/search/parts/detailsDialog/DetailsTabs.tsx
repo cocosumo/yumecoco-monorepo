@@ -26,7 +26,7 @@ export function DetailsTabs(props : {
   const [fetchedProjects, setFetchedProjects] = useState<ProjectDetails.SavedData[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const projectIds =  record?.projects?.value
-    .map(item => item.value.constructionId.value)
+    .map(item => item.value.projId.value)
     .filter(Boolean) ?? [];
 
   useDeepCompareEffect(()=>{
@@ -51,7 +51,7 @@ export function DetailsTabs(props : {
   }, [custGroupId]);
 
   const isWithProject = Boolean(record?.projects.value
-    .filter(item=>item.value.constructionId.value)
+    .filter(item=>item.value.projId.value)
     .length);
   return (
     <TabContextContainer tabValue={tabValue}>

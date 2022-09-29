@@ -25,13 +25,13 @@ export const CopyForm = () => {
       if ('id' in resp) {
         const oldProjEstimateId = estimateId;
         const urlParams = generateParams({ projEstimateId: resp.id });
-
+        const redirectTime = 20000;
         setSnackState({
           open: true,
-          autoHideDuration: 5000,
-          message: `見積番号：${oldProjEstimateId}をコピーして、見積番号：${resp.id}を作成しました。5秒以内に移動します`,
+          autoHideDuration: redirectTime,
+          message: `見積番号：${oldProjEstimateId}をコピーして、見積番号：${resp.id}を作成しました。${redirectTime / 1000}秒以内に移動します`,
           severity: 'success',
-          handleClose: ()=>{
+          handleClose: () => {
             navigate(`${pages.projEstimate}?${urlParams}`);
             setBackdropState({ open: false });
           },

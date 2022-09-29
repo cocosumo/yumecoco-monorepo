@@ -44,6 +44,7 @@ export const useUpdateEstimateId = () => {
           税: tax,
           estimateStatus,
           工事名称: projName,
+          projTypeId,
           工事種別名: projTypeName,
         }) => {
 
@@ -53,6 +54,7 @@ export const useUpdateEstimateId = () => {
                 draft.customerName = custName.value;
                 draft.projId = projId.value;
                 draft.projTypeProfit = +projTypeProfit.value;
+                draft.projTypeId = projTypeId.value;
                 draft.tax = +tax.value;
                 draft.status = estimateStatus.value as TypeOfForm['status'];
                 draft.projName = projName.value;

@@ -64,7 +64,6 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
 
 
   const allConditions = [
-    //`(${getKeyOfProj('constructionName')} != "")`,
     mainSearchCondition(mainSearch),
     rankCondition(rank),
     custGroupId ? `(${getKeyOfProj('custGroupId')} = "${custGroupId}")` : undefined,

@@ -1,14 +1,6 @@
 import { KintoneRecord, APPIDS } from '../../../api/kintone';
 import format from 'date-fns/format';
 
-/* export const projectFields :KeyOfProjectDetails[] = [
-  '$id', '$revision', 'address1',
-  'address2', 'address2', 'agents',
-  'buildingType', 'constructionName',
-  'constructionType', 'constructionTypeId',
-  'custGroupId', 'isAgentConfirmed',
-  'isChkAddressKari', 'postal',
-]; */
 
 export interface SearchOption {
   name: string,

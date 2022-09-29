@@ -60,15 +60,15 @@ export const getConstRecordByIds = async (ids: string[]) => {
  * @param search Search string
  * @returns
  */
+export const searchProjects = async (search: string) => {
 
-export const searchProjects = async <
-  T extends KeyOfProjectDetails,
->(search: string) => {
+  const fieldProjName: KeyOfProjectDetails = 'projName';
+  const fields : KeyOfProjectDetails[] = ['projName', '$id' ];
 
   return KintoneRecord.getRecords({
     app: APPIDS.constructionDetails,
-    query: `${'constructionName' as T} like "${search}"`,
-    fields: ['constructionName', '$id' ] as T[],
+    query: `${fieldProjName} like "${search}"`,
+    fields: fields,
     totalCount: true,
   })
     .then(r => r.records as unknown as ProjectDetails.SavedData[]);

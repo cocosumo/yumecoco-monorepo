@@ -2,8 +2,8 @@ import { Autocomplete, TextField, Stack } from '@mui/material';
 import { useField } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLazyEffect } from '../../../hooks';
-import { searchProjects } from '../api';
 import { Caption } from '../../../components/ui/typographies';
+import { searchProjects } from '../../../api/kintone/projects';
 
 type Opt = {
   id: string,

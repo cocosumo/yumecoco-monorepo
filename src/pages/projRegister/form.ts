@@ -19,9 +19,9 @@ export const initialValues = {
   custGroupId: undefined  as undefined | string,
   storeId: '',
   territory: '',
-  constructionType: '',
-  constructionTypeId: '',
-  constructionName: '',
+  projTypeName: '',
+  projTypeId: '',
+  projName: '',
   isAgentConfirmed: false,
   cocoConst1: '',
   cocoConst2: '',
@@ -46,16 +46,17 @@ export const getFieldName = (fieldName: KeyOfProjForm) => fieldName;
  * Set Validation for fields that requires it.
  * Refer to YUM documentation.
  */
-export const validationSchema =  Yup.object(
+export const validationSchema =  Yup
+  .object<Partial<Record<KeyOfProjForm, any>>>(
   {
     custGroupId: Yup
       .string()
       .required('必須です。'),
 
-    constructionTypeId: Yup
+    projTypeId: Yup
       .string()
       .required('必須です。'),
-    constructionName: Yup
+    projName: Yup
       .string()
       .required('必須です。'),
     cocoConst1: Yup
@@ -71,5 +72,5 @@ export const validationSchema =  Yup.object(
     address2: Yup
       .string()
       .required('必須です。'),
-  } as Partial<Record<KeyOfProjForm, any>>,
+  },
 );

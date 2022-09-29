@@ -1,4 +1,5 @@
 import { APPIDS, KintoneRecord } from '../config';
+import { getProjEstimateKeys } from './getType';
 
 
 export const fetchEstimatesByProjId =  async (projId: string) => {
@@ -6,7 +7,7 @@ export const fetchEstimatesByProjId =  async (projId: string) => {
 
   const result = await KintoneRecord.getRecords({
     app: APPIDS.projectEstimate,
-    query: `${((k: KeyOfProjEstimates)=>k)('projId')} = "${projId}"`,
+    query: `${getProjEstimateKeys('projId')} = "${projId}"`,
   });
 
   return result.records as unknown as Estimates.main.SavedData[];

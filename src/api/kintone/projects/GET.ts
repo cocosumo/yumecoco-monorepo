@@ -3,8 +3,8 @@ import { APPIDS, KintoneRecord } from '../config';
 export const projectFields :KeyOfProjectDetails[] = [
   '$id', '$revision', 'address1',
   'address2', 'address2', 'agents',
-  'buildingType', 'constructionName',
-  'constructionType', 'constructionTypeId',
+  'buildingType', 'projName',
+  'projTypeName', 'projTypeId',
   'custGroupId', 'isAgentConfirmed',
   'isChkAddressKari', 'postal',
 ];

@@ -49,8 +49,10 @@ export const SearchProjField = (props: {
 
       searchProjects(inputVal)
         .then(r => {
-          setOptions(r.map(({ $id, constructionName })=>{
-            return { id: $id.value, projName: constructionName.value };
+          setOptions(r.map(({
+            $id,
+            projName: recProjName })=>{
+            return { id: $id.value, projName: recProjName.value };
           }));
 
         });

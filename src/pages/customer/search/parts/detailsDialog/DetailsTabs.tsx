@@ -6,7 +6,7 @@ import { ProjectDetailsContainer } from './projects/ProjectDetailsContainer';
 import { useState, useEffect, SyntheticEvent } from 'react';
 import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
 import { ButtonEdit } from './ButtonEdit';
-import { getConstRecordByIds } from '../../../../../api/kintone/construction/GET';
+import { getConstRecordByIds } from '../../../../../api/kintone/projects/GET';
 import { pages } from '../../../../Router';
 import { generateParams } from '../../../../../helpers/url';
 import { TabContextContainer } from './TabContextContainer';

@@ -23,7 +23,7 @@ export const fetchCustGroup = async (recordId: string) => {
 export const getFormDataById = async (projId: string) => {
 
   const {
-    constructionName,
+    projName,
 
     custGroupId,
     signMethod,
@@ -66,7 +66,7 @@ export const getFormDataById = async (projId: string) => {
 
     projId,
     custGroupId: custGroupId.value,
-    projName: constructionName.value,
+    projName: projName.value,
 
     custName: customerName.value,
     custAddress: `〒${postal.value} ${address1.value}${address2.value}`,

@@ -24,14 +24,18 @@ export const SearchProjField = (props: {
 
   const {
     projName,
+    label,
   } = props;
 
   useLazyEffect(()=>{
     if (!inputVal) return;
     searchProjects(inputVal)
       .then(r => {
-        setOptions(r.map(({ $id, constructionName })=>{
-          return { id: $id.value, projName: constructionName.value };
+        setOptions(r.map(({
+          $id,
+          projName: recProjName,
+        })=>{
+          return { id: $id.value, projName: recProjName.value };
         }));
 
       });
@@ -60,25 +64,23 @@ export const SearchProjField = (props: {
         setFieldVal(val);
 
       }}
-
       options={options}
       getOptionLabel={(opt)=> opt.projName}
       isOptionEqualToValue={(opt, value) => opt.id === value.id}
-
-      renderInput={(params) => <TextField
+      renderInput={(params) => (<TextField
         {...params}
-        name = {field.name}
-        label={props.label}
+        name={field.name}
+        label={label}
         error={Boolean(error && touched)}
         helperText={error ? error : ''}
-        />}
+                                />)}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;
         return (
           <li {...p} key={key}>
             <Stack>
               {opt.projName}
-              <Caption text={`id: ${opt.id}` } />
+              <Caption text={`id: ${opt.id}`} />
             </Stack>
           </li>
         );

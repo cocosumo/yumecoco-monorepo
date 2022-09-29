@@ -25,7 +25,7 @@ export const CopyForm = () => {
       if ('id' in resp) {
         const oldProjEstimateId = estimateId;
         const urlParams = generateParams({ projEstimateId: resp.id });
-        const redirectTime = 20000;
+        const redirectTime = 5000;
         setSnackState({
           open: true,
           autoHideDuration: redirectTime,

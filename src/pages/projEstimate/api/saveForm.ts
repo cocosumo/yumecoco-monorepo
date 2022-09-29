@@ -2,8 +2,10 @@ import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
 const convertToKintone = ({
-  customerName, projName, projType,
-  profitRate, taxRate,
+  customerName, projName,
+  projTypeName,
+  projTypeProfit,
+  tax,
   items, projId,
   status,
 }: TypeOfForm) => {
@@ -26,7 +28,7 @@ const convertToKintone = ({
           数量 : { value: quantity.toString() },
           単位: { value: unit },
           部材利益率: { value: elemProfRate.toString() },
-          税: { value: taxType },
+          taxType: { value: taxType },
         },
       };
     }),
@@ -37,9 +39,9 @@ const convertToKintone = ({
     projId: { value: projId },
     顧客名: { value: customerName },
     工事名称: { value: projName },
-    工事種別名: { value: projType },
-    利益率: { value: profitRate.toString() },
-    税率: { value: taxRate.toString() },
+    工事種別名: { value: projTypeName },
+    工事種別利益: { value: projTypeProfit.toString() },
+    税: { value: tax.toString() },
     estimateStatus : { value: status },
     内訳: kintoneItems,
   };

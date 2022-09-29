@@ -40,11 +40,11 @@ export const useUpdateEstimateId = () => {
           projId,
           内訳: { value: estimateTable },
           顧客名 : custName,
-          利益率: profitRate,
-          税率: tax,
+          工事種別利益: projTypeProfit,
+          税: tax,
           estimateStatus,
           工事名称: projName,
-          工事種別名: projType,
+          工事種別名: projTypeName,
         }) => {
 
           if (estimateId) {
@@ -52,11 +52,11 @@ export const useUpdateEstimateId = () => {
               return produce(prev, draft => {
                 draft.customerName = custName.value;
                 draft.projId = projId.value;
-                draft.profitRate = +profitRate.value;
-                draft.taxRate = +tax.value;
+                draft.projTypeProfit = +projTypeProfit.value;
+                draft.tax = +tax.value;
                 draft.status = estimateStatus.value as TypeOfForm['status'];
                 draft.projName = projName.value;
-                draft.projType = projType.value;
+                draft.projTypeName = projTypeName.value;
                 draft.items = estimateTable.map(({ id, value: {
                   原価,
                   大項目,
@@ -65,7 +65,7 @@ export const useUpdateEstimateId = () => {
                   数量,
                   単位,
                   部材利益率,
-                  税,
+                  taxType,
                 } }) => {
                   return {
                     key: id,
@@ -76,7 +76,7 @@ export const useUpdateEstimateId = () => {
                     unit: 単位.value as TypeOfForm['items'][number]['unit'],
                     costPrice: +原価.value,
                     elemProfRate: +部材利益率.value,
-                    taxType: 税.value as TypeOfForm['items'][number]['taxType'],
+                    taxType: taxType.value as TypeOfForm['items'][number]['taxType'],
                   };
                 });
               });

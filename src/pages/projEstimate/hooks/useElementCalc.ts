@@ -7,7 +7,7 @@ import { calcUnitPrice } from '../helpers/calcUnitPrice';
 
 export const useElementCalc = (rowIdx: number) => {
   const { values } = useFormikContext<TypeOfForm>();
-  const { taxRate, items } = values;
+  const { tax, items } = values;
   const { costPrice, quantity, elemProfRate, taxType } = items[rowIdx];
 
 
@@ -15,6 +15,6 @@ export const useElementCalc = (rowIdx: number) => {
 
   return {
     unitPrice: newUnitPrice,
-    price: calcGrossPrice(newUnitPrice, quantity, taxRate, taxType),
+    price: calcGrossPrice(newUnitPrice, quantity, tax, taxType),
   };
 };

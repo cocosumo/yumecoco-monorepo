@@ -26,10 +26,10 @@ export const initialValues = {
   /** 工事種別 */
   projTypeName: '',
   projTypeId: '',
-  projTypeProfit: 0, /* 利益率 */
+  projTypeProfit: 50, /* 利益率 */
 
   //profitRate: 0.5,
-  taxRate: 10, /* 税率 */
+  tax: 10, /* 税率 */
   status: '' as typeof statusChoices[number], /* ステータス */
 
   /* 見積もり用配列要素 */

@@ -23,7 +23,8 @@ export const useUpdateProjectId = () => {
         setLoading(true);
         getConstRecord(projId)
           .then(async ({
-            projName, projTypeName,
+            projName,
+            projTypeName,
             projTypeId,
             custGroupId,
           }) => {
@@ -46,11 +47,11 @@ export const useUpdateProjectId = () => {
               draft.custGroupId = custGroupId.value;
               draft.projName = projName.value;
               draft.projTypeName = projTypeName.value;
-              draft.projTypeProfit = +profitRate.value;
+              draft.projTypeId = projTypeId.value;
+              draft.projTypeProfitLatest = +profitRate.value;
               draft.customerName = mainCustName;
             }));
             setLoading(false);
-
 
           })
           .catch((err) => {

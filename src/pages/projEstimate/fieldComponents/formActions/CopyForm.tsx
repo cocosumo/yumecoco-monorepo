@@ -23,13 +23,13 @@ export const CopyForm = () => {
       if ('id' in resp) {
         const oldProjEstimateId = estimateId;
         const urlParams = generateParams({ projEstimateId: resp.id });
-        navigate(`${pages.projEstimate}?${urlParams}`);
 
         setSnackState({
           open: true,
-          autoHideDuration: 10000,
+          autoHideDuration: 5000,
           message: `見積番号：${oldProjEstimateId}をコピーして、見積番号：${resp.id}を作成しました。`,
           severity: 'success',
+          handleClose: ()=>navigate(`${pages.projEstimate}?${urlParams}`),
         });
       } else {
         throw new Error('コピーが失敗しました。');

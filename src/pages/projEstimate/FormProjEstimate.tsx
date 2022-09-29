@@ -17,6 +17,7 @@ import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
 import { useResolveParams } from './hooks/useResolveParams';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
+import { CopyForm } from './fieldComponents/formActions/CopyForm';
 
 export default function FormProjEstimate() {
 
@@ -36,10 +37,18 @@ export default function FormProjEstimate() {
       <MainContainer>
         <PageTitle label='見積もり登録' />
 
-        <Grid item xs={12} md={5}>
+        <Grid item xs={10} md={5}>
 
           {/* 工事情報の検索 */}
           <SearchProject  />
+
+        </Grid>
+
+        <Grid container item
+          justifyContent="flex-end"
+          xs
+        >
+          <CopyForm />
         </Grid>
 
         <Grid item xs={12}>

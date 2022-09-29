@@ -2,7 +2,7 @@ import { PageSubTitle } from '../../../../components/ui/labels/PageSubTitle';
 import { Grid, debounce } from '@mui/material';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { BuildingType, ConstructionSearch } from './parts';
-import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textfield';
+import { FormikTextField } from '../../../../components/ui/textfield';
 
 import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
@@ -38,7 +38,6 @@ export const ConstructionLocation = () => {
   }, 500), [address1]);
 
 
-
   return (
     <>
       <PageSubTitle label="工事場所情報" />
@@ -48,9 +47,8 @@ export const ConstructionLocation = () => {
         <FormikTextField
           name="postal"
           label="郵便番号"
-          placeholder='442-0888'
+          placeholder='4420888'
           disabled={isReadOnly}
-          inputComponent={TextMaskPostal}
           onChange={handleGenerateAddress}
           shrink={true}
           required

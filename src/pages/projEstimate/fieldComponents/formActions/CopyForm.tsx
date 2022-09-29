@@ -14,13 +14,23 @@ export const CopyForm = () => {
   const { setSnackState } = useSnackBar();
   const { setDialogState, handleClose } = useConfirmDialog();
   const navigate = useNavigate();
+  const { estimateId } = values;
 
   const handleCopy = async () => {
     try {
       handleClose();
       const resp = await saveForm({ ...values, estimateId: '' });
       if ('id' in resp) {
-        navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: resp.id })}`);
+        const oldProjEstimateId = estimateId;
+        const urlParams = generateParams({ projEstimateId: resp.id });
+        navigate(`${pages.projEstimate}?${urlParams}`);
+
+        setSnackState({
+          open: true,
+          autoHideDuration: 10000,
+          message: `見積番号：${oldProjEstimateId}をコピーして、見積番号：${resp.id}を作成しました。`,
+          severity: 'success',
+        });
       } else {
         throw new Error('コピーが失敗しました。');
       }

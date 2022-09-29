@@ -48,7 +48,7 @@ export const GlobalBackdrop = ({ children }: {
       {children}
       <Backdrop
         open={state.open}
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.snackbar + 5000 }}
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.snackbar - 1 }}
       >
         {state.content}
       </Backdrop>

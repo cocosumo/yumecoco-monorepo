@@ -24,7 +24,10 @@ export const CopyForm = () => {
       const resp = await saveForm({ ...values, estimateId: '' });
       if ('id' in resp) {
         const oldProjEstimateId = estimateId;
-        const urlParams = generateParams({ projEstimateId: resp.id });
+        const urlParams = generateParams({
+          projEstimateId: resp.id,
+          menuOpen: +false,
+        });
         const redirectTime = 5000;
         setSnackState({
           open: true,

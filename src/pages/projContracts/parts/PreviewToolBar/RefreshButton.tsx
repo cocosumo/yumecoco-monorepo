@@ -21,7 +21,7 @@ export const RefreshButton = (
   const handleRefresh = async () => {
     setDisabled(true);
     const newData = await getFormDataById(projId);
-    setValues(newData);
+    setValues(prev => ({ ...prev, ...newData }));
     setTimeout(()=>{
       setSnackState({
         open: true,

@@ -62,8 +62,7 @@ export const getFormDataById = async (projId: string) => {
     ?.map(item => item.value.agentName.value)
     .join('、');
 
-  return {
-
+  const result: Partial<TypeOfForm> = {
     projId,
     custGroupId: custGroupId.value,
     projName: projName.value,
@@ -79,8 +78,10 @@ export const getFormDataById = async (projId: string) => {
     projAddress: `〒${pPostal.value} ${pAddress1.value}${pAddress2.value}`,
 
     revision: $revision.value,
-    signMethod: signMethod.value,
+    signMethod: signMethod.value as TSignMethod,
     contractPrice: +contractPrice.value ?? 0,
-  } as TypeOfForm;
+  };
+
+  return result;
 
 };

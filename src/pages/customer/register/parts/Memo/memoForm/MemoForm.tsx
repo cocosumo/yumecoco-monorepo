@@ -67,29 +67,44 @@ export const MemoForm = () => {
         <DialogContent>
           <Stack spacing={2} pt={2} minWidth={360}>
             <Stack justifyContent={'flex-end'} direction={'row'}>
-              顧客名：{custName}
+              顧客名：
+              {custName}
             </Stack>
-            <FormikSelect name={getFieldName('memoType')} label="登録内容" options={memoOptions}/>
-            <FormikTextField name={getFieldName('contents')}  label={'メモ'} multiline rows={3}/>
+            <FormikSelect name={getFieldName('memoType')} label="登録内容" options={memoOptions} />
+            <FormikTextField name={getFieldName('contents')} label={'メモ'} multiline
+              rows={3}
+            />
             <Stack direction={'row'} justifyContent="space-between">
-              <FormikLabeledCheckBox name={getFieldName('isNotify') } label={'担当者に通知する'} />
+              <FormikLabeledCheckBox name={getFieldName('isNotify')} label={'担当者に通知する'} />
               <Stack>
-                <FormLabel>作成日時: {createDate || format(new Date(), 'yyyy年MM年dd日')}</FormLabel>
-                <FormLabel>作成者: {commenter || kintone.getLoginUser().name}</FormLabel>
+                <FormLabel>
+                  作成日時:
+                  {' '}
+                  {createDate || format(new Date(), 'yyyy年MM年dd日')}
+                </FormLabel>
+                <FormLabel>
+                  作成者:
+                  {' '}
+                  {commenter || kintone.getLoginUser().name}
+                </FormLabel>
               </Stack>
 
             </Stack>
 
             <Collapse in={isNotify}>
               <div style={{ paddingTop: '8px' }}>
-                <FormikCheckBoxes name={getFieldName('notifyTo')} label={'担当者'} choices={notifOptions} helperText="通知する担当者を選択してください"/>
+                <FormikCheckBoxes name={getFieldName('notifyTo')} label={'担当者'} choices={notifOptions}
+                  helperText="通知する担当者を選択してください"
+                />
               </div>
             </Collapse>
 
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button type="submit" onClick={submitForm} variant="outlined">保存</Button>
+          <Button type="submit" onClick={submitForm} variant="outlined">
+            保存
+          </Button>
         </DialogActions>
       </Dialog>
       {confirmSaveOpen && <ConfirmSave />}

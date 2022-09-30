@@ -11,7 +11,7 @@ export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
 
   return records.map((r) => {
     const {
-      $id, memo, constructionName, custGroupId,
+      $id, memo, projName, custGroupId,
       custGroup, agents, custGroupAgents,
       store, rank,
       更新日時, 作成日時,
@@ -24,7 +24,7 @@ export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
     return {
       工事番号: $id.value,
       メモ: memo.value,
-      工事名: constructionName.value,
+      工事名: projName.value,
       ゆめてつAG: custGroupAgents.value
         ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'yumeAG' as AgentType)
         ?.map(({ value: { custAgentName } }) => custAgentName?.value)

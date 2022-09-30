@@ -42,19 +42,22 @@ const MemoListItem = (props: MemoItemProps) => {
     <>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar src="#" ><MemoIcon type={memoType as MemoType} /></Avatar>
+          <Avatar src="#" >
+            <MemoIcon type={memoType as MemoType} />
+          </Avatar>
         </ListItemAvatar>
         <ListItemText
           primary={
             <Stack direction={'row'} justifyContent="space-between">
               <span>
-                {memoType}<br/>
+                {memoType}
+                <br />
                 <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
+                  sx={{ display: 'inline' }}
+                  component="span"
+                  variant="body2"
+                  color="text.primary"
+                >
                   {commenter}
                 </Typography>
 
@@ -68,7 +71,9 @@ const MemoListItem = (props: MemoItemProps) => {
             }
           secondary={
             <Stack component={'span'}>
-              {contents} <br />
+              {contents} 
+              {' '}
+              <br />
               {format(parseISO(createDate), 'yyyy年MM月dd日')}
             </Stack>
           }
@@ -133,7 +138,7 @@ export const MemoList = (props: MemoListProps) => {
         </TransitionGroup>
 
       </List>
-      <MemoItemMenu memoItem={selectedMenuItem!} {...{ handleClose, anchorEl }}/>
+      <MemoItemMenu memoItem={selectedMenuItem!} {...{ handleClose, anchorEl }} />
     </>
   );
 };

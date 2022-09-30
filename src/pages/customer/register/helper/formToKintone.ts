@@ -5,8 +5,6 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
     customers,
   } = formData;
 
-  console.log(customers);
-
   return customers
     .map(({
       id,
@@ -15,8 +13,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
       email, emailRel, isSameAddress,
     }, index )=> {
 
-      console.log('validation', index, isSameAddress);
-      let deps = {
+      const deps = {
         postal,
         address1,
         address2,
@@ -70,7 +67,10 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
     });
 };
 
-export const formToKintConst = (formData: CustomerForm, customerIds: { id: string, revision: string }[] | [] = []): Partial<CustomerGroupTypes.SavedData> => {
+export const formToKintConst = (
+  formData: CustomerForm,
+  customerIds: { id: string, revision: string }[] | [] = [],
+): Partial<CustomerGroupTypes.SavedData> => {
   const {
     store,
     cocoAG1,
@@ -81,7 +81,6 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
     isDeleted,
   } = formData;
 
-  console.log('transformedForm', formData);
 
   /* Only include specified agents */
   const agents = Object.entries({
@@ -124,7 +123,8 @@ export const formToKintConst = (formData: CustomerForm, customerIds: { id: strin
           value: {
             agentType: { value: type },
             employeeId: { value: value },
-            employeeName: { value: '' }, // lookup copy field
+            employeeName: { value: 'auto' }, // lookup copy field
+            email: { value: 'auto' },
           },
         };
       }) || [],

@@ -16,8 +16,8 @@ const getKeyOfProj = (k: KeyOfFlatProjDetails ) => k;
 const mainSearchCondition = (mainSearch?: string) => {
   if (!mainSearch) return undefined;
 
-  let fieldsToCompare : KeyOfFlatProjDetails[]  = [
-    '$id', 'constructionName', 'custGroupId', 'memo', 'agentName',
+  const fieldsToCompare : KeyOfFlatProjDetails[]  = [
+    '$id', 'projName', 'custGroupId', 'memo', 'agentName',
     'custName', 'custNameReading', 'rank',
   ];
 
@@ -54,7 +54,7 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     memo,
   } = form;
   const fields : KeyOfProjectDetails[] = [
-    'constructionName', '$id', 'custGroupId', 'memo',
+    'projName', '$id', 'custGroupId', 'memo',
     'agents', 'custGroupAgents',
     'custGroup', 'rank',
     'store', '更新日時', '作成日時',
@@ -64,12 +64,11 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
 
 
   const allConditions = [
-    //`(${getKeyOfProj('constructionName')} != "")`,
     mainSearchCondition(mainSearch),
     rankCondition(rank),
     custGroupId ? `(${getKeyOfProj('custGroupId')} = "${custGroupId}")` : undefined,
     projId ? `(${getKeyOfProj('$id')} = "${projId}")` : undefined,
-    projName ? `(${getKeyOfProj('constructionName')} like "${projName}")` : undefined,
+    projName ? `(${getKeyOfProj('projName')} like "${projName}")` : undefined,
     schedContractPriceMin?.toString() ? `(${getKeyOfProj('schedContractPrice')} >= ${schedContractPriceMin} and ${getKeyOfProj('schedContractPrice')} != "")` : undefined,
     schedContractPriceMax?.toString() ? `(${getKeyOfProj('schedContractPrice')} <= ${schedContractPriceMax})` : undefined,
 

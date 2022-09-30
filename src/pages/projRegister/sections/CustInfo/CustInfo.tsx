@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { LabeledInfoProps } from '../../../../components/ui/typographies/';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { TypeOfProjForm, KeyOfProjForm } from '../../form';
+import { TypeOfProjForm, getFieldName } from '../../form';
 import { AGLabels } from '../../../../api/kintone/employees/GET';
 import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
@@ -21,7 +21,7 @@ import { Column2 } from './Column2';
 export const CustInfo = () => {
 
   const [custGroupRecord, setCustomerRecord] = useState<CustomerGroupTypes.SavedData>();
-  const { status, values, setFieldValue } = useFormikContext<TypeOfProjForm>();
+  const { status, values, setFieldValue, setValues } = useFormikContext<TypeOfProjForm>();
   const navigate = useNavigate();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';
@@ -53,7 +53,7 @@ export const CustInfo = () => {
 
   const {
     custGroupId,
-    constructionType,
+    projTypeName,
     recordId,
   } = values;
 
@@ -69,16 +69,22 @@ export const CustInfo = () => {
 
   useEffect(()=>{
     if (storeId?.value) {
-      setFieldValue('storeId' as KeyOfProjForm, storeId?.value);
-      setFieldValue('territory' as KeyOfProjForm, territory?.value);
-      setFieldValue('constructionName' as KeyOfProjForm, `${customerName?.value}様邸`);
+      setValues((prev) => {
+        return {
+          ...prev,
+          storeId: storeId?.value,
+          territory: territory?.value ?? '',
+          projName: `${customerName?.value}様邸`,
+
+        };
+      });
     }
   }, [storeId?.value, territory?.value, customerName?.value]);
 
 
   useEffect(()=>{
-    setFieldValue('constructionName' as KeyOfProjForm, `${customerName?.value ?? '--'}様邸 ${constructionType ?? '--'}`);
-  }, [customerName?.value, constructionType]);
+    setFieldValue(getFieldName('projName'), `${customerName?.value ?? '--'}様邸 ${projTypeName ?? '--'}`);
+  }, [customerName?.value, projTypeName]);
 
   const refactoredAgents = custGroupRecord?.agents
     .value
@@ -86,7 +92,7 @@ export const CustInfo = () => {
       const rawLabel = AGLabels[agentType.value as keyof typeof AGLabels];
 
       const numberedLabel = `${rawLabel ?? '担当者'}1`;
-      
+
       const isExist = accu.some(item => item.label === numberedLabel);
       const resolvedLabel = isExist ?  `${rawLabel}2` : numberedLabel;
       return [...accu, { key: id, label: resolvedLabel, data: employeeName.value }];
@@ -107,7 +113,7 @@ export const CustInfo = () => {
             <Grid container spacing={2} justifyContent="center"
               p={4}
             >
-              <Column1 
+              <Column1
                 custDetail={{
                   customerName: customerName?.value ?? '',
                   custNameReading: custNameReading,
@@ -123,7 +129,7 @@ export const CustInfo = () => {
                 }}
               />
 
-              <Column2 
+              <Column2
                 adminInfo={{
                   custGroupId,
                   customerId: customerId?.value ?? '',
@@ -131,7 +137,7 @@ export const CustInfo = () => {
                   agents: refactoredAgents,
                 }}
               />
-              
+
               {!isReadOnly &&
 
                 <Grid item xs={3}>

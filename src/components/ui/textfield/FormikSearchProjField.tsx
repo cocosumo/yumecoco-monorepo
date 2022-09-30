@@ -1,7 +1,7 @@
 import { Autocomplete, TextField, Stack, CircularProgress } from '@mui/material';
 import { useField } from 'formik';
 import { useEffect, useState } from 'react';
-import { searchProjects } from '../../../api/kintone/construction';
+import { searchProjects } from '../../../api/kintone/projects';
 import { useLazyEffect } from '../../../hooks';
 
 import { Caption } from '../typographies';
@@ -38,10 +38,10 @@ export const FormikSearchProjField = (props: {
     searchProjects(inputVal)
       .then(r => {
         setOptions(r.map((projRec)=>{
-          const { $id, constructionName } = projRec;
+          const { $id, projName: recProjName } = projRec;
           return {
             id: $id.value,
-            projName: constructionName.value,
+            projName: recProjName.value,
           };
         }));
 
@@ -50,6 +50,16 @@ export const FormikSearchProjField = (props: {
   }, [inputVal], 1000);
 
   useEffect(()=>{
+    if (!field.value) {
+      setFieldVal(null);
+    } else if (options.length === 0 && projName) {
+      const singleOpt = { projName, id: field.value };
+      setOptions([singleOpt]);
+      setFieldVal(singleOpt);
+    } else if (options.length === 1) {
+      setFieldVal(options[0]);
+    }
+
     /* When projId is already available, make it the sole option  */
     if (options.length === 0 && projName) {
 

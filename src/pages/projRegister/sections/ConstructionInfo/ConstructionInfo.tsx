@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { TypeOfProjForm, getFieldName, KeyOfProjForm } from '../../form';
+import { TypeOfProjForm, getFieldName } from '../../form';
 import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 import { useFormikContext } from 'formik';
 
@@ -15,12 +15,12 @@ import { useFormikContext } from 'formik';
 export const ConstructionInfo = (
   props : {
     storeId: string,
-    constructionTypeId?: string,
+    projTypeId?: string,
     territory?:  GetEmployeesParams['territory'],
 
   },
 ) => {
-  const { storeId, territory, constructionTypeId } = props;
+  const { storeId, territory, projTypeId } = props;
   const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
   const {
     status,
@@ -48,10 +48,10 @@ export const ConstructionInfo = (
 
 
   useEffect(()=>{
-    const selectedPojType =  constructionTypeOptions?.find(item => item.value === constructionTypeId);
+    const selectedPojType =  constructionTypeOptions?.find(item => item.value === projTypeId);
     const projTypeName = selectedPojType?.hiddenValue || selectedPojType?.label;
-    setFieldValue('constructionType' as KeyOfProjForm, projTypeName);
-  }, [constructionTypeId]);
+    setFieldValue(getFieldName('projTypeName'), projTypeName);
+  }, [projTypeId]);
 
 
   return (
@@ -59,15 +59,15 @@ export const ConstructionInfo = (
       <PageSubTitle label='工事情報' />
       <Grid container item spacing={2}
         xs={12}
-        md={6} 
+        md={6}
       >
         <Grid item xs={12} md={8} >
-          <FormikSelect name={'constructionTypeId' as KeyOfProjForm} label={'工事種別'} disabled={isReadOnly}
+          <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'} disabled={isReadOnly}
             options={constructionTypeOptions} required
           />
         </Grid>
         <Grid item xs={12}>
-          <FormikTextField name={'constructionName' as KeyOfProjForm} label="工事名称" placeholder="氏名/会社名様邸　工事種別"
+          <FormikTextField name={getFieldName('projName')} label="工事名称" placeholder="氏名/会社名様邸　工事種別"
             disabled={isReadOnly} required
           />
         </Grid>

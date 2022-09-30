@@ -2,9 +2,9 @@ import { Autocomplete, TextField, Stack } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { useLazyEffect } from '../../../hooks';
-import { searchProjects } from '../api';
 import { Caption } from '../../../components/ui/typographies';
 import { getFieldName, TypeOfForm } from '../form';
+import { searchProjects } from '../../../api/kintone/projects';
 
 type Opt = {
   id: string,
@@ -49,8 +49,10 @@ export const SearchProjField = (props: {
 
       searchProjects(inputVal)
         .then(r => {
-          setOptions(r.map(({ $id, constructionName })=>{
-            return { id: $id.value, projName: constructionName.value };
+          setOptions(r.map(({
+            $id,
+            projName: recProjName })=>{
+            return { id: $id.value, projName: recProjName.value };
           }));
 
         });

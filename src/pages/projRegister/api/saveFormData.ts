@@ -9,7 +9,7 @@ export const convertToKintone = (
   custGroupRecord: TypeOfCustomerGroup,
 ): Partial<ProjectDetails.SavedData>  => {
   const {
-    cocoConst1, cocoConst2, constructionTypeId, constructionName,
+    cocoConst1, cocoConst2, projTypeId, projName,
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,
     buildingType, custGroupId, status,
     cancelStatus,
@@ -20,14 +20,12 @@ export const convertToKintone = (
     agents: custGroupAgents,
   } = custGroupRecord;
 
-  console.log(rawValues, 'rawValues');
-
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
 
-    constructionTypeId: { value: constructionTypeId },
-    constructionName: { value: constructionName },
+    projTypeId: { value: projTypeId },
+    projName: { value: projName },
     isAgentConfirmed: { value: (+isAgentConfirmed).toString() },
     postal: { value: postal },
     address1: { value: address1 },

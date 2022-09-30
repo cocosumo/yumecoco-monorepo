@@ -16,25 +16,45 @@ import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortc
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
 import { useResolveParams } from './hooks/useResolveParams';
+import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
+import { CopyForm } from './fieldComponents/formActions/CopyForm';
 
 export default function FormProjEstimate() {
 
   const { values } = useFormikContext<TypeOfForm>();
-  const { projId } = values;
+  const {
+    projId,
+    projTypeProfit,
+    projTypeProfitLatest,
+    estimateId,
+  } = values;
 
   useResolveParams();
   useUpdateEstimateId();
+
+  const isEditMode = !!estimateId ;
 
   return (
     <Form noValidate>
       <ScrollToFieldError />
       <MainContainer>
-        <PageTitle label='見積もり登録' />
+        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />
 
-        <Grid item xs={12} md={5}>
+        <Grid item xs={10} md={5}>
 
           {/* 工事情報の検索 */}
           <SearchProject  />
+
+        </Grid>
+
+        {/* コピー */}
+        <Grid
+          container
+          item
+          justifyContent="flex-end"
+          xs
+        >
+          <CopyForm />
         </Grid>
 
         <Grid item xs={12}>
@@ -42,20 +62,25 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('projType')} label="工事種別名" disabled />
+          <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField 
-            name={getFieldName('profitRate')} 
-            label="利益率" 
+          <FormikTextField
+            name={getFieldName('projTypeProfit')}
+            label="利益率"
             align='right'
-            disabled
+            disabled={projTypeProfitLatest !== 0}
           />
+          {projTypeProfitLatest !== null &&
+          projTypeProfitLatest !== 0 &&
+          +projTypeProfit !== +projTypeProfitLatest &&
+          <MismatchedProfit />}
+
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField 
-            name={getFieldName('taxRate')}
-            label="税率" 
+          <FormikTextField
+            name={getFieldName('tax')}
+            label="税率"
             align='right'
           />
         </Grid>
@@ -94,7 +119,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} mt={4}>
           <PageSubTitle label="大項目小計欄"  />
         </Grid>
-        <Grid item xs={12} 
+        <Grid item xs={12}
           md={4}
           lg={3}
         >

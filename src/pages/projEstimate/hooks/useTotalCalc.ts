@@ -16,7 +16,7 @@ export type SummaryElem = keyof typeof summaryInit;
 
 export const useTotalCalc = () => {
   const { values } = useFormikContext<TypeOfForm>();
-  const { taxRate } = values;
+  const { tax } = values;
 
 
   // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
@@ -26,7 +26,7 @@ export const useTotalCalc = () => {
     const grossProfitVal = (totalCostPrice * elemProfPercentage);
     const newUnitPrice = calcUnitPrice(cur.costPrice, cur.elemProfRate);
     const totalAmountExclTaxVal = newUnitPrice * +cur.quantity;
-    const totalAmountInclTaxVal = calcGrossPrice(newUnitPrice, cur.quantity, taxRate, cur.taxType);
+    const totalAmountInclTaxVal = calcGrossPrice(newUnitPrice, cur.quantity, tax, cur.taxType);
 
     return ({
       ...acc,

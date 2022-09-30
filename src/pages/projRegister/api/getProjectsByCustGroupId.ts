@@ -3,7 +3,7 @@ import { APPIDS, KintoneRecord } from '../../../api/kintone';
 
 type KeyOfMembersType = keyof CustomerGroupTypes.SavedData['members']['value'][number]['value'];
 export type SearchItems = Array<{
-  constructionName: string,
+  projName: string,
   postal: string,
   address1: string,
   address2: string,
@@ -32,13 +32,13 @@ export const getProjectsByCustGroupId = async (custGroupId: string) => {
     )
       // Get non-empty projects
       .filter(({ projects }) => projects.value
-        .filter(({ value: { constructionId } }) => constructionId.value)
+        .filter(({ value: { projId } }) => projId.value)
         .length,
       )
       .reduce((accu, curr)=>{
         const projects: SearchItems = curr.projects.value
-          .map(({ value: { constructionName, projectPostal, projectAddress1, projectAddress2 } }) => ({
-            constructionName: constructionName.value,
+          .map(({ value: { projName, projectPostal, projectAddress1, projectAddress2 } }) => ({
+            projName: projName.value,
             postal: projectPostal.value,
             address1: projectAddress1.value,
             address2: projectAddress2.value,

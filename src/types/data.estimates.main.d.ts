@@ -2,17 +2,18 @@ declare namespace Estimates.main {
   interface Data {
     projId: kintone.fieldTypes.Number;
     contractDate: kintone.fieldTypes.Date;
-    利益率: kintone.fieldTypes.Number;
     envRecipients: kintone.fieldTypes.SingleLineText;
-    工事名称: kintone.fieldTypes.SingleLineText;
-    envId: kintone.fieldTypes.SingleLineText;
-    envStatus: kintone.fieldTypes.SingleLineText;
+    税: kintone.fieldTypes.Number;
     顧客名: kintone.fieldTypes.SingleLineText;
-    contractPrice: kintone.fieldTypes.Number;
-    税率: kintone.fieldTypes.Number;
     estimateStatus: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     工事種別名: kintone.fieldTypes.SingleLineText;
+    工事名称: kintone.fieldTypes.SingleLineText;
+    envId: kintone.fieldTypes.SingleLineText;
+    envStatus: kintone.fieldTypes.SingleLineText;
+    工事種別利益: kintone.fieldTypes.Number;
+    projTypeId: kintone.fieldTypes.Number;
+    contractPrice: kintone.fieldTypes.Number;
     signMethod: kintone.fieldTypes.SingleLineText;
 
     envDocFileKeys: kintone.fieldTypes.File;
@@ -27,7 +28,7 @@ declare namespace Estimates.main {
           部材名: kintone.fieldTypes.SingleLineText;
           部材利益率: kintone.fieldTypes.Number;
           中項目: kintone.fieldTypes.SingleLineText;
-          税: kintone.fieldTypes.SingleLineText;
+          taxType: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
         };
       }>;

@@ -18,7 +18,7 @@ export const TextMaskPostal = React.forwardRef<HTMLElement, CustomProps>(
         mask="000-0000"
         onChange={()=>{}}
         onAccept={(value: any) => {
-          if (value){ // Have to check for value as this assign value even on unmounted item of formik's fieldArray
+          if (value) { // Have to check for value as this assign value even on unmounted item of formik's fieldArray
             onChange({ target: { name: props.name, value } });
           }
         }}

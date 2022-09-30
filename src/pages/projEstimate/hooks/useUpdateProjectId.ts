@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
-import { getConstRecord } from '../../../api/kintone/construction';
+import { getConstRecord } from '../../../api/kintone/projects';
 import { getCustGroup } from '../../../api/kintone/custgroups/GET';
 import { getProjTypeById } from '../../../api/kintone/projectType/GET';
 import { useSnackBar } from '../../../hooks';
@@ -23,8 +23,9 @@ export const useUpdateProjectId = () => {
         setLoading(true);
         getConstRecord(projId)
           .then(async ({
-            constructionName, constructionType,
-            constructionTypeId,
+            projName,
+            projTypeName,
+            projTypeId,
             custGroupId,
           }) => {
 
@@ -33,7 +34,7 @@ export const useUpdateProjectId = () => {
               { profitRate },
             ] = await Promise.all([
               custGroupId?.value ? getCustGroup(custGroupId.value) : undefined,
-              getProjTypeById(constructionTypeId.value),
+              getProjTypeById(projTypeId.value),
             ]);
 
 
@@ -44,13 +45,13 @@ export const useUpdateProjectId = () => {
 
             setValues((prev) => produce(prev, draft => {
               draft.custGroupId = custGroupId.value;
-              draft.projName = constructionName.value;
-              draft.projType = constructionType.value;
-              draft.profitRate = +profitRate.value;
+              draft.projName = projName.value;
+              draft.projTypeName = projTypeName.value;
+              draft.projTypeId = projTypeId.value;
+              draft.projTypeProfitLatest = +profitRate.value;
               draft.customerName = mainCustName;
             }));
             setLoading(false);
-
 
           })
           .catch((err) => {
@@ -67,8 +68,8 @@ export const useUpdateProjectId = () => {
         setValues((prev) => produce(prev, draft => {
           draft.projId = initialValues.projId;
           draft.projName = initialValues.customerName;
-          draft.projType = initialValues.projType;
-          draft.profitRate = initialValues.profitRate;
+          draft.projTypeName = initialValues.projTypeName;
+          draft.projTypeProfit = initialValues.projTypeProfit;
           draft.customerName = initialValues.customerName;
         }));
       }

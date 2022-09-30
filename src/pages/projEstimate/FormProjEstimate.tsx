@@ -26,6 +26,7 @@ export default function FormProjEstimate() {
     projId,
     projTypeProfit,
     projTypeProfitLatest,
+    estimateId,
   } = values;
 
   useResolveParams();
@@ -44,12 +45,16 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid container item
+        {/* コピー */}
+        { !!estimateId &&
+        <Grid
+          container
+          item
           justifyContent="flex-end"
           xs
         >
           <CopyForm />
-        </Grid>
+        </Grid>}
 
         <Grid item xs={12}>
           <Divider />

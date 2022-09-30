@@ -1,6 +1,8 @@
-import {  Checkbox, FormControl, FormControlLabel, InputAdornment, Stack, TextField } from '@mui/material';
-import { JADatePicker } from '../../../../components/ui/datetimepickers/JADatePicker';
-import { usePaymentField } from './usePaymentFields';
+import { FormControl, Stack } from '@mui/material';
+import { useField } from 'formik';
+import { PaymentFieldAmt } from './PaymentFieldAmt';
+import { PaymentFieldChk } from './PaymentFieldChk';
+import { PaymentFieldDate } from './PaymentFieldDate';
 
 
 export const PaymentField = (
@@ -14,61 +16,17 @@ export const PaymentField = (
 
 ) => {
 
-  const { chkProps } = usePaymentField(name);
-  const [
-    {
-      value: chkValue,
-    },
-    ,
-    {
-      setValue: chkSetValue,
-    },
-  ] = chkProps;
+  const [chkField] = useField(`${name}_chk`);
+  const { value: chkValue } = chkField;
 
 
   return (
 
     <FormControl>
       <Stack direction={'row'} spacing={1}>
-        <FormControlLabel
-          label={label}
-          control={(
-            <Checkbox
-              onChange={(event) => {chkSetValue(event.target.checked);}}
-              checked={chkValue}
-              sx={{
-                transform: 'scale(1.5)',
-              }}
-            />)}
-
-        />
-        <TextField
-          disabled={!chkValue}
-          variant={'standard'}
-          inputProps={{
-            style: { textAlign: 'right' },
-          }}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                円
-              </InputAdornment>),
-          }}
-        />
-        <JADatePicker
-          disabled={!chkValue}
-          value={new Date()}
-          onChange={()=>{}}
-          InputProps={{
-            label: 'hello',
-          }}
-          renderInput={(params) =>(
-            <TextField
-              {...params}
-              variant={'standard'}
-            />)}
-
-        />
+        <PaymentFieldChk name={name} label={label} />
+        <PaymentFieldAmt name={name} disabled={!chkValue} />
+        <PaymentFieldDate name={name} disabled={!chkValue} />
       </Stack>
     </FormControl>
 

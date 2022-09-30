@@ -50,7 +50,6 @@ export const FormikSearchProjField = (props: {
   }, [inputVal], 1000);
 
   useEffect(()=>{
-    console.log('VALUE', field.value);
     if (!field.value) {
       setFieldVal(null);
     } else if (options.length === 0 && projName) {

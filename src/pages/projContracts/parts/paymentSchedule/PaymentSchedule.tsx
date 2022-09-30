@@ -5,9 +5,9 @@ import { PaymentFormActions } from './PaymentFormActions';
 import { TotalPaymentAmount } from './TotalPaymentAmount';
 
 export const PaymentSchedule = ({
-  totalAmount,
+  totalAmount = 0,
 }: {
-  totalAmount : number
+  totalAmount?: number
 }) => {
   return (
     <PaymentContainer>

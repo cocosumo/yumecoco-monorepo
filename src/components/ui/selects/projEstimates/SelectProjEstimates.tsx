@@ -1,5 +1,5 @@
 import {  Button } from '@mui/material';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../FormikSelectAdvanced';
 import { generateParams } from '../../../../helpers/url';
@@ -7,6 +7,8 @@ import { pages } from '../../../../pages/Router';
 import { useEstimateRecords } from '../../../../hooks/';
 import { ItemEstimate } from './ItemEstimate';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import { debounce } from 'lodash';
+import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
 
 export const SelectProjEstimates = ({
   projId,
@@ -24,7 +26,9 @@ export const SelectProjEstimates = ({
    */
   handleChange?: (
     selected?: Estimates.main.SavedData,
-    projEstimateId?: string) => void
+    projEstimateId?: string,
+    calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>
+  ) => void
 }) => {
 
   const {
@@ -38,6 +42,7 @@ export const SelectProjEstimates = ({
    * 依存配列のために、リファレンスを安定させる。
    */
   const refEstimateRecords = useRef(projEstimateRecords);
+
   useDeepCompareEffect(() => {
     refEstimateRecords.current = projEstimateRecords;
   }, [refEstimateRecords || {}]);
@@ -90,14 +95,29 @@ export const SelectProjEstimates = ({
   });
 
   /* 選択された見積レコードと番号をhandleChangeに渡す。 */
-  const handleSelectedValue = useCallback((selectedValue: string) => {
+  const handleSelectedValue = useCallback(
+    debounce(async (selectedValue: string) => {
+      const selectedRec = refEstimateRecords
+        .current
+        .find(({ $id }) => $id.value === selectedValue);
 
-    refHandleChange.current?.(
-      refEstimateRecords.current
-        .find(({ $id }) => $id.value === selectedValue),
-      selectedValue,
-    );
-  }, []);
+      const calculated = selectedRec ? await calculateEstimateRecord(selectedRec) : Object.create(null);
+
+      console.log(calculated);
+      refHandleChange.current?.(
+        selectedRec,
+        selectedValue,
+        calculated,
+      );
+
+    }, 500), []);
+
+  useEffect(() =>  {
+    if (projEstimateId && projId) {
+      handleSelectedValue(projEstimateId);
+    }
+
+  }, [projEstimateId, projId, handleSelectedValue]);
 
 
   const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];

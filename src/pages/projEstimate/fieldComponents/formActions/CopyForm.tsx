@@ -36,7 +36,7 @@ const CopyDialogContent = ({
 };
 
 export const CopyForm = () => {
-  const { values } = useFormikContext<TypeOfForm>();
+  const { resetForm, values } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { setDialogState, handleClose } = useConfirmDialog();
   const { setBackdropState } = useBackdrop();
@@ -48,16 +48,25 @@ export const CopyForm = () => {
       handleClose();
       setBackdropState({ open: true });
 
-      const redirectTime = 3000;
-      setSnackState({
-        open: true,
-        autoHideDuration: redirectTime,
-        message: `コピーしました。${redirectTime / 1000}秒以内に移動します`,
-        severity: 'success',
-        handleClose: () => {
-          setBackdropState({ open: false });
-        },
-      });
+      const dummyProcessTime = 2000;
+
+      setTimeout(() => {
+
+        setBackdropState({ open: false });
+        setSnackState({
+          open: true,
+          autoHideDuration: dummyProcessTime,
+          message: 'コピーしました。',
+          severity: 'success',
+          handleClose: () => {
+            setBackdropState({ open: false });
+          },
+        });
+        resetForm({ values: { ...values,
+          estimateId: '',
+          projId: '' } });
+      }, dummyProcessTime);
+
 
     } catch (err: any) {
       setSnackState({

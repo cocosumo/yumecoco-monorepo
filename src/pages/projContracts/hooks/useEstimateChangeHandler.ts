@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
+import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { useContractPreview } from './useContractPreview';
-
 
 /**
  * Wrapper hook to generate contract preview
@@ -10,7 +10,10 @@ import { useContractPreview } from './useContractPreview';
  * @returns {object} obj.handleChangeEstimate 選択の変更際の関数
  */
 export const useEstimateChangeHandler = () => {
+
   const [selectedEstimate, setSelectedEstimate] = useState<Estimates.main.SavedData>(Object.create(null));
+  const [calculatedEstimate, setCalculatedEstimate] = useState<Awaited<ReturnType<typeof calculateEstimateRecord>>>();
+
   const {
     previewUrl,
     previewLoading,
@@ -25,7 +28,11 @@ export const useEstimateChangeHandler = () => {
   const handleChangeEstimate = (
     selected: Estimates.main.SavedData,
     projEstimateId?: string,
+    calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>,
   ) => {
+    
+
+    setCalculatedEstimate(calculated);
 
     setSelectedEstimate(selected);
     setValues((prev) => {
@@ -51,10 +58,9 @@ export const useEstimateChangeHandler = () => {
   };
 
 
-
-
   return {
     selectedEstimate,
+    calculatedEstimate,
     handleChangeEstimate,
     clearSelectedEstimate,
     previewUrl,

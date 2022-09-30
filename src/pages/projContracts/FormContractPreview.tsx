@@ -30,8 +30,11 @@ export const FormContractPreview = () => {
   const {
     previewUrl,
     previewLoading,
+    calculatedEstimate,
+    handleChangeEstimate,
   } = useEstimateChangeHandler();
 
+  const { totalAmountInclTax } = calculatedEstimate ?? {};
 
   return (
     <Form noValidate>
@@ -56,6 +59,7 @@ export const FormContractPreview = () => {
             projId={projId}
             projEstimateId={projEstimateId}
             disabled={previewLoading}
+            handleChange={handleChangeEstimate}
           />
 
         </Grid>
@@ -69,7 +73,7 @@ export const FormContractPreview = () => {
         {!!projEstimateId && (
           <>
             <PageSubTitle label='支払い予定' />
-            <PaymentSchedule />
+            <PaymentSchedule totalAmount={totalAmountInclTax} />
           </>
         )}
 

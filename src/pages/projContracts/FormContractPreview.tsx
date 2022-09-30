@@ -1,6 +1,6 @@
 import { Form } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
-import { PageTitle } from '../../components/ui/labels';
+import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
 import { getFieldName } from './form';
 import {  Grid, LinearProgress } from '@mui/material';
@@ -66,8 +66,12 @@ export const FormContractPreview = () => {
         <GridNextDivider isShow={!!projEstimateId} />
 
         {/* 支払い予定入力 */}
-        {!!projEstimateId &&
-        <PaymentSchedule />}
+        {!!projEstimateId && (
+          <>
+            <PageSubTitle label='支払い予定' />
+            <PaymentSchedule />
+          </>
+        )}
 
 
 

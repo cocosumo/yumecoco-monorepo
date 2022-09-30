@@ -2,8 +2,9 @@ import { Button, Checkbox, FormControlLabel, Stack, Tooltip } from '@mui/materia
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../../hooks';
 import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../../form';
+import { initialValues, TypeOfForm } from '../../form';
 import { ComponentProps, useRef, useState } from 'react';
+
 
 
 const CopyDialogContent = ({
@@ -62,9 +63,21 @@ export const CopyForm = () => {
             setBackdropState({ open: false });
           },
         });
-        resetForm({ values: { ...values,
+
+        /**
+         * if same project, use the current state but clear estimate id,
+         * otherwise, use initialValue and only copy items.
+         */
+        const copiedState: TypeOfForm = isSameProj.current ? {
+          ...values,
           estimateId: '',
-          projId: '' } });
+        } : {
+          ...initialValues,
+          items: [ ...values.items ],
+        };
+
+        resetForm({ values: copiedState });
+
       }, dummyProcessTime);
 
 
@@ -77,6 +90,7 @@ export const CopyForm = () => {
     }
 
   };
+
 
 
 

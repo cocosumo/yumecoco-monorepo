@@ -4,6 +4,8 @@ import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../../hooks';
 import { useFormikContext } from 'formik';
 import { initialValues, TypeOfForm } from '../../form';
 import { ComponentProps, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../../../Router';
 
 
 
@@ -41,6 +43,7 @@ export const CopyForm = () => {
   const { setSnackState } = useSnackBar();
   const { setDialogState, handleClose } = useConfirmDialog();
   const { setBackdropState } = useBackdrop();
+  const navigate = useNavigate();
   const isSameProj = useRef(false);
 
 
@@ -77,6 +80,7 @@ export const CopyForm = () => {
         };
 
         resetForm({ values: copiedState });
+        navigate(`${pages.projEstimate}`);
 
       }, dummyProcessTime);
 

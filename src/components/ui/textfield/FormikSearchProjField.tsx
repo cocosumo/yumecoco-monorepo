@@ -50,13 +50,15 @@ export const FormikSearchProjField = (props: {
   }, [inputVal], 1000);
 
   useEffect(()=>{
-
+    console.log('VALUE', field.value);
     if (!field.value) {
       setFieldVal(null);
-    } if (options.length === 0 && projName) {
+    } else if (options.length === 0 && projName) {
       const singleOpt = { projName, id: field.value };
       setOptions([singleOpt]);
       setFieldVal(singleOpt);
+    } else if (options.length === 1) {
+      setFieldVal(options[0]);
     }
 
     /* When projId is already available, make it the sole option  */

@@ -39,7 +39,7 @@ export const initialValues = {
   contractPrice: 0,
 
   /* 支払い予定 */
-  keiyakukin_chk: true,
+  keiyakukin_chk: false,
   keiyakukin_amt: 0,
   keiyakukin_date: '',
 

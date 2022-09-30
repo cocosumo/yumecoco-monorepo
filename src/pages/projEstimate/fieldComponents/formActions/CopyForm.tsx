@@ -1,47 +1,86 @@
-import { Button, Tooltip } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, Stack, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../../hooks';
 import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../../form';
-import { saveForm } from '../../api/saveForm';
-import { useNavigate } from 'react-router-dom';
-import { pages } from '../../../Router';
-import { generateParams } from '../../../../helpers/url';
+import { initialValues, TypeOfForm } from '../../form';
+import { ComponentProps, useRef, useState } from 'react';
 
+
+
+const CopyDialogContent = ({
+  handleChangeIsSameProj,
+}: {
+  handleChangeIsSameProj: (checked: boolean) => void
+}) => {
+  /**
+   * I had an issue where handling checked state at the parent component
+   * doesn't not trigger re-render of this component.
+   *
+   * This was mainly due to the dialog state being memoized.
+   *
+   * Exposing dialog context state then using useEffect could solve it but
+   * Locally handling checked state here
+   * also limits the render depth making it a tad faster.. ~ras
+   */
+  const [checked, setChecked] = useState(false);
+
+  const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (event) => {
+    setChecked(event.target.checked);
+    handleChangeIsSameProj(event.target.checked);
+  };
+
+  return (
+    <Stack spacing={2}>
+      <FormControlLabel control={<Checkbox checked={checked} onChange={handleChange} />} label="同じ工事" />
+    </Stack>
+  );
+};
 
 export const CopyForm = () => {
-  const { values } = useFormikContext<TypeOfForm>();
+  const { resetForm, values } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { setDialogState, handleClose } = useConfirmDialog();
   const { setBackdropState } = useBackdrop();
-  const navigate = useNavigate();
-  const { estimateId } = values;
+  const isSameProj = useRef(false);
+
 
   const handleCopy = async () => {
     try {
       handleClose();
       setBackdropState({ open: true });
-      const resp = await saveForm({ ...values, estimateId: '' });
-      if ('id' in resp) {
-        const oldProjEstimateId = estimateId;
-        const urlParams = generateParams({
-          projEstimateId: resp.id,
-          menuOpen: +false,
-        });
-        const redirectTime = 5000;
+
+      const dummyProcessTime = 2000;
+
+      setTimeout(() => {
+
+        setBackdropState({ open: false });
         setSnackState({
           open: true,
-          autoHideDuration: redirectTime,
-          message: `見積番号：${oldProjEstimateId}をコピーして、見積番号：${resp.id}を作成しました。${redirectTime / 1000}秒以内に移動します`,
+          autoHideDuration: dummyProcessTime,
+          message: 'コピーしました。',
           severity: 'success',
           handleClose: () => {
-            navigate(`${pages.projEstimate}?${urlParams}`);
             setBackdropState({ open: false });
           },
         });
-      } else {
-        throw new Error('コピーが失敗しました。');
-      }
+
+        /**
+         * if same project, use the current state but clear estimate id,
+         * otherwise, use initialValue and only copy items.
+         */
+        const copiedState: TypeOfForm = isSameProj.current ? {
+          ...values,
+          estimateId: '',
+        } : {
+          ...initialValues,
+          items: [ ...values.items ],
+        };
+
+        resetForm({ values: copiedState });
+
+      }, dummyProcessTime);
+
+
     } catch (err: any) {
       setSnackState({
         open: true,
@@ -52,15 +91,25 @@ export const CopyForm = () => {
 
   };
 
+
+
+
   const handleClickCopy = () => {
     setDialogState({
       open: true,
       title: '見積もりのコピーを作成',
-      content: 'この見積もりをコピーして新たに作成します。',
+      content: (
+        <CopyDialogContent
+          handleChangeIsSameProj={(checked)=>{
+            isSameProj.current = checked;
+          }}
+        />),
       handleYes: handleCopy,
       cancellable: true,
     });
   };
+
+
 
   return (
     <Tooltip title={'当レコードをコピーし、新なレコードを作成します'}>

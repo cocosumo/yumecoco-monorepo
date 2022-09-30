@@ -26,16 +26,19 @@ export default function FormProjEstimate() {
     projId,
     projTypeProfit,
     projTypeProfitLatest,
+    estimateId,
   } = values;
 
   useResolveParams();
   useUpdateEstimateId();
 
+  const isEditMode = !!estimateId ;
+
   return (
     <Form noValidate>
       <ScrollToFieldError />
       <MainContainer>
-        <PageTitle label='見積もり登録' />
+        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />
 
         <Grid item xs={10} md={5}>
 
@@ -44,7 +47,10 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid container item
+        {/* コピー */}
+        <Grid
+          container
+          item
           justifyContent="flex-end"
           xs
         >

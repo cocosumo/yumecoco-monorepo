@@ -12,9 +12,14 @@ const CopyDialogContent = ({
   handleChangeIsSameProj: (checked: boolean) => void
 }) => {
   /**
-   * Experimental.
-   * Locally handled checked state
-   * so render depth is limited to this component. ~ras
+   * I had an issue where handling checked state at the parent component
+   * doesn't not trigger re-render of this component.
+   *
+   * This was mainly due to the dialog state being memoized.
+   *
+   * Exposing dialog context state then using useEffect could solve it but
+   * Locally handling checked state here
+   * also limits the render depth making it a tad faster.. ~ras
    */
   const [checked, setChecked] = useState(false);
 

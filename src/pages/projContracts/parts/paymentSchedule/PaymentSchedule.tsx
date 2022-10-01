@@ -4,6 +4,7 @@ import { TypeOfForm } from '../../form';
 import { PaymentContainer } from './PaymentContainer';
 import { PaymentFields } from './PaymentFields';
 import { PaymentFormActions } from './PaymentFormActions';
+import { RemainingAmountInfo } from './RemainingAmountInfo';
 import { TotalPaymentAmount } from './TotalPaymentAmount';
 
 export const PaymentSchedule = ({
@@ -24,7 +25,13 @@ export const PaymentSchedule = ({
         <PaymentFields 
           remainingAmount={remainingAmount}
         />
+        {remainingAmount !== 0 &&
+          <RemainingAmountInfo 
+            remainingAmount={remainingAmount}
+          />}
+        
         <PaymentFormActions />
+
       </Stack>
     </PaymentContainer>
   );

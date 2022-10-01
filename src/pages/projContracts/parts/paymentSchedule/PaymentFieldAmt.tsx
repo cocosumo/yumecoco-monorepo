@@ -20,7 +20,9 @@ export const PaymentFieldAmt = (
       disabled={disabled}
       variant={'standard'}
       inputProps={{
-        style: { textAlign: 'right' },
+        style: { 
+          textAlign: 'right',
+        },
       }}
       InputProps={{
         endAdornment: (

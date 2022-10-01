@@ -19,15 +19,15 @@ export const RefundFieldGroup = () => {
     setValues((prev) =>  ({
       ...prev,
       hasRefund: checked,
-      refund: checked ? prev.refund : null,
+      refund: checked ? prev.refundAmt : null,
     }));
     
   };
 
   return (
-    <Stack direction={'row'}>
+    <Stack direction={'row'} justifyContent={'space-between'}>
       <FormControlLabel
-        label={'返金あり'}
+        label={'返金有'}
         control={(
           <Checkbox
             onChange={handleChange}

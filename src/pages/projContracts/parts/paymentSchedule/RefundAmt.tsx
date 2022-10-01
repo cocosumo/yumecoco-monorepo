@@ -11,26 +11,28 @@ export const RefundAmt = (
   },
 ) => {
   
-  const [field, meta] = useField(getFieldName('refund'));
+  const [field, meta] = useField(getFieldName('refundAmt'));
   const { value } = field;
-  const { touched, error } = meta;
+  const { error, touched } = meta;
 
-  const isShowError  = touched && !!error;
   const jaValue = numerals(+value || 0).toString();
 
   return (
     <Tooltip title={!error ? jaValue : ''}>
       <TextField
         {...field}
-        value={value ?? ''}
-        fullWidth
+        value={value || ''}
         disabled={disabled}
         variant={'standard'}
+        sx={{
+          width: '78%',
+        }}
         inputProps={{
-          style: { 
+          sx: { 
             textAlign: 'right',
           },
         }}
+        error={touched && !!error}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -42,7 +44,7 @@ export const RefundAmt = (
             textAlign: 'right',
           },
         }}
-        helperText={isShowError ? error : ''}
+        helperText={!disabled ? error : ''}
       />
     </Tooltip>
   );

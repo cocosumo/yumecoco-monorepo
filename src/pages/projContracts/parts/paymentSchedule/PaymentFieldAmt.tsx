@@ -1,7 +1,7 @@
 import { InputAdornment, TextField, Tooltip } from '@mui/material';
 import { useField } from 'formik';
 import { numerals } from 'jp-numerals';
-import { getPayFieldName } from '../../form';
+import { getPayFieldNameByIdx } from '../../form';
 
 export const PaymentFieldAmt = (
   {
@@ -13,7 +13,7 @@ export const PaymentFieldAmt = (
   },
 ) => {
   
-  const [field, meta] = useField(getPayFieldName('amount', idx));
+  const [field, meta] = useField(getPayFieldNameByIdx('amount', idx));
   const { value } = field;
   const { touched, error } = meta;
 
@@ -42,6 +42,7 @@ export const PaymentFieldAmt = (
             textAlign: 'right',
           },
         }}
+        error={isShowError}
         helperText={isShowError ? error : ''}
       />
     </Tooltip>

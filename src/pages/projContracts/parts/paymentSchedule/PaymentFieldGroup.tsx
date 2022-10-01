@@ -2,7 +2,7 @@ import {  Checkbox, FormControlLabel, Stack } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { ComponentProps } from 'react';
-import { getPayFieldName, TPaymentLabels, TypeOfForm } from '../../form';
+import { getPayFieldNameByIdx, TPaymentLabels, TypeOfForm } from '../../form';
 import { PaymentFieldAmt } from './PaymentFieldAmt';
 import { PaymentFieldDate } from './PaymentFieldDate';
 
@@ -19,7 +19,7 @@ export const PaymentFieldGroup = (
 
 ) => {
   const { setValues } = useFormikContext<TypeOfForm>();
-  const [chkField] = useField(getPayFieldName('checked', idx));
+  const [chkField] = useField(getPayFieldNameByIdx('checked', idx));
 
   const { value: chkValue } = chkField;
 

@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import { useField } from 'formik';
 import { JADatePicker } from '../../../../components/ui/datetimepickers/JADatePicker';
-import { getPayFieldName } from '../../form';
+import { getPayFieldNameByIdx } from '../../form';
 
 export const PaymentFieldDate = ({
   disabled,
@@ -10,7 +10,7 @@ export const PaymentFieldDate = ({
   disabled: boolean,
   idx: number
 }) => {
-  const [field, meta, helpers] = useField(getPayFieldName('date', idx));
+  const [field, meta, helpers] = useField(getPayFieldNameByIdx('date', idx));
   const { value } = field;
   const { error, touched } = meta;
   const { setValue } = helpers;

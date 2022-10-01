@@ -2,6 +2,12 @@ import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
 import { KeyOfForm, TypeOfForm } from '../../form';
 
+/**
+ * Need to improve type checking here.
+ * 
+ * @returns 
+ */
+
 export const PaymentFieldChk = ({
   label, name,
 }: {
@@ -15,12 +21,21 @@ export const PaymentFieldChk = ({
   const handleChk: CheckboxProps['onChange'] = (event) => {
     const isChecked = event.target.checked;
 
-    setValues(prev => ({
-      ...prev,
-      [`${name}_chk`]: isChecked,
-      [`${name}_amt`]: isChecked ? prev[`${name}_amt` as KeyOfForm] : 0,
-      [`${name}_date`]: isChecked ? prev[`${name}_date` as KeyOfForm] : '',
-    }));
+    setValues(prev => {
+
+      let newAmt = 0;
+
+      if (isChecked) {
+        newAmt = prev[`${name}_amt` as KeyOfForm] as number;
+      }
+
+      return {
+        ...prev,
+        [`${name}_chk`]: isChecked,
+        [`${name}_amt`]: newAmt,
+        [`${name}_date`]: isChecked ? prev[`${name}_date` as KeyOfForm] : '',
+      };
+    });
 
   };
 

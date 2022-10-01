@@ -1,8 +1,9 @@
-import {  Stack } from '@mui/material';
-import { useField } from 'formik';
-import { getPayFieldName, TPaymentLabels } from '../../form';
+import {  Checkbox, FormControlLabel, Stack } from '@mui/material';
+import { useField, useFormikContext } from 'formik';
+import { produce } from 'immer';
+import { ComponentProps } from 'react';
+import { getPayFieldName, TPaymentLabels, TypeOfForm } from '../../form';
 import { PaymentFieldAmt } from './PaymentFieldAmt';
-import { PaymentFieldChk } from './PaymentFieldChk';
 import { PaymentFieldDate } from './PaymentFieldDate';
 
 export const PaymentFieldGroup = (
@@ -17,18 +18,32 @@ export const PaymentFieldGroup = (
   },
 
 ) => {
-
+  const { setValues } = useFormikContext<TypeOfForm>();
   const [chkField] = useField(getPayFieldName('checked', idx));
 
   const { value: chkValue } = chkField;
 
+  const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
+
+    setValues((prev) =>  produce(prev, ({ paymentFields: pF }) => {
+      pF[idx].amount = checked ? remainingAmt : 0;
+      pF[idx].checked = checked;
+    }));
+    
+  };
 
   return (
     <Stack direction={'row'} spacing={1}>
-      <PaymentFieldChk 
-        idx={idx} 
-        label={label} 
-        remainingAmt={remainingAmt}
+      <FormControlLabel
+        label={label}
+        control={(
+          <Checkbox
+            onChange={handleChange}
+            checked={chkValue}
+            sx={{
+              transform: 'scale(1.5)',
+            }}
+          />)}
       />
       <PaymentFieldAmt 
         disabled={!chkValue}

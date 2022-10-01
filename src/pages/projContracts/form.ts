@@ -43,7 +43,7 @@ export const initialValues = {
   paymentFields: Array<TypeOfPayFields>(4)
     .fill(initPayFields),
   hasRefund: false,
-  refund: 0,
+  refund: null as number | null,
 
 
 };

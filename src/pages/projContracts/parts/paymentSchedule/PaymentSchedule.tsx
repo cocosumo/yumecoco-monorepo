@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
-import { Refund } from './Refund';
+import { RefundFieldGroup } from './RefundFieldGroup';
 import { PaymentContainer } from './PaymentContainer';
 import { PaymentFields } from './PaymentFields';
 import { PaymentFormActions } from './PaymentFormActions';
@@ -33,7 +33,7 @@ export const PaymentSchedule = ({
           remainingAmount={remainingAmount}
         />
 
-        <Refund />
+        <RefundFieldGroup />
 
         <PaymentFormActions />
 

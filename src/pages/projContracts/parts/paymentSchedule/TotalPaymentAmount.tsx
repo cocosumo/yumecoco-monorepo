@@ -6,7 +6,7 @@ export const TotalPaymentAmount = ({
   totalAmount: number
 }) => {
   return (
-    <Stack pb={2}>
+    <Stack>
       <Typography variant="caption" textAlign={'center'}>
         契約合計金額
       </Typography>

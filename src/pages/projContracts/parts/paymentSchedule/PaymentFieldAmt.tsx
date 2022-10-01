@@ -1,6 +1,6 @@
 import { InputAdornment, TextField, Tooltip } from '@mui/material';
 import { useField } from 'formik';
-import numerals from 'jp-numerals';
+import { numerals } from 'jp-numerals';
 import { getPayFieldName } from '../../form';
 
 export const PaymentFieldAmt = (
@@ -18,9 +18,10 @@ export const PaymentFieldAmt = (
   const { touched, error } = meta;
 
   const isShowError  = touched && !!error;
+  const jaValue = numerals(+value || 0).toString();
 
   return (
-    <Tooltip title={numerals(+value).toString()}>
+    <Tooltip title={!error ? jaValue : ''}>
       <TextField
         {...field}
         disabled={disabled}

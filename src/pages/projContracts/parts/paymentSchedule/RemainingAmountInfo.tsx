@@ -1,4 +1,4 @@
-import { Collapse, FormHelperText, Typography } from '@mui/material';
+import { Alert } from '@mui/material';
 import {  useRef, useState } from 'react';
 import { useLazyEffect } from '../../../../hooks';
 
@@ -36,17 +36,16 @@ export const RemainingAmountInfo = ({
     return () => clearInterval(intervalId);
   }, [remainingAmount], 800);
 
+  const isValidTotal = remainingAmount === 0;
+
   return (
-    <Collapse in={remainingAmount !== 0} unmountOnExit={false}>
- 
-      <FormHelperText error={true}>
-        契約合計と請求額が相違しています。相違額：
-        <Typography fontWeight={'bold'} component="span">
-          {`${Math.round(animAmt)?.toLocaleString() || 0} 円 `}
-         
-        </Typography>
-        。
-      </FormHelperText>
-    </Collapse>
+    <Alert severity={isValidTotal ? 'success' : 'warning'}>
+
+      {isValidTotal && '契約合計と請求額が合っています。'}
+
+      {!isValidTotal && ` 契約合計と請求額が相違しています。相違額： ${Math.round(animAmt)?.toLocaleString() || 0} 円 。 `}
+          
+    </Alert>
+
   );
 };

@@ -2,7 +2,11 @@ import { Checkbox, FormControlLabel } from '@mui/material';
 import { useField } from 'formik';
 import { getFieldName } from '../../form';
 
-export const CheckboxRefund = () => {
+/**
+ * 返金
+ * @returns jsx
+ */
+export const Refund = () => {
   const [field,,helpers] = useField(getFieldName('hasRefund'));
   const { value } = field;
   const { setValue } = helpers;

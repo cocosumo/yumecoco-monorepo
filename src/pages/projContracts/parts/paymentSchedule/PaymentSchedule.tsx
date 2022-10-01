@@ -7,17 +7,22 @@ import { PaymentFields } from './PaymentFields';
 import { PaymentFormActions } from './PaymentFormActions';
 import { RemainingAmountInfo } from './RemainingAmountInfo';
 import { TotalPaymentAmount } from './TotalPaymentAmount';
+import { useEffect } from 'react';
 
 export const PaymentSchedule = ({
   totalAmount = 0,
 }: {
   totalAmount?: number
 }) => {
-  const { values } = useFormikContext<TypeOfForm>();
+  const { values, setValues } = useFormikContext<TypeOfForm>();
   const { paymentFields } = values; 
 
   const remainingAmount = paymentFields
     .reduce((acc, { amount }) => acc - +amount, totalAmount);
+
+  useEffect(()=>{
+    setValues((prev) => ({ ...prev, remainingAmt: remainingAmount }));
+  }, [remainingAmount, setValues]);
 
   return (
     <PaymentContainer>
@@ -25,13 +30,9 @@ export const PaymentSchedule = ({
 
         <TotalPaymentAmount totalAmount={totalAmount} />
      
-        <PaymentFields 
-          remainingAmount={remainingAmount}
-        />
+        <PaymentFields />
 
-        <RemainingAmountInfo 
-          remainingAmount={remainingAmount}
-        />
+        <RemainingAmountInfo />
 
         <RefundFieldGroup />
 

@@ -4,13 +4,7 @@ import { KeyOfForm, paymentLabels } from '../../form';
 import { PaymentFieldGroup } from './PaymentFieldGroup';
 
 
-export const PaymentFields = (
-  {
-    remainingAmount,
-  } : {
-    remainingAmount: number
-  },
-) => {
+export const PaymentFields = () => {
 
   const payFieldName: KeyOfForm = 'paymentFields';
 
@@ -25,7 +19,6 @@ export const PaymentFields = (
               <PaymentFieldGroup 
                 key={label} 
                 label={label}
-                remainingAmt={remainingAmount}
                 idx={idx}
               />
             ));

@@ -42,6 +42,7 @@ export const initialValues = {
   /* 支払い予定 */
   paymentFields: Array<TypeOfPayFields>(4)
     .fill(initPayFields),
+  remainingAmt: 0,
   hasRefund: false,
   refundAmt: '' as number | '',
 
@@ -66,7 +67,7 @@ const getPayFieldName = (k: keyof TypeOfPayFields) => k;
 
 export const validationSchema =  Yup
   .object()
-  .shape<Partial<Record<KeyOfForm, any>>>({
+  .shape<Partial<Record<KeyOfForm, Yup.AnySchema>>>({
   projEstimateId: Yup.string().required(),
   refundAmt: Yup
     .number()
@@ -92,4 +93,7 @@ export const validationSchema =  Yup
           }),
       }),
     ),
+  remainingAmt: Yup
+    .number()
+    .equals([0], '契約合計と請求額が相違しています。'),
 });

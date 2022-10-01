@@ -9,18 +9,16 @@ import { PaymentFieldDate } from './PaymentFieldDate';
 export const PaymentFieldGroup = (
   {
     label,
-    remainingAmt,
     idx,
   } : {
     label: TPaymentLabels,
-    remainingAmt: number,
     idx: number
   },
 
 ) => {
-  const { setValues } = useFormikContext<TypeOfForm>();
+  const { setValues, values } = useFormikContext<TypeOfForm>();
   const [chkField] = useField(getPayFieldNameByIdx('checked', idx));
-
+  const { remainingAmt } = values;
   const { value: chkValue } = chkField;
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {

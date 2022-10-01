@@ -1,19 +1,22 @@
 import { Alert } from '@mui/material';
+import { useField } from 'formik';
 import {  useRef, useState } from 'react';
 import { useLazyEffect } from '../../../../hooks';
+import { getFieldName, TypeOfForm } from '../../form';
 
-export const RemainingAmountInfo = ({
-  remainingAmount,
-}: {
-  remainingAmount: number
-}) => {
-  const [animAmt, setAnimAmt] = useState(remainingAmount);
+export const RemainingAmountInfo = () => {
+  const [field, meta] = useField<TypeOfForm['remainingAmt']>(getFieldName('remainingAmt'));
 
-  const oldAmt = useRef(remainingAmount);
+  const { value: remainingAmt } = field;
+  const { error } = meta;
+
+  const [animAmt, setAnimAmt] = useState(remainingAmt);
+
+  const oldAmt = useRef(remainingAmt);
   
 
   useLazyEffect(()=>{
-    const oldDiff = remainingAmount - oldAmt.current;
+    const oldDiff = remainingAmt - oldAmt.current;
     const interval = 10;
     const timeout = 800;
     const numOfCalls = timeout / interval;
@@ -25,25 +28,25 @@ export const RemainingAmountInfo = ({
     const intervalId = setInterval(()=>{
       setAnimAmt(prev => prev + increment);
 
-      if (c++ === numOfCalls || remainingAmount === 0) {
+      if (c++ === numOfCalls || remainingAmt === 0) {
         clearInterval(intervalId);
-        setAnimAmt(remainingAmount);
-        oldAmt.current = remainingAmount;
+        setAnimAmt(remainingAmt);
+        oldAmt.current = remainingAmt;
       }
       
     }, interval);
 
     return () => clearInterval(intervalId);
-  }, [remainingAmount], 800);
+  }, [remainingAmt], 800);
 
-  const isValidTotal = remainingAmount === 0;
+  const isValidTotal = remainingAmt === 0;
 
   return (
     <Alert severity={isValidTotal ? 'success' : 'warning'}>
 
-      {isValidTotal && '契約合計と請求額が合っています。'}
+      {!error && '契約合計と請求額が合っています。'}
 
-      {!isValidTotal && ` 契約合計と請求額が相違しています。相違額： ${Math.round(animAmt)?.toLocaleString() || 0} 円 。 `}
+      {!!error && ` ${error} 相違額： ${Math.round(animAmt)?.toLocaleString() || 0} 円 。 `}
           
     </Alert>
 

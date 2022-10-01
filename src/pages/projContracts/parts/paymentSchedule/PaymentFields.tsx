@@ -1,6 +1,6 @@
 import {  Stack } from '@mui/material';
 import { FieldArray } from 'formik';
-import { KeyOfForm, paymentLabels, TypeOfForm } from '../../form';
+import { KeyOfForm, paymentLabels } from '../../form';
 import { PaymentFieldGroup } from './PaymentFieldGroup';
 
 

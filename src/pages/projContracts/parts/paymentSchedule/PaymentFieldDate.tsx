@@ -10,14 +10,22 @@ export const PaymentFieldDate = ({
   disabled: boolean,
   idx: number
 }) => {
-  const [field] = useField(getPayFieldName('date', idx));
-  const { value, onChange } = field;
+  const [field, meta, helpers] = useField(getPayFieldName('date', idx));
+  const { value } = field;
+  const { error, touched } = meta;
+  const { setValue } = helpers;
+
+  const isShowError = touched && !!error;
 
   return (
     <JADatePicker
       disabled={disabled}
       value={value}
-      onChange={()=>{}}
+      disablePast
+      views={['year', 'month', 'day' ]}
+      onChange={(v)=>{
+        setValue(v);
+      }}
       InputProps={{
         label: 'hello',
       }}
@@ -25,6 +33,8 @@ export const PaymentFieldDate = ({
         <TextField
           {...params}
           variant={'standard'}
+          error={isShowError}
+          helperText={isShowError ? error : ''}
         />)}
     />
   );

@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 const initPayFields = {
   checked: false,
   amount: 0,
-  date: '',
+  date: '' as Date | '',
 };
+export type TypeOfPayFields = typeof initPayFields;
 
 export const initialValues = {
 
@@ -39,7 +40,7 @@ export const initialValues = {
   contractPrice: 0,
 
   /* 支払い予定 */
-  paymentFields: Array<typeof initPayFields>(4)
+  paymentFields: Array<TypeOfPayFields>(4)
     .fill(initPayFields),
 
 
@@ -47,7 +48,7 @@ export const initialValues = {
 
 export type TypeOfForm =  typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
-export type TypeOfPayFields = typeof initPayFields;
+
 
 export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const; 
 export type TPaymentLabels = typeof paymentLabels[number];

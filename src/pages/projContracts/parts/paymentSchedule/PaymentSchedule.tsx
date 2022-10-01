@@ -1,4 +1,6 @@
 import { Stack } from '@mui/material';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 import { PaymentContainer } from './PaymentContainer';
 import { PaymentFields } from './PaymentFields';
 import { PaymentFormActions } from './PaymentFormActions';
@@ -9,11 +11,19 @@ export const PaymentSchedule = ({
 }: {
   totalAmount?: number
 }) => {
+  const { values } = useFormikContext<TypeOfForm>();
+  const { paymentFields } = values; 
+
+  const remainingAmount = paymentFields
+    .reduce((acc, { amount }) => acc - +amount, totalAmount);
+
   return (
     <PaymentContainer>
       <Stack spacing={2}>
         <TotalPaymentAmount totalAmount={totalAmount} />
-        <PaymentFields totalAmount={totalAmount} />
+        <PaymentFields 
+          remainingAmount={remainingAmount}
+        />
         <PaymentFormActions />
       </Stack>
     </PaymentContainer>

@@ -3,6 +3,7 @@ import { useField } from 'formik';
 import { getPayFieldName, TPaymentLabels } from '../../form';
 import { PaymentFieldAmt } from './PaymentFieldAmt';
 import { PaymentFieldChk } from './PaymentFieldChk';
+import { PaymentFieldDate } from './PaymentFieldDate';
 
 export const PaymentFieldGroup = (
   {
@@ -35,7 +36,7 @@ export const PaymentFieldGroup = (
           disabled={!chkValue}
           idx={idx}
         />
-        {/* <PaymentFieldDate name={name} disabled={!chkValue} /> */}
+        <PaymentFieldDate idx={idx} disabled={!chkValue} />
       </Stack>
     </FormControl>
 

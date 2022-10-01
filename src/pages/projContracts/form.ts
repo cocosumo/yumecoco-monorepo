@@ -42,6 +42,7 @@ export const initialValues = {
   /* 支払い予定 */
   paymentFields: Array<TypeOfPayFields>(4)
     .fill(initPayFields),
+  hasRefund: false,
 
 
 };

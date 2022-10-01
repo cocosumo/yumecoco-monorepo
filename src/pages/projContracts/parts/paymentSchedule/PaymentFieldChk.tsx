@@ -37,6 +37,9 @@ export const PaymentFieldChk = ({
   return (
     <FormControlLabel
       label={label}
+      sx={{
+        marginLeft: 0, // This component renders -11px as of this writing, so disabling it here. 2022.10.01 ~ras
+      }}
       control={(
         <Checkbox
           onChange={handleChange}

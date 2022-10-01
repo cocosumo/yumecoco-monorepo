@@ -15,7 +15,7 @@ export const PaymentFields = (
   const payFieldName: KeyOfForm = 'paymentFields';
 
   return (
-    <Stack justifyContent={'center'} spacing={2}>
+    <Stack spacing={2}>
       <FieldArray
         name={payFieldName}
         render={() => {

@@ -1,4 +1,4 @@
-import { FormControl, Stack } from '@mui/material';
+import {  Stack } from '@mui/material';
 import { useField } from 'formik';
 import { getPayFieldName, TPaymentLabels } from '../../form';
 import { PaymentFieldAmt } from './PaymentFieldAmt';
@@ -24,22 +24,17 @@ export const PaymentFieldGroup = (
 
 
   return (
-
-    <FormControl>
-      <Stack direction={'row'} spacing={1}>
-        <PaymentFieldChk 
-          idx={idx} 
-          label={label} 
-          remainingAmt={remainingAmt}
-        />
-        <PaymentFieldAmt 
-          disabled={!chkValue}
-          idx={idx}
-        />
-        <PaymentFieldDate idx={idx} disabled={!chkValue} />
-      </Stack>
-    </FormControl>
-
-
+    <Stack direction={'row'} spacing={1}>
+      <PaymentFieldChk 
+        idx={idx} 
+        label={label} 
+        remainingAmt={remainingAmt}
+      />
+      <PaymentFieldAmt 
+        disabled={!chkValue}
+        idx={idx}
+      />
+      <PaymentFieldDate idx={idx} disabled={!chkValue} />
+    </Stack>
   );
 };

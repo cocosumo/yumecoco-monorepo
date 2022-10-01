@@ -26,14 +26,13 @@ export const PaymentSchedule = ({
         <PaymentFields 
           remainingAmount={remainingAmount}
         />
-        {/*       {remainingAmount !== 0 &&
-          <RemainingAmountInfo 
-            remainingAmount={remainingAmount}
-          />} */}
+        
         <RemainingAmountInfo 
           remainingAmount={remainingAmount}
         />
         <CheckboxRefund />
+
+
         <PaymentFormActions />
 
       </Stack>

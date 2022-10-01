@@ -3,26 +3,31 @@ import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 export const PaymentFormActions = () => {
-  const { submitForm } = useFormikContext();
+  const { submitForm, isValid } = useFormikContext();
 
   return (
-    <Stack
-      direction="row"
-      justifyContent={'center'}
-      spacing={2}
-      pt={2}
-    >
-      <Button 
-        variant="outlined" 
-        size="large" 
-        startIcon={<SaveIcon />}
-        onClick={submitForm}
+    <Stack>
+
+
+      <Stack
+        direction="row"
+        justifyContent={'center'}
+        spacing={2}
+        pt={2}
       >
-        保存
-      </Button>
-      <Button variant="outlined" size="large" startIcon={<PreviewIcon />}>
-        契約
-      </Button>
+        <Button 
+          variant="outlined" 
+          size="large" 
+          startIcon={<SaveIcon />}
+          onClick={submitForm}
+        >
+          保存
+        </Button>
+        <Button variant="outlined" size="large" startIcon={<PreviewIcon />}>
+          契約
+        </Button>
+
+      </Stack>
     </Stack>
   );
 };

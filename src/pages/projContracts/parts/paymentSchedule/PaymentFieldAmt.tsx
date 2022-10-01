@@ -1,5 +1,6 @@
 import { InputAdornment, TextField } from '@mui/material';
 import { useField } from 'formik';
+import numerals from 'jp-numerals';
 import { getPayFieldName } from '../../form';
 
 export const PaymentFieldAmt = (
@@ -13,6 +14,7 @@ export const PaymentFieldAmt = (
 ) => {
   
   const [field] = useField(getPayFieldName('amount', idx));
+  const { value } = field;
 
   return (
     <TextField
@@ -30,6 +32,12 @@ export const PaymentFieldAmt = (
             円
           </InputAdornment>),
       }}
+      FormHelperTextProps={{
+        sx: {
+          textAlign: 'right',
+        },
+      }}
+      helperText={numerals(+value).toString()}
     />
   );
 };

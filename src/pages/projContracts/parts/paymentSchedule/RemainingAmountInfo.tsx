@@ -10,7 +10,7 @@ export const RemainingAmountInfo = ({
   const [animAmt, setAnimAmt] = useState(remainingAmount);
 
   const oldAmt = useRef(remainingAmount);
-
+  
 
   useLazyEffect(()=>{
     const oldDiff = remainingAmount - oldAmt.current;
@@ -21,11 +21,11 @@ export const RemainingAmountInfo = ({
     const increment =  oldDiff / numOfCalls;
   
 
-    let x = 0;
+    let c = 0;
     const intervalId = setInterval(()=>{
       setAnimAmt(prev => prev + increment);
 
-      if (++x === numOfCalls) {
+      if (c++ === numOfCalls || remainingAmount === 0) {
         clearInterval(intervalId);
         setAnimAmt(remainingAmount);
         oldAmt.current = remainingAmount;

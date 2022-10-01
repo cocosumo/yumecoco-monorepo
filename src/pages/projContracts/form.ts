@@ -39,21 +39,8 @@ export const initialValues = {
   contractPrice: 0,
 
   /* 支払い予定 */
-  keiyakukin_chk: false,
-  keiyakukin_amt: 0,
-  keiyakukin_date: '',
-
-  chakushukin_chk: false,
-  chakushukin_amt: 0,
-  chakushukin_date: '',
-
-  chuukankin_chk: false,
-  chuukankin_amt: 0,
-  chuukankin_date: '',
-
-  saishuukin_chk: false,
-  saishuukin_amt: 0,
-  saishuukin_date: '',
+  paymentFields: Array<typeof initPayFields>(4)
+    .fill(initPayFields),
 
 
 };
@@ -62,7 +49,16 @@ export type TypeOfForm =  typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
 export type TypeOfPayFields = typeof initPayFields;
 
+export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const; 
+export type TPaymentLabels = typeof paymentLabels[number];
 export const getFieldName = (s: KeyOfForm) => s;
+export const getPayFieldName = (
+  field: keyof TypeOfPayFields,
+  idx: number,
+) => {
+  return `${getFieldName('paymentFields')}.${idx}.${field}`;
+};
+
 
 export const validationSchema =  Yup.object(
   {

@@ -13,7 +13,7 @@ export const PaymentSchedule = ({
     <PaymentContainer>
       <Stack spacing={2}>
         <TotalPaymentAmount totalAmount={totalAmount} />
-        <PaymentFields />
+        <PaymentFields totalAmount={totalAmount} />
         <PaymentFormActions />
       </Stack>
     </PaymentContainer>

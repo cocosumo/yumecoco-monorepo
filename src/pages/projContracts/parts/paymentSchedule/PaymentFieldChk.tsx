@@ -1,50 +1,45 @@
-import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
-import { KeyOfForm, TypeOfForm } from '../../form';
+import produce from 'immer';
+import { ComponentProps } from 'react';
+import { getPayFieldName, TypeOfForm } from '../../form';
 
 /**
  * Need to improve type checking here.
- * 
+ *  
  * @returns 
  */
 
 export const PaymentFieldChk = ({
-  label, name,
+  label, 
+  idx,
+  remainingAmt,
 }: {
-  name: string,
   label: string,
+  idx: number
+  remainingAmt: number
 }) => {
-  const { setValues, values } = useFormikContext<TypeOfForm>();
-  const [field] = useField(`${name}_chk`);
+  const { setValues } = useFormikContext<TypeOfForm>();
+  const [field ] = useField(getPayFieldName('checked', idx));
   const { value } = field;
 
-  const handleChk: CheckboxProps['onChange'] = (event) => {
-    const isChecked = event.target.checked;
+  const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
 
-    setValues(prev => {
 
-      let newAmt = 0;
-
-      if (isChecked) {
-        newAmt = prev[`${name}_amt` as KeyOfForm] as number;
-      }
-
-      return {
-        ...prev,
-        [`${name}_chk`]: isChecked,
-        [`${name}_amt`]: newAmt,
-        [`${name}_date`]: isChecked ? prev[`${name}_date` as KeyOfForm] : '',
-      };
-    });
-
+    setValues((prev) =>  produce(prev, ({ paymentFields: pF }) => {
+      pF[idx].amount = checked ? remainingAmt : 0;
+      pF[idx].checked = checked;
+    }));
+    
   };
+
 
   return (
     <FormControlLabel
       label={label}
       control={(
         <Checkbox
-          onChange={handleChk}
+          onChange={handleChange}
           checked={value}
           sx={{
             transform: 'scale(1.5)',

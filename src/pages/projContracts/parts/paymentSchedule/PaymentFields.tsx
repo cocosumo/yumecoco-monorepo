@@ -1,16 +1,40 @@
 import {  Stack } from '@mui/material';
-import { PaymentField } from './PaymentField';
+import { FieldArray } from 'formik';
+import { KeyOfForm, paymentLabels, TypeOfForm } from '../../form';
+import { PaymentFieldGroup } from './PaymentFieldGroup';
 
 
-export const PaymentFields = () => {
+export const PaymentFields = (
+  {
+    totalAmount,
+  } : {
+    totalAmount: number
+  },
+) => {
+
+  const payFieldName: KeyOfForm = 'paymentFields';
+
   return (
     <Stack justifyContent={'center'} spacing={2}>
+      <FieldArray
+        name={payFieldName}
+        render={({ form : { values } }) => {
+          const { paymentFields } = values as TypeOfForm;
 
-      <PaymentField name={'keiyakukin'} label={'契約金'} />
-      <PaymentField name={'chakushukin'} label={'着手金'} />
-      <PaymentField name={'chuukankin'} label={'中間金'} />
-      <PaymentField name={'saishuukin'} label={'最終金'} />
+          const remainingAmt = paymentFields
+            .reduce((acc, { amount }) => acc - +amount, totalAmount);
 
+          return paymentLabels
+            .map((label, idx) => (
+              <PaymentFieldGroup 
+                key={label} 
+                label={label}
+                remainingAmt={remainingAmt}
+                idx={idx}
+              />
+            ));
+        }}
+      />
     </Stack>
   );
 };

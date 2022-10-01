@@ -1,19 +1,18 @@
 import { InputAdornment, TextField } from '@mui/material';
 import { useField } from 'formik';
+import { getPayFieldName } from '../../form';
 
 export const PaymentFieldAmt = (
   {
-    name,
     disabled,
+    idx,
   } : {
     disabled: boolean
-    name: string,
+    idx: number,
   },
 ) => {
-
-  const [field] = useField(`${name}_amt`);
-
-
+  
+  const [field] = useField(getPayFieldName('amount', idx));
 
   return (
     <TextField

@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
+import { TypeOfForm } from '../form';
 import { useContractPreview } from './useContractPreview';
 
 /**
@@ -36,10 +37,11 @@ export const useEstimateChangeHandler = () => {
 
     setSelectedEstimate(selected);
     setValues((prev) => {
-      const { envStatus, envDocFileKeys, envId } = selected ?? {};
+      const { envStatus, envDocFileKeys, envId, $revision } = selected ?? {};
 
-      const newForm = {
+      const newForm: TypeOfForm = {
         ...prev,
+        projEstimateRevision: $revision.value,
         projEstimateId: projEstimateId ?? '',
         envelopeId: envId?.value ?? '',
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',

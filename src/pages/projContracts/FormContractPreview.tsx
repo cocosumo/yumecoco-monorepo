@@ -24,8 +24,10 @@ export const FormContractPreview = () => {
 
   const {
     formStatus,
-    values: { projEstimateId, projId, projName },
+    values,
   } = useUpdateProjId();
+
+  const { projEstimateId, projId, projName } = values;
 
   const {
     previewUrl,
@@ -35,6 +37,8 @@ export const FormContractPreview = () => {
   } = useEstimateChangeHandler();
 
   const { totalAmountInclTax } = calculatedEstimate ?? {};
+
+  console.log(values);
 
   return (
     <Form noValidate>

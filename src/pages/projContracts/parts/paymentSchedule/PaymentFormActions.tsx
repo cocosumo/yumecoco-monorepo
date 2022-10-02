@@ -3,12 +3,14 @@ import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 export const PaymentFormActions = () => {
-  const { submitForm, isValid } = useFormikContext();
+  const { submitForm, dirty, isValid, touched } = useFormikContext();
+
+  console.log(dirty, isValid, touched);
+
+  const cantPreviewContract = !!dirty && !isValid;
 
   return (
     <Stack>
-
-
       <Stack
         direction="row"
         justifyContent={'center'}
@@ -23,11 +25,17 @@ export const PaymentFormActions = () => {
         >
           保存
         </Button>
-        <Button variant="outlined" size="large" startIcon={<PreviewIcon />}>
+        <Button 
+          variant="outlined" 
+          disabled={cantPreviewContract}
+          size="large" 
+          startIcon={<PreviewIcon />}
+        >
           契約
         </Button>
-
       </Stack>
+      {/* Error message here */}
+  
     </Stack>
   );
 };

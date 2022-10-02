@@ -13,11 +13,12 @@ export const FormikContractPreview = () => {
     <Formik
       initialValues={initialValues}
       initialStatus={'busy' as TFormStatus}
+      validateOnMount
       enableReinitialize
       validationSchema={validationSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         
-        console.log('submitted', values);
+        resetForm({ values });
         setSubmitting(false);
       }}
     >

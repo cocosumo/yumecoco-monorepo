@@ -10,10 +10,10 @@ export const PaymentFieldDate = ({
   disabled: boolean,
   idx: number
 }) => {
-  const [field, meta, helpers] = useField(getPayFieldNameByIdx('date', idx));
+  const [field, meta, helpers] = useField(getPayFieldNameByIdx('payDate', idx));
   const { value } = field;
   const { error, touched } = meta;
-  const { setValue } = helpers;
+  const { setValue, setTouched } = helpers;
 
   const isShowError = touched && !!error;
 
@@ -24,7 +24,7 @@ export const PaymentFieldDate = ({
       disablePast
       views={['year', 'month', 'day' ]}
       onChange={(v)=>{
-        setValue(v);
+        setValue(v ?? '', true);
       }}
       InputProps={{
         label: 'hello',
@@ -32,6 +32,7 @@ export const PaymentFieldDate = ({
       renderInput={(params) =>(
         <TextField
           {...params}
+          onBlur={() => setTouched(true, true)}
           variant={'standard'}
           error={isShowError}
           helperText={isShowError ? error : ''}

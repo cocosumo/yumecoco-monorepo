@@ -4,11 +4,13 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 export const PaymentFormActions = () => {
-  const { submitForm, setValues } = useFormikContext<TypeOfForm>();
+  const { submitForm, setValues, validateForm } = useFormikContext<TypeOfForm>();
 
   const handleSubmit = (submitMethod: TypeOfForm['submitMethod']) => {
-    setValues(prev => ({ ...prev, submitMethod }));
-    submitForm();
+    setValues(prev => ({ ...prev, submitMethod }), true);
+    validateForm()
+      .then(()=>submitForm());
+    
   };
 
   return (

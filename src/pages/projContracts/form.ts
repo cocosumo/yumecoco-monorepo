@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 const initPayFields = {
   checked: false,
   amount: 0,
-  date: '' as Date | '',
+  payDate: '' as Date | '',
 };
 export type TypeOfPayFields = typeof initPayFields;
 
@@ -69,6 +69,21 @@ export const getPayFieldNameByIdx = (
 const getPayFieldName = (k: keyof TypeOfPayFields) => k;
 
 
+/* VALIDATION */
+const payAmtValidation = Yup
+  .number()
+  .when(getPayFieldName('checked'), {
+    is: true,
+    then: Yup
+      .number()
+      .typeError('数字を入れてください。')
+      .required('金額を入力してください。'),
+  });
+
+const payDateValidation =  Yup
+  .date()
+  .typeError('無効な日付です');
+  
 export const validationSchema =  Yup
   .object <Record<KeyOfForm, Yup.AnySchema>>()
   .shape({
@@ -83,32 +98,45 @@ export const validationSchema =  Yup
           .required('返金予定金額を入力してください'),
       }),
     
-    paymentFields: Yup.array()
-      .of(
-        Yup.object<Record<keyof TypeOfPayFields, Yup.AnySchema>>()
-          .shape({
-            amount: Yup
-              .number()
+    paymentFields: Yup
+      .array()
+      .when(getFieldName('submitMethod'), {
+        is: (sM: TypeOfForm['submitMethod']) => sM === 'normal',
+        then: Yup.array().of(
+          Yup
+            .object()
+            .shape<Partial<Record<keyof TypeOfPayFields, Yup.AnySchema>>>({
+            amount: payAmtValidation,
+            payDate: Yup
+              .date()
               .when(getPayFieldName('checked'), {
                 is: true,
-                then: Yup
-                  .number()
-                  .typeError('数字を入れてください。')
-                  .required('金額を入力してください。'),
+                then: payDateValidation
+                  .notRequired(),
               }),
-            date: Yup
-              .date()
-              .when([getPayFieldName('checked'), getFieldName('submitMethod'), 'projId'], {
-                is: (checked: boolean, submitMethod: TypeOfForm['submitMethod'], projId) => {
-                  console.log(checked, submitMethod, projId);
-                  return checked && submitMethod === 'contract';
-                },
-                then: Yup.date().required('契約では必須です。'),
-              }),
-        
           }),
-      ),
+        ),
+      })
+      .when(getFieldName('submitMethod'), {
+        is: (sM: TypeOfForm['submitMethod']) => sM === 'contract',
+        then: Yup.array().of(
+          Yup
+            .object()
+            .shape<Partial<Record<keyof TypeOfPayFields, Yup.AnySchema>>>({
+            amount: payAmtValidation,
+            payDate: Yup
+              .date()
+              .when(getPayFieldName('checked'), {
+                is: true,
+                then: payDateValidation
+                  .required('契約では必須です。'),
+              }),
+          }),
+        ),
+      }),
+
     remainingAmt: Yup
       .number()
+      .typeError('数字ではないものが入っています。確認してください。')
       .equals([0], '契約合計と請求額が相違しています。'),
   });

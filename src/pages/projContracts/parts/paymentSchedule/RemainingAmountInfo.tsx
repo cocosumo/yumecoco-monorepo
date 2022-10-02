@@ -39,14 +39,21 @@ export const RemainingAmountInfo = () => {
     return () => clearInterval(intervalId);
   }, [remainingAmt], 800);
 
-  const isValidTotal = remainingAmt === 0;
+
+  const newNum = Math.round(animAmt);
+  const isNumber = !isNaN(newNum);
 
   return (
-    <Alert severity={isValidTotal ? 'success' : 'warning'}>
+    <Alert severity={!error ? 'success' : 'warning'}>
 
       {!error && '契約合計と請求額が合っています。'}
 
-      {!!error && ` ${error} 相違額： ${Math.round(animAmt)?.toLocaleString() || 0} 円 。 `}
+      {!!error &&  `${error}`}
+
+      {!!error && isNumber && (
+      <div>
+        {`相違額： ${newNum?.toLocaleString()} 円 。`}
+      </div>)}
           
     </Alert>
 

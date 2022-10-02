@@ -62,6 +62,6 @@ export const getPayFieldNameByIdx = (
   field: keyof TypeOfPayFields,
   idx: number,
 ) => {
-  return `${getFieldName('paymentFields')}.${idx}.${field}`;
+  return `${getFieldName('paymentFields')}[${idx}].${field}`;
 };
 export const getPayFieldName = (k: keyof TypeOfPayFields) => k;

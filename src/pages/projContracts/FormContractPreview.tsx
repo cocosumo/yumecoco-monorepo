@@ -16,6 +16,7 @@ import {
 import { SelectProjEstimates } from '../../components/ui/selects';
 import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 import { GridNextDivider } from './parts/GridNextDivider';
+import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 
 export const FormContractPreview = () => {
 
@@ -40,6 +41,7 @@ export const FormContractPreview = () => {
 
   return (
     <Form noValidate>
+      <ScrollToFieldError />
       <MainContainer justifyContent={'space-between'}>
         <PageTitle label='契約' />
 

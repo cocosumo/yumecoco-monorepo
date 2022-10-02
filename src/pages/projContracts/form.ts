@@ -11,6 +11,8 @@ const initPayFields = {
 export type TypeOfPayFields = typeof initPayFields;
 
 export const initialValues = {
+  /* Form management */
+  submitMethod: 'normal' as 'normal' | 'contract',
 
   /* 工事 */
   projId: '',

@@ -2,12 +2,14 @@ import { Button, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 export const PaymentFormActions = () => {
-  const { submitForm, dirty, isValid, touched } = useFormikContext();
+  const { submitForm, setValues } = useFormikContext<TypeOfForm>();
 
-  console.log(dirty, isValid, touched);
-
-  const cantPreviewContract = !!dirty && !isValid;
+  const handleSubmit = (submitMethod: TypeOfForm['submitMethod']) => {
+    setValues(prev => ({ ...prev, submitMethod }));
+    submitForm();
+  };
 
   return (
     <Stack>
@@ -21,15 +23,15 @@ export const PaymentFormActions = () => {
           variant="outlined" 
           size="large" 
           startIcon={<SaveIcon />}
-          onClick={submitForm}
+          onClick={() => handleSubmit('normal')}
         >
           保存
         </Button>
         <Button 
           variant="outlined" 
-          disabled={cantPreviewContract}
           size="large" 
           startIcon={<PreviewIcon />}
+          onClick={() => handleSubmit('contract')}
         >
           契約
         </Button>

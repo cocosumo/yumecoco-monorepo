@@ -1,13 +1,11 @@
 import { Formik } from 'formik';
-//import { useSnackBar } from '../../hooks';
-//import { saveContractDetails } from './api/saveContractDetails';
 import { initialValues, validationSchema } from './form';
-
 import { FormContractPreview } from './FormContractPreview';
+import { useSubmitContractInfo } from './hooks/useSubmitContractInfo';
+
 
 export const FormikContractPreview = () => {
-  //const { setSnackState } = useSnackBar();
-
+  const { onSubmit } = useSubmitContractInfo();
 
   return (
     <Formik
@@ -16,11 +14,7 @@ export const FormikContractPreview = () => {
       validateOnMount
       enableReinitialize
       validationSchema={validationSchema}
-      onSubmit={async (values, { setSubmitting, resetForm }) => {
-        
-        resetForm({ values });
-        setSubmitting(false);
-      }}
+      onSubmit={onSubmit}
     >
       <FormContractPreview />
     </Formik>

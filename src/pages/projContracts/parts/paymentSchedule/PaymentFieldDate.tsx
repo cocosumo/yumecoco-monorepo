@@ -11,7 +11,7 @@ export const PaymentFieldDate = ({
   idx: number
 }) => {
   const [field, meta, helpers] = useField(getPayFieldNameByIdx('payDate', idx));
-  const { value } = field;
+  const { value, name } = field;
   const { error, touched } = meta;
   const { setValue, setTouched } = helpers;
 
@@ -32,6 +32,7 @@ export const PaymentFieldDate = ({
       renderInput={(params) =>(
         <TextField
           {...params}
+          name={name}
           onBlur={() => setTouched(true, true)}
           variant={'standard'}
           error={isShowError}

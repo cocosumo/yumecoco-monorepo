@@ -48,6 +48,8 @@ export const initialValues = {
   hasRefund: false,
   refundAmt: '' as number | '',
 
+  projEstimateRevision: '',
+
 
 };
 
@@ -68,34 +70,45 @@ const getPayFieldName = (k: keyof TypeOfPayFields) => k;
 
 
 export const validationSchema =  Yup
-  .object()
-  .shape<Partial<Record<KeyOfForm, Yup.AnySchema>>>({
-  projEstimateId: Yup.string().required(),
-  refundAmt: Yup
-    .number()
-    .when(getFieldName('hasRefund'), {
-      is: true,
-      then: Yup
-        .number()
-        .typeError('数字を入れてください。')
-        .required('返金予定金額を入力してください'),
-    }),
-  paymentFields: Yup.array()
-    .of(
-      Yup.object()
-        .shape<Partial<Record<keyof TypeOfPayFields, any>>>({
-        amount: Yup
+  .object <Record<KeyOfForm, Yup.AnySchema>>()
+  .shape({
+    projEstimateId: Yup.string().required(),
+    refundAmt: Yup
+      .number()
+      .when(getFieldName('hasRefund'), {
+        is: true,
+        then: Yup
           .number()
-          .when(getPayFieldName('checked'), {
-            is: true,
-            then: Yup
-              .number()
-              .typeError('数字を入れてください。')
-              .required('金額を入力してください。'),
-          }),
+          .typeError('数字を入れてください。')
+          .required('返金予定金額を入力してください'),
       }),
-    ),
-  remainingAmt: Yup
-    .number()
-    .equals([0], '契約合計と請求額が相違しています。'),
-});
+    
+    paymentFields: Yup.array()
+      .of(
+        Yup.object<Record<keyof TypeOfPayFields, Yup.AnySchema>>()
+          .shape({
+            amount: Yup
+              .number()
+              .when(getPayFieldName('checked'), {
+                is: true,
+                then: Yup
+                  .number()
+                  .typeError('数字を入れてください。')
+                  .required('金額を入力してください。'),
+              }),
+            date: Yup
+              .date()
+              .when([getPayFieldName('checked'), getFieldName('submitMethod'), 'projId'], {
+                is: (checked: boolean, submitMethod: TypeOfForm['submitMethod'], projId) => {
+                  console.log(checked, submitMethod, projId);
+                  return checked && submitMethod === 'contract';
+                },
+                then: Yup.date().required('契約では必須です。'),
+              }),
+        
+          }),
+      ),
+    remainingAmt: Yup
+      .number()
+      .equals([0], '契約合計と請求額が相違しています。'),
+  });

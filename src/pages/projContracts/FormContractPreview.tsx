@@ -7,7 +7,6 @@ import {  Grid, LinearProgress } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
-import { Preview } from './parts/Preview/Preview';
 import {
   useUpdateProjId,
   useResolveParams,
@@ -30,15 +29,14 @@ export const FormContractPreview = () => {
   const { projEstimateId, projId, projName } = values;
 
   const {
-    previewUrl,
-    previewLoading,
     calculatedEstimate,
     handleChangeEstimate,
   } = useEstimateChangeHandler();
 
   const { totalAmountInclTax } = calculatedEstimate ?? {};
 
-  console.log(values);
+  /* 本当に小数点切り捨ていいか、要確認 */
+  const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
 
   return (
     <Form noValidate>
@@ -62,7 +60,6 @@ export const FormContractPreview = () => {
           <SelectProjEstimates
             projId={projId}
             projEstimateId={projEstimateId}
-            disabled={previewLoading}
             handleChange={handleChangeEstimate}
           />
 
@@ -77,18 +74,18 @@ export const FormContractPreview = () => {
         {!!projEstimateId && (
           <>
             <PageSubTitle label='支払い予定' />
-            <PaymentSchedule totalAmount={totalAmountInclTax} />
+            <PaymentSchedule totalAmount={roundedTotalAmt} />
           </>
         )}
 
 
 
         {/* 契約のプレビュー */}
-        {!!projEstimateId && previewUrl &&
+        {/*         {!!projEstimateId && previewUrl &&
         <Preview
           previewUrl={previewUrl}
           previewLoading={previewLoading}
-        />}
+        />} */}
 
         {!projEstimateId &&
           <Grid item xs={12}>

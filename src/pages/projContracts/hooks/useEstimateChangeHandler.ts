@@ -1,7 +1,7 @@
+import { useFormikContext } from 'formik';
 import { useCallback, useState } from 'react';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { TypeOfForm } from '../form';
-import { useContractPreview } from './useContractPreview';
 
 /**
  * Wrapper hook to generate contract preview
@@ -11,17 +11,11 @@ import { useContractPreview } from './useContractPreview';
  * @returns {object} obj.handleChangeEstimate 選択の変更際の関数
  */
 export const useEstimateChangeHandler = () => {
-
+  const { setValues } = useFormikContext<TypeOfForm>();
   const [selectedEstimate, setSelectedEstimate] = useState<Estimates.main.SavedData>(Object.create(null));
   const [calculatedEstimate, setCalculatedEstimate] = useState<Awaited<ReturnType<typeof calculateEstimateRecord>>>();
 
-  const {
-    previewUrl,
-    previewLoading,
-    formLoading,
-    handlePreview,
-    setValues,
-  } = useContractPreview();
+
 
   const clearSelectedEstimate = useCallback(() => setSelectedEstimate(Object.create(null)), []);
 
@@ -50,11 +44,8 @@ export const useEstimateChangeHandler = () => {
       };
 
 
-      if (projEstimateId) {
-        handlePreview(newForm);
-      } else {
-        clearSelectedEstimate();
-      }
+      if (!projEstimateId) clearSelectedEstimate();
+
       return newForm;
     });
   };
@@ -65,8 +56,5 @@ export const useEstimateChangeHandler = () => {
     calculatedEstimate,
     handleChangeEstimate,
     clearSelectedEstimate,
-    previewUrl,
-    previewLoading,
-    formLoading,
   };
 };

@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
-import { initialValues, validationSchema } from './form';
+import { initialValues } from './form';
 import { FormContractPreview } from './FormContractPreview';
+import { validationSchema } from './formValidation';
 import { useSubmitContractInfo } from './hooks/useSubmitContractInfo';
 
 

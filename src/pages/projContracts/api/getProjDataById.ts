@@ -58,7 +58,7 @@ export const getProjDataById = async (
 
     projAddress: `〒${pPostal.value} ${pAddress1.value}${pAddress2.value}`,
 
-    revision: $revision.value,
+    projEstimateRevision: $revision.value,
 
   };
 

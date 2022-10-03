@@ -2,11 +2,14 @@ import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
 const convertToKintone = ({
-  customerName, projName,
+  projId,
+  projName,
+  projTypeId,
   projTypeName,
   projTypeProfit,
+  customerName,
   tax,
-  items, projId,
+  items,
   status,
 }: TypeOfForm) => {
 
@@ -34,9 +37,11 @@ const convertToKintone = ({
     }),
   };
 
+
   /* 変換処理 */
   const kintoneRecord: Partial<Estimates.main.SavedData> = {
     projId: { value: projId },
+    projTypeId: { value: projTypeId },
     顧客名: { value: customerName },
     工事名称: { value: projName },
     工事種別名: { value: projTypeName },

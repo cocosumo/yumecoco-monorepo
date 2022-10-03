@@ -6,16 +6,15 @@ import { RefreshButton } from '../PreviewToolBar/RefreshButton';
 import { PreviewContainer } from './PreviewContainer';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
+import { useContractPreview } from '../../hooks';
 
 
 
-export const Preview = ({
-  previewLoading,
-  previewUrl,
-} : {
-  previewLoading: boolean,
-  previewUrl: string
-}) => {
+export const Preview = () => {
+  const {
+    previewUrl,
+    previewLoading,
+  } = useContractPreview();
   const {
     values,
   } = useFormikContext<TypeOfForm>();

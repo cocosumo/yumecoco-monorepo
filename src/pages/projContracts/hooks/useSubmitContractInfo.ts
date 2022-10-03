@@ -5,14 +5,14 @@ import { TypeOfForm } from '../form';
 export const useSubmitContractInfo = () => {
 
   const onSubmit: ComponentProps<typeof Formik<TypeOfForm>>['onSubmit'] = async (
-    values, 
+    values,
     { setSubmitting },
   ) => {
-    console.log(values.submitMethod, 'he2llo');
-   
+    alert('保存処理は開発中');
+
     setSubmitting(false);
   };
-  
+
 
   return {
     onSubmit,

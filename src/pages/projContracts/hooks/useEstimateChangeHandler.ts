@@ -53,11 +53,11 @@ export const useEstimateChangeHandler = () => {
           paymentAmt,
           paymentDate,
         } }) => {
-          return {
-            checked: Boolean(+isPayEnabled),
-            amount: +paymentAmt.value,
-            payDate: parseISO(paymentDate.value),
 
+          return {
+            checked: Boolean(+isPayEnabled.value),
+            amount: +paymentAmt.value,
+            payDate: paymentDate.value ? parseISO(paymentDate.value) : '',
           };
         }) ?? [],
         hasRefund: Boolean(+hasRefund.value),

@@ -2,6 +2,7 @@ declare namespace Estimates.main {
   interface Data {
     projId: kintone.fieldTypes.Number;
     contractDate: kintone.fieldTypes.Date;
+    updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
     税: kintone.fieldTypes.Number;
@@ -13,8 +14,10 @@ declare namespace Estimates.main {
     工事名称: kintone.fieldTypes.SingleLineText;
     envId: kintone.fieldTypes.SingleLineText;
     envStatus: kintone.fieldTypes.SingleLineText;
+    updatedById: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
     projTypeId: kintone.fieldTypes.Number;
+    updateDateTime: kintone.fieldTypes.DateTime;
     signMethod: kintone.fieldTypes.SingleLineText;
     totalPaymentAmt: kintone.fieldTypes.Calc;
 

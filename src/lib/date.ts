@@ -10,11 +10,12 @@ export const isTypeOfDate = (
  *
  * https://developer.cybozu.io/hc/ja/articles/201941754-kintone-REST-API%E3%81%AE%E5%85%B1%E9%80%9A%E4%BB%95%E6%A7%98
  * @param rawDate
- * @returnss Formatted date string
+ * @returnss Formatted date str
  */
-export const toKintoneDateStr = (rawDate: object | Date | string ) => {
+export const toKintoneDateStr = (rawDate: object | Date | string, withTime = false ) => {
   if (isTypeOfDate(rawDate)) {
-    return format(rawDate as Date, 'yyyy-MM-dd\'T\'HH:mm:ss+9:00');
+    return format(
+      rawDate as Date, `yyyy-MM-dd${withTime ? "'T'HH:mm:ss+09:00" : ''}`);
   } else {
     return '';
   }

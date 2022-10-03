@@ -17,7 +17,7 @@ export const PaymentFormActions = () => {
     isSubmitting,
     isValidating,
     isValid,
-    dirty,
+
   } = useFormikContext<TypeOfForm>();
 
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
@@ -40,9 +40,8 @@ export const PaymentFormActions = () => {
 
   };
 
-  const isOpenDialog = openPreview && isValid;
 
-  console.log(dirty);
+  const isOpenDialog = openPreview && isValid;
 
   return (
     <Stack>

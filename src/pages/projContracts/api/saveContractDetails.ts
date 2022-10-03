@@ -20,16 +20,20 @@ const convertToKintone = (
         amount, checked, payDate,
       },
       idx,
-    ) => ({
-      id: '',
-      value: {
-        isPayEnabled: { value: (+checked).toString() },
-        paymentAmt: { value: amount.toString() },
-        paymentType:{ value: paymentLabels[idx] },
-        paymentDate: { value: toKintoneDateStr(payDate) },
-      },
-    })),
+    ) => {
+
+      return {
+        id: '',
+        value: {
+          isPayEnabled: { value: (+checked).toString() },
+          paymentAmt: { value: amount.toString() },
+          paymentType:{ value: paymentLabels[idx] },
+          paymentDate: { value: toKintoneDateStr(payDate) },
+        },
+      };
+    }),
   };
+
 
   const kintoneRecord :  Partial<Estimates.main.SavedData> = {
 
@@ -40,6 +44,10 @@ const convertToKintone = (
       type: '__REVISION__',
       value: projEstimateRevision,
     },
+
+    updatedById: { value : kintone.getLoginUser().employeeNumber },
+    updateDateTime: { value: toKintoneDateStr(new Date(), true) },
+
   };
 
   return kintoneRecord;

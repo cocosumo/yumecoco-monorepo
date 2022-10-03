@@ -25,7 +25,6 @@ export const useEstimateChangeHandler = () => {
     projEstimateId?: string,
     calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>,
   ) => {
-    
 
     setCalculatedEstimate(calculated);
 

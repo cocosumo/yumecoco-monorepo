@@ -7,6 +7,7 @@ const convertToKintone = (
     paymentFields,
     hasRefund,
     refundAmt,
+    projEstimateRevision,
   }: TypeOfForm,
 ) => {
 
@@ -20,7 +21,7 @@ const convertToKintone = (
       },
       idx,
     ) => ({
-      id: 'auto',
+      id: '',
       value: {
         isPayEnabled: { value: (+checked).toString() },
         paymentAmt: { value: amount.toString() },
@@ -31,9 +32,14 @@ const convertToKintone = (
   };
 
   const kintoneRecord :  Partial<Estimates.main.SavedData> = {
+
     hasRefund: { value: (+hasRefund).toString() },
     refundAmt: { value: refundAmt.toString() },
     支払い: convertedPaymentFields,
+    $revision: {
+      type: '__REVISION__',
+      value: projEstimateRevision,
+    },
   };
 
   return kintoneRecord;
@@ -54,6 +60,8 @@ export const saveContractDetails = async (
   if (!projEstimateId) throw new Error('Invalid project id.');
 
   const record = convertToKintone(form);
+
+  console.log(record);
 
   const result = await KintoneRecord.updateRecord({
     app: APPIDS.projectEstimate,

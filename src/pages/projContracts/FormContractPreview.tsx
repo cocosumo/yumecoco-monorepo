@@ -3,7 +3,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
 import { getFieldName } from './form';
-import {  Grid, LinearProgress } from '@mui/material';
+import {  Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
@@ -22,7 +22,6 @@ export const FormContractPreview = () => {
   useResolveParams();
 
   const {
-    formStatus,
     values,
   } = useUpdateProjId();
 
@@ -92,12 +91,6 @@ export const FormContractPreview = () => {
             <EmptyBox>
               見積を選択してください。
             </EmptyBox>
-          </Grid>}
-
-
-
-        {(formStatus) === 'busy' && <Grid item xs={12}>
-          <LinearProgress />
           </Grid>}
 
       </MainContainer>

@@ -23,11 +23,14 @@ export const PaymentFieldGroup = (
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
 
-    setValues((prev) =>  produce(prev, ({ paymentFields: pF }) => {
-      pF[idx].amount = checked ? remainingAmt : 0;
-      pF[idx].checked = checked;
-    }));
-    
+    setValues((prev) =>  {
+      const newState = produce(prev, ({ paymentFields: pF }) => {
+        pF[idx].amount = checked ? remainingAmt : 0;
+        pF[idx].checked = checked;
+      });
+      return newState;
+    });
+
   };
 
   return (
@@ -43,7 +46,7 @@ export const PaymentFieldGroup = (
             }}
           />)}
       />
-      <PaymentFieldAmt 
+      <PaymentFieldAmt
         disabled={!chkValue}
         idx={idx}
       />

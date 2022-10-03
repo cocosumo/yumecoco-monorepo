@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
-import { 
-  getFieldName, 
-  getPayFieldName, 
+import {
+  getFieldName,
+  getPayFieldName,
 
-  KeyOfForm, 
+  KeyOfForm,
 
-  TypeOfForm, 
+  TypeOfForm,
   TypeOfPayFields } from './form';
 
 
@@ -25,7 +25,7 @@ const payAmtValidation  = Yup
 const payDateValidation =  Yup
   .date()
   .typeError('無効な日付です');
-  
+
 
 
 /* MAIN VALIDATION SCHEMA */
@@ -33,7 +33,7 @@ const payDateValidation =  Yup
 export const validationSchema =  Yup
   .object()
   .shape <Partial<Record<KeyOfForm, Yup.AnySchema>>>({
-  
+
   refundAmt: Yup
     .number()
     .when(getFieldName('hasRefund'), {
@@ -41,9 +41,10 @@ export const validationSchema =  Yup
       then: Yup
         .number()
         .typeError('数値を入れてください。')
+        .positive('ゼロ以上を入力してください。')
         .required('返金予定金額を入力してください。'),
     }),
-    
+
   paymentFields: Yup
     .array()
     .when(getFieldName('submitMethod'), {
@@ -85,4 +86,6 @@ export const validationSchema =  Yup
     .number()
     .typeError('数字ではないものが入っています。確認してください。')
     .equals([0], '契約合計と請求額が相違しています。'),
+
+
 });

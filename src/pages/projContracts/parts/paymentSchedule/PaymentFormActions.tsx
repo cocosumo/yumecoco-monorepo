@@ -6,8 +6,10 @@ import { TypeOfForm } from '../../form';
 import { useState } from 'react';
 import { ContractPreview } from '../ContractPreview';
 import { isEmpty } from 'lodash';
+import { useSnackBar } from '../../../../hooks';
 
 export const PaymentFormActions = () => {
+  const { setSnackState } = useSnackBar();
   const [openPreview, setOpenPreview] = useState(false);
   const {
     values,

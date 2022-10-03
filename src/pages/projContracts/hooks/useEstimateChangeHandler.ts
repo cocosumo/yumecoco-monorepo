@@ -38,6 +38,7 @@ export const useEstimateChangeHandler = () => {
         $revision,
         支払い: paymentSched,
         hasRefund,
+        refundAmt,
       } = selected ?? {};
 
       const newForm: TypeOfForm = {
@@ -60,7 +61,9 @@ export const useEstimateChangeHandler = () => {
             payDate: paymentDate.value ? parseISO(paymentDate.value) : '',
           };
         }) ?? [],
+
         hasRefund: Boolean(+hasRefund.value),
+        refundAmt: +refundAmt.value,
 
       };
 

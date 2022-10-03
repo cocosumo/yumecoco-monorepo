@@ -68,9 +68,6 @@ export const useEstimateChangeHandler = () => {
 
       };
 
-      console.log(newForm);
-
-
       if (!projEstimateId) clearSelectedEstimate();
 
       return newForm;

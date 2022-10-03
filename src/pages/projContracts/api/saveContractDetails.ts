@@ -61,8 +61,6 @@ export const saveContractDetails = async (
 
   const record = convertToKintone(form);
 
-  console.log(record);
-
   const result = await KintoneRecord.updateRecord({
     app: APPIDS.projectEstimate,
     id: projEstimateId,

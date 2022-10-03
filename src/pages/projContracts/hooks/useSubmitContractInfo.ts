@@ -20,7 +20,7 @@ export const useSubmitContractInfo = () => {
       const { revision } = await saveContractDetails(values);
 
       /* Throttle */
-      await sleep(3000);
+      await sleep(2000);
 
       setBackdropState({ open: false });
       setSnackState({

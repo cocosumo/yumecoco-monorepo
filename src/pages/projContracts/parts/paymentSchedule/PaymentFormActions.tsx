@@ -3,13 +3,23 @@ import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
+import { useState } from 'react';
+import { ContractPreview } from '../ContractPreview';
+import { isEmpty } from 'lodash';
+
 export const PaymentFormActions = () => {
-  const { submitForm, setValues, validateForm, isSubmitting, isValidating } = useFormikContext<TypeOfForm>();
+  const [openPreview, setOpenPreview] = useState(false);
+  const { values, submitForm, validateForm, isSubmitting, isValidating } = useFormikContext<TypeOfForm>();
 
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
-    setValues(prev => ({ ...prev, submitMethod }));
-    await validateForm();
+
+    const  newErrors = await validateForm({ ...values, submitMethod });
     await submitForm();
+
+    if (isEmpty(newErrors)) {
+      setOpenPreview(true);
+    }
+
   };
 
   return (
@@ -39,7 +49,10 @@ export const PaymentFormActions = () => {
           プレビュー
         </Button>
       </Stack>
-
+      <ContractPreview
+        open={openPreview}
+        handleClose={()=>setOpenPreview(false)}
+      />
     </Stack>
   );
 };

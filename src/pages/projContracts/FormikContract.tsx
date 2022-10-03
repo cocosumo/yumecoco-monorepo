@@ -1,11 +1,11 @@
 import { Formik } from 'formik';
 import { initialValues } from './form';
-import { FormContractPreview } from './FormContractPreview';
+import { FormContract } from './FormContract';
 import { validationSchema } from './formValidation';
 import { useSubmitContractInfo } from './hooks/useSubmitContractInfo';
 
 
-export const FormikContractPreview = () => {
+export const FormikContract = () => {
   const { onSubmit } = useSubmitContractInfo();
 
   return (
@@ -17,7 +17,7 @@ export const FormikContractPreview = () => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      <FormContractPreview />
+      <FormContract />
     </Formik>
   );
 };

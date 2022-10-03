@@ -20,7 +20,7 @@ export const PaymentFieldDate = ({
   return (
     <JADatePicker
       disabled={disabled}
-      value={value}
+      value={value || null} // Needs to use null for controlled state of datepicker, empty string wont work.
       disablePast
       views={['year', 'month', 'day' ]}
       onChange={(v)=>{

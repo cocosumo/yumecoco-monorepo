@@ -1,3 +1,4 @@
+import {  parseISO } from 'date-fns';
 import { useFormikContext } from 'formik';
 import { useCallback, useState } from 'react';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
@@ -30,7 +31,14 @@ export const useEstimateChangeHandler = () => {
 
     setSelectedEstimate(selected);
     setValues((prev) => {
-      const { envStatus, envDocFileKeys, envId, $revision } = selected ?? {};
+      const {
+        envStatus,
+        envDocFileKeys,
+        envId,
+        $revision,
+        支払い: paymentSched,
+        hasRefund,
+      } = selected ?? {};
 
       const newForm: TypeOfForm = {
         ...prev,
@@ -40,6 +48,20 @@ export const useEstimateChangeHandler = () => {
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
         envDocFileKeys: envDocFileKeys?.value ?? [],
         envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
+        paymentFields: paymentSched.value?.map(({ value: {
+          isPayEnabled,
+          paymentAmt,
+          paymentDate,
+        } }) => {
+          return {
+            checked: Boolean(+isPayEnabled),
+            amount: +paymentAmt.value,
+            payDate: parseISO(paymentDate.value),
+
+          };
+        }) ?? [],
+        hasRefund: Boolean(+hasRefund.value),
+
       };
 
 

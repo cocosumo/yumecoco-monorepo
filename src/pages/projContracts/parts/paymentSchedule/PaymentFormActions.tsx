@@ -9,18 +9,40 @@ import { isEmpty } from 'lodash';
 
 export const PaymentFormActions = () => {
   const [openPreview, setOpenPreview] = useState(false);
-  const { values, submitForm, validateForm, isSubmitting, isValidating } = useFormikContext<TypeOfForm>();
+  const {
+    values,
+    setValues,
+    submitForm,
+    validateForm,
+    isSubmitting,
+    isValidating,
+    isValid,
+    dirty,
+  } = useFormikContext<TypeOfForm>();
 
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
+    /*
+      setValues does not immediately reflect validation errors even if 2nd param is set to true.
+      So I explicitely call validateForm against the new state before calling submit.
 
-    const  newErrors = await validateForm({ ...values, submitMethod });
+      This needs to be revisited. ~ras 2022.10.03
+    */
+    const newState = { ...values, submitMethod };
+
+    setValues(newState);
+
+    const newErrors = await validateForm(newState);
     await submitForm();
 
-    if (isEmpty(newErrors)) {
+    if (submitMethod === 'contract' && isEmpty(newErrors)) {
       setOpenPreview(true);
     }
 
   };
+
+  const isOpenDialog = openPreview && isValid;
+
+  console.log(dirty);
 
   return (
     <Stack>
@@ -50,7 +72,7 @@ export const PaymentFormActions = () => {
         </Button>
       </Stack>
       <ContractPreview
-        open={openPreview}
+        open={isOpenDialog}
         handleClose={()=>setOpenPreview(false)}
       />
     </Stack>

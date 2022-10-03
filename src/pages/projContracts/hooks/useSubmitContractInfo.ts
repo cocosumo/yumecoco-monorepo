@@ -15,12 +15,16 @@ export const useSubmitContractInfo = () => {
       resetForm,
     },
   ) => {
+    const { submitMethod } = values;
     try {
       setBackdropState({ open: true });
       const { revision } = await saveContractDetails(values);
 
       /* Throttle */
-      await sleep(2000);
+      if (submitMethod === 'normal') {
+        await sleep(2000);
+      }
+
 
       setBackdropState({ open: false });
       setSnackState({

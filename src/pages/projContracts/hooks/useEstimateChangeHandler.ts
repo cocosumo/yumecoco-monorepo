@@ -1,6 +1,7 @@
+import { useFormikContext } from 'formik';
 import { useCallback, useState } from 'react';
-import { useContractPreview } from './useContractPreview';
-
+import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
+import { TypeOfForm } from '../form';
 
 /**
  * Wrapper hook to generate contract preview
@@ -10,14 +11,11 @@ import { useContractPreview } from './useContractPreview';
  * @returns {object} obj.handleChangeEstimate 選択の変更際の関数
  */
 export const useEstimateChangeHandler = () => {
+  const { setValues } = useFormikContext<TypeOfForm>();
   const [selectedEstimate, setSelectedEstimate] = useState<Estimates.main.SavedData>(Object.create(null));
-  const {
-    previewUrl,
-    previewLoading,
-    formLoading,
-    handlePreview,
-    setValues,
-  } = useContractPreview();
+  const [calculatedEstimate, setCalculatedEstimate] = useState<Awaited<ReturnType<typeof calculateEstimateRecord>>>();
+
+
 
   const clearSelectedEstimate = useCallback(() => setSelectedEstimate(Object.create(null)), []);
 
@@ -25,14 +23,19 @@ export const useEstimateChangeHandler = () => {
   const handleChangeEstimate = (
     selected: Estimates.main.SavedData,
     projEstimateId?: string,
+    calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>,
   ) => {
+    
+
+    setCalculatedEstimate(calculated);
 
     setSelectedEstimate(selected);
     setValues((prev) => {
-      const { envStatus, envDocFileKeys, envId } = selected ?? {};
+      const { envStatus, envDocFileKeys, envId, $revision } = selected ?? {};
 
-      const newForm = {
+      const newForm: TypeOfForm = {
         ...prev,
+        projEstimateRevision: $revision.value,
         projEstimateId: projEstimateId ?? '',
         envelopeId: envId?.value ?? '',
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
@@ -41,24 +44,17 @@ export const useEstimateChangeHandler = () => {
       };
 
 
-      if (projEstimateId) {
-        handlePreview(newForm);
-      } else {
-        clearSelectedEstimate();
-      }
+      if (!projEstimateId) clearSelectedEstimate();
+
       return newForm;
     });
   };
 
 
-
-
   return {
     selectedEstimate,
+    calculatedEstimate,
     handleChangeEstimate,
     clearSelectedEstimate,
-    previewUrl,
-    previewLoading,
-    formLoading,
   };
 };

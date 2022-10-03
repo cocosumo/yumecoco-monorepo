@@ -7,6 +7,7 @@ import { pages } from '../../../../pages/Router';
 import { useEstimateRecords } from '../../../../hooks/';
 import { ItemEstimate } from './ItemEstimate';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
 
 export const SelectProjEstimates = ({
   projId,
@@ -24,7 +25,9 @@ export const SelectProjEstimates = ({
    */
   handleChange?: (
     selected?: Estimates.main.SavedData,
-    projEstimateId?: string) => void
+    projEstimateId?: string,
+    calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>
+  ) => void
 }) => {
 
   const {
@@ -38,16 +41,14 @@ export const SelectProjEstimates = ({
    * 依存配列のために、リファレンスを安定させる。
    */
   const refEstimateRecords = useRef(projEstimateRecords);
-  useDeepCompareEffect(() => {
-    refEstimateRecords.current = projEstimateRecords;
-  }, [refEstimateRecords || {}]);
+  const selectedRecord = useRef<Estimates.main.SavedData | undefined>();
+
+
 
   /**
    * リファレンス安定しないhandleChangeが渡されても、対応する。
    */
   const refHandleChange = useRef(handleChange);
-
-
 
   const emptyOption: OptionNode = useMemo(() =>  ({
     value: '',
@@ -90,17 +91,28 @@ export const SelectProjEstimates = ({
   });
 
   /* 選択された見積レコードと番号をhandleChangeに渡す。 */
-  const handleSelectedValue = useCallback((selectedValue: string) => {
+  const handleSelectedValue = useCallback(
+    async (selectedValue: string) => {
+      const calculated = selectedRecord.current ? await calculateEstimateRecord(selectedRecord.current) : Object.create(null);
+      refHandleChange.current?.(
+        selectedRecord.current,
+        selectedValue,
+        calculated,
+      );
 
-    refHandleChange.current?.(
-      refEstimateRecords.current
-        .find(({ $id }) => $id.value === selectedValue),
-      selectedValue,
-    );
-  }, []);
-
+    }, [selectedRecord]);
 
   const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
+
+  useDeepCompareEffect(() => {
+    refEstimateRecords.current = projEstimateRecords;
+    if (projEstimateRecords.length && projEstimateId) {
+      selectedRecord.current = refEstimateRecords
+        .current
+        .find(({ $id }) => $id.value === projEstimateId);
+      handleSelectedValue(projEstimateId);
+    }
+  }, [projEstimateRecords || {}, projEstimateId]);
 
   return (
 
@@ -108,7 +120,6 @@ export const SelectProjEstimates = ({
       disabled={disabled || !projId || !projEstimateRecords.length}
       label='見積選択'
       name={name}
-      onChange={(e)=> handleSelectedValue(e.target.value)}
       selectedValue={projId ? projEstimateId : ''}
       options={options}
       helperText={projId ? '' : '工事を選択してください'}

@@ -47,7 +47,7 @@ export const useContractPreview = () => {
       }
 
     } catch (err) {
-
+      setPreviewUrl('');
       setSnackState({
         open: true,
         severity: 'error',

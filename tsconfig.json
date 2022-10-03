@@ -12,7 +12,8 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "importHelpers": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "strictFunctionTypes" :false
   },
   "include": [
     "./jest/**/*",

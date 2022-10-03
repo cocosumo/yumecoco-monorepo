@@ -12,7 +12,7 @@ export const RefreshButton = (
     loading: boolean,
     isVisible: boolean,
   })=> {
-  const { setValues, values: { projId, revision } } = useFormikContext<TypeOfForm>();
+  const { setValues, values: { projId, projEstimateRevision } } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const [disabled, setDisabled] = useState(false);
 
@@ -25,7 +25,7 @@ export const RefreshButton = (
     setTimeout(()=>{
       setSnackState({
         open: true,
-        message: `リフレッシュしました。revision: ${revision}`,
+        message: `リフレッシュしました。revision: ${projEstimateRevision}`,
         severity: 'success',
       });
       setDisabled(false);

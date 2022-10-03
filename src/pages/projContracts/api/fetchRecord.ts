@@ -77,7 +77,7 @@ export const getFormDataById = async (projId: string) => {
 
     projAddress: `〒${pPostal.value} ${pAddress1.value}${pAddress2.value}`,
 
-    revision: $revision.value,
+    projEstimateRevision: $revision.value,
     signMethod: signMethod.value as TSignMethod,
     contractPrice: +contractPrice.value ?? 0,
   };

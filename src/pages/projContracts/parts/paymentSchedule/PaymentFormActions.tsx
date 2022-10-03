@@ -4,12 +4,10 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useState } from 'react';
-import { ContractPreview } from '../ContractPreview';
+import { ContractDialog } from '../Preview/ContractDialog';
 import { isEmpty } from 'lodash';
-import { useSnackBar } from '../../../../hooks';
 
 export const PaymentFormActions = () => {
-  const { setSnackState } = useSnackBar();
   const [openPreview, setOpenPreview] = useState(false);
   const {
     values,
@@ -25,7 +23,7 @@ export const PaymentFormActions = () => {
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
     /*
       setValues does not immediately reflect validation errors even if 2nd param is set to true.
-      So I explicitely call validateForm against the new state before calling submit.
+      So I explicitly call validateForm against the new state before calling submit.
 
       This needs to be revisited. ~ras 2022.10.03
     */
@@ -72,7 +70,7 @@ export const PaymentFormActions = () => {
           プレビュー
         </Button>
       </Stack>
-      <ContractPreview
+      <ContractDialog
         open={isOpenDialog}
         handleClose={()=>setOpenPreview(false)}
       />

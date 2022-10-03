@@ -48,7 +48,7 @@ export const initialValues = {
 
 };
 
-export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const; 
+export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const;
 
 
 export type TypeOfForm =  typeof initialValues;

@@ -16,7 +16,6 @@ export const useResolveParams = () => {
   } = useFormikContext<TypeOfForm>();
 
   useEffect(()=>{
-
     if (projIdFromURL) {
       setValues((prev)=>({
         ...prev,

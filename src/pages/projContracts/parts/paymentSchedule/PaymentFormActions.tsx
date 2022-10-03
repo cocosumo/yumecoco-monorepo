@@ -3,15 +3,47 @@ import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
-export const PaymentFormActions = () => {
-  const { submitForm, setValues, validateForm } = useFormikContext<TypeOfForm>();
+import { useState } from 'react';
+import { ContractPreview } from '../ContractPreview';
+import { isEmpty } from 'lodash';
+import { useSnackBar } from '../../../../hooks';
 
-  const handleSubmit = (submitMethod: TypeOfForm['submitMethod']) => {
-    setValues(prev => ({ ...prev, submitMethod }), true);
-    validateForm()
-      .then(()=>submitForm());
-    
+export const PaymentFormActions = () => {
+  const { setSnackState } = useSnackBar();
+  const [openPreview, setOpenPreview] = useState(false);
+  const {
+    values,
+    setValues,
+    submitForm,
+    validateForm,
+    isSubmitting,
+    isValidating,
+    isValid,
+
+  } = useFormikContext<TypeOfForm>();
+
+  const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
+    /*
+      setValues does not immediately reflect validation errors even if 2nd param is set to true.
+      So I explicitely call validateForm against the new state before calling submit.
+
+      This needs to be revisited. ~ras 2022.10.03
+    */
+    const newState = { ...values, submitMethod };
+
+    setValues(newState);
+
+    const newErrors = await validateForm(newState);
+    await submitForm();
+
+    if (submitMethod === 'contract' && isEmpty(newErrors)) {
+      setOpenPreview(true);
+    }
+
   };
+
+
+  const isOpenDialog = openPreview && isValid;
 
   return (
     <Stack>
@@ -21,25 +53,29 @@ export const PaymentFormActions = () => {
         spacing={2}
         pt={2}
       >
-        <Button 
-          variant="outlined" 
-          size="large" 
+        <Button
+          variant="outlined"
+          size="large"
           startIcon={<SaveIcon />}
           onClick={() => handleSubmit('normal')}
+          disabled={isSubmitting || isValidating}
         >
           保存
         </Button>
-        <Button 
-          variant="outlined" 
-          size="large" 
+        <Button
+          variant="outlined"
+          size="large"
           startIcon={<PreviewIcon />}
           onClick={() => handleSubmit('contract')}
+          disabled={isSubmitting || isValidating}
         >
-          契約
+          プレビュー
         </Button>
       </Stack>
-      {/* Error message here */}
-  
+      <ContractPreview
+        open={isOpenDialog}
+        handleClose={()=>setOpenPreview(false)}
+      />
     </Stack>
   );
 };

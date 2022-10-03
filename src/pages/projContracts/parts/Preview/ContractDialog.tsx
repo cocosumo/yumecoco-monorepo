@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
-export const ContractPreview = ({
+export const ContractDialog = ({
   open, handleClose,
 }: {
   open: boolean,

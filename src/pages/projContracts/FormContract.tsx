@@ -11,14 +11,14 @@ import {
   useUpdateProjId,
   useResolveParams,
   useEstimateChangeHandler,
-} from './hooks/';
+} from './hooks';
 
 import { SelectProjEstimates } from '../../components/ui/selects';
 import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 import { GridNextDivider } from './parts/GridNextDivider';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 
-export const FormContractPreview = () => {
+export const FormContract = () => {
   useResolveParams();
 
   const {

@@ -2,7 +2,7 @@ import {  parseISO } from 'date-fns';
 import { useFormikContext } from 'formik';
 import { useCallback, useState } from 'react';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
-import { TypeOfForm } from '../form';
+import { initialValues, TypeOfForm } from '../form';
 
 /**
  * Wrapper hook to generate contract preview
@@ -41,6 +41,7 @@ export const useEstimateChangeHandler = () => {
         refundAmt,
       } = selected ?? {};
 
+
       const newForm: TypeOfForm = {
         ...prev,
         projEstimateRevision: $revision.value,
@@ -49,24 +50,24 @@ export const useEstimateChangeHandler = () => {
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
         envDocFileKeys: envDocFileKeys?.value ?? [],
         envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
-        paymentFields: paymentSched.value?.map(({ value: {
+        paymentFields: paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
           isPayEnabled,
           paymentAmt,
           paymentDate,
         } }) => {
 
-          return {
-            checked: Boolean(+isPayEnabled.value),
-            amount: +paymentAmt.value,
-            payDate: paymentDate.value ? parseISO(paymentDate.value) : '',
-          };
-        }) ?? [],
 
-        hasRefund: Boolean(+hasRefund.value),
-        refundAmt: +refundAmt.value,
+          return {
+            checked: Boolean(+isPayEnabled.value ?? 0),
+            amount: +(paymentAmt?.value ?? 0),
+            payDate: paymentDate?.value ? parseISO(paymentDate.value) : '',
+          };
+        }) : initialValues.paymentFields,
+
+        hasRefund: Boolean(+hasRefund.value ?? 0),
+        refundAmt: +(refundAmt.value ?? 0),
 
       };
-
 
       if (!projEstimateId) clearSelectedEstimate();
 

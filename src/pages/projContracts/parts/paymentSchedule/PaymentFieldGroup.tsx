@@ -40,7 +40,7 @@ export const PaymentFieldGroup = (
         control={(
           <Checkbox
             onChange={handleChange}
-            checked={chkValue}
+            checked={!!chkValue}
             sx={{
               transform: 'scale(1.5)',
             }}

@@ -1,4 +1,4 @@
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { useCallback, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormikSelectAdvanced } from '../FormikSelectAdvanced';
@@ -16,6 +16,7 @@ export const SelectProjEstimates = ({
   name = 'projEstimateId',
   handleChange,
   disabled = false,
+  app = 'constracts',
 }: {
   projId: string,
   projEstimateId: string,
@@ -29,6 +30,7 @@ export const SelectProjEstimates = ({
     projEstimateId?: string,
     calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>
   ) => void
+  app?: string,
 }) => {
 
   const {
@@ -51,10 +53,16 @@ export const SelectProjEstimates = ({
    */
   const refHandleChange = useRef(handleChange);
 
-  const emptyOption: OptionNode = useMemo(() =>  ({
+  const emptyOption: OptionNode = useMemo(() => ({
     value: '',
     key: 'clear',
     component: '---',
+  }), []);
+
+  const newCleateOption: OptionNode = useMemo(() => ({
+    value: '',
+    key: 'clear',
+    component: '新規作成',
   }), []);
 
   const registerNewOption: OptionNode = useMemo(() =>  ({
@@ -79,7 +87,7 @@ export const SelectProjEstimates = ({
   /**
    * 本選択肢
    */
-  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec)=>{
+  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec) => {
     const { $id } = rec;
     return {
       value: $id.value,
@@ -103,7 +111,14 @@ export const SelectProjEstimates = ({
 
     }, [selectedRecord]);
 
-  const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
+  let options = [registerNewOption];
+  if (projId) {
+    if (app === 'constracts') {
+      options = [emptyOption, ...actualOptions, registerNewOption];
+    } else {
+      options = [newCleateOption, ...actualOptions];
+    }
+  } // elseは初期値で設定しているため、省略
 
   useDeepCompareEffect(() => {
     refEstimateRecords.current = projEstimateRecords;
@@ -114,7 +129,7 @@ export const SelectProjEstimates = ({
     }
   }, [projEstimateRecords || {}, projEstimateId]);
 
-  useDeepCompareEffect(()=>{
+  useDeepCompareEffect(() => {
     if (!isEmpty(selectedRecord.current)) {
       handleSelectedValue(projEstimateId);
     }

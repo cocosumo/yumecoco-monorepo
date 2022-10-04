@@ -11,7 +11,7 @@ import { renderQuoteTable } from './QuoteTable/';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
-import { FormikSelect } from '../../components/ui/selects';
+import { FormikSelect, SelectProjEstimates } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
@@ -32,9 +32,11 @@ export default function FormProjEstimate() {
   useResolveParams();
   useUpdateEstimateId();
 
-  const isEditMode = !!estimateId ;
+  const isEditMode = !!estimateId;
 
-
+  const handleChangeEstimateId = () => {
+    console.log('dummy');
+  };
 
   return (
     <Form noValidate>
@@ -45,14 +47,21 @@ export default function FormProjEstimate() {
         <Grid item xs={10} md={5}>
 
           {/* 工事情報の検索 */}
-          <SearchProject  />
+          <SearchProject />
 
         </Grid>
-        
+
         <Grid item xs={12} md={5}>
 
           {/* 見積もりの検索 */}
-          {'見積もり検索フィールドの設定'}
+          <SelectProjEstimates
+            projEstimateId={estimateId}
+            projId={projId}
+            name='estimateId'
+            disabled={!projId}
+            handleChange={handleChangeEstimateId}
+            app='estimate'
+          />
         </Grid>
 
         {/* コピー */}
@@ -80,9 +89,9 @@ export default function FormProjEstimate() {
             disabled={projTypeProfitLatest !== 0}
           />
           {projTypeProfitLatest !== null &&
-          projTypeProfitLatest !== 0 &&
-          +projTypeProfit !== +projTypeProfitLatest &&
-          <MismatchedProfit />}
+            projTypeProfitLatest !== 0 &&
+            +projTypeProfit !== +projTypeProfitLatest &&
+            <MismatchedProfit />}
 
         </Grid>
         <Grid item xs={12} md={3}>
@@ -101,7 +110,7 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} mt={4}>
-          <PageSubTitle label="合計欄"  />
+          <PageSubTitle label="合計欄" />
         </Grid>
 
         <Grid item xs={12} md={12}
@@ -112,7 +121,7 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} mt={4}>
-          <PageSubTitle label="内訳"  />
+          <PageSubTitle label="内訳" />
         </Grid>
 
         <Grid item xs={12} md={12}>
@@ -125,7 +134,7 @@ export default function FormProjEstimate() {
 
 
         <Grid item xs={12} mt={4}>
-          <PageSubTitle label="大項目小計欄"  />
+          <PageSubTitle label="大項目小計欄" />
         </Grid>
         <Grid item xs={12}
           md={4}

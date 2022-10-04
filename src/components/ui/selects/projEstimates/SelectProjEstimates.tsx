@@ -8,6 +8,7 @@ import { useEstimateRecords } from '../../../../hooks/';
 import { ItemEstimate } from './ItemEstimate';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
+import { isEmpty } from 'lodash';
 
 export const SelectProjEstimates = ({
   projId,
@@ -110,9 +111,15 @@ export const SelectProjEstimates = ({
       selectedRecord.current = refEstimateRecords
         .current
         .find(({ $id }) => $id.value === projEstimateId);
-      handleSelectedValue(projEstimateId);
     }
   }, [projEstimateRecords || {}, projEstimateId]);
+
+  useDeepCompareEffect(()=>{
+    if (!isEmpty(selectedRecord.current)) {
+      handleSelectedValue(projEstimateId);
+    }
+
+  }, [selectedRecord.current || {}]);
 
   return (
 

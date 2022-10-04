@@ -48,6 +48,12 @@ export default function FormProjEstimate() {
           <SearchProject  />
 
         </Grid>
+        
+        <Grid item xs={12} md={5}>
+
+          {/* 見積もりの検索 */}
+          {'見積もり検索フィールドの設定'}
+        </Grid>
 
         {/* コピー */}
         <Grid
@@ -57,12 +63,6 @@ export default function FormProjEstimate() {
           xs
         >
           <CopyForm />
-        </Grid>
-        
-        <Grid item xs={12} md={5}>
-
-          {/* 見積もりの検索 */}
-          {'見積もり検索フィールドの設定'}
         </Grid>
 
         <Grid item xs={12}>

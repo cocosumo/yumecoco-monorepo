@@ -25,18 +25,21 @@ export const useSubmitContractInfo = () => {
       /* Throttle */
       if (submitMethod === 'normal') {
         await sleep(2000);
-        const { revision } = await saveContractDetails(values);
-        setSnackState({
-          open: true,
-          severity:  'success',
-          message: `保存が出来ました。更新番号：${revision}`,
-        });
-        resetForm({ values: {
-          ...values,
-          projEstimateRevision: revision,
-        } });
-   
       }
+
+
+      const { revision } = await saveContractDetails(values);
+      setSnackState({
+        open: true,
+        severity:  'success',
+        message: `保存が出来ました。更新番号：${revision}`,
+      });
+      
+      resetForm({ values: {
+        ...values,
+        projEstimateRevision: revision,
+      } });
+      
 
       setBackdropState({ open: false });
   

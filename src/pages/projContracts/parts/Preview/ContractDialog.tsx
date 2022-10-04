@@ -4,6 +4,7 @@ import { TypeOfForm } from '../../form';
 import { useContractPreview } from '../../hooks';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import CloseIcon from '@mui/icons-material/Close';
+import { SelectDocuments } from './SelectDocuments';
 
 
 export const ContractDialog = ({
@@ -45,9 +46,7 @@ export const ContractDialog = ({
           <Typography>
             契約のプレビュー
           </Typography>
-          <Typography>
-            契約のプレビュー
-          </Typography>
+          <SelectDocuments />
         </Stack>
         <IconButton
           aria-label="close"

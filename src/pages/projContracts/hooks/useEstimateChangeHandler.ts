@@ -10,6 +10,7 @@ import { initialValues, TypeOfForm } from '../form';
  *
  * @returns {object} obj.selectedEstimate 選択された見積のレコード
  * @returns {object} obj.handleChangeEstimate 選択の変更際の関数
+ * @deprecated In favor of useResetOnEstimateChage
  */
 export const useEstimateChangeHandler = () => {
   const { setValues } = useFormikContext<TypeOfForm>();

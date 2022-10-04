@@ -9,17 +9,22 @@ import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import {
   useUpdateProjId,
-  useResolveParams,
-  useEstimateChangeHandler,
 } from './hooks';
 
 import { SelectProjEstimates } from '../../components/ui/selects';
 import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 import { GridNextDivider } from './parts/GridNextDivider';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
+import { ComponentProps } from 'react';
+import { calculateEstimate } from '../../api/others/calculateEstimate';
 
-export const FormContract = () => {
-  useResolveParams();
+export const FormContract = ({
+  handleChangeSelectedEstimate,
+  calculatedEstimate,
+}: {
+  handleChangeSelectedEstimate: ComponentProps<typeof SelectProjEstimates>['handleChange'],
+  calculatedEstimate?: Awaited<ReturnType<typeof calculateEstimate>>
+}) => {
 
   const {
     values,
@@ -27,15 +32,11 @@ export const FormContract = () => {
 
   const { projEstimateId, projId, projName } = values;
 
-  const {
-    calculatedEstimate,
-    handleChangeEstimate,
-  } = useEstimateChangeHandler();
-
   const { totalAmountInclTax } = calculatedEstimate ?? {};
 
   /* 本当に小数点切り捨ていいか、要確認 */
   const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
+
 
   return (
     <Form noValidate>
@@ -60,7 +61,7 @@ export const FormContract = () => {
           <SelectProjEstimates
             projId={projId}
             projEstimateId={projEstimateId}
-            handleChange={handleChangeEstimate}
+            handleChange={handleChangeSelectedEstimate}
           />
 
         </Grid>

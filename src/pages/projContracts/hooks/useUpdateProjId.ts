@@ -21,7 +21,6 @@ export const useUpdateProjId = () => {
 
   const memSetSnackState = useMemo(() => setSnackState, []);
 
-
   useEffect(()=>{
     if (projId) {
 

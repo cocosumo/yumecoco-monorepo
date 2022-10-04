@@ -5,12 +5,12 @@ import { calcUnitPrice } from '../helpers/calcUnitPrice';
 
 export const useSubTotalCalc = (): Array<[string, number]> => {
   const { values } = useFormikContext<TypeOfForm>();
-  const { taxRate, items } = values;
+  const { tax, items } = values;
 
   const result = items.reduce((acc, { majorItem, costPrice, elemProfRate, quantity, taxType })=> {
-    
+
     const unitPrice = calcUnitPrice(costPrice, elemProfRate);
-    const grossPrice = calcGrossPrice(unitPrice, quantity, taxRate, taxType);
+    const grossPrice = calcGrossPrice(unitPrice, quantity, tax, taxType);
 
     const target = acc.find(([key]) => key === majorItem);
     if (target) {

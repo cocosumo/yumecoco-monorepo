@@ -2,9 +2,9 @@ import { PageSubTitle } from '../../../../components/ui/labels/PageSubTitle';
 import { Grid, debounce } from '@mui/material';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { BuildingType, ConstructionSearch } from './parts';
-import { FormikTextField, TextMaskPostal } from '../../../../components/ui/textfield';
+import { FormikTextField } from '../../../../components/ui/textfield';
 
-import { initialValues, KeyOfProjForm } from '../../form';
+import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
 import { useCallback } from 'react';
@@ -38,7 +38,6 @@ export const ConstructionLocation = () => {
   }, 500), [address1]);
 
 
-
   return (
     <>
       <PageSubTitle label="工事場所情報" />
@@ -48,12 +47,11 @@ export const ConstructionLocation = () => {
         <FormikTextField
           name="postal"
           label="郵便番号"
-          placeholder='442-0888'
+          placeholder='4420888'
           disabled={isReadOnly}
-          inputComponent={TextMaskPostal}
           onChange={handleGenerateAddress}
           shrink={true}
-          required 
+          required
         />
       </Grid>
 
@@ -73,7 +71,7 @@ export const ConstructionLocation = () => {
 
 
       <Grid item xs={12} md={4}>
-        <FormikLabeledCheckBox label="仮換地地番を入力する" name={'isChkAddressKari' as KeyOfProjForm} disabled={isReadOnly} />
+        <FormikLabeledCheckBox label="仮換地地番を入力する" name={getFieldName('isChkAddressKari')} disabled={isReadOnly} />
       </Grid>
 
       {

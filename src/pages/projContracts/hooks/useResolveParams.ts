@@ -10,12 +10,12 @@ export const useResolveParams = () => {
   const projIdFromURL = getParam('projId');
   const projEstimateIdFromURL = getParam('projEstimateId');
 
+
   const {
     setValues,
   } = useFormikContext<TypeOfForm>();
 
   useEffect(()=>{
-
     if (projIdFromURL) {
       setValues((prev)=>({
         ...prev,
@@ -24,4 +24,9 @@ export const useResolveParams = () => {
       }));
     }
   }, [projIdFromURL, projEstimateIdFromURL, setValues]);
+
+  return {
+    projEstimateIdFromURL,
+    projIdFromURL,
+  };
 };

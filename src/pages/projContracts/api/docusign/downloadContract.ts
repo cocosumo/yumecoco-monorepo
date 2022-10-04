@@ -43,7 +43,9 @@ const dlFromCocoServer = async ({
       const dlresp = JSON.parse(body) as DownloadResponse;
       return dlresp.documents?.[0] ?? '' ;
     } else {
-      throw new Error(`Unhandled response status ${status}`);
+      const error: any =  JSON.parse(body);
+      console.log(body);
+      throw new Error(`${status} ${error.message}`);
     }
 
   } catch (err :any) {
@@ -98,7 +100,6 @@ export const downloadContract = async (
   if ( fileType === 'xlsx' || !envDocFileKeys.length) {
     return dlFromCocoServer(params);
   } else if (fileType === 'pdf' && envDocFileKeys.length) {
-    console.log('selectDoc', form.envSelectedDoc);
     return dlSingleFileFromKintone(form.envSelectedDoc);
   } else {
     throw new Error('Uknown download action');

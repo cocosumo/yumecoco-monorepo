@@ -12,7 +12,8 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     "importHelpers": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "strictFunctionTypes" :false
   },
   "include": [
     "./jest/**/*",
@@ -21,8 +22,6 @@
     "./src/types/data.stores.d.ts",
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
     "./../yumekoko-docusign/src/types/docusign.d.ts",
-    "./../yumekoko-docusign/src/types/data.projectDetails.d.ts",
-    "./../yumekoko-docusign/src/types/data.projectEstimates.d.ts",
     "./../yumekoko-docusign/src/types/kintone.d.ts",
     //"./node_modules/@types/docusign-esign/index.d.ts",
     "jest/.env.ts" // will deprecate it in favor of jest.config

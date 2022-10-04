@@ -6,7 +6,7 @@ export const getProjDataById = async (
 ) : Promise<Partial<TypeOfForm>> => {
 
   const {
-    constructionName,
+    projName,
     custGroupId,
     $revision,
     store,
@@ -46,7 +46,7 @@ export const getProjDataById = async (
 
     projId,
     custGroupId: custGroupId.value,
-    projName: constructionName.value,
+    projName: projName.value,
 
     custName: customerName.value,
     custAddress: `〒${postal.value} ${address1.value}${address2.value}`,
@@ -58,7 +58,7 @@ export const getProjDataById = async (
 
     projAddress: `〒${pPostal.value} ${pAddress1.value}${pAddress2.value}`,
 
-    revision: $revision.value,
+    projEstimateRevision: $revision.value,
 
   };
 

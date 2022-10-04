@@ -1,0 +1,1 @@
+export const getProjEstimateKeys = (k: keyof Estimates.main.SavedData) => k;

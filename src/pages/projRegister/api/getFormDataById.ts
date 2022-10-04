@@ -1,21 +1,21 @@
 
-import { getConstRecord } from '../../../api/kintone/construction';
+import { getConstRecord } from '../../../api/kintone/projects';
 import { BuildingTypeVals, TypeOfProjForm } from '../form';
 import { RecordCancelStatus, RecordStatus } from '../../../config/formValues';
 
 export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm> => {
-  const constructionRecord = await getConstRecord(recordId);
+  const projDetailsRecord = await getConstRecord(recordId);
   const {
-    constructionTypeId, constructionName,
+    projTypeId, projName,
     custGroupId, $id,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
-    constructionType,
     status,
     cancelStatus,
     envelopeStatus,
+    projTypeName,
 
-  } = constructionRecord;
+  } = projDetailsRecord;
 
   const cocoConst = agents.value.filter(item => {
     return (item.value.agentType.value as AgentType) === 'cocoConst';
@@ -24,9 +24,9 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm>
   return {
     recordId: $id.value,
     custGroupId: custGroupId.value,
-    constructionTypeId: constructionTypeId.value,
-    constructionType: constructionType.value,
-    constructionName: constructionName.value,
+    projTypeId: projTypeId.value,
+    projTypeName: projTypeName.value,
+    projName: projName.value,
     isAgentConfirmed: Boolean(+isAgentConfirmed.value),
     postal: postal.value,
     address1: address1.value,

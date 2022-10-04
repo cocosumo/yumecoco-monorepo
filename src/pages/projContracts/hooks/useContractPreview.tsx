@@ -1,39 +1,35 @@
 import { useFormikContext } from 'formik';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { base64ToBlob } from '../../../lib';
 import { downloadContract } from '../api/docusign/downloadContract';
 import { TypeOfForm } from '../form';
-
 /**
  * Hook for generating preview url.
  * This also wraps some of useFormikContext's props.
- *
  * @return {Object} result
  * @return {string} previewUrl - The URL of the preview.
  * @return {TFormStatus} result.formStatus - wraps Formik's status to a safer type.
  * @return {TypeOfForm} result.values - Formik values as is.
  * @return {boolean} result.previewLoading - whether preview is still loading
- * @return {boolean} result.formLoading - whether form is busy.
+ * @return {boolean} result.formLoading - whether form is busy overall.
  */
 export const useContractPreview = () => {
-  const { values, status } = useFormikContext<TypeOfForm>();
-  const {
-    projEstimateId,
-  } = values;
+  const { status, setValues } = useFormikContext<TypeOfForm>();
+
   const [previewUrl, setPreviewUrl] = useState('');
-  const [previewLoading, setPreviewLoading] = useState(true);
+  const [previewLoading, setPreviewLoading] = useState(false);
   const { setSnackState } = useSnackBar();
 
   const formStatus: TFormStatus = status;
   const formLoading = formStatus === 'busy' || previewLoading;
 
-  const handlePreview = async () => {
+  const handlePreview = async (newForm: TypeOfForm) => {
     try {
       setPreviewLoading(true);
 
       const res = await downloadContract({
-        form: values,
+        form: newForm,
         fileType: 'pdf',
       });
 
@@ -51,7 +47,7 @@ export const useContractPreview = () => {
       }
 
     } catch (err) {
-
+      setPreviewUrl('');
       setSnackState({
         open: true,
         severity: 'error',
@@ -64,19 +60,12 @@ export const useContractPreview = () => {
 
   };
 
-  useEffect(()=>{
-
-    if (projEstimateId) {
-      handlePreview();
-    }
-
-  }, [projEstimateId]);
-
   return {
+    handlePreview,
     formStatus,
     previewLoading,
     formLoading,
     previewUrl,
-    values,
+    setValues,
   };
 };

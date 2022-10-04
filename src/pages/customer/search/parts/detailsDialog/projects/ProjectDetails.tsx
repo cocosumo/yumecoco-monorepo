@@ -7,7 +7,7 @@ import { ButtonEdit } from '../ButtonEdit';
 export const ProjectDetails = ({
   projectDetailsData : {
     postal, address1, address2,
-    $id, constructionType, constructionName,
+    $id, projTypeName, projName,
     buildingType, agents, isAgentConfirmed, addressKari,
   },
 }: {
@@ -21,11 +21,11 @@ export const ProjectDetails = ({
 
   return (
 
-    <CardContent sx={{ width: '30%' }}>
+    <CardContent sx={{ width: '40%' }}>
       <Stack spacing={1}>
         <LabeledInfo label="工事番号" data={$id.value} />
-        <LabeledInfo label="工事種別" data={constructionType.value} />
-        <LabeledInfo label="工事名称" data={constructionName.value} />
+        <LabeledInfo label="工事種別" data={projTypeName.value} />
+        <LabeledInfo label="工事名称" data={projName.value} />
         <LabeledInfo label="建物種別" data={buildingType.value} />
         <LabeledInfo
           label="工事住所"
@@ -34,7 +34,7 @@ export const ProjectDetails = ({
             .map(item=>item)
             .join(' ')}
         />
-        <LabeledInfo 
+        <LabeledInfo
           label="工事担当"
           data={constructionOfficer}
         />

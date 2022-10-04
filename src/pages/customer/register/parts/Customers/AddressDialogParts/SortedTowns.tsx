@@ -29,7 +29,10 @@ export const SortedTowns = (props : {
             spacing={2}
           >
             <Grid item xs={12}>
-              <Divider textAlign='left'>{groupKey} </Divider>
+              <Divider textAlign='left'>
+                {groupKey}
+                {' '}
+              </Divider>
             </Grid>
             {
               values.map(({
@@ -42,13 +45,14 @@ export const SortedTowns = (props : {
                     <Button
                       variant={'outlined'}
                       onClick={() =>
-                        handleChoice(_postal, _town)
-                      }
+                        handleChoice(_postal, _town)}
                     >
                       <Stack>
                         {_town}
                         <Typography variant="caption">
-                          〒 {_postal.slice(0, 3) + '-' + _postal.slice(3)}
+                          〒 
+                          {' '}
+                          {_postal.slice(0, 3) + '-' + _postal.slice(3)}
                         </Typography>
                       </Stack>
                     </Button>

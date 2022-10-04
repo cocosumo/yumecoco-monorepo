@@ -2,14 +2,15 @@
 import { Box, Tab,  Skeleton  } from '@mui/material';
 import {  TabList, TabPanel } from '@mui/lab';
 import { DTCustomer } from './customers/DTCustomer';
-import { DTProjects } from './projects/DTProjects';
+import { ProjectDetailsContainer } from './projects/ProjectDetailsContainer';
 import { useState, useEffect, SyntheticEvent } from 'react';
 import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
 import { ButtonEdit } from './ButtonEdit';
-import { getConstRecordByIds } from '../../../../../api/kintone/construction/GET';
+import { getConstRecordByIds } from '../../../../../api/kintone/projects/GET';
 import { pages } from '../../../../Router';
 import { generateParams } from '../../../../../helpers/url';
 import { TabContextContainer } from './TabContextContainer';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export function DetailsTabs(props : {
   custGroupId?: string,
@@ -25,10 +26,10 @@ export function DetailsTabs(props : {
   const [fetchedProjects, setFetchedProjects] = useState<ProjectDetails.SavedData[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const projectIds =  record?.projects?.value
-    .map(item => item.value.constructionId.value)
+    .map(item => item.value.projId.value)
     .filter(Boolean) ?? [];
 
-  useEffect(()=>{
+  useDeepCompareEffect(()=>{
     if (projectIds.length && !fetchedProjects && tabValue === '2') {
       getConstRecordByIds(
         projectIds,
@@ -36,7 +37,7 @@ export function DetailsTabs(props : {
         setFetchedProjects(result.records as unknown as ProjectDetails.SavedData[]);
       });
     }
-  }, [JSON.stringify(projectIds), fetchedProjects, tabValue]);
+  }, [projectIds, fetchedProjects, tabValue]);
 
   useEffect(()=>{
     if (custGroupId) {
@@ -50,7 +51,7 @@ export function DetailsTabs(props : {
   }, [custGroupId]);
 
   const isWithProject = Boolean(record?.projects.value
-    .filter(item=>item.value.constructionId.value)
+    .filter(item=>item.value.projId.value)
     .length);
   return (
     <TabContextContainer tabValue={tabValue}>
@@ -71,7 +72,7 @@ export function DetailsTabs(props : {
       <TabPanel value="2">
         {
             fetchedProjects &&
-            <DTProjects fetchedProjects={fetchedProjects} />
+            <ProjectDetailsContainer fetchedProjects={fetchedProjects} />
           }
 
         {

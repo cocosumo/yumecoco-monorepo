@@ -32,7 +32,7 @@ export const FormConstruction  = () => {
       recordId,
       storeId,
       territory,
-      constructionTypeId,
+      projTypeId,
       envelopeStatus,
     },
   } = useFormikContext<TypeOfProjForm>();
@@ -47,7 +47,7 @@ export const FormConstruction  = () => {
     if (!status && passedGroupId && !isEditMode) {
       setFieldValue(getFieldName('custGroupId'), passedGroupId);
     }
-  }, 
+  },
   [passedGroupId, isEditMode, status]);
 
   useEffect(()=>{
@@ -92,7 +92,7 @@ export const FormConstruction  = () => {
           <ConstructionInfo
             storeId={storeId}
             territory={territory as GetEmployeesParams['territory']}
-            constructionTypeId={constructionTypeId}
+            projTypeId={projTypeId}
           />
 
 

@@ -3,8 +3,8 @@ import { APPIDS, KintoneRecord } from '../config';
 export const projectFields :KeyOfProjectDetails[] = [
   '$id', '$revision', 'address1',
   'address2', 'address2', 'agents',
-  'buildingType', 'constructionName',
-  'constructionType', 'constructionTypeId',
+  'buildingType', 'projName',
+  'projTypeName', 'projTypeId',
   'custGroupId', 'isAgentConfirmed',
   'isChkAddressKari', 'postal',
 ];
@@ -27,7 +27,7 @@ export const getConstDetails = async (recordId: string) => {
  * the directory of the caller.
  * @deprecated
  */
-export const getFlatConstDetails = async (recordId:　string) => {
+export const getFlatConstDetails = async (recordId: string) => {
   const kintoneRecord = await getConstDetails(recordId);
 
   return Object.entries(kintoneRecord.record).reduce((acc, [key, val]) => {
@@ -60,15 +60,15 @@ export const getConstRecordByIds = async (ids: string[]) => {
  * @param search Search string
  * @returns
  */
+export const searchProjects = async (search: string) => {
 
-export const searchProjects = async <
-  T extends KeyOfProjectDetails,
->(search: string) => {
+  const fieldProjName: KeyOfProjectDetails = 'projName';
+  const fields : KeyOfProjectDetails[] = ['projName', '$id' ];
 
   return KintoneRecord.getRecords({
     app: APPIDS.constructionDetails,
-    query: `${'constructionName' as T} like "${search}"`,
-    fields: ['constructionName', '$id' ] as T[],
+    query: `${fieldProjName} like "${search}"`,
+    fields: fields,
     totalCount: true,
   })
     .then(r => r.records as unknown as ProjectDetails.SavedData[]);

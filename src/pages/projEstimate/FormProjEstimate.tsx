@@ -1,7 +1,7 @@
 import { Divider, Grid } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
-import { PageTitle } from '../../components/ui/labels';
+import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { getFieldName, statusChoices, TypeOfForm } from './form';
@@ -14,22 +14,49 @@ import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
+import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
+import { useResolveParams } from './hooks/useResolveParams';
+import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
+import { CopyForm } from './fieldComponents/formActions/CopyForm';
 
 export default function FormProjEstimate() {
 
   const { values } = useFormikContext<TypeOfForm>();
-  const { projName, customerName, projId } = values;
+  const {
+    projId,
+    projTypeProfit,
+    projTypeProfitLatest,
+    estimateId,
+  } = values;
+
+  useResolveParams();
+  useUpdateEstimateId();
+
+  const isEditMode = !!estimateId ;
+
+
 
   return (
     <Form noValidate>
       <ScrollToFieldError />
       <MainContainer>
-        <PageTitle label='見積もり登録' />
+        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />
 
-        <Grid item xs={12} md={5}>
+        <Grid item xs={10} md={5}>
 
           {/* 工事情報の検索 */}
-          <SearchProject {...{ customerName, projId, projName }} />
+          <SearchProject  />
+
+        </Grid>
+
+        {/* コピー */}
+        <Grid
+          container
+          item
+          justifyContent="flex-end"
+          xs
+        >
+          <CopyForm />
         </Grid>
         
         <Grid item xs={12} md={5}>
@@ -43,13 +70,27 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('projType')} label="工事種別名" disabled />
+          <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('profitRate')} label="利益率" disabled />
+          <FormikTextField
+            name={getFieldName('projTypeProfit')}
+            label="利益率"
+            align='right'
+            disabled={projTypeProfitLatest !== 0}
+          />
+          {projTypeProfitLatest !== null &&
+          projTypeProfitLatest !== 0 &&
+          +projTypeProfit !== +projTypeProfitLatest &&
+          <MismatchedProfit />}
+
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('taxRate')} label="税率" />
+          <FormikTextField
+            name={getFieldName('tax')}
+            label="税率"
+            align='right'
+          />
         </Grid>
         <Grid item xs={12} md={3}>
           <FormikSelect
@@ -59,11 +100,19 @@ export default function FormProjEstimate() {
           />
         </Grid>
 
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label="合計欄"  />
+        </Grid>
+
         <Grid item xs={12} md={12}
           id={'summaryTable'}
         >
           {/* 合計欄テーブル */}
           <SummaryTable />
+        </Grid>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label="内訳"  />
         </Grid>
 
         <Grid item xs={12} md={12}>
@@ -74,7 +123,14 @@ export default function FormProjEstimate() {
           />
         </Grid>
 
-        <Grid item xs={12} md={4}>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label="大項目小計欄"  />
+        </Grid>
+        <Grid item xs={12}
+          md={4}
+          lg={3}
+        >
           {/* 大項目ごとの表示テーブル */}
           <SubTotalTable />
         </Grid>

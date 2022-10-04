@@ -24,9 +24,14 @@ export const initialValues = {
   customerName: '',
 
   /** 工事種別 */
-  projType: '',
-  profitRate: 0.5, /* 利益率(自動計算) */
-  taxRate: 10, /* 税率 */
+  projTypeName: '',
+  projTypeId: '',
+  projTypeProfit: 50, /* 利益率 */
+
+  /* 工事種別に対して最新の利益設定 */
+  projTypeProfitLatest: null as null | number,
+
+  tax: 10, /* 税率 */
   status: '' as typeof statusChoices[number], /* ステータス */
 
   /* 見積もり用配列要素 */
@@ -63,14 +68,15 @@ export const getItemFieldName = (
 /*
 バリデーション
 */
-export const validationSchema = Yup.object(
+export const validationSchema = Yup
+  .object<Partial<Record<KeyOfForm, any>>>(
   {
     'projId': Yup
       .string()
       .required('必須です。'),
-    'profitRate': Yup
+    'projTypeProfit': Yup
       .number(),
-    'taxRate': Yup
+    'tax': Yup
       .number()
       .required('必須です。'),
     'items': Yup.array()
@@ -94,5 +100,5 @@ export const validationSchema = Yup.object(
       )
       .required('Must have items')
       .min(1, 'Minimum of 1 items'),
-  } as Partial<Record<KeyOfForm, any>>,
+  },
 );

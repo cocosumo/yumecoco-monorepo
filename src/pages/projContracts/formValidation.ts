@@ -76,7 +76,8 @@ export const validationSchema =  Yup
             .when(getPayFieldName('checked'), {
               is: true,
               then: payDateValidation
-                .required('契約では必須です。'),
+                .notRequired(),
+              // .required('契約では必須です。'),
             }),
         }),
       ),

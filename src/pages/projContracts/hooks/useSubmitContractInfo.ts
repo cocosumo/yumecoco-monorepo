@@ -44,6 +44,7 @@ export const useSubmitContractInfo = () => {
         severity:  'error',
         message: `エラーが発生しました。ブラウザーをリフレッシュして直良かったら、管理者にお知らせください。${err.message}。`,
       });
+      setBackdropState({ open: false });
     }
 
   };

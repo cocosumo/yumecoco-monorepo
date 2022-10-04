@@ -56,10 +56,11 @@ export const useEstimateChangeHandler = () => {
           paymentDate,
         } }) => {
 
+
           return {
             checked: Boolean(+isPayEnabled.value ?? 0),
             amount: +(paymentAmt?.value ?? 0),
-            payDate: paymentDate.value ? parseISO(paymentDate.value) : '',
+            payDate: paymentDate?.value ? parseISO(paymentDate.value) : '',
           };
         }) : initialValues.paymentFields,
 

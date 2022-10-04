@@ -4,7 +4,6 @@ import { usePromiseWithNotify } from './usePromiseWithNotify';
 
 
 export const useEstimateRecords = (projId: string) => {
-
   const memoPromiseFunc = useMemo(() => {
     return projId ? () => fetchEstimatesByProjId(projId) : null;
   }, [projId]);

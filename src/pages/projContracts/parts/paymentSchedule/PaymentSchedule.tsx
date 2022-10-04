@@ -7,7 +7,7 @@ import { PaymentFields } from './PaymentFields';
 import { PaymentFormActions } from './PaymentFormActions';
 import { RemainingAmountInfo } from './RemainingAmountInfo';
 import { TotalPaymentAmount } from './TotalPaymentAmount';
-import { useEffect } from 'react';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export const PaymentSchedule = ({
   totalAmount = 0,
@@ -15,14 +15,19 @@ export const PaymentSchedule = ({
   totalAmount?: number
 }) => {
   const { values, setValues } = useFormikContext<TypeOfForm>();
-  const { paymentFields } = values; 
+  const { paymentFields, remainingAmt } = values; 
 
-  const remainingAmount = paymentFields
-    .reduce((acc, { amount }) => acc - +amount, totalAmount);
 
-  useEffect(()=>{
-    setValues((prev) => ({ ...prev, remainingAmt: remainingAmount }));
-  }, [remainingAmount, setValues]);
+  useDeepCompareEffect(() => {
+
+    const newRemainingAmt = paymentFields
+      .reduce((acc, { amount }) => acc - +amount, totalAmount);
+    setValues((prev) => ({ ...prev, remainingAmt: newRemainingAmt }));
+
+  }, [paymentFields || {}, totalAmount, remainingAmt]);
+
+
+
 
   return (
     <PaymentContainer>

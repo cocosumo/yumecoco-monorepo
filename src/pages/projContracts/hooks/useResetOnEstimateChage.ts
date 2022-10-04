@@ -49,40 +49,46 @@ export const useResetOnEstimateChange = () => {
       支払い: paymentSched,
       hasRefund,
       refundAmt,
+      工事名称: projName,
+      projId,
     } = selected ?? {};
 
-
-    setNewInitVals((prev) => {
-
-      const newForm: TypeOfForm = {
-        ...prev,
-        projEstimateRevision: $revision?.value || '',
-        projEstimateId: projEstimateId ?? '',
-        envelopeId: envId?.value ?? '',
-        envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
-        envDocFileKeys: envDocFileKeys?.value ?? [],
-        envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
-        paymentFields: paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
-          isPayEnabled,
-          paymentAmt,
-          paymentDate,
-        } }) => {
-
-
-          return {
-            checked: Boolean(+isPayEnabled.value ?? 0),
-            amount: +(paymentAmt?.value ?? 0),
-            payDate: paymentDate?.value ? parseISO(paymentDate.value) : '',
-          };
-        }) : initialValues.paymentFields,
-
-        hasRefund: Boolean(+(hasRefund?.value ?? 0)),
-        refundAmt: +(refundAmt?.value ?? 0),
-
+    const newPaymentFields : TypeOfForm['paymentFields'] = paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
+      isPayEnabled,
+      paymentAmt,
+      paymentDate,
+    } }) => {
+      return {
+        checked: Boolean(+isPayEnabled.value ?? 0),
+        amount: +(paymentAmt?.value ?? 0),
+        payDate: paymentDate?.value ? parseISO(paymentDate.value) : '',
       };
+    }) : initialValues.paymentFields ;
 
-      return newForm;
-    });
+    const newRemainingAmt = newPaymentFields
+      .reduce((acc, { amount }) => acc - +amount, calculated?.totalAmountInclTax || 0);
+
+    const newForm: TypeOfForm = {
+      ...initialValues,
+      projId: projId?.value || '', 
+      projName: projName?.value || '',
+      projEstimateRevision: $revision?.value || '',
+      projEstimateId: projEstimateId ?? '',
+      envelopeId: envId?.value ?? '',
+      envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
+      envDocFileKeys: envDocFileKeys?.value ?? [],
+      envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
+      
+      paymentFields: newPaymentFields,
+      remainingAmt: newRemainingAmt,
+
+      hasRefund: Boolean(+(hasRefund?.value ?? 0)),
+      refundAmt: +(refundAmt?.value ?? 0),
+    };
+
+    setNewInitVals(newForm);
+
+    if (!projEstimateId) setSelectedEstimate(undefined);
     
   };
 

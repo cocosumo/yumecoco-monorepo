@@ -20,7 +20,10 @@ export const PaymentFieldDate = ({
   return (
     <JADatePicker
       disabled={disabled}
-      value={value}
+      /* Need to use null as empty string wont work when clearing the field.
+      This is different with other fields where they
+      become uncontrolled component when value becomes null. ~ ras 2022.10.03 */
+      value={value || null}
       disablePast
       views={['year', 'month', 'day' ]}
       onChange={(v)=>{

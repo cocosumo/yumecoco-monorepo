@@ -1,3 +1,3 @@
 export * from './form';
-export * from './FormikContractPreview';
-export * from './FormContractPreview';
+export * from './FormikContract';
+export * from './FormContract';

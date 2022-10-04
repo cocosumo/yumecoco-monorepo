@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './projRegister';
-import { FormikContractPreview } from './projContracts/';
+import { FormikContract } from './projContracts/';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
@@ -68,7 +68,7 @@ const Router = () => (
     <Route path={`${pages.projEstimate}`} element={<FormikProjEstimate />} />
 
     {/* 契約 */}
-    <Route path={`${pages.projContractPreview}`} element={<FormikContractPreview />} />
+    <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
 
     {/* ヘルプ */}
     <Route path={`${pages.help}/*`} element={<HelpComponents />} />

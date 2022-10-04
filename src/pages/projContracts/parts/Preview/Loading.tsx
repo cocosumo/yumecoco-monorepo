@@ -1,9 +1,24 @@
-import { LinearProgress, Box } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import { externalAssets } from '../../../../assets/externalLinks';
 
 export const Loading = () => {
   return  (
-    <Box sx={{ width: '100%' }}>
-      <LinearProgress />
-    </Box>
+    <Stack
+      justifyContent={'center'}
+      spacing={2}
+      alignItems={'center'}
+    >
+      <div>
+        <img
+          src={externalAssets.loadingConstruction} width={'auto'} height={'300px'}
+        />
+      </div>
+      <Typography>
+        読み込み中...
+      </Typography>
+
+    </Stack>
+
+
   );
 };

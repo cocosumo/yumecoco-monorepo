@@ -5,6 +5,7 @@ import { useContractPreview } from '../../hooks';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import CloseIcon from '@mui/icons-material/Close';
 import { SelectDocuments } from './SelectDocuments';
+import { Loading } from './Loading';
 
 
 export const ContractDialog = ({
@@ -70,18 +71,22 @@ export const ContractDialog = ({
       >
         {!previewLoading &&
         <embed
-          src={previewUrl} width="100%"
+          src={previewUrl}
+          width="100%"
           height='100%'
         />}
+        {previewLoading && <Loading />}
       </DialogContent>
-      <DialogActions>
-        <Button>
-          ダウンロード
-        </Button>
-        <Button>
-          送信
-        </Button>
-      </DialogActions>
+      {!previewLoading &&
+        <DialogActions>
+          <Button>
+            ダウンロード
+          </Button>
+          <Button>
+            送信
+          </Button>
+        </DialogActions>}
+
     </Dialog>
   );
 

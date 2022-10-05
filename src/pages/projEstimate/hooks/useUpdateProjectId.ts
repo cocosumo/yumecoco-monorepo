@@ -37,20 +37,22 @@ export const useUpdateProjectId = () => {
               getProjTypeById(projTypeId.value),
             ]);
 
-
-
             const mainCustName = custGroup?.members?.value[0].value.customerName.value ?? '';
 
-            // Throttle speed to avoid request spam.
+            setValues((prev) => {
 
-            setValues((prev) => produce(prev, draft => {
-              draft.custGroupId = custGroupId.value;
-              draft.projName = projName.value;
-              draft.projTypeName = projTypeName.value;
-              draft.projTypeId = projTypeId.value;
-              draft.projTypeProfitLatest = +profitRate.value;
-              draft.customerName = mainCustName;
-            }));
+              const { estimateId } = prev;
+
+              return produce(prev, draft => {
+                draft.projTypeProfit = estimateId ? +profitRate.value : initialValues.projTypeProfit;
+                draft.custGroupId = custGroupId.value;
+                draft.projName = projName.value;
+                draft.projTypeName = projTypeName.value;
+                draft.projTypeId = projTypeId.value;
+                draft.projTypeProfitLatest = +profitRate.value;
+                draft.customerName = mainCustName;
+              });
+            });
             setLoading(false);
 
           })

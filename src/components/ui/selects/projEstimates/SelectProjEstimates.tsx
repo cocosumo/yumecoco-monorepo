@@ -139,7 +139,7 @@ export const SelectProjEstimates = ({
   return (
 
     <FormikSelectAdvanced
-      disabled={disabled || !projId || !projEstimateRecords.length}
+      disabled={disabled || !projId}
       label='見積選択'
       name={name}
       selectedValue={projId ? projEstimateId : ''}

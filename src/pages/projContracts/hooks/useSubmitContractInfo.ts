@@ -15,28 +15,34 @@ export const useSubmitContractInfo = () => {
       resetForm,
     },
   ) => {
-    const { submitMethod } = values;
+    const { 
+      submitMethod, 
+    } = values;
     try {
       setBackdropState({ open: true });
-      const { revision } = await saveContractDetails(values);
 
+  
       /* Throttle */
       if (submitMethod === 'normal') {
         await sleep(2000);
       }
 
 
-      setBackdropState({ open: false });
+      const { revision } = await saveContractDetails(values);
       setSnackState({
         open: true,
         severity:  'success',
         message: `保存が出来ました。更新番号：${revision}`,
       });
-
+      
       resetForm({ values: {
         ...values,
         projEstimateRevision: revision,
       } });
+      
+
+      setBackdropState({ open: false });
+  
 
     } catch (err) {
       setSnackState({
@@ -44,6 +50,7 @@ export const useSubmitContractInfo = () => {
         severity:  'error',
         message: `エラーが発生しました。ブラウザーをリフレッシュして直良かったら、管理者にお知らせください。${err.message}。`,
       });
+      setBackdropState({ open: false });
     }
 
   };

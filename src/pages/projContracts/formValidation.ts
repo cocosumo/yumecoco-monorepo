@@ -2,10 +2,7 @@ import * as Yup from 'yup';
 import {
   getFieldName,
   getPayFieldName,
-
   KeyOfForm,
-
-  TypeOfForm,
   TypeOfPayFields } from './form';
 
 
@@ -45,43 +42,20 @@ export const validationSchema =  Yup
         .required('返金予定金額を入力してください。'),
     }),
 
-  paymentFields: Yup
-    .array()
-    .when(getFieldName('submitMethod'), {
-      is: (sM: TypeOfForm['submitMethod']) => sM === 'normal',
-      then: Yup.array().of(
-        Yup
-          .object()
-          .shape<Partial<Record<keyof TypeOfPayFields, Yup.AnySchema>>>({
-          amount: payAmtValidation,
-          payDate: Yup
-            .date()
-            .when(getPayFieldName('checked'), {
-              is: true,
-              then: payDateValidation
-                .notRequired(),
-            }),
+  paymentFields: Yup.array().of(
+    Yup
+      .object()
+      .shape<Partial<Record<keyof TypeOfPayFields, Yup.AnySchema>>>({
+      amount: payAmtValidation,
+      payDate: Yup
+        .date()
+        .when(getPayFieldName('checked'), {
+          is: true,
+          then: payDateValidation
+            .notRequired(),
         }),
-      ),
-    })
-    .when(getFieldName('submitMethod'), {
-      is: (sM: TypeOfForm['submitMethod']) => sM === 'contract',
-      then: Yup.array().of(
-        Yup
-          .object()
-          .shape<Partial<Record<keyof TypeOfPayFields, Yup.AnySchema>>>({
-          amount: payAmtValidation,
-          payDate: Yup
-            .date()
-            .when(getPayFieldName('checked'), {
-              is: true,
-              then: payDateValidation
-                .notRequired(),
-              // .required('契約では必須です。'),
-            }),
-        }),
-      ),
     }),
+  ),
 
   remainingAmt: Yup
     .number()

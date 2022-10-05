@@ -6,35 +6,33 @@ import { TypeOfForm } from '../../form';
 import { useState } from 'react';
 import { ContractDialog } from '../Preview/ContractDialog';
 import { isEmpty } from 'lodash';
+import { useSnackBar } from '../../../../hooks';
 
 export const PaymentFormActions = () => {
   const [openPreview, setOpenPreview] = useState(false);
+  const { setSnackState } = useSnackBar();
   const {
-    values,
-    setValues,
     submitForm,
-    validateForm,
     isSubmitting,
     isValidating,
     isValid,
-
+    dirty,
+    errors,
   } = useFormikContext<TypeOfForm>();
 
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
-    /*
-      setValues does not immediately reflect validation errors even if 2nd param is set to true.
-      So I explicitly call validateForm against the new state before calling submit.
 
-      This needs to be revisited. ~ras 2022.10.03
-    */
-    const newState = { ...values, submitMethod };
-
-    setValues(newState);
-
-    const newErrors = await validateForm(newState);
-    await submitForm();
-
-    if (submitMethod === 'contract' && isEmpty(newErrors)) {
+    if (dirty) {
+      await submitForm();
+    } else if (submitMethod === 'normal') {
+      setSnackState({
+        open: true,
+        severity: 'info',
+        message: 'フォームに変更がありません。',
+      });
+    }
+ 
+    if (submitMethod === 'contract' && isEmpty(errors)) {
       setOpenPreview(true);
     }
 

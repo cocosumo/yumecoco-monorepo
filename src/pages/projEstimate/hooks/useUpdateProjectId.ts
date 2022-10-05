@@ -44,7 +44,7 @@ export const useUpdateProjectId = () => {
               const { estimateId } = prev;
 
               return produce(prev, draft => {
-                draft.projTypeProfit = estimateId ? +profitRate.value : initialValues.projTypeProfit;
+                draft.projTypeProfit = !estimateId ? +profitRate.value : initialValues.projTypeProfit;
                 draft.custGroupId = custGroupId.value;
                 draft.projName = projName.value;
                 draft.projTypeName = projTypeName.value;

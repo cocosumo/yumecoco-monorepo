@@ -11,13 +11,15 @@ import { renderQuoteTable } from './QuoteTable/';
 import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
-import { FormikSelect, SelectProjEstimates } from '../../components/ui/selects';
+import { FormikSelect } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
 import { useResolveParams } from './hooks/useResolveParams';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 import { CopyForm } from './fieldComponents/formActions/CopyForm';
+import { SelectExistEstimates } from './fieldComponents/SelectExistEstimates';
+import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
 
 export default function FormProjEstimate() {
 
@@ -34,9 +36,9 @@ export default function FormProjEstimate() {
 
   const isEditMode = !!estimateId;
 
-  const handleChangeEstimateId = () => {
-    console.log('dummy');
-  };
+
+
+  console.log('values', values);
 
   return (
     <Form noValidate>
@@ -51,17 +53,18 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid item xs={12} md={5}>
+        <Grid item xs={12} md={3}>
+
+          {/* 編集中の見積もり情報 */}
+          {projId && <EstimatesInfo
+            estimateId={estimateId}
+                     />}
+        </Grid>
+
+        <Grid item xs={12} md={2}>
 
           {/* 見積もりの検索 */}
-          <SelectProjEstimates
-            projEstimateId={estimateId}
-            projId={projId}
-            name='estimateId'
-            disabled={!projId}
-            handleChange={handleChangeEstimateId}
-            app='estimate'
-          />
+          {projId && <SelectExistEstimates projId={projId} />}
         </Grid>
 
         {/* コピー */}

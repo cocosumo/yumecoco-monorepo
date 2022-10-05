@@ -16,7 +16,6 @@ export const SelectProjEstimates = ({
   name = 'projEstimateId',
   handleChange,
   disabled = false,
-  app = 'constracts',
 }: {
   projId: string,
   projEstimateId: string,
@@ -57,12 +56,6 @@ export const SelectProjEstimates = ({
     value: '',
     key: 'clear',
     component: '---',
-  }), []);
-
-  const newCleateOption: OptionNode = useMemo(() => ({
-    value: '',
-    key: 'clear',
-    component: '新規作成',
   }), []);
 
   const registerNewOption: OptionNode = useMemo(() =>  ({
@@ -111,14 +104,7 @@ export const SelectProjEstimates = ({
 
     }, [selectedRecord]);
 
-  let options = [registerNewOption];
-  if (projId) {
-    if (app === 'constracts') {
-      options = [emptyOption, ...actualOptions, registerNewOption];
-    } else {
-      options = [newCleateOption, ...actualOptions];
-    }
-  } // elseは初期値で設定しているため、省略
+  const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
 
   useDeepCompareEffect(() => {
     refEstimateRecords.current = projEstimateRecords;

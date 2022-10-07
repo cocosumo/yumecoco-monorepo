@@ -18,7 +18,6 @@ export const useEstimateRecords = (projId: string, fetchOnMount = true) => {
   const [loading, setLoading] = useState(false);
 
   const handleFetchEstimates = useCallback(() => {
-    console.log('RELOAD START');
     setLoading(true);
     fetchEstimatesByProjId(projId)
       .then(res => {

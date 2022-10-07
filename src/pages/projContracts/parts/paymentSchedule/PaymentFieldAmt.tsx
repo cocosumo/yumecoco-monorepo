@@ -2,8 +2,7 @@ import { InputAdornment, TextField, TextFieldProps, Tooltip } from '@mui/materia
 import { useField } from 'formik';
 import { numerals } from 'jp-numerals';
 import {  getPayFieldNameByIdx } from '../../form';
-import { ChangeEvent, ComponentProps, useMemo, useState } from 'react';
-import { useLazyEffect } from '../../../../hooks';
+import { ChangeEvent, useMemo, useState } from 'react';
 import { debounce } from 'lodash';
 
 

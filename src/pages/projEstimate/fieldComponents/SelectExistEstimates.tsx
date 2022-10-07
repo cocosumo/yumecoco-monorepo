@@ -1,15 +1,22 @@
 import { Button } from '@mui/material';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ConfirmationDialogRaw } from './dialogActions/ConfirmationDialogRaw';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import { useEstimateRecords } from '../../../hooks';
+import { useFormikContext } from 'formik';
+import { getFieldName, TypeOfForm } from '../form';
 
 
 
-export const SelectExistEstimates = ({ projId }:{ projId:string }) => {
+export const SelectExistEstimates = ({
+  projId,
+}: {
+  projId: string,
+}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('Dione');
-  
+  const [value, setValue] = useState('');
+  const { setFieldValue } = useFormikContext<TypeOfForm>();
+
   const { projEstimateRecords } = useEstimateRecords(projId);
 
   const handleClickOpen = () => {
@@ -24,6 +31,10 @@ export const SelectExistEstimates = ({ projId }:{ projId:string }) => {
     }
   };
 
+  useEffect(()=>{
+    setFieldValue(getFieldName('estimateId'), value);
+  }, [value]);
+
 
 
   return (
@@ -34,11 +45,12 @@ export const SelectExistEstimates = ({ projId }:{ projId:string }) => {
       </Button>
 
       <ConfirmationDialogRaw
-        id="ringtone-menu"
+        name='estimateId'
         keepMounted
         open={open}
         onClose={handleClose}
         value={value}
+        options={projEstimateRecords}
       />
     </>
   );

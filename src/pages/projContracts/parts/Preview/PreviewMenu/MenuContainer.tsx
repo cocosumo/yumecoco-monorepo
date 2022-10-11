@@ -2,6 +2,7 @@ import { Button,  Menu } from '@mui/material';
 import { MouseEvent, useState } from 'react';
 import MoreIcon from '@mui/icons-material/More';
 import { MenuVoidContract } from './MenuVoidContract';
+import { MenuExcel } from './MenuExcel';
 
 export const MenuContainer = () => {
 
@@ -34,6 +35,7 @@ export const MenuContainer = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
+        <MenuExcel />
         <MenuVoidContract handleClose={handleClose} />
       </Menu>
 

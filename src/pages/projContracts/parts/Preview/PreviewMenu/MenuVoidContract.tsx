@@ -104,7 +104,7 @@ export const MenuVoidContract = (
       content: <ReasonForm
         handleSetReason={(r)=> {
           reasonRef.current = r;
-        }} 
+        }}
                />,
     });
   };
@@ -135,7 +135,6 @@ export const MenuVoidContract = (
   return (
     <MenuItem onClick={handleVoidContract}>
       無効化
-
     </MenuItem>
   );
 };

@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { DownloadContract } from './DownloadContract';
-import { MenuContainer } from './PreviewMenu/MenuContainer';
+import { MenuContainer } from '../Preview/PreviewMenu/MenuContainer';
 import { StartContract } from '../Preview/startContract';
 
 

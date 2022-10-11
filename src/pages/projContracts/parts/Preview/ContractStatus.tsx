@@ -18,7 +18,6 @@ export const ContractStatus = () => {
   }
 
   const isWithContract = envelopeStatus !== '';
-  console.log(envRecipients);
   return (
     <Stack direction={'row'} spacing={0} divider={<ArrowRightIcon sx={{ color: 'GrayText' }} />}>
       {isWithContract &&  (

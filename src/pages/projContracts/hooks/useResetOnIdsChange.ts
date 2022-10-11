@@ -86,19 +86,20 @@ export const useResetOnIdsChange = () => {
         projEstimateRevision: $revision?.value || '',
         projEstimateId: projEstimateId ?? '',
 
+
         /* 契約 */
         envelopeId: envId?.value ?? '',
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
         envDocFileKeys: envDocFileKeys?.value ?? [],
         envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
-        envRecipients: envRecipients?.value,
-        completeDate: completeDate?.value ? parseISO(completeDate?.value) :  '',
+        envRecipients: envRecipients?.value ? JSON.parse(envRecipients.value).signers : [],
 
         /* 支払い */
         startDate: startDate?.value ? parseISO(startDate?.value) : '',
         startDaysAfterContract: +(startDaysAfterContract?.value || 0),
         finishDate:  finishDate?.value ? parseISO(finishDate?.value)   : '',
         finishDaysAfterContract: +(finishDaysAfterContract?.value || 0),
+        completeDate: completeDate?.value ? parseISO(completeDate?.value) :  '',
         payDestination: payDestination?.value || '',
         payMethod: (payMethod?.value || '振込') as TypeOfForm['payMethod'],
 

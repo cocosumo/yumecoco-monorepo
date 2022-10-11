@@ -1,17 +1,12 @@
-import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-import {  Tooltip } from '@mui/material';
+import {  Button, Tooltip } from '@mui/material';
 import { useStartContractProcess } from '../../../hooks/useStartContractProcess';
 
-export const StartContract = ({
-  isBusy,
-}: {
-  isBusy: boolean,
-})=>{
+export const StartContract = ()=>{
 
   const {
     handleClickStart,
-    isBackdropOpen,
+
     values,
   } = useStartContractProcess();
 
@@ -21,15 +16,13 @@ export const StartContract = ({
     <Tooltip title="契約書を送信する" arrow>
       <div>
         {/* Tooltip doesn't like disabled element, so I added extra layer */}
-        <LoadingButton
-          disabled={!projId || isBusy}
-          loading={isBackdropOpen}
+        <Button
+          disabled={!projId}
           onClick={handleClickStart}
           variant="contained"
-          loadingPosition="center"
         >
           <SendIcon />
-        </LoadingButton>
+        </Button>
       </div>
     </Tooltip>
   );

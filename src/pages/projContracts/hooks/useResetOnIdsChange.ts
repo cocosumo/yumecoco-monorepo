@@ -31,7 +31,7 @@ export const useResetOnIdsChange = () => {
   const handleChangeSelectedEstimate : ComponentProps<typeof SelectProjEstimates>['handleChange'] = useCallback(async (
     projEstimateId: string,
   ) => {
-    
+
     if (!projEstimateId) return;
 
     const selected = await fetchEstimatesById(projEstimateId);
@@ -40,6 +40,7 @@ export const useResetOnIdsChange = () => {
     const {
       envStatus,
       envDocFileKeys,
+      envRecipients,
       envId,
       $revision,
       支払い: paymentSched,
@@ -54,6 +55,7 @@ export const useResetOnIdsChange = () => {
       payMethod,
       payDestination,
       completeDate,
+
 
     } = selected ?? {};
 
@@ -71,7 +73,7 @@ export const useResetOnIdsChange = () => {
 
     const newRemainingAmt = newPaymentFields
       .reduce(
-        (acc, { amount }) => acc - +amount, 
+        (acc, { amount }) => acc - +amount,
         Math.round(calculated?.totalAmountInclTax || 0),
       );
 
@@ -83,10 +85,13 @@ export const useResetOnIdsChange = () => {
         projName: projName?.value || '',
         projEstimateRevision: $revision?.value || '',
         projEstimateId: projEstimateId ?? '',
+
+        /* 契約 */
         envelopeId: envId?.value ?? '',
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
         envDocFileKeys: envDocFileKeys?.value ?? [],
         envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
+        envRecipients: envRecipients?.value,
         completeDate: completeDate?.value ? parseISO(completeDate?.value) :  '',
 
         /* 支払い */
@@ -109,7 +114,7 @@ export const useResetOnIdsChange = () => {
     setCalculatedEstimate(calculated);
     setSelectedEstimate(selected);
     setTouched({});
-    
+
   }, [
     setTouched,
     setValues,
@@ -125,7 +130,7 @@ export const useResetOnIdsChange = () => {
 
     getProjDataById(projId)
       .then((formData) => {
-     
+
         setValues(prev => {
           // Typescript do now throw error on {...prev, formData}
           // So I intermediately declare it here.
@@ -164,9 +169,9 @@ export const useResetOnIdsChange = () => {
     }
 
   }, [
-    projEstimateIdFromURL, 
-    projIdFromURL, 
-    handleChangeProjId, 
+    projEstimateIdFromURL,
+    projIdFromURL,
+    handleChangeProjId,
     setValues,
     handleChangeSelectedEstimate,
   ]);

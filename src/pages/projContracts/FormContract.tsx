@@ -32,6 +32,8 @@ export const FormContract = () => {
   /* 本当に小数点切り捨ていいか、要確認 */
   const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
 
+  console.log(values);
+
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -50,7 +52,7 @@ export const FormContract = () => {
         {/* 見積もり選択フィールド
           Reload field and its options after every submit.
         */}
-      
+
         <Grid item xs={12} md={8}
           lg={6}
         >
@@ -60,7 +62,7 @@ export const FormContract = () => {
             handleChange={handleChangeSelectedEstimate}
           />
         </Grid>
-  
+
 
         {/* 支払い予定入力 */}
         {!!projEstimateId && (

@@ -33,7 +33,9 @@ export const initialValues = {
   envelopeStatus: '' as TEnvelopeStatus,
   envDocFileKeys: [] as kintone.fieldTypes.File['value'],
   envSelectedDoc: '',
+  envRecipients: [] as IConnectRecipients,
   projEstimateRevision: '',
+
 
   signMethod: '' as TSignMethod,
 

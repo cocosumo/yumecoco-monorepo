@@ -55,7 +55,7 @@ export const useResetOnIdsChange = () => {
       payMethod,
       payDestination,
       completeDate,
-
+      signMethod,
 
     } = selected ?? {};
 
@@ -77,6 +77,8 @@ export const useResetOnIdsChange = () => {
         Math.round(calculated?.totalAmountInclTax || 0),
       );
 
+    const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients.value)?.signers;
+
     setValues(prev => {
 
       return ({
@@ -92,7 +94,8 @@ export const useResetOnIdsChange = () => {
         envelopeStatus: envStatus?.value as TEnvelopeStatus ?? '',
         envDocFileKeys: envDocFileKeys?.value ?? [],
         envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
-        envRecipients: envRecipients?.value ? JSON.parse(envRecipients.value).signers : [],
+        envRecipients: parsedEnvRecipients,
+        signMethod: (signMethod?.value || 'electronic') as TSignMethod,
 
         /* 支払い */
         startDate: startDate?.value ? parseISO(startDate?.value) : '',

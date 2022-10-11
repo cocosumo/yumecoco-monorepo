@@ -1,4 +1,4 @@
-import {  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
+import {  Dialog, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useContractPreview } from '../../hooks';
@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { SelectDocuments } from './SelectDocuments';
 import { Loading } from './Loading';
 import { useBackdrop } from '../../../../hooks';
-import { MenuContainer } from './PreviewMenu/MenuContainer';
+import { PreviewFooter } from './PreviewFooter';
 
 
 export const ContractDialog = ({
@@ -83,11 +83,7 @@ export const ContractDialog = ({
       </DialogContent>
 
       {!isBusy &&
-
-        <DialogActions>
-          <MenuContainer />
-        </DialogActions>}
-
+        <PreviewFooter />}
     </Dialog>
   );
 

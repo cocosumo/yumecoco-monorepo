@@ -32,8 +32,6 @@ export const FormContract = () => {
   /* 本当に小数点切り捨ていいか、要確認 */
   const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
 
-  console.log(values);
-
   return (
     <Form noValidate>
       <ScrollToFieldError />

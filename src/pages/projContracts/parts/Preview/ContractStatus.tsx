@@ -34,7 +34,11 @@ export const ContractStatus = () => {
             name,
           }) => {
             return (
-              <Tooltip key={recipientIdGuid} placement="top" title={name}>
+              <Tooltip
+                key={recipientIdGuid}
+                placement="top"
+                title={name}
+              >
                 <Chip
                   label={roleName}
                   size={'small'}

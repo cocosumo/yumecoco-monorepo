@@ -11,8 +11,6 @@ export const voidContract = async (params: IVoidReq) => {
 
     const data = params;
 
-    console.log(data, endpoint);
-
     const [body, status] = await kintone.proxy(
       endpoint,
       'POST',

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
+import {  Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useContractPreview } from '../../hooks';
@@ -8,6 +8,7 @@ import { SelectDocuments } from './SelectDocuments';
 import { Loading } from './Loading';
 import { StartContract } from './startContract';
 import { useBackdrop } from '../../../../hooks';
+import { MenuContainer } from './PreviewMenu/MenuContainer';
 
 
 export const ContractDialog = ({
@@ -18,6 +19,10 @@ export const ContractDialog = ({
 }) => {
   const { backdropState: { open: backdropOpen } } = useBackdrop();
   const { values } = useFormikContext<TypeOfForm>();
+
+  const {
+    envelopeStatus,
+  } = values;
 
   const {
     previewUrl,
@@ -33,6 +38,8 @@ export const ContractDialog = ({
   }, [values, open]);
 
   const isBusy = backdropOpen || previewLoading;
+  const isWithContract = !!envelopeStatus;
+  const isVoidable = envelopeStatus === 'sent';
 
   return (
     <Dialog
@@ -80,13 +87,16 @@ export const ContractDialog = ({
         />}
         {isBusy && <Loading />}
       </DialogContent>
+
       {!isBusy &&
+
         <DialogActions>
-          <Button>
-            ダウンロード
-          </Button>
-          {!previewLoading &&
+
+          {!isWithContract &&
           <StartContract />}
+          {isVoidable &&
+            <MenuContainer />}
+
 
         </DialogActions>}
 

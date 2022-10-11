@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { DownloadContract } from './DownloadContract';
 import { MenuContainer } from '../Preview/PreviewMenu/MenuContainer';
-import { StartContract } from '../Preview/startContract';
+import { StartContract } from '../Preview/PreviewMenu/startContract';
 
 
 export const PreviewToolBar = ({

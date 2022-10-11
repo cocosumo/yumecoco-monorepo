@@ -1,4 +1,4 @@
-import { Button, MenuItem, TextField } from '@mui/material';
+import { Button, ListItemIcon, ListItemText, MenuItem, TextField } from '@mui/material';
 import { useConfirmDialog, useSnackBar } from '../../../../../hooks';
 import { CustomDialogContent } from '../../../../../components/ui/dialogs/CustomDialogContent';
 import { Box } from '@mui/system';
@@ -7,6 +7,7 @@ import { useBackdrop } from '../../../../../hooks/useBackdrop';
 import { voidContract } from '../../../api/docusign/voidContract';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../../form';
+import BlockIcon from '@mui/icons-material/Block';
 
 const ReasonForm = ({
   handleSetReason,
@@ -134,7 +135,12 @@ export const MenuVoidContract = (
 
   return (
     <MenuItem onClick={handleVoidContract}>
-      無効化
+      <ListItemIcon>
+        <BlockIcon color='error' />
+      </ListItemIcon>
+      <ListItemText>
+        無効化する
+      </ListItemText>
     </MenuItem>
   );
 };

@@ -6,7 +6,6 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import CloseIcon from '@mui/icons-material/Close';
 import { SelectDocuments } from './SelectDocuments';
 import { Loading } from './Loading';
-import { StartContract } from './startContract';
 import { useBackdrop } from '../../../../hooks';
 import { MenuContainer } from './PreviewMenu/MenuContainer';
 
@@ -19,10 +18,6 @@ export const ContractDialog = ({
 }) => {
   const { backdropState: { open: backdropOpen } } = useBackdrop();
   const { values } = useFormikContext<TypeOfForm>();
-
-  const {
-    envelopeStatus,
-  } = values;
 
   const {
     previewUrl,
@@ -38,8 +33,6 @@ export const ContractDialog = ({
   }, [values, open]);
 
   const isBusy = backdropOpen || previewLoading;
-  const isWithContract = !!envelopeStatus;
-  const isVoidable = envelopeStatus === 'sent';
 
   return (
     <Dialog
@@ -57,7 +50,8 @@ export const ContractDialog = ({
           <Typography>
             契約のプレビュー
           </Typography>
-          <SelectDocuments />
+          {!isBusy &&  <SelectDocuments />}
+
         </Stack>
         <IconButton
           aria-label="close"
@@ -91,13 +85,7 @@ export const ContractDialog = ({
       {!isBusy &&
 
         <DialogActions>
-
-          {!isWithContract &&
-          <StartContract />}
-          {isVoidable &&
-            <MenuContainer />}
-
-
+          <MenuContainer />
         </DialogActions>}
 
     </Dialog>

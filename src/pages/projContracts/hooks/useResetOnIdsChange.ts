@@ -44,14 +44,20 @@ export const useResetOnIdsChange = () => {
   } = data || {};
 
   useDeepCompareEffect(() => {
+
     if (selectedRecord && !isEmpty(selectedRecord)) {
-      const newFormData = normalizedData(selectedRecord);
+      const {
+        newFormData,
+        newCalculated,
+      } = normalizedData(selectedRecord, calculated);
+
+      console.log(newFormData, 'selectedRecord');
       setValues((prev) => ({
         ...prev,
         ...newFormData,
       }));
       /* Updated calculated estimates */
-      setCalculatedEstimate(calculated);
+      setCalculatedEstimate(newCalculated);
       setSelectedEstimate(selectedRecord);
       setTouched({});
     }

@@ -1,4 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { isEmpty } from 'lodash';
 import { APPIDS, KintoneRecord } from '../api/kintone';
 import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
 
@@ -31,6 +32,7 @@ export const useEstimateById = ({
 
 
 
+
   return useQuery(
     [key, { projEstimateId }],
     () => {
@@ -43,7 +45,7 @@ export const useEstimateById = ({
       }
 
 
-      if (data?.records) {
+      if (data?.records && !isEmpty(data?.records)) {
         const idx = data.records
           .findIndex(({ レコード番号: dbProjEstimateId }) => dbProjEstimateId.value === projEstimateId );
         return {

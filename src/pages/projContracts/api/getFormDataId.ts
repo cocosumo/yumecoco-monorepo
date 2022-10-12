@@ -84,7 +84,7 @@ export const normalizedData = (
 
   return {
     newFormData,
-    calculated,
+    newCalculated : calculated,
   };
 };
 
@@ -96,12 +96,12 @@ export const getFormDataById = async (
   const record = await fetchEstimatesById(projEstimateId);
   const {
     newFormData,
-    calculated,
+    newCalculated,
   } = normalizedData(record);
 
   return {
     newFormData: newFormData,
-    calculated,
+    calculated: newCalculated,
     selected: record,
   };
 };

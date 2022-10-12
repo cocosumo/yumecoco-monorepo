@@ -3,15 +3,13 @@ import { fetchEstimatesById } from '../../../api/kintone/estimates/GET';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { initialValues, TypeOfForm } from '../form';
 
-export const getFormDataById = async (
-  projEstimateId: string,
+export const normalize = (
+  record: Estimates.main.SavedData,
+  calculated = calculateEstimateRecord(record),
 ) => {
-  if (!projEstimateId) return;
-
-  const selected = await fetchEstimatesById(projEstimateId);
-  const calculated = await calculateEstimateRecord(selected);
 
   const {
+    レコード番号: projEstimateId,
     envStatus,
     envDocFileKeys,
     envRecipients,
@@ -31,7 +29,7 @@ export const getFormDataById = async (
     completeDate,
     signMethod,
 
-  } = selected ?? {};
+  } = record ?? {};
 
   const newPaymentFields : TypeOfForm['paymentFields'] = paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
     isPayEnabled,
@@ -57,7 +55,7 @@ export const getFormDataById = async (
     projId: projId?.value || '',
     projName: projName?.value || '',
     projEstimateRevision: $revision?.value || '',
-    projEstimateId: projEstimateId ?? '',
+    projEstimateId: projEstimateId?.value ?? '',
 
 
     /* 契約 */
@@ -85,8 +83,25 @@ export const getFormDataById = async (
   };
 
   return {
+    newFormData,
+    calculated,
+  };
+};
+
+export const getFormDataById = async (
+  projEstimateId: string,
+) => {
+  if (!projEstimateId) return;
+
+  const record = await fetchEstimatesById(projEstimateId);
+  const {
+    newFormData,
+    calculated,
+  } = normalize(record);
+
+  return {
     newFormData: newFormData,
     calculated,
-    selected,
+    selected: record,
   };
 };

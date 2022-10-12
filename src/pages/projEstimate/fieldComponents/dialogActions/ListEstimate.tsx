@@ -1,4 +1,4 @@
-import { Chip, MenuItem, Stack } from '@mui/material';
+import { Chip, MenuItem, Stack, SvgIconTypeMap, Typography } from '@mui/material';
 
 import { format, parseISO } from 'date-fns';
 import { useCalcEstimate } from '../../../../hooks/useCalcEstimate';
@@ -6,7 +6,25 @@ import { useCalcEstimate } from '../../../../hooks/useCalcEstimate';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
+import { OverridableComponent } from '@mui/types';
 
+
+const ListContent = ({
+  Icon,
+  explanation,
+}:{
+  Icon : OverridableComponent<SvgIconTypeMap<{}, 'svg'>>,
+  explanation : string
+}) => {
+  return (
+    <>
+      <Icon />      
+      <Typography variant="body1">
+        {explanation}
+      </Typography>
+    </>
+  );
+};
 
 
 export const ListEstimate = ({
@@ -25,22 +43,27 @@ export const ListEstimate = ({
   const { totalAmountInclTax } = useCalcEstimate(estimateRecord);
 
 
-  return (    
-    <MenuItem>
-      {!!estimateStatus &&
-      <Chip label={estimateStatus} color={'info'} size={'small'} />}
+  return (
+    <Stack width={'100%'} direction={'row'} spacing={2}
+      alignItems="center" justifyContent="space-around"
+    >
 
-      {!!envStatus &&
-      <Chip label={'契約'} color={'success'} size={'small'} />}
+      <Stack width={'40%'} spacing={1} direction={'row'}>
 
-      <NumbersIcon />
-      {id}
+        {!!estimateStatus &&
+          <Chip label={estimateStatus} color={'info'} size={'small'} />}
 
-      <ScheduleIcon />
-      {format(parseISO(dateCreated), 'yy/MM/dd')}
+        {!!envStatus &&
+          <Chip label={'契約'} color={'success'} size={'small'} />}
 
-      <CurrencyYenIcon />
-      {totalAmountInclTax}
-    </MenuItem>
+      </Stack>
+
+      <ListContent Icon={NumbersIcon} explanation={String(id.value)} />
+
+      <ListContent Icon={ScheduleIcon} explanation={format(parseISO(dateCreated), 'yy/MM/dd')} />
+
+      <ListContent Icon={CurrencyYenIcon} explanation={String(Math.round(totalAmountInclTax))} />
+
+    </Stack>
   );
 };

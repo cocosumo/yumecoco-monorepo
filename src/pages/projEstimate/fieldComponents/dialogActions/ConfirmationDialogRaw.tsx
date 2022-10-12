@@ -1,11 +1,6 @@
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, MenuItem, Radio, RadioGroup } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { ListEstimate } from './ListEstimate';
-
-import NumbersIcon from '@mui/icons-material/Numbers';
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
-import { format, parseISO } from 'date-fns';
 
 
 export interface ConfirmationDialogRawProps {
@@ -52,31 +47,14 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
    * 選択肢の生成
    */
   const actualOptions: OptionNode[] = options.map<OptionNode>((rec) => {
-    const { $id, 作成日時, estimateStatus, envStatus } = rec;
+    const { $id } = rec;
 
     return {
       value: $id.value,
       key: $id.value,
-      component: (
-        <MenuItem>
-          {!!estimateStatus.value &&
-            <Chip label={estimateStatus.value} color={'info'} size={'small'} />}
-
-          {!!envStatus.value &&
-            <Chip label={'契約'} color={'success'} size={'small'} />}
-          <NumbersIcon />
-          {$id.value}
-          &nbsp;
-          <ScheduleIcon />
-          {format(parseISO(作成日時.value), 'yy/MM/dd')}
-          &nbsp;
-          <CurrencyYenIcon />
-          {'dummy 円'}
-        </MenuItem>
-      ),
-      /* component: (<ListEstimate
+      component: (<ListEstimate
         estimateRecord={rec}
-                  />), */
+                  />),
     };
   });
 

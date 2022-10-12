@@ -6,7 +6,8 @@ import { initialValues, TypeOfForm } from '../form';
 export const getFormDataById = async (
   projEstimateId: string,
 ) => {
-  if (!projEstimateId) throw new Error('見積番号がありませんでした。');
+  if (!projEstimateId) return;
+
   const selected = await fetchEstimatesById(projEstimateId);
   const calculated = await calculateEstimateRecord(selected);
 
@@ -50,7 +51,7 @@ export const getFormDataById = async (
       Math.round(calculated?.totalAmountInclTax || 0),
     );
 
-  const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients.value)?.signers;
+  const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients?.value || '{}' )?.signers;
 
   const newFormData : Partial<TypeOfForm> = {
     projId: projId?.value || '',

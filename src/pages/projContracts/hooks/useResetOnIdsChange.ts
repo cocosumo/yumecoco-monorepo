@@ -31,11 +31,15 @@ export const useResetOnIdsChange = () => {
     projEstimateId: string,
   ) => {
 
+    const newData = await getFormDataById(projEstimateId);
+
+    if (!newData) return;
+
     const {
       newFormData,
       calculated,
       selected,
-    } = await getFormDataById(projEstimateId);
+    }  = newData;
 
     setValues((prev) => ({
       ...prev,

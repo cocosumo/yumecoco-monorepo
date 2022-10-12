@@ -34,18 +34,26 @@ export const useEstimatesByProjId = (
 
   return useQuery(
     [key, { projId }],
-    () => KintoneRecord.getRecords({
-      app: APPIDS.projectEstimate,
-      query: `${projIdKey} = "${projId}"`,
-    })
-      .then(({ records }) => {
-        const newRecords = records as unknown as Estimates.main.SavedData[];
-        const calculated = newRecords.map((rec) => calculateEstimateRecord(rec));
+    () => {
 
-        return {
-          records: newRecords,
-          calculated,
-        };
-      }),
+      if (!projId) return {
+        records: [],
+        calculated: [],
+      };
+
+      return KintoneRecord.getRecords({
+        app: APPIDS.projectEstimate,
+        query: `${projIdKey} = "${projId}"`,
+      })
+        .then(({ records }) => {
+          const newRecords = records as unknown as Estimates.main.SavedData[];
+          const calculated = newRecords.map((rec) => calculateEstimateRecord(rec));
+
+          return {
+            records: newRecords,
+            calculated,
+          };
+        });
+    },
   );
 };

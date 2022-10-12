@@ -3,7 +3,14 @@ import { ReactNode } from 'react';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+
+    },
+  },
+});
 
 export const QueryContext = ({
   children,

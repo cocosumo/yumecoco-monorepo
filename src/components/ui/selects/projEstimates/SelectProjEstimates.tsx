@@ -26,7 +26,7 @@ export const SelectProjEstimates = ({
 
   const {
     calculated,
-    records : projEstimateRecords,
+    records : projEstimateRecords = [],
   } = data || {};
 
   const emptyOption: OptionNode = useMemo(() =>  ({

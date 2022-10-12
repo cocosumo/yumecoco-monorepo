@@ -3,7 +3,7 @@ import { fetchEstimatesById } from '../../../api/kintone/estimates/GET';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { initialValues, TypeOfForm } from '../form';
 
-export const normalize = (
+export const normalizedData = (
   record: Estimates.main.SavedData,
   calculated = calculateEstimateRecord(record),
 ) => {
@@ -97,7 +97,7 @@ export const getFormDataById = async (
   const {
     newFormData,
     calculated,
-  } = normalize(record);
+  } = normalizedData(record);
 
   return {
     newFormData: newFormData,

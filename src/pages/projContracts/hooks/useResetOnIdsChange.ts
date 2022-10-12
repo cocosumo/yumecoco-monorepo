@@ -1,13 +1,15 @@
 
 import { useFormikContext } from 'formik';
-import { ComponentProps, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { calculateEstimate } from '../../../api/others/calculateEstimate';
-import { SelectProjEstimates } from '../../../components/ui/selects';
 import { getParam } from '../../../helpers/url';
 import { useSnackBar } from '../../../hooks';
 import { getProjDataById } from '../api/getProjDataById';
 import { initialValues, TypeOfForm } from '../form';
-import { getFormDataById } from '../api/getFormDataId';
+import { normalizedData } from '../api/getFormDataId';
+import { useEstimateById } from '../../../hooksQuery/useEstimates';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import { isEmpty } from 'lodash';
 
 
 /**
@@ -18,52 +20,53 @@ import { getFormDataById } from '../api/getFormDataId';
  * @returns {object} obj.handleChangeEstimate 選択の変更際の関数
  */
 export const useResetOnIdsChange = () => {
-  const { setValues, setTouched } = useFormikContext<TypeOfForm>();
+  const { setValues, setTouched, values } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const [calculatedEstimate, setCalculatedEstimate] = useState<Awaited<ReturnType<typeof calculateEstimate>>>();
   const [selectedEstimate, setSelectedEstimate] = useState<Estimates.main.SavedData>();
-
   const projIdFromURL = getParam('projId');
   const projEstimateIdFromURL = getParam('projEstimateId');
+  const {
+    projEstimateId,
+    projId,
+  } = values;
 
-  /* 見積番号 */
-  const handleChangeSelectedEstimate : ComponentProps<typeof SelectProjEstimates>['handleChange'] = useCallback(async (
-    projEstimateId: string,
-  ) => {
+  const {
+    data,
+  } = useEstimateById({
+    projEstimateId,
+    projId,
+  });
 
-    const newData = await getFormDataById(projEstimateId);
+  const {
+    calculated,
+    record : selectedRecord,
+  } = data || {};
 
-    if (!newData) return;
+  useDeepCompareEffect(() => {
+    if (selectedRecord && !isEmpty(selectedRecord)) {
+      const newFormData = normalizedData(selectedRecord);
+      setValues((prev) => ({
+        ...prev,
+        ...newFormData,
+      }));
+      /* Updated calculated estimates */
+      setCalculatedEstimate(calculated);
+      setSelectedEstimate(selectedRecord);
+      setTouched({});
+    }
 
-    const {
-      newFormData,
-      calculated,
-      selected,
-    }  = newData;
-
-    setValues((prev) => ({
-      ...prev,
-      ...newFormData,
-    }));
-    /* Updated calculated estimates */
-    setCalculatedEstimate(calculated);
-    setSelectedEstimate(selected);
-    setTouched({});
-
-  }, [
-    setTouched,
-    setValues,
-  ] );
+  }, [selectedRecord || {}]);
 
   /* 工事番号 */
-  const handleChangeProjId = useCallback((projId: string) => {
+  const handleChangeProjId = useCallback((_projId: string) => {
 
-    if (!projId) {
+    if (!_projId) {
       setValues(initialValues);
       return;
     }
 
-    getProjDataById(projId)
+    getProjDataById(_projId)
       .then((formData) => {
 
         setValues(prev => {
@@ -95,10 +98,6 @@ export const useResetOnIdsChange = () => {
       projId: projIdFromURL ?? '',
     }));
 
-    if (projEstimateIdFromURL) {
-      handleChangeSelectedEstimate(projEstimateIdFromURL);
-    }
-
     if (projIdFromURL) {
       handleChangeProjId(projIdFromURL);
     }
@@ -106,13 +105,11 @@ export const useResetOnIdsChange = () => {
   }, [
     projEstimateIdFromURL,
     projIdFromURL,
-    handleChangeProjId,
     setValues,
-    handleChangeSelectedEstimate,
+    handleChangeProjId,
   ]);
 
   return {
-    handleChangeSelectedEstimate,
     handleChangeProjId,
     calculatedEstimate,
     selectedEstimate,

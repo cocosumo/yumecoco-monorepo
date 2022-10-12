@@ -1,32 +1,80 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { APPIDS, KintoneRecord } from '../api/kintone';
 import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
 
 const key = 'estimate';
+type EstimatesQuery = {
+  records: Estimates.main.SavedData[],
+  calculated: ReturnType<typeof calculateEstimateRecord>[]
+};
+
+/* type EstimateQuery = {
+  records: Estimates.main.SavedData,
+  calculated: ReturnType<typeof calculateEstimateRecord>
+}; */
 
 /**
- * 見積を取得する
+ * 見積番号で取得する
  */
-export const useEstimateById = (projEstimatId: string) => {
+export const useEstimateById = ({
+  projEstimateId,
+  projId,
+} : {
+  projEstimateId: string,
+  projId?: string
+}) => {
+
+  const queryClient = useQueryClient();
+
+  const data = queryClient
+    .getQueryData([key, { projId }]) as EstimatesQuery | undefined;
+
+
+
   return useQuery(
-    [key, { projEstimatId }],
-    () => KintoneRecord.getRecord({
-      app: APPIDS.projectEstimate,
-      id: projEstimatId,
-    }).then(({ record }) => {
+    [key, { projEstimateId }],
+    () => {
 
-      const newRecord = record as unknown as Estimates.main.SavedData;
-      const calculated = calculateEstimateRecord(newRecord);
+      if (!projEstimateId) {
+        return {
+          record: Object.create(null),
+          calculated: Object.create(null),
+        };
+      }
 
-      return {
-        record: newRecord,
-        calculated,
-      };
-    }),
+
+      if (data?.records) {
+        const idx = data.records
+          .findIndex(({ レコード番号: dbProjEstimateId }) => dbProjEstimateId.value === projEstimateId );
+        return {
+          record: data.records[idx],
+          calculated : data.calculated[idx],
+        };
+      }
+
+      return KintoneRecord.getRecord({
+        app: APPIDS.projectEstimate,
+        id: projEstimateId,
+      }).then(({ record }) => {
+
+        const newRecord = record as unknown as Estimates.main.SavedData;
+        const calculated = calculateEstimateRecord(newRecord);
+
+        return {
+          record: newRecord,
+          calculated,
+        };
+      });
+    },
 
   );
 };
 
+/**
+ * 工事番号で見積もりリストを取得する
+ * @param projId
+ * @returns 配列
+ */
 export const useEstimatesByProjId = (
   projId: string,
 ) => {

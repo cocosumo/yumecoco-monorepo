@@ -2,7 +2,7 @@ import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
-import { TypeOfForm } from './form';
+import { getFieldName, TypeOfForm } from './form';
 import {  Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
@@ -17,6 +17,7 @@ import { useResetOnIdsChange } from './hooks';
 
 export const FormContract = () => {
 
+
   const { values } = useFormikContext<TypeOfForm>();
 
   const { projEstimateId, projId, projName } = values;
@@ -24,7 +25,6 @@ export const FormContract = () => {
   const {
     calculatedEstimate,
     handleChangeProjId,
-    handleChangeSelectedEstimate,
   } = useResetOnIdsChange();
 
   const { totalAmountInclTax } = calculatedEstimate ?? {};
@@ -56,8 +56,7 @@ export const FormContract = () => {
         >
           <SelectProjEstimates
             projId={projId}
-            selectedProjEstimateId={projEstimateId}
-            handleChange={handleChangeSelectedEstimate}
+            name={getFieldName('projEstimateId')}
           />
         </Grid>
 

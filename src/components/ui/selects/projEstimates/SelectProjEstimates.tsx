@@ -4,18 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../../pages/Router';
 import { ItemEstimate } from './ItemEstimate';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 import { useEstimatesByProjId } from '../../../../hooksQuery/useEstimates';
+import { useField } from 'formik';
 
 export const SelectProjEstimates = ({
   projId,
-  selectedProjEstimateId,
   handleChange,
+  name = 'projEstimateId',
 }: {
+  name: string,
   projId: string,
-  selectedProjEstimateId: string,
   handleChange?: (projEstimateId?: string) => void
 }) => {
+  const [field, , helpers] = useField(name);
+  const {
+    value : selectedProjEstimateId,
+  } = field;
+  const {
+    setValue,
+  } = helpers;
 
   const navigate = useNavigate();
   const {
@@ -73,13 +80,6 @@ export const SelectProjEstimates = ({
 
   const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
 
-  useDeepCompareEffect(() => {
-
-    if (projEstimateRecords?.length && selectedProjEstimateId) {
-      handleChange?.(selectedProjEstimateId);
-    }
-  }, [projEstimateRecords || {}, selectedProjEstimateId]);
-
 
 
   return (
@@ -97,6 +97,7 @@ export const SelectProjEstimates = ({
           label={'見積選択'}
           value={selectedProjEstimateId || ''}
           onChange={(e)=>{
+            setValue(e.target.value);
             handleChange?.(e.target.value);
           }}
         >

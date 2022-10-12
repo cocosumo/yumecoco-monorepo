@@ -27,7 +27,9 @@ export const useEstimateById = (projEstimatId: string) => {
   );
 };
 
-export const useEstimatesByProjId = (projId: string) => {
+export const useEstimatesByProjId = (
+  projId: string,
+) => {
   const projIdKey : keyof Estimates.main.SavedData  = 'projId';
 
   return useQuery(
@@ -35,15 +37,15 @@ export const useEstimatesByProjId = (projId: string) => {
     () => KintoneRecord.getRecords({
       app: APPIDS.projectEstimate,
       query: `${projIdKey} = "${projId}"`,
-    }).then(({ records }) => {
+    })
+      .then(({ records }) => {
+        const newRecords = records as unknown as Estimates.main.SavedData[];
+        const calculated = newRecords.map((rec) => calculateEstimateRecord(rec));
 
-      const newRecords = records as unknown as Estimates.main.SavedData[];
-      const calculated = newRecords.map((rec) => calculateEstimateRecord(rec));
-
-      return {
-        records: newRecords,
-        calculated,
-      };
-    }),
+        return {
+          records: newRecords,
+          calculated,
+        };
+      }),
   );
 };

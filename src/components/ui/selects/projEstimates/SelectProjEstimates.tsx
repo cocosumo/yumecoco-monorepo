@@ -1,12 +1,11 @@
-import {  Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useMemo } from 'react';
+import {  Button, FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select } from '@mui/material';
+import {  useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../../pages/Router';
-import { useEstimateRecords } from '../../../../hooks/';
 import { ItemEstimate } from './ItemEstimate';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
+import { useEstimatesByProjId } from '../../../../hooksQuery/useEstimates';
 
 export const SelectProjEstimates = ({
   projId,
@@ -15,21 +14,20 @@ export const SelectProjEstimates = ({
 }: {
   projId: string,
   selectedProjEstimateId: string,
-  /** Can pass an optional handleChange
-   * to capture selected 見積 and projEstimateId to process it.
-   */
-  handleChange?: (
-    projEstimateId?: string,
-    selected?: Estimates.main.SavedData,
-    calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>
-  ) => void
+  handleChange?: (projEstimateId?: string) => void
 }) => {
 
-  const {
-    projEstimateRecords,
-  } = useEstimateRecords(projId);
-  
   const navigate = useNavigate();
+  const {
+    data,
+    error,
+    isFetching,
+  } = useEstimatesByProjId(projId);
+
+  const {
+    calculated,
+    records : projEstimateRecords,
+  } = data || {};
 
   const emptyOption: OptionNode = useMemo(() =>  ({
     value: '',
@@ -59,7 +57,7 @@ export const SelectProjEstimates = ({
   /**
    * 本選択肢
    */
-  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec)=>{
+  const actualOptions: OptionNode[] = projEstimateRecords?.map<OptionNode>((rec, idx)=>{
     const { $id } = rec;
     return {
       value: $id.value,
@@ -67,64 +65,58 @@ export const SelectProjEstimates = ({
       component: (
         <ItemEstimate
           estimateRecord={rec}
+          calculated={calculated?.[idx] ?? Object.create(null)}
         />),
     };
-  });
+  }) || [];
 
-  /* 選択された見積レコードと番号をhandleChangeに渡す。 */
-  const handleSelectedValue = async (selectedValue: string) => {
-    
-    const selectedRecord = projEstimateRecords
-      .find(({ $id }) => $id.value === selectedValue);
-    const calculated = selectedRecord ? await calculateEstimateRecord(selectedRecord) : Object.create(null);
-
-    handleChange?.(
-      selectedValue,
-      selectedRecord,
-      calculated,
-    );
-
-  };
 
   const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
 
   useDeepCompareEffect(() => {
-   
-    if (projEstimateRecords.length && selectedProjEstimateId) {
-      handleSelectedValue(selectedProjEstimateId);
+
+    if (projEstimateRecords?.length && selectedProjEstimateId) {
+      handleChange?.(selectedProjEstimateId);
     }
   }, [projEstimateRecords || {}, selectedProjEstimateId]);
 
 
 
   return (
-    <FormControl 
-      fullWidth 
-      disabled={!projId}
-    >
-      <InputLabel>
-        見積選択
-      </InputLabel>
-      <Select
-        variant={'outlined'}
-        label={'見積選択'}
-        value={selectedProjEstimateId || ''}
-        onChange={(e)=>{
-          handleSelectedValue(e.target.value);
-        }}
-      >
-        {options?.map((option) => {
-          const isSelected = option.value === selectedProjEstimateId;
-          return (
-            <MenuItem key={option.key} value={option.value} selected={isSelected}>
-              {option.component}
-            </MenuItem>
-          );
-        })}
+    <>
+      {isFetching && <LinearProgress />}
+      {!isFetching && <FormControl
+        fullWidth
+        disabled={!projId || !!error || isFetching}
+                      >
+        <InputLabel>
+          見積選択
+        </InputLabel>
+        <Select
+          variant={'outlined'}
+          label={'見積選択'}
+          value={selectedProjEstimateId || ''}
+          onChange={(e)=>{
+            handleChange?.(e.target.value);
+          }}
+        >
+          {!isFetching && options?.map((option) => {
+            const isSelected = option.value === selectedProjEstimateId;
+            return (
+              <MenuItem key={option.key} value={option.value} selected={isSelected}>
+                {option.component}
+              </MenuItem>
+            );
+          })}
 
-      </Select>
+        </Select>
+        {!!error && (
+        <FormHelperText error={true}>
+          {`エラーが発生しました。${error}`}
+        </FormHelperText>
+        )}
 
-    </FormControl>
-
+      </FormControl>}
+    </>
   );
 };

@@ -50,7 +50,7 @@ export const getFormDataById = async (
       Math.round(calculated?.totalAmountInclTax || 0),
     );
 
-  const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients.value)?.signers;
+  const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients?.value || '{}')?.signers;
 
   const newFormData : Partial<TypeOfForm> = {
     projId: projId?.value || '',

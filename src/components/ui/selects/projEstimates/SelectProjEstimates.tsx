@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../../pages/Router';
 import { ItemEstimate } from './ItemEstimate';
-import { useEstimatesByProjId } from '../../../../hooksQuery/useEstimates';
 import { useField } from 'formik';
+import { useEstimatesByProjId } from '../../../../hooksQuery/useEstimatesByProjId';
 
 export const SelectProjEstimates = ({
   projId,

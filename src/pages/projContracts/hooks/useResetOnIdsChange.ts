@@ -7,9 +7,9 @@ import { useSnackBar } from '../../../hooks';
 import { getProjDataById } from '../api/getProjDataById';
 import { initialValues, TypeOfForm } from '../form';
 import { normalizedData } from '../api/getFormDataId';
-import { useEstimateById } from '../../../hooksQuery/useEstimates';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { isEmpty } from 'lodash';
+import { useEstimateById } from '../../../hooksQuery/useEstimateById';
 
 
 /**
@@ -28,14 +28,12 @@ export const useResetOnIdsChange = () => {
   const projEstimateIdFromURL = getParam('projEstimateId');
   const {
     projEstimateId,
-    projId,
   } = values;
 
   const {
     data,
   } = useEstimateById({
     projEstimateId,
-    projId,
   });
 
   const {

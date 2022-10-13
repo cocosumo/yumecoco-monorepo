@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
+import {  Dialog, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useContractPreview } from '../../hooks';
@@ -6,6 +6,8 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import CloseIcon from '@mui/icons-material/Close';
 import { SelectDocuments } from './SelectDocuments';
 import { Loading } from './Loading';
+import { useBackdrop } from '../../../../hooks';
+import { PreviewFooter } from './PreviewFooter';
 
 
 export const ContractDialog = ({
@@ -14,7 +16,7 @@ export const ContractDialog = ({
   open: boolean,
   handleClose: () => void
 }) => {
-
+  const { backdropState: { open: backdropOpen } } = useBackdrop();
   const { values } = useFormikContext<TypeOfForm>();
 
   const {
@@ -30,6 +32,7 @@ export const ContractDialog = ({
 
   }, [values, open]);
 
+  const isBusy = backdropOpen || previewLoading;
 
   return (
     <Dialog
@@ -47,7 +50,8 @@ export const ContractDialog = ({
           <Typography>
             契約のプレビュー
           </Typography>
-          <SelectDocuments />
+          {!isBusy &&  <SelectDocuments />}
+
         </Stack>
         <IconButton
           aria-label="close"
@@ -69,24 +73,17 @@ export const ContractDialog = ({
           p: 0,
         }}
       >
-        {!previewLoading &&
+        {!isBusy &&
         <embed
           src={previewUrl}
           width="100%"
           height='100%'
         />}
-        {previewLoading && <Loading />}
+        {isBusy && <Loading />}
       </DialogContent>
-      {!previewLoading &&
-        <DialogActions>
-          <Button>
-            ダウンロード
-          </Button>
-          <Button>
-            送信
-          </Button>
-        </DialogActions>}
 
+      {!isBusy &&
+        <PreviewFooter />}
     </Dialog>
   );
 

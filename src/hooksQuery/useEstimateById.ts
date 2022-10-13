@@ -2,8 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { APPIDS, KintoneRecord } from '../api/kintone';
 import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
 
+
 /**
  * 見積番号で取得する
+ * @param projEstimateId 見積もり番号
+ * @return
  */
 export const useEstimateById = (projEstimateId: string) => {
 
@@ -28,10 +31,6 @@ export const useEstimateById = (projEstimateId: string) => {
     },
     {
       enabled: !!projEstimateId,
-      initialData: {
-        record: Object.create(null),
-        calculated: Object.create(null),
-      },
     },
   );
 };

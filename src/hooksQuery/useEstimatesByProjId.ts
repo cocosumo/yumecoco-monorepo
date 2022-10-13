@@ -3,9 +3,9 @@ import { APPIDS, KintoneRecord } from '../api/kintone';
 import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
 
 /**
- * 工事番号で見積もりリストを取得する
+ * 工事番号で見積リストを取得する
  * @param projId
- * @returns 配列
+ * @returns {Estimates.main.SavedData[]} 見積リスト
  */
 export const useEstimatesByProjId = (
   projId: string,
@@ -32,10 +32,6 @@ export const useEstimatesByProjId = (
     },
     {
       enabled: !!projId,
-      initialData:  {
-        records: [],
-        calculated: [],
-      },
     },
   );
 };

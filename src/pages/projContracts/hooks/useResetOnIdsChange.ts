@@ -48,7 +48,6 @@ export const useResetOnIdsChange = () => {
         newCalculated,
       } = normalizedData(selectedRecord, calculated);
 
-      console.log(newFormData, 'selectedRecord');
       setValues((prev) => ({
         ...prev,
         ...newFormData,

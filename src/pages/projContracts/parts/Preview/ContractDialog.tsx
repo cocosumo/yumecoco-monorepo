@@ -1,4 +1,4 @@
-import {  Dialog, DialogContent, DialogTitle, IconButton, Stack, Typography } from '@mui/material';
+import {  Dialog, DialogContent, DialogTitle, IconButton, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useContractPreview } from '../../hooks';
@@ -8,6 +8,7 @@ import { SelectDocuments } from './SelectDocuments';
 import { Loading } from './Loading';
 import { useBackdrop } from '../../../../hooks';
 import { PreviewFooter } from './PreviewFooter';
+import { RefreshButton } from './RefreshButton';
 
 
 export const ContractDialog = ({
@@ -23,6 +24,7 @@ export const ContractDialog = ({
     previewUrl,
     previewLoading,
     handlePreview,
+    handleRefetch,
   } = useContractPreview();
 
   useDeepCompareEffect(()=>{
@@ -47,9 +49,7 @@ export const ContractDialog = ({
     >
       <DialogTitle>
         <Stack direction="row" spacing={2}>
-          <Typography>
-            契約のプレビュー
-          </Typography>
+          <RefreshButton loading={previewLoading} handleRefetch={handleRefetch} />
           {!isBusy &&  <SelectDocuments />}
 
         </Stack>

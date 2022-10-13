@@ -32,9 +32,8 @@ export const useResetOnIdsChange = () => {
 
   const {
     data,
-  } = useEstimateById({
-    projEstimateId,
-  });
+    isFetching,
+  } = useEstimateById(projEstimateId);
 
   const {
     calculated,
@@ -117,5 +116,6 @@ export const useResetOnIdsChange = () => {
     handleChangeProjId,
     calculatedEstimate,
     selectedEstimate,
+    isFetching,
   };
 };

@@ -5,23 +5,12 @@ import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
 /**
  * 見積番号で取得する
  */
-export const useEstimateById = ({
-  projEstimateId,
-} : {
-  projEstimateId: string,
-}) => {
+export const useEstimateById = (projEstimateId: string) => {
 
 
   return useQuery(
-    [APPIDS.projectEstimate, { projEstimateId }],
+    [APPIDS.projectEstimate, projEstimateId],
     () => {
-
-      if (!projEstimateId) {
-        return {
-          record: Object.create(null),
-          calculated: Object.create(null),
-        };
-      }
 
       return KintoneRecord.getRecord({
         app: APPIDS.projectEstimate,
@@ -38,6 +27,7 @@ export const useEstimateById = ({
       });
     },
     {
+      enabled: !!projEstimateId,
       initialData: {
         record: Object.create(null),
         calculated: Object.create(null),

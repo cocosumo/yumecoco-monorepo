@@ -13,13 +13,8 @@ export const useEstimatesByProjId = (
   const projIdKey : keyof Estimates.main.SavedData  = 'projId';
 
   return useQuery(
-    [APPIDS.projectEstimate, { projId }],
+    [APPIDS.projectEstimate, projId],
     () => {
-
-      if (!projId) return {
-        records: [],
-        calculated: [],
-      };
 
       return KintoneRecord.getRecords({
         app: APPIDS.projectEstimate,
@@ -34,6 +29,13 @@ export const useEstimatesByProjId = (
             calculated,
           };
         });
+    },
+    {
+      enabled: !!projId,
+      initialData:  {
+        records: [],
+        calculated: [],
+      },
     },
   );
 };

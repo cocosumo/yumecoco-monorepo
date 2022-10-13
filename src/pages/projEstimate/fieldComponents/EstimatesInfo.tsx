@@ -1,4 +1,4 @@
-import { Card, CardContent, Chip, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Stack, Typography } from '@mui/material';
 
 
 const LabeledInfo = ({
@@ -26,20 +26,22 @@ const LabeledInfo = ({
 
 export const EstimatesInfo = ({
   estimateId,
+  createdDate,
 }: {
   estimateId: string
+  createdDate: string
 }) => {
 
   return (
     <Card variant="outlined">
       <CardContent sx={{ p: 1 }}>
 
-        <Stack direction={'column'} spacing={1} mb={1}>
+        <Stack direction={'column'} spacing={1}>
           <Typography variant="subtitle2">
             編集中の見積もり情報
           </Typography>
         </Stack>
-        <Stack direction={'row'} spacing={1} mb={1}>
+        <Stack direction={'row'}>
           {!estimateId &&
             <Typography variant="body1">
               新規作成
@@ -47,21 +49,15 @@ export const EstimatesInfo = ({
 
           {estimateId && 
           <>
-            <Chip
-              size='small'
-              variant='outlined'
-              color="success"
-              label='test'
-            />
             <LabeledInfo 
-              label={'契約金額'}
-              info={'10,000 円'}
-              widthRatio={30}
+              label={'ID'}
+              info={estimateId}
+              widthRatio={25}
             />          
             <LabeledInfo 
               label={'作成日'}
-              info={'2022/10/05'}
-              widthRatio={30}
+              info={createdDate}
+              widthRatio={75}
             />
           </>}
         </Stack>

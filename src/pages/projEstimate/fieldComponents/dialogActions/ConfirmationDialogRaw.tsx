@@ -1,5 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { generateParams } from '../../../../helpers/url';
+import { pages } from '../../../Router';
 import { ListEstimate } from './ListEstimate';
 
 
@@ -17,6 +20,8 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
   const { name, onClose, value: valueProp, open, options, ...other } = props;
   const [value, setValue] = useState(valueProp);
   const radioGroupRef = useRef<HTMLElement>(null);
+  
+  const navigate = useNavigate();
   
 
   useEffect(() => {
@@ -36,6 +41,7 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
   };
 
   const handleOk = () => {
+    navigate(`${pages.projEstimate}?${generateParams({ projEstimateId:value })}`);
     onClose(value);
   };
 
@@ -52,9 +58,7 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
     return {
       value: $id.value,
       key: $id.value,
-      component: (<ListEstimate
-        estimateRecord={rec}
-                  />),
+      component: (<ListEstimate estimateRecord={rec} />),
     };
   });
 

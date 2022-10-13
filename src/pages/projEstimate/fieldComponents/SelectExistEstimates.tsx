@@ -1,11 +1,8 @@
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ConfirmationDialogRaw } from './dialogActions/ConfirmationDialogRaw';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import { useEstimateRecords } from '../../../hooks';
-import { useFormikContext } from 'formik';
-import { getFieldName, TypeOfForm } from '../form';
-
+import { useEstimateRecords } from '../../../hooks/useEstimatesRecords';
 
 
 export const SelectExistEstimates = ({
@@ -15,7 +12,6 @@ export const SelectExistEstimates = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const { setFieldValue } = useFormikContext<TypeOfForm>();
 
   const { projEstimateRecords } = useEstimateRecords(projId);
 
@@ -30,10 +26,6 @@ export const SelectExistEstimates = ({
       setValue(newValue);
     }
   };
-
-  useEffect(()=>{
-    setFieldValue(getFieldName('estimateId'), value);
-  }, [value]);
 
 
 

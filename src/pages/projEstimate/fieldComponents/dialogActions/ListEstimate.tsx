@@ -1,4 +1,4 @@
-import { Chip, MenuItem, Stack, SvgIconTypeMap, Typography } from '@mui/material';
+import { Chip, Stack, SvgIconTypeMap, Typography } from '@mui/material';
 
 import { format, parseISO } from 'date-fns';
 import { useCalcEstimate } from '../../../../hooks/useCalcEstimate';
@@ -12,17 +12,17 @@ import { OverridableComponent } from '@mui/types';
 const ListContent = ({
   Icon,
   explanation,
-}:{
-  Icon : OverridableComponent<SvgIconTypeMap<{}, 'svg'>>,
-  explanation : string
+}: {
+  Icon: OverridableComponent<SvgIconTypeMap<Record<string, unknown>, 'svg'>>,
+  explanation: string
 }) => {
   return (
-    <>
-      <Icon />      
+    <Stack spacing={0} direction={'row'}>
+      <Icon />
       <Typography variant="body1">
         {explanation}
       </Typography>
-    </>
+    </Stack>
   );
 };
 
@@ -44,7 +44,7 @@ export const ListEstimate = ({
 
 
   return (
-    <Stack width={'100%'} direction={'row'} spacing={2}
+    <Stack width={'100%'} direction={'row'} spacing={1}
       alignItems="center" justifyContent="space-around"
     >
 
@@ -60,9 +60,12 @@ export const ListEstimate = ({
 
       <ListContent Icon={NumbersIcon} explanation={String(id.value)} />
 
-      <ListContent Icon={ScheduleIcon} explanation={format(parseISO(dateCreated), 'yy/MM/dd')} />
+      <ListContent Icon={ScheduleIcon} explanation={format(parseISO(dateCreated), 'yyyy/MM/dd')} />
 
-      <ListContent Icon={CurrencyYenIcon} explanation={String(Math.round(totalAmountInclTax))} />
+      <ListContent
+        Icon={CurrencyYenIcon}
+        explanation={Math.round(totalAmountInclTax).toLocaleString()}
+      />
 
     </Stack>
   );

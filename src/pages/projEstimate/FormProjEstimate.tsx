@@ -29,6 +29,7 @@ export default function FormProjEstimate() {
     projTypeProfit,
     projTypeProfitLatest,
     estimateId,
+    createdDate,
   } = values;
 
   useResolveParams();
@@ -51,12 +52,14 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={2}>
 
           {/* 編集中の見積もり情報 */}
-          {projId && <EstimatesInfo
+          {projId && 
+          <EstimatesInfo
             estimateId={estimateId}
-                     />}
+            createdDate={createdDate}
+          />}
         </Grid>
 
         <Grid item xs={12} md={2}>

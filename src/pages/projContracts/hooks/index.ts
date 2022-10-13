@@ -1,5 +1,5 @@
 export * from './useContractPreview';
-export * from './useResetOnIdsChange';
+export * from './useHandleProjEstimate';
 export * from './useSendElectronicContract';
 export * from './useStartContractProcess';
 export * from './useSubmitContractInfo';

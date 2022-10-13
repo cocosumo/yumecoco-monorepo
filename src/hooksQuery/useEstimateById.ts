@@ -10,7 +10,6 @@ import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
  */
 export const useEstimateById = (projEstimateId: string) => {
 
-
   return useQuery(
     [APPIDS.projectEstimate, projEstimateId],
     () => {

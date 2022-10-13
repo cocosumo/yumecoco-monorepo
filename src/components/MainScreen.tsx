@@ -26,17 +26,19 @@ export default function MainScreen() {
 
 
   return (
-    <MainScreenContainer>
-      <QueryContext>
+    <QueryContext >
+      <MainScreenContainer>
+
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           <PersistentAppBar {...{ handleDrawerOpen }} />
           <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
           <StyledMain open={open} />
         </Box>
-        <ReactQueryDevtools />
-      </QueryContext>
-    </MainScreenContainer>
+
+      </MainScreenContainer>
+      <ReactQueryDevtools />
+    </QueryContext>
 
   );
 }

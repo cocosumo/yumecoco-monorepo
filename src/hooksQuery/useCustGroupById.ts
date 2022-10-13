@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { APPIDS, KintoneRecord } from '../api/kintone';
 
 /**
@@ -13,7 +13,7 @@ export const useCustGroupById = (custGroupId : string) => {
       return KintoneRecord.getRecord({
         app: APPIDS.custGroup,
         id: custGroupId,
-      }) as unknown as CustomerGroupTypes.SavedData;
+      }).then(({ record }) => record as unknown as CustomerGroupTypes.SavedData );
     },
     {
       enabled: !!custGroupId,

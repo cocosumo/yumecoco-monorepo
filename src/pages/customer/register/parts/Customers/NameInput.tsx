@@ -1,11 +1,12 @@
 import { Grid, TextField, TextFieldProps } from '@mui/material';
-import { useMemo, useRef, useState } from 'react';
-import historykana from 'historykana';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { hiraToKana } from '../../../../../helpers/utils';
 import { useField, useFormikContext } from 'formik';
 import { debounce } from 'lodash';
 import { CustomerForm } from '../../form';
 import { FormikTextField } from '../../../../../components/ui/textfield';
+import * as AutoKana from 'vanilla-autokana';
+
 
 export const NameInput = ({
   custNameFN,
@@ -14,9 +15,15 @@ export const NameInput = ({
   custNameFN: string,
   custNameReadingFN: string
 }) => {
-  const { setFieldValue, getFieldProps } = useFormikContext<CustomerForm>();
-  const { value: custNameReadingVal } = getFieldProps(custNameReadingFN);
+  const { setFieldValue } = useFormikContext<CustomerForm>();
   const [inputVal, setInputVal] = useState<string | null>(null);
+  const autokana = useRef<AutoKana.AutoKana | null>(null);
+
+  useEffect(() => {
+    autokana.current = AutoKana.bind(`#${custNameFN}`, `#${custNameReadingFN}`);
+    autokana.current?.start();
+  }, [custNameFN, custNameReadingFN]);
+
   const [
     field,
     meta,
@@ -25,18 +32,16 @@ export const NameInput = ({
   const { touched, error } = meta;
 
 
-  const inputHistories = useRef<string[]>([]);
-
   const changeHandlerInput: TextFieldProps['onChange'] =
     useMemo(
       () => debounce(
         (el) => {
           setFieldValue(custNameFN, (el.target as HTMLInputElement).value);
-          setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)));
-
+          setFieldValue(custNameReadingFN, hiraToKana(autokana.current?.getFurigana() ?? ''));
           setInputVal(null);
+
         }, 1000),
-      [custNameReadingVal],
+      [custNameReadingFN, custNameFN],
     );
 
   const isShowError = touched && !!error;
@@ -52,7 +57,6 @@ export const NameInput = ({
           required
           onInput={(e) => {
             const text = (e.target as  HTMLInputElement).value;
-            inputHistories.current.push(text);
             setInputVal(text);
           }}
           onChange={changeHandlerInput}
@@ -68,11 +72,6 @@ export const NameInput = ({
           name={custNameReadingFN}
           label="氏名フリガナ"
           placeholder='ヤマダ　タロウ' required
-          onFocus={() => {
-            if (!custNameReadingFN) {
-              setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)));
-            }
-          }}
         />
       </Grid>
     </>

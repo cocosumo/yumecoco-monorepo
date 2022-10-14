@@ -1,4 +1,4 @@
-import { Stack, FormLabel, Typography } from '@mui/material';
+import { Stack, FormLabel, Typography, StackProps } from '@mui/material';
 
 export const LabeledDetail = ({
   value,
@@ -7,7 +7,7 @@ export const LabeledDetail = ({
 } : {
   label: string,
   value?: string
-  direction?: 'row' | 'column'
+  direction?: StackProps['direction']
 }) => {
 
 

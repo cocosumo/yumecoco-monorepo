@@ -1,10 +1,9 @@
 import { Button, Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { ComponentProps, useEffect, useState } from 'react';
 import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
 import {  OutlinedDiv } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
-import { LabeledInfoProps } from '../../../../components/ui/typographies/';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { TypeOfProjForm, getFieldName } from '../../form';
@@ -16,6 +15,7 @@ import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
 import { generateParams } from '../../../../helpers/url';
 import { Column1 } from './Column1';
 import { Column2 } from './Column2';
+import { LabeledInfo } from '../../../../components/ui/typographies';
 
 
 export const CustInfo = () => {
@@ -96,7 +96,7 @@ export const CustInfo = () => {
       const isExist = accu.some(item => item.label === numberedLabel);
       const resolvedLabel = isExist ?  `${rawLabel}2` : numberedLabel;
       return [...accu, { key: id, label: resolvedLabel, data: employeeName.value }];
-    }, [] as Array<LabeledInfoProps & { key: string }>) ?? [];
+    }, [] as Array<ComponentProps<typeof LabeledInfo> & { key: string }>) ?? [];
 
 
   return (

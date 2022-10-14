@@ -13,21 +13,20 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
       email, emailRel, isSameAddress,
     }, index )=> {
 
+      const mainCust =  customers[0];
+
       const deps = {
-        postal,
-        address1,
-        address2,
-        phone1, phone1Rel,
-        phone2, phone2Rel,
-        email, emailRel,
+        postal : isSameAddress ? mainCust.postal : postal,
+        address1 : isSameAddress ? mainCust.address1 : address1,
+        address2: isSameAddress ? mainCust.address2 : address2,
+        phone1: isSameAddress ? '' : phone1,
+        phone1Rel: isSameAddress ? '' : phone1Rel,
+        phone2: isSameAddress ? '' : phone2,
+        phone2Rel: isSameAddress ? '' : phone2Rel,
+        email: isSameAddress ? '' : email,
+        emailRel: isSameAddress ? '' : emailRel,
       };
 
-      if (isSameAddress) {
-        const mainCust =  customers[0];
-        Object.keys(deps).forEach((key : keyof typeof deps) => {
-          deps[key] = mainCust[key];
-        });
-      }
 
       return {
         $id: {
@@ -66,6 +65,7 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
 
     });
 };
+
 
 export const formToKintConst = (
   formData: CustomerForm,

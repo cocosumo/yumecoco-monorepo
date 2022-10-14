@@ -52,7 +52,6 @@ export const NameInput = ({
           required
           onInput={(e) => {
             const text = (e.target as  HTMLInputElement).value;
-            console.log(inputHistories);
             inputHistories.current.push(text);
             setInputVal(text);
           }}

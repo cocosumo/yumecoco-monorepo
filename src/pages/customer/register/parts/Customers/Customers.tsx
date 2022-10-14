@@ -1,6 +1,5 @@
 import {  Button, Zoom, Grid, Stack } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
-import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
 import { MemoizedSelectBirthdate } from './SelectBirthdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
@@ -9,11 +8,8 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
-
 import { nativeMath, string as randomStr } from 'random-js';
-import {   useRef } from 'react';
-import historykana from 'historykana';
-import { hiraToKana } from '../../../../../helpers/utils';
+import { NameInput } from './NameInput';
 
 
 
@@ -38,14 +34,11 @@ const Customer =  (props: CustomerProps) => {
   } = props;
 
   const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
-  const { setFieldValue } = useFormikContext<CustomerForm>();
-  //const autokana = useRef<AutoKana.AutoKana>();
-  const inputHistories = useRef<string[]>([]);
+
   const isFirstCustomer = !index;
 
   const custNameFN = `${namePrefix}${getCustFieldName('custName')}`;
   const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
-
 
   return (
     <Grid container item xs={12}
@@ -71,32 +64,10 @@ const Customer =  (props: CustomerProps) => {
         </Grid>
       }
 
-      <Grid item xs={12}>
-        <FormikTextField
-          name={custNameFN}
-          id={custNameFN}
-          label="氏名"
-          placeholder='山田　太郎'
-          required
-          onInput={(e: any)=>{
-            const text = e.target.value;
-            inputHistories.current.push(text);
-          }}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormikTextField
-          id={custNameReadingFN}
-          name={custNameReadingFN}
-          label="氏名フリガナ"
-          placeholder='ヤマダ　タロウ' required
-          onFocus={() => {
-            if (!custNameReadingFN) {
-              setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)));
-            }
-          }}
-        />
-      </Grid>
+      <NameInput
+        custNameFN={custNameFN}
+        custNameReadingFN={custNameReadingFN}
+      />
       <SelectGender namePrefix={namePrefix} />
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
       <Address namePrefix={namePrefix} index={index} />

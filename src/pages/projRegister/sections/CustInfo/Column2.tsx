@@ -1,5 +1,6 @@
 import { Grid, Stack } from '@mui/material';
-import { LabeledInfo, LabeledInfoProps } from '../../../../components/ui/typographies';
+import { ComponentProps } from 'react';
+import { LabeledInfo } from '../../../../components/ui/typographies';
 
 export const Column2 = (
   {
@@ -14,7 +15,7 @@ export const Column2 = (
       storeName: string,
       custGroupId: string,
       customerId: string,
-      agents: Array<LabeledInfoProps & { key: string }>
+      agents: Array<ComponentProps<typeof LabeledInfo> & { key: string }>
     }
   },
 ) => {
@@ -22,14 +23,14 @@ export const Column2 = (
     <Grid item xs={12} sm={6}>
       <Stack spacing={2}>
 
-        <LabeledInfo label={'店舗名'} data={storeName} />
+        <LabeledInfo label={'店舗名'} info={storeName} />
         {agents
-          .map(({ key, label, data }) => {
-            return <LabeledInfo key={key} {...{ label, data }} />;
+          .map(({ key, label, info }) => {
+            return <LabeledInfo key={key} {...{ label, info }} />;
           })}
 
-        <LabeledInfo label={'グループ番号'} data={custGroupId} />
-        <LabeledInfo label={'顧客番号'} data={customerId} />
+        <LabeledInfo label={'グループ番号'} info={custGroupId} />
+        <LabeledInfo label={'顧客番号'} info={customerId} />
       </Stack>
 
     </Grid>

@@ -1,21 +1,26 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, StackProps, Typography } from '@mui/material';
 import { Caption } from './Caption';
 
-export interface LabeledInfoProps {
-  label: string,
-  data?: string
-}
 
-export const LabeledInfo = ({ label, data = '' }: LabeledInfoProps) =>{
+export const LabeledInfo = ({
+  label,
+  info = '',
+  fontSize = 16,
+  direction = 'column',
+}: {
+  label: string,
+  info?: string
+  fontSize?: number
+  direction?: StackProps['direction']
+}) =>{
 
 
   return (
 
-    <Stack direction={'column'}>
+    <Stack direction={direction}>
       <Caption text={label} />
-      <Typography fontSize={16} >
-        {data ? data : '-'}
-        {' '}
+      <Typography fontSize={fontSize} >
+        {info ? info : '-'}
       </Typography>
     </Stack>
 

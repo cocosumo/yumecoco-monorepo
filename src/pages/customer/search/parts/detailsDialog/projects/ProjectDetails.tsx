@@ -23,24 +23,24 @@ export const ProjectDetails = ({
 
     <CardContent sx={{ width: '40%' }}>
       <Stack spacing={1}>
-        <LabeledInfo label="工事番号" data={$id.value} />
-        <LabeledInfo label="工事種別" data={projTypeName.value} />
-        <LabeledInfo label="工事名称" data={projName.value} />
-        <LabeledInfo label="建物種別" data={buildingType.value} />
+        <LabeledInfo label="工事番号" info={$id.value} />
+        <LabeledInfo label="工事種別" info={projTypeName.value} />
+        <LabeledInfo label="工事名称" info={projName.value} />
+        <LabeledInfo label="建物種別" info={buildingType.value} />
         <LabeledInfo
           label="工事住所"
-          data={[postal.value, address1.value, address2.value]
+          info={[postal.value, address1.value, address2.value]
             .filter(Boolean)
             .map(item=>item)
             .join(' ')}
         />
         <LabeledInfo
           label="工事担当"
-          data={constructionOfficer}
+          info={constructionOfficer}
         />
 
-        <LabeledInfo label="担当確定" data={+isAgentConfirmed.value ? 'はい' : 'いいえ'} />
-        <LabeledInfo label="仮換地地番" data={addressKari.value} />
+        <LabeledInfo label="担当確定" info={+isAgentConfirmed.value ? 'はい' : 'いいえ'} />
+        <LabeledInfo label="仮換地地番" info={addressKari.value} />
         <ButtonEdit link={`${pages.projEdit}?${generateParams({
           projId: $id.value,
         })}`}

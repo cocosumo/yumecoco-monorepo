@@ -21,7 +21,7 @@ export const ContractInfo = () => {
   return (
     <ContractInfoContainer projId={projId}>
       <Grid item xs={6}>
-        <LabeledInfo label={'店舗'} data={store} />
+        <LabeledInfo label={'店舗'} info={store} />
       </Grid>
       <Grid container item xs={6}
         justifyContent={'flex-end'}
@@ -30,18 +30,18 @@ export const ContractInfo = () => {
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'顧客名'} data={custName} />
+        <LabeledInfo label={'顧客名'} info={custName} />
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'現住所'} data={custAddress} />
+        <LabeledInfo label={'現住所'} info={custAddress} />
       </Grid>
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'ここすも営業担当者'} data={cocoAg} />
+        <LabeledInfo label={'ここすも営業担当者'} info={cocoAg} />
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'ゆめてつAG'} data={yumeAg} />
+        <LabeledInfo label={'ゆめてつAG'} info={yumeAg} />
       </Grid>
 
       <Grid item xs={12} >
@@ -49,7 +49,7 @@ export const ContractInfo = () => {
       </Grid>
 
       <Grid item xs={6}>
-        <LabeledInfo label={'工事名'} data={projName} />
+        <LabeledInfo label={'工事名'} info={projName} />
       </Grid>
 
       <Grid container item xs={6}
@@ -59,11 +59,11 @@ export const ContractInfo = () => {
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'工事担当者'} data={constAg} />
+        <LabeledInfo label={'工事担当者'} info={constAg} />
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'工事住所'} data={projAddress} />
+        <LabeledInfo label={'工事住所'} info={projAddress} />
       </Grid>
 
 

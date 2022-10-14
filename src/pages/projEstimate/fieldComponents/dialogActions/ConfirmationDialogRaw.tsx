@@ -1,10 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../Router';
 import { ListEstimate } from './ListEstimate';
-
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 export interface ConfirmationDialogRawProps {
   name: string;
@@ -22,6 +22,7 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
   const radioGroupRef = useRef<HTMLElement>(null);
   
   const navigate = useNavigate();
+
   
 
   useEffect(() => {
@@ -76,26 +77,36 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
         {'編集する見積もりを選択してください'}
       </DialogTitle>
       <DialogContent dividers>
-        <RadioGroup
-          name={name}
-          ref={radioGroupRef}
-          aria-label={name}
-          value={value}
-          onChange={handleChange}
-        >
-          {actualOptions?.map((option) => {
-            return (
-              <FormControlLabel
-                key={option.key}
-                value={option.value}
-                control={<Radio />}
-                label={option.component}
-              />
-            );
-          })}
+        {Boolean(actualOptions.length) &&
+          <RadioGroup
+            name={name}
+            ref={radioGroupRef}
+            aria-label={name}
+            value={value}
+            onChange={handleChange}
+          >
+            {actualOptions?.map((option) => {
+              return (
+                <FormControlLabel
+                  key={option.key}
+                  value={option.value}
+                  control={<Radio />}
+                  label={option.component}
+                />
+              );
+            })}
 
+          </RadioGroup>}
+          
+          
+        {!(actualOptions.length) &&
+          <Stack direction={'row'} spacing={1}>
+            <WarningAmberIcon /> 
+            <Typography variant='body2'>
+              見積もりはまだ作成されていません
+            </Typography>
+          </Stack>}
 
-        </RadioGroup>
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleCancel}>

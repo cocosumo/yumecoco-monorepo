@@ -17,9 +17,8 @@ import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
 import { useResolveParams } from './hooks/useResolveParams';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
-import { CopyForm } from './fieldComponents/formActions/CopyForm';
-import { SelectExistEstimates } from './fieldComponents/SelectExistEstimates';
 import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
+import { ButtonMenu } from './fieldComponents/ButtonMenu';
 
 export default function FormProjEstimate() {
 
@@ -52,30 +51,25 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} md={3}>
 
           {/* 編集中の見積もり情報 */}
-          {projId && 
-          <EstimatesInfo
-            estimateId={estimateId}
-            createdDate={createdDate}
-          />}
+          {projId &&
+            <EstimatesInfo
+              estimateId={estimateId}
+              createdDate={createdDate}
+            />}
         </Grid>
 
-        <Grid item xs={12} md={2}>
-
-          {/* 見積もりの検索 */}
-          {projId && <SelectExistEstimates projId={projId} />}
-        </Grid>
-
-        {/* コピー */}
         <Grid
           container
           item
           justifyContent="flex-end"
           xs
         >
-          <CopyForm />
+          {/* 見積もりの検索 */}
+          {/* コピー */}
+          <ButtonMenu projId={projId} />
         </Grid>
 
         <Grid item xs={12}>

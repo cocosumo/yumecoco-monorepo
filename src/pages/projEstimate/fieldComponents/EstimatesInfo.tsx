@@ -1,4 +1,4 @@
-import { Card, CardContent, Stack, Typography } from '@mui/material';
+import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
 
 
 const LabeledInfo = ({
@@ -6,16 +6,18 @@ const LabeledInfo = ({
   info,
   align = 'left',
   widthRatio,
-} : {
+}: {
   label: string,
   info: string,
   align?: 'left' | 'right'
   widthRatio: number
 }) => {
   return (
-    <Stack direction={'column'} width={`${widthRatio}%`}>
-      <Typography textAlign={align} variant="caption">
-        {label}
+    <Stack direction={'row'} width={`${widthRatio}%`}
+      alignItems="end"
+    >
+      <Typography textAlign={align} variant="body2">
+        {`${label}：`}
       </Typography>
       <Typography textAlign={align} variant="body1">
         {`${info}`}
@@ -33,36 +35,31 @@ export const EstimatesInfo = ({
 }) => {
 
   return (
-    <Card variant="outlined">
-      <CardContent sx={{ p: 1 }}>
+    <FormControl>
+      <FormLabel>
+        編集中の見積り情報
+      </FormLabel>
 
-        <Stack direction={'column'} spacing={1}>
-          <Typography variant="subtitle2">
-            編集中の見積もり情報
-          </Typography>
-        </Stack>
-        <Stack direction={'row'}>
-          {!estimateId &&
-            <Typography variant="body1">
-              新規作成
-            </Typography>}
+      {!estimateId &&
+        <Typography variant="body1">
+          新規作成
+        </Typography>}
 
-          {estimateId && 
-          <>
-            <LabeledInfo 
-              label={'ID'}
-              info={estimateId}
-              widthRatio={25}
-            />          
-            <LabeledInfo 
-              label={'作成日'}
-              info={createdDate}
-              widthRatio={75}
-            />
-          </>}
-        </Stack>
+      {estimateId &&
 
-      </CardContent>
-    </Card>
+        <Stack direction={'row'} spacing={2}>
+          <LabeledInfo
+            label={'ID'}
+            info={estimateId}
+            widthRatio={25}
+          />
+          <LabeledInfo
+            label={'作成日'}
+            info={createdDate}
+            widthRatio={75}
+          />
+
+        </Stack>}
+    </FormControl>
   );
 };

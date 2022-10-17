@@ -5,24 +5,20 @@ const LabeledInfo = ({
   label,
   info,
   align = 'left',
-  widthRatio,
 }: {
   label: string,
   info: string,
   align?: 'left' | 'right'
-  widthRatio: number
 }) => {
   return (
-    <Stack direction={'row'} width={`${widthRatio}%`}
-      alignItems="end"
-    >
-      <Typography textAlign={align} variant="body2">
-        {`${label}：`}
+    <>
+      <Typography textAlign={align} alignSelf={'end'} variant="caption">
+        {`${label}:`}
       </Typography>
-      <Typography textAlign={align} variant="body1">
+      <Typography component='span' textAlign={align} alignSelf={'end'}>
         {`${info}`}
       </Typography>
-    </Stack>
+    </>
   );
 };
 
@@ -47,16 +43,14 @@ export const EstimatesInfo = ({
 
       {estimateId &&
 
-        <Stack direction={'row'} spacing={2}>
+        <Stack direction={'row'} spacing={1}>
           <LabeledInfo
             label={'ID'}
             info={estimateId}
-            widthRatio={25}
           />
           <LabeledInfo
             label={'作成日'}
             info={createdDate}
-            widthRatio={75}
           />
 
         </Stack>}

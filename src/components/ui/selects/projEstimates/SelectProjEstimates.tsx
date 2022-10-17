@@ -23,7 +23,6 @@ export const SelectProjEstimates = ({
     selected?: Estimates.main.SavedData,
     calculated?: Awaited<ReturnType<typeof calculateEstimateRecord>>
   ) => void
-  app?: string,
 }) => {
 
   const {

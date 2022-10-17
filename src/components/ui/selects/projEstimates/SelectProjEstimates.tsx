@@ -31,7 +31,7 @@ export const SelectProjEstimates = ({
   
   const navigate = useNavigate();
 
-  const emptyOption: OptionNode = useMemo(() =>  ({
+  const emptyOption: OptionNode = useMemo(() => ({
     value: '',
     key: 'clear',
     component: '---',
@@ -59,7 +59,7 @@ export const SelectProjEstimates = ({
   /**
    * 本選択肢
    */
-  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec)=>{
+  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec) => {
     const { $id } = rec;
     return {
       value: $id.value,

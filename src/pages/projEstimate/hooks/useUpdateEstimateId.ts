@@ -3,13 +3,14 @@ import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { TypeOfForm } from '../form';
 import { produce } from 'immer';
+import { format, parseISO } from 'date-fns';
 
 
 /**
  * ※ 緊急修正
  *
- * 仮ファイルです、用更新
- * PR#100マージされたらにグロバルフックフックあり。
+ * 仮ファイルです、要更新
+ * PR#100マージされたらにグロバルフックあり。
  */
 
 
@@ -46,6 +47,7 @@ export const useUpdateEstimateId = () => {
           工事名称: projName,
           projTypeId,
           工事種別名: projTypeName,
+          作成日時,
         }) => {
 
           if (estimateId) {
@@ -59,6 +61,7 @@ export const useUpdateEstimateId = () => {
                 draft.status = estimateStatus.value as TypeOfForm['status'];
                 draft.projName = projName.value;
                 draft.projTypeName = projTypeName.value;
+                draft.createdDate = format(parseISO(作成日時.value), 'yyyy/MM/dd');
                 draft.items = estimateTable.map(({ id, value: {
                   原価,
                   大項目,

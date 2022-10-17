@@ -11,14 +11,14 @@ const LabeledInfo = ({
   align?: 'left' | 'right'
 }) => {
   return (
-    <>
-      <Typography textAlign={align} alignSelf={'end'} variant="caption">
+    <Stack direction={'row'} alignItems="end">
+      <Typography textAlign={align} variant="caption">
         {`${label}:`}
       </Typography>
-      <Typography component='span' textAlign={align} alignSelf={'end'}>
+      <Typography component='span' alignSelf={'end'}>
         {`${info}`}
       </Typography>
-    </>
+    </Stack>
   );
 };
 

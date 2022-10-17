@@ -32,7 +32,7 @@ export const ItemEstimate = ({
   calculated,
 }: {
   estimateRecord: Estimates.main.SavedData
-  calculated: Awaited<ReturnType<typeof calculateEstimateRecord>>
+  calculated: ReturnType<typeof calculateEstimateRecord>
 }) => {
 
   const {

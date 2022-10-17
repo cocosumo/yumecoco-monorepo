@@ -3,9 +3,9 @@ import { useBackdrop, useSnackBar } from '../../../hooks';
 import { sendContract } from '../api/docusign/sendContract';
 import { TypeOfForm } from '../form';
 
-/* 
-  Passing Formik's context here because this hook 
-  is being called inside a global context hook (useConfirmDialog) 
+/*
+  Passing Formik's context here because this hook
+  is being called inside a global context hook (useConfirmDialog)
   that is outside the scope of Formik's context.
 
   Hopefully, new requirements will improve this spaghetty code on next iterations.
@@ -28,7 +28,9 @@ export const useSendElectronicContract = (
   const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
 
-  const handleSendElectronicContract = async () => {
+  const handleSendElectronicContract = async (
+    signMethod: ReqSendContract['signMethod'],
+  ) => {
     try {
       /* 操作を無効化するため */
       setBackdropState({ open: true });
@@ -36,6 +38,7 @@ export const useSendElectronicContract = (
       const { envelopeId, envelopeStatus } = await sendContract({
         projEstimateId,
         userCode: kintone.getLoginUser().code,
+        signMethod: signMethod,
       });
 
       setValues( (prev) => ({

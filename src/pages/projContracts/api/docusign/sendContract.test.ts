@@ -9,6 +9,7 @@ describe('sendContract', () => {
     const data : ReqSendContract = {
       projEstimateId: '25',
       userCode: 'RPA03',
+      signMethod: 'electronic',
     };
 
     const result = await axios.post(endpoint, data);

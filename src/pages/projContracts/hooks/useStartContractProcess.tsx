@@ -25,7 +25,7 @@ export const useStartContractProcess = () => {
         <MethodChoice
           handleSendElectronicContract={() => {
             handleCloseDialog();
-            handleSendElectronicContract();
+            handleSendElectronicContract('electronic');
           }}
         />),
       withYes: false,

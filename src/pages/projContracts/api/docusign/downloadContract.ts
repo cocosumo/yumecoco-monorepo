@@ -31,7 +31,12 @@ const dlFromCocoServer = async ({
       fileType,
     };
 
-    const u = new URLSearchParams(data).toString();
+    const u = new URLSearchParams({
+      projEstimateId,
+      userCode: kintone.getLoginUser().code,
+      fileType,
+    }).toString();
+
     const [body, status] =  await kintone.proxy(
       endpoint + u, // concatinate parameters to endpoint
       'GET',

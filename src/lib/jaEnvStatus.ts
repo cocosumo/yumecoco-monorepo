@@ -33,7 +33,7 @@ export const jaEnvelopeStatus  = (
     case 'voiding':
       return {
         ja: '無効化中',
-        desc: '無効化中',
+        desc: '無効化中です。',
       };
     case '': {
       return {

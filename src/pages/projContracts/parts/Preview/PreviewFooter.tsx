@@ -1,5 +1,4 @@
 import { DialogActions } from '@mui/material';
-import { ContractStatus } from './ContractStatus';
 import { MenuContainer } from './PreviewMenu/MenuContainer';
 
 export const PreviewFooter = () => {
@@ -9,7 +8,6 @@ export const PreviewFooter = () => {
         justifyContent: 'space-between',
       }}
     >
-      <ContractStatus />
       <MenuContainer />
     </DialogActions>
   );

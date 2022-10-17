@@ -9,6 +9,7 @@ import { Loading } from './Loading';
 import { useBackdrop } from '../../../../hooks';
 import { PreviewFooter } from './PreviewFooter';
 import { RefreshButton } from './RefreshButton';
+import { ContractStatus } from './ContractStatus';
 
 
 export const ContractDialog = ({
@@ -51,7 +52,7 @@ export const ContractDialog = ({
         <Stack direction="row" spacing={2}>
           <RefreshButton loading={previewLoading} handleRefetch={handleRefetch} />
           {!isBusy &&  <SelectDocuments />}
-
+          <ContractStatus />
         </Stack>
         <IconButton
           aria-label="close"

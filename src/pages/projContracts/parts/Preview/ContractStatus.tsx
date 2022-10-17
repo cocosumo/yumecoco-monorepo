@@ -4,6 +4,7 @@ import { TypeOfForm } from '../../form';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 export const ContractStatus = () => {
+
   const {
     values: {
       envRecipients,

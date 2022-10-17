@@ -19,7 +19,7 @@ const ListContent = ({
   return (
     <Stack spacing={0} direction={'row'}>
       <Icon />
-      <Typography variant="body1">
+      <Typography>
         {explanation}
       </Typography>
     </Stack>
@@ -27,7 +27,7 @@ const ListContent = ({
 };
 
 
-export const ListEstimate = ({
+export const ListItemEstimate = ({
   estimateRecord,
 }: {
   estimateRecord: Estimates.main.SavedData
@@ -44,7 +44,7 @@ export const ListEstimate = ({
 
 
   return (
-    <Stack width={'100%'} direction={'row'} spacing={1}
+    <Stack direction={'row'} spacing={2}
       alignItems="center" justifyContent="space-around"
     >
 

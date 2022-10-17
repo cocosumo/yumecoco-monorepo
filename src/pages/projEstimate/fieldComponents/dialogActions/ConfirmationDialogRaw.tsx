@@ -1,41 +1,26 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../Router';
-import { ListEstimate } from './ListEstimate';
+import { ListItemEstimate } from './ListItemEstimate';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { useEstimateRecords } from '../../../../hooks';
 
 export interface ConfirmationDialogRawProps {
   name: string;
-  keepMounted: boolean;
-  value: string;
   open: boolean;
   onClose: (value?: string) => void;
-  options: Estimates.main.SavedData[]
+  projId: string
 }
 
 
 export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
-  const { name, onClose, value: valueProp, open, options, ...other } = props;
-  const [value, setValue] = useState(valueProp);
-  const radioGroupRef = useRef<HTMLElement>(null);
-  
+  const { name, onClose, open, projId, ...other } = props;
+  const [value, setValue] = useState('');
   const navigate = useNavigate();
+  const { projEstimateRecords } = useEstimateRecords(projId);
 
-  
-
-  useEffect(() => {
-    if (!open) {
-      setValue(valueProp);
-    }
-  }, [valueProp, open]);
-
-  const handleEntering = () => {
-    if (radioGroupRef.current != null) {
-      radioGroupRef.current.focus();
-    }
-  };
 
   const handleCancel = () => {
     onClose();
@@ -43,7 +28,7 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
 
   const handleOk = () => {
     navigate(`${pages.projEstimate}?${generateParams({ projEstimateId:value })}`);
-    onClose(value);
+    onClose();
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,13 +38,13 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
   /**
    * 選択肢の生成
    */
-  const actualOptions: OptionNode[] = options.map<OptionNode>((rec) => {
+  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec) => {
     const { $id } = rec;
 
     return {
       value: $id.value,
       key: $id.value,
-      component: (<ListEstimate estimateRecord={rec} />),
+      component: (<ListItemEstimate estimateRecord={rec} />),
     };
   });
 
@@ -69,7 +54,6 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
     <Dialog
       sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
       maxWidth="xs"
-      TransitionProps={{ onEntering: handleEntering }}
       open={open}
       {...other}
     >
@@ -80,7 +64,6 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
         {Boolean(actualOptions.length) &&
           <RadioGroup
             name={name}
-            ref={radioGroupRef}
             aria-label={name}
             value={value}
             onChange={handleChange}
@@ -110,10 +93,10 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleCancel}>
-          Cancel
+          キャンセル
         </Button>
         <Button onClick={handleOk}>
-          Ok
+          選択
         </Button>
       </DialogActions>
     </Dialog>

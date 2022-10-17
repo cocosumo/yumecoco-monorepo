@@ -45,6 +45,7 @@ export const useSendContract = (
         ...prev,
         envelopeId,
         envelopeStatus,
+        signMethod,
       }));
 
       setSnackState({

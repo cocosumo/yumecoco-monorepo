@@ -75,7 +75,7 @@ export const MenuVoidContract = (
         ...values,
         envDocFileKeys: [],
         envelopeId: '',
-        envelopeStatus: '',
+        envelopeStatus: 'voiding',
       });
 
     } catch (err) {

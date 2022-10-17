@@ -73,6 +73,8 @@ export const useUpdateProjectId = () => {
           draft.projTypeName = initialValues.projTypeName;
           draft.projTypeProfit = initialValues.projTypeProfit;
           draft.customerName = initialValues.customerName;
+          draft.createdDate = initialValues.createdDate;
+          draft.estimateId = initialValues.estimateId;
         }));
       }
     },

@@ -22,6 +22,7 @@ export const initialValues = {
   custGroupId: '',
   projName: '',
   customerName: '',
+  createdDate: '',
 
   /** 工事種別 */
   projTypeName: '',

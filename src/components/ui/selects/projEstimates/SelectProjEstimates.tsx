@@ -36,7 +36,7 @@ export const SelectProjEstimates = ({
     records : projEstimateRecords = [],
   } = data || {};
 
-  const emptyOption: OptionNode = useMemo(() =>  ({
+  const emptyOption: OptionNode = useMemo(() => ({
     value: '',
     key: 'clear',
     component: '---',

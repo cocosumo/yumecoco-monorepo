@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import { useBackdrop, useConfirmDialog } from '../../../hooks';
 import { TypeOfForm } from '../form';
 import { MethodChoice } from '../parts/Preview/PreviewMenu/startContract/MethodChoices';
-import { useSendElectronicContract } from './useSendElectronicContract';
+import { useSendContract } from './useSendContract';
 
 export const useStartContractProcess = () => {
   const formikContext = useFormikContext<TypeOfForm>();
@@ -14,7 +14,7 @@ export const useStartContractProcess = () => {
     backdropState: { open },
   } = useBackdrop();
 
-  const { handleSendElectronicContract } = useSendElectronicContract(formikContext);
+  const { handleSendContract } = useSendContract(formikContext);
 
   const isBackdropOpen = open;
 
@@ -23,10 +23,13 @@ export const useStartContractProcess = () => {
       title: '契約手続きを開始',
       content: (
         <MethodChoice
-          handleSendElectronicContract={() => {
+          handleSendContract={(
+            signMethod: ReqSendContract['signMethod'],
+          ) => {
             handleCloseDialog();
-            handleSendElectronicContract('electronic');
+            handleSendContract(signMethod);
           }}
+
         />),
       withYes: false,
       withNo: true,

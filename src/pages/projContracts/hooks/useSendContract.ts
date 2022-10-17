@@ -15,7 +15,7 @@ import { TypeOfForm } from '../form';
 
 */
 
-export const useSendElectronicContract = (
+export const useSendContract = (
   formikContext: FormikContextType<TypeOfForm>,
 ) => {
 
@@ -28,7 +28,7 @@ export const useSendElectronicContract = (
   const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
 
-  const handleSendElectronicContract = async (
+  const handleSendContract = async (
     signMethod: ReqSendContract['signMethod'],
   ) => {
     try {
@@ -70,6 +70,6 @@ export const useSendElectronicContract = (
   };
 
   return {
-    handleSendElectronicContract,
+    handleSendContract,
   };
 };

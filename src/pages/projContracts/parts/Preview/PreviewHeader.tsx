@@ -22,7 +22,10 @@ export const PreviewHeader = ({
   return (
     <Stack direction="row" spacing={2}>
       {envelopeStatus !== 'completed' && (
-      <RefreshButton loading={isBusy} handleRefetch={handleRefetch} />
+        <RefreshButton
+          loading={isBusy}
+          handleRefetch={handleRefetch}
+        />
       )}
       <ContractStatus />
     </Stack>

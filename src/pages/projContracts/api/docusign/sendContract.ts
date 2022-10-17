@@ -16,12 +16,15 @@ export const sendContract = async (
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/send/direct`;
 
 
+
     const [body, status] = await kintone.proxy(
       endpoint,
       'POST',
       { 'Content-Type': 'application/json' },
-      projEstimateId,
+      reqData,
     );
+
+
 
     if (status == 200 && body) {
       return JSON.parse(body);

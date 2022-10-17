@@ -1,15 +1,13 @@
-import {  Dialog, DialogContent, DialogTitle, IconButton, Stack } from '@mui/material';
+import {  Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { useContractPreview } from '../../hooks';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import CloseIcon from '@mui/icons-material/Close';
-import { SelectDocuments } from './SelectDocuments';
 import { Loading } from './Loading';
 import { useBackdrop } from '../../../../hooks';
 import { PreviewFooter } from './PreviewFooter';
-import { RefreshButton } from './RefreshButton';
-import { ContractStatus } from './ContractStatus';
+import { PreviewHeader } from './PreviewHeader';
 
 
 export const ContractDialog = ({
@@ -49,11 +47,10 @@ export const ContractDialog = ({
       }}
     >
       <DialogTitle>
-        <Stack direction="row" spacing={2}>
-          <RefreshButton loading={previewLoading} handleRefetch={handleRefetch} />
-          {!isBusy &&  <SelectDocuments />}
-          <ContractStatus />
-        </Stack>
+        <PreviewHeader
+          isBusy={isBusy}
+          handleRefetch={handleRefetch}
+        />
         <IconButton
           aria-label="close"
           onClick={handleClose}

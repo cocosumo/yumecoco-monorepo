@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import { useBackdrop, useConfirmDialog } from '../../../hooks';
 import { TypeOfForm } from '../form';
 import { MethodChoice } from '../parts/Preview/PreviewMenu/startContract/MethodChoices';
-import { useSendContract } from './useSendContract';
+import { useContractProcess } from './useContractProcess';
 
 export const useStartContractProcess = () => {
   const formikContext = useFormikContext<TypeOfForm>();
@@ -14,7 +14,7 @@ export const useStartContractProcess = () => {
     backdropState: { open },
   } = useBackdrop();
 
-  const { handleSendContract } = useSendContract(formikContext);
+  const { handleSendContract } = useContractProcess();
 
   const isBackdropOpen = open;
 

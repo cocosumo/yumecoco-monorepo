@@ -18,9 +18,8 @@ export const useContractProcess = () => {
     sendContract,
     {
       onMutate: () => {
-        setBackdropState({
-          open: true,
-        });
+        console.log('Starting!');
+        setBackdropState({ open: true });
       },
 
       onError: (error) =>{
@@ -52,10 +51,10 @@ export const useContractProcess = () => {
         });
       },
       onSettled: () => {
+        console.log('DONE!');
         setBackdropState({ open: false });
       },
-    },
-  );
+    });
 
   const {
     mutate,
@@ -64,6 +63,8 @@ export const useContractProcess = () => {
   const handleSendContract = async (
     signMethod: ReqSendContract['signMethod'],
   ) => {
+
+
     mutate({
       projEstimateId,
       userCode: kintone.getLoginUser().code,

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { yumecocoDocusign } from '../../../../config/settings';
+import { yumecocoDocusign } from '../../config/settings';
+
 
 describe('sendContract', () => {
   it('should send contract', async () => {

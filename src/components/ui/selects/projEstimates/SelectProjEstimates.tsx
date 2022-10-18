@@ -1,11 +1,12 @@
 import {  Button, FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select } from '@mui/material';
-import {  useMemo } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from '../../../../helpers/url';
 import { pages } from '../../../../pages/Router';
 import { ItemEstimate } from './ItemEstimate';
 import { useField } from 'formik';
 import { useEstimatesByProjId } from '../../../../hooksQuery/useEstimatesByProjId';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 
 export const SelectProjEstimates = ({
   projId,
@@ -77,8 +78,21 @@ export const SelectProjEstimates = ({
     };
   }) || [];
 
-
   const options = projId ? [emptyOption, ...actualOptions, registerNewOption  ] : [registerNewOption];
+
+  /**
+   * When projId, 工事番号 may not exist in the generated options
+   * so clear 工事番号 from the form.
+   *
+   * This may be handled at the parent component, but putting this here will
+   * also make this component more robust.
+   *  */
+  useDeepCompareEffect(() => {
+    const isExistInOptions = projEstimateRecords?.some(({ $id }) =>  $id.value === selectedProjEstimateId );
+    if (!isExistInOptions) {
+      setValue('');
+    }
+  }, [projEstimateRecords || []]);
 
 
 

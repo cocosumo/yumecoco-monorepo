@@ -15,14 +15,12 @@ export const useSubmitContractInfo = () => {
       resetForm,
     },
   ) => {
-    const { 
-      submitMethod, 
+    const {
+      submitMethod,
     } = values;
     try {
       setBackdropState({ open: true });
 
-      console.log('VALUES on submit', values);
-  
       /* Throttle */
       if (submitMethod === 'normal') {
         await sleep(2000);
@@ -30,20 +28,21 @@ export const useSubmitContractInfo = () => {
 
 
       const { revision } = await saveContractDetails(values);
+
       setSnackState({
         open: true,
         severity:  'success',
         message: `保存が出来ました。更新番号：${revision}`,
       });
-      
+
       resetForm({ values: {
         ...values,
         projEstimateRevision: revision,
       } });
-      
+
 
       setBackdropState({ open: false });
-  
+
 
     } catch (err) {
       setSnackState({

@@ -9,12 +9,13 @@ export const ContractStatus = () => {
     values: {
       envRecipients,
       signMethod,
+      envelopeStatus,
     },
   } = useFormikContext<TypeOfForm>();
 
   return (
     <Stack direction={'row'} spacing={0} divider={<ArrowRightIcon sx={{ color: 'GrayText' }} />}>
-      {!envRecipients && (
+      {!envRecipients && envelopeStatus === 'sent' && (
         <Alert severity='info'>
           {signMethod === 'electronic'
             ? 'まだ誰もサインしていません。'

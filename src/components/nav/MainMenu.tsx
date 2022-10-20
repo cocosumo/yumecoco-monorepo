@@ -20,6 +20,7 @@ export default function MainMenu() {
         <EstimateMenu />
         {/* <CustomerManagementMenu /> */}
         <ContractMenu />
+        {/* 入金管理メニューを追加する */}
       </List>
       <Divider />
       <SystemMenu />

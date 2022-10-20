@@ -2,7 +2,7 @@ import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
-import { TypeOfForm } from './form';
+import { getFieldName, TypeOfForm } from './form';
 import {  Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
@@ -12,20 +12,23 @@ import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractFormActions } from './parts/ContractFormActions';
 import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
-import { useResetOnIdsChange } from './hooks';
+
+import { useHandleProjEstimate } from './hooks';
+import { useHandleProjId } from './hooks/useHandleProjId';
+import { useResolveParams } from './hooks/useResolveParams';
+
 
 
 export const FormContract = () => {
-
   const { values } = useFormikContext<TypeOfForm>();
-
   const { projEstimateId, projId, projName } = values;
+
+  useResolveParams();
+  useHandleProjId();
 
   const {
     calculatedEstimate,
-    handleChangeProjId,
-    handleChangeSelectedEstimate,
-  } = useResetOnIdsChange();
+  } = useHandleProjEstimate();
 
   const { totalAmountInclTax } = calculatedEstimate ?? {};
 
@@ -42,7 +45,6 @@ export const FormContract = () => {
           <SearchProjField
             projId={projId}
             projName={projName}
-            handleChange={handleChangeProjId}
           />
         </Grid>
 
@@ -56,8 +58,7 @@ export const FormContract = () => {
         >
           <SelectProjEstimates
             projId={projId}
-            selectedProjEstimateId={projEstimateId}
-            handleChange={handleChangeSelectedEstimate}
+            name={getFieldName('projEstimateId')}
           />
         </Grid>
 

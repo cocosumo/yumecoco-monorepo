@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useLazyEffect } from '../../../hooks';
 import { Caption } from '../../../components/ui/typographies';
 import { searchProjects } from '../../../api/kintone/projects';
+import { useField } from 'formik';
 
 type Opt = {
   id: string,
@@ -12,12 +13,12 @@ type Opt = {
 export const SearchProjField = (props: {
   projId: string,
   projName: string,
-  handleChange?: (projId: string) => void
 }) => {
 
+  const [, , helpers] = useField('projId');
+  const { setValue } = helpers;
   const {
     projName = '',
-    handleChange,
     projId,
   } = props;
 
@@ -79,10 +80,8 @@ export const SearchProjField = (props: {
         setInputVal(value);
       }}
       onChange={(_, val)=>{
-       
         setFieldVal(val);
-        handleChange?.(val?.id || '');
-
+        setValue(val?.id);
       }}
       onFocus={()=>setIsInit(false)}
       options={options}

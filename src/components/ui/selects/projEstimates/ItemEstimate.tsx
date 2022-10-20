@@ -1,7 +1,7 @@
 import { Chip, Stack, Typography } from '@mui/material';
 
 import { format, parseISO } from 'date-fns';
-import { useCalcEstimate } from '../../../../hooks/useCalcEstimate';
+import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
 
 const LabeledInfo = ({
   label,
@@ -29,8 +29,10 @@ const LabeledInfo = ({
 
 export const ItemEstimate = ({
   estimateRecord,
+  calculated,
 }: {
   estimateRecord: Estimates.main.SavedData
+  calculated: Awaited<ReturnType<typeof calculateEstimateRecord>>
 }) => {
 
   const {
@@ -40,7 +42,7 @@ export const ItemEstimate = ({
     envStatus: { value: envStatus },
   } = estimateRecord;
 
-  const { totalAmountInclTax } = useCalcEstimate(estimateRecord);
+  const { totalAmountInclTax } = calculated;
 
 
   return (

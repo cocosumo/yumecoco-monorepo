@@ -3,14 +3,13 @@ import { fetchEstimatesById } from '../../../api/kintone/estimates/GET';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { initialValues, TypeOfForm } from '../form';
 
-export const getFormDataById = async (
-  projEstimateId: string,
+export const normalizedData = (
+  record: Estimates.main.SavedData,
+  calculated = calculateEstimateRecord(record),
 ) => {
-  if (!projEstimateId) throw new Error('見積番号がありませんでした。');
-  const selected = await fetchEstimatesById(projEstimateId);
-  const calculated = await calculateEstimateRecord(selected);
 
   const {
+    レコード番号: projEstimateId,
     envStatus,
     envDocFileKeys,
     envRecipients,
@@ -30,7 +29,7 @@ export const getFormDataById = async (
     completeDate,
     signMethod,
 
-  } = selected ?? {};
+  } = record ?? {};
 
   const newPaymentFields : TypeOfForm['paymentFields'] = paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
     isPayEnabled,
@@ -50,13 +49,13 @@ export const getFormDataById = async (
       Math.round(calculated?.totalAmountInclTax || 0),
     );
 
-  const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients?.value || '{}')?.signers;
+  const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients?.value || '{}' )?.signers;
 
   const newFormData : Partial<TypeOfForm> = {
     projId: projId?.value || '',
     projName: projName?.value || '',
     projEstimateRevision: $revision?.value || '',
-    projEstimateId: projEstimateId ?? '',
+    projEstimateId: projEstimateId?.value ?? '',
 
 
     /* 契約 */
@@ -84,8 +83,25 @@ export const getFormDataById = async (
   };
 
   return {
+    newFormData,
+    newCalculated : calculated,
+  };
+};
+
+export const getFormDataById = async (
+  projEstimateId: string,
+) => {
+  if (!projEstimateId) return;
+
+  const record = await fetchEstimatesById(projEstimateId);
+  const {
+    newFormData,
+    newCalculated,
+  } = normalizedData(record);
+
+  return {
     newFormData: newFormData,
-    calculated,
-    selected,
+    calculated: newCalculated,
+    selected: record,
   };
 };

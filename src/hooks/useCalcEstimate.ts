@@ -9,8 +9,8 @@ export const useCalcEstimate = (estimateRecord: Estimates.main.SavedData) => {
   useDeepCompareEffect(() => {
     if ('$id' in estimateRecord) {
 
-      calculateEstimateRecord(estimateRecord)
-        .then((result) => setCalcResult(result));
+      const result = calculateEstimateRecord(estimateRecord);
+      setCalcResult(result);
     }
 
   }, [estimateRecord || {}]);

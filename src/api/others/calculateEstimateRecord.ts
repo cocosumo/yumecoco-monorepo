@@ -1,7 +1,7 @@
 import { calculateEstimate } from './calculateEstimate';
 
 
-export const calculateEstimateRecord = async (estimateRecord: Estimates.main.SavedData) => {
+export const calculateEstimateRecord = (estimateRecord: Estimates.main.SavedData) => {
   const {
     内訳 : { value : estimateTable },
     税: { value: tax },

@@ -8,7 +8,7 @@ import { useSnackBar } from '../../../hooks';
 import { initialValues, TypeOfForm } from '../form';
 
 export const useUpdateProjectId = () => {
-  const { values, dirty, setValues } = useFormikContext<TypeOfForm>();
+  const { values, dirty, setValues, setTouched } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { projId } = values;
   const [isInitial, setIsInitial] = useState(false);
@@ -18,6 +18,8 @@ export const useUpdateProjectId = () => {
 
   useEffect(
     ()=>{
+
+
       if (projId) {
         setIsInitial(false);
         setLoading(true);
@@ -39,6 +41,7 @@ export const useUpdateProjectId = () => {
 
             const mainCustName = custGroup?.members?.value[0].value.customerName.value ?? '';
 
+            setTouched({});
             setValues((prev) => {
 
               const { estimateId } = prev;
@@ -77,6 +80,9 @@ export const useUpdateProjectId = () => {
           draft.estimateId = initialValues.estimateId;
         }));
       }
+
+
+
     },
     [projId],
   );

@@ -1,6 +1,6 @@
 # hooksQuery Folder
 
-useQueryを理由するhookはここに入れます。
+useQueryを利用するhookはここに入れます。
 
 ## パッケージ
 

@@ -18,7 +18,6 @@ export const GoToContractButton = () => {
       custGroupId,
     },
     touched,
-
   } = useFormikContext<TypeOfForm>();
 
   const isEnabled = estimateId && isEmpty(touched);
@@ -31,14 +30,10 @@ export const GoToContractButton = () => {
     })}`);
   };
 
-  console.log(touched,  projId);
-
   return (
 
     <Box width={'100%'} justifyContent={'center'} display="flex">
       <div>
-
-
         <Button
           variant={'contained'}
           disabled={!isEnabled}

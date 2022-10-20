@@ -18,8 +18,6 @@ export const useUpdateProjectId = () => {
 
   useEffect(
     ()=>{
-
-
       if (projId) {
         setIsInitial(false);
         setLoading(true);
@@ -80,8 +78,6 @@ export const useUpdateProjectId = () => {
           draft.estimateId = initialValues.estimateId;
         }));
       }
-
-
 
     },
     [projId],

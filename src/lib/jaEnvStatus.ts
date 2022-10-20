@@ -36,5 +36,6 @@ export const jaEnvelopeStatus  = (
         desc: '契約はDocusign上でまだ作成していません。',
       };
     }
+    default: throw new Error('Unknown status.');
   }
 };

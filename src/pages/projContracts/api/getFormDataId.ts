@@ -1,6 +1,7 @@
 import { parseISO } from 'date-fns';
 import { fetchEstimatesById } from '../../../api/kintone/estimates/GET';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
+import { parseKintoneDate } from '../../../lib/date';
 import { initialValues, TypeOfForm } from '../form';
 
 export const normalizedData = (
@@ -14,6 +15,7 @@ export const normalizedData = (
     envDocFileKeys,
     envRecipients,
     envId,
+    contractDate,
     $revision,
     支払い: paymentSched,
     hasRefund,
@@ -65,13 +67,14 @@ export const normalizedData = (
     envSelectedDoc: envDocFileKeys?.value[0]?.fileKey ?? '',
     envRecipients: parsedEnvRecipients,
     signMethod: (signMethod?.value || 'electronic') as TSignMethod,
+    contractDate: parseKintoneDate(contractDate.value),
 
     /* 支払い */
-    startDate: startDate?.value ? parseISO(startDate?.value) : '',
+    startDate: parseKintoneDate(startDate?.value),
     startDaysAfterContract: +(startDaysAfterContract?.value || 0),
-    finishDate:  finishDate?.value ? parseISO(finishDate?.value)   : '',
+    finishDate: parseKintoneDate(finishDate?.value),
     finishDaysAfterContract: +(finishDaysAfterContract?.value || 0),
-    completeDate: completeDate?.value ? parseISO(completeDate?.value) :  '',
+    completeDate: parseKintoneDate( completeDate?.value),
     payDestination: payDestination?.value || '',
     payMethod: (payMethod?.value || '振込') as TypeOfForm['payMethod'],
 

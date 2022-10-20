@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 export const isTypeOfDate = (
   dirtyDate: object | string,
@@ -19,4 +19,22 @@ export const toKintoneDateStr = (rawDate: object | Date | string, withTime = fal
   } else {
     return '';
   }
+};
+
+/**
+ * Convert kintone date to JSDate .
+ * Kintone date could be undefined so convert it to empty string.
+ * Converting to empty string keep MUI date fields controlled.
+ * https://mui.com/material-ui/react-text-field/#uncontrolled-vs-controlled
+ *
+ * Might need improvement to make it more declarative.
+ * ~ ras 2022.10.20
+ *
+ * @param kintoneDate
+ * @returns {Date | undefined} Javascript date object.
+ */
+export const parseKintoneDate = (
+  kintoneDate: string | undefined | null,
+) => {
+  return kintoneDate ? parseISO(kintoneDate) : '';
 };

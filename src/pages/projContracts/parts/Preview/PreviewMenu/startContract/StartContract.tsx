@@ -1,5 +1,5 @@
 import SendIcon from '@mui/icons-material/Send';
-import {  ListItemIcon, ListItemText, MenuItem } from '@mui/material';
+import {  Button } from '@mui/material';
 import { useStartContractProcess } from '../../../../hooks/useStartContractProcess';
 
 export const StartContract = ()=>{
@@ -10,17 +10,13 @@ export const StartContract = ()=>{
 
 
   return (
-    <MenuItem
+    <Button
+      variant="outlined"
       onClick={handleClickStart}
+      startIcon={<SendIcon />}
     >
-      <ListItemIcon>
-        <SendIcon />
-      </ListItemIcon>
-      <ListItemText>
-        契約を作成する
-      </ListItemText>
-    </MenuItem>
-
+      契約を作成する
+    </Button>
 
   );
 };

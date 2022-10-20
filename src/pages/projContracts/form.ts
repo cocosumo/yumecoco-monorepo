@@ -37,7 +37,7 @@ export const initialValues = {
   projEstimateRevision: '',
 
 
-  signMethod: '' as TSignMethod,
+  signMethod: undefined as ReqSendContract['signMethod'],
 
   /* 工期 */
   startDate: '' as string | Date,

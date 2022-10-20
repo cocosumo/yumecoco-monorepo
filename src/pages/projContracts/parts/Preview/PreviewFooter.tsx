@@ -1,15 +1,15 @@
 import { DialogActions } from '@mui/material';
-import { ContractStatus } from './ContractStatus';
 import { MenuContainer } from './PreviewMenu/MenuContainer';
+import { SelectDocuments } from './SelectDocuments';
 
 export const PreviewFooter = () => {
   return (
     <DialogActions
       sx={{
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
       }}
     >
-      <ContractStatus />
+      <SelectDocuments />
       <MenuContainer />
     </DialogActions>
   );

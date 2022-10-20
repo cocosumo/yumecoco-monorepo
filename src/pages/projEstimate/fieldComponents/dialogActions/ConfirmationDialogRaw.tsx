@@ -38,6 +38,7 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
       sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
       maxWidth="xs"
       open={open}
+      onClose={() => onClose()}
       {...other}
     >
       <DialogTitle>

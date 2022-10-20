@@ -9,6 +9,7 @@ export const ContractPageShortcuts = () => {
   const { values: {
     projId,
     custGroupId,
+    projEstimateId,
   } } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
@@ -32,6 +33,12 @@ export const ContractPageShortcuts = () => {
           type: 'prospect',
           handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({
             projId,
+          })}`),
+        },
+        {
+          type: 'estimate',
+          handleClick: ()=>navigate(`${pages.projEstimate}?${generateParams({
+            projId, projEstimateId,
           })}`),
         },
       ]}

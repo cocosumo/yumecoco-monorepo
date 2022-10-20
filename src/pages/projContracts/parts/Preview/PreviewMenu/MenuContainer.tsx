@@ -2,16 +2,28 @@ import { Button,  Menu } from '@mui/material';
 import { MouseEvent, useState } from 'react';
 import MoreIcon from '@mui/icons-material/More';
 import { MenuVoidContract } from './MenuVoidContract';
+import { MenuExcel } from './MenuExcel';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../../form';
+import { StartContract } from './startContract';
 
 export const MenuContainer = () => {
 
+  const { values } = useFormikContext<TypeOfForm>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   };
 
+  const {
+    envelopeStatus,
+  } = values;
+
   const handleClose = () => setAnchorEl(null);
+
+  const isWithContract = !!envelopeStatus;
+  const isVoidable = envelopeStatus === 'sent';
 
   return (
     <div>
@@ -34,7 +46,11 @@ export const MenuContainer = () => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuVoidContract handleClose={handleClose} />
+        <MenuExcel />
+        {!isWithContract &&  <StartContract />}
+
+        {isVoidable && <MenuVoidContract handleClose={handleClose} />}
+
       </Menu>
 
     </div>

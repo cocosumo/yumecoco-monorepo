@@ -25,14 +25,18 @@ export const saveCustomers = async (formData: CustomerForm) => {
     }).then(resp => resp.records);
   }
 
+
+
   /* Update record */
   return KintoneRecord.updateRecords({
     app: APPIDS.customers,
     records: transformedCust
       .filter(cust => !!cust.$id?.value)
       .map(cust => {
+        if (!cust?.$id?.value) throw new Error('Invalid cust id during update.');
+
         return  {
-          id: cust.$id!.value,
+          id: cust?.$id?.value,
           record: cust,
         };
       }),

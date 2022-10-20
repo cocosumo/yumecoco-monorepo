@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import { useBackdrop, useConfirmDialog } from '../../../hooks';
 import { TypeOfForm } from '../form';
-import { MethodChoice } from '../parts/PreviewToolBar/startContract/MethodChoices';
+import { MethodChoice } from '../parts/Preview/PreviewMenu/startContract/MethodChoices';
 import { useSendElectronicContract } from './useSendElectronicContract';
 
 export const useStartContractProcess = () => {

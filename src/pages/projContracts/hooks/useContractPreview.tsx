@@ -1,6 +1,7 @@
 import { useFormikContext } from 'formik';
 import {  useState } from 'react';
 import { useSnackBar } from '../../../hooks';
+import { useEstimateById } from '../../../hooksQuery/useEstimateById';
 import { base64ToBlob } from '../../../lib';
 import { downloadContract } from '../api/docusign/downloadContract';
 import { TypeOfForm } from '../form';
@@ -15,16 +16,27 @@ import { TypeOfForm } from '../form';
  * @return {boolean} result.formLoading - whether form is busy overall.
  */
 export const useContractPreview = () => {
-  const { status, setValues } = useFormikContext<TypeOfForm>();
-
+  const { status, values, setValues } = useFormikContext<TypeOfForm>();
   const [previewUrl, setPreviewUrl] = useState('');
   const [previewLoading, setPreviewLoading] = useState(false);
   const { setSnackState } = useSnackBar();
 
+  const { projEstimateId } = values;
+  const { refetch, isLoading } = useEstimateById(projEstimateId);
+
   const formStatus: TFormStatus = status;
-  const formLoading = formStatus === 'busy' || previewLoading;
+  const formLoading = formStatus === 'busy' || previewLoading || isLoading;
+
+  const handleRefetch = () => {
+    setPreviewLoading(true);
+    setTimeout(() => {
+      setPreviewLoading(false);
+      refetch();
+    }, 2000);
+  };
 
   const handlePreview = async (newForm: TypeOfForm) => {
+
     try {
       setPreviewLoading(true);
 
@@ -67,5 +79,6 @@ export const useContractPreview = () => {
     formLoading,
     previewUrl,
     setValues,
+    handleRefetch,
   };
 };

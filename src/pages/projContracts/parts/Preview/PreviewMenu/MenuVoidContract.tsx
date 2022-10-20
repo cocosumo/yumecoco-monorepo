@@ -1,4 +1,4 @@
-import { Button, MenuItem, TextField } from '@mui/material';
+import { Button, ListItemIcon, ListItemText, MenuItem, TextField } from '@mui/material';
 import { useConfirmDialog, useSnackBar } from '../../../../../hooks';
 import { CustomDialogContent } from '../../../../../components/ui/dialogs/CustomDialogContent';
 import { Box } from '@mui/system';
@@ -7,6 +7,7 @@ import { useBackdrop } from '../../../../../hooks/useBackdrop';
 import { voidContract } from '../../../api/docusign/voidContract';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../../form';
+import BlockIcon from '@mui/icons-material/Block';
 
 const ReasonForm = ({
   handleSetReason,
@@ -67,7 +68,7 @@ export const MenuVoidContract = (
       setSnackState({
         open: true,
         severity: 'success',
-        message: `無効になりました。エンヴェロープ番号: ${envelopeId}`,
+        message: `無効になりました。エンベロープ番号: ${envelopeId}`,
       });
 
       setValues({
@@ -99,12 +100,12 @@ export const MenuVoidContract = (
       title: '無効にする理由を入力してください。',
       willCloseOnYes: false,
       yesText: '無効にする',
-      noText: 'やっぱやめる',
+      noText: 'キャンセル',
       handleYes: handleSubmitVoidReason,
       content: <ReasonForm
         handleSetReason={(r)=> {
           reasonRef.current = r;
-        }} 
+        }}
                />,
     });
   };
@@ -112,7 +113,7 @@ export const MenuVoidContract = (
 
   const handleVoidContract = () => {
     setDialogState({
-      title: 'エンヴェロープを無効にしますか。',
+      title: 'エンベロープを無効にしますか。',
       cancellable: true,
       willCloseOnYes: false,
       handleYes: handleCaptureVoidReason,
@@ -120,7 +121,7 @@ export const MenuVoidContract = (
         severity='warning'
         message={
           <>
-            エンベロープを無効にすると、ココアスで契約のステースは「下書き」に戻り、受信者はそのエンベロープを表示したり署名したりできなくなります。
+            エンベロープを無効にすると、受信者はそのエンベロープを表示したり署名したりできなくなります。
             <Button fullWidth target="_blank" href='https://support.docusign.com/s/articles/How-do-I-void-or-cancel-an-envelope?language=ja&rsc_301'>
               無効化についてもっと知りたい
             </Button>
@@ -134,8 +135,12 @@ export const MenuVoidContract = (
 
   return (
     <MenuItem onClick={handleVoidContract}>
-      無効化
-
+      <ListItemIcon>
+        <BlockIcon color='error' />
+      </ListItemIcon>
+      <ListItemText>
+        無効化する
+      </ListItemText>
     </MenuItem>
   );
 };

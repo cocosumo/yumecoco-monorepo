@@ -15,7 +15,7 @@ export const StartContract = ()=>{
       onClick={handleClickStart}
       startIcon={<SendIcon />}
     >
-      契約を作成する
+      契約を印刷する
     </Button>
 
   );

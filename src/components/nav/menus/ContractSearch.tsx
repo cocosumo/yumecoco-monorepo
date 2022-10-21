@@ -5,7 +5,7 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
 export const ContractSearch = () => {
   return (
-    <Link to={pages.projContractPreview}>
+    <Link to={pages.projContractSearch}>
       <ListItemButton sx={{ pl: 4 }}>
         <ListItemIcon>
           <ManageSearchIcon />

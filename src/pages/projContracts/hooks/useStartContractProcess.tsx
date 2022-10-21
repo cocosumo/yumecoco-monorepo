@@ -88,6 +88,7 @@ export const useStartContractProcess = () => {
           // 編集画面に戻る
           setFieldValue(getFieldName('isPreviewOpen'), false);
         },
+        willCloseOnYes: false,
       });
     } else {
       askSignMethod();

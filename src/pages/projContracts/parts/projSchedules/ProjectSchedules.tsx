@@ -35,6 +35,7 @@ export const ProjectSchedules = () => {
         variant='outlined'
         label={'契約日 (必須)'}
         isEmphasized={true}
+        disablePast={false}
         helperText={'必ず確認してください。'}
       />
 

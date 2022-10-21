@@ -12,7 +12,7 @@ export default function PaymentInvoice() {
         <ListItemIcon>
           <MoneyIcon />
         </ListItemIcon>
-        <ListItemText primary="入金情報入力" />
+        <ListItemText primary="請求入力" />
       </ListItemButton>
     </Link>
   );

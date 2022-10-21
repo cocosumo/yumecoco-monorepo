@@ -5,7 +5,6 @@ import { MenuVoidContract } from './MenuVoidContract';
 import { MenuExcel } from './MenuExcel';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../../form';
-import { StartContract } from './startContract';
 
 export const MenuContainer = () => {
 
@@ -27,32 +26,34 @@ export const MenuContainer = () => {
 
   return (
     <div>
-      <Button
-        id="basic-button"
-        color='secondary'
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        <MoreIcon />
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuExcel />
-        {!isWithContract &&  <StartContract />}
+      {isWithContract &&  (
+        <>
 
-        {isVoidable && <MenuVoidContract handleClose={handleClose} />}
+          <Button
+            id="basic-button"
+            color='secondary'
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            <MoreIcon />
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuExcel />
 
-      </Menu>
+            {isVoidable && <MenuVoidContract handleClose={handleClose} />}
 
+          </Menu>
+        </>)}
     </div>
   );
 };

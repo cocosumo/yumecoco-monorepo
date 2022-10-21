@@ -28,8 +28,6 @@ export default function PersistentDesktopDrawer({ drawerWidth, handleDrawerClose
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  console.log(isSmallScreen, 'small?');
-
   return (
     <Drawer
       sx={{
@@ -38,6 +36,9 @@ export default function PersistentDesktopDrawer({ drawerWidth, handleDrawerClose
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          // Prevent scrollbar taking up space.
+          overflowY: 'overlay',
+          scrollbarGutter: 'stable',
         },
       }}
       variant={isSmallScreen ? 'temporary' : 'persistent'}

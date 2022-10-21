@@ -7,9 +7,9 @@ import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
-import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
-import { Link } from 'react-router-dom';
-import { pages } from '../../../pages/Router';
+import { ContractInput } from './ContractInput';
+import { ContractSearch } from './ContractSearch';
+
 
 export default function ContractMenu() {
   const [open, setOpen] = useState(false);
@@ -29,15 +29,8 @@ export default function ContractMenu() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link to={pages.projContractPreview}>
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <ContentPasteSearchIcon />
-              </ListItemIcon>
-              <ListItemText primary="契約を見る" />
-            </ListItemButton>
-          </Link>
-
+          <ContractInput />
+          <ContractSearch />
         </List>
       </Collapse>
     </>

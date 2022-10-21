@@ -2,14 +2,13 @@ import { Button, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../form';
-import { useState } from 'react';
+import { getFieldName, TypeOfForm } from '../form';
 import { ContractDialog } from './Preview/ContractDialog';
 import { isEmpty } from 'lodash';
 import { useSnackBar } from '../../../hooks';
 
 export const ContractFormActions = () => {
-  const [openPreview, setOpenPreview] = useState(false);
+
   const { setSnackState } = useSnackBar();
   const {
     submitForm,
@@ -18,7 +17,16 @@ export const ContractFormActions = () => {
     isValid,
     errors,
     touched,
+    values : {
+      isPreviewOpen,
+    },
+    setFieldValue,
   } = useFormikContext<TypeOfForm>();
+
+  const setOpenPreview = (isOpen: boolean) => {
+    setFieldValue(getFieldName('isPreviewOpen'), isOpen);
+  };
+
 
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
 
@@ -44,7 +52,7 @@ export const ContractFormActions = () => {
   };
 
 
-  const isOpenDialog = openPreview && isValid;
+  const isOpenDialog = isPreviewOpen && isValid;
 
   return (
     <Stack>

@@ -8,6 +8,7 @@ import ContractMenu from './menus/ContractMenu';
 import SystemMenu from './menus/SystemMenu';
 import ConstructionMenu from './menus/ConstructionMenu';
 import EstimateMenu from './menus/EstimateMenu';
+import PaymentMenu from './menus/PaymentMenu';
 
 export default function MainMenu() {
   return (
@@ -20,6 +21,7 @@ export default function MainMenu() {
         <EstimateMenu />
         {/* <CustomerManagementMenu /> */}
         <ContractMenu />
+        <PaymentMenu />
       </List>
       <Divider />
       <SystemMenu />

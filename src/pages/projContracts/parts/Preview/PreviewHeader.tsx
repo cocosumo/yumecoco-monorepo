@@ -4,6 +4,8 @@ import { jaEnvelopeStatus } from '../../../../lib';
 import { TypeOfForm } from '../../form';
 import { ContractStatus } from './ContractStatus';
 import { RefreshButton } from './RefreshButton';
+import { StartContract } from './PreviewMenu/startContract';
+
 
 export const PreviewHeader = ({
   isBusy,
@@ -19,7 +21,10 @@ export const PreviewHeader = ({
     },
   } = useFormikContext<TypeOfForm>();
 
+
   const { ja } = jaEnvelopeStatus(envelopeStatus);
+
+  const isWithContract = !!envelopeStatus;
 
   return (
     <Stack direction="row" spacing={2}>
@@ -35,6 +40,9 @@ export const PreviewHeader = ({
           {ja}
         </Alert>
       )}
+
+      {!isWithContract && !isBusy && <StartContract /> }
+
       <ContractStatus />
     </Stack>
   );

@@ -36,8 +36,7 @@ export default function PersistentDesktopDrawer({ drawerWidth, handleDrawerClose
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          // Prevent scrollbar taking up space.
-          overflowY: 'overlay',
+          overflowY: 'auto',
           scrollbarGutter: 'stable',
         },
       }}

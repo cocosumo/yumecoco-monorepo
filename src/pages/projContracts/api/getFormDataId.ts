@@ -74,7 +74,7 @@ export const normalizedData = (
     startDaysAfterContract: +(startDaysAfterContract?.value || 0),
     finishDate: parseKintoneDate(finishDate?.value),
     finishDaysAfterContract: +(finishDaysAfterContract?.value || 0),
-    completeDate: parseKintoneDate( completeDate?.value),
+    completeDate:parseKintoneDate( completeDate?.value),
     payDestination: payDestination?.value || '',
     payMethod: (payMethod?.value || '振込') as TypeOfForm['payMethod'],
 

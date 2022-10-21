@@ -9,10 +9,14 @@ export const ProjScheduleDate = ({
   fieldName,
   variant = 'standard',
   label,
+  isEmphasized = false,
+  helperText = ' ',
 } : {
   fieldName: KeyOfForm,
   variant?: ComponentProps<typeof TextField>['variant'],
   label?: string
+  isEmphasized?: boolean,
+  helperText?: string,
 }) => {
   const [field, meta, helpers] = useField(fieldName);
   const { value, name } = field;
@@ -36,6 +40,11 @@ export const ProjScheduleDate = ({
       renderInput={(params) =>(
         <TextField
           {...params}
+          sx={isEmphasized ? {
+            '& .MuiOutlinedInput-root': {
+              background: '#9CDAF9',
+            },
+          } : undefined}
           name={name}
           label={label}
           onBlur={() => {
@@ -43,7 +52,7 @@ export const ProjScheduleDate = ({
           }}
           variant={variant}
           error={isShowError}
-          helperText={isShowError ? error : ' '}
+          helperText={`${isShowError ? error : helperText}`}
         />)}
     />
   );

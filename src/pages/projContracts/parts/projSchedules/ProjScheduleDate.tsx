@@ -30,9 +30,12 @@ export const ProjScheduleDate = ({
       /* Need to use null as empty string wont work when clearing the field.
       This is different with other fields where they
       become uncontrolled component when value becomes null. ~ ras 2022.10.03 */
-      value={value || null}
+      value={value || ''}
       disablePast
       views={['year', 'month', 'day' ]}
+      onAccept={(v)=>{
+        setValue(v ?? '', true);
+      }}
       onChange={(v)=>{
         setValue(v ?? '', true);
         setTouched(true);
@@ -48,7 +51,7 @@ export const ProjScheduleDate = ({
           name={name}
           label={label}
           onBlur={() => {
-            setTouched(true);
+            setTouched(true, true);
           }}
           variant={variant}
           error={isShowError}

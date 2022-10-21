@@ -31,7 +31,6 @@ export const ContractFormActions = () => {
   const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
 
     if (isEmpty(touched) && isEmpty(errors)) {
-      // 初期または保存後、フォームが触らなかったら、保存させない。
       setSnackState({
         open: true,
         severity: 'info',

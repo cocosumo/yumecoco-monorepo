@@ -1,6 +1,6 @@
 import { Button, FormHelperText, Stack, Typography } from '@mui/material';
 
-export const ChoiceButton = ({
+export const MethodChoiceButton = ({
   mainLabel,
   secondaryLabel,
   handleClick,

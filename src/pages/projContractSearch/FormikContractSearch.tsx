@@ -1,11 +1,11 @@
 import { Formik } from 'formik';
 import { initialValues } from './form';
-import { FormContract } from './FormContract';
+import { FormContractSearch } from './FormContractSearch';
 import { validationSchema } from './formValidation';
 
 
 
-export const FormikContract = () => {
+export const FormikContractSearch = () => {
 
 
   return (
@@ -16,7 +16,7 @@ export const FormikContract = () => {
         alert('Submitted');
       }}
     >
-      <FormContract />
+      <FormContractSearch />
     </Formik>
   );
 };

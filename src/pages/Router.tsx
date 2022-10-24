@@ -9,6 +9,7 @@ import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspec
 import HelpComponents from './manuals/HelpComponents';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
+import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
 
 
 
@@ -74,6 +75,8 @@ const Router = () => (
 
     {/* 契約 */}
     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
+    {/* 契約一覧 */}
+    <Route path={`${pages.projContractSearch}`} element={<FormikContractSearch />} />
 
     {/* ヘルプ */}
     <Route path={`${pages.help}/*`} element={<HelpComponents />} />

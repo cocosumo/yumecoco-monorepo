@@ -4,18 +4,16 @@ import { PageTitle } from '../../components/ui/labels';
 
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 
-export const FormContract = () => {
+export const FormContractSearch = () => {
 
   return (
     <Form noValidate>
       <ScrollToFieldError />
       <MainContainer justifyContent={'space-between'}>
-        <PageTitle label='契約' />
+        <PageTitle label='契約一覧' />
 
 
       </MainContainer>
-
-
     </Form>
   );
 };

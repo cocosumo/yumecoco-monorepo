@@ -10,6 +10,7 @@ export type TypeOfPayFields = typeof initPayFields;
 export const initialValues = {
   /* Form management */
   submitMethod: 'normal' as 'normal' | 'contract',
+  isPreviewOpen: false,
 
   /* 工事 */
   projId: '',
@@ -34,8 +35,8 @@ export const initialValues = {
   envDocFileKeys: [] as kintone.fieldTypes.File['value'],
   envSelectedDoc: '',
   envRecipients: [] as IConnectRecipients,
+  contractDate: '' as string | Date,
   projEstimateRevision: '',
-
 
   signMethod: undefined as ReqSendContract['signMethod'],
 

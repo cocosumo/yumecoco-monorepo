@@ -12,21 +12,20 @@ export const MainSearch = () => {
     <Grid item xs={12} >
       <Stack direction={'row'} spacing={1}>
         <FormikTextField
-            name={getFieldName('mainSearch')}
-            label={'検索'}
-            onKeyUp={(e)=>{
-              console.log(e.key);
-              if (e.key === 'Enter') {
-                submitForm();
-              }
-            }}
-            />
+          name={getFieldName('mainSearch')}
+          label={'検索'}
+          onKeyUp={(e)=>{
+            if (e.key === 'Enter') {
+              submitForm();
+            }
+          }}
+        />
         <LoadingButton
-            variant='contained'
-            onClick={submitForm}
-            loading={isSubmitting}
-            >
-          <SearchIcon fontSize='large'/>
+          variant='contained'
+          onClick={submitForm}
+          loading={isSubmitting}
+        >
+          <SearchIcon fontSize='large' />
         </LoadingButton>
       </Stack>
 

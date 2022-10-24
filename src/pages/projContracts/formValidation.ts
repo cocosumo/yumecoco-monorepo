@@ -79,6 +79,7 @@ export const validationSchema =  Yup
   startDate: dateValidation,
   finishDate: dateValidation,
   completeDate: dateValidation,
+  contractDate: dateValidation.required('必須です。'),
   startDaysAfterContract: numberValidation,
   finishDaysAfterContract: numberValidation,
 });

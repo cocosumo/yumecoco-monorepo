@@ -57,10 +57,12 @@ const scrollIntoViewThenShake = (element: Element | null) => {
 };
 
 export const ScrollToFieldError = () => {
-  const { submitCount, isValid, errors } = useFormikContext();
+  const { submitCount, isValid, errors, isSubmitting } = useFormikContext();
+
 
   useEffect(() => {
-    if (submitCount === 0) return;
+
+    if (submitCount === 0 || !isSubmitting ) return;
     if (isValid) return;
 
     const fieldErrorNames = getFieldErrorNames(errors);
@@ -80,7 +82,7 @@ export const ScrollToFieldError = () => {
         }, 500 * index);
       });
 
-  }, [submitCount]);
+  }, [submitCount, isSubmitting]);
 
   return null;
 };

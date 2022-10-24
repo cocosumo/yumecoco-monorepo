@@ -13,6 +13,7 @@ const convertToKintone = (
     finishDate,
     finishDaysAfterContract,
     completeDate,
+    contractDate,
     payMethod,
     payDestination,
   }: TypeOfForm,
@@ -59,7 +60,7 @@ const convertToKintone = (
     payDestination: { value: payDestination.toString() },
     payMethod: { value: payMethod },
     completeDate: { value: toKintoneDateStr(completeDate) },
-
+    contractDate: { value: toKintoneDateStr(contractDate) },
     updatedById: { value : kintone.getLoginUser().employeeNumber },
     updateDateTime: { value: toKintoneDateStr(new Date(), true) },
 

@@ -1,23 +1,37 @@
 import { LoadingButton } from '@mui/lab';
-import { Stack, TextField, TextFieldProps } from '@mui/material';
+import { Button, Stack, TextField, TextFieldProps } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useField, useFormikContext } from 'formik';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { useBackdrop } from '../../../hooks';
+import { useEffect } from 'react';
+
+type SearchFieldProps = TextFieldProps & {
+  onClickFilter?: () => void
+};
 
 export const FormikSearchField = (
-  inputProps : TextFieldProps,
+  props : SearchFieldProps,
 ) => {
   const {
     name = 'mainSearch',
     fullWidth = true,
-  } = inputProps;
+    onClickFilter,
+    ...others
+  } = props;
+  const { setBackdropState } = useBackdrop();
   const { submitForm, isSubmitting } = useFormikContext();
   const [field] = useField(name);
+
+  useEffect(() => {
+    setBackdropState({ open: isSubmitting  });
+  }, [isSubmitting, setBackdropState]);
 
 
   return (
     <Stack direction={'row'} spacing={1}>
       <TextField
-        {...inputProps}
+        {...others}
         {...field}
         onKeyUp={(e)=>{
           if (e.key === 'Enter') {
@@ -33,6 +47,12 @@ export const FormikSearchField = (
       >
         <SearchIcon fontSize='large' />
       </LoadingButton>
+      <Button
+        variant={'contained'}
+        onClick={onClickFilter}
+      >
+        <FilterListIcon />
+      </Button>
     </Stack>
   );
 };

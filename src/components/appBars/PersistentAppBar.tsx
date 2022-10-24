@@ -7,8 +7,7 @@ import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { Stack, Typography, useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
-// import SearchField from '../../ui/textfield/SearchField';
-// import HelpIcon from '@mui/icons-material/Help';
+
 
 
 interface AppBarProps extends MuiAppBarProps {
@@ -53,13 +52,18 @@ export default function PersistentAppBar({ handleDrawerOpen }: AppBarProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Link to="/"> <img height="40px" src={CocoLogo} alt="" /></Link>
+          <Link to="/"> 
+            {' '}
+            <img height="40px" src={CocoLogo} alt="" />
+          </Link>
 
         </Stack>
         {!isSmallScreen &&
         <div>
           {/* <SearchField /> */}
-          <Typography>{kintone.getLoginUser().name}</Typography>
+          <Typography>
+            {kintone.getLoginUser().name}
+          </Typography>
 
         </div> }
 

@@ -6,14 +6,14 @@ import { getFieldName, TypeOfForm } from '../../form';
 
 export const RemainingAmountInfo = () => {
 
-  const [field, meta] = useField<TypeOfForm['remainingAmt']>(getFieldName('remainingAmt'));
+  const [field, meta, helpers] = useField<TypeOfForm['remainingAmt']>(getFieldName('remainingAmt'));
   const { value: remainingAmt, name } = field;
   const { error } = meta;
+  const { setValue } = helpers;
 
   const [animAmt, setAnimAmt] = useState(remainingAmt || 0);
 
   const oldAmt = useRef(remainingAmt || 0);
-
 
 
   useLazyEffect(()=>{
@@ -34,6 +34,7 @@ export const RemainingAmountInfo = () => {
       if (c++ === numOfCalls || remainingAmt === 0) {
         clearInterval(intervalId);
         setAnimAmt(remainingAmt);
+        setValue(remainingAmt, true);
         oldAmt.current = remainingAmt;
       }
 

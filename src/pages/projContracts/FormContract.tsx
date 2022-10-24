@@ -63,19 +63,16 @@ export const FormContract = () => {
         </Grid>
 
 
-        {/* 支払い予定入力 */}
         {!!projEstimateId && (
           <>
+            {/* 支払い予定入力 */}
             <PageSubTitle label='支払い予定' />
             <PaymentSchedule totalAmount={roundedTotalAmt} />
-          </>
-        )}
 
-        {!!projEstimateId && (
-        <>
-          <PageSubTitle label={'工期'} />
-          <ProjectSchedules />
-        </>
+            {/* 工期 */}
+            <PageSubTitle label={'工期'} />
+            <ProjectSchedules />
+          </>
         )}
 
         {/* 契約内容 */}

@@ -30,6 +30,14 @@ export const ProjectSchedules = () => {
       })}
 
       <ProjScheduleDate fieldName='completeDate' variant='outlined' label={'引渡し時期'}  />
+      <ProjScheduleDate
+        fieldName='contractDate'
+        variant='outlined'
+        label={'契約日 (必須)'}
+        isEmphasized={true}
+        disablePast={false}
+        helperText={'必ず確認してください。'}
+      />
 
     </ProjectSchedulesContainer>);
 };

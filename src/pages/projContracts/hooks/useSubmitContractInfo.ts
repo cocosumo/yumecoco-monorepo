@@ -19,14 +19,13 @@ export const useSubmitContractInfo = () => {
       submitMethod,
     } = values;
     try {
+
       setBackdropState({ open: true });
 
       /* Throttle */
       if (submitMethod === 'normal') {
         await sleep(2000);
       }
-
-
       const { revision } = await saveContractDetails(values);
 
       setSnackState({

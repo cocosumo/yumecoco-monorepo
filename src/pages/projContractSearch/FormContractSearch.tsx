@@ -3,6 +3,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
+import { renderSearch } from './parts/renderSearch';
 
 export const FormContractSearch = () => {
 
@@ -11,7 +12,7 @@ export const FormContractSearch = () => {
       <ScrollToFieldError />
       <MainContainer justifyContent={'space-between'}>
         <PageTitle label='契約一覧' />
-
+        {renderSearch('mainSearch')}
 
       </MainContainer>
     </Form>

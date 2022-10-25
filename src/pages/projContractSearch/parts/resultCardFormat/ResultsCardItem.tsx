@@ -1,15 +1,15 @@
 import { Estimates } from './estimates/Estimates';
 import { ProjInfo } from './projInfo/ProjInfo';
-import { ResultsItemContainer } from './ResultsItemContainer';
+import { ResultsCardItemContainer } from './ResultsCardItemContainer';
 
 /**
  * 工事ごと
  */
 export const ResultsCardItem = () => {
   return (
-    <ResultsItemContainer>
+    <ResultsCardItemContainer>
       <ProjInfo />
       <Estimates />
-    </ResultsItemContainer>
+    </ResultsCardItemContainer>
   );
 };

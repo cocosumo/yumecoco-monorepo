@@ -10,6 +10,7 @@ import HelpComponents from './manuals/HelpComponents';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
+import { FormikPaymentInvoice } from './projPaymentInvoice/FormikPaymentInvoice';
 
 
 
@@ -77,6 +78,11 @@ const Router = () => (
     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
     {/* 契約一覧 */}
     <Route path={`${pages.projContractSearch}`} element={<FormikContractSearch />} />
+
+    {/* 入金管理グループ */}
+    <Route path={`${pages.projPaymentInvoice}`} element={<FormikPaymentInvoice />} />
+    <Route path={`${pages.projPaymentSearch}`} element={'入金予定一覧ページ：未対応'} />
+    <Route path={`${pages.projPaymentInput}`} element={'入金情報入力ページ：未対応'} />
 
     {/* ヘルプ */}
     <Route path={`${pages.help}/*`} element={<HelpComponents />} />

@@ -10,7 +10,7 @@ export const FormContractSearch = () => {
   return (
     <Form noValidate>
       <ScrollToFieldError />
-      <MainContainer justifyContent={'space-between'}>
+      <MainContainer justifyContent={'center'}>
         <PageTitle label='契約一覧' />
         {renderSearch('mainSearch')}
 

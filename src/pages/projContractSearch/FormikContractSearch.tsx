@@ -12,8 +12,12 @@ export const FormikContractSearch = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={()=>{
-        alert('Submitted');
+      onSubmit={(_, { setSubmitting })=>{
+        setTimeout(() => {
+          alert('Submitted');
+          setSubmitting(false);
+        }, 2000);
+
       }}
     >
       <FormContractSearch />

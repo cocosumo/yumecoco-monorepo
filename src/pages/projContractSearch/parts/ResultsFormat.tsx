@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ToggleButton, ToggleButtonGroup, ToggleButtonProps, Tooltip } from '@mui/material';
+import { ToggleButton, ToggleButtonGroup, ToggleButtonGroupProps, ToggleButtonProps, Tooltip } from '@mui/material';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import ViewAgendaIcon from '@mui/icons-material/ViewAgenda';
 
@@ -24,15 +23,16 @@ const WrappedToggleButton = (
 /**
  * 表示方法の選択
  */
-export const ResultsFormat = () => {
-  const [format, setFormat] = useState<TResultFormat>('table');
+export const ResultsFormat = ({
+  format,
+  handleFormat,
+} : {
+  format: TResultFormat
+  handleFormat: ToggleButtonGroupProps['onChange']
+}) => {
 
-  const handleFormat = (
-    _ : React.MouseEvent<HTMLElement>,
-    newFormat: TResultFormat,
-  ) => {
-    setFormat(prev => newFormat ?? prev );
-  };
+
+
 
 
   return (

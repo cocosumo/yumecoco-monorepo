@@ -1,26 +1,32 @@
-import { Stack, StackProps, Typography } from '@mui/material';
-import { Caption } from './Caption';
+import { FormLabel, Stack, StackProps, Typography, TypographyProps } from '@mui/material';
+import { ReactNode } from 'react';
 
-
-export const LabeledInfo = ({
-  label,
-  info = '',
-  fontSize = 16,
-  direction = 'column',
-}: {
+type LabeledInfoProps = TypographyProps & {
   label: string,
-  info?: string
-  fontSize?: number
+  info: ReactNode,
   direction?: StackProps['direction']
-}) =>{
+};
+
+export const LabeledInfo = ( props : LabeledInfoProps) =>{
+
+  const {
+    info,
+    label,
+    fontSize = 16,
+    direction = 'column',
+    fontWeight = 'bold',
+    variant = 'subtitle1',
+  } = props;
 
 
   return (
 
     <Stack direction={direction}>
-      <Caption text={label} />
-      <Typography fontSize={fontSize} >
-        {info ? info : '-'}
+      <FormLabel>
+        {label}
+      </FormLabel>
+      <Typography variant={variant} fontSize={fontSize} fontWeight={fontWeight} >
+        {info}
       </Typography>
     </Stack>
 

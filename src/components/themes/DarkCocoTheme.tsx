@@ -15,7 +15,7 @@ const darkTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        
+
         outlinedPrimary: {
           color: grey[700],
           borderColor: grey[300],
@@ -110,8 +110,8 @@ const darkTheme = createTheme({
     },
     MuiTypography: {
       styleOverrides: {
-        caption: {
-          color: '#d4d7d7',
+        subtitle1: {
+          color: '#707070',
         },
       },
     },

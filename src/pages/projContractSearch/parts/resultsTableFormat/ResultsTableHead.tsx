@@ -1,4 +1,5 @@
 import { TableCell, TableCellProps, TableHead, TableRow } from '@mui/material';
+import { translations } from '../../../../helpers/translations';
 
 const thCells = [
   ['projId', 'projEstimateId'],
@@ -28,7 +29,7 @@ const RThCell = ({
     <TableCell align={getAlign(idx)}>
       {cell.map((field) => (
         <div key={field}>
-          {field}
+          {translations[field]}
         </div>
       ))}
     </TableCell>
@@ -43,6 +44,9 @@ export const ResultsTableHead = () => {
         {thCells.map((cell, idx) => (
           <RThCell cell={cell} idx={idx} key={cell[0]} />
         ))}
+        <TableCell align='right'>
+
+        </TableCell>
       </TableRow>
     </TableHead>
   );

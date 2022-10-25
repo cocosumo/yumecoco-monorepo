@@ -1,10 +1,12 @@
 import { ResultsTableContainer } from './ResultsTableContainer';
-import { ResultsTableHead } from './ResultsTableHead';
+import { ResultsTBody } from './ResultsTBody';
+import { ResultsTHead } from './ResultsTHead';
 
 export const ResultsTableFormat = () => {
   return (
     <ResultsTableContainer>
-      <ResultsTableHead />
+      <ResultsTHead />
+      <ResultsTBody />
     </ResultsTableContainer>
   );
 };

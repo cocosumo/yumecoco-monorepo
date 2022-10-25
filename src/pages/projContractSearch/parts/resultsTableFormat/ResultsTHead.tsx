@@ -1,7 +1,7 @@
 import { TableCell, TableCellProps, TableHead, TableRow } from '@mui/material';
 import { translations } from '../../../../helpers/translations';
 
-const thCells = [
+export const headCells = [
   ['projId', 'projEstimateId'],
   ['projName', 'projType'],
   ['store', 'yumeAg', 'cocoAg'],
@@ -9,7 +9,7 @@ const thCells = [
   ['contractAmount', 'grossProfit'],
 ] as const;
 
-const getAlign = (idx: number): TableCellProps['align'] => {
+export const getAlign = (idx: number): TableCellProps['align'] => {
   switch (idx) {
     case 4:
       return 'right';
@@ -22,7 +22,7 @@ const RThCell = ({
   cell,
   idx,
 }: {
-  cell: typeof thCells[number]
+  cell: typeof headCells[number]
   idx: number,
 }) => {
   return (
@@ -36,12 +36,12 @@ const RThCell = ({
   );
 };
 
-export const ResultsTableHead = () => {
+export const ResultsTHead = () => {
 
   return (
     <TableHead>
       <TableRow>
-        {thCells.map((cell, idx) => (
+        {headCells.map((cell, idx) => (
           <RThCell cell={cell} idx={idx} key={cell[0]} />
         ))}
         <TableCell align='right'>

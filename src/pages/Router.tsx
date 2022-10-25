@@ -35,6 +35,7 @@ export const pages = {
   projProspectSearch: '/project/prospect/search',
 
   projContractPreview: '/project/contract/preview',
+  projContractSearch: 'project/contract/search',
 
   projPaymentInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',

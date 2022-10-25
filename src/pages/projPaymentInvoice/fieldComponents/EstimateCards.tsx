@@ -6,7 +6,7 @@ export const EstimateCards = ({
   projId: string
 }) => {
 
-  /* 工事情報から契約済みの見積もり情報を取り出す */
+  /* 工事情報から契約済みの見積もり情報を取り出す T163にて対応 */
   const contracts = [{
     estimateId: '1',
     amount: 'a',

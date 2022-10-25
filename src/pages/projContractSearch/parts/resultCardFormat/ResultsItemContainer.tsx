@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { ReactNode } from 'react';
-import { GrayBox } from '../../../components/ui/containers';
+import { GrayBox } from '../../../../components/ui/containers';
 
 export const ResultsItemContainer = ({
   children,

@@ -1,5 +1,5 @@
 import { Box, FormHelperText, IconButton, Stack } from '@mui/material';
-import { LabeledInfo } from '../../../../components/ui/typographies';
+import { LabeledInfo } from '../../../../../components/ui/typographies';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export const ProjInfo = () => {

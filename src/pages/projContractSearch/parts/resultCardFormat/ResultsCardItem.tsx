@@ -5,7 +5,7 @@ import { ResultsItemContainer } from './ResultsItemContainer';
 /**
  * 工事ごと
  */
-export const ResultsItem = () => {
+export const ResultsCardItem = () => {
   return (
     <ResultsItemContainer>
       <ProjInfo />

@@ -8,15 +8,20 @@ const initPayFields = {
 export type TypeOfPayFields = typeof initPayFields;
 
 export const initialValues = {
+
+  /* 工事番号 */
+  projId: '',
+  projName: '',
+
   /* 契約書 */
   projContractId: '',
 
   /* 請求内容 */
-  billingAmount: '', 
+  amountType: '', // 請求金の種別
+  billingAmount: '', // 請求残高
   
   /* 入金予定日 */
   plannedPaymentDate: '',
-
 };
 
 export type TypeOfForm =  typeof initialValues;
@@ -25,3 +30,4 @@ export type KeyOfForm = keyof TypeOfForm;
 /* Utility functions */
 
 export const getFieldName = (s: KeyOfForm) => s;
+

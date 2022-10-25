@@ -18,7 +18,7 @@ export const initialValues = {
 
   /* 請求内容 */
   amountType: '', // 請求金の種別
-  billingAmount: '', // 請求残高
+  billingAmount: '', // 請求金額
   
   /* 入金予定日 */
   plannedPaymentDate: '',

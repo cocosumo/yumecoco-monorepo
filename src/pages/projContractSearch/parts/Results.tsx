@@ -5,8 +5,11 @@ import { ResultsItem } from './ResultsItem';
 export const Results = () => {
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <ResultsCount resultCount={100} />
+      <ResultsItem />
+      <ResultsItem />
+      <ResultsItem />
       <ResultsItem />
     </Stack>
   );

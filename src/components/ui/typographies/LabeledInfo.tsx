@@ -1,4 +1,9 @@
-import { FormLabel, Stack, StackProps, Typography, TypographyProps } from '@mui/material';
+import {
+  FormLabel,
+  Stack,
+  StackProps,
+  Typography,
+  TypographyProps } from '@mui/material';
 import { ReactNode } from 'react';
 
 type LabeledInfoProps = TypographyProps & {

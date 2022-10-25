@@ -1,3 +1,4 @@
+import { Estimates } from './estimates/Estimates';
 import { ProjInfo } from './projInfo/ProjInfo';
 import { ResultsItemContainer } from './ResultsItemContainer';
 
@@ -7,7 +8,8 @@ import { ResultsItemContainer } from './ResultsItemContainer';
 export const ResultsItem = () => {
   return (
     <ResultsItemContainer>
-      {/* <ProjInfo /> */}
+      <ProjInfo />
+      <Estimates />
     </ResultsItemContainer>
   );
 };

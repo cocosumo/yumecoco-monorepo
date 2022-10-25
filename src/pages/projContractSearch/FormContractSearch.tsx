@@ -18,7 +18,6 @@ export const FormContractSearch = () => {
         <Grid item
           xs={12}
           md={10}
-          mt={4}
         >
           <Results />
         </Grid>

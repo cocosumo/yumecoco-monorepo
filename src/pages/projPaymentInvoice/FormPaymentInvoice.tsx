@@ -6,7 +6,7 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { FormikTextField } from '../../components/ui/textfield';
 import { ContractAmount } from './fieldComponents/ContractAmount';
 import { BillingBalance } from './fieldComponents/BillingBalance';
-import { Button, Grid } from '@mui/material';
+import { Button, Divider, Grid } from '@mui/material';
 import { EstimateCards } from './fieldComponents/EstimateCards';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { paymentLabels } from '../projContracts';
@@ -51,6 +51,10 @@ export const FormPaymentInvoice = () => {
           <EstimateCards projId={projId} />
         </Grid>
 
+
+        <Grid item xs={12} md={12}>
+          <Divider />
+        </Grid>
 
 
         {/* 請求書情報の表示/入力エリア */}

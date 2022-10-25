@@ -1,5 +1,4 @@
 import { TableCell, TableRow } from '@mui/material';
-import { translations } from '../../../../helpers/translations';
 import { getAlign, headCells } from './ResultsTHead';
 
 const RTCell = ({
@@ -13,7 +12,7 @@ const RTCell = ({
     <TableCell align={getAlign(idx)}>
       {cell.map((field) => (
         <div key={field}>
-          {translations[field]}
+          {field}
         </div>
       ))}
     </TableCell>

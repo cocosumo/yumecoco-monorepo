@@ -1,5 +1,6 @@
-import { TableCell, TableRow } from '@mui/material';
+import { IconButton, TableCell, TableRow } from '@mui/material';
 import { getAlign, headCells } from './ResultsTHead';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const RTCell = ({
   cell,
@@ -25,6 +26,11 @@ export const ResultsTRow = () => {
       {headCells.map((cell, idx) => (
         <RTCell cell={cell} idx={idx} key={cell[0]} />
       ))}
+      <TableCell align='right'>
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+      </TableCell>
     </TableRow>
   );
 };

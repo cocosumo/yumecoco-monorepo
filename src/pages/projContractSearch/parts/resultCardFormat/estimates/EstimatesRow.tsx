@@ -10,7 +10,7 @@ export const EstimatesRow = () => {
       <TableCell>
         <Stack spacing={1} direction={'row'}>
           <Chip size='small' color='info' label="銀行用" />
-          <Chip size='small' color='success' label="規約" />
+          <Chip size='small' color='success' label="契約" />
         </Stack>
       </TableCell>
       <TableCell>

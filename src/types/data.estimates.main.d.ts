@@ -27,6 +27,7 @@ declare namespace Estimates.main {
     signMethod: kintone.fieldTypes.SingleLineText;
     startDate: kintone.fieldTypes.Date;
     totalPaymentAmt: kintone.fieldTypes.Calc;
+    doNotUsePayment: kintone.fieldTypes.CheckBox;
 
     envDocFileKeys: kintone.fieldTypes.File;
     内訳: {

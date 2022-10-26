@@ -60,7 +60,7 @@ export const FormPaymentInvoice = () => {
         {/* 請求書情報の表示/入力エリア */}
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount />
+          <ContractAmount values={values} />
         </Grid>
         <Grid item md={6} />
 

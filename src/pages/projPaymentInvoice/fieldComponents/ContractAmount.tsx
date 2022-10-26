@@ -2,7 +2,7 @@ import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
 
 export const ContractAmount = () => {
 
-  const contractAmount = 'xxx,xxx'; // 契約金額の算出処理を実装すること
+  const contractAmount = 'xxx,xxx'; // 契約金額の算出処理を実装すること T165にて対応
 
   return (
     <FormControl>

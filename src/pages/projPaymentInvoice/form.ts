@@ -9,22 +9,33 @@ export type TypeOfPayFields = typeof initPayFields;
 
 export const initialValues = {
 
+
+  /** 請求書番号 */
+  invoiceId: '',
+
   /* 工事番号 */
   projId: '',
   projName: '',
 
   /* 契約書 */
-  projContractId: '',
+  estimates: [
+    {
+      estimateId: '',
+      doNotUsePayment: false,
+    },
+  ],
 
-  /* 請求内容 */
-  amountType: '', // 請求金の種別
-  billingAmount: '', // 請求金額
-  
+  /** 請求金の種別 */
+  amountType: '',
+
+  /** 請求金額 */
+  billingAmount: '',
+
   /* 入金予定日 */
   plannedPaymentDate: '',
 };
 
-export type TypeOfForm =  typeof initialValues;
+export type TypeOfForm = typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
 
 /* Utility functions */

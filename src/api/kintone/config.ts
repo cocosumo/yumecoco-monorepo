@@ -15,6 +15,7 @@ const options = {
       process.env.API_CONSTRUCTION_TYPE,
       process.env.API_CONSTRUCTION_DETAILS,
       process.env.API_ESTIMATE,
+      process.env.API_INVOICE,
     ],
   },
 };
@@ -28,6 +29,7 @@ export enum APPIDS {
   constructionType = 190,
   constructionDetails = 194,
   projectEstimate = 202,
+  paymentInvoice = 204,
 }
 
 

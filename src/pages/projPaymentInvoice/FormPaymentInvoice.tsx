@@ -12,13 +12,16 @@ import { SearchProject } from './fieldComponents/SearchProject';
 import { paymentLabels } from '../projContracts';
 import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
+import { useResolveParams } from './hooks/useResolveParams';
 
 
 
 export const FormPaymentInvoice = () => {
-  const { values } = useFormikContext<TypeOfForm>();
+  const { values, submitForm } = useFormikContext<TypeOfForm>();
   const { projId } = values;
 
+  useResolveParams();
+  console.log('form', values);
 
   return (
     <Form noValidate>
@@ -60,7 +63,7 @@ export const FormPaymentInvoice = () => {
         {/* 請求書情報の表示/入力エリア */}
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount />
+          <ContractAmount values={values} />
         </Grid>
         <Grid item md={6} />
 
@@ -93,7 +96,7 @@ export const FormPaymentInvoice = () => {
         <Grid item xs={12} md={6}>
           <Button
             variant="contained"
-            onClick={() => { alert('未対応です'); }}
+            onClick={submitForm}
           >
             請求書発行
           </Button>

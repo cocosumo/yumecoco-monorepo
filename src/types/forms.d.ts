@@ -33,6 +33,7 @@ interface URLParams {
   projEstimateId?: string,
   custGroupId?: string,
   menuOpen?: number,
+  invoiceId?: number,
 }
 
 type KeyOfUrlParams = keyof URLParams;

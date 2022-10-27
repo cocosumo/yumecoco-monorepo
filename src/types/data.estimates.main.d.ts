@@ -12,6 +12,8 @@ declare namespace Estimates.main {
     顧客名: kintone.fieldTypes.SingleLineText;
     estimateStatus: kintone.fieldTypes.SingleLineText;
     payMethod: kintone.fieldTypes.SingleLineText;
+    custGroupId: kintone.fieldTypes.Number;
+    storeName: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     工事種別名: kintone.fieldTypes.SingleLineText;
     refundAmt: kintone.fieldTypes.Number;
@@ -20,6 +22,7 @@ declare namespace Estimates.main {
     envStatus: kintone.fieldTypes.SingleLineText;
     updatedById: kintone.fieldTypes.Number;
     startDaysAfterContract: kintone.fieldTypes.Number;
+    storeId: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
     projTypeId: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;
@@ -46,6 +49,17 @@ declare namespace Estimates.main {
         };
       }>;
     };
+    officers: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          empId: kintone.fieldTypes.Number;
+          employeeName: kintone.fieldTypes.SingleLineText;
+          agentType: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
+    };
     支払い: {
       type: "SUBTABLE";
       value: Array<{
@@ -55,6 +69,16 @@ declare namespace Estimates.main {
           isPayEnabled: kintone.fieldTypes.Number;
           paymentDate: kintone.fieldTypes.Date;
           paymentType: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
+    };
+    custGroupMembers: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          custId: kintone.fieldTypes.Number;
+          custName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

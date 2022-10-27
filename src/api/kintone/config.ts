@@ -26,8 +26,15 @@ export enum APPIDS {
   employees = 34,
   custGroup = 185,
   custMemo = 181,
+
+  /** @deprecated Use projType instead */
   constructionType = 190,
+
+  /** @deprecated Use project instead */
   constructionDetails = 194,
+
+  projType = 190,
+  project = 194,
   projectEstimate = 202,
   paymentInvoice = 204,
 }

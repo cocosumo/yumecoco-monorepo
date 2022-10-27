@@ -1,5 +1,6 @@
-import { APPIDS, KintoneRecord } from '../api/kintone';
+import { APPIDS } from '../api/kintone';
 import { useQuery } from '@tanstack/react-query';
+import { getProjById } from '../api/kintone/projects/getProjById';
 
 /**
  * 工事番号で、工事のデータを取得する。
@@ -7,13 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 export const useProjById = (projId: string) => {
 
   return useQuery(
-    [APPIDS.constructionDetails, projId],
-    () => {
-      return KintoneRecord.getRecord({
-        app: APPIDS.constructionDetails,
-        id: projId,
-      }).then(({ record }) => record as unknown as ProjectDetails.SavedData);
-    },
+    [APPIDS.project, projId],
+    () => getProjById(projId),
     {
       enabled: !!projId,
     },

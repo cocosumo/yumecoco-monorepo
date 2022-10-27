@@ -4,8 +4,6 @@ import { getEstimatesByProjId } from '../api/kintone/estimates/getEstimatesByPro
 
 /**
  * 工事番号で見積リストを取得する
- * @param projId
- * @returns {Estimates.main.SavedData[]} 見積リスト
  */
 export const useEstimatesByProjId = (
   projId: string,

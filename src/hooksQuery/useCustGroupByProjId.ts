@@ -6,8 +6,6 @@ import { useProjById } from './useProjById';
 
 /**
  * 工事番号で、顧客グループと工事データを取得する。
- * @param projId 工事番号
- * @returns 工事と顧客グループデータ
  */
 export const useCustGroupByProjId = (projId: string) => {
   const { data: projData } = useProjById(projId);
@@ -16,7 +14,7 @@ export const useCustGroupByProjId = (projId: string) => {
   const { data: custGroupData } = useCustGroupById(custGroupId || '');
 
   return useQuery(
-    [APPIDS.constructionDetails, APPIDS.custGroup, projId],
+    [APPIDS.project, APPIDS.custGroup, projId],
     () => {
       return {
         custGroupData,

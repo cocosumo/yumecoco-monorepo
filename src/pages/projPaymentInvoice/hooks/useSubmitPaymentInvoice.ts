@@ -14,7 +14,6 @@ export const useSubmitPaymentInvoice = () => {
   const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
 
-  console.log('isPaused', isPaused);
 
   useEffect(() => {
     if (isPaused) {

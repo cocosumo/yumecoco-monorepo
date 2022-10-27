@@ -27,7 +27,6 @@ export const ContractAmount = ({
     return acc + (calculated?.[idx].totalAmountInclTax ?? 0);
   }, 0);
 
-  console.log('records', records);
 
   return (
     <FormControl>

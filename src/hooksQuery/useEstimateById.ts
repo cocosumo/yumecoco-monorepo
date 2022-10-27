@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { APPIDS, KintoneRecord } from '../api/kintone';
-import { calculateEstimateRecord } from '../api/others/calculateEstimateRecord';
+import { APPIDS } from '../api/kintone';
+import { getEstimatesById } from '../api/kintone/estimates/getEstimatesById';
 
 
 /**
@@ -12,22 +12,7 @@ export const useEstimateById = (projEstimateId: string) => {
 
   return useQuery(
     [APPIDS.projectEstimate, projEstimateId],
-    () => {
-
-      return KintoneRecord.getRecord({
-        app: APPIDS.projectEstimate,
-        id: projEstimateId,
-      }).then(({ record }) => {
-
-        const newRecord = record as unknown as Estimates.main.SavedData;
-        const calculated = calculateEstimateRecord(newRecord);
-
-        return {
-          record: newRecord,
-          calculated,
-        };
-      });
-    },
+    () => getEstimatesById(projEstimateId),
     {
       enabled: !!projEstimateId,
     },

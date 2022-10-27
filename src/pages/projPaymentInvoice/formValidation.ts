@@ -17,7 +17,13 @@ export const validationSchema = Yup
   .object()
   .shape<Partial<Record<KeyOfForm, Yup.AnySchema>>>({
 
-  projContractId: numberValidation,
+  estimates: Yup.array()
+    .of(
+      Yup.object().shape({
+        estimateId: numberValidation,
+        doNotUsePayment: Yup.boolean(),
+      }),
+    ),
   billingAmount: numberValidation,
   plannedPaymentDate: dateValidation,
 });

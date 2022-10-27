@@ -24,7 +24,8 @@
     "dtsgen:estimatesMajorItems": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 67 --type-name Data --namespace Estimates.majorItems -o src/types/data.estimates.majorItems.d.ts",
     "dtsgen:estimatesMiddleItems": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 68 --type-name Data --namespace Estimates.middleItems -o src/types/data.estimates.middleItems.d.ts",
     "dtsgen:estimatesMaterials": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 69 --type-name Data --namespace Estimates.materials -o src/types/data.estimates.materials.d.ts",
-    "dtsgen:estimates": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 202 --type-name Data --namespace Estimates.main -o src/types/data.estimates.main.d.ts"
+    "dtsgen:estimates": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 202 --type-name Data --namespace Estimates.main -o src/types/data.estimates.main.d.ts",
+    "dtsgen:invoice": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 204 --type-name Data --namespace Invoice -o src/types/data.invoice.d.ts"
   },
   "keywords": [
     "Autoprefixer",

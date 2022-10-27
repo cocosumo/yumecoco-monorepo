@@ -16,7 +16,7 @@ export const useCustGroupByProjId = (projId: string) => {
   const { data: custGroupData } = useCustGroupById(custGroupId || '');
 
   return useQuery(
-    [APPIDS.constructionDetails, APPIDS.custGroup, projId],
+    [APPIDS.project, APPIDS.custGroup, projId],
     () => {
       return {
         custGroupData,

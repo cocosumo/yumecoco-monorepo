@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { APPIDS, KintoneRecord } from '../api/kintone';
+import { APPIDS } from '../api/kintone';
+import { getCustGroupById } from '../api/kintone/custgroups/getCustGroupById';
 
 /**
  * 顧客グループ番号で、顧客グループのデータを取得する。
@@ -9,12 +10,7 @@ import { APPIDS, KintoneRecord } from '../api/kintone';
 export const useCustGroupById = (custGroupId : string) => {
   return useQuery(
     [APPIDS.custGroup, custGroupId],
-    () => {
-      return KintoneRecord.getRecord({
-        app: APPIDS.custGroup,
-        id: custGroupId,
-      }).then(({ record }) => record as unknown as CustomerGroupTypes.SavedData );
-    },
+    () => getCustGroupById(custGroupId),
     {
       enabled: !!custGroupId,
     },

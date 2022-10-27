@@ -1,18 +1,19 @@
 import { Grid } from '@mui/material';
-import { useState } from 'react';
+import { useFormikContext } from 'formik';
 import { FormikSearchField } from '../../../components/ui/textfield/FormikSearchField';
-import { KeyOfForm } from '../form';
+import { KeyOfForm, TypeOfForm } from '../form';
 import { FilterDialog } from './filterDialog/FilterDialog';
 
 export const WrappedSearchField = ({ name }: { name: KeyOfForm }) => {
-  const [open, setOpen] = useState(false);
+  const dialogFieldKey : KeyOfForm = 'isFilterOpen';
 
-  const handleFilterOpen = () => setOpen(true);
-  const handleFilterClose = () => setOpen(false);
+  const { setFieldValue } = useFormikContext<TypeOfForm>();
+  const handleFilterOpen = () => setFieldValue(dialogFieldKey, true);
+  const handleFilterClose = () => setFieldValue(dialogFieldKey, false);
 
   return (
     <Grid item xs={12} md={8}>
-      <FilterDialog open={open} handleClose={handleFilterClose} />
+      <FilterDialog handleClose={handleFilterClose} />
       <FormikSearchField name={name} onOpenFilter={handleFilterOpen} />
     </Grid>
   );

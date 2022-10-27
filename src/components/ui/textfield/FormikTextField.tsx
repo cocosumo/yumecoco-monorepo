@@ -2,7 +2,9 @@ import { InputAdornment, StandardTextFieldProps, TextField } from '@mui/material
 import { useField } from 'formik';
 import { FocusEvent, ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
-
+/**
+ * @deprecated use FormikTextFieldV2 instead
+ */
 interface FormikTextFieldProps extends StandardTextFieldProps {
   name: string,
   label: string,
@@ -58,7 +60,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     field.onChange(e);
 
     if (onChange) onChange(e);
-    
+
   });
 
   return (
@@ -78,7 +80,7 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
       /* Call formiks default onBlur */
         field.onBlur(e);
         if (onBlur) onBlur(e);
-        
+
       }}
       onChange={handleChange}
       onInput={onInput}

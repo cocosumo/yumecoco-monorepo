@@ -30,7 +30,7 @@ export const FormProjProspectSearch = ({
         <Grid item xs={12} md={8}>
           <FormikSearchField
             name={getFieldName('mainSearch')}
-            onClickFilter={handleOpenFilterDialog}
+            onOpenFilter={handleOpenFilterDialog}
           />
         </Grid>
 

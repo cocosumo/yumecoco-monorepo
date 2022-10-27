@@ -18,7 +18,7 @@ export const Results = () => {
 
   return (
     <>
-      <Grid item xs={12} spacing={2} >
+      <Grid item xs={12} >
         <Stack
           justifyContent={'space-between'}
           direction={'row'}

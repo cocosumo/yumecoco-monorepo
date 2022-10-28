@@ -1,4 +1,7 @@
+import { fieldMatches } from '../../../helpers/fieldMatches';
 import { APPIDS, KintoneRecord } from '../config';
+
+const custFieldEqualTo = fieldMatches<KeyOfCustGroupAll>;
 
 /**
  * Searches following fields with a single search term.
@@ -13,24 +16,39 @@ import { APPIDS, KintoneRecord } from '../config';
  * @param param.mainSearch 簡単検索
  */
 export const searchCustomers = ({
-  mainSearch,
+  easySearch,
+  storeName,
 } : {
-  mainSearch: string
+  easySearch?: string,
+  storeName?: string
 }) => {
-  const fields: (KeyOfCustomerGroup | KeyOfCustomerGroupItem)[] = [
+  const fields: KeyOfCustGroupAll[] = [
     'storeName',
     'customerName',
+    'dump', // json contains all information about the customer
+    'employeeName',
   ];
 
-  const quickSearchQuery = fields.map(fieldName => {
-    return `${fieldName} like "${mainSearch}"`;
-  }).join(' or ');
+  const easySearchQuery = easySearch ? fields.map(fieldName => {
+    return `${fieldName} like "${easySearch}"`;
+  }).join(' or ') : undefined;
+
+  const specificSearchQuery = [
+    storeName ? custFieldEqualTo('storeName', storeName) : undefined,
+  ]
+    .filter(Boolean)
+    .join(' and ');
 
   const query = [
-    quickSearchQuery,
-  ].map(q => {
-    return `(${q})`;
-  }).join(' and ');
+    easySearchQuery,
+    specificSearchQuery,
+  ]
+    .filter(Boolean)
+    .map(q => {
+      return `(${q})`;
+    }).join(' and ');
+
+  console.log(query);
 
   return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,

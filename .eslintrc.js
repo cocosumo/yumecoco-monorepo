@@ -60,4 +60,12 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
 
   },
+  "overrides": [
+    {
+      "files": ["*.test.ts","*.spec.ts"],
+      "rules": {
+        "no-console": "off"
+      }
+    }
+  ]
 };

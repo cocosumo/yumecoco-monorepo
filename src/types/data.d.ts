@@ -14,7 +14,13 @@ type TypeOfProjectProspectValues = Record<keyof TypeOfProjectProspect, { value: 
 
 type TypeOfCustomerGroup = CustomerGroupTypes.SavedData;
 type KeyOfCustomerGroup  = keyof TypeOfCustomerGroup;
-type KeyOfCustomerGroupItem = keyof TypeOfCustomerGroup['members']['value'][0]['value'];
+type KeyOfCustomerGroupMembers = keyof TypeOfCustomerGroup['members']['value'][0]['value'];
+type KeyOfCustomerGroupAG = keyof TypeOfCustomerGroup['agents']['value'][0]['value'];
+
+type KeyOfCustGroupAll =
+| KeyOfCustomerGroup
+| KeyOfCustomerGroupMembers
+| KeyOfCustomerGroupAG;
 
 type TProjRank = 'A' | 'B' | 'C' | 'D' | '';
 

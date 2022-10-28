@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Backdrop } from '@mui/material';
 
@@ -34,13 +34,16 @@ export const GlobalBackdrop = ({ children }: {
     open: false,
   });
 
+  const handleSetBackdropState = useCallback(
+    (params: IBackdropState) => {
+      setState(prev => ({ ...prev, ...params }));
+    }, []);
+
   const providerValue = useMemo(()=>({
     backdropState: state,
-    setBackdropState: (params: IBackdropState) => {
-      setState(prev => ({ ...prev, ...params }));
-    },
+    setBackdropState: handleSetBackdropState,
     handleClose: handleClose,
-  }), [setState, state]);
+  }), [ state, handleSetBackdropState]);
 
 
   return (

@@ -2,10 +2,10 @@ import {  BoxProps } from '@mui/material';
 import { ColoredContainer } from './ColoredContainer';
 
 
-export const GrayBox = (props: BoxProps) => {
+export const WhiteBox = (props: BoxProps) => {
   const {
     children,
-    bgcolor = '#f5f5f5',
+    bgcolor = '#fff',
     ...others
   } = props;
   return (
@@ -18,4 +18,4 @@ export const GrayBox = (props: BoxProps) => {
   );
 };
 
-export default GrayBox;
+export default WhiteBox;

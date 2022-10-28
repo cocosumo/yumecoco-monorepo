@@ -7,7 +7,7 @@ import { useBackdrop } from '../../../hooks';
 import { useEffect } from 'react';
 
 type SearchFieldProps = TextFieldProps & {
-  onClickFilter?: () => void
+  onOpenFilter?: () => void
 };
 
 export const FormikSearchField = (
@@ -16,7 +16,7 @@ export const FormikSearchField = (
   const {
     name = 'mainSearch',
     fullWidth = true,
-    onClickFilter,
+    onOpenFilter,
     ...others
   } = props;
   const { setBackdropState } = useBackdrop();
@@ -49,7 +49,7 @@ export const FormikSearchField = (
       </LoadingButton>
       <Button
         variant={'contained'}
-        onClick={onClickFilter}
+        onClick={onOpenFilter}
       >
         <FilterListIcon />
       </Button>

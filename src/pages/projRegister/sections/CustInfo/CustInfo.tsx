@@ -95,7 +95,7 @@ export const CustInfo = () => {
 
       const isExist = accu.some(item => item.label === numberedLabel);
       const resolvedLabel = isExist ?  `${rawLabel}2` : numberedLabel;
-      return [...accu, { key: id, label: resolvedLabel, data: employeeName.value }];
+      return [...accu, { key: id, label: resolvedLabel, info: employeeName.value }];
     }, [] as Array<ComponentProps<typeof LabeledInfo> & { key: string }>) ?? [];
 
 

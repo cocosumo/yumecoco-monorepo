@@ -2,6 +2,7 @@ import { FieldHelperProps, FieldHookConfig, useField } from 'formik';
 import { useRef } from 'react';
 
 /**
+ *
  * If you need stable helper functions from useField, use this,
  * otherwise, don't.
  *
@@ -12,10 +13,11 @@ import { useRef } from 'react';
  *
  * Deprecate when upgraded to Formik V3. ~ ras 2022.10.28
  *
+ * @see https://github.com/jaredpalmer/formik/issues/2268
+ * @see https://github.com/jaredpalmer/formik/issues/2268#issuecomment-668112803
  *
  * @param propsOrFieldName
  * @returns Formik's useField with memoized functions
- * @see https://github.com/jaredpalmer/formik/issues/2268
  */
 export function useFieldFast<Val = any>(
   propsOrFieldName: string | FieldHookConfig<Val>,

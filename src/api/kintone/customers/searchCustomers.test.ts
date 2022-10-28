@@ -1,4 +1,4 @@
-import { agentTypes } from '../../../types/commonTypes';
+import { EmployeeType } from '../../../types/commonTypes';
 import { searchCustomers } from './searchCustomers';
 
 const membersContain = (
@@ -18,7 +18,7 @@ const agentContains = (
   agents: TypeOfCustomerGroup['agents'],
   fields: KeyOfCustomerGroupAG[],
   value: string,
-  agentType: keyof typeof agentTypes,
+  agentType: EmployeeType,
 ) => {
   return (
     agents.value
@@ -109,15 +109,14 @@ describe('mainSearch', ()=>{
   });
 
 
-  it('should return records matching yumeAg', async () => {
+  it('should return records matching yumeAG', async () => {
     const testParams : Parameters<typeof searchCustomers>[number][] = [
-      { yumeAg: '高野 ' },
+      { yumeAg: '高野' },
     ];
 
     for (const param of testParams) {
       const result = await searchCustomers(param);
       console.log(`Records: ${result.length} , ${param.yumeAg}`);
-      expect(result).toMatchSnapshot();
       expect(
         result
           .every(({ agents }) => agentContains(agents, ['employeeName'], param.yumeAg || '', 'yumeAG')),
@@ -126,9 +125,9 @@ describe('mainSearch', ()=>{
     }
   });
 
-  it('should return records matching cocoAg', async () => {
+  it('should return records matching cocoAG', async () => {
     const testParams : Parameters<typeof searchCustomers>[number][] = [
-      { cocoAg: '高野 ' },
+      { cocoAg: '隆仁' },
     ];
 
     for (const param of testParams) {

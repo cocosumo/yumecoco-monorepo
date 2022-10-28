@@ -35,7 +35,6 @@ export const searchCustomers = ({
     'dump', // json contains all information about the customer
     'employeeName',
     'email',
-
   ];
 
   const easySearchQuery = easySearch ? fields.map(fieldName => {

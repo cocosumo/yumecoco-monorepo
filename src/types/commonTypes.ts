@@ -16,3 +16,9 @@ export const AGLabels : Record<EmployeeType, string> = {
   cocoConst : '工事担当者',
   sutekura: 'すてくら',
 };
+
+export interface CustGroupExtented extends CustomerGroupTypes.SavedData {
+  'relatedProjects': KeyOfProjDetails
+}
+
+export type KeyOfCustGroupExtented = keyof CustGroupExtented;

@@ -17,10 +17,10 @@ import { useRef } from 'react';
  * @returns Formik's useField with memoized functions
  * @see https://github.com/jaredpalmer/formik/issues/2268
  */
-export function useFieldFast<Val>(
+export function useFieldFast<Val = any>(
   propsOrFieldName: string | FieldHookConfig<Val>,
 ) {
-  const [field, meta, helpers] = useField(propsOrFieldName);
+  const [field, meta, helpers] = useField<Val>(propsOrFieldName);
 
   const actualHelpersRef = useRef<FieldHelperProps<Val>>(helpers);
 

@@ -9,7 +9,8 @@ import { APPIDS, KintoneRecord } from '../config';
  * - yumeAG ゆめてつAG
  * - store 店舗
  *
- * @param searchTerm
+ * @param param
+ * @param param.mainSearch 簡単検索
  */
 export const searchCustomers = ({
   mainSearch,

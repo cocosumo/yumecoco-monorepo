@@ -76,7 +76,6 @@ describe('mainSearch', ()=>{
 
   it('should return records matching storeName', async () => {
     const testParams : Parameters<typeof searchCustomers>[number][] = [
-      { storeName: '豊川' },
       { storeName: '豊田' },
     ];
 

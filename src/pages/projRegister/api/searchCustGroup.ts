@@ -24,7 +24,7 @@ export const searchCustGroup = async (searchStr: string) => {
   return KintoneRecord.getRecords({
     app: APPIDS.custGroup,
     query: [
-      `${'customerName' as KeyOfCustomerGroupItem} like "${searchStr}"`,
+      `${'customerName' as KeyOfCustomerGroupMembers} like "${searchStr}"`,
       `${'isDeleted' as KeyOfCustomerGroup} < "${+true}"`,
     ].join(' and '),
   }).then((resp) => resp.records as unknown as TypeOfCustomerGroup[]);

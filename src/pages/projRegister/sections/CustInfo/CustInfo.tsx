@@ -7,7 +7,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { TypeOfProjForm, getFieldName } from '../../form';
-import { AGLabels } from '../../../../api/kintone/employees/GET';
 import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
@@ -16,6 +15,7 @@ import { generateParams } from '../../../../helpers/url';
 import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
+import { AGLabels } from '../../../../types/commonTypes';
 
 
 export const CustInfo = () => {

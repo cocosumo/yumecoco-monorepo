@@ -1,10 +1,10 @@
-import { EmployeeType, EmpRoles } from '../GET';
+import { EmployeeType, EmpRoles } from '../../../../types/commonTypes';
 
 export const resolveRoles = (dirtyType: EmployeeType | EmployeeType[])  => {
   return ([] as EmployeeType[])
     .concat(dirtyType)
     .reduce((acc, curr) => {
-      switch (curr){
+      switch (curr) {
         case 'yumeAG':
           return [...new Set([...acc, ...['主任', '営業', '店長'] as EmpRoles[]])];
         case 'cocoAG':

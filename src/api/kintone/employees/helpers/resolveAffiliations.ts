@@ -1,4 +1,4 @@
-import { EmpAffiliations, EmployeeType } from '../GET';
+import { EmpAffiliations, EmployeeType } from '../../../../types/commonTypes';
 
 export const resolveAffiliations = (dirtyType: EmployeeType | EmployeeType[]) => {
 
@@ -6,13 +6,13 @@ export const resolveAffiliations = (dirtyType: EmployeeType | EmployeeType[]) =>
     .concat(dirtyType)
     .reduce((acc, curr)=>{
 
-      if (curr.includes('yume') && !acc.includes('ゆめてつ')){
+      if (curr.includes('yume') && !acc.includes('ゆめてつ')) {
         return [...new Set([...acc, 'ゆめてつ'])];
       }
-      if (curr.includes('coco') && !acc.includes('ここすも')){
+      if (curr.includes('coco') && !acc.includes('ここすも')) {
         return [...new Set([...acc, 'ここすも'])];
       }
-      if (curr.includes('sutekura') && !acc.includes('すてくら')){
+      if (curr.includes('sutekura') && !acc.includes('すてくら')) {
         return [...new Set([...acc, 'すてくら'])];
       }
 

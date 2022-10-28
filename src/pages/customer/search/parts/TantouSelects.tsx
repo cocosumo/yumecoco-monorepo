@@ -1,10 +1,10 @@
 
 import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { EmployeeType } from '../../../../api/kintone/employees/GET';
 
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooks';
+import { EmployeeType } from '../../../../types/commonTypes';
 import { FormFieldKeys, initialValues } from '../form';
 
 
@@ -24,8 +24,8 @@ const resolveLabel = (name: EmployeeType) => {
 
 const TantouSelect = ({
   name,
-}: { 
-  name: EmployeeType 
+}: {
+  name: EmployeeType
 }) => {
   const { values } = useFormikContext<typeof initialValues>();
   const options = useEmployeeOptions({ type: name, storeId: values.storeId });

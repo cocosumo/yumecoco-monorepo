@@ -1,0 +1,540 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mainSearch should return records matching yumeAg 1`] = `
+Array [
+  Object {
+    "$id": Object {
+      "type": "__ID__",
+      "value": "184",
+    },
+    "$revision": Object {
+      "type": "__REVISION__",
+      "value": "18",
+    },
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "567311",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "cocoAG",
+            },
+            "email": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "n-yasutomi@cocosumo.co.jp",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "17",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "安富　直人",
+            },
+          },
+        },
+        Object {
+          "id": "567312",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "cocoAG",
+            },
+            "email": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "m-ooi@cocosumo.co.jp",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "41",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "大井　道晴",
+            },
+          },
+        },
+        Object {
+          "id": "554766",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "yumeAG",
+            },
+            "email": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "29",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "高野 雅弘",
+            },
+          },
+        },
+        Object {
+          "id": "554767",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "yumeAG",
+            },
+            "email": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "30",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "金指 悠太",
+            },
+          },
+        },
+      ],
+    },
+    "custType": Object {
+      "type": "RADIO_BUTTON",
+      "value": "個人",
+    },
+    "isDeleted": Object {
+      "type": "NUMBER",
+      "value": "",
+    },
+    "members": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "567316",
+          "value": Object {
+            "address1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊川市山道町",
+            },
+            "address2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "customerId": Object {
+              "type": "NUMBER",
+              "value": "435",
+            },
+            "customerName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "早川　洋子",
+            },
+            "dump": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "{\\"key\\":\\"q5D16\\",\\"id\\":\\"435\\",\\"index\\":0,\\"revision\\":\\"3\\",\\"custName\\":\\"早川　洋子\\",\\"custNameReading\\":\\"ハヤカワ　ヨウコ\\",\\"gender\\":\\"女性\\",\\"birthYear\\":\\"\\",\\"birthMonth\\":\\"\\",\\"birthDay\\":\\"\\",\\"postal\\":\\"4420873\\",\\"address1\\":\\"愛知県豊川市山道町\\",\\"address2\\":\\"\\",\\"phone1\\":\\"0123456789\\",\\"phone1Rel\\":\\"契約者\\",\\"phone2\\":\\"1234567890\\",\\"phone2Rel\\":\\"配偶者\\",\\"email\\":\\"kaba3kobu@gmail.com\\",\\"emailRel\\":\\"契約者\\",\\"isSameAddress\\":false}",
+            },
+            "postal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "4420873",
+            },
+          },
+        },
+        Object {
+          "id": "567317",
+          "value": Object {
+            "address1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊川市山道町",
+            },
+            "address2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "customerId": Object {
+              "type": "NUMBER",
+              "value": "436",
+            },
+            "customerName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "テスト用",
+            },
+            "dump": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "{\\"key\\":\\"DI_TE\\",\\"id\\":\\"436\\",\\"index\\":1,\\"revision\\":\\"3\\",\\"custName\\":\\"テスト用\\",\\"custNameReading\\":\\"テスト\\",\\"gender\\":null,\\"birthYear\\":\\"\\",\\"birthMonth\\":\\"\\",\\"birthDay\\":\\"\\",\\"postal\\":\\"4420873\\",\\"address1\\":\\"愛知県豊川市山道町\\",\\"address2\\":\\"\\",\\"phone1\\":\\"0123456789\\",\\"phone1Rel\\":\\"契約者\\",\\"phone2\\":\\"1234567890\\",\\"phone2Rel\\":\\"配偶者\\",\\"email\\":\\"cocosumo.cloud@gmail.com\\",\\"emailRel\\":\\"契約者\\",\\"isSameAddress\\":true}",
+            },
+            "postal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "4420873",
+            },
+          },
+        },
+      ],
+    },
+    "projectCount": Object {
+      "type": "NUMBER",
+      "value": "1",
+    },
+    "projects": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "564842",
+          "value": Object {
+            "cancelStatus": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "cocoConst1": Object {
+              "type": "NUMBER",
+              "value": "17",
+            },
+            "cocoConst1Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "安富　直人",
+            },
+            "cocoConst2": Object {
+              "type": "NUMBER",
+              "value": "",
+            },
+            "cocoConst2Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "envStatus": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "auto",
+            },
+            "kariAddress": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "projId": Object {
+              "type": "NUMBER",
+              "value": "119",
+            },
+            "projName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "早川　洋子様邸 解体工事",
+            },
+            "projectAddress1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊川市松久町",
+            },
+            "projectAddress2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "1丁目",
+            },
+            "projectPostal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "4420874",
+            },
+            "status": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "追客中",
+            },
+          },
+        },
+      ],
+    },
+    "storeId": Object {
+      "type": "NUMBER",
+      "value": "12",
+    },
+    "storeName": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "豊川中央店",
+    },
+    "territory": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "184",
+    },
+    "作成日時": Object {
+      "type": "CREATED_TIME",
+      "value": "2022-08-05T01:13:00Z",
+    },
+    "作成者": Object {
+      "type": "CREATOR",
+      "value": Object {
+        "code": "RPA02",
+        "name": "早川 洋子",
+      },
+    },
+    "更新日時": Object {
+      "type": "UPDATED_TIME",
+      "value": "2022-10-12T03:28:00Z",
+    },
+    "更新者": Object {
+      "type": "MODIFIER",
+      "value": Object {
+        "code": "RPA02",
+        "name": "早川 洋子",
+      },
+    },
+  },
+  Object {
+    "$id": Object {
+      "type": "__ID__",
+      "value": "185",
+    },
+    "$revision": Object {
+      "type": "__REVISION__",
+      "value": "5",
+    },
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "564314",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "cocoAG",
+            },
+            "email": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "s-okinaga@cocosumo.co.jp",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "40",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "沖永　誠治",
+            },
+          },
+        },
+        Object {
+          "id": "564315",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "yumeAG",
+            },
+            "email": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "29",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "高野 雅弘",
+            },
+          },
+        },
+      ],
+    },
+    "custType": Object {
+      "type": "RADIO_BUTTON",
+      "value": "個人",
+    },
+    "isDeleted": Object {
+      "type": "NUMBER",
+      "value": "",
+    },
+    "members": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "564313",
+          "value": Object {
+            "address1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊川市千歳通",
+            },
+            "address2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "customerId": Object {
+              "type": "NUMBER",
+              "value": "437",
+            },
+            "customerName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "高橋テスト",
+            },
+            "dump": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "{\\"key\\":\\"Npzhj\\",\\"id\\":\\"\\",\\"index\\":0,\\"revision\\":\\"\\",\\"custName\\":\\"高橋テスト\\",\\"isSameAddress\\":false,\\"custNameReading\\":\\"タカハシテスト\\",\\"gender\\":\\"\\",\\"birthYear\\":\\"\\",\\"birthMonth\\":\\"\\",\\"birthDay\\":\\"\\",\\"postal\\":\\"442-0888\\",\\"address2\\":\\"\\",\\"phone1\\":\\"09035675804\\",\\"phone1Rel\\":\\"契約者\\",\\"phone2\\":\\"\\",\\"phone2Rel\\":\\"\\",\\"email\\":\\"\\",\\"emailRel\\":\\"\\",\\"address1\\":\\"愛知県豊川市千歳通\\"}",
+            },
+            "postal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "442-0888",
+            },
+          },
+        },
+      ],
+    },
+    "projectCount": Object {
+      "type": "NUMBER",
+      "value": "2",
+    },
+    "projects": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "564517",
+          "value": Object {
+            "cancelStatus": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "cocoConst1": Object {
+              "type": "NUMBER",
+              "value": "17",
+            },
+            "cocoConst1Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "安富　直人",
+            },
+            "cocoConst2": Object {
+              "type": "NUMBER",
+              "value": "",
+            },
+            "cocoConst2Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "envStatus": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "kariAddress": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "projId": Object {
+              "type": "NUMBER",
+              "value": "121",
+            },
+            "projName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "高橋テスト様邸 新築付帯工事　2期工事",
+            },
+            "projectAddress1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊田市元宮町",
+            },
+            "projectAddress2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "5丁目8-2",
+            },
+            "projectPostal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "471-0871",
+            },
+            "status": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "追客中",
+            },
+          },
+        },
+        Object {
+          "id": "564925",
+          "value": Object {
+            "cancelStatus": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "cocoConst1": Object {
+              "type": "NUMBER",
+              "value": "17",
+            },
+            "cocoConst1Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "安富　直人",
+            },
+            "cocoConst2": Object {
+              "type": "NUMBER",
+              "value": "",
+            },
+            "cocoConst2Name": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "envStatus": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "auto",
+            },
+            "kariAddress": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "projId": Object {
+              "type": "NUMBER",
+              "value": "120",
+            },
+            "projName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "高橋テスト様邸 その他工事",
+            },
+            "projectAddress1": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "愛知県豊川市千歳通",
+            },
+            "projectAddress2": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "3-10-1",
+            },
+            "projectPostal": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "4418222",
+            },
+            "status": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "追客中",
+            },
+          },
+        },
+      ],
+    },
+    "storeId": Object {
+      "type": "NUMBER",
+      "value": "12",
+    },
+    "storeName": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "豊川中央店",
+    },
+    "territory": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "185",
+    },
+    "作成日時": Object {
+      "type": "CREATED_TIME",
+      "value": "2022-09-26T07:39:00Z",
+    },
+    "作成者": Object {
+      "type": "CREATOR",
+      "value": Object {
+        "code": "coco.takahashi.k",
+        "name": "高橋 加奈",
+      },
+    },
+    "更新日時": Object {
+      "type": "UPDATED_TIME",
+      "value": "2022-09-29T12:26:00Z",
+    },
+    "更新者": Object {
+      "type": "MODIFIER",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+  },
+]
+`;

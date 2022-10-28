@@ -1,20 +1,12 @@
 import { APP_ID } from './config';
 import { APPIDS, KintoneRecord } from './../config';
 import { resolveAffiliations, resolveRoles } from './helpers';
+import { EmployeeType } from '../../../types/commonTypes';
 
 
 type KeyOfEmployee = keyof EmployeeTypes.SavedData;
 
-export type EmployeeType = 'yumeAG' | 'cocoAG' | 'cocoConst' | 'sutekura';
-export type EmpAffiliations = 'ここすも' | 'すてくら' | 'ゆめてつ';
-export type EmpRoles = '店長' | '主任' | '営業' | '工務';
 
-export const AGLabels : Record<EmployeeType, string> = {
-  cocoAG : '営業担当者',
-  yumeAG : 'ゆめてつAG',
-  cocoConst : '工事担当者',
-  sutekura: 'すてくら',
-};
 
 
 export interface GetEmployeesParams {

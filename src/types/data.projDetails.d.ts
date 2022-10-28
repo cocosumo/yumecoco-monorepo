@@ -20,6 +20,7 @@ declare namespace ProjectDetails {
     projName: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
+    storeId: kintone.fieldTypes.Number;
     projTypeId: kintone.fieldTypes.Number;
     contractPrice: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;

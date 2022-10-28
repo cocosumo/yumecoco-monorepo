@@ -37,14 +37,17 @@ export const NameInput = ({
       () => debounce(
         (el) => {
           setFieldValue(custNameFN, (el.target as HTMLInputElement).value);
-          setFieldValue(custNameReadingFN, hiraToKana(autokana.current?.getFurigana() ?? ''));
+          const katakana = hiraToKana(autokana.current?.getFurigana() ?? '');
+          setFieldValue(custNameReadingFN, katakana);
           setInputVal(null);
 
-        }, 1000),
-      [custNameReadingFN, custNameFN],
+        }, 50),
+      [custNameReadingFN, custNameFN, setFieldValue],
     );
 
   const isShowError = touched && !!error;
+
+
   return (
     <>
       <Grid item xs={12}>
@@ -57,6 +60,7 @@ export const NameInput = ({
           required
           onInput={(e) => {
             const text = (e.target as  HTMLInputElement).value;
+
             setInputVal(text);
           }}
           onChange={changeHandlerInput}

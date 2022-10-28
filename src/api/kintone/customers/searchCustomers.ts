@@ -11,6 +11,8 @@
  * @param searchTerm
  */
 export const searchCustomers = (searchTerm: string) => {
-
+  const fields: (KeyOfCustomerGroup | KeyOfCustomerGroupItem)[] = [
+    'customerName',
+  ];
 
 };

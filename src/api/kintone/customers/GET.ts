@@ -7,7 +7,7 @@ export const getAllCustomers = () => {
 
 export const getCustomersByIds = (ids: string[]) => {
   const query = ids.map((id) => `$id = "${id}" `).join(' or ') + ' order by index asc';
-  
+
   return KintoneRecord.getRecords({
     app: APP_ID,
     query,
@@ -20,9 +20,11 @@ export const getCustomerById = (id: string) =>  KintoneRecord
     id,
   });
 
-
+/**
+ *
+ * @deprecated ファイル構成と仕様の変更。 新：../searchCustomers
+ */
 export const searchCustomers = (searchStr: string) => {
-  console.log(`${'fullName' as keyof CustomerTypes.SavedData} like ${searchStr}`);
   return KintoneRecord.getRecords({
     app: APP_ID,
     query: `${'fullName'} like "${searchStr}"`,

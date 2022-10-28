@@ -1,8 +1,15 @@
 import { TextField, TextFieldProps } from '@mui/material';
-import { useField } from 'formik';
 import { useEffect, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
+import { useFieldFast } from '../../../hooks/useFieldFast';
 
+/**
+ * MUI TextField that can be binded to Formik by
+ * specifying the 'name' prop.
+ *
+ * This also 'debounce' the input so it won't re-render on every keystroke.
+ *
+ */
 export const FormikTextFieldV2 = (
   props: TextFieldProps & {
     name: string,
@@ -17,13 +24,12 @@ export const FormikTextFieldV2 = (
     ...others
   } = props;
   const [inputValue, setInputValue] = useState<string>('');
-  const debouncedValue = useDebounce<string>(inputValue, 500);
-  const [field, meta, helpers] = useField(name);
+  const debouncedValue = useDebounce<string>(inputValue, 800);
+  const [field, meta, helpers] = useFieldFast(name);
 
   const { error, touched } = meta;
   const { setValue, setTouched } = helpers;
   const isShowError = touched && !!error;
-
 
   const handleChange: TextFieldProps['onChange'] = (e) => {
     setInputValue(e.target.value);
@@ -31,7 +37,6 @@ export const FormikTextFieldV2 = (
   };
 
   useEffect(() => {
-    console.log('Fired!');
     setValue(debouncedValue);
     setTouched(true);
   }, [debouncedValue, setValue, setTouched]);

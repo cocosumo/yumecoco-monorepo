@@ -1,3 +1,4 @@
+import { APPIDS, KintoneRecord } from '../config';
 
 /**
  * Searches following fields with a single search term.
@@ -10,9 +11,29 @@
  *
  * @param searchTerm
  */
-export const searchCustomers = (searchTerm: string) => {
+export const searchCustomers = ({
+  mainSearch,
+} : {
+  mainSearch: string
+}) => {
   const fields: (KeyOfCustomerGroup | KeyOfCustomerGroupItem)[] = [
+    'storeName',
     'customerName',
   ];
+
+  const quickSearchQuery = fields.map(fieldName => {
+    return `${fieldName} like "${mainSearch}"`;
+  }).join(' or ');
+
+  const query = [
+    quickSearchQuery,
+  ].map(q => {
+    return `(${q})`;
+  }).join(' and ');
+
+  return KintoneRecord.getAllRecords({
+    app: APPIDS.custGroup,
+    condition: query,
+  }).then(rec => rec as unknown as TypeOfCustomerGroup[]);
 
 };

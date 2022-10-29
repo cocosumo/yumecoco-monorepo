@@ -1,6 +1,5 @@
 import { updateRelatedProjects } from './updateRelatedProjects';
 import { objArrOfIdAndRevision } from '../../../jestUtils/objArrOfIdAndRevision';
-import { es } from 'date-fns/locale';
 
 describe('updateRelatedProjects', () => {
   it('should update related projId', async () => {
@@ -17,11 +16,10 @@ describe('updateRelatedProjects', () => {
       const recIds = result
         .map(({ records }) => records
           .map(({ id, revision }) => `${id}:${revision}`)
-          .join(','));
+          .join(','))
+        .filter(Boolean);
 
-      console.log('Updated: ', recIds);
-
-      if (!recIds) {
+      if (!recIds.length) {
         console.log('No records to update.');
       } else {
         expect(result)

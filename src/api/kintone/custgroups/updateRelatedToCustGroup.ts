@@ -22,7 +22,6 @@ export const updateRelatedToCustGroup = async (custGroupId: string | string[]) =
   const jobs = relatedAppIds
     .map(async ([relatedAppId]) => {
 
-
       const relatedRecords = await KintoneRecord.getAllRecords({
         app: relatedAppId,
         condition: condition,
@@ -30,11 +29,11 @@ export const updateRelatedToCustGroup = async (custGroupId: string | string[]) =
 
       return KintoneRecord.updateRecords({
         app: relatedAppId,
-        records: relatedRecords.map(({ $id }) => {
+        records: relatedRecords.map(({ $id, custGroupId: _custGroupId }) => {
           return {
             id: $id.value as RecordID,
             record: {
-              custGroupId: { value: $id.value },
+              custGroupId: { value: _custGroupId.value },
             },
           };
         }),

@@ -19,24 +19,22 @@ export const updateRelatedProjects = async (projId: string | string[]) => {
     .map((pId) => `projId = "${pId}"`)
     .join(' or ');
 
-  console.log('condition', projId, condition);
-
   const jobs = relatedAppIds
     .map(async ([relatedAppId]) => {
-
 
       const relatedRecords = await KintoneRecord.getAllRecords({
         app: relatedAppId,
         condition: condition,
       });
 
+
       return KintoneRecord.updateRecords({
         app: relatedAppId,
-        records: relatedRecords.map(({ $id }) => {
+        records: relatedRecords.map(({ $id, projId: _projId }) => {
           return {
             id: $id.value as RecordID,
             record: {
-              custGroupId: { value: $id.value },
+              projId: { value: _projId.value },
             },
           };
         }),

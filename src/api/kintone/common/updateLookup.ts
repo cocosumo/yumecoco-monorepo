@@ -1,13 +1,14 @@
-import { RecordID } from '@kintone/rest-api-client/lib/client/types';
+import { getLookUpFields } from './getLookUpFields';
+import { Record, RecordID } from '@kintone/rest-api-client/lib/client/types';
 import { APPIDS, KintoneRecord } from '../config';
 
 
 export const updateLookup = async ({
-  relatedAppIds,
+  relatedAppId,
   recIds,
   lookUpFieldName,
 }: {
-  relatedAppIds: APPIDS[]
+  relatedAppId: APPIDS
   recIds: string | string[]
   /** TODO: Fix type to be more specifict */
   lookUpFieldName: Extract<KeyOfCustomerGroup | KeyOfProjectDetails | keyof Estimates.main.SavedData, 'projId' | 'custGroupId'>
@@ -16,27 +17,31 @@ export const updateLookup = async ({
     .map((id) => `${lookUpFieldName} = "${id}"`)
     .join(' or ');
 
-  const jobs = relatedAppIds
-    .map(async (relatedAppId) => {
 
-      const relatedRecords = await KintoneRecord.getAllRecords({
-        app: relatedAppId,
-        condition: condition,
-      });
 
-      return KintoneRecord.updateRecords({
-        app: relatedAppId,
-        records: relatedRecords.map((rec) => {
-          const { $id } = rec;
-          return {
-            id: $id.value as RecordID,
-            record: {
-              [lookUpFieldName]: { value: rec[lookUpFieldName].value },
-            },
-          };
-        }),
-      });
-    });
+  const [lookupFields, relatedRecords] = await Promise.all([
+    getLookUpFields(relatedAppId),
+    KintoneRecord.getAllRecords({
+      app: relatedAppId,
+      condition: condition,
+    }),
+  ]);
+
+
+  return KintoneRecord.updateRecords({
+    app: relatedAppId,
+    records: relatedRecords.map((rec) => {
+      const { $id } = rec;
+      const newRecord : Record =  {};
+      for (const lookup in lookupFields) {
+        newRecord[lookup] = rec[lookup];
+      }
   
-  return Promise.all(jobs);
+      return {
+        id: $id.value as RecordID,
+        record: newRecord,
+      };
+    }),
+  });
+    
 };

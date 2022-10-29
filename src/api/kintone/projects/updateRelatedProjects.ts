@@ -19,7 +19,7 @@ export const updateRelatedProjects = async (projId: string | string[]) => {
     .map((pId) => `projId = "${pId}"`)
     .join(' or ');
 
-  console.log(projId, condition);
+  console.log('condition', projId, condition);
 
   const jobs = relatedAppIds
     .map(async ([relatedAppId]) => {

@@ -1,5 +1,5 @@
-import { RecordID } from '@kintone/rest-api-client/lib/client/types';
-import { APPIDS, KintoneRecord } from '../config';
+import { updateLookup } from '../common/updateLookup';
+import { APPIDS } from '../config';
 
 /**
  * 関連レコードを更新する
@@ -7,38 +7,18 @@ import { APPIDS, KintoneRecord } from '../config';
  * @param custGroupId 
  */
 export const updateRelatedToCustGroup = async (custGroupId: string | string[]) => {
+
   /** 
-   * Add other related apps here and its updateFunction if there are other related apps.
-   */
-  const relatedAppIds = [
-    [APPIDS.project],
-  ];
+   * UPDATE projects  
+   * SET custGroupId = projest.custGroupId
+   * WHERE recIds = custGroupId
+   * */
+  return updateLookup({
+    relatedAppIds: [ 
+      APPIDS.project,
+    ],
+    recIds: custGroupId,
+    lookUpFieldName: 'custGroupId',
+  });
 
-  /** Handle both string or array */
-  const condition = (Array.isArray(custGroupId) ? custGroupId : [custGroupId])
-    .map((cgId) => `custGroupId = "${cgId}"`)
-    .join(' or ');
-
-  const jobs = relatedAppIds
-    .map(async ([relatedAppId]) => {
-
-      const relatedRecords = await KintoneRecord.getAllRecords({
-        app: relatedAppId,
-        condition: condition,
-      });
-
-      return KintoneRecord.updateRecords({
-        app: relatedAppId,
-        records: relatedRecords.map(({ $id, custGroupId: _custGroupId }) => {
-          return {
-            id: $id.value as RecordID,
-            record: {
-              custGroupId: { value: _custGroupId.value },
-            },
-          };
-        }),
-      });
-    });
-  
-  return Promise.all(jobs);
 };

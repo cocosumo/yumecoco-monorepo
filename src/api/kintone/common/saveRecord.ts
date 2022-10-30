@@ -31,7 +31,7 @@ export const saveRecord = async (
     updateRelatedFn?: () => Promise<{
       [appId: number] : {
         condition: string,
-        records: Array<{
+        results: Array<{
           id: string;
           revision: string;
         }>;

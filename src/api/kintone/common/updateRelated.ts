@@ -51,7 +51,7 @@ export const updateRelated = async <T = never>({
     records: relatedRecords.map((rec) => {
       const { $id } = rec;
       const newRecord : Record =  {};
-      
+
       for (const lookup in lookupFields) {
         newRecord[lookup] = rec[lookup];
       }
@@ -69,7 +69,7 @@ export const updateRelated = async <T = never>({
   return {
     condition,
     relatedRecords,
-    records,
+    results: records,
   };
     
 };

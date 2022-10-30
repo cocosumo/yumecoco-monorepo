@@ -41,7 +41,7 @@ export const saveCustGroup = async (
     appId: APPIDS.project,
     record: aggRecord,
     revision: revision,
-    updateRelatedFn: () => updateRelatedProjects(projId),
+    updateRelatedFn: projId ? () => updateRelatedProjects(projId) : undefined,
   });
 
 };

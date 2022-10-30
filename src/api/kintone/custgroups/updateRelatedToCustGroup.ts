@@ -10,9 +10,9 @@ import { APPIDS } from '../config';
  */
 export const updateRelatedToCustGroup = async (
   record: Partial<CustomerGroupTypes.SavedData>,
-  custGroupId?: string | string[],
+  custGroupId: string | string[],
 ) => {
-  if (!custGroupId) return;
+  if (!custGroupId) throw new Error('エラーが発生しました。custGroupIdは定義されていません。');
 
   /* custGroup 1-n projects */
   const updatedProjects = await updateRelated<ProjectDetails.SavedData>({
@@ -63,7 +63,7 @@ export const updateRelatedToCustGroup = async (
 
 
   /* projects 1-n projEstimates */
-  const projIds = updatedProjects.records.map(({ id }) => id );
+  const projIds = updatedProjects.results.map(({ id }) => id );
   const updatedProjEstimates = await updateRelated<Estimates.main.SavedData>({
     relatedAppId: APPIDS.projectEstimate,
     recIds: projIds,

@@ -35,6 +35,6 @@ export const saveCustGroup = async (
     appId: APPIDS.custGroup,
     record: aggRecord,
     revision: revision,
-    updateRelatedFn: () => updateRelatedToCustGroup(record, custGroupId),
+    updateRelatedFn: custGroupId ? () => updateRelatedToCustGroup(record, custGroupId) : undefined,
   });
 };

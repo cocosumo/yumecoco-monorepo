@@ -9,8 +9,8 @@ import { APPIDS } from '../config';
  * 
  * @param projId 
  */
-export const updateRelatedProjects = async (projId?: string | string[]) => {
-  if (!projId) return;
+export const updateRelatedProjects = async (projId: string | string[]) => {
+  if (!projId) throw new Error('エラーが発生しました。projIdは定義されていません。');
 
   const updatedEstimates = await updateRelated({
     relatedAppId: APPIDS.projectEstimate,

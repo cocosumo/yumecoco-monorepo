@@ -1,4 +1,3 @@
-import { UseMutationOptions } from '@tanstack/react-query';
 import { useBackdrop } from '../hooks/useBackdrop';
 import { useSnackBar } from '../hooks/useSnackBar';
 
@@ -6,7 +5,7 @@ export const useCommonOptions = () => {
   const { setSnackState } = useSnackBar();
   const { setBackdropState } = useBackdrop();
   
-  const options : UseMutationOptions = {
+  const options = {
     onMutate: () => {
       setBackdropState({ open: true });
       
@@ -18,7 +17,7 @@ export const useCommonOptions = () => {
         message: '保存が出来ました。',
       });
     },
-    onError: (error) => {
+    onError: (error: unknown) => {
       setSnackState({
         open: true,
         severity: 'error',

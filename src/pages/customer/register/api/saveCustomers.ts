@@ -42,7 +42,6 @@ export const saveCustomers = async (formData: CustomerForm) => {
       }),
   }).then(resp => resp.records.concat(savedRecords));
 
-
 };
 
 

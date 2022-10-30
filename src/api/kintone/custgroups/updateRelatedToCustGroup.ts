@@ -1,4 +1,4 @@
-import { updateLookup } from '../common/updateLookup';
+import { updateRelated } from '../common/updateRelated';
 import { APPIDS } from '../config';
 
 /**
@@ -8,20 +8,63 @@ import { APPIDS } from '../config';
  * 
  * @param custGroupId 
  */
-export const updateRelatedToCustGroup = async (custGroupId?: string | string[]) => {
+export const updateRelatedToCustGroup = async (
+  record: Partial<CustomerGroupTypes.SavedData>,
+  custGroupId?: string | string[],
+) => {
   if (!custGroupId) return;
 
   /* custGroup 1-n projects */
-  const updatedProjects = await updateLookup({
+  const updatedProjects = await updateRelated<ProjectDetails.SavedData>({
     relatedAppId: APPIDS.project,
     recIds: custGroupId,
     lookUpFieldName: 'custGroupId',
+    record: {
+      custGroup: {
+        type: 'SUBTABLE',
+        value: record.members?.value.map(({
+          id,
+          value: {
+            customerId,
+          },
+        }) => {
+          return {
+            id,
+            value: {
+              custId: customerId,
+              custName: { value: 'auto' },
+              custNameReading: { value: 'auto' },
+            },
+          };
+        }) || [],
+      },
+      custGroupAgents: {
+        type: 'SUBTABLE',
+        value: record.agents?.value.map(({
+          id,
+          value: {
+            employeeId,
+            employeeName,
+            agentType,
+          },
+        }) => {
+          return {
+            id,
+            value: {
+              custAgentId: employeeId,
+              custAgentName: employeeName,
+              custAgentType: agentType,
+            },
+          };
+        }) || [],
+      },
+    },
   });
 
 
   /* projects 1-n projEstimates */
   const projIds = updatedProjects.records.map(({ id }) => id );
-  const updatedProjEstimates = await updateLookup({
+  const updatedProjEstimates = await updateRelated<Estimates.main.SavedData>({
     relatedAppId: APPIDS.projectEstimate,
     recIds: projIds,
     lookUpFieldName: 'projId',

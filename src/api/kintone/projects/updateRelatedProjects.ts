@@ -1,5 +1,5 @@
 
-import { updateLookup } from '../common/updateLookup';
+import { updateRelated } from '../common/updateRelated';
 import { APPIDS } from '../config';
 
 /**
@@ -12,7 +12,7 @@ import { APPIDS } from '../config';
 export const updateRelatedProjects = async (projId?: string | string[]) => {
   if (!projId) return;
 
-  const updatedEstimates = await updateLookup({
+  const updatedEstimates = await updateRelated({
     relatedAppId: APPIDS.projectEstimate,
     recIds: projId,
     lookUpFieldName: 'projId',

@@ -9,10 +9,16 @@ import { APPIDS } from '../config';
  * 
  * @param projId 
  */
-export const updateRelatedProjects = async (projId: string | string[]) => {
-  return updateLookup({
+export const updateRelatedProjects = async (projId?: string | string[]) => {
+  if (!projId) return;
+
+  const updatedEstimates = await updateLookup({
     relatedAppId: APPIDS.projectEstimate,
     recIds: projId,
     lookUpFieldName: 'projId',
   });
+
+  return {
+    [APPIDS.projectEstimate]: updatedEstimates,
+  };
 };

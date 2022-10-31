@@ -8,11 +8,13 @@ export const QtRowMoveAnywhere = ({
   rowIdx, rowsCount,
   move,
   resetArrowsAnimation,
+  visible = true,
 }: {
-  rowIdx : number,
+  rowIdx: number,
   rowsCount: number,
-  resetArrowsAnimation: () => void, 
+  resetArrowsAnimation: () => void,
   move: FieldArrayRenderProps['move'],
+  visible: boolean
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -27,7 +29,7 @@ export const QtRowMoveAnywhere = ({
     setAnchorEl(null);
   };
 
-  const handleMoveAnywhere = (selectedRowIdx : number) => {
+  const handleMoveAnywhere = (selectedRowIdx: number) => {
     move(rowIdx, selectedRowIdx);
     handleClose();
   };
@@ -42,30 +44,31 @@ export const QtRowMoveAnywhere = ({
       >
         {rowIdx + 1}
       </IconButton>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          horizontal: 'left',
-          vertical: 'top',
-        }}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-          },
-        }}
-      >
-        {[...Array(rowsCount).keys()].map((option) => (
-          <MenuItem key={option}
-            selected={option === rowIdx}
-            onClick={() => handleMoveAnywhere(option)}
-          >
-            {option + 1}
-          </MenuItem>
-        ))}
+      {visible &&
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            horizontal: 'left',
+            vertical: 'top',
+          }}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+            },
+          }}
+        >
+          {[...Array(rowsCount).keys()].map((option) => (
+            <MenuItem key={option}
+              selected={option === rowIdx}
+              onClick={() => handleMoveAnywhere(option)}
+            >
+              {option + 1}
+            </MenuItem>
+          ))}
 
-      </Menu>
+        </Menu>}
     </>
   );
 };

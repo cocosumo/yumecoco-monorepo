@@ -11,7 +11,7 @@ export  function QuoteTableBody(props: {
 }) {
   const { arrayHelpers } = props;
   const { form } = arrayHelpers;
-  const { items } = form.values as TypeOfForm;
+  const { items, envStatus } = form.values as TypeOfForm;
 
   const { majorItems, middleItems, materials } = useMaterials();
 
@@ -30,6 +30,7 @@ export  function QuoteTableBody(props: {
               materials: materials.data ?? [],
             }}
             key={item.key}
+            envStatus={envStatus}
           />
         );
       })}

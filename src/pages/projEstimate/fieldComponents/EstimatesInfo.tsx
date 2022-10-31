@@ -1,4 +1,4 @@
-import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
+import { Chip, FormControl, FormLabel, Stack, Typography } from '@mui/material';
 
 
 const LabeledInfo = ({
@@ -25,9 +25,11 @@ const LabeledInfo = ({
 export const EstimatesInfo = ({
   estimateId,
   createdDate,
+  envStatus,
 }: {
   estimateId: string
   createdDate: string
+  envStatus: string
 }) => {
 
   return (
@@ -52,7 +54,17 @@ export const EstimatesInfo = ({
             label={'作成日'}
             info={createdDate}
           />
-
+        </Stack>}
+      {!!envStatus &&
+        <Stack direction={'row'} spacing={1}>
+          <Chip
+            size='small'
+            color='success'
+            label='契約'
+          />
+          <Typography borderBottom={1} color={'error'}>
+            契約済のため編集不可
+          </Typography>
         </Stack>}
     </FormControl>
   );

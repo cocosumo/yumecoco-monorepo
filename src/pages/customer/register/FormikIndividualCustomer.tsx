@@ -57,7 +57,6 @@ export const FormikIndividualCustomer = () => {
   return (
     <MemoContextProvider>
       <Formik
-
         validateOnChange={true}
         validateOnMount
         initialValues={initialState}

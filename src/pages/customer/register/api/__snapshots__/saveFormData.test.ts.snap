@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Save 1`] = `
-Object {
-  "id": "50",
-  "revision": "1",
-}
-`;

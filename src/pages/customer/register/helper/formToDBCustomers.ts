@@ -1,6 +1,6 @@
 import { CustomerForm } from '../form';
 
-export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTypes.SavedData>>  => {
+export const formToDBCustomers = (formData: CustomerForm): Array<Partial<CustomerTypes.SavedData>>  => {
   const {
     customers,
   } = formData;
@@ -64,70 +64,4 @@ export const formToKintCust = (formData: CustomerForm): Array<Partial<CustomerTy
       };
 
     });
-};
-
-
-export const formToKintConst = (
-  formData: CustomerForm,
-  customerIds: { id: string, revision: string }[] | [] = [],
-): Partial<CustomerGroupTypes.SavedData> => {
-  const {
-    store,
-    cocoAG1,
-    cocoAG2,
-    yumeAG1,
-    yumeAG2,
-    customers,
-    isDeleted,
-  } = formData;
-
-
-  /* Only include specified agents */
-  const agents = Object.entries({
-    cocoAG1,
-    cocoAG2,
-    yumeAG1,
-    yumeAG2,
-  }).reduce((accu, [key, value]) => {
-    if (value) {
-      return [...accu, [key.replace(/\d+/g, ''), value]];
-    }
-    return accu;
-  }, [] as Array<[string, string]>);
-
-
-  return {
-    isDeleted: { value: isDeleted },
-    storeId: { value: store },
-    members: {
-      type: 'SUBTABLE',
-      value: customerIds?.map(({ id }, index) => {
-        return {
-          id: '',
-          value: {
-            customerId: { value: id },
-            address1: { value: 'auto' },
-            address2: { value: 'auto' },
-            postal: { value: 'auto' },
-            customerName: { value: 'auto' },
-            dump: { value: JSON.stringify(customers[index]) },
-          },
-        };
-      }) || [],
-    },
-    agents: {
-      type: 'SUBTABLE',
-      value: agents?.map(([type, value])=>{
-        return {
-          id: '',
-          value: {
-            agentType: { value: type },
-            employeeId: { value: value },
-            employeeName: { value: 'auto' }, // lookup copy field
-            email: { value: 'auto' },
-          },
-        };
-      }) || [],
-    },
-  };
 };

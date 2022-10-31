@@ -16,7 +16,7 @@ export interface GetEmployeesParams {
   isStoreIdRequired ?: boolean,
   territory?: '西' | '東' | null
 }
-
+/** @deprecated Use ../getEmployees instead */
 export const getEmployees  = async (params ?: GetRecordParams) => {
   const queryArray = ['状態 in ("有効")', '役職 in ("店長", "主任", "営業", "工務")'];
   if (params?.query) queryArray.push(params.query);

@@ -29,12 +29,14 @@ export default function FormProjEstimate() {
     projTypeProfitLatest,
     estimateId,
     createdDate,
+    envStatus,
   } = values;
 
   useResolveParams();
   useUpdateEstimateId();
 
   const isEditMode = !!estimateId;
+  const isDisabled = !!envStatus;
 
 
   return (
@@ -57,6 +59,7 @@ export default function FormProjEstimate() {
             <EstimatesInfo
               estimateId={estimateId}
               createdDate={createdDate}
+              envStatus={envStatus}
             />}
         </Grid>
 
@@ -83,11 +86,12 @@ export default function FormProjEstimate() {
             name={getFieldName('projTypeProfit')}
             label="利益率"
             align='right'
-            disabled={projTypeProfitLatest !== 0}
+            disabled={projTypeProfitLatest !== 0 || isDisabled}
           />
           {projTypeProfitLatest !== null &&
             projTypeProfitLatest !== 0 &&
             +projTypeProfit !== +projTypeProfitLatest &&
+            !isDisabled &&
             <MismatchedProfit />}
 
         </Grid>
@@ -96,6 +100,7 @@ export default function FormProjEstimate() {
             name={getFieldName('tax')}
             label="税率"
             align='right'
+            disabled={isDisabled}
           />
         </Grid>
         <Grid item xs={12} md={3}>
@@ -103,6 +108,7 @@ export default function FormProjEstimate() {
             name={getFieldName('status')}
             label='ステータス'
             options={statusChoices.map((c) => ({ label: c || '-', value: c }))}
+            disabled={isDisabled}
           />
         </Grid>
 
@@ -122,7 +128,7 @@ export default function FormProjEstimate() {
         </Grid>
 
         <Grid item xs={12} md={12}>
-          {/* 見積もり用のテーブル */}
+          {/* 見積もり内訳のテーブル */}
           <FieldArray
             name={getFieldName('items')}
             render={renderQuoteTable}
@@ -149,7 +155,7 @@ export default function FormProjEstimate() {
           <GoToContractButton />
         </Grid>
 
-        <FormActions />
+        {!isDisabled && <FormActions />}
         {projId && <ProjEstimateShortcuts />}
       </MainContainer>
     </Form>

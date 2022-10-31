@@ -29,7 +29,6 @@ export const EstimatesDialogContent = (props: EstimatesDialogContentProps) => {
     };
   });
 
-  console.log('chk');
 
   return (
     <DialogContent dividers>

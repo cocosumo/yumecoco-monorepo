@@ -15,11 +15,15 @@ import { TypeOfForm } from '../form';
 */
 
 export const FormikAutocomplete = (
-  { name, options, handleChange }:
-  {
+  { name,
+    options,
+    handleChange,
+    disabled = false,
+  }: {
     name: string,
     options: Options
     handleChange?: (newVal?: string) => void
+    disabled?: boolean
   },
 ) => {
 
@@ -27,7 +31,7 @@ export const FormikAutocomplete = (
   const [field, meta] = useField(name);
   const { touched, error } = meta;
 
-  const handleInputChange = useMemo(()=>
+  const handleInputChange = useMemo(() =>
     debounce((_, value) => {
       if (handleChange) handleChange(value);
       setFieldValue(name, value);
@@ -46,6 +50,7 @@ export const FormikAutocomplete = (
             />
           )}
         onInputChange={handleInputChange}
+        disabled={disabled}
       />
       {(!!error && touched) &&
         <FormHelperText error={!!error && touched}>

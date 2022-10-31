@@ -23,6 +23,7 @@ export const initialValues = {
   projName: '',
   customerName: '',
   createdDate: '',
+  envStatus: '',
 
   /** 工事種別 */
   projTypeName: '',

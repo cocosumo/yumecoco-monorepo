@@ -7,7 +7,7 @@ import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import {  getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
+import { getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
 import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { TMaterialOptions } from '../hooks/useMaterials';
@@ -20,10 +20,12 @@ export const QuoteTableRow = (
     rowIdx,
     arrayHelpers,
     materialOptions,
+    envStatus,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
     materialOptions: TMaterialOptions,
+    envStatus: string,
   }) => {
   const { setValues } = useFormikContext<TypeOfForm>();
 
@@ -53,6 +55,10 @@ export const QuoteTableRow = (
     );
   };
 
+  const isDisabled = !!envStatus;
+
+
+
   return (
     <TableRow>
 
@@ -64,12 +70,13 @@ export const QuoteTableRow = (
       >
         <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
       </TableCell>
-      
+
       <TableCell width={'10%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'majorItem')}
           handleChange={handleMajorItemChange}
           options={majorItemOpts}
+          disabled={isDisabled}
         />
       </TableCell>
 
@@ -78,6 +85,7 @@ export const QuoteTableRow = (
           name={getItemFieldName(rowIdx, 'middleItem')}
           handleChange={handleMiddleItemChange}
           options={middleItemOpts}
+          disabled={isDisabled}
         />
       </TableCell>
 
@@ -86,32 +94,39 @@ export const QuoteTableRow = (
           name={getItemFieldName(rowIdx, 'element')}
           handleChange={handleMaterialChange}
           options={materialOpts}
+          disabled={isDisabled}
         />
       </TableCell>
 
       <TableCell width={'10%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'costPrice')} handleChange={handleChangeCostPrice} />
+        <FormikInput
+          name={getItemFieldName(rowIdx, 'costPrice')}
+          handleChange={handleChangeCostPrice}
+          disabled={isDisabled}
+        />
       </TableCell>
 
       <TableCell width={'8%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'quantity')} />
+        <FormikInput name={getItemFieldName(rowIdx, 'quantity')} disabled={isDisabled} />
       </TableCell>
 
-      <TableCell width={'8%'}> 
+      <TableCell width={'8%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'unit')}
           options={unitChoices.map((c) => ({ label: c, value: c }))}
+          disabled={isDisabled}
         />
       </TableCell>
 
       <TableCell width={'6%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} />
+        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} disabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'8%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'taxType')}
           options={taxChoices.map((c) => ({ label: c, value: c }))}
+          disabled={isDisabled}
         />
       </TableCell>
 
@@ -124,10 +139,11 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'3%'}>
-        <QtRowAddDelete
-          rowIdx={rowIdx}
-          arrayHelpers={arrayHelpers}
-        />
+        {!isDisabled &&
+          <QtRowAddDelete
+            rowIdx={rowIdx}
+            arrayHelpers={arrayHelpers}
+          />}
       </TableCell>
 
     </TableRow>

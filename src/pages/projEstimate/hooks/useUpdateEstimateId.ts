@@ -48,6 +48,7 @@ export const useUpdateEstimateId = () => {
           projTypeId,
           工事種別名: projTypeName,
           作成日時,
+          envStatus,
         }) => {
 
           if (estimateId) {
@@ -62,6 +63,7 @@ export const useUpdateEstimateId = () => {
                 draft.projName = projName.value;
                 draft.projTypeName = projTypeName.value;
                 draft.createdDate = format(parseISO(作成日時.value), 'yyyy/MM/dd');
+                draft.envStatus = envStatus.value;
                 draft.items = estimateTable.map(({ id, value: {
                   原価,
                   大項目,

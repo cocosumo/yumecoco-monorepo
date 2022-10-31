@@ -13,11 +13,14 @@ import { generateParams, getParam } from '../../../helpers/url';
 import { useSaveCustGroup } from '../../../hooksQuery/useSaveCustGroup';
 import { formToDBCustomers } from './helper/formToDBCustomers';
 import { formToDBCustGroup } from './helper/formToDBCustGroup';
+import { useEmployees } from '../../../hooksQuery';
 
 
 
 export const FormikIndividualCustomer = () => {
   const { mutateAsync: saveCustGroupMutation } = useSaveCustGroup();
+  const { data: employees } = useEmployees();
+
   const { setDialogState } = useConfirmDialog();
   const [initialState, setInitialState] = useState<CustomerForm>(initialValues);
 
@@ -64,9 +67,8 @@ export const FormikIndividualCustomer = () => {
         validationSchema={validationSchema}
         onSubmit={async (values) => {
 
-
           const customerRecords = formToDBCustomers(values);
-          const custGroupRecord = formToDBCustGroup(values);
+          const custGroupRecord = formToDBCustGroup(values, employees || []);
 
           const { id: custGroupId } = await saveCustGroupMutation({
             custGroupId: recordId,

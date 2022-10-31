@@ -3,13 +3,15 @@ import { useField } from 'formik';
 import { ChangeEvent, useState } from 'react';
 
 export const FormikInput = (
-  { name, 
-    handleChange, 
-    align = 'right'  }:
-  {
+  { name,
+    handleChange,
+    align = 'right',
+    disabled = false,
+  }: {
     name: string,
     handleChange?: (inputval: string) => void
     align?: 'left' | 'right'
+    disabled?: boolean
   },
 ) => {
   const [field, meta, helpers] = useField(name);
@@ -27,7 +29,7 @@ export const FormikInput = (
         handleChange(el.target.value);
       } else {
         field.onChange(el);
-      }      
+      }
       setInputVal(null); // 本フォームのステート画面に反映させるように、リセットする。
     }, 1000);
 
@@ -45,6 +47,7 @@ export const FormikInput = (
         value={inputVal === null ? field.value : inputVal} // inputValは空なら、入力中ではないということなので、本フォームのfield.valueを反映させる。
         onChange={changeHandlerInput}
         inputProps={{ style: { textAlign: align } }}
+        disabled={disabled}
       />
       {(!!error && touched) &&
         <FormHelperText error={!!error && touched}>

@@ -39,8 +39,7 @@ export const FormIndividualCustomer  = () => {
   }, [isSubmitting]);
 
 
-  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount)  ;
-
+  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount);
 
   return (
 

@@ -4,7 +4,9 @@ declare namespace ProjectDetails {
     addressKari: kintone.fieldTypes.SingleLineText;
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
+    custNames: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
+    cocoAGNames: kintone.fieldTypes.SingleLineText;
     envelopeId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
     custGroupId: kintone.fieldTypes.Number;
@@ -21,9 +23,11 @@ declare namespace ProjectDetails {
     projTypeName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.Number;
+    cocoConstNames: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.Number;
     contractPrice: kintone.fieldTypes.Number;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
+    yumeAGNames: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     signMethod: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;

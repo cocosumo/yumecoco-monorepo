@@ -1,5 +1,5 @@
 import { EmployeeType } from '../../../types/commonTypes';
-import { searchCustomers } from './searchCustomers';
+import { searchCustomers } from './searchCustGroups';
 
 const membersContain = (
   members: TypeOfCustomerGroup['members'],

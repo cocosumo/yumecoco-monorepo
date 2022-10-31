@@ -3,6 +3,11 @@ import { KintoneRecord } from './../config';
 
 import { UpdateRecordParam } from '../types/restapi';
 
+/**
+ * 
+ * @param group 
+ * @deprecated use ../saveCustGroup instead
+ */
 export const updateGroup = async (group: UpdateRecordParam) => {
 
   return KintoneRecord.updateRecord({

@@ -5,7 +5,7 @@ import { resolveAffiliations, resolveRoles } from '../api/kintone/employees/help
 import { EmployeeType } from '../types/commonTypes';
 
 /**
- * 店舗番後で社員を取得する
+ * Return employees based on filter conditions
  *
  */
 export const useFilteredEmployees = ({

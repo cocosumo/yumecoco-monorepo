@@ -8,7 +8,6 @@ import {  Form, useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { GetEmployeesParams } from '../../api/kintone/employees/GET';
 import { TypeOfProjForm, getFieldName } from './form';
 import { useSnackBar } from '../../hooks';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
@@ -91,7 +90,7 @@ export const FormConstruction  = () => {
           <ConstructionLocation />
           <ConstructionInfo
             storeId={storeId}
-            territory={territory as GetEmployeesParams['territory']}
+            territory={territory}
             projTypeId={projTypeId}
           />
 

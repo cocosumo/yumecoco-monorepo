@@ -11,9 +11,11 @@ import { EmployeeType } from '../types/commonTypes';
 export const useFilteredEmployees = ({
   storeId,
   agentType,
+  territory,
 } : {
   storeId: string,
-  agentType?: EmployeeType | EmployeeType[]
+  agentType?: EmployeeType | EmployeeType[],
+  territory?: string
 }) => {
   let affiliations: string[] = [];
   let roles: string[] = [];
@@ -34,6 +36,7 @@ export const useFilteredEmployees = ({
           affiliateStores,
           affiliation,
           役職: empRole,
+          territory: _territory,
         }) => {
 
           const isInStore = (
@@ -43,12 +46,16 @@ export const useFilteredEmployees = ({
             .some(({ value: { storeId: _storeId } }) => _storeId.value === storeId )
           );
 
+
           const isAffiliated = affiliations.length ? affiliations.includes(affiliation.value) : true;
-          const isRole = roles.length ? roles.includes(empRole.value) : true;
+          const isInRole = roles.length ? roles.includes(empRole.value) : true;
+          const isInTerritory = territory ? territory === _territory.value : true;
+
           return (
             isInStore
           && isAffiliated
-          && isRole
+          && isInRole
+          && isInTerritory
           );
 
         } ),

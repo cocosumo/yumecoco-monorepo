@@ -1,20 +1,19 @@
 
-import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 import { FormikSelect } from '../../../../components/ui/selects';
-import { useEmployeeOptions } from '../../../../hooks';
+import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 import { getFieldName } from '../../form';
 
 interface ConstructionAgentProps {
   number?: number
   storeId: string,
-  territory?:  GetEmployeesParams['territory'],
+  territory?:  string,
   disabled: boolean
 }
 
 export const ConstructionAgent = (props: ConstructionAgentProps) => {
   const { storeId, territory, disabled = false } = props;
   const agents = useEmployeeOptions({
-    type: 'cocoConst',
+    agentType: 'cocoConst',
     storeId,
     territory,
     secondaryLabel: 'territory',

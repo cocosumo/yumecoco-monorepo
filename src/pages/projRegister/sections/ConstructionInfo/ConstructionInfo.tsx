@@ -8,7 +8,6 @@ import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfProjForm, getFieldName } from '../../form';
-import { GetEmployeesParams } from '../../../../api/kintone/employees/GET';
 import { useFormikContext } from 'formik';
 
 
@@ -16,7 +15,7 @@ export const ConstructionInfo = (
   props : {
     storeId: string,
     projTypeId?: string,
-    territory?:  GetEmployeesParams['territory'],
+    territory?: string,
 
   },
 ) => {
@@ -35,7 +34,7 @@ export const ConstructionInfo = (
   /*Todo: Refactor this as custom hook */
   useEffect(()=>{
     KintoneRecord.getRecords({
-      app: APPIDS.constructionType,
+      app: APPIDS.project,
       query: 'order by レコード番号 asc',
     }).then((res) => {
       const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
@@ -81,7 +80,12 @@ export const ConstructionInfo = (
             <Grid key={num} item xs={12}
               md={4}
             >
-              <ConstructionAgent number={num} {...{ storeId, territory }} disabled={(!cocoConst1 && num === 2) || isReadOnly} />
+              <ConstructionAgent
+                number={num}
+                disabled={(!cocoConst1 && num === 2) || isReadOnly}
+                storeId={storeId}
+                territory={territory}
+              />
             </Grid>
           ))
         }

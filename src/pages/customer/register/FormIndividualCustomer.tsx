@@ -42,8 +42,6 @@ export const FormIndividualCustomer  = () => {
 
   const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount)  ;
 
-  console.log(values);
-
   return (
 
     <FormContainer>

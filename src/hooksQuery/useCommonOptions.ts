@@ -4,11 +4,12 @@ import { useSnackBar } from '../hooks/useSnackBar';
 export const useCommonOptions = () => {
   const { setSnackState } = useSnackBar();
   const { setBackdropState } = useBackdrop();
-  
+
   const options = {
     onMutate: () => {
+      console.log('STARTED!');
       setBackdropState({ open: true });
-      
+
     },
     onSuccess: () => {
       setSnackState({

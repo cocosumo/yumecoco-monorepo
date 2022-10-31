@@ -40,7 +40,9 @@ export const DTCustomer = (props: {
         members?.value.map(({
           id, value : {
             customerName,
-            postal, address1, address2,
+            postal,
+            address1,
+            address2,
             customerId,
             dump,
           },
@@ -56,9 +58,6 @@ export const DTCustomer = (props: {
             gender,
             contacts,
           } = JSON.parse(dump.value || 'null') as CustomerTypes.SavedData ?? {};
-
-          const tel = '';
-          const email = '';
 
           const resolveAddress = (postal.value || address1.value || address2.value) ? `${postal.value}  ${address1.value}${address2.value}` : '';
           const resolveBirthDate = [[birthYear.value, '年'], [birthMonth.value, '月'], [birthDay.value, '日']]
@@ -80,8 +79,24 @@ export const DTCustomer = (props: {
               {!resolvedIsSameAddress &&
               <>
                 <LabeledDetail label='住所' value={resolveAddress} />
-                <LabeledDetail label='電話番号1' value={tel} />
-                <LabeledDetail label='メアド' value={email} />
+                {contacts?.value
+                  ?.filter(({ value: { contactValue } }) => !!contactValue.value)
+                  ?.map(({
+                    id: contactRowId,
+                    value: {
+                      contactType,
+                      contactValue,
+                      relation,
+                    },
+                  }) => {
+                    return  (
+                      <LabeledDetail
+                        key={contactRowId}
+                        label={contactType.value === 'tel' ? '電話番号' : 'メール'}
+                        value={`${contactValue.value}, ${relation.value}`}
+                      />);
+                  })}
+
               </>}
 
             </Stack>
@@ -119,8 +134,6 @@ export const DTCustomer = (props: {
             />
           );
         })}
-
-
 
       </Stack>
 

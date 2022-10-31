@@ -42,7 +42,6 @@ export const saveRecord = async (
 
   /** The actual saving process */
   if (recordId) {
-    console.log('update', record);
     /* UPDATE */
     const result = await KintoneRecord.updateRecord({
       app: appId,

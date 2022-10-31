@@ -18,7 +18,6 @@ import { FormContainer } from './FormContainer';
 export const FormIndividualCustomer  = () => {
   const { setSnackState } = useSnackBar();
   const {
-    values,
     isValid,
     isSubmitting,
     touched,
@@ -40,7 +39,7 @@ export const FormIndividualCustomer  = () => {
   }, [isSubmitting]);
 
 
-  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount)  ;
+  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount);
 
   return (
 

@@ -11,9 +11,7 @@ const darkTheme = createTheme({
   typography: {
     // Tell MUI what's the font-size on the html element is.
     htmlFontSize: isMobile ? 10 : 18,
-    allVariants: {
-      color: '#000000DE',
-    },
+
   },
   components: {
     MuiButton: {

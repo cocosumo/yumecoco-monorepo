@@ -7,7 +7,6 @@ export const useEmployeeByIds = (empId: string | string[]) => {
     [APPIDS.employees],
     getActiveEmployees,
     {
-      staleTime: 1000 * 60 * 60,
       select: (data) => data.filter(({
         $id,
       }) => typeof empId === 'string'

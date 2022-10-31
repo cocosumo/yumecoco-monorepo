@@ -29,7 +29,6 @@ export const useFilteredEmployees = ({
     [APPIDS.employees],
     getActiveEmployees,
     {
-      staleTime: 1000 * 60 * 60, // 1hr
       select: (data) => data
         .filter(({
           mainStoreId,

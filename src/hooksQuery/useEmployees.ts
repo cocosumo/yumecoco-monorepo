@@ -11,8 +11,5 @@ export const useEmployees = () => {
   return useQuery(
     [APPIDS.employees],
     getActiveEmployees,
-    {
-      staleTime: 1000 * 60 * 60,
-    },
   );
 };

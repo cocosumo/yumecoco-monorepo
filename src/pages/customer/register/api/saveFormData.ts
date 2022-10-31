@@ -9,8 +9,6 @@ export const saveFormData = async (formData: CustomerForm) => {
     const savedCustomers = await saveCustomers(formData);
     const transformedForm = formToKintConst(formData, savedCustomers);
 
-    console.log(savedCustomers, 'savedCustomers');
-
     let saveResult: { id?: string, revision: string }  = Object.create(null);
 
     /* Create record */

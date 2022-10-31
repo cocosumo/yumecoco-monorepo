@@ -1,17 +1,16 @@
 import { KintoneFormFieldProperty } from '@kintone/rest-api-client';
-import { Record } from '@kintone/rest-api-client/lib/client/types';
 import { APPIDS, KintoneClient } from '../config';
 
-export const getLookUpFields = async (appId: APPIDS, record: Record) => {
+export const getLookUpFields = async (appId: APPIDS) => {
   const { properties } = await KintoneClient.app.getFormFields({
     app: appId,
   });
 
-  const lookUpOnlyRec : Record = {}; 
+  const lookUpFieldKeys : string[] = []; 
 
   Object.keys(properties).map(key => {
     if ('lookup' in properties[key]) {
-      lookUpOnlyRec[key] = record[key];
+      lookUpFieldKeys.push(key);
     }
 
     /** Subtableの場合 */
@@ -22,11 +21,11 @@ export const getLookUpFields = async (appId: APPIDS, record: Record) => {
       });
       
       if (hasLookUp) {
-        lookUpOnlyRec[key] = record[key];
+        lookUpFieldKeys.push(key);
       }
     }
   });
 
-  return lookUpOnlyRec;
+  return lookUpFieldKeys;
 
 };

@@ -2,12 +2,15 @@ declare namespace CustomerGroupTypes {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
+    custNames: kintone.fieldTypes.SingleLineText;
+    cocoAGNames: kintone.fieldTypes.SingleLineText;
     isDeleted: kintone.fieldTypes.Number;
+    yumeAGNames: kintone.fieldTypes.SingleLineText;
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
     projects: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
@@ -28,7 +31,7 @@ declare namespace CustomerGroupTypes {
       }>;
     };
     agents: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
@@ -40,7 +43,7 @@ declare namespace CustomerGroupTypes {
       }>;
     };
     members: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

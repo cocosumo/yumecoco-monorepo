@@ -10,8 +10,6 @@ export const LabeledDetail = ({
   direction?: StackProps['direction']
 }) => {
 
-
-
   return (
     <div>
       {
@@ -22,7 +20,7 @@ export const LabeledDetail = ({
           {label}
         </FormLabel>
         <Typography variant='body1'>
-          {value}
+          {value || ''}
         </Typography>
       </Stack>
       }

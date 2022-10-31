@@ -1,5 +1,4 @@
 import { Collapse, Stack  } from '@mui/material';
-import { CustomerInstance } from '../../../../register/form';
 import { PageSubTitle } from '../../../../../../components/ui/labels';
 import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
 import { AGLabels, EmployeeType } from '../../../../../../types/commonTypes';
@@ -41,45 +40,63 @@ export const DTCustomer = (props: {
         members?.value.map(({
           id, value : {
             customerName,
-            postal, address1, address2,
+            postal,
+            address1,
+            address2,
             customerId,
             dump,
           },
         }, idx) => {
 
           const {
-            custName,
-            custNameReading,
-            birthYear, birthMonth, birthDay,
-            email, emailRel, gender,
-            phone1, phone1Rel,
-            phone2, phone2Rel,
-            isSameAddress,
-          } = JSON.parse(dump.value || 'null') as CustomerInstance ?? {};
+            fullName,
+            fullNameReading,
+            birthYear,
+            birthMonth,
+            birthDay,
+            isSameAsMain,
+            gender,
+            contacts,
+          } = JSON.parse(dump.value || 'null') as CustomerTypes.SavedData ?? {};
 
           const resolveAddress = (postal.value || address1.value || address2.value) ? `${postal.value}  ${address1.value}${address2.value}` : '';
-          const resolveBirthDate = [[birthYear, '年'], [birthMonth, '月'], [birthDay, '日']]
+          const resolveBirthDate = [[birthYear.value, '年'], [birthMonth.value, '月'], [birthDay.value, '日']]
             .filter(([value]) => value )
             .map(([value, suffix]) => `${value}${suffix}`).join('');
 
-          const resolvedIsSameAddress = Boolean(+isSameAddress);
+          const resolvedIsSameAddress = Boolean(+isSameAsMain.value);
           return (
             <Stack key={id} spacing={1} mb={2}>
 
 
               <PageSubTitle label={`契約者 ${idx + 1} `} />
               <LabeledDetail label='顧客番号' value={customerId.value} />
-              <LabeledDetail label='氏名' value={customerName.value ?? custName} />
-              <LabeledDetail label='氏名フリガナ' value={custNameReading} />
-              <LabeledDetail label='性別' value={gender} />
+              <LabeledDetail label='氏名' value={customerName.value ?? fullName.value} />
+              <LabeledDetail label='氏名フリガナ' value={fullNameReading.value} />
+              <LabeledDetail label='性別' value={gender.value} />
               <LabeledDetail label='誕生日' value={resolveBirthDate} />
               {resolvedIsSameAddress && <LabeledDetail label='住所' value={'契約者１と同じ'} /> }
               {!resolvedIsSameAddress &&
               <>
                 <LabeledDetail label='住所' value={resolveAddress} />
-                <LabeledDetail label='電話番号1' value={[phone1, phone1Rel].filter(Boolean).join(', ')} />
-                <LabeledDetail label='電話番号2' value={[phone2, phone2Rel].filter(Boolean).join(', ')} />
-                <LabeledDetail label='メアド' value={[email, emailRel].filter(Boolean).join(', ')} />
+                {contacts?.value
+                  ?.filter(({ value: { contactValue } }) => !!contactValue.value)
+                  ?.map(({
+                    id: contactRowId,
+                    value: {
+                      contactType,
+                      contactValue,
+                      relation,
+                    },
+                  }) => {
+                    return  (
+                      <LabeledDetail
+                        key={contactRowId}
+                        label={contactType.value === 'tel' ? '電話番号' : 'メール'}
+                        value={`${contactValue.value}, ${relation.value}`}
+                      />);
+                  })}
+
               </>}
 
             </Stack>
@@ -117,8 +134,6 @@ export const DTCustomer = (props: {
             />
           );
         })}
-
-
 
       </Stack>
 

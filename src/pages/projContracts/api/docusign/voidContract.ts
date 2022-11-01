@@ -5,13 +5,11 @@ export const voidContract = async (params: IVoidReq) => {
 
   try {
 
-    if (!params.envelopeId) throw new Error('エンヴェロープ番号は定義されていません。');
+    if (!params.envelopeId) throw new Error('エンベロープ番号は定義されていません。');
     if (!params.voidedReason) throw new Error('無効にする理由は定義されていません。');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/void`;
 
     const data = params;
-
-    console.log(data, endpoint);
 
     const [body, status] = await kintone.proxy(
       endpoint,

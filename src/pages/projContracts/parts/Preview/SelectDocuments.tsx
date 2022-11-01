@@ -4,7 +4,7 @@ import { getFieldName, TypeOfForm } from '../../form';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 
 
-export const DocumentsSelect = () => {
+export const SelectDocuments = () => {
 
   const {
     values: {
@@ -12,14 +12,16 @@ export const DocumentsSelect = () => {
     }, setFieldValue } = useFormikContext<TypeOfForm>();
 
   return (
-    <Stack p={2} spacing={2} direction={'row'} alignItems={'center'}>
+    <Stack p={0} spacing={1} direction={'row'}
+      alignItems={'center'}
+    >
       {envDocFileKeys.map(file => {
         const isSelected = envSelectedDoc === file.fileKey;
 
         return (
           <Chip
             variant={isSelected ? 'outlined' : 'filled'}
-            icon={isSelected ? <AttachmentIcon/> : undefined}
+            icon={isSelected ? <AttachmentIcon /> : undefined}
             key={file.fileKey}
             label={file.name}
             size={isSelected ? 'medium' : 'small'}

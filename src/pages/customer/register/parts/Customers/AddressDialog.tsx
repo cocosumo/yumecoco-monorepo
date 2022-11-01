@@ -94,16 +94,16 @@ export const AddressDialog = (props: {
       handleClose();
       startTransition(()=>{
         setFieldValue(postalFN, postal );
-        setFieldValue(address1FN, `${prefecture}${city}${town}` ); 
+        setFieldValue(address1FN, `${prefecture}${city}${town}` );
       });
 
- 
+
     }
 
   }, [postal]);
 
   useEffect(()=>{
-    if (open){
+    if (open) {
       setAddressDetails(initialAddressDetailsState);
     }
   }, [open]);
@@ -132,25 +132,27 @@ export const AddressDialog = (props: {
 
     >
       <DialogTitle >
-        選択してください。<br />
+        選択してください。
+        <br />
 
         <Typography variant='subtitle1' component={'span'} fontWeight={600}>
           {`${postal ? '〒' + postal : ''} ${prefecture}${city}${town}`}
         </Typography>
       </DialogTitle>
       <DialogContent dividers>
-        <Grid container spacing={2} justifyContent="center" alignContent={'center'} >
+        <Grid container spacing={2} justifyContent="center"
+          alignContent={'center'}
+        >
           {isLoading &&
-            <Grid item xs={8}><CircularProgress size={200} /></Grid>
-          }
+            <Grid item xs={8}>
+              <CircularProgress size={200} />
+            </Grid>}
 
           {!addressDetails.area && !isLoading &&
-            <SimpleChoices name='area' choices={areas} handleClick={handleClick} />
-          }
+            <SimpleChoices name='area' choices={areas} handleClick={handleClick} />}
 
           {addressDetails.area && !addressDetails.prefecture && !isLoading &&
-            <SimpleChoices name='prefecture' choices={prefectures} handleClick={handleClick} />
-          }
+            <SimpleChoices name='prefecture' choices={prefectures} handleClick={handleClick} />}
 
           {addressDetails.prefecture && !addressDetails.city && !isLoading &&
             <SortedCities
@@ -161,8 +163,7 @@ export const AddressDialog = (props: {
                   { ...prev, city: val }
                 ));
               }}
-            />
-          }
+            />}
 
           { addressDetails.city && !addressDetails.town && !isLoading &&
             <SortedTowns
@@ -176,17 +177,20 @@ export const AddressDialog = (props: {
                   }
                 ));
               }}
-            />
-
-          }
+            />}
 
         </Grid>
       </DialogContent>
       <DialogActions sx={{
         justifyContent: 'space-between',
-      }}>
-        <Typography variant="caption">出典:「位置参照情報」(国土交通省)の加工情報・「HeartRails Geo API」(HeartRails Inc.)</Typography>
-        <Button onClick={handleClose}>閉じる</Button>
+      }}
+      >
+        <Typography variant="caption">
+          出典:「位置参照情報」(国土交通省)の加工情報・「HeartRails Geo API」(HeartRails Inc.)
+        </Typography>
+        <Button onClick={handleClose}>
+          閉じる
+        </Button>
       </DialogActions>
     </Dialog>
   );

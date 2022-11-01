@@ -1,10 +1,9 @@
-import { Autocomplete, TextField, Stack, Tooltip } from '@mui/material';
-import { useField, useFormikContext } from 'formik';
+import { Autocomplete, TextField, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useLazyEffect } from '../../../hooks';
-import { searchProjects } from '../api';
 import { Caption } from '../../../components/ui/typographies';
-import { TypeOfForm } from '../form';
+import { searchProjects } from '../../../api/kintone/projects';
+import { useField } from 'formik';
 
 type Opt = {
   id: string,
@@ -12,105 +11,99 @@ type Opt = {
 };
 
 export const SearchProjField = (props: {
-  name: string,
-  label: string,
+  projId: string,
   projName: string,
-  handleSearchTTOpen: ()=>void,
-  handleSearchTTClose: ()=>void,
-  searchTTOpen: boolean,
 }) => {
-  const { setStatus } = useFormikContext<TypeOfForm>();
-  const [inputVal, setInputVal] = useState('');
-  const [fieldVal, setFieldVal] = useState<Opt | null>(null);
-  const [options, setOptions] = useState<Array<Opt>>([]);
-  const [field, meta, helpers] = useField(props);
-  const [isInit, setIsInit] = useState(true);
 
-  const { error, touched } = meta;
-
+  const [, , helpers] = useField('projId');
+  const { setValue } = helpers;
   const {
-    projName,
-    searchTTOpen,
-    handleSearchTTOpen,
-    handleSearchTTClose,
+    projName = '',
+    projId,
   } = props;
 
+  // User inputed value state.
+  const [inputVal, setInputVal] = useState(projName);
 
-  useLazyEffect(()=>{
-    if (!inputVal || isInit) return; // prevent API call on initial load, and when input is empty
+  // Selected value state
+  const [fieldVal, setFieldVal] = useState<Opt | null>(null);
 
-    searchProjects(inputVal)
-      .then(r => {
-        setOptions(r.map(({ $id, constructionName })=>{
-          return { id: $id.value, projName: constructionName.value };
-        }));
+  const [options, setOptions] = useState<Array<Opt>>([]);
 
-      });
 
-  }, [inputVal], 2000);
+  const [isInit, setIsInit] = useState(true);
 
   useEffect(()=>{
-
+    /*
+      When there is no option but with projName,
+      make a single option.
+    */
     if (options.length === 0 && projName) {
-      const singleOpt = { projName, id: field.value };
+      const singleOpt = { projName, id: projId };
       setOptions([singleOpt]);
       setFieldVal(singleOpt);
     }
 
-  }, [field.value, projName]);
+  }, [projName, options.length, projId]);
+
+
+  useLazyEffect(()=>{
+    /*
+      Prevent doing anything on initial render
+      to save API call when projId was
+      initialized by URL parameters
+     */
+    if (isInit) return;
+
+    if (inputVal) {
+
+      searchProjects(inputVal)
+        .then(r => {
+          setOptions(r.map(({
+            $id,
+            projName: recProjName })=>{
+            return { id: $id.value, projName: recProjName.value };
+          }));
+
+        });
+    }
+
+  }, [inputVal], 2000);
+
 
   return (
-    <Tooltip
-      title="こちらで工事名が検索出来ます。"
-      open={searchTTOpen} onOpen={handleSearchTTOpen}
-      onClose={handleSearchTTClose}
-      placement="top-end"
-      arrow
 
-    >
-      <Autocomplete
+    <Autocomplete
       sx={{ transition: 'all .3s ease-in-out;' }}
       value={fieldVal}
       onInputChange={(_, value)=>{
         setInputVal(value);
-
       }}
       onChange={(_, val)=>{
-        helpers.setValue(val?.id);
         setFieldVal(val);
-
-        if (val) {
-          setStatus('busy' as TFormStatus);
-        }
+        setValue(val?.id);
       }}
-
       onFocus={()=>setIsInit(false)}
-
       options={options}
       getOptionLabel={(opt)=> opt.projName}
       isOptionEqualToValue={(opt, value) => opt.id === value.id}
-
-      renderInput={(params) => <TextField
-        {...params}
-        name = {field.name}
-        label={props.label}
-        error={Boolean(error && touched)}
-        helperText={error ? error : ''}
-        />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={'工事選択'}
+        />)}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;
         return (
           <li {...p} key={key}>
             <Stack>
               {opt.projName}
-              <Caption text={`id: ${opt.id}` } />
+              <Caption text={`id: ${opt.id}`} />
             </Stack>
           </li>
         );
       }}
-
     />
 
-    </Tooltip>
   );
 };

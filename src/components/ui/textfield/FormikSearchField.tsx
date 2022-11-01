@@ -1,86 +1,58 @@
-import { TextField, Autocomplete, Stack, debounce } from '@mui/material';
-import { useField } from 'formik';
-import { useCallback, useState } from 'react';
-import { Caption } from '../typographies';
+import { LoadingButton } from '@mui/lab';
+import { Button, Stack, TextField, TextFieldProps } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import { useField, useFormikContext } from 'formik';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import { useBackdrop } from '../../../hooks';
+import { useEffect } from 'react';
 
+type SearchFieldProps = TextFieldProps & {
+  onOpenFilter?: () => void
+};
 
-interface FormikSearchFieldProps {
-  name: string,
-  label: string,
-  helperText?: string,
-  required?: boolean
-  renderOptionsFn : (value: string) => Promise<SearchOptions[]>
-  setRecord?: (record: any) => void
-}
+export const FormikSearchField = (
+  props : SearchFieldProps,
+) => {
+  const {
+    name = 'mainSearch',
+    fullWidth = true,
+    onOpenFilter,
+    ...others
+  } = props;
+  const { setBackdropState } = useBackdrop();
+  const { submitForm, isSubmitting } = useFormikContext();
+  const [field] = useField(name);
 
-export interface SearchOptions {
-  name: string,
-  id: string,
-  subTitle?: string,
-  secondaryLabel?: string
-  record?: any
-}
+  useEffect(() => {
+    setBackdropState({ open: isSubmitting  });
+  }, [isSubmitting, setBackdropState]);
 
-export const FormikSearchField = (props: FormikSearchFieldProps) => {
-  const [options, setOptions] = useState<readonly SearchOptions[]>([]);
-  const [field, meta, helpers] = useField(props);
-
-  const handleChange = useCallback(debounce((value: string) => {
-    props.renderOptionsFn(value)
-      .then(res => setOptions(res));
-  }, 1000), []);
 
   return (
-    <Autocomplete
-      noOptionsText={'無し'}
-      onChange={ (_, newState) => {
-
-        helpers.setValue(newState?.id ?? '');
-        /**If setRecord is set, trigger */
-        if (props.setRecord) props.setRecord(newState?.record);
-      }}
-
-      onBlur={field.onBlur}
-      isOptionEqualToValue={(option, value) => {
-        return option.id === value.id;
-      }}
-
-      getOptionLabel={(option) => option.name || ''}
-
-      options={options}
-      filterOptions={(x) => x}
-
-      renderInput={(params) => <TextField
-        name={props.name}
-        label={props.label}
-        {...params}
-
-        error={meta.touched && Boolean(meta.error)}
-        helperText={meta.error || props.helperText}
-        onChange = {(ev) => {
-
-          if (ev.target.value) {
-            handleChange(ev.target.value);
+    <Stack direction={'row'} spacing={1}>
+      <TextField
+        {...others}
+        {...field}
+        onKeyUp={(e)=>{
+          if (e.key === 'Enter') {
+            submitForm();
           }
         }}
-        />
-      }
-
-      renderOption={(p, option) => {
-        const key = `listItem-${option.id}`;
-        return (
-          <li {...p} key={key}>
-            <Stack>
-              {option.name}
-              {option.subTitle && <Caption text={option.subTitle } />}
-              {option.secondaryLabel && <Caption text={ `${option.secondaryLabel} id: ${option.id}`} />}
-            </Stack>
-          </li>
-        );
-      }}
-
-    />
-
-
+        fullWidth={fullWidth}
+      />
+      <LoadingButton
+        variant='contained'
+        onClick={submitForm}
+        loading={isSubmitting}
+      >
+        <SearchIcon fontSize='large' />
+      </LoadingButton>
+      <Button
+        variant={'contained'}
+        onClick={onOpenFilter}
+      >
+        <FilterListIcon />
+      </Button>
+    </Stack>
   );
 };

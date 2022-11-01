@@ -1,27 +1,20 @@
-import { Box, Stack, Typography } from '@mui/material';
+import {  BoxProps } from '@mui/material';
+import { ColoredContainer } from './ColoredContainer';
 
-interface GrayBoxProps {
-  label?: string,
-  children: React.ReactNode
-}
 
-export const GrayBox = (props: GrayBoxProps) => {
+export const GrayBox = (props: BoxProps) => {
   const {
     children,
-    label = '【参照結果】',
+    bgcolor = '#f5f5f5',
+    ...others
   } = props;
   return (
-    <Box
-      borderRadius={2}
-      bgcolor={'#f5f5f5'}
-      p={4}
+    <ColoredContainer
+      {...others}
+      bgcolor={bgcolor}
     >
-      <Stack spacing={1}>
-        <Typography color={'rgba(0, 0, 0, 0.6)'} variant={'subtitle2'}>{label}</Typography>
-        {children}
-      </Stack>
-
-    </Box>
+      {children}
+    </ColoredContainer>
   );
 };
 

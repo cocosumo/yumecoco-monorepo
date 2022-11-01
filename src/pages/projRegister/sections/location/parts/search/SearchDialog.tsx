@@ -2,7 +2,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { getProjectsByCustGroupId, SearchItems } from '../../../../api/getProjectsByCustGroupId';
-import { TypeOfProjForm, KeyOfProjForm } from '../../../../form';
+import { TypeOfProjForm } from '../../../../form';
 
 
 export const SearchDialog = (props: {
@@ -13,16 +13,18 @@ export const SearchDialog = (props: {
   const [records, setRecords] = useState<SearchItems | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-  const { setFieldValue, values: { custGroupId } } = useFormikContext<TypeOfProjForm>();
+  const { setValues, values: { custGroupId } } = useFormikContext<TypeOfProjForm>();
 
   const handleCopy = () => {
     if (selected !== null && records) {
       const { postal, address1, address2 } = records[selected];
-      console.log('Copying!');
 
-      setFieldValue('postal' as KeyOfProjForm, postal);
-      setFieldValue('address1' as KeyOfProjForm, address1);
-      setFieldValue('address2' as KeyOfProjForm, address2);
+      setValues(prev => ({
+        ...prev,
+        postal: postal,
+        address1: address1,
+        address2: address2,
+      }));
 
     }
 
@@ -31,7 +33,7 @@ export const SearchDialog = (props: {
   };
 
   useEffect(()=> {
-    if (custGroupId && open){
+    if (custGroupId && open) {
       setLoading(true);
       getProjectsByCustGroupId(custGroupId)
         .then((resp) => {
@@ -55,25 +57,25 @@ export const SearchDialog = (props: {
       </DialogTitle>
       <DialogContent>
         {loading &&
-          <CircularProgress />
-        }
+          <CircularProgress />}
         {!isWithRecord && !loading &&
-          <>選択した顧客に案件がありません。</>
-        }
+          <>
+            選択した顧客に案件がありません。
+          </>}
         {isWithRecord && !loading &&
           <List>
-            {records?.map(({ constructionName, postal, address1, address2 }, idx) => {
+            {records?.map(({ projName, postal, address1, address2 }, idx) => {
               return (
                 <ListItem
-                  key={constructionName}
+                  key={projName}
                   divider
                 >
                   <ListItemButton onClick={()=>setSelected(idx)}>
                     <ListItemIcon>
-                      <Radio checked={selected === idx} disableRipple/>
+                      <Radio checked={selected === idx} disableRipple />
                     </ListItemIcon>
                     <ListItemText
-                      primary={constructionName}
+                      primary={projName}
                       secondary={`${postal} ${address1}${address2}`}
                     />
                   </ListItemButton>
@@ -81,14 +83,16 @@ export const SearchDialog = (props: {
 
               );
             })}
-          </List>
-        }
+          </List>}
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" color="secondary" onClick={handleClose}>キャンセル</Button>
+        <Button variant="outlined" color="secondary" onClick={handleClose}>
+          キャンセル
+        </Button>
         {isWithRecord &&
-          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>OK</Button>
-        }
+          <Button variant="contained" disabled={selected === null} onClick={handleCopy}>
+            OK
+          </Button>}
 
       </DialogActions>
 

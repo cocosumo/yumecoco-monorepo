@@ -39,40 +39,50 @@ const scrollIntoViewThenShake = (element: Element | null) => {
   if (!element) return;
 
   element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  let targetEl = element;
+
   const parentInputEl = element.closest('.MuiFormControl-root');
 
-  if (!parentInputEl) return;
+  if (parentInputEl) {
+    targetEl = parentInputEl;
+  }
 
-  parentInputEl.classList.add('shakes');
+  targetEl.classList.add('shakes');
 
   setTimeout(()=>{
-    parentInputEl.classList.remove('shakes');
+    targetEl.classList.remove('shakes');
   }, 1000);
 
 };
 
 export const ScrollToFieldError = () => {
-  const { submitCount, isValid, errors } = useFormikContext();
+  const { submitCount, isValid, errors, isSubmitting } = useFormikContext();
+
 
   useEffect(() => {
-    if (submitCount === 0) return;
+
+    if (submitCount === 0 || !isSubmitting ) return;
     if (isValid) return;
 
     const fieldErrorNames = getFieldErrorNames(errors);
     if (fieldErrorNames.length <= 0) return;
 
     fieldErrorNames
-      .map((item) => (
-        document.querySelector(`input[name='${item}']`)
-      ))
+      .map((item) => {
+        return (
+          document.querySelector(`*[name='${item}']`) || document.querySelector(`#${item}`)
+        );
+      })
       .filter((el: HTMLInputElement) => !!el && !el.disabled)
       .forEach((element, index) => {
+
         setTimeout(()=>{
           scrollIntoViewThenShake(element);
         }, 500 * index);
       });
 
-  }, [submitCount]);
+  }, [submitCount, isSubmitting]);
 
   return null;
 };

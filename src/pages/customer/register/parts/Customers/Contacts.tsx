@@ -23,25 +23,27 @@ export const Contact = (props: ContactProps) => {
   return (
     <>
       <Grid item xs={6}>
-        <FormikTextField {...props}/>
+        <FormikTextField {...props} />
       </Grid>
       <Grid item xs={6}>
-        <FormikSelect 
-        name={`${name}Rel`} label="続柄" 
-        options={typeOptions} 
-        required={required}/>
+        <FormikSelect
+          name={`${name}Rel`} label="続柄"
+          options={typeOptions}
+          required={required}
+        />
       </Grid>
     </>
   );
 };
 
 export const Contacts = (props : { namePrefix: string }) => {
+  const { namePrefix } = props;
   return (<>
     {
       ([
-        { name: `${props.namePrefix}${getCustFieldName('phone1')}`, label: '電話番号1', type: 'tel', required: true },
-        { name: `${props.namePrefix}${getCustFieldName('phone2')}`, label: '電話番号2', type: 'tel' },
-        { name: `${props.namePrefix}${getCustFieldName('email')}`, label: 'メールアドレス', type: 'email' },
+        { name: `${namePrefix}${getCustFieldName('phone1')}`, label: '電話番号1', type: 'tel', required: true },
+        { name: `${namePrefix}${getCustFieldName('phone2')}`, label: '電話番号2', type: 'tel' },
+        { name: `${namePrefix}${getCustFieldName('email')}`, label: 'メールアドレス', type: 'email' },
       ] as ContactProps[])
         .map(item => <Contact key={item.name} {...item} />)
     }

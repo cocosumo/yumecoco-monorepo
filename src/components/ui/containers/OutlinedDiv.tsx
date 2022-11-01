@@ -14,7 +14,7 @@ interface OutlinedDivProps {
 const InputComponent =  React.forwardRef(
   function test(props, _ref ) {
 
-    return <div  { ...props} />;
+    return <div {...props} />;
   },
 );
 
@@ -28,10 +28,9 @@ export const OutlinedDiv = ({
   return (
     <TextField
       size='small'
-
       disabled={disabled}
       error={!!errorMessage}
-      helperText={errorMessage ?? helperText }
+      helperText={errorMessage ?? helperText}
       margin='none'
       fullWidth
       variant="outlined"

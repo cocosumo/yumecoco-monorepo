@@ -1,6 +1,5 @@
 import {  Button, Zoom, Grid, Stack } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
-import {  FormikTextField } from '../../../../../components/ui/textfield';
 import { SelectGender } from './SelectGender';
 import { MemoizedSelectBirthdate } from './SelectBirthdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
@@ -9,11 +8,8 @@ import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
 import { TransitionGroup } from 'react-transition-group';
-
 import { nativeMath, string as randomStr } from 'random-js';
-import {   useRef } from 'react';
-import historykana from 'historykana';
-import { hiraToKana } from '../../../../../helpers/utils';
+import { NameInput } from './NameInput';
 
 
 
@@ -38,63 +34,43 @@ const Customer =  (props: CustomerProps) => {
   } = props;
 
   const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
-  const { setFieldValue } = useFormikContext<CustomerForm>();
-  //const autokana = useRef<AutoKana.AutoKana>();
-  const inputHistories = useRef<string[]>([]);
+
   const isFirstCustomer = !index;
 
   const custNameFN = `${namePrefix}${getCustFieldName('custName')}`;
   const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
 
-
   return (
-    <Grid container item xs={12} spacing={2}>
+    <Grid container item xs={12}
+      spacing={2}
+    >
 
-      <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8}/>
+      <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8} />
       {
         !isFirstCustomer &&
-        <Grid container justifyContent={'flex-end'} item xs={4}>
+        <Grid container justifyContent={'flex-end'} item
+          xs={4}
+        >
 
           <Button variant="outlined" color="error"
-          onClick={()=>{
-            remove(index);
-          }}
-            startIcon={<PersonRemoveIcon />} fullWidth>
+            onClick={()=>{
+              remove(index);
+            }}
+            startIcon={<PersonRemoveIcon />} fullWidth
+          >
             削除
           </Button>
 
         </Grid>
       }
 
-      <Grid item xs={12}>
-        <FormikTextField
-          name={custNameFN}
-          id={custNameFN}
-          label="氏名"
-          placeholder='山田　太郎'
-          required
-          onInput={(e: any)=>{
-            const text = e.target.value;
-            inputHistories.current.push(text);
-          }}
-          />
-      </Grid>
-      <Grid item xs={12}>
-        <FormikTextField
-          id={custNameReadingFN}
-          name={custNameReadingFN}
-          label="氏名フリガナ"
-          placeholder='ヤマダ　タロウ' required
-          onFocus={() => {
-            if (!custNameReadingFN) {
-              setFieldValue(custNameReadingFN, hiraToKana(historykana(inputHistories.current)));
-            }
-          }}
-          />
-      </Grid>
-      <SelectGender namePrefix={namePrefix}/>
+      <NameInput
+        custNameFN={custNameFN}
+        custNameReadingFN={custNameReadingFN}
+      />
+      <SelectGender namePrefix={namePrefix} />
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
-      <Address namePrefix={namePrefix} index={index}/>
+      <Address namePrefix={namePrefix} index={index} />
 
 
     </Grid>
@@ -108,18 +84,16 @@ export const Customers = () => {
   const isMaxCust = maxCust === customers.length;
 
   return (
-    <>
-
-      <Grid item xs={12}>
-        <FieldArray
+    <Grid item xs={12}>
+      <FieldArray
         name={arrayFieldName}
-
         render={(arrHelpers) => {
-
           return (
             <Stack key={arrayFieldName} spacing={2} >
               {/* Render first element without animating */}
-              <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers} customers={customers}/>
+              <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers}
+                customers={customers}
+              />
 
               <TransitionGroup component={null} >
                 {
@@ -128,8 +102,10 @@ export const Customers = () => {
                     .map((_, index) => {
                       return (
                         <Zoom key={_.key} >
-                          <Stack  spacing={2} >
-                            <Customer index={index + 1} namePrefix={`${arrayFieldName}[${index + 1}].`} {...arrHelpers} customers={customers}/>
+                          <Stack spacing={2} >
+                            <Customer index={index + 1} namePrefix={`${arrayFieldName}[${index + 1}].`} {...arrHelpers}
+                              customers={customers}
+                            />
                           </Stack>
 
                         </Zoom>
@@ -142,17 +118,18 @@ export const Customers = () => {
 
               <Zoom in={!isMaxCust} style={{ transitionDelay: '500ms' }}>
                 <Button
-                variant="outlined"
-                color="success"
-                startIcon={<PersonAddIcon />}
-                onClick={() => {
-                  arrHelpers.push({
-                    ...initialCustomerValue,
-                    key: randomStr()(nativeMath, 5),
-                    isSameAddress: true,
-                  } as CustomerInstance);
-                }}
-                fullWidth>
+                  variant="outlined"
+                  color="success"
+                  startIcon={<PersonAddIcon />}
+                  onClick={() => {
+                    arrHelpers.push({
+                      ...initialCustomerValue,
+                      key: randomStr()(nativeMath, 5),
+                      isSameAddress: true,
+                    } as CustomerInstance);
+                  }}
+                  fullWidth
+                >
                   契約者を追加する
                 </Button>
 
@@ -162,9 +139,7 @@ export const Customers = () => {
 
         }}
       />
-      </Grid>
-
-    </>
+    </Grid>
 
 
   );

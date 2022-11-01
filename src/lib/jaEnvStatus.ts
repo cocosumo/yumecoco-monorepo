@@ -30,11 +30,17 @@ export const jaEnvelopeStatus  = (
         ja: '無効化',
         desc: '無効化',
       };
+    case 'voiding':
+      return {
+        ja: '無効化中',
+        desc: '無効化中です。',
+      };
     case '': {
       return {
         ja: '未作成',
         desc: '契約はDocusign上でまだ作成していません。',
       };
     }
+    default: throw new Error('Unknown status.');
   }
 };

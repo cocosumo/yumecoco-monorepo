@@ -15,6 +15,7 @@ const options = {
       process.env.API_CONSTRUCTION_TYPE,
       process.env.API_CONSTRUCTION_DETAILS,
       process.env.API_ESTIMATE,
+      process.env.API_INVOICE,
     ],
   },
 };
@@ -25,14 +26,20 @@ export enum APPIDS {
   employees = 34,
   custGroup = 185,
   custMemo = 181,
+
+  /** @deprecated Use projType instead */
   constructionType = 190,
+
+  /** @deprecated Use project instead */
   constructionDetails = 194,
+
+  projType = 190,
+  project = 194,
   projectEstimate = 202,
+  paymentInvoice = 204,
 }
 
 
 export const KintoneClient = new KintoneRestAPIClient(options);
 
 export const KintoneRecord = KintoneClient.record;
-
-export default KintoneClient;

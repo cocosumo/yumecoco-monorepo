@@ -2,7 +2,9 @@ import { InputAdornment, StandardTextFieldProps, TextField } from '@mui/material
 import { useField } from 'formik';
 import { FocusEvent, ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
-
+/**
+ * @deprecated use FormikTextFieldV2 instead
+ */
 interface FormikTextFieldProps extends StandardTextFieldProps {
   name: string,
   label: string,
@@ -26,6 +28,7 @@ interface FormikTextFieldProps extends StandardTextFieldProps {
   type?: HTMLInputTypeAttribute,
   disabled?: boolean,
   size?: 'small' | 'medium'
+  align?: 'left' | 'right'
 }
 
 export const FormikTextField = (props: FormikTextFieldProps) => {
@@ -45,54 +48,59 @@ export const FormikTextField = (props: FormikTextFieldProps) => {
     disabled,
     size = 'medium',
     onKeyUp,
+    name,
+    onChange,
+    align = 'left',
+    onBlur,
+    inputComponent,
   } = props;
-  const [field, meta] = useField(props.name);
+  const [field, meta] = useField(name);
 
   const handleChange = ((e: any)=>{
     field.onChange(e);
 
-    if (props.onChange) {
-      props.onChange(e);
-    }
+    if (onChange) onChange(e);
+
   });
 
   return (
-    <TextField  {...field}
-    size={size}
-    label={label}
-    id={id}
-    disabled={disabled}
-    placeholder={placeholder}
-    required={ required}
-    type={type}
-    onClick={onClick}
-    onFocus={onFocus}
-    onCompositionStart={onCompositionStart}
-    onCompositionEnd={onCompositionEnd}
-    onBlur={(e)=> {
+    <TextField {...field}
+      size={size}
+      label={label}
+      id={id}
+      disabled={disabled}
+      placeholder={placeholder}
+      required={required}
+      type={type}
+      onClick={onClick}
+      onFocus={onFocus}
+      onCompositionStart={onCompositionStart}
+      onCompositionEnd={onCompositionEnd}
+      onBlur={(e)=> {
       /* Call formiks default onBlur */
-      field.onBlur(e);
-      if (props.onBlur) {
-        /* Call custom onBlur */
-        props.onBlur(e);
-      }
-    }}
-    onChange={handleChange}
-    onInput={onInput}
-    onKeyUp={onKeyUp}
-    value={value || field.value?.toString() || ''}
-    error={meta.touched && Boolean(meta.error)}
-    helperText={meta.error || helperText}
-    InputProps={{
-      inputComponent: props?.inputComponent,
-      endAdornment: <InputAdornment position='end'>{endAdornment}</InputAdornment>,
-    }}
-    InputLabelProps={{
-      shrink,
-    }}
-    fullWidth
-    multiline={multiline}
-    rows={rows}
+        field.onBlur(e);
+        if (onBlur) onBlur(e);
+
+      }}
+      onChange={handleChange}
+      onInput={onInput}
+      onKeyUp={onKeyUp}
+      value={value || field.value?.toString() || ''}
+      error={meta.touched && Boolean(meta.error)}
+      helperText={meta.error || helperText}
+      InputProps={{
+        inputComponent: inputComponent,
+        inputProps: { style: { textAlign: align } },
+        endAdornment: <InputAdornment position='end'>
+          {endAdornment}
+        </InputAdornment>,
+      }}
+      InputLabelProps={{
+        shrink,
+      }}
+      fullWidth
+      multiline={multiline}
+      rows={rows}
     />
   );
 };

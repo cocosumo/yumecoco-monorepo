@@ -35,7 +35,10 @@ export const SortedCities = (props : {
               spacing={2}
             >
               <Grid item xs={12}>
-                <Divider textAlign='left'>{groupKey} </Divider>
+                <Divider textAlign='left'>
+                  {groupKey}
+                  {' '}
+                </Divider>
               </Grid>
               {
               values.map(({ city_kana, city: _city }) => {
@@ -45,8 +48,7 @@ export const SortedCities = (props : {
                     <Button
                       variant={'outlined'}
                       onClick={() =>
-                        handleChoice(_city)
-                      }
+                        handleChoice(_city)}
                     >
                       <Stack>
                         {_city}

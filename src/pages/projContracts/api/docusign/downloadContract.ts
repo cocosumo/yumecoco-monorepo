@@ -14,23 +14,29 @@ const dlFromCocoServer = async ({
 } :
 {
   form: TypeOfForm,
-  fileType: 'pdf' | 'xlsx',
+  fileType: ReqDownloadParams['fileType'],
 }) : Promise<string> => {
   try {
 
-
     const {
-      projId,
+      projEstimateId,
     } = form;
 
-    if (!projId) throw new Error('Invalid Project Id.');
+    if (!projEstimateId) throw new Error('見積は存在していません。');
     const endpoint = `${yumecocoDocusign.baseUrl}/docusign/contract/download?`;
-    const data = {
-      projId: projId,
-      fileType: fileType,
+
+    const data : ReqDownloadParams = {
+      userCode: kintone.getLoginUser().code,
+      projEstimateId,
+      fileType,
     };
 
-    const u = new URLSearchParams(data).toString();
+    const u = new URLSearchParams({
+      projEstimateId,
+      userCode: kintone.getLoginUser().code,
+      fileType,
+    }).toString();
+
     const [body, status] =  await kintone.proxy(
       endpoint + u, // concatinate parameters to endpoint
       'GET',
@@ -42,7 +48,9 @@ const dlFromCocoServer = async ({
       const dlresp = JSON.parse(body) as DownloadResponse;
       return dlresp.documents?.[0] ?? '' ;
     } else {
-      throw new Error(`Unhandled response status ${status}`);
+      const error: any =  JSON.parse(body);
+      console.log(body);
+      throw new Error(`${status} ${error.message}`);
     }
 
   } catch (err :any) {
@@ -77,7 +85,6 @@ export const dlFilesFromKintone = async (
       envelopeStatus,
     };
   }  catch (err) {
-    console.log(err.message);
     return {
       error: 'Download files from kintone failed. Please Contact administrator.' + err.message,
     };
@@ -95,7 +102,6 @@ export const downloadContract = async (
   const { fileType, form  } = params;
   const { envDocFileKeys } = form;
 
-  console.log('download', params,  envDocFileKeys);
   if ( fileType === 'xlsx' || !envDocFileKeys.length) {
     return dlFromCocoServer(params);
   } else if (fileType === 'pdf' && envDocFileKeys.length) {

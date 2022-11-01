@@ -31,7 +31,7 @@ export const MemoItemMenu = (props: MenuProps) => {
   };
 
   const handleAnswer = (answer: boolean) => {
-    if (answer){
+    if (answer) {
       handleClose(memoItem, '削除');
     }
     setIsConfirmDeleteOpen(false);
@@ -41,14 +41,21 @@ export const MemoItemMenu = (props: MenuProps) => {
 
   return (
     <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={()=> handleClose()}
+      anchorEl={anchorEl}
+      open={open}
+      onClose={()=> handleClose()}
+    >
+      <MenuItem onClick={() =>handleClose(memoItem, '編集')}>
+        <EditIcon color={'action'} sx={{ mr: '8px' }} />
+        {' '}
+        編集
+      </MenuItem>
 
-      >
-      <MenuItem onClick={() =>handleClose(memoItem, '編集')}><EditIcon color={'action'} sx={{ mr: '8px' }}/> 編集</MenuItem>
-
-      <MenuItem onClick={() => handleClickDelete()}><DeleteIcon color={'action'} sx={{ mr: '8px' }}/> 削除</MenuItem>
+      <MenuItem onClick={() => handleClickDelete()}>
+        <DeleteIcon color={'action'} sx={{ mr: '8px' }} />
+        {' '}
+        削除
+      </MenuItem>
       <ConfirmDialog
         open={isConfirmDeleteOpen}
         content={'このメモを削除します。この操作は取り消せません。'}

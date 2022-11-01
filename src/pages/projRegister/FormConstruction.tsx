@@ -8,7 +8,6 @@ import {  Form, useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { GetEmployeesParams } from '../../api/kintone/employees/GET';
 import { TypeOfProjForm, getFieldName } from './form';
 import { useSnackBar } from '../../hooks';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
@@ -32,11 +31,11 @@ export const FormConstruction  = () => {
       recordId,
       storeId,
       territory,
-      constructionTypeId,
+      projTypeId,
       envelopeStatus,
     },
   } = useFormikContext<TypeOfProjForm>();
-  let passedGroupId = getParam('custGroupId');
+  const passedGroupId = getParam('custGroupId');
   const projIdFromURL = getParam('projId') ?? undefined;
 
   const isEditMode = window.location.href.includes('edit');
@@ -44,12 +43,11 @@ export const FormConstruction  = () => {
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
   useEffect(()=>{
-    console.log(status);
-    if (!!!status && passedGroupId && !isEditMode) {
-      console.log('Update ', recordId, !!recordId, isEditMode);
+    if (!status && passedGroupId && !isEditMode) {
       setFieldValue(getFieldName('custGroupId'), passedGroupId);
     }
-  }, [passedGroupId, isEditMode, status]);
+  },
+  [passedGroupId, isEditMode, status]);
 
   useEffect(()=>{
     if (!isValid && !isSubmitting) {
@@ -80,24 +78,26 @@ export const FormConstruction  = () => {
   return (
 
     <Form noValidate>
-      <ScrollToFieldError/>
+      <ScrollToFieldError />
 
       <MainContainer>
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
-        <Grid container item xl={8} spacing={2} mb={12}>
-          <UneditableInfo isVisible={isFormDisabled} projId={recordId}/>
+        <Grid container item xl={8}
+          spacing={2} mb={12}
+        >
+          <UneditableInfo isVisible={isFormDisabled} projId={recordId} />
           <CustInfo />
-          <ConstructionLocation/>
+          <ConstructionLocation />
           <ConstructionInfo
             storeId={storeId}
-            territory={territory as GetEmployeesParams['territory']}
-            constructionTypeId={constructionTypeId}
-            />
+            territory={territory}
+            projTypeId={projTypeId}
+          />
 
 
           {isEditMode && !envelopeStatus && <StatusControls />}
         </Grid>
-        {isAbleToSave && <FabSave onClick={submitForm} url="project"/>}
+        {isAbleToSave && <FabSave onClick={submitForm} url="project" />}
       </MainContainer>
 
       {isEditMode && <ProjectShortCuts />}

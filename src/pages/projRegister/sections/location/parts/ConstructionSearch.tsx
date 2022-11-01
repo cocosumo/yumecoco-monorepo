@@ -16,7 +16,7 @@ export const ConstructionSearch = (props: {
           variant={'contained'}
           color="secondary"
           size={'large'}
-          startIcon={<SearchIcon/>}
+          startIcon={<SearchIcon />}
           onClick={()=>setSearchOpen(true)}
           disabled={disabled}
         >
@@ -24,7 +24,9 @@ export const ConstructionSearch = (props: {
         </Button>
         {
           !disabled &&
-          <FormHelperText id="my-helper-text">過去の工事情報から参照する</FormHelperText>
+          <FormHelperText id="my-helper-text">
+            過去の工事情報から参照する
+          </FormHelperText>
         }
 
       </FormControl>

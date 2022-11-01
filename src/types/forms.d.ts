@@ -1,7 +1,6 @@
 
 
 type PatternType = 'email' | 'tel' | 'postal';
-type AgentType = 'cocoAG' | 'yumeAG' | 'cocoConst';
 type TFormStatus = 'busy' | 'disabled' | '';
 
 interface ElementTarget {
@@ -33,6 +32,9 @@ interface URLParams {
   projId?: string
   projEstimateId?: string,
   custGroupId?: string,
+  menuOpen?: number,
+  invoiceId?: number,
 }
 
 type KeyOfUrlParams = keyof URLParams;
+

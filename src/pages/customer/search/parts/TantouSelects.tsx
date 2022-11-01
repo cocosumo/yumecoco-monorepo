@@ -3,7 +3,7 @@ import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
 
 import { FormikSelect } from '../../../../components/ui/selects';
-import { useEmployeeOptions } from '../../../../hooks';
+import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 import { EmployeeType } from '../../../../types/commonTypes';
 import { FormFieldKeys, initialValues } from '../form';
 
@@ -28,7 +28,7 @@ const TantouSelect = ({
   name: EmployeeType
 }) => {
   const { values } = useFormikContext<typeof initialValues>();
-  const options = useEmployeeOptions({ type: name, storeId: values.storeId });
+  const options = useEmployeeOptions({ agentType: name, storeId: values.storeId });
 
   return (
     <Grid item xs={12} md={2}>

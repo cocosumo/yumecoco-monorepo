@@ -2,7 +2,13 @@ import { CustomerForm } from '../form';
 
 export const formToDBCustGroup = (
   formData: CustomerForm,
+  employees: EmployeeTypes.SavedData[],
 ): Partial<CustomerGroupTypes.SavedData> => {
+
+  const getEmpNameById = (id: string) => employees
+    .find(({ $id }) => $id.value === id)?.文字列＿氏名.value || '';
+
+
   const {
     store,
     cocoAG1,
@@ -32,13 +38,13 @@ export const formToDBCustGroup = (
     storeId: { value: store },
     agents: {
       type: 'SUBTABLE',
-      value: agents?.map(([type, value])=>{
+      value: agents?.map(([type, empId])=>{
         return {
           id: '',
           value: {
             agentType: { value: type },
-            employeeId: { value: value },
-            employeeName: { value: 'auto' }, // lookup copy field
+            employeeId: { value: empId },
+            employeeName: { value: getEmpNameById(empId) }, // lookup copy field
             email: { value: 'auto' },
           },
         };

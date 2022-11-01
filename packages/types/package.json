@@ -1,0 +1,11 @@
+{
+  "name": "types",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc index.ts --outDir dist",
+    "dtsgen:stores": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 19 --type-name Data --namespace StoreTypes -o src/types/data.stores.d.ts"
+
+  }
+}

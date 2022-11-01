@@ -2,11 +2,6 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": "./packages",
-    "paths": {
-      "is-odd": ["packages/is-odd/*"],
-      "is-even": ["packages/is-even/*"],
-      "kokoas-client": ["packages/kokoas-client/src"]
-    },
   },
 
 }

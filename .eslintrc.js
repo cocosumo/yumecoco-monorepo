@@ -1,4 +1,5 @@
 module.exports = {
+  "root": true,
   env: {
     browser: true,
     es2021: true,
@@ -58,14 +59,8 @@ module.exports = {
     "react/jsx-no-constructed-context-values": [2], //https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
     "react/jsx-pascal-case": [2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
-    "import/no-extraneous-dependencies": [
-      "error", {
-         "devDependencies": false,
-         "optionalDependencies": false,
-         "peerDependencies": false,
-         "packageDir": "./"
-      }
-  ]
+    "import/no-extraneous-dependencies": "off", // Was having problems with this in a monorepo. Need help to resolve.
+
   },
   "overrides": [
     {

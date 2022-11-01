@@ -1,3 +1,4 @@
+import { TAgents } from 'types';
 import { dateStrToJA } from '../../../../helpers/utils';
 import { advancedSearchCustGroup, AdvancedSearchCustGroupParam } from './advancedSearchCustGroup';
 
@@ -67,12 +68,12 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
           .map(item=> item?.value ?? '')
           .join(' ')}` ?? '',
         'ゆめてつAG': agents.value
-          .filter(item => item.value.agentType.value === 'yumeAG' as AgentType)
+          .filter(item => item.value.agentType.value === 'yumeAG' as TAgents)
           ?.map(item => item.value.employeeName.value)
           .join('、 ') ?? '',
         '顧客氏名・会社名': customerName?.value ?? '-',
         'ここすも営業': agents.value
-          .filter(item => item.value.agentType.value === 'cocoAG' as AgentType)
+          .filter(item => item.value.agentType.value === 'cocoAG' as TAgents)
           ?.map(item => item.value.employeeName.value)
           .join('、 ') ?? '',
         'ここすも工事': projects?.value[projects?.value.length - 1]?.value.cocoConst1Name.value ?? '',

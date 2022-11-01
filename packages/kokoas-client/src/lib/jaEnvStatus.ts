@@ -1,3 +1,5 @@
+import { TEnvelopeStatus } from 'types';
+
 export const jaEnvelopeStatus  = (
   status: TEnvelopeStatus,
 ) : {

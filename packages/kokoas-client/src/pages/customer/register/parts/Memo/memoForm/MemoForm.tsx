@@ -10,6 +10,7 @@ import { FormikCheckBoxes, FormikLabeledCheckBox } from '../../../../../../compo
 
 import { ConfirmSave } from './parts/ConfirmSave';
 import { format } from 'date-fns';
+import { TAgents } from 'types';
 
 const memoTypes = ['顧客情報', '打ち合わせ', '契約内容', '工事場所情報', '問い合わせ', 'その他'] as const;
 
@@ -21,7 +22,7 @@ export type MemoType = typeof memoTypes[number];
 
 const notifOptions: Array<{
   label: string,
-  value: AgentType
+  value: TAgents
 }> = [
   { label: 'ここすも営業', value: 'cocoAG' },
   { label: 'ここすも工事', value: 'cocoConst' },

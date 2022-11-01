@@ -2,6 +2,7 @@
 import { getConstRecord } from '../../../api/kintone/projects';
 import { BuildingTypeVals, TypeOfProjForm } from '../form';
 import { RecordCancelStatus, RecordStatus } from '../../../config/formValues';
+import { TAgents, TEnvelopeStatus } from 'types';
 
 export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm> => {
   const projDetailsRecord = await getConstRecord(recordId);
@@ -18,7 +19,7 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm>
   } = projDetailsRecord;
 
   const cocoConst = agents.value.filter(item => {
-    return (item.value.agentType.value as AgentType) === 'cocoConst';
+    return (item.value.agentType.value as TAgents) === 'cocoConst';
   }).map(item => item.value.agentId.value);
 
   return {

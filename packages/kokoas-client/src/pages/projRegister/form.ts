@@ -1,4 +1,5 @@
 
+import { TEnvelopeStatus } from 'types';
 import * as Yup from 'yup';
 import { RecordStatus, RecordCancelStatus } from '../../config/formValues';
 import { postalRegExp } from '../../helpers/yupValidator';

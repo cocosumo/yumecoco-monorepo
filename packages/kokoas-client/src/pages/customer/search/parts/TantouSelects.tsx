@@ -25,7 +25,7 @@ const resolveLabel = (name: TAgents) => {
 const TantouSelect = ({
   name,
 }: {
-  name: EmployeeType
+  name: TAgents
 }) => {
   const { values } = useFormikContext<typeof initialValues>();
   const options = useEmployeeOptions({ agentType: name, storeId: values.storeId });
@@ -42,7 +42,7 @@ export const TantouSelects = () => {
 
   return (
     <>
-      {(['cocoAG', 'cocoConst', 'yumeAG'] as EmployeeType[])
+      {(['cocoAG', 'cocoConst', 'yumeAG'] as TAgents[])
         .map(item => {
           return <TantouSelect key={item} name={item} />;
         })}

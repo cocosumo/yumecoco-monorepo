@@ -3,6 +3,7 @@ import { useBackdrop, useSnackBar } from '../../../hooks';
 import { useMutation } from '@tanstack/react-query';
 import { TypeOfForm } from '../form';
 import { sendContract } from '../../../api/docusign/sendContract';
+import { ReqSendContract } from 'types';
 
 export const useContractProcess = () => {
   const {

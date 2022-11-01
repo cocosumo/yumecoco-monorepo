@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material';
+import { ReqSendContract } from 'types';
 
 import { MethodChoiceButton } from './MethodChoiceButton';
 

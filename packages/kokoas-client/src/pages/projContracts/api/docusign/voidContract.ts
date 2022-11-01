@@ -1,4 +1,5 @@
 import { ErrorDetails } from 'docusign-esign';
+import { IVoidReq, IVoidRes } from 'types';
 import { yumecocoDocusign } from '../../../../config/settings';
 
 export const voidContract = async (params: IVoidReq) => {

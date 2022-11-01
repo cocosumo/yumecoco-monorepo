@@ -1,8 +1,9 @@
+import { TAgents } from 'types';
 import { APPIDS, KintoneRecord } from '../../../../../../../api/kintone';
 import { getUserCodesByIds } from '../../../../../../../api/kintone/users/GET';
 import { MemoFormType } from '../form';
 
-const getAgentIds = async (recordId: string, agentTypes: AgentType[] = [] ) => {
+const getAgentIds = async (recordId: string, agentTypes: TAgents[] = [] ) => {
   console.log('agentTypes', agentTypes);
 
   return KintoneRecord.getRecord({
@@ -13,7 +14,7 @@ const getAgentIds = async (recordId: string, agentTypes: AgentType[] = [] ) => {
       const { agents } = resp.record as unknown as ProjectDetails.SavedData;
       console.log(agents);
       return agents.value
-        .filter(item => agentTypes.includes(item.value.agentType.value as AgentType || agentTypes.length === 0))
+        .filter(item => agentTypes.includes(item.value.agentType.value as TAgents || agentTypes.length === 0))
         .map(item => item.value.agentId.value);
     });
 };

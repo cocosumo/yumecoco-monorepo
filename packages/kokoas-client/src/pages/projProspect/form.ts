@@ -1,4 +1,5 @@
 
+import { TEnvelopeStatus } from 'types';
 import * as Yup from 'yup';
 
 export const initialValues = {

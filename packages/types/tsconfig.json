@@ -8,8 +8,8 @@
     "noImplicitAny": false,
   },
   "include": [
-    "./db.*.d.ts",
-    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+    "src/**/**/*",
   ],
+
 
 }

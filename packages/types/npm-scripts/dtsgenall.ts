@@ -3,8 +3,8 @@
 
 import runAll from 'npm-run-all';
 import { AppIds } from 'config';
-import { getDbName } from 'types/helpers/getDbName';
-require('dotenv').config();
+import { getDbName } from './helpers/getDbName';
+require('dotenv').config('../../.env');
 
 
 
@@ -48,7 +48,7 @@ const dtsgenScripts = Object.entries(AppIds)
       `--app-id ${appId}`,
       '--type-name Data',
       `--namespace ${getDbName(dbName)}`,
-      `-o db.${dbName}.d.ts`,
+      `-o src/dtsgen/db.${dbName}.d.ts`,
       `-u ${user}`,
       `-p ${pw}`,
     ].join(' ');

@@ -7,13 +7,19 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowJs": true,
-    "lib": ["es5","es2017", "es6", "dom", "dom.iterable"],
+    "lib": [
+      "es5",
+      "es2017",
+      "es6",
+      "dom",
+      "dom.iterable"
+    ],
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
     "importHelpers": true,
     "moduleResolution": "Node",
-    "strictFunctionTypes" :false
+    "strictFunctionTypes": false
   },
   "include": [
     "./jest/**/*",
@@ -24,9 +30,16 @@
     "./../yumekoko-docusign/src/types/docusign.d.ts",
     "./../yumekoko-docusign/src/types/kintone.d.ts",
     //"./node_modules/@types/docusign-esign/index.d.ts",
-   ],
+  ],
   "rules": {
-    "quotemark": [true, "single"]
+    "quotemark": [
+      true,
+      "single"
+    ]
   },
-  "references": [{ "path": "./packages/kokoas-client/tsconfig.json" }]
+  "references": [
+    {
+      "path": "./packages/kokoas-client/tsconfig.json"
+    }
+  ]
 }

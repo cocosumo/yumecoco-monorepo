@@ -1,4 +1,4 @@
-import fs from 'fs';
+/* import fs from 'fs';
 import path from 'path';
 import { root } from 'types/settings';
 import dotenv from 'dotenv';
@@ -23,4 +23,4 @@ fs.writeFileSync(
   content,
 );
 
-console.log('success');
+console.log('success'); */

@@ -70,7 +70,8 @@ module.exports = {
         "**/npm-scripts/**.*"
       ],
       "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "@typescript-eslint/no-explicit-any": "off"
       }
     },
     {

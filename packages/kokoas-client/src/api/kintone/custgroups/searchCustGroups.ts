@@ -1,8 +1,8 @@
-import { getAgentType } from 'types';
+import { getAgentType, ICustgroups, KFlatCustGroup } from 'types';
 import { fieldMatches } from '../../../helpers/fieldMatches';
 import { APPIDS, KintoneRecord } from '../config';
 
-const custFieldMatches = fieldMatches<KeyOfCustGroupAll>;
+const custFieldMatches = fieldMatches<KFlatCustGroup>;
 
 /**
  * Searches following fields with a single search term.
@@ -29,7 +29,7 @@ export const searchCustomers = ({
   cocoAg?: string,
   yumeAg?: string,
 }) => {
-  const fields: KeyOfCustGroupAll[] = [
+  const fields: KFlatCustGroup[] = [
     'storeName',
     'customerName',
     'dump', // json contains all information about the customer
@@ -62,6 +62,6 @@ export const searchCustomers = ({
   return KintoneRecord.getAllRecords({
     app: APPIDS.custGroup,
     condition: query,
-  }).then(rec => rec as unknown as TypeOfCustomerGroup[]);
+  }).then(rec => rec as unknown as ICustgroups[]);
 
 };

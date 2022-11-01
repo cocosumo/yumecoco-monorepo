@@ -9,6 +9,7 @@ import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfProjForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
+import { IProjtypes } from 'types';
 
 
 export const ConstructionInfo = (
@@ -37,7 +38,7 @@ export const ConstructionInfo = (
       app: APPIDS.project,
       query: 'order by レコード番号 asc',
     }).then((res) => {
-      const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
+      const rawConstOpts = res.records as unknown as IProjtypes[];
       setConstructionTypeOptions(
         rawConstOpts
           .map(({ label, $id, projectName })=> ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),

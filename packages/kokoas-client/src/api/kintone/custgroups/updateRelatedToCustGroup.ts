@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import { updateRelated } from '../common/updateRelated';
 import { APPIDS } from '../config';
 
@@ -9,7 +10,7 @@ import { APPIDS } from '../config';
  * @param custGroupId 
  */
 export const updateRelatedToCustGroup = async (
-  record: Partial<CustomerGroupTypes.SavedData>,
+  record: Partial<ICustgroups>,
   custGroupId: string | string[],
 ) => {
   if (!custGroupId) throw new Error('エラーが発生しました。custGroupIdは定義されていません。');

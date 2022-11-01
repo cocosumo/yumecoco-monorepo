@@ -1,6 +1,6 @@
 import { AppIds } from 'config';
 import { IProjects } from 'types';
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
+import { KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
 const convertToKintone = (formValues: TypeOfForm) : Partial<IProjects>  => {

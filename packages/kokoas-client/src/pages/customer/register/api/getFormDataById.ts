@@ -2,14 +2,14 @@ import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
-import { TEnvelopeStatus } from 'types';
+import { ICustgroups, TEnvelopeStatus } from 'types';
 
 
 export const getCustGroupRecord = async (id: string) => {
   return KintoneRecord.getRecord({
     app: APPIDS.custGroup,
     id,
-  }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
+  }).then(resp => resp.record as unknown as ICustgroups);
 };
 
 

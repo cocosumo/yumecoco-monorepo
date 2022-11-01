@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import { saveRecord } from '../common/saveRecord';
 import { saveCustomers } from '../customers/saveCustomers';
 import { APPIDS } from './../config';
@@ -22,7 +23,7 @@ export const saveCustGroup = async (
     customerRecords,
   }:
   {
-    record: Partial<CustomerGroupTypes.SavedData>,
+    record: Partial<ICustgroups>,
     custGroupId?: string,
     revision?:string,
     customerRecords: Partial<CustomerTypes.SavedData>[]

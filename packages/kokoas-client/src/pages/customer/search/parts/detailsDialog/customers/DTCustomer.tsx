@@ -1,12 +1,12 @@
 import { Collapse, Stack  } from '@mui/material';
-import { TAgents, AGLabels } from 'types';
+import { TAgents, AGLabels, ICustgroups } from 'types';
 import { PageSubTitle } from '../../../../../../components/ui/labels';
 import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
 
 
 
 export const DTCustomer = (props: {
-  record?: CustomerGroupTypes.SavedData,
+  record?: ICustgroups,
   loading: boolean,
 }) => {
   const { record, loading } = props;

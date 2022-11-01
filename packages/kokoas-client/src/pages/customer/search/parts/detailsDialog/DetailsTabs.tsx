@@ -11,6 +11,7 @@ import { pages } from '../../../../Router';
 import { generateParams } from '../../../../../helpers/url';
 import { TabContextContainer } from './TabContextContainer';
 import useDeepCompareEffect from 'use-deep-compare-effect';
+import { ICustgroups } from 'types';
 
 export function DetailsTabs(props : {
   custGroupId?: string,
@@ -22,7 +23,7 @@ export function DetailsTabs(props : {
     setTabValue(newValue);
   };
 
-  const [record, setRecord] = useState<CustomerGroupTypes.SavedData>();
+  const [record, setRecord] = useState<ICustgroups>();
   const [fetchedProjects, setFetchedProjects] = useState<ProjectDetails.SavedData[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const projectIds =  record?.projects?.value

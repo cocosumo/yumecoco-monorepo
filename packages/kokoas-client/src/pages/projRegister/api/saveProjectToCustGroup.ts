@@ -20,23 +20,23 @@ interface UpdateRequest {
  */
 const resolveDeleteRequest = async (projectId: string) => {
   return (await getCustGroupByProjectId(projectId))
-    .map < UpdateRequest >(({ $id, $revision, projects }) => {
-    return {
-      method: 'PUT',
-      api: '/k/v1/record.json',
-      payload: {
-        app: APPIDS.custGroup.toString(),
-        id: $id.value,
-        revision: $revision.value,
-        record: {
-          projects: {
-            type: 'SUBTABLE',
-            value: projects.value.filter(item => item.value.projId.value !== projectId),
+    .map(({ $id, $revision, projects }) => {
+      return {
+        method: 'PUT',
+        api: '/k/v1/record.json',
+        payload: {
+          app: APPIDS.custGroup.toString(),
+          id: $id.value,
+          revision: $revision.value,
+          record: {
+            projects: {
+              type: 'SUBTABLE',
+              value: projects.value.filter(item => item.value.projId.value !== projectId),
+            },
           },
         },
-      },
-    };
-  });
+      };
+    });
 };
 
 /**

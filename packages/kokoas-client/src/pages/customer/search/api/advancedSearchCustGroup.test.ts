@@ -1,11 +1,12 @@
 import { RecordID } from '@kintone/rest-api-client/lib/client/types';
 import { Revision } from '@kintone/rest-api-client/lib/KintoneFields/types/field';
+import { ICustgroups } from 'types';
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { resolveRecordStatusQuery } from './advancedSearchCustGroup';
 
 type TUpload = {
   id: RecordID;
-  record?: Partial<Record<keyof CustomerGroupTypes.SavedData, any>> | undefined; // Kintone does export recordForParameter type
+  record?: Partial<ICustgroups> | undefined; // Kintone does export recordForParameter type
   revision?: Revision | undefined;
 };
 
@@ -19,7 +20,7 @@ describe('advancedSearch', ()=>{
   test('updateProjCount', async ()=>{
     const records = await KintoneRecord.getAllRecords({
       app: APPIDS.custGroup,
-    }) as unknown as CustomerGroupTypes.SavedData[];
+    }) as unknown as ICustgroups[];
 
     const updatedRecords = records.map<TUpload>((item) => {
       const updatedProjsCount = item.projects.value

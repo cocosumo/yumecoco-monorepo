@@ -1,9 +1,10 @@
+import { ICustgroups } from 'types';
 import { CustomerForm } from '../form';
 
 export const formToDBCustGroup = (
   formData: CustomerForm,
   employees: EmployeeTypes.SavedData[],
-): Partial<CustomerGroupTypes.SavedData> => {
+): Partial<ICustgroups> => {
 
   const getEmpNameById = (id: string) => employees
     .find(({ $id }) => $id.value === id)?.文字列＿氏名.value || '';

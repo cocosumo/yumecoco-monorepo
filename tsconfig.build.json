@@ -21,21 +21,14 @@
     "moduleResolution": "Node",
     "strictFunctionTypes": false
   },
-  "include": [
-    "**/*.ts", "**/*.tsx",
-    "./jest/**/*",
-    "./src/**/*",
-    "./src/types/api.d.ts",
-    "./src/types/data.stores.d.ts",
-    "./node_modules/@kintone/dts-gen/kintone.d.ts",
-    "./../yumekoko-docusign/src/types/docusign.d.ts",
-    "./../yumekoko-docusign/src/types/kintone.d.ts",
-    //"./node_modules/@types/docusign-esign/index.d.ts",
-  ],
   "exclude": [
-    "node_modules",
     "dist"
   ],
+  "include": [
+    "**/*.ts", "**/*.tsx",
+    "./node_modules/@kintone/dts-gen/kintone.d.ts",
+  ],
+
   "rules": {
     "quotemark": [
       true,

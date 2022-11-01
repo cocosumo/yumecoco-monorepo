@@ -78,7 +78,8 @@ module.exports = {
         "**/db.*.d.ts"
       ],
       "rules" : {
-        "@typescript-eslint/no-unused-vars": "off"
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/quotes": "off"
       }
     }
   ]

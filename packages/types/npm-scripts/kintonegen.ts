@@ -9,7 +9,7 @@ dotenv.config();
 const kintoneTypes = Object.keys(AppIds)
   .map((dbName) => {
     return [
-      `DB${dbName}`,
+      `${getD}`,
     ];
 
   });

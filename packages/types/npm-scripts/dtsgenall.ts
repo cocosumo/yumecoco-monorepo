@@ -61,10 +61,10 @@ runAll(
     stdin: process.stdin,
     //stderr: process.stderr,
   })
-  .catch(({ results }) => {
+  .catch(({ results }: any) => {
     results
-      .filter(({ code }) => code)
-      .forEach(({ name }) => {
+      .filter(({ code }: any) => code)
+      .forEach(({ name }: any) => {
         console.log(`"npm run ${name}" failed`);
       });
   })

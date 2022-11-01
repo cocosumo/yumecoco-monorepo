@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "module": "es6",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "lib": [
+      "es5",
+      "es2017",
+      "es6",
+      "dom",
+      "dom.iterable"
+    ],
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "importHelpers": true,
+    "moduleResolution": "Node",
+    "strictFunctionTypes": false
+  },
+  "include": [
+    "./jest/**/*",
+    "./src/**/*",
+    "./src/types/api.d.ts",
+    "./src/types/data.stores.d.ts",
+    "./node_modules/@kintone/dts-gen/kintone.d.ts",
+    "./../yumekoko-docusign/src/types/docusign.d.ts",
+    "./../yumekoko-docusign/src/types/kintone.d.ts",
+    //"./node_modules/@types/docusign-esign/index.d.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "rules": {
+    "quotemark": [
+      true,
+      "single"
+    ]
+  },
+  "references": [
+    {
+      "path": "./packages/kokoas-client/tsconfig.json"
+    }
+  ]
+}

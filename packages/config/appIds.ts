@@ -7,5 +7,5 @@ export const AppIds = {
   projTypes : 190,
   projects : 194,
   projEstimates : 202,
-  paymentInvoice : 204,
+  invoices : 204,
 };

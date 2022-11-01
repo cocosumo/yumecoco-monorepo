@@ -6,8 +6,6 @@ import { AppIds } from 'config';
 import { getDbName } from 'types/helpers/getDbName';
 require('dotenv').config();
 
-
-
 /**
  * Kintone型定義を一括取得
  *
@@ -63,9 +61,9 @@ runAll(
     stdout: process.stdout,
     stdin: process.stdin,
     //stderr: process.stderr,
-  }).catch(({ results }) => {
+  }).catch(({ results }: any) => {
   results
-    .filter(({ code }) => code)
+    .filter(({ code } ) => code)
     .forEach(({ name }) => {
       console.log(`"npm run ${name}" failed`);
     });

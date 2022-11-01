@@ -1,26 +1,26 @@
-export type DBCustomers = DBCustomers.SavedData;
-export type KDBCustomers = keyof DBCustomers;
+export type ICustomers = DBCustomers.SavedData;
+export type KCustomers = keyof ICustomers;
 
-export type DBStores = DBStores.SavedData;
-export type KDBStores = keyof DBStores;
+export type IStores = DBStores.SavedData;
+export type KStores = keyof IStores;
 
-export type DBEmployees = DBEmployees.SavedData;
-export type KDBEmployees = keyof DBEmployees;
+export type IEmployees = DBEmployees.SavedData;
+export type KEmployees = keyof IEmployees;
 
-export type DBCustgroups = DBCustgroups.SavedData;
-export type KDBCustgroups = keyof DBCustgroups;
+export type ICustgroups = DBCustgroups.SavedData;
+export type KCustgroups = keyof ICustgroups;
 
-export type DBCustmemos = DBCustmemos.SavedData;
-export type KDBCustmemos = keyof DBCustmemos;
+export type ICustmemos = DBCustmemos.SavedData;
+export type KCustmemos = keyof ICustmemos;
 
-export type DBProjtypes = DBProjtypes.SavedData;
-export type KDBProjtypes = keyof DBProjtypes;
+export type IProjtypes = DBProjtypes.SavedData;
+export type KProjtypes = keyof IProjtypes;
 
-export type DBProjects = DBProjects.SavedData;
-export type KDBProjects = keyof DBProjects;
+export type IProjects = DBProjects.SavedData;
+export type KProjects = keyof IProjects;
 
-export type DBProjestimates = DBProjestimates.SavedData;
-export type KDBProjestimates = keyof DBProjestimates;
+export type IProjestimates = DBProjestimates.SavedData;
+export type KProjestimates = keyof IProjestimates;
 
-export type DBPaymentinvoice = DBPaymentinvoice.SavedData;
-export type KDBPaymentinvoice = keyof DBPaymentinvoice;
+export type IPaymentinvoice = DBPaymentinvoice.SavedData;
+export type KPaymentinvoice = keyof IPaymentinvoice;

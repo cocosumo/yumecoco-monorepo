@@ -1,0 +1,13 @@
+{
+  "name": "kokoas-client",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "dev": "npm run build -- --watch --mode development",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "is-even": "*"
+  }
+}

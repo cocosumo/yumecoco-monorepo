@@ -1,4 +1,4 @@
-declare namespace DB.custGroups {
+declare namespace DBCustgroups {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;

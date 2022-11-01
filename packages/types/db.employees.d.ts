@@ -1,4 +1,4 @@
-declare namespace DB.employees {
+declare namespace DBEmployees {
   interface Data {
     文字列＿氏名: kintone.fieldTypes.SingleLineText;
     文字列__1行_: kintone.fieldTypes.SingleLineText;

@@ -1,4 +1,4 @@
-declare namespace DB.projects {
+declare namespace DBProjects {
   interface Data {
     schedContractDate: kintone.fieldTypes.Date;
     addressKari: kintone.fieldTypes.SingleLineText;

@@ -1,4 +1,4 @@
-declare namespace DB.projTypes {
+declare namespace DBProjtypes {
   interface Data {
     description: kintone.fieldTypes.MultiLineText;
     label: kintone.fieldTypes.SingleLineText;

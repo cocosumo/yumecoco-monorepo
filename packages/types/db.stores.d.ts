@@ -1,4 +1,4 @@
-declare namespace DB.stores {
+declare namespace DBStores {
   interface Data {
     area: kintone.fieldTypes.SingleLineText;
     文字列__1行_: kintone.fieldTypes.SingleLineText;

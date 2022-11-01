@@ -1,4 +1,4 @@
-declare namespace DB.projEstimates {
+declare namespace DBProjestimates {
   interface Data {
     projId: kintone.fieldTypes.Number;
     contractDate: kintone.fieldTypes.Date;

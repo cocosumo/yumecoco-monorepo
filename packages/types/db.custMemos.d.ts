@@ -1,4 +1,4 @@
-declare namespace DB.custMemos {
+declare namespace DBCustmemos {
   interface Data {
     recordId: kintone.fieldTypes.Number;
     contents: kintone.fieldTypes.MultiLineText;

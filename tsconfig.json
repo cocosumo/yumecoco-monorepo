@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": "./packages",
     "paths": {
-      "is-odd": ["is-odd/src"],
-      "is-even": ["is-even/src"],
-      "kokoas-client": ["kokoas-client/src"]
+      "is-odd": ["packages/is-odd/*"],
+      "is-even": ["packages/is-even/*"],
+      "kokoas-client": ["packages/kokoas-client/src"]
     },
   },
 

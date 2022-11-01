@@ -22,6 +22,7 @@
     "strictFunctionTypes": false
   },
   "include": [
+    "**/*.ts", "**/*.tsx",
     "./jest/**/*",
     "./src/**/*",
     "./src/types/api.d.ts",
@@ -44,6 +45,9 @@
   "references": [
     {
       "path": "./packages/kokoas-client/tsconfig.json"
-    }
+    },
+    {
+      "path": "./packages/is-even/tsconfig.json"
+    },
   ]
 }

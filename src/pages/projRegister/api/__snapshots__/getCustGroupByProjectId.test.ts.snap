@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get CustGroup by Project Id 1`] = `
+Array [
+  Object {
+    "$id": Object {
+      "type": "__ID__",
+      "value": "97",
+    },
+    "$revision": Object {
+      "type": "__REVISION__",
+      "value": "2",
+    },
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "443139",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "17",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "安富 直人",
+            },
+          },
+        },
+      ],
+    },
+    "members": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "443138",
+          "value": Object {
+            "address": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "customerId": Object {
+              "type": "NUMBER",
+              "value": "219",
+            },
+            "customerName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "Lorenz",
+            },
+          },
+        },
+      ],
+    },
+    "projects": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "468403",
+          "value": Object {
+            "constructionId": Object {
+              "type": "NUMBER",
+              "value": "97",
+            },
+            "constructionName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "リフォーム工事",
+            },
+          },
+        },
+      ],
+    },
+    "storeId": Object {
+      "type": "NUMBER",
+      "value": "12",
+    },
+    "storeName": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "豊川中央店",
+    },
+    "territory": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "97",
+    },
+    "作成日時": Object {
+      "type": "CREATED_TIME",
+      "value": "2022-02-13T04:55:00Z",
+    },
+    "作成者": Object {
+      "type": "CREATOR",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+    "更新日時": Object {
+      "type": "UPDATED_TIME",
+      "value": "2022-04-27T02:41:00Z",
+    },
+    "更新者": Object {
+      "type": "MODIFIER",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+  },
+  Object {
+    "$id": Object {
+      "type": "__ID__",
+      "value": "96",
+    },
+    "$revision": Object {
+      "type": "__REVISION__",
+      "value": "2",
+    },
+    "agents": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "443132",
+          "value": Object {
+            "agentType": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "employeeId": Object {
+              "type": "NUMBER",
+              "value": "17",
+            },
+            "employeeName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "安富 直人",
+            },
+          },
+        },
+      ],
+    },
+    "members": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "443131",
+          "value": Object {
+            "address": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "",
+            },
+            "customerId": Object {
+              "type": "NUMBER",
+              "value": "218",
+            },
+            "customerName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "Lorenz",
+            },
+          },
+        },
+      ],
+    },
+    "projects": Object {
+      "type": "SUBTABLE",
+      "value": Array [
+        Object {
+          "id": "468402",
+          "value": Object {
+            "constructionId": Object {
+              "type": "NUMBER",
+              "value": "97",
+            },
+            "constructionName": Object {
+              "type": "SINGLE_LINE_TEXT",
+              "value": "リフォーム工事",
+            },
+          },
+        },
+      ],
+    },
+    "storeId": Object {
+      "type": "NUMBER",
+      "value": "12",
+    },
+    "storeName": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "豊川中央店",
+    },
+    "territory": Object {
+      "type": "SINGLE_LINE_TEXT",
+      "value": "",
+    },
+    "レコード番号": Object {
+      "type": "RECORD_NUMBER",
+      "value": "96",
+    },
+    "作成日時": Object {
+      "type": "CREATED_TIME",
+      "value": "2022-02-13T04:55:00Z",
+    },
+    "作成者": Object {
+      "type": "CREATOR",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+    "更新日時": Object {
+      "type": "UPDATED_TIME",
+      "value": "2022-04-27T02:41:00Z",
+    },
+    "更新者": Object {
+      "type": "MODIFIER",
+      "value": Object {
+        "code": "RPA03",
+        "name": "ラス ロレンズ",
+      },
+    },
+  },
+]
+`;

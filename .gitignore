@@ -40,3 +40,10 @@ Thumbs.db
 
 # sensitive
 *.env
+*.bat
+*.ps1
+*.csv
+*.sh
+*.xlsx
+*.pem
+**/build/*

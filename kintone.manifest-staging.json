@@ -1,0 +1,26 @@
+{
+    "app": "177",
+    "scope": "ALL",
+    "desktop": {
+        "js": [
+            "./dist/customize.js",
+            "./dist/vendor.js",
+            "./dist/vendor-mui.js",
+            "./dist/assets.js"
+        ],
+        "css": [
+            "./dist/customize.css"
+        ]
+    },
+    "mobile": {
+        "js": [
+            "./dist/customize.js",
+            "./dist/vendor.js",
+            "./dist/vendor-mui.js",
+            "./dist/assets.js"
+        ],
+        "css": [
+            "./dist/customize.css"
+        ]
+    }
+}

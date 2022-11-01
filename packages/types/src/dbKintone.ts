@@ -22,5 +22,5 @@ export type KProjects = keyof IProjects;
 export type IProjestimates = DBProjestimates.SavedData;
 export type KProjestimates = keyof IProjestimates;
 
-export type IPaymentinvoice = DBPaymentinvoice.SavedData;
-export type KPaymentinvoice = keyof IPaymentinvoice;
+export type IInvoices = DBInvoices.SavedData;
+export type KInvoices = keyof IInvoices;

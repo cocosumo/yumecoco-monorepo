@@ -22,7 +22,8 @@
     "strictFunctionTypes": false
   },
   "exclude": [
-    "dist"
+    "dist",
+    "npm-scripts"
   ],
   "include": [
     "**/*.ts", "**/*.tsx",

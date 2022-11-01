@@ -64,7 +64,11 @@ module.exports = {
   },
   "overrides": [
     {
-      "files": ["*.test.ts","*.spec.ts"],
+      "files": [
+        "*.test.ts",
+        "*.spec.ts",
+        "**/npm-scripts/**.*"
+      ],
       "rules": {
         "no-console": "off"
       }

@@ -10,7 +10,7 @@ const Dotenv = require('dotenv-webpack');
 module.exports = {
   mode: "development",
   plugins: [
-    new Dotenv(),
+    new Dotenv({path: "../../.env"}),
     new ForkTsCheckerWebpackPlugin(),
     new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({

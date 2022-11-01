@@ -27,6 +27,8 @@
   ],
   "include": [
     "**/*.ts", "**/*.tsx",
+  ],
+  "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
   ],
 

@@ -3,24 +3,24 @@
     "scope": "ALL",
     "desktop": {
         "js": [
-            "https://127.0.0.1:5500/dist/customize.js",
-            "https://127.0.0.1:5500/dist/vendor.js",
-            "https://127.0.0.1:5500/dist/vendor-mui.js",
-            "https://127.0.0.1:5500/dist/assets.js"
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.js",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/vendor.js",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/vendor-mui.js",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/assets.js"
         ],
         "css": [
-            "https://127.0.0.1:5500/dist/customize.css"
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.css"
         ]
     },
     "mobile": {
         "js": [
-            "https://127.0.0.1:5500/dist/customize.js",
-            "https://127.0.0.1:5500/dist/vendor.js",
-            "https://127.0.0.1:5500/dist/vendor-mui.js",
-            "https://127.0.0.1:5500/dist/assets.js"
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.js",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/vendor.js",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/vendor-mui.js",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/assets.js"
         ],
         "css": [
-            "https://127.0.0.1:5500/dist/customize.css"
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.css"
         ]
     }
 }

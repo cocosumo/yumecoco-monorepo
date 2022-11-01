@@ -45,5 +45,8 @@
     {
       "path": "./packages/is-even/tsconfig.json"
     },
+    {
+      "path": "./packages/types/tsconfig.json"
+    },
   ]
 }

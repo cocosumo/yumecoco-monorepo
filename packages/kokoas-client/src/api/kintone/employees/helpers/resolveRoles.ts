@@ -1,7 +1,8 @@
-import { EmployeeType, EmpRoles } from '../../../../types/commonTypes';
+import { TAgents, EmpRoles } from 'types';
 
-export const resolveRoles = (dirtyType: EmployeeType | EmployeeType[])  => {
-  return ([] as EmployeeType[])
+
+export const resolveRoles = (dirtyType: TAgents | TAgents[])  => {
+  return ([] as TAgents[])
     .concat(dirtyType)
     .reduce((acc, curr) => {
       switch (curr) {

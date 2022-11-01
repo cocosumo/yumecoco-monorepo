@@ -1,15 +1,15 @@
 
 import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
+import { TAgents } from 'types';
 
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
-import { EmployeeType } from '../../../../types/commonTypes';
 import { FormFieldKeys, initialValues } from '../form';
 
 
 
-const resolveLabel = (name: EmployeeType) => {
+const resolveLabel = (name: TAgents) => {
   switch (name) {
     case 'cocoAG':
       return 'ここすも営業';

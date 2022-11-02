@@ -30,7 +30,7 @@ export const initialValues = {
   yumeAg: '',
   constAg: '',
 
-  /* 見積も契約 */
+  /* 見積もり契約 */
   envelopeId: '',
   envelopeStatus: '' as TEnvelopeStatus,
   envDocFileKeys: [] as kintone.fieldTypes.File['value'],

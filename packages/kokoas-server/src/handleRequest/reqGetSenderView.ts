@@ -32,7 +32,7 @@ export const reqGetSenderView: RequestHandler = async (req, res) => {
       console.log('Send sender view');
       res.status(200).json(result);
     } else {
-      res.status(401).send('<h1> 400 Bad Request</h1>');
+      res.status(401).send('400 Bad Request');
     }
   } catch (error: any) {
     res.status(200).send(`Request failed. ${error.message}`);

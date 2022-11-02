@@ -4,11 +4,11 @@ const options = {
   baseUrl: process.env.KT_BASE_URL,
   auth: {
     apiToken: [
-      process.env.KT_CUSTGROUPS,
-      process.env.KT_PROJECTS,
-      process.env.KT_PROJECT_ESTIMATES,
-      process.env.KT_CUSTOMERS,
-      process.env.KT_EMPLOYEES,
+      process.env.KT_CUST_GROUP,
+      process.env.KT_PROJECT,
+      process.env.KT_ESTIMATE,
+      process.env.KT_CUSTOMER,
+      process.env.KT_EMPLOYEE,
     ],
   },
 };

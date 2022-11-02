@@ -13,7 +13,7 @@ const options = {
       process.env.KT_CUST_GROUP,
       process.env.KT_CUST_MEMO,
       process.env.KT_PROJECT_TYPE,
-      process.env.KT_CONSTRUCTION_DETAILS,
+      process.env.KT_PROJECTS,
       process.env.KT_ESTIMATE,
       process.env.KT_INVOICE,
     ],

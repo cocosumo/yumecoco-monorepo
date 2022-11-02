@@ -4,18 +4,18 @@ import { isBrowser } from '../../helpers/utils';
 /* Use session authentication */
 
 const options = {
-  baseUrl: process.env.BASE_URL,
+  baseUrl: process.env.KT_BASE_URL,
   auth: isBrowser() ? undefined : {
     apiToken: [
-      process.env.API_CUSTOMERS,
-      process.env.API_STORES,
-      process.env.API_EMPLOYEES,
-      process.env.API_CUST_GROUP,
-      process.env.API_CUST_MEMO,
-      process.env.API_CONSTRUCTION_TYPE,
-      process.env.API_CONSTRUCTION_DETAILS,
-      process.env.API_ESTIMATE,
-      process.env.API_INVOICE,
+      process.env.KT_CUSTOMER,
+      process.env.KT_STORE,
+      process.env.KT_EMPLOYEE,
+      process.env.KT_CUST_GROUP,
+      process.env.KT_CUST_MEMO,
+      process.env.KT_PROJECT_TYPE,
+      process.env.KT_PROJECTS,
+      process.env.KT_ESTIMATE,
+      process.env.KT_INVOICE,
     ],
   },
 };

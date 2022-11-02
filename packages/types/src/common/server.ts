@@ -1,6 +1,13 @@
 import { EnvelopeUpdateSummary } from 'docusign-esign';
 import { TEnvelopeStatus } from './docusign';
 
+export type TProjReq = {
+  projId?: string,
+  custGroupId?:string,
+  envelopeId?: string,
+  origin?: string
+};
+
 export interface ReqSendContract {
   userCode: string,
   projEstimateId: string,
@@ -33,4 +40,17 @@ export interface ReqDownloadParams {
   userCode: string,
   projEstimateId: string,
   fileType: 'pdf' | 'xlsx',
+}
+
+export type ReqPreviewParams = {
+  projId: string,
+  projEstimateId: string
+  userCode: string,
+};
+
+export interface IRequestJWTUserTokenResponse {
+  body: {
+    access_token: string,
+    expires_in: string
+  }
 }

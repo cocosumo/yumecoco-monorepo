@@ -1,5 +1,5 @@
 import { APPIDS, KintoneRecord } from '../api/kintone';
-import { ICustgroups, ICustomers } from 'types';
+import { DeepPartial, ICustgroups, ICustomers } from 'types';
 
 export const updateCustGroup = async () => {
   try {

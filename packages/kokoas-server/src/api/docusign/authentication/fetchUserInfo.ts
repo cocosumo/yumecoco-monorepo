@@ -1,14 +1,10 @@
 
-import {apiClient} from '../../../config';
-import {getJwtGrantToken} from './fetchAccessToken';
+import { IGetUserInfoResponse } from 'types';
+import { apiClient } from '../../../config';
+import { getJwtGrantToken } from './fetchAccessToken';
 
 let userInfo: IGetUserInfoResponse | undefined;
 
-export const getAccountId = async () => {
-  const _userInfo = await fetchUserInfo();
-
-  return _userInfo.accounts[0].accountId;
-};
 
 
 /**
@@ -23,4 +19,11 @@ export const fetchUserInfo = async () => {
     .getUserInfo(jwtGrantToken.accessToken);
 
   return userInfo as IGetUserInfoResponse;
+};
+
+
+export const getAccountId = async () => {
+  const { accounts } = await fetchUserInfo();
+
+  return accounts[0].accountId;
 };

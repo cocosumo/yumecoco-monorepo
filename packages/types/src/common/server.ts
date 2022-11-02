@@ -41,3 +41,16 @@ export interface ReqDownloadParams {
   projEstimateId: string,
   fileType: 'pdf' | 'xlsx',
 }
+
+export type ReqPreviewParams = {
+  projId: string,
+  projEstimateId: string
+  userCode: string,
+};
+
+export interface IRequestJWTUserTokenResponse {
+  body: {
+    access_token: string,
+    expires_in: string
+  }
+}

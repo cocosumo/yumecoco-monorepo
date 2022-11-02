@@ -1,5 +1,5 @@
-import {RequestHandler} from 'express';
-import { ReqSendContract } from 'types';
+import { RequestHandler } from 'express';
+import { ISendEnvelopeResponse, ReqSendContract, TEnvelopeStatus } from 'types';
 import {
   processContract,
 } from '../api/docusign/contracts/construction/processContract';

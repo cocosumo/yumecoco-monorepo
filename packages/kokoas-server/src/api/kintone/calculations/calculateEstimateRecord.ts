@@ -1,22 +1,23 @@
-import {calculateEstimate} from './calculateEstimate';
+import { IProjestimates } from 'types';
+import { calculateEstimate } from './calculateEstimate';
 
 
 export const calculateEstimateRecord = async (
-  estimateRecord: ProjectEstimates.SavedData,
+  estimateRecord: IProjestimates,
 ) => {
   const {
-    内訳: {value: estimateTable},
-    税: {value: tax},
+    内訳: { value: estimateTable },
+    税: { value: tax },
   } = estimateRecord;
 
   const result = calculateEstimate({
     tax: +tax,
-    materials: estimateTable.map(({value: {
-      原価: {value: costPrice},
-      数量: {value: quantity},
-      taxType: {value: taxType},
-      部材利益率: {value: materialProfit},
-    }}) => {
+    materials: estimateTable.map(({ value: {
+      原価: { value: costPrice },
+      数量: { value: quantity },
+      taxType: { value: taxType },
+      部材利益率: { value: materialProfit },
+    } }) => {
       return {
         costPrice: +costPrice,
         quantity: +quantity,

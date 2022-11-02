@@ -1,8 +1,8 @@
-import {RequestHandler} from 'express';
-import {voidEnvelope} from '../api/docusign';
-import {APPIDS, KintoneRecord} from '../api/kintone';
-import {getEstimateByEnvId} from '../api/kintone/getEstimateByEnvId';
-import {getProjByEnvelope} from '../api/kintone/getProjByEnvelope';
+import { RequestHandler } from 'express';
+import { IProjestimates, IVoidReq, IVoidRes } from 'types';
+import { voidEnvelope } from '../api/docusign';
+import { APPIDS, KintoneRecord } from '../api/kintone';
+import { getEstimateByEnvId } from '../api/kintone/getEstimateByEnvId';
 
 /**
  * Request handler for voiding envelope
@@ -25,16 +25,16 @@ export const reqVoidEnvelope : RequestHandler = async (
 
     if (!voidedReason) throw new Error('Server: 無効にする理由は定義されていません。');
 
-    const result = await voidEnvelope({envelopeId, voidedReason});
+    const result = await voidEnvelope({ envelopeId, voidedReason });
 
     const {
       $id,
     } = await getEstimateByEnvId(envelopeId);
     console.log(`Voiding envelope id: ${envelopeId}`);
 
-    const record : Partial<ProjectEstimates.SavedData> = {
-      envDocFileKeys: {value: []} as any, // Remove attached files
-      envStatus: {value: 'voiding'},
+    const record : Partial<IProjestimates> = {
+      envDocFileKeys: { value: [] } as any, // Remove attached files
+      envStatus: { value: 'voiding' },
     };
 
     await KintoneRecord.updateRecord({

@@ -14,10 +14,11 @@
  * Things to note
  */
 
-import {RequestHandler} from 'express';
-import {voidEnvelope} from './voidEnvelope';
-import {saveToKintone} from './saveToKintone';
-import {format} from 'date-fns';
+import { RequestHandler } from 'express';
+import { voidEnvelope } from './voidEnvelope';
+import { saveToKintone } from './saveToKintone';
+import { format } from 'date-fns';
+import { IConnectEvent } from 'types';
 
 
 export const handleTriggers: RequestHandler = async (req, res) =>{

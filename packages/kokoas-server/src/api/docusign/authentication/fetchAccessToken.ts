@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
-import {addSeconds, differenceInSeconds, isPast, subMinutes} from 'date-fns';
+import { addSeconds, differenceInSeconds, isPast, subMinutes } from 'date-fns';
+import { IRequestJWTUserTokenResponse } from 'types';
 import {
   getPrivateKey,
   integratorKey,
@@ -80,6 +81,6 @@ export const getJwtGrantToken = async () => {
   }
 
 
-  return await fetchAccessToken();
+  return fetchAccessToken();
 };
 

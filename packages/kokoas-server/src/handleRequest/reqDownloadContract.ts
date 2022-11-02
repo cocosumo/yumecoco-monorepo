@@ -1,7 +1,7 @@
 
-import {RequestHandler} from 'express';
-import {Xlsx} from 'exceljs';
-import {getContractData} from '../api/kintone/getContractData';
+import { RequestHandler } from 'express';
+import { Xlsx } from 'exceljs';
+import { getContractData } from '../api/kintone/getContractData';
 import {
   generateContractXlsx, generateContractPdf,
 } from '../api/docusign/contracts/';

@@ -1,15 +1,14 @@
-import { TAgents } from 'types';
-import {getProjectDetails} from '.';
-import {calculateEstimateRecord} from './calculations/calculateEstimateRecord';
-import {getCustomerById} from './getCustomerById';
-import {getCustomerGroup} from './getCustomerGroup';
-import {getCustomersByIds} from './getCustomersByGroupId';
-import {getEmployeesByIds} from './getEmployeesByIds';
-import {getEstimateById} from './getEstimateById';
-import {getStoreMngrByStoreId} from './getStoreMngrByStoreId';
-import {validateContractData} from './validateContractData';
+import { TAgents, TSignMethod } from 'types';
+import { getProjectDetails } from '.';
+import { calculateEstimateRecord } from './calculations/calculateEstimateRecord';
+import { getCustomerGroup } from './getCustomerGroup';
+import { getCustomersByIds } from './getCustomersByGroupId';
+import { getEmployeesByIds } from './getEmployeesByIds';
+import { getEstimateById } from './getEstimateById';
+import { getStoreMngrByStoreId } from './getStoreMngrByStoreId';
+import { validateContractData } from './validateContractData';
 
-export type TContractData = Awaited<ReturnType<typeof getContractData>>
+export type TContractData = Awaited<ReturnType<typeof getContractData>>;
 
 /**
  * Get Contract data across all involved database
@@ -68,7 +67,7 @@ isValidate = false,
   } = await getCustomerGroup(custGroupId.value);
 
   const custIds = members.value
-    .map(({value: {customerId}}) => customerId.value );
+    .map(({ value: { customerId } }) => customerId.value );
 
   const rawCustomers = await getCustomersByIds(custIds);
 
@@ -83,7 +82,7 @@ isValidate = false,
     return {
       custName: fullName.value,
       email: contacts.value
-        .find(({value: {contactType}}) => contactType.value === 'email')
+        .find(({ value: { contactType } }) => contactType.value === 'email')
         ?.value.contactValue.value,
       address: `${postalCode.value}〒 ${address1.value}${address2.value}`,
       postalCode: postalCode.value,
@@ -98,11 +97,11 @@ isValidate = false,
 
   /* 担当情報 */
   const cocoAgIds = agents.value
-    .filter(({value: {agentType}}) => (
+    .filter(({ value: { agentType } }) => (
       (agentType.value as TAgents) === 'cocoAG'))
-    .map(({value: {employeeId}}) => employeeId.value );
+    .map(({ value: { employeeId } }) => employeeId.value );
   const cocoAG = (await getEmployeesByIds(cocoAgIds))
-    .map(({文字列＿氏名: empName, email: empEmail}) => ({
+    .map(({ 文字列＿氏名: empName, email: empEmail }) => ({
       name: empName.value,
       email: empEmail.value,
     }) );
@@ -119,12 +118,12 @@ isValidate = false,
   const accountingEmail = 'info@cocosumo.co.jp';
 
   /* 支払い */
-  const payments = 支払い.value?.map(({value: {
+  const payments = 支払い.value?.map(({ value: {
     isPayEnabled,
     paymentAmt,
     paymentDate,
     paymentType,
-  }}) => {
+  } }) => {
     return {
       isPayEnabled: Boolean(+isPayEnabled.value),
       paymentAmt: +paymentAmt?.value || 0,

@@ -1,5 +1,6 @@
 
-import {updateEstimateEnvelope} from '../../api/kintone/updateEstimateEnvelope';
+import { IConnectEvent } from 'types';
+import { updateEstimateEnvelope } from '../../api/kintone/updateEstimateEnvelope';
 
 /**
  * Handle update kintone process
@@ -24,7 +25,7 @@ export const saveToKintone = async (payload: IConnectEvent) => {
   // Get the firt document details
   // Will update this to be more flexible in case of
   // multiple documents.
-  const documents = envelopeDocuments.map(({PDFBytes, name}) => {
+  const documents = envelopeDocuments.map(({ PDFBytes, name }) => {
     return {
       fileBase64: PDFBytes,
       filename: name,
@@ -34,7 +35,7 @@ export const saveToKintone = async (payload: IConnectEvent) => {
   console.log(`Saving envelope id: ${envelopeId}`);
 
 
-  return await updateEstimateEnvelope({
+  return updateEstimateEnvelope({
     envelopeId,
     envelopeStatus: status,
     documents,

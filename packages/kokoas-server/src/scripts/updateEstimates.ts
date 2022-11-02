@@ -1,16 +1,17 @@
-import {APPIDS, KintoneRecord} from '../api/kintone';
+import { DeepPartial, IProjestimates } from 'types';
+import { APPIDS, KintoneRecord } from '../api/kintone';
 
 export const updateEstimates = async () => {
   try {
     const records = await KintoneRecord.getAllRecords({
       app: APPIDS.projEstimate,
-    }) as unknown as ProjectEstimates.SavedData[];
+    }) as unknown as IProjestimates[];
 
 
     const updatedRecords = records
       .map<{
       id: string,
-      record: DeepPartial<ProjectEstimates.SavedData>
+      record: DeepPartial<IProjestimates>
 
     }>(({
       $id,

@@ -1,5 +1,5 @@
-import { IProjects } from 'types';
-import {APPIDS, KintoneRecord} from '../api/kintone';
+import { DeepPartial, IProjects } from 'types';
+import { APPIDS, KintoneRecord } from '../api/kintone';
 
 export const syncCustGroupToProjects = async () => {
   try {
@@ -13,11 +13,11 @@ export const syncCustGroupToProjects = async () => {
       id: string,
       record: DeepPartial<IProjects>
 
-    }>(({custGroupId, $id})=>{
+    }>(({ custGroupId, $id })=>{
       return {
         id: $id.value,
         record: {
-          custGroupId: {value: custGroupId.value},
+          custGroupId: { value: custGroupId.value },
         },
       };
     });

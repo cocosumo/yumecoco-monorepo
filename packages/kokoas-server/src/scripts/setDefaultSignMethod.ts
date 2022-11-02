@@ -1,6 +1,6 @@
-import { IProjects } from 'types';
-import {APPIDS, KintoneRecord} from '../api/kintone';
-import {getKeyConstn} from '../api/kintone/getKeyConstruction';
+import { DeepPartial, IProjects, TSignMethod } from 'types';
+import { APPIDS, KintoneRecord } from '../api/kintone';
+import { getKeyConstn } from '../api/kintone/getKeyConstruction';
 
 export const setDefaultSignMethod = async () => {
   const projects = await KintoneRecord.getAllRecords({
@@ -14,11 +14,11 @@ export const setDefaultSignMethod = async () => {
   const updatedProject = projects.map<{
     id: string,
     record: DeepPartial<IProjects>
-  }>(({$id})=>{
+  }>(({ $id })=>{
     return {
       id: $id.value,
       record: {
-        signMethod: {value: ((v: TSignMethod) => v)('electronic')},
+        signMethod: { value: ((v: TSignMethod) => v)('electronic') },
       },
     };
   });

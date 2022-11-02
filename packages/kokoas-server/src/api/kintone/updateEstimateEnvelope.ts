@@ -1,4 +1,4 @@
-import { ReqSendContract } from 'types';
+import { IProjestimates, IRecipient, ReqSendContract, TConnectEventType } from 'types';
 import { APPIDS, KintoneRecord } from './config';
 import { getEstimateByEnvId } from './getEstimateByEnvId';
 import { uploadFileToKintone } from './uploadFileToKintone';
@@ -48,7 +48,7 @@ export const updateEstimateEnvelope = async ({
   }
 
   // Generate updated record and attach the file
-  const record : Partial<ProjectEstimates.SavedData> = {
+  const record : Partial<IProjestimates> = {
     envId: {
       value: envelopeId,
     },

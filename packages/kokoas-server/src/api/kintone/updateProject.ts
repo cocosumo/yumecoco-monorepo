@@ -1,8 +1,8 @@
-import { IProjects } from 'types';
-import {APPIDS, KintoneRecord} from '.';
-import {getProjByEnvelope} from './getProjByEnvelope';
-import {updateCustGroupLinkedProjects} from './updateCustGroupLinkedProjects';
-import {uploadFile} from './uploadFile';
+import { IProjects, IRecipient, TConnectEventType } from 'types';
+import { APPIDS, KintoneRecord } from '.';
+import { getProjByEnvelope } from './getProjByEnvelope';
+import { updateCustGroupLinkedProjects } from './updateCustGroupLinkedProjects';
+import { uploadFile } from './uploadFile';
 
 /**
  * Updates project
@@ -32,7 +32,7 @@ export const updateProject = async ( {
   recipients: IRecipient[]
 }) => {
   let recordId = projId;
-  let _custGroupId = custGroupId;
+  let newCustGroupId = custGroupId;
 
   // Search the id by envelope id,
   if (!recordId) {
@@ -40,10 +40,10 @@ export const updateProject = async ( {
       $id, custGroupId: cgId,
     } = await getProjByEnvelope(envelopeId);
     recordId = $id.value;
-    _custGroupId = cgId.value; // update custGroupId if necessary
+    newCustGroupId = cgId.value; // update custGroupId if necessary
   }
 
-  if (!_custGroupId) throw new Error('Invalid custGroupId.');
+  if (!newCustGroupId) throw new Error('Invalid custGroupId.');
 
 
   // Upload the file
@@ -74,7 +74,7 @@ export const updateProject = async ( {
     // Conditionally update attached file if a new file is uploaded
     ...(
       fileKeys.length ?
-        {envDocFileKeys: {
+        { envDocFileKeys: {
           type: 'FILE',
           value: fileKeys.map((fk) => {
             return {
@@ -84,12 +84,12 @@ export const updateProject = async ( {
               size: '',
             };
           }),
-        }} : {}
+        } } : {}
     ),
 
   };
 
-  if(!recordId) throw new Error("updateProject Failed due to missing recordId.")
+  if (!recordId) throw new Error('updateProject Failed due to missing recordId.');
 
 
   // Save updated record
@@ -100,8 +100,8 @@ export const updateProject = async ( {
   });
 
   // Also update cust group
-  if (_custGroupId) {
-    await updateCustGroupLinkedProjects(_custGroupId);
+  if (newCustGroupId) {
+    await updateCustGroupLinkedProjects(newCustGroupId);
   }
 
 

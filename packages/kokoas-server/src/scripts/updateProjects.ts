@@ -1,5 +1,5 @@
-import { IProjects } from 'types';
-import {APPIDS, KintoneRecord} from '../api/kintone';
+import { DeepPartial, IProjects } from 'types';
+import { APPIDS, KintoneRecord } from '../api/kintone';
 
 export const updateProjects = async () => {
   try {
@@ -24,7 +24,7 @@ export const updateProjects = async () => {
           custGroupId: custGroupId,
           cocoConstNames: {
             value: agents.value
-              .map(({value: {agentName}}) => agentName.value)
+              .map(({ value: { agentName } }) => agentName.value)
               .filter(Boolean)
               .join(', '),
           },

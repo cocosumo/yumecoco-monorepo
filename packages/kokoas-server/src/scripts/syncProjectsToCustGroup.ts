@@ -1,5 +1,5 @@
-import { ICustgroups } from 'types';
-import {APPIDS, KintoneRecord} from '../api/kintone';
+import { DeepPartial, ICustgroups } from 'types';
+import { APPIDS, KintoneRecord } from '../api/kintone';
 
 export const syncProjectsToCustGroup = async () => {
   try {
@@ -12,19 +12,19 @@ export const syncProjectsToCustGroup = async () => {
       id: string,
       record: DeepPartial<ICustgroups>
 
-    }>(({projects, $id})=>{
+    }>(({ projects, $id })=>{
       return {
         id: $id.value,
         record: {
 
-          projectCount: {value: `${projects.value.length ?? 0}`},
+          projectCount: { value: `${projects.value.length ?? 0}` },
           projects: {
-            value: projects.value.map(({value})=>{
-              const {projId} = value;
+            value: projects.value.map(({ value })=>{
+              const { projId } = value;
 
               return {
                 value: {
-                  projId: {value: projId.value},
+                  projId: { value: projId.value },
                 },
               };
             }),

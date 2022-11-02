@@ -1,9 +1,7 @@
-import {APPIDS, KintoneRecord} from '../../api/kintone';
-import {getEstimateByEnvId} from '../../api/kintone/getEstimateByEnvId';
-import {getProjByEnvelope} from '../../api/kintone/getProjByEnvelope';
-import {
-  updateCustGroupLinkedProjects,
-} from '../../api/kintone/updateCustGroupLinkedProjects';
+import { IProjestimates } from 'types';
+import { APPIDS, KintoneRecord } from '../../api/kintone';
+import { getEstimateByEnvId } from '../../api/kintone/getEstimateByEnvId';
+
 
 /**
  * Webhook event that is triggered when
@@ -21,16 +19,16 @@ export const voidEnvelope = async (envelopeId: string) => {
 
   // Other values are cleared at the frontend.
   // This might be faulty so I might have to rethink this flow.
-  const record : Partial<ProjectEstimates.SavedData> = {
-    envId: {value: ''},
-    envDocFileKeys: {value: []} as any, // Remove attached files
-    envStatus: {value: ''},
-    envRecipients: {value: ''},
+  const record : Partial<IProjestimates> = {
+    envId: { value: '' },
+    envDocFileKeys: { value: [] } as any, // Remove attached files
+    envStatus: { value: '' },
+    envRecipients: { value: '' },
     voidedEnvelopes: {
       value: [
         ...(voidedEnvelopes.value.split(',')),
         envelopeId,
-      ].filter(Boolean).join(',')},
+      ].filter(Boolean).join(',') },
 
   };
 

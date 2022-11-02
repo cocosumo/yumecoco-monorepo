@@ -1,4 +1,5 @@
-import { FormControl,
+import {
+  FormControl,
   FormControlLabel,
   FormHelperText,
   FormLabel,
@@ -9,7 +10,11 @@ import { useField } from 'formik';
 import { getFieldName, payMethods, TypeOfForm } from '../../form';
 import { PayDestination } from './PayDestination';
 
-export const PaymentMethod = () => {
+export const PaymentMethod = ({
+  disabled = false,
+}: {
+  disabled?: boolean
+}) => {
   const [field, meta] = useField<TypeOfForm['payMethod']>(getFieldName('payMethod'));
   const { error, touched } = meta;
   const { value } = field;
@@ -37,9 +42,10 @@ export const PaymentMethod = () => {
             value={pM}
             control={<Radio />}
             label={pM}
+            disabled={disabled}
           />
         ))}
-        <PayDestination disabled={value !== '振込'} />
+        <PayDestination disabled={(value !== '振込') || disabled} />
       </RadioGroup>
 
 

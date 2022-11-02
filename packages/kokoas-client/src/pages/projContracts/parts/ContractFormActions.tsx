@@ -17,8 +17,9 @@ export const ContractFormActions = () => {
     isValid,
     errors,
     touched,
-    values : {
+    values: {
       isPreviewOpen,
+      envelopeStatus,
     },
     setFieldValue,
   } = useFormikContext<TypeOfForm>();
@@ -42,7 +43,7 @@ export const ContractFormActions = () => {
       await submitForm();
     }
 
-    if (submitMethod === 'contract' ) {
+    if (submitMethod === 'contract') {
       if (isEmpty(errors)) {
         setOpenPreview(true);
       }
@@ -66,7 +67,7 @@ export const ContractFormActions = () => {
           size="large"
           startIcon={<SaveIcon />}
           onClick={() => handleSubmit('normal')}
-          disabled={isSubmitting || isValidating}
+          disabled={isSubmitting || isValidating || !!envelopeStatus}
         >
           保存
         </Button>
@@ -82,7 +83,7 @@ export const ContractFormActions = () => {
       </Stack>
       <ContractDialog
         open={isOpenDialog}
-        handleClose={()=>setOpenPreview(false)}
+        handleClose={() => setOpenPreview(false)}
       />
     </Stack>
   );

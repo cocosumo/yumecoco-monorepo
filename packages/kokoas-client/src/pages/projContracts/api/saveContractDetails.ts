@@ -1,3 +1,4 @@
+import { IProjestimates } from 'types';
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { toKintoneDateStr } from '../../../lib/date';
 import { paymentLabels, TypeOfForm } from '../form';
@@ -21,7 +22,7 @@ const convertToKintone = (
 
 
 
-  const convertedPaymentFields : Estimates.main.SavedData['支払い']  = {
+  const convertedPaymentFields : IProjestimates['支払い']  = {
     type: 'SUBTABLE',
     value: paymentFields.map((
       {
@@ -43,7 +44,7 @@ const convertToKintone = (
   };
 
 
-  const kintoneRecord :  Partial<Estimates.main.SavedData> = {
+  const kintoneRecord :  Partial<IProjestimates> = {
 
     hasRefund: { value: (+hasRefund).toString() },
     refundAmt: { value: refundAmt.toString() },

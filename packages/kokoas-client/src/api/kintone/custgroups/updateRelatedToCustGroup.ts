@@ -1,13 +1,13 @@
-import { ICustgroups } from 'types';
+import { ICustgroups, IProjestimates } from 'types';
 import { updateRelated } from '../common/updateRelated';
 import { APPIDS } from '../config';
 
 /**
  * 関連レコードを更新する
- * 
- * custGroupId 1-n projects 1-n projEstimates 
- * 
- * @param custGroupId 
+ *
+ * custGroupId 1-n projects 1-n projEstimates
+ *
+ * @param custGroupId
  */
 export const updateRelatedToCustGroup = async (
   record: Partial<ICustgroups>,
@@ -65,7 +65,7 @@ export const updateRelatedToCustGroup = async (
 
   /* projects 1-n projEstimates */
   const projIds = updatedProjects.results.map(({ id }) => id );
-  const updatedProjEstimates = await updateRelated<Estimates.main.SavedData>({
+  const updatedProjEstimates = await updateRelated<IProjestimates>({
     relatedAppId: APPIDS.projectEstimate,
     recIds: projIds,
     lookUpFieldName: 'projId',

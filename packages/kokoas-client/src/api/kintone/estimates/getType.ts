@@ -1,1 +1,3 @@
-export const getProjEstimateKeys = (k: keyof Estimates.main.SavedData) => k;
+import { KProjestimates } from 'types';
+
+export const getProjEstimateKeys = (k: KProjestimates) => k;

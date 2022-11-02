@@ -1,9 +1,9 @@
-import { ICustgroups } from 'types';
+import { ICustgroups, IEmployees } from 'types';
 import { CustomerForm } from '../form';
 
 export const formToDBCustGroup = (
   formData: CustomerForm,
-  employees: EmployeeTypes.SavedData[],
+  employees: IEmployees[],
 ): Partial<ICustgroups> => {
 
   const getEmpNameById = (id: string) => employees

@@ -1,6 +1,6 @@
 import { IProjects, KProjects } from 'types';
-import {KintoneRecord, APPIDS} from '.';
-import {getKeyConstn} from './getKeyConstruction';
+import { KintoneRecord, APPIDS } from '.';
+import { getKeyConstn } from './getKeyConstruction';
 
 /**
  * Get project by envolope
@@ -11,9 +11,9 @@ import {getKeyConstn} from './getKeyConstruction';
  */
 export const getProjByEnvelope = async (envelopeId: string) => {
 
-  const envFields: KProjects[] = ['$id', 'voidedEnvelopes']
+  const envFields: KProjects[] = ['$id', 'voidedEnvelopes'];
 
-  const {records} = await KintoneRecord.getRecords({
+  const { records } = await KintoneRecord.getRecords({
     app: APPIDS.projectDetails,
     query: `${getKeyConstn('envelopeId')} = "${envelopeId}"`,
     fields: envFields as string[],

@@ -44,6 +44,9 @@
       "path": "./packages/kokoas-client/tsconfig.json"
     },
     {
+      "path": "./packages/kokoas-server/tsconfig.json"
+    },
+    {
       "path": "./packages/is-even/tsconfig.json"
     },
     {
@@ -52,8 +55,6 @@
     {
       "path": "./packages/config/tsconfig.json"
     },
-    {
-      "path": "./packages/kokoas-server/tsconfig.json"
-    },
+
   ]
 }

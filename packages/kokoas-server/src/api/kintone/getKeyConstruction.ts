@@ -1,3 +1,5 @@
-export const getKeyConstn = (key : KeyOfProjDetails) => {
+import { KProjects } from 'types';
+
+export const getKeyConstn = (key : KProjects) => {
   return key;
 };

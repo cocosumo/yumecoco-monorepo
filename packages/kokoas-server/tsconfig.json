@@ -2,13 +2,7 @@
   "extends": "../../tsconfig.json",
 
   "compilerOptions": {
-    "target": "es6",
+    "target": "esnext",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "noImplicitAny": false,
-    //"keyofStringsOnly": true
   },
-  "include": [
-    "src/**/*",
-  ],
 }

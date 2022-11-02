@@ -1,10 +1,10 @@
-import { EmpAffiliations, IEmployees, KEmployees } from 'types';
+import { EmpAffiliations, IEmployees, KEmployees, KEmployeeStores } from 'types';
 import { APPIDS, KintoneRecord } from './config';
 
 
 export const getStoreMngrByStoreId = async (storeId: string) => {
   try {
-    const keyStoreId : KEmployees = 'storeId';
+    const keyStoreId : KEmployeeStores = 'storeId';
     const affiliation: KEmployees = 'affiliation';
     const role : KEmployees = '役職';
     const cocosumo: EmpAffiliations = 'ここすも';

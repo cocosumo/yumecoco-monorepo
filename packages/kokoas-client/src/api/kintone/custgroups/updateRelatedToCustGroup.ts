@@ -1,4 +1,4 @@
-import { ICustgroups, IProjestimates } from 'types';
+import { ICustgroups, IProjects, IProjestimates } from 'types';
 import { updateRelated } from '../common/updateRelated';
 import { APPIDS } from '../config';
 
@@ -16,7 +16,7 @@ export const updateRelatedToCustGroup = async (
   if (!custGroupId) throw new Error('エラーが発生しました。custGroupIdは定義されていません。');
 
   /* custGroup 1-n projects */
-  const updatedProjects = await updateRelated<ProjectDetails.SavedData>({
+  const updatedProjects = await updateRelated<IProjects>({
     relatedAppId: APPIDS.project,
     recIds: custGroupId,
     lookUpFieldName: 'custGroupId',

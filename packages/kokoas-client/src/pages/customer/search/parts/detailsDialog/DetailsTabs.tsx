@@ -11,7 +11,7 @@ import { pages } from '../../../../Router';
 import { generateParams } from '../../../../../helpers/url';
 import { TabContextContainer } from './TabContextContainer';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { ICustgroups } from 'types';
+import { ICustgroups, IProjects } from 'types';
 
 export function DetailsTabs(props : {
   custGroupId?: string,
@@ -24,7 +24,7 @@ export function DetailsTabs(props : {
   };
 
   const [record, setRecord] = useState<ICustgroups>();
-  const [fetchedProjects, setFetchedProjects] = useState<ProjectDetails.SavedData[]>();
+  const [fetchedProjects, setFetchedProjects] = useState<IProjects[]>();
   const [loading, setLoading] = useState<boolean>(true);
   const projectIds =  record?.projects?.value
     .map(item => item.value.projId.value)
@@ -35,7 +35,7 @@ export function DetailsTabs(props : {
       getConstRecordByIds(
         projectIds,
       ).then(result => {
-        setFetchedProjects(result.records as unknown as ProjectDetails.SavedData[]);
+        setFetchedProjects(result.records as unknown as IProjects[]);
       });
     }
   }, [projectIds, fetchedProjects, tabValue]);

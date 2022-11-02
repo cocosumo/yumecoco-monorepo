@@ -1,22 +1,3 @@
-/* import fs from 'fs';
-import path from 'path';
-import { root } from 'types/settings';
-import dotenv from 'dotenv';
-import { AppIds } from 'config';
+import { generateDBTypes } from './generateDBTypes';
 
-dotenv.config();
-
-const kintoneTypes = Object.keys(AppIds)
-  .map((dbName) => {
-    return [
-      `${getD}`,
-    ];
-
-  });
-
-fs.writeFileSync(
-  path.join(root, 'kintone.ts'),
-  'hello',
-);
-
-console.log('success'); */
+generateDBTypes();

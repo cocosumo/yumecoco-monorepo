@@ -1,3 +1,4 @@
+import { TEnvelopeStatus } from 'types';
 import { KintoneRecord, APPIDS } from '../../../../api/kintone';
 import { RecordStatus } from '../../../../config/formValues';
 

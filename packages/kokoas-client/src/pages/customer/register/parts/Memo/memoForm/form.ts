@@ -1,3 +1,4 @@
+import { TAgents } from 'types';
 import * as Yup from 'yup';
 
 export const initialValues = {
@@ -6,7 +7,7 @@ export const initialValues = {
   memoId: '',
   memoType: '',
   contents: '',
-  notifyTo: [] as AgentType[],
+  notifyTo: [] as TAgents[],
   isNotify: false,
   updateTime: '',
   commenter: '',

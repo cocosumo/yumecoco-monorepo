@@ -1,5 +1,5 @@
+import { getAgentType } from 'types';
 import { fieldMatches } from '../../../helpers/fieldMatches';
-import { agentTypes } from '../../../types/commonTypes';
 import { APPIDS, KintoneRecord } from '../config';
 
 const custFieldMatches = fieldMatches<KeyOfCustGroupAll>;
@@ -44,8 +44,8 @@ export const searchCustomers = ({
   const specificSearchQuery = [
     storeName ? custFieldMatches('storeName', storeName) : undefined,
     custEmail ? custFieldMatches('dump', custEmail) : undefined,
-    yumeAg ? `(${custFieldMatches('employeeName', yumeAg)}) and ${custFieldMatches('agentType', agentTypes.yumeAG)}` : undefined,
-    cocoAg ? `(${custFieldMatches('employeeName', cocoAg)}) and ${custFieldMatches('agentType', agentTypes.cocoAG)}` : undefined,
+    yumeAg ? `(${custFieldMatches('employeeName', yumeAg)}) and ${custFieldMatches('agentType', getAgentType('yumeAG'))}` : undefined,
+    cocoAg ? `(${custFieldMatches('employeeName', cocoAg)}) and ${custFieldMatches('agentType', getAgentType('cocoAG'))}` : undefined,
   ]
     .filter(Boolean)
     .join(' and ');

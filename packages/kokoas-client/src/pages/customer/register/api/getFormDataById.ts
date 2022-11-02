@@ -2,6 +2,7 @@ import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
+import { TEnvelopeStatus } from 'types';
 
 
 export const getCustGroupRecord = async (id: string) => {

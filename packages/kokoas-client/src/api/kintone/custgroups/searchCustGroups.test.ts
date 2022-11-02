@@ -1,4 +1,4 @@
-import { EmployeeType } from '../../../types/commonTypes';
+import { TAgents } from 'types';
 import { searchCustomers } from './searchCustGroups';
 
 const membersContain = (
@@ -18,7 +18,7 @@ const agentContains = (
   agents: TypeOfCustomerGroup['agents'],
   fields: KeyOfCustomerGroupAG[],
   value: string,
-  agentType: EmployeeType,
+  agentType: TAgents,
 ) => {
   return (
     agents.value

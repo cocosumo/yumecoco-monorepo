@@ -1,7 +1,8 @@
 import { Collapse, Stack  } from '@mui/material';
+import { TAgents, AGLabels } from 'types';
 import { PageSubTitle } from '../../../../../../components/ui/labels';
 import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
-import { AGLabels, EmployeeType } from '../../../../../../types/commonTypes';
+
 
 
 export const DTCustomer = (props: {
@@ -114,7 +115,7 @@ export const DTCustomer = (props: {
             .map(([key, value]) => (
               <LabeledDetail
                 key={key}
-                label={AGLabels[key as EmployeeType] ?? '担当者'}
+                label={AGLabels[key as TAgents] ?? '担当者'}
                 value={value.filter(Boolean).join(', ')}
               />))
         }

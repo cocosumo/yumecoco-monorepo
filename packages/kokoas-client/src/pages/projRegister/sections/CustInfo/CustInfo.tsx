@@ -15,7 +15,8 @@ import { generateParams } from '../../../../helpers/url';
 import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
-import { AGLabels } from '../../../../types/commonTypes';
+import { AGLabels } from 'types';
+
 
 
 export const CustInfo = () => {

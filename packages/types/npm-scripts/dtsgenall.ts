@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-var-requires */
-
+import { capitalize } from 'lodash';
 import runAll from 'npm-run-all';
 import { AppIds } from 'config';
-import { getDbName } from 'types/helpers/getDbName';
-require('dotenv').config();
+import { generateDBTypes } from './generateDBTypes';
+
+require('dotenv').config('../../../.env');
 
 /**
  * Kintone型定義を一括取得
@@ -45,8 +44,8 @@ const dtsgenScripts = Object.entries(AppIds)
       ` --base-url ${baseUrl}`,
       `--app-id ${appId}`,
       '--type-name Data',
-      `--namespace ${getDbName(dbName)}`,
-      `-o db.${dbName}.d.ts`,
+      `--namespace DB${capitalize(dbName)}`,
+      `-o src/dtsgen/db.${dbName}.d.ts`,
       `-u ${user}`,
       `-p ${pw}`,
     ].join(' ');
@@ -61,10 +60,14 @@ runAll(
     stdout: process.stdout,
     stdin: process.stdin,
     //stderr: process.stderr,
-  }).catch(({ results }: any) => {
-  results
-    .filter(({ code } ) => code)
-    .forEach(({ name }) => {
-      console.log(`"npm run ${name}" failed`);
-    });
-});
+  })
+  .catch(({ results }: any) => {
+    results
+      .filter(({ code }: any) => code)
+      .forEach(({ name }: any) => {
+        console.log(`"npm run ${name}" failed`);
+      });
+  })
+  .then(() => {
+    generateDBTypes();
+  });

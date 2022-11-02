@@ -1,4 +1,5 @@
 import { parseISO } from 'date-fns';
+import { IConnectRecipients, TEnvelopeStatus, TSignMethod } from 'types';
 import { fetchEstimatesById } from '../../../api/kintone/estimates/GET';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { parseKintoneDate } from '../../../lib/date';

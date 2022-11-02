@@ -1,3 +1,4 @@
+import { IConnectRecipients, ReqSendContract, TEnvelopeStatus } from 'types';
 
 
 const initPayFields = {

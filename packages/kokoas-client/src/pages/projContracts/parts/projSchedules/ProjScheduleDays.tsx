@@ -3,15 +3,17 @@ import { useField } from 'formik';
 
 export const ProjScheduleDays = ({
   fieldName,
-} : {
+  disabled,
+}: {
   fieldName: string,
+  disabled: boolean
 }) => {
 
   const [field, meta] = useField(fieldName);
   const { value } = field;
   const { touched, error } = meta;
 
-  const isShowError  = touched && !!error;
+  const isShowError = touched && !!error;
 
 
   return (
@@ -42,6 +44,7 @@ export const ProjScheduleDays = ({
         },
       }}
       helperText={isShowError ? error : ' '}
+      disabled={disabled}
     />
   );
 };

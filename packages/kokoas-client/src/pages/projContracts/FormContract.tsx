@@ -3,7 +3,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
 import { getFieldName, TypeOfForm } from './form';
-import {  Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
@@ -18,10 +18,9 @@ import { useHandleProjId } from './hooks/useHandleProjId';
 import { useResolveParams } from './hooks/useResolveParams';
 
 
-
 export const FormContract = () => {
   const { values } = useFormikContext<TypeOfForm>();
-  const { projEstimateId, projId, projName } = values;
+  const { projEstimateId, projId, projName, envelopeStatus } = values;
 
   useResolveParams();
   useHandleProjId();
@@ -34,6 +33,8 @@ export const FormContract = () => {
 
   /* 本当に小数点切り捨ていいか、要確認 */
   const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
+
+  const disabled = !!envelopeStatus;
 
   return (
     <Form noValidate>
@@ -71,7 +72,7 @@ export const FormContract = () => {
 
             {/* 工期 */}
             <PageSubTitle label={'工期'} />
-            <ProjectSchedules />
+            <ProjectSchedules disabled={disabled} />
           </>
         )}
 
@@ -94,7 +95,7 @@ export const FormContract = () => {
 
       </MainContainer>
 
-      {!!projId &&  <ContractPageShortcuts />}
+      {!!projId && <ContractPageShortcuts />}
 
 
     </Form>

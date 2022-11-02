@@ -4,7 +4,7 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
+import {  KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfProjForm, getFieldName } from '../../form';

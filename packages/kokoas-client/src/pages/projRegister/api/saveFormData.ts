@@ -2,6 +2,7 @@ import { TypeOfProjForm } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { saveProjectToCustGroup } from './saveProjectToCustGroup';
 import { getCustGroupById } from './getCustGroupById';
+import { TAgents } from 'types';
 
 
 export const convertToKintone = (
@@ -41,7 +42,7 @@ export const convertToKintone = (
           return {
             id: '',
             value: {
-              agentType: { value: 'cocoConst' as AgentType },
+              agentType: { value: 'cocoConst' as TAgents },
               agentId: { value: item as string },
               agentName: { value: '' },
             },
@@ -55,7 +56,7 @@ export const convertToKintone = (
         return {
           id: '',
           value: {
-            custAgentType: { value: agentType.value as AgentType },
+            custAgentType: { value: agentType.value as TAgents },
             custAgentId: { value: employeeId.value },
             custAgentName: { value: 'auto' },
           },

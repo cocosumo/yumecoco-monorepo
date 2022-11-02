@@ -1,6 +1,8 @@
-import { EmpAffiliations, EmployeeType } from '../../../../types/commonTypes';
+import { EmpAffiliations, TAgents } from 'types';
 
-export const resolveAffiliations = (dirtyType: EmployeeType | EmployeeType[]) => {
+
+
+export const resolveAffiliations = (dirtyType: TAgents | TAgents[]) => {
 
   return ([] as string[])
     .concat(dirtyType)

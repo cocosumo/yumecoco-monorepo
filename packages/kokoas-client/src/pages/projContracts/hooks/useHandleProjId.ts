@@ -1,4 +1,5 @@
 import { useFormikContext } from 'formik';
+import { TAgents } from 'types';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { useCustGroupByProjId } from '../../../hooksQuery/useCustGroupByProjId';
 import { TypeOfForm } from '../form';
@@ -33,12 +34,12 @@ export const useHandleProjId = () => {
       } = mainCust;
 
       const cocoAg = custGroupAgents.value
-        .filter(item => (item.value.agentType.value as AgentType) === 'cocoAG' )
+        .filter(item => (item.value.agentType.value as TAgents) === 'cocoAG' )
         ?.map(item => item.value.employeeName.value)
         .join('、 ') ?? '';
 
       const yumeAg = custGroupAgents.value
-        .filter(item => (item.value.agentType.value as AgentType) === 'yumeAG' )
+        .filter(item => (item.value.agentType.value as TAgents) === 'yumeAG' )
         ?.map(item => item.value.employeeName.value)
         .join('、 ') ?? '';
 

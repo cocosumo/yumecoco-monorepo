@@ -1,4 +1,5 @@
 import { ErrorDetails } from 'docusign-esign';
+import { ISendEnvelopeResponse, ReqSendContract } from 'types';
 import { yumecocoDocusign } from '../../config/settings';
 
 export const sendContract = async (

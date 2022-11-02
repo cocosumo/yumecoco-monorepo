@@ -1,4 +1,4 @@
-import {  Checkbox, FormControlLabel, Stack } from '@mui/material';
+import { Checkbox, FormControlLabel, Stack } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { ComponentProps } from 'react';
@@ -10,9 +10,11 @@ export const PaymentFieldGroup = (
   {
     label,
     idx,
-  } : {
+    disabled = false,
+  }: {
     label: TPaymentLabels,
     idx: number
+    disabled?: boolean
   },
 
 ) => {
@@ -24,7 +26,7 @@ export const PaymentFieldGroup = (
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
 
-    setValues((prev) =>  {
+    setValues((prev) => {
       const newState = produce(prev, ({ paymentFields: pF }) => {
         pF[idx].amount = checked ? remainingAmt || 0 : 0;
         pF[idx].checked = checked;
@@ -46,13 +48,14 @@ export const PaymentFieldGroup = (
             sx={{
               transform: 'scale(1.5)',
             }}
+            disabled={disabled}
           />)}
       />
       <PaymentFieldAmt
-        disabled={!chkValue}
+        disabled={!chkValue || disabled}
         idx={idx}
       />
-      <PaymentFieldDate idx={idx} disabled={!chkValue} />
+      <PaymentFieldDate idx={idx} disabled={!chkValue || disabled} />
     </Stack>
   );
 };

@@ -1,10 +1,14 @@
-import {  Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { FieldArray } from 'formik';
 import { KeyOfForm, paymentLabels } from '../../form';
 import { PaymentFieldGroup } from './PaymentFieldGroup';
 
 
-export const PaymentFields = () => {
+export const PaymentFields = ({
+  disabled = false,
+}: {
+  disabled?: boolean
+}) => {
 
   const payFieldName: KeyOfForm = 'paymentFields';
 
@@ -16,10 +20,11 @@ export const PaymentFields = () => {
 
           return paymentLabels
             .map((label, idx) => (
-              <PaymentFieldGroup 
-                key={label} 
+              <PaymentFieldGroup
+                key={label}
                 label={label}
                 idx={idx}
+                disabled={disabled}
               />
             ));
         }}

@@ -10,9 +10,10 @@ interface ProjScheduleDateProps extends Partial<ComponentProps<typeof JADatePick
   label?: string
   isEmphasized?: boolean,
   helperText?: string,
+  disabled?: boolean
 }
 
-export const ProjScheduleDate = (props : ProjScheduleDateProps) => {
+export const ProjScheduleDate = (props: ProjScheduleDateProps) => {
   const {
     fieldName,
     variant = 'standard',
@@ -20,6 +21,7 @@ export const ProjScheduleDate = (props : ProjScheduleDateProps) => {
     isEmphasized = false,
     helperText = ' ',
     disablePast = true,
+    disabled = false,
     ...jaDateProps
   } = props;
   const [field, meta, helpers] = useField(fieldName);
@@ -37,15 +39,16 @@ export const ProjScheduleDate = (props : ProjScheduleDateProps) => {
       become uncontrolled component when value becomes null. ~ ras 2022.10.03 */
       value={value || ''}
       disablePast={disablePast}
-      views={['year', 'month', 'day' ]}
-      onAccept={(v)=>{
+      disabled={disabled}
+      views={['year', 'month', 'day']}
+      onAccept={(v) => {
         setValue(v ?? '', true);
       }}
-      onChange={(v)=>{
+      onChange={(v) => {
         setValue(v ?? '', true);
         setTouched(true);
       }}
-      renderInput={(params) =>(
+      renderInput={(params) => (
         <TextField
           {...params}
           sx={isEmphasized ? {
@@ -61,6 +64,7 @@ export const ProjScheduleDate = (props : ProjScheduleDateProps) => {
           variant={variant}
           error={isShowError}
           helperText={`${isShowError ? error : helperText}`}
+          disabled={disabled}
         />)}
     />
   );

@@ -10,6 +10,7 @@ import { FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfProjForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { IProjtypes } from 'types';
+import { AppIds } from 'config';
 
 
 export const ConstructionInfo = (
@@ -35,7 +36,7 @@ export const ConstructionInfo = (
   /*Todo: Refactor this as custom hook */
   useEffect(()=>{
     KintoneRecord.getRecords({
-      app: APPIDS.project,
+      app: AppIds.projTypes,
       query: 'order by レコード番号 asc',
     }).then((res) => {
       const rawConstOpts = res.records as unknown as IProjtypes[];

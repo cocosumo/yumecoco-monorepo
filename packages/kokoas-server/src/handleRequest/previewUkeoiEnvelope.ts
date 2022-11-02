@@ -6,6 +6,7 @@ import {processUkeoi} from '../api/docusign/contracts/processUkeoi';
 import {apiClient} from '../config';
 import {arrayToBase64} from '../utils/arrayToBase64';
 import {docusignLocale} from '../api/docusign/locale/docusign';
+import { TReqPreviewParams } from '../types/kintone';
 
 type TPreviewResp = {
   imgB64: string,

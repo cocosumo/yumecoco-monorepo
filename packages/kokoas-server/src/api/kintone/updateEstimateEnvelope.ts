@@ -1,7 +1,7 @@
 import { ReqSendContract } from 'types';
-import {APPIDS, KintoneRecord} from './config';
-import {getEstimateByEnvId} from './getEstimateByEnvId';
-import {uploadFileToKintone} from './uploadFileToKintone';
+import { APPIDS, KintoneRecord } from './config';
+import { getEstimateByEnvId } from './getEstimateByEnvId';
+import { uploadFileToKintone } from './uploadFileToKintone';
 
 export const updateEstimateEnvelope = async ({
   envelopeId,
@@ -62,7 +62,7 @@ export const updateEstimateEnvelope = async ({
     // Conditionally update attached file if a new file is uploaded
     ...(
       fileKeys.length ?
-        {envDocFileKeys: {
+        { envDocFileKeys: {
           type: 'FILE',
           value: fileKeys.map((fk) => {
             return {
@@ -72,16 +72,17 @@ export const updateEstimateEnvelope = async ({
               size: '',
             };
           }),
-        }} : {}
+        } } : {}
     ),
 
   };
 
   if (signMethod) {
-    record['signMethod'] = {value: signMethod};
+    record.signMethod = { value: signMethod };
   }
 
 
+  if (!recordId) throw new Error('updateEstimateEnvelope Failed due to missing recordId.');
   // Save updated record
   const result = await KintoneRecord.updateRecord({
     app: APPIDS.projEstimate,

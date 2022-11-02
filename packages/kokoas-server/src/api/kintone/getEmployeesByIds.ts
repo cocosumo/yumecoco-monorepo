@@ -1,5 +1,5 @@
 import { IEmployees } from 'types';
-import {APPIDS, KintoneRecord} from './config';
+import { APPIDS, KintoneRecord } from './config';
 
 export const getEmployeesByIds = async (ids: string[]) => {
   const query = ids.map((id) => {

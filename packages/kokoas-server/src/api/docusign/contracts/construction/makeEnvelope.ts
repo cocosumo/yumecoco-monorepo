@@ -1,4 +1,5 @@
 import {EnvelopeDefinition, Signer} from 'docusign-esign';
+import { ReqSendContract } from 'types';
 import {getContractData} from '../../../kintone/getContractData';
 import {generateContractPdf} from './generateContractPdf';
 

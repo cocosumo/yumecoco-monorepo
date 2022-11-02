@@ -1,5 +1,5 @@
 import { EmpAffiliations, IEmployees, KEmployees } from 'types';
-import {APPIDS, KintoneRecord} from './config';
+import { APPIDS, KintoneRecord } from './config';
 
 
 export const getStoreMngrByStoreId = async (storeId: string) => {
@@ -9,7 +9,7 @@ export const getStoreMngrByStoreId = async (storeId: string) => {
     const role : KEmployees = '役職';
     const cocosumo: EmpAffiliations = 'ここすも';
 
-    const {records} = await KintoneRecord.getRecords({
+    const { records } = await KintoneRecord.getRecords({
 
       app: APPIDS.employees,
 

@@ -1,9 +1,10 @@
 import { IProjestimates, KProjects } from 'types';
-import {APPIDS, KintoneRecord} from './config';
-import {getKeyEstimate} from './getKeys';
+import { APPIDS, KintoneRecord } from './config';
+import { getKeyEstimate } from './getKeys';
 
 export const getEstimateByEnvId = async (envelopeId: string) => {
-  const {records} = await KintoneRecord.getRecords({
+
+  const { records } = await KintoneRecord.getRecords({
     app: APPIDS.projEstimate,
     query: `${getKeyEstimate('envId')} = "${envelopeId}"`,
     fields: ['$id', 'voidedEnvelopes'] as KProjects[],

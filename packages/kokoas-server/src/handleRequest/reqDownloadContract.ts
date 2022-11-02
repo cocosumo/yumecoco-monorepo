@@ -5,6 +5,7 @@ import {getContractData} from '../api/kintone/getContractData';
 import {
   generateContractXlsx, generateContractPdf,
 } from '../api/docusign/contracts/';
+import { ReqDownloadParams } from 'types';
 
 
 export const reqDownloadContract: RequestHandler = async (req, res) => {

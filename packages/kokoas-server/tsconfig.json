@@ -6,6 +6,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "noImplicitAny": false,
+    //"keyofStringsOnly": true
   },
   "include": [
     "src/**/*",

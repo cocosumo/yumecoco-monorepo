@@ -1,6 +1,13 @@
 import { EnvelopeUpdateSummary } from 'docusign-esign';
 import { TEnvelopeStatus } from './docusign';
 
+export type TProjReq = {
+  projId?: string,
+  custGroupId?:string,
+  envelopeId?: string,
+  origin?: string
+};
+
 export interface ReqSendContract {
   userCode: string,
   projEstimateId: string,

@@ -1,5 +1,5 @@
-import {APPIDS, KintoneRecord} from '../api/kintone';
-import {ICustgroups, ICustomers} from "types"
+import { APPIDS, KintoneRecord } from '../api/kintone';
+import { ICustgroups, ICustomers } from 'types';
 
 export const updateCustGroup = async () => {
   try {
@@ -31,36 +31,36 @@ export const updateCustGroup = async () => {
           members: {
             type: 'SUBTABLE',
             value: members.value.map((row) => {
-              const {value} = row;
-              const {customerId} = value;
+              const { value } = row;
+              const { customerId } = value;
               return {
                 ...row,
                 value: {
                   ...value,
-                  dump: {value: JSON.stringify(getCustData(customerId.value))},
+                  dump: { value: JSON.stringify(getCustData(customerId.value)) },
                 },
               };
             }),
           },
           custNames: {
             value: members.value
-              .map(({value: {customerName}})=>customerName.value)
+              .map(({ value: { customerName } })=>customerName.value)
               .join(','),
           },
           yumeAGNames: {
             value: agents.value
               .filter((
-                {value: {agentType, employeeName}},
+                { value: { agentType, employeeName } },
               ) => !!employeeName.value && agentType.value === 'yumeAG' )
-              .map(({value: {employeeName}})=>employeeName.value)
+              .map(({ value: { employeeName } })=>employeeName.value)
               .join(', '),
           },
           cocoAGNames: {
             value: agents.value
               .filter((
-                {value: {agentType, employeeName}},
+                { value: { agentType, employeeName } },
               ) => !!employeeName.value && agentType.value === 'cocoAG' )
-              .map(({value: {employeeName}})=>employeeName.value)
+              .map(({ value: { employeeName } })=>employeeName.value)
               .join(', '),
           },
         },

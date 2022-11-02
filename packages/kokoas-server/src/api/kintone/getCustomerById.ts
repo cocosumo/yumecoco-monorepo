@@ -1,5 +1,5 @@
 import { ICustomers } from 'types';
-import {APPIDS, KintoneRecord} from './config';
+import { APPIDS, KintoneRecord } from './config';
 
 export const getCustomerById = async (id: string) => {
   const result = await KintoneRecord.getRecord({

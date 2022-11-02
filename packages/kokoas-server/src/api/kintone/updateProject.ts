@@ -89,6 +89,8 @@ export const updateProject = async ( {
 
   };
 
+  if(!recordId) throw new Error("updateProject Failed due to missing recordId.")
+
 
   // Save updated record
   const result = await KintoneRecord.updateRecord({

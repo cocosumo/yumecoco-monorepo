@@ -1,0 +1,13 @@
+{
+  "name": "api-kintone",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build": "tsc index.ts --outDir dist",
+    "authlink": "ts-node npm-scripts/authLink.ts"
+  },
+  "dependencies": {
+    "config": "*"
+  }
+}

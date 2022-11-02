@@ -8,10 +8,11 @@ import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import {  Typography, ListItemText, ListItem, ListItemAvatar, Stack, Divider } from '@mui/material';
 
 import format from 'date-fns/format';
+import { ICustmemos } from 'types';
 
 
 interface NoteProps {
-  record: CustomerMemoTypes.SavedData
+  record: ICustmemos
   handleTouched: () => void
 }
 
@@ -42,7 +43,9 @@ export default function Memo({ record, handleTouched }:NoteProps) {
   return (
     <>
       <ListItem onClick={handleTouched}>
-        <ListItemAvatar><Icon type={memoType.value} /></ListItemAvatar>
+        <ListItemAvatar>
+          <Icon type={memoType.value} />
+        </ListItemAvatar>
 
         <ListItemText
           primary={memoType.value}

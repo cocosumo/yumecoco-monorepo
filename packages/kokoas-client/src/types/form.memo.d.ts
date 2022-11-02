@@ -1,5 +1,6 @@
 
 
+import { ICustmemos } from 'types';
 import { InputField, ElementTarget, SubmitStatus } from './forms';
 
 export type NotifyAgent = {
@@ -39,7 +40,7 @@ export type FieldActionType =
 | { type: 'CHANGE_MEMO_VALUE', payload: ElementTarget  }
 | { type: 'CHANGE_CHECKED_AGENT', payload: KeyPayload  }
 | { type: 'CHANGE_SUBMITSTATE', payload: SubmitPayload  }
-| { type: 'SET_EDIT', payload: CustomerMemoTypes.SavedData }
+| { type: 'SET_EDIT', payload: ICustmemos }
 | { type: 'SET_INITIAL', payload: InitialMemoPayload  }
 | { type: 'RESET' }
 | { type: 'CHANGE_ISNOTIFY' };

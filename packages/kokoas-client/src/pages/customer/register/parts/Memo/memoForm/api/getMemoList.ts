@@ -1,8 +1,9 @@
+import { ICustmemos } from 'types';
 import { APPIDS, KintoneRecord } from '../../../../../../../api/kintone';
 import { MemoFormType } from '../form';
 
 
-export const getMemoList = async <T extends CustomerMemoTypes.SavedData>(recordId: string) => {
+export const getMemoList = async <T extends ICustmemos>(recordId: string) => {
   if (!recordId) throw new Error('Please provide record id.');
   return KintoneRecord.getAllRecords({
     app: APPIDS.custMemo,

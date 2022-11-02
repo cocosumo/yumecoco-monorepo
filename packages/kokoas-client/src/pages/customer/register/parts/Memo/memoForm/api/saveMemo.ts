@@ -1,4 +1,4 @@
-import { TAgents } from 'types';
+import { ICustmemos, TAgents } from 'types';
 import { APPIDS, KintoneRecord } from '../../../../../../../api/kintone';
 import { getUserCodesByIds } from '../../../../../../../api/kintone/users/GET';
 import { MemoFormType } from '../form';
@@ -19,7 +19,7 @@ const getAgentIds = async (recordId: string, agentTypes: TAgents[] = [] ) => {
     });
 };
 
-const formDataToKintone = async (params: MemoFormType) : Promise<Partial<CustomerMemoTypes.SavedData>> => {
+const formDataToKintone = async (params: MemoFormType) : Promise<Partial<ICustmemos>> => {
   const {  memoType, contents, recordId, isNotify, notifyTo } = params;
 
   const commonFields = {

@@ -62,7 +62,7 @@ export const getUsers = async ({
     const api = `/v1/users.json`;
     const endpoint = `${baseUrl}${api}`;
 
-    const auth = process.env.KT_B64_AUTH;
+    const auth = process.env.LOGIN_AUTH;
 
     if (!auth) throw new Error('Invalid authentication.');
 

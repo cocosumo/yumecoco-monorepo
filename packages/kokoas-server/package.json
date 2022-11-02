@@ -1,7 +1,7 @@
 {
-  "name": "yumetetsu-cron",
+  "name": "kokoas-server",
   "version": "1.0.0",
-  "description": "Cron jobs for yumetetsu",
+  "description": "Kokoas server",
   "main": "build/main.js",
   "scripts": {
     "test": "jest",

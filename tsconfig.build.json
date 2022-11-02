@@ -52,5 +52,8 @@
     {
       "path": "./packages/config/tsconfig.json"
     },
+    {
+      "path": "./packages/kokoas-server/tsconfig.json"
+    },
   ]
 }

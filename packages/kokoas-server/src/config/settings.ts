@@ -4,7 +4,11 @@ import dotenv from 'dotenv';
 import docusign from 'docusign-esign';
 
 
-dotenv.config();
+dotenv.config({
+  path: "../../.env"
+});
+
+console.log("PROCESS", process.env.DS_INTEGRATOR_KEY)
 
 
 export const ds = docusign;

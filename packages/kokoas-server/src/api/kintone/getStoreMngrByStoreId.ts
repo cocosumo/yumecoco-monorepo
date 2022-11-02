@@ -1,12 +1,13 @@
+import { EmpAffiliations, IEmployees, KEmployees } from 'types';
 import {APPIDS, KintoneRecord} from './config';
 
 
 export const getStoreMngrByStoreId = async (storeId: string) => {
   try {
-    const keyStoreId : KeyOfEmployeesStores = 'storeId';
-    const affiliation: KeyOfEmployees = 'affiliation';
-    const role : KeyOfEmployees = '役職';
-    const cocosumo: Company = 'ここすも';
+    const keyStoreId : KEmployees = 'storeId';
+    const affiliation: KEmployees = 'affiliation';
+    const role : KEmployees = '役職';
+    const cocosumo: EmpAffiliations = 'ここすも';
 
     const {records} = await KintoneRecord.getRecords({
 
@@ -26,7 +27,7 @@ export const getStoreMngrByStoreId = async (storeId: string) => {
 
     if (!records.length) throw new Error(`店長の情報は取得できませんでした。店舗番号：${storeId}`);
 
-    return records[0] as unknown as Employees.SavedData;
+    return records[0] as unknown as IEmployees;
   } catch (err: any) {
     throw new Error(err.message);
   }

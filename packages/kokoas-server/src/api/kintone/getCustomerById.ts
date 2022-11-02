@@ -1,3 +1,4 @@
+import { ICustomers } from 'types';
 import {APPIDS, KintoneRecord} from './config';
 
 export const getCustomerById = async (id: string) => {
@@ -6,5 +7,5 @@ export const getCustomerById = async (id: string) => {
     id,
   });
 
-  return result.record as unknown as Customers.SavedData;
+  return result.record as unknown as ICustomers;
 };

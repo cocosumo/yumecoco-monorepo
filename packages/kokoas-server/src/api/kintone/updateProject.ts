@@ -1,3 +1,4 @@
+import { IProjects } from 'types';
 import {APPIDS, KintoneRecord} from '.';
 import {getProjByEnvelope} from './getProjByEnvelope';
 import {updateCustGroupLinkedProjects} from './updateCustGroupLinkedProjects';
@@ -58,7 +59,7 @@ export const updateProject = async ( {
   }
 
   // Generate updated record and attach the file
-  const record : Partial<ProjectDetails.SavedData> = {
+  const record : Partial<IProjects> = {
 
     envelopeId: {
       value: envelopeId,

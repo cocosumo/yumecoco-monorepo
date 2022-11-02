@@ -1,3 +1,4 @@
+import { TAgents } from 'types';
 import {getProjectDetails} from '.';
 import {calculateEstimateRecord} from './calculations/calculateEstimateRecord';
 import {getCustomerById} from './getCustomerById';
@@ -98,7 +99,7 @@ isValidate = false,
   /* 担当情報 */
   const cocoAgIds = agents.value
     .filter(({value: {agentType}}) => (
-      (agentType.value as AgentType) === 'cocoAG'))
+      (agentType.value as TAgents) === 'cocoAG'))
     .map(({value: {employeeId}}) => employeeId.value );
   const cocoAG = (await getEmployeesByIds(cocoAgIds))
     .map(({文字列＿氏名: empName, email: empEmail}) => ({

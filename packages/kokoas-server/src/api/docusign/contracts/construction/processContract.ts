@@ -1,4 +1,5 @@
 import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
+import { ReqSendContract } from 'types';
 import {apiClient} from '../../../../config';
 import {getContractData} from '../../../kintone/getContractData';
 import {updateEstimateEnvelope} from '../../../kintone/updateEstimateEnvelope';

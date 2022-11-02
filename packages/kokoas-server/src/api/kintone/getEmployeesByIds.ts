@@ -1,3 +1,4 @@
+import { IEmployees } from 'types';
 import {APPIDS, KintoneRecord} from './config';
 
 export const getEmployeesByIds = async (ids: string[]) => {
@@ -10,5 +11,5 @@ export const getEmployeesByIds = async (ids: string[]) => {
     query,
   });
 
-  return result.records as unknown as Employees.SavedData[];
+  return result.records as unknown as IEmployees[];
 };

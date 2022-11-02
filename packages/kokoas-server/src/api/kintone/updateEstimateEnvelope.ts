@@ -1,3 +1,4 @@
+import { ReqSendContract } from 'types';
 import {APPIDS, KintoneRecord} from './config';
 import {getEstimateByEnvId} from './getEstimateByEnvId';
 import {uploadFileToKintone} from './uploadFileToKintone';

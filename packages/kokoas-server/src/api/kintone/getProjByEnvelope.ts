@@ -1,3 +1,4 @@
+import { IProjects, KProjects } from 'types';
 import {KintoneRecord, APPIDS} from '.';
 import {getKeyConstn} from './getKeyConstruction';
 
@@ -9,15 +10,18 @@ import {getKeyConstn} from './getKeyConstruction';
  * @deprecated envelopes are not managed in project anymore but in mitsumori
  */
 export const getProjByEnvelope = async (envelopeId: string) => {
+
+  const envFields: KProjects[] = ['$id', 'voidedEnvelopes']
+
   const {records} = await KintoneRecord.getRecords({
     app: APPIDS.projectDetails,
     query: `${getKeyConstn('envelopeId')} = "${envelopeId}"`,
-    fields: ['$id', 'voidedEnvelopes'] as KeyOfProjDetails[],
+    fields: envFields as string[],
   });
 
   if (!records.length) throw new Error('Envelope not linked to kintone.');
 
-  const record = records[0] as unknown as ProjectDetails.SavedData;
+  const record = records[0] as unknown as IProjects;
 
   return record;
 };

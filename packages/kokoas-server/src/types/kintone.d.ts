@@ -1,3 +1,5 @@
+import { KEmployees, IEmployees, IProjects } from "types";
+
 type TProjReq = {
   projId?: string,
   custGroupId?:string,
@@ -5,11 +7,10 @@ type TProjReq = {
   origin?: string
 }
 
-type KeyOfProjDetails = keyof ProjectDetails.SavedData;
+type KeyOfProjDetails = keyof IProjects;
 type KeyOfProjEstimates = keyof ProjectEstimates.SavedData;
-type KeyOfEmployees = keyof Employees.SavedData;
-type KeyOfEmployeesStores = keyof Employees
-  .SavedData['affiliateStores']['value'][number]['value'];
+type KeyOfEmployees = KEmployees;
+type KeyOfEmployeesStores = keyof IEmployees['affiliateStores']['value'][number]['value'];
 
 type TReqPreviewParams = {
   projId: string,

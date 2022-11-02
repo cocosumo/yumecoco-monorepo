@@ -1,4 +1,5 @@
 import {RequestHandler} from 'express';
+import { ReqSendContract } from 'types';
 import {
   processContract,
 } from '../api/docusign/contracts/construction/processContract';

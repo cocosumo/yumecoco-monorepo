@@ -1,3 +1,4 @@
+import { IProjects } from 'types';
 import {APPIDS, KintoneRecord} from '../api/kintone';
 import {getKeyConstn} from '../api/kintone/getKeyConstruction';
 
@@ -5,14 +6,14 @@ export const setDefaultSignMethod = async () => {
   const projects = await KintoneRecord.getAllRecords({
     app: APPIDS.projectDetails,
     condition: `${getKeyConstn('signMethod')} = ""`,
-    fields: ['$id'] as KeyOfProjDetails[],
-  }) as unknown as ProjectDetails.SavedData[];
+    fields: ['$id'],
+  }) as unknown as IProjects[];
 
   console.log(`Count: ${projects.length} `);
 
   const updatedProject = projects.map<{
     id: string,
-    record: DeepPartial<ProjectDetails.SavedData>
+    record: DeepPartial<IProjects>
   }>(({$id})=>{
     return {
       id: $id.value,

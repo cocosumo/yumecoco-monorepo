@@ -1,4 +1,5 @@
 
+import { IProjects } from 'types';
 import {APPIDS, KintoneRecord} from './config';
 
 /**
@@ -11,7 +12,7 @@ import {APPIDS, KintoneRecord} from './config';
  */
 export const setEnvelopeId = async (projId: string, envelopeId: string) => {
   console.log(`Setting envelope id ${projId} ${envelopeId}`);
-  const record: Partial<ProjectDetails.SavedData> = {
+  const record: Partial<IProjects> = {
     dsEnvIdUkeoi: {value: envelopeId},
   };
 

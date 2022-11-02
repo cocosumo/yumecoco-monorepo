@@ -1,5 +1,5 @@
 import { Collapse, Stack  } from '@mui/material';
-import { TAgents, AGLabels, ICustgroups } from 'types';
+import { TAgents, AGLabels, ICustgroups, ICustomers } from 'types';
 import { PageSubTitle } from '../../../../../../components/ui/labels';
 import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
 
@@ -58,7 +58,7 @@ export const DTCustomer = (props: {
             isSameAsMain,
             gender,
             contacts,
-          } = JSON.parse(dump.value || 'null') as CustomerTypes.SavedData ?? {};
+          } = JSON.parse(dump.value || 'null') as ICustomers ?? {};
 
           const resolveAddress = (postal.value || address1.value || address2.value) ? `${postal.value}  ${address1.value}${address2.value}` : '';
           const resolveBirthDate = [[birthYear.value, '年'], [birthMonth.value, '月'], [birthDay.value, '日']]

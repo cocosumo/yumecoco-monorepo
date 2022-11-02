@@ -3,9 +3,9 @@ import { APPIDS } from '../api/kintone';
 import { getEstimatesByProjId } from '../api/kintone/estimates/getEstimatesByProjId';
 
 /**
- * 工事番号で見積リストを取得する
+ * 工事番号で契約済み見積もり一覧を取得する
  */
-export const useEstimatesByProjId = (
+export const useProjHasContract = (
   projId = '',
 ) => {
 
@@ -14,6 +14,9 @@ export const useEstimatesByProjId = (
     () =>  getEstimatesByProjId(projId),
     {
       enabled: !!projId,
+      select: ({ records }) => {
+        return records?.filter(({ envStatus }) => !!envStatus.value);
+      },
     },
   );
 };

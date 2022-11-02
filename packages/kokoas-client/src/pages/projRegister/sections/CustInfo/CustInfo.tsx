@@ -15,13 +15,13 @@ import { generateParams } from '../../../../helpers/url';
 import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
-import { AGLabels } from 'types';
+import { AGLabels, ICustgroups } from 'types';
 
 
 
 export const CustInfo = () => {
 
-  const [custGroupRecord, setCustomerRecord] = useState<CustomerGroupTypes.SavedData>();
+  const [custGroupRecord, setCustomerRecord] = useState<ICustgroups>();
   const { status, values, setFieldValue, setValues } = useFormikContext<TypeOfProjForm>();
   const navigate = useNavigate();
 

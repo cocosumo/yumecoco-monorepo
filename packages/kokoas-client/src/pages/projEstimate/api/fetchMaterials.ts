@@ -1,3 +1,4 @@
+import { IMaterialsitem, IMaterialsmajor, IMaterialsmid } from 'types';
 import { fetchRecords } from './fetchRecords';
 
 /*
@@ -5,7 +6,7 @@ import { fetchRecords } from './fetchRecords';
   https://developer.mozilla.org/ja/docs/Glossary/Wrapper
 */
 
-export const fetchMajorItems = () => fetchRecords('majourItems') as unknown as Promise<Estimates.majorItems.SavedData[]>;
-export const fetchMiddleItems = () => fetchRecords('middleItems') as unknown as Promise<Estimates.middleItems.SavedData[]>;
-export const fetchMaterials = () => fetchRecords('elements') as unknown as Promise<Estimates.materials.SavedData[]>;
+export const fetchMajorItems = () => fetchRecords('majourItems') as unknown as Promise<IMaterialsmajor[]>;
+export const fetchMiddleItems = () => fetchRecords('middleItems') as unknown as Promise<IMaterialsmid[]>;
+export const fetchMaterials = () => fetchRecords('elements') as unknown as Promise<IMaterialsitem[]>;
 

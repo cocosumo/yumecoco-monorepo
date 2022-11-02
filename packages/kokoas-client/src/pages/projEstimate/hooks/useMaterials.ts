@@ -1,10 +1,11 @@
+import { IMaterialsitem, IMaterialsmajor, IMaterialsmid } from 'types';
 import { usePromise } from '../../../hooks';
 import { fetchMajorItems, fetchMaterials, fetchMiddleItems } from '../api/fetchMaterials';
 
 export type TMaterialOptions = {
-  majorItems: Estimates.majorItems.SavedData[],
-  middleItems: Estimates.middleItems.SavedData[],
-  materials: Estimates.materials.SavedData[],
+  majorItems: IMaterialsmajor[],
+  middleItems: IMaterialsmid[],
+  materials: IMaterialsitem[],
 };
 
 /**
@@ -15,9 +16,9 @@ export type TMaterialOptions = {
 
 
 export const useMaterials  = () => {
-  const majorItems = usePromise<Estimates.majorItems.SavedData[]>(fetchMajorItems);
-  const middleItems = usePromise<Estimates.middleItems.SavedData[]>(fetchMiddleItems);
-  const materials = usePromise<Estimates.materials.SavedData[]>(fetchMaterials);
+  const majorItems = usePromise<TMaterialOptions['majorItems']>(fetchMajorItems);
+  const middleItems = usePromise<TMaterialOptions['middleItems']>(fetchMiddleItems);
+  const materials = usePromise<TMaterialOptions['materials']>(fetchMaterials);
 
   const filterMiddleItems = (majorItemdName: string) => middleItems.data
     ?.filter(({ 大項目名 }) => 大項目名.value === majorItemdName  );

@@ -1,3 +1,4 @@
+import { IInvoices } from 'types';
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
@@ -13,7 +14,7 @@ export const saveForm = async (form: TypeOfForm) => {
   } = form;
 
   /* formをkintoneの型に変換する */
-  const record: Partial<Invoice.SavedData> = {
+  const record: Partial<IInvoices> = {
     amountType: { value: amountType },
     billingAmount: { value: billingAmount },
     plannedPaymentDate: { value: plannedPaymentDate },

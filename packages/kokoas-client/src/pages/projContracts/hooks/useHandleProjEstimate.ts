@@ -7,6 +7,7 @@ import { normalizedData } from '../api/getFormDataId';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import { isEmpty } from 'lodash';
 import { useEstimateById } from '../../../hooksQuery/useEstimateById';
+import { IProjestimates } from 'types';
 
 
 /**
@@ -19,7 +20,7 @@ import { useEstimateById } from '../../../hooksQuery/useEstimateById';
 export const useHandleProjEstimate = () => {
   const { setValues, setTouched, values } = useFormikContext<TypeOfForm>();
   const [calculatedEstimate, setCalculatedEstimate] = useState<Awaited<ReturnType<typeof calculateEstimate>>>();
-  const [selectedEstimate, setSelectedEstimate] = useState<Estimates.main.SavedData>();
+  const [selectedEstimate, setSelectedEstimate] = useState<IProjestimates>();
 
   const {
     projEstimateId,

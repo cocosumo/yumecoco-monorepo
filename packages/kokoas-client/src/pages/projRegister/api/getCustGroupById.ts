@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 
 export const getCustGroupById = async (custGroupId?: string) => {
@@ -7,7 +8,7 @@ export const getCustGroupById = async (custGroupId?: string) => {
       app: APPIDS.custGroup,
       id: custGroupId,
     });
-    return record as unknown as TypeOfCustomerGroup;
+    return record as unknown as ICustgroups;
   } catch (err) {
     throw new Error(err.message);
   }

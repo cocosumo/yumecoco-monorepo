@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { TypeOfForm } from '../form';
 import { produce } from 'immer';
 import { format, parseISO } from 'date-fns';
+import { IProjestimates } from 'types';
 
 
 /**
@@ -21,7 +22,7 @@ const getEstimateById = async (projEstimateId: string) => {
     id: projEstimateId,
   });
 
-  return result.record as unknown as Estimates.main.SavedData;
+  return result.record as unknown as IProjestimates;
 };
 
 

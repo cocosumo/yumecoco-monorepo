@@ -70,7 +70,6 @@ module.exports = {
         use: {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
-            module: false,
 
             presets: [
               ['@babel/preset-react', {

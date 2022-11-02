@@ -1,55 +1,21 @@
-import { APPIDS, KintoneRecord } from '../config';
+import { AppIds } from 'config';
+import { IProjects, KProjects } from 'types';
+import { KintoneRecord } from '../config';
 
-export const projectFields :KeyOfProjectDetails[] = [
-  '$id', '$revision', 'address1',
-  'address2', 'address2', 'agents',
-  'buildingType', 'projName',
-  'projTypeName', 'projTypeId',
-  'custGroupId', 'isAgentConfirmed',
-  'isChkAddressKari', 'postal',
-];
 
-export const projectProspectFields: KeyOfProjectDetails[] = [
-  'rank', '$id', 'schedContractDate',
-  'memo', 'planApplicationDate', 'schedContractPrice',
-  'estatePurchaseDate',
-];
-
-export const getConstDetails = async (recordId: string) => {
-  return KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
-    id: recordId,
-  });
-};
-
-/**
- * Will reorganize code to put specialized api in
- * the directory of the caller.
- * @deprecated
- */
-export const getFlatConstDetails = async (recordId: string) => {
-  const kintoneRecord = await getConstDetails(recordId);
-
-  return Object.entries(kintoneRecord.record).reduce((acc, [key, val]) => {
-
-    return { ...acc, [key]: val.value };
-
-  }, {});
-
-};
 
 export const getConstRecord = async (id: string) => {
   return KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
+    app: AppIds.projects,
     id,
-  }).then(resp => resp.record as unknown as ProjectDetails.SavedData);
+  }).then(resp => resp.record as unknown as IProjects);
 };
 
 export const getConstRecordByIds = async (ids: string[]) => {
   return KintoneRecord.getRecords({
-    app: APPIDS.constructionDetails,
+    app: AppIds.projects,
     query: ids
-      .map(id => `${'$id' as keyof ProjectDetails.SavedData} = "${id}"`)
+      .map(id => `${'$id' as keyof IProjects} = "${id}"`)
       .join(' or '),
   });
 };
@@ -62,14 +28,14 @@ export const getConstRecordByIds = async (ids: string[]) => {
  */
 export const searchProjects = async (search: string) => {
 
-  const fieldProjName: KeyOfProjectDetails = 'projName';
-  const fields : KeyOfProjectDetails[] = ['projName', '$id' ];
+  const fieldProjName: KProjects = 'projName';
+  const fields : KProjects[] = ['projName', '$id' ];
 
   return KintoneRecord.getRecords({
-    app: APPIDS.constructionDetails,
+    app: AppIds.projects,
     query: `${fieldProjName} like "${search}"`,
     fields: fields,
     totalCount: true,
   })
-    .then(r => r.records as unknown as ProjectDetails.SavedData[]);
+    .then(r => r.records as unknown as IProjects[]);
 };

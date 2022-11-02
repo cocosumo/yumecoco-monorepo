@@ -1,6 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { isMobile } from './../../helpers/kintone';
 import { grey } from '@mui/material/colors';
+import { ReactNode } from 'react';
 
 
 
@@ -141,7 +142,7 @@ const darkTheme = createTheme({
   },
 });
 
-export default function EnableColorOnDarkAppBar({ children }: Props) {
+export default function EnableColorOnDarkAppBar({ children }: { children: ReactNode }) {
 
   return (
     <ThemeProvider theme={darkTheme}>

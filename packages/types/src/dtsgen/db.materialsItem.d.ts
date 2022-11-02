@@ -1,7 +1,12 @@
-declare namespace Estimates.majorItems {
+declare namespace DBMaterialsitem {
   interface Data {
-    備考: kintone.fieldTypes.SingleLineText;
+    中項目名: kintone.fieldTypes.SingleLineText;
+    原価: kintone.fieldTypes.Number;
+    部材名: kintone.fieldTypes.SingleLineText;
+    部材利益率: kintone.fieldTypes.Number;
     大項目名: kintone.fieldTypes.SingleLineText;
+    中項目: kintone.fieldTypes.Number;
+    単位: kintone.fieldTypes.DropDown;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

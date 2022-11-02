@@ -2,13 +2,13 @@ import { TypeOfProjForm } from '../../../pages/projRegister/form';
 import { APPIDS, KintoneRecord } from '../../../api/kintone/config';
 import { saveProjectToCustGroup } from './saveProjectToCustGroup';
 import { getCustGroupById } from './getCustGroupById';
-import { TAgents } from 'types';
+import { ICustgroups, IProjects, TAgents } from 'types';
 
 
 export const convertToKintone = (
   rawValues: TypeOfProjForm,
-  custGroupRecord: TypeOfCustomerGroup,
-): Partial<ProjectDetails.SavedData>  => {
+  custGroupRecord: ICustgroups,
+): Partial<IProjects>  => {
   const {
     cocoConst1, cocoConst2, projTypeId, projName,
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,

@@ -48,5 +48,8 @@
     {
       "path": "./packages/types/tsconfig.json"
     },
+    {
+      "path": "./packages/config/tsconfig.json"
+    },
   ]
 }

@@ -1,3 +1,4 @@
+import { IProjestimates } from 'types';
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
@@ -14,7 +15,7 @@ const convertToKintone = ({
 }: TypeOfForm) => {
 
   /* itemsの変換処理 */
-  const kintoneItems: Partial<Estimates.main.SavedData>['内訳'] = {
+  const kintoneItems: Partial<IProjestimates>['内訳'] = {
     type: 'SUBTABLE',
     value: items.map(({
       majorItem, middleItem, element,
@@ -39,7 +40,7 @@ const convertToKintone = ({
 
 
   /* 変換処理 */
-  const kintoneRecord: Partial<Estimates.main.SavedData> = {
+  const kintoneRecord: Partial<IProjestimates> = {
     projId: { value: projId },
     projTypeId: { value: projTypeId },
     顧客名: { value: customerName },

@@ -1,7 +1,6 @@
 {
   "name": "kokoas-client",
   "version": "0.0.0",
-  "main": "dist/customize.js",
   "devDependencies": {},
   "scripts": {
     "dev": "npm run build -- --watch --mode development",
@@ -10,5 +9,6 @@
     "build": "webpack"
   },
   "dependencies": {
+    "config": "*"
   }
 }

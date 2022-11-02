@@ -1,7 +1,8 @@
+import { IProjestimates } from 'types';
 import { calculateEstimate } from './calculateEstimate';
 
 
-export const calculateEstimateRecord = (estimateRecord: Estimates.main.SavedData) => {
+export const calculateEstimateRecord = (estimateRecord: IProjestimates) => {
   const {
     内訳 : { value : estimateTable },
     税: { value: tax },

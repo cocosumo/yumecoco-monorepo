@@ -1,3 +1,4 @@
+import { IEmployees } from 'types';
 import { APPIDS, KintoneRecord } from '../config';
 
 export const getEmployees  = async (
@@ -17,5 +18,5 @@ export const getEmployees  = async (
   return KintoneRecord.getAllRecords({
     app: APPIDS.employees,
     condition: queryArray.join(' and ') || undefined,
-  }).then((res) => res as unknown as EmployeeTypes.SavedData[]);
+  }).then((res) => res as unknown as IEmployees[]);
 };

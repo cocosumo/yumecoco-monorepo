@@ -1,9 +1,10 @@
+import { IProjestimates } from 'types';
 import { APPIDS, KintoneRecord } from './../config';
 
 
 export const updateEstimateById = (
   id: string,
-  record: Partial<Estimates.main.SavedData>,
+  record: Partial<IProjestimates>,
 ) => {
 
 

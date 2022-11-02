@@ -2,14 +2,14 @@ import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
-import { TEnvelopeStatus } from 'types';
+import { ICustgroups, ICustomers, TEnvelopeStatus } from 'types';
 
 
 export const getCustGroupRecord = async (id: string) => {
   return KintoneRecord.getRecord({
     app: APPIDS.custGroup,
     id,
-  }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
+  }).then(resp => resp.record as unknown as ICustgroups);
 };
 
 
@@ -69,7 +69,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
         fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
         postalCode, address1, address2, isSameAsMain, index,
         contacts : { value : contacts },
-      } = cust as unknown as CustomerTypes.SavedData;
+      } = cust as unknown as ICustomers;
 
       const tels = contacts.filter(c => c.value.contactType.value === 'tel');
       const email = contacts.find(c => c.value.contactType.value === 'email');

@@ -1,15 +1,16 @@
+import { ICustgroups } from 'types';
 import {APPIDS, KintoneRecord} from '../api/kintone';
 
 export const syncProjectsToCustGroup = async () => {
   try {
     const custGroups = await KintoneRecord.getAllRecords({
       app: APPIDS.custGroup,
-    }) as unknown as CustomerGroupTypes.SavedData[];
+    }) as unknown as ICustgroups[];
 
     const updatedCustGroup = custGroups
       .map<{
       id: string,
-      record: DeepPartial<CustomerGroupTypes.SavedData>
+      record: DeepPartial<ICustgroups>
 
     }>(({projects, $id})=>{
       return {

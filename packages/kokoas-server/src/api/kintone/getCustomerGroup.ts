@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import {APPIDS, KintoneRecord} from './config';
 
 export const getCustomerGroup = async (custGrpId: string) => {
@@ -6,5 +7,5 @@ export const getCustomerGroup = async (custGrpId: string) => {
   return await KintoneRecord.getRecord({
     app: APPIDS.custGroup,
     id: custGrpId,
-  }).then((resp) => resp.record as unknown as CustomerGroupTypes.SavedData);
+  }).then((resp) => resp.record as unknown as ICustgroups);
 };

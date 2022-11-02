@@ -2,6 +2,10 @@ import { capitalize } from 'lodash';
 import runAll from 'npm-run-all';
 import { AppIds } from 'config';
 import { generateDBTypes } from './generateDBTypes';
+import * as fsExtra from 'fs-extra';
+import path from 'path';
+import { root } from 'types/settings';
+
 
 require('dotenv').config('../../../.env');
 
@@ -17,6 +21,10 @@ require('dotenv').config('../../../.env');
  * Remove node's limit as this is a heavy task.
  */
 process.setMaxListeners(0);
+
+/** define and clear dtsgen directory */
+const saveDir = 'src/dtsgen' ;
+fsExtra.emptyDirSync(path.join(root, saveDir));
 
 /** Environment */
 const [
@@ -45,7 +53,7 @@ const dtsgenScripts = Object.entries(AppIds)
       `--app-id ${appId}`,
       '--type-name Data',
       `--namespace DB${capitalize(dbName)}`,
-      `-o src/dtsgen/db.${dbName}.d.ts`,
+      `-o ${saveDir}/db.${dbName}.d.ts`,
       `-u ${user}`,
       `-p ${pw}`,
     ].join(' ');

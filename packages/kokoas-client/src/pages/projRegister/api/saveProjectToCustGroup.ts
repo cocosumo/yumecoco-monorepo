@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import { KintoneRecord, KintoneClient, APPIDS } from '../../../api/kintone';
 import { getCustGroupByProjectId } from './getCustGroupByProjectId';
 
@@ -8,7 +9,7 @@ interface UpdateRequest {
   payload: {
     app: string,
     id: string,
-    record: Partial<CustomerGroupTypes.SavedData>
+    record: Partial<ICustgroups>
   }
 }
 
@@ -20,23 +21,23 @@ interface UpdateRequest {
  */
 const resolveDeleteRequest = async (projectId: string) => {
   return (await getCustGroupByProjectId(projectId))
-    .map < UpdateRequest >(({ $id, $revision, projects }) => {
-    return {
-      method: 'PUT',
-      api: '/k/v1/record.json',
-      payload: {
-        app: APPIDS.custGroup.toString(),
-        id: $id.value,
-        revision: $revision.value,
-        record: {
-          projects: {
-            type: 'SUBTABLE',
-            value: projects.value.filter(item => item.value.projId.value !== projectId),
+    .map(({ $id, $revision, projects }) => {
+      return {
+        method: 'PUT',
+        api: '/k/v1/record.json',
+        payload: {
+          app: APPIDS.custGroup.toString(),
+          id: $id.value,
+          revision: $revision.value,
+          record: {
+            projects: {
+              type: 'SUBTABLE',
+              value: projects.value.filter(item => item.value.projId.value !== projectId),
+            },
           },
         },
-      },
-    };
-  });
+      };
+    });
 };
 
 /**
@@ -52,7 +53,7 @@ const resolveSaveRequest = async (projectId: string, custGroupId: string, cocoCo
   const { projects } = await KintoneRecord.getRecord({
     app: APPIDS.custGroup,
     id: custGroupId,
-  }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
+  }).then(resp => resp.record as unknown as ICustgroups);
 
   const newProjects = projects.value
     .filter(item => item.value.projId.value !== projectId)

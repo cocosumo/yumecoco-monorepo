@@ -1,4 +1,5 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
+import { AppIds } from 'config';
 import { isBrowser } from '../../../helpers/utils';
 
 const options = {
@@ -15,38 +16,12 @@ const options = {
 };
 
 export enum EstimateAppId {
-  majourItems = 67,
-  middleItems = 68,
-  elements = 69,
+  majourItems = AppIds.materialsMajor,
+  middleItems = AppIds.materialsMid,
+  elements = AppIds.materialsItem,
 }
 
 export type KEstimateAppId = keyof typeof EstimateAppId;
-
-
-/**
- * レコード一括取得時のオプション設定
- */
-export const estimateFields : Record<
-KEstimateAppId,
-{
-  fields?:
-  | Array<keyof Estimates.majorItems.SavedData>
-  | Array<keyof Estimates.middleItems.SavedData>
-  | Array<keyof Estimates.materials.SavedData>
-  query?: string,
-}
-> = {
-  majourItems: {
-    fields: ['レコード番号', '大項目名'] as Array<keyof Estimates.majorItems.SavedData>,
-    query: undefined,
-  },
-  middleItems: {
-    fields: ['レコード番号', '大項目', '大項目名', '中項目名'] as Array<keyof Estimates.middleItems.SavedData>,
-  },
-  elements: {
-    fields: ['部材名', 'レコード番号', '中項目', '中項目名', '大項目名', '原価', '単位', '部材利益率'] as Array<keyof Estimates.materials.SavedData>,
-  },
-};
 
 export const KintoneClient = new KintoneRestAPIClient(options);
 

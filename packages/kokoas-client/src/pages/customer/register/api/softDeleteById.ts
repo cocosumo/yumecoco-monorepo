@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 
 export const softDeleteById = (id: string) => {
@@ -8,6 +9,6 @@ export const softDeleteById = (id: string) => {
       isDeleted: {
         value: (+true).toString(),
       },
-    } as Partial<CustomerGroupTypes.SavedData>,
+    } as Partial<ICustgroups>,
   });
 };

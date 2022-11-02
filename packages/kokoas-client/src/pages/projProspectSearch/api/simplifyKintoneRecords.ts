@@ -1,5 +1,5 @@
 import { differenceInDays, parseISO } from 'date-fns';
-import { TAgents } from 'types';
+import { IProjects, TAgents } from 'types';
 
 /**
  * Simplify kintone records to make it easier to manipulate.
@@ -7,7 +7,7 @@ import { TAgents } from 'types';
  * @param records
  * @returns simplified Record
  */
-export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
+export const simplifyKintoneRecords = (records: IProjects[]) => {
   if (!records.length) return [];
 
   return records.map((r) => {

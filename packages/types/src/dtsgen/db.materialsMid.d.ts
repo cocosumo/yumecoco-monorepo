@@ -1,10 +1,9 @@
-declare namespace ProjTypes {
+declare namespace DBMaterialsmid {
   interface Data {
-    description: kintone.fieldTypes.MultiLineText;
-    label: kintone.fieldTypes.SingleLineText;
-    profitRate: kintone.fieldTypes.Number;
-    数値: kintone.fieldTypes.Number;
-    projectName: kintone.fieldTypes.SingleLineText;
+    備考: kintone.fieldTypes.SingleLineText;
+    大項目: kintone.fieldTypes.Number;
+    中項目名: kintone.fieldTypes.SingleLineText;
+    大項目名: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

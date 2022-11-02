@@ -1,5 +1,4 @@
 import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
 import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
 import { TypeOfForm } from '../form';
 
@@ -22,8 +21,8 @@ export const ContractAmount = ({
   } = data || {};
 
   const contractAmount = records?.reduce((acc, cur, idx) => {
-    if (isEmpty(cur.envStatus.value) || cur.doNotUsePayment.value.length) return acc;
-    
+    if (!cur.envStatus.value || cur.isForPayment.value.length) return acc;
+
     return acc + (calculated?.[idx].totalAmountInclTax ?? 0);
   }, 0);
 

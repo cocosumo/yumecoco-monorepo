@@ -1,7 +1,7 @@
+import { ICustgroups, KCustGroupMembers } from 'types';
 import { APPIDS, KintoneRecord } from '../../../api/kintone';
 
 
-type KeyOfMembersType = keyof CustomerGroupTypes.SavedData['members']['value'][number]['value'];
 export type SearchItems = Array<{
   projName: string,
   postal: string,
@@ -14,9 +14,9 @@ export const getProjectsByCustGroupId = async (custGroupId: string) => {
     app: APPIDS.custGroup,
     id: custGroupId,
   }).then(resp => {
-    const { members } = resp.record as unknown as CustomerGroupTypes.SavedData;
+    const { members } = resp.record as unknown as ICustgroups;
 
-    const queryByName = `${ 'customerName' as KeyOfMembersType } in (${members.value
+    const queryByName = `${ 'customerName' as KCustGroupMembers } in (${members.value
       .map(({ value: { customerName } }) => `"${customerName.value}"`)
       .join(',')})`;
 
@@ -28,7 +28,7 @@ export const getProjectsByCustGroupId = async (custGroupId: string) => {
 
   })
     .then(resp => (
-      resp as unknown as CustomerGroupTypes.SavedData[]
+      resp as unknown as ICustgroups[]
     )
       // Get non-empty projects
       .filter(({ projects }) => projects.value

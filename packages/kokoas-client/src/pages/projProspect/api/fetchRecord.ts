@@ -1,12 +1,13 @@
-import { TEnvelopeStatus } from 'types';
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
+import { AppIds } from 'config';
+import { IProjects, TEnvelopeStatus } from 'types';
+import { KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
 export const fetchRecord = async (recordId: string) => {
   return KintoneRecord.getRecord({
-    app: APPIDS.constructionDetails,
+    app: AppIds.projects,
     id: recordId,
-  }).then(r => r.record as unknown as TypeOfProjectDetails);
+  }).then(r => r.record as unknown as IProjects);
 };
 
 export const getFormDataById = async (recordId: string): Promise<TypeOfForm> => {

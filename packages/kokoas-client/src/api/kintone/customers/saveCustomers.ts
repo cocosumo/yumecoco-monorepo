@@ -1,3 +1,4 @@
+import { ICustomers } from 'types';
 import { APPIDS, KintoneRecord } from '../config';
 
 /**
@@ -13,7 +14,7 @@ export const saveCustomers = async (
     records,
   }:
   {
-    records: Array<Partial<CustomerTypes.SavedData>>
+    records: Array<Partial<ICustomers>>
   },
 ) => {
   const appId = APPIDS.customers;

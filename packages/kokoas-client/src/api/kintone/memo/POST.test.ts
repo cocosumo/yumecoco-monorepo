@@ -1,4 +1,5 @@
 import 'regenerator-runtime/runtime';
+import { ICustmemos } from 'types';
 import { getUserCodesByIds } from '../users/GET';
 
 import { addMemo } from './POST';
@@ -9,7 +10,7 @@ describe('Memo', () => {
       {
         recordId: { value: '130' },
         notifyTo: { value: await getUserCodesByIds(['44', '45']) },
-      } as CustomerMemoTypes.SavedData,
+      } as ICustmemos,
     ).then((result) => {
       console.log(result);
       expect(result).toHaveProperty('id');

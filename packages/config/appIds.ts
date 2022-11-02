@@ -7,5 +7,8 @@ export const AppIds = {
   projTypes : 190,
   projects : 194,
   projEstimates : 202,
+  materialsMajor: 67,
+  materialsMid: 68,
+  materialsItem: 69,
   invoices : 204,
 };

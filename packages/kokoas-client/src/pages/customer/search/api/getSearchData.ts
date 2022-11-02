@@ -1,4 +1,4 @@
-import { TAgents } from 'types';
+import { ICustgroups, TAgents } from 'types';
 import { dateStrToJA } from '../../../../helpers/utils';
 import { advancedSearchCustGroup, AdvancedSearchCustGroupParam } from './advancedSearchCustGroup';
 
@@ -17,7 +17,7 @@ export interface ISearchData {
 }
 
 /** @deprecated serverSide pagination not practical due kintone limitation */
-export const dataLabelMap: Partial<Record<keyof ISearchData, keyof CustomerGroupTypes.SavedData>> = {
+export const dataLabelMap: Partial<Record<keyof ISearchData, keyof ICustgroups>> = {
   '顧客ID': 'レコード番号',
   '顧客種別': 'レコード番号',
   '案件数': 'レコード番号',
@@ -54,7 +54,7 @@ export const getSearchData = async (params : AdvancedSearchCustGroupParam) => {
         agents,
         更新日時: updatedDate,
         作成日時: createdDate,
-      } = record as unknown as CustomerGroupTypes.SavedData;
+      } = record as unknown as ICustgroups;
 
       const { address1, address2, postal,  customerName  } = members?.value?.[0]?.value ?? {} ;
 

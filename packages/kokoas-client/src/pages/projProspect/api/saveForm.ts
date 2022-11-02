@@ -1,7 +1,9 @@
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
+import { AppIds } from 'config';
+import { IProjects } from 'types';
+import { KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
-const convertToKintone = (formValues: TypeOfForm) : TypeOfProjectProspectValues  => {
+const convertToKintone = (formValues: TypeOfForm) : Partial<IProjects>  => {
   const {
     rank,
     estatePurchaseDate,
@@ -38,7 +40,7 @@ export const saveForm = async (formValues: TypeOfForm) => {
   const converted = convertToKintone(formValues);
 
   return KintoneRecord.updateRecord({
-    app: APPIDS.constructionDetails,
+    app: AppIds.projects,
     id:formValues.projId,
     record: converted,
   });

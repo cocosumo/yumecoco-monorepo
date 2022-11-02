@@ -77,7 +77,7 @@ module.exports = {
     },
     {
       "files" : [
-        "**/db.*.d.ts"
+        "**/**.d.ts"
       ],
       "rules" : {
         "@typescript-eslint/no-unused-vars": "off",

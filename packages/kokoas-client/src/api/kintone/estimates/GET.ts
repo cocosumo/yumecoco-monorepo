@@ -1,3 +1,4 @@
+import { IProjestimates } from 'types';
 import { APPIDS, KintoneRecord } from '../config';
 import { getProjEstimateKeys } from './getType';
 
@@ -10,7 +11,7 @@ export const fetchEstimatesByProjId =  async (projId: string) => {
     query: `${getProjEstimateKeys('projId')} = "${projId}"`,
   });
 
-  return result.records as unknown as Estimates.main.SavedData[];
+  return result.records as unknown as IProjestimates[];
 };
 
 
@@ -21,5 +22,5 @@ export const fetchEstimatesById = async (projEstimateId: string) => {
     id: projEstimateId,
   });
 
-  return result.record as unknown as Estimates.main.SavedData ;
+  return result.record as unknown as IProjestimates ;
 };

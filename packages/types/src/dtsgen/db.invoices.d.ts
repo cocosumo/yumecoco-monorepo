@@ -1,4 +1,4 @@
-declare namespace Invoice {
+declare namespace DBInvoices {
   interface Data {
     amountType: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.Number;

@@ -4,11 +4,13 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
+import {  KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfProjForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
+import { IProjtypes } from 'types';
+import { AppIds } from 'config';
 
 
 export const ConstructionInfo = (
@@ -34,10 +36,10 @@ export const ConstructionInfo = (
   /*Todo: Refactor this as custom hook */
   useEffect(()=>{
     KintoneRecord.getRecords({
-      app: APPIDS.project,
+      app: AppIds.projTypes,
       query: 'order by レコード番号 asc',
     }).then((res) => {
-      const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
+      const rawConstOpts = res.records as unknown as IProjtypes[];
       setConstructionTypeOptions(
         rawConstOpts
           .map(({ label, $id, projectName })=> ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),

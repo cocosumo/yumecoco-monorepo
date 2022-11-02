@@ -1,9 +1,9 @@
-import { TAgents } from 'types';
+import { ICustgroups, KCustGroupAgents, KCustGroupMembers, TAgents } from 'types';
 import { searchCustomers } from './searchCustGroups';
 
 const membersContain = (
-  members: TypeOfCustomerGroup['members'],
-  fields: KeyOfCustomerGroupMembers[],
+  members: ICustgroups['members'],
+  fields: KCustGroupMembers[],
   value: string,
 ) => {
   return (
@@ -15,8 +15,8 @@ const membersContain = (
 };
 
 const agentContains = (
-  agents: TypeOfCustomerGroup['agents'],
-  fields: KeyOfCustomerGroupAG[],
+  agents: ICustgroups['agents'],
+  fields: KCustGroupAgents[],
   value: string,
   agentType: TAgents,
 ) => {
@@ -37,7 +37,7 @@ const toContain = (
     storeName,
     members: { value: groupMembers },
     agents: { value: groupAgents },
-  } : TypeOfCustomerGroup,
+  } : ICustgroups,
   { easySearch = '' } : Parameters<typeof searchCustomers>[number],
 ) => {
 

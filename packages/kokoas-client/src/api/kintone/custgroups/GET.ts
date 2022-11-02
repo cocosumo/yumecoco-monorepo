@@ -1,3 +1,4 @@
+import { ICustgroups } from 'types';
 import {  APPIDS, KintoneRecord } from './../config';
 
 
@@ -12,7 +13,7 @@ export interface AdvancedSearchCustGroupParam {
 /** @deprecated ファイル構成ルール変更によります。./getCustGroupById に変更してください */
 export const getCustGroup = (id: string) => {
   return KintoneRecord.getRecord({ app: APPIDS.custGroup, id })
-    .then(resp => resp.record as unknown as CustomerGroupTypes.SavedData );
+    .then(resp => resp.record as unknown as ICustgroups );
 };
 
 /**

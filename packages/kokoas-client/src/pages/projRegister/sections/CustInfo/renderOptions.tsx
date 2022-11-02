@@ -1,5 +1,6 @@
 import { searchCustGroup } from '../../../../api/kintone/custgroups/GET';
 import format from 'date-fns/format';
+import { ICustgroups } from 'types';
 
 
 export interface SearchOptions {
@@ -10,7 +11,7 @@ export interface SearchOptions {
   record?: any
 }
 
-export const convertRecordToOption = (value: string, record: CustomerGroupTypes.SavedData) => {
+export const convertRecordToOption = (value: string, record: ICustgroups) => {
   const { $id, storeName, 作成日時, members } = record;
   const mainCust = members.value[0].value;
   const mainCustName = mainCust.customerName.value;
@@ -31,7 +32,7 @@ export const renderOptions = async (value : string) => {
     .then(res => {
 
       const newOptions = res.records.reduce<SearchOptions[]>((accu, curr)=>{
-        const custGrpRec =  (curr as unknown as  CustomerGroupTypes.SavedData);
+        const custGrpRec =  (curr as unknown as  ICustgroups);
         const convertedOption = convertRecordToOption(value, custGrpRec);
         if (convertedOption) {
           return accu.concat(convertedOption);

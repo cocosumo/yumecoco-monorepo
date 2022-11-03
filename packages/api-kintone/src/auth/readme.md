@@ -8,27 +8,28 @@ oAuth2を参考にTSで自動化しました。
 1から3は1回で、4と5が主な処理になります。
 
 ### 1. 認可要求
-- generateAuthLink();
-
+```
+    nx authlink api-kintone
+```
 ### 2. ユーザーによる認可
 - コンソールにリンクが表示されるので、クリック
 - コード取得 (10分有効)
-
 
 ### 3. 認可コードの取得
 - URLのParamからコードを取得
 - .env.KT_AUTH_CODE に保存
 
-
 ### 4. アクセストークンの要求・取得
-- getAccessToken() を実行し、access_tokenとrefresh_tokenを取得
-- access_token (1時間有効)、メモリに格納
-- refresh_tokenは取得日時とdiskに格納
-- 有効期限が切れる前に、refresh_tokenでaccess_tokenを自動再取得
+
+- 以下コマンドを実行する
+```
+    nx get:refreshtoken api-kintone
+```
+access_tokenとrefresh_tokenを取得し、取得日時とともにディスクに格納される。
 
 ### 5. APIの実行
 
-- access_tokenで通常通りAPIを実行出来ます。
+- access_tokenを認証コードとして利用し、APIを実行する。
 
 
 ## 参考

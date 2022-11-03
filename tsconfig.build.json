@@ -19,7 +19,8 @@
     "strictNullChecks": true,
     "importHelpers": true,
     "moduleResolution": "Node",
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "dist",
@@ -30,7 +31,8 @@
   ],
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
-    "./node_modules/@types/docusign-esign/index.d.ts"
+    "./node_modules/@types/docusign-esign/index.d.ts",
+    "./env.d.ts"
   ],
 
   "rules": {

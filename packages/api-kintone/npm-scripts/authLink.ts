@@ -1,9 +1,10 @@
-import { generateAuthLink } from './../src/auth/generateAuthLink';
 import { loadEnv } from 'config';
-loadEnv();
+import { generateAuthLink } from './../src/auth/generateAuthLink';
 
 (()=>{
+  loadEnv();
 
+  console.log(__dirname);
   const baseURL = process.env.KT_BASE_URL;
   const clientId = process.env.KT_CLIENT_ID;
 

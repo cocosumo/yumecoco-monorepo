@@ -5,7 +5,9 @@
   "devDependencies": {},
   "scripts": {
     "build": "tsc index.ts --outDir dist",
-    "authlink": "ts-node npm-scripts/authLink.ts"
+    "authlink": "ts-node npm-scripts/authLink.ts",
+    "get:refreshtoken": "ts-node npm-scripts/getRefreshToken.ts",
+    "get:newtoken": "ts-node npm-scripts/getNewAccessToken.ts"
   },
   "dependencies": {
     "config": "*"

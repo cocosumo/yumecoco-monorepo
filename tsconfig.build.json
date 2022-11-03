@@ -24,7 +24,8 @@
   },
   "exclude": [
     "dist",
-    "npm-scripts"
+    "npm-scripts",
+    "*eslint*"
   ],
   "include": [
     "**/*.ts", "**/*.tsx",

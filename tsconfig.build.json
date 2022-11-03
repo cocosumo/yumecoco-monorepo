@@ -2,8 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "CommonJS",
-    "target": "es6",
+    "module": "es2020",
+    "target": "es2020",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowJs": true,
@@ -43,22 +43,22 @@
   },
   "references": [
     {
-      "path": "./packages/kokoas-client/tsconfig.json"
+      "path": "./packages/kokoas-client"
     },
     {
-      "path": "./packages/kokoas-server/tsconfig.json"
+      "path": "./packages/kokoas-server"
     },
     {
-      "path": "./packages/api-kintone/tsconfig.json"
+      "path": "./packages/api-kintone"
     },
     {
-      "path": "./packages/is-even/tsconfig.json"
+      "path": "./packages/is-even"
     },
     {
-      "path": "./packages/types/tsconfig.json"
+      "path": "./packages/types"
     },
     {
-      "path": "./packages/config/tsconfig.json"
+      "path": "./packages/config"
     },
 
   ]

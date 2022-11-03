@@ -1,9 +1,7 @@
-import { getRefreshToken } from '../src/auth/getRefreshToken';
-import { loadEnv } from 'config';
-
+import { getRefreshToken } from '../src/auth/getRefreshToken.js';
 
 (async ()=>{
-  loadEnv();
+
 
   const authCode = process.env.KT_AUTH_CODE;
 

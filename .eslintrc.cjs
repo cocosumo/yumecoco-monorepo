@@ -60,19 +60,27 @@ module.exports = {
     "react/jsx-pascal-case": [2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
     "import/no-extraneous-dependencies": "off", // Was having problems with this in a monorepo. Need help to resolve.
-
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": ["variable", "function"],
+        "format": ["camelCase", "UPPER_CASE",],
+        "leadingUnderscore": "allowDouble"
+      }
+    ]
   },
   "overrides": [
     {
       "files": [
         "*.test.ts",
         "*.spec.ts",
-        "**/npm-scripts/**.*"
+        "**/scripts/**.*"
       ],
       "rules": {
         "no-console": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-var-requires": "off",
+        "import/extensions": ["error", "ignorePackages"]
       }
     },
     {

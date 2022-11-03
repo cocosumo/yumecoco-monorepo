@@ -1,2 +1,2 @@
-export * from './appIds';
-export * from './paths';
+export * from './appIds.js';
+

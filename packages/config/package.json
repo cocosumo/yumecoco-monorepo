@@ -2,8 +2,9 @@
   "name": "config",
   "version": "0.0.0",
   "main": "dist/index.js",
+  "type": "module",
   "devDependencies": {},
   "scripts": {
-    "build": "tsc index.ts --outDir dist --esModuleInterop"
+    "build": "tsc"
   }
 }

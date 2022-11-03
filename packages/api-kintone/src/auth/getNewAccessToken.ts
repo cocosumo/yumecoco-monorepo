@@ -1,7 +1,9 @@
+
 import axios from 'axios';
 import qs from 'qs';
 
 export const getNewAccessToken = async () => {
+
   const {
     KT_BASE_URL,
     KT_CLIENT_ID,
@@ -12,7 +14,6 @@ export const getNewAccessToken = async () => {
   const clientAuth = Buffer.from(`${KT_CLIENT_ID}:${KT_CLIENT_SECRET}`).toString('base64');
   if (!KT_REFRESH_TOKEN) throw new Error('No refresh token. See readme.md to generate.');
 
-  console.log(KT_REFRESH_TOKEN);
   const data = { 
     'grant_type': 'refresh_token', 
     'refresh_token': KT_REFRESH_TOKEN,

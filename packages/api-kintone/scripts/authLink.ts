@@ -1,13 +1,18 @@
-import { loadEnv } from 'config';
-import { generateAuthLink } from './../src/auth/generateAuthLink';
+
+import { generateAuthLink } from '../src/auth/generateAuthLink.js';
+import { findUpSync } from 'find-up';
+import dotenv from 'dotenv';
 
 (()=>{
-  loadEnv();
+  const envpath = findUpSync('.env');
+  console.log(`Found .env at:  ${envpath}`);
+  dotenv.config({
+    path: envpath,
+  });
 
-  console.log(__dirname);
   const baseURL = process.env.KT_BASE_URL;
   const clientId = process.env.KT_CLIENT_ID;
-
+  console.log('hello');
   if (!baseURL) throw new Error('baseUrl undefined');
   if (!clientId) throw new Error('clientId undefined');
 

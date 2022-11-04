@@ -4,10 +4,10 @@ import MoneyIcon from '@mui/icons-material/Money';
 import { pages } from '../../../pages/Router';
 
 
-export default function PaymentInvoice() {
+export default function Invoice() {
 
   return (
-    <Link to={pages.projPaymentInvoice}>
+    <Link to={pages.projInvoice}>
       <ListItemButton sx={{ pl: 4 }}>
         <ListItemIcon>
           <MoneyIcon />

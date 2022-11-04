@@ -6,7 +6,7 @@
     "dev": "npm run build -- --watch --mode development",
     "upload:local": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.manifest-local.json",
     "upload:staging": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.manifest-staging.json",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "config": "*"

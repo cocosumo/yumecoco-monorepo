@@ -10,7 +10,7 @@ export const useEstimatesByProjId = (
 ) => {
 
   return useQuery(
-    [AppIds.projEstimates, projId],
+    [AppIds.projEstimates, { projId }],
     () =>  getEstimatesByProjId(projId),
     {
       enabled: !!projId,

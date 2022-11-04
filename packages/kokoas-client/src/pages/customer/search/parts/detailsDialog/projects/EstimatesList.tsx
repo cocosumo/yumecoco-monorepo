@@ -1,17 +1,26 @@
-import {  CardContent, Chip, Grid, Typography } from '@mui/material';
+import {  CardContent, Chip, Grid, LinearProgress, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { useEstimateRecords } from '../../../../../../hooks/';
 import { EstimatesListItem } from './EstimatesListItem';
 import { EstimateButton } from './EstimateButton';
+import { useEstimatesByProjId } from 'kokoas-client/src/hooksQuery';
 
 export const EstimatesList = ({
   projId,
 }: {
   projId: string
 }) => {
-  const { projEstimateRecords } = useEstimateRecords(projId);
+  const { data, isFetching } = useEstimatesByProjId(projId);
+
+  const {
+    records,
+  } = data || {};
+
+  if (isFetching) {
+    return <LinearProgress />;
+  }
 
   return (
+    
     <CardContent sx={{ width: '60%' }}>
       <Typography color={grey[600]} width={'100%'}
         textAlign="center"
@@ -20,12 +29,12 @@ export const EstimatesList = ({
       >
         見積リスト
         {' '}
-        <Chip size="small" label={`${projEstimateRecords?.length}`} />
+        <Chip size="small" label={`${records?.length}`} />
       </Typography>
       <Grid container spacing={2}
         justifyContent="center"
       >
-        {projEstimateRecords
+        {records
           ?.map((rec) => (
             <Grid
               key={rec.$id.value}

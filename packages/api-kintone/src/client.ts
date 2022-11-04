@@ -36,7 +36,7 @@ export const kt = async () => {
     });
   }
 
-  /* If running on kintone, no need for auth */
+  /* If running on kintone, no need for auth. Define once. */
   if (!kintoneRestApiClient) {
     kintoneRestApiClient = new KintoneRestAPIClient({
       baseUrl: process.env.KT_BASE_URL,
@@ -44,7 +44,6 @@ export const kt = async () => {
   }
 
   return kintoneRestApiClient;
-  
 };
 
 export const ktClient = () => kt().then((kintoneClient)=> kintoneClient);

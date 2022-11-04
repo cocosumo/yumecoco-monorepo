@@ -1,4 +1,4 @@
-import {getUsers} from './getUsers';
+import { getUsers } from './getUsers';
 
 describe('getUsers', () => {
   it('should get users', async () => {

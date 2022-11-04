@@ -5,7 +5,10 @@
     "module": "commonjs",
   },
   "include": [
-    "./**/*.ts",
+    "./src/**/*",
   ],
-  "exclude": ["dist/**/*"]
+  "exclude": [
+    "dist/**/*",
+    "./**/*.test.*"
+  ]
 }

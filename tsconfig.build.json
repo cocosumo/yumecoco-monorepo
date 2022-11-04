@@ -2,14 +2,14 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "es6",
-    "target": "es6",
+    "module": "CommonJS",
+    "target": "ESNext",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowJs": true,
     "lib": [
       "es5",
-      "es2017",
+      "es2019",
       "es6",
       "dom",
       "dom.iterable"
@@ -19,7 +19,8 @@
     "strictNullChecks": true,
     "importHelpers": true,
     "moduleResolution": "Node",
-    "strictFunctionTypes": false
+    "strictFunctionTypes": false,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "dist",
@@ -30,7 +31,8 @@
   ],
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
-    "./node_modules/@types/docusign-esign/index.d.ts"
+    "./node_modules/@types/docusign-esign/index.d.ts",
+    "./env.d.ts"
   ],
 
   "rules": {
@@ -41,19 +43,25 @@
   },
   "references": [
     {
-      "path": "./packages/kokoas-client/tsconfig.json"
+      "path": "./packages/kokoas-client"
     },
     {
-      "path": "./packages/kokoas-server/tsconfig.json"
+      "path": "./packages/kokoas-server"
     },
     {
-      "path": "./packages/is-even/tsconfig.json"
+      "path": "./packages/api-kintone"
     },
     {
-      "path": "./packages/types/tsconfig.json"
+      "path": "./packages/is-even"
     },
     {
-      "path": "./packages/config/tsconfig.json"
+      "path": "./packages/types"
+    },
+    {
+      "path": "./packages/config"
+    },
+    {
+      "path": "./packages/helpers"
     },
 
   ]

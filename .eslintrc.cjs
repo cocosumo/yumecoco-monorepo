@@ -67,12 +67,14 @@ module.exports = {
       "files": [
         "*.test.ts",
         "*.spec.ts",
-        "**/npm-scripts/**.*"
+        "**/scripts/**.*",
+        "**/helpers/**/*",
       ],
       "rules": {
         "no-console": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-var-requires": "off"
+        "@typescript-eslint/no-var-requires": "off",
+
       }
     },
     {

@@ -1,5 +1,7 @@
+import { loadEnv } from 'libs';
 import express from 'express';
 import docusignSend from './route/docusign';
+loadEnv();
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -1,11 +1,23 @@
 {
   "extends": "../../tsconfig.json",
+
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es6",
     "module": "commonjs",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "declarationMap": true,
+    "allowJs": true,
+    "isolatedModules": true
   },
   "include": [
-    "./**/*.ts",
+    "./src/**/*",
   ],
-  "exclude": ["dist/**/*"]
+  "exclude": [
+    "./dist"
+  ]
+
+
 }

@@ -29,8 +29,8 @@
     "*eslint*"
   ],
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "./**/*.ts",
+    "./**/*.tsx",
   ],
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",

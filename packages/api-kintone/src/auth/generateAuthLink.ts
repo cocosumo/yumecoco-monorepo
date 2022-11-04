@@ -1,7 +1,5 @@
 
 import qs from 'qs';
-import { loadEnv } from 'helpers';
-loadEnv();
 
 const authScopes = [
   'k:app_record:read',

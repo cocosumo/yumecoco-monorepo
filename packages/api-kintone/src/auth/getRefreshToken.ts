@@ -1,7 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-import { loadEnv } from 'helpers';
-loadEnv();
 
 export const getRefreshToken = async ({
   code,

@@ -7,7 +7,7 @@ import path from 'path';
 import { root } from 'types/settings';
 
 
-import { loadEnv } from 'helpers';
+import { loadEnv } from 'libs';
 loadEnv();
 
 /**

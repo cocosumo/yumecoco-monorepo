@@ -1,4 +1,5 @@
-.eslintrc.js
+.eslintrc.cjs
 webpack.config.js
 jest
 jest.*
+env.*

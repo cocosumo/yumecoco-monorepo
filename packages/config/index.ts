@@ -1,1 +1,1 @@
-export * from './appIds';
+export * from './src/index.js';

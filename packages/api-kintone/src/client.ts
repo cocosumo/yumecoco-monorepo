@@ -1,6 +1,6 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { loadEnv } from 'helpers';
-import { getNewAccessToken } from '../auth/getNewAccessToken';
+import { getNewAccessToken } from './auth/getNewAccessToken';
 loadEnv();
 
 const oAuth = {
@@ -25,10 +25,12 @@ const getToken = async () => {
 };
 
 export const client = async () => {
+
   return new KintoneRestAPIClient({
     baseUrl: process.env.KT_BASE_URL,
     auth: { oAuthToken: await getToken() },
   });
 };
 
+export const clientRecord = client().then(({ record }) => record);
 

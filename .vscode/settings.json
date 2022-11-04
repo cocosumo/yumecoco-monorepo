@@ -1,0 +1,9 @@
+{
+  "exportall.config.relExclusion": [
+    "/packages/api-kintone/src/projects/config.ts",
+    "/packages/api-kintone/src/auth"
+  ],
+  "exportall.config.folderListener": [
+    "/packages/api-kintone/src"
+  ]
+}

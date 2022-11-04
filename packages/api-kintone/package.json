@@ -13,7 +13,6 @@
     "get:newtoken": "ts-node-esm scripts/getNewAccessToken.ts"
   },
   "dependencies": {
-    "babel-jest": "^29.2.2",
     "config": "*",
     "helpers": "*"
   }

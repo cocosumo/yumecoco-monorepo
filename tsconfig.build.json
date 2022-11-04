@@ -14,6 +14,7 @@
       "dom",
       "dom.iterable"
     ],
+    "declaration": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -28,18 +29,22 @@
     "*eslint*"
   ],
   "include": [
-    "**/*.ts", "**/*.tsx",
+    "**/*.ts",
+    "**/*.tsx",
   ],
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
     "./node_modules/@types/docusign-esign/index.d.ts",
-    "./env.d.ts"
   ],
-
   "rules": {
     "quotemark": [
       true,
       "single"
+    ]
+  },
+  "paths": {
+    "*": [
+      "src/@t`ypes/*"
     ]
   },
   "references": [
@@ -64,6 +69,5 @@
     {
       "path": "./packages/helpers"
     },
-
   ]
 }

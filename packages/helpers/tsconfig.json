@@ -1,20 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "es2020",
-    "target": "es2020",
-    "outDir": "./dist",
-    "lib": [
-      "es2020", "dom"
-    ],
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true,
-    "declaration": true
+    "target": "esnext",
+    "module": "commonjs",
   },
   "include": [
     "./src/**/*",
   ],
-  "exclude": ["dist/**/*"]
+  "exclude": [
+    "dist/**/*",
+    "./**/*.test.*"
+  ]
 }

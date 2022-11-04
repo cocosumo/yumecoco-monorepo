@@ -1,4 +1,4 @@
-import { getRefreshToken } from '../src/auth/getRefreshToken.js';
+import { getRefreshToken } from '../src/auth/getRefreshToken';
 
 (async ()=>{
 

@@ -2,10 +2,9 @@
 import axios from 'axios';
 import qs from 'qs';
 import { loadEnv } from 'helpers';
+loadEnv();
 
 export const getNewAccessToken = async () => {
-
-  loadEnv();
 
   const {
     KT_BASE_URL,

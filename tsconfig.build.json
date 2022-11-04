@@ -2,8 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "es2020",
-    "target": "es2020",
+    "module": "CommonJS",
+    "target": "ESNext",
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowJs": true,

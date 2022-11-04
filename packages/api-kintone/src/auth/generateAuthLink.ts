@@ -1,4 +1,8 @@
 
+import qs from 'qs';
+import { loadEnv } from 'helpers';
+loadEnv();
+
 const authScopes = [
   'k:app_record:read',
   'k:app_record:write',
@@ -22,16 +26,18 @@ export const generateAuthLink = ({
   clientId: string,
 }) => {
   const authUrl = `${baseURL}oauth2/authorization`;
-  const url = new URL(authUrl);
-  const params = new URLSearchParams(url.search);
-  
-  params.set('client_id', clientId);
-  params.set('redirect_uri', redirectURI);
-  params.set('state', 'state1');
-  params.set('response_type', 'code');
-  params.set('scope', (scopes || authScopes).join(' '));
 
-  return `${authUrl}?${params.toString()}`;
+  const data = {
+    'client_id': clientId,
+    'redirect_uri': redirectURI,
+    'state': 'state1',
+    'response_type': 'code',
+    'scope': (scopes || authScopes).join(' '),
+  };
 
- 
+
+
+  return `${authUrl}?${qs.stringify(data)}`;
+
+
 };

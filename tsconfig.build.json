@@ -60,6 +60,9 @@
     {
       "path": "./packages/config"
     },
+    {
+      "path": "./packages/helpers"
+    },
 
   ]
 }

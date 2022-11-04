@@ -74,7 +74,8 @@ module.exports = {
       "files": [
         "*.test.ts",
         "*.spec.ts",
-        "**/scripts/**.*"
+        "**/scripts/**.*",
+        "**/helpers/**/*",
       ],
       "rules": {
         "no-console": "off",

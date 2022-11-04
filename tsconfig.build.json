@@ -9,7 +9,7 @@
     "allowJs": true,
     "lib": [
       "es5",
-      "es2017",
+      "es2019",
       "es6",
       "dom",
       "dom.iterable"

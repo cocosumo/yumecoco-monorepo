@@ -1,12 +1,34 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
-import { RecordClient } from '@kintone/rest-api-client/lib/client/RecordClient';
+import { loadEnv } from 'helpers';
+import { getNewAccessToken } from '../auth/getNewAccessToken';
+loadEnv();
 
 const oAuth = {
-  accessToken: '',
-  /** Time when accesstoken was generated, valid for 1 hr */
-  at: null as null | Date,
-  refreshToken: process.env.KT_REFRESH_TOKEN,
+  token: '',
+  at: null as Date | null,
 };
 
+const setToken = (oAuthToken: string) => {
+  if (!oAuthToken) throw new Error('Invalid oAuthToken');
+  oAuth.token = oAuthToken;
+  oAuth.at = new Date();
+};
+
+
+const getToken = async () => {
+  if (!oAuth.token) {
+    const { accessToken } = await getNewAccessToken();
+    setToken(accessToken);
+  }
+  /** TODO: Need to check time too for server implementation */
+  return oAuth.token;
+};
+
+export const client = async () => {
+  return new KintoneRestAPIClient({
+    baseUrl: process.env.KT_BASE_URL,
+    auth: { oAuthToken: await getToken() },
+  });
+};
 
 

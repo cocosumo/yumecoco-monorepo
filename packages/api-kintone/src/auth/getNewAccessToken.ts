@@ -33,6 +33,18 @@ export const getNewAccessToken = async () => {
     data: qs.stringify(data),
   });
 
-  return result.data;
+  const resultData = result.data as {
+    access_token: string,
+    token_type: string,
+    expires_in: number,
+    scope: string
+  };
+
+  return {
+    accessToken: resultData.access_token,
+    token_type: resultData.token_type,
+    expires_in: resultData.expires_in,
+    scope: resultData.scope,
+  };
 
 };

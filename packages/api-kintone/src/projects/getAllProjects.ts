@@ -1,9 +1,9 @@
 import { ktRecord } from './../client';
 import { appId, RecordType } from './config';
-import { RecordClientParam } from 'types';
+import { KtRecordParam } from 'types';
 
 export const getAllProjects = async (
-  params?: RecordClientParam<'getAllRecords'>,
+  params?: KtRecordParam<'getAllRecords'>,
 ) => (await ktRecord())
   .getAllRecords({
     ...params,

@@ -1,5 +1,5 @@
 
-import { generateAuthLink } from '../src/auth/generateAuthLink';
+import { generateAuthLink } from '../src/@auth/generateAuthLink';
 
 import { loadEnv } from 'libs';
 

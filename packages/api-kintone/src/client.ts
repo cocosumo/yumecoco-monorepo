@@ -1,11 +1,14 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
-import { getNewAccessToken } from './auth/getNewAccessToken';
+import { getNewAccessToken } from './@auth/getNewAccessToken';
+
 
 
 const oAuth = {
   token: '',
   at: null as Date | null,
 };
+
+let kintoneRestApiClient : KintoneRestAPIClient | null  = null;
 
 const setToken = (oAuthToken: string) => {
   if (!oAuthToken) throw new Error('Invalid oAuthToken');
@@ -25,12 +28,27 @@ const getToken = async () => {
 
 export const kt = async () => {
 
-  return new KintoneRestAPIClient({
-    baseUrl: process.env.KT_BASE_URL,
-    auth: { oAuthToken: await getToken() },
-  });
+  /* If running on node, retrieve access token dynamically then re-define client. */
+  if (typeof window === 'undefined') {
+    kintoneRestApiClient = new KintoneRestAPIClient({
+      baseUrl: process.env.KT_BASE_URL,
+      auth: { oAuthToken: await getToken() },
+    });
+  }
+
+  /* If running on kintone, no need for auth */
+  if (!kintoneRestApiClient) {
+    kintoneRestApiClient = new KintoneRestAPIClient({
+      baseUrl: process.env.KT_BASE_URL,
+    });
+  }
+
+  return kintoneRestApiClient;
+  
 };
 
 export const ktClient = () => kt().then((kintoneClient)=> kintoneClient);
 
 export const ktRecord = () => ktClient().then(({ record }) => record );
+
+export const ktApp = () => ktClient().then(({ app }) => app );

@@ -1,4 +1,4 @@
-import { getNewAccessToken } from '../src/auth/getNewAccessToken';
+import { getNewAccessToken } from '../src/@auth/getNewAccessToken';
 
 
 (async ()=>{

@@ -1,3 +1,6 @@
+import { IEmployees } from '../dbKintone';
+import { KeyOfSubtable } from '../utils';
+
 export const agentTypes = ['yumeAG', 'cocoAG', 'cocoConst', 'sutekura'] as const;
 export type TAgents = typeof agentTypes[number];
 
@@ -15,3 +18,5 @@ export const AGLabels : Record<TAgents, string> = {
   cocoConst : '工事担当者',
   sutekura: 'すてくら',
 };
+
+export type KEmployeeStores = KeyOfSubtable<IEmployees['affiliateStores']>;

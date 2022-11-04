@@ -6,10 +6,10 @@ const options = {
   baseUrl: process.env.BASE_URL,
   auth: isBrowser() ? undefined : {
     apiToken: [
-      process.env.API_CONSTRUCTION_TYPE,
-      process.env.API_ESTIMATE_MAJORITEMS,
-      process.env.API_ESTIMATE_MIDDLEITEMS,
-      process.env.API_ESTIMATE_ELEMENTS,
+      process.env.KT_PROJECT_TYPE,
+      process.env.KT_ESTIMATE_MAJORITEMS,
+      process.env.KT_ESTIMATE_MIDDLEITEMS,
+      process.env.KT_ESTIMATE_ITEMS,
 
     ],
   },

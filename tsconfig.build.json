@@ -30,6 +30,7 @@
   ],
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
+    "./node_modules/@types/docusign-esign/index.d.ts"
   ],
 
   "rules": {
@@ -43,6 +44,9 @@
       "path": "./packages/kokoas-client/tsconfig.json"
     },
     {
+      "path": "./packages/kokoas-server/tsconfig.json"
+    },
+    {
       "path": "./packages/is-even/tsconfig.json"
     },
     {
@@ -51,5 +55,6 @@
     {
       "path": "./packages/config/tsconfig.json"
     },
+
   ]
 }

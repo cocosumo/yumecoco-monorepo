@@ -8,7 +8,7 @@ export type TEnvelopeStatus =
 | 'voided'
 | '' ;
 
-const events = [
+export const events = [
   'envelope-sent',
   'envelope-resent',
   'envelope-delivered',
@@ -38,7 +38,7 @@ const events = [
   'sms-opt-out',
 ] as const;
 
-type TConnectEventType = typeof events[number];
+export type TConnectEventType = typeof events[number];
 
 export interface IRecipient {
   creationReason: string,

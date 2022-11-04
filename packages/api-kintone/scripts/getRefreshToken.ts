@@ -2,19 +2,27 @@ import { getRefreshToken } from '../src/auth/getRefreshToken.js';
 
 (async ()=>{
 
+  try {
 
-  const authCode = process.env.KT_AUTH_CODE;
+    const authCode = process.env.KT_AUTH_CODE;
 
-  if (!authCode) throw new Error('KT_AUTH_CODE undefined');
+    if (!authCode) throw new Error('KT_AUTH_CODE undefined');
 
-  console.log('authCode', authCode);
+    console.log('authCode', authCode);
 
 
-  const result = await getRefreshToken({
-    code: authCode,
-  });
+    const result = await getRefreshToken({
+      code: authCode,
+    });
 
-  console.log(result);
-  console.log('Save refresh token to .env.KT_REFRESH_TOKEN');
+    console.log(result);
+    console.log('Save refresh token to .env.KT_REFRESH_TOKEN');
+
+  } catch (e) {
+    console.log('失敗しました。', e.message, e.toJSON());
+  }
+
+
+
 
 })();

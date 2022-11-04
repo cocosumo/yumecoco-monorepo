@@ -1,18 +1,21 @@
 {
   "name": "api-kintone",
   "version": "0.0.0",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "devDependencies": {},
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "authlink": "npm run build && nodemon dist/scripts/authLink.js",
+    "build": "tsc --build --clean",
+    "authlink": "npm run build && node dist/scripts/authLink.js",
     "get:refreshtoken": "ts-node-esm scripts/getRefreshToken.ts",
-    "get:newtoken": "ts-node-esm scripts/getNewAccessToken.ts",
-    "pathtest": "ts-node-esm scripts/pathtest.ts"
-    
-  }, 
+    "get:newtoken": "ts-node-esm scripts/getNewAccessToken.ts"
+
+  },
   "dependencies": {
-    "config": "*"
+    "config": "*",
+    "helpers": "*"
   }
 }

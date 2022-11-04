@@ -23,6 +23,8 @@ export const ContractAmount = ({
   const contractAmount = records?.reduce((acc, cur, idx) => {
     if (!cur.envStatus.value || cur.isForPayment.value.length) return acc;
 
+    /* 既に入金済みの金額は差し引く */
+    /* 「請求に使用しない」契約金額を差し引く */
     return acc + (calculated?.[idx].totalAmountInclTax ?? 0);
   }, 0);
 

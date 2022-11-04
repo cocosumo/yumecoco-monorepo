@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { APPIDS } from '../api/kintone';
-import { getActiveEmployees } from '../api/kintone/employees/getActiveEmployees';
+import { getActiveEmployees } from 'api-kintone';
 
 /**
  * Retrieves all active employee records

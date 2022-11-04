@@ -1,9 +1,10 @@
-import { IEmployees } from 'types';
-import { APPIDS, KintoneRecord } from '../config';
+import { ktRecord } from './../client';
+import { appId, RecordType } from './config';
 
 export const getEmployees  = async (
   isActiveOnly = true,
 ) => {
+
   const queryArray: string[] = [];
 
   if (isActiveOnly) {
@@ -15,8 +16,8 @@ export const getEmployees  = async (
     '役職 in ("店長", "主任", "営業", "工務")',
   ]; */
 
-  return KintoneRecord.getAllRecords({
-    app: APPIDS.employees,
+  return (await ktRecord()).getAllRecords({
+    app: appId,
     condition: queryArray.join(' and ') || undefined,
-  }).then((res) => res as unknown as IEmployees[]);
+  }).then((res) => res as unknown as RecordType[]);
 };

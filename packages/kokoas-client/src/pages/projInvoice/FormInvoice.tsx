@@ -16,7 +16,7 @@ import { useResolveParams } from './hooks/useResolveParams';
 
 
 
-export const FormPaymentInvoice = () => {
+export const FormInvoice = () => {
   const { values, submitForm } = useFormikContext<TypeOfForm>();
   const { projId } = values;
 

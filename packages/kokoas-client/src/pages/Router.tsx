@@ -10,7 +10,7 @@ import HelpComponents from './manuals/HelpComponents';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
-import { FormikPaymentInvoice } from './projPaymentInvoice/FormikPaymentInvoice';
+import { FormikPaymentInvoice } from './projInvoice/FormikPaymentInvoice';
 
 
 

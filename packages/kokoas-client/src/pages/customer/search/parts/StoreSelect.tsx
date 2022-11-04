@@ -1,12 +1,13 @@
 
 import { Grid } from '@mui/material';
+import { useStoreOptions } from 'kokoas-client/src/hooksQuery';
 import { FormikSelect } from '../../../../components/ui/selects';
-import { useStores } from '../../../../hooks/useStores';
+
 import { FormFieldKeys } from '../form';
 
 
 export const StoreSelect = () => {
-  const { stores } = useStores();
+  const { data: stores } = useStoreOptions();
 
   return (
     <Grid item xs={12} md={3}>

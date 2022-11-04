@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { AppIds } from 'config';
-import { getActiveEmployees } from 'api-kintone';
+import { getAllStores } from 'api-kintone';
 
-export const useEmployees = () => {
+export const useStores = <K = unknown>(
+  select?: (data: Awaited<ReturnType<typeof getAllStores>>) => K) => {
   return useQuery(
     [AppIds.stores],
-    //getActiveEmployees,
+    getAllStores,
+    { select },
   );
 };

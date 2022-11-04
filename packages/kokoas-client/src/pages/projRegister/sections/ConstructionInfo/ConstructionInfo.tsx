@@ -13,6 +13,7 @@ import { IProjtypes } from 'types';
 import { AppIds } from 'config';
 import { useProjHasContract } from 'kokoas-client/src/hooksQuery/useProjHasContract';
 import { useBackdrop } from 'kokoas-client/src/hooks';
+import { ContractDetails } from './ContractDetails';
 
 
 export const ConstructionInfo = (
@@ -37,7 +38,15 @@ export const ConstructionInfo = (
 
   const { setBackdropState } = useBackdrop();
   const { data, isFetching } = useProjHasContract(recordId);
-  const onClick = () => {
+  
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
 
@@ -81,17 +90,23 @@ export const ConstructionInfo = (
             options={constructionTypeOptions} required
           />
         </Grid>
-        
+
         <Grid item xs={12} md={4}>
-          {data && 
-          <>
-            <FormHelperText>
-              契約済みのため編集できません
-            </FormHelperText>
-            <Button variant="text" size='small' onClick={onClick}>
-              詳しく見る
-            </Button>
-          </>}
+          {data &&
+            <>
+              <FormHelperText>
+                契約済みのため編集できません
+              </FormHelperText>
+              <Button variant="text" size='small' onClick={handleClickOpen}>
+                詳しく見る
+              </Button>
+
+              <ContractDetails
+                open={open}
+                onClose={handleClose}
+                projId={recordId ?? ''}
+              />
+            </>}
         </Grid>
         <Grid item xs={12}>
           <FormikTextField name={getFieldName('projName')} label="工事名称" placeholder="氏名/会社名様邸　工事種別"

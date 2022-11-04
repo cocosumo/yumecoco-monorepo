@@ -5,7 +5,7 @@ import { getEstimatesByProjId } from '../api/kintone/estimates/getEstimatesByPro
 /**
  * 工事番号で契約済み見積もり一覧を取得する
  */
-export const useProjHasContract = (
+export const useContractsByProjId = (
   projId = '',
 ) => {
 

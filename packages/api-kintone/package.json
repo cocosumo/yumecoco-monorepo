@@ -2,9 +2,6 @@
   "name": "api-kintone",
   "version": "0.0.0",
   "main": "./dist/index.js",
-  "exports": {
-    ".": "./dist/index.js"
-  },
   "scripts": {
     "build": "tsc",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
@@ -14,6 +11,7 @@
   },
   "dependencies": {
     "config": "*",
-    "helpers": "*"
+    "helpers": "*",
+    "types": "*"
   }
 }

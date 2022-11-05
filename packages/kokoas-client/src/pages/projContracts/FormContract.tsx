@@ -4,7 +4,6 @@ import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
 import { getFieldName, TypeOfForm } from './form';
 import { Grid } from '@mui/material';
-import { SearchProjField } from './parts/SearchProjField';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
 import { SelectProjEstimates } from '../../components/ui/selects';
@@ -16,6 +15,7 @@ import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
 import { useHandleProjEstimate } from './hooks';
 import { useHandleProjId } from './hooks/useHandleProjId';
 import { useResolveParams } from './hooks/useResolveParams';
+import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
 
 
 export const FormContract = () => {
@@ -43,8 +43,9 @@ export const FormContract = () => {
         <PageTitle label='契約' />
 
         <Grid item xs={12} md={4} >
-          <SearchProjField
-            projId={projId}
+          <FormikSearchProjField
+            label='工事検索'
+            name={getFieldName('projId')}
             projName={projName}
           />
         </Grid>

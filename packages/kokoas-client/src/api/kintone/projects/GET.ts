@@ -26,7 +26,9 @@ export const getConstRecordByIds = async (ids: string[]) => {
  * @param search Search string
  * @returns
  */
-export const searchProjects = async (search: string) => {
+export const searchProjects = async (
+  search: string,
+) => {
 
   const fieldProjName: KProjects = 'projName';
   const fields : KProjects[] = ['projName', '$id' ];

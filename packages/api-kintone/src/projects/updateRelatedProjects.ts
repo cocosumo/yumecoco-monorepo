@@ -28,7 +28,6 @@ export const updateRelatedProjects = async (
   /* proj -> custGroup 保存 */
   const {
     custGroupId,
-    agents,
   } = projRecord;
 
   if (!custGroupId) throw new Error(`顧客番号は無効です。${custGroupId}`);
@@ -36,7 +35,6 @@ export const updateRelatedProjects = async (
   await saveProjToCustGroup({
     projectId: projId,
     custGroupId: custGroupId?.value,
-    cocoConstIds: agents?.value.map((r) => r.value.agentId.value) || [],
   });
 
 

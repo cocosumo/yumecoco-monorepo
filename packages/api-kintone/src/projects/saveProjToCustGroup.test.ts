@@ -5,7 +5,6 @@ test('save project transaction', async ()=>{
     const testData: Parameters<typeof saveProjToCustGroup>[0] = {
       projectId: '97',
       custGroupId: '152',
-      cocoConstIds: ['17'],
     };
 
     const result = await saveProjToCustGroup(testData);

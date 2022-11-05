@@ -1,8 +1,10 @@
+
 import { ICustgroups } from 'types';
 import { AppIds } from 'config';
-import { getCustGroupById, getCustGroupsByProjId } from '../custgroups';
+import { getCustGroupsByProjId } from '../custgroups';
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { isBrowser } from 'kokoas-client/src/helpers/utils';
+import { getProjsByCustGroupId } from './getProjsByCustGroupId';
 
 
 
@@ -53,13 +55,15 @@ const resolveDeleteRequest = async (projectId: string) => {
  * @returns
  */
 const resolveSaveRequest = async (
-  projectId: string, 
   custGroupId: string, 
-  cocoConst: string[]) => {
+) => {
 
-  const { projects } = await getCustGroupById(custGroupId);
+  const projRecs = await getProjsByCustGroupId(custGroupId);
 
-  console.log('Projects', projects);
+
+
+  /*   
+
   const newProjects = projects.value
     .filter(item => item.value.projId.value !== projectId)
     .concat([{
@@ -70,17 +74,9 @@ const resolveSaveRequest = async (
         projName: { value: 'auto' },
         cocoConst1: { value: cocoConst[0] },
         cocoConst2: { value: cocoConst[1] },
-        cocoConst1Name : { value: 'auto' },
-        cocoConst2Name : { value: 'auto' },
-        kariAddress :  { value: 'auto' },
-        projectAddress1:  { value: 'auto' },
-        projectAddress2:  { value: 'auto' },
-        projectPostal:  { value: 'auto' },
-        status: { value: 'auto' },
-        cancelStatus: { value: 'auto' },
-        envStatus: { value: 'auto' },
+
       },
-    }]);
+    }]); */
 
   return [{
     method: 'PUT',
@@ -91,9 +87,26 @@ const resolveSaveRequest = async (
       record: {
         projects: {
           type: 'SUBTABLE',
-          value: newProjects,
+          value: projRecs.map(({
+            $id,
+            agents,
+          }) => {
+            const [
+              cocoConst1,
+              cocoConst2,
+            ] = agents.value.map(({ value: { agentId } }) => agentId.value );
+
+            return {
+              id: '',
+              value: {
+                projId: { value: $id.value },
+                cocoConst1: { value: cocoConst1 },
+                cocoConst2: { value: cocoConst2 },
+              },
+            };
+          }),
         },
-        projectCount: { value: newProjects.length.toString() },
+        projectCount: { value: projRecs.length.toString() },
       },
     },
   },
@@ -117,11 +130,9 @@ export const saveProjToCustGroup = async (
   {
     projectId,
     custGroupId,
-    cocoConstIds,
   }:{
     projectId: string,
     custGroupId: string, 
-    cocoConstIds: string[],
   },
 
 ) => {
@@ -147,8 +158,10 @@ export const saveProjToCustGroup = async (
 
   const requests : Parameters<typeof KintoneClient.bulkRequest>[0]['requests'] = [
     ...await resolveDeleteRequest(projectId),
-    ...await resolveSaveRequest(projectId, custGroupId, cocoConstIds),
+    ...await resolveSaveRequest(custGroupId),
   ];
+
+  console.log('requests', requests);
 
   if (requests.length) {
     return KintoneClient.bulkRequest({

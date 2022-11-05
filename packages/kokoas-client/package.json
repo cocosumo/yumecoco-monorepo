@@ -12,6 +12,5 @@
     "config": "*",
     "api-kintone": "*",
     "types": "*"
-  },
-  "sideEffects": false
+  }
 }

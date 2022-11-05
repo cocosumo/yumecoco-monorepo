@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { FormConstruction } from './FormConstruction';
 
-import { saveFormData } from './api/saveFormData';
 import { pages } from '../Router';
-import {  useSnackBar } from '../../hooks';
 import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
 import { generateParams } from '../../helpers/url';
+import { convertToKintone } from './api/convertToKintone';
+import { useSaveProject } from 'kokoas-client/src/hooksQuery/useSaveProject';
 
 
 
@@ -20,7 +20,7 @@ export const FormikConstruction  = () => {
 
   const { setDialogState } = useConfirmDialog();
   const navigate = useNavigate();
-  const { setSnackState } = useSnackBar();
+  const { mutateAsync } = useSaveProject();
 
   return (
     <Formik
@@ -29,23 +29,27 @@ export const FormikConstruction  = () => {
       //enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values) => {
+        const { recordId } = values;
+        const kintoneRecord = convertToKintone(values);
 
-        saveFormData({ ...values })
-          .then((resp)=>{
-            setSnackState({ open: true, message: '保存出来ました。', severity: 'success' });
-            setSubmitting(false);
-            setDialogState({
-              title: '次へ進む',
-              content: <NextStepChoices recordId={resp.id} />,
-              withYes: false,
-              noText: '閉じる',
-            });
+        const resp = await mutateAsync({
+          record: kintoneRecord,
+          projId: recordId,
+        });
 
-            navigate(`${pages.projEdit}?${generateParams({
-              projId: resp.id,
-            })}`);
-          });
+        setDialogState({
+          title: '次へ進む',
+          content: <NextStepChoices recordId={resp.id} />,
+          withYes: false,
+          noText: '閉じる',
+        });
+
+        navigate(`${pages.projEdit}?${generateParams({
+          projId: resp.id,
+        })}`);
+
+ 
       }}
     >
       <FormConstruction />

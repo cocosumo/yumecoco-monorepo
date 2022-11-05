@@ -1,5 +1,5 @@
 {
-  "name": "api-kintone",
+  "name": "utils-jest",
   "version": "0.0.0",
   "scripts": {
     "build": "tsc",
@@ -9,9 +9,5 @@
     "get:newtoken": "ts-node-esm scripts/getNewAccessToken.ts"
   },
   "dependencies": {
-    "config": "*",
-    "helpers": "*",
-    "types": "*",
-    "utils-jest": "*"
   }
 }

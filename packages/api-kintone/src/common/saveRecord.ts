@@ -1,6 +1,5 @@
 import { ktRecord } from './../client';
 import { VAppIds } from 'config';
-
 import { KtRecordParam } from 'types';
 
 /**
@@ -18,9 +17,20 @@ import { KtRecordParam } from 'types';
  * @returns Object containing id and revision.
  */
 export const saveRecord = async (
-  params: KtRecordParam<'updateRecord'> & {
+  params: {
     app: VAppIds,
-    recordId: string
+    recordId?: string,
+    record?: KtRecordParam<'updateRecord'>['record'],
+    revision?: string,
+    updateRelatedFn?: () => Promise<{
+      [appId: number] : {
+        condition: string,
+        results: Array<{
+          id: string;
+          revision: string;
+        }>;
+      }
+    } | undefined>
   },
 ) => {
   const KintoneRecord = await ktRecord();

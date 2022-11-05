@@ -1,4 +1,4 @@
-import { APPIDS } from '../api/kintone';
+import { AppIds } from 'config';
 import { useQuery } from '@tanstack/react-query';
 
 import { getProjById } from 'api-kintone';
@@ -8,7 +8,7 @@ import { getProjById } from 'api-kintone';
 export const useProjById = (projId: string) => {
 
   return useQuery(
-    [APPIDS.project, projId],
+    [AppIds.projects, projId],
     () => getProjById(projId),
     {
       enabled: !!projId,

@@ -1,30 +1,9 @@
 import { useEstimateById } from './../../../hooksQuery/useEstimateById';
-import { KintoneRecord, APPIDS } from './../../../api/kintone/config';
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { TypeOfForm } from '../form';
 import { produce } from 'immer';
 import { format, parseISO } from 'date-fns';
-import { IProjestimates } from 'types';
-
-
-/**
- * ※ 緊急修正
- *
- * 仮ファイルです、要更新
- * PR#100マージされたらにグロバルフックあり。
- */
-
-
-
-const getEstimateById = async (projEstimateId: string) => {
-  const result =  await KintoneRecord.getRecord({
-    app: APPIDS.projectEstimate,
-    id: projEstimateId,
-  });
-
-  return result.record as unknown as IProjestimates;
-};
 
 
 export const useUpdateEstimateId = () => {

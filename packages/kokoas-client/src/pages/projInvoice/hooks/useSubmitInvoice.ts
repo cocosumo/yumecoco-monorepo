@@ -6,7 +6,7 @@ import { useBackdrop, useSnackBar } from '../../../hooks';
 import { TypeOfForm } from '../form';
 import { useSave } from './useSave';
 
-export const useSubmitPaymentInvoice = () => {
+export const useSubmitInvoice = () => {
 
   const { mutateAsync, isPaused } = useSave();
 

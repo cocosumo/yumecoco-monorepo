@@ -35,7 +35,7 @@ export const saveForm = async (form: TypeOfForm) => {
 
   if (invoiceId) {
     const result = await KintoneRecord.updateRecord({
-      app: APPIDS.paymentInvoice,
+      app: APPIDS.Invoice,
       id: invoiceId,
       record,
     });
@@ -46,7 +46,7 @@ export const saveForm = async (form: TypeOfForm) => {
     };
   } else {
     return KintoneRecord.addRecord({
-      app: APPIDS.paymentInvoice,
+      app: APPIDS.Invoice,
       record,
     });
   }

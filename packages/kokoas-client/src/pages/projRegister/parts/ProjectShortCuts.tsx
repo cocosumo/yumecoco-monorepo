@@ -1,12 +1,12 @@
 import { useFormikContext } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { TypeOfProjForm } from '..';
 import { Shortcuts } from '../../../components/ui/speedDials/Shortcuts';
 import { generateParams, getParams } from '../../../helpers/url';
 import { pages } from '../../Router';
+import { TypeOfForm } from '../form';
 
 export const ProjectShortCuts = () => {
-  const { values: { custGroupId, recordId } } = useFormikContext<TypeOfProjForm>();
+  const { values: { custGroupId, recordId } } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
   const urlParams = generateParams({

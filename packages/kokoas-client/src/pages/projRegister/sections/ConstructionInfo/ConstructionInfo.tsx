@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { TypeOfProjForm, getFieldName } from '../../form';
+import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { IProjtypes } from 'types';
 import { AppIds } from 'config';
@@ -32,7 +32,7 @@ export const ConstructionInfo = (
     values: {
       cocoConst1,
       recordId,
-    } } = useFormikContext<TypeOfProjForm>();
+    } } = useFormikContext<TypeOfForm>();
 
   const isReadOnly = (status as TFormStatus) === 'disabled';
 

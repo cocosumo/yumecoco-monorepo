@@ -6,7 +6,7 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { TypeOfProjForm, getFieldName } from '../../form';
+import { TypeOfForm, getFieldName } from '../../form';
 import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
@@ -22,7 +22,7 @@ import { AGLabels, ICustgroups } from 'types';
 export const CustInfo = () => {
 
   const [custGroupRecord, setCustomerRecord] = useState<ICustgroups>();
-  const { status, values, setFieldValue, setValues } = useFormikContext<TypeOfProjForm>();
+  const { status, values, setFieldValue, setValues } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';

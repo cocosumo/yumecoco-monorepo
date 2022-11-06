@@ -2,7 +2,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import { useFormikContext } from 'formik';
 import { useEffect, useState } from 'react';
 import { getProjectsByCustGroupId, SearchItems } from '../../../../api/getProjectsByCustGroupId';
-import { TypeOfProjForm } from '../../../../form';
+import { TypeOfForm } from '../../../../form';
 
 
 export const SearchDialog = (props: {
@@ -13,7 +13,7 @@ export const SearchDialog = (props: {
   const [records, setRecords] = useState<SearchItems | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
-  const { setValues, values: { custGroupId } } = useFormikContext<TypeOfProjForm>();
+  const { setValues, values: { custGroupId } } = useFormikContext<TypeOfForm>();
 
   const handleCopy = () => {
     if (selected !== null && records) {

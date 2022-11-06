@@ -1,10 +1,10 @@
 
 import { getConstRecord } from '../../../api/kintone/projects';
-import { BuildingTypeVals, TypeOfProjForm } from '../form';
+import { BuildingTypeVals, TypeOfForm } from '../form';
 import { RecordCancelStatus, RecordStatus } from '../../../config/formValues';
 import { TAgents, TEnvelopeStatus } from 'types';
 
-export const getFormDataById = async (recordId: string): Promise<TypeOfProjForm> => {
+export const getFormDataById = async (recordId: string): Promise<TypeOfForm> => {
   const projDetailsRecord = await getConstRecord(recordId);
   const {
     projTypeId, projName,

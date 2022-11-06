@@ -37,18 +37,18 @@ export const initialValues = {
   cancelStatus: [] as RecordCancelStatus[],
 };
 
-export type TypeOfProjForm = typeof initialValues;
-export type KeyOfProjForm = keyof TypeOfProjForm;
-export type ProjectDetailsValues = Partial<Record<KeyOfProjForm, string | number | boolean | Array<any>>>;
+export type TypeOfForm = typeof initialValues;
+export type KeysOfForm = keyof TypeOfForm;
+export type ProjectDetailsValues = Partial<Record<KeysOfForm, string | number | boolean | Array<any>>>;
 
-export const getFieldName = (fieldName: KeyOfProjForm) => fieldName;
+export const getFieldName = (fieldName: KeysOfForm) => fieldName;
 
 /**
  * Set Validation for fields that requires it.
  * Refer to YUM documentation.
  */
 export const validationSchema =  Yup
-  .object<Partial<Record<KeyOfProjForm, any>>>(
+  .object<Partial<Record<KeysOfForm, any>>>(
   {
     custGroupId: Yup
       .string()

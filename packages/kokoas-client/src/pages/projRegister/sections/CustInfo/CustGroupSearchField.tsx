@@ -1,5 +1,5 @@
 import { Autocomplete, TextField, Stack } from '@mui/material';
-import { KeyOfProjForm } from './../../form';
+import { KeysOfForm } from './../../form';
 import { useField } from 'formik';
 import { useState } from 'react';
 import { useLazyEffect, useSnackBar } from '../../../../hooks';
@@ -10,7 +10,7 @@ import { Caption } from '../../../../components/ui/typographies';
 
 
 export const CustGroupSearchField = () => {
-  const name : KeyOfProjForm = 'custGroupId';
+  const name : KeysOfForm = 'custGroupId';
   const [options, setOptions] = useState<readonly SearchOption[]>([]);
   const [fieldValue, setFieldValue] = useState<SearchOption | null>(null);
   const [inputValue, setInputValue] = useState('');

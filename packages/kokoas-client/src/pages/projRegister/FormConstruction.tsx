@@ -8,7 +8,7 @@ import {  Form, useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { TypeOfProjForm, getFieldName } from './form';
+import { TypeOfForm, getFieldName } from './form';
 import { useSnackBar } from '../../hooks';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { getFormDataById } from './api/getFormDataById';
@@ -34,7 +34,7 @@ export const FormConstruction  = () => {
       projTypeId,
       envelopeStatus,
     },
-  } = useFormikContext<TypeOfProjForm>();
+  } = useFormikContext<TypeOfForm>();
   const passedGroupId = getParam('custGroupId');
   const projIdFromURL = getParam('projId') ?? undefined;
 

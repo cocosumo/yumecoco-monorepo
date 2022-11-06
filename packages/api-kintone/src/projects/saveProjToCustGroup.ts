@@ -78,8 +78,9 @@ const resolveSaveRequest = async (
  *
  * @param projectId
  * @param custGroupId
- * @returns
- * @todo Add other independent process here.
+ * 
+ * @todo rollback may not be needed so convert this to regular api.
+ * Needs more direction on this.
  */
 export const saveProjToCustGroup = async (
   {

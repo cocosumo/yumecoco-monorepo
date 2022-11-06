@@ -1,13 +1,11 @@
 import { Button, Grid } from '@mui/material';
-import { ComponentProps, useEffect, useState } from 'react';
-import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
+import { ComponentProps, useEffect } from 'react';
 import {  OutlinedDiv } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { TypeOfForm, getFieldName } from '../../form';
-import { CustGroupSearchField } from './CustGroupSearchField';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
@@ -15,17 +13,26 @@ import { generateParams } from '../../../../helpers/url';
 import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
-import { AGLabels, ICustgroups } from 'types';
+import { AGLabels } from 'types';
+import { FormikSearchCustGroup } from 'kokoas-client/src/components/ui/textfield/FormikSearchCustGroup';
+import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 
 
 
 export const CustInfo = () => {
 
-  const [custGroupRecord, setCustomerRecord] = useState<ICustgroups>();
-  const { status, values, setFieldValue, setValues } = useFormikContext<TypeOfForm>();
+  const { status, values, setValues } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';
+
+  const {
+    custGroupId,
+    projTypeName,
+    recordId,
+  } = values;
+
+  const { data: custGroupRecord } = useCustGroupById(custGroupId ?? '');
 
   const {
     members,
@@ -50,24 +57,6 @@ export const CustInfo = () => {
     phone2, phone2Rel,
   } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
 
-
-
-  const {
-    custGroupId,
-    projTypeName,
-    recordId,
-  } = values;
-
-  useEffect(()=>{
-
-    if (custGroupId) {
-      getCustGroup(custGroupId)
-        .then(resp => setCustomerRecord(resp));
-    } else {
-      setCustomerRecord(undefined);
-    }
-  }, [custGroupId]);
-
   useEffect(()=>{
     if (storeId?.value) {
       setValues((prev) => {
@@ -80,12 +69,15 @@ export const CustInfo = () => {
         };
       });
     }
-  }, [storeId?.value, territory?.value, customerName?.value]);
+  }, [storeId?.value, territory?.value, customerName?.value, setValues]);
 
 
   useEffect(()=>{
-    setFieldValue(getFieldName('projName'), `${customerName?.value ?? '--'}様邸 ${projTypeName ?? '--'}`);
-  }, [customerName?.value, projTypeName]);
+    setValues(prev => ({
+      ...prev,
+      projName: `${customerName?.value ?? '--'}様邸 ${projTypeName ?? '--'}`,
+    }));
+  }, [customerName?.value, projTypeName, setValues]);
 
   const refactoredAgents = custGroupRecord?.agents
     .value
@@ -104,7 +96,10 @@ export const CustInfo = () => {
     <>
       <PageSubTitle label="顧客情報" />
       <Grid item xs={12} md={4} >
-        {!isReadOnly && <CustGroupSearchField />}
+        <FormikSearchCustGroup 
+          label="顧客検索"
+          name={getFieldName('custGroupId')}
+        />
       </Grid>
 
       <Grid item xs={12}>

@@ -21,7 +21,8 @@ interface UpdateRequest {
 /**
  * Get custgroup record, then add the projectId.
  * This keep the projects subtable updated in customer groups app.
- * API calls: 2
+ * 
+ * 
  * @param projectId
  * @param custGroupId
  * @param cocoConst Agent names

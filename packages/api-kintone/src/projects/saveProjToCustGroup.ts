@@ -79,7 +79,8 @@ const resolveSaveRequest = async (
  * @param projectId
  * @param custGroupId
  * 
- * @todo rollback may not be needed so convert this to regular api.
+ * @todo rollback feature of bulk request may not be needed
+ * so convert this to regular update api.
  * Needs more direction on this.
  */
 export const saveProjToCustGroup = async (

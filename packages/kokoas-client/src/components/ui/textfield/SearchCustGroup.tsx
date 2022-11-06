@@ -1,38 +1,40 @@
-import { Stack } from '@mui/material';
+import { Autocomplete, TextField, Stack, CircularProgress, TextFieldProps } from '@mui/material';
 import { format } from 'date-fns';
-import { useField } from 'formik';
 import { useSearchCustGroup } from 'kokoas-client/src/hooksQuery/useSearchCustGroup';
-import { useEffect, useState } from 'react';
+import { ComponentProps, useEffect, useState } from 'react';
+import { ICustgroups } from 'types';
 import { useDebounce } from 'usehooks-ts';
 
 import { Caption } from '../typographies';
-import { SearchCustGroup } from './SearchCustGroup';
 
 export interface SearchOption {
   name: string,
   id: string,
   subTitle?: string,
   secondaryLabel?: string
-  record?: any
+  record?: ICustgroups
 }
 
-export const FormikSearchCustGroup = (props: {
-  name: string,
-  label: string,
-  custNames?: string,
-  disabled?: boolean,
-  handleChange?: () => void
+
+
+export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<SearchOption>>, 'renderInput'> & {
+  inputProps: TextFieldProps,
 }) => {
+  const {
+    inputProps,
+    ...autoCompleteProps
+  } = props;
+
+
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<SearchOption | null>(null);
   const [options, setOptions] = useState<Array<SearchOption>>([]);
-  const [field, meta, helpers] = useField(props);
-  const { error, touched } = meta;
 
   const debouncedInput = useDebounce(inputVal, 1000);
 
   const { 
     data: newOptions, 
+    isFetching,
   } = useSearchCustGroup<SearchOption[]>(
     {
       easySearch: debouncedInput,
@@ -59,58 +61,28 @@ export const FormikSearchCustGroup = (props: {
       setOptions(newOptions);
     }
   }, [newOptions]);
-  
-
-  const {
-    custNames,
-    disabled = false,
-    label,
-    handleChange,
-  } = props;
-
-
-  useEffect(()=>{
-    if (!field.value) {
-      setFieldVal(null);
-    } else if (options.length === 0 && !!custNames) {
-      const singleOpt = { name: custNames, id: field.value };
-      setOptions([singleOpt]);
-      setFieldVal(singleOpt);
-    } else if (options.length === 1) {
-      setFieldVal(options[0]);
-    }
-
-    /* When projId is already available, make it the sole option  */
-    if (options.length === 0 && custNames) {
-  
-      const singleOpt = { name: custNames, id: field.value };
-      setOptions([singleOpt]);
-      setFieldVal(singleOpt);
-    }
-
-  }, [field.value, options, custNames]);
 
   return (
-    <SearchCustGroup 
-      disabled={disabled}
+    <Autocomplete
+      {...autoCompleteProps}
       value={fieldVal}
+      options={options}
       onInputChange={(_, value)=>{
         setInputVal(value);
-        if (!touched) helpers.setTouched(true);
-
       }}
-      onBlur={()=>{
-        if (!touched) helpers.setTouched(true);
-      }}
-      onChange={(_, val)=>{
-        helpers.setValue(val?.id);
-        setFieldVal(val);
-        handleChange?.();
-      }}
-      options={options}
       getOptionLabel={(opt)=> opt.name}
+      onChange={(_, val)=>{
+        setFieldVal(val);
+      }}
       isOptionEqualToValue={(opt, value) => opt.id === value.id}
       filterOptions={(x) => x}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          {...inputProps}
+          InputProps={isFetching ?  { endAdornment: <CircularProgress size={20} /> } : params.InputProps}
+          placeholder="山田　タロウ"
+        />)}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;
         return (
@@ -123,12 +95,7 @@ export const FormikSearchCustGroup = (props: {
           </li>
         );
       }}
-      inputProps={{
-        name: field.name,
-        label,
-        error: Boolean(error && touched),
-        helperText : error && touched ? error : '',
-      }}
+
     />
   );
 };

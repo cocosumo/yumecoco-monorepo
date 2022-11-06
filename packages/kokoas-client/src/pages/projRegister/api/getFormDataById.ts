@@ -39,6 +39,7 @@ export const getFormDataById = async (recordId: string): Promise<TypeOfForm> => 
     addressKari: addressKari.value,
     storeId: '',
     territory: '',
+    custName: '',
     status: (status?.value as RecordStatus) || '追客中',
     envelopeStatus: envelopeStatus.value as TEnvelopeStatus,
     cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],

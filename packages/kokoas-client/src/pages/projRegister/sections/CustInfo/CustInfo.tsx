@@ -5,7 +5,7 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { TypeOfForm, getFieldName } from '../../form';
+import { TypeOfForm, getFieldName, initialValues } from '../../form';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
@@ -16,12 +16,14 @@ import { LabeledInfo } from '../../../../components/ui/typographies';
 import { AGLabels } from 'types';
 import { FormikSearchCustGroup } from 'kokoas-client/src/components/ui/textfield/FormikSearchCustGroup';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { useFormikReset } from 'kokoas-client/src/hooks/useFormikReset';
 
 
 
 export const CustInfo = () => {
 
   const { status, values, setValues } = useFormikContext<TypeOfForm>();
+  const handleReset = useFormikReset<TypeOfForm>();
   const navigate = useNavigate();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';
@@ -57,27 +59,31 @@ export const CustInfo = () => {
     phone2, phone2Rel,
   } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
 
-  useEffect(()=>{
-    if (storeId?.value) {
-      setValues((prev) => {
-        return {
-          ...prev,
-          storeId: storeId?.value,
-          territory: territory?.value ?? '',
+  /* フォームリセットする */
+  useEffect(() => {
+    if (custGroupId) {
+      handleReset({
+        values: {
+          ...initialValues,
+          custGroupId: custGroupId,
+          custName: customerName?.value || '',
+          storeId: storeId?.value || '',
+          territory: territory?.value || '',
           projName: `${customerName?.value}様邸`,
-
-        };
+        },
       });
     }
-  }, [storeId?.value, territory?.value, customerName?.value, setValues]);
+
+  }, [storeId?.value, territory?.value, customerName?.value, custGroupId, handleReset]);
 
 
+  /* 工事名を生成する */
   useEffect(()=>{
     setValues(prev => ({
       ...prev,
-      projName: `${customerName?.value ?? '--'}様邸 ${projTypeName ?? '--'}`,
+      projName: `${prev.custName ?? '--'}様邸 ${projTypeName ?? '--'}`,
     }));
-  }, [customerName?.value, projTypeName, setValues]);
+  }, [projTypeName, setValues]);
 
   const refactoredAgents = custGroupRecord?.agents
     .value
@@ -117,11 +123,6 @@ export const CustInfo = () => {
                   email, emailRel,
                   phone1, phone1Rel,
                   phone2, phone2Rel,
-                  otherCustName: custGroupRecord
-                    ?.members.value
-                    .map((
-                      ({ value: { customerName: otherCustName } }) =>  otherCustName?.value || ''
-                    )) ?? [],
                 }}
               />
 

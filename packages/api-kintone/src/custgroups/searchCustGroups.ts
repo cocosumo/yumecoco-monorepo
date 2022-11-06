@@ -17,7 +17,7 @@ const custFieldMatches = fieldMatches<KFlatCustGroup>;
  * @param param
  * @param param.mainSearch 簡単検索
  */
-export const searchCustomers = async ({
+export const searchCustGroups = async ({
   easySearch,
   storeName,
   custEmail,

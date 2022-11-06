@@ -11,7 +11,7 @@ import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
 import { generateParams } from '../../helpers/url';
 import { convertToKintone } from './api/convertToKintone';
-import { useSaveProject } from 'kokoas-client/src/hooksQuery/useSaveProject';
+import  { useSaveProject } from './../../hooksQuery';
 
 
 

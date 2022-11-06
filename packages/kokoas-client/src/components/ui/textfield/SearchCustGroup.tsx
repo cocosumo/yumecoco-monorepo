@@ -17,11 +17,14 @@ export interface SearchOption {
 
 
 
-export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<SearchOption>>, 'renderInput'> & {
+export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<SearchOption>>, 'renderInput' | 'options'> & {
   inputProps: TextFieldProps,
 }) => {
   const {
+    value,
     inputProps,
+    onChange,
+    onInputChange,
     ...autoCompleteProps
   } = props;
 
@@ -65,16 +68,16 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
   return (
     <Autocomplete
       {...autoCompleteProps}
-      value={fieldVal}
+      value={value ?? fieldVal}
       options={options}
-      onInputChange={(_, value)=>{
-        setInputVal(value);
+      onInputChange={onInputChange ? onInputChange : (_, val) => {
+        setInputVal(val);
       }}
-      getOptionLabel={(opt)=> opt.name}
-      onChange={(_, val)=>{
+      onChange={onChange ? onChange : (_, val)=>{
         setFieldVal(val);
       }}
-      isOptionEqualToValue={(opt, value) => opt.id === value.id}
+      getOptionLabel={(opt) => opt.name}
+      isOptionEqualToValue={(opt, val) => opt.id === val.id}
       filterOptions={(x) => x}
       renderInput={(params) => (
         <TextField

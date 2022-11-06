@@ -18,7 +18,6 @@ export type BuildingTypeVals =
 export const initialValues = {
   recordId: '' as string | undefined,
   custGroupId: undefined  as undefined | string,
-  custName:  undefined  as undefined | string,
   storeId: '',
   territory: '',
   projTypeName: '',

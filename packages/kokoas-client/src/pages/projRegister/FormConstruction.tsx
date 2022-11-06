@@ -5,74 +5,45 @@ import { ConstructionInfo } from './sections/ConstructionInfo';
 import { ConstructionLocation, CustInfo, StatusControls } from './sections';
 import { Grid } from '@mui/material';
 import {  Form, useFormikContext } from 'formik';
-import { useEffect } from 'react';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { TypeOfForm, getFieldName } from './form';
-import { useSnackBar } from '../../hooks';
+import { TypeOfForm } from './form';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
-import { getFormDataById } from './api/getFormDataById';
-import { UneditableInfo } from '../../components/ui/information/UneditableInfo';
-import { getParam } from '../../helpers/url';
+import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
 
 
 export const FormConstruction  = () => {
-  const { setSnackState } = useSnackBar();
 
   const {
     status,
     isValid,
+    dirty,
     isSubmitting,
     setValues,
     setStatus,
     submitForm,
-    setFieldValue,
-    values : {
-      recordId,
-      storeId,
-      territory,
-      projTypeId,
-      envelopeStatus,
-    },
+    values,
   } = useFormikContext<TypeOfForm>();
-  const passedGroupId = getParam('custGroupId');
-  const projIdFromURL = getParam('projId') ?? undefined;
+
+  const {
+    recordId,
+    storeId,
+    territory,
+    projTypeId,
+    envelopeStatus,
+  } = values;
 
   const isEditMode = window.location.href.includes('edit');
   const isAbleToSave = (status as TFormStatus) === '';
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
-  useEffect(()=>{
-    if (!status && passedGroupId && !isEditMode) {
-      setFieldValue(getFieldName('custGroupId'), passedGroupId);
-    }
-  },
-  [passedGroupId, isEditMode, status]);
+  console.log(dirty, values);
 
-  useEffect(()=>{
+  /*   useEffect(()=>{
     if (!isValid && !isSubmitting) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
-  }, [isSubmitting]);
-
-
-  useEffect(()=>{
-
-    if (projIdFromURL) {
-      setStatus(((s: TFormStatus) => s )('busy'));
-      getFormDataById(projIdFromURL)
-        .then((resp) => {
-          setValues(resp);
-          setStatus(((s: TFormStatus) => s )(resp.envelopeStatus === '' ? '' : 'disabled'));
-        }).catch((e)=>{
-          setStatus('');
-          setSnackState({ open: true, message: `エラーが発生しました。 管理者にご連絡ください。${e.message}`, severity: 'error' });
-        });
-    } else {
-      setStatus('');
-    }
-  }, [projIdFromURL]);
-
+  }, [isSubmitting, isValid, setSnackState]); */
 
 
   return (

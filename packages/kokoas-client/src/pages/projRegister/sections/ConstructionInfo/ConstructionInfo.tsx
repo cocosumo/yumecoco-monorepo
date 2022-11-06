@@ -14,6 +14,7 @@ import { AppIds } from 'config';
 import { useProjHasContract } from 'kokoas-client/src/hooksQuery/useProjHasContract';
 import { useBackdrop } from 'kokoas-client/src/hooks';
 import { ContractDetails } from './ContractDetails';
+import { useProjTypes } from 'kokoas-client/src/hooksQuery/useProjTypes';
 
 
 export const ConstructionInfo = (
@@ -25,7 +26,7 @@ export const ConstructionInfo = (
   },
 ) => {
   const { storeId, territory, projTypeId } = props;
-  const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
+
   const {
     status,
     setFieldValue,
@@ -34,10 +35,22 @@ export const ConstructionInfo = (
       recordId,
     } } = useFormikContext<TypeOfForm>();
 
+
+
   const isReadOnly = (status as TFormStatus) === 'disabled';
 
   const { setBackdropState } = useBackdrop();
   const { data, isFetching } = useProjHasContract(recordId);
+  const { data: constructionTypeOptions } = useProjTypes<Options>({
+    select: (d) => d
+      .map(({ 
+        label, $id, projectName, 
+      }) => ({ 
+        label: label?.value, 
+        value: $id?.value, 
+        hiddenValue: projectName?.value, 
+      })),
+  });
   
   const [open, setOpen] = useState(false);
 
@@ -56,7 +69,7 @@ export const ConstructionInfo = (
 
 
   /*Todo: Refactor this as custom hook */
-  useEffect(() => {
+  /*   useEffect(() => {
     KintoneRecord.getRecords({
       app: AppIds.projTypes,
       query: 'order by レコード番号 asc',
@@ -67,16 +80,16 @@ export const ConstructionInfo = (
           .map(({ label, $id, projectName }) => ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),
       );
     });
-  }, []);
+  }, []); */
 
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const selectedPojType = constructionTypeOptions?.find(item => item.value === projTypeId);
     const projTypeName = selectedPojType?.hiddenValue || selectedPojType?.label;
     setFieldValue(getFieldName('projTypeName'), projTypeName);
-  }, [projTypeId]);
+  }, [projTypeId]); */
 
-
+  console.log(constructionTypeOptions);
   return (
     <>
       <PageSubTitle label='工事情報' />

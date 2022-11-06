@@ -4,4 +4,5 @@ export * from './docusign';
 export * from './employee';
 export * from './ktUsers';
 export * from './projects';
+export * from './record';
 export * from './server';

@@ -14,7 +14,7 @@ import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
 import { AGLabels } from 'types';
-import { FormikSearchCustGroup } from 'kokoas-client/src/components/ui/textfield/FormikSearchCustGroup';
+import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield/SearchCustGroup';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { useFormikReset } from 'kokoas-client/src/hooks/useFormikReset';
 
@@ -22,7 +22,7 @@ import { useFormikReset } from 'kokoas-client/src/hooks/useFormikReset';
 
 export const CustInfo = () => {
 
-  const { status, values, setValues } = useFormikContext<TypeOfForm>();
+  const { status, values } = useFormikContext<TypeOfForm>();
   const handleReset = useFormikReset<TypeOfForm>();
   const navigate = useNavigate();
 
@@ -30,7 +30,6 @@ export const CustInfo = () => {
 
   const {
     custGroupId,
-    projTypeName,
     recordId,
   } = values;
 
@@ -66,7 +65,6 @@ export const CustInfo = () => {
         values: {
           ...initialValues,
           custGroupId: custGroupId,
-          custName: customerName?.value || '',
           storeId: storeId?.value || '',
           territory: territory?.value || '',
           projName: `${customerName?.value}様邸`,
@@ -78,12 +76,12 @@ export const CustInfo = () => {
 
 
   /* 工事名を生成する */
-  useEffect(()=>{
+  /*   useEffect(()=>{
     setValues(prev => ({
       ...prev,
       projName: `${prev.custName ?? '--'}様邸 ${projTypeName ?? '--'}`,
     }));
-  }, [projTypeName, setValues]);
+  }, [projTypeName, setValues]); */
 
   const refactoredAgents = custGroupRecord?.agents
     .value
@@ -97,14 +95,24 @@ export const CustInfo = () => {
       return [...accu, { key: id, label: resolvedLabel, info: employeeName.value }];
     }, [] as Array<ComponentProps<typeof LabeledInfo> & { key: string }>) ?? [];
 
-
+  
   return (
     <>
       <PageSubTitle label="顧客情報" />
       <Grid item xs={12} md={4} >
-        <FormikSearchCustGroup 
-          label="顧客検索"
-          name={getFieldName('custGroupId')}
+        <SearchCustGroup 
+          onChange={(_, val) => {
+            const { id: newCustGroupId } = val || {};
+            if (newCustGroupId) {
+              navigate(`${pages.projEdit}?${generateParams({
+                custGroupId: newCustGroupId,
+              })}`);
+            }
+          }}
+          inputProps={{
+            label: 'お客検索',
+            name: getFieldName('custGroupId'),
+          }}
         />
       </Grid>
 

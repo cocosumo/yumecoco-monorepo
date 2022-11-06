@@ -4,17 +4,14 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
-import { KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
-import { IProjtypes } from 'types';
-import { AppIds } from 'config';
-import { useProjHasContract } from 'kokoas-client/src/hooksQuery/useProjHasContract';
+import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
 import { useBackdrop } from 'kokoas-client/src/hooks';
 import { ContractDetails } from './ContractDetails';
-import { useProjTypes } from 'kokoas-client/src/hooksQuery/useProjTypes';
+
 
 
 export const ConstructionInfo = (
@@ -25,11 +22,10 @@ export const ConstructionInfo = (
 
   },
 ) => {
-  const { storeId, territory, projTypeId } = props;
+  const { storeId, territory } = props;
 
   const {
     status,
-    setFieldValue,
     values: {
       cocoConst1,
       recordId,
@@ -41,9 +37,10 @@ export const ConstructionInfo = (
 
   const { setBackdropState } = useBackdrop();
   const { data, isFetching } = useProjHasContract(recordId);
+  
   const { data: constructionTypeOptions } = useProjTypes<Options>({
     select: (d) => d
-      .map(({ 
+      ?.map(({ 
         label, $id, projectName, 
       }) => ({ 
         label: label?.value, 
@@ -62,26 +59,9 @@ export const ConstructionInfo = (
     setOpen(false);
   };
 
-
   useEffect(() => {
     setBackdropState({ open: isFetching });
   }, [isFetching, setBackdropState]);
-
-
-  /*Todo: Refactor this as custom hook */
-  /*   useEffect(() => {
-    KintoneRecord.getRecords({
-      app: AppIds.projTypes,
-      query: 'order by レコード番号 asc',
-    }).then((res) => {
-      const rawConstOpts = res.records as unknown as IProjtypes[];
-      setConstructionTypeOptions(
-        rawConstOpts
-          .map(({ label, $id, projectName }) => ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),
-      );
-    });
-  }, []); */
-
 
   /*  useEffect(() => {
     const selectedPojType = constructionTypeOptions?.find(item => item.value === projTypeId);
@@ -89,7 +69,6 @@ export const ConstructionInfo = (
     setFieldValue(getFieldName('projTypeName'), projTypeName);
   }, [projTypeId]); */
 
-  console.log(constructionTypeOptions);
   return (
     <>
       <PageSubTitle label='工事情報' />

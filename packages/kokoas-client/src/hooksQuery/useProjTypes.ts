@@ -12,7 +12,7 @@ export const useProjTypes = <T>(options?: {
   select: (data: IProjtypes[]) =>  T
 }) => {
   return useQuery(
-    [AppIds.employees],
+    [AppIds.projTypes],
     getProjTypes,
     {
       ...options,

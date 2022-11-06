@@ -12,6 +12,7 @@ export * from './useInvoice';
 export * from './useProjById';
 export * from './useProjHasContract';
 export * from './useProjTypeById';
+export * from './useProjTypes';
 export * from './useSaveCustGroup';
 export * from './useSaveCustomers';
 export * from './useSaveProject';

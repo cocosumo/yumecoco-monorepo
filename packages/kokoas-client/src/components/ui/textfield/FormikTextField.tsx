@@ -30,7 +30,10 @@ interface FormikTextFieldProps extends StandardTextFieldProps {
 }
 
 /**
- * @deprecated use FormikTextFieldV2 instead
+ * @deprecated 以下を使用したほうがサクサクです。
+ *  - FormikTextFieldV2 文字列
+ *  - FormikNumberField 数字
+ *  - FormikMoneyFiekd 日本円
  */
 export const FormikTextField = (props: FormikTextFieldProps) => {
   const {

@@ -15,7 +15,6 @@ export const useResolveParams = () => {
   const projIdFromURL = getParam('projId');
   const custGroupIdFromURL = getParam('custGroupId');
 
-
   const { data: projRec } = useProjById(projIdFromURL || '');
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
 
@@ -31,7 +30,7 @@ export const useResolveParams = () => {
         envelopeStatus,
         projTypeName,
         storeId,
-        
+
       } = projRec;
 
       const cocoConst = agents.value.filter(item => {
@@ -67,18 +66,19 @@ export const useResolveParams = () => {
       const {
         storeId,
         territory,
+        $id,
+        members,
       } = custGroupRec;
       setInitForm((prev) => ({
         ...prev,
+        custGroupId: $id.value,
         storeId: storeId.value,
         territory: territory.value,
+        custName: members.value[0]?.value.customerName.value || '',
       }));
 
     }
   }, [custGroupRec]);
-
-  
-
 
   return initForm;
 };

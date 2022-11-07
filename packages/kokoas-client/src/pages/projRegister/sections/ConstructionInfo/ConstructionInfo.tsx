@@ -19,7 +19,6 @@ export const ConstructionInfo = (
     storeId: string,
     projTypeId?: string,
     territory?: string,
-
   },
 ) => {
   const { storeId, territory } = props;
@@ -29,26 +28,26 @@ export const ConstructionInfo = (
     values: {
       cocoConst1,
       recordId,
-    } } = useFormikContext<TypeOfForm>();
-
-
+    },
+    setValues,
+  } = useFormikContext<TypeOfForm>();
 
   const isReadOnly = (status as TFormStatus) === 'disabled';
 
   const { setBackdropState } = useBackdrop();
   const { data, isFetching } = useProjHasContract(recordId);
-  
+
   const { data: constructionTypeOptions } = useProjTypes<Options>({
     select: (d) => d
-      ?.map(({ 
-        label, $id, projectName, 
-      }) => ({ 
-        label: label?.value, 
-        value: $id?.value, 
-        hiddenValue: projectName?.value, 
+      ?.map(({
+        label, $id, projectName,
+      }) => ({
+        label: label?.value,
+        value: $id?.value,
+        hiddenValue: projectName?.value,
       })),
   });
-  
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -63,12 +62,6 @@ export const ConstructionInfo = (
     setBackdropState({ open: isFetching });
   }, [isFetching, setBackdropState]);
 
-  /*  useEffect(() => {
-    const selectedPojType = constructionTypeOptions?.find(item => item.value === projTypeId);
-    const projTypeName = selectedPojType?.hiddenValue || selectedPojType?.label;
-    setFieldValue(getFieldName('projTypeName'), projTypeName);
-  }, [projTypeId]); */
-
   return (
     <>
       <PageSubTitle label='工事情報' />
@@ -80,6 +73,12 @@ export const ConstructionInfo = (
           <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'}
             disabled={isReadOnly || data}
             options={constructionTypeOptions} required
+            onChange={(_, newTextVal) => {
+              setValues((prev) => ({
+                ...prev,
+                projName: `${prev.custName} ${newTextVal}`,
+              }));
+            }}
           />
         </Grid>
 

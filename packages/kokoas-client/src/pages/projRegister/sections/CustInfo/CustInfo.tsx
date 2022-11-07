@@ -1,11 +1,11 @@
 import { Button, Grid } from '@mui/material';
-import { ComponentProps, useEffect } from 'react';
+import { ComponentProps } from 'react';
 import {  OutlinedDiv } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { TypeOfForm, getFieldName, initialValues } from '../../form';
+import { TypeOfForm, getFieldName } from '../../form';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
@@ -16,15 +16,16 @@ import { LabeledInfo } from '../../../../components/ui/typographies';
 import { AGLabels } from 'types';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield/SearchCustGroup';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
-import { useFormikReset } from 'kokoas-client/src/hooks/useFormikReset';
+import { useConfirmDialog } from 'kokoas-client/src/hooks';
+import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
 
 
 
 export const CustInfo = () => {
 
-  const { status, values } = useFormikContext<TypeOfForm>();
-  const handleReset = useFormikReset<TypeOfForm>();
+  const { status, values, dirty } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
+  const { setDialogState } = useConfirmDialog();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';
 
@@ -37,8 +38,6 @@ export const CustInfo = () => {
 
   const {
     members,
-    storeId,
-    territory,
     storeName,
   } = custGroupRecord ?? {};
 
@@ -57,23 +56,6 @@ export const CustInfo = () => {
     phone1, phone1Rel,
     phone2, phone2Rel,
   } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
-
-  /* フォームリセットする */
-  useEffect(() => {
-    if (custGroupId) {
-      handleReset({
-        values: {
-          ...initialValues,
-          custGroupId: custGroupId,
-          storeId: storeId?.value || '',
-          territory: territory?.value || '',
-          projName: `${customerName?.value}様邸`,
-        },
-      });
-    }
-
-  }, [storeId?.value, territory?.value, customerName?.value, custGroupId, handleReset]);
-
 
   /* 工事名を生成する */
   /*   useEffect(()=>{
@@ -95,18 +77,41 @@ export const CustInfo = () => {
       return [...accu, { key: id, label: resolvedLabel, info: employeeName.value }];
     }, [] as Array<ComponentProps<typeof LabeledInfo> & { key: string }>) ?? [];
 
-  
+
+  const navigateToCustGroup = (newCustGroupId: string) => {
+    navigate(`${pages.projEdit}?${generateParams({
+      custGroupId: newCustGroupId,
+    })}`);
+  };
+
   return (
     <>
-      <PageSubTitle label="顧客情報" />
       <Grid item xs={12} md={4} >
-        <SearchCustGroup 
+        <SearchCustGroup
+          value={custGroupId ? {
+            id: custGroupId,
+            name: customerName?.value || '',
+            record: custGroupRecord,
+          } : undefined}
           onChange={(_, val) => {
             const { id: newCustGroupId } = val || {};
-            if (newCustGroupId) {
-              navigate(`${pages.projEdit}?${generateParams({
-                custGroupId: newCustGroupId,
-              })}`);
+            if (newCustGroupId ) {
+              if (dirty) {
+                setDialogState({
+                  open: true,
+                  title: '動作確認',
+                  content: <ContentWarning content={'顧客を変更すると工事情報がリセットされます。'} />,
+                  withNo: true,
+                  withYes: true,
+                  yesText: 'OK',
+                  noText: 'キャンセル',
+                  handleYes: () => {
+                    navigateToCustGroup(newCustGroupId);
+                  },
+                });
+              } else {
+                navigateToCustGroup(newCustGroupId);
+              }
             }
           }}
           inputProps={{
@@ -115,7 +120,7 @@ export const CustInfo = () => {
           }}
         />
       </Grid>
-
+      <PageSubTitle label="顧客情報" />
       <Grid item xs={12}>
 
         {custGroupId &&

@@ -16,11 +16,6 @@ export const FormConstruction  = () => {
 
   const {
     status,
-    isValid,
-    dirty,
-    isSubmitting,
-    setValues,
-    setStatus,
     submitForm,
     values,
   } = useFormikContext<TypeOfForm>();
@@ -36,15 +31,6 @@ export const FormConstruction  = () => {
   const isEditMode = window.location.href.includes('edit');
   const isAbleToSave = (status as TFormStatus) === '';
   const isFormDisabled = (status as TFormStatus) === 'disabled';
-
-  console.log(dirty, values);
-
-  /*   useEffect(()=>{
-    if (!isValid && !isSubmitting) {
-      setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
-    }
-  }, [isSubmitting, isValid, setSnackState]); */
-
 
   return (
 

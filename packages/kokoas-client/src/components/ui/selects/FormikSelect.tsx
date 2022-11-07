@@ -12,7 +12,7 @@ export interface FormikSelecProps {
   helperText?: string
   options?: Options,
   disabled?: boolean,
-  onChange?: (e: SelectChangeEvent) => void
+  onChange?: (e: SelectChangeEvent, label: string) => void
   variant?: 'standard' | 'outlined' | 'filled'
 }
 
@@ -26,11 +26,13 @@ export function FormikSelect(props : FormikSelecProps) {
     disabled = false,
     onChange,
     variant = 'outlined',
+    name,
   } = props;
+
   const [
     field,
     meta,
-  ] = useField(props);
+  ] = useField(name);
 
   const {
     touched,
@@ -69,12 +71,12 @@ export function FormikSelect(props : FormikSelecProps) {
         required={required}
         value={isExistInOptions ? field.value ?? '' : ''}
         disabled={disabled}
-        onChange={
-        (e)=>{
-          if (onChange) onChange(e);
-          field.onChange(e);
-        }
-      }
+        onChange={(e)=>{
+          const newVal = e.target.value;
+          const newValText = options?.find((option) => option.value === newVal)?.label;
+          if (onChange) onChange(e, newValText?.toString() || '');
+          field.onChange(newVal);
+        }}
       >
         {optionMenus}
 

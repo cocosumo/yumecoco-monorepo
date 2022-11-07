@@ -30,18 +30,18 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
 
 
   const [inputVal, setInputVal] = useState('');
-  const [fieldVal, setFieldVal] = useState<SearchOption | null>(null);
+  const [fieldVal, setFieldVal] = useState<typeof value>(value);
   const [options, setOptions] = useState<Array<SearchOption>>([]);
 
   const debouncedInput = useDebounce(inputVal, 1000);
 
-  const { 
-    data: newOptions, 
+  const {
+    data: newOptions,
     isFetching,
   } = useSearchCustGroup<SearchOption[]>(
     {
       easySearch: debouncedInput,
-    }, 
+    },
     {
       select: (d) => d.map((record)=>{
         const { $id, storeName, 作成日時, members, custNames } = record;
@@ -55,7 +55,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
           secondaryLabel: format(Date.parse(作成日時.value), 'yyyy-MM-dd' ),
           record: record,
         };
-        
+
       }),
     });
 
@@ -68,7 +68,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
   return (
     <Autocomplete
       {...autoCompleteProps}
-      value={value ?? fieldVal}
+      value={value ?? fieldVal ?? null}
       options={options}
       onInputChange={onInputChange ? onInputChange : (_, val) => {
         setInputVal(val);

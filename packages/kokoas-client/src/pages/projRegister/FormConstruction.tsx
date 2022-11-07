@@ -18,6 +18,7 @@ export const FormConstruction  = () => {
     status,
     submitForm,
     values,
+    dirty,
   } = useFormikContext<TypeOfForm>();
 
   const {
@@ -25,11 +26,9 @@ export const FormConstruction  = () => {
     storeId,
     territory,
     projTypeId,
-    envelopeStatus,
   } = values;
 
   const isEditMode = window.location.href.includes('edit');
-  const isAbleToSave = (status as TFormStatus) === '';
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
   return (
@@ -52,9 +51,9 @@ export const FormConstruction  = () => {
           />
 
 
-          {isEditMode && !envelopeStatus && <StatusControls />}
+          {isEditMode && <StatusControls />}
         </Grid>
-        {isAbleToSave && <FabSave onClick={submitForm} url="project" />}
+        {!!projId && dirty && <FabSave onClick={submitForm} url="project" />}
       </MainContainer>
 
       {isEditMode && <ProjectShortCuts />}

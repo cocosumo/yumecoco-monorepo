@@ -1,14 +1,14 @@
 import { Formik } from 'formik';
 import { initialValues } from './form';
-import { FormPaymentInvoice } from './FormPaymentInvoice';
+import { FormInvoice } from './FormInvoice';
 import { validationSchema } from './formValidation';
-import { useSubmitPaymentInvoice } from './hooks/useSubmitPaymentInvoice';
+import { useSubmitInvoice } from './hooks/useSubmitInvoice';
 
 
 
-export const FormikPaymentInvoice = () => {
+export const FormikInvoice = () => {
 
-  const { onSubmit } = useSubmitPaymentInvoice();
+  const { onSubmit } = useSubmitInvoice();
 
   return (
     <Formik
@@ -16,7 +16,7 @@ export const FormikPaymentInvoice = () => {
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      <FormPaymentInvoice />
+      <FormInvoice />
     </Formik>
   );
 };

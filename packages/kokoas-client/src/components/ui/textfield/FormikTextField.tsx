@@ -2,9 +2,7 @@ import { InputAdornment, StandardTextFieldProps, TextField } from '@mui/material
 import { useField } from 'formik';
 import { FocusEvent, ChangeEvent, HTMLInputTypeAttribute } from 'react';
 
-/**
- * @deprecated use FormikTextFieldV2 instead
- */
+
 interface FormikTextFieldProps extends StandardTextFieldProps {
   name: string,
   label: string,
@@ -31,6 +29,9 @@ interface FormikTextFieldProps extends StandardTextFieldProps {
   align?: 'left' | 'right'
 }
 
+/**
+ * @deprecated use FormikTextFieldV2 instead
+ */
 export const FormikTextField = (props: FormikTextFieldProps) => {
   const {
     helperText, label, placeholder, required,

@@ -1,91 +1,105 @@
+import { useIsFetching } from '@tanstack/react-query';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
 import { getConstRecord } from '../../../api/kintone/projects';
-import { getCustGroup } from '../../../api/kintone/custgroups/GET';
-import { getProjTypeById } from '../../../api/kintone/projectType/GET';
 import { useSnackBar } from '../../../hooks';
 import { initialValues, TypeOfForm } from '../form';
+import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { useProjTypeById } from 'kokoas-client/src/hooksQuery/useProjTypeById';
 
 export const useUpdateProjectId = () => {
   const { values, dirty, setValues, setTouched } = useFormikContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
   const { projId } = values;
   const [isInitial, setIsInitial] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const isFetching = useIsFetching();
 
-  const handleStartLoading = () => setLoading(true);
+  const { 
+    data: projRecord, 
+  } = useProjById(projId);
+  const { projTypeId } = projRecord || {};
 
-  useEffect(
-    ()=>{
-      if (projId) {
-        setIsInitial(false);
-        setLoading(true);
-        getConstRecord(projId)
-          .then(async ({
-            projName,
-            projTypeName,
-            projTypeId,
-            custGroupId,
-          }) => {
+  const {
+    data: projTypeRecord,
+  } = useProjTypeById(projTypeId?.value || '');
 
-            const [
-              custGroup,
-              { profitRate },
-            ] = await Promise.all([
-              custGroupId?.value ? getCustGroup(custGroupId.value) : undefined,
-              getProjTypeById(projTypeId.value),
-            ]);
 
-            const mainCustName = custGroup?.members?.value[0].value.customerName.value ?? '';
+  useEffect(() => {
 
-            setTouched({});
-            setValues((prev) => {
+    if ( projRecord ) {
+      setIsInitial(false);
 
-              const { estimateId } = prev;
+      getConstRecord(projId)
+        .then(async ({
+          projName,
+          projTypeName,
+          custNames,
+          custGroupId,
+        }) => {
 
-              return produce(prev, draft => {
-                draft.projTypeProfit = !estimateId ? +profitRate.value : initialValues.projTypeProfit;
-                draft.custGroupId = custGroupId.value;
-                draft.projName = projName.value;
-                draft.projTypeName = projTypeName.value;
-                draft.projTypeId = projTypeId.value;
-                draft.projTypeProfitLatest = +profitRate.value;
-                draft.customerName = mainCustName;
-              });
+
+          setTouched({});
+          setValues((prev) => {
+
+
+            return produce(prev, draft => {
+              draft.custGroupId = custGroupId.value;
+              draft.projName = projName.value;
+              draft.projTypeName = projTypeName.value;
+
+              draft.customerName = custNames.value;
             });
-            setLoading(false);
-
-          })
-          .catch((err) => {
-            setSnackState({
-              open: true,
-              severity: 'error',
-              message: `レコード取得が失敗しました。管理者にご連絡ください。useUpdateProjectId ${err.message}`,
-            });
-            setLoading(false);
           });
 
-      } else if (!projId && dirty) {
-        setLoading(false);
-        setValues((prev) => produce(prev, draft => {
-          draft.projId = initialValues.projId;
-          draft.projName = initialValues.customerName;
-          draft.projTypeName = initialValues.projTypeName;
-          draft.projTypeProfit = initialValues.projTypeProfit;
-          draft.customerName = initialValues.customerName;
-          draft.createdDate = initialValues.createdDate;
-          draft.estimateId = initialValues.estimateId;
-        }));
-      }
 
-    },
-    [projId],
-  );
+        })
+        .catch((err) => {
+          setSnackState({
+            open: true,
+            severity: 'error',
+            message: `レコード取得が失敗しました。管理者にご連絡ください。useUpdateProjectId ${err.message}`,
+          });
+
+        });
+
+    } else if (!projId && dirty) {
+
+      setValues((prev) => produce(prev, draft => {
+        draft.projId = initialValues.projId;
+        draft.projName = initialValues.customerName;
+        draft.projTypeName = initialValues.projTypeName;
+        draft.projTypeProfit = initialValues.projTypeProfit;
+        draft.customerName = initialValues.customerName;
+        draft.createdDate = initialValues.createdDate;
+        draft.estimateId = initialValues.estimateId;
+      }));
+    }
+    
+
+  }, [projRecord, projId, dirty, setValues,  setSnackState, setTouched]);
+
+  useEffect(() => {
+    if (projRecord && projTypeRecord) {
+      const {
+        profitRate,
+        $id,
+      } = projTypeRecord;
+      setValues(prev => {
+        const { estimateId } = prev;
+        return {
+          ...prev,
+          projTypeProfit: !estimateId ? +profitRate.value : initialValues.projTypeProfit,
+          projTypeProfitLatest : +profitRate.value,
+          projTypeId: $id.value,
+        };
+      });
+    }
+
+  }, [projTypeRecord, projRecord, setValues]);
 
   return {
-    isLoading: loading || isInitial,
-    handleStartLoading,
+    isLoading: isInitial || !!isFetching,
     values,
   };
 };

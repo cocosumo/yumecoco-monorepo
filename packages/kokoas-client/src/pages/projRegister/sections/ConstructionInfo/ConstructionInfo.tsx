@@ -27,7 +27,7 @@ export const ConstructionInfo = (
     status,
     values: {
       cocoConst1,
-      recordId,
+      projId,
     },
     setValues,
   } = useFormikContext<TypeOfForm>();
@@ -35,7 +35,7 @@ export const ConstructionInfo = (
   const isReadOnly = (status as TFormStatus) === 'disabled';
 
   const { setBackdropState } = useBackdrop();
-  const { data, isFetching } = useProjHasContract(recordId);
+  const { data, isFetching } = useProjHasContract(projId);
 
   const { data: constructionTypeOptions } = useProjTypes<Options>({
     select: (d) => d
@@ -95,7 +95,7 @@ export const ConstructionInfo = (
               <ContractDetails
                 open={open}
                 onClose={handleClose}
-                projId={recordId ?? ''}
+                projId={projId ?? ''}
               />
             </>}
         </Grid>

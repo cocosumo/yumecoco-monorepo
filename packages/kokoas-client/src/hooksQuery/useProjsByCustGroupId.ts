@@ -3,14 +3,14 @@ import { getProjsByCustGroupId } from 'api-kintone';
 import { AppIds } from 'config';
 import { IProjects } from 'types';
 
-export const useProjByCustGroupId = <T>(
+export const useProjsByCustGroupId = <T = IProjects[]>(
   custGroupId: string,
   options?: {
     select: (data: IProjects[]) => T
   },
 ) => {
   return useQuery(
-    [AppIds.custGroups, { custGroupId }],
+    [AppIds.projects, { custGroupId }],
     () => getProjsByCustGroupId(custGroupId),
     {
       enabled: !!custGroupId,

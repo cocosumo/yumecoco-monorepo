@@ -21,7 +21,7 @@ export const FormConstruction  = () => {
   } = useFormikContext<TypeOfForm>();
 
   const {
-    recordId,
+    projId,
     storeId,
     territory,
     projTypeId,
@@ -42,7 +42,7 @@ export const FormConstruction  = () => {
         <Grid container item xl={8}
           spacing={2} mb={12}
         >
-          <UneditableInfo isVisible={isFormDisabled} projId={recordId} />
+          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <CustInfo />
           <ConstructionLocation />
           <ConstructionInfo

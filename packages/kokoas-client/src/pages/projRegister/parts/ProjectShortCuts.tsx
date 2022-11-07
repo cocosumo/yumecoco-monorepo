@@ -6,12 +6,12 @@ import { pages } from '../../Router';
 import { TypeOfForm } from '../form';
 
 export const ProjectShortCuts = () => {
-  const { values: { custGroupId, recordId } } = useFormikContext<TypeOfForm>();
+  const { values: { custGroupId, projId } } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
   const urlParams = generateParams({
     ...getParams(),
-    projId: recordId,
+    projId: projId,
     custGroupId: custGroupId,
   });
 

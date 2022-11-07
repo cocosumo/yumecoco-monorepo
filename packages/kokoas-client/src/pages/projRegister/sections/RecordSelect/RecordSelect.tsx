@@ -25,11 +25,19 @@ export const RecordSelect = () => {
 
   const { setDialogState } = useConfirmDialog();
   const navigate = useNavigate();
-  const navigateToCustGroup = (newCustGroupId: string) => {
-    navigate(`${pages.projEdit}?${generateParams({
-      custGroupId: newCustGroupId,
-    })}`);
+
+  const navigateToCustGroup = (newCustGroupId?: string) => {
+    if (newCustGroupId) {
+      navigate(`${pages.projEdit}?${generateParams({
+        custGroupId: newCustGroupId,
+      })}`);
+    } else {
+      navigate(`${pages.projReg}`);
+    }
+
   };
+
+  console.log('projId', projId);
 
   return (
     <Grid
@@ -51,24 +59,24 @@ export const RecordSelect = () => {
           } : undefined}
           onChange={(_, val) => {
             const { id: newCustGroupId } = val || {};
-            if (newCustGroupId ) {
-              if (dirty) {
-                setDialogState({
-                  open: true,
-                  title: '動作確認',
-                  content: <ContentWarning content={'顧客を変更すると工事情報がリセットされます。'} />,
-                  withNo: true,
-                  withYes: true,
-                  yesText: 'OK',
-                  noText: 'キャンセル',
-                  handleYes: () => {
-                    navigateToCustGroup(newCustGroupId);
-                  },
-                });
-              } else {
-                navigateToCustGroup(newCustGroupId);
-              }
+
+            if (dirty) {
+              setDialogState({
+                open: true,
+                title: '動作確認',
+                content: <ContentWarning content={'顧客を変更すると工事情報がリセットされます。'} />,
+                withNo: true,
+                withYes: true,
+                yesText: 'OK',
+                noText: 'キャンセル',
+                handleYes: () => {
+                  navigateToCustGroup(newCustGroupId);
+                },
+              });
+            } else {
+              navigateToCustGroup(newCustGroupId);
             }
+
           }}
           inputProps={{
             label: 'お客検索',

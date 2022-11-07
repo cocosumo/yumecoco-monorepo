@@ -33,12 +33,12 @@ export const FormikConstruction  = () => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        const { recordId } = values;
+        const { projId } = values;
         const kintoneRecord = convertToKintone(values);
 
         const resp = await mutateAsync({
           record: kintoneRecord,
-          projId: recordId,
+          projId,
         });
 
         setDialogState({
@@ -52,7 +52,7 @@ export const FormikConstruction  = () => {
           projId: resp.id,
         })}`);
 
- 
+
       }}
     >
       <FormConstruction />

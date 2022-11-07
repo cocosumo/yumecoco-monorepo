@@ -1,8 +1,9 @@
 
 
+import { parseISO, format } from 'date-fns';
 import { useProjById, useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
-import { BuildingType, RecordCancelStatus, RecordStatus, TAgents, TEnvelopeStatus } from 'types';
+import { BuildingType, RecordCancelStatus, RecordStatus, TAgents } from 'types';
 import { getParam } from '../../../helpers/url';
 import { TypeOfForm, initialValues } from '../form';
 
@@ -27,10 +28,9 @@ export const useResolveParams = () => {
         buildingType, isChkAddressKari, agents, addressKari,
         status,
         cancelStatus,
-        envelopeStatus,
         projTypeName,
         storeId,
-
+        作成日時: createTime,
       } = projRec;
 
       const cocoConst = agents.value.filter(item => {
@@ -39,24 +39,24 @@ export const useResolveParams = () => {
 
       setInitForm(prev => ({
         ...prev,
-        recordId: $id.value,
-        custGroupId: custGroupId.value,
-        projTypeId: projTypeId.value,
-        projTypeName: projTypeName.value,
-        projName: projName.value,
-        isAgentConfirmed: Boolean(+isAgentConfirmed.value),
-        postal: postal.value,
+        addressKari: addressKari.value,
         address1: address1.value,
         address2: address2.value,
         buildingType: buildingType.value as BuildingType,
-        isChkAddressKari: Boolean(+isChkAddressKari.value),
+        cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
         cocoConst1: cocoConst?.[0],
         cocoConst2: cocoConst?.[1],
-        addressKari: addressKari.value,
+        createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
+        custGroupId: custGroupId.value,
+        isAgentConfirmed: Boolean(+isAgentConfirmed.value),
+        isChkAddressKari: Boolean(+isChkAddressKari.value),
+        projId: $id.value,
+        projTypeId: projTypeId.value,
+        projTypeName: projTypeName.value,
+        projName: projName.value,
+        postal: postal.value,
         storeId: storeId.value,
         status: (status?.value as RecordStatus) || '追客中',
-        envelopeStatus: envelopeStatus.value as TEnvelopeStatus,
-        cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
       }));
     }
   }, [projRec]);

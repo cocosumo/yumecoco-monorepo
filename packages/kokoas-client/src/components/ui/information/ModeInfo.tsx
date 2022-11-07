@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 
-import { LabeledInfo } from '../typographies';
+import { Caption } from '../typographies';
 
 export const ModeInfo = (
   {
@@ -14,6 +14,9 @@ export const ModeInfo = (
     dateStr: string,
   },
 ) => {
+
+
+
   return (
     <Stack direction={'column'}>
       <Typography whiteSpace={'nowrap'}>
@@ -28,8 +31,8 @@ export const ModeInfo = (
           )
           : (
             <Stack direction="row" spacing={1}>
-              <LabeledInfo label='id' info={recordId} />
-              <LabeledInfo label='作成日' info={dateStr} />
+              <Caption text={`id: ${recordId}`} />
+              <Caption text={`作成日: ${dateStr}`} />
             </Stack>
           )
       }

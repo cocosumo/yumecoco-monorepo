@@ -22,7 +22,7 @@ export const SelectProjInCustGroupContent = ({
 
     if (!projRecs?.length) {
       return (
-        <ContentWarning content={'見積もりはまだ作成されていません'} direction="row" />
+        <ContentWarning content={'工事情報はまだ作成されていません'} direction="row" />
       );
     }
 
@@ -53,6 +53,7 @@ export const SelectProjInCustGroupContent = ({
             direction="row" 
             justifyContent="space-between"
             width={'100%'}
+            spacing={2}
           >
             <Stack>
               <Caption text={`工事番号：${projId.value} `} />
@@ -60,8 +61,6 @@ export const SelectProjInCustGroupContent = ({
                 fontSize={16}
                 color={grey[800]}
                 fontWeight={'bold'}
-                component="span"
-                whiteSpace={'nowrap'}
               >
                 {projName.value}
               </Typography>
@@ -87,7 +86,7 @@ export const SelectProjInCustGroupContent = ({
   ]);
 
   return (
-    <DialogContent dividers>
+    <DialogContent dividers sx={{ px: 0 }}>
       <List >
         {options}
       </List>

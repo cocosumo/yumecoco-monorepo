@@ -49,14 +49,14 @@ export const ConstructionLocation = () => {
           buttonChildren={'検索'}
           buttonIcon={<TravelExploreIcon />}
           custGroupId={custGroupId} 
-          onChange={(copy) => {
+          onChange={useCallback((copy) => {
             setValues(prev => ({
               ...prev,
               postal: copy.postal.value,
               address1: copy.address1.value,
               address2: copy.address2.value,
             }));
-          }}
+          }, [setValues])}
         />
         <FormHelperText id="my-helper-text">
           過去の工事情報から参照する

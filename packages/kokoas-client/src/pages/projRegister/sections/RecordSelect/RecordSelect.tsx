@@ -6,8 +6,9 @@ import { ModeInfo } from 'kokoas-client/src/components/ui/information/ModeInfo';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield/SearchCustGroup';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
+import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { pages } from 'kokoas-client/src/pages/Router';
-import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 import { getFieldName, TypeOfForm } from '../../form';
 
 export const RecordSelect = () => {
@@ -24,7 +25,7 @@ export const RecordSelect = () => {
   } = values;
 
   const { setDialogState } = useConfirmDialog();
-  const navigate = useNavigate();
+  const navigate = useStableNavigate();
 
   const navigateToCustGroup = (newCustGroupId?: string) => {
 
@@ -100,11 +101,11 @@ export const RecordSelect = () => {
       >
         <SelectProjectInCustGroup 
           custGroupId={custGroupId} 
-          onChange={({  $id }) => {
+          onChange={useCallback(({  $id }) => {
             navigate(`${pages.projEdit}?${generateParams({
               projId: $id.value,
             })}`);
-          }}
+          }, [navigate])}
         />
       </Grid>
     </Grid>

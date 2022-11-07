@@ -28,7 +28,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
     ...autoCompleteProps
   } = props;
 
-
+  const [hadFocus, setHadFocus] = useState(false);
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<typeof value>(value);
   const [options, setOptions] = useState<Array<SearchOption>>([]);
@@ -43,6 +43,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
       easySearch: debouncedInput,
     },
     {
+      enabled: hadFocus,
       select: (d) => d.map((record)=>{
         const { $id, storeName, 作成日時, members, custNames } = record;
         const mainCust = members.value[0].value;
@@ -70,6 +71,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
       {...autoCompleteProps}
       value={value ?? fieldVal ?? null}
       options={options}
+      onFocus={() => setHadFocus(true)}
       onInputChange={onInputChange ? onInputChange : (_, val) => {
         setInputVal(val);
       }}

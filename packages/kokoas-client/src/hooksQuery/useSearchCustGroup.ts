@@ -11,8 +11,14 @@ export const useSearchCustGroup = <T = unknown>(
   search: Parameters<typeof searchCustGroups>[0],
   options?: {
     select: (data: ICustgroups[]) => T
+    enabled?: boolean
   },
 ) => {
+
+  const {
+    enabled = true,
+    ...otherOptions
+  } = options || {}; 
 
   const definedSearch = Object.values(search).some(Boolean);
 
@@ -20,8 +26,8 @@ export const useSearchCustGroup = <T = unknown>(
     [AppIds.custGroups, search],
     () => searchCustGroups(search),
     {
-      enabled: !!definedSearch,
-      ...options,
+      enabled: enabled && !!definedSearch,
+      ...otherOptions,
     },
   );
 };

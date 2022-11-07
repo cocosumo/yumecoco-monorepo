@@ -18,6 +18,7 @@ export const useResolveParams = () => {
   const custGroupIdFromURL = getParam('custGroupId');
 
   const { data: projRec } = useProjById(projIdFromURL || '');
+
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
 
 

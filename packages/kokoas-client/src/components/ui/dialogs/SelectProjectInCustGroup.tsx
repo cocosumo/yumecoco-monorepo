@@ -40,7 +40,7 @@ export const SelectProjectInCustGroup = ({
         onClick={handleOpen}
         disabled={disabled}
         startIcon={startIcon}
-
+      
       >
         {children}
       </Button>
@@ -48,7 +48,7 @@ export const SelectProjectInCustGroup = ({
       <Dialog
         open={open}
         onClose={handleClose}
-        fullWidth
+        maxWidth={'md'}
       >
         <DialogTitle>
           {dialogTitle}

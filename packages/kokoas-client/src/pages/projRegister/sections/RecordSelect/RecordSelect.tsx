@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
-import { SelectProjects } from 'kokoas-client/src/components/ui/dialogs/SelectProjects';
+import { SelectProjectInCustGroup } from 'kokoas-client/src/components/ui/dialogs/SelectProjectInCustGroup';
 import { ModeInfo } from 'kokoas-client/src/components/ui/information/ModeInfo';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield/SearchCustGroup';
 import { generateParams } from 'kokoas-client/src/helpers/url';
@@ -98,7 +98,7 @@ export const RecordSelect = () => {
         md={4}
         justifyContent={'flex-end'}
       >
-        <SelectProjects 
+        <SelectProjectInCustGroup 
           custGroupId={custGroupId} 
           onChange={({  $id }) => {
             navigate(`${pages.projEdit}?${generateParams({

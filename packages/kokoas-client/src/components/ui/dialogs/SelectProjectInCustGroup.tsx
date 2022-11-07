@@ -3,7 +3,7 @@ import { ReactNode, useCallback, useState } from 'react';
 import { IProjects } from 'types';
 import { SelectProjectsContent } from './SelectProjectsContent';
 
-export const SelectProjects = ({
+export const SelectProjectInCustGroup = ({
   custGroupId,
   onChange,
   buttonProps,

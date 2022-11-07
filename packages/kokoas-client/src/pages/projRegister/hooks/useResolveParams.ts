@@ -31,19 +31,16 @@ export const useResolveParams = () => {
           ...convertCustGroupToForm(custGroupRec),
         });
       }
-    }
 
-
-    if (custGroupIdFromURL && !projIdFromURL) {
+    } else if (custGroupIdFromURL && !projIdFromURL) {
       if (custGroupRec) {
         setInitForm({
           ...initialValues,
           ...convertCustGroupToForm(custGroupRec),
         });
       }
-    }
 
-    if (!custGroupIdFromURL && !projIdFromURL) {
+    } else if (!custGroupIdFromURL && !projIdFromURL) {
       setInitForm(initialValues);
     }
   }, [projRec, custGroupRec, projIdFromURL, custGroupIdFromURL ]);

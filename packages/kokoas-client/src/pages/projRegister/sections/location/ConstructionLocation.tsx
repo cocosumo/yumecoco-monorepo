@@ -8,7 +8,7 @@ import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
 import { useCallback } from 'react';
-import { SelectProjects } from 'kokoas-client/src/components/ui/dialogs/SelectProjects';
+import { SelectProjectInCustGroup } from 'kokoas-client/src/components/ui/dialogs/SelectProjectInCustGroup';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 export const ConstructionLocation = () => {
@@ -44,7 +44,7 @@ export const ConstructionLocation = () => {
     <>
       <PageSubTitle label="工事場所情報" />
       <Grid item >
-        <SelectProjects 
+        <SelectProjectInCustGroup 
           dialogTitle={'過去プロジェクトの工事場所をコピーします。'}
           buttonChildren={'検索'}
           buttonIcon={<TravelExploreIcon />}

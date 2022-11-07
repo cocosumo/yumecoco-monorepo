@@ -33,6 +33,9 @@ export const saveRecord = async (
     } | undefined>
   },
 ) => {
+
+
+
   const KintoneRecord = await ktRecord();
 
   const {
@@ -41,6 +44,8 @@ export const saveRecord = async (
     record,
     revision,
   } = params;
+
+  console.log( recordId, app);
 
   /** The actual saving process */
   if (recordId) {

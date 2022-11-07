@@ -42,8 +42,6 @@ export const FormikConstruction  = () => {
           projId,
         });
 
-        console.log(resp);
-
         setDialogState({
           title: '次へ進む',
           content: <NextStepChoices recordId={resp?.id} />,

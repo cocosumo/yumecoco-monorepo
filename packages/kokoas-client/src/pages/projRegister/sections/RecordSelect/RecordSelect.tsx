@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
+import { SelectProjects } from 'kokoas-client/src/components/ui/dialogs/SelectProjects';
 import { ModeInfo } from 'kokoas-client/src/components/ui/information/ModeInfo';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield/SearchCustGroup';
 import { generateParams } from 'kokoas-client/src/helpers/url';
@@ -8,7 +9,6 @@ import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { useNavigate } from 'react-router-dom';
 import { getFieldName, TypeOfForm } from '../../form';
-import { SelectProjects } from './SelectProjects';
 
 export const RecordSelect = () => {
   const {
@@ -98,7 +98,14 @@ export const RecordSelect = () => {
         md={4}
         justifyContent={'flex-end'}
       >
-        <SelectProjects custGroupId={custGroupId} />
+        <SelectProjects 
+          custGroupId={custGroupId} 
+          onChange={({  $id }) => {
+            navigate(`${pages.projEdit}?${generateParams({
+              projId: $id.value,
+            })}`);
+          }}
+        />
       </Grid>
     </Grid>
   );

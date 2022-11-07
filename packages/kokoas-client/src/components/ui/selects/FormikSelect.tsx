@@ -75,7 +75,7 @@ export function FormikSelect(props : FormikSelecProps) {
           const newVal = e.target.value;
           const newValText = options?.find((option) => option.value === newVal)?.label;
           if (onChange) onChange(e, newValText?.toString() || '');
-          field.onChange(newVal);
+          field.onChange(e);
         }}
       >
         {optionMenus}

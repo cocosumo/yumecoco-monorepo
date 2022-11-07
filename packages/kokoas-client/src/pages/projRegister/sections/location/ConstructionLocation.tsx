@@ -1,14 +1,15 @@
 import { PageSubTitle } from '../../../../components/ui/labels/PageSubTitle';
-import { Grid, debounce } from '@mui/material';
+import { Grid, debounce, FormHelperText } from '@mui/material';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
-import { BuildingType, ConstructionSearch } from './parts';
+import { BuildingType } from './BuildingType';
 import { FormikTextField } from '../../../../components/ui/textfield';
 
 import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
 import { useCallback } from 'react';
-
+import { SelectProjects } from 'kokoas-client/src/components/ui/dialogs/SelectProjects';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 export const ConstructionLocation = () => {
 
@@ -20,6 +21,7 @@ export const ConstructionLocation = () => {
       isChkAddressKari,
     },
     setFieldValue,
+    setValues,
   } = useFormikContext<typeof initialValues>();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';
@@ -41,8 +43,29 @@ export const ConstructionLocation = () => {
   return (
     <>
       <PageSubTitle label="工事場所情報" />
-      { !isReadOnly && <ConstructionSearch disabled={!custGroupId} />}
+      <Grid item >
+        <SelectProjects 
+          dialogTitle={'過去プロジェクトの工事場所をコピーします。'}
+          buttonChildren={'検索'}
+          buttonIcon={<TravelExploreIcon />}
+          custGroupId={custGroupId} 
+          onChange={(copy) => {
+            setValues(prev => ({
+              ...prev,
+              postal: copy.postal.value,
+              address1: copy.address1.value,
+              address2: copy.address2.value,
+            }));
+          }}
+        />
+        <FormHelperText id="my-helper-text">
+          過去の工事情報から参照する
+        </FormHelperText>
+      </Grid>
 
+      {/* Offset. Remove when migrated to Grid2 */}
+      <Grid item xs={12} /> 
+  
       <Grid item xs={12} md={3}>
         <FormikTextField
           name="postal"

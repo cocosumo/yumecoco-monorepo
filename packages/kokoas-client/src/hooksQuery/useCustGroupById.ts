@@ -7,7 +7,7 @@ import { getCustGroupById } from 'api-kintone';
  */
 export const useCustGroupById = (custGroupId : string) => {
   return useQuery(
-    [APPIDS.custGroup, custGroupId],
+    [APPIDS.custGroup, { custGroupId }],
     () => getCustGroupById(custGroupId),
     {
       enabled: !!custGroupId,

@@ -3,6 +3,7 @@ import { grey } from '@mui/material/colors';
 import { Stack } from '@mui/system';
 import { format,  parseISO } from 'date-fns';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
+import { Caption } from 'kokoas-client/src/components/ui/typographies';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useProjsByCustGroupId } from 'kokoas-client/src/hooksQuery/useProjsByCustGroupId';
@@ -65,15 +66,9 @@ export const SelectProjectsContent = ({
             </Stack>
 
             <Stack width={'50%'}>
-              <Typography variant="caption">
-                {`ゆめてつAG：${yumeAGNames.value}`}
-              </Typography>
-              <Typography variant="caption">
-                {`ここすも担当者：${cocoAGNames.value}`}
-              </Typography>
-              <Typography variant="caption">
-                {`工事担当者：${cocoConstNames.value}`}
-              </Typography>
+              <Caption text={`ゆめてつAG：${yumeAGNames.value}`} />
+              <Caption text={`ここすも担当者：${cocoAGNames.value}`} />
+              <Caption text={`工事担当者：${cocoConstNames.value}`} />
             </Stack>
           </Stack>
         </ListItemButton>

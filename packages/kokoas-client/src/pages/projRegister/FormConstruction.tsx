@@ -31,6 +31,7 @@ export const FormConstruction  = () => {
   const isEditMode = window.location.href.includes('edit');
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
+  console.log('sdsdsd', projId, dirty );
   return (
 
     <Form noValidate>
@@ -53,7 +54,7 @@ export const FormConstruction  = () => {
 
           {isEditMode && <StatusControls />}
         </Grid>
-        {!!projId && dirty && <FabSave onClick={submitForm} url="project" />}
+        <FabSave onClick={submitForm} url="project" appear={!!projId && dirty} />
       </MainContainer>
 
       {isEditMode && <ProjectShortCuts />}

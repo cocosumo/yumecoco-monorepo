@@ -27,6 +27,7 @@ export const RecordSelect = () => {
   const navigate = useNavigate();
 
   const navigateToCustGroup = (newCustGroupId?: string) => {
+
     if (newCustGroupId) {
       navigate(`${pages.projEdit}?${generateParams({
         custGroupId: newCustGroupId,
@@ -34,10 +35,7 @@ export const RecordSelect = () => {
     } else {
       navigate(`${pages.projReg}`);
     }
-
   };
-
-  console.log('projId', projId);
 
   return (
     <Grid
@@ -59,7 +57,6 @@ export const RecordSelect = () => {
           } : undefined}
           onChange={(_, val) => {
             const { id: newCustGroupId } = val || {};
-
             if (dirty) {
               setDialogState({
                 open: true,

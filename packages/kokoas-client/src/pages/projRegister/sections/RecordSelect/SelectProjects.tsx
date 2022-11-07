@@ -25,8 +25,6 @@ export const SelectProjects = ({
       <Dialog
         open={open}
         onClose={handleClose}
-        maxWidth={'sm'}
-        fullWidth
       >
         <DialogTitle>
           編集する工事を選択してください

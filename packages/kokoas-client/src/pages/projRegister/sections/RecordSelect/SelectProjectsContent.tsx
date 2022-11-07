@@ -2,6 +2,7 @@ import { DialogContent, List, ListItemButton, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Stack } from '@mui/system';
 import { format,  parseISO } from 'date-fns';
+import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useProjsByCustGroupId } from 'kokoas-client/src/hooksQuery/useProjsByCustGroupId';
@@ -19,6 +20,12 @@ export const SelectProjectsContent = ({
   const { data: projRecs } = useProjsByCustGroupId(custGroupId || '');
 
   const options = useMemo(() => {
+
+    if (!projRecs?.length) {
+      return (
+        <ContentWarning content={'見積もりはまだ作成されていません'} direction="row" />
+      );
+    }
 
     return projRecs?.map(({
       $id: projId,
@@ -74,7 +81,6 @@ export const SelectProjectsContent = ({
     });
 
   },
-
   [
     projRecs,
     handleClose,

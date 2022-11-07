@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { APPIDS } from '../api/kintone';
-import { getEstimatesByProjId } from '../api/kintone/estimates/getEstimatesByProjId';
+import { AppIds } from 'config';
+import { getEstimatesByProjId } from 'api-kintone';
 
 /**
  * 工事番号で契約済み見積もりが存在するかを取得する
@@ -10,7 +10,7 @@ export const useProjHasContract = (
 ) => {
 
   return useQuery(
-    [APPIDS.projectEstimate, projId],
+    [AppIds.projEstimates, { projId }],
     () =>  getEstimatesByProjId(projId),
     {
       enabled: !!projId,

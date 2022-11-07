@@ -1,2 +1,1 @@
-export * from './appIds.js';
-
+export * from './appIds';

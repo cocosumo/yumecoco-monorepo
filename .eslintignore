@@ -1,4 +1,4 @@
-.eslintrc.cjs
+.eslintrc.*js
 webpack.config.js
 jest
 jest.*

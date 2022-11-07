@@ -1,37 +1,18 @@
 {
   "name": "api-kintone",
   "version": "0.0.0",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": "./dist/index.js"
-  },
   "scripts": {
     "build": "tsc",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "jest",
     "authlink": "npm run build && node dist/scripts/authLink.js",
     "get:refreshtoken": "ts-node-esm scripts/getRefreshToken.ts",
     "get:newtoken": "ts-node-esm scripts/getNewAccessToken.ts"
   },
   "dependencies": {
-    "babel-jest": "^29.2.2",
     "config": "*",
-    "helpers": "*"
+    "helpers": "*",
+    "types": "*",
+    "utils-jest": "*"
   },
-  "jest": {
-    "extensionsToTreatAsEsm": [".ts"],
-    "moduleNameMapper": {
-      "^(\\.{1,2}/.*)\\.js$": "$1"
-    },
-    "transform": {
-      "^.+\\.tsx?$": [
-        "ts-jest",
-        {
-          "useESM": true
-        }
-      ]
-    },
-    "transformIgnorePatterns": [
-      "/packages/(?!helpers)"
-    ]
-  }
+  "sideEffects": false
 }

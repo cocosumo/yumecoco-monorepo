@@ -2,7 +2,7 @@ import { Grid, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { PageSubTitle } from '../../../../components/ui/labels';
 import { FormikSelect } from '../../../../components/ui/selects';
-import { useStores } from '../../../../hooks';
+import { useStoreOptions } from '../../../../hooksQuery';
 import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 
 import { getFieldName, CustomerForm, CustomerFormKeys } from '../form';
@@ -20,7 +20,8 @@ export const Agents = () => {
     cocoAG1,
     yumeAG1,
   } = values;
-  const { stores } = useStores();
+  const { data } = useStoreOptions();
+
 
   const cocoAGOptions = useEmployeeOptions({
     agentType: 'cocoAG',
@@ -61,7 +62,7 @@ export const Agents = () => {
       <Stack direction={'column'} spacing={2}>
         <PageSubTitle label='担当情報' />
 
-        <FormikSelect name={getFieldName('store')} label="店舗" options={stores}
+        <FormikSelect name={getFieldName('store')} label="店舗" options={data}
           required onChange={handleStoreChange}
         />
 

@@ -6,10 +6,19 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "noImplicitAny": false,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "declarationMap": true,
+    "allowJs": true,
+    "isolatedModules": true
   },
   "include": [
-    "src/**/*",
+    "./src/**/*",
+    "./src/dtsgen/*.d.ts"
   ],
+  "exclude": [
+    "./dist"
+  ]
 
 
 }

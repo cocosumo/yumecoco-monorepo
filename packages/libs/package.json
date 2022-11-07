@@ -1,0 +1,10 @@
+{
+  "name": "libs",
+  "version": "0.0.0",
+  "devDependencies": {
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  }
+}

@@ -7,7 +7,8 @@ import path from 'path';
 import { root } from 'types/settings';
 
 
-require('dotenv').config('../../../.env');
+import { loadEnv } from 'libs';
+loadEnv();
 
 /**
  * Kintone型定義を一括取得
@@ -31,8 +32,8 @@ const [
   loginAuth,
   baseUrl,
 ] = [
-  'LOGIN_AUTH',
-  'BASE_URL',
+  'KT_LOGIN_AUTH',
+  'KT_BASE_URL',
 ].map((key) => {
   const val = process.env[key];
   console.log(val);

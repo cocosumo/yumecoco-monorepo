@@ -1,14 +1,14 @@
-import { APPIDS } from '../api/kintone';
+import { AppIds } from 'config';
 import { useQuery } from '@tanstack/react-query';
-import { getProjById } from '../api/kintone/projects/getProjById';
 
+import { getProjById } from 'api-kintone';
 /**
  * 工事番号で、工事のデータを取得する。
  */
 export const useProjById = (projId: string) => {
 
   return useQuery(
-    [APPIDS.project, projId],
+    [AppIds.projects, projId],
     () => getProjById(projId),
     {
       enabled: !!projId,

@@ -9,6 +9,8 @@
     "build": "webpack --mode production"
   },
   "dependencies": {
-    "config": "*"
+    "config": "*",
+    "api-kintone": "*",
+    "types": "*"
   }
 }

@@ -1,14 +1,11 @@
 import fs from 'fs/promises';
 import path from 'path';
-import dotenv from 'dotenv';
+
 import docusign from 'docusign-esign';
+import { loadEnv } from 'libs';
+loadEnv();
 
-
-dotenv.config({
-  path: "../../.env"
-});
-
-console.log("PROCESS", process.env.DS_INTEGRATOR_KEY)
+console.log('PROCESS', process.env.DS_INTEGRATOR_KEY);
 
 
 export const ds = docusign;
@@ -23,7 +20,7 @@ export const tokenReplaceMin = 10;
 
 
 export const getPrivateKey = async () => {
-  return await fs
+  return fs
     .readFile(
       path.join(__dirname, 'keys', 'private.key'),
     );

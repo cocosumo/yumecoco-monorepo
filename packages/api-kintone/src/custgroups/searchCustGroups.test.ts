@@ -50,7 +50,10 @@ const toContain = (
           || dump.value.includes(easySearch)
         );
       } )
-    || groupAgents.some(({ value: { employeeName } }) => employeeName.value.includes(easySearch) )
+    || groupAgents.some(({ value: { employeeName, email } }) => {
+      return employeeName.value.includes(easySearch) ||
+      email.value.includes(easySearch);
+    } )
   );
 };
 

@@ -16,14 +16,18 @@ export type BuildingTypeVals =
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
 export const initialValues = {
-  recordId: '' as string | undefined,
+  projId: '' as string | undefined,
+  projTypeName: '',
+  projTypeId: '',
+  projName: '',
+  createdDate: '',
+
   custGroupId: undefined  as undefined | string,
   custName: '',
   storeId: '',
   territory: '',
-  projTypeName: '',
-  projTypeId: '',
-  projName: '',
+
+
   isAgentConfirmed: false,
   cocoConst1: '',
   cocoConst2: '',

@@ -83,6 +83,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
         <TextField
           {...params}
           {...inputProps}
+          fullWidth
           InputProps={isFetching ?  { endAdornment: <CircularProgress size={20} /> } : params.InputProps}
           placeholder="山田　タロウ"
         />)}

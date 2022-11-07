@@ -23,9 +23,9 @@ export const FormikTextFieldV2 = (
     helperText,
     ...others
   } = props;
-  const [inputValue, setInputValue] = useState<string>('');
-  const debouncedValue = useDebounce<string>(inputValue, 800);
   const [field, meta, helpers] = useFieldFast(name);
+  const [inputValue, setInputValue] = useState<string>(field.value);
+  const debouncedValue = useDebounce<string>(inputValue, 800);
 
   const { error, touched } = meta;
   const { setValue, setTouched } = helpers;
@@ -37,9 +37,13 @@ export const FormikTextFieldV2 = (
   };
 
   useEffect(() => {
-    setValue(debouncedValue);
     setTouched(true);
+    setValue(debouncedValue, true);
   }, [debouncedValue, setValue, setTouched]);
+
+  useEffect(() => {
+    setInputValue(field.value);
+  }, [field.value]);
 
 
   return (

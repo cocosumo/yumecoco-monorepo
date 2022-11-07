@@ -3,12 +3,11 @@ import { grey } from '@mui/material/colors';
 import { format,  parseISO } from 'date-fns';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
 import { Caption } from 'kokoas-client/src/components/ui/typographies';
-import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useProjsByCustGroupId } from 'kokoas-client/src/hooksQuery/useProjsByCustGroupId';
 import { useMemo } from 'react';
 import { IProjects } from 'types';
 
-export const SelectProjectsContent = ({
+export const SelectProjInCustGroupContent = ({
   custGroupId,
   handleClose,
   onChange,
@@ -17,7 +16,6 @@ export const SelectProjectsContent = ({
   handleClose: () => void
   onChange: (projRec: IProjects) => void
 }) => {
-  const navigate = useStableNavigate();
   const { data: projRecs } = useProjsByCustGroupId(custGroupId || '');
 
   const options = useMemo(() => {
@@ -85,7 +83,7 @@ export const SelectProjectsContent = ({
   [
     projRecs,
     handleClose,
-    navigate,
+    onChange,
   ]);
 
   return (

@@ -1,7 +1,7 @@
 import { Button, ButtonProps, Dialog, DialogTitle } from '@mui/material';
 import { ReactNode, useCallback, useState } from 'react';
 import { IProjects } from 'types';
-import { SelectProjectsContent } from './SelectProjectsContent';
+import { SelectProjInCustGroupContent } from './SelectProjInCustGroupContent';
 
 export const SelectProjectInCustGroup = ({
   custGroupId,
@@ -54,7 +54,7 @@ export const SelectProjectInCustGroup = ({
           {dialogTitle}
         </DialogTitle>
 
-        <SelectProjectsContent
+        <SelectProjInCustGroupContent
           custGroupId={custGroupId || ''}
           handleClose={handleClose}
           onChange={onChange}

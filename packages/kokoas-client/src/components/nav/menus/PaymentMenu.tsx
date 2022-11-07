@@ -3,9 +3,9 @@ import { useState } from 'react';
 import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import PaymentInvoice from './PaymentInvoice';
 import PaymentSearch from './PaymentSearch';
 import PaymentInput from './PaymentInput';
+import Invoice from './Invoice';
 
 
 
@@ -27,7 +27,7 @@ export default function PaymentMenu() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <PaymentInvoice />
+          <Invoice />
           <PaymentSearch />
           <PaymentInput />
         </List>

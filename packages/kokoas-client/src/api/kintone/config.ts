@@ -36,7 +36,7 @@ export enum APPIDS {
   projType = 190,
   project = 194,
   projectEstimate = 202,
-  paymentInvoice = 204,
+  Invoice = 204,
 }
 
 

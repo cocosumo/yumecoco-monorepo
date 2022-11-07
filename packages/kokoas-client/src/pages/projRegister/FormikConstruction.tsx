@@ -25,25 +25,28 @@ export const FormikConstruction  = () => {
 
   const initialValues = useResolveParams();
 
+
+
   return (
     <Formik
-      initialStatus={((s: TFormStatus)=> s)('busy')}
       validateOnMount
       enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         const { projId } = values;
-        const kintoneRecord = convertToKintone(values);
 
+        const kintoneRecord = convertToKintone(values);
         const resp = await mutateAsync({
           record: kintoneRecord,
           projId,
         });
 
+        console.log(resp);
+
         setDialogState({
           title: '次へ進む',
-          content: <NextStepChoices recordId={resp.id} />,
+          content: <NextStepChoices recordId={resp?.id} />,
           withYes: false,
           noText: '閉じる',
         });

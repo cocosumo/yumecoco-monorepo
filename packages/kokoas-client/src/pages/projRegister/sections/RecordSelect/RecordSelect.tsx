@@ -8,6 +8,7 @@ import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { useNavigate } from 'react-router-dom';
 import { getFieldName, TypeOfForm } from '../../form';
+import { SelectProjects } from './SelectProjects';
 
 export const RecordSelect = () => {
   const {
@@ -36,6 +37,7 @@ export const RecordSelect = () => {
       item
       xs={12}
       spacing={2}
+      justifyContent={'space-between'}
     >
       <Grid item
         xs={12}
@@ -84,7 +86,15 @@ export const RecordSelect = () => {
           dateStr={createdDate}
         />
       </Grid>
-
+      <Grid
+        container
+        item
+        xs={12}
+        md={4}
+        justifyContent={'flex-end'}
+      >
+        <SelectProjects custGroupId={custGroupId} />
+      </Grid>
     </Grid>
   );
 };

@@ -61,7 +61,7 @@ export const RecordSelect = () => {
             if (dirty) {
               setDialogState({
                 open: true,
-                title: '動作確認',
+                title: '確認',
                 content: <ContentWarning content={'顧客を変更すると工事情報がリセットされます。'} />,
                 withNo: true,
                 withYes: true,
@@ -77,7 +77,7 @@ export const RecordSelect = () => {
 
           }}
           inputProps={{
-            label: 'お客検索',
+            label: '顧客検索',
             name: getFieldName('custGroupId'),
           }}
         />
@@ -99,8 +99,8 @@ export const RecordSelect = () => {
         md={4}
         justifyContent={'flex-end'}
       >
-        <SelectProjectInCustGroup 
-          custGroupId={custGroupId} 
+        <SelectProjectInCustGroup
+          custGroupId={custGroupId}
           onChange={useCallback(({  $id }) => {
             navigate(`${pages.projEdit}?${generateParams({
               projId: $id.value,

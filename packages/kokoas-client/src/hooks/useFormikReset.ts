@@ -10,7 +10,7 @@ export const useFormikReset = <T>() => {
     setDialogState({
       open: true,
       title: '確認',
-      content: '保存されていない変更があります。続きますか。',
+      content: '保存されていない変更があります。操作を続けますか',
       withYes: true,
       withNo: true,
       cancellable: false,

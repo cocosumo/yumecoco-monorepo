@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import {integratorKey, oAuthBasePath} from '../../../config';
+import { integratorKey, oAuthBasePath } from '../../../config';
 
 const SCOPES = [
   'signature', 'impersonation',

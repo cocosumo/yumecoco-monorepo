@@ -1,4 +1,4 @@
-import {getConsentUrl} from './getConsentUrl';
+import { getConsentUrl } from './getConsentUrl';
 
 describe('getConsentUrl', ()=>{
   it('should give url', ()=>{

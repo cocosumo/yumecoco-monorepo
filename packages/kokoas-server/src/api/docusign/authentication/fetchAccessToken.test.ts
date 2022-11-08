@@ -1,15 +1,15 @@
-import {fetchAccessToken, getJwtGrantToken} from './fetchAccessToken';
+import { fetchAccessToken, getJwtGrantToken } from './fetchAccessToken';
 
 describe('Authentication', () => {
   it('should give token', async () => {
     const token = await fetchAccessToken();
-
-    expect(token).toMatchSnapshot();
+    console.log('token', token);
+    expect(token).toBeDefined();
   });
 
   it('should get token if expired', async ()=>{
     const token = await getJwtGrantToken();
 
-    expect(token).toMatchSnapshot();
+    expect(token).toBeDefined();
   });
 });

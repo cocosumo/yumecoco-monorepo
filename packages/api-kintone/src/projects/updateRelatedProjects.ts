@@ -33,7 +33,6 @@ export const updateRelatedProjects = async (
   if (!custGroupId) throw new Error(`顧客番号は無効です。${custGroupId}`);
 
   await saveProjToCustGroup({
-    projectId: projId,
     custGroupId: custGroupId?.value,
   });
 

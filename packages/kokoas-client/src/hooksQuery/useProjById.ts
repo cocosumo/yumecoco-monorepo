@@ -8,7 +8,7 @@ import { getProjById } from 'api-kintone';
 export const useProjById = (projId: string) => {
 
   return useQuery(
-    [AppIds.projects, projId],
+    [AppIds.projects, { projId }],
     () => getProjById(projId),
     {
       enabled: !!projId,

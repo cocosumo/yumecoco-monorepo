@@ -1,8 +1,8 @@
 import {  IProjects, TAgents } from 'types';
-import { TypeOfProjForm } from '../form';
+import { TypeOfForm } from '../form';
 
 export const convertToKintone = (
-  rawValues: TypeOfProjForm,
+  rawValues: TypeOfForm,
 ): Partial<IProjects>  => {
   const {
     cocoConst1, cocoConst2, projTypeId, projName,

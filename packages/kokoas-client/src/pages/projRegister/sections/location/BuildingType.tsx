@@ -1,6 +1,6 @@
 
-import { BuildingTypeVals } from '../../../form';
-import { FormikRadio } from '../../../../../components/ui/radio';
+import { BuildingTypeVals } from '../../form';
+import { FormikRadio } from '../../../../components/ui/radio';
 
 const buildingTypes : BuildingTypeVals[] =  ['戸建て', 'マンション', '店舗/事務所', 'その他'];
 

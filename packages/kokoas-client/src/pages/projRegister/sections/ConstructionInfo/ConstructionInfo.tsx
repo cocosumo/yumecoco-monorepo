@@ -4,16 +4,14 @@ import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
-import { KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { TypeOfProjForm, getFieldName } from '../../form';
+import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
-import { IProjtypes } from 'types';
-import { AppIds } from 'config';
-import { useProjHasContract } from 'kokoas-client/src/hooksQuery/useProjHasContract';
+import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
 import { useBackdrop } from 'kokoas-client/src/hooks';
 import { ContractDetails } from './ContractDetails';
+
 
 
 export const ConstructionInfo = (
@@ -21,24 +19,35 @@ export const ConstructionInfo = (
     storeId: string,
     projTypeId?: string,
     territory?: string,
-
   },
 ) => {
-  const { storeId, territory, projTypeId } = props;
-  const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
+  const { storeId, territory } = props;
+
   const {
     status,
-    setFieldValue,
     values: {
       cocoConst1,
-      recordId,
-    } } = useFormikContext<TypeOfProjForm>();
+      projId,
+    },
+    setValues,
+  } = useFormikContext<TypeOfForm>();
 
   const isReadOnly = (status as TFormStatus) === 'disabled';
 
   const { setBackdropState } = useBackdrop();
-  const { data, isFetching } = useProjHasContract(recordId);
-  
+  const { data, isFetching } = useProjHasContract(projId);
+
+  const { data: constructionTypeOptions } = useProjTypes<Options>({
+    select: (d) => d
+      ?.map(({
+        label, $id, projectName,
+      }) => ({
+        label: label?.value,
+        value: $id?.value,
+        hiddenValue: projectName?.value,
+      })),
+  });
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -49,33 +58,9 @@ export const ConstructionInfo = (
     setOpen(false);
   };
 
-
   useEffect(() => {
     setBackdropState({ open: isFetching });
   }, [isFetching, setBackdropState]);
-
-
-  /*Todo: Refactor this as custom hook */
-  useEffect(() => {
-    KintoneRecord.getRecords({
-      app: AppIds.projTypes,
-      query: 'order by レコード番号 asc',
-    }).then((res) => {
-      const rawConstOpts = res.records as unknown as IProjtypes[];
-      setConstructionTypeOptions(
-        rawConstOpts
-          .map(({ label, $id, projectName }) => ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),
-      );
-    });
-  }, []);
-
-
-  useEffect(() => {
-    const selectedPojType = constructionTypeOptions?.find(item => item.value === projTypeId);
-    const projTypeName = selectedPojType?.hiddenValue || selectedPojType?.label;
-    setFieldValue(getFieldName('projTypeName'), projTypeName);
-  }, [projTypeId]);
-
 
   return (
     <>
@@ -88,6 +73,12 @@ export const ConstructionInfo = (
           <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'}
             disabled={isReadOnly || data}
             options={constructionTypeOptions} required
+            onChange={(_, newTextVal) => {
+              setValues((prev) => ({
+                ...prev,
+                projName: `${prev.custName} ${newTextVal}`,
+              }));
+            }}
           />
         </Grid>
 
@@ -104,7 +95,7 @@ export const ConstructionInfo = (
               <ContractDetails
                 open={open}
                 onClose={handleClose}
-                projId={recordId ?? ''}
+                projId={projId ?? ''}
               />
             </>}
         </Grid>

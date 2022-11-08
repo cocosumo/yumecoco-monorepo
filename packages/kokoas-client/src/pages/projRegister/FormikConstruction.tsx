@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
 
-import { validationSchema, initialValues } from './form';
+import { validationSchema } from './form';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +11,8 @@ import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
 import { generateParams } from '../../helpers/url';
 import { convertToKintone } from './api/convertToKintone';
-import { useSaveProject } from 'kokoas-client/src/hooksQuery/useSaveProject';
+import  { useSaveProject } from './../../hooksQuery';
+import { useResolveParams } from './hooks/useResolveParams';
 
 
 
@@ -22,25 +23,28 @@ export const FormikConstruction  = () => {
   const navigate = useNavigate();
   const { mutateAsync } = useSaveProject();
 
+  const initialValues = useResolveParams();
+
+
+
   return (
     <Formik
-      initialStatus={((s: TFormStatus)=> s)('busy')}
       validateOnMount
-      //enableReinitialize
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        const { recordId } = values;
-        const kintoneRecord = convertToKintone(values);
+        const { projId } = values;
 
+        const kintoneRecord = convertToKintone(values);
         const resp = await mutateAsync({
           record: kintoneRecord,
-          projId: recordId,
+          projId,
         });
 
         setDialogState({
           title: '次へ進む',
-          content: <NextStepChoices recordId={resp.id} />,
+          content: <NextStepChoices recordId={resp?.id} />,
           withYes: false,
           noText: '閉じる',
         });
@@ -49,7 +53,7 @@ export const FormikConstruction  = () => {
           projId: resp.id,
         })}`);
 
- 
+
       }}
     >
       <FormConstruction />

@@ -6,7 +6,7 @@ interface TypographyProps {
 
 export  function Caption({ text }:TypographyProps) {
   return (
-    <Typography variant="caption">
+    <Typography variant="caption" whiteSpace={'nowrap'}>
       {text}
     </Typography>
   );

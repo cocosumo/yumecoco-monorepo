@@ -1,7 +1,6 @@
 
 import { ICustgroups } from 'types';
 import { AppIds } from 'config';
-import { getCustGroupsByProjId } from '../custgroups';
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { isBrowser } from 'kokoas-client/src/helpers/utils';
 import { getProjsByCustGroupId } from './getProjsByCustGroupId';
@@ -18,37 +17,12 @@ interface UpdateRequest {
   }
 }
 
-/**
- * The project id might exist in someother custGroup,
- * so this resolves request to clean up before saving.
- * @param projectId
- * @returns
- */
-const resolveDeleteRequest = async (projectId: string) => {
-  return (await getCustGroupsByProjId(projectId))
-    .map(({ $id, $revision, projects }) => {
-      return {
-        method: 'PUT',
-        api: '/k/v1/record.json',
-        payload: {
-          app: AppIds.custGroups,
-          id: $id.value,
-          revision: $revision.value,
-          record: {
-            projects: {
-              type: 'SUBTABLE',
-              value: projects.value.filter(item => item.value.projId.value !== projectId),
-            },
-          },
-        },
-      };
-    });
-};
 
 /**
  * Get custgroup record, then add the projectId.
  * This keep the projects subtable updated in customer groups app.
- * API calls: 2
+ * 
+ * 
  * @param projectId
  * @param custGroupId
  * @param cocoConst Agent names
@@ -60,23 +34,6 @@ const resolveSaveRequest = async (
 
   const projRecs = await getProjsByCustGroupId(custGroupId);
 
-
-
-  /*   
-
-  const newProjects = projects.value
-    .filter(item => item.value.projId.value !== projectId)
-    .concat([{
-      id: '',
-      value: {
-
-        projId: { value: projectId },
-        projName: { value: 'auto' },
-        cocoConst1: { value: cocoConst[0] },
-        cocoConst2: { value: cocoConst[1] },
-
-      },
-    }]); */
 
   return [{
     method: 'PUT',
@@ -114,24 +71,23 @@ const resolveSaveRequest = async (
 };
 
 /**
- * Transaction to delete projectId on other customerGroups
- * prior to saving the projectId on designated customerGroup.
  *
  * Current purpose of saving the projectId in customerGroup is
  * to minimize code overhead when querying number of projects per customerGroup
  *
- * Will rollback in case of failure.
+ * Using bulk-request api allow rollback in case of failure.
  *
  * @param projectId
  * @param custGroupId
- * @returns
+ * 
+ * @todo rollback feature of bulk request may not be needed
+ * so convert this to regular update api.
+ * Needs more direction on this.
  */
 export const saveProjToCustGroup = async (
   {
-    projectId,
     custGroupId,
   }:{
-    projectId: string,
     custGroupId: string, 
   },
 
@@ -157,11 +113,9 @@ export const saveProjToCustGroup = async (
 
 
   const requests : Parameters<typeof KintoneClient.bulkRequest>[0]['requests'] = [
-    ...await resolveDeleteRequest(projectId),
     ...await resolveSaveRequest(custGroupId),
   ];
 
-  console.log('requests', requests);
 
   if (requests.length) {
     return KintoneClient.bulkRequest({

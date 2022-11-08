@@ -1,5 +1,5 @@
 import { fieldMatches } from './../common/fieldMatches';
-import { getAgentType, KFlatCustGroup } from 'types';
+import { getAgentType, KCustgroups, KFlatCustGroup } from 'types';
 import { appId, RecordType } from './config';
 import { ktRecord } from '../client';
 
@@ -17,18 +17,20 @@ const custFieldMatches = fieldMatches<KFlatCustGroup>;
  * @param param
  * @param param.mainSearch 簡単検索
  */
-export const searchCustomers = async ({
+export const searchCustGroups = async ({
   easySearch,
   storeName,
   custEmail,
   yumeAg,
   cocoAg,
+  orderBy = '作成日時',
 } : {
   easySearch?: string,
   storeName?: string,
   custEmail?: string,
   cocoAg?: string,
   yumeAg?: string,
+  orderBy?: KCustgroups
 }) => {
   const fields: KFlatCustGroup[] = [
     'storeName',
@@ -54,6 +56,7 @@ export const searchCustomers = async ({
   const query = [
     easySearchQuery,
     specificSearchQuery,
+
   ]
     .filter(Boolean)
     .map(q => {
@@ -63,6 +66,7 @@ export const searchCustomers = async ({
   return (await ktRecord()).getAllRecords({
     app: appId,
     condition: query,
+    orderBy: `${orderBy}`,
   }).then(rec => rec as unknown as RecordType[]);
 
 };

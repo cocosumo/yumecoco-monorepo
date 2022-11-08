@@ -1,5 +1,5 @@
 import { ICustgroups, KCustGroupAgents, KCustGroupMembers, TAgents } from 'types';
-import { searchCustomers } from './searchCustGroups';
+import { searchCustGroups } from './searchCustGroups';
 
 const membersContain = (
   members: ICustgroups['members'],
@@ -38,7 +38,7 @@ const toContain = (
     members: { value: groupMembers },
     agents: { value: groupAgents },
   } : ICustgroups,
-  { easySearch = '' } : Parameters<typeof searchCustomers>[number],
+  { easySearch = '' } : Parameters<typeof searchCustGroups>[number],
 ) => {
 
   return (
@@ -59,7 +59,7 @@ const toContain = (
 
 describe('mainSearch', ()=>{
   it('should return records matching easySearch', async () => {
-    const testParams : Parameters<typeof searchCustomers>[number][] = [
+    const testParams : Parameters<typeof searchCustGroups>[number][] = [
       { easySearch: '豊田' },
       { easySearch: 'test' },
       { easySearch: '沖永' },
@@ -67,7 +67,7 @@ describe('mainSearch', ()=>{
     ];
 
     for (const param of testParams) {
-      const result = await searchCustomers(param);
+      const result = await searchCustGroups(param);
       console.log(`Records: ${result.length} , ${param.easySearch}`);
       expect(
         result
@@ -78,12 +78,12 @@ describe('mainSearch', ()=>{
   });
 
   it('should return records matching storeName', async () => {
-    const testParams : Parameters<typeof searchCustomers>[number][] = [
+    const testParams : Parameters<typeof searchCustGroups>[number][] = [
       { storeName: '豊田' },
     ];
 
     for (const param of testParams) {
-      const result = await searchCustomers(param);
+      const result = await searchCustGroups(param);
       console.log(`Records: ${result.length} , ${param.storeName}`);
       expect(
         result
@@ -94,12 +94,12 @@ describe('mainSearch', ()=>{
   });
 
   it('should return records matching custEmail', async () => {
-    const testParams : Parameters<typeof searchCustomers>[number][] = [
+    const testParams : Parameters<typeof searchCustGroups>[number][] = [
       { custEmail: 'gmail' },
     ];
 
     for (const param of testParams) {
-      const result = await searchCustomers(param);
+      const result = await searchCustGroups(param);
       console.log(`Records: ${result.length} , ${param.custEmail}`);
 
       expect(
@@ -113,12 +113,12 @@ describe('mainSearch', ()=>{
 
 
   it('should return records matching yumeAG', async () => {
-    const testParams : Parameters<typeof searchCustomers>[number][] = [
+    const testParams : Parameters<typeof searchCustGroups>[number][] = [
       { yumeAg: '高野' },
     ];
 
     for (const param of testParams) {
-      const result = await searchCustomers(param);
+      const result = await searchCustGroups(param);
       console.log(`Records: ${result.length} , ${param.yumeAg}`);
       expect(
         result
@@ -129,12 +129,12 @@ describe('mainSearch', ()=>{
   });
 
   it('should return records matching cocoAG', async () => {
-    const testParams : Parameters<typeof searchCustomers>[number][] = [
+    const testParams : Parameters<typeof searchCustGroups>[number][] = [
       { cocoAg: '隆仁' },
     ];
 
     for (const param of testParams) {
-      const result = await searchCustomers(param);
+      const result = await searchCustGroups(param);
       console.log(`Records: ${result.length} , ${param.cocoAg}`);
 
       expect(

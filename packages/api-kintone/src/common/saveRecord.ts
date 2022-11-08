@@ -46,7 +46,6 @@ export const saveRecord = async (
     updateRelatedFn,
   } = params;
 
-  console.log( recordId, app);
 
   /** The actual saving process */
   if (recordId) {

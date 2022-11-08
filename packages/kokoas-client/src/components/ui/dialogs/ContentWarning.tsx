@@ -10,7 +10,7 @@ export const ContentWarning = ({
   content: ReactNode
 }) => {
   return (
-    <Stack {...stackProps} spacing={2}>
+    <Stack {...stackProps} spacing={2} justifyContent={'center'}>
       <Typography textAlign={'center'}>
         <WarningIcon
           fontSize={'large'}

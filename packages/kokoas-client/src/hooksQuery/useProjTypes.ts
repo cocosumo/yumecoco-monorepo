@@ -4,9 +4,7 @@ import { getProjTypes } from 'api-kintone';
 import { IProjtypes } from 'types';
 
 /**
- * Retrieves all active employee records
- * 全社員レコードを取得する
- *
+ * 全工事種別の取得
  */
 export const useProjTypes = <T>(options?: {
   select: (data: IProjtypes[]) =>  T

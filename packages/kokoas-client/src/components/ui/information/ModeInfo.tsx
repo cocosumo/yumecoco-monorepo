@@ -9,7 +9,6 @@ export const ModeInfo = (
     recordId,
     dateStr,
   }: {
-
     recordId: string,
     dateStr: string,
   },
@@ -20,7 +19,7 @@ export const ModeInfo = (
   return (
     <Stack direction={'column'}>
       <Typography whiteSpace={'nowrap'}>
-        編集中の見積り情報
+        編集中の情報
       </Typography>
       {
         !recordId

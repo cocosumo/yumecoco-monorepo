@@ -44,11 +44,11 @@ export const ConstructionLocation = () => {
     <>
       <PageSubTitle label="工事場所情報" />
       <Grid item >
-        <SelectProjectInCustGroup 
-          dialogTitle={'過去プロジェクトの工事場所をコピーします。'}
+        <SelectProjectInCustGroup
+          dialogTitle={'過去プロジェクトの工事場所をコピーします'}
           buttonChildren={'検索'}
           buttonIcon={<TravelExploreIcon />}
-          custGroupId={custGroupId} 
+          custGroupId={custGroupId}
           onChange={useCallback((copy) => {
             setValues(prev => ({
               ...prev,
@@ -64,8 +64,8 @@ export const ConstructionLocation = () => {
       </Grid>
 
       {/* Offset. Remove when migrated to Grid2 */}
-      <Grid item xs={12} /> 
-  
+      <Grid item xs={12} />
+
       <Grid item xs={12} md={3}>
         <FormikTextField
           name="postal"

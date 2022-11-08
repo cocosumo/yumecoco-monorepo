@@ -10,7 +10,6 @@ import { apiClient } from '../../config';
 export const createEnvelopeFromFile = async (args: {
   filePath: string,
   basePath: string,
-  accessToken: string,
   accountId: string,
 }) => {
   const envelopesApi = new docusign.EnvelopesApi(apiClient);

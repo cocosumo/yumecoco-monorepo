@@ -1,7 +1,7 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, StackProps, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import WarningIcon from '@mui/icons-material/Warning';
-import { StackProps } from '@mui/system';
+
 
 export const ContentWarning = ({
   content,

@@ -1,8 +1,7 @@
-import { appId } from './../projects/config';
+import { appId, RecordType } from './config';
 import { ICustomers } from 'types';
 import { saveRecord } from '../common/saveRecord';
 import { saveCustomers } from '../customers/saveCustomers';
-import { RecordType } from './config';
 
 import { getAgentNames } from './getAgentNames';
 import { updateRelatedToCustGroup } from './updateRelatedToCustGroup';
@@ -74,6 +73,7 @@ export const saveCustGroup = async (
   aggRecord.yumeAGNames = {
     value: getAgentNames(record, 'yumeAG'),
   };
+
 
   return saveRecord({
     app: appId,

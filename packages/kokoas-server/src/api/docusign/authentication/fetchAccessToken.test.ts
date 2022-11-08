@@ -9,7 +9,7 @@ describe('Authentication', () => {
 
   it('should get token if expired', async ()=>{
     const token = await getJwtGrantToken();
-
+    console.log('token', token);
     expect(token).toBeDefined();
   });
 });

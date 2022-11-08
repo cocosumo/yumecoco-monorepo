@@ -4,7 +4,7 @@ import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
 import { getFieldName, TypeOfForm } from '../form';
 import { ContractDialog } from './Preview/ContractDialog';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { useSnackBar } from '../../../hooks';
 
 export const ContractFormActions = () => {

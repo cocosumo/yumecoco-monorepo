@@ -1,7 +1,7 @@
 import { KtRecordParam } from 'types';
 import { ktRecord } from '../client';
 
-export const getAllRecords = async <T = unknown>(
+export const getAllRecords = async <T>(
   params: KtRecordParam<'getAllRecords'>,
 ) => (await ktRecord())
   .getAllRecords({

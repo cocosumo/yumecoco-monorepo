@@ -12,8 +12,8 @@ import { KtRecordParam } from 'types';
  * @param obj.revision Optional. If record lock is needed, use the record's revision number to define this.
  * @param obj.updateRelatedFn Optional. A function that is called when updating a record.
  *
- * @see レコードの更新（PUT） https://developer.cybozu.io/hc/ja/articles/201941784
- * @see レコードの登録（POST） https://developer.cybozu.io/hc/ja/articles/202166160
+ * @link レコードの更新（PUT） https://developer.cybozu.io/hc/ja/articles/201941784
+ * @link レコードの登録（POST） https://developer.cybozu.io/hc/ja/articles/202166160
  * @returns Object containing id and revision.
  */
 export const saveRecord = async (
@@ -43,9 +43,9 @@ export const saveRecord = async (
     app,
     record,
     revision,
+    updateRelatedFn,
   } = params;
 
-  console.log( recordId, app);
 
   /** The actual saving process */
   if (recordId) {
@@ -57,7 +57,7 @@ export const saveRecord = async (
       revision,
     });
 
-
+    await updateRelatedFn?.();
 
     return {
       ...result,

@@ -1,5 +1,5 @@
 import { AppIds } from 'config';
-import { IProjects, KProjects } from 'types';
+import { IProjects } from 'types';
 import { KintoneRecord } from '../config';
 
 
@@ -20,22 +20,3 @@ export const getConstRecordByIds = async (ids: string[]) => {
   });
 };
 
-/**
- * Get projects by partial search string.
- *
- * @param search Search string
- * @returns
- */
-export const searchProjects = async (search: string) => {
-
-  const fieldProjName: KProjects = 'projName';
-  const fields : KProjects[] = ['projName', '$id' ];
-
-  return KintoneRecord.getRecords({
-    app: AppIds.projects,
-    query: `${fieldProjName} like "${search}"`,
-    fields: fields,
-    totalCount: true,
-  })
-    .then(r => r.records as unknown as IProjects[]);
-};

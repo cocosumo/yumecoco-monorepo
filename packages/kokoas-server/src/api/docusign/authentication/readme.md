@@ -30,6 +30,7 @@ B. 新しいプロジェクトを[作成する](https://developers.docusign.com/
       - docusign/authentication/fetchUserInfo
 
 4. gitにpdfなどテンプレートを同期していないので、現状手動でコピーが必要です。（体制考え中）
+5. api/docusign/getEnvelopeをテストし、OKだったら、開発に進めます。:rocket:
 
 ## 備考
 

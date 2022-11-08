@@ -2,7 +2,7 @@ import { getEnvelope } from './getEnvelope';
 
 describe('Get envelope', () => {
   it('should get envelope by id', async () => {
-    const result = await getEnvelope('0250338c-6c0c-4761-a9b3-772701d0c93a');
+    const result = await getEnvelope('c372b5ad-408e-4445-9330-506e825c4d32');
 
     console.log(result);
 

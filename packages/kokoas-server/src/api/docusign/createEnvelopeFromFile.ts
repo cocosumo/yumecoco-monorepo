@@ -3,7 +3,10 @@ import docusign from 'docusign-esign';
 
 import { apiClient } from '../../config';
 
-
+/**
+ *
+ * @ignore For test only
+ */
 export const createEnvelopeFromFile = async (args: {
   filePath: string,
   basePath: string,

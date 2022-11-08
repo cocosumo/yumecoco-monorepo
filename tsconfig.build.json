@@ -70,5 +70,8 @@
     {
       "path": "./packages/helpers"
     },
+    {
+      "path": "./packages/utils-jest"
+    },
   ]
 }

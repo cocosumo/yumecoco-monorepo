@@ -1,5 +1,5 @@
 import { Card, CardContent, Chip, CircularProgress, FormHelperText, Stack, Typography } from '@mui/material';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { FormikLabeledCheckBox } from '../../../components/ui/checkboxes';
 import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
 

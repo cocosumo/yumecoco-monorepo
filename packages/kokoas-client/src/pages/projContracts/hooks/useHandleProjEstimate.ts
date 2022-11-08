@@ -5,7 +5,7 @@ import { calculateEstimate } from '../../../api/others/calculateEstimate';
 import {  TypeOfForm } from '../form';
 import { normalizedData } from '../api/getFormDataId';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { useEstimateById } from '../../../hooksQuery/useEstimateById';
 import { IProjestimates } from 'types';
 

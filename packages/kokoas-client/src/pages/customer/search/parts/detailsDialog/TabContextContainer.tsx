@@ -1,5 +1,5 @@
 import { TabContext } from '@mui/lab';
-import { Box } from '@mui/system';
+import { Box } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const TabContextContainer = (

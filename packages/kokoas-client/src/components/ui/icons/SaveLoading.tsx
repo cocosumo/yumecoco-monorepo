@@ -1,5 +1,4 @@
-import { CircularProgress, Fab } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, CircularProgress, Fab } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import SaveIcon from '@mui/icons-material/Save';
 import { green } from '@mui/material/colors';

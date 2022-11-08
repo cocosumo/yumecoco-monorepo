@@ -1,7 +1,7 @@
 
-import {basePath} from '../../config';
-import {getJwtGrantToken, getAccountId} from './authentication/';
-import {createEnvelopeFromFile} from './createEnvelopeFromFile';
+import { basePath } from '../../config';
+import { getJwtGrantToken, getAccountId } from './authentication/';
+import { createEnvelopeFromFile } from './createEnvelopeFromFile';
 import path from 'path';
 
 describe('Create Envelope', ()=>{

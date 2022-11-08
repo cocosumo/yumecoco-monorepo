@@ -20,14 +20,16 @@ B. 新しいプロジェクトを[作成する](https://developers.docusign.com/
     - NodeJsを選択する
     - JWTを選択する
     - プロジェクトをダウンロードして、解凍する。
-    - jwConfig.jsonからdsJWTClientIdをコピーする。
+    - jwConfig.jsonからdsJWTClientIdをコピーする。の
     - .env.DS_INTEGRATOR_KEYの値に張り付ける。
     - private.keyをコピーして api/config/keysに移動する。
     - docusign/authentication/getConsentUrlを実行　(jest)
     - リンクに行って、許可ボタンを押したら、エラーページになる。（仕様です。URLにコードあればOKです。）
-    - 以下の単体テストを行い、エラーが無かったら、開発にすすめばOKです。
+    - 以下の単体テストを行い、エラーが無かったら、APIを呼ぶテストにすすめばOKです。
       - docusign/authentication/fetchAccessToken
       - docusign/authentication/fetchUserInfo
+
+4. gitにpdfなどテンプレートを同期していないので、現状手動でコピーが必要です。（体制考え中）
 
 ## 備考
 

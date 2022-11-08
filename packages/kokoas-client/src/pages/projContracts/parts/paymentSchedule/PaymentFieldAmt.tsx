@@ -3,7 +3,7 @@ import { useField } from 'formik';
 import { numerals } from 'jp-numerals';
 import {  getPayFieldNameByIdx } from '../../form';
 import { ChangeEvent, useMemo, useState } from 'react';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 
 
 export const PaymentFieldAmt = (

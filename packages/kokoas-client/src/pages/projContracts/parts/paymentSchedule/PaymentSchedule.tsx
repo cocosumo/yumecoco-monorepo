@@ -8,7 +8,7 @@ import { PaymentMethod } from './PaymentMethod';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 export const PaymentSchedule = ({
   totalAmount = 0,

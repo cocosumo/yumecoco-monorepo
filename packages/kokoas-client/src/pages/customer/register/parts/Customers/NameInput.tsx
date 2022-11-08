@@ -2,7 +2,7 @@ import { Grid, TextField, TextFieldProps } from '@mui/material';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { hiraToKana } from '../../../../../helpers/utils';
 import { useField, useFormikContext } from 'formik';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { CustomerForm } from '../../form';
 import { FormikTextField } from '../../../../../components/ui/textfield';
 import * as AutoKana from 'vanilla-autokana';

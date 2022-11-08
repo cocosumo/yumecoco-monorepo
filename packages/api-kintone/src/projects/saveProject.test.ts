@@ -1,7 +1,7 @@
 import { getCustGroupById } from './../custgroups';
 import { getProjById } from './getProjById';
 import { saveProject } from './saveProject';
-import { omit } from 'lodash';
+import omit from 'lodash/omit';
 import { getProjsByCustGroupId } from './getProjsByCustGroupId';
 
 describe('save/update project', () => {

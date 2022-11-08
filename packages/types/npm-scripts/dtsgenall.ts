@@ -1,4 +1,4 @@
-import { capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
 import runAll from 'npm-run-all';
 import { AppIds } from 'config';
 import { generateDBTypes } from './generateDBTypes';

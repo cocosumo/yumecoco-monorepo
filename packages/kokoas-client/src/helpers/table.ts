@@ -1,4 +1,4 @@
-import { isNumber } from 'lodash';
+import isNumber from 'lodash/isNumber';
 
 
 export function descendingComparator<T>(x: T, y: T, orderBy: keyof T) {

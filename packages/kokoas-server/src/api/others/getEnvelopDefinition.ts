@@ -1,7 +1,7 @@
-import {EnvelopeDefinition, Tabs, Text} from 'docusign-esign';
-import {templateIds} from '../../config/envelopeTemplates';
-import {getProjectDetails} from '../kintone';
-import {getCustomerGroup} from '../kintone/getCustomerGroup';
+import { EnvelopeDefinition, Tabs, Text } from 'docusign-esign';
+import { templateIds } from '../../config/envelopeTemplates';
+import { getProjectDetails } from '../kintone';
+import { getCustomerGroup } from '../kintone/getCustomerGroup';
 
 /**
  * @deprecated in favor of more robust API
@@ -16,14 +16,14 @@ export const getEnvelopDefinition = async (
     projectDetails.custGroupId.value,
   );
 
-  const {members} = custGrpDetails;
+  const { members } = custGrpDetails;
 
   const {
     customerName, address1,
-    address2, postal, dump} = members.value[0].value;
+    address2, postal, dump } = members.value[0].value;
 
 
-  const {email} = JSON.parse(dump.value);
+  const { email } = JSON.parse(dump.value);
 
 
   const dsCustAddress: Text = {
@@ -33,7 +33,7 @@ export const getEnvelopDefinition = async (
 
   const dsCompanyAddress: Text = {
     tabLabel: 'companyAddress',
-    value: `〒471-0041 愛知県豊田市汐見町2丁目87番地8`,
+    value: '〒471-0041 愛知県豊田市汐見町2丁目87番地8',
   };
 
   return {

@@ -1,4 +1,4 @@
-import {fetchUserInfo} from './fetchUserInfo';
+import { fetchUserInfo } from './fetchUserInfo';
 
 describe('Base URI', ()=>{
   it('should get base uri', async ()=>{

@@ -1,4 +1,4 @@
-import {updateEstimates} from './updateEstimates';
+import { updateEstimates } from './updateEstimates';
 
 describe('updateEstimates', ()=>{
   it('should update projEstimates', async ()=>{

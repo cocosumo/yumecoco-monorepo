@@ -1,5 +1,5 @@
-import {EnvelopesApi} from 'docusign-esign';
-import {apiClient} from '../../config';
+import { EnvelopesApi } from 'docusign-esign';
+import { apiClient } from '../../config';
 
 export const getEnvelope = async (
   accountId: string,
@@ -7,5 +7,5 @@ export const getEnvelope = async (
 ) => {
   const envApi = new EnvelopesApi(apiClient);
 
-  return await envApi.getEnvelope(accountId, envelopeId, null);
+  return envApi.getEnvelope(accountId, envelopeId, null);
 };

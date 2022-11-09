@@ -1,4 +1,4 @@
-import {voidEnvelope} from './voidEnvelope';
+import { voidEnvelope } from './voidEnvelope';
 
 describe('Void', ()=>{
   it('should void envelope', async ()=>{

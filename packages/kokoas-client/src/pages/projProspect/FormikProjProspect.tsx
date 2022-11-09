@@ -28,7 +28,7 @@ export const FormikProjProspect = () => {
       }}
     >
 
-      <FormProjProspect/>
+      <FormProjProspect />
     </Formik>
   );
 };

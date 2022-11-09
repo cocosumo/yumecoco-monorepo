@@ -1,7 +1,7 @@
-import {makeEnvelope} from './helpers/makeEnvelope';
+import { makeEnvelope } from './helpers/makeEnvelope';
 import docusign from 'docusign-esign';
 
-import {apiClient} from '../../config';
+import { apiClient } from '../../config';
 
 
 export const createEnvelopeFromFile = async (args: {
@@ -34,5 +34,5 @@ export const createEnvelopeFromFile = async (args: {
   const envelopeId = results.envelopeId;
   console.log(`Envelope was created. EnvelopeId ${envelopeId}`);
 
-  return {envelopeId: envelopeId};
+  return { envelopeId: envelopeId };
 };

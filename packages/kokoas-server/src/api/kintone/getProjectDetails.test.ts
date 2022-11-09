@@ -1,4 +1,4 @@
-import {getProjectDetails} from './getProjectDetails';
+import { getProjectDetails } from './getProjectDetails';
 
 describe('getProjectDetails', ()=>{
   it('should get project details', async ()=>{

@@ -1,7 +1,7 @@
-import {EnvelopeDefinition, Signer} from 'docusign-esign';
+import { EnvelopeDefinition, Signer } from 'docusign-esign';
 import { ReqSendContract } from 'types';
-import {getContractData} from '../../../kintone/getContractData';
-import {generateContractPdf} from './generateContractPdf';
+import { getContractData } from '../../../kintone/getContractData';
+import { generateContractPdf } from './generateContractPdf';
 
 /*  Test emails */
 
@@ -71,7 +71,7 @@ export const makeEnvelope = async (
 
     /* 担当者 */
     signers.push({
-      email: isProd ? officerEmail :testTantouEmail,
+      email: isProd ? officerEmail : testTantouEmail,
       name: officerName,
       roleName: '担当者',
       recipientId: '2',
@@ -88,7 +88,7 @@ export const makeEnvelope = async (
   } else {
     /* 紙契約の場合 */
     signers.push({
-      email: isProd ? officerEmail :testTantouEmail,
+      email: isProd ? officerEmail : testTantouEmail,
       name: officerName,
       roleName: '担当者',
       recipientId: '2',

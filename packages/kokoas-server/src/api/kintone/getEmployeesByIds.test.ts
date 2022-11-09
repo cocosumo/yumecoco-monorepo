@@ -1,4 +1,4 @@
-import {getEmployeesByIds} from './getEmployeesByIds';
+import { getEmployeesByIds } from './getEmployeesByIds';
 
 describe('Employees', () => {
   it('should get all employees by ids', async () => {

@@ -14,7 +14,7 @@ test('testlang',
     const fieldNamesWithError = Object
       .entries(form)
       .reduce((accu, [key, { valueError, nextClick, page }]) => {
-        if (valueError &&  nextClick && page === 1){
+        if (valueError &&  nextClick && page === 1) {
           return accu.concat(key);
         }
         return accu;

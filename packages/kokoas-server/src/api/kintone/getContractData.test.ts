@@ -1,4 +1,4 @@
-import {getContractData} from './getContractData';
+import { getContractData } from './getContractData';
 
 describe('Contract', () => {
   it('should be able to get contract data', async () => {

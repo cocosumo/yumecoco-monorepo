@@ -23,15 +23,21 @@ export const ConfirmDialog = (props: ConfirmDialogProps) => {
       open={open}
       // /onClose={()=>handleAnswer(false)}
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>
+        {title}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>
           {content}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={()=>handleAnswer(true)} variant="outlined">はい</Button>
-        <Button onClick={()=>handleAnswer(false)} variant="outlined" color="error">いいえ</Button>
+        <Button onClick={()=>handleAnswer(true)} variant="outlined">
+          はい
+        </Button>
+        <Button onClick={()=>handleAnswer(false)} variant="outlined" color="error">
+          いいえ
+        </Button>
       </DialogActions>
 
     </Dialog>

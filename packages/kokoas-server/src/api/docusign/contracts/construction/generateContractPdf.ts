@@ -1,12 +1,12 @@
-import {getContractData} from '../../../kintone/getContractData';
+import { getContractData } from '../../../kintone/getContractData';
 import path from 'path';
-import {grayscale, PDFDocument} from 'pdf-lib';
+import { grayscale, PDFDocument } from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
-import {drawText} from '../helpers/pdf';
-import {assetsDir, latestPDF} from '../config/file';
-import {format, parseISO} from 'date-fns';
-import {getPayMethodX} from './generateContractPdfHelper';
+import { drawText } from '../helpers/pdf';
+import { assetsDir, latestPDF } from '../config/file';
+import { format, parseISO } from 'date-fns';
+import { getPayMethodX } from './generateContractPdfHelper';
 
 
 /**
@@ -55,7 +55,7 @@ export const generateContractPdf = async (
 
   // const font = fontkit.create(fontData);
   pdfDoc.registerFontkit(fontkit);
-  const msChinoFont = await pdfDoc.embedFont(fontData, {subset: true});
+  const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
@@ -90,7 +90,7 @@ export const generateContractPdf = async (
   // 顧客名
   drawText(
     firstPage,
-    customers.map(({custName}) => `${custName} 様` ).join(' と '),
+    customers.map(({ custName }) => `${custName} 様` ).join(' と '),
     {
       x: x1,
       y: 680,
@@ -391,9 +391,9 @@ export const generateContractPdf = async (
 
   switch (contentType) {
     case 'base64':
-      return await pdfDoc.saveAsBase64();
+      return pdfDoc.saveAsBase64();
     case 'Uint8Array ':
     default:
-      return await pdfDoc.save();
+      return pdfDoc.save();
   }
 };

@@ -1,11 +1,11 @@
-import {PDFPage, PDFPageDrawTextOptions, rgb} from 'pdf-lib';
+import { PDFPage, PDFPageDrawTextOptions, rgb } from 'pdf-lib';
 
 type AdvancedOptions = {
   weight?: number, // 太さ デフォールト 0.4
   boxWidth?: number, // フィールドの後ろのXから頭のＸを引いた数字。
   align?: 'left' | 'right' | 'center', // 水平方向への配置, boxWidthに依存している
   isShowBox?: boolean // trueにすると、赤い箱が表示されます。デバグの時、役に立つ
-}
+};
 
 /**
  * Wrapper function to implement font-weight (bold)

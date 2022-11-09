@@ -1,4 +1,4 @@
-import {processContract} from './processContract';
+import { processContract } from './processContract';
 
 
 it('should porcess contract', async () => {

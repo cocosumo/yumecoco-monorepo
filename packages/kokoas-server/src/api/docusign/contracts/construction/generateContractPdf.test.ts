@@ -1,9 +1,9 @@
-import {getContractData} from '../../../kintone/getContractData';
-import {generateContractPdf} from './generateContractPdf';
+import { getContractData } from '../../../kintone/getContractData';
+import { generateContractPdf } from './generateContractPdf';
 import fsPromise from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
-import {assetsDir} from '../config/file';
+import { assetsDir } from '../config/file';
 
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{

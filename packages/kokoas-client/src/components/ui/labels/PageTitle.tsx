@@ -15,8 +15,12 @@ export const PageTitle = (props: PageTitleProps) => {
   } =  props;
 
   return (
-    <Grid item xs={12} p={2} sx={{ backgroundColor: color }}>
-      <Typography color={textColor} variant="h4">{label}</Typography>
+    <Grid item xs={12} p={2}
+      sx={{ backgroundColor: color }}
+    >
+      <Typography color={textColor} variant="h4">
+        {label}
+      </Typography>
     </Grid>
   );
 };

@@ -1,4 +1,4 @@
-import {KintoneClient} from './config';
+import { KintoneClient } from './config';
 
 
 /**
@@ -14,9 +14,9 @@ export const uploadFile = async (documents :
   filename: string,
 }[]) => {
   const uploadPromises = documents.map(async (d) => {
-    const {fileBase64, filename} = d;
+    const { fileBase64, filename } = d;
     const data = Buffer.from(fileBase64, 'base64');
-    const {fileKey} = await KintoneClient.file.uploadFile({
+    const { fileKey } = await KintoneClient.file.uploadFile({
       file: {
         name: filename + '.pdf',
         data,
@@ -25,5 +25,5 @@ export const uploadFile = async (documents :
     return fileKey;
   });
 
-  return await Promise.all(uploadPromises);
+  return Promise.all(uploadPromises);
 };

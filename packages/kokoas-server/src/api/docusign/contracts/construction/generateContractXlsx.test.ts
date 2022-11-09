@@ -1,7 +1,7 @@
-import {getContractData} from '../../../kintone/getContractData';
-import {generateContractXlsx} from './generateContractXlsx';
+import { getContractData } from '../../../kintone/getContractData';
+import { generateContractXlsx } from './generateContractXlsx';
 import path from 'path';
-import {assetsDir} from '../config/file';
+import { assetsDir } from '../config/file';
 import fs from 'fs';
 
 describe('Generate Contract', () => {

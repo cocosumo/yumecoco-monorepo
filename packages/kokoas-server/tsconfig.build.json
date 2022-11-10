@@ -1,28 +1,20 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "/dist",
     "sourceMap": true,
     "noImplicitAny": false,
     "module": "commonjs",
+    "declaration": false,
     "target": "es6",
     "allowJs": false,
     "skipLibCheck": true,
-    "isolatedModules": false,
-    "moduleResolution": "node"
+    "isolatedModules": false
   },
-  "include": [
-    "src/**/*",
-    "./../types/src/dtsgen/*.d.ts"
-  ],
+  "include": [],
   "files": [
     "./src/main.ts",
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
-
   ],
-  "exclude": [
-    "./dist",
-    "jest.config.ts",
-
-  ]
+  "exclude": [ "test", "**/*spec.ts"]
 }

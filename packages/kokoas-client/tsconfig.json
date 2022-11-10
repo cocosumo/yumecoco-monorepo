@@ -8,9 +8,14 @@
     "target": "es6",
     "jsx": "react-jsx",
     "allowJs": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "isolatedModules": false
   },
   "files": [
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+  ],
+  "exclude": [
+    "./dist",
+    "jest.config.ts"
   ]
 }

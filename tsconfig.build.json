@@ -6,7 +6,7 @@
     "target": "ES2020",
     "jsx": "react-jsx",
     "esModuleInterop": true,
-    "allowJs": true,
+    "allowJs": false,
     "lib": [
       "es5",
       "ES2020",
@@ -24,7 +24,7 @@
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
-    "*dist*",
+    "dist",
     "npm-scripts",
     "*eslint*",
     "*webpack*"

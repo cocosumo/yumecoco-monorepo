@@ -1,6 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "declaration": false,
-  }
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "skipLibCheck": true
+  },
+  "files": [
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+  ]
 }

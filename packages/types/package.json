@@ -2,13 +2,13 @@
   "name": "types",
   "version": "0.0.0",
   "devDependencies": {},
-
+  "main": "dist/index.ts",
   "dependencies": {
     "config": "*",
     "helpers": "*"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build",
     "dtsgen:stores": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 19 --type-name Data --namespace StoreTypes -o src/types/data.stores.d.ts",
     "dtsgen": "npx @kintone/dts-gen",
     "update": "ts-node npm-scripts/dtsgenall.ts",

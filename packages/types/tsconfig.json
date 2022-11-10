@@ -14,7 +14,11 @@
   },
   "include": [
     "./src/**/*",
-    "./src/dtsgen/*.d.ts"
+    "./src/dtsgen/*.d.ts",
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
+  ],
+  "files": [
+    "./src/index.ts",
   ],
   "exclude": [
     "./dist"

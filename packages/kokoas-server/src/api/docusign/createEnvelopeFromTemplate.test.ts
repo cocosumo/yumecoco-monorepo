@@ -1,8 +1,8 @@
-import {templateIds} from './../../config/envelopeTemplates';
-import {getAccountId} from './authentication';
+import { templateIds } from './../../config/envelopeTemplates';
+import { getAccountId } from './authentication';
 
 
-import {createEnvelopeFromTemplate} from './createEnvelopeFromTemplate';
+import { createEnvelopeFromTemplate } from './createEnvelopeFromTemplate';
 
 describe('Create Envelope', ()=>{
   it('should create envelope then send', async ()=>{
@@ -17,7 +17,7 @@ describe('Create Envelope', ()=>{
           {
             'roleName': 'Signer1',
             'name': 's1',
-            'email': 'lenzras@gmail.com'},
+            'email': 'lenzras@gmail.com' },
           {
             'roleName': 'CC1',
             'name': 'cc1',

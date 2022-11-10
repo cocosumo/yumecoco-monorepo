@@ -1,4 +1,4 @@
-import {updateCustGroup} from './updateCustGroup';
+import { updateCustGroup } from './updateCustGroup';
 
 describe('updateCustGroup', ()=>{
   it('should update custGroup', async ()=>{

@@ -12,7 +12,7 @@ export const FilterItems = () => {
     schedContractDateMin, schedContractDateMax,
   } = values;
 
-  let items : Array<{
+  const items : Array<{
     name: KeyOfForm,
     value?: string,
     label: string,
@@ -56,11 +56,12 @@ export const FilterItems = () => {
       {items
         .filter(({ value }) => Boolean(value))
         .map(({ name, label, value })=> (
-          <Grid  key={name + value} item xs="auto">
+          <Grid key={name + value} item xs="auto">
             <Chip
-            label={`${label}: ${value}`}
-            size="small"
-            onDelete={()=> handleDelete(name, value)}/>
+              label={`${label}: ${value}`}
+              size="small"
+              onDelete={()=> handleDelete(name, value)}
+            />
           </Grid>
         ))}
 

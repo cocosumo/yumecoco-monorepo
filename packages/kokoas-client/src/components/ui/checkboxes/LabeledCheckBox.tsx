@@ -19,11 +19,14 @@ export function LabeledCheckBox(props : LabeledCheckBoxProps) {
   return (
     <FormControl>
       <FormControlLabel
-      control={
-        <Checkbox checked={checked} onChange={setCheckedHandler} />}
-      label={label}
-    />
-      <FormHelperText>{helperText}</FormHelperText>
+        control={
+          <Checkbox checked={checked} onChange={setCheckedHandler} />
+}
+        label={label}
+      />
+      <FormHelperText>
+        {helperText}
+      </FormHelperText>
     </FormControl>
   );
 }

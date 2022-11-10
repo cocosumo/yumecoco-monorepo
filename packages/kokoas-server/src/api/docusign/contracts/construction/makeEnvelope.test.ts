@@ -1,5 +1,5 @@
-import {getContractData} from '../../../kintone/getContractData';
-import {makeEnvelope} from './makeEnvelope';
+import { getContractData } from '../../../kintone/getContractData';
+import { makeEnvelope } from './makeEnvelope';
 
 /* TODO: Unit test, this test routine is not done */
 it('should make envelop', async () => {

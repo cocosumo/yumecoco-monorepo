@@ -1,4 +1,4 @@
-import {syncCustGroupToProjects} from './syncCustGroupToProjects';
+import { syncCustGroupToProjects } from './syncCustGroupToProjects';
 
 describe('syncCustGroupToProjects', ()=>{
   it('should update projects', async ()=>{

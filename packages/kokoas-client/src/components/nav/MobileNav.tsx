@@ -7,7 +7,7 @@ interface MobilNavProps {
   drawerWidth: number
 }
 
-export default function MobileNav({mobileOpen, handleDrawerToggle, drawerWidth}: MobilNavProps) {
+export default function MobileNav({ mobileOpen, handleDrawerToggle, drawerWidth }: MobilNavProps) {
   return (
     <Drawer
       variant="temporary"
@@ -17,8 +17,8 @@ export default function MobileNav({mobileOpen, handleDrawerToggle, drawerWidth}:
         keepMounted: true, // Better open performance on mobile.
       }}
       sx={{
-        display: {xs: 'block', sm: 'none'},
-        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+        display: { xs: 'block', sm: 'none' },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
       }}
     >
       <MainMenu />

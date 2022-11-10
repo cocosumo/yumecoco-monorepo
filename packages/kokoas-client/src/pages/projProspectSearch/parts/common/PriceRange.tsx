@@ -12,9 +12,13 @@ export const PriceRange = (props : {
   return (
     <Grid item xs={12}>
       <Stack direction={'row'} spacing={2} alignItems={'center'}>
-        <FormikTextField  name={fromField} label={label} size={'small'} type={'number'} endAdornment={'万円'} />
-        <RangeIcon/>
-        <FormikTextField name={toField} label={label} size={'small'} type={'number'} endAdornment={'万円'} />
+        <FormikTextField name={fromField} label={label} size={'small'}
+          type={'number'} endAdornment={'万円'}
+        />
+        <RangeIcon />
+        <FormikTextField name={toField} label={label} size={'small'}
+          type={'number'} endAdornment={'万円'}
+        />
       </Stack>
     </Grid>
   );

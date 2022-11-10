@@ -1,6 +1,6 @@
-import {getContractData} from '../../../kintone/getContractData';
+import { getContractData } from '../../../kintone/getContractData';
 import path from 'path';
-import {assetsDir} from '../config/file';
+import { assetsDir } from '../config/file';
 import excel from 'exceljs';
 
 /**
@@ -59,7 +59,7 @@ export const generateContractXlsx = async (
       return Buffer.from(await workbook.xlsx.writeBuffer())
         .toString('base64');
     case 'buffer':
-      return await workbook.xlsx.writeBuffer();
+      return workbook.xlsx.writeBuffer();
     case 'xlsx':
       return workbook.xlsx;
   }

@@ -11,7 +11,7 @@
       "es2019",
       "es6",
       "dom",
-      "dom.iterable"
+      "dom.iterable",
     ],
     "declaration": true,
     "noImplicitAny": true,
@@ -68,7 +68,7 @@
       "path": "./packages/config"
     },
     {
-      "path": "./packages/helpers"
+      "path": "./packages/libs"
     },
     {
       "path": "./packages/utils-jest"

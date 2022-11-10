@@ -5,7 +5,6 @@
   "devDependencies": {
   },
   "scripts": {
-    "build": "tsc --build",
     "test": "jest"
   }
 }

@@ -6,21 +6,19 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "YWFhYWFhNDctODQ0My00NmZiLWE3ZTEtMTEzNWI5NTQzYTU3fHJlYWQtd3JpdGU="
+        "cacheableOperations": [],
+        "accessToken": "OTllOGQ0ZTUtNWQ4Mi00YzM4LWFmOTktZmFlOWZiZWIzOTZlfHJlYWQtd3JpdGU="
       }
     }
-  }
+  },
+  "defaultBase": "master"
 }

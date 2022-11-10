@@ -10,7 +10,7 @@
     "dev:staging": "cross-env NODE_ENV=staging nodemon src/main.ts",
     "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "cross-env NODE_ENV=prod rimraf ./dist && tsc --build tsconfig.json",
-    "start": "npm run build && node ./dist/kokoas-server/src/main.js",
+    "start": "ts-node --files ./src/main.ts -T",
     "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.projectDetails.d.ts",
     "dtsgen:projEstimates": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 202 --type-name Data --namespace ProjectEstimates -o src/types/data.projectEstimates.d.ts",
     "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
@@ -36,16 +36,15 @@
     "cross-env": "^7.0.3",
     "exceljs": "^4.3.0",
     "express": "^4.18.1",
-    "express-body-parser-error-handler": "^1.0.4",
+    "libs": "*",
     "node-cron": "^3.0.0",
     "pdf-img-convert": "^1.0.6",
     "pdf-lib": "^1.17.1",
     "pdf2pic": "^2.1.4",
     "rmfr": "^2.0.0",
+    "types": "*",
     "uuid": "^9.0.0",
     "winston": "^3.6.0",
-    "libs": "*",
-    "types": "*",
     "winston-daily-rotate-file": "^4.7.1"
   }
 }

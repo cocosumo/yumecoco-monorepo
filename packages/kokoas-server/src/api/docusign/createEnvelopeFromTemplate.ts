@@ -1,5 +1,5 @@
-import {apiClient} from '../../config/settings';
-import {EnvelopeDefinition, EnvelopesApi} from 'docusign-esign';
+import { apiClient } from '../../config/settings';
+import { EnvelopeDefinition, EnvelopesApi } from 'docusign-esign';
 
 /**
  * Send envelope by template
@@ -12,7 +12,7 @@ export const createEnvelopeFromTemplate = async (args: {
   envelope: EnvelopeDefinition
 }) => {
   try {
-    const {accountId, envelope} = args;
+    const { accountId, envelope } = args;
     console.log(args);
     const envelopesApi = new EnvelopesApi(apiClient);
 

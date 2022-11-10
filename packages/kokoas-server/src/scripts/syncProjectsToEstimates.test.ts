@@ -1,4 +1,4 @@
-import {syncProjectsToEstimates} from './syncProjectsToEstimates';
+import { syncProjectsToEstimates } from './syncProjectsToEstimates';
 
 describe('syncProjectsToEstimates', ()=>{
   it('should update estimates', async ()=>{

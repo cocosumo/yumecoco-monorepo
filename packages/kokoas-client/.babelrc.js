@@ -17,30 +17,6 @@ const plugins = [
     },
     'icons',
   ],
-  [
-    'babel-plugin-import',
-    {
-      libraryName: 'api-kintone',
-      libraryDirectory: '',
-      camel2DashComponentName: false,
-    },
-  ],
-  [
-    'babel-plugin-import',
-    {
-      "libraryName": "lodash",
-      "libraryDirectory": "",
-      "camel2DashComponentName": false,  // default: true
-    }
-  ],
-  [
-    'babel-plugin-import',
-    {
-      "libraryName": "date-fns",
-      "libraryDirectory": "",
-      "camel2DashComponentName": false,  // default: true
-    }
-  ]
 ];
 
 module.exports = { plugins };

@@ -1,4 +1,4 @@
-import {fetchAccessToken, getJwtGrantToken} from './fetchAccessToken';
+import { fetchAccessToken, getJwtGrantToken } from './fetchAccessToken';
 
 describe('Authentication', () => {
   it('should give token', async () => {

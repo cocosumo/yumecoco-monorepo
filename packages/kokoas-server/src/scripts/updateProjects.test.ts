@@ -1,4 +1,4 @@
-import {updateProjects} from './updateProjects';
+import { updateProjects } from './updateProjects';
 
 describe('updateProjects', ()=>{
   it('should update projects', async ()=>{

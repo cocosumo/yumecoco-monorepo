@@ -1,4 +1,4 @@
-import {KintoneRestAPIClient} from '@kintone/rest-api-client';
+import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 
 const options = {
   baseUrl: process.env.KT_BASE_URL,
@@ -23,7 +23,7 @@ export enum APPIDS {
   custMemo = 181,
   constructionType = 190,
   projectDetails = 194,
-  projEstimate = 202
+  projEstimate = 202,
 
 }
 

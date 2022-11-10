@@ -24,12 +24,14 @@ export const FormikRadio = (props: FormikRadioProps) => {
         {/* <FormLabel htmlFor='test'>{label}</FormLabel> */}
 
         <RadioGroup
-        id="test"
-        sx={{ justifyContent: 'space-around' }}
-        row
-        {...field}
-      >
-          {choices.map(item => <FormControlLabel disabled={disabled} key={item} value={item} control={<Radio />} label={item}/>)}
+          id="test"
+          sx={{ justifyContent: 'space-around' }}
+          row
+          {...field}
+        >
+          {choices.map(item => (<FormControlLabel disabled={disabled} key={item} value={item}
+            control={<Radio />} label={item}
+                                />))}
 
         </RadioGroup>
         {/*       </ChoiceContainer> */}

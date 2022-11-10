@@ -1,4 +1,4 @@
-import {TContractData} from './getContractData';
+import { TContractData } from './getContractData';
 
 
 export const validateContractData = (data: TContractData) => {
@@ -20,12 +20,12 @@ export const validateContractData = (data: TContractData) => {
   if (!accountingEmail) throw new Error(`経理メールは指定されていません。${accountingName}`);
 
   if (signMethod === 'electronic') {
-    const invalidEmail = customers.find(({email}) => !email);
+    const invalidEmail = customers.find(({ email }) => !email);
     if (invalidEmail) throw new Error(`顧客メールは指定されていません。${invalidEmail.custName}`);
 
     const unique = [...new Set(customers.map((item) => item.email))];
     if (unique.length !== customers.length) {
-      throw new Error(`同一のメールアドレスが登録されています。${customers.map(({custName, email}) => `${custName}:${email}`).join(',')}`);
+      throw new Error(`同一のメールアドレスが登録されています。${customers.map(({ custName, email }) => `${custName}:${email}`).join(',')}`);
     }
   }
 };

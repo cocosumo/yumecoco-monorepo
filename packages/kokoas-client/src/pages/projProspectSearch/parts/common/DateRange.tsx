@@ -14,7 +14,7 @@ export const DateRange = (props : {
     <Grid item xs={12}>
       <Stack direction={'row'} spacing={2} alignItems={'center'}>
         <FormikDatePicker name={fromField} label={label} size={'small'} />
-        <RangeIcon/>
+        <RangeIcon />
         <FormikDatePicker name={toField} label={label} size={'small'} />
       </Stack>
     </Grid>

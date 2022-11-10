@@ -1,4 +1,4 @@
-import {setDefaultSignMethod} from './setDefaultSignMethod';
+import { setDefaultSignMethod } from './setDefaultSignMethod';
 
 describe('setDefaultSignMethod', ()=>{
   it('should update projects', async ()=>{

@@ -28,14 +28,16 @@ export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
   return (
     <FormControl >
       <FormControlLabel
-      name={field.name}
-      label={label}
+        name={field.name}
+        label={label}
 
-      control={
-        <Checkbox disabled={disabled} checked={dirtyVal} onClick={() => helpers.setValue(!meta.value)} />}
-
-  />
-      <FormHelperText>{helperText}</FormHelperText>
+        control={
+          <Checkbox disabled={disabled} checked={dirtyVal} onClick={() => helpers.setValue(!meta.value)} />
+}
+      />
+      <FormHelperText>
+        {helperText}
+      </FormHelperText>
     </FormControl>
   );
 

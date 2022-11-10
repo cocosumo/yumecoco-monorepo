@@ -1,5 +1,5 @@
-import {getEstimateById} from '../getEstimateById';
-import {calculateEstimateRecord} from './calculateEstimateRecord';
+import { getEstimateById } from '../getEstimateById';
+import { calculateEstimateRecord } from './calculateEstimateRecord';
 
 describe('Calculate estimate', () => {
   it('should calculate estimate', async () => {

@@ -20,9 +20,9 @@ export const EnhancedTableHead = (props: EnhancedTableProps<TKeyOfSearchResult>)
 
         {headCells.map((headCellGroup, colIdx) => (
           <TableCell
-          key={headCellGroup.join('-')}
-          align = { cellAlign[colIdx]}
-          sx={{ verticalAlign: 'top', minWidth: '11em', fontWeight: 'bold' }}
+            key={headCellGroup.join('-')}
+            align={cellAlign[colIdx]}
+            sx={{ verticalAlign: 'top', minWidth: '11em', fontWeight: 'bold' }}
           //width={cellWidth[headIdx]}
           >
             <Stack spacing={2} alignContent="flex-start">
@@ -36,10 +36,10 @@ export const EnhancedTableHead = (props: EnhancedTableProps<TKeyOfSearchResult>)
 
                   }}
               //sx={{ display: 'inline-block' }}
-                    active={orderBy === headCellItem}
-                    direction={orderBy === headCellItem ? order : 'desc'}
-                    onClick={createSortHandler(headCellItem)}
-                  >
+                  active={orderBy === headCellItem}
+                  direction={orderBy === headCellItem ? order : 'desc'}
+                  onClick={createSortHandler(headCellItem)}
+                >
                   {headCellItem}
                   {/*             {orderBy === headCellItem ? (
                     <Box component="span" sx={visuallyHidden}>

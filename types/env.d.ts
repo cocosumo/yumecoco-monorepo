@@ -23,8 +23,11 @@ declare global {
       DOCUSIGN_BASE_URL: string;
       DOCUSIGN_LOCAL_URL: string;
       DS_INTEGRATOR_KEY: string;
+      DS_INTEGRATOR_KEY_KOKOAS: string;
       DS_USER_ID: string;
+      DS_USER_ID_PROD: string;
       DS_SECRET_KEY: string;
+      NX_CLOUD_AUTH_TOKEN: string;
     }
   }
 }

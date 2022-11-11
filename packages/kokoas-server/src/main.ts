@@ -6,8 +6,8 @@ loadEnv();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/test', (_, res )=>{
-  res.status(200).send('YEHEY');
+app.get('/', (_, res )=>{
+  res.send('YEHEY');
 });
 app.use('/docusign', docusignSend);
 

@@ -1,4 +1,4 @@
 RewriteEngine On
-RewriteRule (.*) http://localhost:3001/$1 [P,L]
+RewriteRule (.*) http://localhost:3010/$1 [P,L]
 DirectoryIndex disabled
 

@@ -1,19 +1,27 @@
 
 import { basePath } from '../../config';
-import { getJwtGrantToken, getAccountId } from './authentication/';
+import { getAccountId } from './authentication/';
 import { createEnvelopeFromFile } from './createEnvelopeFromFile';
 import path from 'path';
+import fs from 'fs';
 
 describe('Create Envelope', ()=>{
   it('should create envelope then send', async ()=>{
-    const token = await getJwtGrantToken();
+    const fileName = 'test.pdf';
+    const filePath = path.resolve(__dirname, fileName);
+
+    if (fs.existsSync(filePath))
+      throw new Error(`Please provide test file. ${filePath}`);
+
     const accountId = await getAccountId();
     const result = await createEnvelopeFromFile({
-      accessToken: token.accessToken,
       accountId,
       basePath: basePath,
-      filePath: path.resolve(__dirname, '__TEST__', 'test.en.pdf'),
+      filePath: filePath,
     });
-    expect(result).toMatchSnapshot();
+    console.log('RESULT', result);
+
+    /* TODO: Improve assertion */
+    expect(result).toBeDefined();
   }, 30000);
 });

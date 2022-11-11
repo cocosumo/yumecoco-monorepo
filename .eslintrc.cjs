@@ -78,6 +78,14 @@ module.exports = {
       }
     },
     {
+      "files":[
+        "**/kokoas-server/**/*"
+      ],
+      "rules" : {
+        "no-console": "off",
+      }
+    },
+    {
       "files" : [
         "**/**.d.ts"
       ],

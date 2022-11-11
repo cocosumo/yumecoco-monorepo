@@ -10,7 +10,7 @@
     "dev:staging": "cross-env NODE_ENV=staging nodemon src/main.ts",
     "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "cross-env NODE_ENV=prod rimraf ./dist && tsc --build tsconfig.json",
-    "start": "ts-node --files ./src/main.ts -T",
+    "start": "cross-env NODE_ENV=prod ts-node --files ./src/main.ts -T",
     "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.projectDetails.d.ts",
     "dtsgen:projEstimates": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 202 --type-name Data --namespace ProjectEstimates -o src/types/data.projectEstimates.d.ts",
     "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",

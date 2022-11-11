@@ -38,7 +38,7 @@ route.get('/contract/download', reqDownloadContract);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');
-  res.status(200).send('SUCCESS');
+  res.send('SUCCESS');
 });
 
 

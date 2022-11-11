@@ -6,14 +6,16 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "noImplicitAny": false,
-    "emitDeclarationOnly": true,
     "outDir": "dist",
+    "declaration": true,
     "declarationMap": true,
     "allowJs": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "./src/**/*",
+  "files": [
+    "./index.ts",
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
   ],
   "exclude": [
     "./dist"

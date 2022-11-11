@@ -4,6 +4,7 @@ import { searchCustGroups } from 'api-kintone';
 import { ICustgroups } from 'types';
 
 
+
 /**
  * 顧客グループを取得する
  */

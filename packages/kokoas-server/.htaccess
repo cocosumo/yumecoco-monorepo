@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^$ http://localhost:3010/ [P,L]
+</IfModule>
+

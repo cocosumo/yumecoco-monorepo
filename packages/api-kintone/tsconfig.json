@@ -2,8 +2,4 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
   },
-  "exclude": [
-    "dist",
-    "npm-scripts",
-  ],
 }

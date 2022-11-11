@@ -66,7 +66,7 @@ module.exports = {
         loader: 'source-map-loader',
         exclude: /node_modules/,
       },
-     /*  {
+      {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
 
@@ -86,22 +86,18 @@ module.exports = {
                   targets: {
                     node: 'current',
                   },
-                  modules: "auto",
-                  debug: "true"
                 },
               ],
             ],
           },
         },
-      }, */
+      },
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
-        exclude: /node_modules/,
         options: {
           transpileOnly: true,
           experimentalWatchApi: true,
-
         },
       },
     ],
@@ -138,7 +134,6 @@ module.exports = {
           // sync + async chunks
           name: 'vendor',
           chunks: 'initial',
-          reuseExistingChunk: true,
           priority: -10,
           // import file path containing node_modules
           test: /node_modules/,

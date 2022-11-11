@@ -25,7 +25,5 @@ export const createSenderView = async (
     {
       'returnUrlRequest': viewRequest,
     },
-  ).catch((err)=>{
-    console.log(err.message);
-  });
+  );
 };

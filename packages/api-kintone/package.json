@@ -1,8 +1,8 @@
 {
   "name": "api-kintone",
   "version": "0.0.0",
+  "main": "./src/index.ts",
   "scripts": {
-    "build": "tsc",
     "test": "jest",
     "authlink": "npm run build && node dist/scripts/authLink.js",
     "get:refreshtoken": "ts-node-esm scripts/getRefreshToken.ts",

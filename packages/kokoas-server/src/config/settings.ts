@@ -7,7 +7,7 @@ loadEnv();
 
 console.log('PROCESS', process.env.DS_INTEGRATOR_KEY);
 
-
+export const isProd = process.env.NODE_ENV === 'prod';
 export const ds = docusign;
 export const oAuth = ds.ApiClient.OAuth;
 export const restApi = ds.ApiClient.RestApi;

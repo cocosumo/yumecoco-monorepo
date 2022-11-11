@@ -22,12 +22,14 @@ export const tokenReplaceMin = 10;
 export const getPrivateKey = async () => {
   return fs
     .readFile(
-      path.join(__dirname, 'keys', 'private.key'),
+      path.join(__dirname, 'keys', (isProd ? 'prod-' : '') + 'private.key'),
     );
 };
 
 export const integratorKey = <string>process.env.DS_INTEGRATOR_KEY;
 export const userId = <string>process.env[isProd ? 'DS_USER_ID_PROD' : 'DS_USER_ID'];
+export const accoutId = <string>process.env[isProd ? 'DS_ACCOUNT_ID_PROD' : 'DS_ACCOUNT_ID_PROD'];
+
 export const scopes = [
   oAuth.Scope.IMPERSONATION,
   oAuth.Scope.SIGNATURE,

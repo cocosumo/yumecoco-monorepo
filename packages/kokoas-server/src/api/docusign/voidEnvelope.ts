@@ -14,6 +14,8 @@ export const voidEnvelope = async (
     voidedReason = '理由なし',
   } = params;
   const accountId = await getAccountId();
+
+  console.log('Voiding by impersonating accountId: ', accountId);
   const envelopeApi = new EnvelopesApi(apiClient);
   const env: Envelope = {
     status: 'voided',

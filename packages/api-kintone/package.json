@@ -4,9 +4,9 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "jest",
-    "authlink": "npm run build && node dist/scripts/authLink.js",
-    "get:refreshtoken": "ts-node-esm scripts/getRefreshToken.ts",
-    "get:newtoken": "ts-node-esm scripts/getNewAccessToken.ts"
+    "authlink": "ts-node-esm scripts/authLink.ts",
+    "get:refreshtoken": "ts-node scripts/getRefreshToken.ts",
+    "get:newtoken": "ts-node scripts/getNewAccessToken.ts"
   },
   "dependencies": {
     "config": "*",

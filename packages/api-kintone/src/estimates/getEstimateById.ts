@@ -1,9 +1,9 @@
-import { ktRecord } from './../client';
+import { ktRecord } from '../client';
 import { calculateEstimateRecord } from './calculateEstimateRecord';
 
 import { RecordType, appId } from './config';
 
-export const getEstimatesById = async (projEstimateId: string) => {
+export const getEstimateById = async (projEstimateId: string) => {
   const result = await (await ktRecord()).getRecord({
     app: appId,
     id: projEstimateId,

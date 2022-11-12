@@ -26,12 +26,14 @@ const getToken = async () => {
   return oAuth.token;
 };
 
+export const kintoneBaseUrl = process.env.KT_BASE_URL;
+
 export const kt = async () => {
 
   /* If running on node, retrieve access token dynamically then re-define client. */
   if (typeof window === 'undefined') {
     kintoneRestApiClient = new KintoneRestAPIClient({
-      baseUrl: process.env.KT_BASE_URL,
+      baseUrl: kintoneBaseUrl,
       auth: { oAuthToken: await getToken() },
     });
   }

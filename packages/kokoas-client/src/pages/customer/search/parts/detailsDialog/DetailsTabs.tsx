@@ -3,15 +3,15 @@ import { Box, Tab,  Skeleton  } from '@mui/material';
 import {  TabList, TabPanel } from '@mui/lab';
 import { DTCustomer } from './customers/DTCustomer';
 import { ProjectDetailsContainer } from './projects/ProjectDetailsContainer';
-import { useState, useEffect, SyntheticEvent } from 'react';
-import { getCustGroup } from '../../../../../api/kintone/custgroups/GET';
+import { useState, SyntheticEvent } from 'react';
 import { ButtonEdit } from './ButtonEdit';
-import { getConstRecordByIds } from '../../../../../api/kintone/projects/GET';
 import { pages } from '../../../../Router';
 import { generateParams } from '../../../../../helpers/url';
 import { TabContextContainer } from './TabContextContainer';
-import useDeepCompareEffect from 'use-deep-compare-effect';
-import { ICustgroups, IProjects } from 'types';
+import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { useProjsByCustGroupId } from 'kokoas-client/src/hooksQuery/useProjsByCustGroupId';
+import { useIsFetching } from '@tanstack/react-query';
+
 
 export function DetailsTabs(props : {
   custGroupId?: string,
@@ -23,35 +23,12 @@ export function DetailsTabs(props : {
     setTabValue(newValue);
   };
 
-  const [record, setRecord] = useState<ICustgroups>();
-  const [fetchedProjects, setFetchedProjects] = useState<IProjects[]>();
-  const [loading, setLoading] = useState<boolean>(true);
-  const projectIds =  record?.projects?.value
-    .map(item => item.value.projId.value)
-    .filter(Boolean) ?? [];
+  const { data: custGroupRec } = useCustGroupById(custGroupId || '');
+  const { data: projRecs } = useProjsByCustGroupId(tabValue === '2' && custGroupId ? custGroupId : '');
+  const isFetching = useIsFetching();
 
-  useDeepCompareEffect(()=>{
-    if (projectIds.length && !fetchedProjects && tabValue === '2') {
-      getConstRecordByIds(
-        projectIds,
-      ).then(result => {
-        setFetchedProjects(result.records as unknown as IProjects[]);
-      });
-    }
-  }, [projectIds, fetchedProjects, tabValue]);
 
-  useEffect(()=>{
-    if (custGroupId) {
-      setLoading(true);
-      getCustGroup(custGroupId)
-        .then(resp => {
-          setLoading(false);
-          setRecord(resp);
-        });
-    }
-  }, [custGroupId]);
-
-  const isWithProject = Boolean(record?.projects.value
+  const isWithProject = Boolean(custGroupRec?.projects.value
     .filter(item=>item.value.projId.value)
     .length);
   return (
@@ -64,7 +41,7 @@ export function DetailsTabs(props : {
         </TabList>
       </Box>
       <TabPanel value="1">
-        <DTCustomer {...{ record, loading }} />
+        <DTCustomer loading={!!isFetching} record={custGroupRec} />
         <ButtonEdit link={`${pages.custGroupEdit}?${generateParams({
           custGroupId,
         })}`}
@@ -72,12 +49,12 @@ export function DetailsTabs(props : {
       </TabPanel>
       <TabPanel value="2">
         {
-            fetchedProjects &&
-            <ProjectDetailsContainer fetchedProjects={fetchedProjects} />
+            projRecs &&
+            <ProjectDetailsContainer fetchedProjects={projRecs} />
           }
 
         {
-            !fetchedProjects &&
+            !projRecs &&
             <Skeleton variant="rectangular" width={210} height={118} />
           }
       </TabPanel>

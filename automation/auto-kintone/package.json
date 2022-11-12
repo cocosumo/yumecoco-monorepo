@@ -4,5 +4,8 @@
   "main": "dist/index.js",
   "devDependencies": {},
   "scripts": {
+  },
+  "dependencies": {
+    "auto-common" : "*"
   }
 }

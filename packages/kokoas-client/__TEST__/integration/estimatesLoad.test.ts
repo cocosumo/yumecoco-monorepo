@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 import { kintoneBaseUrl } from 'api-kintone';
 import { sleep } from 'libs';
-import { login } from 'auto-kintone';
+import { login,  } from 'auto-kintone';
 
 /* 見積を取得 */
 describe('estimates', () => {

@@ -14,6 +14,7 @@ export const useUpdateProjectId = () => {
   const [isInitial, setIsInitial] = useState(false);
   const isFetching = useIsFetching();
 
+
   const { 
     data: projRecord, 
   } = useProjById(projId);
@@ -24,9 +25,12 @@ export const useUpdateProjectId = () => {
   } = useProjTypeById(projTypeId?.value || '');
 
 
+
   useEffect(() => {
 
-    if ( projRecord ) {
+    if ( projId && projRecord ) {
+
+      console.log('triggered', projId, projRecord);
       setIsInitial(false);
 
       const {
@@ -51,8 +55,7 @@ export const useUpdateProjectId = () => {
       });
 
 
-    } else if (!projId && dirty) {
-
+    } else if (!projId && !isFetching) {
       setValues((prev) => produce(prev, draft => {
         draft.projId = initialValues.projId;
         draft.projName = initialValues.customerName;
@@ -60,15 +63,15 @@ export const useUpdateProjectId = () => {
         draft.projTypeProfit = initialValues.projTypeProfit;
         draft.customerName = initialValues.customerName;
         draft.createdDate = initialValues.createdDate;
-        draft.estimateId = initialValues.estimateId;
       }));
     }
     
 
-  }, [projRecord, projId, dirty, setValues,  setSnackState, setTouched]);
+  }, [projRecord, projId, dirty, setValues,  setSnackState, setTouched, isFetching]);
 
   useEffect(() => {
     if (projRecord && projTypeRecord) {
+
       const {
         profitRate,
         $id,
@@ -85,6 +88,7 @@ export const useUpdateProjectId = () => {
     }
 
   }, [projTypeRecord, projRecord, setValues]);
+
 
   return {
     isLoading: isInitial || !!isFetching,

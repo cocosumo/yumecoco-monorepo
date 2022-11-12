@@ -17,7 +17,7 @@ export const useUpdateEstimateId = () => {
   const { data } = useEstimateById(estimateId);
 
   useEffect(() => {
-    if (data) {
+    if (data && estimateId) {
 
       const { record } = data;
       const {

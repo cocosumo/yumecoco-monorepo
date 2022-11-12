@@ -30,7 +30,6 @@ export const useUpdateProjectId = () => {
 
     if ( projId && projRecord ) {
 
-      console.log('triggered', projId, projRecord);
       setIsInitial(false);
 
       const {

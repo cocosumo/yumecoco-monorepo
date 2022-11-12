@@ -15,7 +15,7 @@ describe('updateRelatedToCustGroup', () => {
     for (const custGroupId of testData) {
       const record = await getCustGroupById(custGroupId);
       const result = await updateRelatedToCustGroup(record, custGroupId);
-      console.log(JSON.stringify(result?.[194].results, null, 2));
+
       if (!result) {
         throw new Error('Invalid custGroupId');
       }

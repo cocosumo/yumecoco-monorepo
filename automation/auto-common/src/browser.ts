@@ -9,4 +9,5 @@ export const browser = (
 /* Wrappers */
 export const headFullBrowser = () => browser({
   headless: false,
+  defaultViewport: null,
 });

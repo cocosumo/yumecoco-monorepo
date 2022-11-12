@@ -83,16 +83,16 @@ export const DTCustomer = (props: {
                 {contacts?.value
                   ?.filter(({ value: { contactValue } }) => !!contactValue.value)
                   ?.map(({
-                    id: contactRowId,
                     value: {
                       contactType,
                       contactValue,
                       relation,
                     },
                   }) => {
+                    
                     return  (
                       <LabeledDetail
-                        key={contactRowId}
+                        key={contactValue.value}
                         label={contactType.value === 'tel' ? '電話番号' : 'メール'}
                         value={`${contactValue.value}, ${relation.value}`}
                       />);

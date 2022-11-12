@@ -6,7 +6,6 @@ module.exports = {
   testEnvironment: 'node',
   setupFiles: ['dotenv/config'],
   modulePathIgnorePatterns: ['dist/'],
-  setupFilesAfterEnv: ['./jest.setup.js'],
   verbose: true,
   globals: {
     'ts-jest': {

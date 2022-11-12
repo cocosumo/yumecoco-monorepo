@@ -4,6 +4,8 @@
   "main": "dist/index.js",
   "devDependencies": {},
   "scripts": {
+    "test:unit": "jest ./src",
+    "test": "npm run test:unit"
   },
   "dependencies": {
     "auto-common" : "*"

@@ -7,6 +7,7 @@
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",
-    "/packages/api-kintone/src/stores"
+    "/packages/api-kintone/src/stores",
+    "/automation/auto-common/src"
   ]
 }

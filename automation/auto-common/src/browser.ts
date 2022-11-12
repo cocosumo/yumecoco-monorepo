@@ -10,5 +10,3 @@ export const browser = (
 export const headFullBrowser = () => browser({
   headless: false,
 });
-export const headFullBrowserPage = () => headFullBrowser().then(({ newPage }) => newPage);
-

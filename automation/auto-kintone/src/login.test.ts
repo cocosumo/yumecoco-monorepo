@@ -1,10 +1,14 @@
-import { headFullBrowserPage } from 'auto-common';
+import { headFullBrowser } from 'auto-common';
 import { login } from './login';
 
 describe('login', () => {
   it('should login to kintone', async () => {
-    const page = await headFullBrowserPage();
+    const browser = await headFullBrowser();
+    const page = await browser.newPage();
+
     await login(page);
+
+    expect(page.url().includes('login')).toEqual(false);
 
     await page.browser().close();
   });

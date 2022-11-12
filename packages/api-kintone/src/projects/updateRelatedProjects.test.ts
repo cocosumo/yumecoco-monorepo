@@ -3,19 +3,16 @@ import { updateRelatedProjects } from './updateRelatedProjects';
 
 describe('updateRelatedProjects', () => {
   it('should update related projId', async () => {
-    const testData = [
-      '123',
-    ]; 
+    const testId = '123'; // 存在しているテスト用の工事番号
     
-    for (const projId of testData) {
-      const projRecord = await getProjById(projId); 
 
-      const result = await updateRelatedProjects(projId, projRecord);
-      console.log(JSON.stringify(result, null, 2));
+    const projRecord = await getProjById(testId); 
 
-      /* TODO: Retrieved resulting records and test if it matches the input */
-      expect(result).toBeDefined();
-    }
+    const result = await updateRelatedProjects(testId, projRecord);
+
+    /* TODO: Retrieved resulting records and test if it matches the input */
+    expect(result).toBeDefined();
+    
 
   });
 

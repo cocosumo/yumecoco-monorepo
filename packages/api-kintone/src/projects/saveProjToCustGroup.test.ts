@@ -8,7 +8,6 @@ test('save project transaction', async ()=>{
 
     const result = await saveProjToCustGroup(testData);
 
-    console.log(result);
   
     expect(result).toBeTruthy();
 

@@ -67,6 +67,7 @@ export const searchCustGroups = async ({
     app: appId,
     condition: query,
     orderBy: `${orderBy}`,
+    withCursor: false,
   }).then(rec => rec as unknown as RecordType[]);
 
 };

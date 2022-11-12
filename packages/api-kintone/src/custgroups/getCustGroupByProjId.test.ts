@@ -1,10 +1,8 @@
-import { getCustGroupsByProjId } from './getCustGroupsByProjId';
+import { getCustGroupByProjId } from './getCustGroupByProjId';
 
 test('Get CustGroup by Project Id', async ()=>{
-  const testData = '97';
-  const result = await getCustGroupsByProjId(testData);
-
-  console.log(JSON.stringify(result, null, 2));
+  const testId = '118'; // 存在している工事番号
+  const result = await getCustGroupByProjId(testId);
 
   expect(result).toEqual(expect.arrayContaining([
     expect.objectContaining({

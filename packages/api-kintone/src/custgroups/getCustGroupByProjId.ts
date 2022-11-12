@@ -5,7 +5,7 @@ import { appId, RecordType } from './config';
 
 
 
-export const getCustGroupsByProjId = async (projectId: string) => {
+export const getCustGroupByProjId = async (projectId: string) => {
   const projIdField : KCustGroupProjects = 'projId';
   return  (await ktRecord()).getRecords({
     app: appId,

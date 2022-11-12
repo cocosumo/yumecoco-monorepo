@@ -8,7 +8,7 @@ import { getEstimateById } from 'api-kintone';
 
 /* 見積を取得 */
 describe('estimates', () => {
-
+  const baseUrl = getKokoasBaseURLByEnv() + pages.projEstimate;
   let page: Page;
 
   beforeAll(async () => {
@@ -17,23 +17,24 @@ describe('estimates', () => {
     return page;
   });
 
-  it('should load existing estimate correctly', async () => {
-    const link = getKokoasBaseURLByEnv() + pages.projEstimate;
-
-    const testData =  '76'; 
+  /* 存在している見積もり番号をURLで渡し、正しいデータを表示する。 */
+  it('should display record from existing estimate id passed by url parameters', async () => {
+    const testData =  '76'; // 存在している見積番号
+    
+    const urlWithParams = `${baseUrl}?${generateParams({
+      projEstimateId: testData,
+    })}`;
+  
 
     await page.goto(
-      `${link}?${generateParams({
-        projEstimateId: testData,
-      })}`,
+      urlWithParams,
       { waitUntil: 'domcontentloaded' },
     );
 
     await login(page);
 
-
     expect(page.url()).toContain(`projEstimateId=${testData}`);
-    
+
     const { calculated: { totalAmountInclTax } } = await getEstimateById(testData);
 
     await page.waitForNetworkIdle();
@@ -42,9 +43,28 @@ describe('estimates', () => {
     // \D regex metacharacter matches any non-digit characters 
     const cleanTotalAmount = rawTotalAmount.replace(/\D/g, '');
 
-    console.log(cleanTotalAmount, totalAmountInclTax);
-    //expect(totalAmountInclTax).toEqual(cleanTotalAmount);
+    expect(cleanTotalAmount).toEqual(totalAmountInclTax);
+  });
 
+  
+  /* 存在していない見積もり番号をURLで渡し、エラーを表示する。 */
+  it('should notify user of error when non-existent projEstimateId was passed by url', async () => {
+    const testData =  '987654321'; // 存在していない見積番号
+    const urlWithParams = `${baseUrl}?${generateParams({
+      projEstimateId: testData,
+    })}`;
+    await page.goto(
+      urlWithParams,
+      { waitUntil: 'domcontentloaded' },
+    );
+    await login(page);
+    expect(page.url()).toContain(`projEstimateId=${testData}`);
+
+    await page.waitForNetworkIdle();
+
+    const errorNotif = await page.waitForSelector('.MuiAlert-filledError');
+
+    expect(errorNotif).toBeTruthy();
   });
 
   afterAll(async () => page.browser().close());

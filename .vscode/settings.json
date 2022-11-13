@@ -3,7 +3,9 @@
     "/packages/api-kintone/src/projects/config.ts",
     "/packages/api-kintone/src/auth",
     "/packages/api-kintone/src/custgroups/config.ts",
-    "/packages/api-kintone/src/projTypes/config.ts"
+    "/packages/api-kintone/src/projTypes/config.ts",
+    "/packages/api-kintone/src/stores/config.ts",
+    "/packages/api-kintone/src/customers/config.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",

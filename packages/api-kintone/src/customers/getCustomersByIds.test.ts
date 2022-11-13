@@ -8,6 +8,7 @@ describe('getCustomersByIds', () => {
 
   beforeAll(async () => {
     result = await getCustomersByIds(testIds);
+    console.debug(result);
     return result;
   });
 

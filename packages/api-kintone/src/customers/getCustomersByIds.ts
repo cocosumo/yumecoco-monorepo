@@ -1,7 +1,8 @@
 import { ICustomers } from 'types';
 import { ktRecord } from './../client';
 import { appId } from './config';
-export const getCustomerByIds = async (ids : string[]) => {
+
+export const getCustomersByIds = async (ids : string[]) => {
 
   const query = ids.map((id) => `$id = "${id}" `).join(' or ') + ' order by index asc';
 

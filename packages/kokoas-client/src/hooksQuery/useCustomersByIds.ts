@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { APPIDS } from '../api/kintone';
-import { getCustomerByIds } from 'api-kintone';
+import { getCustomersByIds } from 'api-kintone';
 
 /**
  * 顧客番号の配列で、顧客のデータの配列を取得する。
@@ -11,7 +11,7 @@ import { getCustomerByIds } from 'api-kintone';
 export const useCustomersByIds = (custIds : string[]) => {
   return useQuery(
     [APPIDS.customers, { custIds }],
-    () => getCustomerByIds(custIds),
+    () => getCustomersByIds(custIds),
     {
       enabled: !!custIds.length,
     },

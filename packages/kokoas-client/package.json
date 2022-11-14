@@ -10,7 +10,7 @@
     "build": "webpack --mode production",
     "test:e2e": "jest ./__TEST__/e2e --passWithNoTests --coverage",
     "test:int": "jest ./__TEST__/integration --passWithNoTests --coverage",
-    "test": "jest ./__TEST__  --passWithNoTests --coverage --silent"
+    "test": "jest ./__TEST__  --passWithNoTests --coverage --silent -c jest.config.ts --runInBand"
   },
   "dependencies": {
     "config": "*",

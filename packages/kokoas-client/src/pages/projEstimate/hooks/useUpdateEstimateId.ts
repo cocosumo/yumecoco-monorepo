@@ -1,9 +1,12 @@
+import { useSnackBar } from './../../../hooks/useSnackBar';
 import { useEstimateById } from './../../../hooksQuery/useEstimateById';
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { TypeOfForm } from '../form';
 import { produce } from 'immer';
 import { format, parseISO } from 'date-fns';
+import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
+import { pages } from '../../Router';
 
 
 export const useUpdateEstimateId = () => {
@@ -13,11 +16,21 @@ export const useUpdateEstimateId = () => {
     },
     setValues,
   } = useFormikContext<TypeOfForm>();
+  const { setSnackState } = useSnackBar();
+  const navigate = useStableNavigate();
 
-  const { data } = useEstimateById(estimateId);
+  const { data, error, isLoading } = useEstimateById(estimateId);
 
   useEffect(() => {
-    if (data) {
+    if (error && !isLoading) {
+      setSnackState({ open: true, severity: 'error', message: (error as Error)?.message });
+      navigate(pages.projEstimate);
+    }
+
+  }, [error, isLoading, setSnackState, navigate]);
+
+  useEffect(() => {
+    if (data && estimateId) {
 
       const { record } = data;
       const {

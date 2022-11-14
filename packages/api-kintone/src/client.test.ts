@@ -10,9 +10,7 @@ describe('Kintone client', () => {
     const result = await kintoneClient.record.getRecords({
       app: AppIds.employees,
     });
-  
-    console.log('Retrieved ', result.records.length);
-  
+    
     expect(result).toHaveProperty('records');
   });
 
@@ -24,9 +22,7 @@ describe('Kintone client', () => {
     const result = await kintoneRecord.getRecords({
       app: AppIds.employees,
     });
-  
-    console.log('Retrieved ', result.records.length);
-  
+    
     expect(result).toHaveProperty('records');
   });
 });

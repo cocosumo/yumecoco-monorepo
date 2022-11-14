@@ -68,7 +68,7 @@ describe('mainSearch', ()=>{
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
-      console.log(`Records: ${result.length} , ${param.easySearch}`);
+      
       expect(
         result
           .every((rec) => toContain(rec, param)),
@@ -84,7 +84,6 @@ describe('mainSearch', ()=>{
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
-      console.log(`Records: ${result.length} , ${param.storeName}`);
       expect(
         result
           .every(({ storeName }) => storeName.value.includes(param.storeName || '')),
@@ -100,7 +99,6 @@ describe('mainSearch', ()=>{
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
-      console.log(`Records: ${result.length} , ${param.custEmail}`);
 
       expect(
         result
@@ -119,7 +117,6 @@ describe('mainSearch', ()=>{
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
-      console.log(`Records: ${result.length} , ${param.yumeAg}`);
       expect(
         result
           .every(({ agents }) => agentContains(agents, ['employeeName'], param.yumeAg || '', 'yumeAG')),
@@ -135,7 +132,6 @@ describe('mainSearch', ()=>{
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
-      console.log(`Records: ${result.length} , ${param.cocoAg}`);
 
       expect(
         result

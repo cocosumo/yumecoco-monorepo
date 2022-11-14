@@ -14,7 +14,6 @@ describe('save/update project', () => {
     const rawProjRecord = await getProjById(testProjId);
 
     const projRecord = omit(rawProjRecord, ['$id', 'レコード番号', '更新者', '作成者', '作成日時', '更新日時']);
-    console.log('Retrieved', projRecord.$revision, projRecord);
 
     const projRevision = +projRecord.$revision.value;
     

@@ -79,7 +79,8 @@ module.exports = {
     },
     {
       "files":[
-        "**/kokoas-server/**/*"
+        "**/kokoas-server/**/*",
+        "./automation/**/*"
       ],
       "rules" : {
         "no-console": "off",

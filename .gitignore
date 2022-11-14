@@ -39,6 +39,8 @@ testem.log
 Thumbs.db
 coverage
 
+coverage
+
 # sensitive
 *.env
 *.bat

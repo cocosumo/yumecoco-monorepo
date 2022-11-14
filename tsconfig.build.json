@@ -74,5 +74,9 @@
     {
       "path": "./packages/utils-jest"
     },
+
+    {
+      "path": "./automation/auto-kintone"
+    },
   ]
 }

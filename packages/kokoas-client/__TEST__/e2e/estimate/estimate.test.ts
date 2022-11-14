@@ -1,4 +1,4 @@
-import { headFullBrowser } from 'auto-common';
+import { browser } from 'auto-common';
 import { login } from 'auto-kintone';
 import { getKokoasBaseURLByEnv } from 'kokoas-client/src/config/settings';
 import { pages } from 'kokoas-client/src/pages/Router';
@@ -12,8 +12,9 @@ describe('estimates', () => {
   let page: Page;
 
   beforeAll(async () => {
-    const browser = await headFullBrowser();
-    page =  await browser.newPage();
+    const newBrowser = await browser();
+    page =  (await newBrowser.pages())[0];
+
     return page;
   });
   afterAll(async () => page.browser().close());

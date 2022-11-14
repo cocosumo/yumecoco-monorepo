@@ -1,6 +1,5 @@
-import { AppIds } from 'config';
+import { getAllCustGroups } from 'api-kintone';
 import { getCustGroupKey, KFlatCustGroup, TEnvelopeStatus } from 'types';
-import { KintoneRecord } from '../../../../api/kintone';
 import { RecordStatus } from '../../../../config/formValues';
 
 
@@ -99,12 +98,9 @@ export const advancedSearchCustGroup = async (
     .filter((arr) => arr.length)
     .join(' and ');
 
-
-
-  return KintoneRecord.getAllRecords({
-    app: AppIds.custGroups,
-    condition: query ?? undefined,
-    orderBy:  `${'更新日時' as KFlatCustGroup} desc`,
+  return getAllCustGroups({
+    query,
+    orderBy:['更新日時', 'desc'],
   });
 
 };

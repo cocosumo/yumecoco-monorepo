@@ -5,6 +5,7 @@ export * from './custMemo';
 export * from './customers';
 export * from './employees';
 export * from './estimates';
+export * from './materialsItem';
 export * from './materialsMajor';
 export * from './materialsMid';
 export * from './projects';

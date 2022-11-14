@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 import axios from 'axios';
-import {RequestHandler} from 'express';
+import { RequestHandler } from 'express';
 import { TProjReq } from 'types';
-import {createSenderView} from '../api/docusign/createSenderView';
+import { createSenderView } from '../api/docusign/createSenderView';
 
 // Will return URL.
 export const reqGetSenderView: RequestHandler = async (req, res) => {

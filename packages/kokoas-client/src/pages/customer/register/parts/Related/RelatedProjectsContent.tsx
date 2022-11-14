@@ -9,10 +9,19 @@ export const RelatedProjectsContent = ({
 }) => {
 
   return (
-    <CardContent>
-      <Stack spacing={2}>
-        <LabeledDetail label='工事番号' value={projId} direction={'column'} />
-        <LabeledDetail label='工事名' value={projName} direction={'column'} />
+    <CardContent >
+      <Stack spacing={2} >
+        <LabeledDetail
+          id={`projId-${projId}`}
+          label='工事番号' value={projId}
+          direction={'column'}
+        />
+        <LabeledDetail
+          id={`projName-${projName}`}
+          label='工事名'
+          value={projName}
+          direction={'column'}
+        />
       </Stack>
     </CardContent>
   );

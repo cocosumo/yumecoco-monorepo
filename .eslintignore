@@ -1,5 +1,6 @@
-.eslintrc.cjs
+.eslintrc.*js
 webpack.config.js
 jest
 jest.*
 env.*
+__mocks__

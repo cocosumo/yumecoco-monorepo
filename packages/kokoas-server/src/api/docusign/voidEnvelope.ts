@@ -1,6 +1,6 @@
-import {Envelope, EnvelopesApi} from 'docusign-esign';
-import {apiClient} from '../../config';
-import {getAccountId} from './authentication';
+import { Envelope, EnvelopesApi } from 'docusign-esign';
+import { apiClient } from '../../config';
+import { getAccountId } from './authentication';
 
 // https://docusign.github.io/docusign-esign-node-client/module-api_EnvelopesApi.html#update
 
@@ -14,6 +14,8 @@ export const voidEnvelope = async (
     voidedReason = '理由なし',
   } = params;
   const accountId = await getAccountId();
+
+  console.log('Voiding by impersonating accountId: ', accountId);
   const envelopeApi = new EnvelopesApi(apiClient);
   const env: Envelope = {
     status: 'voided',
@@ -21,5 +23,5 @@ export const voidEnvelope = async (
   };
 
 
-  return await envelopeApi.update(accountId, envelopeId, {envelope: env});
+  return envelopeApi.update(accountId, envelopeId, { envelope: env });
 };

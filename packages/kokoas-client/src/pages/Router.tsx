@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { FormikConstruction } from './projRegister';
+import { FormikConstruction } from './projRegister/FormikConstruction';
 import { FormikContract } from './projContracts/';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
@@ -10,7 +10,7 @@ import HelpComponents from './manuals/HelpComponents';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
-import { FormikPaymentInvoice } from './projInvoice/FormikPaymentInvoice';
+import { FormikInvoice } from './projInvoice/FormikInvoice';
 
 
 
@@ -38,7 +38,7 @@ export const pages = {
   projContractPreview: '/project/contract/preview',
   projContractSearch: 'project/contract/search',
 
-  projPaymentInvoice: '/project/payment/invoice',
+  projInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',
   projPaymentInput: '/project/payment/input',
 
@@ -80,7 +80,7 @@ const Router = () => (
     <Route path={`${pages.projContractSearch}`} element={<FormikContractSearch />} />
 
     {/* 入金管理グループ */}
-    <Route path={`${pages.projPaymentInvoice}`} element={<FormikPaymentInvoice />} />
+    <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />
     <Route path={`${pages.projPaymentSearch}`} element={'入金予定一覧ページ：未対応'} />
     <Route path={`${pages.projPaymentInput}`} element={'入金情報入力ページ：未対応'} />
 

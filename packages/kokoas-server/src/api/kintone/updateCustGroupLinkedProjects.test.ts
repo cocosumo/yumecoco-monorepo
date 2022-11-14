@@ -1,4 +1,4 @@
-import {updateCustGroupLinkedProjects} from './updateCustGroupLinkedProjects';
+import { updateCustGroupLinkedProjects } from './updateCustGroupLinkedProjects';
 
 describe('update linked', ()=>{
   it('should update linked projects', async ()=>{

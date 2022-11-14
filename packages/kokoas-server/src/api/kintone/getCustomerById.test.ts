@@ -1,4 +1,4 @@
-import {getCustomerById} from './getCustomerById';
+import { getCustomerById } from './getCustomerById';
 
 describe('Customer', ()=>{
   it('should get customer record', async ()=>{

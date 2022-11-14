@@ -1,6 +1,6 @@
-import {EnvelopesApi, ReturnUrlRequest} from 'docusign-esign';
-import {apiClient} from '../../config';
-import {getAccountId} from './authentication';
+import { EnvelopesApi, ReturnUrlRequest } from 'docusign-esign';
+import { apiClient } from '../../config';
+import { getAccountId } from './authentication';
 
 
 export const createSenderView = async (
@@ -19,13 +19,11 @@ export const createSenderView = async (
 
   console.log(accountId, envelopeId);
 
-  return await envApi.createSenderView(
+  return envApi.createSenderView(
     accountId,
     envelopeId,
     {
       'returnUrlRequest': viewRequest,
     },
-  ).catch((err)=>{
-    console.log(err.message);
-  });
+  );
 };

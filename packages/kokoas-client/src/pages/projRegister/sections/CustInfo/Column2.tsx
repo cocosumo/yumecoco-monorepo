@@ -36,14 +36,3 @@ export const Column2 = (
     </Grid>
   );
 };
-
-/*        {custGroupRecord?.agents
-          .value
-          .reduce((accu, { id, value: { agentType, employeeName } })=>{
-            const rawLabel = AGLabels[agentType.value as keyof typeof AGLabels];
-            const numberedLabel = `${rawLabel ?? '担当者'}1`;
-            const isExist = accu.some(item => item.label === numberedLabel);
-            const resolvedLabel = isExist ?  `${rawLabel}2` : numberedLabel;
-
-            return [...accu, { key: id, label: resolvedLabel, data: employeeName.value }];
-          }, [] as Array<LabeledInfoProps & { key: string }>) */

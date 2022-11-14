@@ -1,17 +1,18 @@
 import { Formik } from 'formik';
 
-import { validationSchema, initialValues } from './form';
+import { validationSchema } from './form';
 
 import { useNavigate } from 'react-router-dom';
 
 import { FormConstruction } from './FormConstruction';
 
-import { saveFormData } from './api/saveFormData';
 import { pages } from '../Router';
-import {  useSnackBar } from '../../hooks';
 import { useConfirmDialog } from '../../hooks/useConfirmDialog';
 import { NextStepChoices } from './parts/NextStepChoices';
 import { generateParams } from '../../helpers/url';
+import { convertToKintone } from './api/convertToKintone';
+import  { useSaveProject } from './../../hooksQuery';
+import { useResolveParams } from './hooks/useResolveParams';
 
 
 
@@ -20,32 +21,39 @@ export const FormikConstruction  = () => {
 
   const { setDialogState } = useConfirmDialog();
   const navigate = useNavigate();
-  const { setSnackState } = useSnackBar();
+  const { mutateAsync } = useSaveProject();
+
+  const initialValues = useResolveParams();
+
+
 
   return (
     <Formik
-      initialStatus={((s: TFormStatus)=> s)('busy')}
       validateOnMount
-      //enableReinitialize
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={async (values) => {
+        const { projId } = values;
 
-        saveFormData({ ...values })
-          .then((resp)=>{
-            setSnackState({ open: true, message: '保存出来ました。', severity: 'success' });
-            setSubmitting(false);
-            setDialogState({
-              title: '次へ進む',
-              content: <NextStepChoices recordId={resp.id} />,
-              withYes: false,
-              noText: '閉じる',
-            });
+        const kintoneRecord = convertToKintone(values);
+        const resp = await mutateAsync({
+          record: kintoneRecord,
+          projId,
+        });
 
-            navigate(`${pages.projEdit}?${generateParams({
-              projId: resp.id,
-            })}`);
-          });
+        setDialogState({
+          title: '次へ進む',
+          content: <NextStepChoices recordId={resp?.id} />,
+          withYes: false,
+          noText: '閉じる',
+        });
+
+        navigate(`${pages.projEdit}?${generateParams({
+          projId: resp.id,
+        })}`);
+
+
       }}
     >
       <FormConstruction />

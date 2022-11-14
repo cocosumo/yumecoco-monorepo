@@ -1,6 +1,6 @@
-import {PDFFont, PDFPage} from 'pdf-lib';
-import {getContractData, TContractData} from '../../../kintone/getContractData';
-import {drawText} from '../helpers/pdf';
+import { PDFFont, PDFPage } from 'pdf-lib';
+import { getContractData, TContractData } from '../../../kintone/getContractData';
+import { drawText } from '../helpers/pdf';
 
 export const getPayMethodX = (
   payMethod: TContractData['payMethod'],

@@ -1,10 +1,10 @@
-import {EnvelopesApi, EnvelopeSummary} from 'docusign-esign';
+import { EnvelopesApi, EnvelopeSummary } from 'docusign-esign';
 import { ReqSendContract } from 'types';
-import {apiClient} from '../../../../config';
-import {getContractData} from '../../../kintone/getContractData';
-import {updateEstimateEnvelope} from '../../../kintone/updateEstimateEnvelope';
-import {getAccountId} from '../../authentication';
-import {makeEnvelope} from './makeEnvelope';
+import { apiClient } from '../../../../config';
+import { getContractData } from '../../../kintone/getContractData';
+import { updateEstimateEnvelope } from '../../../kintone/updateEstimateEnvelope';
+import { getAccountId } from '../../authentication';
+import { makeEnvelope } from './makeEnvelope';
 
 export const processContract = async (
   params: ReqSendContract,
@@ -44,14 +44,14 @@ export const processContract = async (
 
     if (envSummary.envelopeId && envelope.documents?.length) {
       console.log(`Updating projEstimateId. ${data.projEstimateId}`);
-      const {envelopeId, status} = envSummary;
+      const { envelopeId, status: newStatus } = envSummary;
 
       await updateEstimateEnvelope({
         envelopeId: envelopeId,
-        envelopeStatus: status ?? 'sent',
+        envelopeStatus: newStatus ?? 'sent',
         event: 'envelope-sent',
         signMethod: signMethod,
-        documents: envelope.documents?.map(({documentBase64, name}) => {
+        documents: envelope.documents?.map(({ documentBase64, name }) => {
           return {
             fileBase64: documentBase64 || '',
             filename: name || '',

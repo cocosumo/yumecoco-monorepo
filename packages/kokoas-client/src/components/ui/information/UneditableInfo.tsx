@@ -16,25 +16,27 @@ export const UneditableInfo = ({
       <Grid item xs={12} >
 
         <Alert
-        severity="warning"
+          severity="warning"
 
         >
-          <AlertTitle>編集出来ません</AlertTitle>
+          <AlertTitle>
+            編集出来ません
+          </AlertTitle>
           契約書は「送信済み」です。
-          <br/>
+          <br />
           編集する場合は、契約を「無効」にしてください。
-          <br/>
+          <br />
           契約は「完了」状態になると「無効」にできないため、ご注意ください。
-          <br/>
+          <br />
           {projId &&
           <Button
             onClick={()=>navigate(`${pages.projContractPreview}?projId=${projId}`)}
             color="inherit"
             variant={'outlined'}
-            size="small">
+            size="small"
+          >
             契約を見る
-          </Button>
-        }
+          </Button>}
         </Alert>
       </Grid>
     </Zoom>

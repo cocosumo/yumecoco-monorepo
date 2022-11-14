@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "sourceMap": true,
     "module": "CommonJS",
     "target": "ESNext",
@@ -12,8 +12,9 @@
       "es2019",
       "es6",
       "dom",
-      "dom.iterable"
+      "dom.iterable",
     ],
+    "declaration": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -24,21 +25,28 @@
   },
   "exclude": [
     "dist",
-    "npm-scripts"
+    "npm-scripts",
+    "*eslint*",
+    "*webpack*",
+    "jest.config.ts"
   ],
   "include": [
-    "**/*.ts", "**/*.tsx",
+    "./**/*.ts",
+    "./**/*.tsx",
   ],
   "files": [
     "./node_modules/@kintone/dts-gen/kintone.d.ts",
     "./node_modules/@types/docusign-esign/index.d.ts",
-    "./env.d.ts"
   ],
-
   "rules": {
     "quotemark": [
       true,
       "single"
+    ]
+  },
+  "paths": {
+    "*": [
+      "src/@t`ypes/*"
     ]
   },
   "references": [
@@ -61,8 +69,14 @@
       "path": "./packages/config"
     },
     {
-      "path": "./packages/helpers"
+      "path": "./packages/libs"
+    },
+    {
+      "path": "./packages/utils-jest"
     },
 
+    {
+      "path": "./automation/auto-kintone"
+    },
   ]
 }

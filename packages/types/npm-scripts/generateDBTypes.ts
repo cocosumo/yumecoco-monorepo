@@ -1,4 +1,4 @@
-import { capitalize } from 'lodash';
+import capitalize from 'lodash/capitalize';
 import fs from 'fs';
 import path from 'path';
 import { root } from 'types/settings';

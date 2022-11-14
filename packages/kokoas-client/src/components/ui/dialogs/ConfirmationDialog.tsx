@@ -39,7 +39,9 @@ export default function ConfirmationDialog(props: ConfirmationDialogProps) {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>handleConfirmClose('ok')}>はい</Button>
+          <Button onClick={()=>handleConfirmClose('ok')}>
+            はい
+          </Button>
           <Button onClick={()=>handleConfirmClose('cancel')} autoFocus>
             いいえ
           </Button>

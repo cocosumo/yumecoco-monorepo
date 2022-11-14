@@ -11,4 +11,6 @@ export const AppIds = {
   materialsMid: 68,
   materialsItem: 69,
   invoices : 204,
-};
+} as const;
+
+export type VAppIds = typeof AppIds[keyof typeof AppIds];

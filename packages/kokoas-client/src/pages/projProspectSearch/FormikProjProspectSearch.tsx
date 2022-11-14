@@ -56,7 +56,7 @@ export const FormikProjProspectSearch = () => {
       }}
     >
 
-      <FormProjProspectSearch list={list}/>
+      <FormProjProspectSearch list={list} />
 
     </Formik>
   );

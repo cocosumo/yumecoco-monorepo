@@ -1,5 +1,5 @@
 import { APPIDS, KintoneRecord } from '../../../../api/kintone';
-import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
+import { getCustomersByIds } from 'api-kintone';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
 import { ICustgroups, ICustomers, TEnvelopeStatus } from 'types';
@@ -25,9 +25,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
   } = await getCustGroupRecord(id) ;
 
   /* Get customer record based on ids on main record */
-  const {
-    records: customerRecords,
-  } = await getCustomersByIds( customers.map(cust => cust.value.customerId.value));
+  const customerRecords = await getCustomersByIds( customers.map(cust => cust.value.customerId.value));
 
 
   /* Group cocoAG and yumeAG */

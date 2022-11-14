@@ -10,7 +10,9 @@ export const AnimatedGrid = (props: IAnimatedGrid ) => {
   console.log(isIn);
 
   return (
-    <Grow timeout={800} in={isIn} mountOnEnter unmountOnExit>
+    <Grow timeout={800} in={isIn} mountOnEnter
+      unmountOnExit
+    >
       <Grid {...gridProps} />
     </Grow>
 

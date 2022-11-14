@@ -1,6 +1,5 @@
 import { parseISO } from 'date-fns';
 import { IConnectRecipients, IProjestimates, TEnvelopeStatus, TSignMethod } from 'types';
-import { fetchEstimatesById } from '../../../api/kintone/estimates/GET';
 import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { parseKintoneDate } from '../../../lib/date';
 import { initialValues, TypeOfForm } from '../form';
@@ -89,23 +88,5 @@ export const normalizedData = (
   return {
     newFormData,
     newCalculated : calculated,
-  };
-};
-
-export const getFormDataById = async (
-  projEstimateId: string,
-) => {
-  if (!projEstimateId) return;
-
-  const record = await fetchEstimatesById(projEstimateId);
-  const {
-    newFormData,
-    newCalculated,
-  } = normalizedData(record);
-
-  return {
-    newFormData: newFormData,
-    calculated: newCalculated,
-    selected: record,
   };
 };

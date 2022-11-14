@@ -5,7 +5,10 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   setupFiles: ['dotenv/config'],
-  modulePathIgnorePatterns: ['build/'],
+  modulePathIgnorePatterns: [
+    'dist/',
+    'build/'
+  ],
   verbose: true,
   globals: {
     'ts-jest': {

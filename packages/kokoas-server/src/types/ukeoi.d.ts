@@ -26,4 +26,4 @@ type TUkeoiFields = {
   midPayment?: string // 中間金
   finalPayment?: string // 最終金
   paymentMethod?: '持参' | '集金' | '振込' // 支払方法
-}
+};

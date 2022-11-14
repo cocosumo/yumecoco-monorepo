@@ -1,8 +1,8 @@
 import { Autocomplete, TextField, Stack, CircularProgress } from '@mui/material';
 import { useField } from 'formik';
+import { useSearchProjects } from 'kokoas-client/src/hooksQuery/useSearchProjects';
 import { useEffect, useState } from 'react';
-import { searchProjects } from '../../../api/kintone/projects';
-import { useLazyEffect } from '../../../hooks';
+import { useDebounce } from 'usehooks-ts';
 
 import { Caption } from '../typographies';
 
@@ -25,6 +25,25 @@ export const FormikSearchProjField = (props: {
   const [field, meta, helpers] = useField(props);
   const { error, touched } = meta;
 
+  const debouncedInput = useDebounce(inputVal, 1000);
+
+  const { data: newOptions } = useSearchProjects<Opt[]>(debouncedInput, {
+    select: (d) => d.map((projRec)=>{
+      const { $id, projName: recProjName } = projRec;
+      return {
+        id: $id.value,
+        projName: recProjName.value,
+      };
+    }),
+  });
+
+  useEffect(() => {
+    if (newOptions?.length) {
+      setOptions(newOptions);
+    }
+  }, [newOptions]);
+  
+
   const {
     projName,
     isLoading = false,
@@ -33,26 +52,11 @@ export const FormikSearchProjField = (props: {
     handleChange,
   } = props;
 
-  useLazyEffect(()=>{
-    if (!inputVal) return;
-    searchProjects(inputVal)
-      .then(r => {
-        setOptions(r.map((projRec)=>{
-          const { $id, projName: recProjName } = projRec;
-          return {
-            id: $id.value,
-            projName: recProjName.value,
-          };
-        }));
-
-      });
-
-  }, [inputVal], 1000);
 
   useEffect(()=>{
     if (!field.value) {
       setFieldVal(null);
-    } else if (options.length === 0 && projName) {
+    } else if (options.length === 0 && !!projName) {
       const singleOpt = { projName, id: field.value };
       setOptions([singleOpt]);
       setFieldVal(singleOpt);
@@ -62,13 +66,13 @@ export const FormikSearchProjField = (props: {
 
     /* When projId is already available, make it the sole option  */
     if (options.length === 0 && projName) {
-
+  
       const singleOpt = { projName, id: field.value };
       setOptions([singleOpt]);
       setFieldVal(singleOpt);
     }
 
-  }, [field.value, options.length, projName]);
+  }, [field.value, options, projName]);
 
   return (
     <Autocomplete
@@ -90,6 +94,7 @@ export const FormikSearchProjField = (props: {
       options={options}
       getOptionLabel={(opt)=> opt.projName}
       isOptionEqualToValue={(opt, value) => opt.id === value.id}
+      filterOptions={(x) => x}
       renderInput={(params) => (
         <TextField
           {...params}

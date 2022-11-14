@@ -6,7 +6,6 @@ import { FormikSelect } from '../../components/ui/selects';
 import { getFieldName, TypeOfForm } from './form';
 import { FormikTextField } from '../../components/ui/textfield';
 import { FormikDatePicker } from '../../components/ui/datetimepickers';
-import { SearchProjField } from './parts/SearchProjField';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { useEffect } from 'react';
 import { getFormDataById } from './api/fetchRecord';
@@ -15,6 +14,7 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { useQuery } from '../../hooks';
 import { UneditableInfo } from '../../components/ui/information/UneditableInfo';
+import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
 
 export const FormProjProspect = () => {
   const projIdFromURL = useQuery().get(getFieldName('projId'));
@@ -67,22 +67,22 @@ export const FormProjProspect = () => {
     <Form noValidate>
       <ScrollToFieldError />
       <MainContainer>
-        <PageTitle label='見込み登録'/>
-        <Grid container item xl={8} spacing={2} mb={12}>
+        <PageTitle label='見込み登録' />
+        <Grid container item xl={8}
+          spacing={2} mb={12}
+        >
 
           <UneditableInfo isVisible={isReadOnly} projId={projId} />
 
 
           <Grid item xs={12} md={4}>
 
-            <SearchProjField
-              disabled={isReadOnly}
+            <FormikSearchProjField 
               label="工事情報の検索"
               name={getFieldName('projId')}
               projName={projName}
-              />
-
-
+              disabled={isReadOnly}
+            />
 
           </Grid>
 
@@ -91,13 +91,17 @@ export const FormProjProspect = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <FormikSelect disabled={isDisabled} label='ランク' name={getFieldName('rank')} options={['A', 'B', 'C', 'D'].map(o => ({ label: o, value: o }))}/>
+            <FormikSelect disabled={isDisabled} label='ランク' name={getFieldName('rank')}
+              options={['A', 'B', 'C', 'D'].map(o => ({ label: o, value: o }))}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
-            <FormikTextField disabled={isDisabled} label="契約予定金額" name={getFieldName('schedContractPrice')} type="number" endAdornment="円"/>
+            <FormikTextField disabled={isDisabled} label="契約予定金額" name={getFieldName('schedContractPrice')}
+              type="number" endAdornment="円"
+            />
           </Grid>
 
-          <Grid item xs={4}/>
+          <Grid item xs={4} />
 
           <Grid item xs={12} md={4}>
             <FormikDatePicker disabled={isDisabled} label="不動産決済日" name={getFieldName('estatePurchaseDate')} />
@@ -111,7 +115,9 @@ export const FormProjProspect = () => {
           </Grid>
 
           <Grid item xs={12} >
-            <FormikTextField disabled={isDisabled} label="備考" name={getFieldName('memo')} multiline/>
+            <FormikTextField disabled={isDisabled} label="備考" name={getFieldName('memo')}
+              multiline
+            />
           </Grid>
 
         </Grid>
@@ -120,8 +126,8 @@ export const FormProjProspect = () => {
       {!isBusy && !isReadOnly &&
       <FabSave onClick={()=> {
         submitForm();
-      }}/>
-      }
+      }} 
+      />}
 
     </Form>
   );

@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Raw Values is saved 1`] = `
-Object {
-  "id": "1",
-  "revision": "1",
-}
-`;

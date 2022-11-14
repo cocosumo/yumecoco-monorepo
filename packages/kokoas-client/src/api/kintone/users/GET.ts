@@ -20,7 +20,7 @@ export const getAllUsers = async (body : UserAPI = {
 
   const users: User[] = (await kintone.api(kintone.api.url('/v1/users', true), 'GET', body))?.users;
 
-  if (users.length === 0){
+  if (users.length === 0) {
     return [];
   } else {
     return users.concat(await getAllUsers({ size: 100, offset : body.offset + 100 }));
@@ -32,7 +32,7 @@ export const getAllUsers = async (body : UserAPI = {
 
 export const getKintoneUsers = async () : Promise<User[]> => {
   
-  if (isBrowser()){
+  if (isBrowser()) {
     return getAllUsers();
   }
 

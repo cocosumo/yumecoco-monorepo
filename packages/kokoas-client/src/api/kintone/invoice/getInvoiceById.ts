@@ -1,0 +1,1 @@
+export {}; //api-kintoneへ

@@ -14,7 +14,11 @@ export const PageSubTitle = (props: PageSubTitleProps) => {
 
   return (
     <Grid item xs={xs}>
-      <Divider textAlign="left"><Typography variant="h6">{label}</Typography></Divider>
+      <Divider textAlign="left">
+        <Typography variant="h6">
+          {label}
+        </Typography>
+      </Divider>
     </Grid>
   );
 };

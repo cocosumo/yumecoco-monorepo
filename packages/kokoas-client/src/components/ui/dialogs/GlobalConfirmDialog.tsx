@@ -24,7 +24,7 @@ const initialState: IDialogState = {
 
 export type HandleDialogStateFN = (params: IDialogState) => void;
 
-interface IConfirmDialogContext {
+export interface IConfirmDialogContext {
   setDialogState: HandleDialogStateFN
   handleClose : () => void
 }

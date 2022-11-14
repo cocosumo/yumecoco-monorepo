@@ -44,11 +44,11 @@ export const processContract = async (
 
     if (envSummary.envelopeId && envelope.documents?.length) {
       console.log(`Updating projEstimateId. ${data.projEstimateId}`);
-      const { envelopeId, status } = envSummary;
+      const { envelopeId, status: newStatus } = envSummary;
 
       await updateEstimateEnvelope({
         envelopeId: envelopeId,
-        envelopeStatus: status ?? 'sent',
+        envelopeStatus: newStatus ?? 'sent',
         event: 'envelope-sent',
         signMethod: signMethod,
         documents: envelope.documents?.map(({ documentBase64, name }) => {

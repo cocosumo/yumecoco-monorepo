@@ -10,7 +10,7 @@ describe('Create Envelope', ()=>{
     const fileName = 'test.pdf';
     const filePath = path.resolve(__dirname, fileName);
 
-    if (fs.existsSync(filePath))
+    if (!fs.existsSync(filePath))
       throw new Error(`Please provide test file. ${filePath}`);
 
     const accountId = await getAccountId();

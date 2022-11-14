@@ -1,6 +1,6 @@
 import { KCustgroups } from 'types';
 import { ktRecord } from '../client';
-import { appId } from './config';
+import { appId, RecordType } from './config';
 
 export const getAllCustGroups = async ({
   query,
@@ -14,5 +14,5 @@ export const getAllCustGroups = async ({
     condition: query,
     orderBy: orderBy.join(' '),
     withCursor: false,
-  });
+  }).then(rec => rec as unknown as RecordType[]);
 };

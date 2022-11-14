@@ -1,6 +1,5 @@
 import { getCustGroupById } from 'api-kintone';
-import { ICustmemos, IProjects, TAgents } from 'types';
-import { APPIDS, KintoneRecord } from '../../../../../../../api/kintone';
+import { ICustmemos, TAgents } from 'types';
 import { getUserCodesByIds } from '../../../../../../../api/kintone/users/GET';
 import { MemoFormType } from '../form';
 

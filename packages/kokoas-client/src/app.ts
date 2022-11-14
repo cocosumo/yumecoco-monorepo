@@ -7,6 +7,7 @@ import { onIndexShow } from './helpers/kintone';
 
 
 (async () => {
+
   kintone.events.on(onIndexShow, onIndexShowHandler);
 
 })();

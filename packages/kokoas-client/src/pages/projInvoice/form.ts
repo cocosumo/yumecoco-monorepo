@@ -21,7 +21,7 @@ export const initialValues = {
   estimates: [
     {
       estimateId: '',
-      doNotUsePayment: false,
+      isForPayment: false,
     },
   ],
 
@@ -42,3 +42,14 @@ export type KeyOfForm = keyof TypeOfForm;
 
 export const getFieldName = (s: KeyOfForm) => s;
 
+export type TMaterials = TypeOfForm['estimates'][0];
+export type TKMaterials = keyof TMaterials;
+
+/**
+ * 
+ フィールド名取得、ヘルパー
+ */
+const itemsName = getFieldName('estimates');
+export const getEstimatesFieldName = (
+  rowIdx: number, fieldName: TKMaterials,
+) => `${itemsName}[${rowIdx}].${fieldName}`;

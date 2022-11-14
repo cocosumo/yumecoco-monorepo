@@ -2,6 +2,7 @@ import { Card, CardContent, Chip, CircularProgress, FormHelperText, Stack, Typog
 import isEmpty from 'lodash/isEmpty';
 import { FormikLabeledCheckBox } from '../../../components/ui/checkboxes';
 import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
+import { getEstimatesFieldName } from '../form';
 
 const FormLabel = ({
   label,
@@ -40,7 +41,7 @@ export const EstimateCards = ({
   } = data || {};
 
   const found = Boolean(records?.find(record => !isEmpty(record.envStatus.value)));
-
+  let rowIdx = 0;
 
   return (
     <>
@@ -80,8 +81,9 @@ export const EstimateCards = ({
                 />
                 <FormikLabeledCheckBox
                   label='請求に使用しない'
-                  name={`dummy${record.$id.value}`}
+                  name={getEstimatesFieldName(rowIdx, 'isForPayment')}
                 />
+                {rowIdx += 1}
               </CardContent>
             </Card>
           );

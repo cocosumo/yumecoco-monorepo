@@ -2,7 +2,6 @@ import { useIsFetching } from '@tanstack/react-query';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
-import { getConstRecord } from '../../../api/kintone/projects';
 import { useSnackBar } from '../../../hooks';
 import { initialValues, TypeOfForm } from '../form';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
@@ -15,6 +14,7 @@ export const useUpdateProjectId = () => {
   const [isInitial, setIsInitial] = useState(false);
   const isFetching = useIsFetching();
 
+
   const { 
     data: projRecord, 
   } = useProjById(projId);
@@ -25,46 +25,36 @@ export const useUpdateProjectId = () => {
   } = useProjTypeById(projTypeId?.value || '');
 
 
+
   useEffect(() => {
 
-    if ( projRecord ) {
+    if ( projId && projRecord ) {
+
       setIsInitial(false);
 
-      getConstRecord(projId)
-        .then(async ({
-          projName,
-          projTypeName,
-          custNames,
-          custGroupId,
-        }) => {
+      const {
+        projName,
+        projTypeName,
+        custNames,
+        custGroupId,
+      } = projRecord;
 
 
-          setTouched({});
-          setValues((prev) => {
+      setTouched({});
+      setValues((prev) => {
 
 
-            return produce(prev, draft => {
-              draft.custGroupId = custGroupId.value;
-              draft.projName = projName.value;
-              draft.projTypeName = projTypeName.value;
+        return produce(prev, draft => {
+          draft.custGroupId = custGroupId.value;
+          draft.projName = projName.value;
+          draft.projTypeName = projTypeName.value;
 
-              draft.customerName = custNames.value;
-            });
-          });
-
-
-        })
-        .catch((err) => {
-          setSnackState({
-            open: true,
-            severity: 'error',
-            message: `レコード取得が失敗しました。管理者にご連絡ください。useUpdateProjectId ${err.message}`,
-          });
-
+          draft.customerName = custNames.value;
         });
+      });
 
-    } else if (!projId && dirty) {
 
+    } else if (!projId && !isFetching) {
       setValues((prev) => produce(prev, draft => {
         draft.projId = initialValues.projId;
         draft.projName = initialValues.customerName;
@@ -72,15 +62,15 @@ export const useUpdateProjectId = () => {
         draft.projTypeProfit = initialValues.projTypeProfit;
         draft.customerName = initialValues.customerName;
         draft.createdDate = initialValues.createdDate;
-        draft.estimateId = initialValues.estimateId;
       }));
     }
     
 
-  }, [projRecord, projId, dirty, setValues,  setSnackState, setTouched]);
+  }, [projRecord, projId, dirty, setValues,  setSnackState, setTouched, isFetching]);
 
   useEffect(() => {
     if (projRecord && projTypeRecord) {
+
       const {
         profitRate,
         $id,
@@ -97,6 +87,7 @@ export const useUpdateProjectId = () => {
     }
 
   }, [projTypeRecord, projRecord, setValues]);
+
 
   return {
     isLoading: isInitial || !!isFetching,

@@ -3,3 +3,4 @@ webpack.config.js
 jest
 jest.*
 env.*
+__mocks__

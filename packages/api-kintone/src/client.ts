@@ -1,7 +1,7 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { getNewAccessToken } from './@auth/getNewAccessToken';
 
-
+const isTest = process.env.NODE_ENV === 'test';
 
 const oAuth = {
   token: '',
@@ -23,15 +23,18 @@ const getToken = async () => {
     setToken(accessToken);
   }
   /** TODO: Need to check time too for server implementation */
+
   return oAuth.token;
 };
+
+export const kintoneBaseUrl = process.env.KT_BASE_URL;
 
 export const kt = async () => {
 
   /* If running on node, retrieve access token dynamically then re-define client. */
-  if (typeof window === 'undefined') {
+  if (typeof window === 'undefined' || isTest) {
     kintoneRestApiClient = new KintoneRestAPIClient({
-      baseUrl: process.env.KT_BASE_URL,
+      baseUrl: kintoneBaseUrl,
       auth: { oAuthToken: await getToken() },
     });
   }

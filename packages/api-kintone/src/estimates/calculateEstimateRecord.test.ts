@@ -1,10 +1,10 @@
-import { getEstimatesById } from './getEstimatesById';
+import { getEstimateById } from './getEstimateById';
 import { calculateEstimateRecord } from './calculateEstimateRecord';
 
 describe('Calculate estimate', () => {
   it('should calculate estimate', async () => {
 
-    const { record } = await getEstimatesById('39');
+    const { record } = await getEstimateById('39');
     const result = await calculateEstimateRecord(record);
 
     expect(result).toHaveProperty('totalCostPrice');

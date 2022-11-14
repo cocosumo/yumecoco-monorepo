@@ -17,7 +17,7 @@ describe('search projects', () => {
     ]; 
 
     const results = await searchProjects(testData);
-    console.log(results);
+
     expect(results
       .every((rec) => searchFields
         .some((fld) => (rec[fld].value as string).includes(testData))),

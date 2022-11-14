@@ -5,7 +5,6 @@ describe('get all projects', () => {
   test('should get all projects', async () => { 
     
     const result = await getAllProjects();
-    console.log('Retrieved: ', result.length);
 
     expect(result).toEqual(
       expect.arrayContaining(

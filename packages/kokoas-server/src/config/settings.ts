@@ -28,7 +28,7 @@ export const getPrivateKey = async () => {
 
 export const integratorKey = <string>process.env.DS_INTEGRATOR_KEY;
 export const userId = <string>process.env[isProd ? 'DS_USER_ID_PROD' : 'DS_USER_ID'];
-export const accoutId = <string>process.env[isProd ? 'DS_ACCOUNT_ID_PROD' : 'DS_ACCOUNT_ID_PROD'];
+export const accoutId = <string>process.env[isProd ? 'DS_ACCOUNT_ID_PROD' : 'DS_ACCOUNT_ID'];
 
 export const scopes = [
   oAuth.Scope.IMPERSONATION,

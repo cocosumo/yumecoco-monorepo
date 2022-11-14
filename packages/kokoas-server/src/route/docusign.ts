@@ -13,7 +13,7 @@ import { reqResendContract } from '../handleRequest/reqResendContract';
 const route = router();
 route.use(bodyParser.json({ limit: '50mb' }));
 // body parser error catcher
-route.use((err: SyntaxError, _: any, res: any, next: any) => {
+route.use((err: any, _: any, res: any, next: any) => {
   if (err) {
     res.status(400).send('error parsing data');
   } else {
@@ -38,7 +38,7 @@ route.get('/contract/download', reqDownloadContract);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');
-  res.status(200).send('SUCCESS');
+  res.send('SUCCESS');
 });
 
 

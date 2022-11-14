@@ -11,6 +11,7 @@ module.exports = {
   ],
   verbose: true,
   globals: {
+    XMLHttpRequest: undefined,
     'ts-jest': {
       isolatedModules: true,
     },

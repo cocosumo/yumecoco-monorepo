@@ -68,7 +68,10 @@ export const FormIndividualCustomer  = () => {
           {isEditMode && <MemoColumn />}
         </Grid>
 
-        <Grid container item xs={12}
+        <Grid
+          container
+          item
+          xs={12}
           spacing={2}
         >
           {isEditMode && <RelatedProjects />}

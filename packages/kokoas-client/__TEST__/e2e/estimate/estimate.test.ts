@@ -16,15 +16,16 @@ describe('estimates', () => {
     page =  await browser.newPage();
     return page;
   });
+  afterAll(async () => page.browser().close());
 
   /* 存在している見積もり番号をURLで渡し、正しいデータを表示する。 */
   it('should display record from existing estimate id passed by url parameters', async () => {
     const testData =  '76'; // 存在している見積番号
-    
+
     const urlWithParams = `${baseUrl}?${generateParams({
       projEstimateId: testData,
     })}`;
-  
+
 
     await page.goto(
       urlWithParams,
@@ -40,13 +41,13 @@ describe('estimates', () => {
     await page.waitForNetworkIdle();
     const rawTotalAmount = await page.$eval('table tbody td:nth-child(6)', (el) => (el as HTMLTableCellElement).innerText);
 
-    // \D regex metacharacter matches any non-digit characters 
+    // \D regex metacharacter matches any non-digit characters
     const cleanTotalAmount = rawTotalAmount.replace(/\D/g, '');
 
     expect(cleanTotalAmount).toEqual(totalAmountInclTax);
   });
 
-  
+
   /* 存在していない見積もり番号をURLで渡し、エラーを表示する。 */
   it('should notify user of error when non-existent projEstimateId was passed by url', async () => {
     const testData =  '987654321'; // 存在していない見積番号
@@ -67,5 +68,5 @@ describe('estimates', () => {
     expect(errorNotif).toBeTruthy();
   });
 
-  afterAll(async () => page.browser().close());
+
 });

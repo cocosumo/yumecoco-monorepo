@@ -1,21 +1,22 @@
 import { Formik } from 'formik';
 import { saveForm } from './api/saveForm';
-import { initialValues, validationSchema } from './form';
+import { validationSchema } from './form';
 
 import { FormProjProspect } from './FormProjProspect';
 
 import { useSnackBar } from '../../hooks/useSnackBar';
+import { useResolveParams } from './hooks/useResolveParams';
 
 
 
 export const FormikProjProspect = () => {
 
   const { setSnackState } = useSnackBar();
+  const initialValues = useResolveParams();
 
   return (
     <Formik
       initialValues={initialValues}
-      initialStatus={((s: TFormStatus)=>s)('busy')}
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {

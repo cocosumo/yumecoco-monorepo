@@ -1,4 +1,5 @@
 import { AppIds } from 'config';
+import { toKintoneDateStr } from 'kokoas-client/src/lib/date';
 import { IProjects } from 'types';
 import { KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
@@ -17,16 +18,16 @@ const convertToKintone = (formValues: TypeOfForm) : Partial<IProjects>  => {
       value: rank,
     },
     estatePurchaseDate: {
-      value: estatePurchaseDate,
+      value: toKintoneDateStr(estatePurchaseDate),
     },
     planApplicationDate: {
-      value: planApplicationDate,
+      value: toKintoneDateStr(planApplicationDate),
+    },
+    schedContractDate: {
+      value: toKintoneDateStr(schedContractDate),
     },
     schedContractPrice: {
       value: schedContractPrice,
-    },
-    schedContractDate: {
-      value: schedContractDate,
     },
     memo: {
       value: memo,

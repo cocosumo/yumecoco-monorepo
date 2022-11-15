@@ -11,6 +11,8 @@ type Opt = {
   projName: string
 };
 
+
+/* TODO: SearchProjectsのラッパーとして変える */
 export const FormikSearchProjField = (props: {
   name: string,
   label: string,

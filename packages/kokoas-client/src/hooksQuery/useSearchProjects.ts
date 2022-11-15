@@ -9,17 +9,23 @@ import { IProjects } from 'types';
  */
 export const useSearchProjects = <T = unknown>(
   searchTerm: string,
-  params?: {
+  options?: {
+    enabled?: boolean,
     select: (data: IProjects[]) => T
   },
 ) => {
-
+  
+  const {
+    enabled = true,
+    ...otherOptions
+  } = options || {}; 
+  
   return useQuery(
     [AppIds.projects, { searchTerm }],
     () => searchProjects(searchTerm),
     {
-      enabled: !!searchTerm,
-      ...params,
+      enabled: enabled && !!searchTerm,
+      ...otherOptions,
     },
   );
 };

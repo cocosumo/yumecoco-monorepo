@@ -8,16 +8,21 @@ import { FabSave } from '../../components/ui/fabs/FabSave';
 import { useEffect } from 'react';
 import { useSnackBar } from '../../hooks/useSnackBar';
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
-import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
 import { FormContainer } from './FormContainer';
+import { SearchProjects } from 'kokoas-client/src/components/ui/textfield/SearchProjects';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
 
 export const FormProjProspect = () => {
+  const navigate = useNavigate();
   const { setSnackState } = useSnackBar();
   const {
     submitForm,
     isSubmitting,
     isValid,
     values,
+    dirty,
 
   } = useFormikContext<TypeOfForm>();
   const { projId, projName } = values;
@@ -25,10 +30,10 @@ export const FormProjProspect = () => {
   
 
   useEffect(()=>{
-    if (!isValid && !isSubmitting) {
+    if (!isValid && !isSubmitting && dirty) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
-  }, [isSubmitting, isValid, setSnackState]);
+  }, [isSubmitting, isValid, setSnackState, dirty]);
 
 
 
@@ -36,14 +41,19 @@ export const FormProjProspect = () => {
     <FormContainer>
 
       <Grid item xs={12} md={4}>
-
-        <FormikSearchProjField 
-          label="工事情報の検索"
-          name={getFieldName('projId')}
-          projName={projName}
- 
+        <SearchProjects 
+          label='工事情報の検索'
+          value={projId ? {
+            id: projId,
+            projName: projName,
+          } : undefined}
+          onChange={(_, opt) => {
+            console.log(opt);
+            navigate(`${pages.projProspect}?${generateParams({
+              projId: opt?.id,
+            })}`);
+          }}
         />
-
       </Grid>
 
       <Grid item xs={12}>

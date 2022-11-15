@@ -16,6 +16,8 @@ export const useResolveParams = () => {
         ...initialValues,
         ...convertToForm(projRec),
       });
+    } else {
+      setInitForm(initialValues);
     }
   }, [projRec, projIdFromURL]);
 

@@ -4,23 +4,23 @@ import { TransitionGroup } from 'react-transition-group';
 import {
   Collapse,
   IconButton,
-  Typography, Avatar, ListItemAvatar,
-  ListItemText, Divider, ListItem, List, Stack,
-
+  Typography,
+  ListItemText,
+  Divider,
+  ListItem,
+  List,
+  Stack,
 } from '@mui/material';
+
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { useContext, useEffect, useState } from 'react';
 import { MemoItemMenu, MenuProps } from './MemoItemMenu';
 import { MemoContext } from './memoForm/MemoContext';
-
-
 import { MemoFormType } from './memoForm/form';
-import { MemoIcon } from './memoForm/parts/MemoIcon';
-import { MemoType } from './memoForm/MemoForm';
 import { format, parseISO } from 'date-fns';
-import { deleteMemo } from './memoForm/api/deleteMemo';
-
+import { deleteMemoById } from 'api-kintone';
+import { MemoAvatar } from './MemoAvatar';
 
 interface MemoListProps {
   memos: Array<MemoFormType>,
@@ -41,11 +41,8 @@ const MemoListItem = (props: MemoItemProps) => {
   return (
     <>
       <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <Avatar src="#" >
-            <MemoIcon type={memoType as MemoType} />
-          </Avatar>
-        </ListItemAvatar>
+        <MemoAvatar memoType={memoType} />
+
         <ListItemText
           primary={
             <Stack direction={'row'} justifyContent="space-between">
@@ -71,7 +68,7 @@ const MemoListItem = (props: MemoItemProps) => {
             }
           secondary={
             <Stack component={'span'}>
-              {contents} 
+              {contents}
               {' '}
               <br />
               {format(parseISO(createDate), 'yyyy年MM月dd日')}
@@ -98,16 +95,19 @@ export const MemoList = (props: MemoListProps) => {
   };
 
   const handleClose: MenuProps['handleClose'] = (memoItem, method) => {
-    console.log('memoItem', memoItem, method);
     switch (method) {
       case '編集':
         handleOpen({ ...memoItem, custName, recordId });
         break;
 
       case '削除':
-        deleteMemo(selectedMenuItem!).then(()=>{
-          handleUpdateMemoList(recordId);
-        });
+        if (selectedMenuItem) {
+          deleteMemoById(selectedMenuItem?.memoId)
+            .then(() => {
+              handleUpdateMemoList(recordId);
+            });
+
+        }
         break;
     }
 
@@ -117,7 +117,6 @@ export const MemoList = (props: MemoListProps) => {
 
   useEffect(()=>{
     if (recordId) {
-      console.log('triggerd!!!');
       handleUpdateMemoList(recordId);
     }
   }, [recordId]);
@@ -138,7 +137,8 @@ export const MemoList = (props: MemoListProps) => {
         </TransitionGroup>
 
       </List>
-      <MemoItemMenu memoItem={selectedMenuItem!} {...{ handleClose, anchorEl }} />
+      {selectedMenuItem && <MemoItemMenu memoItem={selectedMenuItem} {...{ handleClose, anchorEl }} />}
+
     </>
   );
 };

@@ -1,15 +1,15 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button,
-  ListItem, ListItemAvatar, Avatar, ListItemText, Typography, Stack,
+  ListItem, ListItemText, Typography, Stack,
 
 } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { useContext } from 'react';
 import { MemoFormType } from '../form';
 import { MemoContext } from '../MemoContext';
-import { saveMemo } from './../api/saveMemo';
+import { formDataToKintone } from '../api/formDataToKintone';
 import { format, parseISO } from 'date-fns';
-import { MemoIcon } from './MemoIcon';
-import { MemoType } from '../MemoForm';
+import { saveMemo } from 'api-kintone';
+import { MemoAvatar } from '../../MemoAvatar';
 
 
 
@@ -35,18 +35,17 @@ export const ConfirmSave = () => {
 
 
 
-  const handleSave = () => {
-    saveMemo(values)
-      .then(resp => {
-        console.log(resp);
-        console.log('RESET!!!', values, resp);
-        resetForm();
-        setSubmitting(false);
-        handleCloseMainForm('submitted');
-      })
-      .catch((err)=>{
-        console.error('Save failed.', err);
-      });
+  const handleSave = async () => {
+
+    const memoRecord = await formDataToKintone(values);
+    await saveMemo({
+      id: values.memoId,
+      record: memoRecord,
+    });
+    resetForm();
+    setSubmitting(false);
+    handleCloseMainForm('submitted');
+
   };
 
 
@@ -61,11 +60,8 @@ export const ConfirmSave = () => {
       </DialogTitle>
       <DialogContent>
         <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar src="#" >
-              <MemoIcon type={memoType as MemoType} />
-            </Avatar>
-          </ListItemAvatar>
+          <MemoAvatar memoType={memoType} />
+
           <ListItemText
             primary={
               <Stack direction={'row'} justifyContent="space-between">
@@ -86,7 +82,7 @@ export const ConfirmSave = () => {
             }
             secondary={
               <Stack component={'span'}>
-                {contents} 
+                {contents}
                 {' '}
                 <br />
                 {format((createDate ? parseISO(createDate) :  new Date()), 'yyyy年MM月dd日')}

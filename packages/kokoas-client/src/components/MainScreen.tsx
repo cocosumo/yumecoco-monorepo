@@ -7,7 +7,6 @@ import PersistentDesktopDrawer from './nav/persistentNav/PersistentDesktopDrawer
 import { useQuery } from '../hooks';
 import { MainScreenContainer } from './MainScreenContainer';
 import { QueryContext } from './QueryContext';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { StyledMain } from './StyledMain';
 
 const drawerWidth = 240;
@@ -37,7 +36,7 @@ export default function MainScreen() {
         </Box>
 
       </MainScreenContainer>
-      <ReactQueryDevtools />
+
     </QueryContext>
 
   );

@@ -1,20 +1,11 @@
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
-import { getCustomersByIds } from 'api-kintone';
+import { getCustGroupById, getCustomersByIds } from 'api-kintone';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
-import { ICustgroups, ICustomers, TEnvelopeStatus } from 'types';
+import { ICustomers, TEnvelopeStatus } from 'types';
 
-
-export const getCustGroupRecord = async (id: string) => {
-  return KintoneRecord.getRecord({
-    app: APPIDS.custGroup,
-    id,
-  }).then(resp => resp.record as unknown as ICustgroups);
-};
 
 
 export const getFormDataById = async (id: string): Promise<CustomerForm> => {
-
 
   /* Get main record */
   const {
@@ -22,7 +13,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
     isDeleted,
     members : { value: customers },
     projects,
-  } = await getCustGroupRecord(id) ;
+  } = await getCustGroupById(id) ;
 
   /* Get customer record based on ids on main record */
   const customerRecords = await getCustomersByIds( customers.map(cust => cust.value.customerId.value));

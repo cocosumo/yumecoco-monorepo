@@ -1,4 +1,5 @@
 import { Card, CardContent, Chip, CircularProgress, FormHelperText, Stack, Typography } from '@mui/material';
+import { FormikTextFieldV2 } from 'kokoas-client/src/components/ui/textfield/FormikTextFieldV2';
 import isEmpty from 'lodash/isEmpty';
 import { FormikLabeledCheckBox } from '../../../components/ui/checkboxes';
 import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
@@ -12,7 +13,6 @@ const FormLabel = ({
   value: string,
 }) => {
 
-
   return (
     <Stack direction={'row'} spacing={2}>
       <Typography variant='caption'>
@@ -25,6 +25,11 @@ const FormLabel = ({
   );
 };
 
+/**
+ * 契約済みの見積もりカードを表示する処理
+ * @param projId 工事番号 
+ * @returns 
+ */
 export const EstimateCards = ({
   projId,
 }: {
@@ -72,9 +77,12 @@ export const EstimateCards = ({
                     label='契約'
                   />
                 </Stack>
-                <FormLabel
+                <FormikTextFieldV2
                   label='見積もり番号'
-                  value={record.$id.value}
+                  defaultValue={record.$id.value}
+                  name={getEstimatesFieldName(idx, 'estimateId')}
+                  size='small'
+                  disabled
                 />
                 <FormLabel
                   label='契約金額'

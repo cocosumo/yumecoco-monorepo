@@ -24,9 +24,9 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
     name,
     value,
     inputProps,
+    fullWidth = true,
     onChange,
     onInputChange,
-
     ...autoCompleteProps
   } = props;
   
@@ -58,6 +58,7 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
   return (
     <Autocomplete
       {...autoCompleteProps}
+      fullWidth={fullWidth}
       value={value ?? fieldVal ?? null}
       options={options}
       onFocus={() => setHadFocus(true)}

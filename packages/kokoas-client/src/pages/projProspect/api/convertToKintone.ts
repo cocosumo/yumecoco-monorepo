@@ -10,8 +10,10 @@ export const convertToKintone = (formValues: TypeOfForm) : Partial<IProjects>  =
     schedContractDate,
     memo,
     schedContractPrice,
+    custGroupId,
   } = formValues;
   return {
+    custGroupId: { value: custGroupId },
     rank: {
       value: rank,
     },

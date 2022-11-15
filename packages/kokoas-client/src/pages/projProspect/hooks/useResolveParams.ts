@@ -11,6 +11,7 @@ export const useResolveParams = () => {
   const { data: projRec } = useProjById(projIdFromURL || '');
 
   useEffect(() => {
+
     if (projIdFromURL && projRec) {
       setInitForm({
         ...initialValues,

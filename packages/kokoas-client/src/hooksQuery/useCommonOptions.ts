@@ -7,7 +7,6 @@ export const useCommonOptions = () => {
 
   const options = {
     onMutate: () => {
-      console.log('STARTED!');
       setBackdropState({ open: true });
 
     },

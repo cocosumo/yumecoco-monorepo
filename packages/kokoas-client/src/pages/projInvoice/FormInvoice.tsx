@@ -3,7 +3,6 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { FormikTextField } from '../../components/ui/textfield';
 import { ContractAmount } from './fieldComponents/ContractAmount';
 import { BillingBalance } from './fieldComponents/BillingBalance';
 import { Button, Divider, Grid } from '@mui/material';
@@ -13,6 +12,7 @@ import { paymentLabels } from '../projContracts';
 import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
+import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield/FormikMoneyField';
 
 
 
@@ -69,9 +69,10 @@ export const FormInvoice = () => {
 
         {/* 請求金額 */}
         <Grid item xs={12} md={6}>
-          <FormikTextField
+          <FormikMoneyField
             label='請求額'
             name={getFieldName('billingAmount')}
+            value={'contractAmount(projId)'}
           />
         </Grid>
         <Grid item md={6} />

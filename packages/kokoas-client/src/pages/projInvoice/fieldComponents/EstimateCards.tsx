@@ -11,6 +11,8 @@ const FormLabel = ({
   label: string,
   value: string,
 }) => {
+
+
   return (
     <Stack direction={'row'} spacing={2}>
       <Typography variant='caption'>
@@ -41,7 +43,7 @@ export const EstimateCards = ({
   } = data || {};
 
   const found = Boolean(records?.find(record => !isEmpty(record.envStatus.value)));
-  let rowIdx = 0;
+
 
   return (
     <>
@@ -70,7 +72,10 @@ export const EstimateCards = ({
                     label='契約'
                   />
                 </Stack>
-                <FormLabel label='見積もり番号' value={record.$id.value} />
+                <FormLabel
+                  label='見積もり番号'
+                  value={record.$id.value}
+                />
                 <FormLabel
                   label='契約金額'
                   value={Math.round(calculated[idx].totalAmountInclTax).toLocaleString() + '円'}
@@ -81,9 +86,8 @@ export const EstimateCards = ({
                 />
                 <FormikLabeledCheckBox
                   label='請求に使用しない'
-                  name={getEstimatesFieldName(rowIdx, 'isForPayment')}
+                  name={getEstimatesFieldName(idx, 'isForPayment')}
                 />
-                {rowIdx += 1}
               </CardContent>
             </Card>
           );

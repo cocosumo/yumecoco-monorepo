@@ -3,7 +3,7 @@ import { AppIds } from 'config';
 import { getAllMaterialsItem } from 'api-kintone';
 
 /**
- * 中項目を取得する
+ * 部材を取得する
  */
 export const useMaterialsItem = <T>(
   options?: {

@@ -1,6 +1,7 @@
 export * from './client';
 export * from './common';
 export * from './custgroups';
+export * from './custMemo';
 export * from './customers';
 export * from './employees';
 export * from './estimates';

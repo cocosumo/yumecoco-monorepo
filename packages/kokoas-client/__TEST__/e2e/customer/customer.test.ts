@@ -1,4 +1,4 @@
-import { headFullBrowser } from 'auto-common';
+import { browser } from 'auto-common';
 import { Page } from 'puppeteer';
 import { getKokoasBaseURLByEnv } from 'kokoas-client/src/config/settings';
 import { pages } from 'kokoas-client/src/pages/Router';
@@ -14,8 +14,8 @@ describe('customers', () => {
   let page: Page;
 
   beforeAll(async () => {
-    const browser = await headFullBrowser();
-    page =  await browser.newPage();
+    const newBrowser = await browser();
+    page =  (await newBrowser.pages())[0];
 
     const urlWithParams = `${baseUrl}?${generateParams({
       custGroupId: testData,

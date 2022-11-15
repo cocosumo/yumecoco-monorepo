@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
 import { getMemoList } from './api/getMemoList';
 import { initialValues, MemoFormType } from './form';
 
@@ -22,7 +22,9 @@ export const MemoContext = createContext <MemoContextValue | undefined>(undefine
 
 
 
-export const MemoContextProvider = (props : {
+export const MemoContextProvider = ({
+  children,
+} : {
   children: React.ReactNode
 }) => {
   const [confirmSaveOpen, setConfirmSaveOpen] = useState<boolean>(false);
@@ -55,12 +57,9 @@ export const MemoContextProvider = (props : {
     }
     setMemoFormState(initialValues);
     setMemoOpen(false);
-
   };
 
-
-
-  const contextValue: MemoContextValue = {
+  const contextValue: MemoContextValue = useMemo(()=> ({
     memoOpen,
     memoFormState,
     memoList,
@@ -70,11 +69,14 @@ export const MemoContextProvider = (props : {
     handleSetMemoState,
     handleUpdateMemoList,
     handleClose,
-  };
+  }),
+  // Todo: fix deps, when converted to react-query
+  [memoOpen, memoFormState, memoList, confirmSaveOpen],
+  );
 
   return (
     <MemoContext.Provider value={contextValue}>
-      {props.children}
+      {children}
     </MemoContext.Provider>
   );
 };

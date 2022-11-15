@@ -6,3 +6,4 @@ export * from './FormikSearchProjField';
 export * from './FormikTextField';
 export * from './FormikTextFieldV2';
 export * from './SearchCustGroup';
+export * from './SearchProjects';

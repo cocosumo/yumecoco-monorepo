@@ -48,7 +48,6 @@ export const FormProjProspect = () => {
             projName: projName,
           } : undefined}
           onChange={(_, opt) => {
-            console.log(opt);
             navigate(`${pages.projProspect}?${generateParams({
               projId: opt?.id,
             })}`);

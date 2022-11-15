@@ -1,4 +1,6 @@
+import { parseKintoneDate } from 'kokoas-client/src/lib/date';
 import { IProjects, TEnvelopeStatus } from 'types';
+import { TypeOfForm } from '../form';
 
 export const convertToForm = ({
   rank,
@@ -11,17 +13,17 @@ export const convertToForm = ({
   custGroupId,
   envelopeStatus,
   $id: projId,
-}: IProjects) => {
+}: IProjects) : Partial<TypeOfForm> => {
   return {
     projId: projId.value,
     envelopeStatus: envelopeStatus.value as TEnvelopeStatus,
     custGroupId: custGroupId.value,
     projName: projName.value,
     rank: rank.value,
-    schedContractPrice: schedContractPrice.value,
-    estatePurchaseDate: estatePurchaseDate.value,
-    schedContractDate: schedContractDate.value,
-    planApplicationDate: planApplicationDate.value,
+    schedContractPrice:  schedContractPrice.value,
+    estatePurchaseDate: parseKintoneDate(estatePurchaseDate.value),
+    schedContractDate: parseKintoneDate(schedContractDate.value),
+    planApplicationDate: parseKintoneDate(planApplicationDate.value),
     memo: memo.value,
   };
 };

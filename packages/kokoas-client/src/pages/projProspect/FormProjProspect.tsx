@@ -5,8 +5,6 @@ import { getFieldName, TypeOfForm } from './form';
 import { FormikMoneyField, FormikTextFieldV2 as FormikTextField } from '../../components/ui/textfield';
 import { FormikJADatePicker } from '../../components/ui/datetimepickers';
 import { FabSave } from '../../components/ui/fabs/FabSave';
-import { useEffect } from 'react';
-import { useSnackBar } from '../../hooks/useSnackBar';
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
 import { FormContainer } from './FormContainer';
 import { SearchProjects } from 'kokoas-client/src/components/ui/textfield/SearchProjects';
@@ -16,26 +14,15 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 
 export const FormProjProspect = () => {
   const navigate = useNavigate();
-  const { setSnackState } = useSnackBar();
   const {
     submitForm,
-    isSubmitting,
-    isValid,
     values,
     dirty,
-
   } = useFormikContext<TypeOfForm>();
+
   const { projId, projName } = values;
   const isDisabled = !projId;
   
-
-  useEffect(()=>{
-    if (!isValid && !isSubmitting && dirty) {
-      setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
-    }
-  }, [isSubmitting, isValid, setSnackState, dirty]);
-
-
 
   return (
     <FormContainer>
@@ -93,9 +80,11 @@ export const FormProjProspect = () => {
 
       <ProspectShortcuts />
 
-      <FabSave onClick={()=> {
-        submitForm();
-      }} 
+      <FabSave 
+        appear={!!projId && !!dirty}
+        onClick={()=> {
+          submitForm();
+        }} 
       />
 
     </FormContainer >

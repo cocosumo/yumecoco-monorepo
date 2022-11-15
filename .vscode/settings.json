@@ -15,6 +15,7 @@
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",
     "/packages/api-kintone/src/stores",
-    "/automation/auto-common/src"
+    "/automation/auto-common/src",
+    "/packages/kokoas-client/src/hooksQuery"
   ]
 }

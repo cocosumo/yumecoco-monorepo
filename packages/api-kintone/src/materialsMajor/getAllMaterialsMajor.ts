@@ -7,3 +7,5 @@ export const getAllMaterialsMajor = async () => {
     withCursor: false,
   }).then((recs) => recs as unknown as RecordType[] );
 };
+
+export type AwaitedGetAllMaterialsMajor = Awaited<ReturnType<typeof getAllMaterialsMajor>>;

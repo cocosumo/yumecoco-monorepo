@@ -9,7 +9,7 @@
   "scripts": {
     "dtsgen:stores": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 19 --type-name Data --namespace StoreTypes -o src/types/data.stores.d.ts",
     "dtsgen": "npx @kintone/dts-gen",
-    "update": "ts-node npm-scripts/dtsgenall.ts",
-    "kintone": "ts-node npm-scripts/kintonegen.ts"
+    "update": "ts-node --files npm-scripts/dtsgenall.ts -T",
+    "kintone": "ts-node --files npm-scripts/kintonegen.ts -T"
   }
 }

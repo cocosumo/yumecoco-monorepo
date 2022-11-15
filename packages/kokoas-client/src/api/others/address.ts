@@ -1,6 +1,9 @@
 
 
-export const getPrefectures = async (area?: string) => {
+export const getPrefectures = async (
+  area?: string, 
+  reverse = false,
+) => {
 
   return kintone.proxy(`http://geoapi.heartrails.com/api/json?method=getPrefectures${area ? `&area=${area}` : ''}`, 'GET', {}, {})
     .then(([body]: any[]) => {
@@ -14,7 +17,8 @@ export const getPrefectures = async (area?: string) => {
         }
       } = JSON.parse(body as string);
 
-      return prefecture;
+
+      return reverse ? prefecture.reverse() : prefecture;
     });
 };
 

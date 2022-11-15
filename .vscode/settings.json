@@ -6,7 +6,8 @@
     "/packages/api-kintone/src/projTypes/config.ts",
     "/packages/api-kintone/src/stores/config.ts",
     "/packages/api-kintone/src/customers/config.ts",
-    "/packages/api-kintone/src/custMemo/config.ts"
+    "/packages/api-kintone/src/custMemo/config.ts",
+    "/packages/api-kintone/src/estimates/config.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",

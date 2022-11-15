@@ -1,6 +1,7 @@
 import { Formik } from 'formik';
+import { useSaveEstimate } from 'kokoas-client/src/hooksQuery/useSaveEstimate';
 import { useConfirmDialog, useSnackBar } from '../../hooks';
-import { saveForm } from './api/saveForm';
+import { convertToKintone } from './api/convertToKintone';
 import { BtnSaveChoices } from './fieldComponents/formActions/BtnSaveChoices';
 import { initialValues, validationSchema } from './form';
 import FormProjEstimate from './FormProjEstimate';
@@ -9,6 +10,7 @@ import FormProjEstimate from './FormProjEstimate';
 export const FormikProjEstimate = () => {
   const { setSnackState } = useSnackBar();
   const { setDialogState, handleClose } = useConfirmDialog();
+  const { mutateAsync: saveMutation } = useSaveEstimate();
 
   return (
     <Formik
@@ -17,12 +19,15 @@ export const FormikProjEstimate = () => {
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        const { saveMode } = values;
+        const { saveMode, estimateId  } = values;
 
         const handleSave = (actionAfterSave?: () => void) => setTimeout(() => {
-          saveForm(values)
-            .then(({ id: estimateId })=>{
-
+          const record = convertToKintone(values);
+          saveMutation({
+            recordId: estimateId,
+            record,
+          })
+            .then(({ id })=>{
               setSnackState({
                 open: true,
                 severity: 'success',
@@ -34,7 +39,7 @@ export const FormikProjEstimate = () => {
                 保存が成功したら、フォームのmeta (dirtyやtouched) をリセットする。
                 これで、Formikのdirtyで保存されていない変更があるかどうか判定出来る。
               */
-              resetForm({ values: { ...values, estimateId } });
+              resetForm({ values: { ...values, estimateId: id } });
             })
             .catch((err)=>{
               setSnackState({

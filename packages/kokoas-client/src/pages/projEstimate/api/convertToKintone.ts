@@ -1,8 +1,7 @@
 import { IProjestimates } from 'types';
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
 import { TypeOfForm } from '../form';
 
-const convertToKintone = ({
+export const convertToKintone = ({
   projId,
   projName,
   projTypeId,
@@ -53,35 +52,4 @@ const convertToKintone = ({
   };
 
   return kintoneRecord;
-};
-
-export const saveForm = async (form: TypeOfForm) => {
-  const { estimateId } = form;
-  const newKintoneRecord =  convertToKintone(form);
-
-
-  if (estimateId) {
-
-    const { revision } = await KintoneRecord.updateRecord({
-      app: APPIDS.projectEstimate,
-      id: estimateId,
-      record: newKintoneRecord,
-    });
-
-    /* Kintone's update API does't return updated record's id,
-    so I added it here to make this function more abstract. ~ras
-    */
-    return {
-      id: estimateId,
-      revision,
-    };
-
-  } else {
-    return KintoneRecord.addRecord({
-      app: APPIDS.projectEstimate,
-      record: newKintoneRecord,
-    });
-  }
-
-  /* 194(ココアス：工事内容)を更新 */
 };

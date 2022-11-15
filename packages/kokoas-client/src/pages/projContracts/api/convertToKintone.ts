@@ -1,9 +1,8 @@
+import { toKintoneDateStr } from 'kokoas-client/src/lib/date';
 import { IProjestimates } from 'types';
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
-import { toKintoneDateStr } from '../../../lib/date';
 import { paymentLabels, TypeOfForm } from '../form';
 
-const convertToKintone = (
+export const convertToKintone = (
   {
     paymentFields,
     hasRefund,
@@ -68,29 +67,4 @@ const convertToKintone = (
   };
 
   return kintoneRecord;
-};
-
-
-/**
- * Main save process
- *
- * @param {TypeofForm} form
- * @returns {Promise<{id: string, revision: string}>}
- *  */
-export const saveContractDetails = async (
-  form: TypeOfForm,
-) => {
-  const { projEstimateId } = form;
-
-  if (!projEstimateId) throw new Error('Invalid project id.');
-
-  const record = convertToKintone(form);
-
-  const result = await KintoneRecord.updateRecord({
-    app: APPIDS.projectEstimate,
-    id: projEstimateId,
-    record,
-  });
-
-  return { ...result, id: projEstimateId };
 };

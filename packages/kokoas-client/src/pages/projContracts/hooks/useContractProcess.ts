@@ -19,7 +19,6 @@ export const useContractProcess = () => {
     sendContract,
     {
       onMutate: () => {
-        console.log('Starting!');
         setBackdropState({ open: true });
       },
 

@@ -21,7 +21,6 @@ export const FormInvoice = () => {
   const { projId } = values;
 
   useResolveParams();
-  console.log('form', values);
 
   return (
     <Form noValidate>

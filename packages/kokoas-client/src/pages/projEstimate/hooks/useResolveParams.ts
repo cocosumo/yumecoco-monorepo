@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 import { getParam } from '../../../helpers/url';
-import { initialValues, TypeOfForm } from '../form';
+import { TypeOfForm } from '../form';
 
 /**
  * URLで渡されたものを処理する
@@ -27,9 +27,7 @@ export const useResolveParams = () => {
         ...prev,
         projId: projIdFromURL,
       }));
-    } else {
-      setValues(initialValues);
-    }
+    } 
 
   }, [projIdFromURL, projEstimateIdFromURL, setValues]);
 

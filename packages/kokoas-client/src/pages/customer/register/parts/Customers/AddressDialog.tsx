@@ -60,7 +60,7 @@ export const AddressDialog = (props: {
     if (!area) return;
     setIsLoading(true);
     setPrefectures([]);
-    getPrefectures(area).then(resp => {
+    getPrefectures(area, true).then(resp => {
       setPrefectures(resp);
       setCities([]);
       setIsLoading(false);
@@ -90,7 +90,6 @@ export const AddressDialog = (props: {
 
   useEffect(()=>{
     if (postal) {
-      console.log(postal);
       handleClose();
       startTransition(()=>{
         setFieldValue(postalFN, postal );

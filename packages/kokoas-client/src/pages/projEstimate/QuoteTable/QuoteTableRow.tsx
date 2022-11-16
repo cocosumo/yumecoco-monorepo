@@ -10,7 +10,6 @@ import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
 import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
-import { TMaterialOptions } from '../hooks/useMaterials';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 
 
@@ -19,12 +18,10 @@ export const QuoteTableRow = (
   {
     rowIdx,
     arrayHelpers,
-    materialOptions,
     envStatus,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
-    materialOptions: TMaterialOptions,
     envStatus: string,
   }) => {
   const { setValues } = useFormikContext<TypeOfForm>();
@@ -38,7 +35,7 @@ export const QuoteTableRow = (
     handleMajorItemChange,
     handleMiddleItemChange,
     handleMaterialChange,
-  } = useMaterialsOptions(rowIdx, materialOptions);
+  } = useMaterialsOptions(rowIdx);
 
   const handleChangeCostPrice = (inputVal: string) => {
     setValues(

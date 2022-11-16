@@ -1,10 +1,6 @@
+import { getCustGroupById, getEmployeesByIds, getEstimateById, getProjById } from 'api-kintone';
 import { TAgents, TSignMethod } from 'types';
-import { getProjectDetails } from '.';
-import { calculateEstimateRecord } from './calculations/calculateEstimateRecord';
-import { getCustomerGroup } from './getCustomerGroup';
 import { getCustomersByIds } from './getCustomersByGroupId';
-import { getEmployeesByIds } from './getEmployeesByIds';
-import { getEstimateById } from './getEstimateById';
 import { getStoreMngrByStoreId } from './getStoreMngrByStoreId';
 import { validateContractData } from './validateContractData';
 
@@ -31,7 +27,10 @@ isValidate = false,
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
   /* 見積情報 */
-  const estimatedRecord = await getEstimateById(projEstimateId);
+  const {
+    record: estimatedRecord,
+    calculated: calculatedEstimates,
+  } = await getEstimateById(projEstimateId);
   const {
     signMethod,
     projId,
@@ -49,22 +48,20 @@ isValidate = false,
     payDestination,
   } = estimatedRecord;
 
-  const calculatedEstimates = await calculateEstimateRecord(estimatedRecord);
-
   /* 工事情報 */
   const {
     custGroupId, projName,
     postal: projPostal,
     address1: projAddress1,
     address2: projAddress2,
-  } = await getProjectDetails(projId.value);
+  } = await getProjById(projId.value);
 
   /* 顧客情報 */
   const {
     agents,
     members,
     storeId,
-  } = await getCustomerGroup(custGroupId.value);
+  } = await getCustGroupById(custGroupId.value);
 
   const custIds = members.value
     .map(({ value: { customerId } }) => customerId.value );
@@ -101,6 +98,7 @@ isValidate = false,
       (agentType.value as TAgents) === 'cocoAG'))
     .map(({ value: { employeeId } }) => employeeId.value );
   const cocoAG = (await getEmployeesByIds(cocoAgIds))
+    .records
     .map(({ 文字列＿氏名: empName, email: empEmail }) => ({
       name: empName.value,
       email: empEmail.value,

@@ -98,7 +98,7 @@ export const calculateEstimate = (
 
   return {
     ...result,
-
+    taxRate,
     totalProfit,
 
     /** 粗利率 ：粗利 / 原価合計 */

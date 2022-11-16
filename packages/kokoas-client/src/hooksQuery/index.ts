@@ -17,6 +17,7 @@ export * from './useProjTypeById';
 export * from './useProjTypes';
 export * from './useSaveCustGroup';
 export * from './useSaveCustomers';
+export * from './useSaveEstimate';
 export * from './useSaveProject';
 export * from './useSearchCustGroup';
 export * from './useSearchProjects';

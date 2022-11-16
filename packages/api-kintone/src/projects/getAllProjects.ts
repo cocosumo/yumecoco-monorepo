@@ -1,12 +1,10 @@
-import { ktRecord } from './../client';
 import { appId, RecordType } from './config';
-import { KtRecordParam } from 'types';
+import { getAllRecords } from '../common';
+
 
 export const getAllProjects = async (
-  params?: KtRecordParam<'getAllRecords'>,
-) => (await ktRecord())
-  .getAllRecords({
-    ...params,
-    app: appId,
-  })
-  .then((r) => r as unknown as RecordType[]);
+  params?: Omit<Parameters<typeof getAllRecords>[0], 'app'>,
+) => getAllRecords<RecordType>({
+  ...params,
+  app: appId,
+});

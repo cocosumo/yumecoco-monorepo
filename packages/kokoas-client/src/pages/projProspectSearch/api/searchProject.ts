@@ -1,9 +1,8 @@
 import { KFlatProjects } from './../../../../../types/src/common/projects';
-import { AppIds } from 'config';
-import { KProjects, IProjects, TProjRank } from 'types';
-import { KintoneRecord } from '../../../api/kintone';
+import { KProjects, TProjRank } from 'types';
 import { TypeOfForm } from '../form';
 import { simplifyKintoneRecords } from './simplifyKintoneRecords';
+import { getAllProjects, getProjects } from 'api-kintone';
 
 // Unpack a promise
 type Unpack<T> = T extends Promise<infer U> ? U : T;
@@ -87,24 +86,22 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     .filter(Boolean)
     .join(' and ');
 
-  const result = await KintoneRecord.getAllRecords({
-    app: AppIds.projects,
-    condition: allConditions,
+  const records = await getAllProjects({
     fields: fields,
+    condition: allConditions,
   });
 
-  return simplifyKintoneRecords(result as unknown as IProjects[]);
+
+  return simplifyKintoneRecords(records);
 };
 
 export const initialSearch = async () => {
 
   const orderBy: KProjects = '更新日時';
-
-  const result = await KintoneRecord.getRecords({
-    app: AppIds.projects,
+  const { records } = await getProjects({
     query: `order by ${orderBy} desc limit ${10}`,
   });
 
 
-  return simplifyKintoneRecords(result.records as unknown as IProjects[]);
+  return simplifyKintoneRecords(records);
 };

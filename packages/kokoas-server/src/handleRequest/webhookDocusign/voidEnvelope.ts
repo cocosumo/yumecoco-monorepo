@@ -1,6 +1,6 @@
 import { IProjestimates } from 'types';
 import { APPIDS, KintoneRecord } from '../../api/kintone';
-import { getEstimateByEnvId } from '../../api/kintone/getEstimateByEnvId';
+import { getEstimateByEnvId } from 'api-kintone';
 
 
 /**

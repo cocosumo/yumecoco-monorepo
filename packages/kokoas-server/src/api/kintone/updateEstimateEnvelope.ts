@@ -1,7 +1,7 @@
 import { uploadFilesToKintone } from 'api-kintone/src/@file';
 import { IProjestimates, IRecipient, ReqSendContract, TConnectEventType } from 'types';
 import { APPIDS, KintoneRecord } from './config';
-import { getEstimateByEnvId } from './getEstimateByEnvId';
+import { getEstimateByEnvId } from 'api-kintone';
 
 export const updateEstimateEnvelope = async ({
   envelopeId,

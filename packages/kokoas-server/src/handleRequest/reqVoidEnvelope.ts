@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { IProjestimates, IVoidReq, IVoidRes } from 'types';
 import { voidEnvelope } from '../api/docusign';
 import { APPIDS, KintoneRecord } from '../api/kintone';
-import { getEstimateByEnvId } from '../api/kintone/getEstimateByEnvId';
+import { getEstimateByEnvId } from 'api-kintone';
 
 /**
  * Request handler for voiding envelope

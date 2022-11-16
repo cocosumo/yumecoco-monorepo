@@ -1,29 +1,28 @@
 import { Formik } from 'formik';
-import { saveForm } from './api/saveForm';
-import { initialValues, validationSchema } from './form';
-
+import { validationSchema } from './form';
 import { FormProjProspect } from './FormProjProspect';
-
-import { useSnackBar } from '../../hooks/useSnackBar';
-
-
+import { useResolveParams } from './hooks/useResolveParams';
+import { useSaveProject } from 'kokoas-client/src/hooksQuery';
+import { convertToKintone } from './api/convertToKintone';
 
 export const FormikProjProspect = () => {
 
-  const { setSnackState } = useSnackBar();
+  const initialValues = useResolveParams();
+  const { mutateAsync } = useSaveProject();
 
   return (
     <Formik
       initialValues={initialValues}
-      initialStatus={((s: TFormStatus)=>s)('busy')}
       enableReinitialize
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        saveForm(values)
-          .then((r) => {
-            setSnackState({ open: true, message: `保存が出来ました。 ${r?.revision}回目`, severity: 'success' });
-            setSubmitting(false);
-          });
+      onSubmit={async (values) => {
+
+        const newRecord = convertToKintone(values);
+        await mutateAsync({
+          record: newRecord,
+          projId: values.projId,
+          shouldUpdateRelated: false,
+        });
 
       }}
     >

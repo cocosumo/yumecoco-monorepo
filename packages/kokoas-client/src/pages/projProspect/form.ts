@@ -1,4 +1,5 @@
 
+import { dateValidation } from 'kokoas-client/src/helpers/yupValidator';
 import { TEnvelopeStatus } from 'types';
 import * as Yup from 'yup';
 
@@ -9,9 +10,9 @@ export const initialValues = {
   projName: '',
   rank: '',
   schedContractPrice: '',
-  estatePurchaseDate: '',
-  planApplicationDate: '',
-  schedContractDate : '',
+  estatePurchaseDate: '' as Date | string,
+  planApplicationDate: '' as Date | string,
+  schedContractDate : '' as Date | string,
   memo: '',
 };
 
@@ -25,5 +26,8 @@ export const validationSchema =  Yup.object(
     'projId': Yup
       .string()
       .required('必須です。'),
+    'estatePurchaseDate': dateValidation,
+    'planApplicationDate': dateValidation,
+    'schedContractDate': dateValidation,
   } as Partial<Record<KeyOfForm, any>>,
 );

@@ -1,7 +1,7 @@
+import { uploadFilesToKintone } from 'api-kintone/src/@file';
 import { IProjestimates, IRecipient, ReqSendContract, TConnectEventType } from 'types';
 import { APPIDS, KintoneRecord } from './config';
 import { getEstimateByEnvId } from './getEstimateByEnvId';
-import { uploadFileToKintone } from './uploadFileToKintone';
 
 export const updateEstimateEnvelope = async ({
   envelopeId,
@@ -17,8 +17,8 @@ export const updateEstimateEnvelope = async ({
   signMethod?: ReqSendContract['signMethod'],
   envelopeId: string,
   documents: {
-    fileBase64 :string,
-    filename: string,
+    data :string,
+    name: string,
   }[],
   envelopeStatus: string,
   event: TConnectEventType,
@@ -43,7 +43,7 @@ export const updateEstimateEnvelope = async ({
     case 'recipient-completed': // A recipient signed
     case 'envelope-completed': // All recipients signed
       if (documents.length) {
-        fileKeys = await uploadFileToKintone(documents);
+        fileKeys = await uploadFilesToKintone(documents);
       }
   }
 

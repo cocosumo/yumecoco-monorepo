@@ -27,8 +27,8 @@ export const saveToKintone = async (payload: IConnectEvent) => {
   // multiple documents.
   const documents = envelopeDocuments.map(({ PDFBytes, name }) => {
     return {
-      fileBase64: PDFBytes,
-      filename: name,
+      data: PDFBytes,
+      name: name + '.pdf',
     };
   });
 

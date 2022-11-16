@@ -7,6 +7,8 @@ describe('Calculate estimate', () => {
     const { record } = await getEstimateById('39');
     const result = await calculateEstimateRecord(record);
 
+    console.log('result', result);
+
     expect(result).toHaveProperty('totalCostPrice');
-  }, 10000 );
+  }, 10000);
 });

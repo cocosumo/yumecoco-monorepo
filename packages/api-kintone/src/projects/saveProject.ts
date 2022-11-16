@@ -22,11 +22,13 @@ export const saveProject = async (
     record,
     projId,
     revision,
+    shouldUpdateRelated = true,
   }:
   {
     record: Partial<RecordType>,
     projId?: string,
     revision?:string,
+    shouldUpdateRelated?: boolean
   },
 ) => {
 
@@ -50,7 +52,7 @@ export const saveProject = async (
     recordId: projId,
     record: aggRecord,
     revision: revision,
-    updateRelatedFn: projId ? () => updateRelatedProjects(projId, record) : undefined,
+    updateRelatedFn: projId && shouldUpdateRelated ? () => updateRelatedProjects(projId, record) : undefined,
   });
 
 };

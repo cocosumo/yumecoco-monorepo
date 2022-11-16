@@ -20,6 +20,10 @@ const options = {
   },
 };
 
+/**
+ * @deprecated 変わりにconfig/AppIds を利用する。
+ * 環境によって設定が変わるので、全てのパッケージと共有するためです。
+ */
 export enum APPIDS {
   customers = 173,
   stores = 19,
@@ -39,7 +43,14 @@ export enum APPIDS {
   Invoice = 204,
 }
 
-
+/**
+ * @deprecated
+ * */
 export const KintoneClient = new KintoneRestAPIClient(options);
 
+/**
+ * @deprecated api-kintoneのAPIを利用するか、追加する。
+ * 当パッケージでKintoneSDKを直接アクセスしない方向です
+ * 他パッケージと共有し、汎用性と保守性の向上に繋がります。
+ *  */
 export const KintoneRecord = KintoneClient.record;

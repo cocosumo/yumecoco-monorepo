@@ -7,7 +7,6 @@ import { ContractAmount } from './fieldComponents/ContractAmount';
 import { BillingBalance } from './fieldComponents/BillingBalance';
 import { Button, Divider, Grid } from '@mui/material';
 import { EstimateCards } from './fieldComponents/EstimateCards';
-import { SearchProject } from './fieldComponents/SearchProject';
 import { paymentLabels } from '../projContracts';
 import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
@@ -16,22 +15,28 @@ import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield/Form
 import { useContractAmount } from './hooks/useContractAmount';
 import { useState } from 'react';
 import { debounce } from 'lodash';
+import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { useNavigate } from 'react-router-dom';
+import { generate } from 'randomstring';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { pages } from '../Router';
 
 
 
 export const FormInvoice = () => {
   const { values, submitForm } = useFormikContext<TypeOfForm>();
-  const { projId } = values;
+  const navigate = useNavigate();
+
+  const { projId, projName } = values;
   const [billingAmount, setBillingAmount] = useState(useContractAmount(projId));
 
   useResolveParams();
 
   const handleChange = (e: any) => {
-    console.log('newVal', e.target.value);
     debounce(() => { setBillingAmount(e.target.value); }, 2000);
-
   };
 
+  console.log('values', values);
 
   return (
     <Form noValidate>
@@ -41,7 +46,11 @@ export const FormInvoice = () => {
 
         {/* 工事の選択 */}
         <Grid item xs={12} md={4}>
-          <SearchProject values={values} />
+          <SearchProjects
+            value={projId ? { id: projId, projName: projName } : undefined}
+            onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ projId: val?.id })}`)}
+            label='工事情報の検索'
+          />
         </Grid>
 
         {/* 支払金額の種別 */}

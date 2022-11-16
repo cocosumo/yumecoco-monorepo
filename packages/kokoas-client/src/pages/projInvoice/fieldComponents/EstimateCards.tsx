@@ -1,29 +1,8 @@
-import { Card, CardContent, Chip, CircularProgress, FormHelperText, Stack, Typography } from '@mui/material';
-import { FormikTextFieldV2 } from 'kokoas-client/src/components/ui/textfield/FormikTextFieldV2';
+import {  CircularProgress, FormHelperText, Stack, Typography } from '@mui/material';
+import { useContractsByProjId } from 'kokoas-client/src/hooksQuery';
 import isEmpty from 'lodash/isEmpty';
-import { FormikLabeledCheckBox } from '../../../components/ui/checkboxes';
-import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
 import { getEstimatesFieldName } from '../form';
-
-const FormLabel = ({
-  label,
-  value,
-}: {
-  label: string,
-  value: string,
-}) => {
-
-  return (
-    <Stack direction={'row'} spacing={2}>
-      <Typography variant='caption'>
-        {label}
-      </Typography>
-      <Typography>
-        {value}
-      </Typography>
-    </Stack>
-  );
-};
+import { EstimateCard } from './EstimateCard';
 
 /**
  * 契約済みの見積もりカードを表示する処理
@@ -40,7 +19,7 @@ export const EstimateCards = ({
     data,
     error,
     isFetching,
-  } = useEstimatesByProjId(projId);
+  } = useContractsByProjId(projId);
 
   const {
     calculated,
@@ -48,7 +27,6 @@ export const EstimateCards = ({
   } = data || {};
 
   const found = Boolean(records?.find(record => !isEmpty(record.envStatus.value)));
-
 
   return (
     <>
@@ -58,47 +36,13 @@ export const EstimateCards = ({
       {isFetching && <CircularProgress />}
       {!isFetching && <Stack direction={'row'} spacing={2}>
         {!!records && !!calculated && records.map((record, idx) => {
-
-          if (!record.envStatus.value) return; // 未契約の情報は表示しない
-
-          return (
-            <Card key={`${projId}_${record.$id.value}`}>
-              <CardContent>
-                <Stack spacing={1} direction={'row'}>
-                  {!!record.estimateStatus.value &&
-                    <Chip
-                      size='small'
-                      color="primary"
-                      label={record.estimateStatus.value}
-                    />}
-                  <Chip
-                    size='small'
-                    color="success"
-                    label='契約'
-                  />
-                </Stack>
-                <FormikTextFieldV2
-                  label='見積もり番号'
-                  defaultValue={record.$id.value}
-                  name={getEstimatesFieldName(idx, 'estimateId')}
-                  size='small'
-                  disabled
-                />
-                <FormLabel
-                  label='契約金額'
-                  value={Math.round(calculated[idx].totalAmountInclTax).toLocaleString() + '円'}
-                />
-                <FormLabel
-                  label='契約日'
-                  value={record.contractDate.value}
-                />
-                <FormikLabeledCheckBox
-                  label='請求に使用しない'
-                  name={getEstimatesFieldName(idx, 'isForPayment')}
-                />
-              </CardContent>
-            </Card>
-          );
+          return (<EstimateCard
+            name={getEstimatesFieldName(idx, 'isForPayment')}
+            projId={projId}
+            record={record}
+            totalAmountInclTax={calculated[idx].totalAmountInclTax}
+            key={`${record.$id.value}`}
+                  />);
         })}
       </Stack>}
       {!isFetching && !found && records && <Typography>

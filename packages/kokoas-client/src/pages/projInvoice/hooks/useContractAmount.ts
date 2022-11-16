@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { useEstimatesByProjId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByProjId } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../form';
 
 
@@ -11,19 +11,24 @@ export const useContractAmount = (
 
   const {
     data,
-  } = useEstimatesByProjId(projId);
+    isFetching,
+  } = useContractsByProjId(projId);
 
-  const {
-    calculated,
-    records,
-  } = data || {};
+  const { calculated } = data || {};
 
+  if (isFetching) return 0;
 
-  return records?.reduce((acc, cur, idx) => {
-    // 未契約の見積もり or 除外する場合
-    if (!cur.envStatus.value || (estimates?.[idx].isForPayment ?? true)) return acc;
+  console.log('data', data);
+  console.log('estimates', estimates);
 
-    /* 既に入金済みの金額は差し引く */
-    return acc + (calculated?.[idx].totalAmountInclTax ?? 0);
+  const totalAmount = calculated?.reduce((acc, cur, idx) => {
+
+    // if (estimates?.[idx].isForPayment ?? true) return acc;
+
+    return acc + cur.totalAmountInclTax;
   }, 0);
+
+  /* 既に入金済みの金額は差し引く */
+
+  return totalAmount;
 };

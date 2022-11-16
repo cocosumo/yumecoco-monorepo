@@ -2,7 +2,9 @@ import { EmpAffiliations, KEmployees, KEmployeeStores } from 'types';
 import { getRecords } from '../common';
 import { appId, RecordType } from './config';
 
-
+/**
+ * 店舗番号で店長の社員レコードを取得する
+ */
 export const getStoreMngrByStoreId = async (storeId: string) => {
 
   const keyStoreId : KEmployeeStores = 'storeId';

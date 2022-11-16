@@ -1,7 +1,12 @@
-import { getCustGroupById, getEmployeesByIds, getEstimateById, getProjById } from 'api-kintone';
+import {
+  getCustGroupById,
+  getCustomersByIds,
+  getEmployeesByIds,
+  getEstimateById,
+  getProjById,
+  getStoreMngrByStoreId,
+} from 'api-kintone';
 import { TAgents, TSignMethod } from 'types';
-import { getCustomersByIds } from './getCustomersByGroupId';
-import { getStoreMngrByStoreId } from './getStoreMngrByStoreId';
 import { validateContractData } from './validateContractData';
 
 export type TContractData = Awaited<ReturnType<typeof getContractData>>;
@@ -87,10 +92,6 @@ isValidate = false,
       address2: address2.value,
     };
   });
-
-
-  console.log(customers);
-
 
   /* 担当情報 */
   const cocoAgIds = agents.value

@@ -1,55 +1,56 @@
 import { updateFormFields } from './updateFormFields';
 
-describe('updateFormFields', () => {
+describe.skip('updateFormFields', () => {
   it('should update form field', async () => {
-    const testAppId = '208';
+    const testAppId = '210';
     const resp = await updateFormFields({
       app: testAppId,
       properties: {
         projId : {
           'type': 'NUMBER',
           'code': 'projId',
-          'label': '工事番号',
-          'noLabel': false,
-          'required': false,
           'lookup': {
-            'relatedApp': {
-              'app': '209',
-              'code': '',
-            },
-            'relatedKeyField': 'レコード番号',
             'fieldMappings': [
               {
-                'field': 'projName',
+                'field': '工事名称',
                 'relatedField': 'projName',
               },
               {
-                'field': 'projectPostal',
-                'relatedField': 'postal',
+                'field': '工事種別名',
+                'relatedField': 'projTypeName',
               },
               {
-                'field': 'projectAddress1',
-                'relatedField': 'address1',
+                'field': 'storeName',
+                'relatedField': 'store',
               },
               {
-                'field': 'projectAddress2',
-                'relatedField': 'address2',
+                'field': 'projTypeId',
+                'relatedField': 'projTypeId',
               },
               {
-                'field': 'kariAddress',
-                'relatedField': 'addressKari',
+                'field': 'custGroupId',
+                'relatedField': 'custGroupId',
               },
               {
-                'field': 'status',
-                'relatedField': 'status',
+                'field': 'storeId',
+                'relatedField': 'storeId',
               },
               {
-                'field': 'cancelStatus',
-                'relatedField': 'cancelStatus',
+                'field': 'custNames',
+                'relatedField': 'custNames',
               },
-            ],
-            'lookupPickerFields': [
-              'projTypeName',
+              {
+                'field': 'cocoAGNames',
+                'relatedField': 'cocoAGNames',
+              },
+              {
+                'field': 'yumeAGNames',
+                'relatedField': 'yumeAGNames',
+              },
+              {
+                'field': 'cocoConstNames',
+                'relatedField': 'cocoConstNames',
+              },
             ],
             'filterCond': '',
             'sort': 'レコード番号 desc',

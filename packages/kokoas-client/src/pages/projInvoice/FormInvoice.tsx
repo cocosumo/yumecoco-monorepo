@@ -12,9 +12,6 @@ import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
 import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield/FormikMoneyField';
-import { useContractAmount } from './hooks/useContractAmount';
-import { useState } from 'react';
-import { debounce } from 'lodash';
 import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
@@ -27,14 +24,8 @@ export const FormInvoice = () => {
   const navigate = useNavigate();
 
   const { projId, projName } = values;
-  const [billingAmount, setBillingAmount] = useState(useContractAmount(projId));
 
   useResolveParams();
-
-  const handleChange = (e: any) => {
-    debounce(() => { setBillingAmount(e.target.value); }, 2000);
-  };
-
 
   return (
     <Form noValidate>
@@ -90,8 +81,6 @@ export const FormInvoice = () => {
           <FormikMoneyField
             label='請求額'
             name={getFieldName('billingAmount')}
-            onChange={handleChange}
-            value={billingAmount}
           />
         </Grid>
         <Grid item md={6} />

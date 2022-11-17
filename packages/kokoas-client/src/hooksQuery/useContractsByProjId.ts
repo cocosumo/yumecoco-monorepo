@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useEstimatesByProjId } from './useEstimatesByProjId';
 
 /**
@@ -8,7 +9,7 @@ export const useContractsByProjId = (
 ) => {
 
   return useEstimatesByProjId(projId, {
-    select: (data) => {
+    select: useCallback((data) => {
       const newRecords = data.records.filter(({ envStatus }) => {
         return envStatus.value;
       });
@@ -20,6 +21,6 @@ export const useContractsByProjId = (
         records: newRecords,
         calculated: filterCalc,
       };
-    },
+    }, []),
   });
 };

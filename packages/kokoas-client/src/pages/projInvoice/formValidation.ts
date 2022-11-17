@@ -21,6 +21,8 @@ export const validationSchema = Yup
     .of(
       Yup.object().shape({
         estimateId: numberValidation,
+        contractAmount: numberValidation,
+        contractDate: dateValidation,
         doNotUsePayment: Yup.boolean(),
       }),
     ),

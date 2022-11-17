@@ -21,6 +21,8 @@ export const initialValues = {
   estimates: [
     {
       estimateId: '',
+      contractAmount: '',
+      contractDate: '',
       isForPayment: false,
     },
   ],

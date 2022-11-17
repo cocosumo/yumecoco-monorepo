@@ -32,6 +32,12 @@ export const useResolveParams = () => {
         setValues((prev) => produce(prev, (draft) => {
           draft.projId = projIdFromURL;
           draft.projName = projData.projName.value;
+          contracts.records.forEach((value, idx) => {
+            draft.estimates[idx] = {
+              estimateId: value.$id.value || '',
+              isForPayment: !!(+value.isForPayment.value),
+            };
+          });
         }));
       }
     } else {
@@ -39,6 +45,5 @@ export const useResolveParams = () => {
     }
 
   }, [projIdFromURL, projInvoiceIdFromURL, setValues, projData, contracts]);
-
 
 };

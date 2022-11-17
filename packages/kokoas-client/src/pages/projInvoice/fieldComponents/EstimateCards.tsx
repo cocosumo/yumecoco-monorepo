@@ -1,4 +1,4 @@
-import {  CircularProgress, FormHelperText, Stack, Typography } from '@mui/material';
+import { CircularProgress, FormHelperText, Stack, Typography } from '@mui/material';
 import { useContractsByProjId } from 'kokoas-client/src/hooksQuery';
 import isEmpty from 'lodash/isEmpty';
 import { getEstimatesFieldName } from '../form';
@@ -36,13 +36,15 @@ export const EstimateCards = ({
       {isFetching && <CircularProgress />}
       {!isFetching && <Stack direction={'row'} spacing={2}>
         {!!records && !!calculated && records.map((record, idx) => {
-          return (<EstimateCard
-            name={getEstimatesFieldName(idx, 'isForPayment')}
-            projId={projId}
-            record={record}
-            totalAmountInclTax={calculated[idx].totalAmountInclTax}
-            key={`${record.$id.value}`}
-                  />);
+          return (
+            <EstimateCard
+              name={getEstimatesFieldName(idx, 'isForPayment')}
+              projId={projId}
+              record={record}
+              totalAmountInclTax={calculated[idx].totalAmountInclTax}
+              key={`${record.$id.value}`}
+            />
+          );
         })}
       </Stack>}
       {!isFetching && !found && records && <Typography>

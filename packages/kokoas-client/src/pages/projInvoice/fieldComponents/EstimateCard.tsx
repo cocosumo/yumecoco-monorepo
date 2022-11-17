@@ -1,5 +1,4 @@
 import { Card, CardContent, Chip, Stack, Typography } from '@mui/material';
-import { useField } from 'formik';
 import { FormikLabeledCheckBox } from 'kokoas-client/src/components/ui/checkboxes';
 import { IProjestimates } from 'types';
 
@@ -35,9 +34,6 @@ export const EstimateCard = ({
   name: string
 }) => {
 
-  const isForPayment = record.isForPayment.value.length ? true : false;
-  /* addArray(record.$id.value, isForPayment, idx); */
-
   return (
     <Card key={`${projId}_${record.$id.value}`}>
       <CardContent>
@@ -68,7 +64,6 @@ export const EstimateCard = ({
         />
         <FormikLabeledCheckBox
           label='請求に使用しない'
-          defaultVal={isForPayment}
           name={name}
         />
       </CardContent>

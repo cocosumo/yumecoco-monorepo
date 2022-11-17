@@ -18,12 +18,10 @@ export const useContractAmount = (
 
   if (isFetching) return 0;
 
-  console.log('data', data);
-  console.log('estimates', estimates);
 
   const totalAmount = calculated?.reduce((acc, cur, idx) => {
 
-    // if (estimates?.[idx].isForPayment ?? true) return acc;
+    if (estimates?.[idx].isForPayment ?? true) return acc;
 
     return acc + cur.totalAmountInclTax;
   }, 0);

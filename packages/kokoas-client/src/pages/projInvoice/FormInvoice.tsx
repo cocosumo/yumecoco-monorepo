@@ -17,7 +17,6 @@ import { useState } from 'react';
 import { debounce } from 'lodash';
 import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
-import { generate } from 'randomstring';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 
@@ -36,7 +35,6 @@ export const FormInvoice = () => {
     debounce(() => { setBillingAmount(e.target.value); }, 2000);
   };
 
-  console.log('values', values);
 
   return (
     <Form noValidate>

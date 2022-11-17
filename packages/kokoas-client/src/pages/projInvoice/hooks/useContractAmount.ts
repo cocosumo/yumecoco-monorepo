@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik';
 import { useContractsByProjId } from 'kokoas-client/src/hooksQuery';
+import { useMemo } from 'react';
 import { TypeOfForm } from '../form';
 
 
@@ -11,20 +12,18 @@ export const useContractAmount = (
 
   const {
     data,
-    isFetching,
   } = useContractsByProjId(projId);
 
   const { calculated } = data || {};
 
-  if (isFetching) return 0;
 
+  const totalAmount = useMemo(() => calculated?.reduce((acc, cur, idx) => {
 
-  const totalAmount = calculated?.reduce((acc, cur, idx) => {
-
-    if (estimates?.[idx]?.isForPayment ?? true) return acc;
+    if (estimates?.[idx]?.isForPayment) return acc;
 
     return acc + cur.totalAmountInclTax;
-  }, 0);
+
+  }, 0), [calculated, estimates]);
 
   /* 既に入金済みの金額は差し引く */
 

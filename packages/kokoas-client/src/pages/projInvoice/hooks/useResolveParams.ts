@@ -29,12 +29,20 @@ export const useResolveParams = () => {
       }));
     } else if (projIdFromURL) {
       if (projData && contracts) {
+
+        const billingAmount = contracts.calculated.reduce((acc, cur) => {
+          return acc + cur.totalAmountInclTax;
+        }, 0);
+
         const newValues = produce(initialValues, (draft) => {
           draft.projId = projIdFromURL;
           draft.projName = projData.projName.value;
+          draft.billingAmount = String(billingAmount);
           contracts.records.forEach((value, idx) => {
             draft.estimates[idx] = {
               estimateId: value.$id.value || '',
+              contractAmount: String(contracts.calculated[idx].totalAmountInclTax),
+              contractDate: value.contractDate.value,
               isForPayment: !!(+value.isForPayment.value),
             };
           });

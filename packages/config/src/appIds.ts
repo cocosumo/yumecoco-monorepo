@@ -24,8 +24,7 @@ export const AppIds = {
   projects : 194,
   projEstimates : 202,
   stores : 19,
-  ...(!isProd && prodAppIds),
+  ...(isProd && prodAppIds),
 } as const;
-
 
 export type VAppIds = typeof AppIds[keyof typeof AppIds];

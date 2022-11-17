@@ -1,6 +1,7 @@
 import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
 import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
 import { TypeOfForm } from '../form';
+import { useContractAmount } from '../hooks/useContractAmount';
 
 export const ContractAmount = ({
   values,
@@ -10,21 +11,11 @@ export const ContractAmount = ({
   const { projId } = values;
 
   const {
-    data,
     error,
     isFetching,
   } = useEstimatesByProjId(projId);
-
-  const {
-    calculated,
-    records,
-  } = data || {};
-
-  const contractAmount = records?.reduce((acc, cur, idx) => {
-    if (!cur.envStatus.value || cur.isForPayment.value.length) return acc;
-
-    return acc + (calculated?.[idx].totalAmountInclTax ?? 0);
-  }, 0);
+    
+  const amount = useContractAmount(projId);
 
 
   return (
@@ -33,10 +24,10 @@ export const ContractAmount = ({
         <FormLabel>
           契約金額(税込) &emsp;
         </FormLabel>
-        {!error && !isFetching && !!contractAmount && <Typography>
-          {`${Math.round(contractAmount).toLocaleString()} 円`}
+        {!error && !isFetching && !!amount && <Typography>
+          {`${Math.round(amount).toLocaleString()} 円`}
         </Typography>}
-        {(error || isFetching || !contractAmount) && <Typography>
+        {(error || isFetching || !amount) && <Typography>
           {'--- 円'}
         </Typography>}
       </Stack>

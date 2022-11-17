@@ -13,35 +13,30 @@ export const simplifyKintoneRecords = (records: IProjects[]) => {
   return records.map((r) => {
     const {
       $id, memo, projName, custGroupId,
-      custGroup, agents, custGroupAgents,
+      agents,
       store, rank,
       更新日時, 作成日時,
       schedContractDate, estatePurchaseDate, planApplicationDate,
       schedContractPrice,
+      yumeAGNames,
+      cocoAGNames,
+      custNames,
     } = r;
-
-
 
     return {
       工事番号: $id.value,
       メモ: memo.value,
       工事名: projName.value,
-      ゆめてつAG: custGroupAgents.value
-        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'yumeAG' as TAgents)
-        ?.map(({ value: { custAgentName } }) => custAgentName?.value)
-        .join('、 ') ?? '',
-      ここすもAG: custGroupAgents.value
-        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'cocoAG' as TAgents)
-        ?.map(({ value: { custAgentName } }) => custAgentName?.value)
-        .join('、 ') ?? '',
+      ゆめてつAG: yumeAGNames.value,
+      ここすもAG: cocoAGNames.value,
       ここすも工事: agents.value
         ?.filter(({ value: { agentId, agentType } }) => !!agentId?.value && agentType?.value === 'cocoConst' as TAgents)
         ?.map(({ value: { agentName } }) => agentName.value)
         .join('、 ') ?? '',
       ランク: rank.value,
       顧客番号: custGroupId.value,
-      顧客名: `${custGroup?.value?.[0]?.value?.custName?.value ?? ''}`,
-      全顧客: custGroup?.value?.map(({ value: { custName } }) => custName.value).join(', '),
+      顧客名: custNames.value,
+      全顧客: custNames.value,
       店舗名: store.value,
       更新日時:  更新日時?.value,
       作成日時: 作成日時?.value,

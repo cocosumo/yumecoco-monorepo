@@ -9,9 +9,9 @@
     "tsc": "tsc src/main.ts --outDir ./dist --esModuleInterop --skipLibCheck",
     "dev:local": "cross-env NODE_ENV=local nodemon src/main.ts",
     "dev:staging": "cross-env NODE_ENV=staging nodemon src/main.ts",
-    "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
-    "build": "cross-env NODE_ENV=prod rimraf ./dist && tsc --build tsconfig.json",
-    "start": "cross-env NODE_ENV=prod ts-node --files ./src/main.ts -T",
+    "upstart": "cross-env NODE_ENV=production git pull && npm run start",
+    "build": "cross-env NODE_ENV=production rimraf ./dist && tsc --build tsconfig.json",
+    "start": "cross-env NODE_ENV=production ts-node --files ./src/main.ts -T",
     "forever": "forever start --uid kokoas-server -a -v -o kokoas-server.log -e kokoas-server-err.log -c 'npm start' ./"
   },
   "keywords": [],

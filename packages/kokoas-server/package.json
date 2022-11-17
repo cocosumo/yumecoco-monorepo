@@ -12,12 +12,7 @@
     "upstart": "cross-env NODE_ENV=prod git pull && npm run start",
     "build": "cross-env NODE_ENV=prod rimraf ./dist && tsc --build tsconfig.json",
     "start": "cross-env NODE_ENV=prod ts-node --files ./src/main.ts -T",
-    "forever": "forever start --uid kokoas-server -a -v -o kokoas-server.log -e kokoas-server-err.log -c 'npm start' ./",
-    "dtsgen:projDetails": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 194 --type-name Data --namespace ProjectDetails -o src/types/data.projectDetails.d.ts",
-    "dtsgen:projEstimates": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 202 --type-name Data --namespace ProjectEstimates -o src/types/data.projectEstimates.d.ts",
-    "dtsgen:custgroups": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 185 --type-name Data --namespace CustomerGroupTypes -o src/types/data.customerGroup.d.ts",
-    "dtsgen:customers": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 173 --type-name Data --namespace CustomerTypes -o src/types/data.customers.d.ts",
-    "dtsgen:employees": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 34 --type-name Data --namespace Employees -o src/types/data.employees.d.ts"
+    "forever": "forever start --uid kokoas-server -a -v -o kokoas-server.log -e kokoas-server-err.log -c 'npm start' ./"
   },
   "keywords": [],
   "author": "",

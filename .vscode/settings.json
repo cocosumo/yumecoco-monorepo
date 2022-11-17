@@ -10,7 +10,8 @@
     "/packages/api-kintone/src/estimates/config.ts",
     "/packages/api-kintone/src/materialsMajor/config.ts",
     "/packages/api-kintone/src/materialsMid/config.ts",
-    "/packages/api-kintone/src/materialsItem/config.ts"
+    "/packages/api-kintone/src/materialsItem/config.ts",
+    "/packages/api-kintone/src/employees/config.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",

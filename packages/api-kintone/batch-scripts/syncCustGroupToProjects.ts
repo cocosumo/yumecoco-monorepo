@@ -1,10 +1,13 @@
 import { DeepPartial, IProjects } from 'types';
-import { APPIDS, KintoneRecord } from '../api/kintone';
+import { AppIds } from 'config';
+import { ktRecord } from 'api-kintone';
 
 export const syncCustGroupToProjects = async () => {
+  const KintoneRecord = await ktRecord();
+  const appId = AppIds.projects;
   try {
     const projects = await KintoneRecord.getAllRecords({
-      app: APPIDS.projectDetails,
+      app: appId,
     }) as unknown as IProjects[];
 
 
@@ -23,7 +26,7 @@ export const syncCustGroupToProjects = async () => {
     });
 
     const updated = await KintoneRecord.updateAllRecords({
-      app: APPIDS.projectDetails,
+      app: appId,
       records: updatedRecord as any,
     });
 

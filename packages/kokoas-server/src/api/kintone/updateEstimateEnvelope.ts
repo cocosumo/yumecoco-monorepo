@@ -1,7 +1,6 @@
+import { uploadFilesToKintone } from 'api-kintone/src/@file';
 import { IProjestimates, IRecipient, ReqSendContract, TConnectEventType } from 'types';
-import { APPIDS, KintoneRecord } from './config';
-import { getEstimateByEnvId } from './getEstimateByEnvId';
-import { uploadFileToKintone } from './uploadFileToKintone';
+import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
 
 export const updateEstimateEnvelope = async ({
   envelopeId,
@@ -17,8 +16,8 @@ export const updateEstimateEnvelope = async ({
   signMethod?: ReqSendContract['signMethod'],
   envelopeId: string,
   documents: {
-    fileBase64 :string,
-    filename: string,
+    data :string,
+    name: string,
   }[],
   envelopeStatus: string,
   event: TConnectEventType,
@@ -43,7 +42,7 @@ export const updateEstimateEnvelope = async ({
     case 'recipient-completed': // A recipient signed
     case 'envelope-completed': // All recipients signed
       if (documents.length) {
-        fileKeys = await uploadFileToKintone(documents);
+        fileKeys = await uploadFilesToKintone(documents);
       }
   }
 
@@ -81,15 +80,11 @@ export const updateEstimateEnvelope = async ({
     record.signMethod = { value: signMethod };
   }
 
-
   if (!recordId) throw new Error('updateEstimateEnvelope Failed due to missing recordId.');
-  // Save updated record
-  const result = await KintoneRecord.updateRecord({
-    app: APPIDS.projEstimate,
-    id: recordId,
+
+  const result = await saveEstimate({
+    recordId,
     record,
   });
-
-
   return result;
 };

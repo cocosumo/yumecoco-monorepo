@@ -1,10 +1,15 @@
 import { DeepPartial, IProjestimates } from 'types';
-import { APPIDS, KintoneRecord } from '../api/kintone';
+import { AppIds } from 'config';
+import { ktRecord } from 'api-kintone';
+
 
 export const updateEstimates = async () => {
+  const KintoneRecord = await ktRecord();
+  const appId = AppIds.projEstimates;
+
   try {
     const records = await KintoneRecord.getAllRecords({
-      app: APPIDS.projEstimate,
+      app: appId,
     }) as unknown as IProjestimates[];
 
 
@@ -28,7 +33,7 @@ export const updateEstimates = async () => {
     console.log(updatedRecords);
 
     const updated = await KintoneRecord.updateAllRecords({
-      app: APPIDS.projEstimate,
+      app: appId,
       records: updatedRecords as any,
     });
 

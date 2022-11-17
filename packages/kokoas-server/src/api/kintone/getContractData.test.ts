@@ -7,6 +7,8 @@ describe('Contract', () => {
       userCode: 'RPA03',
     });
 
-    expect(result).toMatchSnapshot();
+    console.log(result);
+
+    expect(result).toHaveProperty('projId');
   });
 });

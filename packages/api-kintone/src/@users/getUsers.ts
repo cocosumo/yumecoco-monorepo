@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { KintoneClient } from '../config';
 import { IGetUsersResult } from 'types';
+import { ktClient } from '../client';
 
 
 
@@ -17,12 +17,13 @@ export const getUsers = async ({
   ids?: number[] | number,
   codes?: string[] | string,
 }) => {
+  const KintoneClient = await ktClient();
   try {
     const baseUrl = `${KintoneClient.getBaseUrl()}`;
     const api = '/v1/users.json';
     const endpoint = `${baseUrl}${api}`;
 
-    const auth = process.env.LOGIN_AUTH;
+    const auth = process.env.KT_LOGIN_AUTH;
 
     if (!auth) throw new Error('Invalid authentication.');
 

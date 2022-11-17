@@ -15,8 +15,10 @@ export const calculateEstimate = (
   {
     tax,
     materials,
+    recordId,
   } : {
     tax: number
+    recordId: string
     materials: {
 
       /** 利益率 */
@@ -98,6 +100,7 @@ export const calculateEstimate = (
 
   return {
     ...result,
+    recordId,
     taxRate,
     totalProfit,
 

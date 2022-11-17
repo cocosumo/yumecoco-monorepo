@@ -3,25 +3,29 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { FormikTextField } from '../../components/ui/textfield';
 import { ContractAmount } from './fieldComponents/ContractAmount';
 import { BillingBalance } from './fieldComponents/BillingBalance';
 import { Button, Divider, Grid } from '@mui/material';
 import { EstimateCards } from './fieldComponents/EstimateCards';
-import { SearchProject } from './fieldComponents/SearchProject';
 import { paymentLabels } from '../projContracts';
 import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
+import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield/FormikMoneyField';
+import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { useNavigate } from 'react-router-dom';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { pages } from '../Router';
 
 
 
 export const FormInvoice = () => {
   const { values, submitForm } = useFormikContext<TypeOfForm>();
-  const { projId } = values;
+  const navigate = useNavigate();
+
+  const { projId, projName } = values;
 
   useResolveParams();
-  console.log('form', values);
 
   return (
     <Form noValidate>
@@ -31,7 +35,11 @@ export const FormInvoice = () => {
 
         {/* 工事の選択 */}
         <Grid item xs={12} md={4}>
-          <SearchProject values={values} />
+          <SearchProjects
+            value={projId ? { id: projId, projName: projName } : undefined}
+            onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ projId: val?.id })}`)}
+            label='工事情報の検索'
+          />
         </Grid>
 
         {/* 支払金額の種別 */}
@@ -70,7 +78,7 @@ export const FormInvoice = () => {
 
         {/* 請求金額 */}
         <Grid item xs={12} md={6}>
-          <FormikTextField
+          <FormikMoneyField
             label='請求額'
             name={getFieldName('billingAmount')}
           />

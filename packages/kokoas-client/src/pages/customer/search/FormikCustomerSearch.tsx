@@ -1,15 +1,20 @@
 import { Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useSnackBar } from '../../../hooks';
-import { getSearchData, ISearchData } from './api/getSearchData';
-import { initialValues } from './form';
+import { getSearchResult } from './api/getSearchResult';
+
+import { initialValues, TypeOfForm } from './form';
+import { ISearchData } from './hooks/useSearchResult';
 import { SearchForm } from './SearchForm';
 
 export const FormikCustomerSearch = () => {
+
+
   const [rows, setRows] = useState<ISearchData[]>([]);
   const { setSnackState } = useSnackBar();
 
-  const handleSearch = async (values: typeof initialValues) => {
+
+  const handleSearch = async (values: TypeOfForm) => {
     const { storeId,
       custName, contactNum : phone,
       address, email,
@@ -17,33 +22,30 @@ export const FormikCustomerSearch = () => {
       custType,  recordStatus,
     } = values;
 
-    const { normalizedData } = await getSearchData({
+    const { normalizedData } = await getSearchResult({
       storeId, custName, phone,
       address, email, yumeAG, cocoAG, cocoConst,
       custType: custType !== '全て' ? custType : undefined,
       recordStatus,
     });
 
-    setRows(normalizedData);
+    setRows(normalizedData || []);
 
     return normalizedData;
   };
 
-  useEffect(()=>{
-    handleSearch(initialValues);
-  }, []);
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values) => {
         const { length } = await handleSearch(values);
         setSnackState({
           severity: 'success',
           message: `${length ?? 0}件 見つかりました。`,
           open: true,
         });
-        setSubmitting(false);
+
       }}
     >
 

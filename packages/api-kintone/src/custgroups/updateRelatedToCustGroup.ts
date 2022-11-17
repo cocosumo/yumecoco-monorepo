@@ -20,46 +20,6 @@ export const updateRelatedToCustGroup = async (
     relatedAppId: AppIds.projects,
     recIds: custGroupId,
     lookUpFieldName: 'custGroupId',
-    record: {
-      custGroup: {
-        type: 'SUBTABLE',
-        value: record.members?.value.map(({
-          id,
-          value: {
-            customerId,
-          },
-        }) => {
-          return {
-            id,
-            value: {
-              custId: customerId,
-              custName: { value: 'auto' },
-              custNameReading: { value: 'auto' },
-            },
-          };
-        }) || [],
-      },
-      custGroupAgents: {
-        type: 'SUBTABLE',
-        value: record.agents?.value.map(({
-          id,
-          value: {
-            employeeId,
-            employeeName,
-            agentType,
-          },
-        }) => {
-          return {
-            id,
-            value: {
-              custAgentId: employeeId,
-              custAgentName: employeeName,
-              custAgentType: agentType,
-            },
-          };
-        }) || [],
-      },
-    },
   });
 
 

@@ -1,6 +1,6 @@
 import { getAllCustGroups } from 'api-kintone';
-import { getCustGroupKey, KFlatCustGroup, TEnvelopeStatus } from 'types';
-import { RecordStatus } from '../../../../config/formValues';
+import { getCustGroupKey, KFlatCustGroup, RecordStatus } from 'types';
+import { AdvancedSearchCustGroupParam } from '../hooks/useAdvancedSearchCustGroup';
 
 
 
@@ -12,19 +12,8 @@ export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
     switch (s) {
       case '情報登録のみ':
         return  `${getCustGroupKey('projectCount')} = "0" or ${'projectCount' as KFlatCustGroup} = ""`;
-      case '契約申請中':
-        return `${getCustGroupKey('envStatus')} like "${((k: TEnvelopeStatus)=>k)('sent')}"`;
-      case '契約済':
-        return `${getCustGroupKey('envStatus')} like "${((k: TEnvelopeStatus)=>k)('completed')}"`;
-
       case '追客中':
         return  `${getCustGroupKey('projectCount')} > 0`;
-      case '中止':
-        return `${getCustGroupKey('cancelStatus')} like "中止"`;
-      case '他決':
-        return `${getCustGroupKey('cancelStatus')} like "他決"`;
-      case '削除 (工事)':
-        return `${getCustGroupKey('cancelStatus')} like "削除"`;
       case '削除':
         return `${getCustGroupKey('isDeleted')} = "1"`;
 
@@ -41,18 +30,7 @@ export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
 
 };
 
-export interface AdvancedSearchCustGroupParam {
-  storeId?: string,
-  custName?: string,
-  phone?: string,
-  address?: string,
-  email?: string,
-  yumeAG?: string,
-  cocoAG?: string,
-  cocoConst?: string,
-  custType?: string,
-  recordStatus?: RecordStatus[],
-}
+
 
 export const advancedSearchCustGroup = async (
   params : AdvancedSearchCustGroupParam,

@@ -8,6 +8,10 @@ export const SearchProject = ({
   values: TypeOfForm
 }) => {
 
+  const handleChange = () => {
+    
+  };
+
   /* 
     ※projEstimateより流用、要修正
     const {
@@ -25,9 +29,9 @@ export const SearchProject = ({
         label='工事情報の検索'
         name={getFieldName('projId')}
         projName={projName}
+        handleChange={handleChange}
       /* isLoading={isLoading}
-      disabled={isLoading}
-      handleChange={handleStartLoading} */
+      disabled={isLoading} */
       />
       {/* {!!projId && !customerName && !isLoading &&
       <NoCustomerWarning projId={projId} />} */}

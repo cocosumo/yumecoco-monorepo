@@ -9,27 +9,6 @@ declare namespace DBCustgroups {
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    projects: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          projId: kintone.fieldTypes.Number;
-          projName: kintone.fieldTypes.SingleLineText;
-          cancelStatus: kintone.fieldTypes.SingleLineText;
-          kariAddress: kintone.fieldTypes.SingleLineText;
-          cocoConst2Name: kintone.fieldTypes.SingleLineText;
-          projectAddress1: kintone.fieldTypes.SingleLineText;
-          envStatus: kintone.fieldTypes.SingleLineText;
-          projectAddress2: kintone.fieldTypes.SingleLineText;
-          cocoConst2: kintone.fieldTypes.Number;
-          cocoConst1: kintone.fieldTypes.Number;
-          projectPostal: kintone.fieldTypes.SingleLineText;
-          cocoConst1Name: kintone.fieldTypes.SingleLineText;
-          status: kintone.fieldTypes.SingleLineText;
-        };
-      }>;
-    };
     agents: {
       type: "SUBTABLE";
       value: Array<{

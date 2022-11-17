@@ -28,9 +28,7 @@ export function DetailsTabs(props : {
   const isFetching = useIsFetching();
 
 
-  const isWithProject = Boolean(custGroupRec?.projects.value
-    .filter(item=>item.value.projId.value)
-    .length);
+  const isWithProject = Boolean(projRecs?.length);
   return (
     <TabContextContainer tabValue={tabValue}>
 

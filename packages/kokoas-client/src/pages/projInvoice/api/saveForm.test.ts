@@ -9,10 +9,10 @@ const UpdateForm: TypeOfForm = {
   billingAmount: '100000',
   plannedPaymentDate: '2022-10-27',
   estimates: [{
-    doNotUsePayment: true,
+    isForPayment: true,
     estimateId: '73',
   }, {
-    doNotUsePayment: false,
+    isForPayment: false,
     estimateId: '75',
   }],
 };
@@ -25,10 +25,10 @@ const addForm: TypeOfForm = {
   billingAmount: '100000',
   plannedPaymentDate: '2022-10-27',
   estimates: [{
-    doNotUsePayment: true,
+    isForPayment: true,
     estimateId: '73',
   }, {
-    doNotUsePayment: false,
+    isForPayment: false,
     estimateId: '75',
   }],
 };
@@ -42,10 +42,10 @@ const errorForm: TypeOfForm = {
   billingAmount: '100000',
   plannedPaymentDate: '2022-10-27',
   estimates: [{
-    doNotUsePayment: true,
+    isForPayment: true,
     estimateId: '73',
   }, {
-    doNotUsePayment: false,
+    isForPayment: false,
     estimateId: '75',
   }],
 };

@@ -11,15 +11,13 @@ export const DTCustomer = (props: {
 }) => {
   const { record, loading } = props;
 
-
   // Customer group record
   const {
     agents,
     storeName,
     members,
     custType,
-    projects } = record ?? {};
-
+  } = record ?? {};
 
   const groupedCustAgents = agents?.value.reduce((accu, curr) => {
     const { value: {
@@ -89,7 +87,7 @@ export const DTCustomer = (props: {
                       relation,
                     },
                   }) => {
-                    
+
                     return  (
                       <LabeledDetail
                         key={contactValue.value}
@@ -119,22 +117,6 @@ export const DTCustomer = (props: {
                 value={value.filter(Boolean).join(', ')}
               />))
         }
-
-        {projects?.value.map(({
-          id,
-          value: {
-            cocoConst1Name,
-            cocoConst2Name,
-          },
-        }) => {
-          return (
-            <LabeledDetail
-              key={id}
-              label={AGLabels.cocoConst}
-              value={[cocoConst1Name.value, cocoConst2Name.value].filter(Boolean).join(', ')}
-            />
-          );
-        })}
 
       </Stack>
 

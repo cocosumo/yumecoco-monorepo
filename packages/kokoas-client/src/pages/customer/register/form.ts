@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { nativeMath, string as randomStr } from 'random-js';
 import { phoneRegExp, postalRegExp } from '../../../helpers/yupValidator';
-import { TEnvelopeStatus } from 'types';
 
 export const initialCustomerValue = {
   key: randomStr()(nativeMath, 5),
@@ -39,11 +38,6 @@ export const initialValues = {
   yumeAG1: '',
   yumeAG2: '',
   customers: [initialCustomerValue],
-  projects: [] as {
-    projName: string,
-    projId: string,
-    envelopeStatus: TEnvelopeStatus,
-  }[],
   isDeleted: '',
 } ;
 

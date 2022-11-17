@@ -16,8 +16,8 @@ const mainSearchCondition = (mainSearch?: string) => {
   if (!mainSearch) return undefined;
 
   const fieldsToCompare : KFlatProjects[]  = [
-    '$id', 'projName', 'custGroupId', 'memo', 'agentName',
-    'custName', 'custNameReading', 'rank',
+    '$id', 'projName', 'custGroupId', 'memo',
+    'agentName', 'custNames',
   ];
 
   const exactFields : KFlatProjects[] = ['$id', 'custGroupId'];
@@ -52,15 +52,6 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
 
     memo,
   } = form;
-  const fields : KProjects[] = [
-    'projName', '$id', 'custGroupId', 'memo',
-    'agents', 'custGroupAgents',
-    'custGroup', 'rank',
-    'store', '更新日時', '作成日時',
-    'schedContractDate', 'estatePurchaseDate', 'planApplicationDate',
-    'schedContractPrice',
-  ];
-
 
   const allConditions = [
     mainSearchCondition(mainSearch),
@@ -87,7 +78,6 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     .join(' and ');
 
   const records = await getAllProjects({
-    fields: fields,
     condition: allConditions,
   });
 

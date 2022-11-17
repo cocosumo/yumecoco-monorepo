@@ -1,4 +1,4 @@
-import { isProd } from 'config';
+import { isProd } from './isProd';
 
 /* 本番はここで設定する */
 export const prodAppIds = {
@@ -24,7 +24,7 @@ export const AppIds = {
   projects : 194,
   projEstimates : 202,
   stores : 19,
-  ...(isProd && prodAppIds),
+  ...(isProd ? prodAppIds : false),
 } as const;
 
 export type VAppIds = typeof AppIds[keyof typeof AppIds];

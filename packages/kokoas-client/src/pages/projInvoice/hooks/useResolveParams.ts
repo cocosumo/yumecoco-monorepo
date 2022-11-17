@@ -29,7 +29,7 @@ export const useResolveParams = () => {
       }));
     } else if (projIdFromURL) {
       if (projData && contracts) {
-        setValues((prev) => produce(prev, (draft) => {
+        const newValues = produce(initialValues, (draft) => {
           draft.projId = projIdFromURL;
           draft.projName = projData.projName.value;
           contracts.records.forEach((value, idx) => {
@@ -38,7 +38,9 @@ export const useResolveParams = () => {
               isForPayment: !!(+value.isForPayment.value),
             };
           });
-        }));
+        });
+
+        setValues(newValues);
       }
     } else {
       setValues(initialValues);

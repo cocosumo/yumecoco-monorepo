@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { APPIDS } from '../api/kintone';
-import { getActiveEmployees } from '../api/kintone/employees/getActiveEmployees';
+import { AppIds } from 'config';
+import { getActiveEmployees } from 'api-kintone';
 
 export const useEmployeeByIds = (empId: string | string[]) => {
   return useQuery(
-    [APPIDS.employees],
+    [AppIds.employees],
     getActiveEmployees,
     {
       select: (data) => data.filter(({

@@ -1,11 +1,14 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-var-requires */
-
+import capitalize from 'lodash/capitalize';
 import runAll from 'npm-run-all';
 import { AppIds } from 'config';
-require('dotenv').config();
+import { generateDBTypes } from './generateDBTypes';
+import * as fsExtra from 'fs-extra';
+import path from 'path';
+import { root } from 'types/settings';
 
 
+import { loadEnv } from 'libs';
+loadEnv();
 
 /**
  * Kintone型定義を一括取得
@@ -20,13 +23,17 @@ require('dotenv').config();
  */
 process.setMaxListeners(0);
 
+/** define and clear dtsgen directory */
+const saveDir = 'src/dtsgen' ;
+fsExtra.emptyDirSync(path.join(root, saveDir));
+
 /** Environment */
 const [
   loginAuth,
   baseUrl,
 ] = [
-  'LOGIN_AUTH',
-  'BASE_URL',
+  'KT_LOGIN_AUTH',
+  'KT_BASE_URL',
 ].map((key) => {
   const val = process.env[key];
   console.log(val);
@@ -46,8 +53,8 @@ const dtsgenScripts = Object.entries(AppIds)
       ` --base-url ${baseUrl}`,
       `--app-id ${appId}`,
       '--type-name Data',
-      `--namespace DB.${dbName}`,
-      `-o db.${dbName}.d.ts`,
+      `--namespace DB${capitalize(dbName)}`,
+      `-o ${saveDir}/db.${dbName}.d.ts`,
       `-u ${user}`,
       `-p ${pw}`,
     ].join(' ');
@@ -62,10 +69,14 @@ runAll(
     stdout: process.stdout,
     stdin: process.stdin,
     //stderr: process.stderr,
-  }).catch(({ results }) => {
-  results
-    .filter(({ code }) => code)
-    .forEach(({ name }) => {
-      console.log(`"npm run ${name}" failed`);
-    });
-});
+  })
+  .catch(({ results }: any) => {
+    results
+      .filter(({ code }: any) => code)
+      .forEach(({ name }: any) => {
+        console.log(`"npm run ${name}" failed`);
+      });
+  })
+  .then(() => {
+    generateDBTypes();
+  });

@@ -1,13 +1,11 @@
 import { Button, Grid } from '@mui/material';
-import { ComponentProps, useEffect, useState } from 'react';
-import { getCustGroup } from '../../../../api/kintone/custgroups/GET';
+import { ComponentProps } from 'react';
 import {  OutlinedDiv } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
-import { TypeOfProjForm, getFieldName } from '../../form';
-import { CustGroupSearchField } from './CustGroupSearchField';
+import { TypeOfForm } from '../../form';
 import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
@@ -15,21 +13,26 @@ import { generateParams } from '../../../../helpers/url';
 import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
-import { AGLabels } from '../../../../types/commonTypes';
-
+import { AGLabels } from 'types';
+import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { RecordSelect } from '../RecordSelect/RecordSelect';
 
 export const CustInfo = () => {
 
-  const [custGroupRecord, setCustomerRecord] = useState<CustomerGroupTypes.SavedData>();
-  const { status, values, setFieldValue, setValues } = useFormikContext<TypeOfProjForm>();
+  const { status, values } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
   const isReadOnly = (status as TFormStatus ) === 'disabled';
 
   const {
+    custGroupId,
+    projId,
+  } = values;
+
+  const { data: custGroupRecord } = useCustGroupById(custGroupId ?? '');
+
+  const {
     members,
-    storeId,
-    territory,
     storeName,
   } = custGroupRecord ?? {};
 
@@ -50,42 +53,6 @@ export const CustInfo = () => {
   } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
 
 
-
-  const {
-    custGroupId,
-    projTypeName,
-    recordId,
-  } = values;
-
-  useEffect(()=>{
-
-    if (custGroupId) {
-      getCustGroup(custGroupId)
-        .then(resp => setCustomerRecord(resp));
-    } else {
-      setCustomerRecord(undefined);
-    }
-  }, [custGroupId]);
-
-  useEffect(()=>{
-    if (storeId?.value) {
-      setValues((prev) => {
-        return {
-          ...prev,
-          storeId: storeId?.value,
-          territory: territory?.value ?? '',
-          projName: `${customerName?.value}様邸`,
-
-        };
-      });
-    }
-  }, [storeId?.value, territory?.value, customerName?.value]);
-
-
-  useEffect(()=>{
-    setFieldValue(getFieldName('projName'), `${customerName?.value ?? '--'}様邸 ${projTypeName ?? '--'}`);
-  }, [customerName?.value, projTypeName]);
-
   const refactoredAgents = custGroupRecord?.agents
     .value
     .reduce((accu, { id, value: { agentType, employeeName } })=>{
@@ -99,13 +66,11 @@ export const CustInfo = () => {
     }, [] as Array<ComponentProps<typeof LabeledInfo> & { key: string }>) ?? [];
 
 
+
   return (
     <>
+      <RecordSelect />
       <PageSubTitle label="顧客情報" />
-      <Grid item xs={12} md={4} >
-        {!isReadOnly && <CustGroupSearchField />}
-      </Grid>
-
       <Grid item xs={12}>
 
         {custGroupId &&
@@ -121,11 +86,6 @@ export const CustInfo = () => {
                   email, emailRel,
                   phone1, phone1Rel,
                   phone2, phone2Rel,
-                  otherCustName: custGroupRecord
-                    ?.members.value
-                    .map((
-                      ({ value: { customerName: otherCustName } }) =>  otherCustName?.value || ''
-                    )) ?? [],
                 }}
               />
 
@@ -148,7 +108,7 @@ export const CustInfo = () => {
                     startIcon={<EditIcon />}
                     onClick={()=>navigate(`${pages.custGroupEdit}?${generateParams({
                       custGroupId,
-                      projId: recordId,
+                      projId,
                     })}`)}
                     fullWidth
 

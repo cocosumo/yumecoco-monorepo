@@ -1,16 +1,16 @@
 const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 const Dotenv = require('dotenv-webpack');
 
-
 module.exports = {
-  mode: "development",
+  mode: 'development',
   plugins: [
-    new Dotenv({path: "../../.env"}),
+    new Dotenv({ path: '../../.env' }),
     new ForkTsCheckerWebpackPlugin(),
     new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
@@ -19,7 +19,7 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
       ignoreOrder: false, // Enable to remove warnings about conflicting order
-    })
+    }),
   ],
 
   entry: {
@@ -32,21 +32,19 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.json','.ts','.tsx' ,'.jsx'],
+    extensions: ['.js', '.json', '.ts', '.tsx', '.jsx'],
     fallback: {
-      "crypto": false
-    }
+      crypto: false,
+    },
   },
 
   module: {
-
     rules: [
-
       {
         test: /\.(png|jpg|gif)$/i,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
           },
         ],
       },
@@ -62,40 +60,46 @@ module.exports = {
           'css-loader',
         ],
       },
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: /node_modules/ },
-      {
+/*       {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader',
+        exclude: /node_modules/,
+      }, */
+    /*   {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
 
         use: {
           loader: 'babel-loader', // https://webpack.js.org/loaders/babel-loader/#root
           options: {
-            module: false,
-
             presets: [
-              ['@babel/preset-react', {
-                runtime: 'automatic',
-              }],
               [
-                "@babel/preset-env",
+                '@babel/preset-react',
                 {
-                  "targets": {
-                    "node": "current"
-                  }
-                }
-              ]
+                  runtime: 'automatic',
+                },
+              ],
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    node: 'current',
+                  },
+                },
+              ],
             ],
-
           },
         },
-      },
+      }, */
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
-          experimentalWatchApi: true,
+          //experimentalWatchApi: true,
         },
+        exclude: /node_modules/
       },
     ],
   },
@@ -105,46 +109,42 @@ module.exports = {
       minSize: 20000,
 
       cacheGroups: {
-          default: false,
-          common: {
-            name: 'common',
-            minChunks: 2,
-            chunks: 'async',
-            priority: 20,
-            reuseExistingChunk: true,
-            enforce: true
-          },
-          assets: {
-            chunks: "all",
-            name: "assets",
-            test: /[\\/]assets[\\/]/,
-            priority: -30,
-          },
-          mui: {
-            chunks: "all",
-            name: "vendor-mui",
+        default: false,
+        common: {
+          name: 'common',
+          minChunks: 2,
+          chunks: 'async',
+          priority: 20,
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+        assets: {
+          chunks: 'all',
+          name: 'assets',
+          test: /[\\/]assets[\\/]/,
+          priority: -30,
+        },
+        mui: {
+          chunks: 'all',
+          name: 'vendor-mui',
 
-            test: /[\\/]@mui[\\/]/,
-            priority: 0,
-          },
-          vendors: {
-             // sync + async chunks
-             name: 'vendor',
-             chunks: 'initial',
-             priority: -10,
-             // import file path containing node_modules
-             test: /node_modules/,
-
-          },
-
-
-      }
-  },
-  minimizer: [
+          test: /[\\/]@mui[\\/]/,
+          priority: 0,
+        },
+        vendors: {
+          // sync + async chunks
+          name: 'vendor',
+          chunks: 'initial',
+          priority: -10,
+          // import file path containing node_modules
+          test: /node_modules/,
+        },
+      },
+    },
+    minimizer: [
       new ForkTsCheckerWebpackPlugin(),
       '...',
       new CssMinimizerPlugin(),
     ],
   },
-
 };

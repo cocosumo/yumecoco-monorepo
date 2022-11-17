@@ -5,9 +5,13 @@ import { ProjectSchedulesContainer } from './ProjectSchedulesContainer';
 import { ProjScheduleDate } from './ProjScheduleDate';
 import { ProjScheduleDays } from './ProjScheduleDays';
 
-export const ProjectSchedules = () => {
+export const ProjectSchedules = ({
+  disabled = false,
+}: {
+  disabled?: boolean
+}) => {
 
-  const fields : [KeyOfForm, KeyOfForm, string][] = useMemo(()=>[
+  const fields: [KeyOfForm, KeyOfForm, string][] = useMemo(() => [
     ['startDate', 'startDaysAfterContract', '着手'],
     ['finishDate', 'finishDaysAfterContract', '完成'],
   ], []);
@@ -22,14 +26,19 @@ export const ProjectSchedules = () => {
             </FormLabel>
 
             <Stack direction={'row'} spacing={2}>
-              <ProjScheduleDate fieldName={dateFName} />
-              <ProjScheduleDays fieldName={daysFName} />
+              <ProjScheduleDate fieldName={dateFName} disabled={disabled} />
+              <ProjScheduleDays fieldName={daysFName} disabled={disabled} />
             </Stack>
           </FormControl>
         );
       })}
 
-      <ProjScheduleDate fieldName='completeDate' variant='outlined' label={'引渡し時期'}  />
+      <ProjScheduleDate
+        fieldName='completeDate'
+        variant='outlined'
+        label={'引渡し時期'}
+        disabled={disabled}
+      />
       <ProjScheduleDate
         fieldName='contractDate'
         variant='outlined'
@@ -37,6 +46,7 @@ export const ProjectSchedules = () => {
         isEmphasized={true}
         disablePast={false}
         helperText={'必ず確認してください。'}
+        disabled={disabled}
       />
 
     </ProjectSchedulesContainer>);

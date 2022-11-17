@@ -39,6 +39,8 @@ testem.log
 Thumbs.db
 coverage
 
+coverage
+
 # sensitive
 *.env
 *.bat
@@ -48,3 +50,10 @@ coverage
 *.xlsx
 *.pem
 **/build/*
+*.snap
+
+*.key
+*.pdf
+*.xls*
+*.TTF
+*auth.json

@@ -8,7 +8,11 @@ import { RefundAmt } from './RefundAmt';
  * 返金
  * @returns jsx
  */
-export const RefundFieldGroup = () => {
+export const RefundFieldGroup = ({
+  disabled = false,
+}: {
+  disabled?: boolean
+}) => {
   const { setValues } = useFormikContext<TypeOfForm>();
   const [field] = useField(getFieldName('hasRefund'));
   const { value: chkValue } = field;
@@ -16,12 +20,12 @@ export const RefundFieldGroup = () => {
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
 
-    setValues((prev) =>  ({
+    setValues((prev) => ({
       ...prev,
       hasRefund: checked,
       refund: checked ? prev.refundAmt : null,
     }));
-    
+
   };
 
   return (
@@ -36,9 +40,10 @@ export const RefundFieldGroup = () => {
               transform: 'scale(1.5)',
             }}
           />)}
+        disabled={disabled}
       />
 
-      <RefundAmt disabled={!chkValue} />
+      <RefundAmt disabled={!chkValue || disabled} />
     </Stack>
   );
 };

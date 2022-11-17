@@ -38,19 +38,21 @@ export const FabStartProcess = (props: Props) => {
 
   return (
 
-    <Box  sx={{ position: 'fixed', top: 142, right: 36, zIndex: 3000 }}>
+    <Box sx={{ position: 'fixed', top: 142, right: 36, zIndex: 3000 }}>
 
       <Zoom in={(!url || pathname.includes(url)) && appear} timeout={500}>
         <Fab
-        variant='extended'
-        onClick={handleClick}
-        size="small"
-        disabled={isLoading}
-        sx={{ p: 2 }}
+          variant='extended'
+          onClick={handleClick}
+          size="small"
+          disabled={isLoading}
+          sx={{ p: 2 }}
         >
-          <Typography mr={1}>契約手続き開始</Typography>
-          {isLoading && <CircularProgress size={25}/>}
-          {!isLoading && <StartIcon/>}
+          <Typography mr={1}>
+            契約手続き開始
+          </Typography>
+          {isLoading && <CircularProgress size={25} />}
+          {!isLoading && <StartIcon />}
 
         </Fab>
       </Zoom>

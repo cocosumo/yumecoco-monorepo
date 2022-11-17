@@ -1,1 +1,2 @@
-export type Test = 'hello';
+export * from './settings';
+export * from './src';

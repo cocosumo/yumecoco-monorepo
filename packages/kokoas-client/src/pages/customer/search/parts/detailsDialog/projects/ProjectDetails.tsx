@@ -1,4 +1,5 @@
 import { CardContent, Stack } from '@mui/material';
+import { IProjects } from 'types';
 import { LabeledInfo } from '../../../../../../components/ui/typographies';
 import { generateParams } from '../../../../../../helpers/url';
 import { pages } from '../../../../../Router';
@@ -11,7 +12,7 @@ export const ProjectDetails = ({
     buildingType, agents, isAgentConfirmed, addressKari,
   },
 }: {
-  projectDetailsData : ProjectDetails.SavedData
+  projectDetailsData : IProjects
 }) => {
 
   const constructionOfficer =  agents.value

@@ -1,4 +1,5 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material';
+import { IProjestimates } from 'types';
 import { Caption } from '../../../../../../components/ui/typographies';
 import { dateStrToJA } from '../../../../../../helpers/utils';
 import { useCalcEstimate } from '../../../../../../hooks/useCalcEstimate';
@@ -8,7 +9,7 @@ import { EstimateButton } from './EstimateButton';
 export const EstimatesListItem = ({
   estimateRecord,
 }: {
-  estimateRecord: Estimates.main.SavedData
+  estimateRecord: IProjestimates
 }) => {
   const {
     作成日時: createdDate,

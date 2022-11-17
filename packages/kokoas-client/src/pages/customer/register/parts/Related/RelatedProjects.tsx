@@ -21,7 +21,7 @@ export const RelatedProjects = () => {
 
         return (
           <Grid item xs={12} md={6}
-            lg={4} key={projName}
+            lg={4} key={projId}
           >
             <Card>
               <RelatedProjectsContent projId={projId} projName={projName} />

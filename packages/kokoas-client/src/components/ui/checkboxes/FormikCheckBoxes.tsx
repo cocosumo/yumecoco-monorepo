@@ -38,12 +38,12 @@ export const FormikCheckBoxes = (props: FormikRadioProps) => {
         >
           {choices.map(item => (
             <FormControlLabel
-            checked={field.value.includes(item.value)}
-            key={item.label}
-            value={item.value}
-            control={<Checkbox />}
-            label={item.label}
-            onChange={handleChange}
+              checked={field.value.includes(item.value)}
+              key={item.label}
+              value={item.value}
+              control={<Checkbox />}
+              label={item.label}
+              onChange={handleChange}
             />
           ))}
         </FormGroup>

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { APPIDS } from '../api/kintone';
-import { getEstimatesById } from '../api/kintone/estimates/getEstimatesById';
+import { AppIds } from 'config';
+import { getEstimateById } from 'api-kintone';
 
 
 /**
@@ -9,8 +9,8 @@ import { getEstimatesById } from '../api/kintone/estimates/getEstimatesById';
 export const useEstimateById = (projEstimateId: string) => {
 
   return useQuery(
-    [APPIDS.projectEstimate, projEstimateId],
-    () => getEstimatesById(projEstimateId),
+    [AppIds.projEstimates, { projEstimateId }],
+    () => getEstimateById(projEstimateId),
     {
       enabled: !!projEstimateId,
     },

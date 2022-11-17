@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { PageSubTitle } from '../../../../components/ui/labels';
 import { RecordCancelStatus, recordCancelStatuses } from '../../../../config/formValues';
 import { useConfirmDialog, useSnackBar } from '../../../../hooks';
-import { KeyOfProjForm, TypeOfProjForm } from '../../form';
+import { KeysOfForm, TypeOfForm } from '../../form';
 
 export const StatusButton = (
   { children, statusType } :
@@ -13,10 +13,10 @@ export const StatusButton = (
     statusType: RecordCancelStatus
   },
 ) => {
-  const name: KeyOfProjForm = 'cancelStatus';
+  const name: KeysOfForm = 'cancelStatus';
   const { setDialogState } = useConfirmDialog();
   const { setSnackState } = useSnackBar();
-  const [field, meta, helper] = useField<TypeOfProjForm['cancelStatus']>({ name: name });
+  const [field, meta, helper] = useField<TypeOfForm['cancelStatus']>({ name: name });
 
   const hasMatchStatus = field.value.includes(statusType);
 

@@ -15,22 +15,25 @@ export const ConfirmDialogV2 = ({
 }: IDialogState) => {
   return (
     <Dialog
-    open={open}
-
-    onClose={cancellable ? handleNo : undefined}
-  >
-      <DialogTitle>{title}</DialogTitle>
+      open={open}
+      onClose={cancellable ? handleNo : undefined}
+    >
+      <DialogTitle>
+        {title}
+      </DialogTitle>
       <DialogContent>
         {content}
       </DialogContent>
       <DialogActions>
         {withYes &&
-          <Button onClick={handleYes} variant="outlined">{yesText}</Button>
-        }
+          <Button onClick={handleYes} variant="outlined">
+            {yesText}
+          </Button>}
 
         {withNo &&
-          <Button onClick={handleNo} variant="outlined" color="error">{noText}</Button>
-        }
+          <Button onClick={handleNo} variant="outlined" color="error">
+            {noText}
+          </Button>}
       </DialogActions>
 
     </Dialog>

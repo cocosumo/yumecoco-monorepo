@@ -9,7 +9,6 @@ export const Column1 = ({
     phone1, phone1Rel,
     phone2, phone2Rel,
     address,
-    otherCustName,
   },
 }: {
   custDetail: {
@@ -22,7 +21,6 @@ export const Column1 = ({
     phone1Rel: string,
     phone2: string,
     phone2Rel: string,
-    otherCustName: string[]
   }
 }) => {
   return (
@@ -38,10 +36,6 @@ export const Column1 = ({
         <LabeledInfo label="メアド" info={email ? [email, emailRel].join(',') : ''} />
         <LabeledInfo label="電話番号１" info={phone1 ? [phone1, phone1Rel].join(',') : ''} />
         <LabeledInfo label="電話番号２" info={phone2 ? [phone2, phone2Rel].join(',') : ''} />
-        {otherCustName
-          .map((custName, index) => (
-            <LabeledInfo key={custName} label={`契約者${index + 1}`} info={custName} />
-          ) )}
       </Stack>
     </Grid>
   );

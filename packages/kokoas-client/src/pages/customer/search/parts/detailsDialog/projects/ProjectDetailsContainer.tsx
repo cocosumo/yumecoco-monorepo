@@ -1,9 +1,10 @@
 import { Card, Divider, Stack } from '@mui/material';
+import { IProjects } from 'types';
 import { EstimatesList } from './EstimatesList';
 import { ProjectDetails } from './ProjectDetails';
 
 export const ProjectDetailsContainer = (props: {
-  fetchedProjects : ProjectDetails.SavedData[],
+  fetchedProjects : IProjects[],
 }) => {
 
   const { fetchedProjects } = props;

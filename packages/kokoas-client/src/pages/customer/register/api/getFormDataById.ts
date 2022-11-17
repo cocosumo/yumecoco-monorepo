@@ -1,19 +1,11 @@
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
-import { getCustomersByIds } from '../../../../api/kintone/customers/GET';
+import { getCustGroupById, getCustomersByIds } from 'api-kintone';
 import { CustomerForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
+import { ICustomers, TEnvelopeStatus } from 'types';
 
-
-export const getCustGroupRecord = async (id: string) => {
-  return KintoneRecord.getRecord({
-    app: APPIDS.custGroup,
-    id,
-  }).then(resp => resp.record as unknown as CustomerGroupTypes.SavedData);
-};
 
 
 export const getFormDataById = async (id: string): Promise<CustomerForm> => {
-
 
   /* Get main record */
   const {
@@ -21,12 +13,10 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
     isDeleted,
     members : { value: customers },
     projects,
-  } = await getCustGroupRecord(id) ;
+  } = await getCustGroupById(id) ;
 
   /* Get customer record based on ids on main record */
-  const {
-    records: customerRecords,
-  } = await getCustomersByIds( customers.map(cust => cust.value.customerId.value));
+  const customerRecords = await getCustomersByIds( customers.map(cust => cust.value.customerId.value));
 
 
   /* Group cocoAG and yumeAG */
@@ -68,7 +58,7 @@ export const getFormDataById = async (id: string): Promise<CustomerForm> => {
         fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
         postalCode, address1, address2, isSameAsMain, index,
         contacts : { value : contacts },
-      } = cust as unknown as CustomerTypes.SavedData;
+      } = cust as unknown as ICustomers;
 
       const tels = contacts.filter(c => c.value.contactType.value === 'tel');
       const email = contacts.find(c => c.value.contactType.value === 'email');

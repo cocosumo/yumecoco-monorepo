@@ -3,10 +3,11 @@ import { useFormikContext } from 'formik';
 import { useState } from 'react';
 import { calculateEstimate } from '../../../api/others/calculateEstimate';
 import {  TypeOfForm } from '../form';
-import { normalizedData } from '../api/getFormDataId';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { useEstimateById } from '../../../hooksQuery/useEstimateById';
+import { IProjestimates } from 'types';
+import { convertToForm } from '../api/convertToForm';
 
 
 /**
@@ -19,7 +20,7 @@ import { useEstimateById } from '../../../hooksQuery/useEstimateById';
 export const useHandleProjEstimate = () => {
   const { setValues, setTouched, values } = useFormikContext<TypeOfForm>();
   const [calculatedEstimate, setCalculatedEstimate] = useState<Awaited<ReturnType<typeof calculateEstimate>>>();
-  const [selectedEstimate, setSelectedEstimate] = useState<Estimates.main.SavedData>();
+  const [selectedEstimate, setSelectedEstimate] = useState<IProjestimates>();
 
   const {
     projEstimateId,
@@ -41,7 +42,7 @@ export const useHandleProjEstimate = () => {
       const {
         newFormData,
         newCalculated,
-      } = normalizedData(selectedRecord, calculated);
+      } = convertToForm(selectedRecord, calculated);
 
       setValues((prev) => ({
         ...prev,

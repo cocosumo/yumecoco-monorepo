@@ -18,6 +18,7 @@ export const FormikJADatePicker = (
 
   const isShowError = touched && !!error;
 
+
   return (
     <JADatePicker
       disabled={!!disabled}
@@ -27,8 +28,8 @@ export const FormikJADatePicker = (
       value={value || null}
       views={['year', 'month', 'day' ]}
       onChange={(v)=>{
-        setValue(v ?? '', true);
         setTouched(true);
+        setValue(v ?? '', true);
       }}
       renderInput={(params) =>(
         <TextField

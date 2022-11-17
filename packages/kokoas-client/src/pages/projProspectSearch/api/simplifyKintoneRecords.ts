@@ -1,4 +1,5 @@
 import { differenceInDays, parseISO } from 'date-fns';
+import { IProjects, TAgents } from 'types';
 
 /**
  * Simplify kintone records to make it easier to manipulate.
@@ -6,7 +7,7 @@ import { differenceInDays, parseISO } from 'date-fns';
  * @param records
  * @returns simplified Record
  */
-export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
+export const simplifyKintoneRecords = (records: IProjects[]) => {
   if (!records.length) return [];
 
   return records.map((r) => {
@@ -26,15 +27,15 @@ export const simplifyKintoneRecords = (records: TypeOfProjectDetails[]) => {
       メモ: memo.value,
       工事名: projName.value,
       ゆめてつAG: custGroupAgents.value
-        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'yumeAG' as AgentType)
+        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'yumeAG' as TAgents)
         ?.map(({ value: { custAgentName } }) => custAgentName?.value)
         .join('、 ') ?? '',
       ここすもAG: custGroupAgents.value
-        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'cocoAG' as AgentType)
+        ?.filter(({ value: { custAgentId, custAgentType } }) => !!custAgentId.value && custAgentType?.value === 'cocoAG' as TAgents)
         ?.map(({ value: { custAgentName } }) => custAgentName?.value)
         .join('、 ') ?? '',
       ここすも工事: agents.value
-        ?.filter(({ value: { agentId, agentType } }) => !!agentId?.value && agentType?.value === 'cocoConst' as AgentType)
+        ?.filter(({ value: { agentId, agentType } }) => !!agentId?.value && agentType?.value === 'cocoConst' as TAgents)
         ?.map(({ value: { agentName } }) => agentName.value)
         .join('、 ') ?? '',
       ランク: rank.value,

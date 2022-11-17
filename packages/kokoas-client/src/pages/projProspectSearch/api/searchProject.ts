@@ -1,27 +1,26 @@
-import { APPIDS, KintoneRecord } from '../../../api/kintone';
+import { KFlatProjects } from './../../../../../types/src/common/projects';
+import { KProjects, TProjRank } from 'types';
 import { TypeOfForm } from '../form';
 import { simplifyKintoneRecords } from './simplifyKintoneRecords';
+import { getAllProjects, getProjects } from 'api-kintone';
 
 // Unpack a promise
 type Unpack<T> = T extends Promise<infer U> ? U : T;
 export type TSearchResult =  Unpack<ReturnType<typeof searchProject>>;
 export type TKeyOfSearchResult = keyof TSearchResult[number];
 
-type KeyOfAgents = keyof TypeOfProjectDetails['agents']['value'][number]['value'];
-type KeyOfCustGroup = keyof TypeOfProjectDetails['custGroup']['value'][number]['value'];
-type KeyOfFlatProjDetails = (KeyOfProjectDetails | KeyOfAgents | KeyOfCustGroup);
 
-const getKeyOfProj = (k: KeyOfFlatProjDetails ) => k;
+const getKeyOfProj = (k: KFlatProjects ) => k;
 
 const mainSearchCondition = (mainSearch?: string) => {
   if (!mainSearch) return undefined;
 
-  const fieldsToCompare : KeyOfFlatProjDetails[]  = [
+  const fieldsToCompare : KFlatProjects[]  = [
     '$id', 'projName', 'custGroupId', 'memo', 'agentName',
     'custName', 'custNameReading', 'rank',
   ];
 
-  const exactFields : KeyOfFlatProjDetails[] = ['$id', 'custGroupId'];
+  const exactFields : KFlatProjects[] = ['$id', 'custGroupId'];
 
   const condition = fieldsToCompare
     .map(f => `(${f} ${exactFields.includes(f) ? '=' : 'like'} "${mainSearch}")`)
@@ -32,7 +31,7 @@ const mainSearchCondition = (mainSearch?: string) => {
 const rankCondition = (rank?: TProjRank[]) => {
   if (!rank?.length) return;
 
-  const fieldName: KeyOfFlatProjDetails = 'rank';
+  const fieldName: KFlatProjects = 'rank';
   const condition = rank.map(r => {
     return `${fieldName} = "${r}"`;
   }).join(' or ');
@@ -53,7 +52,7 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
 
     memo,
   } = form;
-  const fields : KeyOfProjectDetails[] = [
+  const fields : KProjects[] = [
     'projName', '$id', 'custGroupId', 'memo',
     'agents', 'custGroupAgents',
     'custGroup', 'rank',
@@ -87,24 +86,22 @@ export const searchProject = async (form : Partial<TypeOfForm>) => {
     .filter(Boolean)
     .join(' and ');
 
-  const result = await KintoneRecord.getAllRecords({
-    app: APPIDS.constructionDetails,
-    condition: allConditions,
+  const records = await getAllProjects({
     fields: fields,
+    condition: allConditions,
   });
 
-  return simplifyKintoneRecords(result as unknown as TypeOfProjectDetails[]);
+
+  return simplifyKintoneRecords(records);
 };
 
 export const initialSearch = async () => {
 
-  const orderBy: KeyOfProjectDetails = '更新日時';
-
-  const result = await KintoneRecord.getRecords({
-    app: APPIDS.constructionDetails,
+  const orderBy: KProjects = '更新日時';
+  const { records } = await getProjects({
     query: `order by ${orderBy} desc limit ${10}`,
   });
 
 
-  return simplifyKintoneRecords(result.records as unknown as TypeOfProjectDetails[]);
+  return simplifyKintoneRecords(records);
 };

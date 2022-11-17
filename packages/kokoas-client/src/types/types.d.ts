@@ -1,15 +1,4 @@
 
-declare module '*.css'
-declare module '*.jpg'
-declare module '*.jpeg'
-declare module '*.png'
-
-declare module 'koyomi'
-
-
-interface Props {
-  children?: React.ReactNode
-}
 
 type Option = {
   label: string | number,
@@ -33,5 +22,3 @@ interface EnhancedTableProps<T> {
   order: Order;
   orderBy: string;
 }
-
-type Unpack<T> = T extends Promise<infer U> ? U : T;

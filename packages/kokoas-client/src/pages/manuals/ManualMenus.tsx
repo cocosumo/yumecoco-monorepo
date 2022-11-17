@@ -20,7 +20,8 @@ export default function ManualMenus() {
         width: manualMenusWidth,
         boxSizing: 'border-box',
       },
-    }}>
+    }}
+    >
       <HelpHeader />
       <Divider />
       <List>

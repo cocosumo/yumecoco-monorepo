@@ -1,9 +1,9 @@
 import {
+  Box,
   Grid,  Paper, Stack, Table, TableBody, TableCell,
   TableContainer, TablePagination,
   TableRow, Tooltip,
 } from '@mui/material';
-import { Box } from '@mui/system';
 import { useState } from 'react';
 import { getComparator } from '../../../../helpers/table';
 import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
@@ -62,14 +62,14 @@ export const TableResult = ({
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
             <Table
-            aria-labelledby="tableTitle"
-            size="small"
-          >
+              aria-labelledby="tableTitle"
+              size="small"
+            >
               <EnhancedTableHead
-              order={order}
-              orderBy={orderBy as string}
-              onRequestSort={handleRequestSort}
-            />
+                order={order}
+                orderBy={orderBy as string}
+                onRequestSort={handleRequestSort}
+              />
               <TableBody>
                 {/* if we need to support IE11, replace
                 rows.slice().sort(getComparator(order, orderBy)) with `stableSort` */}
@@ -81,26 +81,27 @@ export const TableResult = ({
                     return (
                       <TableRow
 
-                      hover
-                      tabIndex={-1}
-                      key={row.顧客番号 + row.工事番号}
-
-                    >
+                        hover
+                        tabIndex={-1}
+                        key={row.顧客番号 + row.工事番号}
+                      >
 
                         {headCells.map((headCellGroup, colIdx) => (
                           <TableCell
-                          sx={{ maxWidth: '10%', verticalAlign: 'top' }}
-                          key={headCellGroup.join('-')}
-                          id={labelId}
-                          scope="row"
-                          padding="normal"
-                          align = {cellAlign[colIdx]}
-                        >
+                            sx={{ maxWidth: '10%', verticalAlign: 'top' }}
+                            key={headCellGroup.join('-')}
+                            id={labelId}
+                            scope="row"
+                            padding="normal"
+                            align={cellAlign[colIdx]}
+                          >
                             <Stack spacing={2} alignContent="flex-start">
                               {headCellGroup.map(headCellItem => {
 
                                 return (
-                                  <Tooltip key={headCellItem} title={headCellItem} placement="right" arrow>
+                                  <Tooltip key={headCellItem} title={headCellItem} placement="right"
+                                    arrow
+                                  >
                                     <div >
                                       <CellItem cellHeader={headCellItem} row={row}  />
                                     </div>

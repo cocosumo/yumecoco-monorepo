@@ -1,7 +1,7 @@
 import { DialogContent, FormControlLabel, Radio, RadioGroup, Stack, Typography } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { useEstimateRecords } from '../../../../hooks';
 import { ListItemEstimate } from './ListItemEstimate';
+import { useEstimatesByProjId } from 'kokoas-client/src/hooksQuery';
 
 
 export interface EstimatesDialogContentProps {
@@ -14,12 +14,16 @@ export const EstimatesDialogContent = (props: EstimatesDialogContentProps) => {
   const { name, onChange, projId, value } = props;
 
 
-  const { projEstimateRecords } = useEstimateRecords(projId);
+  const { data } = useEstimatesByProjId(projId);
+
+  const {
+    records,
+  } = data || {};
 
   /**
    * 選択肢の生成
    */
-  const actualOptions: OptionNode[] = projEstimateRecords.map<OptionNode>((rec) => {
+  const actualOptions: OptionNode[] = records?.map<OptionNode>((rec) => {
     const { $id } = rec;
 
     return {
@@ -27,7 +31,7 @@ export const EstimatesDialogContent = (props: EstimatesDialogContentProps) => {
       key: $id.value,
       component: (<ListItemEstimate estimateRecord={rec} />),
     };
-  });
+  }) || [];
 
 
   return (

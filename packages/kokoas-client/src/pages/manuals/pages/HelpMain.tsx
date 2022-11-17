@@ -1,8 +1,10 @@
 const HelpMain = () => {
   return (
     <div>
-      Help メインページです。<br />
-      テスト<br />
+      Help メインページです。
+      <br />
+      テスト
+      <br />
     </div>
   );
 };

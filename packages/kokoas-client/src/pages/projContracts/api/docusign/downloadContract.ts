@@ -1,3 +1,4 @@
+import { ReqDownloadParams, TEnvelopeStatus } from 'types';
 import { KintoneClient } from '../../../../api/kintone';
 import { yumecocoDocusign } from '../../../../config/settings';
 import { TypeOfForm } from '../../form';

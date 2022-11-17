@@ -1,3 +1,4 @@
+import { TProjRank } from 'types';
 
 
 

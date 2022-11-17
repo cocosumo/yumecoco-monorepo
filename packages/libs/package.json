@@ -1,0 +1,9 @@
+{
+  "name": "libs",
+  "version": "0.0.0",
+  "devDependencies": {
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

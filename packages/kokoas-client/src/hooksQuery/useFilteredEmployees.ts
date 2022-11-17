@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { APPIDS } from '../api/kintone';
-import { getActiveEmployees } from '../api/kintone/employees/getActiveEmployees';
-import { resolveAffiliations, resolveRoles } from '../api/kintone/employees/helpers';
-import { EmployeeType } from '../types/commonTypes';
+import { TAgents } from 'types';
+import { AppIds } from 'config';
+import { getActiveEmployees, resolveRoles, resolveAffiliations } from 'api-kintone';
+
 
 /**
  * Return employees based on filter conditions
@@ -14,7 +14,7 @@ export const useFilteredEmployees = ({
   territory,
 } : {
   storeId: string,
-  agentType?: EmployeeType | EmployeeType[],
+  agentType?: TAgents | TAgents[],
   territory?: string
 }) => {
   let affiliations: string[] = [];
@@ -26,7 +26,7 @@ export const useFilteredEmployees = ({
   }
 
   return useQuery(
-    [APPIDS.employees],
+    [AppIds.employees],
     getActiveEmployees,
     {
       select: (data) => data

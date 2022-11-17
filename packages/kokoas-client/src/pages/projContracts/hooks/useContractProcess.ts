@@ -3,6 +3,7 @@ import { useBackdrop, useSnackBar } from '../../../hooks';
 import { useMutation } from '@tanstack/react-query';
 import { TypeOfForm } from '../form';
 import { sendContract } from '../../../api/docusign/sendContract';
+import { ReqSendContract } from 'types';
 
 export const useContractProcess = () => {
   const {
@@ -18,7 +19,6 @@ export const useContractProcess = () => {
     sendContract,
     {
       onMutate: () => {
-        console.log('Starting!');
         setBackdropState({ open: true });
       },
 

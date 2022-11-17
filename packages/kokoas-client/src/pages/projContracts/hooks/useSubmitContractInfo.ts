@@ -1,13 +1,15 @@
 import { Formik } from 'formik';
+import { useSaveEstimate } from 'kokoas-client/src/hooksQuery/useSaveEstimate';
 import { ComponentProps } from 'react';
 import { useBackdrop, useSnackBar } from '../../../hooks';
 import { sleep } from '../../../lib/promisify';
-import { saveContractDetails } from '../api/saveContractDetails';
+import { convertToKintone } from '../api/convertToKintone';
 import { TypeOfForm } from '../form';
 
 export const useSubmitContractInfo = () => {
   const { setSnackState } = useSnackBar();
   const { setBackdropState } = useBackdrop();
+  const { mutateAsync } = useSaveEstimate();
 
   const onSubmit: ComponentProps<typeof Formik<TypeOfForm>>['onSubmit'] = async (
     values,
@@ -16,7 +18,9 @@ export const useSubmitContractInfo = () => {
     },
   ) => {
     const {
+      projEstimateId,
       submitMethod,
+      projEstimateRevision,
     } = values;
     try {
 
@@ -26,7 +30,14 @@ export const useSubmitContractInfo = () => {
       if (submitMethod === 'normal') {
         await sleep(2000);
       }
-      const { revision } = await saveContractDetails(values);
+
+      const record = convertToKintone(values);
+      const { revision } = await mutateAsync({
+        recordId: projEstimateId,
+        record,
+        revision: projEstimateRevision,
+      });
+
 
       setSnackState({
         open: true,

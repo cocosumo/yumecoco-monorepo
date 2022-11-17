@@ -7,6 +7,7 @@ import NumbersIcon from '@mui/icons-material/Numbers';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
 import { OverridableComponent } from '@mui/types';
+import { IProjestimates } from 'types';
 
 
 const ListContent = ({
@@ -30,7 +31,7 @@ const ListContent = ({
 export const ListItemEstimate = ({
   estimateRecord,
 }: {
-  estimateRecord: Estimates.main.SavedData
+  estimateRecord: IProjestimates
 }) => {
 
   const {

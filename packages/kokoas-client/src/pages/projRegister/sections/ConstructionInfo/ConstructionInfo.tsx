@@ -1,57 +1,66 @@
 
-import {  Grid } from '@mui/material';
+import { Grid, FormHelperText, Button } from '@mui/material';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
-import { APPIDS, KintoneRecord } from '../../../../api/kintone';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextField } from '../../../../components/ui/textfield';
-import { TypeOfProjForm, getFieldName } from '../../form';
+import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
+import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
+import { useBackdrop } from 'kokoas-client/src/hooks';
+import { ContractDetails } from './ContractDetails';
+
 
 
 export const ConstructionInfo = (
-  props : {
+  props: {
     storeId: string,
     projTypeId?: string,
     territory?: string,
-
   },
 ) => {
-  const { storeId, territory, projTypeId } = props;
-  const [constructionTypeOptions, setConstructionTypeOptions] = useState<Options>();
+  const { storeId, territory } = props;
+
   const {
     status,
-    setFieldValue,
     values: {
       cocoConst1,
-    } } = useFormikContext<TypeOfProjForm>();
+      projId,
+    },
+    setValues,
+  } = useFormikContext<TypeOfForm>();
 
-  const isReadOnly = (status as TFormStatus ) === 'disabled';
+  const isReadOnly = (status as TFormStatus) === 'disabled';
 
+  const { setBackdropState } = useBackdrop();
+  const { data, isFetching } = useProjHasContract(projId);
 
-  /*Todo: Refactor this as custom hook */
-  useEffect(()=>{
-    KintoneRecord.getRecords({
-      app: APPIDS.project,
-      query: 'order by レコード番号 asc',
-    }).then((res) => {
-      const rawConstOpts = res.records as unknown as ConstructionTypes.SavedData[];
-      setConstructionTypeOptions(
-        rawConstOpts
-          .map(({ label, $id, projectName })=> ({ label: label.value, value: $id.value, hiddenValue: projectName.value })),
-      );
-    });
-  }, []);
+  const { data: constructionTypeOptions } = useProjTypes<Options>({
+    select: (d) => d
+      ?.map(({
+        label, $id, projectName,
+      }) => ({
+        label: label?.value,
+        value: $id?.value,
+        hiddenValue: projectName?.value,
+      })),
+  });
 
+  const [open, setOpen] = useState(false);
 
-  useEffect(()=>{
-    const selectedPojType =  constructionTypeOptions?.find(item => item.value === projTypeId);
-    const projTypeName = selectedPojType?.hiddenValue || selectedPojType?.label;
-    setFieldValue(getFieldName('projTypeName'), projTypeName);
-  }, [projTypeId]);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    setBackdropState({ open: isFetching });
+  }, [isFetching, setBackdropState]);
 
   return (
     <>
@@ -60,10 +69,35 @@ export const ConstructionInfo = (
         xs={12}
         md={6}
       >
-        <Grid item xs={12} md={8} >
-          <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'} disabled={isReadOnly}
+        <Grid item xs={12} md={8}>
+          <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'}
+            disabled={isReadOnly || data}
             options={constructionTypeOptions} required
+            onChange={(_, newTextVal) => {
+              setValues((prev) => ({
+                ...prev,
+                projName: `${prev.custName} ${newTextVal}`,
+              }));
+            }}
           />
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          {data &&
+            <>
+              <FormHelperText>
+                契約済みのため編集できません
+              </FormHelperText>
+              <Button variant="text" size='small' onClick={handleClickOpen}>
+                詳しく見る
+              </Button>
+
+              <ContractDetails
+                open={open}
+                onClose={handleClose}
+                projId={projId ?? ''}
+              />
+            </>}
         </Grid>
         <Grid item xs={12}>
           <FormikTextField name={getFieldName('projName')} label="工事名称" placeholder="氏名/会社名様邸　工事種別"

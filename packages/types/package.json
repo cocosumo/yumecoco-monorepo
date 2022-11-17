@@ -1,15 +1,15 @@
 {
   "name": "types",
   "version": "0.0.0",
-  "main": "dist/index.js",
   "devDependencies": {},
   "dependencies": {
-    "config": "*"
+    "config": "*",
+    "helpers": "*"
   },
   "scripts": {
-    "build": "tsc index.ts --outDir dist",
     "dtsgen:stores": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 19 --type-name Data --namespace StoreTypes -o src/types/data.stores.d.ts",
     "dtsgen": "npx @kintone/dts-gen",
-    "update": "ts-node npm-scripts/dtsgenall.ts"
+    "update": "ts-node --files npm-scripts/dtsgenall.ts -T",
+    "kintone": "ts-node --files npm-scripts/kintonegen.ts -T"
   }
 }

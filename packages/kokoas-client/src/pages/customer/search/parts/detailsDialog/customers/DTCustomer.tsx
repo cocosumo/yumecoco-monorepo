@@ -1,11 +1,12 @@
 import { Collapse, Stack  } from '@mui/material';
+import { TAgents, AGLabels, ICustgroups, ICustomers } from 'types';
 import { PageSubTitle } from '../../../../../../components/ui/labels';
 import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
-import { AGLabels, EmployeeType } from '../../../../../../types/commonTypes';
+
 
 
 export const DTCustomer = (props: {
-  record?: CustomerGroupTypes.SavedData,
+  record?: ICustgroups,
   loading: boolean,
 }) => {
   const { record, loading } = props;
@@ -57,7 +58,7 @@ export const DTCustomer = (props: {
             isSameAsMain,
             gender,
             contacts,
-          } = JSON.parse(dump.value || 'null') as CustomerTypes.SavedData ?? {};
+          } = JSON.parse(dump.value || 'null') as ICustomers ?? {};
 
           const resolveAddress = (postal.value || address1.value || address2.value) ? `${postal.value}  ${address1.value}${address2.value}` : '';
           const resolveBirthDate = [[birthYear.value, '年'], [birthMonth.value, '月'], [birthDay.value, '日']]
@@ -82,16 +83,16 @@ export const DTCustomer = (props: {
                 {contacts?.value
                   ?.filter(({ value: { contactValue } }) => !!contactValue.value)
                   ?.map(({
-                    id: contactRowId,
                     value: {
                       contactType,
                       contactValue,
                       relation,
                     },
                   }) => {
+                    
                     return  (
                       <LabeledDetail
-                        key={contactRowId}
+                        key={contactValue.value}
                         label={contactType.value === 'tel' ? '電話番号' : 'メール'}
                         value={`${contactValue.value}, ${relation.value}`}
                       />);
@@ -114,7 +115,7 @@ export const DTCustomer = (props: {
             .map(([key, value]) => (
               <LabeledDetail
                 key={key}
-                label={AGLabels[key as EmployeeType] ?? '担当者'}
+                label={AGLabels[key as TAgents] ?? '担当者'}
                 value={value.filter(Boolean).join(', ')}
               />))
         }

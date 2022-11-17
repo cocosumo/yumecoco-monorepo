@@ -1,6 +1,7 @@
 import { Chip, Stack, Typography } from '@mui/material';
 
 import { format, parseISO } from 'date-fns';
+import { IProjestimates } from 'types';
 import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
 
 const LabeledInfo = ({
@@ -31,7 +32,7 @@ export const ItemEstimate = ({
   estimateRecord,
   calculated,
 }: {
-  estimateRecord: Estimates.main.SavedData
+  estimateRecord: IProjestimates
   calculated: ReturnType<typeof calculateEstimateRecord>
 }) => {
 

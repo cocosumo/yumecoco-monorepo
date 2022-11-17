@@ -8,7 +8,7 @@ import { PaymentMethod } from './PaymentMethod';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import useDeepCompareEffect from 'use-deep-compare-effect';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 export const PaymentSchedule = ({
   totalAmount = 0,
@@ -17,8 +17,10 @@ export const PaymentSchedule = ({
 }) => {
 
   const { values, setValues, touched } = useFormikContext<TypeOfForm>();
-  const { paymentFields } = values;
+  const { paymentFields, envelopeStatus } = values;
   const isTouched = !isEmpty(touched);
+
+  const isDisabled = !!envelopeStatus;
 
   useDeepCompareEffect(() => {
 
@@ -28,7 +30,7 @@ export const PaymentSchedule = ({
       setValues((prev) => ({ ...prev, remainingAmt: newRemainingAmt }));
     }
 
-  }, [paymentFields || {}, totalAmount, isTouched ]);
+  }, [paymentFields || {}, totalAmount, isTouched]);
 
   return (
     <PaymentContainer>
@@ -36,13 +38,13 @@ export const PaymentSchedule = ({
 
         <TotalPaymentAmount totalAmount={totalAmount} />
 
-        <RemainingAmountInfo />
+        <RemainingAmountInfo disabled={isDisabled} />
 
-        <PaymentFields />
+        <PaymentFields disabled={isDisabled} />
 
-        <RefundFieldGroup />
+        <RefundFieldGroup disabled={isDisabled} />
 
-        <PaymentMethod />
+        <PaymentMethod disabled={isDisabled} />
 
       </Stack>
     </PaymentContainer>

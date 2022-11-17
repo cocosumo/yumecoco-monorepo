@@ -1,0 +1,22 @@
+{
+  "exportall.config.relExclusion": [
+    "/packages/api-kintone/src/projects/config.ts",
+    "/packages/api-kintone/src/auth",
+    "/packages/api-kintone/src/custgroups/config.ts",
+    "/packages/api-kintone/src/projTypes/config.ts",
+    "/packages/api-kintone/src/stores/config.ts",
+    "/packages/api-kintone/src/customers/config.ts",
+    "/packages/api-kintone/src/custMemo/config.ts",
+    "/packages/api-kintone/src/estimates/config.ts",
+    "/packages/api-kintone/src/materialsMajor/config.ts",
+    "/packages/api-kintone/src/materialsMid/config.ts",
+    "/packages/api-kintone/src/materialsItem/config.ts",
+    "/packages/api-kintone/src/employees/config.ts"
+  ],
+  "exportall.config.folderListener": [
+    "/packages/api-kintone/src",
+    "/packages/api-kintone/src/stores",
+    "/automation/auto-common/src",
+    "/packages/kokoas-client/src/hooksQuery"
+  ]
+}

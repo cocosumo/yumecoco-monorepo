@@ -1,12 +1,14 @@
+import { TAgents } from 'types';
 import * as Yup from 'yup';
+import { MemoType } from './MemoForm';
 
 export const initialValues = {
   recordId: '',
   custName: '',
   memoId: '',
-  memoType: '',
+  memoType: '' as MemoType,
   contents: '',
-  notifyTo: [] as AgentType[],
+  notifyTo: [] as TAgents[],
   isNotify: false,
   updateTime: '',
   commenter: '',

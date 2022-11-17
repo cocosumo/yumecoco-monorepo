@@ -1,7 +1,6 @@
-import { Button, Collapse, Stack, Typography, useTheme, Zoom } from '@mui/material';
+import { Box, Button, Collapse, Stack, Typography, useTheme, Zoom } from '@mui/material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useState } from 'react';
-import { Box } from '@mui/system';
 import { useConfirmDialog } from '../../../../hooks';
 import { AiOutlineWarning } from '@react-icons/all-files/ai/AiOutLineWarning';
 

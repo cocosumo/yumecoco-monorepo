@@ -42,7 +42,6 @@ export function FormikSelectAdvanced(props : {
 
   const isShowError = touched && !!meta.error && !disabled;
 
-
   const optionMenus = useMemo(() => options?.map((option) => {
     const isSelected = option.value === selectedValue;
     return (
@@ -51,8 +50,6 @@ export function FormikSelectAdvanced(props : {
       </MenuItem>
     );
   }), [options, selectedValue]);
-
-
 
   return (
     <FormControl 

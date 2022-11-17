@@ -9,7 +9,7 @@ export * from './useEmployees';
 export * from './useEstimateById';
 export * from './useEstimatesByProjId';
 export * from './useFilteredEmployees';
-export * from './useInvoice';
+export * from './useInvoicesByProjId';
 export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';

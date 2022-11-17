@@ -1,6 +1,7 @@
 import {
   kintoneBaseUrl,
 } from 'api-kintone';
+
 export const isProduction = process.env.NODE_ENV;
 
 export const kokoasEnvAppIds = {
@@ -12,9 +13,9 @@ export const kokoasEnvAppIds = {
 
 /**
  * ココアスのベースURLを取得する。
- * 
+ *
  * 引く数渡されなかったら、環境設定を利用する。
- * 
+ *
  */
 export const getKokoasBaseURLByEnv = (
   env = process.env.NODE_ENV as keyof typeof kokoasEnvAppIds,

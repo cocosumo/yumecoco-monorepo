@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import { isProd } from 'config';
 
 import App from '../components/App';
 
@@ -13,7 +14,7 @@ export default function onIndexShowHandler() {
 
   if (!container) {
     generateRoot();
-    console.log('Running in ', process.env.NODE_ENV);
+    console.log('Running in ', isProd ? 'production' : 'development');
     container = document.getElementById('app');
     const root = createRoot( container!);
     root.render(<App />);

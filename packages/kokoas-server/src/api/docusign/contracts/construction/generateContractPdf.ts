@@ -30,7 +30,7 @@ export const generateContractPdf = async (
       totalAmountInclTax,
       totalCPWithProfit,
       taxAmount,
-      tax,
+      taxRate,
     },
     startDate,
     startDaysAfterContract,
@@ -259,7 +259,7 @@ export const generateContractPdf = async (
   /* 税 */
   drawText(
     firstPage,
-    `(${tax} %)`,
+    `(${taxRate} %)`,
     {
       x: 214,
       y: 466,

@@ -1,8 +1,7 @@
 import { RequestHandler } from 'express';
 import { IProjestimates, IVoidReq, IVoidRes } from 'types';
 import { voidEnvelope } from '../api/docusign';
-import { APPIDS, KintoneRecord } from '../api/kintone';
-import { getEstimateByEnvId } from '../api/kintone/getEstimateByEnvId';
+import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
 
 /**
  * Request handler for voiding envelope
@@ -37,10 +36,9 @@ export const reqVoidEnvelope : RequestHandler = async (
       envStatus: { value: 'voiding' },
     };
 
-    await KintoneRecord.updateRecord({
-      app: APPIDS.projEstimate,
-      id: $id.value,
-      record: record,
+    await saveEstimate({
+      recordId: $id.value,
+      record,
     });
 
     res.status(200).json({

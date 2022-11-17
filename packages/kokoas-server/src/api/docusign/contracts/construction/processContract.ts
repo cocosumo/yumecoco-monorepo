@@ -53,8 +53,8 @@ export const processContract = async (
         signMethod: signMethod,
         documents: envelope.documents?.map(({ documentBase64, name }) => {
           return {
-            fileBase64: documentBase64 || '',
-            filename: name || '',
+            data: documentBase64 || '',
+            name: (name || '') + '.pdf',
           };
         }),
         recipients: [],

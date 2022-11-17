@@ -1,6 +1,5 @@
 import { IProjestimates } from 'types';
-import { APPIDS, KintoneRecord } from '../../api/kintone';
-import { getEstimateByEnvId } from '../../api/kintone/getEstimateByEnvId';
+import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
 
 
 /**
@@ -32,12 +31,10 @@ export const voidEnvelope = async (envelopeId: string) => {
 
   };
 
-  /* TODO: Delete envelope file from kintone */
 
-  const result = await KintoneRecord.updateRecord({
-    app: APPIDS.projEstimate,
-    id: $id.value,
-    record: record,
+  const result = await saveEstimate({
+    recordId: $id.value,
+    record,
   });
 
   console.log(result);

@@ -1,5 +1,4 @@
 import { createRoot } from 'react-dom/client';
-import { isProd } from 'config';
 
 import App from '../components/App';
 

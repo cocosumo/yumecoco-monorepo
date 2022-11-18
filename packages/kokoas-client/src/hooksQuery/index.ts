@@ -1,4 +1,5 @@
 export * from './useCommonOptions';
+export * from './useContracts';
 export * from './useContractsByProjId';
 export * from './useCustGroupById';
 export * from './useCustGroupByProjId';

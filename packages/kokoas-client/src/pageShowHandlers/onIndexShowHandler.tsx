@@ -14,7 +14,6 @@ export default function onIndexShowHandler() {
 
   if (!container) {
     generateRoot();
-    console.log('Running in ', isProd ? 'production' : 'development');
     container = document.getElementById('app');
     const root = createRoot( container!);
     root.render(<App />);

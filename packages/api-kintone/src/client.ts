@@ -1,5 +1,5 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
-import { addMinutes, format, isPast } from 'date-fns';
+import { addMinutes, isPast, format } from 'date-fns/esm';
 import { getNewAccessToken } from './@auth/getNewAccessToken';
 
 const isTest = process.env.NODE_ENV === 'test';
@@ -20,23 +20,28 @@ let kintoneRestApiClient : KintoneRestAPIClient | null  = null;
 const setToken = (oAuthToken: string) => {
   if (!oAuthToken) throw new Error('Invalid oAuthToken');
   const tokenCreated = new Date();
-  oAuth.token = oAuthToken;
-  oAuth.at = tokenCreated;
-  oAuth.ex = addMinutes(tokenCreated, minutesToExpire);
+  oAuth = {
+    token: oAuthToken,
+    at: tokenCreated,
+    ex: addMinutes(tokenCreated, minutesToExpire),
+  };
 
-  console.log('Token created at : ', format(oAuth.at, 'yyyy-MM-dd') );
-  console.log('Token expires at : ', format(oAuth.ex, 'yyyy-MM-dd') );
+  console.log(oAuth);
+  console.log('Token created at : ', format(oAuth.at, 'PPpp') );
+  console.log('Token expires at : ', format(oAuth.ex, 'PPpp') );
 
 };
 
 
 const getToken = async () => {
+
   const { accessToken } = await getNewAccessToken();
   setToken(accessToken);
+
   return oAuth.token;
 };
 
-const isTokenExpired = () => isPast(oAuth.ex);
+const isTokenExpired = () => !oAuth?.ex || isPast(oAuth?.ex);
 
 export const kintoneBaseUrl = process.env.KT_BASE_URL;
 
@@ -44,14 +49,14 @@ export const kt = async () => {
 
   /**
    * Re-instantiate kintone client when:
-   * - on Node.
-   * - on test
-   * - token expired
+   * - on Node and
+   * - on test or token expired
    * */
   if (
     typeof window === 'undefined'
-    || isTest
-    || isTokenExpired()
+    && (
+      isTest || isTokenExpired()
+    )
   ) {
     kintoneRestApiClient = new KintoneRestAPIClient({
       baseUrl: kintoneBaseUrl,

@@ -13,7 +13,7 @@
     "build": "cross-env NODE_ENV=production rimraf ./dist && tsc --build tsconfig.json",
     "start": "cross-env NODE_ENV=production ts-node --files ./src/main.ts -T",
     "forever": "kill $(lsof -t -i:3010) && forever start --uid kokoas-server -a -v -o kokoas-server.log -e kokoas-server-err.log -c 'nx start kokoas-server' ./",
-    "forever:stop": "kill $(lsof -t -i:3010) && forever stop kokoas-server"
+    "forever:stop": "kill $(lsof -t -i:3010)"
   },
   "keywords": [],
   "author": "",

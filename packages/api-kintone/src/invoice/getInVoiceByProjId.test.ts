@@ -1,12 +1,23 @@
 import { getInVoiceByProjId } from './getInVoiceByProjId';
 
-describe('Estimate', () => {
-  it('should get estimate by id', async () => {
+describe('invoice', () => {
+  it('should get invoice by id', async () => {
 
-    const record = await getInVoiceByProjId('75');
+    const record = await getInVoiceByProjId('123');
 
-    console.log(record);
+    console.log('請求件数', record.length);
 
-    expect(record).toHaveProperty('$id');
+    expect(record).toEqual(
+      expect.arrayContaining(
+        [
+          expect.objectContaining({
+            $id: {
+              type: expect.any(String),
+              value: expect.any(String),
+            },
+          }),
+        ],
+      ),
+    );
   }, 10000 );
 });

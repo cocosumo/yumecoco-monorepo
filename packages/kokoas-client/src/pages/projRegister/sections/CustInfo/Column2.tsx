@@ -7,14 +7,14 @@ export const Column2 = (
     adminInfo: {
       storeName,
       custGroupId,
-      customerId,
+      customerIds,
       agents,
     },
   }: {
     adminInfo: {
       storeName: string,
       custGroupId: string,
-      customerId: string,
+      customerIds: string,
       agents: Array<ComponentProps<typeof LabeledInfo> & { key: string }>
     }
   },
@@ -30,7 +30,7 @@ export const Column2 = (
           })}
 
         <LabeledInfo label={'グループ番号'} info={custGroupId} />
-        <LabeledInfo label={'顧客番号'} info={customerId} />
+        <LabeledInfo label={'顧客番号'} info={customerIds} />
       </Stack>
 
     </Grid>

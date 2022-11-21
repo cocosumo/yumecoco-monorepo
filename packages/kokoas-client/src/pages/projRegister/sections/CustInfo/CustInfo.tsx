@@ -6,7 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
-import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
 import { generateParams } from '../../../../helpers/url';
@@ -44,37 +43,52 @@ export const CustInfo = () => {
   const { data: custGroupRecord } = useCustGroupById(custGroupId ?? '');
   const { data: customerRecords } = useCustomersByCustGroupId(custGroupId);
 
-  const flatCustInfo = useMemo(() => {
-    return customerRecords?.reduce((acc, cur) => {
-
-      acc.custNames.push(cur.fullName.value);
-      acc.custNamesReading.push(cur.fullNameReading.value);
-
-      return acc;
-    }, {
-      custNames: [] as string[],
-      custNamesReading: [] as string[],
-    });
-  }, [customerRecords]);
-
   const {
-    members,
     storeName,
   } = custGroupRecord ?? {};
 
-  const {
-    customerId,
-    address1,
-    address2,
-    postal: postalCode,
-    dump, // TODO: deprecate this
-  } = members?.value[0]?.value ?? {}; // Main Customer
+  const flatCustInfo = useMemo(
+    () => customerRecords
+      ?.reduce((acc, cur) => {
 
-  const {
-    email, emailRel,
-    phone1, phone1Rel,
-    phone2, phone2Rel,
-  } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
+        acc.custNames.push(cur.fullName.value);
+        acc.custNamesReading.push(cur.fullNameReading.value);
+        acc.custIds.push(cur.$id.value);
+        return acc;
+      }, {
+        custIds: [] as string[],
+        custNames: [] as string[],
+        custNamesReading: [] as string[],
+      }),
+    [customerRecords]);
+
+  const mainCust = useMemo(
+    () => {
+      const mainCustRecord = customerRecords?.[0];
+      const {
+        postalCode,
+        address1,
+        address2,
+      } = mainCustRecord || {};
+
+      return ({
+        address:  `〒${postalCode?.value} ${address1?.value}${address2?.value}`,
+        contactTuples: mainCustRecord
+          ?.contacts
+          .value
+          .filter(({ value: { contactValue } }) => !!contactValue.value)
+          .map(({ value: {
+            contactType,
+            contactValue,
+            relation,
+          } }) => ([contactType.value, [contactValue.value, relation.value].join(', ')])) ?? [],
+      }) ;
+    }
+    ,
+    [customerRecords]);
+
+
+
 
 
   const refactoredAgents = custGroupRecord?.agents
@@ -106,17 +120,15 @@ export const CustInfo = () => {
                 custDetail={{
                   custNames: flatCustInfo?.custNames.join(', ') || '',
                   custNamesReading: flatCustInfo?.custNamesReading.join(', ') || '',
-                  address: `〒${postalCode?.value} ${address1?.value}${address2?.value}`,
-                  email, emailRel,
-                  phone1, phone1Rel,
-                  phone2, phone2Rel,
+                  address: mainCust.address,
+                  contactTuples: mainCust.contactTuples,
                 }}
               />
 
               <Column2
                 adminInfo={{
                   custGroupId,
-                  customerId: customerId?.value ?? '',
+                  customerIds: flatCustInfo?.custIds.join(', ') || '',
                   storeName: storeName?.value ?? '',
                   agents: refactoredAgents,
                 }}

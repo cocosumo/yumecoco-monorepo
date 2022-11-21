@@ -7,7 +7,8 @@ import HelpMain from './pages/HelpMain';
  * ページへのパスは、本体ココアスの構成に合わせて実装する
  * ex.)[*pass]/customer/search -> [*pass]/help/customer/search
  * @returns ヘルプ(マニュアル)の各ページへのルート
- * @deprecated Kintoneで管理することになります。
+ * @deprecated Kintoneで管理することになりますが、まだ固まっていませんので、必要になるかもしれません。
+
  */
 const ManualRouter = () => {
   return (

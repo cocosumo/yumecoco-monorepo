@@ -3,8 +3,8 @@ import { LabeledInfo } from '../../../../components/ui/typographies';
 
 export const Column1 = ({
   custDetail: {
-    customerName,
-    custNameReading,
+    custNames,
+    custNamesReading,
     email, emailRel,
     phone1, phone1Rel,
     phone2, phone2Rel,
@@ -12,8 +12,8 @@ export const Column1 = ({
   },
 }: {
   custDetail: {
-    customerName: string,
-    custNameReading: string,
+    custNames: string,
+    custNamesReading: string,
     email: string,
     emailRel: string,
     address: string,
@@ -27,8 +27,8 @@ export const Column1 = ({
     <Grid item xs={12} sm={6}>
       <Stack spacing={2}>
 
-        <LabeledInfo label="氏名" info={customerName} />
-        <LabeledInfo label="氏名フリガナ" info={custNameReading} />
+        <LabeledInfo label="氏名" info={custNames} />
+        <LabeledInfo label="氏名フリガナ" info={custNamesReading} />
         <LabeledInfo
           label="現住所"
           info={address}

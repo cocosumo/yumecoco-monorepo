@@ -1,5 +1,5 @@
 import { Button, Grid } from '@mui/material';
-import { ComponentProps } from 'react';
+import { ComponentProps, useMemo } from 'react';
 import {  OutlinedDiv } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,7 +14,7 @@ import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
 import { AGLabels } from 'types';
-import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { useCustGroupById, useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { RecordSelect } from '../RecordSelect/RecordSelect';
 
 export const CustInfo = () => {
@@ -29,7 +29,33 @@ export const CustInfo = () => {
     projId,
   } = values;
 
+  /*
+    何をどう表示するか変わると思いますので、
+    固まったら、リファクタリングします。
+
+    TODO：dumpをdeprecatedにし、直接customersのDBから取得する
+    Kintone's data nesting is up to one level only thru subtables,
+    so I inserted customer data as text inside the "dump" field in an effort
+    to reduce api calls.
+
+    With react-query, data may be cached reducing api-call overhead even if the user
+    navigate between pages.
+  */
   const { data: custGroupRecord } = useCustGroupById(custGroupId ?? '');
+  const { data: customerRecords } = useCustomersByCustGroupId(custGroupId);
+
+  const flatCustInfo = useMemo(() => {
+    return customerRecords?.reduce((acc, cur) => {
+
+      acc.custNames.push(cur.fullName.value);
+      acc.custNamesReading.push(cur.fullNameReading.value);
+
+      return acc;
+    }, {
+      custNames: [] as string[],
+      custNamesReading: [] as string[],
+    });
+  }, [customerRecords]);
 
   const {
     members,
@@ -41,12 +67,10 @@ export const CustInfo = () => {
     address1,
     address2,
     postal: postalCode,
-    customerName,
-    dump,
+    dump, // TODO: deprecate this
   } = members?.value[0]?.value ?? {}; // Main Customer
 
   const {
-    custNameReading,
     email, emailRel,
     phone1, phone1Rel,
     phone2, phone2Rel,
@@ -80,9 +104,9 @@ export const CustInfo = () => {
             >
               <Column1
                 custDetail={{
-                  customerName: customerName?.value ?? '',
-                  custNameReading: custNameReading,
-                  address: `${postalCode?.value}〒 ${address1?.value}${address2?.value}`,
+                  custNames: flatCustInfo?.custNames.join(', ') || '',
+                  custNamesReading: flatCustInfo?.custNamesReading.join(', ') || '',
+                  address: `〒${postalCode?.value} ${address1?.value}${address2?.value}`,
                   email, emailRel,
                   phone1, phone1Rel,
                   phone2, phone2Rel,

@@ -12,10 +12,12 @@ export const useSaveCustGroup = () => {
     saveCustGroup,
     {
       ...commonOptions,
-      onSuccess: (data) => {
+      onSuccess: (data, { customerRecords }) => {
         commonOptions.onSuccess();
+
+        const ids = customerRecords?.map(({ $id }) => $id?.value);
         queryClient.invalidateQueries({ queryKey: [AppIds.custGroups, { custGroupId: data.id }] });
-        queryClient.invalidateQueries({ queryKey: [AppIds.customers, { custGroupId: data.id }] });
+        queryClient.invalidateQueries({ queryKey: [AppIds.customers, 'custIds', ids ] });
 
       },
     },

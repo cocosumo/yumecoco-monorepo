@@ -15,7 +15,7 @@ export const useCustomersByIds = <T = Awaited<ReturnType<typeof getCustomersById
   },
 ) => {
   return useQuery(
-    [AppIds.customers, { custIds }],
+    [AppIds.customers, 'custIds', custIds],
     () => getCustomersByIds(custIds),
     {
       enabled: !!custIds?.length,

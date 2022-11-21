@@ -7,6 +7,7 @@ import HelpMain from './pages/HelpMain';
  * ページへのパスは、本体ココアスの構成に合わせて実装する
  * ex.)[*pass]/customer/search -> [*pass]/help/customer/search
  * @returns ヘルプ(マニュアル)の各ページへのルート
+ * @deprecated Kintoneで管理することになります。
  */
 const ManualRouter = () => {
   return (
@@ -34,7 +35,7 @@ const ManualRouter = () => {
         projReg
       </div>}
       />
-      
+
       <Route path={pages.projProspect} element={<div>
         projProspect
       </div>}
@@ -43,7 +44,7 @@ const ManualRouter = () => {
         projProspectSearch
       </div>}
       />
-      
+
       <Route path={pages.projContractPreview} element={<div>
         projContractPreview
       </div>}

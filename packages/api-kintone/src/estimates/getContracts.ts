@@ -13,13 +13,12 @@ export const getContracts = (
   } = params || {};
 
   const newQuery = [
-    `(${envelopeStatusField} != "")`,
-    `(${query})`,
+    `${envelopeStatusField} != ""`,
+    query,
   ]
     .filter(Boolean)
+    .map(q => `(${q})`)
     .join(' and ');
-
-    console.log(newQuery)
 
   return getEstimates({
     query: newQuery,

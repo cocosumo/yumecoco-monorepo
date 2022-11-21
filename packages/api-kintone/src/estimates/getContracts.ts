@@ -19,6 +19,8 @@ export const getContracts = (
     .filter(Boolean)
     .join(' and ');
 
+    console.log(newQuery)
+
   return getEstimates({
     query: newQuery,
     ...others,

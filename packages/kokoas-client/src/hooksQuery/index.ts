@@ -8,6 +8,7 @@ export * from './useEmployeeByIds';
 export * from './useEmployeeOptions';
 export * from './useEmployees';
 export * from './useEstimateById';
+export * from './useEstimates';
 export * from './useEstimatesByProjId';
 export * from './useFilteredEmployees';
 export * from './useInvoice';

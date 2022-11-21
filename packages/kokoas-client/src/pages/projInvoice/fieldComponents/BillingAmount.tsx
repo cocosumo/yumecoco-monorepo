@@ -1,22 +1,33 @@
 import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield';
 import { debounce } from 'lodash';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getFieldName } from '../form';
 import { useContractAmount } from '../hooks/useContractAmount';
 
 export const BillingAmount = ({
   projId,
-}:{
+}: {
   projId: string
 }) => {
-  
-  const billingAmountInit = useContractAmount(projId); // 請求済み額を差し引く
 
-  const [billingAmount, setBillingAmount] = useState(billingAmountInit);
+  const { billingBalance } = useContractAmount(projId);
+
+  const [billingAmount, setBillingAmount] = useState(billingBalance);
 
   const handleChange = (e: any) => {
     debounce(() => { setBillingAmount(e.target.value); }, 2000);
   };
+
+  useEffect(() => {
+    setBillingAmount((prev) => {
+      if (!!prev && (prev > billingBalance)) {
+        return billingBalance;
+      } else {
+        return prev;
+      }
+    });
+  }, [billingBalance]);
+
 
   return (
     <FormikMoneyField

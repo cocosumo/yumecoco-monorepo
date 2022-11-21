@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { useContractsByProjId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByProjId, useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';
 import { TypeOfForm } from '../form';
 
@@ -11,13 +11,19 @@ export const useContractAmount = (
   const { estimates } = values;
 
   const {
-    data,
+    data: contracts,
   } = useContractsByProjId(projId);
 
-  const { calculated } = data || {};
+  const { calculated } = contracts || {};
 
 
-  const totalAmount = useMemo(() => calculated?.reduce((acc, cur, idx) => {
+  const {
+    data: Invoices,
+  } = useInvoiceTotalByProjId(projId);
+
+  const { totalInvoice } = Invoices || {};
+
+  const contractAmount = useMemo(() => calculated?.reduce((acc, cur, idx) => {
 
     if (estimates?.[idx]?.isForPayment) return acc;
 
@@ -25,7 +31,10 @@ export const useContractAmount = (
 
   }, 0), [calculated, estimates]);
 
-  /* 既に入金済みの金額は差し引く */
 
-  return totalAmount;
+  return {
+    contractAmount: contractAmount,
+    invoiceTotal: totalInvoice,
+    billingBalance: (contractAmount ?? 0) - (totalInvoice ?? 0),
+  };
 };

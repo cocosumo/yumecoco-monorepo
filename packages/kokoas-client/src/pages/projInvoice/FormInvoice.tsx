@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
+import { BilledAmount } from './fieldComponents/BilledAmount';
 
 
 
@@ -74,6 +75,12 @@ export const FormInvoice = () => {
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
           <ContractAmount values={values} />
+        </Grid>
+        <Grid item md={6} />
+
+        {/* 未請求額 */}
+        <Grid item xs={12} md={6}>
+          <BilledAmount projId={projId} />
         </Grid>
         <Grid item md={6} />
 

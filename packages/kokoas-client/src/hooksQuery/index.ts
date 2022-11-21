@@ -10,6 +10,7 @@ export * from './useEstimateById';
 export * from './useEstimatesByProjId';
 export * from './useFilteredEmployees';
 export * from './useInvoicesByProjId';
+export * from './useInvoiceTotalByProjId';
 export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';

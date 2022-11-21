@@ -1,9 +1,9 @@
-import { getInVoiceByProjId } from './getInVoiceByProjId';
+import { getInvoiceByProjId } from './getInvoiceByProjId';
 
 describe('invoice', () => {
   it('should get invoice by id', async () => {
 
-    const record = await getInVoiceByProjId('123');
+    const record = await getInvoiceByProjId('123');
 
     console.log('請求件数', record.length);
 

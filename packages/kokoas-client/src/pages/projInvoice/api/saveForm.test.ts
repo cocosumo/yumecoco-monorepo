@@ -11,14 +11,18 @@ const UpdateForm: TypeOfForm = {
   estimates: [{
     isForPayment: true,
     estimateId: '73',
+    contractAmount: '10000',
+    contractDate: '2022-1-1',
   }, {
     isForPayment: false,
     estimateId: '75',
+    contractAmount: '50000',
+    contractDate: '2022-1-2',
   }],
 };
 
 const addForm: TypeOfForm = {
-  invoiceId: '2',
+  invoiceId: '',
   projId: '123',
   projName: 'dummy',
   amountType: '着工金',
@@ -27,9 +31,13 @@ const addForm: TypeOfForm = {
   estimates: [{
     isForPayment: true,
     estimateId: '73',
+    contractAmount: '10000',
+    contractDate: '2022-1-1',
   }, {
     isForPayment: false,
     estimateId: '75',
+    contractAmount: '50000',
+    contractDate: '2022-1-2',
   }],
 };
 
@@ -44,9 +52,13 @@ const errorForm: TypeOfForm = {
   estimates: [{
     isForPayment: true,
     estimateId: '73',
+    contractAmount: '10000',
+    contractDate: '2022-1-1',
   }, {
     isForPayment: false,
     estimateId: '75',
+    contractAmount: '50000',
+    contractDate: '2022-1-2',
   }],
 };
 

@@ -14,15 +14,15 @@ export const ContractAmount = ({
     error,
     isFetching,
   } = useEstimatesByProjId(projId);
-    
-  const amount = useContractAmount(projId);
+
+  const { contractAmount: amount } = useContractAmount(projId);
 
 
   return (
     <FormControl>
       <Stack direction={'row'}>
         <FormLabel>
-          契約金額(税込) &emsp;
+          契約金額(税込) &thinsp;
         </FormLabel>
         {!error && !isFetching && !!amount && <Typography>
           {`${Math.round(amount).toLocaleString()} 円`}

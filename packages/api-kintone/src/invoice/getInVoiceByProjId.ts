@@ -2,7 +2,7 @@ import { KProjestimates } from 'types';
 import { ktRecord } from '../client';
 import { appId, RecordType } from './config';
 
-export const getInVoiceByProjId = async (projId: string) => {
+export const getInvoiceByProjId = async (projId: string) => {
   if (!projId) throw new Error('Invalid project id.');
 
   const projIdKey: KProjestimates = 'projId';

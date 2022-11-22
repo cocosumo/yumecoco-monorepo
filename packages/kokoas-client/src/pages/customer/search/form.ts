@@ -15,6 +15,7 @@ export const initialValues = {
   storeId: '',
   cocoAG: '',
   yumeAG: '',
+  territory: '',
   cocoConst: '',
   recordStatus: [] as RecordStatus[],
   custName: '',

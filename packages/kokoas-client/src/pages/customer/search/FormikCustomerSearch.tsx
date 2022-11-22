@@ -11,7 +11,7 @@ import { TableResult } from './parts/TableResult/TableResult';
 
 export const FormikCustomerSearch = () => {
   const { setSnackState } = useSnackBar();
-  const [filter, setFilter] = useState<Partial<TypeOfForm>>(Object.create(null));
+  const [filter, setFilter] = useState<Partial<TypeOfForm>>(initialValues);
   const { 
     data: rows, 
   } = useSearchResult(filter);

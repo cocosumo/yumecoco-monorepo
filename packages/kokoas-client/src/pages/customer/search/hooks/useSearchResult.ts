@@ -19,6 +19,8 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
         storeId,
         territory,
         yumeAG,
+        address,
+        custType,
       } = params || {};
     
       return data?.reduce(
@@ -31,17 +33,19 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
           const recCocoAG = rec.agents.value
             ?.filter(item => item.value.agentType.value === 'cocoAG' as TAgents);
 
-          // 古いテストでmembersのサブテーブルがない、結果に出さない
+          // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
           if (!mainCust) return acc;
    
           // フィルター条件
           if (!params
             || (
               (!storeId || storeId === rec?.storeId.value)
+              && (custType === '全て' || rec.custType.value === custType)
               && (!cocoAG || recCocoAG.some(({ value: { employeeId } }) => employeeId.value === cocoAG ))
               && (!territory || territory === rec?.territory.value )
               && (!yumeAG || recYumeAG.some(({ value: { employeeId } }) => employeeId.value === yumeAG ))
               && (!custName || rec?.members?.value?.some(({ value: { customerName } }) => customerName.value.includes(custName) ))
+              && (!address || rec?.members?.value?.some(({ value: { postal, address1, address2 } }) => [postal.value, address1.value, address2.value].join('').includes(address)))
             )) {
 
             acc.push({  

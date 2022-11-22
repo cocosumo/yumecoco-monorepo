@@ -1,5 +1,5 @@
 import { Table, TablePagination } from '@mui/material';
-import { ComponentProps, useState } from 'react';
+import { ComponentProps, useEffect, useState } from 'react';
 import { Order } from 'types';
 import { ISearchData, KSearchData, RowsPerPageOption, rowsPerPageOptions } from './settings';
 import { TableHeadEnhanced } from './TableHeadEnhanced';
@@ -17,15 +17,14 @@ export const TableResult = ({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState<RowsPerPageOption>(100);
 
+  useEffect(() => setPage(0), [rows.length, rowsPerPage]);
 
   const handleChangePage: ComponentProps<typeof TablePagination>['onPageChange'] = (_, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage: ComponentProps<typeof TablePagination>['onRowsPerPageChange'] = (event) => {
-
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
   };
 
   const handleRequestSort: ComponentProps<typeof TableHeadEnhanced>['onRequestSort'] = (
@@ -41,12 +40,14 @@ export const TableResult = ({
   return (
     <TableResultContainer>
       <TablePagination
+        showLastButton
+        showFirstButton
         labelRowsPerPage="表示件数を変更"
         rowsPerPageOptions={rowsPerPageOptions}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={(page > 0 && rows.length < rowsPerPage) ? 0 : page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />

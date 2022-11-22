@@ -1,8 +1,7 @@
 import { FormControl, Select, MenuItem, InputLabel, FormHelperText, Stack, SelectChangeEvent } from '@mui/material';
-
-import { useField } from 'formik';
 import Chip from '@mui/material/Chip';
-import { memo, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
+import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
 
 
 export interface FormikSelecProps {
@@ -32,15 +31,27 @@ export function FormikSelect(props : FormikSelecProps) {
   const [
     field,
     meta,
-  ] = useField(name);
+    helpers,
+  ] = useFieldFast(name);
 
   const {
     touched,
   } = meta;
 
+  const {
+    setValue,
+  } = helpers;
+
 
   const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
   const isShowError = touched && !!meta.error && !disabled;
+
+  useEffect(() => { 
+    if (!isExistInOptions) {
+      /** valueは選択肢にないなら、空にする */
+      setValue('');
+    }
+  }, [isExistInOptions, setValue]);
 
 
   const optionMenus = useMemo(() => options?.map((option) => {
@@ -55,8 +66,6 @@ export function FormikSelect(props : FormikSelecProps) {
       </MenuItem>
     );
   }), [options]);
-
-
 
   return (
     <FormControl required={required} fullWidth error={isShowError}>

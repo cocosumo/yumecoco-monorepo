@@ -35,6 +35,7 @@ export const getSearchResult = async (params : AdvancedSearchCustGroupParam) => 
         更新日時: updatedDate,
         作成日時: createdDate,
         projectCount,
+        territory,
       } = record as unknown as ICustgroups;
 
       const { address1, address2, postal,  customerName  } = members?.value?.[0]?.value ?? {} ;
@@ -43,7 +44,7 @@ export const getSearchResult = async (params : AdvancedSearchCustGroupParam) => 
         '顧客ID': +($id?.value ?? 0),
 
         '案件数': projectCount.value,
-        '店舗': storeName?.value,
+        '領域・店舗': [territory?.value, storeName?.value].filter(Boolean).join(' - '),
         '顧客種別': custType?.value ?? '個人',
         '現住所': `${[postal, address1, address2]
           .map(item=> item?.value ?? '')

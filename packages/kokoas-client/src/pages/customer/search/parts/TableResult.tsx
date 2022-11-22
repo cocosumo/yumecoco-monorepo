@@ -22,7 +22,7 @@ import { ISearchData } from '../hooks/useSearchResult';
 const headCells : (keyof ISearchData)[][] = [
   ['顧客ID',  '顧客種別', '案件数' ],
   ['顧客氏名・会社名', '現住所'],
-  ['店舗', 'ここすも営業', 'ゆめてつAG'],
+  ['領域・店舗', 'ここすも営業', 'ゆめてつAG'],
   ['登録日時', '更新日時'],
 ];
 
@@ -116,10 +116,6 @@ export function TableResult({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  /* const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  }; */
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =

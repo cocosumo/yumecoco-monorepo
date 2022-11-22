@@ -5,7 +5,7 @@ import { getSearchResult } from './api/getSearchResult';
 
 import { initialValues, TypeOfForm } from './form';
 import { ISearchData } from './hooks/useSearchResult';
-import { SearchForm } from './SearchForm';
+import { FormCustSearch } from './FormCustSearch';
 
 export const FormikCustomerSearch = () => {
 
@@ -49,7 +49,7 @@ export const FormikCustomerSearch = () => {
       }}
     >
 
-      <SearchForm rows={rows} />
+      <FormCustSearch rows={rows} />
 
     </Formik>);
 };

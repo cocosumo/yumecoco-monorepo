@@ -40,9 +40,9 @@ export const saveProject = async (
       .join(', ') || '',
   };
 
-  /* 
+  /*
     copy of subtables, custGroupAgents and custGroup is deprecated.
-    Use and add aggregate fields. e.g.custNames, yumeAgNames, cocoAgNames  
+    Use and add aggregate fields. e.g.custNames, yumeAGNames, cocoAGNames
     Reason: Too many API calls, and maintenance overhead is not worth it.
     TODO: Remove from db, and update affected code.
   */

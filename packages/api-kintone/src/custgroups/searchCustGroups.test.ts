@@ -68,7 +68,7 @@ describe('mainSearch', ()=>{
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
-      
+
       expect(
         result
           .every((rec) => toContain(rec, param)),
@@ -112,14 +112,14 @@ describe('mainSearch', ()=>{
 
   it('should return records matching yumeAG', async () => {
     const testParams : Parameters<typeof searchCustGroups>[number][] = [
-      { yumeAg: '高野' },
+      { yumeAG: '高野' },
     ];
 
     for (const param of testParams) {
       const result = await searchCustGroups(param);
       expect(
         result
-          .every(({ agents }) => agentContains(agents, ['employeeName'], param.yumeAg || '', 'yumeAG')),
+          .every(({ agents }) => agentContains(agents, ['employeeName'], param.yumeAG || '', 'yumeAG')),
       )
         .toBe(true);
     }
@@ -127,7 +127,7 @@ describe('mainSearch', ()=>{
 
   it('should return records matching cocoAG', async () => {
     const testParams : Parameters<typeof searchCustGroups>[number][] = [
-      { cocoAg: '隆仁' },
+      { cocoAG: '隆仁' },
     ];
 
     for (const param of testParams) {
@@ -135,7 +135,7 @@ describe('mainSearch', ()=>{
 
       expect(
         result
-          .every(({ agents }) => agentContains(agents, ['employeeName'], param.cocoAg || '', 'cocoAG')),
+          .every(({ agents }) => agentContains(agents, ['employeeName'], param.cocoAG || '', 'cocoAG')),
       )
         .toBe(true);
     }

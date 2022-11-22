@@ -1,10 +1,10 @@
 import { Form } from 'formik';
 import { MainContainer } from '../../../components/ui/containers';
-import { PageTitle } from '../../../components/ui/labels/';
+import { PageTitle } from '../../../components/ui/labels';
 import { ISearchData } from './hooks/useSearchResult';
 import { Fields, TableResult } from './parts';
 
-export const SearchForm = ({
+export const FormCustSearch = ({
   rows,
 }: {
   rows: ISearchData[]

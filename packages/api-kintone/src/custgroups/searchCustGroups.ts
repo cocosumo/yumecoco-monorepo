@@ -10,7 +10,7 @@ const custFieldMatches = fieldMatches<KFlatCustGroup>;
  *
  * - custName 顧客名
  * - custEmail メール
- * - cocoAg ここすも担当者
+ * - cocoAG ここすも担当者
  * - yumeAG ゆめてつAG
  * - store 店舗
  *
@@ -21,15 +21,15 @@ export const searchCustGroups = async ({
   easySearch,
   storeName,
   custEmail,
-  yumeAg,
-  cocoAg,
+  yumeAG,
+  cocoAG,
   orderBy = '作成日時',
 } : {
   easySearch?: string,
   storeName?: string,
   custEmail?: string,
-  cocoAg?: string,
-  yumeAg?: string,
+  cocoAG?: string,
+  yumeAG?: string,
   orderBy?: KCustgroups
 }) => {
   const fields: KFlatCustGroup[] = [
@@ -47,8 +47,8 @@ export const searchCustGroups = async ({
   const specificSearchQuery = [
     storeName ? custFieldMatches('storeName', storeName) : undefined,
     custEmail ? custFieldMatches('dump', custEmail) : undefined,
-    yumeAg ? `(${custFieldMatches('employeeName', yumeAg)}) and ${custFieldMatches('agentType', getAgentType('yumeAG'))}` : undefined,
-    cocoAg ? `(${custFieldMatches('employeeName', cocoAg)}) and ${custFieldMatches('agentType', getAgentType('cocoAG'))}` : undefined,
+    yumeAG ? `(${custFieldMatches('employeeName', yumeAG)}) and ${custFieldMatches('agentType', getAgentType('yumeAG'))}` : undefined,
+    cocoAG ? `(${custFieldMatches('employeeName', cocoAG)}) and ${custFieldMatches('agentType', getAgentType('cocoAG'))}` : undefined,
   ]
     .filter(Boolean)
     .join(' and ');

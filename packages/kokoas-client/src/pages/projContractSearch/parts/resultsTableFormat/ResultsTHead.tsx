@@ -4,7 +4,7 @@ import { translations } from '../../../../helpers/translations';
 export const headCells = [
   ['projId', 'projEstimateId'],
   ['projName', 'projType'],
-  ['store', 'yumeAg', 'cocoAg'],
+  ['store', 'yumeAG', 'cocoAG'],
   ['custName', 'contractDate'],
   ['contractAmount', 'grossProfit'],
 ] as const;

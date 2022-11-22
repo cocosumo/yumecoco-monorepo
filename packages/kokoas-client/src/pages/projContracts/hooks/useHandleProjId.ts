@@ -33,17 +33,17 @@ export const useHandleProjId = () => {
         address1, address2, postal,
       } = mainCust;
 
-      const cocoAg = custGroupAgents.value
+      const cocoAG = custGroupAgents.value
         .filter(item => (item.value.agentType.value as TAgents) === 'cocoAG' )
         ?.map(item => item.value.employeeName.value)
         .join('、 ') ?? '';
 
-      const yumeAg = custGroupAgents.value
+      const yumeAG = custGroupAgents.value
         .filter(item => (item.value.agentType.value as TAgents) === 'yumeAG' )
         ?.map(item => item.value.employeeName.value)
         .join('、 ') ?? '';
 
-      const constAg = projOfficers.value
+      const cocoConst = projOfficers.value
         ?.map(item => item.value.agentName.value)
         .join('、');
 
@@ -57,9 +57,9 @@ export const useHandleProjId = () => {
         custAddress: `〒${postal.value} ${address1.value}${address2.value}`,
         store: store.value,
 
-        cocoAg: cocoAg,
-        yumeAg: yumeAg,
-        constAg: constAg,
+        cocoAG,
+        yumeAG,
+        cocoConst,
 
         projAddress: `〒${pPostal.value} ${pAddress1.value}${pAddress2.value}`,
 

@@ -10,9 +10,10 @@ const {
 
 
 /**
- * oAuth2だと
- * bulkRequestAPIが使えないので、
+ * oAuth2だとbulkRequestのAPIが使えないので、
  * バッチスクリプトはbasicで認証します。
+ *
+ * 現状、スコープリストにはないです。~ ras 2022.11.22
  *
  * 参考：
  *

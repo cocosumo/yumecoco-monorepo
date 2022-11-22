@@ -28,6 +28,7 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
         custType,
         email,
         contactNum,
+        cocoConst,
       } = params || {};
     
       return data?.reduce(
@@ -39,14 +40,15 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
           
           // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
           if (!mainCust) return acc;
-
+          
+          const relProjects = projRecs?.filter(({ custGroupId }) => custGroupId.value === rec.$id.value  );
+          const relCustomers = custRecs?.filter(({ $id }) => rec?.members?.value.some(({ value: { customerId } }) => customerId.value === $id.value )) || [];
+          
           const recYumeAG = rec.agents?.value
             ?.filter(item => item.value.agentType.value === 'yumeAG' as TAgents);
           const recCocoAG = rec.agents.value
             ?.filter(item => item.value.agentType.value === 'cocoAG' as TAgents);
-          
-          const relProjects = projRecs?.filter(({ custGroupId }) => custGroupId.value === rec.$id.value  );
-          const relCustomers = custRecs?.filter(({ $id }) => rec?.members?.value.some(({ value: { customerId } }) => customerId.value === $id.value )) || [];
+         
           
           const { custEmails, custTels } = groupCustContacts(relCustomers);
 
@@ -61,12 +63,13 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
               && (!custName || rec?.members?.value?.some(({ value: { customerName } }) => customerName.value.includes(custName) ))
               && (!email || custEmails.some((s) => s.includes(email)))
               && (!contactNum || custTels.some((s) => s.includes(contactNum)))
+              && (!cocoConst || relProjects?.some(({ agents }) => agents.value.some(({ value: { agentId } }) => agentId.value === cocoConst)))
               && (!address 
                   || rec?.members?.value?.some(({ value: { postal, address1, address2 } }) => [postal.value, address1.value, address2.value].some((s) => s.includes(address)))
                   || relProjects?.some(({ postal, address1, address2 }) => [postal.value, address1.value, address2.value].some((s) => s.includes(address)))
               )
             )) {
-              
+
             acc.push({  
               '顧客ID': +(rec.$id?.value ?? 0),
               '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',

@@ -1,9 +1,12 @@
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
+import { MainContainer } from 'kokoas-client/src/components/ui/containers';
+import { PageTitle } from 'kokoas-client/src/components/ui/labels';
 import { useSnackBar } from '../../../hooks';
 import { getSearchResult } from './api/getSearchResult';
 
 import { initialValues, TypeOfForm } from './form';
-import { FormCustSearch } from './FormCustSearch';
+import { Fields } from './parts';
+import { TableResult } from './parts/TableResult/TableResult';
 
 export const FormikCustomerSearch = () => {
 
@@ -45,7 +48,14 @@ export const FormikCustomerSearch = () => {
       }}
     >
 
-      <FormCustSearch />
+      <Form noValidate>
+        <MainContainer>
+          <PageTitle label="顧客検索" color="#FFCB92" textColor='#333333' />
+          <Fields />
+          <TableResult rows={[]} />
+        </MainContainer>
+
+      </Form>
 
     </Formik>);
 };

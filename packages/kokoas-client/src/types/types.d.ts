@@ -15,7 +15,7 @@ type OptionNode = {
 
 type Options = Option[];
 
-type Order = 'asc' | 'desc';
+//type Order = 'asc' | 'desc';
 
 interface EnhancedTableProps<T> {
   onRequestSort: (event: React.MouseEvent<unknown>, property: T) => void;

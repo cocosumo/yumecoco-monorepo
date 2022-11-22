@@ -1,9 +1,62 @@
+import { Table, TablePagination } from '@mui/material';
+import { ComponentProps, useState } from 'react';
+import { ICustgroups, Order } from 'types';
+import { KSearchData, RowsPerPageOption, rowsPerPageOptions } from './settings';
+import { TableHeadEnhanced } from './TableHeadEnhanced';
 import { TableResultContainer } from './TableResultContainer';
 
-export const TableResult = () => {
+export const TableResult = ({
+  rows,
+}: {
+  rows: ICustgroups[]
+}) => {
+  const [order, setOrder] = useState<Order>('desc');
+  const [orderBy, setOrderBy] = useState<KSearchData>('更新日時');
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState<RowsPerPageOption>(100);
+
+
+  const handleChangePage: ComponentProps<typeof TablePagination>['onPageChange'] = (_, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage: ComponentProps<typeof TablePagination>['onRowsPerPageChange'] = (event) => {
+
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleRequestSort: ComponentProps<typeof TableHeadEnhanced>['onRequestSort'] = (
+    _,
+    property,
+  ) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
+
   return (
     <TableResultContainer>
-      Hello
+      <TablePagination
+        labelRowsPerPage="表示件数を変更"
+        rowsPerPageOptions={rowsPerPageOptions}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <Table>
+        <TableHeadEnhanced
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+        />
+
+      </Table>
     </TableResultContainer>
   );
 };

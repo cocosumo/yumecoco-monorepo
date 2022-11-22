@@ -10,6 +10,7 @@ import { TKeyOfSearchResult, TSearchResult } from '../../api/searchProject';
 import { EnhancedTableHead } from './EnhancedTableHead';
 import { headCells, cellAlign } from './constants';
 import { CellItem } from './CellItem';
+import { Order } from 'types';
 
 
 export const TableResult = ({

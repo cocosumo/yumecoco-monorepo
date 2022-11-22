@@ -7,6 +7,9 @@ export const useStores = <K = unknown>(
   return useQuery(
     [AppIds.stores],
     getAllStores,
-    { select },
+    { 
+      select, 
+      //initialData: [],
+    },
   );
 };

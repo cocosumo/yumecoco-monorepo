@@ -9,7 +9,7 @@ import { useCallback } from 'react';
  *
  */
 export const useFilteredEmployees = ({
-  storeId,
+  storeId = [],
   agentType,
   territory,
 } : {
@@ -24,6 +24,7 @@ export const useFilteredEmployees = ({
       (data) => {
         let affiliations: string[] = [];
         let roles: string[] = [];
+        const storeIds = ([] as string[]).concat(storeId).filter(Boolean);
 
         if (agentType) {
           affiliations = resolveAffiliations(agentType);
@@ -39,14 +40,11 @@ export const useFilteredEmployees = ({
             territory: _territory,
           }) => {
 
-
-
-            const isInStore = !storeId
-              || (mainStoreId.value === storeId
-                  || affiliateStores
-                    .value
-                    .some(({ value: { storeId: _storeId } }) => _storeId.value === storeId )
-              );
+            const isInStore = storeIds.some((s) => (mainStoreId.value === s
+              || affiliateStores
+                .value
+                .some(({ value: { storeId: _storeId } }) => _storeId.value === s )
+            )); 
 
             const isAffiliated = !affiliations.length || affiliations.includes(affiliation.value);
             const isInRole = !roles.length || roles.includes(empRole.value);

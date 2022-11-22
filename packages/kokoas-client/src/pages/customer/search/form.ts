@@ -12,7 +12,7 @@ export type FormFieldKeys = keyof typeof initialValues;
  */
 export const initialValues = {
   custType: '全て' as CustomerTypeVals,
-  storeId: '',
+  storeId: [] as string[],
   cocoAG: '',
   yumeAG: '',
   territory: '' as Territory,

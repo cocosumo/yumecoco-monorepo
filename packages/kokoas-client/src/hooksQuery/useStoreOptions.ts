@@ -14,9 +14,9 @@ export const useStoreOptions = (filter?: {
 
       return true;
     })
-    ?.map(({ $id, 店舗名, territory }) => ({
+    ?.map(({ $id, 店舗名 }) => ({
       value: $id?.value as string || '',
       label: 店舗名?.value as string || '',
-      secondaryLabel: territory.value as string,
+      //secondaryLabel: territory.value as string,
     })),
 );

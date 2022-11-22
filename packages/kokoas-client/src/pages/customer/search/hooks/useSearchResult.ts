@@ -55,7 +55,7 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
           // フィルター条件してい
           if (!params
             || (
-              (!storeId || storeId === rec?.storeId.value)
+              (!storeId?.length || storeId.some((s) => s === rec?.storeId.value))
               && (custType === '全て' || rec.custType.value === custType)
               && (!cocoAG || recCocoAG.some(({ value: { employeeId } }) => employeeId.value === cocoAG ))
               && (!territory || territory === rec?.territory.value )

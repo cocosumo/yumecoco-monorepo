@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik';
 import { useContractsByProjId, useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
+import { round } from 'lodash';
 import { useMemo } from 'react';
 import { TypeOfForm } from '../form';
 
@@ -33,8 +34,8 @@ export const useContractAmount = (
 
 
   return {
-    contractAmount: contractAmount,
-    invoiceTotal: totalInvoice,
-    billingBalance: (contractAmount ?? 0) - (totalInvoice ?? 0),
+    contractAmount: Math.round(contractAmount ?? 0),
+    invoiceTotal: Math.round(totalInvoice ?? 0),
+    billingBalance: Math.round((contractAmount ?? 0) - (totalInvoice ?? 0)),
   };
 };

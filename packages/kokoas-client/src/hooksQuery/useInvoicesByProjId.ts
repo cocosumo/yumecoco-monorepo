@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getInvoiceByProjId } from 'api-kintone/src/invoice/getInvoiceByProjId';
+import { getInvoiceByProjId } from 'api-kintone';
 import { AppIds } from 'config';
 
 export const useInvoicesByProjId = <T>(

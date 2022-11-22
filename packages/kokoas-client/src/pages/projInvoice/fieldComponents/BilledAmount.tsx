@@ -3,7 +3,11 @@ import { Stack } from '@mui/system';
 import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 import { BilledAmountDetails } from './BilledAmountDetails';
 
-
+/**
+ * 請求済み金額コンポーネント
+ * @param projId :工事番号
+ * @returns 
+ */
 export const BilledAmount = ({
   projId = '',
 }: {

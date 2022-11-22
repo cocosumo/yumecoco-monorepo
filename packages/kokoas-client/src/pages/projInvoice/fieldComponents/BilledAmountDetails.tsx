@@ -3,6 +3,11 @@ import { Stack } from '@mui/system';
 import { ConfirmDialogV2 } from 'kokoas-client/src/components/ui/dialogs/ConfirmDialogV2';
 import { useState } from 'react';
 
+/**
+ * 請求済み金額の詳細を表示するコンポーネント
+ * @param invoices :工事番号に紐づいた請求管理DBのデータ
+ * @returns 
+ */
 export const BilledAmountDetails = ({
   invoices,
 }: {

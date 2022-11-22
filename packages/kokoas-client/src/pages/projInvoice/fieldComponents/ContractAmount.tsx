@@ -3,6 +3,11 @@ import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
 import { TypeOfForm } from '../form';
 import { useContractAmount } from '../hooks/useContractAmount';
 
+/**
+ * 契約金額コンポーネント
+ * @param values :フォームの値 
+ * @returns 
+ */
 export const ContractAmount = ({
   values,
 }: {

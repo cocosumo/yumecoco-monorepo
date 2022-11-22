@@ -10,5 +10,6 @@ export type KFlatCustGroup =
 | KCustGroupAgents;
 
 export type TProjRank = 'A' | 'B' | 'C' | 'D' | '';
+export type TContact = 'email' | 'tel';
 
 export const getCustGroupKey = (k: KFlatCustGroup) => k;

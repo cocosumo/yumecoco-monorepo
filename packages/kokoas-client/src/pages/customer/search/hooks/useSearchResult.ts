@@ -1,5 +1,6 @@
+import { groupCustContacts } from './helper/groupCustContact';
 import { dateStrToJA } from 'kokoas-client/src/helpers/utils';
-import { useCustGroups, useProjects } from 'kokoas-client/src/hooksQuery';
+import { useCustGroups, useProjects, useCustomers } from 'kokoas-client/src/hooksQuery';
 import { TAgents } from 'types';
 import { TypeOfForm } from '../form';
 import { ISearchData } from '../parts/TableResult/settings';
@@ -11,11 +12,11 @@ import { ISearchData } from '../parts/TableResult/settings';
 export const useSearchResult = (params?: Partial<TypeOfForm>) => {
 
   const { data: projRecs } = useProjects();
-
+  const { data: custRecs } = useCustomers();
 
 
   return useCustGroups({
-    enabled: !!projRecs,
+    enabled: !!projRecs && !!custRecs,
     select: (data) => {
       const {
         cocoAG,
@@ -25,25 +26,31 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
         yumeAG,
         address,
         custType,
+        email,
+        contactNum,
       } = params || {};
     
       return data?.reduce(
         (acc, rec) => {
 
-
+          
           const mainCust = rec?.members?.value?.[0]?.value;
+
+          
+          // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
+          if (!mainCust) return acc;
+
           const recYumeAG = rec.agents?.value
             ?.filter(item => item.value.agentType.value === 'yumeAG' as TAgents);
           const recCocoAG = rec.agents.value
             ?.filter(item => item.value.agentType.value === 'cocoAG' as TAgents);
-      
+          
           const relProjects = projRecs?.filter(({ custGroupId }) => custGroupId.value === rec.$id.value  );
+          const relCustomers = custRecs?.filter(({ $id }) => rec?.members?.value.some(({ value: { customerId } }) => customerId.value === $id.value )) || [];
+          
+          const { custEmails, custTels } = groupCustContacts(relCustomers);
 
-          console.log(relProjects);
-          // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
-          if (!mainCust) return acc;
-   
-          // フィルター条件
+          // フィルター条件してい
           if (!params
             || (
               (!storeId || storeId === rec?.storeId.value)
@@ -52,12 +59,14 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
               && (!territory || territory === rec?.territory.value )
               && (!yumeAG || recYumeAG.some(({ value: { employeeId } }) => employeeId.value === yumeAG ))
               && (!custName || rec?.members?.value?.some(({ value: { customerName } }) => customerName.value.includes(custName) ))
+              && (!email || custEmails.some((s) => s.includes(email)))
+              && (!contactNum || custTels.some((s) => s.includes(contactNum)))
               && (!address 
-                || rec?.members?.value?.some(({ value: { postal, address1, address2 } }) => [postal.value, address1.value, address2.value].join('').includes(address)) 
-                || relProjects?.some(({ postal, address1, address2 }) => [postal.value, address1.value, address2.value].join('').includes(address) ))
+                  || rec?.members?.value?.some(({ value: { postal, address1, address2 } }) => [postal.value, address1.value, address2.value].some((s) => s.includes(address)))
+                  || relProjects?.some(({ postal, address1, address2 }) => [postal.value, address1.value, address2.value].some((s) => s.includes(address)))
+              )
             )) {
-
-
+              
             acc.push({  
               '顧客ID': +(rec.$id?.value ?? 0),
               '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',

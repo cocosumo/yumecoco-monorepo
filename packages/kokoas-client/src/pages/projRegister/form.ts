@@ -1,5 +1,5 @@
 
-import { TEnvelopeStatus } from 'types';
+import { TEnvelopeStatus, Territory } from 'types';
 import * as Yup from 'yup';
 import { RecordStatus, RecordCancelStatus } from '../../config/formValues';
 import { postalRegExp } from '../../helpers/yupValidator';
@@ -25,7 +25,7 @@ export const initialValues = {
   custGroupId: undefined  as undefined | string,
   custName: '',
   storeId: '',
-  territory: '',
+  territory: '' as Territory,
 
 
   isAgentConfirmed: false,

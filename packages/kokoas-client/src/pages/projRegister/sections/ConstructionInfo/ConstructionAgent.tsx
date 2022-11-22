@@ -1,4 +1,5 @@
 
+import { Territory } from 'types';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 import { getFieldName } from '../../form';
@@ -6,7 +7,7 @@ import { getFieldName } from '../../form';
 interface ConstructionAgentProps {
   number?: number
   storeId: string,
-  territory?:  string,
+  territory?:  Territory,
   disabled: boolean
 }
 

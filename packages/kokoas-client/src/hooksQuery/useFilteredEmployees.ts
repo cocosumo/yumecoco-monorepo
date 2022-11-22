@@ -1,4 +1,4 @@
-import { TAgents } from 'types';
+import { TAgents, Territory } from 'types';
 import {  resolveRoles, resolveAffiliations } from 'api-kintone';
 import { useEmployees } from './useEmployees';
 import { useCallback } from 'react';
@@ -15,7 +15,7 @@ export const useFilteredEmployees = ({
 } : {
   storeId: string,
   agentType?: TAgents | TAgents[],
-  territory?: string
+  territory?: Territory
 }) => {
 
 

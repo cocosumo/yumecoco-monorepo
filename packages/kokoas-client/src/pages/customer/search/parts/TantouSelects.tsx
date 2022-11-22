@@ -13,8 +13,16 @@ const TantouSelect = ({
 }: {
   name: TAgents
 }) => {
-  const { values } = useFormikContext<typeof initialValues>();
-  const options = useEmployeeOptions({ agentType: name, storeId: values.storeId });
+  const { values: {
+    storeId,
+    territory,
+  } } = useFormikContext<typeof initialValues>();
+
+  const options = useEmployeeOptions({
+    agentType: name,
+    storeId,
+    territory,
+  });
 
   return (
     <Grid item xs={12} md={2}>

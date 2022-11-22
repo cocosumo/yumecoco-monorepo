@@ -11,6 +11,7 @@ import { useFormikContext } from 'formik';
 import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
 import { useBackdrop } from 'kokoas-client/src/hooks';
 import { ContractDetails } from './ContractDetails';
+import { Territory } from 'types';
 
 
 
@@ -18,7 +19,7 @@ export const ConstructionInfo = (
   props: {
     storeId: string,
     projTypeId?: string,
-    territory?: string,
+    territory?: Territory,
   },
 ) => {
   const { storeId, territory } = props;

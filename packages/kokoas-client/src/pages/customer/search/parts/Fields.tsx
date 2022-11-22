@@ -7,6 +7,7 @@ import {
 } from '.';
 import { customerTypes } from '../form';
 import { RecordStatus } from './RecordStatus';
+import { TerritorySelect } from './TerritorySelect';
 
 export const Fields = () => {
   return (
@@ -21,13 +22,17 @@ export const Fields = () => {
         <FormikRadio name="custType" label="種別で絞り込む" choices={customerTypes} />
       </Grid>
 
-      <Grid item xs={12} md={3}>
-        <StoreSelect />
+      <Grid item xs={12} md={1}>
+        <TerritorySelect />
       </Grid>
 
       <Grid item xs={12} md={2}>
-        <TantouSelects />
+        <StoreSelect />
       </Grid>
+
+
+      <TantouSelects />
+
 
       <RecordStatus />
 

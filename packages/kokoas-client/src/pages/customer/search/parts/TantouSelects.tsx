@@ -1,4 +1,5 @@
 
+import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { translations } from 'kokoas-client/src/helpers/translations';
 import { TAgents } from 'types';
@@ -16,7 +17,9 @@ const TantouSelect = ({
   const options = useEmployeeOptions({ agentType: name, storeId: values.storeId });
 
   return (
-    <FormikSelect name={name as FormFieldKeys} label={translations[name]} options={options} />
+    <Grid item xs={12} md={2}>
+      <FormikSelect name={name as FormFieldKeys} label={translations[name]} options={options} />
+    </Grid>
   );
 };
 

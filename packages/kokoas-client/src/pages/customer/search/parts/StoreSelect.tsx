@@ -1,12 +1,19 @@
 
+import { useFormikContext } from 'formik';
 import { useStoreOptions } from 'kokoas-client/src/hooksQuery';
 import { FormikSelect } from '../../../../components/ui/selects';
 
-import { FormFieldKeys } from '../form';
+import { FormFieldKeys, TypeOfForm } from '../form';
 
 
 export const StoreSelect = () => {
-  const { data: stores } = useStoreOptions();
+  const { values: {
+    territory,
+  } } = useFormikContext<TypeOfForm>();
+
+  const { data: stores } = useStoreOptions({
+    territory,
+  });
 
   return (
     <FormikSelect

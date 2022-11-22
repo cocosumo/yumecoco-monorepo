@@ -1,4 +1,4 @@
-import { RecordStatus } from 'types';
+import { RecordStatus, Territory } from 'types';
 
 export const customerTypes = [  '全て',  '個人',  '法人' ] as const;
 
@@ -15,7 +15,7 @@ export const initialValues = {
   storeId: '',
   cocoAG: '',
   yumeAG: '',
-  territory: '',
+  territory: '' as Territory,
   cocoConst: '',
   recordStatus: [] as RecordStatus[],
   custName: '',
@@ -23,6 +23,8 @@ export const initialValues = {
   email: '',
   address: '',
 };
+
+export const getFormField = (k: FormFieldKeys ) => k;
 
 export type TypeOfForm = typeof initialValues;
 

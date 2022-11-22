@@ -1,11 +1,15 @@
 import { DeepPartial, ICustgroups, ICustomers } from 'types';
 import { AppIds } from 'config';
-import { ktRecord } from 'api-kintone';
+import { KintoneClientBasicAuth } from './settings';
+
 
 export const updateCustGroup = async () => {
-  const KintoneRecord = await ktRecord();
-  const appId = AppIds.custGroups;
 
+
+  const KintoneRecord = KintoneClientBasicAuth.record;
+
+
+  const appId = AppIds.custGroups;
   try {
     const records = await KintoneRecord.getAllRecords({
       app: appId,
@@ -25,13 +29,18 @@ export const updateCustGroup = async () => {
       $id,
       agents,
       members,
+      storeId,
     })=>{
+
       const getCustData = (cId: string) => customerRecords.find(({
         $id: custId,
       }) => custId.value === cId);
+
       return {
         id: $id.value,
         record: {
+          $id: { value: $id.value },
+          storeId,
           members: {
             type: 'SUBTABLE',
             value: members.value.map((row) => {
@@ -41,6 +50,7 @@ export const updateCustGroup = async () => {
                 ...row,
                 value: {
                   ...value,
+                  //  Customer data to dump, still thinking if I should deprecate this
                   dump: { value: JSON.stringify(getCustData(customerId.value)) },
                 },
               };
@@ -71,10 +81,9 @@ export const updateCustGroup = async () => {
       };
     });
 
-    console.log(updatedRecords);
 
     const updated = await KintoneRecord.updateAllRecords({
-      app: appId,
+      app: appId.toString(),
       records: updatedRecords as any,
     });
 

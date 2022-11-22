@@ -1,16 +1,14 @@
 import { Formik } from 'formik';
-import {  useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { getSearchResult } from './api/getSearchResult';
 
 import { initialValues, TypeOfForm } from './form';
-import { ISearchData } from './hooks/useSearchResult';
 import { FormCustSearch } from './FormCustSearch';
 
 export const FormikCustomerSearch = () => {
 
 
-  const [rows, setRows] = useState<ISearchData[]>([]);
+  //const [rows, setRows] = useState<ISearchData[]>([]);
   const { setSnackState } = useSnackBar();
 
 
@@ -28,8 +26,6 @@ export const FormikCustomerSearch = () => {
       custType: custType !== '全て' ? custType : undefined,
       recordStatus,
     });
-
-    setRows(normalizedData || []);
 
     return normalizedData;
   };
@@ -49,7 +45,7 @@ export const FormikCustomerSearch = () => {
       }}
     >
 
-      <FormCustSearch rows={rows} />
+      <FormCustSearch />
 
     </Formik>);
 };

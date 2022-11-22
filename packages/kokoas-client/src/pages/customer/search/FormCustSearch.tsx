@@ -1,20 +1,16 @@
 import { Form } from 'formik';
 import { MainContainer } from '../../../components/ui/containers';
 import { PageTitle } from '../../../components/ui/labels';
-import { ISearchData } from './hooks/useSearchResult';
-import { Fields, TableResult } from './parts';
+import { Fields } from './parts';
+import { TableResult } from './parts/TableResult/TableResult';
 
-export const FormCustSearch = ({
-  rows,
-}: {
-  rows: ISearchData[]
-}) => {
+export const FormCustSearch = () => {
   return (
     <Form noValidate>
       <MainContainer>
         <PageTitle label="顧客検索" color="#FFCB92" textColor='#333333' />
         <Fields />
-        <TableResult rows={rows} />
+        <TableResult />
       </MainContainer>
 
     </Form>

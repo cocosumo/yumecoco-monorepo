@@ -2,6 +2,7 @@ export * from './useCommonOptions';
 export * from './useContractsByProjId';
 export * from './useCustGroupById';
 export * from './useCustGroupByProjId';
+export * from './useCustGroups';
 export * from './useCustomersByCustGroupId';
 export * from './useCustomersByIds';
 export * from './useEmployeeByIds';

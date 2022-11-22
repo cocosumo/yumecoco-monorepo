@@ -8,6 +8,7 @@ type DefaultResult = Awaited<ReturnType<typeof getAllCustGroups>>;
  * 顧客グループを全て取得する
  */
 export const useCustGroups = <T = DefaultResult>(options?: {
+  enabled?: boolean,
   select?: (data: DefaultResult) => T,
   onSuccess?: (data: T) => void
 }) => {

@@ -16,6 +16,7 @@ export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';
 export * from './useProjById';
+export * from './useProjects';
 export * from './useProjHasContract';
 export * from './useProjsByCustGroupId';
 export * from './useProjTypeById';

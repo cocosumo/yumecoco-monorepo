@@ -8,6 +8,7 @@ export interface ISearchData {
   '領域・店舗': string,
   'ゆめてつAG': string,
   'ここすも営業': string,
+  '工事担当(最近)': string,
   '登録日時': string,
   '更新日時': string,
 }
@@ -21,7 +22,7 @@ export type RowsPerPageOption = typeof rowsPerPageOptions[number];
 export const headCells : (KSearchData)[][] = [
   ['顧客ID',  '顧客種別', '案件数' ],
   ['顧客氏名・会社名', '現住所'],
-  ['領域・店舗', 'ここすも営業', 'ゆめてつAG'],
+  ['領域・店舗', 'ここすも営業', 'ゆめてつAG', '工事担当(最近)'],
   ['登録日時', '更新日時'],
 ];
 

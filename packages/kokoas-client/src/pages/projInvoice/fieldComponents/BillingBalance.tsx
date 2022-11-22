@@ -1,23 +1,28 @@
 import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
+import { useContractAmount } from '../hooks/useContractAmount';
 
 /**
  * 請求残高コンポーネント
  * @returns 
  */
-export const BillingBalance = () => {
+export const BillingBalance = ({
+  projId,
+}: {
+  projId: string
+}) => {
 
-  const billingBalance = 'xxx,xxx'; // 請求残高の算出処理の実装箇所
+  const { billingBalance } = useContractAmount(projId);
 
   return (
     <FormControl>
       <Stack direction={'row'}>
-        <FormLabel>
+        <FormLabel sx={{ width: 120 }}>
           請求残高
         </FormLabel>
         <Typography>
           {`${billingBalance} 円`}
         </Typography>
       </Stack>
-    </FormControl>
+    </FormControl >
   );
 };

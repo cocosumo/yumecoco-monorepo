@@ -94,7 +94,7 @@ export const FormInvoice = () => {
 
         {/* 請求残額 */}
         <Grid item xs={12} md={6}>
-          <BillingBalance />
+          <BillingBalance projId={projId} />
         </Grid>
         <Grid item md={6} />
 

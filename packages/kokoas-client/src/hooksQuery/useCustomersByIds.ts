@@ -8,12 +8,18 @@ import { getCustomersByIds } from 'api-kintone';
  * データ関連：
  * custGroup n-n customer
  */
-export const useCustomersByIds = (custIds : string[]) => {
+export const useCustomersByIds = <T = Awaited<ReturnType<typeof getCustomersByIds>>>(
+  custIds: string[] | undefined = [],
+  options?: {
+    select: (data: Awaited<ReturnType<typeof getCustomersByIds>>) => T
+  },
+) => {
   return useQuery(
-    [AppIds.customers, { custIds }],
+    [AppIds.customers, 'custIds', custIds],
     () => getCustomersByIds(custIds),
     {
-      enabled: !!custIds.length,
+      enabled: !!custIds?.length,
+      ...options,
     },
   );
 };

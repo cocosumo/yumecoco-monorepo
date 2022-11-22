@@ -33,19 +33,7 @@ declare namespace DBProjects {
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;
-
     envDocFileKeys: kintone.fieldTypes.File;
-    custGroupAgents: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          custAgentType: kintone.fieldTypes.SingleLineText;
-          custAgentName: kintone.fieldTypes.SingleLineText;
-          custAgentId: kintone.fieldTypes.Number;
-        };
-      }>;
-    };
     agents: {
       type: "SUBTABLE";
       value: Array<{
@@ -57,17 +45,7 @@ declare namespace DBProjects {
         };
       }>;
     };
-    custGroup: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          custNameReading: kintone.fieldTypes.SingleLineText;
-          custId: kintone.fieldTypes.Number;
-          custName: kintone.fieldTypes.SingleLineText;
-        };
-      }>;
-    };
+
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

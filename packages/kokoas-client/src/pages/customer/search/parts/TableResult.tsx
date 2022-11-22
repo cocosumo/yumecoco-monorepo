@@ -11,18 +11,18 @@ import { visuallyHidden } from '@mui/utils';
 import { Grid, Button } from '@mui/material';
 import {  useState } from 'react';
 
-import { ISearchData as Data, ISearchData } from '../api/getSearchData';
 import { DetailsDialog } from './detailsDialog/DetailsDialog';
 import { getComparator } from '../../../../helpers/table';
 import { TableResultContainer } from './TableResultContainer';
+import { ISearchData } from '../hooks/useSearchResult';
 
 
 
 
-const headCells : (keyof Data)[][] = [
+const headCells : (keyof ISearchData)[][] = [
   ['顧客ID',  '顧客種別', '案件数' ],
   ['顧客氏名・会社名', '現住所'],
-  ['店舗', 'ここすも営業', 'ここすも工事', 'ゆめてつAG'],
+  ['店舗', 'ここすも営業', 'ゆめてつAG'],
   ['登録日時', '更新日時'],
 ];
 
@@ -34,11 +34,11 @@ const cellWidth = [
 ];
 
 
-function EnhancedTableHead(props: EnhancedTableProps<keyof Data>) {
+function EnhancedTableHead(props: EnhancedTableProps<keyof ISearchData>) {
   const { order, orderBy, onRequestSort } =
     props;
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof ISearchData) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -88,7 +88,7 @@ export function TableResult({
   //const { isSubmitting, values } = useFormikContext<typeof initialValues>();
 
   const [order, setOrder] = useState<Order>('desc');
-  const [orderBy, setOrderBy] = useState<keyof Data>('更新日時');
+  const [orderBy, setOrderBy] = useState<keyof ISearchData>('更新日時');
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -98,7 +98,7 @@ export function TableResult({
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
-    property: keyof Data,
+    property: keyof ISearchData,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -211,7 +211,7 @@ export function TableResult({
       <DetailsDialog
         open={Boolean(detailsDialogState?.open)}
         custGroupId={detailsDialogState?.custGroupdId}
-        handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}} 
+        handleClose={()=> {setDetailsDialogState({ open: false, custGroupdId: '' });}}
       />
     </Grid>
   );

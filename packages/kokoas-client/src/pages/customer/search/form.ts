@@ -1,4 +1,4 @@
-import { RecordStatus } from '../../../config/formValues';
+import { RecordStatus } from 'types';
 
 export const customerTypes = [  '全て',  '個人',  '法人' ] as const;
 
@@ -22,4 +22,6 @@ export const initialValues = {
   email: '',
   address: '',
 };
+
+export type TypeOfForm = typeof initialValues;
 

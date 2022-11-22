@@ -3,7 +3,7 @@ import { ICustgroups } from 'types';
 import { AppIds } from 'config';
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { isBrowser } from 'kokoas-client/src/helpers/utils';
-import { getProjsByCustGroupId } from './getProjsByCustGroupId';
+//import { getProjsByCustGroupId } from './getProjsByCustGroupId';
 
 
 
@@ -21,18 +21,18 @@ interface UpdateRequest {
 /**
  * Get custgroup record, then add the projectId.
  * This keep the projects subtable updated in customer groups app.
- * 
- * 
+ *
+ *
  * @param projectId
  * @param custGroupId
  * @param cocoConst Agent names
  * @returns
  */
 const resolveSaveRequest = async (
-  custGroupId: string, 
+  custGroupId: string,
 ) => {
 
-  const projRecs = await getProjsByCustGroupId(custGroupId);
+  //const projRecs = await getProjsByCustGroupId(custGroupId);
 
 
   return [{
@@ -41,7 +41,7 @@ const resolveSaveRequest = async (
     payload: {
       app: AppIds.custGroups.toString(),
       id: custGroupId,
-      record: {
+      record: {/*
         projects: {
           type: 'SUBTABLE',
           value: projRecs.map(({
@@ -63,7 +63,7 @@ const resolveSaveRequest = async (
             };
           }),
         },
-        projectCount: { value: projRecs.length.toString() },
+        projectCount: { value: projRecs.length.toString() }, */
       },
     },
   },
@@ -79,7 +79,7 @@ const resolveSaveRequest = async (
  *
  * @param projectId
  * @param custGroupId
- * 
+ *
  * @todo rollback feature of bulk request may not be needed
  * so convert this to regular update api.
  * Needs more direction on this.
@@ -88,7 +88,7 @@ export const saveProjToCustGroup = async (
   {
     custGroupId,
   }:{
-    custGroupId: string, 
+    custGroupId: string,
   },
 
 ) => {
@@ -96,10 +96,10 @@ export const saveProjToCustGroup = async (
   if (!custGroupId) throw new Error('No custgroup id supplied in saveConstructionData.');
 
   /******************
-   * Kintone's oAuth2 doesn't have access to 
-   * "POST:/k/v1/bulkRequest.json so use tokens 
+   * Kintone's oAuth2 doesn't have access to
+   * "POST:/k/v1/bulkRequest.json so use tokens
    * 参考：https://developer.cybozu.io/hc/ja/articles/360015955171
-   *****************/ 
+   *****************/
   const KintoneClient = new KintoneRestAPIClient({
     baseUrl: process.env.KT_BASE_URL,
     auth: isBrowser() ? undefined : {

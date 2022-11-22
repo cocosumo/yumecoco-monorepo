@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, RecordStatus, TAgents } from 'types';
+import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
@@ -8,7 +8,6 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     custGroupId, $id,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
-    status,
     cancelStatus,
     projTypeName,
     storeId,
@@ -37,7 +36,6 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     projName: projName.value,
     postal: postal.value,
     storeId: storeId.value,
-    status: (status?.value as RecordStatus) || '追客中',
   };
 
 };

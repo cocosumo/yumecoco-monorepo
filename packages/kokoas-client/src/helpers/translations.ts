@@ -14,4 +14,7 @@ export const translations: Record<string, string> = {
   store: '店舗名',
   yumeAg: 'ゆめてつAG',
 
+  tel: '電話番号',
+  email: 'メアド',
+
 };

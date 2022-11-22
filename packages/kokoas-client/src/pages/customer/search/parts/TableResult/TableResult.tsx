@@ -1,14 +1,15 @@
 import { Table, TablePagination } from '@mui/material';
 import { ComponentProps, useState } from 'react';
-import { ICustgroups, Order } from 'types';
-import { KSearchData, RowsPerPageOption, rowsPerPageOptions } from './settings';
+import { Order } from 'types';
+import { ISearchData, KSearchData, RowsPerPageOption, rowsPerPageOptions } from './settings';
 import { TableHeadEnhanced } from './TableHeadEnhanced';
 import { TableResultContainer } from './TableResultContainer';
+import { TBodyResult } from './TBodyResult';
 
 export const TableResult = ({
   rows,
 }: {
-  rows: ICustgroups[]
+  rows: ISearchData[]
 }) => {
   const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<KSearchData>('更新日時');
@@ -49,11 +50,21 @@ export const TableResult = ({
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <Table>
+      <Table
+        sx={{ minWidth: 750 }}
+        size="small"
+      >
         <TableHeadEnhanced
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
+        />
+        <TBodyResult
+          order={order}
+          orderBy={orderBy}
+          page={page}
+          rows={rows}
+          rowsPerPage={rowsPerPage}
         />
 
       </Table>

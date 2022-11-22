@@ -6,7 +6,7 @@ import { AppIds } from 'config';
  * 顧客グループを全て取得する
  */
 export const useCustGroups = <T = Awaited<ReturnType<typeof getAllCustGroups>>>(options?: {
-  select: () => T
+  select: (data: Awaited<ReturnType<typeof getAllCustGroups>>) => T
 }) => {
   return useQuery(
     [AppIds.custGroups],

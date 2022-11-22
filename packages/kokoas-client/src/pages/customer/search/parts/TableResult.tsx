@@ -14,8 +14,8 @@ import {  useState } from 'react';
 import { DetailsDialog } from './detailsDialog/DetailsDialog';
 import { getComparator } from '../../../../helpers/table';
 import { TableResultContainer } from './TableResultContainer';
-import { ISearchData } from '../hooks/useSearchResult';
 import { Order } from 'types';
+import { ISearchData } from './TableResult/settings';
 
 
 

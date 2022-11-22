@@ -1,6 +1,5 @@
 import { getAllCustGroups } from 'api-kintone';
 import { getCustGroupKey, KFlatCustGroup, RecordStatus } from 'types';
-import { AdvancedSearchCustGroupParam } from '../hooks/useAdvancedSearchCustGroup';
 
 
 
@@ -33,7 +32,7 @@ export const resolveRecordStatusQuery = (statuses?: RecordStatus[]) => {
 
 
 export const advancedSearchCustGroup = async (
-  params : AdvancedSearchCustGroupParam,
+  params : any,
 ) => {
   const {
     storeId,

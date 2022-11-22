@@ -4,7 +4,6 @@ import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractAmount } from './fieldComponents/ContractAmount';
-import { BillingBalance } from './fieldComponents/BillingBalance';
 import { Button, Divider, Grid } from '@mui/material';
 import { EstimateCards } from './fieldComponents/EstimateCards';
 import { paymentLabels } from '../projContracts';
@@ -27,7 +26,6 @@ export const FormInvoice = () => {
   const { projId, projName } = values;
 
   useResolveParams();
-
 
 
   return (
@@ -85,18 +83,10 @@ export const FormInvoice = () => {
         <Grid item md={6} />
 
 
-        {/* 請求金額 */}
-        <Grid item xs={12} md={6}>
+        {/* 請求金額・請求残高 */}
+        <Grid item xs={12} md={12}>
           <BillingAmount projId={projId} />
         </Grid>
-        <Grid item md={6} />
-
-
-        {/* 請求残額 */}
-        <Grid item xs={12} md={6}>
-          <BillingBalance projId={projId} />
-        </Grid>
-        <Grid item md={6} />
 
 
         {/* 入金予定日 */}

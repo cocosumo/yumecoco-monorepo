@@ -35,6 +35,10 @@ export const initialValues = {
 
   /* 入金予定日 */
   plannedPaymentDate: '',
+
+  /* 契約超過チェック */
+  exceedContractAmount: false,
+  exceedChk: false,
 };
 
 export type TypeOfForm = typeof initialValues;

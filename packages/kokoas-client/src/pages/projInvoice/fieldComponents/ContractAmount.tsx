@@ -26,13 +26,13 @@ export const ContractAmount = ({
   return (
     <FormControl>
       <Stack direction={'row'}>
-        <FormLabel>
-          契約金額(税込) &thinsp;
+        <FormLabel sx={{ width: 120 }}>
+          契約金額(税込)
         </FormLabel>
-        {!error && !isFetching && !!amount && <Typography>
+        {!error && !isFetching && !!amount && <Typography sx={{ width: 120, textAlign: 'right' }}>
           {`${Math.round(amount).toLocaleString()} 円`}
         </Typography>}
-        {(error || isFetching || !amount) && <Typography>
+        {(error || isFetching || !amount) && <Typography sx={{ width: 120, textAlign: 'right' }}>
           {'--- 円'}
         </Typography>}
       </Stack>

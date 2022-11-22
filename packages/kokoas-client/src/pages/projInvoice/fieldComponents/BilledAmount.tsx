@@ -26,12 +26,12 @@ export const BilledAmount = ({
   return (
     <FormControl>
       <Stack direction={'row'}>
-        <FormLabel>
-          請求済金額 &emsp;&emsp;
+        <FormLabel sx={{ width: 120 }}>
+          請求済金額
         </FormLabel>
         {!error && !isFetching && !!totalInvoice &&
           <>
-            <Typography>
+            <Typography sx={{ width: 120, textAlign: 'right' }}>
               {`${Math.round(totalInvoice).toLocaleString()} 円`}
             </Typography>
             <BilledAmountDetails invoices={records} />

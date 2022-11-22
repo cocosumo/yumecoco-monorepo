@@ -13,7 +13,7 @@ export const useFilteredEmployees = ({
   agentType,
   territory,
 } : {
-  storeId: string,
+  storeId?: string,
   agentType?: TAgents | TAgents[],
   territory?: Territory
 }) => {
@@ -41,13 +41,13 @@ export const useFilteredEmployees = ({
 
 
 
-            const isInStore = (
-              mainStoreId.value === storeId
-              || affiliateStores
-                .value
-                .some(({ value: { storeId: _storeId } }) => _storeId.value === storeId )
-            );
-
+            const isInStore = storeId
+              ? (mainStoreId.value === storeId
+                || affiliateStores
+                  .value
+                  .some(({ value: { storeId: _storeId } }) => _storeId.value === storeId )
+              )
+              : true;
 
             const isAffiliated = affiliations.length ? affiliations.includes(affiliation.value) : true;
             const isInRole = roles.length ? roles.includes(empRole.value) : true;

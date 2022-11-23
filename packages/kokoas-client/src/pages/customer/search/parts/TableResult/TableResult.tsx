@@ -12,7 +12,7 @@ export const TableResult = ({
   rows: ISearchData[]
 }) => {
   const [order, setOrder] = useState<Order>('desc');
-  const [orderBy, setOrderBy] = useState<KSearchData>('更新日時');
+  const [orderBy, setOrderBy] = useState<KSearchData>('登録日時');
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState<RowsPerPageOption>(100);

@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik';
 import { MainContainer } from 'kokoas-client/src/components/ui/containers';
 import { PageTitle } from 'kokoas-client/src/components/ui/labels';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { initialValues, TypeOfForm } from './form';
 import { useSearchResult } from './hooks/useSearchResult';
@@ -16,7 +16,7 @@ export const FormikCustomerSearch = () => {
     data: rows, 
   } = useSearchResult(filter);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (rows?.length) {
       setSnackState({
         open: true,
@@ -24,12 +24,16 @@ export const FormikCustomerSearch = () => {
       });
     }
   }, [rows, setSnackState]);
-
+ */
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={async (values) => {
         setFilter(values);
+        setSnackState({
+          open: true,
+          message: '検索が成功しました',
+        });
       }}
     >
 

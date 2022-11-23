@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { FormikCheckBoxes } from '../../../../components/ui/checkboxes';
 
 import { FormFieldKeys } from '../form';
-import { recordStatuses } from '../../../../config/formValues';
+import { recordStatuses } from 'types';
 
 export const RecordStatus = () => {
   const recordOptions = useRef(recordStatuses.map(item=>({ label: item, value: item })));

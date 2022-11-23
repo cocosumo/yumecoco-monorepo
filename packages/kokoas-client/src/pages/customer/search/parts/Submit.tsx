@@ -3,22 +3,12 @@ import { Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useFormikContext } from 'formik';
 import { LoadingButton } from '@mui/lab';
-import { useState } from 'react';
+import { useIsFetching } from '@tanstack/react-query';
 
 
 export const Submit = () => {
-  const { isSubmitting, submitForm } = useFormikContext();
-  const [isThrottle, setIsThrottle] = useState(false);
-  const handleSubmit = () => {
-    setIsThrottle(true);
-    setTimeout(async ()=>{
-      await submitForm();
-      setIsThrottle(false);
-    }, 800);
-
-  };
-
-  const loading = isThrottle || isSubmitting;
+  const { submitForm } = useFormikContext();
+  const isFetching = useIsFetching();
 
   return (
     <Grid container item xs={12}
@@ -26,8 +16,8 @@ export const Submit = () => {
     >
       <LoadingButton
         fullWidth
-        loading={loading}
-        onClick={handleSubmit}
+        loading={!!isFetching}
+        onClick={submitForm}
         variant="contained"
         loadingPosition="center"
       >

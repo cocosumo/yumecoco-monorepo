@@ -9,7 +9,7 @@ type DefaultResult = Awaited<ReturnType<typeof getAllEstimates>>;
  */
 export const useEstimates = <T = DefaultResult>(options?: {
   enabled?: boolean,
-  select?: (data: DefaultResult) => T,
+  select: (data: DefaultResult) => T,
   onSuccess?: (data: T) => void
 }) => {
   return useQuery(

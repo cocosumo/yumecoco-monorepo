@@ -56,7 +56,7 @@ export function FormikSelect(props : FormikSelecProps) {
       setValue('');
     }
     
-  }, [options, setValue, multiple, isExistInOptions]);
+  }, [setValue, multiple, isExistInOptions]);
 
 
   const optionMenus = useMemo(() => options?.map((option) => {

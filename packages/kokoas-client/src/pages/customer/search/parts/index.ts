@@ -4,5 +4,4 @@ export * from './KeywordSearch';
 export * from './RecordStatus';
 export * from './StoreSelect';
 export * from './Submit';
-export * from './TableResult';
 export * from './TantouSelects';

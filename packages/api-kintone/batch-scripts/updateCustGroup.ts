@@ -83,7 +83,7 @@ export const updateCustGroup = async () => {
 
 
     const updated = await KintoneRecord.updateAllRecords({
-      app: appId.toString(),
+      app: appId,
       records: updatedRecords as any,
     });
 

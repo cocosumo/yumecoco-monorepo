@@ -1,9 +1,20 @@
-import { TableHead, TableRow, TableCell, TableSortLabel, Stack,
-  //Box,
+import { 
+  TableHead, 
+  TableRow, 
+  TableCell, 
+  TableSortLabel, 
+  Stack,
 } from '@mui/material';
+import { Order } from 'types';
 import { TKeyOfSearchResult } from '../../api/searchProject';
 import { headCells, cellAlign } from './constants';
-//import { visuallyHidden } from '@mui/utils';
+
+
+interface EnhancedTableProps<T> {
+  onRequestSort: (event: React.MouseEvent<unknown>, property: T) => void;
+  order: Order;
+  orderBy: string;
+}
 
 export const EnhancedTableHead = (props: EnhancedTableProps<TKeyOfSearchResult>) => {
   const { order, orderBy, onRequestSort } =

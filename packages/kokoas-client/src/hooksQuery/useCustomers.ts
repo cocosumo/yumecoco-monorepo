@@ -5,7 +5,7 @@ import { AppIds } from 'config';
 type DefaultResult = Awaited<ReturnType<typeof getAllCustomers>>;
 
 /**
- * 顧客グループを全て取得する
+ * 顧客を全て取得する
  */
 export const useCustomers = <T = DefaultResult>(options?: {
   enabled?: boolean,

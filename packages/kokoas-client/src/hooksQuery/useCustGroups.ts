@@ -9,7 +9,7 @@ type DefaultResult = Awaited<ReturnType<typeof getAllCustGroups>>;
  */
 export const useCustGroups = <T = DefaultResult>(options?: {
   enabled?: boolean,
-  select?: (data: DefaultResult) => T,
+  select: (data: DefaultResult) => T,
   onSuccess?: (data: T) => void
 }) => {
   return useQuery(

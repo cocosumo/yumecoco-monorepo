@@ -1,7 +1,9 @@
+import { useCallback } from 'react';
+import { useEstimates } from './../../../../hooksQuery/useEstimates';
 import { groupCustContacts } from './helper/groupCustContact';
 import { dateStrToJA } from 'kokoas-client/src/helpers/utils';
 import { useCustGroups, useProjects, useCustomers } from 'kokoas-client/src/hooksQuery';
-import { TAgents } from 'types';
+import { TAgents, TEnvelopeStatus } from 'types';
 import { TypeOfForm } from '../form';
 import { ISearchData } from '../parts/TableResult/settings';
 
@@ -11,50 +13,54 @@ import { ISearchData } from '../parts/TableResult/settings';
  */
 export const useSearchResult = (params?: Partial<TypeOfForm>) => {
 
-  const { data: projRecs } = useProjects();
-  const { data: custRecs } = useCustomers();
-
+  const { data: recProjects } = useProjects();
+  const { data: recCustomers } = useCustomers();
+  const { data: recEstimates } = useEstimates();
 
   return useCustGroups({
-    enabled: !!projRecs && !!custRecs,
-    select: (data) => {
-      const {
-        cocoAG,
-        custName,
-        storeId,
-        territory,
-        yumeAG,
-        address,
-        custType,
-        email,
-        contactNum,
-        cocoConst,
-        recordStatus,
-      } = params || {};
+    enabled: !!recProjects && !!recCustomers && !!recEstimates,
+    select: useCallback(
+      (data) => {
+
+        const {
+          cocoAG,
+          custName,
+          storeId,
+          territory,
+          yumeAG,
+          address,
+          custType,
+          email,
+          contactNum,
+          cocoConst,
+          recordStatus,
+        } = params || {};
     
-      return data?.reduce(
-        (acc, rec) => {
+        return data?.reduce(
+          (acc, rec) => {
 
-          
-          const mainCust = rec?.members?.value?.[0]?.value;
+            const mainCust = rec?.members?.value?.[0]?.value;
 
+            // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
+            if (!mainCust) return acc;
           
-          // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
-          if (!mainCust) return acc;
-          
-          const relProjects = projRecs?.filter(({ custGroupId }) => custGroupId.value === rec.$id.value  );
-          const relCustomers = custRecs?.filter(({ $id }) => rec?.members?.value.some(({ value: { customerId } }) => customerId.value === $id.value )) || [];
-          
-          const recYumeAG = rec.agents?.value
-            ?.filter(item => item.value.agentType.value === 'yumeAG' as TAgents);
-          const recCocoAG = rec.agents.value
-            ?.filter(item => item.value.agentType.value === 'cocoAG' as TAgents);
-          const numOfProjects = relProjects?.length || 0 ;
-          
-          const { custEmails, custTels } = groupCustContacts(relCustomers);
+            const relProjects = recProjects?.filter(({ custGroupId }) => custGroupId.value === rec.$id.value  );
+            const relCustomers = recCustomers?.filter(({ $id }) => rec?.members?.value.some(({ value: { customerId } }) => customerId.value === $id.value )) || [];
+            const relEstimates = recEstimates?.filter(({ custGroupId }) =>  custGroupId.value === rec.$id.value);
+            const relContracts = relEstimates?.filter(({ envStatus }) => (envStatus.value as TEnvelopeStatus) === 'completed' );
+  
+            const recYumeAG = rec.agents?.value
+              ?.filter(item => item.value.agentType.value === 'yumeAG' as TAgents);
+            const recCocoAG = rec.agents.value
+              ?.filter(item => item.value.agentType.value === 'cocoAG' as TAgents);
 
-          // フィルター条件してい
-          if (!params
+            const numOfProjects = relProjects?.length || 0 ;
+            const numOfContracts = relContracts?.length || 0 ;
+            const isDeleted = !!(+rec.isDeleted.value);
+          
+            const { custEmails, custTels } = groupCustContacts(relCustomers);
+            // フィルター条件してい
+            if (!params
             || (
               (!storeId?.length || storeId.some((s) => s === rec?.storeId.value))
               && (custType === '全て' || rec.custType.value === custType)
@@ -71,38 +77,41 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
               )
               && (!recordStatus?.length 
                 || (
-                  (!recordStatus.includes('情報登録のみ') || numOfProjects === 0) 
-                  && (!recordStatus.includes('追客中') || numOfProjects > 0) 
-                  //&& (!recordStatus.includes('契約済/工事進行中') || numOfProjects > 0) 
+                  (recordStatus.includes('情報登録のみ') && !numOfProjects && !isDeleted) 
+                  || (recordStatus.includes('追客中') && !!numOfProjects && !numOfContracts && !isDeleted) 
+                  || (recordStatus.includes('契約済/工事進行中') && !!numOfContracts && !isDeleted) 
+                  || (recordStatus.includes('削除') && !!isDeleted) 
                 ) 
               )
             )) {
 
-            acc.push({  
-              '顧客ID': +(rec.$id?.value ?? 0),
-              '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',
-              '案件数': (numOfProjects).toString(),
-              '領域・店舗': [rec.territory?.value, rec.storeName?.value].filter(Boolean).join(' - '),
-              '顧客種別': rec.custType?.value ?? '個人',
-              '現住所': `${[mainCust?.postal.value, mainCust?.address1.value, mainCust?.address2.value]
-                .filter(Boolean)
-                .join(' ')}` ?? '',
-              'ゆめてつAG': recYumeAG
-                ?.map(item => item.value.employeeName.value)
-                .join('、 ') ?? '',
-              'ここすも営業': recCocoAG
-                ?.map(item => item.value.employeeName.value)
-                .join('、 ') ?? '',
-              '工事担当(最近)': relProjects?.at(-1)?.agents.value.map(({ value: { agentName } }) => agentName.value).filter(Boolean).join(', ') || '',
-              '登録日時': dateStrToJA(rec.作成日時.value),
-              '更新日時': dateStrToJA(rec.更新日時.value),
-            });
-          }
+              acc.push({  
+                '顧客ID': +(rec.$id?.value ?? 0),
+                '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',
+                '案件数': (numOfProjects).toString(),
+                '領域・店舗': [rec.territory?.value, rec.storeName?.value].filter(Boolean).join(' - '),
+                '顧客種別': rec.custType?.value ?? '個人',
+                '現住所': `${[mainCust?.postal.value, mainCust?.address1.value, mainCust?.address2.value]
+                  .filter(Boolean)
+                  .join(' ')}` ?? '',
+                'ゆめてつAG': recYumeAG
+                  ?.map(item => item.value.employeeName.value)
+                  .join('、 ') ?? '',
+                'ここすも営業': recCocoAG
+                  ?.map(item => item.value.employeeName.value)
+                  .join('、 ') ?? '',
+                '工事担当(最近)': relProjects?.at(-1)?.agents.value.map(({ value: { agentName } }) => agentName.value).filter(Boolean).join(', ') || '',
+                '登録日時': dateStrToJA(rec.作成日時.value),
+                '更新日時': dateStrToJA(rec.更新日時.value),
+              });
+            }
 
-          return acc;
-        },
-        [] as ISearchData[]);
-    },
+            return acc;
+          },
+          [] as ISearchData[]);
+      }, 
+      [params, recProjects, recCustomers, recEstimates],
+    ),
  
   });
 

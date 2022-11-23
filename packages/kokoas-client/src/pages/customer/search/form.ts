@@ -17,7 +17,7 @@ export const initialValues = {
   yumeAG: '',
   territory: '' as Territory,
   cocoConst: '',
-  recordStatus: [] as RecordStatus[],
+  recordStatus: ['契約済/工事進行中', '情報登録のみ', '追客中'] as RecordStatus[],
   custName: '',
   contactNum: '',
   email: '',

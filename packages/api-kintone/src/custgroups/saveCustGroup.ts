@@ -1,6 +1,5 @@
 import { appId, RecordType } from './config';
 import { ICustomers } from 'types';
-import { saveRecord } from '../common/saveRecord';
 import { saveCustomers } from '../customers/saveCustomers';
 
 import { getAgentNames } from './getAgentNames';
@@ -87,7 +86,7 @@ export const saveCustGroup = async (
   });
 
   if (result.id) {
-    //await updateRelatedToCustGroup(record, result.id);
+    await updateRelatedToCustGroup(record, result.id);
   }
   
 

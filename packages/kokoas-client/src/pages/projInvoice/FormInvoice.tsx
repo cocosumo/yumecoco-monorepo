@@ -16,16 +16,51 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
 import { BilledAmount } from './fieldComponents/BilledAmount';
+import { useContractAmount } from './hooks/useContractAmount';
+import { useEffect } from 'react';
+import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 
 
 
 export const FormInvoice = () => {
-  const { values, submitForm } = useFormikContext<TypeOfForm>();
+  const { values, submitForm, setValues } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
-  const { projId, projName } = values;
+  const { projId, projName, billingAmount, exceedContractAmount } = values;
+  const { contractAmount, billingBalance } = useContractAmount(projId);
+
+  const {
+    data: Invoices,
+    isError,
+    isFetching,
+  } = useInvoiceTotalByProjId(projId);
+
+  const { records, totalInvoice } = Invoices || {};
 
   useResolveParams();
+
+  /* useEffect(() => {
+    setValues({
+      ...values,
+      billingAmount: String(billingBalance),
+    });
+  }, [billingBalance]); */
+
+
+  useEffect(() => {
+    let openChk = false;
+    if ((billingBalance - +billingAmount) < 0) {
+      openChk = true;
+    }
+
+    setValues((prev) => ({
+      ...prev,
+      exceedContractAmount: openChk,
+      billingAmount: String(billingBalance),
+
+    }));
+  }, [billingBalance, billingAmount, setValues]);
+
 
 
   return (
@@ -69,23 +104,32 @@ export const FormInvoice = () => {
         </Grid>
 
 
+
         {/* 請求書情報の表示/入力エリア */}
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount values={values} />
+          <ContractAmount contractAmount={contractAmount} />
         </Grid>
         <Grid item md={6} />
 
-        {/* 未請求額 */}
+        {/* 請求済額 */}
         <Grid item xs={12} md={6}>
-          <BilledAmount projId={projId} />
+          <BilledAmount
+            billedAmount={totalInvoice}
+            isError={isError}
+            isFetching={isFetching}
+            records={records}
+          />
         </Grid>
         <Grid item md={6} />
 
 
         {/* 請求金額・請求残高 */}
         <Grid item xs={12} md={12}>
-          <BillingAmount projId={projId} />
+          <BillingAmount
+            open={exceedContractAmount}
+            billingBalance={billingBalance - +billingAmount}
+          />
         </Grid>
 
 

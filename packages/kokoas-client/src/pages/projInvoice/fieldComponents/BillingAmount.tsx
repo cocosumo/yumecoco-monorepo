@@ -1,10 +1,7 @@
 import { FormControl, FormLabel, Grid, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { useFormikContext } from 'formik';
 import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield';
-import { useEffect, useState } from 'react';
-import { getFieldName, TypeOfForm } from '../form';
-import { useContractAmount } from '../hooks/useContractAmount';
+import { getFieldName } from '../form';
 import { ExceedContractAmount } from './ExceedContractAmount';
 
 /**
@@ -13,39 +10,12 @@ import { ExceedContractAmount } from './ExceedContractAmount';
  * @returns 
  */
 export const BillingAmount = ({
-  projId,
+  open,
+  billingBalance,
 }: {
-  projId: string
+  open: boolean
+  billingBalance: number,
 }) => {
-  const { values, setValues } = useFormikContext<TypeOfForm>();
-  const { billingAmount } = values;
-
-  const { billingBalance } = useContractAmount(projId);
-
-  const [open, setOpen] = useState(false);
-
-
-
-  useEffect(() => {
-    setValues({
-      ...values,
-      billingAmount: String(billingBalance),
-    });
-  }, [billingBalance]);
-
-
-  useEffect(() => {
-    let openChk = false;
-    if ((billingBalance - +billingAmount) < 0) {
-      openChk = true;
-    }
-
-    setOpen(openChk);
-    setValues({
-      ...values,
-      exceedContractAmount: openChk,
-    });
-  }, [billingBalance, billingAmount]);
 
 
 
@@ -73,7 +43,7 @@ export const BillingAmount = ({
             請求残高
           </FormLabel>
           <Typography sx={{ width: 120, textAlign: 'right' }}>
-            {`${billingBalance - +billingAmount} 円`}
+            {`${billingBalance} 円`}
           </Typography>
         </Stack>
       </FormControl>

@@ -1,6 +1,5 @@
 import { FormControl, FormLabel, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 import { BilledAmountDetails } from './BilledAmountDetails';
 
 /**
@@ -9,18 +8,17 @@ import { BilledAmountDetails } from './BilledAmountDetails';
  * @returns 
  */
 export const BilledAmount = ({
-  projId = '',
+  billedAmount,
+  records,
+  isError,
+  isFetching,
 }: {
-  projId: string
+  billedAmount: number | undefined
+  records: DBInvoices.SavedData[] | undefined
+  isError: boolean
+  isFetching: boolean
 }) => {
 
-  const {
-    data: Invoices,
-    error,
-    isFetching,
-  } = useInvoiceTotalByProjId(projId);
-
-  const { records, totalInvoice } = Invoices || {};
 
 
   return (
@@ -29,14 +27,14 @@ export const BilledAmount = ({
         <FormLabel sx={{ width: 120 }}>
           請求済金額
         </FormLabel>
-        {!error && !isFetching && !!totalInvoice &&
+        {!isError && !isFetching && !!billedAmount &&
           <>
             <Typography sx={{ width: 120, textAlign: 'right' }}>
-              {`${Math.round(totalInvoice).toLocaleString()} 円`}
+              {`${Math.round(billedAmount).toLocaleString()} 円`}
             </Typography>
             <BilledAmountDetails invoices={records} />
           </>}
-        {(error || isFetching || !totalInvoice) && <Typography>
+        {(isError || isFetching || !billedAmount) && <Typography>
           {'なし'}
         </Typography>}
       </Stack>

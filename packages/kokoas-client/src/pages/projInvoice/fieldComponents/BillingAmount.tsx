@@ -1,5 +1,5 @@
-import { useField } from 'formik';
 import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield';
+import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
 import { useEffect } from 'react';
 import { getFieldName } from '../form';
 import { useContractAmount } from '../hooks/useContractAmount';
@@ -14,7 +14,7 @@ export const BillingAmount = ({
 }: {
   projId: string
 }) => {
-  const [, , helpers] = useField('billingAmount');
+  const [, , helpers] = useFieldFast('billingAmount');
   const {
     setValue,
   } = helpers;
@@ -23,7 +23,7 @@ export const BillingAmount = ({
 
   useEffect(() => {
     setValue(billingBalance);
-  }, [billingBalance]);
+  }, [billingBalance, setValue]);
 
 
   return (

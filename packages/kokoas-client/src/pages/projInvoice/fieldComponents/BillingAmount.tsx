@@ -18,7 +18,6 @@ export const BillingAmount = ({
 }) => {
 
 
-
   return (
     <>
       {/* 請求金額 */}

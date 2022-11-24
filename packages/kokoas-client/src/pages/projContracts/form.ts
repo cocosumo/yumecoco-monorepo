@@ -26,9 +26,9 @@ export const initialValues = {
 
   /* 担当 */
   store: '',
-  cocoAg: '',
-  yumeAg: '',
-  constAg: '',
+  cocoAG: '',
+  yumeAG: '',
+  cocoConst: '',
 
   /* 見積もり契約 */
   envelopeId: '',

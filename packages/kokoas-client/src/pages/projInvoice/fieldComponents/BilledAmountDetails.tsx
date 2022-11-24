@@ -1,7 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
-import { ConfirmDialogV2 } from 'kokoas-client/src/components/ui/dialogs/ConfirmDialogV2';
-import { useState } from 'react';
+import { useConfirmDialog } from 'kokoas-client/src/hooks';
 
 /**
  * 請求済み金額の詳細を表示するコンポーネント
@@ -14,29 +13,18 @@ export const BilledAmountDetails = ({
   invoices: DBInvoices.SavedData[] | undefined
 }) => {
 
-  const [open, setOpen] = useState(false);
+  const { setDialogState } = useConfirmDialog();
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
-    <>
-      <Button onClick={handleOpen}>
-        詳細
-      </Button>
-      <ConfirmDialogV2
-        open={open}
-        title={'請求済一覧'}
-        handleYes={handleClose}
-        withYes={true}
-        yesText={'閉じる'}
-        withNo={false}
-        content={invoices?.map(({ plannedPaymentDate, billingAmount, $id, projId }) => {
+    <Button onClick={() => {
+      setDialogState({
+        open: true,
+        title: '請求済一覧',
+        withYes: true,
+        yesText: '閉じる',
+        withNo: false,
+        content: invoices?.map(({ plannedPaymentDate, billingAmount, $id, projId }) => {
           return (
             <Stack
               direction={'row'}
@@ -45,14 +33,14 @@ export const BilledAmountDetails = ({
               justifyContent="space-around"
               key={`billedAmount_${projId.value}_${$id.value}`}
             >
-              <Typography variant='caption'>
+              <Typography variant='caption' sx={{ width: '60px' }}>
                 支払予定日
               </Typography>
-              <Typography>
+              <Typography sx={{ width: '80px' }}>
                 {plannedPaymentDate.value}
               </Typography>
 
-              <Typography variant='caption'>
+              <Typography variant='caption' sx={{ width: '60px' }}>
                 請求金額
               </Typography>
               <Typography>
@@ -60,8 +48,11 @@ export const BilledAmountDetails = ({
               </Typography>
             </Stack>
           );
-        })}
-      />
-    </>
+        }),
+      });
+    }}
+    >
+      詳細
+    </Button >
   );
 };

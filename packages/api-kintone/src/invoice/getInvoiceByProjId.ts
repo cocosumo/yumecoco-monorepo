@@ -1,5 +1,5 @@
 import { KProjestimates } from 'types';
-import { ktRecord } from '../client';
+import { getRecords } from '../common';
 import { appId, RecordType } from './config';
 
 export const getInvoiceByProjId = async (projId: string) => {
@@ -7,9 +7,8 @@ export const getInvoiceByProjId = async (projId: string) => {
 
   const projIdKey: KProjestimates = 'projId';
 
-  return (await ktRecord()).getRecords({
+  return getRecords<RecordType>({
     app: appId,
     query: `${projIdKey} = "${projId}"`,
-  })
-    .then(({ records }) => records as unknown as RecordType[]);
+  });
 };

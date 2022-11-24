@@ -94,11 +94,11 @@ isValidate = false,
   });
 
   /* 担当情報 */
-  const cocoAgIds = agents.value
+  const cocoAGIds = agents.value
     .filter(({ value: { agentType } }) => (
       (agentType.value as TAgents) === 'cocoAG'))
     .map(({ value: { employeeId } }) => employeeId.value );
-  const cocoAG = (await getEmployeesByIds(cocoAgIds))
+  const cocoAG = (await getEmployeesByIds(cocoAGIds))
     .records
     .map(({ 文字列＿氏名: empName, email: empEmail }) => ({
       name: empName.value,

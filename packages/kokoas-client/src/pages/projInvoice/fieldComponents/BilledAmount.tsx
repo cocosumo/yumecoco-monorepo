@@ -20,7 +20,6 @@ export const BilledAmount = ({
 }) => {
 
 
-
   return (
     <FormControl>
       <Stack direction={'row'}>

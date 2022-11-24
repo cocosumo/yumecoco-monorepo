@@ -37,7 +37,7 @@ export const useFilteredEmployees = ({
             affStores,
             affiliation,
             役職: empRole,
-            territory: _territory,
+            territory_v2: _territory,
           }) => {
 
             const isInStore = storeIds.some((s) => (mainStoreId_v2.value === s

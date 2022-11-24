@@ -17,22 +17,7 @@ describe('store migrate', () => {
       records: records.map((rec) => {
 
         const aff: Partial<IEmployees> = {
-          affStores: {
-            type: 'SUBTABLE',
-            value: rec.affiliateStores.value.map((refRow, idx) => {
-              const { value: { storeUUID } } = refRow;
-              
-              const thisRow = rec.affStores.value?.[idx]?.value;
-
-              return {
-                id: '',
-                value: {
-                  ...thisRow,
-                  affStoreId: { value: storeUUID.value },  
-                },
-              };
-            }),
-          },
+          mainStoreId_v2: rec.mainStore_v2,
         };
 
         console.log(aff);

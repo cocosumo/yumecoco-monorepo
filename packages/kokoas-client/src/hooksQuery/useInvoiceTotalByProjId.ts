@@ -6,12 +6,12 @@ export const useInvoiceTotalByProjId = (
 ) => {
   return useInvoicesByProjId(projId, {
     select: useCallback((data) => {
-      const totalInvoice = data.reduce((acc, cur) => {
+      const totalInvoice = data.records.reduce((acc, cur) => {
         return +acc + +cur.billingAmount.value;
       }, 0);
 
       return {
-        records: data,
+        records: data.records,
         totalInvoice: totalInvoice,
       };
     }, []),

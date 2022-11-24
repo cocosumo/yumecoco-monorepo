@@ -15,13 +15,16 @@ export const BilledAmount = ({
 }) => {
 
   const {
-    data: Invoices,
+    data: invoicesDatas,
     error,
     isFetching,
   } = useInvoiceTotalByProjId(projId);
 
-  const { records, totalInvoice } = Invoices || {};
-
+  const {
+    records,
+    totalInvoice,
+  } = invoicesDatas || {};
+  
 
   return (
     <FormControl>

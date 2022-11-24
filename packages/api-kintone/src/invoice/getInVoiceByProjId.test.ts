@@ -3,11 +3,11 @@ import { getInvoiceByProjId } from './getInvoiceByProjId';
 describe('invoice', () => {
   it('should get invoice by id', async () => {
 
-    const record = await getInvoiceByProjId('123');
+    const { records, totalCount } = await getInvoiceByProjId('123');
 
-    console.log('請求件数', record.length);
+    console.log('請求件数', totalCount);
 
-    expect(record).toEqual(
+    expect(records).toEqual(
       expect.arrayContaining(
         [
           expect.objectContaining({
@@ -19,5 +19,5 @@ describe('invoice', () => {
         ],
       ),
     );
-  }, 10000 );
+  }, 10000);
 });

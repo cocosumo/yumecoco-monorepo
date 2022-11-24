@@ -44,8 +44,8 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
             if (!mainCust) return acc;
           
-            const relProjects = recProjects?.filter(({ custGroupId }) => custGroupId.value === rec.$id.value  );
-            const relCustomers = recCustomers?.filter(({ $id }) => rec?.members?.value.some(({ value: { customerId } }) => customerId.value === $id.value )) || [];
+            const relProjects = recProjects?.filter(({ custGroupId }) => custGroupId.value === rec.uuid.value  );
+            const relCustomers = recCustomers?.filter(({ uuid }) => rec?.members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
             const relEstimates = recEstimates?.filter(({ custGroupId }) =>  custGroupId.value === rec.$id.value);
             const relContracts = relEstimates?.filter(({ envStatus }) => (envStatus.value as TEnvelopeStatus) === 'completed' );
   
@@ -86,7 +86,7 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             )) {
 
               acc.push({  
-                '顧客ID': +(rec.$id?.value ?? 0),
+                '顧客ID': +(rec.uuid?.value ?? 0),
                 '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',
                 '案件数': (numOfProjects).toString(),
                 '領域・店舗': [rec.territory?.value, rec.storeName?.value].filter(Boolean).join(' - '),

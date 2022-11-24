@@ -14,8 +14,8 @@ export const useStoreOptions = (filter?: {
 
       return true;
     })
-    ?.map(({ $id, 店舗名, territory }) => ({
-      value: $id?.value as string || '',
+    ?.map(({ uuid, 店舗名, territory }) => ({
+      value: uuid?.value as string || '',
       label: 店舗名?.value as string || '',
       secondaryLabel: territory.value,
       hiddenValue: territory.value as string,

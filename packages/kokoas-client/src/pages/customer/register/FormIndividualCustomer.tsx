@@ -22,12 +22,14 @@ export const FormIndividualCustomer  = () => {
     touched,
     submitForm,
     submitCount,
-    values : {
-      id: custGroupId,
-      isDeleted,
-    },
+    values,
   } = useFormikContext<CustomerForm>();
 
+  const {
+    id: custGroupId,
+    isDeleted,
+  } = values;
+  
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{
@@ -38,6 +40,7 @@ export const FormIndividualCustomer  = () => {
   }, [isSubmitting]);
 
 
+  console.log(values);
   const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount);
 
   return (

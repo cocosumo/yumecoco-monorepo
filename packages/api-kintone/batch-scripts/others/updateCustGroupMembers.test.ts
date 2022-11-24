@@ -15,10 +15,10 @@ describe('updateCustGroupAgents', () => {
     const result = await ktr.updateAllRecords({
       app: AppIds.custGroups,
       records: custGroups.map((rec) => {
-        const prevRow = rec.members_0.value;
+        const prevRow = rec.members.value;
 
         const newRec : Partial<ICustgroups> = {
-          members_0: {
+          members: {
             type: 'SUBTABLE',
             value: rec.members.value.map((row, idx) => {
               return {
@@ -26,7 +26,7 @@ describe('updateCustGroupAgents', () => {
                 value: {
                   ...prevRow?.[idx]?.value,
                   custId: {
-                    value: row.value.memberUUID.value,
+                    value: row.value.custId.value,
                   },
                 },
               };

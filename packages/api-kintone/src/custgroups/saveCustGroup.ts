@@ -36,7 +36,7 @@ export const saveCustGroup = async (
 
 
   /** Save customer records to db.customers and retrieve customer ids */
-  const customerIds = await saveCustomers({ records: customerRecords });
+  const custIds = await saveCustomers({ records: customerRecords });
 
   /**
    * Populate db.custGroup.members with the customerIds
@@ -46,16 +46,15 @@ export const saveCustGroup = async (
    * */
   aggRecord.members = {
     type: 'SUBTABLE',
-    value: customerIds.map(({ id }) => {
+    value: custIds.map((custId) => {
       return {
         id: '', // this is auto-populated
         value: {
-          customerId: { value: id },
           postal: { value: 'auto' },
           address1: { value: 'auto' },
           address2: { value: 'auto' },
           customerName: { value: 'auto' },
-          custId: {}
+          custId: { value: custId || '' },
         },
       };
     }),

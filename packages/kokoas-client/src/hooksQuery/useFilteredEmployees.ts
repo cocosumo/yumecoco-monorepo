@@ -33,17 +33,17 @@ export const useFilteredEmployees = ({
 
         return data
           .filter(({
-            mainStoreId,
-            affiliateStores,
+            mainStoreId_v2,
+            affStores,
             affiliation,
             役職: empRole,
             territory: _territory,
           }) => {
 
-            const isInStore = storeIds.some((s) => (mainStoreId.value === s
-              || affiliateStores
+            const isInStore = storeIds.some((s) => (mainStoreId_v2.value === s
+              || affStores
                 .value
-                .some(({ value: { storeId: _storeId } }) => _storeId.value === s )
+                .some(({ value: { affStoreId: _storeId } }) => _storeId.value === s )
             )); 
 
             const isAffiliated = !affiliations.length || affiliations.includes(affiliation.value);

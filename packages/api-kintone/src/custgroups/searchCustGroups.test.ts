@@ -1,18 +1,5 @@
-import { ICustgroups, KCustGroupAgents, KCustGroupMembers, TAgents } from 'types';
+import { ICustgroups, KCustGroupAgents, TAgents } from 'types';
 import { searchCustGroups } from './searchCustGroups';
-
-const membersContain = (
-  members: ICustgroups['members'],
-  fields: KCustGroupMembers[],
-  value: string,
-) => {
-  return (
-    members.value
-      .some(({ value: row }) => fields
-        .some(fieldKey => row[fieldKey].value.includes(value)),
-      )
-  );
-};
 
 const agentContains = (
   agents: ICustgroups['agents'],
@@ -44,10 +31,9 @@ const toContain = (
   return (
     storeName.value.includes(easySearch)
     || groupMembers
-      .some(({ value: { customerName, dump } }) => {
+      .some(({ value: { customerName } }) => {
         return (
           customerName.value.includes(easySearch)
-          || dump.value.includes(easySearch)
         );
       } )
     || groupAgents.some(({ value: { employeeName, email } }) => {
@@ -87,23 +73,6 @@ describe('mainSearch', ()=>{
       expect(
         result
           .every(({ storeName }) => storeName.value.includes(param.storeName || '')),
-      )
-        .toBe(true);
-    }
-  });
-
-  it('should return records matching custEmail', async () => {
-    const testParams : Parameters<typeof searchCustGroups>[number][] = [
-      { custEmail: 'gmail' },
-    ];
-
-    for (const param of testParams) {
-      const result = await searchCustGroups(param);
-
-      expect(
-        result
-          .every(({ members }) => membersContain(members, ['dump'], param.custEmail || '')),
-
       )
         .toBe(true);
     }

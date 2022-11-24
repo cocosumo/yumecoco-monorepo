@@ -1,6 +1,7 @@
 /* Prepare field called uuid */
 
 import { getAllRecords } from 'api-kintone';
+import { getBasicKintoneAuth } from 'api-kintone/src/@auth/getBasicKintoneAuth';
 import { format } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
@@ -14,7 +15,7 @@ describe('generateUUID', () => {
   const app  = '19';
 
   it('shoud generate uuid', async () => {
-    const records = await getAllRecords<{ uuid: { value: string } }>({
+    const records = getAllRecords<{ uuid: { value: string } }>({
       app,
     });
 
@@ -35,7 +36,7 @@ describe('generateUUID', () => {
       return prev;
     } );
 
-    console.log(newRecords);
+
 
     expect(newRecords.every((v) => !!v.uuid.value)).toEqual(true);
   });

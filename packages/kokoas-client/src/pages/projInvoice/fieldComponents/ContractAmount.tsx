@@ -3,6 +3,11 @@ import { useEstimatesByProjId } from '../../../hooksQuery/useEstimatesByProjId';
 import { TypeOfForm } from '../form';
 import { useContractAmount } from '../hooks/useContractAmount';
 
+/**
+ * 契約金額コンポーネント
+ * @param values :フォームの値 
+ * @returns 
+ */
 export const ContractAmount = ({
   values,
 }: {
@@ -14,15 +19,15 @@ export const ContractAmount = ({
     error,
     isFetching,
   } = useEstimatesByProjId(projId);
-    
-  const amount = useContractAmount(projId);
+
+  const { contractAmount: amount } = useContractAmount(projId);
 
 
   return (
     <FormControl>
       <Stack direction={'row'}>
-        <FormLabel>
-          契約金額(税込) &emsp;
+        <FormLabel sx={{ width: '120px' }}>
+          契約金額(税込)
         </FormLabel>
         {!error && !isFetching && !!amount && <Typography>
           {`${Math.round(amount).toLocaleString()} 円`}

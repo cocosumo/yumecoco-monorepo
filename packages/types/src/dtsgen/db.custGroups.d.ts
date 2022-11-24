@@ -10,19 +10,6 @@ declare namespace DBCustgroups {
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    members_0: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          address1_0: kintone.fieldTypes.SingleLineText;
-          address2_0: kintone.fieldTypes.SingleLineText;
-          custId: kintone.fieldTypes.SingleLineText;
-          postal_0: kintone.fieldTypes.SingleLineText;
-          customerName_0: kintone.fieldTypes.SingleLineText;
-        };
-      }>;
-    };
     agents: {
       type: "SUBTABLE";
       value: Array<{
@@ -42,12 +29,7 @@ declare namespace DBCustgroups {
         value: {
           address2: kintone.fieldTypes.SingleLineText;
           address1: kintone.fieldTypes.SingleLineText;
-<<<<<<< Updated upstream
-          customerId: kintone.fieldTypes.Number;
-          memberUUID: kintone.fieldTypes.SingleLineText;
-=======
           custId: kintone.fieldTypes.SingleLineText;
->>>>>>> Stashed changes
           postal: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
         };

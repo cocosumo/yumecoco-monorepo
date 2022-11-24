@@ -2,13 +2,8 @@ declare namespace DBCustmemos {
   interface Data {
     memoType: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
-<<<<<<< Updated upstream
-    recordId: kintone.fieldTypes.Number;
-    contents: kintone.fieldTypes.MultiLineText;
-=======
     contents: kintone.fieldTypes.MultiLineText;
     custGroupId: kintone.fieldTypes.SingleLineText;
->>>>>>> Stashed changes
 
     notifyTo: kintone.fieldTypes.UserSelect;
   }

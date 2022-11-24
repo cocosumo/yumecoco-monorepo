@@ -18,6 +18,9 @@ export const useSaveCustGroup = () => {
         queryClient.invalidateQueries({ queryKey: [AppIds.customers] });
 
       },
+      onError: ((err) => {
+        console.log(JSON.stringify(err, null, 2));
+      }),
     },
   );
 };

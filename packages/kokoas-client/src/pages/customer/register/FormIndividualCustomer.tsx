@@ -7,7 +7,7 @@ import { Agents } from './parts/Agents';
 import { FabSave } from '../../../components/ui/fabs/FabSave';
 import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
-import { CustomerForm } from './form';
+import { TypeOfForm } from './form';
 import { CustGroupShortcuts } from  './parts/CustGroupShortcuts';
 import { useSnackBar } from '../../../hooks';
 import { CustomerStatus } from './parts/CustomerStatus';
@@ -23,13 +23,13 @@ export const FormIndividualCustomer  = () => {
     submitForm,
     submitCount,
     values,
-  } = useFormikContext<CustomerForm>();
+  } = useFormikContext<TypeOfForm>();
 
   const {
     id: custGroupId,
     isDeleted,
   } = values;
-  
+
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{

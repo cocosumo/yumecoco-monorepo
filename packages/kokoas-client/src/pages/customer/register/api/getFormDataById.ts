@@ -1,11 +1,11 @@
 import { getCustGroupById, getCustomersByIds } from 'api-kintone';
-import { CustomerForm } from '../form';
+import { TypeOfForm } from '../form';
 import { nativeMath, string as randomStr } from 'random-js';
 import { ICustomers } from 'types';
 
 
 
-export const getFormDataById = async (id: string): Promise<CustomerForm> => {
+export const getFormDataById = async (id: string): Promise<TypeOfForm> => {
 
   /* Get main record */
   const {

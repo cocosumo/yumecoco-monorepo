@@ -1,6 +1,7 @@
 import { ktRecord } from './../client';
 import { VAppIds } from 'config';
 import { KtRecordParam } from 'types';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * 顧客グループのレコードを保存する。
@@ -66,9 +67,19 @@ export const saveRecord = async (
 
   } else {
     /* ADD */
-    return KintoneRecord.addRecord({
+    const newId = uuidv4();
+
+    const result = await KintoneRecord.addRecord({
       app: app,
-      record: record,
+      record:  {
+        ...record,
+        uuid: { value: newId },
+      },
     });
+    
+    return {
+      ...result,
+      id: newId,
+    };
   }
 };

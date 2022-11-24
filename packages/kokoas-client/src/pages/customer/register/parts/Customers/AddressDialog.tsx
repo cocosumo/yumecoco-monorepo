@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, startTransition } from 'react';
 import { getPrefectures, getCities, getTowns, GetTownsResponseLocation, GetCitiesRespLocation } from '../../../../../api/others/address';
 import { getKanaRow } from '../../../../../helpers/utils';
 import { usePrefectureArea } from '../../../../../hooks/usePrefectureArea';
-import { CustomerForm } from '../../form';
+import { TypeOfForm } from '../../form';
 import { SimpleChoices, SortedCities, SortedTowns } from './AddressDialogParts/';
 
 
@@ -40,7 +40,7 @@ export const AddressDialog = (props: {
   address1FN: string,
   handleClose: ()=>void
 }) => {
-  const { setFieldValue } = useFormikContext<CustomerForm>();
+  const { setFieldValue } = useFormikContext<TypeOfForm>();
   const { areas } = usePrefectureArea();
   const [prefectures, setPrefectures] = useState<string[]>([]);
   const [cities, setCities] = useState<GetCitiesRespLocation>([]);

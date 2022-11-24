@@ -30,7 +30,6 @@ export const initialCustomerValue = {
  */
 export const initialValues = {
   id: '' as undefined | string,
-
   revision: '',
   store: '',
   cocoAG1: '',
@@ -43,8 +42,8 @@ export const initialValues = {
 
 
 
-export type CustomerForm = typeof initialValues;
-export type CustomerFormKeys = keyof CustomerForm;
+export type TypeOfForm = typeof initialValues;
+export type KeyOfForm = keyof TypeOfForm;
 export type CustomerInstance = typeof initialCustomerValue;
 export type  CustomerInstanceKeys = (keyof CustomerInstance);
 
@@ -104,9 +103,9 @@ export const validationSchema =  Yup.object().shape(
 
         } as Partial<Record<CustomerInstanceKeys, any>>),
       ),
-  } as Partial<Record<CustomerFormKeys, any>>,
+  } as Partial<Record<KeyOfForm, any>>,
 );
 
 
 export const getCustFieldName = (fieldName : CustomerInstanceKeys) => fieldName;
-export const getFieldName = (fieldName: CustomerFormKeys) => fieldName;
+export const getFieldName = (fieldName: KeyOfForm) => fieldName;

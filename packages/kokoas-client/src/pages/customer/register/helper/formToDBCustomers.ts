@@ -1,7 +1,7 @@
 import { ICustomers } from 'types';
-import { CustomerForm } from '../form';
+import { TypeOfForm } from '../form';
 
-export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustomers>>  => {
+export const formToDBCustomers = (formData: TypeOfForm): Array<Partial<ICustomers>>  => {
   const {
     customers,
   } = formData;

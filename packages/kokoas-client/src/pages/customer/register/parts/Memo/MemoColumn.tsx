@@ -1,17 +1,17 @@
-import { Grid, Button, Stack, Pagination } from '@mui/material';
+import { Grid, Button, Pagination } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import AddIcon from '@mui/icons-material/Add';
 import { MemoList } from './MemoList';
 import { useContext, useEffect, useState } from 'react';
 import { MemoContext } from './memoForm/MemoContext';
 import { useFormikContext } from 'formik';
-import { CustomerForm } from '../../form';
+import { TypeOfForm } from '../../form';
 import { MemoColumnContainer } from './MemoColumnContainer';
 
 const maxItems = 6;
 
 export const MemoColumn = () => {
-  const { values } = useFormikContext<CustomerForm>();
+  const { values } = useFormikContext<TypeOfForm>();
   const { id, customers: [mainCust] } = values;
   const { handleOpen, memoList } = useContext(MemoContext)!;
   const [pageNum, setPageNum] = useState(1);

@@ -73,12 +73,17 @@ export const saveCustGroup = async (
     value: getAgentNames(record, 'yumeAG'),
   };
 
-
-  return saveRecord({
+  const result = await saveRecord({
     app: appId,
     recordId: custGroupId,
     record: aggRecord,
     revision: revision,
-    updateRelatedFn: custGroupId ? () => updateRelatedToCustGroup(record, custGroupId) : undefined,
   });
+
+  if (result.id) {
+    await updateRelatedToCustGroup(record, result.id);
+  }
+  
+
+  return result;
 };

@@ -39,12 +39,16 @@ export const FormInvoice = () => {
 
   useResolveParams();
 
-  /* useEffect(() => {
-    setValues({
-      ...values,
-      billingAmount: String(billingBalance),
-    });
-  }, [billingBalance]); */
+  /*   const [, , helpers] = useFieldFast('billingAmount');
+  const {
+    setValue,
+  } = helpers;
+
+  const { billingBalance } = useContractAmount(projId);
+
+  useEffect(() => {
+    setValue(billingBalance);
+  }, [billingBalance, setValue]); */
 
 
   useEffect(() => {

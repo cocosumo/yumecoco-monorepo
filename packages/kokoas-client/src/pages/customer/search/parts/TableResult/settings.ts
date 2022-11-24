@@ -1,6 +1,6 @@
 
 export interface ISearchData {
-  '顧客ID': number,
+  '顧客ID': string,
   '顧客種別': string,
   '案件数': string,
   '顧客氏名・会社名': string,

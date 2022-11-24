@@ -86,7 +86,7 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             )) {
 
               acc.push({  
-                '顧客ID': +(rec.uuid?.value ?? 0),
+                '顧客ID': rec?.uuid?.value,
                 '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',
                 '案件数': (numOfProjects).toString(),
                 '領域・店舗': [rec.territory?.value, rec.storeName?.value].filter(Boolean).join(' - '),

@@ -1,4 +1,3 @@
-export * from './CustType';
 export * from './Fields';
 export * from './GridDivider';
 export * from './KeywordSearch';

@@ -5,4 +5,5 @@ export const useStoreOptions = () => useStores<Options>(
     value: $id?.value as string || '',
     label: 店舗名?.value as string || '',
     secondaryLabel: territory.value as string,
-  })));
+  })),
+);

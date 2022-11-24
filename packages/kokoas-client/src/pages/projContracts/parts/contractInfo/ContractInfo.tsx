@@ -13,7 +13,7 @@ export const ContractInfo = () => {
     projId,
     projName,
     custName, custAddress, store,
-    cocoAg, yumeAg, constAg,
+    cocoAG, yumeAG, cocoConst,
     projAddress,
   } } = useFormikContext<TypeOfForm>();
 
@@ -37,11 +37,11 @@ export const ContractInfo = () => {
         <LabeledInfo label={'現住所'} info={custAddress} />
       </Grid>
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'ここすも営業担当者'} info={cocoAg} />
+        <LabeledInfo label={'ここすも営業担当者'} info={cocoAG} />
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'ゆめてつAG'} info={yumeAg} />
+        <LabeledInfo label={'ゆめてつAG'} info={yumeAG} />
       </Grid>
 
       <Grid item xs={12} >
@@ -59,7 +59,7 @@ export const ContractInfo = () => {
       </Grid>
 
       <Grid item xs={12} md={6}>
-        <LabeledInfo label={'工事担当者'} info={constAg} />
+        <LabeledInfo label={'工事担当者'} info={cocoConst} />
       </Grid>
 
       <Grid item xs={12} md={6}>

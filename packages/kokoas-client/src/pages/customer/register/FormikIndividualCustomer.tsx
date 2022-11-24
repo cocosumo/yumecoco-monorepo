@@ -24,7 +24,6 @@ export const FormikIndividualCustomer = () => {
     initialState,
     passedProjId, 
   } = useResolveParam();
-  //const [initialState, setInitialState] = useState<CustomerForm>(initialValues);
 
   const navigate = useNavigate();
 

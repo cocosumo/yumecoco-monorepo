@@ -51,13 +51,17 @@ export const saveCustomers = async (
     records: oldCusts
       .map(cust => {
         if (!cust?.uuid?.value) throw new Error('Invalid cust id during update.');
+        const {
+          uuid,
+          ...recordToUpdate
+        } = cust;
 
         return  {
           updateKey: {
             field: 'uuid',
-            value: cust.uuid.value,
+            value: uuid.value,
           },
-          record: cust,
+          record: recordToUpdate,
         };
       }),
   });

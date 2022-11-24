@@ -28,6 +28,8 @@ export const formToDBCustomers = (formData: TypeOfForm): Array<Partial<ICustomer
         emailRel: isSameAddress ? '' : emailRel,
       };
 
+      console.log(isSameAddress, (index === 0 ? 0 : +isSameAddress).toString());
+
 
       return {
         uuid: { value: custId },

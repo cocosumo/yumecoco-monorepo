@@ -1,6 +1,8 @@
 import { ktRecord } from './../client';
 import { VAppIds } from 'config';
 import { KtRecordParam } from 'types';
+import { UpdateKey } from '@kintone/rest-api-client/lib/client/types';
+import { v4 as uuidV4 } from 'uuid';
 
 /**
  * 顧客グループのレコードを保存する。
@@ -16,10 +18,10 @@ import { KtRecordParam } from 'types';
  * @link レコードの登録（POST） https://developer.cybozu.io/hc/ja/articles/202166160
  * @returns Object containing id and revision.
  */
-export const saveRecord = async (
+export const saveRecordByUpdateKey = async (
   params: {
     app: VAppIds,
-    recordId?: string,
+    updateKey: UpdateKey,
     record?: KtRecordParam<'updateRecord'>['record'],
     revision?: string,
     updateRelatedFn?: () => Promise<{
@@ -39,7 +41,7 @@ export const saveRecord = async (
   const KintoneRecord = await ktRecord();
 
   const {
-    recordId,
+    updateKey,
     app,
     record,
     revision,
@@ -48,11 +50,11 @@ export const saveRecord = async (
 
 
   /** The actual saving process */
-  if (recordId) {
+  if (updateKey.value) {
     /* UPDATE */
     const result = await KintoneRecord.updateRecord({
       app: app,
-      id: recordId,
+      updateKey,
       record: record,
       revision,
     });
@@ -61,18 +63,24 @@ export const saveRecord = async (
 
     return {
       ...result,
-      id: recordId,
+      id: updateKey.value as string,
     };
 
   } else {
     /* ADD */
 
+    const newId = uuidV4();
 
     const result = await KintoneRecord.addRecord({
       app: app,
-      record: record,
+      record: { 
+        ...record, 
+        uuid: { value: newId } },
     });
     
-    return result;
+    return {
+      ...result,
+      id: newId,
+    };
   }
 };

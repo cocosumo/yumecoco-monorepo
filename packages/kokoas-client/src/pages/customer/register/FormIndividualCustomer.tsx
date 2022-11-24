@@ -23,6 +23,7 @@ export const FormIndividualCustomer  = () => {
     submitForm,
     submitCount,
     values,
+    dirty,
   } = useFormikContext<TypeOfForm>();
 
   const {
@@ -33,14 +34,12 @@ export const FormIndividualCustomer  = () => {
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{
-    if (!isValid && !isSubmitting) {
+    if (!isValid && !isSubmitting && dirty) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
 
-  }, [isSubmitting]);
+  }, [isSubmitting, isValid, dirty, setSnackState]);
 
-
-  console.log(values);
   const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount);
 
   return (

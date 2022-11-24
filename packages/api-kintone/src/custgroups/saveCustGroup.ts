@@ -5,6 +5,7 @@ import { saveCustomers } from '../customers/saveCustomers';
 
 import { getAgentNames } from './getAgentNames';
 import { updateRelatedToCustGroup } from './updateRelatedToCustGroup';
+import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 
 /**
  * custGroupを保存する処理
@@ -38,6 +39,7 @@ export const saveCustGroup = async (
   /** Save customer records to db.customers and retrieve customer ids */
   const custIds = await saveCustomers({ records: customerRecords });
 
+
   /**
    * Populate db.custGroup.members with the customerIds
    *
@@ -46,7 +48,7 @@ export const saveCustGroup = async (
    * */
   aggRecord.members = {
     type: 'SUBTABLE',
-    value: custIds.map((custId) => {
+    value: custIds?.map((custId) => {
       return {
         id: '', // this is auto-populated
         value: {
@@ -73,15 +75,19 @@ export const saveCustGroup = async (
     value: getAgentNames(record, 'yumeAG'),
   };
 
-  const result = await saveRecord({
+
+  const result = await saveRecordByUpdateKey({
     app: appId,
-    recordId: custGroupId,
+    updateKey: {
+      field: 'uuid',
+      value: custGroupId || '',
+    },
     record: aggRecord,
     revision: revision,
   });
 
   if (result.id) {
-    await updateRelatedToCustGroup(record, result.id);
+    //await updateRelatedToCustGroup(record, result.id);
   }
   
 

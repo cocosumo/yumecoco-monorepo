@@ -7,7 +7,7 @@ export const formToDBCustGroup = (
 ): Partial<ICustgroups> => {
 
   const getEmpNameById = (id: string) => employees
-    .find(({ $id }) => $id.value === id)?.文字列＿氏名.value || '';
+    .find(({ uuid }) => uuid.value === id)?.文字列＿氏名.value || '';
 
 
   const {
@@ -35,7 +35,7 @@ export const formToDBCustGroup = (
 
 
   return {
-    isDeleted: { value: isDeleted },
+    isDeleted: { value: (+isDeleted).toString() },
     storeId: { value: store },
     agents: {
       type: 'SUBTABLE',

@@ -10,15 +10,16 @@ declare namespace DBCustgroups {
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    agents_0: {
+    members_0: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          email_0: kintone.fieldTypes.SingleLineText;
-          employeeName_0: kintone.fieldTypes.SingleLineText;
-          employeeId_0: kintone.fieldTypes.SingleLineText;
-          agentType_0: kintone.fieldTypes.SingleLineText;
+          address1_0: kintone.fieldTypes.SingleLineText;
+          address2_0: kintone.fieldTypes.SingleLineText;
+          custId: kintone.fieldTypes.SingleLineText;
+          postal_0: kintone.fieldTypes.SingleLineText;
+          customerName_0: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
@@ -28,9 +29,8 @@ declare namespace DBCustgroups {
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
-          empId: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
-          employeeId: kintone.fieldTypes.Number;
+          employeeId: kintone.fieldTypes.SingleLineText;
           email: kintone.fieldTypes.SingleLineText;
         };
       }>;
@@ -43,6 +43,7 @@ declare namespace DBCustgroups {
           address2: kintone.fieldTypes.SingleLineText;
           address1: kintone.fieldTypes.SingleLineText;
           customerId: kintone.fieldTypes.Number;
+          memberUUID: kintone.fieldTypes.SingleLineText;
           postal: kintone.fieldTypes.SingleLineText;
           dump: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;

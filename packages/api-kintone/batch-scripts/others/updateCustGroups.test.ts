@@ -3,10 +3,9 @@ import { AppIds } from 'config';
 import { ICustgroups, KCustgroups } from 'types';
 import { KintoneClientBasicAuth } from '../settings';
 
-/* */
-describe('updateCustGroupAgents', () => {
+describe('updateCustGroup', () => {
   const ktr = KintoneClientBasicAuth.record;
-  it('should fix', async () => {
+  it('should fix agents', async () => {
 
     const custGroups = await getAllCustGroups();
 
@@ -15,21 +14,8 @@ describe('updateCustGroupAgents', () => {
     const result = await ktr.updateAllRecords({
       app: AppIds.custGroups,
       records: custGroups.map((rec) => {
-        const prevRow = rec.agents_0.value;
         const newRec : Partial<ICustgroups> = {
-          agents_0: {
-            type: 'SUBTABLE',
-            value: rec.agents.value.map((row, idx) => {
-              return {
-                id: '',
-                value: {
-                  ...prevRow?.[idx]?.value,
-                  agentType_0: { value: row.value.agentType.value },
-                  employeeId_0: { value: row.value.empId.value },
-                },
-              };
-            }),
-          },
+          members: rec.members,
         };
 
         return {

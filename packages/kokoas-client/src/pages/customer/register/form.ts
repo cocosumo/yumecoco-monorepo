@@ -4,7 +4,7 @@ import { phoneRegExp, postalRegExp } from '../../../helpers/yupValidator';
 
 export const initialCustomerValue = {
   key: randomStr()(nativeMath, 5),
-  id: '',
+  custId: '',
   index: 0,
   revision: '',
   custName: '',

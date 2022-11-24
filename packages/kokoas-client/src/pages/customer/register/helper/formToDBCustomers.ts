@@ -8,7 +8,7 @@ export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustom
 
   return customers
     .map(({
-      id,
+      custId,
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
       postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
       email, emailRel, isSameAddress,
@@ -30,10 +30,7 @@ export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustom
 
 
       return {
-        $id: {
-          type: '__ID__',
-          value: id,
-        },
+        uuid: { value: custId },
         index: { value: index.toString() },
         fullName: { value: custName },
         fullNameReading: { value: custNameReading },

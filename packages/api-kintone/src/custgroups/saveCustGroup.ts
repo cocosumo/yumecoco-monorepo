@@ -46,7 +46,7 @@ export const saveCustGroup = async (
    * */
   aggRecord.members = {
     type: 'SUBTABLE',
-    value: customerIds.map(({ id }, idx) => {
+    value: customerIds.map(({ id }) => {
       return {
         id: '', // this is auto-populated
         value: {
@@ -55,7 +55,7 @@ export const saveCustGroup = async (
           address1: { value: 'auto' },
           address2: { value: 'auto' },
           customerName: { value: 'auto' },
-          dump: { value: JSON.stringify(customerRecords[idx]) },
+          custId: {}
         },
       };
     }),

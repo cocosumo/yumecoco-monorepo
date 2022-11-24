@@ -42,10 +42,13 @@ declare namespace DBCustgroups {
         value: {
           address2: kintone.fieldTypes.SingleLineText;
           address1: kintone.fieldTypes.SingleLineText;
+<<<<<<< Updated upstream
           customerId: kintone.fieldTypes.Number;
           memberUUID: kintone.fieldTypes.SingleLineText;
+=======
+          custId: kintone.fieldTypes.SingleLineText;
+>>>>>>> Stashed changes
           postal: kintone.fieldTypes.SingleLineText;
-          dump: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
         };
       }>;

@@ -3,7 +3,7 @@ import { getCustomersByIds } from './getCustomersByIds';
 
 
 describe('getCustomersByIds', () => {
-  const testIds = ['116', '117', '118']; // 存在している顧客番号配列
+  const testIds = ['e70f79e3-365f-4cee-be4c-969dffbd872b']; // 存在している顧客番号配列
   let result: RecordType[]; 
 
   beforeAll(async () => {

@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { MemoContext } from './memoForm/MemoContext';
 import { useFormikContext } from 'formik';
 import { CustomerForm } from '../../form';
+import { MemoColumnContainer } from './MemoColumnContainer';
 
 const maxItems = 6;
 
@@ -27,46 +28,40 @@ export const MemoColumn = () => {
   }, [pageNum, memoList]);
 
   return (
-    <Grid item xs={12} lg={6}
-      xl={6}
-    >
-      <Stack spacing={2} direction={'column'}>
+    <MemoColumnContainer>
 
-        <Grid container item xs={12}
-          spacing={2}
-        >
-          <PageSubTitle label={'メモ'} xs={7} />
-          <Grid item xs={5}>
-            <Button
-              variant="outlined" startIcon={<AddIcon />}
-              fullWidth onClick={
+      <Grid container item xs={12}
+        spacing={2}
+      >
+        <PageSubTitle label={'メモ'} xs={7} />
+        <Grid item xs={5}>
+          <Button
+            variant="outlined" startIcon={<AddIcon />}
+            fullWidth onClick={
             ()=> handleOpen({
-              recordId: id!,
+              custGroupId: id || '',
               custName: mainCust.custName,
 
             })
           }
-            >
-              追加
-            </Button>
-          </Grid>
+          >
+            追加
+          </Button>
         </Grid>
-        {pageCount > 0 &&
-          <Pagination
-            count={pageCount}
-            onChange={handleMemoPageChange}
-            variant="outlined"
-            siblingCount={0}
-            boundaryCount={1}
-            size={'small'}
-          />}
+      </Grid>
+      {pageCount > 0 &&
+      <Pagination
+        count={pageCount}
+        onChange={handleMemoPageChange}
+        variant="outlined"
+        siblingCount={0}
+        boundaryCount={1}
+        size={'small'}
+      />}
 
-        <MemoList memos={memosInPage ?? []} custName={mainCust.custName} recordId={id!} />
+      <MemoList memos={memosInPage ?? []} custName={mainCust.custName} custGroupId={id || ''} />
 
-      </Stack>
-    </Grid>
-
-
+    </MemoColumnContainer>
 
   );
 };

@@ -1,5 +1,9 @@
 import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
 
+/**
+ * 請求残高コンポーネント
+ * @returns 
+ */
 export const BillingBalance = () => {
 
   const billingBalance = 'xxx,xxx'; // 請求残高の算出処理の実装箇所

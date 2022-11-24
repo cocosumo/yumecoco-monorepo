@@ -4,6 +4,10 @@ import { LabeledCheckBox } from '../../../components/ui/checkboxes';
 import { FormikDatePicker } from '../../../components/ui/datetimepickers';
 import { getFieldName } from '../form';
 
+/**
+ * 支払い予定日コンポーネント
+ * @returns 
+ */
 export const PlannedPaymentDate = () => {
   const [pendingChk, setPendingChk] = useState(false);
 

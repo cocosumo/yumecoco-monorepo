@@ -2,6 +2,7 @@ declare namespace DBMaterialsmajor {
   interface Data {
     備考: kintone.fieldTypes.SingleLineText;
     大項目名: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

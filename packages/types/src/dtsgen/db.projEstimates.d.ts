@@ -7,6 +7,7 @@ declare namespace DBProjestimates {
     hasRefund: kintone.fieldTypes.Number;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     税: kintone.fieldTypes.Number;
     completeDate: kintone.fieldTypes.Date;
     payDestination: kintone.fieldTypes.SingleLineText;

@@ -57,3 +57,5 @@ coverage
 *.xls*
 *.TTF
 *auth.json
+
+**/backup/**/*

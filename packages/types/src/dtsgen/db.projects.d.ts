@@ -33,6 +33,7 @@ declare namespace DBProjects {
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;
+
     envDocFileKeys: kintone.fieldTypes.File;
     agents: {
       type: "SUBTABLE";
@@ -45,7 +46,6 @@ declare namespace DBProjects {
         };
       }>;
     };
-
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

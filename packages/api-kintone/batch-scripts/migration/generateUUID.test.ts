@@ -1,21 +1,21 @@
 /* Prepare field called uuid */
 
-import { getAllRecords } from 'api-kintone';
-import { getBasicKintoneAuth } from 'api-kintone/src/@auth/getBasicKintoneAuth';
+
 import { format } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { KintoneClientBasicAuth } from '../settings';
 
 
 /**
  * テストじゃなく、独立出来るスクリプトに移行します。
  */
 describe('generateUUID', () => {
-  const app  = '19';
-
+  const app  = '34';
+  const ktr = KintoneClientBasicAuth.record;
   it('shoud generate uuid', async () => {
-    const records = getAllRecords<{ uuid: { value: string } }>({
+    const records = await ktr.getAllRecords({
       app,
     });
 
@@ -25,18 +25,30 @@ describe('generateUUID', () => {
     const filename = `${app}-${timestamp}.json`;
     fs.writeFileSync(path.join(__dirname, 'backup', filename), JSON.stringify(records, null, 2));
 
-    const newRecords = records.map((prev) => {
-      if (prev.uuid.value.length < 8) {
+
+    await ktr.updateAllRecords({
+      app,
+      records: records.map((prev) => {
+        const uuidFieldVal = prev?.uuid?.value;
+        if (typeof uuidFieldVal === 'string' && uuidFieldVal.length < 8 ) {
+          return {
+            id: prev.$id.value as string,
+            record: {
+              uuid: {
+                value: uuidv4(),
+              },
+            },
+          };
+        }
         return {
-          ...prev,
-          uuid: { value: uuidv4() },
+          id: '',
         };
-      }
+      } ).filter((newRec) => !!newRec?.record ),
+    }).catch(e => console.log(e));
 
-      return prev;
-    } );
-
-
+    const newRecords = await ktr.getAllRecords({
+      app,
+    });
 
     expect(newRecords.every((v) => !!v.uuid.value)).toEqual(true);
   });

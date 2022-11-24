@@ -6,6 +6,7 @@ declare namespace DBStores {
     idPrefix: kintone.fieldTypes.SingleLineText;
     freedial: kintone.fieldTypes.SingleLineText;
     店長: kintone.fieldTypes.Number;
+    uuid: kintone.fieldTypes.SingleLineText;
     Eメール: kintone.fieldTypes.SingleLineText;
     住所: kintone.fieldTypes.SingleLineText;
     店長名: kintone.fieldTypes.SingleLineText;

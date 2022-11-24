@@ -3,6 +3,7 @@ declare namespace DBProjtypes {
     description: kintone.fieldTypes.MultiLineText;
     label: kintone.fieldTypes.SingleLineText;
     profitRate: kintone.fieldTypes.Number;
+    数値_0: kintone.fieldTypes.Number;
     数値: kintone.fieldTypes.Number;
     projectName: kintone.fieldTypes.SingleLineText;
   }

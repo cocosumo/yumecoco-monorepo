@@ -12,6 +12,7 @@ declare namespace DBCustomers {
     birthMonth: kintone.fieldTypes.Number;
     nationality: kintone.fieldTypes.SingleLineText;
     birthYear: kintone.fieldTypes.Number;
+    id: kintone.fieldTypes.SingleLineText;
     contacts: {
       type: "SUBTABLE";
       value: Array<{

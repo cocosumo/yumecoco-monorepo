@@ -4,12 +4,14 @@ declare namespace DBInvoices {
     projId: kintone.fieldTypes.Number;
     billingAmount: kintone.fieldTypes.Number;
     plannedPaymentDate: kintone.fieldTypes.Date;
+    isPaid: kintone.fieldTypes.Number;
     estimateLists: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
           estimateId: kintone.fieldTypes.Number;
+          paymentType: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

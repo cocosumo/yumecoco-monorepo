@@ -16,15 +16,7 @@ export const FormikCustomerSearch = () => {
     data: rows, 
   } = useSearchResult(filter);
 
-  /*   useEffect(() => {
-    if (rows?.length) {
-      setSnackState({
-        open: true,
-        message: `検索結果： ${rows.length}件`,
-      });
-    }
-  }, [rows, setSnackState]);
- */
+  
   return (
     <Formik
       initialValues={initialValues}

@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { initialValues, TypeOfForm } from '../form';
 import { getParam } from 'kokoas-client/src/helpers/url';
 import { useCustGroupById, useCustomersByIds } from 'kokoas-client/src/hooksQuery';
-import { convertToForm } from '../api/convertToForm';
+import { convertToForm } from '../helper/convertToForm';
 
 export const useResolveParam = () => {
   const [initialState, setInitialState] = useState<TypeOfForm>(initialValues);

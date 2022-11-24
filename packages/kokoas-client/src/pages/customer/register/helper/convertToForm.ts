@@ -52,7 +52,7 @@ export const convertToForm = (
         revision: custRevision.value,
         custName: fullName.value,
         custNameReading: fullNameReading.value,
-        gender: gender.value,
+        gender: gender.value || '',
         birthYear: birthYear.value,
         birthMonth: birthMonth.value,
         birthDay: birthDay.value,

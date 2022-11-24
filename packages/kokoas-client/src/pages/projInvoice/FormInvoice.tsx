@@ -11,11 +11,12 @@ import { paymentLabels } from '../projContracts';
 import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
-import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield/FormikMoneyField';
 import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
+import { BillingAmount } from './fieldComponents/BillingAmount';
+import { BilledAmount } from './fieldComponents/BilledAmount';
 
 
 
@@ -26,6 +27,8 @@ export const FormInvoice = () => {
   const { projId, projName } = values;
 
   useResolveParams();
+
+
 
   return (
     <Form noValidate>
@@ -75,13 +78,16 @@ export const FormInvoice = () => {
         </Grid>
         <Grid item md={6} />
 
+        {/* 未請求額 */}
+        <Grid item xs={12} md={6}>
+          <BilledAmount projId={projId} />
+        </Grid>
+        <Grid item md={6} />
+
 
         {/* 請求金額 */}
         <Grid item xs={12} md={6}>
-          <FormikMoneyField
-            label='請求額'
-            name={getFieldName('billingAmount')}
-          />
+          <BillingAmount projId={projId} />
         </Grid>
         <Grid item md={6} />
 

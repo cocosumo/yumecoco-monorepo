@@ -5,6 +5,7 @@ declare namespace DBProjects {
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     envelopeId: kintone.fieldTypes.SingleLineText;
@@ -33,6 +34,7 @@ declare namespace DBProjects {
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;
+
     envDocFileKeys: kintone.fieldTypes.File;
     agents: {
       type: "SUBTABLE";
@@ -45,7 +47,6 @@ declare namespace DBProjects {
         };
       }>;
     };
-
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

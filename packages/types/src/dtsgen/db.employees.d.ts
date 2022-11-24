@@ -14,7 +14,7 @@ declare namespace DBEmployees {
     状態: kintone.fieldTypes.DropDown;
     氏名ふりがな: kintone.fieldTypes.SingleLineText;
     email: kintone.fieldTypes.SingleLineText;
-    mainStoreId_0: kintone.fieldTypes.SingleLineText;
+    mainStoreId_v2: kintone.fieldTypes.SingleLineText;
     mainStore_v2: kintone.fieldTypes.SingleLineText;
     所属チーム: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
@@ -31,6 +31,17 @@ declare namespace DBEmployees {
         };
       }>;
     };
+    affStores: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          affStoreName: kintone.fieldTypes.SingleLineText;
+          affStoreId: kintone.fieldTypes.SingleLineText;
+          affState: kintone.fieldTypes.RadioButton;
+        };
+      }>;
+    };
     affiliateStores: {
       type: "SUBTABLE";
       value: Array<{
@@ -40,17 +51,6 @@ declare namespace DBEmployees {
           storeName: kintone.fieldTypes.SingleLineText;
           storeId: kintone.fieldTypes.Number;
           affiliationState: kintone.fieldTypes.RadioButton;
-        };
-      }>;
-    };
-    affiliateStores_0: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          affiliationState_0: kintone.fieldTypes.RadioButton;
-          storeName_0: kintone.fieldTypes.SingleLineText;
-          ルックアップ: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

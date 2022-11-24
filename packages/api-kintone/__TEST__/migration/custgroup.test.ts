@@ -17,6 +17,8 @@ describe('custGroup migration', () => {
     devFormFields = (await getFormFields({
       app: devAppId,
     })).properties;
+
+
   });
 
   it('should have different app ids', () => {
@@ -24,7 +26,6 @@ describe('custGroup migration', () => {
   });
 
   test('dev fields match prod fields', async () => {
-    
     expect(devFormFields).toStrictEqual(prodFormFields);
   });
 });

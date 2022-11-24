@@ -4,6 +4,7 @@ declare namespace DBProjtypes {
     label: kintone.fieldTypes.SingleLineText;
     profitRate: kintone.fieldTypes.Number;
     数値_0: kintone.fieldTypes.Number;
+    uuid: kintone.fieldTypes.SingleLineText;
     数値: kintone.fieldTypes.Number;
     projectName: kintone.fieldTypes.SingleLineText;
   }

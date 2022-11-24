@@ -4,6 +4,7 @@ declare namespace DBInvoices {
     projId: kintone.fieldTypes.Number;
     billingAmount: kintone.fieldTypes.Number;
     plannedPaymentDate: kintone.fieldTypes.Date;
+    uuid: kintone.fieldTypes.SingleLineText;
     isPaid: kintone.fieldTypes.Number;
     estimateLists: {
       type: "SUBTABLE";

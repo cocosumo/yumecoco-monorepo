@@ -1,20 +1,34 @@
 declare namespace DBCustgroups {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
-    storeId: kintone.fieldTypes.Number;
+    storeId: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     isDeleted: kintone.fieldTypes.Number;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
+    agents_0: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          email_0: kintone.fieldTypes.SingleLineText;
+          employeeName_0: kintone.fieldTypes.SingleLineText;
+          employeeId_0: kintone.fieldTypes.SingleLineText;
+          agentType_0: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
+    };
     agents: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
+          empId: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           employeeId: kintone.fieldTypes.Number;
           email: kintone.fieldTypes.SingleLineText;

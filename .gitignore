@@ -58,4 +58,4 @@ coverage
 *.TTF
 *auth.json
 
-**/migration/backup/**/*
+**/backup/**/*

@@ -9,10 +9,12 @@ import { KintoneClientBasicAuth } from '../settings';
 
 
 /**
- * テストじゃなく、独立出来るスクリプトに移行します。
+ * jestじゃなく、独立に実行出来るスクリプトに移行します。
  */
 describe('generateUUID', () => {
-  const app  = '34';
+
+  const app  = '204'; // 変更
+
   const ktr = KintoneClientBasicAuth.record;
   it('shoud generate uuid', async () => {
     const records = await ktr.getAllRecords({

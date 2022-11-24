@@ -8,11 +8,11 @@ declare namespace DBCustomers {
     fullName: kintone.fieldTypes.SingleLineText;
     index: kintone.fieldTypes.Number;
     isSameAsMain: kintone.fieldTypes.Number;
+    uuid: kintone.fieldTypes.SingleLineText;
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;
     nationality: kintone.fieldTypes.SingleLineText;
     birthYear: kintone.fieldTypes.Number;
-    id: kintone.fieldTypes.SingleLineText;
     contacts: {
       type: "SUBTABLE";
       value: Array<{

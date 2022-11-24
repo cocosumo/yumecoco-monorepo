@@ -17,22 +17,18 @@ describe('store migrate', () => {
       records: records.map((rec) => {
 
         const aff: Partial<IEmployees> = {
-          affiliateStores_0: {
+          affStores: {
             type: 'SUBTABLE',
-            value: rec.affiliateStores.value.map(() => {
-
-            }),
-          },
-          affiliateStores: {
-            type: 'SUBTABLE',
-            value: rec.affiliateStores.value.map((row) => {
-              const { value: { storeId } } = row;
+            value: rec.affiliateStores.value.map((refRow, idx) => {
+              const { value: { storeUUID } } = refRow;
+              
+              const thisRow = rec.affStores.value?.[idx]?.value;
 
               return {
-                id:'',
+                id: '',
                 value: {
-                  ...row.value,
-                  storeId: { value: storeId.value },
+                  ...thisRow,
+                  affStoreId: { value: storeUUID.value },  
                 },
               };
             }),

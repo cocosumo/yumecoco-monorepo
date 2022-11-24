@@ -10,8 +10,8 @@ export const useCustGroupById = (custGroupId : string) => {
   return useCustGroups({
     enabled: !!custGroupId,
     select: useCallback((data) => {
-      console.log('HEY!');
-      return data.find(({ $id }) => $id.value === custGroupId);
+      console.log('triggerd');
+      return data.find(({ uuid }) => uuid.value === custGroupId);
     }, [custGroupId]),
   });
 };

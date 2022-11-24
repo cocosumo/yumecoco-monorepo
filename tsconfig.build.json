@@ -9,7 +9,6 @@
     "allowJs": true,
     "lib": [
       "es5",
-      "es2019",
       "ES2022",
       "es6",
       "dom",

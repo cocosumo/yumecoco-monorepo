@@ -10,6 +10,6 @@ export const useCustomersByIds = (
   custIds: string[] | undefined = [],
 ) => {
   return useCustomers({
-    select: (data) => data.filter(({ $id }) => custIds.includes($id.value) ),
+    select: (data) => data.filter(({ uuid }) => custIds.includes(uuid.value) ),
   });
 };

@@ -101,9 +101,9 @@ export const RecordSelect = () => {
       >
         <SelectProjectInCustGroup
           custGroupId={custGroupId}
-          onChange={useCallback(({  $id }) => {
+          onChange={useCallback(({  uuid }) => {
             navigate(`${pages.projEdit}?${generateParams({
-              projId: $id.value,
+              projId: uuid.value,
             })}`);
           }, [navigate])}
         />

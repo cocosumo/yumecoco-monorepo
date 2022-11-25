@@ -11,7 +11,7 @@ export const convertToForm = ({
   planApplicationDate,
   projName,
   custGroupId,
-  $id: projId,
+  uuid: projId,
 }: IProjects) : Partial<TypeOfForm> => {
   return {
     projId: projId.value,

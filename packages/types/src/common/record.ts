@@ -6,3 +6,4 @@ export const recordCancelStatuses = [
 
 
 export type RecordCancelStatus = typeof recordCancelStatuses[number];
+export type Order = 'asc' | 'desc';

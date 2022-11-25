@@ -3,8 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { hiraToKana } from '../../../../../helpers/utils';
 import { useField, useFormikContext } from 'formik';
 import debounce from 'lodash/debounce';
-import { CustomerForm } from '../../form';
-import { FormikTextField } from '../../../../../components/ui/textfield';
+import { TypeOfForm } from '../../form';
+import { FormikTextFieldV2 as FormikTextField } from '../../../../../components/ui/textfield';
 import * as AutoKana from 'vanilla-autokana';
 
 
@@ -15,7 +15,7 @@ export const NameInput = ({
   custNameFN: string,
   custNameReadingFN: string
 }) => {
-  const { setFieldValue } = useFormikContext<CustomerForm>();
+  const { setFieldValue } = useFormikContext<TypeOfForm>();
   const [inputVal, setInputVal] = useState<string | null>(null);
   const autokana = useRef<AutoKana.AutoKana | null>(null);
 
@@ -75,7 +75,8 @@ export const NameInput = ({
           id={custNameReadingFN}
           name={custNameReadingFN}
           label="氏名フリガナ"
-          placeholder='ヤマダ　タロウ' required
+          placeholder='ヤマダ　タロウ' 
+          required
         />
       </Grid>
     </>

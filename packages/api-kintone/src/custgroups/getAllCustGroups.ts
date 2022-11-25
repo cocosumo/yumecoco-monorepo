@@ -1,18 +1,10 @@
-import { KCustgroups } from 'types';
-import { ktRecord } from '../client';
 import { appId, RecordType } from './config';
+import { getAllRecords } from '../common';
 
-export const getAllCustGroups = async ({
-  query,
-  orderBy,
-} :{
-  query?: string,
-  orderBy: [KCustgroups, 'desc' | 'asc']
-}) => {
-  return (await ktRecord()).getAllRecords({
-    app: appId,
-    condition: query,
-    orderBy: orderBy.join(' '),
-    withCursor: false,
-  }).then(rec => rec as unknown as RecordType[]);
-};
+
+export const getAllCustGroups = async (
+  params?: Omit<Parameters<typeof getAllRecords>[0], 'app'>,
+) => getAllRecords<RecordType>({
+  ...params,
+  app: appId,
+});

@@ -3,7 +3,7 @@ import { PageSubTitle } from '../../../../../components/ui/labels';
 import { SelectGender } from './SelectGender';
 import { MemoizedSelectBirthdate } from './SelectBirthdate';
 import { FieldArray, ArrayHelpers, useFormikContext } from 'formik';
-import { CustomerForm, CustomerFormKeys, CustomerInstance, getCustFieldName, initialCustomerValue } from '../../form';
+import {  CustomerInstance, getCustFieldName, initialCustomerValue, KeyOfForm, TypeOfForm } from '../../form';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
@@ -15,7 +15,7 @@ import { NameInput } from './NameInput';
 
 
 interface CustomerProps extends ArrayHelpers {
-  customers: CustomerForm['customers']
+  customers: TypeOfForm['customers']
   namePrefix: string,
   index: number,
 }
@@ -79,8 +79,8 @@ const Customer =  (props: CustomerProps) => {
 };
 
 export const Customers = () => {
-  const { values: { customers } } = useFormikContext<CustomerForm>();
-  const arrayFieldName: CustomerFormKeys = 'customers';
+  const { values: { customers } } = useFormikContext<TypeOfForm>();
+  const arrayFieldName: KeyOfForm = 'customers';
   const isMaxCust = maxCust === customers.length;
 
   return (

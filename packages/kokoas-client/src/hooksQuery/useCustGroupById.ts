@@ -1,16 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { getCustGroupById } from 'api-kintone';
-import { AppIds } from 'config';
+import { useCallback } from 'react';
+
+import { useCustGroups } from './useCustGroups';
 
 /**
  * 顧客グループ番号で、顧客グループのデータを取得する。
  */
 export const useCustGroupById = (custGroupId : string) => {
-  return useQuery(
-    [AppIds.custGroups, { custGroupId }],
-    () => getCustGroupById(custGroupId),
-    {
-      enabled: !!custGroupId,
-    },
-  );
+
+  return useCustGroups({
+    enabled: !!custGroupId,
+    select: useCallback((data) => {
+      console.log('triggerd');
+      return data.find(({ uuid }) => uuid.value === custGroupId);
+    }, [custGroupId]),
+  });
 };

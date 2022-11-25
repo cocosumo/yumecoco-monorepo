@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents } from 'types';
+import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Territory } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
@@ -51,7 +51,7 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
   return {
     custGroupId: $id.value,
     storeId: storeId.value,
-    territory: territory.value,
+    territory: territory.value as Territory,
     custName: members.value[0]?.value.customerName.value || '',
   };
 

@@ -1,17 +1,13 @@
-import { AppIds } from 'config';
-import { useQuery } from '@tanstack/react-query';
 
-import { getProjTypeById } from 'api-kintone';
+import { useProjTypes } from '.';
 /**
- * 工事番号で、工事のデータを取得する。
+ * 工事番号で、工事種別のデータを取得する。
  */
-export const useProjTypeById = (id: string) => {
+export const useProjTypeById = (projTypeId: string) => {
 
-  return useQuery(
-    [AppIds.projTypes, id],
-    () => getProjTypeById(id),
-    {
-      enabled: !!id,
-    },
-  );
+
+  return useProjTypes({
+    select: (data) => data.find(({ uuid }) => uuid.value === projTypeId ),
+  });
+
 };

@@ -1,19 +1,19 @@
-import { DeepPartial, ICustgroups, ICustomers } from 'types';
+import { DeepPartial, ICustgroups } from 'types';
 import { AppIds } from 'config';
-import { ktRecord } from 'api-kintone';
+import { KintoneClientBasicAuth } from './settings';
+
 
 export const updateCustGroup = async () => {
-  const KintoneRecord = await ktRecord();
-  const appId = AppIds.custGroups;
 
+
+  const KintoneRecord = KintoneClientBasicAuth.record;
+
+
+  const appId = AppIds.custGroups;
   try {
     const records = await KintoneRecord.getAllRecords({
       app: appId,
     }) as unknown as ICustgroups[];
-
-    const customerRecords = await KintoneRecord.getAllRecords({
-      app: AppIds.customers,
-    }) as unknown as ICustomers[];
 
 
     const updatedRecords = records
@@ -25,23 +25,22 @@ export const updateCustGroup = async () => {
       $id,
       agents,
       members,
+      storeId,
     })=>{
-      const getCustData = (cId: string) => customerRecords.find(({
-        $id: custId,
-      }) => custId.value === cId);
+
       return {
         id: $id.value,
         record: {
+          $id: { value: $id.value },
+          storeId,
           members: {
             type: 'SUBTABLE',
             value: members.value.map((row) => {
               const { value } = row;
-              const { customerId } = value;
               return {
                 ...row,
                 value: {
                   ...value,
-                  dump: { value: JSON.stringify(getCustData(customerId.value)) },
                 },
               };
             }),
@@ -71,7 +70,6 @@ export const updateCustGroup = async () => {
       };
     });
 
-    console.log(updatedRecords);
 
     const updated = await KintoneRecord.updateAllRecords({
       app: appId,

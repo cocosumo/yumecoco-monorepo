@@ -1,3 +1,4 @@
+import { v4 as uuidV4 } from 'uuid';
 import { ktRecord } from './../client';
 import { RecordType, appId } from './config';
 
@@ -24,35 +25,51 @@ export const saveCustomers = async (
   * aside from existing ones. So we filter the ones without
   * customerId, then add them to db.
   *********************************************************/
-  const unsavedCust = records.filter(cust => !cust.$id?.value);
-  let savedRecords = [] as { id: string, revision: string }[];
+  const newCusts = records.filter(cust => !cust.uuid?.value)
+    ?.map((recCust) => ({ 
+      ...recCust, 
+      uuid: { value: uuidV4() }, 
+    }));
 
-  if (unsavedCust.length > 0) {
-    savedRecords = await KintoneRecord.addRecords({
+
+  if (newCusts?.length > 0) {
+    await KintoneRecord.addRecords({
       app: appId,
-      records: unsavedCust,
+      records: newCusts,
     }).then(resp => resp.records);
   }
 
+  const oldCusts = records.filter(cust => !!cust.uuid?.value);
 
   /*********************************
    * For those with existing customerId,
    * do an update operation
    *********************************/
-  return KintoneRecord.updateRecords({
+
+  await KintoneRecord.updateRecords({
     app: appId,
-    records: records
-      .filter(cust => !!cust.$id?.value)
+    records: oldCusts
       .map(cust => {
-        if (!cust?.$id?.value) throw new Error('Invalid cust id during update.');
+        if (!cust?.uuid?.value) throw new Error('Invalid cust id during update.');
+        const {
+          uuid,
+          ...recordToUpdate
+        } = cust;
 
         return  {
-          id: cust?.$id?.value,
-          record: cust,
+          updateKey: {
+            field: 'uuid',
+            value: uuid.value,
+          },
+          record: recordToUpdate,
         };
       }),
-  })
-    /* concatinate results of both the add and update operations */
-    .then(resp => resp.records.concat(savedRecords));
+  });
+
+
+  return  [
+    ...newCusts, 
+    ...oldCusts,
+  ].filter(Boolean).map(({ uuid }) => uuid?.value); 
 
 };

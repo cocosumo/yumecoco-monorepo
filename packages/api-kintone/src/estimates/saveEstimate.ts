@@ -1,4 +1,4 @@
-import { saveRecord } from '../common';
+import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 import { appId, RecordType } from './config';
 
 /**
@@ -12,9 +12,23 @@ export const saveEstimate = (params:{
   record: Partial<RecordType>
   revision?: string,
 }) => {
-  return saveRecord({
+
+
+
+  const {
+    recordId,
+    revision,
+    record,
+  } = params;
+
+  return saveRecordByUpdateKey({
     app: appId,
-    ...params,
+    updateKey: {
+      field: 'uuid',
+      value: recordId,
+    },
+    record,
+    revision,
   });
 
   /* TODO: add function to update related record */

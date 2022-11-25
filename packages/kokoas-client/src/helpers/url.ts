@@ -1,5 +1,16 @@
 
 
+interface URLParams {
+  projId?: string
+  projEstimateId?: string,
+  custGroupId?: string,
+  menuOpen?: number,
+  invoiceId?: number,
+}
+
+
+type KeyOfUrlParams = keyof URLParams;
+
 
 export const getParams = () => {
   const origParam = window.location.hash.substring(

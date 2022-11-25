@@ -1,10 +1,10 @@
 
 import { Grid, Collapse,  IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {  FormikTextField } from '../../../../../components/ui/textfield';
+import { FormikTextFieldV2 as  FormikTextField } from '../../../../../components/ui/textfield';
 import { Contacts } from './Contacts';
 import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
-import { CustomerForm, getCustFieldName } from '../../form';
+import { TypeOfForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
 import { getAddressByPostal } from '../../../../../api/others/postal';
@@ -55,7 +55,7 @@ export const Address = (props: AddressProps) => {
     setFieldValue,
     dirty,
     values: { customers },
-  } = useFormikContext<CustomerForm>();
+  } = useFormikContext<TypeOfForm>();
 
   const {
     namePrefix,

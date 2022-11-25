@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
-import { AppIds } from 'config';
-import { getCustomersByIds } from 'api-kintone';
+import { useCustomers } from './useCustomers';
 
 /**
  * 顧客番号の配列で、顧客のデータの配列を取得する。
@@ -8,18 +6,10 @@ import { getCustomersByIds } from 'api-kintone';
  * データ関連：
  * custGroup n-n customer
  */
-export const useCustomersByIds = <T = Awaited<ReturnType<typeof getCustomersByIds>>>(
+export const useCustomersByIds = (
   custIds: string[] | undefined = [],
-  options?: {
-    select: (data: Awaited<ReturnType<typeof getCustomersByIds>>) => T
-  },
 ) => {
-  return useQuery(
-    [AppIds.customers, 'custIds', custIds],
-    () => getCustomersByIds(custIds),
-    {
-      enabled: !!custIds?.length,
-      ...options,
-    },
-  );
+  return useCustomers({
+    select: (data) => data.filter(({ uuid }) => custIds.includes(uuid.value) ),
+  });
 };

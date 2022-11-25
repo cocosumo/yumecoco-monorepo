@@ -1,24 +1,21 @@
 import { FormControl, Select, MenuItem, InputLabel, FormHelperText, Stack, SelectChangeEvent } from '@mui/material';
-
-import { useField } from 'formik';
 import Chip from '@mui/material/Chip';
-import { memo, useMemo } from 'react';
+import { ComponentProps, memo, useEffect, useMemo } from 'react';
+import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
 
 
-export interface FormikSelecProps {
+export interface FormikSelecProps extends ComponentProps<typeof Select> {
   name: string,
   label: string
-  required?: boolean
   helperText?: string
   options?: Options,
-  disabled?: boolean,
   onChange?: (e: SelectChangeEvent, label: string) => void
-  variant?: 'standard' | 'outlined' | 'filled'
 }
 
 export function FormikSelect(props : FormikSelecProps) {
 
   const {
+    multiple,
     required,
     label,
     options,
@@ -27,20 +24,39 @@ export function FormikSelect(props : FormikSelecProps) {
     onChange,
     variant = 'outlined',
     name,
+    ...otherSelectProps
   } = props;
 
   const [
     field,
     meta,
-  ] = useField(name);
+    helpers,
+  ] = useFieldFast(name);
 
   const {
     touched,
   } = meta;
 
+  const {
+    setValue,
+  } = helpers;
 
-  const isExistInOptions = options?.some(item => item.value === field.value || item.label === field.value);
+  const isExistInOptions = options?.some(opt => {
+    if (typeof field.value === 'string') {
+      return opt.value === field.value || opt.label === field.value; 
+    }
+  });
+
   const isShowError = touched && !!meta.error && !disabled;
+
+  useEffect(() => { 
+
+    if (!isExistInOptions && !multiple) {
+      /** valueは選択肢にないなら、削除 */
+      setValue('');
+    }
+    
+  }, [setValue, multiple, isExistInOptions]);
 
 
   const optionMenus = useMemo(() => options?.map((option) => {
@@ -56,26 +72,32 @@ export function FormikSelect(props : FormikSelecProps) {
     );
   }), [options]);
 
-
-
   return (
     <FormControl required={required} fullWidth error={isShowError}>
       <InputLabel error={isShowError}>
         {label}
       </InputLabel>
       <Select
+        {...otherSelectProps}
         {...field}
+        fullWidth
+        multiple={multiple}
         variant={variant}
         error={isShowError}
         label={label}
         required={required}
-        value={isExistInOptions ? field.value ?? '' : ''}
-        disabled={disabled}
+        value={field.value}
         onChange={(e)=>{
-          const newVal = e.target.value;
+          const newVal = e.target.value ;
           const newValText = options?.find((option) => option.value === newVal)?.label;
+
           if (onChange) onChange(e, newValText?.toString() || '');
-          field.onChange(e);
+          if (multiple) {
+            helpers.setValue(typeof newVal === 'string' ? newVal.split(',') : newVal);
+          } else {
+            field.onChange(e);
+          }
+
         }}
       >
         {optionMenus}

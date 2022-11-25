@@ -45,7 +45,7 @@ export const MemoContextProvider = ({
     setMemoOpen(true);
   };
 
-  const handleUpdateMemoList: MemoContextValue['handleUpdateMemoList'] = (recordId = memoFormState.recordId) => {
+  const handleUpdateMemoList: MemoContextValue['handleUpdateMemoList'] = (recordId = memoFormState.custGroupId) => {
     getMemoList(recordId).then(res => setMemoList(res));
   };
 
@@ -53,7 +53,7 @@ export const MemoContextProvider = ({
   const handleClose : MemoContextValue['handleClose'] = (reason) => {
     if (reason === 'submitted') {
       setConfirmSaveOpen(false);
-      handleUpdateMemoList(memoFormState.recordId);
+      handleUpdateMemoList(memoFormState.custGroupId);
     }
     setMemoFormState(initialValues);
     setMemoOpen(false);

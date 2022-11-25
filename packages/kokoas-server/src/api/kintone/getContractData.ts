@@ -69,7 +69,7 @@ isValidate = false,
   } = await getCustGroupById(custGroupId.value);
 
   const custIds = members.value
-    .map(({ value: { customerId } }) => customerId.value );
+    .map(({ value: { custId } }) => custId.value );
 
   const rawCustomers = await getCustomersByIds(custIds);
 

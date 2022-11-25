@@ -15,8 +15,8 @@ export const useUpdateProjectId = () => {
   const isFetching = useIsFetching();
 
 
-  const { 
-    data: projRecord, 
+  const {
+    data: projRecord,
   } = useProjById(projId);
   const { projTypeId } = projRecord || {};
 
@@ -64,7 +64,7 @@ export const useUpdateProjectId = () => {
         draft.createdDate = initialValues.createdDate;
       }));
     }
-    
+
 
   }, [projRecord, projId, dirty, setValues,  setSnackState, setTouched, isFetching]);
 

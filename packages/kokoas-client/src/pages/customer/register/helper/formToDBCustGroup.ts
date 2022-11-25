@@ -1,13 +1,13 @@
 import { ICustgroups, IEmployees } from 'types';
-import { CustomerForm } from '../form';
+import { TypeOfForm } from '../form';
 
 export const formToDBCustGroup = (
-  formData: CustomerForm,
+  formData: TypeOfForm,
   employees: IEmployees[],
 ): Partial<ICustgroups> => {
 
   const getEmpNameById = (id: string) => employees
-    .find(({ $id }) => $id.value === id)?.文字列＿氏名.value || '';
+    .find(({ uuid }) => uuid.value === id)?.文字列＿氏名.value || '';
 
 
   const {
@@ -35,7 +35,7 @@ export const formToDBCustGroup = (
 
 
   return {
-    isDeleted: { value: isDeleted },
+    isDeleted: { value: (+isDeleted).toString() },
     storeId: { value: store },
     agents: {
       type: 'SUBTABLE',

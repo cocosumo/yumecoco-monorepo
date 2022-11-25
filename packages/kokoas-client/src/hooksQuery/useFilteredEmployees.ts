@@ -1,4 +1,4 @@
-import { TAgents } from 'types';
+import { TAgents, Territory } from 'types';
 import {  resolveRoles, resolveAffiliations } from 'api-kintone';
 import { useEmployees } from './useEmployees';
 import { useCallback } from 'react';
@@ -9,13 +9,13 @@ import { useCallback } from 'react';
  *
  */
 export const useFilteredEmployees = ({
-  storeId,
+  storeId = [],
   agentType,
   territory,
 } : {
-  storeId: string,
+  storeId?: string | string[],
   agentType?: TAgents | TAgents[],
-  territory?: string
+  territory?: Territory
 }) => {
 
 
@@ -24,6 +24,7 @@ export const useFilteredEmployees = ({
       (data) => {
         let affiliations: string[] = [];
         let roles: string[] = [];
+        const storeIds = ([] as string[]).concat(storeId).filter(Boolean);
 
         if (agentType) {
           affiliations = resolveAffiliations(agentType);
@@ -32,26 +33,22 @@ export const useFilteredEmployees = ({
 
         return data
           .filter(({
-            mainStoreId,
-            affiliateStores,
+            mainStoreId_v2,
+            affStores,
             affiliation,
             役職: empRole,
-            territory: _territory,
+            territory_v2: _territory,
           }) => {
 
-
-
-            const isInStore = (
-              mainStoreId.value === storeId
-              || affiliateStores
+            const isInStore = storeIds.some((s) => (mainStoreId_v2.value === s
+              || affStores
                 .value
-                .some(({ value: { storeId: _storeId } }) => _storeId.value === storeId )
-            );
+                .some(({ value: { affStoreId: _storeId } }) => _storeId.value === s )
+            )); 
 
-
-            const isAffiliated = affiliations.length ? affiliations.includes(affiliation.value) : true;
-            const isInRole = roles.length ? roles.includes(empRole.value) : true;
-            const isInTerritory = territory ? territory === _territory.value : true;
+            const isAffiliated = !affiliations.length || affiliations.includes(affiliation.value);
+            const isInRole = !roles.length || roles.includes(empRole.value);
+            const isInTerritory = !territory || territory === _territory.value;
 
             return (
               isInStore

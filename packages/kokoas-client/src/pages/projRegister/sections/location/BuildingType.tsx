@@ -1,8 +1,8 @@
 
-import { BuildingTypeVals } from '../../form';
 import { FormikRadio } from '../../../../components/ui/radio';
+import { buildingTypes } from 'types';
 
-const buildingTypes : BuildingTypeVals[] =  ['戸建て', 'マンション', '店舗/事務所', 'その他'];
+
 
 export const BuildingType = ({
   disabled,

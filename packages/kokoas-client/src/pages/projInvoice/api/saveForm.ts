@@ -25,6 +25,7 @@ export const saveForm = async (form: TypeOfForm) => {
         return {
           id: '',
           value: {
+            paymentType: { value: '' },
             estimateId: { value: estimateId },
           },
         };

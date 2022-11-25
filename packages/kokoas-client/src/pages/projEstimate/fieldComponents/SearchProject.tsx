@@ -6,7 +6,7 @@ import { NoCustomerWarning } from './NoCustomerWarning';
 
 
 export const SearchProject = () => {
-  
+
 
   const {
     isLoading,
@@ -18,6 +18,7 @@ export const SearchProject = () => {
   const {
     projName, projId, customerName,
   } = values;
+
 
   return (
     <Stack spacing={1}>

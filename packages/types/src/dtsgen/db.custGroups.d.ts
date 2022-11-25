@@ -1,8 +1,9 @@
 declare namespace DBCustgroups {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
-    storeId: kintone.fieldTypes.Number;
+    storeId: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     isDeleted: kintone.fieldTypes.Number;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
@@ -16,7 +17,7 @@ declare namespace DBCustgroups {
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
-          employeeId: kintone.fieldTypes.Number;
+          employeeId: kintone.fieldTypes.SingleLineText;
           email: kintone.fieldTypes.SingleLineText;
         };
       }>;
@@ -28,9 +29,8 @@ declare namespace DBCustgroups {
         value: {
           address2: kintone.fieldTypes.SingleLineText;
           address1: kintone.fieldTypes.SingleLineText;
-          customerId: kintone.fieldTypes.Number;
+          custId: kintone.fieldTypes.SingleLineText;
           postal: kintone.fieldTypes.SingleLineText;
-          dump: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
         };
       }>;

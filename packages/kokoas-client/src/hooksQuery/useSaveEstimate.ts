@@ -15,6 +15,7 @@ export const useSaveEstimate = () => {
       onSuccess: () => {
         commonOptions.onSuccess();
         queryClient.invalidateQueries({ queryKey: [AppIds.projEstimates] });
+        queryClient.invalidateQueries({ queryKey: [AppIds.projects] });
       },
     },
   );

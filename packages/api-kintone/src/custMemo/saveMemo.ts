@@ -1,4 +1,3 @@
-import { ktRecord } from '../client';
 import { saveRecord } from '../common';
 import { appId, RecordType } from './config';
 

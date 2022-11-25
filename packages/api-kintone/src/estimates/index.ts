@@ -1,5 +1,6 @@
 export * from './calculateEstimate';
 export * from './calculateEstimateRecord';
+export * from './getAllEstimates';
 export * from './getEstimateByEnvId';
 export * from './getEstimateById';
 export * from './getEstimatesByProjId';

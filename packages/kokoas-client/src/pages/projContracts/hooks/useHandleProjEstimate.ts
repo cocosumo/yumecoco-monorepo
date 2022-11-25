@@ -42,7 +42,10 @@ export const useHandleProjEstimate = () => {
       const {
         newFormData,
         newCalculated,
-      } = convertToForm(selectedRecord, calculated);
+      } = convertToForm({
+        record: selectedRecord,
+        calculated: calculated!,
+      });
 
       setValues((prev) => ({
         ...prev,

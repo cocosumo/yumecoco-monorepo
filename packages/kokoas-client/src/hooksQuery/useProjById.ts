@@ -7,6 +7,7 @@ import { useCallback } from 'react';
 export const useProjById = (projId: string) => {
 
   return useProjects(({
+    enabled: !!projId,
     select: useCallback(
       (data) => data.find(({ uuid }) => uuid.value === projId ),
       [projId],

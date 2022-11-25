@@ -10,8 +10,8 @@ import { useCallback } from 'react';
 export const useEstimateById = (projEstimateId: string) => {
 
   return useEstimates(({
+    enabled: !!projEstimateId,
     select: useCallback((data) => {
-
       const foundData = data.find(({ uuid }) => uuid.value === projEstimateId);
       if (foundData) {
         return {
@@ -19,7 +19,9 @@ export const useEstimateById = (projEstimateId: string) => {
           calculated: calculateEstimateRecord(foundData),
         };
       }
-    }, [projEstimateId]),
+    }, [
+      projEstimateId,
+    ]),
   }));
 
 };

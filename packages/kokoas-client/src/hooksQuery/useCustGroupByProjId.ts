@@ -12,6 +12,8 @@ export const useCustGroupByProjId = (projId: string) => {
 
   const { data: custGroupData } = useCustGroupById(custGroupId || '');
 
+  console.log('CAN I USE THIS?', projData, custGroupData);
+
   return useQuery(
     [AppIds.projects, AppIds.custGroups, projId],
     () => {

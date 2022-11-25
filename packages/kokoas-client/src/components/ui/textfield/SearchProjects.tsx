@@ -48,13 +48,8 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
         id: rec.uuid.value,
         projName: rec.projName.value,
       }));
-
-      console.log(newOptions);
-
       setOptions(newOptions);
     }
-
-
   }, [recProjects]);
 
   return (

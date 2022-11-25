@@ -1,17 +1,16 @@
-import { AppIds } from 'config';
-import { useQuery } from '@tanstack/react-query';
+import { useProjects } from './useProjects';
+import { useCallback } from 'react';
 
-import { getProjById } from 'api-kintone';
 /**
  * 工事番号で、工事のデータを取得する。
  */
 export const useProjById = (projId: string) => {
 
-  return useQuery(
-    [AppIds.projects, { projId }],
-    () => getProjById(projId),
-    {
-      enabled: !!projId,
-    },
-  );
+  return useProjects(({
+    select: useCallback(
+      (data) => data.find(({ uuid }) => uuid.value === projId ),
+      [projId],
+    ),
+  }));
+
 };

@@ -8,7 +8,7 @@ type DefaultResult = Awaited<ReturnType<typeof getAllProjects>>;
  * 工事を全て取得する
  */
 export const useProjects = <T = DefaultResult>(options?: {
-  select?: (data: DefaultResult) => T,
+  select: (data: DefaultResult) => T,
   onSuccess?: (data: T) => void
 }) => {
   return useQuery(

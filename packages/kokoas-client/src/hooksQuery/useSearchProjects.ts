@@ -1,6 +1,6 @@
 
 import { useCallback } from 'react';
-import {  IProjects, KProjects } from 'types';
+import {  KProjects } from 'types';
 import { useProjects } from './useProjects';
 
 /**

@@ -1,12 +1,15 @@
 import { Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { FormikSearchProjField } from '../../../components/ui/textfield/FormikSearchProjField';
-import { getFieldName, TypeOfForm } from '../form';
+import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../../Router';
+import {  TypeOfForm } from '../form';
 import { NoCustomerWarning } from './NoCustomerWarning';
 
 
 export const SearchProject = () => {
-
+  const navigate = useNavigate();
   const { values } = useFormikContext<TypeOfForm>();
 
   const {
@@ -16,10 +19,17 @@ export const SearchProject = () => {
 
   return (
     <Stack spacing={1}>
-      <FormikSearchProjField
+      <SearchProjects
         label='工事情報の検索'
-        name={getFieldName('projId')}
-        projName={projName}
+        value={projId ? {
+          id: projId,
+          projName: projName,
+        } : undefined}
+        onChange={(_, opt) => {
+          navigate(`${pages.projEstimate}?${generateParams({
+            projId: opt?.id,
+          })}`);
+        }}
       />
       {!!projId && !customerName && !!projName &&
       <NoCustomerWarning projId={projId} />}

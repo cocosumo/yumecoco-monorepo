@@ -10,10 +10,12 @@ export const convertProjToForm = (
     custNames,
     custGroupId,
     projTypeId,
+    uuid,
   } = recProj;
 
   return {
     custGroupId : custGroupId.value,
+    projId: uuid.value,
     projName : projName.value,
     projTypeName : projTypeName.value,
     customerName : custNames.value,

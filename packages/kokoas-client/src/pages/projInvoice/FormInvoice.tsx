@@ -25,7 +25,14 @@ export const FormInvoice = () => {
   const navigate = useNavigate();
 
   const { values, submitForm, setValues } = useFormikContext<TypeOfForm>();
-  const { projId, projName, billingAmount, billedAmount, contractAmount } = values;
+  const {
+    projId,
+    projName,
+    billingAmount,
+    billedAmount,
+    contractAmount,
+    estimates,
+  } = values;
 
   const {
     data: Invoices,
@@ -42,6 +49,19 @@ export const FormInvoice = () => {
     }));
   }, [contractAmount, billedAmount, setValues]);
 
+  useEffect(() => {
+    console.log('発火');
+    const newContractAmount = estimates.reduce((acc, cur) => {
+      if (cur.isForPayment) return acc;
+
+      return acc + +cur.contractAmount;
+    }, 0);
+
+    setValues((prev) => ({
+      ...prev,
+      contractAmount: String(newContractAmount),
+    }));
+  }, [estimates, setValues]);
 
 
   return (
@@ -107,7 +127,7 @@ export const FormInvoice = () => {
         <Grid item xs={12} md={12}>
           <BillingAmount
             open={+billingAmount > (+contractAmount - +billedAmount)}
-            billingBalance={+billingAmount - +billingAmount}
+            billingBalance={+contractAmount - +billedAmount - +billingAmount}
           />
         </Grid>
 

@@ -32,11 +32,6 @@ export const CustInfo = () => {
     何をどう表示するか変わると思いますので、
     固まったら、リファクタリングします。
 
-    TODO：dumpをdeprecatedにし、直接customersのDBから取得する
-    Kintone's data nesting is up to one level only thru subtables,
-    so I inserted customer data as text inside the "dump" field in an effort
-    to reduce api calls.
-
     With react-query, data may be cached reducing api-call overhead even if the user
     navigate between pages.
   */
@@ -53,7 +48,7 @@ export const CustInfo = () => {
 
         acc.custNames.push(cur.fullName.value);
         acc.custNamesReading.push(cur.fullNameReading.value);
-        acc.custIds.push(cur.$id.value);
+        acc.custIds.push(cur.uuid.value);
         return acc;
       }, {
         custIds: [] as string[],
@@ -86,10 +81,6 @@ export const CustInfo = () => {
     }
     ,
     [customerRecords]);
-
-
-
-
 
   const refactoredAgents = custGroupRecord?.agents
     .value

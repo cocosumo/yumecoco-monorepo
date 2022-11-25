@@ -1,12 +1,10 @@
 
 import { dateValidation } from 'kokoas-client/src/helpers/yupValidator';
-import { TEnvelopeStatus } from 'types';
 import * as Yup from 'yup';
 
 export const initialValues = {
   projId: '',
   custGroupId: '',
-  envelopeStatus: '' as TEnvelopeStatus,
   projName: '',
   rank: '',
   schedContractPrice: '',

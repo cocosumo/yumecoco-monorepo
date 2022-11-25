@@ -25,7 +25,7 @@ declare namespace DBProjestimates {
     startDaysAfterContract: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
-    projTypeId: kintone.fieldTypes.Number;
+    projTypeId: kintone.fieldTypes.SingleLineText;
     finishDate: kintone.fieldTypes.Date;
     updateDateTime: kintone.fieldTypes.DateTime;
     signMethod: kintone.fieldTypes.SingleLineText;

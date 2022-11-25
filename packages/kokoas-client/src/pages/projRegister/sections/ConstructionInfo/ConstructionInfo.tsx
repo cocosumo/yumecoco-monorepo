@@ -41,10 +41,10 @@ export const ConstructionInfo = (
   const { data: constructionTypeOptions } = useProjTypes<Options>({
     select: (d) => d
       ?.map(({
-        label, $id, projectName,
+        label, uuid, projectName,
       }) => ({
         label: label?.value,
-        value: $id?.value,
+        value: uuid?.value,
         hiddenValue: projectName?.value,
       })),
   });

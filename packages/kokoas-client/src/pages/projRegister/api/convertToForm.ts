@@ -5,7 +5,7 @@ import { TypeOfForm } from '../form';
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
   const {
     projTypeId, projName,
-    custGroupId, $id,
+    custGroupId, uuid,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
     cancelStatus,
@@ -30,7 +30,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     custGroupId: custGroupId.value,
     isAgentConfirmed: Boolean(+isAgentConfirmed.value),
     isChkAddressKari: Boolean(+isChkAddressKari.value),
-    projId: $id.value,
+    projId: uuid.value,
     projTypeId: projTypeId.value,
     projTypeName: projTypeName.value,
     projName: projName.value,
@@ -44,12 +44,12 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
   const {
     storeId,
     territory,
-    $id,
+    uuid,
     members,
   } = custGroupRec;
 
   return {
-    custGroupId: $id.value,
+    custGroupId: uuid.value,
     storeId: storeId.value,
     territory: territory.value as Territory,
     custName: members.value[0]?.value.customerName.value || '',

@@ -70,7 +70,6 @@ export const saveRecordByUpdateKey = async (
 
   } else {
     /* ADD */
-
     const newId = uuidV4();
 
     const result = await KintoneRecord.addRecord({

@@ -7,6 +7,7 @@ export const convertEstimateToForm = (
 ) : Partial<TypeOfForm> => {
 
   const {
+    uuid,
     projId,
     内訳: { value: estimateTable },
     顧客名 : custName,
@@ -19,6 +20,7 @@ export const convertEstimateToForm = (
   } = recEstimate;
 
   return {
+    estimateId: uuid.value,
     customerName: custName.value,
     projId: projId.value,
     projTypeProfit : +projTypeProfit.value,

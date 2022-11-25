@@ -10,7 +10,7 @@ export const convertToForm = (
 ) => {
 
   const {
-    レコード番号: projEstimateId,
+    uuid: projEstimateId,
     envStatus,
     envDocFileKeys,
     envRecipients,

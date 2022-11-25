@@ -11,6 +11,7 @@ export const useEstimateById = (projEstimateId: string) => {
 
   return useEstimates(({
     select: useCallback((data) => {
+
       const foundData = data.find(({ uuid }) => uuid.value === projEstimateId);
       if (foundData) {
         return {

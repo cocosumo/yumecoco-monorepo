@@ -88,7 +88,7 @@ export const SelectProjEstimates = ({
    * also make this component more robust.
    *  */
   useDeepCompareEffect(() => {
-    const isExistInOptions = projEstimateRecords?.some(({ $id }) =>  $id.value === selectedProjEstimateId );
+    const isExistInOptions = projEstimateRecords?.some(({ uuid }) =>  uuid.value === selectedProjEstimateId );
     if (!isExistInOptions) {
       setValue('');
     }
@@ -111,6 +111,7 @@ export const SelectProjEstimates = ({
           label={'見積選択'}
           value={selectedProjEstimateId || ''}
           onChange={(e)=>{
+
             setValue(e.target.value);
             handleChange?.(e.target.value);
           }}

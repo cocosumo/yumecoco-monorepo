@@ -1,4 +1,4 @@
-import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
+import { Alert, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { useField } from 'formik';
 
@@ -13,10 +13,7 @@ export const ExceedContractAmount = () => {
   };
 
   return (
-    <Box
-      component="span"
-      sx={{ p: 2, border: 'none' }}
-    >
+    <Alert severity="warning" icon={false}>
       <Stack direction={'row'}>
         <FormControlLabel
           control={
@@ -24,15 +21,20 @@ export const ExceedContractAmount = () => {
               size="small"
               onClick={handleCheck}
             />
-        }
+          }
           label="承諾済"
+          sx={{
+            width: 100,
+          }}
         />
-        <Typography color={'red'}>
+        <Typography
+          color={'red'}
+        >
           契約金額を超過しています。
           <br />
           お客さまより承諾を得ていますか？
         </Typography>
       </Stack>
-    </Box>
+    </Alert>
   );
 };

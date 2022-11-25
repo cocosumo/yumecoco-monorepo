@@ -27,6 +27,12 @@ export const initialValues = {
     },
   ],
 
+  /** 契約金額の総額 */
+  contractAmount: '',
+
+  /** 請求済み金額 */
+  billedAmount: '',
+
   /** 請求金の種別 */
   amountType: '',
 
@@ -37,8 +43,7 @@ export const initialValues = {
   plannedPaymentDate: '',
 
   /* 契約超過チェック */
-  exceedContractAmount: false,
-  exceedChk: false,
+  exceedChecked: false,
 };
 
 export type TypeOfForm = typeof initialValues;

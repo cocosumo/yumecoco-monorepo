@@ -28,6 +28,7 @@ export const EstimateCards = ({
 
   const found = Boolean(records?.find(record => !isEmpty(record.envStatus.value)));
 
+
   return (
     <>
       <Typography variant='caption'>

@@ -16,54 +16,31 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
 import { BilledAmount } from './fieldComponents/BilledAmount';
-import { useContractAmount } from './hooks/useContractAmount';
 import { useEffect } from 'react';
 import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 
 
 
 export const FormInvoice = () => {
-  const { values, submitForm, setValues } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
 
-  const { projId, projName, billingAmount, exceedContractAmount } = values;
-  const { contractAmount, billingBalance } = useContractAmount(projId);
+  const { values, submitForm, setValues } = useFormikContext<TypeOfForm>();
+  const { projId, projName, billingAmount, billedAmount, contractAmount } = values;
 
   const {
     data: Invoices,
-    isError,
-    isFetching,
   } = useInvoiceTotalByProjId(projId);
 
-  const { records, totalInvoice } = Invoices || {};
+  const { records } = Invoices || {};
 
   useResolveParams();
 
-  /*   const [, , helpers] = useFieldFast('billingAmount');
-  const {
-    setValue,
-  } = helpers;
-
-  const { billingBalance } = useContractAmount(projId);
-
   useEffect(() => {
-    setValue(billingBalance);
-  }, [billingBalance, setValue]); */
-
-
-  useEffect(() => {
-    let openChk = false;
-    if ((billingBalance - +billingAmount) < 0) {
-      openChk = true;
-    }
-
     setValues((prev) => ({
       ...prev,
-      exceedContractAmount: openChk,
-      billingAmount: String(billingBalance),
-
+      billingAmount: String(+contractAmount - +billedAmount),
     }));
-  }, [billingBalance, billingAmount, setValues]);
+  }, [contractAmount, billedAmount, setValues]);
 
 
 
@@ -112,16 +89,14 @@ export const FormInvoice = () => {
         {/* 請求書情報の表示/入力エリア */}
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount contractAmount={contractAmount} />
+          <ContractAmount contractAmount={+contractAmount} />
         </Grid>
         <Grid item md={6} />
 
         {/* 請求済額 */}
         <Grid item xs={12} md={6}>
           <BilledAmount
-            billedAmount={totalInvoice}
-            isError={isError}
-            isFetching={isFetching}
+            billedAmount={+billedAmount}
             records={records}
           />
         </Grid>
@@ -131,8 +106,8 @@ export const FormInvoice = () => {
         {/* 請求金額・請求残高 */}
         <Grid item xs={12} md={12}>
           <BillingAmount
-            open={exceedContractAmount}
-            billingBalance={billingBalance - +billingAmount}
+            open={+billingAmount > (+contractAmount - +billedAmount)}
+            billingBalance={+billingAmount - +billingAmount}
           />
         </Grid>
 

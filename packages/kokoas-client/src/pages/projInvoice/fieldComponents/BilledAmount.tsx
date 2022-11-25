@@ -10,13 +10,9 @@ import { BilledAmountDetails } from './BilledAmountDetails';
 export const BilledAmount = ({
   billedAmount,
   records,
-  isError,
-  isFetching,
 }: {
   billedAmount: number | undefined
   records: DBInvoices.SavedData[] | undefined
-  isError: boolean
-  isFetching: boolean
 }) => {
 
 
@@ -26,14 +22,14 @@ export const BilledAmount = ({
         <FormLabel sx={{ width: 120 }}>
           請求済金額
         </FormLabel>
-        {!isError && !isFetching && !!billedAmount &&
+        {!!billedAmount &&
           <>
             <Typography sx={{ width: 120, textAlign: 'right' }}>
               {`${Math.round(billedAmount).toLocaleString()} 円`}
             </Typography>
             <BilledAmountDetails invoices={records} />
           </>}
-        {(isError || isFetching || !billedAmount) && <Typography>
+        {!billedAmount && <Typography>
           {'なし'}
         </Typography>}
       </Stack>

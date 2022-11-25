@@ -12,7 +12,6 @@ const numberValidation = Yup
   .typeError('数字を入力してください');
 
 /* MAIN VALIDATION SCHEMA */
-
 export const validationSchema = Yup
   .object()
   .shape<Partial<Record<KeyOfForm, Yup.AnySchema>>>({
@@ -26,6 +25,15 @@ export const validationSchema = Yup
         doNotUsePayment: Yup.boolean(),
       }),
     ),
+  contractAmount: numberValidation,
   billingAmount: numberValidation,
+  billedAmount: numberValidation,
   plannedPaymentDate: dateValidation,
+  exceedChecked: Yup.boolean()
+    .when(['contractAmount', 'billingAmount', 'BilledAmount'], {
+      is: (contractAmount: number, billingAmount: number, BilledAmount:number) => {
+        return contractAmount < (billingAmount + BilledAmount);
+      },
+      then: Yup.boolean().required('契約金の超過確認にチェックが入っていません'),
+    }),
 });

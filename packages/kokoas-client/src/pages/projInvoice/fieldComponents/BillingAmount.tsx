@@ -21,7 +21,7 @@ export const BillingAmount = ({
   return (
     <>
       {/* 請求金額 */}
-      <Stack spacing={2} direction={'row'}>
+      <Stack spacing={2} alignItems={'center'} direction={'row'}>
 
         <Grid item xs={12} md={4}>
           <FormikMoneyField
@@ -29,10 +29,9 @@ export const BillingAmount = ({
             name={getFieldName('billingAmount')}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={8}>
           {open && <ExceedContractAmount />}
         </Grid>
-        <Grid item md={2} />
       </Stack>
 
       {/* 請求残高 */}

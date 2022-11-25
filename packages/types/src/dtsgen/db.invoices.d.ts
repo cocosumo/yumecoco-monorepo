@@ -1,11 +1,11 @@
 declare namespace DBInvoices {
   interface Data {
     amountType: kintone.fieldTypes.SingleLineText;
-    projId: kintone.fieldTypes.Number;
+    projId: kintone.fieldTypes.SingleLineText;
     billingAmount: kintone.fieldTypes.Number;
+    excessChecked: kintone.fieldTypes.Number;
     plannedPaymentDate: kintone.fieldTypes.Date;
     uuid: kintone.fieldTypes.SingleLineText;
-    isPaid: kintone.fieldTypes.Number;
     estimateLists: {
       type: "SUBTABLE";
       value: Array<{

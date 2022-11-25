@@ -10,7 +10,9 @@ import { v4 as uuidV4 } from 'uuid';
  * @param obj
  * @param obj.appId App's id.
  * @param obj.record Kintone's record object.
- * @param obj.recordId Optional. If provided, it will update the specified recordId, if not add a new record.
+ * @param obj.updateKey See below
+ * @param obj.updateKey.field Field name of update key,
+ * @param obj.updateKey.value value of updateKey. Will insert new record if not provided
  * @param obj.revision Optional. If record lock is needed, use the record's revision number to define this.
  * @param obj.updateRelatedFn Optional. A function that is called when updating a record.
  *
@@ -73,11 +75,11 @@ export const saveRecordByUpdateKey = async (
 
     const result = await KintoneRecord.addRecord({
       app: app,
-      record: { 
-        ...record, 
+      record: {
+        ...record,
         uuid: { value: newId } },
     });
-    
+
     return {
       ...result,
       id: newId,

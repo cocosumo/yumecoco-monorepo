@@ -23,6 +23,7 @@ export const FormikProjEstimate = () => {
 
         const handleSave = (actionAfterSave?: () => void) => setTimeout(() => {
           const record = convertToKintone(values);
+
           saveMutation({
             recordId: estimateId,
             record,

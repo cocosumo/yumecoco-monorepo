@@ -13,9 +13,12 @@ export const saveEstimate = (params:{
   revision?: string,
 }) => {
 
+
+
   const {
     recordId,
     revision,
+    record,
   } = params;
 
   return saveRecordByUpdateKey({
@@ -24,6 +27,7 @@ export const saveEstimate = (params:{
       field: 'uuid',
       value: recordId,
     },
+    record,
     revision,
   });
 

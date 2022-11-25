@@ -2,7 +2,7 @@ import { Divider, Grid } from '@mui/material';
 import { FieldArray, Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
-import { FormikTextField } from '../../components/ui/textfield';
+import { FormikNumberField, FormikTextFieldV2 as FormikTextField } from '../../components/ui/textfield';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { getFieldName, statusChoices, TypeOfForm } from './form';
 import SummaryTable from './SummaryTable/SummaryTable';
@@ -82,10 +82,9 @@ export default function FormProjEstimate() {
           <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField
+          <FormikNumberField
             name={getFieldName('projTypeProfit')}
             label="利益率"
-            align='right'
             disabled={projTypeProfitLatest !== 0 || isDisabled}
           />
           {projTypeProfitLatest !== null &&
@@ -96,10 +95,9 @@ export default function FormProjEstimate() {
 
         </Grid>
         <Grid item xs={12} md={3}>
-          <FormikTextField
+          <FormikNumberField
             name={getFieldName('tax')}
             label="税率"
-            align='right'
             disabled={isDisabled}
           />
         </Grid>

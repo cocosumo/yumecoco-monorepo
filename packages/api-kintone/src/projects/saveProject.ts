@@ -1,5 +1,4 @@
-import { saveRecord } from '../common';
-
+import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 import { appId, RecordType } from './config';
 import { updateRelatedProjects } from './updateRelatedProjects';
 
@@ -22,13 +21,11 @@ export const saveProject = async (
     record,
     projId,
     revision,
-    shouldUpdateRelated = true,
   }:
   {
     record: Partial<RecordType>,
     projId?: string,
     revision?:string,
-    shouldUpdateRelated?: boolean
   },
 ) => {
 
@@ -40,19 +37,23 @@ export const saveProject = async (
       .join(', ') || '',
   };
 
-  /*
-    copy of subtables, custGroupAgents and custGroup is deprecated.
-    Use and add aggregate fields. e.g.custNames, yumeAGNames, cocoAGNames
-    Reason: Too many API calls, and maintenance overhead is not worth it.
-    TODO: Remove from db, and update affected code.
-  */
-
-  return saveRecord({
+  const saveResult = await saveRecordByUpdateKey({
     app: appId,
-    recordId: projId,
+    updateKey: {
+      field: 'uuid',
+      value: projId || '',
+    },
     record: aggRecord,
-    revision: revision,
-    updateRelatedFn: projId && shouldUpdateRelated ? () => updateRelatedProjects(projId, record) : undefined,
+    revision,
   });
+
+  /* After related app after succesfull save */
+  if (projId) {
+    await updateRelatedProjects(projId, record);
+  }
+
+
+
+  return saveResult;
 
 };

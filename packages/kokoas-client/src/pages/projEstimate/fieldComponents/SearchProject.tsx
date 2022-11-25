@@ -1,19 +1,13 @@
 import { Stack } from '@mui/material';
+import { useFormikContext } from 'formik';
 import { FormikSearchProjField } from '../../../components/ui/textfield/FormikSearchProjField';
-import { getFieldName } from '../form';
-import { useUpdateProjectId } from '../hooks/useUpdateProjectId';
+import { getFieldName, TypeOfForm } from '../form';
 import { NoCustomerWarning } from './NoCustomerWarning';
 
 
 export const SearchProject = () => {
 
-
-  const {
-    isLoading,
-    values,
-  } = useUpdateProjectId();
-
-
+  const { values } = useFormikContext<TypeOfForm>();
 
   const {
     projName, projId, customerName,
@@ -27,7 +21,7 @@ export const SearchProject = () => {
         name={getFieldName('projId')}
         projName={projName}
       />
-      {!!projId && !customerName && !isLoading && !!projName &&
+      {!!projId && !customerName && !!projName &&
       <NoCustomerWarning projId={projId} />}
     </Stack>
   );

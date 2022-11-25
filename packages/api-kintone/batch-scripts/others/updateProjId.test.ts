@@ -28,19 +28,7 @@ describe('updateCustGroup', () => {
       app: AppIds.projects,
       records: recs.map((rec) => {
         const newRec : Partial<IProjects> = {
-          agents: {
-            type: 'SUBTABLE',
-            value: rec.agents.value.map((row) => {
-              return {
-                id: '',
-                value: {
-                  ...row.value,
-                  agentId_0: { value: '' },
-                },
-
-              };
-            }),
-          },
+          projTypeId: rec.projTypeId,
         };
 
         return {

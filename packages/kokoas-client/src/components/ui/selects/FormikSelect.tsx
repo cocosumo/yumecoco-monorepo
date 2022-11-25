@@ -43,20 +43,20 @@ export function FormikSelect(props : FormikSelecProps) {
 
   const isExistInOptions = options?.some(opt => {
     if (typeof field.value === 'string') {
-      return opt.value === field.value || opt.label === field.value; 
+      return opt.value === field.value || opt.label === field.value;
     }
   });
 
   const isShowError = touched && !!meta.error && !disabled;
 
-  useEffect(() => { 
+  useEffect(() => {
 
-    if (!isExistInOptions && !multiple) {
+    if (!!options?.length && !isExistInOptions && !multiple ) {
       /** valueは選択肢にないなら、削除 */
       setValue('');
     }
-    
-  }, [setValue, multiple, isExistInOptions]);
+
+  }, [setValue, multiple, isExistInOptions, options?.length]);
 
 
   const optionMenus = useMemo(() => options?.map((option) => {

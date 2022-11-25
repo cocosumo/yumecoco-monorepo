@@ -11,8 +11,6 @@ export const convertToKintone = (
     cancelStatus,
   } = rawValues;
 
-
-
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
 
@@ -40,7 +38,7 @@ export const convertToKintone = (
           };
         }),
     },
-    
+
     status: {  value: status  },
     cancelStatus: { value: cancelStatus.join(',') },
   };

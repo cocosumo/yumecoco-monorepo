@@ -3,6 +3,9 @@ import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Terr
 import { TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
+
+  console.log(projRec);
+
   const {
     projTypeId, projName,
     custGroupId, uuid,
@@ -24,8 +27,8 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     address2: address2.value,
     buildingType: buildingType.value as BuildingType,
     cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
-    cocoConst1: cocoConst?.[0],
-    cocoConst2: cocoConst?.[1],
+    cocoConst1: cocoConst?.[0] || '',
+    cocoConst2: cocoConst?.[1] || '',
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
     isAgentConfirmed: Boolean(+isAgentConfirmed.value),

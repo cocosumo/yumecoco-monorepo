@@ -49,7 +49,7 @@ export const saveProject = async (
 
   /* After related app after succesfull save */
   if (projId) {
-    await updateRelatedProjects(projId, record);
+    await updateRelatedProjects(projId);
   }
 
 

@@ -50,7 +50,6 @@ export const FormInvoice = () => {
   }, [contractAmount, billedAmount, setValues]);
 
   useEffect(() => {
-    console.log('発火');
     const newContractAmount = estimates.reduce((acc, cur) => {
       if (cur.isForPayment) return acc;
 

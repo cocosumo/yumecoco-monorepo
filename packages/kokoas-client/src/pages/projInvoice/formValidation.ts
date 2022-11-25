@@ -2,6 +2,9 @@ import * as Yup from 'yup';
 import { KeyOfForm } from './form';
 
 
+/*  */
+const keys: KeyOfForm[] = ['contractAmount', 'billingAmount', 'billedAmount'];
+
 /* Common validations */
 const dateValidation = Yup
   .date()
@@ -30,9 +33,10 @@ export const validationSchema = Yup
   billedAmount: numberValidation,
   plannedPaymentDate: dateValidation,
   exceedChecked: Yup.boolean()
-    .when(['contractAmount', 'billingAmount', 'BilledAmount'], {
-      is: (contractAmount: number, billingAmount: number, BilledAmount:number) => {
-        return contractAmount < (billingAmount + BilledAmount);
+    .when(keys, {
+      is: (contractAmount: number, billingAmount: number, billedAmount: number) => {
+        console.log('Yup', contractAmount, billingAmount, billedAmount);
+        return contractAmount < (billingAmount + billedAmount);
       },
       then: Yup.boolean().required('契約金の超過確認にチェックが入っていません'),
     }),

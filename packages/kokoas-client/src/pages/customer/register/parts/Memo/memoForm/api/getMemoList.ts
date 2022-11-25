@@ -6,6 +6,8 @@ export const getMemoList = async (recordId: string) => {
 
   const memoRecs = await getMemosByCustGroupId(recordId);
 
+  console.log(memoRecs);
+
   return memoRecs.map(({
     uuid: custId,
     contents,

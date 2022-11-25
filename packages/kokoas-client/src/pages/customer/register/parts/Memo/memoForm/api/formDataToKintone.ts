@@ -15,10 +15,10 @@ const getAgentIds = async (custGroupId: string, agentTypes: TAgents[] = [] ) => 
 export const formDataToKintone = async (params: MemoFormType) : Promise<Partial<ICustmemos>> => {
   const {  memoType, contents, custGroupId, isNotify, notifyTo } = params;
 
-  const commonFields = {
+  const commonFields: Partial<ICustmemos> = {
     memoType: { value: memoType },
     contents: { value: contents },
-    recordId: { value: custGroupId },
+    custGroupId: { value: custGroupId },
   };
 
   if (isNotify) {

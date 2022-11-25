@@ -37,7 +37,7 @@ export const ItemEstimate = ({
 }) => {
 
   const {
-    $id: id,
+    $id: id, // Change this to uuid
     作成日時: { value: dateCreated },
     estimateStatus: { value: estimateStatus },
     envStatus: { value: envStatus },

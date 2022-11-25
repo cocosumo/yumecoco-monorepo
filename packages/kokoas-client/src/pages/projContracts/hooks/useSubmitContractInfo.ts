@@ -31,6 +31,7 @@ export const useSubmitContractInfo = () => {
         await sleep(2000);
       }
 
+      console.log(projEstimateId);
       const record = convertToKintone(values);
       const { revision } = await mutateAsync({
         recordId: projEstimateId,

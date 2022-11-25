@@ -66,10 +66,10 @@ export const SelectProjEstimates = ({
    * 本選択肢
    */
   const actualOptions: OptionNode[] = projEstimateRecords?.map<OptionNode>((rec, idx)=>{
-    const { $id } = rec;
+    const { uuid } = rec;
     return {
-      value: $id.value,
-      key: $id.value,
+      value: uuid.value,
+      key: uuid.value,
       component: (
         <ItemEstimate
           estimateRecord={rec}

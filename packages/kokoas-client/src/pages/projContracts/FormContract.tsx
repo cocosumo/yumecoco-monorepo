@@ -36,6 +36,7 @@ export const FormContract = () => {
 
   const disabled = !!envelopeStatus;
 
+  console.log(values);
   return (
     <Form noValidate>
       <ScrollToFieldError />

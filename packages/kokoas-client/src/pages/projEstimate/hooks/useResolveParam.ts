@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { convertEstimateToForm, convertProjToForm, convertProjTypeToForm } from '../api';
 import { initialValues, TypeOfForm } from '../form';
 
-export const useResolveParam2 = () => {
+export const useResolveParam = () => {
   const [newFormVal, setNewFormVal] = useState<TypeOfForm>(initialValues);
   const projIdFromURL = getParam('projId');
   const projEstimateIdFromURL = getParam('projEstimateId');

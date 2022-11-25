@@ -5,7 +5,7 @@ import { convertToKintone } from './api/convertToKintone';
 import { BtnSaveChoices } from './fieldComponents/formActions/BtnSaveChoices';
 import { validationSchema } from './form';
 import FormProjEstimate from './FormProjEstimate';
-import { useResolveParam2 } from './hooks/useResolveParam2';
+import { useResolveParam } from './hooks/useResolveParam';
 
 
 export const FormikProjEstimate = () => {
@@ -15,7 +15,7 @@ export const FormikProjEstimate = () => {
 
   const {
     initialForm,
-  } = useResolveParam2();
+  } = useResolveParam();
 
   return (
     <Formik

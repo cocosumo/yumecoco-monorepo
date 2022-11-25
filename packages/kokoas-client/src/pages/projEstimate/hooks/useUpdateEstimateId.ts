@@ -8,7 +8,7 @@ import { format, parseISO } from 'date-fns';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { pages } from '../../Router';
 
-
+/** @deprecated already handled at useResolveParam */
 export const useUpdateEstimateId = () => {
   const {
     values: {
@@ -84,8 +84,8 @@ export const useUpdateEstimateId = () => {
           });
         });
       });
-      
-      
+
+
     }
 
   }, [data, estimateId, setValues]);

@@ -14,12 +14,9 @@ import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
-import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
-import { useResolveParams } from './hooks/useResolveParams';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
 import { ButtonMenu } from './fieldComponents/ButtonMenu';
-import { useResolveParam2 } from './hooks/useResolveParam2';
 
 export default function FormProjEstimate() {
 
@@ -33,9 +30,6 @@ export default function FormProjEstimate() {
     envStatus,
   } = values;
 
-  useResolveParam2();
-  //useResolveParams();
-  //useUpdateEstimateId();
 
   const isEditMode = !!estimateId;
   const isDisabled = !!envStatus;

@@ -33,13 +33,20 @@ export const useResolveParam = () => {
 
       }
     } else if (projIdFromURL) {
+
       if (recProjType && recProj) {
+
+        /* Initialize profit rate when only projId is provided */
+        const profRate = +recProjType.profitRate.value;
         setNewFormVal((prev) => ({
           ...prev,
           ...convertProjToForm(recProj),
           ...convertProjTypeToForm(recProjType),
+          projTypeProfit: profRate,
+          items: [{ ...initialValues.items[0], elemProfRate: profRate } ],
         }));
       }
+
     } else if (clearFields) {
 
       if (clearFields === 'estimateId') {

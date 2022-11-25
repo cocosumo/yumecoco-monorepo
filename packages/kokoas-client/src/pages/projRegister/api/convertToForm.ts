@@ -4,8 +4,6 @@ import { TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
 
-  console.log(projRec);
-
   const {
     projTypeId, projName,
     custGroupId, uuid,

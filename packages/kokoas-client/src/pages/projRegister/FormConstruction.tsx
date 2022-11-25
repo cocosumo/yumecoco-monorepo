@@ -10,7 +10,6 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { TypeOfForm } from './form';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
-import { useEffect } from 'react';
 
 
 export const FormConstruction  = () => {
@@ -32,10 +31,6 @@ export const FormConstruction  = () => {
 
   const isEditMode = window.location.href.includes('edit');
   const isFormDisabled = (status as TFormStatus) === 'disabled';
-
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
 
   return (
 

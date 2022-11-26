@@ -5,7 +5,7 @@ import { convertProjToForm } from '../api/convertProjToForm';
 import { convertToForm } from '../api/convertToForm';
 import { initialValues } from '../form';
 
-export const useResolveParams2  = () => {
+export const useResolveParams  = () => {
   const [newFormVal, setNewFormVal] = useState(initialValues);
   const projIdFromURL = getParam('projId');
   const projEstimateIdFromURL = getParam('projEstimateId');
@@ -23,11 +23,7 @@ export const useResolveParams2  = () => {
   useEffect(() => {
     if (projEstimateIdFromURL && dataProjEstimate && projData && custGroupData) {
       const { newFormData } = convertToForm(dataProjEstimate);
-      console.log('FIRE!', {
-        ...initialValues,
-        ...newFormData,
-        ...convertProjToForm({ recProj: projData, recCustGroup: custGroupData }),
-      });
+ 
       setNewFormVal({
         ...initialValues,
         ...newFormData,
@@ -51,8 +47,6 @@ export const useResolveParams2  = () => {
     custGroupData,
   ]);
 
-
-  console.log('newFormVal', newFormVal);
   return {
     newFormVal,
     projIdFromURL,

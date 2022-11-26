@@ -12,24 +12,21 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractFormActions } from './parts/ContractFormActions';
 import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
 
-import { useHandleProjEstimate } from './hooks';
 import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
+import { calculateEstimate } from 'api-kintone';
 
 
-export const FormContract = () => {
+export const FormContract = ({
+  calculated,
+}: {
+  calculated?: ReturnType<typeof calculateEstimate>
+}) => {
   const { values } = useFormikContext<TypeOfForm>();
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
-  //useResolveParams();
-  //useHandleProjId();
 
-  const {
-    calculatedEstimate,
-  } = useHandleProjEstimate();
+  const { totalAmountInclTax } = calculated ?? {};
 
-  const { totalAmountInclTax } = calculatedEstimate ?? {};
-
-  /* 本当に小数点切り捨ていいか、要確認 */
   const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
 
   const disabled = !!envelopeStatus;

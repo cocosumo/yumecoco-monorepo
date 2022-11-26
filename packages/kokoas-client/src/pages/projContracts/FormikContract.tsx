@@ -1,8 +1,7 @@
 import { Formik } from 'formik';
-import { initialValues } from './form';
 import { FormContract } from './FormContract';
 import { validationSchema } from './formValidation';
-import { useResolveParams2 } from './hooks/useResolveParam2';
+import { useResolveParams } from './hooks/useResolveParam';
 import { useSubmitContractInfo } from './hooks/useSubmitContractInfo';
 
 
@@ -11,18 +10,19 @@ export const FormikContract = () => {
   const { onSubmit } = useSubmitContractInfo();
   const {
     newFormVal,
-  } = useResolveParams2();
+    calculated,
+  } = useResolveParams();
 
-  console.log(newFormVal);
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={newFormVal}
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      <FormContract />
+      
+      <FormContract calculated={calculated} />
     </Formik>
   );
 };

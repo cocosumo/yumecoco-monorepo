@@ -12,11 +12,16 @@ export const useProjects = <T = DefaultResult>(options?: {
   select: (data: DefaultResult) => T,
   onSuccess?: (data: T) => void
 }) => {
+  const {
+    enabled = true,
+  } = options || {};
+
   return useQuery(
     [AppIds.projects],
     () => getAllProjects(),
     {
       ...options,
+      enabled,
     },
   );
 };

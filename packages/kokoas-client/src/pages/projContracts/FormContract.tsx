@@ -13,8 +13,6 @@ import { ContractFormActions } from './parts/ContractFormActions';
 import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
 
 import { useHandleProjEstimate } from './hooks';
-import { useHandleProjId } from './hooks/useHandleProjId';
-import { useResolveParams } from './hooks/useResolveParams';
 import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
 
 
@@ -22,8 +20,8 @@ export const FormContract = () => {
   const { values } = useFormikContext<TypeOfForm>();
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
-  useResolveParams();
-  useHandleProjId();
+  //useResolveParams();
+  //useHandleProjId();
 
   const {
     calculatedEstimate,

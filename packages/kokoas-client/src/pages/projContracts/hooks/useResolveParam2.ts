@@ -1,5 +1,5 @@
 import { getParam } from 'kokoas-client/src/helpers/url';
-import { useCustGroupByProjId, useEstimateById } from 'kokoas-client/src/hooksQuery';
+import { useCustGroupById, useEstimateById, useProjById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertProjToForm } from '../api/convertProjToForm';
 import { convertToForm } from '../api/convertToForm';
@@ -11,21 +11,23 @@ export const useResolveParams2  = () => {
   const projEstimateIdFromURL = getParam('projEstimateId');
 
   const { data: dataProjEstimate } = useEstimateById(projEstimateIdFromURL || '');
-  const { record } = dataProjEstimate || {};
-  const projIdfromProjEstimate = record?.uuid.value;
+  const { record, calculated } = dataProjEstimate || {};
+  const projIdfromProjEstimate = record?.projId.value;
 
-  const { data: dataOthers } = useCustGroupByProjId(projIdfromProjEstimate || projIdFromURL || '');
-  const {
-    custGroupData,
-    projData,
-  } = dataOthers || {};
+  const { data: projData } = useProjById(projIdFromURL || projIdfromProjEstimate ||  '');
+  const custGroupId = projData?.custGroupId?.value;
 
-  console.log(custGroupData, projData, dataProjEstimate );
+  const { data: custGroupData } = useCustGroupById(custGroupId || '');
+
 
   useEffect(() => {
     if (projEstimateIdFromURL && dataProjEstimate && projData && custGroupData) {
       const { newFormData } = convertToForm(dataProjEstimate);
-
+      console.log('FIRE!', {
+        ...initialValues,
+        ...newFormData,
+        ...convertProjToForm({ recProj: projData, recCustGroup: custGroupData }),
+      });
       setNewFormVal({
         ...initialValues,
         ...newFormData,
@@ -38,8 +40,7 @@ export const useResolveParams2  = () => {
         ...convertProjToForm({ recProj: projData, recCustGroup: custGroupData }),
       });
 
-    } else { 
-
+    } else if (!projEstimateIdFromURL && !dataProjEstimate) { 
       setNewFormVal(initialValues);
     }
   }, [
@@ -51,9 +52,11 @@ export const useResolveParams2  = () => {
   ]);
 
 
+  console.log('newFormVal', newFormVal);
   return {
     newFormVal,
     projIdFromURL,
     projEstimateIdFromURL,
+    calculated,
   };
 };

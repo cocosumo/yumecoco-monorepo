@@ -2,11 +2,10 @@ import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
-import { getFieldName, TypeOfForm } from './form';
+import { TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
-import { SelectProjEstimates } from '../../components/ui/selects';
 import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractFormActions } from './parts/ContractFormActions';
@@ -17,6 +16,7 @@ import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../Router';
+import { SelectProjEstimates } from 'kokoas-client/src/components/ui/selects';
 
 
 export const FormContract = ({
@@ -51,7 +51,7 @@ export const FormContract = ({
               projName: projName,
             } : undefined}
             onChange={(_, opt) => {
-              navigate(`${pages.projEstimate}?${generateParams({
+              navigate(`${pages.projContractPreview}?${generateParams({
                 projId: opt?.id,
               })}`);
             }}
@@ -63,7 +63,7 @@ export const FormContract = ({
         >
           <SelectProjEstimates
             projId={projId}
-            name={getFieldName('projEstimateId')}
+            value={projEstimateId}
           />
         </Grid>
 

@@ -12,8 +12,11 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractFormActions } from './parts/ContractFormActions';
 import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
 
-import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
 import { calculateEstimate } from 'api-kintone';
+import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../Router';
 
 
 export const FormContract = ({
@@ -22,6 +25,7 @@ export const FormContract = ({
   calculated?: ReturnType<typeof calculateEstimate>
 }) => {
   const { values } = useFormikContext<TypeOfForm>();
+  const navigate = useNavigate();
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
 
@@ -31,6 +35,8 @@ export const FormContract = ({
 
   const disabled = !!envelopeStatus;
 
+
+
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -38,17 +44,19 @@ export const FormContract = ({
         <PageTitle label='契約' />
 
         <Grid item xs={12} md={4} >
-          <FormikSearchProjField
-            label='工事検索'
-            name={getFieldName('projId')}
-            projName={projName}
+          <SearchProjects
+            label='工事情報の検索'
+            value={projId ? {
+              id: projId,
+              projName: projName,
+            } : undefined}
+            onChange={(_, opt) => {
+              navigate(`${pages.projEstimate}?${generateParams({
+                projId: opt?.id,
+              })}`);
+            }}
           />
         </Grid>
-
-
-        {/* 見積もり選択フィールド
-          Reload field and its options after every submit.
-        */}
 
         <Grid item xs={12} md={8}
           lg={6}

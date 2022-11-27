@@ -7,4 +7,5 @@ export const getAllEstimates = async (
 ) => getAllRecords<RecordType>({
   ...params,
   app: appId,
+  orderBy: '作成日時 desc',
 });

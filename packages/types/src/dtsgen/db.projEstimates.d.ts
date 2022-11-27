@@ -11,6 +11,7 @@ declare namespace DBProjestimates {
     税: kintone.fieldTypes.Number;
     completeDate: kintone.fieldTypes.Date;
     payDestination: kintone.fieldTypes.SingleLineText;
+    dataId: kintone.fieldTypes.SingleLineText;
     顧客名: kintone.fieldTypes.SingleLineText;
     estimateStatus: kintone.fieldTypes.SingleLineText;
     payMethod: kintone.fieldTypes.SingleLineText;
@@ -26,7 +27,6 @@ declare namespace DBProjestimates {
     startDaysAfterContract: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
-    node: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     finishDate: kintone.fieldTypes.Date;
     updateDateTime: kintone.fieldTypes.DateTime;

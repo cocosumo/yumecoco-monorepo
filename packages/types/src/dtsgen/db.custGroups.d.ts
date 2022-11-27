@@ -10,6 +10,7 @@ declare namespace DBCustgroups {
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
+    storeCode: kintone.fieldTypes.SingleLineText;
     agents: {
       type: "SUBTABLE";
       value: Array<{

@@ -5,6 +5,7 @@ declare namespace DBProjestimates {
     updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
+    projDataId: kintone.fieldTypes.SingleLineText;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
     税: kintone.fieldTypes.Number;
@@ -25,6 +26,7 @@ declare namespace DBProjestimates {
     startDaysAfterContract: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
+    node: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     finishDate: kintone.fieldTypes.Date;
     updateDateTime: kintone.fieldTypes.DateTime;

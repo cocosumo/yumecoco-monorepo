@@ -1,5 +1,6 @@
 import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 import { appId, RecordType } from './config';
+import { generateProjDataIdSeqNum } from './generateProjDataIdSeqNum';
 import { updateRelatedProjects } from './updateRelatedProjects';
 
 
@@ -29,13 +30,32 @@ export const saveProject = async (
   },
 ) => {
 
-  /** Populate aggregate fields. */
-  const aggRecord = { ...record }; // avoid argument mutation.
+  /*******************
+   * Populate Aggregate Fields
+   ******************/
+
+  /** Copy record, but avoid argument mutation. */
+  const aggRecord = { ...record };
+
+  /* 工事担当者名をcocoConstNames「文字列」にコピーする。 */
   aggRecord.cocoConstNames = {
     value: record.agents?.value
       .map(({ value: { agentName } }) => agentName.value)
       .join(', ') || '',
   };
+
+  /* Generate new dataId, for new record */
+  if (!projId) {
+    const storeCode = aggRecord.storeCode?.value;
+    if (!storeCode) throw new Error(`無効な店舗番号。${storeCode}`);
+    const newDataId = await generateProjDataIdSeqNum(storeCode);
+    aggRecord.dataId = { value : newDataId };
+  }
+
+
+  /*******************
+   * Actual saving process
+   ******************/
 
   const saveResult = await saveRecordByUpdateKey({
     app: appId,
@@ -47,7 +67,9 @@ export const saveProject = async (
     revision,
   });
 
-  /* After related app after succesfull save */
+  /*******************
+   * Update related database
+   ******************/
   if (projId) {
     await updateRelatedProjects(projId);
   }

@@ -10,21 +10,21 @@ describe('addProjId', () => {
 
     const record = await getAllProjects();
 
-    const recWithoutDataId = record.filter(({ dataId }) => !dataId.value);
+    //const recWithoutDataId = record.filter(({ dataId }) => !dataId.value);
 
     const result = await ktr.updateAllRecords({
       app: AppIds.projects,
-      records: recWithoutDataId.reverse().map((rec, idx) => {
+      records: record.reverse().map((rec, idx) => {
 
         const storeCode = rec.storeCode.value;
         const year = rec.作成日時.value.substring(2, 4);
         const prefix = `${storeCode}-C${year}`;
-          
+
         const newRec : Partial<IProjects> = {
-          dataId: { value: `${prefix}${zeroPad(idx + 1)}` },
+          dataId: { value: `${prefix}-${zeroPad(idx + 1)}` },
         };
- 
-      
+
+
         return {
           updateKey: {
             field: 'uuid',
@@ -40,5 +40,5 @@ describe('addProjId', () => {
 
     expect(result).toBeDefined();
 
-  }); 
+  });
 });

@@ -16,13 +16,14 @@ import { useResolveParam } from './hooks/useResolveParam';
 
 
 export const FormikIndividualCustomer = () => {
+
   const { mutateAsync: saveCustGroupMutation } = useSaveCustGroup();
   const { data: employees } = useEmployees();
 
   const { setDialogState } = useConfirmDialog();
   const {
     initialState,
-    passedProjId, 
+    passedProjId,
   } = useResolveParam();
 
   const navigate = useNavigate();

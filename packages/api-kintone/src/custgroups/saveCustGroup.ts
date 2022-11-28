@@ -74,7 +74,6 @@ export const saveCustGroup = async (
     value: getAgentNames(record, 'yumeAG'),
   };
 
-
   const result = await saveRecordByUpdateKey({
     app: appId,
     updateKey: {
@@ -88,7 +87,7 @@ export const saveCustGroup = async (
   if (result.id) {
     await updateRelatedToCustGroup(record, result.id);
   }
-  
+
 
   return result;
 };

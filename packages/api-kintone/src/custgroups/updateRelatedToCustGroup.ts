@@ -15,8 +15,6 @@ export const updateRelatedToCustGroup = async (
 ) => {
   if (!custGroupId) throw new Error('エラーが発生しました。custGroupIdは定義されていません。');
 
-
-  console.log(custGroupId);
   /* custGroup 1-n projects */
   const updatedProjects = await updateRelated<IProjects>({
     relatedAppId: AppIds.projects,

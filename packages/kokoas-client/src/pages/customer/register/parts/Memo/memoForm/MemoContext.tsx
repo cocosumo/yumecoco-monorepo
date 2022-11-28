@@ -41,6 +41,7 @@ export const MemoContextProvider = ({
   };
 
   const handleOpen: MemoContextValue['handleOpen'] = (params) => {
+
     handleSetMemoState(params);
     setMemoOpen(true);
   };

@@ -18,12 +18,15 @@ export const initialValues = {
   /** 「一時保存」か「保存」 */
   saveMode: 'normal' as  'temporary' | 'normal',
   estimateId: '',
+  estimateDataId: '',
   projId: '',
   custGroupId: '',
   projName: '',
   customerName: '',
   createdDate: '',
   envStatus: '',
+
+  projDataId: '',
 
   /** 工事種別 */
   projTypeName: '',

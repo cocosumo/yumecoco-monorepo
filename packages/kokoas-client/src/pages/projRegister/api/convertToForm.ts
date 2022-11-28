@@ -3,9 +3,12 @@ import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Terr
 import { TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
+
   const {
-    projTypeId, projName,
-    custGroupId, uuid,
+    projTypeId,
+    projName,
+    custGroupId,
+    uuid,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
     cancelStatus,
@@ -24,8 +27,8 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     address2: address2.value,
     buildingType: buildingType.value as BuildingType,
     cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
-    cocoConst1: cocoConst?.[0],
-    cocoConst2: cocoConst?.[1],
+    cocoConst1: cocoConst?.[0] || '',
+    cocoConst2: cocoConst?.[1] || '',
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
     isAgentConfirmed: Boolean(+isAgentConfirmed.value),
@@ -46,6 +49,7 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
     territory,
     uuid,
     members,
+    storeCode,
   } = custGroupRec;
 
   return {
@@ -53,6 +57,7 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
     storeId: storeId.value,
     territory: territory.value as Territory,
     custName: members.value[0]?.value.customerName.value || '',
+    storeCode: storeCode.value,
   };
 
 };

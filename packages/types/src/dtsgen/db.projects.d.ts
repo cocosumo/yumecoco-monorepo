@@ -8,6 +8,7 @@ declare namespace DBProjects {
     uuid: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
+    dataId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
     estatePurchaseDate: kintone.fieldTypes.Date;
     custGroupId: kintone.fieldTypes.SingleLineText;
@@ -26,6 +27,7 @@ declare namespace DBProjects {
     postal: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
+    storeCode: kintone.fieldTypes.SingleLineText;
     agents: {
       type: "SUBTABLE";
       value: Array<{

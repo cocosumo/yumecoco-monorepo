@@ -5,7 +5,7 @@ import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
 import { FormikSelect } from '../../../../components/ui/selects';
-import { FormikTextField } from '../../../../components/ui/textfield';
+import { FormikTextFieldV2 as  FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
@@ -38,7 +38,7 @@ export const ConstructionInfo = (
   const { setBackdropState } = useBackdrop();
   const { data, isFetching } = useProjHasContract(projId);
 
-  const { data: constructionTypeOptions } = useProjTypes<Options>({
+  const { data: projTypeOptions } = useProjTypes<Options>({
     select: (d) => d
       ?.map(({
         label, uuid, projectName,
@@ -48,6 +48,7 @@ export const ConstructionInfo = (
         hiddenValue: projectName?.value,
       })),
   });
+
 
   const [open, setOpen] = useState(false);
 
@@ -71,16 +72,19 @@ export const ConstructionInfo = (
         md={6}
       >
         <Grid item xs={12} md={8}>
+          {projTypeOptions &&
           <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'}
             disabled={isReadOnly || data}
-            options={constructionTypeOptions} required
+            options={projTypeOptions}
+            required
             onChange={(_, newTextVal) => {
               setValues((prev) => ({
                 ...prev,
                 projName: `${prev.custName} ${newTextVal}`,
               }));
             }}
-          />
+          />}
+
         </Grid>
 
         <Grid item xs={12} md={4}>

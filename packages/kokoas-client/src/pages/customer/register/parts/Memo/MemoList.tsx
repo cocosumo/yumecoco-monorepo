@@ -95,6 +95,7 @@ export const MemoList = (props: MemoListProps) => {
   };
 
   const handleClose: MenuProps['handleClose'] = (memoItem, method) => {
+
     switch (method) {
       case '編集':
         handleOpen({ ...memoItem, custName, custGroupId });

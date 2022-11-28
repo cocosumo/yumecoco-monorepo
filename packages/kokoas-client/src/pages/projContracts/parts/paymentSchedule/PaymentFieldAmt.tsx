@@ -16,22 +16,20 @@ export const PaymentFieldAmt = (
   },
 ) => {
   const [field, meta, helpers] = useField(getPayFieldNameByIdx('amount', idx));
-  
+
   const { value, onChange } = field;
   const { touched, error } = meta;
   const [inputVal, setInputVal] = useState<string | null>(null);
 
-  const changeHandlerInput: TextFieldProps['onChange'] = 
+  const changeHandlerInput: TextFieldProps['onChange'] =
     useMemo(
       () => debounce(
-        (el) => { 
+        (el) => {
           onChange(el);
           setInputVal(null);
-        }, 1000), 
+        }, 1000),
       [onChange],
     );
-
-
 
 
   const isShowError  = touched && !!error;
@@ -41,7 +39,7 @@ export const PaymentFieldAmt = (
     <Tooltip title={!error ? jaValue : ''}>
       <TextField
         {...field}
-        value={inputVal === null ? value : inputVal}
+        value={(inputVal === null ? value : inputVal) ?? ''}
         onInput={(el) => {
           if (!touched) helpers.setTouched(true);
           setInputVal((el as ChangeEvent<HTMLInputElement>).target.value);
@@ -50,7 +48,7 @@ export const PaymentFieldAmt = (
         disabled={disabled}
         variant={'standard'}
         inputProps={{
-          style: { 
+          style: {
             textAlign: 'right',
           },
         }}

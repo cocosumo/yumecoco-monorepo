@@ -22,8 +22,6 @@ export const convertToForm = (
     }
   }, { cocoAGs: [] as string[], yumeAGs: [] as string[] });
 
-  console.log($revision.value);
-
   /* Map the result to the form */
   return {
     id: uuid.value,

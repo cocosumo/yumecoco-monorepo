@@ -14,8 +14,6 @@ import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
 import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
-import { useUpdateEstimateId } from './hooks/useUpdateEstimateId';
-import { useResolveParams } from './hooks/useResolveParams';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
 import { ButtonMenu } from './fieldComponents/ButtonMenu';
@@ -28,12 +26,12 @@ export default function FormProjEstimate() {
     projTypeProfit,
     projTypeProfitLatest,
     estimateId,
+    estimateDataId,
     createdDate,
     envStatus,
+
   } = values;
 
-  useResolveParams();
-  useUpdateEstimateId();
 
   const isEditMode = !!estimateId;
   const isDisabled = !!envStatus;
@@ -52,12 +50,13 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md>
 
           {/* 編集中の見積もり情報 */}
           {projId &&
             <EstimatesInfo
               estimateId={estimateId}
+              id={estimateDataId}
               createdDate={createdDate}
               envStatus={envStatus}
             />}

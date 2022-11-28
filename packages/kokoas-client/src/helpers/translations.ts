@@ -18,4 +18,6 @@ export const translations: Record<string, string> = {
   tel: '電話番号',
   email: 'メアド',
 
+  completed: '完了',
+
 };

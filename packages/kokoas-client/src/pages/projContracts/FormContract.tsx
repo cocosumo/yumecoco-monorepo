@@ -2,39 +2,40 @@ import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageSubTitle, PageTitle } from '../../components/ui/labels';
 import { ContractPageShortcuts } from './parts/ContractPageShortcuts';
-import { getFieldName, TypeOfForm } from './form';
+import { TypeOfForm } from './form';
 import { Grid } from '@mui/material';
 import { ContractInfo } from './parts/contractInfo/ContractInfo';
 import { EmptyBox } from '../../components/ui/information/EmptyBox';
-import { SelectProjEstimates } from '../../components/ui/selects';
 import { PaymentSchedule } from './parts/paymentSchedule/PaymentSchedule';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractFormActions } from './parts/ContractFormActions';
 import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
 
-import { useHandleProjEstimate } from './hooks';
-import { useHandleProjId } from './hooks/useHandleProjId';
-import { useResolveParams } from './hooks/useResolveParams';
-import { FormikSearchProjField } from 'kokoas-client/src/components/ui/textfield/FormikSearchProjField';
+import { calculateEstimate } from 'api-kintone';
+import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../Router';
+import { SelectProjEstimates } from 'kokoas-client/src/components/ui/selects';
 
 
-export const FormContract = () => {
+export const FormContract = ({
+  calculated,
+}: {
+  calculated?: ReturnType<typeof calculateEstimate>
+}) => {
   const { values } = useFormikContext<TypeOfForm>();
+  const navigate = useNavigate();
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
-  useResolveParams();
-  useHandleProjId();
 
-  const {
-    calculatedEstimate,
-  } = useHandleProjEstimate();
+  const { totalAmountInclTax } = calculated ?? {};
 
-  const { totalAmountInclTax } = calculatedEstimate ?? {};
-
-  /* 本当に小数点切り捨ていいか、要確認 */
   const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
 
   const disabled = !!envelopeStatus;
+
+
 
   return (
     <Form noValidate>
@@ -43,24 +44,26 @@ export const FormContract = () => {
         <PageTitle label='契約' />
 
         <Grid item xs={12} md={4} >
-          <FormikSearchProjField
-            label='工事検索'
-            name={getFieldName('projId')}
-            projName={projName}
+          <SearchProjects
+            label='工事情報の検索'
+            value={projId ? {
+              id: projId,
+              projName: projName,
+            } : undefined}
+            onChange={(_, opt) => {
+              navigate(`${pages.projContractPreview}?${generateParams({
+                projId: opt?.id,
+              })}`);
+            }}
           />
         </Grid>
-
-
-        {/* 見積もり選択フィールド
-          Reload field and its options after every submit.
-        */}
 
         <Grid item xs={12} md={8}
           lg={6}
         >
           <SelectProjEstimates
             projId={projId}
-            name={getFieldName('projEstimateId')}
+            value={projEstimateId}
           />
         </Grid>
 

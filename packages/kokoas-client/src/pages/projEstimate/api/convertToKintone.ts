@@ -2,15 +2,15 @@ import { IProjestimates } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
+  customerName,
+  items,
   projId,
   projName,
   projTypeId,
   projTypeName,
   projTypeProfit,
-  customerName,
-  tax,
-  items,
   status,
+  tax,
 }: TypeOfForm) => {
 
   /* itemsの変換処理 */

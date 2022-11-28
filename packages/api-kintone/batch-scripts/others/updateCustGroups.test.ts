@@ -15,7 +15,7 @@ describe('updateCustGroup', () => {
       app: AppIds.custGroups,
       records: custGroups.map((rec) => {
         const newRec : Partial<ICustgroups> = {
-          members: rec.members,
+          storeId: rec.storeId,
         };
 
         return {

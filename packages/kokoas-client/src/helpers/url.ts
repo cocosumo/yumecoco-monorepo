@@ -6,6 +6,7 @@ interface URLParams {
   custGroupId?: string,
   menuOpen?: number,
   invoiceId?: number,
+  clearFields?: string,
 }
 
 

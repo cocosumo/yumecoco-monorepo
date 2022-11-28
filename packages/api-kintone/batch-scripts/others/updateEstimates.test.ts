@@ -30,7 +30,7 @@ describe('updateCustGroup', () => {
         };
       }),
     }).catch(e => console.log(e));
-    
+
     console.log(result);
   }, 60000);
 });

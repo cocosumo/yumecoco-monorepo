@@ -32,7 +32,6 @@ export const FormConstruction  = () => {
   const isEditMode = window.location.href.includes('edit');
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
-
   return (
 
     <Form noValidate>

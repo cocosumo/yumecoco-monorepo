@@ -4,13 +4,16 @@ import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRe
 import { parseKintoneDate } from '../../../lib/date';
 import { initialValues, TypeOfForm } from '../form';
 
-export const convertToForm = (
-  record: IProjestimates,
-  calculated = calculateEstimateRecord(record),
-) => {
+export const convertToForm = ({
+  record,
+  calculated,
+}:{
+  record: IProjestimates
+  calculated: ReturnType<typeof calculateEstimateRecord >
+}) => {
 
   const {
-    レコード番号: projEstimateId,
+    uuid: projEstimateId,
     envStatus,
     envDocFileKeys,
     envRecipients,

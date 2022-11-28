@@ -30,7 +30,7 @@ export const useSubmitContractInfo = () => {
       if (submitMethod === 'normal') {
         await sleep(2000);
       }
-
+      
       const record = convertToKintone(values);
       const { revision } = await mutateAsync({
         recordId: projEstimateId,

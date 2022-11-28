@@ -3,8 +3,9 @@ import { useSaveEstimate } from 'kokoas-client/src/hooksQuery/useSaveEstimate';
 import { useConfirmDialog, useSnackBar } from '../../hooks';
 import { convertToKintone } from './api/convertToKintone';
 import { BtnSaveChoices } from './fieldComponents/formActions/BtnSaveChoices';
-import { initialValues, validationSchema } from './form';
+import { validationSchema } from './form';
 import FormProjEstimate from './FormProjEstimate';
+import { useResolveParam } from './hooks/useResolveParam';
 
 
 export const FormikProjEstimate = () => {
@@ -12,9 +13,13 @@ export const FormikProjEstimate = () => {
   const { setDialogState, handleClose } = useConfirmDialog();
   const { mutateAsync: saveMutation } = useSaveEstimate();
 
+  const {
+    initialForm,
+  } = useResolveParam();
+
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialForm}
       initialStatus={((s: TFormStatus)=>s)('busy')}
       enableReinitialize
       validationSchema={validationSchema}
@@ -27,6 +32,9 @@ export const FormikProjEstimate = () => {
           saveMutation({
             recordId: estimateId,
             record,
+            relatedData: {
+              projDataId: values.projDataId,
+            },
           })
             .then(({ id })=>{
               setSnackState({

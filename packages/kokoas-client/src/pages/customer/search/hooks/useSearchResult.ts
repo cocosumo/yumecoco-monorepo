@@ -35,7 +35,7 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
           cocoConst,
           recordStatus,
         } = params || {};
-    
+
         return data?.reduce(
           (acc, rec) => {
 
@@ -43,12 +43,12 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
 
             // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
             if (!mainCust) return acc;
-          
+
             const relProjects = recProjects?.filter(({ custGroupId }) => custGroupId.value === rec.uuid.value  );
             const relCustomers = recCustomers?.filter(({ uuid }) => rec?.members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
-            const relEstimates = recEstimates?.filter(({ custGroupId }) =>  custGroupId.value === rec.$id.value);
+            const relEstimates = recEstimates?.filter(({ custGroupId }) =>  custGroupId.value === rec.uuid.value);
             const relContracts = relEstimates?.filter(({ envStatus }) => (envStatus.value as TEnvelopeStatus) === 'completed' );
-  
+
             const recYumeAG = rec.agents?.value
               ?.filter(item => item.value.agentType.value === 'yumeAG' as TAgents);
             const recCocoAG = rec.agents.value
@@ -57,7 +57,7 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             const numOfProjects = relProjects?.length || 0 ;
             const numOfContracts = relContracts?.length || 0 ;
             const isDeleted = !!(+rec.isDeleted.value);
-          
+
             const { custEmails, custTels } = groupCustContacts(relCustomers);
             // フィルター条件してい
             if (!params
@@ -71,21 +71,21 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
               && (!email || custEmails.some((s) => s.includes(email)))
               && (!contactNum || custTels.some((s) => s.includes(contactNum)))
               && (!cocoConst || relProjects?.some(({ agents }) => agents.value.some(({ value: { agentId } }) => agentId.value === cocoConst)))
-              && (!address 
+              && (!address
                   || rec?.members?.value?.some(({ value: { postal, address1, address2 } }) => [postal.value, address1.value, address2.value].some((s) => s.includes(address)))
                   || relProjects?.some(({ postal, address1, address2 }) => [postal.value, address1.value, address2.value].some((s) => s.includes(address)))
               )
-              && (!recordStatus?.length 
+              && (!recordStatus?.length
                 || (
-                  (recordStatus.includes('情報登録のみ') && !numOfProjects && !isDeleted) 
-                  || (recordStatus.includes('追客中') && !!numOfProjects && !numOfContracts && !isDeleted) 
-                  || (recordStatus.includes('契約済/工事進行中') && !!numOfContracts && !isDeleted) 
-                  || (recordStatus.includes('削除') && !!isDeleted) 
-                ) 
+                  (recordStatus.includes('情報登録のみ') && !numOfProjects && !isDeleted)
+                  || (recordStatus.includes('追客中') && !!numOfProjects && !numOfContracts && !isDeleted)
+                  || (recordStatus.includes('契約済/工事進行中') && !!numOfContracts && !isDeleted)
+                  || (recordStatus.includes('削除') && !!isDeleted)
+                )
               )
             )) {
 
-              acc.push({  
+              acc.push({
                 '顧客ID': rec?.uuid?.value,
                 '顧客氏名・会社名': mainCust?.customerName?.value ?? '-',
                 '案件数': (numOfProjects).toString(),
@@ -109,10 +109,10 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             return acc;
           },
           [] as ISearchData[]);
-      }, 
+      },
       [params, recProjects, recCustomers, recEstimates],
     ),
- 
+
   });
 
 };

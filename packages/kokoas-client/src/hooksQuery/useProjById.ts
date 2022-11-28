@@ -1,16 +1,19 @@
 import { useProjects } from './useProjects';
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 /**
  * 工事番号で、工事のデータを取得する。
  */
 export const useProjById = (projId: string) => {
+  
+  const queryInfo = useProjects();
 
-  return useProjects(({
-    select: useCallback(
-      (data) => data.find(({ uuid }) => uuid.value === projId ),
-      [projId],
+  return {
+    ...queryInfo,
+    data: useMemo(
+      () => queryInfo.data?.find(({ uuid }) => uuid.value === projId ),
+      [queryInfo.data, projId],
     ),
-  }));
+  };
 
 };

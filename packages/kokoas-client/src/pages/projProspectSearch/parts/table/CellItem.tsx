@@ -26,31 +26,32 @@ export const CellItem = (
     case '工事番号': return (
       <Link
         to={`${pages.projEdit}?${generateParams({
-          projId: row['工事番号'],
+          projId: row['工事uuid'],
         })}`}
         target="_blank"
         rel="noopener noreferrer"
       >
         {cellValue}
       </Link>);
-    case '顧客番号': return (
-      <Link
-        to={`${pages.custGroupEdit}?${generateParams({
-          projId: row['工事番号'],
-          custGroupId: row['顧客番号'],
-        })}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {cellValue}
-      </Link>
-    );
 
     case '更新日時':
     case '作成日時': return (
       <>
         {dateStrToJA(cellValue?.toString())}
       </>
+    );
+
+    case '顧客番号': return (
+      <Link
+        to={`${pages.custGroupEdit}?${generateParams({
+          projId: row['工事番号'],
+          custGroupId: row['顧客番号uuid'],
+        })}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {cellValue}
+      </Link>
     );
 
     case '契約予定金額': return (
@@ -77,7 +78,7 @@ export const CellItem = (
 
 
     default: return (
-      <> 
+      <>
         {' '}
         {cellValue}
         {' '}

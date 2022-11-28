@@ -17,10 +17,12 @@ export const convertEstimateToForm = (
     projTypeId,
     作成日時,
     envStatus,
+    dataId,
   } = recEstimate;
 
   return {
     estimateId: uuid.value,
+    estimateDataId: dataId.value,
     customerName: custName.value,
     projId: projId.value,
     projTypeProfit : +projTypeProfit.value,

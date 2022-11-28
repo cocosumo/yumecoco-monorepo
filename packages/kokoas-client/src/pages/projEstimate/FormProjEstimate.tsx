@@ -26,8 +26,10 @@ export default function FormProjEstimate() {
     projTypeProfit,
     projTypeProfitLatest,
     estimateId,
+    estimateDataId,
     createdDate,
     envStatus,
+
   } = values;
 
 
@@ -53,7 +55,7 @@ export default function FormProjEstimate() {
           {/* 編集中の見積もり情報 */}
           {projId &&
             <EstimatesInfo
-              estimateId={estimateId}
+              id={estimateDataId}
               createdDate={createdDate}
               envStatus={envStatus}
             />}

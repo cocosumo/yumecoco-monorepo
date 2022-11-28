@@ -35,9 +35,8 @@ export const validationSchema = Yup
   exceedChecked: Yup.boolean()
     .when(keys, {
       is: (contractAmount: number, billingAmount: number, billedAmount: number) => {
-        console.log('Yup', contractAmount, billingAmount, billedAmount);
-        return contractAmount < (billingAmount + billedAmount);
+        return Boolean(contractAmount < (billingAmount + billedAmount));
       },
-      then: Yup.boolean().required('契約金の超過確認にチェックが入っていません'),
+      then: Yup.boolean().required().oneOf([true], '契約金の超過確認にチェックが入っていません'),
     }),
 });

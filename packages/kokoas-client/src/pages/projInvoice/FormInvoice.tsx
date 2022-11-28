@@ -16,15 +16,20 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
 import { BilledAmount } from './fieldComponents/BilledAmount';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import { isEmpty } from 'lodash';
 
 
 
 export const FormInvoice = () => {
   const navigate = useNavigate();
+  const { setSnackState } = useSnackBar();
 
-  const { values, submitForm, setValues } = useFormikContext<TypeOfForm>();
+  const { values, submitForm, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
+  const submitCountRef = useRef(0);
+  
   const {
     projId,
     projName,
@@ -61,6 +66,18 @@ export const FormInvoice = () => {
       contractAmount: String(newContractAmount),
     }));
   }, [estimates, setValues]);
+
+  useEffect(() => {
+    if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
+      setSnackState({
+        open: true,
+        severity: 'error',
+        message: '入力エラーです',
+      });
+    }
+    submitCountRef.current = submitCount;
+  }, [errors, setSnackState, submitCount, submitCountRef]);
+
 
 
   return (

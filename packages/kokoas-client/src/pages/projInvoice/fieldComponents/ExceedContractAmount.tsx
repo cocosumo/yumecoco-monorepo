@@ -1,10 +1,12 @@
 import { Alert, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { useField } from 'formik';
+import { KeyOfForm } from '../form';
 
 export const ExceedContractAmount = () => {
 
-  const [, , helpers] = useField('exceedChk');
+  const fieldName: KeyOfForm = 'exceedChecked';
+  const [, , helpers] = useField(fieldName);
   const {
     setValue,
   } = helpers;

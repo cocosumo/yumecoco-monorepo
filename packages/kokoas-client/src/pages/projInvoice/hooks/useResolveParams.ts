@@ -58,6 +58,6 @@ export const useResolveParams = () => {
       setValues(initialValues);
     }
 
-  }, [projIdFromURL, projInvoiceIdFromURL, setValues, projData, contracts]);
+  }, [projIdFromURL, projInvoiceIdFromURL, setValues, projData, contracts, totalInvoice]);
 
 };

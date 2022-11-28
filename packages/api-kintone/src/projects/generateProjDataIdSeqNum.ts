@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { zeroPad } from 'libs';
 import { KProjects } from 'types';
 import { getRecords } from '../common';
-import { appId, dataIdpadding, dataIdPrefix, RecordType } from './config';
+import { appId, dataIdPadding, dataIdPrefix, RecordType } from './config';
 
 
 /**
@@ -30,9 +30,9 @@ export const generateProjDataIdSeqNum = async (prefix: string) => {
   });
 
   if (records.length) {
-    sequenceNumber += +(records[0].dataId.value.slice(-dataIdpadding)) ;
+    sequenceNumber += +(records[0].dataId.value.slice(-dataIdPadding)) ;
   }
 
-  return `${prefix}-${partialDataId}-${zeroPad(sequenceNumber, dataIdpadding)}` ;
+  return `${prefix}-${partialDataId}-${zeroPad(sequenceNumber, dataIdPadding)}` ;
 
 };

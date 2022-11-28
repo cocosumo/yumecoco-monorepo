@@ -50,7 +50,7 @@ export default function FormProjEstimate() {
 
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md>
 
           {/* 編集中の見積もり情報 */}
           {projId &&

@@ -33,8 +33,10 @@ export const updateRelated = async <T = never>({
 
   if (typeof lookUpFieldName !== 'string') throw new Error(`Invalid lookUpFieldName ${lookUpFieldName.toString()}`);
 
+  if (!recIds.length) return;
+
   const condition = (Array.isArray(recIds) ? recIds : [recIds])
-    .map((id) => `${lookUpFieldName} = "${id}"`)
+    .map((uuid) => `${lookUpFieldName} = "${uuid}"`)
     .join(' or ');
 
   const [

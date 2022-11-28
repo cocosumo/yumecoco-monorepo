@@ -18,7 +18,7 @@ export const saveCustomers = async (
     records: Array<Partial<RecordType>>
   },
 ) => {
-  console.log('records', records);
+
   const KintoneRecord = await ktRecord();
 
   /********************************************************
@@ -33,7 +33,6 @@ export const saveCustomers = async (
     }));
 
   if (newCusts?.length > 0) {
-    console.log(newCusts);
     await KintoneRecord.addRecords({
       app: appId,
       records: newCusts,

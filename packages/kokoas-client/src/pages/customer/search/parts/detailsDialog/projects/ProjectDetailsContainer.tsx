@@ -14,9 +14,9 @@ export const ProjectDetailsContainer = (props: {
     <>
       {
         fetchedProjects?.map((projectDetailsData) => {
-          const { $id } = projectDetailsData;
+          const { uuid } = projectDetailsData;
           return (
-            <Stack key={$id.value}
+            <Stack key={uuid.value}
               spacing={2}
               mb={2}
             >
@@ -26,7 +26,7 @@ export const ProjectDetailsContainer = (props: {
                 >
                   <ProjectDetails projectDetailsData={projectDetailsData} />
 
-                  <EstimatesList projId={$id.value} />
+                  <EstimatesList projId={uuid.value} />
                 </Stack>
               </Card>
             </Stack>

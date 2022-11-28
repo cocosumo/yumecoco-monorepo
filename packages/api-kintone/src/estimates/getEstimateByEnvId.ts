@@ -1,9 +1,9 @@
 import { getRecords } from '../common';
-import { appId, RecordKeys, RecordType } from './config';
+import { appId, RecordKey, RecordType } from './config';
 
 export const getEstimateByEnvId = async (envelopeId: string) => {
 
-  const envIdField : RecordKeys = 'envId';
+  const envIdField : RecordKey = 'envId';
 
   const { records } = await getRecords<RecordType>({
     app: appId,

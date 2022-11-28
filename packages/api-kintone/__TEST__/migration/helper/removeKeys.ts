@@ -1,4 +1,5 @@
-export const removeKeys = (obj: unknown, keys: string[]) => {
+export const removeKeys = (obj: any, keys: string[]) => {
+
   if (Array.isArray(obj)) return obj.map(item => removeKeys(item, keys));
 
   if (typeof obj === 'object' && obj !== null) {
@@ -7,5 +8,5 @@ export const removeKeys = (obj: unknown, keys: string[]) => {
     }, {});
   }
 
-  return obj;
+  return obj as any;
 };

@@ -13,7 +13,7 @@
     "lib": ["ES2022"]
   },
   "files": [
-    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
   ],
   "exclude": [
     "./dist",

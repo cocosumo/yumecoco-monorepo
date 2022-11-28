@@ -37,7 +37,7 @@ module.exports = {
       crypto: false,
       fs: false,
       path: false,
-      os: false
+      os: false,
     },
   },
 
@@ -68,8 +68,8 @@ module.exports = {
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: /node_modules/,
-      }, */
-    /*   {
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
 
@@ -100,9 +100,9 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
-          //experimentalWatchApi: true,
+          experimentalWatchApi: true,
+          //configFile: './tsconfig.build.json',
         },
-        exclude: /node_modules/
       },
     ],
   },

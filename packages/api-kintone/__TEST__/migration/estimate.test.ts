@@ -5,9 +5,9 @@ import { fieldMapSorter } from './helper/fieldMapSorter';
 import { getLookUp } from './helper/getLookup';
 import { removeKeys } from './helper/removeKeys';
 
-describe('custGroup migration', () => {
-  const devAppId = AppIds.custGroups;
-  const prodAppId = prodAppIds.custGroups;
+describe('projEstimates migration', () => {
+  const devAppId = AppIds.projEstimates;
+  const prodAppId = prodAppIds.projEstimates;
 
   let prodFormFields : Properties;
   let devFormFields : Properties;

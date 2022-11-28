@@ -5,9 +5,9 @@ import { fieldMapSorter } from './helper/fieldMapSorter';
 import { getLookUp } from './helper/getLookup';
 import { removeKeys } from './helper/removeKeys';
 
-describe('custGroup migration', () => {
-  const devAppId = AppIds.custGroups;
-  const prodAppId = prodAppIds.custGroups;
+describe('custMemos migration', () => {
+  const devAppId = AppIds.custMemos;
+  const prodAppId = prodAppIds.custMemos;
 
   let prodFormFields : Properties;
   let devFormFields : Properties;
@@ -46,8 +46,8 @@ describe('custGroup migration', () => {
 
     for (const devLookup of devLookUps) {
       const prodLookUp = prodLookUps.find(({ code }) => code === devLookup.code );
-      const prodSortedFieldMap = prodLookUp?.lookup.fieldMappings.sort(fieldMapSorter);
-      const devSortedFieldMap = devLookup?.lookup.fieldMappings.sort(fieldMapSorter);
+      const prodSortedFieldMap = prodLookUp?.lookup.fieldMappings.sort(fieldMapSorter) ?? [];
+      const devSortedFieldMap = devLookup?.lookup.fieldMappings.sort(fieldMapSorter) ?? [];
       expect(devSortedFieldMap).toStrictEqual(prodSortedFieldMap);
     }
   });

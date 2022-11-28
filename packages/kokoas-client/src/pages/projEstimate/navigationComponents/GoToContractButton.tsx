@@ -4,7 +4,6 @@ import { TypeOfForm } from '../form';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { generateParams } from '../../../helpers/url';
-import isEmpty from 'lodash/isEmpty';
 
 
 export const GoToContractButton = () => {
@@ -17,10 +16,11 @@ export const GoToContractButton = () => {
       projId,
       custGroupId,
     },
-    touched,
+    dirty,
   } = useFormikContext<TypeOfForm>();
 
-  const isEnabled = estimateId && isEmpty(touched);
+  const isEnabled = estimateId && !dirty;
+
 
   const handleGoToContractPage = () => {
     navigate(`${pages.projContractPreview}?${generateParams({

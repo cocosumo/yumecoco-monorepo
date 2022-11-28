@@ -34,10 +34,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx', '.jsx'],
     fallback: {
+      "fs": false,
+      "path": false,
+      "os": false,
       crypto: false,
-      fs: false,
-      path: false,
-      os: false,
     },
   },
 
@@ -100,7 +100,7 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
-          experimentalWatchApi: true,
+          //experimentalWatchApi: true,
           //configFile: './tsconfig.build.json',
         },
       },

@@ -1,4 +1,4 @@
-import { Properties } from '@kintone/rest-api-client/lib/client/types';
+/* import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { getFormFields } from 'api-kintone';
 import { AppIds, prodAppIds } from 'config';
 import { fieldMapSorter } from './helper/fieldMapSorter';
@@ -51,4 +51,4 @@ describe('custMemos migration', () => {
       expect(devSortedFieldMap).toStrictEqual(prodSortedFieldMap);
     }
   });
-});
+}); */

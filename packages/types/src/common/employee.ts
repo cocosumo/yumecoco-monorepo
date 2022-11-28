@@ -19,4 +19,4 @@ export const AGLabels : Record<TAgents, string> = {
   sutekura: 'すてくら',
 };
 
-export type KEmployeeStores = KeyOfSubtable<IEmployees['affiliateStores']>;
+export type KEmployeeStores = KeyOfSubtable<IEmployees['affStores']>;

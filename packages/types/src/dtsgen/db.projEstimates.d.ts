@@ -5,7 +5,6 @@ declare namespace DBProjestimates {
     updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
-    projDataId: kintone.fieldTypes.SingleLineText;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
     税: kintone.fieldTypes.Number;

@@ -3,9 +3,11 @@ declare namespace DBInvoices {
     amountType: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
     billingAmount: kintone.fieldTypes.Number;
+    slipNumber: kintone.fieldTypes.SingleLineText;
     excessChecked: kintone.fieldTypes.Number;
     plannedPaymentDate: kintone.fieldTypes.Date;
     uuid: kintone.fieldTypes.SingleLineText;
+    issuedDateTime: kintone.fieldTypes.DateTime;
     estimateLists: {
       type: "SUBTABLE";
       value: Array<{

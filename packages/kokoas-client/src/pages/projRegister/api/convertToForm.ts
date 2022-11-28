@@ -5,8 +5,10 @@ import { TypeOfForm } from '../form';
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
 
   const {
-    projTypeId, projName,
-    custGroupId, uuid,
+    projTypeId,
+    projName,
+    custGroupId,
+    uuid,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
     cancelStatus,
@@ -47,6 +49,7 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
     territory,
     uuid,
     members,
+    storeCode,
   } = custGroupRec;
 
   return {
@@ -54,6 +57,7 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
     storeId: storeId.value,
     territory: territory.value as Territory,
     custName: members.value[0]?.value.customerName.value || '',
+    storeCode: storeCode.value,
   };
 
 };

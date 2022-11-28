@@ -1,10 +1,10 @@
 
-import { 
-  TEnvelopeStatus, 
-  Territory, 
-  RecordStatus, 
-  RecordCancelStatus, 
-  BuildingType, 
+import {
+  TEnvelopeStatus,
+  Territory,
+  RecordStatus,
+  RecordCancelStatus,
+  BuildingType,
 } from 'types';
 import * as Yup from 'yup';
 
@@ -20,6 +20,7 @@ export const initialValues = {
   projTypeId: '',
   projName: '',
   createdDate: '',
+  storeCode: '',
 
   custGroupId: undefined  as undefined | string,
   custName: '',

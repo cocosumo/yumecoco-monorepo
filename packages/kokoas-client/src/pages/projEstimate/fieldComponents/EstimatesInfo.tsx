@@ -23,10 +23,12 @@ const LabeledInfo = ({
 };
 
 export const EstimatesInfo = ({
+  estimateId,
   id,
   createdDate,
   envStatus,
 }: {
+  estimateId: string,
   id: string
   createdDate: string
   envStatus: string
@@ -38,12 +40,12 @@ export const EstimatesInfo = ({
         編集中の見積り情報
       </FormLabel>
 
-      {!id &&
+      {!estimateId &&
         <Typography variant="body1">
           新規作成
         </Typography>}
 
-      {id &&
+      {estimateId &&
 
         <Stack direction={'row'} spacing={1}>
           <LabeledInfo

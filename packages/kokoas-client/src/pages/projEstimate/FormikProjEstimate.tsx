@@ -32,6 +32,9 @@ export const FormikProjEstimate = () => {
           saveMutation({
             recordId: estimateId,
             record,
+            relatedData: {
+              projDataId: values.projDataId,
+            },
           })
             .then(({ id })=>{
               setSnackState({

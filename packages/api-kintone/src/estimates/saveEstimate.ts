@@ -12,9 +12,13 @@ export const saveEstimate = async ({
   record,
   recordId,
   revision,
+  relatedData,
 }:{
   recordId: string,
   record: Partial<RecordType>
+  relatedData?: {
+    projDataId: string
+  },
   revision?: string,
 }) => {
 
@@ -28,7 +32,7 @@ export const saveEstimate = async ({
 
   /* Generate new dataId, for new record */
   if (!recordId) {
-    const projDataId = aggRecord.projDataId?.value;
+    const projDataId = relatedData?.projDataId;
     if (!projDataId) throw new Error(`無効なdataId。${projDataId}`);
     const newDataId = await generateEstimateDataIdSeqNum(projDataId);
     aggRecord.dataId = { value : newDataId };

@@ -4,7 +4,6 @@ import { TypeOfForm } from '../form';
 export const convertToKintone = ({
   customerName,
   items,
-  projDataId,
   projId,
   projName,
   projTypeId,
@@ -41,7 +40,6 @@ export const convertToKintone = ({
 
   /* 変換処理 */
   const kintoneRecord: Partial<IProjestimates> = {
-    projDataId: { value: projDataId },
     projId: { value: projId },
     projTypeId: { value: projTypeId },
     顧客名: { value: customerName },

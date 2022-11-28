@@ -37,10 +37,10 @@ export const ItemEstimate = ({
 }) => {
 
   const {
-    $id: id, // Change this to uuid
     作成日時: { value: dateCreated },
     estimateStatus: { value: estimateStatus },
     envStatus: { value: envStatus },
+    dataId,
   } = estimateRecord;
 
   const { totalAmountInclTax } = calculated;
@@ -63,7 +63,7 @@ export const ItemEstimate = ({
 
       <LabeledInfo
         label='番号'
-        info={id.value}
+        info={dataId.value.split('-').at(-1) ?? dataId.value}
         widthRatio={10}
       />
       <LabeledInfo

@@ -25,6 +25,8 @@ export const initialValues = {
   createdDate: '',
   envStatus: '',
 
+  projDataId: '',
+
   /** 工事種別 */
   projTypeName: '',
   projTypeId: '',

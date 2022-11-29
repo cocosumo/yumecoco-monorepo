@@ -50,7 +50,7 @@ export const FormikTextFieldV2 = (
     <TextField
       {...others}
       {...field}
-      value={inputValue}
+      value={inputValue ?? ''}
       onChange={handleChange}
       onBlur={((e)=>{
         field.onBlur(e);

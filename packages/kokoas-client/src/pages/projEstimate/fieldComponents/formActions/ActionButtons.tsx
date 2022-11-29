@@ -1,6 +1,7 @@
 import { Stack, Zoom } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
+import { ProjEstimateShortcuts } from '../../navigationComponents/ProjEstimateShortcuts';
 import { BtnCancelEdit } from './BtnCancelEdit';
 import { BtnSave } from './BtnSave';
 import { BtnSaveTemporary } from './BtnSaveTemporary';
@@ -12,12 +13,14 @@ export const ActionButtons = () => {
   return (
     <FormActionsContainer>
       <Zoom in={!isSubmitting} mountOnEnter unmountOnExit>
-        <Stack spacing={1} direction={'row'}>
+        <Stack spacing={1} direction={'row'} maxHeight={40}>
+          <ProjEstimateShortcuts />
           <BtnSaveTemporary />
           <BtnSave />
           <BtnCancelEdit />
         </Stack>
       </Zoom>
+
     </FormActionsContainer>
   );
 };

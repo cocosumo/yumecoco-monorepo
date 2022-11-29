@@ -86,7 +86,7 @@ export const FormInvoice = () => {
       <MainContainer justifyContent={'space-between'}>
         <PageTitle label='入金管理/請求入力' />
 
-        {/* 工事の選択 */}
+        {/* 顧客の検索 */}
         <Grid item xs={12} md={4}>
           <SearchProjects
             value={projId ? { id: projId, projName: projName } : undefined}

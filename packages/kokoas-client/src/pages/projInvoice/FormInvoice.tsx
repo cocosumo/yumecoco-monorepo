@@ -19,7 +19,7 @@ import { BilledAmount } from './fieldComponents/BilledAmount';
 import { useEffect, useRef } from 'react';
 import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 
 
 

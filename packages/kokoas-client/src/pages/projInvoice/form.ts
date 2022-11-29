@@ -13,28 +13,28 @@ export const initialValues = {
   /** 請求書番号 */
   invoiceId: '',
 
-  /* 工事番号 */
-  projId: '',
-  projName: '',
+  /* 顧客情報 */
+  custGroupId: '',
+  custName: '',
 
-  /* 契約書 */
-  estimates: [
+  /* 見積もり情報 */
+  estimates:[
     {
+      projId: '',
+      projTypeName: '',
       estimateId: '',
-      contractAmount: '',
-      contractDate: '',
-      isForPayment: false,
+      dataId: '',
+      amountType: '',
+      amountPerContract: '',
     },
   ],
+
 
   /** 契約金額の総額 */
   contractAmount: '',
 
   /** 請求済み金額 */
   billedAmount: '',
-
-  /** 請求金の種別 */
-  amountType: '',
 
   /** 請求金額 */
   billingAmount: '',

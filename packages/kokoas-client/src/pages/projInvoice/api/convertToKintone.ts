@@ -2,7 +2,7 @@ import { IInvoices } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
-  projId,
+  custGroupId,
   billingAmount,
   amountType,
   estimates,
@@ -13,7 +13,7 @@ export const convertToKintone = ({
 
   /* formをkintoneの型に変換する */
   const kintoneRecord: Partial<IInvoices> = {
-    projId: { value: projId },
+    projId: { value: custGroupId },
     amountType: { value: amountType },
     billingAmount: { value: billingAmount },
     plannedPaymentDate: { value: plannedPaymentDate },

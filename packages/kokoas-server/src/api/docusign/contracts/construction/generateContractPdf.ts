@@ -22,9 +22,11 @@ export const generateContractPdf = async (
   contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
 ) => {
   const {
-    projId, projName, projLocation,
     customers,
     cocoAG,
+    projEstimateId,
+    projName,
+    projLocation,
     payments,
     calculatedEstimates: {
       totalAmountInclTax,
@@ -46,9 +48,13 @@ export const generateContractPdf = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
+
+
   const url = path.join(assetsDir, latestPDF);
   const existingPdfBytes = await fs.readFile(url);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
+
+
 
   const fontData = await fs
     .readFile(path.join(assetsDir, 'MSMINCHO.TTF'));
@@ -68,7 +74,7 @@ export const generateContractPdf = async (
   // 工事番号
   drawText(
     firstPage,
-    projId,
+    projEstimateId,
     {
       x: x1,
       y: 782,
@@ -389,8 +395,10 @@ export const generateContractPdf = async (
   );
 
 
+
   switch (contentType) {
     case 'base64':
+
       return pdfDoc.saveAsBase64();
     case 'Uint8Array ':
     default:

@@ -1,15 +1,17 @@
 import { ktRecord } from '../client';
 import { calculateEstimateRecord } from './calculateEstimateRecord';
 
-import { RecordType, appId } from './config';
+import { RecordType, appId, RecordKey } from './config';
 
 export const getEstimateById = async (projEstimateId: string) => {
-  const result = await (await ktRecord()).getRecord({
+  const idField : RecordKey = 'uuid';
+  const result = await (await ktRecord()).getRecords({
     app: appId,
-    id: projEstimateId,
-  }).then(({ record }) => {
+    query: `${idField} =  "${projEstimateId}"`,
+  }).then(({ records }) => {
+    if (!records.length) throw new Error(`projEstimateId not found. ${projEstimateId}`);
 
-    const newRecord = record as unknown as RecordType;
+    const newRecord = records[0] as unknown as RecordType;
     const calculated = calculateEstimateRecord(newRecord);
 
     return {

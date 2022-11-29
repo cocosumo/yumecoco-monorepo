@@ -5,7 +5,7 @@ import { useCommonOptions } from './useCommonOptions';
 
 export const useSaveCustGroup = () => {
   const commonOptions = useCommonOptions();
-  const queryClient = useQueryClient();
+  const qc = useQueryClient();
 
 
   return useMutation(
@@ -14,13 +14,12 @@ export const useSaveCustGroup = () => {
       ...commonOptions,
       onSuccess: () => {
         commonOptions.onSuccess();
-        queryClient.invalidateQueries({ queryKey: [AppIds.custGroups] });
-        queryClient.invalidateQueries({ queryKey: [AppIds.customers] });
-
+        qc.invalidateQueries({ queryKey: [AppIds.custGroups] });
+        qc.invalidateQueries({ queryKey: [AppIds.customers] });
+        qc.invalidateQueries({ queryKey: [AppIds.projects] });
+        qc.invalidateQueries({ queryKey: [AppIds.projEstimates] });
+        
       },
-      onError: ((err) => {
-        console.log(JSON.stringify(err, null, 2));
-      }),
     },
   );
 };

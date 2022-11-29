@@ -12,23 +12,13 @@ describe('updateCustGroup', () => {
     //const recsCustGroup = await getAllCustGroups();
 
     const updateKeyField = 'uuid';
-    /*
-    const mustDeleteRecs = recs.filter(({ custGroupId }) => {
-      return  !recsCustGroup.find(({ uuid }) => uuid.value === custGroupId.value );
-
-    });
-
-    const mustUpdateRecs = recs.filter(({ custGroupId }) => {
-      return  recsCustGroup.find(({ uuid }) => uuid.value === custGroupId.value );
-
-    }); */
-
 
     const result = await ktr.updateAllRecords({
       app: AppIds.projects,
       records: recs.map((rec) => {
+        const oldId = rec.dataId.value;
         const newRec : Partial<IProjects> = {
-          custGroupId: rec.custGroupId,
+          dataId: { value: oldId.slice(0, 8) + oldId.slice(9) },
         };
 
         return {

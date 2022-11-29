@@ -18,6 +18,7 @@ export const saveCustomers = async (
     records: Array<Partial<RecordType>>
   },
 ) => {
+
   const KintoneRecord = await ktRecord();
 
   /********************************************************
@@ -26,11 +27,10 @@ export const saveCustomers = async (
   * customerId, then add them to db.
   *********************************************************/
   const newCusts = records.filter(cust => !cust.uuid?.value)
-    ?.map((recCust) => ({ 
-      ...recCust, 
-      uuid: { value: uuidV4() }, 
+    ?.map((recCust) => ({
+      ...recCust,
+      uuid: { value: uuidV4() },
     }));
-
 
   if (newCusts?.length > 0) {
     await KintoneRecord.addRecords({
@@ -46,30 +46,33 @@ export const saveCustomers = async (
    * do an update operation
    *********************************/
 
-  await KintoneRecord.updateRecords({
-    app: appId,
-    records: oldCusts
-      .map(cust => {
-        if (!cust?.uuid?.value) throw new Error('Invalid cust id during update.');
-        const {
-          uuid,
-          ...recordToUpdate
-        } = cust;
+  if (oldCusts?.length) {
+    await KintoneRecord.updateRecords({
+      app: appId,
+      records: oldCusts
+        .map(cust => {
+          if (!cust?.uuid?.value) throw new Error('Invalid cust id during update.');
+          const {
+            uuid,
+            ...recordToUpdate
+          } = cust;
 
-        return  {
-          updateKey: {
-            field: 'uuid',
-            value: uuid.value,
-          },
-          record: recordToUpdate,
-        };
-      }),
-  });
+          return  {
+            updateKey: {
+              field: 'uuid',
+              value: uuid.value,
+            },
+            record: recordToUpdate,
+          };
+        }),
+    });
+  }
+
 
 
   return  [
-    ...newCusts, 
+    ...newCusts,
     ...oldCusts,
-  ].filter(Boolean).map(({ uuid }) => uuid?.value); 
+  ].filter(Boolean).map(({ uuid }) => uuid?.value);
 
 };

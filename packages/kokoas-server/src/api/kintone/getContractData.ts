@@ -6,6 +6,7 @@ import {
   getProjById,
   getStoreMngrByStoreId,
 } from 'api-kintone';
+import { formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
 
@@ -36,6 +37,7 @@ isValidate = false,
     record: estimatedRecord,
     calculated: calculatedEstimates,
   } = await getEstimateById(projEstimateId);
+
   const {
     signMethod,
     projId,
@@ -51,6 +53,7 @@ isValidate = false,
     contractDate,
     payMethod,
     payDestination,
+    dataId,
   } = estimatedRecord;
 
   /* 工事情報 */
@@ -135,7 +138,7 @@ isValidate = false,
 
     /* 工事 */
     projId: projId.value,
-    projEstimateId: projEstimateId,
+    projEstimateId: formatDataId(dataId.value),
     projName: projName.value,
     projLocation: `${projPostal.value}〒 ${projAddress1.value}${projAddress2.value}`,
 

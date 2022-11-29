@@ -48,7 +48,7 @@ export const CustInfo = () => {
 
         acc.custNames.push(cur.fullName.value);
         acc.custNamesReading.push(cur.fullNameReading.value);
-        acc.custIds.push(cur.uuid.value);
+        acc.custIds.push(cur.uuid.value.split('-').at(-1) || cur.uuid.value);
         return acc;
       }, {
         custIds: [] as string[],
@@ -118,7 +118,7 @@ export const CustInfo = () => {
 
               <Column2
                 adminInfo={{
-                  custGroupId,
+                  custGroupId: custGroupId.split('-').at(-1) || custGroupId,
                   customerIds: flatCustInfo?.custIds.join(', ') || '',
                   storeName: storeName?.value ?? '',
                   agents: refactoredAgents,

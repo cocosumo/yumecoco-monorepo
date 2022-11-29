@@ -4,7 +4,6 @@ import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractAmount } from './fieldComponents/ContractAmount';
-import { BillingBalance } from './fieldComponents/BillingBalance';
 import { Button, Divider, Grid } from '@mui/material';
 import { EstimateCards } from './fieldComponents/EstimateCards';
 import { paymentLabels } from '../projContracts';
@@ -17,16 +16,67 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
 import { BilledAmount } from './fieldComponents/BilledAmount';
+import { useEffect, useRef } from 'react';
+import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import { isEmpty } from 'lodash';
 
 
 
 export const FormInvoice = () => {
-  const { values, submitForm } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
+  const { setSnackState } = useSnackBar();
 
-  const { projId, projName } = values;
+  const { values, submitForm, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
+  const submitCountRef = useRef(0);
+  
+  const {
+    projId,
+    projName,
+    billingAmount,
+    billedAmount,
+    contractAmount,
+    estimates,
+  } = values;
+
+  const {
+    data: Invoices,
+  } = useInvoiceTotalByProjId(projId);
+
+  const { records } = Invoices || {};
 
   useResolveParams();
+
+  useEffect(() => {
+    setValues((prev) => ({
+      ...prev,
+      billingAmount: String(+contractAmount - +billedAmount),
+    }));
+  }, [contractAmount, billedAmount, setValues]);
+
+  useEffect(() => {
+    const newContractAmount = estimates.reduce((acc, cur) => {
+      if (cur.isForPayment) return acc;
+
+      return acc + +cur.contractAmount;
+    }, 0);
+
+    setValues((prev) => ({
+      ...prev,
+      contractAmount: String(newContractAmount),
+    }));
+  }, [estimates, setValues]);
+
+  useEffect(() => {
+    if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
+      setSnackState({
+        open: true,
+        severity: 'error',
+        message: '入力エラーです',
+      });
+    }
+    submitCountRef.current = submitCount;
+  }, [errors, setSnackState, submitCount, submitCountRef]);
 
 
 
@@ -71,32 +121,31 @@ export const FormInvoice = () => {
         </Grid>
 
 
+
         {/* 請求書情報の表示/入力エリア */}
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount values={values} />
+          <ContractAmount contractAmount={+contractAmount} />
         </Grid>
         <Grid item md={6} />
 
-        {/* 未請求額 */}
+        {/* 請求済額 */}
         <Grid item xs={12} md={6}>
-          <BilledAmount projId={projId} />
+          <BilledAmount
+            billedAmount={+billedAmount}
+            records={records}
+          />
         </Grid>
         <Grid item md={6} />
 
 
-        {/* 請求金額 */}
-        <Grid item xs={12} md={6}>
-          <BillingAmount projId={projId} />
+        {/* 請求金額・請求残高 */}
+        <Grid item xs={12} md={12}>
+          <BillingAmount
+            open={+billingAmount > (+contractAmount - +billedAmount)}
+            billingBalance={+contractAmount - +billedAmount - +billingAmount}
+          />
         </Grid>
-        <Grid item md={6} />
-
-
-        {/* 請求残額 */}
-        <Grid item xs={12} md={6}>
-          <BillingBalance />
-        </Grid>
-        <Grid item md={6} />
 
 
         {/* 入金予定日 */}

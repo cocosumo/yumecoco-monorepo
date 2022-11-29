@@ -2,6 +2,9 @@ import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { addMinutes, isPast, format } from 'date-fns';
 import { getNewAccessToken } from './@auth/getNewAccessToken';
 
+export { KintoneClientBasicAuth } from 'api-kintone/batch-scripts/settings';
+
+
 const isTest = process.env.NODE_ENV === 'test';
 
 /**
@@ -44,6 +47,8 @@ const getToken = async () => {
 const isTokenExpired = () => !oAuth?.ex || isPast(oAuth?.ex);
 
 export const kintoneBaseUrl = process.env.KT_BASE_URL;
+
+
 
 export const kt = async () => {
 

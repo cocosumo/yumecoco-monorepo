@@ -52,6 +52,7 @@ isValidate = false,
     contractDate,
     payMethod,
     payDestination,
+    dataId,
   } = estimatedRecord;
 
   /* 工事情報 */
@@ -136,7 +137,7 @@ isValidate = false,
 
     /* 工事 */
     projId: projId.value,
-    projEstimateId: projEstimateId,
+    projEstimateId: dataId.value,
     projName: projName.value,
     projLocation: `${projPostal.value}〒 ${projAddress1.value}${projAddress2.value}`,
 

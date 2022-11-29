@@ -24,7 +24,6 @@ type AdvancedOptions = {
 export const drawText = async (
   pdfPage: PDFPage,
   text: string,
-
   {
     x,
     y,
@@ -34,6 +33,9 @@ export const drawText = async (
   } : PDFPageDrawTextOptions,
   advancedOptions?: AdvancedOptions,
 ) => {
+
+  const defaultText = text ?? '';
+
   const {
     weight = 0.4,
     align = 'left',
@@ -41,7 +43,7 @@ export const drawText = async (
     isShowBox = false,
 
   } = advancedOptions || {};
-  const textWidth = font?.widthOfTextAtSize(text, size) ?? 0;
+  const textWidth = font?.widthOfTextAtSize(defaultText, size) ?? 0;
   const boxX = x ?? 0;
   const boxY = y ?? 0;
 
@@ -59,7 +61,7 @@ export const drawText = async (
   for (let i = 0; i <= weight; i += 0.1) {
     switch (align) {
       case 'left':
-        pdfPage.drawText(text, {
+        pdfPage.drawText(defaultText, {
           x: (x || 0) + i,
           y: y,
           size: size,
@@ -68,7 +70,7 @@ export const drawText = async (
         });
         break;
       case 'right':
-        pdfPage.drawText(text, {
+        pdfPage.drawText(defaultText, {
           x: boxX + boxWidth - textWidth,
           y: boxY,
           font,
@@ -76,7 +78,7 @@ export const drawText = async (
         });
         break;
       case 'center':
-        pdfPage.drawText(text, {
+        pdfPage.drawText(defaultText, {
           x: (boxX + (boxWidth / 2 )) - (textWidth / 2),
           y: boxY,
           font,

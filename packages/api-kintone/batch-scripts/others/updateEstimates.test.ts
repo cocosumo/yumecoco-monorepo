@@ -15,8 +15,9 @@ describe('updateCustGroup', () => {
     const result = await ktr.updateAllRecords({
       app: AppIds.projEstimates,
       records: recs.map((rec) => {
+        const oldId =  rec.dataId.value;
         const newRec : Partial<IProjestimates> = {
-          projId: { value: rec.projId.value },
+          dataId: { value: oldId.slice(0, 8) + oldId.slice(9) },
         };
 
         console.log(newRec);

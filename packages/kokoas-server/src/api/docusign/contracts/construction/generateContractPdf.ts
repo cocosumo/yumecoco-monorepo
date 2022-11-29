@@ -398,7 +398,7 @@ export const generateContractPdf = async (
 
   switch (contentType) {
     case 'base64':
-      console.log('Received: base64 ', JSON.stringify(contractData, null, 2));
+
       return pdfDoc.saveAsBase64();
     case 'Uint8Array ':
     default:

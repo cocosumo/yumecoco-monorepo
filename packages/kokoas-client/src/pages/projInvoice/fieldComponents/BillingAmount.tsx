@@ -1,7 +1,8 @@
-import { FormControl, FormLabel, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Stack } from '@mui/system';
 import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield';
 import { getFieldName } from '../form';
+import { BillingBalance } from './BillingBalance';
 import { ExceedContractAmount } from './ExceedContractAmount';
 
 /**
@@ -19,7 +20,7 @@ export const BillingAmount = ({
 
 
   return (
-    <>
+    <Stack spacing={2} direction={'column'}>
       {/* 請求金額 */}
       <Stack spacing={2} alignItems={'center'} direction={'row'}>
 
@@ -35,16 +36,12 @@ export const BillingAmount = ({
       </Stack>
 
       {/* 請求残高 */}
-      <FormControl>
-        <Stack spacing={2} direction={'row'}>
-          <FormLabel sx={{ width: 120 }}>
-            請求残高
-          </FormLabel>
-          <Typography sx={{ width: 120, textAlign: 'right' }}>
-            {`${billingBalance} 円`}
-          </Typography>
-        </Stack>
-      </FormControl>
-    </>
+
+      <Grid item xs={12} md={6}>
+        <BillingBalance billingBalance={billingBalance} />
+      </Grid>
+
+      <Grid item md={6} />
+    </Stack>
   );
 };

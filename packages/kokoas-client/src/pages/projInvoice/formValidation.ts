@@ -29,7 +29,7 @@ export const validationSchema = Yup
       }),
     ),
   contractAmount: numberValidation,
-  billingAmount: numberValidation,
+  billingAmount: numberValidation.required('必須入力項目'),
   billedAmount: numberValidation,
   plannedPaymentDate: dateValidation,
   exceedChecked: Yup.boolean()

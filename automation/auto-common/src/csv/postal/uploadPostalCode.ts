@@ -1,4 +1,4 @@
-import {  KintoneClientBasicAuth } from 'api-kintone';
+import { KintoneClientBasicAuth } from 'api-kintone/batch-scripts/settings';
 import { RecordType, appId } from './config';
 
 

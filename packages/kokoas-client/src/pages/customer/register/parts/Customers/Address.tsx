@@ -10,6 +10,7 @@ import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
 import { getAddressByPostal } from '../../../../../api/others/postal';
 import { useRef, useState } from 'react';
 import { AddressDialog } from './AddressDialog';
+import { SearchAddress } from 'kokoas-client/src/components/ui/selects/address/SearchAddress';
 
 
 
@@ -28,7 +29,8 @@ const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: 
         label="郵便番号" placeholder='4710041'
       />
     </Grid>
-    <Grid item xs={4} md={2} >
+    <Grid item xs={4} >
+      <SearchAddress />
       <IconButton color={'primary'} size={'small'} onClick={handleAddressSearch}>
         〒
         <SearchIcon sx={{ ml: '-6px', mt: '8px' }} fontSize="large" color={'primary'} />

@@ -13,7 +13,8 @@ export const useContractsByProjId = (
   return useEstimates(({
     select: (data) => {
       const filteredData = data
-        .filter((rec) => rec.projId.value === projId && (rec.envStatus.value as TEnvelopeStatus) === 'completed' );
+        .filter((rec) => rec.projId.value === projId
+          && (rec.envStatus.value as TEnvelopeStatus) === 'completed');
       return {
         records: filteredData,
         calculated: filteredData.map((d) => calculateEstimateRecord(d)),

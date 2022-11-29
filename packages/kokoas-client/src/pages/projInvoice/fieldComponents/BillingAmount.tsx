@@ -1,8 +1,9 @@
+import { Grid } from '@mui/material';
+import { Stack } from '@mui/system';
 import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield';
-import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
-import { useEffect } from 'react';
 import { getFieldName } from '../form';
-import { useContractAmount } from '../hooks/useContractAmount';
+import { BillingBalance } from './BillingBalance';
+import { ExceedContractAmount } from './ExceedContractAmount';
 
 /**
  * 請求金額コンポーネント
@@ -10,26 +11,37 @@ import { useContractAmount } from '../hooks/useContractAmount';
  * @returns 
  */
 export const BillingAmount = ({
-  projId,
+  open,
+  billingBalance,
 }: {
-  projId: string
+  open: boolean
+  billingBalance: number,
 }) => {
-  const [, , helpers] = useFieldFast('billingAmount');
-  const {
-    setValue,
-  } = helpers;
-
-  const { billingBalance } = useContractAmount(projId);
-
-  useEffect(() => {
-    setValue(billingBalance);
-  }, [billingBalance, setValue]);
 
 
   return (
-    <FormikMoneyField
-      label='請求額'
-      name={getFieldName('billingAmount')}
-    />
+    <Stack spacing={2} direction={'column'}>
+      {/* 請求金額 */}
+      <Stack spacing={2} alignItems={'center'} direction={'row'}>
+
+        <Grid item xs={12} md={4}>
+          <FormikMoneyField
+            label='請求額'
+            name={getFieldName('billingAmount')}
+          />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          {open && <ExceedContractAmount />}
+        </Grid>
+      </Stack>
+
+      {/* 請求残高 */}
+
+      <Grid item xs={12} md={6}>
+        <BillingBalance billingBalance={billingBalance} />
+      </Grid>
+
+      <Grid item md={6} />
+    </Stack>
   );
 };

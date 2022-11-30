@@ -1,3 +1,4 @@
+export * from './useAddressAreas';
 export * from './useCommonOptions';
 export * from './useContractsByProjId';
 export * from './useCustGroupById';

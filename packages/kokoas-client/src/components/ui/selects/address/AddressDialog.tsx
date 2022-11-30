@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogProps, Typography }
 import { useReducer } from 'react';
 import { AddressDialogTitle } from './AddressDialogTitle';
 import { addressReducer, initialValues } from './addressReducer';
+import { Areas } from './choices/Areas';
 
 export const AddressDialog = ({
   open,
@@ -16,18 +17,32 @@ export const AddressDialog = ({
     dispatch,
   ] = useReducer(addressReducer, initialValues);
 
+  const {
+    activeStep,
+  } = state;
+
   return (
     <Dialog
       {...otherDialogProps}
-      open={open}
-      PaperProps={{ sx: { height: '80vh' } }}
+      open={true}
+      fullwidth
       onClose={handleClose}
-      fullWidth
       maxWidth={'md'}
     >
       <AddressDialogTitle state={state} dispatch={dispatch}  />
       <DialogContent>
-
+        {
+          (() => {
+            switch (activeStep) {
+              case 0: 
+                return <Areas handleClick={(value) => dispatch({ type: 'setArea', area: value })} />;
+              case 1: 
+                return <Areas handleClick={(value) => dispatch({ type: 'setArea', area: value })} />;
+              case 2: 
+                return <Areas handleClick={(value) => dispatch({ type: 'setArea', area: value })} />;
+            }
+          })()
+        }
       </DialogContent>
       <DialogActions sx={{
         justifyContent: 'space-between',

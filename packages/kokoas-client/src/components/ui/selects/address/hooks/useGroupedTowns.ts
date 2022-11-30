@@ -28,7 +28,7 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
         acc[firstChar].push({
           id: id.value,
           town: resolvedTown,
-          townReading: hiraTownReading,
+          townReading: isOthers ? 'お探しの町域が見つからない場合にお書きいただく番号であり、町域を特定するものではありませんのでご注意ください' : hiraTownReading,
           postalCode: postalCode.value,
         });
 

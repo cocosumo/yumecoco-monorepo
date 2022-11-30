@@ -1,5 +1,4 @@
 import { ComponentProps } from 'react';
-import { LocationChoices } from '../common/LocationChoices';
 import JapanMap from 'kokoas-client/src/assets/img_area_map.gif';
 import { Box, GridProps } from '@mui/material';
 import { PrefectureChoices } from '../common/PrefectureChoices';
@@ -66,8 +65,8 @@ const areas: {
 
 
 
-export const Areas = (
-  props: Omit<ComponentProps<typeof LocationChoices>, 'choices'>,
+export const Prefectures = (
+  props: Omit<ComponentProps<typeof PrefectureChoices>, 'choices' | 'prefectures'>,
 ) => {
 
   
@@ -76,8 +75,9 @@ export const Areas = (
     <Box sx={{
       background: `url(${JapanMap}) center no-repeat #fff`,
       height: '445px',
-      width: '800px',
+      width: '800px', // Have to fix width for consistent positions of elements
       position: 'relative',
+      margin: 'auto',
     }}
     >
 

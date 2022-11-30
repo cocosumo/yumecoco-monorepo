@@ -1,9 +1,9 @@
 
 export const initialValues = {
   activeStep: 0,
-  area: '',
   prefecture: '',
   city: '',
+  town: '',
 };
 
 export type TypeOfForm = typeof initialValues;
@@ -12,7 +12,7 @@ export type Actions =
 | { type: 'stepback' }
 | { type: 'stepnext' }
 | { type: 'stepTo', index: number }
-| { type: 'setArea', area: string }
+| { type: 'setTown', town: string }
 | { type: 'setPref', pref: string }
 | { type: 'setCity', city: string };
 
@@ -42,14 +42,7 @@ export const addressReducer = (
         ...state,
         activeStep: action.index,
       };
-    case 'setArea': 
-      return {
-        ...state,
-        prefecture: action.area,
-        activeStep: activeStep + 1,
-      };
     case 'setPref': 
-      console.log(action.pref);
       return {
         ...state,
         prefecture: action.pref,
@@ -61,7 +54,12 @@ export const addressReducer = (
         city: action.city,
         activeStep: activeStep + 1,
       };
-    default: return state;
+    case 'setTown': 
+      return {
+        ...state,
+        prefecture: action.town,
+      };
+    default: throw new Error('Unhandled dispatch.');
   }
 
 };

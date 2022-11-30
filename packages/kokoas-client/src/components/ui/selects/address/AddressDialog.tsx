@@ -2,7 +2,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogProps, Typography }
 import { useReducer } from 'react';
 import { AddressDialogTitle } from './AddressDialogTitle';
 import { addressReducer, initialValues } from './addressReducer';
-import { Areas } from './choices/Areas';
+import { Cities } from './choices/Cities';
+import { Prefectures } from './choices/Prefectures';
 
 export const AddressDialog = ({
   open,
@@ -19,6 +20,7 @@ export const AddressDialog = ({
 
   const {
     activeStep,
+    prefecture,
   } = state;
 
   return (
@@ -26,7 +28,13 @@ export const AddressDialog = ({
       {...otherDialogProps}
       open={true}
       onClose={handleClose}
+      fullWidth
       maxWidth={'md'}
+      PaperProps={{
+        sx: {
+          height: 650, // fix height across steps
+        },
+      }}
     >
       <AddressDialogTitle state={state} dispatch={dispatch}  />
       <DialogContent>
@@ -34,7 +42,9 @@ export const AddressDialog = ({
           (() => {
             switch (activeStep) {
               case 0: 
-                return <Areas handleClick={(value) => dispatch({ type: 'setPref', pref: value })} />;
+                return <Prefectures handleClick={(value) => dispatch({ type: 'setPref', pref: value })} />;
+              case 1:
+                return <Cities prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', city: value })}  />;
             }
           })()
         }

@@ -25,7 +25,6 @@ export const AddressDialog = ({
     <Dialog
       {...otherDialogProps}
       open={true}
-      fullwidth
       onClose={handleClose}
       maxWidth={'md'}
     >

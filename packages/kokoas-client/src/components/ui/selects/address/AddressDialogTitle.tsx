@@ -1,5 +1,5 @@
 import { Button, DialogTitle, Grid, Step, StepButton, Stepper } from '@mui/material';
-import { Dispatch, useMemo } from 'react';
+import { Dispatch } from 'react';
 import { Actions, TypeOfForm } from './addressReducer';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
@@ -19,12 +19,24 @@ export const AddressDialogTitle = ({
 
   
 
-  const steps = useMemo(() => ([
+  const steps = [
     prefecture || '都道府県',
     city || '市区町村',
     town || '町域',
-  ]), [prefecture, city, town]);
+  ];
+
+  const completed = [!!prefecture, !!city, !!town];
+
+  const resolveDisabled = (index: number) => {
   
+    switch (index) {
+      case 0: return false;
+      case 1: 
+      case 2: {
+        return !completed[index - 1];
+      }
+    }
+  };   
 
   return (
     <DialogTitle component={'span'} mt={2}>
@@ -40,10 +52,14 @@ export const AddressDialogTitle = ({
           </Button>
         </Grid>
         <Grid item xs={8}>
-          <Stepper activeStep={activeStep} alternativeLabel>
+          <Stepper nonLinear activeStep={activeStep} alternativeLabel>
  
             {steps.map((label, index) => (
-              <Step key={label}>
+              <Step 
+                key={label} 
+                completed={completed[index]} 
+                disabled={resolveDisabled(index)}
+              >
                 <StepButton onClick={()=>dispatch({ type: 'stepTo', payload: index })} >
                   {label}
                 </StepButton>

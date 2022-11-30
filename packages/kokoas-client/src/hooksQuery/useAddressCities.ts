@@ -3,14 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 
 type GetCities = Awaited<ReturnType<typeof getCities >>;
 
-export const useCities = <T = GetCities>(
+export const useAddressCities = <T = GetCities>(
   prefecture = '', 
   options?: {
     select: (data: GetCities) => T
   },
 ) => {
   return useQuery(
-    ['cities', { prefecture }],
+    ['addressCities', { prefecture }],
     () => getCities({ prefecture }),
     { 
       enabled: !!prefecture, 

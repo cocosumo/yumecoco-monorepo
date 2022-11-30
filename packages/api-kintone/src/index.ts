@@ -12,6 +12,7 @@ export * from './invoice';
 export * from './materialsItem';
 export * from './materialsMajor';
 export * from './materialsMid';
+export * from './postal';
 export * from './projects';
 export * from './projTypes';
 export * from './stores';

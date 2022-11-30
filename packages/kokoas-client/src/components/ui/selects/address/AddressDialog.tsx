@@ -4,6 +4,7 @@ import { AddressDialogTitle } from './AddressDialogTitle';
 import { addressReducer, initialValues } from './addressReducer';
 import { Cities } from './choices/Cities';
 import { Prefectures } from './choices/Prefectures';
+import { Towns } from './choices/Towns';
 
 export const AddressDialog = ({
   open,
@@ -21,6 +22,7 @@ export const AddressDialog = ({
   const {
     activeStep,
     prefecture,
+    city,
   } = state;
 
   return (
@@ -45,6 +47,8 @@ export const AddressDialog = ({
                 return <Prefectures handleClick={(value) => dispatch({ type: 'setPref', pref: value })} />;
               case 1:
                 return <Cities prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', city: value })}  />;
+              case 2:
+                return <Towns prefecture={prefecture} city={city} handleClick={(value) => dispatch({ type: 'setTown', town: value })} />;
             }
           })()
         }

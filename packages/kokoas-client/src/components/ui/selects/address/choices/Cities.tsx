@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Grid, Stack, Tooltip } from '@mui/material';
-import { useCities } from 'kokoas-client/src/hooksQuery';
+import { useAddressCities } from 'kokoas-client/src/hooksQuery';
 import { useCallback, useMemo, useRef } from 'react';
-import { alphabeticalReducer } from '../common/alphabeticalReducer';
+import { heartRailsGrouper } from '../common/heartRailsGrouper';
 import { KanaNavigation } from '../common/KanaNavigation';
 import { locationSorter } from '../common/sorter';
 
@@ -13,11 +13,11 @@ export const Cities = ({
   handleClick: (city: string) => void
 }) => {
   const kanaRows = useRef<Array<HTMLElement | null>>([]);
-  const { data: sortedCities } = useCities(
+  const { data: sortedCities } = useAddressCities(
     prefecture,
     {
       select: useCallback((d) => {
-        const groupedCities = d.reduce((accu, curr) => alphabeticalReducer(accu, curr, 'city_kana'), {} as  { [char: string]: Record<string, string>[] } );
+        const groupedCities = d.reduce((accu, curr) => heartRailsGrouper(accu, curr, 'city_kana'), {} as  { [char: string]: Record<string, string>[] } );
         return Object.entries(groupedCities)
           .sort(locationSorter);
       }, []),

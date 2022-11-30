@@ -1,12 +1,13 @@
 import { getKanaRow } from 'kokoas-client/src/helpers/utils';
 
-export const alphabeticalReducer = (
+/** Group the api result from heartrails by first character.  */
+export const heartRailsGrouper = (
   accu: { [char: string]: Record<string, string>[] }, 
   curr: Record<string, string>, 
   groupKey: keyof typeof curr)=>{
   let firstChar = curr[groupKey].charAt(0);
 
-  firstChar = firstChar === '(' ? firstChar = '他' : getKanaRow(firstChar);
+  firstChar = firstChar === '(' ? '他' : getKanaRow(firstChar);
 
   return { 
     ...accu, 

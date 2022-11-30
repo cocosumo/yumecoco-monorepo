@@ -1,4 +1,4 @@
-import { Box, Divider, Grid } from '@mui/material';
+import { Box, Divider, Grid, LinearProgress } from '@mui/material';
 import { useMemo, useRef } from 'react';
 import { KanaNavigation } from '../common/KanaNavigation';
 import { TownButton } from '../common/TownButton';
@@ -7,19 +7,24 @@ import { useGroupedTowns } from '../hooks/useGroupedTowns';
 export const Towns = (props : {
   prefecture: string,
   city: string,
-  handleClick: (town: string) => void
+  handleClick: (params: {
+    town: string,
+    postalCode: string,
+  }) => void
 }) => {
   const {
     handleClick,
     prefecture,
     city,
   } = props;
+
   const kanaRows = useRef<Array<HTMLElement | null>>([]);
-  const { data: sortedTowns } = useGroupedTowns({ prefecture, city });
-
-
+  const { data: sortedTowns, isFetching } = useGroupedTowns({ prefecture, city });
   const kanaKeys = useMemo(() => sortedTowns?.map(([key]) => key), [sortedTowns]);
 
+  if (isFetching) {
+    return <LinearProgress />;
+  }
 
   return (
     <Box>
@@ -54,7 +59,10 @@ export const Towns = (props : {
                       town={town}
                       townReading={townReading}
                       postalCode={postalCode}
-                      handleClick={handleClick}
+                      handleClick={() => handleClick({
+                        town,
+                        postalCode,
+                      })}
                     />
                   </Grid>
                 );

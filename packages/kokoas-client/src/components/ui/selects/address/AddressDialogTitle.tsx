@@ -44,7 +44,7 @@ export const AddressDialogTitle = ({
  
             {steps.map((label, index) => (
               <Step key={label}>
-                <StepButton onClick={()=>dispatch({ type: 'stepTo', index })} >
+                <StepButton onClick={()=>dispatch({ type: 'stepTo', payload: index })} >
                   {label}
                 </StepButton>
               </Step>

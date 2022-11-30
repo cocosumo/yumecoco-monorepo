@@ -36,7 +36,7 @@ const areas: {
     width: '80px',
   },
   '沖縄' : {
-    prefectures: ['沖縄'],
+    prefectures: ['沖縄県'],
     left: 16,
     top: 73,
     width: '80px',

@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogProps, Typography } from '@mui/material';
 import { useReducer } from 'react';
 import { AddressDialogTitle } from './AddressDialogTitle';
-import { addressReducer, initialValues } from './addressReducer';
+import { addressReducer, initialValues, TypeOfForm } from './addressReducer';
 import { Cities } from './choices/Cities';
 import { Prefectures } from './choices/Prefectures';
 import { Towns } from './choices/Towns';
@@ -9,9 +9,11 @@ import { Towns } from './choices/Towns';
 export const AddressDialog = ({
   open,
   handleClose,
+  handleChange,
   ...otherDialogProps
 } : DialogProps & {
-  handleClose: () => void
+  handleClose: () => void,
+  handleChange: (address: TypeOfForm) => void
 }) => {
 
   const [
@@ -25,10 +27,12 @@ export const AddressDialog = ({
     city,
   } = state;
 
+
+
   return (
     <Dialog
       {...otherDialogProps}
-      open={true}
+      open={open}
       onClose={handleClose}
       fullWidth
       maxWidth={'md'}
@@ -44,11 +48,22 @@ export const AddressDialog = ({
           (() => {
             switch (activeStep) {
               case 0: 
-                return <Prefectures handleClick={(value) => dispatch({ type: 'setPref', pref: value })} />;
+                return <Prefectures handleClick={(value) => dispatch({ type: 'setPref', payload: value })} />;
               case 1:
-                return <Cities prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', city: value })}  />;
+                return <Cities prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}  />;
               case 2:
-                return <Towns prefecture={prefecture} city={city} handleClick={(value) => dispatch({ type: 'setTown', town: value })} />;
+                return (
+                  <Towns 
+                    prefecture={prefecture} 
+                    city={city} 
+                    handleClick={(location) => {
+                      dispatch({ type: 'setTown', payload: location });
+                      handleChange({ 
+                        ...state,
+                        ...location,
+                      });
+                    }}
+                  />);
             }
           })()
         }

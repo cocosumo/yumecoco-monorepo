@@ -30,17 +30,19 @@ export const PrefectureChoices = (
         ...sx,
       }}
     > 
-      {prefectures.map(p => (
-        <Grid item xs={6} key={p}>
+      {prefectures.map(pref => (
+        <Grid item xs={6} key={pref}>
+      
           <Button 
             variant="contained" 
             color={'secondary'}
             size={'small'}
             sx={{ px: 0.5 }}
-            onClick={() => handleClick(p)}
+            onClick={() => handleClick(pref)}
           >
-            {p.replace('県', '')}
+            {pref.replace('県', '')}
           </Button>
+        
         </Grid>
       ))}
     </Grid>

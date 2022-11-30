@@ -11,6 +11,7 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
       const grouped = d.reduce((
         acc, 
         {
+          $id: id,
           town,
           townReading,
           postalCode,
@@ -25,6 +26,7 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
         
         acc[firstChar] = acc[firstChar] ?? [];
         acc[firstChar].push({
+          id: id.value,
           town: resolvedTown,
           townReading: hiraTownReading,
           postalCode: postalCode.value,
@@ -34,6 +36,7 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
                 
       }, {} as {
         [char: string] : {
+          id: string,
           town: string,
           postalCode: string,
           townReading: string

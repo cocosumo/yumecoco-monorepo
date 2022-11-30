@@ -60,7 +60,13 @@ export const AddressDialogTitle = ({
                 completed={completed[index]} 
                 disabled={resolveDisabled(index)}
               >
-                <StepButton onClick={()=>dispatch({ type: 'stepTo', payload: index })} >
+                <StepButton 
+                  onClick={()=>dispatch({ type: 'stepTo', payload: index })}
+                  sx={{
+                    transform: `scale(${activeStep === index ? 1.2 : 1})`,
+                    transition: 'all 0.2s ease-in',
+                  }}
+                >
                   {label}
                 </StepButton>
               </Step>

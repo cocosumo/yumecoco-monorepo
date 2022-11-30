@@ -13,7 +13,7 @@ export const getPostalCodes = async (
   const prefField: RecordKey = 'pref';
   const cityField: RecordKey = 'city';
   const townField: RecordKey = 'townReading';
-  const fields: RecordKey[] = ['pref', 'city', 'postalCode', 'town', 'townReading'];
+  const fields: RecordKey[] = ['pref', 'city', 'postalCode', 'town', 'townReading', '$id'];
 
   return getAllRecords<RecordType>({
     app: appId,

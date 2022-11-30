@@ -52,9 +52,9 @@ export const Towns = (props : {
                 </Divider>
               </Grid>
               {
-              values.map(({ town, townReading, postalCode }) => {
+              values.map(({ id, town, townReading, postalCode }) => {
                 return (
-                  <Grid key={townReading} item xs={3}>
+                  <Grid key={id} item xs={3}>
                     <TownButton 
                       town={town}
                       townReading={townReading}

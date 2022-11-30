@@ -34,11 +34,7 @@ export const AddressDialog = ({
           (() => {
             switch (activeStep) {
               case 0: 
-                return <Areas handleClick={(value) => dispatch({ type: 'setArea', area: value })} />;
-              case 1: 
-                return <Areas handleClick={(value) => dispatch({ type: 'setArea', area: value })} />;
-              case 2: 
-                return <Areas handleClick={(value) => dispatch({ type: 'setArea', area: value })} />;
+                return <Areas handleClick={(value) => dispatch({ type: 'setPref', pref: value })} />;
             }
           })()
         }

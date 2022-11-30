@@ -49,6 +49,7 @@ export const addressReducer = (
         activeStep: activeStep + 1,
       };
     case 'setPref': 
+      console.log(action.pref);
       return {
         ...state,
         prefecture: action.pref,

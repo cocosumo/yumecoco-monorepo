@@ -3,11 +3,14 @@ import { Button, Grid, GridProps } from '@mui/material';
 export const PrefectureChoices = (
   props: GridProps & {
     prefectures: string[]
+    handleClick : (pref: string) => void
   }) => {
 
   const {
     sx,
     prefectures,
+    width = '150px',
+    handleClick,
     ...otherBoxProps
   } = props;
 
@@ -16,6 +19,7 @@ export const PrefectureChoices = (
       {...otherBoxProps}
       container
       spacing={0.5}
+      width={width}
       sx={{
         position: 'absolute',
         borderRadius: '3px',
@@ -23,7 +27,6 @@ export const PrefectureChoices = (
         px: '3px',
         pb: '4px',
         pt: '0px',
-        width: '150px',
         ...sx,
       }}
     > 
@@ -34,6 +37,7 @@ export const PrefectureChoices = (
             color={'secondary'}
             size={'small'}
             sx={{ px: 0.5 }}
+            onClick={() => handleClick(p)}
           >
             {p.replace('県', '')}
           </Button>

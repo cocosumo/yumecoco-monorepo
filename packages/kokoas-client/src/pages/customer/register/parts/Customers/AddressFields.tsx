@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { FormikTextFieldV2 as FormikTextField } from 'api-kintone/dist/kokoas-client/src/components/ui/textfield/FormikTextFieldV2';
+import { FormikTextFieldV2 as FormikTextField } from 'kokoas-client/src/components/ui/textfield/FormikTextFieldV2';
 import { useFormikContext } from 'formik';
 import { SearchAddress } from 'kokoas-client/src/components/ui/selects/address/SearchAddress';
 import { getCustFieldName, TypeOfForm } from '../../form';
@@ -8,13 +8,13 @@ import { Contacts } from './Contacts';
 export const AddressFields = ({
   namePrefix,
 }: {
-  namePrefix: string, 
+  namePrefix: string,
 }) => {
 
   const {
     setFieldValue,
   } = useFormikContext<TypeOfForm>();
-  
+
   return (
     <Grid container item xs={12}
       spacing={2} mt={1}

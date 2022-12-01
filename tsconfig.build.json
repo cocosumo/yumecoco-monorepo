@@ -76,7 +76,8 @@
     },
 
     {
-      "path": "./automation/auto-kintone"
+      "path": "./packages-automation/auto-kintone"
     },
+
   ]
 }

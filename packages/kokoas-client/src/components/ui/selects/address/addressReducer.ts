@@ -15,8 +15,7 @@ export type Actions =
 | { type: 'stepTo',  payload: number }
 | { type: 'setTown', payload: { town: string, postalCode: string } }
 | { type: 'setPref', payload: string }
-| { type: 'setCity', payload: string }
-| { type: 'syncForm', payload: Omit<TypeOfForm, 'activeStep'> };
+| { type: 'setCity', payload: string };
 
 
 export const addressReducer = (
@@ -63,13 +62,8 @@ export const addressReducer = (
       return {
         ...state,
         ...action.payload,
+        activeStep: 0,
       };
-    case 'syncForm': {
-      return {
-        ...state,
-        ...action.payload,
-      };
-    }
     default: throw new Error('Unhandled dispatch.');
   }
 

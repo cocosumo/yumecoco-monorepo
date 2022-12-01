@@ -10,12 +10,12 @@ import {
   SelectProjectInCustGroup,
 } from 'kokoas-client/src/components/';
 import debounce from 'lodash/debounce';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { BuildingType } from './BuildingType';
 import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
 import { getAddressByPostal } from '../../../../api/others/postal';
 import { useCallback } from 'react';
-import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 export const ConstructionLocation = () => {
 

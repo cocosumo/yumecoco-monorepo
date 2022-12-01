@@ -5,8 +5,11 @@ import { TypeOfForm } from './addressReducer';
 
 export const SearchAddress = ({
   handleChange,
+  ...others
 }: {
   handleChange: (param: TypeOfForm) => void
+  postalCode?: string,
+  address?: string,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -17,9 +20,9 @@ export const SearchAddress = ({
 
   return (
     <>
-    
-      <Button 
-        variant='contained' 
+
+      <Button
+        variant='contained'
         color={'secondary'}
         onClick={() => setOpen(true)}
         startIcon={(
@@ -30,10 +33,11 @@ export const SearchAddress = ({
       >
         住所検索
       </Button>
-      <AddressDialog 
+      <AddressDialog
         open={open}
         handleClose={() => setOpen(false)}
         handleChange={handleFinishSelection}
+        {...others}
       />
     </>
   );

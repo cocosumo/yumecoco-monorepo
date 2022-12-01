@@ -5,15 +5,20 @@ import { addressReducer, initialValues, TypeOfForm } from './addressReducer';
 import { Cities } from './choices/Cities';
 import { Prefectures } from './choices/Prefectures';
 import { Towns } from './choices/Towns';
+import { useMatchWithFormAddress } from './hooks/useMatchWithFormAddress';
 
 export const AddressDialog = ({
   open,
   handleClose,
   handleChange,
+  postalCode,
+  address,
   ...otherDialogProps
 } : DialogProps & {
   handleClose: () => void,
   handleChange: (address: TypeOfForm) => void
+  postalCode?: string,
+  address?: string,
 }) => {
 
   const [
@@ -21,12 +26,19 @@ export const AddressDialog = ({
     dispatch,
   ] = useReducer(addressReducer, initialValues);
 
+  useMatchWithFormAddress({
+    open,
+    postalCode,
+    address,
+    state,
+    dispatch,
+  });
+
   const {
     activeStep,
     prefecture,
     city,
   } = state;
-
 
 
   return (

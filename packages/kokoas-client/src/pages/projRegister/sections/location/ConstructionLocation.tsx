@@ -14,7 +14,7 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { BuildingType } from './BuildingType';
 import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
-import { getAddressByPostal } from '../../../../api/others/postal';
+import { getAddressByPostal } from 'kokoas-client/src/api/';
 import { useCallback } from 'react';
 
 export const ConstructionLocation = () => {
@@ -22,6 +22,7 @@ export const ConstructionLocation = () => {
   const {
     status,
     values : {
+      postal: formPostalCode,
       custGroupId,
       address1,
       isChkAddressKari,
@@ -34,12 +35,14 @@ export const ConstructionLocation = () => {
 
 
   const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
-    const postal = e.target.value;
+    const newPostal = e.target.value;
 
-    if (postal && !address1) {
-      getAddressByPostal(postal)
+    if (newPostal && !address1) {
+      getAddressByPostal(newPostal)
         .then(resp => {
-          setFieldValue('address1', resp);
+          if (resp) {
+            setFieldValue(getFieldName('address1'), Object.values(resp).join(''));
+          }
         });
     }
 
@@ -84,6 +87,8 @@ export const ConstructionLocation = () => {
       </Grid>
       <Grid item>
         <SearchAddress
+          postalCode={formPostalCode}
+          address={address1}
           handleChange={({ postalCode, prefecture, city, town }) => {
             setValues((prev) => ({
               ...prev,

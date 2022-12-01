@@ -4,7 +4,7 @@ import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
 import { TypeOfForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
-import { getAddressByPostal } from '../../../../../api/others/postal';
+import { getAddressByPostal } from '../../../../../api/others/getAddressByPostal';
 import { useRef } from 'react';
 import { AddressFields } from './AddressFields';
 
@@ -45,7 +45,9 @@ export const Address = (props: AddressProps) => {
     if (postal && !address1) {
 
       getAddressByPostal(postal as string).then((address)=>{
-        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
+        if (address) {
+          setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, Object.values(address).join(''));
+        }
       });
     }
   }, [postal], 300);
@@ -58,7 +60,7 @@ export const Address = (props: AddressProps) => {
       </Grid>}
 
       <Grid item xs={12} ref={divRef}>
-        <AddressFields 
+        <AddressFields
           namePrefix={namePrefix}
         />
       </Grid>

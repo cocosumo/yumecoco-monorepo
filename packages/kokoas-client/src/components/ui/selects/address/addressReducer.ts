@@ -9,17 +9,18 @@ export const initialValues = {
 
 export type TypeOfForm = typeof initialValues;
 
-export type Actions = 
+export type Actions =
 | { type: 'stepback' }
 | { type: 'stepnext' }
 | { type: 'stepTo',  payload: number }
 | { type: 'setTown', payload: { town: string, postalCode: string } }
 | { type: 'setPref', payload: string }
-| { type: 'setCity', payload: string };
+| { type: 'setCity', payload: string }
+| { type: 'syncForm', payload: Omit<TypeOfForm, 'activeStep'> };
 
 
 export const addressReducer = (
-  state: TypeOfForm, 
+  state: TypeOfForm,
   action: Actions,
 ): TypeOfForm => {
 
@@ -33,17 +34,17 @@ export const addressReducer = (
         ...state,
         activeStep: activeStep - 1,
       };
-    case 'stepnext' : 
+    case 'stepnext' :
       return {
         ...state,
         activeStep: activeStep + 1,
       };
-    case 'stepTo' : 
+    case 'stepTo' :
       return {
         ...state,
         activeStep: action.payload,
       };
-    case 'setPref': 
+    case 'setPref':
       return {
         ...state,
         prefecture: action.payload,
@@ -51,18 +52,24 @@ export const addressReducer = (
         town: '',
         activeStep: activeStep + 1,
       };
-    case 'setCity': 
+    case 'setCity':
       return {
         ...state,
         city: action.payload,
         town: '',
         activeStep: activeStep + 1,
       };
-    case 'setTown': 
+    case 'setTown':
       return {
         ...state,
         ...action.payload,
       };
+    case 'syncForm': {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
     default: throw new Error('Unhandled dispatch.');
   }
 

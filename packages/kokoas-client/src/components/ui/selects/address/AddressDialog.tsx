@@ -27,6 +27,7 @@ export const AddressDialog = ({
     activeStep,
     prefecture,
     city,
+    town,
   } = state;
 
 
@@ -53,12 +54,21 @@ export const AddressDialog = ({
           (() => {
             switch (activeStep) {
               case 0:
-                return <Prefectures handleClick={(value) => dispatch({ type: 'setPref', payload: value })} />;
+                return (
+                  <Prefectures
+                    selected={prefecture}
+                    handleClick={(value) => dispatch({ type: 'setPref', payload: value })}
+                  />);
               case 1:
-                return <Cities prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}  />;
+                return (
+                  <Cities
+                    selected={city}
+                    prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}
+                  />);
               case 2:
                 return (
                   <Towns
+                    selected={town}
                     prefecture={prefecture}
                     city={city}
                     handleClick={(location) => {

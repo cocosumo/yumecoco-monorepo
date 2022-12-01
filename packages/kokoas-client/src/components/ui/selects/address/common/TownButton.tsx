@@ -1,4 +1,4 @@
-import { Button, Stack, Tooltip } from '@mui/material';
+import { Button, Stack, Tooltip, ButtonProps } from '@mui/material';
 import { Caption } from '../../../typographies';
 
 export const TownButton = ({
@@ -6,7 +6,8 @@ export const TownButton = ({
   town,
   postalCode,
   handleClick,
-}: {
+  ...buttonProps
+}: ButtonProps & {
   townReading: string,
   town: string,
   postalCode: string
@@ -18,8 +19,8 @@ export const TownButton = ({
   return (
     <Tooltip title={townReading}>
       <Button
+        {...buttonProps}
         fullWidth
-        variant={'outlined'}
         onClick={() => handleClick(town)}
       >
         <Stack>

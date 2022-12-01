@@ -8,8 +8,10 @@ import { locationSorter } from '../common/sorter';
 export const Cities = ({
   prefecture,
   handleClick,
+  selected,
 } : {
-  prefecture: string
+  prefecture: string,
+  selected: string,
   handleClick: (city: string) => void
 }) => {
   const kanaRows = useRef<Array<HTMLElement | null>>([]);
@@ -27,7 +29,7 @@ export const Cities = ({
 
   return (
     <Box>
-      <KanaNavigation 
+      <KanaNavigation
         kanaKeys={kanaKeys || []}
         kanaRowsRef={kanaRows}
       />
@@ -53,12 +55,15 @@ export const Cities = ({
               {
               values.map(({ city_kana, city: _city }) => {
 
+                const isSelected = selected === _city;
+
                 return (
                   <Grid key={city_kana} item xs={3}>
                     <Tooltip title={city_kana}>
                       <Button
                         fullWidth
-                        variant={'outlined'}
+                        variant={isSelected ? 'contained' : 'outlined'}
+                        color={isSelected ? 'primary' : 'secondary'}
                         onClick={() => handleClick(_city)}
                       >
                         <Stack>

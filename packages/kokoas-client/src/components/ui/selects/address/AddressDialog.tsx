@@ -50,38 +50,37 @@ export const AddressDialog = ({
         handleClose={handleClose}
       />
       <DialogContent>
-        {
-          (() => {
-            switch (activeStep) {
-              case 0:
-                return (
-                  <Prefectures
-                    selected={prefecture}
-                    handleClick={(value) => dispatch({ type: 'setPref', payload: value })}
-                  />);
-              case 1:
-                return (
-                  <Cities
-                    selectedCity={city}
-                    prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}
-                  />);
-              case 2:
-                return (
-                  <Towns
-                    selectedTown={town}
-                    prefecture={prefecture}
-                    city={city}
-                    handleClick={(location) => {
-                      dispatch({ type: 'setTown', payload: location });
-                      handleChange({
-                        ...state,
-                        ...location,
-                      });
-                    }}
-                  />);
-            }
-          })()
-        }
+        {(() => {
+          switch (activeStep) {
+            case 0:
+              return (
+                <Prefectures
+                  selected={prefecture}
+                  handleClick={(value) => dispatch({ type: 'setPref', payload: value })}
+                />);
+            case 1:
+              return (
+                <Cities
+                  selectedCity={city}
+                  prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}
+                />);
+            case 2:
+              return (
+                <Towns
+                  selectedTown={town}
+                  prefecture={prefecture}
+                  city={city}
+                  handleClick={(location) => {
+                    dispatch({ type: 'setTown', payload: location });
+                    handleChange({
+                      ...state,
+                      ...location,
+                    });
+                  }}
+                />);
+          }
+        })()}
+
       </DialogContent>
 
     </Dialog>

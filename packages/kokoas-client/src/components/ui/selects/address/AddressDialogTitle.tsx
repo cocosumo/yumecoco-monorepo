@@ -3,6 +3,7 @@ import { Dispatch } from 'react';
 import { Actions, TypeOfForm } from './addressReducer';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { CloseButton } from '../../buttons/CloseButton';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 export const AddressDialogTitle = ({
   state,
@@ -64,6 +65,8 @@ export const AddressDialogTitle = ({
                 disabled={resolveDisabled(index)}
               >
                 <StepButton
+                  disableRipple
+                  icon={completed[index] ? <CheckCircleIcon color='success' /> : undefined}
                   onClick={()=>dispatch({ type: 'stepTo', payload: index })}
                   sx={{
                     transform: `scale(${activeStep === index ? 1.2 : 1})`,

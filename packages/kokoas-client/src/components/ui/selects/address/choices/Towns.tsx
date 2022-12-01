@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, LinearProgress } from '@mui/material';
-import { useMemo, useRef } from 'react';
+import { useMemo, useRef, Suspense } from 'react';
 import { KanaNavigation } from '../common/KanaNavigation';
 import { TownButton } from '../common/TownButton';
 import { useGroupedTowns } from '../hooks/useGroupedTowns';
@@ -27,33 +27,34 @@ export const Towns = (props : {
   if (isFetching) {
     return <LinearProgress />;
   }
-
   return (
     <Box>
-      <KanaNavigation
-        kanaKeys={kanaKeys || []}
-        kanaRowsRef={kanaRows}
-      />
-      {
-      sortedTowns
-        ?.map(([groupKey, values], index) => {
-          return (
-            <Grid
-              key={groupKey}
-              ref={(el) =>  kanaRows.current[index] = el}
-              container
-              item
-              xs={12}
-              pb={2}
-              p={4}
-              spacing={2}
-            >
-              <Grid item xs={12}>
-                <Divider textAlign='left'>
-                  {groupKey}
-                </Divider>
-              </Grid>
-              {
+      <Suspense fallback={<LinearProgress />}>
+        <KanaNavigation
+          kanaKeys={kanaKeys || []}
+          kanaRowsRef={kanaRows}
+        />
+        {
+
+        sortedTowns
+          ?.map(([groupKey, values], index) => {
+            return (
+              <Grid
+                key={groupKey}
+                ref={(el) =>  kanaRows.current[index] = el}
+                container
+                item
+                xs={12}
+                pb={2}
+                px={4}
+                spacing={2}
+              >
+                <Grid item xs={12}>
+                  <Divider textAlign='left'>
+                    {groupKey}
+                  </Divider>
+                </Grid>
+                {
               values.map(({ id, town, townReading, postalCode }) => {
 
                 return (
@@ -73,10 +74,11 @@ export const Towns = (props : {
               })
             }
 
-            </Grid>
-          );
-        })
-    }
+              </Grid>
+            );
+          })
+      }
+      </Suspense>
     </Box>
   );
 };

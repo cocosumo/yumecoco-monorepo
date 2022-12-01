@@ -1,21 +1,28 @@
-import { PageSubTitle } from '../../../../components/ui/labels/PageSubTitle';
-import { Grid, debounce, FormHelperText } from '@mui/material';
-import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
+import {
+  Grid,
+  FormHelperText,
+} from '@mui/material';
+import {
+  FormikLabeledCheckBox,
+  FormikTextFieldV2 as FormikTextField,
+  PageSubTitle,
+  SearchAddress,
+  SelectProjectInCustGroup,
+} from 'kokoas-client/src/components/';
+import debounce from 'lodash/debounce';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { BuildingType } from './BuildingType';
-import { FormikTextField } from '../../../../components/ui/textfield';
-
 import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
-import { getAddressByPostal } from '../../../../api/others/postal';
+import { getAddressByPostal } from 'kokoas-client/src/api/';
 import { useCallback } from 'react';
-import { SelectProjectInCustGroup } from 'kokoas-client/src/components/ui/dialogs/SelectProjectInCustGroup';
-import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 
 export const ConstructionLocation = () => {
 
   const {
     status,
     values : {
+      postal: formPostalCode,
       custGroupId,
       address1,
       isChkAddressKari,
@@ -28,12 +35,14 @@ export const ConstructionLocation = () => {
 
 
   const handleGenerateAddress = useCallback(debounce((e: React.FocusEvent<any, Element>) => {
-    const postal = e.target.value;
+    const newPostal = e.target.value;
 
-    if (postal && !address1) {
-      getAddressByPostal(postal)
+    if (newPostal && !address1) {
+      getAddressByPostal(newPostal)
         .then(resp => {
-          setFieldValue('address1', resp);
+          if (resp) {
+            setFieldValue(getFieldName('address1'), Object.values(resp).join(''));
+          }
         });
     }
 
@@ -73,12 +82,24 @@ export const ConstructionLocation = () => {
           placeholder='4420888'
           disabled={isReadOnly}
           onChange={handleGenerateAddress}
-          shrink={true}
           required
         />
       </Grid>
+      <Grid item>
+        <SearchAddress
+          postalCode={formPostalCode}
+          address={address1}
+          handleChange={({ postalCode, prefecture, city, town }) => {
+            setValues((prev) => ({
+              ...prev,
+              postal: postalCode,
+              address1: [prefecture, city, town].join(''),
+            }));
+          }}
+        />
+      </Grid>
 
-      <Grid item md={9} />
+      <Grid item md={12} />
 
       <Grid item xs={12} md={8}>
         <FormikTextField name="address1" label="住所" disabled={isReadOnly}
@@ -87,7 +108,9 @@ export const ConstructionLocation = () => {
       </Grid>
 
       <Grid item xs={12} md={8}>
-        <FormikTextField name="address2" label="住所（番地以降）" disabled={isReadOnly}
+        <FormikTextField
+          name="address2" label="住所（番地以降）"
+          disabled={isReadOnly}
           required
         />
       </Grid>

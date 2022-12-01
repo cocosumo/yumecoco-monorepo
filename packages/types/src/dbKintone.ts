@@ -33,3 +33,6 @@ export type KProjestimates = keyof IProjestimates;
 
 export type IStores = DBStores.SavedData;
 export type KStores = keyof IStores;
+
+export type IPostalcode = DBPostalcode.SavedData;
+export type KPostalcode = keyof IPostalcode;

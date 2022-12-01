@@ -45,6 +45,8 @@ const isTokenExpired = () => !oAuth?.ex || isPast(oAuth?.ex);
 
 export const kintoneBaseUrl = process.env.KT_BASE_URL;
 
+
+
 export const kt = async () => {
 
   /**

@@ -9,7 +9,7 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
     params,
     { select: useCallback((d) => {
       const grouped = d.reduce((
-        acc, 
+        acc,
         {
           $id: id,
           town,
@@ -21,9 +21,13 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
         const resolvedTown =  isOthers ? 'その他' : town.value;
 
         const hiraTownReading = isOthers ? 'そのた' : replaceKanaHalfToHira(townReading.value);
+
         const firstChar = isOthers ? '他' : getKanaRow(hiraTownReading.charAt(0));
 
-        
+        if (firstChar === '他') {
+          console.log(isOthers, town.value, townReading.value, hiraTownReading,  getKanaRow(hiraTownReading.charAt(0)));
+        }
+
         acc[firstChar] = acc[firstChar] ?? [];
         acc[firstChar].push({
           id: id.value,
@@ -33,7 +37,7 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
         });
 
         return acc;
-                
+
       }, {} as {
         [char: string] : {
           id: string,

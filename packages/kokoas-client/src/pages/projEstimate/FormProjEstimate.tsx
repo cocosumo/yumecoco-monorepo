@@ -12,7 +12,6 @@ import { SubTotalTable } from './SubTotalTable/SubTotalTable';
 import { SearchProject } from './fieldComponents/SearchProject';
 import { FormActions } from './fieldComponents/formActions/FormActions';
 import { FormikSelect } from '../../components/ui/selects';
-import { ProjEstimateShortcuts } from './navigationComponents/ProjEstimateShortcuts';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
@@ -153,7 +152,6 @@ export default function FormProjEstimate() {
         </Grid>
 
         {!isDisabled && <FormActions />}
-        {projId && <ProjEstimateShortcuts />}
       </MainContainer>
     </Form>
   );

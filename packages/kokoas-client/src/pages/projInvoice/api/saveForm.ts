@@ -6,19 +6,17 @@ export const saveForm = async (form: TypeOfForm) => {
 
   const {
     invoiceId,
-    amountType,
     billingAmount,
     plannedPaymentDate,
-    projId,
     estimates,
   } = form;
 
   /* formをkintoneの型に変換する */
   const record: Partial<IInvoices> = {
-    amountType: { value: amountType },
+    //amountType: { value: amountType },
     billingAmount: { value: billingAmount },
     plannedPaymentDate: { value: plannedPaymentDate },
-    projId: { value: projId },
+    //projId: { value: projId },
     estimateLists: {
       type: 'SUBTABLE',
       value: estimates.map(({ estimateId }) => {
@@ -27,6 +25,10 @@ export const saveForm = async (form: TypeOfForm) => {
           value: {
             paymentType: { value: '' },
             estimateId: { value: estimateId },
+            projId: { value: '' }, // added as it was causing type error. 
+            projTypeName: { value: '' },
+            amountPerContract: { value: '' },
+            dataId : { value: '' },
           },
         };
       }),

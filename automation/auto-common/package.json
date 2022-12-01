@@ -2,6 +2,12 @@
   "name": "auto-common",
   "version": "0.0.0",
   "devDependencies": {},
+  "dependencies": {
+    "api-kintone": "*",
+    "config": "*",
+    "types": "*"
+  },
   "scripts": {
+    "upload:postal" : "ts-node --files ./src/csv/postal/mainPostalCodeUpdate.ts -T"
   }
 }

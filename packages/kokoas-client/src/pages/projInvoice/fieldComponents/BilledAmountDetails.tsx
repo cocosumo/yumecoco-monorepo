@@ -24,14 +24,14 @@ export const BilledAmountDetails = ({
         withYes: true,
         yesText: '閉じる',
         withNo: false,
-        content: invoices?.map(({ plannedPaymentDate, billingAmount, $id, projId }) => {
+        content: invoices?.map(({ plannedPaymentDate, billingAmount, $id }) => {
           return (
             <Stack
               direction={'row'}
               spacing={2}
               alignItems="center"
               justifyContent="space-around"
-              key={`billedAmount_${projId.value}_${$id.value}`}
+              key={`billedAmount_${$id.value}`}
             >
               <Typography variant='caption' sx={{ width: '60px' }}>
                 支払予定日

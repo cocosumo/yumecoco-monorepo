@@ -21,6 +21,6 @@
 
 4. 終わったら、yumecoco-monorepoで以下のコマンドを実行
 
-   ```!bash
+   ```bash
    nx upload:postal auto-common
    ```

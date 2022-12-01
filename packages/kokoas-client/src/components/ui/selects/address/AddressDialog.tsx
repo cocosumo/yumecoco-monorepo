@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogProps, Typography } from '@mui/material';
+import {  Dialog, DialogContent, DialogProps } from '@mui/material';
 import { useReducer } from 'react';
 import { AddressDialogTitle } from './AddressDialogTitle';
 import { addressReducer, initialValues, TypeOfForm } from './addressReducer';
@@ -17,7 +17,7 @@ export const AddressDialog = ({
 }) => {
 
   const [
-    state, 
+    state,
     dispatch,
   ] = useReducer(addressReducer, initialValues);
 
@@ -42,23 +42,27 @@ export const AddressDialog = ({
         },
       }}
     >
-      <AddressDialogTitle state={state} dispatch={dispatch}  />
+      <AddressDialogTitle
+        state={state}
+        dispatch={dispatch}
+        handleClose={handleClose}
+      />
       <DialogContent>
         {
           (() => {
             switch (activeStep) {
-              case 0: 
+              case 0:
                 return <Prefectures handleClick={(value) => dispatch({ type: 'setPref', payload: value })} />;
               case 1:
                 return <Cities prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}  />;
               case 2:
                 return (
-                  <Towns 
-                    prefecture={prefecture} 
-                    city={city} 
+                  <Towns
+                    prefecture={prefecture}
+                    city={city}
                     handleClick={(location) => {
                       dispatch({ type: 'setTown', payload: location });
-                      handleChange({ 
+                      handleChange({
                         ...state,
                         ...location,
                       });
@@ -68,18 +72,7 @@ export const AddressDialog = ({
           })()
         }
       </DialogContent>
-      <DialogActions sx={{
-        justifyContent: 'space-between',
-      }}
-      >
-        <Typography variant="caption">
-          出典: 日本郵便株式会社
-        </Typography>
-        <Button variant={'outlined'} onClick={handleClose}>
-          閉じる
-        </Button>
-      </DialogActions>
-      
+
     </Dialog>
   );
 };

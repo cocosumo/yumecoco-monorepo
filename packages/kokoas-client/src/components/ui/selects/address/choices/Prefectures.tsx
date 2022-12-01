@@ -12,7 +12,7 @@ const areas: {
   '中国' : {
     prefectures: ['広島県', '岡山県', '島根県', '鳥取県', '山口県'],
     left: 44,
-    top: 172, 
+    top: 172,
   },
   '九州' : {
     prefectures: ['広島県', '岡山県', '島根県', '鳥取県', '山口県'],
@@ -25,7 +25,7 @@ const areas: {
     top: 119,
   },
   '北陸' : {
-    prefectures: ['石川県', '新潟県', '福山県', '長野県', '福井県', '山梨県'],
+    prefectures: ['石川県', '新潟県', '富山県', '長野県', '福井県', '山梨県'],
     left: 368,
     top: 77,
   },
@@ -47,7 +47,7 @@ const areas: {
     top: 361,
   },
   '東北' : {
-    prefectures: ['青森県', '岩手県', '秋田県', '宮城県'],
+    prefectures: ['青森県', '岩手県', '秋田県', '宮城県', '山形県', '福島県'],
     left: 616,
     top: 159,
   },
@@ -69,7 +69,7 @@ export const Prefectures = (
   props: Omit<ComponentProps<typeof PrefectureChoices>, 'choices' | 'prefectures'>,
 ) => {
 
-  
+
 
   return (
     <Box sx={{
@@ -84,13 +84,13 @@ export const Prefectures = (
       {
         Object.entries(areas)
           .map(([
-            area, 
+            area,
             {
               prefectures,
               ...gridProps
             }]) => {
             return (
-              <PrefectureChoices 
+              <PrefectureChoices
                 key={area}
                 prefectures={prefectures}
                 {...props}
@@ -99,8 +99,8 @@ export const Prefectures = (
             );
           })
       }
-    
+
     </Box>
-   
+
   );
 };

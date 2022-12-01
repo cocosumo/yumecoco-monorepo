@@ -1,8 +1,13 @@
-import {onCreateSubmitSuccess, onIndexShow, onEditOrCreateSubmit, onFieldChange} from '../../kintone-api/api';
+import {
+  onCreateSubmitSuccess,
+  onIndexShow,
+  onSubmitSuccess,
+  onFieldChange,
+} from 'api-kintone';
 import onIndexShowHandler from './eventHandlers/onIndexShowHandler';
 import onEditOrCreateSubmitSuccessHandler from './eventHandlers/onEditOrCreateSubmitSuccessHandler';
 import onEditOrCreateSubmitHandler from './eventHandlers/onCreateOrEditSubmitHandler';
-import {onChangeAGHandler} from './eventHandlers/onChangeAGHandler';
+import { onChangeAGHandler } from './eventHandlers/onChangeAGHandler';
 
 
 (() => {

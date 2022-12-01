@@ -8,9 +8,9 @@ export interface KintoneEvent {
 
 const onCreateOrEditSubmitHandler = (event: KintoneEvent) => {
 
-  const {record: {
-    担当者: ag
-  }} = event;
+  const { record: {
+    担当者: ag,
+  } } = event;
 
   console.log(ag);
 

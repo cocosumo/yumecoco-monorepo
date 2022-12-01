@@ -16,8 +16,6 @@ export const sendMessage = (
 
   if (!cwToken) throw new Error(`Invalid chatwork token: ${cwToken}`);
 
-  console.log(cwToken, roomId);
-
   const url = `https://api.chatwork.com/v2/rooms/${roomId}/messages`;
   const headers = {
     'X-ChatWorkToken': cwToken || '',

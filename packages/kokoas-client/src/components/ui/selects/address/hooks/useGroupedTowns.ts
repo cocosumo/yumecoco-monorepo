@@ -24,10 +24,6 @@ export const useGroupedTowns = (params: Parameters<typeof useAddressTowns>[0]) =
 
         const firstChar = isOthers ? '他' : getKanaRow(hiraTownReading.charAt(0));
 
-        if (firstChar === '他') {
-          console.log(isOthers, town.value, townReading.value, hiraTownReading,  getKanaRow(hiraTownReading.charAt(0)));
-        }
-
         acc[firstChar] = acc[firstChar] ?? [];
         acc[firstChar].push({
           id: id.value,

@@ -62,13 +62,13 @@ export const AddressDialog = ({
               case 1:
                 return (
                   <Cities
-                    selected={city}
+                    selectedCity={city}
                     prefecture={prefecture} handleClick={(value) => dispatch({ type: 'setCity', payload: value })}
                   />);
               case 2:
                 return (
                   <Towns
-                    selected={town}
+                    selectedTown={town}
                     prefecture={prefecture}
                     city={city}
                     handleClick={(location) => {

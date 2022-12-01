@@ -6,11 +6,13 @@ export const TownButton = ({
   town,
   postalCode,
   handleClick,
+  selected,
   ...buttonProps
 }: ButtonProps & {
   townReading: string,
   town: string,
   postalCode: string
+  selected: boolean,
   handleClick: (town: string) => void
 }) => {
 
@@ -22,6 +24,8 @@ export const TownButton = ({
         {...buttonProps}
         fullWidth
         onClick={() => handleClick(town)}
+        color={selected ? 'primary' : 'secondary'}
+        variant={selected ? 'contained' : 'outlined'}
       >
         <Stack>
           <div>

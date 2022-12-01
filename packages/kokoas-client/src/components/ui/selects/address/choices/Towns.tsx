@@ -7,7 +7,7 @@ import { useGroupedTowns } from '../hooks/useGroupedTowns';
 export const Towns = (props : {
   prefecture: string,
   city: string,
-  selected: string,
+  selectedTown: string,
   handleClick: (params: {
     town: string,
     postalCode: string,
@@ -17,7 +17,7 @@ export const Towns = (props : {
     handleClick,
     prefecture,
     city,
-    selected,
+    selectedTown,
   } = props;
 
   const kanaRows = useRef<Array<HTMLElement | null>>([]);
@@ -55,19 +55,18 @@ export const Towns = (props : {
               </Grid>
               {
               values.map(({ id, town, townReading, postalCode }) => {
-                const isSelected = selected === town;
+
                 return (
                   <Grid key={id} item xs={3}>
                     <TownButton
                       town={town}
+                      selected={selectedTown === town}
                       townReading={townReading}
                       postalCode={postalCode}
                       handleClick={() => handleClick({
                         town,
                         postalCode,
                       })}
-                      color={isSelected ? 'primary' : 'secondary'}
-                      variant={isSelected ? 'contained' : 'outlined'}
                     />
                   </Grid>
                 );

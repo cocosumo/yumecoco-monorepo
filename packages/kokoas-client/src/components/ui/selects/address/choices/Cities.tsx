@@ -8,10 +8,10 @@ import { locationSorter } from '../common/sorter';
 export const Cities = ({
   prefecture,
   handleClick,
-  selected,
+  selectedCity,
 } : {
   prefecture: string,
-  selected: string,
+  selectedCity: string,
   handleClick: (city: string) => void
 }) => {
   const kanaRows = useRef<Array<HTMLElement | null>>([]);
@@ -55,15 +55,15 @@ export const Cities = ({
               {
               values.map(({ city_kana, city: _city }) => {
 
-                const isSelected = selected === _city;
+                const selected = selectedCity === _city;
 
                 return (
                   <Grid key={city_kana} item xs={3}>
                     <Tooltip title={city_kana}>
                       <Button
                         fullWidth
-                        variant={isSelected ? 'contained' : 'outlined'}
-                        color={isSelected ? 'primary' : 'secondary'}
+                        variant={selected ? 'contained' : 'outlined'}
+                        color={selected ? 'primary' : 'secondary'}
                         onClick={() => handleClick(_city)}
                       >
                         <Stack>

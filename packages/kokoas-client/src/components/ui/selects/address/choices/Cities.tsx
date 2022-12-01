@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Stack, Tooltip } from '@mui/material';
+import { Box, Button, Divider, Grid, Tooltip } from '@mui/material';
 import { useAddressCities } from 'kokoas-client/src/hooksQuery';
 import { useCallback, useMemo, useRef } from 'react';
 import { heartRailsGrouper } from '../common/heartRailsGrouper';
@@ -62,13 +62,16 @@ export const Cities = ({
                     <Tooltip title={city_kana}>
                       <Button
                         fullWidth
+                        ref={(el) => {
+                          if (selected && el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                          }
+                        }}
                         variant={selected ? 'contained' : 'outlined'}
                         color={selected ? 'primary' : 'secondary'}
                         onClick={() => handleClick(_city)}
                       >
-                        <Stack>
-                          {_city}
-                        </Stack>
+                        {_city}
                       </Button>
                     </Tooltip>
                   </Grid>

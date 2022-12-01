@@ -18,10 +18,18 @@ export const TownButton = ({
 
   const formattedPostalCode = `${postalCode.slice(0, 3)}-${postalCode.slice(3)}`;
 
+
+
+
   return (
     <Tooltip title={townReading}>
       <Button
         {...buttonProps}
+        ref={(el) => {
+          if (selected && el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          }
+        }}
         fullWidth
         onClick={() => handleClick(town)}
         color={selected ? 'primary' : 'secondary'}

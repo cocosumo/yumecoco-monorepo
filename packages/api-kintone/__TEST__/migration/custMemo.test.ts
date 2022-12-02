@@ -1,13 +1,13 @@
 /* import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { getFormFields } from 'api-kintone';
-import { AppIds, prodAppIds } from 'config';
+//import { AppIds, prodAppIds } from 'config';
 import { fieldMapSorter } from './helper/fieldMapSorter';
 import { getLookUp } from './helper/getLookup';
 import { removeKeys } from './helper/removeKeys';
 
-describe('custMemos migration', () => {
-  const devAppId = AppIds.custMemos;
-  const prodAppId = prodAppIds.custMemos;
+describe('migration', () => {
+  const devAppId = 217;
+  const prodAppId = 198;
 
   let prodFormFields : Properties;
   let devFormFields : Properties;

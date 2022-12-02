@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "files": [
+    "./index.ts",
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+  ],
+  "exclude": [
+    "./dist"
+  ]
+}

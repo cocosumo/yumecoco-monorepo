@@ -11,7 +11,7 @@ module.exports = {
   ],
   verbose: true,
   globals: {
-    window: undefined,
+    kintone: undefined,
     'ts-jest': {
       isolatedModules: true,
     },

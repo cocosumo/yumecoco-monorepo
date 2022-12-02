@@ -7,7 +7,7 @@ export const sendResultToChatWork = (event: KintoneEvent) => {
   const message = generateMessage(event);
   sendMessage({
     body: message,
-    roomId: chatworkRooms[isProd ? 'yumetetsuReport' : 'test' ],
+    roomId: chatworkRooms[isProd ? 'yumetetsuReport' : 'rpa' ],
   });
 };
 

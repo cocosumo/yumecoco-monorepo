@@ -1,4 +1,5 @@
 export * from './@app';
+export * from './@dom';
 export * from './@file';
 export * from './@users';
 export * from './client';

@@ -4,15 +4,21 @@ import {
   onSubmitSuccess,
   onFieldChange,
 } from 'api-kintone';
-import onIndexShowHandler from './eventHandlers/onIndexShowHandler';
-import onEditOrCreateSubmitSuccessHandler from './eventHandlers/onEditOrCreateSubmitSuccessHandler';
-import onEditOrCreateSubmitHandler from './eventHandlers/onCreateOrEditSubmitHandler';
-import { onChangeAGHandler } from './eventHandlers/onChangeAGHandler';
+import { isProd } from 'config';
+
+import  {
+  onCreateOrEditSubmitHandler,
+  onIndexShowHandler,
+  onEditOrCreateSubmitSuccessHandler,
+  onChangeAGHandler,
+} from './eventHandlers';
+import { KeyOfDB } from './types';
 
 
 (() => {
+  console.log(`Running in ${isProd ? 'production' : 'development'}`);
   kintone.events.on(onIndexShow, onIndexShowHandler);
-  kintone.events.on(onEditOrCreateSubmit, onEditOrCreateSubmitHandler);
-  kintone.events.on(onFieldChange(['担当者'] as Array<keyof KintoneTypes195.SavedRecord>), onChangeAGHandler);
+  kintone.events.on(onSubmitSuccess, onCreateOrEditSubmitHandler);
+  kintone.events.on(onFieldChange(['担当者'] as Array<KeyOfDB>), onChangeAGHandler);
   kintone.events.on(onCreateSubmitSuccess, onEditOrCreateSubmitSuccessHandler);
 })();

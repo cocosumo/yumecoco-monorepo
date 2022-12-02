@@ -4,7 +4,9 @@ interface AppRecord {
   domain?: string | null
 }
 
-export const isMobile : boolean = (window.location.href).includes('k/m');
+
+
+export const isMobile : boolean = (window?.location.href || '').includes('k/m');
 
 export const getAppId = () : number | null => {
   const url = window.location.href;
@@ -33,63 +35,6 @@ export const goToRecordPath = (recordDetails : AppRecord) => {
   window?.open(getRecordPath(recordDetails), '_blank')?.focus();
 };
 
-export const onEdit = [
-  'app.record.edit.show',
-  'mobile.app.record.edit.show',
-] as const;
-
-export const onCreate = [
-  'app.record.create.show',
-  'mobile.app.record.create.show',
-] as const;
-
-export const onEditSubmit = [
-  'app.record.edit.submit',
-  'mobile.app.record.edit.submit',
-] as const;
-
-export const onEditSubmitSuccess = [
-  'app.record.edit.submit.success',
-  'mobile.app.record.edit.submit.success',
-] as const;
-
-export const onCreateSubmit = [
-  'app.record.create.submit',
-  'mobile.app.record.create.submit',
-] as const;
-
-export const onCreateSubmitSuccess : string[] = [
-  'app.record.create.submit.success',
-  'mobile.app.record.create.submit.success',
-];
-
-export const onIndexShow : string[] = [
-  'app.record.index.show',
-  'mobile.app.record.index.show',
-];
-
-export const onReportShow : string[] = [
-  'app.report.show',
-  'mobile.app.report.show',
-];
-
-
-export const onEditOrCreate = onEdit.concat(onCreate);
-export const onSubmit = onEditSubmit.concat(onCreateSubmit);
-
-export const onSubmitSuccess = onEditSubmitSuccess.concat(onCreateSubmitSuccess);
-
-export const onFieldChange = (fields : string | string[]) : string[] =>
-  ([] as string[]).concat(fields).reduce(
-    (acc : string[], curr) : string[] => {
-      return acc.concat(
-        `app.record.edit.change.${curr}`,
-        `mobile.app.record.edit.change.${curr}`,
-        `app.record.create.change.${curr}`,
-        `mobile.app.record.create.change.${curr}`,
-      );
-    }, [],
-  );
 
 export const getPortalSpaceElement = () => (
   isMobile

@@ -1,19 +1,11 @@
-import sendResultToChatWork from '../actions/sendResultToChatWork';
+import { sendResultToChatWork } from '../actions';
+import { KintoneEvent } from '../types';
 
-export interface KintoneEvent {
-  record: KintoneTypes195.SavedRecord,
-  appId: string,
-  recordId: string,
-  error: string,
-}
+export const onEditOrCreateSubmitSuccessHandler = (event: KintoneEvent) => {
 
-const onEditOrCreateSubmitSuccessHandler = (event: KintoneEvent) => {
-
-  const {record: {
-    担当者: ag
-  }} = event;
-
-  console.log(ag);
+  const { record: {
+    担当者: ag,
+  } } = event;
 
   const totalPoints = ag.value.reduce((accu, curr) => {
     return accu + +curr.value.percent_1.value;
@@ -27,5 +19,3 @@ const onEditOrCreateSubmitSuccessHandler = (event: KintoneEvent) => {
   sendResultToChatWork(event);
   return event;
 };
-
-export default onEditOrCreateSubmitSuccessHandler;

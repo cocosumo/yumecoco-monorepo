@@ -1,8 +1,6 @@
 
-const onIndexShowHandler = () => {
+export const onIndexShowHandler = () => {
   const condition = kintone.app.getQueryCondition();
   console.log(condition);
-  console.log('Indexss Page');
+  console.log('Index Page');
 };
-
-export default onIndexShowHandler;

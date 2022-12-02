@@ -1,7 +1,8 @@
 import { format, parseISO } from 'date-fns';
-import { KintoneEvent } from '../eventHandlers/onEditOrCreateSubmitSuccessHandler';
+import { KintoneEvent } from '../types';
 
-const generateMessage = (event: KintoneEvent) => {
+
+export const generateMessage = (event: KintoneEvent) => {
   const { record, appId, recordId } = event;
 
   const {
@@ -29,5 +30,3 @@ const generateMessage = (event: KintoneEvent) => {
 
   return `[info]${[title, content, link].join('\n')}[/info]`;
 };
-
-export default generateMessage;

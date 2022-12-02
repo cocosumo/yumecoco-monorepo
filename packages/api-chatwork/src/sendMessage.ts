@@ -4,7 +4,7 @@ export const sendMessage = (
   {
     body,
     roomId,
-    cwToken = process.env.CW_TOKEN,
+    cwToken = process.env.CW_TOKEN_REPORTER,
   }:
   {
     body: string,

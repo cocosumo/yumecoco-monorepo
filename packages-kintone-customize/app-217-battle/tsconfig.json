@@ -1,13 +1,15 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowJs": true,
   },
   "files": [
-    "./index.ts",
+    "./src/app.ts",
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
   ],
   "exclude": [
-    "./dist"
+    "./dist",
+    "webpack.config.js"
   ]
 }

@@ -1,7 +1,11 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
+  plugins: [
+    new Dotenv({ path: '../../.env' }),
+  ],
 
   entry: {
     customize: './src/app.ts',
@@ -14,6 +18,12 @@ module.exports = {
 
   resolve: {
     extensions: ['.js', '.json','.ts','.tsx' ,'.jsx'],
+    fallback: {
+      "fs": false,
+      "path": false,
+      "os": false,
+      crypto: false,
+    },
   },
 
   module: {

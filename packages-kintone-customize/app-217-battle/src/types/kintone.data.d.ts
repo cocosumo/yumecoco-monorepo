@@ -1,10 +1,10 @@
-declare namespace KintoneTypes195 {
+declare namespace DB {
   interface Record {
     契約日: kintone.fieldTypes.Date;
     point: kintone.fieldTypes.Number;
     種類: kintone.fieldTypes.SingleLineText;
     案件: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
@@ -13,7 +13,7 @@ declare namespace KintoneTypes195 {
       }>;
     };
     担当者: {
-      type: 'SUBTABLE';
+      type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {

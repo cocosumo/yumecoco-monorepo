@@ -1,5 +1,23 @@
 
 
+/****
+ * 計算の仕様
+ * https://trello.com/c/9WvDqhV1
+ *
+ *  A = 原価
+ *  B = 粗利（円）
+ *  C = 単価
+ *  D = 利益
+ *
+ * ---------------
+ *
+ *  C = A / (1 - D )
+ *  B = C - A
+ *
+ * ※ 行ごと丸める。
+ */
+
+
 /**
  *
  * @param レコード
@@ -9,7 +27,7 @@
  * @returns {number} object.totalAmountInclTax - 税込合計
  * @returns {number} object.taxAmount - 税合計
  * @returns {number} object.totalProfitRate - 粗利
- * @deprecated 計算の仕様変更。 詳しくは https://trello.com/c/9WvDqhV1
+ *
  */
 export const calculateEstimate = (
   {
@@ -48,6 +66,30 @@ export const calculateEstimate = (
         materialProfit,
       },
     ) => {
+
+      // [利益率 D]  (0 - 100)
+      const matProfitRate = (+materialProfit) / 100;
+
+      // [単価 C] = A / (1 - D)
+      const matUnitPrice = costPrice /  (1 - matProfitRate);
+
+      //  [粗利 B] = C - A
+      const matGrossProfit = matUnitPrice - costPrice;
+
+      // 行の単価合計 = 数量 * C
+      const rowUnitPRice = quantity * matUnitPrice;
+
+      // 行の粗利合計 = 数量 * B
+      const rowGrossProfit = quantity * matGrossProfit;
+
+      // 行の原価合計 = 数量 * A
+      const rowUnitPrice = quantity * costPrice;
+
+      // 税込み行の粗利合計
+      const rowGrossProfitWithTax = rowGrossProfit + (1 + (isTaxable ? taxRate : 0 ) );
+
+
+      /*
       // 部材の利益率
       const matProfitRate =  +materialProfit / 100;
 
@@ -74,10 +116,11 @@ export const calculateEstimate = (
         rowUnitPrice: unitPrice,
         rowTotalAmountInclTax:  totalAmntInclTax,
       });
-
+ */
       return acc;
     }, {
       totalCostPrice : 0,
+      totalUnitPrice : 0,
       totalCPWithProfit: 0,
       totalAmountInclTax: 0,
       materials: [] as {
@@ -85,6 +128,7 @@ export const calculateEstimate = (
         quantity: number,
         materialProfit: number,
         rowUnitPrice: number,
+        rowGrossProfit: number,
         rowTotalAmountInclTax: number
       }[],
     });

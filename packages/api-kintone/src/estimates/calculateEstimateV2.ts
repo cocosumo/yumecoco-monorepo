@@ -76,19 +76,20 @@ export const calculateEstimate = (
       //  [粗利 B] = C - A
       const matGrossProfit = matUnitPrice - costPrice;
 
-      // 行の単価合計 = 数量 * C
+      // 行の単価合計 = 数量 * C, 大黒の金額
       const rowUnitPRice = quantity * matUnitPrice;
 
-      // 行の粗利合計 = 数量 * B
+      // 行の粗利合計 = 数量 * B,
       const rowGrossProfit = quantity * matGrossProfit;
 
-      // 行の原価合計 = 数量 * A
+      // 行の原価合計 = 数量 * A, 大黒の原価金額
       const rowUnitPrice = quantity * costPrice;
 
       // 税込み行の粗利合計
       const rowGrossProfitWithTax = rowGrossProfit + (1 + (isTaxable ? taxRate : 0 ) );
 
 
+      console.log(rowUnitPRice, rowUnitPrice, rowGrossProfitWithTax);
       /*
       // 部材の利益率
       const matProfitRate =  +materialProfit / 100;

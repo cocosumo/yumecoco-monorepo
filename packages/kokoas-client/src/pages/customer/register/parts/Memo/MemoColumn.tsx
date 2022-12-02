@@ -41,7 +41,6 @@ export const MemoColumn = () => {
             ()=> handleOpen({
               custGroupId: id || '',
               custName: mainCust.custName,
-
             })
           }
           >

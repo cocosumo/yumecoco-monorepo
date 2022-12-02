@@ -1,4 +1,4 @@
-import { saveRecord } from '../common';
+import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 import { appId, RecordType } from './config';
 
 export const saveMemo = async ({
@@ -8,9 +8,12 @@ export const saveMemo = async ({
   id: string,
   record: Partial<RecordType>
 }) => {
-  return saveRecord({
+  return saveRecordByUpdateKey({
     app: appId,
     record: record,
-    recordId: id,
+    updateKey: {
+      field: 'uuid',
+      value: id,
+    },
   });
 };

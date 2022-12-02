@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 
 import { FieldArrayRenderProps } from 'formik';
 import { QuoteTableHead, QuoteTableBody } from './';
+import { QuoteTableActions } from './QuoteTableActions';
 
 
 /**
@@ -15,16 +16,19 @@ export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
 
   return (
     <TableContainer component={Paper} >
-      <Table 
-        size="small" 
-        sx={{ 
-          minWidth: 650, 
+      <Table
+        size="small"
+        sx={{
+          minWidth: 650,
           overflow: 'hidden',
-        }} 
+        }}
       >
         <QuoteTableHead />
         <QuoteTableBody arrayHelpers={arrayHelpers}  />
+
       </Table>
+      <QuoteTableActions />
+
     </TableContainer>
   );
 }

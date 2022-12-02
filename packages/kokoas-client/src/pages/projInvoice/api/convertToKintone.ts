@@ -2,25 +2,25 @@ import { IInvoices } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
-  custGroupId,
+  //projId,
   billingAmount,
-  amountType,
-  estimates,
-  exceedChecked,
+  //amountType,
+  //estimates,
+  //exceedChecked,
   plannedPaymentDate,
 }: TypeOfForm) => {
 
 
   /* formをkintoneの型に変換する */
   const kintoneRecord: Partial<IInvoices> = {
-    projId: { value: custGroupId },
-    amountType: { value: amountType },
+    //projId: { value: projId },
+    //amountType: { value: amountType },
     billingAmount: { value: billingAmount },
     plannedPaymentDate: { value: plannedPaymentDate },
-    excessChecked: { value: exceedChecked ? '1' : '0' },
+    //excessChecked: { value: exceedChecked ? '1' : '0' },
     // issuedDateTime: { value: String(new Date()) },
     // slipNumber: { value: '' },
-    estimateLists: {
+    /*  estimateLists: {
       type: 'SUBTABLE',
       value: estimates.map(({ estimateId }) => {
         return {
@@ -31,7 +31,7 @@ export const convertToKintone = ({
           },
         };
       }),
-    },
+    }, */
   };
 
   return kintoneRecord;

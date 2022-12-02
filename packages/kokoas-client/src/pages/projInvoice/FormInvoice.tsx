@@ -4,8 +4,6 @@ import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { Button, Divider, Grid } from '@mui/material';
-import { paymentLabels } from '../projContracts';
-import { FormikSelect } from '../../components/ui/selects';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
@@ -50,7 +48,7 @@ export const FormInvoice = () => {
     const newContractAmount = estimates.reduce((acc, cur) => {
       if (cur.isForPayment) return acc;
 
-      return acc + +cur.contractAmount;
+      return acc + +cur.amountPerContract;
     }, 0);
 
     setValues((prev) => ({
@@ -95,9 +93,9 @@ export const FormInvoice = () => {
         </Grid>
 
         {/* 支払金額の種別 */}
-        <Grid item xs={12} md={2}>
+        {/* <Grid item xs={12} md={2}>
           <FormikSelect
-            name={getFieldName('amountType')}
+            name={getEstimatesFieldName('amountType')}
             label={'支払金額の種別'}
             options={paymentLabels.map((item) => {
               return ({
@@ -107,7 +105,7 @@ export const FormInvoice = () => {
             })}
           />
         </Grid>
-        <Grid item md={6} />
+        <Grid item md={6} /> */}
 
         {/* 契約済み見積り情報の表示 */}
         <Grid item xs={12} md={12}>

@@ -45,11 +45,12 @@ export const useResolveParams = () => {
           contracts.records.forEach((value, idx) => {
             draft.estimates[idx] = {
               projId: value.projId.value,
-              projTypeName: value.projTypeId,
+              projTypeName: '', /* dummy */
               estimateId: value.$id.value || '',
               dataId: value.dataId.value || '',
               amountType: '',
               amountPerContract: '',
+              isForPayment: false, /* dummy */
             };
           });
         });

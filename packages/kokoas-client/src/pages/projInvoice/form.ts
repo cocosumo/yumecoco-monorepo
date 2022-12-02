@@ -26,6 +26,7 @@ export const initialValues = {
       dataId: '',
       amountType: '',
       amountPerContract: '',
+      isForPayment: false,
     },
   ],
 

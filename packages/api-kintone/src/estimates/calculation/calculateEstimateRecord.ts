@@ -1,12 +1,16 @@
 import { TaxType } from 'types';
 import { RecordType } from '../config';
 import { calculateEstimateRow } from './calculateEstimateRow';
+import { calculateEstimateSummary } from './calculateEstimateSummary';
 
 export const calculateEstimateRecord = ({
   record,
 } : {
-  record: RecordType
-}) => {
+  record: RecordType,
+}) : {
+  calculatedEstimateTable: ReturnType<typeof calculateEstimateRow>[],
+  estimateSummary: ReturnType<typeof calculateEstimateSummary>
+} => {
   const {
     内訳: { value: estimatesTable },
     税: { value: tax },
@@ -36,9 +40,12 @@ export const calculateEstimateRecord = ({
 
 
 
+
+
+
   return {
     calculatedEstimateTable,
-    
+    estimateSummary: calculateEstimateSummary(calculatedEstimateTable),
   };
   
 };

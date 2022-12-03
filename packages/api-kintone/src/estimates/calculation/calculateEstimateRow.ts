@@ -73,12 +73,12 @@ export interface CalculationEstimateResults extends Required<CalculationEstimate
 }
 
 
-/**
+/****************************
+ * 行ごと計算
  * 
  * 基本的に逆算してほしい項目をundefinedにする。
  * 
- * 
- */
+ ****************************/
 export const calculateEstimateRow = ( params : CalculationEstimateParams) : CalculationEstimateResults => {
 
   const {
@@ -110,11 +110,14 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   const rowCostPrice = costPrice * quantity;
 
   
-  // 「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算
+
+  /********************************************************************************
+   *「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
+   *******************************************************************************/
   if (rowUnitPriceAfterTax && !unitPrice && !profitRate) {
 
     // 税抜き単価合計
-    const newRowUnitPriceBeforeTax = isTaxable ? (rowUnitPriceAfterTax * (1 / (1 + taxRate)))  : rowUnitPriceAfterTax;
+    const newRowUnitPriceBeforeTax = isTaxable ? (rowUnitPriceAfterTax / (1 + taxRate))  : rowUnitPriceAfterTax;
    
     // C 単価
     const newUnitPrice = newRowUnitPriceBeforeTax / quantity;
@@ -137,7 +140,9 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     };
   }
 
-  // 「C 単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算
+  /**********************************************************************************
+   * C 単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算 *
+  **********************************************************************************/
   if (unitPrice && !rowUnitPriceAfterTax && !profitRate) {
 
     // 税抜き単価合計
@@ -147,9 +152,9 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     const newrowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
 
     // D 利益率
-    const newProfitRate = (-costPrice + unitPrice) / unitPrice;
+    const newProfitRate = (unitPrice - costPrice) / unitPrice;
 
-    /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
+    // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
 
     return {
@@ -164,8 +169,9 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   }
 
 
-  /** 通常と含め、その他のケース */ 
-
+  /****************************
+   * 通常と含め、その他のケース *
+  ****************************/
 
   // C 単価  = A / (1 - D)
   const newUnitPrice = costPrice / (1 - profitRate);
@@ -176,7 +182,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   // 税込み単価合計
   const newRowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
 
-  /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
+  // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
   const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
 
   return {
@@ -189,8 +195,4 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     rowUnitPriceAfterTax: newRowUnitPriceAfterTax,
   };
     
-  
-
-
-  
 };

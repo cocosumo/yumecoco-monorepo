@@ -22,7 +22,7 @@ export interface CompleteEstimateSummary extends EstimateSummary {
   totalTaxAmount: number,
 }
 
-export const estimateSummary = (
+export const calculateEstimateSummary = (
   calculatedEstimateTable : ReturnType<typeof calculateEstimateRow>[],
 ) : CompleteEstimateSummary => {
 

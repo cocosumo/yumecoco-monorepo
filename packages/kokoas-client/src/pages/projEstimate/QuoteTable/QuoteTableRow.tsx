@@ -8,11 +8,11 @@ import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
-import { taxChoices } from 'types';
 import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
 import { CostPriceField } from './rowFields/CostPriceField';
 import { QuantityField } from './rowFields/QuantityField';
 import { ProfitRateField } from './rowFields/ProfitRateField';
+import { TaxTypeField } from './rowFields/TaxTypeField';
 
 
 export const QuoteTableRow = (
@@ -111,11 +111,7 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'8%'}>
-        <FormikPulldown
-          name={getItemFieldName(rowIdx, 'taxType')}
-          options={taxChoices.map((c) => ({ label: c, value: c }))}
-          disabled={isDisabled}
-        />
+        <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell>

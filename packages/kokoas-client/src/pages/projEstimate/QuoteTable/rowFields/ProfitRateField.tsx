@@ -14,10 +14,10 @@ export const ProfitRateField = ({
   isDisabled?: boolean,
 }) => {
 
-  const { handleChange } = useCalculateRow({
+  const { handleChange } = useCalculateRow<number>({
     watchField: 'profitRate',
     rowIdx,
-    transform : (v) => v / 100, // 利益率変換
+    transform : (v) => +v / 100, // 利益率変換
   });
 
   const fieldName: TKMaterials = 'elemProfRate';

@@ -145,7 +145,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   }
 
   /**********************************************************************************
-   * C 単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算 *
+   * C 「単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算 *
   **********************************************************************************/
   if (unitPrice && !rowUnitPriceAfterTax && !profitRate) {
 
@@ -174,7 +174,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
 
   /****************************
-   * 通常と含め、その他のケース *
+   * 通常を含め、その他のケース *
   ****************************/
 
   // C 単価  = A / (1 - D)

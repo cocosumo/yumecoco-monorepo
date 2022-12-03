@@ -6,7 +6,7 @@ import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
 
 export interface FormikSelecProps extends ComponentProps<typeof Select> {
   name: string,
-  label: string
+  label?: string
   helperText?: string
   options?: Options,
   onChange?: (e: SelectChangeEvent, label: string) => void
@@ -72,11 +72,14 @@ export function FormikSelect(props : FormikSelecProps) {
     );
   }), [options]);
 
-  return (
-    <FormControl required={required} fullWidth error={isShowError}>
-      <InputLabel error={isShowError}>
+  return ( 
+    <FormControl 
+      required={required} fullWidth
+      error={isShowError}
+    >
+      {!!label && <InputLabel error={isShowError}>
         {label}
-      </InputLabel>
+      </InputLabel>}
       <Select
         {...otherSelectProps}
         {...field}

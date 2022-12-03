@@ -6,14 +6,14 @@ import debounce from 'lodash/debounce';
 import { ChangeEvent, useMemo } from 'react';
 import { TypeOfForm } from '../form';
 
-export const useCalculateRow = ({
+export const useCalculateRow = <T = number, R = T>({
   watchField,
   rowIdx,
   transform,
 } : {
   watchField: keyof Parameters<typeof calculateEstimateRow>[0]
   rowIdx: number,
-  transform?: (value: number) => number
+  transform?: (value: T) => R,
 }) => {
   const {
     setValues,
@@ -36,7 +36,7 @@ export const useCalculateRow = ({
           quantity,
           profitRate: elemProfRate / 100,
           taxRate: tax / 100,
-          [watchField]: transform?.(+e.target.value) ?? +e.target.value,
+          [watchField]: transform?.(e.target.value as T) ?? +e.target.value,
         });
 
 

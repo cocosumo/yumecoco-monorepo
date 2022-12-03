@@ -9,11 +9,12 @@ import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, initialValues, taxChoices, TypeOfForm, unitChoices } from '../form';
+import { getItemFieldName, initialValues, TypeOfForm, unitChoices } from '../form';
 import { useElementCalc } from '../hooks/useElementCalc';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 import { v4 as uuidv4 } from 'uuid';
+import { taxChoices } from 'types';
 
 
 export const QuoteTableRow = (

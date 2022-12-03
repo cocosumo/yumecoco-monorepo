@@ -1,4 +1,4 @@
-import { taxChoices } from '../form';
+import { TaxType } from 'types';
 
 /**
  * 単価 * 利益 ＝金額(総価格)を求める処理
@@ -12,7 +12,7 @@ export const calcGrossPrice = (
   unitPrice: number,
   quantity: number,
   taxRate: number,
-  taxType: typeof taxChoices[number],
+  taxType: TaxType,
 ) => {
 
   // 金額の算出処理 : IF ( 税="課税", (単価*数量) * (1 + (税率/100)), (単価*数量))

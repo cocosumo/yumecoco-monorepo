@@ -28,14 +28,39 @@ export const useCalculateRow = <T = number, R = T>({
           taxType,
           quantity,
           elemProfRate,
+          unitPrice,
+          rowUnitPriceAfterTax,
         } = items[rowIdx];
+
+        let prevProfitRate : number | undefined;
+        let prevUnitPrice : number | undefined;
+        let prevRowUnitPriceAfterTax : number | undefined;
+
+
+        // 編集されたフィールドによって、他フィールドをリセットする
+        switch (watchField) {
+          case 'rowUnitPriceAfterTax':
+            prevProfitRate = undefined;
+            prevUnitPrice = undefined;
+            break;
+          case 'unitPrice':
+            prevRowUnitPriceAfterTax = undefined;
+            prevProfitRate = undefined;
+            break;
+          default:
+            prevProfitRate = elemProfRate / 100;
+            prevUnitPrice = unitPrice;
+            prevRowUnitPriceAfterTax = rowUnitPriceAfterTax;
+        }
 
         const result = calculateEstimateRow({
           isTaxable: taxType === '課税',
+          taxRate: tax / 100,
           costPrice,
           quantity,
-          profitRate: elemProfRate / 100,
-          taxRate: tax / 100,
+          profitRate: prevProfitRate,
+          unitPrice: prevUnitPrice,
+          rowUnitPriceAfterTax: prevRowUnitPriceAfterTax,
           [watchField]: transform?.(e.target.value as T) ?? +e.target.value,
         });
 

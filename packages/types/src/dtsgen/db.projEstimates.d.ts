@@ -46,6 +46,7 @@ declare namespace DBProjestimates {
           部材利益率: kintone.fieldTypes.Number;
           中項目: kintone.fieldTypes.SingleLineText;
           taxType: kintone.fieldTypes.SingleLineText;
+          金額: kintone.fieldTypes.Number;
           単位: kintone.fieldTypes.SingleLineText;
         };
       }>;

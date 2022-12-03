@@ -7,3 +7,5 @@ export const recordCancelStatuses = [
 
 export type RecordCancelStatus = typeof recordCancelStatuses[number];
 export type Order = 'asc' | 'desc';
+
+export type TaxType = '課税' | '非課税';

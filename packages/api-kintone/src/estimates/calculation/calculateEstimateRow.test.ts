@@ -14,7 +14,7 @@ describe('calculateEstimateRow', () => {
       isTaxable: true,
       quantity: 1,
       taxRate: 0.1,
-      rowUnitPriceWithTax: 2200, // 「税込み単価合計」
+      rowUnitPriceAfterTax: 2200, // 「税込み単価合計」
     };
 
     expect(testData.profitRate).toBeUndefined();
@@ -24,7 +24,7 @@ describe('calculateEstimateRow', () => {
 
     const {
       unitPrice,
-      rowUnitPriceWithTax,
+      rowUnitPriceAfterTax,
       rowProfit,
       profitRate,
     } = results;
@@ -32,7 +32,7 @@ describe('calculateEstimateRow', () => {
     console.log(results);
 
     expect(rowProfit).toEqual(1000);
-    expect(rowUnitPriceWithTax).toEqual(2200);
+    expect(rowUnitPriceAfterTax).toEqual(2200);
     expect(unitPrice).toEqual(2000);
     expect(profitRate).toEqual(0.5);
 
@@ -52,22 +52,22 @@ describe('calculateEstimateRow', () => {
 
 
     expect(testData.profitRate).toBeUndefined();
-    expect(testData.rowUnitPriceWithTax).toBeUndefined();
+    expect(testData.rowUnitPriceAfterTax).toBeUndefined();
 
     const results = calculateEstimateRow(testData);
 
     const {
       unitPrice,
-      rowUnitPriceWithTax,
-      rowUnitPriceWithoutTax,
+      rowUnitPriceAfterTax,
+      rowUnitPriceBeforeTax,
       rowProfit,
     } = results;
 
     console.log(results);
 
     expect(rowProfit).toEqual(2000);
-    expect(rowUnitPriceWithTax).toEqual(4400);
-    expect(rowUnitPriceWithoutTax).toEqual(4000);
+    expect(rowUnitPriceAfterTax).toEqual(4400);
+    expect(rowUnitPriceBeforeTax).toEqual(4000);
     expect(unitPrice).toEqual(2000);
 
   });
@@ -85,14 +85,14 @@ describe('calculateEstimateRow', () => {
     };
 
 
-    expect(testData.rowUnitPriceWithTax).toBeUndefined();
+    expect(testData.rowUnitPriceAfterTax).toBeUndefined();
     expect(testData.unitPrice).toBeUndefined();
 
     const results = calculateEstimateRow(testData);
 
     const {
       unitPrice,
-      rowUnitPriceWithTax,
+      rowUnitPriceAfterTax,
       rowProfit,
     } = results;
 
@@ -101,7 +101,7 @@ describe('calculateEstimateRow', () => {
 
     expect(unitPrice).toEqual(2000);
     expect(rowProfit).toEqual(1000);
-    expect(rowUnitPriceWithTax).toEqual(2200); 
+    expect(rowUnitPriceAfterTax).toEqual(2200); 
 
   });
 

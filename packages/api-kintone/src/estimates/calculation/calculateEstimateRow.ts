@@ -1,5 +1,9 @@
 
 
+
+import { roundTo } from 'libs';
+import { calcProfitRate } from './calcProfitRate';
+
 /****
  * 計算の仕様
  * https://trello.com/c/9WvDqhV1
@@ -123,7 +127,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     const newUnitPrice = newRowUnitPriceBeforeTax / quantity;
 
     /** D = ( C - A) / C */
-    const newProfitRate = ( newUnitPrice - costPrice) / newUnitPrice;
+    const newProfitRate =  calcProfitRate(costPrice, newUnitPrice); 
 
     /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
@@ -152,7 +156,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     const newrowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
 
     // D 利益率
-    const newProfitRate = (unitPrice - costPrice) / unitPrice;
+    const newProfitRate = calcProfitRate(costPrice, unitPrice);
 
     // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
@@ -183,12 +187,12 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   const newRowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
 
   // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
-  const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
+  const newRowProfit =  newRowUnitPriceBeforeTax - rowCostPrice;
 
   return {
     ...params,
     rowProfit: newRowProfit,
-    profitRate,
+    profitRate: roundTo(profitRate, 4),
     rowCostPrice,
     unitPrice: newUnitPrice,
     rowUnitPriceBeforeTax: newRowUnitPriceBeforeTax,

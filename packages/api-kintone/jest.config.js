@@ -14,8 +14,10 @@ module.exports = {
     window: undefined,
     'ts-jest': {
       isolatedModules: true,
+      "useESM": true
     },
   },
+  
 };
 
 

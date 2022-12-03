@@ -2,19 +2,16 @@
 
 import { TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
-import { produce } from 'immer';
-import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield';
-import { useEffect } from 'react';
+import { FormikMoneyField, FormikNumberField } from 'kokoas-client/src/components/ui/textfield';
 import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, initialValues, TypeOfForm, unitChoices } from '../form';
-import { useElementCalc } from '../hooks/useElementCalc';
+import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
-import { v4 as uuidv4 } from 'uuid';
 import { taxChoices } from 'types';
+import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
 
 
 export const QuoteTableRow = (
@@ -27,15 +24,19 @@ export const QuoteTableRow = (
     arrayHelpers: FieldArrayRenderProps,
     envStatus: string,
   }) => {
-  const { setValues,
+  const { 
     values : {
       items,
     },
   } = useFormikContext<TypeOfForm>();
-  const rowCostPrice = items[rowIdx].costPrice;
-  const isLastRow = rowIdx === items.length - 1;
+  const rowData = items[rowIdx];
 
-  const result = useElementCalc(rowIdx);
+  const {
+    unitPrice,
+    rowUnitPriceAfterTax,
+  } = rowData;
+  
+  //const result = useElementCalc(rowIdx);
 
   const {
     majorItemOpts,
@@ -46,28 +47,7 @@ export const QuoteTableRow = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx);
 
-  useEffect(() => {
-
-    setValues(
-      (prev) => produce(prev, (draft) => {
-
-        if ((+rowCostPrice < 0)) {
-          draft.items[rowIdx].quantity = 1;
-          draft.items[rowIdx].elemProfRate = 0;
-          draft.items[rowIdx].taxType = '非課税';
-        } else if ( isLastRow && +rowCostPrice > 0) {
-          draft.items.push({
-            ...initialValues.items[0],
-            key: uuidv4(),
-            elemProfRate: draft.projTypeProfit,
-          });
-        }
-
-        draft.items[rowIdx].costPrice = rowCostPrice;
-      }),
-    );
-  }, [rowCostPrice, isLastRow, setValues, rowIdx]);
-
+  useAdjustOnRowDiscount(rowIdx);
   const isDisabled = !!envStatus;
 
   return (
@@ -118,7 +98,11 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'8%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'quantity')} disabled={isDisabled} />
+        <FormikNumberField 
+          name={getItemFieldName(rowIdx, 'quantity')} 
+          variant="standard"
+          disabled={isDisabled}
+        />
       </TableCell>
 
       <TableCell width={'8%'}>
@@ -142,11 +126,11 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell>
-        <DisplayNumber value={result.unitPrice} suffix={'円'} />
+        <DisplayNumber value={unitPrice} suffix={'円'} />
       </TableCell>
 
       <TableCell>
-        <DisplayNumber value={result.price} suffix={'円'} />
+        <DisplayNumber value={rowUnitPriceAfterTax} suffix={'円'} />
       </TableCell>
 
       <TableCell width={'3%'}>

@@ -1,3 +1,4 @@
+import { calcProfitRate } from './calcProfitRate';
 import { calculateEstimateRow } from './calculateEstimateRow';
 
 export interface EstimateSummary {
@@ -59,7 +60,7 @@ export const calculateEstimateSummary = (
   return {
     ...summary,
     totalTaxAmount: totalAmountAfterTax - totalAmountBeforeTax, 
-    overallProfitRate: (totalAmountBeforeTax - totalCostPrice) / totalAmountBeforeTax,
+    overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),
   };
 
  

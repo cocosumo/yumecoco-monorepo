@@ -2,16 +2,17 @@
 
 import { TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
-import { FormikMoneyField, FormikNumberField } from 'kokoas-client/src/components/ui/textfield';
 import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
-import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 import { taxChoices } from 'types';
 import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
+import { CostPriceField } from './rowFields/CostPriceField';
+import { QuantityField } from './rowFields/QuantityField';
+import { ProfitRateField } from './rowFields/ProfitRateField';
 
 
 export const QuoteTableRow = (
@@ -90,19 +91,11 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'10%'} align='right'>
-        <FormikMoneyField
-          name={getItemFieldName(rowIdx, 'costPrice')}
-          variant="standard"
-          disabled={isDisabled}
-        />
+        <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'8%'} align='right'>
-        <FormikNumberField 
-          name={getItemFieldName(rowIdx, 'quantity')} 
-          variant="standard"
-          disabled={isDisabled}
-        />
+        <QuantityField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'8%'}>
@@ -114,7 +107,7 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'6%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} disabled={isDisabled} />
+        <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'8%'}>

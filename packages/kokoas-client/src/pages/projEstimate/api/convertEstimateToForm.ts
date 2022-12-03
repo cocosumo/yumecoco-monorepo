@@ -2,7 +2,6 @@ import { calculateEstimateRow } from 'api-kintone/src/estimates/calculation/calc
 import { format, parseISO } from 'date-fns';
 import { IProjestimates, TaxType } from 'types';
 import { TypeOfForm } from '../form';
-import { roundTo } from 'round-to';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -61,10 +60,6 @@ export const convertEstimateToForm = (
         rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
         isTaxable,
       });
-
-
-      console.log('profitRate', profitRate);
-      console.log('profitRate', roundTo(profitRate, 4));
 
       return {
         key: id,

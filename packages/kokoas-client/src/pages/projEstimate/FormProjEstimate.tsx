@@ -80,11 +80,13 @@ export default function FormProjEstimate() {
           <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
         </Grid>
         <Grid item xs={12} md={3}>
+          
           <FormikNumberField
             name={getFieldName('projTypeProfit')}
             label="利益率"
             disabled={projTypeProfitLatest !== 0 || isDisabled}
           />
+
           {projTypeProfitLatest !== null &&
             projTypeProfitLatest !== 0 &&
             +projTypeProfit !== +projTypeProfitLatest &&

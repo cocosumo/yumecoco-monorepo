@@ -122,8 +122,8 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     // C 単価
     const newUnitPrice = newRowUnitPriceBeforeTax / quantity;
 
-    /** D = (-A + C) / C */
-    const newProfitRate = (-costPrice + newUnitPrice) / newUnitPrice;
+    /** D = ( C - A) / C */
+    const newProfitRate = ( newUnitPrice - costPrice) / newUnitPrice;
 
     /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
@@ -133,8 +133,8 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       rowCostPrice,
       rowProfit: newRowProfit,
       rowUnitPriceAfterTax,
-      rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
-      unitPrice: Math.round(newUnitPrice),
+      rowUnitPriceBeforeTax: newRowUnitPriceBeforeTax,
+      unitPrice: newUnitPrice,
       profitRate: newProfitRate, 
       
     };

@@ -41,7 +41,7 @@ export const useTotalCalc = () => {
 
   return Object.entries({
     ...result,
-    grossProfitMargin: roundTo(profitRate, 4) * 100,
+    grossProfitMargin: roundTo(profitRate * 100, 2),
     taxAmount: result.totalAmountInclTax - result.totalAmountExclTax,
   }) as Array<[SummaryElem, number]>;
 };

@@ -76,84 +76,90 @@ export default function FormProjEstimate() {
           <Divider />
         </Grid>
 
-        <Grid item xs={12} md={3}>
-          <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          
-          <FormikNumberField
-            name={getFieldName('projTypeProfit')}
-            label="利益率"
-            disabled={projTypeProfitLatest !== 0 || isDisabled}
-          />
+        {!!projId && <>
+        
+          <Grid item xs={12} md={3}>
+            <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
+          </Grid>
+          <Grid item xs={12} md={3}>
 
-          {projTypeProfitLatest !== null &&
+            <FormikNumberField
+              name={getFieldName('projTypeProfit')}
+              label="利益率"
+              disabled={projTypeProfitLatest !== 0 || isDisabled}
+            />
+
+            {projTypeProfitLatest !== null &&
             projTypeProfitLatest !== 0 &&
             +projTypeProfit !== +projTypeProfitLatest &&
             !isDisabled &&
             <MismatchedProfit />}
 
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <FormikNumberField
-            name={getFieldName('tax')}
-            label="税率"
-            disabled={isDisabled}
-          />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <FormikSelect
-            name={getFieldName('status')}
-            label='ステータス'
-            options={statusChoices.map((c) => ({ label: c || '-', value: c }))}
-            disabled={isDisabled}
-          />
-        </Grid>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <FormikNumberField
+              name={getFieldName('tax')}
+              label="税率"
+              disabled={isDisabled}
+            />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <FormikSelect
+              name={getFieldName('status')}
+              label='ステータス'
+              options={statusChoices.map((c) => ({ label: c || '-', value: c }))}
+              disabled={isDisabled}
+            />
+          </Grid>
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label="合計欄" />
-        </Grid>
+          <Grid item xs={12} mt={4}>
+            <PageSubTitle label="合計欄" />
+          </Grid>
 
-        <Grid item xs={12} md={12}
-          id={'summaryTable'}
-        >
-          {/* 合計欄テーブル */}
-          <SummaryTable />
-        </Grid>
+          <Grid item xs={12} md={12}
+            id={'summaryTable'}
+          >
+            {/* 合計欄テーブル */}
+            <SummaryTable />
+          </Grid>
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label="内訳" />
-        </Grid>
+          <Grid item xs={12} mt={4}>
+            <PageSubTitle label="内訳" />
+          </Grid>
 
-        <Grid item xs={12} md={12}>
-          {/* 見積もり内訳のテーブル */}
-          <FieldArray
-            name={getFieldName('items')}
-            render={renderQuoteTable}
-          />
-        </Grid>
+          <Grid item xs={12} md={12}>
+            {/* 見積もり内訳のテーブル */}
+            <FieldArray
+              name={getFieldName('items')}
+              render={renderQuoteTable}
+            />
+          </Grid>
 
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label="大項目小計欄" />
-        </Grid>
-        <Grid item xs={12}
-          md={4}
-          lg={3}
-        >
-          {/* 大項目ごとの表示テーブル */}
-          <SubTotalTable />
-        </Grid>
+          <Grid item xs={12} mt={4}>
+            <PageSubTitle label="大項目小計欄" />
+          </Grid>
+          <Grid item xs={12}
+            md={4}
+            lg={3}
+          >
+            {/* 大項目ごとの表示テーブル */}
+            <SubTotalTable />
+          </Grid>
 
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
 
-        <Grid item xs={12}>
-          <GoToContractButton />
-        </Grid>
+          <Grid item xs={12}>
+            <GoToContractButton />
+          </Grid>
 
-        {!isDisabled && <FormActions />}
+          {!isDisabled && <FormActions />}
+        
+        
+        </>}
+
       </MainContainer>
     </Form>
   );

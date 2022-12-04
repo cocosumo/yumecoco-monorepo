@@ -11,27 +11,27 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { ContractFormActions } from './parts/ContractFormActions';
 import { ProjectSchedules } from './parts/projSchedules/ProjectSchedules';
 
-import { calculateEstimate } from 'api-kintone';
 import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../Router';
 import { SelectProjEstimates } from 'kokoas-client/src/components/ui/selects';
+import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 
 
 export const FormContract = ({
   calculated,
 }: {
-  calculated?: ReturnType<typeof calculateEstimate>
+  calculated?: ReturnType<typeof calculateEstimateRecord>
 }) => {
   const { values } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
 
-  const { totalAmountInclTax } = calculated ?? {};
+  const { estimateSummary } = calculated ?? {};
 
-  const roundedTotalAmt = Math.round(totalAmountInclTax ?? 0);
+  const roundedTotalAmt = Math.round(estimateSummary?.totalAmountAfterTax ?? 0);
 
   const disabled = !!envelopeStatus;
 

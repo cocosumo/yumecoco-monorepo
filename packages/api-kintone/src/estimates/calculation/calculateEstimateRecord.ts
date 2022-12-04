@@ -39,10 +39,6 @@ export const calculateEstimateRecord = ({
   });
 
 
-
-
-
-
   return {
     calculatedEstimateTable,
     estimateSummary: calculateEstimateSummary(calculatedEstimateTable),

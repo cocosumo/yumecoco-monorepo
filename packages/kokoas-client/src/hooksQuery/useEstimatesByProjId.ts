@@ -1,5 +1,5 @@
+import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 import { useCallback } from 'react';
-import { calculateEstimateRecord } from 'api-kintone';
 import { useEstimates } from '.';
 
 /**
@@ -17,7 +17,7 @@ export const useEstimatesByProjId = (
 
       return {
         records: filteredData,
-        calculated: filteredData.map((d) => calculateEstimateRecord(d)),
+        calculated: filteredData.map((d) => calculateEstimateRecord({ record: d })),
       };
     }, [projId]),
   }));

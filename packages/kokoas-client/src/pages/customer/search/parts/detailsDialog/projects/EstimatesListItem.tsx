@@ -1,9 +1,10 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material';
+import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
+import { useMemo } from 'react';
 import { IProjestimates, TEnvelopeStatus } from 'types';
 import { Caption } from '../../../../../../components/ui/typographies';
 import { dateStrToJA } from '../../../../../../helpers/utils';
-import { useCalcEstimate } from '../../../../../../hooks/useCalcEstimate';
 import { EstimateButton } from './EstimateButton';
 
 
@@ -20,9 +21,10 @@ export const EstimatesListItem = ({
     envStatus,
     estimateStatus,
   } = estimateRecord;
-  const {
-    totalAmountInclTax,
-  } = useCalcEstimate(estimateRecord);
+
+  const { estimateSummary : { totalAmountAfterTax } } = useMemo(() => {
+    return calculateEstimateRecord({ record: estimateRecord });
+  }, [estimateRecord]);
 
   return (
     <Card variant='outlined'>
@@ -45,7 +47,7 @@ export const EstimatesListItem = ({
         </Stack>
         <Stack direction={'column'} spacing={0} alignItems="flex-end">
           <Typography variant='h5' textAlign={'right'} component="span">
-            {`${totalAmountInclTax?.toLocaleString() || 0} 円`}
+            {`${totalAmountAfterTax?.toLocaleString() || 0} 円`}
           </Typography>
           <Caption text={`${dateStrToJA(createdDate.value)}`} />
           <Caption text={dataId.value} />

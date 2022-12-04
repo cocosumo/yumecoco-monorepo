@@ -2,10 +2,11 @@ import {
   getCustGroupById,
   getCustomersByIds,
   getEmployeesByIds,
-  getEstimateById,
+  getEstimateByIdV2,
   getProjById,
   getStoreMngrByStoreId,
 } from 'api-kintone';
+import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 import { formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
@@ -33,16 +34,15 @@ isValidate = false,
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
   /* 見積情報 */
-  const {
-    record: estimatedRecord,
-    calculated: calculatedEstimates,
-  } = await getEstimateById(projEstimateId);
+  const estimatedRecord = await getEstimateByIdV2(projEstimateId);
+  const calculatedEstimates = calculateEstimateRecord({ record: estimatedRecord });
 
   const {
     signMethod,
     projId,
     envId,
     totalPaymentAmt,
+    税: tax,
     envStatus,
     支払い,
     startDate,
@@ -54,6 +54,7 @@ isValidate = false,
     payMethod,
     payDestination,
     dataId,
+    
   } = estimatedRecord;
 
   /* 工事情報 */
@@ -143,6 +144,7 @@ isValidate = false,
     projLocation: `${projPostal.value}〒 ${projAddress1.value}${projAddress2.value}`,
 
     /* 契約 */
+    tax: tax.value,
     contractPrice: totalPaymentAmt.value,
     envelopeId: envId.value,
     signMethod: signMethod.value as TSignMethod,

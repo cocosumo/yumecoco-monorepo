@@ -4,7 +4,8 @@ import { getKokoasBaseURLByEnv } from 'kokoas-client/src/config/settings';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { Page } from 'puppeteer';
-import { getEstimateById } from 'api-kintone';
+import { getEstimateByIdV2 as  getEstimateById } from 'api-kintone';
+import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 
 /* 見積を取得 */
 describe('estimates', () => {
@@ -37,7 +38,8 @@ describe('estimates', () => {
 
     expect(page.url()).toContain(`projEstimateId=${testData}`);
 
-    const { calculated: { totalAmountInclTax } } = await getEstimateById(testData);
+    const record = await getEstimateById(testData);
+    const { estimateSummary: { totalAmountAfterTax } } = calculateEstimateRecord({ record });
 
     await page.waitForNetworkIdle();
     const rawTotalAmount = await page.$eval('table tbody td:nth-child(6)', (el) => (el as HTMLTableCellElement).innerText);
@@ -45,7 +47,7 @@ describe('estimates', () => {
     // \D regex metacharacter matches any non-digit characters
     const cleanTotalAmount = rawTotalAmount.replace(/\D/g, '');
 
-    expect(cleanTotalAmount).toEqual(totalAmountInclTax);
+    expect(cleanTotalAmount).toEqual(totalAmountAfterTax);
   });
 
 

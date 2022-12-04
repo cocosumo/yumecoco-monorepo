@@ -70,8 +70,8 @@ export const convertEstimateToForm = (
         element: 部材名.value,
         elemProfRate: profitRate * 100,
         unit: 単位.value as TypeOfForm['items'][number]['unit'],
-        unitPrice,
-        rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
+        unitPrice: Math.round(unitPrice),
+        rowUnitPriceAfterTax: Math.round(+rowUnitPriceAfterTax.value),
         taxType: taxType.value as TypeOfForm['items'][number]['taxType'],
       };
     }),

@@ -16,7 +16,7 @@ export const TaxTypeField = ({
   const { handleChange } = useCalculateRow<TaxType, boolean>({
     watchField: 'isTaxable',
     rowIdx,
-    transform : (v) => v === '課税', // 利益率変換
+    transform : (v) => v === '課税', // booleanに変換
   });
 
 

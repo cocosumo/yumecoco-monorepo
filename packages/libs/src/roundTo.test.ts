@@ -2,6 +2,8 @@ import { roundTo } from './roundTo';
 
 it('roundTo', () => {
 
+  expect(roundTo(0.001, 2)).toEqual(0);
+  expect(roundTo(0.01, 2)).toEqual(0.01);
   expect(roundTo(0.555, 2)).toEqual(0.56);
   expect(roundTo(0.99999999999, 2)).toEqual(1);
   expect(roundTo(0.129, 2)).toEqual(0.13);

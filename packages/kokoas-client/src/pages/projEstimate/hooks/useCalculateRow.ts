@@ -65,9 +65,9 @@ export const useCalculateRow = <T = number, R = T>({
         });
 
 
-        items[rowIdx].rowUnitPriceAfterTax = result.rowUnitPriceAfterTax;
+        items[rowIdx].rowUnitPriceAfterTax = Math.round(result.rowUnitPriceAfterTax);
         items[rowIdx].elemProfRate = roundTo(result.profitRate * 100, 2);
-        items[rowIdx].unitPrice = result.unitPrice;
+        items[rowIdx].unitPrice = Math.round(result.unitPrice);
 
         
       }));

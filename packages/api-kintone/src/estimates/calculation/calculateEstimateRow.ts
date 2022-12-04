@@ -95,24 +95,27 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     rowUnitPriceAfterTax,
   } = params;
 
+  // 行の原価合計 = A * 数量
+  const rowCostPrice = costPrice * quantity;
 
 
-  // 数量がない場合、 
-  if (quantity === 0) {
+  /******************************
+   * Edge cases：計算不要なケース *
+  *******************************/
+  if (
+    +quantity === 0 //  数量がない場合、計算不要
+    || profitRate >= 1 // 今の計算の仕様では、利益率が100％以上だと、変な数字になるので、計算不要
+  ) {
     return {
       ...params,
-      profitRate: profitRate,
       rowProfit: 0,
+      profitRate: roundTo(profitRate, 4),
+      rowCostPrice,
       unitPrice: 0,
-      rowCostPrice: 0,
       rowUnitPriceBeforeTax: 0,
       rowUnitPriceAfterTax: 0,
     };
   }
-
-  // 行の原価合計 = A * 数量
-  const rowCostPrice = costPrice * quantity;
-
   
 
   /********************************************************************************
@@ -147,7 +150,8 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   /**********************************************************************************
    * C 「単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算 *
   **********************************************************************************/
-  if (unitPrice && !rowUnitPriceAfterTax && !profitRate) {
+
+  if (unitPrice !== undefined && +unitPrice >= 0 && !rowUnitPriceAfterTax && !profitRate) {
 
     // 税抜き単価合計
     const newRowUnitPriceBeforeTax = unitPrice * quantity;
@@ -160,6 +164,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
     // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
+    
 
     return {
       ...params,
@@ -173,9 +178,12 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   }
 
 
-  /****************************
-   * 通常を含め、その他のケース *
-  ****************************/
+
+
+  /*******
+   * 通常 *
+  **********/
+
 
   // C 単価  = A / (1 - D)
   const newUnitPrice = costPrice / (1 - profitRate);

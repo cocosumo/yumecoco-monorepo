@@ -1,11 +1,10 @@
 
 
 import { TableCell, TableRow } from '@mui/material';
-import { FieldArrayRenderProps, useFormikContext } from 'formik';
-import { DisplayNumber } from '../fieldComponents/DisplayNumber';
+import { FieldArrayRenderProps } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
+import { getItemFieldName, unitChoices } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
@@ -13,6 +12,8 @@ import { CostPriceField } from './rowFields/CostPriceField';
 import { QuantityField } from './rowFields/QuantityField';
 import { ProfitRateField } from './rowFields/ProfitRateField';
 import { TaxTypeField } from './rowFields/TaxTypeField';
+import { UnitPriceField } from './rowFields/UnitPriceField';
+import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
 
 
 export const QuoteTableRow = (
@@ -25,19 +26,8 @@ export const QuoteTableRow = (
     arrayHelpers: FieldArrayRenderProps,
     envStatus: string,
   }) => {
-  const { 
-    values : {
-      items,
-    },
-  } = useFormikContext<TypeOfForm>();
-  const rowData = items[rowIdx];
 
-  const {
-    unitPrice,
-    rowUnitPriceAfterTax,
-  } = rowData;
-  
-  //const result = useElementCalc(rowIdx);
+
 
   const {
     majorItemOpts,
@@ -115,11 +105,11 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell>
-        <DisplayNumber value={unitPrice} suffix={'円'} />
+        <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell>
-        <DisplayNumber value={rowUnitPriceAfterTax} suffix={'円'} />
+        <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'3%'}>

@@ -8,4 +8,13 @@ export const calcProfitRate = (
 
   /** 単価 */
   unitPrice: number,
-) => roundTo(( unitPrice - costPrice) / unitPrice, 4);
+) => {
+
+  // Edge case: if unitPrize is zero, division by zero will return NaN so handle it 
+  // by returning profitRate that will can make unitPrize as close to zero when rounded.
+
+  if (+unitPrice === 0) return -1000000; 
+  
+  return roundTo(( unitPrice - costPrice) / unitPrice, 4);
+
+};

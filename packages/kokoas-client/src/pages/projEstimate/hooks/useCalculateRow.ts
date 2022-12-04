@@ -64,8 +64,6 @@ export const useCalculateRow = <T = number, R = T>({
           [watchField]: transform?.(e.target.value as T) ?? +e.target.value,
         });
 
-        console.log(result);
-
         items[rowIdx].rowUnitPriceAfterTax = Math.round(result.rowUnitPriceAfterTax);
         items[rowIdx].elemProfRate = roundTo(result.profitRate * 100, 2);
         items[rowIdx].unitPrice = Math.round(result.unitPrice);

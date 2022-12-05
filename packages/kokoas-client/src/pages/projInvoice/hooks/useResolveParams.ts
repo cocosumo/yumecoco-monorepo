@@ -18,12 +18,13 @@ export const useResolveParams = () => {
 
   const { data: custData } = useCustGroupById(custGroupIdFromURL || '');
   const { data: contracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
-  const { data } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
-  const { totalInvoice } = data || {};
+  const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
+  const { totalInvoice } = invoices || {}; // 削除予定
 
+
+  console.log('contracts', contracts);
 
   useEffect(() => {
-    // If projEstimateId got passed, no need to save projId.
     if (projInvoiceIdFromURL) {
       setValues((prev) => ({
         ...prev,
@@ -45,12 +46,11 @@ export const useResolveParams = () => {
           contracts.records.forEach((value, idx) => {
             draft.estimates[idx] = {
               projId: value.projId.value,
-              projTypeName: '', /* dummy */
-              estimateId: value.$id.value || '',
+              projTypeName: value.工事種別名.value,
               dataId: value.dataId.value || '',
               amountType: '',
               amountPerContract: '',
-              isForPayment: false, /* dummy */
+              isForPayment: false,
             };
           });
         });

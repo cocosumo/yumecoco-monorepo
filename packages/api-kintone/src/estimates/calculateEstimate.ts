@@ -15,10 +15,10 @@ export const calculateEstimate = (
   {
     tax,
     materials,
-    recordId,
+    uuid,
   } : {
     tax: number
-    recordId: string
+    uuid: string
     materials: {
 
       /** 利益率 */
@@ -100,7 +100,7 @@ export const calculateEstimate = (
 
   return {
     ...result,
-    recordId,
+    uuid,
     taxRate,
     totalProfit,
 

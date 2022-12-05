@@ -6,12 +6,12 @@ export const calculateEstimateRecord = (estimateRecord: RecordType) => {
   const {
     内訳: { value: estimateTable },
     税: { value: tax },
-    $id: { value: recordId },
+    uuid: { value: uuid },
   } = estimateRecord;
 
   const result = calculateEstimate({
     tax: +tax,
-    recordId: recordId,
+    uuid: uuid,
     materials: estimateTable.map(({ value: {
       原価: { value: costPrice },
       数量: { value: quantity },

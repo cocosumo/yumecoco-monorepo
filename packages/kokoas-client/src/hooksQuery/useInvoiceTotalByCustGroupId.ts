@@ -1,10 +1,11 @@
 import { useCallback } from 'react';
-import { useInvoicesByProjId } from './useInvoicesByProjId';
+import { useInvoicesByCustGroupId } from './useInvoicesByCustGroupId';
+
 
 export const useInvoiceTotalByCustGroupId = (
   custGroupId = '',
 ) => {
-  return useInvoicesByProjId(custGroupId, {
+  return useInvoicesByCustGroupId(custGroupId, {
     select: useCallback((data) => {
       const totalInvoice = data.records.reduce((acc, cur) => {
         return +acc + +cur.billingAmount.value;

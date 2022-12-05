@@ -92,24 +92,10 @@ export const FormInvoice = () => {
           />
         </Grid>
 
-        {/* 支払金額の種別 */}
-        {/* <Grid item xs={12} md={2}>
-          <FormikSelect
-            name={getEstimatesFieldName('amountType')}
-            label={'支払金額の種別'}
-            options={paymentLabels.map((item) => {
-              return ({
-                label: item,
-                value: item,
-              });
-            })}
-          />
-        </Grid>
-        <Grid item md={6} /> */}
 
         {/* 契約済み見積り情報の表示 */}
         <Grid item xs={12} md={12}>
-          <EstimatesTable />
+          <EstimatesTable estimates={estimates} />
         </Grid>
 
 

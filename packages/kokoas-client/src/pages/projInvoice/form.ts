@@ -22,7 +22,6 @@ export const initialValues = {
     {
       projId: '',
       projTypeName: '',
-      estimateId: '',
       dataId: '',
       amountType: '',
       amountPerContract: '',

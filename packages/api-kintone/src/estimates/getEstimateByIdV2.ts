@@ -4,8 +4,8 @@ import { appId, RecordKey, RecordType } from './config';
 const idField : RecordKey = 'uuid';
 
 export const getEstimateByIdV2 = async (
-  projId: string,
+  estimateId: string,
 ) => getRecords<RecordType>({
   app: appId,
-  query: `${idField} = "${projId}"`,
+  query: `${idField} = "${estimateId}"`,
 }).then(({ records }) => records[0] );

@@ -11,7 +11,7 @@ import { calcProfitRate } from './calcProfitRate';
  *  A = 原価
  *  B = 粗利（円）
  *  C = 単価
- *  D = 利益
+ *  D = 利益率
  *
  * ---------------
  *

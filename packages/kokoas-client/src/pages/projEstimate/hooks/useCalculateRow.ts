@@ -22,6 +22,8 @@ export const useCalculateRow = <T = number, R = T>({
   const handleChange = useMemo(
     () => debounce((e: ChangeEvent<HTMLInputElement>) => {
 
+      if (e.target.value === '') return;
+
       setValues(prev => produce(prev, ({ tax, items }) => {
         const {
           costPrice,

@@ -37,10 +37,10 @@ export const initialValues = {
   projTypeProfitLatest: null as null | number,
 
   /** 税 */
-  tax: 10, 
+  tax: 10,
 
   /** ステータス */
-  status: '' as typeof statusChoices[number], 
+  status: '' as typeof statusChoices[number],
 
   /* 見積もり用配列要素 */
   items: [
@@ -48,19 +48,19 @@ export const initialValues = {
       key: uuidv4(),
 
       /** 大項目 */
-      majorItem: '',  
+      majorItem: '',
 
       /** 中項目 */
-      middleItem: '', 
+      middleItem: '',
 
       /** 部材 */
       element: '',
-      
+
       /** 原価 */
-      costPrice: 0,  
+      costPrice: 0,
 
       /** 数量 */
-      quantity: 1,   
+      quantity: 1,
 
       /** 利益(%) */
       elemProfRate: 0,
@@ -71,9 +71,9 @@ export const initialValues = {
 
       /** 行の税抜き単価合計・金額 */
       rowUnitPriceAfterTax: 0,
-      
+
       /** 単位 */
-      unit: '式' as typeof unitChoices[number], 
+      unit: '式' as typeof unitChoices[number],
 
       /** 税(課税/非課税) */
       taxType: '課税' as TaxType,  /* 税(課税/非課税) */
@@ -112,8 +112,7 @@ export const validationSchema = Yup
       .required('必須です。'),
     'items': Yup.array()
       .of(
-        Yup.object().shape({
-          'number': Yup.number(),
+        Yup.object().shape <Partial<Record<TKMaterials, any>>>({
           'majorItem': Yup.string().required('必須です'),
           'middleItem': Yup.string(), /* 中項目 */
           'element': Yup.string(),    /* 部材 */
@@ -127,6 +126,14 @@ export const validationSchema = Yup
             .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
           'taxType': Yup.string(),  /* 税(課税/非課税) */
+          'unitPrice': Yup.number()
+            .typeError('数値で入力してください')
+            .min(0, '0以上の数字を入力してください')
+            .required('必須です'), /* 単価 */
+          'rowUnitPriceAfterTax': Yup.number()
+            .typeError('数値で入力してください')
+            .min(0, '0以上の数字を入力してください')
+            .required('必須です'), /* 単価 */
         }),
       )
       .required('Must have items')

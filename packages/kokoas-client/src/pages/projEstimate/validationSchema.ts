@@ -11,6 +11,9 @@ const requiredPositiveNum = positiveNum
   .required('必須です');
 
 
+const requiredNum = mustBeNum.required('必須です');
+
+
 /*
 バリデーション
 */
@@ -37,8 +40,8 @@ export const validationSchema = Yup
             .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */
           'taxType': Yup.string(),  /* 税(課税/非課税) */
-          'unitPrice': requiredPositiveNum, /* 単価 */
-          'rowUnitPriceAfterTax': requiredPositiveNum, /* 金額 */
+          'unitPrice': requiredNum, /* 単価 */
+          'rowUnitPriceAfterTax': requiredNum, /* 金額 */
         }),
       )
       .required('Must have items')

@@ -72,8 +72,8 @@ export function FormikSelect(props : FormikSelecProps) {
     );
   }), [options]);
 
-  return ( 
-    <FormControl 
+  return (
+    <FormControl
       required={required} fullWidth
       error={isShowError}
     >
@@ -84,6 +84,7 @@ export function FormikSelect(props : FormikSelecProps) {
         {...otherSelectProps}
         {...field}
         fullWidth
+        disabled={disabled}
         multiple={multiple}
         variant={variant}
         error={isShowError}

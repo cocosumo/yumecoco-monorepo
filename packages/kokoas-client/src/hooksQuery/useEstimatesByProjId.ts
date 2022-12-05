@@ -1,4 +1,4 @@
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 import { useCallback } from 'react';
 import { useEstimates } from '.';
 

@@ -1,4 +1,4 @@
-import { calculateEstimateRow } from 'api-kintone/src/estimates/calculation/calculateEstimateRow';
+import { calculateEstimateRow } from 'api-kintone';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { roundTo } from 'libs';

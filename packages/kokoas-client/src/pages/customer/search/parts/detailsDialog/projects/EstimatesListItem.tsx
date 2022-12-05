@@ -1,5 +1,5 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
 import { useMemo } from 'react';
 import { IProjestimates, TEnvelopeStatus } from 'types';

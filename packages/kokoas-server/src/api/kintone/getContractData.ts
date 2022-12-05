@@ -2,11 +2,11 @@ import {
   getCustGroupById,
   getCustomersByIds,
   getEmployeesByIds,
-  getEstimateByIdV2,
+  getEstimateById,
   getProjById,
   getStoreMngrByStoreId,
+  calculateEstimateRecord, 
 } from 'api-kintone';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 import { formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
@@ -34,7 +34,7 @@ isValidate = false,
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
   /* 見積情報 */
-  const estimatedRecord = await getEstimateByIdV2(projEstimateId);
+  const estimatedRecord = await getEstimateById(projEstimateId);
   const calculatedEstimates = calculateEstimateRecord({ record: estimatedRecord });
 
   const {

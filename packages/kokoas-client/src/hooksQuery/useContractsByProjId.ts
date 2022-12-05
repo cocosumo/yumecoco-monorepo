@@ -1,5 +1,5 @@
-import { calculateEstimateRecord } from 'api-kintone';
 
+import { calculateEstimateRecord } from 'api-kintone';
 import { TEnvelopeStatus } from 'types';
 import { useEstimates } from './useEstimates';
 
@@ -17,7 +17,7 @@ export const useContractsByProjId = (
           && (rec.envStatus.value as TEnvelopeStatus) === 'completed');
       return {
         records: filteredData,
-        calculated: filteredData.map((d) => calculateEstimateRecord(d)),
+        calculated: filteredData.map((rec) => calculateEstimateRecord({ record: rec })),
       };
     },
   }));

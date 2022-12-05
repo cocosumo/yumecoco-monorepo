@@ -42,7 +42,7 @@ export const EstimateCards = ({
               name={getEstimatesFieldName(idx, 'isForPayment')}
               projId={projId}
               record={record}
-              totalAmountInclTax={calculated[idx].totalAmountInclTax}
+              totalAmountInclTax={calculated[idx].estimateSummary.totalAmountAfterTax}
               key={`${record.$id.value}`}
             />
           );

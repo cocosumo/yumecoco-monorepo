@@ -1,4 +1,4 @@
-import { calcProfitRate } from 'api-kintone/src/estimates/calculation/calcProfitRate';
+import { calcProfitRate } from 'api-kintone';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from 'kokoas-client/src/hooks';
 import { roundTo } from 'libs';

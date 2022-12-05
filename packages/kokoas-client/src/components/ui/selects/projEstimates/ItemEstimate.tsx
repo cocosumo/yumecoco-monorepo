@@ -1,5 +1,5 @@
 import { Chip, Stack, Typography } from '@mui/material';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 
 import { format, parseISO } from 'date-fns';
 import { IProjestimates } from 'types';

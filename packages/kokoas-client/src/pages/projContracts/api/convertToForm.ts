@@ -1,4 +1,4 @@
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 import { parseISO } from 'date-fns';
 import { IConnectRecipients, IProjestimates, TEnvelopeStatus, TSignMethod } from 'types';
 import { parseKintoneDate } from '../../../lib/date';

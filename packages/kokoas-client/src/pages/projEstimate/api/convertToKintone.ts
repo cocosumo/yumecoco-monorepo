@@ -20,16 +20,20 @@ export const convertToKintone = ({
       majorItem,
       middleItem,
       material,
+      materialDetails,
       costPrice,
       quantity,
       unit,
       elemProfRate,
       rowUnitPriceAfterTax,
       taxType,
+      rowDetails,
     }) => {
       return {
         id: '', // 自動生成
         value: {
+          部材備考: { value: materialDetails },
+          備考: { value: rowDetails },
           大項目: { value: majorItem },
           中項目: { value: middleItem },
           部材名: { value: material },

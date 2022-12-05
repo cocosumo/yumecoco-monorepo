@@ -42,6 +42,8 @@ export const convertEstimateToForm = (
         数量,
         単位,
         taxType,
+        備考,
+        部材備考,
         金額: rowUnitPriceAfterTax,
       } = row;
 
@@ -68,6 +70,8 @@ export const convertEstimateToForm = (
         majorItem: 大項目.value,
         middleItem: 中項目.value,
         material: 部材名.value,
+        materialDetails: 部材備考.value,
+        rowDetails: 備考.value,
         elemProfRate: profitRate * 100,
         unit: 単位.value as TypeOfForm['items'][number]['unit'],
         unitPrice: Math.round(unitPrice),

@@ -77,6 +77,8 @@ export const initialValues = {
       /** 税(課税/非課税) */
       taxType: '課税' as TaxType,  /* 税(課税/非課税) */
 
+      materialDetails: '',
+      rowDetails: '',
     },
   ],
 };

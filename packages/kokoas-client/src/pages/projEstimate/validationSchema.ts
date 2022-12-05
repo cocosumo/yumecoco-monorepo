@@ -30,7 +30,7 @@ export const validationSchema = Yup
         Yup.object().shape <Partial<Record<TKMaterials, any>>>({
           'majorItem': Yup.string().required('必須です'),
           'middleItem': Yup.string(), /* 中項目 */
-          'element': Yup.string(),    /* 部材 */
+          'material': Yup.string(),    /* 部材 */
           'costPrice': mustBeNum.required('必須です'), /* 原価 */
           'quantity': requiredPositiveNum, /* 数量 */
           'elemProfRate': requiredPositiveNum

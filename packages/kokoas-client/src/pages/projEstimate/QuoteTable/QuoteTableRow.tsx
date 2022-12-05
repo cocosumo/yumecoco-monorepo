@@ -74,7 +74,7 @@ export const QuoteTableRow = (
 
       <TableCell width={'8%'}>
         <FormikAutocomplete
-          name={getItemFieldName(rowIdx, 'element')}
+          name={getItemFieldName(rowIdx, 'material')}
           handleChange={handleMaterialChange}
           options={materialOpts}
           disabled={isDisabled}

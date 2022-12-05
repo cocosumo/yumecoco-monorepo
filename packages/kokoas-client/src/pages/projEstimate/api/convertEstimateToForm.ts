@@ -67,7 +67,7 @@ export const convertEstimateToForm = (
         quantity,
         majorItem: 大項目.value,
         middleItem: 中項目.value,
-        element: 部材名.value,
+        material: 部材名.value,
         elemProfRate: profitRate * 100,
         unit: 単位.value as TypeOfForm['items'][number]['unit'],
         unitPrice: Math.round(unitPrice),

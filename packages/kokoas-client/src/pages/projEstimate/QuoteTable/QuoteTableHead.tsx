@@ -13,7 +13,6 @@ export const QuoteTableHead = () => {
       { text: '部材', helperText: '手入力可' },
       { text: '原価', required, rightAligned },
       { text: '数量', required, rightAligned },
-      { text: '単位' },
       { text: '利益率(%)', rightAligned },
       { text: '税', helperText : '課税 / 非課税' },
       { text: '単価', rightAligned },
@@ -22,11 +21,11 @@ export const QuoteTableHead = () => {
   }, [] );
 
   return (
-    <TableHead> 
+    <TableHead>
       <TableRow>
 
         {/* Offset for move row controls */}
-        <TableCell padding="none" /> 
+        <TableCell padding="none" />
 
         {heads
           .map((props) => <QtHeadCell key={props.text} {...props} />)}

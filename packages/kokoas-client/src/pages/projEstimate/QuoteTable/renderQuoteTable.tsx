@@ -24,7 +24,7 @@ export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
           '& td, th': {
             padding: 0.5,
           },
-          '& tr:nth-of-type(odd) td:not(:first-child)' : {
+          '& tr:nth-of-type(odd) td:not(:first-type)' : {
             borderBottom: 'none',
           },
           '& tr:nth-of-type(even) td' : {

@@ -1,10 +1,10 @@
 
 
 import { TableCell, TableRow } from '@mui/material';
-import { FieldArrayRenderProps } from 'formik';
+import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, unitChoices } from '../form';
+import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
@@ -27,7 +27,8 @@ export const QuoteTableRow = (
     envStatus: string,
   }) => {
 
-
+  const { values: { items } } = useFormikContext<TypeOfForm>();
+  const { costPrice } = items[rowIdx];
 
   const {
     majorItemOpts,
@@ -53,7 +54,7 @@ export const QuoteTableRow = (
         <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
       </TableCell>
 
-      <TableCell width={'10%'}>
+      <TableCell width={'8%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'majorItem')}
           handleChange={handleMajorItemChange}
@@ -62,7 +63,7 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell width={'10%'}>
+      <TableCell width={'8%'}>
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'middleItem')}
           handleChange={handleMiddleItemChange}
@@ -71,7 +72,7 @@ export const QuoteTableRow = (
         />
       </TableCell>
 
-      <TableCell width={'12%'}>
+      <TableCell width={'8%'}>
         <FormikAutocomplete
           name={getItemFieldName(rowIdx, 'element')}
           handleChange={handleMaterialChange}
@@ -81,14 +82,17 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'10%'} align='right'>
+        {/* 原価 */}
         <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'8%'} align='right'>
+        {/* 数量 */}
         <QuantityField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
       <TableCell width={'8%'}>
+        {/* 単位 */}
         <FormikPulldown
           name={getItemFieldName(rowIdx, 'unit')}
           options={unitChoices.map((c) => ({ label: c, value: c }))}
@@ -97,19 +101,23 @@ export const QuoteTableRow = (
       </TableCell>
 
       <TableCell width={'6%'} align='right'>
-        <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled} />
+        {/* 利益率 */}
+        <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
       </TableCell>
 
       <TableCell width={'8%'}>
+        {/* 税 */}
         <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
       </TableCell>
 
-      <TableCell>
-        <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
+      <TableCell width={'12%'}>
+        {/* 単価 */}
+        <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
       </TableCell>
 
-      <TableCell>
-        <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled} />
+      <TableCell width={'10%'}>
+        {/* 金額 */}
+        <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
       </TableCell>
 
       <TableCell width={'3%'}>

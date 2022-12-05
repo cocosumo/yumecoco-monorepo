@@ -27,8 +27,6 @@ import { calcProfitRate } from './calcProfitRate';
  *
  *  C = B + A
  *
- * ※ 行ごと丸める。
- * ※ Bはデータベースに保存もしないし、編集可でもない、ただ、表示するだけなので、ここで計算しない。表示する際に計算
  *
  */
 

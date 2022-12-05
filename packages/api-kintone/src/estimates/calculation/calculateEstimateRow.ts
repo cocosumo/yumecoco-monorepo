@@ -102,6 +102,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   *******************************/
   if (
     +quantity === 0 //  数量がない場合、計算不要
+    || +costPrice <= 0
     || profitRate >= 1 // 今の計算の仕様では、利益率が100％以上だと、変な数字になるので、計算不要
   ) {
     return {

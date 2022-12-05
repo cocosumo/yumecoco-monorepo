@@ -136,6 +136,7 @@ export const QuoteTableRow = (
         <TableCell colSpan={2} />
         <TableCell colSpan={2}>
           <FormikTextFieldV2
+            disabled={isDisabled}
             label={'品番・色など'}
             name={getItemFieldName(rowIdx, 'materialDetails')}
             size={'small'}
@@ -146,6 +147,7 @@ export const QuoteTableRow = (
         <TableCell />
         <TableCell colSpan={5}>
           <FormikTextFieldV2
+            disabled={isDisabled}
             label={'備考'}
             name={getItemFieldName(rowIdx, 'rowDetails')}
             size={'small'}

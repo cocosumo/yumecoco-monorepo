@@ -3,6 +3,7 @@ import { calculateEstimateRecord } from './calculateEstimateRecord';
 
 import { RecordType, appId, RecordKey } from './config';
 
+/** @deprecated use getEstimateByIDV2 instead. */
 export const getEstimateById = async (projEstimateId: string) => {
   const idField : RecordKey = 'uuid';
   const result = await (await ktRecord()).getRecords({

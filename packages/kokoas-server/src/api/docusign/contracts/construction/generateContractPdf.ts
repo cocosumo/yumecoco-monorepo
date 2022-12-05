@@ -28,11 +28,19 @@ export const generateContractPdf = async (
     projName,
     projLocation,
     payments,
+    tax,
     calculatedEstimates: {
-      totalAmountInclTax,
+      estimateSummary: {
+        totalTaxAmount,
+        totalAmountAfterTax,
+        totalAmountBeforeTax,
+
+      },
+
+      /* 
       totalCPWithProfit,
       taxAmount,
-      taxRate,
+      taxRate, */
     },
     startDate,
     startDaysAfterContract,
@@ -230,7 +238,7 @@ export const generateContractPdf = async (
   /* 請負代金金額 */
   drawText(
     firstPage,
-    `￥ ${Math.round(totalAmountInclTax || 0).toLocaleString()}`,
+    `￥ ${Math.round(totalAmountAfterTax || 0).toLocaleString()}`,
     {
       x: 211,
       y: 494,
@@ -247,7 +255,7 @@ export const generateContractPdf = async (
   /* うち工事価格 */
   drawText(
     firstPage,
-    `￥ ${Math.round(totalCPWithProfit || 0).toLocaleString() }`,
+    `￥ ${Math.round(totalAmountBeforeTax || 0).toLocaleString() }`,
     {
       x: 214,
       y: 480,
@@ -265,7 +273,7 @@ export const generateContractPdf = async (
   /* 税 */
   drawText(
     firstPage,
-    `(${taxRate} %)`,
+    `(${tax} %)`,
     {
       x: 214,
       y: 466,
@@ -280,7 +288,7 @@ export const generateContractPdf = async (
   /* 税額 */
   drawText(
     firstPage,
-    `￥ ${Math.round(taxAmount || 0).toLocaleString()}`,
+    `￥ ${Math.round(totalTaxAmount || 0).toLocaleString()}`,
     {
       x: 214,
       y: 466,

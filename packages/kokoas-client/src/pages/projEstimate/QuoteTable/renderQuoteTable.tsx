@@ -21,6 +21,9 @@ export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
         sx={{
           minWidth: 650,
           overflow: 'hidden',
+          '& td, th': {
+            padding: 0.5,
+          },
         }}
       >
         <QuoteTableHead />

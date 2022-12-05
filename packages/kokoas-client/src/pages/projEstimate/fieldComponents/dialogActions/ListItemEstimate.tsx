@@ -1,13 +1,14 @@
 import { Chip, Stack, SvgIconTypeMap, Typography } from '@mui/material';
 
 import { format, parseISO } from 'date-fns';
-import { useCalcEstimate } from '../../../../hooks/useCalcEstimate';
 
 import NumbersIcon from '@mui/icons-material/Numbers';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
 import { OverridableComponent } from '@mui/types';
 import { IProjestimates } from 'types';
+import { useMemo } from 'react';
+import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
 
 
 const ListContent = ({
@@ -40,8 +41,10 @@ export const ListItemEstimate = ({
     estimateStatus: { value: estimateStatus },
     envStatus: { value: envStatus },
   } = estimateRecord;
-
-  const { totalAmountInclTax } = useCalcEstimate(estimateRecord);
+  
+  const { estimateSummary : { totalAmountAfterTax } } = useMemo(() => {
+    return calculateEstimateRecord({ record: estimateRecord });
+  }, [estimateRecord]);
 
 
   return (
@@ -65,7 +68,7 @@ export const ListItemEstimate = ({
 
       <ListContent
         Icon={CurrencyYenIcon}
-        explanation={Math.round(totalAmountInclTax).toLocaleString()}
+        explanation={Math.round(totalAmountAfterTax).toLocaleString()}
       />
 
     </Stack>

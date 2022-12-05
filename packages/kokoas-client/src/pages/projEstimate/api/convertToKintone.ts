@@ -17,8 +17,14 @@ export const convertToKintone = ({
   const kintoneItems: Partial<IProjestimates>['内訳'] = {
     type: 'SUBTABLE',
     value: items.map(({
-      majorItem, middleItem, element,
-      costPrice, quantity, unit, elemProfRate,
+      majorItem, 
+      middleItem, 
+      element,
+      costPrice, 
+      quantity, 
+      unit, 
+      elemProfRate,
+      rowUnitPriceAfterTax,
       taxType,
     }) => {
       return {
@@ -30,7 +36,10 @@ export const convertToKintone = ({
           原価 : { value: costPrice.toString() },
           数量 : { value: quantity.toString() },
           単位: { value: unit },
-          部材利益率: { value: elemProfRate.toString() },
+          金額: { value: rowUnitPriceAfterTax.toString() },
+
+          /** @deprecated Field will no longer be used. */
+          部材利益率: { value: elemProfRate.toString() }, 
           taxType: { value: taxType },
         },
       };

@@ -9,7 +9,7 @@
  * @returns {number} object.totalAmountInclTax - 税込合計
  * @returns {number} object.taxAmount - 税合計
  * @returns {number} object.totalProfitRate - 粗利
- *
+ * @deprecated 計算の仕様変更。 詳しくは https://trello.com/c/9WvDqhV1
  */
 export const calculateEstimate = (
   {

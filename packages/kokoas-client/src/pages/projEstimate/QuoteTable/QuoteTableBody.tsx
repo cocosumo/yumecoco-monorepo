@@ -1,5 +1,5 @@
 import { TableBody } from '@mui/material';
-import { FieldArrayRenderProps } from 'formik';
+import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { MouseEvent, useState } from 'react';
 import { TypeOfForm } from '../form';
 import { QuoteTableRow } from './QuoteTableRow';
@@ -10,6 +10,7 @@ import { UnitTypeMenu } from './rowFields/UnitTypeMenu';
 export  function QuoteTableBody(props: {
   arrayHelpers: FieldArrayRenderProps,
 }) {
+  const { setFieldValue } = useFormikContext<TypeOfForm>();
   const { arrayHelpers } = props;
   const { form } = arrayHelpers;
   const { items, envStatus } = form.values as TypeOfForm;
@@ -22,7 +23,9 @@ export  function QuoteTableBody(props: {
   };
 
   const handleClose = ( value?: string) => {
-    console.log(unitMenuAnchorEl?.name, value);
+    if (unitMenuAnchorEl?.name && !!value) {
+      setFieldValue(unitMenuAnchorEl.name, value, false);
+    }
     setUnitMenuAnchorEl(null);
   };
 

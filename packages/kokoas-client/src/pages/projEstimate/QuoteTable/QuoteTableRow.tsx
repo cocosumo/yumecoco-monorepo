@@ -4,7 +4,7 @@ import { IconButton, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
+import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
@@ -102,6 +102,7 @@ export const QuoteTableRow = (
                 size='small'
                 name={getItemFieldName(rowIdx, 'unit')}
                 onClick={handleOpenUnitMenu}
+                sx={{ fontSize: '12px' }}
               >
                 {unit}
               </IconButton>

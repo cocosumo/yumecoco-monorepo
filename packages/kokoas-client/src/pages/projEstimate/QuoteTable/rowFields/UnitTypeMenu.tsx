@@ -1,4 +1,5 @@
 import { Menu, MenuItem } from '@mui/material';
+import { unitChoices } from '../../form';
 
 export const UnitTypeMenu = ({
   handleClose,
@@ -19,15 +20,11 @@ export const UnitTypeMenu = ({
         'aria-labelledby': 'basic-button',
       }}
     >
-      <MenuItem onClick={()=>handleClose()}>
-        Profile
-      </MenuItem>
-      <MenuItem onClick={()=>handleClose()}>
-        My account
-      </MenuItem>
-      <MenuItem onClick={()=>handleClose()}>
-        Logout
-      </MenuItem>
+      {unitChoices.map((unit) => (
+        <MenuItem key={unit} onClick={()=>handleClose(unit)}>
+          {unit}
+        </MenuItem>
+      ))}
     </Menu>
   );
 };

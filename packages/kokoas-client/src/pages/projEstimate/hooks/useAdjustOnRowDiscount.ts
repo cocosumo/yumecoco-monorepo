@@ -16,7 +16,7 @@ export const useAdjustOnRowDiscount = (rowIdx: number) => {
   const {
     costPrice,
   } = rowData;
-  
+
   const isLastRow = rowIdx === items.length - 1;
 
   //const result = useElementCalc(rowIdx);

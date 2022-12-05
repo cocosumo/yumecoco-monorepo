@@ -1,4 +1,5 @@
 
+import { IconButton, InputAdornment } from '@mui/material';
 import { FormikNumberField } from 'kokoas-client/src/components';
 
 import { KeyOfForm, TKMaterials } from '../../form';
@@ -30,6 +31,14 @@ export const QuantityField = ({
       variant="standard"
       disabled={isDisabled}
       onChange={handleChange}
+      InputProps={{
+        endAdornment:  (
+          <InputAdornment position="end">
+            <IconButton>
+              H
+            </IconButton>
+          </InputAdornment>),
+      }}
     />
   );
 };

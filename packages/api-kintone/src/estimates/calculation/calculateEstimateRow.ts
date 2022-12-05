@@ -17,14 +17,14 @@ import { calcProfitRate } from './calcProfitRate';
  *
  *  C = A / (1 - D )
  *  B = C - A
- *  
+ *
  * ---------------
- * 
+ *
  * 逆算
- * 
+ *
  *  D = (C - A) / C
  *  A = C - CD  //Aは逆算の仕様はないので、JS可不要
- * 
+ *
  *  C = B + A
  *
  * ※ 行ごと丸める。
@@ -35,9 +35,9 @@ import { calcProfitRate } from './calcProfitRate';
 
 /**
  * インプットです
- * 
+ *
  * Optionalの項目はundefinedで渡されると逆算する
- * 
+ *
  */
 interface CalculationEstimateParams {
   /** 原価 */
@@ -79,9 +79,9 @@ export interface CalculationEstimateResults extends Required<CalculationEstimate
 
 /****************************
  * 行ごと計算
- * 
+ *
  * 基本的に逆算してほしい項目をundefinedにする。
- * 
+ *
  ****************************/
 export const calculateEstimateRow = ( params : CalculationEstimateParams) : CalculationEstimateResults => {
 
@@ -116,7 +116,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       rowUnitPriceAfterTax: 0,
     };
   }
-  
+
 
   /********************************************************************************
    *「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
@@ -125,12 +125,12 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
     // 税抜き単価合計
     const newRowUnitPriceBeforeTax = isTaxable ? (rowUnitPriceAfterTax / (1 + taxRate))  : rowUnitPriceAfterTax;
-   
+
     // C 単価
     const newUnitPrice = newRowUnitPriceBeforeTax / quantity;
 
     /** D = ( C - A) / C */
-    const newProfitRate =  calcProfitRate(costPrice, newUnitPrice); 
+    const newProfitRate =  calcProfitRate(costPrice, newUnitPrice);
 
     /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
@@ -138,12 +138,12 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     return {
       ...params,
       rowCostPrice,
-      rowProfit: newRowProfit,
-      rowUnitPriceAfterTax,
-      rowUnitPriceBeforeTax: newRowUnitPriceBeforeTax,
-      unitPrice: newUnitPrice,
-      profitRate: newProfitRate, 
-      
+      rowProfit: Math.round(newRowProfit),
+      rowUnitPriceAfterTax: Math.round(rowUnitPriceAfterTax),
+      rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
+      unitPrice: Math.round(newUnitPrice),
+      profitRate: newProfitRate,
+
     };
   }
 
@@ -162,17 +162,17 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     // D 利益率
     const newProfitRate = calcProfitRate(costPrice, unitPrice);
 
-    // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
+    // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計
     const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
-    
+
 
     return {
       ...params,
       rowProfit: newRowProfit,
       rowCostPrice,
-      unitPrice,
-      rowUnitPriceBeforeTax: newRowUnitPriceBeforeTax,
-      rowUnitPriceAfterTax: newrowUnitPriceAfterTax,
+      unitPrice: Math.round(unitPrice),
+      rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
+      rowUnitPriceAfterTax: Math.round(newrowUnitPriceAfterTax),
       profitRate: newProfitRate,
     };
   }
@@ -189,12 +189,12 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   const newUnitPrice = costPrice / (1 - profitRate);
 
   // 税抜き単価合計
-  const newRowUnitPriceBeforeTax = newUnitPrice * quantity; 
+  const newRowUnitPriceBeforeTax = newUnitPrice * quantity;
 
   // 税込み単価合計
   const newRowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
 
-  // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計 
+  // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計
   const newRowProfit =  newRowUnitPriceBeforeTax - rowCostPrice;
 
   return {
@@ -202,9 +202,9 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     rowProfit: newRowProfit,
     profitRate: roundTo(profitRate, 4),
     rowCostPrice,
-    unitPrice: newUnitPrice,
-    rowUnitPriceBeforeTax: newRowUnitPriceBeforeTax,
-    rowUnitPriceAfterTax: newRowUnitPriceAfterTax,
+    unitPrice: Math.round(newUnitPrice),
+    rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
+    rowUnitPriceAfterTax: Math.round(newRowUnitPriceAfterTax),
   };
-    
+
 };

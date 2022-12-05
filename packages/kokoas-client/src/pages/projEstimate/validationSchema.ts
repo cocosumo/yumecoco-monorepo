@@ -35,7 +35,7 @@ export const validationSchema = Yup
           'middleItem': Yup.string(), /* 中項目 */
           'element': Yup.string(),    /* 部材 */
           'costPrice': mustBeNum.required('必須です'), /* 原価 */
-          'quantity': requiredPositiveNum, /* 数量 */
+          'quantity': requiredNum, /* 数量 */
           'elemProfRate': requiredPositiveNum
             .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
           'unit': Yup.string(), /* 単位 */

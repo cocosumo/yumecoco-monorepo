@@ -61,7 +61,11 @@ export const FormProjProspect = () => {
       <Grid item xs={4} />
 
       <Grid item xs={12} md={4}>
-        <FormikJADatePicker disabled={isDisabled} label="不動産決済日" name={getFieldName('estatePurchaseDate')} />
+        <FormikJADatePicker
+          disabled={isDisabled}
+          label="不動産決済日"
+          name={getFieldName('estatePurchaseDate')}
+        />
       </Grid>
       <Grid item xs={12} md={4}>
         <FormikJADatePicker disabled={isDisabled} label="設計申込日" name={getFieldName('planApplicationDate')} />

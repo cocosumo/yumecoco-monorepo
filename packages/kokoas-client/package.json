@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npm run build -- --watch --mode development",
     "upload:local": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.manifest-local.json",
-    "upload:staging": "npm run test:db && kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.manifest-staging.json",
+    "upload:staging": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.manifest-staging.json",
     "upload:prod": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.manifest.json",
     "build": "webpack --mode production",
     "test:db": "nx test:db api-kintone",

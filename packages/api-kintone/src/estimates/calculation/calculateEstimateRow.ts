@@ -104,6 +104,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     +quantity === 0 //  数量がない場合、計算不要
     || profitRate >= 1 // 今の計算の仕様では、利益率が100％以上だと、変な数字になるので、計算不要
   ) {
+
     return {
       ...params,
       rowProfit: 0,
@@ -149,7 +150,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
    * C 「単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算 *
   **********************************************************************************/
 
-  if (unitPrice !== undefined && +unitPrice >= 0 && !rowUnitPriceAfterTax && !profitRate) {
+  if (unitPrice !== undefined && +unitPrice > 0 && !rowUnitPriceAfterTax && !profitRate) {
 
     // 税抜き単価合計
     const newRowUnitPriceBeforeTax = unitPrice * quantity;
@@ -181,7 +182,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   /*******
    * 通常 *
   **********/
-
+  console.log('ENTERED');
 
   // C 単価  = A / (1 - D)
   const newUnitPrice = costPrice / (1 - profitRate);

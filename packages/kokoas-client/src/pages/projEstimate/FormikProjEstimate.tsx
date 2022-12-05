@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useConfirmDialog, useSnackBar } from '../../hooks';
 import { convertToKintone } from './api/convertToKintone';
 import { BtnSaveChoices } from './fieldComponents/formActions/BtnSaveChoices';
-import { validationSchema } from './form';
 import FormProjEstimate from './FormProjEstimate';
+import { validationSchema } from './validationSchema';
 import { useResolveParam } from './hooks/useResolveParam';
 
 

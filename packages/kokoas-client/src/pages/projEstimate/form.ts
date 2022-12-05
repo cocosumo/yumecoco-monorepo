@@ -1,5 +1,4 @@
 
-import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 import { TaxType } from 'types';
 
@@ -95,48 +94,3 @@ export const getItemFieldName = (
   rowIdx: number, fieldName: TKMaterials,
 ) => `${itemsName}[${rowIdx}].${fieldName}`;
 
-
-/*
-バリデーション
-*/
-export const validationSchema = Yup
-  .object<Partial<Record<KeyOfForm, any>>>(
-  {
-    'projId': Yup
-      .string()
-      .required('必須です。'),
-    'projTypeProfit': Yup
-      .number(),
-    'tax': Yup
-      .number()
-      .required('必須です。'),
-    'items': Yup.array()
-      .of(
-        Yup.object().shape <Partial<Record<TKMaterials, any>>>({
-          'majorItem': Yup.string().required('必須です'),
-          'middleItem': Yup.string(), /* 中項目 */
-          'element': Yup.string(),    /* 部材 */
-          'costPrice': Yup.number().typeError('数値で入力してください').required('必須です'), /* 原価 */
-          'quantity': Yup.number()
-            .typeError('数値で入力してください')
-            .min(0, '0以上の数字を入力してください')
-            .required('必須です'), /* 数量 */
-          'elemProfRate': Yup.number()
-            .typeError('数値で入力してください')
-            .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
-          'unit': Yup.string(), /* 単位 */
-          'taxType': Yup.string(),  /* 税(課税/非課税) */
-          'unitPrice': Yup.number()
-            .typeError('数値で入力してください')
-            .min(0, '0以上の数字を入力してください')
-            .required('必須です'), /* 単価 */
-          'rowUnitPriceAfterTax': Yup.number()
-            .typeError('数値で入力してください')
-            .min(0, '0以上の数字を入力してください')
-            .required('必須です'), /* 単価 */
-        }),
-      )
-      .required('Must have items')
-      .min(1, 'Minimum of 1 items'),
-  },
-);

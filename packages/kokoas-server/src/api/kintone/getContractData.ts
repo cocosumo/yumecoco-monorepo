@@ -5,9 +5,9 @@ import {
   getEstimateById,
   getProjById,
   getStoreMngrByStoreId,
-  calculateEstimateRecord, 
+  calculateEstimateRecord,
 } from 'api-kintone';
-import { formatDataId } from 'libs';
+import { addressBuilder, formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
 
@@ -54,7 +54,7 @@ isValidate = false,
     payMethod,
     payDestination,
     dataId,
-    
+
   } = estimatedRecord;
 
   /* 工事情報 */
@@ -90,7 +90,10 @@ isValidate = false,
       email: contacts.value
         .find(({ value: { contactType } }) => contactType.value === 'email')
         ?.value.contactValue.value,
-      address: `${postalCode.value}〒 ${address1.value}${address2.value}`,
+      address: addressBuilder({
+        postal: postalCode.value,
+        address1: address1.value,
+        address2: address2.value }),
       postalCode: postalCode.value,
       address1: address1.value,
       address2: address2.value,
@@ -141,7 +144,10 @@ isValidate = false,
     projId: projId.value,
     projEstimateId: formatDataId(dataId.value),
     projName: projName.value,
-    projLocation: `${projPostal.value}〒 ${projAddress1.value}${projAddress2.value}`,
+    projLocation: addressBuilder({
+      postal: projPostal.value,
+      address1: projAddress1.value,
+      address2: projAddress2.value }),
 
     /* 契約 */
     tax: tax.value,

@@ -6,7 +6,7 @@ interface AppRecord {
 
 
 
-export const isMobile : boolean = (window?.location.href || '').includes('k/m');
+export const isMobile = () => (window?.location.href || '').includes('k/m') ;
 
 export const getAppId = () : number | null => {
   const url = window?.location.href;
@@ -22,9 +22,9 @@ export const getRecordPath = (
     domain,
   }: AppRecord) : string => {
   const nDomain = domain ? domain : window.location.href;
-  const nDevice = isMobile ? 'k/m' : 'k';
+  const nDevice = isMobile() ? 'k/m' : 'k';
   const nrecord = recordId
-    ? `show${isMobile ? '?' : '#'}record=${recordId}`
+    ? `show${isMobile() ? '?' : '#'}record=${recordId}`
     : '';
 
   return `https://${nDomain}/${nDevice}/${appId}/${nrecord}`;
@@ -37,7 +37,7 @@ export const goToRecordPath = (recordDetails : AppRecord) => {
 
 
 export const getPortalSpaceElement = () => (
-  isMobile
+  isMobile()
     ? kintone.mobile.portal.getContentSpaceElement()
     : kintone.portal.getContentSpaceElement()
 );
@@ -49,7 +49,7 @@ export const getPortalSpaceElement = () => (
 * @param isShown {boolean} trueは表示、falseは非表示
 */
 export const setFieldShown = (fieldCode : string, isShown : boolean) => {
-  if (isMobile) {
+  if (isMobile()) {
     kintone.mobile.app.record.setFieldShown(fieldCode, isShown);
   } else {
     kintone.app.record.setFieldShown(fieldCode, isShown);

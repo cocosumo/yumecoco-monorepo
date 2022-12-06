@@ -52,8 +52,6 @@ export const kintoneBaseUrl = process.env.KT_BASE_URL;
 
 export const kt = async () => {
 
-  console.log(kintoneBaseUrl);
-
   /**
    * Re-instantiate kintone client when:
    * - on Node and

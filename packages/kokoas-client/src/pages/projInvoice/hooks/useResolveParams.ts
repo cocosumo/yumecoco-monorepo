@@ -33,7 +33,7 @@ export const useResolveParams = () => {
       if (projData && contracts) {
 
         const billingAmount = contracts.calculated.reduce((acc, cur) => {
-          return acc + cur.estimateSummary.totalAmountAfterTax;
+          return acc + cur.summary.totalAmountAfterTax;
         }, 0);
 
         const newValues = produce(initialValues, (draft) => {
@@ -45,7 +45,7 @@ export const useResolveParams = () => {
           contracts.records.forEach((value, idx) => {
             draft.estimates[idx] = {
               estimateId: value.$id.value || '',
-              contractAmount: String(Math.round(contracts.calculated[idx].estimateSummary.totalAmountAfterTax)),
+              contractAmount: String(Math.round(contracts.calculated[idx].summary.totalAmountAfterTax)),
               contractDate: value.contractDate.value,
               isForPayment: !!(+value.isForPayment.value),
             };

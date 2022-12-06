@@ -29,9 +29,9 @@ export const FormContract = ({
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
 
-  const { estimateSummary } = calculated ?? {};
+  const { summary } = calculated ?? {};
 
-  const roundedTotalAmt = Math.round(estimateSummary?.totalAmountAfterTax ?? 0);
+  const roundedTotalAmt = Math.round(summary?.totalAmountAfterTax ?? 0);
 
   const disabled = !!envelopeStatus;
 

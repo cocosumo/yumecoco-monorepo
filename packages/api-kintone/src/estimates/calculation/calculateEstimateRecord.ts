@@ -20,8 +20,8 @@ export const calculateEstimateRecord = ({
   /** 計計算の詳細を含むかどうか  */
   withDetails?: boolean
 }) : {
-  calculatedEstimateTable: ReturnType<typeof calculateEstimateRow>[] | undefined,
-  estimateSummary: ReturnType<typeof calculateEstimateSummary>
+  details: ReturnType<typeof calculateEstimateRow>[] | undefined,
+  summary: ReturnType<typeof calculateEstimateSummary>
 } => {
   const {
     内訳: { value: estimatesTable },
@@ -52,8 +52,8 @@ export const calculateEstimateRecord = ({
 
 
   return {
-    calculatedEstimateTable: withDetails ? calculatedEstimateTable : undefined,
-    estimateSummary: calculateEstimateSummary(calculatedEstimateTable),
+    details: withDetails ? calculatedEstimateTable : undefined,
+    summary: calculateEstimateSummary(calculatedEstimateTable),
   };
 
 };

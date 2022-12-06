@@ -41,8 +41,8 @@ export const ListItemEstimate = ({
     estimateStatus: { value: estimateStatus },
     envStatus: { value: envStatus },
   } = estimateRecord;
-  
-  const { estimateSummary : { totalAmountAfterTax } } = useMemo(() => {
+
+  const { summary : { totalAmountAfterTax } } = useMemo(() => {
     return calculateEstimateRecord({ record: estimateRecord });
   }, [estimateRecord]);
 

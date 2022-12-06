@@ -6,8 +6,8 @@ import { EstimateCard } from './EstimateCard';
 
 /**
  * 契約済みの見積もりカードを表示する処理
- * @param projId 工事番号 
- * @returns 
+ * @param projId 工事番号
+ * @returns
  */
 export const EstimateCards = ({
   projId,
@@ -42,7 +42,7 @@ export const EstimateCards = ({
               name={getEstimatesFieldName(idx, 'isForPayment')}
               projId={projId}
               record={record}
-              totalAmountInclTax={calculated[idx].estimateSummary.totalAmountAfterTax}
+              totalAmountInclTax={calculated[idx].summary.totalAmountAfterTax}
               key={`${record.$id.value}`}
             />
           );

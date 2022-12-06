@@ -30,17 +30,11 @@ export const generateContractPdf = async (
     payments,
     tax,
     calculatedEstimates: {
-      estimateSummary: {
+      summary: {
         totalTaxAmount,
         totalAmountAfterTax,
         totalAmountBeforeTax,
-
       },
-
-      /* 
-      totalCPWithProfit,
-      taxAmount,
-      taxRate, */
     },
     startDate,
     startDaysAfterContract,

@@ -43,7 +43,7 @@ export const ItemEstimate = ({
     dataId,
   } = estimateRecord;
 
-  const { estimateSummary: { totalAmountAfterTax } } = calculated;
+  const { summary: { totalAmountAfterTax } } = calculated;
 
 
   return (

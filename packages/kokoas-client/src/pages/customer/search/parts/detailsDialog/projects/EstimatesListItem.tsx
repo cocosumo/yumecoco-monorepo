@@ -22,7 +22,7 @@ export const EstimatesListItem = ({
     estimateStatus,
   } = estimateRecord;
 
-  const { estimateSummary : { totalAmountAfterTax } } = useMemo(() => {
+  const { summary : { totalAmountAfterTax } } = useMemo(() => {
     return calculateEstimateRecord({ record: estimateRecord });
   }, [estimateRecord]);
 

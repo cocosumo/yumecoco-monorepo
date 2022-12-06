@@ -51,7 +51,7 @@ export const convertToForm = ({
   const newRemainingAmt = newPaymentFields
     .reduce(
       (acc, { amount }) => acc - +amount,
-      Math.round(calculated?.estimateSummary.totalAmountAfterTax || 0),
+      Math.round(calculated?.summary.totalAmountAfterTax || 0),
     );
 
   const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients?.value || '{}' )?.signers;

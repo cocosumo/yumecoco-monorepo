@@ -4,6 +4,7 @@ import { getFormFields } from 'api-kintone';
 import { fieldMapSorter } from './helper/fieldMapSorter';
 import { getLookUp } from './helper/getLookup';
 import { removeKeys } from './helper/removeKeys';
+import { removeLookUp } from './helper/removeLookUp';
 
 describe('migration', () => {
   const devAppId = 202;
@@ -34,10 +35,8 @@ describe('migration', () => {
   });
 
   test('dev fields match prod fields', async () => {
-    const devNoLookUp = Object.entries(devFormFields)
-      .filter((tupple) => !('lookup' in tupple[1]));
-    const prodNoLookUp = Object.entries(prodFormFields)
-      .filter((tupple) => !('lookup' in tupple[1]));
+    const devNoLookUp = removeLookUp(devFormFields);
+    const prodNoLookUp = removeLookUp(prodFormFields);
 
     expect(devNoLookUp).toStrictEqual(prodNoLookUp);
   });

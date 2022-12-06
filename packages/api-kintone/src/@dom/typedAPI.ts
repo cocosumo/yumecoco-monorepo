@@ -6,10 +6,10 @@ interface AppRecord {
 
 
 
-export const isMobile : boolean = (window.location.href || '').includes('k/m');
+export const isMobile : boolean = (window?.location.href || '').includes('k/m');
 
 export const getAppId = () : number | null => {
-  const url = window.location.href;
+  const url = window?.location.href;
   return url.includes('k/m')
     ? kintone.mobile.app.getId()
     : kintone.app.getId();

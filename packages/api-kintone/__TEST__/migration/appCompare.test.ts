@@ -6,6 +6,9 @@ import { getLookUp } from './helper/getLookup';
 import { removeKeys } from './helper/removeKeys';
 import { removeLookUp } from './helper/removeLookUp';
 
+
+// 現在見積のみですが、他アプリを含むツールに改善する方針です。
+
 describe('migration', () => {
   const devAppId = 202;
   const prodAppId = 210;

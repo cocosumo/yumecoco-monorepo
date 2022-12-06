@@ -4,12 +4,12 @@ import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { drawText } from '../helpers/pdf';
 import { format, parseISO } from 'date-fns';
-import { getPayMethodX } from './generateContractPdfHelper';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
+import { getPayMethodX } from './helpers/getPayMethodX';
 
 
 /**
- * Generate pdf on different formats
+ * 請負契約書
  *
  * @param contractData derived from getContractData
  * @param contentType

@@ -1,18 +1,6 @@
+import { getContractData } from 'kokoas-server/src/api/kintone/getContractData';
 import { PDFFont, PDFPage } from 'pdf-lib';
-import { getContractData, TContractData } from '../../../kintone/getContractData';
-import { drawText } from '../helpers/pdf';
-
-export const getPayMethodX = (
-  payMethod: TContractData['payMethod'],
-) =>{
-  switch (payMethod) {
-    case '持参': return 175;
-    case '集金': return 247;
-    case '振込': return 320;
-    default: throw new Error(`支払い方法が不明でした。${payMethod}`);
-  }
-};
-
+import { drawText } from '../../helpers/pdf';
 
 /**
  * Just in case,

@@ -1,4 +1,4 @@
-/* export function removeKeys(obj: object, keys: string[]) {
+export function removeKeys(obj: object, keys: string[]) {
   const newObj = JSON.parse(JSON.stringify(obj));
 
   for (const prop in newObj) {
@@ -21,4 +21,4 @@
   }
 
   return newObj;
-} */
+}

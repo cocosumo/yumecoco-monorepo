@@ -1,6 +1,9 @@
 import { KintoneRestAPIClient } from '@kintone/rest-api-client';
 import { addMinutes, isPast, format } from 'date-fns';
+import { loadEnv } from 'libs';
 import { getNewAccessToken } from './@auth/getNewAccessToken';
+
+loadEnv();
 
 const isTest = process.env.NODE_ENV === 'test';
 
@@ -48,6 +51,8 @@ export const kintoneBaseUrl = process.env.KT_BASE_URL;
 
 
 export const kt = async () => {
+
+  console.log(kintoneBaseUrl);
 
   /**
    * Re-instantiate kintone client when:

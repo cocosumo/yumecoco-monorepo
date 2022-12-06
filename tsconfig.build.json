@@ -28,7 +28,8 @@
     "npm-scripts",
     "*eslint*",
     "*webpack*",
-    "jest.config.ts"
+    "jest.config.ts",
+    "**/batch-scripts/**/*"
   ],
   "include": [
     "./**/*.ts",

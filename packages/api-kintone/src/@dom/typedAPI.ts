@@ -6,7 +6,7 @@ interface AppRecord {
 
 
 
-export const isMobile : boolean = (window?.location.href || '').includes('k/m');
+export const isMobile : boolean = typeof window !== 'undefined' ? (window.location.href || '').includes('k/m') : false;
 
 export const getAppId = () : number | null => {
   const url = window.location.href;

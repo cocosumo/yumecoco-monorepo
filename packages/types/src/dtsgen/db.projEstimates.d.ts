@@ -43,7 +43,7 @@ declare namespace DBProjestimates {
           数量: kintone.fieldTypes.Number;
           原価: kintone.fieldTypes.Number;
           部材名: kintone.fieldTypes.SingleLineText;
-          //部材利益率: kintone.fieldTypes.Number;
+          部材利益率: kintone.fieldTypes.Number;
           中項目: kintone.fieldTypes.SingleLineText;
           taxType: kintone.fieldTypes.SingleLineText;
           金額: kintone.fieldTypes.Number;

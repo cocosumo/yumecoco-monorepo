@@ -182,7 +182,6 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   /*******
    * 通常 *
   **********/
-  console.log('ENTERED');
 
   // C 単価  = A / (1 - D)
   const newUnitPrice = costPrice / (1 - profitRate);

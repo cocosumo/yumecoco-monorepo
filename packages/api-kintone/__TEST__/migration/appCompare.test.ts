@@ -1,4 +1,4 @@
-/* import { Properties } from '@kintone/rest-api-client/lib/client/types';
+import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { getFormFields } from 'api-kintone';
 //import { AppIds, prodAppIds } from 'config';
 import { fieldMapSorter } from './helper/fieldMapSorter';
@@ -6,8 +6,8 @@ import { getLookUp } from './helper/getLookup';
 import { removeKeys } from './helper/removeKeys';
 
 describe('migration', () => {
-  const devAppId = 217;
-  const prodAppId = 198;
+  const devAppId = 202;
+  const prodAppId = 210;
 
   let prodFormFields : Properties;
   let devFormFields : Properties;
@@ -34,8 +34,10 @@ describe('migration', () => {
   });
 
   test('dev fields match prod fields', async () => {
-    const devNoLookUp = removeKeys(devFormFields, ['fieldMappings']);
-    const prodNoLookUp = removeKeys(prodFormFields, ['fieldMappings']);
+    const devNoLookUp = Object.entries(devFormFields)
+      .filter((tupple) => !('lookup' in tupple[1]));
+    const prodNoLookUp = Object.entries(prodFormFields)
+      .filter((tupple) => !('lookup' in tupple[1]));
 
     expect(devNoLookUp).toStrictEqual(prodNoLookUp);
   });
@@ -51,4 +53,4 @@ describe('migration', () => {
       expect(devSortedFieldMap).toStrictEqual(prodSortedFieldMap);
     }
   });
-}); */
+});

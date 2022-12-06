@@ -11,7 +11,7 @@ const DisplayCellContent = ({
 }) => {
 
   // 粗利率のみ単位を%、その他は3桁ごとにカンマ+単位に円を付与する
-  const dispVal = (name === 'grossProfitMargin') ? (value + ' %')
+  const dispVal = (name === 'grossProfitRate') ? (value + ' %')
     : (Math.round(value).toLocaleString() + '円');
 
   return (

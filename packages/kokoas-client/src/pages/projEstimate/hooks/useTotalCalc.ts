@@ -8,10 +8,10 @@ import { TypeOfForm } from '../form';
 const summaryInit = {
   totalCostPrice: 0,
   grossProfitVal: 0,
-  grossProfitMargin: 0,
+  grossProfitRate: 0,
   taxAmount: 0,
-  totalAmountExclTax: 0,
-  totalAmountInclTax: 0,
+  totalAmountBeforeTax: 0,
+  totalAmountAfterTax: 0,
 };
 export type SummaryElem = keyof typeof summaryInit;
 
@@ -26,31 +26,29 @@ export const useTotalCalc = () => {
     // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
     const result = values.items.reduce((acc, cur) => {
 
-      const totalCostPrice = +cur.costPrice * +cur.quantity;
-  
-      const totalAmountExclTaxVal = cur.unitPrice * +cur.quantity;
-  
-      const totalAmountInclTaxVal = cur.rowUnitPriceAfterTax;
-  
-      const grossProfitVal = (totalAmountExclTaxVal - totalCostPrice );
-  
-      return ({
-        ...acc,
-        totalCostPrice: acc.totalCostPrice + totalCostPrice,
-        grossProfitVal: acc.grossProfitVal + grossProfitVal,
-        totalAmountExclTax: acc.totalAmountExclTax + totalAmountExclTaxVal,
-        totalAmountInclTax: acc.totalAmountInclTax + totalAmountInclTaxVal,
-      });
+      const rowCostPrice = +cur.costPrice * +cur.quantity;
+
+      const rowAmountBeforeTax = cur.unitPrice * +cur.quantity;
+
+      const grossProfitVal = (rowAmountBeforeTax - rowCostPrice );
+
+      acc.totalAmountAfterTax += cur.rowUnitPriceAfterTax;
+      acc.totalAmountBeforeTax += rowAmountBeforeTax;
+      acc.totalCostPrice += rowCostPrice;
+      acc.grossProfitVal += grossProfitVal;
+
+      return acc;
+
     }, summaryInit);
-  
-    const profitRate = calcProfitRate(result.totalCostPrice, result.totalAmountExclTax);
+
+    const profitRate = calcProfitRate(result.totalCostPrice, result.totalAmountBeforeTax);
 
     setTotalCalc(Object.entries({
       ...result,
-      grossProfitMargin: roundTo(profitRate * 100, 2),
-      taxAmount: result.totalAmountInclTax - result.totalAmountExclTax,
+      grossProfitRate: roundTo(profitRate * 100, 2),
+      taxAmount: result.totalAmountAfterTax - result.totalAmountBeforeTax,
     }) as Array<[SummaryElem, number]>);
-  
+
   }, [values], 500);
 
 

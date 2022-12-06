@@ -3,12 +3,24 @@ import { RecordType } from '../config';
 import { calculateEstimateRow } from './calculateEstimateRow';
 import { calculateEstimateSummary } from './calculateEstimateSummary';
 
+/**
+ *
+ * 見積レコードを受け、計算する
+ *
+ * @param param.record  見積のレコード
+ * @param param.withDetails  [false] - 計算の詳細を帰り値に含むかどうか。
+ */
 export const calculateEstimateRecord = ({
   record,
+  withDetails = false,
 } : {
+  /** 見積のレコード  */
   record: RecordType,
+
+  /** 計計算の詳細を含むかどうか  */
+  withDetails?: boolean
 }) : {
-  calculatedEstimateTable: ReturnType<typeof calculateEstimateRow>[],
+  calculatedEstimateTable: ReturnType<typeof calculateEstimateRow>[] | undefined,
   estimateSummary: ReturnType<typeof calculateEstimateSummary>
 } => {
   const {
@@ -40,8 +52,8 @@ export const calculateEstimateRecord = ({
 
 
   return {
-    calculatedEstimateTable,
+    calculatedEstimateTable: withDetails ? calculatedEstimateTable : undefined,
     estimateSummary: calculateEstimateSummary(calculatedEstimateTable),
   };
-  
+
 };

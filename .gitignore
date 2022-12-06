@@ -53,9 +53,6 @@ coverage
 *.snap
 
 *.key
-*.pdf
-*.xls*
-*.TTF
 *auth.json
 
 **/backup/**/*

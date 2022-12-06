@@ -47,7 +47,6 @@ coverage
 *.ps1
 *.csv
 *.sh
-*.xlsx
 *.pem
 **/build/*
 *.snap

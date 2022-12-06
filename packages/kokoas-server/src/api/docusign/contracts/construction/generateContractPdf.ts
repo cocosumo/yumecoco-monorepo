@@ -56,11 +56,17 @@ export const generateContractPdf = async (
   const existingPdfBytes = await fs.readFile(pdfPath);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
+
+
   const fontData = await fs.readFile(getFont());
+
 
   // const font = fontkit.create(fontData);
   pdfDoc.registerFontkit(fontkit);
+
   const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
+
+
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
@@ -69,6 +75,7 @@ export const generateContractPdf = async (
   const x1 = 124; // 工事番号
   const x2 = 183;
   const x3 = 239;
+
 
   // 工事番号
   drawText(

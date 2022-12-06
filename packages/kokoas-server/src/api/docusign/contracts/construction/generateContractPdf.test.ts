@@ -10,6 +10,8 @@ describe('Contract', () => {
       projEstimateId: 'dummy01',
       userCode: 'RPA03',
     });
+
+    console.log(contractData);
     const pdf = await generateContractPdf(contractData, 'Uint8Array ');
     const savePath = path.join(__dirname, '__TEST__', 'TESTPDF.pdf');
 

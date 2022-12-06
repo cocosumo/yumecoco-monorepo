@@ -1,12 +1,11 @@
 import { getContractData } from '../../../kintone/getContractData';
-import path from 'path';
 import { grayscale, PDFDocument } from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { drawText } from '../helpers/pdf';
-import { assetsDir, latestPDF } from '../config/file';
 import { format, parseISO } from 'date-fns';
 import { getPayMethodX } from './generateContractPdfHelper';
+import { getFilePath, getFont } from 'kokoas-server/src/assets';
 
 
 /**
@@ -51,15 +50,13 @@ export const generateContractPdf = async (
   } = cocoAG?.[0] ?? {};
 
 
-
-  const url = path.join(assetsDir, latestPDF);
-  const existingPdfBytes = await fs.readFile(url);
+  const pdfPath = getFilePath({
+    fileName: '請負契約書',
+  });
+  const existingPdfBytes = await fs.readFile(pdfPath);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-
-
-  const fontData = await fs
-    .readFile(path.join(assetsDir, 'MSMINCHO.TTF'));
+  const fontData = await fs.readFile(getFont());
 
   // const font = fontkit.create(fontData);
   pdfDoc.registerFontkit(fontkit);

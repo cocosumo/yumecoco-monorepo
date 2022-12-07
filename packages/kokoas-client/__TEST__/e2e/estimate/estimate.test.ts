@@ -4,8 +4,7 @@ import { getKokoasBaseURLByEnv } from 'kokoas-client/src/config/settings';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { Page } from 'puppeteer';
-import { getEstimateByIdV2 as  getEstimateById } from 'api-kintone';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { getEstimateById, calculateEstimateRecord } from 'api-kintone';
 
 /* 見積を取得 */
 describe('estimates', () => {

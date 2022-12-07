@@ -4,7 +4,7 @@
   "main": "./src/index.ts",
   "scripts": {
     "test": "jest src --runInBand --coverage --silent",
-    "test:db": "jest __TEST__/migration --runInBand --coverage --silent ",
+    "test:db": "jest __TEST__/migration --runInBand --silent ",
     "authlink": "ts-node-esm scripts/authLink.ts",
     "get:refreshtoken": "ts-node scripts/getRefreshToken.ts",
     "get:newtoken": "ts-node scripts/getNewAccessToken.ts"

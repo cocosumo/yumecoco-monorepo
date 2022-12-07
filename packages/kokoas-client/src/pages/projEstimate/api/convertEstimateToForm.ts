@@ -1,4 +1,4 @@
-import { calculateEstimateRow } from 'api-kintone/src/estimates/calculation/calculateEstimateRow';
+import { calculateEstimateRow } from 'api-kintone';
 import { format, parseISO } from 'date-fns';
 import { IProjestimates, TaxType } from 'types';
 import { TypeOfForm } from '../form';

@@ -1,5 +1,5 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
 import { useMemo } from 'react';
 import { IProjestimates, TEnvelopeStatus } from 'types';
@@ -22,7 +22,7 @@ export const EstimatesListItem = ({
     estimateStatus,
   } = estimateRecord;
 
-  const { estimateSummary : { totalAmountAfterTax } } = useMemo(() => {
+  const { summary : { totalAmountAfterTax } } = useMemo(() => {
     return calculateEstimateRecord({ record: estimateRecord });
   }, [estimateRecord]);
 

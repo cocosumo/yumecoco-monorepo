@@ -16,7 +16,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../Router';
 import { SelectProjEstimates } from 'kokoas-client/src/components/ui/selects';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 
 
 export const FormContract = ({
@@ -29,9 +29,9 @@ export const FormContract = ({
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
 
-  const { estimateSummary } = calculated ?? {};
+  const { summary } = calculated ?? {};
 
-  const roundedTotalAmt = Math.round(estimateSummary?.totalAmountAfterTax ?? 0);
+  const roundedTotalAmt = Math.round(summary?.totalAmountAfterTax ?? 0);
 
   const disabled = !!envelopeStatus;
 

@@ -8,7 +8,7 @@ import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
 import { OverridableComponent } from '@mui/types';
 import { IProjestimates } from 'types';
 import { useMemo } from 'react';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 
 
 const ListContent = ({
@@ -41,8 +41,8 @@ export const ListItemEstimate = ({
     estimateStatus: { value: estimateStatus },
     envStatus: { value: envStatus },
   } = estimateRecord;
-  
-  const { estimateSummary : { totalAmountAfterTax } } = useMemo(() => {
+
+  const { summary : { totalAmountAfterTax } } = useMemo(() => {
     return calculateEstimateRecord({ record: estimateRecord });
   }, [estimateRecord]);
 

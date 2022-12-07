@@ -1,7 +1,7 @@
 
 import { useEstimates } from './useEstimates';
 import { useCallback } from 'react';
-import { calculateEstimateRecord } from 'api-kintone/src/estimates/calculation/calculateEstimateRecord';
+import { calculateEstimateRecord } from 'api-kintone';
 
 
 /**

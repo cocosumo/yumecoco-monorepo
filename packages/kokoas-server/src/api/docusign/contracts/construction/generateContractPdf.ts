@@ -1,16 +1,15 @@
 import { getContractData } from '../../../kintone/getContractData';
-import path from 'path';
 import { grayscale, PDFDocument } from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { drawText } from '../helpers/pdf';
-import { assetsDir, latestPDF } from '../config/file';
 import { format, parseISO } from 'date-fns';
-import { getPayMethodX } from './generateContractPdfHelper';
+import { getFilePath, getFont } from 'kokoas-server/src/assets';
+import { getPayMethodX } from './helpers/getPayMethodX';
 
 
 /**
- * Generate pdf on different formats
+ * 請負契約書
  *
  * @param contractData derived from getContractData
  * @param contentType
@@ -51,19 +50,23 @@ export const generateContractPdf = async (
   } = cocoAG?.[0] ?? {};
 
 
-
-  const url = path.join(assetsDir, latestPDF);
-  const existingPdfBytes = await fs.readFile(url);
+  const pdfPath = getFilePath({
+    fileName: '請負契約書',
+  });
+  const existingPdfBytes = await fs.readFile(pdfPath);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
 
 
-  const fontData = await fs
-    .readFile(path.join(assetsDir, 'MSMINCHO.TTF'));
+  const fontData = await fs.readFile(getFont());
+
 
   // const font = fontkit.create(fontData);
   pdfDoc.registerFontkit(fontkit);
+
   const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
+
+
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
@@ -72,6 +75,7 @@ export const generateContractPdf = async (
   const x1 = 124; // 工事番号
   const x2 = 183;
   const x3 = 239;
+
 
   // 工事番号
   drawText(
@@ -98,7 +102,7 @@ export const generateContractPdf = async (
   // 顧客名
   drawText(
     firstPage,
-    customers.map(({ custName }) => `${custName} 様` ).join(' と '),
+    customers.map(({ custName }) => `${custName} 様` ).join('、'),
     {
       x: x1,
       y: 680,

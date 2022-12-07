@@ -78,7 +78,7 @@ export const convertToForm = ({
     finishDate: parseKintoneDate(finishDate?.value),
     finishDaysAfterContract: +(finishDaysAfterContract?.value || 0),
     completeDate:parseKintoneDate( completeDate?.value),
-    payDestination: payDestination?.value || '',
+    payDestination: payDestination?.value || '豊田信用金庫　朝日支店',
     payMethod: (payMethod?.value || '振込') as TypeOfForm['payMethod'],
 
     paymentFields: newPaymentFields,

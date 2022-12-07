@@ -47,15 +47,11 @@ coverage
 *.ps1
 *.csv
 *.sh
-*.xlsx
 *.pem
 **/build/*
 *.snap
 
 *.key
-*.pdf
-*.xls*
-*.TTF
 *auth.json
 
 **/backup/**/*

@@ -3,16 +3,17 @@ import { generateContractPdf } from './generateContractPdf';
 import fsPromise from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
-import { assetsDir } from '../config/file';
 
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractData({
-      projEstimateId: '74',
+      projEstimateId: 'dummy01',
       userCode: 'RPA03',
     });
+
+    console.log(contractData);
     const pdf = await generateContractPdf(contractData, 'Uint8Array ');
-    const savePath = path.join(assetsDir, 'test.pdf');
+    const savePath = path.join(__dirname, '__TEST__', 'TESTPDF.pdf');
 
     await fsPromise.writeFile(savePath, pdf);
 

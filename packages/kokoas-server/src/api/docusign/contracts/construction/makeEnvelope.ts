@@ -12,10 +12,15 @@ const testKeiriEmail = 'info@cocosumo.co.jp'; // 経理
 /* Need to improve this where it gets deleted when transpiled */
 const isProd = process.env.NODE_ENV !== 'test';
 
-export const makeEnvelope = async (
+export const makeEnvelope = async ({
+  data,
+  status = 'sent',
+  signMethod,
+} :{
   data: Awaited<ReturnType<typeof getContractData>>,
-  status: 'created' | 'sent' = 'sent',
+  status: 'created' | 'sent',
   signMethod: ReqSendContract['signMethod'],
+},
 ) => {
   const {
     customers,

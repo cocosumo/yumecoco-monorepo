@@ -1,10 +1,10 @@
 
 
-import { TableCell, TableRow } from '@mui/material';
+import { IconButton, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, TypeOfForm, unitChoices } from '../form';
+import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
 import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
@@ -15,6 +15,7 @@ import { TaxTypeField } from './rowFields/TaxTypeField';
 import { UnitPriceField } from './rowFields/UnitPriceField';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
 import { FormikTextFieldV2 } from 'kokoas-client/src/components';
+import { MouseEvent } from 'react';
 
 
 export const QuoteTableRow = (
@@ -22,14 +23,16 @@ export const QuoteTableRow = (
     rowIdx,
     arrayHelpers,
     envStatus,
+    handleOpenUnitMenu,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
     envStatus: string,
+    handleOpenUnitMenu: (e: MouseEvent<HTMLButtonElement>) => void
   }) => {
 
   const { values: { items } } = useFormikContext<TypeOfForm>();
-  const { costPrice } = items[rowIdx];
+  const { costPrice, unit } = items[rowIdx];
 
   const {
     majorItemOpts,
@@ -84,22 +87,26 @@ export const QuoteTableRow = (
           />
         </TableCell>
 
-        <TableCell width={'10%'} align='right'>
+        <TableCell width={'8%'} align='right'>
           {/* 原価 */}
           <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
         <TableCell width={'8%'} align='right'>
           {/* 数量 */}
-          <QuantityField rowIdx={rowIdx} isDisabled={isDisabled} />
-        </TableCell>
-
-        <TableCell width={'8%'}>
-          {/* 単位 */}
-          <FormikPulldown
-            name={getItemFieldName(rowIdx, 'unit')}
-            options={unitChoices.map((c) => ({ label: c, value: c }))}
-            disabled={isDisabled}
+          <QuantityField
+            rowIdx={rowIdx}
+            isDisabled={isDisabled}
+            unitMenuButton={(
+              <IconButton
+                size='small'
+                name={getItemFieldName(rowIdx, 'unit')}
+                onClick={handleOpenUnitMenu}
+                sx={{ fontSize: '12px' }}
+              >
+                {unit}
+              </IconButton>
+            )}
           />
         </TableCell>
 
@@ -113,12 +120,12 @@ export const QuoteTableRow = (
           <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell width={'12%'}>
+        <TableCell width={'15%'}>
           {/* 単価 */}
           <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'10%'}>
+        <TableCell width={'15%'}>
           {/* 金額 */}
           <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
@@ -145,7 +152,7 @@ export const QuoteTableRow = (
           />
         </TableCell>
         <TableCell />
-        <TableCell colSpan={5}>
+        <TableCell colSpan={4}>
           <FormikTextFieldV2
             disabled={isDisabled}
             label={'備考'}

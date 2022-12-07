@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TaxType } from 'types';
 
 export const unitChoices = [
-  '', '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
+  '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
   'ケース', '台', '組', '袋', '箱', 'kg', 't',
 ] as const;
 export const statusChoices = [

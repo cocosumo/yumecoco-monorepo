@@ -5,24 +5,37 @@ import { roundTo } from 'libs';
 import { useState } from 'react';
 import { TypeOfForm } from '../form';
 
-const summaryInit = {
-  totalCostPrice: 0,
-  grossProfitVal: 0,
-  grossProfitRate: 0,
-  taxAmount: 0,
-  totalAmountBeforeTax: 0,
-  totalAmountAfterTax: 0,
-};
-export type SummaryElem = keyof typeof summaryInit;
+
+export type SummaryKey =
+| 'totalCostPrice'
+| 'grossProfitVal'
+| 'grossProfitRate'
+| 'taxAmount'
+| 'totalAmountBeforeTax'
+| 'totalAmountAfterTax';
+
 
 
 export const useTotalCalc = () => {
-  const [totalCalc, setTotalCalc] = useState<Array<[SummaryElem, number]>>([]);
+  const [totalCalc, setTotalCalc] = useState<Array<[SummaryKey, number]>>([]);
 
 
   const { values } = useFormikContext<TypeOfForm>();
 
   useLazyEffect(() => {
+
+    const summaryInit : Record<SummaryKey, number> = {
+      totalCostPrice: 0,
+      grossProfitVal: 0,
+      grossProfitRate: 0,
+      taxAmount: 0,
+      totalAmountBeforeTax: 0,
+      totalAmountAfterTax: 0,
+    };
+
+    console.log(values.items.map(({ rowUnitPriceAfterTax }) => rowUnitPriceAfterTax ));
+
+
     // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
     const result = values.items.reduce((acc, cur) => {
 
@@ -47,10 +60,9 @@ export const useTotalCalc = () => {
       ...result,
       grossProfitRate: roundTo(profitRate * 100, 2),
       taxAmount: result.totalAmountAfterTax - result.totalAmountBeforeTax,
-    }) as Array<[SummaryElem, number]>);
+    }) as Array<[SummaryKey, number]>);
 
   }, [values], 500);
-
 
   return totalCalc;
 };

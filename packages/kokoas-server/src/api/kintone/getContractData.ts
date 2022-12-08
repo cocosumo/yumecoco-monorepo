@@ -7,6 +7,7 @@ import {
   getStoreMngrByStoreId,
   calculateEstimateRecord,
 } from 'api-kintone';
+import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { addressBuilder, formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
@@ -32,6 +33,14 @@ isValidate = false,
 
 ) => {
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
+
+  /* 会社情報 */
+  const {
+    companyAddress,
+    companyName,
+    companyTel,
+    representative,
+  } = await getCocosumoDetails();
 
   /* 見積情報 */
   const estimatedRecord = await getEstimateById(projEstimateId);
@@ -187,6 +196,13 @@ isValidate = false,
 
     /* 計算 */
     calculatedEstimates,
+
+    /* 会社情報 */
+    companyAddress: companyAddress.value,
+    companyName: companyName.value,
+    companyTel: companyTel.value,
+    representative: representative.value,
+
   };
 
   if (isValidate) validateContractData(data);

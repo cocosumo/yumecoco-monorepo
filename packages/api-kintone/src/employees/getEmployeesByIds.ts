@@ -1,9 +1,10 @@
 import { getRecords } from '../common';
-import { appId, RecordType } from './config';
+import { appId, RecordKey, RecordType } from './config';
 
 export const getEmployeesByIds = async (ids: string[]) => {
+  const idField : RecordKey = 'uuid';
   const query = ids.map((id) => {
-    return `$id = "${id}"`;
+    return `${idField} = "${id}"`;
   }).join(' or ');
 
   return getRecords<RecordType>({

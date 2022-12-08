@@ -81,6 +81,8 @@ isValidate = false,
     storeId,
   } = await getCustGroupById(custGroupId.value);
 
+
+
   const custIds = members.value
     .map(({ value: { custId } }) => custId.value );
 
@@ -122,6 +124,7 @@ isValidate = false,
     }) );
 
 
+  console.log('cocoAGIds', cocoAGIds);
 
   const {
     /* 店長 */
@@ -180,8 +183,8 @@ isValidate = false,
     storeMngrEmail: managerEmail.value,
 
     /* 経理 */
-    accountingName: accountingName,
-    accountingEmail: accountingEmail,
+    accountingName: accountingName.value,
+    accountingEmail: accountingEmail.value,
 
     /* 契約関連 */
     envelopeStatus: envStatus.value,

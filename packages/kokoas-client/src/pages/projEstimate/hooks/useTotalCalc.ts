@@ -33,9 +33,6 @@ export const useTotalCalc = () => {
       totalAmountAfterTax: 0,
     };
 
-    console.log(values.items.map(({ rowUnitPriceAfterTax }) => rowUnitPriceAfterTax ));
-
-
     // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
     const result = values.items.reduce((acc, cur) => {
 

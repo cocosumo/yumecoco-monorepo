@@ -28,11 +28,12 @@ export const updateEstimateEnvelope = async ({
   // Search the id by envelope id,
   if (!recordId) {
     const {
-      $id,
+      uuid,
     } = await getEstimateByEnvId(envelopeId);
-    recordId = $id.value;
+    recordId = uuid.value;
   }
 
+  console.log('Found enveloped at uuid, ', recordId);
 
   // Upload the file
   let fileKeys: string[] = [];

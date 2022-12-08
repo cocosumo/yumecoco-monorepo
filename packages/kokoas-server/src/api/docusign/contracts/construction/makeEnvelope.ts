@@ -2,7 +2,8 @@ import { EnvelopeDefinition, Signer } from 'docusign-esign';
 import { ReqSendContract } from 'types';
 import { getContractData } from '../../../kintone/getContractData';
 import { generateContractPdf } from './generateContractPdf';
-
+import fs from 'fs/promises';
+import { getFilePath } from 'kokoas-server/src/assets';
 /**
  * 参考
  * https://www.docusign.com/blog/developers/tabs-deep-dive-placing-tabs-documents#:~:text=In%20the%20DocuSign%20web%20app,specifying%20x%20and%20y%20position.
@@ -45,6 +46,12 @@ export const makeEnvelope = async ({
   } = cocoAG?.[0] ?? {};
 
   const mainContractB64 = await generateContractPdf(data, 'base64') as string;
+  const aggreementB64  = await fs.readFile(
+    getFilePath({
+      fileName: '工事請負契約約款',
+    }),
+    { encoding: 'base64' },
+  );
 
   const signers : Signer[] = [];
 
@@ -158,11 +165,16 @@ export const makeEnvelope = async ({
     emailSubject: `【${projName}】`,
     documents: [
       {
+        documentBase64: aggreementB64,
+        name: '工事請負契約約款',
+        fileExtension: 'pdf',
+        documentId: '2',
+      },
+      {
         documentBase64: mainContractB64,
         name: '請負契約書',
         fileExtension: 'pdf',
         documentId: '1',
-
       },
     ],
     recipients: {

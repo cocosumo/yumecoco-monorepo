@@ -11,7 +11,7 @@ import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
  */
 export const voidEnvelope = async (envelopeId: string) => {
   const {
-    $id,
+    uuid,
     voidedEnvelopes,
   } = await getEstimateByEnvId(envelopeId);
   console.log(`Voiding envelope id: ${envelopeId}`);
@@ -33,7 +33,7 @@ export const voidEnvelope = async (envelopeId: string) => {
 
 
   const result = await saveEstimate({
-    recordId: $id.value,
+    recordId: uuid.value,
     record,
   });
 

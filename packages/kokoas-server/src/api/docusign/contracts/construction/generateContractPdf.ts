@@ -43,6 +43,12 @@ export const generateContractPdf = async (
     contractDate,
     payDestination,
     payMethod,
+
+    /* 会社情報 */
+    companyAddress,
+    companyName,
+    companyTel,
+    representative,
   } = contractData;
 
   const {
@@ -401,6 +407,20 @@ export const generateContractPdf = async (
   );
 
 
+  /******* 会社情報 *******/
+
+  const companyX = 184;
+
+  // 会社名
+  drawText(
+    firstPage,
+    officerName,
+    {
+      x: companyX,
+      y: 663,
+      font: msChinoFont,
+    },
+  );
 
   switch (contentType) {
     case 'base64':

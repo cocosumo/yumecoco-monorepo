@@ -31,19 +31,11 @@ export const voidEnvelope = async (envelopeId: string) => {
 
   };
 
-
   const result = await saveEstimate({
     recordId: uuid.value,
     record,
   });
 
-  console.log(result);
-
-  // Needs fix, this update customer record related projects
-  // However, contracts are now dependent on 見積 rather than 工事
-  // await updateCustGroupLinkedProjects(custGroupId.value);
 
   return result;
-
-  // Clear envelope details in the record
 };

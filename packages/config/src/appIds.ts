@@ -32,6 +32,9 @@ export const devAppIds = {
 /* デフォールトは開発環境のアプリ番号 */
 export const AppIds = {
 
+  /* 会社情報 */
+  companyDetails: 205,
+
   /** 社員名簿 */
   employees : 34,
 
@@ -55,6 +58,7 @@ export const AppIds = {
 
   /** 郵便番号 */
   postalCode: 219,
+
   ...(isProd ? prodAppIds : devAppIds),
 } as const;
 

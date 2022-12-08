@@ -180,8 +180,8 @@ isValidate = false,
     storeMngrEmail: managerEmail.value,
 
     /* 経理 */
-    accountingName: accountingName,
-    accountingEmail: accountingEmail,
+    accountingName: accountingName.value,
+    accountingEmail: accountingEmail.value,
 
     /* 契約関連 */
     envelopeStatus: envStatus.value,

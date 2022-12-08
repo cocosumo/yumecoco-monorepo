@@ -30,15 +30,11 @@ export const getContractCheckers = async (storeId: string) => {
     `(${accountingQuery})`,
   ].join(' or ');
 
-
-
   const { records } = await getRecords<RecordType>({
-
     app: appId,
     query: `${finalQuery} order by ${role} asc`,
   });
 
-  console.log(records.length);
 
   if (!records.length) throw new Error(`確認者の情報取得ができませんでした。店舗番号：${storeId}`);
   if (records.length !== 2) throw new Error(`確認者２名が、${records.length}名取得しました。店舗番号：${storeId}`);

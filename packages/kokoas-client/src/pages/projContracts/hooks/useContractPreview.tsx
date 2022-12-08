@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import {  useState } from 'react';
+import {  useCallback, useState } from 'react';
 import { useSnackBar } from '../../../hooks';
 import { useEstimateById } from '../../../hooksQuery/useEstimateById';
 import { base64ToBlob } from '../../../lib';
@@ -25,35 +25,30 @@ export const useContractPreview = () => {
   const { refetch, isLoading } = useEstimateById(projEstimateId);
 
   const formStatus: TFormStatus = status;
-  const formLoading = formStatus === 'busy' || previewLoading || isLoading;
+  const formLoading = formStatus === 'busy' || previewLoading || isLoading || !previewUrl;
 
-  const handleRefetch = () => {
-    setPreviewLoading(true);
-    setTimeout(() => {
-      setPreviewLoading(false);
-      refetch();
-    }, 2000);
-  };
 
-  const handlePreview = async (newForm: TypeOfForm) => {
+  const handlePreview = useCallback( async () => {
 
     try {
       setPreviewLoading(true);
 
       const res = await downloadContract({
-        form: newForm,
+        form: values,
         fileType: 'pdf',
       });
 
       if (!res) return;
-      if (previewUrl) URL.revokeObjectURL(previewUrl); // free Memory
 
       const base64 = res;
 
       if (base64) {
         const blob = base64ToBlob( base64, 'application/pdf' );
         const url = URL.createObjectURL( blob );
-        setPreviewUrl(url);
+        setPreviewUrl((prev) => {
+          URL.revokeObjectURL(prev); // Free memory
+          return url;
+        });
       } else {
         setPreviewUrl('');
       }
@@ -70,7 +65,18 @@ export const useContractPreview = () => {
       setPreviewLoading(false);
     }
 
+  }, [
+    setSnackState,
+    values,
+  ]);
+
+
+  const handleRefetch = async () => {
+    setPreviewLoading(true);
+    await refetch();
+    await handlePreview();
   };
+
 
   return {
     handlePreview,

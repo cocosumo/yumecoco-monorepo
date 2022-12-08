@@ -10,9 +10,11 @@ import { StartContract } from './PreviewMenu/startContract';
 export const PreviewHeader = ({
   isBusy,
   handleRefetch,
+  handleClosePreview,
 }: {
   isBusy: boolean,
   handleRefetch: () => void
+  handleClosePreview: () => void
 }) => {
 
   const {
@@ -41,7 +43,7 @@ export const PreviewHeader = ({
         </Alert>
       )}
 
-      {!isWithContract && !isBusy && <StartContract /> }
+      {!isWithContract && !isBusy && <StartContract handleClosePreview={handleClosePreview} /> }
 
       <ContractStatus />
     </Stack>

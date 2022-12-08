@@ -1,39 +1,24 @@
 import {  Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
-import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../../form';
-import { useContractPreview } from '../../hooks';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 import CloseIcon from '@mui/icons-material/Close';
 import { Loading } from './Loading';
-import { useBackdrop } from '../../../../hooks';
 import { PreviewFooter } from './PreviewFooter';
 import { PreviewHeader } from './PreviewHeader';
 
 
 export const ContractDialog = ({
-  open, handleClose,
+  open,
+  formLoading,
+  previewUrl,
+  handleRefetch,
+  handleClose,
 }: {
   open: boolean,
+  formLoading: boolean,
+  previewUrl: string,
+  handleRefetch: () => void,
   handleClose: () => void
 }) => {
-  const { backdropState: { open: backdropOpen } } = useBackdrop();
-  const { values } = useFormikContext<TypeOfForm>();
 
-  const {
-    previewUrl,
-    previewLoading,
-    handlePreview,
-    handleRefetch,
-  } = useContractPreview();
-
-  useDeepCompareEffect(()=>{
-    if (open) {
-      handlePreview(values);
-    }
-
-  }, [values, open]);
-
-  const isBusy = backdropOpen || previewLoading;
 
   return (
     <Dialog
@@ -48,8 +33,9 @@ export const ContractDialog = ({
     >
       <DialogTitle>
         <PreviewHeader
-          isBusy={isBusy}
+          isBusy={formLoading}
           handleRefetch={handleRefetch}
+          handleClosePreview={handleClose}
         />
         <IconButton
           aria-label="close"
@@ -71,16 +57,16 @@ export const ContractDialog = ({
           p: 0,
         }}
       >
-        {!isBusy &&
+        {!formLoading &&
         <embed
           src={previewUrl}
           width="100%"
           height='100%'
         />}
-        {isBusy && <Loading />}
+        {formLoading && <Loading />}
       </DialogContent>
 
-      {!isBusy &&
+      {!formLoading &&
         <PreviewFooter />}
     </Dialog>
   );

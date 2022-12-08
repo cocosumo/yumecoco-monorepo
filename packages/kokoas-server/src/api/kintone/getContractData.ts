@@ -4,10 +4,10 @@ import {
   getEmployeesByIds,
   getEstimateById,
   getProjById,
-  getStoreMngrByStoreId,
   calculateEstimateRecord,
 } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
+import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
 import { addressBuilder, formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
@@ -121,16 +121,21 @@ isValidate = false,
       email: empEmail.value,
     }) );
 
-  /* 店長 */
-  const {
-    文字列＿氏名: managerName,
-    email: managerEmail,
-  } = await getStoreMngrByStoreId(storeId.value);
 
-  /* 経理 */
-  // どこから引っ張るかまだ分からないので、固定します。
-  const accountingName = 'Temporary keiri';
-  const accountingEmail = 'info@cocosumo.co.jp';
+
+  const {
+    /* 店長 */
+    storeMgr: {
+      文字列＿氏名: managerName,
+      email: managerEmail,
+    },
+    /* 経理 */
+    accounting : {
+      文字列＿氏名: accountingName,
+      email: accountingEmail,
+    },
+  } = await getContractCheckers(storeId.value);
+
 
   /* 支払い */
   const payments = 支払い.value?.map(({ value: {

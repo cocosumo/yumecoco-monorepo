@@ -405,20 +405,65 @@ export const generateContractPdf = async (
   );
 
 
-  /******* 会社情報 *******/
+  /// 会社情報
 
-  const companyX = 184;
+  const companyX = x2;
+  const companyY = 665;
+  const companyY2 = 195;
+  const companyLH = payLineHeight; // 行の高さ。 今支払いとあわせていますが、変わる可能性
 
-  // 会社名
+  [companyY, companyY2].forEach((newY) => {
+
+    // 会社名
+    drawText(
+      firstPage,
+      companyName,
+      {
+        x: companyX,
+        y: newY,
+        font: msChinoFont,
+      },
+    );
+
+    // 会社住所
+
+    drawText(
+      firstPage,
+      companyAddress,
+      {
+        x: companyX,
+        y: newY - companyLH,
+        font: msChinoFont,
+      },
+    );
+
+    // 会社連絡先
+    drawText(
+      firstPage,
+      companyTel,
+      {
+        x: companyX,
+        y: newY - (companyLH * 2),
+        font: msChinoFont,
+      },
+    );
+
+
+  });
+
+
+  // 代表者名
   drawText(
     firstPage,
-    officerName,
+    representative,
     {
       x: companyX,
-      y: 663,
+      y: companyY - (companyLH * 3),
       font: msChinoFont,
     },
   );
+
+
 
   switch (contentType) {
     case 'base64':

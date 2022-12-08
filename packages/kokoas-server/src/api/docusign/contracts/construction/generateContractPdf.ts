@@ -72,8 +72,6 @@ export const generateContractPdf = async (
 
   const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
 
-
-
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
 

@@ -43,6 +43,12 @@ export const generateContractPdf = async (
     contractDate,
     payDestination,
     payMethod,
+
+    /* 会社情報 */
+    companyAddress,
+    companyName,
+    companyTel,
+    representative,
   } = contractData;
 
   const {
@@ -65,8 +71,6 @@ export const generateContractPdf = async (
   pdfDoc.registerFontkit(fontkit);
 
   const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
-
-
 
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
@@ -396,6 +400,65 @@ export const generateContractPdf = async (
     {
       x: x2,
       y: 152,
+      font: msChinoFont,
+    },
+  );
+
+
+  /// 会社情報
+
+  const companyX = x2;
+  const companyY = 665;
+  const companyY2 = 195;
+  const companyLH = payLineHeight; // 行の高さ。 今支払いとあわせていますが、変わる可能性
+
+  [companyY, companyY2].forEach((newY) => {
+
+    // 会社名
+    drawText(
+      firstPage,
+      companyName,
+      {
+        x: companyX,
+        y: newY,
+        font: msChinoFont,
+      },
+    );
+
+    // 会社住所
+
+    drawText(
+      firstPage,
+      companyAddress,
+      {
+        x: companyX,
+        y: newY - companyLH,
+        font: msChinoFont,
+      },
+    );
+
+    // 会社連絡先
+    drawText(
+      firstPage,
+      companyTel,
+      {
+        x: companyX,
+        y: newY - (companyLH * 2),
+        font: msChinoFont,
+      },
+    );
+
+
+  });
+
+
+  // 代表者名
+  drawText(
+    firstPage,
+    representative,
+    {
+      x: companyX,
+      y: companyY - (companyLH * 3),
       font: msChinoFont,
     },
   );

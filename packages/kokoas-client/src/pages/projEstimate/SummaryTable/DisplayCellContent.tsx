@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material';
-import { SummaryElem } from '../hooks/useTotalCalc';
+import { SummaryKey } from '../hooks/useTotalCalc';
 
 
 const DisplayCellContent = ({
   name,
   value,
 }: {
-  name: SummaryElem,
+  name: SummaryKey,
   value: number,
 }) => {
 

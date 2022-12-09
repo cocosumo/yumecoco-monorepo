@@ -1,5 +1,6 @@
 import { calculateEstimateRecord } from 'api-kintone';
 import { parseISO } from 'date-fns';
+import { produce } from 'immer';
 import { IConnectRecipients, IProjestimates, TEnvelopeStatus, TSignMethod } from 'types';
 import { parseKintoneDate } from '../../../lib/date';
 import { initialValues, TypeOfForm } from '../form';
@@ -36,17 +37,20 @@ export const convertToForm = ({
 
   } = record ?? {};
 
-  const newPaymentFields : TypeOfForm['paymentFields'] = paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
-    isPayEnabled,
-    paymentAmt,
-    paymentDate,
-  } }) => {
-    return {
-      checked: Boolean(+isPayEnabled.value ?? 0),
-      amount: +(paymentAmt?.value ?? 0),
-      payDate: paymentDate?.value ? parseISO(paymentDate.value) : '',
-    };
-  }) : initialValues.paymentFields ;
+  const newPaymentFields = produce(initialValues.paymentFields, draft => {
+    paymentSched?.value?.forEach((
+      { value: {
+        isPayEnabled,
+        paymentAmt,
+        paymentDate,
+      } },
+      idx,
+    ) => {
+      draft[idx].checked = Boolean(+isPayEnabled.value ?? 0);
+      draft[idx].amount = +(paymentAmt?.value ?? 0);
+      draft[idx].payDate = paymentDate?.value ? parseISO(paymentDate.value) : '';
+    });
+  });
 
   const newRemainingAmt = newPaymentFields
     .reduce(

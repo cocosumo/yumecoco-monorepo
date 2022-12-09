@@ -44,7 +44,6 @@ export const FormikIndividualCustomer = () => {
     }
   };
 
-
   return (
     <MemoContextProvider>
       <Formik

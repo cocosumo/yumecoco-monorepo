@@ -52,6 +52,9 @@ export const Address = (props: AddressProps) => {
     }
   }, [postal], 300);
 
+
+  console.log(isSameAddress, index);
+
   return (
     <>
       { !isFirstCustomer &&
@@ -59,11 +62,13 @@ export const Address = (props: AddressProps) => {
         <FormikLabeledCheckBox name={`${namePrefix}${getCustFieldName('isSameAddress')}`} label="住所と連絡先は【契約者１】と同じ" defaultVal={isSameAddress} />
       </Grid>}
 
-      <Grid item xs={12} ref={divRef}>
-        <AddressFields
-          namePrefix={namePrefix}
-        />
-      </Grid>
+      {!isSameAddress &&
+        <Grid item xs={12} ref={divRef}>
+          <AddressFields
+            namePrefix={namePrefix}
+          />
+        </Grid>}
+
 
     </>
   );

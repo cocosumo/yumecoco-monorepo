@@ -63,7 +63,7 @@ isValidate = false,
     payMethod,
     payDestination,
     dataId,
-
+    uuid,
   } = estimatedRecord;
 
   /* 工事情報 */
@@ -80,6 +80,8 @@ isValidate = false,
     members,
     storeId,
   } = await getCustGroupById(custGroupId.value);
+
+
 
   const custIds = members.value
     .map(({ value: { custId } }) => custId.value );
@@ -122,6 +124,7 @@ isValidate = false,
     }) );
 
 
+  console.log('cocoAGIds', cocoAGIds);
 
   const {
     /* 店長 */
@@ -156,7 +159,8 @@ isValidate = false,
 
     /* 工事 */
     projId: projId.value,
-    projEstimateId: formatDataId(dataId.value),
+    projEstimateId: uuid.value,
+    contractId: formatDataId(dataId.value),
     projName: projName.value,
     projLocation: addressBuilder({
       postal: projPostal.value,

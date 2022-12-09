@@ -4,7 +4,11 @@ import { getFieldName, TypeOfForm } from '../../form';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 
 
-export const SelectDocuments = () => {
+export const SelectDocuments = ({
+  handlePreview,
+}: {
+  handlePreview: (fileKey: string) => void
+}) => {
 
   const {
     values: {
@@ -25,7 +29,10 @@ export const SelectDocuments = () => {
             key={file.fileKey}
             label={file.name}
             size={isSelected ? 'medium' : 'small'}
-            onClick={()=>setFieldValue(getFieldName('envSelectedDoc'), file.fileKey)}
+            onClick={()=>{
+              setFieldValue(getFieldName('envSelectedDoc'), file.fileKey);
+              handlePreview(file.fileKey);
+            }}
           />
         );
       })}

@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 import { ReqSendContract } from 'types';
 
 import { useBackdrop, useConfirmDialog } from '../../../hooks';
-import { getFieldName, TypeOfForm } from '../form';
+import { TypeOfForm } from '../form';
 import { MethodChoice } from '../parts/Preview/PreviewMenu/startContract/MethodChoices';
 import { useContractProcess } from './useContractProcess';
 
@@ -31,11 +31,14 @@ const renderQuestion = (contractDate: Date) => {
   );
 };
 
-export const useStartContractProcess = () => {
+export const useStartContractProcess = ({
+  handleClosePreview,
+}: {
+  handleClosePreview: () => void
+}) => {
   const formikContext = useFormikContext<TypeOfForm>();
   const {
     values,
-    setFieldValue,
   } = formikContext;
 
   const {
@@ -87,7 +90,7 @@ export const useStartContractProcess = () => {
         handleYes: askSignMethod, // そのまま印刷
         handleNo: () => {
           // 編集画面に戻る
-          setFieldValue(getFieldName('isPreviewOpen'), false);
+          handleClosePreview();
         },
         willCloseOnYes: false,
       });

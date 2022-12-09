@@ -2,14 +2,17 @@ import { Button, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
-import { getFieldName, TypeOfForm } from '../form';
+import { TypeOfForm } from '../form';
 import { ContractDialog } from './Preview/ContractDialog';
 import isEmpty from 'lodash/isEmpty';
 import { useSnackBar } from '../../../hooks';
+import { useState } from 'react';
+import { useContractPreview } from '../hooks';
 
 export const ContractFormActions = () => {
-
   const { setSnackState } = useSnackBar();
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
   const {
     submitForm,
     isSubmitting,
@@ -18,14 +21,21 @@ export const ContractFormActions = () => {
     errors,
     touched,
     values: {
-      isPreviewOpen,
       envelopeStatus,
     },
-    setFieldValue,
   } = useFormikContext<TypeOfForm>();
 
+
+  const {
+    previewUrl,
+    handlePreview,
+    handleRefetch,
+    formLoading,
+  } = useContractPreview();
+
   const setOpenPreview = (isOpen: boolean) => {
-    setFieldValue(getFieldName('isPreviewOpen'), isOpen);
+    setIsPreviewOpen(isOpen);
+    handlePreview();
   };
 
 
@@ -83,6 +93,10 @@ export const ContractFormActions = () => {
       </Stack>
       <ContractDialog
         open={isOpenDialog}
+        formLoading={formLoading}
+        handleRefetch={handleRefetch}
+        handlePreview={handlePreview}
+        previewUrl={previewUrl}
         handleClose={() => setOpenPreview(false)}
       />
     </Stack>

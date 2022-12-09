@@ -7,7 +7,7 @@ import path from 'path';
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractData({
-      projEstimateId: 'dummy01',
+      projEstimateId: '5e4563ee-f154-47be-9254-4241f9415aea',
       userCode: 'RPA03',
     });
 

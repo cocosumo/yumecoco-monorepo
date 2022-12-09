@@ -1,9 +1,11 @@
-import { InputAdornment, TextField, TextFieldProps, Tooltip } from '@mui/material';
-import { useField } from 'formik';
+import { Tooltip } from '@mui/material';
+import {  useFormikContext } from 'formik';
 import { numerals } from 'jp-numerals';
-import {  getPayFieldNameByIdx } from '../../form';
-import { ChangeEvent, useMemo, useState } from 'react';
-import debounce from 'lodash/debounce';
+import {  getPayFieldNameByIdx, TypeOfForm } from '../../form';
+
+import { FormikMoneyField } from 'kokoas-client/src/components';
+import { useEffect } from 'react';
+import produce from 'immer';
 
 
 export const PaymentFieldAmt = (
@@ -15,57 +17,34 @@ export const PaymentFieldAmt = (
     idx: number,
   },
 ) => {
-  const [field, meta, helpers] = useField(getPayFieldNameByIdx('amount', idx));
+  const {
+    values: {
+      paymentFields,
+    },
+    setValues,
+  } = useFormikContext<TypeOfForm>();
+  const newValue = +paymentFields[idx]?.amount || 0;
 
-  const { value, onChange } = field;
-  const { touched, error } = meta;
-  const [inputVal, setInputVal] = useState<string | null>(null);
-
-  const changeHandlerInput: TextFieldProps['onChange'] =
-    useMemo(
-      () => debounce(
-        (el) => {
-          onChange(el);
-          setInputVal(null);
-        }, 1000),
-      [onChange],
-    );
+  const jaValue = numerals(newValue).toString();
 
 
-  const isShowError  = touched && !!error;
-  const jaValue = numerals(+value || 0).toString();
+  useEffect(() =>{
+    setValues((prev) => produce(prev, draft => {
+      const { totalAmount, paymentFields: pF } = draft;
+      draft.remainingAmt = pF.reduce((acc, { amount }) => acc - +amount, totalAmount);
+    }));
+  }, [newValue, setValues]);
+
 
   return (
-    <Tooltip title={!error ? jaValue : ''}>
-      <TextField
-        {...field}
-        value={(inputVal === null ? value : inputVal) ?? ''}
-        onInput={(el) => {
-          if (!touched) helpers.setTouched(true);
-          setInputVal((el as ChangeEvent<HTMLInputElement>).target.value);
-        }}
-        onChange={changeHandlerInput}
-        disabled={disabled}
-        variant={'standard'}
-        inputProps={{
-          style: {
-            textAlign: 'right',
-          },
-        }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              円
-            </InputAdornment>),
-        }}
-        FormHelperTextProps={{
-          sx: {
-            textAlign: 'right',
-          },
-        }}
-        error={isShowError}
-        helperText={isShowError ? error : ''}
-      />
+    <Tooltip title={jaValue}>
+      <div>
+        <FormikMoneyField
+          variant='standard'
+          name={getPayFieldNameByIdx('amount', idx)}
+          disabled={disabled}
+        />
+      </div>
     </Tooltip>
   );
 };

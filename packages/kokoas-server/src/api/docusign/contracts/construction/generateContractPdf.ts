@@ -23,7 +23,7 @@ export const generateContractPdf = async (
   const {
     customers,
     cocoAG,
-    projEstimateId,
+    contractId,
     projName,
     projLocation,
     payments,
@@ -84,7 +84,7 @@ export const generateContractPdf = async (
   // 工事番号
   drawText(
     firstPage,
-    projEstimateId,
+    contractId,
     {
       x: x1,
       y: 782,

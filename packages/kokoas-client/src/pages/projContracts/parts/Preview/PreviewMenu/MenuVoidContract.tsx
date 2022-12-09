@@ -2,7 +2,6 @@ import { Box, Button, ListItemIcon, ListItemText, MenuItem, TextField } from '@m
 import { useConfirmDialog, useSnackBar } from '../../../../../hooks';
 import { CustomDialogContent } from '../../../../../components/ui/dialogs/CustomDialogContent';
 import { useRef } from 'react';
-import { useBackdrop } from '../../../../../hooks/useBackdrop';
 import { voidContract } from '../../../api/docusign/voidContract';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../../form';
@@ -37,6 +36,7 @@ export const MenuVoidContract = (
   const {
     values,
     setValues,
+    setStatus,
   } = useFormikContext<TypeOfForm>();
   const { envelopeId } = values;
   const {
@@ -44,7 +44,6 @@ export const MenuVoidContract = (
     handleClose: handleCloseDialog,
   } = useConfirmDialog();
 
-  const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
 
   const reasonRef = useRef('');
@@ -54,16 +53,12 @@ export const MenuVoidContract = (
   const handleSubmitVoidReason = async () => {
     handleCloseDialog();
     try {
-
-      setBackdropState({
-        open: true,
-      });
-
+      setStatus('busy');
       await voidContract({
         envelopeId,
         voidedReason: reasonRef.current,
       });
-
+      setStatus('');
       setSnackState({
         open: true,
         severity: 'success',
@@ -87,10 +82,6 @@ export const MenuVoidContract = (
       });
 
     }
-
-    setBackdropState({
-      open: false,
-    });
 
   };
 

@@ -27,7 +27,6 @@ export const useContractPreview = () => {
   const formStatus: TFormStatus = status;
   const formLoading = formStatus === 'busy' || previewLoading || isLoading || !previewUrl;
 
-
   const handlePreview = useCallback( async () => {
 
     try {

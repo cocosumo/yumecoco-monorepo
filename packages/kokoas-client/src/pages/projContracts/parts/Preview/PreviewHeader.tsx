@@ -43,7 +43,9 @@ export const PreviewHeader = ({
         </Alert>
       )}
 
-      {!isWithContract && !isBusy && <StartContract handleClosePreview={handleClosePreview} /> }
+      {!isWithContract && !isBusy && (
+        <StartContract handleClosePreview={handleClosePreview} />
+      ) }
 
       <ContractStatus />
     </Stack>

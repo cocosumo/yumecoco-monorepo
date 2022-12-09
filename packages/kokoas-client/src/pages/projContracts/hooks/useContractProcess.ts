@@ -59,14 +59,14 @@ export const useContractProcess = () => {
     });
 
   const {
-    mutateAsync,
+    mutate,
   }  = contractMutation;
 
   const handleSendContract = async (
     signMethod: ReqSendContract['signMethod'],
   ) => {
 
-    await mutateAsync({
+    mutate({
       projEstimateId,
       userCode: kintone.getLoginUser().code,
       signMethod,

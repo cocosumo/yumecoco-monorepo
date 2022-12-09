@@ -1,4 +1,5 @@
 import { calculateEstimateRecord } from 'api-kintone';
+import { paymentListCreate } from 'api-kintone/src/estimates/paymentListCreate';
 
 import { TEnvelopeStatus } from 'types';
 import { useEstimates } from './useEstimates';
@@ -18,6 +19,7 @@ export const useContractsByCustGroupId = (
       return {
         records: filteredData,
         calculated: filteredData.map((d) => calculateEstimateRecord(d)),
+        paymentList: filteredData.map((d) => paymentListCreate(d)),
       };
     },
   }));

@@ -3,7 +3,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { Button, Divider, Grid } from '@mui/material';
+import { Button, Divider, Grid, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
@@ -95,7 +95,10 @@ export const FormInvoice = () => {
 
         {/* 契約済み見積り情報の表示 */}
         <Grid item xs={12} md={12}>
-          <EstimatesTable estimates={estimates} />
+          <Typography>
+            {'契約一覧'}
+          </Typography>
+          <EstimatesTable />
         </Grid>
 
 

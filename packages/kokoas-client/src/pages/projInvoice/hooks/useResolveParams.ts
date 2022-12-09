@@ -22,7 +22,6 @@ export const useResolveParams = () => {
   const { totalInvoice } = invoices || {}; // 削除予定
 
 
-  console.log('contracts', contracts);
 
   useEffect(() => {
     if (projInvoiceIdFromURL) {
@@ -43,14 +42,15 @@ export const useResolveParams = () => {
           draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
           draft.contractAmount = String(Math.round(billingAmount));
           draft.billedAmount = String(Math.round(totalInvoice ?? 0));
-          contracts.records.forEach((value, idx) => {
+          contracts.records.forEach((record, idx) => {
             draft.estimates[idx] = {
-              projId: value.projId.value,
-              projTypeName: value.工事種別名.value,
-              dataId: value.dataId.value || '',
+              projId: record.projId.value,
+              projTypeName: record.工事種別名.value,
+              dataId: record.dataId.value || '',
+              amountPerContract: String(contracts.calculated[idx].totalAmountInclTax),
               amountType: '',
-              amountPerContract: '',
               isForPayment: false,
+              estimateId: record.uuid.value,
             };
           });
         });

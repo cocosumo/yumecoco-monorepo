@@ -9,23 +9,38 @@ export type TypeOfPayFields = typeof initPayFields;
 
 export const initialValues = {
 
-
   /** 請求書番号 */
   invoiceId: '',
 
-  /* 顧客情報 */
+  /** 顧客グループID */
   custGroupId: '',
+
+  /** 顧客名 */
   custName: '',
 
-  /* 見積もり情報 */
-  estimates:[
+  /** 見積もり情報 */
+  estimates: [
     {
+      /** 工事番号 */
       projId: '',
+
+      /** 工事種別 */
       projTypeName: '',
+
+      /** 枝番 */
       dataId: '',
-      amountType: '',
+
+      /** 契約書毎の契約金額 */
       amountPerContract: '',
+
+      /** 支払い種別 */
+      amountType: '',
+
+      /** 請求使用有無 */
       isForPayment: false,
+
+      /** 見積もりuuid */
+      estimateId: '',
     },
   ],
 
@@ -39,10 +54,10 @@ export const initialValues = {
   /** 請求金額 */
   billingAmount: '',
 
-  /* 入金予定日 */
+  /** 入金予定日 */
   plannedPaymentDate: '',
 
-  /* 契約超過チェック */
+  /** 契約超過チェック */
   exceedChecked: false,
 };
 

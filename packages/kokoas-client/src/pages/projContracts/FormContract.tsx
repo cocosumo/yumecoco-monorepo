@@ -24,7 +24,7 @@ export const FormContract = ({
 }: {
   calculated?: ReturnType<typeof calculateEstimateRecord>
 }) => {
-  const { values } = useFormikContext<TypeOfForm>();
+  const { values, isValid } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
   const { projEstimateId, projId, projName, envelopeStatus } = values;
 
@@ -36,6 +36,7 @@ export const FormContract = ({
   const disabled = !!envelopeStatus;
 
 
+  console.log(isValid);
 
   return (
     <Form noValidate>

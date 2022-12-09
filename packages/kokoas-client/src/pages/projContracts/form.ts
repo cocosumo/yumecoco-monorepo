@@ -53,6 +53,7 @@ export const initialValues = {
   paymentFields: Array<TypeOfPayFields>(4)
     .fill(initPayFields),
   remainingAmt: undefined as number | undefined,
+  totalAmount: 0,
   hasRefund: false,
   refundAmt: '' as number | '',
 

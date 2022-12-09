@@ -83,6 +83,7 @@ export const convertToForm = ({
 
     paymentFields: newPaymentFields,
     remainingAmt: newRemainingAmt,
+    totalAmount: Math.round(+calculated.summary.totalAmountAfterTax),
 
     hasRefund: Boolean(+(hasRefund?.value ?? 0)),
     refundAmt: +(refundAmt?.value ?? 0),

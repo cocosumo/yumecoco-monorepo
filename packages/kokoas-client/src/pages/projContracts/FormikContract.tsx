@@ -18,10 +18,10 @@ export const FormikContract = () => {
     <Formik
       initialValues={newFormVal}
       enableReinitialize
+      validateOnMount
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      
       <FormContract calculated={calculated} />
     </Formik>
   );

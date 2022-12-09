@@ -64,12 +64,14 @@ export const useContractProcess = () => {
     signMethod: ReqSendContract['signMethod'],
   ) => {
 
-
+    // Busy goes here.
     mutate({
       projEstimateId,
       userCode: kintone.getLoginUser().code,
       signMethod,
     });
+
+
   };
 
 

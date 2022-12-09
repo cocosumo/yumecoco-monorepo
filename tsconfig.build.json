@@ -9,7 +9,7 @@
     "allowJs": true,
     "lib": [
       "es5",
-      "es2019",
+      "ES2022",
       "es6",
       "dom",
       "dom.iterable",
@@ -28,7 +28,8 @@
     "npm-scripts",
     "*eslint*",
     "*webpack*",
-    "jest.config.ts"
+    "jest.config.ts",
+    "**/batch-scripts/**/*"
   ],
   "include": [
     "./**/*.ts",
@@ -76,7 +77,8 @@
     },
 
     {
-      "path": "./automation/auto-kintone"
+      "path": "./packages-automation/auto-kintone"
     },
+
   ]
 }

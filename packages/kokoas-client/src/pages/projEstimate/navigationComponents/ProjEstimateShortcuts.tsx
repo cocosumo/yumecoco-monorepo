@@ -38,6 +38,19 @@ export const ProjEstimateShortcuts = () => {
 
     <Shortcuts
       shortcuts={shortcuts}
+      speedDialProps={{
+        direction: 'left',
+        FabProps: {
+          size: 'small',
+        },
+        sx: (theme) => ({
+          position: 'relative',
+          zIndex: theme.zIndex.snackbar + 1000,
+        }),
+      }}
+      speedDialActionProps={{
+        tooltipOpen: false,
+      }}
     />
 
   );

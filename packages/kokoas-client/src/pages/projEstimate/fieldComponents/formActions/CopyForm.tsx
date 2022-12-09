@@ -1,11 +1,12 @@
 import { Button, Checkbox, FormControlLabel, Stack, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../../hooks';
-import { useFormikContext } from 'formik';
-import { initialValues, TypeOfForm } from '../../form';
+
+import {  KeyOfForm } from '../../form';
 import { ComponentProps, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../../Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
 
 
 
@@ -14,16 +15,7 @@ const CopyDialogContent = ({
 }: {
   handleChangeIsSameProj: (checked: boolean) => void
 }) => {
-  /**
-   * I had an issue where handling checked state at the parent component
-   * doesn't not trigger re-render of this component.
-   *
-   * This was mainly due to the dialog state being memoized.
-   *
-   * Exposing dialog context state then using useEffect could solve it but
-   * Locally handling checked state here
-   * also limits the render depth making it a tad faster.. ~ras
-   */
+
   const [checked, setChecked] = useState(false);
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (event) => {
@@ -39,7 +31,7 @@ const CopyDialogContent = ({
 };
 
 export const CopyForm = () => {
-  const { resetForm, values } = useFormikContext<TypeOfForm>();
+
   const { setSnackState } = useSnackBar();
   const { setDialogState, handleClose } = useConfirmDialog();
   const { setBackdropState } = useBackdrop();
@@ -71,16 +63,11 @@ export const CopyForm = () => {
          * if same project, use the current state but clear estimate id,
          * otherwise, use initialValue and only copy items.
          */
-        const copiedState: TypeOfForm = isSameProj.current ? {
-          ...values,
-          estimateId: '',
-        } : {
-          ...initialValues,
-          items: [ ...values.items ],
-        };
+        const fieldToClear : KeyOfForm = 'estimateId'; 
 
-        resetForm({ values: copiedState });
-        navigate(`${pages.projEstimate}`);
+        navigate(`${pages.projEstimate}?${generateParams({
+          clearFields: isSameProj.current ? fieldToClear : '0',
+        })}`);
 
       }, dummyProcessTime);
 

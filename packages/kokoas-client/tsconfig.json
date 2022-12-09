@@ -9,10 +9,11 @@
     "jsx": "react-jsx",
     "allowJs": true,
     "skipLibCheck": true,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "lib": ["ES2022"]
   },
   "files": [
-    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
   ],
   "exclude": [
     "./dist",

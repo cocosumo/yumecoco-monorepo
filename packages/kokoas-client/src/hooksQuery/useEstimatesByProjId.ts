@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { AppIds } from 'config';
-import { getEstimatesByProjId } from 'api-kintone';
+import { calculateEstimateRecord } from 'api-kintone';
+import { useCallback } from 'react';
+import { useEstimates } from '.';
 
 /**
  * 工事番号で見積リストを取得する
@@ -9,11 +9,16 @@ export const useEstimatesByProjId = (
   projId = '',
 ) => {
 
-  return useQuery(
-    [AppIds.projEstimates, { projId }],
-    () =>  getEstimatesByProjId(projId),
-    {
-      enabled: !!projId,
-    },
-  );
+  return useEstimates(({
+    select: useCallback((data) => {
+
+      const filteredData = data
+        .filter((rec) => rec.projId.value === projId);
+
+      return {
+        records: filteredData,
+        calculated: filteredData.map((d) => calculateEstimateRecord({ record: d })),
+      };
+    }, [projId]),
+  }));
 };

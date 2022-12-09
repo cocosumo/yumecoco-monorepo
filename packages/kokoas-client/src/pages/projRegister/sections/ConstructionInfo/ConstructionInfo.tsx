@@ -5,12 +5,13 @@ import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
 import { useEffect, useState } from 'react';
 import { FormikSelect } from '../../../../components/ui/selects';
-import { FormikTextField } from '../../../../components/ui/textfield';
+import { FormikTextFieldV2 as  FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
 import { useBackdrop } from 'kokoas-client/src/hooks';
 import { ContractDetails } from './ContractDetails';
+import { Territory } from 'types';
 
 
 
@@ -18,7 +19,7 @@ export const ConstructionInfo = (
   props: {
     storeId: string,
     projTypeId?: string,
-    territory?: string,
+    territory?: Territory,
   },
 ) => {
   const { storeId, territory } = props;
@@ -37,16 +38,17 @@ export const ConstructionInfo = (
   const { setBackdropState } = useBackdrop();
   const { data, isFetching } = useProjHasContract(projId);
 
-  const { data: constructionTypeOptions } = useProjTypes<Options>({
+  const { data: projTypeOptions } = useProjTypes<Options>({
     select: (d) => d
       ?.map(({
-        label, $id, projectName,
+        label, uuid, projectName,
       }) => ({
         label: label?.value,
-        value: $id?.value,
+        value: uuid?.value,
         hiddenValue: projectName?.value,
       })),
   });
+
 
   const [open, setOpen] = useState(false);
 
@@ -70,16 +72,19 @@ export const ConstructionInfo = (
         md={6}
       >
         <Grid item xs={12} md={8}>
+          {projTypeOptions &&
           <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'}
             disabled={isReadOnly || data}
-            options={constructionTypeOptions} required
+            options={projTypeOptions}
+            required
             onChange={(_, newTextVal) => {
               setValues((prev) => ({
                 ...prev,
                 projName: `${prev.custName} ${newTextVal}`,
               }));
             }}
-          />
+          />}
+
         </Grid>
 
         <Grid item xs={12} md={4}>

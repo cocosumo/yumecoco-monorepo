@@ -3,11 +3,11 @@ import path from 'path';
 
 import docusign from 'docusign-esign';
 import { loadEnv } from 'libs';
+import { isProd } from 'config';
 loadEnv();
 
 
 
-export const isProd = process.env.NODE_ENV === 'prod';
 export const ds = docusign;
 export const oAuth = ds.ApiClient.OAuth;
 export const restApi = ds.ApiClient.RestApi;

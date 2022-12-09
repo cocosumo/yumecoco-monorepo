@@ -1,8 +1,8 @@
-import { SpeedDial } from '@mui/material';
+import { SpeedDial, SpeedDialProps } from '@mui/material';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CarpenterIcon from '@mui/icons-material/Carpenter';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
+import SpeedDialAction, { SpeedDialActionProps } from '@mui/material/SpeedDialAction';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import AttributionIcon from '@mui/icons-material/Attribution';
@@ -38,26 +38,44 @@ const getTooltipTitle = (type: ShortCutType) => {
 
 export const Shortcuts = ({
   shortcuts,
+  speedDialProps,
+  speedDialActionProps,
 }: {
   shortcuts : Array<{
     type: ShortCutType,
     handleClick: ()=>void
-  }
-  >,
+  }>,
+  speedDialProps?: Partial<SpeedDialProps>,
+  speedDialActionProps?: Partial<SpeedDialActionProps>
 }) => {
+
+  const {
+    sx = { position: 'fixed', bottom: 16, right: 36, zIndex: 3000 },
+    icon = <SpeedDialIcon />,
+    ariaLabel = 'Shortcut',
+    ...otherSpeedDialProps
+  } = speedDialProps || {};
+
+  const {
+    tooltipOpen = true,
+    ...otherSpeedDialActionProps
+  } = speedDialActionProps || {};
+
   return (
     <SpeedDial
-      ariaLabel="Menu"
-      sx={{ position: 'fixed', bottom: 16, right: 36, zIndex: 3000 }}
-      icon={<SpeedDialIcon />}
+      {...otherSpeedDialProps}
+      ariaLabel={ariaLabel}
+      sx={sx}
+      icon={icon}
     >
       {shortcuts.map(({ type, handleClick }) => {
         return (
           <SpeedDialAction
+            {...otherSpeedDialActionProps}
             key={type}
             icon={shortcutIcons[type]}
             tooltipTitle={getTooltipTitle(type)}
-            tooltipOpen
+            tooltipOpen={tooltipOpen}
             onClick={handleClick}
           />
         );

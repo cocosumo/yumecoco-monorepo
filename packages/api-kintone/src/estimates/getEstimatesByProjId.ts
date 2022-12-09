@@ -1,7 +1,7 @@
 import { ktRecord } from './../client';
 import { KProjestimates } from 'types';
 import { RecordType, appId } from './config';
-import { calculateEstimateRecord } from './calculateEstimateRecord';
+import { calculateEstimateRecord } from './calculation/calculateEstimateRecord';
 
 
 export const getEstimatesByProjId =  async (projId: string) => {
@@ -15,7 +15,7 @@ export const getEstimatesByProjId =  async (projId: string) => {
   })
     .then(({ records }) => {
       const newRecords = records as unknown as RecordType[];
-      const calculated = newRecords.map((rec) => calculateEstimateRecord(rec));
+      const calculated = newRecords.map((rec) => calculateEstimateRecord({ record: rec }));
 
       return {
         records: newRecords,

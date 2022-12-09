@@ -1,35 +1,16 @@
 declare namespace DBCustgroups {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
-    storeId: kintone.fieldTypes.Number;
+    storeId: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     isDeleted: kintone.fieldTypes.Number;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
     custType: kintone.fieldTypes.RadioButton;
     storeName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    projects: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          projId: kintone.fieldTypes.Number;
-          projName: kintone.fieldTypes.SingleLineText;
-          cancelStatus: kintone.fieldTypes.SingleLineText;
-          kariAddress: kintone.fieldTypes.SingleLineText;
-          cocoConst2Name: kintone.fieldTypes.SingleLineText;
-          projectAddress1: kintone.fieldTypes.SingleLineText;
-          envStatus: kintone.fieldTypes.SingleLineText;
-          projectAddress2: kintone.fieldTypes.SingleLineText;
-          cocoConst2: kintone.fieldTypes.Number;
-          cocoConst1: kintone.fieldTypes.Number;
-          projectPostal: kintone.fieldTypes.SingleLineText;
-          cocoConst1Name: kintone.fieldTypes.SingleLineText;
-          status: kintone.fieldTypes.SingleLineText;
-        };
-      }>;
-    };
+    storeCode: kintone.fieldTypes.SingleLineText;
     agents: {
       type: "SUBTABLE";
       value: Array<{
@@ -37,7 +18,7 @@ declare namespace DBCustgroups {
         value: {
           employeeName: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
-          employeeId: kintone.fieldTypes.Number;
+          employeeId: kintone.fieldTypes.SingleLineText;
           email: kintone.fieldTypes.SingleLineText;
         };
       }>;
@@ -49,9 +30,8 @@ declare namespace DBCustgroups {
         value: {
           address2: kintone.fieldTypes.SingleLineText;
           address1: kintone.fieldTypes.SingleLineText;
-          customerId: kintone.fieldTypes.Number;
+          custId: kintone.fieldTypes.SingleLineText;
           postal: kintone.fieldTypes.SingleLineText;
-          dump: kintone.fieldTypes.SingleLineText;
           customerName: kintone.fieldTypes.SingleLineText;
         };
       }>;

@@ -10,7 +10,7 @@ export const useEmployeeOptions = (
 
   const options: Options | undefined = (data as IEmployees[] | undefined)
     ?.map((rec) => ({
-      value: rec.$id.value,
+      value: rec.uuid.value,
       label: rec.文字列＿氏名.value,
       ...(params.secondaryLabel ? { secondaryLabel: rec[params.secondaryLabel].value as string } : {}),
     }));

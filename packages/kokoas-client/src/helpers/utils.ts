@@ -37,19 +37,21 @@ export const hiraToKana = (str: string) =>  {
 };
 
 export const getKanaRow = (str: string) => {
-  if (/[あ-お]$/.test(str)) return 'あ';
-  if (/[か-こ]$/.test(str)) return 'か';
-  if (/[さ-そ]$/.test(str)) return 'さ';
-  if (/[た-と]$/.test(str)) return 'た';
-  if (/[な-の]$/.test(str)) return 'な';
-  if (/[は-ほ]$/.test(str)) return 'は';
-  if (/[ま-も]$/.test(str)) return 'ま';
-  if (/[や-よ]$/.test(str)) return 'や';
-  if (/[ら-ろ]$/.test(str)) return 'ら';
-  if (/[わ*]$/.test(str)) return 'わ';
+  const hira = str.normalize('NFD')[0]; // 濁点を削除
+
+  if (/[あ-お]$/.test(hira)) return 'あ';
+  if (/[か-こ]$/.test(hira)) return 'か';
+  if (/[さ-そ]$/.test(hira)) return 'さ';
+  if (/[た-と]$/.test(hira)) return 'た';
+  if (/[な-の]$/.test(hira)) return 'な';
+  if (/[は-ほ]$/.test(hira)) return 'は';
+  if (/[ま-も]$/.test(hira)) return 'ま';
+  if (/[や-よ]$/.test(hira)) return 'や';
+  if (/[ら-ろ]$/.test(hira)) return 'ら';
+  if (/[わ*]$/.test(hira)) return 'わ';
 
 
-  return '他';
+  return '?';
 
 };
 

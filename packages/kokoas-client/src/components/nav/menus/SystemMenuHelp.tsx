@@ -1,21 +1,18 @@
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { generateParams } from '../../../helpers/url';
-import { pages } from '../../../pages/Router';
+
 import HelpIcon from '@mui/icons-material/Help';
 
 export const SystemMenuHelp = () => {
   return (
-    <Link to={`${pages.help}?${generateParams({
-      menuOpen: 0,
-    })}`} target="_blank" rel="noopener noreferrer"
+    <ListItemButton onClick={() => {
+      window.open('https://rdmuhwtt6gx7.cybozu.com/k/212/', '_blank', 'noopener,noreferrer');
+    }}
     >
-      <ListItemButton>
-        <ListItemIcon>
-          <HelpIcon />
-        </ListItemIcon>
-        <ListItemText primary="ヘルプ" />
-      </ListItemButton>
-    </Link>
+      <ListItemIcon>
+        <HelpIcon />
+      </ListItemIcon>
+      <ListItemText primary="ヘルプ" />
+    </ListItemButton>
+
   );
 };

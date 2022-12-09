@@ -18,19 +18,18 @@ export function DetailsTabs(props : {
 }) {
   const { custGroupId } = props;
   const [tabValue, setTabValue] = useState('1');
+  const isFetching = useIsFetching();
 
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
   };
 
   const { data: custGroupRec } = useCustGroupById(custGroupId || '');
-  const { data: projRecs } = useProjsByCustGroupId(tabValue === '2' && custGroupId ? custGroupId : '');
-  const isFetching = useIsFetching();
+  const { data: projRecs } = useProjsByCustGroupId(custGroupId || '');
 
 
-  const isWithProject = Boolean(custGroupRec?.projects.value
-    .filter(item=>item.value.projId.value)
-    .length);
+  const isWithProject = Boolean(projRecs?.length);
+
   return (
     <TabContextContainer tabValue={tabValue}>
 

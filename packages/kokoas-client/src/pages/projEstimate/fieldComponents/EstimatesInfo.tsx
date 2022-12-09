@@ -24,10 +24,12 @@ const LabeledInfo = ({
 
 export const EstimatesInfo = ({
   estimateId,
+  id,
   createdDate,
   envStatus,
 }: {
-  estimateId: string
+  estimateId: string,
+  id: string
   createdDate: string
   envStatus: string
 }) => {
@@ -48,7 +50,7 @@ export const EstimatesInfo = ({
         <Stack direction={'row'} spacing={1}>
           <LabeledInfo
             label={'ID'}
-            info={estimateId}
+            info={id}
           />
           <LabeledInfo
             label={'作成日'}

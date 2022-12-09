@@ -8,6 +8,7 @@ import { ReqSendContract } from 'types';
 export const useContractProcess = () => {
   const {
     setValues,
+    setStatus,
     values: {
       projEstimateId,
     },
@@ -51,25 +52,25 @@ export const useContractProcess = () => {
         });
       },
       onSettled: () => {
-        console.log('DONE!');
         setBackdropState({ open: false });
       },
     });
 
   const {
-    mutate,
+    mutateAsync,
   }  = contractMutation;
 
   const handleSendContract = async (
     signMethod: ReqSendContract['signMethod'],
   ) => {
-
-
-    mutate({
+    setStatus('busy');
+    await mutateAsync({
       projEstimateId,
       userCode: kintone.getLoginUser().code,
       signMethod,
     });
+    setStatus('');
+
   };
 
 

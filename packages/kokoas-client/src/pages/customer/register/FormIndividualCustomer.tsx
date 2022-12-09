@@ -7,11 +7,10 @@ import { Agents } from './parts/Agents';
 import { FabSave } from '../../../components/ui/fabs/FabSave';
 import {  Grid } from '@mui/material';
 import { MemoColumn } from './parts/Memo/MemoColumn';
-import { CustomerForm } from './form';
+import { TypeOfForm } from './form';
 import { CustGroupShortcuts } from  './parts/CustGroupShortcuts';
 import { useSnackBar } from '../../../hooks';
 import { CustomerStatus } from './parts/CustomerStatus';
-import { RelatedProjects } from './parts/Related/RelatedProjects';
 import { FormContainer } from './FormContainer';
 
 
@@ -23,21 +22,24 @@ export const FormIndividualCustomer  = () => {
     touched,
     submitForm,
     submitCount,
-    values : {
-      id: custGroupId,
-      isDeleted,
-    },
-  } = useFormikContext<CustomerForm>();
+    values,
+    dirty,
+    
+  } = useFormikContext<TypeOfForm>();
+
+  const {
+    id: custGroupId,
+    isDeleted,
+  } = values;
 
   const isEditMode = !!custGroupId;
 
   useEffect(()=>{
-    if (!isValid && !isSubmitting) {
+    if (!isValid && !isSubmitting && dirty && !!submitCount) {
       setSnackState({ open: true, message: '入力内容をご確認ください。', severity: 'error' });
     }
 
-  }, [isSubmitting]);
-
+  }, [isSubmitting, isValid, dirty, setSnackState, submitCount]);
 
   const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount);
 
@@ -66,16 +68,6 @@ export const FormIndividualCustomer  = () => {
         >
           <Agents />
           {isEditMode && <MemoColumn />}
-        </Grid>
-
-        <Grid
-          container
-          item
-          xs={12}
-          spacing={2}
-        >
-          {isEditMode && <RelatedProjects />}
-
         </Grid>
 
       </Grid>

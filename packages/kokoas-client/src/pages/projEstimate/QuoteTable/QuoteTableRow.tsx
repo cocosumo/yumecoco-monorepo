@@ -1,17 +1,21 @@
 
 
-import { TableCell, TableRow } from '@mui/material';
+import { IconButton, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
-import { produce } from 'immer';
-import { DisplayNumber } from '../fieldComponents/DisplayNumber';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
-import { FormikInput } from '../fieldComponents/FormikInput';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
-import { getItemFieldName, taxChoices, TypeOfForm, unitChoices } from '../form';
-import { useElementCalc } from '../hooks/useElementCalc';
+import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
-
+import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
+import { CostPriceField } from './rowFields/CostPriceField';
+import { QuantityField } from './rowFields/QuantityField';
+import { ProfitRateField } from './rowFields/ProfitRateField';
+import { TaxTypeField } from './rowFields/TaxTypeField';
+import { UnitPriceField } from './rowFields/UnitPriceField';
+import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
+import { FormikTextFieldV2 } from 'kokoas-client/src/components';
+import { MouseEvent } from 'react';
 
 
 export const QuoteTableRow = (
@@ -19,14 +23,16 @@ export const QuoteTableRow = (
     rowIdx,
     arrayHelpers,
     envStatus,
+    handleOpenUnitMenu,
   }: {
     rowIdx: number,
     arrayHelpers: FieldArrayRenderProps,
     envStatus: string,
+    handleOpenUnitMenu: (e: MouseEvent<HTMLButtonElement>) => void
   }) => {
-  const { setValues } = useFormikContext<TypeOfForm>();
 
-  const result = useElementCalc(rowIdx);
+  const { values: { items } } = useFormikContext<TypeOfForm>();
+  const { costPrice, unit } = items[rowIdx];
 
   const {
     majorItemOpts,
@@ -37,112 +43,127 @@ export const QuoteTableRow = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx);
 
-  const handleChangeCostPrice = (inputVal: string) => {
-    setValues(
-      (prev) => produce(prev, (draft) => {
-        if ((+inputVal < 0) && (draft.items[rowIdx].costPrice >= 0)) {
-          draft.items[rowIdx].costPrice = +inputVal;
-          draft.items[rowIdx].quantity = 1;
-          draft.items[rowIdx].elemProfRate = 0;
-          draft.items[rowIdx].taxType = '非課税';
-        } else {
-          draft.items[rowIdx].costPrice = +inputVal;
-        }
-      }),
-    );
-  };
-
+  useAdjustOnRowDiscount(rowIdx);
   const isDisabled = !!envStatus;
 
-
-
   return (
-    <TableRow>
+    <>
+      <TableRow>
 
-      <TableCell
-        width={'3%'}
-        sx={{
-          pl: 1, pr: 0,
-        }}
-      >
-        <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
-      </TableCell>
+        <TableCell
+          rowSpan={2}
+          width={'3%'}
+          sx={{
+            pl: 1, pr: 0,
+          }}
+        >
+          <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+        </TableCell>
 
-      <TableCell width={'10%'}>
-        <FormikPulldown
-          name={getItemFieldName(rowIdx, 'majorItem')}
-          handleChange={handleMajorItemChange}
-          options={majorItemOpts}
-          disabled={isDisabled}
-        />
-      </TableCell>
+        <TableCell width={'8%'}>
+          <FormikPulldown
+            name={getItemFieldName(rowIdx, 'majorItem')}
+            handleChange={handleMajorItemChange}
+            options={majorItemOpts}
+            disabled={isDisabled}
+          />
+        </TableCell>
 
-      <TableCell width={'10%'}>
-        <FormikPulldown
-          name={getItemFieldName(rowIdx, 'middleItem')}
-          handleChange={handleMiddleItemChange}
-          options={middleItemOpts}
-          disabled={isDisabled}
-        />
-      </TableCell>
+        <TableCell width={'8%'}>
+          <FormikPulldown
+            name={getItemFieldName(rowIdx, 'middleItem')}
+            handleChange={handleMiddleItemChange}
+            options={middleItemOpts}
+            disabled={isDisabled}
+          />
+        </TableCell>
 
-      <TableCell width={'12%'}>
-        <FormikAutocomplete
-          name={getItemFieldName(rowIdx, 'element')}
-          handleChange={handleMaterialChange}
-          options={materialOpts}
-          disabled={isDisabled}
-        />
-      </TableCell>
+        <TableCell width={'8%'}>
+          <FormikAutocomplete
+            name={getItemFieldName(rowIdx, 'material')}
+            handleChange={handleMaterialChange}
+            options={materialOpts}
+            disabled={isDisabled}
+          />
+        </TableCell>
 
-      <TableCell width={'10%'} align='right'>
-        <FormikInput
-          name={getItemFieldName(rowIdx, 'costPrice')}
-          handleChange={handleChangeCostPrice}
-          disabled={isDisabled}
-        />
-      </TableCell>
+        <TableCell width={'8%'} align='right'>
+          {/* 原価 */}
+          <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
+        </TableCell>
 
-      <TableCell width={'8%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'quantity')} disabled={isDisabled} />
-      </TableCell>
+        <TableCell width={'8%'} align='right'>
+          {/* 数量 */}
+          <QuantityField
+            rowIdx={rowIdx}
+            isDisabled={isDisabled}
+            unitMenuButton={(
+              <IconButton
+                size='small'
+                name={getItemFieldName(rowIdx, 'unit')}
+                onClick={handleOpenUnitMenu}
+                sx={{ fontSize: '12px' }}
+              >
+                {unit}
+              </IconButton>
+            )}
+          />
+        </TableCell>
 
-      <TableCell width={'8%'}>
-        <FormikPulldown
-          name={getItemFieldName(rowIdx, 'unit')}
-          options={unitChoices.map((c) => ({ label: c, value: c }))}
-          disabled={isDisabled}
-        />
-      </TableCell>
+        <TableCell width={'6%'} align='right'>
+          {/* 利益率 */}
+          <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
+        </TableCell>
 
-      <TableCell width={'6%'} align='right'>
-        <FormikInput name={getItemFieldName(rowIdx, 'elemProfRate')} disabled={isDisabled} />
-      </TableCell>
+        <TableCell width={'8%'}>
+          {/* 税 */}
+          <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
+        </TableCell>
 
-      <TableCell width={'8%'}>
-        <FormikPulldown
-          name={getItemFieldName(rowIdx, 'taxType')}
-          options={taxChoices.map((c) => ({ label: c, value: c }))}
-          disabled={isDisabled}
-        />
-      </TableCell>
+        <TableCell width={'15%'}>
+          {/* 単価 */}
+          <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
+        </TableCell>
 
-      <TableCell>
-        <DisplayNumber value={result.unitPrice} suffix={'円'} />
-      </TableCell>
+        <TableCell width={'15%'}>
+          {/* 金額 */}
+          <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
+        </TableCell>
 
-      <TableCell>
-        <DisplayNumber value={result.price} suffix={'円'} />
-      </TableCell>
-
-      <TableCell width={'3%'}>
-        {!isDisabled &&
+        <TableCell width={'3%'}>
+          {!isDisabled &&
           <QtRowAddDelete
             rowIdx={rowIdx}
             arrayHelpers={arrayHelpers}
           />}
-      </TableCell>
+        </TableCell>
 
-    </TableRow>
+      </TableRow>
+      <TableRow >
+        <TableCell colSpan={2} />
+        <TableCell colSpan={2}>
+          <FormikTextFieldV2
+            disabled={isDisabled}
+            label={'品番・色など'}
+            name={getItemFieldName(rowIdx, 'materialDetails')}
+            size={'small'}
+            multiline
+            placeholder='赤'
+          />
+        </TableCell>
+        <TableCell />
+        <TableCell colSpan={4}>
+          <FormikTextFieldV2
+            disabled={isDisabled}
+            label={'備考'}
+            name={getItemFieldName(rowIdx, 'rowDetails')}
+            size={'small'}
+            multiline
+            placeholder='定価出し'
+          />
+        </TableCell>
+        <TableCell />
+      </TableRow>
+    </>
   );
 };

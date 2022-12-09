@@ -47,13 +47,34 @@ coverage
 *.ps1
 *.csv
 *.sh
-*.xlsx
 *.pem
 **/build/*
 *.snap
 
 *.key
-*.pdf
-*.xls*
-*.TTF
 *auth.json
+
+**/backup/**/*
+
+##############
+## MSOFFICE ##
+##############
+*.tmp
+
+# Word temporary
+~$*.doc*
+
+# Word Auto Backup File
+Backup of *.doc*
+
+# Excel temporary
+~$*.xls*
+
+# Excel Backup File
+*.xlk
+
+# PowerPoint temporary
+~$*.ppt*
+
+# Visio autosave temporary files
+*.~vsd*

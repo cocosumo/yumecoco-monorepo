@@ -1,14 +1,14 @@
 import { ICustomers } from 'types';
-import { CustomerForm } from '../form';
+import { TypeOfForm } from '../form';
 
-export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustomers>>  => {
+export const formToDBCustomers = (formData: TypeOfForm): Array<Partial<ICustomers>>  => {
   const {
     customers,
   } = formData;
 
   return customers
     .map(({
-      id,
+      custId,
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
       postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
       email, emailRel, isSameAddress,
@@ -28,12 +28,8 @@ export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustom
         emailRel: isSameAddress ? '' : emailRel,
       };
 
-
       return {
-        $id: {
-          type: '__ID__',
-          value: id,
-        },
+        uuid: { value: custId },
         index: { value: index.toString() },
         fullName: { value: custName },
         fullNameReading: { value: custNameReading },

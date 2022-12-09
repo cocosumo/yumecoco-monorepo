@@ -1,15 +1,12 @@
 
-import { Grid, Collapse,  IconButton } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import {  FormikTextField } from '../../../../../components/ui/textfield';
-import { Contacts } from './Contacts';
+import { Grid } from '@mui/material';
 import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
-import { CustomerForm, getCustFieldName } from '../../form';
+import { TypeOfForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
-import { getAddressByPostal } from '../../../../../api/others/postal';
-import { useRef, useState } from 'react';
-import { AddressDialog } from './AddressDialog';
+import { getAddressByPostal } from '../../../../../api/others/getAddressByPostal';
+import { useRef } from 'react';
+import { AddressFields } from './AddressFields';
 
 
 
@@ -18,44 +15,12 @@ interface AddressProps {
   index: number
 }
 
-const AddressFields = (namePrefix: string, postal: string, handleAddressSearch: ()=>void) => (
-  <Grid container item xs={12}
-    spacing={2} mt={1}
-  >
-    <Grid item xs={8} md={4} >
-      <FormikTextField
-        name={`${namePrefix}${getCustFieldName('postal')}`}
-        label="郵便番号" placeholder='4710041'
-      />
-    </Grid>
-    <Grid item xs={4} md={2} >
-      <IconButton color={'primary'} size={'small'} onClick={handleAddressSearch}>
-        〒
-        <SearchIcon sx={{ ml: '-6px', mt: '8px' }} fontSize="large" color={'primary'} />
-      </IconButton>
-    </Grid>
-
-    <Grid item xs={12} md={6} />
-    {' '}
-    {/* Offset */}
-
-    <Grid item xs={12} >
-      <FormikTextField name={`${namePrefix}${getCustFieldName('address1')}`} label="住所" placeholder='愛知県豊田市汐見町8丁目87-8' />
-    </Grid>
-    <Grid item xs={12} mb={2}>
-      <FormikTextField name={`${namePrefix}${getCustFieldName('address2')}`} label="住所（建物名）" placeholder='マンション山豊101' />
-    </Grid>
-    <Contacts namePrefix={namePrefix} />
-  </Grid>
-);
-
 export const Address = (props: AddressProps) => {
-  const [openAddressDialog, setOpenAddressDialog] = useState<boolean>(false);
   const {
     setFieldValue,
     dirty,
     values: { customers },
-  } = useFormikContext<CustomerForm>();
+  } = useFormikContext<TypeOfForm>();
 
   const {
     namePrefix,
@@ -65,10 +30,6 @@ export const Address = (props: AddressProps) => {
   const { isSameAddress = true, postal, address1 } = customers[index] ?? {};
   const isFirstCustomer = !index;
   const divRef = useRef<HTMLDivElement>(null);
-
-  const handleAddressSearch = () => {
-    setOpenAddressDialog(true);
-  };
 
   useLazyEffect(()=>{
 
@@ -84,7 +45,9 @@ export const Address = (props: AddressProps) => {
     if (postal && !address1) {
 
       getAddressByPostal(postal as string).then((address)=>{
-        setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, address);
+        if (address) {
+          setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, Object.values(address).join(''));
+        }
       });
     }
   }, [postal], 300);
@@ -97,19 +60,11 @@ export const Address = (props: AddressProps) => {
       </Grid>}
 
       <Grid item xs={12} ref={divRef}>
-        <Collapse appear={!isFirstCustomer} in={(!isSameAddress || isFirstCustomer)} >
-          {AddressFields(namePrefix, postal, handleAddressSearch)}
-        </Collapse>
+        <AddressFields
+          namePrefix={namePrefix}
+        />
       </Grid>
 
-      <AddressDialog
-        open={openAddressDialog}
-        postalFN={`${namePrefix}${getCustFieldName('postal')}`}
-        address1FN={`${namePrefix}${getCustFieldName('address1')}`}
-        handleClose={()=>{
-          setOpenAddressDialog(false);
-        }}
-      />
     </>
   );
 };

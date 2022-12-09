@@ -45,6 +45,7 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
         console.log('Generating pdf');
         file = await generateContractPdf(contractData, 'base64');
 
+        console.log('PDF File generated');
         res.status(200).json( {
           // Array here to accomodate multi-documents in the future
           documents: [file],

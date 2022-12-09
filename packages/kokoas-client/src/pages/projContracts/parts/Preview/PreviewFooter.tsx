@@ -1,15 +1,15 @@
 import { DialogActions } from '@mui/material';
+import { ReactNode } from 'react';
 import { MenuContainer } from './PreviewMenu/MenuContainer';
-import { SelectDocuments } from './SelectDocuments';
-
-export const PreviewFooter = () => {
+export const PreviewFooter = ({ children }: { children: ReactNode }) => {
   return (
     <DialogActions
       sx={{
         justifyContent: 'flex-end',
       }}
     >
-      <SelectDocuments />
+      {children}
+
       <MenuContainer />
     </DialogActions>
   );

@@ -7,7 +7,7 @@ import { appId, RecordType } from './config';
  */
 export const getStoreMngrByStoreId = async (storeId: string) => {
 
-  const keyStoreId : KEmployeeStores = 'storeId';
+  const keyStoreId : KEmployeeStores = 'affStoreId';
   const affiliation: KEmployees = 'affiliation';
   const role : KEmployees = '役職';
   const cocosumo: EmpAffiliations = 'ここすも';

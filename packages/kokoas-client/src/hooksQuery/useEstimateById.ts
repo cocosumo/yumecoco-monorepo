@@ -1,6 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { AppIds } from 'config';
-import { getEstimateById } from 'api-kintone';
+
+import { useEstimates } from './useEstimates';
+import { useCallback } from 'react';
+import { calculateEstimateRecord } from 'api-kintone';
 
 
 /**
@@ -8,11 +9,19 @@ import { getEstimateById } from 'api-kintone';
  */
 export const useEstimateById = (projEstimateId: string) => {
 
-  return useQuery(
-    [AppIds.projEstimates, { projEstimateId }],
-    () => getEstimateById(projEstimateId),
-    {
-      enabled: !!projEstimateId,
-    },
-  );
+  return useEstimates(({
+    enabled: !!projEstimateId,
+    select: useCallback((data) => {
+      const foundData = data.find(({ uuid }) => uuid.value === projEstimateId);
+      if (foundData) {
+        return {
+          record: foundData,
+          calculated: calculateEstimateRecord({ record: foundData }),
+        };
+      }
+    }, [
+      projEstimateId,
+    ]),
+  }));
+
 };

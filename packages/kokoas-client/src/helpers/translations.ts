@@ -1,6 +1,7 @@
 export const translations: Record<string, string> = {
 
-  cocoAg: 'ここすもAG',
+  cocoAG: 'ここすもAG',
+  cocoConst: 'ここすも工事',
   contract: '契約',
   contractAmount: '契約金額',
   contractNames: '契約者',
@@ -12,6 +13,11 @@ export const translations: Record<string, string> = {
   projName: '工事名',
   projType: '工事種別',
   store: '店舗名',
-  yumeAg: 'ゆめてつAG',
+  yumeAG: 'ゆめてつAG',
+
+  tel: '電話番号',
+  email: 'メアド',
+
+  completed: '完了',
 
 };

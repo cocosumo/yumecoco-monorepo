@@ -9,6 +9,7 @@
     "declarationMap": true,
     "allowJs": true,
     "skipLibCheck": true
+    
   },
   "files": [
     "./index.ts",

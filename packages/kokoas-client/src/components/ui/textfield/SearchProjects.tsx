@@ -29,31 +29,28 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
     onInputChange,
     ...autoCompleteProps
   } = props;
-  
-  const [hadFocus, setHadFocus] = useState(false);
+
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<typeof value>(value);
   const [options, setOptions] = useState<Array<Opt>>([]);
   const debouncedInput = useDebounce(inputVal, 1000);
 
-  const { data: newOptions = [], isFetching } = useSearchProjects<Opt[]>(
-    debouncedInput, 
-    {
-      enabled: hadFocus,
-      select: (d) => d.map((projRec)=>{
-        const { $id, projName: recProjName } = projRec;
-        return {
-          id: $id.value,
-          projName: recProjName.value,
-        };
-      }),
-    });
+  const {
+    data: recProjects = [],
+    isFetching,
+  } = useSearchProjects(debouncedInput);
 
   useEffect(() => {
-    if (newOptions?.length) {
+
+    if (recProjects?.length) {
+      const newOptions = recProjects
+        ?.map<Opt>((rec) => ({
+        id: rec.uuid.value,
+        projName: rec.projName.value,
+      }));
       setOptions(newOptions);
     }
-  }, [newOptions]);
+  }, [recProjects]);
 
   return (
     <Autocomplete
@@ -61,7 +58,6 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
       fullWidth={fullWidth}
       value={value ?? fieldVal ?? null}
       options={options}
-      onFocus={() => setHadFocus(true)}
       onInputChange={onInputChange ? onInputChange : (_, val) => {
         setInputVal(val);
       }}

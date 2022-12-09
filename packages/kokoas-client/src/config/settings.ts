@@ -1,6 +1,8 @@
 import {
   kintoneBaseUrl,
 } from 'api-kintone';
+import { isProd } from 'config';
+
 export const isProduction = process.env.NODE_ENV;
 
 export const kokoasEnvAppIds = {
@@ -12,9 +14,9 @@ export const kokoasEnvAppIds = {
 
 /**
  * ココアスのベースURLを取得する。
- * 
+ *
  * 引く数渡されなかったら、環境設定を利用する。
- * 
+ *
  */
 export const getKokoasBaseURLByEnv = (
   env = process.env.NODE_ENV as keyof typeof kokoasEnvAppIds,
@@ -24,5 +26,5 @@ export const getKokoasBaseURLByEnv = (
 
 
 export const yumecocoDocusign = {
-  baseUrl: isProduction?.includes('prod') ? process.env.DOCUSIGN_BASE_URL : process.env.DOCUSIGN_LOCAL_URL,
+  baseUrl: isProd ? process.env.DOCUSIGN_BASE_URL : process.env.DOCUSIGN_LOCAL_URL,
 };

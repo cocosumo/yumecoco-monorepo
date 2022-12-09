@@ -6,3 +6,4 @@ export * from './ktUsers';
 export * from './projects';
 export * from './record';
 export * from './server';
+export * from './stores';

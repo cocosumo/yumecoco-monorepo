@@ -25,7 +25,7 @@ import { MemoAvatar } from './MemoAvatar';
 interface MemoListProps {
   memos: Array<MemoFormType>,
   custName: string,
-  recordId: string,
+  custGroupId: string,
 }
 
 interface MemoItemProps {
@@ -83,7 +83,7 @@ const MemoListItem = (props: MemoItemProps) => {
 
 
 export const MemoList = (props: MemoListProps) => {
-  const { memos, custName, recordId } = props;
+  const { memos, custName, custGroupId } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedMenuItem, setSelectedMenuItem] = useState<MemoFormType>();
 
@@ -95,16 +95,17 @@ export const MemoList = (props: MemoListProps) => {
   };
 
   const handleClose: MenuProps['handleClose'] = (memoItem, method) => {
+
     switch (method) {
       case '編集':
-        handleOpen({ ...memoItem, custName, recordId });
+        handleOpen({ ...memoItem, custName, custGroupId });
         break;
 
       case '削除':
         if (selectedMenuItem) {
           deleteMemoById(selectedMenuItem?.memoId)
             .then(() => {
-              handleUpdateMemoList(recordId);
+              handleUpdateMemoList(custGroupId);
             });
 
         }
@@ -116,10 +117,10 @@ export const MemoList = (props: MemoListProps) => {
 
 
   useEffect(()=>{
-    if (recordId) {
-      handleUpdateMemoList(recordId);
+    if (custGroupId) {
+      handleUpdateMemoList(custGroupId);
     }
-  }, [recordId]);
+  }, [custGroupId]);
 
   return (
     <>

@@ -1,0 +1,15 @@
+{
+  "name": "api-chatwork",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "jest src --runInBand --coverage --silent"
+  },
+  "dependencies": {
+    "config": "*",
+    "helpers": "*",
+    "types": "*",
+    "utils-jest": "*"
+  },
+  "sideEffects": false
+}

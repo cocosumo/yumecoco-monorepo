@@ -1,11 +1,12 @@
-import { ktRecord } from '../client';
-import { appId, RecordType } from './config';
+import { getRecords } from '../common';
+import { appId, RecordKey, RecordType } from './config';
+
+const idField : RecordKey = 'uuid';
 
 export const getProjById = async (
   projId: string,
-) => (await ktRecord())
-  .getRecord({
-    app: appId,
-    id: projId,
-  })
-  .then(({ record }) => record as unknown as RecordType);
+) => getRecords<RecordType>({
+  app: appId,
+  query: `${idField} = "${projId}"`,
+}).then(({ records }) => records[0] );
+  

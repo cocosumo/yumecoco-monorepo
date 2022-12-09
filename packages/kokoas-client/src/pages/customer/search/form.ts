@@ -1,4 +1,4 @@
-import { RecordStatus } from '../../../config/formValues';
+import { RecordStatus, Territory } from 'types';
 
 export const customerTypes = [  '全て',  '個人',  '法人' ] as const;
 
@@ -12,14 +12,20 @@ export type FormFieldKeys = keyof typeof initialValues;
  */
 export const initialValues = {
   custType: '全て' as CustomerTypeVals,
-  storeId: '',
+  storeId: [] as string[],
   cocoAG: '',
   yumeAG: '',
+  territory: '' as Territory,
   cocoConst: '',
-  recordStatus: [] as RecordStatus[],
+  recordStatus: ['契約済/工事進行中', '情報登録のみ', '追客中'] as RecordStatus[],
   custName: '',
   contactNum: '',
   email: '',
   address: '',
+
 };
+
+export const getFormField = (k: FormFieldKeys ) => k;
+
+export type TypeOfForm = typeof initialValues;
 

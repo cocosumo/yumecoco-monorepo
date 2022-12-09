@@ -4,8 +4,11 @@ import {
   getEmployeesByIds,
   getEstimateById,
   getProjById,
-  getStoreMngrByStoreId,
+  calculateEstimateRecord,
 } from 'api-kintone';
+import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
+import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
+import { addressBuilder, formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
 import { validateContractData } from './validateContractData';
 
@@ -31,16 +34,24 @@ isValidate = false,
 ) => {
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
-  /* 見積情報 */
+  /* 会社情報 */
   const {
-    record: estimatedRecord,
-    calculated: calculatedEstimates,
-  } = await getEstimateById(projEstimateId);
+    companyAddress,
+    companyName,
+    companyTel,
+    representative,
+  } = await getCocosumoDetails();
+
+  /* 見積情報 */
+  const estimatedRecord = await getEstimateById(projEstimateId);
+  const calculatedEstimates = calculateEstimateRecord({ record: estimatedRecord });
+
   const {
     signMethod,
     projId,
     envId,
     totalPaymentAmt,
+    税: tax,
     envStatus,
     支払い,
     startDate,
@@ -51,6 +62,8 @@ isValidate = false,
     contractDate,
     payMethod,
     payDestination,
+    dataId,
+    uuid,
   } = estimatedRecord;
 
   /* 工事情報 */
@@ -68,8 +81,10 @@ isValidate = false,
     storeId,
   } = await getCustGroupById(custGroupId.value);
 
+
+
   const custIds = members.value
-    .map(({ value: { customerId } }) => customerId.value );
+    .map(({ value: { custId } }) => custId.value );
 
   const rawCustomers = await getCustomersByIds(custIds);
 
@@ -86,7 +101,10 @@ isValidate = false,
       email: contacts.value
         .find(({ value: { contactType } }) => contactType.value === 'email')
         ?.value.contactValue.value,
-      address: `${postalCode.value}〒 ${address1.value}${address2.value}`,
+      address: addressBuilder({
+        postal: postalCode.value,
+        address1: address1.value,
+        address2: address2.value }),
       postalCode: postalCode.value,
       address1: address1.value,
       address2: address2.value,
@@ -94,27 +112,33 @@ isValidate = false,
   });
 
   /* 担当情報 */
-  const cocoAgIds = agents.value
+  const cocoAGIds = agents.value
     .filter(({ value: { agentType } }) => (
       (agentType.value as TAgents) === 'cocoAG'))
     .map(({ value: { employeeId } }) => employeeId.value );
-  const cocoAG = (await getEmployeesByIds(cocoAgIds))
+  const cocoAG = (await getEmployeesByIds(cocoAGIds))
     .records
     .map(({ 文字列＿氏名: empName, email: empEmail }) => ({
       name: empName.value,
       email: empEmail.value,
     }) );
 
-  /* 店長 */
-  const {
-    文字列＿氏名: managerName,
-    email: managerEmail,
-  } = await getStoreMngrByStoreId(storeId.value);
 
-  /* 経理 */
-  // どこから引っ張るかまだ分からないので、固定します。
-  const accountingName = 'Temporary keiri';
-  const accountingEmail = 'info@cocosumo.co.jp';
+  console.log('cocoAGIds', cocoAGIds);
+
+  const {
+    /* 店長 */
+    storeMgr: {
+      文字列＿氏名: managerName,
+      email: managerEmail,
+    },
+    /* 経理 */
+    accounting : {
+      文字列＿氏名: accountingName,
+      email: accountingEmail,
+    },
+  } = await getContractCheckers(storeId.value);
+
 
   /* 支払い */
   const payments = 支払い.value?.map(({ value: {
@@ -135,11 +159,16 @@ isValidate = false,
 
     /* 工事 */
     projId: projId.value,
-    projEstimateId: projEstimateId,
+    projEstimateId: uuid.value,
+    contractId: formatDataId(dataId.value),
     projName: projName.value,
-    projLocation: `${projPostal.value}〒 ${projAddress1.value}${projAddress2.value}`,
+    projLocation: addressBuilder({
+      postal: projPostal.value,
+      address1: projAddress1.value,
+      address2: projAddress2.value }),
 
     /* 契約 */
+    tax: tax.value,
     contractPrice: totalPaymentAmt.value,
     envelopeId: envId.value,
     signMethod: signMethod.value as TSignMethod,
@@ -155,8 +184,8 @@ isValidate = false,
     storeMngrEmail: managerEmail.value,
 
     /* 経理 */
-    accountingName: accountingName,
-    accountingEmail: accountingEmail,
+    accountingName: accountingName.value,
+    accountingEmail: accountingEmail.value,
 
     /* 契約関連 */
     envelopeStatus: envStatus.value,
@@ -176,6 +205,13 @@ isValidate = false,
 
     /* 計算 */
     calculatedEstimates,
+
+    /* 会社情報 */
+    companyAddress: companyAddress.value,
+    companyName: companyName.value,
+    companyTel: companyTel.value,
+    representative: representative.value,
+
   };
 
   if (isValidate) validateContractData(data);

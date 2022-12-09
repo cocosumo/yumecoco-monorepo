@@ -3,7 +3,7 @@ import { ktRecord } from '../client';
 import { appId, RecordType } from './config';
 
 export const getMemosByCustGroupId = async (custGroupId: string) => {
-  const custGroupIdField : KCustmemos = 'recordId';
+  const custGroupIdField : KCustmemos = 'custGroupId';
   return (await ktRecord()).getAllRecords({
     app: appId,
     condition: `${custGroupIdField} = "${custGroupId}"`,

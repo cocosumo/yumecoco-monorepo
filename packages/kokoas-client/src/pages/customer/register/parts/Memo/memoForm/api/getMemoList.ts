@@ -7,17 +7,17 @@ export const getMemoList = async (recordId: string) => {
   const memoRecs = await getMemosByCustGroupId(recordId);
 
   return memoRecs.map(({
-    $id,
+    uuid: custId,
     contents,
     memoType,
     createdTime,
     更新者: updater,
-    recordId: recId,
+    custGroupId,
   }) =>{
     return (
       {
-        recordId: recId.value,
-        memoId: $id.value,
+        custGroupId: custGroupId.value,
+        memoId: custId.value,
         contents: contents.value,
         createDate: createdTime.value,
         memoType: memoType.value,

@@ -24,22 +24,20 @@ export const useResolveParams = () => {
 
   useEffect(() => {
 
-    if (projIdFromURL) {
-      if (projRec && custGroupRec) {
-        setInitForm({
-          ...initialValues,
-          ...convertProjToForm(projRec),
-          ...convertCustGroupToForm(custGroupRec),
-        });
-      }
+    if (projIdFromURL && projRec && custGroupRec) {
 
-    } else if (custGroupIdFromURL && !projIdFromURL) {
-      if (custGroupRec) {
-        setInitForm({
-          ...initialValues,
-          ...convertCustGroupToForm(custGroupRec),
-        });
-      }
+      setInitForm({
+        ...initialValues,
+        ...convertProjToForm(projRec),
+        ...convertCustGroupToForm(custGroupRec),
+      });
+
+    } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {
+
+      setInitForm({
+        ...initialValues,
+        ...convertCustGroupToForm(custGroupRec),
+      });
 
     } else if (!custGroupIdFromURL && !projIdFromURL) {
       setInitForm(initialValues);

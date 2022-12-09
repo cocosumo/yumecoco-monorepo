@@ -11,7 +11,7 @@ import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
  */
 export const voidEnvelope = async (envelopeId: string) => {
   const {
-    $id,
+    uuid,
     voidedEnvelopes,
   } = await getEstimateByEnvId(envelopeId);
   console.log(`Voiding envelope id: ${envelopeId}`);
@@ -31,19 +31,11 @@ export const voidEnvelope = async (envelopeId: string) => {
 
   };
 
-
   const result = await saveEstimate({
-    recordId: $id.value,
+    recordId: uuid.value,
     record,
   });
 
-  console.log(result);
-
-  // Needs fix, this update customer record related projects
-  // However, contracts are now dependent on 見積 rather than 工事
-  // await updateCustGroupLinkedProjects(custGroupId.value);
 
   return result;
-
-  // Clear envelope details in the record
 };

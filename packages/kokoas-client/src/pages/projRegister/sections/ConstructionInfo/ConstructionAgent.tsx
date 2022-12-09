@@ -1,4 +1,5 @@
 
+import { Territory } from 'types';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 import { getFieldName } from '../../form';
@@ -6,7 +7,7 @@ import { getFieldName } from '../../form';
 interface ConstructionAgentProps {
   number?: number
   storeId: string,
-  territory?:  string,
+  territory?:  Territory,
   disabled: boolean
 }
 
@@ -21,7 +22,6 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
 
   const { number = 1 } = props;
 
-
   const helperText = number > 1 ? '※工事担当者が2名いる場合選択してください。' : undefined;
 
   return (
@@ -31,7 +31,7 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
       options={agents}
       helperText={helperText}
       required={number === 1}
-      disabled={disabled}
+      disabled={disabled || !agents}
     />
   );
 };

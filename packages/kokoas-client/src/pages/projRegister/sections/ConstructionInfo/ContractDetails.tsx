@@ -30,7 +30,7 @@ export const ContractDetails = (props: ContractDetailsProps) => {
         {'契約済み見積もり情報'}
       </DialogTitle>
       <DialogContent>
-        <ConstractList data={data} />
+        <ConstractList data={data?.records} />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>

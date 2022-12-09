@@ -8,6 +8,7 @@ module.exports = {
   modulePathIgnorePatterns: ['build/'],
   verbose: true,
   globals: {
+    window: undefined,
     'ts-jest': {
       isolatedModules: true,
     },

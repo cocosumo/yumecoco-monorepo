@@ -32,12 +32,11 @@ export const FormConstruction  = () => {
   const isEditMode = window.location.href.includes('edit');
   const isFormDisabled = (status as TFormStatus) === 'disabled';
 
-
   return (
 
     <Form noValidate>
       <ScrollToFieldError />
-      
+
       <MainContainer>
         <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
         <Grid container item xl={8}
@@ -60,7 +59,7 @@ export const FormConstruction  = () => {
         </Grid>
         <FabSave onClick={submitForm} url="project" appear={!!custGroupId && dirty} />
       </MainContainer>
-      
+
 
 
       {isEditMode && <ProjectShortCuts />}

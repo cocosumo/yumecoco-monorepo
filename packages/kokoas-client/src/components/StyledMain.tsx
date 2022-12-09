@@ -4,7 +4,6 @@ import { styled } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 import Router from '../pages/Router';
 
-
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -40,6 +39,7 @@ export const StyledMain = ({
 }: {
   open: boolean
 }) => {
+
   return (
     <Main open={open}>
       <DrawerHeader />

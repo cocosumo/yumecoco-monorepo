@@ -1,11 +1,13 @@
-import { ktRecord } from '../client';
+import { RecordKey } from './../projects/config';
+
 
 import { appId, RecordType } from './config';
+import { getRecords } from '../common';
 
-export const getCustGroupById = async (custGroupId: string) => {
-  return (await ktRecord()).getRecord({
-    app: appId,
-    id: custGroupId,
-  }).then(({ record }) => record as unknown as RecordType );
-
-};
+const idField: RecordKey = 'uuid';
+export const getCustGroupById = async (
+  custGroupId: string,
+) => getRecords<RecordType>({
+  app: appId,
+  query: `${idField} = "${custGroupId}"`,
+}).then(({ records }) => records[0] );

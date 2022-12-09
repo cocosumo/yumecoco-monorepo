@@ -96,6 +96,7 @@
     "cross-env": "^7.0.3",
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.0",
+    "csv": "^6.2.4",
     "date-fns": "^2.25.0",
     "docusign-esign": "^5.17.0",
     "dotenv": "^16.0.3",
@@ -110,6 +111,7 @@
     "jest-esm-transformer": "^1.0.0",
     "jp-numerals": "^3.0.0",
     "js-crypto-random": "^1.0.4",
+    "json2csv": "^5.0.7",
     "koyomi": "^0.5.1",
     "lodash": "^4.17.21",
     "mui-image": "^1.0.5",
@@ -138,7 +140,6 @@
     "yup": "^0.32.11"
   },
   "workspaces": [
-    "packages/*",
-    "automation/*"
+    "packages*/*"
   ]
 }

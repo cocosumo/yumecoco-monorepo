@@ -1,8 +1,10 @@
 import { Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material';
-import { IProjestimates } from 'types';
+import { calculateEstimateRecord } from 'api-kintone';
+import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
+import { useMemo } from 'react';
+import { IProjestimates, TEnvelopeStatus } from 'types';
 import { Caption } from '../../../../../../components/ui/typographies';
 import { dateStrToJA } from '../../../../../../helpers/utils';
-import { useCalcEstimate } from '../../../../../../hooks/useCalcEstimate';
 import { EstimateButton } from './EstimateButton';
 
 
@@ -13,44 +15,47 @@ export const EstimatesListItem = ({
 }) => {
   const {
     作成日時: createdDate,
-    projId : { value: projId },
-    $id: { value: projEstimateId },
-    envStatus: { value: envStatus },
-    estimateStatus: { value: estimateStatus },
+    projId,
+    uuid,
+    dataId,
+    envStatus,
+    estimateStatus,
   } = estimateRecord;
-  const {
-    totalAmountInclTax,
-  } = useCalcEstimate(estimateRecord);
+
+  const { summary : { totalAmountAfterTax } } = useMemo(() => {
+    return calculateEstimateRecord({ record: estimateRecord });
+  }, [estimateRecord]);
 
   return (
     <Card variant='outlined'>
       <CardContent sx={{ p: 1 }}>
         <Stack direction={'row'} spacing={1} mb={1}>
-          {envStatus && (
+          {envStatus.value && (
           <Chip
             size='small'
             variant='outlined'
             color="primary"
-            label={envStatus}
+            label={jaEnvelopeStatus(envStatus.value as TEnvelopeStatus).ja}
           />)}
-          {estimateStatus && (
+          {estimateStatus.value && (
           <Chip
             size='small'
             variant='outlined'
             color="success"
-            label={estimateStatus}
+            label={estimateStatus.value}
           />)}
         </Stack>
         <Stack direction={'column'} spacing={0} alignItems="flex-end">
           <Typography variant='h5' textAlign={'right'} component="span">
-            {`${totalAmountInclTax?.toLocaleString() || 0} 円`}
+            {`${totalAmountAfterTax?.toLocaleString() || 0} 円`}
           </Typography>
           <Caption text={`${dateStrToJA(createdDate.value)}`} />
+          <Caption text={dataId.value} />
 
         </Stack>
       </CardContent>
       <CardActions>
-        <EstimateButton projId={projId} projEstimateId={projEstimateId} isSmall />
+        <EstimateButton projId={projId.value} projEstimateId={uuid.value} isSmall />
       </CardActions>
 
     </Card>

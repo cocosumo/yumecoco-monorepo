@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { MemoType } from './MemoForm';
 
 export const initialValues = {
-  recordId: '',
+  custGroupId: '',
   custName: '',
   memoId: '',
   memoType: '' as MemoType,

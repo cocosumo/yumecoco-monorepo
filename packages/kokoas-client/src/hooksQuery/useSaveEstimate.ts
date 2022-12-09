@@ -5,7 +5,7 @@ import { useCommonOptions } from './useCommonOptions';
 
 export const useSaveEstimate = () => {
   const commonOptions = useCommonOptions();
-  const queryClient = useQueryClient();
+  const qc = useQueryClient();
 
 
   return useMutation(
@@ -14,7 +14,7 @@ export const useSaveEstimate = () => {
       ...commonOptions,
       onSuccess: () => {
         commonOptions.onSuccess();
-        queryClient.invalidateQueries({ queryKey: [AppIds.projEstimates] });
+        qc.invalidateQueries({ queryKey: [AppIds.projEstimates] });
       },
     },
   );

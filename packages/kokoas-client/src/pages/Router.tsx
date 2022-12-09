@@ -6,7 +6,6 @@ import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import UnderConstruction from './UnderConstruction';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
-import HelpComponents from './manuals/HelpComponents';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
@@ -42,7 +41,6 @@ export const pages = {
   projPaymentSearch: '/project/payment/search',
   projPaymentInput: '/project/payment/input',
 
-  help: '/help',
   settings: '/settings',
 
 };
@@ -83,9 +81,6 @@ const Router = () => (
     <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />
     <Route path={`${pages.projPaymentSearch}`} element={'入金予定一覧ページ：未対応'} />
     <Route path={`${pages.projPaymentInput}`} element={'入金情報入力ページ：未対応'} />
-
-    {/* ヘルプ */}
-    <Route path={`${pages.help}/*`} element={<HelpComponents />} />
 
     {/* 設定 */}
     <Route path={`${pages.settings}/*`} element={<SettingsPage />} />

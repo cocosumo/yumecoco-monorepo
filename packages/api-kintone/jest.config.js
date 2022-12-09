@@ -11,10 +11,13 @@ module.exports = {
   ],
   verbose: true,
   globals: {
+    window: undefined,
     'ts-jest': {
       isolatedModules: true,
+      "useESM": true
     },
   },
+  
 };
 
 

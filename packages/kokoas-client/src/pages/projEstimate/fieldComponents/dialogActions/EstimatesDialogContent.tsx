@@ -24,11 +24,11 @@ export const EstimatesDialogContent = (props: EstimatesDialogContentProps) => {
    * 選択肢の生成
    */
   const actualOptions: OptionNode[] = records?.map<OptionNode>((rec) => {
-    const { $id } = rec;
+    const { uuid } = rec;
 
     return {
-      value: $id.value,
-      key: $id.value,
+      value: uuid.value,
+      key: uuid.value,
       component: (<ListItemEstimate estimateRecord={rec} />),
     };
   }) || [];

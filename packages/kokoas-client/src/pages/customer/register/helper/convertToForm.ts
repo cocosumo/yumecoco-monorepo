@@ -1,5 +1,6 @@
 import { ICustgroups, ICustomers } from 'types';
 import { TypeOfForm } from '../form';
+import { v4 as uuidV4 } from 'uuid';
 
 export const convertToForm = (
   recCustGroup: ICustgroups,
@@ -45,7 +46,7 @@ export const convertToForm = (
       const email = contacts.find(c => c.value.contactType.value === 'email');
 
       return {
-        key: (new Date()).getTime().toString(),
+        key: uuidV4(),
         custId: custId.value,
         index: +index.value,
         revision: custRevision.value,

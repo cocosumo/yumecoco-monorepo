@@ -1,4 +1,4 @@
-import {  Button, Zoom, Grid, Stack } from '@mui/material';
+import {  Button, Grid } from '@mui/material';
 import { PageSubTitle } from '../../../../../components/ui/labels';
 import { SelectGender } from './SelectGender';
 import { MemoizedSelectBirthdate } from './SelectBirthdate';
@@ -7,9 +7,9 @@ import {  CustomerInstance, getCustFieldName, initialCustomerValue, KeyOfForm, T
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
-import { TransitionGroup } from 'react-transition-group';
 import { nativeMath, string as randomStr } from 'random-js';
 import { NameInput } from './NameInput';
+import { grey, yellow } from '@mui/material/colors';
 
 
 
@@ -41,14 +41,25 @@ const Customer =  (props: CustomerProps) => {
   const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
 
   return (
-    <Grid container item xs={12}
+    <Grid
+      container
+      item
+      xs={12}
       spacing={2}
+      mb={2}
+      px={2}
+      pb={2}
+      sx={{
+        backgroundColor: (index % 2) ? yellow[50] : grey[50],
+      }}
     >
-
       <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8} />
       {
         !isFirstCustomer &&
-        <Grid container justifyContent={'flex-end'} item
+        <Grid
+          container
+          justifyContent={'flex-end'}
+          item
           xs={4}
         >
 
@@ -84,39 +95,36 @@ export const Customers = () => {
   const isMaxCust = maxCust === customers.length;
 
   return (
-    <Grid item xs={12}>
+    <Grid container
+      item
+      xs={12}
+      spacing={2}
+    >
       <FieldArray
         name={arrayFieldName}
         render={(arrHelpers) => {
           return (
-            <Stack key={arrayFieldName} spacing={2} >
-              {/* Render first element without animating */}
-              <Customer index={0} namePrefix={`${arrayFieldName}[${0}].`} {...arrHelpers}
-                customers={customers}
-              />
+            <Grid
+              item
+              xs={12}
+              key={arrayFieldName}
+            >
+              {customers.map((c, idx) => {
+                return (
+                  <Customer
+                    key={c.key}
+                    index={idx}
+                    namePrefix={`${arrayFieldName}[${idx}].`}
+                    customers={customers}
+                    {...arrHelpers}
 
-              <TransitionGroup component={null} >
-                {
-                  customers
-                    .filter((_, index)=> index !== 0 && _.key)
-                    .map((_, index) => {
-                      return (
-                        <Zoom key={_.key} >
-                          <Stack spacing={2} >
-                            <Customer index={index + 1} namePrefix={`${arrayFieldName}[${index + 1}].`} {...arrHelpers}
-                              customers={customers}
-                            />
-                          </Stack>
+                  />
+                );
+              },
+              )}
 
-                        </Zoom>
-                      );
-                    })
-
-                }
-
-              </TransitionGroup>
-
-              <Zoom in={!isMaxCust} style={{ transitionDelay: '500ms' }}>
+              {!isMaxCust &&
+              <Grid item xs={12}>
                 <Button
                   variant="outlined"
                   color="success"
@@ -132,9 +140,9 @@ export const Customers = () => {
                 >
                   契約者を追加する
                 </Button>
+              </Grid>}
 
-              </Zoom>
-            </Stack>);
+            </Grid>);
 
 
         }}

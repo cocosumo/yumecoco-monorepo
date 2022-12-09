@@ -23,9 +23,9 @@ export const useResolveParam = () => {
     if (recCustGroup && recsCustomers) {
       const newForm = convertToForm(recCustGroup, recsCustomers);
       setInitialState(newForm);
+    } else if (!custGroupId ) {
+      setInitialState(initialValues);
     }
-
-    if (!custGroupId) setInitialState(initialValues);
 
   }, [recCustGroup, recsCustomers, custGroupId]);
 

@@ -21,7 +21,5 @@ export const fetchUserInfo = async () => {
 
 
 export const getAccountId = async () => {
-  const { accounts } = await fetchUserInfo();
-  console.log('Account Id: ', accounts);
   return accoutId;
 };

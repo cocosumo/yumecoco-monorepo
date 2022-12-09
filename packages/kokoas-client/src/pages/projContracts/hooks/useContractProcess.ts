@@ -20,6 +20,7 @@ export const useContractProcess = () => {
     sendContract,
     {
       onMutate: () => {
+        setStatus('busy');
         setBackdropState({ open: true });
       },
 
@@ -52,24 +53,24 @@ export const useContractProcess = () => {
         });
       },
       onSettled: () => {
+        setStatus('');
         setBackdropState({ open: false });
       },
     });
 
   const {
-    mutateAsync,
+    mutate,
   }  = contractMutation;
 
   const handleSendContract = async (
     signMethod: ReqSendContract['signMethod'],
   ) => {
-    setStatus('busy');
-    await mutateAsync({
+
+    mutate({
       projEstimateId,
       userCode: kintone.getLoginUser().code,
       signMethod,
     });
-    setStatus('');
 
   };
 

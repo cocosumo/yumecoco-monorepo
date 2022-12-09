@@ -30,7 +30,7 @@ export const calculateEstimateRecord = ({
 
   const taxRate = +tax / 100;
 
-  const calculatedEstimateTable = estimatesTable.map(({
+  const calculatedEstimateTable = estimatesTable?.map(({
     value: {
       原価: costPrice,
       金額: rowUnitPriceAfterTax,

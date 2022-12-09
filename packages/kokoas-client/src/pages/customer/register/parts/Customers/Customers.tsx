@@ -9,6 +9,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Address } from './Address';
 import { nativeMath, string as randomStr } from 'random-js';
 import { NameInput } from './NameInput';
+import { grey, yellow } from '@mui/material/colors';
 
 
 
@@ -45,7 +46,12 @@ const Customer =  (props: CustomerProps) => {
       item
       xs={12}
       spacing={2}
-
+      mb={2}
+      px={2}
+      pb={2}
+      sx={{
+        backgroundColor: (index % 2) ? yellow[50] : grey[50],
+      }}
     >
       <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8} />
       {

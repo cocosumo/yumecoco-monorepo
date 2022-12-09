@@ -52,9 +52,6 @@ export const Address = (props: AddressProps) => {
     }
   }, [postal], 300);
 
-
-  console.log(isSameAddress, index);
-
   return (
     <>
       { !isFirstCustomer &&
@@ -68,7 +65,6 @@ export const Address = (props: AddressProps) => {
             namePrefix={namePrefix}
           />
         </Grid>}
-
 
     </>
   );

@@ -95,6 +95,7 @@ export const ContractFormActions = () => {
         open={isOpenDialog}
         formLoading={formLoading}
         handleRefetch={handleRefetch}
+        handlePreview={handlePreview}
         previewUrl={previewUrl}
         handleClose={() => setOpenPreview(false)}
       />

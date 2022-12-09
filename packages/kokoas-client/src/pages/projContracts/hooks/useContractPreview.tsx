@@ -27,13 +27,16 @@ export const useContractPreview = () => {
   const formStatus: TFormStatus = status;
   const formLoading = formStatus === 'busy' || previewLoading || isLoading || !previewUrl;
 
-  const handlePreview = useCallback( async () => {
+  const handlePreview = useCallback( async (fileKey = values.envSelectedDoc) => {
 
     try {
       setPreviewLoading(true);
 
       const res = await downloadContract({
-        form: values,
+        form: {
+          ...values,
+          envSelectedDoc: fileKey,
+        },
         fileType: 'pdf',
       });
 

@@ -3,6 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Loading } from './Loading';
 import { PreviewFooter } from './PreviewFooter';
 import { PreviewHeader } from './PreviewHeader';
+import { SelectDocuments } from './SelectDocuments';
 
 
 export const ContractDialog = ({
@@ -11,12 +12,14 @@ export const ContractDialog = ({
   previewUrl,
   handleRefetch,
   handleClose,
+  handlePreview,
 }: {
   open: boolean,
   formLoading: boolean,
   previewUrl: string,
   handleRefetch: () => void,
-  handleClose: () => void
+  handleClose: () => void,
+  handlePreview: (fileKey: string) => void,
 }) => {
 
 
@@ -66,8 +69,11 @@ export const ContractDialog = ({
         {formLoading && <Loading />}
       </DialogContent>
 
-      {!formLoading &&
-        <PreviewFooter />}
+      {!formLoading && (
+      <PreviewFooter >
+        <SelectDocuments handlePreview={handlePreview} />
+      </PreviewFooter>
+      )}
     </Dialog>
   );
 

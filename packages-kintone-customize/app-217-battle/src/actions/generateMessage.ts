@@ -25,8 +25,8 @@ export const generateMessage = (event: KintoneEvent) => {
 種類: ${type}
 お客様名: ${projects.map(prj => prj.value.契約者名.value).join('、')}`;
 
-  const link = `https://rdmuhwtt6gx7.cybozu.com/k/${appId}/show#record=${recordId}`;
+  const link = `[info][title]詳細[/title]https://rdmuhwtt6gx7.cybozu.com/k/${appId}/show#record=${recordId}[/info]`;
+  const ranking = `[info][title]全体[/title]https://rdmuhwtt6gx7.cybozu.com/k/${appId}/report?report=5524075[/info]`;
 
-
-  return `[info]${[title, content, link].join('\n')}[/info]`;
+  return `[info]${[title, content, link, ranking].join('\n')}[/info]`;
 };

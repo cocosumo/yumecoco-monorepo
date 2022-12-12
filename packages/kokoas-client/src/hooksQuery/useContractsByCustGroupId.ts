@@ -18,7 +18,7 @@ export const useContractsByCustGroupId = (
           && (rec.envStatus.value as TEnvelopeStatus) === 'completed');
       return {
         records: filteredData,
-        calculated: filteredData.map((d) => calculateEstimateRecord(d)),
+        calculated: filteredData.map((d) => calculateEstimateRecord({ record: d })),
         paymentList: filteredData.map((d) => paymentListCreate(d)),
       };
     },

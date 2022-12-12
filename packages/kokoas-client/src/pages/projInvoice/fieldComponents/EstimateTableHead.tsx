@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableCell, TableHead, TableRow } from '@mui/material';
 
 export const EstimateTableHead = ({
   projTypeName,
@@ -6,22 +6,24 @@ export const EstimateTableHead = ({
   projTypeName: string
 }) => {
   return (
-    <TableRow>
-      <TableCell>
-        {projTypeName}
-      </TableCell>      
-      <TableCell>
-        {'枝番'}
-      </TableCell>  
-      <TableCell>
-        {'契約金額'}
-      </TableCell>  
-      <TableCell>
-        {'請求済み金額'}
-      </TableCell>  
-      <TableCell>
-        {'請求に使用する'}
-      </TableCell>
-    </TableRow>
+    <TableHead>
+      <TableRow>
+        <TableCell width={'25%'}>
+          {projTypeName}
+        </TableCell>
+        <TableCell align="right">
+          {'枝番'}
+        </TableCell>
+        <TableCell align="right">
+          {'契約金額'}
+        </TableCell>
+        <TableCell align="right">
+          {'請求済み金額'}
+        </TableCell>
+        <TableCell>
+          {'請求に使用する'}
+        </TableCell>
+      </TableRow>
+    </TableHead>
   );
 };

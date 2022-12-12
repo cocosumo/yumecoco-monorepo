@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
-import { useContractsByCustGroupId, useCustGroupById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByCustGroupId, useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { useEffect } from 'react';
 import { getParam } from '../../../helpers/url';
 import { initialValues, TypeOfForm } from '../form';
@@ -18,8 +18,6 @@ export const useResolveParams = () => {
 
   const { data: custData } = useCustGroupById(custGroupIdFromURL || '');
   const { data: contracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
-  const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
-  const { totalInvoice } = invoices || {}; // 削除予定
 
 
 
@@ -39,9 +37,9 @@ export const useResolveParams = () => {
         const newValues = produce(initialValues, (draft) => {
           draft.custGroupId = custGroupIdFromURL;
           draft.custName = custData.custNames.value;
-          draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
+          // draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
           draft.contractAmount = String(Math.round(billingAmount));
-          draft.billedAmount = String(Math.round(totalInvoice ?? 0));
+          // draft.billedAmount = String(Math.round(totalInvoice ?? 0));
           contracts.records.forEach((record, idx) => {
             draft.estimates[idx] = {
               projId: record.projId.value,
@@ -61,6 +59,6 @@ export const useResolveParams = () => {
       setValues(initialValues);
     }
 
-  }, [custGroupIdFromURL, projInvoiceIdFromURL, setValues, custData, contracts, totalInvoice]);
+  }, [custGroupIdFromURL, projInvoiceIdFromURL, setValues, custData, contracts]);
 
 };

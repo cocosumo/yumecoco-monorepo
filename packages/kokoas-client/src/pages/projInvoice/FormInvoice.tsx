@@ -77,7 +77,7 @@ export const FormInvoice = () => {
         <PageTitle label='入金管理/請求入力' />
 
         {/* 顧客の検索 */}
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <SearchCustGroup
             fullWidth
             value={custGroupId ? {

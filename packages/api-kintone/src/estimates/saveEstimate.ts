@@ -14,11 +14,16 @@ export const saveEstimate = async ({
   revision,
   relatedData,
 }:{
+
+  /** uuid  */
   recordId: string,
+
   record: Partial<RecordType>
+
   relatedData?: {
     projDataId: string
   },
+
   revision?: string,
 }) => {
 

@@ -17,8 +17,8 @@ export const useMaterialsOptions = (
   const { majorItem, middleItem } = items[rowIdx];
 
   /* 大項目 */
-  const { 
-    data: majorItemOpts = [], 
+  const {
+    data: majorItemOpts = [],
   } = useMaterialsMajor({
     select: useCallback((d) => {
       return d.map<Option>(({ 大項目名 }) => ({
@@ -29,11 +29,11 @@ export const useMaterialsOptions = (
   });
 
   /* 中項目データと絞り込んだ選択肢 */
-  const { 
+  const {
     data: {
       middleItemOpts = [],
       data: middleItems = undefined,
-    } = {}, 
+    } = {},
   } = useMaterialsMid({
     select: useCallback((d) => {
       const derived = d.reduce((accu, { 大項目名, 中項目名 }) => {
@@ -46,7 +46,7 @@ export const useMaterialsOptions = (
         }
         return accu;
       }, [] as Options);
-    
+
       return {
         middleItemOpts: derived,
         data: d,
@@ -55,11 +55,11 @@ export const useMaterialsOptions = (
   });
 
   /* 部材データと絞り込んだ選択肢 */
-  const { 
+  const {
     data: {
       materialOpts = [],
       data: materials = undefined,
-    } = {}, 
+    } = {},
   } = useMaterialsItem({
     select: useCallback((d) => {
       const derived = d.reduce((accu, { 大項目名, 中項目名, 部材名 }) => {
@@ -72,7 +72,7 @@ export const useMaterialsOptions = (
         }
         return accu;
       }, [] as Options);
-    
+
       return {
         materialOpts: derived,
         data: d,
@@ -86,13 +86,13 @@ export const useMaterialsOptions = (
 
   const handleMajorItemChange = () => {
     setValues((prev) => produce(prev, (draft) => {
-      draft.items[rowIdx].element = '';
+      draft.items[rowIdx].material = '';
       draft.items[rowIdx].middleItem = '';
     }));
   };
 
   const handleMiddleItemChange = (newVal: string) => {
-    setFieldValue(getItemFieldName(rowIdx, 'element'), '');
+    setFieldValue(getItemFieldName(rowIdx, 'material'), '');
     if (newVal) {
       const selectedMiddleItem = middleItems?.find(({ 中項目名 }) => 中項目名.value === newVal);
       setFieldValue(getItemFieldName(rowIdx, 'majorItem'), selectedMiddleItem?.大項目名.value);

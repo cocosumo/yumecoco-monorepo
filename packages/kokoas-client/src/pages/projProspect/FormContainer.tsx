@@ -12,11 +12,11 @@ export const FormContainer = ({
   return (
     <Form noValidate>
       <ScrollToFieldError />
-      <MainContainer>
+      <MainContainer >
         <PageTitle label='見込み登録' />
         {children}
       </MainContainer>
-      
+
     </Form>
   );
 };

@@ -49,7 +49,7 @@ export const QtRowAddDelete = ({
     const newRow: TMaterials = {
       ...currentItem,
       key: uuidv4(),
-      elemProfRate: projTypeProfit,
+      //elemProfRate: projTypeProfit,
     };
     insert(rowIdx + 1, newRow);
     handleClose();

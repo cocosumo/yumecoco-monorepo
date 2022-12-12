@@ -1,7 +1,6 @@
 import { getContractData } from '../../../kintone/getContractData';
 import { generateContractXlsx } from './generateContractXlsx';
 import path from 'path';
-import { assetsDir } from '../config/file';
 import fs from 'fs';
 
 describe('Generate Contract', () => {
@@ -11,7 +10,7 @@ describe('Generate Contract', () => {
       userCode: 'RPA03',
     });
 
-    const savePath = path.join(assetsDir, 'contractTest.xlsx');
+    const savePath = path.join(__dirname, '__TEST__', 'contractTest.xlsx');
 
     // Delete existing test file as to not contaminate the test.
     if (fs.existsSync(savePath)) fs.unlinkSync(savePath);

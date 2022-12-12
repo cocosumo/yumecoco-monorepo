@@ -2,11 +2,15 @@ import SendIcon from '@mui/icons-material/Send';
 import {  Button } from '@mui/material';
 import { useStartContractProcess } from '../../../../hooks/useStartContractProcess';
 
-export const StartContract = ()=>{
+export const StartContract = ({
+  handleClosePreview,
+} : {
+  handleClosePreview: () => void
+})=>{
 
   const {
     handleClickStart,
-  } = useStartContractProcess();
+  } = useStartContractProcess({ handleClosePreview });
 
 
   return (

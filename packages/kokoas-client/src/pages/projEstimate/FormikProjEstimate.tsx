@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useConfirmDialog, useSnackBar } from '../../hooks';
 import { convertToKintone } from './api/convertToKintone';
 import { BtnSaveChoices } from './fieldComponents/formActions/BtnSaveChoices';
-import { validationSchema } from './form';
 import FormProjEstimate from './FormProjEstimate';
+import { validationSchema } from './validationSchema';
 import { useResolveParam } from './hooks/useResolveParam';
 
 
@@ -25,7 +25,7 @@ export const FormikProjEstimate = () => {
       initialValues={initialForm}
       initialStatus={((s: TFormStatus)=>s)('busy')}
       enableReinitialize
-      validateOnBlur
+      validateOnBlur={false}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         const { saveMode, estimateId  } = values;

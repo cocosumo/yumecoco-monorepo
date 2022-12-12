@@ -11,8 +11,7 @@ export const onEditOrCreateSubmitSuccessHandler = (event: KintoneEvent) => {
     return accu + +curr.value.percent_1.value;
   }, 0);
 
-  if (totalPoints > 10) {
-    alert(totalPoints);
+  if (Math.round(totalPoints) > 10) {
     event.error = '割合の合計を１０にしてください';
   }
 

@@ -1,7 +1,7 @@
 
-import { calculateEstimateRecord } from 'api-kintone';
 import { useEstimates } from './useEstimates';
 import { useCallback } from 'react';
+import { calculateEstimateRecord } from 'api-kintone';
 
 
 /**
@@ -16,7 +16,7 @@ export const useEstimateById = (projEstimateId: string) => {
       if (foundData) {
         return {
           record: foundData,
-          calculated: calculateEstimateRecord(foundData),
+          calculated: calculateEstimateRecord({ record: foundData }),
         };
       }
     }, [

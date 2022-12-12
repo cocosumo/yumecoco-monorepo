@@ -5,12 +5,17 @@ it('should porcess contract', async () => {
   console.log(process.env.NODE_ENV);
 
   const result = await processContract({
-    projEstimateId: '74',
+    projEstimateId: '5e4563ee-f154-47be-9254-4241f9415aea',
     userCode: 'RPA03',
-    signMethod: 'wetInk',
+    signMethod: 'electronic',
   },
   'sent',
-  );
+  ).catch((e) => {
+    console.log(e);
+    throw new Error(e);
+  });
 
-  expect(result).toMatchSnapshot();
+  //console.log(result);
+
+  expect(result).toBeTruthy();
 }, 30000);

@@ -33,7 +33,7 @@ export const useResolveParams = () => {
       if (custData && contracts) {
 
         const billingAmount = contracts.calculated.reduce((acc, cur) => {
-          return acc + cur.totalAmountInclTax;
+          return acc + cur.summary.totalAmountAfterTax;
         }, 0);
 
         const newValues = produce(initialValues, (draft) => {
@@ -47,9 +47,9 @@ export const useResolveParams = () => {
               projId: record.projId.value,
               projTypeName: record.工事種別名.value,
               dataId: record.dataId.value || '',
-              amountPerContract: String(contracts.calculated[idx].totalAmountInclTax),
+              amountPerContract: String(contracts.calculated[idx].summary.totalAmountAfterTax),
               amountType: '',
-              isForPayment: false,
+              isForPayment: !!(+record.isForPayment.value),
               estimateId: record.uuid.value,
             };
           });

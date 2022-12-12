@@ -8,6 +8,7 @@ import { ReqSendContract } from 'types';
 export const useContractProcess = () => {
   const {
     setValues,
+    setStatus,
     values: {
       projEstimateId,
     },
@@ -19,6 +20,7 @@ export const useContractProcess = () => {
     sendContract,
     {
       onMutate: () => {
+        setStatus('busy');
         setBackdropState({ open: true });
       },
 
@@ -51,7 +53,7 @@ export const useContractProcess = () => {
         });
       },
       onSettled: () => {
-        console.log('DONE!');
+        setStatus('');
         setBackdropState({ open: false });
       },
     });
@@ -64,12 +66,12 @@ export const useContractProcess = () => {
     signMethod: ReqSendContract['signMethod'],
   ) => {
 
-
     mutate({
       projEstimateId,
       userCode: kintone.getLoginUser().code,
       signMethod,
     });
+
   };
 
 

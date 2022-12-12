@@ -11,7 +11,6 @@ export type TypeOfPayFields = typeof initPayFields;
 export const initialValues = {
   /* Form management */
   submitMethod: 'normal' as 'normal' | 'contract',
-  isPreviewOpen: false,
 
   /* 工事 */
   projId: '',
@@ -54,6 +53,7 @@ export const initialValues = {
   paymentFields: Array<TypeOfPayFields>(4)
     .fill(initPayFields),
   remainingAmt: undefined as number | undefined,
+  totalAmount: 0,
   hasRefund: false,
   refundAmt: '' as number | '',
 

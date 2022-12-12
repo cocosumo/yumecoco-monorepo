@@ -17,8 +17,6 @@ export const EstimatesTable = () => {
   const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupId || '');
   const sortContracts = estimatesSplit(estimates);
 
-  console.log('invoices', invoices);
-
 
   return (
     <>
@@ -42,12 +40,16 @@ export const EstimatesTable = () => {
                         </TableCell>
                         <TableCell align="right">
                           {/* 契約金額 */
-                            roundTo(+row.amountPerContract)
+                            roundTo(+row.amountPerContract).toLocaleString()
                           }
                         </TableCell>
                         <TableCell align="right">
                           {/* 請求済み金額 */
-                            'メンテ中'
+                            invoices?.totalInvoice.reduce((acc, cur) => {
+                              if (row.dataId !== cur.dataId) return acc;
+                              return acc + +cur.billedAmount;
+                            }, 0)
+                              .toLocaleString()
                           }
                         </TableCell>
                         <TableCell>

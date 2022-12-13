@@ -10,12 +10,11 @@ import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
-import { BillingAmount } from './fieldComponents/BillingAmount';
 import { useEffect, useRef } from 'react';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { isEmpty } from 'lodash';
 import { EstimatesTable } from './fieldComponents/EstimatesTable';
-import { DisplayAmount } from './fieldComponents/DisplayAmount';
+import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 
 
 
@@ -108,23 +107,19 @@ export const FormInvoice = () => {
 
 
 
-        {/* 請求書情報の表示/入力エリア */}
-        {/* 契約金額 */}
+        {/* 請求入力欄(テーブル) */}
         <Grid item xs={12} md={6}>
-          <DisplayAmount
-            amount={+contractAmount}
-            label={'契約金額(税込)'}
-          />
+          <BillingEntryTable />
         </Grid>
         <Grid item md={6} />
 
 
-        {/* 請求金額・請求残高 */}
+        {/* 請求合計 */}
         <Grid item xs={12} md={12}>
-          <BillingAmount
+          {/* <BillingAmount
             open={+billingAmount > (+contractAmount - +billedAmount)}
             billingBalance={+contractAmount - +billedAmount - +billingAmount}
-          />
+          /> */}
         </Grid>
 
 

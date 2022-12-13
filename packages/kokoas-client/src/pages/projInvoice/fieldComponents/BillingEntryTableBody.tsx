@@ -2,7 +2,6 @@ import { TableCell, TableRow } from '@mui/material';
 import { paymentListCreate } from 'api-kintone/src/estimates/paymentListCreate';
 import { FormikSelect, FormikTextFieldV2 } from 'kokoas-client/src/components';
 import { useState } from 'react';
-import { array } from 'yup';
 import { getEstimatesFieldName, TMaterials } from '../form';
 
 export const BillingEntryTableBody = ({
@@ -32,7 +31,7 @@ export const BillingEntryTableBody = ({
     setAmount(paymentAmountOption?.[arrayIdx] ?? '0');
   };
 
-
+  console.log('amount', amount);
 
   return (
     <TableRow>

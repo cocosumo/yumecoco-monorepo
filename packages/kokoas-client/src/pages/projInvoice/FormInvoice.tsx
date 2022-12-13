@@ -28,7 +28,6 @@ export const FormInvoice = () => {
   const {
     custGroupId,
     custName,
-    billingAmount,
     billedAmount,
     contractAmount,
     estimates,
@@ -69,6 +68,7 @@ export const FormInvoice = () => {
 
 
 
+
   return (
     <Form noValidate>
       <ScrollToFieldError />
@@ -106,12 +106,13 @@ export const FormInvoice = () => {
         </Grid>
 
 
-
         {/* 請求入力欄(テーブル) */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
+          <Typography>
+            {'請求入力欄'}
+          </Typography>
           <BillingEntryTable />
         </Grid>
-        <Grid item md={6} />
 
 
         {/* 請求合計 */}

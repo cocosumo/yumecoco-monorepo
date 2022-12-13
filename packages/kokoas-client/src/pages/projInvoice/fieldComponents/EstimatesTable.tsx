@@ -22,8 +22,8 @@ export const EstimatesTable = () => {
     <>
       {sortContracts?.map((arr, projIdx) => {
         return (
-          <>
-            <TableContainer component={Paper} key={`estimateTbl_${arr[0].projId}`}>
+          <div key={`estimateTbl_${arr[0].projId}_container`}>
+            <TableContainer component={Paper}>
               <Table size="small">
                 <EstimateTableHead projTypeName={arr[0].projTypeName} />
                 <TableBody>
@@ -66,7 +66,7 @@ export const EstimatesTable = () => {
             </TableContainer>
 
             <br />
-          </>
+          </div>
         );
       })}
     </>

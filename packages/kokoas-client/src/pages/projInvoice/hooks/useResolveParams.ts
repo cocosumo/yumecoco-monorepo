@@ -4,6 +4,7 @@ import { useContractsByCustGroupId, useCustGroupById } from 'kokoas-client/src/h
 import { useEffect } from 'react';
 import { getParam } from '../../../helpers/url';
 import { initialValues, TypeOfForm } from '../form';
+import { estimatesSort } from '../helper/estimatesSort';
 
 /**
  * URLで渡されたものを処理する
@@ -22,6 +23,9 @@ export const useResolveParams = () => {
 
 
   useEffect(() => {
+
+    const newEstimates = contracts ? estimatesSort(contracts) : undefined;
+
     if (projInvoiceIdFromURL) {
       setValues((prev) => ({
         ...prev,
@@ -40,15 +44,15 @@ export const useResolveParams = () => {
           // draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
           draft.contractAmount = String(Math.round(billingAmount));
           // draft.billedAmount = String(Math.round(totalInvoice ?? 0));
-          contracts.records.forEach((record, idx) => {
+          newEstimates?.forEach((data, idx) => {
             draft.estimates[idx] = {
-              projId: record.projId.value,
-              projTypeName: record.工事種別名.value,
-              dataId: record.dataId.value || '',
-              amountPerContract: String(contracts.calculated[idx].summary.totalAmountAfterTax),
-              amountType: '',
-              isForPayment: !!(+record.isForPayment.value),
-              estimateId: record.uuid.value,
+              projId: data.projId,
+              projTypeName: data.projTypeName,
+              dataId: data.dataId,
+              amountPerContract: data.amountPerContract,
+              amountType: data.amountType,
+              isForPayment: data.isForPayment,
+              estimateId: data.estimateId,
             };
           });
         });

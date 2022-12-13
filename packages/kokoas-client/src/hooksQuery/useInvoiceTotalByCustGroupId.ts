@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useInvoicesByCustGroupId } from './useInvoicesByCustGroupId';
 
-interface EstimateList {
+export interface EstimateList {
   dataId: string,
   billedAmount: string
 }

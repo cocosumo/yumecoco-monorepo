@@ -1,6 +1,6 @@
 
 
-import { IconButton, TableCell, TableRow } from '@mui/material';
+import { IconButton, SxProps, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
@@ -16,6 +16,8 @@ import { UnitPriceField } from './rowFields/UnitPriceField';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
 import { FormikTextFieldV2 } from 'kokoas-client/src/components';
 import { MouseEvent } from 'react';
+import { isEven } from 'libs';
+import { grey } from '@mui/material/colors';
 
 
 export const QuoteTableRow = (
@@ -45,10 +47,15 @@ export const QuoteTableRow = (
 
   useAdjustOnRowDiscount(rowIdx);
   const isDisabled = !!envStatus;
+  const isAlternateRow = isEven(rowIdx);
+
+  const rowSx: SxProps = {
+    background:  isAlternateRow ? grey[100] : 'white',
+  };
 
   return (
     <>
-      <TableRow>
+      <TableRow sx={rowSx}>
 
         <TableCell
           rowSpan={2}
@@ -139,7 +146,7 @@ export const QuoteTableRow = (
         </TableCell>
 
       </TableRow>
-      <TableRow >
+      <TableRow sx={rowSx}>
         <TableCell colSpan={2} />
         <TableCell colSpan={2}>
           <FormikTextFieldV2

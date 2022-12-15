@@ -1,11 +1,10 @@
-import { KProjestimates } from 'types';
 import { getRecords } from '../common';
-import { appId, RecordType } from './config';
+import { appId, RecordKeys, RecordType } from './config';
 
 export const getInvoiceByCustGroupId = async (custGroupId: string) => {
   if (!custGroupId) throw new Error('Invalid project id.');
 
-  const custGroupIdKey: KProjestimates = 'custGroupId';
+  const custGroupIdKey: RecordKeys = 'custGroupId';
 
   return getRecords<RecordType>({
     app: appId,

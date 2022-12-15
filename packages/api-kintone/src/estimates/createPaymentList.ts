@@ -1,6 +1,6 @@
 import { RecordType } from './config';
 
-export const paymentListCreate = (estimateRecord: RecordType) => {
+export const createPaymentList = (estimateRecord: RecordType) => {
   const {
     支払い: { value: paymentObj },
     uuid: { value: uuid },
@@ -12,18 +12,18 @@ export const paymentListCreate = (estimateRecord: RecordType) => {
     if (acc.paymentTypeList.length === 0) {
       return ({
         paymentTypeList: cur.value.paymentType.value,
-        paymentamtPerType: cur.value.paymentAmt.value,
+        paymentAmtPerType: cur.value.paymentAmt.value,
       });
     }
     
     return ({
       paymentTypeList: [acc.paymentTypeList, cur.value.paymentType.value].join(', '),
-      paymentamtPerType: [acc.paymentamtPerType, cur.value.paymentAmt.value].join(', '),
+      paymentAmtPerType: [acc.paymentAmtPerType, cur.value.paymentAmt.value].join(', '),
     });
     
   }, {
     paymentTypeList: '',
-    paymentamtPerType: '',
+    paymentAmtPerType: '',
   });
 
   return {

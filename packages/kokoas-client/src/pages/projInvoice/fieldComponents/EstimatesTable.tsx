@@ -31,7 +31,6 @@ export const EstimatesTable = () => {
                     return (
                       <EstimateTableBody
                         estimateRow={row}
-                        invoices={invoices}
                         idx={idx}
                         key={`tableRow_${row.projId}_${row.dataId}`}
                       />

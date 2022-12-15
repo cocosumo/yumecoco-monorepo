@@ -1,8 +1,9 @@
 import { TableCell, TableRow } from '@mui/material';
 import { paymentListCreate } from 'api-kintone/src/estimates/paymentListCreate';
-import { FormikSelect, FormikTextFieldV2 } from 'kokoas-client/src/components';
-import { useState } from 'react';
-import { getEstimatesFieldName, TMaterials } from '../form';
+import { useFormikContext } from 'formik';
+import { produce } from 'immer';
+import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
+import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
 
 export const BillingEntryTableBody = ({
   estimate,
@@ -13,7 +14,10 @@ export const BillingEntryTableBody = ({
   idx: number
   paymentList: ReturnType<typeof paymentListCreate>[] | undefined
 }) => {
-  const [amount, setAmount] = useState('0');
+  const {
+    setValues,
+  } = useFormikContext<TypeOfForm>();
+
 
   const paymentItem = paymentList?.find(({ uuid }) => uuid === estimate.estimateId);
   const paymentTypeOption = paymentItem?.paymentTypeList.split(', ').map((item) => {
@@ -25,13 +29,29 @@ export const BillingEntryTableBody = ({
 
   const paymentAmountOption = paymentItem?.paymentAmtPerType.split(', ');
 
-  const handleChange = (e: any) => {
-    const arrayIdx = paymentTypeOption?.findIndex(({ value }) => value === e.target.value) ?? 0;
-    console.log('paymentAmountOption', paymentAmountOption, arrayIdx);
-    setAmount(paymentAmountOption?.[arrayIdx] ?? '0');
+  const billingAmountChange = (e: any) => {
+    setValues((prev) => {
+      const newVal = produce(prev, (draft) => {
+        draft.estimates[idx].billingAmount = e.target.value;
+      });
+
+      return newVal;
+    });
   };
 
-  console.log('amount', amount);
+  const amountTypeChange = (e: any) => {
+    const arrayIdx = paymentTypeOption?.findIndex(({ value }) => value === e.target.value) ?? 0;
+
+    setValues((prev) => {
+      const newVal = produce(prev, (draft) => {
+        draft.estimates[idx].billingAmount = paymentAmountOption?.[arrayIdx] ?? '0';
+      });
+
+      return newVal;
+    });
+  };
+
+
 
   return (
     <TableRow>
@@ -45,15 +65,15 @@ export const BillingEntryTableBody = ({
         <FormikSelect
           name={getEstimatesFieldName(idx, 'amountType')}
           options={paymentTypeOption}
-          onChange={handleChange}
+          onChange={amountTypeChange}
           size={'small'}
         />
       </TableCell>
       <TableCell align="right">
-        <FormikTextFieldV2
-          value={amount}
-          name={getEstimatesFieldName(idx, 'amountPerContract')}
+        <FormikMoneyField
+          name={getEstimatesFieldName(idx, 'billingAmount')}
           size={'small'}
+          onChange={billingAmountChange}
           sx={{ textAlign: 'right' }}
         />
       </TableCell>

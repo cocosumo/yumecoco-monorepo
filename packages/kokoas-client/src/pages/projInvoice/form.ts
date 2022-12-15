@@ -30,8 +30,14 @@ export const initialValues = {
       /** 枝番 */
       dataId: '',
 
-      /** 契約書毎の契約金額 */
-      amountPerContract: '',
+      /** 契約金額の総額 */
+      contractAmount: '',
+
+      /** 請求済み金額 */
+      billedAmount: '',
+
+      /** 請求金額 */
+      billingAmount: '',
 
       /** 支払い種別 */
       amountType: '',
@@ -43,16 +49,6 @@ export const initialValues = {
       estimateId: '',
     },
   ],
-
-
-  /** 契約金額の総額 */
-  contractAmount: '',
-
-  /** 請求済み金額 */
-  billedAmount: '',
-
-  /** 請求金額 */
-  billingAmount: '',
 
   /** 入金予定日 */
   plannedPaymentDate: '',

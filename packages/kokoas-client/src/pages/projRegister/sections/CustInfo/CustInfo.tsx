@@ -14,7 +14,6 @@ import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
 import { AGLabels } from 'types';
 import { useCustGroupById, useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
-import { RecordSelect } from '../RecordSelect/RecordSelect';
 
 export const CustInfo = () => {
 
@@ -98,7 +97,6 @@ export const CustInfo = () => {
 
   return (
     <>
-      <RecordSelect />
       <PageSubTitle label="顧客情報" />
       <Grid item xs={12}>
 

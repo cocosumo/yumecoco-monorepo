@@ -18,10 +18,10 @@ export const RecordSelect = () => {
   } = useFormikContext<TypeOfForm>();
 
   const {
-    projId,
     custGroupId,
     custName,
     createdDate,
+    projDataId,
   } = values;
 
   const { setDialogState } = useConfirmDialog();
@@ -88,7 +88,7 @@ export const RecordSelect = () => {
         md={4}
       >
         <ModeInfo
-          recordId={projId || ''}
+          recordId={projDataId || ''}
           dateStr={createdDate}
         />
       </Grid>

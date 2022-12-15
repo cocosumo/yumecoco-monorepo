@@ -1,9 +1,7 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { useEffect } from 'react';
-import { initialValues, TypeOfForm } from '../form';
-import { v4 as uuidv4 } from 'uuid';
-
+import { TypeOfForm } from '../form';
 
 export const useAdjustOnRowDiscount = (rowIdx: number) => {
   const { setValues,
@@ -17,11 +15,6 @@ export const useAdjustOnRowDiscount = (rowIdx: number) => {
     costPrice,
   } = rowData;
 
-  const isLastRow = rowIdx === items.length - 1;
-
-  //const result = useElementCalc(rowIdx);
-
-
   useEffect(() => {
 
     setValues(
@@ -31,16 +24,11 @@ export const useAdjustOnRowDiscount = (rowIdx: number) => {
           draft.items[rowIdx].quantity = 1;
           draft.items[rowIdx].elemProfRate = 0;
           draft.items[rowIdx].taxType = '非課税';
-        } else if ( isLastRow && +costPrice > 0) {
-          draft.items.push({
-            ...initialValues.items[0],
-            key: uuidv4(),
-            elemProfRate: draft.projTypeProfit,
-          });
         }
 
         draft.items[rowIdx].costPrice = costPrice;
       }),
     );
-  }, [costPrice, isLastRow, setValues, rowIdx]);
+  }, [costPrice, setValues, rowIdx]);
+
 };

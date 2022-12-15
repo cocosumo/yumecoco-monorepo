@@ -18,6 +18,7 @@ import { FormikTextFieldV2 } from 'kokoas-client/src/components';
 import { MouseEvent, useMemo } from 'react';
 import { isEven } from 'libs';
 import { grey } from '@mui/material/colors';
+import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
 
 export const QuoteTableRow = (
   {
@@ -31,8 +32,12 @@ export const QuoteTableRow = (
     envStatus: string,
     handleOpenUnitMenu: (e: MouseEvent<HTMLButtonElement>) => void
   }) => {
+
   const { values: { items } } = useFormikContext<TypeOfForm>();
   const { costPrice, unit } = items[rowIdx];
+  const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
+
+  useAdjustOnRowDiscount(rowIdx);
 
   const {
     majorItemOpts,
@@ -43,7 +48,7 @@ export const QuoteTableRow = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx);
 
-  useAdjustOnRowDiscount(rowIdx);
+
 
   const isLastRow = rowIdx === items.length - 1;
   const isDisabled = !!envStatus;
@@ -51,13 +56,17 @@ export const QuoteTableRow = (
 
   const rowSx: SxProps = useMemo(() => ({
     background:  isAlternateRow ? grey[100] : 'white',
-    opacity: isLastRow ? 0.3 : 1,
-  }), [isAlternateRow, isLastRow]);
+    opacity: isLastRow && !focused ? 0.5 : 1,
+  }), [isAlternateRow, isLastRow, focused]);
 
 
   return (
     <>
-      <TableRow sx={rowSx}>
+      <TableRow
+        onFocus={handleFocus}
+        onBlur={handleFocus}
+        sx={rowSx}
+      >
 
         <TableCell
           rowSpan={2}
@@ -149,7 +158,8 @@ export const QuoteTableRow = (
 
       </TableRow>
       <TableRow
-        onFocus={() => {console.log('yey');}}
+        onFocus={handleFocus}
+        onBlur={handleFocus}
         sx={rowSx}
       >
         <TableCell colSpan={2} />

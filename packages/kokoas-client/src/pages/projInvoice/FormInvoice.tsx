@@ -69,6 +69,7 @@ export const FormInvoice = () => {
   }, [errors, setSnackState, submitCount, submitCountRef]);
 
 
+  console.log('values', values);
 
   return (
     <Form noValidate>

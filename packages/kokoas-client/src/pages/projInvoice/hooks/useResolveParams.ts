@@ -4,7 +4,7 @@ import { useContractsByCustGroupId, useCustGroupById } from 'kokoas-client/src/h
 import { useEffect } from 'react';
 import { getParam } from '../../../helpers/url';
 import { initialValues, TypeOfForm } from '../form';
-import { estimatesSort } from '../helper/estimatesSort';
+import { sortEstimatesByProjId } from '../helper/sortEstimatesByProjId';
 
 /**
  * URLで渡されたものを処理する
@@ -24,41 +24,41 @@ export const useResolveParams = () => {
 
   useEffect(() => {
 
-    const newEstimates = contracts ? estimatesSort(contracts) : undefined;
 
     if (projInvoiceIdFromURL) {
       setValues((prev) => ({
         ...prev,
         invoiceId: projInvoiceIdFromURL,
       }));
-    } else if (custGroupIdFromURL) {
-      if (custData && contracts) {
+    } else if (custGroupIdFromURL && custData && contracts) {
 
-        const billingAmount = contracts.calculated.reduce((acc, cur) => {
-          return acc + cur.summary.totalAmountAfterTax;
-        }, 0);
+      const newEstimates = sortEstimatesByProjId(contracts);
+      const billingAmount = contracts.calculated.reduce((acc, cur) => {
+        return acc + cur.summary.totalAmountAfterTax;
+      }, 0);
 
-        const newValues = produce(initialValues, (draft) => {
-          draft.custGroupId = custGroupIdFromURL;
-          draft.custName = custData.custNames.value;
-          // draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
-          draft.contractAmount = String(Math.round(billingAmount));
-          // draft.billedAmount = String(Math.round(totalInvoice ?? 0));
-          newEstimates?.forEach((data, idx) => {
-            draft.estimates[idx] = {
-              projId: data.projId,
-              projTypeName: data.projTypeName,
-              dataId: data.dataId,
-              amountPerContract: data.amountPerContract,
-              amountType: data.amountType,
-              isForPayment: data.isForPayment,
-              estimateId: data.estimateId,
-            };
-          });
+      const newValues = produce(initialValues, (draft) => {
+        draft.custGroupId = custGroupIdFromURL;
+        draft.custName = custData.custNames.value;
+        // draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
+        draft.contractAmount = String(Math.round(billingAmount));
+        // draft.billedAmount = String(Math.round(totalInvoice ?? 0));
+        newEstimates?.forEach((data, idx) => {
+          draft.estimates[idx] = {
+            estimateIndex: String(idx),
+            projId: data.projId,
+            projTypeName: data.projTypeName,
+            dataId: data.dataId,
+            amountPerContract: data.amountPerContract,
+            amountType: data.amountType,
+            isForPayment: data.isForPayment,
+            estimateId: data.estimateId,
+          };
         });
+      });
 
-        setValues(newValues);
-      }
+      setValues(newValues);
+
     } else {
       setValues(initialValues);
     }

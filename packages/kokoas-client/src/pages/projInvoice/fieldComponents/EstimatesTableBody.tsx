@@ -6,11 +6,9 @@ import { getEstimatesFieldName, TMaterials } from '../form';
 
 export const EstimateTableBody = ({
   estimateRow,
-  idx,
   invoices,
 }: {
   estimateRow: TMaterials
-  idx: number
   invoices: {
     records: DBInvoices.SavedData[];
     totalInvoice: EstimateList[];
@@ -26,7 +24,7 @@ export const EstimateTableBody = ({
       </TableCell>
       <TableCell align="right">
         {/* 枝番号 */
-          estimateRow.dataId.split('-')[2]
+          estimateRow.dataId.split('-').at(-1)
         }
       </TableCell>
       <TableCell align="right">
@@ -48,7 +46,7 @@ export const EstimateTableBody = ({
 
         }
         <FormikLabeledCheckBox
-          name={getEstimatesFieldName(idx, 'isForPayment')}
+          name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
         />
       </TableCell>
     </TableRow>

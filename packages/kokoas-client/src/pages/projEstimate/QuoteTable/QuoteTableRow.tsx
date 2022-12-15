@@ -15,10 +15,9 @@ import { TaxTypeField } from './rowFields/TaxTypeField';
 import { UnitPriceField } from './rowFields/UnitPriceField';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
 import { FormikTextFieldV2 } from 'kokoas-client/src/components';
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import { isEven } from 'libs';
 import { grey } from '@mui/material/colors';
-
 
 export const QuoteTableRow = (
   {
@@ -32,7 +31,6 @@ export const QuoteTableRow = (
     envStatus: string,
     handleOpenUnitMenu: (e: MouseEvent<HTMLButtonElement>) => void
   }) => {
-
   const { values: { items } } = useFormikContext<TypeOfForm>();
   const { costPrice, unit } = items[rowIdx];
 
@@ -46,12 +44,16 @@ export const QuoteTableRow = (
   } = useMaterialsOptions(rowIdx);
 
   useAdjustOnRowDiscount(rowIdx);
+
+  const isLastRow = rowIdx === items.length - 1;
   const isDisabled = !!envStatus;
   const isAlternateRow = isEven(rowIdx);
 
-  const rowSx: SxProps = {
+  const rowSx: SxProps = useMemo(() => ({
     background:  isAlternateRow ? grey[100] : 'white',
-  };
+    opacity: isLastRow ? 0.3 : 1,
+  }), [isAlternateRow, isLastRow]);
+
 
   return (
     <>
@@ -138,7 +140,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell width={'3%'}>
-          {!isDisabled &&
+          {!isDisabled && !isLastRow &&
           <QtRowAddDelete
             rowIdx={rowIdx}
             arrayHelpers={arrayHelpers}
@@ -146,7 +148,10 @@ export const QuoteTableRow = (
         </TableCell>
 
       </TableRow>
-      <TableRow sx={rowSx}>
+      <TableRow
+        onFocus={() => {console.log('yey');}}
+        sx={rowSx}
+      >
         <TableCell colSpan={2} />
         <TableCell colSpan={2}>
           <FormikTextFieldV2

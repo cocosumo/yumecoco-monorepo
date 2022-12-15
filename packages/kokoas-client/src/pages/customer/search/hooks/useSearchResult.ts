@@ -44,7 +44,12 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             // 古いテストレコードでmembersのサブテーブルがないので、結果に出さない
             if (!mainCust) return acc;
 
-            const relProjects = recProjects?.filter(({ custGroupId }) => custGroupId.value === rec.uuid.value  );
+            const relProjects = recProjects
+              ?.filter(
+                ({ custGroupId, cancelStatus }) =>
+                  custGroupId.value === rec.uuid.value
+                  && !cancelStatus.value,
+              );
             const relCustomers = recCustomers?.filter(({ uuid }) => rec?.members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
             const relEstimates = recEstimates?.filter(({ custGroupId }) =>  custGroupId.value === rec.uuid.value);
             const relContracts = relEstimates?.filter(({ envStatus }) => (envStatus.value as TEnvelopeStatus) === 'completed' );

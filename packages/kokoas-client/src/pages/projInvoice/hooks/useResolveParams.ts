@@ -22,8 +22,8 @@ export const useResolveParams = () => {
   const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
 
 
-  useEffect(() => {
 
+  useEffect(() => {
 
     if (projInvoiceIdFromURL) {
       setValues((prev) => ({
@@ -38,13 +38,15 @@ export const useResolveParams = () => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
+          const tgtBilledAmount = invoices?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+
           draft.estimates[idx] = {
             estimateIndex: String(idx),
             projId: data.projId,
             projTypeName: data.projTypeName,
             dataId: data.dataId,
             contractAmount: String(data.contractAmount),
-            billedAmount: String(data.billedAmount),
+            billedAmount: tgtBilledAmount,
             billingAmount: String(data.billingAmount),
             amountType: '',
             isForPayment: data.isForPayment,

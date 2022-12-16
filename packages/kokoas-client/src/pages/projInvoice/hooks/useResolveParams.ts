@@ -22,7 +22,6 @@ export const useResolveParams = () => {
   const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
 
 
-
   useEffect(() => {
 
 
@@ -33,17 +32,11 @@ export const useResolveParams = () => {
       }));
     } else if (custGroupIdFromURL && custData && contracts) {
 
-      /* const billingAmount = contracts.calculated.reduce((acc, cur) => {
-        return acc + cur.summary.totalAmountAfterTax;
-      }, 0); */
       const newEstimates = sortEstimatesByProjId(contracts);
 
       const newValues = produce(initialValues, (draft) => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
-        /* draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
-        draft.contractAmount = String(Math.round(billingAmount));
-        draft.billedAmount = String(Math.round(totalInvoice ?? 0)); */
         newEstimates?.forEach((data, idx) => {
           draft.estimates[idx] = {
             estimateIndex: String(idx),

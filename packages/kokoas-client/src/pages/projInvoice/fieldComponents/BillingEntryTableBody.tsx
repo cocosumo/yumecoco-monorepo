@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from '@mui/material';
-import { paymentListCreate } from 'api-kintone/src/estimates/paymentListCreate';
+import { createPaymentList } from 'api-kintone/src/estimates/createPaymentList';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
@@ -12,7 +12,7 @@ export const BillingEntryTableBody = ({
 }: {
   estimate: TMaterials
   idx: number
-  paymentList: ReturnType<typeof paymentListCreate>[] | undefined
+  paymentList: ReturnType<typeof createPaymentList>[] | undefined
 }) => {
   const {
     setValues,

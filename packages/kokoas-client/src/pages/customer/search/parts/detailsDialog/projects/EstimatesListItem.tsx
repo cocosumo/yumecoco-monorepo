@@ -1,4 +1,5 @@
-import { Card, CardActions, CardContent, Chip, Stack } from '@mui/material';
+import { Card, CardActions, CardContent, Chip, Stack, useTheme } from '@mui/material';
+import { fontSize } from '@mui/system';
 import { calculateEstimateRecord } from 'api-kintone';
 import {
   LabeledDetail,
@@ -24,6 +25,8 @@ export const EstimatesListItem = ({
     envStatus,
     estimateStatus,
   } = estimateRecord;
+
+  const { typography: { caption } } = useTheme();
 
   const { summary : {
     totalAmountAfterTax,
@@ -59,10 +62,16 @@ export const EstimatesListItem = ({
             typographyProps={{
               fontSize: 20,
             }}
+            labelProps={{
+              sx: {
+                fontSize: 20,
+              },
+            }}
           />
           <LabeledDetail
             label='粗利額'
             value={`${totalProfit?.toLocaleString() || 0} 円`}
+
           />
           <LabeledDetail
             label='粗利率'
@@ -71,10 +80,26 @@ export const EstimatesListItem = ({
           <LabeledDetail
             label='作成日'
             value={`${dateStrToJA(createdDate.value)}`}
+            typographyProps={{
+              variant: 'caption',
+            }}
+            labelProps={{
+              sx: {
+                fontSize: caption.fontSize,
+              },
+            }}
           />
           <LabeledDetail
             label='ID'
             value={formatDataId(dataId.value)}
+            typographyProps={{
+              variant: 'caption',
+            }}
+            labelProps={{
+              sx: {
+                fontSize: caption.fontSize,
+              },
+            }}
           />
 
         </Stack>

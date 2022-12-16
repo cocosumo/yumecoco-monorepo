@@ -1,5 +1,5 @@
 import { Stack, FormLabel, Typography, StackProps } from '@mui/material';
-import { TypographyProps } from '@mui/system';
+import { ComponentProps } from 'react';
 
 
 
@@ -9,12 +9,15 @@ export const LabeledDetail = ({
   direction = 'row',
   justifyContent = 'space-between',
   typographyProps,
+  labelProps,
   ...otherStackProps
 } : StackProps & {
   label: string,
   value?: string,
-  typographyProps?: TypographyProps
+  typographyProps?: ComponentProps<typeof Typography>,
+  labelProps?: ComponentProps<typeof FormLabel>
 }) => {
+
 
   return (
     <>
@@ -28,7 +31,13 @@ export const LabeledDetail = ({
         justifyContent={justifyContent}
         spacing={direction === 'row' ? 2 : 0}
       >
-        <FormLabel sx={{ minWidth: '100px' }}>
+        <FormLabel
+          {...labelProps}
+          sx={{
+            ...labelProps?.sx,
+            minWidth: '100px',
+          }}
+        >
           {label}
         </FormLabel>
         <Typography {...typographyProps}>

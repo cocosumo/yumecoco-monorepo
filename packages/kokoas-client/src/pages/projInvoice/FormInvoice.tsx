@@ -3,23 +3,19 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { ContractAmount } from './fieldComponents/ContractAmount';
-import { Button, Divider, Grid } from '@mui/material';
-import { EstimateCards } from './fieldComponents/EstimateCards';
-import { paymentLabels } from '../projContracts';
-import { FormikSelect } from '../../components/ui/selects';
+import { Button, Divider, Grid, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
-import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
-import { BilledAmount } from './fieldComponents/BilledAmount';
 import { useEffect, useRef } from 'react';
-import { useInvoiceTotalByProjId } from 'kokoas-client/src/hooksQuery';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import isEmpty from 'lodash/isEmpty';
+import { isEmpty } from 'lodash';
+import { EstimatesTable } from './fieldComponents/EstimatesTable';
+import { DisplayAmount } from './fieldComponents/DisplayAmount';
 
 
 
@@ -29,21 +25,15 @@ export const FormInvoice = () => {
 
   const { values, submitForm, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
   const submitCountRef = useRef(0);
-  
+
   const {
-    projId,
-    projName,
+    custGroupId,
+    custName,
     billingAmount,
     billedAmount,
     contractAmount,
     estimates,
   } = values;
-
-  const {
-    data: Invoices,
-  } = useInvoiceTotalByProjId(projId);
-
-  const { records } = Invoices || {};
 
   useResolveParams();
 
@@ -58,7 +48,7 @@ export const FormInvoice = () => {
     const newContractAmount = estimates.reduce((acc, cur) => {
       if (cur.isForPayment) return acc;
 
-      return acc + +cur.contractAmount;
+      return acc + +cur.amountPerContract;
     }, 0);
 
     setValues((prev) => ({
@@ -86,33 +76,29 @@ export const FormInvoice = () => {
       <MainContainer justifyContent={'space-between'}>
         <PageTitle label='入金管理/請求入力' />
 
-        {/* 工事の選択 */}
-        <Grid item xs={12} md={4}>
-          <SearchProjects
-            value={projId ? { id: projId, projName: projName } : undefined}
-            onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ projId: val?.id })}`)}
-            label='工事情報の検索'
+        {/* 顧客の検索 */}
+        <Grid item xs={12} md={6}>
+          <SearchCustGroup
+            fullWidth
+            value={custGroupId ? {
+              id: custGroupId,
+              name: custName,
+            } : undefined}
+            onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ custGroupId: val?.id })}`)}
+            inputProps={{
+              label: '顧客検索',
+              name: getFieldName('custGroupId'),
+            }}
           />
         </Grid>
 
-        {/* 支払金額の種別 */}
-        <Grid item xs={12} md={2}>
-          <FormikSelect
-            name={getFieldName('amountType')}
-            label={'支払金額の種別'}
-            options={paymentLabels.map((item) => {
-              return ({
-                label: item,
-                value: item,
-              });
-            })}
-          />
-        </Grid>
-        <Grid item md={6} />
 
         {/* 契約済み見積り情報の表示 */}
         <Grid item xs={12} md={12}>
-          <EstimateCards projId={projId} />
+          <Typography>
+            {'契約一覧'}
+          </Typography>
+          <EstimatesTable />
         </Grid>
 
 
@@ -125,15 +111,9 @@ export const FormInvoice = () => {
         {/* 請求書情報の表示/入力エリア */}
         {/* 契約金額 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount contractAmount={+contractAmount} />
-        </Grid>
-        <Grid item md={6} />
-
-        {/* 請求済額 */}
-        <Grid item xs={12} md={6}>
-          <BilledAmount
-            billedAmount={+billedAmount}
-            records={records}
+          <DisplayAmount
+            amount={+contractAmount}
+            label={'契約金額(税込)'}
           />
         </Grid>
         <Grid item md={6} />

@@ -60,7 +60,15 @@ module.exports = {
     "react/jsx-pascal-case": [2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_",  }],
     "import/no-extraneous-dependencies": "off", // Was having problems with this in a monorepo. Need help to resolve.
-
+    "no-irregular-whitespace": [
+      "error",
+      {
+        "skipStrings": true,
+        "skipComments": true,
+        "skipRegExps": true,
+        "skipTemplates": true
+      }
+    ]
   },
   "overrides": [
     {

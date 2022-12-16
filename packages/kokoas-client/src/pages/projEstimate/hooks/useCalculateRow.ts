@@ -53,7 +53,6 @@ export const useCalculateRow = <T = number, R = T>({
             break;
           case 'costPrice':
             if (+inputValue < 0) {
-
               prevTaxable = false;
               prevQuantity = 1;
               prevProfitRate = 0;

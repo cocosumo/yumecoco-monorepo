@@ -19,20 +19,31 @@ export const useAdvancedTableRow = (rowIdx : number) => {
     };
   }, [projTypeProfit]);
 
+  const isLastRow = rowIdx === items.length - 1;
+
   const isModified = useMemo(() => {
-    return JSON.stringify(initialRow) !== JSON.stringify(items[rowIdx]);
-  }, [items, rowIdx]);
+
+    //  頭に _ あるものは、比較に無視。
+    const { key: _k1, elemProfRate: _ep1, ...clonedInitialRow } = initialRow;
+    const { key: _k2, elemProfRate: _ep2, ...clonedRow } = items[rowIdx];
+
+    // 速度が必要になったら、改善
+    return JSON.stringify(clonedInitialRow) !== JSON.stringify(clonedRow);
+  }, [items, rowIdx, initialRow]);
+
 
   useEffect(() => {
-    if (isModified) {
-      setValues(prev => produce(prev, draft => {
-        draft.items.push({
-          ...initialRow,
-          key: uuidv4(),
-        });
-      }));
+    if (isModified && isLastRow) {
+      setValues(
+        (prev) => produce(prev, (draft) => {
+          draft.items.push({
+            ...initialRow,
+            key: uuidv4(),
+          });
+
+        }));
     }
-  }, [isModified, setValues, initialRow]);
+  }, [isModified, setValues, initialRow, rowIdx, isLastRow]);
 
   const [focused, setFocused] = useState(false);
   const handleFocus : FocusEventHandler = useCallback(

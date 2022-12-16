@@ -35,9 +35,9 @@ export const QuoteTableRow = (
 
   const { values: { items } } = useFormikContext<TypeOfForm>();
   const { costPrice, unit } = items[rowIdx];
-  const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
 
-  useAdjustOnRowDiscount(rowIdx);
+  const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
+  //useAdjustOnRowDiscount(rowIdx);
 
   const {
     majorItemOpts,

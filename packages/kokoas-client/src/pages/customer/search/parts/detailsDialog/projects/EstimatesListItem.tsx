@@ -1,9 +1,12 @@
-import { Card, CardActions, CardContent, Chip, Stack, Typography } from '@mui/material';
+import { Card, CardActions, CardContent, Chip, Stack } from '@mui/material';
 import { calculateEstimateRecord } from 'api-kintone';
+import {
+  LabeledDetail,
+} from 'kokoas-client/src/components';
 import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
+import { formatDataId } from 'libs';
 import { useMemo } from 'react';
 import { IProjestimates, TEnvelopeStatus } from 'types';
-import { Caption } from '../../../../../../components/ui/typographies';
 import { dateStrToJA } from '../../../../../../helpers/utils';
 import { EstimateButton } from './EstimateButton';
 
@@ -22,7 +25,11 @@ export const EstimatesListItem = ({
     estimateStatus,
   } = estimateRecord;
 
-  const { summary : { totalAmountAfterTax } } = useMemo(() => {
+  const { summary : {
+    totalAmountAfterTax,
+    totalProfit,
+    overallProfitRate,
+  } } = useMemo(() => {
     return calculateEstimateRecord({ record: estimateRecord });
   }, [estimateRecord]);
 
@@ -46,11 +53,29 @@ export const EstimatesListItem = ({
           />)}
         </Stack>
         <Stack direction={'column'} spacing={0} alignItems="flex-end">
-          <Typography variant='h5' textAlign={'right'} component="span">
-            {`${totalAmountAfterTax?.toLocaleString() || 0} 円`}
-          </Typography>
-          <Caption text={`${dateStrToJA(createdDate.value)}`} />
-          <Caption text={dataId.value} />
+          <LabeledDetail
+            label='契約金額'
+            value={`${totalAmountAfterTax?.toLocaleString() || 0} 円`}
+            typographyProps={{
+              fontSize: 20,
+            }}
+          />
+          <LabeledDetail
+            label='粗利額'
+            value={`${totalProfit?.toLocaleString() || 0} 円`}
+          />
+          <LabeledDetail
+            label='粗利率'
+            value={`${(overallProfitRate || 0) * 100} %`}
+          />
+          <LabeledDetail
+            label='作成日'
+            value={`${dateStrToJA(createdDate.value)}`}
+          />
+          <LabeledDetail
+            label='ID'
+            value={formatDataId(dataId.value)}
+          />
 
         </Stack>
       </CardContent>

@@ -1,6 +1,6 @@
 import { RecordType } from './config';
 
-export const paymentListCreate = (estimateRecord: RecordType) => {
+export const createPaymentList = (estimateRecord: RecordType) => {
   const {
     支払い: { value: paymentObj },
     uuid: { value: uuid },

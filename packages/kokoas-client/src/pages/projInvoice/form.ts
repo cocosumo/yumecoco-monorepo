@@ -21,6 +21,9 @@ export const initialValues = {
   /** 見積もり情報 */
   estimates: [
     {
+      /** 見積もりインデックス */
+      estimateIndex: '',
+
       /** 工事番号 */
       projId: '',
 

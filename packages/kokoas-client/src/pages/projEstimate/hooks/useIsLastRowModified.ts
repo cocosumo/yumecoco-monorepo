@@ -18,7 +18,10 @@ export const useIsLastRowModified = (
   const currRow = items[rowIdx];
 
   const isLastRowModified = useMemo(() => {
+
+    // 最終行じゃない場合、比較処理が必要ないので止める。
     if (!isLastRow) return false;
+
     //  頭に 「_」 あるものは、比較に無視。
     const { key: _k1, elemProfRate: _ep1, ...clonedInitialRow } = initialRow;
     const { key: _k2, elemProfRate: _ep2, ...clonedRow } = currRow;

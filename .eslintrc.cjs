@@ -65,12 +65,23 @@ module.exports = {
       "caughtErrorsIgnorePattern": "^_"
     }],
     "import/no-extraneous-dependencies": "off", // Was having problems with this in a monorepo. Need help to resolve.
+
     "@typescript-eslint/naming-convention": [
       "error",
       {
         "selector": "variableLike",
       "format": ["camelCase", "PascalCase", "UPPER_CASE"],
       "leadingUnderscore" : "allow"
+      }
+    ],
+
+    "no-irregular-whitespace": [
+      "error",
+      {
+        "skipStrings": true,
+        "skipComments": true,
+        "skipRegExps": true,
+        "skipTemplates": true
       }
     ]
   },

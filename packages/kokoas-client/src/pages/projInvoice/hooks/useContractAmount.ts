@@ -13,7 +13,7 @@ export const useContractAmount = (
 
     if (cur.isForPayment) return acc;
 
-    return acc + +cur.contractAmount;
+    return acc + +cur.amountPerContract;
 
   }, 0), [estimates]);
 

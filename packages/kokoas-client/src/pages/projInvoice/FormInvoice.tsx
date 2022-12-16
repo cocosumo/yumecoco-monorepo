@@ -13,7 +13,7 @@ import { pages } from '../Router';
 import { BillingAmount } from './fieldComponents/BillingAmount';
 import { useEffect, useRef } from 'react';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { DisplayAmount } from './fieldComponents/DisplayAmount';
 

@@ -21,5 +21,6 @@ export const fetchUserInfo = async () => {
 
 
 export const getAccountId = async () => {
+  console.log('ACCOUNT ID: ', accoutId);
   return accoutId;
 };

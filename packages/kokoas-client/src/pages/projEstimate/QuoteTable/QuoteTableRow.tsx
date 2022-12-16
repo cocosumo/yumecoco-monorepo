@@ -74,7 +74,9 @@ export const QuoteTableRow = (
             pl: 1, pr: 0,
           }}
         >
-          <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+          {!isDisabled && !isLastRow && (
+            <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+          )}
         </TableCell>
 
         <TableCell width={'8%'}>

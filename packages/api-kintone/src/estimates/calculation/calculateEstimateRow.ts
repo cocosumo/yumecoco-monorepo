@@ -98,7 +98,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
 
   /******************************
-   * Edge cases：計算不要なケース *
+   * Edge case：計算不要なケース *
   *******************************/
   if (
     +quantity === 0 //  数量がない場合、計算不要
@@ -115,6 +115,24 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       rowUnitPriceAfterTax: 0,
     };
   }
+
+  /************************
+   * Edge case:  割引のケース
+   *************************/
+  if ((costPrice < 0)) {
+    return {
+      ...params,
+      quantity: 1,
+      isTaxable: false,
+      rowCostPrice,
+      rowUnitPriceBeforeTax: 0,
+      rowUnitPriceAfterTax: 0,
+      rowProfit: 0,
+      profitRate: 0,
+      unitPrice: 0,
+    };
+  }
+
 
 
   /********************************************************************************

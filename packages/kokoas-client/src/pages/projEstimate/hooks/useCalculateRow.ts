@@ -66,11 +66,12 @@ export const useCalculateRow = <T = number, R = T>({
           [watchField]: transform?.(e.target.value as T) ?? +e.target.value,
         });
 
+        items[rowIdx].taxType = result.isTaxable ? '課税' : '非課税';
         items[rowIdx].rowUnitPriceAfterTax = Math.round(result.rowUnitPriceAfterTax);
         items[rowIdx].elemProfRate = roundTo(result.profitRate * 100, 2);
         items[rowIdx].unitPrice = Math.round(result.unitPrice);
 
-        
+
       }));
     }, 500),
     [setValues, rowIdx, watchField, transform],

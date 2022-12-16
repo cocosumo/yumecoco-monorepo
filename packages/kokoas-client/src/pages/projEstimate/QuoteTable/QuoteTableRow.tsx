@@ -7,7 +7,6 @@ import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
-import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
 import { CostPriceField } from './rowFields/CostPriceField';
 import { QuantityField } from './rowFields/QuantityField';
 import { ProfitRateField } from './rowFields/ProfitRateField';

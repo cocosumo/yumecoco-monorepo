@@ -38,7 +38,12 @@ export const EstimatesListItem = ({
   return (
     <Card variant='outlined'>
       <CardContent sx={{ p: 1 }}>
-        <Stack direction={'row'} spacing={1} mb={1}>
+        <Stack
+          direction={'row'}
+          spacing={1}
+          mb={1}
+          minHeight={'20px'}
+        >
           {envStatus.value && (
           <Chip
             size='small'

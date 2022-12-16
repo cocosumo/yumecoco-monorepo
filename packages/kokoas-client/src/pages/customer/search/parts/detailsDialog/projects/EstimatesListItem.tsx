@@ -1,5 +1,4 @@
 import { Card, CardActions, CardContent, Chip, Stack, useTheme } from '@mui/material';
-import { fontSize } from '@mui/system';
 import { calculateEstimateRecord } from 'api-kintone';
 import {
   LabeledDetail,

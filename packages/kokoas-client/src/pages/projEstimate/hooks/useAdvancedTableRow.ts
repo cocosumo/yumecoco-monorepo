@@ -22,12 +22,11 @@ export const useAdvancedTableRow = (rowIdx : number) => {
   const isLastRow = rowIdx === items.length - 1;
 
   const isModified = useMemo(() => {
-
-    //  頭に _ あるものは、比較に無視。
+    //  頭に 「_」 あるものは、比較に無視。
     const { key: _k1, elemProfRate: _ep1, ...clonedInitialRow } = initialRow;
     const { key: _k2, elemProfRate: _ep2, ...clonedRow } = items[rowIdx];
 
-    // 速度が必要になったら、改善
+    // 短いですが、速度が必要になったら、改善
     return JSON.stringify(clonedInitialRow) !== JSON.stringify(clonedRow);
   }, [items, rowIdx, initialRow]);
 
@@ -46,6 +45,8 @@ export const useAdvancedTableRow = (rowIdx : number) => {
   }, [isModified, setValues, initialRow, rowIdx, isLastRow]);
 
   const [focused, setFocused] = useState(false);
+
+
   const handleFocus : FocusEventHandler = useCallback(
     (e) => {
 
@@ -59,7 +60,7 @@ export const useAdvancedTableRow = (rowIdx : number) => {
 
   return {
     focused,
-    handleFocus,
     isModified,
+    handleFocus,
   };
 };

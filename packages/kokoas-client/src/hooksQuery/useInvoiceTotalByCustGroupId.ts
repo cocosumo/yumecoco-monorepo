@@ -16,16 +16,12 @@ export const useInvoiceTotalByCustGroupId = (
       const totalInvoice = data.records.reduce((acc, cur) => {
         const estimateList = cur.estimateLists.value;
 
-        const estimateObj = [] as EstimateList[];
         estimateList.forEach((estimate) => {
-
-          estimateObj.push({
+          acc.push({
             dataId: estimate.value.dataId.value,
             billedAmount: estimate.value.amountPerContract.value,
           });
         });
-
-        acc = acc.concat(estimateObj);
         
         return acc;
 

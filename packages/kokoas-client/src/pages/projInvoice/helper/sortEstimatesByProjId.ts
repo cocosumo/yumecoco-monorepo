@@ -1,5 +1,4 @@
 import { calculateEstimateRecord } from 'api-kintone';
-import { TypeOfForm } from '../form';
 
 
 /**
@@ -15,10 +14,9 @@ export const sortEstimatesByProjId = ({
 }) => {
 
   /* データの再構成 */
-  const convertedEstimates = [] as TypeOfForm['estimates'];
-  records.map((cur, idx) => {
+  const convertedEstimates = records.map((cur, idx) => {
 
-    const newData = {
+    return {
       projId: cur.projId.value,
       projTypeName: cur.工事種別名.value,
       dataId: cur.dataId.value || '',
@@ -27,8 +25,6 @@ export const sortEstimatesByProjId = ({
       isForPayment: !!(+cur.isForPayment.value),
       estimateId: cur.uuid.value,
     };
-
-    convertedEstimates.push(newData);
 
   });
 

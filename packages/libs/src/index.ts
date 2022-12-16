@@ -1,5 +1,5 @@
 export * from './addressBuilder';
-export * from './formatDataid';
+export * from './formatDataId';
 export * from './loadEnv';
 export * from './roundTo';
 export * from './sleep';

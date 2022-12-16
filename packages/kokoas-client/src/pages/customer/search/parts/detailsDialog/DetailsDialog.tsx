@@ -36,7 +36,7 @@ export const DetailsDialog = (props : {
       onClose={handleClose}
       open={open}
       fullWidth
-      maxWidth="md"
+      maxWidth="lg"
     >
       <DialogTitle>
         <Stack spacing={2} direction="row" justifyContent={'space-between'}>

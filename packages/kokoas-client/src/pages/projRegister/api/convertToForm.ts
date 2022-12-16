@@ -1,4 +1,5 @@
 import { format, parseISO } from 'date-fns';
+import { formatDataId } from 'libs';
 import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Territory } from 'types';
 import { TypeOfForm } from '../form';
 
@@ -8,6 +9,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     projTypeId,
     projName,
     custGroupId,
+    dataId,
     uuid,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
@@ -37,6 +39,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     projTypeId: projTypeId.value,
     projTypeName: projTypeName.value,
     projName: projName.value,
+    projDataId: formatDataId(dataId.value),
     postal: postal.value,
     storeId: storeId.value,
   };

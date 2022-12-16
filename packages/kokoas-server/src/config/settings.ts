@@ -31,9 +31,10 @@ export const userId = <string>process.env[isProd ? 'DS_USER_ID_PROD' : 'DS_USER_
 export const accoutId = <string>process.env[isProd ? 'DS_ACCOUNT_ID_PROD' : 'DS_ACCOUNT_ID'];
 
 export const scopes = [
-  oAuth.Scope.IMPERSONATION,
   oAuth.Scope.SIGNATURE,
+  oAuth.Scope.IMPERSONATION,
 ];
+
 export const apiClient = new ds.ApiClient({
   basePath: basePath,
   oAuthBasePath: oAuthBasePath,

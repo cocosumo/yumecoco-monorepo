@@ -1,13 +1,12 @@
 
 
-import { IconButton, TableCell, TableRow } from '@mui/material';
+import { IconButton, SxProps, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
-import { useAdjustOnRowDiscount } from '../hooks/useAdjustOnRowDiscount';
 import { CostPriceField } from './rowFields/CostPriceField';
 import { QuantityField } from './rowFields/QuantityField';
 import { ProfitRateField } from './rowFields/ProfitRateField';
@@ -15,8 +14,10 @@ import { TaxTypeField } from './rowFields/TaxTypeField';
 import { UnitPriceField } from './rowFields/UnitPriceField';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
 import { FormikTextFieldV2 } from 'kokoas-client/src/components';
-import { MouseEvent } from 'react';
-
+import { MouseEvent, useMemo } from 'react';
+import { isEven } from 'libs';
+import { grey } from '@mui/material/colors';
+import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
 
 export const QuoteTableRow = (
   {
@@ -34,6 +35,9 @@ export const QuoteTableRow = (
   const { values: { items } } = useFormikContext<TypeOfForm>();
   const { costPrice, unit } = items[rowIdx];
 
+  const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
+  //useAdjustOnRowDiscount(rowIdx);
+
   const {
     majorItemOpts,
     middleItemOpts,
@@ -43,12 +47,25 @@ export const QuoteTableRow = (
     handleMaterialChange,
   } = useMaterialsOptions(rowIdx);
 
-  useAdjustOnRowDiscount(rowIdx);
+
+
+  const isLastRow = rowIdx === items.length - 1;
   const isDisabled = !!envStatus;
+  const isAlternateRow = isEven(rowIdx);
+
+  const rowSx: SxProps = useMemo(() => ({
+    background:  isAlternateRow ? grey[100] : 'white',
+    opacity: isLastRow && !focused ? 0.5 : 1,
+  }), [isAlternateRow, isLastRow, focused]);
+
 
   return (
     <>
-      <TableRow>
+      <TableRow
+        onFocus={handleFocus}
+        onBlur={handleFocus}
+        sx={rowSx}
+      >
 
         <TableCell
           rowSpan={2}
@@ -57,7 +74,9 @@ export const QuoteTableRow = (
             pl: 1, pr: 0,
           }}
         >
-          <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+          {!isDisabled && !isLastRow && (
+            <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+          )}
         </TableCell>
 
         <TableCell width={'8%'}>
@@ -131,7 +150,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell width={'3%'}>
-          {!isDisabled &&
+          {!isDisabled && !isLastRow &&
           <QtRowAddDelete
             rowIdx={rowIdx}
             arrayHelpers={arrayHelpers}
@@ -139,7 +158,11 @@ export const QuoteTableRow = (
         </TableCell>
 
       </TableRow>
-      <TableRow >
+      <TableRow
+        onFocus={handleFocus}
+        onBlur={handleFocus}
+        sx={rowSx}
+      >
         <TableCell colSpan={2} />
         <TableCell colSpan={2}>
           <FormikTextFieldV2

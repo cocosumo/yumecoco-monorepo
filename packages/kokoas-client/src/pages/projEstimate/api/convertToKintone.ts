@@ -16,38 +16,40 @@ export const convertToKintone = ({
   /* itemsの変換処理 */
   const kintoneItems: Partial<IProjestimates>['内訳'] = {
     type: 'SUBTABLE',
-    value: items.map(({
-      majorItem,
-      middleItem,
-      material,
-      materialDetails,
-      costPrice,
-      quantity,
-      unit,
-      elemProfRate,
-      rowUnitPriceAfterTax,
-      taxType,
-      rowDetails,
-    }) => {
-      return {
-        id: '', // 自動生成
-        value: {
-          部材備考: { value: materialDetails },
-          備考: { value: rowDetails },
-          大項目: { value: majorItem },
-          中項目: { value: middleItem },
-          部材名: { value: material },
-          原価 : { value: costPrice.toString() },
-          数量 : { value: quantity.toString() },
-          単位: { value: unit },
-          金額: { value: rowUnitPriceAfterTax.toString() },
+    value: items
+      .slice(0, -1)
+      .map(({
+        majorItem,
+        middleItem,
+        material,
+        materialDetails,
+        costPrice,
+        quantity,
+        unit,
+        elemProfRate,
+        rowUnitPriceAfterTax,
+        taxType,
+        rowDetails,
+      }) => {
+        return {
+          id: '', // 自動生成
+          value: {
+            部材備考: { value: materialDetails },
+            備考: { value: rowDetails },
+            大項目: { value: majorItem },
+            中項目: { value: middleItem },
+            部材名: { value: material },
+            原価 : { value: costPrice.toString() },
+            数量 : { value: quantity.toString() },
+            単位: { value: unit },
+            金額: { value: rowUnitPriceAfterTax.toString() },
 
-          /** @deprecated Field will no longer be used. */
-          部材利益率: { value: elemProfRate.toString() },
-          taxType: { value: taxType },
-        },
-      };
-    }),
+            /** @deprecated Field will no longer be used. */
+            部材利益率: { value: elemProfRate.toString() },
+            taxType: { value: taxType },
+          },
+        };
+      }),
   };
 
 

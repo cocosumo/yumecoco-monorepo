@@ -3,6 +3,7 @@ import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { initialValues, TypeOfForm } from '../form';
 import { v4 as uuidv4 } from 'uuid';
+import AddIcon from '@mui/icons-material/Add';
 
 export const QuoteTableActions = () => {
   const { setValues } = useFormikContext<TypeOfForm>();
@@ -11,7 +12,8 @@ export const QuoteTableActions = () => {
     <Stack direction="row" justifyContent={'flex-end'}>
       <Button
         variant="contained"
-        color="secondary"
+        color="success"
+        startIcon={<AddIcon />}
         onClick={() => {
           setValues(
             prev => produce(prev, draft => {

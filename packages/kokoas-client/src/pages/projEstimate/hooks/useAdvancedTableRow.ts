@@ -1,8 +1,9 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { FocusEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
-import { initialValues, TypeOfForm } from '../form';
+import { TypeOfForm } from '../form';
 import { v4 as uuidv4 }  from 'uuid';
+import { useInitialRow } from './useInitialRow';
 
 export const useAdvancedTableRow = (rowIdx : number) => {
   const {
@@ -10,14 +11,9 @@ export const useAdvancedTableRow = (rowIdx : number) => {
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { items, projTypeProfit } = values;
+  const { items } = values;
 
-  const initialRow = useMemo(() => {
-    return {
-      ...initialValues.items[0],
-      elemProfRate: projTypeProfit,
-    };
-  }, [projTypeProfit]);
+  const initialRow = useInitialRow();
 
   const isLastRow = rowIdx === items.length - 1;
 
@@ -33,6 +29,7 @@ export const useAdvancedTableRow = (rowIdx : number) => {
 
   useEffect(() => {
     if (isModified && isLastRow) {
+      // 最終行は初期と異なる際、 行を自動追加する
       setValues(
         (prev) => produce(prev, (draft) => {
           draft.items.push({
@@ -46,16 +43,16 @@ export const useAdvancedTableRow = (rowIdx : number) => {
 
   const [focused, setFocused] = useState(false);
 
-
   const handleFocus : FocusEventHandler = useCallback(
     (e) => {
+      //
+      if (!isLastRow) return;
 
       const currentTarget = e.currentTarget;
       requestAnimationFrame(() => {
         setFocused(currentTarget.contains(document.activeElement));
-
       });
-    }, [],
+    }, [isLastRow],
   );
 
   return {

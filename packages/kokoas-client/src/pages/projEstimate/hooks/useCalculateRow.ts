@@ -21,8 +21,9 @@ export const useCalculateRow = <T = number, R = T>({
 
   const handleChange = useMemo(
     () => debounce((e: ChangeEvent<HTMLInputElement>) => {
+      const inputValue = e.target.value;
 
-      if (e.target.value === '') return;
+      if (inputValue === '') return;
 
       setValues(prev => produce(prev, ({ tax, items }) => {
         const {
@@ -37,7 +38,10 @@ export const useCalculateRow = <T = number, R = T>({
         let prevProfitRate : number | undefined;
         let prevUnitPrice : number | undefined;
         let prevRowUnitPriceAfterTax : number | undefined;
+        let prevTaxable = taxType === '課税';
+        let prevQuantity = quantity;
 
+        console.log(watchField, costPrice);
 
         // 編集されたフィールドによって、他フィールドをリセットする
         switch (watchField) {
@@ -49,6 +53,14 @@ export const useCalculateRow = <T = number, R = T>({
             prevRowUnitPriceAfterTax = undefined;
             prevProfitRate = undefined;
             break;
+          case 'costPrice':
+            if (+inputValue < 0) {
+              console.log('ENTERED');
+              prevTaxable = false;
+              prevQuantity = 1;
+              prevProfitRate = 0;
+            }
+            break;
           default:
             prevProfitRate = elemProfRate / 100;
             prevUnitPrice = unitPrice;
@@ -56,20 +68,21 @@ export const useCalculateRow = <T = number, R = T>({
         }
 
         const result = calculateEstimateRow({
-          isTaxable: taxType === '課税',
+          isTaxable: prevTaxable,
           taxRate: tax / 100,
           costPrice,
-          quantity,
+          quantity: prevQuantity,
           profitRate: prevProfitRate,
           unitPrice: prevUnitPrice,
           rowUnitPriceAfterTax: prevRowUnitPriceAfterTax,
-          [watchField]: transform?.(e.target.value as T) ?? +e.target.value,
+          [watchField]: transform?.(inputValue as T) ?? +inputValue,
         });
 
-        items[rowIdx].taxType = result.isTaxable ? '課税' : '非課税';
-        items[rowIdx].rowUnitPriceAfterTax = Math.round(result.rowUnitPriceAfterTax);
+        items[rowIdx].quantity = result.quantity;
         items[rowIdx].elemProfRate = roundTo(result.profitRate * 100, 2);
         items[rowIdx].unitPrice = Math.round(result.unitPrice);
+        items[rowIdx].taxType = result.isTaxable ? '課税' : '非課税';
+        items[rowIdx].rowUnitPriceAfterTax = Math.round(result.rowUnitPriceAfterTax);
 
 
       }));

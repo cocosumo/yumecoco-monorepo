@@ -116,25 +116,6 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     };
   }
 
-  /************************
-   * Edge case:  割引のケース
-   *************************/
-  if ((costPrice < 0)) {
-    return {
-      ...params,
-      quantity: 1,
-      isTaxable: false,
-      rowCostPrice,
-      rowUnitPriceBeforeTax: 0,
-      rowUnitPriceAfterTax: 0,
-      rowProfit: 0,
-      profitRate: 0,
-      unitPrice: 0,
-    };
-  }
-
-
-
   /********************************************************************************
    *「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
    *******************************************************************************/
@@ -212,6 +193,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
   // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計
   const newRowProfit =  newRowUnitPriceBeforeTax - rowCostPrice;
+
 
   return {
     ...params,

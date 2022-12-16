@@ -53,9 +53,14 @@ export const useCalculateRow = <T = number, R = T>({
             break;
           case 'costPrice':
             if (+inputValue < 0) {
+
               prevTaxable = false;
               prevQuantity = 1;
               prevProfitRate = 0;
+            } else {
+              prevProfitRate = elemProfRate / 100;
+              prevUnitPrice = unitPrice;
+              prevRowUnitPriceAfterTax = rowUnitPriceAfterTax;
             }
             break;
           default:

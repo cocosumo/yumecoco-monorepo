@@ -41,8 +41,6 @@ export const useCalculateRow = <T = number, R = T>({
         let prevTaxable = taxType === '課税';
         let prevQuantity = quantity;
 
-        console.log(watchField, costPrice);
-
         // 編集されたフィールドによって、他フィールドをリセットする
         switch (watchField) {
           case 'rowUnitPriceAfterTax':

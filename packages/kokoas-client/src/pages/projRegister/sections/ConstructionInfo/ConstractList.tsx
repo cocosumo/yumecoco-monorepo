@@ -8,7 +8,7 @@ interface ConstractListProps {
 export const ConstractList = (props: ConstractListProps) => {
   const { data } = props;
 
-  const tableHeadder = ['ステータス', 'id', '契約日', '利益額・率'];
+  const tableHeadder = ['ステータス', 'id', '契約日', '契約金額'];
 
 
   return (

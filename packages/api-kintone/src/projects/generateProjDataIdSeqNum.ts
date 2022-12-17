@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import { zeroPad } from 'libs';
+import isNumber from 'lodash/isNumber';
 import { KProjects } from 'types';
 import { getRecords } from '../common';
 import { appId, dataIdPadding, dataIdPrefix, RecordType } from './config';
@@ -22,7 +23,7 @@ export const generateProjDataIdSeqNum = async (prefix: string) => {
   const dataIdField : KProjects = 'dataId';
   const query = `${dataIdField} like "${partialDataId}" order by 作成日時 desc limit 1`;
 
-  const { records } = await getRecords<RecordType>({
+  const { records, totalCount } = await getRecords<RecordType>({
     app: appId,
     fields,
     query,
@@ -30,7 +31,16 @@ export const generateProjDataIdSeqNum = async (prefix: string) => {
   });
 
   if (records.length) {
-    sequenceNumber += +(records[0].dataId.value.slice(-dataIdPadding)) ;
+
+
+    const lastSeqNum = records[0].dataId.value.slice(-dataIdPadding);
+
+    if (isNumber(lastSeqNum)) {
+      sequenceNumber += +(lastSeqNum);
+    } else {
+      throw new Error(`データ番号生成失敗しました。最終データ番号：  ${records[0].dataId.value}. Resolved: ${lastSeqNum}`);
+    }
+
   }
 
   return `${prefix}-${partialDataId}-${zeroPad(sequenceNumber, dataIdPadding)}` ;

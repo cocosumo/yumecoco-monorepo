@@ -14,7 +14,7 @@ export const jaEnvelopeStatus  = (
       };
     case 'sent':
       return {
-        ja: '送済み',
+        ja: '送信済み',
         desc: '封筒へのリンクが記載された電子メール通知が少なくとも1人の受信者に送信されました。 エンベロープは、すべての受信者が少なくともそれを表示するまで、この状態のままになります。',
       };
     case 'delivered':

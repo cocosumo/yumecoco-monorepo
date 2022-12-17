@@ -14,7 +14,7 @@ import { isProd } from 'config';
  *  */
 
 /*  Test emails */
-const testCustEmail = 'lenzras@gmail.com';
+const testCustEmail = 'lenzras@gmail.com'; // 顧客
 const testTantouEmail = 'yumecoco.rpa05@gmail.com'; // 担当
 const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
 const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
@@ -30,8 +30,6 @@ export const makeEnvelope = async ({
   signMethod: ReqSendContract['signMethod'],
 },
 ) => {
-
-  //if (isProd) throw new Error("IT'S PROD!");
 
   const {
     customers,
@@ -117,6 +115,8 @@ export const makeEnvelope = async ({
     });
   } else {
     /* 紙契約の場合 */
+
+    /* 担当者 */
     signers.push({
       email: isProd ? officerEmail : testTantouEmail,
       name: officerName,

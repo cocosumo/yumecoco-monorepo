@@ -23,7 +23,7 @@ export const generateProjDataIdSeqNum = async (prefix: string) => {
   const dataIdField : KProjects = 'dataId';
   const query = `${dataIdField} like "${partialDataId}" order by 作成日時 desc limit 1`;
 
-  const { records, totalCount } = await getRecords<RecordType>({
+  const { records } = await getRecords<RecordType>({
     app: appId,
     fields,
     query,

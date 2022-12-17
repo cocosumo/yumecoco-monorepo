@@ -1,6 +1,5 @@
 import { format } from 'date-fns';
 import { zeroPad } from 'libs';
-import isNumber from 'lodash/isNumber';
 import { KProjects } from 'types';
 import { getRecords } from '../common';
 import { appId, dataIdPadding, dataIdPrefix, RecordType } from './config';
@@ -33,13 +32,11 @@ export const generateProjDataIdSeqNum = async (prefix: string) => {
   if (records.length) {
 
 
-    const lastSeqNum = records[0].dataId.value.slice(-dataIdPadding);
+    const lastSeqNum = +(records[0].dataId.value.slice(-dataIdPadding));
 
-    if (isNumber(lastSeqNum)) {
-      sequenceNumber += +(lastSeqNum);
-    } else {
-      throw new Error(`データ番号生成失敗しました。最終データ番号：  ${records[0].dataId.value}. Resolved: ${lastSeqNum}`);
-    }
+    if (isNaN(lastSeqNum)) throw new Error(`データ番号生成失敗しました。最終データ番号：  ${records[0].dataId.value}. Resolved: ${lastSeqNum}`);
+
+    sequenceNumber += +(lastSeqNum);
 
   }
 

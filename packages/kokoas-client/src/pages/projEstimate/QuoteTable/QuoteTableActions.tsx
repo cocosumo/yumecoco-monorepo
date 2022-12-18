@@ -6,13 +6,15 @@ import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@mui/icons-material/Add';
 
 export const QuoteTableActions = () => {
-  const { setValues } = useFormikContext<TypeOfForm>();
+  const { setValues, values } = useFormikContext<TypeOfForm>();
+  const { envStatus } = values;
 
   return (
     <Stack direction="row" justifyContent={'flex-end'}>
       <Button
         variant="contained"
         color="success"
+        disabled={!!envStatus}
         startIcon={<AddIcon />}
         onClick={() => {
           setValues(

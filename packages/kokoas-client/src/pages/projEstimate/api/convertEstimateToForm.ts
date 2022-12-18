@@ -1,5 +1,6 @@
 import { calculateEstimateRow } from 'api-kintone';
 import { format, parseISO } from 'date-fns';
+import { roundTo } from 'libs';
 import { IProjestimates, TaxType } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 
@@ -59,7 +60,7 @@ export const convertEstimateToForm = (
       material: 部材名.value,
       materialDetails: 部材備考.value,
       rowDetails: 備考.value,
-      elemProfRate: profitRate * 100,
+      elemProfRate: roundTo(profitRate * 100, 2),
       unit: 単位.value as TypeOfForm['items'][number]['unit'],
       unitPrice: Math.round(unitPrice),
       rowUnitPriceAfterTax: Math.round(+rowUnitPriceAfterTax.value),

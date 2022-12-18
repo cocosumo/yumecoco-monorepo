@@ -19,7 +19,9 @@ import { ButtonMenu } from './fieldComponents/ButtonMenu';
 
 export default function FormProjEstimate() {
 
-  const { values } = useFormikContext<TypeOfForm>();
+  const { 
+    values,
+  } = useFormikContext<TypeOfForm>();
   const {
     projId,
     projTypeProfit,
@@ -28,9 +30,7 @@ export default function FormProjEstimate() {
     estimateDataId,
     createdDate,
     envStatus,
-
   } = values;
-
 
   const isEditMode = !!estimateId;
   const isDisabled = !!envStatus;

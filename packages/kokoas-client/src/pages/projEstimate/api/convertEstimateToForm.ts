@@ -1,7 +1,8 @@
 import { calculateEstimateRow } from 'api-kintone';
 import { format, parseISO } from 'date-fns';
+import { roundTo } from 'libs';
 import { IProjestimates, TaxType } from 'types';
-import { TypeOfForm } from '../form';
+import { initialValues, TypeOfForm } from '../form';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -21,6 +22,66 @@ export const convertEstimateToForm = (
     dataId,
   } = recEstimate;
 
+  /* 内訳 */
+  const newItems : TypeOfForm['items'] = estimateTable.map(({ id, value: row }) => {
+    const {
+      原価,
+      大項目,
+      中項目,
+      部材名,
+      数量,
+      単位,
+      taxType,
+      備考,
+      部材備考,
+      金額: rowUnitPriceAfterTax,
+    } = row;
+
+    const isTaxable = (taxType.value  as TaxType) === '課税';
+    const {
+      costPrice,
+      quantity,
+      profitRate,
+      unitPrice,
+    } = calculateEstimateRow({
+      costPrice: +原価.value,
+      quantity: +数量.value,
+      taxRate: +tax.value / 100,
+      rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
+      isTaxable,
+    });
+
+    return {
+      key: id,
+      costPrice,
+      quantity,
+      majorItem: 大項目.value,
+      middleItem: 中項目.value,
+      material: 部材名.value,
+      materialDetails: 部材備考.value,
+      rowDetails: 備考.value,
+      elemProfRate: roundTo(profitRate * 100, 2),
+      unit: 単位.value as TypeOfForm['items'][number]['unit'],
+      unitPrice: Math.round(unitPrice),
+      rowUnitPriceAfterTax: Math.round(+rowUnitPriceAfterTax.value),
+      taxType: taxType.value as TypeOfForm['items'][number]['taxType'],
+    };
+  });
+
+  /* 
+    仮想行の追加 
+    useAdvancedTableRow listens to changes on the last row to insert a virtual row, 
+    but that makes the form "dirty".
+
+    To keep "dirty" false on initial load, I added it here.
+    This will need further refactoring as the user requirements become more stable.
+  */
+  newItems.push({
+    ...initialValues.items[0],
+    elemProfRate: +projTypeProfit.value,
+  });
+
+  /* フォーム */
   return {
     estimateId: uuid.value,
     estimateDataId: dataId.value,
@@ -32,53 +93,7 @@ export const convertEstimateToForm = (
     status : estimateStatus.value as TypeOfForm['status'],
     createdDate : format(parseISO(作成日時.value), 'yyyy/MM/dd'),
     envStatus : envStatus.value,
-    items: estimateTable.map(({ id, value: row }) => {
-
-      const {
-        原価,
-        大項目,
-        中項目,
-        部材名,
-        数量,
-        単位,
-        taxType,
-        備考,
-        部材備考,
-        金額: rowUnitPriceAfterTax,
-      } = row;
-
-      const isTaxable = (taxType.value  as TaxType) === '課税';
-
-
-      const {
-        costPrice,
-        quantity,
-        profitRate,
-        unitPrice,
-      } = calculateEstimateRow({
-        costPrice: +原価.value,
-        quantity: +数量.value,
-        taxRate: +tax.value / 100,
-        rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
-        isTaxable,
-      });
-
-      return {
-        key: id,
-        costPrice,
-        quantity,
-        majorItem: 大項目.value,
-        middleItem: 中項目.value,
-        material: 部材名.value,
-        materialDetails: 部材備考.value,
-        rowDetails: 備考.value,
-        elemProfRate: profitRate * 100,
-        unit: 単位.value as TypeOfForm['items'][number]['unit'],
-        unitPrice: Math.round(unitPrice),
-        rowUnitPriceAfterTax: Math.round(+rowUnitPriceAfterTax.value),
-        taxType: taxType.value as TypeOfForm['items'][number]['taxType'],
-      };
-    }),
+    items: newItems,
   };
 
 };

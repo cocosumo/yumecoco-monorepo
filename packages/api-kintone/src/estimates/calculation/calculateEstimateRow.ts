@@ -140,7 +140,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       rowUnitPriceAfterTax: Math.round(rowUnitPriceAfterTax),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
       unitPrice: Math.round(newUnitPrice),
-      profitRate: newProfitRate,
+      profitRate: roundTo(newProfitRate, 4),
 
     };
   }
@@ -171,7 +171,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       unitPrice: Math.round(unitPrice),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
       rowUnitPriceAfterTax: Math.round(newrowUnitPriceAfterTax),
-      profitRate: newProfitRate,
+      profitRate: roundTo(newProfitRate, 4),
     };
   }
 

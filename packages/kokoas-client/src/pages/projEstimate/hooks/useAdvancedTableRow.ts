@@ -9,8 +9,11 @@ import { useIsLastRowModified } from './useIsLastRowModified';
 export const useAdvancedTableRow = (rowIdx : number) => {
   const {
     setValues,
+    values,
   } = useFormikContext<TypeOfForm>();
+  const { envStatus } = values;
 
+  const isWithContract = !!envStatus;
   const initialRow = useInitialRow();
 
   const {
@@ -19,7 +22,10 @@ export const useAdvancedTableRow = (rowIdx : number) => {
   } = useIsLastRowModified(initialRow, rowIdx);
 
   useEffect(() => {
-    if (isLastRowModified) {
+    if (
+      isLastRowModified 
+      && !isWithContract // 契約がある時、行追加しない
+    ) {
       // 最終行は初期と異なる際、 行を自動追加する
       setValues(
         (prev) => produce(prev, (draft) => {
@@ -30,7 +36,7 @@ export const useAdvancedTableRow = (rowIdx : number) => {
 
         }));
     }
-  }, [isLastRowModified, setValues, initialRow, rowIdx]);
+  }, [isLastRowModified, setValues, initialRow, rowIdx, isWithContract]);
 
   const [focused, setFocused] = useState(false);
 

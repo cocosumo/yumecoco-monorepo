@@ -21,7 +21,6 @@ export default function FormProjEstimate() {
 
   const { 
     values,
-    dirty,
   } = useFormikContext<TypeOfForm>();
   const {
     projId,
@@ -31,11 +30,8 @@ export default function FormProjEstimate() {
     estimateDataId,
     createdDate,
     envStatus,
-
   } = values;
 
-
-  console.log('dirty', values, dirty);
   const isEditMode = !!estimateId;
   const isDisabled = !!envStatus;
 

@@ -22,10 +22,5 @@ export const validateContractData = (data: TContractData) => {
   if (signMethod === 'electronic') {
     const invalidEmail = customers.find(({ email }) => !email);
     if (invalidEmail) throw new Error(`顧客メールは指定されていません。${invalidEmail.custName}`);
-
-    const unique = [...new Set(customers.map((item) => item.email))];
-    if (unique.length !== customers.length) {
-      throw new Error(`同一のメールアドレスが登録されています。${customers.map(({ custName, email }) => `${custName}:${email}`).join(',')}`);
-    }
   }
 };

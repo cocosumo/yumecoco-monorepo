@@ -3,6 +3,12 @@ import { IRequestJWTUserTokenResponse } from 'types';
 import { fetchUserInfo } from '../authentication';
 
 
+/*
+  WIP
+  仮ファイル
+  将来的、api-docusignというパッケージに移行します。
+*/
+
 describe('Temporary auth script', () => {
 
   it('should get authorization uri', () => {
@@ -11,8 +17,8 @@ describe('Temporary auth script', () => {
       integratorKey,
       'http://localhost:8080/ds/callback',
       oAuthBasePath,
-    ); 
-  
+    );
+
     console.log(uri);
   });
 
@@ -29,8 +35,9 @@ describe('Temporary auth script', () => {
         privateKey,
         expiresIn,
       );
+      //.catch((e) => console.log(e));
 
-    console.log(jwt);
+    console.log(jwt.body.access_token);
   });
 
   it('should users base URI', async () => {

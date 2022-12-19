@@ -22,7 +22,7 @@ export const createEnvelopeFromFile = async (args: {
     ccEmail: 'cocosumo.rpa03@gmail.com',
     ccName: 'RPA03',
     filePath: args.filePath,
-    status: 'sent',
+    status: 'created',
   });
 
   // Step 2. call Envelopes::create API method

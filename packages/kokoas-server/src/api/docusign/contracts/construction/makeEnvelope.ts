@@ -102,7 +102,7 @@ export const makeEnvelope = async ({
         idx,
       ) => {
         return {
-          email: isProd ? testCustEmail : custEmail,
+          email: isProd ? custEmail : testCustEmail,
           name: custName,
           roleName: '顧客',
           recipientId: `${1}${idx}`,

@@ -20,6 +20,12 @@ const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
 const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
 const testHonKeiriEmail = 'yumecoco.rpa05@gmail.com'; //　本経理
 
+/**
+ * 担当者承認　→　全顧客並列でサイン　→　「店長」と「経理」並列承認　→　完了
+ *
+ * https://trello.com/c/wlGiNsyx
+ */
+
 export const makeEnvelope = async ({
   data,
   status = 'sent',
@@ -62,8 +68,29 @@ export const makeEnvelope = async ({
   const signers : Signer[] = [];
   const ccs : CarbonCopy[] = [];
 
-  /* 電子署名の場合 */
+  /****************
+   * 電子署名の場合
+   * **************/
   if (signMethod === 'electronic') {
+
+
+    /* 担当者 */
+    signers.push({
+      email: isProd ? officerEmail : testTantouEmail,
+      name: officerName,
+      roleName: '担当者',
+      recipientId: '1',
+      routingOrder: '1',
+      tabs: {
+        approveTabs: [{
+          anchorString: '/tt/',
+          documentId: '1',
+          pageNumber: '1',
+          tabLabel: '担当者',
+        }],
+      },
+    });
+
     /* 顧客 */
     signers.push(...customers
       .map<Signer>(
@@ -75,11 +102,11 @@ export const makeEnvelope = async ({
         idx,
       ) => {
         return {
-          email: isProd ? testCustEmail : custEmail,
+          email: isProd ? custEmail : testCustEmail,
           name: custName,
           roleName: '顧客',
           recipientId: `${1}${idx}`,
-          routingOrder: '1',
+          routingOrder: '2',
           tabs: {
             dateSignedTabs: [
               {
@@ -97,32 +124,18 @@ export const makeEnvelope = async ({
         };
       }));
 
-    /* 担当者 */
-    signers.push({
-      email: isProd ? officerEmail : testTantouEmail,
-      name: officerName,
-      roleName: '担当者',
-      recipientId: '2',
-      routingOrder: '2',
-      tabs: {
-        approveTabs: [{
-          anchorString: '/tt/',
-          documentId: '1',
-          pageNumber: '1',
-          tabLabel: '担当者',
-        }],
-      },
-    });
   } else {
-    /* 紙契約の場合 */
+    /****************
+    * 紙契約の場合
+    *****************/
 
     /* 担当者 */
     signers.push({
       email: isProd ? officerEmail : testTantouEmail,
       name: officerName,
       roleName: '担当者',
-      recipientId: '2',
-      routingOrder: '2',
+      recipientId: '1',
+      routingOrder: '1',
       tabs: {
         signerAttachmentTabs: [{
           anchorString: '/tt/',

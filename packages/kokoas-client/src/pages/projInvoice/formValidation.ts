@@ -22,6 +22,7 @@ export const validationSchema = Yup
   estimates: Yup.array()
     .of(
       Yup.object().shape({
+        estimateIndex: numberValidation,
         estimateId: numberValidation,
         contractAmount: numberValidation,
         contractDate: dateValidation,

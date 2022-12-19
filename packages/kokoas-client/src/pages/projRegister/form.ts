@@ -19,6 +19,7 @@ export const initialValues = {
   projTypeName: '',
   projTypeId: '',
   projName: '',
+  projDataId: '',
   createdDate: '',
   storeCode: '',
 

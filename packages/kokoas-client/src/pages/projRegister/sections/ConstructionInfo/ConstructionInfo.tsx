@@ -80,7 +80,7 @@ export const ConstructionInfo = (
             onChange={(_, newTextVal) => {
               setValues((prev) => ({
                 ...prev,
-                projName: `${prev.custName} ${newTextVal}`,
+                projName: `${prev.custName}様邸　${newTextVal}`,
               }));
             }}
           />}

@@ -20,7 +20,7 @@ export const EstimatesList = ({
   }
 
   return (
-    
+
     <CardContent sx={{ width: '60%' }}>
       <Typography color={grey[600]} width={'100%'}
         textAlign="center"
@@ -39,7 +39,7 @@ export const EstimatesList = ({
             <Grid
               key={rec.$id.value}
               item
-              xs={6}
+              xs={12} md={8} lg={6}
             >
               <EstimatesListItem
                 estimateRecord={rec}

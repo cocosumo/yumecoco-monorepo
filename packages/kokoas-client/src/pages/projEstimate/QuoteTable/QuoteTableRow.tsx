@@ -56,8 +56,6 @@ export const QuoteTableRow = (
     opacity: isLastRow && !focused ? 0.5 : 1,
   }), [isAlternateRow, isLastRow, focused]);
 
-  console.log(items[rowIdx]);
-
   return (
     <>
       <TableRow

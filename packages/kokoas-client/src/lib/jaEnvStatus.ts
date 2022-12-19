@@ -9,8 +9,8 @@ export const jaEnvelopeStatus  = (
   switch (status) {
     case 'created':
       return {
-        ja: 'ドラフト',
-        desc: '受信者はドラフト状態です。 これは、ドラフトエンベロープ（作成済みステータスのエンベロープ）にのみ関連付けられます。',
+        ja: '下書き',
+        desc: '受信者は下書き状態です。 これは、下書きエンベロープ（作成済みステータスのエンベロープ）にのみ関連付けられます。',
       };
     case 'sent':
       return {

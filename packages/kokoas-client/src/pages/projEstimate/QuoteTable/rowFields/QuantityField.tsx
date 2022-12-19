@@ -32,7 +32,7 @@ export const QuantityField = ({
   return (
     <FormikNumberField
       name={name}
-      variant="standard"
+      size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
       InputProps={{

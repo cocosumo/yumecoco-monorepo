@@ -22,14 +22,18 @@ export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
           minWidth: 650,
           overflow: 'hidden',
           '& td, th': {
-            padding: 0.5,
+            px: 0.5,
           },
-          '& tr:nth-of-type(odd) td:not(:nth-of-type(1))' : {
+          '& tr:nth-of-type(odd) td:not(:nth-of-type(-n+3))' : {
             borderBottom: 'none',
+            pt: 2,
+            pb: 0,
           },
-          '& tr:nth-of-type(even) td' : {
+          '& tr:nth-of-type(even) td:not(:nth-of-type(-n+1))' : {
+            pt: 1,
             pb: 2,
           },
+
         }}
       >
         <QuoteTableHead />

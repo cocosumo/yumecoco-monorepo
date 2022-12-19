@@ -1,4 +1,4 @@
-import { FormHelperText, TableCell, Typography } from '@mui/material';
+import { TableCell, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ComponentProps } from 'react';
 
@@ -7,7 +7,6 @@ export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
   text: string | string[],
   required?: boolean
   rightAligned?: boolean,
-  helperText?: string,
 }
 
 /**
@@ -22,7 +21,6 @@ export const QtHeadCell = (props: QtHeadCellProps) => {
     text,
     required,
     rightAligned,
-    helperText,
     ...others } = props;
 
   return (
@@ -36,43 +34,29 @@ export const QtHeadCell = (props: QtHeadCellProps) => {
         ([] as string[])
           .concat(text)
           .map((item) => (
-            <Typography
-              key={item}
-              color={grey[600]}
-              fontWeight={500}
-              component={'div'}
-              noWrap
-            >
-              {item}
-            </Typography>
+            <div key={item}>
+              <Typography
+                color={grey[600]}
+                fontWeight={500}
+                component={'span'}
+                noWrap
+              >
+                {item}
+              </Typography>
+              {required && (
+              <Typography
+                ml={1}
+                fontSize={16}
+                color={'red'}
+                component={'span'}
+              >
+                {'*'}
+              </Typography>
+              )}
+            </div>
           ))
 
       }
-
-
-      {required && (
-      <Typography
-        ml={1}
-        fontSize={16}
-        color={'red'}
-        component={'span'}
-      >
-          {'*'}
-      </Typography>
-      )}
-
-      {helperText &&
-      <FormHelperText
-        sx={{
-          m: 0,
-          top: -5,
-          position: 'relative',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {helperText}
-      </FormHelperText>}
-
 
     </TableCell>
   );

@@ -1,4 +1,5 @@
 
+import { InputAdornment } from '@mui/material';
 import { FormikNumberField } from 'kokoas-client/src/components';
 
 import { KeyOfForm, TKMaterials } from '../../form';
@@ -28,9 +29,16 @@ export const ProfitRateField = ({
   return (
     <FormikNumberField
       name={name}
-      variant="standard"
+      size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position='end'>
+            {'%'}
+          </InputAdornment>
+        ),
+      }}
     />
   );
 };

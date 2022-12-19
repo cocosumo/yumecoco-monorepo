@@ -10,6 +10,9 @@ export const TblCellStack = ({
   return (
     <TableCell
       {...otherProps}
+      sx={{
+        py: 2,
+      }}
     >
       <Stack spacing={1} direction={'column'}>
         {children}

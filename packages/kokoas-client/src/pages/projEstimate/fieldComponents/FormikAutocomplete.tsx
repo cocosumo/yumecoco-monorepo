@@ -19,7 +19,7 @@ export const FormikAutocomplete = (
     handleChange,
     disabled = false,
     freeSolo = true,
-    variant = 'standard',
+    variant = 'outlined',
     ...otherAutoCompleteProps
   }: Omit<ComponentProps<typeof Autocomplete>, 'renderInput'> & {
     name: string,

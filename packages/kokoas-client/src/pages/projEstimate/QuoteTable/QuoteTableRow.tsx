@@ -3,7 +3,6 @@
 import { IconButton, SxProps, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
-import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
@@ -36,7 +35,8 @@ export const QuoteTableRow = (
   const { costPrice, unit } = items[rowIdx];
 
   const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
-  //useAdjustOnRowDiscount(rowIdx);
+
+  console.log( items[rowIdx]);
 
   const {
     majorItemOpts,
@@ -80,7 +80,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell width={'8%'}>
-          <FormikPulldown
+          <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
             options={majorItemOpts}
@@ -89,7 +89,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell width={'8%'}>
-          <FormikPulldown
+          <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'middleItem')}
             handleChange={handleMiddleItemChange}
             options={middleItemOpts}

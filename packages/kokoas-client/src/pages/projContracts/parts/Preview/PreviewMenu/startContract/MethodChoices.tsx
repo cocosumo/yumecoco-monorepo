@@ -5,10 +5,12 @@ import { MethodChoiceButton } from './MethodChoiceButton';
 
 export const MethodChoice = ({
   handleSendContract,
+  handleConfirmElectronic,
 }:{
   handleSendContract: (
     signMethod: ReqSendContract['signMethod']
   ) => void
+  handleConfirmElectronic : () => void
 }) => {
 
   return (
@@ -17,7 +19,7 @@ export const MethodChoice = ({
       <MethodChoiceButton
         mainLabel='電子手続き'
         secondaryLabel='顧客と担当者が電子サインしたら、店長と経理が最終確認を行います。'
-        handleClick={()=> handleSendContract('electronic')}
+        handleClick={handleConfirmElectronic}
       />
 
       <MethodChoiceButton

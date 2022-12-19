@@ -78,3 +78,10 @@ Backup of *.doc*
 
 # Visio autosave temporary files
 *.~vsd*
+
+#bug binary
+*.ttf
+*.pdf
+*.xls
+*.xlsx
+*.docx

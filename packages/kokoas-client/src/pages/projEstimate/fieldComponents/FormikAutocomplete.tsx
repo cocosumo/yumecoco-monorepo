@@ -1,6 +1,6 @@
 import { Autocomplete, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
 import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
-import { ChangeEvent, ComponentProps, useEffect, useState } from 'react';
+import { ChangeEvent, ComponentProps, useEffect, useMemo, useState } from 'react';
 import { Options } from 'types';
 import { useDebounce } from 'usehooks-ts';
 
@@ -36,10 +36,6 @@ export const FormikAutocomplete = (
   const [inputValue, setInputValue] = useState<string>(field.value);
   const debouncedValue = useDebounce<string>(inputValue, 800);
 
-  const handleAccept = (e: ChangeEvent, newValue: string) => {
-    setInputValue(newValue);
-    handleChange?.(newValue);
-  };
 
   useEffect(() => {
     setValue(debouncedValue, true);
@@ -50,6 +46,7 @@ export const FormikAutocomplete = (
     setInputValue(field.value);
   }, [field.value]);
 
+  const simpleOptions = useMemo(() => (options as Options).map(({ value }) => value), [options]);
 
   return (
     <FormControl variant="standard" size='small' fullWidth>
@@ -59,8 +56,16 @@ export const FormikAutocomplete = (
         fullWidth
         freeSolo={freeSolo}
         value={inputValue}
-        onChange={handleAccept}
-        options={(options as Options).map(({ value }) => value)}
+        onChange={(_, newValue : string) => {
+          setInputValue(newValue);
+          handleChange?.(newValue);
+        }}
+        onInputChange={(_, newValue) => {
+          if (freeSolo) {
+            setInputValue(newValue);
+          }
+        }}
+        options={simpleOptions}
         renderInput={(params) =>
           (
             <TextField {...params}

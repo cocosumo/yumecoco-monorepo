@@ -17,6 +17,7 @@ import { MouseEvent, useMemo } from 'react';
 import { isEven } from 'libs';
 import { grey } from '@mui/material/colors';
 import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
+import { TblCellStack } from '../fieldComponents/TblCellStack';
 
 export const QuoteTableRow = (
   {
@@ -76,8 +77,9 @@ export const QuoteTableRow = (
           )}
         </TableCell>
 
-        <TableCell width={'24%'}>
+        <TblCellStack rowSpan={2} width={'24%'}>
           <FormikAutocomplete
+            tabIndex={1}
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
             freeSolo={false}
@@ -85,7 +87,15 @@ export const QuoteTableRow = (
             disabled={isDisabled}
             variant={'outlined'}
           />
-        </TableCell>
+          <FormikAutocomplete
+            name={getItemFieldName(rowIdx, 'middleItem')}
+            handleChange={handleMiddleItemChange}
+            freeSolo={false}
+            options={middleItemOpts}
+            disabled={isDisabled}
+            variant={'outlined'}
+          />
+        </TblCellStack>
 
         <TableCell width={'12%'}>
           <FormikAutocomplete
@@ -153,16 +163,7 @@ export const QuoteTableRow = (
         onBlur={handleFocus}
         sx={rowSx}
       >
-        <TableCell>
-          <FormikAutocomplete
-            name={getItemFieldName(rowIdx, 'middleItem')}
-            handleChange={handleMiddleItemChange}
-            freeSolo={false}
-            options={middleItemOpts}
-            disabled={isDisabled}
-            variant={'outlined'}
-          />
-        </TableCell>
+
         <TableCell colSpan={2}>
           <FormikTextFieldV2
             disabled={isDisabled}

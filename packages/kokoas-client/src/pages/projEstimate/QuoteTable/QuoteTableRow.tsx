@@ -36,8 +36,6 @@ export const QuoteTableRow = (
 
   const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
 
-  console.log( items[rowIdx]);
-
   const {
     majorItemOpts,
     middleItemOpts,
@@ -58,6 +56,7 @@ export const QuoteTableRow = (
     opacity: isLastRow && !focused ? 0.5 : 1,
   }), [isAlternateRow, isLastRow, focused]);
 
+  console.log(items[rowIdx]);
 
   return (
     <>
@@ -79,25 +78,29 @@ export const QuoteTableRow = (
           )}
         </TableCell>
 
-        <TableCell width={'8%'}>
+        <TableCell width={'12%'}>
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
+            freeSolo={false}
             options={majorItemOpts}
             disabled={isDisabled}
+            variant={'outlined'}
           />
         </TableCell>
 
-        <TableCell width={'8%'}>
+        <TableCell width={'12%'}>
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'middleItem')}
             handleChange={handleMiddleItemChange}
+            freeSolo={false}
             options={middleItemOpts}
             disabled={isDisabled}
+            variant={'outlined'}
           />
         </TableCell>
 
-        <TableCell width={'8%'}>
+        <TableCell width={'12%'}>
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'material')}
             handleChange={handleMaterialChange}
@@ -139,12 +142,12 @@ export const QuoteTableRow = (
           <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell width={'15%'}>
+        <TableCell width={'12%'}>
           {/* 単価 */}
           <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'15%'}>
+        <TableCell width={'12%'}>
           {/* 金額 */}
           <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>

@@ -1,15 +1,13 @@
-import { debounce, FormControl, FormHelperText, TextField } from '@mui/material';
-import { useField, useFormikContext } from 'formik';
-import Autocomplete from '@mui/material/Autocomplete';
-import { useMemo } from 'react';
-import { TypeOfForm } from '../form';
+import { Autocomplete, debounce, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
+import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
+import { ComponentProps, useMemo, useState } from 'react';
+import { Options, Option } from 'types';
 
-
-/* 
+/*
   useFieldはレンダリングたび、異なるリファレンスになるので、
   依存している値の配列に入れると不安定です。
   変わりに、setFieldValueを利用します。
-  https://github.com/jaredpalmer/formik/issues/2268 
+  https://github.com/jaredpalmer/formik/issues/2268
 
   Formik V3で修正したようです。リリースしたら、更新しましょう。
 */
@@ -19,34 +17,51 @@ export const FormikAutocomplete = (
     options,
     handleChange,
     disabled = false,
-  }: {
+    freeSolo = true,
+    variant = 'standard',
+    ...otherAutoCompleteProps
+  }: Omit<ComponentProps<typeof Autocomplete>, 'renderInput'> & {
     name: string,
     options: Options
     handleChange?: (newVal?: string) => void
     disabled?: boolean
+    variant?: TextFieldProps['variant']
   },
 ) => {
 
-  const { setFieldValue } = useFormikContext<TypeOfForm>();
-  const [field, meta] = useField(name);
+  const [field, meta, helper] = useFieldFast(name);
   const { touched, error } = meta;
+  const { setValue } = helper;
+
+  const [fieldVal, setFieldVal] = useState<Option>({
+    label: field.value as string,
+    value: field.value as string,
+  });
 
   const handleInputChange = useMemo(() =>
-    debounce((_, value) => {
+    debounce((_, value: string) => {
       if (handleChange) handleChange(value);
-      setFieldValue(name, value);
-    }, 1000), [setFieldValue, name, handleChange]);
+      setValue(value);
+    }, 1000), [handleChange, setValue]);
 
   return (
     <FormControl variant="standard" size='small' fullWidth>
-      <Autocomplete {...field}
-        freeSolo
-        options={options.map(({ value }) => value)}
+      <Autocomplete
+        {...field}
+        {...otherAutoCompleteProps}
+        fullWidth
+        freeSolo={freeSolo}
+        value={fieldVal}
+        onChange={(_, newVal) => {
+          setFieldVal(newVal as Option);
+        }}
+        options={(options as Options).map(({ value }) => value)}
         renderInput={(params) =>
           (
             <TextField {...params}
               type="search"
-              variant="standard"
+              size="small"
+              variant={variant}
             />
           )}
         onInputChange={handleInputChange}

@@ -19,7 +19,7 @@ export const QueryContext = ({
   children: ReactNode
 }) => {
   return (
-    <QueryClientProvider client={queryClient} >
+    <QueryClientProvider client={queryClient}>
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

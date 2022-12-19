@@ -8,8 +8,7 @@ export const QuoteTableHead = () => {
     const required = true;
     const rightAligned = true;
     return [
-      { text: '大項目' },
-      { text: '中項目' },
+      { text: ['大項目', '中項目'] },
       { text: '部材', helperText: '手入力可' },
       { text: '原価', required, rightAligned },
       { text: '数量', required, rightAligned },
@@ -28,7 +27,7 @@ export const QuoteTableHead = () => {
         <TableCell padding="none" />
 
         {heads
-          .map((props) => <QtHeadCell key={props.text} {...props} />)}
+          .map((props) => <QtHeadCell key={String(props.text)} {...props} />)}
 
         {/* Offset for add / delete row controls  */}
         <TableCell padding="none"  />

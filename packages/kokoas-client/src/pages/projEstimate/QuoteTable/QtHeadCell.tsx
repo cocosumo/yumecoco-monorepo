@@ -4,7 +4,7 @@ import { ComponentProps } from 'react';
 
 
 export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
-  text: string,
+  text: string | string[],
   required?: boolean
   rightAligned?: boolean,
   helperText?: string,
@@ -13,49 +13,60 @@ export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
 /**
  * 特化したTableCellです。
  * 他のpropsはTableCellをご参照ください
- * 
- * @param {QtHeadCellProps} props 
+ *
+ * @param {QtHeadCellProps} props
  * @returns JSX
  */
 export const QtHeadCell = (props: QtHeadCellProps) => {
-  const { 
+  const {
     text,
-    required, 
-    rightAligned, 
+    required,
+    rightAligned,
     helperText,
     ...others } = props;
-    
+
   return (
-    <TableCell 
-      {...others} 
+    <TableCell
+      {...others}
       align={rightAligned ? 'right' : others.align}
     >
-    
-      <Typography 
-        color={grey[600]} 
-        fontWeight={500} 
-        component={'span'}
-        noWrap
-      >
-        {text}
-      </Typography>
-  
+
+      {
+
+        ([] as string[])
+          .concat(text)
+          .map((item) => (
+            <Typography
+              key={item}
+              color={grey[600]}
+              fontWeight={500}
+              component={'div'}
+              noWrap
+            >
+              {item}
+            </Typography>
+          ))
+
+      }
+
+
       {required && (
-      <Typography 
-        ml={1} 
-        fontSize={16} 
+      <Typography
+        ml={1}
+        fontSize={16}
         color={'red'}
         component={'span'}
       >
           {'*'}
-      </Typography>)}
-      
-      {helperText && 
-      <FormHelperText 
-        sx={{ 
-          m: 0, 
-          top: -5, 
-          position: 'relative', 
+      </Typography>
+      )}
+
+      {helperText &&
+      <FormHelperText
+        sx={{
+          m: 0,
+          top: -5,
+          position: 'relative',
           whiteSpace: 'nowrap',
         }}
       >

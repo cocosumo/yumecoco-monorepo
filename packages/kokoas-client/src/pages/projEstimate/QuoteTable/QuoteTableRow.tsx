@@ -76,23 +76,12 @@ export const QuoteTableRow = (
           )}
         </TableCell>
 
-        <TableCell width={'12%'}>
+        <TableCell width={'24%'}>
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
             freeSolo={false}
             options={majorItemOpts}
-            disabled={isDisabled}
-            variant={'outlined'}
-          />
-        </TableCell>
-
-        <TableCell width={'12%'}>
-          <FormikAutocomplete
-            name={getItemFieldName(rowIdx, 'middleItem')}
-            handleChange={handleMiddleItemChange}
-            freeSolo={false}
-            options={middleItemOpts}
             disabled={isDisabled}
             variant={'outlined'}
           />
@@ -164,7 +153,16 @@ export const QuoteTableRow = (
         onBlur={handleFocus}
         sx={rowSx}
       >
-        <TableCell colSpan={2} />
+        <TableCell>
+          <FormikAutocomplete
+            name={getItemFieldName(rowIdx, 'middleItem')}
+            handleChange={handleMiddleItemChange}
+            freeSolo={false}
+            options={middleItemOpts}
+            disabled={isDisabled}
+            variant={'outlined'}
+          />
+        </TableCell>
         <TableCell colSpan={2}>
           <FormikTextFieldV2
             disabled={isDisabled}

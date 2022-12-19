@@ -1,7 +1,8 @@
-import { Autocomplete, debounce, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
+import { Autocomplete, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
 import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
-import { ComponentProps, useMemo, useState } from 'react';
-import { Options, Option } from 'types';
+import { ChangeEvent, ComponentProps, useEffect, useState } from 'react';
+import { Options } from 'types';
+import { useDebounce } from 'usehooks-ts';
 
 /*
   useFieldはレンダリングたび、異なるリファレンスになるので、
@@ -32,17 +33,23 @@ export const FormikAutocomplete = (
   const [field, meta, helper] = useFieldFast(name);
   const { touched, error } = meta;
   const { setValue } = helper;
+  const [inputValue, setInputValue] = useState<string>(field.value);
+  const debouncedValue = useDebounce<string>(inputValue, 800);
 
-  const [fieldVal, setFieldVal] = useState<Option>({
-    label: field.value as string,
-    value: field.value as string,
-  });
+  const handleAccept = (e: ChangeEvent, newValue: string) => {
+    setInputValue(newValue);
+    handleChange?.(newValue);
+  };
 
-  const handleInputChange = useMemo(() =>
-    debounce((_, value: string) => {
-      if (handleChange) handleChange(value);
-      setValue(value);
-    }, 1000), [handleChange, setValue]);
+  useEffect(() => {
+    setValue(debouncedValue, true);
+
+  }, [debouncedValue, setValue]);
+
+  useEffect(() => {
+    setInputValue(field.value);
+  }, [field.value]);
+
 
   return (
     <FormControl variant="standard" size='small' fullWidth>
@@ -51,10 +58,8 @@ export const FormikAutocomplete = (
         {...otherAutoCompleteProps}
         fullWidth
         freeSolo={freeSolo}
-        value={fieldVal}
-        onChange={(_, newVal) => {
-          setFieldVal(newVal as Option);
-        }}
+        value={inputValue}
+        onChange={handleAccept}
         options={(options as Options).map(({ value }) => value)}
         renderInput={(params) =>
           (
@@ -64,7 +69,6 @@ export const FormikAutocomplete = (
               variant={variant}
             />
           )}
-        onInputChange={handleInputChange}
         disabled={disabled}
       />
       {(!!error && touched) &&

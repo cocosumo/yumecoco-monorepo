@@ -30,7 +30,14 @@ export const generateProjDataIdSeqNum = async (prefix: string) => {
   });
 
   if (records.length) {
-    sequenceNumber += +(records[0].dataId.value.slice(-dataIdPadding)) ;
+
+
+    const lastSeqNum = +(records[0].dataId.value.slice(-dataIdPadding));
+
+    if (isNaN(lastSeqNum)) throw new Error(`データ番号生成失敗しました。最終データ番号：  ${records[0].dataId.value}. Resolved: ${lastSeqNum}`);
+
+    sequenceNumber += +(lastSeqNum);
+
   }
 
   return `${prefix}-${partialDataId}-${zeroPad(sequenceNumber, dataIdPadding)}` ;

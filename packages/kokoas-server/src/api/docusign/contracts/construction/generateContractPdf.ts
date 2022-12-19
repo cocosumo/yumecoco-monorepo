@@ -26,6 +26,7 @@ export const generateContractPdf = async (
     contractId,
     projName,
     projLocation,
+    projEstimateId,
     payments,
     tax,
     calculatedEstimates: {
@@ -90,6 +91,20 @@ export const generateContractPdf = async (
       y: 782,
       font: msChinoFont,
     },
+  );
+
+  // 見積もり番号
+  drawText(
+    firstPage,
+    projEstimateId,
+    {
+      x: 50,
+      y: 50,
+      font: msChinoFont,
+      size: 8,
+
+    },
+    { weight: 0.1 },
   );
 
   // 工事名
@@ -414,7 +429,7 @@ export const generateContractPdf = async (
 
   [companyY, companyY2].forEach((newY) => {
 
-    // 会社名
+    // 会社名　上下
     drawText(
       firstPage,
       companyName,
@@ -425,8 +440,7 @@ export const generateContractPdf = async (
       },
     );
 
-    // 会社住所
-
+    // 会社住所 上下
     drawText(
       firstPage,
       companyAddress,
@@ -437,22 +451,21 @@ export const generateContractPdf = async (
       },
     );
 
-    // 会社連絡先
-    drawText(
-      firstPage,
-      companyTel,
-      {
-        x: companyX,
-        y: newY - (companyLH * 2),
-        font: msChinoFont,
-      },
-    );
-
 
   });
 
+  // 会社連絡先 上
+  drawText(
+    firstPage,
+    companyTel,
+    {
+      x: companyX,
+      y: companyY - (companyLH * 2),
+      font: msChinoFont,
+    },
+  );
 
-  // 代表者名
+  // 代表者名 上
   drawText(
     firstPage,
     representative,
@@ -462,6 +475,20 @@ export const generateContractPdf = async (
       font: msChinoFont,
     },
   );
+
+  // 代表者名　下
+  drawText(
+    firstPage,
+    representative,
+    {
+      x: companyX,
+      y: companyY2 - (companyLH * 2),
+      font: msChinoFont,
+    },
+  );
+
+
+
 
 
 

@@ -36,6 +36,7 @@ export const fetchAccessToken = async () => {
   ) {
     const privateKey = await getPrivateKey();
 
+
     const results: IRequestJWTUserTokenResponse = await apiClient
       .requestJWTUserToken(
         integratorKey,

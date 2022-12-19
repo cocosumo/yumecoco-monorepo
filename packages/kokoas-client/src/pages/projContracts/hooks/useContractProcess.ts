@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { useBackdrop, useSnackBar } from '../../../hooks';
+import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../hooks';
 import { useMutation } from '@tanstack/react-query';
 import { TypeOfForm } from '../form';
 import { sendContract } from '../../../api/docusign/sendContract';
@@ -11,10 +11,12 @@ export const useContractProcess = () => {
     setStatus,
     values: {
       projEstimateId,
+      cocoAG,
     },
   } = useFormikContext<TypeOfForm>();
   const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
+  const { setDialogState } = useConfirmDialog();
 
   const contractMutation = useMutation(
     sendContract,
@@ -75,8 +77,21 @@ export const useContractProcess = () => {
   };
 
 
+  const handleConfirmElectronic = () => {
+    setDialogState({
+      title: '電子契約を開始します',
+      content: `${cocoAG}にメールを送信します。`,
+      withNo: true,
+      withYes: true,
+      noText: 'いいえ',
+      yesText: 'はい',
+      handleYes: ()=> handleSendContract('electronic'),
+    });
+  };
+
   return {
     handleSendContract,
+    handleConfirmElectronic,
     ...contractMutation,
   };
 };

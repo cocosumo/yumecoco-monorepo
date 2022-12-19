@@ -49,6 +49,7 @@ export const saveProject = async (
     const storeCode = aggRecord.storeCode?.value;
     if (!storeCode) throw new Error(`無効な店舗番号。${storeCode}`);
     const newDataId = await generateProjDataIdSeqNum(storeCode);
+
     aggRecord.dataId = { value : newDataId };
   }
 

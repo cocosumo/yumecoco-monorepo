@@ -31,12 +31,19 @@ export const validationSchema = Yup
         doNotUsePayment: Yup.boolean(),
       }),
     ),
-  plannedPaymentDate: dateValidation,
+
+  plannedPaymentDate: dateValidation
+    .when(keys, {
+      is: (plannedPaymentDate: string, undecidedPaymentDate: boolean) => {
+        return (!plannedPaymentDate && !undecidedPaymentDate);
+      },
+      then: dateValidation.required('入金予定日を設定してください'),
+    }),
+
   exceedChecked: Yup.boolean()
     .when(keys, {
       is: (contractAmount: number, billingAmount: number, billedAmount: number) => {
         return Boolean(contractAmount < (billingAmount + billedAmount));
-        
       },
       then: Yup.boolean().required().oneOf([true], '契約金の超過確認にチェックが入っていません'),
     }),

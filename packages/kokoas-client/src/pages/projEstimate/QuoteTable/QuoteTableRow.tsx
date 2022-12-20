@@ -112,7 +112,7 @@ export const QuoteTableRow = (
         </TblCellStack>
 
         <TableCell
-          width={'8%'}
+          width={'10%'}
           align='right'
         >
           {/* 原価 */}
@@ -120,7 +120,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell
-          width={'8%'}
+          width={'10%'}
           align='right'
         >
           {/* 数量 */}
@@ -141,7 +141,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell
-          width={'12%'}
+          width={'8%'}
           align='right'
         >
           {/* 利益率 */}

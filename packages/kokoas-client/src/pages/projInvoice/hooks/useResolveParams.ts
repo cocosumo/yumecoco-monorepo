@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
-import { useContractsByCustGroupId, useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { useContractsByCustGroupId, useCustGroupById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useEffect } from 'react';
 import { getParam } from '../../../helpers/url';
 import { initialValues, TypeOfForm } from '../form';
@@ -19,11 +19,11 @@ export const useResolveParams = () => {
 
   const { data: custData } = useCustGroupById(custGroupIdFromURL || '');
   const { data: contracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
+  const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
 
 
 
   useEffect(() => {
-
 
     if (projInvoiceIdFromURL) {
       setValues((prev) => ({
@@ -33,24 +33,22 @@ export const useResolveParams = () => {
     } else if (custGroupIdFromURL && custData && contracts) {
 
       const newEstimates = sortEstimatesByProjId(contracts);
-      const billingAmount = contracts.calculated.reduce((acc, cur) => {
-        return acc + cur.summary.totalAmountAfterTax;
-      }, 0);
 
       const newValues = produce(initialValues, (draft) => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
-        // draft.billingAmount = String(Math.round(billingAmount) - Math.round(totalInvoice ?? 0));
-        draft.contractAmount = String(Math.round(billingAmount));
-        // draft.billedAmount = String(Math.round(totalInvoice ?? 0));
         newEstimates?.forEach((data, idx) => {
+          const tgtBilledAmount = invoices?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+
           draft.estimates[idx] = {
             estimateIndex: String(idx),
             projId: data.projId,
             projTypeName: data.projTypeName,
             dataId: data.dataId,
-            amountPerContract: data.amountPerContract,
-            amountType: data.amountType,
+            contractAmount: String(data.contractAmount),
+            billedAmount: tgtBilledAmount,
+            billingAmount: String(data.billingAmount),
+            amountType: '',
             isForPayment: data.isForPayment,
             estimateId: data.estimateId,
           };
@@ -63,6 +61,6 @@ export const useResolveParams = () => {
       setValues(initialValues);
     }
 
-  }, [custGroupIdFromURL, projInvoiceIdFromURL, setValues, custData, contracts]);
+  }, [custGroupIdFromURL, projInvoiceIdFromURL, setValues, custData, contracts, invoices]);
 
 };

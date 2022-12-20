@@ -17,21 +17,28 @@ export const useInvoiceTotalByCustGroupId = (
         const estimateList = cur.estimateLists.value;
 
         estimateList.forEach((estimate) => {
-          acc.push({
-            dataId: estimate.value.dataId.value,
-            billedAmount: estimate.value.amountPerContract.value,
-          });
+          const newBilledAmount = estimate.value.amountPerContract.value;
+          const newDataId = estimate.value.dataId.value;
+
+          if (typeof acc[newDataId] === 'undefined') {
+            acc[newDataId] = {
+              dataId: newDataId,
+              billedAmount: newBilledAmount,
+            };
+          } else {
+            acc[newDataId] = {
+              ...acc[newDataId],
+              billedAmount: String(+acc[newDataId].billedAmount + +newBilledAmount),
+            };
+          }
         });
-        
+
         return acc;
 
-      }, [] as EstimateList[]);
+      }, {} as Record<string, EstimateList>);
 
 
-      return {
-        records: data.records,
-        totalInvoice: totalInvoice,
-      };
+      return Object.values(totalInvoice);
     }, []),
   });
 

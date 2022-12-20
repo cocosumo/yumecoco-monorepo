@@ -111,16 +111,16 @@ export const QuoteTableRow = (
           />
         </TblCellStack>
 
-        <TableCell 
-          width={'8%'} 
+        <TableCell
+          width={'8%'}
           align='right'
         >
           {/* 原価 */}
           <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell 
-          width={'8%'} 
+        <TableCell
+          width={'8%'}
           align='right'
         >
           {/* 数量 */}
@@ -140,29 +140,29 @@ export const QuoteTableRow = (
           />
         </TableCell>
 
-        <TableCell 
-          width={'6%'} 
+        <TableCell
+          width={'12%'}
           align='right'
         >
           {/* 利益率 */}
           <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell 
-          width={'8%'}
+        <TableCell
+          width={'4%'}
         >
           {/* 税 */}
           <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell 
+        <TableCell
           width={'12%'}
         >
           {/* 単価 */}
           <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell 
+        <TableCell
           width={'12%'}
         >
           {/* 金額 */}

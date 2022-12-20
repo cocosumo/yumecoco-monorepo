@@ -98,7 +98,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
 
   /******************************
-   * Edge cases：計算不要なケース *
+   * Edge case：計算不要なケース *
   *******************************/
   if (
     +quantity === 0 //  数量がない場合、計算不要
@@ -115,7 +115,6 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       rowUnitPriceAfterTax: 0,
     };
   }
-
 
   /********************************************************************************
    *「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
@@ -141,7 +140,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       rowUnitPriceAfterTax: Math.round(rowUnitPriceAfterTax),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
       unitPrice: Math.round(newUnitPrice),
-      profitRate: newProfitRate,
+      profitRate: roundTo(newProfitRate, 4),
 
     };
   }
@@ -172,7 +171,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
       unitPrice: Math.round(unitPrice),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
       rowUnitPriceAfterTax: Math.round(newrowUnitPriceAfterTax),
-      profitRate: newProfitRate,
+      profitRate: roundTo(newProfitRate, 4),
     };
   }
 
@@ -194,6 +193,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
   // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計
   const newRowProfit =  newRowUnitPriceBeforeTax - rowCostPrice;
+
 
   return {
     ...params,

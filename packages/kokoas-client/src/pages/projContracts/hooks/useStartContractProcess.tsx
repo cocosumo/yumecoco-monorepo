@@ -52,7 +52,10 @@ export const useStartContractProcess = ({
     backdropState: { open },
   } = useBackdrop();
 
-  const { handleSendContract } = useContractProcess();
+  const {
+    handleSendContract,
+    handleConfirmElectronic,
+  } = useContractProcess();
 
   const isBackdropOpen = open;
 
@@ -67,7 +70,7 @@ export const useStartContractProcess = ({
             handleCloseDialog();
             handleSendContract(signMethod);
           }}
-
+          handleConfirmElectronic={handleConfirmElectronic}
         />),
       withYes: false,
       withNo: true,

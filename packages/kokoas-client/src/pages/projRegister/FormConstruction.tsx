@@ -10,6 +10,7 @@ import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { TypeOfForm } from './form';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
+import { RecordSelect } from './sections/RecordSelect/RecordSelect';
 
 
 export const FormConstruction  = () => {
@@ -43,6 +44,7 @@ export const FormConstruction  = () => {
           spacing={2} mb={12}
         >
           <UneditableInfo isVisible={isFormDisabled} projId={projId} />
+          <RecordSelect />
           <CustInfo />
 
           {custGroupId && (

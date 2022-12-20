@@ -12,7 +12,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
 import { useEffect, useRef } from 'react';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';

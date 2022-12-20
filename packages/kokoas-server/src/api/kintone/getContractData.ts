@@ -137,6 +137,10 @@ isValidate = false,
       文字列＿氏名: accountingName,
       email: accountingEmail,
     },
+    mainAccounting: {
+      文字列＿氏名: mainAccountingName,
+      email: mainAccountingEmail,
+    },
   } = await getContractCheckers(storeId.value);
 
 
@@ -186,6 +190,8 @@ isValidate = false,
     /* 経理 */
     accountingName: accountingName.value,
     accountingEmail: accountingEmail.value,
+    mainAccountingName: mainAccountingName.value,
+    mainAccountingEmail: mainAccountingEmail.value,
 
     /* 契約関連 */
     envelopeStatus: envStatus.value,

@@ -16,10 +16,16 @@ import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
 import { ButtonMenu } from './fieldComponents/ButtonMenu';
+import { useConfirmBeforeClose } from './hooks/useConfirmBeforeClose';
 
 export default function FormProjEstimate() {
 
-  const { values } = useFormikContext<TypeOfForm>();
+
+
+  const { 
+    values,
+    dirty,
+  } = useFormikContext<TypeOfForm>();
   const {
     projId,
     projTypeProfit,
@@ -28,9 +34,9 @@ export default function FormProjEstimate() {
     estimateDataId,
     createdDate,
     envStatus,
-
   } = values;
 
+  useConfirmBeforeClose({ enabled: dirty });
 
   const isEditMode = !!estimateId;
   const isDisabled = !!envStatus;
@@ -38,6 +44,7 @@ export default function FormProjEstimate() {
 
   return (
     <Form noValidate>
+      
       <ScrollToFieldError />
       <MainContainer>
         <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />

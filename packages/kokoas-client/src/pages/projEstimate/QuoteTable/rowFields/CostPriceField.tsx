@@ -1,6 +1,5 @@
 
 import { FormikMoneyField } from 'kokoas-client/src/components';
-
 import { KeyOfForm, TKMaterials } from '../../form';
 import { useCalculateRow } from '../../hooks/useCalculateRow';
 
@@ -28,6 +27,7 @@ export const CostPriceField = ({
       size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

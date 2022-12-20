@@ -1,6 +1,5 @@
 import { Paper, Table, TableBody, TableContainer } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../form';
 import { splitEstimatesByProjId } from '../helper/splitEstimatesByProjId';
 import { EstimateTableBody } from './EstimatesTableBody';
@@ -9,11 +8,9 @@ import { EstimateTableHead } from './EstimateTableHead';
 export const EstimatesTable = () => {
   const { values } = useFormikContext<TypeOfForm>();
   const {
-    custGroupId,
     estimates,
   } = values;
 
-  const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupId || '');
   const sortContracts = splitEstimatesByProjId(estimates);
 
 

@@ -34,7 +34,7 @@ export const QuoteTableRow = (
   }) => {
 
   const { values: { items } } = useFormikContext<TypeOfForm>();
-  const { costPrice, unit } = items[rowIdx];
+  const { costPrice, unit, key } = items[rowIdx];
 
   const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
 
@@ -63,6 +63,7 @@ export const QuoteTableRow = (
   return (
     <>
       <TableRow
+        id={key}
         ref={rowMainRef}
         component={'tr'}
         onFocus={handleFocus}

@@ -18,17 +18,17 @@ export const useInvoiceTotalByCustGroupId = (
 
         estimateList.forEach((estimate) => {
           const newBilledAmount = estimate.value.amountPerContract.value;
-          const newDateId = estimate.value.dataId.value;
+          const newDataId = estimate.value.dataId.value;
 
-          if (typeof acc[newDateId] === 'undefined') {
-            acc[newDateId] = {
-              dataId: newDateId,
+          if (typeof acc[newDataId] === 'undefined') {
+            acc[newDataId] = {
+              dataId: newDataId,
               billedAmount: newBilledAmount,
             };
           } else {
-            acc[newDateId] = {
-              ...acc[newDateId],
-              billedAmount: String(+acc[newDateId].billedAmount + +newBilledAmount),
+            acc[newDataId] = {
+              ...acc[newDataId],
+              billedAmount: String(+acc[newDataId].billedAmount + +newBilledAmount),
             };
           }
         });

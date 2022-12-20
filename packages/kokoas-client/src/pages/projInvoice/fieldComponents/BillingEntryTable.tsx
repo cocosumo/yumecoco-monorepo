@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
 import { useContractsByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../form';
-import { BillingEntryTableBody } from './BillingEntryTableBody';
+import { BillingEntryTableRow } from './BillingEntryTableRow';
 import { BillingEntryTableHead } from './BillingEntryTableHead';
 
 export const BillingEntryTable = () => {
@@ -30,7 +30,7 @@ export const BillingEntryTable = () => {
               {estimates.map((row, idx) => {
                 if (!row.isForPayment) return;
                 return (
-                  <BillingEntryTableBody
+                  <BillingEntryTableRow
                     estimate={row}
                     idx={idx}
                     paymentList={contracts?.paymentList}

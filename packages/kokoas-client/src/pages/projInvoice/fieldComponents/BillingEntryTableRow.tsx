@@ -6,7 +6,7 @@ import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
 import { ChangeEvent } from 'react';
 import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
 
-export const BillingEntryTableBody = ({
+export const BillingEntryTableRow = ({
   estimate,
   idx,
   paymentList,
@@ -21,14 +21,12 @@ export const BillingEntryTableBody = ({
 
 
   const paymentItem = paymentList?.find(({ uuid }) => uuid === estimate.estimateId);
-  const paymentTypeOption = paymentItem?.paymentTypeList.split(', ').map((item) => {
+  const paymentTypeOption = paymentItem?.paymentTypeList.map((item) => {
     return ({
       label: item,
       value: item,
     });
   });
-
-  const paymentAmountOption = paymentItem?.paymentAmtPerType.split(', ');
 
   const billingAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
@@ -45,7 +43,7 @@ export const BillingEntryTableBody = ({
 
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = paymentAmountOption?.[arrayIdx] ?? '0';
+        draft.estimates[idx].billingAmount = paymentItem?.paymentAmtPerType?.[arrayIdx] ?? '0';
       });
 
       return newVal;

@@ -9,8 +9,6 @@ export const HotKeyTooltip = (
   }: ComponentProps<typeof Tooltip>,
 ) => {
 
-
-
   return (
     <Tooltip
       {...others}
@@ -23,7 +21,6 @@ export const HotKeyTooltip = (
           </Typography>
         </Stack>
      )}
-
     />
 
   );

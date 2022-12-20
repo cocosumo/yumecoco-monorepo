@@ -18,6 +18,7 @@ import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
 import { ButtonMenu } from './fieldComponents/ButtonMenu';
 import { useConfirmBeforeClose } from './hooks/useConfirmBeforeClose';
 import { useSaveHotkey } from './hooks/useSaveHotkey';
+import { EstimateTableLabel } from './fieldComponents/EstimateTableLabel';
 
 export default function FormProjEstimate() {
   const {
@@ -130,7 +131,7 @@ export default function FormProjEstimate() {
           </Grid>
 
           <Grid item xs={12} mt={4}>
-            <PageSubTitle label="内訳" />
+            <PageSubTitle label={<EstimateTableLabel />} />
           </Grid>
 
           <Grid item xs={12} md={12}>

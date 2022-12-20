@@ -36,6 +36,7 @@ export const validationSchema = Yup
     .when(keys, {
       is: (contractAmount: number, billingAmount: number, billedAmount: number) => {
         return Boolean(contractAmount < (billingAmount + billedAmount));
+        
       },
       then: Yup.boolean().required().oneOf([true], '契約金の超過確認にチェックが入っていません'),
     }),

@@ -32,6 +32,7 @@ export const ProfitRateField = ({
       size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      onFocus={({ target }) => target.select()}
       InputProps={{
         endAdornment: (
           <InputAdornment position='end'>

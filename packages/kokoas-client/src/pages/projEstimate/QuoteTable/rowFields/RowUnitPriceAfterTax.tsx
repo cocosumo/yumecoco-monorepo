@@ -30,6 +30,7 @@ export const RowUnitPriceAfterTax = ({
       size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

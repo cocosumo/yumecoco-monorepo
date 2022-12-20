@@ -30,6 +30,7 @@ export const UnitPriceField = ({
       size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

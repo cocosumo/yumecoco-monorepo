@@ -25,7 +25,7 @@ export const CostPriceField = ({
   return (
     <FormikMoneyField
       name={name}
-      variant="standard"
+      size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
     />

@@ -3,7 +3,6 @@
 import { IconButton, SxProps, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
-import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
@@ -18,6 +17,7 @@ import { MouseEvent, useMemo } from 'react';
 import { isEven } from 'libs';
 import { grey } from '@mui/material/colors';
 import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
+import { TblCellStack } from '../fieldComponents/TblCellStack';
 
 export const QuoteTableRow = (
   {
@@ -36,7 +36,6 @@ export const QuoteTableRow = (
   const { costPrice, unit } = items[rowIdx];
 
   const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
-  //useAdjustOnRowDiscount(rowIdx);
 
   const {
     majorItemOpts,
@@ -58,7 +57,6 @@ export const QuoteTableRow = (
     opacity: isLastRow && !focused ? 0.5 : 1,
   }), [isAlternateRow, isLastRow, focused]);
 
-
   return (
     <>
       <TableRow
@@ -79,39 +77,52 @@ export const QuoteTableRow = (
           )}
         </TableCell>
 
-        <TableCell width={'8%'}>
-          <FormikPulldown
+        <TblCellStack rowSpan={2} width={'24%'}>
+          <FormikAutocomplete
+            tabIndex={1}
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
+            freeSolo={false}
             options={majorItemOpts}
             disabled={isDisabled}
           />
-        </TableCell>
-
-        <TableCell width={'8%'}>
-          <FormikPulldown
+          <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'middleItem')}
             handleChange={handleMiddleItemChange}
+            freeSolo={false}
             options={middleItemOpts}
             disabled={isDisabled}
           />
-        </TableCell>
+        </TblCellStack>
 
-        <TableCell width={'8%'}>
+        <TblCellStack rowSpan={2} width={'12%'}>
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'material')}
             handleChange={handleMaterialChange}
             options={materialOpts}
             disabled={isDisabled}
           />
-        </TableCell>
+          <FormikTextFieldV2
+            disabled={isDisabled}
+            name={getItemFieldName(rowIdx, 'materialDetails')}
+            size={'small'}
+            multiline
+            placeholder='品番・色'
+          />
+        </TblCellStack>
 
-        <TableCell width={'8%'} align='right'>
+        <TableCell
+          width={'10%'}
+          align='right'
+        >
           {/* 原価 */}
           <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell width={'8%'} align='right'>
+        <TableCell
+          width={'10%'}
+          align='right'
+        >
           {/* 数量 */}
           <QuantityField
             rowIdx={rowIdx}
@@ -129,22 +140,31 @@ export const QuoteTableRow = (
           />
         </TableCell>
 
-        <TableCell width={'6%'} align='right'>
+        <TableCell
+          width={'8%'}
+          align='right'
+        >
           {/* 利益率 */}
           <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'8%'}>
+        <TableCell
+          width={'4%'}
+        >
           {/* 税 */}
           <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell width={'15%'}>
+        <TableCell
+          width={'12%'}
+        >
           {/* 単価 */}
           <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'15%'}>
+        <TableCell
+          width={'12%'}
+        >
           {/* 金額 */}
           <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
@@ -164,25 +184,13 @@ export const QuoteTableRow = (
         sx={rowSx}
       >
         <TableCell colSpan={2} />
-        <TableCell colSpan={2}>
-          <FormikTextFieldV2
-            disabled={isDisabled}
-            label={'品番・色など'}
-            name={getItemFieldName(rowIdx, 'materialDetails')}
-            size={'small'}
-            multiline
-            placeholder='赤'
-          />
-        </TableCell>
-        <TableCell />
         <TableCell colSpan={4}>
           <FormikTextFieldV2
             disabled={isDisabled}
-            label={'備考'}
             name={getItemFieldName(rowIdx, 'rowDetails')}
             size={'small'}
             multiline
-            placeholder='定価出し'
+            placeholder='備考'
           />
         </TableCell>
         <TableCell />

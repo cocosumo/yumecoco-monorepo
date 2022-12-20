@@ -3,6 +3,7 @@ import { createPaymentList } from 'api-kintone/src/estimates/createPaymentList';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
+import { ChangeEvent } from 'react';
 import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
 
 export const BillingEntryTableBody = ({
@@ -29,7 +30,7 @@ export const BillingEntryTableBody = ({
 
   const paymentAmountOption = paymentItem?.paymentAmtPerType.split(', ');
 
-  const billingAmountChange = (e: any) => {
+  const billingAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
         draft.estimates[idx].billingAmount = e.target.value;
@@ -39,7 +40,7 @@ export const BillingEntryTableBody = ({
     });
   };
 
-  const amountTypeChange = (e: any) => {
+  const amountTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const arrayIdx = paymentTypeOption?.findIndex(({ value }) => value === e.target.value) ?? 0;
 
     setValues((prev) => {
@@ -59,7 +60,7 @@ export const BillingEntryTableBody = ({
         {estimate.projTypeName}
       </TableCell>
       <TableCell align="right">
-        {estimate.dataId.split('-')[2]}
+        {estimate.dataId.split('-').at(-1)}
       </TableCell>
       <TableCell align="right">
         <FormikSelect

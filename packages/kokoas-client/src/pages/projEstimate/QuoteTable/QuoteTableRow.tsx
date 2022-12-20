@@ -18,6 +18,7 @@ import { isEven } from 'libs';
 import { grey } from '@mui/material/colors';
 import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
 import { TblCellStack } from '../fieldComponents/TblCellStack';
+import { useQuoteTRowHotKeys } from '../hooks/useQuoteTRowHotKeys';
 
 export const QuoteTableRow = (
   {
@@ -47,6 +48,8 @@ export const QuoteTableRow = (
   } = useMaterialsOptions(rowIdx);
 
 
+  const rowMainRef = useQuoteTRowHotKeys(rowIdx);
+  const rowSubRef = useQuoteTRowHotKeys(rowIdx);
 
   const isLastRow = rowIdx === items.length - 1;
   const isDisabled = !!envStatus;
@@ -60,6 +63,8 @@ export const QuoteTableRow = (
   return (
     <>
       <TableRow
+        ref={rowMainRef}
+        component={'tr'}
         onFocus={handleFocus}
         onBlur={handleFocus}
         sx={rowSx}
@@ -179,6 +184,7 @@ export const QuoteTableRow = (
 
       </TableRow>
       <TableRow
+        ref={rowSubRef}
         onFocus={handleFocus}
         onBlur={handleFocus}
         sx={rowSx}

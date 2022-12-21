@@ -34,13 +34,6 @@ export const FormInvoice = () => {
 
   useResolveParams();
 
-  /* useEffect(() => {
-    setValues((prev) => ({
-      ...prev,
-      billingAmount: String(+contractAmount - +billedAmount),
-    }));
-  }, [contractAmount, billedAmount, setValues]); */
-
   useEffect(() => {
     const newContractAmount = estimates.reduce((acc, cur) => {
       if (cur.isForPayment) return acc;
@@ -66,7 +59,6 @@ export const FormInvoice = () => {
   }, [errors, setSnackState, submitCount, submitCountRef]);
 
 
-  console.log('values', values);
 
   return (
     <Form noValidate>

@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Paper } from '@mui/material';
 import { grey, yellow } from '@mui/material/colors';
 import { ArrayHelpers } from 'formik';
 import { PageSubTitle } from 'kokoas-client/src/components';
@@ -34,21 +34,29 @@ export const Customer =  (props: CustomerProps) => {
   const custNameFN = `${namePrefix}${getCustFieldName('custName')}`;
   const custNameReadingFN = `${namePrefix}${getCustFieldName('custNameReading')}`;
 
+  const backgroundColor = (index % 2) ? yellow[50] : grey[50];
+
   return (
-    <Grid
-      container
-      item
-      xs={12}
-      spacing={2}
-      mb={2}
-      px={2}
-      pb={2}
-      sx={{
-        backgroundColor: (index % 2) ? yellow[50] : grey[50],
-      }}
-    >
-      <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8} />
-      {
+    <>
+      <Grid
+        component={Paper}
+        container
+        item
+        xs={12}
+        spacing={2}
+        mb={2}
+        px={2}
+        pb={2}
+        sx={{
+          backgroundColor,
+          position: 'sticky',
+          top: '80px',
+          alignSelf: 'flex-start',
+          zIndex: 100,
+        }}
+      >
+        <PageSubTitle label={`契約者${index + 1}`} xs={isFirstCustomer ? 12 : 8} />
+        {
         !isFirstCustomer &&
         <Grid
           container
@@ -68,17 +76,30 @@ export const Customer =  (props: CustomerProps) => {
 
         </Grid>
       }
+      </Grid>
+      <Grid
+        container
+        item
+        xs={12}
+        spacing={2}
+        mb={2}
+        px={2}
+        pb={2}
+        sx={{
+          backgroundColor,
+        }}
+      >
 
-      <NameInput
-        custNameFN={custNameFN}
-        custNameReadingFN={custNameReadingFN}
-      />
-      <SelectGender namePrefix={namePrefix} />
-      <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
-      <Address namePrefix={namePrefix} index={index} />
-      <Contacts namePrefix={namePrefix} />
+        <NameInput
+          custNameFN={custNameFN}
+          custNameReadingFN={custNameReadingFN}
+        />
+        <SelectGender namePrefix={namePrefix} />
+        <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
+        <Address namePrefix={namePrefix} index={index} />
+        <Contacts namePrefix={namePrefix} />
 
-    </Grid>
-
+      </Grid>
+    </>
   );
 };

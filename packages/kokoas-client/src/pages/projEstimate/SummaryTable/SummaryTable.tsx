@@ -1,4 +1,4 @@
-import { TableBody, TableHead, TableRow, Typography } from '@mui/material';
+import { TableBody, TableHead, TableRow } from '@mui/material';
 import { summaryNameList } from '../constantDefinition';
 import { useSummary } from '../hooks/useSummary';
 import { SummaryTableContainer } from './SummaryTableContainer';
@@ -18,20 +18,28 @@ export default function SummaryTable() {
   return (
     <SummaryTableContainer >
       <TableHead>
-        <TableRow>
+        <TableRow sx={{
+          '& th': {
+            whiteSpace: 'nowrap',
+          },
+        }}
+        >
           {summaryNameList.map((item) => {
             return (
               <TabelCellNumber key={item} >
-                <Typography variant="subtitle2" gutterBottom>
-                  {item}
-                </Typography>
+                {item}
               </TabelCellNumber>
             );
           })}
         </TableRow>
       </TableHead>
       <TableBody>
-        <TableRow>
+        <TableRow sx={{
+          '& td': {
+            whiteSpace: 'nowrap',
+          },
+        }}
+        >
           <TabelCellNumber>
             {Math.round(totalCostPrice).toLocaleString() + '円'}
           </TabelCellNumber>

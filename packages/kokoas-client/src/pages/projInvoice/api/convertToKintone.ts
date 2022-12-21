@@ -2,36 +2,47 @@ import { IInvoices } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
-  //projId,
-  //billingAmount,
-  //amountType,
-  //estimates,
-  //exceedChecked,
+  custGroupId,
+  estimates,
   plannedPaymentDate,
+  exceedChecked,
 }: TypeOfForm) => {
 
+  const billingAmount = estimates.reduce((acc, cur) => {
+    return acc + +cur.billingAmount;
+  }, 0);
 
   /* formをkintoneの型に変換する */
   const kintoneRecord: Partial<IInvoices> = {
-    //projId: { value: projId },
-    //amountType: { value: amountType },
-    //billingAmount: { value: billingAmount },
+    billingAmount: { value: String(billingAmount) },
+    slipNumber: { value: '編集中' },
     plannedPaymentDate: { value: plannedPaymentDate },
-    //excessChecked: { value: exceedChecked ? '1' : '0' },
-    // issuedDateTime: { value: String(new Date()) },
-    // slipNumber: { value: '' },
-    /*  estimateLists: {
+    issuedDateTime: { value: String(new Date()) },
+    custGroupId: { value: custGroupId },
+    exceedChecked: { value: exceedChecked ? '1' : '0' },
+    estimateLists: {
       type: 'SUBTABLE',
-      value: estimates.map(({ estimateId }) => {
+      value: estimates.map(({ 
+        projId,
+        dataId,
+        projTypeName,
+        estimateId,
+        billingAmount : amountPerContract,
+        amountType,
+      }) => {
         return {
           id: '',
           value: {
-            paymentType: { value: '' },
+            projId: { value: projId },
+            dataId: { value: dataId },
+            projTypeName: { value: projTypeName },
             estimateId: { value: estimateId },
+            amountPerContract: { value: amountPerContract },
+            paymentType: { value: amountType },
           },
         };
       }),
-    }, */
+    },
   };
 
   return kintoneRecord;

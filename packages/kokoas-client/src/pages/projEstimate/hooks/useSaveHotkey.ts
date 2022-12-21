@@ -17,10 +17,14 @@ export const useSaveHotkey = () => {
     [submitForm],
   );
 
-  useHotkeys('meta+s', (e) => {
-    e.preventDefault();
-    setValues((prev) => ({ ...prev, saveMode: 'temporary' })); // 一時保存に設定
-    debouncedSave();
-  });
+  useHotkeys('meta+s',
+    (e) => {
+      e.preventDefault();
+      setValues((prev) => ({ ...prev, saveMode: 'temporary' })); // 一時保存に設定
+      debouncedSave();
+    },
+    {
+      enableOnFormTags: ['INPUT', 'textarea'],
+    });
 
 };

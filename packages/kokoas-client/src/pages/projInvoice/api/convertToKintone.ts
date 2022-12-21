@@ -3,7 +3,7 @@ import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
   //projId,
-  billingAmount,
+  //billingAmount,
   //amountType,
   //estimates,
   //exceedChecked,
@@ -15,7 +15,7 @@ export const convertToKintone = ({
   const kintoneRecord: Partial<IInvoices> = {
     //projId: { value: projId },
     //amountType: { value: amountType },
-    billingAmount: { value: billingAmount },
+    //billingAmount: { value: billingAmount },
     plannedPaymentDate: { value: plannedPaymentDate },
     //excessChecked: { value: exceedChecked ? '1' : '0' },
     // issuedDateTime: { value: String(new Date()) },

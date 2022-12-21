@@ -1,18 +1,12 @@
 import { TableCell, TableRow } from '@mui/material';
 import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
-import { EstimateList } from 'kokoas-client/src/hooksQuery';
 import { roundTo } from 'libs';
 import { getEstimatesFieldName, TMaterials } from '../form';
 
 export const EstimateTableBody = ({
   estimateRow,
-  invoices,
 }: {
   estimateRow: TMaterials
-  invoices: {
-    records: DBInvoices.SavedData[];
-    totalInvoice: EstimateList[];
-  } | undefined
 }) => {
 
 
@@ -29,16 +23,12 @@ export const EstimateTableBody = ({
       </TableCell>
       <TableCell align="right">
         {/* 契約金額 */
-          roundTo(+estimateRow.amountPerContract).toLocaleString()
+          roundTo(+estimateRow.contractAmount).toLocaleString()
         }
       </TableCell>
       <TableCell align="right">
         {/* 請求済み金額 */
-          invoices?.totalInvoice.reduce((acc, cur) => {
-            if (estimateRow.dataId !== cur.dataId) return acc;
-            return acc + +cur.billedAmount;
-          }, 0)
-            .toLocaleString()
+          roundTo(+estimateRow.billedAmount).toLocaleString()
         }
       </TableCell>
       <TableCell>

@@ -1,5 +1,5 @@
 import { calculateEstimateRecord } from 'api-kintone';
-
+import { TypeOfForm } from '../form';
 
 /**
  * 工事番号ごとに配列を分割する処理
@@ -13,17 +13,21 @@ export const sortEstimatesByProjId = ({
   calculated: ReturnType<typeof calculateEstimateRecord>[];
 }) => {
 
+
   /* データの再構成 */
-  const convertedEstimates = records.map((cur, idx) => {
+  const convertedEstimates: TypeOfForm['estimates'] | undefined = records?.map((record, idx) => {
 
     return {
-      projId: cur.projId.value,
-      projTypeName: cur.工事種別名.value,
-      dataId: cur.dataId.value || '',
-      amountPerContract: String(calculated[idx].summary.totalAmountAfterTax),
+      estimateIndex: '',
+      projId: record.projId.value,
+      projTypeName: record.工事種別名.value,
+      dataId: record.dataId.value || '',
+      contractAmount: String(calculated?.[idx].summary.totalAmountAfterTax),
+      billedAmount: '',
+      billingAmount: '',
       amountType: '',
-      isForPayment: !!(+cur.isForPayment.value),
-      estimateId: cur.uuid.value,
+      isForPayment: !!(+record.isForPayment.value),
+      estimateId: record.uuid.value,
     };
 
   });

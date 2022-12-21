@@ -21,7 +21,9 @@ export const useMaterialsOptions = (
     data: majorItemOpts = [],
   } = useMaterialsMajor({
     select: useCallback((d) => {
-      return d.map(({ 大項目名 }) => 大項目名.value);
+      const options = d
+        .map(({ 大項目名 }) => 大項目名.value);
+      return [''].concat(options);
     }, []),
   });
 
@@ -41,7 +43,7 @@ export const useMaterialsOptions = (
         }
 
         return accu;
-      }, [] as string[]);
+      }, [''] as string[]);
 
       return {
         middleItemOpts: derived,
@@ -68,7 +70,7 @@ export const useMaterialsOptions = (
             accu.push(部材名.value);
         }
         return accu;
-      }, [] as string[]);
+      }, [''] as string[]);
 
       return {
         materialOpts: derived,

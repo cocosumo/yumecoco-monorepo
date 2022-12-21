@@ -1,6 +1,6 @@
 import { TableBody } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useCallback, useEffect, useState } from 'react';
 import { TypeOfForm } from '../form';
 import { QuoteTableRow } from './QuoteTableRow';
 import { UnitTypeMenu } from './rowFields/UnitTypeMenu';
@@ -8,16 +8,18 @@ import { UnitTypeMenu } from './rowFields/UnitTypeMenu';
 
 
 export const QuoteTableBody = () => {
-  const { setFieldValue, values } = useFormikContext<TypeOfForm>();
+  const { setFieldValue, values, touched, dirty } = useFormikContext<TypeOfForm>();
   const { items, envStatus } = values;
+
+  useEffect(() => console.log(touched, dirty ), [touched, dirty]);
 
 
   const [unitMenuAnchorEl, setUnitMenuAnchorEl] = useState<null | HTMLButtonElement>(null);
 
-  const handleOpenUnitMenu = ({ currentTarget }: MouseEvent<HTMLButtonElement>) => {
+  const handleOpenUnitMenu = useCallback(({ currentTarget }: MouseEvent<HTMLButtonElement>) => {
     setUnitMenuAnchorEl(currentTarget);
 
-  };
+  }, []);
 
   const handleClose = ( value?: string) => {
     if (unitMenuAnchorEl?.name && !!value) {

@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteRenderInputParams, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
+import { Autocomplete, AutocompleteRenderInputParams, TextField, TextFieldProps } from '@mui/material';
 import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
 import { ComponentProps, SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
@@ -31,7 +31,7 @@ export const FormikAutocomplete = (
 ) => {
 
   const [field, meta, helper] = useFieldFast(name);
-  const { touched, error } = meta;
+  const { error } = meta;
   const { setValue } = helper;
   const [inputValue, setInputValue] = useState<string>(field.value);
   const debouncedValue = useDebounce<string>(inputValue, 800);
@@ -58,31 +58,26 @@ export const FormikAutocomplete = (
   }, [freeSolo]);
 
   const handleRenderInput = useCallback((params: AutocompleteRenderInputParams) =>(
-    <TextField {...params}
+    <TextField 
+      {...params}
       type="search"
       size="small"
       variant={variant}
+      helperText={error ? error : ''}
     />
-  ), [variant]);
+  ), [variant, error]);
 
   return (
-    <FormControl variant="standard" size='small' fullWidth>
-      <Autocomplete
-        {...field}
-        {...otherAutoCompleteProps}
-        fullWidth
-        freeSolo={freeSolo}
-        value={inputValue}
-        onChange={handleAccept}
-        onInputChange={handleInputChange}
-        options={options}
-        renderInput={handleRenderInput}
-        disabled={disabled}
-      />
-      {(!!error && touched) &&
-        <FormHelperText error={!!error && touched}>
-          {error}
-        </FormHelperText>}
-    </FormControl>
+    <Autocomplete
+      {...otherAutoCompleteProps}
+      fullWidth
+      freeSolo={freeSolo}
+      value={inputValue}
+      onChange={handleAccept}
+      onInputChange={handleInputChange}
+      options={options}
+      renderInput={handleRenderInput}
+      disabled={disabled}
+    />
   );
 };

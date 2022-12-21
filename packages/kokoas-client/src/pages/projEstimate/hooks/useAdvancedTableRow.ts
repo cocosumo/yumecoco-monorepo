@@ -15,6 +15,7 @@ export const useAdvancedTableRow = (rowIdx : number) => {
     values,
   } = useFormikContext<TypeOfForm>();
   const { envStatus } = values;
+  const [focused, setFocused] = useState(false);
 
   const isWithContract = !!envStatus;
   const {
@@ -40,11 +41,10 @@ export const useAdvancedTableRow = (rowIdx : number) => {
     }
   }, [isLastRowModified, rowIdx, isWithContract, setValues, getNewRow]);
 
-  const [focused, setFocused] = useState(false);
+
 
   const handleFocus : FocusEventHandler = useCallback(
     (e) => {
-      //
       if (!isLastRow) return;
 
       const currentTarget = e.currentTarget;

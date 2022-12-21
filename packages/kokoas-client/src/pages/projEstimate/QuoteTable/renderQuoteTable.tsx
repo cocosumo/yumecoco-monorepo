@@ -27,7 +27,8 @@ export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
           sx={{
             minWidth: 650,
             overflow: 'hidden',
-            '& td,& th': {
+            tableLayout: 'fixed',
+            '& td': {
               px: 0.5,
             },
             '& tr:nth-of-type(odd) td:not(:nth-of-type(-n+3))' : {

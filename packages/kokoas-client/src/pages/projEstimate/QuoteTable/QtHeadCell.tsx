@@ -4,7 +4,7 @@ import { ComponentProps } from 'react';
 
 
 export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
-  text: string | string[],
+  text?: string | string[],
   required?: boolean
   rightAligned?: boolean,
 }
@@ -18,10 +18,16 @@ export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
  */
 export const QtHeadCell = (props: QtHeadCellProps) => {
   const {
-    text,
+    text = '',
     required,
     rightAligned,
     ...others } = props;
+
+  if (!text) {
+    return (
+      <TableCell {...others} />
+    );
+  }
 
   return (
     <TableCell

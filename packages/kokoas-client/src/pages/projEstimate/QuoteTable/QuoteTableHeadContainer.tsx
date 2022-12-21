@@ -11,11 +11,20 @@ export const QuoteTableHeadContainer = ({
       position: 'sticky',
       top: '120px',
       alignSelf: 'flex-start',
-      zIndex: 500,
+      opacity: '0.8',
+      zIndex: 100,
+      '& th': {
+        px: 0.5,
+      },
     }}
       component={Paper}
     >
-      <Table size='small'>
+      <Table
+        sx={{
+          tableLayout: 'fixed',
+        }}
+        size='small'
+      >
         <TableHead >
           <TableRow>
             {children}

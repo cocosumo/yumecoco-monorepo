@@ -33,6 +33,7 @@ export  function QuoteTableBody(props: {
 
     <TableBody>
       {items.map((item, itemsIdx) => {
+
         return (
 
           <QuoteTableRow

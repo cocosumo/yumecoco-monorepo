@@ -1,5 +1,7 @@
 import { QtHeadCell, QtHeadCellProps } from './QtHeadCell';
 import { QuoteTableHeadContainer } from './QuoteTableHeadContainer';
+import { v4 } from 'uuid';
+import { useMemo } from 'react';
 
 const required = true;
 const rightAligned = true;
@@ -20,10 +22,14 @@ export const headers: QtHeadCellProps[]  =  [
 
 export const QuoteTableHead = () => {
 
+  const headerComponents = useMemo(() => {
+    return headers
+      .map((props) => <QtHeadCell key={v4()} {...props} />);
+  }, []);
+
   return (
     <QuoteTableHeadContainer>
-      {headers
-        .map((props) => <QtHeadCell key={String(props.text)} {...props} />)}
+      {headerComponents}
 
     </QuoteTableHeadContainer>
   );

@@ -6,7 +6,7 @@ import KintoneButton from '../ui/buttons/KintoneButton';
 import CustomerMenu from './menus/CustomerMenu';
 import ContractMenu from './menus/ContractMenu';
 import SystemMenu from './menus/SystemMenu';
-import ConstructionMenu from './menus/ConstructionMenu';
+import { ConstructionMenu } from './menus/ConstructionMenu';
 import EstimateMenu from './menus/EstimateMenu';
 import PaymentMenu from './menus/PaymentMenu';
 

@@ -155,9 +155,9 @@ export default function FormProjEstimate() {
 
 
         </>}
-        
+
       </MainContainer>
-      <SummaryTable />
+      {!!projId && <SummaryTable />}
     </Form>
   );
 }

@@ -1,6 +1,7 @@
 import { calculateEstimateRecord } from 'api-kintone';
 import { parseISO } from 'date-fns';
 import { produce } from 'immer';
+import { formatDataId } from 'libs';
 import { IConnectRecipients, IProjestimates, TEnvelopeStatus, TSignMethod } from 'types';
 import { parseKintoneDate } from '../../../lib/date';
 import { initialValues, TypeOfForm } from '../form';
@@ -34,7 +35,7 @@ export const convertToForm = ({
     payDestination,
     completeDate,
     signMethod,
-
+    dataId,
   } = record ?? {};
 
   const newPaymentFields = produce(initialValues.paymentFields, draft => {
@@ -65,6 +66,7 @@ export const convertToForm = ({
     projName: projName?.value || '',
     projEstimateRevision: $revision?.value || '',
     projEstimateId: projEstimateId?.value ?? '',
+    projEstimateDataId: formatDataId(dataId.value),
 
 
     /* 契約 */

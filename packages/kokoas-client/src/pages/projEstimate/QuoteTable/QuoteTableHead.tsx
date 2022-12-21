@@ -1,6 +1,7 @@
-import {  TableCell, TableHead, TableRow } from '@mui/material';
+import {  TableCell } from '@mui/material';
 import { useMemo } from 'react';
 import { QtHeadCell, QtHeadCellProps } from './QtHeadCell';
+import { QuoteTableHeadContainer } from './QuoteTableHeadContainer';
 
 export const QuoteTableHead = () => {
 
@@ -20,19 +21,17 @@ export const QuoteTableHead = () => {
   }, [] );
 
   return (
-    <TableHead>
-      <TableRow>
+    <QuoteTableHeadContainer>
 
-        {/* Offset for move row controls */}
-        <TableCell padding="none" />
+      {/* Offset for move row controls */}
+      <TableCell padding="none" />
 
-        {heads
-          .map((props) => <QtHeadCell key={String(props.text)} {...props} />)}
+      {heads
+        .map((props) => <QtHeadCell key={String(props.text)} {...props} />)}
 
-        {/* Offset for add / delete row controls  */}
-        <TableCell padding="none"  />
+      {/* Offset for add / delete row controls  */}
+      <TableCell padding="none"  />
 
-      </TableRow>
-    </TableHead>
+    </QuoteTableHeadContainer>
   );
 };

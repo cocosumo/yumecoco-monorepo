@@ -21,7 +21,7 @@ export const useSummary = () => {
   const { values } = useFormikContext<TypeOfForm>();
 
   useLazyEffect(() => {
-
+    console.log('FIRED!');
     // 合計欄：原価合計、粗利、税抜金額、税込金額の算出処理
     const result = values.items.reduce((acc, cur) => {
 
@@ -47,7 +47,7 @@ export const useSummary = () => {
       grossProfitRate: roundTo(profitRate * 100, 2),
       taxAmount: result.totalAmountAfterTax - result.totalAmountBeforeTax,
     });
-    
+
 
   }, [values], 500);
 

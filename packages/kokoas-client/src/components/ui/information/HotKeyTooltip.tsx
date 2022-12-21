@@ -5,6 +5,7 @@ import KeyboardIcon from '@mui/icons-material/Keyboard';
 export const HotKeyTooltip = (
   {
     title,
+    children,
     ...others
   }: ComponentProps<typeof Tooltip>,
 ) => {
@@ -21,7 +22,11 @@ export const HotKeyTooltip = (
           </Typography>
         </Stack>
      )}
-    />
+    >
+      <span>
+        {children}
+      </span>
+    </Tooltip>
 
   );
 };

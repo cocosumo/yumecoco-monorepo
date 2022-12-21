@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
-import { HotKeyTooltip } from 'kokoas-client/src/components/ui/buttons/HotKeyTooltip';
+import { HotKeyTooltip } from 'kokoas-client/src/components';
 
 /** 一時保存 */
 export const BtnSaveTemporary = () => {

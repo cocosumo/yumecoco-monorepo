@@ -4,7 +4,7 @@ import { produce } from 'immer';
 import { initialValues, TypeOfForm } from '../form';
 import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@mui/icons-material/Add';
-import { HotKeyTooltip } from 'kokoas-client/src/components/ui/buttons/HotKeyTooltip';
+import { HotKeyTooltip } from 'kokoas-client/src/components';
 
 export const QuoteTableActions = () => {
   const { setValues, values } = useFormikContext<TypeOfForm>();

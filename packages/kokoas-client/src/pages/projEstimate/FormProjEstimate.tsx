@@ -17,15 +17,15 @@ import { MismatchedProfit } from './fieldComponents/MismatchedProfit';
 import { EstimatesInfo } from './fieldComponents/EstimatesInfo';
 import { ButtonMenu } from './fieldComponents/ButtonMenu';
 import { useConfirmBeforeClose } from './hooks/useConfirmBeforeClose';
+import { useSaveHotkey } from './hooks/useSaveHotkey';
+import { EstimateTableLabel } from './fieldComponents/EstimateTableLabel';
 
 export default function FormProjEstimate() {
-
-
-
-  const { 
+  const {
     values,
     dirty,
   } = useFormikContext<TypeOfForm>();
+
   const {
     projId,
     projTypeProfit,
@@ -36,15 +36,15 @@ export default function FormProjEstimate() {
     envStatus,
   } = values;
 
+  useSaveHotkey();
   useConfirmBeforeClose({ enabled: dirty });
 
   const isEditMode = !!estimateId;
   const isDisabled = !!envStatus;
 
-
   return (
     <Form noValidate>
-      
+
       <ScrollToFieldError />
       <MainContainer>
         <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />
@@ -84,7 +84,7 @@ export default function FormProjEstimate() {
         </Grid>
 
         {!!projId && <>
-        
+
           <Grid item xs={12} md={3}>
             <FormikTextField name={getFieldName('projTypeName')} label="工事種別名" disabled />
           </Grid>
@@ -131,7 +131,7 @@ export default function FormProjEstimate() {
           </Grid>
 
           <Grid item xs={12} mt={4}>
-            <PageSubTitle label="内訳" />
+            <PageSubTitle label={<EstimateTableLabel />} />
           </Grid>
 
           <Grid item xs={12} md={12}>
@@ -163,8 +163,8 @@ export default function FormProjEstimate() {
           </Grid>
 
           {!isDisabled && <FormActions />}
-        
-        
+
+
         </>}
 
       </MainContainer>

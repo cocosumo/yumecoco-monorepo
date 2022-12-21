@@ -1,8 +1,9 @@
 import { Divider, Grid, Typography } from '@mui/material';
+import { ReactNode } from 'react';
 
 
 interface PageSubTitleProps {
-  label: string
+  label: ReactNode
   xs?: number,
 }
 

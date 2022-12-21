@@ -1,38 +1,64 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { TableBody, TableHead, TableRow, Typography } from '@mui/material';
 import { summaryNameList } from '../constantDefinition';
-import DisplayCellContent from './DisplayCellContent';
-import { useTotalCalc } from '../hooks/useTotalCalc';
+import { useSummary } from '../hooks/useSummary';
+import { SummaryTableContainer } from './SummaryTableContainer';
+import { TabelCellNumber } from './TabelCellNumber';
 
 export default function SummaryTable() {
 
-  const total = useTotalCalc();
+  const {
+    totalCostPrice,
+    grossProfitVal,
+    grossProfitRate,
+    taxAmount,
+    totalAmountBeforeTax,
+    totalAmountAfterTax,
+  } = useSummary();
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            {summaryNameList.map((item) => {
-              return (<TableCell key={`${item}_header`}>
+    <SummaryTableContainer >
+      <TableHead>
+        <TableRow>
+          {summaryNameList.map((item) => {
+            return (
+              <TabelCellNumber key={item} >
                 <Typography variant="subtitle2" gutterBottom>
                   {item}
                 </Typography>
-              </TableCell>);
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            {total.map(([key, value]) => {
-              return (
-                <TableCell key={`${key}_header`}>
-                  <DisplayCellContent name={key} value={value} />
-                </TableCell>
-              );
-            })}
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+              </TabelCellNumber>
+            );
+          })}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        <TableRow>
+          <TabelCellNumber>
+            {Math.round(totalCostPrice).toLocaleString() + '円'}
+          </TabelCellNumber>
+          <TabelCellNumber>
+            {Math.round(grossProfitVal).toLocaleString() + '円'}
+          </TabelCellNumber>
+          <TabelCellNumber>
+            {Math.round(grossProfitRate).toLocaleString() + '%'}
+          </TabelCellNumber>
+          <TabelCellNumber>
+            {Math.round(taxAmount).toLocaleString() + '円'}
+          </TabelCellNumber>
+          <TabelCellNumber>
+            {Math.round(totalAmountBeforeTax).toLocaleString() + '円'}
+          </TabelCellNumber>
+
+          {/* 税込金額 */}
+          <TabelCellNumber
+            sx={{
+              fontSize: '20px',
+              fontWeight: 'bold',
+            }}
+          >
+            {Math.round(totalAmountAfterTax).toLocaleString() + '円'}
+          </TabelCellNumber>
+        </TableRow>
+      </TableBody>
+    </SummaryTableContainer>
   );
 }

@@ -15,7 +15,7 @@ import { QuoteTableActions } from './QuoteTableActions';
 export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
 
   return (
-    <TableContainer component={Paper} >
+    <TableContainer variant={'outlined'} component={Paper} >
       <Table
         size="small"
         sx={{

@@ -120,17 +120,6 @@ export default function FormProjEstimate() {
           </Grid>
 
           <Grid item xs={12} mt={4}>
-            <PageSubTitle label="合計欄" />
-          </Grid>
-
-          <Grid item xs={12} md={12}
-            id={'summaryTable'}
-          >
-            {/* 合計欄テーブル */}
-            <SummaryTable />
-          </Grid>
-
-          <Grid item xs={12} mt={4}>
             <PageSubTitle label={<EstimateTableLabel />} />
           </Grid>
 
@@ -168,6 +157,7 @@ export default function FormProjEstimate() {
         </>}
 
       </MainContainer>
+      {!!projId && <SummaryTable />}
     </Form>
   );
 }

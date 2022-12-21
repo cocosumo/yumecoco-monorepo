@@ -2,10 +2,13 @@ import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { FocusEventHandler, useCallback, useEffect, useState } from 'react';
 import { TypeOfForm } from '../form';
-import { v4 as uuidv4 }  from 'uuid';
 import { useInitialRow } from './useInitialRow';
 import { useIsLastRowModified } from './useIsLastRowModified';
 
+
+/**
+ * 自動行追加
+ */
 export const useAdvancedTableRow = (rowIdx : number) => {
   const {
     setValues,
@@ -14,7 +17,10 @@ export const useAdvancedTableRow = (rowIdx : number) => {
   const { envStatus } = values;
 
   const isWithContract = !!envStatus;
-  const initialRow = useInitialRow();
+  const {
+    initialRow,
+    getNewRow,
+  } = useInitialRow();
 
   const {
     isLastRow,
@@ -23,20 +29,16 @@ export const useAdvancedTableRow = (rowIdx : number) => {
 
   useEffect(() => {
     if (
-      isLastRowModified 
+      isLastRowModified
       && !isWithContract // 契約がある時、行追加しない
     ) {
       // 最終行は初期と異なる際、 行を自動追加する
       setValues(
         (prev) => produce(prev, (draft) => {
-          draft.items.push({
-            ...initialRow,
-            key: uuidv4(),
-          });
-
+          draft.items.push(getNewRow());
         }));
     }
-  }, [isLastRowModified, setValues, initialRow, rowIdx, isWithContract]);
+  }, [isLastRowModified, rowIdx, isWithContract, setValues, getNewRow]);
 
   const [focused, setFocused] = useState(false);
 

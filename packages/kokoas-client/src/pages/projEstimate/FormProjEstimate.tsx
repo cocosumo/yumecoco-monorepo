@@ -47,7 +47,7 @@ export default function FormProjEstimate() {
 
       <ScrollToFieldError />
       <MainContainer>
-        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />
+        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} secondaryLabel={estimateDataId} />
 
         <Grid item xs={10} md={5}>
 

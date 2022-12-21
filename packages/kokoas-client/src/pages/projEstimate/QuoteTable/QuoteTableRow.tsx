@@ -113,6 +113,7 @@ export const QuoteTableRow = (
           />
           <FormikTextFieldV2
             disabled={isDisabled}
+            enabledFormikBlur={false}
             name={getItemFieldName(rowIdx, 'materialDetails')}
             size={'small'}
             multiline
@@ -194,6 +195,7 @@ export const QuoteTableRow = (
         <TableCell colSpan={4}>
           <FormikTextFieldV2
             disabled={isDisabled}
+            enabledFormikBlur={false}
             name={getItemFieldName(rowIdx, 'rowDetails')}
             size={'small'}
             multiline

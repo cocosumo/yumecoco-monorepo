@@ -29,6 +29,7 @@ export const TaxTypeField = ({
       label=''
       name={name}
       size={'small'}
+      enabledFormikBlur={false}
       options={taxChoices.map((c) => ({ label: c, value: c }))}
       disabled={isDisabled}
       onChange={handleChange}

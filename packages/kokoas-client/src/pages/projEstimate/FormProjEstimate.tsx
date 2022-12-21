@@ -61,7 +61,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md>
 
           {/* 編集中の見積もり情報 */}
-          {projId &&
+          {!!projId &&
             <EstimatesInfo
               estimateId={estimateId}
               id={estimateDataId}

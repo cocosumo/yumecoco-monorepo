@@ -51,8 +51,11 @@ export const saveRecordByUpdateKey = async (
   } = params;
 
 
+
   /** The actual saving process */
   if (updateKey.value) {
+
+    console.log(updateKey, app);
     /* UPDATE */
     const result = await KintoneRecord.updateRecord({
       app: app,
@@ -60,6 +63,8 @@ export const saveRecordByUpdateKey = async (
       record: record,
       revision,
     });
+
+
 
     await updateRelatedFn?.();
 

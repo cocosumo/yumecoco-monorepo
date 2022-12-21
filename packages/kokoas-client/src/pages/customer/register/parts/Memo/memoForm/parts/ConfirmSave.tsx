@@ -43,7 +43,7 @@ export const ConfirmSave = () => {
       id: values.memoId,
       record: memoRecord,
     });
-    
+
     resetForm();
     setSubmitting(false);
     handleCloseMainForm('submitted');

@@ -21,10 +21,7 @@ export const useMaterialsOptions = (
     data: majorItemOpts = [],
   } = useMaterialsMajor({
     select: useCallback((d) => {
-      return d.map<Option>(({ 大項目名 }) => ({
-        label: 大項目名.value,
-        value: 大項目名.value,
-      }));
+      return d.map(({ 大項目名 }) => 大項目名.value);
     }, []),
   });
 
@@ -39,15 +36,12 @@ export const useMaterialsOptions = (
       const derived = d.reduce((accu, { 大項目名, 中項目名 }) => {
         if (!majorItem || 大項目名?.value === majorItem ) {
           // Ignore duplicates
-          if (!accu.some(({ value }) => value === 中項目名.value ))
-            accu.push({
-              label: 中項目名.value,
-              value: 中項目名.value,
-            });
+          if (!accu.some((value) => value === 中項目名.value ))
+            accu.push(中項目名.value);
         }
 
         return accu;
-      }, [] as Options);
+      }, [] as string[]);
 
       return {
         middleItemOpts: derived,
@@ -70,14 +64,11 @@ export const useMaterialsOptions = (
           || (!majorItem && (!middleItem || 中項目名?.value === middleItem))
         ) {
           // Ignore duplicates
-          if (!(accu.some(({ value }) => value === 部材名.value )))
-            accu.push({
-              label: 部材名?.value,
-              value: 部材名?.value,
-            });
+          if (!(accu.some((value) => value === 部材名.value )))
+            accu.push(部材名.value);
         }
         return accu;
-      }, [] as Options);
+      }, [] as string[]);
 
       return {
         materialOpts: derived,

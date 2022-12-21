@@ -1,7 +1,6 @@
 import { Autocomplete, AutocompleteRenderInputParams, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
 import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
-import { ComponentProps, SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import { Options } from 'types';
+import { ComponentProps, SyntheticEvent, useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
 /*
@@ -24,7 +23,7 @@ export const FormikAutocomplete = (
     ...otherAutoCompleteProps
   }: Omit<ComponentProps<typeof Autocomplete>, 'renderInput'> & {
     name: string,
-    options: Options
+    options: string[]
     handleChange?: (newVal?: string) => void
     disabled?: boolean
     variant?: TextFieldProps['variant']
@@ -46,8 +45,6 @@ export const FormikAutocomplete = (
   useEffect(() => {
     setInputValue(field.value);
   }, [field.value]);
-
-  const simpleOptions = useMemo(() => (options as Options).map(({ value }) => value), [options]);
 
   const handleAccept = useCallback((_: SyntheticEvent, newValue : string) => {
     setInputValue(newValue);
@@ -78,7 +75,7 @@ export const FormikAutocomplete = (
         value={inputValue}
         onChange={handleAccept}
         onInputChange={handleInputChange}
-        options={simpleOptions}
+        options={options}
         renderInput={handleRenderInput}
         disabled={disabled}
       />

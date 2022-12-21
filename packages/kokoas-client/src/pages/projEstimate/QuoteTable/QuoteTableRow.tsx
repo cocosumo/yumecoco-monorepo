@@ -86,7 +86,6 @@ export const QuoteTableRow = (
           width={headers[1].width}
         >
           <FormikAutocomplete
-            tabIndex={1}
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
             freeSolo={false}

@@ -2,7 +2,6 @@ import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { FocusEventHandler, useCallback, useEffect, useState } from 'react';
 import { TypeOfForm } from '../form';
-import { v4 as uuidv4 }  from 'uuid';
 import { useInitialRow } from './useInitialRow';
 import { useIsLastRowModified } from './useIsLastRowModified';
 

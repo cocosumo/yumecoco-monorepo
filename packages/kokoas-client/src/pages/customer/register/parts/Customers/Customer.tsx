@@ -8,6 +8,7 @@ import { NameInput } from './NameInput';
 import { SelectGender } from './SelectGender';
 import { MemoizedSelectBirthdate } from './SelectBirthdate';
 import { Address } from './Address';
+import { Contacts } from './Contacts';
 
 
 interface CustomerProps extends ArrayHelpers {
@@ -75,7 +76,7 @@ export const Customer =  (props: CustomerProps) => {
       <SelectGender namePrefix={namePrefix} />
       <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
       <Address namePrefix={namePrefix} index={index} />
-
+      <Contacts namePrefix={namePrefix} />
 
     </Grid>
 

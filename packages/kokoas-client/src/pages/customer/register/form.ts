@@ -65,6 +65,8 @@ export const validationSchema =  Yup.object().shape(
           'custName': Yup.string().required('必須です。'),
           'custNameReading': Yup.string().required('必須です。'),
 
+
+
           'postal': Yup.string()
             .when(['isSameAddress', 'index'] as CustomerInstanceKeys[], {
               is: (isSameAddress: boolean, index: number) => {
@@ -73,28 +75,17 @@ export const validationSchema =  Yup.object().shape(
               then: Yup.string().matches(postalRegExp, '半角数字。例：4418124'),
             }),
 
-          'phone1': Yup.string()
-            .when('isSameAddress' as CustomerInstanceKeys, {
-              is: false,
-              then: Yup.string().matches(phoneRegExp, '半角数字。例：07012641265').required('必須です。'),
-            }),
+          'phone1': Yup.string().matches(phoneRegExp, '半角数字。例：07012641265').required('必須です。'),
+          'phone1Rel': Yup.string().required('連絡先の続柄を選択してください'),
 
-          'phone1Rel': Yup.string()
-            .when('isSameAddress' as CustomerInstanceKeys, {
-              is: false,
-              then: Yup.string().required('連絡先の続柄を選択してください'),
-            }),
-
-          'phone2': Yup.string()
-            .matches(phoneRegExp, '半角数字。例：07012641265'),
+          'phone2': Yup.string().matches(phoneRegExp, '半角数字。例：07012641265'),
           'phone2Rel': Yup.string()
             .when('phone2', {
               is: (val: string) => !!val,
               then: Yup.string().required('連絡先の続柄を選択してください'),
             }),
 
-          'email': Yup.string()
-            .email('有効なメールアドレスを入力ください。例：info@cocosumo.jp'),
+          'email': Yup.string().email('有効なメールアドレスを入力ください。例：info@cocosumo.jp'),
           'emailRel': Yup.string()
             .when('email', {
               is: (val: string) => !!val,

@@ -22,26 +22,27 @@ export const convertToKintone = ({
     exceedChecked: { value: exceedChecked ? '1' : '0' },
     estimateLists: {
       type: 'SUBTABLE',
-      value: estimates.map(({ 
-        projId,
-        dataId,
-        projTypeName,
-        estimateId,
-        billingAmount : amountPerContract,
-        amountType,
-      }) => {
-        return {
-          id: '',
-          value: {
-            projId: { value: projId },
-            dataId: { value: dataId },
-            projTypeName: { value: projTypeName },
-            estimateId: { value: estimateId },
-            amountPerContract: { value: amountPerContract },
-            paymentType: { value: amountType },
-          },
-        };
-      }),
+      value: estimates.filter(({ isForPayment }) => !!isForPayment)
+        .map(({
+          projId,
+          dataId,
+          projTypeName,
+          estimateId,
+          billingAmount: amountPerContract,
+          amountType,
+        }) => {
+          return {
+            id: '',
+            value: {
+              projId: { value: projId },
+              dataId: { value: dataId },
+              projTypeName: { value: projTypeName },
+              estimateId: { value: estimateId },
+              amountPerContract: { value: amountPerContract },
+              paymentType: { value: amountType },
+            },
+          };
+        }),
     },
   };
 

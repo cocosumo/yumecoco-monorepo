@@ -1,7 +1,7 @@
 
 
 import { IconButton, SxProps, TableCell, TableRow } from '@mui/material';
-import { FieldArrayRenderProps, useFormikContext } from 'formik';
+import { useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
 import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
@@ -24,12 +24,10 @@ import { headers } from './QuoteTableHead';
 export const QuoteTableRow = (
   {
     rowIdx,
-    arrayHelpers,
     envStatus,
     handleOpenUnitMenu,
   }: {
     rowIdx: number,
-    arrayHelpers: FieldArrayRenderProps,
     envStatus: string,
     handleOpenUnitMenu: (e: MouseEvent<HTMLButtonElement>) => void
   }) => {
@@ -66,7 +64,6 @@ export const QuoteTableRow = (
       <TableRow
         id={key}
         ref={rowMainRef}
-        component={'tr'}
         onFocus={handleFocus}
         onBlur={handleFocus}
         sx={rowSx}
@@ -80,7 +77,7 @@ export const QuoteTableRow = (
           }}
         >
           {!isDisabled && !isLastRow && (
-            <QtRowMove rowIdx={rowIdx} arrayHelpers={arrayHelpers} />
+            <QtRowMove rowIdx={rowIdx} />
           )}
         </TableCell>
 
@@ -184,10 +181,7 @@ export const QuoteTableRow = (
 
         <TableCell width={headers[9].width}>
           {!isDisabled && !isLastRow &&
-          <QtRowAddDelete
-            rowIdx={rowIdx}
-            arrayHelpers={arrayHelpers}
-          />}
+          <QtRowAddDelete rowIdx={rowIdx}  />}
         </TableCell>
 
       </TableRow>

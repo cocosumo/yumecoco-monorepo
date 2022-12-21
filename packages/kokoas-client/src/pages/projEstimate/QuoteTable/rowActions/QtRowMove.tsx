@@ -1,20 +1,20 @@
 import { IconButton, Stack, SxProps, Theme } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { FieldArrayRenderProps, FormikProps } from 'formik';
+import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { QtRowMoveAnywhere } from './QtRowMoveAnywhere';
+import { useMoveItem } from '../../hooks/useMoveItem';
+
 
 export const QtRowMove = ({
-  rowIdx, arrayHelpers,
+  rowIdx,
 }: {
   rowIdx: number
-  arrayHelpers: FieldArrayRenderProps,
 }) => {
+  const { values: { envStatus, items } } = useFormikContext<TypeOfForm>();
   const [expandBtns, setExpandBtns] = useState(false);
-  const { form, move } = arrayHelpers;
-  const { values: { envStatus, items } } = form as FormikProps<TypeOfForm>;
 
   const transitionStyle = (isTop: boolean): SxProps<Theme> => {
     const shiftPx = isTop ? -14 : 14;
@@ -25,13 +25,15 @@ export const QtRowMove = ({
     };
   };
 
+  const move = useMoveItem();
+
   const isAtBottom = rowIdx === (items.length - 1);
   const isAtTop = rowIdx === 0;
   const isVisible = !envStatus;
 
-  const handleMoveRowUp = () => move(rowIdx, rowIdx - 1);
+  const handleMoveRowUp = useCallback(() => move(rowIdx, rowIdx - 1), [move, rowIdx]);
 
-  const handleMoveRowDown = () => move(rowIdx, rowIdx + 1);
+  const handleMoveRowDown = useCallback(() => move(rowIdx, rowIdx + 1), [move, rowIdx]);
 
   return (
 

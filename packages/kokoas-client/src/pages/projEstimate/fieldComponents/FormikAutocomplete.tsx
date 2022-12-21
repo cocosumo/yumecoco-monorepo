@@ -1,6 +1,6 @@
-import { Autocomplete, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
+import { Autocomplete, AutocompleteRenderInputParams, FormControl, FormHelperText, TextField, TextFieldProps } from '@mui/material';
 import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
-import { ComponentProps, useEffect, useMemo, useState } from 'react';
+import { ComponentProps, SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Options } from 'types';
 import { useDebounce } from 'usehooks-ts';
 
@@ -49,6 +49,25 @@ export const FormikAutocomplete = (
 
   const simpleOptions = useMemo(() => (options as Options).map(({ value }) => value), [options]);
 
+  const handleAccept = useCallback((_: SyntheticEvent, newValue : string) => {
+    setInputValue(newValue);
+    handleChange?.(newValue);
+  }, [handleChange]);
+
+  const handleInputChange = useCallback((_: SyntheticEvent, newValue : string) => {
+    if (freeSolo) {
+      setInputValue(newValue);
+    }
+  }, [freeSolo]);
+
+  const handleRenderInput = useCallback((params: AutocompleteRenderInputParams) =>(
+    <TextField {...params}
+      type="search"
+      size="small"
+      variant={variant}
+    />
+  ), [variant]);
+
   return (
     <FormControl variant="standard" size='small' fullWidth>
       <Autocomplete
@@ -57,24 +76,10 @@ export const FormikAutocomplete = (
         fullWidth
         freeSolo={freeSolo}
         value={inputValue}
-        onChange={(_, newValue : string) => {
-          setInputValue(newValue);
-          handleChange?.(newValue);
-        }}
-        onInputChange={(_, newValue) => {
-          if (freeSolo) {
-            setInputValue(newValue);
-          }
-        }}
+        onChange={handleAccept}
+        onInputChange={handleInputChange}
         options={simpleOptions}
-        renderInput={(params) =>
-          (
-            <TextField {...params}
-              type="search"
-              size="small"
-              variant={variant}
-            />
-          )}
+        renderInput={handleRenderInput}
         disabled={disabled}
       />
       {(!!error && touched) &&

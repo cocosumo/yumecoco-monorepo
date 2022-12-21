@@ -11,7 +11,7 @@ export const headers: QtHeadCellProps[]  =  [
   { text: '原価', required, rightAligned, width: '10%' },
   { text: '数量', required, rightAligned, width: '10%' },
   { text: '利益率', rightAligned, width: '8%' },
-  { text: '税 (課税 / 非課税)', width: '8%' },
+  { text: ['税', '(課税 / 非課税)'], width: '10%' },
   { text: '単価', rightAligned, width: '12%' },
   { text: '金額', rightAligned, width: '12%' },
   { width: '4%' },

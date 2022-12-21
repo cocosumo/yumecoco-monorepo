@@ -1,4 +1,5 @@
 import { Paper, Table, TableContainer, TableHead, TableRow } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
 export const QuoteTableHeadContainer = ({
@@ -16,6 +17,11 @@ export const QuoteTableHeadContainer = ({
       '& th': {
         px: 0.5,
       },
+      '&:hover': {
+        opacity: '1',
+      },
+      transition: 'all 0.5s',
+      background: grey[100],
     }}
       component={Paper}
     >

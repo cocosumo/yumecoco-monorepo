@@ -52,7 +52,7 @@ export const QtHeadCell = (props: QtHeadCellProps) => {
               {required && (
               <Typography
                 ml={1}
-                fontSize={16}
+                fontSize={10}
                 color={'red'}
                 component={'span'}
               >

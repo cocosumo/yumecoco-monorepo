@@ -27,6 +27,7 @@ export const FormConstruction  = () => {
     storeId,
     territory,
     projTypeId,
+    projDataId,
     custGroupId,
   } = values;
 
@@ -39,7 +40,12 @@ export const FormConstruction  = () => {
       <ScrollToFieldError />
 
       <MainContainer>
-        <PageTitle label="工事情報登録" color="#60498C" textColor='#FFF' />
+        <PageTitle
+          label="工事情報登録"
+          color="#60498C"
+          textColor='#FFF'
+          secondaryLabel={projDataId}
+        />
         <Grid container item xl={8}
           spacing={2} mb={12}
         >

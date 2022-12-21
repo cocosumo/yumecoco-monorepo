@@ -36,11 +36,7 @@ export const useAdvancedTableRow = (rowIdx : number) => {
       // 最終行は初期と異なる際、 行を自動追加する
       setValues(
         (prev) => produce(prev, (draft) => {
-          draft.items.push({
-            ...getNewRow(),
-            key: uuidv4(),
-          });
-
+          draft.items.push(getNewRow());
         }));
     }
   }, [isLastRowModified, rowIdx, isWithContract, setValues, getNewRow]);

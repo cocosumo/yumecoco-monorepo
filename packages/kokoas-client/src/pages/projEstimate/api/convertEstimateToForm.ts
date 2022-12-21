@@ -1,6 +1,6 @@
 import { calculateEstimateRow } from 'api-kintone';
 import { format, parseISO } from 'date-fns';
-import { roundTo } from 'libs';
+import { formatDataId, roundTo } from 'libs';
 import { IProjestimates, TaxType } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 
@@ -68,9 +68,9 @@ export const convertEstimateToForm = (
     };
   });
 
-  /* 
-    仮想行の追加 
-    useAdvancedTableRow listens to changes on the last row to insert a virtual row, 
+  /*
+    仮想行の追加
+    useAdvancedTableRow listens to changes on the last row to insert a virtual row,
     but that makes the form "dirty".
 
     To keep "dirty" false on initial load, I added it here.
@@ -84,7 +84,7 @@ export const convertEstimateToForm = (
   /* フォーム */
   return {
     estimateId: uuid.value,
-    estimateDataId: dataId.value,
+    estimateDataId: formatDataId(dataId.value),
     customerName: custName.value,
     projId: projId.value,
     projTypeProfit : +projTypeProfit.value,

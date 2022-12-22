@@ -1,3 +1,4 @@
+import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { IInvoices } from 'types';
 import { TypeOfForm } from '../form';
 
@@ -15,9 +16,9 @@ export const convertToKintone = ({
   /* formをkintoneの型に変換する */
   const kintoneRecord: Partial<IInvoices> = {
     billingAmount: { value: String(billingAmount) },
-    slipNumber: { value: '編集中' },
-    plannedPaymentDate: { value: plannedPaymentDate },
-    issuedDateTime: { value: String(new Date()) },
+    slipNumber: { value: '' },
+    plannedPaymentDate: { value: toKintoneDateStr(plannedPaymentDate) },
+    issuedDateTime: { value: toKintoneDateStr(new Date()) },
     custGroupId: { value: custGroupId },
     exceedChecked: { value: exceedChecked ? '1' : '0' },
     estimateLists: {

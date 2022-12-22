@@ -23,12 +23,16 @@ export const validationSchema = Yup
     .of(
       Yup.object().shape({
         estimateIndex: numberValidation,
-        estimateId: numberValidation,
+        estimateId: Yup.string(),
         contractAmount: numberValidation,
         billingAmount: numberValidation.required('必須入力項目'),
+        /* .when(keys, {
+            is: (isForPayment: boolean) => isForPayment,
+            then: numberValidation.required('必須入力項目'),
+          }), */
         billedAmount: numberValidation,
         contractDate: dateValidation,
-        doNotUsePayment: Yup.boolean(),
+        isForPayment: Yup.boolean(),
       }),
     ),
 

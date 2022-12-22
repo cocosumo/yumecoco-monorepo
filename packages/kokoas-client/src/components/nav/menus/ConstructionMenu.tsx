@@ -32,7 +32,7 @@ export const ConstructionMenu = () =>  {
       <CollapsibleList open={open}>
         <LinkListItemButton to={pages.projReg} icon={<CarpenterIcon />} text={'新規登録'} />
         <LinkListItemButton to={pages.projProspect} icon={<NoteAddIcon />} text={'見込み登録'} />
-        <LinkListItemButton to={pages.projProspectSearch} icon={<TableChartIcon />} text={'見込み検索'} />
+        <LinkListItemButton to={pages.projProspectSearch} icon={<TableChartIcon />} text={'見込み一覧'} />
       </CollapsibleList>
     </>
   );

@@ -5,7 +5,11 @@ import { SystemUpdate } from './sections/systemUpdate/SystemUpdate';
 export const Home = () => {
   return (
     <MainContainer justifyContent={'center'}>
-      <Grid item xs={6}>
+      <Grid
+        item
+        xs={12}
+        md={6}
+      >
         <SystemUpdate />
       </Grid>
     </MainContainer>

@@ -36,7 +36,10 @@ export const SystemUpdate = () => {
   console.log(totalCount);
 
   return (
-    <Card>
+    <Card sx={{
+      backgroundColor: grey[50],
+    }}
+    >
       <CardHeader
         title={'システム改修のお知らせ'}
         subheader={jaReleaseDate}

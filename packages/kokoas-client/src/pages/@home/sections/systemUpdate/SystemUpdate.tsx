@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CircularProgress, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { grey, red } from '@mui/material/colors';
 import { dateStrToJA } from 'kokoas-client/src/helpers/utils';
 import { useSystemUpdate } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';

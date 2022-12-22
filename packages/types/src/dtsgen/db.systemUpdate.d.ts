@@ -1,6 +1,7 @@
 declare namespace DBSystemupdate {
   interface Data {
     releaseDate: kintone.fieldTypes.Date;
+    title: kintone.fieldTypes.SingleLineText;
     contents: {
       type: "SUBTABLE";
       value: Array<{

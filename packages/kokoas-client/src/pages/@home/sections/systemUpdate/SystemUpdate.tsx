@@ -74,7 +74,7 @@ export const SystemUpdate = () => {
           groupedContents.map(([category, items]) => {
             return (
               <Stack
-                key={category} mb={2}
+                key={category} mt={2}
               >
                 <Typography variant={'h6'}>
                   {category}

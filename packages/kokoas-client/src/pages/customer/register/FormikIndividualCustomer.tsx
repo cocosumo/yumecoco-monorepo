@@ -1,5 +1,4 @@
 import { Formik } from 'formik';
-import {  validationSchema } from './form';
 import { FormIndividualCustomer } from './FormIndividualCustomer';
 import { useNavigate  } from 'react-router-dom';
 import { MemoContextProvider } from './parts/Memo/memoForm/MemoContext';
@@ -12,6 +11,7 @@ import { formToDBCustomers } from './helper/formToDBCustomers';
 import { formToDBCustGroup } from './helper/formToDBCustGroup';
 import { useEmployees } from '../../../hooksQuery';
 import { useResolveParam } from './hooks/useResolveParam';
+import { validationSchema } from './validationSchema';
 
 
 

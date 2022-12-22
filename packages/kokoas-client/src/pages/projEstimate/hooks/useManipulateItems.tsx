@@ -3,6 +3,7 @@ import { produce } from 'immer';
 import { useCallback } from 'react';
 import { TypeOfForm } from '../form';
 import { useInitialRow } from './useInitialRow';
+import { v4 as uuidV4 } from 'uuid';
 
 export const useManipulateItems = (rowIdx: number) => {
   const { setValues } = useFormikContext<TypeOfForm>();
@@ -21,7 +22,13 @@ export const useManipulateItems = (rowIdx: number) => {
     setValues((prev) => produce(prev, ({ items }) => {
       const newRow = items[rowIdx];
 
-      items.splice(rowIdx + 1, 0, newRow);
+      items.splice(
+        rowIdx + 1, 0,
+        {
+          ...newRow,
+          key: uuidV4(),
+        },
+      );
     }));
   }, [setValues, rowIdx]);
 

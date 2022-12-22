@@ -1,6 +1,6 @@
 import { TableBody } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { MouseEvent, useCallback, useEffect, useState } from 'react';
+import { MouseEvent, useCallback, useState } from 'react';
 import { TypeOfForm } from '../form';
 import { QuoteTableRow } from './QuoteTableRow';
 import { UnitTypeMenu } from './rowFields/UnitTypeMenu';

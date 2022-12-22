@@ -8,11 +8,8 @@ import { UnitTypeMenu } from './rowFields/UnitTypeMenu';
 
 
 export const QuoteTableBody = () => {
-  const { setFieldValue, values, touched, dirty } = useFormikContext<TypeOfForm>();
+  const { setFieldValue, values } = useFormikContext<TypeOfForm>();
   const { items, envStatus } = values;
-
-  useEffect(() => console.log(touched, dirty ), [touched, dirty]);
-
 
   const [unitMenuAnchorEl, setUnitMenuAnchorEl] = useState<null | HTMLButtonElement>(null);
 

@@ -47,7 +47,7 @@ export default function FormProjEstimate() {
 
       <ScrollToFieldError />
       <MainContainer>
-        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} />
+        <PageTitle label={`見積もり${isEditMode ? '編集' : '登録'}`} secondaryLabel={estimateDataId} />
 
         <Grid item xs={10} md={5}>
 
@@ -120,17 +120,6 @@ export default function FormProjEstimate() {
           </Grid>
 
           <Grid item xs={12} mt={4}>
-            <PageSubTitle label="合計欄" />
-          </Grid>
-
-          <Grid item xs={12} md={12}
-            id={'summaryTable'}
-          >
-            {/* 合計欄テーブル */}
-            <SummaryTable />
-          </Grid>
-
-          <Grid item xs={12} mt={4}>
             <PageSubTitle label={<EstimateTableLabel />} />
           </Grid>
 
@@ -168,6 +157,7 @@ export default function FormProjEstimate() {
         </>}
 
       </MainContainer>
+      {!!projId && <SummaryTable />}
     </Form>
   );
 }

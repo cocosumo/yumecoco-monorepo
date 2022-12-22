@@ -15,33 +15,41 @@ import { QuoteTableActions } from './QuoteTableActions';
 export function renderQuoteTable(arrayHelpers : FieldArrayRenderProps) {
 
   return (
-    <TableContainer component={Paper} >
-      <Table
-        size="small"
-        sx={{
-          minWidth: 650,
-          overflow: 'hidden',
-          '& td,& th': {
-            px: 0.5,
-          },
-          '& tr:nth-of-type(odd) td:not(:nth-of-type(-n+3))' : {
-            borderBottom: 'none',
-            pt: 2,
-            pb: 0,
-          },
-          '& tr:nth-of-type(even) td:not(:nth-of-type(-n+1))' : {
-            pt: 1,
-            pb: 2,
-          },
-
-        }}
+    <>
+      <QuoteTableHead />
+      <TableContainer
+        variant={'outlined'}
+        component={Paper}
       >
-        <QuoteTableHead />
-        <QuoteTableBody arrayHelpers={arrayHelpers}  />
 
-      </Table>
-      <QuoteTableActions />
+        <Table
+          size="small"
+          sx={{
+            minWidth: 650,
+            overflow: 'hidden',
+            tableLayout: 'fixed',
+            '& td': {
+              px: 0.5,
+            },
+            '& tr:nth-of-type(odd) td:not(:nth-of-type(-n+3))' : {
+              borderBottom: 'none',
+              pt: 2,
+              pb: 0,
+            },
+            '& tr:nth-of-type(even) td:not(:nth-of-type(-n+1))' : {
+              pt: 1,
+              pb: 2,
+            },
 
-    </TableContainer>
+          }}
+        >
+          <QuoteTableBody arrayHelpers={arrayHelpers}  />
+
+        </Table>
+        <QuoteTableActions />
+
+      </TableContainer>
+
+    </>
   );
 }

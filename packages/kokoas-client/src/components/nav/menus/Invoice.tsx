@@ -1,19 +1,12 @@
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { Link } from 'react-router-dom';
+
 import MoneyIcon from '@mui/icons-material/Money';
 import { pages } from '../../../pages/Router';
+import { LinkListItemButton } from './common/LinkListItemButton';
 
 
 export default function Invoice() {
 
   return (
-    <Link to={pages.projInvoice}>
-      <ListItemButton sx={{ pl: 4 }}>
-        <ListItemIcon>
-          <MoneyIcon />
-        </ListItemIcon>
-        <ListItemText primary="請求入力" />
-      </ListItemButton>
-    </Link>
+    <LinkListItemButton to={pages.projInvoice} icon={<MoneyIcon />} text={'請求入力'} />
   );
 }

@@ -1,5 +1,4 @@
 import { Chip, FormControl, FormLabel, Stack, Typography } from '@mui/material';
-import { formatDataId } from 'libs';
 
 
 const LabeledInfo = ({
@@ -51,7 +50,7 @@ export const EstimatesInfo = ({
         <Stack direction={'row'} spacing={1}>
           <LabeledInfo
             label={'ID'}
-            info={formatDataId(id)}
+            info={id}
           />
           <LabeledInfo
             label={'作成日'}

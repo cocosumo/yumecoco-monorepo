@@ -3,7 +3,6 @@ import { FormikTextFieldV2 as FormikTextField } from 'kokoas-client/src/componen
 import { useFormikContext } from 'formik';
 import { SearchAddress } from 'kokoas-client/src/components/ui/selects/address/SearchAddress';
 import { getCustFieldName, TypeOfForm } from '../../form';
-import { Contacts } from './Contacts';
 
 export const AddressFields = ({
   namePrefix,
@@ -46,7 +45,7 @@ export const AddressFields = ({
       <Grid item xs={12} mb={2}>
         <FormikTextField name={`${namePrefix}${getCustFieldName('address2')}`} label="住所（建物名）" placeholder='マンション山豊101' />
       </Grid>
-      <Contacts namePrefix={namePrefix} />
+
     </Grid>
   );
 };

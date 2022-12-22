@@ -26,7 +26,7 @@ export const FormContract = ({
 }) => {
   const { values } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
-  const { projEstimateId, projId, projName, envelopeStatus } = values;
+  const { projEstimateId, projId, projName, envelopeStatus, projEstimateDataId } = values;
 
 
   const { summary } = calculated ?? {};
@@ -39,7 +39,7 @@ export const FormContract = ({
     <Form noValidate>
       <ScrollToFieldError />
       <MainContainer justifyContent={'space-between'}>
-        <PageTitle label='契約' />
+        <PageTitle label='契約' secondaryLabel={projEstimateDataId} />
 
         <Grid item xs={12} md={4} >
           <SearchProjects

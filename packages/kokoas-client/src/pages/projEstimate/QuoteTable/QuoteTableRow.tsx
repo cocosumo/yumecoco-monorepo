@@ -19,6 +19,7 @@ import { grey } from '@mui/material/colors';
 import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
 import { TblCellStack } from '../fieldComponents/TblCellStack';
 import { useQuoteTRowHotKeys } from '../hooks/useQuoteTRowHotKeys';
+import { headers } from './QuoteTableHead';
 
 export const QuoteTableRow = (
   {
@@ -73,7 +74,7 @@ export const QuoteTableRow = (
 
         <TableCell
           rowSpan={2}
-          width={'3%'}
+          width={headers[0].width}
           sx={{
             pl: 1, pr: 0,
           }}
@@ -83,7 +84,10 @@ export const QuoteTableRow = (
           )}
         </TableCell>
 
-        <TblCellStack rowSpan={2} width={'24%'}>
+        <TblCellStack
+          rowSpan={2}
+          width={headers[1].width}
+        >
           <FormikAutocomplete
             tabIndex={1}
             name={getItemFieldName(rowIdx, 'majorItem')}
@@ -101,7 +105,10 @@ export const QuoteTableRow = (
           />
         </TblCellStack>
 
-        <TblCellStack rowSpan={2} width={'12%'}>
+        <TblCellStack
+          rowSpan={2}
+          width={headers[2].width}
+        >
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'material')}
             handleChange={handleMaterialChange}
@@ -118,7 +125,7 @@ export const QuoteTableRow = (
         </TblCellStack>
 
         <TableCell
-          width={'10%'}
+          width={headers[3].width}
           align='right'
         >
           {/* 原価 */}
@@ -126,7 +133,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell
-          width={'10%'}
+          width={headers[4].width}
           align='right'
         >
           {/* 数量 */}
@@ -147,7 +154,7 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell
-          width={'8%'}
+          width={headers[5].width}
           align='right'
         >
           {/* 利益率 */}
@@ -155,27 +162,27 @@ export const QuoteTableRow = (
         </TableCell>
 
         <TableCell
-          width={'4%'}
+          width={headers[6].width}
         >
           {/* 税 */}
           <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
         <TableCell
-          width={'12%'}
+          width={headers[7].width}
         >
           {/* 単価 */}
           <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
         <TableCell
-          width={'12%'}
+          width={headers[8].width}
         >
           {/* 金額 */}
           <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'3%'}>
+        <TableCell width={headers[9].width}>
           {!isDisabled && !isLastRow &&
           <QtRowAddDelete
             rowIdx={rowIdx}

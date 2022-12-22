@@ -7,7 +7,7 @@ export const SubTotalTable = () => {
   const rows = useSubTotalCalc();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer variant={'outlined'} component={Paper}>
       <Table size="small">
         <TableHead>
           <SubTotalHead />

@@ -4,7 +4,7 @@ import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
 import { initialValues, TMaterials, TypeOfForm } from '../../form';
 import { v4 as uuidv4 } from 'uuid';
-import { HotKeyTooltip } from 'kokoas-client/src/components/ui/buttons/HotKeyTooltip';
+import { HotKeyTooltip } from 'kokoas-client/src/components';
 
 export const QtRowAddDelete = ({
   rowIdx, arrayHelpers,

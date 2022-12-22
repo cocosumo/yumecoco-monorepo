@@ -1,11 +1,11 @@
 import LogoutIcon from '@mui/icons-material/Logout';
-import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 
 import { SystemMenuHelp } from './SystemMenuHelp';
 import { SystemMenuSettings } from './SystemMenuSettings';
+import { ListItemButton } from '@mui/material';
 
 
 export default function SystemMenu() {
@@ -16,12 +16,12 @@ export default function SystemMenu() {
 
       <SystemMenuSettings />
 
-      <ListItem button>
+      <ListItemButton>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
         <ListItemText primary="ログアウト" />
-      </ListItem>
+      </ListItemButton>
 
     </List>
   );

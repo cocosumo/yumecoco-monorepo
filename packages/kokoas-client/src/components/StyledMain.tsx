@@ -4,11 +4,11 @@ import { styled } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 import Router from '../pages/Router';
 
-const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-  open?: boolean;
-}>(({ theme, open }) => ({
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' && prop !== 'drawerWidth' })<{
+  open?: boolean,
+  drawerWidth: number,
+}>(({ theme, open, drawerWidth }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {
@@ -36,12 +36,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export const StyledMain = ({
   open,
+  drawerWidth,
 }: {
   open: boolean
+  drawerWidth: number,
 }) => {
 
   return (
-    <Main open={open}>
+    <Main drawerWidth={drawerWidth} open={open}>
       <DrawerHeader />
       <Router />
     </Main>

@@ -15,6 +15,7 @@ export const initialValues = {
   /* 工事 */
   projId: '',
   projEstimateId: '',
+  projEstimateDataId: '',
   projName: '',
   projAddress: '',
 

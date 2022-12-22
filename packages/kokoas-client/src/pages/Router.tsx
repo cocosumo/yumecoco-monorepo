@@ -4,12 +4,12 @@ import { FormikContract } from './projContracts/';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
-import UnderConstruction from './UnderConstruction';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
 import { FormikInvoice } from './projInvoice/FormikInvoice';
+import { Home } from './@home/Home';
 
 
 
@@ -51,7 +51,7 @@ const Router = () => (
 
 
   <Routes>
-    <Route path="/" element={<UnderConstruction />} />
+    <Route path="/" element={<Home />} />
 
     {/* 顧客グループ */}
     <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />

@@ -32,6 +32,9 @@ export const devAppIds = {
 /* デフォールトは開発環境のアプリ番号 */
 export const AppIds = {
 
+  /* システム改修履歴 */
+  systemUpdate: 220,
+
   /* 会社情報 */
   companyDetails: 205,
 

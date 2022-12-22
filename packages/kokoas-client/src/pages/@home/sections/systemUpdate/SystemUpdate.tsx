@@ -11,7 +11,7 @@ import { AppIds } from 'config';
 export const SystemUpdate = () => {
 
   const { data, isFetching } = useSystemUpdate();
-  const { records } = data || {};
+  const { records, totalCount } = data || {};
 
   const { releaseDate, contents, $id } = records?.[0] || {};
 
@@ -32,6 +32,8 @@ export const SystemUpdate = () => {
       return Object.entries(grouped);
     }
   }, [contents]);
+
+  console.log(totalCount);
 
   return (
     <Card>

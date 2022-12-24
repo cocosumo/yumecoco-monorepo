@@ -1,4 +1,5 @@
 import { Grid } from '@mui/material';
+import { PageSubTitle } from 'kokoas-client/src/components';
 import { 
   TextField, 
   PercentField, 
@@ -7,6 +8,7 @@ import { UseFormReturn, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
+import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 
 
 
@@ -82,7 +84,11 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
           />
         </Grid>
         <Grid item xs={12} md={3}>
-          <StatusSelect control={control} />
+          <StatusSelect control={control} disabled={disabled} />
+        </Grid>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label={<EstimateTableLabel />} />
         </Grid>
       </>
     

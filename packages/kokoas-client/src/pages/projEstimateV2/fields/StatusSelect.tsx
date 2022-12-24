@@ -6,8 +6,10 @@ import { statusChoices } from '../validationSchema';
 
 export const StatusSelect = ({
   control,
+  disabled,
 }:{
-  control: Control<TypeOfForm>
+  control: Control<TypeOfForm>,
+  disabled: boolean
 }) => {
 
   
@@ -20,6 +22,7 @@ export const StatusSelect = ({
       }}
       selectProps={{
         label: 'ステータス',
+        disabled,
       }}
     >
       {statusChoices.map((choice) => (

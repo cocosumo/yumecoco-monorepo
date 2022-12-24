@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
 import { DevTool } from '@hookform/devtools';
+import { EstimatesInfo } from './staticComponents/EstimatesInfo';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -61,6 +62,12 @@ export const FormProjEstimate = () => {
           }}
         />
 
+      </Grid>
+
+      <Grid item xs={12} md>
+
+        {/* 編集中の見積もり情報 */}
+        <EstimatesInfo control={control} />
       </Grid>
       <Grid
         container

@@ -2,7 +2,7 @@
 
 
 import { ActionButtons } from './ActionButtons';
-import { Processing } from './Processing';
+
 
 /**
  * 要件定義
@@ -12,9 +12,6 @@ import { Processing } from './Processing';
 export const FormActions = () => {
 
   return (
-    <>
-      <ActionButtons />
-      <Processing />
-    </>
+    <ActionButtons />
   );
 };

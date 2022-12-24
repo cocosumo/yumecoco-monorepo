@@ -3,7 +3,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useSearchProjects } from 'kokoas-client/src/hooksQuery';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { useEffect, useState } from 'react';
-import { Control, Controller, ControllerProps, FieldValues, UseControllerProps, useWatch } from 'react-hook-form';
+import { Control, Controller, UseControllerProps, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'usehooks-ts';
 import { Caption } from '../ui';
@@ -14,13 +14,10 @@ type Opt = {
   projName: string
 };
 
-interface BaseFields extends FieldValues {
-  [x: string]: any;
+interface BaseFields {
   projName: string;
   projId: string;
 }
-
-
 
 type FormProps<T extends BaseFields> = {
   controllerProps: UseControllerProps<T>;
@@ -42,7 +39,7 @@ export function SearchProjects<T extends BaseFields>(
 
   const projName = useWatch({
     name: 'projName',
-    control: (controllerProps.control as never) as Control<BaseFields>,
+    control: (control as never) as Control<BaseFields>,
     
   });
 
@@ -65,7 +62,7 @@ export function SearchProjects<T extends BaseFields>(
 
   return (
     <Controller 
-      control={control}
+      {...controllerProps}
       render={({ field }) => {
     
         return (

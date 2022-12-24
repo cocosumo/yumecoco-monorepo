@@ -2,19 +2,19 @@ import { Box, Button, Collapse } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
 
-import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../../form';
+//import { useFormikContext } from 'formik';
+//import { TypeOfForm } from '../../form';
 
 
 /** 保存 */
 export const BtnSave = () => {
-  const { submitForm, setValues } = useFormikContext<TypeOfForm>();
+  //const { submitForm, setValues } = useFormikContext<TypeOfForm>();
 
   const [showText, setShowText] = useState(false);
 
   const handleSave = () => {
-    setValues(prev => ({ ...prev, saveMode: 'normal' }));
-    submitForm();
+    //setValues(prev => ({ ...prev, saveMode: 'normal' }));
+    //submitForm();
   };
 
   return (

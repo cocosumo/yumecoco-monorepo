@@ -1,25 +1,34 @@
-import { TextField } from '@mui/material';
-import { Controller, ControllerProps, FieldValues } from 'react-hook-form';
+import { TextFieldProps } from '@mui/material';
+import { FieldValues, UseControllerProps } from 'react-hook-form';
+import { TextField } from './TextField';
 
 export function NumberField<T extends FieldValues>(
-  props: Omit<ControllerProps<T>, 'render'>,
+  {
+    controllerProps,
+    textFieldProps,
+  }: {
+    controllerProps: UseControllerProps<T>,
+    textFieldProps: TextFieldProps,
+  },
+
 ) {
 
+  const {
+    InputProps,
+    ...otherTextFieldProps
+  } = textFieldProps;
+
   return (
-    <Controller 
-      {...props}
-      render={({ field, fieldState }) => {
-        const { error, isTouched } = fieldState;
-        const isShowError = !!error && !!isTouched;
-        return (
-          <TextField 
-            {...field} 
-            type="number"
-            error={isShowError}
-            helperText={isShowError ? error.message : ''}
-          />
-        );
-      }}
+    <TextField 
+      controllerProps={controllerProps}
+      textFieldProps={{
+        ...otherTextFieldProps,
+        type: 'number',
+        InputProps: {
+          ...InputProps,
+          inputProps: { style: { textAlign: 'right' } },
+        },
+      }} 
     />
   );
 }

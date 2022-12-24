@@ -1,18 +1,17 @@
 import { Box, Button } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../../form';
+
 import { HotKeyTooltip } from 'kokoas-client/src/components';
 
 /** 一時保存 */
 export const BtnSaveTemporary = () => {
 
-  const { submitForm, setValues } = useFormikContext<TypeOfForm>();
+  //const { submitForm, setValues } = useFormikContext<TypeOfForm>();
 
   const handleSave = () => {
 
-    setValues(prev => ({ ...prev, saveMode: 'temporary' }));
-    submitForm();
+    //setValues(prev => ({ ...prev, saveMode: 'temporary' }));
+    //submitForm();
   };
 
   return (

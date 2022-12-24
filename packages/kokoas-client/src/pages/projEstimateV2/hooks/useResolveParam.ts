@@ -1,7 +1,7 @@
 import { getParam } from 'kokoas-client/src/helpers/url';
 import { useEstimateById, useProjById, useProjTypeById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
-import { convertProjToForm } from '../api';
+import { convertEstimateToForm, convertProjToForm, convertProjTypeToForm } from '../api';
 import { initialValues, KeyOfForm, TypeOfForm } from '../form';
 
 export const useResolveParam = () => {
@@ -22,14 +22,21 @@ export const useResolveParam = () => {
 
   useEffect(() => {
 
-    if (projIdFromURL && recProjType && recProj) {
+    if (projEstimateIdFromURL && recProjType && recProj && recProjEstimate) {
+      setNewFormVal((prev) => ({
+        ...prev,
+        ...convertEstimateToForm(recProjEstimate),
+        ...convertProjToForm(recProj),
+        ...convertProjTypeToForm(recProjType),
+      }));
+    } else if (projIdFromURL && recProjType && recProj) {
 
       /* Initialize profit rate when only projId is provided */
       const profRate = +recProjType.profitRate.value;
       setNewFormVal((prev) => ({
         ...prev,
         ...convertProjToForm(recProj),
-        //...convertProjTypeToForm(recProjType),
+        ...convertProjTypeToForm(recProjType),
         projTypeProfit: profRate,
       }));
       

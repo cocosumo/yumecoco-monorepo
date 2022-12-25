@@ -1,5 +1,5 @@
 import { calculateEstimateRow } from 'api-kintone';
-import { format, parseISO } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { formatDataId, roundTo } from 'libs';
 import { IProjestimates, TaxType } from 'types';
 import { initialValues, TypeOfForm } from '../form';
@@ -11,7 +11,7 @@ export const convertEstimateToForm = (
   const {
     uuid,
     projId,
-    //内訳: { value: estimateTable },
+    内訳: { value: estimateTable },
     顧客名 : custName,
     工事種別利益: projTypeProfit,
     税: tax,
@@ -23,7 +23,7 @@ export const convertEstimateToForm = (
   } = recEstimate;
 
   /* 内訳 */
-  /*  const newItems : TypeOfForm['items'] = estimateTable.map(({ id, value: row }) => {
+  const newItems : TypeOfForm['items'] = estimateTable.map(({ id, value: row }) => {
     const {
       原価,
       大項目,
@@ -38,6 +38,8 @@ export const convertEstimateToForm = (
     } = row;
 
     const isTaxable = (taxType.value  as TaxType) === '課税';
+    const parsedRowUnitPriceAfterTax = +rowUnitPriceAfterTax.value;
+
     const {
       costPrice,
       quantity,
@@ -47,9 +49,15 @@ export const convertEstimateToForm = (
       costPrice: +原価.value,
       quantity: +数量.value,
       taxRate: +tax.value / 100,
-      rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
+      rowUnitPriceAfterTax: parsedRowUnitPriceAfterTax,
       isTaxable,
     });
+
+    // On empty row, adopt project type's profit rate.
+    let resolveRowProfitRate = roundTo(profitRate * 100, 2);
+    if (!parsedRowUnitPriceAfterTax && !profitRate) {
+      resolveRowProfitRate = roundTo(+projTypeProfit.value, 2);
+    }
 
     return {
       key: id,
@@ -60,13 +68,13 @@ export const convertEstimateToForm = (
       material: 部材名.value,
       materialDetails: 部材備考.value,
       rowDetails: 備考.value,
-      elemProfRate: roundTo(profitRate * 100, 2),
-      unit: 単位.value as TypeOfForm['items'][number]['unit'],
+      elemProfRate: resolveRowProfitRate,
+      unit: 単位.value,
       unitPrice: Math.round(unitPrice),
-      rowUnitPriceAfterTax: Math.round(+rowUnitPriceAfterTax.value),
-      taxType: taxType.value as TypeOfForm['items'][number]['taxType'],
+      rowUnitPriceAfterTax: Math.round(parsedRowUnitPriceAfterTax),
+      taxable: taxType.value === '課税' ? true : false,
     };
-  }); */
+  });
 
   /*
     仮想行の追加
@@ -76,11 +84,15 @@ export const convertEstimateToForm = (
     To keep "dirty" false on initial load, I added it here.
     This will need further refactoring as the user requirements become more stable.
   */
-  /*  newItems.push({
+  if (!initialValues?.items?.[0]) throw new Error('!initialValues.items[0] is undefined');
+
+  newItems.push({
     ...initialValues.items[0],
     elemProfRate: +projTypeProfit.value,
   });
- */
+
+
+
   /* フォーム */
   return {
     estimateId: uuid.value,
@@ -93,7 +105,7 @@ export const convertEstimateToForm = (
     status : estimateStatus.value as TypeOfForm['status'],
     createdDate : parseISO(作成日時.value),
     envStatus : envStatus.value,
-    //items: newItems,
+    items: newItems,
   };
 
 };

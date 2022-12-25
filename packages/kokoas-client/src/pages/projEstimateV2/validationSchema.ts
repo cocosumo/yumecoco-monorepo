@@ -5,9 +5,15 @@ const {
 } = yupValidations;
 
 export type TStatusChoices = '' | '契約' | '銀行用' | '工事実行' | '追加' | '追加減額';
+export type TunitChoices = '式' | '㎡(平米)' | '㎥(立米)' | 'm(メートル)' | 'ヶ所' | '個' | 'セット' | '本' | '枚' |
+'ケース' | '台' | '組' | '袋' | '箱' | 'kg' | 't' ;
+
 
 export const statusChoices: TStatusChoices[] = [ '', '契約', '銀行用', '工事実行', '追加', '追加減額'];
-
+export const unitChoices: TunitChoices[] = [
+  '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
+  'ケース', '台', '組', '袋', '箱', 'kg', 't',
+];
 
 export const validationSchema = yupJA
   .object({
@@ -31,5 +37,24 @@ export const validationSchema = yupJA
     status: yupJA.mixed<TStatusChoices>().oneOf(statusChoices),
 
     envStatus: yupJA.string(),
+    'items': yupJA.array()
+      .of(
+        yupJA.object({
+          majorItem: yupJA.string(),
+          middleItem: yupJA.string(), /* 中項目 */
+          material: yupJA.string(),    /* 部材 */
+          costPrice: yupNumber.required(), /* 原価 */
+          quantity: yupNumber.required(), /* 数量 */
+          elemProfRate: yupNumber.required()
+            .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
+          unit: yupJA.string(), /* 単位 */
+          taxable: yupJA.boolean(),  /* 税(課税/非課税) */
+          unitPrice: yupNumber.required(), /* 単価 */
+          rowUnitPriceAfterTax: yupNumber.required(), /* 金額 */
+          materialDetails: yupJA.string(),
+          rowDetails: yupJA.string(),
+        }),
+      ),
+
 
   });

@@ -26,6 +26,22 @@ export const initialValues : TypeOfForm = {
 
   status: '',
   taxRate: 10,
+  items: [
+    {
+      costPrice: 0,
+      elemProfRate: 0,
+      majorItem: '',
+      middleItem: '',
+      material: '',
+      materialDetails: '',
+      quantity: 1,
+      rowDetails: '',
+      rowUnitPriceAfterTax: 0,
+      taxable: true,
+      unit: '',
+      unitPrice: 0,
+    },
+  ],
   
 };
 

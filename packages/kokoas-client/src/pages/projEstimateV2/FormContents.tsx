@@ -10,6 +10,7 @@ import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { EstTable } from './tables/estimate/EstTable';
+import { EstTBody } from './tables/estimate/EstTBody';
 
 
 
@@ -94,7 +95,13 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
 
         <Grid item xs={12} md={12}>
           {/* 見積もり内訳のテーブル */}
-          <EstTable />
+          <EstTable 
+            tableBody={(
+              <EstTBody 
+                control={control}
+                isDisabled={disabled}
+              />)}
+          />
         </Grid>
 
       </>

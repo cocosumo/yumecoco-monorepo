@@ -9,6 +9,7 @@ import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
+import { EstTable } from './tables/estimate/EstTable';
 
 
 
@@ -90,6 +91,12 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
         <Grid item xs={12} mt={4}>
           <PageSubTitle label={<EstimateTableLabel />} />
         </Grid>
+
+        <Grid item xs={12} md={12}>
+          {/* 見積もり内訳のテーブル */}
+          <EstTable />
+        </Grid>
+
       </>
     
     );

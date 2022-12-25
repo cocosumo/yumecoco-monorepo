@@ -32,9 +32,10 @@ export const QuantityField = ({
   return (
     <FormikNumberField
       name={name}
-      variant="standard"
+      size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      onFocus={({ target }) => target.select()}
       InputProps={{
         endAdornment:  (
           <InputAdornment position="end">

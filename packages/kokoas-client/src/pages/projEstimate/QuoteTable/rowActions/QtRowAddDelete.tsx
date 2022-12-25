@@ -4,6 +4,7 @@ import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
 import { initialValues, TMaterials, TypeOfForm } from '../../form';
 import { v4 as uuidv4 } from 'uuid';
+import { HotKeyTooltip } from 'kokoas-client/src/components';
 
 export const QtRowAddDelete = ({
   rowIdx, arrayHelpers,
@@ -70,16 +71,20 @@ export const QtRowAddDelete = ({
         }}
 
       >
-        <MenuItem onClick={handleAddToRowBelow}>
-          下に追加
-        </MenuItem>
+        <HotKeyTooltip title={'insert'}>
+          <MenuItem onClick={handleAddToRowBelow}>
+            下に追加
+          </MenuItem>
+        </HotKeyTooltip>
 
-        <MenuItem
-          disabled={isJustOneRow}
-          onClick={handleRemoveRow}
-        >
-          削除
-        </MenuItem>
+        <HotKeyTooltip title={'ctrl + delete'}>
+          <MenuItem
+            disabled={isJustOneRow}
+            onClick={handleRemoveRow}
+          >
+            削除
+          </MenuItem>
+        </HotKeyTooltip>
 
         <MenuItem onClick={handleCopyToRowBelow}>
           下にコピー

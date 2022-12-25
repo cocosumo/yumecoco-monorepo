@@ -27,9 +27,10 @@ export const UnitPriceField = ({
   return (
     <FormikMoneyField
       name={name}
-      variant="standard"
+      size={'small'}
       disabled={isDisabled}
       onChange={handleChange}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

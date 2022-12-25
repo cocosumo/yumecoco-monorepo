@@ -1,67 +1,68 @@
-import { FormHelperText, TableCell, Typography } from '@mui/material';
+import { TableCell, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ComponentProps } from 'react';
 
 
 export interface QtHeadCellProps extends ComponentProps<typeof TableCell> {
-  text: string,
+  text?: string | string[],
   required?: boolean
   rightAligned?: boolean,
-  helperText?: string,
 }
 
 /**
  * 特化したTableCellです。
  * 他のpropsはTableCellをご参照ください
- * 
- * @param {QtHeadCellProps} props 
+ *
+ * @param {QtHeadCellProps} props
  * @returns JSX
  */
 export const QtHeadCell = (props: QtHeadCellProps) => {
-  const { 
-    text,
-    required, 
-    rightAligned, 
-    helperText,
+  const {
+    text = '',
+    required,
+    rightAligned,
     ...others } = props;
-    
+
+  if (!text) {
+    return (
+      <TableCell {...others} />
+    );
+  }
+
   return (
-    <TableCell 
-      {...others} 
+    <TableCell
+      {...others}
       align={rightAligned ? 'right' : others.align}
     >
-    
-      <Typography 
-        color={grey[600]} 
-        fontWeight={500} 
-        component={'span'}
-        noWrap
-      >
-        {text}
-      </Typography>
-  
-      {required && (
-      <Typography 
-        ml={1} 
-        fontSize={16} 
-        color={'red'}
-        component={'span'}
-      >
-          {'*'}
-      </Typography>)}
-      
-      {helperText && 
-      <FormHelperText 
-        sx={{ 
-          m: 0, 
-          top: -5, 
-          position: 'relative', 
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {helperText}
-      </FormHelperText>}
 
+      {
+
+        ([] as string[])
+          .concat(text)
+          .map((item) => (
+            <div key={item}>
+              <Typography
+                color={grey[600]}
+                fontWeight={500}
+                component={'span'}
+                noWrap
+              >
+                {item}
+              </Typography>
+              {required && (
+              <Typography
+                ml={1}
+                fontSize={10}
+                color={'red'}
+                component={'span'}
+              >
+                {'*'}
+              </Typography>
+              )}
+            </div>
+          ))
+
+      }
 
     </TableCell>
   );

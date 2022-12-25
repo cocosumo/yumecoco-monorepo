@@ -28,7 +28,6 @@ export const TaxTypeField = ({
     <FormikSelect
       label=''
       name={name}
-      variant="standard"
       size={'small'}
       options={taxChoices.map((c) => ({ label: c, value: c }))}
       disabled={isDisabled}

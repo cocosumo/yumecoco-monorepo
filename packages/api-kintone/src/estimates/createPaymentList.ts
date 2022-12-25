@@ -9,21 +9,17 @@ export const createPaymentList = (estimateRecord: RecordType) => {
   const paymentData = paymentObj.reduce((acc, cur)=> {
     if (cur.value.isPayEnabled.value === '0') return acc;
     
-    if (acc.paymentTypeList.length === 0) {
-      return ({
-        paymentTypeList: cur.value.paymentType.value,
-        paymentAmtPerType: cur.value.paymentAmt.value,
-      });
-    }
-    
+    acc.paymentTypeList.push(cur.value.paymentType.value);
+    acc.paymentAmtPerType.push(cur.value.paymentAmt.value);
+
     return ({
-      paymentTypeList: [acc.paymentTypeList, cur.value.paymentType.value].join(', '),
-      paymentAmtPerType: [acc.paymentAmtPerType, cur.value.paymentAmt.value].join(', '),
+      paymentTypeList: acc.paymentTypeList,
+      paymentAmtPerType: acc.paymentAmtPerType,
     });
     
   }, {
-    paymentTypeList: '',
-    paymentAmtPerType: '',
+    paymentTypeList: [] as string[],
+    paymentAmtPerType: [] as string[],
   });
 
   return {

@@ -1,9 +1,9 @@
 import * as Yup from 'yup';
-import { KeyOfForm } from './form';
+import { KeyOfForm, TKMaterials } from './form';
 
 
 /*  */
-const keys: KeyOfForm[] = ['contractAmount', 'billingAmount', 'billedAmount'];
+const keys: TKMaterials[] = ['contractAmount', 'billingAmount', 'billedAmount'];
 
 /* Common validations */
 const dateValidation = Yup
@@ -25,13 +25,12 @@ export const validationSchema = Yup
         estimateIndex: numberValidation,
         estimateId: numberValidation,
         contractAmount: numberValidation,
+        billingAmount: numberValidation.required('必須入力項目'),
+        billedAmount: numberValidation,
         contractDate: dateValidation,
         doNotUsePayment: Yup.boolean(),
       }),
     ),
-  contractAmount: numberValidation,
-  billingAmount: numberValidation.required('必須入力項目'),
-  billedAmount: numberValidation,
   plannedPaymentDate: dateValidation,
   exceedChecked: Yup.boolean()
     .when(keys, {

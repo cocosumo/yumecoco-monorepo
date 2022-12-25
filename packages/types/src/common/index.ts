@@ -2,6 +2,7 @@ export * from './auth';
 export * from './customers';
 export * from './docusign';
 export * from './employee';
+export * from './frontEnd';
 export * from './ktUsers';
 export * from './projects';
 export * from './record';

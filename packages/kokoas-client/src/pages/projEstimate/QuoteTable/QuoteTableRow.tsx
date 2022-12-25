@@ -3,7 +3,6 @@
 import { IconButton, SxProps, TableCell, TableRow } from '@mui/material';
 import { FieldArrayRenderProps, useFormikContext } from 'formik';
 import { FormikAutocomplete } from '../fieldComponents/FormikAutocomplete';
-import { FormikPulldown } from '../fieldComponents/FormikPulldown';
 import { getItemFieldName, TypeOfForm } from '../form';
 import { useMaterialsOptions } from '../hooks/useMaterialOptions';
 import { QtRowAddDelete, QtRowMove } from './rowActions';
@@ -18,6 +17,9 @@ import { MouseEvent, useMemo } from 'react';
 import { isEven } from 'libs';
 import { grey } from '@mui/material/colors';
 import { useAdvancedTableRow } from '../hooks/useAdvancedTableRow';
+import { TblCellStack } from '../fieldComponents/TblCellStack';
+import { useQuoteTRowHotKeys } from '../hooks/useQuoteTRowHotKeys';
+import { headers } from './QuoteTableHead';
 
 export const QuoteTableRow = (
   {
@@ -33,10 +35,9 @@ export const QuoteTableRow = (
   }) => {
 
   const { values: { items } } = useFormikContext<TypeOfForm>();
-  const { costPrice, unit } = items[rowIdx];
+  const { costPrice, unit, key } = items[rowIdx];
 
   const { focused, handleFocus } = useAdvancedTableRow(rowIdx);
-  //useAdjustOnRowDiscount(rowIdx);
 
   const {
     majorItemOpts,
@@ -48,6 +49,8 @@ export const QuoteTableRow = (
   } = useMaterialsOptions(rowIdx);
 
 
+  const rowMainRef = useQuoteTRowHotKeys(rowIdx);
+  const rowSubRef = useQuoteTRowHotKeys(rowIdx);
 
   const isLastRow = rowIdx === items.length - 1;
   const isDisabled = !!envStatus;
@@ -58,10 +61,12 @@ export const QuoteTableRow = (
     opacity: isLastRow && !focused ? 0.5 : 1,
   }), [isAlternateRow, isLastRow, focused]);
 
-
   return (
     <>
       <TableRow
+        id={key}
+        ref={rowMainRef}
+        component={'tr'}
         onFocus={handleFocus}
         onBlur={handleFocus}
         sx={rowSx}
@@ -69,7 +74,7 @@ export const QuoteTableRow = (
 
         <TableCell
           rowSpan={2}
-          width={'3%'}
+          width={headers[0].width}
           sx={{
             pl: 1, pr: 0,
           }}
@@ -79,39 +84,58 @@ export const QuoteTableRow = (
           )}
         </TableCell>
 
-        <TableCell width={'8%'}>
-          <FormikPulldown
+        <TblCellStack
+          rowSpan={2}
+          width={headers[1].width}
+        >
+          <FormikAutocomplete
+            tabIndex={1}
             name={getItemFieldName(rowIdx, 'majorItem')}
             handleChange={handleMajorItemChange}
+            freeSolo={false}
             options={majorItemOpts}
             disabled={isDisabled}
           />
-        </TableCell>
-
-        <TableCell width={'8%'}>
-          <FormikPulldown
+          <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'middleItem')}
             handleChange={handleMiddleItemChange}
+            freeSolo={false}
             options={middleItemOpts}
             disabled={isDisabled}
           />
-        </TableCell>
+        </TblCellStack>
 
-        <TableCell width={'8%'}>
+        <TblCellStack
+          rowSpan={2}
+          width={headers[2].width}
+        >
           <FormikAutocomplete
             name={getItemFieldName(rowIdx, 'material')}
             handleChange={handleMaterialChange}
             options={materialOpts}
             disabled={isDisabled}
           />
-        </TableCell>
+          <FormikTextFieldV2
+            disabled={isDisabled}
+            name={getItemFieldName(rowIdx, 'materialDetails')}
+            size={'small'}
+            multiline
+            placeholder='品番・色'
+          />
+        </TblCellStack>
 
-        <TableCell width={'8%'} align='right'>
+        <TableCell
+          width={headers[3].width}
+          align='right'
+        >
           {/* 原価 */}
           <CostPriceField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell width={'8%'} align='right'>
+        <TableCell
+          width={headers[4].width}
+          align='right'
+        >
           {/* 数量 */}
           <QuantityField
             rowIdx={rowIdx}
@@ -129,27 +153,36 @@ export const QuoteTableRow = (
           />
         </TableCell>
 
-        <TableCell width={'6%'} align='right'>
+        <TableCell
+          width={headers[5].width}
+          align='right'
+        >
           {/* 利益率 */}
           <ProfitRateField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'8%'}>
+        <TableCell
+          width={headers[6].width}
+        >
           {/* 税 */}
           <TaxTypeField rowIdx={rowIdx} isDisabled={isDisabled} />
         </TableCell>
 
-        <TableCell width={'15%'}>
+        <TableCell
+          width={headers[7].width}
+        >
           {/* 単価 */}
           <UnitPriceField rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'15%'}>
+        <TableCell
+          width={headers[8].width}
+        >
           {/* 金額 */}
           <RowUnitPriceAfterTax rowIdx={rowIdx} isDisabled={isDisabled || !costPrice} />
         </TableCell>
 
-        <TableCell width={'3%'}>
+        <TableCell width={headers[9].width}>
           {!isDisabled && !isLastRow &&
           <QtRowAddDelete
             rowIdx={rowIdx}
@@ -159,30 +192,19 @@ export const QuoteTableRow = (
 
       </TableRow>
       <TableRow
+        ref={rowSubRef}
         onFocus={handleFocus}
         onBlur={handleFocus}
         sx={rowSx}
       >
         <TableCell colSpan={2} />
-        <TableCell colSpan={2}>
-          <FormikTextFieldV2
-            disabled={isDisabled}
-            label={'品番・色など'}
-            name={getItemFieldName(rowIdx, 'materialDetails')}
-            size={'small'}
-            multiline
-            placeholder='赤'
-          />
-        </TableCell>
-        <TableCell />
         <TableCell colSpan={4}>
           <FormikTextFieldV2
             disabled={isDisabled}
-            label={'備考'}
             name={getItemFieldName(rowIdx, 'rowDetails')}
             size={'small'}
             multiline
-            placeholder='定価出し'
+            placeholder='備考'
           />
         </TableCell>
         <TableCell />

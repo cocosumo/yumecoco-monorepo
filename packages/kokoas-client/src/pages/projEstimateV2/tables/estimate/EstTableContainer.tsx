@@ -33,11 +33,16 @@ export const EstTableContainer = ({
           '& tr:nth-of-type(4n), & tr:nth-of-type(4n-1)' : {
             background:  grey[100], 
           },
-          '& tr:nth-last-child(-n+2)': {
-            opacity: 0.5,
+          '& tr:nth-last-of-type(-n+2)': {
+            transition: 'all 0.5s',
+            opacity: 0.3,
             '&:hover':{
               opacity: 1,
             },
+          },
+          // Hide Move buttons
+          '& tr:nth-last-of-type(2) td:nth-of-type(1) div': {
+            display: 'none',
           },
 
         }}

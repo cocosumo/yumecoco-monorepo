@@ -61,14 +61,14 @@ export const EstRowMoveAnywhere = ({
             },
           }}
         >
-          {[...Array(rowsCount).keys()].map((option) => (
-            <MenuItem key={option}
-              selected={option === rowIdx}
-              //onClick={() => handleMoveAnywhere(option)}
-            >
-              {option + 1}
-            </MenuItem>
-          ))}
+          {[...Array(rowsCount).keys()]
+            .map((option) => (
+              <MenuItem key={option}
+                selected={option === rowIdx}
+              >
+                {option + 1}
+              </MenuItem>
+            ))}
 
         </Menu>}
     </>

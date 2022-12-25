@@ -6,13 +6,13 @@ import {
   useState, 
 } from 'react';
 import { Control, useFieldArray } from 'react-hook-form';
-import { TypeOfForm } from '../../form';
+import { TypeOfForm, KeyOfForm } from '../../form';
 import { EstTRow } from './EstTRow';
 import { UnitTypeMenu } from './rowFields/UnitTypeMenu';
 
 //import { EstTRow } from './EstTRow';
 
-
+const name: KeyOfForm = 'items';
 
 export const EstTBody = ({
   control,
@@ -22,9 +22,10 @@ export const EstTBody = ({
   isDisabled: boolean,
 }) => {
 
+  
   const { fields: rows } = useFieldArray({
     control,
-    name: 'items',
+    name,
   });
 
   

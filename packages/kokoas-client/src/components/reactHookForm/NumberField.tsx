@@ -1,17 +1,9 @@
-import { TextFieldProps } from '@mui/material';
-import { FieldValues, UseControllerProps } from 'react-hook-form';
 import { TextField } from './TextField';
 
-export function NumberField<T extends FieldValues>(
-  {
-    controllerProps,
-    textFieldProps,
-  }: {
-    controllerProps: UseControllerProps<T>,
-    textFieldProps: TextFieldProps,
-  },
-
-) {
+export const NumberField: typeof TextField  = ({
+  controllerProps,
+  textFieldProps,
+}) => {
 
   const {
     InputProps,
@@ -31,4 +23,4 @@ export function NumberField<T extends FieldValues>(
       }} 
     />
   );
-}
+};

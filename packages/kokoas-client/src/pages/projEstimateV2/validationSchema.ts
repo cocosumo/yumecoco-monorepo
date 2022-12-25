@@ -54,7 +54,9 @@ export const validationSchema = yupJA
           materialDetails: yupJA.string(),
           rowDetails: yupJA.string(),
         }),
-      ),
+      )
+      .required('Must have items')
+      .min(1, 'Minimum of 1 items'),
 
 
   });

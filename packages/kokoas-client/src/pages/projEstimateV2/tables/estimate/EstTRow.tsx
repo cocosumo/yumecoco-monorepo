@@ -30,8 +30,8 @@ export const EstTRow = ({
 }) => {
   const {
     majorItemOpts,
-    //middleItemOpts,
-    //materialOpts,
+    middleItemOpts,
+    materialOpts,
   } = useMaterialsOptions({ rowIdx, control });
 
 
@@ -68,7 +68,28 @@ export const EstTRow = ({
 
             }}
           />
-
+          <Autocomplete 
+            controllerProps={{
+              name: getItemsFieldName(rowIdx, 'middleItem'),
+              control,
+            }}
+            autoCompleteProps={{
+              options : middleItemOpts,
+              freeSolo: false,
+            }}
+          />
+        </TblCellStack>
+        <TblCellStack>
+          <Autocomplete 
+            controllerProps={{
+              name: getItemsFieldName(rowIdx, 'material'),
+              control,
+            }}
+            autoCompleteProps={{
+              options : materialOpts,
+              freeSolo: false,
+            }}
+          />
         </TblCellStack>
 
         

@@ -21,6 +21,7 @@ export const MenuContext = createContext(defaultMenuContext);
 export default function MainScreen() {
   const menuOpen = Boolean(+(useQuery().get('menuOpen') ?? 1));
   const [open, setOpen] = useState(menuOpen);
+  
   const drawerWidth = 240;
   const handleDrawerOpen = () => {
     setOpen((prev) => !prev);

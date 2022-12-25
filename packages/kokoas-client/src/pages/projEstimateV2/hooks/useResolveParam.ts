@@ -47,8 +47,6 @@ export const useResolveParam = () => {
 
   }, [ projIdFromURL, projEstimateIdFromURL, recProjType, recProj, recProjEstimate, clearFields]);
 
-
-  console.log(newFormVal);
   return {
     initialForm: newFormVal,
     projIdFromURL,

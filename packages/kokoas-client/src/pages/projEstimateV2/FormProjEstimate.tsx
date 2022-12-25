@@ -10,7 +10,7 @@ import { useResolveParam } from './hooks/useResolveParam';
 import { useEffect } from 'react';
 import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
-import { DevTool } from '@hookform/devtools';
+//import { DevTool } from '@hookform/devtools';
 import { EstimatesInfo } from './staticComponents/EstimatesInfo';
 
 export const FormProjEstimate = () => {
@@ -92,7 +92,7 @@ export const FormProjEstimate = () => {
       <FormContents 
         {...formReturn}
       />
-      <DevTool control={control} /> 
+      {/* <DevTool control={control} />  */}
     </FormContainer>
   );
 };

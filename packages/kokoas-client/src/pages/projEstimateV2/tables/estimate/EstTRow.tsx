@@ -189,11 +189,25 @@ export const EstTRow = ({
           />
         </TableCell>
 
-
+        <TableCell width={headers[9].width}>
+          
+        </TableCell>
         
       </TableRow>
       <TableRow>
-        
+        <TableCell colSpan={2} />
+        <TableCell colSpan={4}>
+          <TextField 
+            controllerProps={{
+              name: getItemsFieldName(rowIdx, 'rowDetails'),
+              control,
+            }}
+            textFieldProps={{
+              size: 'small',
+            }}
+          />
+        </TableCell>
+        <TableCell />
       </TableRow>
     </>
   );

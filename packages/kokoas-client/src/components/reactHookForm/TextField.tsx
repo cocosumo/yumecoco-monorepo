@@ -1,6 +1,5 @@
 import { TextField as MuiTextField } from '@mui/material';
-import { debounce } from 'lodash';
-import { ComponentProps, useMemo } from 'react';
+import { ComponentProps } from 'react';
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
 
 
@@ -17,7 +16,6 @@ export function TextField<T extends FieldValues>(
 
 ) {
 
-  const debouncedChange = useMemo(() => debounce((fn) => fn(), 500), []);
 
   return (
     <Controller 
@@ -30,11 +28,6 @@ export function TextField<T extends FieldValues>(
           <MuiTextField 
             {...textFieldProps}
             {...field} 
-            onChange={(e) => {
-              debouncedChange(()=>{
-                field.onChange(e);
-              });
-            }}
             fullWidth
             error={isShowError}
             helperText={isShowError ? error.message : ''}

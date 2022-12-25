@@ -40,7 +40,7 @@ export const EstTableContainer = ({
               opacity: 1,
             },
           },
-          // Hide Move buttons
+          // Hide Move Row buttons
           '& tr:nth-last-of-type(2) td:nth-of-type(1) div': {
             display: 'none',
           },

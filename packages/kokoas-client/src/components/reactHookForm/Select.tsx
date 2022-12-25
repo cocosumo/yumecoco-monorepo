@@ -10,7 +10,7 @@ export const Select = <T extends FieldValues>(  {
 }: {
   controllerProps: UseControllerProps<T>,
   selectProps: ComponentProps<typeof MuiSelect> & {
-    label: string,
+    label?: string,
   },
   children: ReactNode,
 }) => {

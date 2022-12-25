@@ -3,12 +3,10 @@ import {
   useMemo,
   // MouseEvent, 
   // useCallback, 
-  useState, 
 } from 'react';
 import { Control, useFieldArray } from 'react-hook-form';
 import { TypeOfForm, KeyOfForm } from '../../form';
 import { EstTRow } from './EstTRow';
-import { UnitTypeMenu } from './rowFields/UnitTypeMenu';
 
 //import { EstTRow } from './EstTRow';
 
@@ -28,21 +26,6 @@ export const EstTBody = ({
     name,
   });
 
-  
-
-  const [unitMenuAnchorEl, setUnitMenuAnchorEl] = useState<null | HTMLButtonElement>(null);
-
-  /*  const handleOpenUnitMenu = useCallback(({ currentTarget }: MouseEvent<HTMLButtonElement>) => {
-    setUnitMenuAnchorEl(currentTarget);
-
-  }, []); */
-
-  const handleClose = ( value?: string) => {
-    if (unitMenuAnchorEl?.name && !!value) {
-      //setFieldValue(unitMenuAnchorEl.name, value, false);
-    }
-    setUnitMenuAnchorEl(null);
-  };
 
   const rowsLength = useMemo(() => rows.length, [rows]);
 
@@ -63,16 +46,10 @@ export const EstTBody = ({
             isAtBottom={isAtBottom}
             isVisible={!isDisabled}
             rowsLength={rowsLength}
-            //envStatus={envStatus}
-            //handleOpenUnitMenu={handleOpenUnitMenu}
+            isDisabled={isDisabled}
           />
         );
       })} 
-      <UnitTypeMenu
-        open={!!unitMenuAnchorEl}
-        anchorEl={unitMenuAnchorEl}
-        handleClose={handleClose}
-      />
     </TableBody>
   );
 

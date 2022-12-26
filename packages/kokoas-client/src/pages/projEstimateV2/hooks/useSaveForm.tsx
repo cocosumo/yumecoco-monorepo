@@ -49,8 +49,6 @@ export const useSaveForm = () => {
   const onSubmitValid: SubmitHandler<TypeOfForm> = async (data, e) => {
     const saveButtonName = (e as ButtonSubmitEvent<SaveButtonNames> ).nativeEvent.submitter.name;
 
-
-
     if (saveButtonName === 'temporary') {
       const { id } = await handleSave(data);
       navigate(`?${generateParams({ projEstimateId: id })}`);

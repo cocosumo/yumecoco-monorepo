@@ -98,7 +98,6 @@ export const FormContents = () => {
           <EstTable
             tableBody={(
               <EstTBody
-                control={control}
                 isDisabled={disabled}
               />)}
           />

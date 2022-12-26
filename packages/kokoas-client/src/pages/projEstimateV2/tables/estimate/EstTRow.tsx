@@ -3,7 +3,7 @@ import { PercentField, TextField } from 'kokoas-client/src/components/reactHookF
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
 import { MoneyField } from 'kokoas-client/src/components/reactHookForm/MoneyField';
 import { TblCellStack } from 'kokoas-client/src/pages/projEstimate/fieldComponents/TblCellStack';
-import { Control, UseFieldArrayReturn, useWatch } from 'react-hook-form';
+import {  UseFieldArrayReturn, useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../form';
 import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
 import { headers } from './EstTHead';
@@ -15,7 +15,6 @@ import { TaxType } from './rowFields/TaxType';
 
 export const EstTRow = ({
   rowIdx,
-  control,
   isVisible,
   isAtBottom,
   isDisabled,
@@ -23,13 +22,14 @@ export const EstTRow = ({
   fieldArrayHelpers,
 }: {
   rowIdx: number,
-  control: Control<TypeOfForm>
   isAtBottom: boolean,
   isVisible: boolean,
   isDisabled: boolean,
   rowsLength: number,
   fieldArrayHelpers : UseFieldArrayReturn<TypeOfForm>
 }) => {
+
+  const { control } = useFormContext<TypeOfForm>();
 
   const {
     majorItemOpts,

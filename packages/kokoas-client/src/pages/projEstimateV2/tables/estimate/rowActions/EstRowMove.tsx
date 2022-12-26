@@ -25,7 +25,6 @@ export const EstRowMove = ({
   rowLength: number,
   move: UseFieldArrayMove
 }) => {
-  //const { values: { envStatus, items } } = useFormikContext<TypeOfForm>();
   const [expandBtns, setExpandBtns] = useState(false);
 
   const transitionStyle = (isTop: boolean): SxProps<Theme> => {
@@ -37,11 +36,7 @@ export const EstRowMove = ({
     };
   };
 
-  //const move = useMoveItem();
-
-  //const isAtBottom = rowIdx === (items.length - 1);
   const isAtTop = rowIdx === 0;
-  //const isVisible = !envStatus;
 
   const handleMoveRowUp = useCallback(() => move(rowIdx, rowIdx - 1), [move, rowIdx]);
 

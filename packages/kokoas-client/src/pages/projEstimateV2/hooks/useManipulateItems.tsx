@@ -21,6 +21,7 @@ export const useManipulateItems = (
     getNewRow,
   } = useRowValues();
 
+  console.log('GENERATED');
   const handleInsertItemBelow = useCallback(() => {
     insert(rowIdx + 1, getNewRow());
   }, [insert, rowIdx, getNewRow]);

@@ -31,7 +31,7 @@ export const validationSchema = yupJA
     projTypeId: yupJA.string().required(),
     projTypeName : yupJA.string().required(),
     projTypeProfitLatest: yupNumber.max(100),
-    projTypeProfit: yupNumber.max(100),
+    projTypeProfit: yupNumber.max(100).required(),
 
     taxRate: yupNumber.required(),
     status: yupJA.mixed<TStatusChoices>().oneOf(statusChoices),

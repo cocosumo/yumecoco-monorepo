@@ -17,14 +17,12 @@ export const MismatchedProfit = (formReturn : UseFormReturn<TypeOfForm>) => {
 
   const [projTypeProfitLatest, projTypeName] = useWatch({
     control,
-    name: ['projTypeProfitLatest', 'projTypeName' ], 
+    name: ['projTypeProfitLatest', 'projTypeName' ],
   });
 
   const handleUpdateProfit = () => {
-    setValue('projTypeProfit',  projTypeProfitLatest);
+    setValue('projTypeProfit',  projTypeProfitLatest ?? 0);
   };
-
-  
 
   return (
     <Alert

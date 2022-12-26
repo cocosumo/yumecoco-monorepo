@@ -50,8 +50,9 @@ export const initialValues : TypeOfForm = {
 
 };
 
+export const initialRow = initialValues.items[0];
 
 export const getItemsFieldName = (
-  rowIdx: number, fieldName: KRowFields,
-) => `${arrayFieldName}.${rowIdx}.${fieldName}` as 'items.0.rowDetails';
+  rowIdx: number, fieldName?: KRowFields,
+) => [arrayFieldName, rowIdx, fieldName].filter(Boolean).join('.') as 'items.0.rowDetails';
 

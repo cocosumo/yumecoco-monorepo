@@ -7,6 +7,7 @@ import { Control, UseFieldArrayReturn, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../form';
 import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
 import { headers } from './EstTHead';
+import { EstRowManipulate } from './rowActions/EstRowManipulate';
 import { EstRowMove } from './rowActions/EstRowMove';
 import { QuantityField } from './rowFields/QuantityField';
 import { TaxType } from './rowFields/TaxType';
@@ -190,7 +191,7 @@ export const EstTRow = ({
         </TableCell>
 
         <TableCell width={headers[9].width}>
-
+          <EstRowManipulate rowIdx={rowIdx} {...fieldArrayHelpers} />
         </TableCell>
 
       </TableRow>

@@ -1,20 +1,18 @@
 import { Box, Button, Collapse } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
-
-//import { useFormikContext } from 'formik';
-//import { TypeOfForm } from '../../form';
-
+import { SaveButtonNames } from '../hooks/useSaveForm';
 
 /** 保存 */
 export const BtnSave = () => {
 
   const [showText, setShowText] = useState(false);
+  const name : SaveButtonNames = 'save';
 
   return (
     <Button
       type='submit'
-      name="save"
+      name={name}
       variant={'contained'}
       size="medium"
       aria-label="save"

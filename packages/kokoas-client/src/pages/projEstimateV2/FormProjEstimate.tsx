@@ -1,7 +1,6 @@
 import { Divider, Grid } from '@mui/material';
-import { FormProvider, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
 import { TypeOfForm, initialValues } from './form';
 import { validationSchema } from './validationSchema';
 import { FormContainer, PageTitle } from 'kokoas-client/src/components';
@@ -12,20 +11,11 @@ import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
 //import { DevTool } from '@hookform/devtools';
 import { EstimatesInfo } from './staticComponents/EstimatesInfo';
-import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
-import { convertToKintone } from './api/convertToKintone';
-import { useSnackBar } from 'kokoas-client/src/hooks';
 import { FormActions } from './formActions';
-import { ButtonSubmitEvent } from 'types';
-
-
-
-export type SaveButtonNames = 'temporary' | 'save';
+import { useSaveForm } from './hooks/useSaveForm';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
-  const { setSnackState } = useSnackBar();
-  const { mutateAsync: saveMutation } = useSaveEstimate();
 
   const formReturn = useForm<TypeOfForm>({
     defaultValues: initialValues,
@@ -38,39 +28,10 @@ export const FormProjEstimate = () => {
     reset,
   }  = formReturn;
 
-
-  const onSubmitValid: SubmitHandler<TypeOfForm> = async (data, e) => {
-    const saveButtonName = (e as ButtonSubmitEvent<SaveButtonNames> ).nativeEvent.submitter.name;
-
-    console.log(saveButtonName);
-    const {
-      estimateId,
-    } = data;
-    const record = convertToKintone(data);
-
-    const { revision } = await saveMutation({
-      recordId: estimateId,
-      record,
-      relatedData: {
-        projDataId: data.projDataId,
-      },
-    });
-
-    setSnackState({
-      open: true,
-      severity: 'success',
-      message: `保存しました。 更新回数：${revision}`,
-    });
-
-  };
-
-  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async () => {
-    setSnackState({
-      open: true,
-      severity: 'error',
-      message: '入力を確認してください',
-    });
-  };
+  const {
+    onSubmitInvalid,
+    onSubmitValid,
+  } = useSaveForm();
 
   useEffect(() => {
 

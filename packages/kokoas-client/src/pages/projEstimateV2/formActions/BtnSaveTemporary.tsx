@@ -2,15 +2,17 @@ import { Box, Button } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 import { HotKeyTooltip } from 'kokoas-client/src/components';
+import { SaveButtonNames } from '../hooks/useSaveForm';
 
 /** 一時保存 */
 export const BtnSaveTemporary = () => {
+  const name : SaveButtonNames = 'temporary';
 
   return (
 
     <HotKeyTooltip title={'ctrl + s'}>
       <Button
-        name="temporary"
+        name={name}
         type='submit'
         variant={'outlined'}
         size="medium"

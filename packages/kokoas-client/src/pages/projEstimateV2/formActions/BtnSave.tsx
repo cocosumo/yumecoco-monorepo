@@ -14,6 +14,7 @@ export const BtnSave = () => {
   return (
     <Button
       type='submit'
+      name="save"
       variant={'contained'}
       size="medium"
       aria-label="save"

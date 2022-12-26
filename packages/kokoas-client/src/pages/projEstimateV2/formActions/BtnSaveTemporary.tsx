@@ -6,23 +6,16 @@ import { HotKeyTooltip } from 'kokoas-client/src/components';
 /** 一時保存 */
 export const BtnSaveTemporary = () => {
 
-  //const { submitForm, setValues } = useFormikContext<TypeOfForm>();
-
-  const handleSave = () => {
-
-    //setValues(prev => ({ ...prev, saveMode: 'temporary' }));
-    //submitForm();
-  };
-
   return (
 
     <HotKeyTooltip title={'ctrl + s'}>
       <Button
+        name="temporary"
+        type='submit'
         variant={'outlined'}
         size="medium"
         aria-label="cancel"
         color={'secondary'}
-        onClick={handleSave}
       >
         <SaveAltIcon />
         <Box ml={1} width={'60px'}>

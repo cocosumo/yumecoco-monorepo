@@ -16,6 +16,11 @@ import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
 import { convertToKintone } from './api/convertToKintone';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { FormActions } from './formActions';
+import { ButtonSubmitEvent } from 'types';
+
+
+
+export type SaveButtonNames = 'temporary' | 'save';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -34,8 +39,10 @@ export const FormProjEstimate = () => {
   }  = formReturn;
 
 
-  const onSubmitValid: SubmitHandler<TypeOfForm> = async (data) => {
+  const onSubmitValid: SubmitHandler<TypeOfForm> = async (data, e) => {
+    const saveButtonName = (e as ButtonSubmitEvent<SaveButtonNames> ).nativeEvent.submitter.name;
 
+    console.log(saveButtonName);
     const {
       estimateId,
     } = data;

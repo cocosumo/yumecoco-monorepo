@@ -1,20 +1,20 @@
 import { IconButton, Menu, MenuItem } from '@mui/material';
 //import { FieldArrayRenderProps } from 'formik';
 import { useState } from 'react';
-import { UseFieldArrayMove } from 'react-hook-form';
+import { UseManipulateItemRows } from '../../../hooks/useManipulateItemRows';
 
 const ITEM_HEIGHT = 48;
 
 export const EstRowMoveAnywhere = ({
   rowIdx, rowsCount,
-  move,
+  handleMoveAnywhere,
   resetArrowsAnimation,
   visible = true,
 }: {
   rowIdx: number,
   rowsCount: number,
   resetArrowsAnimation: () => void,
-  move: UseFieldArrayMove,
+  handleMoveAnywhere: UseManipulateItemRows['handleMoveAnywhere'],
   visible: boolean
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -28,13 +28,6 @@ export const EstRowMoveAnywhere = ({
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleMoveAnywhere = (
-    selectedRowIdx: number,
-  ) => {
-    move(rowIdx, selectedRowIdx);
-    handleClose();
   };
 
 
@@ -66,7 +59,10 @@ export const EstRowMoveAnywhere = ({
             .map((option) => (
               <MenuItem key={option}
                 selected={option === rowIdx}
-                onClick={() => handleMoveAnywhere(option)}
+                onClick={() => {
+                  handleMoveAnywhere(rowIdx, option);
+                  handleClose();
+                }}
               >
                 {option + 1}
               </MenuItem>

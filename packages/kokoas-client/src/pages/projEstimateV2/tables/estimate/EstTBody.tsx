@@ -1,16 +1,18 @@
-import { TableBody } from '@mui/material';
+import { TableBody, TableCell, TableRow } from '@mui/material';
 import {
   useMemo,
 } from 'react';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
+import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { EstTRow } from './EstTRow';
 
 
 export const EstTBody = ({
   isDisabled,
   fieldArrayHelpers,
-}: {
+  ...rowMethods
+}: UseManipulateItemRows & {
   isDisabled: boolean,
   fieldArrayHelpers: UseFieldArrayReturn<TypeOfForm>
 }) => {
@@ -29,16 +31,21 @@ export const EstTBody = ({
         const isAtBottom = rowIdx === (rowsLength - 1);
         return (
           <EstTRow
+            {...rowMethods}
             key={row.id}
             rowIdx={rowIdx}
             isAtBottom={isAtBottom}
             isVisible={!isDisabled}
             rowsLength={rowsLength}
             isDisabled={isDisabled}
-            fieldArrayHelpers={fieldArrayHelpers}
           />
         );
       })}
+      <TableRow >
+        <TableCell colSpan={'100%' as unknown as number}>
+
+        </TableCell>
+      </TableRow>
     </TableBody>
   );
 

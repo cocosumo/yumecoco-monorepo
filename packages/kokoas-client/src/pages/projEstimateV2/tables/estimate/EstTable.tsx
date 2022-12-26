@@ -1,5 +1,6 @@
 import { useFieldArray } from 'react-hook-form';
 import { KeyOfForm, TypeOfForm } from '../../form';
+import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { EstTableActions } from './EstTableActions';
 import { EstTableContainer } from './EstTableContainer';
 import { EstTBody } from './EstTBody';
@@ -18,15 +19,18 @@ export const EstTable = ({
     name,
   });
 
+  const rowMethods = useManipulateItemRows(fieldArrayHelpers);
+
   return (
     <>
       <EstTHead />
       <EstTableContainer
-        actions={<EstTableActions {...fieldArrayHelpers} />}
+        actions={<EstTableActions {...rowMethods} />}
       >
         <EstTBody
           isDisabled={isDisabled}
           fieldArrayHelpers={fieldArrayHelpers}
+          {...rowMethods}
         />
       </EstTableContainer>
     </>

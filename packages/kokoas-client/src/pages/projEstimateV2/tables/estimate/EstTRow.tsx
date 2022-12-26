@@ -3,8 +3,9 @@ import { PercentField, TextField } from 'kokoas-client/src/components/reactHookF
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
 import { MoneyField } from 'kokoas-client/src/components/reactHookForm/MoneyField';
 import { TblCellStack } from 'kokoas-client/src/pages/projEstimate/fieldComponents/TblCellStack';
-import {  UseFieldArrayReturn, useFormContext, useWatch } from 'react-hook-form';
+import {  useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../form';
+import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
 import { headers } from './EstTHead';
 import { EstRowManipulate } from './rowActions/EstRowManipulate';
@@ -19,14 +20,13 @@ export const EstTRow = ({
   isAtBottom,
   isDisabled,
   rowsLength,
-  fieldArrayHelpers,
-}: {
+  ...rowMethods
+}: UseManipulateItemRows & {
   rowIdx: number,
   isAtBottom: boolean,
   isVisible: boolean,
   isDisabled: boolean,
   rowsLength: number,
-  fieldArrayHelpers : UseFieldArrayReturn<TypeOfForm>
 }) => {
 
   const { control } = useFormContext<TypeOfForm>();
@@ -42,10 +42,6 @@ export const EstTRow = ({
     control,
   }) ?? 0);
 
-  const {
-    move,
-  } = fieldArrayHelpers;
-
   return (
     <>
       <TableRow>
@@ -57,11 +53,12 @@ export const EstTRow = ({
           }}
         >
           <EstRowMove
+            {...rowMethods}
             isAtBottom={isAtBottom}
             isVisible={isVisible}
             rowIdx={rowIdx}
             rowLength={rowsLength}
-            move={move}
+           
           />
         </TableCell>
         <TblCellStack
@@ -191,7 +188,7 @@ export const EstTRow = ({
         </TableCell>
 
         <TableCell width={headers[9].width}>
-          <EstRowManipulate rowIdx={rowIdx} {...fieldArrayHelpers} />
+          <EstRowManipulate rowIdx={rowIdx} {...rowMethods} />
         </TableCell>
 
       </TableRow>

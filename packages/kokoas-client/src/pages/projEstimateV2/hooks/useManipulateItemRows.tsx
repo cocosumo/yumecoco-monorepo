@@ -1,8 +1,10 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 import { useRowValues } from './useRowValues';
 
+
+export type UseManipulateItemRows =  ReturnType<typeof useManipulateItemRows>;
 export const useManipulateItemRows = (
   props : UseFieldArrayReturn<TypeOfForm>,
 ) => {
@@ -18,6 +20,8 @@ export const useManipulateItemRows = (
   const {
     getNewRow,
   } = useRowValues();
+
+  const rowsCount = useMemo(() => fields.length, [fields]);
 
   const handleInsertItemBelow = useCallback((rowIdx: number) => {
     insert(rowIdx + 1, getNewRow());
@@ -48,6 +52,7 @@ export const useManipulateItemRows = (
   };
 
   return {
+    ...props,
     handleInsertItemBelow,
     handleCopyItemBelow,
     handleRemoveItem,
@@ -55,5 +60,7 @@ export const useManipulateItemRows = (
     handleMoveRowUp,
     handleMoveRowDown,
     handleMoveAnywhere,
+    rowsCount,
+
   };
 };

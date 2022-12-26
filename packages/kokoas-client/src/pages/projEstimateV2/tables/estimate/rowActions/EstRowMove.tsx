@@ -3,11 +3,10 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 import {
-  useCallback,
   useState,
 } from 'react';
 import { EstRowMoveAnywhere } from './EstRowMoveAnywhere';
-import { UseFieldArrayMove } from 'react-hook-form';
+import { UseManipulateItemRows } from '../../../hooks/useManipulateItemRows';
 
 
 export const EstRowMove = ({
@@ -15,13 +14,14 @@ export const EstRowMove = ({
   isVisible,
   isAtBottom,
   rowLength,
-  move,
-}: {
+  handleMoveRowUp,
+  handleMoveRowDown,
+  handleMoveAnywhere,
+}: UseManipulateItemRows & {
   rowIdx: number,
   isVisible: boolean,
   isAtBottom: boolean,
   rowLength: number,
-  move: UseFieldArrayMove
 }) => {
   const [expandBtns, setExpandBtns] = useState(false);
 
@@ -36,9 +36,6 @@ export const EstRowMove = ({
 
   const isAtTop = rowIdx === 0;
 
-  const handleMoveRowUp = useCallback(() => move(rowIdx, rowIdx - 1), [move, rowIdx]);
-
-  const handleMoveRowDown = useCallback(() => move(rowIdx, rowIdx + 1), [move, rowIdx]);
 
   return (
 
@@ -51,7 +48,7 @@ export const EstRowMove = ({
         <IconButton
           size='small'
           disabled={isAtTop}
-          onClick={handleMoveRowUp}
+          onClick={() => handleMoveRowUp(rowIdx)}
           sx={transitionStyle(true)}
         >
           <KeyboardArrowUpIcon />
@@ -62,7 +59,7 @@ export const EstRowMove = ({
         rowIdx={rowIdx}
         rowsCount={rowLength}
         resetArrowsAnimation={() => setExpandBtns(false)}
-        move={move}
+        handleMoveAnywhere={handleMoveAnywhere}
         visible={isVisible}
       />
 
@@ -71,7 +68,7 @@ export const EstRowMove = ({
         <IconButton
           size='small'
           disabled={isAtBottom}
-          onClick={handleMoveRowDown}
+          onClick={() => handleMoveRowDown(rowIdx)}
           sx={transitionStyle(false)}
         >
           <KeyboardArrowDownIcon />

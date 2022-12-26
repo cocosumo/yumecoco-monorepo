@@ -2,12 +2,10 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { HotKeyTooltip } from 'kokoas-client/src/components';
-import {  UseFieldArrayReturn } from 'react-hook-form';
-import { useManipulateItems } from '../../../hooks/useManipulateItems';
-import { TypeOfForm } from '../../../form';
+import { UseManipulateItemRows } from '../../../hooks/useManipulateItemRows';
 
 export const EstRowManipulate = (
-  props : UseFieldArrayReturn<TypeOfForm> & {
+  props : UseManipulateItemRows & {
     rowIdx: number,
   },
 ) => {
@@ -15,14 +13,15 @@ export const EstRowManipulate = (
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const { fields } = props;
-  const isJustOneRow = fields.length === 1;
-
-  const {
-    handleCopyItemBelow,
+  const { 
+    rowIdx,
+    rowsCount, 
     handleInsertItemBelow,
     handleRemoveItem,
-  } = useManipulateItems(props);
+    handleCopyItemBelow,
+  } = props;
+  const isJustOneRow = rowsCount === 1;
+
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -49,7 +48,7 @@ export const EstRowManipulate = (
       >
         <HotKeyTooltip title={'insert'}>
           <MenuItem onClick={() => {
-            handleInsertItemBelow();
+            handleInsertItemBelow(rowIdx);
             handleClose();
           }}
           >
@@ -61,7 +60,7 @@ export const EstRowManipulate = (
           <MenuItem
             disabled={isJustOneRow}
             onClick={() => {
-              handleRemoveItem();
+              handleRemoveItem(rowIdx);
               handleClose();
             }}
           >
@@ -70,7 +69,7 @@ export const EstRowManipulate = (
         </HotKeyTooltip>
 
         <MenuItem onClick={()=> {
-          handleCopyItemBelow();
+          handleCopyItemBelow(rowIdx);
           handleClose();
         }}
         >

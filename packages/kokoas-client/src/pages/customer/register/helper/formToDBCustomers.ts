@@ -20,12 +20,6 @@ export const formToDBCustomers = (formData: TypeOfForm): Array<Partial<ICustomer
         postal : isSameAddress ? mainCust.postal : postal,
         address1 : isSameAddress ? mainCust.address1 : address1,
         address2: isSameAddress ? mainCust.address2 : address2,
-        phone1: isSameAddress ? '' : phone1,
-        phone1Rel: isSameAddress ? '' : phone1Rel,
-        phone2: isSameAddress ? '' : phone2,
-        phone2Rel: isSameAddress ? '' : phone2Rel,
-        email: isSameAddress ? '' : email,
-        emailRel: isSameAddress ? '' : emailRel,
       };
 
       return {
@@ -44,9 +38,9 @@ export const formToDBCustomers = (formData: TypeOfForm): Array<Partial<ICustomer
         contacts: {
           type: 'SUBTABLE',
           value: [
-            ['tel', deps.phone1, deps.phone1Rel],
-            ['tel', deps.phone2, deps.phone2Rel],
-            ['email', deps.email, deps.emailRel],
+            ['tel', phone1, phone1Rel],
+            ['tel', phone2, phone2Rel],
+            ['email', email, emailRel],
           ]
             .map(([type, val, rel]) => ({
               id: '',

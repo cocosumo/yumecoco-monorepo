@@ -37,10 +37,10 @@ export const EstTRow = ({
     materialOpts,
   } = useMaterialsOptions({ rowIdx, control });
 
-  const costPrice = useWatch({
+  const costPrice = +(useWatch({
     name: getItemsFieldName(rowIdx, 'costPrice'),
     control,
-  });
+  }) ?? 0);
 
   const {
     move,

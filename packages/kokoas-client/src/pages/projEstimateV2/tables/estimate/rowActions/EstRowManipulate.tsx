@@ -15,12 +15,10 @@ export const EstRowManipulate = (
 
   const { 
     rowIdx,
-    rowsCount, 
     handleInsertItemBelow,
     handleRemoveItem,
     handleCopyItemBelow,
   } = props;
-  const isJustOneRow = rowsCount === 1;
 
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -58,7 +56,6 @@ export const EstRowManipulate = (
 
         <HotKeyTooltip title={'ctrl + delete'}>
           <MenuItem
-            disabled={isJustOneRow}
             onClick={() => {
               handleRemoveItem(rowIdx);
               handleClose();

@@ -4,10 +4,8 @@ import { ReactNode } from 'react';
 
 export const EstTableContainer = ({
   children,
-  actions,
 }: {
   children: ReactNode,
-  actions: ReactNode,
 }) => {
   return (
     <TableContainer
@@ -35,7 +33,7 @@ export const EstTableContainer = ({
           '& tr:nth-of-type(4n), & tr:nth-of-type(4n-1)' : {
             background:  grey[100],
           },
-          '& tr:nth-last-of-type(-n+2)': {
+          '& tr:nth-last-of-type(-n+3):not(:nth-last-of-type(1))': {
             transition: 'all 0.5s',
             opacity: 0.3,
             '&:hover':{
@@ -43,7 +41,7 @@ export const EstTableContainer = ({
             },
           },
           // Hide Move Row buttons
-          '& tr:nth-last-of-type(2) td:nth-of-type(1) div': {
+          '& tr:nth-last-of-type(3) td.action button': {
             display: 'none',
           },
 
@@ -51,7 +49,6 @@ export const EstTableContainer = ({
       >
         {children}
       </Table>
-      {actions}
     </TableContainer>
   );
 };

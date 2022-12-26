@@ -46,6 +46,7 @@ export const EstTRow = ({
     <>
       <TableRow>
         <TableCell
+          className={'action'}
           rowSpan={2}
           width={headers[0].width}
           sx={{
@@ -187,7 +188,7 @@ export const EstTRow = ({
           />
         </TableCell>
 
-        <TableCell width={headers[9].width}>
+        <TableCell width={headers[9].width} className={'action'}>
           <EstRowManipulate rowIdx={rowIdx} {...rowMethods} />
         </TableCell>
 

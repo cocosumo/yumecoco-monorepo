@@ -5,6 +5,7 @@ import {
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
+import { EstTableActions } from './EstTableActions';
 import { EstTRow } from './EstTRow';
 
 
@@ -43,7 +44,7 @@ export const EstTBody = ({
       })}
       <TableRow >
         <TableCell colSpan={'100%' as unknown as number}>
-
+          <EstTableActions {...rowMethods} />
         </TableCell>
       </TableRow>
     </TableBody>

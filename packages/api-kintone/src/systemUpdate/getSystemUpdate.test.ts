@@ -5,6 +5,6 @@ describe('getSystemUpdate', () => {
     const record = await getSystemUpdate();
     console.log(record);
 
-    expect(record).toHaveProperty('$id');
+    expect(record).toHaveProperty('records');
   });
 });

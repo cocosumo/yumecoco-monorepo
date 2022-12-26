@@ -33,8 +33,6 @@ export const SystemUpdate = () => {
     }
   }, [contents]);
 
-  console.log(totalCount);
-
   return (
     <Card sx={{
       backgroundColor: grey[50],

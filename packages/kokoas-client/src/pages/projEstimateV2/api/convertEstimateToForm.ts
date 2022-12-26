@@ -3,6 +3,7 @@ import { parseISO } from 'date-fns';
 import { formatDataId, roundTo } from 'libs';
 import { IProjestimates, TaxType } from 'types';
 import { initialValues, TypeOfForm } from '../form';
+import { TunitChoices } from '../validationSchema';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -69,7 +70,7 @@ export const convertEstimateToForm = (
       materialDetails: 部材備考.value,
       rowDetails: 備考.value,
       elemProfRate: resolveRowProfitRate,
-      unit: 単位.value,
+      unit: (単位.value || '式') as TunitChoices,
       unitPrice: Math.round(unitPrice),
       rowUnitPriceAfterTax: Math.round(parsedRowUnitPriceAfterTax),
       taxable: taxType.value === '課税' ? true : false,

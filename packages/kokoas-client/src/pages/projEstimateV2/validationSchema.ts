@@ -47,7 +47,7 @@ export const validationSchema = yupJA
           quantity: yupNumber.required().required(), /* 数量 */
           elemProfRate: yupNumber.required()
             .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
-          unit: yupJA.string().required(), /* 単位 */
+          unit: yupJA.mixed<TunitChoices>().oneOf(unitChoices).required(), /* 単位 */
           taxable: yupJA.boolean(),  /* 税(課税/非課税) */
           unitPrice: yupNumber.required(), /* 単価 */
           rowUnitPriceAfterTax: yupNumber.required(), /* 金額 */

@@ -8,17 +8,12 @@ import { useState } from 'react';
 
 /** 保存 */
 export const BtnSave = () => {
-  //const { submitForm, setValues } = useFormikContext<TypeOfForm>();
 
   const [showText, setShowText] = useState(false);
 
-  const handleSave = () => {
-    //setValues(prev => ({ ...prev, saveMode: 'normal' }));
-    //submitForm();
-  };
-
   return (
     <Button
+      type='submit'
       variant={'contained'}
       size="medium"
       aria-label="save"
@@ -26,7 +21,6 @@ export const BtnSave = () => {
       sx={{ opacity: showText ? 1 : 0.5 }}
       onMouseEnter={()=>setShowText(true)}
       onMouseLeave={()=>setShowText(false)}
-      onClick={handleSave}
     >
       <SaveIcon />
 
@@ -37,9 +31,6 @@ export const BtnSave = () => {
           保存
         </Box>
       </Collapse>
-
-
-
     </Button>
 
 

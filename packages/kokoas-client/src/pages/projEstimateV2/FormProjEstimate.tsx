@@ -1,5 +1,5 @@
 import { Divider, Grid } from '@mui/material';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { TypeOfForm, initialValues } from './form';
@@ -34,7 +34,8 @@ export const FormProjEstimate = () => {
   }  = formReturn;
 
 
-  const onSubmitHandler = async (data: TypeOfForm) => {
+  const onSubmitValid: SubmitHandler<TypeOfForm> = async (data) => {
+
     const {
       estimateId,
     } = data;
@@ -56,6 +57,10 @@ export const FormProjEstimate = () => {
 
   };
 
+  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async (e) => {
+    console.log('ERROR', e);
+  };
+
   useEffect(() => {
 
     reset({ ...initialForm });
@@ -68,7 +73,8 @@ export const FormProjEstimate = () => {
       <FormContainer
         onSubmit={
         handleSubmit(
-          onSubmitHandler,
+          onSubmitValid,
+          onSubmitInvalid,
         )
       }
         noValidate

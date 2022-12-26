@@ -14,7 +14,7 @@ export const initialValues : TypeOfForm = {
   estimateId: '',
   estimateDataId: '',
   envStatus: '',
- 
+
   projDataId: '',
   projId: '',
   projName: '',
@@ -38,10 +38,10 @@ export const initialValues : TypeOfForm = {
       rowDetails: '',
       rowUnitPriceAfterTax: 0,
       taxable: true,
-      unit: '',
+      unit: '式',
       unitPrice: 0,
     },
   ],
-  
+
 };
 

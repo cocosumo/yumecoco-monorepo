@@ -11,7 +11,7 @@ import { AppIds } from 'config';
 export const SystemUpdate = () => {
 
   const { data, isFetching } = useSystemUpdate();
-  const { records, totalCount } = data || {};
+  const { records } = data || {};
 
   const { releaseDate, contents, $id } = records?.[0] || {};
 

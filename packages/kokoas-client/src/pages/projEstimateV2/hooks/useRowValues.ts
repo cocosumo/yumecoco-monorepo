@@ -11,7 +11,7 @@ export const useRowValues = () => {
   const getNewRow = useCallback(() : TypeOfForm['items'][number] => {
     return ({
       ...initialRow,
-      elemProfRate: getValues('projTypeProfit'),
+      materialProfRate: getValues('projTypeProfit'),
     });
   }, [getValues]);
 

@@ -32,12 +32,13 @@ export const initialValues : TypeOfForm = {
   items: [
     {
       costPrice: 0,
-      elemProfRate: 0,
+      materialProfRate: 0,
       majorItem: '',
       middleItem: '',
       material: '',
       materialDetails: '',
       quantity: 1,
+      rowCostPrice: 0,
       rowDetails: '',
       rowUnitPriceAfterTax: 0,
       taxable: true,
@@ -52,7 +53,7 @@ export const estArrayFieldName : KeyOfForm = 'items';
 
 export const initialRow = initialValues.items[0];
 
-export const getItemsFieldName = (
+export const getItemsFieldName = <T = 'items.0.rowDetails'>(
   rowIdx: number, fieldName?: KRowFields,
-) => `${estArrayFieldName}.${rowIdx}.${fieldName}` as 'items.0.rowDetails';
+) => `${estArrayFieldName}.${rowIdx}.${fieldName}` as T;
 

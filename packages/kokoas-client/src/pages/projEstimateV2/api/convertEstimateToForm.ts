@@ -46,6 +46,7 @@ export const convertEstimateToForm = (
       quantity,
       profitRate,
       unitPrice,
+      rowCostPrice,
     } = calculateEstimateRow({
       costPrice: +原価.value,
       quantity: +数量.value,
@@ -63,16 +64,18 @@ export const convertEstimateToForm = (
     return {
       costPrice,
       quantity,
+      rowCostPrice,
       majorItem: 大項目.value,
       middleItem: 中項目.value,
       material: 部材名.value,
       materialDetails: 部材備考.value,
       rowDetails: 備考.value,
-      elemProfRate: resolveRowProfitRate,
+      materialProfRate: resolveRowProfitRate,
       unit: (単位.value || '式') as TunitChoices,
       unitPrice: Math.round(unitPrice),
       rowUnitPriceAfterTax: Math.round(parsedRowUnitPriceAfterTax),
       taxable: taxType.value === '課税' ? true : false,
+      
     };
   });
 
@@ -88,7 +91,7 @@ export const convertEstimateToForm = (
 
   newItems.push({
     ...initialValues.items[0],
-    elemProfRate: +projTypeProfit.value,
+    materialProfRate: +projTypeProfit.value,
   });
 
   /* フォーム */

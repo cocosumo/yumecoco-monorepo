@@ -10,7 +10,9 @@ import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
 import { headers } from './EstTHead';
 import { EstRowManipulate } from './rowActions/EstRowManipulate';
 import { EstRowMove } from './rowActions/EstRowMove';
+import { CostPrice } from './rowFields/CostPrice';
 import { QuantityField } from './rowFields/QuantityField';
+import { RowCostPrice } from './rowFields/RowCostPrice';
 import { TaxType } from './rowFields/TaxType';
 
 
@@ -117,13 +119,8 @@ export const EstTRow = ({
           align='right'
         >
           {/* 原価 */}
-          <MoneyField
-            controllerProps={{
-              name: getItemsFieldName(rowIdx, 'costPrice'),
-              control,
-            }}
-            textFieldProps={{ size: 'small' }}
-          />
+          <CostPrice rowIdx={rowIdx} />
+          <RowCostPrice rowIdx={rowIdx} />
         </TableCell>
         <TableCell
           width={headers[4].width}
@@ -139,7 +136,7 @@ export const EstTRow = ({
           {/* 利益率 */}
           <PercentField
             controllerProps={{
-              name: getItemsFieldName(rowIdx, 'elemProfRate'),
+              name: getItemsFieldName(rowIdx, 'materialProfRate'),
               control,
             }}
             textFieldProps={{ size: 'small' }}

@@ -1,19 +1,40 @@
 import { Button, Stack } from '@mui/material';
-//import { useFormikContext } from 'formik';
-//import { produce } from 'immer';
-//import { initialValues, TypeOfForm } from '../form';
-//import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@mui/icons-material/Add';
 import { HotKeyTooltip } from 'kokoas-client/src/components';
-import { UseFieldArrayAppend, useFormContext } from 'react-hook-form';
-import { initialRow, TypeOfForm } from '../../form';
+import { UseFieldArrayReturn, useWatch } from 'react-hook-form';
+import { estArrayFieldName, TypeOfForm } from '../../form';
+import { useCallback, useEffect } from 'react';
+import { useRowValues } from '../../hooks/useRowValues';
+import isEqual from 'lodash/isEqual';
+
+
 
 export const EstTableActions = ({
   append,
-}: {
-  append: UseFieldArrayAppend<TypeOfForm, 'items'>
-}) => {
-  const { getValues } = useFormContext<TypeOfForm>();
+  fields,
+}: UseFieldArrayReturn<TypeOfForm>) => {
+
+  const {
+    getNewRow,
+  } = useRowValues();
+
+  const handleAppend = useCallback(() => {
+    append(getNewRow());
+  }, [append, getNewRow]);
+
+  const lastRowName = `${estArrayFieldName}.${fields.length - 1}`;
+
+  const lastRow = useWatch({
+    name: lastRowName as 'items.0.test',
+  });
+
+  useEffect(() => {
+
+    const equal = isEqual(lastRow, getNewRow());
+    if (!equal) {
+      handleAppend();
+    }
+  }, [lastRow, getNewRow, handleAppend]);
 
   return (
     <Stack direction="row" justifyContent={'flex-end'}>
@@ -23,12 +44,7 @@ export const EstTableActions = ({
           color="success"
           //disabled={!!envStatus}
           startIcon={<AddIcon />}
-          onClick={() => {
-            append({
-              ...initialRow,
-              elemProfRate: getValues('projTypeProfit'),
-            });
-          }}
+          onClick={handleAppend}
         >
           行追加
         </Button>

@@ -6,8 +6,6 @@ export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
 type KRowFields = keyof TypeOfForm['items'][number];
 
-const arrayFieldName: KeyOfForm = 'items';
-
 
 
 export const initialValues : TypeOfForm = {
@@ -50,9 +48,11 @@ export const initialValues : TypeOfForm = {
 
 };
 
+export const estArrayFieldName : KeyOfForm = 'items';
+
 export const initialRow = initialValues.items[0];
 
 export const getItemsFieldName = (
   rowIdx: number, fieldName?: KRowFields,
-) => `${arrayFieldName}.${rowIdx}.${fieldName}` as 'items.0.rowDetails';
+) => `${estArrayFieldName}.${rowIdx}.${fieldName}` as 'items.0.rowDetails';
 

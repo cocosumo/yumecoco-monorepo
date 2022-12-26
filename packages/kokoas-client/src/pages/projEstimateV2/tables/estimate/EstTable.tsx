@@ -18,15 +18,11 @@ export const EstTable = ({
     name,
   });
 
-  const {
-    append,
-  } = fieldArrayHelpers;
-
   return (
     <>
       <EstTHead />
       <EstTableContainer
-        actions={<EstTableActions append={append} />}
+        actions={<EstTableActions {...fieldArrayHelpers} />}
       >
         <EstTBody
           isDisabled={isDisabled}

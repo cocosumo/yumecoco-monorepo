@@ -34,6 +34,7 @@ export const QuantityField = ({
       name={name}
       size={'small'}
       disabled={isDisabled}
+      enabledFormikBlur={false}
       onChange={handleChange}
       onFocus={({ target }) => target.select()}
       InputProps={{

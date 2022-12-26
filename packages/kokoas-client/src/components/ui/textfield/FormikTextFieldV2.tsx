@@ -13,6 +13,7 @@ import { useFieldFast } from '../../../hooks/useFieldFast';
 export const FormikTextFieldV2 = (
   props: TextFieldProps & {
     name: string,
+    enabledFormikBlur?: boolean
   },
 ) => {
   const {
@@ -21,6 +22,7 @@ export const FormikTextFieldV2 = (
     onBlur,
     fullWidth = true,
     helperText,
+    enabledFormikBlur = true,
     ...others
   } = props;
   const [field, meta, helpers] = useFieldFast(name);
@@ -50,10 +52,12 @@ export const FormikTextFieldV2 = (
     <TextField
       {...others}
       {...field}
-      value={inputValue ?? ''}
+      value={inputValue || ''}
       onChange={handleChange}
       onBlur={((e)=>{
-        field.onBlur(e);
+        if (enabledFormikBlur) {
+          field.onBlur(e);
+        }
         onBlur?.(e);
       })}
       error={isShowError}

@@ -8,6 +8,7 @@ export interface FormikSelecProps extends ComponentProps<typeof Select> {
   name: string,
   label?: string
   helperText?: string
+  enabledFormikBlur?: boolean,
   options?: Options,
   onChange?: (e: SelectChangeEvent, label: string) => void
 }
@@ -24,6 +25,7 @@ export function FormikSelect(props : FormikSelecProps) {
     onChange,
     variant = 'outlined',
     name,
+    enabledFormikBlur = true,
     ...otherSelectProps
   } = props;
 
@@ -91,6 +93,11 @@ export function FormikSelect(props : FormikSelecProps) {
         label={label}
         required={required}
         value={field.value}
+        onBlur={(e) => {
+          if (enabledFormikBlur) {
+            field.onBlur(e);
+          }
+        }}
         onChange={(e)=>{
           const newVal = e.target.value ;
           const newValText = options?.find((option) => option.value === newVal)?.label;

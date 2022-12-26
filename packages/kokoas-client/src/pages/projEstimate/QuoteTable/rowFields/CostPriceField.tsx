@@ -26,6 +26,7 @@ export const CostPriceField = ({
       name={name}
       size={'small'}
       disabled={isDisabled}
+      enabledFormikBlur={false}
       onChange={handleChange}
       onFocus={({ target }) => target.select()}
     />

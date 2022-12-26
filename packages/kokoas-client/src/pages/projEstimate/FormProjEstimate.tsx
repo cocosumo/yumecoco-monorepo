@@ -20,6 +20,8 @@ import { useConfirmBeforeClose } from './hooks/useConfirmBeforeClose';
 import { useSaveHotkey } from './hooks/useSaveHotkey';
 import { EstimateTableLabel } from './fieldComponents/EstimateTableLabel';
 
+const itemsFieldName = getFieldName('items');
+
 export default function FormProjEstimate() {
   const {
     values,
@@ -59,7 +61,7 @@ export default function FormProjEstimate() {
         <Grid item xs={12} md>
 
           {/* 編集中の見積もり情報 */}
-          {projId &&
+          {!!projId &&
             <EstimatesInfo
               estimateId={estimateId}
               id={estimateDataId}
@@ -126,7 +128,7 @@ export default function FormProjEstimate() {
           <Grid item xs={12} md={12}>
             {/* 見積もり内訳のテーブル */}
             <FieldArray
-              name={getFieldName('items')}
+              name={itemsFieldName}
               render={renderQuoteTable}
             />
           </Grid>

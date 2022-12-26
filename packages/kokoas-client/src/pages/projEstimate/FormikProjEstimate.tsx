@@ -26,6 +26,7 @@ export const FormikProjEstimate = () => {
       initialStatus={((s: TFormStatus)=>s)('busy')}
       enableReinitialize
       validateOnBlur={false}
+      validateOnMount={false}
       validationSchema={validationSchema}
       onSubmit={async (values, { setSubmitting }) => {
         const { saveMode, estimateId  } = values;

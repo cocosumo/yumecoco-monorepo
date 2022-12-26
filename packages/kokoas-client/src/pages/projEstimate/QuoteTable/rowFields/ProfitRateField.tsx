@@ -31,6 +31,7 @@ export const ProfitRateField = ({
       name={name}
       size={'small'}
       disabled={isDisabled}
+      enabledFormikBlur={false}
       onChange={handleChange}
       onFocus={({ target }) => target.select()}
       InputProps={{

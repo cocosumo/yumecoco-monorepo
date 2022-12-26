@@ -12,13 +12,9 @@ export const UnitTypeMenu = ({
 }) => {
   return (
     <Menu
-      id="basic-menu"
       anchorEl={anchorEl}
       open={open}
       onClose={()=>handleClose()}
-      MenuListProps={{
-        'aria-labelledby': 'basic-button',
-      }}
     >
       {unitChoices.map((unit) => (
         <MenuItem key={unit} onClick={()=>handleClose(unit)}>

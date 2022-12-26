@@ -1,26 +1,30 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem } from '@mui/material';
-import { FieldArrayRenderProps } from 'formik';
+import { useFormikContext } from 'formik';
 import { useState } from 'react';
-import { initialValues, TMaterials, TypeOfForm } from '../../form';
-import { v4 as uuidv4 } from 'uuid';
+import { TypeOfForm } from '../../form';
 import { HotKeyTooltip } from 'kokoas-client/src/components';
+import { useManipulateItems } from '../../hooks/useManipulateItems';
 
 export const QtRowAddDelete = ({
-  rowIdx, arrayHelpers,
+  rowIdx,
 } :{
   rowIdx: number
-  arrayHelpers: FieldArrayRenderProps
 }) => {
-
+  const { values } = useFormikContext<TypeOfForm>();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const { form, remove, insert } = arrayHelpers;
-  const { items, projTypeProfit } = form.values as TypeOfForm;
-  const currentItem = items[rowIdx];
+
+  const { items } = values;
 
   const isJustOneRow = items.length === 1;
+
+  const {
+    handleCopyItemBelow,
+    handleInsertItemBelow,
+    handleRemoveItem,
+  } = useManipulateItems(rowIdx);
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -30,31 +34,7 @@ export const QtRowAddDelete = ({
     setAnchorEl(null);
   };
 
-  const handleRemoveRow = () => {
-    remove(rowIdx);
-    handleClose();
-  };
 
-  const handleAddToRowBelow = () => {
-    const newRow: TMaterials = {
-      ...initialValues.items[0],
-      key: uuidv4(),
-      elemProfRate: projTypeProfit,
-    };
-
-    insert(rowIdx + 1, newRow);
-    handleClose();
-  };
-
-  const handleCopyToRowBelow = () => {
-    const newRow: TMaterials = {
-      ...currentItem,
-      key: uuidv4(),
-      //elemProfRate: projTypeProfit,
-    };
-    insert(rowIdx + 1, newRow);
-    handleClose();
-  };
 
   return (
     <>
@@ -72,7 +52,7 @@ export const QtRowAddDelete = ({
 
       >
         <HotKeyTooltip title={'insert'}>
-          <MenuItem onClick={handleAddToRowBelow}>
+          <MenuItem onClick={handleInsertItemBelow}>
             下に追加
           </MenuItem>
         </HotKeyTooltip>
@@ -80,13 +60,13 @@ export const QtRowAddDelete = ({
         <HotKeyTooltip title={'ctrl + delete'}>
           <MenuItem
             disabled={isJustOneRow}
-            onClick={handleRemoveRow}
+            onClick={handleRemoveItem}
           >
             削除
           </MenuItem>
         </HotKeyTooltip>
 
-        <MenuItem onClick={handleCopyToRowBelow}>
+        <MenuItem onClick={handleCopyItemBelow}>
           下にコピー
         </MenuItem>
 

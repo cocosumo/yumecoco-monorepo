@@ -4,15 +4,17 @@ import { ReactNode } from 'react';
 
 export const EstTableContainer = ({
   children,
+  actions,
 }: {
-  children: ReactNode
+  children: ReactNode,
+  actions: ReactNode,
 }) => {
   return (
     <TableContainer
       variant={'outlined'}
       component={Paper}
     >
-      <Table 
+      <Table
         size="small"
         sx={{
           minWidth: 650,
@@ -31,7 +33,7 @@ export const EstTableContainer = ({
             pb: 2,
           },
           '& tr:nth-of-type(4n), & tr:nth-of-type(4n-1)' : {
-            background:  grey[100], 
+            background:  grey[100],
           },
           '& tr:nth-last-of-type(-n+2)': {
             transition: 'all 0.5s',
@@ -49,6 +51,7 @@ export const EstTableContainer = ({
       >
         {children}
       </Table>
+      {actions}
     </TableContainer>
   );
 };

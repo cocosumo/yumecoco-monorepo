@@ -5,10 +5,15 @@ import { Button, Stack } from '@mui/material';
 //import { v4 as uuidv4 } from 'uuid';
 import AddIcon from '@mui/icons-material/Add';
 import { HotKeyTooltip } from 'kokoas-client/src/components';
+import { UseFieldArrayAppend, useFormContext } from 'react-hook-form';
+import { initialRow, TypeOfForm } from '../../form';
 
-export const EstTableActions = () => {
-  //const { setValues, values } = useFormikContext<TypeOfForm>();
-  // const { envStatus } = values;
+export const EstTableActions = ({
+  append,
+}: {
+  append: UseFieldArrayAppend<TypeOfForm, 'items'>
+}) => {
+  const { getValues } = useFormContext<TypeOfForm>();
 
   return (
     <Stack direction="row" justifyContent={'flex-end'}>
@@ -19,16 +24,10 @@ export const EstTableActions = () => {
           //disabled={!!envStatus}
           startIcon={<AddIcon />}
           onClick={() => {
-            /*  setValues(
-              prev => produce(prev, draft => {
-                draft.items.push({
-                  ...initialValues.items[0],
-                  key: uuidv4(),
-                  elemProfRate: draft.projTypeProfit,
-                });
-              }),
-              false,
-            ); */
+            append({
+              ...initialRow,
+              elemProfRate: getValues('projTypeProfit'),
+            });
           }}
         >
           行追加

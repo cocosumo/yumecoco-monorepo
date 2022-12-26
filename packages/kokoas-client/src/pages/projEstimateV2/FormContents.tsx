@@ -10,7 +10,6 @@ import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { EstTable } from './tables/estimate/EstTable';
-import { EstTBody } from './tables/estimate/EstTBody';
 
 
 
@@ -95,12 +94,7 @@ export const FormContents = () => {
 
         <Grid item xs={12} md={12}>
           {/* 見積もり内訳のテーブル */}
-          <EstTable
-            tableBody={(
-              <EstTBody
-                isDisabled={disabled}
-              />)}
-          />
+          <EstTable isDisabled={disabled} />
         </Grid>
 
       </>

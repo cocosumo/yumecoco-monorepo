@@ -2,22 +2,19 @@ import { TableBody } from '@mui/material';
 import {
   useMemo,
 } from 'react';
-import { useFieldArray } from 'react-hook-form';
-import { KeyOfForm, TypeOfForm } from '../../form';
+import { UseFieldArrayReturn } from 'react-hook-form';
+import { TypeOfForm } from '../../form';
 import { EstTRow } from './EstTRow';
 
-const name: KeyOfForm = 'items';
 
 export const EstTBody = ({
   isDisabled,
+  fieldArrayHelpers,
 }: {
   isDisabled: boolean,
+  fieldArrayHelpers: UseFieldArrayReturn<TypeOfForm>
 }) => {
 
-
-  const fieldArrayHelpers = useFieldArray<TypeOfForm>({
-    name,
-  });
 
   const  { fields: rows } = fieldArrayHelpers;
 

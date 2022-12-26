@@ -2,8 +2,7 @@ import { IconButton, InputAdornment } from '@mui/material';
 import { NumberField } from 'kokoas-client/src/components/reactHookForm';
 import { MouseEvent, useCallback, useState } from 'react';
 import { Control, Controller, useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../../../form';
-import { getItemsFieldName } from '../EstTRow';
+import { getItemsFieldName, TypeOfForm } from '../../../form';
 import { UnitTypeMenu } from './UnitTypeMenu';
 
 export const QuantityField = ({
@@ -31,8 +30,8 @@ export const QuantityField = ({
           name: getItemsFieldName(rowIdx, 'quantity'),
           control,
         }}
-        textFieldProps={{ 
-          size: 'small', 
+        textFieldProps={{
+          size: 'small',
           InputProps: {
             endAdornment: (
               <InputAdornment position='end'>
@@ -43,13 +42,13 @@ export const QuantityField = ({
                 >
                   {unit}
                 </IconButton>
-                  
+
               </InputAdornment>
-            ), 
+            ),
           },
         }}
       />
-      <Controller 
+      <Controller
         name={getItemsFieldName(rowIdx, 'unit')}
         control={control}
         render={({
@@ -72,8 +71,8 @@ export const QuantityField = ({
           );
         }}
       />
-      
+
     </>
-    
+
   );
 };

@@ -2,8 +2,7 @@ import { MenuItem } from '@mui/material';
 import { Select } from 'kokoas-client/src/components/reactHookForm';
 import { Control } from 'react-hook-form';
 import { taxChoices } from 'types';
-import { TypeOfForm } from '../../../form';
-import { getItemsFieldName } from '../EstTRow';
+import { getItemsFieldName, TypeOfForm } from '../../../form';
 
 
 export const TaxType = ({
@@ -25,12 +24,12 @@ export const TaxType = ({
       selectProps={{
         size: 'small',
         disabled,
-        
+
       }}
     >
       {taxChoices.map((choice) => (
-        <MenuItem 
-          key={choice} 
+        <MenuItem
+          key={choice}
           value={(choice === '課税') as any}
         >
           {choice}

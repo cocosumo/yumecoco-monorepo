@@ -4,6 +4,11 @@ import { validationSchema } from './validationSchema';
 
 export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
+type KRowFields = keyof TypeOfForm['items'][number];
+
+const arrayFieldName: KeyOfForm = 'items';
+
+
 
 export const initialValues : TypeOfForm = {
   custGroupId: '',
@@ -44,4 +49,9 @@ export const initialValues : TypeOfForm = {
   ],
 
 };
+
+
+export const getItemsFieldName = (
+  rowIdx: number, fieldName: KRowFields,
+) => `${arrayFieldName}.${rowIdx}.${fieldName}` as 'items.0.rowDetails';
 

@@ -3,21 +3,14 @@ import { PercentField, TextField } from 'kokoas-client/src/components/reactHookF
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
 import { MoneyField } from 'kokoas-client/src/components/reactHookForm/MoneyField';
 import { TblCellStack } from 'kokoas-client/src/pages/projEstimate/fieldComponents/TblCellStack';
-import { Control, useWatch } from 'react-hook-form';
-import { KeyOfForm, TypeOfForm } from '../../form';
+import { Control, UseFieldArrayReturn, useWatch } from 'react-hook-form';
+import { getItemsFieldName, TypeOfForm } from '../../form';
 import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
 import { headers } from './EstTHead';
 import { EstRowMove } from './rowActions/EstRowMove';
 import { QuantityField } from './rowFields/QuantityField';
 import { TaxType } from './rowFields/TaxType';
 
-type KRowFields = keyof TypeOfForm['items'][number];
-
-const arrayFieldName: KeyOfForm = 'items';
-
-export const getItemsFieldName = (
-  rowIdx: number, fieldName: KRowFields,
-) => `${arrayFieldName}.${rowIdx}.${fieldName}` as 'items.0.rowDetails';
 
 export const EstTRow = ({
   rowIdx,
@@ -26,6 +19,7 @@ export const EstTRow = ({
   isAtBottom,
   isDisabled,
   rowsLength,
+  fieldArrayHelpers,
 }: {
   rowIdx: number,
   control: Control<TypeOfForm>
@@ -33,6 +27,7 @@ export const EstTRow = ({
   isVisible: boolean,
   isDisabled: boolean,
   rowsLength: number,
+  fieldArrayHelpers : UseFieldArrayReturn<TypeOfForm>
 }) => {
 
   const {
@@ -46,6 +41,10 @@ export const EstTRow = ({
     control,
   });
 
+  const {
+    move,
+  } = fieldArrayHelpers;
+
   return (
     <>
       <TableRow>
@@ -56,18 +55,19 @@ export const EstTRow = ({
             pl: 1, pr: 0,
           }}
         >
-          <EstRowMove 
+          <EstRowMove
             isAtBottom={isAtBottom}
             isVisible={isVisible}
             rowIdx={rowIdx}
             rowLength={rowsLength}
+            move={move}
           />
         </TableCell>
         <TblCellStack
           rowSpan={2}
           width={headers[1].width}
         >
-          <Autocomplete 
+          <Autocomplete
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'majorItem'),
               control,
@@ -78,7 +78,7 @@ export const EstTRow = ({
 
             }}
           />
-          <Autocomplete 
+          <Autocomplete
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'middleItem'),
               control,
@@ -93,7 +93,7 @@ export const EstTRow = ({
           rowSpan={2}
           width={headers[2].width}
         >
-          <Autocomplete 
+          <Autocomplete
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'material'),
               control,
@@ -103,7 +103,7 @@ export const EstTRow = ({
               freeSolo: true,
             }}
           />
-          <TextField 
+          <TextField
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'materialDetails'),
               control,
@@ -118,7 +118,7 @@ export const EstTRow = ({
           align='right'
         >
           {/* 原価 */}
-          <MoneyField 
+          <MoneyField
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'costPrice'),
               control,
@@ -138,7 +138,7 @@ export const EstTRow = ({
           align='right'
         >
           {/* 利益率 */}
-          <PercentField 
+          <PercentField
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'elemProfRate'),
               control,
@@ -151,8 +151,8 @@ export const EstTRow = ({
           width={headers[6].width}
         >
           {/* 税 */}
-          <TaxType 
-            disabled={isDisabled} 
+          <TaxType
+            disabled={isDisabled}
             control={control}
             rowIdx={rowIdx}
           />
@@ -162,13 +162,13 @@ export const EstTRow = ({
           width={headers[7].width}
         >
           {/* 単価 */}
-          <MoneyField 
+          <MoneyField
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'unitPrice'),
               control,
             }}
-            textFieldProps={{ 
-              size: 'small', 
+            textFieldProps={{
+              size: 'small',
               disabled: isDisabled || !costPrice,
             }}
           />
@@ -177,27 +177,27 @@ export const EstTRow = ({
           width={headers[8].width}
         >
           {/* 金額 */}
-          <MoneyField 
+          <MoneyField
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'rowUnitPriceAfterTax'),
               control,
             }}
-            textFieldProps={{ 
-              size: 'small', 
+            textFieldProps={{
+              size: 'small',
               disabled: isDisabled || !costPrice,
             }}
           />
         </TableCell>
 
         <TableCell width={headers[9].width}>
-          
+
         </TableCell>
-        
+
       </TableRow>
       <TableRow>
         <TableCell colSpan={2} />
         <TableCell colSpan={4}>
-          <TextField 
+          <TextField
             controllerProps={{
               name: getItemsFieldName(rowIdx, 'rowDetails'),
               control,

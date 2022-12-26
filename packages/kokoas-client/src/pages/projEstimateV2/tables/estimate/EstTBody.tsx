@@ -1,8 +1,8 @@
 import { TableBody } from '@mui/material';
-import { 
+import {
   useMemo,
-  // MouseEvent, 
-  // useCallback, 
+  // MouseEvent,
+  // useCallback,
 } from 'react';
 import { Control, useFieldArray } from 'react-hook-form';
 import { TypeOfForm, KeyOfForm } from '../../form';
@@ -16,15 +16,17 @@ export const EstTBody = ({
   control,
   isDisabled,
 }: {
-  control: Control<TypeOfForm> 
+  control: Control<TypeOfForm>
   isDisabled: boolean,
 }) => {
 
-  
-  const { fields: rows } = useFieldArray({
+
+  const fieldArrayHelpers = useFieldArray({
     control,
     name,
   });
+
+  const  { fields: rows } = fieldArrayHelpers;
 
 
   const rowsLength = useMemo(() => rows.length, [rows]);
@@ -36,7 +38,7 @@ export const EstTBody = ({
       {rows.map((row, rowIdx) => {
 
         const isAtBottom = rowIdx === (rowsLength - 1);
-        
+
         return (
 
           <EstTRow
@@ -47,9 +49,10 @@ export const EstTBody = ({
             isVisible={!isDisabled}
             rowsLength={rowsLength}
             isDisabled={isDisabled}
+            fieldArrayHelpers={fieldArrayHelpers}
           />
         );
-      })} 
+      })}
     </TableBody>
   );
 

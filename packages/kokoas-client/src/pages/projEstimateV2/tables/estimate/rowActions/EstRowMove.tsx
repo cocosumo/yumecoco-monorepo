@@ -2,11 +2,13 @@ import { IconButton, Stack, SxProps, Theme } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
-import { 
-  //useCallback, 
-  useState, 
+import {
+  useCallback,
+  //useCallback,
+  useState,
 } from 'react';
 import { EstRowMoveAnywhere } from './EstRowMoveAnywhere';
+import { UseFieldArrayMove } from 'react-hook-form';
 //import { useMoveItem } from '../../hooks/useMoveItem';
 
 
@@ -15,11 +17,13 @@ export const EstRowMove = ({
   isVisible,
   isAtBottom,
   rowLength,
+  move,
 }: {
   rowIdx: number,
   isVisible: boolean,
   isAtBottom: boolean,
-  rowLength: number
+  rowLength: number,
+  move: UseFieldArrayMove
 }) => {
   //const { values: { envStatus, items } } = useFormikContext<TypeOfForm>();
   const [expandBtns, setExpandBtns] = useState(false);
@@ -39,9 +43,9 @@ export const EstRowMove = ({
   const isAtTop = rowIdx === 0;
   //const isVisible = !envStatus;
 
-  //const handleMoveRowUp = useCallback(() => move(rowIdx, rowIdx - 1), [move, rowIdx]);
+  const handleMoveRowUp = useCallback(() => move(rowIdx, rowIdx - 1), [move, rowIdx]);
 
-  //const handleMoveRowDown = useCallback(() => move(rowIdx, rowIdx + 1), [move, rowIdx]);
+  const handleMoveRowDown = useCallback(() => move(rowIdx, rowIdx + 1), [move, rowIdx]);
 
   return (
 
@@ -54,7 +58,7 @@ export const EstRowMove = ({
         <IconButton
           size='small'
           disabled={isAtTop}
-          //onClick={handleMoveRowUp}
+          onClick={handleMoveRowUp}
           sx={transitionStyle(true)}
         >
           <KeyboardArrowUpIcon />
@@ -65,7 +69,7 @@ export const EstRowMove = ({
         rowIdx={rowIdx}
         rowsCount={rowLength}
         resetArrowsAnimation={() => setExpandBtns(false)}
-        //move={move}
+        move={move}
         visible={isVisible}
       />
 
@@ -74,7 +78,7 @@ export const EstRowMove = ({
         <IconButton
           size='small'
           disabled={isAtBottom}
-          //onClick={handleMoveRowDown}
+          onClick={handleMoveRowDown}
           sx={transitionStyle(false)}
         >
           <KeyboardArrowDownIcon />

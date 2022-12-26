@@ -2,9 +2,7 @@ import { useMaterialsItem } from './../../../hooksQuery/useMaterialsItem';
 import { useCallback } from 'react';
 import { useMaterialsMajor, useMaterialsMid } from 'kokoas-client/src/hooksQuery';
 import { Control, useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../form';
-import { getItemsFieldName } from '../tables/estimate/EstTRow';
-
+import { getItemsFieldName, TypeOfForm } from '../form';
 
 
 export const useMaterialsOptions = ({
@@ -20,7 +18,7 @@ export const useMaterialsOptions = ({
     middleItem,
   ] = useWatch({
     name: [
-      getItemsFieldName(rowIdx, 'majorItem'), 
+      getItemsFieldName(rowIdx, 'majorItem'),
       getItemsFieldName(rowIdx, 'middleItem'),
     ],
     control,

@@ -41,7 +41,7 @@ export const FormProjEstimate = () => {
     } = data;
     const record = convertToKintone(data);
 
-    const { id } = await saveMutation({
+    const { revision } = await saveMutation({
       recordId: estimateId,
       record,
       relatedData: {
@@ -52,18 +52,16 @@ export const FormProjEstimate = () => {
     setSnackState({
       open: true,
       severity: 'success',
-      message: `保存しました。 番号：${id}`,
+      message: `保存しました。 更新回数：${revision}`,
     });
 
   };
 
-  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async (e) => {
+  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async () => {
     setSnackState({
       open: true,
       severity: 'error',
-      // 仮エラーメッセージ。改善必須
-      // フィールド事にどうエラーを表示するか、要相談
-      message: `入力を確認してください。${Object.entries(e).map(([key, msg]) => `${key}:${msg}`).join(', ')}`,
+      message: '入力を確認してください',
     });
   };
 

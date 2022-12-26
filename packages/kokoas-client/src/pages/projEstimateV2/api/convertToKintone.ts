@@ -1,4 +1,4 @@
-import { DeepPartial, IProjestimates } from 'types';
+import { IProjestimates } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
@@ -14,7 +14,7 @@ export const convertToKintone = ({
 }: TypeOfForm) => {
 
   /* itemsの変換処理 */
-  const kintoneItems: DeepPartial<IProjestimates>['内訳'] = {
+  const kintoneItems: Partial<IProjestimates>['内訳'] = {
     type: 'SUBTABLE',
     value: items
       .slice(0, -1)
@@ -33,11 +33,11 @@ export const convertToKintone = ({
         return {
           id: '', // 自動生成
           value: {
-            部材備考: { value: materialDetails },
-            備考: { value: rowDetails },
-            大項目: { value: majorItem },
-            中項目: { value: middleItem },
-            部材名: { value: material },
+            部材備考: { value: materialDetails ?? '' },
+            備考: { value: rowDetails ?? '' },
+            大項目: { value: majorItem ?? '' },
+            中項目: { value: middleItem ?? '' },
+            部材名: { value: material ?? '' },
             原価 : { value: costPrice.toString() },
             数量 : { value: quantity.toString() },
             単位: { value: unit },
@@ -50,7 +50,7 @@ export const convertToKintone = ({
 
 
   /* 変換処理 */
-  const kintoneRecord: DeepPartial<IProjestimates> = {
+  const kintoneRecord: Partial<IProjestimates> = {
     projId: { value: projId },
     projTypeId: { value: projTypeId },
     顧客名: { value: customerName || '' },

@@ -12,25 +12,47 @@ import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
 //import { DevTool } from '@hookform/devtools';
 import { EstimatesInfo } from './staticComponents/EstimatesInfo';
+import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
+import { convertToKintone } from './api/convertToKintone';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
+  const { setSnackState } = useSnackBar();
+  const { mutateAsync: saveMutation } = useSaveEstimate();
 
   const formReturn = useForm<TypeOfForm>({
     defaultValues: initialValues,
     resolver: yupResolver(validationSchema),
   });
 
-  const { 
+  const {
     handleSubmit,
     control,
     reset,
   }  = formReturn;
 
 
-  const onSubmitHandler = (data: TypeOfForm) => {
-    console.log('SUBMIT', data);
-    
+  const onSubmitHandler = async (data: TypeOfForm) => {
+    const {
+      estimateId,
+    } = data;
+    const record = convertToKintone(data);
+
+    const { id } = await saveMutation({
+      recordId: estimateId,
+      record,
+      relatedData: {
+        projDataId: data.projDataId,
+      },
+    });
+
+    setSnackState({
+      open: true,
+      severity: 'success',
+      message: `保存しました。 番号：${id}`,
+    });
+
   };
 
   useEffect(() => {
@@ -44,18 +66,18 @@ export const FormProjEstimate = () => {
     <FormContainer
       onSubmit={
         handleSubmit(
-          onSubmitHandler, 
+          onSubmitHandler,
         )
       }
       noValidate
     >
-      
+
       <PageTitle label={'見積もり'} />
-      
+
       <Grid item xs={10} md={5}>
 
         {/* 工事情報の検索 */}
-        <SearchProjects 
+        <SearchProjects
           controllerProps={{
             name: 'projId',
             control,
@@ -77,7 +99,7 @@ export const FormProjEstimate = () => {
       >
         {/* 見積もりの検索 */}
         {/* コピー */}
-        <ButtonMenu 
+        <ButtonMenu
           controllerProps={{
             name: 'projId',
             control,
@@ -88,8 +110,8 @@ export const FormProjEstimate = () => {
       <Grid item xs={12}>
         <Divider />
       </Grid>
-    
-      <FormContents 
+
+      <FormContents
         {...formReturn}
       />
       {/* <DevTool control={control} />  */}

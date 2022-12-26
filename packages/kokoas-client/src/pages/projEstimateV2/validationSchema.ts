@@ -27,7 +27,7 @@ export const validationSchema = yupJA
     projDataId: yupJA.string().required(),
     projId: yupJA.string().required(),
     projName: yupJA.string().required(),
-    
+
     projTypeId: yupJA.string().required(),
     projTypeName : yupJA.string().required(),
     projTypeProfitLatest: yupNumber.max(100),
@@ -43,11 +43,11 @@ export const validationSchema = yupJA
           majorItem: yupJA.string(),
           middleItem: yupJA.string(), /* 中項目 */
           material: yupJA.string(),    /* 部材 */
-          costPrice: yupNumber.required(), /* 原価 */
-          quantity: yupNumber.required(), /* 数量 */
+          costPrice: yupNumber.required().required(), /* 原価 */
+          quantity: yupNumber.required().required(), /* 数量 */
           elemProfRate: yupNumber.required()
             .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
-          unit: yupJA.string(), /* 単位 */
+          unit: yupJA.string().required(), /* 単位 */
           taxable: yupJA.boolean(),  /* 税(課税/非課税) */
           unitPrice: yupNumber.required(), /* 単価 */
           rowUnitPriceAfterTax: yupNumber.required(), /* 金額 */

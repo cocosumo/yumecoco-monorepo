@@ -58,7 +58,12 @@ export const FormProjEstimate = () => {
   };
 
   const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async (e) => {
-    console.log('ERROR', e);
+    setSnackState({
+      open: true,
+      severity: 'error',
+      // 仮エラーメッセージ。改善必須
+      message: `入力を確認してください。${Object.entries(e).map(([key, msg]) => `${key}:${msg}`).join(', ')}`,
+    });
   };
 
   useEffect(() => {

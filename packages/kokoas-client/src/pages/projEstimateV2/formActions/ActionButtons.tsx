@@ -1,4 +1,5 @@
 import { Stack, Zoom } from '@mui/material';
+import { useIsMutating } from '@tanstack/react-query';
 import { ProjEstimateShortcuts } from '../../projEstimate/navigationComponents/ProjEstimateShortcuts';
 import { BtnCancelEdit } from './BtnCancelEdit';
 import { BtnSave } from './BtnSave';
@@ -6,11 +7,12 @@ import { BtnSaveTemporary } from './BtnSaveTemporary';
 import { FormActionsContainer } from './FormActionsContainer';
 
 export const ActionButtons = () => {
+  const mutating = useIsMutating();
 
   return (
     <FormActionsContainer>
       <Zoom
-        in={true}
+        in={!mutating}
         mountOnEnter
         unmountOnExit
       >

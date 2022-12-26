@@ -62,6 +62,7 @@ export const FormProjEstimate = () => {
       open: true,
       severity: 'error',
       // 仮エラーメッセージ。改善必須
+      // フィールド事にどうエラーを表示するか、要相談
       message: `入力を確認してください。${Object.entries(e).map(([key, msg]) => `${key}:${msg}`).join(', ')}`,
     });
   };

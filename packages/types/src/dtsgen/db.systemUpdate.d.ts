@@ -1,11 +1,17 @@
-declare namespace DBMaterialsmajor {
+declare namespace DBSystemupdate {
   interface Data {
-    備考: kintone.fieldTypes.SingleLineText;
-    alternative_name: kintone.fieldTypes.SingleLineText;
-    code: kintone.fieldTypes.Number;
-    文字列__1行_: kintone.fieldTypes.SingleLineText;
-    大項目名: kintone.fieldTypes.SingleLineText;
-    uuid: kintone.fieldTypes.SingleLineText;
+    releaseDate: kintone.fieldTypes.Date;
+    title: kintone.fieldTypes.SingleLineText;
+    contents: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          details: kintone.fieldTypes.SingleLineText;
+          category: kintone.fieldTypes.SingleLineText;
+        };
+      }>;
+    };
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

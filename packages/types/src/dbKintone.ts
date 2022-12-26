@@ -1,3 +1,6 @@
+export type ISystemupdate = DBSystemupdate.SavedData;
+export type KSystemupdate = keyof ISystemupdate;
+
 export type ICompanydetails = DBCompanydetails.SavedData;
 export type KCompanydetails = keyof ICompanydetails;
 

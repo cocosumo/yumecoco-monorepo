@@ -6,14 +6,12 @@ import { BtnSaveTemporary } from './BtnSaveTemporary';
 import { FormActionsContainer } from './FormActionsContainer';
 
 export const ActionButtons = () => {
-  //const { isSubmitting } = useFormikContext<TypeOfForm>();
 
   return (
     <FormActionsContainer>
-      <Zoom 
-        //in={!isSubmitting} 
+      <Zoom
         in={true}
-        mountOnEnter 
+        mountOnEnter
         unmountOnExit
       >
         <Stack spacing={1} direction={'row'} maxHeight={40}>

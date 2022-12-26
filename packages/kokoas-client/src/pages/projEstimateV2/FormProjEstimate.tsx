@@ -15,6 +15,7 @@ import { EstimatesInfo } from './staticComponents/EstimatesInfo';
 import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
 import { convertToKintone } from './api/convertToKintone';
 import { useSnackBar } from 'kokoas-client/src/hooks';
+import { FormActions } from './formActions';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -115,6 +116,7 @@ export const FormProjEstimate = () => {
         <FormContents
           {...formReturn}
         />
+        <FormActions />
         {/* <DevTool control={control} />  */}
       </FormContainer>
     </FormProvider>

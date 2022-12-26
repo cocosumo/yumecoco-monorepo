@@ -24,7 +24,7 @@ export const convertEstimateToForm = (
   } = recEstimate;
 
   /* 内訳 */
-  const newItems : TypeOfForm['items'] = estimateTable.map(({ id, value: row }) => {
+  const newItems : TypeOfForm['items'] = estimateTable.map(({ value: row }) => {
     const {
       原価,
       大項目,
@@ -61,7 +61,6 @@ export const convertEstimateToForm = (
     }
 
     return {
-      key: id,
       costPrice,
       quantity,
       majorItem: 大項目.value,
@@ -91,8 +90,6 @@ export const convertEstimateToForm = (
     ...initialValues.items[0],
     elemProfRate: +projTypeProfit.value,
   });
-
-
 
   /* フォーム */
   return {

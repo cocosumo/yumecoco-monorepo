@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
-import { 
-  TextField, 
-  PercentField, 
+import {
+  TextField,
+  PercentField,
 } from 'kokoas-client/src/components/reactHookForm';
-import { UseFormReturn, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
@@ -14,25 +14,25 @@ import { EstTBody } from './tables/estimate/EstTBody';
 
 
 
-export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
+export const FormContents = () => {
 
   const {
     control,
-  } = formReturn;
+  } = useFormContext<TypeOfForm>();
 
 
   const [
-    projId, 
-    projTypeProfit, 
+    projId,
+    projTypeProfit,
     projTypeProfitLatest,
     envStatus,
-    
+
   ] = useWatch({
     control,
     name: [
-      'projId', 
-      'projTypeProfit', 
-      'projTypeProfitLatest', 
+      'projId',
+      'projTypeProfit',
+      'projTypeProfitLatest',
       'envStatus',
     ],
   });
@@ -43,7 +43,7 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
     return (
       <>
         <Grid item xs={12} md={3}>
-          <TextField 
+          <TextField
             controllerProps={{
               name: 'projTypeName',
               control,
@@ -67,10 +67,10 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
             }}
           />
 
-          {!!projTypeProfitLatest 
-          && projTypeProfitLatest !== 0 
-          && +(projTypeProfit ?? 0) !== +projTypeProfitLatest 
-          && !disabled && <MismatchedProfit {...formReturn} />}
+          {!!projTypeProfitLatest
+          && projTypeProfitLatest !== 0
+          && +(projTypeProfit ?? 0) !== +projTypeProfitLatest
+          && !disabled && <MismatchedProfit />}
 
         </Grid>
         <Grid item xs={12} md={3}>
@@ -95,9 +95,9 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
 
         <Grid item xs={12} md={12}>
           {/* 見積もり内訳のテーブル */}
-          <EstTable 
+          <EstTable
             tableBody={(
-              <EstTBody 
+              <EstTBody
                 control={control}
                 isDisabled={disabled}
               />)}
@@ -105,11 +105,11 @@ export const FormContents = (formReturn : UseFormReturn<TypeOfForm>) => {
         </Grid>
 
       </>
-    
+
     );
   } else {
     return (<div />);
   }
 
-  
+
 };

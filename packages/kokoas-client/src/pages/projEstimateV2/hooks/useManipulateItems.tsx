@@ -25,9 +25,10 @@ export const useManipulateItems = (
     insert(rowIdx + 1, getNewRow());
   }, [insert, rowIdx, getNewRow]);
 
-  const handleCopyItemBelow = useCallback(() => {
-    insert(rowIdx + 1, fields[rowIdx]);
-  }, [insert, fields, rowIdx]);
+  const handleCopyItemBelow = () => {
+    const { id: _, ...newRow } = fields[rowIdx];
+    insert(rowIdx + 1, [newRow]);
+  };
 
   const handleRemoveItem = useCallback(() => {
     remove(rowIdx);

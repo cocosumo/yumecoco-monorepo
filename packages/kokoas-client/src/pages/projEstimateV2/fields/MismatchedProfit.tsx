@@ -1,5 +1,5 @@
 import { Alert, Button } from '@mui/material';
-import {  UseFormReturn, useWatch } from 'react-hook-form';
+import {  useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 
 /**
@@ -8,12 +8,12 @@ import { TypeOfForm } from '../form';
  *
  * @returns
  */
-export const MismatchedProfit = (formReturn : UseFormReturn<TypeOfForm>) => {
+export const MismatchedProfit = () => {
 
   const {
     setValue,
     control,
-  } = formReturn;
+  } = useFormContext<TypeOfForm>();
 
   const [projTypeProfitLatest, projTypeName] = useWatch({
     control,

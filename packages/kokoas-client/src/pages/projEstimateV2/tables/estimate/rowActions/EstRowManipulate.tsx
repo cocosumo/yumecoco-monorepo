@@ -48,7 +48,11 @@ export const EstRowManipulate = (
 
       >
         <HotKeyTooltip title={'insert'}>
-          <MenuItem onClick={handleInsertItemBelow}>
+          <MenuItem onClick={() => {
+            handleInsertItemBelow();
+            handleClose();
+          }}
+          >
             下に追加
           </MenuItem>
         </HotKeyTooltip>
@@ -56,13 +60,20 @@ export const EstRowManipulate = (
         <HotKeyTooltip title={'ctrl + delete'}>
           <MenuItem
             disabled={isJustOneRow}
-            onClick={handleRemoveItem}
+            onClick={() => {
+              handleRemoveItem();
+              handleClose();
+            }}
           >
             削除
           </MenuItem>
         </HotKeyTooltip>
 
-        <MenuItem onClick={handleCopyItemBelow}>
+        <MenuItem onClick={()=> {
+          handleCopyItemBelow();
+          handleClose();
+        }}
+        >
           下にコピー
         </MenuItem>
 

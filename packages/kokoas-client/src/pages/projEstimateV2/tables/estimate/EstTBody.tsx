@@ -22,14 +22,15 @@ export const EstTBody = ({
 
 
   const fieldArrayHelpers = useFieldArray({
-    control,
     name,
+    control,
   });
 
   const  { fields: rows } = fieldArrayHelpers;
 
   const rowsLength = useMemo(() => rows.length, [rows]);
 
+  console.log(rows);
   return (
 
     <TableBody>
@@ -37,9 +38,7 @@ export const EstTBody = ({
       {rows.map((row, rowIdx) => {
 
         const isAtBottom = rowIdx === (rowsLength - 1);
-
         return (
-
           <EstTRow
             rowIdx={rowIdx}
             control={control}

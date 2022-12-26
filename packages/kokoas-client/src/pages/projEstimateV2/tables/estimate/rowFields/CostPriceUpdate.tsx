@@ -3,7 +3,7 @@ import { useLazyEffect } from 'kokoas-client/src/hooks';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
 
-export const RowCostPrice = ({
+export const CostPriceUpdate = ({
   rowIdx,
 }: {
   rowIdx: number

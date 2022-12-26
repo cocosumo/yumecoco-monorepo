@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from '@mui/material';
-import { PercentField, TextField } from 'kokoas-client/src/components/reactHookForm';
+import { TextField } from 'kokoas-client/src/components/reactHookForm';
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
 import { MoneyField } from 'kokoas-client/src/components/reactHookForm/MoneyField';
 import { TblCellStack } from 'kokoas-client/src/pages/projEstimate/fieldComponents/TblCellStack';
@@ -12,8 +12,10 @@ import { EstRowManipulate } from './rowActions/EstRowManipulate';
 import { EstRowMove } from './rowActions/EstRowMove';
 import { CostPrice } from './rowFields/CostPrice';
 import { QuantityField } from './rowFields/QuantityField';
-import { RowCostPrice } from './rowFields/RowCostPrice';
+import { CostPriceUpdate } from './rowFields/CostPriceUpdate';
 import { TaxType } from './rowFields/TaxType';
+import { ProfitRate } from './rowFields/ProfitRate';
+import { ProfitRateUpdate } from './rowFields/ProfitRateUpdate';
 
 
 export const EstTRow = ({
@@ -120,7 +122,7 @@ export const EstTRow = ({
         >
           {/* 原価 */}
           <CostPrice rowIdx={rowIdx} />
-          <RowCostPrice rowIdx={rowIdx} />
+          <CostPriceUpdate rowIdx={rowIdx} />
         </TableCell>
         <TableCell
           width={headers[4].width}
@@ -134,13 +136,8 @@ export const EstTRow = ({
           align='right'
         >
           {/* 利益率 */}
-          <PercentField
-            controllerProps={{
-              name: getItemsFieldName(rowIdx, 'materialProfRate'),
-              control,
-            }}
-            textFieldProps={{ size: 'small' }}
-          />
+          <ProfitRate rowIdx={rowIdx} />
+          <ProfitRateUpdate rowIdx={rowIdx} />
         </TableCell>
 
         <TableCell

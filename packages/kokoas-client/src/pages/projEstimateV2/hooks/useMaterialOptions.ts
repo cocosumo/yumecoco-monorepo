@@ -18,8 +18,8 @@ export const useMaterialsOptions = ({
     middleItem,
   ] = useWatch({
     name: [
-      getItemsFieldName(rowIdx, 'majorItem'),
-      getItemsFieldName(rowIdx, 'middleItem'),
+      getItemsFieldName<'items.0.majorItem'>(rowIdx, 'majorItem'),
+      getItemsFieldName<'items.0.middleItem'>(rowIdx, 'middleItem'),
     ],
     control,
   });

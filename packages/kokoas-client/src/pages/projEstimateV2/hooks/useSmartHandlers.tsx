@@ -10,11 +10,13 @@ export const useSmartHandlers = () => {
   const { setValue, getValues } = useFormContext<TypeOfForm>();
 
 
-  const handleChangeCostPrice = useCallback((rowIdx: number, costPrice: number ) => {
+  const handleChangeCostPrice = useCallback((rowIdx: number ) => {
+
     const profitRate = getValues(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate')) / 100;
     const taxRate = getValues('taxRate') / 100;
     const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
     const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
+    const costPrice = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'costPrice'));
 
     const {
       rowCostPrice,
@@ -34,7 +36,10 @@ export const useSmartHandlers = () => {
 
   }, [getValues, setValue]);
 
+  const handleChangeUnitPrice = useCallback(handleChangeCostPrice, [handleChangeCostPrice]);
+
   return {
     handleChangeCostPrice,
+    handleChangeUnitPrice,
   };
 };

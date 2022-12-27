@@ -129,7 +129,7 @@ export const EstTRow = ({
           align='right'
         >
           {/* 数量 */}
-          <QuantityField rowIdx={rowIdx} control={control} />
+          <QuantityField rowIdx={rowIdx} />
         </TableCell>
         <TableCell
           width={headers[5].width}

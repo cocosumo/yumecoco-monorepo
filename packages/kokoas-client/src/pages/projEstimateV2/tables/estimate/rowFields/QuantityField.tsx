@@ -1,17 +1,19 @@
-import { IconButton, InputAdornment } from '@mui/material';
-import { NumberField } from 'kokoas-client/src/components/reactHookForm';
+import { IconButton, InputAdornment, OutlinedInput } from '@mui/material';
 import { MouseEvent, useCallback, useState } from 'react';
-import { Control, Controller, useWatch } from 'react-hook-form';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
 import { UnitTypeMenu } from './UnitTypeMenu';
 
 export const QuantityField = ({
   rowIdx,
-  control,
 }: {
   rowIdx: number,
-  control: Control<TypeOfForm>
 }) => {
+  const {
+    control,
+    register,
+    getValues,
+  } = useFormContext<TypeOfForm>();
   const [unitMenuAnchorEl, setUnitMenuAnchorEl] = useState<null | HTMLButtonElement>(null);
 
   const unit = useWatch({
@@ -25,29 +27,30 @@ export const QuantityField = ({
 
   return (
     <>
-      <NumberField
-        controllerProps={{
-          name: getItemsFieldName(rowIdx, 'quantity'),
-          control,
-        }}
-        textFieldProps={{
-          size: 'small',
-          InputProps: {
-            endAdornment: (
-              <InputAdornment position='end'>
-                <IconButton
-                  size='small'
-                  onClick={handleOpenUnitMenu}
-                  sx={{ fontSize: '12px' }}
-                >
-                  {unit}
-                </IconButton>
-
-              </InputAdornment>
-            ),
+      <OutlinedInput
+        {...register(getItemsFieldName(rowIdx, 'quantity'), {
+          onChange: (e) => {
+            const newValue = +(e.target as HTMLInputElement).value ;
+            const testValue = getValues(getItemsFieldName(rowIdx, 'quantity'));
+            console.log(newValue, testValue);
           },
-        }}
+        })}
+        size='small'
+        type={'number'}
+        style={{ textAlign: 'right' }}
+        endAdornment={(
+          <InputAdornment position='end'>
+            <IconButton
+              size='small'
+              onClick={handleOpenUnitMenu}
+              sx={{ fontSize: '12px' }}
+            >
+              {unit}
+            </IconButton>
+          </InputAdornment>
+          )}
       />
+
       <Controller
         name={getItemsFieldName(rowIdx, 'unit')}
         control={control}

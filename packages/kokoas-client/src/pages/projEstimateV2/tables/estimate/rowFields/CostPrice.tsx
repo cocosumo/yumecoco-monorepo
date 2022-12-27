@@ -1,5 +1,4 @@
 import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
-import { SyntheticEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
@@ -17,10 +16,7 @@ export const CostPrice = ({
 
   return (
     <OutlinedMoneyInput {...register(getItemsFieldName(rowIdx, 'costPrice'), {
-      onChange: (e: SyntheticEvent) => {
-        const newValue = +(e.target as HTMLInputElement).value ;
-        handleChange(rowIdx, newValue);
-      },
+      onChange: () => handleChange(rowIdx),
     })}
     />
   );

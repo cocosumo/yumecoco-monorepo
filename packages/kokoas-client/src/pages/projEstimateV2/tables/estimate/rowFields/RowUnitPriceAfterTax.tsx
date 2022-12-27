@@ -1,5 +1,5 @@
 import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 
@@ -10,15 +10,28 @@ export const RowUnitPriceAfterTax = ({
   rowIdx: number,
   handleChange: UseSmartHandlers['handleChangeRowUnitPriceAfterTax']
 }) => {
-  const { register } = useFormContext<TypeOfForm>();
+  const { register, control } = useFormContext<TypeOfForm>();
+
+  const [
+    costPrice,
+    envStatus,
+  ] = useWatch({
+    name: [
+      getItemsFieldName(rowIdx, 'costPrice'),
+      'envStatus',
+    ],
+    control,
+  });
+
 
   return (
-    <OutlinedMoneyInput {...register(
-      getItemsFieldName(rowIdx, 'rowUnitPriceAfterTax'),
-      {
-        onChange: () => handleChange(rowIdx),
-        //disabled: !!envStatus || !+(costPrice ?? 0),
-      })
+    <OutlinedMoneyInput
+      disabled={!!envStatus || !+(costPrice ?? 0)}
+      {...register(
+        getItemsFieldName(rowIdx, 'rowUnitPriceAfterTax'),
+        {
+          onChange: () => handleChange(rowIdx),
+        })
     }
     />
   );

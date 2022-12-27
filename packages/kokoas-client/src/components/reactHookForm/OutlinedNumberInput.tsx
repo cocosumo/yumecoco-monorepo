@@ -1,7 +1,7 @@
 import { OutlinedInput, OutlinedInputProps } from '@mui/material';
 import { forwardRef } from 'react';
 
-export const OutlinedNumberInput = forwardRef<HTMLInputElement>((props: OutlinedInputProps, ref ) => {
+export const OutlinedNumberInput = forwardRef<OutlinedInputProps>((props: OutlinedInputProps, ref ) => {
 
   return (
     <OutlinedInput
@@ -9,7 +9,9 @@ export const OutlinedNumberInput = forwardRef<HTMLInputElement>((props: Outlined
       inputRef={ref}
       size={'small'}
       type={'number'}
-      style={{ textAlign: 'right' }}
+      inputProps={{
+        style: { textAlign: 'right' },
+      }}
     />
   );
 });

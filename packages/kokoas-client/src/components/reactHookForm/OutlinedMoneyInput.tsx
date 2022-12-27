@@ -1,14 +1,16 @@
 import { InputAdornment, OutlinedInput, OutlinedInputProps } from '@mui/material';
 import { forwardRef } from 'react';
 
-export const OutlinedMoneyInput = forwardRef<HTMLInputElement>((props: OutlinedInputProps, ref ) => {
+export const OutlinedMoneyInput = forwardRef<HTMLInputElement, OutlinedInputProps>((props: OutlinedInputProps, ref ) => {
   return (
     <OutlinedInput
       {...props}
       inputRef={ref}
       size={'small'}
       type={'number'}
-      style={{ textAlign: 'right' }}
+      inputProps={{
+        style: { textAlign: 'right' },
+      }}
       endAdornment={(
         <InputAdornment position='end'>
           円

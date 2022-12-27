@@ -48,6 +48,7 @@ export const convertEstimateToForm = (
       profitRate,
       unitPrice,
       rowCostPrice,
+      rowUnitPriceBeforeTax,
     } = calculateEstimateRow({
       costPrice: +原価.value,
       quantity: +数量.value,
@@ -74,6 +75,7 @@ export const convertEstimateToForm = (
       materialProfRate: resolveRowProfitRate,
       unit: (単位.value || '式') as TunitChoices,
       unitPrice: Math.round(unitPrice),
+      rowUnitPriceBeforeTax: Math.round(rowUnitPriceBeforeTax),
       rowUnitPriceAfterTax: Math.round(parsedRowUnitPriceAfterTax),
       taxable: taxType.value === '課税' ? true : false,
 
@@ -93,6 +95,7 @@ export const convertEstimateToForm = (
   const {
     totalCostPrice,
     totalAmountAfterTax,
+    totalAmountBeforeTax,
   } = calculateSummary(newItems);
 
   newItems.push({
@@ -116,6 +119,7 @@ export const convertEstimateToForm = (
     envStatus : envStatus.value,
     items: newItems,
     totalCostPrice,
+    totalAmountBeforeTax,
     totalAmountAfterTax,
   };
 

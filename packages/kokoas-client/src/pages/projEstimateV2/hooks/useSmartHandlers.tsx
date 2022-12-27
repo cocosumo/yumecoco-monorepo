@@ -21,11 +21,11 @@ export const useSmartHandlers = () => {
       const {
         totalCostPrice,
         totalAmountAfterTax,
+        totalAmountBeforeTax,
       } = calculateSummary(items);
 
-      console.log('totalAmountAfterTax', totalAmountAfterTax);
-
       setValue('totalCostPrice', totalCostPrice);
+      setValue('totalAmountBeforeTax', totalAmountBeforeTax);
       setValue('totalAmountAfterTax', totalAmountAfterTax);
 
     }, 500),
@@ -44,6 +44,7 @@ export const useSmartHandlers = () => {
     const {
       rowCostPrice,
       unitPrice,
+      rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
     } = calculateEstimateRow({
       costPrice,
@@ -55,6 +56,7 @@ export const useSmartHandlers = () => {
 
     setValue(getItemsFieldName<'items.0.rowCostPrice'>(rowIdx, 'rowCostPrice'), rowCostPrice);
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
+    setValue(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'), rowUnitPriceBeforeTax);
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
     handleUpdateSummary();
   }, [getValues, setValue, handleUpdateSummary]);
@@ -75,6 +77,7 @@ export const useSmartHandlers = () => {
     const {
       unitPrice,
       rowUnitPriceAfterTax,
+      rowUnitPriceBeforeTax,
     } = calculateEstimateRow({
       costPrice,
       quantity,
@@ -84,6 +87,7 @@ export const useSmartHandlers = () => {
     });
 
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
+    setValue(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'), rowUnitPriceBeforeTax);
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
     handleUpdateSummary();
   }, [getValues, setValue, handleUpdateSummary]);
@@ -101,6 +105,7 @@ export const useSmartHandlers = () => {
     const costPrice = getValues(getItemsFieldName<'items.0.costPrice'>(rowIdx, 'costPrice'));
     const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
     const {
+      rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
       profitRate,
     } = calculateEstimateRow({
@@ -112,7 +117,9 @@ export const useSmartHandlers = () => {
     });
 
     setValue(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate'), roundTo(profitRate * 100, 2));
+    setValue(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'), rowUnitPriceBeforeTax);
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
+
     handleUpdateSummary();
   }, [getValues, setValue, handleUpdateSummary]);
 
@@ -128,6 +135,7 @@ export const useSmartHandlers = () => {
     const {
       unitPrice,
       profitRate,
+      rowUnitPriceBeforeTax,
     } = calculateEstimateRow({
       rowUnitPriceAfterTax,
       costPrice,
@@ -136,6 +144,7 @@ export const useSmartHandlers = () => {
       isTaxable,
     });
 
+    setValue(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'), rowUnitPriceBeforeTax);
     setValue(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate'), roundTo(profitRate * 100, 2));
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
     handleUpdateSummary();

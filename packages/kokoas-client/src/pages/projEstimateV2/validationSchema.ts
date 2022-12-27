@@ -41,24 +41,26 @@ export const validationSchema = yupJA
     /* 合計欄 */
     totalCostPrice: yupNumber.required(),
     totalAmountAfterTax: yupNumber.required(),
+    totalAmountBeforeTax: yupNumber.required(),
 
     'items': yupJA.array()
       .of(
         yupJA.object({
-          majorItem: yupJA.string(),
-          middleItem: yupJA.string(), /* 中項目 */
-          material: yupJA.string(),    /* 部材 */
-          costPrice: yupNumber.required(), /* 原価 */
-          quantity: yupNumber.required(), /* 数量 */
+          majorItem: yupJA.string(), // 大項目
+          middleItem: yupJA.string(), // 中項目
+          material: yupJA.string(),  // 部材
+          costPrice: yupNumber.required(), // 原価
+          quantity: yupNumber.required(), // 数量
           rowCostPrice: yupNumber.required(),
           materialProfRate: yupNumber.required()
-            .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
-          unit: yupJA.mixed<TunitChoices>().oneOf(unitChoices).required(), /* 単位 */
-          taxable: yupJA.boolean().required(),  /* 税(課税/非課税) */
-          unitPrice: yupNumber.required(), /* 単価 */
-          rowUnitPriceAfterTax: yupNumber.required(), /* 金額 */
+            .max(100, '100以下の数字を入力してください'), // 利益率(部材)
+          unit: yupJA.mixed<TunitChoices>().oneOf(unitChoices).required(), // 単位
+          taxable: yupJA.boolean().required(),  // 税(課税/非課税)
+          unitPrice: yupNumber.required(), // 単価
           materialDetails: yupJA.string(),
           rowDetails: yupJA.string(),
+          rowUnitPriceBeforeTax: yupNumber.required(), // 税抜き金額 */
+          rowUnitPriceAfterTax: yupNumber.required(), // 税込み金額
         }),
       )
       .required('Must have items')

@@ -40,6 +40,7 @@ export const initialValues : TypeOfForm = {
       quantity: 1,
       rowCostPrice: 0,
       rowDetails: '',
+      rowUnitPriceBeforeTax: 0,
       rowUnitPriceAfterTax: 0,
       taxable: true,
       unit: '式',
@@ -48,6 +49,7 @@ export const initialValues : TypeOfForm = {
   ],
 
   totalCostPrice: 0,
+  totalAmountBeforeTax: 0,
   totalAmountAfterTax: 0,
 };
 

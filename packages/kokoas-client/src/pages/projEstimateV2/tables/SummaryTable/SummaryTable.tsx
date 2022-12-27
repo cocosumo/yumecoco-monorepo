@@ -14,10 +14,12 @@ export default function SummaryTable() {
 
   const [
     totalCostPrice,
+    totalAmountBeforeTax,
     totalAmountAfterTax,
   ] = useWatch<TypeOfForm>({
     name: [
       'totalCostPrice',
+      'totalAmountBeforeTax',
       'totalAmountAfterTax',
     ],
   });
@@ -49,14 +51,14 @@ export default function SummaryTable() {
           </TabelCellNumber>
           <TabelCellNumber>
             {Math.round(grossProfitRate).toLocaleString() + '%'}
-          </TabelCellNumber>
-          <TabelCellNumber>
-            {Math.round(taxAmount).toLocaleString() + '円'}
-          </TabelCellNumber>
-          <TabelCellNumber>
-            {Math.round(totalAmountBeforeTax).toLocaleString() + '円'}
-          </TabelCellNumber>
-        */}
+          </TabelCellNumber>*/}
+        <TabelCellNumber>
+          {Math.round((totalAmountAfterTax as number) - (totalAmountBeforeTax as number)).toLocaleString() + '円'}
+        </TabelCellNumber>
+        <TabelCellNumber>
+          {Math.round((totalAmountBeforeTax ?? 0) as number).toLocaleString() + '円'}
+        </TabelCellNumber>
+
 
         <TabelCellNumber
           sx={{
@@ -64,7 +66,7 @@ export default function SummaryTable() {
             fontWeight: 'bold',
           }}
         >
-          {Math.round(+(totalAmountAfterTax ?? 0 ) as number).toLocaleString() + '円'}
+          {Math.round((totalAmountAfterTax ?? 0 ) as number).toLocaleString() + '円'}
         </TabelCellNumber>
       </SummaryContentsContainer>
     </SummaryTableContainer>

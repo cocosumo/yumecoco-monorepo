@@ -1,4 +1,6 @@
 import { TableHead, TableRow } from '@mui/material';
+import { calcProfitRate } from 'api-kintone';
+import { roundTo } from 'libs';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { SummaryTableContainer } from './SummaryTableContainer';
@@ -24,6 +26,10 @@ export default function SummaryTable() {
     ],
   });
 
+  const profitRate = roundTo(
+    calcProfitRate(totalCostPrice as number, totalAmountBeforeTax as number) * 100, 2,
+  );
+
   return (
     <SummaryTableContainer >
       <TableHead>
@@ -46,12 +52,12 @@ export default function SummaryTable() {
         <TabelCellNumber>
           {Math.round(+(totalCostPrice ?? 0 ) as number).toLocaleString() + '円'}
         </TabelCellNumber>
-        {/* <TabelCellNumber>
-            {Math.round(grossProfitVal).toLocaleString() + '円'}
-          </TabelCellNumber>
-          <TabelCellNumber>
-            {Math.round(grossProfitRate).toLocaleString() + '%'}
-          </TabelCellNumber>*/}
+        <TabelCellNumber>
+          {Math.round(Math.round((totalAmountBeforeTax as number) - (totalCostPrice as number))).toLocaleString() + '円'}
+        </TabelCellNumber>
+        <TabelCellNumber>
+          {profitRate.toLocaleString() + '%'}
+        </TabelCellNumber>
         <TabelCellNumber>
           {Math.round((totalAmountAfterTax as number) - (totalAmountBeforeTax as number)).toLocaleString() + '円'}
         </TabelCellNumber>

@@ -9,7 +9,7 @@ export const CostPriceUpdate = ({
   rowIdx: number
 }) => {
   const { control, setValue, getValues, getFieldState } = useFormContext<TypeOfForm>();
-  
+
 
   const [
     costPrice,
@@ -27,6 +27,7 @@ export const CostPriceUpdate = ({
     const quantityState = getFieldState(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
 
     if (!costPriceState.isDirty && !quantityState.isDirty ) return;
+
 
     const profitRate = getValues(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate')) / 100;
     const taxRate = getValues('taxRate') / 100;
@@ -48,8 +49,8 @@ export const CostPriceUpdate = ({
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
 
-  }, 
-  [costPrice, quantity, setValue, getFieldState], 
+  },
+  [costPrice, quantity, setValue, getFieldState],
   500);
 
   return (null);

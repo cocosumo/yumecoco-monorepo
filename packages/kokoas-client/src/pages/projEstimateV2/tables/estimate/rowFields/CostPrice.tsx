@@ -1,22 +1,27 @@
-import { MoneyField } from 'kokoas-client/src/components/reactHookForm/MoneyField';
+import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
+import { SyntheticEvent } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
+import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 
 export const CostPrice = ({
   rowIdx,
+  handleChange,
 }: {
   rowIdx: number
+  handleChange: UseSmartHandlers['handleChangeCostPrice']
+
 }) => {
 
-  const { control } = useFormContext<TypeOfForm>();
+  const { register } = useFormContext<TypeOfForm>();
 
   return (
-    <MoneyField
-      controllerProps={{
-        name: getItemsFieldName(rowIdx, 'costPrice'),
-        control,
-      }}
-      textFieldProps={{ size: 'small' }}
+    <OutlinedMoneyInput {...register(getItemsFieldName(rowIdx, 'costPrice'), {
+      onChange: (e: SyntheticEvent) => {
+        const newValue = +(e.target as HTMLInputElement).value ;
+        handleChange(rowIdx, newValue);
+      },
+    })}
     />
   );
 };

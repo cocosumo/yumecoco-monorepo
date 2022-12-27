@@ -1,9 +1,8 @@
 import { TableCell, TableRow } from '@mui/material';
 import { TextField } from 'kokoas-client/src/components/reactHookForm';
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
-import { MoneyField } from 'kokoas-client/src/components/reactHookForm/MoneyField';
 import { TblCellStack } from 'kokoas-client/src/pages/projEstimate/fieldComponents/TblCellStack';
-import {  useFormContext, useWatch } from 'react-hook-form';
+import {  useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../form';
 import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
@@ -12,10 +11,14 @@ import { EstRowManipulate } from './rowActions/EstRowManipulate';
 import { EstRowMove } from './rowActions/EstRowMove';
 import { CostPrice } from './rowFields/CostPrice';
 import { QuantityField } from './rowFields/QuantityField';
-import { CostPriceUpdate } from './rowFields/CostPriceUpdate';
 import { TaxType } from './rowFields/TaxType';
 import { ProfitRate } from './rowFields/ProfitRate';
 import { ProfitRateUpdate } from './rowFields/ProfitRateUpdate';
+import { UnitPrice } from './rowFields/UnitPrice';
+import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
+import { UnitPriceUpdate } from './rowFields/UnitPriceUpdate';
+import { RowUnitPriceAfterTaxUpdate } from './rowFields/RowUnitPriceAfterTaxUpdate';
+import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 
 
 export const EstTRow = ({
@@ -34,17 +37,15 @@ export const EstTRow = ({
 }) => {
 
   const { control } = useFormContext<TypeOfForm>();
+  const {
+    handleChangeCostPrice,
+  } = useSmartHandlers();
 
   const {
     majorItemOpts,
     middleItemOpts,
     materialOpts,
   } = useMaterialsOptions({ rowIdx, control });
-
-  const costPrice = +(useWatch({
-    name: getItemsFieldName(rowIdx, 'costPrice'),
-    control,
-  }) ?? 0);
 
   return (
     <>
@@ -63,7 +64,7 @@ export const EstTRow = ({
             isVisible={isVisible}
             rowIdx={rowIdx}
             rowLength={rowsLength}
-           
+
           />
         </TableCell>
         <TblCellStack
@@ -121,8 +122,7 @@ export const EstTRow = ({
           align='right'
         >
           {/* 原価 */}
-          <CostPrice rowIdx={rowIdx} />
-          <CostPriceUpdate rowIdx={rowIdx} />
+          <CostPrice rowIdx={rowIdx} handleChange={handleChangeCostPrice}  />
         </TableCell>
         <TableCell
           width={headers[4].width}
@@ -155,31 +155,15 @@ export const EstTRow = ({
           width={headers[7].width}
         >
           {/* 単価 */}
-          <MoneyField
-            controllerProps={{
-              name: getItemsFieldName(rowIdx, 'unitPrice'),
-              control,
-            }}
-            textFieldProps={{
-              size: 'small',
-              disabled: isDisabled || !costPrice,
-            }}
-          />
+          <UnitPrice rowIdx={rowIdx} />
+          <UnitPriceUpdate rowIdx={rowIdx} />
         </TableCell>
         <TableCell
           width={headers[8].width}
         >
           {/* 金額 */}
-          <MoneyField
-            controllerProps={{
-              name: getItemsFieldName(rowIdx, 'rowUnitPriceAfterTax'),
-              control,
-            }}
-            textFieldProps={{
-              size: 'small',
-              disabled: isDisabled || !costPrice,
-            }}
-          />
+          <RowUnitPriceAfterTax rowIdx={rowIdx} />
+          <RowUnitPriceAfterTaxUpdate rowIdx={rowIdx} />
         </TableCell>
 
         <TableCell width={headers[9].width} className={'action'}>

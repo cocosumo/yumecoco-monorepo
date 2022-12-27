@@ -39,6 +39,7 @@ export const EstTRow = ({
   const { control } = useFormContext<TypeOfForm>();
   const {
     handleChangeCostPrice,
+    handleChangeUnitPrice,
   } = useSmartHandlers();
 
   const {
@@ -129,7 +130,7 @@ export const EstTRow = ({
           align='right'
         >
           {/* 数量 */}
-          <QuantityField rowIdx={rowIdx} />
+          <QuantityField rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />
         </TableCell>
         <TableCell
           width={headers[5].width}

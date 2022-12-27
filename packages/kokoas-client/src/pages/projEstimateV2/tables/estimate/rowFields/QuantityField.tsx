@@ -2,17 +2,19 @@ import { IconButton, InputAdornment, OutlinedInput } from '@mui/material';
 import { MouseEvent, useCallback, useState } from 'react';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
+import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 import { UnitTypeMenu } from './UnitTypeMenu';
 
 export const QuantityField = ({
   rowIdx,
+  handleChange,
 }: {
   rowIdx: number,
+  handleChange: UseSmartHandlers['handleChangeUnitPrice']
 }) => {
   const {
     control,
     register,
-    getValues,
   } = useFormContext<TypeOfForm>();
   const [unitMenuAnchorEl, setUnitMenuAnchorEl] = useState<null | HTMLButtonElement>(null);
 
@@ -29,11 +31,7 @@ export const QuantityField = ({
     <>
       <OutlinedInput
         {...register(getItemsFieldName(rowIdx, 'quantity'), {
-          onChange: (e) => {
-            const newValue = +(e.target as HTMLInputElement).value ;
-            const testValue = getValues(getItemsFieldName(rowIdx, 'quantity'));
-            console.log(newValue, testValue);
-          },
+          onChange: () => handleChange(rowIdx),
         })}
         size='small'
         type={'number'}

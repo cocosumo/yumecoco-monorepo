@@ -1,7 +1,7 @@
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useConfirmDialog, useSnackBar } from 'kokoas-client/src/hooks';
 import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
-import { SubmitErrorHandler, SubmitHandler } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { ButtonSubmitEvent } from 'types';
 import { convertToKintone } from '../api/convertToKintone';
@@ -10,7 +10,12 @@ import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
 
 export type SaveButtonNames = 'temporary' | 'save';
 
-export const useSaveForm = () => {
+export type UseSaveForm = ReturnType<typeof useSaveForm>;
+export const useSaveForm = ({
+  handleSubmit,
+}: UseFormReturn<TypeOfForm>) => {
+
+
   const { setSnackState } = useSnackBar();
   const {
     handleClose,
@@ -47,9 +52,10 @@ export const useSaveForm = () => {
   };
 
   const onSubmitValid: SubmitHandler<TypeOfForm> = async (data, e) => {
-    const saveButtonName = (e as ButtonSubmitEvent<SaveButtonNames> ).nativeEvent.submitter.name;
 
-    if (saveButtonName === 'temporary') {
+    const saveButtonName = (e as ButtonSubmitEvent<SaveButtonNames> )?.nativeEvent?.submitter?.name;
+
+    if (!saveButtonName || saveButtonName === 'temporary') {
       const { id } = await handleSave(data);
       navigate(`?${generateParams({ projEstimateId: id })}`);
     } else {
@@ -77,5 +83,6 @@ export const useSaveForm = () => {
   return {
     onSubmitValid,
     onSubmitInvalid,
+    handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),
   };
 };

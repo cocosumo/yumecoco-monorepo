@@ -4,7 +4,6 @@ import { HotKeyTooltip } from 'kokoas-client/src/components';
 import { useWatch } from 'react-hook-form';
 import { estArrayFieldName, Item } from '../../form';
 import { useRowValues } from '../../hooks/useRowValues';
-import isEqual from 'lodash/isEqual';
 import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { useLazyEffect } from 'kokoas-client/src/hooks';
 
@@ -28,15 +27,7 @@ export const EstTableActions = ({
 
   /** 自動行追加 */
   useLazyEffect(() => {
-    const { unitPrice: _unitPrice, ...otherLastRow } = lastRow;
-    const { unitPrice: _unitPriceNew, ...otherNewRow } = getNewRow();
-
-    // disabledの場合、値はundefinedになるので、比較せず行追加もしない
-    // 参考：https://react-hook-form.com/api/useform/register
-    if (_unitPrice === undefined) return;
-
-    const equal = isEqual(otherLastRow, otherNewRow);
-    if (!equal) {
+    if (+lastRow.costPrice !== 0) {
       handleAppendItem();
     }
   }, [lastRow, getNewRow, handleAppendItem], 500);

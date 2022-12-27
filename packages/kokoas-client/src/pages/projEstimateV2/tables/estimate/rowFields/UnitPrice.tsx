@@ -11,7 +11,10 @@ export const UnitPrice = ({
   handleChange: UseSmartHandlers['handleChangeUnitPrice']
 }) => {
 
-  const { control, register } = useFormContext<TypeOfForm>();
+  const {
+    control,
+    register,
+  } = useFormContext<TypeOfForm>();
 
   const [
     costPrice,
@@ -28,7 +31,7 @@ export const UnitPrice = ({
     <OutlinedMoneyInput {...register(
       getItemsFieldName(rowIdx, 'unitPrice'),
       {
-        onChange: handleChange,
+        onChange: () => handleChange(rowIdx),
         disabled: !!envStatus || !+(costPrice ?? 0),
       })
     }

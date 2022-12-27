@@ -27,7 +27,7 @@ export const RowUnitPriceAfterTax = ({
     <OutlinedMoneyInput {...register(
       getItemsFieldName(rowIdx, 'rowUnitPriceAfterTax'),
       {
-        onChange: handleChange,
+        onChange: () => handleChange(rowIdx),
         disabled: !!envStatus || !+(costPrice ?? 0),
       })
     }

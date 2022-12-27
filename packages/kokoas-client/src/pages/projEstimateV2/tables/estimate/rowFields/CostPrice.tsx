@@ -15,9 +15,10 @@ export const CostPrice = ({
   const { register } = useFormContext<TypeOfForm>();
 
   return (
-    <OutlinedMoneyInput {...register(getItemsFieldName(rowIdx, 'costPrice'), {
-      onChange: () => handleChange(rowIdx),
-    })}
+    <OutlinedMoneyInput {
+      ...register(getItemsFieldName(rowIdx, 'costPrice'), {
+        onChange: () => handleChange(rowIdx),
+      })}
     />
   );
 };

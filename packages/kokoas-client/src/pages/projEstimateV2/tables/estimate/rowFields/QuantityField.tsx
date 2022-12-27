@@ -10,7 +10,7 @@ export const QuantityField = ({
   handleChange,
 }: {
   rowIdx: number,
-  handleChange: UseSmartHandlers['handleChangeUnitPrice']
+  handleChange: UseSmartHandlers['handleChangeQuantity']
 }) => {
   const {
     control,

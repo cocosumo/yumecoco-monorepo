@@ -1,21 +1,25 @@
-import { PercentField } from 'kokoas-client/src/components/reactHookForm';
+import { OutlinedPercentInput } from 'kokoas-client/src/components/reactHookForm/OutlinedPercentInput';
 import { useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
+import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 
 export const ProfitRate = ({
   rowIdx,
+  handleChange,
 }: {
   rowIdx: number
+  handleChange: UseSmartHandlers['handleChangeProfitRate']
 }) => {
-  const { control } = useFormContext<TypeOfForm>();
+  const { register } = useFormContext<TypeOfForm>();
 
   return (
-    <PercentField
-      controllerProps={{
-        name: getItemsFieldName(rowIdx, 'materialProfRate'),
-        control,
-      }}
-      textFieldProps={{ size: 'small' }}
+    <OutlinedPercentInput
+      {...register(
+        getItemsFieldName(rowIdx, 'materialProfRate'),
+        {
+          onChange: () => handleChange(rowIdx),
+        },
+      )}
     />
   );
 };

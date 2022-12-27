@@ -13,10 +13,8 @@ import { CostPrice } from './rowFields/CostPrice';
 import { QuantityField } from './rowFields/QuantityField';
 import { TaxType } from './rowFields/TaxType';
 import { ProfitRate } from './rowFields/ProfitRate';
-import { ProfitRateUpdate } from './rowFields/ProfitRateUpdate';
 import { UnitPrice } from './rowFields/UnitPrice';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
-import { UnitPriceUpdate } from './rowFields/UnitPriceUpdate';
 import { RowUnitPriceAfterTaxUpdate } from './rowFields/RowUnitPriceAfterTaxUpdate';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 
@@ -39,6 +37,8 @@ export const EstTRow = ({
   const { control } = useFormContext<TypeOfForm>();
   const {
     handleChangeCostPrice,
+    handleChangeQuantity,
+    handleChangeProfitRate,
     handleChangeUnitPrice,
   } = useSmartHandlers();
 
@@ -130,15 +130,14 @@ export const EstTRow = ({
           align='right'
         >
           {/* 数量 */}
-          <QuantityField rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />
+          <QuantityField rowIdx={rowIdx} handleChange={handleChangeQuantity} />
         </TableCell>
         <TableCell
           width={headers[5].width}
           align='right'
         >
           {/* 利益率 */}
-          <ProfitRate rowIdx={rowIdx} />
-          <ProfitRateUpdate rowIdx={rowIdx} />
+          <ProfitRate rowIdx={rowIdx} handleChange={handleChangeProfitRate} />
         </TableCell>
 
         <TableCell
@@ -156,8 +155,7 @@ export const EstTRow = ({
           width={headers[7].width}
         >
           {/* 単価 */}
-          <UnitPrice rowIdx={rowIdx} />
-          <UnitPriceUpdate rowIdx={rowIdx} />
+          <UnitPrice rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />
         </TableCell>
         <TableCell
           width={headers[8].width}

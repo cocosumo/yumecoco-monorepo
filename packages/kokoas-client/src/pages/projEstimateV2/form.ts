@@ -52,6 +52,7 @@ export const initialValues : TypeOfForm = {
 export const estArrayFieldName : KeyOfForm = 'items';
 
 export const initialRow = initialValues.items[0];
+export type Item = typeof initialRow;
 
 export const getItemsFieldName = <T = 'items.0.costPrice'>(
   rowIdx: number, fieldName?: KRowFields,

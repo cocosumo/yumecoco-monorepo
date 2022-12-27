@@ -15,7 +15,6 @@ import { TaxType } from './rowFields/TaxType';
 import { ProfitRate } from './rowFields/ProfitRate';
 import { UnitPrice } from './rowFields/UnitPrice';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
-import { RowUnitPriceAfterTaxUpdate } from './rowFields/RowUnitPriceAfterTaxUpdate';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 
 
@@ -40,6 +39,7 @@ export const EstTRow = ({
     handleChangeQuantity,
     handleChangeProfitRate,
     handleChangeUnitPrice,
+    handleChangeRowUnitPriceAfterTax,
   } = useSmartHandlers();
 
   const {
@@ -161,8 +161,7 @@ export const EstTRow = ({
           width={headers[8].width}
         >
           {/* 金額 */}
-          <RowUnitPriceAfterTax rowIdx={rowIdx} />
-          <RowUnitPriceAfterTaxUpdate rowIdx={rowIdx} />
+          <RowUnitPriceAfterTax rowIdx={rowIdx} handleChange={handleChangeRowUnitPriceAfterTax} />
         </TableCell>
 
         <TableCell width={headers[9].width} className={'action'}>

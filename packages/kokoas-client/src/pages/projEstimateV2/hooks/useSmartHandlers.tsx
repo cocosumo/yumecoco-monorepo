@@ -23,6 +23,8 @@ export const useSmartHandlers = () => {
         totalAmountAfterTax,
       } = calculateSummary(items);
 
+      console.log('totalAmountAfterTax', totalAmountAfterTax);
+
       setValue('totalCostPrice', totalCostPrice);
       setValue('totalAmountAfterTax', totalAmountAfterTax);
 
@@ -83,8 +85,8 @@ export const useSmartHandlers = () => {
 
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
-
-  }, [getValues, setValue]);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
 
   /************************
    * 非課税・課税の変更 */
@@ -111,8 +113,8 @@ export const useSmartHandlers = () => {
 
     setValue(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate'), roundTo(profitRate * 100, 2));
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
-
-  }, [getValues, setValue]);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
 
   /************************
    * 金額（税込み）の変更 */
@@ -136,8 +138,8 @@ export const useSmartHandlers = () => {
 
     setValue(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate'), roundTo(profitRate * 100, 2));
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
-
-  }, [getValues, setValue]);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
 
   return {
     handleChangeCostPrice,

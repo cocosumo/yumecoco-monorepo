@@ -64,7 +64,7 @@ export default function SummaryTable() {
             fontWeight: 'bold',
           }}
         >
-          {Math.round(+(totalCostPrice ?? 0 ) as number).toLocaleString() + '円'}
+          {Math.round(+(totalAmountAfterTax ?? 0 ) as number).toLocaleString() + '円'}
         </TabelCellNumber>
       </SummaryContentsContainer>
     </SummaryTableContainer>

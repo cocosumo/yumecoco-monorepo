@@ -47,5 +47,6 @@ export const useEstTRowHotKeys = ({
       keyup: false,
       keydown: true,
     },
+    [gotoNextRow, handleRemoveItem, handleInsertItemBelow],
   );
 };

@@ -9,17 +9,18 @@ export const useSubTotalCalc = (): Array<[string, number]> => {
 
   const result = (items as Item[])
     .reduce((acc, { majorItem, rowUnitPriceAfterTax })=> {
-      if (!rowUnitPriceAfterTax) return acc;
+
+      const parsedValue = +(rowUnitPriceAfterTax ?? 0);
+      if (!parsedValue) return acc;
 
       if (!majorItem) {
-        acc['---'] += rowUnitPriceAfterTax;
+        acc['---'] += +parsedValue;
 
       } else {
         if (!acc[majorItem]) {
           acc[majorItem] = 0;
         }
-
-        acc[majorItem] += rowUnitPriceAfterTax;
+        acc[majorItem] += +parsedValue;
 
       }
 

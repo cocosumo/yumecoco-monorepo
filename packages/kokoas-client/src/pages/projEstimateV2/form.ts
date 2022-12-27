@@ -47,6 +47,8 @@ export const initialValues : TypeOfForm = {
     },
   ],
 
+  totalCostPrice: 0,
+  totalAmountAfterTax: 0,
 };
 
 export const estArrayFieldName : KeyOfForm = 'items';

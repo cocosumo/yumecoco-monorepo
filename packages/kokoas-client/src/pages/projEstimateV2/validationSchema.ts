@@ -37,6 +37,11 @@ export const validationSchema = yupJA
     status: yupJA.mixed<TStatusChoices>().oneOf(statusChoices),
 
     envStatus: yupJA.string(),
+
+    /* 合計欄 */
+    totalCostPrice: yupNumber.required(),
+    totalAmountAfterTax: yupNumber.required(),
+
     'items': yupJA.array()
       .of(
         yupJA.object({

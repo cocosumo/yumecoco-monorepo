@@ -2,13 +2,33 @@
 
 import { calculateEstimateRow } from 'api-kintone';
 import { roundTo } from 'libs';
-import { useCallback } from 'react';
+import debounce from 'lodash/debounce';
+import { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { calculateSummary } from '../api/calculateSummary';
 import { getItemsFieldName, TypeOfForm } from '../form';
 
 export type UseSmartHandlers =  ReturnType<typeof useSmartHandlers>;
+
 export const useSmartHandlers = () => {
   const { setValue, getValues } = useFormContext<TypeOfForm>();
+
+  /******************
+  * 合計欄の更新 */
+  const handleUpdateSummary = useMemo(
+    () =>debounce(()=>{
+      const items = getValues('items');
+      const {
+        totalCostPrice,
+        totalAmountAfterTax,
+      } = calculateSummary(items);
+
+      setValue('totalCostPrice', totalCostPrice);
+      setValue('totalAmountAfterTax', totalAmountAfterTax);
+
+    }, 500),
+    [getValues, setValue],
+  );
 
   /***************
    * 原価の変更 */
@@ -34,8 +54,8 @@ export const useSmartHandlers = () => {
     setValue(getItemsFieldName<'items.0.rowCostPrice'>(rowIdx, 'rowCostPrice'), rowCostPrice);
     setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
     setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
-
-  }, [getValues, setValue]);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
 
   /***************
    * 数量の変更 */

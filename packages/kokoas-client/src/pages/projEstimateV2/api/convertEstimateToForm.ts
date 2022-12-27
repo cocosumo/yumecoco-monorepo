@@ -4,6 +4,7 @@ import { formatDataId, roundTo } from 'libs';
 import { IProjestimates, TaxType } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { TunitChoices } from '../validationSchema';
+import { calculateSummary } from './calculateSummary';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -75,7 +76,7 @@ export const convertEstimateToForm = (
       unitPrice: Math.round(unitPrice),
       rowUnitPriceAfterTax: Math.round(parsedRowUnitPriceAfterTax),
       taxable: taxType.value === '課税' ? true : false,
-      
+
     };
   });
 
@@ -89,10 +90,17 @@ export const convertEstimateToForm = (
   */
   if (!initialValues?.items?.[0]) throw new Error('!initialValues.items[0] is undefined');
 
+  const {
+    totalCostPrice,
+    totalAmountAfterTax,
+  } = calculateSummary(newItems);
+
   newItems.push({
     ...initialValues.items[0],
     materialProfRate: +projTypeProfit.value,
   });
+
+
 
   /* フォーム */
   return {
@@ -107,6 +115,8 @@ export const convertEstimateToForm = (
     createdDate : parseISO(作成日時.value),
     envStatus : envStatus.value,
     items: newItems,
+    totalCostPrice,
+    totalAmountAfterTax,
   };
 
 };

@@ -38,7 +38,6 @@ export const EstTBody = ({
             isAtBottom={isAtBottom}
             isVisible={!isDisabled}
             rowsLength={rowsLength}
-            isDisabled={isDisabled}
           />
         );
       })}

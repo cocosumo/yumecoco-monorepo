@@ -1,19 +1,31 @@
 import { MenuItem } from '@mui/material';
 import { Select } from 'kokoas-client/src/components/reactHookForm';
-import { Control } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { taxChoices } from 'types';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
+import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 
 
 export const TaxType = ({
-  control,
-  disabled,
   rowIdx,
+  handleChange,
 }: {
-  control: Control<TypeOfForm>
-  disabled: boolean
   rowIdx: number
+  handleChange: UseSmartHandlers['handleChangeTaxType']
 }) => {
+
+  const { control } = useFormContext<TypeOfForm>();
+
+  const [
+    costPrice,
+    envStatus,
+  ] = useWatch({
+    name: [
+      getItemsFieldName<'items.0.costPrice'>(rowIdx, 'costPrice'),
+      'envStatus',
+    ],
+    control,
+  });
 
   return (
     <Select
@@ -23,8 +35,8 @@ export const TaxType = ({
       }}
       selectProps={{
         size: 'small',
-        disabled,
-
+        disabled: !!envStatus || !+(costPrice ?? 0),
+        onChange: () => handleChange(rowIdx),
       }}
     >
       {taxChoices.map((choice) => (

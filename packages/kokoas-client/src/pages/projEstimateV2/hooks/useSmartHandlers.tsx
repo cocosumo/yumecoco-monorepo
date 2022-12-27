@@ -66,6 +66,9 @@ export const useSmartHandlers = () => {
 
   }, [getValues, setValue]);
 
+  /************************
+   * 非課税・課税の変更 */
+  const handleChangeTaxType = useCallback(handleChangeProfitRate, [handleChangeProfitRate]);
 
   /****************
    * 単価の変更 */
@@ -120,6 +123,7 @@ export const useSmartHandlers = () => {
     handleChangeCostPrice,
     handleChangeQuantity,
     handleChangeProfitRate,
+    handleChangeTaxType,
     handleChangeUnitPrice,
     handleChangeRowUnitPriceAfterTax,
   };

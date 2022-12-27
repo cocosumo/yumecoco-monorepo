@@ -22,14 +22,12 @@ export const EstTRow = ({
   rowIdx,
   isVisible,
   isAtBottom,
-  isDisabled,
   rowsLength,
   ...rowMethods
 }: UseManipulateItemRows & {
   rowIdx: number,
   isAtBottom: boolean,
   isVisible: boolean,
-  isDisabled: boolean,
   rowsLength: number,
 }) => {
 
@@ -38,6 +36,7 @@ export const EstTRow = ({
     handleChangeCostPrice,
     handleChangeQuantity,
     handleChangeProfitRate,
+    handleChangeTaxType,
     handleChangeUnitPrice,
     handleChangeRowUnitPriceAfterTax,
   } = useSmartHandlers();
@@ -144,11 +143,7 @@ export const EstTRow = ({
           width={headers[6].width}
         >
           {/* 税 */}
-          <TaxType
-            disabled={isDisabled}
-            control={control}
-            rowIdx={rowIdx}
-          />
+          <TaxType rowIdx={rowIdx} handleChange={handleChangeTaxType} />
         </TableCell>
 
         <TableCell

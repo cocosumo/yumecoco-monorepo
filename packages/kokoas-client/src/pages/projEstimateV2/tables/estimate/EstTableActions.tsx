@@ -26,9 +26,14 @@ export const EstTableActions = ({
     name: lastRowName as 'items.0.test',
   });
 
+  /** 自動行追加 */
   useLazyEffect(() => {
     const { unitPrice: _unitPrice, ...otherLastRow } = lastRow;
     const { unitPrice: _unitPriceNew, ...otherNewRow } = getNewRow();
+
+    // disabledの場合、値はundefinedになるので、比較せず行追加もしない
+    // 参考：https://react-hook-form.com/api/useform/register
+    if (_unitPrice === undefined) return;
 
     const equal = isEqual(otherLastRow, otherNewRow);
     if (!equal) {

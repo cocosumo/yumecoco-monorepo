@@ -1,7 +1,7 @@
 import { Divider, Grid } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TypeOfForm, initialValues } from './form';
+import { TypeOfForm } from './form';
 import { validationSchema } from './validationSchema';
 import { FormContainer, PageTitle } from 'kokoas-client/src/components';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm/SearchProjects';
@@ -18,7 +18,7 @@ export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
 
   const formReturn = useForm<TypeOfForm>({
-    defaultValues: initialValues,
+    defaultValues: initialForm,
     resolver: yupResolver(validationSchema),
   });
 
@@ -34,11 +34,8 @@ export const FormProjEstimate = () => {
   } = useSaveForm();
 
   useEffect(() => {
-
     reset({ ...initialForm });
   }, [initialForm, reset]);
-
-
 
   return (
     <FormProvider {...formReturn}>

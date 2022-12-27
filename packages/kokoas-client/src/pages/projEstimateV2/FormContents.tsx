@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Divider, Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 import {
   TextField,
@@ -8,6 +8,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
+import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { EstTable } from './tables/estimate/EstTable';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
@@ -106,7 +107,18 @@ export const FormContents = () => {
         <Grid item xs={12} md={6}>
           <SubTotalTable />
         </Grid>
+
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+
+        <Grid item xs={12}>
+          <GoToContractButton />
+        </Grid>
+
+        {/* 合計欄 */}
         <SummaryTable />
+
       </>
 
     );

@@ -1,6 +1,6 @@
 import { Stack, Zoom } from '@mui/material';
 import { useIsMutating } from '@tanstack/react-query';
-import { ProjEstimateShortcuts } from '../../projEstimate/navigationComponents/ProjEstimateShortcuts';
+import { ProjEstimateShortcuts } from '../navigationComponents/ProjEstimateShortcuts';
 import { BtnCancelEdit } from './BtnCancelEdit';
 import { BtnSave } from './BtnSave';
 import { BtnSaveTemporary } from './BtnSaveTemporary';

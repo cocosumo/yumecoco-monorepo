@@ -10,6 +10,7 @@ import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { EstTable } from './tables/estimate/EstTable';
+import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 
 
@@ -93,9 +94,17 @@ export const FormContents = () => {
           <PageSubTitle label={<EstimateTableLabel />} />
         </Grid>
 
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12}>
           {/* 見積もり内訳のテーブル */}
           <EstTable isDisabled={disabled} />
+        </Grid>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label={'大項目小計欄'} />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <SubTotalTable />
         </Grid>
         <SummaryTable />
       </>

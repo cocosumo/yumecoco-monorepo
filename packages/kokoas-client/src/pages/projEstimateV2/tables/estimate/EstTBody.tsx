@@ -33,6 +33,7 @@ export const EstTBody = ({
         return (
           <EstTRow
             {...rowMethods}
+            id={row.id}
             key={row.id}
             rowIdx={rowIdx}
             isAtBottom={isAtBottom}

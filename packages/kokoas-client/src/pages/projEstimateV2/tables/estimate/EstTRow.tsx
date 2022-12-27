@@ -16,16 +16,19 @@ import { ProfitRate } from './rowFields/ProfitRate';
 import { UnitPrice } from './rowFields/UnitPrice';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
+import { useEstTRowHotKeys } from '../../hooks/useEstTRowHotKeys';
 
 
 export const EstTRow = ({
   rowIdx,
+  id,
   isVisible,
   isAtBottom,
   rowsLength,
   ...rowMethods
 }: UseManipulateItemRows & {
   rowIdx: number,
+  id: string,
   isAtBottom: boolean,
   isVisible: boolean,
   rowsLength: number,
@@ -47,9 +50,20 @@ export const EstTRow = ({
     materialOpts,
   } = useMaterialsOptions({ rowIdx, control });
 
+  const rowMainRef = useEstTRowHotKeys({
+    rowIdx,
+    isLastRow: isAtBottom,
+    ...rowMethods,
+  });
+  const rowSubRef = useEstTRowHotKeys({
+    rowIdx,
+    isLastRow: isAtBottom,
+    ...rowMethods,
+  });
+
   return (
     <>
-      <TableRow>
+      <TableRow id={id} ref={rowMainRef}>
         <TableCell
           className={'action'}
           rowSpan={2}
@@ -164,7 +178,7 @@ export const EstTRow = ({
         </TableCell>
 
       </TableRow>
-      <TableRow>
+      <TableRow ref={rowSubRef}>
         <TableCell colSpan={2} />
         <TableCell colSpan={4}>
           <TextField

@@ -32,15 +32,16 @@ export const Autocomplete = <T extends FieldValues>( {
 
 
   return (
-    <Controller 
+    <Controller
       name={name}
       control={control}
-      render={({ 
+      render={({
         field : {
           onChange,
           value,
-        }, 
-        fieldState, 
+          ref,
+        },
+        fieldState,
       }) => {
         const { error, isTouched } = fieldState;
         const isShowError = !!error && !!isTouched;
@@ -55,8 +56,9 @@ export const Autocomplete = <T extends FieldValues>( {
             value={value}
             options={options}
             renderInput={(params) => (
-              <TextField 
+              <TextField
                 {...params}
+                inputRef={ref}
                 type="search"
                 size="small"
                 variant={variant}

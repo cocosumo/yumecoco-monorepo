@@ -10,6 +10,7 @@ import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
 import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
+import { memo } from 'react';
 
 
 
@@ -90,4 +91,4 @@ const Router = () => (
 
 );
 
-export default Router;
+export default memo(Router);

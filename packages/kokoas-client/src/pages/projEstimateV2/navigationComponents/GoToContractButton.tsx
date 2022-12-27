@@ -15,9 +15,9 @@ export const GoToContractButton = () => {
   } = formState;
 
   const [
-    projId,
     estimateId,
     custGroupId,
+    projId,
   ] = useWatch({
     name: ['estimateId', 'custGroupId', 'projId'],
     control,

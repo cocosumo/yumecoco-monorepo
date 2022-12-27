@@ -2,7 +2,7 @@
 import { styled } from '@mui/material/styles';
 
 import { useMediaQuery } from '@mui/material';
-import { ReactNode } from 'react';
+import Router from '../pages/Router';
 
 const drawerWidth = 240;
 
@@ -36,17 +36,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export const StyledMain = ({
   open,
-  contents,
 }: {
   open: boolean
-  contents: ReactNode
 }) => {
 
   return (
     <Main open={open}>
       <DrawerHeader />
-      {/* <Router /> */}
-      {contents}
+      <Router />
     </Main>
   );
 };

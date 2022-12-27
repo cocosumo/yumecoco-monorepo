@@ -8,7 +8,6 @@ export const OutlinedPercentInput = forwardRef<HTMLInputElement>((props: Outline
       inputRef={ref}
       size={'small'}
       type={'number'}
-      style={{ textAlign: 'right' }}
       endAdornment={(
         <InputAdornment position='end'>
           %

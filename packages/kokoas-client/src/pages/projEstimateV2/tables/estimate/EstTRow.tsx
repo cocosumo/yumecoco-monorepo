@@ -140,14 +140,12 @@ export const EstTRow = ({
         </TableCell>
         <TableCell
           width={headers[4].width}
-          align='right'
         >
           {/* 数量 */}
           <QuantityField rowIdx={rowIdx} handleChange={handleChangeQuantity} />
         </TableCell>
         <TableCell
           width={headers[5].width}
-          align='right'
         >
           {/* 利益率 */}
           <ProfitRate rowIdx={rowIdx} handleChange={handleChangeProfitRate} />

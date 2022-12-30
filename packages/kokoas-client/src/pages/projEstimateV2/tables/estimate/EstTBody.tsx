@@ -5,6 +5,7 @@ import {
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
+import { UseSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstTableActions } from './EstTableActions';
 import { EstTRow } from './EstTRow';
 
@@ -12,10 +13,12 @@ import { EstTRow } from './EstTRow';
 export const EstTBody = ({
   isDisabled,
   fieldArrayHelpers,
+  smartHandlers,
   ...rowMethods
 }: UseManipulateItemRows & {
   isDisabled: boolean,
   fieldArrayHelpers: UseFieldArrayReturn<TypeOfForm>
+  smartHandlers : UseSmartHandlers,
 }) => {
 
 
@@ -39,6 +42,7 @@ export const EstTBody = ({
             isAtBottom={isAtBottom}
             isVisible={!isDisabled}
             rowsLength={rowsLength}
+            smartHandlers={smartHandlers}
           />
         );
       })}

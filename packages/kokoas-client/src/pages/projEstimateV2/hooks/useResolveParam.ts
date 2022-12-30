@@ -20,8 +20,8 @@ export const useResolveParam = () => {
   } = dataProjEstimate || {};
 
   const { data: recProj } = useProjById(recProjEstimate?.projId.value || projIdFromURL || '');
-
   const { data: recProjType } = useProjTypeById(recProj?.projTypeId?.value || '');
+
 
   useEffect(() => {
 
@@ -46,6 +46,7 @@ export const useResolveParam = () => {
 
     } else if (clearFields) {
       // 内訳をコピーする場合、
+
       if (clearFields === 'estimateId') {
         // 見積もり番号を削除し、工事番号を残す
         setNewFormVal((prev) => ({

@@ -15,7 +15,7 @@ import { TaxType } from './rowFields/TaxType';
 import { ProfitRate } from './rowFields/ProfitRate';
 import { UnitPrice } from './rowFields/UnitPrice';
 import { RowUnitPriceAfterTax } from './rowFields/RowUnitPriceAfterTax';
-import { useSmartHandlers } from '../../hooks/useSmartHandlers';
+import { UseSmartHandlers } from '../../hooks/useSmartHandlers';
 import { useEstTRowHotKeys } from '../../hooks/useEstTRowHotKeys';
 
 
@@ -25,6 +25,7 @@ export const EstTRow = ({
   isVisible,
   isAtBottom,
   rowsLength,
+  smartHandlers,
   ...rowMethods
 }: UseManipulateItemRows & {
   rowIdx: number,
@@ -32,6 +33,7 @@ export const EstTRow = ({
   isAtBottom: boolean,
   isVisible: boolean,
   rowsLength: number,
+  smartHandlers: UseSmartHandlers
 }) => {
 
   const { control } = useFormContext<TypeOfForm>();
@@ -42,7 +44,7 @@ export const EstTRow = ({
     handleChangeTaxType,
     handleChangeUnitPrice,
     handleChangeRowUnitPriceAfterTax,
-  } = useSmartHandlers();
+  } = smartHandlers;
 
   const {
     majorItemOpts,

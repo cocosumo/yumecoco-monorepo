@@ -1,7 +1,7 @@
 import { OutlinedInput, OutlinedInputProps } from '@mui/material';
 import { forwardRef } from 'react';
 
-export const OutlinedNumberInput = forwardRef<OutlinedInputProps>((props: OutlinedInputProps, ref ) => {
+export const OutlinedNumberInput = forwardRef<OutlinedInputProps, OutlinedInputProps>((props, ref ) => {
 
   return (
     <OutlinedInput

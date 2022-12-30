@@ -1,7 +1,7 @@
 import { InputAdornment, OutlinedInput, OutlinedInputProps } from '@mui/material';
 import { forwardRef } from 'react';
 
-export const OutlinedPercentInput = forwardRef<HTMLInputElement>((props: OutlinedInputProps, ref ) => {
+export const OutlinedPercentInput = forwardRef<OutlinedInputProps, OutlinedInputProps>((props, ref ) => {
   return (
     <OutlinedInput
       {...props}

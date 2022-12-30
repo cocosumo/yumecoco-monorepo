@@ -44,7 +44,23 @@ export const useResolveParam = () => {
       }));
       
 
-    } else {
+    } else if (clearFields) {
+      // 内訳をコピーする場合、
+      if (clearFields === 'estimateId') {
+        // 見積もり番号を削除し、工事番号を残す
+        setNewFormVal((prev) => ({
+          ...prev,
+          estimateId: '',
+          envStatus: '',
+        }));
+      } else {
+        // 内訳のみをコピーする
+        setNewFormVal((prev) => ({
+          ...initialValues,
+          items: [...prev.items],
+        }));
+      }
+    }  else {
       setNewFormVal(initialValues);
     }
 

@@ -4,13 +4,15 @@ import {
   TextField,
   PercentField,
 } from 'kokoas-client/src/components/reactHookForm';
+
 import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-import { EstTable } from './tables/estimate/EstTable';
+//import { EstTable } from './tables/estimate/EstTable';
+import { EstContents } from './tables/estimatesVirtual/EstContents';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 
@@ -21,6 +23,7 @@ export const FormContents = () => {
   const {
     control,
   } = useFormContext<TypeOfForm>();
+
 
 
   const [
@@ -97,7 +100,8 @@ export const FormContents = () => {
 
         <Grid item xs={12}>
           {/* 見積もり内訳のテーブル */}
-          <EstTable isDisabled={disabled} />
+          {/* <EstTable isDisabled={disabled} /> */}
+          <EstContents isDisabled={disabled} />
         </Grid>
 
         <Grid item xs={12} mt={4}>

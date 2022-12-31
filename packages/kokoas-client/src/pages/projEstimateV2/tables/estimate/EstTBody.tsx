@@ -41,7 +41,6 @@ export const EstTBody = ({
             rowIdx={rowIdx}
             isAtBottom={isAtBottom}
             isVisible={!isDisabled}
-            rowsLength={rowsLength}
             smartHandlers={smartHandlers}
           />
         );

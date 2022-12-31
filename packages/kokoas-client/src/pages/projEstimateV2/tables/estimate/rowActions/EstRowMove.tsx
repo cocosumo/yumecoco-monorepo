@@ -13,15 +13,16 @@ export const EstRowMove = ({
   rowIdx,
   isVisible,
   isAtBottom,
-  rowLength,
+  rowsCount,
   handleMoveRowUp,
   handleMoveRowDown,
   handleMoveAnywhere,
+  width,
 }: UseManipulateItemRows & {
   rowIdx: number,
   isVisible: boolean,
   isAtBottom: boolean,
-  rowLength: number,
+  width?: string | number
 }) => {
   const [expandBtns, setExpandBtns] = useState(false);
 
@@ -42,6 +43,7 @@ export const EstRowMove = ({
     <Stack spacing={-2}
       onMouseEnter={() => setExpandBtns(true)}
       onMouseLeave={() => setExpandBtns(false)}
+      width={width}
     >
       {/* 上に移動 */}
       {isVisible &&
@@ -57,7 +59,7 @@ export const EstRowMove = ({
       {/* どこでも移動 */}
       <EstRowMoveAnywhere
         rowIdx={rowIdx}
-        rowsCount={rowLength}
+        rowsCount={rowsCount}
         resetArrowsAnimation={() => setExpandBtns(false)}
         handleMoveAnywhere={handleMoveAnywhere}
         visible={isVisible}
@@ -75,8 +77,6 @@ export const EstRowMove = ({
         </IconButton>}
 
     </Stack>
-
-
 
   );
 };

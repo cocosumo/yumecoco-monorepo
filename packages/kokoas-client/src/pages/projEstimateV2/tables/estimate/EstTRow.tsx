@@ -24,7 +24,6 @@ export const EstTRow = ({
   id,
   isVisible,
   isAtBottom,
-  rowsLength,
   smartHandlers,
   ...rowMethods
 }: UseManipulateItemRows & {
@@ -32,7 +31,6 @@ export const EstTRow = ({
   id: string,
   isAtBottom: boolean,
   isVisible: boolean,
-  rowsLength: number,
   smartHandlers: UseSmartHandlers
 }) => {
 
@@ -79,8 +77,6 @@ export const EstTRow = ({
             isAtBottom={isAtBottom}
             isVisible={isVisible}
             rowIdx={rowIdx}
-            rowLength={rowsLength}
-
           />
         </TableCell>
         <TblCellStack

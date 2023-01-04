@@ -13,6 +13,7 @@ export const EstRowFormat = ({
   taxType,
   unitPrice,
   rowUnitPrice,
+  rowDetails,
 }: {
   stackProps?: StackProps,
   majorItem: ReactNode,
@@ -25,6 +26,7 @@ export const EstRowFormat = ({
   taxType: ReactNode,
   unitPrice: ReactNode,
   rowUnitPrice: ReactNode,
+  rowDetails: ReactNode,
 } ) => {
   
 
@@ -55,19 +57,28 @@ export const EstRowFormat = ({
       <Stack>
         {quantity}
       </Stack>
-      <Stack>
-        {profitRate}
+      <Stack 
+        spacing={1}
+      >
+        <Stack direction={'row'} spacing={1}>
+          <Stack>
+            {profitRate}
+          </Stack>
+          <Stack>
+            {taxType}
+          </Stack>
+          <Stack>
+            {unitPrice}
+          </Stack>
+          <Stack>
+            {rowUnitPrice}
+          </Stack>
+        </Stack>
+        <Stack>
+          {rowDetails}
+        </Stack>
       </Stack>
-      <Stack>
-        {taxType}
-      </Stack>
-      <Stack>
-        {unitPrice}
-      </Stack>
-      <Stack>
-        {rowUnitPrice}
-      </Stack>
-    
+
     </Stack>
   );
 };

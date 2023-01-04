@@ -7,7 +7,7 @@ import { Box, Stack } from '@mui/material';
 import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { EstRowMove } from '../estimate/rowActions/EstRowMove';
 import { EstRowManipulate } from '../estimate/rowActions/EstRowManipulate';
-import { EstRow2 as EstRow } from './EstRow2';
+import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 
 export const EstBody = ({

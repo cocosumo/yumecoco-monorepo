@@ -38,7 +38,7 @@ export const EstBody = ({
     rowsCount,
   } = rowMethods;
 
-  /* 仮想化 */
+  /* 仮想化設定 */
   const rowVirtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => overlayRef.current,

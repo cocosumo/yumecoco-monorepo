@@ -10,6 +10,7 @@ import { EstRowManipulate } from '../estimate/rowActions/EstRowManipulate';
 import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
+import { grey } from '@mui/material/colors';
 
 export const EstBody = ({
   isDisabled,
@@ -33,7 +34,7 @@ export const EstBody = ({
   const rowVirtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => overlayRef.current,
-    estimateSize: () => 100,
+    estimateSize: () => 120,
     overscan: 5,
     paddingStart: 92,
   }); 
@@ -51,20 +52,25 @@ export const EstBody = ({
           width: '100%',
           minWidth: '600px',
         },
+
       }}
     >
       <EstHeader />
       {rowVirtualizer.getVirtualItems().map((virtualRow) => {
         const item = items[virtualRow.index];
         const isAtBottom = virtualRow.index === (rowsCount - 1);
+
         return (
           <Stack 
             spacing={1} 
+            ref={rowVirtualizer.measureElement}
             key={virtualRow.index}
-            sx={{
+            style={{
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,
+              background: virtualRow.index % 2 ? grey[100] : undefined,           
             }}
+            py={2}
             direction={'row'}
             justifyContent={'space-between'}
           >

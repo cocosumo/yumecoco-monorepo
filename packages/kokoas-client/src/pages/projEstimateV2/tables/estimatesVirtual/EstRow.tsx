@@ -1,9 +1,13 @@
-import { TextField } from 'kokoas-client/src/components/reactHookForm';
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
 import { useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../form';
-import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
-import { UseSmartHandlers } from '../../hooks/useSmartHandlers';
+import { EstRowFormat } from './EstRowFormat';
+
+import { useMaterialsOptions,
+  UseSmartHandlers,
+  useEstTRowHotKeys,
+  UseManipulateItemRows,
+} from '../../hooks';
 
 import { 
   TaxType, 
@@ -12,10 +16,11 @@ import {
   ProfitRate, 
   CostPrice, 
   RowUnitPriceAfterTax, 
+  MaterialDetails, 
+  RowDetails, 
 } from './rowFields';
-import { EstRowFormat } from './EstRowFormat';
-import { useEstTRowHotKeys } from '../../hooks/useEstTRowHotKeys';
-import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
+
+
 
 export const EstRow = ({
   rowIdx,
@@ -92,18 +97,7 @@ export const EstRow = ({
         />
       )}
       materialDetails={(
-        <TextField
-          controllerProps={{
-            name: getItemsFieldName(rowIdx, 'materialDetails'),
-            control,
-          }}
-          textFieldProps={{
-            size: 'small',
-            multiline: true,
-            placeholder: '品質・色',
-            rows: 1,
-          }}
-        />
+        <MaterialDetails rowIdx={rowIdx} /> 
       )}
       costPrice={(
         <CostPrice rowIdx={rowIdx} handleChange={handleChangeCostPrice}  />
@@ -124,17 +118,7 @@ export const EstRow = ({
         <RowUnitPriceAfterTax rowIdx={rowIdx} handleChange={handleChangeRowUnitPriceAfterTax} />
       )}
       rowDetails={(
-        <TextField
-          controllerProps={{
-            name: getItemsFieldName(rowIdx, 'rowDetails'),
-            control,
-          }}
-          textFieldProps={{
-            size: 'small',
-            multiline: true,
-            placeholder: '備考',
-          }}
-        />
+        <RowDetails rowIdx={rowIdx} />
       )}
     />
 

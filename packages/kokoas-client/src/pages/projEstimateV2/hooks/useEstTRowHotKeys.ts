@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { getItemsFieldName, TypeOfForm } from '../form';
-import { EstRowFormatProps } from '../tables/estimatesVirtual/EstRowFormat';
 import { UseManipulateItemRows } from './useManipulateItemRows';
 
 const hotkeys = [

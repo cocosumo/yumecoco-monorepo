@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { UseFieldArrayReturn } from 'react-hook-form';
-import { TypeOfForm } from '../form';
+import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
+import { getItemsFieldName, TypeOfForm } from '../form';
 import { useRowValues } from './useRowValues';
 
 
 export type UseManipulateItemRows =  ReturnType<typeof useManipulateItemRows>;
+
 export const useManipulateItemRows = (
   props : UseFieldArrayReturn<TypeOfForm>,
   onAddDelete: () => void,
 ) => {
+
+  const { setFocus } = useFormContext<TypeOfForm>();
 
   const {
     insert,
@@ -35,7 +38,11 @@ export const useManipulateItemRows = (
 
   const handleRemoveItem = useCallback((rowIdx: number) => {
     remove(rowIdx);
-  }, [remove]);
+    
+    if (rowIdx > 0) {
+      setFocus(getItemsFieldName(rowIdx - 1, 'majorItem'));
+    }
+  }, [remove, setFocus]);
 
   const handleAppendItem = useCallback(() =>{
     append(getNewRow());

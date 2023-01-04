@@ -20,52 +20,48 @@ export const useResolveParam = () => {
   } = dataProjEstimate || {};
 
   const { data: recProj } = useProjById(recProjEstimate?.projId.value || projIdFromURL || '');
-
   const { data: recProjType } = useProjTypeById(recProj?.projTypeId?.value || '');
+
 
   useEffect(() => {
 
-    if (projEstimateIdFromURL) {
-      if (recProjType && recProj && recProjEstimate) {
-        setNewFormVal((prev) => ({
-          ...prev,
-          ...convertEstimateToForm(recProjEstimate),
-          ...convertProjToForm(recProj),
-          ...convertProjTypeToForm(recProjType),
-        }));
+    if (projEstimateIdFromURL && recProjType && recProj && recProjEstimate) {
+      setNewFormVal((prev) => ({
+        ...prev,
+        ...convertEstimateToForm(recProjEstimate),
+        ...convertProjToForm(recProj),
+        ...convertProjTypeToForm(recProjType),
+      }));
+    } else if (projIdFromURL && recProjType && recProj) {
 
-      }
-    } else if (projIdFromURL) {
-
-      if (recProjType && recProj) {
-
-        /* Initialize profit rate when only projId is provided */
-        const profRate = +recProjType.profitRate.value;
-        setNewFormVal((prev) => ({
-          ...prev,
-          ...convertProjToForm(recProj),
-          ...convertProjTypeToForm(recProjType),
-          projTypeProfit: profRate,
-          items: [{ ...initialValues.items[0], elemProfRate: profRate } ],
-        }));
-      }
+      /* Initialize profit rate when only projId is provided */
+      const profRate = +recProjType.profitRate.value;
+      setNewFormVal((prev) => ({
+        ...prev,
+        ...convertProjToForm(recProj),
+        ...convertProjTypeToForm(recProjType),
+        projTypeProfit: profRate,
+      }));
+      
 
     } else if (clearFields) {
+      // 内訳をコピーする場合、
 
       if (clearFields === 'estimateId') {
+        // 見積もり番号を削除し、工事番号を残す
         setNewFormVal((prev) => ({
           ...prev,
           estimateId: '',
           envStatus: '',
         }));
       } else {
+        // 内訳のみをコピーする
         setNewFormVal((prev) => ({
           ...initialValues,
           items: [...prev.items],
         }));
       }
-
-    } else {
+    }  else {
       setNewFormVal(initialValues);
     }
 

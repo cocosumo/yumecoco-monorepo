@@ -1,25 +1,29 @@
 import { Button, FormHelperText, Box } from '@mui/material';
-import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../form';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { generateParams } from '../../../helpers/url';
+import { useFormContext, useWatch } from 'react-hook-form';
 
 
 export const GoToContractButton = () => {
 
   const navigate = useNavigate();
-
+  const { control, formState } = useFormContext<TypeOfForm>();
   const {
-    values: {
-      estimateId,
-      projId,
-      custGroupId,
-    },
-    dirty,
-  } = useFormikContext<TypeOfForm>();
+    isDirty,
+  } = formState;
 
-  const isEnabled = estimateId && !dirty;
+  const [
+    estimateId,
+    custGroupId,
+    projId,
+  ] = useWatch({
+    name: ['estimateId', 'custGroupId', 'projId'],
+    control,
+  });
+
+  const isEnabled = estimateId && !isDirty;
 
 
   const handleGoToContractPage = () => {

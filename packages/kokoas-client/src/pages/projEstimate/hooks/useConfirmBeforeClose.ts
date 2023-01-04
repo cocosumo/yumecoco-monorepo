@@ -15,7 +15,7 @@ export const useConfirmBeforeClose = ({
     };
 
     window.addEventListener('beforeunload', listener);
-    
+
     return () => {
       window.removeEventListener('beforeunload', listener);
     };

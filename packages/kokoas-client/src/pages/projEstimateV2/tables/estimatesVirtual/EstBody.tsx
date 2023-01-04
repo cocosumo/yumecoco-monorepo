@@ -9,6 +9,7 @@ import { EstRowMove } from '../estimate/rowActions/EstRowMove';
 import { EstRowManipulate } from '../estimate/rowActions/EstRowManipulate';
 import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
+import { EstHeader } from './EstHeader';
 
 export const EstBody = ({
   isDisabled,
@@ -34,6 +35,7 @@ export const EstBody = ({
     getScrollElement: () => overlayRef.current,
     estimateSize: () => 100,
     overscan: 5,
+    paddingStart: 80,
   }); 
 
   return (
@@ -47,9 +49,11 @@ export const EstBody = ({
           top: 0,
           left: 0,
           width: '100%',
+          minWidth: '600px',
         },
       }}
     >
+      <EstHeader />
       {rowVirtualizer.getVirtualItems().map((virtualRow) => {
         const item = items[virtualRow.index];
         const isAtBottom = virtualRow.index === (rowsCount - 1);
@@ -62,7 +66,6 @@ export const EstBody = ({
               transform: `translateY(${virtualRow.start}px)`,
             }}
             direction={'row'}
-            minWidth={'600px'}
             justifyContent={'space-between'}
           >
             <EstRowMove
@@ -81,9 +84,6 @@ export const EstBody = ({
               isAtBottom={isAtBottom}
               isVisible={!isDisabled}
               smartHandlers={smartHandlers}
-              stackProps={{
-                width: '92%',
-              }}
             />
            
             <EstRowManipulate 

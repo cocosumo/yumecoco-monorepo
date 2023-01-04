@@ -16,6 +16,7 @@ export const EstRowFormat = ({
   rowDetails,
 }: {
   stackProps?: StackProps,
+  rowMoveControls?: ReactNode,
   majorItem: ReactNode,
   middleItem: ReactNode,
   material: ReactNode,
@@ -27,15 +28,18 @@ export const EstRowFormat = ({
   unitPrice: ReactNode,
   rowUnitPrice: ReactNode,
   rowDetails: ReactNode,
+  rowCopyControls?: ReactNode,
 } ) => {
   
 
   return (
+    
     <Stack 
       {...stackProps}
       direction={'row'}
       justifyContent={'space-between'}
       spacing={1}
+      width={'92%'}
     >
       <Stack 
         spacing={1}
@@ -54,27 +58,32 @@ export const EstRowFormat = ({
       <Stack width={'15%'}>
         {costPrice}
       </Stack>
-      <Stack>
+      <Stack width={'10%'}>
         {quantity}
       </Stack>
       <Stack 
         spacing={1}
+        width={'45%'}
       >
-        <Stack direction={'row'} spacing={1}>
-          <Stack>
+        <Stack 
+          direction={'row'} 
+          width={'100%'}
+          spacing={1}
+        >
+          <Stack width={'25%'}>
             {profitRate}
           </Stack>
-          <Stack>
+          <Stack width={'25%'}>
             {taxType}
           </Stack>
-          <Stack>
+          <Stack width={'25%'}>
             {unitPrice}
           </Stack>
-          <Stack>
+          <Stack width={'25%'}>
             {rowUnitPrice}
           </Stack>
         </Stack>
-        <Stack>
+        <Stack width={'100%'}>
           {rowDetails}
         </Stack>
       </Stack>

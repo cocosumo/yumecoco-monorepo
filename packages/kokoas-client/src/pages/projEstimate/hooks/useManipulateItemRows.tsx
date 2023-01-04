@@ -52,7 +52,7 @@ export const useManipulateItemRows = (
     move(rowIdx, selectedRowIdx);
   };
 
-  /* 追加・削除の際、再計算する */
+  /* 追加・削除の際、渡されたonAddDeleteを発火する */
   useEffect(() => {
     if (fields.length) {
       onAddDelete();

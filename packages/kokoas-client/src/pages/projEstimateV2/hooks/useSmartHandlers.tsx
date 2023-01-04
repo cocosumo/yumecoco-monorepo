@@ -151,6 +151,7 @@ export const useSmartHandlers = () => {
   }, [getValues, setValue, handleUpdateSummary]);
 
   return {
+    handleUpdateSummary,
     handleChangeCostPrice,
     handleChangeQuantity,
     handleChangeProfitRate,

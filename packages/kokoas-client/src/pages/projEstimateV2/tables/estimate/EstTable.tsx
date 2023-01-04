@@ -18,8 +18,9 @@ export const EstTable = ({
   const fieldArrayHelpers = useFieldArray<TypeOfForm>({
     name,
   });
-  const rowMethods = useManipulateItemRows(fieldArrayHelpers);
   const smartHandlers = useSmartHandlers();
+  const rowMethods = useManipulateItemRows(fieldArrayHelpers, smartHandlers.handleUpdateSummary);
+
 
   return (
     <>

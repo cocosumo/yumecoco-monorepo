@@ -27,8 +27,12 @@ export const EstBody = ({
   const overlayRef = useOverlayContext();
   const { fields: items } = fieldArrayHelpers;
 
-  const rowMethods = useManipulateItemRows(fieldArrayHelpers);
   const smartHandlers = useSmartHandlers();
+  const rowMethods = useManipulateItemRows(
+    fieldArrayHelpers, 
+    smartHandlers.handleUpdateSummary,
+  );
+
 
   const {
     rowsCount,

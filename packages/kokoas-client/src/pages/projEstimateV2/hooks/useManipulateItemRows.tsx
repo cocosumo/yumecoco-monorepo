@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 import { useRowValues } from './useRowValues';
@@ -7,6 +7,7 @@ import { useRowValues } from './useRowValues';
 export type UseManipulateItemRows =  ReturnType<typeof useManipulateItemRows>;
 export const useManipulateItemRows = (
   props : UseFieldArrayReturn<TypeOfForm>,
+  onAddDelete: () => void,
 ) => {
 
   const {
@@ -50,6 +51,13 @@ export const useManipulateItemRows = (
   ) => {
     move(rowIdx, selectedRowIdx);
   };
+
+  /* 追加・削除の際、再計算する */
+  useEffect(() => {
+    if (fields.length) {
+      onAddDelete();
+    }
+  }, [onAddDelete, fields.length]);
 
   return {
     ...props,

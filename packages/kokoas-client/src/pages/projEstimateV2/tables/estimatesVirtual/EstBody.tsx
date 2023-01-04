@@ -35,7 +35,7 @@ export const EstBody = ({
     count: rowsCount,
     getScrollElement: () => overlayRef.current,
     estimateSize: () => 120,
-    overscan: 5,
+    overscan: 8,
     paddingStart: 92,
   }); 
 
@@ -45,14 +45,16 @@ export const EstBody = ({
         height: `${rowVirtualizer.getTotalSize()}px`,
         width: '100%',
         position: 'relative',
-        '& > div:not(:first-child)': {
+        '& > div:not(:first-of-type)': {
           position: 'absolute',
           top: 0,
           left: 0,
           width: '100%',
           minWidth: '600px',
-        },
-
+        }, 
+        border:1,
+        borderColor: grey[200],
+        borderRadius: 1,
       }}
     >
       <EstHeader />
@@ -62,17 +64,17 @@ export const EstBody = ({
 
         return (
           <Stack 
-            spacing={1} 
             ref={rowVirtualizer.measureElement}
-            key={virtualRow.index}
+            key={item.id}
+            direction={'row'}
+            justifyContent={'space-between'}
+            py={2}
+            spacing={1}
             style={{
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,
               background: virtualRow.index % 2 ? grey[100] : undefined,           
             }}
-            py={2}
-            direction={'row'}
-            justifyContent={'space-between'}
           >
             <EstRowMove
               {...rowMethods}

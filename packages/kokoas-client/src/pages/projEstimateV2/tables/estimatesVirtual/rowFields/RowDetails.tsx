@@ -13,6 +13,8 @@ export const RowDetails = ({
   return (
     <OutlinedInput
       {...register(getItemsFieldName(rowIdx, 'rowDetails'))}
+      size={'small'}
+      placeholder={'備考'}
     />
   );
 };

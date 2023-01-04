@@ -13,6 +13,8 @@ export const MaterialDetails = ({
   return (
     <OutlinedInput
       {...register(getItemsFieldName(rowIdx, 'materialDetails'))}
+      size={'small'}
+      placeholder={'品質・色'}
     />
   );
 };

@@ -26,13 +26,14 @@ export const RowUnitPriceAfterTax = ({
 
   return (
     <OutlinedMoneyInput
-      disabled={!!envStatus || !+(costPrice ?? 0)}
       {...register(
         getItemsFieldName(rowIdx, 'rowUnitPriceAfterTax'),
         {
           onChange: () => handleChange(rowIdx),
         })
-    }
+      }
+      disabled={!!envStatus || !+(costPrice ?? 0)}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

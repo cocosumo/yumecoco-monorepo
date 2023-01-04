@@ -20,6 +20,7 @@ export const ProfitRate = ({
           onChange: () => handleChange(rowIdx),
         },
       )}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

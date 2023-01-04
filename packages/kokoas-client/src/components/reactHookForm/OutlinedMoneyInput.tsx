@@ -8,7 +8,7 @@ export const OutlinedMoneyInput = forwardRef<OutlinedInputProps, OutlinedInputPr
       {...props}
       ref={ref}
       endAdornment={(
-        <InputAdornment position='end'>
+        <InputAdornment position='end' disablePointerEvents>
           円
         </InputAdornment>
       )}

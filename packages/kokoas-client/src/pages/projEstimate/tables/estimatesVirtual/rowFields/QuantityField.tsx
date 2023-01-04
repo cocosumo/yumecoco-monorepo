@@ -30,12 +30,16 @@ export const QuantityField = ({
   return (
     <>
       <OutlinedInput
-        {...register(getItemsFieldName(rowIdx, 'quantity'), {
-          onChange: () => handleChange(rowIdx),
-        })}
+        {...register(
+          getItemsFieldName(rowIdx, 'quantity'), 
+          {
+            onChange: () => handleChange(rowIdx),
+          },
+        )}
         size='small'
         type={'number'}
         style={{ textAlign: 'right' }}
+        onFocus={({ target }) => target.select()}
         endAdornment={(
           <InputAdornment position='end'>
             <IconButton

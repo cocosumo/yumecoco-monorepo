@@ -17,10 +17,12 @@ export const CostPrice = ({
 
   return (
     <OutlinedMoneyInput
-      {
-      ...register(getItemsFieldName(rowIdx, 'costPrice'), {
-        onChange: () => handleChange(rowIdx),
-      })}
+      {...register(
+        getItemsFieldName(rowIdx, 'costPrice'), 
+        {
+          onChange: () => handleChange(rowIdx),
+        })}
+      onFocus={({ target }) => target.select()}
     />
   );
 };

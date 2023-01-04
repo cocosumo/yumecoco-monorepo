@@ -29,13 +29,14 @@ export const UnitPrice = ({
 
   return (
     <OutlinedMoneyInput
-      disabled={!!envStatus || !+(costPrice ?? 0)}
       {...register(
         getItemsFieldName(rowIdx, 'unitPrice'),
         {
           onChange: () => handleChange(rowIdx),
         })
-    }
+      }
+      disabled={!!envStatus || !+(costPrice ?? 0)}
+      onFocus={({ target }) => target.select()}
     />
 
   );

@@ -2,7 +2,7 @@
 import { useOverlayContext } from 'kokoas-client/src/hooks/useOverlayContext';
 import { useFieldArray } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
-import { useVirtualizer } from '@tanstack/react-virtual';
+import { useVirtualizer  } from '@tanstack/react-virtual';
 import { Box, Stack } from '@mui/material';
 import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { EstRowMove, EstRowManipulate } from './rowActions';
@@ -11,7 +11,8 @@ import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
 import { grey } from '@mui/material/colors';
 import { EstFooterActions } from './EstFooterActions';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
+import debounce from 'lodash/debounce';
 
 export const EstBody = ({
   isDisabled,
@@ -36,6 +37,8 @@ export const EstBody = ({
   const {
     rowsCount,
   } = rowMethods;
+
+  /* 仮想化 */
   const rowVirtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => overlayRef.current,
@@ -43,6 +46,11 @@ export const EstBody = ({
     overscan: 8,
     paddingStart: 92,
   }); 
+
+  /* 入力中の行をヘッダーと合計欄の裏にならない対策として、スクロールさせる*/
+  const handleRowFocus = useMemo(() => debounce((rowIdx: number) => {
+    rowVirtualizer.scrollToIndex(rowIdx, { behavior: 'smooth', align: 'start' });
+  }, 300), [rowVirtualizer]);
 
   return (
     <Fragment>
@@ -63,12 +71,12 @@ export const EstBody = ({
 
           return (
             <Stack 
-              ref={rowVirtualizer.measureElement}
               key={item.id}
               direction={'row'}
               justifyContent={'space-between'}
               py={2}
               spacing={1}
+              onFocus={() => handleRowFocus(virtualRow.index)}
               sx={{
                 position: 'absolute',
                 top: 0,
@@ -79,7 +87,6 @@ export const EstBody = ({
                 background: virtualRow.index % 2 ? grey[50] : undefined, 
                 '&:hover': isAtBottom ? {
                   opacity: 1,
-
                 } : undefined,  
                 transition: 'all 0.5s',
                 height: `${virtualRow.size}px`,

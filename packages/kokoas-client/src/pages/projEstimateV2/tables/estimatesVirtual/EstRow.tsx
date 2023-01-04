@@ -1,4 +1,3 @@
-import { StackProps } from '@mui/material';
 import { TextField } from 'kokoas-client/src/components/reactHookForm';
 import { Autocomplete } from 'kokoas-client/src/components/reactHookForm/AutoComplete';
 import { useFormContext } from 'react-hook-form';
@@ -21,7 +20,6 @@ import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
 export const EstRow = ({
   rowIdx,
   smartHandlers,
-  stackProps,
   isAtBottom,
   rowMethods,
 }: {
@@ -31,7 +29,6 @@ export const EstRow = ({
   isVisible: boolean,
   smartHandlers: UseSmartHandlers,
   rowMethods: UseManipulateItemRows,
-  stackProps?: StackProps
 }) => {
   const { control } = useFormContext<TypeOfForm>();
   const {
@@ -58,7 +55,11 @@ export const EstRow = ({
   return (
     <EstRowFormat 
       ref={rowSubRef}
-      stackProps={stackProps}
+      stackProps={{
+        onFocus: () => {
+          console.log('FOCUSED');
+        },
+      }}
       majorItem={(
         <Autocomplete
           controllerProps={{

@@ -3,7 +3,6 @@ import { forwardRef, ReactNode } from 'react';
 
 export interface EstRowFormatProps {
   stackProps?: StackProps,
-  rowMoveControls?: ReactNode,
   majorItem: ReactNode,
   middleItem: ReactNode,
   material: ReactNode,
@@ -15,7 +14,6 @@ export interface EstRowFormatProps {
   unitPrice: ReactNode,
   rowUnitPrice: ReactNode,
   rowDetails: ReactNode,
-  rowCopyControls?: ReactNode,
 }
 
 export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, ref ) => {
@@ -35,11 +33,11 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
     rowDetails,
   } = props;
   
-
   return (
     
     <Stack 
       {...stackProps}
+      className={'row'}
       direction={'row'}
       justifyContent={'space-between'}
       spacing={1}

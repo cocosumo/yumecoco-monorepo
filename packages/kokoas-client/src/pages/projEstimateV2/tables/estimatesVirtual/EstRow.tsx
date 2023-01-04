@@ -55,11 +55,6 @@ export const EstRow = ({
   return (
     <EstRowFormat 
       ref={rowSubRef}
-      stackProps={{
-        onFocus: () => {
-          console.log('FOCUSED');
-        },
-      }}
       majorItem={(
         <Autocomplete
           controllerProps={{

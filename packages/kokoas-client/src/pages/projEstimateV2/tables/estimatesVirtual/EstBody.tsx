@@ -9,7 +9,7 @@ import { EstRowMove, EstRowManipulate } from './rowActions';
 import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
-import { grey } from '@mui/material/colors';
+import { grey, yellow } from '@mui/material/colors';
 import { EstFooterActions } from './EstFooterActions';
 import { Fragment, useMemo } from 'react';
 import debounce from 'lodash/debounce';
@@ -88,6 +88,9 @@ export const EstBody = ({
                 '&:hover': isAtBottom ? {
                   opacity: 1,
                 } : undefined,  
+                '&:focus-within': {
+                  background: yellow[50],
+                },
                 transition: 'all 0.5s',
                 height: `${virtualRow.size}px`,
               }}

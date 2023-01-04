@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { EstRowMoveAnywhere } from './EstRowMoveAnywhere';
 import { UseManipulateItemRows } from '../../../hooks/useManipulateItemRows';
+import { StackProps } from '@mui/system';
 
 
 export const EstRowMove = ({
@@ -17,12 +18,12 @@ export const EstRowMove = ({
   handleMoveRowUp,
   handleMoveRowDown,
   handleMoveAnywhere,
-  width,
+  stackProps,
 }: UseManipulateItemRows & {
   rowIdx: number,
   isVisible: boolean,
   isAtBottom: boolean,
-  width?: string | number
+  stackProps?: StackProps
 }) => {
   const [expandBtns, setExpandBtns] = useState(false);
 
@@ -41,9 +42,9 @@ export const EstRowMove = ({
   return (
 
     <Stack spacing={-2}
+      {...stackProps}
       onMouseEnter={() => setExpandBtns(true)}
       onMouseLeave={() => setExpandBtns(false)}
-      width={width}
     >
       {/* 上に移動 */}
       {isVisible &&

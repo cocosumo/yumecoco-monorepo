@@ -12,7 +12,7 @@ import { TypeOfForm } from './form';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 //import { EstTable } from './tables/estimate/EstTable';
-import { EstContents } from './tables/estimatesVirtual/EstContents';
+import { EstBody } from './tables/estimatesVirtual/EstBody';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 
@@ -101,7 +101,7 @@ export const FormContents = () => {
         <Grid item xs={12}>
           {/* 見積もり内訳のテーブル */}
           {/* <EstTable isDisabled={disabled} /> */}
-          <EstContents isDisabled={disabled} />
+          <EstBody isDisabled={disabled} />
         </Grid>
 
         <Grid item xs={12} mt={4}>

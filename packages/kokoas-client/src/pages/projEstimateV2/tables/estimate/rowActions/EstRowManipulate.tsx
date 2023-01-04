@@ -1,5 +1,5 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Stack, StackProps } from '@mui/material';
 import { useState } from 'react';
 import { HotKeyTooltip } from 'kokoas-client/src/components';
 import { UseManipulateItemRows } from '../../../hooks/useManipulateItemRows';
@@ -7,6 +7,7 @@ import { UseManipulateItemRows } from '../../../hooks/useManipulateItemRows';
 export const EstRowManipulate = (
   props : UseManipulateItemRows & {
     rowIdx: number,
+    stackProps?: StackProps
   },
 ) => {
 
@@ -15,6 +16,7 @@ export const EstRowManipulate = (
 
   const { 
     rowIdx,
+    stackProps,
     handleInsertItemBelow,
     handleRemoveItem,
     handleCopyItemBelow,
@@ -30,7 +32,7 @@ export const EstRowManipulate = (
   };
 
   return (
-    <>
+    <Stack {...stackProps}>
       <IconButton onClick={handleOpenMenu} >
         <MoreVertIcon />
       </IconButton>
@@ -74,7 +76,7 @@ export const EstRowManipulate = (
         </MenuItem>
 
       </Menu>
-    </>
+    </Stack>
 
   );
 };

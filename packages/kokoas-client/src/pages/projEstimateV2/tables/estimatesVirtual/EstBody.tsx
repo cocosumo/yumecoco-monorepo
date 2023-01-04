@@ -4,11 +4,13 @@ import { useFieldArray } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Box, Stack } from '@mui/material';
-import { EstRow } from './EstRow';
 import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
+import { EstRowMove } from '../estimate/rowActions/EstRowMove';
+import { EstRowManipulate } from '../estimate/rowActions/EstRowManipulate';
+import { EstRow2 as EstRow } from './EstRow2';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 
-export const EstContents = ({
+export const EstBody = ({
   isDisabled,
 }: {
   isDisabled: boolean
@@ -52,20 +54,45 @@ export const EstContents = ({
         const item = items[virtualRow.index];
         const isAtBottom = virtualRow.index === (rowsCount - 1);
         return (
-          <Stack direction={'column'}
+          <Stack 
+            spacing={1} 
             key={virtualRow.index}
-            style={{
+            sx={{
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,
             }}
+            direction={'row'}
+            minWidth={'600px'}
+            justifyContent={'space-between'}
           >
-            <EstRow
-              {...rowMethods} 
-              id={item.id}
-              rowIdx={virtualRow.index} 
-              smartHandlers={smartHandlers}
+            <EstRowMove
+              {...rowMethods}
               isAtBottom={isAtBottom}
               isVisible={!isDisabled}
+              rowIdx={virtualRow.index}
+              stackProps={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+              }}
+            />
+            <EstRow 
+              id={item.id}
+              rowIdx={virtualRow.index}
+              isAtBottom={isAtBottom}
+              isVisible={!isDisabled}
+              smartHandlers={smartHandlers}
+              stackProps={{
+                width: '92%',
+              }}
+            />
+           
+            <EstRowManipulate 
+              {...rowMethods}
+              rowIdx={virtualRow.index} 
+              stackProps={{
+                display: 'flex',
+                justifyContent: 'flex-start',
+              }}
             />
           </Stack>
         );

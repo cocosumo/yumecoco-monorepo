@@ -85,7 +85,7 @@ export const FormContents = () => {
               control: control,
             }}
             textFieldProps={{
-              label: '利益率',
+              label: '税率',
               disabled,
             }}
           />

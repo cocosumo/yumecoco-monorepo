@@ -1,4 +1,5 @@
-import { Stack } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { EstHeaderCell } from './EstHeaderCell';
 import { EstRowFormat } from './EstRowFormat';
 
@@ -6,9 +7,23 @@ import { EstRowFormat } from './EstRowFormat';
 export const EstHeader = () => {
   return (
     <Stack 
+      component={Paper}
       spacing={1} 
       direction={'row'} 
       justifyContent={'space-between'}
+      sx={{
+        position: 'sticky',
+        top: '120px',
+        alignSelf: 'flex-start',
+        opacity: '0.8',
+        zIndex: 100,
+        '&:hover': {
+          opacity: '1',
+        },
+        transition: 'all 0.5s',
+        background: grey[100],
+        py: 2,
+      }}
     >
       <div />
       <EstRowFormat 

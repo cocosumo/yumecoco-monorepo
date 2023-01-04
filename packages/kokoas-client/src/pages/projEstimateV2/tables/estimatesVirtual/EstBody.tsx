@@ -35,7 +35,7 @@ export const EstBody = ({
     getScrollElement: () => overlayRef.current,
     estimateSize: () => 100,
     overscan: 5,
-    paddingStart: 80,
+    paddingStart: 92,
   }); 
 
   return (
@@ -44,7 +44,7 @@ export const EstBody = ({
         height: `${rowVirtualizer.getTotalSize()}px`,
         width: '100%',
         position: 'relative',
-        '& > div': {
+        '& > div:not(:first-child)': {
           position: 'absolute',
           top: 0,
           left: 0,

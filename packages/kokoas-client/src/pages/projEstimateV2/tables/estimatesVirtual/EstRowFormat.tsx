@@ -1,20 +1,7 @@
 import { Stack, StackProps } from '@mui/material';
-import { ReactNode } from 'react';
+import { forwardRef, ReactNode } from 'react';
 
-export const EstRowFormat = ({
-  stackProps,
-  majorItem,
-  middleItem,
-  material,
-  materialDetails,
-  costPrice,
-  quantity,
-  profitRate,
-  taxType,
-  unitPrice,
-  rowUnitPrice,
-  rowDetails,
-}: {
+export interface EstRowFormatProps {
   stackProps?: StackProps,
   rowMoveControls?: ReactNode,
   majorItem: ReactNode,
@@ -29,7 +16,24 @@ export const EstRowFormat = ({
   rowUnitPrice: ReactNode,
   rowDetails: ReactNode,
   rowCopyControls?: ReactNode,
-} ) => {
+}
+
+export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, ref ) => {
+
+  const {
+    stackProps,
+    majorItem,
+    middleItem,
+    material,
+    materialDetails,
+    costPrice,
+    quantity,
+    profitRate,
+    taxType,
+    unitPrice,
+    rowUnitPrice,
+    rowDetails,
+  } = props;
   
 
   return (
@@ -40,6 +44,7 @@ export const EstRowFormat = ({
       justifyContent={'space-between'}
       spacing={1}
       width={'92%'}
+      ref={ref}
     >
       <Stack 
         spacing={1}
@@ -90,4 +95,6 @@ export const EstRowFormat = ({
 
     </Stack>
   );
-};
+});
+
+EstRowFormat.displayName = 'EstRowFormat';

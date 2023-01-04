@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { getItemsFieldName, TypeOfForm } from '../form';
+import { EstRowFormatProps } from '../tables/estimatesVirtual/EstRowFormat';
 import { UseManipulateItemRows } from './useManipulateItemRows';
 
 const hotkeys = [
@@ -30,7 +31,7 @@ export const useEstTRowHotKeys = ({
     }
   }, [rowIdx, isLastRow, setFocus]);
 
-  return useHotkeys<HTMLTableRowElement>(
+  return useHotkeys<HTMLElement>(
     hotkeys,
     (_, handler) => {
       const { keys } = handler;

@@ -5,24 +5,32 @@ import { useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../form';
 import { useMaterialsOptions } from '../../hooks/useMaterialOptions';
 import { UseSmartHandlers } from '../../hooks/useSmartHandlers';
-import { CostPrice } from '../estimate/rowFields/CostPrice';
-import { ProfitRate } from '../estimate/rowFields/ProfitRate';
-import { QuantityField } from '../estimate/rowFields/QuantityField';
-import { RowUnitPriceAfterTax } from '../estimate/rowFields/RowUnitPriceAfterTax';
-import { TaxType } from '../estimate/rowFields/TaxType';
-import { UnitPrice } from '../estimate/rowFields/UnitPrice';
+
+import { 
+  TaxType, 
+  UnitPrice, 
+  QuantityField, 
+  ProfitRate, 
+  CostPrice, 
+  RowUnitPriceAfterTax, 
+} from './rowFields';
 import { EstRowFormat } from './EstRowFormat';
+import { useEstTRowHotKeys } from '../../hooks/useEstTRowHotKeys';
+import { UseManipulateItemRows } from '../../hooks/useManipulateItemRows';
 
 export const EstRow = ({
   rowIdx,
   smartHandlers,
   stackProps,
+  isAtBottom,
+  rowMethods,
 }: {
   rowIdx: number,
   id: string,
   isAtBottom: boolean,
   isVisible: boolean,
   smartHandlers: UseSmartHandlers,
+  rowMethods: UseManipulateItemRows,
   stackProps?: StackProps
 }) => {
   const { control } = useFormContext<TypeOfForm>();
@@ -41,9 +49,15 @@ export const EstRow = ({
     materialOpts,
   } = useMaterialsOptions({ rowIdx, control });
 
+  const rowSubRef = useEstTRowHotKeys({
+    rowIdx,
+    isLastRow: isAtBottom,
+    ...rowMethods,
+  });
 
   return (
     <EstRowFormat 
+      ref={rowSubRef}
       stackProps={stackProps}
       majorItem={(
         <Autocomplete

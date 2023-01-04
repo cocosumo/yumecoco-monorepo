@@ -5,8 +5,7 @@ import { TypeOfForm } from '../../form';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Box, Stack } from '@mui/material';
 import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
-import { EstRowMove } from '../estimate/rowActions/EstRowMove';
-import { EstRowManipulate } from '../estimate/rowActions/EstRowManipulate';
+import { EstRowMove, EstRowManipulate } from './rowActions';
 import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
@@ -104,6 +103,7 @@ export const EstBody = ({
                 isAtBottom={isAtBottom}
                 isVisible={!isDisabled}
                 smartHandlers={smartHandlers}
+                rowMethods={rowMethods}
               />
            
               <EstRowManipulate 

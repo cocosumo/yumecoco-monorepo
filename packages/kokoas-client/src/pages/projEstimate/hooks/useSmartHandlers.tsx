@@ -10,13 +10,29 @@ import { getItemsFieldName, TypeOfForm } from '../form';
 
 export type UseSmartHandlers =  ReturnType<typeof useSmartHandlers>;
 
+/**
+ * Reverse calculate row fields depending on handler.
+ * This may be refactored into one handler for shorter code, but conditionals add overhead.
+ * 
+ * The lag on even just a few rows was apparent, 
+ * so we have to prioritize processing speed for better UX.
+ * Feel free to issue a PR for any solution that increases processing speed.
+ * 
+ * ハンドラーによって、フィールドを逆算する。
+ * 
+ * 前のように一つのハンドラーにリファクタリングが出来ますが、条件分岐が多くなり、処理に負担を掛けてしまいます。
+ * 
+ * 行が増えると、使えないほどラグってたので、UXのために処理速度を重視して、改善が必要です。
+ * 処理速度を改善出来る案があれば、PRは大歓迎です。
+ * 
+ * */
 export const useSmartHandlers = () => {
   const { setValue, getValues } = useFormContext<TypeOfForm>();
 
   /******************
-  * 合計欄の更新 */
+  * 合計欄の計算 */
   const handleUpdateSummary = useMemo(
-    () =>debounce(()=>{
+    () => debounce(()=>{
       const items = getValues('items');
       const {
         totalCostPrice,

@@ -3,16 +3,17 @@ import { useOverlayContext } from 'kokoas-client/src/hooks/useOverlayContext';
 import { useFieldArray } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { useVirtualizer  } from '@tanstack/react-virtual';
-import { Box, Stack } from '@mui/material';
+import { Box } from '@mui/material';
 import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { EstRowMove, EstRowManipulate } from './rowActions';
 import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
-import { grey, yellow } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import { EstFooterActions } from './EstFooterActions';
 import { Fragment, useMemo } from 'react';
 import debounce from 'lodash/debounce';
+import { EstRowContainer } from './EstRowContainer';
 
 export const EstBody = ({
   isDisabled,
@@ -70,33 +71,13 @@ export const EstBody = ({
           const isAtBottom = virtualRow.index === (rowsCount - 1);
 
           return (
-            <Stack 
+            <EstRowContainer 
               key={item.id}
-              direction={'row'}
-              justifyContent={'space-between'}
-              py={2}
-              spacing={1}
-              onFocus={() => handleRowFocus(virtualRow.index)}
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                minWidth: '600px',
-                opacity: isAtBottom ? 0.5 : undefined,
-                background: virtualRow.index % 2 ? grey[50] : undefined, 
-                '&:hover': isAtBottom ? {
-                  opacity: 1,
-                } : undefined,  
-                '&:focus-within': {
-                  background: yellow[50],
-                },
-                transition: 'all 0.5s',
-                height: `${virtualRow.size}px`,
-              }}
-              style={{
-                transform: `translateY(${virtualRow.start}px)`,
-              }}
+              handleRowFocus={handleRowFocus}
+              isAtBottom={isAtBottom}
+              rowIdx={virtualRow.index}
+              rowSize={virtualRow.size}
+              rowStart={virtualRow.start}
             >
               <EstRowMove
                 {...rowMethods}
@@ -123,7 +104,7 @@ export const EstBody = ({
                   visibility: isAtBottom ? 'hidden' : undefined,
                 }}
               />
-            </Stack>
+            </EstRowContainer>
           );
         })}
       

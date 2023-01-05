@@ -26,11 +26,13 @@ export const LabeledInfo = ( props : LabeledInfoProps) =>{
 
   return (
 
-    <Stack direction={direction}>
+    <Stack direction={direction} alignItems={'center'} spacing={1}>
       <FormLabel>
         {label}
       </FormLabel>
-      <Typography variant={variant} fontSize={fontSize} fontWeight={fontWeight} >
+      <Typography noWrap variant={variant} fontSize={fontSize}
+        fontWeight={fontWeight}
+      >
         {info}
       </Typography>
     </Stack>

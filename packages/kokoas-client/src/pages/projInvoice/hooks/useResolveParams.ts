@@ -1,8 +1,8 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useContractsByCustGroupId, useCustGroupById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useEffect } from 'react';
-import { getParam } from '../../../helpers/url';
 import { initialValues, TypeOfForm } from '../form';
 import { sortEstimatesByProjId } from '../helper/sortEstimatesByProjId';
 
@@ -10,8 +10,10 @@ import { sortEstimatesByProjId } from '../helper/sortEstimatesByProjId';
  * URLで渡されたものを処理する
  */
 export const useResolveParams = () => {
-  const custGroupIdFromURL = getParam('custGroupId');
-  const projInvoiceIdFromURL = getParam('invoiceId');
+  const {
+    invoiceId: projInvoiceIdFromURL,
+    custGroupId: custGroupIdFromURL,
+  } = useURLParams();
 
   const {
     setValues,

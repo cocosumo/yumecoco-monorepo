@@ -8,12 +8,10 @@ const ITEM_HEIGHT = 48;
 export const EstRowMoveAnywhere = ({
   rowIdx, rowsCount,
   handleMoveAnywhere,
-  resetArrowsAnimation,
   visible = true,
 }: {
   rowIdx: number,
   rowsCount: number,
-  resetArrowsAnimation: () => void,
   handleMoveAnywhere: UseManipulateItemRows['handleMoveAnywhere'],
   visible: boolean
 }) => {
@@ -22,7 +20,6 @@ export const EstRowMoveAnywhere = ({
 
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    resetArrowsAnimation();
     setAnchorEl(event.currentTarget);
   };
 

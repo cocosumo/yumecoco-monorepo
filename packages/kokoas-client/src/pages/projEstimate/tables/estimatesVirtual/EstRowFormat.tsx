@@ -58,12 +58,12 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
         {material}
         {materialDetails}
       </Stack>
-      <Stack width={'15%'}>
+      <div style={{ width: '15%' }}>
         {costPrice}
-      </Stack>
-      <Stack width={'10%'}>
+      </div>
+      <div style={{ width: '10%' }}>
         {quantity}
-      </Stack>
+      </div>
       <Stack 
         spacing={1}
         width={'45%'}

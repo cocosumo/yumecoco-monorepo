@@ -59,6 +59,7 @@ export const Autocomplete = <T extends FieldValues>( {
                 inputRef={ref}
                 type="search"
                 size="small"
+                name={name}
                 variant={variant}
                 helperText={isShowError ? error.message : ''}
               />

@@ -6,12 +6,16 @@ import { UseSaveForm } from './useSaveForm';
 /**
  * 保存 windows:　crt+s, mac: cmd+s
  */
-export const useSaveHotkey = (handleSubmit: UseSaveForm['handleSubmit']) => {
+export const useSaveHotkey = (
+  handleSubmit: UseSaveForm['handleSubmit'], 
+) => {
 
   const debouncedSave = useMemo(
-    () => debounce(() => { // スパム対策
-      handleSubmit();
-    }, 800),
+    () => debounce(  // スパム対策
+      async () => {
+        await handleSubmit();
+      }, 
+      800),
     [handleSubmit],
   );
 

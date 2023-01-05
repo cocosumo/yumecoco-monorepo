@@ -28,6 +28,7 @@ export const FormProjEstimate = () => {
   const {
     control,
     reset,
+    setFocus,
   }  = formReturn;
 
 
@@ -38,11 +39,19 @@ export const FormProjEstimate = () => {
   } = useSaveForm(formReturn);
 
   /* 保存ショートカット　CTRL+S */
-  useSaveHotkey(handleSubmit);
+  useSaveHotkey(
+    handleSubmit, 
+  );
 
   useEffect(() => {
+    
     reset({ ...initialForm });
   }, [initialForm, reset]);
+
+  useEffect(() => {
+    console.log('FIRED!', document.activeElement);
+
+  }, [setFocus, isDirty]);
 
 
   return (

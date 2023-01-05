@@ -14,7 +14,7 @@ export interface ConfirmationDialogRawProps {
 
 
 export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
-  const { name, onClose, open, projId, ...other } = props;
+  const { name, onClose, open, projId } = props;
   const [value, setValue] = useState('');
   const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
     setValue((event.target as HTMLInputElement).value);
   };
 
@@ -39,7 +40,6 @@ export const ConfirmationDialogRaw = (props: ConfirmationDialogRawProps) => {
       maxWidth="xs"
       open={open}
       onClose={() => onClose()}
-      {...other}
     >
       <DialogTitle>
         {'編集する見積もりを選択してください'}

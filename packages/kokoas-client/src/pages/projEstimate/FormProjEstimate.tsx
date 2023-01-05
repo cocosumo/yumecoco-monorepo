@@ -11,9 +11,11 @@ import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
 //import { DevTool } from '@hookform/devtools';
 import { EstimatesInfo } from './staticComponents/EstimatesInfo';
-import { FormActions } from './formActions';
 import { useSaveForm } from './hooks/useSaveForm';
 import { useSaveHotkey } from './hooks/useSaveHotkey';
+import { FormErrors } from './FormErrors';
+import { Processing } from './formActions/Processing';
+import { ActionButtons } from './formActions/ActionButtons';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -32,6 +34,7 @@ export const FormProjEstimate = () => {
 
   const {
     handleSubmit,
+    handleSubmitFinal,
   } = useSaveForm(formReturn);
 
   /* 保存ショートカット　CTRL+S */
@@ -45,10 +48,9 @@ export const FormProjEstimate = () => {
   return (
     <FormProvider {...formReturn}>
       <FormContainer
-        onSubmit={handleSubmit}
         noValidate
       >
-
+        <FormErrors />
         <PageTitle label={'見積もり'} />
 
         <Grid item xs={10} md={5}>
@@ -89,9 +91,16 @@ export const FormProjEstimate = () => {
         </Grid>
 
         <FormContents />
-        <FormActions />
+
+        <Processing />
+        <ActionButtons 
+          handleSubmit={handleSubmit}
+          handleSubmitFinal={handleSubmitFinal}
+        />
         {/* <DevTool control={control} /> */}
+
       </FormContainer>
+
     </FormProvider>
   );
 };

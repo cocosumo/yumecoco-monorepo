@@ -25,7 +25,7 @@ export const FormContents = () => {
     control,
   } = useFormContext<TypeOfForm>();
 
-  /*  */
+  /* 閉じるまえに、確認アラートを表示する */
   useConfirmBeforeClose();
 
   const [
@@ -33,7 +33,6 @@ export const FormContents = () => {
     projTypeProfit,
     projTypeProfitLatest,
     envStatus,
-
   ] = useWatch({
     control,
     name: [

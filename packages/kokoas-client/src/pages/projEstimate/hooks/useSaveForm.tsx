@@ -1,9 +1,9 @@
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useConfirmDialog, useSnackBar } from 'kokoas-client/src/hooks';
+import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
+import { useCallback } from 'react';
 import { SubmitErrorHandler, SubmitHandler, UseFormReturn } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { ButtonSubmitEvent } from 'types';
 import { convertToKintone } from '../api/convertToKintone';
 import { TypeOfForm } from '../form';
 import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
@@ -11,6 +11,7 @@ import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
 export type SaveButtonNames = 'temporary' | 'save';
 
 export type UseSaveForm = ReturnType<typeof useSaveForm>;
+
 export const useSaveForm = ({
   handleSubmit,
 }: UseFormReturn<TypeOfForm>) => {
@@ -22,9 +23,9 @@ export const useSaveForm = ({
     setDialogState,
   } = useConfirmDialog();
   const { mutateAsync: saveMutation } = useSaveEstimate();
-  const navigate = useNavigate();
+  const navigate = useStableNavigate();
 
-  const handleSave = async (
+  const handleSave = useCallback(async (
     data: TypeOfForm,
   ) => {
     const {
@@ -49,28 +50,25 @@ export const useSaveForm = ({
       id,
       revision,
     };
-  };
+  }, [saveMutation, setSnackState]);
 
-  const onSubmitValid: SubmitHandler<TypeOfForm> = async (data, e) => {
+  const onSubmitValid: SubmitHandler<TypeOfForm> = useCallback(async (data) => {
+    const { id } = await handleSave(data);
+    navigate(`?${generateParams({ projEstimateId: id })}`);
+  }, [handleSave, navigate]);
 
-    const saveButtonName = (e as ButtonSubmitEvent<SaveButtonNames> )?.nativeEvent?.submitter?.name;
 
-    if (!saveButtonName || saveButtonName === 'temporary') {
-      const { id } = await handleSave(data);
-      navigate(`?${generateParams({ projEstimateId: id })}`);
-    } else {
-      setDialogState({
-        title: '編集した内容で保存します',
-        content: (
-          <BtnSaveChoices
-            handleClose={handleClose}
-            handleSave={() => handleSave(data)}
-          />),
-        withNo: false, withYes: false,
-      });
-    }
-
-  };
+  const onSubmitValidFinal: SubmitHandler<TypeOfForm> = useCallback( async (data) => {
+    setDialogState({
+      title: '編集した内容で保存します',
+      content: (
+        <BtnSaveChoices
+          handleClose={handleClose}
+          handleSave={() => handleSave(data)}
+        />),
+      withNo: false, withYes: false,
+    });
+  }, [setDialogState, handleClose, handleSave ]);
 
   const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async () => {
     setSnackState({
@@ -84,5 +82,7 @@ export const useSaveForm = ({
     onSubmitValid,
     onSubmitInvalid,
     handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),
+    handleSubmitFinal: handleSubmit(onSubmitValidFinal, onSubmitInvalid),
+    
   };
 };

@@ -10,7 +10,7 @@ export const FormContainer = ({
 }: FormHTMLAttributes<HTMLFormElement>) => {
 
   return (
-    <form {...formProps} onSubmit={(e) => e.preventDefault()}>
+    <form {...formProps}>
       <MainContainer>
         {children}
       </MainContainer>

@@ -44,7 +44,7 @@ export const EstBody = ({
     count: rowsCount,
     getScrollElement: () => overlayRef.current,
     estimateSize: () => 120,
-    overscan: 8,
+    overscan: 5,
     paddingStart: 92,
   }); 
 

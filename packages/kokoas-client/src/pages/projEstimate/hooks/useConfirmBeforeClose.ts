@@ -6,7 +6,7 @@ export const useConfirmBeforeClose = () => {
   const { isDirty } = useFormState();
 
   useEffect(() => {
-    console.log('DIRTY!', isDirty);
+
     const listener = (e: BeforeUnloadEvent) => {
 
       if (isDirty) {

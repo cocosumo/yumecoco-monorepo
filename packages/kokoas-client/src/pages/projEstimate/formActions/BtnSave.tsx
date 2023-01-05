@@ -1,17 +1,17 @@
-import { Box, Button, Collapse } from '@mui/material';
+import { Box, Button, ButtonProps, Collapse } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
 import { SaveButtonNames } from '../hooks/useSaveForm';
 
 /** 保存 */
-export const BtnSave = () => {
+export const BtnSave = (props: ButtonProps) => {
 
   const [showText, setShowText] = useState(false);
   const name : SaveButtonNames = 'save';
 
   return (
     <Button
-      type='submit'
+      {...props}
       name={name}
       variant={'contained'}
       size="medium"

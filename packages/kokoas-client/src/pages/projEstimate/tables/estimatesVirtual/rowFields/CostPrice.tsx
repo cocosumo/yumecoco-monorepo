@@ -12,13 +12,13 @@ export const CostPrice = ({
   handleChange: UseSmartHandlers['handleChangeCostPrice']
   
 }) => {
-
+  const fieldName = getItemsFieldName(rowIdx, 'costPrice');
   const { register } = useFormContext<TypeOfForm>();
 
   return (
     <OutlinedMoneyInput
       {...register(
-        getItemsFieldName(rowIdx, 'costPrice'), 
+        fieldName, 
         {
           onChange: () => handleChange(rowIdx),
         })}

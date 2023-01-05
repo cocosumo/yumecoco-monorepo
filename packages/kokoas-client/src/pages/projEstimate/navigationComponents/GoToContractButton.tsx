@@ -3,23 +3,19 @@ import { TypeOfForm } from '../form';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { generateParams } from '../../../helpers/url';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, useFormState, useWatch } from 'react-hook-form';
 
 
 export const GoToContractButton = () => {
 
   const navigate = useNavigate();
-  const { control, formState } = useFormContext<TypeOfForm>();
-  const {
-    isDirty,
-  } = formState;
+  const { control, getValues } = useFormContext<TypeOfForm>();
 
-  const [
-    estimateId,
-    custGroupId,
-    projId,
-  ] = useWatch({
-    name: ['estimateId', 'custGroupId', 'projId'],
+  const { isDirty } = useFormState();
+
+
+  const estimateId = useWatch({
+    name: 'estimateId',
     control,
   });
 
@@ -27,10 +23,12 @@ export const GoToContractButton = () => {
 
 
   const handleGoToContractPage = () => {
+   
+
     navigate(`${pages.projContractPreview}?${generateParams({
-      projId,
-      custGroupId,
-      projEstimateId: estimateId,
+      projId: getValues('projId'),
+      custGroupId: getValues('custGroupId'),
+      projEstimateId: getValues('estimateId'),
     })}`);
   };
 

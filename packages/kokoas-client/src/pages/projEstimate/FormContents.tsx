@@ -9,6 +9,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
+import { useConfirmBeforeClose } from './hooks';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 //import { EstTable } from './tables/estimate/EstTable';
@@ -24,7 +25,8 @@ export const FormContents = () => {
     control,
   } = useFormContext<TypeOfForm>();
 
-
+  /*  */
+  useConfirmBeforeClose();
 
   const [
     projId,

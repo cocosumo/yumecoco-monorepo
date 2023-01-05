@@ -14,7 +14,6 @@ import { EstimatesInfo } from './staticComponents/EstimatesInfo';
 import { FormActions } from './formActions';
 import { useSaveForm } from './hooks/useSaveForm';
 import { useSaveHotkey } from './hooks/useSaveHotkey';
-import { useConfirmBeforeClose } from './hooks/useConfirmBeforeClose';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -25,10 +24,11 @@ export const FormProjEstimate = () => {
   });
 
   const {
-    formState,
     control,
     reset,
   }  = formReturn;
+
+
 
   const {
     handleSubmit,
@@ -36,7 +36,6 @@ export const FormProjEstimate = () => {
 
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(handleSubmit);
-  useConfirmBeforeClose({ enabled: formState.isDirty });
 
   useEffect(() => {
     reset({ ...initialForm });

@@ -3,15 +3,19 @@ import { forwardRef } from 'react';
 
 export const OutlinedNumberInput = forwardRef<OutlinedInputProps, OutlinedInputProps>((props, ref ) => {
 
+  const {
+    inputProps = {
+      style: { textAlign: 'right' },
+    },
+  } = props;
+
   return (
     <OutlinedInput
       {...props}
       inputRef={ref}
       size={'small'}
       type={'number'}
-      inputProps={{
-        style: { textAlign: 'right' },
-      }}
+      inputProps={inputProps}
     />
   );
 });

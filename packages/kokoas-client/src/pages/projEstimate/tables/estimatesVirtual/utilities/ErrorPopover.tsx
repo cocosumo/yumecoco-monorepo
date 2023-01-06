@@ -22,6 +22,14 @@ export const  ErrorPopover = ({
       sx={(theme) => ({
         zIndex: theme.zIndex.appBar + 1,
       })}
+      modifiers={[
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 8],
+          },
+        },
+      ]}
     >
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>

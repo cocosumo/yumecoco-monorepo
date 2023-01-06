@@ -9,7 +9,7 @@ export const OutlinedPercentInput = forwardRef<OutlinedInputProps, OutlinedInput
       size={'small'}
       type={'number'}
       endAdornment={(
-        <InputAdornment position='end'>
+        <InputAdornment position='end' disablePointerEvents>
           %
         </InputAdornment>
       )}

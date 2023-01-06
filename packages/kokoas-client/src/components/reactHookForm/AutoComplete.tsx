@@ -28,9 +28,6 @@ export const Autocomplete = <T extends FieldValues>( {
     ...otherAutoCompleteProps
   } = autoCompleteProps;
 
-
-
-
   return (
     <Controller
       name={name}
@@ -45,6 +42,7 @@ export const Autocomplete = <T extends FieldValues>( {
       }) => {
         const { error, isTouched } = fieldState;
         const isShowError = !!error && !!isTouched;
+        
         return (
           <MuiAutocomplete
             {...otherAutoCompleteProps}
@@ -61,6 +59,7 @@ export const Autocomplete = <T extends FieldValues>( {
                 inputRef={ref}
                 type="search"
                 size="small"
+                name={name}
                 variant={variant}
                 helperText={isShowError ? error.message : ''}
               />

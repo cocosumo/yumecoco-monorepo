@@ -1,18 +1,15 @@
 import { Chip, FormControl, FormLabel, Stack, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { LabeledInfo } from 'kokoas-client/src/components';
-import { Control, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 
 
 
 
-export const EstimatesInfo = ({
-  control,
-}: {
-  control: Control<TypeOfForm>  
-}) => {
+export const EstimatesInfo = () => {
 
+  const { control } = useFormContext<TypeOfForm>();
   const [
     estimateId,
     createdDate,
@@ -45,7 +42,7 @@ export const EstimatesInfo = ({
           <LabeledInfo
             label={'ID'}
             info={estimateDataId}
-            fontSize={14} 
+            fontSize={14}
             direction={'row'}
           />
           {!!createdDate && (

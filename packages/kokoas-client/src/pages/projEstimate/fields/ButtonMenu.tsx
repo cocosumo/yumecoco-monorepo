@@ -1,24 +1,16 @@
 import { Stack } from '@mui/material';
-import { UseControllerProps, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 import { CopyForm } from '../formActions/copy/CopyForm';
 import { SelectExistEstimates } from './selectEstimates';
 
-type FormProps<T extends TypeOfForm> = {
-  controllerProps: UseControllerProps<T>;
-};
+export const ButtonMenu = () => {
 
-export const ButtonMenu = <T extends TypeOfForm>({
-  controllerProps,
-}: FormProps<T>) => {
-  const {
-    name,
-    control,
-  } = controllerProps;
+  const { control } = useFormContext<TypeOfForm>();
 
   const projId = useWatch({
-    name,
-    control: control,
+    name: 'projId',
+    control,
   });
 
   return (

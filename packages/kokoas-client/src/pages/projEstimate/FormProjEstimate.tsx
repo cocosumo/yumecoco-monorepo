@@ -6,7 +6,6 @@ import { validationSchema } from './validationSchema';
 import { FormContainer, PageTitle } from 'kokoas-client/src/components';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm/SearchProjects';
 import { useResolveParam } from './hooks/useResolveParam';
-import { useEffect } from 'react';
 import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
 //import { DevTool } from '@hookform/devtools';
@@ -16,6 +15,7 @@ import { useSaveHotkey } from './hooks/useSaveHotkey';
 import { FormErrors } from './FormErrors';
 import { Processing } from './formActions/Processing';
 import { ActionButtons } from './formActions/ActionButtons';
+import { useFormReset } from './hooks/useFormReset';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -27,10 +27,13 @@ export const FormProjEstimate = () => {
 
   const {
     control,
-    reset,
-    setFocus,
   }  = formReturn;
 
+  /* initialFormが変わったら、リセットする */
+  useFormReset({
+    initialForm,
+    formReturn,
+  });
 
 
   const {
@@ -40,18 +43,9 @@ export const FormProjEstimate = () => {
 
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(
-    handleSubmit, 
+    handleSubmit,
   );
 
-  useEffect(() => {
-    
-    reset({ ...initialForm });
-  }, [initialForm, reset]);
-
-  useEffect(() => {
-    console.log('FIRED!', document.activeElement);
-
-  }, [setFocus, isDirty]);
 
 
   return (
@@ -77,7 +71,7 @@ export const FormProjEstimate = () => {
         <Grid item xs={12} md>
 
           {/* 編集中の見積もり情報 */}
-          <EstimatesInfo control={control} />
+          <EstimatesInfo />
         </Grid>
         <Grid
           container
@@ -87,12 +81,7 @@ export const FormProjEstimate = () => {
         >
           {/* 見積もりの検索 */}
           {/* コピー */}
-          <ButtonMenu
-            controllerProps={{
-              name: 'projId',
-              control,
-            }}
-          />
+          <ButtonMenu />
         </Grid>
 
         <Grid item xs={12}>
@@ -102,7 +91,7 @@ export const FormProjEstimate = () => {
         <FormContents />
 
         <Processing />
-        <ActionButtons 
+        <ActionButtons
           handleSubmit={handleSubmit}
           handleSubmitFinal={handleSubmitFinal}
         />

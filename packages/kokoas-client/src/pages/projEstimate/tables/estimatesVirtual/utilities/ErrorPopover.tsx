@@ -1,57 +1,84 @@
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import { FieldError, useFormContext, useFormState } from 'react-hook-form';
-import { TypeOfForm } from '../../../form';
+import { KeyOfForm, TypeOfForm } from '../../../form';
 import { useCallback, useEffect, useState } from 'react';
+import { Alert, Popper, PopperProps } from '@mui/material';
+
+const EstTableFieldName : KeyOfForm = 'items';
 
 export const ErrorPopover = () => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
 
   const { control } = useFormContext<TypeOfForm>();
+
   const { errors: { items } } = useFormState({
     control,
-    name: 'items',
+    name: EstTableFieldName,
   });
+
   const handleClose = useCallback(() => {
-    setAnchorEl(null);
+    setOpen(false);
   }, []);
 
-  const open = Boolean(anchorEl);
-  const id = open ? 'error-popover' : undefined;
+  const activeElement = document.activeElement;
+
 
   useEffect(() => {
 
-    const firstError = items?.find?.(Boolean);
+    const activeElementName = activeElement?.getAttribute('name');
 
-    if (firstError) {
-      const errorField = Object.values(firstError)[0] as FieldError;
-      const ref = errorField.ref;
-      setAnchorEl(ref as HTMLElement);
-      setErrorMessage(errorField?.message);
-    } else {
+    if (!activeElementName
+      || !activeElementName.includes(EstTableFieldName)
+    ) {
       handleClose();
+      return;
     }
-  }, [handleClose, items]);
+
+    const activeErrorField = items?.reduce?.((acc, curr) => {
+      if (curr) {
+        for (const field of Object.values(curr)) {
+          if ((field as FieldError).ref?.name === activeElementName) {
+            acc = field as FieldError;
+          }
+        }
+      }
+      return acc;
+    }, Object.create(null) as FieldError);
+
+    const actualErrorField = document.querySelector(`[name="${activeElementName}"]`);
+
+    if (!actualErrorField || !activeErrorField) {
+      handleClose();
+      return;
+    }
+
+    const getBoundingClientRect = () =>
+      actualErrorField.getBoundingClientRect();
+
+    console.log(getBoundingClientRect());
+    setOpen(true);
+    setAnchorEl({ getBoundingClientRect });
+    setErrorMessage(activeErrorField?.message || '');
+
+  }, [handleClose, items, activeElement]);
 
   return (
-
-    <Popover
-      id={id}
+    <Popper
+      id={'popper'}
       open={open}
+      //disablePortal={false}
+      placement="bottom-start"
+      transition
+      sx={(theme) => ({
+        zIndex: theme.zIndex.appBar + 1,
+      })}
       anchorEl={anchorEl}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      disableAutoFocus={true}
-      disableEnforceFocus={true}
     >
-      <Typography sx={{ p: 2 }}>
+      <Alert severity="error">
         {errorMessage}
-      </Typography>
-    </Popover>
+      </Alert>
+    </Popper>
 
   );
 };

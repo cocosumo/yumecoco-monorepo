@@ -23,6 +23,9 @@ export const CostPrice = ({
     control,
   });
 
+  const error = items?.[rowIdx]?.costPrice;
+
+
   return (
     <OutlinedMoneyInput
       {...register(
@@ -31,7 +34,7 @@ export const CostPrice = ({
           onChange: () => handleChange(rowIdx),
         })}
       onFocus={({ target }) => target.select()}
-      error={!!items?.[rowIdx]}
+      error={!!error}
     />
   );
 };

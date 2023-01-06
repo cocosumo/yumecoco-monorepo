@@ -2,6 +2,7 @@ import { FieldError, useFormContext, useFormState } from 'react-hook-form';
 import { KeyOfForm, TypeOfForm } from '../../../form';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, Popper, PopperProps } from '@mui/material';
+import { useOverlayContext } from 'kokoas-client/src/hooks/useOverlayContext';
 
 const EstTableFieldName : KeyOfForm = 'items';
 
@@ -22,7 +23,7 @@ export const ErrorPopover = () => {
   }, []);
 
   const activeElement = document.activeElement;
-
+  const overlay = useOverlayContext();
 
   useEffect(() => {
 
@@ -56,12 +57,11 @@ export const ErrorPopover = () => {
     const getBoundingClientRect = () =>
       actualErrorField.getBoundingClientRect();
 
-    console.log(getBoundingClientRect());
     setOpen(true);
-    setAnchorEl({ getBoundingClientRect });
+    setAnchorEl({ getBoundingClientRect, contextElement: overlay.current as Element });
     setErrorMessage(activeErrorField?.message || '');
 
-  }, [handleClose, items, activeElement]);
+  }, [handleClose, items, activeElement, overlay]);
 
   return (
     <Popper
@@ -70,9 +70,9 @@ export const ErrorPopover = () => {
       //disablePortal={false}
       placement="bottom-start"
       transition
-      sx={(theme) => ({
+      /* sx={(theme) => ({
         zIndex: theme.zIndex.appBar + 1,
-      })}
+      })} */
       anchorEl={anchorEl}
     >
       <Alert severity="error">

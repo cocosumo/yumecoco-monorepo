@@ -28,7 +28,6 @@ export const EstBodyContainer = ({
       }
     } else if (ancholErrEl) {
       setAnchorErrEl(undefined);
-      setErrorMessage(undefined);
     }
   }, [getFieldState, ancholErrEl ]);
 

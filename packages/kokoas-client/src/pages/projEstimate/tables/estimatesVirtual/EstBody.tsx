@@ -46,7 +46,7 @@ export const EstBody = ({
     estimateSize: () => 120,
     overscan: 5,
     paddingStart: 92,
-    scrollPaddingStart: -92,
+    scrollPaddingStart: -92, // これが無いと、編集中の行のフォーカスが外れる。
   });
 
   /* 入力中の行をヘッダーと合計欄の裏にならない対策として、スクロールさせる*/

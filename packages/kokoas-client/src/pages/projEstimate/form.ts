@@ -16,6 +16,7 @@ export const initialValues : TypeOfForm = {
 
   estimateId: '',
   estimateDataId: '',
+  estimateRevision: '',
   envStatus: '',
 
   projDataId: '',

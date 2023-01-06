@@ -22,6 +22,7 @@ export const convertEstimateToForm = (
     作成日時,
     envStatus,
     dataId,
+    $revision,
   } = recEstimate;
 
   /* 内訳 */
@@ -121,6 +122,7 @@ export const convertEstimateToForm = (
     totalCostPrice,
     totalAmountBeforeTax,
     totalAmountAfterTax,
+    estimateRevision: $revision.value,
   };
 
 };

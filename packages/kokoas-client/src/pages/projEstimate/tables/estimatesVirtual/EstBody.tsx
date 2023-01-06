@@ -14,6 +14,7 @@ import { EstFooterActions } from './EstFooterActions';
 import { Fragment, useMemo } from 'react';
 import debounce from 'lodash/debounce';
 import { EstRowContainer } from './EstRowContainer';
+import { ErrorPopover } from './utilities/ErrorPopover';
 
 export const EstBody = ({
   isDisabled,
@@ -56,6 +57,7 @@ export const EstBody = ({
 
   return (
     <Fragment>
+
       <Box
         sx={{
           height: `${rowVirtualizer.getTotalSize()}px`,
@@ -111,6 +113,7 @@ export const EstBody = ({
 
       </Box>
       <EstFooterActions {...rowMethods} />
+      <ErrorPopover />
     </Fragment>
   );
 };

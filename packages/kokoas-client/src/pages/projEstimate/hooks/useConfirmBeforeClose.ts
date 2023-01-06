@@ -1,26 +1,27 @@
 import { useEffect } from 'react';
+import { useFormState } from 'react-hook-form';
 
-export const useConfirmBeforeClose = ({
-  enabled = false,
-}: {
-  enabled: boolean
-}) => {
+export const useConfirmBeforeClose = () => {
+
+  const { isDirty } = useFormState();
 
   useEffect(() => {
+
     const listener = (e: BeforeUnloadEvent) => {
-      if (enabled) {
+
+      if (isDirty) {
         e.preventDefault();
         return (e.returnValue = '行った変更が保存されない可能性があります。');
       }
     };
 
     window.addEventListener('beforeunload', listener);
-    
+
     return () => {
       window.removeEventListener('beforeunload', listener);
     };
 
-  }, [enabled]);
+  }, [isDirty]);
 
 
 };

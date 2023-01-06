@@ -5,7 +5,7 @@ import {  FormikIndividualCustomer } from './customer/register/FormikIndividualC
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
-import { FormProjEstimate } from './projEstimateV2/FormProjEstimate';
+import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
 import { FormikInvoice } from './projInvoice/FormikInvoice';

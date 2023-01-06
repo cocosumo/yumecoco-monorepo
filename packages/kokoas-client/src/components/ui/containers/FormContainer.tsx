@@ -1,10 +1,8 @@
-import { FormHTMLAttributes, KeyboardEvent } from 'react';
+import { 
+  FormHTMLAttributes, 
+} from 'react';
 import { MainContainer } from './MainContainer';
 
-
-const checkKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
-  if (e.key === 'Enter') e.preventDefault();
-};
 
 export const FormContainer = ({
   children,
@@ -12,7 +10,7 @@ export const FormContainer = ({
 }: FormHTMLAttributes<HTMLFormElement>) => {
 
   return (
-    <form {...formProps} onKeyDown={(e) => checkKeyDown(e)}>
+    <form {...formProps}>
       <MainContainer>
         {children}
       </MainContainer>

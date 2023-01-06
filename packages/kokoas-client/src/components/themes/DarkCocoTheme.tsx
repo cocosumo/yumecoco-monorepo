@@ -63,6 +63,10 @@ const darkTheme = createTheme({
       },
     },
     MuiInputBase: {
+      defaultProps: {
+        // すべての入力フィールドにグローバル スタイルを追加しないようにするために必要
+        disableInjectingGlobalStyles: true,
+      },
       styleOverrides: {
         root: {
           backgroundColor: 'white',

@@ -11,6 +11,7 @@ export const convertToKintone = ({
   projTypeProfit,
   status,
   taxRate,
+  estimateRevision,
 }: TypeOfForm) => {
 
   /* itemsの変換処理 */
@@ -60,6 +61,10 @@ export const convertToKintone = ({
     税: { value: taxRate.toString() },
     estimateStatus : { value: status || '' },
     内訳: kintoneItems,
+    $revision: {
+      type: '__REVISION__',
+      value: estimateRevision || '',
+    },
   };
 
   return kintoneRecord;

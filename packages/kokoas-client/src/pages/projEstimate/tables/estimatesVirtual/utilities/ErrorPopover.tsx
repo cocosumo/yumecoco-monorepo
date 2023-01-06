@@ -1,83 +1,35 @@
-import { FieldError, useFormContext, useFormState } from 'react-hook-form';
-import { KeyOfForm, TypeOfForm } from '../../../form';
-import { useCallback, useEffect, useState } from 'react';
-import { Alert, Popper, PopperProps } from '@mui/material';
-import { useOverlayContext } from 'kokoas-client/src/hooks/useOverlayContext';
+import Popper, { PopperProps } from '@mui/material/Popper';
+import Fade from '@mui/material/Fade';
+import { Alert } from '@mui/material';
 
-const EstTableFieldName : KeyOfForm = 'items';
+export const  ErrorPopover = ({
+  ancholErrEl,
+  errorMessage,
+}: {
+  ancholErrEl: PopperProps['anchorEl']
+  errorMessage?: string,
+}) => {
 
-export const ErrorPopover = () => {
-  const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<PopperProps['anchorEl']>(null);
-  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
-
-  const { control } = useFormContext<TypeOfForm>();
-
-  const { errors: { items } } = useFormState({
-    control,
-    name: EstTableFieldName,
-  });
-
-  const handleClose = useCallback(() => {
-    setOpen(false);
-  }, []);
-
-  const activeElement = document.activeElement;
-  const overlay = useOverlayContext();
-
-  useEffect(() => {
-
-    const activeElementName = activeElement?.getAttribute('name');
-
-    if (!activeElementName
-      || !activeElementName.includes(EstTableFieldName)
-    ) {
-      handleClose();
-      return;
-    }
-
-    const activeErrorField = items?.reduce?.((acc, curr) => {
-      if (curr) {
-        for (const field of Object.values(curr)) {
-          if ((field as FieldError).ref?.name === activeElementName) {
-            acc = field as FieldError;
-          }
-        }
-      }
-      return acc;
-    }, Object.create(null) as FieldError);
-
-    const actualErrorField = document.querySelector(`[name="${activeElementName}"]`);
-
-    if (!actualErrorField || !activeErrorField) {
-      handleClose();
-      return;
-    }
-
-    const getBoundingClientRect = () =>
-      actualErrorField.getBoundingClientRect();
-
-    setOpen(true);
-    setAnchorEl({ getBoundingClientRect, contextElement: overlay.current as Element });
-    setErrorMessage(activeErrorField?.message || '');
-
-  }, [handleClose, items, activeElement, overlay]);
+  const open = !!(document.body.contains(ancholErrEl as HTMLInputElement)) && !!errorMessage;
 
   return (
+  
     <Popper
-      id={'popper'}
       open={open}
-      //disablePortal={false}
-      placement="bottom-start"
+      anchorEl={ancholErrEl}
       transition
-      /* sx={(theme) => ({
+      placement="bottom-start"
+      sx={(theme) => ({
         zIndex: theme.zIndex.appBar + 1,
-      })} */
-      anchorEl={anchorEl}
+      })}
     >
-      <Alert severity="error">
-        {errorMessage}
-      </Alert>
+      {({ TransitionProps }) => (
+        <Fade {...TransitionProps} timeout={350}>
+          <Alert severity='warning'>
+            {errorMessage}
+          </Alert>
+        </Fade>
+      )}
     </Popper>
 
   );

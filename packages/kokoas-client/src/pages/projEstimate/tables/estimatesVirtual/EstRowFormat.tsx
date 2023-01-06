@@ -32,10 +32,10 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
     rowUnitPrice,
     rowDetails,
   } = props;
-  
+
   return (
-    
-    <Stack 
+
+    <Stack
       {...stackProps}
       className={'row'}
       direction={'row'}
@@ -44,36 +44,36 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
       width={'92%'}
       ref={ref}
     >
-      <Stack 
+      <Stack
         spacing={1}
         width={'15%'}
       >
         {majorItem}
         {middleItem}
       </Stack>
-      <Stack 
+      <Stack
         spacing={1}
         width={'15%'}
       >
         {material}
         {materialDetails}
       </Stack>
-      <div style={{ width: '15%' }}>
+      <div style={{ width: '11%' }}>
         {costPrice}
       </div>
       <div style={{ width: '10%' }}>
         {quantity}
       </div>
-      <Stack 
+      <Stack
         spacing={1}
-        width={'45%'}
+        width={'49%'}
       >
-        <Stack 
-          direction={'row'} 
+        <Stack
+          direction={'row'}
           width={'100%'}
           spacing={1}
         >
-          <Stack width={'25%'}>
+          <Stack width={'20%'}>
             {profitRate}
           </Stack>
           <Stack width={'25%'}>
@@ -82,7 +82,7 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
           <Stack width={'25%'}>
             {unitPrice}
           </Stack>
-          <Stack width={'25%'}>
+          <Stack width={'30%'}>
             {rowUnitPrice}
           </Stack>
         </Stack>

@@ -7,8 +7,8 @@ import { TypeOfForm } from '../form';
  * 当フックは initialForm　が変わったら、フォームをリセットする。
  *  */
 export const useFormReset = ({
-  formReturn,
   initialForm,
+  formReturn,
 } : {
   initialForm : TypeOfForm,
   formReturn: UseFormReturn<TypeOfForm>
@@ -16,9 +16,12 @@ export const useFormReset = ({
 
   const {
     reset,
+    control,
   } = formReturn;
 
-  const { isDirty } = useFormState();
+  const { isDirty } = useFormState({
+    control,
+  });
 
   useEffect(() => {
     reset({ ...initialForm });
@@ -27,4 +30,6 @@ export const useFormReset = ({
   useEffect(() => {
     console.log(isDirty);
   }, [isDirty]);
+
+
 };

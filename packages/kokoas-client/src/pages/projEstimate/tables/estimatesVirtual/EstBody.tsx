@@ -24,13 +24,13 @@ export const EstBody = ({
   const fieldArrayHelpers = useFieldArray<TypeOfForm>({
     name: 'items',
   });
-    
+
   const overlayRef = useOverlayContext();
   const { fields: items } = fieldArrayHelpers;
 
   const smartHandlers = useSmartHandlers();
   const rowMethods = useManipulateItemRows(
-    fieldArrayHelpers, 
+    fieldArrayHelpers,
     smartHandlers.handleUpdateSummary,
   );
 
@@ -46,7 +46,8 @@ export const EstBody = ({
     estimateSize: () => 120,
     overscan: 5,
     paddingStart: 92,
-  }); 
+    scrollPaddingStart: -92,
+  });
 
   /* 入力中の行をヘッダーと合計欄の裏にならない対策として、スクロールさせる*/
   const handleRowFocus = useMemo(() => debounce((rowIdx: number) => {
@@ -71,7 +72,7 @@ export const EstBody = ({
           const isAtBottom = virtualRow.index === (rowsCount - 1);
 
           return (
-            <EstRowContainer 
+            <EstRowContainer
               key={item.id}
               handleRowFocus={handleRowFocus}
               isAtBottom={isAtBottom}
@@ -88,7 +89,7 @@ export const EstBody = ({
                   visibility: isAtBottom ? 'hidden' : undefined,
                 }}
               />
-              <EstRow 
+              <EstRow
                 id={item.id}
                 rowIdx={virtualRow.index}
                 isAtBottom={isAtBottom}
@@ -96,10 +97,10 @@ export const EstBody = ({
                 smartHandlers={smartHandlers}
                 rowMethods={rowMethods}
               />
-           
-              <EstRowManipulate 
+
+              <EstRowManipulate
                 {...rowMethods}
-                rowIdx={virtualRow.index} 
+                rowIdx={virtualRow.index}
                 stackProps={{
                   visibility: isAtBottom ? 'hidden' : undefined,
                 }}
@@ -107,7 +108,7 @@ export const EstBody = ({
             </EstRowContainer>
           );
         })}
-      
+
       </Box>
       <EstFooterActions {...rowMethods} />
     </Fragment>

@@ -44,7 +44,7 @@ export const  ErrorPopover = ({
               width: '3em',
               height: '1em',
               position: 'absolute',
-              fontSize: 7,
+              fontSize: 16,
               '&::before': {
                 borderWidth: '0 1em 1em 1em',
                 borderColor: `transparent transparent ${red[50]} transparent`,

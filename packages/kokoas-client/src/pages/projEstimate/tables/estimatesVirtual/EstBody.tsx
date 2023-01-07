@@ -42,7 +42,7 @@ export const EstBody = ({
   const rowVirtualizer = useVirtualizer({
     count: rowsCount,
     getScrollElement: () => overlayRef.current,
-    estimateSize: () => 120,
+    estimateSize: () => 110,
     overscan: 5,
     paddingStart: 92,
     scrollPaddingStart: -92, // これが無いと、編集中の行のフォーカスが外れる。
@@ -55,7 +55,7 @@ export const EstBody = ({
 
   return (
     <Fragment>
-      <EstBodyContainer 
+      <EstBodyContainer
         height={rowVirtualizer.getTotalSize()}
       >
         <EstHeader />
@@ -71,7 +71,7 @@ export const EstBody = ({
               rowIdx={virtualRow.index}
               rowSize={virtualRow.size}
               rowStart={virtualRow.start}
-             
+
             >
               <EstRowMove
                 {...rowMethods}

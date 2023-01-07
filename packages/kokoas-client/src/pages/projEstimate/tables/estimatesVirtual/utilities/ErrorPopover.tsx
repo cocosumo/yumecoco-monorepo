@@ -1,7 +1,6 @@
 import Popper, { PopperProps } from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import { Alert, Box } from '@mui/material';
-import { useRef } from 'react';
 import { red } from '@mui/material/colors';
 
 export const  ErrorPopover = ({
@@ -11,7 +10,6 @@ export const  ErrorPopover = ({
   ancholErrEl: PopperProps['anchorEl']
   errorMessage?: string,
 }) => {
-  const arrowRef = useRef<HTMLSpanElement>(null);
 
   const open = !!(document.body.contains(ancholErrEl as HTMLInputElement)) && !!errorMessage;
 
@@ -37,28 +35,29 @@ export const  ErrorPopover = ({
       {({ TransitionProps }) => (
         <Fade {...TransitionProps} timeout={350}>
           <div>
-            <Box ref={arrowRef} sx={{
-              top: 0,
-              left: 16,
-              marginTop: '-0.9em',
-              width: '3em',
-              height: '1em',
-              position: 'absolute',
-              fontSize: 16,
-              '&::before': {
-                borderWidth: '0 1em 1em 1em',
-                borderColor: `transparent transparent ${red[50]} transparent`,
-                content: '""',
-                margin: 'auto',
-                display: 'block',
-                width: 0,
-                height: 0,
-                borderStyle: 'solid',
-              },
-            }}
+            <Box
+              sx={{
+                top: 0,
+                left: 16,
+                marginTop: '-0.9em',
+                width: '3em',
+                height: '1em',
+                position: 'absolute',
+                fontSize: 16,
+                '&::before': {
+                  borderWidth: '0 1em 1em 1em',
+                  borderColor: `transparent transparent ${red[50]} transparent`,
+                  content: '""',
+                  margin: 'auto',
+                  display: 'block',
+                  width: 0,
+                  height: 0,
+                  borderStyle: 'solid',
+                },
+              }}
             />
             <Alert
-              severity='warning'
+              severity='error'
               sx={{
                 boxShadow: 3,
               }}

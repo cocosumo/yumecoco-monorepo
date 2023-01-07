@@ -9,15 +9,16 @@ import { useMaterialsOptions,
   UseManipulateItemRows,
 } from '../../hooks';
 
-import { 
-  TaxType, 
-  UnitPrice, 
-  QuantityField, 
-  ProfitRate, 
-  CostPrice, 
-  RowUnitPriceAfterTax, 
-  MaterialDetails, 
-  RowDetails, 
+import {
+  TaxType,
+  UnitPrice,
+  QuantityField,
+  ProfitRate,
+  CostPrice,
+  RowUnitPriceAfterTax,
+  MaterialDetails,
+  RowDetails,
+  Taxable,
 } from './rowFields';
 
 
@@ -58,7 +59,7 @@ export const EstRow = ({
   });
 
   return (
-    <EstRowFormat 
+    <EstRowFormat
       ref={rowSubRef}
       majorItem={(
         <Autocomplete
@@ -97,7 +98,7 @@ export const EstRow = ({
         />
       )}
       materialDetails={(
-        <MaterialDetails rowIdx={rowIdx} /> 
+        <MaterialDetails rowIdx={rowIdx} />
       )}
       costPrice={(
         <CostPrice rowIdx={rowIdx} handleChange={handleChangeCostPrice}  />
@@ -109,7 +110,7 @@ export const EstRow = ({
         <ProfitRate rowIdx={rowIdx} handleChange={handleChangeProfitRate} />
       )}
       taxType={(
-        <TaxType rowIdx={rowIdx} handleChange={handleChangeTaxType} />
+        <Taxable rowIdx={rowIdx} handleChange={handleChangeTaxType} />
       )}
       unitPrice={(
         <UnitPrice rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />

@@ -99,10 +99,14 @@ export const convertEstimateToForm = (
     totalAmountBeforeTax,
   } = calculateSummary(newItems);
 
-  newItems.push({
-    ...initialValues.items[0],
-    materialProfRate: +projTypeProfit.value,
-  });
+  // 契約ないなら、仮想行を追加する
+  if (!envStatus) {
+    newItems.push({
+      ...initialValues.items[0],
+      materialProfRate: +projTypeProfit.value,
+    });
+  }
+
 
 
 

@@ -6,6 +6,6 @@ export const getSystemUpdate = async () => {
 
   return getRecords<RecordType>({
     app: appId,
-    query: `order by ${orderByField} desc limit 1`,
+    query: `order by ${orderByField} desc`,
   });
 };

@@ -12,8 +12,8 @@ import { TypeOfForm } from './form';
 import { useConfirmBeforeClose } from './hooks';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-//import { EstTable } from './tables/estimate/EstTable';
 import { EstBody } from './tables/estimatesVirtual/EstBody';
+import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 
@@ -102,7 +102,8 @@ export const FormContents = () => {
         <Grid item xs={12}>
           {/* 見積もり内訳のテーブル */}
           {/* <EstTable isDisabled={disabled} /> */}
-          <EstBody isDisabled={disabled} />
+          {!disabled &&  <EstBody isDisabled={disabled} />}
+          {disabled && <EstBodyReadOnly />}
         </Grid>
 
         <Grid item xs={12} mt={4}>

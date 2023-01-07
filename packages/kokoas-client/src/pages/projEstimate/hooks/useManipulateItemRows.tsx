@@ -38,14 +38,14 @@ export const useManipulateItemRows = (
 
   const handleRemoveItem = useCallback((rowIdx: number) => {
     remove(rowIdx);
-    
+
     if (rowIdx > 0) {
       setFocus(getItemsFieldName(rowIdx - 1, 'majorItem'));
     }
   }, [remove, setFocus]);
 
   const handleAppendItem = useCallback(() =>{
-    append(getNewRow());
+    append(getNewRow(), { shouldFocus: false });
   }, [append, getNewRow]);
 
   const handleMoveRowUp = useCallback((rowIdx: number) => move(rowIdx, rowIdx - 1), [move]);

@@ -1,13 +1,13 @@
 import { Stack, StackProps } from '@mui/material';
 import { grey, yellow } from '@mui/material/colors';
-import { useCallback } from 'react';
+import { FocusEvent, FocusEventHandler, useCallback } from 'react';
 
 export const EstRowContainer = (props: StackProps & {
   isAtBottom: boolean,
   rowIdx: number,
   rowSize: number,
   rowStart: number,
-  handleRowFocus: (rowIdx: number) => void
+  handleRowFocus: (rowIdx: number, e: FocusEvent<HTMLDivElement, Element>) => void
 }) => {
 
   const {
@@ -19,8 +19,8 @@ export const EstRowContainer = (props: StackProps & {
     ...otherProps
   } = props;
 
-  const memoOnFocus = useCallback(() => {
-    handleRowFocus(rowIdx);
+  const memoOnFocus: FocusEventHandler<HTMLDivElement> = useCallback((e) => {
+    handleRowFocus(rowIdx, e);
   }, [handleRowFocus, rowIdx]);
 
 

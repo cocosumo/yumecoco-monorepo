@@ -9,7 +9,7 @@ import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
 import { EstFooterActions } from './EstFooterActions';
-import { Fragment, useMemo } from 'react';
+import { FocusEvent, Fragment, useMemo } from 'react';
 import debounce from 'lodash/debounce';
 import { EstRowContainer } from './EstRowContainer';
 import { EstBodyContainerEditable } from './EstBodyContainerEditable';
@@ -49,8 +49,10 @@ export const EstBody = ({
   });
 
   /* 入力中の行をヘッダーと合計欄の裏にならない対策として、スクロールさせる*/
-  const handleRowFocus = useMemo(() => debounce((rowIdx: number) => {
-    rowVirtualizer.scrollToIndex(rowIdx, { behavior: 'smooth', align: 'start' });
+  const handleRowFocus = useMemo(() => debounce((rowIdx: number, e: FocusEvent<HTMLDivElement, Element>) => {
+    if (e.target.tagName === 'INPUT' && (e.target as HTMLInputElement)?.type !== 'checkbox') {
+      rowVirtualizer.scrollToIndex(rowIdx, { behavior: 'smooth', align: 'start' });
+    }
   }, 300), [rowVirtualizer]);
 
   return (

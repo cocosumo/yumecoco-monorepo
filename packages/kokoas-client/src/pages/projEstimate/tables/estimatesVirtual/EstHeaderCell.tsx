@@ -3,9 +3,8 @@ import { grey } from '@mui/material/colors';
 
 export const EstHeaderCell = (props: TypographyProps) => {
   return (
-    <Typography 
-      {...props} 
-      fontWeight={900}
+    <Typography
+      {...props}
       color={grey[700]}
     />
   );

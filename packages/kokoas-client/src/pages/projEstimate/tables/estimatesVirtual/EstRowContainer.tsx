@@ -23,9 +23,9 @@ export const EstRowContainer = (props: StackProps & {
     handleRowFocus(rowIdx);
   }, [handleRowFocus, rowIdx]);
 
-  
+
   return (
-    <Stack 
+    <Stack
       direction={'row'}
       justifyContent={'space-between'}
       py={2}
@@ -38,10 +38,10 @@ export const EstRowContainer = (props: StackProps & {
         width: '100%',
         minWidth: '600px',
         opacity: isAtBottom ? 0.5 : undefined,
-        background: rowIdx % 2 ? grey[50] : undefined, 
+        background: rowIdx % 2 ? grey[50] : undefined,
         '&:hover': isAtBottom ? {
           opacity: 1,
-        } : undefined,  
+        } : undefined,
         '&:focus-within': {
           background: yellow[50],
           opacity: isAtBottom ? 1 : undefined,

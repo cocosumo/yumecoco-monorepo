@@ -6,10 +6,10 @@ import { EstRowFormat } from './EstRowFormat';
 
 export const EstHeader = () => {
   return (
-    <Stack 
+    <Stack
       component={Paper}
-      spacing={1} 
-      direction={'row'} 
+      spacing={1}
+      direction={'row'}
       justifyContent={'space-between'}
       sx={{
         position: 'sticky',
@@ -22,11 +22,11 @@ export const EstHeader = () => {
         },
         transition: 'all 0.5s',
         background: grey[100],
-        py: 2,
+        py: 0.5,
       }}
     >
       <div />
-      <EstRowFormat 
+      <EstRowFormat
         majorItem={(
           <EstHeaderCell>
             {'大項目'}

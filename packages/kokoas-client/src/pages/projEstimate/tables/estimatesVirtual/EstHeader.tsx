@@ -64,7 +64,7 @@ export const EstHeader = () => {
       )}
         taxType={(
           <EstHeaderCell>
-            {'税'}
+            {'課税'}
           </EstHeaderCell>
       )}
         unitPrice={(

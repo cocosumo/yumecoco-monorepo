@@ -41,7 +41,7 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
       direction={'row'}
       justifyContent={'space-between'}
       spacing={1}
-      width={'92%'}
+      width={'93%'}
       ref={ref}
     >
       <Stack
@@ -58,31 +58,31 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
         {material}
         {materialDetails}
       </Stack>
-      <div style={{ width: '11%' }}>
+      <div style={{ width: '14%' }}>
         {costPrice}
       </div>
-      <div style={{ width: '10%' }}>
+      <div style={{ width: '14%' }}>
         {quantity}
       </div>
       <Stack
         spacing={0.5}
-        width={'49%'}
+        width={'42%'}
       >
         <Stack
           direction={'row'}
           width={'100%'}
           spacing={1}
         >
-          <Stack width={'20%'}>
+          <Stack width={'25%'}>
             {profitRate}
           </Stack>
-          <Stack width={'25%'}>
+          <Stack width={'12%'}>
             {taxType}
           </Stack>
-          <Stack width={'25%'}>
+          <Stack width={'30%'}>
             {unitPrice}
           </Stack>
-          <Stack width={'30%'}>
+          <Stack width={'33%'}>
             {rowUnitPrice}
           </Stack>
         </Stack>

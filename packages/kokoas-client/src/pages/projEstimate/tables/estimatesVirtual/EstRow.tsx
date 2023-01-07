@@ -10,7 +10,6 @@ import { useMaterialsOptions,
 } from '../../hooks';
 
 import {
-  TaxType,
   UnitPrice,
   QuantityField,
   ProfitRate,

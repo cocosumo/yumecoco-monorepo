@@ -5,7 +5,6 @@ export * from './QuantityField';
 export * from './RowDetails';
 export * from './RowUnitPriceAfterTax';
 export * from './Taxable';
-export * from './TaxType';
 export * from './UnitPrice';
 export * from './UnitType';
 export * from './UnitTypeMenu';

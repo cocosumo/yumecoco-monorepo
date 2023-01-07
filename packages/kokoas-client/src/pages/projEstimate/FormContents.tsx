@@ -12,7 +12,6 @@ import { TypeOfForm } from './form';
 import { useConfirmBeforeClose } from './hooks';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-//import { EstTable } from './tables/estimate/EstTable';
 import { EstBody } from './tables/estimatesVirtual/EstBody';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';

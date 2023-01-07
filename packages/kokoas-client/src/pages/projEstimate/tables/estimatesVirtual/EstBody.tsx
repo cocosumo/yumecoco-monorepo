@@ -12,7 +12,7 @@ import { EstFooterActions } from './EstFooterActions';
 import { Fragment, useMemo } from 'react';
 import debounce from 'lodash/debounce';
 import { EstRowContainer } from './EstRowContainer';
-import { EstBodyContainer } from './EstBodyContainer';
+import { EstBodyContainerEditable } from './EstBodyContainerEditable';
 
 export const EstBody = ({
   isDisabled,
@@ -55,7 +55,7 @@ export const EstBody = ({
 
   return (
     <Fragment>
-      <EstBodyContainer
+      <EstBodyContainerEditable
         height={rowVirtualizer.getTotalSize()}
       >
         <EstHeader />
@@ -102,7 +102,7 @@ export const EstBody = ({
           );
         })}
 
-      </EstBodyContainer>
+      </EstBodyContainerEditable>
       <EstFooterActions {...rowMethods} />
 
     </Fragment>

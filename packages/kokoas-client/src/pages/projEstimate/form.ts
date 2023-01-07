@@ -4,7 +4,7 @@ import { validationSchema } from './validationSchema';
 
 export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
-type KRowFields = keyof TypeOfForm['items'][number];
+export type KRowFields = keyof TypeOfForm['items'][number];
 
 
 

@@ -3,17 +3,16 @@ import { useOverlayContext } from 'kokoas-client/src/hooks/useOverlayContext';
 import { useFieldArray } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { useVirtualizer  } from '@tanstack/react-virtual';
-import { Box } from '@mui/material';
 import { useManipulateItemRows } from '../../hooks/useManipulateItemRows';
 import { EstRowMove, EstRowManipulate } from './rowActions';
 import { EstRow } from './EstRow';
 import { useSmartHandlers } from '../../hooks/useSmartHandlers';
 import { EstHeader } from './EstHeader';
-import { grey } from '@mui/material/colors';
 import { EstFooterActions } from './EstFooterActions';
 import { Fragment, useMemo } from 'react';
 import debounce from 'lodash/debounce';
 import { EstRowContainer } from './EstRowContainer';
+import { EstBodyContainer } from './EstBodyContainer';
 
 export const EstBody = ({
   isDisabled,
@@ -56,15 +55,8 @@ export const EstBody = ({
 
   return (
     <Fragment>
-      <Box
-        sx={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
-          width: '100%',
-          position: 'relative',
-          border:1,
-          borderColor: grey[200],
-          borderRadius: 1,
-        }}
+      <EstBodyContainer 
+        height={rowVirtualizer.getTotalSize()}
       >
         <EstHeader />
         {rowVirtualizer.getVirtualItems().map((virtualRow) => {
@@ -79,6 +71,7 @@ export const EstBody = ({
               rowIdx={virtualRow.index}
               rowSize={virtualRow.size}
               rowStart={virtualRow.start}
+             
             >
               <EstRowMove
                 {...rowMethods}
@@ -109,8 +102,9 @@ export const EstBody = ({
           );
         })}
 
-      </Box>
+      </EstBodyContainer>
       <EstFooterActions {...rowMethods} />
+
     </Fragment>
   );
 };

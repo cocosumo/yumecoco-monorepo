@@ -11,7 +11,6 @@ import { FormContents } from './FormContents';
 //import { DevTool } from '@hookform/devtools';
 import { EstimatesInfo } from './staticComponents/EstimatesInfo';
 import { useSaveForm } from './hooks/useSaveForm';
-import { useSaveHotkey } from './hooks/useSaveHotkey';
 import { Processing } from './formActions/Processing';
 import { ActionButtons } from './formActions/ActionButtons';
 import { useFormReset } from './hooks/useFormReset';
@@ -26,6 +25,7 @@ export const FormProjEstimate = () => {
 
   const {
     control,
+    
   }  = formReturn;
 
   /* initialFormが変わったら、リセットする */
@@ -40,10 +40,7 @@ export const FormProjEstimate = () => {
     handleSubmitFinal,
   } = useSaveForm(formReturn);
 
-  /* 保存ショートカット　CTRL+S */
-  useSaveHotkey(
-    handleSubmit,
-  );
+
 
 
 
@@ -86,7 +83,7 @@ export const FormProjEstimate = () => {
           <Divider />
         </Grid>
 
-        <FormContents />
+        <FormContents handleSubmit={handleSubmit} />
 
         <Processing />
         <ActionButtons

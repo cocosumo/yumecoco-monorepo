@@ -30,11 +30,14 @@ export const Taxable = ({
       render={({ field }) =>  {
         const {
           onChange,
+          value,
+          ...others
         } = field;
 
         return (
           <Switch
-            defaultChecked
+            {...others}
+            defaultChecked={value}
             onChange={(e) => {
               onChange(e);
               handleChange(rowIdx);

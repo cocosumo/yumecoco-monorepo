@@ -9,7 +9,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { TypeOfForm } from './form';
-import { useConfirmBeforeClose } from './hooks';
+import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { EstBody } from './tables/estimatesVirtual/EstBody';
@@ -19,7 +19,11 @@ import SummaryTable from './tables/SummaryTable/SummaryTable';
 
 
 
-export const FormContents = () => {
+export const FormContents = ({
+  handleSubmit,
+}: {
+  handleSubmit: UseSaveForm['handleSubmit']
+}) => {
 
   const {
     control,
@@ -44,6 +48,14 @@ export const FormContents = () => {
   });
 
   const disabled = !!envStatus;
+
+  /* 保存ショートカット　CTRL+S */
+  useSaveHotkey(
+    handleSubmit,
+    {
+      disabled,
+    },
+  );
 
   if (projId) {
     return (

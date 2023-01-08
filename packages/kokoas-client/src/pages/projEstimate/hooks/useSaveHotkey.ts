@@ -1,3 +1,4 @@
+import { useSnackBar } from 'kokoas-client/src/hooks';
 import debounce from 'lodash/debounce';
 import { useMemo } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -8,7 +9,11 @@ import { UseSaveForm } from './useSaveForm';
  */
 export const useSaveHotkey = (
   handleSubmit: UseSaveForm['handleSubmit'], 
+  options : {
+    disabled: boolean
+  },
 ) => {
+  const { setSnackState } = useSnackBar();
 
   const debouncedSave = useMemo(
     () => debounce(  // スパム対策
@@ -22,10 +27,22 @@ export const useSaveHotkey = (
   useHotkeys('meta+s',
     (e) => {
       e.preventDefault();
-      debouncedSave();
+      if (options.disabled) {
+    
+        setSnackState({
+          open: true,
+          severity: 'warning',
+          message: '保存不可',
+        });
+      } else {
+        debouncedSave();
+      }
+
     },
     {
       enableOnFormTags: ['INPUT', 'textarea'],
-    });
+    },
+    [options],
+  );
 
 };

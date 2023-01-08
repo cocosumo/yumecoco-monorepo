@@ -100,7 +100,7 @@ export const convertEstimateToForm = (
   } = calculateSummary(newItems);
 
   // 契約ないなら、仮想行を追加する
-  if (!envStatus) {
+  if (!envStatus.value) {
     newItems.push({
       ...initialValues.items[0],
       materialProfRate: +projTypeProfit.value,

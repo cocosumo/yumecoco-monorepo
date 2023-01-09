@@ -1,21 +1,15 @@
 import React, { useRef } from 'react';
 import useFileUpload from 'react-use-file-upload';
 import { Stack, Button } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { EstUploadInput } from './EstUploadInput';
 import { EstSelectProject } from './EstSelectProject';
-import { useSnackBar } from 'kokoas-client/src/hooks';
+import { EstDragAreaContainer } from './EstDragAreaContainer';
 
 export const EstUploadDialogContent = () => {
   const fileUploadReturn = useFileUpload();
-  const { setSnackState } = useSnackBar();
-
   const {
     files,
-    handleDragDropEvent,
     createFormData,
-    setFiles,
-
   } = fileUploadReturn;
 
   const hasFile = !!files.length;
@@ -45,45 +39,10 @@ export const EstUploadDialogContent = () => {
       height={'100%'}
       alignItems={'center'} // center children, but bypassed default behavior of flex where children take full width.
     >
-      <Stack
-        spacing={2}
-        justifyContent={'center'}
-        alignItems={'center'}
-        height={'100%'}
-        width={'100%'} // needed when using alignItems
-        sx={{
-          border: 2,
-          borderRadius: 1,
-          borderStyle: 'dashed',
-          borderColor: grey[200],
-        }}
-        onDragEnter={(e) => {
-          handleDragDropEvent(e as unknown as Event);
-        }}
-        onDragOver={(e) => {
-          handleDragDropEvent(e as unknown as Event);
-          console.log(e.dataTransfer.types);
-        }}
-        onDrop={(e) => {
-          handleDragDropEvent(e as unknown as Event);
-          const fileType = e.dataTransfer.files?.[0]?.type;
-          if (fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-            setFiles(e as unknown as Event);
-          } else {
-            setSnackState({
-              open: true,
-              severity: 'error',
-              message: 'エクセルファイルをアップロードしてください。',
-
-            });
-          }
-
-        }}
-      >
+      <EstDragAreaContainer {...fileUploadReturn} >
         {!!hasFile && <EstSelectProject {...fileUploadReturn} />}
         {!hasFile && <EstUploadInput {...fileUploadReturn} inputRef={inputRef} />}
-      </Stack>
-
+      </EstDragAreaContainer>
 
       <Button
         variant='contained'

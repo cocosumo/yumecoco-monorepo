@@ -12,7 +12,7 @@ export const UploadDaikokuEstimate = ({
   RenderButton: FC<ButtonBaseProps>,
   onClick?: ButtonBaseProps['onClick']
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <Fragment>

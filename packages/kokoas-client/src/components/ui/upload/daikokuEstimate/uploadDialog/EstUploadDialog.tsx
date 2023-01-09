@@ -1,4 +1,5 @@
 import { Dialog, DialogContent, DialogProps, DialogTitle } from '@mui/material';
+import { EstUploadDialogContent } from './EstUploadDialogContent';
 
 export const EstUploadDialog = (props: DialogProps,
 ) => {
@@ -17,7 +18,7 @@ export const EstUploadDialog = (props: DialogProps,
         大黒から見積をアップロードします
       </DialogTitle>
       <DialogContent>
-        Content
+        <EstUploadDialogContent />
       </DialogContent>
 
     </Dialog>

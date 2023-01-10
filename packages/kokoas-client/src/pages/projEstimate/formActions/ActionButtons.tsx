@@ -16,8 +16,8 @@ export const ActionButtons = ({
   handleSubmit: UseSaveForm['handleSubmit']
   handleSubmitFinal: UseSaveForm['handleSubmitFinal']
 }) => {
-  const [envStatus, estimateId] = useWatch<TypeOfForm>({
-    name: ['envStatus', 'estimateId'],
+  const [envStatus, projId] = useWatch<TypeOfForm>({
+    name: ['envStatus', 'projId'],
   });
   const loading = useIsFetching();
   const mutating = useIsMutating();
@@ -29,8 +29,8 @@ export const ActionButtons = ({
           !mutating // 保存中じゃない
           && !loading // データ取得中じゃない
           && !envStatus // 契約ない
-          && !!estimateId // 見積番号あり
-}
+          && !!projId // 工事番号があり
+        }
         mountOnEnter
         unmountOnExit
       >

@@ -67,9 +67,9 @@ export const EstDragAreaContainer = (props: useFileUploadHook & {
         setIsDragging(false);
       }}
     >
-      <div>
-        {children}
-      </div>
+
+      {children}
+
     </Stack>
   );
 };

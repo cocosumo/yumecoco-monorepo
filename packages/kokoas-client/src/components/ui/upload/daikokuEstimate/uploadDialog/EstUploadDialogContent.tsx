@@ -10,7 +10,6 @@ export const EstUploadDialogContent = () => {
   const fileUploadReturn = useFileUpload();
   const {
     files,
-    createFormData,
   } = fileUploadReturn;
 
   const hasFile = !!files.length;
@@ -19,7 +18,6 @@ export const EstUploadDialogContent = () => {
 
   const {
     mutate,
-    data,
   } = useUploadDaikokuEst();
 
   const handleSubmit = async (e: Event) => {
@@ -28,21 +26,7 @@ export const EstUploadDialogContent = () => {
       projId: 'test',
       fileBlob: files[0],
     });
-    const formData = createFormData();
-    //try {
-
-    /* axios.post('https://some-api.com', formData, {
-        'content-type': 'multipart/form-data',
-      }); */
-    console.log(formData);
-    //console.log(files);
-    //} catch (error) {
-    //  console.error('Failed to submit files.');
-    //}
   };
-
-
-  console.log(data);
 
   return (
     <Stack

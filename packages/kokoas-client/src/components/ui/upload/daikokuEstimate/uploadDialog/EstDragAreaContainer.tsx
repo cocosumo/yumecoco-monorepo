@@ -47,7 +47,13 @@ export const EstDragAreaContainer = (props: useFileUploadHook & {
       onDrop={(e) => {
         handleDragDropEvent(e as unknown as Event);
         const fileType = e.dataTransfer.files?.[0]?.type;
-        if (fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+        if (
+          [
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // "xlsx"
+            'application/vnd.ms-excel', // "xls"
+          ]
+            .includes(fileType)
+        ) {
           setFiles(e as unknown as Event);
         } else {
           setSnackState({

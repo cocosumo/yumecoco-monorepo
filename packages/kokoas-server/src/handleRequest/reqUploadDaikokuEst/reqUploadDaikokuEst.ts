@@ -1,6 +1,5 @@
 import { RequestHandler } from 'express';
-import excel from 'exceljs';
-import path from 'path';
+import { validateFile } from './validateFile';
 
 export interface ReqUploadDaikokuEstData {
   projId: string
@@ -17,10 +16,8 @@ ArrayBuffer
   try {
 
     console.log( req.body);
-    const workbook = new excel.Workbook();
-    await workbook.xlsx.load(req.body);
 
-    await workbook.xlsx.writeFile(path.join(__dirname, 'test.xlsx'));
+    await validateFile(req.body);
 
     console.log('DONE writing file');
     res.status(200).json({

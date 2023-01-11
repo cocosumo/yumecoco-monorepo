@@ -1,5 +1,5 @@
 import { baseUrl } from 'kokoas-client/src/config/settings';
-import { ReqUploadDaikokuEstData } from 'kokoas-server/src/handleRequest/reqUploadDaikokuEst';
+import { ReqUploadDaikokuEstData } from 'kokoas-server/src/handleRequest/reqUploadDaikokuEst/reqUploadDaikokuEst';
 import { ApiNodes, KokoasApiNodes } from 'types';
 import { externalApiUpload } from '../@proxy/externalApiUpload';
 

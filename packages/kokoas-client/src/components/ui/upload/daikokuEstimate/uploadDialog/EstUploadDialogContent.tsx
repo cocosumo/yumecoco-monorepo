@@ -5,6 +5,7 @@ import { EstUploadInput } from './EstUploadInput';
 import { EstSelectProject } from './EstSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
 import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 
 export const EstUploadDialogContent = () => {
   const fileUploadReturn = useFileUpload();
@@ -15,6 +16,7 @@ export const EstUploadDialogContent = () => {
   const hasFile = !!files.length;
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const { projId } = useURLParams();
 
   const {
     mutate,
@@ -23,7 +25,7 @@ export const EstUploadDialogContent = () => {
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
     mutate({
-      projId: 'test',
+      projId: projId ?? '',
       fileBlob: files[0],
     });
   };

@@ -3,7 +3,7 @@ import { validateFile } from './validateFile';
 import xlsx from 'xlsx';
 
 export interface ReqUploadDaikokuEstData {
-  projId: string,
+  projId?: string,
 }
 
 export const reqUploadDaikokuEst : RequestHandler<
@@ -15,12 +15,17 @@ ArrayBuffer
 > = async (req, res) => {
 
   try {
+    const projId = req?.params?.projId;
 
-    console.log('Uploading to projId: ', req?.params?.projId);
+    if (!projId) {
+      throw new Error(`工事番号は取得出来ませんでした。${projId}`);
+    }
+
+    console.log('Uploading to projId: ', projId);
 
     const workbook = xlsx.read(req.body);
     await validateFile(workbook);
-
+    // Processing
     console.log('DONE processing file');
 
     res.status(200).json({

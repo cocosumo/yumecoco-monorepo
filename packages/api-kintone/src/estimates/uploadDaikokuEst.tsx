@@ -1,5 +1,4 @@
 import { baseUrl } from 'kokoas-client/src/config/settings';
-import { ReqUploadDaikokuEstData } from 'kokoas-server/src/handleRequest/reqUploadDaikokuEst/reqUploadDaikokuEst';
 import { ApiNodes, KokoasApiNodes } from 'types';
 import { externalApiUpload } from '../@proxy/externalApiUpload';
 
@@ -14,11 +13,7 @@ export const uploadDaikokuEst = async (
   const apiRoot : ApiNodes = 'kokoas';
   const kokoasApiNode: KokoasApiNodes = 'uploadDaikokuEst';
 
-  const dataContent: ReqUploadDaikokuEstData = {
-    projId,
-  };
 
-  console.log(dataContent);
 
   const data = {
     format: 'RAW',
@@ -29,13 +24,18 @@ export const uploadDaikokuEst = async (
   if (!baseUrl) {
     throw new Error('環境にBase_URLが設定していません。管理者にご連絡ください。');
   }
-  const endpoint = [baseUrl, apiRoot, kokoasApiNode ].join('/');
+  const endpoint = [
+    baseUrl,
+    apiRoot,
+    kokoasApiNode,
+    projId,
+  ].join('/');
 
   return externalApiUpload(
     endpoint,
     'POST',
     {
-      // Define content type, required by
+      // Define content type, required by kintone upload
       'Content-Type': 'multipart/form-data; boundary="boundary"; charset=UTF-8',
     },
     data,

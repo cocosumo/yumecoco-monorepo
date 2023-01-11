@@ -7,7 +7,7 @@ const route = router();
 
 const uploadDaikokuNode : KokoasApiNodes = 'uploadDaikokuEst';
 
-route.post(`/${uploadDaikokuNode}`, express.raw({ type: '*/*', limit: '50mb' }), reqUploadDaikokuEst);
+route.post(`/${uploadDaikokuNode}/:projId`, express.raw({ type: '*/*', limit: '50mb' }), reqUploadDaikokuEst);
 
 // "テスト"
 route.get('/',  (req, res)=>{

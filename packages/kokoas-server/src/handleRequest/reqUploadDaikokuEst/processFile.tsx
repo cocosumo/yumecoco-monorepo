@@ -1,3 +1,4 @@
+import xlsx from 'xlsx';
 
 /**
  * ファイルを処理します。

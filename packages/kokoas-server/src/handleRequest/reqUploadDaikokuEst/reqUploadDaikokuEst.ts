@@ -3,11 +3,11 @@ import { validateFile } from './validateFile';
 import xlsx from 'xlsx';
 
 export interface ReqUploadDaikokuEstData {
-  projId: string
+  projId: string,
 }
 
 export const reqUploadDaikokuEst : RequestHandler<
-unknown,
+ReqUploadDaikokuEstData,
 {
   message: string
 },
@@ -16,9 +16,9 @@ ArrayBuffer
 
   try {
 
-    console.log( req.body);
-    const workbook = xlsx.read(req.body);
+    console.log('Body', req?.params?.projId);
 
+    const workbook = xlsx.read(req.body);
     await validateFile(workbook);
 
     console.log('DONE writing file');

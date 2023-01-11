@@ -1,6 +1,7 @@
 import { Router as router } from 'express';
 import bodyParser from 'body-parser';
 import { reqUploadDaikokuEst } from '../handleRequest/reqUploadDaikokuEst';
+import { KokoasApiNodes } from 'types';
 
 const route = router();
 route.use(bodyParser.json({ limit: '50mb' }));
@@ -13,8 +14,9 @@ route.use((err: any, _: any, res: any, next: any) => {
   }
 });
 
+const uploadDaikokuNode : KokoasApiNodes = 'uploadDaikokuEst';
 
-route.post('/processDaikoku', reqUploadDaikokuEst);
+route.post(`/${uploadDaikokuNode}`, reqUploadDaikokuEst);
 
 // "テスト"
 route.get('/', (req, res)=>{

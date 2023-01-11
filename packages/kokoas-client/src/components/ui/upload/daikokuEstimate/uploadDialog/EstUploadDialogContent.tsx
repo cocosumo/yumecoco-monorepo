@@ -4,6 +4,7 @@ import { Stack, Button } from '@mui/material';
 import { EstUploadInput } from './EstUploadInput';
 import { EstSelectProject } from './EstSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
+import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
 
 export const EstUploadDialogContent = () => {
   const fileUploadReturn = useFileUpload();
@@ -16,22 +17,29 @@ export const EstUploadDialogContent = () => {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const {
+    mutate,
+    data,
+  } = useUploadDaikokuEst();
+
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-
+    mutate();
     const formData = createFormData();
-    try {
-      /* axios.post('https://some-api.com', formData, {
+    //try {
+
+    /* axios.post('https://some-api.com', formData, {
         'content-type': 'multipart/form-data',
       }); */
-      console.log(formData);
-      console.log(files);
-    } catch (error) {
-      console.error('Failed to submit files.');
-    }
+    console.log(formData);
+    //console.log(files);
+    //} catch (error) {
+    //  console.error('Failed to submit files.');
+    //}
   };
 
 
+  console.log(data);
 
   return (
     <Stack

@@ -7,7 +7,21 @@ export const externalApi = async <T = unknown, D = unknown>(
   data: D,
 ) => {
   try {
-    kintone.proxy(url, 'POST', headers, data);
+    const resp = await kintone.proxy(url, 'POST', headers, data);
+
+    const [
+      body,
+      status,
+    ] = resp;
+
+    if (status === 200) {
+      return body;
+    } else if (status === 404) {
+      throw new Error(`Failed to access server ${url}`);
+    } else {
+      throw new Error(`${status} Unhandled.`);
+    }
+
   } catch (err) {
     throw new Error(err.message);
   }

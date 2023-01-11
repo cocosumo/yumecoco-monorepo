@@ -19,12 +19,7 @@ export const EstUploadInput = (
 
 
   const handleChange = (e: Event) => {
-    console.log(e);
     setFiles(e as unknown as Event);
-    console.log(e);
-    //if (inputRef.current) {
-    //  inputRef.current.value = '';
-    //}
   };
 
   return (

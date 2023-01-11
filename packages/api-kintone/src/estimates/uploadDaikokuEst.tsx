@@ -2,7 +2,7 @@ import { baseUrl } from 'kokoas-client/src/config/settings';
 import { ApiNodes, KokoasApiNodes } from 'types';
 import { externalApi } from '../@proxy/externalApi';
 
-export const uploadDaikoku = async () => {
+export const uploadDaikokuEst = async () => {
   const apiRoot : ApiNodes = 'kokoas';
   const kokoasApiNode: KokoasApiNodes = 'uploadDaikokuEst';
 
@@ -15,4 +15,5 @@ export const uploadDaikoku = async () => {
     'post', {},
     {},
   );
+
 };

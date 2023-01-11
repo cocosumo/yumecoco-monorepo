@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { validateFile } from './validateFile';
+import xlsx from 'xlsx';
 
 export interface ReqUploadDaikokuEstData {
   projId: string
@@ -16,8 +17,9 @@ ArrayBuffer
   try {
 
     console.log( req.body);
+    const workbook = xlsx.read(req.body);
 
-    await validateFile(req.body);
+    await validateFile(workbook);
 
     console.log('DONE writing file');
     res.status(200).json({

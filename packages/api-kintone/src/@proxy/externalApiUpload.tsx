@@ -15,10 +15,12 @@ export const externalApiUpload = async <T = unknown, D = unknown>(
 
     if (status === 200) {
       return body;
+    } else if (status === 400) {
+      throw new Error(`${status} ${JSON.parse(body).message}`);
     } else if (status === 404) {
       throw new Error(`Failed to access server ${url}`);
-    } else {
-      throw new Error(`${status} Unhandled status.`);
+    } else  {
+      throw new Error(`${status} Unhandled error.`);
     }
 
   } catch (err) {

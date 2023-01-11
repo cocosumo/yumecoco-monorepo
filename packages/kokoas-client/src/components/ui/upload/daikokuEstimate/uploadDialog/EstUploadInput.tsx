@@ -2,21 +2,18 @@ import { Button, Stack, Typography } from '@mui/material';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FolderIcon from '@mui/icons-material/Folder';
-import { RefObject } from 'react';
+import { useRef } from 'react';
 
 
 export const EstUploadInput = (
-  props : useFileUploadHook & {
-    inputRef: RefObject<HTMLInputElement>
-  },
-
+  props : useFileUploadHook,
 ) => {
 
   const {
-    inputRef,
     setFiles,
   } = props;
 
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: Event) => {
     setFiles(e as unknown as Event);

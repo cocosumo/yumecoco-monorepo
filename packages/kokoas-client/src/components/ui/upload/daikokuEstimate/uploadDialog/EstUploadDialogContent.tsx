@@ -6,6 +6,7 @@ import { EstSelectProject } from './EstSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
 import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
+import { Steps } from './Steps';
 
 export const EstUploadDialogContent = () => {
   const fileUploadReturn = useFileUpload();
@@ -15,7 +16,6 @@ export const EstUploadDialogContent = () => {
 
   const hasFile = !!files.length;
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const { projId } = useURLParams();
 
   const {
@@ -37,8 +37,7 @@ export const EstUploadDialogContent = () => {
       alignItems={'center'} // center children, but bypassed default behavior of flex where children take full width.
     >
       <EstDragAreaContainer {...fileUploadReturn} >
-        {!!hasFile && <EstSelectProject {...fileUploadReturn} />}
-        {!hasFile && <EstUploadInput {...fileUploadReturn} inputRef={inputRef} />}
+        <Steps />
       </EstDragAreaContainer>
 
       <Button

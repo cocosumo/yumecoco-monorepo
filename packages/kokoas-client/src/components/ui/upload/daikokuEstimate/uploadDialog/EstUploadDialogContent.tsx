@@ -24,7 +24,10 @@ export const EstUploadDialogContent = () => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
-    mutate();
+    mutate({
+      projId: 'test',
+      fileBlob: files[0],
+    });
     const formData = createFormData();
     //try {
 

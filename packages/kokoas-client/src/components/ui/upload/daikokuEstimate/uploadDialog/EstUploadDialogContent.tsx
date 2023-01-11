@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+
 import useFileUpload from 'react-use-file-upload';
-import { Stack, Button } from '@mui/material';
+import { Stack } from '@mui/material';
 import { EstUploadInput } from './EstUploadInput';
 import { EstSelectProject } from './EstSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
@@ -36,18 +36,21 @@ export const EstUploadDialogContent = () => {
       height={'100%'}
       alignItems={'center'} // center children, but bypassed default behavior of flex where children take full width.
     >
+      <Steps />
       <EstDragAreaContainer {...fileUploadReturn} >
-        <Steps />
+        {!!hasFile && <EstSelectProject {...fileUploadReturn} />}
+        {!hasFile && <EstUploadInput {...fileUploadReturn} />}
+
       </EstDragAreaContainer>
 
-      <Button
+      {/*       <Button
         variant='contained'
         fullWidth={false}
         onClick={(e)=>handleSubmit(e as unknown as Event)}
         disabled={!hasFile}
       >
         アップロード
-      </Button>
+      </Button> */}
 
     </Stack>
   );

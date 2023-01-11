@@ -54,3 +54,10 @@ export interface IRequestJWTUserTokenResponse {
     expires_in: string
   }
 }
+
+export type ApiNodes =
+| 'docusign'
+| 'kokoas';
+
+export type KokoasApiNodes =
+| 'uploadDaikokuEst';

@@ -3,8 +3,6 @@ import {
 } from 'api-kintone';
 import { isProd } from 'config';
 
-export const isProduction = process.env.NODE_ENV;
-
 export const kokoasEnvAppIds = {
   prod: '149',
   dev: '177',
@@ -28,3 +26,5 @@ export const getKokoasBaseURLByEnv = (
 export const yumecocoDocusign = {
   baseUrl: isProd ? process.env.DOCUSIGN_BASE_URL : process.env.DOCUSIGN_LOCAL_URL,
 };
+
+export const baseUrl = isProd ? process.env.BASE_URL : process.env.LOCAL_URL;

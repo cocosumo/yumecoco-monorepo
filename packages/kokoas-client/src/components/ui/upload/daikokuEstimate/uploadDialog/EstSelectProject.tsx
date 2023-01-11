@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
-import { RiFileExcel2Fill } from 'react-icons/all';
+import { RiFileExcel2Fill } from '@react-icons/all-files/ri/RiFileExcel2Fill';
 import { green } from '@mui/material/colors';
 export const EstSelectProject = (props: useFileUploadHook) => {
 

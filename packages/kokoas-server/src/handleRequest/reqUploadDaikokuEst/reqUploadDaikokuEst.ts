@@ -16,12 +16,13 @@ ArrayBuffer
 
   try {
 
-    console.log('Body', req?.params?.projId);
+    console.log('Uploading to projId: ', req?.params?.projId);
 
     const workbook = xlsx.read(req.body);
     await validateFile(workbook);
 
-    console.log('DONE writing file');
+    console.log('DONE processing file');
+
     res.status(200).json({
       message: 'success',
     });

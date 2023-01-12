@@ -28,13 +28,15 @@ export const uploadDaikokuEst = async (
     projId,
   ].join('/');
 
-  return externalApiUpload<unknown, unknown, ParsedDaikokuEst>(
+  const headers = {
+    // Define content type, required by kintone upload
+    'Content-Type': 'multipart/form-data; boundary="boundary"; charset=UTF-8',
+  };
+
+  return externalApiUpload<typeof headers, typeof data, ParsedDaikokuEst>(
     endpoint,
     'POST',
-    {
-      // Define content type, required by kintone upload
-      'Content-Type': 'multipart/form-data; boundary="boundary"; charset=UTF-8',
-    },
+    headers,
     data,
   );
 

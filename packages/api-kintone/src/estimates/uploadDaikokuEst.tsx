@@ -1,5 +1,5 @@
 import { baseUrl } from 'kokoas-client/src/config/settings';
-import { ApiNodes, KokoasApiNodes } from 'types';
+import { ApiNodes, KokoasApiNodes, ParsedDaikokuEst } from 'types';
 import { externalApiUpload } from '../@proxy/externalApiUpload';
 
 export const uploadDaikokuEst = async (
@@ -28,7 +28,7 @@ export const uploadDaikokuEst = async (
     projId,
   ].join('/');
 
-  return externalApiUpload(
+  return externalApiUpload<unknown, unknown, ParsedDaikokuEst>(
     endpoint,
     'POST',
     {

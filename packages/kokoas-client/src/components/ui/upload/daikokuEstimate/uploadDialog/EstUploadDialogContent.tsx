@@ -8,7 +8,6 @@ import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { Steps } from './Steps';
 import { useCallback, useState } from 'react';
-import { StepCUpload } from './StepCUpload';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
@@ -20,9 +19,9 @@ export const EstUploadDialogContent = () => {
     clearAllFiles,
   } = fileUploadReturn;
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  const {
+    mutate,
+  } = useUploadDaikokuEst();
 
   const handleReset = () => {
     clearAllFiles();
@@ -35,18 +34,14 @@ export const EstUploadDialogContent = () => {
   }, [setFiles]);
 
 
-
-  const {
-    mutate,
-  } = useUploadDaikokuEst();
-
-  const handleSubmit = async (e: Event) => {
+  const handleSubmit = useCallback(async (e: Event) => {
     e.preventDefault();
     mutate({
       projId: projId ?? '',
       fileBlob: files[0],
     });
-  };
+    setActiveStep(2);
+  }, [mutate, files, projId]);
 
   return (
     <Stack
@@ -61,13 +56,10 @@ export const EstUploadDialogContent = () => {
         {activeStep === 1 && (
           <StepBSelectProject
             {...fileUploadReturn}
-            handleNext={handleNext}
             handleReset={handleReset}
+            handleSubmit={handleSubmit}
             projId={projId}
           />)}
-        {activeStep === 2 && (
-          <StepCUpload />
-        )}
       </EstDragAreaContainer>
 
     </Stack>

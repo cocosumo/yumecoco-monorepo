@@ -13,13 +13,10 @@ export const uploadDaikokuEst = async (
   const apiRoot : ApiNodes = 'kokoas';
   const kokoasApiNode: KokoasApiNodes = 'uploadDaikokuEst';
 
-
-
   const data = {
     format: 'RAW',
     value: fileBlob,
   };
-
 
   if (!baseUrl) {
     throw new Error('環境にBase_URLが設定していません。管理者にご連絡ください。');

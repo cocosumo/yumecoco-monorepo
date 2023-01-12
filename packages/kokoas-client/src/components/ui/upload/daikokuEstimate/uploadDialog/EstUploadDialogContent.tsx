@@ -21,7 +21,12 @@ export const EstUploadDialogContent = () => {
 
   const {
     mutate,
-  } = useUploadDaikokuEst();
+  } = useUploadDaikokuEst({
+    onSuccess: () => {
+      setActiveStep(2);
+    },
+  });
+
 
   const handleReset = () => {
     clearAllFiles();
@@ -40,7 +45,6 @@ export const EstUploadDialogContent = () => {
       projId: projId ?? '',
       fileBlob: files[0],
     });
-    setActiveStep(2);
   }, [mutate, files, projId]);
 
   return (

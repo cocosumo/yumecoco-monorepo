@@ -1,22 +1,40 @@
 
 import useFileUpload from 'react-use-file-upload';
 import { Stack } from '@mui/material';
-import { EstUploadInput } from './EstUploadInput';
-import { EstSelectProject } from './EstSelectProject';
+import { StepAAttach } from './StepAAttach';
+import { StepBSelectProject } from './StepBSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
 import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { Steps } from './Steps';
+import { useCallback, useState } from 'react';
+import { StepCUpload } from './StepCUpload';
 
 export const EstUploadDialogContent = () => {
+  const { projId } = useURLParams();
+  const [activeStep, setActiveStep] = useState(1);
   const fileUploadReturn = useFileUpload();
   const {
     files,
+    setFiles,
+    clearAllFiles,
   } = fileUploadReturn;
 
-  const hasFile = !!files.length;
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
 
-  const { projId } = useURLParams();
+  const handleReset = () => {
+    clearAllFiles();
+    setActiveStep(0);
+  };
+
+  const handleFileAttached = useCallback((e: Event) => {
+    setActiveStep(1);
+    setFiles(e);
+  }, [setFiles]);
+
+
 
   const {
     mutate,
@@ -36,21 +54,21 @@ export const EstUploadDialogContent = () => {
       height={'100%'}
       alignItems={'center'} // center children, but bypassed default behavior of flex where children take full width.
     >
-      <Steps />
-      <EstDragAreaContainer {...fileUploadReturn} >
-        {!!hasFile && <EstSelectProject {...fileUploadReturn} />}
-        {!hasFile && <EstUploadInput {...fileUploadReturn} />}
-
+      <Steps activeStep={activeStep} />
+      <EstDragAreaContainer {...fileUploadReturn} handleFileAttached={handleFileAttached} >
+        {activeStep === 0 && (
+          <StepAAttach handleFileAttached={handleFileAttached} />)}
+        {activeStep === 1 && (
+          <StepBSelectProject
+            {...fileUploadReturn}
+            handleNext={handleNext}
+            handleReset={handleReset}
+            projId={projId}
+          />)}
+        {activeStep === 2 && (
+          <StepCUpload />
+        )}
       </EstDragAreaContainer>
-
-      {/*       <Button
-        variant='contained'
-        fullWidth={false}
-        onClick={(e)=>handleSubmit(e as unknown as Event)}
-        disabled={!hasFile}
-      >
-        アップロード
-      </Button> */}
 
     </Stack>
   );

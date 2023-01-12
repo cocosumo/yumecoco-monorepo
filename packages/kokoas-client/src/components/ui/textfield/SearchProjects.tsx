@@ -61,8 +61,9 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
       onInputChange={onInputChange ? onInputChange : (_, val) => {
         setInputVal(val);
       }}
-      onChange={onChange ? onChange : (_, val)=>{
+      onChange={(e, val, reason)=>{
         setFieldVal(val);
+        onChange?.(e, val, reason);
       }}
       getOptionLabel={(opt)=> opt.projName}
       isOptionEqualToValue={(opt, v) => opt.id === v.id}

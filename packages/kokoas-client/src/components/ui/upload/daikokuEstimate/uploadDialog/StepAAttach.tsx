@@ -1,23 +1,20 @@
 import { Button, Stack, Typography } from '@mui/material';
-import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import FolderIcon from '@mui/icons-material/Folder';
 import { useRef } from 'react';
 
 
-export const EstUploadInput = (
-  props : useFileUploadHook,
+export const StepAAttach = (
+  props : {
+    handleFileAttached: (e: Event) => void
+  },
 ) => {
 
   const {
-    setFiles,
+    handleFileAttached,
   } = props;
 
   const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleChange = (e: Event) => {
-    setFiles(e as unknown as Event);
-  };
 
   return (
     <Stack
@@ -50,7 +47,8 @@ export const EstUploadInput = (
         style={{ display: 'none' }}
         accept=".xls,.xlsx"
         onChange={(e) => {
-          handleChange(e as unknown as Event);
+          handleFileAttached(e as unknown as Event);
+
         }}
       />
     </Stack>

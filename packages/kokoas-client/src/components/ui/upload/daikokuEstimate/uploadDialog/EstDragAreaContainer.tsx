@@ -5,13 +5,14 @@ import { ReactNode, useState } from 'react';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
 
 export const EstDragAreaContainer = (props: useFileUploadHook & {
-  children: ReactNode
+  children: ReactNode,
+  handleFileAttached: (e: Event) => void
 }) => {
   const { setSnackState } = useSnackBar();
   const [isDragging, setIsDragging] = useState(false);
   const {
     handleDragDropEvent,
-    setFiles,
+    handleFileAttached,
     children,
   } = props;
 
@@ -54,7 +55,7 @@ export const EstDragAreaContainer = (props: useFileUploadHook & {
           ]
             .includes(fileType)
         ) {
-          setFiles(e as unknown as Event);
+          handleFileAttached(e as unknown as Event);
         } else {
           setSnackState({
             open: true,

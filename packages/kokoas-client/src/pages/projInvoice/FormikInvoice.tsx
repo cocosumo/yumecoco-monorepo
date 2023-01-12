@@ -27,7 +27,6 @@ export const FormikInvoice = () => {
             recordId: invoiceId,
             record,
           });
-          console.log('chk', id);
           navigate(`?${generateParams({ invoiceId: id })}`);
         };
 

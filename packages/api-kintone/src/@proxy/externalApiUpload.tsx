@@ -1,5 +1,5 @@
 
-export const externalApiUpload = async <T = unknown, D = unknown, Result = unknown>(
+export const externalApiUpload = async <T = unknown, D = unknown>(
   url: string,
   method: 'POST' | 'GET',
   headers: T,
@@ -14,7 +14,7 @@ export const externalApiUpload = async <T = unknown, D = unknown, Result = unkno
     ] = resp;
 
     if (status === 200) {
-      return body as Result;
+      return body;
     } else if (status === 400) {
       throw new Error(`${status} ${JSON.parse(body).message}`);
     } else if (status === 404) {

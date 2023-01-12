@@ -4,7 +4,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import { useRef } from 'react';
 
 
-export const StepAAttach = (
+export const StepAttach = (
   props : {
     handleFileAttached: (e: Event) => void
   },

@@ -33,11 +33,13 @@ export const uploadDaikokuEst = async (
     'Content-Type': 'multipart/form-data; boundary="boundary"; charset=UTF-8',
   };
 
-  return externalApiUpload<typeof headers, typeof data, ParsedDaikokuEst>(
+  const result = await externalApiUpload(
     endpoint,
     'POST',
     headers,
     data,
   );
+
+  return JSON.parse(result) as ParsedDaikokuEst;
 
 };

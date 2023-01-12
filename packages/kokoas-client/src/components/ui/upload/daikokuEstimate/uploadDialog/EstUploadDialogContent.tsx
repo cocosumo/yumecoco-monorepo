@@ -1,18 +1,21 @@
 
 import useFileUpload from 'react-use-file-upload';
 import { Stack } from '@mui/material';
-import { StepAAttach } from './StepAAttach';
-import { StepBSelectProject } from './StepBSelectProject';
+import { StepAttach } from './StepAttach';
+import { StepSelectProject } from './StepSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
 import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { Steps } from './Steps';
 import { useCallback, useState } from 'react';
+import { Loading } from '../../../loading/Loading';
+import { StepCheckInfo } from './StepCheckInfo';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
   const [activeStep, setActiveStep] = useState(1);
   const fileUploadReturn = useFileUpload();
+
   const {
     files,
     setFiles,
@@ -21,6 +24,8 @@ export const EstUploadDialogContent = () => {
 
   const {
     mutate,
+    isLoading,
+    data: parsedDaikokuEst,
   } = useUploadDaikokuEst({
     onSuccess: () => {
       setActiveStep(2);
@@ -33,11 +38,14 @@ export const EstUploadDialogContent = () => {
     setActiveStep(0);
   };
 
+  const handleNext = () => {
+    setActiveStep(prev => prev + 1);
+  };
+
   const handleFileAttached = useCallback((e: Event) => {
     setActiveStep(1);
     setFiles(e);
   }, [setFiles]);
-
 
   const handleSubmit = useCallback(async (e: Event) => {
     e.preventDefault();
@@ -54,20 +62,33 @@ export const EstUploadDialogContent = () => {
       alignItems={'center'} // center children, but bypassed default behavior of flex where children take full width.
     >
       <Steps activeStep={activeStep} />
-      <EstDragAreaContainer {...fileUploadReturn} handleFileAttached={handleFileAttached} >
+      {!!isLoading && (
+        <Loading />
+      )}
+      {!isLoading && (
+        <EstDragAreaContainer {...fileUploadReturn} handleFileAttached={handleFileAttached} >
 
-        {activeStep === 0 && (
-          <StepAAttach handleFileAttached={handleFileAttached} />)}
+          {activeStep === 0 && (
+          <StepAttach handleFileAttached={handleFileAttached} />)}
 
-        {activeStep === 1 && (
-          <StepBSelectProject
+          {activeStep === 1 && (
+          <StepSelectProject
             {...fileUploadReturn}
             handleReset={handleReset}
             handleSubmit={handleSubmit}
             projId={projId}
           />)}
 
-      </EstDragAreaContainer>
+          {activeStep === 2 && !!parsedDaikokuEst && (
+            <StepCheckInfo
+              parsedDaikokuEst={parsedDaikokuEst}
+              projId={projId}
+              handleNext={handleNext}
+            />
+          )}
+
+        </EstDragAreaContainer>
+      )}
 
     </Stack>
   );

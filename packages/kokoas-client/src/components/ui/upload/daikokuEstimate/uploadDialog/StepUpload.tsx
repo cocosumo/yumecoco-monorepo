@@ -1,4 +1,4 @@
-export const StepCUpload = () => {
+export const StepUpload = () => {
 
   return (
     <>

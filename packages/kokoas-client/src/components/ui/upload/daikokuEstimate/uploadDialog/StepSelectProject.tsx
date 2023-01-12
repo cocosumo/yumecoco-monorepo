@@ -1,15 +1,15 @@
-import { Button, Chip, Stack, Typography, Zoom } from '@mui/material';
+import { Chip, Stack, Typography, Zoom } from '@mui/material';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
 import { RiFileExcel2Fill } from '@react-icons/all-files/ri/RiFileExcel2Fill';
 import { green } from '@mui/material/colors';
 import { SearchProjects } from '../../../textfield';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { ProjContent } from './ProjContent';
+import { NextButton } from './NextButton';
 
-export const StepBSelectProject = (
+export const StepSelectProject = (
   props: useFileUploadHook & {
     projId?: string,
     handleReset: () => void,
@@ -58,16 +58,13 @@ export const StepBSelectProject = (
       />
       <ProjContent data={data} />
       <Zoom in={!!data}>
-        <Button
-          size={'large'}
-          variant={'text'}
-          endIcon={<NavigateNextIcon />}
+        <NextButton
           onClick={(e) => {
             handleSubmit(e as unknown as Event);
           }}
         >
           アップロード
-        </Button>
+        </NextButton>
       </Zoom>
 
     </Stack>

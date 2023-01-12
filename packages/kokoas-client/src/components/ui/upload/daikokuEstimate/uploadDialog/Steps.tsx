@@ -2,7 +2,11 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import { Step, StepLabel } from '@mui/material';
 
-const steps = ['大黒さんの見積を添付', '工事を選択', 'アップロード'];
+const steps = [
+  '大黒さんの見積を添付',
+  '工事を選択',
+  '顧客情報の確認',
+];
 
 export const Steps = ({
   activeStep,

@@ -6,7 +6,7 @@ export const EstUploadDialog = (props: DialogProps,
   return (
     <Dialog
       fullWidth
-      maxWidth={'sm'}
+      maxWidth={'lg'}
       PaperProps={{
         sx: {
           height: '80vh',

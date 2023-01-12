@@ -30,6 +30,7 @@ export const StepBSelectProject = (
     <Stack
       spacing={2}
       width={'80%'}
+      maxWidth={600}
       alignItems={'center'}
     >
       <Chip

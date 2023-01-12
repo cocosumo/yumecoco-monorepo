@@ -20,7 +20,7 @@ export const validateFile = async (workbook: xlsx.WorkBook) => {
     const correctDocumentTitle = '御見積書';
 
     if (documentTitle !== correctDocumentTitle) {
-      throw new Error(`検証が失敗ました。documentTitle = ${documentTitle}`);
+      throw new Error(`大黒さんの見積ではありません。documentTitle = ${documentTitle}`);
     }
 
     return true;

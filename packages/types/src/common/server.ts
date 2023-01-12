@@ -42,7 +42,16 @@ export interface ParsedDaikokuEst {
     quantity: number,
     amount: number,
   }>
-
+  items : Array<{
+    majorItem: string,
+    middleItem: string,
+    material: string,
+    unit: string,
+    quantity: string,
+    unitPrice: string,
+    amountAfterTax: string,
+    rowDetails: string,
+  }>
 }
 
 export interface ReqSendContract {

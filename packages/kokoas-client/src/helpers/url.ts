@@ -5,7 +5,7 @@ interface URLParams {
   projEstimateId?: string,
   custGroupId?: string,
   menuOpen?: number,
-  invoiceId?: number,
+  invoiceId?: string,
   clearFields?: string,
 }
 

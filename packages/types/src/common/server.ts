@@ -13,12 +13,14 @@ export type TProjReq = {
  */
 
 export interface ParsedDaikokuEst {
+  /** 書類タイトル */
+  documentTitle: string,
   /** 顧客名 */
   custName: string,
   /** 工事名 */
   projName: string,
   /** 工事住所 */
-  projAdress: string,
+  projAddress: string,
   /** 工事番号 */
   projDataId: string,
   /** 見積管理番号 */
@@ -47,9 +49,9 @@ export interface ParsedDaikokuEst {
     middleItem: string,
     material: string,
     unit: string,
-    quantity: string,
-    unitPrice: string,
-    amountAfterTax: string,
+    quantity: number,
+    unitPrice: number,
+    amount: number,
     rowDetails: string,
   }>
 }

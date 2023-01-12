@@ -1,6 +1,8 @@
 import { RequestHandler } from 'express';
 import { validateFile } from './validateFile';
 import xlsx from 'xlsx';
+import { ParsedDaikokuEst } from 'types';
+import { parseDaikokuEst } from './parser/parseDaikokuEst';
 
 export interface ReqUploadDaikokuEstData {
   projId?: string,
@@ -8,9 +10,7 @@ export interface ReqUploadDaikokuEstData {
 
 export const reqUploadDaikokuEst : RequestHandler<
 ReqUploadDaikokuEstData,
-{
-  message: string
-},
+ParsedDaikokuEst,
 ArrayBuffer
 > = async (req, res) => {
 
@@ -25,12 +25,13 @@ ArrayBuffer
 
     const workbook = xlsx.read(req.body);
     await validateFile(workbook);
+
     // Processing
+    const parsedDaikokuEst = await parseDaikokuEst(workbook);
+
     console.log('DONE processing file');
 
-    res.status(200).json({
-      message: 'success',
-    });
+    res.status(200).json(parsedDaikokuEst);
 
   } catch (err) {
     console.error(err?.message);

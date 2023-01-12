@@ -1,50 +1,71 @@
-import * as Yup from 'yup';
-import { KeyOfForm, TKMaterials } from './form';
+import { yupJA, yupValidations } from 'kokoas-client/src/helpers/yupLocaleJA';
 
-const mustBeNum = Yup.number()
-  .typeError('数値で入力してください');
+const {
+  yupNumber,
+} = yupValidations;
 
-const positiveNum =  mustBeNum
-  .min(0, '0以上の数字を入力してください');
-
-const requiredPositiveNum = positiveNum
-  .required('必須です');
+export type TStatusChoices = '' | '契約' | '銀行用' | '工事実行' | '追加' | '追加減額';
+export type TunitChoices = '式' | '㎡(平米)' | '㎥(立米)' | 'm(メートル)' | 'ヶ所' | '個' | 'セット' | '本' | '枚' |
+'ケース' | '台' | '組' | '袋' | '箱' | 'kg' | 't' ;
 
 
-const requiredNum = mustBeNum.required('必須です');
+export const statusChoices: TStatusChoices[] = [ '', '契約', '銀行用', '工事実行', '追加', '追加減額'];
+export const unitChoices: TunitChoices[] = [
+  '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
+  'ケース', '台', '組', '袋', '箱', 'kg', 't',
+];
 
+export const validationSchema = yupJA
+  .object({
+    createdDate: yupJA.date().nullable(),
+    custGroupId: yupJA.string(),
+    customerName :  yupJA.string(),
 
-/*
-バリデーション
-*/
-export const validationSchema = Yup
-  .object<Partial<Record<KeyOfForm, any>>>(
-  {
-    'projId': Yup
-      .string()
-      .required('必須です。'),
-    'projTypeProfit': Yup
-      .number(),
-    'tax': Yup
-      .number()
-      .required('必須です。'),
-    'items': Yup.array()
+    estimateId: yupJA.string().required(),
+    estimateDataId: yupJA.string(),
+    estimateRevision: yupJA.string(),
+
+    projDataId: yupJA.string().required(),
+    projId: yupJA.string().required(),
+    projName: yupJA.string().required(),
+
+    projTypeId: yupJA.string().required(),
+    projTypeName : yupJA.string().required(),
+    projTypeProfitLatest: yupNumber.max(100),
+    projTypeProfit: yupNumber.max(100).required(),
+
+    taxRate: yupNumber.required(),
+    status: yupJA.mixed<TStatusChoices>().oneOf(statusChoices),
+
+    envStatus: yupJA.string(),
+
+    /* 合計欄 */
+    totalCostPrice: yupNumber.required(),
+    totalAmountAfterTax: yupNumber.required(),
+    totalAmountBeforeTax: yupNumber.required(),
+
+    'items': yupJA.array()
       .of(
-        Yup.object().shape <Partial<Record<TKMaterials, any>>>({
-          'majorItem': Yup.string(),
-          'middleItem': Yup.string(), /* 中項目 */
-          'material': Yup.string(),    /* 部材 */
-          'costPrice': requiredNum, /* 原価 */
-          'quantity': requiredNum, /* 数量 */
-          'elemProfRate': requiredPositiveNum
-            .max(100, '100以下の数字を入力してください'), /* 利益率(部材) */
-          'unit': Yup.string(), /* 単位 */
-          'taxType': Yup.string(),  /* 税(課税/非課税) */
-          'unitPrice': requiredNum, /* 単価 */
-          'rowUnitPriceAfterTax': requiredNum, /* 金額 */
+        yupJA.object({
+          majorItem: yupJA.string(), // 大項目
+          middleItem: yupJA.string(), // 中項目
+          material: yupJA.string(),  // 部材
+          costPrice: yupNumber.required(), // 原価
+          quantity: yupNumber.required(), // 数量
+          rowCostPrice: yupNumber.required(),
+          materialProfRate: yupNumber.required()
+            .max(100, '100以下の数字を入力してください'), // 利益率(部材)
+          unit: yupJA.mixed<TunitChoices>().oneOf(unitChoices).required(), // 単位
+          taxable: yupJA.boolean().required(),  // 税(課税/非課税)
+          unitPrice: yupNumber.required(), // 単価
+          materialDetails: yupJA.string(),
+          rowDetails: yupJA.string(),
+          rowUnitPriceBeforeTax: yupNumber.required(), // 税抜き金額 */
+          rowUnitPriceAfterTax: yupNumber.required(), // 税込み金額
         }),
       )
       .required('Must have items')
       .min(1, 'Minimum of 1 items'),
-  },
-);
+
+
+  });

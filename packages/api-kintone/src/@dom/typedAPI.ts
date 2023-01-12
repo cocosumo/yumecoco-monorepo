@@ -21,13 +21,13 @@ export const getRecordPath = (
     appId,
     domain,
   }: AppRecord) : string => {
-  const nDomain = domain ? domain : window.location.href;
+  const nDomain = domain ? domain : window.location.origin;
   const nDevice = isMobile() ? 'k/m' : 'k';
   const nrecord = recordId
     ? `show${isMobile() ? '?' : '#'}record=${recordId}`
     : '';
 
-  return `https://${nDomain}/${nDevice}/${appId}/${nrecord}`;
+  return `${nDomain}/${nDevice}/${appId}/${nrecord}`;
 
 };
 

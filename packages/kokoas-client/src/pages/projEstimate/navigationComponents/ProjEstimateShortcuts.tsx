@@ -1,37 +1,34 @@
-import { useFormikContext } from 'formik';
-import { ComponentProps } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Shortcuts } from '../../../components/ui/speedDials/Shortcuts';
+import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
+import { ComponentProps, useCallback, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { Shortcuts, ShortCutType } from '../../../components/ui/speedDials/Shortcuts';
 import { generateParams } from '../../../helpers/url';
 import { pages } from '../../Router';
 import { TypeOfForm } from '../form';
 
 
 export const ProjEstimateShortcuts = () => {
-  const {
-    values: {
+
+  const { getValues } = useFormContext<TypeOfForm>();
+
+  const navigate = useStableNavigate();
+
+  const navigateToPage = useCallback(() => {
+    const [
       projId,
+      projEstimateId,
       custGroupId,
-      estimateId: projEstimateId,
-    },
-  } = useFormikContext<TypeOfForm>();
+    ] = getValues(['projId', 'estimateId', 'custGroupId' ]);
+    navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId, projEstimateId })}`);
+  }, [navigate, getValues]);
 
-  const navigate = useNavigate();
-
-  const shortcuts : ComponentProps<typeof Shortcuts>['shortcuts'] = [
-    {
-      type: 'project',
-      handleClick: ()=>navigate(`${pages.projEdit}?${generateParams({ projId, projEstimateId })}`),
-    },
-    {
-      type: 'prospect',
-      handleClick: ()=>navigate(`${pages.projProspect}?${generateParams({ projId, projEstimateId })}`),
-    },
-    {
-      type: 'custGroup',
-      handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId, projEstimateId })}`),
-    },
-  ];
+  const shortcuts : ComponentProps<typeof Shortcuts>['shortcuts'] = useMemo(() => {
+    return ['project', 'prospect', 'custGroup']
+      .map((p) => ({
+        type: p as ShortCutType,
+        handleClick: navigateToPage,
+      }));
+  }, [navigateToPage]);
 
 
   return (

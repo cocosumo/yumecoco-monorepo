@@ -1,14 +1,17 @@
-import { getParam } from 'kokoas-client/src/helpers/url';
+
 import { useCustGroupById, useEstimateById, useProjById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertProjToForm } from '../api/convertProjToForm';
 import { convertToForm } from '../api/convertToForm';
 import { initialValues } from '../form';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 
 export const useResolveParams  = () => {
   const [newFormVal, setNewFormVal] = useState(initialValues);
-  const projIdFromURL = getParam('projId');
-  const projEstimateIdFromURL = getParam('projEstimateId');
+  const {
+    projEstimateId: projEstimateIdFromURL,
+    projId: projIdFromURL,
+  } = useURLParams();
 
   const { data: dataProjEstimate } = useEstimateById(projEstimateIdFromURL || '');
   const { record, calculated } = dataProjEstimate || {};
@@ -20,10 +23,9 @@ export const useResolveParams  = () => {
   const { data: custGroupData } = useCustGroupById(custGroupId || '');
 
 
-  useEffect(() => {
+  useEffect(() => { 
     if (projEstimateIdFromURL && dataProjEstimate && projData && custGroupData) {
       const { newFormData } = convertToForm(dataProjEstimate);
- 
       setNewFormVal({
         ...initialValues,
         ...newFormData,

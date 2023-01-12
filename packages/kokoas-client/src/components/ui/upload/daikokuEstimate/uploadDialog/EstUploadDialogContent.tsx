@@ -55,8 +55,10 @@ export const EstUploadDialogContent = () => {
     >
       <Steps activeStep={activeStep} />
       <EstDragAreaContainer {...fileUploadReturn} handleFileAttached={handleFileAttached} >
+
         {activeStep === 0 && (
           <StepAAttach handleFileAttached={handleFileAttached} />)}
+
         {activeStep === 1 && (
           <StepBSelectProject
             {...fileUploadReturn}
@@ -64,6 +66,7 @@ export const EstUploadDialogContent = () => {
             handleSubmit={handleSubmit}
             projId={projId}
           />)}
+
       </EstDragAreaContainer>
 
     </Stack>

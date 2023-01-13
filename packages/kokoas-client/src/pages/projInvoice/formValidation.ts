@@ -1,9 +1,6 @@
 import * as Yup from 'yup';
-import { KeyOfForm, TKMaterials } from './form';
+import { getFieldName, KeyOfForm } from './form';
 
-
-/*  */
-const keys: TKMaterials[] = ['contractAmount', 'billingAmount', 'billedAmount'];
 
 /* Common validations */
 const dateValidation = Yup
@@ -26,10 +23,6 @@ export const validationSchema = Yup
         estimateId: Yup.string(),
         contractAmount: numberValidation,
         billingAmount: numberValidation.required('必須入力項目'),
-        /* .when(keys, {
-            is: (isForPayment: boolean) => isForPayment,
-            then: numberValidation.required('必須入力項目'),
-          }), */
         billedAmount: numberValidation,
         contractDate: dateValidation,
         isForPayment: Yup.boolean(),
@@ -37,18 +30,16 @@ export const validationSchema = Yup
     ),
 
   plannedPaymentDate: dateValidation
-    .when(keys, {
-      is: (plannedPaymentDate: string, undecidedPaymentDate: boolean) => {
-        return (!plannedPaymentDate && !undecidedPaymentDate);
-      },
+    .when(getFieldName('undecidedPaymentDate'), {
+      is: false,
       then: dateValidation.required('入金予定日を設定してください'),
     }),
 
   exceedChecked: Yup.boolean()
-    .when(keys, {
-      is: (contractAmount: number, billingAmount: number, billedAmount: number) => {
-        return Boolean(contractAmount < (billingAmount + billedAmount));
-      },
-      then: Yup.boolean().required().oneOf([true], '契約金の超過確認にチェックが入っていません'),
+    .when(getFieldName('exceededContract'), {
+      is: true,
+      then: Yup
+        .boolean()
+        .oneOf([true], '契約金の超過確認にチェックが入っていません'),
     }),
 });

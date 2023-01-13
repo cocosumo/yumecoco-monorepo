@@ -7,7 +7,11 @@ import { BillingEntryTableRow } from './BillingEntryTableRow';
 import { BillingEntryTableHead } from './BillingEntryTableHead';
 import { ExceedContractAmount } from './ExceedContractAmount';
 
-export const BillingEntryTable = () => {
+export const BillingEntryTable = ({
+  exceeded,
+}:{
+  exceeded : boolean
+}) => {
 
   const { values } = useFormikContext<TypeOfForm>();
   const { custGroupId, estimates } = values;
@@ -16,9 +20,6 @@ export const BillingEntryTable = () => {
 
   const filterTable = estimates.filter((estimate) => estimate.isForPayment);
 
-  const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
-    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
-  });
 
   return (
     <>

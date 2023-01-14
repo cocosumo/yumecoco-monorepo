@@ -1,5 +1,6 @@
 import { baseUrl } from 'kokoas-client/src/config/settings';
-import { ApiNodes, KokoasApiNodes, ParsedDaikokuEst } from 'types';
+import { kokoasEndpoints } from 'libs/src/endpoints';
+import { ApiNodes, ParsedDaikokuEst } from 'types';
 import { externalApiUpload } from '../@proxy/externalApiUpload';
 
 export const uploadDaikokuEst = async (
@@ -11,7 +12,6 @@ export const uploadDaikokuEst = async (
     fileBlob: Blob,
   }) => {
   const apiRoot : ApiNodes = 'kokoas';
-  const kokoasApiNode: KokoasApiNodes = 'uploadDaikokuEst';
 
   const data = {
     format: 'RAW',
@@ -24,7 +24,7 @@ export const uploadDaikokuEst = async (
   const endpoint = [
     baseUrl,
     apiRoot,
-    kokoasApiNode,
+    kokoasEndpoints.uploadCostprice,
     projId,
   ].join('/');
 

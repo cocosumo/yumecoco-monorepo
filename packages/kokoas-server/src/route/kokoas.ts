@@ -1,13 +1,21 @@
 import express, { Router as router } from 'express';
 import { reqUploadDaikokuEst } from '../handleRequest/reqUploadDaikokuEst';
-import { KokoasApiNodes } from 'types';
+import { kokoasEndpoints } from 'libs/src/endpoints';
 
 
 const route = router();
 
-const uploadDaikokuNode : KokoasApiNodes = 'uploadDaikokuEst';
+route.post(
+  `/${kokoasEndpoints.uploadEstimates}/:projId?`,
+  express.raw({ type: '*/*', limit: '50mb' }),
+  reqUploadDaikokuEst,
+);
 
-route.post(`/${uploadDaikokuNode}/:projId?`, express.raw({ type: '*/*', limit: '50mb' }), reqUploadDaikokuEst);
+route.post(
+  `/${kokoasEndpoints.uploadCostprice}/:projId?`,
+  express.raw({ type: '*/*', limit: '50mb' }),
+  reqUploadDaikokuEst,
+);
 
 // "テスト"
 route.get('/',  (req, res)=>{

@@ -108,4 +108,5 @@ export type ApiNodes =
 | 'kokoas';
 
 export type KokoasApiNodes =
-| 'uploadDaikokuEst';
+| 'upload/daikoku/estimate'
+| 'upload/daikoku/genka';

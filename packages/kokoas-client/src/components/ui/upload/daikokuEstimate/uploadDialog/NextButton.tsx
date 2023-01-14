@@ -3,11 +3,10 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { forwardRef } from 'react';
 
 
-export const NextButton = forwardRef<'button', ButtonProps>((props: ButtonProps, ref) => {
+export const NextButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   return (
     <Button
       ref={ref}
-
       size={'large'}
       variant={'text'}
       endIcon={<NavigateNextIcon />}

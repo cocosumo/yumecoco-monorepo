@@ -9,6 +9,9 @@ import { ParsedDaikokuEst } from 'types';
 import { NextButton } from './NextButton';
 import { StepCheckInfoTable } from './StepCheckInfoTable';
 
+/**
+ * 顧客と工事内容を確認する
+ */
 export const StepCheckInfo = (
   {
     parsedDaikokuEst,

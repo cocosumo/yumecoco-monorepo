@@ -65,7 +65,8 @@ export const StepCheckInfo = (
         ],
       ];
     },
-    [custData, projData, parsedDaikokuEst ]);
+    [custData, projData, parsedDaikokuEst ],
+  );
 
   return (
     <Stack spacing={2}>

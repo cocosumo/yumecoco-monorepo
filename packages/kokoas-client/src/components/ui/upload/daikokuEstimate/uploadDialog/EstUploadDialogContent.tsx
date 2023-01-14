@@ -10,6 +10,7 @@ import { Steps } from './Steps';
 import { useCallback, useState } from 'react';
 import { Loading } from '../../../loading/Loading';
 import { StepCheckInfo } from './StepCheckInfo';
+import { StepCheckItems } from './stepCheckItems';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
@@ -84,6 +85,13 @@ export const EstUploadDialogContent = () => {
               parsedDaikokuEst={parsedDaikokuEst}
               projId={projId}
               handleNext={handleNext}
+            />
+          )}
+
+          {activeStep === 3 && !!parsedDaikokuEst && (
+            <StepCheckItems
+              handleNext={handleNext}
+              parsedDaikokuEst={parsedDaikokuEst}
             />
           )}
 

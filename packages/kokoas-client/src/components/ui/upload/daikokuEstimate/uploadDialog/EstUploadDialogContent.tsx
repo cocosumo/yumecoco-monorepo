@@ -14,7 +14,7 @@ import { StepCheckItems } from './stepCheckItems';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(3);
   const fileUploadReturn = useFileUpload();
 
   const {
@@ -88,7 +88,7 @@ export const EstUploadDialogContent = () => {
             />
           )}
 
-          {activeStep === 3 && !!parsedDaikokuEst && (
+          {activeStep === 3 && (
             <StepCheckItems
               handleNext={handleNext}
               parsedDaikokuEst={parsedDaikokuEst}

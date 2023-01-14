@@ -5,7 +5,9 @@ import { Step, StepLabel } from '@mui/material';
 const steps = [
   '大黒さんの見積を添付',
   '工事を選択',
-  '顧客情報の確認',
+  '工事情報の確認',
+  '内訳の確認',
+
 ];
 
 export const Steps = ({

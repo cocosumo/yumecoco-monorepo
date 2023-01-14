@@ -23,6 +23,7 @@ export const EstDragAreaContainer = (props: useFileUploadHook & {
       alignItems={'center'}
       height={'100%'}
       width={'100%'} // needed when using alignItems
+      overflow={'hidden'}
       sx={{
         background: isDragging ? yellow[100] : undefined,
         border: 2,

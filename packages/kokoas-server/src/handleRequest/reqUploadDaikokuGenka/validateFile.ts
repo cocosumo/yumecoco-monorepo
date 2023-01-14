@@ -3,23 +3,20 @@ import xlsx from 'xlsx';
 
 
 /**
- *
- * Validate if file is valid 見積書 from daikoku
- *
- * Does not include existence of contents in database
- *
+ * Validate if file is valid 見積原価明細書 from daikoku
  * @param file
  */
-
-
 export const validateFile = async (workbook: xlsx.WorkBook) => {
   try {
-    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    const {
+      J1: documentTitle,
+    } = workbook.Sheets[workbook.SheetNames[0]];
 
-    const documentTitle = (firstSheet?.W2?.v as string)?.replaceAll(/\s/g, '');
-    const correctDocumentTitle = '御見積書';
+    const correctDocumentTitle = '見積原価明細書';
 
-    if (documentTitle !== correctDocumentTitle) {
+    console.log('DOC TITLE', documentTitle?.v);
+
+    if (documentTitle?.v !== correctDocumentTitle) {
       throw new Error(`大黒さんの見積ではありません。documentTitle = ${documentTitle}`);
     }
 

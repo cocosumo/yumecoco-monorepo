@@ -4,7 +4,8 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { useMemo, useRef } from 'react';
 import { ParsedDaikokuEst } from 'types';
 import { NextButton } from '../NextButton';
-import { EstBodyContainer } from './EstBodyContainer';
+import { ItemRow } from './ItemRow';
+import { ItemsBodyContainer } from './ItemsBodyContainer';
 import { ItemsRowContainer } from './ItemsRowContainer';
 
 // テスト用
@@ -39,6 +40,7 @@ export const StepCheckItems = (
       height={'100%'}
       width={'100%'}
       p={2}
+      spacing={2}
     >
       <Box
         ref={parentRef}
@@ -51,7 +53,7 @@ export const StepCheckItems = (
           overflow: 'auto',
         }}
       >
-        <EstBodyContainer
+        <ItemsBodyContainer
           height={rowVirtualizer.getTotalSize()}
         >
           {rowVirtualizer.getVirtualItems().map((virtualItem) => {
@@ -64,13 +66,15 @@ export const StepCheckItems = (
                 rowStart={virtualItem.start}
                 key={virtualItem.key}
               >
-                {item.majorItem}
+                <div />
+                <ItemRow item={item} />
+                <div />
               </ItemsRowContainer>
             );
           },
           )}
 
-        </EstBodyContainer>
+        </ItemsBodyContainer>
 
       </Box>
       <NextButton

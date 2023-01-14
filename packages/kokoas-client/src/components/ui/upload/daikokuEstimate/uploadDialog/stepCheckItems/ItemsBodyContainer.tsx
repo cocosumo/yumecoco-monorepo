@@ -1,6 +1,6 @@
 import { Box, BoxProps } from '@mui/material';
 
-export const EstBodyContainer = (
+export const ItemsBodyContainer = (
   props: BoxProps & {
     height: number,
   }) => {

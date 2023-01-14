@@ -2,13 +2,13 @@ import { RequestHandler } from 'express';
 import { validateFile } from './validateFile';
 import xlsx from 'xlsx';
 import { ParsedDaikokuEst } from 'types';
-import { parseDaikokuEst } from './parser/parseDaikokuEst';
+import { parser } from './parser/parser';
 
 export interface ReqUploadDaikokuGenka {
   projId?: string,
 }
 
-export const reqUploadDaikokuEst : RequestHandler<
+export const reqUploadDaikokuGenka : RequestHandler<
 ReqUploadDaikokuGenka,
 ParsedDaikokuEst,
 ArrayBuffer
@@ -27,7 +27,7 @@ ArrayBuffer
     await validateFile(workbook);
 
     // Processing
-    const parsedDaikokuEst = await parseDaikokuEst(workbook);
+    const parsedDaikokuEst = await parser(workbook);
 
     console.log('DONE processing file');
 

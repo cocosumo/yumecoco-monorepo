@@ -67,6 +67,7 @@ export const ItemRow = ({
         <ItemCellCompared
           value={parsedKProfitRate}
           daikokuValue={profitRate}
+          unit={'%'}
         />)}
       rowCostPrice={(
         <ItemCellCompared

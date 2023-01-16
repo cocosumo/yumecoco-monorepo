@@ -16,7 +16,7 @@ export const saveEstimate = async ({
 }:{
 
   /** uuid  */
-  recordId: string,
+  recordId?: string,
 
   record: Partial<RecordType>
 
@@ -47,7 +47,7 @@ export const saveEstimate = async ({
     app: appId,
     updateKey: {
       field: 'uuid',
-      value: recordId,
+      value: recordId ?? '',
     },
     record: aggRecord,
     revision,

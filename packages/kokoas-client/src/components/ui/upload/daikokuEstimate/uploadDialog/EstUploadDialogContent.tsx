@@ -89,8 +89,9 @@ export const EstUploadDialogContent = () => {
             />
           )}
 
-          {activeStep === 3 && !!parsedDaikoku && (
+          {activeStep === 3 && !!parsedDaikoku && !!projId && (
             <StepCheckItems
+              projId={projId}
               handleNext={handleNext}
               parsedDaikoku={parsedDaikoku}
             />

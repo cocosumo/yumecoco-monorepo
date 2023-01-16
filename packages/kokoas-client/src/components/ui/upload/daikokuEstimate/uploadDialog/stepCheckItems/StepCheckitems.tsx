@@ -3,19 +3,21 @@ import { grey } from '@mui/material/colors';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useMemo, useRef } from 'react';
 import {  ParsedDaikokuGenka } from 'types';
-import { NextButton } from '../NextButton';
 import { calculate } from './helper/calculate';
 import { ItemRow } from './ItemRow';
 import { ItemsBodyContainer } from './ItemsBodyContainer';
 import { ItemsRowContainer } from './ItemsRowContainer';
 import { ItemsSummary } from './ItemsSummary';
 import { ItemsTHead } from './ItemsTHead';
+import { Submit } from './Submit';
 
 export const StepCheckItems = (
   {
+    projId,
     parsedDaikoku,
     handleNext,
   }: {
+    projId: string,
     parsedDaikoku: ParsedDaikokuGenka,
     handleNext: () => void,
   },
@@ -93,13 +95,13 @@ export const StepCheckItems = (
           parsedDaikoku={parsedDaikoku}
         />
 
-        <NextButton
-          onClick={handleNext}
-          variant={'outlined'}
-          color={'secondary'}
-        >
-          登録
-        </NextButton>
+        <Submit
+          projId={projId}
+          handleNext={handleNext}
+          parsedDaikoku={parsedDaikoku}
+          details={details}
+        />
+
       </Stack>
     </Stack>
   );

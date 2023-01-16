@@ -137,8 +137,6 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
     const newRowProfit = rowUnitPriceBeforeTax - rowCostPrice;
 
-    console.log(rowUnitPriceBeforeTax, rowCostPrice, newRowProfit);
-
     return {
       ...params,
       rowCostPrice: Math.round(rowCostPrice),

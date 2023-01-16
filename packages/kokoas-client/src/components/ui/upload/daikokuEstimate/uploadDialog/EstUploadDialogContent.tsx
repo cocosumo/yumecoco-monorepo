@@ -11,11 +11,13 @@ import { useCallback, useState } from 'react';
 import { Loading } from '../../../loading/Loading';
 import { StepCheckInfo } from './StepCheckInfo';
 import { StepCheckItems } from './stepCheckItems';
+import { useIsMutating } from '@tanstack/react-query';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
   const [activeStep, setActiveStep] = useState(0);
   const fileUploadReturn = useFileUpload();
+  const isLoading = useIsMutating();
 
   const {
     files,
@@ -25,7 +27,6 @@ export const EstUploadDialogContent = () => {
 
   const {
     mutate,
-    isLoading,
     data: parsedDaikoku,
   } = useUploadDaikokuGenka({
     onSuccess: () => {
@@ -88,7 +89,7 @@ export const EstUploadDialogContent = () => {
             />
           )}
 
-          {activeStep === 3 && parsedDaikoku && (
+          {activeStep === 3 && !!parsedDaikoku && (
             <StepCheckItems
               handleNext={handleNext}
               parsedDaikoku={parsedDaikoku}

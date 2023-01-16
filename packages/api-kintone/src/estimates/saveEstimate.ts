@@ -37,10 +37,14 @@ export const saveEstimate = async ({
 
   /* Generate new dataId, for new record */
   if (!recordId) {
-    const projDataId = relatedData?.projDataId;
-    if (!projDataId) throw new Error(`無効なdataId。${projDataId}`);
-    const newDataId = await generateEstimateDataIdSeqNum(projDataId);
-    aggRecord.dataId = { value : newDataId };
+    // Generate dataId if not passed.
+    // Daikoku will have its own dataId
+    if (!record.dataId) {
+      const projDataId = relatedData?.projDataId;
+      if (!projDataId) throw new Error(`無効なdataId。${projDataId}`);
+      const newDataId = await generateEstimateDataIdSeqNum(projDataId);
+      aggRecord.dataId = { value : newDataId };
+    }
   }
 
   return saveRecordByUpdateKey({

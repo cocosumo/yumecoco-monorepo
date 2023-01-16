@@ -2,70 +2,47 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useCustGroupById, useProjById } from 'kokoas-client/src/hooksQuery';
-import { addressBuilder } from 'libs';
+import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';
-import { ParsedDaikokuEst } from 'types';
+import { ParsedDaikokuGenka } from 'types';
 import { NextButton } from './NextButton';
 import { StepCheckInfoTable } from './StepCheckInfoTable';
 
 /**
- * 顧客と工事内容を確認する
+ * 工事内容を確認する
  */
 export const StepCheckInfo = (
   {
-    parsedDaikokuEst,
+    parsedDaikoku,
     handleNext,
     projId,
   }: {
-    parsedDaikokuEst: ParsedDaikokuEst,
+    parsedDaikoku: ParsedDaikokuGenka,
     handleNext: () => void,
     projId?: string
   },
 ) => {
 
   const { data: projData } = useProjById(projId ?? '');
-  const {
-    custGroupId,
-  } = projData || {};
-
-  const { data: custData } = useCustGroupById(custGroupId?.value ?? '');
 
   const diffRows = useMemo(
     () => {
-      if (!projData || !custData || !parsedDaikokuEst) return [];
+      if (!projData || !parsedDaikoku) return [];
 
       const {
         projName,
-        postal, address1, address2,
       } = projData || {};
 
-      const {
-        members,
-      } = custData || {};
-
-      const firstCustName = members?.value[0].value.customerName;
 
       const {
-        custName: dkCustName,
         projName: dkProjName,
-        projAddress: dkProjAddress,
-      } = parsedDaikokuEst;
+      } = parsedDaikoku;
 
       return [
-        [firstCustName?.value, dkCustName],
         [projName?.value, dkProjName],
-        [
-          addressBuilder({
-            postal: postal.value,
-            address1: address1.value,
-            address2: address2.value,
-          }),
-          dkProjAddress,
-        ],
       ];
     },
-    [custData, projData, parsedDaikokuEst ],
+    [projData, parsedDaikoku ],
   );
 
   return (

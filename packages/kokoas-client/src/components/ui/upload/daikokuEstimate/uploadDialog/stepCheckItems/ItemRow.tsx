@@ -1,11 +1,12 @@
-import { ParsedDaikokuEst } from 'types';
+import { red } from '@mui/material/colors';
+import { ParsedDaikokuGenka } from 'types';
 import { ItemCell } from './ItemCell';
 import { ItemRowFormat } from './ItemRowFormat';
 
 export const ItemRow = ({
   item,
 }:{
-  item: ParsedDaikokuEst['items'][number]
+  item: ParsedDaikokuGenka['items'][number]
 })  => {
   const {
     majorItem,
@@ -13,8 +14,9 @@ export const ItemRow = ({
     material,
     quantity,
     unitPrice,
+    rowUnitPrice,
+    costPrice,
     unit,
-    amount,
     rowDetails,
   } = item;
   return (
@@ -34,19 +36,24 @@ export const ItemRow = ({
           {material}
         </ItemCell>
       )}
+      costPrice={(
+        <ItemCell textAlign={'right'}>
+          {`${costPrice.toLocaleString()} 円`}
+        </ItemCell>
+      )}
       quantity={(
         <ItemCell>
           {`${quantity.toLocaleString()} ${unit}`}
         </ItemCell>
       )}
       unitPrice={(
-        <ItemCell textAlign={'right'}>
+        <ItemCell textAlign={'right'} color={unitPrice < 0 ? red[800] : undefined}>
           {`${unitPrice.toLocaleString()} 円`}
         </ItemCell>
       )}
-      amount={(
-        <ItemCell textAlign={'right'}>
-          {`${amount.toLocaleString()} 円`}
+      rowUnitPrice={(
+        <ItemCell textAlign={'right'} color={unitPrice < 0 ? red[800] : undefined}>
+          {`${rowUnitPrice.toLocaleString()} 円`}
         </ItemCell>
       )}
       rowDetails={(

@@ -28,6 +28,8 @@ export const uploadDaikokuGenka = async (
     projId,
   ].join('/');
 
+
+
   const headers = {
     // Define content type, required by kintone upload
     'Content-Type': 'multipart/form-data; boundary="boundary"; charset=UTF-8',

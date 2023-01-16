@@ -1,6 +1,7 @@
 import express, { Router as router } from 'express';
 import { reqUploadDaikokuEst } from '../handleRequest/reqUploadDaikokuEst';
 import { kokoasEndpoints } from 'libs/src/endpoints';
+import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
 
 
 const route = router();
@@ -14,7 +15,7 @@ route.post(
 route.post(
   `/${kokoasEndpoints.uploadGenka}/:projId?`,
   express.raw({ type: '*/*', limit: '50mb' }),
-  reqUploadDaikokuEst,
+  reqUploadDaikokuGenka,
 );
 
 // "テスト"

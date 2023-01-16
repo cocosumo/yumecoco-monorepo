@@ -3,7 +3,7 @@ import { uploadDaikokuGenka } from 'api-kintone/src/estimates';
 import { ParsedDaikokuGenka } from 'types';
 import { useCommonOptions } from './useCommonOptions';
 
-export const useUploadDaikokuEst = ({
+export const useUploadDaikokuGenka = ({
   onSuccess,
 }: {
   onSuccess?: (data: ParsedDaikokuGenka) => void

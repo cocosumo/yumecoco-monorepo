@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import { StepAttach } from './StepAttach';
 import { StepSelectProject } from './StepSelectProject';
 import { EstDragAreaContainer } from './EstDragAreaContainer';
-import { useUploadDaikokuEst } from 'kokoas-client/src/hooksQuery';
+import { useUploadDaikokuGenka } from 'kokoas-client/src/hooksQuery';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { Steps } from './Steps';
 import { useCallback, useState } from 'react';
@@ -14,7 +14,7 @@ import { StepCheckItems } from './stepCheckItems';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
-  const [activeStep, setActiveStep] = useState(3);
+  const [activeStep, setActiveStep] = useState(0);
   const fileUploadReturn = useFileUpload();
 
   const {
@@ -26,8 +26,8 @@ export const EstUploadDialogContent = () => {
   const {
     mutate,
     isLoading,
-    data: parsedDaikokuEst,
-  } = useUploadDaikokuEst({
+    data: parsedDaikoku,
+  } = useUploadDaikokuGenka({
     onSuccess: () => {
       setActiveStep(2);
     },
@@ -80,18 +80,18 @@ export const EstUploadDialogContent = () => {
             projId={projId}
           />)}
 
-          {activeStep === 2 && !!parsedDaikokuEst && (
+          {activeStep === 2 && !!parsedDaikoku && (
             <StepCheckInfo
-              parsedDaikokuEst={parsedDaikokuEst}
+              parsedDaikoku={parsedDaikoku}
               projId={projId}
               handleNext={handleNext}
             />
           )}
 
-          {activeStep === 3 && (
+          {activeStep === 3 && parsedDaikoku && (
             <StepCheckItems
               handleNext={handleNext}
-              parsedDaikokuEst={parsedDaikokuEst}
+              parsedDaikoku={parsedDaikoku}
             />
           )}
 

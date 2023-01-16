@@ -1,9 +1,9 @@
-import { Chip, Stack } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { CalculationEstimateResults } from 'api-kintone';
 import { roundTo } from 'libs';
 import { ParsedDaikokuGenka } from 'types';
 import { ItemCell } from './ItemCell';
+import { ItemCellCompared } from './ItemCellCompared';
 import { ItemRowFormat } from './ItemRowFormat';
 
 export const ItemRow = ({
@@ -64,64 +64,28 @@ export const ItemRow = ({
         </ItemCell>
       )}
       profitRate={(
-        <Stack>
-          <Chip
-            variant='outlined'
-            size='small'
-            label={`${parsedKProfitRate.toLocaleString()} %`}
-            color={parsedKProfitRate !== profitRate ? 'warning' : 'success'}
-          />
-          {
-            parsedKProfitRate !== profitRate &&
-            <ItemCell textAlign='center' variant={'caption'}>
-              {`${ profitRate.toLocaleString()} %`}
-            </ItemCell>
-          }
-
-        </Stack>
-
-      )}
+        <ItemCellCompared
+          value={parsedKProfitRate}
+          daikokuValue={profitRate}
+        />)}
+      rowCostPrice={(
+        <ItemCellCompared
+          value={kRowCostPrice}
+          daikokuValue={rowCostPrice}
+        />)}
       unitPrice={(
-        <Stack>
-          <Chip
-            variant='outlined'
-            size='small'
-            label={`${kUnitPrice.toLocaleString()} 円`}
-            color={kUnitPrice !== unitPrice ? 'warning' : 'success'}
-          />
-          {
-            kUnitPrice !== unitPrice &&
-            <ItemCell textAlign='center' variant={'caption'}>
-              {`${unitPrice.toLocaleString()} 円`}
-            </ItemCell>
-          }
-        </Stack>
-      )}
+        <ItemCellCompared
+          value={kUnitPrice}
+          daikokuValue={unitPrice}
+        />)}
       rowUnitPrice={(
         <ItemCell
           textAlign={'right'}
-          color={unitPrice < 0 ? red[800] : undefined}
+          color={rowUnitPrice < 0 ? red[800] : undefined}
           fontWeight={700}
         >
           {`${rowUnitPrice.toLocaleString()} 円`}
         </ItemCell>
-      )}
-      rowCostPrice={(
-        <Stack>
-          <Chip
-            variant='outlined'
-            size='small'
-            label={`${kRowCostPrice.toLocaleString()} 円`}
-            color={kRowCostPrice !== rowCostPrice ? 'warning' : 'success'}
-          />
-          {
-          kRowCostPrice !== rowCostPrice &&
-          <ItemCell textAlign='center' variant={'caption'}>
-            {`${rowCostPrice.toLocaleString()} 円`}
-          </ItemCell>
-        }
-        </Stack>
-
       )}
       rowDetails={(
         <ItemCell>

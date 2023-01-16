@@ -89,13 +89,17 @@ export const StepCheckItems = (
         spacing={2}
         justifyContent={'space-between'}
       >
-        <ItemsSummary summary={summary} />
+        <ItemsSummary
+          summary={summary}
+          parsedDaikoku={parsedDaikoku}
+        />
 
         <NextButton
           onClick={handleNext}
           variant={'contained'}
+          color={'secondary'}
         >
-          アップロード
+          登録
         </NextButton>
       </Stack>
 

@@ -8,3 +8,4 @@ export * from './getEstimatesByProjId';
 export * from './saveEstimate';
 export * from './updateEstimateById';
 export * from './uploadDaikokuEst';
+export * from './uploadDaikokuGenka';

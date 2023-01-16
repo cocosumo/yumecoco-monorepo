@@ -1,9 +1,9 @@
 import { baseUrl } from 'kokoas-client/src/config/settings';
 import { kokoasEndpoints } from 'libs/src/endpoints';
-import { ApiNodes, ParsedDaikokuEst } from 'types';
+import { ApiNodes, ParsedDaikokuGenka } from 'types';
 import { externalApiUpload } from '../@proxy/externalApiUpload';
 
-export const uploadDaikokuEst = async (
+export const uploadDaikokuGenka = async (
   {
     projId,
     fileBlob,
@@ -24,7 +24,7 @@ export const uploadDaikokuEst = async (
   const endpoint = [
     baseUrl,
     apiRoot,
-    kokoasEndpoints.uploadEstimates,
+    kokoasEndpoints.uploadGenka,
     projId,
   ].join('/');
 
@@ -40,6 +40,6 @@ export const uploadDaikokuEst = async (
     data,
   );
 
-  return JSON.parse(result) as ParsedDaikokuEst;
+  return JSON.parse(result) as ParsedDaikokuGenka;
 
 };

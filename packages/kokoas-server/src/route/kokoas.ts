@@ -12,7 +12,7 @@ route.post(
 );
 
 route.post(
-  `/${kokoasEndpoints.uploadCostprice}/:projId?`,
+  `/${kokoasEndpoints.uploadGenka}/:projId?`,
   express.raw({ type: '*/*', limit: '50mb' }),
   reqUploadDaikokuEst,
 );

@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import { validateFile } from './validateFile';
 import xlsx from 'xlsx';
-import { ParsedDaikokuEst } from 'types';
-import { parser } from './parser/parser';
+import { ParsedDaikokuGenka } from 'types';
+import { parser } from './parser';
 
 export interface ReqUploadDaikokuGenka {
   projId?: string,
@@ -10,7 +10,7 @@ export interface ReqUploadDaikokuGenka {
 
 export const reqUploadDaikokuGenka : RequestHandler<
 ReqUploadDaikokuGenka,
-ParsedDaikokuEst,
+ParsedDaikokuGenka,
 ArrayBuffer
 > = async (req, res) => {
 
@@ -27,11 +27,11 @@ ArrayBuffer
     await validateFile(workbook);
 
     // Processing
-    const parsedDaikokuEst = await parser(workbook);
+    const parsed = await parser(workbook);
 
     console.log('DONE processing file');
 
-    res.status(200).json(parsedDaikokuEst);
+    res.status(200).json(parsed);
 
   } catch (err) {
     console.error(err?.message);

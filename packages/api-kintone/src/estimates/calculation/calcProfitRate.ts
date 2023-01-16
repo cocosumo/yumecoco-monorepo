@@ -17,7 +17,6 @@ export const calcProfitRate = (
 
   if (+unitPrice === 0) return -1000000;
 
-
   return roundTo(( unitPrice - costPrice) / unitPrice, 4);
 
 };

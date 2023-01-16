@@ -1,9 +1,10 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import {  ParsedDaikokuGenka } from 'types';
 import { NextButton } from '../NextButton';
+import { calculate } from './helper/calculate';
 import { ItemRow } from './ItemRow';
 import { ItemsBodyContainer } from './ItemsBodyContainer';
 import { ItemsRowContainer } from './ItemsRowContainer';
@@ -21,6 +22,7 @@ export const StepCheckItems = (
 
   const parentRef = useRef<Element | null>(null);
   const { items } = parsedDaikoku || {};
+  const { details } = useMemo(() => calculate({ record: parsedDaikoku }), [parsedDaikoku]);
 
   // The virtualizer
   const rowVirtualizer = useVirtualizer({
@@ -29,7 +31,6 @@ export const StepCheckItems = (
     estimateSize: () => 80,
     paddingStart: 60,
   });
-
 
   return (
     <Stack
@@ -44,20 +45,20 @@ export const StepCheckItems = (
           border:1,
           borderColor: grey[200],
           borderRadius: 1,
-          height: '80%',
+          height: '90%',
           width: '100%',
           overflow: 'auto',
           scrollbarGutter: 'stable',
 
         }}
       >
-
         <ItemsBodyContainer
           height={rowVirtualizer.getTotalSize()}
         >
           <ItemsTHead />
           {rowVirtualizer.getVirtualItems().map((virtualItem) => {
             const item = items[virtualItem.index];
+            const calculatedItem = details[virtualItem.index];
 
             return (
               <ItemsRowContainer
@@ -69,7 +70,10 @@ export const StepCheckItems = (
                 <Typography px={1}>
                   {virtualItem.index + 1}
                 </Typography>
-                <ItemRow item={item} />
+                <ItemRow
+                  item={item}
+                  calculatedItem={calculatedItem}
+                />
                 <div />
               </ItemsRowContainer>
             );

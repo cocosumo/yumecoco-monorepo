@@ -135,7 +135,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
     return {
       ...params,
-      rowCostPrice,
+      rowCostPrice: Math.round(rowCostPrice),
       rowProfit: Math.round(newRowProfit),
       rowUnitPriceAfterTax: Math.round(rowUnitPriceAfterTax),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
@@ -167,16 +167,13 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     return {
       ...params,
       rowProfit: newRowProfit,
-      rowCostPrice,
+      rowCostPrice: Math.round(rowCostPrice),
       unitPrice: Math.round(unitPrice),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
       rowUnitPriceAfterTax: Math.round(newrowUnitPriceAfterTax),
       profitRate: roundTo(newProfitRate, 4),
     };
   }
-
-
-
 
   /*******
    * 通常 *
@@ -199,7 +196,7 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     ...params,
     rowProfit: newRowProfit,
     profitRate: roundTo(profitRate, 4),
-    rowCostPrice,
+    rowCostPrice: Math.round(rowCostPrice),
     unitPrice: Math.round(newUnitPrice),
     rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
     rowUnitPriceAfterTax: Math.round(newRowUnitPriceAfterTax),

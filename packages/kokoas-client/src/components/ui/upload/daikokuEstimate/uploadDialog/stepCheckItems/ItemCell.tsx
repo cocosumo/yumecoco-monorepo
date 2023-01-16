@@ -1,7 +1,7 @@
 import { Tooltip, Typography, TypographyProps } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-export const ItemCell = (props : TypographyProps) => {
+export const ItemCell = (props : TypographyProps<'div'>) => {
   const {
     color = grey[900],
     fontSize = 12,
@@ -16,6 +16,7 @@ export const ItemCell = (props : TypographyProps) => {
         overflow={'hidden'}
         whiteSpace={'nowrap'}
         textOverflow={'ellipsis'}
+        component={'div'}
       >
         {children}
       </Typography>

@@ -51,12 +51,12 @@ export const ItemsTHead = () => {
           </ItemsTHeadCell>
       )}
         profitRate={(
-          <ItemsTHeadCell>
+          <ItemsTHeadCell textAlign={'center'}>
             利益率
           </ItemsTHeadCell>
       )}
         unitPrice={(
-          <ItemsTHeadCell textAlign={'right'}>
+          <ItemsTHeadCell textAlign={'center'}>
             単価
           </ItemsTHeadCell>
       )}
@@ -66,7 +66,7 @@ export const ItemsTHead = () => {
           </ItemsTHeadCell>
       )}
         rowCostPrice={(
-          <ItemsTHeadCell textAlign={'right'}>
+          <ItemsTHeadCell textAlign={'center'}>
             原価
           </ItemsTHeadCell>
       )}

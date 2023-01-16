@@ -108,7 +108,7 @@ describe('calculateEstimateRow', () => {
   // Edge cases (稀で通常以外のケース)
 
 
-  it('Given: 「原価」<= 0', () => {
+  it('Given: 「原価」<= 0, 「利益率」あり', () => {
     const testData: Parameters<typeof calculateEstimateRow>[0] = {
       costPrice: -100,
       profitRate: 0.2, // 「利益率」
@@ -139,4 +139,35 @@ describe('calculateEstimateRow', () => {
 
 
   // TODO
+
+  it('Given: 「原価」= 0, 「利益率」なし, 「金額」< 0', () => {
+    const testData: Parameters<typeof calculateEstimateRow>[0] = {
+      costPrice: 0,
+      isTaxable: false,
+      rowUnitPriceAfterTax: -500,
+      quantity: 1,
+      taxRate: 0.1,
+    };
+
+    expect(testData.costPrice).toBe(0);
+    expect(testData.rowUnitPriceAfterTax).toBeLessThan(0);
+    expect(testData.unitPrice).toBeUndefined();
+
+    const results = calculateEstimateRow(testData);
+
+    const {
+      unitPrice,
+      rowUnitPriceAfterTax,
+    } = results;
+
+    console.log(results);
+
+
+    expect(unitPrice).toEqual(-500);
+
+    expect(rowUnitPriceAfterTax).toEqual(-500);
+
+  });
+
+
 });

@@ -17,7 +17,7 @@ export const validateFile = async (workbook: xlsx.WorkBook) => {
     console.log('DOC TITLE', documentTitle?.v);
 
     if (documentTitle?.v !== correctDocumentTitle) {
-      throw new Error(`大黒さんの見積ではありません。documentTitle = ${documentTitle}`);
+      throw new Error(`大黒さんの見積原価明細書ではありません。documentTitle = ${documentTitle}`);
     }
 
     return true;

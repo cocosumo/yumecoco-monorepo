@@ -12,10 +12,11 @@ export const ItemRow = ({
     majorItem,
     middleItem,
     material,
+    costPrice,
     quantity,
     unitPrice,
     rowUnitPrice,
-    costPrice,
+    rowCostPrice,
     unit,
     rowDetails,
   } = item;
@@ -54,6 +55,11 @@ export const ItemRow = ({
       rowUnitPrice={(
         <ItemCell textAlign={'right'} color={unitPrice < 0 ? red[800] : undefined}>
           {`${rowUnitPrice.toLocaleString()} 円`}
+        </ItemCell>
+      )}
+      rowCostPrice={(
+        <ItemCell textAlign={'right'} color={unitPrice < 0 ? red[800] : undefined}>
+          {`${rowCostPrice.toLocaleString()} 円`}
         </ItemCell>
       )}
       rowDetails={(

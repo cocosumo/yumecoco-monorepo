@@ -66,7 +66,7 @@ export const ItemsTHead = () => {
           </ItemsTHeadCell>
       )}
         rowCostPrice={(
-          <ItemsTHeadCell >
+          <ItemsTHeadCell textAlign={'right'}>
             原価
           </ItemsTHeadCell>
       )}

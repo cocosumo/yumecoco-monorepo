@@ -63,10 +63,10 @@ export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>
           <Stack width={'33%'}>
             {unitPrice}
           </Stack>
-          <Stack width={'33%'}>
+          <Stack width={'34%'}>
             {rowUnitPrice}
           </Stack>
-          <Stack>
+          <Stack width={'33%'}>
             {rowCostPrice}
           </Stack>
         </Stack>

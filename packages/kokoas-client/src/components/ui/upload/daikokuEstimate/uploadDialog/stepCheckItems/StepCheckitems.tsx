@@ -50,7 +50,6 @@ export const StepCheckItems = (
           width: '100%',
           overflow: 'auto',
           scrollbarGutter: 'stable',
-
         }}
       >
         <ItemsBodyContainer
@@ -96,14 +95,12 @@ export const StepCheckItems = (
 
         <NextButton
           onClick={handleNext}
-          variant={'contained'}
+          variant={'outlined'}
           color={'secondary'}
         >
           登録
         </NextButton>
       </Stack>
-
-
     </Stack>
   );
 };

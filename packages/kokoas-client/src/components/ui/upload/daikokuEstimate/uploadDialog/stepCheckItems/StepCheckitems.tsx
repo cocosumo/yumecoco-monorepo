@@ -8,6 +8,7 @@ import { calculate } from './helper/calculate';
 import { ItemRow } from './ItemRow';
 import { ItemsBodyContainer } from './ItemsBodyContainer';
 import { ItemsRowContainer } from './ItemsRowContainer';
+import { ItemsSummary } from './ItemsSummary';
 import { ItemsTHead } from './ItemsTHead';
 
 export const StepCheckItems = (
@@ -22,7 +23,7 @@ export const StepCheckItems = (
 
   const parentRef = useRef<Element | null>(null);
   const { items } = parsedDaikoku || {};
-  const { details } = useMemo(() => calculate({ record: parsedDaikoku }), [parsedDaikoku]);
+  const { details, summary } = useMemo(() => calculate({ record: parsedDaikoku }), [parsedDaikoku]);
 
   // The virtualizer
   const rowVirtualizer = useVirtualizer({
@@ -83,11 +84,21 @@ export const StepCheckItems = (
         </ItemsBodyContainer>
 
       </Box>
-      <NextButton
-        onClick={handleNext}
+      <Stack
+        direction={'row'}
+        spacing={2}
+        justifyContent={'space-between'}
       >
-        アップロード
-      </NextButton>
+        <ItemsSummary summary={summary} />
+
+        <NextButton
+          onClick={handleNext}
+          variant={'contained'}
+        >
+          アップロード
+        </NextButton>
+      </Stack>
+
 
     </Stack>
   );

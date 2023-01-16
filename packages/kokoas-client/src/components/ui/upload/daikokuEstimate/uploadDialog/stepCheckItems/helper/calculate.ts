@@ -35,10 +35,10 @@ export const calculate = ({
 
     return calculateEstimateRow({
       costPrice,
-      isTaxable:  false,
+      isTaxable:  true,
       quantity,
       taxRate: parsedTaxRate,
-      rowUnitPriceAfterTax: rowUnitPrice,
+      rowUnitPriceBeforeTax: rowUnitPrice,
     });
 
   });

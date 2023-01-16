@@ -36,10 +36,6 @@ export const ItemRow = ({
 
   const parsedKProfitRate = roundTo(kProfitRate * 100, 2);
 
-  if (kRowCostPrice !== rowCostPrice) {
-    console.log(kRowCostPrice, rowCostPrice);
-  }
-
   return (
     <ItemRowFormat
       majorItem={(

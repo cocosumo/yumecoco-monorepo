@@ -7,8 +7,8 @@ describe('parse daikoku xls', () => {
     const workbook = xlsx.readFile(path.join(__dirname, '../__TEST__', '大黒の原価.xls'));
 
     const result = await parser(workbook);
-
-    console.log(result);
+    const { items, ...other } = result;
+    console.log(other);
 
     expect(result).toHaveProperty('documentTitle');
   });

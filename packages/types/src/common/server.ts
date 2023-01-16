@@ -56,6 +56,35 @@ export interface ParsedDaikokuEst {
   }>
 }
 
+export interface ParsedDaikokuGenka {
+  documentTitle: string,
+  projDataId: string,
+  projName: string,
+  estDataId: string,
+  printDate: string,
+  createdDate: string,
+  taxRate: number,
+  totalAmountAfterTax: number,
+  totalBeforeAfterTax: number,
+  totalTaxAmount: number,
+  totalCostPrice: number,
+  totalProfit: number,
+  overallProfitRate: number,
+  items : Array<{
+    majorItem: string,
+    middleItem: string,
+    material: string,
+    unit: string,
+    costPrice: number,
+    profitRate: number,
+    quantity: number,
+    unitPrice: number,
+    rowUnitPrice: number,
+    rowCostPrice: number,
+    rowDetails: string,
+  }>
+}
+
 export interface ReqSendContract {
   userCode: string,
   projEstimateId: string,

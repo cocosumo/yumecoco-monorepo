@@ -1,51 +1,59 @@
 
-import { ParsedDaikokuEst } from 'types';
+import { parseExcelSerialDate } from 'libs/src/parseExcelSerialDate';
+import { ParsedDaikokuGenka } from 'types';
 import xlsx from 'xlsx';
 import { parseItems } from './parseItems';
-import { parseMajorItems } from './parseMajorItems';
-
 
 /**
  * Parses the file into JSON.
  */
 export const parser = async (
   wb: xlsx.WorkBook,
-): Promise<ParsedDaikokuEst> => {
+): Promise<ParsedDaikokuGenka> => {
 
   const {
-    W2: { v: documentTitle },
-    B5 : { v: custName },
-    H23 : { v: projName },
-    H24 : { v: projAddress },
-    W13: { v: amountAfterTax },
-    W16: { v: amountBeforeTax },
-    W17: { v: taxRate },
-    AA17: { v: taxAmount },
-    H22: { v: projDataId },
-    AS3: { v: estDataId },
-  } = wb.Sheets['見積書見出'];
+    J1: { v: documentTitle },
+    E5: { v: projDataId },
+    Q5: { v: projName },
+    L5: { v: estDataId },
+    AN1: { v: printDate }, // w　は　m/d/yy になっています。
+    AN2: { v: createdDate }, // w は　yy/m/d になっています。
+  } = wb.Sheets['見積原価明細書'];
 
+  /**
+   * printDateとcreateDateのwは違うフォーマットになっているので、そのまま v を利用します。
+   * ただ、v は　Excelのserialになているので、stringへの変換が必要。
+   * 改善案あれば、お願いします。
+   */
+
+  /* 合計欄は最終ページにある */
+  const lastSheetName = wb.SheetNames.at(-1);
+  if (!lastSheetName) throw new Error('最終シート名の取得が失敗しました。');
   const {
-    G3: { v: amountBeforeDiscount },
-    G6: { v: discountAmount },
-  } = wb.Sheets['見積書明細'];
-
-
+    A47: { v: totalAmountBeforeTax },
+    I45: { v: taxRate },
+    I47: { v: totalTaxAmount },
+    P47: { v: totalAmountAfterTax },
+    W47: { v: totalCostPrice },
+    AD47: { v: totalProfit },
+    AK47: { v: overallProfitRate },
+  } = wb.Sheets[lastSheetName];
 
   return {
     documentTitle,
-    custName: (custName as string)?.replace(' 様', ''),
-    projName,
-    projAddress,
-    amountAfterTax: +amountAfterTax,
-    amountBeforeTax: +amountBeforeTax,
-    taxRate: +(taxRate as string)?.replace(/\D/g, ''),
-    taxAmount: +taxAmount,
     projDataId,
-    estDataId: (estDataId as string)?.split(':')[1],
-    discountAmount: +discountAmount,
-    amountBeforeDiscount: +amountBeforeDiscount,
-    majorItems: parseMajorItems(wb),
+    projName,
+    estDataId,
+    printDate: parseExcelSerialDate(printDate),
+    createdDate: parseExcelSerialDate(createdDate),
+    totalAmountAfterTax: +totalAmountAfterTax,
+    taxRate: +((taxRate as string).replace(/[^0-9]/g, '')), // セルの元値 = "消費税 ( 10% )"
+    totalTaxAmount: +totalTaxAmount,
+    totalCostPrice: +totalCostPrice,
+    totalBeforeAfterTax: +totalAmountBeforeTax,
+    totalProfit: +totalProfit,
+    overallProfitRate: +((overallProfitRate as string).replace(/[^0-9.]/g, '')), // セルの元値 = "##.#%"
     items: parseItems(wb),
   };
+
 };

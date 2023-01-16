@@ -7,6 +7,7 @@ import { NextButton } from '../NextButton';
 import { ItemRow } from './ItemRow';
 import { ItemsBodyContainer } from './ItemsBodyContainer';
 import { ItemsRowContainer } from './ItemsRowContainer';
+import { ItemsTHead } from './ItemsTHead';
 
 export const StepCheckItems = (
   {
@@ -26,6 +27,7 @@ export const StepCheckItems = (
     count: items.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 80,
+    paddingStart: 60,
   });
 
 
@@ -45,11 +47,15 @@ export const StepCheckItems = (
           height: '80%',
           width: '100%',
           overflow: 'auto',
+          scrollbarGutter: 'stable',
+
         }}
       >
+
         <ItemsBodyContainer
           height={rowVirtualizer.getTotalSize()}
         >
+          <ItemsTHead />
           {rowVirtualizer.getVirtualItems().map((virtualItem) => {
             const item = items[virtualItem.index];
 

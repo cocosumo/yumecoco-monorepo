@@ -28,7 +28,7 @@ export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>
       direction={'row'}
       justifyContent={'space-between'}
       spacing={1}
-      width={'93%'}
+      width={'94%'}
       ref={ref}
     >
       <Stack

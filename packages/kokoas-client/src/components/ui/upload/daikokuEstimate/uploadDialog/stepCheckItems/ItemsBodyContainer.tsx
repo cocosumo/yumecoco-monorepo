@@ -16,6 +16,7 @@ export const ItemsBodyContainer = (
         height: `${height}px`,
         width: '100%',
         position: 'relative',
+        minWidth: '800px',
       }}
       {...otherProps}
     />

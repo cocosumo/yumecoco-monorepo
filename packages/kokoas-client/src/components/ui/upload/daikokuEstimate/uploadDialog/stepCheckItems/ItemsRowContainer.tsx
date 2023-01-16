@@ -25,7 +25,6 @@ export const ItemsRowContainer = (props: StackProps & {
         top: 0,
         left: 0,
         width: '100%',
-        minWidth: '600px',
         background: rowIdx % 2 ? grey[50] : undefined,
         '&:focus-within': {
           background: yellow[50],

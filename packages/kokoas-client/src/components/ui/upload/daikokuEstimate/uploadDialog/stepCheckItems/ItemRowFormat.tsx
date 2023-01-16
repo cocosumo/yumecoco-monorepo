@@ -14,6 +14,7 @@ export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>
     middleItem,
     material,
     quantity,
+    profitRate,
     unitPrice,
     rowDetails,
     costPrice,
@@ -34,26 +35,29 @@ export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>
     >
       <Stack
         spacing={0.5}
-        width={'20%'}
+        width={'10%'}
       >
         {majorItem}
         {middleItem}
       </Stack>
       <Stack
         spacing={0.5}
-        width={'20%'}
+        width={'10%'}
       >
         {material}
       </Stack>
-      <div style={{ width: '10%' }}>
+      <div style={{ width: '8%' }}>
         {costPrice}
       </div>
       <div style={{ width: '14%' }}>
         {quantity}
       </div>
+      <div style={{ width: '8%' }}>
+        {profitRate}
+      </div>
       <Stack
         spacing={0.5}
-        width={'24%'}
+        width={'38%'}
       >
         <Stack
           direction={'row'}

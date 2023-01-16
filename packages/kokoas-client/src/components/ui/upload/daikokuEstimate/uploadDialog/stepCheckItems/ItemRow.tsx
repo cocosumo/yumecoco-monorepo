@@ -19,6 +19,7 @@ export const ItemRow = ({
     rowCostPrice,
     unit,
     rowDetails,
+    profitRate,
   } = item;
   return (
     <ItemRowFormat
@@ -45,6 +46,11 @@ export const ItemRow = ({
       quantity={(
         <ItemCell>
           {`${quantity.toLocaleString()} ${unit}`}
+        </ItemCell>
+      )}
+      profitRate={(
+        <ItemCell>
+          {`${profitRate.toLocaleString()} %`}
         </ItemCell>
       )}
       unitPrice={(

@@ -4,6 +4,7 @@ declare namespace DBProjestimates {
     contractDate: kintone.fieldTypes.Date;
     updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
+    daikokuDataId: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;

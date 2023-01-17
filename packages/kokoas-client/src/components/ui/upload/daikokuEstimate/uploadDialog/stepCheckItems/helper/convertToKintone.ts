@@ -2,15 +2,16 @@ import { CalculationEstimateResults } from 'api-kintone';
 import { IProjestimates, ParsedDaikokuGenka } from 'types';
 
 export const convertToKintone = ({
-  details,
   projId,
+  details,
   parsedDaikoku,
 }: {
-
   projId: string,
   details: CalculationEstimateResults[],
   parsedDaikoku: ParsedDaikokuGenka,
 }) => {
+
+
 
   const {
     projDataId,
@@ -84,7 +85,7 @@ export const convertToKintone = ({
   /* 変換処理 */
   const kintoneRecord: Partial<IProjestimates> = {
     projId: { value: projId },
-    dataId: { value: `${projDataId}-${estDataId}` },
+    daikokuDataId: { value: `${projDataId}-${estDataId}` },
     工事名称: { value: projName },
     税: { value: taxRate.toString() },
     内訳: kintoneItems,

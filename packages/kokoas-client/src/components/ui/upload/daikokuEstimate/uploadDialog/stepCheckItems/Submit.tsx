@@ -1,7 +1,6 @@
 import { CalculationEstimateResults } from 'api-kintone';
 import { generateParams } from 'kokoas-client/src/helpers/url';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
+import { useProjById, useSaveEstimate } from 'kokoas-client/src/hooksQuery';
 import { useNavigate } from 'react-router-dom';
 import { ParsedDaikokuGenka } from 'types';
 import { NextButton } from '../NextButton';
@@ -9,6 +8,7 @@ import { convertToKintone } from './helper/convertToKintone';
 
 export const Submit = ({
   handleNext,
+  projId,
   ...others
 }: {
   projId: string
@@ -17,23 +17,27 @@ export const Submit = ({
   handleNext: () => void
 }) => {
 
-  const {
-    projId,
-  } = useURLParams();
-
   const { mutateAsync: saveMutation } = useSaveEstimate();
+  const { data: projData } = useProjById(projId);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    handleNext();
-    const record = convertToKintone({ ...others });
+    if (!projData) return;
+    const record = convertToKintone({ ...others, projId });
     const { id } = await saveMutation({
       record,
+      relatedData: {
+        projDataId: projData.dataId.value,
+      },
     });
-    navigate(`?${generateParams({
-      projEstimateId: id,
-      projId,
-    })}`);
+
+    if (id) {
+      handleNext();
+      navigate(`?${generateParams({
+        projEstimateId: id,
+        projId,
+      })}`);
+    }
   };
 
   return (
@@ -41,6 +45,7 @@ export const Submit = ({
       onClick={handleSubmit}
       variant={'outlined'}
       color={'secondary'}
+      disabled={!projData}
     >
       登録
     </NextButton>

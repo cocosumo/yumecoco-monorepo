@@ -99,8 +99,6 @@ export const convertEstimateToForm = (
     totalAmountBeforeTax,
   } = calculateSummary(newItems);
 
-  console.log(totalAmountAfterTax, totalAmountBeforeTax);
-
   // 契約ないなら、仮想行を追加する
   if (!envStatus.value) {
     newItems.push({

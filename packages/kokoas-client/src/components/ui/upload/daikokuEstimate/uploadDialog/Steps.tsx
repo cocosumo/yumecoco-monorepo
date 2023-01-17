@@ -7,7 +7,7 @@ const steps = [
   '工事を選択',
   '工事情報の確認',
   '内訳の確認',
-
+  '完了',
 ];
 
 export const Steps = ({

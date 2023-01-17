@@ -34,8 +34,6 @@ export const Taxable = ({
           ...others
         } = field;
 
-        console.log(value);
-
         return (
           <Switch
             {...others}

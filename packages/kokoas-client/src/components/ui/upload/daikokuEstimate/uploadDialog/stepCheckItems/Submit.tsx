@@ -1,5 +1,8 @@
 import { CalculationEstimateResults } from 'api-kintone';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
+import { useNavigate } from 'react-router-dom';
 import { ParsedDaikokuGenka } from 'types';
 import { NextButton } from '../NextButton';
 import { convertToKintone } from './helper/convertToKintone';
@@ -13,17 +16,24 @@ export const Submit = ({
   details: CalculationEstimateResults[]
   handleNext: () => void
 }) => {
+
+  const {
+    projId,
+  } = useURLParams();
+
   const { mutateAsync: saveMutation } = useSaveEstimate();
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     handleNext();
     const record = convertToKintone({ ...others });
-    const result = await saveMutation({
+    const { id } = await saveMutation({
       record,
     });
-
-    console.log(result);
-
+    navigate(`?${generateParams({
+      projEstimateId: id,
+      projId,
+    })}`);
   };
 
   return (

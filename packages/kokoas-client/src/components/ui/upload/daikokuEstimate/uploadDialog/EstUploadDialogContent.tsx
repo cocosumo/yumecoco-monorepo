@@ -12,10 +12,11 @@ import { Loading } from '../../../loading/Loading';
 import { StepCheckInfo } from './StepCheckInfo';
 import { StepCheckItems } from './stepCheckItems';
 import { useIsMutating } from '@tanstack/react-query';
+import { StepComplete } from './StepComplete';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(4);
   const fileUploadReturn = useFileUpload();
   const isLoading = useIsMutating();
 
@@ -95,6 +96,10 @@ export const EstUploadDialogContent = () => {
               handleNext={handleNext}
               parsedDaikoku={parsedDaikoku}
             />
+          )}
+
+          {activeStep === 4 && (
+            <StepComplete handleReset={handleReset} />
           )}
 
         </EstDragAreaContainer>

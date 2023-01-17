@@ -1,27 +1,23 @@
-import { FormControlLabel, Checkbox, FormControl, FormHelperText, CheckboxProps } from '@mui/material';
-import { useFieldFast } from 'kokoas-client/src/hooks/useFieldFast';
+import { FormControlLabel, Checkbox, FormControl, FormHelperText } from '@mui/material';
+import { useField } from 'formik';
 
+interface FormikLabeledCheckBoxProps {
+  label?: string,
+  defaultVal?: boolean
+  name: string
+  helperText?: string,
+  disabled?: boolean,
+}
 
-export const FormikLabeledCheckBox = (
-  props: CheckboxProps &
-  {
-    label?: string,
-    defaultVal?: boolean
-    name: string
-    helperText?: string,
-    disabled?: boolean,
-  },
-) => {
+export const FormikLabeledCheckBox = (props : FormikLabeledCheckBoxProps) =>{
   const {
-    name,
     label = '',
     helperText = '',
     defaultVal = false,
     disabled = false,
-    ...others
   } = props;
 
-  const [field, meta, helpers] = useFieldFast(name);
+  const [field, meta, helpers] = useField(props);
 
   let dirtyVal: boolean = field.value ?? defaultVal;
 
@@ -35,13 +31,8 @@ export const FormikLabeledCheckBox = (
         name={field.name}
         label={label}
         control={
-          <Checkbox
-            {...others}
-            disabled={disabled}
-            checked={dirtyVal}
-            onClick={() => helpers.setValue(!meta.value)}
-          />
-        }
+          <Checkbox disabled={disabled} checked={dirtyVal} onClick={() => helpers.setValue(!meta.value)} />
+}
       />
       <FormHelperText>
         {helperText}

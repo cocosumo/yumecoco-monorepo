@@ -34,13 +34,13 @@ export const initialValues = {
       dataId: '',
 
       /** 契約金額の総額 */
-      contractAmount: '',
+      contractAmount: 0,
 
       /** 請求済み金額 */
-      billedAmount: '',
+      billedAmount: 0,
 
       /** 請求金額 */
-      billingAmount: '',
+      billingAmount: 0,
 
       /** 支払い種別 */
       amountType: '',

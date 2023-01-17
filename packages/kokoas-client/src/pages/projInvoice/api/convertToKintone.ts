@@ -39,7 +39,7 @@ export const convertToKintone = ({
               dataId: { value: dataId },
               projTypeName: { value: projTypeName },
               estimateId: { value: estimateId },
-              amountPerContract: { value: amountPerContract },
+              amountPerContract: { value: String(amountPerContract) },
               paymentType: { value: amountType },
             },
           };

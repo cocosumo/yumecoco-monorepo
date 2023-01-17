@@ -77,7 +77,7 @@ export const convertEstimateToForm = (
       unit: (単位.value || '式') as TunitChoices,
       unitPrice: Math.round(unitPrice),
       rowUnitPriceBeforeTax: Math.round(rowUnitPriceBeforeTax),
-      rowUnitPriceAfterTax: roundTo(parsedRowUnitPriceAfterTax, 2), // Math.round has less accuracy. Keep at least 2 digits.
+      rowUnitPriceAfterTax: roundTo(parsedRowUnitPriceAfterTax, 2), // Math.round creates discrepancy. Keep at least 2 digits.
       taxable: taxType.value === '課税' ? true : false,
 
     };

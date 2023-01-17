@@ -25,7 +25,13 @@ export const ExceedContractAmount = () => {
 
   return (
     <>
-      <Alert severity="warning" icon={false}>
+      <Alert
+        severity="warning"
+        icon={false}
+        sx={{
+          marginTop: '1em',
+        }}
+      >
         <Stack direction={'row'}>
           <AlertContent
             onClick={handleCheck}

@@ -34,10 +34,12 @@ export const Taxable = ({
           ...others
         } = field;
 
+        console.log(value);
+
         return (
           <Switch
             {...others}
-            defaultChecked={value}
+            checked={value}
             onChange={(e) => {
               onChange(e);
               handleChange(rowIdx);

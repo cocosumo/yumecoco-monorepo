@@ -5,8 +5,13 @@ import { useContractsByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../form';
 import { BillingEntryTableRow } from './BillingEntryTableRow';
 import { BillingEntryTableHead } from './BillingEntryTableHead';
+import { ExceedContractAmount } from './ExceedContractAmount';
 
-export const BillingEntryTable = () => {
+export const BillingEntryTable = ({
+  exceeded,
+}: {
+  exceeded: boolean
+}) => {
 
   const { values } = useFormikContext<TypeOfForm>();
   const { custGroupId, estimates } = values;
@@ -41,6 +46,7 @@ export const BillingEntryTable = () => {
             </TableBody>
           </Table>
         </TableContainer>}
+      {exceeded && <ExceedContractAmount />}
     </>
   );
 };

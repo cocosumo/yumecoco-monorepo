@@ -34,25 +34,17 @@ export const FormInvoice = () => {
 
   useResolveParams();
 
-  /* useEffect(() => {
-    setValues((prev) => ({
-      ...prev,
-      billingAmount: String(+contractAmount - +billedAmount),
-    }));
-  }, [contractAmount, billedAmount, setValues]); */
+
+  const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
+  });
 
   useEffect(() => {
-    const newContractAmount = estimates.reduce((acc, cur) => {
-      if (cur.isForPayment) return acc;
-
-      return acc + +cur.contractAmount;
-    }, 0);
-
     setValues((prev) => ({
       ...prev,
-      contractAmount: String(newContractAmount),
+      exceededContract : exceeded,
     }));
-  }, [estimates, setValues]);
+  }, [setValues, exceeded]);
 
   useEffect(() => {
     if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
@@ -112,7 +104,7 @@ export const FormInvoice = () => {
               <Typography>
                 {'請求入力欄'}
               </Typography>
-              <BillingEntryTable />
+              <BillingEntryTable exceeded={exceeded} />
             </Grid>
 
 

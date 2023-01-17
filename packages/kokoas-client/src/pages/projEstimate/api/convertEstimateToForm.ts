@@ -77,7 +77,7 @@ export const convertEstimateToForm = (
       unit: (単位.value || '式') as TunitChoices,
       unitPrice: Math.round(unitPrice),
       rowUnitPriceBeforeTax: Math.round(rowUnitPriceBeforeTax),
-      rowUnitPriceAfterTax: Math.round(parsedRowUnitPriceAfterTax),
+      rowUnitPriceAfterTax: roundTo(parsedRowUnitPriceAfterTax, 2), // Math.round has less accuracy. Keep at least 2 digits.
       taxable: taxType.value === '課税' ? true : false,
 
     };
@@ -98,6 +98,8 @@ export const convertEstimateToForm = (
     totalAmountAfterTax,
     totalAmountBeforeTax,
   } = calculateSummary(newItems);
+
+  console.log(totalAmountAfterTax, totalAmountBeforeTax);
 
   // 契約ないなら、仮想行を追加する
   if (!envStatus.value) {

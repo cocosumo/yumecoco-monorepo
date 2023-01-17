@@ -5,7 +5,6 @@ import { produce } from 'immer';
 import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
 import { ChangeEvent } from 'react';
 import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
-import WarningIcon from '@mui/icons-material/Warning';
 
 export const BillingEntryTableRow = ({
   estimate,
@@ -20,16 +19,8 @@ export const BillingEntryTableRow = ({
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { 
-    projTypeName,
-    estimateId,
-    dataId,
-    contractAmount,
-    billedAmount,
-    billingAmount,
-  } = estimate;
 
-  const paymentItem = paymentList?.find(({ uuid }) => uuid === estimateId);
+  const paymentItem = paymentList?.find(({ uuid }) => uuid === estimate.estimateId);
   const paymentTypeOption = paymentItem?.paymentTypeList.map((item) => {
     return ({
       label: item,
@@ -59,16 +50,15 @@ export const BillingEntryTableRow = ({
     });
   };
 
-  const exceeded = +contractAmount < (+billedAmount + +billingAmount);
 
 
   return (
     <TableRow>
       <TableCell>
-        {projTypeName}
+        {estimate.projTypeName}
       </TableCell>
       <TableCell align="right">
-        {dataId.split('-').at(-1)}
+        {estimate.dataId.split('-').at(-1)}
       </TableCell>
       <TableCell align="right">
         <FormikSelect
@@ -85,9 +75,6 @@ export const BillingEntryTableRow = ({
           onChange={billingAmountChange}
           sx={{ textAlign: 'right' }}
         />
-      </TableCell>
-      <TableCell>
-        {exceeded && <WarningIcon />}
       </TableCell>
     </TableRow>
   );

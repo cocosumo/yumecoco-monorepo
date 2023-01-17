@@ -16,7 +16,7 @@ import { StepComplete } from './StepComplete';
 
 export const EstUploadDialogContent = () => {
   const { projId } = useURLParams();
-  const [activeStep, setActiveStep] = useState(4);
+  const [activeStep, setActiveStep] = useState(0);
   const fileUploadReturn = useFileUpload();
   const isLoading = useIsMutating();
 

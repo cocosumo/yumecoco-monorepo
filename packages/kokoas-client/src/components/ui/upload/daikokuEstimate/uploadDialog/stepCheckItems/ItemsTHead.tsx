@@ -29,47 +29,52 @@ export const ItemsTHead = () => {
           <ItemsTHeadCell>
             大項目
           </ItemsTHeadCell>
-      )}
+        )}
         middleItem={(
           <ItemsTHeadCell>
             中項目
           </ItemsTHeadCell>
-      )}
+        )}
         material={(
           <ItemsTHeadCell>
             部材
           </ItemsTHeadCell>
-      )}
+        )}
         costPrice={(
           <ItemsTHeadCell textAlign={'right'}>
             原価
           </ItemsTHeadCell>
-      )}
+        )}
         quantity={(
           <ItemsTHeadCell>
             数量（単位）
           </ItemsTHeadCell>
-      )}
+        )}
         profitRate={(
           <ItemsTHeadCell textAlign={'center'}>
             利益率
           </ItemsTHeadCell>
-      )}
+        )}
         unitPrice={(
           <ItemsTHeadCell textAlign={'center'}>
             単価
           </ItemsTHeadCell>
-      )}
+        )}
         rowUnitPrice={(
           <ItemsTHeadCell textAlign={'right'}>
-            金額
+            {'金額 (税抜)'}
           </ItemsTHeadCell>
-      )}
+        )}
+        rowUnitPriceAfterTax={(
+          <ItemsTHeadCell textAlign={'right'} fontSize={12}>
+            {'金額 (税込)'}
+          </ItemsTHeadCell>
+        )}
         rowCostPrice={(
           <ItemsTHeadCell textAlign={'center'}>
             原価
           </ItemsTHeadCell>
-      )}
+        )}
       />
       <div />
     </Stack>

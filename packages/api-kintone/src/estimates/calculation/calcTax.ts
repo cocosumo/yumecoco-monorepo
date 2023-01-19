@@ -13,7 +13,7 @@ const calcTax = (
   let result = Big(value);
 
   if (mode === 'after') {
-    result = result.mul(bTaxRate).round();
+    result = result.mul(bTaxRate);
   } else {
     result = result.div(bTaxRate).round();
   }

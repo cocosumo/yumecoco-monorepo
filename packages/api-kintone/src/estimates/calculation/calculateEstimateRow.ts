@@ -1,7 +1,6 @@
 
 
 
-import { roundTo } from 'libs';
 import { calcProfitRate } from './calcProfitRate';
 import { Big } from 'big.js';
 import { calcAfterTax, calcBeforeTax } from './calcTax';
@@ -143,8 +142,10 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
   }
 
   /* 計算忘れ防止(開発者のため) */
-  Object.entries(params).forEach(([key, val]) => {
-    if (val === undefined) throw new Error(`${key} が計算出来ませんでした。管理者をご連絡ください。`);
+  Object.entries(result).forEach(([key, val]) => {
+    if (val === undefined) {
+      throw new Error(`${key} が計算出来ませんでした。管理者をご連絡ください。`);
+    }
   });
 
   return {

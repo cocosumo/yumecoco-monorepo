@@ -13,12 +13,12 @@ const calcTax = (
   let result = Big(value);
 
   if (mode === 'after') {
-    result = result.mul(bTaxRate);
+    result = result.mul(bTaxRate).round();
   } else {
-    result = result.div(bTaxRate);
+    result = result.div(bTaxRate).round();
   }
 
-  return result.round(0).toNumber();
+  return result.toNumber();
 };
 
 /**

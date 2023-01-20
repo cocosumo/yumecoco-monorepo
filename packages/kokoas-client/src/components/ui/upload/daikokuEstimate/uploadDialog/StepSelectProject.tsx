@@ -63,7 +63,7 @@ export const StepSelectProject = (
             handleSubmit(e as unknown as Event);
           }}
         >
-          アップロード
+          次へ
         </NextButton>
       </Zoom>
 

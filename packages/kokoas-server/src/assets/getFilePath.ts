@@ -2,7 +2,6 @@ import path from 'path';
 import fs from 'fs';
 
 type Envelopes =
-| '見積書'
 | '請負契約書'
 | '工事請負契約約款';
 

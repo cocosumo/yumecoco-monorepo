@@ -5,7 +5,6 @@ import { FaFileCsv } from '@react-icons/all-files/fa/FaFileCsv';
 import PrintIcon from '@mui/icons-material/Print';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { AndpadLogo } from 'kokoas-client/src/components/ui/icons/Andpad';
 
 
 

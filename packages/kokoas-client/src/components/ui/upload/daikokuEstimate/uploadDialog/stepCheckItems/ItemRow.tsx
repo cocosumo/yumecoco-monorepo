@@ -90,7 +90,7 @@ export const ItemRow = ({
       )}
       rowDetails={(
         <ItemCell>
-          {rowDetails.replace('\\', '￥')}
+          {rowDetails.replaceAll('\\', '￥')}
         </ItemCell>
       )}
     />

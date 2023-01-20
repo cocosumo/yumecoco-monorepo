@@ -5,15 +5,17 @@ const {
 } = yupValidations;
 
 export type TStatusChoices = '' | '契約' | '銀行用' | '工事実行' | '追加' | '追加減額';
-export type TunitChoices = '式' | '㎡(平米)' | '㎥(立米)' | 'm(メートル)' | 'ヶ所' | '個' | 'セット' | '本' | '枚' |
-'ケース' | '台' | '組' | '袋' | '箱' | 'kg' | 't' ;
-
 
 export const statusChoices: TStatusChoices[] = [ '', '契約', '銀行用', '工事実行', '追加', '追加減額'];
-export const unitChoices: TunitChoices[] = [
+
+export const unitChoices = [
   '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
-  'ケース', '台', '組', '袋', '箱', 'kg', 't',
+  'ケース', '台', '組', '袋', '箱', 'kg', 't', '車',
 ];
+
+export type TunitChoices = typeof unitChoices[number] ;
+
+
 
 export const validationSchema = yupJA
   .object({
@@ -55,7 +57,7 @@ export const validationSchema = yupJA
           rowCostPrice: yupNumber.required(),
           materialProfRate: yupNumber.required()
             .max(100, '100以下の数字を入力してください'), // 利益率(部材)
-          unit: yupJA.mixed<TunitChoices>().oneOf(unitChoices).required(), // 単位
+          unit: yupJA.string().required(), // 単位
           taxable: yupJA.boolean().required(),  // 税(課税/非課税)
           unitPrice: yupNumber.required(), // 単価
           materialDetails: yupJA.string(),

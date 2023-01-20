@@ -50,6 +50,9 @@ interface CalculationEstimateParams {
   /** 単価 */
   unitPrice?: number,
 
+  /** 行の税抜き単価合計 */
+  rowUnitPriceBeforeTax?: number,
+
   /** 行の税込み単価合計 */
   rowUnitPriceAfterTax?: number,
 
@@ -91,10 +94,11 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     unitPrice,
     quantity,
     rowUnitPriceAfterTax,
+    rowUnitPriceBeforeTax,
   } = params;
 
   // 行の原価合計 = A * 数量
-  const rowCostPrice = costPrice * quantity;
+  const rowCostPrice = Math.round(costPrice * quantity);
 
 
   /******************************
@@ -117,6 +121,35 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
   }
 
   /********************************************************************************
+   *「税抜き単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
+   *******************************************************************************/
+  if (rowUnitPriceBeforeTax && !unitPrice && !profitRate) {
+
+    const newRowUnitAfterTax = isTaxable ? rowUnitPriceBeforeTax * (1 + taxRate) :  rowUnitPriceBeforeTax;
+
+
+    // C 単価
+    const newUnitPrice = rowUnitPriceBeforeTax / quantity;
+
+    /** D = ( C - A) / C */
+    const newProfitRate =  calcProfitRate(costPrice, newUnitPrice);
+
+    /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
+    const newRowProfit = rowUnitPriceBeforeTax - rowCostPrice;
+
+    return {
+      ...params,
+      rowCostPrice: Math.round(rowCostPrice),
+      rowProfit: Math.round(newRowProfit),
+      rowUnitPriceAfterTax: roundTo(newRowUnitAfterTax, 2),
+      rowUnitPriceBeforeTax: Math.round(rowUnitPriceBeforeTax),
+      unitPrice: Math.round(newUnitPrice),
+      profitRate: roundTo(newProfitRate, 4),
+
+    };
+  }
+
+  /********************************************************************************
    *「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
    *******************************************************************************/
   if (rowUnitPriceAfterTax && !unitPrice && !profitRate) {
@@ -135,10 +168,10 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
 
     return {
       ...params,
-      rowCostPrice,
+      rowCostPrice: Math.round(rowCostPrice),
       rowProfit: Math.round(newRowProfit),
-      rowUnitPriceAfterTax: Math.round(rowUnitPriceAfterTax),
-      rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
+      rowUnitPriceAfterTax: roundTo(rowUnitPriceAfterTax, 2),
+      rowUnitPriceBeforeTax: roundTo(newRowUnitPriceBeforeTax, 2),
       unitPrice: Math.round(newUnitPrice),
       profitRate: roundTo(newProfitRate, 4),
 
@@ -167,16 +200,13 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     return {
       ...params,
       rowProfit: newRowProfit,
-      rowCostPrice,
+      rowCostPrice: Math.round(rowCostPrice),
       unitPrice: Math.round(unitPrice),
       rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
-      rowUnitPriceAfterTax: Math.round(newrowUnitPriceAfterTax),
+      rowUnitPriceAfterTax: roundTo(newrowUnitPriceAfterTax, 2),
       profitRate: roundTo(newProfitRate, 4),
     };
   }
-
-
-
 
   /*******
    * 通常 *
@@ -199,10 +229,10 @@ export const calculateEstimateRow = ( params : CalculationEstimateParams) : Calc
     ...params,
     rowProfit: newRowProfit,
     profitRate: roundTo(profitRate, 4),
-    rowCostPrice,
+    rowCostPrice: Math.round(rowCostPrice),
     unitPrice: Math.round(newUnitPrice),
-    rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
-    rowUnitPriceAfterTax: Math.round(newRowUnitPriceAfterTax),
+    rowUnitPriceBeforeTax: roundTo(newRowUnitPriceBeforeTax, 2),
+    rowUnitPriceAfterTax: roundTo(newRowUnitPriceAfterTax, 2),
   };
 
 };

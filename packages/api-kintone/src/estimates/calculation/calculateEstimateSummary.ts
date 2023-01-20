@@ -35,14 +35,14 @@ export const calculateEstimateSummary = (
         rowCostPrice,
         rowProfit,
       } = cur;
-    
+
       acc.totalAmountAfterTax += rowUnitPriceAfterTax;
       acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
       acc.totalCostPrice += rowCostPrice;
       acc.totalProfit += rowProfit;
 
       return acc;
-  
+
     }, {
       totalAmountBeforeTax: 0,
       totalAmountAfterTax: 0,
@@ -56,12 +56,12 @@ export const calculateEstimateSummary = (
     totalAmountBeforeTax,
 
   } = summary;
- 
+
   return {
     ...summary,
-    totalTaxAmount: totalAmountAfterTax - totalAmountBeforeTax, 
+    totalTaxAmount: totalAmountAfterTax - totalAmountBeforeTax,
     overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),
   };
 
- 
+
 };

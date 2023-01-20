@@ -32,6 +32,7 @@ export const ItemRow = ({
     profitRate: kProfitRate,
     unitPrice: kUnitPrice,
     rowCostPrice: kRowCostPrice,
+    rowUnitPriceAfterTax: kRowUnitPriceAfterTax,
   } = calculatedItem;
 
   const parsedKProfitRate = roundTo(kProfitRate * 100, 2);
@@ -86,6 +87,15 @@ export const ItemRow = ({
           fontWeight={700}
         >
           {`${rowUnitPrice.toLocaleString()} 円`}
+        </ItemCell>
+      )}
+      rowUnitPriceAfterTax={(
+        <ItemCell
+          textAlign={'right'}
+          color={kRowUnitPriceAfterTax < 0 ? red[800] : undefined}
+          fontWeight={12}
+        >
+          {`${kRowUnitPriceAfterTax.toLocaleString()} 円`}
         </ItemCell>
       )}
       rowDetails={(

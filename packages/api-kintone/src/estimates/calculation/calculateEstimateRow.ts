@@ -102,7 +102,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
 
 
   /* 単価 */
-  if (params.profitRate && result.costPrice) {
+  if (params.profitRate) {
     // 1 - D
     const bProfitRate = Big(1).minus(params.profitRate).toNumber();
 

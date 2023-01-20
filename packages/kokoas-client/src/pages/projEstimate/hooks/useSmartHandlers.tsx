@@ -116,13 +116,11 @@ export const useSmartHandlers = () => {
     const taxRate = getValues('taxRate') / 100;
     const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
     const rowUnitPriceBeforeTax = getValues(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'));
-    const costPrice = getValues(getItemsFieldName<'items.0.costPrice'>(rowIdx, 'costPrice'));
     const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
 
     const {
       rowUnitPriceAfterTax,
     } = calculateEstimateRow({
-      costPrice,
       rowUnitPriceBeforeTax,
       quantity,
       taxRate,

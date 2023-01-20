@@ -40,7 +40,7 @@ import { calcAfterTax, calcBeforeTax } from './calcTax';
  */
 interface CalculationEstimateParams {
   /** 原価 */
-  costPrice: number,
+  costPrice?: number,
 
   /** 数量 */
   quantity: number,
@@ -95,10 +95,10 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
     ...params,
   };
 
-
+  result.costPrice = params.costPrice ?? 0;
 
   /* 行の原価合計 */
-  result.rowCostPrice = Big(params.costPrice).mul(params.quantity).round(0).toNumber();
+  result.rowCostPrice = Big(result.costPrice).mul(params.quantity).round(0).toNumber();
 
 
   /* 単価 */
@@ -107,7 +107,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
     const bProfitRate = Big(1).minus(params.profitRate).toNumber();
 
     // 原価 / (1 - D)
-    result.unitPrice = Big(params.costPrice).div(bProfitRate).round(0).toNumber();
+    result.unitPrice = Big(result.costPrice).div(bProfitRate).round(0).toNumber();
   }
 
   /* 行の単価合計(税抜き)、行の単価合計(税込み) */
@@ -150,6 +150,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
 
   return {
     ...params,
+    costPrice: result.costPrice ?? 0,
     rowCostPrice: result.rowCostPrice ?? 0,
     rowUnitPriceAfterTax: result.rowUnitPriceAfterTax ?? 0,
     rowUnitPriceBeforeTax: result.rowUnitPriceBeforeTax ?? 0,

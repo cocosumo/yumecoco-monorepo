@@ -1,9 +1,12 @@
 import { Box, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
 import { RiFileExcel2Fill } from '@react-icons/all-files/ri/RiFileExcel2Fill';
 import { TiExport } from '@react-icons/all-files/ti/TiExport';
+import { FaFileCsv } from '@react-icons/all-files/fa/FaFileCsv';
 import PrintIcon from '@mui/icons-material/Print';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import { useConfirmDialog, useSnackBar } from 'kokoas-client/src/hooks';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import { AndpadLogo } from 'kokoas-client/src/components/ui/icons/Andpad';
+
 
 
 
@@ -30,13 +33,19 @@ export const ExportMenu = () => {
           }}
         >
           <SpeedDialAction
+            icon={<PrintIcon />}
+            tooltipTitle={'印刷'}
+            onClick={handleClick}
+          />
+          <SpeedDialAction
             icon={<RiFileExcel2Fill fontSize={'22px'} color={'green'} />}
             tooltipTitle={'エクセル'}
             onClick={handleClick}
           />
+
           <SpeedDialAction
-            icon={<PrintIcon />}
-            tooltipTitle={'印刷'}
+            icon={<FaFileCsv fontSize={'22px'} color={'#C8102E'} />}
+            tooltipTitle={'アンドパッド形式'}
             onClick={handleClick}
           />
           {/* 出力形式はここに追加。多くなったら、配列化してリファクタリングする。*/}

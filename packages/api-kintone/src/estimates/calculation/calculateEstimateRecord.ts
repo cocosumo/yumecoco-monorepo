@@ -33,7 +33,7 @@ export const calculateEstimateRecord = ({
   const calculatedEstimateTable = estimatesTable?.map(({
     value: {
       原価: costPrice,
-      金額: rowUnitPriceAfterTax,
+      単価: unitPrice,
       taxType,
       数量: quantity,
 
@@ -45,7 +45,7 @@ export const calculateEstimateRecord = ({
       isTaxable:  (taxType.value as TaxType) === '課税',
       quantity: +quantity.value,
       taxRate: taxRate,
-      rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
+      unitPrice: +unitPrice.value,
     });
 
   });

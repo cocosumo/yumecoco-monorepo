@@ -38,13 +38,15 @@ export const calculateUnitPriceFromKingaku = async () => {
               const taxRate = +税.value / 100;
 
               draft.forEach((d) => {
-                console.log(d.value);
+
                 const {
-                  金額: { value: rowUnitPriceAfterTax },
                   taxType: { value: taxType },
                   原価: { value: costPrice },
                   数量: { value: quantity },
                 } = d.value;
+
+                // field to be deprecated
+                const rowUnitPriceAfterTax = (d.value as any).金額.value;
 
                 const {
                   unitPrice,

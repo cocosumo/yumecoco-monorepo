@@ -48,7 +48,7 @@ declare namespace DBProjestimates {
           部材名: kintone.fieldTypes.SingleLineText;
           中項目: kintone.fieldTypes.SingleLineText;
           taxType: kintone.fieldTypes.SingleLineText;
-          金額: kintone.fieldTypes.Number;
+          //金額: kintone.fieldTypes.Number;
           部材備考: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
         };

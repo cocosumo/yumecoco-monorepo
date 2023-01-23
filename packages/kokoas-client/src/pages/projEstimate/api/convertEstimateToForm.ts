@@ -38,11 +38,9 @@ export const convertEstimateToForm = (
       単価,
       備考,
       部材備考,
-      金額: rowUnitPriceAfterTax,
     } = row;
 
     const isTaxable = (taxType.value  as TaxType) === '課税';
-    const parsedRowUnitPriceAfterTax = +rowUnitPriceAfterTax.value;
 
     const {
       costPrice,
@@ -50,6 +48,7 @@ export const convertEstimateToForm = (
       profitRate,
       rowCostPrice,
       rowUnitPriceBeforeTax,
+      rowUnitPriceAfterTax,
     } = calculateEstimateRow({
       costPrice: +原価.value,
       quantity: +数量.value,
@@ -60,7 +59,7 @@ export const convertEstimateToForm = (
 
     // On empty row, adopt project type's profit rate.
     let resolveRowProfitRate = roundTo(profitRate * 100, 2);
-    if (!parsedRowUnitPriceAfterTax && !profitRate) {
+    if (!rowUnitPriceAfterTax && !profitRate) {
       resolveRowProfitRate = roundTo(+projTypeProfit.value, 2);
     }
 
@@ -77,7 +76,7 @@ export const convertEstimateToForm = (
       unit: (単位.value || '式') as TunitChoices,
       unitPrice: +単価.value,
       rowUnitPriceBeforeTax: rowUnitPriceBeforeTax,
-      rowUnitPriceAfterTax: parsedRowUnitPriceAfterTax, // Math.round creates discrepancy. Keep at least 2 digits.
+      rowUnitPriceAfterTax,
       taxable: taxType.value === '課税' ? true : false,
 
     };

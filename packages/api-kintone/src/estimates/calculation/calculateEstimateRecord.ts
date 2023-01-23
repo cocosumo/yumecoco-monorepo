@@ -1,4 +1,3 @@
-import { TaxType } from 'types';
 import { RecordType } from '../config';
 import { calculateEstimateRow } from './calculateEstimateRow';
 import { calculateEstimateSummary } from './calculateEstimateSummary';
@@ -34,7 +33,7 @@ export const calculateEstimateRecord = ({
     value: {
       原価: costPrice,
       単価: unitPrice,
-      taxType,
+      税率: rowTaxRate,
       数量: quantity,
 
     },
@@ -42,7 +41,7 @@ export const calculateEstimateRecord = ({
 
     return calculateEstimateRow({
       costPrice: +costPrice.value,
-      isTaxable:  (taxType.value as TaxType) === '課税',
+      isTaxable:  +(rowTaxRate.value) > 0,
       quantity: +quantity.value,
       taxRate: taxRate,
       unitPrice: +unitPrice.value,

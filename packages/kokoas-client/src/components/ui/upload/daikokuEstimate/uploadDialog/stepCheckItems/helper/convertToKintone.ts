@@ -21,6 +21,8 @@ export const convertToKintone = ({
     items,
   } = parsedDaikoku;
 
+  const parsedTaxRate = taxRate / 100;
+
   /*
     itemsの変換処理
     現在、最終行の原価はゼロだったら、保存しない仕様ですが、条件が変わることを想定して、reduceにしました。~ ras
@@ -53,7 +55,7 @@ export const convertToKintone = ({
           数量 : { value: quantity.toString() },
           単位: { value: unit },
           単価: { value: unitPrice.toString() },
-          taxType: { value: '課税' },
+          税率: { value: parsedTaxRate.toString() },
           備考: { value: '' },
           部材備考: { value: '' }, // Need to capture this too.
         },
@@ -71,8 +73,7 @@ export const convertToKintone = ({
         数量 : { value: string },
         単位: { value: string },
         単価 : { value: string }
-        //金額: { value: string },
-        taxType: { value: string },
+        税率: { value: string }
         備考: { value: string }
         部材備考 : { value: string }
       },

@@ -1,7 +1,7 @@
 import { calculateEstimateRow } from 'api-kintone';
 import { parseISO } from 'date-fns';
 import { formatDataId, roundTo } from 'libs';
-import { IProjestimates, TaxType } from 'types';
+import { IProjestimates } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { TunitChoices } from '../validationSchema';
 import { calculateSummary } from './calculateSummary';
@@ -34,13 +34,13 @@ export const convertEstimateToForm = (
       部材名,
       数量,
       単位,
-      taxType,
+      税率,
       単価,
       備考,
       部材備考,
     } = row;
 
-    const isTaxable = (taxType.value  as TaxType) === '課税';
+    const isTaxable = +(税率.value) > 0;
 
     const {
       costPrice,
@@ -77,7 +77,7 @@ export const convertEstimateToForm = (
       unitPrice: +単価.value,
       rowUnitPriceBeforeTax: rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
-      taxable: taxType.value === '課税' ? true : false,
+      taxable: isTaxable,
 
     };
   });

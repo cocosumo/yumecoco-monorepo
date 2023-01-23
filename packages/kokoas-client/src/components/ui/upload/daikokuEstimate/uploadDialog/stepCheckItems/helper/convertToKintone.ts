@@ -41,6 +41,7 @@ export const convertToKintone = ({
         middleItem,
         material,
         unit,
+        unitPrice,
       } = items[index];
 
       acc.push({
@@ -52,6 +53,7 @@ export const convertToKintone = ({
           原価 : { value: costPrice.toString() },
           数量 : { value: quantity.toString() },
           単位: { value: unit },
+          単価: { value: unitPrice.toString() },
           金額: { value: rowUnitPriceAfterTax.toString() },
           taxType: { value: '課税' },
           備考: { value: '' },
@@ -70,6 +72,7 @@ export const convertToKintone = ({
         原価 : { value: string },
         数量 : { value: string },
         単位: { value: string },
+        単価 : { value: string }
         金額: { value: string },
         taxType: { value: string },
         備考: { value: string }

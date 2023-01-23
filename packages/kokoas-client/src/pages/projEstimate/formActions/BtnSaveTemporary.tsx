@@ -15,7 +15,7 @@ export const BtnSaveTemporary = (props: ButtonProps) => {
         {...props}
         name={name}
         variant={'outlined'}
-        size="medium"
+        size="small"
         aria-label="cancel"
         color={'secondary'}
       >

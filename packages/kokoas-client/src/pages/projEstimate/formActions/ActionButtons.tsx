@@ -7,6 +7,7 @@ import { ProjEstimateShortcuts } from '../navigationComponents/ProjEstimateShort
 import { BtnCancelEdit } from './BtnCancelEdit';
 import { BtnSave } from './BtnSave';
 import { BtnSaveTemporary } from './BtnSaveTemporary';
+import { ExportMenu } from './exportMenu/ExportMenu';
 import { FormActionsContainer } from './FormActionsContainer';
 
 export const ActionButtons = ({
@@ -36,6 +37,7 @@ export const ActionButtons = ({
       >
         <Stack spacing={1} direction={'row'} maxHeight={40}>
           <ProjEstimateShortcuts />
+          <ExportMenu />
           <BtnSaveTemporary onClick={(e) => handleSubmit(e)} />
           <BtnSave onClick={(e) => handleSubmitFinal(e)} />
           <BtnCancelEdit />

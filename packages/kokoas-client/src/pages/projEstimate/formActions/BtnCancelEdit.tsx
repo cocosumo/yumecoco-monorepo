@@ -37,26 +37,28 @@ export const BtnCancelEdit = () => {
   };
 
   return (
-    <Button
-      variant='outlined'
-      size="medium"
-      aria-label="cancel"
-      color={'warning'}
-      sx={{ opacity: showText ? 1 : 0.5 }}
-      onMouseEnter={()=>setShowText(true)}
-      onMouseLeave={()=>setShowText(false)}
-      onClick={handleClose}
-    >
-      <CancelIcon />
-      <Collapse in={showText} orientation={'horizontal'}
-        mountOnEnter unmountOnExit
+    <span>
+      <Button
+        variant='outlined'
+        size="small"
+        aria-label="cancel"
+        color={'warning'}
+        sx={{ opacity: showText ? 1 : 0.5 }}
+        onMouseEnter={()=>setShowText(true)}
+        onMouseLeave={()=>setShowText(false)}
+        onClick={handleClose}
       >
-        <Box ml={1} width={'90px'}>
-          編集をやめる
-        </Box>
-      </Collapse>
+        <CancelIcon />
+        <Collapse in={showText} orientation={'horizontal'}
+          mountOnEnter unmountOnExit
+        >
+          <Box ml={1} width={'90px'}>
+            編集をやめる
+          </Box>
+        </Collapse>
 
 
-    </Button>
+      </Button>
+    </span>
   );
 };

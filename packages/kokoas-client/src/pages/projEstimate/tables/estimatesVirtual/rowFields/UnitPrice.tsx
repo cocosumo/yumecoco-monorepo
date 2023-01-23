@@ -1,6 +1,5 @@
 import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
 import { useWatch } from 'react-hook-form';
-import { getItemsFieldName } from '../../../form';
 import { useEstField } from '../../../hooks/useEstField';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 
@@ -12,8 +11,8 @@ export const UnitPrice = ({
   handleChange: UseSmartHandlers['handleChangeUnitPrice']
 }) => {
 
-  const { 
-    formContext: { register, control }, 
+  const {
+    formContext: { register, control },
     fieldName,
     ...fieldProps
   } = useEstField({
@@ -23,11 +22,9 @@ export const UnitPrice = ({
 
 
   const [
-    costPrice,
     envStatus,
   ] = useWatch({
     name: [
-      getItemsFieldName(rowIdx, 'costPrice'),
       'envStatus',
     ],
     control,
@@ -42,7 +39,7 @@ export const UnitPrice = ({
           onChange: () => handleChange(rowIdx),
         })
       }
-      disabled={!!envStatus || !+(costPrice ?? 0)}
+      disabled={!!envStatus}
     />
 
   );

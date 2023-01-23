@@ -16,6 +16,7 @@ import isEmpty from 'lodash/isEmpty';
 import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
+import { BillingTotal } from './fieldComponents/BillingTotal';
 
 
 
@@ -42,7 +43,7 @@ export const FormInvoice = () => {
   useEffect(() => {
     setValues((prev) => ({
       ...prev,
-      exceededContract : exceeded,
+      exceededContract: exceeded,
     }));
   }, [setValues, exceeded]);
 
@@ -109,19 +110,15 @@ export const FormInvoice = () => {
 
 
             {/* 請求合計 */}
-            <Grid item xs={12} md={12}>
-              {/* <BillingAmount
-            open={+billingAmount > (+contractAmount - +billedAmount)}
-            billingBalance={+contractAmount - +billedAmount - +billingAmount}
-          /> */}
+            <Grid item xs={12} md={7}>
+              <BillingTotal />
             </Grid>
 
 
             {/* 入金予定日 */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={5}>
               <PlannedPaymentDate />
             </Grid>
-            <Grid item md={6} />
 
 
             {/* 請求書発行ボタン */}

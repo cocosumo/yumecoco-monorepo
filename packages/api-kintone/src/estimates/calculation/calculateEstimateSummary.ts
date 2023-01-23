@@ -1,4 +1,6 @@
+import Big from 'big.js';
 import { calcProfitRate } from './calcProfitRate';
+import { calcAfterTax } from './calcTax';
 import { calculateEstimateRow } from './calculateEstimateRow';
 
 export interface EstimateSummary {
@@ -8,19 +10,27 @@ export interface EstimateSummary {
   /** 粗利 */
   totalProfit: number,
 
-  /** 税抜き金額 */
-  totalAmountBeforeTax: number
-
-  /** 税込み金額 */
-  totalAmountAfterTax: number,
-
   /** 税額 */
   totalTaxAmount: number,
+
+  /**  */
+  totalTaxableAmount: number,
+
+  /** */
+  totalNonTaxableAmount: number,
 }
 
 export interface CompleteEstimateSummary extends EstimateSummary {
   /** 粗利率 */
   overallProfitRate: number,
+
+
+  /* 税抜き */
+  totalAmountBeforeTax: number,
+
+  /* 税込み */
+  totalAmountAfterTax: number,
+
 
   /** 税額 */
   totalTaxAmount: number,
@@ -28,25 +38,30 @@ export interface CompleteEstimateSummary extends EstimateSummary {
 
 export const calculateEstimateSummary = (
   calculatedEstimateTable : ReturnType<typeof calculateEstimateRow>[],
+  taxRate = 0.1,   // 仮税率、実際は各フィールドから取得します。
 ) : CompleteEstimateSummary => {
 
   const summary = calculatedEstimateTable
     .reduce((acc, cur) => {
       const {
-        rowUnitPriceAfterTax,
         rowUnitPriceBeforeTax,
         rowCostPrice,
+        isTaxable,
       } = cur;
 
-      acc.totalAmountAfterTax += rowUnitPriceAfterTax;
-      acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
+      if (isTaxable) {
+        acc.totalTaxableAmount += rowUnitPriceBeforeTax;
+      } else {
+        acc.totalNonTaxableAmount += rowUnitPriceBeforeTax;
+      }
+
       acc.totalCostPrice += rowCostPrice;
 
       return acc;
 
     }, {
-      totalAmountBeforeTax: 0,
-      totalAmountAfterTax: 0,
+      totalNonTaxableAmount: 0,
+      totalTaxableAmount: 0,
       totalCostPrice: 0,
       totalProfit: 0,
       totalTaxAmount: 0,
@@ -54,12 +69,22 @@ export const calculateEstimateSummary = (
 
   const {
     totalCostPrice,
-    totalAmountBeforeTax,
-    totalAmountAfterTax,
+    totalTaxableAmount,
+    totalNonTaxableAmount,
   } = summary;
+
+
+  const totalTaxableAmountWithTax = calcAfterTax(totalTaxableAmount, taxRate);
+
+  const totalAmountBeforeTax = Big(totalTaxableAmount).add(totalNonTaxableAmount).round(0).toNumber();
+  const totalAmountAfterTax = Big(totalTaxableAmountWithTax).add(totalNonTaxableAmount).round(0).toNumber() ;
+
+  console.log(totalTaxableAmount, totalTaxableAmountWithTax);
 
   return {
     ...summary,
+    totalAmountBeforeTax,
+    totalAmountAfterTax,
     totalTaxAmount:  totalAmountAfterTax - totalAmountBeforeTax,
     totalProfit: totalAmountBeforeTax - totalCostPrice,
     overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),

@@ -15,10 +15,10 @@ const calcTax = (
   if (mode === 'after') {
     result = result.mul(bTaxRate);
   } else {
-    result = result.div(bTaxRate);
+    result = result.div(bTaxRate).round();
   }
 
-  return result.round(0).toNumber();
+  return result.toNumber();
 };
 
 /**

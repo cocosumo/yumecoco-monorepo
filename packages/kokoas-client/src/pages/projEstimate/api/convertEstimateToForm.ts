@@ -35,6 +35,7 @@ export const convertEstimateToForm = (
       数量,
       単位,
       taxType,
+      単価,
       備考,
       部材備考,
       金額: rowUnitPriceAfterTax,
@@ -47,14 +48,13 @@ export const convertEstimateToForm = (
       costPrice,
       quantity,
       profitRate,
-      unitPrice,
       rowCostPrice,
       rowUnitPriceBeforeTax,
     } = calculateEstimateRow({
       costPrice: +原価.value,
       quantity: +数量.value,
       taxRate: +tax.value / 100,
-      rowUnitPriceAfterTax: parsedRowUnitPriceAfterTax,
+      unitPrice: +単価.value,
       isTaxable,
     });
 
@@ -75,9 +75,9 @@ export const convertEstimateToForm = (
       rowDetails: 備考.value,
       materialProfRate: resolveRowProfitRate,
       unit: (単位.value || '式') as TunitChoices,
-      unitPrice: Math.round(unitPrice),
-      rowUnitPriceBeforeTax: Math.round(rowUnitPriceBeforeTax),
-      rowUnitPriceAfterTax: roundTo(parsedRowUnitPriceAfterTax, 2), // Math.round creates discrepancy. Keep at least 2 digits.
+      unitPrice: +単価.value,
+      rowUnitPriceBeforeTax: rowUnitPriceBeforeTax,
+      rowUnitPriceAfterTax: parsedRowUnitPriceAfterTax, // Math.round creates discrepancy. Keep at least 2 digits.
       taxable: taxType.value === '課税' ? true : false,
 
     };

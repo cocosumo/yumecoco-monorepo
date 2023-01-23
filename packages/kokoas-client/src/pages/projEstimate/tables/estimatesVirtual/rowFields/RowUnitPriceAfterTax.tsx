@@ -11,8 +11,8 @@ export const RowUnitPriceAfterTax = ({
   rowIdx: number,
   handleChange: UseSmartHandlers['handleChangeRowUnitPriceAfterTax']
 }) => {
-  const { 
-    formContext: { register, control }, 
+  const {
+    formContext: { register, control },
     fieldName,
     ...fieldProps
   } = useEstField({
@@ -21,17 +21,15 @@ export const RowUnitPriceAfterTax = ({
   });
 
   const [
-    costPrice,
+    quantity,
     envStatus,
   ] = useWatch({
     name: [
-      getItemsFieldName(rowIdx, 'costPrice'),
+      getItemsFieldName(rowIdx, 'quantity'),
       'envStatus',
     ],
     control,
   });
-
-
 
   return (
     <OutlinedMoneyInput
@@ -42,7 +40,7 @@ export const RowUnitPriceAfterTax = ({
           onChange: () => handleChange(rowIdx),
         })
       }
-      disabled={!!envStatus || !+(costPrice ?? 0)}
+      disabled={!!envStatus || !+(quantity ?? 0)}
     />
   );
 };

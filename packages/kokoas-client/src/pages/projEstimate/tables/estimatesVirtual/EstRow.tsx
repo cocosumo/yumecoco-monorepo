@@ -14,10 +14,10 @@ import {
   QuantityField,
   ProfitRate,
   CostPrice,
-  RowUnitPriceAfterTax,
   MaterialDetails,
   RowDetails,
   Taxable,
+  RowUnitPriceBeforeTax,
 } from './rowFields';
 
 
@@ -42,7 +42,7 @@ export const EstRow = ({
     handleChangeProfitRate,
     handleChangeTaxType,
     handleChangeUnitPrice,
-    handleChangeRowUnitPriceAfterTax,
+    handleChangeRowUnitPricBeforeTax,
   } = smartHandlers;
 
   const {
@@ -115,7 +115,7 @@ export const EstRow = ({
         <UnitPrice rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />
       )}
       rowUnitPrice={(
-        <RowUnitPriceAfterTax rowIdx={rowIdx} handleChange={handleChangeRowUnitPriceAfterTax} />
+        <RowUnitPriceBeforeTax rowIdx={rowIdx} handleChange={handleChangeRowUnitPricBeforeTax} />
       )}
       rowDetails={(
         <RowDetails rowIdx={rowIdx} />

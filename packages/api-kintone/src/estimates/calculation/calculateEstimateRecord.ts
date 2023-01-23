@@ -52,7 +52,7 @@ export const calculateEstimateRecord = ({
 
   return {
     details: withDetails ? calculatedEstimateTable : undefined,
-    summary: calculateEstimateSummary(calculatedEstimateTable),
+    summary: calculateEstimateSummary(calculatedEstimateTable, taxRate),
   };
 
 };

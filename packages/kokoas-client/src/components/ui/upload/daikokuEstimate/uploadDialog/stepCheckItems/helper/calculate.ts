@@ -38,7 +38,7 @@ export const calculate = ({
 
   return {
     details: calculatedEstimateTable,
-    summary: calculateEstimateSummary(calculatedEstimateTable),
+    summary: calculateEstimateSummary(calculatedEstimateTable, parsedTaxRate),
   };
 
 };

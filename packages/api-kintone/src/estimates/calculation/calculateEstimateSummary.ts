@@ -38,8 +38,12 @@ export interface CompleteEstimateSummary extends EstimateSummary {
 
 export const calculateEstimateSummary = (
   calculatedEstimateTable : ReturnType<typeof calculateEstimateRow>[],
-  taxRate = 0.1,   // 仮税率、実際は各フィールドから取得します。
+  /** 税率 Formwide taxrate (decimal) **/
+  taxRate : number,
 ) : CompleteEstimateSummary => {
+
+  /* 税率が行ごとに異なる仕様になると (10%や8%など)、
+  税率ごとに区分して合計した対価の額および適用税率に改修 */
 
   const summary = calculatedEstimateTable
     .reduce((acc, cur) => {
@@ -78,8 +82,6 @@ export const calculateEstimateSummary = (
 
   const totalAmountBeforeTax = Big(totalTaxableAmount).add(totalNonTaxableAmount).round(0).toNumber();
   const totalAmountAfterTax = Big(totalTaxableAmountWithTax).add(totalNonTaxableAmount).round(0).toNumber() ;
-
-  console.log(totalTaxableAmount, totalTaxableAmountWithTax);
 
   return {
     ...summary,

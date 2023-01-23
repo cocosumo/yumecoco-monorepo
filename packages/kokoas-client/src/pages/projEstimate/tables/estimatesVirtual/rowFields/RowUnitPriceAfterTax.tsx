@@ -4,6 +4,7 @@ import { getItemsFieldName } from '../../../form';
 import { useEstField } from '../../../hooks/useEstField';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 
+/** @deprecated インボイス制度で、廃止するかもしれません。決まるまで残しておきます。 */
 export const RowUnitPriceAfterTax = ({
   rowIdx,
   handleChange,

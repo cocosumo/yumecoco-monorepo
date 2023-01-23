@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { getFieldName, KeyOfForm } from './form';
+import { getFieldName, KeyOfForm, TKMaterials } from './form';
 
 
 /* Common validations */
@@ -18,11 +18,15 @@ export const validationSchema = Yup
 
   estimates: Yup.array()
     .of(
-      Yup.object().shape({
+      Yup.object({
         estimateIndex: numberValidation,
         estimateId: Yup.string(),
         contractAmount: numberValidation,
-        billingAmount: numberValidation.required('必須入力項目'),
+        billingAmount: numberValidation
+          .when('isForPayment' as TKMaterials, {
+            is: true,
+            then: numberValidation.notOneOf([0], '0以外の数値を入力してください'),
+          }),
         billedAmount: numberValidation,
         contractDate: dateValidation,
         isForPayment: Yup.boolean(),

@@ -2,7 +2,9 @@ import { Stack, StackProps } from '@mui/material';
 import { forwardRef, ReactNode } from 'react';
 import { ParsedDaikokuGenka } from 'types';
 
-export type ItemRowFormatProps = Record<keyof ParsedDaikokuGenka['items'][number], ReactNode> & {
+type ParsedFields = keyof ParsedDaikokuGenka['items'][number] | 'rowUnitPriceAfterTax';
+
+export type ItemRowFormatProps = Record<ParsedFields, ReactNode> & {
   stackProps?: StackProps,
 };
 
@@ -20,6 +22,7 @@ export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>
     costPrice,
     rowUnitPrice,
     rowCostPrice,
+    rowUnitPriceAfterTax,
   } = props;
 
   return (
@@ -73,6 +76,7 @@ export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>
           </Stack>
           <Stack width={'34%'}>
             {rowUnitPrice}
+            {rowUnitPriceAfterTax}
           </Stack>
         </Stack>
         <Stack width={'100%'}>

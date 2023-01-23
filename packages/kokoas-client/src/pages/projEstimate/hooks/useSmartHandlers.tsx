@@ -110,7 +110,26 @@ export const useSmartHandlers = () => {
 
   /************************
    * 非課税・課税の変更 */
-  const handleChangeTaxType = useCallback(handleChangeProfitRate, [handleChangeProfitRate]);
+  //const handleChangeTaxType = useCallback(handleChangeProfitRate, [handleChangeProfitRate]);
+  const handleChangeTaxType = useCallback((rowIdx: number) => {
+    //const profitRate = getValues(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate')) / 100;
+    const taxRate = getValues('taxRate') / 100;
+    const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
+    const rowUnitPriceBeforeTax = getValues(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'));
+    const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
+
+    const {
+      rowUnitPriceAfterTax,
+    } = calculateEstimateRow({
+      rowUnitPriceBeforeTax,
+      quantity,
+      taxRate,
+      isTaxable,
+    });
+
+    setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
 
   /****************
    * 単価の変更 */

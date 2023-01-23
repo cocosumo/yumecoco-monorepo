@@ -12,7 +12,10 @@ export interface EstimateSummary {
   totalAmountBeforeTax: number
 
   /** 税込み金額 */
-  totalAmountAfterTax: number
+  totalAmountAfterTax: number,
+
+  /** 税額 */
+  totalTaxAmount: number,
 }
 
 export interface CompleteEstimateSummary extends EstimateSummary {
@@ -33,13 +36,11 @@ export const calculateEstimateSummary = (
         rowUnitPriceAfterTax,
         rowUnitPriceBeforeTax,
         rowCostPrice,
-        rowProfit,
       } = cur;
 
       acc.totalAmountAfterTax += rowUnitPriceAfterTax;
       acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
       acc.totalCostPrice += rowCostPrice;
-      acc.totalProfit += rowProfit;
 
       return acc;
 
@@ -48,18 +49,19 @@ export const calculateEstimateSummary = (
       totalAmountAfterTax: 0,
       totalCostPrice: 0,
       totalProfit: 0,
+      totalTaxAmount: 0,
     } as EstimateSummary );
 
   const {
     totalCostPrice,
-    totalAmountAfterTax,
     totalAmountBeforeTax,
-
+    totalAmountAfterTax,
   } = summary;
 
   return {
     ...summary,
-    totalTaxAmount: totalAmountAfterTax - totalAmountBeforeTax,
+    totalTaxAmount:  totalAmountAfterTax - totalAmountBeforeTax,
+    totalProfit: totalAmountBeforeTax - totalCostPrice,
     overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),
   };
 

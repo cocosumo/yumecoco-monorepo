@@ -18,7 +18,7 @@ const calcTax = (
     result = result.div(bTaxRate);
   }
 
-  return result.toNumber();
+  return result.round(0).toNumber();
 };
 
 /**

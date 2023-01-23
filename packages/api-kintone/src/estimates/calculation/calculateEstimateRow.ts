@@ -106,33 +106,33 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
     const bProfitRate = Big(1).minus(params.profitRate).toNumber();
 
     // 原価 / (1 - D)
-    result.unitPrice = Big(result.costPrice).div(bProfitRate).round(0).toNumber();
+    result.unitPrice = Big(result.costPrice).div(bProfitRate).round(2).toNumber();
   }
 
   /* 行の単価合計(税抜き)、行の単価合計(税込み) */
   if (result.unitPrice) {
 
     // 単価 * 数量
-    result.rowUnitPriceBeforeTax = Big(result.unitPrice).mul(params.quantity).round(0).toNumber();
+    result.rowUnitPriceBeforeTax = Big(result.unitPrice).mul(params.quantity).round(2).toNumber();
     result.rowUnitPriceAfterTax = calcAfterTax(result.rowUnitPriceBeforeTax, params.taxRate, params.isTaxable);
   }
 
   /* 行の単価合計(税込み) */
   if (params.rowUnitPriceBeforeTax) {
     result.rowUnitPriceAfterTax = calcAfterTax(params.rowUnitPriceBeforeTax, params.taxRate, params.isTaxable);
-    result.unitPrice = Big(params.rowUnitPriceBeforeTax).div(params.quantity).round(0).toNumber();
+    result.unitPrice = Big(params.rowUnitPriceBeforeTax).div(params.quantity).round(2).toNumber();
   }
 
   /* 行の単価合計(税抜き) */
   if (params.rowUnitPriceAfterTax) {
     result.rowUnitPriceBeforeTax = calcBeforeTax(params.rowUnitPriceAfterTax, params.taxRate, params.isTaxable);
-    result.unitPrice = Big(result.rowUnitPriceBeforeTax).div(params.quantity).round(0).toNumber();
+    result.unitPrice = Big(result.rowUnitPriceBeforeTax).div(params.quantity).round(2).toNumber();
   }
 
 
   /* 行の税額 */
   if (result.rowUnitPriceAfterTax && result.rowUnitPriceBeforeTax ) {
-    result.rowTaxAmount = Big(result.rowUnitPriceAfterTax).minus(result.rowUnitPriceBeforeTax).round(0).toNumber();
+    result.rowTaxAmount = Big(result.rowUnitPriceAfterTax).minus(result.rowUnitPriceBeforeTax).round(2).toNumber();
   }
 
   if (result.costPrice && result.unitPrice) {
@@ -141,7 +141,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
 
   /* 行の利益額*/
   if (result.rowUnitPriceBeforeTax && result.rowCostPrice) {
-    result.rowProfit = Big(result.rowUnitPriceBeforeTax).minus(result.rowCostPrice).round(0).toNumber();
+    result.rowProfit = Big(result.rowUnitPriceBeforeTax).minus(result.rowCostPrice).round(2).toNumber();
   }
 
   /* 計算忘れ防止(開発者のため) */

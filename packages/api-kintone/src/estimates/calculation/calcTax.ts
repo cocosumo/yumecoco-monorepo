@@ -15,7 +15,7 @@ const calcTax = (
   if (mode === 'after') {
     result = result.mul(bTaxRate);
   } else {
-    result = result.div(bTaxRate).round();
+    result = result.div(bTaxRate);
   }
 
   return result.toNumber();

@@ -9,4 +9,7 @@ export const endpoints = {
 
   /**　案件詳細情報取得  */
   myOrders: `${baseURL}/my/orders`,
+
+  /*  案件同期（作成|編集） */
+  ordersSync: `${baseURL}/workman/our/orders/sync`,
 };

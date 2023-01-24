@@ -37,6 +37,7 @@ export const EstRow = ({
 }) => {
   const { control } = useFormContext<TypeOfForm>();
   const {
+    handleUpdateSummary,
     handleChangeCostPrice,
     handleChangeQuantity,
     handleChangeProfitRate,
@@ -115,7 +116,11 @@ export const EstRow = ({
         <UnitPrice rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />
       )}
       rowUnitPrice={(
-        <RowUnitPriceBeforeTax rowIdx={rowIdx} handleChange={handleChangeRowUnitPricBeforeTax} />
+        <RowUnitPriceBeforeTax
+          rowIdx={rowIdx}
+          handleChange={handleChangeRowUnitPricBeforeTax}
+          handleUpdateSummary={handleUpdateSummary}
+        />
       )}
       rowDetails={(
         <RowDetails rowIdx={rowIdx} />

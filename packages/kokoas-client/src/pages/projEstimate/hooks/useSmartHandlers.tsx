@@ -1,11 +1,10 @@
 /* Update values based on edited fields */
 
-import { calculateEstimateRow } from 'api-kintone';
+import { calculateEstimateRow, calculateEstimateSummary } from 'api-kintone';
 import { roundTo } from 'libs';
 import debounce from 'lodash/debounce';
 import { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { calculateSummary } from '../api/calculateSummary';
 import { getItemsFieldName, TypeOfForm } from '../form';
 
 export type UseSmartHandlers =  ReturnType<typeof useSmartHandlers>;
@@ -34,11 +33,26 @@ export const useSmartHandlers = () => {
   const handleUpdateSummary = useMemo(
     () => debounce(()=>{
       const items = getValues('items');
+      const parsedTaxRate = getValues('taxRate') / 100;
+
       const {
         totalCostPrice,
         totalAmountAfterTax,
         totalAmountBeforeTax,
-      } = calculateSummary(items);
+      } = calculateEstimateSummary(
+        items.map(({
+          taxable,
+          rowCostPrice,
+          rowUnitPriceBeforeTax,
+        }) => {
+          return {
+            isTaxable: taxable,
+            rowCostPrice,
+            rowUnitPriceBeforeTax,
+          };
+        }),
+        parsedTaxRate,
+      );
 
       setValue('totalCostPrice', totalCostPrice);
       setValue('totalAmountBeforeTax', totalAmountBeforeTax);
@@ -186,7 +200,7 @@ export const useSmartHandlers = () => {
   }, [getValues, setValue, handleUpdateSummary]);
 
   /************************
-   * 金額（税込み）の変更 
+   * 金額（税込み）の変更
    * @deprecated インボイス制度で、廃止するかもしれません。決まるまで残しておきます。
    * */
   const handleChangeRowUnitPriceAfterTax = useCallback((rowIdx: number)=>{
@@ -219,7 +233,7 @@ export const useSmartHandlers = () => {
 
 
   /************************
-   * 金額（税抜き）の変更 
+   * 金額（税抜き）の変更
    ************************/
   const handleChangeRowUnitPricBeforeTax = useCallback((rowIdx: number)=>{
 

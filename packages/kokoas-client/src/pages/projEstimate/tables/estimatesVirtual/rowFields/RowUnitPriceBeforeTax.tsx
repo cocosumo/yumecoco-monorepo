@@ -11,18 +11,20 @@ import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
 export const RowUnitPriceBeforeTax = ({
   rowIdx,
   handleChange,
+  handleUpdateSummary,
 }: {
   rowIdx: number,
-  handleChange: UseSmartHandlers['handleChangeRowUnitPricBeforeTax']
+  handleChange: UseSmartHandlers['handleChangeRowUnitPricBeforeTax'],
+  handleUpdateSummary: UseSmartHandlers['handleUpdateSummary']
 }) => {
   const { setSnackState } = useSnackBar();
   const {
     fieldName,
-    formContext: { 
-      register, 
-      getValues, 
+    formContext: {
+      register,
+      getValues,
       setValue,
-      control, 
+      control,
     },
     ...fieldProps
   } = useEstField({
@@ -41,7 +43,7 @@ export const RowUnitPriceBeforeTax = ({
     control,
   });
 
-  
+
   /* 入力した値を検証する */
   const handleAmountCorrection = useMemo(
     () => debounce(
@@ -70,15 +72,15 @@ export const RowUnitPriceBeforeTax = ({
             severity: 'warning',
           });
           setValue(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'), validatedRowUnitPriceBeforeTax);
-
+          handleUpdateSummary();
         }
-      }, 
+      },
       2000,
-    ), 
-    [rowIdx, getValues, setSnackState, setValue], 
+    ),
+    [rowIdx, getValues, setSnackState, setValue, handleUpdateSummary],
   );
 
-  
+
 
   return (
     <OutlinedMoneyInput

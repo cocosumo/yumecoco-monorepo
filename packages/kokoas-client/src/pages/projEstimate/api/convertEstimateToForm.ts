@@ -1,10 +1,9 @@
-import { calculateEstimateRow } from 'api-kintone';
+import { calculateEstimateRow, calculateEstimateSummary } from 'api-kintone';
 import { parseISO } from 'date-fns';
 import { formatDataId, roundTo } from 'libs';
 import { IProjestimates } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { TunitChoices } from '../validationSchema';
-import { calculateSummary } from './calculateSummary';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -24,6 +23,8 @@ export const convertEstimateToForm = (
     dataId,
     $revision,
   } = recEstimate;
+
+  const parsedTaxRate = +tax.value / 100;
 
   /* 内訳 */
   const newItems : TypeOfForm['items'] = estimateTable.map(({ value: row }) => {
@@ -52,7 +53,7 @@ export const convertEstimateToForm = (
     } = calculateEstimateRow({
       costPrice: +原価.value,
       quantity: +数量.value,
-      taxRate: +tax.value / 100,
+      taxRate: parsedTaxRate,
       unitPrice: +単価.value,
       isTaxable,
     });
@@ -96,7 +97,20 @@ export const convertEstimateToForm = (
     totalCostPrice,
     totalAmountAfterTax,
     totalAmountBeforeTax,
-  } = calculateSummary(newItems);
+  } = calculateEstimateSummary(
+    newItems.map(({
+      rowCostPrice,
+      rowUnitPriceBeforeTax,
+      taxable,
+    }) =>{
+      return {
+        isTaxable: taxable,
+        rowUnitPriceBeforeTax,
+        rowCostPrice,
+      };
+    }),
+    parsedTaxRate,
+  );
 
   // 契約ないなら、仮想行を追加する
   if (!envStatus.value) {

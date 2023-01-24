@@ -1,7 +1,6 @@
 import Big from 'big.js';
 import { calcProfitRate } from './calcProfitRate';
 import { calcAfterTax } from './calcTax';
-import { calculateEstimateRow } from './calculateEstimateRow';
 
 export interface EstimateSummary {
   /** 原価合計 */
@@ -36,8 +35,14 @@ export interface CompleteEstimateSummary extends EstimateSummary {
   totalTaxAmount: number,
 }
 
+interface EstRowFields {
+  rowUnitPriceBeforeTax: number,
+  rowCostPrice: number,
+  isTaxable: boolean,
+}
+
 export const calculateEstimateSummary = (
-  calculatedEstimateTable : ReturnType<typeof calculateEstimateRow>[],
+  calculatedEstimateTable : EstRowFields[],
   /** 税率 Formwide taxrate (decimal) **/
   taxRate : number,
 ) : CompleteEstimateSummary => {

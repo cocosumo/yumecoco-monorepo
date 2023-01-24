@@ -41,6 +41,7 @@ export const fetchToken = async () => {
 };
 
 
+/* WIP　ここにトークンの管理が入ります。 */
 export const getToken = async () => {
 
   try {

@@ -19,18 +19,10 @@ export const calculate = ({
 
   const parsedTaxRate = +taxRate / 100;
 
-  /*     value: {
-      原価: costPrice,
-      金額: rowUnitPriceAfterTax,
-      taxType,
-      数量: quantity,
-
-    }, */
-
   const calculatedEstimateTable = items.map(({
     costPrice,
-    rowUnitPrice,
     quantity,
+    unitPrice,
   }) => {
 
     return calculateEstimateRow({
@@ -38,7 +30,7 @@ export const calculate = ({
       isTaxable:  true,
       quantity,
       taxRate: parsedTaxRate,
-      rowUnitPriceBeforeTax: rowUnitPrice,
+      unitPrice,
     });
 
   });
@@ -46,7 +38,7 @@ export const calculate = ({
 
   return {
     details: calculatedEstimateTable,
-    summary: calculateEstimateSummary(calculatedEstimateTable),
+    summary: calculateEstimateSummary(calculatedEstimateTable, parsedTaxRate),
   };
 
 };

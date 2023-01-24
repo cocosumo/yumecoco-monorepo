@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { getToken } from '../@auth/getToken';
+import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
 
 export const getMyOrders = async () => {

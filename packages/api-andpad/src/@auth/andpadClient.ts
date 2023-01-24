@@ -1,8 +1,12 @@
 import { getAuthByServiceName } from 'api-kintone/src/authDB/getAuthByServiceName';
+import { saveAuthByServiceName } from 'api-kintone/src/authDB/saveAuthByServiceName';
 import axios from 'axios';
 import { authCode, clientId, redirectURI, secretId } from '../config';
 import { endpoints } from '../endpoints';
+import tokenValid from '../helpers/tokenValid';
 import { authToken, AuthToken } from '../types';
+
+
 
 let andpadToken: AuthToken = {
   access_token: '',
@@ -12,6 +16,23 @@ let andpadToken: AuthToken = {
   scope: 'openid',
   created_at: 0,
   id_token: '',
+};
+
+/** 設定する */
+export const setAndpadToken = (newAuth: AuthToken) => {
+  andpadToken = { ...newAuth };
+};
+
+
+/** authDBを更新する */
+export const updateAuthDB = async <T = unknown>(data: T) => {
+  const authInfo = authToken.parse(data);
+
+  setAndpadToken(authInfo);
+
+  const result = await saveAuthByServiceName('andpad', JSON.stringify(authInfo));
+
+  console.log(`andpadの認証情報を更新しました。${result.revision}`);
 };
 
 
@@ -32,7 +53,7 @@ export const fetchToken = async () => {
     if (!authCode)
       throw new Error('authCodeを指定してください。generateURIから取得出来ます。');
 
-    return await axios({
+    const { data } = await axios({
       url: endpoints.authToken,
       method: 'POST',
       data : {
@@ -44,6 +65,9 @@ export const fetchToken = async () => {
       },
     });
 
+    await updateAuthDB(data);
+
+    return andpadToken;
 
   } catch (err) {
     console.log(err.message);
@@ -65,7 +89,7 @@ export const refreshToken = async () => {
       throw new Error('Failed to retrieve refresh token.');
     }
 
-    return await axios({
+    const { data } = await axios({
       url: endpoints.authToken,
       method: 'POST',
       data : {
@@ -75,6 +99,11 @@ export const refreshToken = async () => {
         'refresh_token': andpadToken.refresh_token,
       },
     });
+
+    await updateAuthDB(data);
+
+    return andpadToken;
+
   } catch (err) {
     console.error(err);
     throw new Error(err.message);
@@ -83,8 +112,10 @@ export const refreshToken = async () => {
 };
 
 
+
+
 /**
- * アクセストークントークンを管理。
+ * アクセストークントークンの有効性を検証し、取得する
  *  */
 export const getToken = async () => {
 
@@ -95,18 +126,25 @@ export const getToken = async () => {
       const authInfo = await getAuthByServiceName<AuthToken>('andpad');
       const parsedAuthToken = authToken.parse(authInfo);
 
-      if (!parsedAuthToken)
+      if (!parsedAuthToken) {
+        // 認証URLから取得が必要
         throw new Error('authDBにトークンが見つかりませんでした。管理者にご連絡ください。');
+      }
 
-      andpadToken = {
-        ...parsedAuthToken,
-      };
+      setAndpadToken(parsedAuthToken);
 
+    }
+
+    if (!tokenValid(andpadToken)) {
+      //　有効じゃなかったら、トークンをリフレッシュ
+      console.log('トークンは無効です。再習得中');
+      await refreshToken();
     }
 
     const {
       access_token: accessToken,
     } = andpadToken;
+
 
     return accessToken;
 

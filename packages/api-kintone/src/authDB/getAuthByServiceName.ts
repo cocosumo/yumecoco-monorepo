@@ -1,12 +1,8 @@
 import { getRecords } from '../common';
-import { appId, RecordKey, RecordType } from './config';
-
-// サービス名をここに追加
-type ServiceName =
-| 'andpad';
+import { appId, idField, RecordType, ServiceName } from './config';
 
 
-const idField : RecordKey = 'serviceName';
+
 
 export const getAuthByServiceName = <T = unknown>(
   serviceName: ServiceName,

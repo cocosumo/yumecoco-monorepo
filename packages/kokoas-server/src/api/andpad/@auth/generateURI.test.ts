@@ -1,3 +1,0 @@
-it('should generate URI', () => {
-
-});

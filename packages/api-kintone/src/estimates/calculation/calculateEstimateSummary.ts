@@ -59,12 +59,12 @@ export const calculateEstimateSummary = (
       } = cur;
 
       if (isTaxable) {
-        acc.totalTaxableAmount += rowUnitPriceBeforeTax;
+        acc.totalTaxableAmount += +rowUnitPriceBeforeTax;
       } else {
-        acc.totalNonTaxableAmount += rowUnitPriceBeforeTax;
+        acc.totalNonTaxableAmount += +rowUnitPriceBeforeTax;
       }
 
-      acc.totalCostPrice += rowCostPrice;
+      acc.totalCostPrice += +rowCostPrice;
 
       return acc;
 

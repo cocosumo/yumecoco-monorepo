@@ -135,6 +135,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
     result.rowTaxAmount = Big(result.rowUnitPriceAfterTax).minus(result.rowUnitPriceBeforeTax).toNumber();
   }
 
+  /* 行の利益率*/
   if (result.costPrice && result.unitPrice) {
     result.profitRate = calcProfitRate(result.costPrice, result.unitPrice);
   }

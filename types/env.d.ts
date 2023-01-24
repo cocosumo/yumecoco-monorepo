@@ -31,6 +31,9 @@ declare global {
       NX_CLOUD_AUTH_TOKEN: string;
       CW_TOKEN_RAS: string;
       CW_TOKEN_REPORTER: string;
+      ANDPAD_CLIENT_ID: string;
+      ANDPAD_CLIENT_SECRET: string;
+      ANDPAD_CODE: string;
       BASE_URL: string;
       LOCAL_URL: string;
     }

@@ -1,10 +1,9 @@
-import { calculateEstimateRow } from 'api-kintone';
+import { calculateEstimateRow, calculateEstimateSummary } from 'api-kintone';
 import { parseISO } from 'date-fns';
 import { formatDataId, roundTo } from 'libs';
-import { IProjestimates, TaxType } from 'types';
+import { IProjestimates } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { TunitChoices } from '../validationSchema';
-import { calculateSummary } from './calculateSummary';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -25,6 +24,8 @@ export const convertEstimateToForm = (
     $revision,
   } = recEstimate;
 
+  const parsedTaxRate = +tax.value / 100;
+
   /* 内訳 */
   const newItems : TypeOfForm['items'] = estimateTable.map(({ value: row }) => {
     const {
@@ -34,33 +35,32 @@ export const convertEstimateToForm = (
       部材名,
       数量,
       単位,
-      taxType,
+      税率,
+      単価,
       備考,
       部材備考,
-      金額: rowUnitPriceAfterTax,
     } = row;
 
-    const isTaxable = (taxType.value  as TaxType) === '課税';
-    const parsedRowUnitPriceAfterTax = +rowUnitPriceAfterTax.value;
+    const isTaxable = +(税率.value) > 0;
 
     const {
       costPrice,
       quantity,
       profitRate,
-      unitPrice,
       rowCostPrice,
       rowUnitPriceBeforeTax,
+      rowUnitPriceAfterTax,
     } = calculateEstimateRow({
       costPrice: +原価.value,
       quantity: +数量.value,
-      taxRate: +tax.value / 100,
-      rowUnitPriceAfterTax: parsedRowUnitPriceAfterTax,
+      taxRate: parsedTaxRate,
+      unitPrice: +単価.value,
       isTaxable,
     });
 
     // On empty row, adopt project type's profit rate.
     let resolveRowProfitRate = roundTo(profitRate * 100, 2);
-    if (!parsedRowUnitPriceAfterTax && !profitRate) {
+    if (!rowUnitPriceAfterTax && !profitRate) {
       resolveRowProfitRate = roundTo(+projTypeProfit.value, 2);
     }
 
@@ -75,10 +75,10 @@ export const convertEstimateToForm = (
       rowDetails: 備考.value,
       materialProfRate: resolveRowProfitRate,
       unit: (単位.value || '式') as TunitChoices,
-      unitPrice: Math.round(unitPrice),
-      rowUnitPriceBeforeTax: Math.round(rowUnitPriceBeforeTax),
-      rowUnitPriceAfterTax: roundTo(parsedRowUnitPriceAfterTax, 2), // Math.round creates discrepancy. Keep at least 2 digits.
-      taxable: taxType.value === '課税' ? true : false,
+      unitPrice: +単価.value,
+      rowUnitPriceBeforeTax: rowUnitPriceBeforeTax,
+      rowUnitPriceAfterTax,
+      taxable: isTaxable,
 
     };
   });
@@ -97,7 +97,20 @@ export const convertEstimateToForm = (
     totalCostPrice,
     totalAmountAfterTax,
     totalAmountBeforeTax,
-  } = calculateSummary(newItems);
+  } = calculateEstimateSummary(
+    newItems.map(({
+      rowCostPrice,
+      rowUnitPriceBeforeTax,
+      taxable,
+    }) =>{
+      return {
+        isTaxable: taxable,
+        rowUnitPriceBeforeTax,
+        rowCostPrice,
+      };
+    }),
+    parsedTaxRate,
+  );
 
   // 契約ないなら、仮想行を追加する
   if (!envStatus.value) {

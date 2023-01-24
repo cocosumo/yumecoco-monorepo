@@ -14,9 +14,9 @@ export const convertToKintone = ({
   estimateRevision,
 }: TypeOfForm) => {
 
-  
+  const parsedTaxRate = taxRate / 100;
   /*
-    itemsの変換処理 
+    itemsの変換処理
     現在、最終行の原価はゼロだったら、保存しない仕様ですが、条件が変わることを想定して、reduceにしました。~ ras
   */
   const subtableItems = items.reduce(
@@ -30,10 +30,10 @@ export const convertToKintone = ({
         costPrice,
         quantity,
         unit,
-        rowUnitPriceAfterTax,
+        unitPrice,
         taxable,
         rowDetails,
-      }, 
+      },
       index,
     ) => {
 
@@ -55,8 +55,8 @@ export const convertToKintone = ({
           原価 : { value: costPrice.toString() },
           数量 : { value: quantity.toString() },
           単位: { value: unit },
-          金額: { value: rowUnitPriceAfterTax.toString() },
-          taxType: { value: taxable ? '課税' : '非課税' },
+          単価: { value : unitPrice.toString() },
+          税率: { value: (taxable ? parsedTaxRate : 0).toString() },
         },
       });
 
@@ -72,9 +72,9 @@ export const convertToKintone = ({
         部材名: { value: string },
         原価 : { value: string },
         数量 : { value: string },
+        単価 : { value: string },
         単位: { value: string },
-        金額: { value: string },
-        taxType: { value: string },
+        税率: { value: string }
       },
     }>);
 

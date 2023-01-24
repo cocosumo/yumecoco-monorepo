@@ -4,6 +4,7 @@ export * from './ProfitRate';
 export * from './QuantityField';
 export * from './RowDetails';
 export * from './RowUnitPriceAfterTax';
+export * from './RowUnitPriceBeforeTax';
 export * from './Taxable';
 export * from './UnitPrice';
 export * from './UnitType';

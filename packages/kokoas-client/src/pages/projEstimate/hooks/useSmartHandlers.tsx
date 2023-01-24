@@ -1,11 +1,10 @@
 /* Update values based on edited fields */
 
-import { calculateEstimateRow } from 'api-kintone';
+import { calculateEstimateRow, calculateEstimateSummary } from 'api-kintone';
 import { roundTo } from 'libs';
 import debounce from 'lodash/debounce';
 import { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { calculateSummary } from '../api/calculateSummary';
 import { getItemsFieldName, TypeOfForm } from '../form';
 
 export type UseSmartHandlers =  ReturnType<typeof useSmartHandlers>;
@@ -34,11 +33,26 @@ export const useSmartHandlers = () => {
   const handleUpdateSummary = useMemo(
     () => debounce(()=>{
       const items = getValues('items');
+      const parsedTaxRate = getValues('taxRate') / 100;
+
       const {
         totalCostPrice,
         totalAmountAfterTax,
         totalAmountBeforeTax,
-      } = calculateSummary(items);
+      } = calculateEstimateSummary(
+        items.map(({
+          taxable,
+          rowCostPrice,
+          rowUnitPriceBeforeTax,
+        }) => {
+          return {
+            isTaxable: taxable,
+            rowCostPrice,
+            rowUnitPriceBeforeTax,
+          };
+        }),
+        parsedTaxRate,
+      );
 
       setValue('totalCostPrice', totalCostPrice);
       setValue('totalAmountBeforeTax', totalAmountBeforeTax);
@@ -79,7 +93,34 @@ export const useSmartHandlers = () => {
 
   /***************
    * 数量の変更 */
-  const handleChangeQuantity = useCallback(handleChangeCostPrice, [handleChangeCostPrice]);
+  const handleChangeQuantity = useCallback((rowIdx: number ) => {
+    const profitRate = getValues(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate')) / 100;
+    const taxRate = getValues('taxRate') / 100;
+    const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
+    const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
+    const costPrice = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'costPrice'));
+    const unitPrice = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'unitPrice'));
+
+    if (!quantity) return;
+
+    const {
+      rowCostPrice,
+      rowUnitPriceBeforeTax,
+      rowUnitPriceAfterTax,
+    } = calculateEstimateRow({
+      unitPrice,
+      costPrice,
+      quantity,
+      taxRate,
+      profitRate,
+      isTaxable,
+    });
+
+    setValue(getItemsFieldName<'items.0.rowCostPrice'>(rowIdx, 'rowCostPrice'), rowCostPrice);
+    setValue(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'), rowUnitPriceBeforeTax);
+    setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
 
   /*****************
    * 利益率の変更 */
@@ -110,9 +151,8 @@ export const useSmartHandlers = () => {
 
   /************************
    * 非課税・課税の変更 */
-  //const handleChangeTaxType = useCallback(handleChangeProfitRate, [handleChangeProfitRate]);
   const handleChangeTaxType = useCallback((rowIdx: number) => {
-    //const profitRate = getValues(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate')) / 100;
+
     const taxRate = getValues('taxRate') / 100;
     const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
     const rowUnitPriceBeforeTax = getValues(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'));
@@ -139,6 +179,7 @@ export const useSmartHandlers = () => {
     const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
     const costPrice = getValues(getItemsFieldName<'items.0.costPrice'>(rowIdx, 'costPrice'));
     const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
+
     const {
       rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
@@ -159,7 +200,9 @@ export const useSmartHandlers = () => {
   }, [getValues, setValue, handleUpdateSummary]);
 
   /************************
-   * 金額（税込み）の変更 */
+   * 金額（税込み）の変更
+   * @deprecated インボイス制度で、廃止するかもしれません。決まるまで残しておきます。
+   * */
   const handleChangeRowUnitPriceAfterTax = useCallback((rowIdx: number)=>{
 
     const rowUnitPriceAfterTax = getValues(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'));
@@ -186,6 +229,38 @@ export const useSmartHandlers = () => {
     handleUpdateSummary();
   }, [getValues, setValue, handleUpdateSummary]);
 
+
+
+
+  /************************
+   * 金額（税抜き）の変更
+   ************************/
+  const handleChangeRowUnitPricBeforeTax = useCallback((rowIdx: number)=>{
+
+    const rowUnitPriceBeforeTax = getValues(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'));
+    const taxRate = getValues('taxRate') / 100;
+    const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
+    const costPrice = getValues(getItemsFieldName<'items.0.costPrice'>(rowIdx, 'costPrice'));
+    const quantity = getValues(getItemsFieldName<'items.0.quantity'>(rowIdx, 'quantity'));
+
+    const {
+      unitPrice,
+      profitRate,
+      rowUnitPriceAfterTax,
+    } = calculateEstimateRow({
+      rowUnitPriceBeforeTax,
+      costPrice,
+      quantity,
+      taxRate,
+      isTaxable,
+    });
+
+    setValue(getItemsFieldName<'items.0.materialProfRate'>(rowIdx, 'materialProfRate'), roundTo(profitRate * 100, 2));
+    setValue(getItemsFieldName<'items.0.rowUnitPriceAfterTax'>(rowIdx, 'rowUnitPriceAfterTax'), rowUnitPriceAfterTax);
+    setValue(getItemsFieldName<'items.0.unitPrice'>(rowIdx, 'unitPrice'), unitPrice);
+    handleUpdateSummary();
+  }, [getValues, setValue, handleUpdateSummary]);
+
   return {
     handleUpdateSummary,
     handleChangeCostPrice,
@@ -193,6 +268,7 @@ export const useSmartHandlers = () => {
     handleChangeProfitRate,
     handleChangeTaxType,
     handleChangeUnitPrice,
+    handleChangeRowUnitPricBeforeTax,
     handleChangeRowUnitPriceAfterTax,
   };
 };

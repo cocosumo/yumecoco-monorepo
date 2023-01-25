@@ -1,4 +1,4 @@
-import { Table, TableContainer } from '@mui/material';
+import { Paper, Table, TableContainer } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const ResultsTableContainer = ({
@@ -7,8 +7,8 @@ export const ResultsTableContainer = ({
   children: ReactNode
 }) => {
   return (
-    <TableContainer>
-      <Table>
+    <TableContainer component={Paper}>
+      <Table >
         {children}
       </Table>
     </TableContainer>

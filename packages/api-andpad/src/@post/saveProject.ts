@@ -21,7 +21,7 @@ export const saveProject = async (body: SaveProjectData) => {
     return resp;
 
   } catch (err) {
-    console.error(err);
+    console.error(err.response.data.errors);
     throw new Error(`saveProject が失敗しました. ${err.message}`);
   }
 };

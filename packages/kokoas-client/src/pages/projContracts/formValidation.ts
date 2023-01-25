@@ -16,7 +16,6 @@ const payAmtValidation  = Yup
     then: Yup
       .number()
       .typeError('数値を入れてください。')
-      .positive('ゼロ以上を入力してください。')
       .required('金額を入力してください。'),
   });
 

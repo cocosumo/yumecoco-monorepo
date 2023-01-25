@@ -1,9 +1,11 @@
 declare namespace DBMaterialsmid {
   interface Data {
     備考: kintone.fieldTypes.SingleLineText;
-    大項目: kintone.fieldTypes.Number;
+    furigana: kintone.fieldTypes.SingleLineText;
     中項目名: kintone.fieldTypes.SingleLineText;
     大項目名: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
+    大項目: kintone.fieldTypes.Number;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

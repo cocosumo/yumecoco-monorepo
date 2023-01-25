@@ -1,12 +1,11 @@
 import { Button, Grid } from '@mui/material';
-import { ComponentProps } from 'react';
+import { ComponentProps, useMemo } from 'react';
 import {  OutlinedDiv } from '../../../../components/ui/containers';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import EditIcon from '@mui/icons-material/Edit';
 import {  useNavigate } from 'react-router-dom';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
-import { CustomerInstance } from '../../../customer/register/form';
 import { pages } from '../../../Router';
 import { EmptyBox } from '../../../../components/ui/information/EmptyBox';
 import { generateParams } from '../../../../helpers/url';
@@ -14,8 +13,7 @@ import { Column1 } from './Column1';
 import { Column2 } from './Column2';
 import { LabeledInfo } from '../../../../components/ui/typographies';
 import { AGLabels } from 'types';
-import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
-import { RecordSelect } from '../RecordSelect/RecordSelect';
+import { useCustGroupById, useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
 
 export const CustInfo = () => {
 
@@ -29,30 +27,59 @@ export const CustInfo = () => {
     projId,
   } = values;
 
+  /*
+    何をどう表示するか変わると思いますので、
+    固まったら、リファクタリングします。
+
+    With react-query, data may be cached reducing api-call overhead even if the user
+    navigate between pages.
+  */
   const { data: custGroupRecord } = useCustGroupById(custGroupId ?? '');
+  const { data: customerRecords } = useCustomersByCustGroupId(custGroupId);
 
   const {
-    members,
     storeName,
   } = custGroupRecord ?? {};
 
+  const flatCustInfo = useMemo(
+    () => customerRecords
+      ?.reduce((acc, cur) => {
 
-  const {
-    customerId,
-    address1,
-    address2,
-    postal: postalCode,
-    customerName,
-    dump,
-  } = members?.value[0]?.value ?? {}; // Main Customer
+        acc.custNames.push(cur.fullName.value);
+        acc.custNamesReading.push(cur.fullNameReading.value);
+        acc.custIds.push(cur.uuid.value.split('-').at(-1) || cur.uuid.value);
+        return acc;
+      }, {
+        custIds: [] as string[],
+        custNames: [] as string[],
+        custNamesReading: [] as string[],
+      }),
+    [customerRecords]);
 
-  const {
-    custNameReading,
-    email, emailRel,
-    phone1, phone1Rel,
-    phone2, phone2Rel,
-  } = JSON.parse(dump?.value || 'null') as CustomerInstance ?? {};
+  const mainCust = useMemo(
+    () => {
+      const mainCustRecord = customerRecords?.[0];
+      const {
+        postalCode,
+        address1,
+        address2,
+      } = mainCustRecord || {};
 
+      return ({
+        address:  `〒${postalCode?.value} ${address1?.value}${address2?.value}`,
+        contactTuples: mainCustRecord
+          ?.contacts
+          .value
+          .filter(({ value: { contactValue } }) => !!contactValue.value)
+          .map(({ value: {
+            contactType,
+            contactValue,
+            relation,
+          } }) => ([contactType.value, [contactValue.value, relation.value].join(', ')])) ?? [],
+      }) ;
+    }
+    ,
+    [customerRecords]);
 
   const refactoredAgents = custGroupRecord?.agents
     .value
@@ -70,7 +97,6 @@ export const CustInfo = () => {
 
   return (
     <>
-      <RecordSelect />
       <PageSubTitle label="顧客情報" />
       <Grid item xs={12}>
 
@@ -81,19 +107,17 @@ export const CustInfo = () => {
             >
               <Column1
                 custDetail={{
-                  customerName: customerName?.value ?? '',
-                  custNameReading: custNameReading,
-                  address: `${postalCode?.value}〒 ${address1?.value}${address2?.value}`,
-                  email, emailRel,
-                  phone1, phone1Rel,
-                  phone2, phone2Rel,
+                  custNames: flatCustInfo?.custNames.join(', ') || '',
+                  custNamesReading: flatCustInfo?.custNamesReading.join(', ') || '',
+                  address: mainCust.address,
+                  contactTuples: mainCust.contactTuples,
                 }}
               />
 
               <Column2
                 adminInfo={{
-                  custGroupId,
-                  customerId: customerId?.value ?? '',
+                  custGroupId: custGroupId.split('-').at(-1) || custGroupId,
+                  customerIds: flatCustInfo?.custIds.join(', ') || '',
                   storeName: storeName?.value ?? '',
                   agents: refactoredAgents,
                 }}

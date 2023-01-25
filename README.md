@@ -1,6 +1,6 @@
 # yumecoco-monorepo
 
-Containls all projects for Yumetetsu and Cocosumo.
+Contains all projects for Yumetetsu and Cocosumo.
 
 Disclaimer: This is not their official repository.
 

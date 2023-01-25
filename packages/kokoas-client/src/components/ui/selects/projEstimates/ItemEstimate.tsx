@@ -1,8 +1,8 @@
 import { Chip, Stack, Typography } from '@mui/material';
+import { calculateEstimateRecord } from 'api-kintone';
 
 import { format, parseISO } from 'date-fns';
 import { IProjestimates } from 'types';
-import { calculateEstimateRecord } from '../../../../api/others/calculateEstimateRecord';
 
 const LabeledInfo = ({
   label,
@@ -37,13 +37,13 @@ export const ItemEstimate = ({
 }) => {
 
   const {
-    $id: id,
     作成日時: { value: dateCreated },
     estimateStatus: { value: estimateStatus },
     envStatus: { value: envStatus },
+    dataId,
   } = estimateRecord;
 
-  const { totalAmountInclTax } = calculated;
+  const { summary: { totalAmountAfterTax } } = calculated;
 
 
   return (
@@ -63,7 +63,7 @@ export const ItemEstimate = ({
 
       <LabeledInfo
         label='番号'
-        info={id.value}
+        info={dataId.value.split('-').at(-1) ?? dataId.value}
         widthRatio={10}
       />
       <LabeledInfo
@@ -73,7 +73,7 @@ export const ItemEstimate = ({
       />
       <LabeledInfo
         label='契約金額'
-        info={`${(totalAmountInclTax)?.toLocaleString() || 0} 円`}
+        info={`${(totalAmountAfterTax)?.toLocaleString() || 0} 円`}
         widthRatio={30}
         align={'right'}
       />

@@ -21,11 +21,11 @@ export const processContract = async (
 
     const envelopesApi = new EnvelopesApi(apiClient);
 
-    const envelope = await makeEnvelope(
+    const envelope = await makeEnvelope({
       data,
       status,
       signMethod,
-    );
+    });
 
     let envSummary: EnvelopeSummary = Object.create(null);
     let envDocFileKeys: string[] = [];

@@ -1,16 +1,15 @@
 import { getContractData } from '../../../kintone/getContractData';
-import path from 'path';
 import { grayscale, PDFDocument } from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { drawText } from '../helpers/pdf';
-import { assetsDir, latestPDF } from '../config/file';
 import { format, parseISO } from 'date-fns';
-import { getPayMethodX } from './generateContractPdfHelper';
+import { getFilePath, getFont } from 'kokoas-server/src/assets';
+import { getPayMethodX } from './helpers/getPayMethodX';
 
 
 /**
- * Generate pdf on different formats
+ * 請負契約書
  *
  * @param contractData derived from getContractData
  * @param contentType
@@ -22,15 +21,20 @@ export const generateContractPdf = async (
   contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
 ) => {
   const {
-    projId, projName, projLocation,
     customers,
     cocoAG,
+    contractId,
+    projName,
+    projLocation,
+    projEstimateId,
     payments,
+    tax,
     calculatedEstimates: {
-      totalAmountInclTax,
-      totalCPWithProfit,
-      taxAmount,
-      taxRate,
+      summary: {
+        totalTaxAmount,
+        totalAmountAfterTax,
+        totalAmountBeforeTax,
+      },
     },
     startDate,
     startDaysAfterContract,
@@ -40,21 +44,33 @@ export const generateContractPdf = async (
     contractDate,
     payDestination,
     payMethod,
+
+    /* 会社情報 */
+    companyAddress,
+    companyName,
+    companyTel,
+    representative,
   } = contractData;
 
   const {
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
-  const url = path.join(assetsDir, latestPDF);
-  const existingPdfBytes = await fs.readFile(url);
+
+  const pdfPath = getFilePath({
+    fileName: '請負契約書',
+  });
+  const existingPdfBytes = await fs.readFile(pdfPath);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-  const fontData = await fs
-    .readFile(path.join(assetsDir, 'MSMINCHO.TTF'));
+
+
+  const fontData = await fs.readFile(getFont());
+
 
   // const font = fontkit.create(fontData);
   pdfDoc.registerFontkit(fontkit);
+
   const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
 
   const pages = pdfDoc.getPages();
@@ -65,15 +81,30 @@ export const generateContractPdf = async (
   const x2 = 183;
   const x3 = 239;
 
+
   // 工事番号
   drawText(
     firstPage,
-    projId,
+    contractId,
     {
       x: x1,
       y: 782,
       font: msChinoFont,
     },
+  );
+
+  // 見積もり番号
+  drawText(
+    firstPage,
+    projEstimateId,
+    {
+      x: 50,
+      y: 50,
+      font: msChinoFont,
+      size: 8,
+
+    },
+    { weight: 0.1 },
   );
 
   // 工事名
@@ -90,7 +121,7 @@ export const generateContractPdf = async (
   // 顧客名
   drawText(
     firstPage,
-    customers.map(({ custName }) => `${custName} 様` ).join(' と '),
+    customers.map(({ custName }) => `${custName} 様` ).join('、'),
     {
       x: x1,
       y: 680,
@@ -224,7 +255,7 @@ export const generateContractPdf = async (
   /* 請負代金金額 */
   drawText(
     firstPage,
-    `￥ ${Math.round(totalAmountInclTax || 0).toLocaleString()}`,
+    `￥ ${Math.round(totalAmountAfterTax || 0).toLocaleString()}`,
     {
       x: 211,
       y: 494,
@@ -241,7 +272,7 @@ export const generateContractPdf = async (
   /* うち工事価格 */
   drawText(
     firstPage,
-    `￥ ${Math.round(totalCPWithProfit || 0).toLocaleString() }`,
+    `￥ ${Math.round(totalAmountBeforeTax || 0).toLocaleString() }`,
     {
       x: 214,
       y: 480,
@@ -259,7 +290,7 @@ export const generateContractPdf = async (
   /* 税 */
   drawText(
     firstPage,
-    `(${taxRate} %)`,
+    `(${tax} %)`,
     {
       x: 214,
       y: 466,
@@ -274,7 +305,7 @@ export const generateContractPdf = async (
   /* 税額 */
   drawText(
     firstPage,
-    `￥ ${Math.round(taxAmount || 0).toLocaleString()}`,
+    `￥ ${Math.round(totalTaxAmount || 0).toLocaleString()}`,
     {
       x: 214,
       y: 466,
@@ -389,8 +420,81 @@ export const generateContractPdf = async (
   );
 
 
+  /// 会社情報
+
+  const companyX = x2;
+  const companyY = 665;
+  const companyY2 = 195;
+  const companyLH = payLineHeight; // 行の高さ。 今支払いとあわせていますが、変わる可能性
+
+  [companyY, companyY2].forEach((newY) => {
+
+    // 会社名　上下
+    drawText(
+      firstPage,
+      companyName,
+      {
+        x: companyX,
+        y: newY,
+        font: msChinoFont,
+      },
+    );
+
+    // 会社住所 上下
+    drawText(
+      firstPage,
+      companyAddress,
+      {
+        x: companyX,
+        y: newY - companyLH,
+        font: msChinoFont,
+      },
+    );
+
+
+  });
+
+  // 会社連絡先 上
+  drawText(
+    firstPage,
+    companyTel,
+    {
+      x: companyX,
+      y: companyY - (companyLH * 2),
+      font: msChinoFont,
+    },
+  );
+
+  // 代表者名 上
+  drawText(
+    firstPage,
+    representative,
+    {
+      x: companyX,
+      y: companyY - (companyLH * 3),
+      font: msChinoFont,
+    },
+  );
+
+  // 代表者名　下
+  drawText(
+    firstPage,
+    representative,
+    {
+      x: companyX,
+      y: companyY2 - (companyLH * 2),
+      font: msChinoFont,
+    },
+  );
+
+
+
+
+
+
   switch (contentType) {
     case 'base64':
+
       return pdfDoc.saveAsBase64();
     case 'Uint8Array ':
     default:

@@ -5,14 +5,14 @@ import { FormikSelect } from '../../../../components/ui/selects';
 import { useStoreOptions } from '../../../../hooksQuery';
 import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 
-import { getFieldName, CustomerForm, CustomerFormKeys } from '../form';
+import { getFieldName, TypeOfForm, KeyOfForm } from '../form';
 
 
 export const Agents = () => {
   const {
     values,
     setFieldValue,
-  } = useFormikContext<CustomerForm>();
+  } = useFormikContext<TypeOfForm>();
 
 
   const {
@@ -43,11 +43,11 @@ export const Agents = () => {
 
   const handleStoreChange = () => {
     /* Reset agent form on store change  */
-    (['cocoAG1', 'cocoAG2', 'yumeAG1', 'yumeAG2'] as CustomerFormKeys[])
+    (['cocoAG1', 'cocoAG2', 'yumeAG1', 'yumeAG2'] as KeyOfForm[])
       .forEach( item=> setFieldValue(item, '') );
   };
 
-  const handleAGChange = (mainValue :string, compareField: CustomerFormKeys) => {
+  const handleAGChange = (mainValue :string, compareField: KeyOfForm) => {
     /* Clear compareField when it is the same as the main field value */
     if (!mainValue || mainValue === values[compareField]) {
       setFieldValue(compareField, '');

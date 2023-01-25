@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { FormikSelect } from '../../../../../components/ui/selects';
-import { FormikTextField } from '../../../../../components/ui/textfield';
+import { FormikTextFieldV2 as FormikTextField } from '../../../../../components/ui/textfield';
 import {  getCustFieldName } from '../../form';
 
 interface ContactProps {

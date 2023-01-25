@@ -27,7 +27,7 @@ export const reqVoidEnvelope : RequestHandler = async (
     const result = await voidEnvelope({ envelopeId, voidedReason });
 
     const {
-      $id,
+      uuid,
     } = await getEstimateByEnvId(envelopeId);
     console.log(`Voiding envelope id: ${envelopeId}`);
 
@@ -37,7 +37,7 @@ export const reqVoidEnvelope : RequestHandler = async (
     };
 
     await saveEstimate({
-      recordId: $id.value,
+      recordId: uuid.value,
       record,
     });
 

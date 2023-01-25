@@ -4,13 +4,13 @@ import { FormikContract } from './projContracts/';
 import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
-import UnderConstruction from './UnderConstruction';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
-import HelpComponents from './manuals/HelpComponents';
-import { FormikProjEstimate } from './projEstimate/FormikProjEstimate';
+import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
 import { FormikInvoice } from './projInvoice/FormikInvoice';
+import { Home } from './@home/Home';
+import { memo } from 'react';
 
 
 
@@ -42,7 +42,6 @@ export const pages = {
   projPaymentSearch: '/project/payment/search',
   projPaymentInput: '/project/payment/input',
 
-  help: '/help',
   settings: '/settings',
 
 };
@@ -53,7 +52,7 @@ const Router = () => (
 
 
   <Routes>
-    <Route path="/" element={<UnderConstruction />} />
+    <Route path="/" element={<Home />} />
 
     {/* 顧客グループ */}
     <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />
@@ -72,7 +71,7 @@ const Router = () => (
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} />
 
     {/* 見積もり登録 */}
-    <Route path={`${pages.projEstimate}`} element={<FormikProjEstimate />} />
+    <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} />
 
     {/* 契約 */}
     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
@@ -84,9 +83,6 @@ const Router = () => (
     <Route path={`${pages.projPaymentSearch}`} element={'入金予定一覧ページ：未対応'} />
     <Route path={`${pages.projPaymentInput}`} element={'入金情報入力ページ：未対応'} />
 
-    {/* ヘルプ */}
-    <Route path={`${pages.help}/*`} element={<HelpComponents />} />
-
     {/* 設定 */}
     <Route path={`${pages.settings}/*`} element={<SettingsPage />} />
 
@@ -95,4 +91,4 @@ const Router = () => (
 
 );
 
-export default Router;
+export default memo(Router);

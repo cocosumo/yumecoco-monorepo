@@ -1,22 +1,42 @@
-import { EnvelopeDefinition, Signer } from 'docusign-esign';
+import {
+  CarbonCopy,
+  EnvelopeDefinition,
+  Signer } from 'docusign-esign';
 import { ReqSendContract } from 'types';
 import { getContractData } from '../../../kintone/getContractData';
 import { generateContractPdf } from './generateContractPdf';
+import fs from 'fs/promises';
+import { getFilePath } from 'kokoas-server/src/assets';
+import { isProd } from 'config';
+/**
+ * 参考
+ * https://www.docusign.com/blog/developers/tabs-deep-dive-placing-tabs-documents#:~:text=In%20the%20DocuSign%20web%20app,specifying%20x%20and%20y%20position.
+ *  */
 
 /*  Test emails */
-
+const testCustEmail = 'lenzras@gmail.com'; // 顧客
 const testTantouEmail = 'yumecoco.rpa05@gmail.com'; // 担当
-const testTenchoEmail = 'contact@yumetetsu.jp'; // 店長
-const testKeiriEmail = 'info@cocosumo.co.jp'; // 経理
+const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
+const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
+const testHonKeiriEmail = 'yumecoco.rpa05@gmail.com'; //　本経理
 
-/* Need to improve this where it gets deleted when transpiled */
-const isProd = process.env.NODE_ENV !== 'test';
+/**
+ * 担当者承認　→　全顧客並列でサイン　→　「店長」と「経理」並列承認　→　完了
+ *
+ * https://trello.com/c/wlGiNsyx
+ */
 
-export const makeEnvelope = async (
+export const makeEnvelope = async ({
+  data,
+  status = 'sent',
+  signMethod,
+} :{
   data: Awaited<ReturnType<typeof getContractData>>,
-  status: 'created' | 'sent' = 'sent',
+  status: 'created' | 'sent',
   signMethod: ReqSendContract['signMethod'],
+},
 ) => {
+
   const {
     customers,
     cocoAG,
@@ -27,6 +47,9 @@ export const makeEnvelope = async (
 
     accountingName,
     accountingEmail,
+
+    mainAccountingName,
+    mainAccountingEmail,
   } = data;
 
   const {
@@ -34,12 +57,40 @@ export const makeEnvelope = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
-  const documentBase64 = await generateContractPdf(data, 'base64') as string;
+  const mainContractB64 = await generateContractPdf(data, 'base64') as string;
+  const aggreementB64  = await fs.readFile(
+    getFilePath({
+      fileName: '工事請負契約約款',
+    }),
+    { encoding: 'base64' },
+  );
 
   const signers : Signer[] = [];
+  const ccs : CarbonCopy[] = [];
 
-  /* 電子署名の場合 */
+  /****************
+   * 電子署名の場合
+   * **************/
   if (signMethod === 'electronic') {
+
+
+    /* 担当者 */
+    signers.push({
+      email: isProd ? officerEmail : testTantouEmail,
+      name: officerName,
+      roleName: '担当者',
+      recipientId: '1',
+      routingOrder: '1',
+      tabs: {
+        approveTabs: [{
+          anchorString: '/tt/',
+          documentId: '1',
+          pageNumber: '1',
+          tabLabel: '担当者',
+        }],
+      },
+    });
+
     /* 顧客 */
     signers.push(...customers
       .map<Signer>(
@@ -51,53 +102,43 @@ export const makeEnvelope = async (
         idx,
       ) => {
         return {
-          email: custEmail,
+          email: isProd ? custEmail : testCustEmail,
           name: custName,
           roleName: '顧客',
           recipientId: `${1}${idx}`,
-          routingOrder: '1',
+          routingOrder: '2',
           tabs: {
-            signHereTabs: [{
-              anchorString: `c${idx + 1}`,
-              anchorYOffset: '5',
-              scaleValue: '66',
-              documentId: '1',
-              pageNumber: '1',
-              tabLabel: 'c',
-            }],
+            dateSignedTabs: [
+              {
+                anchorString: `c${idx + 1}date`,
+              },
+            ],
+            signHereTabs: [
+              {
+                anchorString: `c${idx + 1}`,
+                anchorYOffset: '5',
+                scaleValue: '66',
+              },
+            ],
           },
         };
       }));
+
+  } else {
+    /****************
+    * 紙契約の場合
+    *****************/
 
     /* 担当者 */
     signers.push({
       email: isProd ? officerEmail : testTantouEmail,
       name: officerName,
       roleName: '担当者',
-      recipientId: '2',
-      routingOrder: '2',
-      tabs: {
-        approveTabs: [{
-          anchorString: '/tt/',
-          documentId: '1',
-          pageNumber: '1',
-          tabLabel: '担当者',
-        }],
-      },
-    });
-  } else {
-    /* 紙契約の場合 */
-    signers.push({
-      email: isProd ? officerEmail : testTantouEmail,
-      name: officerName,
-      roleName: '担当者',
-      recipientId: '2',
-      routingOrder: '2',
+      recipientId: '1',
+      routingOrder: '1',
       tabs: {
         signerAttachmentTabs: [{
           anchorString: '/tt/',
-          documentId: '1',
-          pageNumber: '1',
           tabLabel: '担当者',
         }],
       },
@@ -141,20 +182,35 @@ export const makeEnvelope = async (
     },
   });
 
+  /* 本社経理 */
+  ccs.push({
+    email: isProd ? mainAccountingEmail : testHonKeiriEmail,
+    name: mainAccountingName,
+    roleName: '本社',
+    recipientId: '4',
+    routingOrder: '4',
+  });
+
 
   const env: EnvelopeDefinition = {
     emailSubject: `【${projName}】`,
     documents: [
       {
-        documentBase64: documentBase64,
+        documentBase64: aggreementB64,
+        name: '工事請負契約約款',
+        fileExtension: 'pdf',
+        documentId: '2',
+      },
+      {
+        documentBase64: mainContractB64,
         name: '請負契約書',
         fileExtension: 'pdf',
         documentId: '1',
-
       },
     ],
     recipients: {
       signers: signers,
+      carbonCopies: ccs,
     },
     status: status,
   };

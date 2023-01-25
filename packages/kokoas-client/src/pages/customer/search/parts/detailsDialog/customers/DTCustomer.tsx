@@ -1,5 +1,6 @@
 import { Collapse, Stack  } from '@mui/material';
-import { TAgents, AGLabels, ICustgroups, ICustomers } from 'types';
+import { useCustomersByIds } from 'kokoas-client/src/hooksQuery';
+import { TAgents, AGLabels, ICustgroups } from 'types';
 import { PageSubTitle } from '../../../../../../components/ui/labels';
 import { LabeledDetail } from '../../../../../../components/ui/typographies/LabeledDetail';
 
@@ -19,6 +20,9 @@ export const DTCustomer = (props: {
     custType,
   } = record ?? {};
 
+  const custIds = members?.value.map(({ value: { custId } }) => custId.value );
+  const { data: recCustomers } = useCustomersByIds(custIds);
+
   const groupedCustAgents = agents?.value.reduce((accu, curr) => {
     const { value: {
       agentType,
@@ -36,41 +40,35 @@ export const DTCustomer = (props: {
       </Stack>
 
       {
-        members?.value.map(({
-          id, value : {
-            customerName,
-            postal,
-            address1,
-            address2,
-            customerId,
-            dump,
-          },
+        recCustomers?.map(({
+          fullName,
+          fullNameReading,
+          postalCode,
+          address1,
+          address2,
+          birthDay,
+          birthMonth,
+          birthYear,
+          isSameAsMain,
+          uuid: custId,
+          gender,
+          contacts,
         }, idx) => {
 
-          const {
-            fullName,
-            fullNameReading,
-            birthYear,
-            birthMonth,
-            birthDay,
-            isSameAsMain,
-            gender,
-            contacts,
-          } = JSON.parse(dump.value || 'null') as ICustomers ?? {};
 
-          const resolveAddress = (postal.value || address1.value || address2.value) ? `${postal.value}  ${address1.value}${address2.value}` : '';
+          const resolveAddress = (postalCode.value || address1.value || address2.value) ? `〒${postalCode.value}  ${address1.value}${address2.value}` : '';
           const resolveBirthDate = [[birthYear.value, '年'], [birthMonth.value, '月'], [birthDay.value, '日']]
             .filter(([value]) => value )
             .map(([value, suffix]) => `${value}${suffix}`).join('');
 
           const resolvedIsSameAddress = Boolean(+isSameAsMain.value);
           return (
-            <Stack key={id} spacing={1} mb={2}>
+            <Stack key={custId.value} spacing={1} mb={2}>
 
 
               <PageSubTitle label={`契約者 ${idx + 1} `} />
-              <LabeledDetail label='顧客番号' value={customerId.value} />
-              <LabeledDetail label='氏名' value={customerName.value ?? fullName.value} />
+              <LabeledDetail label='顧客番号' value={custId.value} />
+              <LabeledDetail label='氏名' value={fullName.value} />
               <LabeledDetail label='氏名フリガナ' value={fullNameReading.value} />
               <LabeledDetail label='性別' value={gender.value} />
               <LabeledDetail label='誕生日' value={resolveBirthDate} />

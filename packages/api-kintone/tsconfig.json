@@ -9,12 +9,13 @@
     "declarationMap": true,
     "allowJs": true,
     "skipLibCheck": true
+
   },
   "files": [
     "./index.ts",
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
   ],
   "exclude": [
-    "./dist"
+    "./dist",
   ]
 }

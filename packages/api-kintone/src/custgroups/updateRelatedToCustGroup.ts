@@ -1,4 +1,4 @@
-import { ICustgroups, IProjects, IProjestimates } from 'types';
+import { KProjects, KProjestimates, IProjects, IProjestimates } from 'types';
 import { updateRelated } from '../common/updateRelated';
 import { AppIds } from 'config';
 
@@ -10,30 +10,40 @@ import { AppIds } from 'config';
  * @param custGroupId
  */
 export const updateRelatedToCustGroup = async (
-  record: Partial<ICustgroups>,
   custGroupId: string | string[],
 ) => {
+
+
   if (!custGroupId) throw new Error('エラーが発生しました。custGroupIdは定義されていません。');
 
   /* custGroup 1-n projects */
+  const projectFK : KProjects = 'custGroupId';
   const updatedProjects = await updateRelated<IProjects>({
     relatedAppId: AppIds.projects,
     recIds: custGroupId,
-    lookUpFieldName: 'custGroupId',
+    lookUpFieldName: projectFK,
   });
 
 
   /* projects 1-n projEstimates */
-  const projIds = updatedProjects.results.map(({ id }) => id );
-  const updatedProjEstimates = await updateRelated<IProjestimates>({
-    relatedAppId: AppIds.projEstimates,
-    recIds: projIds,
-    lookUpFieldName: 'projId',
-  });
+  const estimateFK: KProjestimates = 'projId';
+  const projIds = updatedProjects?.results.map(({ id }) => id );
+
+  if (projIds) {
+    return {
+      [AppIds.projects]: updatedProjects,
+      [AppIds.projEstimates]: await updateRelated<IProjestimates>({
+        relatedAppId: AppIds.projEstimates,
+        recIds: projIds,
+        lookUpFieldName: estimateFK,
+      }),
+    };
+
+  }
+   
 
   return {
     [AppIds.projects]: updatedProjects,
-    [AppIds.projEstimates] : updatedProjEstimates,
   };
 
 };

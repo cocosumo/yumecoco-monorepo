@@ -1,15 +1,23 @@
 declare namespace DBInvoices {
   interface Data {
-    amountType: kintone.fieldTypes.SingleLineText;
-    projId: kintone.fieldTypes.Number;
     billingAmount: kintone.fieldTypes.Number;
+    slipNumber: kintone.fieldTypes.SingleLineText;
     plannedPaymentDate: kintone.fieldTypes.Date;
+    uuid: kintone.fieldTypes.SingleLineText;
+    issuedDateTime: kintone.fieldTypes.DateTime;
+    custGroupId: kintone.fieldTypes.SingleLineText;
+    exceedChecked: kintone.fieldTypes.Number;
     estimateLists: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          estimateId: kintone.fieldTypes.Number;
+          projId: kintone.fieldTypes.SingleLineText;
+          dataId: kintone.fieldTypes.SingleLineText;
+          projTypeName: kintone.fieldTypes.SingleLineText;
+          estimateId: kintone.fieldTypes.SingleLineText;
+          amountPerContract: kintone.fieldTypes.Number;
+          paymentType: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

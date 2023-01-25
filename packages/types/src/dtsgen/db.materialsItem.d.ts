@@ -5,6 +5,7 @@ declare namespace DBMaterialsitem {
     部材名: kintone.fieldTypes.SingleLineText;
     部材利益率: kintone.fieldTypes.Number;
     大項目名: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     中項目: kintone.fieldTypes.Number;
     単位: kintone.fieldTypes.DropDown;
   }

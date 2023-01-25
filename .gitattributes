@@ -1,2 +1,17 @@
-# Auto detect text files and perform LF normalization
-* text=auto eol=lf
+# テキストとして検出されたファイルの行末を自動的に処理する
+* text=auto
+
+# 以下のファイルタイプに unix eols を持たせることを強制し、Windows がそれらを壊さないようにする
+*.* text eol=lf
+
+#
+## これらのファイルはバイナリであり、そのままにしておく必要がある
+#
+*.png binary
+*.jpg binary
+*.png binary
+*.ttf binary
+*.pdf binary
+*.xls binary
+*.xlsx binary
+*.docx binary

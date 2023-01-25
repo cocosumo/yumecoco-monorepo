@@ -18,10 +18,10 @@ export const RecordSelect = () => {
   } = useFormikContext<TypeOfForm>();
 
   const {
-    projId,
     custGroupId,
     custName,
     createdDate,
+    projDataId,
   } = values;
 
   const { setDialogState } = useConfirmDialog();
@@ -88,7 +88,7 @@ export const RecordSelect = () => {
         md={4}
       >
         <ModeInfo
-          recordId={projId || ''}
+          recordId={projDataId || ''}
           dateStr={createdDate}
         />
       </Grid>
@@ -101,9 +101,9 @@ export const RecordSelect = () => {
       >
         <SelectProjectInCustGroup
           custGroupId={custGroupId}
-          onChange={useCallback(({  $id }) => {
+          onChange={useCallback(({  uuid }) => {
             navigate(`${pages.projEdit}?${generateParams({
-              projId: $id.value,
+              projId: uuid.value,
             })}`);
           }, [navigate])}
         />

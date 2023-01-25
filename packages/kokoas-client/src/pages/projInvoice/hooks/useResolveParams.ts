@@ -1,59 +1,68 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
-import { useContractsByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
+import { useContractsByCustGroupId, useCustGroupById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useEffect } from 'react';
-import { getParam } from '../../../helpers/url';
 import { initialValues, TypeOfForm } from '../form';
+import { sortEstimatesByProjId } from '../helper/sortEstimatesByProjId';
 
 /**
  * URLで渡されたものを処理する
  */
 export const useResolveParams = () => {
-  const projIdFromURL = getParam('projId');
-  const projInvoiceIdFromURL = getParam('invoiceId');
+  const {
+    invoiceId: projInvoiceIdFromURL,
+    custGroupId: custGroupIdFromURL,
+  } = useURLParams();
 
   const {
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { data: projData } = useProjById(projIdFromURL || '');
-  const { data: contracts } = useContractsByProjId(projIdFromURL || '');
+  const { data: custData } = useCustGroupById(custGroupIdFromURL || '');
+  const { data: contracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
+  const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
+
 
 
   useEffect(() => {
-    // If projEstimateId got passed, no need to save projId.
+
     if (projInvoiceIdFromURL) {
       setValues((prev) => ({
         ...prev,
         invoiceId: projInvoiceIdFromURL,
       }));
-    } else if (projIdFromURL) {
-      if (projData && contracts) {
+    } else if (custGroupIdFromURL && custData && contracts) {
 
-        const billingAmount = contracts.calculated.reduce((acc, cur) => {
-          return acc + cur.totalAmountInclTax;
-        }, 0);
+      const newEstimates = sortEstimatesByProjId(contracts);
 
-        const newValues = produce(initialValues, (draft) => {
-          draft.projId = projIdFromURL;
-          draft.projName = projData.projName.value;
-          draft.billingAmount = String(billingAmount);
-          contracts.records.forEach((value, idx) => {
-            draft.estimates[idx] = {
-              estimateId: value.$id.value || '',
-              contractAmount: String(contracts.calculated[idx].totalAmountInclTax),
-              contractDate: value.contractDate.value,
-              isForPayment: !!(+value.isForPayment.value),
-            };
-          });
+      const newValues = produce(initialValues, (draft) => {
+        draft.custGroupId = custGroupIdFromURL;
+        draft.custName = custData.custNames.value;
+        newEstimates?.forEach((data, idx) => {
+          const tgtBilledAmount = invoices?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+
+          draft.estimates[idx] = {
+            estimateIndex: String(idx),
+            projId: data.projId,
+            projTypeName: data.projTypeName,
+            dataId: data.dataId,
+            contractAmount: data.contractAmount,
+            billedAmount: Number(tgtBilledAmount),
+            billingAmount: data.billingAmount,
+            amountType: '',
+            isForPayment: data.isForPayment,
+            estimateId: data.estimateId,
+          };
         });
+      });
 
-        setValues(newValues);
-      }
+      setValues(newValues);
+
     } else {
       setValues(initialValues);
     }
 
-  }, [projIdFromURL, projInvoiceIdFromURL, setValues, projData, contracts]);
+  }, [custGroupIdFromURL, projInvoiceIdFromURL, setValues, custData, contracts, invoices]);
 
 };

@@ -1,38 +1,32 @@
 
 import { Grid } from '@mui/material';
 import { useFormikContext } from 'formik';
+import { translations } from 'kokoas-client/src/helpers/translations';
 import { TAgents } from 'types';
 
 import { FormikSelect } from '../../../../components/ui/selects';
 import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 import { FormFieldKeys, initialValues } from '../form';
 
-
-
-const resolveLabel = (name: TAgents) => {
-  switch (name) {
-    case 'cocoAG':
-      return 'ここすも営業';
-    case 'yumeAG':
-      return 'ゆめてつ営業';
-    case 'cocoConst':
-      return 'ここすも工事';
-    default:
-      return '担当者';
-  }
-};
-
 const TantouSelect = ({
   name,
 }: {
   name: TAgents
 }) => {
-  const { values } = useFormikContext<typeof initialValues>();
-  const options = useEmployeeOptions({ agentType: name, storeId: values.storeId });
+  const { values: {
+    storeId,
+    territory,
+  } } = useFormikContext<typeof initialValues>();
+
+  const options = useEmployeeOptions({
+    agentType: name,
+    storeId,
+    territory,
+  });
 
   return (
     <Grid item xs={12} md={2}>
-      <FormikSelect name={name as FormFieldKeys} label={resolveLabel(name)} options={options} />
+      <FormikSelect name={name as FormFieldKeys} label={translations[name]} options={options} />
     </Grid>
   );
 };

@@ -87,7 +87,7 @@ export const getTowns = async (params : {
     });
 };
 
-export const getAreas = async () => {
+export const getAreas = async () : Promise<string[]> => {
 
   return kintone.proxy('http://geoapi.heartrails.com/api/json?method=getAreas', 'GET', {}, {})
     .then(([body]: any[]) => {

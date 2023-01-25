@@ -1,22 +1,11 @@
-import { ktRecord } from '../client';
-import { calculateEstimateRecord } from './calculateEstimateRecord';
+import { getRecords } from '../common';
+import { appId, RecordKey, RecordType } from './config';
 
-import { RecordType, appId } from './config';
+const idField : RecordKey = 'uuid';
 
-export const getEstimateById = async (projEstimateId: string) => {
-  const result = await (await ktRecord()).getRecord({
-    app: appId,
-    id: projEstimateId,
-  }).then(({ record }) => {
-
-    const newRecord = record as unknown as RecordType;
-    const calculated = calculateEstimateRecord(newRecord);
-
-    return {
-      record: newRecord,
-      calculated,
-    };
-  });
-
-  return result;
-};
+export const getEstimateById = async (
+  estimateId: string,
+) => getRecords<RecordType>({
+  app: appId,
+  query: `${idField} = "${estimateId}"`,
+}).then(({ records }) => records[0] );

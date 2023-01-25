@@ -1,14 +1,14 @@
 import { Alert, Grid, Button } from '@mui/material';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 import { useField } from 'formik';
-import { CustomerForm, CustomerFormKeys } from '../form';
+import { TypeOfForm, KeyOfForm } from '../form';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-type TIsDeleted = CustomerForm['isDeleted'];
+type TIsDeleted = TypeOfForm['isDeleted'];
 
 
 export const CustomerStatus = () => {
-  const [field,, helper] = useField<TIsDeleted>({ name: ('isDeleted' as  CustomerFormKeys) });
+  const [field,, helper] = useField<TIsDeleted>({ name: ('isDeleted' as  KeyOfForm) });
   const reminderMessage = '「削除」状態の解除は保存されるまで確定しません。';
 
   const isDeleted = Boolean(+field.value);

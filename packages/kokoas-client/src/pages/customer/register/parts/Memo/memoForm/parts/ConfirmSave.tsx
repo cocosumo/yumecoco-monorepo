@@ -38,10 +38,12 @@ export const ConfirmSave = () => {
   const handleSave = async () => {
 
     const memoRecord = await formDataToKintone(values);
+
     await saveMemo({
       id: values.memoId,
       record: memoRecord,
     });
+
     resetForm();
     setSubmitting(false);
     handleCloseMainForm('submitted');

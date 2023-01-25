@@ -12,7 +12,10 @@ export const simplifyKintoneRecords = (records: IProjects[]) => {
 
   return records.map((r) => {
     const {
-      $id, memo, projName, custGroupId,
+      uuid,
+      dataId,
+      memo,
+      projName,
       agents,
       store, rank,
       更新日時, 作成日時,
@@ -21,10 +24,12 @@ export const simplifyKintoneRecords = (records: IProjects[]) => {
       yumeAGNames,
       cocoAGNames,
       custNames,
+      custGroupId,
     } = r;
 
     return {
-      工事番号: $id.value,
+      工事uuid: uuid.value,
+      工事番号: dataId.value,
       メモ: memo.value,
       工事名: projName.value,
       ゆめてつAG: yumeAGNames.value,
@@ -34,7 +39,8 @@ export const simplifyKintoneRecords = (records: IProjects[]) => {
         ?.map(({ value: { agentName } }) => agentName.value)
         .join('、 ') ?? '',
       ランク: rank.value,
-      顧客番号: custGroupId.value,
+      顧客番号uuid: custGroupId.value,
+      顧客番号: custGroupId.value.split('-').at(-1) || '',
       顧客名: custNames.value,
       全顧客: custNames.value,
       店舗名: store.value,

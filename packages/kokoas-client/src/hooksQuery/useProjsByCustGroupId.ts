@@ -1,20 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
-import { getProjsByCustGroupId } from 'api-kintone';
-import { AppIds } from 'config';
-import { IProjects } from 'types';
 
-export const useProjsByCustGroupId = <T = IProjects[]>(
+import { useProjects } from './useProjects';
+
+export const useProjsByCustGroupId = (
   custGroupId: string,
-  options?: {
-    select: (data: IProjects[]) => T
-  },
 ) => {
-  return useQuery(
-    [AppIds.projects, { custGroupId }],
-    () => getProjsByCustGroupId(custGroupId),
-    {
-      enabled: !!custGroupId,
-      ...options,
-    },
-  );
+  return useProjects({
+    select: (data) => data
+      .filter(
+        (rec) => rec.custGroupId.value === custGroupId
+        && !rec.cancelStatus.value,
+      ),
+  });
 };

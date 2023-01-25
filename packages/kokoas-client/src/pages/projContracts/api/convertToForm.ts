@@ -1,16 +1,21 @@
+import { calculateEstimateRecord } from 'api-kintone';
 import { parseISO } from 'date-fns';
+import { produce } from 'immer';
+import { formatDataId } from 'libs';
 import { IConnectRecipients, IProjestimates, TEnvelopeStatus, TSignMethod } from 'types';
-import { calculateEstimateRecord } from '../../../api/others/calculateEstimateRecord';
 import { parseKintoneDate } from '../../../lib/date';
 import { initialValues, TypeOfForm } from '../form';
 
-export const convertToForm = (
-  record: IProjestimates,
-  calculated = calculateEstimateRecord(record),
-) => {
+export const convertToForm = ({
+  record,
+  calculated,
+}:{
+  record: IProjestimates
+  calculated: ReturnType<typeof calculateEstimateRecord >
+}) => {
 
   const {
-    レコード番号: projEstimateId,
+    uuid: projEstimateId,
     envStatus,
     envDocFileKeys,
     envRecipients,
@@ -30,25 +35,28 @@ export const convertToForm = (
     payDestination,
     completeDate,
     signMethod,
-
+    dataId,
   } = record ?? {};
 
-  const newPaymentFields : TypeOfForm['paymentFields'] = paymentSched?.value.length ? paymentSched?.value?.map(({ value: {
-    isPayEnabled,
-    paymentAmt,
-    paymentDate,
-  } }) => {
-    return {
-      checked: Boolean(+isPayEnabled.value ?? 0),
-      amount: +(paymentAmt?.value ?? 0),
-      payDate: paymentDate?.value ? parseISO(paymentDate.value) : '',
-    };
-  }) : initialValues.paymentFields ;
+  const newPaymentFields = produce(initialValues.paymentFields, draft => {
+    paymentSched?.value?.forEach((
+      { value: {
+        isPayEnabled,
+        paymentAmt,
+        paymentDate,
+      } },
+      idx,
+    ) => {
+      draft[idx].checked = Boolean(+isPayEnabled.value ?? 0);
+      draft[idx].amount = +(paymentAmt?.value ?? 0);
+      draft[idx].payDate = paymentDate?.value ? parseISO(paymentDate.value) : '';
+    });
+  });
 
   const newRemainingAmt = newPaymentFields
     .reduce(
       (acc, { amount }) => acc - +amount,
-      Math.round(calculated?.totalAmountInclTax || 0),
+      Math.round(calculated?.summary.totalAmountAfterTax || 0),
     );
 
   const parsedEnvRecipients : IConnectRecipients = JSON.parse(envRecipients?.value || '{}' )?.signers;
@@ -58,6 +66,7 @@ export const convertToForm = (
     projName: projName?.value || '',
     projEstimateRevision: $revision?.value || '',
     projEstimateId: projEstimateId?.value ?? '',
+    projEstimateDataId: formatDataId(dataId.value),
 
 
     /* 契約 */
@@ -75,11 +84,12 @@ export const convertToForm = (
     finishDate: parseKintoneDate(finishDate?.value),
     finishDaysAfterContract: +(finishDaysAfterContract?.value || 0),
     completeDate:parseKintoneDate( completeDate?.value),
-    payDestination: payDestination?.value || '',
+    payDestination: payDestination?.value || '豊田信用金庫　朝日支店',
     payMethod: (payMethod?.value || '振込') as TypeOfForm['payMethod'],
 
     paymentFields: newPaymentFields,
     remainingAmt: newRemainingAmt,
+    totalAmount: Math.round(+calculated.summary.totalAmountAfterTax),
 
     hasRefund: Boolean(+(hasRefund?.value ?? 0)),
     refundAmt: +(refundAmt?.value ?? 0),

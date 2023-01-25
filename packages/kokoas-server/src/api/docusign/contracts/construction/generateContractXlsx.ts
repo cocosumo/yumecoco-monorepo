@@ -1,7 +1,6 @@
 import { getContractData } from '../../../kintone/getContractData';
-import path from 'path';
-import { assetsDir } from '../config/file';
 import excel from 'exceljs';
+import { getFilePath } from 'kokoas-server/src/assets';
 
 /**
  * Generate Contract in excel
@@ -18,7 +17,6 @@ export const generateContractXlsx = async (
 ) => {
   const {
     projId, projLocation, projName,
-    customers,
     cocoAG,
   } = contractData;
 
@@ -26,7 +24,10 @@ export const generateContractXlsx = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
-  const ukeoiFile = path.join(assetsDir, '請負契約書.xlsx' );
+  const ukeoiFile = getFilePath({
+    fileName: '請負契約書',
+    fileType: 'xlsx',
+  });
 
   // Read excel file.
   let workbook = new excel.Workbook();

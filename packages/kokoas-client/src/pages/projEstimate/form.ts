@@ -1,106 +1,65 @@
-
 import * as Yup from 'yup';
-import { v4 as uuidv4 } from 'uuid';
+import { validationSchema } from './validationSchema';
 
-export const taxChoices = ['課税', '非課税'] as const;
-export const unitChoices = [
-  '', '式', '㎡(平米)', '㎥(立米)', 'm(メートル)', 'ヶ所', '個', 'セット', '本', '枚',
-  'ケース', '台', '組', '袋', '箱', 'kg', 't',
-] as const;
-export const statusChoices = [
-  '', '契約', '銀行用', '工事実行', '追加', '追加減額',
-] as const;
 
-export type TMaterials = TypeOfForm['items'][0];
-export type TKMaterials = keyof TMaterials;
+export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
+export type KeyOfForm = keyof TypeOfForm;
+export type KRowFields = keyof TypeOfForm['items'][number];
 
-export const initialValues = {
-  /** 「一時保存」か「保存」 */
-  saveMode: 'normal' as  'temporary' | 'normal',
-  estimateId: '',
-  projId: '',
+
+
+export const initialValues : TypeOfForm = {
   custGroupId: '',
-  projName: '',
+
   customerName: '',
-  createdDate: '',
+  createdDate: null,
+
+  estimateId: '',
+  estimateDataId: '',
+  estimateRevision: '',
   envStatus: '',
 
-  /** 工事種別 */
-  projTypeName: '',
+  projDataId: '',
+  projId: '',
+  projName: '',
+
   projTypeId: '',
-  projTypeProfit: 50, /* 利益率 */
+  projTypeName: '',
+  projTypeProfit: 0,
+  projTypeProfitLatest: 0,
 
-  /* 工事種別に対して最新の利益設定 */
-  projTypeProfitLatest: null as null | number,
-
-  tax: 10, /* 税率 */
-  status: '' as typeof statusChoices[number], /* ステータス */
-
-  /* 見積もり用配列要素 */
+  status: '',
+  taxRate: 10,
   items: [
     {
-      key: uuidv4(),
-      majorItem: '',  /* 大項目 */
-      middleItem: '', /* 中項目 */
-      element: '',    /* 部材 */
-      costPrice: 0,  /* 原価 */
-      quantity: 1,   /* 数量 */
-      elemProfRate: 0, /* 利益率(部材) */
-      unit: '式' as typeof unitChoices[number], /* 単位 */
-      taxType: '課税' as typeof taxChoices[number],  /* 税(課税/非課税) */
+      costPrice: 0,
+      materialProfRate: 0,
+      majorItem: '',
+      middleItem: '',
+      material: '',
+      materialDetails: '',
+      quantity: 1,
+      rowCostPrice: 0,
+      rowDetails: '',
+      rowUnitPriceBeforeTax: 0,
+      rowUnitPriceAfterTax: 0,
+      taxable: true,
+      unit: '式',
+      unitPrice: 0,
     },
   ],
+
+  totalCostPrice: 0,
+  totalAmountBeforeTax: 0,
+  totalAmountAfterTax: 0,
 };
 
-export type TypeOfForm = typeof initialValues;
-export type KeyOfForm = keyof TypeOfForm;
+export const estArrayFieldName : KeyOfForm = 'items';
 
-/*
- フィールド名取得、ヘルパー
- */
+export const initialRow = initialValues.items[0];
+export type Item = typeof initialRow;
 
-export const getFieldName = (s: KeyOfForm) => s;
+export const getItemsFieldName = <T = 'items.0.costPrice'>(
+  rowIdx: number, fieldName?: KRowFields,
+) => `${estArrayFieldName}.${rowIdx}.${fieldName}` as T;
 
-const itemsName = getFieldName('items');
-export const getItemFieldName = (
-  rowIdx: number, fieldName: TKMaterials,
-) => `${itemsName}[${rowIdx}].${fieldName}`;
-
-
-/*
-バリデーション
-*/
-export const validationSchema = Yup
-  .object<Partial<Record<KeyOfForm, any>>>(
-  {
-    'projId': Yup
-      .string()
-      .required('必須です。'),
-    'projTypeProfit': Yup
-      .number(),
-    'tax': Yup
-      .number()
-      .required('必須です。'),
-    'items': Yup.array()
-      .of(
-        Yup.object().shape({
-          'number': Yup.number(),
-          'majorItem': Yup.string().required('必須です'),
-          'middleItem': Yup.string(), /* 中項目 */
-          'element': Yup.string(),    /* 部材 */
-          'costPrice': Yup.number().typeError('数値で入力してください').required('必須です'), /* 原価 */
-          'quantity': Yup.number()
-            .typeError('数値で入力してください')
-            .min(0, '0以上の数字を入力してください')
-            .required('必須です'), /* 数量 */
-          'elemProfRate': Yup.number()
-            .typeError('数値で入力してください')
-            .min(0, '0以上の数字を入力してください'), /* 利益率(部材) */
-          'unit': Yup.string(), /* 単位 */
-          'taxType': Yup.string(),  /* 税(課税/非課税) */
-        }),
-      )
-      .required('Must have items')
-      .min(1, 'Minimum of 1 items'),
-  },
-);

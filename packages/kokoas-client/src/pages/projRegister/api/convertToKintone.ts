@@ -9,9 +9,8 @@ export const convertToKintone = (
     isAgentConfirmed, postal, address1, address2, addressKari, isChkAddressKari,
     buildingType, custGroupId, status,
     cancelStatus,
+    storeCode,
   } = rawValues;
-
-
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
@@ -40,7 +39,7 @@ export const convertToKintone = (
           };
         }),
     },
-    
+    storeCode: { value: storeCode },
     status: {  value: status  },
     cancelStatus: { value: cancelStatus.join(',') },
   };

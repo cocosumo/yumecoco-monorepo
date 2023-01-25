@@ -1,15 +1,14 @@
 
-import { TEnvelopeStatus } from 'types';
+import {
+  TEnvelopeStatus,
+  Territory,
+  RecordStatus,
+  RecordCancelStatus,
+  BuildingType,
+} from 'types';
 import * as Yup from 'yup';
-import { RecordStatus, RecordCancelStatus } from '../../config/formValues';
+
 import { postalRegExp } from '../../helpers/yupValidator';
-
-
-export type BuildingTypeVals =
-| '戸建て'
-| 'マンション'
-| '店舗/事務所'
-| 'その他';
 
 
 /**
@@ -20,12 +19,14 @@ export const initialValues = {
   projTypeName: '',
   projTypeId: '',
   projName: '',
+  projDataId: '',
   createdDate: '',
+  storeCode: '',
 
   custGroupId: undefined  as undefined | string,
   custName: '',
   storeId: '',
-  territory: '',
+  territory: '' as Territory,
 
 
   isAgentConfirmed: false,
@@ -35,7 +36,7 @@ export const initialValues = {
   address1: '',
   address2: '',
   addressKari: '',
-  buildingType: '戸建て' as BuildingTypeVals,
+  buildingType: '戸建て' as BuildingType,
   isChkAddressKari: false,
   status: '追客中' as RecordStatus,
   envelopeStatus: '' as TEnvelopeStatus,

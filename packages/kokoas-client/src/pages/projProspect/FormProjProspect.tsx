@@ -22,13 +22,12 @@ export const FormProjProspect = () => {
 
   const { projId, projName } = values;
   const isDisabled = !projId;
-  
 
   return (
     <FormContainer>
 
       <Grid item xs={12} md={4}>
-        <SearchProjects 
+        <SearchProjects
           label='工事情報の検索'
           value={projId ? {
             id: projId,
@@ -52,9 +51,9 @@ export const FormProjProspect = () => {
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <FormikMoneyField 
-          disabled={isDisabled} 
-          label="契約予定金額" 
+        <FormikMoneyField
+          disabled={isDisabled}
+          label="契約予定金額"
           name={getFieldName('schedContractPrice')}
         />
       </Grid>
@@ -62,7 +61,11 @@ export const FormProjProspect = () => {
       <Grid item xs={4} />
 
       <Grid item xs={12} md={4}>
-        <FormikJADatePicker disabled={isDisabled} label="不動産決済日" name={getFieldName('estatePurchaseDate')} />
+        <FormikJADatePicker
+          disabled={isDisabled}
+          label="不動産決済日"
+          name={getFieldName('estatePurchaseDate')}
+        />
       </Grid>
       <Grid item xs={12} md={4}>
         <FormikJADatePicker disabled={isDisabled} label="設計申込日" name={getFieldName('planApplicationDate')} />
@@ -80,11 +83,11 @@ export const FormProjProspect = () => {
 
       <ProspectShortcuts />
 
-      <FabSave 
+      <FabSave
         appear={!!projId && !!dirty}
         onClick={()=> {
           submitForm();
-        }} 
+        }}
       />
 
     </FormContainer >

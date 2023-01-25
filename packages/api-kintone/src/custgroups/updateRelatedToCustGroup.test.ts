@@ -1,7 +1,6 @@
 import { AppIds } from 'config';
 import { objArrOfIdAndRevision } from 'utils-jest';
 
-import { getCustGroupById } from './getCustGroupById';
 import { updateRelatedToCustGroup } from './updateRelatedToCustGroup';
 
 describe('updateRelatedToCustGroup', () => {
@@ -13,8 +12,8 @@ describe('updateRelatedToCustGroup', () => {
     ]; 
 
     for (const custGroupId of testData) {
-      const record = await getCustGroupById(custGroupId);
-      const result = await updateRelatedToCustGroup(record, custGroupId);
+
+      const result = await updateRelatedToCustGroup(custGroupId);
 
       if (!result) {
         throw new Error('Invalid custGroupId');

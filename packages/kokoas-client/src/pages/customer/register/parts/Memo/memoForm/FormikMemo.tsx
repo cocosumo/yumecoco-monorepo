@@ -1,15 +1,23 @@
 import { Formik } from 'formik';
-import { useContext } from 'react';
-//import { saveMemo } from './api/saveMemo';
+import { useContext, useEffect, useState } from 'react';
 
-import { initialValues, validationSchema } from './form';
+import { initialValues, MemoFormType, validationSchema } from './form';
 import { MemoContext } from './MemoContext';
 import { MemoForm } from './MemoForm';
 
 
 export const FormikMemo = () => {
 
-  const { memoFormState, handleConfirmSaveOpen } = useContext(MemoContext)!;
+  const [newState, setNewState] = useState<MemoFormType>(initialValues);
+
+  const { handleConfirmSaveOpen, memoFormState } = useContext(MemoContext)!;
+
+  useEffect(() => {
+    if (memoFormState) {
+      setNewState(memoFormState);
+    }
+
+  }, [memoFormState]);
 
 
   return (
@@ -17,12 +25,12 @@ export const FormikMemo = () => {
     <Formik
       validateOnChange={false}
       validateOnMount
-      initialValues={{ ...initialValues, ...memoFormState }}
+      initialValues={newState}
       enableReinitialize
       validationSchema={validationSchema}
       onSubmit={() => {
         /* Opens confirm dialog, and do the saving there. */
-        handleConfirmSaveOpen!(true);
+        handleConfirmSaveOpen(true);
       }}
     >
       <MemoForm />

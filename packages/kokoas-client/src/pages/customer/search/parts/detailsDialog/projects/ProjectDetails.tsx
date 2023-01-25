@@ -7,9 +7,17 @@ import { ButtonEdit } from '../ButtonEdit';
 
 export const ProjectDetails = ({
   projectDetailsData : {
-    postal, address1, address2,
-    $id, projTypeName, projName,
-    buildingType, agents, isAgentConfirmed, addressKari,
+    address1,
+    address2,
+    addressKari,
+    agents,
+    buildingType,
+    dataId,
+    isAgentConfirmed,
+    postal,
+    projName,
+    projTypeName,
+    uuid,
   },
 }: {
   projectDetailsData : IProjects
@@ -24,7 +32,7 @@ export const ProjectDetails = ({
 
     <CardContent sx={{ width: '40%' }}>
       <Stack spacing={1}>
-        <LabeledInfo label="工事番号" info={$id.value} />
+        <LabeledInfo label="工事番号" info={dataId.value} />
         <LabeledInfo label="工事種別" info={projTypeName.value} />
         <LabeledInfo label="工事名称" info={projName.value} />
         <LabeledInfo label="建物種別" info={buildingType.value} />
@@ -43,7 +51,7 @@ export const ProjectDetails = ({
         <LabeledInfo label="担当確定" info={+isAgentConfirmed.value ? 'はい' : 'いいえ'} />
         <LabeledInfo label="仮換地地番" info={addressKari.value} />
         <ButtonEdit link={`${pages.projEdit}?${generateParams({
-          projId: $id.value,
+          projId: uuid.value,
         })}`}
         />
       </Stack>

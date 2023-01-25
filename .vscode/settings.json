@@ -11,12 +11,16 @@
     "/packages/api-kintone/src/materialsMajor/config.ts",
     "/packages/api-kintone/src/materialsMid/config.ts",
     "/packages/api-kintone/src/materialsItem/config.ts",
-    "/packages/api-kintone/src/employees/config.ts"
+    "/packages/api-kintone/src/employees/config.ts",
+    "/packages/api-kintone/src/postal/config.ts",
+    "/packages/kokoas-client/src/components/MainScreen.tsx",
+    "/packages/kokoas-client/src/components/App.tsx"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",
     "/packages/api-kintone/src/stores",
     "/automation/auto-common/src",
-    "/packages/kokoas-client/src/hooksQuery"
+    "/packages/kokoas-client/src/hooksQuery",
+    "/packages/kokoas-client/src/components/ui/dialogs"
   ]
 }

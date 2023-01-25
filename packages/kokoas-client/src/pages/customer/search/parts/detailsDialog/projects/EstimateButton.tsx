@@ -18,7 +18,8 @@ export const EstimateButton = ({
   return (
     <Link to={`${pages.projEstimate}?${generateParams({ projId, projEstimateId, menuOpen: +false })}`} target="_blank" rel="noopener noreferrer" >
       <Button
-        variant={isSmall ? 'text' : 'outlined'} fullWidth
+        variant={'outlined'}
+        fullWidth
         color='secondary'
         size={isSmall ? 'small' : 'large'}
         sx={isSmall ? {

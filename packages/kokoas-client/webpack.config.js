@@ -34,6 +34,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx', '.jsx'],
     fallback: {
+      "fs": false,
+      "path": false,
+      "os": false,
       crypto: false,
     },
   },
@@ -65,8 +68,8 @@ module.exports = {
         test: /\.js$/,
         loader: 'source-map-loader',
         exclude: /node_modules/,
-      }, */
-    /*   {
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
 
@@ -98,8 +101,8 @@ module.exports = {
         options: {
           transpileOnly: true,
           //experimentalWatchApi: true,
+          //configFile: './tsconfig.build.json',
         },
-        exclude: /node_modules/
       },
     ],
   },

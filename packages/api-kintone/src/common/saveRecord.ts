@@ -66,9 +66,13 @@ export const saveRecord = async (
 
   } else {
     /* ADD */
-    return KintoneRecord.addRecord({
+
+
+    const result = await KintoneRecord.addRecord({
       app: app,
       record: record,
     });
+    
+    return result;
   }
 };

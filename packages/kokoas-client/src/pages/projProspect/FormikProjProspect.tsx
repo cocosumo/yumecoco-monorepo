@@ -21,7 +21,6 @@ export const FormikProjProspect = () => {
         await mutateAsync({
           record: newRecord,
           projId: values.projId,
-          shouldUpdateRelated: false,
         });
 
       }}

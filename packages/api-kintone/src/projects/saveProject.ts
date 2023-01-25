@@ -1,6 +1,6 @@
-import { saveRecord } from '../common';
-
+import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 import { appId, RecordType } from './config';
+import { generateProjDataIdSeqNum } from './generateProjDataIdSeqNum';
 import { updateRelatedProjects } from './updateRelatedProjects';
 
 
@@ -22,37 +22,61 @@ export const saveProject = async (
     record,
     projId,
     revision,
-    shouldUpdateRelated = true,
   }:
   {
     record: Partial<RecordType>,
     projId?: string,
     revision?:string,
-    shouldUpdateRelated?: boolean
   },
 ) => {
 
-  /** Populate aggregate fields. */
-  const aggRecord = { ...record }; // avoid argument mutation.
+  /*******************
+   * Populate Aggregate Fields
+   ******************/
+
+  /** Copy record, but avoid argument mutation. */
+  const aggRecord = { ...record };
+
+  /* 工事担当者名をcocoConstNames「文字列」にコピーする。 */
   aggRecord.cocoConstNames = {
     value: record.agents?.value
       .map(({ value: { agentName } }) => agentName.value)
       .join(', ') || '',
   };
 
-  /* 
-    copy of subtables, custGroupAgents and custGroup is deprecated.
-    Use and add aggregate fields. e.g.custNames, yumeAgNames, cocoAgNames  
-    Reason: Too many API calls, and maintenance overhead is not worth it.
-    TODO: Remove from db, and update affected code.
-  */
+  /* Generate new dataId, for new record */
+  if (!projId) {
+    const storeCode = aggRecord.storeCode?.value;
+    if (!storeCode) throw new Error(`無効な店舗番号。${storeCode}`);
+    const newDataId = await generateProjDataIdSeqNum(storeCode);
 
-  return saveRecord({
+    aggRecord.dataId = { value : newDataId };
+  }
+
+
+  /*******************
+   * Actual saving process
+   ******************/
+
+  const saveResult = await saveRecordByUpdateKey({
     app: appId,
-    recordId: projId,
+    updateKey: {
+      field: 'uuid',
+      value: projId || '',
+    },
     record: aggRecord,
-    revision: revision,
-    updateRelatedFn: projId && shouldUpdateRelated ? () => updateRelatedProjects(projId, record) : undefined,
+    revision,
   });
+
+  /*******************
+   * Update related database
+   ******************/
+  if (projId) {
+    await updateRelatedProjects(projId);
+  }
+
+
+
+  return saveResult;
 
 };

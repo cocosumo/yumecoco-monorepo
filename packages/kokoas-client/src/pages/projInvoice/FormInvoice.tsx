@@ -3,29 +3,62 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { ContractAmount } from './fieldComponents/ContractAmount';
-import { BillingBalance } from './fieldComponents/BillingBalance';
-import { Button, Divider, Grid } from '@mui/material';
-import { EstimateCards } from './fieldComponents/EstimateCards';
-import { paymentLabels } from '../projContracts';
-import { FormikSelect } from '../../components/ui/selects';
+import { Button, Divider, Grid, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
-import { FormikMoneyField } from 'kokoas-client/src/components/ui/textfield/FormikMoneyField';
-import { SearchProjects } from 'kokoas-client/src/components/ui/textfield';
+import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from '../Router';
+import { useEffect, useRef } from 'react';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import isEmpty from 'lodash/isEmpty';
+import { EstimatesTable } from './fieldComponents/EstimatesTable';
+import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
+import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
+import { BillingTotal } from './fieldComponents/BillingTotal';
 
 
 
 export const FormInvoice = () => {
-  const { values, submitForm } = useFormikContext<TypeOfForm>();
   const navigate = useNavigate();
+  const { setSnackState } = useSnackBar();
 
-  const { projId, projName } = values;
+  const { values, submitForm, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
+  const submitCountRef = useRef(0);
+
+  const {
+    custGroupId,
+    custName,
+    estimates,
+  } = values;
 
   useResolveParams();
+
+
+  const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
+  });
+
+  useEffect(() => {
+    setValues((prev) => ({
+      ...prev,
+      exceededContract: exceeded,
+    }));
+  }, [setValues, exceeded]);
+
+  useEffect(() => {
+    if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
+      setSnackState({
+        open: true,
+        severity: 'error',
+        message: '入力エラーです',
+      });
+    }
+    submitCountRef.current = submitCount;
+  }, [errors, setSnackState, submitCount, submitCountRef]);
+
+
 
   return (
     <Form noValidate>
@@ -33,84 +66,79 @@ export const FormInvoice = () => {
       <MainContainer justifyContent={'space-between'}>
         <PageTitle label='入金管理/請求入力' />
 
-        {/* 工事の選択 */}
-        <Grid item xs={12} md={4}>
-          <SearchProjects
-            value={projId ? { id: projId, projName: projName } : undefined}
-            onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ projId: val?.id })}`)}
-            label='工事情報の検索'
-          />
-        </Grid>
-
-        {/* 支払金額の種別 */}
-        <Grid item xs={12} md={2}>
-          <FormikSelect
-            name={getFieldName('amountType')}
-            label={'支払金額の種別'}
-            options={paymentLabels.map((item) => {
-              return ({
-                label: item,
-                value: item,
-              });
-            })}
-          />
-        </Grid>
-        <Grid item md={6} />
-
-        {/* 契約済み見積り情報の表示 */}
-        <Grid item xs={12} md={12}>
-          <EstimateCards projId={projId} />
-        </Grid>
-
-
-        <Grid item xs={12} md={12}>
-          <Divider />
-        </Grid>
-
-
-        {/* 請求書情報の表示/入力エリア */}
-        {/* 契約金額 */}
+        {/* 顧客の検索 */}
         <Grid item xs={12} md={6}>
-          <ContractAmount values={values} />
-        </Grid>
-        <Grid item md={6} />
-
-
-        {/* 請求金額 */}
-        <Grid item xs={12} md={6}>
-          <FormikMoneyField
-            label='請求額'
-            name={getFieldName('billingAmount')}
+          <SearchCustGroup
+            fullWidth
+            value={custGroupId ? {
+              id: custGroupId,
+              name: custName,
+            } : undefined}
+            onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ custGroupId: val?.id })}`)}
+            inputProps={{
+              label: '顧客検索',
+              name: getFieldName('custGroupId'),
+            }}
           />
         </Grid>
         <Grid item md={6} />
 
 
-        {/* 請求残額 */}
-        <Grid item xs={12} md={6}>
-          <BillingBalance />
-        </Grid>
-        <Grid item md={6} />
+        {custGroupId &&
+          <>
+            {/* 契約済み見積り情報の表示 */}
+            <Grid item xs={12} md={12}>
+              <Typography>
+                {'契約一覧'}
+              </Typography>
+              <EstimatesTable />
+            </Grid>
 
 
-        {/* 入金予定日 */}
-        <Grid item xs={12} md={6}>
-          <PlannedPaymentDate />
-        </Grid>
-        <Grid item md={6} />
+            <Grid item xs={12} md={12}>
+              <Divider />
+            </Grid>
 
 
-        {/* 請求書発行ボタン */}
-        <Grid item xs={12} md={6}>
-          <Button
-            variant="contained"
-            onClick={submitForm}
-          >
-            請求書発行
-          </Button>
-        </Grid>
-        <Grid item md={6} />
+            {/* 請求入力欄(テーブル) */}
+            <Grid item xs={12} md={12}>
+              <Typography>
+                {'請求入力欄'}
+              </Typography>
+              <BillingEntryTable exceeded={exceeded} />
+            </Grid>
 
+
+            {/* 請求合計 */}
+            <Grid item xs={12} md={7}>
+              <BillingTotal />
+            </Grid>
+
+
+            {/* 入金予定日 */}
+            <Grid item xs={12} md={5}>
+              <PlannedPaymentDate />
+            </Grid>
+
+
+            {/* 請求書発行ボタン */}
+            <Grid item xs={12} md={6}>
+              <Button
+                variant="contained"
+                onClick={submitForm}
+              >
+                請求書発行
+              </Button>
+            </Grid>
+            <Grid item md={6} />
+          </>}
+
+        {!custGroupId &&
+          <Grid item xs={12} md={6}>
+            <EmptyBox>
+              顧客を選択してください
+            </EmptyBox>
+          </Grid>}
 
       </MainContainer>
     </Form>

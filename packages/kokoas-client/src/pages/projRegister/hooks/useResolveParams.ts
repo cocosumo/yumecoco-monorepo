@@ -1,10 +1,9 @@
 
 
 
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useProjById, useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
-
-import { getParam } from '../../../helpers/url';
 import { convertCustGroupToForm, convertProjToForm } from '../api/convertToForm';
 import { TypeOfForm, initialValues } from '../form';
 
@@ -14,8 +13,11 @@ import { TypeOfForm, initialValues } from '../form';
 export const useResolveParams = () => {
   const [initForm, setInitForm] = useState<TypeOfForm>(initialValues);
 
-  const projIdFromURL = getParam('projId');
-  const custGroupIdFromURL = getParam('custGroupId');
+  const {
+    projId: projIdFromURL,
+    custGroupId: custGroupIdFromURL,
+  } = useURLParams();
+
 
   const { data: projRec } = useProjById(projIdFromURL || '');
 
@@ -24,22 +26,20 @@ export const useResolveParams = () => {
 
   useEffect(() => {
 
-    if (projIdFromURL) {
-      if (projRec && custGroupRec) {
-        setInitForm({
-          ...initialValues,
-          ...convertProjToForm(projRec),
-          ...convertCustGroupToForm(custGroupRec),
-        });
-      }
+    if (projIdFromURL && projRec && custGroupRec) {
 
-    } else if (custGroupIdFromURL && !projIdFromURL) {
-      if (custGroupRec) {
-        setInitForm({
-          ...initialValues,
-          ...convertCustGroupToForm(custGroupRec),
-        });
-      }
+      setInitForm({
+        ...initialValues,
+        ...convertProjToForm(projRec),
+        ...convertCustGroupToForm(custGroupRec),
+      });
+
+    } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {
+
+      setInitForm({
+        ...initialValues,
+        ...convertCustGroupToForm(custGroupRec),
+      });
 
     } else if (!custGroupIdFromURL && !projIdFromURL) {
       setInitForm(initialValues);

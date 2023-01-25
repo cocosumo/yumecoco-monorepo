@@ -1,10 +1,10 @@
 import { appId, RecordType } from './config';
 import { ICustomers } from 'types';
-import { saveRecord } from '../common/saveRecord';
 import { saveCustomers } from '../customers/saveCustomers';
 
 import { getAgentNames } from './getAgentNames';
 import { updateRelatedToCustGroup } from './updateRelatedToCustGroup';
+import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 
 /**
  * custGroupを保存する処理
@@ -36,7 +36,8 @@ export const saveCustGroup = async (
 
 
   /** Save customer records to db.customers and retrieve customer ids */
-  const customerIds = await saveCustomers({ records: customerRecords });
+  const custIds = await saveCustomers({ records: customerRecords });
+
 
   /**
    * Populate db.custGroup.members with the customerIds
@@ -46,16 +47,15 @@ export const saveCustGroup = async (
    * */
   aggRecord.members = {
     type: 'SUBTABLE',
-    value: customerIds.map(({ id }, idx) => {
+    value: custIds?.map((custId) => {
       return {
         id: '', // this is auto-populated
         value: {
-          customerId: { value: id },
           postal: { value: 'auto' },
           address1: { value: 'auto' },
           address2: { value: 'auto' },
           customerName: { value: 'auto' },
-          dump: { value: JSON.stringify(customerRecords[idx]) },
+          custId: { value: custId || '' },
         },
       };
     }),
@@ -74,12 +74,20 @@ export const saveCustGroup = async (
     value: getAgentNames(record, 'yumeAG'),
   };
 
-
-  return saveRecord({
+  const result = await saveRecordByUpdateKey({
     app: appId,
-    recordId: custGroupId,
+    updateKey: {
+      field: 'uuid',
+      value: custGroupId || '',
+    },
     record: aggRecord,
     revision: revision,
-    updateRelatedFn: custGroupId ? () => updateRelatedToCustGroup(record, custGroupId) : undefined,
   });
+
+  if (custGroupId) {
+    await updateRelatedToCustGroup(custGroupId);
+  }
+
+
+  return result;
 };

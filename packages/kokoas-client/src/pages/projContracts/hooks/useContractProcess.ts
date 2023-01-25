@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik';
-import { useBackdrop, useSnackBar } from '../../../hooks';
+import { useBackdrop, useConfirmDialog, useSnackBar } from '../../../hooks';
 import { useMutation } from '@tanstack/react-query';
 import { TypeOfForm } from '../form';
 import { sendContract } from '../../../api/docusign/sendContract';
@@ -8,17 +8,21 @@ import { ReqSendContract } from 'types';
 export const useContractProcess = () => {
   const {
     setValues,
+    setStatus,
     values: {
       projEstimateId,
+      cocoAG,
     },
   } = useFormikContext<TypeOfForm>();
   const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
+  const { setDialogState } = useConfirmDialog();
 
   const contractMutation = useMutation(
     sendContract,
     {
       onMutate: () => {
+        setStatus('busy');
         setBackdropState({ open: true });
       },
 
@@ -51,7 +55,7 @@ export const useContractProcess = () => {
         });
       },
       onSettled: () => {
-        console.log('DONE!');
+        setStatus('');
         setBackdropState({ open: false });
       },
     });
@@ -64,17 +68,30 @@ export const useContractProcess = () => {
     signMethod: ReqSendContract['signMethod'],
   ) => {
 
-
     mutate({
       projEstimateId,
       userCode: kintone.getLoginUser().code,
       signMethod,
     });
+
   };
 
 
+  const handleConfirmElectronic = () => {
+    setDialogState({
+      title: '電子契約を開始します',
+      content: `${cocoAG}にメールを送信します。`,
+      withNo: true,
+      withYes: true,
+      noText: 'いいえ',
+      yesText: 'はい',
+      handleYes: ()=> handleSendContract('electronic'),
+    });
+  };
+
   return {
     handleSendContract,
+    handleConfirmElectronic,
     ...contractMutation,
   };
 };

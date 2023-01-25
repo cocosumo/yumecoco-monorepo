@@ -1,6 +1,4 @@
-import {  Card, CardHeader, IconButton } from '@mui/material';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { useState } from 'react';
+import {  Button, Stack, Typography } from '@mui/material';
 
 export const SettingsItem = ({
   settingsName,
@@ -11,28 +9,28 @@ export const SettingsItem = ({
   settingsDescription: string,
   link: string,
 }) => {
-  const  [isRaised, setIsRaised] = useState(false);
 
   return (
 
-    <Card
+    <Button
+      fullWidth
+      variant={'outlined'}
+      color={'secondary'}
       sx={{
         minHeight: '8vw',
       }}
-      raised={isRaised}
-      onMouseEnter={() => setIsRaised(true)}
-      onMouseLeave={() => setIsRaised(false)}
+      href={link} target={'_blank'}
     >
-      <CardHeader
-        title={settingsName}
-        subheader={settingsDescription}
-        action={
-          <IconButton href={link} target={'_blank'}>
-            <NavigateNextIcon />
-          </IconButton>
-        }
-      />
-    </Card>
+      <Stack justifyContent={'left'} width={'100%'}>
+        <Typography fontSize={20} fontWeight={800}>
+          {settingsName}
+        </Typography>
+        <Typography fontSize={14}>
+          {settingsDescription}
+        </Typography>
+      </Stack>
+
+    </Button>
 
 
   );

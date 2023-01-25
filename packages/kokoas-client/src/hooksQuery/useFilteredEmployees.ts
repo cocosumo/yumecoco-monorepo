@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { TAgents } from 'types';
-import { AppIds } from 'config';
-import { getActiveEmployees, resolveRoles, resolveAffiliations } from 'api-kintone';
+import { TAgents, Territory } from 'types';
+import {  resolveRoles, resolveAffiliations } from 'api-kintone';
+import { useEmployees } from './useEmployees';
+import { useCallback } from 'react';
 
 
 /**
@@ -9,55 +9,57 @@ import { getActiveEmployees, resolveRoles, resolveAffiliations } from 'api-kinto
  *
  */
 export const useFilteredEmployees = ({
-  storeId,
+  storeId = [],
   agentType,
   territory,
 } : {
-  storeId: string,
+  storeId?: string | string[],
   agentType?: TAgents | TAgents[],
-  territory?: string
+  territory?: Territory
 }) => {
-  let affiliations: string[] = [];
-  let roles: string[] = [];
-
-  if (agentType) {
-    affiliations = resolveAffiliations(agentType);
-    roles = resolveRoles(agentType);
-  }
-
-  return useQuery(
-    [AppIds.employees],
-    getActiveEmployees,
-    {
-      select: (data) => data
-        .filter(({
-          mainStoreId,
-          affiliateStores,
-          affiliation,
-          役職: empRole,
-          territory: _territory,
-        }) => {
-
-          const isInStore = (
-            mainStoreId.value === storeId
-          || affiliateStores
-            .value
-            .some(({ value: { storeId: _storeId } }) => _storeId.value === storeId )
-          );
 
 
-          const isAffiliated = affiliations.length ? affiliations.includes(affiliation.value) : true;
-          const isInRole = roles.length ? roles.includes(empRole.value) : true;
-          const isInTerritory = territory ? territory === _territory.value : true;
+  return useEmployees({
+    select: useCallback(
+      (data) => {
+        let affiliations: string[] = [];
+        let roles: string[] = [];
+        const storeIds = ([] as string[]).concat(storeId).filter(Boolean);
 
-          return (
-            isInStore
-          && isAffiliated
-          && isInRole
-          && isInTerritory
-          );
+        if (agentType) {
+          affiliations = resolveAffiliations(agentType);
+          roles = resolveRoles(agentType);
+        }
 
-        } ),
-    },
-  );
+        return data
+          .filter(({
+            mainStoreId_v2,
+            affStores,
+            affiliation,
+            役職: empRole,
+            territory_v2: _territory,
+          }) => {
+
+            const isInStore = storeIds.some((s) => (mainStoreId_v2.value === s
+              || affStores
+                .value
+                .some(({ value: { affStoreId: _storeId } }) => _storeId.value === s )
+            )); 
+
+            const isAffiliated = !affiliations.length || affiliations.includes(affiliation.value);
+            const isInRole = !roles.length || roles.includes(empRole.value);
+            const isInTerritory = !territory || territory === _territory.value;
+
+            return (
+              isInStore
+              && isAffiliated
+              && isInRole
+              && isInTerritory
+            );
+
+          });
+      },
+      [agentType, storeId, territory],
+    ),
+  });
 };

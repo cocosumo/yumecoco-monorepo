@@ -1,21 +1,22 @@
 declare namespace DBProjestimates {
   interface Data {
-    projId: kintone.fieldTypes.Number;
+    projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
+    daikokuDataId: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
     finishDaysAfterContract: kintone.fieldTypes.Number;
-    custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     税: kintone.fieldTypes.Number;
     completeDate: kintone.fieldTypes.Date;
     payDestination: kintone.fieldTypes.SingleLineText;
-    cocoAGNames: kintone.fieldTypes.SingleLineText;
+    dataId: kintone.fieldTypes.SingleLineText;
     顧客名: kintone.fieldTypes.SingleLineText;
     estimateStatus: kintone.fieldTypes.SingleLineText;
     payMethod: kintone.fieldTypes.SingleLineText;
     storeName: kintone.fieldTypes.SingleLineText;
-    custGroupId: kintone.fieldTypes.Number;
+    custGroupId: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     工事種別名: kintone.fieldTypes.SingleLineText;
     refundAmt: kintone.fieldTypes.Number;
@@ -24,11 +25,8 @@ declare namespace DBProjestimates {
     envStatus: kintone.fieldTypes.SingleLineText;
     updatedById: kintone.fieldTypes.Number;
     startDaysAfterContract: kintone.fieldTypes.Number;
-    storeId: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
-    cocoConstNames: kintone.fieldTypes.SingleLineText;
-    projTypeId: kintone.fieldTypes.Number;
-    yumeAGNames: kintone.fieldTypes.SingleLineText;
+    projTypeId: kintone.fieldTypes.SingleLineText;
     finishDate: kintone.fieldTypes.Date;
     updateDateTime: kintone.fieldTypes.DateTime;
     signMethod: kintone.fieldTypes.SingleLineText;
@@ -42,13 +40,17 @@ declare namespace DBProjestimates {
       value: Array<{
         id: string;
         value: {
+          備考: kintone.fieldTypes.SingleLineText;
           大項目: kintone.fieldTypes.SingleLineText;
           数量: kintone.fieldTypes.Number;
+          単価: kintone.fieldTypes.Number;
+          税率: kintone.fieldTypes.Number;
           原価: kintone.fieldTypes.Number;
           部材名: kintone.fieldTypes.SingleLineText;
-          部材利益率: kintone.fieldTypes.Number;
           中項目: kintone.fieldTypes.SingleLineText;
-          taxType: kintone.fieldTypes.SingleLineText;
+          //taxType: kintone.fieldTypes.SingleLineText;
+          //金額: kintone.fieldTypes.Number;
+          部材備考: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
         };
       }>;

@@ -1,14 +1,14 @@
 import { ICustomers } from 'types';
-import { CustomerForm } from '../form';
+import { TypeOfForm } from '../form';
 
-export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustomers>>  => {
+export const formToDBCustomers = (formData: TypeOfForm): Array<Partial<ICustomers>>  => {
   const {
     customers,
   } = formData;
 
   return customers
     .map(({
-      id,
+      custId,
       custName, custNameReading, gender, birthYear, birthMonth, birthDay,
       postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
       email, emailRel, isSameAddress,
@@ -20,20 +20,10 @@ export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustom
         postal : isSameAddress ? mainCust.postal : postal,
         address1 : isSameAddress ? mainCust.address1 : address1,
         address2: isSameAddress ? mainCust.address2 : address2,
-        phone1: isSameAddress ? '' : phone1,
-        phone1Rel: isSameAddress ? '' : phone1Rel,
-        phone2: isSameAddress ? '' : phone2,
-        phone2Rel: isSameAddress ? '' : phone2Rel,
-        email: isSameAddress ? '' : email,
-        emailRel: isSameAddress ? '' : emailRel,
       };
 
-
       return {
-        $id: {
-          type: '__ID__',
-          value: id,
-        },
+        uuid: { value: custId },
         index: { value: index.toString() },
         fullName: { value: custName },
         fullNameReading: { value: custNameReading },
@@ -48,9 +38,9 @@ export const formToDBCustomers = (formData: CustomerForm): Array<Partial<ICustom
         contacts: {
           type: 'SUBTABLE',
           value: [
-            ['tel', deps.phone1, deps.phone1Rel],
-            ['tel', deps.phone2, deps.phone2Rel],
-            ['email', deps.email, deps.emailRel],
+            ['tel', phone1, phone1Rel],
+            ['tel', phone2, phone2Rel],
+            ['email', email, emailRel],
           ]
             .map(([type, val, rel]) => ({
               id: '',

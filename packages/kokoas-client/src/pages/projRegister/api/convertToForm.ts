@@ -1,11 +1,16 @@
 import { format, parseISO } from 'date-fns';
-import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents } from 'types';
+import { formatDataId } from 'libs';
+import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Territory } from 'types';
 import { TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
+
   const {
-    projTypeId, projName,
-    custGroupId, $id,
+    projTypeId,
+    projName,
+    custGroupId,
+    dataId,
+    uuid,
     isAgentConfirmed, postal, address1, address2,
     buildingType, isChkAddressKari, agents, addressKari,
     cancelStatus,
@@ -24,16 +29,17 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     address2: address2.value,
     buildingType: buildingType.value as BuildingType,
     cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
-    cocoConst1: cocoConst?.[0],
-    cocoConst2: cocoConst?.[1],
+    cocoConst1: cocoConst?.[0] || '',
+    cocoConst2: cocoConst?.[1] || '',
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
     isAgentConfirmed: Boolean(+isAgentConfirmed.value),
     isChkAddressKari: Boolean(+isChkAddressKari.value),
-    projId: $id.value,
+    projId: uuid.value,
     projTypeId: projTypeId.value,
     projTypeName: projTypeName.value,
     projName: projName.value,
+    projDataId: formatDataId(dataId.value),
     postal: postal.value,
     storeId: storeId.value,
   };
@@ -44,15 +50,17 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
   const {
     storeId,
     territory,
-    $id,
+    uuid,
     members,
+    storeCode,
   } = custGroupRec;
 
   return {
-    custGroupId: $id.value,
+    custGroupId: uuid.value,
     storeId: storeId.value,
-    territory: territory.value,
+    territory: territory.value as Territory,
     custName: members.value[0]?.value.customerName.value || '',
+    storeCode: storeCode.value,
   };
 
 };

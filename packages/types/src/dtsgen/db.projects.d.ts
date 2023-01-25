@@ -5,47 +5,40 @@ declare namespace DBProjects {
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
-    envelopeId: kintone.fieldTypes.SingleLineText;
+    dataId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
-    custGroupId: kintone.fieldTypes.Number;
     estatePurchaseDate: kintone.fieldTypes.Date;
-    dsEnvIdUkeoi: kintone.fieldTypes.SingleLineText;
-    voidedEnvelopes: kintone.fieldTypes.SingleLineText;
+    custGroupId: kintone.fieldTypes.SingleLineText;
     isChkAddressKari: kintone.fieldTypes.Number;
     planApplicationDate: kintone.fieldTypes.Date;
-    envelopeRecipients: kintone.fieldTypes.SingleLineText;
-    isDoneInputContract: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
-    storeId: kintone.fieldTypes.Number;
+    storeId: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
-    projTypeId: kintone.fieldTypes.Number;
-    contractPrice: kintone.fieldTypes.Number;
+    projTypeId: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
-    signMethod: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
-    envelopeStatus: kintone.fieldTypes.SingleLineText;
-    envDocFileKeys: kintone.fieldTypes.File;
+    storeCode: kintone.fieldTypes.SingleLineText;
     agents: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          agentId: kintone.fieldTypes.Number;
+          agentId: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
           agentName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
-
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

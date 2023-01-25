@@ -16,6 +16,7 @@ import isEmpty from 'lodash/isEmpty';
 import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
+import { BillingTotal } from './fieldComponents/BillingTotal';
 
 
 
@@ -34,25 +35,17 @@ export const FormInvoice = () => {
 
   useResolveParams();
 
-  /* useEffect(() => {
-    setValues((prev) => ({
-      ...prev,
-      billingAmount: String(+contractAmount - +billedAmount),
-    }));
-  }, [contractAmount, billedAmount, setValues]); */
+
+  const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
+  });
 
   useEffect(() => {
-    const newContractAmount = estimates.reduce((acc, cur) => {
-      if (cur.isForPayment) return acc;
-
-      return acc + +cur.contractAmount;
-    }, 0);
-
     setValues((prev) => ({
       ...prev,
-      contractAmount: String(newContractAmount),
+      exceededContract: exceeded,
     }));
-  }, [estimates, setValues]);
+  }, [setValues, exceeded]);
 
   useEffect(() => {
     if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
@@ -112,24 +105,20 @@ export const FormInvoice = () => {
               <Typography>
                 {'請求入力欄'}
               </Typography>
-              <BillingEntryTable />
+              <BillingEntryTable exceeded={exceeded} />
             </Grid>
 
 
             {/* 請求合計 */}
-            <Grid item xs={12} md={12}>
-              {/* <BillingAmount
-            open={+billingAmount > (+contractAmount - +billedAmount)}
-            billingBalance={+contractAmount - +billedAmount - +billingAmount}
-          /> */}
+            <Grid item xs={12} md={7}>
+              <BillingTotal />
             </Grid>
 
 
             {/* 入金予定日 */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={5}>
               <PlannedPaymentDate />
             </Grid>
-            <Grid item md={6} />
 
 
             {/* 請求書発行ボタン */}

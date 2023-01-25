@@ -7,46 +7,39 @@ import { useQuery } from '../hooks';
 import { MainScreenContainer } from './MainScreenContainer';
 import { QueryContext } from './QueryContext';
 import { StyledMain } from './StyledMain';
-import { createContext, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Box } from '@mui/material';
 
-const defaultMenuContext = {
-  menuOpen: false,
-  drawWidth: 240,
-};
-
-export const MenuContext = createContext(defaultMenuContext);
 
 
 export default function MainScreen() {
   const menuOpen = Boolean(+(useQuery().get('menuOpen') ?? 1));
   const [open, setOpen] = useState(menuOpen);
+
   const drawerWidth = 240;
-  const handleDrawerOpen = () => {
+
+  const handleDrawerOpen = useCallback(() => {
     setOpen((prev) => !prev);
-  };
+  }, []);
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = useCallback(() => {
     setOpen(false);
-  };
-
-  const menuContextValue = useMemo(() => ({
-    menuOpen: open,
-    drawWidth: drawerWidth,
-  }), [open, drawerWidth]);
+  }, []);
 
   return (
     <QueryContext >
-      <MenuContext.Provider value={menuContextValue}>
-        <MainScreenContainer>
-          <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <PersistentAppBar {...{ handleDrawerOpen }} />
-            <PersistentDesktopDrawer {...{ handleDrawerClose, open, drawerWidth }} />
-            <StyledMain open={open} drawerWidth={drawerWidth} />
-          </Box>
-        </MainScreenContainer>
-      </MenuContext.Provider>
+      <MainScreenContainer>
+        <Box sx={useMemo(()=>({ display: 'flex' }), [])}>
+          <CssBaseline />
+          <PersistentAppBar handleDrawerOpen={handleDrawerOpen} />
+          <PersistentDesktopDrawer 
+            handleDrawerClose={handleDrawerClose}
+            open={open}
+            drawerWidth={drawerWidth}
+          />
+          <StyledMain open={open} />
+        </Box>
+      </MainScreenContainer>
     </QueryContext>
 
   );

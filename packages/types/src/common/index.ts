@@ -1,6 +1,7 @@
 export * from './auth';
 export * from './customers';
 export * from './docusign';
+export * from './domEvents';
 export * from './employee';
 export * from './frontEnd';
 export * from './ktUsers';

@@ -1,5 +1,6 @@
+import Big from 'big.js';
 import { calcProfitRate } from './calcProfitRate';
-import { calculateEstimateRow } from './calculateEstimateRow';
+import { calcAfterTax } from './calcTax';
 
 export interface EstimateSummary {
   /** 原価合計 */
@@ -8,60 +9,93 @@ export interface EstimateSummary {
   /** 粗利 */
   totalProfit: number,
 
-  /** 税抜き金額 */
-  totalAmountBeforeTax: number
+  /** 税額 */
+  totalTaxAmount: number,
 
-  /** 税込み金額 */
-  totalAmountAfterTax: number
+  /**  */
+  totalTaxableAmount: number,
+
+  /** */
+  totalNonTaxableAmount: number,
 }
 
 export interface CompleteEstimateSummary extends EstimateSummary {
   /** 粗利率 */
   overallProfitRate: number,
 
+
+  /* 税抜き */
+  totalAmountBeforeTax: number,
+
+  /* 税込み */
+  totalAmountAfterTax: number,
+
+
   /** 税額 */
   totalTaxAmount: number,
 }
 
+interface EstRowFields {
+  rowUnitPriceBeforeTax: number,
+  rowCostPrice: number,
+  isTaxable: boolean,
+}
+
 export const calculateEstimateSummary = (
-  calculatedEstimateTable : ReturnType<typeof calculateEstimateRow>[],
+  calculatedEstimateTable : EstRowFields[],
+  /** 税率 Formwide taxrate (decimal) **/
+  taxRate : number,
 ) : CompleteEstimateSummary => {
+
+  /* 税率が行ごとに異なる仕様になると (10%や8%など)、
+  税率ごとに区分して合計した対価の額および適用税率に改修 */
 
   const summary = calculatedEstimateTable
     .reduce((acc, cur) => {
       const {
-        rowUnitPriceAfterTax,
         rowUnitPriceBeforeTax,
         rowCostPrice,
-        rowProfit,
+        isTaxable,
       } = cur;
-    
-      acc.totalAmountAfterTax += rowUnitPriceAfterTax;
-      acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
-      acc.totalCostPrice += rowCostPrice;
-      acc.totalProfit += rowProfit;
+
+      if (isTaxable) {
+        acc.totalTaxableAmount += +rowUnitPriceBeforeTax;
+      } else {
+        acc.totalNonTaxableAmount += +rowUnitPriceBeforeTax;
+      }
+
+      acc.totalCostPrice += +rowCostPrice;
 
       return acc;
-  
+
     }, {
-      totalAmountBeforeTax: 0,
-      totalAmountAfterTax: 0,
+      totalNonTaxableAmount: 0,
+      totalTaxableAmount: 0,
       totalCostPrice: 0,
       totalProfit: 0,
+      totalTaxAmount: 0,
     } as EstimateSummary );
 
   const {
     totalCostPrice,
-    totalAmountAfterTax,
-    totalAmountBeforeTax,
-
+    totalTaxableAmount,
+    totalNonTaxableAmount,
   } = summary;
- 
+
+
+  const totalTaxableAmountWithTax = calcAfterTax(totalTaxableAmount, taxRate);
+
+  const totalAmountBeforeTax = Big(totalTaxableAmount).add(totalNonTaxableAmount).round(0).toNumber();
+  const totalAmountAfterTax = Big(totalTaxableAmountWithTax).add(totalNonTaxableAmount).round(0).toNumber() ;
+
   return {
     ...summary,
-    totalTaxAmount: totalAmountAfterTax - totalAmountBeforeTax, 
+    totalAmountBeforeTax,
+    totalAmountAfterTax,
+    totalTaxAmount:  totalAmountAfterTax - totalAmountBeforeTax,
+    totalProfit: totalAmountBeforeTax - totalCostPrice,
     overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),
   };
 
- 
+
 };

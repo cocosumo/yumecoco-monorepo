@@ -1,5 +1,5 @@
-import { roundTo } from 'libs';
 
+import  { Big } from 'big.js';
 
 /** 利益率 = ( 単価 - 原価) / 単価 */
 export const calcProfitRate = (
@@ -17,7 +17,6 @@ export const calcProfitRate = (
 
   if (+unitPrice === 0) return -1000000;
 
-
-  return roundTo(( unitPrice - costPrice) / unitPrice, 4);
+  return Big(unitPrice).minus(costPrice).div(unitPrice).round(4).toNumber();
 
 };

@@ -1,8 +1,9 @@
 
 
 
-import { roundTo } from 'libs';
 import { calcProfitRate } from './calcProfitRate';
+import { Big } from 'big.js';
+import { calcAfterTax, calcBeforeTax } from './calcTax';
 
 /****
  * 計算の仕様
@@ -39,21 +40,24 @@ import { calcProfitRate } from './calcProfitRate';
  */
 interface CalculationEstimateParams {
   /** 原価 */
-  costPrice: number,
+  costPrice?: number,
 
   /** 数量 */
   quantity: number,
 
-  /** 利益率 0% 100%*/
+  /** 利益率 0% 100% decimal*/
   profitRate?: number,
 
   /** 単価 */
   unitPrice?: number,
 
+  /** 行の税抜き単価合計 */
+  rowUnitPriceBeforeTax?: number,
+
   /** 行の税込み単価合計 */
   rowUnitPriceAfterTax?: number,
 
-  /** 税率 0% | 10% */
+  /** 税率 0% | 10% decimal*/
   taxRate: number,
 
   /** 課税かどうか */
@@ -72,6 +76,9 @@ export interface CalculationEstimateResults extends Required<CalculationEstimate
   /* 粗利 */
   rowProfit: number,
 
+  /* 行の税額 */
+  rowTaxAmount: number,
+
 }
 
 
@@ -80,129 +87,81 @@ export interface CalculationEstimateResults extends Required<CalculationEstimate
  *
  * 基本的に逆算してほしい項目をundefinedにする。
  *
+ * 頭に `b` が付いている変数は、Big型です。
  ****************************/
-export const calculateEstimateRow = ( params : CalculationEstimateParams) : CalculationEstimateResults => {
+export const calculateEstimateRow = (params : CalculationEstimateParams) : CalculationEstimateResults => {
 
-  const {
-    costPrice,
-    isTaxable,
-    taxRate,
-    profitRate = 0,
-    unitPrice,
-    quantity,
-    rowUnitPriceAfterTax,
-  } = params;
+  const result : Partial<CalculationEstimateResults> = {
+    ...params,
+  };
 
-  // 行の原価合計 = A * 数量
-  const rowCostPrice = costPrice * quantity;
+  result.costPrice = params.costPrice ?? 0;
 
+  /* 行の原価合計 */
+  result.rowCostPrice = Big(result.costPrice).mul(params.quantity).round(0).toNumber();
 
-  /******************************
-   * Edge case：計算不要なケース *
-  *******************************/
-  if (
-    +quantity === 0 //  数量がない場合、計算不要
-    || profitRate >= 1 // 今の計算の仕様では、利益率が100％以上だと、変な数字になるので、計算不要
-  ) {
+  /* 単価 */
+  if (params.profitRate) {
+    // 1 - D
+    const bProfitRate = Big(1).minus(params.profitRate).toNumber();
 
-    return {
-      ...params,
-      rowProfit: 0,
-      profitRate: roundTo(profitRate, 4),
-      rowCostPrice,
-      unitPrice: 0,
-      rowUnitPriceBeforeTax: 0,
-      rowUnitPriceAfterTax: 0,
-    };
+    // 原価 / (1 - D)
+    result.unitPrice = Big(result.costPrice).div(bProfitRate).round(0).toNumber();
   }
 
-  /********************************************************************************
-   *「税込み単価合計」を編集されたら、「C 単価」と「税抜き単価合計」と「D 利益率」を逆算 *
-   *******************************************************************************/
-  if (rowUnitPriceAfterTax && !unitPrice && !profitRate) {
+  /* 行の単価合計(税抜き)、行の単価合計(税込み) */
+  if (result.unitPrice) {
 
-    // 税抜き単価合計
-    const newRowUnitPriceBeforeTax = isTaxable ? (rowUnitPriceAfterTax / (1 + taxRate))  : rowUnitPriceAfterTax;
-
-    // C 単価
-    const newUnitPrice = newRowUnitPriceBeforeTax / quantity;
-
-    /** D = ( C - A) / C */
-    const newProfitRate =  calcProfitRate(costPrice, newUnitPrice);
-
-    /** B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計  */
-    const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
-
-    return {
-      ...params,
-      rowCostPrice,
-      rowProfit: Math.round(newRowProfit),
-      rowUnitPriceAfterTax: Math.round(rowUnitPriceAfterTax),
-      rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
-      unitPrice: Math.round(newUnitPrice),
-      profitRate: roundTo(newProfitRate, 4),
-
-    };
+    // 単価 * 数量
+    result.rowUnitPriceBeforeTax = Big(result.unitPrice).mul(params.quantity).round(0).toNumber();
+    result.rowUnitPriceAfterTax = calcAfterTax(result.rowUnitPriceBeforeTax, params.taxRate, params.isTaxable);
   }
 
-  /**********************************************************************************
-   * C 「単価」を編集されたら、「税込み単価合計」と 「「税抜き単価合計」と「D 利益率」を逆算 *
-  **********************************************************************************/
+  /* 行の単価合計(税込み) */
+  if (params.rowUnitPriceBeforeTax) {
+    result.rowUnitPriceAfterTax = calcAfterTax(params.rowUnitPriceBeforeTax, params.taxRate, params.isTaxable);
+    result.unitPrice = Big(params.rowUnitPriceBeforeTax).div(params.quantity).round(0).toNumber();
+  }
 
-  if (unitPrice !== undefined && +unitPrice > 0 && !rowUnitPriceAfterTax && !profitRate) {
-
-    // 税抜き単価合計
-    const newRowUnitPriceBeforeTax = unitPrice * quantity;
-
-    // 税込み単価合計
-    const newrowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
-
-    // D 利益率
-    const newProfitRate = calcProfitRate(costPrice, unitPrice);
-
-    // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計
-    const newRowProfit = newRowUnitPriceBeforeTax - rowCostPrice;
-
-
-    return {
-      ...params,
-      rowProfit: newRowProfit,
-      rowCostPrice,
-      unitPrice: Math.round(unitPrice),
-      rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
-      rowUnitPriceAfterTax: Math.round(newrowUnitPriceAfterTax),
-      profitRate: roundTo(newProfitRate, 4),
-    };
+  /* 行の単価合計(税抜き) */
+  if (params.rowUnitPriceAfterTax) {
+    result.rowUnitPriceBeforeTax = calcBeforeTax(params.rowUnitPriceAfterTax, params.taxRate, params.isTaxable);
+    result.unitPrice = Big(result.rowUnitPriceBeforeTax).div(params.quantity).round(0).toNumber();
   }
 
 
+  /* 行の税額 */
+  if (result.rowUnitPriceAfterTax && result.rowUnitPriceBeforeTax ) {
+    result.rowTaxAmount = Big(result.rowUnitPriceAfterTax).minus(result.rowUnitPriceBeforeTax).toNumber();
+  }
 
+  /* 行の利益率 */
+  if (result.costPrice && result.unitPrice) {
+    result.profitRate = calcProfitRate(result.costPrice, result.unitPrice);
+  }
 
-  /*******
-   * 通常 *
-  **********/
+  /* 行の利益額*/
+  if (result.rowUnitPriceBeforeTax && result.rowCostPrice) {
+    result.rowProfit = Big(result.rowUnitPriceBeforeTax).minus(result.rowCostPrice).round(2).toNumber();
+  }
 
-  // C 単価  = A / (1 - D)
-  const newUnitPrice = costPrice / (1 - profitRate);
-
-  // 税抜き単価合計
-  const newRowUnitPriceBeforeTax = newUnitPrice * quantity;
-
-  // 税込み単価合計
-  const newRowUnitPriceAfterTax = isTaxable ? (newRowUnitPriceBeforeTax * (1 + taxRate)) : newRowUnitPriceBeforeTax;
-
-  // B  行の粗利合計  =  C 行の税抜き単価合計 - A 行の原価合計
-  const newRowProfit =  newRowUnitPriceBeforeTax - rowCostPrice;
-
+  /* 計算忘れ防止(開発者のため) */
+  Object.entries(result).forEach(([key, val]) => {
+    if (val === undefined) {
+      throw new Error(`${key} が計算出来ませんでした。管理者をご連絡ください。`);
+    }
+  });
 
   return {
     ...params,
-    rowProfit: newRowProfit,
-    profitRate: roundTo(profitRate, 4),
-    rowCostPrice,
-    unitPrice: Math.round(newUnitPrice),
-    rowUnitPriceBeforeTax: Math.round(newRowUnitPriceBeforeTax),
-    rowUnitPriceAfterTax: Math.round(newRowUnitPriceAfterTax),
+    costPrice: result.costPrice ?? 0,
+    rowCostPrice: result.rowCostPrice ?? 0,
+    rowUnitPriceAfterTax: result.rowUnitPriceAfterTax ?? 0,
+    rowUnitPriceBeforeTax: result.rowUnitPriceBeforeTax ?? 0,
+    rowTaxAmount: result.rowTaxAmount ?? 0,
+    profitRate: result.profitRate ?? 0,
+    rowProfit: result.rowProfit ?? 0,
+    unitPrice: result.unitPrice ?? 0,
   };
 
 };

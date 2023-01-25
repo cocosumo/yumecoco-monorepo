@@ -1,35 +1,32 @@
 import { Grid, Stack } from '@mui/material';
-import { useState } from 'react';
-import { LabeledCheckBox } from '../../../components/ui/checkboxes';
-import { FormikDatePicker } from '../../../components/ui/datetimepickers';
-import { getFieldName } from '../form';
+import { useFormikContext } from 'formik';
+import { FormikLabeledCheckBox } from '../../../components/ui/checkboxes';
+import { FormikJADatePicker } from '../../../components/ui/datetimepickers';
+import { getFieldName, TypeOfForm } from '../form';
 
 /**
  * 支払い予定日コンポーネント
  * @returns 
  */
 export const PlannedPaymentDate = () => {
-  const [pendingChk, setPendingChk] = useState(false);
-
-  const chkHandler = () => {
-    setPendingChk((prev) => !prev);
-  };
+  const { values } = useFormikContext<TypeOfForm>();
+  const { undecidedPaymentDate } = values;
 
   return (
     <Stack direction={'row'} spacing={2} alignItems={'end'}>
       <Grid item xs={12} md={7}>
-        <FormikDatePicker
+        <FormikJADatePicker
           label='入金予定日'
           name={getFieldName('plannedPaymentDate')}
-          disabled={pendingChk}
+          disabled={undecidedPaymentDate}
         />
       </Grid>
 
       <Grid item xs={12} md={5}>
-        <LabeledCheckBox
+        <FormikLabeledCheckBox
+          name={getFieldName('undecidedPaymentDate')}
           label='未定'
-          checked={pendingChk}
-          setCheckedHandler={chkHandler}
+          checked={undecidedPaymentDate}
         />
       </Grid>
     </Stack>

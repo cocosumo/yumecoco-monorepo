@@ -1,30 +1,37 @@
 import { useMaterialsItem } from './../../../hooksQuery/useMaterialsItem';
-import { useFormikContext } from 'formik';
-import { TypeOfForm, unitChoices } from '../form';
-import { produce } from 'immer';
 import { useCallback } from 'react';
 import { useMaterialsMajor, useMaterialsMid } from 'kokoas-client/src/hooksQuery';
+import { Control, useWatch } from 'react-hook-form';
+import { getItemsFieldName, TypeOfForm } from '../form';
 
 
+export const useMaterialsOptions = ({
+  rowIdx,
+  control,
+}: {
+  rowIdx : number,
+  control: Control<TypeOfForm>
+}) => {
 
-export const useMaterialsOptions = (
-  rowIdx: number,
-) => {
-
-
-  const { values, setValues } = useFormikContext<TypeOfForm>();
-  const { items } = values;
-  const { majorItem, middleItem } = items[rowIdx];
+  const [
+    majorItem,
+    middleItem,
+  ] = useWatch({
+    name: [
+      getItemsFieldName<'items.0.majorItem'>(rowIdx, 'majorItem'),
+      getItemsFieldName<'items.0.middleItem'>(rowIdx, 'middleItem'),
+    ],
+    control,
+  });
 
   /* 大項目 */
   const {
     data: majorItemOpts = [],
   } = useMaterialsMajor({
     select: useCallback((d) => {
-      return d.map<Option>(({ 大項目名 }) => ({
-        label: 大項目名.value,
-        value: 大項目名.value,
-      }));
+      const options = d
+        .map(({ 大項目名 }) => 大項目名.value);
+      return [''].concat(options);
     }, []),
   });
 
@@ -32,22 +39,18 @@ export const useMaterialsOptions = (
   const {
     data: {
       middleItemOpts = [],
-      data: middleItems = undefined,
     } = {},
   } = useMaterialsMid({
     select: useCallback((d) => {
       const derived = d.reduce((accu, { 大項目名, 中項目名 }) => {
         if (!majorItem || 大項目名?.value === majorItem ) {
           // Ignore duplicates
-          if (!accu.some(({ value }) => value === 中項目名.value ))
-            accu.push({
-              label: 中項目名.value,
-              value: 中項目名.value,
-            });
+          if (!accu.some((value) => value === 中項目名.value ))
+            accu.push(中項目名.value);
         }
 
         return accu;
-      }, [] as Options);
+      }, [''] as string[]);
 
       return {
         middleItemOpts: derived,
@@ -60,7 +63,6 @@ export const useMaterialsOptions = (
   const {
     data: {
       materialOpts = [],
-      data: materials = undefined,
     } = {},
   } = useMaterialsItem({
     select: useCallback((d) => {
@@ -70,14 +72,11 @@ export const useMaterialsOptions = (
           || (!majorItem && (!middleItem || 中項目名?.value === middleItem))
         ) {
           // Ignore duplicates
-          if (!(accu.some(({ value }) => value === 部材名.value )))
-            accu.push({
-              label: 部材名?.value,
-              value: 部材名?.value,
-            });
+          if (!(accu.some((value) => value === 部材名.value )))
+            accu.push(部材名.value);
         }
         return accu;
-      }, [] as Options);
+      }, [''] as string[]);
 
       return {
         materialOpts: derived,
@@ -87,58 +86,10 @@ export const useMaterialsOptions = (
   });
 
 
-
-  /* Change handlers */
-
-  const handleMajorItemChange = useCallback(() => {
-    setValues((prev) => produce(prev, (draft) => {
-      draft.items[rowIdx].material = '';
-      draft.items[rowIdx].middleItem = '';
-    }));
-  }, [setValues, rowIdx]);
-
-  const handleMiddleItemChange = useCallback((newVal: string) => {
-
-    if (newVal) {
-      setValues((prev) => produce(prev, (draft) => {
-        // Clear material when middleItem change
-        if (prev.items[rowIdx].middleItem !== newVal) {
-          draft.items[rowIdx].material = '';
-        }
-
-        const selectedMiddleItem = middleItems?.find(({ 中項目名 }) => 中項目名.value === newVal);
-        draft.items[rowIdx].majorItem = selectedMiddleItem?.大項目名.value || '';
-      }));
-    }
-  }, [middleItems, setValues, rowIdx]);
-
-  const handleMaterialChange = useCallback((newVal: string) => {
-    if (newVal) {
-      const selectedMaterial = materials?.find(({ 部材名 }) => 部材名.value === newVal);
-      if (selectedMaterial) {
-
-        const newUnit = (selectedMaterial?.単位?.value ?? '') as typeof unitChoices[number];
-
-        setValues(
-          (prev) => produce(prev, (draft) => {
-            draft.items[rowIdx].majorItem = selectedMaterial.大項目名.value;
-            draft.items[rowIdx].middleItem = selectedMaterial.中項目名.value;
-            draft.items[rowIdx].costPrice = +selectedMaterial.原価.value;
-            draft.items[rowIdx].unit = newUnit;
-          }),
-        );
-      }
-    }
-  }, [rowIdx, setValues, materials]);
-
-
   return {
     majorItemOpts,
     middleItemOpts,
     materialOpts,
-    handleMajorItemChange,
-    handleMiddleItemChange,
-    handleMaterialChange,
   };
 
 

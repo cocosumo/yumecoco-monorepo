@@ -74,7 +74,7 @@ export const EstHeader = () => {
       )}
         rowUnitPrice={(
           <EstHeaderCell textAlign={'right'}>
-            {'金額'}
+            {'税抜金額'}
           </EstHeaderCell>
       )}
         rowDetails={(

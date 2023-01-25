@@ -4,6 +4,7 @@ declare namespace DBProjestimates {
     contractDate: kintone.fieldTypes.Date;
     updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
+    daikokuDataId: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
@@ -42,11 +43,13 @@ declare namespace DBProjestimates {
           備考: kintone.fieldTypes.SingleLineText;
           大項目: kintone.fieldTypes.SingleLineText;
           数量: kintone.fieldTypes.Number;
+          単価: kintone.fieldTypes.Number;
+          税率: kintone.fieldTypes.Number;
           原価: kintone.fieldTypes.Number;
           部材名: kintone.fieldTypes.SingleLineText;
           中項目: kintone.fieldTypes.SingleLineText;
-          taxType: kintone.fieldTypes.SingleLineText;
-          金額: kintone.fieldTypes.Number;
+          //taxType: kintone.fieldTypes.SingleLineText;
+          //金額: kintone.fieldTypes.Number;
           部材備考: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
         };

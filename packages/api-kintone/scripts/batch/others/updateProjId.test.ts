@@ -1,6 +1,7 @@
-import { IProjects } from './../../../types/src/dbKintone';
+
 import {  getAllProjects } from 'api-kintone';
 import { AppIds } from 'config';
+import { IProjects } from 'types';
 
 import { KintoneClientBasicAuth } from '../settings';
 

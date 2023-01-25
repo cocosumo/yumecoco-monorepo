@@ -1,4 +1,3 @@
-import { TaxType } from 'types';
 import { RecordType } from '../config';
 import { calculateEstimateRow } from './calculateEstimateRow';
 import { calculateEstimateSummary } from './calculateEstimateSummary';
@@ -33,8 +32,8 @@ export const calculateEstimateRecord = ({
   const calculatedEstimateTable = estimatesTable?.map(({
     value: {
       原価: costPrice,
-      金額: rowUnitPriceAfterTax,
-      taxType,
+      単価: unitPrice,
+      税率: rowTaxRate,
       数量: quantity,
 
     },
@@ -42,10 +41,10 @@ export const calculateEstimateRecord = ({
 
     return calculateEstimateRow({
       costPrice: +costPrice.value,
-      isTaxable:  (taxType.value as TaxType) === '課税',
+      isTaxable:  +(rowTaxRate.value) > 0,
       quantity: +quantity.value,
       taxRate: taxRate,
-      rowUnitPriceAfterTax: +rowUnitPriceAfterTax.value,
+      unitPrice: +unitPrice.value,
     });
 
   });
@@ -53,7 +52,7 @@ export const calculateEstimateRecord = ({
 
   return {
     details: withDetails ? calculatedEstimateTable : undefined,
-    summary: calculateEstimateSummary(calculatedEstimateTable),
+    summary: calculateEstimateSummary(calculatedEstimateTable, taxRate),
   };
 
 };

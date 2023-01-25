@@ -14,10 +14,10 @@ import {
   QuantityField,
   ProfitRate,
   CostPrice,
-  RowUnitPriceAfterTax,
   MaterialDetails,
   RowDetails,
   Taxable,
+  RowUnitPriceBeforeTax,
 } from './rowFields';
 
 
@@ -37,12 +37,13 @@ export const EstRow = ({
 }) => {
   const { control } = useFormContext<TypeOfForm>();
   const {
+    handleUpdateSummary,
     handleChangeCostPrice,
     handleChangeQuantity,
     handleChangeProfitRate,
     handleChangeTaxType,
     handleChangeUnitPrice,
-    handleChangeRowUnitPriceAfterTax,
+    handleChangeRowUnitPricBeforeTax,
   } = smartHandlers;
 
   const {
@@ -115,7 +116,11 @@ export const EstRow = ({
         <UnitPrice rowIdx={rowIdx} handleChange={handleChangeUnitPrice} />
       )}
       rowUnitPrice={(
-        <RowUnitPriceAfterTax rowIdx={rowIdx} handleChange={handleChangeRowUnitPriceAfterTax} />
+        <RowUnitPriceBeforeTax
+          rowIdx={rowIdx}
+          handleChange={handleChangeRowUnitPricBeforeTax}
+          handleUpdateSummary={handleUpdateSummary}
+        />
       )}
       rowDetails={(
         <RowDetails rowIdx={rowIdx} />

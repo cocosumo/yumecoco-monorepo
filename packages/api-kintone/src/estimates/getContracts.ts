@@ -1,11 +1,11 @@
-import { RecordKeys } from './config';
+import { RecordKey } from './config';
 import { getEstimates } from './getEstimates';
 
 export const getContracts = (
   params?: Parameters<typeof getEstimates>[0],
 ) => {
 
-  const envelopeStatusField: RecordKeys =  'envStatus';
+  const envelopeStatusField: RecordKey =  'envStatus';
 
   const {
     query,

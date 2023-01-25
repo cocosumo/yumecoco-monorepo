@@ -1,10 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
-import { getContracts } from 'api-kintone';
-import { AppIds } from 'config';
+import { calculateEstimateRecord } from 'api-kintone';
+import { TEnvelopeStatus } from 'types';
+import { useEstimates } from './useEstimates';
 
-export const useContracts = (
-  query?: string,
-) => useQuery(
-  [AppIds.projEstimates, { query }],
-  () => getContracts({ query }),
-);
+export const useContracts = () => {
+  return useEstimates(({
+    select: (data) => {
+      const filteredData = data
+        .filter((rec) => (rec.envStatus.value as TEnvelopeStatus) === 'completed');
+      return {
+        records: filteredData,
+        calculated: filteredData.map((rec) => calculateEstimateRecord({ record: rec })),
+      };
+    },
+  }));
+};

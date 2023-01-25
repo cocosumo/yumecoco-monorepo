@@ -38,21 +38,23 @@ export const calculateUnitPriceFromKingaku = async () => {
               const taxRate = +税.value / 100;
 
               draft.forEach((d) => {
-
+                console.log(d.value);
                 const {
-                  税率: { value: rowTaxRate },
+
                   原価: { value: costPrice },
                   数量: { value: quantity },
                 } = d.value;
 
                 // field to be deprecated
                 const rowUnitPriceAfterTax = (d.value as any).金額.value;
+                const taxType = (d.value as any).taxType.value;
+
 
                 const {
                   unitPrice,
                 } = calculateEstimateRow({
                   costPrice: +costPrice,
-                  isTaxable: +rowTaxRate > 0,
+                  isTaxable: taxType === '課税',
                   quantity: +quantity,
                   taxRate,
                   rowUnitPriceAfterTax: +rowUnitPriceAfterTax,

@@ -33,8 +33,6 @@ export const generateEstimateDataIdSeqNum = async (projDataId: string) => {
 
   const result =  `${projDataId}-${zeroPad(sequenceNumber, dataIdPadding)}`;
 
-  console.log(result, records[0]);
-
   return result ;
 
 };

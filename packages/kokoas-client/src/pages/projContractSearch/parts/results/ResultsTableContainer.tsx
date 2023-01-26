@@ -7,8 +7,8 @@ export const ResultsTableContainer = ({
   children: ReactNode
 }) => {
   return (
-    <TableContainer component={Paper}>
-      <Table >
+    <TableContainer component={Paper} sx={{ overflowX: 'initial' }}>
+      <Table sx={{ minWidth: 650 }} size="small" stickyHeader>
         {children}
       </Table>
     </TableContainer>

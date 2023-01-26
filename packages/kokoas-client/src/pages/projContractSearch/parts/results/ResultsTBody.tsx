@@ -9,6 +9,16 @@ export const ResultsTBody = () => {
       <ResultsTRow />
       <ResultsTRow />
       <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
+      <ResultsTRow />
     </TableBody>
   );
 };

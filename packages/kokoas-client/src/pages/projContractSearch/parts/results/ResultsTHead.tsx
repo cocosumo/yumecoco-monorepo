@@ -1,5 +1,7 @@
-import { TableCell, TableCellProps, TableHead, TableRow } from '@mui/material';
+import { TableCellProps, TableHead } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { translations } from '../../../../helpers/translations';
+import { TRowLayout } from './TRowLayout';
 
 export const headCells = [
   ['projId', 'projEstimateId'],
@@ -18,36 +20,32 @@ export const getAlign = (idx: number): TableCellProps['align'] => {
   }
 };
 
-const RThCell = ({
-  cell,
-  idx,
-}: {
-  cell: typeof headCells[number]
-  idx: number,
-}) => {
-  return (
-    <TableCell align={getAlign(idx)}>
-      {cell.map((field) => (
-        <div key={field}>
-          {translations[field]}
-        </div>
-      ))}
-    </TableCell>
-  );
-};
-
 export const ResultsTHead = () => {
 
   return (
-    <TableHead>
-      <TableRow>
-        {headCells.map((cell, idx) => (
-          <RThCell cell={cell} idx={idx} key={cell[0]} />
-        ))}
-        <TableCell align='right'>
+    <TableHead
+      sx={{
+        '& th ': {
+          top: 60, // offset below the appbar
+          borderBottom: 4,
+          borderColor: grey[200],
+        },
+      }}
+    >
+      <TRowLayout
+        projId={translations.projId}
+        projEstimateId={translations.projEstimateId}
+        projName={translations.projName}
+        projType={translations.projType}
+        store={translations.store}
+        yumeAG={translations.yumeAG}
+        cocoAG={translations.cocoAG}
+        custName={translations.custName}
+        contractDate={translations.contractDate}
+        contractAmount={translations.contractAmount}
+        grossProfit={translations.grossProfit}
+      />
 
-        </TableCell>
-      </TableRow>
     </TableHead>
   );
 };

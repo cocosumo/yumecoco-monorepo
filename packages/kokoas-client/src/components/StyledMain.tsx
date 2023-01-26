@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles';
 
 import { useMediaQuery } from '@mui/material';
 import Router from '../pages/Router';
+import { grey } from '@mui/material/colors';
 
 const drawerWidth = 240;
 
@@ -10,6 +11,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean,
 }>(({ theme, open }) => ({
   flexGrow: 1,
+  backgroundColor: grey[50],
   padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {
     easing: theme.transitions.easing.sharp,

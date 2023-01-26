@@ -70,11 +70,14 @@ export const useSaveForm = ({
     });
   }, [setDialogState, handleClose, handleSave ]);
 
-  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async () => {
+  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async (errors) => {
+
+    // eslint-disable-next-line no-console
+    console.log(errors); // ちゃんとしたエラーメッセージを出すのに改善が必要。
     setSnackState({
       open: true,
       severity: 'error',
-      message: '入力を確認してください',
+      message: 'フォームを確認してください。',
     });
   };
 
@@ -83,6 +86,6 @@ export const useSaveForm = ({
     onSubmitInvalid,
     handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),
     handleSubmitFinal: handleSubmit(onSubmitValidFinal, onSubmitInvalid),
-    
+
   };
 };

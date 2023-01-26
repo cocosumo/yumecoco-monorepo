@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export const TRowLayout = ({
   projId,
-  projEstimateId,
+  estNum,
   projName,
   projType,
   store,
@@ -17,7 +17,7 @@ export const TRowLayout = ({
   tableRowProps,
 }: {
   projId: ReactNode,
-  projEstimateId: ReactNode,
+  estNum: ReactNode,
   projName: ReactNode,
   projType: ReactNode,
   store: ReactNode,
@@ -35,7 +35,7 @@ export const TRowLayout = ({
       <TableCell>
         {projId}
         <br />
-        {projEstimateId}
+        {estNum}
       </TableCell>
       <TableCell>
         {projName}

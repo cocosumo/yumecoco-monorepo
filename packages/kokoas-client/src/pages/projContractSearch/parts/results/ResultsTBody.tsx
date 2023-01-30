@@ -1,17 +1,18 @@
 import { TableBody } from '@mui/material';
 import { translations } from 'kokoas-client/src/helpers/translations';
+import { useContracts } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
-import { useFilteredContracts } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 
 export const ResultsTBody = () => {
 
-  const { data } = useFilteredContracts();
+  const { data } = useContracts({ limit: 5 });
 
+  const contracts = data?.records;
 
   return (
     <TableBody>
-      {data?.map(({
+      {contracts?.map(({
         uuid: { value: uuid },
         dataId: { value: dataId },
       })=>{

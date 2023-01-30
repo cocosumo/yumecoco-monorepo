@@ -1,22 +1,16 @@
 import { appId, RecordKey, RecordType } from './config';
 import { getRecords } from '../common';
-import { TEnvelopeStatus } from 'types';
-
-
+import { GetRecordsParams, TEnvelopeStatus } from 'types';
 
 
 export const getContracts = (
-  params: {
-    limit?: number,
-    orderMethod?: 'asc' | 'desc',
-    orderBy?: RecordKey
-  },
+  params?: GetRecordsParams<RecordKey>,
 ) => {
   const {
-    limit = 50,
+    limit = 20,
     orderBy = 'completeDate',
-    orderMethod,
-  } = params;
+    orderMethod = 'asc',
+  } = params || {};
 
 
   const envStatus : RecordKey = 'envStatus';

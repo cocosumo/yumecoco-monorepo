@@ -1,6 +1,4 @@
 import { calculateEstimateRecord } from 'api-kintone';
-import format from 'date-fns/format';
-import { EnvelopeRecipients } from 'docusign-esign';
 import { useCustGroups, useEstimates, useProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
 import { TEnvelopeStatus } from 'types';
@@ -46,34 +44,13 @@ export const useFilteredContracts = () => {
           uuid,
           dataId,
           envStatus,
-          envRecipients,
+          contractDate,
         } = cur;
 
 
         /* 契約済みじゃないなら、次のレコードへ行く */
         if ((envStatus.value as TEnvelopeStatus) !== 'completed') return acc;
 
-        let completContractDate = '';
-
-        /**
-         * 契約日を取得
-         * 最終の宛先が完了した日時を完了日として扱う
-         *  */
-        if (!envRecipients.value) {
-          completContractDate = '';
-        } else {
-          const {
-            carbonCopies, // 現仕様では、最終宛先です。
-            signers,
-          } = JSON.parse(envRecipients.value) as EnvelopeRecipients;
-
-          if (carbonCopies?.[0].sentDateTime) {
-            completContractDate =  format( new Date(carbonCopies?.[0].sentDateTime), 'yyyy-MM-dd');
-          } else {
-
-          }
-
-        }
 
 
         /* 工事情報 */
@@ -109,7 +86,7 @@ export const useFilteredContracts = () => {
           estDataId: estNum,
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
-          contractDate: completContractDate,
+          contractDate: contractDate.value  || '',
           custName: custNames?.value || '',
           projName: projName?.value || '',
           storeName: storeName?.value || '',

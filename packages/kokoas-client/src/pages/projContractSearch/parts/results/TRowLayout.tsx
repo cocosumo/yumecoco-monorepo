@@ -5,7 +5,6 @@ export const TRowLayout = ({
   projId,
   estNum,
   projName,
-  projType,
   store,
   yumeAG,
   cocoAG,
@@ -19,7 +18,6 @@ export const TRowLayout = ({
   projId: ReactNode,
   estNum: ReactNode,
   projName: ReactNode,
-  projType: ReactNode,
   store: ReactNode,
   yumeAG: ReactNode,
   cocoAG: ReactNode,
@@ -39,8 +37,6 @@ export const TRowLayout = ({
       </TableCell>
       <TableCell>
         {projName}
-        <br />
-        {projType}
       </TableCell>
       <TableCell>
         {store}

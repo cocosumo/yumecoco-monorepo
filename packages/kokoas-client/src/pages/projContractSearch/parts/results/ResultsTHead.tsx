@@ -36,7 +36,6 @@ export const ResultsTHead = () => {
         projId={translations.projId}
         estNum={translations.estNum}
         projName={translations.projName}
-        projType={translations.projType}
         store={translations.store}
         yumeAG={translations.yumeAG}
         cocoAG={translations.cocoAG}

@@ -1,40 +1,41 @@
 import { TableBody } from '@mui/material';
 import { translations } from 'kokoas-client/src/helpers/translations';
-import { useContracts } from 'kokoas-client/src/hooksQuery';
-import { formatDataId } from 'libs';
+import { useFilteredContracts } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 
 export const ResultsTBody = () => {
 
-  const { data } = useContracts({ limit: 5 });
-
-  const contracts = data?.records;
+  const { data } = useFilteredContracts();
 
   return (
     <TableBody>
-      {contracts?.map(({
-        uuid: { value: uuid },
-        dataId: { value: dataId },
+      {data?.map(({
+        uuid,
+        projDataId,
+        estDataId,
+        projName,
+        totalAmountAfterTax,
+        totalProfit,
+        storeName,
+        yumeAG,
+        cocoAG,
+        custName,
+        contractDate,
       })=>{
-        const formattedDataId = formatDataId(dataId);
-        const estNum = formattedDataId.slice(-2);
-        const projDataId = formattedDataId.substring(0, formattedDataId.length - 3);
-
 
         return (
           <TRowLayout
             key={uuid}
             projId={projDataId}
-            estNum={estNum}
-            projName={translations.projName}
-            projType={translations.projType}
-            store={translations.store}
-            yumeAG={translations.yumeAG}
-            cocoAG={translations.cocoAG}
-            custName={translations.custName}
-            contractDate={translations.contractDate}
-            contractAmount={translations.contractAmount}
-            grossProfit={translations.grossProfit}
+            estNum={estDataId}
+            projName={projName}
+            store={storeName}
+            yumeAG={yumeAG}
+            cocoAG={cocoAG}
+            custName={custName}
+            contractDate={contractDate}
+            contractAmount={`${totalAmountAfterTax.toLocaleString()}円`}
+            grossProfit={`${totalProfit.toLocaleString()}円`}
           />
         );
       })}

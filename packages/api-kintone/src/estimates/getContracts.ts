@@ -18,10 +18,10 @@ export const getContracts = (
 
   const baseQuery = `${envStatus} = "${completedEnvStatus}"`;
 
-  const query = `${baseQuery} limit ${limit} order by ${orderBy} ${orderMethod}`;
+  const query = `${baseQuery} order by ${orderBy} ${orderMethod} limit ${limit} `;
 
   return getRecords<RecordType>({
-    query: `${query} limit ${limit} order by ${orderBy} ${orderMethod}`,
+    query,
     totalCount: true,
     app: appId,
   });

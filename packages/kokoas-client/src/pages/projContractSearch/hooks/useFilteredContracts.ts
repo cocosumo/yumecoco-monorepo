@@ -12,7 +12,11 @@ export const useFilteredContracts = () => {
 
   return useEstimates({
     select: (d) => {
-      return d.filter(({ envStatus }) => (envStatus.value as TEnvelopeStatus) === 'completed');
+      return d.filter(({ envStatus }) => {
+
+        return (envStatus.value as TEnvelopeStatus) === 'completed';
+      },
+      );
     },
   });
 

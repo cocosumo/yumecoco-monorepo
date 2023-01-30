@@ -8,8 +8,6 @@ export const SearchAddress = ({
   ...others
 }: {
   handleChange: (param: TypeOfForm) => void
-  postalCode?: string,
-  address?: string,
 }) => {
   const [open, setOpen] = useState(false);
 

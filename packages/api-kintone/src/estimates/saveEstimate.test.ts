@@ -1,12 +1,12 @@
 import { saveEstimate } from './saveEstimate';
 
 describe('saveEstimate', () => {
-  it('should save Estimate', async () => {
+  it('should save current time to envCompleteDate', async () => {
     const uuid = '5e4563ee-f154-47be-9254-4241f9415aea';
     const result = await saveEstimate({
       recordId: uuid,
       record: {
-        envCompleteDate: { value: '2023-02-16T14:05:00Z' },
+        envCompleteDate: { value: new Date().toISOString() },
       },
     }).catch(e => {
       return e;

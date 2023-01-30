@@ -1,9 +1,12 @@
 import { Grid, Stack } from '@mui/material';
+import { useFilteredContracts } from '../../hooks/useFilteredContracts';
 import { ResultsCount } from '../ResultsCount';
 import { ResultsTable } from './ResultsTable';
+import { ResultsTBody } from './ResultsTBody';
 
 export const Results = () => {
 
+  const { data } = useFilteredContracts();
 
 
   return (
@@ -14,11 +17,13 @@ export const Results = () => {
           direction={'row'}
           alignItems={'flex-end'}
         >
-          <ResultsCount resultCount={100} />
+          <ResultsCount resultCount={data?.length ?? 0} />
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <ResultsTable />
+        <ResultsTable >
+          <ResultsTBody data={data ?? []} />
+        </ResultsTable>
       </Grid>
     </>
   );

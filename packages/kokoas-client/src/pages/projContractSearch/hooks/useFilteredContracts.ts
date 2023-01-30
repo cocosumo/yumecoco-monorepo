@@ -3,7 +3,7 @@ import { useCustGroups, useEstimates, useProjects } from 'kokoas-client/src/hook
 import { formatDataId } from 'libs';
 import { TEnvelopeStatus } from 'types';
 
-interface ContractRow {
+export interface ContractRow {
   uuid: string,
   projDataId: string,
   estDataId: string,

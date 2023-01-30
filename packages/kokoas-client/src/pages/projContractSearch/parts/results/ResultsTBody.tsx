@@ -1,11 +1,13 @@
 import { TableBody } from '@mui/material';
-import { translations } from 'kokoas-client/src/helpers/translations';
-import { useFilteredContracts } from '../../hooks/useFilteredContracts';
+import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 
-export const ResultsTBody = () => {
+export const ResultsTBody = ({
+  data,
+}: {
+  data: ContractRow[]
+}) => {
 
-  const { data } = useFilteredContracts();
 
   return (
     <TableBody>

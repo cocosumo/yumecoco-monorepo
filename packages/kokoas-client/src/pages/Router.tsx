@@ -7,10 +7,10 @@ import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
-import { FormikContractSearch } from './projContractSearch/FormikContractSearch';
 import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
+import { FormContractSearch } from './projContractSearch/FormContractSearch';
 
 
 
@@ -76,7 +76,7 @@ const Router = () => (
     {/* 契約 */}
     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
     {/* 契約一覧 */}
-    <Route path={`${pages.projContractSearch}`} element={<FormikContractSearch />} />
+    <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />
 
     {/* 入金管理グループ */}
     <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />

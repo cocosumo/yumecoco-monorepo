@@ -1,20 +1,37 @@
-import { Grid } from '@mui/material';
-import { useFormikContext } from 'formik';
-import { FormikSearchField } from '../../../components/ui/textfield/FormikSearchField';
-import { KeyOfForm, TypeOfForm } from '../form';
+import { LoadingButton } from '@mui/lab';
+import { Button, Grid, Stack, TextField } from '@mui/material';
 import { FilterDialog } from './filterDialog/FilterDialog';
+import SearchIcon from '@mui/icons-material/Search';
+import FilterListIcon from '@mui/icons-material/FilterList';
 
-export const WrappedSearchField = ({ name }: { name: KeyOfForm }) => {
-  const dialogFieldKey : KeyOfForm = 'isFilterOpen';
+import { useState } from 'react';
 
-  const { setFieldValue } = useFormikContext<TypeOfForm>();
-  const handleFilterOpen = () => setFieldValue(dialogFieldKey, true);
-  const handleFilterClose = () => setFieldValue(dialogFieldKey, false);
+
+export const WrappedSearchField = () => {
+  const [filterOpen, setFilterOpen] = useState(false);
+
+  const handleFilterOpen = () => setFilterOpen(true);
+  const handleFilterClose = () => setFilterOpen(false);
 
   return (
     <Grid item xs={12} md={8}>
-      <FilterDialog handleClose={handleFilterClose} />
-      <FormikSearchField name={name} onOpenFilter={handleFilterOpen} />
+      <FilterDialog open={filterOpen} handleClose={handleFilterClose} />
+      <Stack direction={'row'} spacing={1}>
+        <TextField fullWidth />
+        <LoadingButton
+          variant='contained'
+          //onClick={submitForm}
+          //loading={isSubmitting}
+        >
+          <SearchIcon fontSize='large' />
+        </LoadingButton>
+        <Button
+          variant={'contained'}
+          onClick={handleFilterOpen}
+        >
+          <FilterListIcon />
+        </Button>
+      </Stack>
     </Grid>
   );
 };

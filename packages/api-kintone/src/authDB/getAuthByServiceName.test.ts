@@ -4,6 +4,6 @@ describe('getAuthByServiceName', () => {
   it('should get auth by service name', async () => {
     const result = await getAuthByServiceName('andpad');
 
-    expect(result).toHaveProperty('auth');
+    expect(result).toHaveProperty('access_token');
   });
 });

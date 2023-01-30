@@ -41,7 +41,7 @@ export const EstimateTableBody = ({
         {/* 工事種別 */}
         {disabled &&
           <CellContent
-            content={'※全額請求済み'}
+            content={contractAmount > 0 ? '※全額請求済み' : '※全額返金済み'}
             disabled={disabled}
           />}
       </TableCell>

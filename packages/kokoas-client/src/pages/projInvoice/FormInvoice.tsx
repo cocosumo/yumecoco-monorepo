@@ -37,7 +37,11 @@ export const FormInvoice = () => {
 
 
   const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
-    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
+    if (+contractAmount > 0) {
+      return isForPayment && ((+contractAmount < (+billedAmount + +billingAmount)) || +billingAmount < 0);
+    }
+    return isForPayment && ((+contractAmount > (+billedAmount + +billingAmount)) || +billingAmount > 0);
+
   });
 
   useEffect(() => {

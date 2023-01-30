@@ -2,11 +2,10 @@
 
 
 export const initialValues = {
-  isFilterOpen: false,
   mainSearch: '',
   projName: '',
-  contractDateFrom: '' as string | Date,
-  contractDateTo: '' as string | Date,
+  contractDateFrom: '',
+  contractDateTo: '',
   amountFrom: '',
   amountTo: '',
 };

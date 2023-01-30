@@ -1,7 +1,9 @@
 import { calculateEstimateRecord } from 'api-kintone';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
 import { TEnvelopeStatus } from 'types';
+import { TypeOfForm } from '../form';
 
 export interface ContractRow {
   uuid: string,
@@ -18,6 +20,7 @@ export interface ContractRow {
   totalProfit: number,
 }
 
+
 /**
  *
  *  フィルター条件から、契約データを取得
@@ -26,6 +29,12 @@ export interface ContractRow {
  * */
 export const useFilteredContracts = () => {
 /* URLのParamsを監視し、フィルター条件を再設定する。 */
+
+  const {
+    mainSearch,
+  } = useURLParams<TypeOfForm>();
+
+
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
@@ -48,10 +57,8 @@ export const useFilteredContracts = () => {
           contractDate,
         } = cur;
 
-
         /* 契約済みじゃないなら、次のレコードへ行く */
         if ((envStatus.value as TEnvelopeStatus) !== 'completed') return acc;
-
 
 
         /* 工事情報 */
@@ -80,8 +87,7 @@ export const useFilteredContracts = () => {
           },
         } = calculateEstimateRecord({ record: cur });
 
-        /* 結果 */
-        acc.push({
+        const resultRow = {
           uuid: uuid.value,
           projId: projId.value,
           projDataId,
@@ -94,7 +100,22 @@ export const useFilteredContracts = () => {
           storeName: storeName?.value || '',
           totalAmountAfterTax,
           totalProfit,
-        });
+        };
+
+        /* 絞り込み */
+        if (mainSearch) {
+          const hitMainSearch = Object
+            .values(resultRow)
+            .some((val) =>{
+              return val.toString().includes(mainSearch);
+            });
+          if (hitMainSearch) {
+            acc.push(resultRow);
+          }
+        } else {
+          acc.push(resultRow);
+        }
+
 
         return acc;
       },

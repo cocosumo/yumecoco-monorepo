@@ -137,7 +137,7 @@ export const getToken = async () => {
 
     if (!tokenValid(andpadToken)) {
       //　有効じゃなかったら、トークンをリフレッシュ
-      console.log('トークンは無効です。再習得中');
+      console.log('トークンは無効です。再取得中。');
       await refreshToken();
     }
 

@@ -53,13 +53,13 @@ export const Cities = ({
                 </Divider>
               </Grid>
               {
-              values.map(({ city_kana, city: _city }) => {
+              values.map(({ city_kana : cityKana, city: _city }) => {
 
                 const selected = selectedCity === _city;
 
                 return (
-                  <Grid key={city_kana} item xs={3}>
-                    <Tooltip title={city_kana}>
+                  <Grid key={cityKana} item xs={3}>
+                    <Tooltip title={cityKana}>
                       <Button
                         fullWidth
                         ref={(el) => {

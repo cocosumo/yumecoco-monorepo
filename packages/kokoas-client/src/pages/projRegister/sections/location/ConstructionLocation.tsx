@@ -22,7 +22,6 @@ export const ConstructionLocation = () => {
   const {
     status,
     values : {
-      postal: formPostalCode,
       custGroupId,
       address1,
       isChkAddressKari,
@@ -87,8 +86,6 @@ export const ConstructionLocation = () => {
       </Grid>
       <Grid item>
         <SearchAddress
-          postalCode={formPostalCode}
-          address={address1}
           handleChange={({ postalCode, prefecture, city, town }) => {
             setValues((prev) => ({
               ...prev,

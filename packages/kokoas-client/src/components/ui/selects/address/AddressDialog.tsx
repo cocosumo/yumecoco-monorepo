@@ -14,8 +14,6 @@ export const AddressDialog = ({
 } : DialogProps & {
   handleClose: () => void,
   handleChange: (address: TypeOfForm) => void
-  postalCode?: string,
-  address?: string,
 }) => {
 
   const [

@@ -23,7 +23,7 @@ export const validationSchema = yupJA
     custGroupId: yupJA.string(),
     customerName :  yupJA.string(),
 
-    estimateId: yupJA.string().required(),
+    estimateId: yupJA.string(),
     estimateDataId: yupJA.string(),
     estimateRevision: yupJA.string(),
 

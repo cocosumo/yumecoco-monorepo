@@ -18,7 +18,7 @@ export const generateEstimateDataIdSeqNum = async (projDataId: string) => {
 
   const fields : RecordKey[] = ['uuid', 'dataId'];
   const dataIdField : RecordKey = 'dataId';
-  const query = `${dataIdField} like "${projDataId}" order by 作成日時 desc limit 1`;
+  const query = `(${dataIdField} like "${projDataId}") and (${dataIdField} != "") order by dataId desc limit 1`;
 
   const { records } = await getRecords<RecordType>({
     app: appId,
@@ -31,6 +31,8 @@ export const generateEstimateDataIdSeqNum = async (projDataId: string) => {
     sequenceNumber += +(records[0].dataId.value.slice(-dataIdPadding)) ;
   }
 
-  return `${projDataId}-${zeroPad(sequenceNumber, dataIdPadding)}` ;
+  const result =  `${projDataId}-${zeroPad(sequenceNumber, dataIdPadding)}`;
+
+  return result ;
 
 };

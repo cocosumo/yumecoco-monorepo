@@ -113,6 +113,11 @@ export const FormInvoice = () => {
             </Grid>
 
 
+            <Grid item xs={12} md={12}>
+              <Divider />
+            </Grid>
+            
+
             {/* 請求合計 */}
             <Grid item xs={12} md={7}>
               <BillingTotal />

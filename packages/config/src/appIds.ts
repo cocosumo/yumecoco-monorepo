@@ -32,6 +32,9 @@ export const devAppIds = {
 /* デフォールトは開発環境のアプリ番号 */
 export const AppIds = {
 
+  /* 認証 */
+  authDB : 221,
+
   /* システム改修履歴 */
   systemUpdate: 220,
 

@@ -4,6 +4,7 @@ export * from './useAddressCities';
 export * from './useAddressPostalCode';
 export * from './useAddressTowns';
 export * from './useCommonOptions';
+export * from './useContracts';
 export * from './useContractsByCustGroupId';
 export * from './useContractsByProjId';
 export * from './useCustGroupById';

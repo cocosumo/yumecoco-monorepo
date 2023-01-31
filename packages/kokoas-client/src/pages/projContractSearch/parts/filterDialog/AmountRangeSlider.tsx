@@ -30,8 +30,8 @@ export const AmountRangeSlider = ({
         otherwise, use their respective field values.
       */
       value={[
-        typeof amountFrom === 'string' && amountFrom === '' ? min : amountFrom,
-        typeof amountTo === 'string' && amountTo === ''  ? max : amountTo,
+        amountFrom === undefined || (typeof amountFrom === 'string' && amountFrom === '') ? min : +amountFrom,
+        amountTo === undefined || (typeof amountTo === 'string' && amountTo === '')  ? max : +amountTo,
       ]}
       onChange={(_: Event, newVal) => {
         if (isArray(newVal)) {

@@ -1,17 +1,21 @@
+import * as Yup from 'yup';
+import { validationSchema } from './formValidation';
 
 
 
-export const initialValues = {
+export const initialValues: TypeOfForm = {
   mainSearch: '',
-  projName: '',
-  contractDateFrom: null as null | string,
-  contractDateTo: null as null | string,
+  contractDateFrom: null,
+  contractDateTo: null,
   amountFrom: 0,
   amountTo: 0,
 };
 
-export type TypeOfForm =  typeof initialValues;
+
+export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
+
+
 
 
 /* Utility functions */

@@ -22,7 +22,6 @@ export const FilterDialog = ({
     <Dialog
       open={open}
       onClose={handleClose}
-      keepMounted
     >
       <DialogTitle>
         絞り込み

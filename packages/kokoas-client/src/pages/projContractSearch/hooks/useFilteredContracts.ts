@@ -32,6 +32,8 @@ export const useFilteredContracts = () => {
 
   const {
     mainSearch,
+    amountFrom,
+    amountTo,
   } = useURLParams<TypeOfForm>();
 
 
@@ -115,16 +117,22 @@ export const useFilteredContracts = () => {
         };
 
         /* 絞り込み */
+        let isMainSearch = true;
+        const isAboveMinAmount = true;
+        const isBelowMaxAmount = true;
+
+
         if (mainSearch) {
-          const hitMainSearch = Object
+          isMainSearch = Object
             .values(resultRow)
             .some((val) =>{
               return val.toString().includes(mainSearch);
             });
-          if (hitMainSearch) {
-            acc.push(resultRow);
-          }
-        } else {
+
+        }
+
+        // 含むかどうか判定、
+        if (isMainSearch) {
           acc.push(resultRow);
         }
 

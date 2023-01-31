@@ -30,7 +30,7 @@ export const TRowLayout = ({
 }) => {
   return (
     <TableRow {...tableRowProps}>
-      <TableCell>
+      <TableCell align='center'>
         {projId}
         <br />
         {estNum}

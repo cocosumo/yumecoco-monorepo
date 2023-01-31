@@ -5,6 +5,7 @@ import { TEnvelopeStatus } from 'types';
 
 export interface ContractRow {
   uuid: string,
+  projId: string,
   projDataId: string,
   estDataId: string,
   projName: string,
@@ -82,6 +83,7 @@ export const useFilteredContracts = () => {
         /* 結果 */
         acc.push({
           uuid: uuid.value,
+          projId: projId.value,
           projDataId,
           estDataId: estNum,
           cocoAG: cocoAGNames?.value || '',

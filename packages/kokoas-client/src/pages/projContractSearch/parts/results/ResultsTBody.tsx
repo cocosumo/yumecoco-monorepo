@@ -1,4 +1,7 @@
-import { TableBody } from '@mui/material';
+import { Button, TableBody } from '@mui/material';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { useNavigate } from 'react-router-dom';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 
@@ -8,11 +11,14 @@ export const ResultsTBody = ({
   data: ContractRow[]
 }) => {
 
+  const navigate = useNavigate();
+
 
   return (
     <TableBody>
       {data?.map(({
         uuid,
+        projId,
         projDataId,
         estDataId,
         projName,
@@ -28,8 +34,22 @@ export const ResultsTBody = ({
         return (
           <TRowLayout
             key={uuid}
-            projId={projDataId}
-            estNum={estDataId}
+            projId={(
+              <Button
+                fullWidth
+                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
+              >
+                {projDataId}
+              </Button>
+              )}
+            estNum={(
+              <Button
+                fullWidth
+                onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`)}
+              >
+                {estDataId}
+              </Button>
+              )}
             projName={projName}
             store={storeName}
             yumeAG={yumeAG}

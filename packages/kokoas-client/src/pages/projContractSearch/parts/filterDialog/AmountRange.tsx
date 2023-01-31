@@ -3,7 +3,9 @@ import { KeyOfForm } from '../../form';
 import { useState } from 'react';
 import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import { useFormContext } from 'react-hook-form';
 
+const [fromField, toField ]: KeyOfForm[] = ['amountFrom', 'amountTo'];
 
 export const AmountRange = ({
   min = -2000,
@@ -12,9 +14,12 @@ export const AmountRange = ({
   min?: number,
   max?: number,
 }) => {
-  const [fromField, toField ]: KeyOfForm[] = ['amountFrom', 'amountTo'];
 
-  const [value, setValue] = useState<number[]>([-2000, 9000000]);
+  const {
+    register,
+  } = useFormContext();
+
+  const [value, setValue] = useState<number[]>([min, max]);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -37,9 +42,9 @@ export const AmountRange = ({
         />
       </Box>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <OutlinedMoneyInput fullWidth name={fromField} />
+        <OutlinedMoneyInput fullWidth {...register(fromField)} />
         <DoubleArrowIcon />
-        <OutlinedMoneyInput fullWidth name={toField} />
+        <OutlinedMoneyInput fullWidth {...register(toField)} />
       </Stack>
 
     </Box>

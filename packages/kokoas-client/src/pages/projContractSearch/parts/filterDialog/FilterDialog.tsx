@@ -1,6 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { AmountRange } from './AmountRange';
 import { ContractDateRange } from './ContractDateRange';
+import { FilterForm } from './FilterForm';
 
 
 export const FilterDialog = ({
@@ -12,7 +13,6 @@ export const FilterDialog = ({
 }) => {
 
 
-
   return (
     <Dialog
       open={open}
@@ -22,10 +22,10 @@ export const FilterDialog = ({
         絞り込み
       </DialogTitle>
       <DialogContent >
-        <Stack spacing={2} mt={2}>
+        <FilterForm>
           <AmountRange />
           <ContractDateRange />
-        </Stack>
+        </FilterForm>
       </DialogContent>
       <DialogActions>
         <Button variant={'text'} onClick={handleClose}>

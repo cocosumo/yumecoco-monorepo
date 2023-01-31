@@ -59,7 +59,13 @@ export const BillingEntryTableRow = ({
     });
   };
 
-  const exceeded = +contractAmount < (+billedAmount + +billingAmount);
+  const newBillingAmount = (+billedAmount + +billingAmount);
+  let exceeded = false;
+  if (+contractAmount >= 0 ) {
+    exceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
+  } else {
+    exceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
+  }
 
 
   return (

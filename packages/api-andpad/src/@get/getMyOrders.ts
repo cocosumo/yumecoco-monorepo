@@ -1,13 +1,13 @@
 import axios from 'axios';
 import qs from 'qs';
-import { andpadToken } from '../@auth/getToken';
+import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
 
 export const getMyOrders = async () => {
   try {
 
     const params = qs.stringify({
-      access_token: andpadToken.access_token,
+      access_token: await getToken(),
     });
 
     const { data } = await axios({

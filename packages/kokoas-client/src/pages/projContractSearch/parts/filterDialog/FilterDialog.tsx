@@ -20,19 +20,18 @@ export const FilterDialog = ({
   maxAmount: number,
 }) => {
   const urlParams = useURLParams<TypeOfForm>();
+
   const {
     amountFrom,
     amountTo,
   } = urlParams;
 
-  console.log( amountFrom ?? minAmount, amountTo ?? maxAmount);
-
   const methods = useForm<TypeOfForm>({
     defaultValues: {
       ...initialValues,
       ...urlParams,
-      amountFrom: amountFrom ?? minAmount,
-      amountTo: amountTo ?? maxAmount,
+      amountTo: amountTo ?? maxAmount, // URLで金額範囲を指定していなければ、最大値を設定する。
+      amountFrom: amountFrom ?? minAmount, // ″、最小値を設定する。
     },
   });
 

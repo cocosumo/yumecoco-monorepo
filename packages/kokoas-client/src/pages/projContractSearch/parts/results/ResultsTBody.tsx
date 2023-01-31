@@ -6,9 +6,9 @@ import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 
 export const ResultsTBody = ({
-  data,
+  items,
 }: {
-  data: ContractRow[]
+  items: ContractRow[]
 }) => {
 
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const ResultsTBody = ({
 
   return (
     <TableBody>
-      {data?.map(({
+      {items?.map(({
         uuid,
         projId,
         projDataId,

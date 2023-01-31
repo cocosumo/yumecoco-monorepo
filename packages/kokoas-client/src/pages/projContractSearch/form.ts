@@ -6,8 +6,8 @@ export const initialValues = {
   projName: '',
   contractDateFrom: '',
   contractDateTo: '',
-  amountFrom: '',
-  amountTo: '',
+  amountFrom: 0,
+  amountTo: 0,
 };
 
 export type TypeOfForm =  typeof initialValues;

@@ -1,30 +1,31 @@
-import { Box } from '@mui/material';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { ReactNode } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, UseFormReturn } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { DevTool } from '@hookform/devtools';
 
 export const FilterForm = ({
   children,
+  useFormMethods,
 }: {
-  children: ReactNode
+  children: ReactNode,
+  useFormMethods: UseFormReturn<TypeOfForm>
 }) => {
-  const urlParams = useURLParams<TypeOfForm>();
-  const methods = useForm({
-    defaultValues: urlParams,
-  });
+
+  const {
+    handleSubmit,
+    control,
+  } = useFormMethods;
+
   const onSubmit = (data: TypeOfForm) => console.log(data);
 
-
   return (
-    <Box mt={2}>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          {children}
-        </form>
-        <DevTool control={methods.control} />
-      </FormProvider >
-    </Box>
+
+    <FormProvider {...useFormMethods}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {children}
+      </form>
+      <DevTool control={control} />
+    </FormProvider >
+
   );
 };

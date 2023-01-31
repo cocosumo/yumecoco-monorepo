@@ -43,10 +43,13 @@ export const useFilteredContracts = () => {
     enabled: !!projData && !!custGroupData,
     select: (d) => {
 
-      if (!projData || !custGroupData) return [];
+      if (!projData || !custGroupData) return;
+
+      let minAmount = 0;
+      let maxAmount = 0;
 
       // Combine data
-      return d.reduce((acc, cur) => {
+      const items = d.reduce((acc, cur) => {
 
         /* 見積情報 */
         const {
@@ -87,6 +90,15 @@ export const useFilteredContracts = () => {
           },
         } = calculateEstimateRecord({ record: cur });
 
+        /* minとmaxを設定 */
+        if (totalAmountAfterTax < minAmount) {
+          minAmount = totalAmountAfterTax;
+        }
+
+        if (totalAmountAfterTax > maxAmount) {
+          maxAmount = totalAmountAfterTax;
+        }
+
         const resultRow = {
           uuid: uuid.value,
           projId: projId.value,
@@ -121,6 +133,15 @@ export const useFilteredContracts = () => {
       },
       [] as ContractRow[],
       );
+
+
+      // 結果
+
+      return {
+        items,
+        minAmount,
+        maxAmount,
+      };
     },
   });
 

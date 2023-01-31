@@ -7,7 +7,13 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useState } from 'react';
 
 
-export const WrappedSearchField = () => {
+export const WrappedSearchField = ({
+  minAmount,
+  maxAmount,
+}: {
+  minAmount?: number,
+  maxAmount?: number,
+}) => {
   const [filterOpen, setFilterOpen] = useState(false);
 
   const handleFilterOpen = () => setFilterOpen(true);
@@ -15,7 +21,17 @@ export const WrappedSearchField = () => {
 
   return (
     <Grid item xs={12} md={8}>
-      <FilterDialog open={filterOpen} handleClose={handleFilterClose} />
+      {
+        minAmount && maxAmount && (
+          <FilterDialog
+            open={filterOpen}
+            minAmount={minAmount}
+            maxAmount={maxAmount}
+            handleClose={handleFilterClose}
+          />
+        )
+      }
+
       <Stack direction={'row'} spacing={1}>
         <TextField fullWidth />
         <LoadingButton

@@ -29,13 +29,15 @@ export const fieldNameToJa = (name: KeyOfForm) => {
 };
 
 export const parseValue = <T extends KeyOfForm>(name: T, value: TypeOfForm[T]) => {
+
+  console.log(value);
   switch (name) {
 
     case 'amountFrom':
     case 'amountTo': return `${(value as number).toLocaleString()} 円`;
 
     case 'contractDateFrom':
-    case 'contractDateTo': return format(parseISO(value as string), 'yyyy-MM-dd');
+    case 'contractDateTo': return format(new Date(value as string), 'yyyy-MM-dd');
 
     default: return value;
   }

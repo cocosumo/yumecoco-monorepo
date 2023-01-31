@@ -3,7 +3,7 @@ import { FilterDialog } from './filterDialog/FilterDialog';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { initialValues, TypeOfForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
@@ -24,19 +24,36 @@ export const WrappedSearchField = ({
   const {
     amountFrom,
     amountTo,
+    contractDateFrom,
+    contractDateTo,
   } = urlParams;
 
-  const methods = useForm<TypeOfForm>({
-    defaultValues: {
+  const newValues = useMemo(() => {
+    return {
       ...initialValues,
-      ...urlParams,
+      contractDateFrom,
+      contractDateTo,
       amountTo: amountTo ?? maxAmount ?? '', // URLで金額範囲を指定していなければ、最大値を設定する。
       amountFrom: amountFrom ?? minAmount ?? '', // ″、最小値を設定する。
-    },
+    };
+  }, [
+    maxAmount,
+    minAmount,
+    amountTo,
+    amountFrom,
+    contractDateFrom,
+    contractDateTo,
+  ]);
+
+  const methods = useForm<TypeOfForm>({
+    defaultValues: newValues,
   });
+
+
 
   const {
     register,
+    reset,
   } = methods;
 
   const handleFilterOpen = () => setFilterOpen(true);
@@ -46,6 +63,11 @@ export const WrappedSearchField = ({
 
 
 
+  useEffect(() => {
+    reset(newValues);
+  },
+  [newValues, reset],
+  );
   return (
     <FilterForm useFormMethods={methods}>
       {

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { useFormContext } from 'react-hook-form';
+import { grey } from '@mui/material/colors';
 
 const [fromField, toField ]: KeyOfForm[] = ['amountFrom', 'amountTo'];
 
@@ -43,7 +44,7 @@ export const AmountRange = ({
       </Box>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
         <OutlinedMoneyInput fullWidth {...register(fromField)} />
-        <DoubleArrowIcon />
+        <DoubleArrowIcon htmlColor={grey[700]} />
         <OutlinedMoneyInput fullWidth {...register(toField)} />
       </Stack>
 

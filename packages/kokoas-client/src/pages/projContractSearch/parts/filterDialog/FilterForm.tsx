@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Box } from '@mui/material';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { ReactNode } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -18,13 +18,13 @@ export const FilterForm = ({
 
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <Stack>
+    <Box mt={2}>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
           {children}
-        </Stack>
-      </form>
-      <DevTool control={methods.control} />
-    </FormProvider >
+        </form>
+        <DevTool control={methods.control} />
+      </FormProvider >
+    </Box>
   );
 };

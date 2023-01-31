@@ -1,6 +1,7 @@
 import { FormControl, FormLabel, Stack, TextField } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { JADatePicker } from 'kokoas-client/src/components';
+import { grey } from '@mui/material/colors';
 
 export const ContractDateRange = () => {
 
@@ -26,7 +27,7 @@ export const ContractDateRange = () => {
             />)}
         />
 
-        <DoubleArrowIcon color={'inherit'} />
+        <DoubleArrowIcon htmlColor={grey[700]} />
         <JADatePicker
           value={new Date()}
           onChange={()=>{}}

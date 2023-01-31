@@ -7,6 +7,7 @@ export const translations: Record<string, string> = {
   contractNames: '契約者',
   contractDate: '契約日',
   custName: '顧客名',
+  estNum: '枝番',
   grossProfit: '粗利',
   projEstimateId: '見積番号',
   projId: '工事番号',

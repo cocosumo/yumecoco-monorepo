@@ -2,7 +2,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 
 import { WrappedSearchField } from './parts/WrappedSearchField';
-import { Results } from './parts/Results';
+import { Results } from './parts/results/Results';
 
 export const FormContractSearch = () => {
 

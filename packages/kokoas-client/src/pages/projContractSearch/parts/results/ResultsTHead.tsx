@@ -34,9 +34,8 @@ export const ResultsTHead = () => {
     >
       <TRowLayout
         projId={translations.projId}
-        projEstimateId={translations.projEstimateId}
+        estNum={translations.estNum}
         projName={translations.projName}
-        projType={translations.projType}
         store={translations.store}
         yumeAG={translations.yumeAG}
         cocoAG={translations.cocoAG}

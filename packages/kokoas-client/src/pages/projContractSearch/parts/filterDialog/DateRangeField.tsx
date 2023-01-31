@@ -25,6 +25,7 @@ export const DateRangeField = ({
         return (
           <JADatePicker
             {...field}
+            value={field.value ?? null} // keep it controlled
             renderInput={(params) =>(
               <TextField
                 {...params}

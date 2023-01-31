@@ -4,8 +4,8 @@
 export const initialValues = {
   mainSearch: '',
   projName: '',
-  contractDateFrom: '',
-  contractDateTo: '',
+  contractDateFrom: null as null | string,
+  contractDateTo: null as null | string,
   amountFrom: 0,
   amountTo: 0,
 };

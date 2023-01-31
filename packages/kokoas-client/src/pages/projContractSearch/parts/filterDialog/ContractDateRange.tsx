@@ -1,10 +1,9 @@
-import { FormControl, FormLabel, Stack, TextField } from '@mui/material';
+import { FormControl, FormLabel, Stack } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-import { JADatePicker } from 'kokoas-client/src/components';
 import { grey } from '@mui/material/colors';
+import { DateRangeField } from './DateRangeField';
 
 export const ContractDateRange = () => {
-
 
   return (
     <FormControl>
@@ -12,36 +11,9 @@ export const ContractDateRange = () => {
         契約日
       </FormLabel>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <JADatePicker
-          value={new Date()}
-          onChange={()=>{}}
-          renderInput={(params) =>(
-            <TextField
-              {...params}
-              variant={'outlined'}
-              //name={name}
-              //onBlur={() => setTouched(true, true)}
-              size={'small'}
-              //error={isShowError}
-              //helperText={isShowError ? error : ''}
-            />)}
-        />
-
+        <DateRangeField name={'contractDateFrom'} />
         <DoubleArrowIcon htmlColor={grey[700]} />
-        <JADatePicker
-          value={new Date()}
-          onChange={()=>{}}
-          renderInput={(params) =>(
-            <TextField
-              {...params}
-              variant={'outlined'}
-              //name={name}
-              //onBlur={() => setTouched(true, true)}
-              size={'small'}
-              //error={isShowError}
-              //helperText={isShowError ? error : ''}
-            />)}
-        />
+        <DateRangeField name={'contractDateTo'} />
       </Stack>
     </FormControl>
 

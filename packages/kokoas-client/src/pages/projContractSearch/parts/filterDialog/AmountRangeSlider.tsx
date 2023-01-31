@@ -4,7 +4,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 
 export const AmountRangeSlider = ({
-  min = -2000,
+  min = -20000,
   max = 50000000,
 }: {
   min?: number,

@@ -54,8 +54,6 @@ export const WrappedSearchField = ({
     resolver: yupResolver(validationSchema),
   });
 
-
-
   const {
     register,
     reset,

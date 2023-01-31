@@ -103,7 +103,8 @@ module.exports = {
     {
       "files":[
         "**/kokoas-server/**/*",
-        "./automation/**/*"
+        "./automation/**/*",
+        "**/api-*/**/*"
       ],
       "rules" : {
         "no-console": "off",

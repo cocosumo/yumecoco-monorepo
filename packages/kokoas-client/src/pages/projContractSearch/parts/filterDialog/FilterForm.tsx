@@ -12,16 +12,15 @@ export const FilterForm = ({
 }) => {
 
   const {
-    handleSubmit,
     control,
   } = useFormMethods;
 
-  const onSubmit = (data: TypeOfForm) => console.log(data);
+
 
   return (
 
     <FormProvider {...useFormMethods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         {children}
       </form>
       <DevTool control={control} />

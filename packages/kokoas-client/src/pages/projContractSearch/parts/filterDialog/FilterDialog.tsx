@@ -6,6 +6,7 @@ import { AmountRange } from './AmountRange';
 import { ContractDateRange } from './ContractDateRange';
 import { FilterDialogContent } from './FilterDialogContent';
 import { FilterForm } from './FilterForm';
+import { SubmitButton } from './SubmitButton';
 
 
 export const FilterDialog = ({
@@ -30,12 +31,10 @@ export const FilterDialog = ({
     defaultValues: {
       ...initialValues,
       ...urlParams,
-      amountTo: amountTo ?? maxAmount, // URLで金額範囲を指定していなければ、最大値を設定する。
-      amountFrom: amountFrom ?? minAmount, // ″、最小値を設定する。
+      amountTo: +(amountTo ?? maxAmount), // URLで金額範囲を指定していなければ、最大値を設定する。
+      amountFrom: +(amountFrom ?? minAmount), // ″、最小値を設定する。
     },
   });
-
-
 
   return (
     <FilterForm useFormMethods={methods}>
@@ -55,9 +54,7 @@ export const FilterDialog = ({
           <Button variant={'text'} onClick={handleClose}>
             閉じる
           </Button>
-          <Button type='submit' variant={'contained'}>
-            検索
-          </Button>
+          <SubmitButton onClick={handleClose} />
         </DialogActions>
 
       </Dialog>

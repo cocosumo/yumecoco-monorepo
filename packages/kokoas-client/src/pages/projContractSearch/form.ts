@@ -14,10 +14,3 @@ export const initialValues: TypeOfForm = {
 
 export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
-
-
-
-
-/* Utility functions */
-
-export const getFieldName = (s: KeyOfForm) => s;

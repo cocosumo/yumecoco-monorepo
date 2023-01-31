@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Stack } from '@mui/material';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 import { KeyOfForm } from '../../form';
-import { FormikMoneyField } from '../../../../components/ui/textfield/FormikMoneyField';
+import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
 
 
 export const AmountRange = () => {
@@ -14,9 +14,9 @@ export const AmountRange = () => {
         金額
       </FormLabel>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <FormikMoneyField label={''} name={fromField} />
+        <OutlinedMoneyInput name={fromField} />
         <DoubleArrowIcon />
-        <FormikMoneyField label={''} name={toField} />
+        <OutlinedMoneyInput name={toField} />
       </Stack>
 
     </FormControl>

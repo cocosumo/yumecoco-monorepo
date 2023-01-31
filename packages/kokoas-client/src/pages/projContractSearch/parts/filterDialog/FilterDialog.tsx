@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack } from '@mui/material';
+import { AmountRange } from './AmountRange';
 
 
 export const FilterDialog = ({
@@ -24,7 +25,8 @@ export const FilterDialog = ({
           {/*  <FormikTextFieldV2 label={'工事名'} name={getFieldName('projName')} />
           <AmountRange />
           <ContractDateRange /> */}
-          開発中...
+          <AmountRange />
+
         </Stack>
       </DialogContent>
       <DialogActions>

@@ -9,6 +9,7 @@ import { initialValues, TypeOfForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { FilterForm } from './filterDialog/FilterForm';
 import { SubmitButton } from './filterDialog/SubmitButton';
+import { useNavigate } from 'react-router-dom';
 
 
 export const WrappedSearchField = ({
@@ -20,6 +21,7 @@ export const WrappedSearchField = ({
 }) => {
   const [filterOpen, setFilterOpen] = useState(false);
   const urlParams = useURLParams<TypeOfForm>();
+  const navigate = useNavigate();
 
   const {
     amountFrom,
@@ -91,6 +93,15 @@ export const WrappedSearchField = ({
           onClick={handleFilterOpen}
         >
           <FilterListIcon />
+        </Button>
+        <Button
+          sx={{ wordBreak: 'keep-all' }}
+          onClick={()=>{
+            navigate('');
+            reset();
+          }}
+        >
+          リセット
         </Button>
       </Stack>
 

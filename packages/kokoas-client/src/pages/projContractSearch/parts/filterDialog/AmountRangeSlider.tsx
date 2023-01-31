@@ -26,7 +26,13 @@ export const AmountRangeSlider = ({
 
   return (
     <Slider
-      value={[+amountFrom ?? min, +amountTo ?? max]}
+      /* Set value of the slider to it's min or max number if the field is empty
+        otherwise, use their respective field values.
+      */
+      value={[
+        typeof amountFrom === 'string' && amountFrom === '' ? min : amountFrom,
+        typeof amountTo === 'string' && amountTo === ''  ? max : amountTo,
+      ]}
       onChange={(_: Event, newVal) => {
         if (isArray(newVal)) {
           const [newAmountFrom, newAmountTo] = newVal;

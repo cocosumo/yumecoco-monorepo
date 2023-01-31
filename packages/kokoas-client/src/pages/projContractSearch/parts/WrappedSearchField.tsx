@@ -26,20 +26,25 @@ export const WrappedSearchField = ({
     amountTo,
   } = urlParams;
 
-
-  const handleFilterOpen = () => setFilterOpen(true);
-  const handleFilterClose = () => setFilterOpen(false);
-
   const methods = useForm<TypeOfForm>({
     defaultValues: {
       ...initialValues,
       ...urlParams,
-      amountTo: +(amountTo ?? maxAmount), // URLで金額範囲を指定していなければ、最大値を設定する。
-      amountFrom: +(amountFrom ?? minAmount), // ″、最小値を設定する。
+      amountTo: amountTo ?? maxAmount ?? '', // URLで金額範囲を指定していなければ、最大値を設定する。
+      amountFrom: amountFrom ?? minAmount ?? '', // ″、最小値を設定する。
     },
   });
 
-  const { register } = methods;
+  const {
+    register,
+  } = methods;
+
+  const handleFilterOpen = () => setFilterOpen(true);
+  const handleFilterClose = () => {
+    setFilterOpen(false);
+  };
+
+
 
   return (
     <FilterForm useFormMethods={methods}>
@@ -56,7 +61,9 @@ export const WrappedSearchField = ({
 
       <Stack direction={'row'} spacing={1}>
         <OutlinedInput fullWidth {...register('mainSearch')} />
-        <SubmitButton />
+        <SubmitButton>
+          <SearchIcon />
+        </SubmitButton>
         <Button
           variant={'contained'}
           onClick={handleFilterOpen}

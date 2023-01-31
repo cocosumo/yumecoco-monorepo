@@ -28,8 +28,6 @@ export const SubmitButton = ({
         },
       )()}
       {...others}
-    >
-      検索
-    </Button>
+    />
   );
 };

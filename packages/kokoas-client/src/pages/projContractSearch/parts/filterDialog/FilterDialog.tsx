@@ -17,9 +17,6 @@ export const FilterDialog = ({
   maxAmount: number,
 }) => {
 
-
-
-
   return (
 
     <Dialog
@@ -38,7 +35,9 @@ export const FilterDialog = ({
         <Button variant={'text'} onClick={handleClose}>
           閉じる
         </Button>
-        <SubmitButton onClick={handleClose} />
+        <SubmitButton onClick={handleClose} >
+          検索
+        </SubmitButton>
       </DialogActions>
 
     </Dialog>

@@ -34,6 +34,8 @@ export const useFilteredContracts = () => {
     mainSearch,
     amountFrom,
     amountTo,
+    contractDateFrom,
+    contractDateTo,
   } = useURLParams<TypeOfForm>();
 
 
@@ -117,25 +119,28 @@ export const useFilteredContracts = () => {
         };
 
         /* 絞り込み */
-        let isMainSearch = true;
-        const isAboveMinAmount = true;
-        const isBelowMaxAmount = true;
+        const contractDateMil = contractDate.value ? new Date(contractDate.value) : undefined ;
 
+        const isMainSearch = !mainSearch || Object.values(resultRow).some((val) => val.toString().includes(mainSearch));
+        const isAboveMinAmount = !(!!amountFrom && totalAmountAfterTax < +amountFrom);
+        const isBelowMaxAmount = !(!!amountTo && totalAmountAfterTax > +amountTo);
+        const afterContractDateFrom = contractDateMil && contractDateFrom
+          ? new Date(contractDateFrom) <= contractDateMil
+          : !contractDateFrom;
+        const afterContractDateTo = contractDateMil && contractDateTo
+          ? new Date(contractDateTo) >= contractDateMil
+          : !contractDateTo;
 
-        if (mainSearch) {
-          isMainSearch = Object
-            .values(resultRow)
-            .some((val) =>{
-              return val.toString().includes(mainSearch);
-            });
-
-        }
 
         // 含むかどうか判定、
-        if (isMainSearch) {
+        if (isMainSearch
+          && isAboveMinAmount
+          && isBelowMaxAmount
+          && afterContractDateFrom
+          && afterContractDateTo
+        ) {
           acc.push(resultRow);
         }
-
 
         return acc;
       },

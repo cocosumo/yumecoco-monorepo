@@ -37,7 +37,11 @@ export const FormInvoice = () => {
 
 
   const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
-    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
+    if (+contractAmount > 0) {
+      return isForPayment && ((+contractAmount < (+billedAmount + +billingAmount)) || +billingAmount < 0);
+    }
+    return isForPayment && ((+contractAmount > (+billedAmount + +billingAmount)) || +billingAmount > 0);
+
   });
 
   useEffect(() => {
@@ -108,6 +112,11 @@ export const FormInvoice = () => {
               <BillingEntryTable exceeded={exceeded} />
             </Grid>
 
+
+            <Grid item xs={12} md={12}>
+              <Divider />
+            </Grid>
+            
 
             {/* 請求合計 */}
             <Grid item xs={12} md={7}>

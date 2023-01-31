@@ -1,3 +1,6 @@
+export type IAuthdb = DBAuthdb.SavedData;
+export type KAuthdb = keyof IAuthdb;
+
 export type ISystemupdate = DBSystemupdate.SavedData;
 export type KSystemupdate = keyof ISystemupdate;
 

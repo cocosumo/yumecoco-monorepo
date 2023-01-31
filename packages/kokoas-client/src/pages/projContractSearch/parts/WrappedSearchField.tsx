@@ -66,13 +66,12 @@ export const WrappedSearchField = ({
     setFilterOpen(false);
   };
 
-
-
   useEffect(() => {
     reset(newValues);
   },
   [newValues, reset],
   );
+
   return (
     <FilterForm useFormMethods={methods}>
       {

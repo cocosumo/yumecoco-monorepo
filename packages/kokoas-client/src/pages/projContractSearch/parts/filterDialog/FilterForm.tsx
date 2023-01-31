@@ -3,6 +3,7 @@ import { FormProvider, UseFormReturn } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { DevTool } from '@hookform/devtools';
 import { Grid } from '@mui/material';
+import { FilterChips } from '../filterChips/FilterChips';
 
 export const FilterForm = ({
   children,
@@ -26,6 +27,7 @@ export const FilterForm = ({
         </form>
         <DevTool control={control} />
       </FormProvider >
+      <FilterChips control={control} />
     </Grid>
   );
 };

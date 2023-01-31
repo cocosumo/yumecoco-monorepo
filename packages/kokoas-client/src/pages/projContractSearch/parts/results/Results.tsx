@@ -19,6 +19,7 @@ export const Results = ({
           alignItems={'flex-end'}
         >
           <ResultsCount resultCount={items?.length ?? 0} />
+          {/* ここに何か配置する */}
         </Stack>
       </Grid>
       <Grid item xs={12}>

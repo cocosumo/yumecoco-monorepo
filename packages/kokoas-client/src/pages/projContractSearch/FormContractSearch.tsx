@@ -21,6 +21,7 @@ export const FormContractSearch = () => {
         minAmount={minAmount}
         maxAmount={maxAmount}
       />
+
       <Results items={items} />
     </MainContainer>
 

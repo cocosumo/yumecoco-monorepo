@@ -97,8 +97,7 @@ export const WrappedSearchField = ({
         <Button
           sx={{ wordBreak: 'keep-all' }}
           onClick={()=>{
-            navigate('');
-            reset();
+            navigate(''); // Clear parameters
           }}
         >
           リセット

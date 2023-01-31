@@ -19,7 +19,7 @@ export const BillingTotalBody = ({
         {'請求合計'}
       </TableCell>
       <TableCell align="right">
-        {'未実装'}
+        {'未実装 本PRにて対応'}
       </TableCell>
       <TableCell align="right">
         {billingTotal.toLocaleString()}

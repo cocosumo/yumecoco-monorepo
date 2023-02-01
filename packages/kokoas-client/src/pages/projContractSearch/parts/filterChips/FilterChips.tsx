@@ -24,12 +24,13 @@ export const FilterChips = () => {
         .reduce((acc, [k, v]) => {
           const parsedValue = parseValue(k as KeyOfForm, v);
           if (parsedValue) {
-            acc.push(<Chip
-              size={'small'}
-              key={k}
-              label={parsedValue}
-              onDelete={() => handleDelete(k as KeyOfForm)}
-                     />);
+            acc.push(
+              <Chip
+                size={'small'}
+                key={k}
+                label={parsedValue}
+                onDelete={() => handleDelete(k as KeyOfForm)}
+              />);
           }
           return acc;
         },

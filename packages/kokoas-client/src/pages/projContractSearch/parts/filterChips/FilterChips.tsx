@@ -1,12 +1,19 @@
 import { Chip, Stack } from '@mui/material';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fieldNameToJa, KeyOfForm, parseValue, TypeOfForm } from '../../form';
+import qs from 'qs';
 
 export const FilterChips = () => {
 
   const values = useURLParams<TypeOfForm>();
+  const navigate = useNavigate();
 
+  const handleDelete = useCallback((key: KeyOfForm) => {
+    const { [key]: _, ...query } = values;
+    navigate(`?${qs.stringify(query)}`);
+  }, [values, navigate]);
 
   return (
     <Stack direction={'row'} spacing={1} mt={2}>
@@ -19,6 +26,7 @@ export const FilterChips = () => {
                 size={'small'}
                 key={k}
                 label={`${fieldNameToJa(k as KeyOfForm)}：${parsedValue}`}
+                onDelete={() => handleDelete(k as KeyOfForm)}
               />);
           }
           return acc;

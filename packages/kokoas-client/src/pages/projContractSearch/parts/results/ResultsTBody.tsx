@@ -58,6 +58,13 @@ export const ResultsTBody = ({
             contractDate={contractDate}
             contractAmount={`${totalAmountAfterTax.toLocaleString()}円`}
             grossProfit={`${totalProfit.toLocaleString()}円`}
+            menu={(
+              <Button
+                fullWidth
+                onClick={() => navigate(`${pages.projInvoice}?${generateParams({ projEstimateId: uuid })}`)}
+              >
+                請求入力
+              </Button>)}
           />
         );
       })}

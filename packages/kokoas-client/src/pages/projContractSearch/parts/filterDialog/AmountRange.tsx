@@ -17,21 +17,40 @@ export const AmountRange = ({
 
   const {
     register,
+    formState: {
+      errors: {
+        amountFrom,
+        amountTo,
+      },
+    },
   } = useFormContext<TypeOfForm>();
 
+  const errorMessage = (amountFrom || amountTo)?.message;
+  const isError = !!errorMessage;
 
   return (
     <Box mt={2}>
-      <FormLabel>
+      <FormLabel error={isError}>
         金額
       </FormLabel>
       <Box px={4}>
-        <AmountRangeSlider min={minAmount} max={maxAmount} />
+        <AmountRangeSlider
+          min={minAmount}
+          max={maxAmount}
+        />
       </Box>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <OutlinedMoneyInput fullWidth {...register('amountFrom')} />
+        <OutlinedMoneyInput
+          fullWidth
+          error={isError}
+          {...register('amountFrom')}
+        />
         <DoubleArrowIcon htmlColor={grey[700]} />
-        <OutlinedMoneyInput fullWidth {...register('amountTo')} />
+        <OutlinedMoneyInput
+          fullWidth
+          error={isError}
+          {...register('amountTo')}
+        />
       </Stack>
 
     </Box>

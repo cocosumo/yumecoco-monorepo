@@ -2,6 +2,7 @@ import { Button, OutlinedInput, Stack } from '@mui/material';
 import { FilterDialog } from './filterDialog/FilterDialog';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,6 +11,7 @@ import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { FilterForm } from './filterDialog/FilterForm';
 import { SubmitButton } from './filterDialog/SubmitButton';
 import { useNavigate } from 'react-router-dom';
+import { validationSchema } from '../formValidation';
 
 
 export const WrappedSearchField = ({
@@ -35,12 +37,10 @@ export const WrappedSearchField = ({
       ...initialValues,
       contractDateFrom,
       contractDateTo,
-      amountTo: amountTo ?? maxAmount ?? '', // URLで金額範囲を指定していなければ、最大値を設定する。
-      amountFrom: amountFrom ?? minAmount ?? '', // ″、最小値を設定する。
+      amountTo,
+      amountFrom,
     };
   }, [
-    maxAmount,
-    minAmount,
     amountTo,
     amountFrom,
     contractDateFrom,
@@ -49,9 +49,8 @@ export const WrappedSearchField = ({
 
   const methods = useForm<TypeOfForm>({
     defaultValues: newValues,
+    resolver: yupResolver(validationSchema),
   });
-
-
 
   const {
     register,
@@ -63,13 +62,12 @@ export const WrappedSearchField = ({
     setFilterOpen(false);
   };
 
-
-
   useEffect(() => {
     reset(newValues);
   },
   [newValues, reset],
   );
+
   return (
     <FilterForm useFormMethods={methods}>
       {
@@ -97,8 +95,7 @@ export const WrappedSearchField = ({
         <Button
           sx={{ wordBreak: 'keep-all' }}
           onClick={()=>{
-            navigate('');
-            reset();
+            navigate(''); // Clear parameters
           }}
         >
           リセット

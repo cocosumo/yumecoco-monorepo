@@ -1,7 +1,9 @@
 import { Slider } from '@mui/material';
 import isArray from 'lodash/isArray';
+import { useCallback } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
+
 
 export const AmountRangeSlider = ({
   min = -20000,
@@ -14,6 +16,7 @@ export const AmountRangeSlider = ({
   const {
     control,
     setValue,
+    clearErrors,
   } = useFormContext<TypeOfForm>();
 
   const [amountFrom, amountTo] = useWatch({
@@ -24,20 +27,37 @@ export const AmountRangeSlider = ({
     control,
   });
 
+  /**
+   * スライダーの値を判定する
+   * @param originalVal　実値
+   * @param fallbackVal　フォールバック値
+   *
+   * 実値はundefined又は空のstringの場合、スライダーの最小・最大値を返す。
+   */
+  const normalizeSliderValue = useCallback((
+    originalVal: number | string | undefined, fallbackVal: number,
+  ) => {
+    return  originalVal === undefined || (typeof originalVal === 'string' && originalVal === '') ? fallbackVal : +originalVal;
+  }, []);
+
   return (
     <Slider
-      /* Set value of the slider to it's min or max number if the field is empty
-        otherwise, use their respective field values.
-      */
       value={[
-        typeof amountFrom === 'string' && amountFrom === '' ? min : amountFrom,
-        typeof amountTo === 'string' && amountTo === ''  ? max : amountTo,
+        normalizeSliderValue(amountFrom, min),
+        normalizeSliderValue(amountTo, max),
       ]}
       onChange={(_: Event, newVal) => {
         if (isArray(newVal)) {
           const [newAmountFrom, newAmountTo] = newVal;
+
           setValue('amountFrom', newAmountFrom);
           setValue('amountTo', newAmountTo);
+
+          // 決してエラーにならないと想定して、エラーを強制的に解消（多分）。
+          // setValueのshouldValidateも使えますが、実際にバリデーションを行うと、スライダーのラグが発生する。
+          // 想定が間違っていたら、改修。
+          clearErrors('amountFrom');
+          clearErrors('amountTo');
         }
 
       }}

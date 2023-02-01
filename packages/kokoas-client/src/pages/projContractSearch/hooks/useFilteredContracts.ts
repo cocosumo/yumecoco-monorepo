@@ -128,7 +128,7 @@ export const useFilteredContracts = () => {
         const afterContractDateFrom = contractDateMil && contractDateFrom
           ? new Date(contractDateFrom) <= contractDateMil
           : !contractDateFrom;
-        const afterContractDateTo = contractDateMil && contractDateTo
+        const beforeContractDateTo = contractDateMil && contractDateTo
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
 
@@ -138,7 +138,7 @@ export const useFilteredContracts = () => {
           && isAboveMinAmount
           && isBelowMaxAmount
           && afterContractDateFrom
-          && afterContractDateTo
+          && beforeContractDateTo
         ) {
           acc.push(resultRow);
         }

@@ -15,13 +15,15 @@ export const DateRangeField = ({
       control={control}
       name={name}
       render={({
-        field,
+        field: { onBlur, ...field },
         fieldState: {
           isTouched,
           error,
         },
       }) => {
+
         const isShowError = !!error?.message && !!isTouched;
+
         return (
           <JADatePicker
             {...field}
@@ -29,10 +31,10 @@ export const DateRangeField = ({
             renderInput={(params) =>(
               <TextField
                 {...params}
+                onBlur={onBlur}
                 variant={'outlined'}
                 size={'small'}
                 error={isShowError}
-                helperText={isShowError ? error.message : ''}
               />)}
           />
         );

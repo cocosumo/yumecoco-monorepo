@@ -1,6 +1,6 @@
 import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useCustGroups, useEstimates, useProjects } from 'kokoas-client/src/hooksQuery';
+import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
 import { TEnvelopeStatus } from 'types';
 import { TypeOfForm } from '../form';
@@ -43,12 +43,13 @@ export const useFilteredContracts = () => {
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
+  const { data: invoiceData } = useInvoices();
 
   return useEstimates({
-    enabled: !!projData && !!custGroupData,
+    enabled: !!projData && !!custGroupData && !!invoiceData,
     select: (d) => {
 
-      if (!projData || !custGroupData) return;
+      if (!projData || !custGroupData || !invoiceData) return;
 
       let minAmount = 0;
       let maxAmount = 0;
@@ -75,6 +76,7 @@ export const useFilteredContracts = () => {
           custGroupId,
         } = projData.find((projRec) => projRec.uuid.value === projId.value ) || {};
 
+        /* 顧客情報 */
         const {
           custNames,
           cocoAGNames,
@@ -82,6 +84,14 @@ export const useFilteredContracts = () => {
           storeName,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
 
+        /* 請求情報 */
+        const {
+          plannedPaymentDate,
+          issuedDateTime,
+        } = invoiceData
+          .find(({ estimateLists }) => {
+            return estimateLists.value.some(({ value: { estimateId } }) => estimateId.value ===  uuid.value );
+          }) || {};
 
         const formattedDataId = formatDataId(dataId.value);
         const estNum = formattedDataId.slice(-2);
@@ -112,6 +122,8 @@ export const useFilteredContracts = () => {
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
           contractDate: contractDate.value  || '',
+          issuedDateTime: issuedDateTime?.value ?? '',
+          plannedPaymentDate: plannedPaymentDate?.value || '',
           custName: custNames?.value || '',
           projName: projName?.value || '',
           storeName: storeName?.value || '',

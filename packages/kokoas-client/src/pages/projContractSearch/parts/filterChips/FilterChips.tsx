@@ -12,7 +12,6 @@ export const FilterChips = () => {
     <Stack direction={'row'} spacing={1} mt={2}>
       {Object.entries(values)
         .reduce((acc, [k, v]) => {
-
           const parsedValue = parseValue(k as KeyOfForm, v);
           if (parsedValue) {
             acc.push(

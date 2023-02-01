@@ -1,37 +1,110 @@
-import { LoadingButton } from '@mui/lab';
-import { Button, Grid, Stack, TextField } from '@mui/material';
+import { Button, OutlinedInput, Stack } from '@mui/material';
 import { FilterDialog } from './filterDialog/FilterDialog';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { initialValues, TypeOfForm } from '../form';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
+import { FilterForm } from './filterDialog/FilterForm';
+import { SubmitButton } from './filterDialog/SubmitButton';
+import { useNavigate } from 'react-router-dom';
 
 
-export const WrappedSearchField = () => {
+export const WrappedSearchField = ({
+  minAmount,
+  maxAmount,
+}: {
+  minAmount?: number,
+  maxAmount?: number,
+}) => {
   const [filterOpen, setFilterOpen] = useState(false);
+  const urlParams = useURLParams<TypeOfForm>();
+  const navigate = useNavigate();
+
+  const {
+    amountFrom,
+    amountTo,
+    contractDateFrom,
+    contractDateTo,
+  } = urlParams;
+
+  const newValues = useMemo(() => {
+    return {
+      ...initialValues,
+      contractDateFrom,
+      contractDateTo,
+      amountTo: amountTo ?? maxAmount ?? '', // URLで金額範囲を指定していなければ、最大値を設定する。
+      amountFrom: amountFrom ?? minAmount ?? '', // ″、最小値を設定する。
+    };
+  }, [
+    maxAmount,
+    minAmount,
+    amountTo,
+    amountFrom,
+    contractDateFrom,
+    contractDateTo,
+  ]);
+
+  const methods = useForm<TypeOfForm>({
+    defaultValues: newValues,
+  });
+
+
+
+  const {
+    register,
+    reset,
+  } = methods;
 
   const handleFilterOpen = () => setFilterOpen(true);
-  const handleFilterClose = () => setFilterOpen(false);
+  const handleFilterClose = () => {
+    setFilterOpen(false);
+  };
 
+
+
+  useEffect(() => {
+    reset(newValues);
+  },
+  [newValues, reset],
+  );
   return (
-    <Grid item xs={12} md={8}>
-      <FilterDialog open={filterOpen} handleClose={handleFilterClose} />
+    <FilterForm useFormMethods={methods}>
+      {
+        minAmount && maxAmount && (
+          <FilterDialog
+            open={filterOpen}
+            minAmount={minAmount}
+            maxAmount={maxAmount}
+            handleClose={handleFilterClose}
+          />
+        )
+      }
+
       <Stack direction={'row'} spacing={1}>
-        <TextField fullWidth />
-        <LoadingButton
-          variant='contained'
-          //onClick={submitForm}
-          //loading={isSubmitting}
-        >
-          <SearchIcon fontSize='large' />
-        </LoadingButton>
+        <OutlinedInput fullWidth {...register('mainSearch')} />
+        <SubmitButton>
+          <SearchIcon />
+        </SubmitButton>
         <Button
           variant={'contained'}
           onClick={handleFilterOpen}
         >
           <FilterListIcon />
         </Button>
+        <Button
+          sx={{ wordBreak: 'keep-all' }}
+          onClick={()=>{
+            navigate('');
+            reset();
+          }}
+        >
+          リセット
+        </Button>
       </Stack>
-    </Grid>
+
+    </FilterForm>
   );
 };

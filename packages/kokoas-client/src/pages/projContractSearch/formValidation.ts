@@ -9,6 +9,4 @@ import {
 export const validationSchema =  Yup
   .object()
   .shape <Partial<Record<KeyOfForm, Yup.AnySchema>>>({
-
-
 });

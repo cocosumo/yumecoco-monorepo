@@ -2,13 +2,12 @@
 
 
 export const initialValues = {
-  isFilterOpen: false,
   mainSearch: '',
   projName: '',
-  contractDateFrom: '' as string | Date,
-  contractDateTo: '' as string | Date,
-  amountFrom: '',
-  amountTo: '',
+  contractDateFrom: null as null | string,
+  contractDateTo: null as null | string,
+  amountFrom: 0,
+  amountTo: 0,
 };
 
 export type TypeOfForm =  typeof initialValues;

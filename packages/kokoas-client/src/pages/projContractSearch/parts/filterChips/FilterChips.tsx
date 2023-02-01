@@ -1,16 +1,11 @@
 import { Chip, Stack } from '@mui/material';
+import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { ReactNode } from 'react';
-import { UseFormReturn, useWatch } from 'react-hook-form';
 import { fieldNameToJa, KeyOfForm, parseValue, TypeOfForm } from '../../form';
 
-export const FilterChips = ({
-  control,
-}: {
-  control: UseFormReturn<TypeOfForm>['control']
-}) => {
-  const values = useWatch<TypeOfForm>({
-    control,
-  });
+export const FilterChips = () => {
+
+  const values = useURLParams<TypeOfForm>();
 
 
   return (

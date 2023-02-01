@@ -37,12 +37,10 @@ export const WrappedSearchField = ({
       ...initialValues,
       contractDateFrom,
       contractDateTo,
-      amountTo: amountTo ?? maxAmount, // URLで金額範囲を指定していなければ、最大値を設定する。
-      amountFrom: amountFrom ?? minAmount, // ″、最小値を設定する。
+      amountTo, // URLで金額範囲を指定していなければ、最大値を設定する。
+      amountFrom, // ″、最小値を設定する。
     };
   }, [
-    maxAmount,
-    minAmount,
     amountTo,
     amountFrom,
     contractDateFrom,

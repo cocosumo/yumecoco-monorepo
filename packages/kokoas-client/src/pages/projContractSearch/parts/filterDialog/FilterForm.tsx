@@ -27,7 +27,7 @@ export const FilterForm = ({
         </form>
         <DevTool control={control} />
       </FormProvider >
-      <FilterChips control={control} />
+      <FilterChips />
     </Grid>
   );
 };

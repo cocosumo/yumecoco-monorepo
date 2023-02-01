@@ -17,7 +17,7 @@ export const yupValidations = {
    * ただ、空のstringの場合、NaNになります。
    * https://react-hook-form.com/api/useform/register/
    *
-   * バリデーションの際、NaNだと、空のstringに変換するようにします。
+   * バリデーションの際、NaNだと、undefinedに変換するようにします。
    * undefined
    * */
   yupNumberTransformNaN: yupNumber.transform((value) => {

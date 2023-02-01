@@ -21,18 +21,25 @@ export const FilterChips = () => {
         .reduce((acc, [k, v]) => {
           const parsedValue = parseValue(k as KeyOfForm, v);
           if (parsedValue) {
-            acc.push(
-              <Chip
-                size={'small'}
-                key={k}
-                label={`${fieldNameToJa(k as KeyOfForm)}：${parsedValue}`}
-                onDelete={() => handleDelete(k as KeyOfForm)}
-              />);
+            acc.push([k, parsedValue]);
           }
           return acc;
         },
-        [] as ReactNode[],
-        )}
+        [] as Array<[string, string]>,
+        )
+        .sort(([k1], [k2]) => {
+          return k1.localeCompare(k2);
+        })
+        .map(([k, value]) => {
+          return (
+            <Chip
+              size={'small'}
+              key={k}
+              label={value}
+              onDelete={() => handleDelete(k as KeyOfForm)}
+            />
+          );
+        })}
     </Stack>
   );
 };

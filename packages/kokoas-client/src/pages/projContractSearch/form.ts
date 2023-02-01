@@ -29,6 +29,17 @@ export const fieldNameToJa = (name: KeyOfForm) => {
   }
 };
 
+const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') => {
+
+  if (typeof value !== 'string') return;
+
+  const dateObj = parseISO(value as string);
+
+  if (isValid(dateObj)) {
+    return `契約日：${format(dateObj, 'yyyy-MM-dd')} ${suffix}`;
+  }
+};
+
 export const parseValue = <T extends KeyOfForm>(
   name: T, value: TypeOfForm[T],
 ) => {
@@ -36,18 +47,11 @@ export const parseValue = <T extends KeyOfForm>(
 
   switch (name) {
 
-    case 'amountFrom':
-    case 'amountTo': return `${(+value as number).toLocaleString()} 円`;
+    case 'amountFrom': return `最小金額：${(+value as number).toLocaleString()} 円`;
+    case 'amountTo': return `最大金額：${(+value as number).toLocaleString()} 円`;
 
-    case 'contractDateFrom':
-    case 'contractDateTo': {
-      const dateObj = parseISO(value as string);
-
-      if (isValid(dateObj)) {
-        return format(dateObj, 'yyyy-MM-dd');
-      }
-      break;
-    }
+    case 'contractDateFrom': return transformToLabel(value, 'から');
+    case 'contractDateTo': return transformToLabel(value, 'まで');
     default: return String(value);
   }
 };

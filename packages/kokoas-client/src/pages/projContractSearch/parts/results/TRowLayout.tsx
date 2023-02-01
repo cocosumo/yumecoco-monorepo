@@ -37,6 +37,10 @@ export const TRowLayout = ({
       </TableCell>
       <TableCell>
         {projName}
+        <br />
+        {custName}
+        <br />
+        {contractDate}
       </TableCell>
       <TableCell>
         {store}
@@ -46,9 +50,9 @@ export const TRowLayout = ({
         {cocoAG}
       </TableCell>
       <TableCell>
-        {custName}
+        {'請求情報'}
         <br />
-        {contractDate}
+        {'請求情報'}
       </TableCell>
       <TableCell align='right'>
         {contractAmount}

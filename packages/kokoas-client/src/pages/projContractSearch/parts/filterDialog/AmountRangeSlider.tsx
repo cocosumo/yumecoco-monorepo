@@ -14,6 +14,7 @@ export const AmountRangeSlider = ({
   const {
     control,
     setValue,
+    clearErrors,
   } = useFormContext<TypeOfForm>();
 
   const [amountFrom, amountTo] = useWatch({
@@ -36,8 +37,15 @@ export const AmountRangeSlider = ({
       onChange={(_: Event, newVal) => {
         if (isArray(newVal)) {
           const [newAmountFrom, newAmountTo] = newVal;
+
           setValue('amountFrom', newAmountFrom);
           setValue('amountTo', newAmountTo);
+
+          // 決してエラーにならないと想定して、エラーを強制的に解消（多分）。shouldValidateも使えますが、
+          // setValueのshouldValidateも使えますが、実際にバリデーションを行うと、スライダーのラグが発生する。
+          // 想定が間違っていたら、改修。
+          clearErrors('amountFrom');
+          clearErrors('amountTo');
         }
 
       }}

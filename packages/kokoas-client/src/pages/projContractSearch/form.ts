@@ -33,8 +33,8 @@ export const parseValue = <T extends KeyOfForm>(
 
   switch (name) {
 
-    case 'amountFrom': return `最小金額：${(+value as number).toLocaleString()} 円`;
-    case 'amountTo': return `最大金額：${(+value as number).toLocaleString()} 円`;
+    case 'amountFrom': return `契約金額：${(+value as number).toLocaleString()} 円以上`;
+    case 'amountTo': return `契約金額：${(+value as number).toLocaleString()} 円以下`;
 
     case 'contractDateFrom': return transformToLabel(value, 'から');
     case 'contractDateTo': return transformToLabel(value, 'まで');

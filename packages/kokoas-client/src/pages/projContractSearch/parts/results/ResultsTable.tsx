@@ -1,12 +1,16 @@
+import { ReactNode } from 'react';
 import { ResultsTableContainer } from './ResultsTableContainer';
-import { ResultsTBody } from './ResultsTBody';
 import { ResultsTHead } from './ResultsTHead';
 
-export const ResultsTableFormat = () => {
+export const ResultsTable = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
   return (
     <ResultsTableContainer>
       <ResultsTHead />
-      <ResultsTBody />
+      {children}
     </ResultsTableContainer>
   );
 };

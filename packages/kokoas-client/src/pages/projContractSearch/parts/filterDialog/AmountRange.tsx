@@ -29,7 +29,12 @@ export const AmountRange = ({
         <AmountRangeSlider min={minAmount} max={maxAmount} />
       </Box>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <OutlinedMoneyInput fullWidth {...register('amountFrom')} />
+        <OutlinedMoneyInput
+          fullWidth
+          {...register(
+            'amountFrom',
+          )}
+        />
         <DoubleArrowIcon htmlColor={grey[700]} />
         <OutlinedMoneyInput fullWidth {...register('amountTo')} />
       </Stack>

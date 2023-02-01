@@ -1,5 +1,6 @@
+import isValid from 'date-fns/isValid';
+import parseISO from 'date-fns/parseISO';
 import  format from 'date-fns/format';
-import  parseISO from 'date-fns/parseISO';
 import * as Yup from 'yup';
 import { validationSchema } from './formValidation';
 
@@ -28,17 +29,25 @@ export const fieldNameToJa = (name: KeyOfForm) => {
   }
 };
 
-export const parseValue = <T extends KeyOfForm>(name: T, value: TypeOfForm[T]) => {
+export const parseValue = <T extends KeyOfForm>(
+  name: T, value: TypeOfForm[T],
+) => {
+  if (!value) return;
 
-  console.log(value);
   switch (name) {
 
     case 'amountFrom':
     case 'amountTo': return `${(value as number).toLocaleString()} 円`;
 
     case 'contractDateFrom':
-    case 'contractDateTo': return format(new Date(value as string), 'yyyy-MM-dd');
+    case 'contractDateTo': {
+      const dateObj = parseISO(value as string);
 
-    default: return value;
+      if (isValid(dateObj)) {
+        return format(dateObj, 'yyyy-MM-dd');
+      }
+      break;
+    }
+    default: return String(value);
   }
 };

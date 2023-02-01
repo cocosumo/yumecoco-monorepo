@@ -70,16 +70,14 @@ export const WrappedSearchField = ({
 
   return (
     <FilterForm useFormMethods={methods}>
-      {
-        minAmount && maxAmount && (
-          <FilterDialog
-            open={filterOpen}
-            minAmount={minAmount}
-            maxAmount={maxAmount}
-            handleClose={handleFilterClose}
-          />
-        )
-      }
+
+      <FilterDialog
+        open={filterOpen}
+        minAmount={minAmount ?? 0}
+        maxAmount={maxAmount ?? 0}
+        handleClose={handleFilterClose}
+      />
+
 
       <Stack direction={'row'} spacing={1}>
         <OutlinedInput fullWidth {...register('mainSearch')} />

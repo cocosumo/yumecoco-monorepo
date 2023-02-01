@@ -6,7 +6,8 @@ const {
   yupDate,
 } = yupValidations;
 
-
+const dateRangeErrorMsg = '契約日（から）は契約日（まで）より前である必要があります';
+const amountRangeErrorMsg =  '最小金額は最大金額より小さい必要があります';
 
 export const validationSchema = yupJA
   .object({
@@ -14,7 +15,7 @@ export const validationSchema = yupJA
     contractDateFrom: yupDate
       .test(
         'contractDateFrom-less-than-contractDateTo',
-        '契約日（から）は契約日（まで）より前である必要があります',
+        dateRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.contractDateTo) return true;
           return  value < this.parent.contractDateTo;
@@ -24,7 +25,7 @@ export const validationSchema = yupJA
     contractDateTo: yupDate
       .test(
         'contractDateTo-less-than-contractDateFrom',
-        '契約日（から）は契約日（まで）より前である必要があります',
+        amountRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.contractDateFrom) return true;
           return  value > this.parent.contractDateFrom;
@@ -33,7 +34,7 @@ export const validationSchema = yupJA
       .nullable(),
     amountFrom : yupNumberTransformNaN
       .test('amount-from-less-than-amount-to',
-        '最初の金額は後になるものより小さい必要があります',
+        amountRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.amountTo) return true;
           return value < this.parent.amountTo;

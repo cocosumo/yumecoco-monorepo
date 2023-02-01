@@ -18,23 +18,9 @@ export const initialValues: TypeOfForm = {
 export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
 
-
-export const fieldNameToJa = (name: KeyOfForm) => {
-  switch (name) {
-    case 'amountFrom': return '最小金額';
-    case 'amountTo': return '最大金額';
-    case 'contractDateFrom': return '契約日「から」';
-    case 'contractDateTo': return '契約日「まで」';
-    default: return name;
-  }
-};
-
 const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') => {
-
   if (typeof value !== 'string') return;
-
   const dateObj = parseISO(value as string);
-
   if (isValid(dateObj)) {
     return `契約日：${format(dateObj, 'yyyy-MM-dd')} ${suffix}`;
   }

@@ -1,8 +1,8 @@
 import { Chip, Stack } from '@mui/material';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { ReactNode, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fieldNameToJa, KeyOfForm, parseValue, TypeOfForm } from '../../form';
+import { KeyOfForm, parseValue, TypeOfForm } from '../../form';
 import qs from 'qs';
 
 export const FilterChips = () => {

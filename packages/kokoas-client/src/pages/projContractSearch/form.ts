@@ -37,7 +37,7 @@ export const parseValue = <T extends KeyOfForm>(
   switch (name) {
 
     case 'amountFrom':
-    case 'amountTo': return `${(value as number).toLocaleString()} 円`;
+    case 'amountTo': return `${(+value as number).toLocaleString()} 円`;
 
     case 'contractDateFrom':
     case 'contractDateTo': {

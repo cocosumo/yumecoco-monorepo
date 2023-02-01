@@ -18,7 +18,7 @@ export const validationSchema = yupJA
         dateRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.contractDateTo) return true;
-          return  value < this.parent.contractDateTo;
+          return  value <= this.parent.contractDateTo;
         },
       )
       .nullable(),
@@ -28,7 +28,7 @@ export const validationSchema = yupJA
         dateRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.contractDateFrom) return true;
-          return  value > this.parent.contractDateFrom;
+          return  value >= this.parent.contractDateFrom;
         },
       )
       .nullable(),

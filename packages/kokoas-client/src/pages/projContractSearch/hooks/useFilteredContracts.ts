@@ -1,4 +1,5 @@
 import { calculateEstimateRecord } from 'api-kintone';
+import addDays from 'date-fns/addDays';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
@@ -128,7 +129,7 @@ export const useFilteredContracts = () => {
           ? new Date(contractDateFrom) <= contractDateMil
           : !contractDateFrom;
         const afterContractDateTo = contractDateMil && contractDateTo
-          ? new Date(contractDateTo) >= contractDateMil
+          ? addDays(new Date(contractDateTo), 1) >=  contractDateMil
           : !contractDateTo;
 
 

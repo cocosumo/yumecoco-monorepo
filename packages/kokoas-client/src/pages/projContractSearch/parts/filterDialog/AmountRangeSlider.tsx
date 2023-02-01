@@ -1,7 +1,9 @@
 import { Slider } from '@mui/material';
 import isArray from 'lodash/isArray';
+import { useCallback } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
+
 
 export const AmountRangeSlider = ({
   min = -20000,
@@ -25,14 +27,24 @@ export const AmountRangeSlider = ({
     control,
   });
 
+  /**
+   * スライダーの値を判定する
+   * @param originalVal　実値
+   * @param fallbackVal　フォールバック値
+   *
+   * 実値はundefined又は空のstringの場合、スライダーの最小・最大値を返す。
+   */
+  const normalizeSliderValue = useCallback((
+    originalVal: number | string | undefined, fallbackVal: number,
+  ) => {
+    return  originalVal === undefined || (typeof originalVal === 'string' && originalVal === '') ? fallbackVal : +originalVal;
+  }, []);
+
   return (
     <Slider
-      /* Set value of the slider to it's min or max number if the field is empty
-        otherwise, use their respective field values.
-      */
       value={[
-        amountFrom === undefined || (typeof amountFrom === 'string' && amountFrom === '') ? min : +amountFrom,
-        amountTo === undefined || (typeof amountTo === 'string' && amountTo === '')  ? max : +amountTo,
+        normalizeSliderValue(amountFrom, min),
+        normalizeSliderValue(amountTo, max),
       ]}
       onChange={(_: Event, newVal) => {
         if (isArray(newVal)) {

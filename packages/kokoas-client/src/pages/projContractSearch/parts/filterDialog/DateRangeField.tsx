@@ -35,7 +35,6 @@ export const DateRangeField = ({
                 variant={'outlined'}
                 size={'small'}
                 error={isShowError}
-                helperText={isShowError ? error.message : ' '}
               />)}
           />
         );

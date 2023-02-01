@@ -25,7 +25,7 @@ export const validationSchema = yupJA
     contractDateTo: yupDate
       .test(
         'contractDateTo-less-than-contractDateFrom',
-        amountRangeErrorMsg,
+        dateRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.contractDateFrom) return true;
           return  value > this.parent.contractDateFrom;
@@ -42,7 +42,7 @@ export const validationSchema = yupJA
     amountTo : yupNumberTransformNaN
       .test(
         'amount-to-more-than-amount-from',
-        '最初の金額は後になるものより小さい必要があります',
+        amountRangeErrorMsg,
         function (value) {
           if (!value || !this.parent.amountFrom) return true;
           return value > this.parent.amountFrom;

@@ -28,8 +28,6 @@ export const AmountRange = ({
   const errorMessage = (amountFrom || amountTo)?.message;
   const isError = !!errorMessage;
 
-  console.log(isError);
-
   return (
     <Box mt={2}>
       <FormLabel error={isError}>

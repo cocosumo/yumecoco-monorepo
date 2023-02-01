@@ -1,6 +1,6 @@
 import { Chip, Stack } from '@mui/material';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KeyOfForm, parseValue, TypeOfForm } from '../../form';
 import qs from 'qs';
@@ -18,28 +18,23 @@ export const FilterChips = () => {
   return (
     <Stack direction={'row'} spacing={1} mt={2}>
       {Object.entries(values)
-        .reduce((acc, [k, v]) => {
-          const parsedValue = parseValue(k as KeyOfForm, v);
-          if (parsedValue) {
-            acc.push([k, parsedValue]);
-          }
-          return acc;
-        },
-        [] as Array<[string, string]>,
-        )
         .sort(([k1], [k2]) => {
           return k1.localeCompare(k2);
         })
-        .map(([k, value]) => {
-          return (
-            <Chip
+        .reduce((acc, [k, v]) => {
+          const parsedValue = parseValue(k as KeyOfForm, v);
+          if (parsedValue) {
+            acc.push(<Chip
               size={'small'}
               key={k}
-              label={value}
+              label={parsedValue}
               onDelete={() => handleDelete(k as KeyOfForm)}
-            />
-          );
-        })}
+                     />);
+          }
+          return acc;
+        },
+        [] as ReactNode[],
+        )}
     </Stack>
   );
 };

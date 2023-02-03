@@ -26,7 +26,6 @@ export const itemsSorter = ({
   (a: ContractRow, b: ContractRow) => {
     const desc = order === 'desc';
 
-
     switch (orderBy) {
       case 'contractAmount':
       case 'grossProfit':
@@ -39,10 +38,9 @@ export const itemsSorter = ({
         return sortDate(a[orderBy], b[orderBy], desc);
 
       default :
-        console.log(a[orderBy], b[orderBy], a[orderBy].localeCompare(b[orderBy]));
         return desc
-          ?  (a[orderBy] as string).localeCompare((b[orderBy] as string))
-          :  (b[orderBy] as string).localeCompare((a[orderBy]));
+          ?  (a[orderBy]).localeCompare((b[orderBy]))
+          :  (b[orderBy]).localeCompare((a[orderBy]));
     }
   };
 

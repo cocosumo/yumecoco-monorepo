@@ -7,7 +7,7 @@ import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-cl
 import { latestInvoiceReducer } from './util/latestInvoiceReducer';
 import { formatDataId } from 'libs';
 import { IInvoices, TEnvelopeStatus } from 'types';
-import { TypeOfForm } from '../form';
+import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from './util/itemsSorter';
 
 export interface ContractRow {
@@ -46,6 +46,8 @@ export const useFilteredContracts = () => {
     amountTo,
     contractDateFrom,
     contractDateTo,
+    order = initialValues.order,
+    orderBy = initialValues.orderBy || 'estimateDataId',
   } = useURLParams<TypeOfForm>();
 
 
@@ -135,8 +137,8 @@ export const useFilteredContracts = () => {
           contractDate:  contractDate?.value  || '',
 
           latestInvoiceAmount: +(billingAmount?.value || ''),
-          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '-',
-          plannedPaymentDate: plannedPaymentDate?.value || '-',
+          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '',
+          plannedPaymentDate: plannedPaymentDate?.value || '',
           invoiceId: invoiceId?.value || '',
 
           custName: custNames?.value || '',
@@ -176,7 +178,7 @@ export const useFilteredContracts = () => {
       );
 
       // ソート
-      const sortedItems = items.sort(itemsSorter('estimateDataId'));
+      const sortedItems = items.sort(itemsSorter({ order, orderBy }));
 
       // 結果
       return {

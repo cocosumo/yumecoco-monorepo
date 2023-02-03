@@ -63,8 +63,8 @@ export const ResultsTBody = ({
                 {parsedLatestInvoiceAmount}
               </Link>
             ) : parsedLatestInvoiceAmount}
-            latestInvoiceDate={latestInvoiceDate}
-            plannedPaymentDate={plannedPaymentDate}
+            latestInvoiceDate={latestInvoiceDate || '-'}
+            plannedPaymentDate={plannedPaymentDate || '-'}
             menu={(
               <Button
                 fullWidth

@@ -1,7 +1,49 @@
+import { TypeOfForm } from '../../form';
 import { ContractRow } from '../useFilteredContracts';
 
-export const itemsSorter = (key: keyof ContractRow) =>
-  (a: ContractRow, b: ContractRow) => {
+/** 数字をソートする */
+const sortNumber = (a: number, b: number, desc: boolean) =>
+  desc ? b - a : a - b;
 
-    return String(a[key]).localeCompare(String((b[key])));
+/** 日付をソートする */
+const sortDate = (a: string | undefined, b: string | undefined, desc: boolean) => {
+  if (!a) return 1;
+  if (!b) return -1;
+
+  const dateA = new Date(a).getTime();
+  const dateB = new Date(b).getTime();
+
+  return sortNumber(dateA, dateB, desc);
+};
+
+export const itemsSorter = ({
+  order,
+  orderBy,
+}:{
+  order: TypeOfForm['order']
+  orderBy: keyof ContractRow
+}) =>
+  (a: ContractRow, b: ContractRow) => {
+    const desc = order === 'desc';
+
+
+    switch (orderBy) {
+      case 'contractAmount':
+      case 'grossProfit':
+      case 'latestInvoiceAmount':
+        return sortNumber(a[orderBy] as number, b[orderBy] as number, desc);
+
+      case 'contractDate':
+      case 'latestInvoiceDate':
+      case 'plannedPaymentDate':
+        return sortDate(a[orderBy], b[orderBy], desc);
+
+      default :
+        console.log(a[orderBy], b[orderBy], a[orderBy].localeCompare(b[orderBy]));
+        return desc
+          ?  (a[orderBy] as string).localeCompare((b[orderBy] as string))
+          :  (b[orderBy] as string).localeCompare((a[orderBy]));
+    }
   };
+
+

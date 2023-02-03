@@ -175,9 +175,10 @@ export const useFilteredContracts = () => {
       [] as ContractRow[],
       );
 
+      // ソート
+
 
       // 結果
-
       return {
         items,
         minAmount,

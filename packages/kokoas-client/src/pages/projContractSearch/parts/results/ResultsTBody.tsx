@@ -29,6 +29,9 @@ export const ResultsTBody = ({
         cocoAG,
         custName,
         contractDate,
+        latestInvoiceAmount,
+        latestInvoiceDate,
+        plannedPaymentDate,
       })=>{
 
         return (
@@ -58,6 +61,9 @@ export const ResultsTBody = ({
             contractDate={contractDate}
             contractAmount={`${totalAmountAfterTax.toLocaleString()}円`}
             grossProfit={`${totalProfit.toLocaleString()}円`}
+            latestInvoiceAmount={`${latestInvoiceAmount.toLocaleString()} 円`}
+            latestInvoiceDate={latestInvoiceDate}
+            plannedPaymentDate={plannedPaymentDate}
             menu={(
               <Button
                 fullWidth

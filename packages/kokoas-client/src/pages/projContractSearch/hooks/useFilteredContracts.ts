@@ -2,9 +2,12 @@ import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
-import { TEnvelopeStatus } from 'types';
+import { IInvoices, TEnvelopeStatus } from 'types';
 import { TypeOfForm } from '../form';
 import addDays from 'date-fns/addDays';
+import { latestInvoiceReducer } from './latestInvoiceReducer';
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 
 export interface ContractRow {
   uuid: string,
@@ -19,6 +22,11 @@ export interface ContractRow {
   contractDate: string,
   totalAmountAfterTax: number,
   totalProfit: number,
+
+  latestInvoiceDate: string,
+  latestInvoiceAmount: number,
+  plannedPaymentDate: string,
+  invoiceId: string,
 }
 
 
@@ -84,14 +92,17 @@ export const useFilteredContracts = () => {
           storeName,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
 
-        /* 請求情報 */
+        /* 直近請求情報 */
         const {
           plannedPaymentDate,
           issuedDateTime,
+          billingAmount,
+          uuid: invoiceId,
         } = invoiceData
-          .find(({ estimateLists }) => {
-            return estimateLists.value.some(({ value: { estimateId } }) => estimateId.value ===  uuid.value );
-          }) || {};
+          .reduce(
+            latestInvoiceReducer(uuid.value),
+            undefined as IInvoices | undefined,
+          ) || {};
 
         const formattedDataId = formatDataId(dataId.value);
         const estNum = formattedDataId.slice(-2);
@@ -121,9 +132,13 @@ export const useFilteredContracts = () => {
           estDataId: estNum,
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
-          contractDate: contractDate.value  || '',
-          issuedDateTime: issuedDateTime?.value ?? '',
-          plannedPaymentDate: plannedPaymentDate?.value || '',
+          contractDate:  contractDate?.value  || '',
+
+          latestInvoiceAmount: +(billingAmount?.value || ''),
+          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '-',
+          plannedPaymentDate: plannedPaymentDate?.value || '-',
+          invoiceId: invoiceId?.value || '',
+
           custName: custNames?.value || '',
           projName: projName?.value || '',
           storeName: storeName?.value || '',

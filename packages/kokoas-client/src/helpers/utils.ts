@@ -19,7 +19,7 @@ export function daysInMonth(month: number, year : number) {
 }
 
 export const dateStrToJA = (dateStr: string, withTime = true) => {
-  console.log(dateStr);
+
   if (!dateStr) return '';
   if (withTime) {
     return format( parseISO(dateStr + '9:00'), 'yyyy年MM月dd日 HH:mm');

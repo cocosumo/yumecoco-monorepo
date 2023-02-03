@@ -33,7 +33,7 @@ export const ResultsTHead = () => {
       }}
     >
       <TRowLayout
-        projId={translations.projId}
+        projDataId={translations.projId}
         estNum={translations.estNum}
         projName={translations.projName}
         store={translations.store}

@@ -8,12 +8,13 @@ import { latestInvoiceReducer } from './util/latestInvoiceReducer';
 import { formatDataId } from 'libs';
 import { IInvoices, TEnvelopeStatus } from 'types';
 import { TypeOfForm } from '../form';
+import { itemsSorter } from './util/itemsSorter';
 
 export interface ContractRow {
   uuid: string,
   projId: string,
   projDataId: string,
-  estDataId: string,
+  estimateDataId: string,
   projName: string,
   storeName: string,
   yumeAG: string,
@@ -105,7 +106,6 @@ export const useFilteredContracts = () => {
           ) || {};
 
         const formattedDataId = formatDataId(dataId.value);
-        const estNum = formattedDataId.slice(-2);
         const projDataId = formattedDataId.substring(0, formattedDataId.length - 3);
 
         /* 契約金額と粗利 */
@@ -129,7 +129,7 @@ export const useFilteredContracts = () => {
           uuid: uuid.value,
           projId: projId.value,
           projDataId,
-          estDataId: estNum,
+          estimateDataId: formattedDataId,
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
           contractDate:  contractDate?.value  || '',
@@ -176,11 +176,11 @@ export const useFilteredContracts = () => {
       );
 
       // ソート
-
+      const sortedItems = items.sort(itemsSorter('estimateDataId'));
 
       // 結果
       return {
-        items,
+        items: sortedItems,
         minAmount,
         maxAmount,
       };

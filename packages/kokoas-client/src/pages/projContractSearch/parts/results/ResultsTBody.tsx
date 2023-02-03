@@ -20,7 +20,7 @@ export const ResultsTBody = ({
         uuid,
         projId,
         projDataId,
-        estDataId,
+        estimateDataId,
         projName,
         totalAmountAfterTax,
         totalProfit,
@@ -40,7 +40,7 @@ export const ResultsTBody = ({
         return (
           <TRowLayout
             key={uuid}
-            projId={(
+            projDataId={(
               <Button
                 fullWidth
                 onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
@@ -53,7 +53,7 @@ export const ResultsTBody = ({
                 fullWidth
                 onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`)}
               >
-                {estDataId}
+                {estimateDataId.slice(-2)}
               </Button>
               )}
             projName={projName}

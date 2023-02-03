@@ -22,27 +22,13 @@ export const FormContractSearch = () => {
   } = data || {};
 
   const urlParams = useURLParams<TypeOfForm>();
-  const {
-    amountFrom,
-    amountTo,
-    contractDateFrom,
-    contractDateTo,
-  } = urlParams;
 
   const newValues = useMemo(() => {
     return {
       ...initialValues,
-      contractDateFrom,
-      contractDateTo,
-      amountTo,
-      amountFrom,
+      ...urlParams,
     };
-  }, [
-    amountTo,
-    amountFrom,
-    contractDateFrom,
-    contractDateTo,
-  ]);
+  }, [urlParams]);
 
   const methods = useForm<TypeOfForm>({
     defaultValues: newValues,

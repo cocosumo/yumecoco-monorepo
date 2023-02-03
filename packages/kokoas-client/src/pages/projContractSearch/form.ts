@@ -7,6 +7,8 @@ import { validationSchema } from './formValidation';
 
 
 export const initialValues: TypeOfForm = {
+  order: 'asc',
+  orderBy: 'estimateDataId',
   mainSearch: '',
   contractDateFrom: null,
   contractDateTo: null,
@@ -38,6 +40,10 @@ export const parseValue = <T extends KeyOfForm>(
 
     case 'contractDateFrom': return transformToLabel(value, 'から');
     case 'contractDateTo': return transformToLabel(value, 'まで');
+
+    case 'orderBy':
+    case 'order': return; //テーブルヘッダーで分かるので、Chipとして表示しない
+
     default: return String(value);
   }
 };

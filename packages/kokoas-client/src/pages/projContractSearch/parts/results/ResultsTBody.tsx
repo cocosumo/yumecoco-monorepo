@@ -22,9 +22,9 @@ export const ResultsTBody = ({
         projDataId,
         estimateDataId,
         projName,
-        totalAmountAfterTax,
-        totalProfit,
-        storeName,
+        contractAmount,
+        grossProfit,
+        store,
         yumeAG,
         cocoAG,
         custName,
@@ -41,29 +41,23 @@ export const ResultsTBody = ({
           <TRowLayout
             key={uuid}
             projDataId={(
-              <Button
-                fullWidth
-                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
-              >
+              <Link to={`${pages.projEdit}?${generateParams({ projId })}`}>
                 {projDataId}
-              </Button>
+              </Link>
               )}
             estNum={(
-              <Button
-                fullWidth
-                onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`)}
-              >
+              <Link to={`${pages.projEdit}?${generateParams({ projEstimateId: uuid })}`}>
                 {estimateDataId.slice(-2)}
-              </Button>
+              </Link>
               )}
             projName={projName}
-            store={storeName}
+            store={store}
             yumeAG={yumeAG}
             cocoAG={cocoAG}
             custName={custName}
             contractDate={contractDate}
-            contractAmount={`${totalAmountAfterTax.toLocaleString()}円`}
-            grossProfit={`${totalProfit.toLocaleString()}円`}
+            contractAmount={`${contractAmount.toLocaleString()}円`}
+            grossProfit={`${grossProfit.toLocaleString()}円`}
             latestInvoiceAmount={invoiceId ? (
               <Link to={`${pages.projInvoice}?${generateParams({ invoiceId })}`}>
                 {parsedLatestInvoiceAmount}

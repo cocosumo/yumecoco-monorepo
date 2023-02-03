@@ -1,6 +1,6 @@
 import { TableCellProps, TableHead } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { translations } from '../../../../helpers/translations';
+import { ResultsTHeadSortLabel } from './ResultsTHeadSortLabel';
 import { TRowLayout } from './TRowLayout';
 
 export const headCells = [
@@ -33,19 +33,19 @@ export const ResultsTHead = () => {
       }}
     >
       <TRowLayout
-        projDataId={translations.projId}
-        estNum={translations.estNum}
-        projName={translations.projName}
-        store={translations.store}
-        yumeAG={translations.yumeAG}
-        cocoAG={translations.cocoAG}
-        custName={translations.custName}
-        contractDate={translations.contractDate}
-        contractAmount={translations.contractAmount}
-        latestInvoiceDate={translations.latestInvoiceDate}
-        latestInvoiceAmount={translations.latestInvoiceAmount}
-        plannedPaymentDate={translations.plannedPaymentDate}
-        grossProfit={translations.grossProfit}
+        projDataId={<ResultsTHeadSortLabel headerLabel='projDataId' />}
+        estNum={<ResultsTHeadSortLabel headerLabel='estimateDataId' />}
+        projName={<ResultsTHeadSortLabel headerLabel='projName' />}
+        store={<ResultsTHeadSortLabel headerLabel='store' />}
+        yumeAG={<ResultsTHeadSortLabel headerLabel='yumeAG' />}
+        cocoAG={<ResultsTHeadSortLabel headerLabel='cocoAG' />}
+        custName={<ResultsTHeadSortLabel headerLabel='custName' />}
+        contractDate={<ResultsTHeadSortLabel headerLabel='contractDate' />}
+        contractAmount={<ResultsTHeadSortLabel headerLabel='contractAmount' />}
+        latestInvoiceDate={<ResultsTHeadSortLabel headerLabel='latestInvoiceDate' />}
+        latestInvoiceAmount={<ResultsTHeadSortLabel headerLabel='latestInvoiceAmount' />}
+        plannedPaymentDate={<ResultsTHeadSortLabel headerLabel='plannedPaymentDate' />}
+        grossProfit={<ResultsTHeadSortLabel headerLabel='grossProfit' />}
       />
 
     </TableHead>

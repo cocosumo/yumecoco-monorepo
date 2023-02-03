@@ -16,13 +16,13 @@ export interface ContractRow {
   projDataId: string,
   estimateDataId: string,
   projName: string,
-  storeName: string,
+  store: string,
   yumeAG: string,
   cocoAG: string,
   custName: string,
   contractDate: string,
-  totalAmountAfterTax: number,
-  totalProfit: number,
+  contractAmount: number,
+  grossProfit: number,
 
   latestInvoiceDate: string,
   latestInvoiceAmount: number,
@@ -141,9 +141,9 @@ export const useFilteredContracts = () => {
 
           custName: custNames?.value || '',
           projName: projName?.value || '',
-          storeName: storeName?.value || '',
-          totalAmountAfterTax,
-          totalProfit,
+          store: storeName?.value || '',
+          contractAmount: totalAmountAfterTax,
+          grossProfit: totalProfit,
         };
 
         /* 絞り込み */

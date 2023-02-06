@@ -1,4 +1,3 @@
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useState } from 'react';
@@ -6,7 +5,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import { EstimateSubMenu } from './EstimateSubMenu';
+import { ClaimBoxSubMenu } from './ClaimBoxSubMenu';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 
 
 export default function ClaimBox() {
@@ -20,12 +20,12 @@ export default function ClaimBox() {
     <>
       <ListItemButton onClick={handleClick}>
         <ListItemIcon>
-          <PermIdentityIcon />
+          <HomeRepairServiceIcon />
         </ListItemIcon>
-        <ListItemText primary="クレーム" />
+        <ListItemText primary="クレームBOX" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
-      <EstimateSubMenu open={open} />
+      <ClaimBoxSubMenu open={open} />
     </>
   );
 }

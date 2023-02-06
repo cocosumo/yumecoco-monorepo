@@ -1,7 +1,7 @@
 export const FormClaim = () => {
   return (
     <>
-      Hello
+      クレームボックスは開発中です
     </>
   );
 };

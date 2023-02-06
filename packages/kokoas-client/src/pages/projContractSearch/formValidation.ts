@@ -41,7 +41,8 @@ export const validationSchema = yupJA
         function (value) {
           if (!value || !this.parent.amountTo) return true;
           return value < this.parent.amountTo;
-        }),
+        })
+      .optional(),
     amountTo : yupNumberTransformNaN
       .test(
         'amount-to-more-than-amount-from',
@@ -49,5 +50,6 @@ export const validationSchema = yupJA
         function (value) {
           if (!value || !this.parent.amountFrom) return true;
           return value > this.parent.amountFrom;
-        }),
+        })
+      .optional(),
   });

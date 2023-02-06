@@ -12,8 +12,8 @@ export const initialValues: TypeOfForm = {
   mainSearch: '',
   contractDateFrom: null,
   contractDateTo: null,
-  amountFrom: 0,
-  amountTo: 0,
+  amountFrom: undefined,
+  amountTo: undefined,
 };
 
 

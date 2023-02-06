@@ -42,6 +42,8 @@ export const pages = {
   projPaymentSearch: '/project/payment/search',
   projPaymentInput: '/project/payment/input',
 
+  projClaim: '/project/claim/register',
+
   settings: '/settings',
 
 };

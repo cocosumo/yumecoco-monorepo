@@ -8,6 +8,7 @@ import addDays from 'date-fns/addDays';
 
 export interface ContractRow {
   uuid: string,
+  custGroupId: string,
   projId: string,
   projDataId: string,
   estDataId: string,
@@ -106,6 +107,7 @@ export const useFilteredContracts = () => {
 
         const resultRow = {
           uuid: uuid.value,
+          custGroupId: custGroupId?.value || '',
           projId: projId.value,
           projDataId,
           estDataId: estNum,

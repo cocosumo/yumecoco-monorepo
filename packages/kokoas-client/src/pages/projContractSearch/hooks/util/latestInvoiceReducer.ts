@@ -8,9 +8,6 @@ const isMoreRecent = (acc: IInvoices, cur: IInvoices) => (
   !acc?.issuedDateTime?.value || acc.issuedDateTime.value < cur.issuedDateTime.value
 );
 
-/**
- * 直近の判定は仮実装です。確認お願いします。~ras
-*/
 export const latestInvoiceReducer = (estimateId: string) =>
   (acc: IInvoices, cur: IInvoices) => (
     isInvoiceOfEstimateId(cur, estimateId) && isMoreRecent(acc, cur)

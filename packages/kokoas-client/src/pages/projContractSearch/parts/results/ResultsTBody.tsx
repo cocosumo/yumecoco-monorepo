@@ -18,6 +18,7 @@ export const ResultsTBody = ({
     <TableBody>
       {items?.map(({
         uuid,
+        custGroupId,
         projId,
         projDataId,
         estimateDataId,
@@ -68,7 +69,7 @@ export const ResultsTBody = ({
             menu={(
               <Button
                 fullWidth
-                onClick={() => navigate(`${pages.projInvoice}?${generateParams({ projEstimateId: uuid })}`)}
+                onClick={() => navigate(`${pages.projInvoice}?${generateParams({ custGroupId, projEstimateId: uuid })}`)}
               >
                 請求入力
               </Button>)}

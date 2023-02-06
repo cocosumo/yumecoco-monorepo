@@ -12,6 +12,7 @@ import { itemsSorter } from './util/itemsSorter';
 
 export interface ContractRow {
   uuid: string,
+  custGroupId: string,
   projId: string,
   projDataId: string,
   estimateDataId: string,
@@ -129,6 +130,7 @@ export const useFilteredContracts = () => {
 
         const resultRow = {
           uuid: uuid.value,
+          custGroupId: custGroupId?.value || '',
           projId: projId.value,
           projDataId,
           estimateDataId: formattedDataId,

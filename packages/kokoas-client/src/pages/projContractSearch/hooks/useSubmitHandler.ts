@@ -1,7 +1,7 @@
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../form';
-import qs from 'querystring';
+import qs from 'qs';
 import { filterNonNull } from 'libs';
 import { useNavigate } from 'react-router-dom';
 

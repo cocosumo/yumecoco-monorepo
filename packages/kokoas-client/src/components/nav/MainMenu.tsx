@@ -9,6 +9,7 @@ import SystemMenu from './menus/SystemMenu';
 import { ConstructionMenu } from './menus/ConstructionMenu';
 import EstimateMenu from './menus/EstimateMenu';
 import PaymentMenu from './menus/PaymentMenu';
+import ClaimBox from './menus/ClaimBox';
 
 export default function MainMenu() {
   return (
@@ -22,6 +23,7 @@ export default function MainMenu() {
         {/* <CustomerManagementMenu /> */}
         <ContractMenu />
         <PaymentMenu />
+        <ClaimBox />
       </List>
       <Divider />
       <SystemMenu />

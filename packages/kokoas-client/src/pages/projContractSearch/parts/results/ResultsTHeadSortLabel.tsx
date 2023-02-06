@@ -1,4 +1,5 @@
 import { TableSortLabel } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { translations } from 'kokoas-client/src/helpers/translations';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { TypeOfForm } from '../../form';
@@ -27,6 +28,10 @@ export const ResultsTHeadSortLabel = ({
             order: order === 'asc' ? 'desc' : 'asc',
           },
         });
+      }}
+      sx={{
+        fontWeight: 700,
+        color: grey[600],
       }}
     >
       {translations[headerLabel as string]}

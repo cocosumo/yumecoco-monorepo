@@ -1,5 +1,6 @@
 import { TableCellProps, TableHead } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { translations } from 'kokoas-client/src/helpers/translations';
 import { ResultsTHeadSortLabel } from './ResultsTHeadSortLabel';
 import { TRowLayout } from './TRowLayout';
 
@@ -33,7 +34,7 @@ export const ResultsTHead = () => {
       }}
     >
       <TRowLayout
-        projDataId={<ResultsTHeadSortLabel headerLabel='projDataId' />}
+        projDataId={translations.projDataId}
         estNum={<ResultsTHeadSortLabel headerLabel='estimateDataId' />}
         projName={<ResultsTHeadSortLabel headerLabel='projName' />}
         store={<ResultsTHeadSortLabel headerLabel='store' />}

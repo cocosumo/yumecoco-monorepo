@@ -12,6 +12,11 @@ export const TRowLayout = ({
   contractDate,
   contractAmount,
   grossProfit,
+
+  latestInvoiceDate,
+  latestInvoiceAmount,
+  plannedPaymentDate,
+
   menu,
   tableRowProps,
 }: {
@@ -25,6 +30,10 @@ export const TRowLayout = ({
   contractDate: ReactNode,
   contractAmount: ReactNode,
   grossProfit: ReactNode,
+
+  latestInvoiceDate: ReactNode,
+  latestInvoiceAmount: ReactNode,
+  plannedPaymentDate: ReactNode,
   menu?: ReactNode,
   tableRowProps?: TableRowProps
 }) => {
@@ -37,6 +46,10 @@ export const TRowLayout = ({
       </TableCell>
       <TableCell>
         {projName}
+        <br />
+        {custName}
+        <br />
+        {contractDate}
       </TableCell>
       <TableCell>
         {store}
@@ -46,9 +59,11 @@ export const TRowLayout = ({
         {cocoAG}
       </TableCell>
       <TableCell>
-        {custName}
+        {latestInvoiceAmount}
         <br />
-        {contractDate}
+        {latestInvoiceDate}
+        <br />
+        {plannedPaymentDate}
       </TableCell>
       <TableCell align='right'>
         {contractAmount}

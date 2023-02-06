@@ -1,7 +1,7 @@
 import { Button, TableBody } from '@mui/material';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from 'kokoas-client/src/pages/Router';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 
@@ -30,7 +30,13 @@ export const ResultsTBody = ({
         cocoAG,
         custName,
         contractDate,
+        latestInvoiceAmount,
+        latestInvoiceDate,
+        plannedPaymentDate,
+        invoiceId,
       })=>{
+
+        const parsedLatestInvoiceAmount = `${latestInvoiceAmount.toLocaleString()} 円`;
 
         return (
           <TRowLayout
@@ -59,6 +65,13 @@ export const ResultsTBody = ({
             contractDate={contractDate}
             contractAmount={`${totalAmountAfterTax.toLocaleString()}円`}
             grossProfit={`${totalProfit.toLocaleString()}円`}
+            latestInvoiceAmount={invoiceId ? (
+              <Link to={`${pages.projInvoice}?${generateParams({ invoiceId })}`}>
+                {parsedLatestInvoiceAmount}
+              </Link>
+            ) : parsedLatestInvoiceAmount}
+            latestInvoiceDate={latestInvoiceDate}
+            plannedPaymentDate={plannedPaymentDate}
             menu={(
               <Button
                 fullWidth

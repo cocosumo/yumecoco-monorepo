@@ -42,6 +42,9 @@ export const ResultsTHead = () => {
         custName={translations.custName}
         contractDate={translations.contractDate}
         contractAmount={translations.contractAmount}
+        latestInvoiceDate={translations.latestInvoiceDate}
+        latestInvoiceAmount={translations.latestInvoiceAmount}
+        plannedPaymentDate={translations.plannedPaymentDate}
         grossProfit={translations.grossProfit}
       />
 

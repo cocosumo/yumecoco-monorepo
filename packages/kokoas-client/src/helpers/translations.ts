@@ -15,10 +15,12 @@ export const translations: Record<string, string> = {
   projType: '工事種別',
   store: '店舗名',
   yumeAG: 'ゆめてつAG',
-
+  latestInvoiceDate: '直近請求日',
+  latestInvoiceAmount: '直近請求金額',
+  plannedPaymentDate: '入金予定日',
   tel: '電話番号',
   email: 'メアド',
 
   completed: '完了',
 
-};
+} as const;

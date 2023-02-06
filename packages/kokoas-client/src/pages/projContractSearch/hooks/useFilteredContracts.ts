@@ -1,10 +1,13 @@
 import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useCustGroups, useEstimates, useProjects } from 'kokoas-client/src/hooksQuery';
+import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
-import { TEnvelopeStatus } from 'types';
+import { IInvoices, TEnvelopeStatus } from 'types';
 import { TypeOfForm } from '../form';
 import addDays from 'date-fns/addDays';
+import { latestInvoiceReducer } from './util/latestInvoiceReducer';
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 
 export interface ContractRow {
   uuid: string,
@@ -20,6 +23,11 @@ export interface ContractRow {
   contractDate: string,
   totalAmountAfterTax: number,
   totalProfit: number,
+
+  latestInvoiceDate: string,
+  latestInvoiceAmount: number,
+  plannedPaymentDate: string,
+  invoiceId: string,
 }
 
 
@@ -44,12 +52,13 @@ export const useFilteredContracts = () => {
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
+  const { data: invoiceData } = useInvoices();
 
   return useEstimates({
-    enabled: !!projData && !!custGroupData,
+    enabled: !!projData && !!custGroupData && !!invoiceData,
     select: (d) => {
 
-      if (!projData || !custGroupData) return;
+      if (!projData || !custGroupData || !invoiceData) return;
 
       let minAmount = 0;
       let maxAmount = 0;
@@ -76,6 +85,7 @@ export const useFilteredContracts = () => {
           custGroupId,
         } = projData.find((projRec) => projRec.uuid.value === projId.value ) || {};
 
+        /* 顧客情報 */
         const {
           custNames,
           cocoAGNames,
@@ -83,6 +93,17 @@ export const useFilteredContracts = () => {
           storeName,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
 
+        /* 直近請求情報 */
+        const {
+          plannedPaymentDate,
+          issuedDateTime,
+          billingAmount,
+          uuid: invoiceId,
+        } = invoiceData
+          .reduce(
+            latestInvoiceReducer(uuid.value),
+            undefined as IInvoices | undefined,
+          ) || {};
 
         const formattedDataId = formatDataId(dataId.value);
         const estNum = formattedDataId.slice(-2);
@@ -113,7 +134,13 @@ export const useFilteredContracts = () => {
           estDataId: estNum,
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
-          contractDate: contractDate.value  || '',
+          contractDate:  contractDate?.value  || '',
+
+          latestInvoiceAmount: +(billingAmount?.value || ''),
+          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '-',
+          plannedPaymentDate: plannedPaymentDate?.value || '-',
+          invoiceId: invoiceId?.value || '',
+
           custName: custNames?.value || '',
           projName: projName?.value || '',
           storeName: storeName?.value || '',

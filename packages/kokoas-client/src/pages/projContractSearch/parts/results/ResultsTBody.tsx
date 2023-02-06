@@ -46,7 +46,7 @@ export const ResultsTBody = ({
               </Link>
               )}
             estNum={(
-              <Link to={`${pages.projEdit}?${generateParams({ projEstimateId: uuid })}`}>
+              <Link to={`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`}>
                 {estimateDataId.slice(-2)}
               </Link>
               )}

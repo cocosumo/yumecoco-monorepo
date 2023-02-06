@@ -31,7 +31,7 @@ const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') =>
 export const parseValue = <T extends KeyOfForm>(
   name: T, value: TypeOfForm[T],
 ) => {
-  if (!value) return;
+  if ( typeof value !== 'number' && !value) return;
 
   switch (name) {
 

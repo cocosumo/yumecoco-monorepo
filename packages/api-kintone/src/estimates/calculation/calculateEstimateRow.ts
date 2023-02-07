@@ -95,7 +95,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
     ...params,
   };
 
-  result.costPrice = params.costPrice ?? 0;
+  result.costPrice = params.costPrice || 0;
 
   /* 行の原価合計 */
   result.rowCostPrice = Big(result.costPrice).mul(params.quantity).round(0).toNumber();

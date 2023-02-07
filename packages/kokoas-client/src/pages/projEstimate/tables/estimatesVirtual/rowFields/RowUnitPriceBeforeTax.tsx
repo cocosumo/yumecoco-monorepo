@@ -1,12 +1,11 @@
 import { calculateEstimateRow } from 'api-kintone';
-import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { debounce } from 'lodash';
 import { useMemo } from 'react';
-import { useWatch } from 'react-hook-form';
-import { getItemsFieldName } from '../../../form';
-import { useEstField } from '../../../hooks/useEstField';
+import { useFormContext } from 'react-hook-form';
+import { getItemsFieldName, TypeOfForm } from '../../../form';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
+import { ControlledMaskedCurrencyInput } from './ControlledMaskedCurrencyInput';
 
 export const RowUnitPriceBeforeTax = ({
   rowIdx,
@@ -18,37 +17,14 @@ export const RowUnitPriceBeforeTax = ({
   handleUpdateSummary: UseSmartHandlers['handleUpdateSummary']
 }) => {
   const { setSnackState } = useSnackBar();
-  const {
-    fieldName,
-    formContext: {
-      register,
-      getValues,
-      setValue,
-      control,
-    },
-    ...fieldProps
-  } = useEstField({
-    fieldName: 'rowUnitPriceBeforeTax',
-    rowIdx,
-  });
-
-  const [
-    quantity,
-    envStatus,
-  ] = useWatch({
-    name: [
-      getItemsFieldName(rowIdx, 'quantity'),
-      'envStatus',
-    ],
-    control,
-  });
+  const { getValues, setValue } = useFormContext<TypeOfForm>();
 
 
   /* 入力した値を検証する */
   const handleAmountCorrection = useMemo(
     () => debounce(
       () => {
-
+        console.log('fired!');
         const taxRate = getValues('taxRate') / 100;
         const newRowUnitPriceBeforeTax = getValues(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'));
         const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));
@@ -83,18 +59,14 @@ export const RowUnitPriceBeforeTax = ({
 
 
   return (
-    <OutlinedMoneyInput
-      {...fieldProps}
-      {...register(
-        fieldName,
-        {
-          onChange: () => {
-            handleChange(rowIdx);
-            handleAmountCorrection();
-          },
-        })
-      }
-      disabled={!!envStatus || !+(quantity ?? 0)}
+    <ControlledMaskedCurrencyInput
+      rowIdx={rowIdx}
+      handleChange={() => {
+        handleChange(rowIdx);
+        handleAmountCorrection();
+      }}
+      fieldName={'rowUnitPriceBeforeTax'}
     />
+
   );
 };

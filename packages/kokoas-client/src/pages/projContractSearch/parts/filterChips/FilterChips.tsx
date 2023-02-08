@@ -16,7 +16,7 @@ export const FilterChips = () => {
   }, [values, navigate]);
 
   return (
-    <Stack direction={'row'} spacing={1} mt={2}>
+    <Stack direction={'row'} spacing={1} my={2}>
       {Object.entries(values)
         .sort(([k1], [k2]) => {
           return k1.localeCompare(k2);

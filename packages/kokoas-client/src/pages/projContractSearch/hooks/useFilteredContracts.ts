@@ -1,28 +1,29 @@
+import addDays from 'date-fns/addDays';
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
+import { latestInvoiceReducer } from './util/latestInvoiceReducer';
 import { formatDataId } from 'libs';
 import { IInvoices, TEnvelopeStatus } from 'types';
-import { TypeOfForm } from '../form';
-import addDays from 'date-fns/addDays';
-import { latestInvoiceReducer } from './util/latestInvoiceReducer';
-import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
+import { initialValues, TypeOfForm } from '../form';
+import { itemsSorter } from './util/itemsSorter';
 
 export interface ContractRow {
   uuid: string,
   custGroupId: string,
   projId: string,
   projDataId: string,
-  estDataId: string,
+  estimateDataId: string,
   projName: string,
-  storeName: string,
+  store: string,
   yumeAG: string,
   cocoAG: string,
   custName: string,
   contractDate: string,
-  totalAmountAfterTax: number,
-  totalProfit: number,
+  contractAmount: number,
+  grossProfit: number,
 
   latestInvoiceDate: string,
   latestInvoiceAmount: number,
@@ -46,6 +47,8 @@ export const useFilteredContracts = () => {
     amountTo,
     contractDateFrom,
     contractDateTo,
+    order = initialValues.order,
+    orderBy = initialValues.orderBy || 'estimateDataId',
   } = useURLParams<TypeOfForm>();
 
 
@@ -106,7 +109,6 @@ export const useFilteredContracts = () => {
           ) || {};
 
         const formattedDataId = formatDataId(dataId.value);
-        const estNum = formattedDataId.slice(-2);
         const projDataId = formattedDataId.substring(0, formattedDataId.length - 3);
 
         /* 契約金額と粗利 */
@@ -131,21 +133,21 @@ export const useFilteredContracts = () => {
           custGroupId: custGroupId?.value || '',
           projId: projId.value,
           projDataId,
-          estDataId: estNum,
+          estimateDataId: formattedDataId,
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
           contractDate:  contractDate?.value  || '',
 
           latestInvoiceAmount: +(billingAmount?.value || ''),
-          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '-',
-          plannedPaymentDate: plannedPaymentDate?.value || '-',
+          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '',
+          plannedPaymentDate: plannedPaymentDate?.value || '',
           invoiceId: invoiceId?.value || '',
 
           custName: custNames?.value || '',
           projName: projName?.value || '',
-          storeName: storeName?.value || '',
-          totalAmountAfterTax,
-          totalProfit,
+          store: storeName?.value || '',
+          contractAmount: totalAmountAfterTax,
+          grossProfit: totalProfit,
         };
 
         /* 絞り込み */
@@ -177,11 +179,12 @@ export const useFilteredContracts = () => {
       [] as ContractRow[],
       );
 
+      // ソート
+      const sortedItems = items.sort(itemsSorter({ order, orderBy }));
 
       // 結果
-
       return {
-        items,
+        items: sortedItems,
         minAmount,
         maxAmount,
       };

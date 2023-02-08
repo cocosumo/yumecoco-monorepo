@@ -21,11 +21,11 @@ export const ResultsTBody = ({
         custGroupId,
         projId,
         projDataId,
-        estDataId,
+        estimateDataId,
         projName,
-        totalAmountAfterTax,
-        totalProfit,
-        storeName,
+        contractAmount,
+        grossProfit,
+        store,
         yumeAG,
         cocoAG,
         custName,
@@ -41,37 +41,31 @@ export const ResultsTBody = ({
         return (
           <TRowLayout
             key={uuid}
-            projId={(
-              <Button
-                fullWidth
-                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
-              >
+            projDataId={(
+              <Link to={`${pages.projEdit}?${generateParams({ projId })}`}>
                 {projDataId}
-              </Button>
+              </Link>
               )}
             estNum={(
-              <Button
-                fullWidth
-                onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`)}
-              >
-                {estDataId}
-              </Button>
+              <Link to={`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`}>
+                {estimateDataId.slice(-2)}
+              </Link>
               )}
             projName={projName}
-            store={storeName}
+            store={store}
             yumeAG={yumeAG}
             cocoAG={cocoAG}
             custName={custName}
             contractDate={contractDate}
-            contractAmount={`${totalAmountAfterTax.toLocaleString()}円`}
-            grossProfit={`${totalProfit.toLocaleString()}円`}
+            contractAmount={`${contractAmount.toLocaleString()}円`}
+            grossProfit={`${grossProfit.toLocaleString()}円`}
             latestInvoiceAmount={invoiceId ? (
               <Link to={`${pages.projInvoice}?${generateParams({ invoiceId })}`}>
                 {parsedLatestInvoiceAmount}
               </Link>
             ) : parsedLatestInvoiceAmount}
-            latestInvoiceDate={latestInvoiceDate}
-            plannedPaymentDate={plannedPaymentDate}
+            latestInvoiceDate={latestInvoiceDate || '-'}
+            plannedPaymentDate={plannedPaymentDate || '-'}
             menu={(
               <Button
                 fullWidth

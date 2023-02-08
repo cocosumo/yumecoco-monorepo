@@ -1,5 +1,6 @@
+import { TableSortLabelProps } from '@mui/material';
 import { yupJA, yupValidations } from 'kokoas-client/src/helpers/yupLocaleJA';
-
+import { ContractRow } from './hooks/useFilteredContracts';
 
 const {
   yupNumberTransformNaN,
@@ -11,6 +12,8 @@ const amountRangeErrorMsg =  '最小金額は最大金額より小さい必要�
 
 export const validationSchema = yupJA
   .object({
+    orderBy: yupJA.mixed<keyof ContractRow>(),
+    order: yupJA.mixed<TableSortLabelProps['direction']>().oneOf(['asc', 'desc']),
     mainSearch : yupJA.string(),
     contractDateFrom: yupDate
       .test(
@@ -38,7 +41,8 @@ export const validationSchema = yupJA
         function (value) {
           if (!value || !this.parent.amountTo) return true;
           return value < this.parent.amountTo;
-        }),
+        })
+      .optional(),
     amountTo : yupNumberTransformNaN
       .test(
         'amount-to-more-than-amount-from',
@@ -46,5 +50,6 @@ export const validationSchema = yupJA
         function (value) {
           if (!value || !this.parent.amountFrom) return true;
           return value > this.parent.amountFrom;
-        }),
+        })
+      .optional(),
   });

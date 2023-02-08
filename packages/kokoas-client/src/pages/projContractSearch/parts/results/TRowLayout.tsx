@@ -2,7 +2,7 @@ import { TableCell, TableRow, TableRowProps } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const TRowLayout = ({
-  projId,
+  projDataId,
   estNum,
   projName,
   store,
@@ -12,10 +12,15 @@ export const TRowLayout = ({
   contractDate,
   contractAmount,
   grossProfit,
+
+  latestInvoiceDate,
+  latestInvoiceAmount,
+  plannedPaymentDate,
+
   menu,
   tableRowProps,
 }: {
-  projId: ReactNode,
+  projDataId: ReactNode,
   estNum: ReactNode,
   projName: ReactNode,
   store: ReactNode,
@@ -25,18 +30,26 @@ export const TRowLayout = ({
   contractDate: ReactNode,
   contractAmount: ReactNode,
   grossProfit: ReactNode,
+
+  latestInvoiceDate: ReactNode,
+  latestInvoiceAmount: ReactNode,
+  plannedPaymentDate: ReactNode,
   menu?: ReactNode,
   tableRowProps?: TableRowProps
 }) => {
   return (
     <TableRow {...tableRowProps}>
-      <TableCell align='center'>
-        {projId}
+      <TableCell >
+        {projDataId}
         <br />
         {estNum}
       </TableCell>
       <TableCell>
         {projName}
+        <br />
+        {custName}
+        <br />
+        {contractDate}
       </TableCell>
       <TableCell>
         {store}
@@ -46,9 +59,11 @@ export const TRowLayout = ({
         {cocoAG}
       </TableCell>
       <TableCell>
-        {custName}
+        {latestInvoiceAmount}
         <br />
-        {contractDate}
+        {latestInvoiceDate}
+        <br />
+        {plannedPaymentDate}
       </TableCell>
       <TableCell align='right'>
         {contractAmount}

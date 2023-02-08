@@ -24,7 +24,6 @@ export const RowUnitPriceBeforeTax = ({
   const handleAmountCorrection = useMemo(
     () => debounce(
       () => {
-        console.log('fired!');
         const taxRate = getValues('taxRate') / 100;
         const newRowUnitPriceBeforeTax = getValues(getItemsFieldName<'items.0.rowUnitPriceBeforeTax'>(rowIdx, 'rowUnitPriceBeforeTax'));
         const isTaxable = getValues(getItemsFieldName<'items.0.taxable'>(rowIdx, 'taxable'));

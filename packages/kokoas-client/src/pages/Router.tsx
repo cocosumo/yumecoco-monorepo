@@ -11,6 +11,7 @@ import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
 import { FormContractSearch } from './projContractSearch/FormContractSearch';
+import { FormClaim } from './projClaim/FormClaim';
 
 
 
@@ -41,6 +42,8 @@ export const pages = {
   projInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',
   projPaymentInput: '/project/payment/input',
+
+  projClaim: '/project/claim/register',
 
   settings: '/settings',
 
@@ -83,6 +86,8 @@ const Router = () => (
     <Route path={`${pages.projPaymentSearch}`} element={'入金予定一覧ページ：未対応'} />
     <Route path={`${pages.projPaymentInput}`} element={'入金情報入力ページ：未対応'} />
 
+    {/* クレームボックス */}
+    <Route path={`${pages.projClaim}`} element={<FormClaim />} />
     {/* 設定 */}
     <Route path={`${pages.settings}/*`} element={<SettingsPage />} />
 

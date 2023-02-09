@@ -1,6 +1,7 @@
 import { TableCell, TableRow } from '@mui/material';
 import { TMaterials } from '../form';
 import { roundTo } from 'libs';
+import { Big } from 'big.js';
 
 /** 税額　※当面は10%で固定とする */
 const taxRate = 0.1;
@@ -24,19 +25,42 @@ export const BillingTotalBody = ({
       if (isForPayment !== true) return acc;
 
       /* 課税対象分から請求に使用していく */
-      const taxableAmount = (contractAmount - nonTaxableAmount - billedAmount);
+      const bTaxableAmount = Big(contractAmount).minus(nonTaxableAmount).minus(billedAmount);
+      const bTax = Big(1).plus(taxRate);
+        
+      if (contractAmount >= 0) { /* 請求書(契約金額が0円以上)の場合 */
 
-      let billingAmountBeforeTax = 0;
-      if ((taxableAmount - billingAmount) >= 0) {
-        billingAmountBeforeTax = billingAmount / (1 + taxRate);
-      } else {
-        billingAmountBeforeTax = (taxableAmount / (1 + taxRate)) + (billingAmount - taxableAmount);
+        let billingAmountBeforeTax = 0;
+        if (bTaxableAmount.toNumber() <= 0) { /* 課税対象金額を使い切っている場合 */
+          billingAmountBeforeTax = billingAmount;
+        } else if (Big(bTaxableAmount).minus(billingAmount).toNumber() >= 0) { /* 請求額が全額課税対象の場合 */
+          billingAmountBeforeTax = Big(billingAmount).div(bTax).toNumber();
+        } else { /* 請求金額に課税と非課税が混在する場合 */
+          const bNontaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
+          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNontaxalbeBillingAmount).toNumber();
+        }
+
+        return {
+          billingTotalAfterTax: acc.billingTotalAfterTax + billingAmount,
+          billingTotalBeforeTax: acc.billingTotalBeforeTax + billingAmountBeforeTax,
+        };
+      } else {  /* 返金の契約書の場合 */
+
+        let billingAmountBeforeTax = 0;
+        if (bTaxableAmount.toNumber() >= 0) { /* 課税対象金額を使い切っている場合 */
+          billingAmountBeforeTax = billingAmount;
+        } else if (Big(bTaxableAmount).minus(billingAmount).toNumber() <= 0) { /* 請求額が全額課税対象の場合 */
+          billingAmountBeforeTax = Big(billingAmount).div(bTax).toNumber();
+        } else { /* 請求金額に課税と非課税が混在する場合 */
+          const bNontaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
+          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNontaxalbeBillingAmount).toNumber();
+        }
+
+        return {
+          billingTotalAfterTax: acc.billingTotalAfterTax + billingAmount,
+          billingTotalBeforeTax: acc.billingTotalBeforeTax + billingAmountBeforeTax,
+        };
       }
-
-      return {
-        billingTotalAfterTax: acc.billingTotalAfterTax + billingAmount,
-        billingTotalBeforeTax: acc.billingTotalBeforeTax + billingAmountBeforeTax,
-      };
     }, {
       billingTotalAfterTax: 0,
       billingTotalBeforeTax: 0,

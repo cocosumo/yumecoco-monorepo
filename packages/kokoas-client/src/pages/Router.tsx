@@ -81,7 +81,7 @@ const Router = () => (
     <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />
 
     {/* 入金管理グループ */}
-    <Route path={`${pages.projInvoice}`} element={isProd ? <FormikInvoice /> : <UnderDevelopment />} />
+    <Route path={`${pages.projInvoice}`} element={isProd ? <UnderDevelopment /> : <FormikInvoice />} />
     <Route path={`${pages.projPaymentSearch}`} element={<UnderDevelopment />} />
     <Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} />
 

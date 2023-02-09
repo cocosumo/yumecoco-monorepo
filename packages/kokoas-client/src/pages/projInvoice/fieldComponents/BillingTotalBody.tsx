@@ -13,6 +13,8 @@ export const BillingTotalBody = ({
     return acc + cur.billingAmount;
   }, 0);
 
+  /* 税抜金額の算出処理を移管する */
+
   return (
     <TableRow>
       <TableCell>

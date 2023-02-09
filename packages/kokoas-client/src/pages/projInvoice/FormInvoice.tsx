@@ -3,7 +3,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
@@ -106,9 +106,14 @@ export const FormInvoice = () => {
 
             {/* 請求入力欄(テーブル) */}
             <Grid item xs={12} md={12}>
-              <Typography>
-                {'請求入力欄'}
-              </Typography>
+              <Stack direction={'row'}>
+                <Typography>
+                  {'請求入力欄　'}
+                </Typography>
+                <Typography variant={'caption'}>
+                  {'※請求には課税対象分から使用し、非課税額は最後に使用します'}
+                </Typography>
+              </Stack>
               <BillingEntryTable exceeded={exceeded} />
             </Grid>
 
@@ -116,7 +121,7 @@ export const FormInvoice = () => {
             <Grid item xs={12} md={12}>
               <Divider />
             </Grid>
-            
+
 
             {/* 請求合計 */}
             <Grid item xs={12} md={7}>

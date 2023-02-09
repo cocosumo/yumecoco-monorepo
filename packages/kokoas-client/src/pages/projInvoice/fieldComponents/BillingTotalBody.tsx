@@ -74,7 +74,7 @@ export const BillingTotalBody = ({
         {'請求合計'}
       </TableCell>
       <TableCell align="right">
-        {roundTo(result.billingTotalBeforeTax, 2).toLocaleString()}
+        {Big(result.billingTotalBeforeTax).round(2).toLocaleString()}
       </TableCell>
       <TableCell align="right">
         {result.billingTotalAfterTax.toLocaleString()}

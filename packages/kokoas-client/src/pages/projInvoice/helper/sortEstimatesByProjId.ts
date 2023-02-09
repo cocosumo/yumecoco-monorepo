@@ -23,6 +23,7 @@ export const sortEstimatesByProjId = ({
       projTypeName: record.工事種別名.value,
       dataId: record.dataId.value || '',
       contractAmount: calculated?.[idx].summary.totalAmountAfterTax,
+      nonTaxableAmount: calculated?.[idx].summary.totalNonTaxableAmount,
       billedAmount: 0,
       billingAmount: 0,
       amountType: '',

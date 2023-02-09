@@ -1,8 +1,10 @@
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useContractsByCustGroupId, useCustGroupById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByCustGroupId, useCustGroupById, useInvoicesById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useEffect } from 'react';
+import { convertCustDataToForm } from '../api/convertCustDataToForm';
+import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
 import { initialValues, TypeOfForm } from '../form';
 import { sortEstimatesByProjId } from '../helper/sortEstimatesByProjId';
 
@@ -19,29 +21,32 @@ export const useResolveParams = () => {
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { data: custData } = useCustGroupById(custGroupIdFromURL || '');
-  const { data: contracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
-  const { data: invoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
+  const { data: recInvoice } = useInvoicesById(projInvoiceIdFromURL || '');
+  const custGroupIdFromInvoice = recInvoice?.record.custGroupId.value;
 
+  const { data: custData } = useCustGroupById(custGroupIdFromURL || custGroupIdFromInvoice || '');
+  const { data: recContracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
+  const { data: recInvoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
 
 
   useEffect(() => {
 
-    if (projInvoiceIdFromURL) {
-      /* 処理を更新する */
+    if (projInvoiceIdFromURL && recInvoice && custData) {
       setValues((prev) => ({
         ...prev,
+        ...convertCustDataToForm(custData),
+        ...convertInvoiceToForm(recInvoice.record),
         invoiceId: projInvoiceIdFromURL,
       }));
-    } else if (custGroupIdFromURL && custData && contracts) {
+    } else if (custGroupIdFromURL && custData && recContracts) {
 
-      const newEstimates = sortEstimatesByProjId(contracts);
+      const newEstimates = sortEstimatesByProjId(recContracts);
 
       const newValues = produce(initialValues, (draft) => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
-          const tgtBilledAmount = invoices?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+          const tgtBilledAmount = recInvoices?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
 
           draft.estimates[idx] = {
             estimateIndex: String(idx),
@@ -64,6 +69,14 @@ export const useResolveParams = () => {
       setValues(initialValues);
     }
 
-  }, [custGroupIdFromURL, projInvoiceIdFromURL, setValues, custData, contracts, invoices]);
+  }, [
+    custGroupIdFromURL,
+    projInvoiceIdFromURL,
+    setValues,
+    custData,
+    recContracts,
+    recInvoices,
+    recInvoice,
+  ]);
 
 };

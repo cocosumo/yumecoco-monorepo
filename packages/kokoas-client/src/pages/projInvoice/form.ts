@@ -36,7 +36,7 @@ export const initialValues = {
       /** 契約金額の総額 */
       contractAmount: 0,
 
-      /** 契約金額(税抜) */
+      /** 契約金額の非課税金額 */
       nonTaxableAmount : 0,
 
       /** 請求済み金額 */

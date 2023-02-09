@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { URLParams } from '../helpers/url';
 
@@ -22,6 +23,8 @@ export const useURLParams = <T = URLParams>() => {
     search,
   } = useLocation();
 
-  const params = Object.fromEntries(new URLSearchParams(search));
-  return params as T;
+  const queryParams = useMemo(() =>Object.fromEntries(new URLSearchParams(search)), [search]);
+
+
+  return queryParams as T;
 };

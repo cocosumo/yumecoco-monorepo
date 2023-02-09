@@ -7,11 +7,13 @@ import { validationSchema } from './formValidation';
 
 
 export const initialValues: TypeOfForm = {
+  order: 'asc',
+  orderBy: 'estimateDataId',
   mainSearch: '',
   contractDateFrom: null,
   contractDateTo: null,
-  amountFrom: 0,
-  amountTo: 0,
+  amountFrom: undefined,
+  amountTo: undefined,
 };
 
 
@@ -29,7 +31,7 @@ const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') =>
 export const parseValue = <T extends KeyOfForm>(
   name: T, value: TypeOfForm[T],
 ) => {
-  if (!value) return;
+  if ( typeof value !== 'number' && !value) return;
 
   switch (name) {
 
@@ -38,6 +40,10 @@ export const parseValue = <T extends KeyOfForm>(
 
     case 'contractDateFrom': return transformToLabel(value, 'から');
     case 'contractDateTo': return transformToLabel(value, 'まで');
+
+    case 'orderBy':
+    case 'order': return; //テーブルヘッダーで分かるので、Chipとして表示しない
+
     default: return String(value);
   }
 };

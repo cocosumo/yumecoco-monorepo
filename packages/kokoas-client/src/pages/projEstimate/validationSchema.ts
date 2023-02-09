@@ -49,9 +49,9 @@ export const validationSchema = yupJA
     'items': yupJA.array()
       .of(
         yupJA.object({
-          majorItem: yupJA.string(), // 大項目
-          middleItem: yupJA.string(), // 中項目
-          material: yupJA.string(),  // 部材
+          majorItem: yupJA.string().nullable(), // 大項目
+          middleItem: yupJA.string().nullable(), // 中項目
+          material: yupJA.string().nullable(),  // 部材
           costPrice: yupNumber.required(), // 原価
           quantity: yupNumber.required(), // 数量
           rowCostPrice: yupNumber.required(),

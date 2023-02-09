@@ -36,8 +36,8 @@ export const BillingTotalBody = ({
         } else if (Big(bTaxableAmount).minus(billingAmount).toNumber() >= 0) { /* 請求額が全額課税対象の場合 */
           billingAmountBeforeTax = Big(billingAmount).div(bTax).toNumber();
         } else { /* 請求金額に課税と非課税が混在する場合 */
-          const bNontaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
-          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNontaxalbeBillingAmount).toNumber();
+          const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
+          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber();
         }
 
         return {
@@ -52,8 +52,8 @@ export const BillingTotalBody = ({
         } else if (Big(bTaxableAmount).minus(billingAmount).toNumber() <= 0) { /* 請求額が全額課税対象の場合 */
           billingAmountBeforeTax = Big(billingAmount).div(bTax).toNumber();
         } else { /* 請求金額に課税と非課税が混在する場合 */
-          const bNontaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
-          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNontaxalbeBillingAmount).toNumber();
+          const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
+          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber();
         }
 
         return {

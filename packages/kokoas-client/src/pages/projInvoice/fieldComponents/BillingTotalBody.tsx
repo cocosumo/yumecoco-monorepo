@@ -41,8 +41,8 @@ export const BillingTotalBody = ({
         }
 
         return {
-          billingTotalAfterTax: acc.billingTotalAfterTax + billingAmount,
-          billingTotalBeforeTax: acc.billingTotalBeforeTax + billingAmountBeforeTax,
+          billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount).toNumber(),
+          billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax).toNumber(),
         };
       } else {  /* 返金の契約書の場合 */
 
@@ -57,8 +57,8 @@ export const BillingTotalBody = ({
         }
 
         return {
-          billingTotalAfterTax: acc.billingTotalAfterTax + billingAmount,
-          billingTotalBeforeTax: acc.billingTotalBeforeTax + billingAmountBeforeTax,
+          billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount).toNumber(),
+          billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax).toNumber(),
         };
       }
     }, {

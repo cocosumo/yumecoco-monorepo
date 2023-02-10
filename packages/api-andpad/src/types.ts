@@ -20,6 +20,8 @@ export const saveProjectData = z.object({
   '顧客名': z.string(),
   '物件名': z.string(),
   '物件管理ID': z.string(),
+  'ラベル:工事内容': z.string(),
+  'ラベル:店舗': z.string(),
 });
 
 export type SaveProjectData = z.infer<typeof saveProjectData>;

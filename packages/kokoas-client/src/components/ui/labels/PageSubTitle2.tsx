@@ -8,7 +8,7 @@ import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2';
  * まだ不安定バージョンのようで、現のPageTitleはまだ廃棄しません
  * @see https://mui.com/material-ui/react-grid2/
  */
-export const PageSubTitle = (props: Grid2Props & {
+export const PageSubTitle2 = (props: Grid2Props & {
   label: ReactNode
 }) => {
   const {

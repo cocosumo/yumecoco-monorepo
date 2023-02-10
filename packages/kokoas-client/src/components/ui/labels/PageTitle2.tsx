@@ -1,21 +1,25 @@
 
-import { Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
+import { PageTitleText } from './PageTitleText';
 
 
 /**
  * 新Gridを利用した見出しです。
+ *
+ * まだ不安定バージョンのようで、現のPageTitleはまだ廃棄しません
+ * @see https://mui.com/material-ui/react-grid2/
  */
 export const PageTitle2 = (props: {
   color?: string,
-  textColor?: string,
+  backgroundColor?: string,
   label: string
   secondaryLabel?: string,
 }) => {
   const {
-    color = '#9CDAF9',
-    textColor = '#000',
+    backgroundColor = '#9CDAF9',
+    color = grey[700],
     secondaryLabel,
     label,
   } =  props;
@@ -26,11 +30,11 @@ export const PageTitle2 = (props: {
 
   return (
     <Grid xs={12} p={2}
-      sx={{ backgroundColor: color }}
+      sx={{ backgroundColor }}
     >
-      <Typography color={textColor} variant="h4">
+      <PageTitleText color={color}>
         {label}
-      </Typography>
+      </PageTitleText>
     </Grid>
   );
 };

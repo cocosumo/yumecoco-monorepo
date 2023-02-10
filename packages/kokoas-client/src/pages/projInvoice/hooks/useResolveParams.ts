@@ -57,6 +57,7 @@ export const useResolveParams = () => {
             projTypeName: data.projTypeName,
             dataId: data.dataId,
             contractAmount: data.contractAmount,
+            nonTaxableAmount: data.nonTaxableAmount,
             billedAmount: Number(tgtBilledAmount),
             billingAmount: data.billingAmount,
             amountType: '',

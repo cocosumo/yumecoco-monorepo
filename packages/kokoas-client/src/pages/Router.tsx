@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './projRegister/FormikConstruction';
 import { FormikContract } from './projContracts/';
-import {  FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
+import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
@@ -11,6 +11,8 @@ import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
 import { FormContractSearch } from './projContractSearch/FormContractSearch';
+import { isProd } from 'config';
+import { UnderDevelopment } from './UnderDevelopment';
 
 
 
@@ -79,9 +81,9 @@ const Router = () => (
     <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />
 
     {/* 入金管理グループ */}
-    <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />
-    <Route path={`${pages.projPaymentSearch}`} element={'入金予定一覧ページ：未対応'} />
-    <Route path={`${pages.projPaymentInput}`} element={'入金情報入力ページ：未対応'} />
+    <Route path={`${pages.projInvoice}`} element={isProd ? <UnderDevelopment /> : <FormikInvoice />} />
+    <Route path={`${pages.projPaymentSearch}`} element={<UnderDevelopment />} />
+    <Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} />
 
     {/* 設定 */}
     <Route path={`${pages.settings}/*`} element={<SettingsPage />} />

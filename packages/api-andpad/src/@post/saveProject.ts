@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
-import { SaveProjectData, saveProjectResponse } from '../types';
+import { saveProjectData, SaveProjectData, saveProjectResponse } from '../types';
 
 /**
  *
@@ -16,7 +16,9 @@ import { SaveProjectData, saveProjectResponse } from '../types';
  * よって、ココアスのサーバ側で検証し、エラーを出す。
  */
 export const saveProject = async (body: SaveProjectData) => {
+
   try {
+    const parsedBody = saveProjectData.parse(body);
 
     const { data } = await axios({
       url: endpoints.ordersSync,
@@ -25,7 +27,7 @@ export const saveProject = async (body: SaveProjectData) => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${await getToken()}`,
       },
-      data: body,
+      data: parsedBody,
     });
 
     const resp = saveProjectResponse.parse(data);

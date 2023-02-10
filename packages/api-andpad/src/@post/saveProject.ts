@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
 import { saveProjectData, SaveProjectData, saveProjectResponse } from '../types';
@@ -37,9 +38,12 @@ export const saveProject = async (body: SaveProjectData) => {
   } catch (err: unknown) {
     const {
       response,
-      message,
-    } = err as AxiosError & Error;
-    console.error(response?.data?.errors);
-    throw new Error(`saveProject が失敗しました. ${message} ${response?.data?.errors}`);
+      errors,
+    } = err as AxiosError & ZodError;
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${errors?.[0].message}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}`;
+    console.log(response?.data?.errors);
+    console.log(errorMsg);
+
+    throw new Error(errorMsg);
   }
 };

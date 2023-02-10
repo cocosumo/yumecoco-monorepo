@@ -22,20 +22,23 @@ export const useResolveParams = () => {
   } = useFormikContext<TypeOfForm>();
 
   const { data: recInvoice } = useInvoicesById(projInvoiceIdFromURL || '');
-  const custGroupIdFromInvoice = recInvoice?.record.custGroupId.value;
+  const newCustGroupId = custGroupIdFromURL || recInvoice?.record.custGroupId.value;
 
-  const { data: custData } = useCustGroupById(custGroupIdFromURL || custGroupIdFromInvoice || '');
-  const { data: recContracts } = useContractsByCustGroupId(custGroupIdFromURL || '');
-  const { data: recInvoices } = useInvoiceTotalByCustGroupId(custGroupIdFromURL || '');
+  const { data: custData } = useCustGroupById(newCustGroupId || '');
+  const { data: recContracts } = useContractsByCustGroupId(newCustGroupId || '');
+  const { data: datInvoicesTotal } = useInvoiceTotalByCustGroupId(newCustGroupId || '');
+
 
 
   useEffect(() => {
 
-    if (projInvoiceIdFromURL && recInvoice && custData) {
+    if (projInvoiceIdFromURL && recInvoice && custData && recContracts && datInvoicesTotal) {
+
+      const newEstimates = sortEstimatesByProjId(recContracts);
       setValues((prev) => ({
         ...prev,
         ...convertCustDataToForm(custData),
-        ...convertInvoiceToForm(recInvoice.record),
+        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesTotal),
         invoiceId: projInvoiceIdFromURL,
       }));
     } else if (custGroupIdFromURL && custData && recContracts) {
@@ -46,7 +49,7 @@ export const useResolveParams = () => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
-          const tgtBilledAmount = recInvoices?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+          const tgtBilledAmount = datInvoicesTotal?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
 
           draft.estimates[idx] = {
             estimateIndex: String(idx),
@@ -75,7 +78,7 @@ export const useResolveParams = () => {
     setValues,
     custData,
     recContracts,
-    recInvoices,
+    datInvoicesTotal,
     recInvoice,
   ]);
 

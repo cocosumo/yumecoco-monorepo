@@ -1,9 +1,8 @@
 
 import { grey } from '@mui/material/colors';
-import Grid from '@mui/material/Unstable_Grid2';
 import { useEffect } from 'react';
 import { PageTitleText } from './PageTitleText';
-
+import Grid from '@mui/material/Unstable_Grid2';
 
 /**
  * 新Gridを利用した見出しです。

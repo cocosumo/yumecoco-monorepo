@@ -1,5 +1,4 @@
-import Grid from '@mui/material/Unstable_Grid2';
-import { Grid2Props } from '@mui/material';
+import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2';
 
 
 /** 新Grid2を使ったMainContainer */

@@ -31,7 +31,7 @@ describe('saveProject', () => {
   });
 
 
-  /** ラベル:工事内容 のリストにないもの指定すると、エラーを出す */
+  /** ラベル:工事内容 のリストにないもの指定すると、失敗する */
   it('should fail when provided 工事内容 is not in list', async () => {
 
     await expect(saveProject({

@@ -12,7 +12,6 @@ import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
 import { RecordSelect } from './sections/RecordSelect/RecordSelect';
 
-
 export const FormConstruction  = () => {
 
   const {
@@ -41,7 +40,7 @@ export const FormConstruction  = () => {
 
       <MainContainer>
         <PageTitle
-          label="工事情報登録"
+          label={`工事情報${projId ? '編集' : '登録'}`}
           color="#60498C"
           textColor='#FFF'
           secondaryLabel={projDataId}

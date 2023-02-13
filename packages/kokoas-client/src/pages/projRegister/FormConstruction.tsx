@@ -16,7 +16,6 @@ import { RecordSelect } from './sections/RecordSelect/RecordSelect';
 export const FormConstruction  = () => {
 
   const {
-    status,
     submitForm,
     values,
     dirty,
@@ -29,10 +28,11 @@ export const FormConstruction  = () => {
     projTypeId,
     projDataId,
     custGroupId,
+    hasContract,
   } = values;
 
-  const isEditMode = window.location.href.includes('edit');
-  const isFormDisabled = (status as TFormStatus) === 'disabled';
+  const isEditMode = !!projId;
+  const isFormDisabled = hasContract;
 
   return (
 

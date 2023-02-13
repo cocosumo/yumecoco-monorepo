@@ -8,7 +8,6 @@ import { getEstimatesByProjId } from 'api-kintone';
 export const useProjHasContract = (
   projId = '',
 ) => {
-
   return useQuery(
     [AppIds.projEstimates, { projId }],
     () =>  getEstimatesByProjId(projId),

@@ -32,7 +32,7 @@ describe('saveProject', () => {
 
 
   /** ラベル:工事内容 のリストにないもの指定すると、失敗する */
-  it('should fail when provided 工事内容 is not in list', async () => {
+  it('should fail when provided 工事内容 is not in the list', async () => {
 
     await expect(saveProject({
       ...basicData,

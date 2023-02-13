@@ -48,8 +48,8 @@ export const FormConstruction  = () => {
         <Grid container item xl={8}
           spacing={2} mb={12}
         >
-          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <RecordSelect />
+          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <CustInfo />
 
           {custGroupId && (

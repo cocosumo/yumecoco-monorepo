@@ -8,8 +8,8 @@
     "outDir": "dist",
     "declarationMap": true,
     "allowJs": true,
-    "skipLibCheck": true
-    
+    "skipLibCheck": true,
+    "strict": true
   },
   "files": [
     "./index.ts",

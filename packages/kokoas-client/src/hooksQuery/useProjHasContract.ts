@@ -12,6 +12,7 @@ export const useProjHasContract = (
     [AppIds.projEstimates, { projId }],
     () =>  getEstimatesByProjId(projId),
     {
+
       enabled: !!projId,
       select: ({ records }) => {
         return records?.some(({ envStatus }) => !!envStatus.value);

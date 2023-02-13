@@ -8,11 +8,11 @@ import { getEstimatesByProjId } from 'api-kintone';
 export const useProjHasContract = (
   projId = '',
 ) => {
+
   return useQuery(
     [AppIds.projEstimates, { projId }],
     () =>  getEstimatesByProjId(projId),
     {
-
       enabled: !!projId,
       select: ({ records }) => {
         return records?.some(({ envStatus }) => !!envStatus.value);

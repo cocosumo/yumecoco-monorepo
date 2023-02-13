@@ -107,6 +107,7 @@ export const RecordSelect = () => {
         />
       </Grid>
       <Grid
+        container
         item
         xs={12}
         md={2}

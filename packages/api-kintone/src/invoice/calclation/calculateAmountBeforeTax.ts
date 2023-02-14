@@ -1,3 +1,4 @@
+import { Big } from 'big.js';
 
 interface CalculateAmountBeforeTaxParams {
   /** 契約金額 */
@@ -11,6 +12,9 @@ interface CalculateAmountBeforeTaxParams {
 
   /** 請求済み金額 */
   billedAmount: number,
+
+  /** 消費税率  */
+  taxRate?: number,
 
 }
 
@@ -34,6 +38,7 @@ export const calculateAmountBeforeTax = (
     nonTaxableAmount,
     billingAmount,
     billedAmount,
+    taxRate = 0.1,
   } = params;
 
   // 請求残高の算出
@@ -43,27 +48,49 @@ export const calculateAmountBeforeTax = (
   // 請求金額が請求残高を超過している場合は、超過分を課税対象として算出する
   let isExceeded = false;
   let result = {} as CalculateAmountBeforeTaxResultParams;
-  if (billingBalance >= billingAmount) {
-    if (billingBalanceTaxable <= 0) { // 既に課税対象分を請求しきっている場合
+
+  const bTaxableAmount = Big(contractAmount).minus(nonTaxableAmount).minus(billedAmount);
+  const bTax = Big(1).plus(taxRate);
+
+  if (contractAmount >= 0) { // 請求書(契約金額が0円以上)の場合
+
+    if (billingBalance >= billingAmount) {
+      if (billingBalanceTaxable <= 0) { // 既に課税対象分を請求しきっている場合
+
+        result = {
+          ...params,
+          isExceeded,
+          billingAmountBeforeTax: billingAmount,
+          billingAmountNonTaxable: billingAmount,
+        };
+      } else if (billingBalanceTaxable >= billingAmount) { // 全額課税対象の請求の場合
 
 
-      result = {};
-    } else if (billingBalanceTaxable >= billingAmount) { // 全額課税対象の請求の場合
+        result = {
+          ...params,
+          isExceeded,
+          billingAmountBeforeTax: Big(billingAmount).div(bTax).toNumber(),
+          billingAmountNonTaxable: 0,
+        };
+      } else { // 課税・非課税が混在する場合
+        const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
 
-
-      result = {};
-    } else { // 課税・非課税が混在する場合
-
+        result = {
+          ...params,
+          isExceeded,
+          billingAmountBeforeTax: Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber(),
+          billingAmountNonTaxable: bNonTaxalbeBillingAmount.toNumber(),
+        };
+      }
+    } else {
+      isExceeded = true;
+      // 請求額を課税対象分と非課税分で分割
+      // それぞれを合算してアウトプットを設定する
 
       result = {};
     }
-  } else {
-    isExceeded = true;
-    // 請求額を課税対象分と非課税分で分割
-    // それぞれを合算してアウトプットを設定する
-
-    result = {};
   }
+
 
 
   return result;

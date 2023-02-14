@@ -12,6 +12,7 @@
 *.jpg binary
 *.png binary
 *.ttf binary
+*.svg binary
 *.pdf binary
 *.xls binary
 *.xlsx binary

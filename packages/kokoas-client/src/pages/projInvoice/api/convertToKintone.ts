@@ -18,7 +18,7 @@ export const convertToKintone = ({
     billingAmount: { value: String(billingAmount) },
     slipNumber: { value: '' },
     plannedPaymentDate: { value: toKintoneDateStr(plannedPaymentDate) },
-    issuedDateTime: { value: toKintoneDateStr(new Date()) },
+    issuedDateTime: { value: toKintoneDateStr(new Date(), true) },
     custGroupId: { value: custGroupId },
     exceedChecked: { value: exceedChecked ? '1' : '0' },
     estimateLists: {

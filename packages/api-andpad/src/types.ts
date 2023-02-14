@@ -64,7 +64,7 @@ export const saveProjectData = z.object({
   '物件住所': z.string().optional(),
 
   /** 工事番号 */
-  '案件管理ID': z.string(), // 工事番号
+  '案件管理ID': z.string(),
 
   /** 契約店舗名+工事名称 */
   '案件名': z.string(),

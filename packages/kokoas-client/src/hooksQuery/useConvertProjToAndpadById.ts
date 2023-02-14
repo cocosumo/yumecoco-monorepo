@@ -6,16 +6,22 @@ export const useConvertProjToAndpadById = (projId: string | undefined) => {
 
   const { data } = queryResult;
 
-  if (!data) return queryResult;
+  if (!data || !data.projData || !data?.custGroupData) return queryResult;
 
-  const { projData } = data;
+  const { projData, custGroupData } = data;
+
+
   const {
 
   } = projData || {};
 
+  const {
+    uuid: custGroupId,
+  } = custGroupData || {};
+
 
   const convertedData: SaveProjectData = {
-    顧客名,
+    顧客管理ID: custGroupId.value,
   };
 
   return {

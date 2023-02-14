@@ -64,8 +64,8 @@ export const convertInvoiceToForm = (
   return {
     invoiceId: uuid.value,
     custGroupId: custGroupId.value,
-    plannedPaymentDate: !(plannedPaymentDate.value) ? '' : String(parseISO(plannedPaymentDate.value)),
-    undecidedPaymentDate: !(plannedPaymentDate.value) ? true : false,
+    plannedPaymentDate: plannedPaymentDate.value ? parseISO(plannedPaymentDate.value).toString() : '',
+    undecidedPaymentDate: !plannedPaymentDate.value,
     exceedChecked: Boolean(exceedChecked.value),
     estimates: newEstimates,
   };

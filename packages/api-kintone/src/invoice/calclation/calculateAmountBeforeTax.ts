@@ -54,44 +54,78 @@ export const calculateAmountBeforeTax = (
 
   if (contractAmount >= 0) { // 請求書(契約金額が0円以上)の場合
 
-    if (billingBalance >= billingAmount) {
-      if (billingBalanceTaxable <= 0) { // 既に課税対象分を請求しきっている場合
-
-        result = {
-          ...params,
-          isExceeded,
-          billingAmountBeforeTax: billingAmount,
-          billingAmountNonTaxable: billingAmount,
-        };
-      } else if (billingBalanceTaxable >= billingAmount) { // 全額課税対象の請求の場合
-
-
-        result = {
-          ...params,
-          isExceeded,
-          billingAmountBeforeTax: Big(billingAmount).div(bTax).toNumber(),
-          billingAmountNonTaxable: 0,
-        };
-      } else { // 課税・非課税が混在する場合
-        const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
-
-        result = {
-          ...params,
-          isExceeded,
-          billingAmountBeforeTax: Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber(),
-          billingAmountNonTaxable: bNonTaxalbeBillingAmount.toNumber(),
-        };
-      }
-    } else {
+    if (billingBalance > billingAmount) { // 契約超過チェック
       isExceeded = true;
-      // 請求額を課税対象分と非課税分で分割
-      // それぞれを合算してアウトプットを設定する
-
-      result = {};
     }
+
+    if (billingBalanceTaxable <= 0) { // 既に課税対象分を請求しきっている場合
+
+      result = {
+        ...params,
+        isExceeded,
+        billingAmountBeforeTax: billingAmount,
+        billingAmountNonTaxable: billingAmount,
+      };
+
+    } else if (billingBalanceTaxable >= billingAmount) { // 全額課税対象の請求の場合
+
+      result = {
+        ...params,
+        isExceeded,
+        billingAmountBeforeTax: Big(billingAmount).div(bTax).toNumber(),
+        billingAmountNonTaxable: 0,
+      };
+
+    } else { // 課税・非課税が混在する場合
+
+      const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
+
+      result = {
+        ...params,
+        isExceeded,
+        billingAmountBeforeTax: Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber(),
+        billingAmountNonTaxable: bNonTaxalbeBillingAmount.toNumber(),
+      };
+
+    }
+  } else { // 返金の契約書の場合
+
+    if (billingBalance < billingAmount) { // 契約超過チェック
+      isExceeded = true;
+    }
+
+    if (billingBalanceTaxable >= 0) { // 既に課税対象分を請求しきっている場合
+
+      result = {
+        ...params,
+        isExceeded,
+        billingAmountBeforeTax: billingAmount,
+        billingAmountNonTaxable: billingAmount,
+      };
+
+    } else if (billingBalanceTaxable <= billingAmount) { // 全額課税対象の請求の場合
+
+      result = {
+        ...params,
+        isExceeded,
+        billingAmountBeforeTax: Big(billingAmount).div(bTax).toNumber(),
+        billingAmountNonTaxable: 0,
+      };
+
+    } else { // 課税・非課税が混在する場合
+
+      const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
+
+      result = {
+        ...params,
+        isExceeded,
+        billingAmountBeforeTax: Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber(),
+        billingAmountNonTaxable: bNonTaxalbeBillingAmount.toNumber(),
+      };
+
+    }
+
   }
-
-
 
   return result;
 };

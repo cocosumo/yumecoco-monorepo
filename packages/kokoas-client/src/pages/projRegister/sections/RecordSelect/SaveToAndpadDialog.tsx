@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { AndpadButton } from 'kokoas-client/src/components/ui/buttons/AndpadButton';
 import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 import { SaveToAndpadDialogContent } from './SaveToAndpadDialogContent';
 
 export const SaveToAndpadDialog = ({
@@ -10,6 +11,11 @@ export const SaveToAndpadDialog = ({
   open: boolean
   handleClose: () => void
 }) => {
+  const { setSnackState } = useSnackBar();
+
+  const handleClick = () => {
+    setSnackState({ open:true, message: '開発中です', severity: 'warning' });
+  };
 
   return (
     <Dialog
@@ -19,16 +25,18 @@ export const SaveToAndpadDialog = ({
       maxWidth={'xs'}
     >
       <DialogTitle>
-        アンドパッドへ登録
+        アンドパッドへ登録しますか。
       </DialogTitle>
       <SaveToAndpadDialogContent />
       <DialogActions>
         <Button onClick={handleClose}>
           キャンセル
         </Button>
-        <AndpadButton startIcon={<AndpadLogo />}>
-
-          登録
+        <AndpadButton
+          onClick={handleClick}
+          startIcon={<AndpadLogo />}
+        >
+          はい
         </AndpadButton>
       </DialogActions>
     </Dialog>

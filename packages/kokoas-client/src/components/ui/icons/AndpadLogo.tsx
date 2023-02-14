@@ -4,7 +4,7 @@ import andpadLogo from '../../../assets/andpadlogo.png';
 
 
 export const AndpadLogo = ({
-  size = 25,
+  size = 16,
   variant = 'white',
 }:{
   /** pixels */

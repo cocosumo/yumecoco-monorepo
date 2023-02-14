@@ -1,7 +1,6 @@
 import { AndpadButton } from 'kokoas-client/src/components/ui/buttons/AndpadButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { Tooltip, Zoom } from '@mui/material';
-import { useSnackBar } from 'kokoas-client/src/hooks';
 import { useState } from 'react';
 import { SaveToAndpadDialog } from './SaveToAndpadDialog';
 
@@ -13,11 +12,9 @@ export const SaveToAndpadButton = (
   },
 ) => {
   const [open, setOpen] = useState(false);
-  const { setSnackState } = useSnackBar();
-  const handleClick = () => {
-    setSnackState({ open:true, message: '開発中です', severity: 'warning' });
-    setOpen(true);
-  };
+
+  const handleClick = () => setOpen(true);
+
   const handleClose = () => setOpen(false);
 
   return (

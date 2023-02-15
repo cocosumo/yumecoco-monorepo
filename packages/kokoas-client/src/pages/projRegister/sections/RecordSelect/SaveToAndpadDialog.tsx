@@ -17,6 +17,8 @@ export const SaveToAndpadDialog = ({
   const { setSnackState } = useSnackBar();
   const { projId } = useURLParams<TypeOfForm>();
   const { mutate: mutateAndpad } = useSaveAndpadProject();
+
+
   const handleClick = () => {
     mutateAndpad(projId || '');
     setSnackState({ open:true, message: '開発中です', severity: 'warning' });
@@ -33,7 +35,7 @@ export const SaveToAndpadDialog = ({
       <DialogTitle>
         アンドパッドへ登録しますか。
       </DialogTitle>
-      <SaveToAndpadDialogContent />
+      <SaveToAndpadDialogContent andpadProject={{} as any} />
       <DialogActions>
         <Button onClick={handleClose}>
           キャンセル

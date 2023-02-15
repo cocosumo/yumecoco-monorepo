@@ -21,6 +21,8 @@ export const saveProject = async (body: SaveProjectData) => {
   try {
     const parsedBody = saveProjectData.parse(body);
 
+    console.log(parsedBody);
+
     const { data } = await axios({
       url: endpoints.ordersSync,
       method: 'POST',

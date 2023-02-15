@@ -11,16 +11,16 @@ export const useConvertProjToAndpadById = (projId: string | undefined) => {
   const { projData, custGroupData } = data;
 
 
-  const {
+  /*   const {
 
-  } = projData || {};
+  } = projData || {}; */
 
   const {
     uuid: custGroupId,
   } = custGroupData || {};
 
 
-  const convertedData: SaveProjectData = {
+  const convertedData: any = {
     顧客管理ID: custGroupId.value,
   };
 

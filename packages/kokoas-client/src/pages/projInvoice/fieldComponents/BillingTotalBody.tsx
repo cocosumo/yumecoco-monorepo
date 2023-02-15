@@ -5,6 +5,9 @@ import { Big } from 'big.js';
 /** 税額　※当面は10%で固定とする */
 const taxRate = 0.1;
 
+/** 非課税の適用設定 ※当面は顧客用の請求書のため、非適用とする */
+const isNonTaxableUse = false;
+
 export const BillingTotalBody = ({
   estimates,
 }: {

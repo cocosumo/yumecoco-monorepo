@@ -5,6 +5,7 @@ import { roundTo } from 'libs';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { getEstimatesFieldName, TMaterials } from '../form';
+import { useURLParams } from '../../../hooks/useURLParams';
 
 const CellContent = ({
   content,
@@ -32,9 +33,44 @@ export const EstimateTableBody = ({
   const navigate = useNavigate();
 
   const {
+    invoiceId: projInvoiceIdFromURL,
+    custGroupId: custGroupIdFromURL,
+    projEstimateId: estimateIdFromURL,
+  } = useURLParams();
+
+
+  const {
     contractAmount,
     billedAmount,
+    estimateId,
   } = estimateRow;
+
+  const handleChange = (_: any, val: boolean | null) => {
+    let newEstimateId = (estimateIdFromURL)?.split(', ');
+    if (val) { // チェックが入った時は、estimateIdをURLに追加する
+      if (newEstimateId) {
+        newEstimateId?.push(estimateId);
+      } else {
+        newEstimateId = [estimateId];
+      }
+    } else {
+      newEstimateId = newEstimateId?.filter((item) => {
+        return item !== estimateId;
+      });
+    }
+
+    const urlParams = (projInvoiceIdFromURL) ?
+      generateParams({
+        invoiceId: projInvoiceIdFromURL,
+        projEstimateId: newEstimateId?.join(', '),
+      }) :
+      generateParams({
+        custGroupId: custGroupIdFromURL,
+        projEstimateId: newEstimateId?.join(', '),
+      });
+
+    navigate(`${pages.projInvoice}?${urlParams}`);
+  };
 
   const isRefund = contractAmount < 0;
   const disabled = !isRefund ? contractAmount <= billedAmount : contractAmount >= billedAmount;
@@ -75,7 +111,7 @@ export const EstimateTableBody = ({
         {/* 請求に使用する */}
         <FormikLabeledCheckBox
           name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
-          onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ projEstimateId: val?. })}`)}
+          onChange={handleChange}
           disabled={disabled}
         />
       </TableCell>

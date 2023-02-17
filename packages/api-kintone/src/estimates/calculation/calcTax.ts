@@ -45,15 +45,3 @@ export const calcBeforeTax = (
   return calcTax(afterTaxValue, taxRate, isTaxable, 'before');
 
 };
-
-
-/** 消費税額の算出処理　：　税込金額から逆算する */
-export const calcTaxAmount = (
-  afterTaxValue: number,
-  /** 1 + taxRate */
-  taxRate: number,
-) => {
-
-  const bTaxRate = Big(taxRate ?? 0.1).add(1); // 1.1
-  return Big(afterTaxValue).div(bTaxRate).mul(taxRate);
-};

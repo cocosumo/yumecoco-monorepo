@@ -1,6 +1,5 @@
-import { Paper, Table, TableBody, TableCell, TableCellProps, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableCellProps, TableContainer, TableHead, TableRow, Typography, TypographyVariant } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { Caption } from 'kokoas-client/src/components';
 import { TypeOfForm } from '../form';
 import { BillingTotalBody } from './BillingTotalBody';
 
@@ -13,17 +12,21 @@ export const BillingTotal = () => {
   interface billingTotalTbl {
     label: string,
     align: TableCellProps['align'],
+    variant: TypographyVariant,
   }
 
   const tblLabel = [{
-    label: '', /* 請求合計 */
+    label: '請求合計',
     align: 'left',
+    variant: 'body1',
   }, {
-    label: '税抜',
-    align: 'right',
+    label: '項目',
+    align: 'left',
+    variant: 'caption',
   }, {
-    label: '税込',
+    label: '金額',
     align: 'right',
+    variant: 'caption',
   }] as billingTotalTbl[];
 
 
@@ -35,7 +38,9 @@ export const BillingTotal = () => {
             {tblLabel.map((item) => {
               return (
                 <TableCell align={item.align} key={item.label}>
-                  <Caption text={item.label} />
+                  <Typography variant={item.variant}>
+                    {item.label}
+                  </Typography>
                 </TableCell>
               );
             })}

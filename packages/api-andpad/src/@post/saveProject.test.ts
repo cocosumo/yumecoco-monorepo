@@ -1,4 +1,5 @@
 import format from 'date-fns/format';
+import { getMyOrders } from '../@get';
 import { SaveProjectData } from '../types';
 import { saveProject } from './saveProject';
 
@@ -13,7 +14,7 @@ describe('saveProject', () => {
 
   const basicData: SaveProjectData = {
     '案件管理ID': 'anken-test-only2',
-    '案件名': '山田太郎 様邸',
+    '案件名': '山田太郎テスト 様邸',
     '顧客管理ID': 'cust-test-only',
     '顧客名': '山田太郎 様',
     '物件名': '山田太郎 様邸',
@@ -44,13 +45,12 @@ describe('saveProject', () => {
       '顧客電話番号1': '0123456789',
       '顧客電話番号2': '9876543210',
 
-      '案件名': '豊田店 ',
+      '案件名': '豊田店 テスト',
       '案件フロー': '契約前',
       '案件種別': '新築',
 
       '物件住所': '東京都千代田区永田町1-7-1',
       '物件住所種別': '新しい住所を入力する',
-      '物件名': 'テスト 様邸',
       '物件種別': 'その他',
       '物件郵便番号': '1008914',
 
@@ -61,13 +61,21 @@ describe('saveProject', () => {
 
     const result = await saveProject(completeData);
 
-    console.log(result);
+    console.log('result', result);
+
+    const getResult = await getMyOrders({
+      limit: 1,
+      q: `案件名 = ${completeData.案件名}`,
+    });
+
+
+    console.log(JSON.stringify(getResult, null, 2));
 
     /**
      * Andpadの取得APIは全て取得出来ないので、本当に保存出来たか単純にテスト出来ない。
      * RPAでブラウザを開いて、取得する処理が必要
      * **/
-    expect(result).toBeDefined();
+    expect(getResult.data.objects.length).toBe(1);
   });
 
   /** ラベル:工事内容 のリストにないもの指定すると、失敗する */

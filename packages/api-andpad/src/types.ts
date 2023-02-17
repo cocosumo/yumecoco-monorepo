@@ -96,19 +96,21 @@ export const saveProjectData = z.object({
 
 export type SaveProjectData = z.infer<typeof saveProjectData>;
 
+export const projects = z.object({
+  '顧客ID': z.number(),
+  '顧客管理ID': z.string(),
+  '物件ID': z.number(),
+  '物件管理ID': z.string(),
+  'システムID': z.number(),
+  '案件管理ID': z.string(),
+  '案件名': z.string(),
+  '案件種別': z.string(),
+});
 export const saveProjectResponse = z.object({
   'data': z.object({
-    'object': z.object({
-      '顧客ID': z.number(),
-      '顧客管理ID': z.string(),
-      '物件ID': z.number(),
-      '物件管理ID': z.string(),
-      'システムID': z.number(),
-      '案件管理ID': z.string(),
-      '案件名': z.string(),
-      '案件種別': z.string(),
-    }),
+    'object': projects,
   }),
 });
 
+export type Projects = z.infer<typeof projects>;
 export type SaveProjectResponse = z.infer<typeof saveProjectResponse>;

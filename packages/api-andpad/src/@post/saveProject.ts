@@ -21,8 +21,6 @@ export const saveProject = async (body: SaveProjectData) => {
   try {
     const parsedBody = saveProjectData.parse(body);
 
-    console.log(parsedBody);
-
     const { data } = await axios({
       url: endpoints.ordersSync,
       method: 'POST',
@@ -33,6 +31,7 @@ export const saveProject = async (body: SaveProjectData) => {
       data: parsedBody,
     });
 
+    console.log(data);
     const resp = saveProjectResponse.parse(data);
 
     return resp;
@@ -42,9 +41,7 @@ export const saveProject = async (body: SaveProjectData) => {
       response,
       errors,
     } = err as AxiosError & ZodError;
-    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${errors?.[0].message}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}`;
-    console.log(response?.data?.errors);
-    console.log(errorMsg);
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}`;
 
     throw new Error(errorMsg);
   }

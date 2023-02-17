@@ -29,16 +29,19 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
   try {
 
     const urlParams = qs.stringify({
-      access_token: await getToken(),
       limit,
       q,
     });
 
-    console.log(urlParams);
+    const url = `${endpoints.ourOrders}?${urlParams}`;
 
+    console.log(url);
     const { data } = await axios({
-      url: `${endpoints.myOrders}?${urlParams}`,
+      url,
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${await getToken()}`,
+      },
     });
 
     return data;

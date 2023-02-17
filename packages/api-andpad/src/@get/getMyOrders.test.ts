@@ -3,9 +3,7 @@ import { getMyOrders } from './getMyOrders';
 describe('getMyOrders', () => {
   it('should get my orders', async () => {
 
-    const result = await getMyOrders({
-      limit: 100,
-    });
+    const result = await getMyOrders();
 
     console.log(JSON.stringify(result, null, 2));
 
@@ -23,7 +21,7 @@ describe('getMyOrders', () => {
 
   it('should get orders using LIKE operator', async () => {
 
-    const result = await getMyOrders({ q: '案件名	LIKE テスト' });
+    const result = await getMyOrders({ q: '案件名　LIKE　テスト' });
 
     console.log(JSON.stringify(result, null, 2));
 

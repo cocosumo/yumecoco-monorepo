@@ -45,28 +45,20 @@ export const EstimateTableBody = ({
     estimateId,
   } = estimateRow;
 
-  const handleChange = (_: any, val: boolean | null) => {
-    let newEstimateId = (estimateIdFromURL)?.split(', ');
-    if (val) { // チェックが入った時は、estimateIdをURLに追加する
-      if (newEstimateId) {
-        newEstimateId?.push(estimateId);
-      } else {
-        newEstimateId = [estimateId];
-      }
-    } else {
-      newEstimateId = newEstimateId?.filter((item) => {
-        return item !== estimateId;
-      });
-    }
+  const handleChange = (checked: boolean) => {
+    const estimateIdArray = (estimateIdFromURL)?.split(', ') ?? [];
+    const newEstimateIdArray = checked
+      ? [...estimateIdArray, estimateId]
+      : estimateIdArray.filter((id) => id !== estimateId);
 
     const urlParams = (projInvoiceIdFromURL) ?
       generateParams({
         invoiceId: projInvoiceIdFromURL,
-        projEstimateId: newEstimateId?.join(', '),
+        projEstimateId: newEstimateIdArray?.join(', '),
       }) :
       generateParams({
         custGroupId: custGroupIdFromURL,
-        projEstimateId: newEstimateId?.join(', '),
+        projEstimateId: newEstimateIdArray?.join(', '),
       });
 
     navigate(`${pages.projInvoice}?${urlParams}`);
@@ -111,7 +103,7 @@ export const EstimateTableBody = ({
         {/* 請求に使用する */}
         <FormikLabeledCheckBox
           name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
-          onChange={handleChange}
+          onChange={(_, checked) => handleChange(checked)}
           disabled={disabled}
         />
       </TableCell>

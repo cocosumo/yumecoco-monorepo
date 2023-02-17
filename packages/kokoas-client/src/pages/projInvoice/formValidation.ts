@@ -25,7 +25,7 @@ export const validationSchema = Yup
         billingAmount: numberValidation
           .when('isForPayment' as TKMaterials, {
             is: true,
-            then: numberValidation.notOneOf([0], '0以外の数値を入力してください'),
+            then: numberValidation.notOneOf([0], '0以外の数値を入力してください'), // 修正
           }),
         billedAmount: numberValidation,
         contractDate: dateValidation,

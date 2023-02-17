@@ -47,16 +47,19 @@ export const calculateAmountBeforeTax = (
 
   // 請求金額が請求残高を超過している場合は、超過分を課税対象として算出する
   let isExceeded = false;
-  let result = {} as CalculateAmountBeforeTaxResultParams;
+  let result: CalculateAmountBeforeTaxResultParams = {
+    ...params,
+    billingAmountBeforeTax: 0,
+    billingAmountNonTaxable: 0,
+    isExceeded: false,
+  };
 
   const bTaxableAmount = Big(contractAmount).minus(nonTaxableAmount).minus(billedAmount);
   const bTax = Big(1).plus(taxRate);
 
   if (contractAmount >= 0) { // 請求書(契約金額が0円以上)の場合
 
-    if (billingBalance > billingAmount) { // 契約超過チェック
-      isExceeded = true;
-    }
+    isExceeded = billingBalance > billingAmount; // 契約超過チェック
 
     if (billingBalanceTaxable <= 0) { // 既に課税対象分を請求しきっている場合
 
@@ -90,9 +93,7 @@ export const calculateAmountBeforeTax = (
     }
   } else { // 返金の契約書の場合
 
-    if (billingBalance < billingAmount) { // 契約超過チェック
-      isExceeded = true;
-    }
+    isExceeded = billingBalance < billingAmount; // 契約超過チェック
 
     if (billingBalanceTaxable >= 0) { // 既に課税対象分を請求しきっている場合
 

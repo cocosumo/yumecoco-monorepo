@@ -1,2 +1,2 @@
 export * from './getInvoiceByProjId';
-export * from './calclation';
+export * from './calculation';

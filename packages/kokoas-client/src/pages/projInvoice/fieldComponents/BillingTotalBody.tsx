@@ -22,7 +22,7 @@ export const BillingTotalBody = ({
         nonTaxableAmount,
       },
     ) => {
-      if (isForPayment !== true) return acc;
+      if (!isForPayment) return acc;
 
       const {
         billingAmountBeforeTax,

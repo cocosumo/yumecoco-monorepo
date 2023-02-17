@@ -1,6 +1,9 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
 import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
+import { generateParams } from 'kokoas-client/src/helpers/url';
 import { roundTo } from 'libs';
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../../Router';
 import { getEstimatesFieldName, TMaterials } from '../form';
 
 const CellContent = ({
@@ -25,6 +28,8 @@ export const EstimateTableBody = ({
 }: {
   estimateRow: TMaterials
 }) => {
+
+  const navigate = useNavigate();
 
   const {
     contractAmount,
@@ -70,6 +75,7 @@ export const EstimateTableBody = ({
         {/* 請求に使用する */}
         <FormikLabeledCheckBox
           name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
+          onChange={(_, val) => navigate(`${pages.projInvoice}?${generateParams({ projEstimateId: val?. })}`)}
           disabled={disabled}
         />
       </TableCell>

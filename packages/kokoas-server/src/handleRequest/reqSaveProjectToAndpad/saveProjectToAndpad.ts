@@ -1,14 +1,32 @@
-import { getProjById } from 'api-kintone';
+import { SaveProjectData, SaveProjectResponse } from 'api-andpad';
 import { RequestHandler } from 'express';
 
 
-export const saveProjectToAndpad: RequestHandler<{ projId: string }, unknown> = async (req, res) => {
+export const saveProjectToAndpad: RequestHandler<
+{ projId: string },
+SaveProjectResponse,
+SaveProjectData> = async (req, res) => {
   try {
     const { projId } = req.params;
-    const projRec = await getProjById(projId);
+    const body = req.body;
 
 
-    res.status(200).send(`Success ${JSON.stringify(projRec)}`);
+    console.log(`Received project id. ${projId} with bodt ${body}`);
+
+    res.status(200).send({
+      data: {
+        object: {
+          システムID: 999,
+          案件名: '',
+          案件種別: '',
+          案件管理ID: '',
+          物件ID: 999,
+          物件管理ID: '000',
+          顧客ID: 999,
+          顧客管理ID: '',
+        },
+      },
+    });
   } catch (err) {
     console.error(err?.message);
     res.status(400).send(

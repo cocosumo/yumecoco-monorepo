@@ -13,6 +13,7 @@ export * from './useCustGroupByProjId';
 export * from './useCustGroups';
 export * from './useCustomers';
 export * from './useCustomersByCustGroupId';
+export * from './useCustomersById';
 export * from './useCustomersByIds';
 export * from './useEmployeeByIds';
 export * from './useEmployeeOptions';

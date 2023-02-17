@@ -16,11 +16,11 @@ export const SaveToAndpadDialog = ({
 }) => {
   const { setSnackState } = useSnackBar();
   const { projId } = useURLParams<TypeOfForm>();
-  const { mutate: mutateAndpad } = useSaveAndpadProject();
+  const { mutate: mutateAndpad } = useSaveAndpadProject(projId || '');
 
 
   const handleClick = () => {
-    mutateAndpad(projId || '');
+    mutateAndpad();
     setSnackState({ open:true, message: '開発中です', severity: 'warning' });
   };
 

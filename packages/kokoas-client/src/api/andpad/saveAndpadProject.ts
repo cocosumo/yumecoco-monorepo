@@ -12,7 +12,6 @@ export const saveAndpadProject = async (data: SaveProjectData) => {
     kokoasEndpoints.saveProjectToAndpad,
   ].join('/');
 
-
   const result = await kintone.proxy(
     `${endpoint}`,
     'POST',

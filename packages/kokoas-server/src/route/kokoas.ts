@@ -3,6 +3,7 @@ import { reqUploadDaikokuEst } from '../handleRequest/reqUploadDaikokuEst';
 import { kokoasEndpoints } from 'libs/src/endpoints';
 import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
 import { saveProjectToAndpad } from '../handleRequest';
+import bodyParser from 'body-parser';
 
 
 const route = router();
@@ -21,6 +22,7 @@ route.post(
 
 route.post(
   `/${kokoasEndpoints.saveProjectToAndpad}/:projId?`,
+  bodyParser.json({ limit: '50mb' }),
   saveProjectToAndpad,
 );
 

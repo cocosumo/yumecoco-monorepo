@@ -26,8 +26,8 @@ export const bestStringMatch = <T extends Readonly<string[]>>(
     },
   } = stringSimilarity
     .findBestMatch(
-      mainString,
-      ignore ? compareArray.map((item) => item.replaceAll(ignore, '')) : [...compareArray],
+      ignore ? mainString.replaceAll(ignore, '') : mainString,
+      [...compareArray],
     );
 
   return (rating ? target : valueIfNoMatch) as T[number];

@@ -4,7 +4,7 @@ import { kokoasEndpoints } from 'libs';
 import { ApiNodes } from 'types';
 
 export const saveAndpadProject = async (data: SaveProjectData) => {
-
+  console.log(data);
   const apiRoot : ApiNodes = 'kokoas';
   const endpoint = [
     baseUrl,
@@ -16,7 +16,9 @@ export const saveAndpadProject = async (data: SaveProjectData) => {
   const result = await kintone.proxy(
     `${endpoint}`,
     'POST',
-    {},
+    {
+      'Content-Type': 'application/json',
+    },
     data,
   );
   const [body, status] = result;

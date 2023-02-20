@@ -11,7 +11,7 @@ SaveProjectData> = async (req, res) => {
     const body = req.body;
 
 
-    console.log(`Received project id. ${projId} with bodt ${body}`);
+    console.log(`Received project id. ${projId} with body ${JSON.stringify(body, null, 2)}`);
 
     res.status(200).send({
       data: {

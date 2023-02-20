@@ -39,7 +39,6 @@ export const BillingEntryTable = ({
                     estimate={row}
                     idx={idx}
                     paymentList={contracts?.paymentList}
-                    exceeded={exceeded}
                     key={`${row.dataId}_row`}
                   />
                 );

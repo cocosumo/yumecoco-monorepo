@@ -11,21 +11,22 @@ export const BillingEntryTableRow = ({
   estimate,
   idx,
   paymentList,
-  exceeded,
 }: {
   estimate: TMaterials
   idx: number
   paymentList: ReturnType<typeof createPaymentList>[] | undefined
-  exceeded: boolean
 }) => {
   const {
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { 
+  const {
     projTypeName,
     estimateId,
     dataId,
+    contractAmount,
+    billedAmount,
+    billingAmount,
   } = estimate;
 
   const paymentItem = paymentList?.find(({ uuid }) => uuid === estimateId);
@@ -57,6 +58,14 @@ export const BillingEntryTableRow = ({
       return newVal;
     });
   };
+
+  const newBillingAmount = (+billedAmount + +billingAmount);
+  let exceeded = false;
+  if (+contractAmount >= 0) {
+    exceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
+  } else {
+    exceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
+  }
 
 
   return (

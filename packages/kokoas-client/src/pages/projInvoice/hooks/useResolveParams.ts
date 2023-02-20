@@ -51,8 +51,7 @@ export const useResolveParams = () => {
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
           const tgtBilledAmount = datInvoicesTotal?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
-          const newIsForPayment = estimateIdFromURL?.split(',').some((item) => item === data.estimateId) ?? false;
-
+          const newIsForPayment = (estimateIdFromURL || '').split(',').includes(data.estimateId);
 
           draft.estimates[idx] = {
             estimateIndex: String(idx),

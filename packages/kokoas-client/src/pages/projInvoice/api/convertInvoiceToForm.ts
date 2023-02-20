@@ -56,7 +56,7 @@ export const convertInvoiceToForm = (
       billedAmount: Number(Big(tgtBilledAmount).minus(tgtBillingAmount)),
       billingAmount: Number(tgtBillingAmount),
       amountType: amountType,
-      isForPayment: ((tgtBillingAmount === '0') && !isForPaymentFromURL) ? false : true,
+      isForPayment: tgtBillingAmount !== '0' || isForPaymentFromURL,
       estimateId: estimateId,
     });
 

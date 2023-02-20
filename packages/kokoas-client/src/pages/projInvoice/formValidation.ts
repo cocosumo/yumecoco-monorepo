@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { getFieldName, KeyOfForm } from './form';
+import { getFieldName, KeyOfForm, TypeOfForm } from './form';
 
 
 /* Common validations */
@@ -13,7 +13,7 @@ const numberValidation = Yup
 
 
 /* unique validations */
-const billingAmountValidation = function (this: any) {
+const billingAmountValidation = function (this: { parent: TypeOfForm['estimates'][number] }) {
   const {
     contractAmount,
     billingAmount,

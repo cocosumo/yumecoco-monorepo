@@ -29,6 +29,7 @@ export const itemsSorter = ({
     switch (orderBy) {
       case 'contractAmount':
       case 'grossProfit':
+      case 'profitRate':
       case 'latestInvoiceAmount':
         return sortNumber(a[orderBy] as number, b[orderBy] as number, desc);
 

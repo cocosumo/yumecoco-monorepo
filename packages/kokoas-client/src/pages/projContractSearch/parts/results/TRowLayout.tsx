@@ -12,7 +12,7 @@ export const TRowLayout = ({
   contractDate,
   contractAmount,
   grossProfit,
-
+  profitRate,
   latestInvoiceDate,
   latestInvoiceAmount,
   plannedPaymentDate,
@@ -30,6 +30,7 @@ export const TRowLayout = ({
   contractDate: ReactNode,
   contractAmount: ReactNode,
   grossProfit: ReactNode,
+  profitRate: ReactNode,
 
   latestInvoiceDate: ReactNode,
   latestInvoiceAmount: ReactNode,
@@ -69,6 +70,8 @@ export const TRowLayout = ({
         {contractAmount}
         <br />
         {grossProfit}
+        <br />
+        {profitRate}
       </TableCell>
       <TableCell>
         {menu}

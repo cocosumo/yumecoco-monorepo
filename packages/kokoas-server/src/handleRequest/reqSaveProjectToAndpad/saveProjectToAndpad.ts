@@ -1,4 +1,4 @@
-import { SaveProjectData, SaveProjectResponse } from 'api-andpad';
+import { SaveProjectData, SaveProjectResponse, saveProject } from 'api-andpad';
 import { RequestHandler } from 'express';
 
 
@@ -10,23 +10,11 @@ SaveProjectData> = async (req, res) => {
     const { projId } = req.params;
     const body = req.body;
 
-
     console.log(`Received project id. ${projId} with body ${JSON.stringify(body, null, 2)}`);
+    const result = await saveProject(body);
 
-    res.status(200).send({
-      data: {
-        object: {
-          システムID: 999,
-          案件名: '',
-          案件種別: '',
-          案件管理ID: '',
-          物件ID: 999,
-          物件管理ID: '000',
-          顧客ID: 999,
-          顧客管理ID: '',
-        },
-      },
-    });
+    res.status(200).json(result);
+
   } catch (err) {
     console.error(err?.message);
     res.status(400).send(

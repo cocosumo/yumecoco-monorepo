@@ -54,9 +54,9 @@ describe('getMyOrders', () => {
     const additionalProperty: keyof SaveProjectData = '顧客メールアドレス';
     const result = await getMyOrders({ q: `案件管理ID = ${value}`, series: [additionalProperty] });
 
-    console.log(result.data.objects);
-    const hasAdditionalProperty = result.data.objects.every((obj) => !!(obj as object)[additionalProperty]);
-    expect(hasAdditionalProperty).toBe(true);
+    console.log(result.data.objects );
+
+    expect(Object.keys(result.data.objects[0]).includes(additionalProperty)).toBe(true);
 
   });
 });

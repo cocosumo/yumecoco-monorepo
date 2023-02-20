@@ -43,23 +43,24 @@ export const saveProject = async (body: SaveProjectData) => {
 
 
     console.log('保存した内容は全て格納出来たか確認処理中…');
-    const saveData = await getMyOrders({
+    const savedData = await getMyOrders({
       q: `案件管理ID = ${案件管理ID}`,
       series: Object.keys(parsedBody) as (keyof SaveProjectData)[],
     });
 
-    const savedAndpadData = saveData.data.objects?.[0];
+    const savedAndpadData = savedData.data.objects?.[0];
 
     console.log('格納されたデータ', savedAndpadData);
 
     for (const dataKey of Object.keys(parsedBody)) {
-      if (parsedBody[dataKey] !== savedAndpadData[dataKey]) {
-        console.log();
-        throw new Error(`{ ${dataKey}: ${parsedBody[dataKey]} } 保存が失敗しました。ANDPADに格納した情報：${savedAndpadData[dataKey]}。 管理者に連絡してください。`);
+      const dataValue = parsedBody[dataKey as keyof typeof parsedBody];
+      const savedValue = savedAndpadData[dataKey as keyof typeof savedAndpadData];
+      if (dataValue !== savedValue) {
+        throw new Error(`{ ${dataKey}: ${dataValue} } 保存が失敗しました。ANDPADに格納した情報：${savedValue}。 管理者に連絡してください。`);
       }
     }
 
-    console.log('保存が、成功しました。');
+    console.log('保存が成功しました。');
     return resp;
 
   } catch (err: unknown) {

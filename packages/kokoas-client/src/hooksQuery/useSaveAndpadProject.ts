@@ -81,17 +81,15 @@ export const useSaveAndpadProject = (projId: string | undefined) => {
         'ラベル:工事内容': bestStringMatch(projRec.projTypeName.value, projectTypesAndpad, { valueIfNoMatch: 'その他' }),
         'ラベル:店舗': bestStringMatch(custGroupRec.storeName.value, storeNamesAndpad, { ignore: '店' }),
 
-        '案件都道府県': projPrefecture,
-        '物件都道府県': custPrefecture,
+        '顧客都道府県': custPrefecture,
+        '物件都道府県': projPrefecture,
       });
 
-      console.log(saveResult);
       return saveResult;
     },
     {
       ...commonOptions,
       onSuccess: ({ data }) => {
-        console.log(data);
         setSnackState({ open:true, message: `ANDPADへ保存が出来ました。システムID ${data?.object?.システムID}`, severity: 'success' });
       },
 

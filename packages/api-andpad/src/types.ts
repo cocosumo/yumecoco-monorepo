@@ -98,7 +98,7 @@ export const saveProjectData = z.object({
   'ラベル:店舗': z.enum(storeNamesAndpad),
 
   /** 都道府県 */
-  '案件都道府県': z.string().optional(),
+  '顧客都道府県': z.string().optional(),
   '物件都道府県': z.string().optional(),
 });
 

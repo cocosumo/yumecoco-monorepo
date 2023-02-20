@@ -3,9 +3,10 @@ import qs from 'qs';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
-import { SaveProjectResponse } from '../types';
+import { Projects, SaveProjectData } from '../types';
 
 interface GetMyOrders {
+  series?: (keyof SaveProjectData)[],
   limit?: number,
   offset?: number,
   q?: string,
@@ -17,7 +18,7 @@ interface GetMyOrdersResponse {
     last_flg: boolean,
     limit: number,
     offset: number,
-    objects: Array<SaveProjectResponse>
+    objects: Array<Projects>
   }
 }
 
@@ -25,12 +26,14 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
   const {
     limit,
     q,
+    series = [],
   } = params || {};
   try {
 
     const urlParams = qs.stringify({
       limit,
       q,
+      series: series.join(','),
     });
 
     const url = `${endpoints.ourOrders}?${urlParams}`;

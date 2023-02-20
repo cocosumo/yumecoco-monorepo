@@ -1,3 +1,4 @@
+import { SaveProjectData } from '../types';
 import { getMyOrders } from './getMyOrders';
 
 describe('getMyOrders', () => {
@@ -46,5 +47,16 @@ describe('getMyOrders', () => {
     console.log(JSON.stringify(result, null, 2));
 
     expect(result.data.objects.length).toBe(1);
+  });
+
+  it('should get orders with aditional property: 顧客メールアドレス', async () => {
+    const value = 'anken-test-only2';
+    const additionalProperty: keyof SaveProjectData = '顧客メールアドレス';
+    const result = await getMyOrders({ q: `案件管理ID = ${value}`, series: [additionalProperty] });
+
+    console.log(result.data.objects);
+    const hasAdditionalProperty = result.data.objects.every((obj) => !!(obj as object)[additionalProperty]);
+    expect(hasAdditionalProperty).toBe(true);
+
   });
 });

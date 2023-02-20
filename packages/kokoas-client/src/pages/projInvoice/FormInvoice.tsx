@@ -38,9 +38,9 @@ export const FormInvoice = () => {
 
   const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
     if (+contractAmount > 0) {
-      return isForPayment && ((+contractAmount < (+billedAmount + +billingAmount)) || +billingAmount < 0);
+      return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
     }
-    return isForPayment && ((+contractAmount > (+billedAmount + +billingAmount)) || +billingAmount > 0);
+    return isForPayment && (+contractAmount > (+billedAmount + +billingAmount));
 
   });
 

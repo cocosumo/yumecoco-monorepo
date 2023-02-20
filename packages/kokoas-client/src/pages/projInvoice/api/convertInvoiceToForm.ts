@@ -7,6 +7,7 @@ export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
   estimates: TMaterials[],
   datInvoicesTotal: EstimateList[],
+  estimateIdArray: string[],
 ): Partial<TypeOfForm> => {
   const {
     uuid,
@@ -43,6 +44,8 @@ export const convertInvoiceToForm = (
       return dataIdOfInvoice === dataId;
     })?.billedAmount ?? '0';
 
+    const isForPaymentFromURL = estimateIdArray.some((id) => id === estimateId);
+
     acc.push({
       estimateIndex: String(idx),
       projId: projId,
@@ -53,7 +56,7 @@ export const convertInvoiceToForm = (
       billedAmount: Number(Big(tgtBilledAmount).minus(tgtBillingAmount)),
       billingAmount: Number(tgtBillingAmount),
       amountType: amountType,
-      isForPayment: tgtBillingAmount === '0' ? false : true,
+      isForPayment: ((tgtBillingAmount === '0') && !isForPaymentFromURL) ? false : true,
       estimateId: estimateId,
     });
 

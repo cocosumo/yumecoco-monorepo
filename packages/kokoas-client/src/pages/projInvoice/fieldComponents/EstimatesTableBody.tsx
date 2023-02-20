@@ -46,20 +46,16 @@ export const EstimateTableBody = ({
   } = estimateRow;
 
   const handleChange = (checked: boolean) => {
-    const estimateIdArray = (estimateIdFromURL)?.split(', ') ?? [];
+    const estimateIdArray = (estimateIdFromURL)?.split(',') ?? [];
     const newEstimateIdArray = checked
       ? [...estimateIdArray, estimateId]
       : estimateIdArray.filter((id) => id !== estimateId);
 
-    const urlParams = (projInvoiceIdFromURL) ?
-      generateParams({
-        invoiceId: projInvoiceIdFromURL,
-        projEstimateId: newEstimateIdArray?.join(', '),
-      }) :
-      generateParams({
-        custGroupId: custGroupIdFromURL,
-        projEstimateId: newEstimateIdArray?.join(', '),
-      });
+    const urlParams = generateParams({
+      invoiceId: projInvoiceIdFromURL,
+      custGroupId: custGroupIdFromURL,
+      projEstimateId: newEstimateIdArray?.join(','),
+    });
 
     navigate(`${pages.projInvoice}?${urlParams}`);
   };

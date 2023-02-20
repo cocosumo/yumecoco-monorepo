@@ -16,13 +16,12 @@ export const saveAndpadProject = async (data: SaveProjectData) => {
   const result = await kintone.proxy(
     `${endpoint}`,
     'POST',
-    data,
     {},
+    data,
   );
   const [body, status] = result;
 
   if (status === 200) {
-    console.log(body);
     return body as SaveProjectResponse;
   } else {
     throw new Error(result);

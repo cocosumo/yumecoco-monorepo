@@ -4,7 +4,7 @@ import { KeyOfSubtable } from './../utils/KeyOfSubtable';
 export type IProjectsAgents = KeyOfSubtable<IProjects['agents']>;
 export type KFlatProjects = (KProjects | IProjectsAgents );
 
-export const buildingTypes =  ['戸建て', 'マンション', '店舗/事務所', 'その他'];
+export const buildingTypes =  ['戸建て', 'マンション', '店舗/事務所', 'その他'] as const;
 
 
 export const recordStatuses = [

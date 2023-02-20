@@ -12,6 +12,16 @@ export const authToken = z.object({
 
 export type AuthToken = z.infer<typeof authToken>;
 
+export const buildingTypesAndpad = ['マンション', '戸建', 'オフィス', '店舗', 'アパート', 'その他'] as const;
+export type BuildingTypesAndpad = typeof buildingTypesAndpad[number];
+
+export const projectTypesAndpad = ['新築', '新築付帯', 'リフォーム', '太陽光', '外構', '解体', 'その他'] as const;
+export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
+
+export const storeNamesAndpad = ['豊田店', '大林店', '豊川中央店', '豊橋向山店', '豊川八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '中川八熊店', '豊橋藤沢店', '豊田美里店', '豊橋岩田店'] as const;
+export type StoreNamesAndpad = typeof storeNamesAndpad[number];
+
+
 /**
  * string[]の場合、
  * 選択方法についてですが、店舗の場合は、"ラベル:店舗":"ラベル1,ラベル2"のような指定となります。
@@ -47,10 +57,8 @@ export const saveProjectData = z.object({
   /** 工事番号  */
   '物件管理ID': z.string(),
 
-  /** 建物種別 (戸建,マンション,店舗,その他)　指定しない場合はマンションで指定される
-   * (マンション,戸建,オフィス,店舗アパート,その他)から選択。指定しない場合はマンションで指定される
-   */
-  '物件種別': z.enum(['マンション', '戸建', 'オフィス', '店舗', 'アパート', 'その他']).optional(),
+  /** 建物種別 (戸建,マンション,店舗,その他)　指定しない場合はマンションで指定される */
+  '物件種別': z.enum(buildingTypesAndpad).optional(),
 
   /** 契約者名+様邸 */
   '物件名': z.string(),
@@ -84,10 +92,10 @@ export const saveProjectData = z.object({
   '契約日(実績)': z.string().optional(),
 
   /** 工事種別で連携 */
-  'ラベル:工事内容': z.enum(['新築', '新築付帯', 'リフォーム', '太陽光', '外構', '解体', 'その他']),
+  'ラベル:工事内容': z.enum(projectTypesAndpad),
 
   /** 店舗 */
-  'ラベル:店舗': z.enum(['豊田店', '大林店', '豊川中央店', '豊橋向山店', '豊川八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '中川八熊店', '豊橋藤沢店', '豊田美里店', '豊橋岩田店']),
+  'ラベル:店舗': z.enum(storeNamesAndpad),
 
   /** 都道府県 */
   '案件都道府県': z.string().optional(),

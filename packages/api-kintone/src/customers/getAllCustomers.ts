@@ -7,4 +7,5 @@ export const getAllCustomers = async (
 ) => getAllRecords<RecordType>({
   ...params,
   app: appId,
+  withCursor: true,
 });

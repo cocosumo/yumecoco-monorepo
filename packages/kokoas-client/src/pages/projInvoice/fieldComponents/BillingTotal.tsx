@@ -4,18 +4,19 @@ import { TypeOfForm } from '../form';
 import { BillingTotalBody } from './BillingTotalBody';
 
 
+interface BillingTotalTbl {
+  label: string,
+  align: TableCellProps['align'],
+  variant: TypographyVariant,
+}
+
 export const BillingTotal = () => {
 
   const { values } = useFormikContext<TypeOfForm>();
   const { estimates } = values;
 
-  interface billingTotalTbl {
-    label: string,
-    align: TableCellProps['align'],
-    variant: TypographyVariant,
-  }
 
-  const tblLabel = [{
+  const tblLabel: BillingTotalTbl[] = [{
     label: '請求合計',
     align: 'left',
     variant: 'body1',
@@ -27,7 +28,7 @@ export const BillingTotal = () => {
     label: '金額',
     align: 'right',
     variant: 'caption',
-  }] as billingTotalTbl[];
+  }];
 
 
   return (

@@ -123,15 +123,20 @@ export const FormInvoice = () => {
             </Grid>
 
 
-            {/* 請求合計 */}
-            <Grid item xs={12} md={7}>
-              <BillingTotal />
-            </Grid>
+            <Grid container
+              spacing={2}
+              alignItems="flex-end"
+              padding={2}
+            >
+              <Grid item xs={12} md={7}>
+                {/* 請求合計 */}
+                <BillingTotal />
+              </Grid>
 
-
-            {/* 入金予定日 */}
-            <Grid item xs={12} md={5}>
-              <PlannedPaymentDate />
+              <Grid item xs={12} md={5}>
+                {/* 入金予定日 */}
+                <PlannedPaymentDate />
+              </Grid>
             </Grid>
 
 

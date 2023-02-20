@@ -10,11 +10,13 @@ import { buildingTypesAndpad, projectTypesAndpad, storeNamesAndpad } from 'api-a
 import { bestStringMatch } from '../lib';
 import { useContractByProjId } from './useContractByProjId';
 import { useAddressPostalCode } from './useAddressPostalCode';
+import { useSnackBar } from '../hooks/useSnackBar';
 
 
 
 export const useSaveAndpadProject = (projId: string | undefined) => {
   const commonOptions = useCommonOptions();
+  const { setSnackState } = useSnackBar();
   const { data: projRec } = useProjById(projId ?? '');
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value ?? '');
   const { data: estData } = useContractByProjId(projId);
@@ -32,7 +34,7 @@ export const useSaveAndpadProject = (projId: string | undefined) => {
   } = {} } = useAddressPostalCode(firstCust?.postalCode.value || '', { enabled: !!firstCust?.postalCode.value });
 
   return useMutation(
-    () => {
+    async () => {
 
       if (!projRec) throw new Error('工事情報の取得が失敗しました。');
       if (!custGroupRec) throw new Error('顧客グループ情報の取得が失敗しました。');
@@ -52,8 +54,7 @@ export const useSaveAndpadProject = (projId: string | undefined) => {
 
       const [firstCustTel1, firstCustTel2] = firstCust.contacts.value.filter((row) => (row.value.contactType.value as TContact) === 'tel');
       const firstCustEmail = firstCust.contacts.value.find((row) => (row.value.contactType.value as TContact) === 'email');
-
-      return saveAndpadProject({
+      const saveResult = await saveAndpadProject({
         '顧客管理ID': custGroupRec.uuid.value,
         '顧客名': firstCust.fullName.value,
         '顧客名（カナ）': firstCust.fullNameReading.value,
@@ -83,9 +84,17 @@ export const useSaveAndpadProject = (projId: string | undefined) => {
         '案件都道府県': projPrefecture,
         '物件都道府県': custPrefecture,
       });
+
+      console.log(saveResult);
+      return saveResult;
     },
     {
       ...commonOptions,
+      onSuccess: ({ data }) => {
+        console.log(data);
+        setSnackState({ open:true, message: `ANDPADへ保存が出来ました。システムID ${data?.object?.システムID}`, severity: 'success' });
+      },
+
     },
   );
 };

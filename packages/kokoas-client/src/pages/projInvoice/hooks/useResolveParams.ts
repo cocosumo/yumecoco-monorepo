@@ -15,6 +15,7 @@ export const useResolveParams = () => {
   const {
     invoiceId: projInvoiceIdFromURL,
     custGroupId: custGroupIdFromURL,
+    projEstimateId: estimateIdFromURL,
   } = useURLParams();
 
   const {
@@ -38,7 +39,7 @@ export const useResolveParams = () => {
       setValues((prev) => ({
         ...prev,
         ...convertCustDataToForm(custData),
-        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesTotal),
+        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesTotal, estimateIdFromURL?.split(',') ?? []),
         invoiceId: projInvoiceIdFromURL,
       }));
     } else if (custGroupIdFromURL && custData && recContracts) {
@@ -50,6 +51,7 @@ export const useResolveParams = () => {
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
           const tgtBilledAmount = datInvoicesTotal?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+          const newIsForPayment = (estimateIdFromURL || '').split(',').includes(data.estimateId);
 
           draft.estimates[idx] = {
             estimateIndex: String(idx),
@@ -61,7 +63,7 @@ export const useResolveParams = () => {
             billedAmount: Number(tgtBilledAmount),
             billingAmount: data.billingAmount,
             amountType: '',
-            isForPayment: data.isForPayment,
+            isForPayment: data.isForPayment || newIsForPayment,
             estimateId: data.estimateId,
           };
         });
@@ -81,6 +83,7 @@ export const useResolveParams = () => {
     recContracts,
     datInvoicesTotal,
     recInvoice,
+    estimateIdFromURL,
   ]);
 
 };

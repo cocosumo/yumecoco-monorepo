@@ -16,6 +16,7 @@ export const translations: Record<string, string> = {
   latestInvoiceAmount: '直近請求金額',
   latestInvoiceDate: '直近請求日',
   plannedPaymentDate: '入金予定日',
+  profitRate: '粗利%',
   projId: '工事番号',
   projDataId: '工事管理番号',
   projName: '工事名',

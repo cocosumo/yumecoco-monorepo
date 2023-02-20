@@ -20,11 +20,11 @@ const billingAmountValidation = function (this: any) {
     isForPayment,
   } = this.parent;
 
-  if (!isForPayment) return false; // 請求に使用しないときはバリデーションから除外
-  if (!billingAmount) return true; // 未入力もしくは0の場合はエラー
+  if (!isForPayment) return true; // 請求に使用しないときはバリデーションから除外
+  if (!billingAmount) return false; // 未入力もしくは0の場合はエラー
   if ((billingAmount >= 0 && contractAmount >= 0)
-    || (billingAmount < 0 && contractAmount < 0)) return false;
-  return true;
+    || (billingAmount < 0 && contractAmount < 0)) return true;
+  return false;
 };
 
 /* MAIN VALIDATION SCHEMA */

@@ -14,7 +14,8 @@
     "/packages/api-kintone/src/employees/config.ts",
     "/packages/api-kintone/src/postal/config.ts",
     "/packages/kokoas-client/src/components/MainScreen.tsx",
-    "/packages/kokoas-client/src/components/App.tsx"
+    "/packages/kokoas-client/src/components/App.tsx",
+    "/packages/kokoas-client/src/lib/packageInfo.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",

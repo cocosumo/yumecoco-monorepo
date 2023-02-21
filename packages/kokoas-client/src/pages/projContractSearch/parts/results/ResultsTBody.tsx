@@ -1,4 +1,5 @@
 import { Button, TableBody } from '@mui/material';
+import Big from 'big.js';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,6 +26,7 @@ export const ResultsTBody = ({
         projName,
         contractAmount,
         grossProfit,
+        profitRate,
         store,
         yumeAG,
         cocoAG,
@@ -59,6 +61,7 @@ export const ResultsTBody = ({
             contractDate={contractDate}
             contractAmount={`${contractAmount.toLocaleString()}円`}
             grossProfit={`${grossProfit.toLocaleString()}円`}
+            profitRate={`${Big(profitRate).mul(100).round(2).toNumber()}%`}
             latestInvoiceAmount={invoiceId ? (
               <Link to={`${pages.projInvoice}?${generateParams({ invoiceId })}`}>
                 {parsedLatestInvoiceAmount}

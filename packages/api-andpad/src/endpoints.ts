@@ -12,4 +12,7 @@ export const endpoints = {
 
   /*  案件同期（作成|編集） */
   ordersSync: `${baseURL}/workman/our/orders/sync`,
+
+  /** 自社案件一覧取得 */
+  ourOrders: `${baseURL}/workman/our/orders`,
 };

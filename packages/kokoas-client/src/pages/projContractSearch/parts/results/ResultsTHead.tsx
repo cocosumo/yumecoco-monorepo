@@ -47,6 +47,7 @@ export const ResultsTHead = () => {
         latestInvoiceAmount={<ResultsTHeadSortLabel headerLabel='latestInvoiceAmount' />}
         plannedPaymentDate={<ResultsTHeadSortLabel headerLabel='plannedPaymentDate' />}
         grossProfit={<ResultsTHeadSortLabel headerLabel='grossProfit' />}
+        profitRate={<ResultsTHeadSortLabel headerLabel='profitRate' />}
       />
 
     </TableHead>

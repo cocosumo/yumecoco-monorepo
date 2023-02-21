@@ -1,10 +1,22 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow, Typography } from '@mui/material';
 import { TMaterials } from '../form';
-import { roundTo } from 'libs';
 import { Big } from 'big.js';
+import { calculateAmountBeforeTax } from 'api-kintone';
+import { calcTaxAmount } from 'api-kintone/src/invoice/calculation/calcTaxAmount';
+import { Caption } from 'kokoas-client/src/components';
+import { useMemo } from 'react';
 
 /** 税額　※当面は10%で固定とする */
 const taxRate = 0.1;
+
+/** 非課税の適用設定 ※当面は顧客用の請求書のため、非適用とする */
+const isNonTaxableUse = false;
+
+interface BillingTotalResult {
+  billingTotalAfterTax: number,
+  billingTotalBeforeTax: number,
+  taxAmount: number,
+}
 
 export const BillingTotalBody = ({
   estimates,
@@ -12,73 +24,110 @@ export const BillingTotalBody = ({
   estimates: TMaterials[]
 }) => {
 
-  const result = estimates.reduce(
-    (acc,
-      {
-        isForPayment,
-        contractAmount,
-        billingAmount,
-        billedAmount,
-        nonTaxableAmount,
-      },
-    ) => {
-      if (isForPayment !== true) return acc;
 
-      /* 課税対象分から請求に使用していく */
-      const bTaxableAmount = Big(contractAmount).minus(nonTaxableAmount).minus(billedAmount);
-      const bTax = Big(1).plus(taxRate);
-        
-      if (contractAmount >= 0) { /* 請求書(契約金額が0円以上)の場合 */
+  const result: BillingTotalResult = useMemo(() => {
+    if (isNonTaxableUse) {
 
-        let billingAmountBeforeTax = 0;
-        if (bTaxableAmount.toNumber() <= 0) { /* 課税対象金額を使い切っている場合 */
-          billingAmountBeforeTax = billingAmount;
-        } else if (Big(bTaxableAmount).minus(billingAmount).toNumber() >= 0) { /* 請求額が全額課税対象の場合 */
-          billingAmountBeforeTax = Big(billingAmount).div(bTax).toNumber();
-        } else { /* 請求金額に課税と非課税が混在する場合 */
-          const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
-          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber();
-        }
+      estimates.reduce(
+        (acc,
+          {
+            isForPayment,
+            contractAmount,
+            billingAmount,
+            billedAmount,
+            nonTaxableAmount,
+          },
+        ) => {
+          if (!isForPayment) return acc;
 
-        return {
-          billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount).toNumber(),
-          billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax).toNumber(),
-        };
-      } else {  /* 返金の契約書の場合 */
+          const {
+            billingAmountBeforeTax,
+          } = calculateAmountBeforeTax({
+            contractAmount,
+            nonTaxableAmount,
+            billingAmount,
+            billedAmount,
+            taxRate,
+          });
 
-        let billingAmountBeforeTax = 0;
-        if (bTaxableAmount.toNumber() >= 0) { /* 課税対象金額を使い切っている場合 */
-          billingAmountBeforeTax = billingAmount;
-        } else if (Big(bTaxableAmount).minus(billingAmount).toNumber() <= 0) { /* 請求額が全額課税対象の場合 */
-          billingAmountBeforeTax = Big(billingAmount).div(bTax).toNumber();
-        } else { /* 請求金額に課税と非課税が混在する場合 */
-          const bNonTaxalbeBillingAmount = Big(billingAmount).minus(bTaxableAmount);
-          billingAmountBeforeTax = Big(bTaxableAmount).div(bTax).plus(bNonTaxalbeBillingAmount).toNumber();
-        }
+          return {
+            ...acc,
+            billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount).toNumber(),
+            billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax).toNumber(),
+          };
 
-        return {
-          billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount).toNumber(),
-          billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax).toNumber(),
-        };
-      }
-    }, {
-      billingTotalAfterTax: 0,
-      billingTotalBeforeTax: 0,
-    });
+        }, {
+          billingTotalAfterTax: 0,
+          billingTotalBeforeTax: 0,
+          taxAmount: 0,
+        });
 
+      return {
+        ...result,
+        taxAmount: Big(result.billingTotalAfterTax).minus(result.billingTotalBeforeTax).toNumber(),
+      };
 
+    } else {
+      const billingTotalAfterTax = estimates.reduce((acc, cur) => {
+
+        return Big(acc).plus(cur.billingAmount).toNumber();
+
+      }, 0);
+
+      const taxAmount = calcTaxAmount(billingTotalAfterTax, taxRate);
+
+      return {
+        billingTotalAfterTax: billingTotalAfterTax,
+        billingTotalBeforeTax: Big(billingTotalAfterTax).minus(taxAmount).toNumber(),
+        taxAmount: taxAmount,
+      };
+    }
+  }, [
+    estimates,
+  ]);
+
+  /* 税抜金額の算出処理を移管する */
 
   return (
-    <TableRow>
-      <TableCell>
-        {'請求合計'}
-      </TableCell>
-      <TableCell align="right">
-        {Big(result.billingTotalBeforeTax).round(2).toLocaleString()}
-      </TableCell>
-      <TableCell align="right">
-        {result.billingTotalAfterTax.toLocaleString()}
-      </TableCell>
-    </TableRow>
+    <>
+      <TableRow>
+        <TableCell>
+          {''}
+        </TableCell>
+        <TableCell align="left">
+          <Typography variant='h6'>
+            {'合計金額'}
+          </Typography>
+        </TableCell>
+        <TableCell align="right">
+          {`${result.billingTotalAfterTax.toLocaleString()} 円`}
+        </TableCell>
+      </TableRow>
+
+
+      <TableRow>
+        <TableCell>
+          {''}
+        </TableCell>
+        <TableCell align="left">
+          <Caption text='税抜金額' />
+        </TableCell>
+        <TableCell align="right">
+          {`${result.billingTotalBeforeTax.toLocaleString()} 円`}
+        </TableCell>
+      </TableRow>
+
+      <TableRow>
+        <TableCell>
+          {''}
+        </TableCell>
+        <TableCell align="left">
+          <Caption text={`消費税額(${useMemo(() => (taxRate * 100), [])}%)`} />
+        </TableCell>
+        <TableCell align="right">
+          {`${result.taxAmount.toLocaleString()} 円`}
+        </TableCell>
+      </TableRow>
+    </>
   );
 };

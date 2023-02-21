@@ -24,7 +24,7 @@ export interface ContractRow {
   contractDate: string,
   contractAmount: number,
   grossProfit: number,
-
+  profitRate: number,
   latestInvoiceDate: string,
   latestInvoiceAmount: number,
   plannedPaymentDate: string,
@@ -116,6 +116,7 @@ export const useFilteredContracts = () => {
           summary : {
             totalProfit,
             totalAmountAfterTax,
+            overallProfitRate,
           },
         } = calculateEstimateRecord({ record: cur });
 
@@ -148,6 +149,7 @@ export const useFilteredContracts = () => {
           store: storeName?.value || '',
           contractAmount: totalAmountAfterTax,
           grossProfit: totalProfit,
+          profitRate: overallProfitRate,
         };
 
         /* 絞り込み */

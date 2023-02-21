@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { getFieldName, KeyOfForm, TKMaterials } from './form';
+import { getFieldName, KeyOfForm, TypeOfForm } from './form';
 
 
 /* Common validations */
@@ -10,6 +10,22 @@ const dateValidation = Yup
 const numberValidation = Yup
   .number()
   .typeError('数字を入力してください');
+
+
+/* unique validations */
+const billingAmountValidation = function (this: { parent: TypeOfForm['estimates'][number] }) {
+  const {
+    contractAmount,
+    billingAmount,
+    isForPayment,
+  } = this.parent;
+
+  if (!isForPayment) return true; // 請求に使用しないときはバリデーションから除外
+  if (!billingAmount) return false; // 未入力もしくは0の場合はエラー
+  if ((billingAmount >= 0 && contractAmount >= 0)
+    || (billingAmount < 0 && contractAmount < 0)) return true;
+  return false;
+};
 
 /* MAIN VALIDATION SCHEMA */
 export const validationSchema = Yup
@@ -23,10 +39,11 @@ export const validationSchema = Yup
         estimateId: Yup.string(),
         contractAmount: numberValidation,
         billingAmount: numberValidation
-          .when('isForPayment' as TKMaterials, {
-            is: true,
-            then: numberValidation.notOneOf([0], '0以外の数値を入力してください'),
-          }),
+          .test(
+            'with-the-same-plus-or-minus-sign-as-the-contract-amount',
+            '契約金額と同じ符号(+, -)で入力してください',
+            billingAmountValidation,
+          ),
         billedAmount: numberValidation,
         contractDate: dateValidation,
         isForPayment: Yup.boolean(),

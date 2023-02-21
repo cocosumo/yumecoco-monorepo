@@ -5,7 +5,7 @@ import { useMemo } from 'react';
  * 工事番号で、工事のデータを取得する。
  */
 export const useProjById = (projId: string) => {
-  
+
   const queryInfo = useProjects();
 
   return {

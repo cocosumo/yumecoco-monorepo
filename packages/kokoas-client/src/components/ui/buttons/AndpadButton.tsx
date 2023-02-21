@@ -20,6 +20,10 @@ export const AndpadButton = styled(Button)<ButtonProps>(({ theme }) => ({
     borderColor: hoverColor,
     boxShadow: theme.shadows[6],
   },
+  '&:disabled': {
+    backgroundColor: red[50],
+    borderColor: 'unset',
+  },
   '&:active': {
     backgroundColor: hoverColor,
     borderColor: hoverColor,

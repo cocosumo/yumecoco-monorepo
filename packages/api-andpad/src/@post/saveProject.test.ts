@@ -68,13 +68,8 @@ describe('saveProject', () => {
       q: `案件名 = ${completeData.案件名}`,
     });
 
-
     console.log(JSON.stringify(getResult, null, 2));
 
-    /**
-     * Andpadの取得APIは全て取得出来ないので、本当に保存出来たか単純にテスト出来ない。
-     * RPAでブラウザを開いて、取得する処理が必要
-     * **/
     expect(getResult.data.objects.length).toBe(1);
   });
 

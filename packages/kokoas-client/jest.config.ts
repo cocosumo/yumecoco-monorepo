@@ -3,7 +3,7 @@
 
 module.exports = {
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   setupFiles: ['dotenv/config'],
   modulePathIgnorePatterns: ['dist/'],
   setupFilesAfterEnv: ['./jest.setup.js'],

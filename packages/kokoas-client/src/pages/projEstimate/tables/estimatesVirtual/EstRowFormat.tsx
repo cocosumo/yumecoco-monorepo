@@ -1,5 +1,7 @@
 import { Stack, StackProps } from '@mui/material';
 import { forwardRef, ReactNode } from 'react';
+import { useFormContext, useWatch } from 'react-hook-form';
+import { TypeOfForm } from '../../form';
 
 export interface EstRowFormatProps {
   stackProps?: StackProps,
@@ -17,6 +19,13 @@ export interface EstRowFormatProps {
 }
 
 export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, ref ) => {
+  const { control } = useFormContext<TypeOfForm>();
+  const status = useWatch({
+    name: 'status',
+    control,
+  });
+
+  const showTaxType = status === '工事実行';
 
   const {
     stackProps,
@@ -32,6 +41,8 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
     rowUnitPrice,
     rowDetails,
   } = props;
+
+
 
   return (
 
@@ -76,9 +87,12 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
           <Stack width={'25%'}>
             {profitRate}
           </Stack>
+          {showTaxType && (
           <Stack width={'12%'}>
             {taxType}
           </Stack>
+          )}
+
           <Stack width={'30%'}>
             {unitPrice}
           </Stack>

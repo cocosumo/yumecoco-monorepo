@@ -30,7 +30,7 @@ describe('bestStringMatch', () => {
 
 
   /** Integration Test
-   *  Kintoneでは、modelのpropertyタイプ型は設定・取得出来ないので、取り合えず手動で確認
+   *  Kintoneでは、フィールドの設定・取得は限られているので、取り合えず手動で確認
    *  本格的DBに移行したら、改修
    * */
 

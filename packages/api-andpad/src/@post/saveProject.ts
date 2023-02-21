@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
+import { getMyOrders } from '../@get';
 import { endpoints } from '../endpoints';
 import { saveProjectData, SaveProjectData, saveProjectResponse } from '../types';
 
@@ -31,18 +32,44 @@ export const saveProject = async (body: SaveProjectData) => {
       data: parsedBody,
     });
 
-    const resp = saveProjectResponse.parse(data);
+    const resp = saveProjectResponse.parse(data); // ANDPAD側が安定した型で返ったかチェック
+    const {
+      data: {
+        object: {
+          案件管理ID,
+        },
+      },
+    } = resp;
 
+
+    console.log('保存した内容は全て格納出来たか確認処理中…');
+    const savedData = await getMyOrders({
+      q: `案件管理ID = ${案件管理ID}`,
+      series: Object.keys(parsedBody) as (keyof SaveProjectData)[],
+    });
+
+    const savedAndpadData = savedData.data.objects?.[0];
+
+    console.log('格納されたデータ', savedAndpadData);
+
+    for (const dataKey of Object.keys(parsedBody)) {
+      const dataValue = parsedBody[dataKey as keyof typeof parsedBody];
+      const savedValue = savedAndpadData[dataKey as keyof typeof savedAndpadData];
+      if (dataValue !== savedValue) {
+        throw new Error(`{ ${dataKey}: ${dataValue} } 保存が失敗しました。ANDPADに格納した情報：${savedValue}。 管理者に連絡してください。`);
+      }
+    }
+
+    console.log('保存が成功しました。');
     return resp;
 
   } catch (err: unknown) {
     const {
       response,
       errors,
+      message,
     } = err as AxiosError & ZodError;
-    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${errors?.[0].message}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}`;
-    console.log(response?.data?.errors);
-    console.log(errorMsg);
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}, ${message}。`;
 
     throw new Error(errorMsg);
   }

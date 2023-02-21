@@ -5,7 +5,7 @@ export const SaveToAndpadDialogContent = () => {
   return (
     <DialogContent>
       <DialogContentText>
-        Andpadへ登録しますか。
+        Andpadへ格納します。
       </DialogContentText>
     </DialogContent>
   );

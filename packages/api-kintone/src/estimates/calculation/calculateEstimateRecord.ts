@@ -56,3 +56,5 @@ export const calculateEstimateRecord = ({
   };
 
 };
+
+export type CalculateEstimateRecordReturn = ReturnType<typeof calculateEstimateRecord>;

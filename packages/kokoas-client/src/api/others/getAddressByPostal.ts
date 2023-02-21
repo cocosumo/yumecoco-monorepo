@@ -10,6 +10,10 @@ interface PostalAPIResponse {
   }[] | null
 }
 
+/**
+ * 郵便番号で取得します。
+ *
+ */
 export const getAddressByPostal = async (
   postal: string,
 ) : Promise<{
@@ -35,6 +39,7 @@ export const getAddressByPostal = async (
       });
   } catch (e) {
     if (e instanceof ReferenceError) {
+      // Kintone上でない時, 利用した場合
       const { results }: PostalAPIResponse = (await axios.get(endpoint)).data;
       if (results) {
         const { address1, address2, address3 } = results[0];

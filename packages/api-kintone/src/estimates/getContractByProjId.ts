@@ -40,7 +40,6 @@ export const getContractByProjId = async (projId: string) => {
 
           const calculated = calculateEstimateRecord({ record: estimate });
 
-          console.log(calculated.summary.totalAmountAfterTax, mainContract?.calculated.summary.totalAmountAfterTax);
           if (!mainContract || calculated.summary.totalAmountAfterTax > mainContract.calculated.summary.totalAmountAfterTax) {
             return {
               record: estimate,

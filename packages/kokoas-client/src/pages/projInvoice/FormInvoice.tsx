@@ -36,20 +36,20 @@ export const FormInvoice = () => {
   useResolveParams();
 
 
-  const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
-    if (+contractAmount > 0) {
-      return isForPayment && ((+contractAmount < (+billedAmount + +billingAmount)) || +billingAmount < 0);
-    }
-    return isForPayment && ((+contractAmount > (+billedAmount + +billingAmount)) || +billingAmount > 0);
+  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+    const totalBilledAmount = +billedAmount + +billingAmount;
+    const isUnderContractAmount = (+contractAmount > 0) && (totalBilledAmount > +contractAmount);
+    const isOverContractAmount = (+contractAmount <= 0) && (totalBilledAmount < +contractAmount);
 
+    return isForPayment && (isUnderContractAmount || isOverContractAmount);
   });
 
   useEffect(() => {
     setValues((prev) => ({
       ...prev,
-      exceededContract: exceeded,
+      exceededContract: totalAmountExceeded,
     }));
-  }, [setValues, exceeded]);
+  }, [setValues, totalAmountExceeded]);
 
   useEffect(() => {
     if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
@@ -114,7 +114,7 @@ export const FormInvoice = () => {
                   {'※請求には課税対象分から使用し、非課税額は最後に使用します'}
                 </Typography>
               </Stack>
-              <BillingEntryTable exceeded={exceeded} />
+              <BillingEntryTable totalAmountExceeded={totalAmountExceeded} />
             </Grid>
 
 

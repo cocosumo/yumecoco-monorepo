@@ -20,7 +20,7 @@ export const BillingEntryTableRow = ({
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { 
+  const {
     projTypeName,
     estimateId,
     dataId,
@@ -60,11 +60,11 @@ export const BillingEntryTableRow = ({
   };
 
   const newBillingAmount = (+billedAmount + +billingAmount);
-  let exceeded = false;
-  if (+contractAmount >= 0 ) {
-    exceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
+  let rowAmountExceeded = false;
+  if (+contractAmount >= 0) {
+    rowAmountExceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
   } else {
-    exceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
+    rowAmountExceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
   }
 
 
@@ -93,7 +93,7 @@ export const BillingEntryTableRow = ({
         />
       </TableCell>
       <TableCell>
-        {exceeded && <WarningIcon />}
+        {rowAmountExceeded && <WarningIcon color='warning' />}
       </TableCell>
     </TableRow>
   );

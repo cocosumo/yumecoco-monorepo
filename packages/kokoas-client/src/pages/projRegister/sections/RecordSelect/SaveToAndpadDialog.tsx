@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { AndpadButton } from 'kokoas-client/src/components/ui/buttons/AndpadButton';
 import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useSaveAndpadProject } from 'kokoas-client/src/hooksQuery';
+import { useConvertToAndpadByProjId, useSaveAndpadProject } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../../form';
 import { SaveToAndpadDialogContent } from './SaveToAndpadDialogContent';
 
@@ -14,11 +14,18 @@ export const SaveToAndpadDialog = ({
   handleClose: () => void
 }) => {
   const { projId } = useURLParams<TypeOfForm>();
-  const { mutate: mutateAndpad } = useSaveAndpadProject(projId || '');
+  const { data, isLoading } = useConvertToAndpadByProjId(
+    open ? projId : '',
+    {
+      onError: handleClose,
+    });
 
+  const { mutate: mutateAndpad } = useSaveAndpadProject();
 
   const handleClick = () => {
-    mutateAndpad();
+    if (data) {
+      mutateAndpad(data);
+    }
     handleClose();
   };
 
@@ -28,12 +35,13 @@ export const SaveToAndpadDialog = ({
       open={open}
       onClose={handleClose}
       keepMounted={false}
-      maxWidth={'xs'}
+      maxWidth={'md'}
+      fullWidth
     >
       <DialogTitle>
         アンドパッドへ登録しますか。
       </DialogTitle>
-      <SaveToAndpadDialogContent />
+      <SaveToAndpadDialogContent isLoading={isLoading} convertedData={data} />
       <DialogActions>
         <Button onClick={handleClose}>
           キャンセル
@@ -41,6 +49,7 @@ export const SaveToAndpadDialog = ({
         <AndpadButton
           onClick={handleClick}
           startIcon={<AndpadLogo />}
+          disabled={isLoading}
         >
           はい
         </AndpadButton>

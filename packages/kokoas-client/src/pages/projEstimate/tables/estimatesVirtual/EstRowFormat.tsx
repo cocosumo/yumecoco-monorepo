@@ -93,10 +93,10 @@ export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, r
           </Stack>
           )}
 
-          <Stack width={'auto'}>
+          <Stack width={'30%'}>
             {unitPrice}
           </Stack>
-          <Stack width={'auto'}>
+          <Stack width={showTaxType ? '33%' : '45%'}>
             {rowUnitPrice}
           </Stack>
         </Stack>

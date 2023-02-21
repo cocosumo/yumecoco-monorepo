@@ -8,9 +8,9 @@ import { BillingEntryTableHead } from './BillingEntryTableHead';
 import { ExceedContractAmount } from './ExceedContractAmount';
 
 export const BillingEntryTable = ({
-  exceeded,
+  totalAmountExceeded,
 }: {
-  exceeded: boolean
+  totalAmountExceeded: boolean
 }) => {
 
   const { values } = useFormikContext<TypeOfForm>();
@@ -46,7 +46,7 @@ export const BillingEntryTable = ({
             </TableBody>
           </Table>
         </TableContainer>}
-      {exceeded && <ExceedContractAmount />}
+      {totalAmountExceeded && <ExceedContractAmount />}
     </>
   );
 };

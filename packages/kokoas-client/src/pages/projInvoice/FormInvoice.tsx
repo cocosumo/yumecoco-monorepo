@@ -1,7 +1,7 @@
 import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
-import { getFieldName, TypeOfForm } from './form';
+import { getFieldName, TInvoiceStatus, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
@@ -31,6 +31,7 @@ export const FormInvoice = () => {
     custGroupId,
     custName,
     estimates,
+    invoiceStatus,
   } = values;
 
   useResolveParams();
@@ -41,8 +42,10 @@ export const FormInvoice = () => {
       return isForPayment && ((+contractAmount < (+billedAmount + +billingAmount)) || +billingAmount < 0);
     }
     return isForPayment && ((+contractAmount > (+billedAmount + +billingAmount)) || +billingAmount > 0);
-
   });
+
+  const isEnabled = invoiceStatus === 'created' as TInvoiceStatus;
+
 
   useEffect(() => {
     setValues((prev) => ({

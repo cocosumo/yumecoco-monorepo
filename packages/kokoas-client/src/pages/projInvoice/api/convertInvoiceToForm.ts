@@ -15,6 +15,7 @@ export const convertInvoiceToForm = (
     estimateLists,
     plannedPaymentDate,
     exceedChecked,
+    invoiceStatus,
   } = recInvoice;
 
 
@@ -71,6 +72,7 @@ export const convertInvoiceToForm = (
     undecidedPaymentDate: !plannedPaymentDate.value,
     exceedChecked: Boolean(exceedChecked.value),
     estimates: newEstimates,
+    invoiceStatus: invoiceStatus.value,
   };
 
 };

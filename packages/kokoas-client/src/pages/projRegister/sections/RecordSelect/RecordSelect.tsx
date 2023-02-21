@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material';
-import { isProd } from 'config';
 import { useFormikContext } from 'formik';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
 import { SelectProjectInCustGroup } from 'kokoas-client/src/components/ui/dialogs/SelectProjectInCustGroup';
@@ -112,10 +111,8 @@ export const RecordSelect = () => {
         xs={12}
         md={2}
       >
-        {/* 本番では表示させない */}
-        {
-          !isProd && <SaveToAndpadButton show={hasContract} />
-        }
+
+        <SaveToAndpadButton show={hasContract} />
 
       </Grid>
       <Grid

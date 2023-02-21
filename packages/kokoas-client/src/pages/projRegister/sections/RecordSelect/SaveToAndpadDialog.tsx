@@ -33,7 +33,7 @@ export const SaveToAndpadDialog = ({
       <DialogTitle>
         アンドパッドへ登録しますか。
       </DialogTitle>
-      <SaveToAndpadDialogContent andpadProject={{} as any} />
+      <SaveToAndpadDialogContent />
       <DialogActions>
         <Button onClick={handleClose}>
           キャンセル

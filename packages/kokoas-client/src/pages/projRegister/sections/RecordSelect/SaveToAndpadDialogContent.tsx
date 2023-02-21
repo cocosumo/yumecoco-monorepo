@@ -1,11 +1,6 @@
 import { DialogContent, DialogContentText } from '@mui/material';
-import { SaveProjectData } from 'api-andpad';
 
-export const SaveToAndpadDialogContent = ({
-  andpadProject,
-}: {
-  andpadProject: SaveProjectData
-}) => {
+export const SaveToAndpadDialogContent = () => {
 
   return (
     <DialogContent>

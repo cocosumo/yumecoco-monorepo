@@ -14,10 +14,13 @@ export const SaveToAndpadDialog = ({
   handleClose: () => void
 }) => {
   const { projId } = useURLParams<TypeOfForm>();
-  const { data, isLoading } = useConvertToAndpadByProjId(open ? projId : '');
+  const { data, isLoading } = useConvertToAndpadByProjId(
+    open ? projId : '',
+    {
+      onError: handleClose,
+    });
 
   const { mutate: mutateAndpad } = useSaveAndpadProject();
-
 
   const handleClick = () => {
     if (data) {
@@ -26,12 +29,13 @@ export const SaveToAndpadDialog = ({
     handleClose();
   };
 
+
   return (
     <Dialog
       open={open}
       onClose={handleClose}
       keepMounted={false}
-      maxWidth={'xs'}
+      maxWidth={'md'}
       fullWidth
     >
       <DialogTitle>

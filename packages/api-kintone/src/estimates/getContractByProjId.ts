@@ -31,7 +31,6 @@ export const getContractByProjId = async (projId: string) => {
     query: `${mainQuery}`,
   })
     .then(({ records }) => {
-
       return records
         .reduce((mainContract, estimate) => {
           if (estimate.projId.value !== projId) {

@@ -39,6 +39,7 @@ export const initialValues = {
   isChkAddressKari: false,
   status: '追客中' as RecordStatus,
   hasContract: false,
+  hasCompetedContract: false,
   cancelStatus: [] as RecordCancelStatus[],
 };
 

@@ -1,13 +1,15 @@
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { IInvoices } from 'types';
-import { TypeOfForm } from '../form';
+import { TInvoiceStatus, TypeOfForm } from '../form';
 
 export const convertToKintone = ({
   custGroupId,
   estimates,
   plannedPaymentDate,
   exceedChecked,
-}: TypeOfForm) => {
+}: TypeOfForm,
+invoiceStatus: TInvoiceStatus,
+) => {
 
   const billingAmount = estimates.reduce((acc, cur) => {
     return acc + +cur.billingAmount;
@@ -21,6 +23,7 @@ export const convertToKintone = ({
     issuedDateTime: { value: toKintoneDateStr(new Date(), true) },
     custGroupId: { value: custGroupId },
     exceedChecked: { value: exceedChecked ? '1' : '0' },
+    invoiceStatus: { value: invoiceStatus },
     estimateLists: {
       type: 'SUBTABLE',
       value: estimates.filter(({ isForPayment }) => !!isForPayment)

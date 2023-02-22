@@ -31,6 +31,7 @@ export const ContractFormActions = () => {
     handlePreview,
     handleRefetch,
     formLoading,
+    selectedDoc,
   } = useContractPreview();
 
   const setOpenPreview = (isOpen: boolean) => {
@@ -96,6 +97,7 @@ export const ContractFormActions = () => {
       <ContractDialog
         open={isPreviewOpen}
         formLoading={formLoading}
+        selectedDoc={selectedDoc}
         handleRefetch={handleRefetch}
         handlePreview={handlePreview}
         previewUrl={previewUrl}

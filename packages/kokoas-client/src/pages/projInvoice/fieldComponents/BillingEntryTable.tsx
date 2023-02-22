@@ -49,7 +49,7 @@ export const BillingEntryTable = ({
             </TableBody>
           </Table>
         </TableContainer>}
-      {totalAmountExceeded && <ExceedContractAmount />}
+      {totalAmountExceeded && <ExceedContractAmount isBilled={isBilled} />}
     </>
   );
 };

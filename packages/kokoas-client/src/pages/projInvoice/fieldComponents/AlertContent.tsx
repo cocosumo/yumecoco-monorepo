@@ -4,10 +4,12 @@ export const AlertContent = ({
   onClick,
   isError,
   checkboxVal,
+  isBilled,
 }: {
   onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
   isError: boolean
   checkboxVal: boolean
+  isBilled: boolean
 }) => {
   return (
     <>
@@ -17,6 +19,7 @@ export const AlertContent = ({
             size="small"
             onClick={onClick}
             checked={checkboxVal}
+            disabled={isBilled}
           />
         }
         label="承諾済"

@@ -4,7 +4,11 @@ import { useField } from 'formik';
 import { KeyOfForm } from '../form';
 import { AlertContent } from './AlertContent';
 
-export const ExceedContractAmount = () => {
+export const ExceedContractAmount = ({
+  isBilled,
+}:{
+  isBilled: boolean
+}) => {
 
   const fieldName: KeyOfForm = 'exceedChecked';
   const [field, meta, helpers] = useField(fieldName);
@@ -38,6 +42,7 @@ export const ExceedContractAmount = () => {
             checkboxVal={field.value}
             onClick={handleCheck}
             isError={!!error && touched}
+            isBilled={isBilled}
           />
         </Stack>
       </Alert>

@@ -1,24 +1,22 @@
 import { Button, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { useSnackBar } from 'kokoas-client/src/hooks';
 import { TypeOfForm } from '../form';
+import { useSubmitInvoice } from '../hooks/useSubmitInvoice';
 
 export const ActionButtons = () => {
 
-  const { submitForm, values } = useFormikContext<TypeOfForm>();
+  const { values } = useFormikContext<TypeOfForm>();
   const { invoiceStatus } = values;
-  const { setSnackState } = useSnackBar();
+
   const isCreating = invoiceStatus === 'created' || invoiceStatus === '';
   const isSent = invoiceStatus === 'sent';
 
-
-  const handlesubmit = () => {
-    setSnackState({
-      open: true,
-      severity: 'warning',
-      message: '開発中です',
-    });
-  };
+  const {
+    handleSave,
+    handleIssue,
+    handleReissue,
+    handleVoided,
+  } = useSubmitInvoice();
 
   return (
     <Stack
@@ -28,35 +26,35 @@ export const ActionButtons = () => {
     >
       <Button
         variant="contained"
-        onClick={submitForm}
+        onClick={handleSave}
         disabled={isSent}
       >
         保存
       </Button>
-      
+
       <Button
         variant="contained"
-        onClick={handlesubmit}
+        onClick={handleIssue}
         disabled={isSent}
       >
         請求書発行
       </Button>
-      
-      {!isCreating && 
-      <Button
-        variant="contained"
-        onClick={handlesubmit}
-      >
-        再発行
-      </Button>}
-      
-      {!isCreating && 
-      <Button
-        variant="contained"
-        onClick={handlesubmit}
-      >
-        破棄
-      </Button>}
+
+      {!isCreating &&
+        <Button
+          variant="contained"
+          onClick={handleReissue}
+        >
+          再発行
+        </Button>}
+
+      {!isCreating &&
+        <Button
+          variant="contained"
+          onClick={handleVoided}
+        >
+          破棄
+        </Button>}
     </Stack>
   );
 };

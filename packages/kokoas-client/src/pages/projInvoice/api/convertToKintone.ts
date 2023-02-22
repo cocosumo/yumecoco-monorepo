@@ -1,14 +1,14 @@
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { IInvoices } from 'types';
-import { TInvoiceStatus, TypeOfForm } from '../form';
+import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
   custGroupId,
   estimates,
   plannedPaymentDate,
   exceedChecked,
+  invoiceStatus,
 }: TypeOfForm,
-invoiceStatus: TInvoiceStatus,
 ) => {
 
   const billingAmount = estimates.reduce((acc, cur) => {

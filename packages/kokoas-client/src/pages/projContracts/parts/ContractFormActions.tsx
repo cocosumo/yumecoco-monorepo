@@ -20,6 +20,7 @@ export const ContractFormActions = () => {
     isValid,
     errors,
     touched,
+    dirty,
     values: {
       envelopeStatus,
     },
@@ -59,7 +60,8 @@ export const ContractFormActions = () => {
   const isFormikBusy = isSubmitting || isValidating;
 
   const isPreviewDisabled = isFormikBusy
-    || (!isValid && !envelopeStatus); // 検証ロジックが異なる既存契約の後方互換性を処理するためのものです。
+    || (!isValid && !envelopeStatus) // 検証ロジックが異なる既存契約の後方互換性を処理するためのものです。
+    || dirty;
 
   const isSaveDisabled = isFormikBusy || !!envelopeStatus;
 
@@ -99,12 +101,23 @@ export const ContractFormActions = () => {
         previewUrl={previewUrl}
         handleClose={() => setOpenPreview(false)}
       />
-      {isPreviewDisabled && isFormikBusy && '処理中です。'}
+      <Typography variant='caption' color={'error'} align="center"
+        component={'div'}
+      >
 
-      {isPreviewDisabled && !isValid && !envelopeStatus && (
-      <Typography variant='caption' color={'error'} align="center">
-        {'フォームにエラーがあります。保存ボタンを押すと、エラー箇所が分かります。'}
-      </Typography>)}
+        {isPreviewDisabled && isFormikBusy && <div>
+          処理中です。
+        </div>}
+
+        {isPreviewDisabled && !isValid && !envelopeStatus && <div>
+          フォームにエラーがあります。保存ボタンを押すと、エラー箇所が分かります。
+        </div>}
+
+        {isPreviewDisabled && dirty && <div>
+          保存されていない変更があります。保存してください。
+        </div>}
+
+      </Typography>
     </Stack>
   );
 };

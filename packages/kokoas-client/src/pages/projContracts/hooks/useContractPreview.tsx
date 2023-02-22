@@ -18,6 +18,7 @@ import { TypeOfForm } from '../form';
 export const useContractPreview = () => {
   const { status, values, setValues } = useFormikContext<TypeOfForm>();
   const [previewUrl, setPreviewUrl] = useState('');
+  const [selectedDoc, setSelectedDoc] = useState('');
   const [previewLoading, setPreviewLoading] = useState(false);
   const { setSnackState } = useSnackBar();
 
@@ -51,6 +52,7 @@ export const useContractPreview = () => {
           URL.revokeObjectURL(prev); // Free memory
           return url;
         });
+        setSelectedDoc(fileKey);
       } else {
         setPreviewUrl('');
       }
@@ -88,5 +90,6 @@ export const useContractPreview = () => {
     previewUrl,
     setValues,
     handleRefetch,
+    selectedDoc,
   };
 };

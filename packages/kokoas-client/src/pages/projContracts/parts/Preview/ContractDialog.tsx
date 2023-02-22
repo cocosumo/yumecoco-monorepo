@@ -10,6 +10,7 @@ export const ContractDialog = ({
   open,
   formLoading,
   previewUrl,
+  selectedDoc,
   handleRefetch,
   handleClose,
   handlePreview,
@@ -17,11 +18,11 @@ export const ContractDialog = ({
   open: boolean,
   formLoading: boolean,
   previewUrl: string,
+  selectedDoc: string,
   handleRefetch: () => void,
   handleClose: () => void,
   handlePreview: (fileKey: string) => void,
 }) => {
-
 
   return (
     <Dialog
@@ -71,7 +72,10 @@ export const ContractDialog = ({
 
       {!formLoading && (
       <PreviewFooter >
-        <SelectDocuments handlePreview={handlePreview} />
+        <SelectDocuments
+          handlePreview={handlePreview}
+          selectedDoc={selectedDoc}
+        />
       </PreviewFooter>
       )}
     </Dialog>

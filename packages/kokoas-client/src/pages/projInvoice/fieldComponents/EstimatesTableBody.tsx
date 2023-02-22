@@ -1,11 +1,7 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
 import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
-import { generateParams } from 'kokoas-client/src/helpers/url';
 import { roundTo } from 'libs';
-import { useNavigate } from 'react-router-dom';
-import { pages } from '../../Router';
 import { getEstimatesFieldName, TMaterials } from '../form';
-import { useURLParams } from '../../../hooks/useURLParams';
 
 const CellContent = ({
   content,
@@ -26,40 +22,17 @@ const CellContent = ({
 
 export const EstimateTableBody = ({
   estimateRow,
+  isBilled,
 }: {
   estimateRow: TMaterials
+  isBilled: boolean
 }) => {
-
-  const navigate = useNavigate();
-
-  const {
-    invoiceId: projInvoiceIdFromURL,
-    custGroupId: custGroupIdFromURL,
-    projEstimateId: estimateIdFromURL,
-  } = useURLParams();
-
 
   const {
     contractAmount,
     billedAmount,
-    estimateId,
   } = estimateRow;
-
-  const handleChange = (checked: boolean) => {
-    const estimateIdArray = (estimateIdFromURL)?.split(',') ?? [];
-    const newEstimateIdArray = checked
-      ? [...estimateIdArray, estimateId]
-      : estimateIdArray.filter((id) => id !== estimateId);
-
-    const urlParams = generateParams({
-      invoiceId: projInvoiceIdFromURL,
-      custGroupId: custGroupIdFromURL,
-      projEstimateId: newEstimateIdArray?.join(','),
-    });
-
-    navigate(`${pages.projInvoice}?${urlParams}`);
-  };
-
+  
   const isRefund = contractAmount < 0;
   const disabled = !isRefund ? contractAmount <= billedAmount : contractAmount >= billedAmount;
 
@@ -78,29 +51,28 @@ export const EstimateTableBody = ({
         {/* 枝番号 */}
         <CellContent
           content={estimateRow.dataId.split('-').at(-1)}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
       <TableCell align="right">
         {/* 契約金額 */}
         <CellContent
           content={roundTo(+estimateRow.contractAmount).toLocaleString()}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
       <TableCell align="right">
         {/* 請求済み金額 */}
         <CellContent
           content={roundTo(+estimateRow.billedAmount).toLocaleString()}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
       <TableCell>
         {/* 請求に使用する */}
         <FormikLabeledCheckBox
           name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
-          onChange={(_, checked) => handleChange(checked)}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
     </TableRow>

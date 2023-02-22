@@ -379,7 +379,7 @@ export const generateContractPdf = async (
   if (payMethod === '振込') {
     drawText(
       firstPage,
-      payDestination,
+      payDestination || '豊田信用金庫　朝日支店', // 当面、固定。頻繁に変わるなら、マスター設定に移行。
       {
         x: 380,
         y: 367,

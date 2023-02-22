@@ -1,7 +1,7 @@
 import { Big } from 'big.js';
 import { parseISO } from 'date-fns';
 import { EstimateList } from 'kokoas-client/src/hooksQuery';
-import { TMaterials, TypeOfForm } from '../form';
+import { TInvoiceStatus, TMaterials, TypeOfForm } from '../form';
 
 export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
@@ -72,7 +72,7 @@ export const convertInvoiceToForm = (
     undecidedPaymentDate: !plannedPaymentDate.value,
     exceedChecked: Boolean(exceedChecked.value),
     estimates: newEstimates,
-    invoiceStatus: invoiceStatus.value,
+    invoiceStatus: invoiceStatus.value as TInvoiceStatus,
   };
 
 };

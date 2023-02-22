@@ -13,7 +13,7 @@ export const initialValues = {
   invoiceId: '',
 
   /** 請求書ステータス */
-  invoiceStatus: '',
+  invoiceStatus: '' as TInvoiceStatus,
 
   /** 顧客グループID */
   custGroupId: '',

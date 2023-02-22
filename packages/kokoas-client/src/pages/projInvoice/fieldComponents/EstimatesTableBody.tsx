@@ -26,8 +26,10 @@ const CellContent = ({
 
 export const EstimateTableBody = ({
   estimateRow,
+  isBilled,
 }: {
   estimateRow: TMaterials
+  isBilled: boolean
 }) => {
 
   const navigate = useNavigate();
@@ -78,21 +80,21 @@ export const EstimateTableBody = ({
         {/* 枝番号 */}
         <CellContent
           content={estimateRow.dataId.split('-').at(-1)}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
       <TableCell align="right">
         {/* 契約金額 */}
         <CellContent
           content={roundTo(+estimateRow.contractAmount).toLocaleString()}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
       <TableCell align="right">
         {/* 請求済み金額 */}
         <CellContent
           content={roundTo(+estimateRow.billedAmount).toLocaleString()}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
       <TableCell>
@@ -100,7 +102,7 @@ export const EstimateTableBody = ({
         <FormikLabeledCheckBox
           name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
           onChange={(_, checked) => handleChange(checked)}
-          disabled={disabled}
+          disabled={disabled || isBilled}
         />
       </TableCell>
     </TableRow>

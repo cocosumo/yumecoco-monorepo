@@ -10,25 +10,25 @@ interface BillingTotalTbl {
   variant: TypographyVariant,
 }
 
+const tblLabel: BillingTotalTbl[] = [{
+  label: '請求合計',
+  align: 'left',
+  variant: 'body1',
+}, {
+  label: '項目',
+  align: 'left',
+  variant: 'caption',
+}, {
+  label: '金額',
+  align: 'right',
+  variant: 'caption',
+}];
+
+
 export const BillingTotal = () => {
 
   const { values } = useFormikContext<TypeOfForm>();
   const { estimates } = values;
-
-
-  const tblLabel: BillingTotalTbl[] = [{
-    label: '請求合計',
-    align: 'left',
-    variant: 'body1',
-  }, {
-    label: '項目',
-    align: 'left',
-    variant: 'caption',
-  }, {
-    label: '金額',
-    align: 'right',
-    variant: 'caption',
-  }];
 
 
   return (

@@ -9,8 +9,10 @@ import { ExceedContractAmount } from './ExceedContractAmount';
 
 export const BillingEntryTable = ({
   totalAmountExceeded,
+  isBilled,
 }: {
   totalAmountExceeded: boolean
+  isBilled: boolean
 }) => {
 
   const { values } = useFormikContext<TypeOfForm>();
@@ -39,6 +41,7 @@ export const BillingEntryTable = ({
                     estimate={row}
                     idx={idx}
                     paymentList={contracts?.paymentList}
+                    isBilled={isBilled}
                     key={`${row.dataId}_row`}
                   />
                 );

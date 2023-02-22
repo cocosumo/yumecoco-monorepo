@@ -7,8 +7,9 @@ import { AlertContent } from './AlertContent';
 export const ExceedContractAmount = () => {
 
   const fieldName: KeyOfForm = 'exceedChecked';
-  const [, meta, helpers] = useField(fieldName);
+  const [field, meta, helpers] = useField(fieldName);
 
+  
   const {
     error,
     touched,
@@ -34,6 +35,7 @@ export const ExceedContractAmount = () => {
       >
         <Stack direction={'row'}>
           <AlertContent
+            checkboxVal={field.value}
             onClick={handleCheck}
             isError={!!error && touched}
           />

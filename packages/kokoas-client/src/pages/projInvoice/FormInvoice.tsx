@@ -1,7 +1,7 @@
 import { Form, useFormikContext } from 'formik';
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
-import { getFieldName, TInvoiceStatus, TypeOfForm } from './form';
+import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
@@ -45,7 +45,7 @@ export const FormInvoice = () => {
     return isForPayment && (isUnderContractAmount || isOverContractAmount);
   });
 
-  const isEnabled = invoiceStatus === 'created' as TInvoiceStatus;
+  const isBilled = (invoiceStatus !== 'created') && (invoiceStatus !== '');
 
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export const FormInvoice = () => {
               <Typography>
                 {'契約一覧'}
               </Typography>
-              <EstimatesTable />
+              <EstimatesTable isBilled={isBilled} />
             </Grid>
 
 
@@ -118,7 +118,10 @@ export const FormInvoice = () => {
                   {'※請求には課税対象分から使用し、非課税額は最後に使用します'}
                 </Typography>
               </Stack>
-              <BillingEntryTable totalAmountExceeded={totalAmountExceeded} />
+              <BillingEntryTable
+                totalAmountExceeded={totalAmountExceeded}
+                isBilled={isBilled}
+              />
             </Grid>
 
 
@@ -139,7 +142,7 @@ export const FormInvoice = () => {
 
               <Grid item xs={12} md={5}>
                 {/* 入金予定日 */}
-                <PlannedPaymentDate />
+                <PlannedPaymentDate isBilled={isBilled}  />
               </Grid>
             </Grid>
 

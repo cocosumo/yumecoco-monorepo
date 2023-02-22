@@ -3,9 +3,11 @@ import { Checkbox, FormControlLabel, Typography } from '@mui/material';
 export const AlertContent = ({
   onClick,
   isError,
+  checkboxVal,
 }: {
   onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
   isError: boolean
+  checkboxVal: boolean
 }) => {
   return (
     <>
@@ -14,6 +16,7 @@ export const AlertContent = ({
           <Checkbox
             size="small"
             onClick={onClick}
+            checked={checkboxVal}
           />
         }
         label="承諾済"

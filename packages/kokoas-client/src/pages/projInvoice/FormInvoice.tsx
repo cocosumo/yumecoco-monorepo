@@ -3,7 +3,7 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Divider, Grid, Stack, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
 import { useResolveParams } from './hooks/useResolveParams';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
@@ -17,6 +17,7 @@ import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
 import { BillingTotal } from './fieldComponents/BillingTotal';
+import { ActionButtons } from './fieldComponents/ActionButtons';
 
 
 
@@ -24,7 +25,7 @@ export const FormInvoice = () => {
   const navigate = useNavigate();
   const { setSnackState } = useSnackBar();
 
-  const { values, submitForm, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
+  const { values, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
   const submitCountRef = useRef(0);
 
   const {
@@ -140,16 +141,10 @@ export const FormInvoice = () => {
             </Grid>
 
 
-            {/* 請求書発行ボタン */}
-            <Grid item xs={12} md={6}>
-              <Button
-                variant="contained"
-                onClick={submitForm}
-              >
-                請求書発行
-              </Button>
+            {/* 各種ボタン */}
+            <Grid item xs={12} md={12}>
+              <ActionButtons />
             </Grid>
-            <Grid item md={6} />
           </>}
 
         {!custGroupId &&

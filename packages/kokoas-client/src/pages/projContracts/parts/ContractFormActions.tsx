@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
@@ -25,7 +25,6 @@ export const ContractFormActions = () => {
     },
   } = useFormikContext<TypeOfForm>();
 
-
   const {
     previewUrl,
     handlePreview,
@@ -39,30 +38,30 @@ export const ContractFormActions = () => {
   };
 
 
-  const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
-
+  const handleSubmit = async () => {
     if (isEmpty(touched) && isEmpty(errors)) {
       setSnackState({
         open: true,
         severity: 'info',
         message: 'フォームに変更がありません。',
       });
-    }
-
-    if (!isEmpty(touched) || !isEmpty(errors)) {
+    } else {
       await submitForm();
-    }
-
-    if (submitMethod === 'contract') {
-      if (isEmpty(errors)) {
-        setOpenPreview(true);
-      }
     }
 
   };
 
+  const handleOpenPreview = () => {
+    setOpenPreview(true);
+  };
 
-  const isOpenDialog = isPreviewOpen && isValid;
+
+  const isFormikBusy = isSubmitting || isValidating;
+
+  const isPreviewDisabled = isFormikBusy
+    || (!isValid && !envelopeStatus); // 検証ロジックが異なる既存契約の後方互換性を処理するためのものです。
+
+  const isSaveDisabled = isFormikBusy || !!envelopeStatus;
 
   return (
     <Stack>
@@ -76,29 +75,36 @@ export const ContractFormActions = () => {
           variant="outlined"
           size="large"
           startIcon={<SaveIcon />}
-          onClick={() => handleSubmit('normal')}
-          disabled={isSubmitting || isValidating || !!envelopeStatus}
+          onClick={() => handleSubmit()}
+          disabled={isSaveDisabled}
         >
           保存
         </Button>
+
         <Button
           variant="outlined"
           size="large"
           startIcon={<PreviewIcon />}
-          onClick={() => handleSubmit('contract')}
-          disabled={isSubmitting || isValidating}
+          onClick={handleOpenPreview}
+          disabled={isPreviewDisabled}
         >
           プレビュー
         </Button>
       </Stack>
       <ContractDialog
-        open={isOpenDialog}
+        open={isPreviewOpen}
         formLoading={formLoading}
         handleRefetch={handleRefetch}
         handlePreview={handlePreview}
         previewUrl={previewUrl}
         handleClose={() => setOpenPreview(false)}
       />
+      {isPreviewDisabled && isFormikBusy && '処理中です。'}
+
+      {isPreviewDisabled && !isValid && !envelopeStatus && (
+      <Typography variant='caption' color={'error'} align="center">
+        {'フォームにエラーがあります。保存ボタンを押すと、エラー箇所が分かります。'}
+      </Typography>)}
     </Stack>
   );
 };

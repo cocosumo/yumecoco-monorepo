@@ -152,8 +152,9 @@ export const FormInvoice = () => {
               <Button
                 variant="contained"
                 onClick={submitForm}
+                disabled={isBilled}
               >
-                請求書発行
+                保存
               </Button>
             </Grid>
             <Grid item md={6} />

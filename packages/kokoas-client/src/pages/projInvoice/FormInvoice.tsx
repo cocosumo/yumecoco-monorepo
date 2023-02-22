@@ -5,7 +5,6 @@ import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
 import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
-import { useResolveParams } from './hooks/useResolveParams';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
@@ -34,7 +33,6 @@ export const FormInvoice = () => {
     invoiceStatus,
   } = values;
 
-  useResolveParams();
 
 
   const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
@@ -142,7 +140,7 @@ export const FormInvoice = () => {
 
               <Grid item xs={12} md={5}>
                 {/* 入金予定日 */}
-                <PlannedPaymentDate isBilled={isBilled}  />
+                <PlannedPaymentDate isBilled={isBilled} />
               </Grid>
             </Grid>
 

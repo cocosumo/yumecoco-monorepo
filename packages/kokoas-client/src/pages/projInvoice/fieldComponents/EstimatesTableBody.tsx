@@ -1,11 +1,7 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
 import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
-import { generateParams } from 'kokoas-client/src/helpers/url';
 import { roundTo } from 'libs';
-import { useNavigate } from 'react-router-dom';
-import { pages } from '../../Router';
 import { getEstimatesFieldName, TMaterials } from '../form';
-import { useURLParams } from '../../../hooks/useURLParams';
 
 const CellContent = ({
   content,
@@ -30,36 +26,11 @@ export const EstimateTableBody = ({
   estimateRow: TMaterials
 }) => {
 
-  const navigate = useNavigate();
-
-  const {
-    invoiceId: projInvoiceIdFromURL,
-    custGroupId: custGroupIdFromURL,
-    projEstimateId: estimateIdFromURL,
-  } = useURLParams();
-
-
   const {
     contractAmount,
     billedAmount,
-    estimateId,
   } = estimateRow;
-
-  const handleChange = (checked: boolean) => {
-    const estimateIdArray = (estimateIdFromURL)?.split(',') ?? [];
-    const newEstimateIdArray = checked
-      ? [...estimateIdArray, estimateId]
-      : estimateIdArray.filter((id) => id !== estimateId);
-
-    const urlParams = generateParams({
-      invoiceId: projInvoiceIdFromURL,
-      custGroupId: custGroupIdFromURL,
-      projEstimateId: newEstimateIdArray?.join(','),
-    });
-
-    navigate(`${pages.projInvoice}?${urlParams}`);
-  };
-
+  
   const isRefund = contractAmount < 0;
   const disabled = !isRefund ? contractAmount <= billedAmount : contractAmount >= billedAmount;
 
@@ -99,7 +70,6 @@ export const EstimateTableBody = ({
         {/* 請求に使用する */}
         <FormikLabeledCheckBox
           name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
-          onChange={(_, checked) => handleChange(checked)}
           disabled={disabled}
         />
       </TableCell>

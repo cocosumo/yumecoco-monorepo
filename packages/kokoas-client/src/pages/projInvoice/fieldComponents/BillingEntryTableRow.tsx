@@ -60,11 +60,11 @@ export const BillingEntryTableRow = ({
   };
 
   const newBillingAmount = (+billedAmount + +billingAmount);
-  let exceeded = false;
+  let rowAmountExceeded = false;
   if (+contractAmount >= 0) {
-    exceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
+    rowAmountExceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
   } else {
-    exceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
+    rowAmountExceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
   }
 
 
@@ -93,7 +93,7 @@ export const BillingEntryTableRow = ({
         />
       </TableCell>
       <TableCell>
-        {exceeded && <WarningIcon color="warning" />}
+        {rowAmountExceeded && <WarningIcon color='warning' />}
       </TableCell>
     </TableRow>
   );

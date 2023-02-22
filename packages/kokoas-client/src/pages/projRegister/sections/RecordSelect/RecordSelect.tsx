@@ -24,7 +24,7 @@ export const RecordSelect = () => {
     custName,
     createdDate,
     projDataId,
-    hasContract,
+    hasCompetedContract,
   } = values;
 
   const { setDialogState } = useConfirmDialog();
@@ -112,7 +112,7 @@ export const RecordSelect = () => {
         md={2}
       >
 
-        <SaveToAndpadButton show={hasContract} />
+        <SaveToAndpadButton show={hasCompetedContract} />
 
       </Grid>
       <Grid

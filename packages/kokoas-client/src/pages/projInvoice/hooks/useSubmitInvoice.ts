@@ -34,7 +34,7 @@ export const useSubmitInvoice = () => {
     },
   ) => {
 
-    const kintoneRecord = convertToKintone(values);
+    const kintoneRecord = convertToKintone(values, 'created');
     await mutateAsync({
       record: kintoneRecord,
       recordId: values.invoiceId,

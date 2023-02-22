@@ -31,6 +31,7 @@ export const FormInvoice = () => {
     custGroupId,
     custName,
     estimates,
+    invoiceStatus,
   } = values;
 
   useResolveParams();
@@ -43,6 +44,9 @@ export const FormInvoice = () => {
 
     return isForPayment && (isUnderContractAmount || isOverContractAmount);
   });
+
+  const isBilled = (invoiceStatus !== 'created') && (invoiceStatus !== '');
+
 
   useEffect(() => {
     setValues((prev) => ({
@@ -95,7 +99,7 @@ export const FormInvoice = () => {
               <Typography>
                 {'契約一覧'}
               </Typography>
-              <EstimatesTable />
+              <EstimatesTable isBilled={isBilled} />
             </Grid>
 
 
@@ -114,7 +118,10 @@ export const FormInvoice = () => {
                   {'※請求には課税対象分から使用し、非課税額は最後に使用します'}
                 </Typography>
               </Stack>
-              <BillingEntryTable totalAmountExceeded={totalAmountExceeded} />
+              <BillingEntryTable
+                totalAmountExceeded={totalAmountExceeded}
+                isBilled={isBilled}
+              />
             </Grid>
 
 
@@ -135,7 +142,7 @@ export const FormInvoice = () => {
 
               <Grid item xs={12} md={5}>
                 {/* 入金予定日 */}
-                <PlannedPaymentDate />
+                <PlannedPaymentDate isBilled={isBilled}  />
               </Grid>
             </Grid>
 
@@ -145,8 +152,9 @@ export const FormInvoice = () => {
               <Button
                 variant="contained"
                 onClick={submitForm}
+                disabled={isBilled}
               >
-                請求書発行
+                保存
               </Button>
             </Grid>
             <Grid item md={6} />

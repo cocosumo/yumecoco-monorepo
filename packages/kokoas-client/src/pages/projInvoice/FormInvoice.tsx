@@ -88,7 +88,12 @@ export const FormInvoice = () => {
             }}
           />
         </Grid>
-        <Grid item md={6}>
+        <Grid
+          container
+          item
+          justifyContent="flex-end"
+          xs
+        >
           <SelectInvoices custGroupId={custGroupId} />
         </Grid>
 

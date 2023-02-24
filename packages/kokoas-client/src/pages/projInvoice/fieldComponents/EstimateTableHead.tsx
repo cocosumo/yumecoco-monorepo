@@ -20,6 +20,9 @@ export const EstimateTableHead = ({
         <TableCell align="right">
           {'請求済み金額'}
         </TableCell>
+        <TableCell align="right">
+          {'作成済み金額'}
+        </TableCell>
         <TableCell>
           {'請求に使用する'}
         </TableCell>

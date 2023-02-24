@@ -89,7 +89,7 @@ export const FormInvoice = () => {
           />
         </Grid>
         <Grid item md={6}>
-          <SelectInvoices />
+          <SelectInvoices custGroupId={custGroupId} />
         </Grid>
 
 

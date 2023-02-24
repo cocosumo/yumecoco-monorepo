@@ -16,6 +16,7 @@ import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
 import { BillingTotal } from './fieldComponents/BillingTotal';
+import { SelectInvoices } from './fieldComponents/selectInvoices/SelectInvoices';
 
 
 
@@ -87,7 +88,10 @@ export const FormInvoice = () => {
             }}
           />
         </Grid>
-        <Grid item md={6} />
+        <Grid item md={6}>
+          <SelectInvoices />
+        </Grid>
+
 
 
         {custGroupId &&

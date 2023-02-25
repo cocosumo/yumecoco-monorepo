@@ -2,9 +2,6 @@ import { EmpAffiliations, TAgents } from 'types';
 
 /**
  * 与えられた TAgents または TAgents[] 型のパラメータから、関連会社を解決します。
- *
- * @param {TAgents | TAgents[]} dirtyType - string または string[] で表されたエージェントのタイプ
- * @returns {EmpAffiliations[]} 関連する会社の EmpAffiliations[] 配列
  */
 export const resolveAffiliations = (dirtyType: TAgents | TAgents[]) => {
   const agentType = dirtyType instanceof Array ? dirtyType : [dirtyType];

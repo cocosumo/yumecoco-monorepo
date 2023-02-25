@@ -6,7 +6,10 @@ import { EmpAffiliations, IEmployees, Territory } from 'types';
 import { getEmployees } from '../getEmployees';
 import { filterEmployees } from './filterEmployees';
 
-
+/**
+ * 「IEmployees」を含む入力オブジェクトから指定されたプロパティと値を持つフラットなオブジェクトを返します。
+ * テスト自体が合っているかどうか、目で簡単に確認するため。
+ */
 const flatenResult = ({
   mainStoreId_v2: mainStoreId,
   affStores,
@@ -99,7 +102,7 @@ describe('filterEmployees', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('should return yumeAG of 西 territory with that matches any of storeId[]', () => {
+  it('should return yumeAG of 西 territory that matches any of specified storeId[]', () => {
     const storeIds = [
       '83128853-98af-47af-9e5a-9d711bee4a43', // 豊川中央店 https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=12
       'df176cb7-b731-466b-a354-a1cd5cc8f748', // 豊田中央店 https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=13

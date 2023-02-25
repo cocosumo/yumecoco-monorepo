@@ -1,19 +1,27 @@
 import { TAgents, EmpRoles } from 'types';
 
+type RolesMap = {
+  [key in TAgents]: EmpRoles[];
+};
 
-export const resolveRoles = (dirtyType: TAgents | TAgents[])  => {
-  return ([] as TAgents[])
-    .concat(dirtyType)
-    .reduce((acc, curr) => {
-      switch (curr) {
-        case 'yumeAG':
-          return [...new Set([...acc, ...['主任', '営業', '店長'] as EmpRoles[]])];
-        case 'cocoAG':
-          return [...new Set([...acc, ...['主任', '営業', '店長', '工務'] as EmpRoles[]])];
-        case 'cocoConst':
-          return [...new Set([...acc, ...['工務', '営業', '店長', '主任'] as EmpRoles[]])];
-        case 'sutekura':
-          return [...new Set([...acc, ...['主任', '営業', '店長', '工務'] as EmpRoles[]])];
-      }
-    }, [] as EmpRoles[]);
+const rolesMap: RolesMap = {
+  'yumeAG': ['主任', '営業', '店長'],
+  'cocoAG': ['主任', '営業', '店長', '工務'],
+  'cocoConst': ['工務', '営業', '店長', '主任'],
+  'sutekura': ['主任', '営業', '店長', '工務'],
+};
+
+
+export const resolveRoles = (dirtyType: TAgents | TAgents[]) => {
+  const types =  dirtyType instanceof Array ? dirtyType : [dirtyType];
+
+  const roles = types.reduce((acc: EmpRoles[], type: TAgents) => {
+    const typeRoles = rolesMap[type];
+    if (typeRoles) {
+      return [...acc, ...typeRoles];
+    }
+    return acc;
+  }, []);
+
+  return [...new Set(roles)];
 };

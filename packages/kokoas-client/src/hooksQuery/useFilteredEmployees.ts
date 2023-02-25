@@ -54,6 +54,8 @@ export const useFilteredEmployees = ({
             territory_v2: _territory,
           }) => {
 
+            const isStoreSelected = !!storeIds.length;
+
             const isInStore = storeIds
               .some((s) => (mainStore.value === s
               || affStores
@@ -65,13 +67,15 @@ export const useFilteredEmployees = ({
             const isInRole = !roles.length || roles.includes(empRole.value);
             const isInTerritory = !territory || territory === _territory.value;
 
-            return (
-              (isInStore
-              && isAffiliated
-              && isInRole)
-              || isInTerritory
+            const shouldInclude = isAffiliated
+            && isInRole
+            && (
+              isStoreSelected
+                ? (isInStore && isInTerritory)
+                : isInTerritory
             );
 
+            return shouldInclude;
           });
       },
       [agentType, storeId, territory],

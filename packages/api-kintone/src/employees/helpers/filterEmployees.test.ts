@@ -1,6 +1,27 @@
+/**
+ * @jest-environment node
+ */
+
 import { EmpAffiliations, IEmployees, Territory } from 'types';
 import { getEmployees } from '../getEmployees';
 import { filterEmployees } from './filterEmployees';
+
+
+const flatenResult = ({
+  mainStoreId_v2: mainStoreId,
+  affStores,
+  territory_v2: territory,
+  affiliation,
+  文字列＿氏名: empName,
+  mainStore_v2: mainStore,
+} : IEmployees) => ({
+  mainStoreId: mainStoreId.value,
+  affStores: affStores.value.map((row) => row.value.affStoreName.value),
+  territory: territory.value,
+  affiliation: affiliation.value,
+  empName: empName.value,
+  mainStore: mainStore.value,
+});
 
 describe('filterEmployees', () => {
   let employees: IEmployees[] = [];
@@ -62,9 +83,7 @@ describe('filterEmployees', () => {
       storeId: toyokawaStoreId,
     });
 
-    console.log(`[yumeAG, 東] Length: ${result.length}`);
-
-    console.log(result);
+    console.log(`[yumeAG, 東, ${toyokawaStoreId}] Length: ${result.length}`);
 
     const isMatch = result
       .every(({
@@ -85,15 +104,17 @@ describe('filterEmployees', () => {
       '83128853-98af-47af-9e5a-9d711bee4a43', // 豊川中央店 https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=12
       'df176cb7-b731-466b-a354-a1cd5cc8f748', // 豊田中央店 https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=13
     ];
+
     const result = filterEmployees(employees, {
       agentType: 'yumeAG',
       territory: '西',
       storeId: storeIds,
     });
 
-    console.log(`[yumeAG, 西] Length: ${result.length}`);
+    const flatResults = result.map(flatenResult);
 
-    console.log(result);
+    console.log(`[yumeAG, 西, ${storeIds}] Length: ${result.length}`);
+    console.log(flatResults);
 
     const isMatch = result
       .every(({

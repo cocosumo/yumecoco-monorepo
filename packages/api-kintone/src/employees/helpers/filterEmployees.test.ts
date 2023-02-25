@@ -8,7 +8,7 @@ import { filterEmployees } from './filterEmployees';
 
 /**
  * 「IEmployees」を含む入力オブジェクトから指定されたプロパティと値を持つフラットなオブジェクトを返します。
- * テスト自体が合っているかどうか、目で簡単に確認するため。
+ * @remarks テスト自体が合っているかどうか、目で簡単に確認するために用いられます。
  */
 const flatenResult = ({
   mainStoreId_v2: mainStoreId,

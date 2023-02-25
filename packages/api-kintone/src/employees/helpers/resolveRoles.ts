@@ -15,7 +15,7 @@ const rolesMap: RolesMap = {
 export const resolveRoles = (dirtyType: TAgents | TAgents[]) => {
   const types =  dirtyType instanceof Array ? dirtyType : [dirtyType];
 
-  const roles = types.reduce((acc: EmpRoles[], type: TAgents) => {
+  const roles = types.reduce<EmpRoles[]>((acc, type: TAgents) => {
     const typeRoles = rolesMap[type];
     if (typeRoles) {
       return [...acc, ...typeRoles];

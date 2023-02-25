@@ -9,7 +9,7 @@ import { EmpAffiliations, TAgents } from 'types';
 export const resolveAffiliations = (dirtyType: TAgents | TAgents[]) => {
   const agentType = dirtyType instanceof Array ? dirtyType : [dirtyType];
 
-  const result : EmpAffiliations[] = agentType.reduce((acc, curr) => {
+  return agentType.reduce<EmpAffiliations[]>((acc, curr) => {
     if (curr.includes('yume') && !acc.includes('ゆめてつ')) {
       return [...acc, 'ゆめてつ'];
     } else if (curr.includes('coco') && !acc.includes('ここすも')) {
@@ -19,7 +19,5 @@ export const resolveAffiliations = (dirtyType: TAgents | TAgents[]) => {
     } else {
       return acc;
     }
-  }, [] as EmpAffiliations[]);
-
-  return result;
+  }, []);
 };

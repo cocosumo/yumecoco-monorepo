@@ -4,18 +4,17 @@ type RolesMap = {
   [key in TAgents]: EmpRoles[];
 };
 
-const rolesMap: RolesMap = {
+export const rolesMap: RolesMap = {
   'yumeAG': ['主任', '営業', '店長'],
-  'cocoAG': ['主任', '営業', '店長', '工務'],
-  'cocoConst': ['工務', '営業', '店長', '主任'],
+  'cocoAG': ['営業', '店長', '工務', '主任'],
+  'cocoConst': ['営業', '店長', '工務', '主任'], // 当面、cocoAG 一緒ですが、変わるかもしれません。
   'sutekura': ['主任', '営業', '店長', '工務'],
 };
 
-
 export const resolveRoles = (dirtyType: TAgents | TAgents[]) => {
-  const types =  dirtyType instanceof Array ? dirtyType : [dirtyType];
+  const agentTypes =  dirtyType instanceof Array ? dirtyType : [dirtyType];
 
-  const roles = types.reduce<EmpRoles[]>((acc, type: TAgents) => {
+  const roles = agentTypes.reduce<EmpRoles[]>((acc, type: TAgents) => {
     const typeRoles = rolesMap[type];
     if (typeRoles) {
       return [...acc, ...typeRoles];

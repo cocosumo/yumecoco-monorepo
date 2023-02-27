@@ -1,12 +1,12 @@
 import { Big } from 'big.js';
 import { parseISO } from 'date-fns';
-import { EstimateList } from 'kokoas-client/src/hooksQuery';
+import { InvoiceSummary } from 'kokoas-client/src/hooksQuery';
 import { TInvoiceStatus, TMaterials, TypeOfForm } from '../form';
 
 export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
   estimates: TMaterials[],
-  datInvoicesTotal: EstimateList[],
+  datInvoicesTotal: InvoiceSummary[],
   estimateIdArray: string[],
 ): Partial<TypeOfForm> => {
   const {

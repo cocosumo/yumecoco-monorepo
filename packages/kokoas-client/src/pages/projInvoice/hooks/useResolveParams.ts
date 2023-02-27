@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useContractsByCustGroupId, useCustGroupById, useInvoicesById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByCustGroupId, useCustGroupById, useInvoicesById, useInvoicesSummaryByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertCustDataToForm } from '../api/convertCustDataToForm';
 import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
@@ -25,7 +25,7 @@ export const useResolveParams = () => {
 
   const { data: custData } = useCustGroupById(newCustGroupId || '');
   const { data: recContracts } = useContractsByCustGroupId(newCustGroupId || '');
-  const { data: datInvoicesTotal } = useInvoiceTotalByCustGroupId(newCustGroupId || '');
+  const { data: datInvoicesTotal } = useInvoicesSummaryByCustGroupId(newCustGroupId || '');
 
 
 

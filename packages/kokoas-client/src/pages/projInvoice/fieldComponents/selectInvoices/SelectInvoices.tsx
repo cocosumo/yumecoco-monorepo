@@ -28,7 +28,6 @@ export const SelectInvoices = ({
       </Button>
 
       <ConfirmationDialogInvoice
-        name='invoiceId'
         open={open}
         onClose={handleClose}
         custGroupId={custGroupId}

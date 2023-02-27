@@ -7,14 +7,13 @@ import { InvoicesDialogContent } from './InvoicesDialogContent';
 
 
 export interface ConfirmationDialogInvoiceProps {
-  name: string;
   open: boolean;
   onClose: () => void;
   custGroupId: string
 }
 
 export const ConfirmationDialogInvoice = (props: ConfirmationDialogInvoiceProps) => {
-  const { name, onClose, open, custGroupId } = props;
+  const { onClose, open, custGroupId } = props;
   const [value, setValue] = useState('');
   const navigate = useNavigate();
 
@@ -44,7 +43,6 @@ export const ConfirmationDialogInvoice = (props: ConfirmationDialogInvoiceProps)
         {'請求書を選択してください'}
       </DialogTitle>
       <InvoicesDialogContent
-        name={name}
         onChange={handleChange}
         custGroupId={custGroupId}
         value={value}

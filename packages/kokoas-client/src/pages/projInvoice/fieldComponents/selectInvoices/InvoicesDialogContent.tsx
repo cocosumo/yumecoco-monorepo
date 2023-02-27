@@ -6,14 +6,13 @@ import { ListItemInvoices } from './ListItemInvoices';
 import { TInvoiceStatus } from '../../form';
 
 export interface InvoicesDialogContentProps {
-  name: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   custGroupId: string
   value: string
 }
 
 export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
-  const { name, onChange, custGroupId, value } = props;
+  const { onChange, custGroupId, value } = props;
 
   const { data } = useInvoicesByCustGroupId<GetInvoicesByCustGroupId>(custGroupId);
 
@@ -43,8 +42,8 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
     <DialogContent dividers>
       {Boolean(actualOptions.length) &&
         <RadioGroup
-          name={name}
-          aria-label={name}
+          name={'invoice'}
+          aria-label={'invoice'}
           value={value}
           onChange={onChange}
         >

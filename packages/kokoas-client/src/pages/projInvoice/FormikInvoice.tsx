@@ -26,7 +26,7 @@ export const FormikInvoice = () => {
 
 
         const handleSave = async () => {
-          const record = convertToKintone(values, 'created');
+          const record = convertToKintone(values);
 
           const { id } = await mutateAsync({
             recordId: invoiceId,

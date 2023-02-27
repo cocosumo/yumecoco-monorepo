@@ -1,4 +1,4 @@
-import InfoIcon from '@mui/icons-material/Info';
+import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { IconButton, Tooltip } from '@mui/material';
 
 export const CreatedAmountToolTip = ({
@@ -10,7 +10,7 @@ export const CreatedAmountToolTip = ({
   return (
     <Tooltip title={infoToolTip}>
       <IconButton size={'small'}>
-        <InfoIcon />
+        <InfoOutlined />
       </IconButton>
     </Tooltip>
   );

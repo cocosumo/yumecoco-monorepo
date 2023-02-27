@@ -41,18 +41,18 @@ export const convertInvoiceToForm = (
       return (value.dataId.value === dataId);
     })?.value.amountPerContract.value ?? '0';
 
-    const tgtAmount = datInvoicesTotal?.find(({ dataId: dataIdOfInvoice }) => {
+    const invoiceSummary = datInvoicesTotal?.find(({ dataId: dataIdOfInvoice }) => {
       return dataIdOfInvoice === dataId;
     });
 
     const invoiceStatusVal = invoiceStatus.value as TInvoiceStatus;
     const isBilled = invoiceStatusVal === 'completed' || invoiceStatusVal === 'sent';
     const tgtBilledAmount = isBilled
-      ? Big(tgtAmount?.billedAmount ?? 0).minus(tgtBillingAmount).toNumber()
-      : (tgtAmount?.billedAmount ?? 0);
+      ? Big(invoiceSummary?.billedAmount ?? 0).minus(tgtBillingAmount).toNumber()
+      : (invoiceSummary?.billedAmount ?? 0);
     const tgtCreatedAmount = isBilled
-      ? Big(tgtAmount?.createdAmount ?? 0).minus(tgtBillingAmount).toNumber()
-      : (tgtAmount?.createdAmount ?? 0);
+      ? Big(invoiceSummary?.createdAmount ?? 0).minus(tgtBillingAmount).toNumber()
+      : (invoiceSummary?.createdAmount ?? 0);
 
     const isForPaymentFromURL = estimateIdArray.some((id) => id === estimateId);
 

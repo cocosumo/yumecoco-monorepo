@@ -15,9 +15,9 @@ export interface InvoicesDialogContentProps {
 export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
   const { name, onChange, custGroupId, value } = props;
 
-  const { data } = useInvoicesByCustGroupId(custGroupId);
+  const { data } = useInvoicesByCustGroupId<GetInvoicesByCustGroupId>(custGroupId);
 
-  const { records: recInvoices } = data as GetInvoicesByCustGroupId; // 要修正
+  const { records: recInvoices } = data || {};
 
 
   /**
@@ -61,7 +61,7 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
         </RadioGroup>}
 
 
-      {!(actualOptions.length) &&
+      {!actualOptions.length &&
         <Stack direction={'row'} spacing={1}>
           <WarningAmberIcon />
           <Typography variant='body2'>

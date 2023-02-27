@@ -9,7 +9,7 @@ import { InvoicesDialogContent } from './InvoicesDialogContent';
 export interface ConfirmationDialogInvoiceProps {
   name: string;
   open: boolean;
-  onClose: (value?: string) => void;
+  onClose: () => void;
   custGroupId: string
 }
 

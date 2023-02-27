@@ -23,15 +23,17 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
   /**
    * 選択肢の生成
    */
-  const actualOptions: OptionNode[] = recInvoices?.filter(({ invoiceStatus }) => {
-    return invoiceStatus.value as TInvoiceStatus !== 'voided';
-  }).map<OptionNode>((rec) => {
+  const actualOptions: OptionNode[] = recInvoices
+    ?.filter(({ invoiceStatus }) => {
+      return invoiceStatus.value as TInvoiceStatus !== 'voided';
+    })
+    .map<OptionNode>((rec) => {
     const { uuid } = rec;
 
     return {
       value: uuid.value,
       key: uuid.value,
-      component: (<ListItemInvoices invoiceRecords={rec} />),
+      component: (<ListItemInvoices invoiceRecord={rec} />),
     };
   }) || [];
 

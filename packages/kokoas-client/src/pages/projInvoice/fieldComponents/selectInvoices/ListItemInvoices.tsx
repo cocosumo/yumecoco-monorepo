@@ -1,24 +1,24 @@
-import { Chip, Stack, SvgIconTypeMap, Typography } from '@mui/material';
+import { Chip, Stack, Typography } from '@mui/material';
 import { IInvoices } from 'types';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
-import { OverridableComponent } from '@mui/types';
 import { format, parseISO } from 'date-fns';
+import { ReactNode } from 'react';
 
 
-const ListContent = ({
+const TextWithIcon = ({
   Icon,
-  explanation,
+  label,
 }: {
-  Icon: OverridableComponent<SvgIconTypeMap<Record<string, unknown>, 'svg'>>,
-  explanation: string
+  Icon: ReactNode,
+  label: string
 }) => {
   return (
     <Stack spacing={0} direction={'row'}>
-      <Icon />
+      {Icon}
       <Typography>
-        {explanation}
+        {label}
       </Typography>
     </Stack>
   );
@@ -26,9 +26,9 @@ const ListContent = ({
 
 
 export const ListItemInvoices = ({
-  invoiceRecords,
+  invoiceRecord,
 }: {
-  invoiceRecords: IInvoices
+  invoiceRecord: IInvoices
 }) => {
 
   const {
@@ -36,7 +36,7 @@ export const ListItemInvoices = ({
     invoiceStatus: { value: invoiceStatus },
     issuedDateTime: { value: dateCreated },
     billingAmount: { value: billingAmount },
-  } = invoiceRecords;
+  } = invoiceRecord;
 
 
   return (
@@ -44,13 +44,13 @@ export const ListItemInvoices = ({
       alignItems="center" justifyContent="space-around"
     >
 
-      <ListContent Icon={NumbersIcon} explanation={String(id.value)} />
+      <TextWithIcon Icon={<NumbersIcon />} label={id.value} />
 
-      <ListContent Icon={ScheduleIcon} explanation={format(parseISO(dateCreated), 'yyyy/MM/dd')} />
+      <TextWithIcon Icon={<ScheduleIcon />} label={format(parseISO(dateCreated), 'yyyy/MM/dd')} />
 
-      <ListContent
-        Icon={CurrencyYenIcon}
-        explanation={Math.round(+billingAmount).toLocaleString()}
+      <TextWithIcon
+        Icon={<CurrencyYenIcon />}
+        label={Math.round(+billingAmount).toLocaleString()}
       />
 
       {!!invoiceStatus &&

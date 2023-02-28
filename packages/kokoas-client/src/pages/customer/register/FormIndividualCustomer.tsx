@@ -73,12 +73,11 @@ export const FormIndividualCustomer  = () => {
 
       </Grid>
 
+
       <FabSave onClick={submitForm} url="custgroup" appear={!isDeletedStatus} />
       {
-          isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
-        }
-
-
+        isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
+      }
 
     </FormContainer>
 

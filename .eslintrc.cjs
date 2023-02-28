@@ -58,6 +58,7 @@ module.exports = {
     "no-loop-func": [2],
     "react/jsx-no-constructed-context-values": [2], //https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
     "react/jsx-pascal-case": [2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
+    "newline-per-chained-call": [2],
     "@typescript-eslint/no-unused-vars": [
       "error", {
       "argsIgnorePattern": "^_",

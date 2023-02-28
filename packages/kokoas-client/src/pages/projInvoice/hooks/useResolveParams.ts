@@ -49,7 +49,11 @@ export const useResolveParams = () => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
-          const tgtBilledAmount = datInvoicesSummary?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? 0;
+          const targetInvoice = datInvoicesSummary?.find(invoice => invoice.dataId === data.dataId);
+          const {
+            billedAmount = 0,
+            createdAmount = 0,
+          } = targetInvoice || {};
           const newIsForPayment = (estimateIdFromURL || '').split(',').includes(data.estimateId);
 
           draft.estimates[idx] = {
@@ -59,7 +63,8 @@ export const useResolveParams = () => {
             dataId: data.dataId,
             contractAmount: data.contractAmount,
             nonTaxableAmount: data.nonTaxableAmount,
-            billedAmount: tgtBilledAmount,
+            billedAmount: billedAmount,
+            createdAmount: createdAmount,
             billingAmount: data.billingAmount,
             amountType: '',
             isForPayment: data.isForPayment || newIsForPayment,

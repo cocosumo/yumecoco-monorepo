@@ -6,9 +6,13 @@ import { TInvoiceStatus, TypeOfForm } from '../form';
 export const useSubmitInvoice = () => {
 
   const { setSnackState } = useSnackBar();
-  const { submitForm, setValues, values } = useFormikContext<TypeOfForm>();
+  const {
+    submitForm,
+    setValues,
+    // values,
+  } = useFormikContext<TypeOfForm>();
 
-  const { invoiceStatus } = values;
+  // const { invoiceStatus } = values;
 
   const handleSubmit = (newInvoiceStatus: TInvoiceStatus) => {
 

@@ -67,13 +67,13 @@ export const FormIndividualCustomer  = () => {
           md={4} lg={6} spacing={4}
           justifyContent="center"
         >
-          <Agents />
+          <Agents disabled={isDeletedStatus} />
           {isEditMode && <MemoColumn disabled={isDeletedStatus} />}
         </Grid>
 
       </Grid>
 
-      <FabSave onClick={submitForm} url="custgroup" appear={!+isDeleted} />
+      <FabSave onClick={submitForm} url="custgroup" appear={!isDeletedStatus} />
       {
           isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
         }

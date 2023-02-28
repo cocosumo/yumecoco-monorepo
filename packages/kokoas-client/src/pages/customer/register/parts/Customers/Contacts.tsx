@@ -18,17 +18,20 @@ typeOptions.unshift({ label: '---', value: '' });
 export const Contact = (props: ContactProps) => {
   const {
     name,
-
+    disabled,
     required = false,
   } = props;
 
   return (
     <>
       <Grid item xs={6}>
-        <FormikTextField {...props} />
+        <FormikTextField
+          {...props}
+        />
       </Grid>
       <Grid item xs={6}>
         <FormikSelect
+          disabled={disabled}
           name={`${name}Rel`} label="続柄"
           options={typeOptions}
           required={required}

@@ -7,7 +7,11 @@ import { Customer } from './Customer';
 
 const maxCust = 3;
 
-export const Customers = () => {
+export const Customers = ({
+  disabled,
+}: {
+  disabled: boolean
+}) => {
   const { values: { customers } } = useFormikContext<TypeOfForm>();
   const arrayFieldName: KeyOfForm = 'customers';
   const isMaxCust = maxCust === customers.length;
@@ -34,6 +38,7 @@ export const Customers = () => {
                     index={idx}
                     namePrefix={`${arrayFieldName}[${idx}].`}
                     customers={customers}
+                    disabled={disabled}
                     {...arrHelpers}
 
                   />
@@ -41,7 +46,7 @@ export const Customers = () => {
               },
               )}
 
-              {!isMaxCust &&
+              {!isMaxCust && !disabled &&
               <Grid item xs={12}>
                 <Button
                   variant="outlined"

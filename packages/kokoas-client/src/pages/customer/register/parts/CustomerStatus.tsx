@@ -23,13 +23,16 @@ export const CustomerStatus = () => {
   };
 
 
-  const message = isDeleted ? '「削除」状態になっています。' : reminderMessage;
+  const message = isDeleted ? '「削除」状態になっています。保存出来ません。' : reminderMessage;
 
 
   return (
 
-    <Grid container item xs={12}
+    <Grid
+      container item
+      xs={12}
       spacing={2}
+      pb={2}
     >
       <Grid item xs={12} md={6}>
         <Alert

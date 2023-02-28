@@ -6,6 +6,7 @@ import {  getCustFieldName } from '../../form';
 interface ContactProps {
   name: string,
   label: string,
+  disabled: boolean,
   required?: boolean,
   type?: string
 }
@@ -17,6 +18,7 @@ typeOptions.unshift({ label: '---', value: '' });
 export const Contact = (props: ContactProps) => {
   const {
     name,
+
     required = false,
   } = props;
 
@@ -36,16 +38,20 @@ export const Contact = (props: ContactProps) => {
   );
 };
 
-export const Contacts = (props : { namePrefix: string }) => {
-  const { namePrefix } = props;
+export const Contacts = (props : {
+  namePrefix: string,
+  disabled: boolean,
+}) => {
+  const { namePrefix, disabled } = props;
+  const fields : Omit<ContactProps, 'disabled'>[] = [
+    { name: `${namePrefix}${getCustFieldName('phone1')}`, label: '電話番号1', type: 'tel', required: true },
+    { name: `${namePrefix}${getCustFieldName('phone2')}`, label: '電話番号2', type: 'tel' },
+    { name: `${namePrefix}${getCustFieldName('email')}`, label: 'メールアドレス', type: 'email' },
+  ];
+
   return (<>
     {
-      ([
-        { name: `${namePrefix}${getCustFieldName('phone1')}`, label: '電話番号1', type: 'tel', required: true },
-        { name: `${namePrefix}${getCustFieldName('phone2')}`, label: '電話番号2', type: 'tel' },
-        { name: `${namePrefix}${getCustFieldName('email')}`, label: 'メールアドレス', type: 'email' },
-      ] as ContactProps[])
-        .map(item => <Contact key={item.name} {...item} />)
+      fields.map(item => <Contact key={item.name} {...item} disabled={disabled} />)
     }
 
   </>);

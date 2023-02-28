@@ -15,6 +15,7 @@ interface CustomerProps extends ArrayHelpers {
   customers: TypeOfForm['customers']
   namePrefix: string,
   index: number,
+  disabled: boolean,
 }
 
 export const Customer =  (props: CustomerProps) => {
@@ -24,7 +25,7 @@ export const Customer =  (props: CustomerProps) => {
     index,
     remove,
     customers,
-
+    disabled,
   } = props;
 
   const { birthYear, birthMonth } = customers[index] ?? { birthYear: '', birthMonth: '' };
@@ -70,6 +71,7 @@ export const Customer =  (props: CustomerProps) => {
               remove(index);
             }}
             startIcon={<PersonRemoveIcon />} fullWidth
+            disabled={disabled}
           >
             削除
           </Button>
@@ -93,11 +95,21 @@ export const Customer =  (props: CustomerProps) => {
         <NameInput
           custNameFN={custNameFN}
           custNameReadingFN={custNameReadingFN}
+          disabled={disabled}
         />
-        <SelectGender namePrefix={namePrefix} />
-        <MemoizedSelectBirthdate namePrefix={namePrefix} birthYear={birthYear} birthMonth={birthMonth} />
-        <Address namePrefix={namePrefix} index={index} />
-        <Contacts namePrefix={namePrefix} />
+        <SelectGender disabled={disabled} namePrefix={namePrefix} />
+        <MemoizedSelectBirthdate
+          disabled={disabled}
+          namePrefix={namePrefix}
+          birthYear={birthYear}
+          birthMonth={birthMonth}
+        />
+        <Address
+          disabled={disabled}
+          namePrefix={namePrefix}
+          index={index}
+        />
+        <Contacts namePrefix={namePrefix} disabled={disabled} />
 
       </Grid>
     </>

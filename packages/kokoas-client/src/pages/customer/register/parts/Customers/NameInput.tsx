@@ -11,9 +11,11 @@ import * as AutoKana from 'vanilla-autokana';
 export const NameInput = ({
   custNameFN,
   custNameReadingFN,
+  disabled = false,
 }: {
   custNameFN: string,
-  custNameReadingFN: string
+  custNameReadingFN: string,
+  disabled: boolean,
 }) => {
   const { setFieldValue } = useFormikContext<TypeOfForm>();
   const [inputVal, setInputVal] = useState<string | null>(null);
@@ -57,6 +59,7 @@ export const NameInput = ({
           label={'氏名'}
           placeholder='山田　太郎'
           value={inputVal === null ? value : inputVal}
+          disabled={disabled}
           required
           onInput={(e) => {
             const text = (e.target as  HTMLInputElement).value;
@@ -75,7 +78,8 @@ export const NameInput = ({
           id={custNameReadingFN}
           name={custNameReadingFN}
           label="氏名フリガナ"
-          placeholder='ヤマダ　タロウ' 
+          placeholder='ヤマダ　タロウ'
+          disabled={disabled}
           required
         />
       </Grid>

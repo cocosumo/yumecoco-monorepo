@@ -27,7 +27,7 @@ export const saveCustGroup = async (
     record: Partial<RecordType>,
     custGroupId?: string,
     revision?:string,
-    customerRecords: Partial<ICustomers>[]
+    customerRecords?: Partial<ICustomers>[]
   },
 ) => {
 
@@ -35,38 +35,41 @@ export const saveCustGroup = async (
   const aggRecord = { ...record }; // avoid argument mutation.
 
 
-  /** Save customer records to db.customers and retrieve customer ids */
-  const custIds = await saveCustomers({ records: customerRecords });
 
+  if (customerRecords) {
+    /** Save customer records to db.customers and retrieve customer ids */
+    const custIds = await saveCustomers({ records: customerRecords });
 
-  /**
-   * Populate db.custGroup.members with the customerIds
-   *
-   * value: "auto" are copy fields. These are not required by kintone,
-   * but for the sake of clarity, I include it here.
-   * */
-  aggRecord.members = {
-    type: 'SUBTABLE',
-    value: custIds?.map((custId) => {
-      return {
-        id: '', // this is auto-populated
-        value: {
-          postal: { value: 'auto' },
-          address1: { value: 'auto' },
-          address2: { value: 'auto' },
-          customerName: { value: 'auto' },
-          custId: { value: custId || '' },
-        },
-      };
-    }),
-  };
+    /**
+     * Populate db.custGroup.members with the customerIds
+     *
+     * value: "auto" are copy fields. These are not required by kintone,
+     * but for the sake of clarity, I include it here.
+     * */
+    aggRecord.members = {
+      type: 'SUBTABLE',
+      value: custIds?.map((custId) => {
+        return {
+          id: '', // this is auto-populated
+          value: {
+            postal: { value: 'auto' },
+            address1: { value: 'auto' },
+            address2: { value: 'auto' },
+            customerName: { value: 'auto' },
+            custId: { value: custId || '' },
+          },
+        };
+      }),
+    };
 
-  aggRecord.custNames = {
-    value: customerRecords
-      .filter(({ fullName })=> !!fullName?.value)
-      .map(({ fullName }) => `${fullName?.value}`)
-      .join(', '),
-  };
+    aggRecord.custNames = {
+      value: customerRecords
+        .filter(({ fullName })=> !!fullName?.value)
+        .map(({ fullName }) => `${fullName?.value}`)
+        .join(', '),
+    };
+  }
+
   aggRecord.cocoAGNames = {
     value: getAgentNames(record, 'cocoAG'),
   };

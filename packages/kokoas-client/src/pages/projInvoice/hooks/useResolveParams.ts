@@ -25,20 +25,20 @@ export const useResolveParams = () => {
 
   const { data: custData } = useCustGroupById(newCustGroupId || '');
   const { data: recContracts } = useContractsByCustGroupId(newCustGroupId || '');
-  const { data: datInvoicesTotal } = useInvoicesSummaryByCustGroupId(newCustGroupId || '');
+  const { data: datInvoicesSummary } = useInvoicesSummaryByCustGroupId(newCustGroupId || '');
 
 
 
   useEffect(() => {
 
-    if (projInvoiceIdFromURL && recInvoice && custData && recContracts && datInvoicesTotal) {
+    if (projInvoiceIdFromURL && recInvoice && custData && recContracts && datInvoicesSummary) {
 
       const newEstimates = sortEstimatesByProjId(recContracts);
 
       setNewFormVal((prev) => ({
         ...prev,
         ...convertCustDataToForm(custData),
-        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesTotal, estimateIdFromURL?.split(',') ?? []),
+        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesSummary, estimateIdFromURL?.split(',') ?? []),
         invoiceId: projInvoiceIdFromURL,
       }));
     } else if (custGroupIdFromURL && custData && recContracts) {
@@ -49,7 +49,7 @@ export const useResolveParams = () => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
-          const tgtBilledAmount = datInvoicesTotal?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? 0;
+          const tgtBilledAmount = datInvoicesSummary?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? 0;
           const newIsForPayment = (estimateIdFromURL || '').split(',').includes(data.estimateId);
 
           draft.estimates[idx] = {
@@ -80,7 +80,7 @@ export const useResolveParams = () => {
     setNewFormVal,
     custData,
     recContracts,
-    datInvoicesTotal,
+    datInvoicesSummary,
     recInvoice,
     estimateIdFromURL,
   ]);

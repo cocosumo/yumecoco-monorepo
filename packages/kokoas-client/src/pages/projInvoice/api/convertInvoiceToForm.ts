@@ -6,7 +6,7 @@ import { TInvoiceStatus, TMaterials, TypeOfForm } from '../form';
 export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
   estimates: TMaterials[],
-  datInvoicesTotal: InvoiceSummary[],
+  datInvoicesSummary: InvoiceSummary[],
   estimateIdArray: string[],
 ): Partial<TypeOfForm> => {
   const {
@@ -41,7 +41,7 @@ export const convertInvoiceToForm = (
       return (value.dataId.value === dataId);
     })?.value.amountPerContract.value ?? '0';
 
-    const tgtBilledAmount = datInvoicesTotal?.find(({ dataId: dataIdOfInvoice }) => {
+    const tgtBilledAmount = datInvoicesSummary?.find(({ dataId: dataIdOfInvoice }) => {
       return dataIdOfInvoice === dataId;
     })?.billedAmount ?? '0';
 

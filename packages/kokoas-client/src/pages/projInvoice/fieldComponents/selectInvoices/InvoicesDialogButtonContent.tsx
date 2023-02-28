@@ -1,17 +1,17 @@
-import { DialogContent, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { Button, DialogContent, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { GetInvoicesByCustGroupId, useInvoicesByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { ListItemInvoices } from './ListItemInvoices';
 import { TInvoiceStatus } from '../../form';
+import { ListItemInvoicesButton } from './ListItemInvoicesButton';
 
-export interface InvoicesDialogContentProps {
+export interface InvoicesDialogButtonContentProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   custGroupId: string
   value: string
 }
 
-export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
+export const InvoicesDialogButtonContent = (props: InvoicesDialogButtonContentProps) => {
   const { onChange, custGroupId, value } = props;
 
   const { data } = useInvoicesByCustGroupId<GetInvoicesByCustGroupId>(custGroupId);
@@ -32,44 +32,42 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
     return {
       value: uuid.value,
       key: uuid.value,
-      component: (<ListItemInvoices invoiceRecord={rec} />),
+      component: (<ListItemInvoicesButton invoiceRecord={rec} />),
     };
   }) || [];
 
 
 
   return (
-    <DialogContent dividers>
+    <DialogContent
+      dividers
+      sx={{ width: '450px' }}
+    >
       {Boolean(actualOptions.length) &&
-        <RadioGroup
-          name={'invoice'}
-          aria-label={'invoice'}
-          value={value}
-          onChange={onChange}
-        >
-          {actualOptions?.map((option) => {
+        actualOptions?.map((option) => {
 
-            return (
-              <FormControlLabel
-                key={option.key}
-                value={option.value}
-                control={<Radio />}
-                label={option.component}
-              />
-            );
-          })}
-
-        </RadioGroup>}
+          return (
+            <Button
+              key={option.key}
+              variant='outlined'
+              sx={{ width: '100%' }}
+            >
+              {option.component}
+            </Button>
+          );
+        })}
 
 
-      {!actualOptions.length &&
+      {
+        !actualOptions.length &&
         <Stack direction={'row'} spacing={1}>
           <WarningAmberIcon />
           <Typography variant='body2'>
             見積もりはまだ作成されていません
           </Typography>
-        </Stack>}
+        </Stack>
+      }
 
-    </DialogContent>
+    </DialogContent >
   );
 };

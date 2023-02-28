@@ -1,11 +1,11 @@
-import { Chip, Stack, Typography } from '@mui/material';
+import { Box, Chip, Stack, Typography } from '@mui/material';
 import { IInvoices } from 'types';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import CurrencyYenIcon from '@mui/icons-material/CurrencyYen';
 import { format, parseISO } from 'date-fns';
 import { ReactNode } from 'react';
-import { TInvoiceStatus } from '../../form';
+import { TInvoiceStatus } from '../../../form';
 
 
 const TextWithIcon = ({
@@ -22,7 +22,7 @@ const TextWithIcon = ({
   return (
     <Stack spacing={0} direction={'row'} width={width}>
       {Icon}
-      <Typography align={align}>
+      <Typography textAlign={align} width={'80%'}>
         {label}
       </Typography>
     </Stack>
@@ -58,27 +58,37 @@ export const ListItemInvoices = ({
 
 
   return (
-    <Stack direction={'row'} spacing={2}
-      alignItems="center" justifyContent="space-around"
+    <Stack
+      direction={'row'}
+      spacing={2}
+      alignItems="center"
+      justifyContent="space-around"
+      width={'100%'}
     >
 
-      <TextWithIcon Icon={<NumbersIcon />} label={id.value} width='20%' />
+      <TextWithIcon Icon={<NumbersIcon />} label={id.value} width='15%' />
 
       <TextWithIcon
         Icon={<ScheduleIcon />}
         label={format(parseISO(dateCreated), 'yyyy/MM/dd')}
-        width='50%'
+        width='30%'
       />
 
       <TextWithIcon
         Icon={<CurrencyYenIcon />}
         label={Math.round(+billingAmount).toLocaleString()}
-        width='70%'
+        width='30%'
         align='right'
       />
 
-      {!!invoiceStatus &&
-        <Chip label={invoiceStatusJa[invoiceStatus as TInvoiceStatus]} color={'info'} size={'small'} />}
+      <Box width={'25%'}>
+        {!!invoiceStatus &&
+          <Chip
+            label={invoiceStatusJa[invoiceStatus as TInvoiceStatus]}
+            color={'info'}
+            size={'small'}
+          />}
+      </Box>
 
     </Stack>
   );

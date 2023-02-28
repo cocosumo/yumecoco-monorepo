@@ -3,7 +3,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InvoicesDialogButtonContent } from './InvoicesDialogButtonContent';
+import { InvoicesDialogContent } from './InvoicesDialogContent';
 
 
 export interface ConfirmationDialogInvoiceProps {
@@ -12,6 +12,8 @@ export interface ConfirmationDialogInvoiceProps {
   custGroupId: string
 }
 
+/**
+ *  @deprecated  */
 export const ConfirmationDialogInvoice = (props: ConfirmationDialogInvoiceProps) => {
   const { onClose, open, custGroupId } = props;
   const [value, setValue] = useState('');
@@ -41,7 +43,7 @@ export const ConfirmationDialogInvoice = (props: ConfirmationDialogInvoiceProps)
       <DialogTitle>
         {'請求書を選択してください'}
       </DialogTitle>
-      <InvoicesDialogButtonContent
+      <InvoicesDialogContent
         onChange={handleChange}
         custGroupId={custGroupId}
         value={value}

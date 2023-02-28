@@ -2,13 +2,13 @@ import { useCallback } from 'react';
 import { TInvoiceStatus } from '../pages/projInvoice/form';
 import { useInvoicesByCustGroupId } from './useInvoicesByCustGroupId';
 
-export interface EstimateList {
+export interface InvoiceSummary {
   dataId: string,
   billedAmount: number,
   createdAmount: number,
 }
 
-export const useInvoiceTotalByCustGroupId = (
+export const useInvoicesSummaryByCustGroupId = (
   custGroupId = '',
 ) => {
   return useInvoicesByCustGroupId(custGroupId, {
@@ -36,7 +36,7 @@ export const useInvoiceTotalByCustGroupId = (
             } else {
               acc[newDataId] = {
                 ...acc[newDataId],
-                billedAmount: +acc[newDataId].billedAmount + +newBilledAmount,                
+                billedAmount: +acc[newDataId].billedAmount + +newBilledAmount,
                 createdAmount: +acc[newDataId].createdAmount + newCreatedAmount,
               };
             }
@@ -45,7 +45,7 @@ export const useInvoiceTotalByCustGroupId = (
         }
         return acc;
 
-      }, {} as Record<string, EstimateList>);
+      }, {} as Record<string, InvoiceSummary>);
 
 
       return Object.values(totalInvoice);

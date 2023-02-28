@@ -1,12 +1,12 @@
 import { Big } from 'big.js';
 import { parseISO } from 'date-fns';
-import { EstimateList } from 'kokoas-client/src/hooksQuery';
+import { InvoiceSummary } from 'kokoas-client/src/hooksQuery';
 import { TInvoiceStatus, TMaterials, TypeOfForm } from '../form';
 
 export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
   estimates: TMaterials[],
-  datInvoicesTotal: EstimateList[],
+  datInvoicesSummary: InvoiceSummary[],
   estimateIdArray: string[],
 ): Partial<TypeOfForm> => {
   const {
@@ -41,7 +41,7 @@ export const convertInvoiceToForm = (
       return (value.dataId.value === dataId);
     })?.value.amountPerContract.value ?? '0';
 
-    const invoiceSummary = datInvoicesTotal?.find(({ dataId: dataIdOfInvoice }) => {
+    const invoiceSummary = datInvoicesSummary?.find(({ dataId: dataIdOfInvoice }) => {
       return dataIdOfInvoice === dataId;
     });
 

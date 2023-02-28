@@ -34,8 +34,6 @@ export const ConfirmationDialogInvoice = (props: ConfirmationDialogInvoiceProps)
 
   return (
     <Dialog
-      sx={{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
-      maxWidth="xs"
       open={open}
       onClose={() => onClose()}
     >

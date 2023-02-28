@@ -29,7 +29,8 @@
     "*eslint*",
     "*webpack*",
     "jest.config.ts",
-    "**/batch-scripts/**/*"
+    "**/batch-scripts/**/*",
+    "cypress"
   ],
   "include": [
     "./**/*.ts",

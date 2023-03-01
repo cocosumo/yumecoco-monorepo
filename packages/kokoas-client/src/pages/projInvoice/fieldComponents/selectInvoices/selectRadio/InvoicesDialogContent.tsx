@@ -11,6 +11,8 @@ export interface InvoicesDialogContentProps {
   value: string
 }
 
+/**
+ *  @deprecated  */
 export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
   const { onChange, custGroupId, value } = props;
 

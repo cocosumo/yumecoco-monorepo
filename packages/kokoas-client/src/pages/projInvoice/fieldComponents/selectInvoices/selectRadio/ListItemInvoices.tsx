@@ -42,7 +42,8 @@ const invoiceStatusJa: InvStatusJa = {
   '': '',
 };
 
-
+/**
+ *  @deprecated  */
 export const ListItemInvoices = ({
   invoiceRecord,
 }: {

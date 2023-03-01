@@ -3,20 +3,29 @@ import { Stack } from '@mui/system';
 import { GetInvoicesByCustGroupId, useInvoicesByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { TInvoiceStatus } from '../../form';
-import { ListItemInvoicesButton } from './ListItemInvoicesButton';
+import { ListItemInvoices } from './ListItemInvoices';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { useNavigate } from 'react-router-dom';
 
-export interface InvoicesDialogButtonContentProps {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+export interface InvoicesDialogContentProps {
+  onClose: () => void;
   custGroupId: string
-  value: string
 }
 
-export const InvoicesDialogButtonContent = (props: InvoicesDialogButtonContentProps) => {
-  const { onChange, custGroupId, value } = props;
+export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
+  const { onClose, custGroupId } = props;
+  const navigate = useNavigate();
 
   const { data } = useInvoicesByCustGroupId<GetInvoicesByCustGroupId>(custGroupId);
 
   const { records: recInvoices } = data || {};
+
+
+  const handleClick = (newInvoiceId: string | number) => {
+    navigate(`${pages.projInvoice}?${generateParams({ invoiceId: newInvoiceId.toString() })}`);
+    onClose();
+  };
 
 
   /**
@@ -32,7 +41,7 @@ export const InvoicesDialogButtonContent = (props: InvoicesDialogButtonContentPr
     return {
       value: uuid.value,
       key: uuid.value,
-      component: (<ListItemInvoicesButton invoiceRecord={rec} />),
+      component: (<ListItemInvoices invoiceRecord={rec} />),
     };
   }) || [];
 
@@ -50,7 +59,12 @@ export const InvoicesDialogButtonContent = (props: InvoicesDialogButtonContentPr
             <Button
               key={option.key}
               variant='outlined'
-              sx={{ width: '100%' }}
+              sx={{ 
+                width: '100%',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+              }}
+              onClick={() => { handleClick(option.value); }}
             >
               {option.component}
             </Button>

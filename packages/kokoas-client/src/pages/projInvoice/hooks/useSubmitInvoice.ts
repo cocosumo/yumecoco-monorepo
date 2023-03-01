@@ -28,6 +28,8 @@ export const useSubmitInvoice = () => {
 
   const handlePreview = () => {
 
+    // プレビュー実装
+
     setSnackState({
       open: true,
       severity: 'warning',

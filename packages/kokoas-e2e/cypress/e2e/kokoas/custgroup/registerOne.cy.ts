@@ -1,21 +1,10 @@
-import { cy, describe, it, beforeEach } from 'local-cypress';
-
+import { cy, describe, it, beforeEach, expect } from 'local-cypress';
+import qs from 'qs';
+import dt from '../../../fixtures/custGroup.json';
 
 describe('registerOne', () => {
 
-  const dt = {
-    custName: 'たなかたろう',
-    custNameReading: 'タナカタロウ',
-    gender: '男',
-    birthYear: 1990,
-    birthMonth: 10,
-    birthDay: 19,
-    postal: '4418124',
-    tel1: '07014528888',
-    tel2: '07014529999',
-    email: 'lenzras@gmail.com',
-    address1: '愛知県豊橋市野依町',
-  };
+  let newCustGroupId: string | undefined; // Will be used for cleanup after test
 
   beforeEach(() => {
     cy.login();
@@ -69,7 +58,57 @@ describe('registerOne', () => {
       .type(dt.postal);
 
     // 住所は自動入力されるので、確認
-    cy.get('input[name*="address1"').should('have.value', dt.address1);
+    cy.get('input[name*="address1"', { timeout: 8000 }).should('have.value', dt.address1);
+
+    ['phone1', 'phone2', 'email']
+      .forEach((key: keyof typeof dt) => {
+        cy.get(`input[name*="${key}"]`).first()
+          .type(dt[key] as string);
+
+        // 続柄のメニューを開く
+        cy.get(`div[aria-labelledby*="${key}Rel"]`).first()
+          .click();
+        // 続柄のメニューを選択
+        cy.get('li[role="option"]').contains(dt[`${key}Rel` as keyof typeof dt])
+          .click();
+      });
+
+
+    // 店舗を選択
+    cy.get('div[aria-labelledby*="store"]').click();
+    cy.get('li').last()
+      .click();
+
+    ['cocoAG1', 'cocoAG2', 'yumeAG1', 'yumeAG2']
+      .forEach((key: keyof typeof dt) => {
+        cy.log(`${key}を選択する`);
+
+        // **AGを選択
+        cy.get(`div[aria-labelledby*="${key}"]`).click();
+        cy.get('li').last()
+          .click();
+      });
+
+    // 保存ボタンをクリック後、レコード番号を取得
+    cy.intercept('POST', 'https://rdmuhwtt6gx7.cybozu.com//k/v1/record.json').as('postRecord');
+    cy.get('button').contains('保存')
+      .click();
+    cy.wait('@postRecord').then((interception) => {
+      const resp = interception.response as { body: { id: string } };
+      cy.log(resp.body.id );
+      newCustGroupId = resp.body.id;
+
+      //　レコード番号が数字であることを確認
+      expect(newCustGroupId).to.be.match(/\d/);
+    });
+
+    cy.get('div').contains('工事情報を登録しますか。')
+      .should('be.visible');
+
+    cy.url().then((url) => {
+      const { custGroupId } = qs.parse(url);
+      cy.log('custGroupId: ' + custGroupId);
+    });
 
   });
 

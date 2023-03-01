@@ -43,7 +43,6 @@ declare global {
     interface Chainable {
       /**
        * Custom command to login.
-       * @example cy.dataCy('greeting')
        */
       login(): Chainable<JQuery<HTMLElement>>
     }

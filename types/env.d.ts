@@ -38,6 +38,16 @@ declare global {
       LOCAL_URL: string;
     }
   }
+
+  namespace Cypress {
+    interface Chainable {
+      /**
+       * Custom command to login.
+       * @example cy.dataCy('greeting')
+       */
+      login(): Chainable<JQuery<HTMLElement>>
+    }
+  }
 }
 
 export {}

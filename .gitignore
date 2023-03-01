@@ -43,6 +43,7 @@ coverage
 
 # sensitive
 *.env
+*.env.json
 *.bat
 *.ps1
 *.csv
@@ -85,3 +86,4 @@ Backup of *.doc*
 *.xls
 *.xlsx
 *.docx
+*.mp4

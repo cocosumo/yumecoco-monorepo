@@ -3,4 +3,5 @@
 jest
 jest.*
 env.*
+*.cy.js
 __mocks__

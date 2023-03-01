@@ -7,8 +7,5 @@
     "cypress:open": "cypress open"
   },
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/cypress": "^1.1.3"
-  }
+  "license": "ISC"
 }

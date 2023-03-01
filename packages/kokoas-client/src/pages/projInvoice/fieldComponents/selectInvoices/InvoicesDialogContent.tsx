@@ -1,4 +1,4 @@
-import { Button, DialogContent, Typography } from '@mui/material';
+import { Box, Button, DialogContent, Tooltip, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { GetInvoicesByCustGroupId, useInvoicesByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
@@ -7,6 +7,8 @@ import { ListItemInvoices } from './ListItemInvoices';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useNavigate } from 'react-router-dom';
+import { ReactNode } from 'react';
+import { Caption } from 'kokoas-client/src/components';
 
 export interface InvoicesDialogContentProps {
   onClose: () => void;
@@ -22,8 +24,8 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
   const { records: recInvoices } = data || {};
 
 
-  const handleClick = (newInvoiceId: string | number) => {
-    navigate(`${pages.projInvoice}?${generateParams({ invoiceId: newInvoiceId.toString() })}`);
+  const handleClick = (newInvoiceId: string) => {
+    navigate(`${pages.projInvoice}?${generateParams({ invoiceId: newInvoiceId })}`);
     onClose();
   };
 
@@ -31,20 +33,41 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
   /**
    * 選択肢の生成
    */
-  const actualOptions: OptionNode[] = recInvoices
+  type InvoiceOption = {
+    value: string,
+    key: string,
+    component: ReactNode,
+    tipComponent: ReactNode,
+  };
+
+  const actualOptions: InvoiceOption[] = recInvoices
     ?.filter(({ invoiceStatus }) => {
       return invoiceStatus.value as TInvoiceStatus !== 'voided';
     })
-    .map<OptionNode>((rec) => {
-    const { uuid } = rec;
+    ?.map<InvoiceOption>((rec) => {
+    const {
+      uuid,
+      estimateLists,
+    } = rec;
+
+    const infoToolTip: ReactNode = (
+      <Box width={'30%'}>
+        {estimateLists.value.map(({ value }) => {
+          return (
+            <Caption
+              text={`見積もり枝番：${value.dataId.value} 請求金額：${value.amountPerContract.value}`}
+              key={`${value.dataId.value}tooltipInfo`}
+            />);
+        })}
+      </Box>);
 
     return {
       value: uuid.value,
       key: uuid.value,
       component: (<ListItemInvoices invoiceRecord={rec} />),
+      tipComponent: infoToolTip,
     };
   }) || [];
-
 
 
   return (
@@ -56,18 +79,21 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
         actualOptions?.map((option) => {
 
           return (
-            <Button
-              key={option.key}
-              variant='outlined'
-              sx={{ 
-                width: '100%',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-              }}
-              onClick={() => { handleClick(option.value); }}
-            >
-              {option.component}
-            </Button>
+
+            <Tooltip title={option.tipComponent} key={`${option.value}tooltip`}>
+              <Button
+                key={option.key}
+                variant='outlined'
+                sx={{
+                  width: '100%',
+                  alignItems: 'flex-start',
+                  justifyContent: 'flex-start',
+                }}
+                onClick={() => { handleClick(option.value); }}
+              >
+                {option.component}
+              </Button>
+            </Tooltip>
           );
         })}
 

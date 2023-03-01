@@ -87,3 +87,8 @@ Backup of *.doc*
 *.xlsx
 *.docx
 *.mp4
+
+#test
+
+cypress/videos
+cypress/screenshots

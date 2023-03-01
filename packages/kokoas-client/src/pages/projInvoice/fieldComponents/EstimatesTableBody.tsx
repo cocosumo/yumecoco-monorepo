@@ -68,6 +68,13 @@ export const EstimateTableBody = ({
           disabled={disabled || isBilled}
         />
       </TableCell>
+      <TableCell align="right">
+        {/* 作成済み金額 */}
+        <CellContent
+          content={roundTo(+estimateRow.createdAmount).toLocaleString()}
+          disabled={disabled || isBilled}
+        />
+      </TableCell>
       <TableCell>
         {/* 請求に使用する */}
         <FormikLabeledCheckBox

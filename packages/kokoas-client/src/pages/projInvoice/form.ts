@@ -45,6 +45,9 @@ export const initialValues = {
       /** 請求済み金額 */
       billedAmount: 0,
 
+      /** 作成済み金額 */
+      createdAmount: 0,
+
       /** 請求金額 */
       billingAmount: 0,
 

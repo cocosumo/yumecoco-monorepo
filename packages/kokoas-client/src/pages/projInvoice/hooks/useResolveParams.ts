@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useContractsByCustGroupId, useCustGroupById, useInvoicesById, useInvoiceTotalByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByCustGroupId, useCustGroupById, useInvoicesById, useInvoicesSummaryByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertCustDataToForm } from '../api/convertCustDataToForm';
 import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
@@ -25,20 +25,20 @@ export const useResolveParams = () => {
 
   const { data: custData } = useCustGroupById(newCustGroupId || '');
   const { data: recContracts } = useContractsByCustGroupId(newCustGroupId || '');
-  const { data: datInvoicesTotal } = useInvoiceTotalByCustGroupId(newCustGroupId || '');
+  const { data: datInvoicesSummary } = useInvoicesSummaryByCustGroupId(newCustGroupId || '');
 
 
 
   useEffect(() => {
 
-    if (projInvoiceIdFromURL && recInvoice && custData && recContracts && datInvoicesTotal) {
+    if (projInvoiceIdFromURL && recInvoice && custData && recContracts && datInvoicesSummary) {
 
       const newEstimates = sortEstimatesByProjId(recContracts);
 
       setNewFormVal((prev) => ({
         ...prev,
         ...convertCustDataToForm(custData),
-        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesTotal, estimateIdFromURL?.split(',') ?? []),
+        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesSummary, estimateIdFromURL?.split(',') ?? []),
         invoiceId: projInvoiceIdFromURL,
       }));
     } else if (custGroupIdFromURL && custData && recContracts) {
@@ -49,7 +49,11 @@ export const useResolveParams = () => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
         newEstimates?.forEach((data, idx) => {
-          const tgtBilledAmount = datInvoicesTotal?.find(({ dataId }) => dataId === data.dataId)?.billedAmount ?? '0';
+          const targetInvoice = datInvoicesSummary?.find(invoice => invoice.dataId === data.dataId);
+          const {
+            billedAmount = 0,
+            createdAmount = 0,
+          } = targetInvoice || {};
           const newIsForPayment = (estimateIdFromURL || '').split(',').includes(data.estimateId);
 
           draft.estimates[idx] = {
@@ -59,7 +63,8 @@ export const useResolveParams = () => {
             dataId: data.dataId,
             contractAmount: data.contractAmount,
             nonTaxableAmount: data.nonTaxableAmount,
-            billedAmount: Number(tgtBilledAmount),
+            billedAmount: billedAmount,
+            createdAmount: createdAmount,
             billingAmount: data.billingAmount,
             amountType: '',
             isForPayment: data.isForPayment || newIsForPayment,
@@ -80,7 +85,7 @@ export const useResolveParams = () => {
     setNewFormVal,
     custData,
     recContracts,
-    datInvoicesTotal,
+    datInvoicesSummary,
     recInvoice,
     estimateIdFromURL,
   ]);

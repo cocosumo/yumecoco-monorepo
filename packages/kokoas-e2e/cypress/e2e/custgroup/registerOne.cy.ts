@@ -1,6 +1,6 @@
 import { cy, describe, it, beforeEach, expect } from 'local-cypress';
 import qs from 'qs';
-import dt from '../../../fixtures/custGroup.json';
+import dt from '../../fixtures/custGroup.json';
 
 describe('registerOne', () => {
 

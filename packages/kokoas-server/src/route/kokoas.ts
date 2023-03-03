@@ -26,8 +26,20 @@ route.post(
   saveProjectToAndpad,
 );
 
+route.get(
+  `/${kokoasEndpoints.downloadInvoice}/:invoiceId`,
+  (req, res) => {
+    console.log('test');
+    res.status(200).send('test');
+    console.log(req.params);
+
+  },
+
+);
+
+
 // "テスト"
-route.get('/',  (req, res)=>{
+route.get('/', (req, res) => {
   console.log('kokoas internal api');
   res.send('KOKOAS API - TEST CONNECTION');
 });

@@ -5,7 +5,8 @@ export const getKokoasEndpoint = (k: KokoasApiNodes) => k;
 export type TKokoasEnpoint =
 | 'uploadEstimates'
 | 'uploadGenka'
-| 'saveProjectToAndpad';
+| 'saveProjectToAndpad'
+| 'downloadInvoice';
 
 
 
@@ -19,4 +20,7 @@ export const kokoasEndpoints : Record<TKokoasEnpoint, KokoasApiNodes> = {
 
   /** 案件をAndpadへ登録 */
   saveProjectToAndpad: 'andpad/register',
+
+  /** 請求書 */
+  downloadInvoice: 'download/invoice',
 };

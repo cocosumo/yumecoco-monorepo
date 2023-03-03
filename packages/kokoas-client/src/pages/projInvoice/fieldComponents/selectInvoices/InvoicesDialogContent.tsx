@@ -3,12 +3,24 @@ import { Stack } from '@mui/system';
 import { GetInvoicesByCustGroupId, useInvoicesByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { TInvoiceStatus } from '../../form';
-import { ListItemInvoices } from './ListItemInvoices';
+import { ListItemInvoice } from './ListItemInvoice';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
 import { Caption } from 'kokoas-client/src/components';
+
+
+/**
+ * 選択肢の生成
+ */
+type InvoiceOption = {
+  value: string,
+  key: string,
+  component: ReactNode,
+  tipComponent: ReactNode,
+};
+
 
 export interface InvoicesDialogContentProps {
   onClose: () => void;
@@ -29,17 +41,6 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
     onClose();
   };
 
-
-  /**
-   * 選択肢の生成
-   */
-  type InvoiceOption = {
-    value: string,
-    key: string,
-    component: ReactNode,
-    tipComponent: ReactNode,
-  };
-
   const actualOptions: InvoiceOption[] = recInvoices
     ?.filter(({ invoiceStatus }) => {
       return invoiceStatus.value as TInvoiceStatus !== 'voided';
@@ -50,8 +51,8 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
       estimateLists,
     } = rec;
 
-    const infoToolTip: ReactNode = (
-      <Box width={'30%'}>
+    const infoToolTip = (
+      <Box>
         {estimateLists.value.map(({ value }) => {
           return (
             <Caption
@@ -64,7 +65,7 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
     return {
       value: uuid.value,
       key: uuid.value,
-      component: (<ListItemInvoices invoiceRecord={rec} />),
+      component: (<ListItemInvoice invoiceRecord={rec} />),
       tipComponent: infoToolTip,
     };
   }) || [];
@@ -82,7 +83,6 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
 
             <Tooltip title={option.tipComponent} key={`${option.value}tooltip`}>
               <Button
-                key={option.key}
                 variant='outlined'
                 sx={{
                   width: '100%',

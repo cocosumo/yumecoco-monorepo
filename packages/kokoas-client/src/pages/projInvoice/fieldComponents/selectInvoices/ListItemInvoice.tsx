@@ -12,11 +12,8 @@ export type DataIds = {
   billingAmount: string,
 };
 
-type InvStatusJa = {
-  [key in TInvoiceStatus]: string;
-};
 
-const invoiceStatusJa: InvStatusJa = {
+const invoiceStatusJa: Record<TInvoiceStatus, string>  = {
   'created': '作成済',
   'sent': '発行済',
   'voided': '破棄',
@@ -26,7 +23,7 @@ const invoiceStatusJa: InvStatusJa = {
 
 
 
-export const ListItemInvoices = ({
+export const ListItemInvoice = ({
   invoiceRecord,
 }: {
   invoiceRecord: IInvoices
@@ -40,12 +37,16 @@ export const ListItemInvoices = ({
     estimateLists: { value: estimateLists },
   } = invoiceRecord;
 
-  const dataIds: DataIds[] = estimateLists.map(({ value }) => {
-    return ({
-      dataId: value.dataId.value,
-      billingAmount: value.amountPerContract.value,
+  const dataIds: DataIds[] = estimateLists
+    .map(({ value }) => {
+      return ({
+        dataId: value.dataId.value,
+        billingAmount: value.amountPerContract.value,
+      });
+    })
+    .sort((a, b) => {
+      return +b.billingAmount - +a.billingAmount;
     });
-  });
 
 
   return (

@@ -74,7 +74,9 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
   return (
     <DialogContent
       dividers
-      sx={{ width: '450px' }}
+      sx={{
+        width: '450px',
+      }}
     >
       {Boolean(actualOptions.length) &&
         actualOptions?.map((option) => {
@@ -88,6 +90,7 @@ export const InvoicesDialogContent = (props: InvoicesDialogContentProps) => {
                   width: '100%',
                   alignItems: 'flex-start',
                   justifyContent: 'flex-start',
+                  my: 1,
                 }}
                 onClick={() => { handleClick(option.value); }}
               >

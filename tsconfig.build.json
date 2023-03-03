@@ -7,6 +7,7 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "allowJs": true,
+    "resolveJsonModule": true,
     "lib": [
       "es5",
       "ES2022",
@@ -29,7 +30,8 @@
     "*eslint*",
     "*webpack*",
     "jest.config.ts",
-    "**/batch-scripts/**/*"
+    "**/batch-scripts/**/*",
+    "cypress"
   ],
   "include": [
     "./**/*.ts",

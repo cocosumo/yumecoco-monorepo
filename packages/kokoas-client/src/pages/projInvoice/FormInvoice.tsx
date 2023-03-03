@@ -90,14 +90,19 @@ export const FormInvoice = () => {
             }}
           />
         </Grid>
-        <Grid
-          container
-          item
-          justifyContent="flex-end"
-          xs
-        >
-          <SelectInvoices custGroupId={custGroupId} />
-        </Grid>
+
+        {custGroupId &&
+          <Grid
+            container
+            item
+            justifyContent="flex-end"
+            xs
+          >
+            <SelectInvoices custGroupId={custGroupId} />
+          </Grid>}
+
+        {!custGroupId &&
+          <Grid item md={6} />}
 
 
 

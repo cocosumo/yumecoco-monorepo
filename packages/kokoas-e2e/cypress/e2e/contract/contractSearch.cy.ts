@@ -28,13 +28,13 @@ describe('契約一覧', () => {
     cy.wait('@search');
   });
 
-  it('shows contract data', () => {
+  it('shows all contract data', () => {
     cy.get('@tableBody').find('tr')
       .should('have.length.at.least', 3); // todo: assert with database if it matches exact record cord.
   });
 
   context('shows contract status', () => {
-    it('shows contract status in header ', ()  => {
+    it('shows contract status header ', ()  => {
       cy.get('@tableHead').find('th')
         .first()
         .should('contain', '契約進歩');
@@ -42,7 +42,7 @@ describe('契約一覧', () => {
     });
 
 
-    it('shows contract status in body ', ()  => {
+    it('shows contract status in all rows', ()  => {
       cy.get('@tableBody')
         .find('tr > td:first-child')
         .each(($td) => {

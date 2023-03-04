@@ -30,7 +30,7 @@ describe('契約一覧', () => {
 
   it('shows contract data', () => {
     cy.get('@tableBody').find('tr')
-      .should('have.length.at.least', 3); // todo: counter check with database if it matches exact count.
+      .should('have.length.at.least', 3); // todo: assert with database if it matches exact record cord.
   });
 
   context('shows contract status', () => {

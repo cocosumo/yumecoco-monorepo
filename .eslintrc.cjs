@@ -90,6 +90,7 @@ module.exports = {
     {
       "files": [
         "*.test.ts",
+        "*.cy.ts",
         "*.spec.ts",
         "**/scripts/**.*",
         "**/helpers/**/*",
@@ -98,6 +99,7 @@ module.exports = {
         "no-console": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-unused-expressions": "off",
 
       }
     },

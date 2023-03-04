@@ -9,8 +9,12 @@ import { formatDataId } from 'libs';
 import { IInvoices, TEnvelopeStatus } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from './util/itemsSorter';
+import { getCurrentContractStep } from './util/getCurrentContractStep';
 
 export interface ContractRow {
+  contractStatus: TEnvelopeStatus,
+  currentContractRole: string,
+  currentContractName: string,
   uuid: string,
   custGroupId: string,
   projId: string,
@@ -67,7 +71,7 @@ export const useFilteredContracts = () => {
       let maxAmount = 0;
 
       // Combine data
-      const items = d.reduce((acc, cur) => {
+      const items = d.reduce<ContractRow[]>((acc, cur) => {
 
         /* 見積情報 */
         const {
@@ -76,11 +80,13 @@ export const useFilteredContracts = () => {
           dataId,
           envStatus,
           contractDate,
+          envRecipients,
         } = cur;
 
-        /* 契約済みじゃないなら、次のレコードへ行く */
-        if ((envStatus.value as TEnvelopeStatus) !== 'completed') return acc;
+        const currentContractStep = getCurrentContractStep(envRecipients.value);
 
+        /* 契約じゃないなら、次のレコードへ行く */
+        if (!envStatus.value) return acc;
 
         /* 工事情報 */
         const {
@@ -130,6 +136,9 @@ export const useFilteredContracts = () => {
         }
 
         const resultRow = {
+          contractStatus: envStatus.value as TEnvelopeStatus,
+          currentContractRole: currentContractStep?.roleName || '',
+          currentContractName: currentContractStep?.name || '',
           uuid: uuid.value,
           custGroupId: custGroupId?.value || '',
           projId: projId.value,
@@ -178,7 +187,7 @@ export const useFilteredContracts = () => {
 
         return acc;
       },
-      [] as ContractRow[],
+      [],
       );
 
       // ソート

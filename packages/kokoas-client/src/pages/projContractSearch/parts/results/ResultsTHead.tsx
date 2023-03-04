@@ -34,6 +34,7 @@ export const ResultsTHead = () => {
       }}
     >
       <TRowLayout
+        contractStatus={'契約進捗'}
         projDataId={translations.projDataId}
         estNum={<ResultsTHeadSortLabel headerLabel='estimateDataId' />}
         projName={<ResultsTHeadSortLabel headerLabel='projName' />}

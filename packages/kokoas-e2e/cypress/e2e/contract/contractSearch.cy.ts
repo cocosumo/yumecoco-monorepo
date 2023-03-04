@@ -50,7 +50,7 @@ describe('契約一覧', () => {
         });
     });
 
-    it.only('should navigate to the contract page when the contract status is clicked', () => {
+    it('should navigate to the contract page when the contract status is clicked', () => {
 
       // Click on the first chip label element in the first column of the table body
       cy.get('@tableBody')

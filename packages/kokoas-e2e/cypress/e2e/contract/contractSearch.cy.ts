@@ -38,9 +38,7 @@ describe('契約一覧', () => {
       cy.get('@tableHead').find('th')
         .first()
         .should('contain', '契約進歩');
-
     });
-
 
     it('shows contract status in all rows', ()  => {
       cy.get('@tableBody')

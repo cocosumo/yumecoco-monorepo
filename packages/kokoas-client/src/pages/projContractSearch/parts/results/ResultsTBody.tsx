@@ -64,6 +64,7 @@ export const ResultsTBody = ({
                 label={label}
                 size="small"
                 color={isCompleted ? 'success' : 'default'}
+                onClick={() => navigate(`${pages.projContractPreview}?${generateParams({ custGroupId, projEstimateId: uuid })}`)}
               />
               )}
             projDataId={(

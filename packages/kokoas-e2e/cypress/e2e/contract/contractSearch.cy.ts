@@ -48,7 +48,17 @@ describe('契約一覧', () => {
           cy.log(`First TD Content ${$td.text()}`);
           expect(isStatusExist).to.be.true;
         });
+    });
 
+    it.only('should navigate to the contract page when the contract status is clicked', () => {
+
+      // Click on the first chip label element in the first column of the table body
+      cy.get('@tableBody')
+        .find('tr > td:first-child .MuiChip-label')
+        .first()
+        .click();
+
+      cy.url().should('include', '/project/contract/preview');
     });
   });
 

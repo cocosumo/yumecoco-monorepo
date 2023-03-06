@@ -12,6 +12,7 @@ import { initialValues, TypeOfForm } from './form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { FilterForm } from './parts/filterDialog/FilterForm';
 import { FilterChips } from './parts/filterChips/FilterChips';
+import { parseBoolean } from 'libs';
 
 export const FormContractSearch = () => {
   const { data } = useFilteredContracts();
@@ -24,11 +25,15 @@ export const FormContractSearch = () => {
   const urlParams = useURLParams<TypeOfForm>();
 
   const newValues = useMemo(() => {
+
+
     return {
       ...initialValues,
-      ...urlParams,
+      ...parseBoolean(urlParams),
     };
   }, [urlParams]);
+
+  console.log('NEWVALUES', newValues);
 
   const methods = useForm<TypeOfForm>({
     defaultValues: {

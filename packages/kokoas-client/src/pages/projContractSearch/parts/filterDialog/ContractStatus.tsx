@@ -35,10 +35,8 @@ const PendingContract = ({ control }: {
 };
 
 export const ContractStatus = () => {
-  const { control, watch } = useFormContext<TypeOfForm>();
+  const { control } = useFormContext<TypeOfForm>();
 
-
-  console.log(watch());
   const contractSteps = useWatch({
     name: [
       'contractStepAG',
@@ -56,7 +54,12 @@ export const ContractStatus = () => {
     <OutlinedDiv label='契約進歩'>
       <FormGroup>
         <ControlledCheckBox label='完了' control={control} name='contractCompleted' />
-        <ControlledCheckBox label='未完了' control={control} name='contractIncomplete' />
+        <ControlledCheckBox
+          label='未完了'
+          control={control}
+          name='contractIncomplete'
+          indeterminate={true}
+        />
         <PendingContract control={control} />
       </FormGroup>
     </OutlinedDiv>

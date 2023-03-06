@@ -1,13 +1,16 @@
 import { Box, Collapse } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useCallback } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 
 
 export const PendingContract = () => {
 
-  const { control, setValue } = useFormContext<TypeOfForm>();
+  const {
+    control,
+    setValue,
+  } = useFormContext<TypeOfForm>();
   const contractIncomplete = useWatch({
     name: 'contractIncomplete',
     control,
@@ -26,8 +29,8 @@ export const PendingContract = () => {
 
   const isPartialSteps = contractSteps.some((step) => !step);
 
-  const handleChange = (e: SyntheticEvent<HTMLInputElement>, checked: boolean) => {
-
+  const handleChange = useCallback((_: SyntheticEvent<HTMLInputElement>, checked: boolean) => {
+    // 未完了チェックボックスがチェックされたら、全てのチェックボックスをチェックする
     if (isPartialSteps && !checked) {
       setValue('contractIncomplete', true);
       setValue('contractStepAG', true);
@@ -36,7 +39,7 @@ export const PendingContract = () => {
       setValue('contractStepAccounting', true);
       setValue('contractStepMain', true);
     }
-  };
+  }, [isPartialSteps, setValue]);
 
   return (
     <>

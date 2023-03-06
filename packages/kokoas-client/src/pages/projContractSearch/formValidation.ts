@@ -52,11 +52,11 @@ export const validationSchema = yupJA
           return value > this.parent.amountFrom;
         })
       .optional(),
-    contractCompleted: yupJA.boolean(),
-    contractIncomplete: yupJA.boolean(),
-    contractStepTencho: yupJA.boolean(),
-    contractStepCustomer: yupJA.boolean(),
-    contractStepAG: yupJA.boolean(),
-    contractStepAccounting: yupJA.boolean(),
-    contractStepMain: yupJA.boolean(),
+    contractCompleted: yupJA.boolean().required(),
+    contractIncomplete: yupJA.boolean().required(),
+    contractStepTencho: yupJA.boolean().required(),
+    contractStepCustomer: yupJA.boolean().required(),
+    contractStepAG: yupJA.boolean().required(),
+    contractStepAccounting: yupJA.boolean().required(),
+    contractStepMain: yupJA.boolean().required(),
   });

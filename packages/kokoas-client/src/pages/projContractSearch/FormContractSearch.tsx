@@ -33,8 +33,6 @@ export const FormContractSearch = () => {
     };
   }, [urlParams]);
 
-  console.log('NEWVALUES', newValues);
-
   const methods = useForm<TypeOfForm>({
     defaultValues: {
       ...newValues,

@@ -31,7 +31,9 @@ export const FormContractSearch = () => {
   }, [urlParams]);
 
   const methods = useForm<TypeOfForm>({
-    defaultValues: newValues,
+    defaultValues: {
+      ...newValues,
+    },
     resolver: yupResolver(validationSchema),
   });
 

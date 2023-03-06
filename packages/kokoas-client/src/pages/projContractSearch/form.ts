@@ -14,6 +14,13 @@ export const initialValues: TypeOfForm = {
   contractDateTo: null,
   amountFrom: undefined,
   amountTo: undefined,
+  contractCompleted: true,
+  contractIncomplete: true,
+  contractStepTencho: true,
+  contractStepCustomer: true,
+  contractStepAG: true,
+  contractStepAccounting: true,
+  contractStepMain: true,
 };
 
 

@@ -83,10 +83,10 @@ export const useFilteredContracts = () => {
           envRecipients,
         } = cur;
 
-        const currentContractStep = getCurrentContractStep(envRecipients.value);
-
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;
+
+        const currentContractStep = getCurrentContractStep(envRecipients.value);
 
         /* 工事情報 */
         const {

@@ -12,13 +12,10 @@ import { formToDBCustGroup } from './helper/formToDBCustGroup';
 import { useEmployees } from '../../../hooksQuery';
 import { useResolveParam } from './hooks/useResolveParam';
 import { validationSchema } from './validationSchema';
-import { useIsFetching } from '@tanstack/react-query';
-import { LinearProgress } from '@mui/material';
 
 
 
 export const FormikIndividualCustomer = () => {
-  const isFetching = !!useIsFetching();
   const { mutateAsync: saveCustGroupMutation } = useSaveCustGroup();
   const { data: employees } = useEmployees();
 
@@ -45,10 +42,6 @@ export const FormikIndividualCustomer = () => {
       });
     }
   };
-
-  if (isFetching) {
-    return <LinearProgress />;
-  }
 
 
   return (

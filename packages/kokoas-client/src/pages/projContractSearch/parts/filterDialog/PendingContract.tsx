@@ -1,6 +1,6 @@
 import { Box, Collapse } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
-import { SyntheticEvent, useCallback } from 'react';
+import { SyntheticEvent } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { KeyOfForm, TypeOfForm } from '../../form';
 import { translateKey } from '../../helpers/translateKey';

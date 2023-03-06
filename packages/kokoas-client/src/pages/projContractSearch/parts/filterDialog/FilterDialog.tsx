@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import { isProd } from 'config';
 import { AmountRange } from './AmountRange';
 import { ContractDateRange } from './ContractDateRange';
 import { ContractStatus } from './ContractStatus';
@@ -30,7 +31,12 @@ export const FilterDialog = ({
       <FilterDialogContent>
         <AmountRange minAmount={minAmount} maxAmount={maxAmount} />
         <ContractDateRange />
-        <ContractStatus />
+
+        {/*
+          本番環境では、契約ステータスの絞り込みは表示しない
+        */}
+        {!isProd && <ContractStatus />}
+
       </FilterDialogContent>
       <DialogActions>
         <Button variant={'text'} onClick={handleClose}>

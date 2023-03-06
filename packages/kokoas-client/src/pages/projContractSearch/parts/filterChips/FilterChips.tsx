@@ -4,7 +4,7 @@ import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { KeyOfForm, TypeOfForm } from '../../form';
 import qs from 'qs';
-import { parseValue } from '../../helpers/transformValueToLabel';
+import { parseValueToLabel } from '../../helpers/parseValueToLabel';
 
 export const FilterChips = () => {
 
@@ -12,8 +12,18 @@ export const FilterChips = () => {
   const navigate = useNavigate();
 
   const handleDelete = useCallback((key: KeyOfForm) => {
+
+    // keyを除いたオブジェクトを作成
     const { [key]: _, ...query } = values;
-    navigate(`?${qs.stringify(query)}`);
+
+    let newQuery = query;
+
+    // keyがcontractで始まる場合は、falseをセット
+    if (key.startsWith('contract')) {
+      newQuery = { ...query, [key]: false };
+    }
+
+    navigate(`?${qs.stringify(newQuery)}`);
   }, [values, navigate]);
 
   return (
@@ -29,7 +39,7 @@ export const FilterChips = () => {
           return k1.localeCompare(k2);
         })
         .reduce((acc, [k, v]) => {
-          const parsedValue = parseValue(k as KeyOfForm, v);
+          const parsedValue = parseValueToLabel(k as KeyOfForm, v);
           if (parsedValue) {
             acc.push(
               <Chip

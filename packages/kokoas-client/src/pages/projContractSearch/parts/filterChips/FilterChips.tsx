@@ -2,8 +2,9 @@ import { Chip, Stack } from '@mui/material';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KeyOfForm, parseValue, TypeOfForm } from '../../form';
+import { KeyOfForm, TypeOfForm } from '../../form';
 import qs from 'qs';
+import { parseValue } from '../../helpers/transformValueToLabel';
 
 export const FilterChips = () => {
 
@@ -16,7 +17,13 @@ export const FilterChips = () => {
   }, [values, navigate]);
 
   return (
-    <Stack direction={'row'} spacing={1} my={2}>
+    <Stack
+      direction={'row'}
+      spacing={1}
+      flexWrap={'wrap'}
+      alignItems={'center'}
+      my={1}
+    >
       {Object.entries(values)
         .sort(([k1], [k2]) => {
           return k1.localeCompare(k2);
@@ -26,6 +33,7 @@ export const FilterChips = () => {
           if (parsedValue) {
             acc.push(
               <Chip
+                sx={{ my: 1 }}
                 size={'small'}
                 key={k}
                 label={parsedValue}

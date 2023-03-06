@@ -21,7 +21,7 @@ export const FilterDialog = ({
   return (
 
     <Dialog
-      open={true}
+      open={open}
       onClose={handleClose}
     >
       <DialogTitle>

@@ -3,7 +3,7 @@ import { TEnvelopeStatus } from './docusign';
 
 export type TProjReq = {
   projId?: string,
-  custGroupId?:string,
+  custGroupId?: string,
   envelopeId?: string,
   origin?: string
 };
@@ -44,7 +44,7 @@ export interface ParsedDaikokuEst {
     quantity: number,
     amount: number,
   }>
-  items : Array<{
+  items: Array<{
     majorItem: string,
     middleItem: string,
     material: string,
@@ -70,7 +70,7 @@ export interface ParsedDaikokuGenka {
   totalCostPrice: number,
   totalProfit: number,
   overallProfitRate: number,
-  items : Array<{
+  items: Array<{
     majorItem: string,
     middleItem: string,
     material: string,
@@ -83,6 +83,23 @@ export interface ParsedDaikokuGenka {
     rowCostPrice: number,
     rowDetails: string,
   }>
+}
+
+
+export interface ParsedInvoiceReport {
+  billingAmount: number,
+  slipNumber: string,
+  plannedPaymentDate: string,
+  issuedDateTime: string,
+  custGroupId: string,
+  estimateLists: Array<{
+    projId: string,
+    dataId: string,
+    projTypeName: string,
+    estimateId: string,
+    amountPerContract: number,
+    paymentType: string,
+  }>;
 }
 
 export interface ReqSendContract {
@@ -133,11 +150,11 @@ export interface IRequestJWTUserTokenResponse {
 }
 
 export type ApiNodes =
-| 'docusign'
-| 'kokoas';
+  | 'docusign'
+  | 'kokoas';
 
 export type KokoasApiNodes =
-| 'upload/daikoku/estimate'
-| 'upload/daikoku/genka'
-| 'andpad/register'
-| 'download/invoice';
+  | 'upload/daikoku/estimate'
+  | 'upload/daikoku/genka'
+  | 'andpad/register'
+  | 'download/invoice';

@@ -4,6 +4,7 @@ import { kokoasEndpoints } from 'libs/src/endpoints';
 import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
 import { saveProjectToAndpad } from '../handleRequest';
 import bodyParser from 'body-parser';
+import { reqGetInvoiceReport } from '../handleRequest/getInvoiceReport/reqGetInvoiceReport';
 
 
 const route = router();
@@ -28,13 +29,12 @@ route.post(
 
 route.get(
   `/${kokoasEndpoints.downloadInvoice}/:invoiceId`,
-  (req, res) => {
+  /* (req, res) => {
     console.log('test');
     res.status(200).send('test');
     console.log(req.params);
-
-  },
-
+  }, */
+  reqGetInvoiceReport,
 );
 
 

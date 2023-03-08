@@ -31,7 +31,7 @@ describe('契約一覧', () => {
   });
 
   context(
-    'shows information in table',
+    'shows required information in the table',
     { testIsolation: false },
     () => {
 

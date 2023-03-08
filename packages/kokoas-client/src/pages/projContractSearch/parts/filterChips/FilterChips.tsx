@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { KeyOfForm, TypeOfForm } from '../../form';
 import qs from 'qs';
 import { parseValueToLabel } from '../../helpers/parseValueToLabel';
+import { stepsKeys } from '../filterDialog/ContractStatusIncomplete';
 
 export const FilterChips = () => {
 
@@ -12,6 +13,9 @@ export const FilterChips = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * チップの✖をクリックしたときの処理
+   */
   const handleDelete = useCallback((key: KeyOfForm) => {
 
     // keyを除いたオブジェクトを作成
@@ -21,7 +25,16 @@ export const FilterChips = () => {
 
     // keyがcontractで始まる場合は、falseをセット
     if (key.startsWith('contract')) {
-      newQuery = { ...query, [key]: false };
+      if (key === 'contractIncomplete') {
+        // 未完了の場合は、細かい進歩もfalseにする
+        stepsKeys.forEach((stepKey) => {
+          newQuery = { ...newQuery, [stepKey]: false };
+        });
+
+      } else {
+        // それ以外の場合は、keyをfalseにする
+        newQuery = { ...query, [key]: false };
+      }
     }
 
     navigate(`?${qs.stringify(newQuery)}`);

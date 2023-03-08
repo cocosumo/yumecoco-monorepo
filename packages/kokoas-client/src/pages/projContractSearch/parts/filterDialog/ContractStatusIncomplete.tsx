@@ -6,6 +6,14 @@ import { KeyOfForm, TypeOfForm } from '../../form';
 import { translateKey } from '../../helpers/translateKey';
 
 
+export const stepsKeys: KeyOfForm[] = [
+  'contractStepAG',
+  'contractStepCustomer',
+  'contractStepTencho',
+  'contractStepAccounting',
+  'contractStepMain',
+];
+
 export const ContractStatusIncomplete = () => {
 
   const {
@@ -18,13 +26,6 @@ export const ContractStatusIncomplete = () => {
     control,
   });
 
-  const stepsKeys: KeyOfForm[] = [
-    'contractStepAG',
-    'contractStepCustomer',
-    'contractStepTencho',
-    'contractStepAccounting',
-    'contractStepMain',
-  ];
 
   const contractSteps = useWatch({
     name: stepsKeys,

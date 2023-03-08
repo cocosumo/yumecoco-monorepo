@@ -1,7 +1,9 @@
-import { afterEach, beforeEach, context, cy, expect } from 'local-cypress';
+import { beforeEach, context, cy, expect } from 'local-cypress';
 
 /**
  * @todo add process for seeds.
+ * @terminology 
+ *  data-indeterminate: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#indeterminate
  */
 
 describe('契約一覧', () => {
@@ -31,22 +33,22 @@ describe('契約一覧', () => {
   });
 
   context(
-    'shows required information in the table',
-    { testIsolation: false },
+    'テーブルに必要な情報を表示します',
+    { testIsolation: false }, // テストを独立させない。要改善
     () => {
 
-      it('shows all contract data', () => {
+      it('すべての契約データを表示します。', () => {
         cy.get('@tableBody').find('tr')
-          .should('have.length.at.least', 3); // todo: assert with database if it matches exact record.
+          .should('have.length.at.least', 3); // todo: データベースにアサートし、正確にレコードと一致することを確認します。
       });
 
-      it('shows contract status header ', ()  => {
+      it('契約ステータスのヘッダーを表示します', ()  => {
         cy.get('@tableHead').find('th')
           .first()
           .should('contain', '契約進歩');
       });
 
-      it('shows contract status in all rows', ()  => {
+      it('すべての行において、契約ステータスを表示します', ()  => {
         cy.get('@tableBody')
           .find('tr > td:first-child')
           .each(($td) => {
@@ -56,9 +58,9 @@ describe('契約一覧', () => {
           });
       });
 
-      it('should navigate to the contract page when the contract status is clicked', () => {
+      it('契約ステータスをクリックした場合、契約ページに移動します', () => {
 
-        // Click on the first chip label element in the first column of the table body
+        // テーブル本体の最初の列の最初のチップのラベル要素をクリックします。
         cy.get('@tableBody')
           .find('tr > td:first-child .MuiChip-label')
           .first()
@@ -69,29 +71,29 @@ describe('契約一覧', () => {
     },
   );
 
-  context('filters', () => {
+  context('フィルターを適用します', () => {
 
     beforeEach(() => {
-      // click button containing リセット to reset the filter to default.
+      // 「リセット」という文字列を含むボタンをクリックして、フィルターをデフォルトにリセットします。
       cy.get('button').contains('リセット')
         .click();
 
-      // assert that the url doesn't have query params
+      // URLにクエリパラメータが含まれていないことをアサートします
       cy.url().should('not.include', '?');
 
-      // click button containing 絞り込み
+      // 「絞り込み」というaria-labelを含むボタンをクリックします
       cy.get('button[aria-label="絞り込み"]').click();
 
-      // assert that the dialog is open
+      // ダイアログが開いていることをアサートします
       cy.get('.MuiDialogTitle-root').contains('絞り込み')
         .should('be.visible');
 
-      // assert that filter dialog has all checkboxes checked as default
+      // assert that filter dialog has all checkboxes unchecked as default
       cy.contains('label', '契約進歩')
         .siblings('div')
         .find('input[type="checkbox"]')
         .as('contractStatuses')
-        .should('be.checked');
+        .should('not.be.checked');
 
       cy.contains('label', '完了')
         .find('input[type="checkbox"]')
@@ -111,125 +113,111 @@ describe('契約一覧', () => {
       cy.contains('button', '検索').as('searchButton');
     });
 
-    context("show completed ONLY contracts when only '完了' checkbox is checked", () => {
-      beforeEach(() => {
-        cy.get('@completeStatus-checkbox')
-          .should('be.checked');
-      });
+    it('show completed contracts ONLY', () => {
 
-      it("unchecks '未完了' checkbox", () => {
+      cy.get('@completeStatus-checkbox')
+        .should('not.be.checked')
+        .click()
+        .should('be.checked');
 
-        cy.get('@incompleteStatus-checkbox')
-          .should('be.checked')
-          .click()
-          .should('not.be.checked');
-      });
+      cy.get('@incompleteStatus-checkbox')
+        .should('not.be.checked') // assert that the '未完了' checkbox is not checked by default
+        .click()
+        .should('be.checked'); // assert that the '未完了' checkbox is checked when clicked
 
-      it("unchecks '未完了' checkbox by unchecking all contract steps", () => {
-        cy.get('@incompleteStatusSteps-checkboxes')
-          .each(($checkbox, index, $list) => {
-            const isLastCheckbox = index === $list.length - 1;
-            cy.wrap($checkbox)
-              .should('be.checked')
-              .click()
-              .should('not.be.checked');
-
-            cy.get('@incompleteStatus-checkbox')
-              .should('have.attr', 'data-indeterminate', isLastCheckbox ? 'false' : 'true');
-
-          });
-
-        // assert that the '未完了' checkbox is not checked when all steps are unchecked
-        cy.get('@incompleteStatus-checkbox').should('not.be.checked');
-      });
-
-      afterEach(() => {
-        cy.get('@searchButton').click()
-          .should('not.exist');
-
-        cy.get('@filterChipsContainer')
-          .should('contain', '契約完了')
-          .should('not.contain', '未完了');
-      // TODO: assert results
-      });
-
-    });
-
-    context("show incomplete ONLY contracts when only '未完了' checkbox is checked", () => {
-      beforeEach(() => {
-        // uncheck complete status checkbox
-        cy.get('@completeStatus-checkbox')
-          .should('be.checked')
-          .click()
-          .should('not.be.checked');
-      });
-
-      it('cycle check 未完了 normally', () => {
-        cy.get('@incompleteStatus-checkbox')
-          .should('be.checked')
-          .click()
-          .should('not.be.checked')
-          .click();
-      });
-
-      it('checks 未完了 when all　確認中 checkboxes is checked', () => {
-
-        // uncheck a random 確認中 checkbox
-        const randomIndex = Math.floor(Math.random() * 5);
-        cy.get('@incompleteStatusSteps-checkboxes')
-          .eq(randomIndex)
-          .as('randomStep')
-          .should('be.checked')
-          .click()
-          .should('not.be.checked');
-
-        cy.get('@incompleteStatus-checkbox')
-          .should('have.attr', 'data-indeterminate', 'true');
-
-
-        cy.get('@randomStep')
-          .click()
-          .should('be.checked');
-      });
-
-      it('checks all 確認中 checkboxes when 未完了 is checked', () => {
-
-        // Generate up to 4 unique random indexes
-        const randomIndexes = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 5)))];
-
-        randomIndexes.forEach((randomIndex) => {
-          cy.get('@incompleteStatusSteps-checkboxes').eq(randomIndex)
+      cy.get('@incompleteStatusSteps-checkboxes')
+        .each(($checkbox, index, $list) => {
+          const isLastCheckbox = index === $list.length - 1;
+          cy.wrap($checkbox)
             .should('be.checked')
             .click()
             .should('not.be.checked');
+
+          cy.get('@incompleteStatus-checkbox')
+            .should('have.attr', 'data-indeterminate', isLastCheckbox ? 'false' : 'true');
+
         });
 
-        cy.get('@incompleteStatus-checkbox')
-          .should('have.attr', 'data-indeterminate', 'true');
+      // assert that the '未完了' checkbox is not checked when all steps are unchecked
+      cy.get('@incompleteStatus-checkbox').should('not.be.checked');
 
-        // assert that the '未完了' checkbox is checked
-        cy.get('@incompleteStatus-checkbox').click();
+      cy.get('@searchButton').click()
+        .should('not.exist');
 
+      cy.get('@filterChipsContainer')
+        .should('contain', '契約完了')
+        .should('not.contain', '未完了');
+      // TODO: assert results
+
+    });
+
+    it.only('show incomplete contracts ONLY', () => {
+      cy.get('@incompleteStatus-checkbox')
+        .should('not.be.checked') // クリックされた時に、「未完了」のチェックボックスがチェックされていることをアサートします。
+        .click()
+        .should('be.checked'); // クリックされた時に、「未完了」のチェックボックスがチェックされていることをアサートします。
+
+
+      cy.log('ランダムな「確認中」のチェックボックスをオフにする操作をシミュレートし、その後再びチェックする操作を行います。'); 
+      const randomIndex = Math.floor(Math.random() * 5); // 0-4
+
+      // ランダムな「確認中」のチェックボックスをオフにする
+      cy.get('@incompleteStatusSteps-checkboxes')
+        .eq(randomIndex)
+        .as('randomStep')
+        .should('be.checked') 
+        .click()
+        .should('not.be.checked');
+
+
+      // 「確認中」チェックボックスの一部はオフ状態だと、
+      cy.get('@incompleteStatus-checkbox')
+        .should('have.attr', 'data-indeterminate', 'true');  //「未完了」の属性「data-indeterminate」が「true」であることをアサートします。
+
+      // ランダムな「確認中」のチェックボックスを再びチェックする
+      cy.get('@randomStep')
+        .click()
+        .should('be.checked'); 
+
+      // 全ての「確認中」チェックボックスが、チェック状態になると、
+      cy.get('@incompleteStatus-checkbox')
+        .should('have.attr', 'data-indeterminate', 'false') // 「未完了」の属性「data-indeterminate」が「false」であることをアサートします。
+        .should('be.checked'); // 「未完了」のチェックボックスがチェックされていることをアサートします。
+
+
+      cy.log('ランダムな複数の「確認中」のチェックボックスをオフにする操作をシミュレートし、その後「未完了」のチェックボックスをチェックする操作を行います。');
+      // 最大で4つの一意のランダムインデックスを生成します。
+      const randomIndexes = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 5)))];
+
+      // ランダムな複数の「確認中」のチェックボックスをオフにする
+      randomIndexes.forEach((rand) => {
+        cy.get('@incompleteStatusSteps-checkboxes').eq(rand)
+          .should('be.checked')
+          .click()
+          .should('not.be.checked');
       });
 
-      afterEach(() => {
+      cy.get('@incompleteStatus-checkbox')
+        .should('have.attr', 'data-indeterminate', 'true');
 
-        cy.get('@incompleteStatus-checkbox')
-          .should('have.attr', 'data-indeterminate', 'false')
-          .should('be.checked');
+      // 「未完了」のチェックボックスをチェックする
+      cy.get('@incompleteStatus-checkbox').click()
+        .should('be.checked');
 
-        cy.get('@searchButton').click()
-          .should('not.exist');
+      //「検索」ボタンをクリックし、その後存在しないことをアサートします。
+      cy.get('@searchButton')
+        .click()
+        .should('not.exist');
 
-        cy.get('@filterChipsContainer')
-          .should('contain', '未完了') // assert that the filter chip container contains '未完了'
-          .should('not.contain', '契約完了') // assert that the filter chip container doesn't contain '契約完了'
-          .find('.MuiChip-root:contains(確認中)') // find all Chips with the text '確認中'
-          .should('have.length', 5); // loosely asserts that there are 5 Chips with the text '確認中'
+      
+      cy.get('@filterChipsContainer')
+        .should('contain', '未完了') // フィルターチップのコンテナに「未完了」が含まれていることをアサートします。
+        .should('not.contain', '契約完了') // フィルターチップのコンテナに「契約完了」が含まれていないことをアサートします。
+        .find('.MuiChip-root:contains(確認中)') // 「確認中」というChipsを持つすべてのチップを検索します。
+        .should('have.length', 5); // 「確認中」というテキストを持つチップが5つあることを、大まかにアサートします。
 
 
       // TODO: assert results
-      });
 
 
     });

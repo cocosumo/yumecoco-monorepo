@@ -34,7 +34,7 @@ describe('契約一覧', () => {
 
   context(
     'テーブルに必要な情報を表示します',
-    { testIsolation: false }, // テストを独立させない。要改善
+    { testIsolation: false }, // このcontext内のテストは独立しされない。別PRで改善します。https://docs.cypress.io/guides/references/best-practices#Having-tests-rely-on-the-state-of-previous-tests
     () => {
 
       it('すべての契約データを表示します。', () => {
@@ -88,7 +88,7 @@ describe('契約一覧', () => {
       cy.get('.MuiDialogTitle-root').contains('絞り込み')
         .should('be.visible');
 
-      // assert that filter dialog has all checkboxes unchecked as default
+      // フィルターダイアログが開かれた際に、すべてのチェックボックスがオフの状態であることをアサートします。
       cy.contains('label', '契約進歩')
         .siblings('div')
         .find('input[type="checkbox"]')
@@ -113,18 +113,20 @@ describe('契約一覧', () => {
       cy.contains('button', '検索').as('searchButton');
     });
 
-    it('show completed contracts ONLY', () => {
+    it('完了した契約のみを表示します', () => {
 
       cy.get('@completeStatus-checkbox')
         .should('not.be.checked')
         .click()
         .should('be.checked');
 
+      cy.log('ユーザーが誤って「未完了」チェックボックスをチェックする');
       cy.get('@incompleteStatus-checkbox')
-        .should('not.be.checked') // assert that the '未完了' checkbox is not checked by default
+        .should('not.be.checked') // 「未完了」チェックボックスがデフォルトではチェックされていないことをアサートします
         .click()
-        .should('be.checked'); // assert that the '未完了' checkbox is checked when clicked
+        .should('be.checked'); // 「未完了」チェックボックスをクリックした時に、チェックされることをアサートします。
 
+      cy.log('ユーザーが全てのステップをアンチェックする操作をシミュレートします');
       cy.get('@incompleteStatusSteps-checkboxes')
         .each(($checkbox, index, $list) => {
           const isLastCheckbox = index === $list.length - 1;
@@ -134,11 +136,10 @@ describe('契約一覧', () => {
             .should('not.be.checked');
 
           cy.get('@incompleteStatus-checkbox')
-            .should('have.attr', 'data-indeterminate', isLastCheckbox ? 'false' : 'true');
-
+            .should('have.attr', 'data-indeterminate', isLastCheckbox ? 'false' : 'true'); 
         });
 
-      // assert that the '未完了' checkbox is not checked when all steps are unchecked
+      cy.log('「未完了」チェックボックスがオフされていることをアサートします。');
       cy.get('@incompleteStatus-checkbox').should('not.be.checked');
 
       cy.get('@searchButton').click()
@@ -151,7 +152,7 @@ describe('契約一覧', () => {
 
     });
 
-    it.only('show incomplete contracts ONLY', () => {
+    it('未完了の契約のみを表示することをアサートします', () => {
       cy.get('@incompleteStatus-checkbox')
         .should('not.be.checked') // クリックされた時に、「未完了」のチェックボックスがチェックされていることをアサートします。
         .click()

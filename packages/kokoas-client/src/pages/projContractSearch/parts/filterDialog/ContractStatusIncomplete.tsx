@@ -6,7 +6,7 @@ import { KeyOfForm, TypeOfForm } from '../../form';
 import { translateKey } from '../../helpers/translateKey';
 
 
-export const PendingContract = () => {
+export const ContractStatusIncomplete = () => {
 
   const {
     control,
@@ -35,9 +35,8 @@ export const PendingContract = () => {
 
   const handleChangeIncompleteCheckbox = (_: SyntheticEvent<HTMLInputElement>, checked: boolean) => {
 
-
     // 未完了チェックボックスがチェックされたら、全てのチェックボックスをチェックする
-    if (isPartialSteps && !checked) {
+    if ( checked || (isPartialSteps && !checked)) {
       setValue('contractIncomplete', true);
       setValue('contractStepAG', true);
       setValue('contractStepCustomer', true);

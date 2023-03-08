@@ -2,7 +2,7 @@
 type UnknownRecord = Record<string, unknown>;
 
 /**
- * Immutably parse "true" and "false" booleans into their respective boolean values.
+ * Immutably parse "true" and "false" strings into their respective boolean values.
  */
 export const parseBoolean =  <T extends UnknownRecord>(
   obj: T,

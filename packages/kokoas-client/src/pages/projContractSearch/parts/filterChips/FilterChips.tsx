@@ -9,6 +9,7 @@ import { parseValueToLabel } from '../../helpers/parseValueToLabel';
 export const FilterChips = () => {
 
   const values = useURLParams<TypeOfForm>();
+
   const navigate = useNavigate();
 
   const handleDelete = useCallback((key: KeyOfForm) => {

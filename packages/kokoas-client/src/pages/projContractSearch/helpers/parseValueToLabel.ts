@@ -31,7 +31,7 @@ export const parseValueToLabel = <T extends KeyOfForm>(
 
     case 'mainSearch': return `検索ワード：${value}`;
 
-    default: return value === 'true' ? translateKey(name) : undefined;
+    default: return value ? translateKey(name) : undefined;
   }
 
 };

@@ -9,6 +9,7 @@ import {  TypeOfForm } from '../form';
 
 import { SubmitButton } from './filterDialog/SubmitButton';
 import { useNavigate } from 'react-router-dom';
+import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
 
 
 export const WrappedSearchField = ({
@@ -45,15 +46,19 @@ export const WrappedSearchField = ({
         maxWidth={600}
       >
         <OutlinedInput fullWidth {...register('mainSearch')} />
+
         <SubmitButton>
           <SearchIcon />
         </SubmitButton>
-        <Button
+
+        <ButtonWithToolTip
+          title={'絞り込み'}
           variant={'contained'}
           onClick={handleFilterOpen}
         >
           <FilterListIcon />
-        </Button>
+        </ButtonWithToolTip>
+
         <Button
           sx={{ wordBreak: 'keep-all' }}
           onClick={()=>{

@@ -30,7 +30,7 @@ describe('契約一覧', () => {
 
   it('shows all contract data', () => {
     cy.get('@tableBody').find('tr')
-      .should('have.length.at.least', 3); // todo: assert with database if it matches exact record cord.
+      .should('have.length.at.least', 3); // todo: assert with database if it matches exact record.
   });
 
   context('shows contract status', () => {
@@ -59,6 +59,14 @@ describe('契約一覧', () => {
         .click();
 
       cy.url().should('include', '/project/contract/preview');
+    });
+  });
+
+  // 絞り込み
+  context('filter', () => {
+    // 契約進歩で絞り込み
+    it.only('filters by contract status', () => {
+      console.log('hello');
     });
   });
 

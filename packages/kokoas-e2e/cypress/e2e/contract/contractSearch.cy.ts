@@ -32,63 +32,58 @@ describe('契約一覧', () => {
 
   });
 
-  context(
-    'テーブルに必要な情報を表示します',
-    { testIsolation: false }, // このcontext内のテストは独立しされない。別PRで改善します。https://docs.cypress.io/guides/references/best-practices#Having-tests-rely-on-the-state-of-previous-tests
-    () => {
+  it('テーブルに必要な情報を表示します', () => {
+    cy.log('すべての契約データを表示します');
+    cy.get('@tableBody').find('tr')
+      .should('have.length.at.least', 3); // todo: データベースにアサートし、正確にレコードと一致することを確認します。
 
-      it('すべての契約データを表示します。', () => {
-        cy.get('@tableBody').find('tr')
-          .should('have.length.at.least', 3); // todo: データベースにアサートし、正確にレコードと一致することを確認します。
+    cy.log('契約ステータスのヘッダーを表示します');
+    cy.get('@tableHead').find('th')
+      .first()
+      .should('contain', '契約進歩');
+      
+
+    cy.log('すべての行において、契約ステータスを表示します');
+    cy.get('@tableBody')
+      .find('tr > td:first-child')
+      .each(($td) => {
+        const isStatusExist = !!$td.text().split('K')[0];
+        cy.log(`First TD Content ${$td.text()}`);
+        expect(isStatusExist).to.be.true;
       });
+      
 
-      it('契約ステータスのヘッダーを表示します', ()  => {
-        cy.get('@tableHead').find('th')
-          .first()
-          .should('contain', '契約進歩');
-      });
+    cy.log('契約ステータスをクリックした場合、契約ページに移動します');
 
-      it('すべての行において、契約ステータスを表示します', ()  => {
-        cy.get('@tableBody')
-          .find('tr > td:first-child')
-          .each(($td) => {
-            const isStatusExist = !!$td.text().split('K')[0];
-            cy.log(`First TD Content ${$td.text()}`);
-            expect(isStatusExist).to.be.true;
-          });
-      });
+    // テーブル本体の最初の列の最初のチップのラベル要素をクリックします。
+    cy.get('@tableBody')
+      .find('tr > td:first-child .MuiChip-label')
+      .first()
+      .click();
 
-      it('契約ステータスをクリックした場合、契約ページに移動します', () => {
-
-        // テーブル本体の最初の列の最初のチップのラベル要素をクリックします。
-        cy.get('@tableBody')
-          .find('tr > td:first-child .MuiChip-label')
-          .first()
-          .click();
-
-        cy.url().should('include', '/project/contract/preview');
-      });
-    },
-  );
+    cy.url().should('include', '/project/contract/preview');
+      
+  });
 
   context('フィルターを適用します', () => {
 
     beforeEach(() => {
-      // 「リセット」という文字列を含むボタンをクリックして、フィルターをデフォルトにリセットします。
+      cy.log('「リセット」という文字列を含むボタンをクリックして、フィルターをデフォルトにリセットします');
       cy.get('button').contains('リセット')
         .click();
 
-      // URLにクエリパラメータが含まれていないことをアサートします
+
+      cy.log('URLにクエリパラメータが含まれていないことをアサートします');
       cy.url().should('not.include', '?');
 
-      // 「絞り込み」というaria-labelを含むボタンをクリックします
+      cy.log('「絞り込み」というaria-labelを含むボタンをクリックします');
       cy.get('button[aria-label="絞り込み"]').click();
 
-      // ダイアログが開いていることをアサートします
+      cy.log('ダイアログが開いていることをアサートします');
       cy.get('.MuiDialogTitle-root').contains('絞り込み')
         .should('be.visible');
 
-      // フィルターダイアログが開かれた際に、すべてのチェックボックスがオフの状態であることをアサートします。
+      cy.log('フィルターダイアログが開かれた際に、すべてのチェックボックスがオフの状態であることをアサートします');
       cy.contains('label', '契約進歩')
         .siblings('div')
         .find('input[type="checkbox"]')
@@ -162,7 +157,7 @@ describe('契約一覧', () => {
       cy.log('ランダムな「確認中」のチェックボックスをオフにする操作をシミュレートし、その後再びチェックする操作を行います。'); 
       const randomIndex = Math.floor(Math.random() * 5); // 0-4
 
-      // ランダムな「確認中」のチェックボックスをオフにする
+      cy.log('ランダムな「確認中」のチェックボックスをオフにする'); 
       cy.get('@incompleteStatusSteps-checkboxes')
         .eq(randomIndex)
         .as('randomStep')
@@ -171,41 +166,41 @@ describe('契約一覧', () => {
         .should('not.be.checked');
 
 
-      // 「確認中」チェックボックスの一部はオフ状態だと、
+      cy.log('「確認中」チェックボックスの一部はオフ状態だと');
       cy.get('@incompleteStatus-checkbox')
         .should('have.attr', 'data-indeterminate', 'true');  //「未完了」の属性「data-indeterminate」が「true」であることをアサートします。
 
-      // ランダムな「確認中」のチェックボックスを再びチェックする
+      cy.log('ランダムな「確認中」のチェックボックスを再びチェックする');
       cy.get('@randomStep')
         .click()
         .should('be.checked'); 
 
-      // 全ての「確認中」チェックボックスが、チェック状態になると、
+      cy.log('全ての「確認中」チェックボックスが、チェック状態になると');
       cy.get('@incompleteStatus-checkbox')
         .should('have.attr', 'data-indeterminate', 'false') // 「未完了」の属性「data-indeterminate」が「false」であることをアサートします。
         .should('be.checked'); // 「未完了」のチェックボックスがチェックされていることをアサートします。
 
 
       cy.log('ランダムな複数の「確認中」のチェックボックスをオフにする操作をシミュレートし、その後「未完了」のチェックボックスをチェックする操作を行います。');
-      // 最大で4つの一意のランダムインデックスを生成します。
-      const randomIndexes = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 5)))];
 
-      // ランダムな複数の「確認中」のチェックボックスをオフにする
-      randomIndexes.forEach((rand) => {
-        cy.get('@incompleteStatusSteps-checkboxes').eq(rand)
-          .should('be.checked')
-          .click()
-          .should('not.be.checked');
-      });
+
+      cy.log('ランダムな複数の「確認中」のチェックボックスをオフにする');
+      [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 5)))]
+        .forEach((rand) => {
+          cy.get('@incompleteStatusSteps-checkboxes').eq(rand)
+            .should('be.checked')
+            .click()
+            .should('not.be.checked');
+        });
 
       cy.get('@incompleteStatus-checkbox')
         .should('have.attr', 'data-indeterminate', 'true');
 
-      // 「未完了」のチェックボックスをチェックする
+      cy.log('「未完了」のチェックボックスをチェックする');
       cy.get('@incompleteStatus-checkbox').click()
         .should('be.checked');
 
-      //「検索」ボタンをクリックし、その後存在しないことをアサートします。
+      cy.log('「検索」ボタンをクリックし、その後存在しないことをアサートします');
       cy.get('@searchButton')
         .click()
         .should('not.exist');

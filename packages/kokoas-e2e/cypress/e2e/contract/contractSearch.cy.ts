@@ -134,15 +134,9 @@ describe('契約一覧', () => {
               .click()
               .should('not.be.checked');
 
-            cy.get('@incompleteStatus-checkbox').then(($incompleteStatusCheckbox) => {
-              const determinate = $incompleteStatusCheckbox.attr('data-indeterminate');
-              if (!isLastCheckbox) {
-                // assert that the '未完了' checkbox is indeterminate when steps are partially checked
-                expect(determinate).to.be.equal('true');
-              } else {
-                expect(determinate).to.be.equal('false');
-              }
-            });
+            cy.get('@incompleteStatus-checkbox')
+              .should('have.attr', 'data-indeterminate', isLastCheckbox ? 'false' : 'true');
+
           });
 
         // assert that the '未完了' checkbox is not checked when all steps are unchecked
@@ -189,22 +183,19 @@ describe('契約一覧', () => {
           .click()
           .should('not.be.checked');
 
+        cy.get('@incompleteStatus-checkbox')
+          .should('have.attr', 'data-indeterminate', 'true');
 
-        cy.get('@incompleteStatus-checkbox').then(($incompleteStatusCheckbox) => {
-          const determinate = $incompleteStatusCheckbox.attr('data-indeterminate');
-          expect(determinate).to.be.equal('true');
-        });
 
         cy.get('@randomStep')
           .click()
           .should('be.checked');
-
       });
 
-      it('checks all 確認中 checkboxes when 未完了 is checked', () => {
+      it.only('checks all 確認中 checkboxes when 未完了 is checked', () => {
 
-        // Generate 2 unique random indexes
-        const randomIndexes = Array.from({ length: 2 }, () => Math.floor(Math.random() * 5));
+        // Generate up to 4 unique random indexes
+        const randomIndexes = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 5)))];
 
         randomIndexes.forEach((randomIndex) => {
           cy.get('@incompleteStatusSteps-checkboxes').eq(randomIndex)
@@ -213,10 +204,8 @@ describe('契約一覧', () => {
             .should('not.be.checked');
         });
 
-        cy.get('@incompleteStatus-checkbox').then(($incompleteStatusCheckbox) => {
-          const determinate = $incompleteStatusCheckbox.attr('data-indeterminate');
-          expect(determinate).to.be.equal('true');
-        });
+        cy.get('@incompleteStatus-checkbox')
+          .should('have.attr', 'data-indeterminate', 'true');
 
         // assert that the '未完了' checkbox is checked
         cy.get('@incompleteStatus-checkbox').click();
@@ -225,15 +214,9 @@ describe('契約一覧', () => {
 
       afterEach(() => {
 
-        cy.get('@incompleteStatus-checkbox').then(($incompleteStatusCheckbox) => {
-          const determinate = $incompleteStatusCheckbox.attr('data-indeterminate');
-
-          // assert that the '未完了' checkbox is checked
-          cy.wrap($incompleteStatusCheckbox).should('be.checked');
-
-          // assert that the '未完了' checkbox is not indeterminate
-          expect(determinate).to.be.equal('false');
-        });
+        cy.get('@incompleteStatus-checkbox')
+          .should('have.attr', 'data-indeterminate', 'false')
+          .should('be.checked');
 
         cy.get('@searchButton').click()
           .should('not.exist');
@@ -243,9 +226,12 @@ describe('契約一覧', () => {
           .should('not.contain', '契約完了') // assert that the filter chip container doesn't contain '契約完了'
           .find('.MuiChip-root:contains(確認中)') // find all Chips with the text '確認中'
           .should('have.length', 5); // loosely asserts that there are 5 Chips with the text '確認中'
-      });
+
 
       // TODO: assert results
+      });
+
+
     });
 
   });

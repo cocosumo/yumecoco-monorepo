@@ -165,8 +165,8 @@ export const useFilteredContracts = () => {
         const contractDateMil = contractDate.value ? new Date(contractDate.value) : undefined ;
 
         const isMainSearch = !mainSearch || Object.values(resultRow).some((val) => val.toString().includes(mainSearch));
-        const isAboveMinAmount = !(!!amountFrom && totalAmountAfterTax < +amountFrom);
-        const isBelowMaxAmount = !(!!amountTo && totalAmountAfterTax > +amountTo);
+        const isAboveMinAmount = !(amountFrom && totalAmountAfterTax < +amountFrom);
+        const isBelowMaxAmount = !(amountTo && totalAmountAfterTax > +amountTo);
         const afterContractDateFrom = contractDateMil && contractDateFrom
           ? new Date(contractDateFrom) <= contractDateMil
           : !contractDateFrom;

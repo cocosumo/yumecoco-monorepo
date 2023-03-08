@@ -192,7 +192,7 @@ describe('契約一覧', () => {
           .should('be.checked');
       });
 
-      it.only('checks all 確認中 checkboxes when 未完了 is checked', () => {
+      it('checks all 確認中 checkboxes when 未完了 is checked', () => {
 
         // Generate up to 4 unique random indexes
         const randomIndexes = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 5)))];

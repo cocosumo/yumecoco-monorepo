@@ -54,8 +54,6 @@ describe('契約一覧', () => {
       
 
     cy.log('契約ステータスをクリックした場合、契約ページに移動します');
-
-    // テーブル本体の最初の列の最初のチップのラベル要素をクリックします。
     cy.get('@tableBody')
       .find('tr > td:first-child .MuiChip-label')
       .first()

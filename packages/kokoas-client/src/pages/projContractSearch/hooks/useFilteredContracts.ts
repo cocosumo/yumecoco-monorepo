@@ -53,9 +53,14 @@ export const useFilteredContracts = () => {
     contractDateTo,
     order = initialValues.order,
     orderBy = initialValues.orderBy || 'estimateDataId',
+    contractCompleted,
+    contractIncomplete,
+    contractStepAG,
+    contractStepAccounting,
+    contractStepCustomer,
+    contractStepMain,
+    contractStepTencho,
   } = useURLParams<TypeOfForm>();
-
-
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
@@ -82,6 +87,17 @@ export const useFilteredContracts = () => {
           contractDate,
           envRecipients,
         } = cur;
+
+        // 契約進歩の中に何もが選択されていないかチェック
+        const noContractStatusSelected = [
+          contractCompleted,
+          contractIncomplete,
+          contractStepAG,
+          contractStepAccounting,
+          contractStepCustomer,
+          contractStepMain,
+          contractStepTencho]
+          .every((v) => !v);
 
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;

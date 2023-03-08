@@ -35,15 +35,16 @@ export const ContractStatusIncomplete = () => {
 
   const handleChangeIncompleteCheckbox = (_: SyntheticEvent<HTMLInputElement>, checked: boolean) => {
 
-    // 未完了チェックボックスがチェックされたら、全てのチェックボックスをチェックする
-    if ( checked || (isPartialSteps && !checked)) {
-      setValue('contractIncomplete', true);
-      setValue('contractStepAG', true);
-      setValue('contractStepCustomer', true);
-      setValue('contractStepTencho', true);
-      setValue('contractStepAccounting', true);
-      setValue('contractStepMain', true);
-    }
+    const indeterminateChecked = isPartialSteps && !checked
+      ? true // 未完了チェックボックスをオフにしたとき、一部チェックがついている場合は、未完了チェックボックスをオンにする
+      : checked; // その他の場合は、未完了チェックボックスの状態をそのまま
+
+    stepsKeys
+      .forEach((key) => {
+        setValue(key, indeterminateChecked);
+      });
+
+    setValue('contractIncomplete', indeterminateChecked);
   };
 
   const handleChangeStepCheckbox = () => {

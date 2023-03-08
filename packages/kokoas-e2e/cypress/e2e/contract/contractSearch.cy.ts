@@ -9,7 +9,7 @@ describe('契約一覧', () => {
   beforeEach(() => {
     cy.login();
     cy.visit('/project/contract/search');
-    cy.intercept('GET', ' **/k/v1/records.json**').as('search');
+
 
     cy.get('.MuiTable-root')
       .as('table')
@@ -28,42 +28,46 @@ describe('契約一覧', () => {
     cy.get('form > div:nth-of-type(2)')
       .as('filterChipsContainer');
 
-    cy.wait('@search');
   });
 
-  it('shows all contract data', () => {
-    cy.get('@tableBody').find('tr')
-      .should('have.length.at.least', 3); // todo: assert with database if it matches exact record.
-  });
+  context(
+    'shows information in table',
+    { testIsolation: false },
+    () => {
 
-  context('shows 契約進歩 in the table', () => {
-    it('shows contract status header ', ()  => {
-      cy.get('@tableHead').find('th')
-        .first()
-        .should('contain', '契約進歩');
-    });
+      it('shows all contract data', () => {
+        cy.get('@tableBody').find('tr')
+          .should('have.length.at.least', 3); // todo: assert with database if it matches exact record.
+      });
 
-    it('shows contract status in all rows', ()  => {
-      cy.get('@tableBody')
-        .find('tr > td:first-child')
-        .each(($td) => {
-          const isStatusExist = !!$td.text().split('K')[0];
-          cy.log(`First TD Content ${$td.text()}`);
-          expect(isStatusExist).to.be.true;
-        });
-    });
+      it('shows contract status header ', ()  => {
+        cy.get('@tableHead').find('th')
+          .first()
+          .should('contain', '契約進歩');
+      });
 
-    it('should navigate to the contract page when the contract status is clicked', () => {
+      it('shows contract status in all rows', ()  => {
+        cy.get('@tableBody')
+          .find('tr > td:first-child')
+          .each(($td) => {
+            const isStatusExist = !!$td.text().split('K')[0];
+            cy.log(`First TD Content ${$td.text()}`);
+            expect(isStatusExist).to.be.true;
+          });
+      });
 
-      // Click on the first chip label element in the first column of the table body
-      cy.get('@tableBody')
-        .find('tr > td:first-child .MuiChip-label')
-        .first()
-        .click();
+      it('should navigate to the contract page when the contract status is clicked', () => {
 
-      cy.url().should('include', '/project/contract/preview');
-    });
-  });
+        // Click on the first chip label element in the first column of the table body
+        cy.get('@tableBody')
+          .find('tr > td:first-child .MuiChip-label')
+          .first()
+          .click();
+
+        cy.url().should('include', '/project/contract/preview');
+      });
+    },
+  );
 
   context('filters', () => {
 
@@ -157,7 +161,7 @@ describe('契約一覧', () => {
 
     });
 
-    context.only("show incomplete ONLY contracts when only '未完了' checkbox is checked", () => {
+    context("show incomplete ONLY contracts when only '未完了' checkbox is checked", () => {
       beforeEach(() => {
         // uncheck complete status checkbox
         cy.get('@completeStatus-checkbox')
@@ -197,7 +201,7 @@ describe('契約一覧', () => {
 
       });
 
-      it.only('checks all 確認中 checkboxes when 未完了 is checked', () => {
+      it('checks all 確認中 checkboxes when 未完了 is checked', () => {
 
         // Generate 2 unique random indexes
         const randomIndexes = Array.from({ length: 2 }, () => Math.floor(Math.random() * 5));

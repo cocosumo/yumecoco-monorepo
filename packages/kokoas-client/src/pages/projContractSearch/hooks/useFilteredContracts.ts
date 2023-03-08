@@ -96,8 +96,8 @@ export const useFilteredContracts = () => {
           contractStepAccounting,
           contractStepCustomer,
           contractStepMain,
-          contractStepTencho]
-          .every((v) => !v);
+          contractStepTencho,
+        ].every((v) => !v);
 
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;
@@ -181,14 +181,18 @@ export const useFilteredContracts = () => {
         const contractDateMil = contractDate.value ? new Date(contractDate.value) : undefined ;
 
         const isMainSearch = !mainSearch || Object.values(resultRow).some((val) => val.toString().includes(mainSearch));
-        const isAboveMinAmount = !(!!amountFrom && totalAmountAfterTax < +amountFrom);
-        const isBelowMaxAmount = !(!!amountTo && totalAmountAfterTax > +amountTo);
+        const isAboveMinAmount = !(amountFrom && totalAmountAfterTax < +amountFrom);
+        const isBelowMaxAmount = !(amountTo && totalAmountAfterTax > +amountTo);
         const afterContractDateFrom = contractDateMil && contractDateFrom
           ? new Date(contractDateFrom) <= contractDateMil
           : !contractDateFrom;
         const beforeContractDateTo = contractDateMil && contractDateTo
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
+
+        const isInContractStatus = noContractStatusSelected || (
+          (contractCompleted && envStatus.value === 'completed')
+        );
 
 
         // 含むかどうか判定、
@@ -197,6 +201,7 @@ export const useFilteredContracts = () => {
           && isBelowMaxAmount
           && afterContractDateFrom
           && beforeContractDateTo
+          && isInContractStatus
         ) {
           acc.push(resultRow);
         }

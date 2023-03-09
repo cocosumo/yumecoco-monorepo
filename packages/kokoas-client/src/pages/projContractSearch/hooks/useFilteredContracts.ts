@@ -6,7 +6,7 @@ import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
 import { formatDataId } from 'libs';
-import { IInvoices, TEnvelopeStatus } from 'types';
+import { IInvoices, TEnvelopeStatus, roles } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
@@ -54,7 +54,6 @@ export const useFilteredContracts = () => {
     order = initialValues.order,
     orderBy = initialValues.orderBy || 'estimateDataId',
     contractCompleted,
-    contractIncomplete,
     contractStepAG,
     contractStepAccounting,
     contractStepCustomer,
@@ -91,7 +90,6 @@ export const useFilteredContracts = () => {
         // 契約進歩の中に何もが選択されていないかチェック
         const noContractStatusSelected = [
           contractCompleted,
-          contractIncomplete,
           contractStepAG,
           contractStepAccounting,
           contractStepCustomer,
@@ -99,10 +97,19 @@ export const useFilteredContracts = () => {
           contractStepTencho,
         ].every((v) => !v);
 
+        console.log(       contractCompleted,
+          contractStepAG,
+          contractStepAccounting,
+          contractStepCustomer,
+          contractStepMain,
+          contractStepTencho);
+
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;
 
+        /* 契約進歩のフィルター */
         const currentContractStep = getCurrentContractStep(envRecipients.value);
+        
 
         /* 工事情報 */
         const {
@@ -192,9 +199,14 @@ export const useFilteredContracts = () => {
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
 
-        const isInContractStatus = noContractStatusSelected || (
-          (contractCompleted && envolopeStatus === 'completed')
-        );
+        const isIncompleteContract = envolopeStatus === 'sent';
+        const isInContractStatus = noContractStatusSelected 
+          || (contractCompleted && envolopeStatus === 'completed')
+          || (isIncompleteContract && contractStepAG && currentContractStep?.roleName === roles.officer)
+          || (isIncompleteContract && contractStepAccounting && currentContractStep?.roleName === roles.accounting)
+          || (isIncompleteContract && contractStepCustomer && currentContractStep?.roleName === roles.customer)
+          || (isIncompleteContract && contractStepMain && currentContractStep?.roleName === roles.main)
+          || (isIncompleteContract && contractStepTencho && currentContractStep?.roleName === roles.storeMngr);
 
 
         // 含むかどうか判定、

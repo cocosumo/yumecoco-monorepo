@@ -1,15 +1,18 @@
 import { Chip, Stack } from '@mui/material';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KeyOfForm, TypeOfForm } from '../../form';
+import { KeyOfForm } from '../../form';
 import qs from 'qs';
 import { parseValueToLabel } from '../../helpers/parseValueToLabel';
 import { stepsKeys } from '../filterDialog/ContractStatusIncomplete';
+import { useNewValuesFromParams } from '../../hooks/useNewValuesFromParams';
+import { filterNonNull } from 'libs';
 
 export const FilterChips = () => {
 
-  const values = useURLParams<TypeOfForm>();
+  const values = useNewValuesFromParams();
+
+
 
   const navigate = useNavigate();
 
@@ -19,6 +22,7 @@ export const FilterChips = () => {
   const handleDelete = useCallback((key: KeyOfForm) => {
 
     // keyを除いたオブジェクトを作成
+
     const { [key]: _, ...query } = values;
 
     let newQuery = query;
@@ -37,7 +41,7 @@ export const FilterChips = () => {
       }
     }
 
-    navigate(`?${qs.stringify(newQuery)}`);
+    navigate(`?${qs.stringify(filterNonNull(newQuery))}`);
   }, [values, navigate]);
 
   return (

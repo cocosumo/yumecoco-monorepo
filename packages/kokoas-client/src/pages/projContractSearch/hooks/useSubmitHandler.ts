@@ -21,6 +21,7 @@ export const useSubmitHandler = () => {
     (data) => {
 
       const query = qs.stringify(filterNonNull({ ...data, ...params?.newData }));
+
       navigate(`?${query}`);
       params?.onValid?.();
     },

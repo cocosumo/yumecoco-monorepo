@@ -1,10 +1,9 @@
 import { getInvoiceById } from 'api-kintone/src/invoice/getInvoiceById';
 import { RequestHandler } from 'express';
-import { ParsedInvoiceReport, root } from 'types';
+import { ParsedInvoiceReport } from 'types';
 import { generateInvoicePdf } from './generateInvoicePdf';
 import { parseInvoiceDat } from './parseInvoiceDat';
 import fs from 'fs';
-import path from 'path';
 
 export interface ReqGetInvoiceReport {
   invoiceId?: string,

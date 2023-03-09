@@ -29,6 +29,7 @@ route.post(
 
 route.get(
   `/${kokoasEndpoints.downloadInvoice}/:invoiceId`,
+  bodyParser.json({ limit: '50mb' }),
   reqGetInvoiceReport,
 );
 

@@ -51,7 +51,7 @@ export const generateInvoicePdf = async (
       x: 10, // dummy値
       y: 10, // dummy値
       font: msMinchoFont,
-      size: 0.4,
+      size: 10,
     },
   );
 

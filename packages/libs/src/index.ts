@@ -4,6 +4,7 @@ export * from './filterNonNull';
 export * from './formatDataId';
 export * from './isEven';
 export * from './loadEnv';
+export * from './parseBoolean';
 export * from './parseExcelSerialDate';
 export * from './roundTo';
 export * from './sleep';

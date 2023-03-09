@@ -7,11 +7,11 @@ import { useFilteredContracts } from './hooks/useFilteredContracts';
 import { useForm } from 'react-hook-form';
 import { validationSchema } from './formValidation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useMemo } from 'react';
-import { initialValues, TypeOfForm } from './form';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
+import { useEffect } from 'react';
+import { TypeOfForm } from './form';
 import { FilterForm } from './parts/filterDialog/FilterForm';
 import { FilterChips } from './parts/filterChips/FilterChips';
+import { useNewValuesFromParams } from './hooks/useNewValuesFromParams';
 
 export const FormContractSearch = () => {
   const { data } = useFilteredContracts();
@@ -21,17 +21,13 @@ export const FormContractSearch = () => {
     maxAmount,
   } = data || {};
 
-  const urlParams = useURLParams<TypeOfForm>();
 
-  const newValues = useMemo(() => {
-    return {
-      ...initialValues,
-      ...urlParams,
-    };
-  }, [urlParams]);
+  const newValues = useNewValuesFromParams();
 
   const methods = useForm<TypeOfForm>({
-    defaultValues: newValues,
+    defaultValues: {
+      ...newValues,
+    },
     resolver: yupResolver(validationSchema),
   });
 

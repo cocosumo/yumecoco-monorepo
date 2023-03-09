@@ -4,12 +4,12 @@ import parseISO from 'date-fns/parseISO';
 import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
-import { latestInvoiceReducer } from './util/latestInvoiceReducer';
+import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
 import { formatDataId } from 'libs';
 import { IInvoices, TEnvelopeStatus } from 'types';
 import { initialValues, TypeOfForm } from '../form';
-import { itemsSorter } from './util/itemsSorter';
-import { getCurrentContractStep } from './util/getCurrentContractStep';
+import { itemsSorter } from '../helpers/itemsSorter';
+import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
 
 export interface ContractRow {
   contractStatus: TEnvelopeStatus,
@@ -165,8 +165,8 @@ export const useFilteredContracts = () => {
         const contractDateMil = contractDate.value ? new Date(contractDate.value) : undefined ;
 
         const isMainSearch = !mainSearch || Object.values(resultRow).some((val) => val.toString().includes(mainSearch));
-        const isAboveMinAmount = !(!!amountFrom && totalAmountAfterTax < +amountFrom);
-        const isBelowMaxAmount = !(!!amountTo && totalAmountAfterTax > +amountTo);
+        const isAboveMinAmount = !(amountFrom && totalAmountAfterTax < +amountFrom);
+        const isBelowMaxAmount = !(amountTo && totalAmountAfterTax > +amountTo);
         const afterContractDateFrom = contractDateMil && contractDateFrom
           ? new Date(contractDateFrom) <= contractDateMil
           : !contractDateFrom;

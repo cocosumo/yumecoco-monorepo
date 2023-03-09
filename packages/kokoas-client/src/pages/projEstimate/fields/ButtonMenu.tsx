@@ -3,6 +3,8 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 import { CopyForm } from '../formActions/copy/CopyForm';
 import { SelectExistEstimates } from './selectEstimates';
+import { ExportEstimate } from '../formActions/export/ExportEstimate';
+import { isProd } from 'config';
 
 export const ButtonMenu = () => {
 
@@ -21,6 +23,10 @@ export const ButtonMenu = () => {
 
       {/* コピー */}
       <CopyForm />
+      
+      {/* 本番では表示しない */}
+      {!isProd && <ExportEstimate />}
+     
     </Stack>
 
   );

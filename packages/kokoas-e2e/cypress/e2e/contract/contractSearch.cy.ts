@@ -152,7 +152,7 @@ describe('契約一覧', () => {
 
     });
 
-    it.only('未完了の契約のみを表示する', () => {
+    it('未完了の契約のみを表示する', () => {
       cy.get('@incompleteStatus-checkbox')
         .should('not.be.checked') // クリックされた時に、「未完了」のチェックボックスがチェックされていることをアサートします。
         .click()

@@ -240,7 +240,7 @@ describe('契約一覧', () => {
           }
         });
 
-      cy.log('契約の進歩を関係なくすべて表示することをアサートします'); 
+      cy.log('フィールター全て削除されたら、契約の進歩を関係なくすべて表示することをアサートします'); 
       cy.get('@rowContractChips')
         .should('contain', '完了')
         .should('contain', '確認中');

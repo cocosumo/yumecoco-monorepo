@@ -29,11 +29,6 @@ route.post(
 
 route.get(
   `/${kokoasEndpoints.downloadInvoice}/:invoiceId`,
-  /* (req, res) => {
-    console.log('test');
-    res.status(200).send('test');
-    console.log(req.params);
-  }, */
   reqGetInvoiceReport,
 );
 

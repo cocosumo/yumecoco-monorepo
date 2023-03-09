@@ -151,8 +151,10 @@ export const useFilteredContracts = () => {
           maxAmount = totalAmountAfterTax;
         }
 
+        const envolopeStatus = envStatus.value as TEnvelopeStatus;
+
         const resultRow = {
-          contractStatus: envStatus.value as TEnvelopeStatus,
+          contractStatus: envolopeStatus,
           currentContractRole: currentContractStep?.roleName || '',
           currentContractName: currentContractStep?.name || '',
           uuid: uuid.value,
@@ -191,7 +193,7 @@ export const useFilteredContracts = () => {
           : !contractDateTo;
 
         const isInContractStatus = noContractStatusSelected || (
-          (contractCompleted && envStatus.value === 'completed')
+          (contractCompleted && envolopeStatus === 'completed')
         );
 
 

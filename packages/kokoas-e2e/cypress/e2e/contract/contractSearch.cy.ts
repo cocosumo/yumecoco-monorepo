@@ -27,6 +27,9 @@ describe('契約一覧', () => {
       .as('tableBody')
       .should('exist');
 
+    cy.get('@tableBody').find('tr > td:first-child .MuiChip-root')
+      .as('rowContractChips');
+
     cy.get('form > div:nth-of-type(2)')
       .as('filterChipsContainer');
 
@@ -141,11 +144,15 @@ describe('契約一覧', () => {
       cy.get('@filterChipsContainer')
         .should('contain', '契約完了')
         .should('not.contain', '未完了');
-      // TODO: assert results
+    
+      cy.log('完了した契約のみを表示することをアサートします');
+      cy.get('@rowContractChips').each(($chip) => {
+        cy.wrap($chip).should('contain', '完了');
+      });
 
     });
 
-    it('未完了の契約のみを表示することをアサートします', () => {
+    it.only('未完了の契約のみを表示する', () => {
       cy.get('@incompleteStatus-checkbox')
         .should('not.be.checked') // クリックされた時に、「未完了」のチェックボックスがチェックされていることをアサートします。
         .click()
@@ -210,10 +217,34 @@ describe('契約一覧', () => {
         .find('.MuiChip-root:contains(確認中)') // 「確認中」というChipsを持つすべてのチップを検索します。
         .should('have.length', 5); // 「確認中」というテキストを持つチップが5つあることを、大まかにアサートします。
 
+      cy.log('完了していない契約のみを表示することをアサートします');
+      cy.get('@rowContractChips')
+        .should('have.length.greaterThan', 5) // 5より大きいことをアサートします。DBで作ってあります。TODO: テストデータを作るスクリプトを作る
+        .each(($chip) => {
+          cy.wrap($chip).should('not.contain', '完了');
+        });
 
-      // TODO: assert results
+      cy.log('フィルターチップを一個ずつ削除する');
+      cy.get('@filterChipsContainer').find('.MuiChip-root')
+        .then(($chips) => $chips.get().reverse())
+        .each(($chip, index, { length }) => {
+          const isLast = index === length - 1;
+          const statusText = $chip.text();
+     
+          if (!isLast) {
+            cy.wrap($chip).find('.MuiChip-deleteIcon')
+              .click();
 
+            cy.get('@tableBody')
+              .should('not.contain', statusText); // 削除したフィルターチップのテキストが、テーブルに含まれていないことをアサートします。
+          }
+        });
 
+      cy.log('契約の進歩を関係なくすべて表示することをアサートします'); 
+      cy.get('@rowContractChips')
+        .should('contain', '完了')
+        .should('contain', '確認中');
+        
     });
 
   });

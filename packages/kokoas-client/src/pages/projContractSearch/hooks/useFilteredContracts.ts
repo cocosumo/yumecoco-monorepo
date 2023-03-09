@@ -10,6 +10,7 @@ import { IInvoices, TEnvelopeStatus, roles } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
+import { useCallback } from 'react';
 
 export interface ContractRow {
   contractStatus: TEnvelopeStatus,
@@ -67,7 +68,7 @@ export const useFilteredContracts = () => {
 
   return useEstimates({
     enabled: !!projData && !!custGroupData && !!invoiceData,
-    select: (d) => {
+    select: useCallback((d) => {
 
       if (!projData || !custGroupData || !invoiceData) return;
 
@@ -96,13 +97,6 @@ export const useFilteredContracts = () => {
           contractStepMain,
           contractStepTencho,
         ].every((v) => !v);
-
-        console.log(       contractCompleted,
-          contractStepAG,
-          contractStepAccounting,
-          contractStepCustomer,
-          contractStepMain,
-          contractStepTencho);
 
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;
@@ -234,7 +228,24 @@ export const useFilteredContracts = () => {
         minAmount,
         maxAmount,
       };
-    },
+    }, [
+      projData,
+      custGroupData,
+      invoiceData,
+      mainSearch,
+      amountFrom,
+      amountTo,
+      contractDateFrom,
+      contractDateTo,
+      order,
+      orderBy,
+      contractCompleted,
+      contractStepAG,
+      contractStepAccounting,
+      contractStepCustomer,
+      contractStepMain,
+      contractStepTencho,
+    ]),
   });
 
 };

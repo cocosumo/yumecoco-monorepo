@@ -10,8 +10,8 @@ export const ButtonMenu = () => {
 
   const { control } = useFormContext<TypeOfForm>();
 
-  const projId = useWatch({
-    name: 'projId',
+  const [projId, estimateId] = useWatch({
+    name: ['projId', 'estimateId'],
     control,
   });
 
@@ -22,10 +22,10 @@ export const ButtonMenu = () => {
       {projId && <SelectExistEstimates projId={projId as TypeOfForm['projId']} />}
 
       {/* コピー */}
-      <CopyForm />
+      {projId && <CopyForm />}
       
       {/* 本番では表示しない */}
-      {!isProd && <ExportEstimate />}
+      {!isProd && estimateId && <ExportEstimate />}
      
     </Stack>
 

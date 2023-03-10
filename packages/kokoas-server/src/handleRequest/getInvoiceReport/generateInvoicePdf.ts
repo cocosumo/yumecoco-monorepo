@@ -14,12 +14,12 @@ export const generateInvoicePdf = async (
 ) => {
 
   const {
-    billingAmount,
-    custGroupId,
-    issuedDateTime,
-    plannedPaymentDate,
+    // billingAmount,
+    // custGroupId,
+    // issuedDateTime,
+    // plannedPaymentDate,
     slipNumber,
-    estimateLists,
+    // estimateLists,
   } = invoiceDat;
 
 
@@ -56,23 +56,13 @@ export const generateInvoicePdf = async (
   );
 
 
-
-
-
-
-
-
-
-
   // PDF書き込み処理 ここまで
 
 
 
   /* test用のコード　ここから */
-  const pdfBytes = await pdfDoc.save(); // pdfデータをバイナリで取得
+  // const pdfBytes = await pdfDoc.save(); // pdfデータをバイナリで取得
   /* test用のコード　ここまで */
 
-  // pdfDoc.saveAsBase64()
-
-  return pdfBytes;
+  return pdfDoc.saveAsBase64();
 };

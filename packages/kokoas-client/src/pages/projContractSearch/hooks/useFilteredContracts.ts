@@ -6,10 +6,11 @@ import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
 import { formatDataId } from 'libs';
-import { IInvoices, TEnvelopeStatus } from 'types';
+import { IInvoices, TEnvelopeStatus, roles } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
+import { useCallback } from 'react';
 
 export interface ContractRow {
   contractStatus: TEnvelopeStatus,
@@ -53,9 +54,13 @@ export const useFilteredContracts = () => {
     contractDateTo,
     order = initialValues.order,
     orderBy = initialValues.orderBy || 'estimateDataId',
+    contractCompleted,
+    contractStepAG,
+    contractStepAccounting,
+    contractStepCustomer,
+    contractStepMain,
+    contractStepTencho,
   } = useURLParams<TypeOfForm>();
-
-
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
@@ -63,7 +68,7 @@ export const useFilteredContracts = () => {
 
   return useEstimates({
     enabled: !!projData && !!custGroupData && !!invoiceData,
-    select: (d) => {
+    select: useCallback((d) => {
 
       if (!projData || !custGroupData || !invoiceData) return;
 
@@ -83,10 +88,22 @@ export const useFilteredContracts = () => {
           envRecipients,
         } = cur;
 
+        // 契約進捗の中に何も選択されていないかチェック
+        const noContractStatusSelected = [
+          contractCompleted,
+          contractStepAG,
+          contractStepAccounting,
+          contractStepCustomer,
+          contractStepMain,
+          contractStepTencho,
+        ].every((v) => !v);
+
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;
 
+        /* 契約進歩のフィルター */
         const currentContractStep = getCurrentContractStep(envRecipients.value);
+        
 
         /* 工事情報 */
         const {
@@ -135,8 +152,10 @@ export const useFilteredContracts = () => {
           maxAmount = totalAmountAfterTax;
         }
 
+        const envelopeStatus = envStatus.value as TEnvelopeStatus;
+
         const resultRow = {
-          contractStatus: envStatus.value as TEnvelopeStatus,
+          contractStatus: envelopeStatus,
           currentContractRole: currentContractStep?.roleName || '',
           currentContractName: currentContractStep?.name || '',
           uuid: uuid.value,
@@ -174,6 +193,15 @@ export const useFilteredContracts = () => {
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
 
+        const isIncompleteContract = envelopeStatus === 'sent';
+        const isInContractStatus = noContractStatusSelected 
+          || (contractCompleted && envelopeStatus === 'completed')
+          || (isIncompleteContract && contractStepAG && currentContractStep?.roleName === roles.officer)
+          || (isIncompleteContract && contractStepAccounting && currentContractStep?.roleName === roles.accounting)
+          || (isIncompleteContract && contractStepCustomer && currentContractStep?.roleName === roles.customer)
+          || (isIncompleteContract && contractStepMain && currentContractStep?.roleName === roles.main)
+          || (isIncompleteContract && contractStepTencho && currentContractStep?.roleName === roles.storeMngr);
+
 
         // 含むかどうか判定、
         if (isMainSearch
@@ -181,6 +209,7 @@ export const useFilteredContracts = () => {
           && isBelowMaxAmount
           && afterContractDateFrom
           && beforeContractDateTo
+          && isInContractStatus
         ) {
           acc.push(resultRow);
         }
@@ -199,7 +228,24 @@ export const useFilteredContracts = () => {
         minAmount,
         maxAmount,
       };
-    },
+    }, [
+      projData,
+      custGroupData,
+      invoiceData,
+      mainSearch,
+      amountFrom,
+      amountTo,
+      contractDateFrom,
+      contractDateTo,
+      order,
+      orderBy,
+      contractCompleted,
+      contractStepAG,
+      contractStepAccounting,
+      contractStepCustomer,
+      contractStepMain,
+      contractStepTencho,
+    ]),
   });
 
 };

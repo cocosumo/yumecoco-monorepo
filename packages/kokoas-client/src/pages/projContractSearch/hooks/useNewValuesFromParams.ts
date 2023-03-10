@@ -10,6 +10,7 @@ export const useNewValuesFromParams = () => {
 
     // 一部のステップが選択されている場合は、未完了チェックボックスをオンにする
     const someStepsSelected = stepsKeys.some((key) => urlParams[key]);
+    
     return {
       ...initialValues,
       ...urlParams,

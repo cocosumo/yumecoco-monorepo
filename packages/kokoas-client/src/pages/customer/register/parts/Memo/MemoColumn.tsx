@@ -10,15 +10,15 @@ import { MemoColumnContainer } from './MemoColumnContainer';
 
 const maxItems = 6;
 
-export const MemoColumn = () => {
+export const MemoColumn = ({ disabled }: { disabled:boolean }) => {
   const { values } = useFormikContext<TypeOfForm>();
   const { id, customers: [mainCust] } = values;
-  const { handleOpen, memoList } = useContext(MemoContext)!;
+  const { handleOpen, memoList } = useContext(MemoContext)!; // useQueryに移行したら、必要なくなる
   const [pageNum, setPageNum] = useState(1);
   const pageCount = Math.ceil(( memoList?.length ??  0) /  maxItems);
   const [memosInPage, setMemosInPage] = useState<typeof memoList>(memoList?.slice(0, maxItems));
 
-  const handleMemoPageChange = (_1: any, page: number) => {
+  const handleMemoPageChange = (page: number) => {
     setPageNum(page);
   };
 
@@ -36,6 +36,7 @@ export const MemoColumn = () => {
         <PageSubTitle label={'メモ'} xs={7} />
         <Grid item xs={5}>
           <Button
+            disabled={disabled}
             variant="outlined" startIcon={<AddIcon />}
             fullWidth onClick={
             ()=> handleOpen({
@@ -51,14 +52,19 @@ export const MemoColumn = () => {
       {pageCount > 0 &&
       <Pagination
         count={pageCount}
-        onChange={handleMemoPageChange}
+        onChange={(_, value) => handleMemoPageChange(value)}
         variant="outlined"
         siblingCount={0}
         boundaryCount={1}
         size={'small'}
       />}
 
-      <MemoList memos={memosInPage ?? []} custName={mainCust.custName} custGroupId={id || ''} />
+      <MemoList
+        disabled={disabled}
+        memos={memosInPage ?? []}
+        custName={mainCust.custName}
+        custGroupId={id || ''}
+      />
 
     </MemoColumnContainer>
 

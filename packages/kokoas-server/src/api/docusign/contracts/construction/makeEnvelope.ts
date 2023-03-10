@@ -2,7 +2,7 @@ import {
   CarbonCopy,
   EnvelopeDefinition,
   Signer } from 'docusign-esign';
-import { ReqSendContract } from 'types';
+import { ReqSendContract, roles } from 'types';
 import { getContractData } from '../../../kintone/getContractData';
 import { generateContractPdf } from './generateContractPdf';
 import fs from 'fs/promises';
@@ -78,7 +78,7 @@ export const makeEnvelope = async ({
     signers.push({
       email: isProd ? officerEmail : testTantouEmail,
       name: officerName,
-      roleName: '担当者',
+      roleName: roles.officer,
       recipientId: '1',
       routingOrder: '1',
       tabs: {
@@ -86,7 +86,7 @@ export const makeEnvelope = async ({
           anchorString: '/tt/',
           documentId: '1',
           pageNumber: '1',
-          tabLabel: '担当者',
+          tabLabel: roles.officer,
         }],
       },
     });
@@ -104,7 +104,7 @@ export const makeEnvelope = async ({
         return {
           email: isProd ? custEmail : testCustEmail,
           name: custName,
-          roleName: '顧客',
+          roleName: roles.customer,
           recipientId: `${1}${idx}`,
           routingOrder: '2',
           tabs: {
@@ -133,13 +133,13 @@ export const makeEnvelope = async ({
     signers.push({
       email: isProd ? officerEmail : testTantouEmail,
       name: officerName,
-      roleName: '担当者',
+      roleName: roles.officer,
       recipientId: '1',
       routingOrder: '1',
       tabs: {
         signerAttachmentTabs: [{
           anchorString: '/tt/',
-          tabLabel: '担当者',
+          tabLabel: roles.officer,
         }],
       },
     });
@@ -152,7 +152,7 @@ export const makeEnvelope = async ({
   signers.push({
     email: isProd ? storeMngrEmail : testTenchoEmail,
     name: storeMngrName,
-    roleName: '店長',
+    roleName: roles.storeMngr,
     recipientId: '3',
     routingOrder: '3',
     tabs: {
@@ -160,7 +160,7 @@ export const makeEnvelope = async ({
         anchorString: '/tc/',
         documentId: '1',
         pageNumber: '1',
-        tabLabel: '店長',
+        tabLabel: roles.storeMngr,
       }],
     },
   });
@@ -169,7 +169,7 @@ export const makeEnvelope = async ({
   signers.push({
     email: isProd ? accountingEmail : testKeiriEmail,
     name: accountingName,
-    roleName: '経理',
+    roleName: roles.accounting,
     recipientId: '33',
     routingOrder: '3',
     tabs: {
@@ -177,7 +177,7 @@ export const makeEnvelope = async ({
         anchorString: '/ke/',
         documentId: '1',
         pageNumber: '1',
-        tabLabel: '経理',
+        tabLabel: roles.accounting,
       }],
     },
   });
@@ -186,7 +186,7 @@ export const makeEnvelope = async ({
   ccs.push({
     email: isProd ? mainAccountingEmail : testHonKeiriEmail,
     name: mainAccountingName,
-    roleName: '本社',
+    roleName: roles.main,
     recipientId: '4',
     routingOrder: '4',
   });

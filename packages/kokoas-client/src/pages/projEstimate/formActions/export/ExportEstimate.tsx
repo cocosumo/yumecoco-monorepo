@@ -2,9 +2,11 @@ import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/Butto
 import { BiExport } from '@react-icons/all-files/bi/BiExport';
 import { useState } from 'react';
 import { ExportEstimateMenu } from './ExportEstimateMenu';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 
 export const ExportEstimate = () => {
+  const { setSnackState } = useSnackBar();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -12,6 +14,11 @@ export const ExportEstimate = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+    setSnackState({
+      open: true,
+      severity: 'warning',
+      message: '開発中です。',
+    });
   };
 
   return (

@@ -1,26 +1,29 @@
 import {  Chip, Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
-import { getFieldName, TypeOfForm } from '../../form';
+import { TypeOfForm } from '../../form';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 
 
 export const SelectDocuments = ({
   handlePreview,
+  selectedDoc,
 }: {
-  handlePreview: (fileKey: string) => void
+  handlePreview: (fileKey: string) => void,
+  selectedDoc: string,
 }) => {
 
   const {
     values: {
-      envDocFileKeys, envSelectedDoc,
-    }, setFieldValue } = useFormikContext<TypeOfForm>();
+      envDocFileKeys,
+    } } = useFormikContext<TypeOfForm>();
+
 
   return (
     <Stack p={0} spacing={1} direction={'row'}
       alignItems={'center'}
     >
       {envDocFileKeys.map(file => {
-        const isSelected = envSelectedDoc === file.fileKey;
+        const isSelected = selectedDoc === file.fileKey;
 
         return (
           <Chip
@@ -30,7 +33,6 @@ export const SelectDocuments = ({
             label={file.name}
             size={isSelected ? 'medium' : 'small'}
             onClick={()=>{
-              setFieldValue(getFieldName('envSelectedDoc'), file.fileKey);
               handlePreview(file.fileKey);
             }}
           />

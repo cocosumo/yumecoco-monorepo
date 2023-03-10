@@ -8,7 +8,11 @@ import { useEmployeeOptions } from '../../../../hooksQuery/useEmployeeOptions';
 import { getFieldName, TypeOfForm, KeyOfForm } from '../form';
 
 
-export const Agents = () => {
+export const Agents = ({
+  disabled,
+}: {
+  disabled: boolean
+}) => {
   const {
     values,
     setFieldValue,
@@ -62,26 +66,45 @@ export const Agents = () => {
       <Stack direction={'column'} spacing={2}>
         <PageSubTitle label='担当情報' />
 
-        <FormikSelect name={getFieldName('store')} label="店舗" options={data}
-          required onChange={handleStoreChange}
+        <FormikSelect
+          disabled={disabled}
+          name={getFieldName('store')}
+          label="店舗" options={data}
+          required
+          onChange={handleStoreChange}
         />
 
 
-        <FormikSelect name={getFieldName('cocoAG1')} label="営業担当者1" options={cocoAGOptions}
-          disabled={!store} required onChange={(e)=> handleAGChange(e.target.value, 'cocoAG2')}
+        <FormikSelect
+          name={getFieldName('cocoAG1')}
+          label="営業担当者1"
+          options={cocoAGOptions}
+          disabled={disabled || !store}
+          required
+          onChange={(e)=> handleAGChange(e.target.value, 'cocoAG2')}
         />
 
 
-        <FormikSelect name={getFieldName('cocoAG2')} label="営業担当者2" options={cocoAGOptions2}
-          disabled={!store || !cocoAG1}
+        <FormikSelect
+          name={getFieldName('cocoAG2')}
+          label="営業担当者2"
+          options={cocoAGOptions2}
+          disabled={disabled || !store || !cocoAG1}
         />
 
-        <FormikSelect name={getFieldName('yumeAG1')} label="ゆめてつAG1" options={yumeAGOptions}
-          disabled={!store} onChange={(e)=> handleAGChange(e.target.value, 'yumeAG2')}
+        <FormikSelect
+          name={getFieldName('yumeAG1')}
+          label="ゆめてつAG1"
+          options={yumeAGOptions}
+          disabled={disabled || !store}
+          onChange={(e)=> handleAGChange(e.target.value, 'yumeAG2')}
         />
 
-        <FormikSelect name={getFieldName('yumeAG2')} label="ゆめてつAG2" options={yumeAGOptions2}
-          disabled={!store || !yumeAG1}
+        <FormikSelect
+          name={getFieldName('yumeAG2')}
+          label="ゆめてつAG2"
+          options={yumeAGOptions2}
+          disabled={disabled || !store || !yumeAG1}
         />
 
 

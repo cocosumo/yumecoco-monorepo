@@ -1,23 +1,20 @@
 import { EmpAffiliations, TAgents } from 'types';
 
-
-
+/**
+ * 与えられた TAgents または TAgents[] 型のパラメータから、関連会社を解決します。
+ */
 export const resolveAffiliations = (dirtyType: TAgents | TAgents[]) => {
+  const agentType = dirtyType instanceof Array ? dirtyType : [dirtyType];
 
-  return ([] as string[])
-    .concat(dirtyType)
-    .reduce((acc, curr)=>{
-
-      if (curr.includes('yume') && !acc.includes('ゆめてつ')) {
-        return [...new Set([...acc, 'ゆめてつ'])];
-      }
-      if (curr.includes('coco') && !acc.includes('ここすも')) {
-        return [...new Set([...acc, 'ここすも'])];
-      }
-      if (curr.includes('sutekura') && !acc.includes('すてくら')) {
-        return [...new Set([...acc, 'すてくら'])];
-      }
-
+  return agentType.reduce<EmpAffiliations[]>((acc, curr) => {
+    if (curr.includes('yume') && !acc.includes('ゆめてつ')) {
+      return [...acc, 'ゆめてつ'];
+    } else if (curr.includes('coco') && !acc.includes('ここすも')) {
+      return [...acc, 'ここすも'];
+    } else if (curr.includes('sutekura') && !acc.includes('すてくら')) {
+      return [...acc, 'すてくら'];
+    } else {
       return acc;
-    }, [] as EmpAffiliations[]);
+    }
+  }, []);
 };

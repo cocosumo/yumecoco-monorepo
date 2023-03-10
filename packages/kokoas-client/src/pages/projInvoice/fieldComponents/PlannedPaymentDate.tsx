@@ -8,7 +8,11 @@ import { getFieldName, TypeOfForm } from '../form';
  * 支払い予定日コンポーネント
  * @returns 
  */
-export const PlannedPaymentDate = () => {
+export const PlannedPaymentDate = ({
+  isBilled, 
+}:{
+  isBilled: boolean
+}) => {
   const { values } = useFormikContext<TypeOfForm>();
   const { undecidedPaymentDate } = values;
 
@@ -18,7 +22,7 @@ export const PlannedPaymentDate = () => {
         <FormikJADatePicker
           label='入金予定日'
           name={getFieldName('plannedPaymentDate')}
-          disabled={undecidedPaymentDate}
+          disabled={undecidedPaymentDate || isBilled}
         />
       </Grid>
 
@@ -27,6 +31,7 @@ export const PlannedPaymentDate = () => {
           name={getFieldName('undecidedPaymentDate')}
           label='未定'
           checked={undecidedPaymentDate}
+          disabled={isBilled}
         />
       </Grid>
     </Stack>

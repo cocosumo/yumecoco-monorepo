@@ -1,11 +1,13 @@
 declare namespace DBInvoices {
   interface Data {
+    voidedReason: kintone.fieldTypes.SingleLineText;
     billingAmount: kintone.fieldTypes.Number;
     slipNumber: kintone.fieldTypes.SingleLineText;
     plannedPaymentDate: kintone.fieldTypes.Date;
     uuid: kintone.fieldTypes.SingleLineText;
     issuedDateTime: kintone.fieldTypes.DateTime;
     custGroupId: kintone.fieldTypes.SingleLineText;
+    invoiceStatus: kintone.fieldTypes.SingleLineText;
     exceedChecked: kintone.fieldTypes.Number;
     estimateLists: {
       type: "SUBTABLE";

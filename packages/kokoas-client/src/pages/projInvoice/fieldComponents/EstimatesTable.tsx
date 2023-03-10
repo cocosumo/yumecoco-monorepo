@@ -5,7 +5,11 @@ import { splitEstimatesByProjId } from '../helper/splitEstimatesByProjId';
 import { EstimateTableBody } from './EstimatesTableBody';
 import { EstimateTableHead } from './EstimateTableHead';
 
-export const EstimatesTable = () => {
+export const EstimatesTable = ({
+  isBilled,
+}:{
+  isBilled: boolean
+}) => {
   const { values } = useFormikContext<TypeOfForm>();
   const {
     estimates,
@@ -27,6 +31,7 @@ export const EstimatesTable = () => {
                     return (
                       <EstimateTableBody
                         estimateRow={row}
+                        isBilled={isBilled}
                         key={`tableRow_${row.projId}_${row.dataId}`}
                       />
                     );

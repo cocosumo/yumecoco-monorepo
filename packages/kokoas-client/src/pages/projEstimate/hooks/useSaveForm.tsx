@@ -2,11 +2,13 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useConfirmDialog, useSnackBar } from 'kokoas-client/src/hooks';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
+import isArray from 'lodash/isArray';
 import { useCallback } from 'react';
-import { SubmitErrorHandler, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { FieldError, FieldErrorsImpl, SubmitErrorHandler, SubmitHandler, UseFormReturn } from 'react-hook-form';
 import { convertToKintone } from '../api/convertToKintone';
 import { TypeOfForm } from '../form';
 import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
+import { ja } from './utils/fieldTranslations';
 
 export type SaveButtonNames = 'temporary' | 'save';
 
@@ -70,11 +72,37 @@ export const useSaveForm = ({
     });
   }, [setDialogState, handleClose, handleSave ]);
 
-  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async () => {
+  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async (errors) => {
+
+    const itemErrors = Object
+      .entries(errors)
+      .reduce(
+        (acc, [key, error]) => {
+
+          if (isArray(error)) {
+            (error as FieldErrorsImpl<TypeOfForm['items']>)
+              .forEach((item, idx) => {
+                if (!item) return;
+                Object
+                  .entries(item)
+                  .forEach(([itemKey, itemError]) => {
+                    acc.push(`${idx + 1}行目の${ja[itemKey as keyof typeof ja]}：${(itemError as FieldError).message}`);
+                  });
+              });
+          } else {
+            acc.push(`${ja[key as keyof typeof ja]}：${error.message}`);
+          }
+
+          return acc;
+        }, [] as  string[]);
+
     setSnackState({
       open: true,
       severity: 'error',
-      message: '入力を確認してください',
+      message: itemErrors
+        .map((err) => (<p key={err}>
+          {err}
+        </p>)),
     });
   };
 
@@ -83,6 +111,6 @@ export const useSaveForm = ({
     onSubmitInvalid,
     handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),
     handleSubmitFinal: handleSubmit(onSubmitValidFinal, onSubmitInvalid),
-    
+
   };
 };

@@ -1,46 +1,49 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material';
-import { useFormikContext } from 'formik';
-import { FormikTextFieldV2 } from '../../../../components/ui/textfield/FormikTextFieldV2';
-import { getFieldName, TypeOfForm } from '../../form';
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { AmountRange } from './AmountRange';
 import { ContractDateRange } from './ContractDateRange';
+import { ContractStatus } from './ContractStatus';
+import { FilterDialogContent } from './FilterDialogContent';
+import { SubmitButton } from './SubmitButton';
+
 
 export const FilterDialog = ({
+  open,
   handleClose,
+  minAmount,
+  maxAmount,
 }: {
-  handleClose: () => void
+  open: boolean,
+  handleClose: () => void,
+  minAmount: number,
+  maxAmount: number,
 }) => {
 
-  const { values } = useFormikContext<TypeOfForm>();
-
-  const {
-    isFilterOpen,
-  } = values;
-
-
   return (
+
     <Dialog
-      open={isFilterOpen}
+      open={open}
       onClose={handleClose}
     >
       <DialogTitle>
         絞り込み
       </DialogTitle>
-      <DialogContent >
-        <Stack spacing={2} mt={4}>
-          <FormikTextFieldV2 label={'工事名'} name={getFieldName('projName')} />
-          <AmountRange />
-          <ContractDateRange />
-        </Stack>
-      </DialogContent>
+      <FilterDialogContent>
+        <AmountRange minAmount={minAmount} maxAmount={maxAmount} />
+        <ContractDateRange />
+
+        <ContractStatus />
+
+      </FilterDialogContent>
       <DialogActions>
         <Button variant={'text'} onClick={handleClose}>
           閉じる
         </Button>
-        <Button variant={'contained'}>
+        <SubmitButton onClick={handleClose} >
           検索
-        </Button>
+        </SubmitButton>
       </DialogActions>
+
     </Dialog>
+
   );
 };

@@ -12,11 +12,9 @@ import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
 import { RecordSelect } from './sections/RecordSelect/RecordSelect';
 
-
 export const FormConstruction  = () => {
 
   const {
-    status,
     submitForm,
     values,
     dirty,
@@ -29,10 +27,11 @@ export const FormConstruction  = () => {
     projTypeId,
     projDataId,
     custGroupId,
+    hasContract,
   } = values;
 
-  const isEditMode = window.location.href.includes('edit');
-  const isFormDisabled = (status as TFormStatus) === 'disabled';
+  const isEditMode = !!projId;
+  const isFormDisabled = hasContract;
 
   return (
 
@@ -41,7 +40,7 @@ export const FormConstruction  = () => {
 
       <MainContainer>
         <PageTitle
-          label="工事情報登録"
+          label={`工事情報${projId ? '編集' : '登録'}`}
           color="#60498C"
           textColor='#FFF'
           secondaryLabel={projDataId}
@@ -49,8 +48,8 @@ export const FormConstruction  = () => {
         <Grid container item xl={8}
           spacing={2} mb={12}
         >
-          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <RecordSelect />
+          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <CustInfo />
 
           {custGroupId && (

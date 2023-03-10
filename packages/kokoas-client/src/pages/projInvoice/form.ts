@@ -12,6 +12,9 @@ export const initialValues = {
   /** 請求書番号 */
   invoiceId: '',
 
+  /** 請求書ステータス */
+  invoiceStatus: '' as TInvoiceStatus,
+
   /** 顧客グループID */
   custGroupId: '',
 
@@ -36,8 +39,14 @@ export const initialValues = {
       /** 契約金額の総額 */
       contractAmount: 0,
 
+      /** 契約金額の非課税金額 */
+      nonTaxableAmount: 0,
+
       /** 請求済み金額 */
       billedAmount: 0,
+
+      /** 作成済み金額 */
+      createdAmount: 0,
 
       /** 請求金額 */
       billingAmount: 0,
@@ -60,7 +69,7 @@ export const initialValues = {
   undecidedPaymentDate: false,
 
   /** 契約金超過 */
-  exceededContract : false,
+  exceededContract: false,
 
   /** 契約超過チェック */
   exceedChecked: false,
@@ -76,6 +85,12 @@ export const getFieldName = (s: KeyOfForm) => s;
 export type TMaterials = TypeOfForm['estimates'][0];
 export type TKMaterials = keyof TMaterials;
 
+export type TInvoiceStatus =
+  | 'created'
+  | 'sent'
+  | 'voided'
+  | 'completed'
+  | '';
 /**
  * 
  フィールド名取得、ヘルパー

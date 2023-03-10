@@ -3,13 +3,12 @@ import { Grid, FormHelperText, Button } from '@mui/material';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextFieldV2 as  FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
-import { useProjHasContract, useProjTypes } from 'kokoas-client/src/hooksQuery/';
-import { useBackdrop } from 'kokoas-client/src/hooks';
+import { useProjTypes } from 'kokoas-client/src/hooksQuery/';
 import { ContractDetails } from './ContractDetails';
 import { Territory } from 'types';
 
@@ -25,18 +24,13 @@ export const ConstructionInfo = (
   const { storeId, territory } = props;
 
   const {
-    status,
     values: {
       cocoConst1,
       projId,
+      hasContract,
     },
     setValues,
   } = useFormikContext<TypeOfForm>();
-
-  const isReadOnly = (status as TFormStatus) === 'disabled';
-
-  const { setBackdropState } = useBackdrop();
-  const { data, isFetching } = useProjHasContract(projId);
 
   const { data: projTypeOptions } = useProjTypes<Options>({
     select: (d) => d
@@ -60,9 +54,6 @@ export const ConstructionInfo = (
     setOpen(false);
   };
 
-  useEffect(() => {
-    setBackdropState({ open: isFetching });
-  }, [isFetching, setBackdropState]);
 
   return (
     <>
@@ -74,7 +65,7 @@ export const ConstructionInfo = (
         <Grid item xs={12} md={8}>
           {projTypeOptions &&
           <FormikSelect name={getFieldName('projTypeId')} label={'工事種別'}
-            disabled={isReadOnly || data}
+            disabled={hasContract}
             options={projTypeOptions}
             required
             onChange={(_, newTextVal) => {
@@ -88,7 +79,7 @@ export const ConstructionInfo = (
         </Grid>
 
         <Grid item xs={12} md={4}>
-          {data &&
+          {hasContract &&
             <>
               <FormHelperText>
                 契約済みのため編集できません
@@ -106,7 +97,7 @@ export const ConstructionInfo = (
         </Grid>
         <Grid item xs={12}>
           <FormikTextField name={getFieldName('projName')} label="工事名称" placeholder="氏名/会社名様邸　工事種別"
-            disabled={isReadOnly} required
+            disabled={hasContract} required
           />
         </Grid>
       </Grid>
@@ -121,7 +112,7 @@ export const ConstructionInfo = (
             >
               <ConstructionAgent
                 number={num}
-                disabled={(!cocoConst1 && num === 2) || isReadOnly}
+                disabled={(!cocoConst1 && num === 2) || hasContract}
                 storeId={storeId}
                 territory={territory}
               />
@@ -131,7 +122,7 @@ export const ConstructionInfo = (
 
         <Grid item xs={12} md={4}>
           <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'
-            disabled={isReadOnly}
+            disabled={hasContract}
           />
 
         </Grid>

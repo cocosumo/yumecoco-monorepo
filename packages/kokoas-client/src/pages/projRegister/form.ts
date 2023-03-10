@@ -1,6 +1,5 @@
 
 import {
-  TEnvelopeStatus,
   Territory,
   RecordStatus,
   RecordCancelStatus,
@@ -39,7 +38,8 @@ export const initialValues = {
   buildingType: '戸建て' as BuildingType,
   isChkAddressKari: false,
   status: '追客中' as RecordStatus,
-  envelopeStatus: '' as TEnvelopeStatus,
+  hasContract: false,
+  hasCompetedContract: false,
   cancelStatus: [] as RecordCancelStatus[],
 };
 

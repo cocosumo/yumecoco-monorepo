@@ -2,6 +2,7 @@ declare namespace DBProjestimates {
   interface Data {
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
+    envCompleteDate: kintone.fieldTypes.DateTime;
     updateByName: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     daikokuDataId: kintone.fieldTypes.SingleLineText;

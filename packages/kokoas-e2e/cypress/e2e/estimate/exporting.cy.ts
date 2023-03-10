@@ -13,13 +13,16 @@ describe('出力', () => {
   });
 
   it('ANDPAD形式でエクスポート出来る', () => {
-    cy.contains('li', 'ANDPAD').should('exist')
+    cy.contains('li', 'ANDPAD')
+      .should('exist')
       .click();
     // TODO: ダウンロード出来たかどうかのテスト
   });
 
   it('EXCEL形式でエクスポート出来る', () => {
-    cy.contains('li', 'エクセル').click();
+    cy.contains('li', 'エクセル')
+      .should('exist')
+      .click();
     // TODO: ダウンロード出来たかどうかのテスト
   });
 });

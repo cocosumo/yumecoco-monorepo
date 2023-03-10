@@ -152,10 +152,10 @@ export const useFilteredContracts = () => {
           maxAmount = totalAmountAfterTax;
         }
 
-        const envolopeStatus = envStatus.value as TEnvelopeStatus;
+        const envelopeStatus = envStatus.value as TEnvelopeStatus;
 
         const resultRow = {
-          contractStatus: envolopeStatus,
+          contractStatus: envelopeStatus,
           currentContractRole: currentContractStep?.roleName || '',
           currentContractName: currentContractStep?.name || '',
           uuid: uuid.value,
@@ -193,9 +193,9 @@ export const useFilteredContracts = () => {
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
 
-        const isIncompleteContract = envolopeStatus === 'sent';
+        const isIncompleteContract = envelopeStatus === 'sent';
         const isInContractStatus = noContractStatusSelected 
-          || (contractCompleted && envolopeStatus === 'completed')
+          || (contractCompleted && envelopeStatus === 'completed')
           || (isIncompleteContract && contractStepAG && currentContractStep?.roleName === roles.officer)
           || (isIncompleteContract && contractStepAccounting && currentContractStep?.roleName === roles.accounting)
           || (isIncompleteContract && contractStepCustomer && currentContractStep?.roleName === roles.customer)

@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow, Typography } from '@mui/material';
 import { createPaymentList } from 'api-kintone/src/estimates/createPaymentList';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
@@ -11,22 +11,25 @@ export const BillingEntryTableRow = ({
   estimate,
   idx,
   paymentList,
+  isBilled,
 }: {
   estimate: TMaterials
   idx: number
   paymentList: ReturnType<typeof createPaymentList>[] | undefined
+  isBilled: boolean
 }) => {
   const {
     setValues,
   } = useFormikContext<TypeOfForm>();
 
-  const { 
+  const {
     projTypeName,
     estimateId,
     dataId,
     contractAmount,
     billedAmount,
     billingAmount,
+    amountType,
   } = estimate;
 
   const paymentItem = paymentList?.find(({ uuid }) => uuid === estimateId);
@@ -59,7 +62,13 @@ export const BillingEntryTableRow = ({
     });
   };
 
-  const exceeded = +contractAmount < (+billedAmount + +billingAmount);
+  const newBillingAmount = (+billedAmount + +billingAmount);
+  let rowAmountExceeded = false;
+  if (+contractAmount >= 0) {
+    rowAmountExceeded = (+contractAmount < newBillingAmount) || (+billingAmount < 0);
+  } else {
+    rowAmountExceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
+  }
 
 
   return (
@@ -68,26 +77,39 @@ export const BillingEntryTableRow = ({
         {projTypeName}
       </TableCell>
       <TableCell align="right">
-        {dataId.split('-').at(-1)}
+        <Typography sx={{ color: isBilled ? 'gray' : 'text.primary' }} >
+          {dataId.split('-').at(-1)}
+        </Typography>
       </TableCell>
       <TableCell align="right">
-        <FormikSelect
-          name={getEstimatesFieldName(idx, 'amountType')}
-          options={paymentTypeOption}
-          onChange={amountTypeChange}
-          size={'small'}
-        />
+        {!isBilled &&
+          <FormikSelect
+            name={getEstimatesFieldName(idx, 'amountType')}
+            options={paymentTypeOption}
+            onChange={amountTypeChange}
+            size={'small'}
+          />}
+        {isBilled &&
+          <Typography sx={{ color: 'gray' }}>
+            {amountType}
+          </Typography>}
       </TableCell>
       <TableCell align="right">
-        <FormikMoneyField
-          name={getEstimatesFieldName(idx, 'billingAmount')}
-          size={'small'}
-          onChange={billingAmountChange}
-          sx={{ textAlign: 'right' }}
-        />
+        {!isBilled &&
+          <FormikMoneyField
+            name={getEstimatesFieldName(idx, 'billingAmount')}
+            size={'small'}
+            onChange={billingAmountChange}
+            disabled={isBilled}
+            sx={{ textAlign: 'right' }}
+          />}          
+        {isBilled &&
+          <Typography sx={{ color: 'gray' }}>
+            {billingAmount}
+          </Typography>}
       </TableCell>
       <TableCell>
-        {exceeded && <WarningIcon />}
+        {rowAmountExceeded && <WarningIcon color='warning' />}
       </TableCell>
     </TableRow>
   );

@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
 import { useFormikContext } from 'formik';
@@ -20,17 +20,18 @@ export const ContractFormActions = () => {
     isValid,
     errors,
     touched,
+    dirty,
     values: {
       envelopeStatus,
     },
   } = useFormikContext<TypeOfForm>();
-
 
   const {
     previewUrl,
     handlePreview,
     handleRefetch,
     formLoading,
+    selectedDoc,
   } = useContractPreview();
 
   const setOpenPreview = (isOpen: boolean) => {
@@ -39,30 +40,31 @@ export const ContractFormActions = () => {
   };
 
 
-  const handleSubmit = async (submitMethod: TypeOfForm['submitMethod']) => {
-
+  const handleSubmit = async () => {
     if (isEmpty(touched) && isEmpty(errors)) {
       setSnackState({
         open: true,
         severity: 'info',
         message: 'フォームに変更がありません。',
       });
-    }
-
-    if (!isEmpty(touched) || !isEmpty(errors)) {
+    } else {
       await submitForm();
-    }
-
-    if (submitMethod === 'contract') {
-      if (isEmpty(errors)) {
-        setOpenPreview(true);
-      }
     }
 
   };
 
+  const handleOpenPreview = () => {
+    setOpenPreview(true);
+  };
 
-  const isOpenDialog = isPreviewOpen && isValid;
+
+  const isFormikBusy = isSubmitting || isValidating;
+
+  const isPreviewDisabled = isFormikBusy
+    || (!isValid && !envelopeStatus) // 検証ロジックが異なる既存契約の後方互換性を処理するためのものです。
+    || dirty;
+
+  const isSaveDisabled = isFormikBusy || !!envelopeStatus;
 
   return (
     <Stack>
@@ -76,29 +78,48 @@ export const ContractFormActions = () => {
           variant="outlined"
           size="large"
           startIcon={<SaveIcon />}
-          onClick={() => handleSubmit('normal')}
-          disabled={isSubmitting || isValidating || !!envelopeStatus}
+          onClick={() => handleSubmit()}
+          disabled={isSaveDisabled}
         >
           保存
         </Button>
+
         <Button
           variant="outlined"
           size="large"
           startIcon={<PreviewIcon />}
-          onClick={() => handleSubmit('contract')}
-          disabled={isSubmitting || isValidating}
+          onClick={handleOpenPreview}
+          disabled={isPreviewDisabled}
         >
           プレビュー
         </Button>
       </Stack>
       <ContractDialog
-        open={isOpenDialog}
+        open={isPreviewOpen}
         formLoading={formLoading}
+        selectedDoc={selectedDoc}
         handleRefetch={handleRefetch}
         handlePreview={handlePreview}
         previewUrl={previewUrl}
         handleClose={() => setOpenPreview(false)}
       />
+      <Typography variant='caption' color={'error'} align="center"
+        component={'div'}
+      >
+
+        {isPreviewDisabled && isFormikBusy && <div>
+          処理中です。
+        </div>}
+
+        {isPreviewDisabled && !isValid && !envelopeStatus && <div>
+          フォームにエラーがあります。保存ボタンを押すと、エラー箇所が分かります。
+        </div>}
+
+        {isPreviewDisabled && dirty && <div>
+          保存されていない変更があります。保存してください。
+        </div>}
+
+      </Typography>
     </Stack>
   );
 };

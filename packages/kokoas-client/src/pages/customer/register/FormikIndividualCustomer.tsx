@@ -16,7 +16,6 @@ import { validationSchema } from './validationSchema';
 
 
 export const FormikIndividualCustomer = () => {
-
   const { mutateAsync: saveCustGroupMutation } = useSaveCustGroup();
   const { data: employees } = useEmployees();
 

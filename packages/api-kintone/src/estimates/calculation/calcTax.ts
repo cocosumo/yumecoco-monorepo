@@ -39,7 +39,7 @@ export const calcBeforeTax = (
   afterTaxValue: number,
   /** 1 + taxRate */
   taxRate: number,
-  isTaxable : boolean,
+  isTaxable: boolean,
 ) => {
 
   return calcTax(afterTaxValue, taxRate, isTaxable, 'before');

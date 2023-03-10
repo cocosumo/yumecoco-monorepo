@@ -24,7 +24,7 @@ export const FormIndividualCustomer  = () => {
     submitCount,
     values,
     dirty,
-    
+
   } = useFormikContext<TypeOfForm>();
 
   const {
@@ -41,7 +41,7 @@ export const FormIndividualCustomer  = () => {
 
   }, [isSubmitting, isValid, dirty, setSnackState, submitCount]);
 
-  const isDeletedStatus = Boolean(+isDeleted) || (touched.isDeleted && !submitCount);
+  const isDeletedStatus = Boolean(+isDeleted) || (!!touched.isDeleted && !submitCount);
 
   return (
 
@@ -55,29 +55,29 @@ export const FormIndividualCustomer  = () => {
       >
         {isDeletedStatus && <CustomerStatus />}
 
-        <Grid className='fieldarray' container item
+        <Grid
+          container item
           xs={12} md={8} lg={5}
           spacing={2}
         >
-          <Customers />
+          <Customers disabled={isDeletedStatus} />
         </Grid>
 
         <Grid container item xs={12}
           md={4} lg={6} spacing={4}
           justifyContent="center"
         >
-          <Agents />
-          {isEditMode && <MemoColumn />}
+          <Agents disabled={isDeletedStatus} />
+          {isEditMode && <MemoColumn disabled={isDeletedStatus} />}
         </Grid>
 
       </Grid>
 
-      <FabSave onClick={submitForm} url="custgroup" appear={!+isDeleted} />
+
+      <FabSave onClick={submitForm} url="custgroup" appear={dirty} />
       {
-          isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
-        }
-
-
+        isEditMode && !isDeletedStatus &&  <CustGroupShortcuts custGroupId={custGroupId} />
+      }
 
     </FormContainer>
 

@@ -3,9 +3,8 @@ import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { getFieldName, TypeOfForm } from './form';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
-import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Alert, Divider, Grid, Stack, Typography } from '@mui/material';
 import { PlannedPaymentDate } from './fieldComponents/PlannedPaymentDate';
-import { useResolveParams } from './hooks/useResolveParams';
 import { SearchCustGroup } from 'kokoas-client/src/components/ui/textfield';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
@@ -17,6 +16,8 @@ import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
 import { BillingTotal } from './fieldComponents/BillingTotal';
+import { SelectInvoices } from './fieldComponents/selectInvoices/SelectInvoices';
+import { ActionButtons } from './fieldComponents/ActionButtons';
 
 
 
@@ -24,28 +25,36 @@ export const FormInvoice = () => {
   const navigate = useNavigate();
   const { setSnackState } = useSnackBar();
 
-  const { values, submitForm, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
+  const { values, setValues, errors, submitCount } = useFormikContext<TypeOfForm>();
   const submitCountRef = useRef(0);
 
   const {
     custGroupId,
     custName,
     estimates,
+    invoiceStatus,
   } = values;
 
-  useResolveParams();
 
 
-  const exceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
-    return isForPayment && (+contractAmount < (+billedAmount + +billingAmount));
+  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+    const totalBilledAmount = +billedAmount + +billingAmount;
+    const isUnderContractAmount = (+contractAmount > 0) && (totalBilledAmount > +contractAmount);
+    const isOverContractAmount = (+contractAmount <= 0) && (totalBilledAmount < +contractAmount);
+
+    return isForPayment && (isUnderContractAmount || isOverContractAmount);
   });
+
+  const isBilled = (invoiceStatus !== 'created') && (invoiceStatus !== '');
+  const isVoided = invoiceStatus === 'voided';
+
 
   useEffect(() => {
     setValues((prev) => ({
       ...prev,
-      exceededContract: exceeded,
+      exceededContract: totalAmountExceeded,
     }));
-  }, [setValues, exceeded]);
+  }, [setValues, totalAmountExceeded]);
 
   useEffect(() => {
     if (!isEmpty(errors) && submitCount !== submitCountRef.current) {
@@ -81,17 +90,30 @@ export const FormInvoice = () => {
             }}
           />
         </Grid>
-        <Grid item md={6} />
-
 
         {custGroupId &&
+          <Grid
+            container
+            item
+            justifyContent="flex-end"
+            xs
+          >
+            <SelectInvoices custGroupId={custGroupId} />
+          </Grid>}
+
+        {!custGroupId &&
+          <Grid item md={6} />}
+
+
+
+        {custGroupId && !isVoided &&
           <>
             {/* 契約済み見積り情報の表示 */}
             <Grid item xs={12} md={12}>
               <Typography>
                 {'契約一覧'}
               </Typography>
-              <EstimatesTable />
+              <EstimatesTable isBilled={isBilled} />
             </Grid>
 
 
@@ -102,35 +124,47 @@ export const FormInvoice = () => {
 
             {/* 請求入力欄(テーブル) */}
             <Grid item xs={12} md={12}>
-              <Typography>
-                {'請求入力欄'}
-              </Typography>
-              <BillingEntryTable exceeded={exceeded} />
+              <Stack direction={'row'}>
+                <Typography>
+                  {'請求入力欄　'}
+                </Typography>
+                <Typography variant={'caption'}>
+                  {'※請求には課税対象分から使用し、非課税額は最後に使用します'}
+                </Typography>
+              </Stack>
+              <BillingEntryTable
+                totalAmountExceeded={totalAmountExceeded}
+                isBilled={isBilled}
+              />
             </Grid>
 
 
-            {/* 請求合計 */}
-            <Grid item xs={12} md={7}>
-              <BillingTotal />
+            <Grid item xs={12} md={12}>
+              <Divider />
             </Grid>
 
 
-            {/* 入金予定日 */}
-            <Grid item xs={12} md={5}>
-              <PlannedPaymentDate />
+            <Grid container
+              spacing={2}
+              alignItems="flex-end"
+              padding={2}
+            >
+              <Grid item xs={12} md={7}>
+                {/* 請求合計 */}
+                <BillingTotal />
+              </Grid>
+
+              <Grid item xs={12} md={5}>
+                {/* 入金予定日 */}
+                <PlannedPaymentDate isBilled={isBilled} />
+              </Grid>
             </Grid>
 
 
-            {/* 請求書発行ボタン */}
-            <Grid item xs={12} md={6}>
-              <Button
-                variant="contained"
-                onClick={submitForm}
-              >
-                請求書発行
-              </Button>
+            {/* 各種ボタン */}
+            <Grid item xs={12} md={12}>
+              <ActionButtons />
             </Grid>
-            <Grid item md={6} />
           </>}
 
         {!custGroupId &&
@@ -138,6 +172,13 @@ export const FormInvoice = () => {
             <EmptyBox>
               顧客を選択してください
             </EmptyBox>
+          </Grid>}
+
+        {isVoided &&
+          <Grid item xs={12} md={6}>
+            <Alert severity="error">
+              破棄した請求書のため、参照できません
+            </Alert>
           </Grid>}
 
       </MainContainer>

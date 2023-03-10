@@ -38,7 +38,7 @@ export const EstRowContainer = (props: StackProps & {
         width: '100%',
         minWidth: '600px',
         opacity: isAtBottom ? 0.5 : undefined,
-        background: rowIdx % 2 ? grey[50] : undefined,
+        background: rowIdx % 2 ? grey[100] : '#ffffff',
         '&:hover': isAtBottom ? {
           opacity: 1,
         } : undefined,

@@ -8,6 +8,16 @@ export type TEnvelopeStatus =
 | 'voided'
 | '' ;
 
+export const roles = {
+  officer: '担当者',
+  customer: '顧客',
+  storeMngr: '店長',
+  accounting: '経理',
+  main: '本社',
+} as const;
+
+export type TRecipientRole = keyof typeof roles;
+
 export const events = [
   'envelope-sent',
   'envelope-resent',

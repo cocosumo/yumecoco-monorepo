@@ -59,6 +59,13 @@ export const updateEstimateEnvelope = async ({
       value: JSON.stringify(recipients),
     },
 
+    ...(
+      event === 'envelope-completed' ?
+        {
+          envCompleteDate: { value : new Date().toISOString() },
+        } : {}
+    ),
+
     // Conditionally update attached file if a new file is uploaded
     ...(
       fileKeys.length ?

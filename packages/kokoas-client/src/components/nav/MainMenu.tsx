@@ -9,6 +9,8 @@ import SystemMenu from './menus/SystemMenu';
 import { ConstructionMenu } from './menus/ConstructionMenu';
 import EstimateMenu from './menus/EstimateMenu';
 import PaymentMenu from './menus/PaymentMenu';
+import packageInfo from 'kokoas-client/src/lib/packageInfo';
+import { Typography } from '@mui/material';
 
 export default function MainMenu() {
   return (
@@ -27,6 +29,10 @@ export default function MainMenu() {
       <SystemMenu />
       <Divider />
       <KintoneButton />
+      <Typography variant={'caption'} textAlign={'center'} component={'div'}>
+        {`V${packageInfo.version}`}
+      </Typography>
+
     </div>
   );
 }

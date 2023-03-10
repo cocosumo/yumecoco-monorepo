@@ -1,11 +1,9 @@
 import { FormControl, FormLabel, Stack } from '@mui/material';
-import { FormikJADatePicker } from '../../../../components/ui/datetimepickers/FormikJADatePicker';
-import { KeyOfForm } from '../../form';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
+import { grey } from '@mui/material/colors';
+import { DateRangeField } from './DateRangeField';
 
 export const ContractDateRange = () => {
-
-  const [fromField, toField ]: KeyOfForm[] = ['contractDateFrom', 'contractDateTo'];
 
   return (
     <FormControl>
@@ -13,9 +11,9 @@ export const ContractDateRange = () => {
         契約日
       </FormLabel>
       <Stack direction={'row'} spacing={1} alignItems={'center'}>
-        <FormikJADatePicker label={''} name={fromField} />
-        <DoubleArrowIcon color={'inherit'} />
-        <FormikJADatePicker label={''} name={toField} />
+        <DateRangeField name={'contractDateFrom'} />
+        <DoubleArrowIcon htmlColor={grey[700]} />
+        <DateRangeField name={'contractDateTo'} />
       </Stack>
     </FormControl>
 

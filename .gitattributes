@@ -7,10 +7,12 @@
 #
 ## これらのファイルはバイナリであり、そのままにしておく必要がある
 #
+*.gif binary
 *.png binary
 *.jpg binary
 *.png binary
 *.ttf binary
+*.svg binary
 *.pdf binary
 *.xls binary
 *.xlsx binary

@@ -1,64 +1,63 @@
-/* 請求書発行ボタンを押したときの保存処理 */
+import { useFormikContext } from 'formik';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import { TInvoiceStatus, TypeOfForm } from '../form';
 
-import { Formik } from 'formik';
-import { useSaveInvoice } from 'kokoas-client/src/hooksQuery';
-import { ComponentProps, useEffect } from 'react';
-import { useBackdrop, useSnackBar } from '../../../hooks';
-import { convertToKintone } from '../api/convertToKintone';
-import { TypeOfForm } from '../form';
 
 export const useSubmitInvoice = () => {
 
-  const { mutateAsync, isPaused } = useSaveInvoice();
-
-  const { setBackdropState } = useBackdrop();
   const { setSnackState } = useSnackBar();
+  const {
+    submitForm,
+    setValues,
+    // values,
+  } = useFormikContext<TypeOfForm>();
 
+  // const { invoiceStatus } = values;
 
-  useEffect(() => {
-    if (isPaused) {
-      setSnackState({
-        open: true,
-        severity: 'error',
-        message: '保存に失敗しました。ネットワークエラーです。',
+  const handleSubmit = (newInvoiceStatus: TInvoiceStatus) => {
+
+    setValues((prev) => {
+      return ({
+        ...prev,
+        invoiceStatus: newInvoiceStatus,
       });
-      setBackdropState({ open: false });
-    }
+    });
 
-  }, [isPaused, setSnackState, setBackdropState]);
+    submitForm();
+  };
 
-  const onSubmit: ComponentProps<typeof Formik<TypeOfForm>>['onSubmit'] = async (
-    values,
-    {
-      resetForm,
-    },
-  ) => {
+  const handlePreview = () => {
 
-    const kintoneRecord = convertToKintone(values);
-    await mutateAsync({
-      record: kintoneRecord,
-      recordId: values.invoiceId,
-    }).then((res) => {
-      setSnackState({
-        open: true,
-        severity: 'success',
-        message: '保存しました。',
-      });
-      console.log('res', res);
-      resetForm({
-        values: { ...values, invoiceId: res.id },
-      });
-    }).catch((err) => {
-      setSnackState({
-        open: true,
-        severity: 'error',
-        message: `保存が失敗しました。${err.message}`,
-      });
+    setSnackState({
+      open: true,
+      severity: 'warning',
+      message: '開発中です',
     });
   };
 
-  return {
-    onSubmit,
+  const handleSave = () => {
+    handleSubmit('created');
   };
 
+  const handleIssue = () => {
+    handleSubmit('sent');
+    handlePreview();
+  };
+
+  const handleReissue = () => {
+    // handleSubmit(invoiceStatus); // 予定が未定かつ、請求書の日付を更新する場合のみ
+    handlePreview();
+  };
+
+  const handleVoided = () => {
+    handleSubmit('voided');
+  };
+
+
+  return {
+    handleSave,
+    handleIssue,
+    handleReissue,
+    handleVoided,
+  };
 };

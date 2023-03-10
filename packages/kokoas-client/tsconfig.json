@@ -10,7 +10,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "isolatedModules": false,
-    "lib": ["ES2022"]
+    "lib": ["ES2022"],
+    "resolveJsonModule": true
   },
   "files": [
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts",

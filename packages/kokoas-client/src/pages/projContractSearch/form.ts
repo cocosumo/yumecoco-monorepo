@@ -1,20 +1,25 @@
+import * as Yup from 'yup';
+import { validationSchema } from './formValidation';
 
 
 
-export const initialValues = {
-  isFilterOpen: false,
+export const initialValues: TypeOfForm = {
+  order: 'asc',
+  orderBy: 'estimateDataId',
   mainSearch: '',
-  projName: '',
-  contractDateFrom: '' as string | Date,
-  contractDateTo: '' as string | Date,
-  amountFrom: '',
-  amountTo: '',
+  contractDateFrom: null,
+  contractDateTo: null,
+  amountFrom: undefined,
+  amountTo: undefined,
+  contractCompleted: false,
+  contractIncomplete: false,
+  contractStepTencho: false,
+  contractStepCustomer: false,
+  contractStepAG: false,
+  contractStepAccounting: false,
+  contractStepMain: false,
 };
 
-export type TypeOfForm =  typeof initialValues;
+
+export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
 export type KeyOfForm = keyof TypeOfForm;
-
-
-/* Utility functions */
-
-export const getFieldName = (s: KeyOfForm) => s;

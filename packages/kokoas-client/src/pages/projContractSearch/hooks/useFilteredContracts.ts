@@ -88,7 +88,7 @@ export const useFilteredContracts = () => {
           envRecipients,
         } = cur;
 
-        // 契約進歩の中に何もが選択されていないかチェック
+        // 契約進捗の中に何も選択されていないかチェック
         const noContractStatusSelected = [
           contractCompleted,
           contractStepAG,

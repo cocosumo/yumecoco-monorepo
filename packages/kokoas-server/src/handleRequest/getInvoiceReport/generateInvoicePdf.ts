@@ -64,5 +64,6 @@ export const generateInvoicePdf = async (
   // const pdfBytes = await pdfDoc.save(); // pdfデータをバイナリで取得
   /* test用のコード　ここまで */
 
+  // return pdfBytes;
   return pdfDoc.saveAsBase64();
 };

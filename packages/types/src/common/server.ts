@@ -149,6 +149,11 @@ export interface IRequestJWTUserTokenResponse {
   }
 }
 
+export interface DownloadInvoiceResponse {
+  pdfDat: string,
+  generatedTime: Date,
+}
+
 export type ApiNodes =
   | 'docusign'
   | 'kokoas';

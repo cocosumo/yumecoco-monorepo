@@ -9,6 +9,7 @@ export const convertToKintone = ({
   exceedChecked,
   invoiceStatus,
 }: TypeOfForm,
+issuedDateTime = new Date(),
 ) => {
 
   const billingAmount = estimates.reduce((acc, cur) => {
@@ -20,7 +21,7 @@ export const convertToKintone = ({
     billingAmount: { value: String(billingAmount) },
     slipNumber: { value: '' },
     plannedPaymentDate: { value: toKintoneDateStr(plannedPaymentDate) },
-    issuedDateTime: { value: toKintoneDateStr(new Date(), true) },
+    issuedDateTime: { value: toKintoneDateStr(issuedDateTime, true) },
     custGroupId: { value: custGroupId },
     exceedChecked: { value: exceedChecked ? '1' : '0' },
     invoiceStatus: { value: invoiceStatus },

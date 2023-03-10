@@ -4,7 +4,7 @@ import { kokoasEndpoints } from 'libs/src/endpoints';
 import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
 import { saveProjectToAndpad } from '../handleRequest';
 import bodyParser from 'body-parser';
-import { reqGetInvoiceReport } from '../handleRequest/getInvoiceReport/reqGetInvoiceReport';
+import { reqDownloadInvoice } from '../handleRequest/getInvoiceReport/reqDownloadInvoice';
 
 
 const route = router();
@@ -30,7 +30,7 @@ route.post(
 route.get(
   `/${kokoasEndpoints.downloadInvoice}/:invoiceId`,
   bodyParser.json({ limit: '50mb' }),
-  reqGetInvoiceReport,
+  reqDownloadInvoice,
 );
 
 

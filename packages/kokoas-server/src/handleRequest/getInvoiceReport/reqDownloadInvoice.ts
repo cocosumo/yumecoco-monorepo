@@ -1,10 +1,10 @@
 import { getInvoiceById } from 'api-kintone/src/invoice/getInvoiceById';
 import { RequestHandler } from 'express';
-import { ParsedInvoiceReport } from 'types';
+import { DownloadInvoiceResponse } from 'types';
 import { generateInvoicePdf } from './generateInvoicePdf';
 import { parseInvoiceDat } from './parseInvoiceDat';
 
-export interface ReqGetInvoiceReport {
+export interface ReqDownloadInvoice {
   invoiceId?: string,
 }
 
@@ -14,9 +14,9 @@ export interface ReqGetInvoiceReport {
  * @param req 
  * @param res 
  */
-export const reqGetInvoiceReport: RequestHandler<
-ReqGetInvoiceReport,
-ParsedInvoiceReport
+export const reqDownloadInvoice: RequestHandler<
+ReqDownloadInvoice,
+DownloadInvoiceResponse
 > = async (req, res) => {
   try {
 
@@ -24,19 +24,16 @@ ParsedInvoiceReport
 
     const invoiceId = req.params.invoiceId as string;
     const recInvoice = await getInvoiceById(invoiceId);
-    // console.log('record invoice : ', recInvoice);
-
     const result = await parseInvoiceDat(recInvoice);
-
-    res.status(200).json(result);
 
 
     const pdfDat = await generateInvoicePdf(result); // PDFの作成
 
-    // fs.writeFileSync('test.pdf', pdfDat); // for debug
 
-    console.log('invoice check point');
-    // res.status(200).json(pdf);
+    res.status(200).json({
+      pdfDat,
+      generatedTime: new Date(),
+    });
 
   } catch (err) {
     console.error(err?.message);

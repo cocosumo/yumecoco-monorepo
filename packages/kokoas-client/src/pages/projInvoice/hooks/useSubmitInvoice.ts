@@ -1,18 +1,21 @@
 import { useFormikContext } from 'formik';
-import { useSnackBar } from 'kokoas-client/src/hooks';
+import { useDownloadInvoiceId } from 'kokoas-client/src/hooksQuery';
+import { base64ToBlob } from 'kokoas-client/src/lib';
 import { TInvoiceStatus, TypeOfForm } from '../form';
 
 
 export const useSubmitInvoice = () => {
 
-  const { setSnackState } = useSnackBar();
   const {
     submitForm,
     setValues,
-    // values,
+    values,
   } = useFormikContext<TypeOfForm>();
 
-  // const { invoiceStatus } = values;
+  const { invoiceId } = values;
+
+  const { mutateAsync: invoiceDat } = useDownloadInvoiceId();
+
 
   const handleSubmit = (newInvoiceStatus: TInvoiceStatus) => {
 
@@ -26,31 +29,43 @@ export const useSubmitInvoice = () => {
     submitForm();
   };
 
-  const handlePreview = () => {
+  const handlePreview = async () => {
 
-    // プレビュー実装
+    // サーバからデータ取得
+    const {
+      pdfDat,
+    } = await invoiceDat(invoiceId);
 
-    setSnackState({
-      open: true,
-      severity: 'warning',
-      message: '開発中です',
-    });
+
+    // base64形式から、blobに変換し、URLでPDFを開く
+    const pdfBlob = base64ToBlob(pdfDat, 'application/pdf');
+    const url = URL.createObjectURL(pdfBlob);
+    window.open(url);
+
   };
 
+
+  /** 請求書の保存処理(発行はしない) */
   const handleSave = () => {
     handleSubmit('created');
   };
 
+
+  /** 請求書の発行処理 */
   const handleIssue = () => {
     handleSubmit('sent');
     handlePreview();
   };
 
+
+  /** 請求書の再発行処理 */
   const handleReissue = () => {
-    // handleSubmit(invoiceStatus); // 予定が未定かつ、請求書の日付を更新する場合のみ
+    // const updateIssuedDateTime = handleSubmit(invoiceStatus); // 予定が未定かつ、請求書の日付を更新する場合のみ
     handlePreview();
   };
 
+
+  /** 請求書の破棄 */
   const handleVoided = () => {
     handleSubmit('voided');
   };

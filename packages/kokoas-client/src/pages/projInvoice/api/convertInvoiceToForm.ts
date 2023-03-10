@@ -1,12 +1,12 @@
 import { Big } from 'big.js';
 import { parseISO } from 'date-fns';
-import { EstimateList } from 'kokoas-client/src/hooksQuery';
-import { TMaterials, TypeOfForm } from '../form';
+import { InvoiceSummary } from 'kokoas-client/src/hooksQuery';
+import { TInvoiceStatus, TMaterials, TypeOfForm } from '../form';
 
 export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
   estimates: TMaterials[],
-  datInvoicesTotal: EstimateList[],
+  datInvoicesSummary: InvoiceSummary[],
   estimateIdArray: string[],
 ): Partial<TypeOfForm> => {
   const {
@@ -15,6 +15,7 @@ export const convertInvoiceToForm = (
     estimateLists,
     plannedPaymentDate,
     exceedChecked,
+    invoiceStatus,
   } = recInvoice;
 
 
@@ -40,9 +41,18 @@ export const convertInvoiceToForm = (
       return (value.dataId.value === dataId);
     })?.value.amountPerContract.value ?? '0';
 
-    const tgtBilledAmount = datInvoicesTotal?.find(({ dataId: dataIdOfInvoice }) => {
+    const invoiceSummary = datInvoicesSummary?.find(({ dataId: dataIdOfInvoice }) => {
       return dataIdOfInvoice === dataId;
-    })?.billedAmount ?? '0';
+    });
+
+    const invoiceStatusVal = invoiceStatus.value as TInvoiceStatus;
+    const isBilled = invoiceStatusVal === 'completed' || invoiceStatusVal === 'sent';
+    const tgtBilledAmount = isBilled
+      ? Big(invoiceSummary?.billedAmount ?? 0).minus(tgtBillingAmount).toNumber()
+      : (invoiceSummary?.billedAmount ?? 0);
+    const tgtCreatedAmount = isBilled
+      ? Big(invoiceSummary?.createdAmount ?? 0).minus(tgtBillingAmount).toNumber()
+      : (invoiceSummary?.createdAmount ?? 0);
 
     const isForPaymentFromURL = estimateIdArray.some((id) => id === estimateId);
 
@@ -53,7 +63,8 @@ export const convertInvoiceToForm = (
       dataId: dataId,
       contractAmount: Number(contractAmount),
       nonTaxableAmount: nonTaxableAmount,
-      billedAmount: Number(Big(tgtBilledAmount).minus(tgtBillingAmount)),
+      billedAmount: tgtBilledAmount,
+      createdAmount: tgtCreatedAmount,
       billingAmount: Number(tgtBillingAmount),
       amountType: amountType,
       isForPayment: tgtBillingAmount !== '0' || isForPaymentFromURL,
@@ -71,6 +82,7 @@ export const convertInvoiceToForm = (
     undecidedPaymentDate: !plannedPaymentDate.value,
     exceedChecked: Boolean(exceedChecked.value),
     estimates: newEstimates,
+    invoiceStatus: invoiceStatus.value as TInvoiceStatus,
   };
 
 };

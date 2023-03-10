@@ -1,31 +1,67 @@
 import { Chip, Stack } from '@mui/material';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KeyOfForm, parseValue, TypeOfForm } from '../../form';
+import { KeyOfForm } from '../../form';
 import qs from 'qs';
+import { parseValueToLabel } from '../../helpers/parseValueToLabel';
+import { stepsKeys } from '../filterDialog/ContractStatusIncomplete';
+import { useNewValuesFromParams } from '../../hooks/useNewValuesFromParams';
+import { filterNonNull } from 'libs';
 
 export const FilterChips = () => {
 
-  const values = useURLParams<TypeOfForm>();
+  const values = useNewValuesFromParams();
+
+
+
   const navigate = useNavigate();
 
+  /**
+   * チップの✖をクリックしたときの処理
+   */
   const handleDelete = useCallback((key: KeyOfForm) => {
+
+    // keyを除いたオブジェクトを作成
+
     const { [key]: _, ...query } = values;
-    navigate(`?${qs.stringify(query)}`);
+
+    let newQuery = query;
+
+    // keyがcontractで始まる場合は、falseをセット
+    if (key.startsWith('contract')) {
+      if (key === 'contractIncomplete') {
+        // 未完了の場合は、細かい進歩もfalseにする
+        stepsKeys.forEach((stepKey) => {
+          newQuery = { ...newQuery, [stepKey]: false };
+        });
+
+      } else {
+        // それ以外の場合は、keyをfalseにする
+        newQuery = { ...query, [key]: false };
+      }
+    }
+
+    navigate(`?${qs.stringify(filterNonNull(newQuery))}`);
   }, [values, navigate]);
 
   return (
-    <Stack direction={'row'} spacing={1} my={2}>
+    <Stack
+      direction={'row'}
+      spacing={1}
+      flexWrap={'wrap'}
+      alignItems={'center'}
+      my={1}
+    >
       {Object.entries(values)
         .sort(([k1], [k2]) => {
           return k1.localeCompare(k2);
         })
         .reduce((acc, [k, v]) => {
-          const parsedValue = parseValue(k as KeyOfForm, v);
+          const parsedValue = parseValueToLabel(k as KeyOfForm, v);
           if (parsedValue) {
             acc.push(
               <Chip
+                sx={{ my: 1 }}
                 size={'small'}
                 key={k}
                 label={parsedValue}

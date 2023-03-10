@@ -2,6 +2,7 @@ import { TableCell, TableRow, TableRowProps } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const TRowLayout = ({
+  contractStatus,
   projDataId,
   estNum,
   projName,
@@ -20,6 +21,7 @@ export const TRowLayout = ({
   menu,
   tableRowProps,
 }: {
+  contractStatus: ReactNode,
   projDataId: ReactNode,
   estNum: ReactNode,
   projName: ReactNode,
@@ -41,6 +43,8 @@ export const TRowLayout = ({
   return (
     <TableRow {...tableRowProps}>
       <TableCell >
+        {contractStatus}
+        <br />
         {projDataId}
         <br />
         {estNum}

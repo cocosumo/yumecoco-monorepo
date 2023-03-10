@@ -1,6 +1,7 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { AmountRange } from './AmountRange';
 import { ContractDateRange } from './ContractDateRange';
+import { ContractStatus } from './ContractStatus';
 import { FilterDialogContent } from './FilterDialogContent';
 import { SubmitButton } from './SubmitButton';
 
@@ -29,6 +30,9 @@ export const FilterDialog = ({
       <FilterDialogContent>
         <AmountRange minAmount={minAmount} maxAmount={maxAmount} />
         <ContractDateRange />
+
+        <ContractStatus />
+
       </FilterDialogContent>
       <DialogActions>
         <Button variant={'text'} onClick={handleClose}>

@@ -27,7 +27,7 @@ export * from './useInvoices';
 export * from './useInvoicesByCustGroupId';
 export * from './useInvoicesById';
 export * from './useInvoicesByProjId';
-export * from './useInvoiceTotalByCustGroupId';
+export * from './useInvoicesSummaryByCustGroupId';
 export * from './useInvoiceTotalByProjId';
 export * from './useMaterialsItem';
 export * from './useMaterialsMajor';

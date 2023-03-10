@@ -4,13 +4,18 @@ import parseISO from 'date-fns/parseISO';
 import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
-import { latestInvoiceReducer } from './util/latestInvoiceReducer';
+import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
 import { formatDataId } from 'libs';
-import { IInvoices, TEnvelopeStatus } from 'types';
+import { IInvoices, TEnvelopeStatus, roles } from 'types';
 import { initialValues, TypeOfForm } from '../form';
-import { itemsSorter } from './util/itemsSorter';
+import { itemsSorter } from '../helpers/itemsSorter';
+import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
+import { useCallback } from 'react';
 
 export interface ContractRow {
+  contractStatus: TEnvelopeStatus,
+  currentContractRole: string,
+  currentContractName: string,
   uuid: string,
   custGroupId: string,
   projId: string,
@@ -49,9 +54,13 @@ export const useFilteredContracts = () => {
     contractDateTo,
     order = initialValues.order,
     orderBy = initialValues.orderBy || 'estimateDataId',
+    contractCompleted,
+    contractStepAG,
+    contractStepAccounting,
+    contractStepCustomer,
+    contractStepMain,
+    contractStepTencho,
   } = useURLParams<TypeOfForm>();
-
-
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
@@ -59,7 +68,7 @@ export const useFilteredContracts = () => {
 
   return useEstimates({
     enabled: !!projData && !!custGroupData && !!invoiceData,
-    select: (d) => {
+    select: useCallback((d) => {
 
       if (!projData || !custGroupData || !invoiceData) return;
 
@@ -67,7 +76,7 @@ export const useFilteredContracts = () => {
       let maxAmount = 0;
 
       // Combine data
-      const items = d.reduce((acc, cur) => {
+      const items = d.reduce<ContractRow[]>((acc, cur) => {
 
         /* 見積情報 */
         const {
@@ -76,11 +85,25 @@ export const useFilteredContracts = () => {
           dataId,
           envStatus,
           contractDate,
+          envRecipients,
         } = cur;
 
-        /* 契約済みじゃないなら、次のレコードへ行く */
-        if ((envStatus.value as TEnvelopeStatus) !== 'completed') return acc;
+        // 契約進捗の中に何も選択されていないかチェック
+        const noContractStatusSelected = [
+          contractCompleted,
+          contractStepAG,
+          contractStepAccounting,
+          contractStepCustomer,
+          contractStepMain,
+          contractStepTencho,
+        ].every((v) => !v);
 
+        /* 契約じゃないなら、次のレコードへ行く */
+        if (!envStatus.value) return acc;
+
+        /* 契約進歩のフィルター */
+        const currentContractStep = getCurrentContractStep(envRecipients.value);
+        
 
         /* 工事情報 */
         const {
@@ -129,7 +152,12 @@ export const useFilteredContracts = () => {
           maxAmount = totalAmountAfterTax;
         }
 
+        const envelopeStatus = envStatus.value as TEnvelopeStatus;
+
         const resultRow = {
+          contractStatus: envelopeStatus,
+          currentContractRole: currentContractStep?.roleName || '',
+          currentContractName: currentContractStep?.name || '',
           uuid: uuid.value,
           custGroupId: custGroupId?.value || '',
           projId: projId.value,
@@ -156,14 +184,23 @@ export const useFilteredContracts = () => {
         const contractDateMil = contractDate.value ? new Date(contractDate.value) : undefined ;
 
         const isMainSearch = !mainSearch || Object.values(resultRow).some((val) => val.toString().includes(mainSearch));
-        const isAboveMinAmount = !(!!amountFrom && totalAmountAfterTax < +amountFrom);
-        const isBelowMaxAmount = !(!!amountTo && totalAmountAfterTax > +amountTo);
+        const isAboveMinAmount = !(amountFrom && totalAmountAfterTax < +amountFrom);
+        const isBelowMaxAmount = !(amountTo && totalAmountAfterTax > +amountTo);
         const afterContractDateFrom = contractDateMil && contractDateFrom
           ? new Date(contractDateFrom) <= contractDateMil
           : !contractDateFrom;
         const beforeContractDateTo = contractDateMil && contractDateTo
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
+
+        const isIncompleteContract = envelopeStatus === 'sent';
+        const isInContractStatus = noContractStatusSelected 
+          || (contractCompleted && envelopeStatus === 'completed')
+          || (isIncompleteContract && contractStepAG && currentContractStep?.roleName === roles.officer)
+          || (isIncompleteContract && contractStepAccounting && currentContractStep?.roleName === roles.accounting)
+          || (isIncompleteContract && contractStepCustomer && currentContractStep?.roleName === roles.customer)
+          || (isIncompleteContract && contractStepMain && currentContractStep?.roleName === roles.main)
+          || (isIncompleteContract && contractStepTencho && currentContractStep?.roleName === roles.storeMngr);
 
 
         // 含むかどうか判定、
@@ -172,13 +209,14 @@ export const useFilteredContracts = () => {
           && isBelowMaxAmount
           && afterContractDateFrom
           && beforeContractDateTo
+          && isInContractStatus
         ) {
           acc.push(resultRow);
         }
 
         return acc;
       },
-      [] as ContractRow[],
+      [],
       );
 
       // ソート
@@ -190,7 +228,24 @@ export const useFilteredContracts = () => {
         minAmount,
         maxAmount,
       };
-    },
+    }, [
+      projData,
+      custGroupData,
+      invoiceData,
+      mainSearch,
+      amountFrom,
+      amountTo,
+      contractDateFrom,
+      contractDateTo,
+      order,
+      orderBy,
+      contractCompleted,
+      contractStepAG,
+      contractStepAccounting,
+      contractStepCustomer,
+      contractStepMain,
+      contractStepTencho,
+    ]),
   });
 
 };

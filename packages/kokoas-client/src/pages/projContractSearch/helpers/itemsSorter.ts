@@ -1,5 +1,5 @@
-import { TypeOfForm } from '../../form';
-import { ContractRow } from '../useFilteredContracts';
+import { TypeOfForm } from '../form';
+import { ContractRow } from '../hooks/useFilteredContracts';
 
 /** 数字をソートする */
 const sortNumber = (a: number, b: number, desc: boolean) =>

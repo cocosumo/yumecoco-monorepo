@@ -38,6 +38,7 @@ declare global {
       LOCAL_URL: string;
     }
   }
+
 }
 
 export {}

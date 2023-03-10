@@ -25,6 +25,7 @@ export const sortEstimatesByProjId = ({
       contractAmount: calculated?.[idx].summary.totalAmountAfterTax,
       nonTaxableAmount: calculated?.[idx].summary.totalNonTaxableAmount,
       billedAmount: 0,
+      createdAmount: 0,
       billingAmount: 0,
       amountType: '',
       isForPayment: !!(+record.isForPayment.value),

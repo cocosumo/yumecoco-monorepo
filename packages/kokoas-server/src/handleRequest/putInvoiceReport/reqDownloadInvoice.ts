@@ -45,8 +45,10 @@ ReqDownloadInvoice
     if (update) {
       const newRecInvoice:DBInvoices.SavedData = {
         ...recInvoice,
-        issuedDateTime: { value: toKintoneDateStr(new Date(), true) },
+        // issuedDateTime: { value: toKintoneDateStr(new Date(), true) },
       };
+
+      console.log('newRecInvoice', newRecInvoice);
 
       await saveInvoices({
         recordId: invoiceId,

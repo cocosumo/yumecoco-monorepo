@@ -91,7 +91,7 @@ export const FormInvoice = () => {
           />
         </Grid>
 
-        {isBilled &&
+        {isBilled && !isVoided &&
           <Grid item xs={12} md={4} >
             <Alert severity="info">
               発行済みの請求書のため、閲覧モードで開きます

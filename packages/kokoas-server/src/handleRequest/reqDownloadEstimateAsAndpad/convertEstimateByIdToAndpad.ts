@@ -1,5 +1,6 @@
 import { getEstimateById } from 'api-kintone';
 import { estimateToAndpadJson } from './conversions/estimateToAndpadJson';
+import { andpadJsonToExcel } from './conversions/andpadJsonToExcel';
 
 
 /**
@@ -27,6 +28,8 @@ export const convertEstimateByIdToAndpad = async (estimateId: string) => {
 
   const estJson = estimateToAndpadJson(estimateRec);
 
-  console.log(estJson);
+  const estExcel = andpadJsonToExcel(estJson);
+
+  return estExcel;
 
 };

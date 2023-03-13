@@ -1,5 +1,7 @@
 import { EnvelopeUpdateSummary } from 'docusign-esign';
 import { TEnvelopeStatus } from './docusign';
+import { z } from 'zod';
+
 
 export type TProjReq = {
   projId?: string,
@@ -131,6 +133,12 @@ export interface IRequestJWTUserTokenResponse {
     expires_in: string
   }
 }
+
+export const reqDownloadEstimateAsAndpad = z.object({
+  estimateId: z.string(),
+});
+
+export type ReqDownloadEstimateAsAndpad = z.infer<typeof reqDownloadEstimateAsAndpad>;
 
 export type ApiNodes =
 | 'docusign'

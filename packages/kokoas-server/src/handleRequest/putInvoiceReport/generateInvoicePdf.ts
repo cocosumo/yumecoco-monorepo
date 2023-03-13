@@ -42,7 +42,7 @@ export const generateInvoicePdf = async (
   console.log('firstPage', firstPage);
 
 
-  // PDF書き込み処理 ここから
+  // PDF書き込み処理 ここから TODO
 
   // 請求書番号
   firstPage.drawText(

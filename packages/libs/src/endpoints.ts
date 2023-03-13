@@ -1,17 +1,7 @@
-import { KokoasApiNodes } from 'types';
-
-export const getKokoasEndpoint = (k: KokoasApiNodes) => k;
-
-export type TKokoasEnpoint =
-| 'uploadEstimates'
-| 'uploadGenka'
-| 'saveProjectToAndpad'
-| 'downloadInvoice';
 
 
 
-/** リファクタリングが必要　 ~ ras */
-export const kokoasEndpoints : Record<TKokoasEnpoint, KokoasApiNodes> = {
+export const kokoasEndpoints = {
   /** 大黒さんの見積をアップロードし、変換する */
   uploadEstimates : 'upload/daikoku/estimate',
 
@@ -21,6 +11,14 @@ export const kokoasEndpoints : Record<TKokoasEnpoint, KokoasApiNodes> = {
   /** 案件をAndpadへ登録 */
   saveProjectToAndpad: 'andpad/register',
 
+  /** 見積をAndpadの実行予算の形式でダウンロード */
+  downloadEstimateAsAndpad: 'download/estimate/andpad',
+  
   /** 請求書 */
   downloadInvoice: 'download/invoice',
-};
+} as const;
+
+export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;
+export type TKokoasEndpoint = typeof kokoasEndpoints[keyof typeof kokoasEndpoints];
+
+export const getKokoasEndpoint = (k: TKokoasEndpoint) => k;

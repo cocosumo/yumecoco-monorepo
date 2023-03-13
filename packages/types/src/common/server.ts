@@ -155,11 +155,5 @@ export interface DownloadInvoiceResponse {
 }
 
 export type ApiNodes =
-  | 'docusign'
-  | 'kokoas';
-
-export type KokoasApiNodes =
-  | 'upload/daikoku/estimate'
-  | 'upload/daikoku/genka'
-  | 'andpad/register'
-  | 'download/invoice';
+| 'docusign'
+| 'kokoas';

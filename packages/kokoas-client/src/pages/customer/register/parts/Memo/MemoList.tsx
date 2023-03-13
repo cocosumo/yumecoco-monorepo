@@ -26,16 +26,18 @@ interface MemoListProps {
   memos: Array<MemoFormType>,
   custName: string,
   custGroupId: string,
+  disabled: boolean,
 }
 
 interface MemoItemProps {
   memoItem : MemoFormType,
+  disabled: boolean,
   handleClickMenu: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, memoItem: MemoFormType )=>void
 }
 
 
 const MemoListItem = (props: MemoItemProps) => {
-  const { memoItem, handleClickMenu } = props;
+  const { memoItem, disabled, handleClickMenu } = props;
   const { contents, memoType, createDate, commenter } = memoItem;
 
   return (
@@ -61,7 +63,7 @@ const MemoListItem = (props: MemoItemProps) => {
               </span>
 
 
-              <IconButton onClick={(e) => handleClickMenu(e, memoItem )}>
+              <IconButton disabled={disabled} onClick={(e) => handleClickMenu(e, memoItem )}>
                 <MoreVertIcon />
               </IconButton>
             </Stack>
@@ -83,7 +85,7 @@ const MemoListItem = (props: MemoItemProps) => {
 
 
 export const MemoList = (props: MemoListProps) => {
-  const { memos, custName, custGroupId } = props;
+  const { memos, custName, disabled, custGroupId } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedMenuItem, setSelectedMenuItem] = useState<MemoFormType>();
 
@@ -131,7 +133,7 @@ export const MemoList = (props: MemoListProps) => {
       memos.map((prop) => (
         <Collapse key={prop.memoId}>
           <div >
-            <MemoListItem handleClickMenu={handleClickMenu} memoItem={prop} />
+            <MemoListItem disabled={disabled} handleClickMenu={handleClickMenu} memoItem={prop} />
           </div>
         </Collapse>))
       }

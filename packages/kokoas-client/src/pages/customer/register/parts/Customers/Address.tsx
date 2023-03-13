@@ -13,6 +13,7 @@ import { AddressFields } from './AddressFields';
 interface AddressProps {
   namePrefix: string,
   index: number
+  disabled: boolean,
 }
 
 export const Address = (props: AddressProps) => {
@@ -25,6 +26,7 @@ export const Address = (props: AddressProps) => {
   const {
     namePrefix,
     index,
+    disabled,
   } = props;
 
   const { isSameAddress = true, postal, address1 } = customers[index] ?? {};
@@ -56,12 +58,17 @@ export const Address = (props: AddressProps) => {
     <>
       { !isFirstCustomer &&
       <Grid item xs={12}>
-        <FormikLabeledCheckBox name={`${namePrefix}${getCustFieldName('isSameAddress')}`} label="住所は【契約者１】と同じ" defaultVal={isSameAddress} />
+        <FormikLabeledCheckBox
+          disabled={disabled}
+          name={`${namePrefix}${getCustFieldName('isSameAddress')}`} label="住所は【契約者１】と同じ"
+          defaultVal={isSameAddress}
+        />
       </Grid>}
 
       {!isSameAddress &&
         <Grid item xs={12} ref={divRef}>
           <AddressFields
+            disabled={disabled}
             namePrefix={namePrefix}
           />
         </Grid>}

@@ -47,6 +47,7 @@ export * from './useSaveInvoice';
 export * from './useSaveProject';
 export * from './useSearchCustGroup';
 export * from './useSearchProjects';
+export * from './useSoftDelCustGroupById';
 export * from './useStoreOptions';
 export * from './useStores';
 export * from './useSystemUpdate';

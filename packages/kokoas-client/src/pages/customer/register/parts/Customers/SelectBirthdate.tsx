@@ -31,12 +31,14 @@ const yearOptions = [...Array(maxAge).keys()].map((n) => {
 export const SelectBirthdate = (props: {
   namePrefix: string,
   birthYear: string,
-  birthMonth: string
+  birthMonth: string,
+  disabled: boolean,
 }) => {
   const {
     namePrefix,
     birthMonth = '',
     birthYear = '',
+    disabled = false,
   } = props;
 
   const [dayOptions, setDayOptions ] = useState<Options>([]);
@@ -62,6 +64,7 @@ export const SelectBirthdate = (props: {
     >
       <Grid item xs={6}>
         <MemoizedFormikSelect
+          disabled={disabled}
           name={`${namePrefix}${getCustFieldName('birthYear')}`}
           label="生年"
           helperText='<任意>個別設定可'
@@ -70,6 +73,7 @@ export const SelectBirthdate = (props: {
       </Grid>
       <Grid item xs={3}>
         <MemoizedFormikSelect
+          disabled={disabled}
           name={`${namePrefix}${getCustFieldName('birthMonth')}`}
           label="月"
           options={monthOptions}
@@ -77,6 +81,7 @@ export const SelectBirthdate = (props: {
       </Grid>
       <Grid item xs={3}>
         <MemoizedFormikSelect
+          disabled={disabled}
           name={`${namePrefix}${getCustFieldName('birthDay')}`}
           label="日"
           options={dayOptions}

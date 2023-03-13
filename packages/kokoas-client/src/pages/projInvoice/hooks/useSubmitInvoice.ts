@@ -17,7 +17,7 @@ export const useSubmitInvoice = () => {
   const { mutateAsync: invoiceDat } = useDownloadInvoiceId();
 
 
-  const handleSubmit = (newInvoiceStatus: TInvoiceStatus) => {
+  const handleSubmit = async (newInvoiceStatus: TInvoiceStatus) => {
 
     setValues((prev) => {
       return ({
@@ -26,15 +26,15 @@ export const useSubmitInvoice = () => {
       });
     });
 
-    submitForm();
+    return submitForm();
   };
 
-  const handlePreview = async () => {
+  const handlePreview = async (update: boolean) => {
 
     // サーバからデータ取得
     const {
       pdfDat,
-    } = await invoiceDat(invoiceId);
+    } = await invoiceDat({ invoiceId, update });
 
 
     // base64形式から、blobに変換し、URLでPDFを開く
@@ -46,22 +46,22 @@ export const useSubmitInvoice = () => {
 
 
   /** 請求書の保存処理(発行はしない) */
-  const handleSave = () => {
-    handleSubmit('created');
+  const handleSave = async () => {
+    await handleSubmit('created');
   };
 
 
   /** 請求書の発行処理 */
-  const handleIssue = () => {
-    handleSubmit('sent');
-    handlePreview();
+  const handleIssue = async () => {
+    await handleSubmit('sent');
+    handlePreview(true);
   };
 
 
   /** 請求書の再発行処理 */
   const handleReissue = () => {
     // const updateIssuedDateTime = handleSubmit(invoiceStatus); // 予定が未定かつ、請求書の日付を更新する場合のみ
-    handlePreview();
+    handlePreview(false);
   };
 
 

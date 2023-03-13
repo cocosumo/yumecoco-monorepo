@@ -27,8 +27,8 @@ route.post(
   saveProjectToAndpad,
 );
 
-route.get(
-  `/${kokoasEndpoints.downloadInvoice}/:invoiceId`,
+route.put(
+  `/${kokoasEndpoints.downloadInvoice}`,
   bodyParser.json({ limit: '50mb' }),
   reqDownloadInvoice,
 );

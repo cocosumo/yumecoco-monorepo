@@ -2,9 +2,13 @@ import { baseUrl } from 'kokoas-client/src/config/settings';
 import { kokoasEndpoints } from 'libs';
 import { DownloadInvoiceResponse } from 'types';
 
-export const downloadInvoiceId = async (
+export const downloadInvoiceId = async ({
+  invoiceId,
+  update,
+}: {
   invoiceId: string,
-) => {
+  update: boolean,
+}) => {
 
   try {
 
@@ -12,17 +16,19 @@ export const downloadInvoiceId = async (
       baseUrl,
       'kokoas',
       kokoasEndpoints.downloadInvoice,
-      invoiceId,
     ].join('/');
 
     const [body, status] = await kintone.proxy(
       endpoint,
-      'GET',
+      'PUT',
       {
         'Content-Type': 'application/json',
         'ngrok-skip-browser-warning': '122',
       },
-      {},
+      {
+        invoiceId,
+        update,
+      },
     );
 
 

@@ -8,10 +8,13 @@ ReqDownloadEstimateAsAndpad
   try {
     const { estimateId } = reqDownloadEstimateAsAndpad.parse(req.params);
 
-    const estimateExcel = await convertEstimateByIdToAndpad(estimateId);
+    const file =  await convertEstimateByIdToAndpad(estimateId);
 
-    // base64でエンコードして返す
-    res.send(Buffer.from(await estimateExcel.xlsx.writeBuffer()).toString('base64'));
+    res.attachment('実行予算.xlsx')
+      .status(200);
+    await file.xlsx.write(res);
+
+    res.end();
 
   } catch (err) {
     res.status(400).send(err.message);

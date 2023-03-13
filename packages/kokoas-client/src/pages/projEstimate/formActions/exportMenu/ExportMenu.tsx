@@ -4,10 +4,7 @@ import { TiExport } from '@react-icons/all-files/ti/TiExport';
 import PrintIcon from '@mui/icons-material/Print';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
-
-
-
+import { ExportToAndpad } from './ExportToAndpad';
 
 export const ExportMenu = () => {
   const { setSnackState } = useSnackBar();
@@ -31,11 +28,7 @@ export const ExportMenu = () => {
             size: 'small',
           }}
         >
-          <SpeedDialAction
-            icon={<AndpadLogo size={22} />}
-            tooltipTitle={'アンドパッド形式'}
-            onClick={handleClick}
-          />
+          <ExportToAndpad />
           <SpeedDialAction
             icon={<RiFileExcel2Fill size={22} color={'green'} />}
             tooltipTitle={'エクセル'}

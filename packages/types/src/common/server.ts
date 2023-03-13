@@ -135,8 +135,3 @@ export interface IRequestJWTUserTokenResponse {
 export type ApiNodes =
 | 'docusign'
 | 'kokoas';
-
-export type KokoasApiNodes =
-| 'upload/daikoku/estimate'
-| 'upload/daikoku/genka'
-| 'andpad/register';

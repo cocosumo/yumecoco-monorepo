@@ -4,7 +4,7 @@ import { kokoasEndpoints } from 'libs/src/endpoints';
 import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
 import { saveProjectToAndpad } from '../handleRequest';
 import bodyParser from 'body-parser';
-import { reqDownloadInvoice } from '../handleRequest/getInvoiceReport/reqDownloadInvoice';
+import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloadInvoice';
 
 
 const route = router();

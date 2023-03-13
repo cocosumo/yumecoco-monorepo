@@ -26,6 +26,7 @@ DownloadInvoiceResponse
     const recInvoice = await getInvoiceById(invoiceId);
     const result = await parseInvoiceDat(recInvoice);
 
+    const updateflg = req.query.update; // 作成日を更新するかどうかの情報を取得する
 
     const pdfDat = await generateInvoicePdf(result); // PDFの作成
 

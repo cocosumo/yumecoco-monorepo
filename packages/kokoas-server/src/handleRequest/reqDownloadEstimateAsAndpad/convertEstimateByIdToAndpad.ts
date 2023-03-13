@@ -1,9 +1,9 @@
 import { getEstimateById } from 'api-kintone';
-import { estimateToAndpadJson } from './estimateToAndpadJson';
+import { estimateToAndpadJson } from './conversions/estimateToAndpadJson';
 
 
 /**
- * 必要情報:
+ * 必要な情報:
  * 
  *  明細名
  *  工事種類

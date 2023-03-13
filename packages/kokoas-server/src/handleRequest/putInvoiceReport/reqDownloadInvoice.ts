@@ -1,7 +1,5 @@
 import { getInvoiceById } from 'api-kintone/src/invoice/getInvoiceById';
-import { saveInvoices } from 'api-kintone/src/invoice/saveInvoices';
 import { RequestHandler } from 'express';
-import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { DownloadInvoiceResponse } from 'types';
 import { generateInvoicePdf } from './generateInvoicePdf';
 import { parseInvoiceDat } from './parseInvoiceDat';
@@ -43,17 +41,7 @@ ReqDownloadInvoice
     const result = await parseInvoiceDat(recInvoice);
 
     if (update) {
-      const newRecInvoice:DBInvoices.SavedData = {
-        ...recInvoice,
-        // issuedDateTime: { value: toKintoneDateStr(new Date(), true) },
-      };
-
-      console.log('newRecInvoice', newRecInvoice);
-
-      await saveInvoices({
-        recordId: invoiceId,
-        record: newRecInvoice,
-      });
+      // TODO 請求書発行日時の更新処理
     }
 
     const pdfDat = await generateInvoicePdf(result); // PDFの作成

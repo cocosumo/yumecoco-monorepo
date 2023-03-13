@@ -26,14 +26,14 @@ const flatenResult = ({
   mainStore: mainStore.value,
 });
 
-describe('filterEmployees', () => {
+describe('従業員を絞り込む', () => {
   let employees: IEmployees[] = [];
 
   beforeAll(async () => {
     employees = await getEmployees(true);
   });
 
-  it('should return all cocoAG when territory and store is not defined.', () => {
+  it('エリアとストアが定義されていない場合、すべてのcocoAGを返します', () => {
     const result = filterEmployees(
       employees,
       {
@@ -47,7 +47,7 @@ describe('filterEmployees', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('should return all yumeAG when territory and store is not defined.', () => {
+  it('エリアとストアが定義されていない場合、すべてのyumeAGを返します', () => {
     const result = filterEmployees(
       employees,
       {
@@ -61,7 +61,7 @@ describe('filterEmployees', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('should return cocoAG of 東 territory', () => {
+  it('東エリアのcocoAGを返します', () => {
     const result = filterEmployees(employees, {
       agentType: 'cocoAG',
       territory: '東',
@@ -78,7 +78,7 @@ describe('filterEmployees', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('should return yumeAG of 東 territory with specified storeId', () => {
+  it('指定されたstoreIDの東エリアのyumeAGを返します', () => {
     const toyokawaStoreId = '83128853-98af-47af-9e5a-9d711bee4a43'; // https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=12
     const result = filterEmployees(employees, {
       agentType: 'yumeAG',
@@ -102,7 +102,7 @@ describe('filterEmployees', () => {
     expect(isMatch).toBe(true);
   });
 
-  it('should return yumeAG of 西 territory that matches any of specified storeId[]', () => {
+  it('指定されたstoreId[]に一致する西エリアのyumeAGを返します', () => {
     const storeIds = [
       '83128853-98af-47af-9e5a-9d711bee4a43', // 豊川中央店 https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=12
       'df176cb7-b731-466b-a354-a1cd5cc8f748', // 豊田中央店 https://rdmuhwtt6gx7.cybozu.com/k/19/show#record=13

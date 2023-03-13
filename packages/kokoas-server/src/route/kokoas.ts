@@ -27,7 +27,7 @@ route.post(
 );
 
 
-route.post(`/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId?`,
+route.post(`/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
   bodyParser.json({ limit: '1mb' }),
   downloadEstimateAsAndpad,
 );

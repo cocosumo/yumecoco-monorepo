@@ -23,7 +23,6 @@ export const saveAndpadProject = async (data: SaveProjectData) => {
   const [body, status] = result;
 
   if (status === 200) {
-
     return saveProjectResponse.parse(JSON.parse(body));
   } else {
     throw new Error(result);

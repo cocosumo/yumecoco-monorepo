@@ -3,7 +3,8 @@ import fs from 'fs';
 import { convertEstimateForCustomerById } from './convertEstimateForCustomerById';
 
 describe('convertEstimateForCustomerById', () => {
-  const testEstimateId = 'fc8f798a-a73f-4447-b4bb-99d51da2f198';
+  // https://rdmuhwtt6gx7.cybozu.com/k/176/#/project/estimate/register?projEstimateId=7f595c5f-09bc-406f-9b0b-5454f2c30d63
+  const testEstimateId = '7f595c5f-09bc-406f-9b0b-5454f2c30d63';
 
   it('見積もりIDが見つからない場合、エラーが発生します', async () => {
     await expect(convertEstimateForCustomerById('invalidId'))

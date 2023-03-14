@@ -1,10 +1,10 @@
 import { Box, SpeedDial, SpeedDialAction, Tooltip } from '@mui/material';
-import { RiFileExcel2Fill } from '@react-icons/all-files/ri/RiFileExcel2Fill';
 import { TiExport } from '@react-icons/all-files/ti/TiExport';
 import PrintIcon from '@mui/icons-material/Print';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { ExportToAndpad } from './ExportToAndpad';
+import { ExportToCustEst } from './ExportToCustEst';
 
 export const ExportMenu = () => {
   const { setSnackState } = useSnackBar();
@@ -29,11 +29,7 @@ export const ExportMenu = () => {
           }}
         >
           <ExportToAndpad />
-          <SpeedDialAction
-            icon={<RiFileExcel2Fill size={22} color={'green'} />}
-            tooltipTitle={'エクセル'}
-            onClick={handleClick}
-          />
+          <ExportToCustEst />
           <SpeedDialAction
             icon={<PrintIcon />}
             tooltipTitle={'印刷'}

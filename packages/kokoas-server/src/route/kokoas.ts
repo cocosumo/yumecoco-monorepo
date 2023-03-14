@@ -1,8 +1,13 @@
 import express, { Router as router } from 'express';
-import { reqUploadDaikokuEst, reqUploadDaikokuGenka, saveProjectToAndpad } from '../handleRequest';
+import { 
+  reqUploadDaikokuEst, 
+  reqUploadDaikokuGenka, 
+  saveProjectToAndpad, 
+  downloadEstimateForCustomer, 
+  downloadEstimateAsAndpad, 
+} from '../handleRequest';
 import { kokoasEndpoints } from 'libs/src/endpoints';
 import bodyParser from 'body-parser';
-import { downloadEstimateAsAndpad } from '../handleRequest/reqDownloadEstimateAsAndpad';
 
 
 const route = router();
@@ -26,10 +31,12 @@ route.post(
   saveProjectToAndpad,
 );
 
-
 route.get(`/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
-  bodyParser.json({ limit: '1mb' }),
   downloadEstimateAsAndpad,
+);
+
+route.get(`/${kokoasEndpoints.downloadEstimateForCustomer}/:estimateId`,
+  downloadEstimateForCustomer,
 );
 
 // "テスト"

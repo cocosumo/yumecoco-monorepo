@@ -28,4 +28,4 @@ export const saveAndpadProject = async (data: SaveProjectData) => {
     throw new Error(result);
   }
 
-} ;
+};

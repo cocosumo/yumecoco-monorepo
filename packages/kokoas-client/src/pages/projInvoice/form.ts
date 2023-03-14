@@ -63,7 +63,7 @@ export const initialValues = {
   ],
 
   /** 入金予定日 */
-  plannedPaymentDate: '',
+  plannedPaymentDate: '' as Date | string,
 
   /** 入金日未定チェック */
   undecidedPaymentDate: false,

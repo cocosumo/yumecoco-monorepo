@@ -16,6 +16,6 @@ export const kokoasEndpoints = {
 } as const;
 
 export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;
-export type TKokoasEndpoint = typeof kokoasEndpoints[keyof typeof kokoasEndpoints];
+export type TKokoasEndpoint = typeof kokoasEndpoints[TKokoasEndpointKey];
 
 export const getKokoasEndpoint = (k: TKokoasEndpoint) => k;

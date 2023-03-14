@@ -1,19 +1,20 @@
 import { SpeedDialAction, SpeedDialActionProps } from '@mui/material';
 import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
-import { useConvertToAndpadByEstId } from 'kokoas-client/src/hooksQuery';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../form';
 import { forwardRef } from 'react';
+import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
+import { kokoasEndpoints } from 'libs';
 
 export const ExportToAndpad = forwardRef<HTMLElement, SpeedDialActionProps>((props, ref) => {
-
-  const { mutate } = useConvertToAndpadByEstId();
 
   const { getValues } = useFormContext<TypeOfForm>();
 
   const handleClick = () => {
     const estimateId = getValues('estimateId');
-    mutate(estimateId);
+    const endpoint = `${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateAsAndpad}/${estimateId}`;
+
+    window.open(endpoint, '_blank');
   };
 
   return (

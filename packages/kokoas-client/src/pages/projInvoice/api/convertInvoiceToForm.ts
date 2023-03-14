@@ -48,10 +48,12 @@ export const convertInvoiceToForm = (
     const invoiceStatusVal = invoiceStatus.value as TInvoiceStatus;
     const isBilled = invoiceStatusVal === 'completed' || invoiceStatusVal === 'sent';
     const tgtBilledAmount = isBilled
-      ? Big(invoiceSummary?.billedAmount ?? 0).minus(tgtBillingAmount).toNumber()
+      ? Big(invoiceSummary?.billedAmount ?? 0).minus(tgtBillingAmount)
+        .toNumber()
       : (invoiceSummary?.billedAmount ?? 0);
     const tgtCreatedAmount = isBilled
-      ? Big(invoiceSummary?.createdAmount ?? 0).minus(tgtBillingAmount).toNumber()
+      ? Big(invoiceSummary?.createdAmount ?? 0).minus(tgtBillingAmount)
+        .toNumber()
       : (invoiceSummary?.createdAmount ?? 0);
 
     const isForPaymentFromURL = estimateIdArray.some((id) => id === estimateId);
@@ -78,7 +80,7 @@ export const convertInvoiceToForm = (
   return {
     invoiceId: uuid.value,
     custGroupId: custGroupId.value,
-    plannedPaymentDate: plannedPaymentDate.value ? parseISO(plannedPaymentDate.value).toString() : '',
+    plannedPaymentDate: plannedPaymentDate.value ? parseISO(plannedPaymentDate.value) : '',
     undecidedPaymentDate: !plannedPaymentDate.value,
     exceedChecked: Boolean(exceedChecked.value),
     estimates: newEstimates,

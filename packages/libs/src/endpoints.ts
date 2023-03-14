@@ -16,6 +16,12 @@ export const kokoasEndpoints = {
    * download/estimate/andpad/:estimateId
   */
   downloadEstimateAsAndpad: 'download/estimate/andpad',
+
+  /**
+   * 見積を顧客用のxlsxの形式でダウンロード
+   * 'download/estimate/customer/:estimateId'
+   */
+  downloadEstimateForCustomer: 'download/estimate/customer',
 } as const;
 
 export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;

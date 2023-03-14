@@ -29,6 +29,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
       totalAmountAfterTax,
       totalAmountBeforeTax,
       totalTaxAmount,
+      totalDiscountAmount,
     },
   } = calculateEstimateRecord({ record: estimateRec });
 
@@ -101,7 +102,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
    * 見積書内訳
    * **************/
   (function summary() {
-
+    console.log(totalDiscountAmount);
   })();
 
   return workbook;

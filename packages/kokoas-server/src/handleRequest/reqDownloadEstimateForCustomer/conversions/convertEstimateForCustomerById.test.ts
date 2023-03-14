@@ -20,12 +20,8 @@ describe('convertEstimateForCustomerById', () => {
     // ファイルを保存
     await result.xlsx.writeFile( savePath);
 
-    console.log('savePath: ', savePath);
-
     // ファイルが存在するか確認
     expect(fs.existsSync(savePath)).toBeTruthy();
-
-    console.log('base64: ', result);
     expect(result).toBeTruthy();
   }); 
   

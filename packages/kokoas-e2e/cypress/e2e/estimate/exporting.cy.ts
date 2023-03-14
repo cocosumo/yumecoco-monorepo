@@ -13,7 +13,7 @@ describe('出力', () => {
     
   });
 
-  it.only('ANDPAD形式でエクスポート出来る', () => {
+  it('ANDPAD形式でエクスポート出来る', () => {
     cy.get('[aria-label*="アンドパッド"]')
       .click();
 

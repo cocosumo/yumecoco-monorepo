@@ -18,7 +18,7 @@ import { andpadJsonToExcel } from './conversions/andpadJsonToExcel';
  *  メモ
  */
 
-export const convertEstimateByIdToAndpad = async (estimateId: string) => {
+export const convertEstimateToAndpadById = async (estimateId: string) => {
   
   if (!estimateId) throw new Error('見積もりIDが提供されていません');
   

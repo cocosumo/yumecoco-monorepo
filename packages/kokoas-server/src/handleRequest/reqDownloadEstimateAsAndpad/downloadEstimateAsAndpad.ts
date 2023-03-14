@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 import { ReqDownloadEstimateAsAndpad, reqDownloadEstimateAsAndpad } from 'types';
-import { convertEstimateByIdToAndpad } from './convertEstimateByIdToAndpad';
+import { convertEstimateToAndpadById } from './convertEstimateToAndpadById';
 
 export const downloadEstimateAsAndpad: RequestHandler<
 ReqDownloadEstimateAsAndpad
@@ -8,7 +8,7 @@ ReqDownloadEstimateAsAndpad
   try {
     const { estimateId } = reqDownloadEstimateAsAndpad.parse(req.params);
 
-    const file =  await convertEstimateByIdToAndpad(estimateId);
+    const file =  await convertEstimateToAndpadById(estimateId);
 
     res.attachment('実行予算.xlsx')
       .status(200);

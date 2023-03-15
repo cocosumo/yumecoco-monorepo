@@ -36,7 +36,7 @@ describe('andpadJsonToExcel', () => {
   });
   
 
-  it('Andpadで必要情報をJSO形式をExcelへ変換します', async () => {
+  it('Andpadで必要な情報をJSON形式でExcelへ変換します', async () => {
     const result = andpadJsonToExcel(testData);
 
     const savePath = path.join(__dirname, '../../__TEST__', 'test.xlsx');

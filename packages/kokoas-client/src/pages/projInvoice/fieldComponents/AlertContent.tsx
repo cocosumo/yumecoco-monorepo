@@ -1,30 +1,28 @@
-import { Checkbox, FormControlLabel, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
+import { getFieldName } from '../form';
 
 export const AlertContent = ({
-  onClick,
   isError,
   checkboxVal,
   isBilled,
 }: {
-  onClick: React.MouseEventHandler<HTMLButtonElement> | undefined
   isError: boolean
   checkboxVal: boolean
   isBilled: boolean
 }) => {
+
   return (
     <>
-      <FormControlLabel
-        control={
-          <Checkbox
-            size="small"
-            onClick={onClick}
-            checked={checkboxVal}
-            disabled={isBilled}
-          />
-        }
+      <FormikLabeledCheckBox
+        name={getFieldName('exceedChecked')}
+        size="small"
+        checked={checkboxVal}
+        disabled={isBilled}
         label="承諾済"
         sx={{
           width: 100,
+          textAlign: 'left',
           color: isError ? 'red' : 'default',
         }}
       />

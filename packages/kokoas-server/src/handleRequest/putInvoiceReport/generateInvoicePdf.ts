@@ -1,5 +1,5 @@
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
-import { ParsedCustGroupReport, ParsedInvoiceReport } from 'types';
+import { ParsedCompanyDetailsDatReport, ParsedCustGroupReport, ParsedInvoiceReport } from 'types';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { PDFDocument } from 'pdf-lib';
@@ -12,6 +12,7 @@ import { PDFDocument } from 'pdf-lib';
 export const generateInvoicePdf = async (
   invoiceDat: ParsedInvoiceReport,
   custGroupDat: ParsedCustGroupReport,
+  companyDetailsDat: ParsedCompanyDetailsDatReport,
 ) => {
 
   const {
@@ -26,6 +27,15 @@ export const generateInvoicePdf = async (
   const {
     members,
   } = custGroupDat;
+
+  const {
+    companyName,
+    // companyPostCode,
+    // companyAddress,
+    // kenchikugyoKyoka,
+    // takkengyoNumber,
+    // OfficeRegistration,
+  } = companyDetailsDat;
 
   const custName = members[0].customerName;
 
@@ -72,6 +82,17 @@ export const generateInvoicePdf = async (
     },
   );
 
+
+  // 会社情報の反映  
+  firstPage.drawText(
+    companyName,
+    {
+      x: 477,
+      y: 126,
+      font: msMinchoFont,
+      size: 14,
+    },
+  );
 
   // PDF書き込み処理 ここまで
 

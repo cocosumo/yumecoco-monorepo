@@ -109,6 +109,15 @@ export interface ParsedCustGroupReport {
   }>;
 }
 
+export interface ParsedCompanyDetailsDatReport {
+  companyName: string,
+  companyPostCode: string,
+  companyAddress: string,
+  kenchikugyoKyoka: string,
+  takkengyoNumber: string,
+  OfficeRegistration: string,
+}
+
 
 export interface ReqSendContract {
   userCode: string,

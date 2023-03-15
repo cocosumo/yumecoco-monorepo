@@ -1,8 +1,10 @@
 import { getCustGroupById } from 'api-kintone';
+import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getInvoiceById } from 'api-kintone/src/invoice/getInvoiceById';
 import { RequestHandler } from 'express';
 import { DownloadInvoiceResponse } from 'types';
 import { generateInvoicePdf } from './generateInvoicePdf';
+import { parseCocosumoDetails } from './parseCocosumoDetails';
 import { parseCustGroupDat } from './parseCustGroupDat';
 import { parseInvoiceDat } from './parseInvoiceDat';
 
@@ -48,13 +50,20 @@ ReqDownloadInvoice
     const resCustGroup = await parseCustGroupDat(recCustGroup);
 
     // 会社情報の取得
+    const recCocosumoDetails = await getCocosumoDetails();
+    const resCocosumoDetails = await parseCocosumoDetails(recCocosumoDetails);
 
 
     if (update) {
       // TODO 請求書発行日時の更新処理
     }
 
-    const pdfDat = await generateInvoicePdf(resInvoice, resCustGroup); // PDFの作成
+    // PDFの作成
+    const pdfDat = await generateInvoicePdf(
+      resInvoice, 
+      resCustGroup,
+      resCocosumoDetails,
+    );
 
 
     res.status(200).json({

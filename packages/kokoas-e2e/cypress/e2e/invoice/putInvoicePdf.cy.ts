@@ -22,8 +22,10 @@ describe('請求書を発行する', () => {
     cy.window().then((win) => {
 
       // 実行エラー
-      cy.wrap(win.document.body.querySelector('embed')).should('have.attr', 'type', 'application/pdf');
-      
+      const embed = win.document.body.querySelector('embed'); // 空になってしまう
+      cy.log('ログチェック', embed || '空です');
+      cy.wrap(embed).should('have.attr', 'type', 'application/pdf');
+
     });
   });
 

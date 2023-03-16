@@ -30,6 +30,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
       totalAmountBeforeTax,
       totalTaxAmount,
       totalDiscountAmount,
+      totalAmountBeforeDiscount,
     },
   } = calculateEstimateRecord({ record: estimateRec });
 
@@ -102,7 +103,21 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
    * 見積書内訳
    * **************/
   (function summary() {
-    console.log(totalDiscountAmount);
+    const ws = workbook.getWorksheet('見積内訳');
+    
+    // 非割引額
+    ws.getCell('G3').value = totalAmountBeforeDiscount;
+    ws.getCell('G5').value = totalAmountBeforeDiscount;
+
+
+    // 割引額
+    ws.getCell('G6').value = totalDiscountAmount;
+
+    // 税額
+    ws.getCell('G7').value = totalTaxAmount;
+
+    // 合計
+    ws.getCell('G8').value = totalAmountAfterTax;
   })();
 
   return workbook;

@@ -1,4 +1,4 @@
-import Big from 'big.js';
+import { Big } from 'big.js';
 import { calcProfitRate } from './calcProfitRate';
 import { calcAfterTax } from './calcTax';
 
@@ -39,10 +39,10 @@ export interface CompleteEstimateSummary extends EstimateSummary {
   totalTaxAmount: number,
   
   /** 非割引額 */
-  totalNonDiscountAmount: number,
+  totalAmountBeforeDiscount: number,
 }
 
-interface EstRowFields {
+export interface EstRowFields {
   rowUnitPriceBeforeTax: number,
   rowCostPrice: number,
   isTaxable: boolean,
@@ -128,7 +128,7 @@ export const calculateEstimateSummary = (
       .minus(totalCostPrice)
       .toNumber(),
     overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),
-    totalNonDiscountAmount: Big(totalAmountBeforeTax)
+    totalAmountBeforeDiscount: Big(totalAmountBeforeTax)
       .minus(totalDiscountAmount)
       .toNumber(),
   };

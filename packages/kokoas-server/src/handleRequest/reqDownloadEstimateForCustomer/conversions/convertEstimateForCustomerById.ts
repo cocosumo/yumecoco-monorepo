@@ -1,7 +1,8 @@
-import { calculateEstimateRecord, getCustGroupById, getEstimateById, getProjById } from 'api-kintone';
+import { calculateEstimateRecord, calculateEstimateRow, getCustGroupById, getEstimateById, getProjById } from 'api-kintone';
 import { getFilePath } from 'kokoas-server/src/assets';
 import excel from 'exceljs';
 import { addressBuilder, formatDataId } from 'libs';
+import { Big } from 'big.js';
 
 
 export const convertEstimateForCustomerById = async (estimateId: string) => {
@@ -14,6 +15,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
     custGroupId,
     projId,
     dataId,
+    内訳: { value: estimatesTable },
   } = estimateRec;
 
   const [custGroupRec, projRec] = await Promise.all([
@@ -62,7 +64,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
   /****************
    * 見積書見出
    ***************/
-  (function frontPage() {
+  (function shFrontPage() {
     const ws = workbook.getWorksheet('見積書見出');
 
     // 日付
@@ -102,7 +104,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
   /****************
    * 見積書内訳
    * **************/
-  (function summary() {
+  (function shSummary() {
     const ws = workbook.getWorksheet('見積内訳');
     
     // 非割引額
@@ -119,6 +121,85 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
     // 合計
     ws.getCell('G8').value = totalAmountAfterTax;
   })();
+
+
+  /************
+   * 内訳明細
+   ***********/
+  (function shGroupedDetails() {
+
+    const groupedDetails = estimatesTable.reduce<Record<string, number>>((acc, curr) => {
+      const row = curr.value;
+      const { 
+        大項目, 
+        税率,
+        単価,
+        原価,
+        数量,
+      } = row;
+
+      const {
+        rowUnitPriceAfterTax,
+      } = calculateEstimateRow({
+        isTaxable: Boolean(+税率.value),
+        unitPrice: +単価.value,
+        costPrice: +原価.value,
+        quantity: +数量.value,
+        taxRate: +税率.value,
+      });
+
+      if (!acc[大項目.value]) {
+        acc[大項目.value] = 0;
+      } 
+
+      acc[大項目.value] = Big(acc[大項目.value]).add(rowUnitPriceAfterTax)
+        .toNumber();
+
+      return acc;
+    }, {});
+
+    const maxRows = 19;
+    let currRowIdx = 1;
+    let currSheetIdx = 1;
+    const rowOffset = 2;
+    let ws = workbook.getWorksheet(`内訳明細 (${currSheetIdx})`);
+
+    for ( const [key, value] of Object.entries(groupedDetails)) {
+      if (value < 0) continue; // 割引額は除外
+
+      if (currRowIdx <= maxRows) {
+        const rowIdx =  currRowIdx + rowOffset;
+        ws.getCell(`A${rowIdx}`).value = `${currRowIdx}. ${key}`;
+        ws.getCell(`D${rowIdx}`).value = '式';
+        ws.getCell(`E${rowIdx}`).value = 1;
+        ws.getCell(`G${rowIdx}`).value = value;
+
+        currRowIdx++; // 次の行へ
+      } else {
+        // 次のシートへ
+        currRowIdx = 1;
+        currSheetIdx++;
+        ws = workbook.getWorksheet(`内訳明細 (${currSheetIdx})`);
+      }
+    }
+
+    ws.getCell(`A${currRowIdx + rowOffset}`).value = '《 合 計 》';
+    ws.getCell(`G${currRowIdx + rowOffset}`).value = totalAmountBeforeDiscount;
+
+    // 余ったシートを削除
+    while (workbook.getWorksheet(`内訳明細 (${++currSheetIdx})`)) {
+      workbook.removeWorksheet(`内訳明細 (${currSheetIdx})`);
+    }
+  })();
+
+
+  /************
+   * 見積書明細
+   * **********/
+  (function shDetails() {
+    const ws = workbook.getWorksheet('見積明細');
+  })();
+
 
   return workbook;
 };

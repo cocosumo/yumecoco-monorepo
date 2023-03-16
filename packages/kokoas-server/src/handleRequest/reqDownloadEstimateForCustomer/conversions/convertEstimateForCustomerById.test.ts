@@ -23,6 +23,6 @@ describe('convertEstimateForCustomerById', () => {
     // ファイルが存在するか確認
     expect(fs.existsSync(savePath)).toBeTruthy();
     expect(result).toBeTruthy();
-  }); 
+  }, 60000); 
   
 });

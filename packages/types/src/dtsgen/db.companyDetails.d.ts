@@ -7,6 +7,7 @@ declare namespace DBCompanydetails {
     companyAddress: kintone.fieldTypes.SingleLineText;
     kenchikushiJimushoRegister: kintone.fieldTypes.SingleLineText;
     takkengyoNumber: kintone.fieldTypes.SingleLineText;
+    postCode: kintone.fieldTypes.SingleLineText;
     invoiceSystemNumber: kintone.fieldTypes.SingleLineText;
     representative: kintone.fieldTypes.SingleLineText;
   }

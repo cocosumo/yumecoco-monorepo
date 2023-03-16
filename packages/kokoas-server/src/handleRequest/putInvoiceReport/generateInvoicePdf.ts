@@ -1,5 +1,5 @@
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
-import { ParsedInvoiceReport } from 'types';
+import { ParsedCompanyDetailsDatReport, ParsedCustGroupReport, ParsedInvoiceReport } from 'types';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { PDFDocument } from 'pdf-lib';
@@ -11,6 +11,8 @@ import { PDFDocument } from 'pdf-lib';
  */
 export const generateInvoicePdf = async (
   invoiceDat: ParsedInvoiceReport,
+  custGroupDat: ParsedCustGroupReport,
+  companyDetailsDat: ParsedCompanyDetailsDatReport,
 ) => {
 
   const {
@@ -22,6 +24,20 @@ export const generateInvoicePdf = async (
     // estimateLists,
   } = invoiceDat;
 
+  const {
+    members,
+  } = custGroupDat;
+
+  const {
+    companyName,
+    // companyPostCode,
+    // companyAddress,
+    // kenchikugyoKyoka,
+    // takkengyoNumber,
+    // OfficeRegistration,
+  } = companyDetailsDat;
+
+  const custName = members[0].customerName;
 
   const pdfPath = getFilePath({
     fileName: '請求書',
@@ -37,24 +53,46 @@ export const generateInvoicePdf = async (
   const pages = pdfDoc.getPages();
   const firstPage = pages[0];
 
-
   console.log(`Number of pages: ${pdfDoc.getPages().length}`);
   console.log('firstPage', firstPage);
 
 
-  // PDF書き込み処理 ここから
+  // PDF書き込み処理 ここから TODO
+
+  // 顧客氏名
+  firstPage.drawText(
+    custName,
+    {
+      x: 100,
+      y: 522,
+      font: msMinchoFont,
+      size: 18,
+    },
+  );
+
 
   // 請求書番号
   firstPage.drawText(
     slipNumber,
     {
-      x: 10, // dummy値
-      y: 10, // dummy値
+      x: 738,
+      y: 459,
       font: msMinchoFont,
-      size: 10,
+      size: 12,
     },
   );
 
+
+  // 会社情報の反映  
+  firstPage.drawText(
+    companyName,
+    {
+      x: 477,
+      y: 126,
+      font: msMinchoFont,
+      size: 14,
+    },
+  );
 
   // PDF書き込み処理 ここまで
 

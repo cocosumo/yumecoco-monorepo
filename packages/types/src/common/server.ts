@@ -102,6 +102,23 @@ export interface ParsedInvoiceReport {
   }>;
 }
 
+export interface ParsedCustGroupReport {
+  custGroupId: string,
+  members: Array<{
+    customerName: string,
+  }>;
+}
+
+export interface ParsedCompanyDetailsDatReport {
+  companyName: string,
+  companyPostCode: string,
+  companyAddress: string,
+  kenchikugyoKyoka: string,
+  takkengyoNumber: string,
+  officeRegistration: string,
+}
+
+
 export interface ReqSendContract {
   userCode: string,
   projEstimateId: string,
@@ -155,5 +172,5 @@ export interface DownloadInvoiceResponse {
 }
 
 export type ApiNodes =
-| 'docusign'
-| 'kokoas';
+  | 'docusign'
+  | 'kokoas';

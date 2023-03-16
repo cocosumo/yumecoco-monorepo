@@ -3,6 +3,8 @@ import { ParsedCompanyDetailsDatReport, ParsedCustGroupReport, ParsedInvoiceRepo
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
 import { PDFDocument } from 'pdf-lib';
+import format from 'date-fns/format';
+import { parseISO } from 'date-fns';
 
 
 /**
@@ -16,9 +18,8 @@ export const generateInvoicePdf = async (
 ) => {
 
   const {
-    // billingAmount,
-    // custGroupId,
-    // issuedDateTime,
+    billingAmount,
+    issuedDateTime,
     // plannedPaymentDate,
     slipNumber,
     // estimateLists,
@@ -57,16 +58,34 @@ export const generateInvoicePdf = async (
   console.log('firstPage', firstPage);
 
 
-  // PDF書き込み処理 ここから TODO
+  /* PDF書き込み処理 ここから TODO */
 
-  // 顧客氏名
+  // 顧客氏名 ※右揃えで設定
+  const custNameFontSize = 18;  
+  const custNametextWidth = msMinchoFont.widthOfTextAtSize(custName, custNameFontSize);
+
   firstPage.drawText(
     custName,
     {
-      x: 100,
+      x: firstPage.getWidth() - custNametextWidth - 600,
       y: 522,
       font: msMinchoFont,
       size: 18,
+    },
+  );
+
+  // 請求金額 ※右揃えで設定
+  const newBillingAmount = billingAmount.toLocaleString();
+  const billingAmountFontSize = 14;  
+  const textWidth = msMinchoFont.widthOfTextAtSize(newBillingAmount, billingAmountFontSize);
+
+  firstPage.drawText(
+    newBillingAmount,
+    {
+      x: firstPage.getWidth() - textWidth - 600,
+      y: 501,
+      font: msMinchoFont,
+      size: billingAmountFontSize,
     },
   );
 
@@ -82,6 +101,16 @@ export const generateInvoicePdf = async (
     },
   );
 
+  // 請求書発行日
+  firstPage.drawText(
+    format(parseISO(issuedDateTime), 'yyyy年MM月dd日'),
+    {
+      x: 738,
+      y: 445,
+      font: msMinchoFont,
+      size: 12,
+    },
+  );
 
   // 会社情報の反映  
   firstPage.drawText(
@@ -94,7 +123,7 @@ export const generateInvoicePdf = async (
     },
   );
 
-  
+
   // PDF書き込み処理 ここまで
 
 

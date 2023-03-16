@@ -13,7 +13,7 @@ describe('estimateToAndpadJson', () => {
     expect(testEstimateRec).toBeTruthy();
   });
 
-  it('Andpadで必要な見積のレコード情報をJSON形式に変換します', () => {
+  it('見積書のレコードから、ANDPADで必要な情報となる情報をJSON形式に抽出します', () => {
     const result = estimateToAndpadJson(testEstimateRec);
     expect(result).toBeTruthy();
   }); 

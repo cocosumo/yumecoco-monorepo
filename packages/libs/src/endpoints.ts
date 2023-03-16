@@ -11,7 +11,10 @@ export const kokoasEndpoints = {
   /** 案件をAndpadへ登録 */
   saveProjectToAndpad: 'andpad/register',
 
-  /** 見積をAndpadの実行予算の形式でダウンロード */
+  /** 
+   * 見積をAndpadの実行予算の形式でダウンロード 
+   * download/estimate/andpad/:estimateId
+  */
   downloadEstimateAsAndpad: 'download/estimate/andpad',
 } as const;
 

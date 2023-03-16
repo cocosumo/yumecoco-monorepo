@@ -17,8 +17,8 @@ export const ActionButtons = ({
   handleSubmit: UseSaveForm['handleSubmit']
   handleSubmitFinal: UseSaveForm['handleSubmitFinal']
 }) => {
-  const [envStatus, projId] = useWatch<TypeOfForm>({
-    name: ['envStatus', 'projId'],
+  const [envStatus, projId, estimateId] = useWatch<TypeOfForm>({
+    name: ['envStatus', 'projId', 'estimateId'],
   });
   const loading = useIsFetching();
   const mutating = useIsMutating();
@@ -37,7 +37,7 @@ export const ActionButtons = ({
       >
         <Stack spacing={1} direction={'row'} maxHeight={40}>
           <ProjEstimateShortcuts />
-          <ExportMenu />
+          {estimateId && <ExportMenu />}
           <BtnSaveTemporary onClick={(e) => handleSubmit(e)} />
           <BtnSave onClick={(e) => handleSubmitFinal(e)} />
           <BtnCancelEdit />

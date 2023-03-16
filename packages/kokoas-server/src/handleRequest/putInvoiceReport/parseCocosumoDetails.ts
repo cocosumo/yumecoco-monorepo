@@ -19,7 +19,7 @@ export const parseCocosumoDetails = async (
     companyAddress: companyAddress.value,
     kenchikugyoKyoka: kensetsugyoKyoka.value,
     takkengyoNumber: takkengyoNumber.value,
-    OfficeRegistration: kenchikushiJimushoRegister.value,
+    officeRegistration: kenchikushiJimushoRegister.value,
   };
 
 };

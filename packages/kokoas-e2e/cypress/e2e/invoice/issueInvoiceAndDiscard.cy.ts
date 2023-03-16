@@ -1,4 +1,4 @@
-import { beforeEach, cy, describe } from 'local-cypress';
+import { beforeEach, cy, describe, expect } from 'local-cypress';
 
 
 describe('請求書を発行する', () => {
@@ -22,13 +22,14 @@ describe('請求書を発行する', () => {
     // 入金予定日を設定する
     // 未定のチェック
     cy.get('input[name*="undecidedPaymentDate"]').first()
-      .click();
+      .check();
 
     cy.get('input[name*="plannedPaymentDate"]').first()
       .should('have.attr', 'disabled');
 
-    cy.get('input[name*="undecidedPaymentDate"]').first() // 未定のチェックを外す
-      .click();
+    // 入金予定日：未定の解除
+    cy.get('input[name*="undecidedPaymentDate"]').first()
+      .uncheck();
 
     cy.get('input[name*="plannedPaymentDate"]').first()
       .type('2023/03/15', { delay: 100 });
@@ -68,7 +69,7 @@ describe('請求書を発行する', () => {
       .type('150001', { delay: 100 });
     cy.contains('body', '契約金額と同じ符号(+, -)で入力してください')
       .should('not.exist');
-    
+
     cy.get('input[name*="exceedChecked"]')
       .should('exist');
     cy.get('input[name*="exceedChecked"]').first()
@@ -77,6 +78,10 @@ describe('請求書を発行する', () => {
     // 入金予定日を設定せず、そのまま遷移
 
     // 請求書を発行する
+    // window.open()を動作させないようにする
+    cy.on('window:before:load', (win) => {
+      cy.stub(win, 'open').as('windowOpen');
+    });
     cy.contains('請求書発行').click(); // 再発行ボタンをクリックする
 
     // 入力内容保持の確認
@@ -91,12 +96,29 @@ describe('請求書を発行する', () => {
 
     cy.contains('body', '破棄した請求書のため、参照できません')
       .should('exist');
-    
+
 
   });
 
-  it('PDFの表示ができる', () => {
+  it('PDFの表示リクエスト', () => {
 
+    // ネットワークのテスト
+    cy.intercept(
+      {
+        method: 'post',
+        url: '*k/api/proxy/*',
+      },
+      (req) => {
+        req.continue((res) => {
+          console.log('res', res.body.result.body);
+          expect(res.body.result.body).to.include('pdf');
+          // 'res' represents the real destination response
+          // you can manipulate 'res' before it's sent to the browser
+        });
+      },
+    );
+
+    // 請求書発行済みの請求を開く
     const testId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
     cy.visit(`/project/payment/invoice?invoiceId=${testId}`);
     cy.get('.MuiTable-root')
@@ -104,17 +126,13 @@ describe('請求書を発行する', () => {
       .should('exist');
 
 
+    // window.open()を動作させないようにする
+    cy.on('window:before:load', (win) => {
+      cy.stub(win, 'open').as('windowOpen');
+    });
+
     cy.contains('再発行').click(); // 再発行ボタンをクリックする
 
-    // TODO PDFが表示されているかのテスト
-    cy.window().then((win) => {
-
-      // 実行エラー
-      const embed = win.document.body.querySelector('embed'); // 空になってしまう
-      cy.log('ログチェック', embed || '空です');
-      cy.wrap(embed).should('have.attr', 'type', 'application/pdf');
-
-    });
   });
 
 });

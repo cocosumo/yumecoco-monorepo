@@ -11,6 +11,7 @@ export const parseCocosumoDetails = async (
     kensetsugyoKyoka,
     takkengyoNumber,
     kenchikushiJimushoRegister,
+    invoiceSystemNumber,
   } = cocosumoDetailsDat;
 
   return {
@@ -20,6 +21,7 @@ export const parseCocosumoDetails = async (
     kenchikugyoKyoka: kensetsugyoKyoka.value,
     takkengyoNumber: takkengyoNumber.value,
     OfficeRegistration: kenchikushiJimushoRegister.value,
+    invoiceSystemNumber: invoiceSystemNumber.value,
   };
 
 };

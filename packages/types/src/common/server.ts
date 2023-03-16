@@ -116,6 +116,7 @@ export interface ParsedCompanyDetailsDatReport {
   kenchikugyoKyoka: string,
   takkengyoNumber: string,
   OfficeRegistration: string,
+  invoiceSystemNumber: string,
 }
 
 

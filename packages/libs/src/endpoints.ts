@@ -13,6 +13,9 @@ export const kokoasEndpoints = {
 
   /** 見積をAndpadの実行予算の形式でダウンロード */
   downloadEstimateAsAndpad: 'download/estimate/andpad',
+  
+  /** 請求書 */
+  downloadInvoice: 'download/invoice',
 } as const;
 
 export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;

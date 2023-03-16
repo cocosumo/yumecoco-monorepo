@@ -4,6 +4,7 @@ import { kokoasEndpoints } from 'libs/src/endpoints';
 import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
 import { saveProjectToAndpad } from '../handleRequest';
 import bodyParser from 'body-parser';
+import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloadInvoice';
 
 
 const route = router();
@@ -26,8 +27,15 @@ route.post(
   saveProjectToAndpad,
 );
 
+route.put(
+  `/${kokoasEndpoints.downloadInvoice}`,
+  bodyParser.json({ limit: '50mb' }),
+  reqDownloadInvoice,
+);
+
+
 // "テスト"
-route.get('/',  (req, res)=>{
+route.get('/', (req, res) => {
   console.log('kokoas internal api');
   res.send('KOKOAS API - TEST CONNECTION');
 });

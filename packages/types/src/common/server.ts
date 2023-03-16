@@ -3,7 +3,7 @@ import { TEnvelopeStatus } from './docusign';
 
 export type TProjReq = {
   projId?: string,
-  custGroupId?:string,
+  custGroupId?: string,
   envelopeId?: string,
   origin?: string
 };
@@ -44,7 +44,7 @@ export interface ParsedDaikokuEst {
     quantity: number,
     amount: number,
   }>
-  items : Array<{
+  items: Array<{
     majorItem: string,
     middleItem: string,
     material: string,
@@ -70,7 +70,7 @@ export interface ParsedDaikokuGenka {
   totalCostPrice: number,
   totalProfit: number,
   overallProfitRate: number,
-  items : Array<{
+  items: Array<{
     majorItem: string,
     middleItem: string,
     material: string,
@@ -83,6 +83,23 @@ export interface ParsedDaikokuGenka {
     rowCostPrice: number,
     rowDetails: string,
   }>
+}
+
+
+export interface ParsedInvoiceReport {
+  billingAmount: number,
+  slipNumber: string,
+  plannedPaymentDate: string,
+  issuedDateTime: string,
+  custGroupId: string,
+  estimateLists: Array<{
+    projId: string,
+    dataId: string,
+    projTypeName: string,
+    estimateId: string,
+    amountPerContract: number,
+    paymentType: string,
+  }>;
 }
 
 export interface ReqSendContract {
@@ -130,6 +147,11 @@ export interface IRequestJWTUserTokenResponse {
     access_token: string,
     expires_in: string
   }
+}
+
+export interface DownloadInvoiceResponse {
+  pdfDat: string,
+  generatedTime: Date,
 }
 
 export type ApiNodes =

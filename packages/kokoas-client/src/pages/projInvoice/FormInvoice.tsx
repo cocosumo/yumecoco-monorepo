@@ -91,6 +91,13 @@ export const FormInvoice = () => {
           />
         </Grid>
 
+        {isBilled && !isVoided &&
+          <Grid item xs={12} md={4} >
+            <Alert severity="info">
+              発行済みの請求書のため、閲覧モードで開きます
+            </Alert>
+          </Grid>}
+
         {custGroupId &&
           <Grid
             container
@@ -127,9 +134,6 @@ export const FormInvoice = () => {
               <Stack direction={'row'}>
                 <Typography>
                   {'請求入力欄　'}
-                </Typography>
-                <Typography variant={'caption'}>
-                  {'※請求には課税対象分から使用し、非課税額は最後に使用します'}
                 </Typography>
               </Stack>
               <BillingEntryTable

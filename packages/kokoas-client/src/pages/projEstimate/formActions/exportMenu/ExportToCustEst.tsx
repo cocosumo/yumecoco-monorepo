@@ -17,13 +17,17 @@ export const ExportToCustEst = forwardRef<HTMLElement, SpeedDialActionProps>((pr
   const handleClick = () => {
     const estimateId = getValues('estimateId');
     const endpoint = `${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateForCustomer}/${estimateId}`;
+ 
     setSnackState({
       open: true,
       severity: 'info',
+      autoHideDuration: 5000,
       // 通じるかな？
       message: 'この機能はベータ版です。不具合の報告につきましては、管理者までご連絡いただけますようお願いいたします。', 
     });
+
     window.open(endpoint);
+
   };
 
   return (
@@ -31,7 +35,7 @@ export const ExportToCustEst = forwardRef<HTMLElement, SpeedDialActionProps>((pr
       {...props}
       ref={ref}
       icon={<RiFileExcel2Fill size={22} color={'green'} />}
-      tooltipTitle={'アンドパッド形式'}
+      tooltipTitle={'顧客用形式'}
       onClick={handleClick}
     />
   

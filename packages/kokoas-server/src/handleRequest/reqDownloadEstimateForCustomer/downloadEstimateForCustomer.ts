@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { ReqDownloadEstimateForCustomer, reqDownloadEstimateForCustomer } from 'types';
+import { convertEstimateForCustomerById } from './conversions/convertEstimateForCustomerById';
 //import { convertEstimateByIdToAndpad } from './convertEstimateByIdToAndpad';
 
 export const downloadEstimateForCustomer: RequestHandler<
@@ -8,12 +9,16 @@ ReqDownloadEstimateForCustomer
   try {
     const { estimateId } = reqDownloadEstimateForCustomer.parse(req.params);
     console.log('Received: ', estimateId);
-    //const file =  await convertEstimateByIdToAndpad(estimateId);
+    const { 
+      workbook,
+      dataId, 
+    } =  await convertEstimateForCustomerById(estimateId);
 
-    /*     res.attachment('実行予算.xlsx')
+    res.attachment(`見積-${dataId}.xlsx`)
       .status(200);
-    await file.xlsx.write(res);
- */
+      
+    await workbook.xlsx.write(res);
+
     res.end();
 
   } catch (err) {

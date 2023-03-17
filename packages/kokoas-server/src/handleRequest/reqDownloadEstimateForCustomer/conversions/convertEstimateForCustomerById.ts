@@ -261,5 +261,8 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
   })();
 
 
-  return workbook;
+  return {
+    dataId: estDataId,
+    workbook,
+  };
 };

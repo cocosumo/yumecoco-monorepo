@@ -12,17 +12,19 @@ describe('convertEstimateForCustomerById', () => {
   });
 
   it('見積もりIDが見つかる場合、エクセルファイルが返されます', async () => {
-    const result = await convertEstimateForCustomerById(testEstimateId);
+    const {
+      workbook,
+    } = await convertEstimateForCustomerById(testEstimateId);
 
 
     const savePath = path.join(__dirname, '../../__TEST__', '見積.xlsx');
     
     // ファイルを保存
-    await result.xlsx.writeFile( savePath);
+    await workbook.xlsx.writeFile( savePath);
 
     // ファイルが存在するか確認
     expect(fs.existsSync(savePath)).toBeTruthy();
-    expect(result).toBeTruthy();
+    expect(workbook).toBeTruthy();
   }, 60000); 
   
 });

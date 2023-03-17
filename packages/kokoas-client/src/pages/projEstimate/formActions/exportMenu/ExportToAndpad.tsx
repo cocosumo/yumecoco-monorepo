@@ -14,7 +14,7 @@ export const ExportToAndpad = forwardRef<HTMLElement, SpeedDialActionProps>((pro
     const estimateId = getValues('estimateId');
     const endpoint = `${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateAsAndpad}/${estimateId}`;
 
-    window.open(endpoint, '_blank');
+    window.open(endpoint);
   };
 
   return (

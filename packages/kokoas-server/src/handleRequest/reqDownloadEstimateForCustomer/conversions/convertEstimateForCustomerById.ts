@@ -263,6 +263,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
 
   return {
     dataId: estDataId,
+    projName: projName.value,
     workbook,
   };
 };

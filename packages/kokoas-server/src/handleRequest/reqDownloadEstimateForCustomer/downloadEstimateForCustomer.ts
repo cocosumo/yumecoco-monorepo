@@ -11,12 +11,12 @@ ReqDownloadEstimateForCustomer
     console.log('Received: ', estimateId);
     const { 
       workbook,
-      dataId, 
+      projName,
     } =  await convertEstimateForCustomerById(estimateId);
 
-    res.attachment(`見積-${dataId}.xlsx`)
+    res.attachment(`見積-${projName}-${new Date().toISOString()}.xlsx`)
       .status(200);
-      
+
     await workbook.xlsx.write(res);
 
     res.end();

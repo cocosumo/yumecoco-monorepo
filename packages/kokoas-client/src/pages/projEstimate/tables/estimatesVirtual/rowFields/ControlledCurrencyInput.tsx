@@ -37,24 +37,30 @@ export const ControlledCurrencyInput = ({
           onBlur,
           onChange,
           ref,
+          value,
         },
         fieldState: {
-          isTouched, 
           error,
+          isTouched,
         },
-      }) => (
-        <OutlinedCurrencyInput
-          ref={ref}
-          onChange={(e) => {
-            const value = convertToHalfWidth(e.target.value);
-            onChange(value);
-            handleChange();
-          }}
-          onBlur={onBlur}
-          error={!!error && !!isTouched}
-          disabled={!!envStatus}
-        />
-      )}
+      }) => {
+        return (
+          <OutlinedCurrencyInput
+            ref={ref}
+            defaultValue={value.toLocaleString}
+            name={name}
+            onChange={(e) => {
+              const newValue = e.target.value;
+              const halfWidth = convertToHalfWidth(newValue);
+              onChange(halfWidth);
+              handleChange();
+            }}
+            onBlur={onBlur}
+            error={!!error && isTouched}
+            disabled={!!envStatus}
+          />
+        );
+      }}
     />
 
 

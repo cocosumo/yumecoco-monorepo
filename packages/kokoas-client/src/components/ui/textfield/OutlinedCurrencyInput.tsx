@@ -10,16 +10,13 @@ import { forwardRef } from 'react';
  * 2. フォーカスがある時は、カンマを取り除きます。
  */
 export const OutlinedCurrencyInput = forwardRef<HTMLInputElement, OutlinedInputProps>((props, ref) => {
-  const {
-    onBlur,
-    ...others
-  } = props;
+
   return (
     <OutlinedInput 
-      {...others} 
+      {...props} 
+      inputRef={ref}
       type='text' // numberだと、コンマを入れることが出来ない
       size='small' 
-      inputRef={ref}
       endAdornment={(
         <InputAdornment position='end' disablePointerEvents>
           円
@@ -33,7 +30,7 @@ export const OutlinedCurrencyInput = forwardRef<HTMLInputElement, OutlinedInputP
         target.select();
       }}
       onBlur={(e) => {
-        onBlur?.(e);
+        props.onBlur?.(e);
         const rawValue = e.target.value;
         if (rawValue === '') return;
         

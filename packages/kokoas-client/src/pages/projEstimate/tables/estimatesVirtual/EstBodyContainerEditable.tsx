@@ -17,11 +17,11 @@ export const EstBodyContainerEditable = ({
   const { getFieldState } = useFormContext<TypeOfForm>();
 
   const handleMouseOver: BoxProps['onMouseOver'] = useCallback((e:  SyntheticEvent) => {
-    const target = e.target as HTMLInputElement;
 
+    const target = e.target as HTMLInputElement;
     if (target?.tagName === 'INPUT' && target?.name?.includes(estArrayFieldName)) {
       const { error } = getFieldState(target.name as KeyOfForm);
-      console.log('error', error);
+    
       if (error) {
         setAnchorErrEl(target);
         setErrorMessage(error?.message);

@@ -1,4 +1,6 @@
 import { getInvoiceById } from 'api-kintone/src/invoice/getInvoiceById';
+import path from 'path';
+import fs from 'fs';
 import { generateInvoicePdf } from './generateInvoicePdf';
 import { parseInvoiceDat } from './parseInvoiceDat';
 
@@ -8,6 +10,13 @@ describe('file', () => {
     const datInvoice = await parseInvoiceDat(recInvoice);
     const result = await generateInvoicePdf(datInvoice);
 
-    expect(result).toBeTruthy();
+    const savePath = path.join(__dirname, '../__TEST__', '請求書.pdf');
+    const pdfBuffer = Buffer.from(result, 'base64');
+
+    // __TEST__　フォルダー に 保存する
+    fs.writeFileSync(savePath, pdfBuffer);
+
+    // ファイルが存在するかどうかを確認する
+    expect(fs.existsSync(savePath)).toBe(true);
   });
 });

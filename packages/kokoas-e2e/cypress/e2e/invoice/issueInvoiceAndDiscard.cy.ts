@@ -7,32 +7,64 @@ describe('請求書を発行する', () => {
     cy.login();
   });
 
+  const issueTestId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
+  const reissueTestId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
 
-
-  /* it.only('テストの準備でAPIから直接レコードを編集する', () => {
+  it('テスト準備[再発行]:APIから直接レコードを編集する', () => {
     cy.request({
       method: 'PUT',
-      url: 'https://rdmuhwtt6gx7.cybozu.com/k/v1/record.json', // baseUrl is prepend to URL
+      url: 'https://rdmuhwtt6gx7.cybozu.com/k/v1/record.json',
       headers: {
         'X-Cybozu-API-Token': '9e2YTHEHDY6JD8701R1ibFB4TLBlfDsdMuO5U9oS',
         'Content-Type': 'application/json',
       },
       body: {
         'app': 204,
-        'id': 86,
+        'updateKey': {
+          'field': 'uuid',
+          'value': issueTestId,
+        },
         'record': {
           'invoiceStatus': {
-            'value': 'testSt',
+            'value': 'sent',
           },
         },
       },
-    });
-  }); */
+    })
+      .its('status')
+      .should('eq', 200);
+  });
+
+
+
+  it('テスト準備[再発行]:APIから直接レコードを編集する', () => {
+    cy.request({
+      method: 'PUT',
+      url: 'https://rdmuhwtt6gx7.cybozu.com/k/v1/record.json',
+      headers: {
+        'X-Cybozu-API-Token': '9e2YTHEHDY6JD8701R1ibFB4TLBlfDsdMuO5U9oS',
+        'Content-Type': 'application/json',
+      },
+      body: {
+        'app': 204,
+        'updateKey': {
+          'field': 'uuid',
+          'value': reissueTestId,
+        },
+        'record': {
+          'invoiceStatus': {
+            'value': 'sent',
+          },
+        },
+      },
+    })
+      .its('status')
+      .should('eq', 200);
+  });
 
 
   it('請求書の動作確認：作成・更新・破棄', () => {
-    const testId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
-    cy.visit(`/project/payment/invoice?custGroupId=${testId}`);
+    cy.visit(`/project/payment/invoice?custGroupId=${issueTestId}`);
 
     // 使用する請求書にチェックを入れる
     cy.get('input[name*="estimates[1].isForPayment"]').first()
@@ -105,6 +137,7 @@ describe('請求書を発行する', () => {
     cy.on('window:before:load', (win) => {
       cy.stub(win, 'open').as('windowOpen');
     });
+
     cy.contains('請求書発行').click(); // 再発行ボタンをクリックする
 
     // 入力内容保持の確認
@@ -142,8 +175,7 @@ describe('請求書を発行する', () => {
     );
 
     // 請求書発行済みの請求を開く
-    const testId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
-    cy.visit(`/project/payment/invoice?invoiceId=${testId}`);
+    cy.visit(`/project/payment/invoice?invoiceId=${reissueTestId}`);
     cy.get('.MuiTable-root')
       .as('table')
       .should('exist');

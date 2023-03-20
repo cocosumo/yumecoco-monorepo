@@ -1,4 +1,5 @@
 export * from './addressBuilder';
+export * from './convertToHalfWidth';
 export * from './endpoints';
 export * from './filterNonNull';
 export * from './formatDataId';

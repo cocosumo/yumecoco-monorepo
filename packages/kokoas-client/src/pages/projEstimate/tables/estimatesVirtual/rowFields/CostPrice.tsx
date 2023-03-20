@@ -1,6 +1,6 @@
 import { OutlinedInputProps } from '@mui/material';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
-import { ControlledMaskedCurrencyInput } from './ControlledMaskedCurrencyInput';
+import { ControlledCurrencyInput } from './ControlledCurrencyInput';
 
 export const CostPrice = ({
   rowIdx,
@@ -10,11 +10,13 @@ export const CostPrice = ({
   handleChange: UseSmartHandlers['handleChangeCostPrice']
 }) => {
 
+
+
   return (
-    <ControlledMaskedCurrencyInput
-      rowIdx={rowIdx}
+    <ControlledCurrencyInput 
+      fieldName='costPrice'
       handleChange={() => handleChange(rowIdx)}
-      fieldName={'costPrice'}
+      rowIdx={rowIdx}
     />
   );
 };

@@ -47,7 +47,7 @@ export const ControlledCurrencyInput = ({
         return (
           <OutlinedCurrencyInput
             ref={ref}
-            defaultValue={value.toLocaleString}
+            defaultValue={value.toLocaleString()}
             name={name}
             onChange={(e) => {
               const newValue = e.target.value;

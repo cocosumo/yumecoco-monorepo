@@ -10,7 +10,7 @@ describe('請求書を発行する', () => {
   const testCustGroupId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
   const testReissueInvoiceId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
 
-  it.only('テスト準備[再発行]:APIから直接レコードを編集する', () => {
+  it('テスト準備[発行, 破棄]:APIから直接レコードを編集する', () => {
     cy.task('prepareInvoice', 'KKB-C220020-01');
   });
 
@@ -70,7 +70,7 @@ describe('請求書を発行する', () => {
 
 
     // 保存する
-    cy.contains('保存').click(); // 再発行ボタンをクリックする
+    cy.contains('保存').click(); // 保存ボタンをクリックする
 
     // URLの確認
     cy.url().should('include', 'invoiceId');
@@ -117,7 +117,7 @@ describe('請求書を発行する', () => {
       cy.stub(win, 'open').as('windowOpen');
     });
 
-    cy.contains('請求書発行').click(); // 再発行ボタンをクリックする
+    cy.contains('請求書発行').click(); // 請求書発行ボタンをクリックする
 
     // 入力内容保持の確認
     cy.get('input[name*="plannedPaymentDate"]').first()
@@ -156,7 +156,6 @@ describe('請求書を発行する', () => {
     // 請求書発行済みの請求を開く
     cy.visit(`/project/payment/invoice?invoiceId=${testReissueInvoiceId}`);
     cy.get('.MuiTable-root')
-      .as('table')
       .should('exist');
 
 

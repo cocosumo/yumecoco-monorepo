@@ -7,32 +7,11 @@ describe('請求書を発行する', () => {
     cy.login();
   });
 
-  const issueTestId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
-  const reissueTestId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
+  const testCustGroupId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
+  const testReissueInvoiceId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
 
-  it('テスト準備[再発行]:APIから直接レコードを編集する', () => {
-    cy.request({
-      method: 'PUT',
-      url: 'https://rdmuhwtt6gx7.cybozu.com/k/v1/record.json',
-      headers: {
-        'X-Cybozu-API-Token': '9e2YTHEHDY6JD8701R1ibFB4TLBlfDsdMuO5U9oS',
-        'Content-Type': 'application/json',
-      },
-      body: {
-        'app': 204,
-        'updateKey': {
-          'field': 'uuid',
-          'value': issueTestId,
-        },
-        'record': {
-          'invoiceStatus': {
-            'value': 'sent',
-          },
-        },
-      },
-    })
-      .its('status')
-      .should('eq', 200);
+  it.only('テスト準備[再発行]:APIから直接レコードを編集する', () => {
+    cy.task('prepareInvoice', 'KKB-C220020-01');
   });
 
 
@@ -49,7 +28,7 @@ describe('請求書を発行する', () => {
         'app': 204,
         'updateKey': {
           'field': 'uuid',
-          'value': reissueTestId,
+          'value': testReissueInvoiceId,
         },
         'record': {
           'invoiceStatus': {
@@ -64,7 +43,7 @@ describe('請求書を発行する', () => {
 
 
   it('請求書の動作確認：作成・更新・破棄', () => {
-    cy.visit(`/project/payment/invoice?custGroupId=${issueTestId}`);
+    cy.visit(`/project/payment/invoice?custGroupId=${testCustGroupId}`);
 
     // 使用する請求書にチェックを入れる
     cy.get('input[name*="estimates[1].isForPayment"]').first()
@@ -175,7 +154,7 @@ describe('請求書を発行する', () => {
     );
 
     // 請求書発行済みの請求を開く
-    cy.visit(`/project/payment/invoice?invoiceId=${reissueTestId}`);
+    cy.visit(`/project/payment/invoice?invoiceId=${testReissueInvoiceId}`);
     cy.get('.MuiTable-root')
       .as('table')
       .should('exist');

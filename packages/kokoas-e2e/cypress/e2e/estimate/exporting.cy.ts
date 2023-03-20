@@ -3,9 +3,10 @@ import path from 'path';
 
 describe('出力', () => {
   const downloadsFolder = Cypress.config('downloadsFolder');
+  const testId = '6087cb6b-fa7f-4e75-8a64-0066985fb564';
 
   beforeEach(() => {
-    const testId = '6087cb6b-fa7f-4e75-8a64-0066985fb564';
+    
     cy.login();
     cy.visit(`/project/estimate/register?projEstimateId=${testId}`);
     cy.get('[aria-label="出力"]').first()
@@ -24,9 +25,16 @@ describe('出力', () => {
       .should(buffer => expect(buffer.length).to.be.gt(100));
   });
 
-  it('EXCEL形式でエクスポート出来る', () => {
-    cy.get('[aria-label*="エクセル"]')
+  it.only('EXCEL形式でエクスポート出来る', () => {
+    cy.window().then(win => {
+      cy.stub(win, 'open').as('Open');
+    });
+
+    cy.get('[aria-label*="顧客用形式"]')
       .click();
-    // TODO: ダウンロード出来たかどうかのテスト
+
+    cy.get('@Open').should('have.been.calledWithMatch', 'download/estimate/customer');
+
+
   });
 });

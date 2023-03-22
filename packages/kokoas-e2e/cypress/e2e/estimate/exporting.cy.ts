@@ -25,7 +25,7 @@ describe('出力', () => {
       .should(buffer => expect(buffer.length).to.be.gt(100));
   });
 
-  it.only('EXCEL形式でエクスポート出来る', () => {
+  it('EXCEL形式でエクスポート出来る', () => {
     cy.window().then(win => {
       cy.stub(win, 'open').as('Open');
     });

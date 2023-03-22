@@ -27,13 +27,13 @@ import { useEffect, useRef } from 'react';
 
     *ブラウザ又はパッケージ更新で、変わるかもしれない。
     
-    onCompositionStart, onCompositionEndを使って方法もあるらしいが、
-    ブラウザによっては、挙動が変わります。
+    onCompositionStart, onCompositionEndを使う方法もあるらしいが、
+    OS又はブラウザによっては、挙動が変わります。
 
     この記事は古いが、同じ辛さ経験しました。
     https://qiita.com/is_yanyan/items/d14ecb3d2e5b7d119d5d
     
-    日本の独特な仕様もあるので、 方法は気づいていないだけかもしれません。
+    日本の独特な仕様もあるので、 適切な方法は気づいていないだけかもしれません。
     以下の解決策によりいい方法があれば教えてください。
 
    */
@@ -67,6 +67,9 @@ export const ControlledCurrencyInput = ({
   });
 
   useEffect(() => {
+    if (name.includes('Before') && rowIdx === 0) {
+      console.log(fieldValue, name, inputRef.current);
+    }
     if (inputRef.current) {
       // 表示を更新する
       // 例：実値は1000だが、表示は1,000になる。
@@ -97,21 +100,16 @@ export const ControlledCurrencyInput = ({
 
         return (
           <OutlinedCurrencyInput
-            inputRef={(el) => {
+            ref={(el) => {
               /** RFHと共有 */ 
-              ref(el);
               inputRef.current = el;
+              ref(el);              
             }}
             defaultValue={value.toLocaleString()}
             name={name}
             onBlur={onBlur}
             onChange={(e) => {
-              const rawValue = e.target.value;
-              //const normalizedValue = convertToHalfWidth(rawValue);
-              //const newValue = normalizedValue.replace(/,/g, '');
- 
-              //console.log('costPriceOnChange', newValue, e.target.value);
-              onChange(rawValue);
+              onChange(e);
               handleChange();
             }}
             error={!!error && isTouched}

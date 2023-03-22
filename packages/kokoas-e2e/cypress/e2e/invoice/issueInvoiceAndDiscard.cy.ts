@@ -14,31 +14,8 @@ describe('請求書を発行する', () => {
     cy.task('prepareInvoice', 'KKB-C220020-01');
   });
 
-
-
   it('テスト準備[再発行]:APIから直接レコードを編集する', () => {
-    cy.request({
-      method: 'PUT',
-      url: 'https://rdmuhwtt6gx7.cybozu.com/k/v1/record.json',
-      headers: {
-        'X-Cybozu-API-Token': '9e2YTHEHDY6JD8701R1ibFB4TLBlfDsdMuO5U9oS',
-        'Content-Type': 'application/json',
-      },
-      body: {
-        'app': 204,
-        'updateKey': {
-          'field': 'uuid',
-          'value': testReissueInvoiceId,
-        },
-        'record': {
-          'invoiceStatus': {
-            'value': 'sent',
-          },
-        },
-      },
-    })
-      .its('status')
-      .should('eq', 200);
+    cy.task('prepareInvoiceReissue', testReissueInvoiceId);
   });
 
 
@@ -47,25 +24,33 @@ describe('請求書を発行する', () => {
 
     // 使用する請求書にチェックを入れる
     cy.get('input[name="estimates[1].isForPayment"]')
+      .as('isForPaymentInput')
       .click();
 
     // 請求金額を入力する
-    cy.get('input[name*="estimates[1].billingAmount"]').first()
+    cy.get('input[name="estimates[1].billingAmount"]')
+      .as('billingAmountInput')
       .type('80000', { delay: 100 });
 
     // 入金予定日を設定する
     // 未定のチェック
-    cy.get('input[name*="undecidedPaymentDate"]').first()
+    cy.get('input[name*="undecidedPaymentDate"]')
+      .as('undecidedPaymentDateInput')
+      .first()
       .check();
 
-    cy.get('input[name*="plannedPaymentDate"]').first()
+    cy.get('input[name*="plannedPaymentDate"]')
+      .as('plannedPaymentDateInput')
+      .first()
       .should('have.attr', 'disabled');
 
     // 入金予定日：未定の解除
-    cy.get('input[name*="undecidedPaymentDate"]').first()
+    cy.get('@undecidedPaymentDateInput')
+      .first()
       .uncheck();
 
-    cy.get('input[name*="plannedPaymentDate"]').first()
+    cy.get('@plannedPaymentDateInput')
+      .first()
       .type('2023/03/15', { delay: 100 });
 
 
@@ -79,34 +64,34 @@ describe('請求書を発行する', () => {
 
     // 既存の請求書を更新する
     // 使用する請求書にチェックを入れる　選択解除＆再選択
-    cy.get('input[name="estimates[1].isForPayment"]')
+    cy.get('@isForPaymentInput')
       .click(); // チェックを外す
 
-    cy.get('input[name="estimates[1].isForPayment"]')
+    cy.get('@isForPaymentInput')
       .click();
 
     // 請求金額を入力する 符号間違い入力＆超過入力
-    cy.get('input[name*="estimates[1].billingAmount"]').first()
+    cy.get('@billingAmountInput')
       .clear();
-    cy.get('input[name*="estimates[1].billingAmount"]').first()
+    cy.get('@billingAmountInput')
       .type('-10000', { delay: 100 });
 
-    cy.contains('body', '契約金額と同じ符号(+, -)で入力してください')
+    cy.contains('契約金額と同じ符号(+, -)で入力してください')
       .should('exist');
     cy.get('input[name*="exceedChecked"]')
       .should('not.exist');
 
     // 超過チェック
-    cy.get('input[name*="estimates[1].billingAmount"]').first()
+    cy.get('@billingAmountInput')
       .clear();
-    cy.get('input[name*="estimates[1].billingAmount"]').first()
+    cy.get('@billingAmountInput')
       .type('150001', { delay: 100 });
     cy.contains('body', '契約金額と同じ符号(+, -)で入力してください')
       .should('not.exist');
 
     cy.get('input[name*="exceedChecked"]')
-      .should('exist');
-    cy.get('input[name*="exceedChecked"]').first()
+      .should('exist')
+      .first()
       .check();
 
     // 入金予定日を設定せず、そのまま遷移
@@ -120,16 +105,19 @@ describe('請求書を発行する', () => {
     cy.contains('請求書発行').click(); // 請求書発行ボタンをクリックする
 
     // 入力内容保持の確認
-    cy.get('input[name*="plannedPaymentDate"]').first()
+    cy.get('@plannedPaymentDateInput')
+      .first()
       .should('have.attr', 'disabled');
-    cy.get('input[name*="plannedPaymentDate"]').first()
+      
+    cy.get('@plannedPaymentDateInput')
+      .first()
       .should('have.value', '2023/03/15');
 
 
     // 請求書の破棄
     cy.contains('破棄').click();
 
-    cy.contains('body', '破棄した請求書のため、参照できません')
+    cy.contains('破棄した請求書のため、参照できません')
       .should('exist');
 
 

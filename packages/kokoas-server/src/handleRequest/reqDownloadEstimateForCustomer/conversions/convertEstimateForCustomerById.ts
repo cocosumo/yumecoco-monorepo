@@ -172,6 +172,7 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
 
     }
 
+    rowIdx++; // 最終行を上書きされないように
     ws.getCell(`A${rowIdx}`).value = '《 合 計 》';
     ws.getCell(`G${rowIdx}`).value = totalAmountBeforeDiscount;
 

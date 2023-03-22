@@ -72,8 +72,7 @@ describe('請求書を発行する', () => {
 
     // 請求金額を入力する 符号間違い入力＆超過入力
     cy.get('@billingAmountInput')
-      .clear();
-    cy.get('@billingAmountInput')
+      .clear()
       .type('-10000', { delay: 100 });
 
     cy.contains('契約金額と同じ符号(+, -)で入力してください')
@@ -83,10 +82,9 @@ describe('請求書を発行する', () => {
 
     // 超過チェック
     cy.get('@billingAmountInput')
-      .clear();
-    cy.get('@billingAmountInput')
+      .clear()
       .type('150001', { delay: 100 });
-    cy.contains('body', '契約金額と同じ符号(+, -)で入力してください')
+    cy.contains('契約金額と同じ符号(+, -)で入力してください')
       .should('not.exist');
 
     cy.get('input[name*="exceedChecked"]')

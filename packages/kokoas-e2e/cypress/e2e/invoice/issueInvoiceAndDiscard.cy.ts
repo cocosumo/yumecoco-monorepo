@@ -11,7 +11,7 @@ describe('請求書を発行する', () => {
     cy.task('prepareInvoice', 'KKB-C220020-01');
 
     // テスト準備[再発行]:APIから直接レコードを編集する
-    cy.task('prepareInvoiceReissue', testReissueInvoiceId);
+    cy.task('setInvoiceStatusToSent', testReissueInvoiceId);
   });
 
   beforeEach(() => {

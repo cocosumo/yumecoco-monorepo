@@ -35,7 +35,7 @@ export default defineConfig({
         },
       });
       on('task', {
-        async prepareInvoiceReissue(eissueInvoiceId: string) {
+        async setInvoiceStatusToSent(eissueInvoiceId: string) {
           return saveInvoices({
             recordId: eissueInvoiceId,
             record: {

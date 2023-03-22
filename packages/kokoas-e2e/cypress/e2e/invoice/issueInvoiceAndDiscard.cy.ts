@@ -36,22 +36,20 @@ describe('請求書を発行する', () => {
     // 入金予定日を設定する
     // 未定のチェック
     cy.get('input[name*="undecidedPaymentDate"]')
-      .as('undecidedPaymentDateInput')
       .first()
+      .as('undecidedPaymentDateInput')
       .check();
 
     cy.get('input[name*="plannedPaymentDate"]')
-      .as('plannedPaymentDateInput')
       .first()
+      .as('plannedPaymentDateInput')
       .should('have.attr', 'disabled');
 
     // 入金予定日：未定の解除
     cy.get('@undecidedPaymentDateInput')
-      .first()
       .uncheck();
 
     cy.get('@plannedPaymentDateInput')
-      .first()
       .type('2023/03/15', { delay: 100 });
 
 
@@ -107,11 +105,9 @@ describe('請求書を発行する', () => {
 
     // 入力内容保持の確認
     cy.get('@plannedPaymentDateInput')
-      .first()
       .should('have.attr', 'disabled');
 
     cy.get('@plannedPaymentDateInput')
-      .first()
       .should('have.value', '2023/03/15');
 
 

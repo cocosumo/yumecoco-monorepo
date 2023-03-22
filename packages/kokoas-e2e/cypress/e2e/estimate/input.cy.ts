@@ -1,6 +1,11 @@
 import { convertToFullWitdth } from 'libs/src/convertToFullWitdth';
 import { beforeEach, context, cy, describe } from 'local-cypress';
 
+
+/** 
+ * 入力中の細かい計算のテストは別のスペックに対応します。
+ */
+
 describe('見積：数値入力', () => {
   beforeEach(() => {
     const testProjId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60';

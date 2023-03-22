@@ -38,7 +38,7 @@ describe('calculateEstimateSummary', () => {
     expect(totalDiscountAmount).toBe(-60);
   });
 
-  it('正しい非割引非を返す', () => {
+  it('正しい非割引額を返す', () => {
     expect(totalAmountBeforeDiscount).toBe(1500);
   });
 

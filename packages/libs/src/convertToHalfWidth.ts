@@ -1,6 +1,9 @@
 
 // 全角数字を半角数字に変換
-export function convertToHalfWidth(input: string) {
+export function convertToHalfWidth<T>(input: T): T {
+
+  if (typeof input !== 'string') return input;
+
   // Replace all full-width characters with their corresponding half-width characters
   let output = '';
   for (let i = 0; i < input.length; i++) {
@@ -11,5 +14,6 @@ export function convertToHalfWidth(input: string) {
       output += input.charAt(i);
     }
   }
-  return output;
+
+  return output as T;
 }

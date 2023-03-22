@@ -1,3 +1,4 @@
+import { convertToFullWitdth } from 'libs/src/convertToFullWitdth';
 import { beforeEach, context, cy, describe } from 'local-cypress';
 
 describe('見積：数値入力', () => {
@@ -35,9 +36,12 @@ describe('見積：数値入力', () => {
 
     it.only('全角', () => {
       for (const [key, value] of Object.entries(testData)) {
+        console.log(convertToFullWitdth(value));
+        const fullWidthVal = convertToFullWitdth(value);
+        cy.log(`Typing ${fullWidthVal}`);
         cy.get(`input[name*="${key}"]`)
           .first()
-          .type(value.toString().replace(/(\d)(?=(\d{3})+$)/g, '$1,'))
+          .type(fullWidthVal)
           .blur()
           .should('have.value', value.toLocaleString());
       }

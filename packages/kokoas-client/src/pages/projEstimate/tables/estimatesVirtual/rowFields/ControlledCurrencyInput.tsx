@@ -44,16 +44,31 @@ export const ControlledCurrencyInput = ({
           isTouched,
         },
       }) => {
+        if (name.includes('costPrice') && rowIdx === 0) {
+          console.log('costPrice', value, Number(value).toLocaleString());
+        }
+
+        const currValue = typeof value === 'string' && value === '' 
+          ? value 
+          : Number(value).toLocaleString(); 
+  
         return (
           <OutlinedCurrencyInput
             ref={ref}
-            defaultValue={value.toLocaleString()}
+            value={currValue}
             name={name}
             onChange={(e) => {
-              const newValue = e.target.value;
-              const halfWidth = convertToHalfWidth(newValue);
-              onChange(halfWidth);
+              const rawValue = e.target.value;
+              const normalizedValue = convertToHalfWidth(rawValue);
+              const newValue = normalizedValue.replace(/,/g, '');
+ 
+              console.log('costPriceOnChange', newValue, e.target.value);
+
+        
+              onChange(newValue);
               handleChange();
+              
+     
             }}
             onBlur={onBlur}
             error={!!error && isTouched}

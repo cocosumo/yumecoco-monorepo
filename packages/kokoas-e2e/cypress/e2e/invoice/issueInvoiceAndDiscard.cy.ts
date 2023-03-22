@@ -57,8 +57,9 @@ describe('請求書を発行する', () => {
     cy.contains('保存').click(); // 保存ボタンをクリックする
 
     // URLの確認
-    cy.url().should('include', 'invoiceId');
-    cy.url().should('not.include', 'custGroupId');
+    cy.url()
+      .should('include', 'invoiceId')
+      .should('not.include', 'custGroupId');
 
 
     // 既存の請求書を更新する

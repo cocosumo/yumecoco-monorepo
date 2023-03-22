@@ -1,19 +1,25 @@
-import { beforeEach, cy, describe, expect } from 'local-cypress';
+import { before, beforeEach, cy, describe, expect } from 'local-cypress';
 
 
 describe('請求書を発行する', () => {
+
+  const testCustGroupId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
+  const testReissueInvoiceId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
+
+  before(() => {
+    // テスト準備[発行, 破棄]:APIから直接レコードを編集する
+    cy.task('prepareInvoice', 'KKB-C220020-01');
+
+    // テスト準備[再発行]:APIから直接レコードを編集する
+    cy.task('prepareInvoiceReissue', testReissueInvoiceId);
+  });
 
   beforeEach(() => {
     cy.login();
   });
 
-  const testCustGroupId = 'fe8029b9-4206-4344-a9d4-6d31918e8bb8';
-  const testReissueInvoiceId = '5a7a506f-e8b8-42f0-9437-d54c5d790701';
-
 
   it('請求書の動作確認：作成・更新・破棄', () => {
-    // テスト準備[発行, 破棄]:APIから直接レコードを編集する
-    cy.task('prepareInvoice', 'KKB-C220020-01');
 
     cy.visit(`/project/payment/invoice?custGroupId=${testCustGroupId}`);
 
@@ -119,8 +125,6 @@ describe('請求書を発行する', () => {
   });
 
   it('PDFの表示リクエスト', () => {
-    // テスト準備[再発行]:APIから直接レコードを編集する
-    cy.task('prepareInvoiceReissue', testReissueInvoiceId);
 
     // ネットワークのテスト
     cy.intercept(

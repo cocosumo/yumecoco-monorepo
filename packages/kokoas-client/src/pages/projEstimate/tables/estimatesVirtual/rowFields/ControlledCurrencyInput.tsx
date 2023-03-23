@@ -137,15 +137,15 @@ export const ControlledCurrencyInput = ({
             }}
             defaultValue={value.toLocaleString()}
             name={name}
-            onCompositionStart={(e) => {
-              const el = e.target as HTMLInputElement;   
+            onCompositionStart={() => {
+              //const el = e.target as HTMLInputElement;   
               shouldChange.current = false;
-              console.log('COMPOSITION_START', e.nativeEvent, el.value);
+              //console.log('COMPOSITION_START', e.nativeEvent, el.value);
             }}
             onCompositionEnd={(e) => {
               // ここでは二重にならない
               const el = e.target as HTMLInputElement;
-              console.log('COMPOSITION_END', e.nativeEvent, el.value);
+              //console.log('COMPOSITION_END', e.nativeEvent, el.value);
               onChange(+convertToHalfWidth(el.value));
             }}
             onBeforeInput={() => {
@@ -182,7 +182,7 @@ export const ControlledCurrencyInput = ({
 
               const newValue = +fieldValue;
               if (isNaN(newValue)) return e;
-              console.log('BLUR', e.nativeEvent, newValue, el.value);
+              //console.log('BLUR', e.nativeEvent, newValue, el.value);
               el.value = newValue.toLocaleString();
             }}
             error={!!error && isTouched}

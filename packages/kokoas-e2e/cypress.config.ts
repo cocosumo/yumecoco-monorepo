@@ -1,4 +1,4 @@
-import { getAllInvoices } from 'api-kintone';
+import { getInvoiceByEstDataId } from 'api-kintone/src/invoice/getInvoiceByEstDataId';
 import { saveInvoices } from 'api-kintone/src/invoice/saveInvoices';
 import { defineConfig } from 'cypress';
 
@@ -12,15 +12,13 @@ export default defineConfig({
     setupNodeEvents(on) {
       on('task', {
         async prepareInvoice(chkDataId: string) {
-          const recInvoices = (await getAllInvoices())
-            .filter(({ invoiceStatus, estimateLists }) => {
-              if ((invoiceStatus.value === 'sent') 
-              || (invoiceStatus.value === 'created')) {
-                return estimateLists.value.some(({ value }) => {
-                  return value.dataId.value === chkDataId;
-                });
-              }
+          const recInvoices = (await getInvoiceByEstDataId(chkDataId))
+            .filter(({ invoiceStatus }) => {
+              return ((invoiceStatus.value === 'sent')
+                || (invoiceStatus.value === 'created'));
             });
+
+          console.log('getInvoiceByEstDataId', recInvoices);
 
           recInvoices.forEach(async ({ uuid }) => {
             return saveInvoices({

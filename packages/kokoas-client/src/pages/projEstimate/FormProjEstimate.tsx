@@ -8,12 +8,12 @@ import { SearchProjects } from 'kokoas-client/src/components/reactHookForm/Searc
 import { useResolveParam } from './hooks/useResolveParam';
 import { ButtonMenu } from './fields/ButtonMenu';
 import { FormContents } from './FormContents';
-//import { DevTool } from '@hookform/devtools';
 import { EstimatesInfo } from './staticComponents/EstimatesInfo';
 import { useSaveForm } from './hooks/useSaveForm';
 import { Processing } from './formActions/Processing';
 import { ActionButtons } from './formActions/ActionButtons';
 import { useFormReset } from './hooks/useFormReset';
+import { DevTool } from '@hookform/devtools';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
@@ -90,7 +90,7 @@ export const FormProjEstimate = () => {
           handleSubmit={handleSubmit}
           handleSubmitFinal={handleSubmitFinal}
         />
-        {/* <DevTool control={control} /> */}
+        <DevTool control={control} />
 
       </FormContainer>
 

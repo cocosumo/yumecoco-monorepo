@@ -2,6 +2,7 @@ import { OutlinedCurrencyInput } from 'kokoas-client/src/components';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, KRowFields, TypeOfForm } from '../../../form';
 import { useEffect, useRef } from 'react';
+import { convertToHalfWidth } from 'libs';
 
 
 /**
@@ -67,9 +68,7 @@ export const ControlledCurrencyInput = ({
   });
 
   useEffect(() => {
-    if (name.includes('Before') && rowIdx === 0) {
-      console.log(fieldValue, name, inputRef.current);
-    }
+
     if (inputRef.current) {
       // 表示を更新する
       // 例：実値は1000だが、表示は1,000になる。
@@ -108,6 +107,10 @@ export const ControlledCurrencyInput = ({
             defaultValue={value.toLocaleString()}
             name={name}
             onBlur={onBlur}
+            onCompositionEnd={(event) => {
+              const el = event.target as HTMLInputElement;
+              onChange(convertToHalfWidth(el.value));
+            }}
             onChange={(e) => {
               onChange(e);
               handleChange();

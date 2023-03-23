@@ -111,23 +111,38 @@ export const ControlledCurrencyInput = ({
             name={name}
             onBlur={(e) => {
               onBlur();
-              const rawValue = e.target.value;
-              if (rawValue === '') return;
+              const newValue = +convertToHalfWidth(fieldValue);
 
-              const newValue = +convertToHalfWidth(rawValue);
               if (isNaN(newValue)) return e;
-              console.log('BLUR', rawValue);
-              e.target.value = newValue.toLocaleString();
               
+              onChange(newValue);
+              e.target.value = newValue.toLocaleString();
             }}
-            onCompositionEnd={(event) => {
-              const el = event.target as HTMLInputElement;
-              onChange(convertToHalfWidth(el.value));
-              console.log('onCompositionEnd', el.value);
+            onCompositionStart={(e) => {
+              const el = e.target as HTMLInputElement;
+              const {
+                selectionStart,
+                selectionEnd,
+              } = el as HTMLInputElement;
+              console.log('COMPOSITION_START', e.nativeEvent, selectionStart, selectionEnd);
+              
+              el.value = '';
+              onChange(''); //deputs
             }}
-            onChange={(e) => {
-              console.log('CHANGE', e.target.value, e);
-              onChange(e);
+            onCompositionEnd={(e) => {
+              console.log('COMPOSITION_END', e.nativeEvent);
+            }}
+            onInput={(e) => {
+             
+              const { 
+                value: inputValue, 
+                selectionStart, 
+                selectionEnd, 
+              } = e.target as HTMLInputElement;
+
+      
+              console.log('INPUT', e.nativeEvent, inputValue, selectionStart, selectionEnd);
+              onChange(inputValue);
               handleChange();
             }}
             error={!!error && isTouched}

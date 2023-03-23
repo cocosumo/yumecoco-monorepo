@@ -26,7 +26,7 @@ export const OutlinedCurrencyInput = forwardRef<HTMLInputElement, OutlinedInputP
       }}
       onFocus={({ target }) =>{
         target.value = target.value.replace(/,/g, '');
-        target.select();
+        target.select(); // ダブって原因でした。
       }}
 
       

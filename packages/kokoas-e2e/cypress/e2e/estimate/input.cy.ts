@@ -13,18 +13,18 @@ describe('見積：入力', () => {
     const baseData = {
       costPrice: 1000000,
       unitPrice: 2000000,
-      rowUnitPriceBeforeTax: 300000,
+      rowUnitPriceBeforeTax: 3000000,
     };
 
     let testData: Record<string, number> = Object.create(null);
 
     afterEach(() => {
-      cy.contains('内訳').scrollIntoView({ ensureScrollable: true });
 
       for (const [key, value] of Object.entries(testData)) {
         cy.get(`input[name*="${key}"]`)
           .first()
-          .type(value.toString())
+          .clear()
+          .type(value.toString(), { delay: 50, scrollBehavior: 'center' })
           .blur()
           .should('have.value', baseData[key as keyof typeof baseData].toLocaleString());
       }
@@ -39,6 +39,9 @@ describe('見積：入力', () => {
       }
 
       cy.contains('button', '一時保存').click();
+      cy.contains('処理中')
+        .should('exist');
+
     });
 
     it('半角', () => {

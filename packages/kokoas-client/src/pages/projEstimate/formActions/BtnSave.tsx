@@ -10,28 +10,30 @@ export const BtnSave = (props: ButtonProps) => {
   const name : SaveButtonNames = 'save';
 
   return (
-    <Button
-      {...props}
-      name={name}
-      variant={'contained'}
-      size="medium"
-      aria-label="save"
-      color={'primary'}
-      sx={{ opacity: showText ? 1 : 0.5 }}
-      onMouseEnter={()=>setShowText(true)}
-      onMouseLeave={()=>setShowText(false)}
-    >
-      <SaveIcon />
+    <span>
 
-      <Collapse in={showText} orientation={'horizontal'}
-        mountOnEnter unmountOnExit
+
+      <Button
+        {...props}
+        name={name}
+        variant={'contained'}
+        size="small"
+        aria-label="save"
+        color={'primary'}
+        sx={{ opacity: showText ? 1 : 0.5 }}
+        onMouseEnter={()=>setShowText(true)}
+        onMouseLeave={()=>setShowText(false)}
       >
-        <Box ml={1} width={'40px'}>
-          保存
-        </Box>
-      </Collapse>
-    </Button>
+        <SaveIcon />
 
-
+        <Collapse in={showText} orientation={'horizontal'}
+          mountOnEnter unmountOnExit
+        >
+          <Box ml={1} width={'40px'}>
+            保存
+          </Box>
+        </Collapse>
+      </Button>
+    </span>
   );
 };

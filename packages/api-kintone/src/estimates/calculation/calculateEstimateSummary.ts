@@ -1,4 +1,4 @@
-import Big from 'big.js';
+import { Big } from 'big.js';
 import { calcProfitRate } from './calcProfitRate';
 import { calcAfterTax } from './calcTax';
 import { convertToHalfWidth } from 'libs';
@@ -13,11 +13,15 @@ export interface EstimateSummary {
   /** 税額 */
   totalTaxAmount: number,
 
-  /**  */
+  /** 課税対象総額 */
   totalTaxableAmount: number,
 
-  /** */
+  /** 非課税対象総額 */
   totalNonTaxableAmount: number,
+
+  /** 割引額 */
+  totalDiscountAmount: number,
+
 }
 
 export interface CompleteEstimateSummary extends EstimateSummary {
@@ -34,9 +38,12 @@ export interface CompleteEstimateSummary extends EstimateSummary {
 
   /** 税額 */
   totalTaxAmount: number,
+  
+  /** 非割引額 */
+  totalAmountBeforeDiscount: number,
 }
 
-interface EstRowFields {
+export interface EstRowFields {
   rowUnitPriceBeforeTax: number,
   rowCostPrice: number,
   isTaxable: boolean,
@@ -52,7 +59,8 @@ export const calculateEstimateSummary = (
   税率ごとに区分して合計した対価の額および適用税率に改修 */
 
   const summary = calculatedEstimateTable
-    .reduce((acc, cur) => {
+    .reduce<EstimateSummary>(
+    (acc, cur) => {
       const {
         rowUnitPriceBeforeTax,
         rowCostPrice,
@@ -83,20 +91,24 @@ export const calculateEstimateSummary = (
       totalCostPrice: 0,
       totalProfit: 0,
       totalTaxAmount: 0,
-    } as EstimateSummary );
+      totalDiscountAmount: 0,
+    } );
 
   const {
     totalCostPrice,
     totalTaxableAmount,
     totalNonTaxableAmount,
+    totalDiscountAmount,
   } = summary;
 
   const totalTaxableAmountWithTax = calcAfterTax(totalTaxableAmount, taxRate);
 
-  const totalAmountBeforeTax = Big(totalTaxableAmount).add(totalNonTaxableAmount)
+  const totalAmountBeforeTax = Big(totalTaxableAmount)
+    .add(totalNonTaxableAmount)
     .round(0)
     .toNumber();
-  const totalAmountAfterTax = Big(totalTaxableAmountWithTax).add(totalNonTaxableAmount)
+  const totalAmountAfterTax = Big(totalTaxableAmountWithTax)
+    .add(totalNonTaxableAmount)
     .round(0)
     .toNumber() ;
 
@@ -104,9 +116,16 @@ export const calculateEstimateSummary = (
     ...summary,
     totalAmountBeforeTax,
     totalAmountAfterTax,
-    totalTaxAmount:  totalAmountAfterTax - totalAmountBeforeTax,
-    totalProfit: totalAmountBeforeTax - totalCostPrice,
+    totalTaxAmount:  Big(totalAmountAfterTax)
+      .minus(totalAmountBeforeTax)
+      .toNumber(),
+    totalProfit: Big(totalAmountBeforeTax)
+      .minus(totalCostPrice)
+      .toNumber(),
     overallProfitRate:  calcProfitRate(totalCostPrice, totalAmountBeforeTax),
+    totalAmountBeforeDiscount: Big(totalAmountBeforeTax)
+      .minus(totalDiscountAmount)
+      .toNumber(),
   };
 
 

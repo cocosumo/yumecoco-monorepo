@@ -1,13 +1,18 @@
 import express, { Router as router } from 'express';
-import { reqUploadDaikokuEst } from '../handleRequest/reqUploadDaikokuEst';
+import { 
+  reqUploadDaikokuEst, 
+  reqUploadDaikokuGenka, 
+  saveProjectToAndpad, 
+  downloadEstimateForCustomer, 
+  downloadEstimateAsAndpad, 
+} from '../handleRequest';
 import { kokoasEndpoints } from 'libs/src/endpoints';
-import { reqUploadDaikokuGenka } from '../handleRequest/reqUploadDaikokuGenka';
-import { saveProjectToAndpad } from '../handleRequest';
 import bodyParser from 'body-parser';
 import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloadInvoice';
 
 
 const route = router();
+
 
 route.post(
   `/${kokoasEndpoints.uploadEstimates}/:projId?`,
@@ -27,6 +32,13 @@ route.post(
   saveProjectToAndpad,
 );
 
+route.get(`/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
+  downloadEstimateAsAndpad,
+);
+
+route.get(`/${kokoasEndpoints.downloadEstimateForCustomer}/:estimateId`,
+  downloadEstimateForCustomer,
+);
 route.put(
   `/${kokoasEndpoints.downloadInvoice}`,
   bodyParser.json({ limit: '50mb' }),

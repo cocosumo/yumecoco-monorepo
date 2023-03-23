@@ -31,11 +31,12 @@ export const generateInvoicePdf = async (
 
   const {
     companyName,
-    // companyPostCode,
-    // companyAddress,
-    // kenchikugyoKyoka,
-    // takkengyoNumber,
-    // OfficeRegistration,
+    companyPostCode,
+    companyAddress,
+    kenchikugyoKyoka,
+    takkengyoNumber,
+    officeRegistration,
+    invoiceSystemNumber,
   } = companyDetailsDat;
 
   const custName = members[0].customerName;
@@ -61,7 +62,7 @@ export const generateInvoicePdf = async (
   /* PDF書き込み処理 ここから TODO */
 
   // 顧客氏名 ※右揃えで設定
-  const custNameFontSize = 18;  
+  const custNameFontSize = 18;
   const custNametextWidth = msMinchoFont.widthOfTextAtSize(custName, custNameFontSize);
 
   firstPage.drawText(
@@ -76,7 +77,7 @@ export const generateInvoicePdf = async (
 
   // 請求金額 ※右揃えで設定
   const newBillingAmount = billingAmount.toLocaleString();
-  const billingAmountFontSize = 14;  
+  const billingAmountFontSize = 14;
   const textWidth = msMinchoFont.widthOfTextAtSize(newBillingAmount, billingAmountFontSize);
 
   firstPage.drawText(
@@ -112,7 +113,7 @@ export const generateInvoicePdf = async (
     },
   );
 
-  // 会社情報の反映  
+  // 会社情報の反映
   firstPage.drawText(
     companyName,
     {
@@ -123,15 +124,66 @@ export const generateInvoicePdf = async (
     },
   );
 
+  firstPage.drawText(
+    companyPostCode,
+    {
+      x: 490,
+      y: 106,
+      font: msMinchoFont,
+      size: 11,
+    },
+  );
 
+  firstPage.drawText(
+    companyAddress,
+    {
+      x: 480,
+      y: 93,
+      font: msMinchoFont,
+      size: 11,
+    },
+  );
+
+  firstPage.drawText(
+    kenchikugyoKyoka,
+    {
+      x: 545,
+      y: 80,
+      font: msMinchoFont,
+      size: 11,
+    },
+  );
+
+  firstPage.drawText(
+    takkengyoNumber,
+    {
+      x: 545,
+      y: 67,
+      font: msMinchoFont,
+      size: 11,
+    },
+  );
+
+  firstPage.drawText(
+    officeRegistration,
+    {
+      x: 575,
+      y: 53,
+      font: msMinchoFont,
+      size: 11,
+    },
+  );
+
+  firstPage.drawText(
+    invoiceSystemNumber,
+    {
+      x: 525,
+      y: 39,
+      font: msMinchoFont,
+      size: 11,
+    },
+  );
   // PDF書き込み処理 ここまで
 
-
-
-  /* test用のコード　ここから */
-  // const pdfBytes = await pdfDoc.save(); // pdfデータをバイナリで取得
-  /* test用のコード　ここまで */
-
-  // return pdfBytes;
   return pdfDoc.saveAsBase64();
 };

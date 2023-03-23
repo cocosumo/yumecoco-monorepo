@@ -171,7 +171,7 @@ export const calculateEstimateRow = (params : CalculationEstimateParams) : Calcu
     });
   } catch (e) {
     if (!isProd && e.message.includes('Invalid number')) {
-      // バリデーションはRFHで行うので、BigJSのエラーを無視する。エラーメッセージは本番で表示しない。
+      // バリデーションはRHFで行うので、BigJSのエラーを無視する。エラーメッセージは本番で表示しない。
       console.warn('Invalid input', normalizedParams); 
     }
   } 

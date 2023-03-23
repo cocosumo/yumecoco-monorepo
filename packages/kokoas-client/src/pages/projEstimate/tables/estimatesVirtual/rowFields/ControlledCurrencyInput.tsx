@@ -20,9 +20,9 @@ import { useEffect, useRef } from 'react';
     英数の場合、
       どのブラウザでも、問題なし。
 
-    RFHのControllerのrefを渡してもプログラム的な設定では値が反映されないので、
+    RHFのControllerのrefを渡してもプログラム的な設定では値が反映されないので、
     ここで別のinputRefを作成してregisterの動作を再現する。ただし、
-    RFHのregisterでは反映されるが、defaultValueが反映されず、
+    RHFのregisterでは反映されるが、defaultValueが反映されず、
     既存のデータの初期ロード時にカンマが入らない。
 
     *ブラウザ又はパッケージ更新で、変わるかもしれない。
@@ -101,7 +101,7 @@ export const ControlledCurrencyInput = ({
         return (
           <OutlinedCurrencyInput
             ref={(el) => {
-              /** RFHと共有 */ 
+              /** RHFと共有 */ 
               inputRef.current = el;
               ref(el);              
             }}

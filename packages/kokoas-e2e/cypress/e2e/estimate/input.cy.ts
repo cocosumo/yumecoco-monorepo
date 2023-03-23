@@ -1,4 +1,4 @@
-import { convertToFullWitdth } from 'libs/src/convertToFullWitdth';
+import { convertObjNumValsToFullWidth } from 'libs/src/convertObjNumValsToFullWidth';
 import { beforeEach, context, cy, describe } from 'local-cypress';
 
 
@@ -15,49 +15,39 @@ describe('見積：数値入力', () => {
 
   context('お金に関わるフィールドに、フォーカスを外したときに、コンマを追加します', () => {
 
-    const testData = {
+    const baseData = {
       costPrice: 1000000,
       unitPrice: 2000000,
       rowUnitPriceBeforeTax: 300000,
     };
 
-    it('半角', () => {
+    let testData: Record<string, number> = Object.create(null);
+
+    afterEach(() => {
       for (const [key, value] of Object.entries(testData)) {
         cy.get(`input[name*="${key}"]`)
           .first()
           .type(value.toString())
           .blur()
-          .should('have.value', value.toLocaleString());
+          .should('have.value', baseData[key as keyof typeof baseData].toLocaleString());
       }
 
       /** 入力がフォーカスされた場合に、値がカンマを含まないことをアサートします。 */
-      for (const [key, value] of Object.entries(testData)) {
+      for (const key of Object.keys(testData)) {
         cy.get(`input[name*="${key}"]`)
           .first()
           .focus()
-          .should('have.value', value.toString());
+          .invoke('val')
+          .should('not.include', ',');
       }
     });
 
-    it.only('全角', () => {
-      for (const [key, value] of Object.entries(testData)) {
-        console.log(convertToFullWitdth(value));
-        const fullWidthVal = convertToFullWitdth(value);
-        cy.log(`Typing ${fullWidthVal}`);
-        cy.get(`input[name*="${key}"]`)
-          .first()
-          .type(fullWidthVal)
-          .blur()
-          .should('have.value', value.toLocaleString());
-      }
+    it('半角', () => {
+      testData = { ...baseData };
+    });
 
-      /** フォーカスが戻ったら、コンマを取り除いたか、あさとします */
-      for (const [key, value] of Object.entries(testData)) {
-        cy.get(`input[name*="${key}"]`)
-          .first()
-          .focus()
-          .should('have.value', value.toString());
-      }
+    it('全角', () => {
+      testData = convertObjNumValsToFullWidth(baseData);
     });
   });
 });

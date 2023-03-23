@@ -172,6 +172,8 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
 
     }
 
+    ws.getCell('A22').value = ''; // 次へつづくを削除
+
     rowIdx++; // 最終行を上書きされないように
     ws.getCell(`A${rowIdx}`).value = '《 合 計 》';
     ws.getCell(`G${rowIdx}`).value = totalAmountBeforeDiscount;
@@ -255,6 +257,12 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
       currRowIdx++;
     }
 
+    const totalHeaderCell = ws.getCell('A22');
+    totalHeaderCell.font = { bold: true };
+    totalHeaderCell.value = '          《 合 計 》'; 
+    ws.getCell('G22').value = totalAmountBeforeDiscount;
+    
+   
     // 余ったシートを削除
     while (workbook.getWorksheet(`${sheetNamePrefix} (${++currSheetIdx})`)) {
       workbook.removeWorksheet(`${sheetNamePrefix} (${currSheetIdx})`);

@@ -69,6 +69,9 @@ export const ControlledCurrencyInput = ({
 
   useEffect(() => {
 
+    if (name.includes('costPrice')) {
+      console.log('costPrice', fieldValue); 
+    }
     if (inputRef.current) {
       // 表示を更新する
       // 例：実値は1000だが、表示は1,000になる。
@@ -106,12 +109,24 @@ export const ControlledCurrencyInput = ({
             }}
             defaultValue={value.toLocaleString()}
             name={name}
-            onBlur={onBlur}
+            onBlur={(e) => {
+              onBlur();
+              const rawValue = e.target.value;
+              if (rawValue === '') return;
+
+              const newValue = +convertToHalfWidth(rawValue);
+              if (isNaN(newValue)) return e;
+              console.log('BLUR', rawValue);
+              e.target.value = newValue.toLocaleString();
+              
+            }}
             onCompositionEnd={(event) => {
               const el = event.target as HTMLInputElement;
               onChange(convertToHalfWidth(el.value));
+              console.log('onCompositionEnd', el.value);
             }}
             onChange={(e) => {
+              console.log('CHANGE', e.target.value, e);
               onChange(e);
               handleChange();
             }}

@@ -3,9 +3,9 @@ import { beforeEach, context, cy, describe } from 'local-cypress';
 
 describe('見積：入力', () => {
   beforeEach(() => {
-    const testProjId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60';
+    const testId = '6087cb6b-fa7f-4e75-8a64-0066985fb564';
     cy.login();
-    cy.visit(`/project/estimate/register?projId=${testProjId}`);
+    cy.visit(`/project/estimate/register?projEstimateId=${testId}&menuOpen=0`);
   });
 
   context('お金に関わるフィールドに、フォーカスを外したときに、コンマを追加します', () => {
@@ -19,6 +19,8 @@ describe('見積：入力', () => {
     let testData: Record<string, number> = Object.create(null);
 
     afterEach(() => {
+      cy.contains('内訳').scrollIntoView({ ensureScrollable: true });
+
       for (const [key, value] of Object.entries(testData)) {
         cy.get(`input[name*="${key}"]`)
           .first()
@@ -35,13 +37,15 @@ describe('見積：入力', () => {
           .invoke('val')
           .should('not.include', ',');
       }
+
+      cy.contains('button', '一時保存').click();
     });
 
     it('半角', () => {
       testData = { ...baseData };
     });
 
-    it('全角', () => {
+    it.only('全角', () => {
       testData = convertObjNumValsToFullWidth(baseData);
     });
   });

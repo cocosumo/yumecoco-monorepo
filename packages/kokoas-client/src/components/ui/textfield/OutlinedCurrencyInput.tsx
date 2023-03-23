@@ -1,5 +1,4 @@
 import { InputAdornment, OutlinedInput, OutlinedInputProps } from '@mui/material';
-import { convertToHalfWidth } from 'libs';
 import { forwardRef } from 'react';
 
 /**
@@ -29,15 +28,7 @@ export const OutlinedCurrencyInput = forwardRef<HTMLInputElement, OutlinedInputP
         target.value = target.value.replace(/,/g, '');
         target.select();
       }}
-      onBlur={(e) => {
-        props.onBlur?.(e);
-        const rawValue = e.target.value;
-        if (rawValue === '') return;
-        
-        const value = +convertToHalfWidth(rawValue);
-        if (isNaN(value)) return;
-        e.target.value = value.toLocaleString();
-      }}
+
       
     />
   );

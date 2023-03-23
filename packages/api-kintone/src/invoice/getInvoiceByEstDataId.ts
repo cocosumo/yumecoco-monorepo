@@ -1,17 +1,13 @@
 import { getRecords } from '../common';
-import { appId, RecordKeys, RecordType } from './config';
+import { appId, RecordType } from './config';
 
 export const getInvoiceByEstDataId = async (estDataId: string) => {
   if (!estDataId) throw new Error('Invalid estData id.');
 
-
-  const dataIdKey: RecordKeys = 'dataId';
+  const dataIdKey = 'dataId';
   
   return getRecords<RecordType>({
     app: appId,
-    query: `${dataIdKey} in "${estDataId}"`,
+    query: `${dataIdKey} in ("${estDataId}")`,
   });
-
-
-
 };

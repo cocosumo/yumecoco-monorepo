@@ -1,7 +1,7 @@
 import { getInvoiceByProjId } from './getInvoiceByProjId';
 
 describe('invoice', () => {
-  it('should get invoice by id', async () => {
+  it('should get invoice by project id', async () => {
 
     const { records, totalCount } = await getInvoiceByProjId('8aa54bb3-10e7-45fa-adde-df7776082c77');
 

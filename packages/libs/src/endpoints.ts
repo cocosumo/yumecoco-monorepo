@@ -22,9 +22,12 @@ export const kokoasEndpoints = {
    * 'download/estimate/customer/:estimateId'
    */
   downloadEstimateForCustomer: 'download/estimate/customer',
+  
+  /** 請求書 */
+  downloadInvoice: 'download/invoice',
 } as const;
 
 export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;
-export type TKokoasEndpoint = typeof kokoasEndpoints[keyof typeof kokoasEndpoints];
+export type TKokoasEndpoint = typeof kokoasEndpoints[TKokoasEndpointKey];
 
 export const getKokoasEndpoint = (k: TKokoasEndpoint) => k;

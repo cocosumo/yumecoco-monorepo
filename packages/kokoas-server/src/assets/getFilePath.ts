@@ -4,7 +4,8 @@ import fs from 'fs';
 type FileName =
 | '見積書'
 | '請負契約書'
-| '工事請負契約約款';
+| '工事請負契約約款'
+| '請求書';
 
 
 export const getFilePath = ({

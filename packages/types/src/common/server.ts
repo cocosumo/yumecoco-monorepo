@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 export type TProjReq = {
   projId?: string,
-  custGroupId?:string,
+  custGroupId?: string,
   envelopeId?: string,
   origin?: string
 };
@@ -45,7 +45,7 @@ export interface ParsedDaikokuEst {
     quantity: number,
     amount: number,
   }>
-  items : Array<{
+  items: Array<{
     majorItem: string,
     middleItem: string,
     material: string,
@@ -71,7 +71,7 @@ export interface ParsedDaikokuGenka {
   totalCostPrice: number,
   totalProfit: number,
   overallProfitRate: number,
-  items : Array<{
+  items: Array<{
     majorItem: string,
     middleItem: string,
     material: string,
@@ -85,6 +85,40 @@ export interface ParsedDaikokuGenka {
     rowDetails: string,
   }>
 }
+
+
+export interface ParsedInvoiceReport {
+  billingAmount: number,
+  slipNumber: string,
+  plannedPaymentDate: string,
+  issuedDateTime: string,
+  custGroupId: string,
+  estimateLists: Array<{
+    projId: string,
+    dataId: string,
+    projTypeName: string,
+    estimateId: string,
+    amountPerContract: number,
+    paymentType: string,
+  }>;
+}
+
+export interface ParsedCustGroupReport {
+  custGroupId: string,
+  members: Array<{
+    customerName: string,
+  }>;
+}
+
+export interface ParsedCompanyDetailsDatReport {
+  companyName: string,
+  companyPostCode: string,
+  companyAddress: string,
+  kenchikugyoKyoka: string,
+  takkengyoNumber: string,
+  officeRegistration: string,
+}
+
 
 export interface ReqSendContract {
   userCode: string,
@@ -142,7 +176,11 @@ export const reqDownloadEstimateForCustomer = ObjWithEstimateId;
 
 export type ReqDownloadEstimateAsAndpad = z.infer<typeof reqDownloadEstimateAsAndpad>;
 export type ReqDownloadEstimateForCustomer = z.infer<typeof reqDownloadEstimateForCustomer>;
+export interface DownloadInvoiceResponse {
+  pdfDat: string,
+  generatedTime: Date,
+}
 
 export type ApiNodes =
-| 'docusign'
-| 'kokoas';
+  | 'docusign'
+  | 'kokoas';

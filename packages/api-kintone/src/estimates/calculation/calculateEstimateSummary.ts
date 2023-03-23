@@ -79,6 +79,12 @@ export const calculateEstimateSummary = (
           .toNumber();
       }
 
+      if (normalizedRowUnitPriceBeforeTax < 0) {
+        acc.totalDiscountAmount = Big(acc.totalDiscountAmount)
+          .plus(normalizedRowUnitPriceBeforeTax)
+          .toNumber();
+      }
+
       acc.totalCostPrice = Big(acc.totalCostPrice)
         .add(rowCostPrice)
         .toNumber();

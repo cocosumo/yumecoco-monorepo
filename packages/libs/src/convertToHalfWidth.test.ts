@@ -15,6 +15,7 @@ describe('convertToHalfWidth', () => {
     expect(convertToHalfWidth('－１２３４５６７８９０')).toBe('-1234567890');
     expect(convertToHalfWidth('−１２３４５６７８９０')).toBe('-1234567890');
     expect(convertToHalfWidth('―１２３４５６７８９０')).toBe('-1234567890');
+    expect(convertToHalfWidth('ー１２３４５６７８９０')).toBe('-1234567890');
   });
 
   it('小数点を半角ピリオドに変換する', () => {
@@ -25,5 +26,6 @@ describe('convertToHalfWidth', () => {
   it('全角数字とマイナス記号、小数点を組み合わせて変換する', () => {
     expect(convertToHalfWidth('－１２３４５．６７８９０')).toBe('-12345.67890');
     expect(convertToHalfWidth('１２３４５．６７８９００−７．８９')).toBe('12345.678900-7.89');
+    expect(convertToHalfWidth('ー１．２３４')).toBe('-1.234');
   });
 });

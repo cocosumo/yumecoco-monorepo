@@ -12,7 +12,7 @@ export function convertToHalfWidth<T>(input: T): T {
   });
 
   // マイナス記号を半角ハイフンに変換する
-  result = result.replace(/[－−―]/g, '-');
+  result = result.replace(/[－−―ー]/g, '-');
 
   // 小数点を半角ピリオドに変換する
   result = result.replace(/[．。]/g, '.');

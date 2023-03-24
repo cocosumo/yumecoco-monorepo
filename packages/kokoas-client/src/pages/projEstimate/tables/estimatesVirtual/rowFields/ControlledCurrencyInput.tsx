@@ -1,8 +1,8 @@
-import { OutlinedCurrencyInput } from 'kokoas-client/src/components';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, KRowFields, TypeOfForm } from '../../../form';
 import { useEffect, useRef } from 'react';
 import { convertToHalfWidth } from 'libs';
+import { InputAdornment, OutlinedInput } from '@mui/material';
 
 
 /**
@@ -74,7 +74,7 @@ export const ControlledCurrencyInput = ({
   fieldName: KRowFields
 
 }) => {
-
+  
   const { control } = useFormContext<TypeOfForm>();
 
   const name = getItemsFieldName(rowIdx, fieldName);
@@ -140,13 +140,27 @@ export const ControlledCurrencyInput = ({
       }) => {
 
         return (
-          <OutlinedCurrencyInput
-            ref={(el) => {
+          <OutlinedInput
+            inputRef={(el) => {
               /** RHFと共有 */ 
               inputRef.current = el;
               ref(el);              
             }}
+            type='text' // numberだと、コンマを入れることが出来ない
+            size='small' 
+            endAdornment={(
+              <InputAdornment position='end' disablePointerEvents>
+                円
+              </InputAdornment>
+            )}
+            inputProps={{ 
+              style: { textAlign: 'right' }, 
+            }}
             defaultValue={value.toLocaleString()}
+            onFocus={({ target }) =>{
+              target.value = target.value.replace(/,/g, '');
+              target.select(); // ダブって原因でした。
+            }}
             name={name}
             onCompositionStart={() => {
               //const el = e.target as HTMLInputElement;   
@@ -156,8 +170,10 @@ export const ControlledCurrencyInput = ({
             onCompositionEnd={(e) => {
               // ここでは二重にならない
               const el = e.target as HTMLInputElement;
-              //console.log('COMPOSITION_END', e.nativeEvent, el.value);
-              onChange(+convertToHalfWidth(el.value));
+              const halfWidth = convertToHalfWidth(el.value);
+              //console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
+              if (isNaN(+halfWidth)) return;
+              onChange(+halfWidth);
             }}
             onBeforeInput={() => {
               // Chromeではcompositionendが先に発火するので、使えない

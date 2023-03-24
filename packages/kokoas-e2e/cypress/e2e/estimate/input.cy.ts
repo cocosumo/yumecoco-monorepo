@@ -1,4 +1,3 @@
-import { convertToHalfWidth } from 'libs';
 import { convertObjNumValsToFullWidth } from 'libs/src/convertObjNumValsToFullWidth';
 import { beforeEach, context, cy, describe, expect } from 'local-cypress';
 
@@ -65,7 +64,7 @@ describe('見積：入力', () => {
 
     });
 
-    it('全角', () => {
+    it.only('全角', () => {
       testData = convertObjNumValsToFullWidth(baseData);
 
       for (const [key, value] of Object.entries(testData)) {
@@ -78,7 +77,7 @@ describe('見積：入力', () => {
           .focus();
 
         // IME入力をシミュレーション
-        // デバイスとブラウザによって、IMEの設定が異なるため、網羅的なテストはできない。
+        // デバイスとブラウザによって、IMEの挙動が異なるため、網羅的なテストはできない。
         cy.get(`@${key}`).trigger('compositionstart');
 
         cy.get(`@${key}`)

@@ -1,19 +1,21 @@
 
 // 全角数字を半角数字に変換
 export function convertToHalfWidth<T>(input: T): T {
-
-  if (typeof input !== 'string') return input;
-
-  // Replace all full-width characters with their corresponding half-width characters
-  let output = '';
-  for (let i = 0; i < input.length; i++) {
-    const code = input.charCodeAt(i);
-    if (code >= 65281 && code <= 65374) {
-      output += String.fromCharCode(code - 65248);
-    } else {
-      output += input.charAt(i);
-    }
+  // 文字列でない入力はそのまま返す
+  if (typeof input !== 'string') {
+    return input;
   }
 
-  return output as T;
+  // 全角数字を半角数字に変換する
+  let result = input.replace(/[０-９]/g, (match) => {
+    return String.fromCharCode(match.charCodeAt(0) - 0xfee0);
+  });
+
+  // マイナス記号を半角ハイフンに変換する
+  result = result.replace(/[－−―]/g, '-');
+
+  // 小数点を半角ピリオドに変換する
+  result = result.replace(/[．。]/g, '.');
+
+  return result as T;
 }

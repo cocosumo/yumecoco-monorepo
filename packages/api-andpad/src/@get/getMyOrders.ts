@@ -5,14 +5,14 @@ import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
 import { Projects, SaveProjectData } from '../types';
 
-interface GetMyOrders {
+export interface GetMyOrders {
   series?: (keyof SaveProjectData)[],
   limit?: number,
   offset?: number,
   q?: string,
 }
 
-interface GetMyOrdersResponse {
+export interface GetMyOrdersResponse {
   data: {
     total: number,
     last_flg: boolean,

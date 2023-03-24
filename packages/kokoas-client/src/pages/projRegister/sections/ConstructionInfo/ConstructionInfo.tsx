@@ -28,6 +28,7 @@ export const ConstructionInfo = (
       cocoConst1,
       projId,
       hasContract,
+      isAgentConfirmed,
     },
     setValues,
   } = useFormikContext<TypeOfForm>();
@@ -112,7 +113,7 @@ export const ConstructionInfo = (
             >
               <ConstructionAgent
                 number={num}
-                disabled={(!cocoConst1 && num === 2) || hasContract}
+                disabled={(!cocoConst1 && num === 2) || isAgentConfirmed}
                 storeId={storeId}
                 territory={territory}
               />
@@ -121,8 +122,10 @@ export const ConstructionInfo = (
         }
 
         <Grid item xs={12} md={4}>
-          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'
-            disabled={hasContract}
+          <FormikLabeledCheckBox 
+            name={getFieldName('isAgentConfirmed')} 
+            label="工事担当者を確定する" 
+            helperText='※工事担当者が未定の場合はチェックしないでください。'
           />
 
         </Grid>

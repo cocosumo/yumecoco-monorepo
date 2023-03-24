@@ -3,7 +3,7 @@ import { beforeEach, context, cy, describe, expect } from 'local-cypress';
 
 describe('見積：入力', () => {
   beforeEach(() => {
-    const testId = '6087cb6b-fa7f-4e75-8a64-0066985fb564';
+    const testId = 'ce4e52a0-4486-4bae-944c-22c63850de9f';
     cy.login();
     cy.visit(`/project/estimate/register?projEstimateId=${testId}&menuOpen=0`);
   });
@@ -64,7 +64,7 @@ describe('見積：入力', () => {
 
     });
 
-    it.only('全角', () => {
+    it('全角', () => {
       testData = convertObjNumValsToFullWidth(baseData);
 
       for (const [key, value] of Object.entries(testData)) {

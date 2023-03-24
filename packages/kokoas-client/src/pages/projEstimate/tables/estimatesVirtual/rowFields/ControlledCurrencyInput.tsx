@@ -100,11 +100,22 @@ export const ControlledCurrencyInput = ({
   });
 
   useEffect(() => {
-    if (inputRef.current) {
+    if (!inputRef.current) return;
+    
+    const focusedInputElement = document.activeElement;
+
+    const isSameInputElFocused = focusedInputElement instanceof HTMLInputElement 
+      && focusedInputElement === inputRef.current;
+      
+    if (isSameInputElFocused) {
+      // 入力中の場合、コンマを追加しない。
+      inputRef.current.value = String(fieldValue);
+    } else {
       // 表示を更新する
       // 例：実値は1000だが、表示は1,000になる。
       inputRef.current.value = fieldValue.toLocaleString();
-    }
+    } 
+
   }, [
     fieldValue,
     name,
@@ -145,7 +156,7 @@ export const ControlledCurrencyInput = ({
             onCompositionEnd={(e) => {
               // ここでは二重にならない
               const el = e.target as HTMLInputElement;
-              //console.log('COMPOSITION_END', e.nativeEvent, el.value);
+              console.log('COMPOSITION_END', e.nativeEvent, el.value);
               onChange(+convertToHalfWidth(el.value));
             }}
             onBeforeInput={() => {
@@ -155,6 +166,7 @@ export const ControlledCurrencyInput = ({
               //console.log('BEFORE_INPUT', inputEvent, el.value);
             }}
             onInput={(e) => {
+              // ここではブラウザのバグの条件*が揃ったら、二重になる
               //const {
               //  inputType,
               //} = e.nativeEvent as InputEvent;

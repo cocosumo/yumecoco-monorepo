@@ -34,7 +34,7 @@ export const useSaveForm = ({
       estimateId,
     } = data;
     const record = convertToKintone(data);
-    console.log(data);
+
     const { id, revision } = await saveMutation({
       recordId: estimateId,
       record,

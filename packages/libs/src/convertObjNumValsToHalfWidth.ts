@@ -12,7 +12,7 @@ export const convertObjNumValsToHalfWidth = <T extends object>(obj: T): T => {
     const value = obj[key as keyof T];
 
     // 値に全角数字が含まれているかチェック
-    if (typeof value === 'string' && value.match(/[０-９]/)) {
+    if (typeof value === 'string' && (value as string).match(/[０-９]/)) {
       // 全角数字を半角数字に変換
       const newValue = convertToHalfWidth(value);
 

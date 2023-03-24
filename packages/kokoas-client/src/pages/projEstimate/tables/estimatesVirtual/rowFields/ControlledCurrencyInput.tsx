@@ -101,7 +101,7 @@ export const ControlledCurrencyInput = ({
 
   useEffect(() => {
     if (!inputRef.current) return;
-    
+
     const focusedInputElement = document.activeElement;
 
     const isSameInputElFocused = focusedInputElement instanceof HTMLInputElement 
@@ -156,7 +156,7 @@ export const ControlledCurrencyInput = ({
             onCompositionEnd={(e) => {
               // ここでは二重にならない
               const el = e.target as HTMLInputElement;
-              console.log('COMPOSITION_END', e.nativeEvent, el.value);
+              //console.log('COMPOSITION_END', e.nativeEvent, el.value);
               onChange(+convertToHalfWidth(el.value));
             }}
             onBeforeInput={() => {

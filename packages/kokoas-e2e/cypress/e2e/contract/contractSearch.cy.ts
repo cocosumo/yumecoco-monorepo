@@ -43,7 +43,7 @@ describe('契約一覧', () => {
     cy.log('契約ステータスのヘッダーを表示します');
     cy.get('@tableHead').find('th')
       .first()
-      .should('contain', '契約進歩');
+      .should('contain', '契約進捗');
       
 
     cy.log('すべての行において、契約ステータスを表示します');
@@ -85,7 +85,7 @@ describe('契約一覧', () => {
         .should('be.visible');
 
       cy.log('フィルターダイアログが開かれた際に、すべてのチェックボックスがオフの状態であることをアサートします');
-      cy.contains('label', '契約進歩')
+      cy.contains('label', '契約進捗')
         .siblings('div')
         .find('input[type="checkbox"]')
         .as('contractStatuses')
@@ -240,7 +240,7 @@ describe('契約一覧', () => {
           }
         });
 
-      cy.log('フィールター全て削除されたら、契約の進歩を関係なくすべて表示することをアサートします'); 
+      cy.log('フィールター全て削除されたら、契約の進捗を関係なくすべて表示することをアサートします'); 
       cy.get('@rowContractChips')
         .should('contain', '完了')
         .should('contain', '確認中');

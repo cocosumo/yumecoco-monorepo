@@ -1,6 +1,7 @@
 import { Big } from 'big.js';
 import { calcProfitRate } from './calcProfitRate';
 import { calcAfterTax } from './calcTax';
+import { convertToHalfWidth } from 'libs';
 
 export interface EstimateSummary {
   /** 原価合計 */
@@ -66,25 +67,26 @@ export const calculateEstimateSummary = (
         isTaxable,
       } = cur;
 
+      const normalizedRowUnitPriceBeforeTax = +convertToHalfWidth(rowUnitPriceBeforeTax);
+
       if (isTaxable) {
         acc.totalTaxableAmount = Big(acc.totalTaxableAmount)
-          .plus(rowUnitPriceBeforeTax)
+          .add(normalizedRowUnitPriceBeforeTax)
           .toNumber();
       } else {
-
         acc.totalNonTaxableAmount = Big(acc.totalNonTaxableAmount)
-          .plus(rowUnitPriceBeforeTax)
+          .add(normalizedRowUnitPriceBeforeTax)
           .toNumber();
       }
 
-      if (rowUnitPriceBeforeTax < 0) {
+      if (normalizedRowUnitPriceBeforeTax < 0) {
         acc.totalDiscountAmount = Big(acc.totalDiscountAmount)
-          .plus(rowUnitPriceBeforeTax)
+          .plus(normalizedRowUnitPriceBeforeTax)
           .toNumber();
       }
 
       acc.totalCostPrice = Big(acc.totalCostPrice)
-        .plus(rowCostPrice)
+        .add(rowCostPrice)
         .toNumber();
 
       return acc;
@@ -104,7 +106,6 @@ export const calculateEstimateSummary = (
     totalNonTaxableAmount,
     totalDiscountAmount,
   } = summary;
-
 
   const totalTaxableAmountWithTax = calcAfterTax(totalTaxableAmount, taxRate);
 

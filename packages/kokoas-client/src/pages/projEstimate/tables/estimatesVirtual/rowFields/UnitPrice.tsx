@@ -1,5 +1,5 @@
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
-import { ControlledMaskedCurrencyInput } from './ControlledMaskedCurrencyInput';
+import { ControlledCurrencyInput } from './ControlledCurrencyInput';
 
 export const UnitPrice = ({
   rowIdx,
@@ -10,7 +10,7 @@ export const UnitPrice = ({
 }) => {
 
   return (
-    <ControlledMaskedCurrencyInput
+    <ControlledCurrencyInput
       rowIdx={rowIdx}
       handleChange={() => handleChange(rowIdx)}
       fieldName={'unitPrice'}

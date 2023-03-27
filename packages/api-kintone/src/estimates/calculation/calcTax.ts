@@ -1,5 +1,6 @@
 
 import { Big } from 'big.js';
+import { convertToHalfWidth } from 'libs';
 
 const calcTax = (
   value: number,
@@ -7,10 +8,12 @@ const calcTax = (
   isTaxable: boolean,
   mode: 'after' | 'before',
 ) => {
-  if (!isTaxable) return value;
+  const normalizedValue = convertToHalfWidth(value);
+
+  if (!isTaxable) return normalizedValue;
 
   const bTaxRate = Big(taxRate ?? 0.1).add(1); // 1.1
-  let result = Big(value);
+  let result = Big(normalizedValue);
 
   if (mode === 'after') {
     result = result.mul(bTaxRate);

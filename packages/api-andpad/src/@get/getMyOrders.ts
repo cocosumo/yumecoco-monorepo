@@ -3,24 +3,7 @@ import qs from 'qs';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
-import { Projects, SaveProjectData } from '../types';
-
-export interface GetMyOrders {
-  series?: (keyof SaveProjectData)[],
-  limit?: number,
-  offset?: number,
-  q?: string,
-}
-
-export interface GetMyOrdersResponse {
-  data: {
-    total: number,
-    last_flg: boolean,
-    limit: number,
-    offset: number,
-    objects: Array<Projects>
-  }
-}
+import { GetMyOrders, GetMyOrdersResponse } from '../types';
 
 export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResponse> => {
   const {

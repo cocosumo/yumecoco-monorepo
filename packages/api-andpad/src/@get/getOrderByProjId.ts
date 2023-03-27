@@ -6,8 +6,15 @@ import { getMyOrders as getOrders } from './getMyOrders';
  * @param projId 
  */
 export const getOrderByProjId = async (projId: string) => {
-  return getOrders({ 
+  const {
+    data: {
+      objects,
+    },
+  } = await getOrders({ 
     q: `案件管理ID = ${projId}`,
     series: Object.keys(saveProjectData.shape) as (keyof SaveProjectData)[], 
   });
+
+  
+  return objects?.[0]; 
 };

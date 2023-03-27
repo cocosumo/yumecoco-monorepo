@@ -124,3 +124,21 @@ export const saveProjectResponse = z.object({
 
 export type Projects = z.infer<typeof projects>;
 export type SaveProjectResponse = z.infer<typeof saveProjectResponse>;
+
+
+export interface GetMyOrders {
+  series?: (keyof SaveProjectData)[],
+  limit?: number,
+  offset?: number,
+  q?: string,
+}
+
+export interface GetMyOrdersResponse {
+  data: {
+    total: number,
+    last_flg: boolean,
+    limit: number,
+    offset: number,
+    objects: Array<SaveProjectData>
+  }
+}

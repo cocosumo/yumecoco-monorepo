@@ -22,7 +22,7 @@ export const getNewAccessToken = async () => {
 
   const result = await axios({
     method: 'POST',
-    url: `${KT_BASE_URL}oauth2/token`,
+    url: `${KT_BASE_URL}/oauth2/token`,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': `Basic ${clientAuth}`,

@@ -1,5 +1,6 @@
 import { EnvelopeUpdateSummary } from 'docusign-esign';
 import { TEnvelopeStatus } from './docusign';
+import { z } from 'zod';
 
 export type TProjReq = {
   projId?: string,
@@ -174,6 +175,15 @@ export interface IRequestJWTUserTokenResponse {
   }
 }
 
+const ObjWithEstimateId = z.object({
+  estimateId: z.string().uuid(),
+});
+
+export const reqDownloadEstimateAsAndpad = ObjWithEstimateId;
+export const reqDownloadEstimateForCustomer = ObjWithEstimateId;
+
+export type ReqDownloadEstimateAsAndpad = z.infer<typeof reqDownloadEstimateAsAndpad>;
+export type ReqDownloadEstimateForCustomer = z.infer<typeof reqDownloadEstimateForCustomer>;
 export interface DownloadInvoiceResponse {
   pdfDat: string,
   generatedTime: Date,

@@ -1,13 +1,18 @@
+import { getOrderByProjId } from 'api-andpad';
 import { RequestHandler } from 'express';
 
 export const reqGetProjectFromAndpadByProjId: RequestHandler<
 { projId: string }
-> = (req, res) => {
+> = async (req, res) => {
   try {
     const projId = req.params.projId;
     if (!projId) return res.status(400).send('projId not defined');
+    console.log('getOrderByProjId', projId);
+
+    const result = await getOrderByProjId(projId);
+    if (!result) return res.status(404).send('Not found');
     
-    res.send('reqGetProjectFromAndpadByProjId - TEST CONNECTION');
+    res.json(result);
 
   } catch (err) {
     console.error(err?.message);

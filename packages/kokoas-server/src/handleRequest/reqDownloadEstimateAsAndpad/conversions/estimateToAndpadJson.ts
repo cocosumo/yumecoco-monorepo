@@ -16,6 +16,7 @@ export const estimateToAndpadJson = ({
     rows: rows.value.map(({ value: {
       部材名,
       大項目,
+      中項目,
       部材備考,
       単価,
       原価,
@@ -26,6 +27,7 @@ export const estimateToAndpadJson = ({
       return {
         ...initialRow,
         フォルダ１: 大項目.value,
+        フォルダ２: 中項目.value,
         明細名: 部材名.value,
         工事種類: 大項目.value,
         備考: 部材備考.value,
@@ -33,7 +35,7 @@ export const estimateToAndpadJson = ({
         見積原価単価: +原価.value,
         数量: +数量.value,
         単位: 単位.value,
-        実行予算単価: 0,
+        実行予算単価: +原価.value,
         メモ: 備考.value,
       };
     }), 

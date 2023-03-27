@@ -86,7 +86,11 @@ export const useSaveForm = ({
                 Object
                   .entries(item)
                   .forEach(([itemKey, itemError]) => {
-                    acc.push(`${idx + 1}行目の${ja[itemKey as keyof typeof ja]}：${(itemError as FieldError).message}`);
+                    const { 
+                      message,
+                      ref, 
+                    } = itemError as FieldError;
+                    acc.push(`${idx + 1}行目の${ja[itemKey as keyof typeof ja]}：${message}。値：${ref?.value}`);
                   });
               });
           } else {

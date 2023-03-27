@@ -174,6 +174,7 @@ export const ControlledCurrencyInput = ({
               //console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
               if (isNaN(+halfWidth)) return;
               onChange(+halfWidth);
+              handleChange();
             }}
             onBeforeInput={() => {
               // Chromeではcompositionendが先に発火するので、使えない
@@ -196,7 +197,7 @@ export const ControlledCurrencyInput = ({
                 onChange(inputValue);
                 handleChange();
               }
-              
+    
             }}
             onChange={() => {
               // IME入力中に値を弄ると、二重になるので使わない

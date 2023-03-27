@@ -16,7 +16,6 @@ describe('契約一覧：リンクのテスト', () => {
   it('工事情報画面へ移動する', () => {
     cy.get('button[aria-label*="工事情報"]').first()
       .click();
-    cy.contains('工事情報').click();
     cy.url().should('include', '/project');
     cy.contains('h4', '工事').should('exist');
   });
@@ -24,7 +23,6 @@ describe('契約一覧：リンクのテスト', () => {
   it('見積画面へ移動する', () => {
     cy.get('button[aria-label*="見積"]').first()
       .click();
-    cy.contains('工事情報').click();
     cy.url().should('include', '/project/estimate');
     cy.contains('h4', '見積').should('exist');
   });

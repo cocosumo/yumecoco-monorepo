@@ -4,9 +4,12 @@ describe('getInvoiceByEstDataId', () => {
   it('should get invoice by estDataId', async () => {
     const testDataId = 'KKB-C220027-01';
 
-    const { records } = await getInvoiceByEstDataId(testDataId);
+    const { 
+      records,
+      totalCount,
+    } = await getInvoiceByEstDataId(testDataId);
 
-    console.log('請求内容', records.length, '件');
+    console.log('請求内容', totalCount, '件');
 
     expect(records.every(({ estimateLists }) => {
       return estimateLists.value.some(({ value: {

@@ -20,7 +20,7 @@ describe('andpadJsonToExcel', () => {
           工事場所: 'test',
           工事種類: 'test',
           備考: 'test',
-          取引先ID: 'test',
+          取引先ID: 12345,
           取引先名: 'test',
           定価: 0,
           見積金額単価: 0,

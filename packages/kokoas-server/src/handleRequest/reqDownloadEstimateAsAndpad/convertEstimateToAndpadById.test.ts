@@ -3,6 +3,7 @@ import { convertEstimateToAndpadById } from './convertEstimateToAndpadById';
 import fs from 'fs/promises';
 
 describe('convertEstimateByIdToAndpad', () => {
+  // https://rdmuhwtt6gx7.cybozu.com/k/176/#/project/estimate/register?projEstimateId=fc8f798a-a73f-4447-b4bb-99d51da2f198
   const testEstimateId = 'fc8f798a-a73f-4447-b4bb-99d51da2f198';
 
   it('見積もりIDが見つからない場合、エラーが発生します', async () => {

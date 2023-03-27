@@ -1,6 +1,6 @@
 
-// 当面、必須になっているので固定
-const transactionPartnerId = '207075';
+// Andpad側で必須になっているので、山豊工建の取引先IDにs固定
+const transactionPartnerId = 207075;
 
 export const initialRow = {
   フォルダ１: '',

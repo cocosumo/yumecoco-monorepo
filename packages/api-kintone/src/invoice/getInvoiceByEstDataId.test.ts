@@ -2,14 +2,11 @@ import { getInvoiceByEstDataId } from './getInvoiceByEstDataId';
 
 describe('getInvoiceByEstDataId', () => {
   it('should get invoice by estDataId', async () => {
-    const testDataId = 'KKB-C220020-01';
+    const testDataId = 'KKB-C220027-01';
 
-    const {
-      records,
-      // totalCount,
-    } = await getInvoiceByEstDataId(testDataId);
+    const { records } = await getInvoiceByEstDataId(testDataId);
 
-    // console.log('請求内容', totalCount, '件', records);
+    console.log('請求内容', records.length, '件');
 
     expect(records.every(({ estimateLists }) => {
       return estimateLists.value.some(({ value: {

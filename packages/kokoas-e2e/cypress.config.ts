@@ -12,13 +12,7 @@ export default defineConfig({
     setupNodeEvents(on) {
       on('task', {
         async prepareInvoice(chkDataId: string) {
-          const { records } = (await getInvoiceByEstDataId(chkDataId));
-
-          const recInvoices = records
-            .filter(({ invoiceStatus }) => {
-              return ((invoiceStatus.value === 'sent')
-                || (invoiceStatus.value === 'created'));
-            });
+          const { records: recInvoices } = (await getInvoiceByEstDataId(chkDataId));
 
           console.log('getInvoiceByEstDataId', recInvoices);
 

@@ -1,8 +1,9 @@
-import { calculateEstimateRecord, getCustGroupById, getEstimateById, getProjById } from 'api-kintone';
+import { calculateEstimateRecord, getCustGroupById, getEstimateById, getProjById, getStoreById } from 'api-kintone';
 import { getFilePath } from 'kokoas-server/src/assets';
 import excel from 'exceljs';
 import { addressBuilder, formatDataId } from 'libs';
 import { groupEstItems } from './groupEstItems';
+import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 
 
 export const convertEstimateForCustomerById = async (estimateId: string) => {
@@ -18,13 +19,32 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
     内訳: { value: estimatesTable },
   } = estimateRec;
 
-  const [custGroupRec, projRec] = await Promise.all([
+  const [
+    custGroupRec, 
+    projRec,
+    cocosumoDetails,
+  ] = await Promise.all([
     getCustGroupById(custGroupId.value),
     getProjById(projId.value),
+    getCocosumoDetails(),
   ]);
 
   if (!custGroupRec) throw new Error(`顧客グループは見つかりませんでした： ${custGroupId.value}`);
   if (!projRec) throw new Error(`プロジェクトは見つかりませんでした： ${projId.value}`);
+  if (!cocosumoDetails) throw new Error('会社情報は見つかりませんでした。');
+
+  const {
+    kensetsugyoKyoka,
+  } = cocosumoDetails;
+
+  const {
+    members,
+    storeId,
+  } = custGroupRec;
+
+  const storeDetails = await getStoreById(storeId.value);
+
+  if (!projRec) throw new Error(`店舗情報は見つかりませんでした： ${storeId.value}`);
   
   const {
     summary: {
@@ -37,8 +57,12 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
   } = calculateEstimateRecord({ record: estimateRec });
 
   const {
-    members,
-  } = custGroupRec;
+    店舗名: storeName,
+    住所: storeAddress,
+    FAX: storeFax,
+    TEL: storeTel,
+    postalCode,
+  } = storeDetails;
 
   const {
     projName,
@@ -110,6 +134,13 @@ export const convertEstimateForCustomerById = async (estimateId: string) => {
       address1: address1.value,
       address2: address2.value,
     });
+
+    // 会社名
+    ws.getCell('AI22').value = `株式会社　山豊工建　ここすも　${storeName.value}`;
+    ws.getCell('AI23').value = `${postalCode.value ? `〒${postalCode.value} ` : ''}${storeAddress.value}`;
+    ws.getCell('AI24').value = `ハウスドゥ${storeName.value}内`;
+    ws.getCell('AI25').value = `TEL: ${storeTel.value} FAX: ${storeFax.value}`;
+    ws.getCell('AI26').value = kensetsugyoKyoka.value;
   })();
   
 

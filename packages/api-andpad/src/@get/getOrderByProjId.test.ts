@@ -7,6 +7,7 @@ describe('getOrderByProjId', () => {
 
     console.log(JSON.stringify(result, null, 2));
     
-    expect(result).toHaveProperty('data.objects');
+    expect(result).toHaveProperty('案件管理ID');
+    expect(result.案件管理ID).toBe(projId);
   });
 });

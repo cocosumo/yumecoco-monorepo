@@ -15,6 +15,5 @@ export const getOrderByProjId = async (projId: string) => {
     series: Object.keys(saveProjectData.shape) as (keyof SaveProjectData)[], 
   });
 
-  
   return objects?.[0]; 
 };

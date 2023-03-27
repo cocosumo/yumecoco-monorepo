@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../../../form';
 import { UseSmartHandlers } from '../../../hooks/useSmartHandlers';
-import { ControlledMaskedCurrencyInput } from './ControlledMaskedCurrencyInput';
+import { ControlledCurrencyInput } from './ControlledCurrencyInput';
 
 export const RowUnitPriceBeforeTax = ({
   rowIdx,
@@ -58,7 +58,7 @@ export const RowUnitPriceBeforeTax = ({
 
 
   return (
-    <ControlledMaskedCurrencyInput
+    <ControlledCurrencyInput
       rowIdx={rowIdx}
       handleChange={() => {
         handleChange(rowIdx);

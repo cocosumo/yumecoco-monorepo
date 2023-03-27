@@ -13,7 +13,7 @@ export const ContractStatus = () => {
 
 
   return (
-    <OutlinedDiv label='契約進歩'>
+    <OutlinedDiv label='契約進捗'>
       <FormGroup>
         <ControlledCheckBox label='完了' control={control} name='contractCompleted' />
         <ContractStatusIncomplete />

@@ -101,7 +101,7 @@ export const useFilteredContracts = () => {
         /* 契約じゃないなら、次のレコードへ行く */
         if (!envStatus.value) return acc;
 
-        /* 契約進歩のフィルター */
+        /* 契約進捗のフィルター */
         const currentContractStep = getCurrentContractStep(envRecipients.value);
         
 

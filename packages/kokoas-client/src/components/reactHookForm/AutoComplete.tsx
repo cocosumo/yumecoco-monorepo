@@ -50,7 +50,8 @@ export const Autocomplete = <T extends FieldValues>( {
             {...otherAutoCompleteProps}
             fullWidth
             freeSolo={freeSolo}
-            onChange={(_, newValue) => {
+            autoSelect
+            onInputChange={(_, newValue) => {
               onChange(newValue);
             }}
             value={value}

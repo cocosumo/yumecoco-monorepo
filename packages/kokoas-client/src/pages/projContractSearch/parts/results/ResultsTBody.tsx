@@ -6,6 +6,7 @@ import { docusignLocale } from 'kokoas-server/src/api/docusign/locale/docusign';
 import { Link, useNavigate } from 'react-router-dom';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
+import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
 
 export const ResultsTBody = ({
   items,
@@ -68,14 +69,26 @@ export const ResultsTBody = ({
               />
               )}
             projDataId={(
-              <Link to={`${pages.projEdit}?${generateParams({ projId })}`}>
+              <ButtonWithToolTip
+                title={'工事情報へ移動'}
+                size="small"
+                variant='outlined'
+                fullWidth
+                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
+              >
                 {projDataId}
-              </Link>
+              </ButtonWithToolTip>
               )}
             estNum={(
-              <Link to={`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`}>
+              <ButtonWithToolTip
+                title={'見積もり画面へ移動'}
+                size="small"
+                variant='outlined'
+                fullWidth
+                onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`)}
+              >
                 {estimateDataId.slice(-2)}
-              </Link>
+              </ButtonWithToolTip>
               )}
             projName={projName}
             store={store}

@@ -11,7 +11,6 @@ import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
 import { FormContractSearch } from './projContractSearch/FormContractSearch';
-import { isProd } from 'config';
 import { UnderDevelopment } from './UnderDevelopment';
 
 
@@ -81,7 +80,7 @@ const Router = () => (
     <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />
 
     {/* 入金管理グループ */}
-    <Route path={`${pages.projInvoice}`} element={isProd ? <UnderDevelopment /> : <FormikInvoice />} />
+    <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />
     <Route path={`${pages.projPaymentSearch}`} element={<UnderDevelopment />} />
     <Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} />
 

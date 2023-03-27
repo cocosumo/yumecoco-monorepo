@@ -90,5 +90,5 @@ Backup of *.doc*
 
 #test
 
-cypress/videos
-cypress/screenshots
+**/cypress/videos
+**/cypress/screenshots

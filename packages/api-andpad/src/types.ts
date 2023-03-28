@@ -49,7 +49,7 @@ export const saveProjectData = z.object({
   '顧客電話番号1': z.string().optional(),
 
   /** 顧客電話番号2 */
-  '顧客電話番号2': z.string().optional(),
+  '顧客電話番号2': z.string().nullish(),
 
   /** 顧客メールアドレス */
   '顧客メールアドレス': z.string().optional(),

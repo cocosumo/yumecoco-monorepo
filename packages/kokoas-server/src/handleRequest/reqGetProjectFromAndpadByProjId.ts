@@ -17,9 +17,8 @@ export const reqGetProjectFromAndpadByProjId: RequestHandler<
 
   } catch (err) {
     console.error(err?.message);
-    res.status(400).send(
-      err?.message || 'Error in reqGetProjectFromAndpadByProjId',
-    );
+    res.status(400)
+      .send(validator.escape(err?.message || 'Error in reqGetProjectFromAndpadByProjId'));
   }
 
 

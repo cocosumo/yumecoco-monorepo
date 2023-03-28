@@ -1,20 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
-import { getOrderByProjId } from 'api-andpad';
 import { AppIds } from 'config';
+import { getOrderByProjId } from '../api/andpad/getOrderByProjId';
+import { useSnackBar } from '../hooks/useSnackBar';
 
 /**
  * Andpadから案件データを取得する
  */
 export const useAndpadOrderByProjId = (projId: string, {
-  enable = false,
+  enabled = false,
 } : {
-  enable: boolean,
+  enabled: boolean,
 }) => {
+  const { setSnackState } = useSnackBar();
+
   return useQuery(
     [AppIds.projects, 'andpad', projId],
     () => getOrderByProjId(projId),
     {
-      enabled: enable && !!projId,
+      staleTime: 5000,
+      enabled: enabled && !!projId,
+      onError: (error: Error) => {
+        setSnackState({
+          open: true,
+          severity: 'warning',
+          autoHideDuration: 10000,
+          message: error.message,
+        });
+      },
     },
   );
 };

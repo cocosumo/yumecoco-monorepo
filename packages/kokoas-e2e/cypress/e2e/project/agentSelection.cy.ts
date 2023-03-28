@@ -28,7 +28,7 @@ describe('agentSelection', () => {
     cy.get('@agentInput').should('be.enabled');
   });
 
-  it.only('完工の場合、担当者の選択肢の無効化する', () => {
+  it('完工の場合、担当者の選択肢の無効化する', () => {
 
     // Andpadからのデータの案件フローを完工（精算前）にする
     cy.intercept('*/api/proxy/*', (req) => {

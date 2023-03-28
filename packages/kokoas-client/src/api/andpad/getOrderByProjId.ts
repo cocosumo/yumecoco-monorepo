@@ -18,8 +18,6 @@ export const getOrderById = async (projId: string) => {
   });
   const { data, status } = result;
 
-  console.log(data);
-
   if (status === 200) {
     return saveProjectData.parse(data);
   } else {

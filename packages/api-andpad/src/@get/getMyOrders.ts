@@ -20,8 +20,7 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
     });
 
     const url = `${endpoints.ourOrders}?${urlParams}`;
-
-    console.log(url);
+    
     const { data } = await axios({
       url,
       method: 'GET',

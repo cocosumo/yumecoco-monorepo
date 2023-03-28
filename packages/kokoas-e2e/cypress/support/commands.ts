@@ -20,4 +20,14 @@ Cypress.Commands.add('login', () => {
       },
     },
   );
+
+  Cypress.Commands.add('getTextInputsByLabel', (label: string) => {
+    cy.get(`label:contains(${label}) ~ div input`);
+  });
+
+  Cypress.Commands.add('getCheckboxesByLabel', (label: string) => {
+    cy.contains('label', label)
+      .find('input[type="checkbox"]');
+  });
+
 });

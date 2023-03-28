@@ -11,7 +11,7 @@ export const reqGetProjectFromAndpadByProjId: RequestHandler<
 
     const result = await getOrderByProjId(projId);
     if (!result) return res.status(404).send(`Andpadで案件管理IDが見つかりません。Andpadへ登録をお願いします。${projId}`);
-    
+    console.log('result', result);
     res.json(result);
 
   } catch (err) {

@@ -21,6 +21,21 @@ export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
 export const storeNamesAndpad = ['豊田店', '大林店', '豊川中央店', '豊橋向山店', '豊川八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '中川八熊店', '豊橋藤沢店', '豊田美里店', '豊橋岩田店'] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
+export const storeMap : Record<string, StoreNamesAndpad> = {
+  豊田中央店: '豊田店',
+  豊川中央店: '豊川中央店',
+  豊橋向山店: '豊橋向山店',
+  千種大久手店: '千種店',
+  高浜中央店: '高浜店',
+  豊田大林店: '大林店',
+  豊川八幡店: '豊川八幡店',
+  大垣店: '大垣店',
+  蒲郡店: '蒲郡店',
+  中川八熊店: '中川八熊店',
+  豊橋藤沢店: '豊橋藤沢店',
+  豊田美里店: '豊田美里店',
+  豊橋岩田店: '豊橋岩田店',
+};
 
 /**
  * string[]の場合、

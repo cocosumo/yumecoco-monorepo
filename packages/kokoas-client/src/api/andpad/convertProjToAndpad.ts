@@ -1,4 +1,4 @@
-import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeNamesAndpad } from 'api-andpad';
+import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeMap } from 'api-andpad';
 import { getContractByProjId, getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
@@ -75,8 +75,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '契約日(実績)': estRec.contractDate.value ? format(parseISO(estRec.contractDate.value), 'yyyy/MM/dd') : '',
 
     'ラベル:工事内容': bestStringMatch(projRec.projTypeName.value, projectTypesAndpad, { valueIfNoMatch: 'その他' }),
-    'ラベル:店舗': bestStringMatch(custGroupRec.storeName.value, storeNamesAndpad, { ignore: '店' }),
-
+    'ラベル:店舗': storeMap[custGroupRec.storeName.value],
     '顧客都道府県': custPrefecture,
     '物件都道府県': projPrefecture,
   };

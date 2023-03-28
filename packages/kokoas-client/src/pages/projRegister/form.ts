@@ -8,6 +8,7 @@ import {
 import * as Yup from 'yup';
 
 import { postalRegExp } from '../../helpers/yupValidator';
+import { SaveProjectData } from 'api-andpad';
 
 
 /**
@@ -39,8 +40,9 @@ export const initialValues = {
   isChkAddressKari: false,
   status: '追客中' as RecordStatus,
   hasContract: false,
-  hasCompetedContract: false,
+  hasCompletedContract: false,
   cancelStatus: [] as RecordCancelStatus[],
+  andpadDetails : undefined as SaveProjectData | undefined,
 };
 
 export type TypeOfForm = typeof initialValues;

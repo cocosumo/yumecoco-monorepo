@@ -1,4 +1,3 @@
-import { HttpMethod } from '@kintone/rest-api-client/lib/http/HttpClientInterface';
 import axios from 'axios';
 
 /**
@@ -9,20 +8,27 @@ import axios from 'axios';
  * 
  * @see https://cybozu.dev/ja/kintone/docs/js-api/proxy/kintone-proxy/
  */
-export const kintoneProxyWrapper = async ({
-  url,
-  method,
-  headers,
-  data,
-}: {
+export const kintoneProxyWrapper = async (params: {
   url: string,
-  method: HttpMethod,
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   headers: Record<string, string>,
   data:Record<string, string>
 }) => {
+  const {
+    url,
+    method,
+    headers,
+    data,
+  } = params;
+
   if (kintone) {
+  
     const result = await kintone.proxy(url, method, headers, data);
+
     const [body, status] = result;
+
+    if (status !== 200) throw new Error(body);
+
     return {
       data: JSON.parse(body),
       status,

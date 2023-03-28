@@ -6,6 +6,8 @@ import { getMyOrders as getOrders } from './getMyOrders';
  * @param projId 
  */
 export const getOrderByProjId = async (projId: string) => {
+  if (!projId) return;
+
   const {
     data: {
       objects,

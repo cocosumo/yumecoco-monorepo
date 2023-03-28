@@ -55,7 +55,10 @@ export const saveProject = async (body: SaveProjectData) => {
     for (const dataKey of Object.keys(parsedBody)) {
       const dataValue = parsedBody[dataKey as keyof typeof parsedBody];
       const savedValue = savedAndpadData[dataKey as keyof typeof savedAndpadData];
-      if (dataValue !== savedValue) {
+      if (
+        !!dataValue !== !!savedValue // 両方ともtrueかfalseか
+        &&  dataValue !== savedValue // 両方とも同じ値か
+      ) {
         throw new Error(`{ ${dataKey}: ${dataValue} } 保存が失敗しました。ANDPADに格納した情報：${savedValue}。 管理者に連絡してください。`);
       }
     }

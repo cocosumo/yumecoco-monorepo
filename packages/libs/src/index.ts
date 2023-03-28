@@ -1,4 +1,5 @@
 export * from './addressBuilder';
+export * from './convertObjNumValsToFullWidth';
 export * from './convertObjNumValsToHalfWidth';
 export * from './convertToFullWidth';
 export * from './convertToHalfWidth';
@@ -6,6 +7,9 @@ export * from './endpoints';
 export * from './filterNonNull';
 export * from './formatDataId';
 export * from './isEven';
+export * from './isFullWidth';
+export * from './isMixedJpWidth';
+export * from './kitoneProxyWrapper';
 export * from './loadEnv';
 export * from './parseBoolean';
 export * from './parseExcelSerialDate';

@@ -10,6 +10,7 @@ module.exports = {
   modulePaths: ['<rootdir>/src'],
   verbose: true,
   globals: {
+    kintone : undefined,
     XMLHttpRequest: undefined,
     'ts-jest': {
       isolatedModules: true,

@@ -1,6 +1,6 @@
 import { saveProjectData } from 'api-andpad';
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
-import { kokoasEndpoints } from 'libs';
+import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 
 export const getOrderById = async (projId: string) => {
 
@@ -10,20 +10,20 @@ export const getOrderById = async (projId: string) => {
     projId,
   ].join('/');
 
-  const result = await kintone.proxy(
-    `${endpoint}`,
-    'GET',
-    {
-      'Content-Type': 'application/json',
-    },
-    {},
-  );
-  const [body, status] = result;
+  const result = await kintoneProxyWrapper({
+    url: `${endpoint}`,
+    method: 'get',
+    headers: { 'Content-Type': 'application/json' },
+    data: {},
+  });
+  const { data, status } = result;
+
+  console.log(data);
 
   if (status === 200) {
-    return saveProjectData.parse(JSON.parse(body));
+    return saveProjectData.parse(data);
   } else {
-    throw new Error(result);
+    throw new Error('Andpadから案件データを取得できませんでした。');
   }
 
 };

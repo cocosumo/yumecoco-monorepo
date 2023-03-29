@@ -76,6 +76,7 @@ describe('請求書を発行する', () => {
       .type('-10000', { delay: 100 });
 
     cy.contains('契約金額と同じ符号(+, -)で入力してください')
+      .as('billingAmountInputWarning')
       .should('exist');
     cy.get('input[name*="exceedChecked"]')
       .should('not.exist');
@@ -84,7 +85,7 @@ describe('請求書を発行する', () => {
     cy.get('@billingAmountInput')
       .clear()
       .type('150001', { delay: 100 });
-    cy.contains('契約金額と同じ符号(+, -)で入力してください')
+    cy.contains('@billingAmountInputWarning')
       .should('not.exist');
 
     cy.get('input[name*="exceedChecked"]')

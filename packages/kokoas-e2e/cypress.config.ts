@@ -1,5 +1,5 @@
 import { getInvoiceByEstDataId } from 'api-kintone/src/invoice/getInvoiceByEstDataId';
-import { saveInvoices } from 'api-kintone/src/invoice/saveInvoices';
+import { saveInvoice } from 'api-kintone/src/invoice/saveInvoice';
 import { defineConfig } from 'cypress';
 
 const baseUrl = process.env.KT_REDIRECT_URI;
@@ -17,7 +17,7 @@ export default defineConfig({
           console.log('getInvoiceByEstDataId', recInvoices);
 
           recInvoices.forEach(async ({ uuid }) => {
-            return saveInvoices({
+            return saveInvoice({
               recordId: uuid.value,
               record: {
                 invoiceStatus: { value: 'voided' },
@@ -25,12 +25,13 @@ export default defineConfig({
             });
           });
 
+
           return recInvoices.length;
         },
       });
       on('task', {
         async setInvoiceStatusToSent(eissueInvoiceId: string) {
-          return saveInvoices({
+          return saveInvoice({
             recordId: eissueInvoiceId,
             record: {
               invoiceStatus: { value: 'sent' },

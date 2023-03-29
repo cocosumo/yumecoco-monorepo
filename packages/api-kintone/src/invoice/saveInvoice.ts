@@ -5,7 +5,7 @@ import { appId, RecordType } from './config';
 /**
  * 請求入力画面から、請求書管理情報を登録する
  */
-export const saveInvoices = (params:{
+export const saveInvoice = (params:{
   recordId: string,
   record: Partial<RecordType>
   revision?: string,

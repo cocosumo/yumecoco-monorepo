@@ -23,7 +23,7 @@ export const RefundFieldGroup = ({
     setValues((prev) => ({
       ...prev,
       hasRefund: checked,
-      refund: checked ? prev.refundAmt : null,
+      refundAmt: checked ? prev.refundAmt : '',
     }));
 
   };

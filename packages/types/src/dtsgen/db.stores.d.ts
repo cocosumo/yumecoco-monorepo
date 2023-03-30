@@ -1,8 +1,8 @@
 declare namespace DBStores {
   interface Data {
     area: kintone.fieldTypes.SingleLineText;
-    文字列__1行_: kintone.fieldTypes.SingleLineText;
     sortNumber: kintone.fieldTypes.Number;
+    postalCode: kintone.fieldTypes.SingleLineText;
     freedial: kintone.fieldTypes.SingleLineText;
     店長: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
@@ -12,6 +12,7 @@ declare namespace DBStores {
     TEL: kintone.fieldTypes.SingleLineText;
     FAX: kintone.fieldTypes.SingleLineText;
     店舗名: kintone.fieldTypes.SingleLineText;
+    officialStoreName: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
     storeCode: kintone.fieldTypes.SingleLineText;
   }

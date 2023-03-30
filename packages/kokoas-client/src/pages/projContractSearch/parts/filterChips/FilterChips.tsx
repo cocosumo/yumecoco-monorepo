@@ -30,7 +30,7 @@ export const FilterChips = () => {
     // keyがcontractで始まる場合は、falseをセット
     if (key.startsWith('contract')) {
       if (key === 'contractIncomplete') {
-        // 未完了の場合は、細かい進歩もfalseにする
+        // 未完了の場合は、細かい進捗もfalseにする
         stepsKeys.forEach((stepKey) => {
           newQuery = { ...newQuery, [stepKey]: false };
         });

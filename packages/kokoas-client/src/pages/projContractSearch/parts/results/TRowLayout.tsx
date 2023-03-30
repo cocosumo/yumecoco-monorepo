@@ -1,4 +1,4 @@
-import { TableCell, TableRow, TableRowProps } from '@mui/material';
+import { Box, TableCell, TableRow, TableRowProps } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const TRowLayout = ({
@@ -43,11 +43,15 @@ export const TRowLayout = ({
   return (
     <TableRow {...tableRowProps}>
       <TableCell >
-        {contractStatus}
-        <br />
-        {projDataId}
-        <br />
-        {estNum}
+        <Box pb={1}>
+          {contractStatus}
+        </Box>
+        <Box pb={1}>
+          {projDataId}
+        </Box>
+        <Box>
+          {estNum}
+        </Box>
       </TableCell>
       <TableCell>
         {projName}

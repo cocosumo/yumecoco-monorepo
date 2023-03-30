@@ -7,6 +7,7 @@ export const prodAppIds = {
   projects: 209,
   projEstimates: 210,
   custMemos: 211,
+  invoices : 226,
 } as const;
 
 /* 開発環境 */
@@ -26,6 +27,9 @@ export const devAppIds = {
   /** 顧客メモ */
   custMemos : 181,
 
+  /** 請求書 */
+  invoices : 204,
+
 } as const;
 
 
@@ -43,9 +47,6 @@ export const AppIds = {
 
   /** 社員名簿 */
   employees : 34,
-
-  /** 請求書 */
-  invoices : 204,
 
   /** 部材 */
   materialsItem: 69,

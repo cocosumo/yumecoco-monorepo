@@ -10,9 +10,6 @@ export type KCompanydetails = keyof ICompanydetails;
 export type IEmployees = DBEmployees.SavedData;
 export type KEmployees = keyof IEmployees;
 
-export type IInvoices = DBInvoices.SavedData;
-export type KInvoices = keyof IInvoices;
-
 export type IMaterialsitem = DBMaterialsitem.SavedData;
 export type KMaterialsitem = keyof IMaterialsitem;
 
@@ -45,3 +42,6 @@ export type KProjestimates = keyof IProjestimates;
 
 export type ICustmemos = DBCustmemos.SavedData;
 export type KCustmemos = keyof ICustmemos;
+
+export type IInvoices = DBInvoices.SavedData;
+export type KInvoices = keyof IInvoices;

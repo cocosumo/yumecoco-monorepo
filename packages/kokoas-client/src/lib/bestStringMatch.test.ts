@@ -48,12 +48,12 @@ describe('bestStringMatch', () => {
   });
 
   it('should return matching 店舗名', async () => {
+    const stores = await getAllStores();
 
-    const result = (await getAllStores())
+    // Fails at 豊田大林店 where the match score is equal to 豊田中央店
+    // This is because the score is calculated by the number of characters matched
+    const result = (stores)
       .map(({ 店舗名: storeName }) => [storeName.value, bestStringMatch(storeName.value, storeNamesAndpad, { ignore: '店' })]);
-
-    console.log(`ANDPAD側の店舗名: ${storeNamesAndpad}`);
-    console.log(result); // ここで確認
 
     expect(result.length).toBeGreaterThan(0);
   });

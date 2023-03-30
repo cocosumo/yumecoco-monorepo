@@ -2,7 +2,7 @@
 
 
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useProjById, useCustGroupById, useProjContractSummary } from 'kokoas-client/src/hooksQuery';
+import { useProjById, useCustGroupById, useProjContractSummary, useAndpadOrderByProjId } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertCustGroupToForm, convertProjToForm } from '../api/convertToForm';
 import { TypeOfForm, initialValues } from '../form';
@@ -24,18 +24,23 @@ export const useResolveParams = () => {
 
   const { data: contractSummary } = useProjContractSummary(projRec?.uuid.value);
 
+  const {
+    completed,
+    hasContract,
+  } = contractSummary || {};
+
+  const { data: andpadDetails } = useAndpadOrderByProjId(projIdFromURL || '', { enabled: !!completed });  
+
   useEffect(() => {
 
     if (projIdFromURL && projRec && custGroupRec && contractSummary) {
-      const {
-        completed,
-        hasContract,
-      } = contractSummary;
+
 
       setInitForm({
         ...initialValues,
-        hasContract,
-        hasCompetedContract: !!completed,
+        hasContract: !!hasContract,
+        hasCompletedContract: !!completed,
+        andpadDetails,
         ...convertProjToForm(projRec),
         ...convertCustGroupToForm(custGroupRec),
       });
@@ -50,10 +55,16 @@ export const useResolveParams = () => {
       setInitForm(initialValues);
 
     }
-
-
-
-  }, [projRec, custGroupRec, projIdFromURL, custGroupIdFromURL, contractSummary ]);
+  }, [
+    projRec, 
+    custGroupRec, 
+    projIdFromURL, 
+    custGroupIdFromURL,
+    hasContract,
+    completed,
+    contractSummary,
+    andpadDetails,
+  ]);
 
   return initForm;
 };

@@ -29,6 +29,6 @@ export const bestStringMatch = <T extends Readonly<string[]>>(
       ignore ? mainString.replaceAll(ignore, '') : mainString,
       [...compareArray],
     );
-
+  
   return (rating ? target : valueIfNoMatch) as T[number];
 };

@@ -21,6 +21,21 @@ export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
 export const storeNamesAndpad = ['豊田店', '大林店', '豊川中央店', '豊橋向山店', '豊川八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '中川八熊店', '豊橋藤沢店', '豊田美里店', '豊橋岩田店'] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
+export const storeMap : Record<string, StoreNamesAndpad> = {
+  豊田中央店: '豊田店',
+  豊川中央店: '豊川中央店',
+  豊橋向山店: '豊橋向山店',
+  千種大久手店: '千種店',
+  高浜中央店: '高浜店',
+  豊田大林店: '大林店',
+  豊川八幡店: '豊川八幡店',
+  大垣店: '大垣店',
+  蒲郡店: '蒲郡店',
+  中川八熊店: '中川八熊店',
+  豊橋藤沢店: '豊橋藤沢店',
+  豊田美里店: '豊田美里店',
+  豊橋岩田店: '豊橋岩田店',
+};
 
 /**
  * string[]の場合、
@@ -49,7 +64,7 @@ export const saveProjectData = z.object({
   '顧客電話番号1': z.string().optional(),
 
   /** 顧客電話番号2 */
-  '顧客電話番号2': z.string().optional(),
+  '顧客電話番号2': z.string().nullish(),
 
   /** 顧客メールアドレス */
   '顧客メールアドレス': z.string().optional(),
@@ -83,10 +98,10 @@ export const saveProjectData = z.object({
   /** 工事種別　=>　"新築","リフォーム"で振り分ける
    * (リフォーム,新築,リノベーション,エクステリア,アフター,分譲,注文,その他)から選択。指定しない場合はリフォームが指定される
    */
-  '案件種別': z.enum(['新築', 'リフォーム']).optional(),
+  '案件種別': z.enum(['リフォーム', '新築', 'リノベーション', 'エクステリア', 'アフター', '分譲', '注文', 'その他']).optional(),
 
   /** “契約前”で固定 */
-  '案件フロー': z.literal('契約前').optional(),
+  '案件フロー':  z.enum(['契約前', '着工前', '進行中', '完工（精算前）', '精算完了', '失注']).optional(),
 
   /** 契約日 */
   '契約日(実績)': z.string().optional(),
@@ -124,3 +139,21 @@ export const saveProjectResponse = z.object({
 
 export type Projects = z.infer<typeof projects>;
 export type SaveProjectResponse = z.infer<typeof saveProjectResponse>;
+
+
+export interface GetMyOrders {
+  series?: (keyof SaveProjectData)[],
+  limit?: number,
+  offset?: number,
+  q?: string,
+}
+
+export interface GetMyOrdersResponse {
+  data: {
+    total: number,
+    last_flg: boolean,
+    limit: number,
+    offset: number,
+    objects: Array<SaveProjectData>
+  }
+}

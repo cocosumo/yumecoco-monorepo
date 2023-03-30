@@ -1,4 +1,4 @@
-import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeNamesAndpad } from 'api-andpad';
+import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeMap } from 'api-andpad';
 import { getContractByProjId, getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
@@ -48,6 +48,10 @@ export const convertProjToAndpad = async (projId: string) => {
 
   const [firstCustTel1, firstCustTel2] = firstCust.contacts.value.filter((row) => (row.value.contactType.value as TContact) === 'tel');
   const firstCustEmail = firstCust.contacts.value.find((row) => (row.value.contactType.value as TContact) === 'email');
+
+  const storeName = storeMap[custGroupRec.storeName.value];
+  if (!storeName) throw new Error(`Andpadの店舗名の取得が失敗しました。${storeName}`);
+
   const saveResult: SaveProjectData = {
     '顧客管理ID': custGroupRec.uuid.value,
     '顧客名': firstCust.fullName.value,
@@ -75,8 +79,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '契約日(実績)': estRec.contractDate.value ? format(parseISO(estRec.contractDate.value), 'yyyy/MM/dd') : '',
 
     'ラベル:工事内容': bestStringMatch(projRec.projTypeName.value, projectTypesAndpad, { valueIfNoMatch: 'その他' }),
-    'ラベル:店舗': bestStringMatch(custGroupRec.storeName.value, storeNamesAndpad, { ignore: '店' }),
-
+    'ラベル:店舗': storeName,
     '顧客都道府県': custPrefecture,
     '物件都道府県': projPrefecture,
   };

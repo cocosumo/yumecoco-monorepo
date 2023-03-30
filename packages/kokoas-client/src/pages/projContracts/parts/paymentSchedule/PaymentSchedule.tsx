@@ -7,6 +7,7 @@ import { TotalPaymentAmount } from './TotalPaymentAmount';
 import { PaymentMethod } from './PaymentMethod';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
+import { SubsidyFieldGroup } from './SubsidyFieldGroup';
 
 
 export const PaymentSchedule = ({
@@ -32,6 +33,8 @@ export const PaymentSchedule = ({
         <PaymentFields disabled={isDisabled} />
 
         <RefundFieldGroup disabled={isDisabled} />
+
+        <SubsidyFieldGroup disabled={isDisabled} />
 
         <PaymentMethod disabled={isDisabled} />
 

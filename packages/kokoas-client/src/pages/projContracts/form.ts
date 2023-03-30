@@ -57,9 +57,17 @@ export const initialValues = {
   totalAmount: 0,
   hasRefund: false,
   refundAmt: '' as number | '',
+  
+  /** 補助金有無 */
+  hasSubsidy: false,
 
+  /** 補助金額 */
+  subsidyAmt: '' as number | '',
+  // 0 = 工事に含む | 1 = 顧客に返金
+  subsidyMethod: 0 as typeof subsidyMethods[number],
 };
 
+export const subsidyMethods = [0, 1] as const;
 export const payMethods = ['持参', '集金', '振込'] as const;
 export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const;
 

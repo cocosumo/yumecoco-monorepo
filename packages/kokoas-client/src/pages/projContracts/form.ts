@@ -64,14 +64,14 @@ export const initialValues = {
   /** 補助金額 */
   subsidyAmt: '' as number | '',
   // 0 = 工事に含む | 1 = 顧客に返金
-  subsidyMethod: 0 as typeof subsidyMethods[number],
+  subsidyMethod: 0 as SubsidyMethods,
 };
 
 export const subsidyMethods = [0, 1] as const;
 export const payMethods = ['持参', '集金', '振込'] as const;
 export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const;
 
-
+export type SubsidyMethods = typeof subsidyMethods[number];
 export type TypeOfForm =  typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
 export type TPaymentLabels = typeof paymentLabels[number];

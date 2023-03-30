@@ -27,6 +27,7 @@ export const SubsidyFieldGroup = ({
 
   };
 
+  const shouldDisable = disabled || !chkValue;
   return (
     <Stack direction={'row'} justifyContent={'space-between'}>
       <FormControlLabel
@@ -42,8 +43,8 @@ export const SubsidyFieldGroup = ({
         disabled={disabled}
       />
 
-      <SubsidyAmt disabled={disabled} />
-      <SubsidyMethod disabled={disabled} />
+      <SubsidyAmt disabled={shouldDisable} />
+      <SubsidyMethod disabled={shouldDisable} />
     </Stack>
   );
 };

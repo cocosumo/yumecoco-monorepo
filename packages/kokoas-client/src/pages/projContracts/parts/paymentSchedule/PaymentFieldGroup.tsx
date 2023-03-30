@@ -43,7 +43,7 @@ export const PaymentFieldGroup = (
   };
 
   return (
-    <Stack direction={'row'} spacing={1}>
+    <Stack direction={'row'} spacing={1} justifyContent={'space-between'}>
       <FormControlLabel
         label={label}
         control={(

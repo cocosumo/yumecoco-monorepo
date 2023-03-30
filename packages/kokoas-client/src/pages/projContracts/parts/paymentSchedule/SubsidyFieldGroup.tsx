@@ -2,7 +2,7 @@ import { Checkbox, FormControlLabel, Stack } from '@mui/material';
 import { useField, useFormikContext } from 'formik';
 import { TypeOfForm, getFieldName } from '../../form';
 import { ComponentProps } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 import { SubsidyAmt } from './SubsidyAmt';
 import { SubsidyMethod } from './SubsidyMethod';
 

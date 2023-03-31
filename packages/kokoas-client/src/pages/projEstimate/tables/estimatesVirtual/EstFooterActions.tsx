@@ -45,7 +45,7 @@ export const EstFooterActions = ({
         mt: 1,
       }}
     >
-      <HotKeyTooltip title='insert'>
+      <HotKeyTooltip title='ctrl + i'>
         <Button
           variant="contained"
           color="success"

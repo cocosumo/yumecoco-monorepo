@@ -5,7 +5,7 @@ import { getItemsFieldName, TypeOfForm } from '../form';
 import { UseManipulateItemRows } from './useManipulateItemRows';
 
 const hotkeys = [
-  'insert', // 行追加
+  'meta+i', // 行追加
   'meta+delete', // 行削除
   'meta+enter', // 次の行へ行く
 ];
@@ -34,7 +34,7 @@ export const useEstTRowHotKeys = ({
     hotkeys,
     (_, handler) => {
       const { keys } = handler;
-      if (keys?.includes('insert')) {
+      if (keys?.includes('i')) {
         handleInsertItemBelow(rowIdx);
       } else if (keys?.includes('delete')) {
         handleRemoveItem(rowIdx);

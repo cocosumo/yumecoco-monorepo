@@ -30,4 +30,6 @@ Cypress.Commands.add('login', () => {
       .find('input[type="checkbox"]');
   });
 
+
+
 });

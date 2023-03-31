@@ -41,7 +41,7 @@ export const ContractFormActions = () => {
 
 
   const handleSubmit = async () => {
-    if (isEmpty(touched) && isEmpty(errors)) {
+    if (isEmpty(touched) && isEmpty(errors) && !dirty) {
       setSnackState({
         open: true,
         severity: 'info',

@@ -1,8 +1,7 @@
 import { Checkbox, FormControlLabel, Stack } from '@mui/material';
-import { useField, useFormikContext } from 'formik';
-import { TypeOfForm, getFieldName } from '../../form';
+import { useField } from 'formik';
+import { getFieldName } from '../../form';
 import { ComponentProps } from 'react';
-import { produce } from 'immer';
 import { SubsidyAmt } from './SubsidyAmt';
 import { SubsidyMethod } from './SubsidyMethod';
 
@@ -13,18 +12,19 @@ export const SubsidyFieldGroup = ({
 }: {
   disabled: boolean
 }) => {
-  const { setValues } = useFormikContext<TypeOfForm>();
-  const [field] = useField(fieldName);
-  const { value: chkValue } = field;
+  const [field,, helpers] = useField(fieldName);
+  const { 
+    value: chkValue, 
+  } = field;
+  const {
+    setValue,
+    setTouched,
+  } = helpers;
 
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
-
-    setValues((prev) => produce(prev, (draft) => {
-      draft.hasSubsidy = checked;
-      draft.subsidyAmt = checked ? draft.subsidyAmt : '';
-    }));
-
+    setValue(fieldName, checked);
+    setTouched(true);
   };
 
   const shouldDisable = disabled || !chkValue;

@@ -8,6 +8,8 @@ const hotkeys = [
   'meta+i', // 行追加
   'meta+delete', // 行削除
   'meta+enter', // 次の行へ行く
+  'f7',
+  'f10',
 ];
 
 
@@ -16,6 +18,7 @@ export const useEstTRowHotKeys = ({
   isLastRow,
   handleRemoveItem,
   handleInsertItemBelow,
+  handleClearAll,
 }: UseManipulateItemRows & {
   rowIdx: number
   isLastRow: boolean,
@@ -32,20 +35,24 @@ export const useEstTRowHotKeys = ({
 
   return useHotkeys<HTMLElement>(
     hotkeys,
-    (_, handler) => {
+    (e, handler) => {
       const { keys } = handler;
-      if (keys?.includes('i')) {
+
+      if (keys?.includes('i') || keys?.includes('f7')) {
         handleInsertItemBelow(rowIdx);
       } else if (keys?.includes('delete')) {
         handleRemoveItem(rowIdx);
       } else if (keys?.includes('enter')) {
         gotoNextRow();
+      } else if (keys?.includes('f10')) {
+        handleClearAll();
       }
     },
     {
       enableOnFormTags: ['INPUT', 'textarea'],
       keyup: false,
       keydown: true,
+      preventDefault: true,
     },
     [gotoNextRow, handleRemoveItem, handleInsertItemBelow],
   );

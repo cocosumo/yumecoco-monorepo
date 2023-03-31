@@ -16,6 +16,7 @@ import { EstBody } from './tables/estimatesVirtual/EstBody';
 import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
+import { useFormHotKeys } from './hooks/useFormHotKeys';
 
 
 
@@ -48,7 +49,9 @@ export const FormContents = ({
   });
 
   const disabled = !!envStatus;
-
+  console.log(envStatus, disabled);
+  useFormHotKeys({ enabled: !disabled });
+  
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(
     handleSubmit,
@@ -56,6 +59,8 @@ export const FormContents = ({
       disabled,
     },
   );
+
+  
 
   if (projId) {
     return (

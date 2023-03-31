@@ -11,7 +11,7 @@ export const useManipulateItemRows = (
   onAddDelete: () => void,
 ) => {
 
-  const { setFocus } = useFormContext<TypeOfForm>();
+  const { setFocus, reset } = useFormContext<TypeOfForm>();
 
   const {
     insert,
@@ -59,6 +59,10 @@ export const useManipulateItemRows = (
     move(rowIdx, selectedRowIdx);
   };
 
+  const handleClearAll = useCallback(() => {
+    reset();
+  }, [reset]);
+
   /* 追加・削除の際、渡されたonAddDeleteを発火する */
   useEffect(() => {
     if (fields.length) {
@@ -75,6 +79,7 @@ export const useManipulateItemRows = (
     handleMoveRowUp,
     handleMoveRowDown,
     handleMoveAnywhere,
+    handleClearAll,
     rowsCount,
 
   };

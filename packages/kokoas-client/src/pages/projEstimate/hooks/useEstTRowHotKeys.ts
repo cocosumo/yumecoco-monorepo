@@ -18,6 +18,7 @@ export const useEstTRowHotKeys = ({
   isLastRow,
   handleRemoveItem,
   handleInsertItemBelow,
+  handleCopyItemBelow,
   handleClearAll,
 }: UseManipulateItemRows & {
   rowIdx: number
@@ -38,8 +39,10 @@ export const useEstTRowHotKeys = ({
     (e, handler) => {
       const { keys } = handler;
 
-      if (keys?.includes('i') || keys?.includes('f7')) {
+      if (keys?.includes('i')) {
         handleInsertItemBelow(rowIdx);
+      } else if (keys?.includes('f7')) {
+        handleCopyItemBelow(rowIdx); 
       } else if (keys?.includes('delete')) {
         handleRemoveItem(rowIdx);
       } else if (keys?.includes('enter')) {

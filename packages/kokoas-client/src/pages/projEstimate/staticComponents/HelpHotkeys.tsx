@@ -3,9 +3,10 @@ import { Fragment } from 'react';
 
 const hotkeysHelp = [
   ['ctrl + s', '一時保存'],
-  ['ctrl + i, F7', '行追加'],
+  ['ctrl + i', '行追加'],
   ['ctrl + delete', '行削除'],
   ['ctrl + enter', '次の行に移動'],
+  ['F7', '下にコピー'],
   ['F10', 'クリア'],
 ];
 

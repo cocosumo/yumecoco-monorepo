@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
 import { getItemsFieldName, TypeOfForm } from '../form';
 import { useRowValues } from './useRowValues';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 
 export type UseManipulateItemRows =  ReturnType<typeof useManipulateItemRows>;
@@ -10,7 +11,7 @@ export const useManipulateItemRows = (
   props : UseFieldArrayReturn<TypeOfForm>,
   onAddDelete: () => void,
 ) => {
-
+  const { setSnackState } = useSnackBar();
   const { setFocus, reset, getValues } = useFormContext<TypeOfForm>();
 
   const {
@@ -27,8 +28,6 @@ export const useManipulateItemRows = (
     getNewRow,
   } = useRowValues();
 
-  const rowsCount = useMemo(() => fields.length, [fields]);
-
   const handleInsertItemBelow = useCallback((rowIdx: number) => {
     insert(rowIdx + 1, getNewRow());
   }, [insert, getNewRow]);
@@ -39,12 +38,24 @@ export const useManipulateItemRows = (
   }, [insert, getValues]);
 
   const handleRemoveItem = useCallback((rowIdx: number) => {
-    remove(rowIdx);
+    const items = getValues('items');
+    const rowsCount = items.length;
+    const lastRowIdx = rowsCount - 1;
+    const isLastRow = rowIdx === lastRowIdx;
 
-    if (rowIdx > 0) {
-      setFocus(getItemsFieldName(rowIdx - 1, 'majorItem'));
+    if (rowsCount === 1 || isLastRow) {
+      setSnackState({
+        open: true,
+        message: '最後の行は削除できません',
+        severity: 'warning',
+      });
+    } else {
+      const focustToIdx = rowIdx === 0 ? rowIdx + 1 : rowIdx - 1;
+      setFocus(getItemsFieldName(focustToIdx, 'majorItem'));
+      remove(rowIdx);
     }
-  }, [remove, setFocus]);
+  }, [remove, setFocus, getValues, setSnackState]);
+
 
   const handleAppendItem = useCallback(() =>{
     append(getNewRow(), { shouldFocus: false });
@@ -82,7 +93,5 @@ export const useManipulateItemRows = (
     handleMoveRowDown,
     handleMoveAnywhere,
     handleClearAll,
-    rowsCount,
-
   };
 };

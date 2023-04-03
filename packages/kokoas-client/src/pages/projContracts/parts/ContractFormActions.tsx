@@ -64,7 +64,7 @@ export const ContractFormActions = () => {
     || (!isValid && !envelopeStatus) // 検証ロジックが異なる既存契約の後方互換性を処理するためのものです。
     || dirty;
 
-  const isSaveDisabled = isFormikBusy || !!envelopeStatus;
+  const isSaveDisabled = isFormikBusy;
 
   return (
     <Stack>

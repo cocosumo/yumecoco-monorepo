@@ -12,6 +12,11 @@ describe('Input Subsidy', () => {
     cy.login();
     cy.visit(`/project/contract/preview?projEstimateId=${testId}`);
 
+    // Cycle check so that the 金額 has input
+    cy.contains('label', '最終金')
+      .find('input[type="checkbox"]')
+      .uncheck()
+      .check();
 
     cy.get('input[name="subsidyAmt"]')
       .as('subsidyAmt');

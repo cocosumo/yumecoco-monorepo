@@ -7,11 +7,7 @@ import { SubsidyMethod } from './SubsidyMethod';
 
 const fieldName = getFieldName('hasSubsidy');
 
-export const SubsidyFieldGroup = ({
-  disabled,
-}: {
-  disabled: boolean
-}) => {
+export const SubsidyFieldGroup = () => {
   const [field,, helpers] = useField(fieldName);
   const { 
     value: chkValue, 
@@ -23,11 +19,10 @@ export const SubsidyFieldGroup = ({
 
 
   const handleChange: ComponentProps<typeof Checkbox>['onChange'] = (_, checked) => {
-    setValue(fieldName, checked);
+    setValue(checked);
     setTouched(true);
   };
-
-  const shouldDisable = disabled || !chkValue;
+  const shouldDisable = !chkValue;
   return (
     <Stack direction={'row'} justifyContent={'space-between'}>
       <FormControlLabel
@@ -40,7 +35,6 @@ export const SubsidyFieldGroup = ({
               transform: 'scale(1.5)',
             }}
           />)}
-        disabled={disabled}
       />
 
       <SubsidyAmt disabled={shouldDisable} />

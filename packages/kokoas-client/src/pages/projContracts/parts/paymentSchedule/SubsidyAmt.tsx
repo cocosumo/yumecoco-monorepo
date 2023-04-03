@@ -1,8 +1,7 @@
-import { Tooltip } from '@mui/material';
+import { InputAdornment, TextField, Tooltip } from '@mui/material';
 import { useField } from 'formik';
 import { numerals } from 'jp-numerals';
 import { getFieldName } from '../../form';
-import { FormikMoneyField } from 'kokoas-client/src/components';
 
 
 const fieldName = getFieldName('subsidyAmt');
@@ -24,12 +23,32 @@ export const SubsidyAmt = (
   return (
     <Tooltip title={!error ? jaValue : ''}>
       <div>
-        <FormikMoneyField 
-          {...field} 
-          variant='standard'
+        <TextField
+          {...field}
+          value={value || ''}
           disabled={disabled}
+          variant={'standard'}
+          fullWidth
+          inputProps={{
+            sx: { 
+              textAlign: 'right',
+            },
+          }}
           error={touched && !!error}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                円
+              </InputAdornment>),
+          }}
+          FormHelperTextProps={{
+            sx: {
+              textAlign: 'right',
+            },
+          }}
+          helperText={!disabled ? error : ''}
         />
+
       </div>
     </Tooltip>
   );

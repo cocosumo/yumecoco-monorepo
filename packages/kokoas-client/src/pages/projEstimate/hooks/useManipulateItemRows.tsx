@@ -11,7 +11,7 @@ export const useManipulateItemRows = (
   onAddDelete: () => void,
 ) => {
 
-  const { setFocus, reset } = useFormContext<TypeOfForm>();
+  const { setFocus, reset, getValues } = useFormContext<TypeOfForm>();
 
   const {
     insert,
@@ -20,6 +20,8 @@ export const useManipulateItemRows = (
     move,
     fields,
   } = props;
+
+
 
   const {
     getNewRow,
@@ -32,9 +34,9 @@ export const useManipulateItemRows = (
   }, [insert, getNewRow]);
 
   const handleCopyItemBelow = useCallback((rowIdx: number) => {
-    const { id: _, ...newRow } = fields[rowIdx];
-    insert(rowIdx + 1, [newRow]);
-  }, [insert, fields]);
+    const row = getValues(`items.${rowIdx}`);
+    insert(rowIdx + 1, [row]);
+  }, [insert, getValues]);
 
   const handleRemoveItem = useCallback((rowIdx: number) => {
     remove(rowIdx);

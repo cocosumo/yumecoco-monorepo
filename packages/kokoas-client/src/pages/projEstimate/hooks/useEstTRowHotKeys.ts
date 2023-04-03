@@ -53,6 +53,6 @@ export const useEstTRowHotKeys = ({
       keydown: true,
       preventDefault: true,
     },
-    [gotoNextRow, handleRemoveItem, handleInsertItemBelow],
+    [gotoNextRow, handleRemoveItem, handleInsertItemBelow, handleCopyItemBelow],
   );
 };

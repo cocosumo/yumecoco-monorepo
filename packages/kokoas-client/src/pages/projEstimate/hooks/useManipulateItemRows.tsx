@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
-import { getItemsFieldName, TypeOfForm } from '../form';
+import { getItemsFieldName, KRowFields, TypeOfForm } from '../form';
 import { useRowValues } from './useRowValues';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 
@@ -43,6 +43,7 @@ export const useManipulateItemRows = (
     const lastRowIdx = rowsCount - 1;
     const isLastRow = rowIdx === lastRowIdx;
 
+
     if (rowsCount === 1 || isLastRow) {
       setSnackState({
         open: true,
@@ -50,8 +51,14 @@ export const useManipulateItemRows = (
         severity: 'warning',
       });
     } else {
+ 
       const focustToIdx = rowIdx === 0 ? rowIdx + 1 : rowIdx - 1;
-      setFocus(getItemsFieldName(focustToIdx, 'majorItem'));
+      const focusedInputElName = document.activeElement
+        ?.getAttribute('name')
+        ?.split('.')
+        .at(-1) as KRowFields;
+      // 同じ行の別のinputにフォーカスを移す
+      setFocus(getItemsFieldName(focustToIdx, focusedInputElName ));
       remove(rowIdx);
     }
   }, [remove, setFocus, getValues, setSnackState]);

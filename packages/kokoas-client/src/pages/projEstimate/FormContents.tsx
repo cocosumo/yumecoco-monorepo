@@ -49,7 +49,6 @@ export const FormContents = ({
   });
 
   const disabled = !!envStatus;
-  console.log(envStatus, disabled);
   useFormHotKeys({ enabled: !disabled });
   
   /* 保存ショートカット　CTRL+S */

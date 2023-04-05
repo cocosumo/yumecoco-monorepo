@@ -34,7 +34,7 @@ export const useManipulateItemRows = (
 
   const handleCopyItemBelow = useCallback((rowIdx: number) => {
     const row = getValues(`items.${rowIdx}`);
-    insert(rowIdx + 1, [row]);
+    insert(rowIdx + 1, [{ ...row }]);
   }, [insert, getValues]);
 
   const handleRemoveItem = useCallback((rowIdx: number) => {

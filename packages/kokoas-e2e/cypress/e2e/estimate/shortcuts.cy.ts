@@ -75,12 +75,17 @@ describe('Estimate shortcuts', () => {
           .invoke('text')
           .then((newRowCount) => {
             const newRows = getNumberFromString(newRowCount);
+            
             expect(newRows).to.eq(rows + 1);
           });
       });
+
+    cy.log('行を追加した後、行の値が初期化されていることを確認します。');
+    cy.get('@costPriceFields').eq(1)
+      .should('have.value', '0');
   });
 
-  it.only('行を複製する', () => {
+  it('行を複製する', () => {
     cy.get('@rowCount')
       .invoke('text')
       .then((oldRowCount) => {
@@ -92,8 +97,11 @@ describe('Estimate shortcuts', () => {
         cy.get('@firstCostPrice').type(`${randomCostPrice.toString()}`);
         cy.get('@firstUnitPrice').type(`${randomUnitPrice.toString()}{meta}{shift}i`);
 
+        cy.log('行を複製した後、行の値が複製元の行と同じになっていることを確認します。');
         cy.get('@costPriceFields').eq(1)
-          .should('have.value', randomCostPrice.toString());
+          .should('have.value', randomCostPrice.toLocaleString());
+        cy.get('@unitPriceFields').eq(1)
+          .should('have.value', randomUnitPrice.toLocaleString());
 
         cy.get('@rowCount')
           .invoke('text')

@@ -113,7 +113,8 @@ export const ControlledCurrencyInput = ({
     } else {
       // 表示を更新する
       // 例：実値は1000だが、表示は1,000になる。
-      inputRef.current.value = fieldValue.toLocaleString();
+      inputRef.current.value = (+fieldValue).toLocaleString();
+
     } 
 
   }, [

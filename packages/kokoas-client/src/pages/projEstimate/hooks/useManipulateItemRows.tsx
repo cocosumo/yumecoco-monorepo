@@ -42,17 +42,20 @@ export const useManipulateItemRows = (
     const rowsCount = items.length;
     const lastRowIdx = rowsCount - 1;
     const isLastRow = rowIdx === lastRowIdx;
+    const isLastActiveRow = rowIdx === lastRowIdx - 1;
+    const isFirstRow = rowIdx === 0;
 
 
-    if (rowsCount === 1 || isLastRow) {
+    if (isLastRow) {
       setSnackState({
         open: true,
-        message: '最後の行は削除できません',
+        message: '最後の行は削除出来ません',
         severity: 'warning',
+        autoHideDuration: 10000,
       });
     } else {
  
-      const focustToIdx = rowIdx === 0 ? rowIdx + 1 : rowIdx - 1;
+      const focustToIdx = isLastActiveRow && !isFirstRow ? rowIdx - 1 : rowIdx + 1;
       const focusedInputElName = document.activeElement
         ?.getAttribute('name')
         ?.split('.')

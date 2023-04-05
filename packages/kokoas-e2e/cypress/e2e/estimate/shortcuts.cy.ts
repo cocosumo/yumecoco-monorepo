@@ -15,8 +15,6 @@ describe('Estimate shortcuts', () => {
     const testId = 'ce4e52a0-4486-4bae-944c-22c63850de9f';
   
     cy.login();
-    console.log(AppIds.projEstimates);
-
 
     cy.visit(`/project/estimate/register?projEstimateId=${testId}&menuOpen=0`);
 
@@ -25,7 +23,6 @@ describe('Estimate shortcuts', () => {
       req.continue((res) => {
         res.body = produce(res.body, (draft: { records: IProjestimates[] }) => {
           const recordIdx = draft.records.findIndex((record) => record.uuid.value === testId);
-          console.log(recordIdx);
           draft.records[recordIdx].内訳.value = Array(testRowCount)
             .fill(0)
             .map(()=>JSON.parse(JSON.stringify({ 

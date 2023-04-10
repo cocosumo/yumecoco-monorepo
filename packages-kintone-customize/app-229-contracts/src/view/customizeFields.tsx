@@ -1,5 +1,6 @@
 
 
+import { setFieldShown } from 'api-kintone';
 import renderStoreName from '../components/renderStoreName';
 
 const hideFields = () => {
@@ -8,7 +9,7 @@ const hideFields = () => {
   ];
   hiddenFields
     .forEach((field) => {
-      kintone.app.record.setFieldShown(field, false);
+      setFieldShown(field, false);
     });
 };
 
@@ -20,7 +21,7 @@ export default async function customizeFields({
 }: {
   record: DB.SavedRecord
 }) {
-  
+
   hideFields();
 
   renderStoreName({

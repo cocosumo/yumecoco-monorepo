@@ -55,3 +55,34 @@ export const setFieldShown = (fieldCode : string, isShown : boolean) => {
     kintone.app.record.setFieldShown(fieldCode, isShown);
   }
 };
+
+/**
+ * レコードのインスタンスの値を取得する
+ * @see https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-details
+ **/
+export const getRecordInstance = () => {
+  if (isMobile()) {
+    return kintone.mobile.app.record.get();
+  } else {
+    return kintone.app.record.get();
+  }
+};
+
+
+/**
+ * フィールドの値をセットする
+ * @param fieldCode 
+ * @param value 
+ * @see https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#set-record-value
+ */
+export const setFieldValue = (fieldCode : string, value : string) => {
+  const recordInstance = getRecordInstance();
+
+  recordInstance.record[fieldCode].value = value;
+
+  if (isMobile()) {
+    kintone.mobile.app.record.set(recordInstance);
+  } else {
+    kintone.app.record.set(recordInstance);
+  }
+};

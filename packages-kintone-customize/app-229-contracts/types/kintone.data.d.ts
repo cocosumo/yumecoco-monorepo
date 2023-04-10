@@ -1,25 +1,25 @@
 declare namespace DB {
   interface Record {
     cocosumoAG_uuid: kintone.fieldTypes.SingleLineText;
+    contractDate: kintone.fieldTypes.Date;
     粗利額: kintone.fieldTypes.Number;
-    文字列__1行_: kintone.fieldTypes.SingleLineText;
-    cocosumokouji_uuid: kintone.fieldTypes.SingleLineText;
-    日付: kintone.fieldTypes.Date;
-    文字列__1行__0: kintone.fieldTypes.SingleLineText;
+    projType: kintone.fieldTypes.SingleLineText;
+    cocosumoAGName: kintone.fieldTypes.SingleLineText;
+    cocosumoKoujiName: kintone.fieldTypes.SingleLineText;
+    storeName: kintone.fieldTypes.SingleLineText;
+    projName: kintone.fieldTypes.SingleLineText;
+    custName: kintone.fieldTypes.SingleLineText;
     返金: kintone.fieldTypes.RadioButton;
-    文字列__1行__1: kintone.fieldTypes.SingleLineText;
     契約金額: kintone.fieldTypes.Number;
+    yumeAGName: kintone.fieldTypes.SingleLineText;
     kouji_uuid: kintone.fieldTypes.SingleLineText;
-    文字列__1行__4: kintone.fieldTypes.SingleLineText;
     yumeAG_uuid: kintone.fieldTypes.SingleLineText;
-    文字列__1行__5: kintone.fieldTypes.SingleLineText;
-    文字列__1行__2: kintone.fieldTypes.SingleLineText;
     工事状況: kintone.fieldTypes.RadioButton;
-    文字列__1行__3: kintone.fieldTypes.SingleLineText;
     shop_uuid: kintone.fieldTypes.SingleLineText;
+    cocosumoKouji_uuid: kintone.fieldTypes.SingleLineText;
     粗利率: kintone.fieldTypes.Calc;
     契約金額_税抜: kintone.fieldTypes.Calc;
-    チェックボックス: kintone.fieldTypes.CheckBox;
+    自社物件: kintone.fieldTypes.CheckBox;
   }
   interface SavedRecord extends Record {
     $id: kintone.fieldTypes.Id;

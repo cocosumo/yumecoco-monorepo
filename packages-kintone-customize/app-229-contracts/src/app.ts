@@ -1,12 +1,13 @@
-import { onIndexShow } from 'api-kintone';
+import { 
+  onEditOrCreate,
+} from 'api-kintone';
 import { isProd } from 'config';
+import customizeFields from './view/customizeFields';
 
 
 
 (() => {
   console.log(`Running in ${isProd ? 'production' : 'development'}`);
-  kintone.events.on(onIndexShow, () => {
-    console.log('hello');
-  });
 
+  kintone.events.on(onEditOrCreate, customizeFields);
 })();

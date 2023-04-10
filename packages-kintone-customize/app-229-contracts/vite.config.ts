@@ -3,12 +3,12 @@ export default {
     target: 'es2021',
     rollupOptions: {
       input: {
-        desktop: 'src/app.ts', // main.ts を起点にビルドする
+        desktop: 'src/app.ts',
         
       },
       output: {
         format: 'iife', 
-        dir: 'dist', // 
+        dir: 'dist', 
         entryFileNames: '[name].js',
       },
     },

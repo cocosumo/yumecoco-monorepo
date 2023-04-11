@@ -134,7 +134,7 @@ describe('Estimate shortcuts', () => {
       .type('{meta}{del}', { scrollBehavior: 'center' });
     cy.focused().should('have.attr', 'name', 'items.0.costPrice');
 
-    cy.log('最終行は一つしかないなら、フォーカスは仮想業の行に移動する');
+    cy.log('最終行は一つしかないなら、フォーカスは仮想行に移動する');
     cy.get('@costPriceFields')
       .should('have.length', 2) // 最終行 + 仮想行
       .eq(0)

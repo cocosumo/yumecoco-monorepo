@@ -16,11 +16,13 @@ declare namespace DBProjestimates {
     顧客名: kintone.fieldTypes.SingleLineText;
     estimateStatus: kintone.fieldTypes.SingleLineText;
     payMethod: kintone.fieldTypes.SingleLineText;
+    subsidyAmt: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
     custGroupId: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     工事種別名: kintone.fieldTypes.SingleLineText;
     refundAmt: kintone.fieldTypes.Number;
+    hasSubsidy: kintone.fieldTypes.Number;
     工事名称: kintone.fieldTypes.SingleLineText;
     envId: kintone.fieldTypes.SingleLineText;
     envStatus: kintone.fieldTypes.SingleLineText;
@@ -28,6 +30,7 @@ declare namespace DBProjestimates {
     startDaysAfterContract: kintone.fieldTypes.Number;
     工事種別利益: kintone.fieldTypes.Number;
     projTypeId: kintone.fieldTypes.SingleLineText;
+    subsidyMethod: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;
     updateDateTime: kintone.fieldTypes.DateTime;
     signMethod: kintone.fieldTypes.SingleLineText;
@@ -49,8 +52,6 @@ declare namespace DBProjestimates {
           原価: kintone.fieldTypes.Number;
           部材名: kintone.fieldTypes.SingleLineText;
           中項目: kintone.fieldTypes.SingleLineText;
-          //taxType: kintone.fieldTypes.SingleLineText;
-          //金額: kintone.fieldTypes.Number;
           部材備考: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
         };

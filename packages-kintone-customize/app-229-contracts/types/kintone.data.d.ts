@@ -1,22 +1,22 @@
 declare namespace DB {
   interface Record {
-    cocosumoAG_uuid: kintone.fieldTypes.SingleLineText;
+    yumeAGId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     粗利額: kintone.fieldTypes.Number;
-    projType: kintone.fieldTypes.SingleLineText;
+    cocosumoKoujiId: kintone.fieldTypes.SingleLineText;
     cocosumoAGName: kintone.fieldTypes.SingleLineText;
     cocosumoKoujiName: kintone.fieldTypes.SingleLineText;
     storeName: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
+    projTypeName: kintone.fieldTypes.SingleLineText;
+    storeId: kintone.fieldTypes.SingleLineText;
     custName: kintone.fieldTypes.SingleLineText;
     返金: kintone.fieldTypes.RadioButton;
     契約金額: kintone.fieldTypes.Number;
     yumeAGName: kintone.fieldTypes.SingleLineText;
-    kouji_uuid: kintone.fieldTypes.SingleLineText;
-    yumeAG_uuid: kintone.fieldTypes.SingleLineText;
     工事状況: kintone.fieldTypes.RadioButton;
-    shop_uuid: kintone.fieldTypes.SingleLineText;
-    cocosumoKouji_uuid: kintone.fieldTypes.SingleLineText;
+    projTypeId: kintone.fieldTypes.SingleLineText;
+    cocosumoAGId: kintone.fieldTypes.SingleLineText;
     粗利率: kintone.fieldTypes.Calc;
     契約金額_税抜: kintone.fieldTypes.Calc;
     自社物件: kintone.fieldTypes.CheckBox;

@@ -2,10 +2,18 @@
 
 import { setFieldShown } from 'api-kintone';
 import renderStoreName from '../components/renderStoreName';
+import renderProjType from '../components/renderProjType';
+import renderCocosumoAG from '../components/renderCocosumoAG';
+import renderYumeAG from '../components/renderYumeAG';
+import renderCocosumoKouji from '../components/renderCocosumoKouji';
 
 const hideFields = () => {
   const hiddenFields: (keyof DB.SavedRecord)[] = [
-    'shop_uuid', 'storeName',
+    'storeId', 'storeName',
+    'projTypeId', 'projTypeName',
+    'yumeAGId', 'yumeAGName',
+    'cocosumoAGId', 'cocosumoAGName',
+    'cocosumoKoujiId', 'cocosumoKoujiName',
   ];
   hiddenFields
     .forEach((field) => {
@@ -15,8 +23,16 @@ const hideFields = () => {
 
 export default async function customizeFields({
   record: {
-    shop_uuid: storeId,
+    storeId,
     storeName,
+    projTypeId,
+    projTypeName,
+    yumeAGId,
+    yumeAGName,
+    cocosumoAGId,
+    cocosumoAGName,
+    cocosumoKoujiId,
+    cocosumoKoujiName,
   },
 }: {
   record: DB.SavedRecord
@@ -24,9 +40,26 @@ export default async function customizeFields({
 
   hideFields();
 
+  
   renderStoreName({
     label: storeName.value,
     id: storeId.value,
+  });
+  renderProjType({
+    label: projTypeName.value,
+    id: projTypeId.value,
+  });
+  renderYumeAG({
+    label: yumeAGName.value,
+    id: yumeAGId.value,
+  });
+  renderCocosumoAG({
+    label: cocosumoAGName.value,
+    id: cocosumoAGId.value,
+  });
+  renderCocosumoKouji({
+    label: cocosumoKoujiName.value,
+    id: cocosumoKoujiId.value,
   });
 
 }

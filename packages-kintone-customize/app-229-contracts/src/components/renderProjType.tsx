@@ -1,32 +1,31 @@
 
 import { createRoot } from 'react-dom/client';
 import { AutoLookup } from './AutoComplete';
-import { getAllStores } from 'api-kintone';
+import { getProjTypes } from 'api-kintone';
 
-export default async function renderStoreName(
+export default async function renderProjType(
   initialValue:
   { label: string, id: string }) {
-  const root = createRoot(kintone.app.record.getSpaceElement('autocompleteStore') as Element);
+  const root = createRoot(kintone.app.record.getSpaceElement('autocompleteProjType') as Element);
 
   const handleFetchOptions = async () => {
-    return (await getAllStores()).map(({
+    return (await getProjTypes()).map(({
       uuid,
-      店舗名,
+      label,
     }) => {
       return {
-        label: 店舗名.value,
+        label: label.value,
         id: uuid.value,
       };
     }); 
   };
   
-
   root.render(
     <AutoLookup 
-      label='店舗名'
+      label='工事種別'
       initialValue={initialValue}
       fetchOptions={handleFetchOptions}
-      fieldId={'storeId'}
+      fieldId={'projTypeId'}
     />,
   );
 }

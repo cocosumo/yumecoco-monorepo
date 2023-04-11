@@ -22,7 +22,7 @@ export default async function renderProjType(
   
   root.render(
     <AutoLookup 
-      label='工事種別'
+      label='工事種別名'
       initialValue={initialValue}
       fetchOptions={handleFetchOptions}
       fieldId={'projTypeId'}

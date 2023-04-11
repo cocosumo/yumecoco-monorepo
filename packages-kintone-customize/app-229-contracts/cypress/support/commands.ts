@@ -23,4 +23,7 @@ Cypress.Commands.add('login', () => {
     },
   );
 
+  Cypress.Commands.add('getTextInputsByLabel', (label: string) => {
+    cy.get(`label:contains(${label}) ~ div input`);
+  });
 });

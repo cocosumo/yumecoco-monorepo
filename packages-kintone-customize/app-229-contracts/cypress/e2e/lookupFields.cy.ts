@@ -25,7 +25,9 @@ describe('ルークアップを検索フィールドに変更', () => {
           .clear()
           .focus();
 
-        cy.get('input[aria-expanded="true"]').should('exist');
+        cy.get('input[aria-expanded="true"]')
+          .as('openedLookup')
+          .should('exist');
     
         cy.log('一つ目を選択する');
         cy.getTextInputsByLabel(label).type('{downarrow}{enter}', { delay: 100, scrollBehavior: 'center' });
@@ -41,14 +43,13 @@ describe('ルークアップを検索フィールドに変更', () => {
             cy.get('@saveButton').click({ force: true });
 
             cy.get('@saveButton').should('not.exist');
+
+            // containsにstringを渡すと部分でも引っかかるので、regexを使う
             const regex = new RegExp('^' + label + '$');
             cy.contains(regex, { matchCase: false })
               .parent()
               .siblings()
               .as('kintoneField')
-              .should('exist');
-
-            cy.get('@kintoneField')
               .should('have.text', newValue);
           });
 
@@ -62,7 +63,7 @@ describe('ルークアップを検索フィールドに変更', () => {
           .focus();
 
         cy.log('選択肢が開いているかどうか確認');
-        cy.get('input[aria-expanded="true"]').should('exist');
+        cy.get('@openedLookup').should('exist');
 
         cy.log('三つ目を選択する');
         cy.getTextInputsByLabel(label)
@@ -83,7 +84,4 @@ describe('ルークアップを検索フィールドに変更', () => {
 
     });
     
-
-  
-  
 });

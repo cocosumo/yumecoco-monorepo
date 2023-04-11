@@ -39,7 +39,8 @@ describe('見積もり選択する', () => {
     cy.get('@selectEstimateError')
       .should('not.exist');
 
-    cy.log('見積もりを空に設定する');
+
+    cy.log('見積もりを空に設定する'); // https://github.com/Lorenzras/yumecoco-monorepo/issues/187
     cy.get('@selectEstimate').click();
     cy.get('@selectEstimateItems')
       .parent()
@@ -48,6 +49,11 @@ describe('見積もり選択する', () => {
       .as('blankItem')
       .click();
     cy.get('@selectEstimateError').should('exist');
+
+    cy.get('@selectEstimate').click();
+    cy.get('@selectEstimateItems')
+      .should('have.length.gt', 1);
+    
 
     
   });

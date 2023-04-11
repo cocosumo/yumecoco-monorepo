@@ -31,7 +31,6 @@ export function AutoLookup({
   const [options, setOptions] = useState<AutoCompleteOption[]>([]);
   
   const handleOpen = async () => {
-    console.log('handleOpen');
     const newOptions = await fetchOptions();
     setOptions(newOptions);
   };
@@ -48,7 +47,20 @@ export function AutoLookup({
         setFieldValue(fieldId, newValue?.id ?? '');
       }}
       sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label={label} required />}
+      renderInput={({ InputProps, ...params }) => (
+        <TextField 
+          {...params} 
+          label={label}
+          size='small' 
+          InputProps={{
+            ...InputProps,
+            style: {
+              backgroundColor: 'white',
+            },
+          }}
+          required 
+        />
+      )}
       
     />
   );

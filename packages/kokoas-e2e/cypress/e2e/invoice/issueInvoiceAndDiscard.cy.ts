@@ -89,7 +89,7 @@ describe('請求書を発行する', () => {
       .should('not.exist');
 
     cy.get('input[name*="exceedChecked"]')
-      .should('exist')
+      // .should('exist')  // Cypressのアクション実行前動作にて確認する内容のため、省略
       .first()
       .check();
 

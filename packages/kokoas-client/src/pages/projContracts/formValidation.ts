@@ -27,7 +27,9 @@ const numberValidation = Yup
   .number()
   .typeError('数字を入力してください');
 
-
+const requiredPositiveNumber = numberValidation
+  .positive('ゼロ以上を入力してください。')
+  .required('入力してください。');
 
 /* MAIN VALIDATION SCHEMA */
 
@@ -39,11 +41,14 @@ export const validationSchema =  Yup
     .number()
     .when(getFieldName('hasRefund'), {
       is: true,
-      then: Yup
-        .number()
-        .typeError('数値を入れてください。')
-        .positive('ゼロ以上を入力してください。')
-        .required('返金予定金額を入力してください。'),
+      then: requiredPositiveNumber,
+    }),
+
+  subsidyAmt: Yup
+    .number()
+    .when(getFieldName('hasSubsidy'), {
+      is: true,
+      then: requiredPositiveNumber,
     }),
 
   paymentFields: Yup.array().of(

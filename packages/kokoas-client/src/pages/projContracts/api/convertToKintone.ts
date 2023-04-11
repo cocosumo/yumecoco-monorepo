@@ -16,6 +16,10 @@ export const convertToKintone = (
     contractDate,
     payMethod,
     payDestination,
+
+    hasSubsidy,
+    subsidyAmt,
+    subsidyMethod,
   }: TypeOfForm,
 ) => {
 
@@ -47,6 +51,11 @@ export const convertToKintone = (
 
     hasRefund: { value: (+hasRefund).toString() },
     refundAmt: { value: refundAmt.toString() },
+
+    hasSubsidy: { value: (+hasSubsidy).toString() },
+    subsidyAmt: { value: subsidyAmt.toString() },
+    subsidyMethod: { value: subsidyMethod.toString() },
+
     支払い: convertedPaymentFields,
     $revision: {
       type: '__REVISION__',

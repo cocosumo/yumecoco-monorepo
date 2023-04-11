@@ -8,11 +8,7 @@ import { RefundAmt } from './RefundAmt';
  * 返金
  * @returns jsx
  */
-export const RefundFieldGroup = ({
-  disabled = false,
-}: {
-  disabled?: boolean
-}) => {
+export const RefundFieldGroup = () => {
   const { setValues } = useFormikContext<TypeOfForm>();
   const [field] = useField(getFieldName('hasRefund'));
   const { value: chkValue } = field;
@@ -40,10 +36,10 @@ export const RefundFieldGroup = ({
               transform: 'scale(1.5)',
             }}
           />)}
-        disabled={disabled}
+  
       />
 
-      <RefundAmt disabled={!chkValue || disabled} />
+      <RefundAmt disabled={!chkValue} />
     </Stack>
   );
 };

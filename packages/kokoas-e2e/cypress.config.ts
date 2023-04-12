@@ -15,20 +15,20 @@ export default defineConfig({
         async prepareInvoice(chkDataId: string) {
           const { records: recInvoices } = (await getInvoiceByEstDataId(chkDataId));
 
-          console.log('getInvoiceByEstDataId', recInvoices);
-
-          /* recInvoices.forEach(async ({ uuid }) => {
-            return saveInvoice({
-              recordId: uuid.value,
+          const updateValue = recInvoices.map(({ $id }) => {
+            return ({
+              id: $id.value,
               record: {
-                invoiceStatus: { value: 'voided' },
+                invoiceStatus: { value: 'moveTest' },
               },
             });
-          }); */
-          updateInvoices(recInvoices);
+          });
+          console.log('getInvoiceByEstDataId', updateValue);
+
+          const resDat = await updateInvoices(updateValue);
 
 
-          return recInvoices.length;
+          return resDat.length;
         },
       });
       on('task', {

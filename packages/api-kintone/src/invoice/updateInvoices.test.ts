@@ -2,7 +2,7 @@ import { updateInvoices } from './updateInvoices';
 
 describe('invoice', () => {
   it('should update invoice by id', async () => {
-    const newStatus = 'testUpdate';
+    const newStatus = 'sent';
 
     const updateRec = [{
       id: 90,
@@ -18,23 +18,15 @@ describe('invoice', () => {
     },
     ];
 
-    const resDat = await updateInvoices({ records: updateRec });
-    /* resDat {
-      records: [ { id: '90', revision: '13' }, { id: '91', revision: '11' } ]
-    } */
+    const resDat = await updateInvoices(updateRec);
 
     console.log('resDat', resDat);
 
-    expect(resDat).toEqual(
-      expect.arrayContaining(
-        [
-          expect.objectContaining({
-            $id: {
-              value: expect.any(String),
-            },
-          }),
-        ],
-      ),
-    );
+    expect(resDat).toMatchObject({
+      records: expect.arrayContaining([
+        expect.objectContaining({ id: '90' }),
+        expect.objectContaining({ id: '91' }),
+      ]),
+    });
   }, 10000);
 });

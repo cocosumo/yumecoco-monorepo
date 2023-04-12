@@ -1,12 +1,10 @@
 
 import { createRoot } from 'react-dom/client';
-import { AutoLookup } from './AutoComplete';
+import { AutoCompleteOption, AutoLookup } from './AutoComplete';
 import { fetchEmployees } from '../cachedApi/fetchEmployees';
 import { rolesMap } from 'api-kintone';
 
-export default async function renderCocosumoAG(
-  initialValue:
-  { label: string, id: string }) {
+export default async function renderCocosumoAG(initialValue: AutoCompleteOption) {
   const root = createRoot(kintone.app.record.getSpaceElement('autocompleteCocosumoAGId') as Element);
 
   const handleFetchOptions = async () => {

@@ -1,11 +1,9 @@
 
 import { createRoot } from 'react-dom/client';
-import { AutoLookup } from './AutoComplete';
+import { AutoCompleteOption, AutoLookup } from './AutoComplete';
 import { getProjTypes } from 'api-kintone';
 
-export default async function renderProjType(
-  initialValue:
-  { label: string, id: string }) {
+export default async function renderProjType(initialValue: AutoCompleteOption) {
   const root = createRoot(kintone.app.record.getSpaceElement('autocompleteProjType') as Element);
 
   const handleFetchOptions = async () => {

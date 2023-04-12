@@ -1,11 +1,9 @@
 
 import { createRoot } from 'react-dom/client';
-import { AutoLookup } from './AutoComplete';
+import { AutoCompleteOption, AutoLookup } from './AutoComplete';
 import { getAllStores } from 'api-kintone';
 
-export default async function renderStoreName(
-  initialValue:
-  { label: string, id: string }) {
+export default async function renderStoreName(initialValue: AutoCompleteOption) {
   const root = createRoot(kintone.app.record.getSpaceElement('autocompleteStore') as Element);
 
   const handleFetchOptions = async () => {

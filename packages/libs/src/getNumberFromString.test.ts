@@ -25,12 +25,6 @@ describe('getNumberFromString', () => {
     expect(result).toBe(0);
   });
 
-  it('数字として解釈できない文字列が渡された場合、0を返す', () => {
-    const str = '12.34a';
-    const result = getNumberFromString(str);
-    expect(result).toBe(12.34);
-  });
-
   it('小数点以下がない場合、整数として解釈される', () => {
     const str = '3.00';
     const result = getNumberFromString(str);

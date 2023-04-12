@@ -141,7 +141,7 @@ describe('Estimate shortcuts', () => {
       .type('{meta}{del}', { scrollBehavior: 'center' });
     cy.focused().should('have.attr', 'name', 'items.0.costPrice');
     
-    cy.log('仮想業を削除しようとしたら、失敗して警告を出す');
+    cy.log('仮想行を削除しようとしたら、失敗して警告を出す');
     cy.get('@costPriceFields')
       .should('have.length', 1) // 仮想行しか残っていないことを確認
       .eq(0)

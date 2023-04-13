@@ -6,6 +6,7 @@ import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
 import { ChangeEvent } from 'react';
 import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
 import WarningIcon from '@mui/icons-material/Warning';
+import { BillingEntryMenu } from './BillingEntryMenu/BillingEntryMenu';
 
 export const BillingEntryTableRow = ({
   estimate,
@@ -110,6 +111,9 @@ export const BillingEntryTableRow = ({
       </TableCell>
       <TableCell>
         {rowAmountExceeded && <WarningIcon color='warning' />}
+      </TableCell>
+      <TableCell>
+        <BillingEntryMenu rowIdx={idx} />
       </TableCell>
     </TableRow>
   );

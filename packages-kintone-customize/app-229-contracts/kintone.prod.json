@@ -1,0 +1,12 @@
+{
+  "app": "229",
+  "scope": "ALL",
+  "desktop": {
+    "js": ["./dist/desktop.js"],
+    "css": []
+  },
+  "mobile": {
+    "js": ["./dist/desktop.js"],
+    "css": []
+  }
+}

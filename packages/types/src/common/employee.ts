@@ -8,7 +8,8 @@ export type TAgents = typeof agentTypes[number];
 export const affiliations =  ['ここすも', 'すてくら', 'ゆめてつ'] as const;
 export type EmpAffiliations = typeof affiliations[number];
 
-export type EmpRoles = '店長' | '主任' | '営業' | '工務';
+export const empRoles = ['取締役', '店長', '店長代理', '主任', '営業', '工務'] as const;
+export type EmpRoles = typeof empRoles[number];
 
 export const getAgentType = (agentType: TAgents) =>agentType;
 

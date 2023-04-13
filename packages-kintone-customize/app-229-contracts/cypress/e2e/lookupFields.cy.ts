@@ -44,7 +44,7 @@ describe('ルークアップを検索フィールドに変更', () => {
 
             cy.get('@saveButton').should('not.exist');
 
-            // containsにstringを渡すと部分でも引っかかるので、regexを使う
+            // containsにstringを渡すと部分一致でも引っかかるので、regexを使う
             const regex = new RegExp('^' + label + '$');
             cy.contains(regex, { matchCase: false })
               .parent()

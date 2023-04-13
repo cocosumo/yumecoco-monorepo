@@ -25,10 +25,9 @@ export default defineConfig({
           });
           console.log('getInvoiceByEstDataId', updateValue);
 
-          const resDat = await updateInvoices(updateValue);
+          return updateInvoices(updateValue);
 
-
-          return resDat.length;
+          
         },
       });
       on('task', {

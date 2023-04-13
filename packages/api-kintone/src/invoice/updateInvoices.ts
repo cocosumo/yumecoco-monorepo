@@ -1,25 +1,21 @@
+import { RecordID, Revision } from '@kintone/rest-api-client/lib/client/types';
 import { updateAllRecords } from '../common/updateAllRecords';
-import { appId } from './config';
-/* 
+import { RecordType, appId } from './config';
+
+
 type UpdateInvoices = {
-  records: ({
-    id: RecordID;
-    record?: Partial<RecordType> | undefined;
-    revision?: string | undefined;
-  } | {
-    updateKey: string;
-    record?: Partial<RecordType> | undefined;
-    revision?: string | undefined;
-  })[];
-}; */
+  id: RecordID;
+  record?: Partial<RecordType>
+  revision?: Revision;
+};
 
 /**
  * 請求書を一括更新する
  */
-export const updateInvoices = (params) => {
+export const updateInvoices = (params: UpdateInvoices[]) => {
 
   return updateAllRecords({
-    records : params,
+    records: params,
     app: appId,
   });
 

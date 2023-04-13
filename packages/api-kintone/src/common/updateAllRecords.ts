@@ -8,13 +8,12 @@ import { KintoneClientBasicAuth } from 'api-kintone/scripts/batch/settings';
  *
  * @link https://github.com/kintone/js-sdk/blob/master/packages/rest-api-client/docs/record.md#updateAllRecords
  */
-export const updateAllRecords = async <T>(
+export const updateAllRecords = async (
   params: KtRecordParam<'updateAllRecords'>,
 ) => {
 
   const KintoneRecord = KintoneClientBasicAuth.record;
   return KintoneRecord.updateAllRecords({
     ...params,
-  })
-    .then((r) => r as unknown as T[]);
+  });
 };

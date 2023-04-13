@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { saveInvoices } from 'api-kintone/src/invoice/saveInvoices';
+import { saveInvoice } from 'api-kintone/src/invoice/saveInvoice';
 import { AppIds } from 'config';
 import { useSnackBar } from '../hooks/useSnackBar';
 import { useCommonOptions } from './useCommonOptions';
@@ -11,7 +11,7 @@ export const useSaveInvoice = () => {
 
 
   return useMutation(
-    saveInvoices,
+    saveInvoice,
     {
       ...commonOptions,
       onSuccess: ({ revision }) => {

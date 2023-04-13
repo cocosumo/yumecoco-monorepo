@@ -11,21 +11,13 @@ export const ExceedContractAmount = ({
 }) => {
 
   const fieldName: KeyOfForm = 'exceedChecked';
-  const [field, meta, helpers] = useField(fieldName);
+  const [field, meta] = useField(fieldName);
 
   
   const {
     error,
     touched,
   } = meta;
-
-  const {
-    setValue,
-  } = helpers;
-
-  const handleCheck = (e: any) => {
-    setValue(e.target.checked);
-  };
 
 
   return (
@@ -40,7 +32,6 @@ export const ExceedContractAmount = ({
         <Stack direction={'row'}>
           <AlertContent
             checkboxVal={field.value}
-            onClick={handleCheck}
             isError={!!error && touched}
             isBilled={isBilled}
           />

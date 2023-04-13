@@ -2,12 +2,7 @@ import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { OneOf } from '@kintone/rest-api-client/lib/KintoneFields/types/field';
 import { Lookup } from '@kintone/rest-api-client/lib/KintoneFields/types/property';
 
-/**
- * getLookUp
- * 
- * @param fields 
- * @deprecated "@app/helpers/getLookup.ts" に移動しました。
- */
+
 export const getLookUp = (fields: Properties | OneOf) => {
   const lookupFields: Lookup[] = [];
 

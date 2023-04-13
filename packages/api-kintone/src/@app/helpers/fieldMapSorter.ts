@@ -1,0 +1,1 @@
+export const fieldMapSorter = ({ field: a }: any, { field: b }: any) => a > b ? 1 : -1;

@@ -19,7 +19,7 @@ export const SelectProjEstimates = (props:  ComponentProps<typeof Select> & {
     label = '見積選択',
     onChange = (e) => {
       const selected = e.target.value as string;
-      navigate(`?${generateParams({ projEstimateId: selected })}`);
+      navigate(`?${generateParams({ projId, projEstimateId: selected })}`);
     },
     ...othersProps
   } = props;

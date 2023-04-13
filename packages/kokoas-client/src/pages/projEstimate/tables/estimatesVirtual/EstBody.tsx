@@ -34,9 +34,7 @@ export const EstBody = ({
   );
 
 
-  const {
-    rowsCount,
-  } = rowMethods;
+  const rowsCount = items.length;
 
   /* 仮想化設定 */
   const rowVirtualizer = useVirtualizer({
@@ -80,6 +78,7 @@ export const EstBody = ({
                 isAtBottom={isAtBottom}
                 isVisible={!isDisabled}
                 rowIdx={virtualRow.index}
+                rowsCount={rowsCount}
                 stackProps={{
                   visibility: isAtBottom ? 'hidden' : undefined,
                 }}
@@ -105,7 +104,10 @@ export const EstBody = ({
         })}
 
       </EstBodyContainerEditable>
-      <EstFooterActions {...rowMethods} />
+      <EstFooterActions 
+        {...rowMethods}
+        rowsCount={rowsCount}
+      />
 
     </Fragment>
   );

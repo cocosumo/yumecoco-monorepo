@@ -18,7 +18,6 @@ import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 
 
-
 export const FormContents = ({
   handleSubmit,
 }: {
@@ -48,7 +47,7 @@ export const FormContents = ({
   });
 
   const disabled = !!envStatus;
-
+  
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(
     handleSubmit,
@@ -56,6 +55,8 @@ export const FormContents = ({
       disabled,
     },
   );
+
+  
 
   if (projId) {
     return (

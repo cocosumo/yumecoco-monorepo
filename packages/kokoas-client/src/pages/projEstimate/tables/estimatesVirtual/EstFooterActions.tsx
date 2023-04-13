@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { HotKeyTooltip } from 'kokoas-client/src/components';
 import { useWatch } from 'react-hook-form';
@@ -13,14 +13,16 @@ import { grey } from '@mui/material/colors';
 export const EstFooterActions = ({
   rowsCount,
   handleAppendItem,
-}: UseManipulateItemRows) => {
+}: UseManipulateItemRows & {
+  rowsCount: number
+}) => {
 
   const {
     getNewRow,
   } = useRowValues();
 
-
-  const lastRowName = `${estArrayFieldName}.${rowsCount - 1}`;
+  const actualRowsCount = rowsCount - 1;
+  const lastRowName = `${estArrayFieldName}.${actualRowsCount}`;
 
   const lastRow: Item = useWatch({
     name: lastRowName as 'items.0.test',
@@ -45,7 +47,16 @@ export const EstFooterActions = ({
         mt: 1,
       }}
     >
-      <HotKeyTooltip title='insert'>
+      <Typography sx={{
+        mr: 1,
+        display: 'flex',
+        alignItems: 'center',
+        color: grey[500],
+      }}
+      >
+        {`${actualRowsCount}行`}
+      </Typography>
+      <HotKeyTooltip title='ctrl + i'>
         <Button
           variant="contained"
           color="success"

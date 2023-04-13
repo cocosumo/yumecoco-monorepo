@@ -1,6 +1,12 @@
 import { getAllRecords } from '../common/getAllRecords';
 import { appId, RecordType } from './config';
 
+/**
+ * 社員名簿を取得する
+ * 
+ * @param isActiveOnly デフォルト：true.
+ * @returns 
+ */
 export const getEmployees  = async (
   isActiveOnly = true,
 ) => {

@@ -1,7 +1,7 @@
 import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import { HelpHotKeys } from './HelpHotkeys';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export const EstimateTableLabel = () => {
 
@@ -19,6 +19,10 @@ export const EstimateTableLabel = () => {
           <HelpIcon />
         </IconButton>
       </Tooltip>
+      <ArrowBackIcon />
+      <Typography component={'span'} variant={'caption'}>
+        ショートカットキー
+      </Typography>
     </Stack>
 
   );

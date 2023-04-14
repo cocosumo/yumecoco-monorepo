@@ -4,12 +4,12 @@ import { useEffect, useRef } from 'react';
 
 export const useNumberCommaField = ({
   value,
-  handleChange,
-  handleBlur,
+  onChange,
+  onBlur,
 } : {
   value: number | string
-  handleChange: (value: number | string) => void,
-  handleBlur?: () => void,
+  onChange: (value: number | string) => void,
+  onBlur?: () => void,
 }) : TextFieldProps => {
   const inputRef = useRef<HTMLInputElement>(null);
   const shouldChange = useRef(true); 
@@ -51,7 +51,7 @@ export const useNumberCommaField = ({
       //console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
       const halfWidthNumber = +halfWidth;
       if (isNaN(halfWidthNumber)) return;
-      handleChange(halfWidthNumber);
+      onChange(halfWidthNumber);
     },
     onInput: (e) => {
 
@@ -60,7 +60,7 @@ export const useNumberCommaField = ({
       } = e.target as HTMLInputElement;
    
       if (shouldChange.current) {
-        handleChange(inputValue);
+        onChange(inputValue);
       }
     
     },
@@ -68,7 +68,7 @@ export const useNumberCommaField = ({
       shouldChange.current = true;
       const el = e.target as HTMLInputElement;
       if (el.value === '') return e;
-      handleBlur?.();
+      onBlur?.();
       const newValue = +value;
       if (isNaN(newValue)) return e;
       //console.log('BLUR', e.nativeEvent, newValue, el.value);

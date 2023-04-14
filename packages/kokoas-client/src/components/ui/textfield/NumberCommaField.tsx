@@ -2,12 +2,17 @@ import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import { UseNumberCommaFieldProps, useNumberCommaField } from 'kokoas-client/src/hooks/useNumberCommaField';
 import { forwardRef } from 'react';
 
-type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' | 'value'> & UseNumberCommaFieldProps;
+
+
+
+type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' | 'value' | 'type'> & UseNumberCommaFieldProps;
 
 
 /**
  * TextFieldから派生したコンポーネントですが、
  * コンマ区切りの数字を入力することが出来ます。
+ * 
+ * MUIではないInputなら、直接useNumberCommaFieldを使えます。
  * 
  * ざっくり実装です。estimateのinputのE2Eテスト合格していますが、
  * 固定の部分があるので、必要に応じて改修　~ Ras
@@ -30,6 +35,7 @@ export const NumberCommaField = forwardRef<HTMLInputElement, NumberCommaFieldPro
   return (
     <TextField 
       ref={ref}
+      type='text' // numberだと、コンマを入れることが出来ない
       inputProps={{ 
         style: { textAlign: 'right' }, 
       }}

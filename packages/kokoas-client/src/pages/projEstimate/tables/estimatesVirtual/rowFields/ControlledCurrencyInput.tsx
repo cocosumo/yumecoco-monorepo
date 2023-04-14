@@ -48,7 +48,6 @@ export const ControlledCurrencyInput = ({
           <NumberCommaField
             value={value}
             inputRef={ref}
-            type='text' // numberだと、コンマを入れることが出来ない
             size='small' 
             defaultValue={value.toLocaleString()}
             name={name}

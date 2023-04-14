@@ -41,7 +41,7 @@ kokoasApps
       });
 
       
-      it.only('ルークアップ以外、フィールドがマッチしていること', () => {
+      it('ルークアップ以外、フィールドがマッチしていること', () => {
         const devNoLookUp = removeLookUp(devApp);
         const prodNoLookUp = removeLookUp(prodApp);
 
@@ -109,7 +109,6 @@ kokoasApps
           // ルークアップの関連のアプリIDが開発環境のものだと、失敗します。
           expect(Object.values(devAppIds)).to.not.include(prodLookUp.lookup.relatedApp.app);
           
-
         }
     
       });

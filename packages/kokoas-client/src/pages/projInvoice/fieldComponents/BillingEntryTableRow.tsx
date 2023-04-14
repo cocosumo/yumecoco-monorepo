@@ -8,16 +8,22 @@ import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
 import WarningIcon from '@mui/icons-material/Warning';
 import { BillingEntryMenu } from './BillingEntryMenu/BillingEntryMenu';
 
+
+
 export const BillingEntryTableRow = ({
   estimate,
   idx,
   paymentList,
   isBilled,
+  handleInsert,
+  handleRemove,
 }: {
   estimate: TMaterials
   idx: number
   paymentList: ReturnType<typeof createPaymentList>[] | undefined
-  isBilled: boolean
+  isBilled: boolean  
+  handleInsert: () => void
+  handleRemove: () => void
 }) => {
   const {
     setValues,
@@ -113,7 +119,11 @@ export const BillingEntryTableRow = ({
         {rowAmountExceeded && <WarningIcon color='warning' />}
       </TableCell>
       <TableCell>
-        <BillingEntryMenu rowIdx={idx} />
+        <BillingEntryMenu
+          rowIdx={idx}
+          handleInsert={handleInsert}
+          handleRemove={handleRemove}
+        />
       </TableCell>
     </TableRow>
   );

@@ -2,10 +2,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton, Menu, MenuItem, Stack } from '@mui/material';
 import { MouseEvent, useState } from 'react';
 
+
+
 export const BillingEntryMenu = ({
   rowIdx,
+  handleInsert,
+  handleRemove,
 }: {
-  rowIdx: number,
+  rowIdx: number
+  handleInsert: () => void
+  handleRemove: () => void
 }) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -16,10 +22,6 @@ export const BillingEntryMenu = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
-
-  console.log('rowIdx', rowIdx);
 
 
 
@@ -39,7 +41,7 @@ export const BillingEntryMenu = ({
       >
         <MenuItem
           onClick={() => {
-            handleInsertRowBelow();
+            handleInsert();
             handleClose();
           }}
         >
@@ -47,7 +49,7 @@ export const BillingEntryMenu = ({
         </MenuItem>
         <MenuItem
           onClick={() => {
-            handleRemoveRow();
+            handleRemove();
             handleClose();
           }}
         >

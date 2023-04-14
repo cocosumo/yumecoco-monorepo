@@ -1,4 +1,5 @@
-import { GetFormFieldsReturn, getFormFields } from 'api-kintone';
+import { GetFormFieldsReturn } from 'api-kintone';
+import { fieldMapSorter, getLookUp, removeKeys } from 'api-kintone/src/@app/helpers';
 import { prodAppIds, devAppIds } from 'config';
 import { before, context, cy, expect, it } from 'local-cypress';
 
@@ -9,26 +10,27 @@ import { before, context, cy, expect, it } from 'local-cypress';
 // All new DBs should be added to the devAppIds first.
 const appKeys = Object.keys(devAppIds) as (keyof typeof devAppIds)[];
 
+
 // Create a tupple of [prodAppId, devAppId] for each DB.
-const kokoasApps = appKeys
-  .map((key) => ({ [key]: [prodAppIds[key], devAppIds[key]] }));
- 
+//const kokoasApps = appKeys.map((key) => ({ [key]: [prodAppIds[key], devAppIds[key]] }));
+const kokoasApps = [{ projEstimates: [210, 202] }];
+
 kokoasApps
   .forEach((app) => {
     const [key, values] = Object.entries(app)[0];
     const [prodAppId, devAppId] = values;
     context(`${key}のDBのマイグレーションチェック`, () => {
-      let devApp : GetFormFieldsReturn = Object.create(null);
-      let prodApp : GetFormFieldsReturn = Object.create(null);
+      let devApp : GetFormFieldsReturn['properties'] = Object.create(null);
+      let prodApp : GetFormFieldsReturn['properties'] = Object.create(null);
 
       before(() => {
         cy.task<GetFormFieldsReturn>('getDBFields', devAppId)
           .then((fields) => {
-            devApp = fields;
+            devApp = removeKeys(fields, ['relatedApp', 'relatedKeyField']).properties;
           });
         cy.task<GetFormFieldsReturn>('getDBFields', prodAppId)
           .then((fields) => {
-            prodApp = fields;
+            prodApp = removeKeys(fields, ['relatedApp', 'relatedKeyField']).properties;
           });
 
       });
@@ -36,20 +38,25 @@ kokoasApps
         expect(prodAppId).not.to.equal(devAppId);
       });
 
-      it('Primitiveフィールドは同じであること', () => {
-        Object.entries(devApp.properties)
-          .forEach(([fieldName, props]) => {
+      it('lookup field mappings should match', () => {
+        const prodLookUps = getLookUp(devApp);
+        const devLookUps = getLookUp(prodApp);
+        console.log(prodLookUps);
+        console.log(devLookUps);
+        
+        for (const devLookup of devLookUps) {
+          
+          const prodLookUp = prodLookUps.find(({ code }) => code === devLookup.code );
 
-            cy.log(`${fieldName}のチェック`);
+          expect(prodLookUp).not.to.be.undefined;
+          
+          if (!prodLookUp) return;
 
-            Object.entries(props).forEach(([prop, propVal]) => {
-              if (typeof propVal !== 'object') {
-                console.log(fieldName, prop, propVal);
-              }
-            });
-          });
-        console.log(devApp);
-        console.log(prodApp);
+          const prodSortedFieldMap = prodLookUp.lookup.fieldMappings.sort(fieldMapSorter);
+          const devSortedFieldMap = devLookup.lookup.fieldMappings.sort(fieldMapSorter);
+          expect(devSortedFieldMap).to.deep.eq(prodSortedFieldMap);
+        }
+    
       });
 
     });

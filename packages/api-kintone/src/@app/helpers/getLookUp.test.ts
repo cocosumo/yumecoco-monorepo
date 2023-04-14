@@ -3,7 +3,7 @@ import { getLookUp } from './getLookUp';
 
 
 describe('getLookUp', () => {
-  it('オブジェクト内のすべてのルックアップフィールドを再帰的に返す必要があります', () => {
+  it('オブジェクト内のすべてのルックアップフィールドを返すこと', () => {
     const fields = {
       name: { lookup: 'level 1 name' },
       age: { lookup: 'level 1 age' },

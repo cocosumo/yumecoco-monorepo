@@ -1,13 +1,20 @@
 import { Properties } from '@kintone/rest-api-client/lib/client/types';
 
-export const removeLookUp = (obj: Properties): void => {
-  Object.entries(obj).forEach(([key, value]) => {
+export const removeLookUp = <T extends Properties>(obj: T): T => {
+  const newObj = Object.create(null);
+
+  for (const [key, value] of Object.entries(obj)) {
+
     if ('lookup' in value) {
-      delete obj[key];
+      continue;
     }
 
     if ('fields' in value) {
-      removeLookUp(value.fields);
+      newObj[key] = { ...value, fields: removeLookUp(value.fields) };
+    } else {
+      newObj[key] = value;
     }
-  });
+  }
+
+  return newObj as T;
 };

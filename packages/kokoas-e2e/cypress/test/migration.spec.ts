@@ -1,5 +1,5 @@
 import { GetFormFieldsReturn } from 'api-kintone';
-import { fieldMapSorter, getLookUp, removeKeys } from 'api-kintone/src/@app/helpers';
+import { fieldMapSorter, getLookUp, removeKeys, removeLookUp } from 'api-kintone/src/@app/helpers';
 import { prodAppIds, devAppIds } from 'config';
 import { before, context, cy, expect, it } from 'local-cypress';
 
@@ -36,6 +36,14 @@ kokoasApps
       });
       it('本番と開発環境のアプリIDが異なること', () => {
         expect(prodAppId).not.to.equal(devAppId);
+      });
+
+      
+      it.only('dev fields match prod fields', () => {
+        const devNoLookUp = removeLookUp(devApp);
+        const prodNoLookUp = removeLookUp(prodApp);
+        console.log('devNoLookUp', devNoLookUp, devApp);
+        console.log('prodNoLookUp', prodNoLookUp, devApp);
       });
 
       it('全てのルークアップが一致していること', () => {

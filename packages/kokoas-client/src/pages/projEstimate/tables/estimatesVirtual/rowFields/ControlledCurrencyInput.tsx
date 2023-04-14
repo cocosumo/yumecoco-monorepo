@@ -1,8 +1,6 @@
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { getItemsFieldName, KRowFields, TypeOfForm } from '../../../form';
-import { useEffect, useRef } from 'react';
-import { convertToHalfWidth } from 'libs';
-import { InputAdornment, OutlinedInput } from '@mui/material';
+import { NumberCommaField } from 'kokoas-client/src/components/ui/textfield/NumberCommaField';
 
 
 /**
@@ -77,20 +75,10 @@ export const ControlledCurrencyInput = ({
   
   const { control } = useFormContext<TypeOfForm>();
 
-  const name = getItemsFieldName(rowIdx, fieldName);
-
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
-  /* 
-    IME入力開始するとfalse, blurの際にtrueに戻す。
-    以上のバグの条件を参考
-  */
-  const shouldChange = useRef(true); 
-  
+  const name = getItemsFieldName(rowIdx, fieldName);  
 
   const [
     envStatus,
-    fieldValue,
   ] = useWatch({
     name: [
       'envStatus',
@@ -98,30 +86,6 @@ export const ControlledCurrencyInput = ({
     ],
     control,
   });
-
-  useEffect(() => {
-    if (!inputRef.current) return;
-
-    const focusedInputElement = document.activeElement;
-
-    const isSameInputElFocused = focusedInputElement instanceof HTMLInputElement 
-      && focusedInputElement === inputRef.current;
-      
-    if (isSameInputElFocused) {
-      // 入力中の場合、コンマを追加しない。
-      inputRef.current.value = String(fieldValue);
-    } else {
-      // 表示を更新する
-      // 例：実値は1000だが、表示は1,000になる。
-      inputRef.current.value = (+fieldValue).toLocaleString();
-
-    } 
-
-  }, [
-    fieldValue,
-    name,
-    rowIdx,
-  ]);
 
   return (
     <Controller
@@ -141,80 +105,18 @@ export const ControlledCurrencyInput = ({
       }) => {
 
         return (
-          <OutlinedInput
-            inputRef={(el) => {
-              /** RHFと共有 */ 
-              inputRef.current = el;
-              ref(el);              
-            }}
+          <NumberCommaField
+            value={value}
+            inputRef={ref}
             type='text' // numberだと、コンマを入れることが出来ない
             size='small' 
-            endAdornment={(
-              <InputAdornment position='end' disablePointerEvents>
-                円
-              </InputAdornment>
-            )}
-            inputProps={{ 
-              style: { textAlign: 'right' }, 
-            }}
             defaultValue={value.toLocaleString()}
-            onFocus={({ target }) =>{
-              target.value = target.value.replace(/,/g, '');
-              target.select(); // ダブって原因でした。
-            }}
             name={name}
-            onCompositionStart={() => {
-              //const el = e.target as HTMLInputElement;   
-              shouldChange.current = false;
-              //console.log('COMPOSITION_START', e.nativeEvent, el.value);
-            }}
-            onCompositionEnd={(e) => {
-              // ここでは二重にならない
-              const el = e.target as HTMLInputElement;
-              const halfWidth = convertToHalfWidth(el.value);
-              //console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
-              if (isNaN(+halfWidth)) return;
-              onChange(+halfWidth);
+            onChange={(v) => {
+              onChange(v);
               handleChange();
             }}
-            onBeforeInput={() => {
-              // Chromeではcompositionendが先に発火するので、使えない
-              //const el = e.target as HTMLInputElement;
-              //const inputEvent = e.nativeEvent as InputEvent;
-              //console.log('BEFORE_INPUT', inputEvent, el.value);
-            }}
-            onInput={(e) => {
-              // ここではブラウザのバグの条件*が揃ったら、二重になる
-              //const {
-              //  inputType,
-              //} = e.nativeEvent as InputEvent;
-              const { 
-                value: inputValue, 
-              } = e.target as HTMLInputElement;
-
-              //console.log('INPUT', e.nativeEvent, inputValue, inputType);
-
-              if (shouldChange.current) {
-                onChange(inputValue);
-                handleChange();
-              }
-    
-            }}
-            onChange={() => {
-              // IME入力中に値を弄ると、二重になるので使わない
-              //console.log('CHANGE', e.nativeEvent, e.target.value);
-            }}
-            onBlur={(e) => {
-              shouldChange.current = true;
-              onBlur();
-              const el = e.target as HTMLInputElement;
-              if (el.value === '') return e;
-
-              const newValue = +fieldValue;
-              if (isNaN(newValue)) return e;
-              //console.log('BLUR', e.nativeEvent, newValue, el.value);
-              el.value = newValue.toLocaleString();
-            }}
+            onBlur={onBlur}
             error={!!error && isTouched}
             disabled={!!envStatus}
           />

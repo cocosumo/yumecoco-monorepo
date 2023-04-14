@@ -1,21 +1,22 @@
 import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { getLookUp } from './getLookUp';
 
+
 describe('getLookUp', () => {
   it('オブジェクト内のすべてのルックアップフィールドを再帰的に返す必要があります', () => {
     const fields = {
-      name: { lookup: 'level 2 name' },
-      age: { lookup: 'level 2 age' },
+      name: { lookup: 'level 1 name' },
+      age: { lookup: 'level 1 age' },
       address: {
         fields: {
-          street: { lookup: 'level 3 street' },
-          city: { lookup: 'level 3 city' },
+          street: { lookup: 'level 2 street' },
+          city: { lookup: 'level 2 city' },
         },
       },
       friends: {
         fields: {
-          name: { lookup: 'level 3 name' },
-          age: { lookup: { value: 'level 3 name' } },
+          name: { lookup: 'level 2 name' },
+          age: { lookup: { value: 'level 2 name' } },
         },
       },
     };

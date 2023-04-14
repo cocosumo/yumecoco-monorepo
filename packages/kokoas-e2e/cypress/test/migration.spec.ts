@@ -38,23 +38,28 @@ kokoasApps
         expect(prodAppId).not.to.equal(devAppId);
       });
 
-      it('lookup field mappings should match', () => {
+      it('全てのルークアップが一致していること', () => {
         const prodLookUps = getLookUp(devApp);
         const devLookUps = getLookUp(prodApp);
-        console.log(prodLookUps);
-        console.log(devLookUps);
         
         for (const devLookup of devLookUps) {
           
           const prodLookUp = prodLookUps.find(({ code }) => code === devLookup.code );
 
+          // 本番で存在していないと、失敗します。
           expect(prodLookUp).not.to.be.undefined;
           
           if (!prodLookUp) return;
 
           const prodSortedFieldMap = prodLookUp.lookup.fieldMappings.sort(fieldMapSorter);
           const devSortedFieldMap = devLookup.lookup.fieldMappings.sort(fieldMapSorter);
+
+          // コピーフィールドの設定が異なると、失敗します。
           expect(devSortedFieldMap).to.deep.eq(prodSortedFieldMap);
+          
+          // ルークアップの関連のアプリIDが開発環境のものだと、失敗します。
+          expect(Object.values(devAppIds)).to.not.include(prodLookUp.lookup.relatedApp.app);
+
         }
     
       });

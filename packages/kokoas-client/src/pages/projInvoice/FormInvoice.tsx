@@ -120,7 +120,10 @@ export const FormInvoice = () => {
               <Typography>
                 {'契約一覧'}
               </Typography>
-              <EstimatesTable isBilled={isBilled} />
+              <EstimatesTable 
+                custGroupId={custGroupId}
+                isBilled={isBilled}
+              />
             </Grid>
 
 

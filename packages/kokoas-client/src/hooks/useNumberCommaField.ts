@@ -2,15 +2,17 @@ import { TextFieldProps } from '@mui/material';
 import { convertToHalfWidth } from 'libs';
 import { useEffect, useRef } from 'react';
 
+export interface UseNumberCommaFieldProps {
+  value: number | string
+  onChange: (value: number | string) => void,
+  onBlur?: () => void,
+}
+
 export const useNumberCommaField = ({
   value,
   onChange,
   onBlur,
-} : {
-  value: number | string
-  onChange: (value: number | string) => void,
-  onBlur?: () => void,
-}) : TextFieldProps => {
+} : UseNumberCommaFieldProps) : TextFieldProps => {
   const inputRef = useRef<HTMLInputElement>(null);
   const shouldChange = useRef(true); 
 

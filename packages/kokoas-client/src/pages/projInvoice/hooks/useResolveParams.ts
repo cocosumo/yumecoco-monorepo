@@ -43,6 +43,7 @@ export const useResolveParams = () => {
       }));
     } else if (custGroupIdFromURL && custData && recContracts) {
 
+      /* このタイミングでのestimatesの保存をやめる */
       const newEstimates = sortEstimatesByProjId(recContracts);
 
       const newValues = produce(initialValues, (draft) => {

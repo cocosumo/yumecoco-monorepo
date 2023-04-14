@@ -12,14 +12,16 @@ const appKeys = Object.keys(devAppIds) as (keyof typeof devAppIds)[];
 
 
 // Create a tupple of [prodAppId, devAppId] for each DB.
-//const kokoasApps = appKeys.map((key) => ({ [key]: [prodAppIds[key], devAppIds[key]] }));
-const kokoasApps = [{ projEstimates: [210, 202] }];
+const kokoasApps = appKeys.map((key) => ({ [key]: [prodAppIds[key], devAppIds[key]] }));
+
+// テストしたいアプリがあれば、以下を編集する。
+//const kokoasApps = [{ projEstimates: [210, 202] }];
 
 kokoasApps
   .forEach((app) => {
     const [key, values] = Object.entries(app)[0];
     const [prodAppId, devAppId] = values;
-    context(`${key}のDBのマイグレーションチェック`, () => {
+    context(`${key}のDBのマイグレーションチェック。本番-${prodAppId}, 開発-${devAppId}`, () => {
       let devApp : GetFormFieldsReturn['properties'] = Object.create(null);
       let prodApp : GetFormFieldsReturn['properties'] = Object.create(null);
 
@@ -39,11 +41,50 @@ kokoasApps
       });
 
       
-      it.only('dev fields match prod fields', () => {
+      it.only('ルークアップ以外、フィールドがマッチしていること', () => {
         const devNoLookUp = removeLookUp(devApp);
         const prodNoLookUp = removeLookUp(prodApp);
-        console.log('devNoLookUp', devNoLookUp, devApp);
-        console.log('prodNoLookUp', prodNoLookUp, devApp);
+
+        // フィールドが一致していないと、失敗します。
+        for (const [devFieldKey, devFieldValue ] of Object.entries(devNoLookUp)) {
+          const prodFieldValue = prodNoLookUp[devFieldKey];
+          cy.log(`${devFieldKey}をチェックしています。`);
+
+          // 本番で存在していないと、失敗します。
+          cy.wrap(prodFieldValue).should('not.be.undefined');
+          if (!prodFieldValue) return;
+
+          // フィールドの設定が異なると、失敗します。
+          for (const [settingKey, devSettingValue] of Object.entries(devFieldValue)) {
+            cy.log(`${devFieldKey}の${settingKey}をチェックしています。`);
+            const prodSettingValue = prodFieldValue[settingKey as keyof typeof prodFieldValue];
+            cy.wrap(prodFieldValue).should('not.be.undefined');
+
+            if (typeof devSettingValue === 'object') {
+      
+              // サブテーブルの場合、フィールドの設定が異なると、失敗します。
+              for (const [subFieldKey, devSubFieldValue] of Object.entries(devSettingValue)) {
+                cy.log(`サブテーブル: ${devFieldKey}の${settingKey}の${subFieldKey}をチェックしています。`);
+                const prodSubFieldValue = prodSettingValue[subFieldKey as keyof typeof prodSettingValue];
+                // 本番で存在していないと、失敗します。
+                cy.wrap(prodSubFieldValue).should('not.be.undefined');
+                if (!prodSubFieldValue) return;
+
+                for (const [subSettingKey, devSubSettingValue] of Object.entries(devSubFieldValue as object)) {
+                  const prodSubSettingValue = prodSubFieldValue[subSettingKey as keyof typeof prodSubFieldValue];
+                  cy.wrap(prodSubSettingValue).should('not.be.undefined');
+
+                  cy.log(`サブテーブルフィールド設定: ${devFieldKey}の${settingKey}の${subFieldKey}の${subSettingKey}をチェックしています。`);
+                  cy.wrap(devSubSettingValue).should('equal', prodSubSettingValue);
+                }
+              }
+            } else {
+              cy.wrap(devSettingValue).should('equal', prodSettingValue);
+            }
+          }
+
+        }
+          
       });
 
       it('全てのルークアップが一致していること', () => {
@@ -67,6 +108,7 @@ kokoasApps
           
           // ルークアップの関連のアプリIDが開発環境のものだと、失敗します。
           expect(Object.values(devAppIds)).to.not.include(prodLookUp.lookup.relatedApp.app);
+          
 
         }
     

@@ -10,6 +10,7 @@ describe('見込み管理：入力', () => {
   });
 
   context('お金に関わるフィールドに、フォーカスを外したときに、コンマを追加します', () => {
+    // 契約金額をランダムに生成
     const contractAmount = Math.floor(Math.random() * 999999999) + 100000;
 
     const testCases = [
@@ -37,9 +38,9 @@ describe('見込み管理：入力', () => {
           expect(val).to.equal(normalizeValue);
         });
 
+        // 保存出来るか確認。
         cy.contains('button', '保存').click();
         cy.contains('保存が出来ました').should('exist');
-            
 
         cy.get('@contractAmtField').invoke('val')
           .then((val) => {

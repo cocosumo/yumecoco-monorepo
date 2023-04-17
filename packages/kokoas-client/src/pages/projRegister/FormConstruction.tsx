@@ -2,7 +2,7 @@
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { ConstructionInfo } from './sections/ConstructionInfo';
-import { ConstructionLocation, CustInfo, StatusControls } from './sections';
+import { ConstructionLocation, CustInfo, Remarks, StatusControls } from './sections';
 import { Grid } from '@mui/material';
 import {  Form, useFormikContext } from 'formik';
 import { FabSave } from '../../components/ui/fabs/FabSave';
@@ -60,7 +60,10 @@ export const FormConstruction  = () => {
                 territory={territory}
                 projTypeId={projTypeId}
               />
+              <Remarks />
+              
               {isEditMode && <StatusControls />}
+
             </>
           )}
         </Grid>

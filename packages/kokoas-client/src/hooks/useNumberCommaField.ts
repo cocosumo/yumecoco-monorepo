@@ -70,11 +70,14 @@ export const useNumberCommaField = ({
       shouldChange.current = true;
       const el = e.target as HTMLInputElement;
       if (el.value === '') return e;
-      onBlur?.();
-      const newValue = +value;
-      if (isNaN(newValue)) return e;
+      const halfWidth = convertToHalfWidth(el.value);
+      const halfWidthNumber = +halfWidth;
+      if (isNaN(halfWidthNumber)) return;
+      onChange(halfWidthNumber);  
       //console.log('BLUR', e.nativeEvent, newValue, el.value);
-      el.value = newValue.toLocaleString();
+      el.value = halfWidthNumber.toLocaleString();
+   
+      onBlur?.();
     },
     inputRef,
   };

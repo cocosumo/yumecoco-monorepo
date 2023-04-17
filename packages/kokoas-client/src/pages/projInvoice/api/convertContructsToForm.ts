@@ -1,6 +1,12 @@
 import { produce } from 'immer';
 import { TMaterials, initialValues } from '../form';
 
+/**
+ * 請求書(見積もり)のレコードを、formと同様の形式(TMariteals)に落とし込みます
+ * 契約一覧表を表示するための前処理で、form形式である必要はありませんが、
+ * 必要な情報で構成されているため、form形式に変換することとします
+ * @returns 
+ */
 export const convertContructsToForm: TMaterials[] = () => {
 
   const newValues = produce(initialValues, (draft) => {

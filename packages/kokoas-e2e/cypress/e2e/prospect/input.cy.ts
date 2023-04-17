@@ -34,7 +34,7 @@ describe('見込み管理：入力', () => {
 
     });
 
-    it.only('全角', () => {
+    it('全角', () => {
       // 100000から999999999の間のランダムな契約金額を生成
       const contractAmount = Math.floor(Math.random() * 999999999) + 100000;
       const fullWidthVal = convertToFullWidth(contractAmount);

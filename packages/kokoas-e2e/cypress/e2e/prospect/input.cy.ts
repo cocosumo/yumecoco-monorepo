@@ -1,7 +1,7 @@
 import { convertToFullWidth } from 'libs/src/convertToFullWidth';
 import { beforeEach, context, cy, describe, expect } from 'local-cypress';
 
-describe('見積：入力', () => {
+describe('見込み管理：入力', () => {
   beforeEach(() => {
     const testProjId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60';
     cy.login();
@@ -35,7 +35,7 @@ describe('見積：入力', () => {
     });
 
     it.only('全角', () => {
-      // generate random contract amount from 100000 to 999999999
+      // 100000から999999999の間のランダムな契約金額を生成
       const contractAmount = Math.floor(Math.random() * 999999999) + 100000;
       const fullWidthVal = convertToFullWidth(contractAmount);
       cy.getTextInputsByLabel('契約予定金額').as('contractAmtField');

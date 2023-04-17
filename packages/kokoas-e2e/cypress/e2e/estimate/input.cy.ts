@@ -1,5 +1,8 @@
 import { convertObjNumValsToFullWidth } from 'libs/src/convertObjNumValsToFullWidth';
 import { beforeEach, context, cy, describe, expect } from 'local-cypress';
+import { faker } from '@faker-js/faker';
+
+faker.setLocale('ja');
 
 describe('見積：入力', () => {
   beforeEach(() => {
@@ -98,8 +101,32 @@ describe('見積：入力', () => {
     });
   });
 
-  it.only('備考フィールドが保存出来ること', () => {
-    
+  it('備考フィールドが保存出来ること', () => {
+    cy.getTextInputsByLabel('備考', 'textarea')
+      .first()
+      .as('remarks')
+      .should('exist');
+
+    //テスト用のテキストを生成
+    const fakeParagraph =  faker.lorem.paragraph();
+
+    cy.get('@remarks').focus();
+
+    cy.get('@remarks').clear();
+  
+    // 入力の後、Ctrl+Sを押下する　（保存）
+    cy.get('@remarks')
+      .type(`${fakeParagraph}{ctrl}s`, { delay: 10, scrollBehavior: 'center' })  ;
+
+    cy.contains('保存しました。').should('exist');
+
+    // 保存後、入力した値が表示されていることをアサート
+    cy.get('@remarks')
+      .then(($input) => {
+        const val = $input.val();
+        expect(val).to.equal(fakeParagraph);
+      });
+
   });
 
   // TODO：入力中の計算のテスト

@@ -36,4 +36,5 @@ export const ja: Record<KeyOfForm | KRowFields, string> = {
   status: 'ステータス',
   unit: '単位',
   unitPrice: '単価',
+  remarks: '備考',
 };

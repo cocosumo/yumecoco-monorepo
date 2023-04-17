@@ -52,6 +52,9 @@ export const initialValues : TypeOfForm = {
   totalCostPrice: 0,
   totalAmountBeforeTax: 0,
   totalAmountAfterTax: 0,
+
+  // 備考
+  remarks: '',
 };
 
 export const estArrayFieldName : KeyOfForm = 'items';

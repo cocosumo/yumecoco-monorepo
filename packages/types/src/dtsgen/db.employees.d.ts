@@ -15,6 +15,7 @@ declare namespace DBEmployees {
     氏名ふりがな: kintone.fieldTypes.SingleLineText;
     email: kintone.fieldTypes.SingleLineText;
     mainStoreId_v2: kintone.fieldTypes.SingleLineText;
+    期生: kintone.fieldTypes.DropDown;
     mainStore_v2: kintone.fieldTypes.SingleLineText;
     所属チーム: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;

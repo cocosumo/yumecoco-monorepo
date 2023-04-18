@@ -4,14 +4,15 @@ import { PageSubTitle } from 'kokoas-client/src/components';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 
-const columns: GridColDef<{
-  id: string,
-  noteCreateTime: Date;
-  noteUpdateTime: Date;
-  remark: string
-}>[] = [
-  { field: 'id', headerName: 'ID', width: 90 },
+const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
+  { 
+    field: 'id', 
+    headerName: 'ID', 
+    width: 90, 
+  },
   {
     field: 'noteCreateTime',
     headerName: '作成日時',
@@ -32,25 +33,27 @@ const columns: GridColDef<{
     type: 'text',
     minWidth: 500,
     editable: true,
+    hideable: false,
   },
-];
-
-const rows = [
-  { id: '1', noteCreateTime: new Date(), noteUpdateTime: new Date(), remark: 'てすてすつと' },
-  { id: '2', noteCreateTime: new Date(), noteUpdateTime: new Date(), remark: 'てすてすつと' },
-
 ];
 
 
 export const Remarks = () => {
+  const { values: { remarks } } = useFormikContext<TypeOfForm>();
+  console.log(remarks);
+
   return (
     <>
       <PageSubTitle label="備考欄" />
       <Grid item>
         <Box sx={{ height: 400, width: '100%' }}>
           <DataGrid
-            rows={rows}
+            
+            rows={remarks}
             columns={columns}
+            onCellEditStop={(params, idx, details ) => {
+              console.log('onCellEditStop', params, idx, details);
+            }}
             initialState={{
               pagination: {
                 paginationModel: {
@@ -59,7 +62,6 @@ export const Remarks = () => {
               },
             }}
             pageSizeOptions={[5]}
-            checkboxSelection
             disableRowSelectionOnClick
           />
         </Box>

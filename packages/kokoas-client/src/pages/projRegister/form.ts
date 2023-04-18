@@ -7,6 +7,12 @@ import {
 } from 'types';
 import { SaveProjectData } from 'api-andpad';
 
+interface Remarks {
+  id: string,
+  noteCreateTime: Date,
+  noteUpdateTime: Date,
+  remark: string,
+}
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
@@ -40,6 +46,22 @@ export const initialValues = {
   hasCompletedContract: false,
   cancelStatus: [] as RecordCancelStatus[],
   andpadDetails : undefined as SaveProjectData | undefined,
+
+  // Remarks
+  remarks: [
+    {
+      id: 'test',
+      noteCreateTime: new Date(),
+      noteUpdateTime: new Date(),
+      remark: 'test',
+    },
+    {
+      id: 'tes2',
+      noteCreateTime: new Date(),
+      noteUpdateTime: new Date(),
+      remark: 'test2',
+    },
+  ] as Remarks[],
 };
 
 export type TypeOfForm = typeof initialValues;

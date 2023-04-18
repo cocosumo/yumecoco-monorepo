@@ -15,7 +15,7 @@ const columns: GridColDef<{
   {
     field: 'noteCreateTime',
     headerName: '作成日時',
-    width: 150,
+    width: 100,
     type: 'date',
     editable: false,
   },
@@ -23,14 +23,14 @@ const columns: GridColDef<{
     field: 'noteUpdateTime',
     headerName: '更新日時',
     type: 'date',
-    width: 150,
+    width: 100,
     editable: false,
   },
   {
     field: 'remark',
     headerName: 'メモ',
     type: 'text',
-    minWidth: 300,
+    minWidth: 500,
     editable: true,
   },
 ];

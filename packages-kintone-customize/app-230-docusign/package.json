@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "api-chatwork": "*",
-    "api-kintone": "*"
+    "api-kintone": "*",
+    "libs": "*"
   }
 }

@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from '@mui/material';
 import { setFieldValue } from 'api-kintone';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDebounce } from 'usehooks-ts';
 
 export interface AutoCompleteOption {
   label: string,
@@ -27,13 +28,22 @@ export function AutoLookup({
   fetchOptions: () => Promise<AutoCompleteOption[]>,
   fieldId: keyof DB.SavedRecord,
 }) {
+  const [inputValue, setInputValue] = useState<string>('');
   const [value, setValue] = useState<AutoCompleteOption | null>(initialValue ?? null);
   const [options, setOptions] = useState<AutoCompleteOption[]>([]);
+
+  const debouncedValue = useDebounce(inputValue, 1000);
   
   const handleOpen = async () => {
     const newOptions = await fetchOptions();
     setOptions(newOptions);
   };
+  
+  useEffect(()=>{
+    if (debouncedValue) {
+      console.log('ras', debouncedValue);
+    }
+  }, [debouncedValue]);
 
   return (
     <Autocomplete
@@ -41,8 +51,10 @@ export function AutoLookup({
       value={value}
       onOpen={handleOpen}
       options={options}
+      onInput={(e) => {
+        setInputValue((e.target as HTMLInputElement).value);
+      }}
       onChange={(_, newValue) => {
-
         setValue(newValue);
         setFieldValue(fieldId, newValue?.id ?? '');
       }}

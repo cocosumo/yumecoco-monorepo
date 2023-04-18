@@ -123,11 +123,11 @@ export type SaveProjectData = z.infer<typeof saveProjectData>;
 
 export const projects = z.object({
   '顧客ID': z.number(),
-  '顧客管理ID': z.string(),
+  '顧客管理ID': z.string().nullable(),
   '物件ID': z.number(),
-  '物件管理ID': z.string(),
+  '物件管理ID': z.string().nullable(),
   'システムID': z.number(),
-  '案件管理ID': z.string(),
+  '案件管理ID': z.string().nullable(),
   '案件名': z.string(),
   '案件種別': z.string(),
 });
@@ -148,12 +148,15 @@ export interface GetMyOrders {
   q?: string,
 }
 
-export interface GetMyOrdersResponse {
-  data: {
-    total: number,
-    last_flg: boolean,
-    limit: number,
-    offset: number,
-    objects: Array<SaveProjectData>
-  }
-}
+export const getMyOrdersResponse = z.object({
+  data: z.object({
+    total: z.number(),
+    last_flg: z.boolean(),
+    limit: z.number(),
+    offset: z.number(),
+    objects: z.array(projects),
+  }),
+});
+
+
+export type GetMyOrdersResponse = z.infer<typeof getMyOrdersResponse>; 

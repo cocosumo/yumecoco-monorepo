@@ -7,7 +7,7 @@ declare namespace Cypress {
     login(): Chainable<JQuery<HTMLElement>>,
 
     /** ラベルで input を取得する */
-    getTextInputsByLabel(label: string): Chainable<JQuery<HTMLInputElement>>,
+    getTextInputsByLabel(label: string, fieldType?: "input" | "textarea"): Chainable<JQuery<HTMLInputElement>>,
 
     /** ラベルで input[type="checkbox"] を取得する */
     getCheckboxesByLabel(label: string): Chainable<JQuery<HTMLInputElement>>,

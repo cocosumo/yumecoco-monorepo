@@ -7,7 +7,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome",
     "cy:int": "npm run cy:run -- --config video=false --spec 'cypress/test/*.spec.ts'",
-    "cy:e2e": "npm run cy:run -- --spec 'cypress/e2e/*.cy.ts'"
+    "cy:e2e": "npm run cy:run -- --spec 'cypress/e2e/**/*.cy.ts'"
   },
   "author": "",
   "license": "ISC"

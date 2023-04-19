@@ -5,14 +5,18 @@ import { setFieldValue } from 'api-kintone';
 import { useSearchAndpadOrders } from '../hooks/useSearchAndpadOrders';
 import type { AutoCompleteOption } from '../../types/types';
 
+export interface ProjSearchFieldOption extends AutoCompleteOption {
+  projStatus: string;
+}
+
 export const ProjSearchField = ({
   initialValue,
 }: {
-  initialValue?: AutoCompleteOption,
+  initialValue?: ProjSearchFieldOption,
 }) => {
 
   const [inputValue, setInputValue] = useState<string>('');
-  const [value, setValue] = useState<AutoCompleteOption | null>(initialValue?.id ? initialValue : null);
+  const [value, setValue] = useState<ProjSearchFieldOption | null>(initialValue?.id ? initialValue : null);
   const [open, setOpen] = useState(false);
 
   const debouncedValue = useDebounce(inputValue, 1000);
@@ -52,6 +56,7 @@ export const ProjSearchField = ({
       renderOption={(props, option) => (
         <li {...props} key={option.id}>
           <Chip label={option.id} size='small' sx={{ mr: 2 }} />
+          <Chip label={option.projStatus} size='small' sx={{ mr: 2 }} />
           {option.label}
         </li>
       )}

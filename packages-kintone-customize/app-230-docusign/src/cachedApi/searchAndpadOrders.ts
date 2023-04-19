@@ -1,4 +1,4 @@
-import {  getMyOrdersResponse } from 'api-andpad';
+import {  GetMyOrders, GetMyOrdersResponse } from 'api-andpad';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 import qs from 'qs';
 import { serverlUrl } from '../../config';
@@ -12,15 +12,19 @@ export const searchAndpadOrders = async (searchStr?: string) => {
   ].join('/');
 
   const searchFields = [
-    'システムID =',
-    //'案件名 LIKE',
+    `案件名 LIKE ${searchStr}`,
+    '案件フロー in (着工前, 契約前)',
   ];
 
   const query = searchFields
-    .map((key) => `${key} ${searchStr}`)
-    .join(' OR ');
+    .join(' AND ');
 
-  const url = `${endpoint}?${qs.stringify(searchStr ? { q: query } : {})}`;
+  const params : GetMyOrders = {
+    q: query,
+    series: ['案件フロー'],
+  };
+
+  const url = `${endpoint}?${qs.stringify(params)}`;
 
   const result = await kintoneProxyWrapper({
     url,
@@ -31,7 +35,7 @@ export const searchAndpadOrders = async (searchStr?: string) => {
   });
   const { data } = result;
 
-  return getMyOrdersResponse.parse(data);
+  return data as GetMyOrdersResponse;
 
 
 };

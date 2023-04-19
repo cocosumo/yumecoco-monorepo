@@ -20,6 +20,7 @@ export default async function render(record: DB.SavedRecord) {
       <ProjSearchField initialValue={{
         label: projName.value,
         id: systemId.value,
+        projStatus: '',
       }}
       />
     </QueryClientProvider>,

@@ -9,9 +9,8 @@ export const reqGetProjectsFromAndpad: RequestHandler<unknown, unknown, unknown,
     
     const result = await getMyOrders(req.query);
 
-    console.log(result);
     if (!result) return res.status(404).send('Andpadで案件管理IDが見つかりません。Andpadへ登録をお願いします。');
-    console.log('result', result);
+
     res.json(result); 
   } catch (err) {
     console.error(err?.message);

@@ -13,11 +13,15 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
   } = params || {};
   try {
 
+
+
     const urlParams = qs.stringify({
       limit,
       q,
       series: series.join(','),
     });
+
+    console.log('urlParams', urlParams);
 
     const url = `${endpoints.ourOrders}?${urlParams}`;
     

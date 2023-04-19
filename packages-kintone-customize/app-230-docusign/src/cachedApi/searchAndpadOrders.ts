@@ -1,18 +1,26 @@
-import { GetMyOrders, getMyOrdersResponse } from 'api-andpad';
-import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
+import {  getMyOrdersResponse } from 'api-andpad';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 import qs from 'qs';
+import { serverlUrl } from '../../config';
 
-export const searchAndpadOrders = async (params?: GetMyOrders) => {
+export const searchAndpadOrders = async (searchStr?: string) => {
 
   const endpoint = [
-    kokoasAPIBaseUrl,
+    serverlUrl,
+    'kokoas',
     kokoasEndpoints.getProjectsFromAndpad,
   ].join('/');
 
-  const url = `${endpoint}?${qs.stringify(params)}`;
+  const searchFields = [
+    'システムID =',
+    //'案件名 LIKE',
+  ];
 
-  console.log(url);
+  const query = searchFields
+    .map((key) => `${key} ${searchStr}`)
+    .join(' OR ');
+
+  const url = `${endpoint}?${qs.stringify(searchStr ? { q: query } : {})}`;
 
   const result = await kintoneProxyWrapper({
     url,

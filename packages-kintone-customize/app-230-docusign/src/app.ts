@@ -1,13 +1,14 @@
 import { 
   onEditOrCreate,
 } from 'api-kintone';
-import { isProd } from 'config';
 import customizeFields from './view/customizeFields';
 
 
 
 (() => {
-  console.log(`Running in ${isProd ? 'production' : 'development'}`);
+  // 環境変数の確認
+  // eslint-disable-next-line no-console
+  console.log('環境', import.meta.env.MODE);
   
   kintone.events.on(onEditOrCreate, customizeFields);
 })();

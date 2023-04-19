@@ -1,9 +1,9 @@
 declare namespace DB {
   interface Record {
-    projId: kintone.fieldTypes.SingleLineText;
     文字列__1行_: kintone.fieldTypes.SingleLineText;
     ルックアップ: kintone.fieldTypes.SingleLineText;
     日付: kintone.fieldTypes.Date;
+    systemId: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
     ラジオボタン: kintone.fieldTypes.RadioButton;
     文字列__1行__0: kintone.fieldTypes.SingleLineText;

@@ -1,7 +1,7 @@
 
 
 import { setFieldShown } from 'api-kintone';
-import renderProjName from '../components/renderProjName';
+import render from '../components/render';
 
 const hideFields = () => {
   const hiddenFields: (keyof DB.SavedRecord)[] = [
@@ -19,18 +19,12 @@ export default async function customizeFields({
   record: DB.SavedRecord
 }) {
 
-  const {
-    projName,
-  } = record;
+
 
   hideFields();
 
-  console.log(projName);
 
-  renderProjName({
-    id: projName.value,
-    label: projName.value,
-  });
+  render(record);
 
  
   return { record };

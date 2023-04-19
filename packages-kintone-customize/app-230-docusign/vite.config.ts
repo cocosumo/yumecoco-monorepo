@@ -1,25 +1,22 @@
-import { defineConfig } from 'vite';
-import dotenv from 'dotenv';
-import path from 'path';
+import { defineConfig, loadEnv  } from 'vite';
 
-const envPath = path.resolve(__dirname, '../../.env');
 
-dotenv.config({ path: envPath });
-
-console.log(envPath, process.env);
-
-export default defineConfig({
-  build: {
-    target: 'es2021',
-    rollupOptions: {
-      input: {
-        desktop: 'src/app.ts',
-      },
-      output: {
-        format: 'iife',
-        dir: 'dist',
-        entryFileNames: '[name].js',
+export default defineConfig(({ mode }) => {
+  loadEnv(mode, process.cwd());
+  return {
+    build: {
+      target: 'es2021',
+      rollupOptions: {
+        input: {
+          desktop: 'src/app.ts',
+        },
+        output: {
+          format: 'iife',
+          dir: 'dist',
+          entryFileNames: '[name].js',
+        },
       },
     },
-  },
+  };
+
 });

@@ -120,6 +120,7 @@ export const saveProjectData = z.object({
 });
 
 export type SaveProjectData = z.infer<typeof saveProjectData>;
+export type SaveProjectDataKeys = keyof SaveProjectData;
 
 export const projects = z.object({
   '顧客ID': z.number(),
@@ -138,11 +139,12 @@ export const saveProjectResponse = z.object({
 });
 
 export type Projects = z.infer<typeof projects>;
+export type ProjectsKeys = keyof Projects;
 export type SaveProjectResponse = z.infer<typeof saveProjectResponse>;
 
 
 export interface GetMyOrders {
-  series?: (keyof SaveProjectData)[],
+  series?: SaveProjectDataKeys[],
   limit?: number,
   offset?: number,
   q?: string,

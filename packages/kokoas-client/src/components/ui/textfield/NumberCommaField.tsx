@@ -95,7 +95,7 @@ NumberCommaField.displayName = 'NumberCommaField';
   https://github.com/w3c/uievents/issues/202
 
   イベントの発火順番も、ブラウザーによって異なる。
-  そして、Google先生のトップに出てくる日本語での記事もほとんど不正確
+  そして、Googleのトップに出てくる日本語での記事もほとんど不正確
   自分で調査したところ、Chromeは以下の順番でイベントが発火する。
     - compositionstart
     - input, isComposing = true

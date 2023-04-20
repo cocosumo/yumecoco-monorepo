@@ -14,15 +14,17 @@ export const FormikMoneyField2 = (props: Omit<NumberCommaFieldProps, 'value' | '
   const {
     value,
   } = field;
+  
   const {
     touched,
     error,
-
   } = meta;
+  
   const {
     setValue,
     setTouched,
   } = helpers;
+  
   const isShowError = touched && !!error;
 
   return (

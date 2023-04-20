@@ -50,7 +50,7 @@ export const ProjSearchField = ({
       onChange={(_, newValue, reason) => {
         setValue(newValue);
         setFieldValue<keyof DB.SavedRecord>('systemId', newValue?.id ?? '');
-        setFieldValue<keyof DB.SavedRecord>('projName', newValue?.id ?? '');
+        setFieldValue<keyof DB.SavedRecord>('projName', newValue?.label ?? '');
         if (reason === 'clear') {
           setInputValue('');
         }

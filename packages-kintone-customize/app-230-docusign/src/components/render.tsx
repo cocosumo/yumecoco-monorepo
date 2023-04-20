@@ -34,11 +34,12 @@ export default async function render(record: DB.SavedRecord) {
       client={queryClient}
       persistOptions={{ persister }}
     >
-      <ProjSearchField initialValue={{
-        label: projName.value,
-        id: systemId.value,
-        projStatus: '',
-      }}
+      <ProjSearchField 
+        initialValue={{
+          label: projName.value,
+          id: systemId.value,
+          projStatus: '',
+        }}
       />
     </PersistQueryClientProvider>,
   );

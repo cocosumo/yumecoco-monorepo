@@ -6,7 +6,7 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "develop": "npm run build -- --watch --env development",
+    "dev": "npm run build -- --watch --env development",
     "build": "webpack",
     "upload": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.prod.json",
     "upload:local": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.local.json",

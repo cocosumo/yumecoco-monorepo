@@ -5,7 +5,7 @@ import render from '../components/render';
 
 const hideFields = () => {
   const hiddenFields: (keyof DB.SavedRecord)[] = [
-    'projName',
+    'projName', 'systemId',
   ];
   hiddenFields
     .forEach((field) => {

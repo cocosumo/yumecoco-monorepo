@@ -1,26 +1,26 @@
 declare namespace DB {
   interface Record {
-    文字列__1行_: kintone.fieldTypes.SingleLineText;
+    kanseiDate: kintone.fieldTypes.Date;
+    contractDate: kintone.fieldTypes.Date;
+    contractTotalAmt: kintone.fieldTypes.Number;
+    bankBranchName: kintone.fieldTypes.SingleLineText;
+    bankName: kintone.fieldTypes.SingleLineText;
+    chuukankin: kintone.fieldTypes.Number;
+    hikiwatashiJiki: kintone.fieldTypes.Date;
     ルックアップ: kintone.fieldTypes.SingleLineText;
     日付: kintone.fieldTypes.Date;
+    chakushuDate: kintone.fieldTypes.Date;
     systemId: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
-    ラジオボタン: kintone.fieldTypes.RadioButton;
-    文字列__1行__0: kintone.fieldTypes.SingleLineText;
     数値_0: kintone.fieldTypes.Number;
-    文字列__1行__1: kintone.fieldTypes.SingleLineText;
-    文字列__1行__4: kintone.fieldTypes.SingleLineText;
-    日付_5: kintone.fieldTypes.Date;
-    文字列__1行__5: kintone.fieldTypes.SingleLineText;
-    日付_4: kintone.fieldTypes.Date;
-    文字列__1行__2: kintone.fieldTypes.SingleLineText;
+    keiyakukin: kintone.fieldTypes.Number;
+    chakushukin: kintone.fieldTypes.Number;
     文字列__1行__3: kintone.fieldTypes.SingleLineText;
-    日付_6: kintone.fieldTypes.Date;
     文字列__1行__8: kintone.fieldTypes.SingleLineText;
     数値: kintone.fieldTypes.Number;
+    paymentMethod: kintone.fieldTypes.RadioButton;
     日付_1: kintone.fieldTypes.Date;
     日付_0: kintone.fieldTypes.Date;
-    日付_3: kintone.fieldTypes.Date;
     日付_2: kintone.fieldTypes.Date;
   }
   interface SavedRecord extends Record {

@@ -2,7 +2,7 @@ import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 import { serverlUrl } from '../../config';
 import { GetMyOrders, GetMyOrdersResponse } from 'api-andpad';
 import qs from 'qs';
-import produce from 'immer';
+import { produce } from 'immer';
 
 
 interface GetAllAndpadOrders {
@@ -19,6 +19,7 @@ interface GetAllAndpadOrders {
  * @returns {GeyMyOrdersResponseProject}  
  * */
 export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<GetMyOrdersResponse> => {
+  console.log('triggered');
   const {
     beforeContractOnly = true,
     offset = 0,
@@ -39,8 +40,6 @@ export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<
   };
 
   const endpointWithParams = `${endpoint}?${qs.stringify(params)}`;
-
-  console.log(offset);
 
   const result = await kintoneProxyWrapper({
     url: endpointWithParams,

@@ -1,9 +1,11 @@
 import { Autocomplete, Chip, CircularProgress, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
-import { setFieldValue } from 'api-kintone';
+import { getRecordInstance, setFieldValue } from 'api-kintone';
 import { useSearchAndpadOrders } from '../hooks/useSearchAndpadOrders';
 import type { AutoCompleteOption } from '../../types/types';
+import { useAtom } from 'jotai';
+import { recordAtom } from './Main';
 
 export interface ProjSearchFieldOption extends AutoCompleteOption {
   projStatus: string;
@@ -14,7 +16,7 @@ export const ProjSearchField = ({
 }: {
   initialValue?: ProjSearchFieldOption,
 }) => {
-
+  const [, setRecordState] = useAtom(recordAtom);
   const [inputValue, setInputValue] = useState<string>('');
   const [value, setValue] = useState<ProjSearchFieldOption | null>(initialValue?.id ? initialValue : null);
   const [open, setOpen] = useState(false);
@@ -41,6 +43,7 @@ export const ProjSearchField = ({
       onOpen={handleOpen}
       options={options ?? []}
       loading={isLoading}
+      filterOptions={(x) => x}
       loadingText={<CircularProgress />}
       noOptionsText="案件が見つかりません"
       onClose={() => setOpen(false)}
@@ -51,6 +54,7 @@ export const ProjSearchField = ({
         setValue(newValue);
         setFieldValue<keyof DB.SavedRecord>('systemId', newValue?.id ?? '');
         setFieldValue<keyof DB.SavedRecord>('projName', newValue?.label ?? '');
+        setRecordState(getRecordInstance()); // update record state
         if (reason === 'clear') {
           setInputValue('');
         }

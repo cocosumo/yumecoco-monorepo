@@ -20,7 +20,8 @@ export const getRecordPath = (
     recordId,
     appId,
     domain,
-  }: AppRecord) : string => {
+  }: AppRecord,
+) : string => {
   const nDomain = domain ? domain : window.location.origin;
   const nDevice = isMobile() ? 'k/m' : 'k';
   const nrecord = recordId

@@ -12,10 +12,12 @@ export const AndpadDetails = () => {
     }
   }, [recordState, setRecordState]);
 
+  // 開発中。コメント残しておきます。
   console.log('recordState', recordState);
   return (
     <Box>
-      Hello
+      ここに案件詳細を表示する 。
+      {recordState?.record.systemId.value}
     </Box>
   );
 };

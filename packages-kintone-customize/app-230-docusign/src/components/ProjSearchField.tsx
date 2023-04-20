@@ -33,6 +33,7 @@ export const ProjSearchField = ({
     enabled: open,
   });
 
+  console.log(options);
 
   return (
     <Autocomplete
@@ -41,6 +42,7 @@ export const ProjSearchField = ({
       value={value}
       onOpen={handleOpen}
       options={options ?? []}
+      filterOptions={(x) => x}
       loading={isLoading}
       loadingText={<CircularProgress />}
       noOptionsText="案件が見つかりません"

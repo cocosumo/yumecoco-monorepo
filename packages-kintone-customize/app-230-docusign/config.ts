@@ -1,1 +1,1 @@
-export const serverlUrl = import.meta.env.VITE_SERVER_URL;
+export const serverlUrl = process.env.SERVER_URL;

@@ -10,6 +10,7 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
     limit,
     q,
     series = [],
+    offset = 0,
   } = params || {};
   try {
 
@@ -19,6 +20,7 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
       limit,
       q,
       series: series.join(','),
+      offset,
     });
 
     console.log('urlParams', urlParams);

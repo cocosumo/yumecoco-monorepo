@@ -2,11 +2,11 @@
   "app": "230",
   "scope": "ALL",
   "desktop": {
-    "js": ["./dist/desktop.js"],
+    "js": ["./dist/customize.js"],
     "css": []
   },
   "mobile": {
-    "js": ["./dist/desktop.js"],
+    "js": ["./dist/customize.js"],
     "css": []
   }
 }

@@ -2,7 +2,7 @@
   "app": "230",
   "scope": "ALL",
   "desktop": {
-    "js": ["https://127.0.0.1:5500/dist/desktop.js"],
+    "js": ["https://127.0.0.1:5500/dist/customize.js"],
     "css": []
   },
   "mobile": {

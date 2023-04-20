@@ -1,6 +1,6 @@
 import { getEmployees } from 'api-kintone';
-import { AutoCompleteOption } from '../components/AutoComplete';
 import { EmpAffiliations, EmpRoles } from 'types';
+import { AutoCompleteOption } from '../../types/types';
 
 interface EmployeesOption extends AutoCompleteOption {
   affiliation: EmpAffiliations,

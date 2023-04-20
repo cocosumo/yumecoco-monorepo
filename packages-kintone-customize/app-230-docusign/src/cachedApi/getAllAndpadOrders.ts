@@ -5,23 +5,24 @@ import qs from 'qs';
 import produce from 'immer';
 
 
-type GeyMyOrdersResponseProject = GetMyOrdersResponse['data']['objects'];
 interface GetAllAndpadOrders {
   beforeContractOnly: boolean,
   offset?: number,
-  objects?: GeyMyOrdersResponseProject,
+  cumm?: GetMyOrdersResponse,
 }
 
 /** 
  * 再起的に全ての案件を取得する
+ * 全て取得すると、時間がかかるので、beforeContractOnlyで渋る
+ * 
  * @param options
  * @returns {GeyMyOrdersResponseProject}  
  * */
-export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<GeyMyOrdersResponseProject> => {
+export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<GetMyOrdersResponse> => {
   const {
     beforeContractOnly = true,
-    offset = 100,
-    objects = [],
+    offset = 0,
+    cumm,
   } = options || {};
 
   const endpoint = [
@@ -39,7 +40,7 @@ export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<
 
   const endpointWithParams = `${endpoint}?${qs.stringify(params)}`;
 
-  console.log(endpointWithParams);
+  console.log(offset);
 
   const result = await kintoneProxyWrapper({
     url: endpointWithParams,
@@ -50,21 +51,21 @@ export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<
   const { data } = result as { data: GetMyOrdersResponse };
 
   const newObjects = [
-    ...objects,
+    ...cumm?.data.objects ?? [],
     ...data.data.objects,
   ];
 
   const newData = produce(data, draft => {
     draft.data.objects = newObjects;
-  })
+  });
 
   if (data.data.last_flg) {
-    return newObjects;
+    return newData;
   } else {
     return getAllAndpadOrders({ 
       beforeContractOnly, 
       offset: newObjects.length, 
-      objects: newObjects, 
+      cumm: newData, 
     });
   }
 

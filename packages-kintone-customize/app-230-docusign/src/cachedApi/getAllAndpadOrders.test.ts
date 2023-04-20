@@ -7,8 +7,8 @@ describe('getAllAndpadOrders', () => {
       beforeContractOnly: false,
     });
 
-    console.log('count', result.length);
-    expect( result.length);
+    console.log('count', result.data.total);
+    expect( result.data.total).toEqual(result.data.objects.length);
 
   }, 1000000);
 
@@ -17,8 +17,8 @@ describe('getAllAndpadOrders', () => {
       beforeContractOnly: true,
     });
 
-    console.log('count', result.length);
-    expect( result.length )
-      .toBeGreaterThan(result.length);
+    console.log('count', result.data.total);
+    expect( result.data.total )
+      .toBeDefined();
   });
 });

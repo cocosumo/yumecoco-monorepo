@@ -19,7 +19,7 @@ export const ProjSearchField = ({
   const [value, setValue] = useState<ProjSearchFieldOption | null>(initialValue?.id ? initialValue : null);
   const [open, setOpen] = useState(false);
 
-  const debouncedValue = useDebounce(inputValue, 1000);
+  const debouncedValue = useDebounce(inputValue, 300);
   
   const handleOpen = async () => {
     setOpen(true);
@@ -33,8 +33,6 @@ export const ProjSearchField = ({
     enabled: open,
   });
 
-  console.log(options);
-
   return (
     <Autocomplete
       disablePortal
@@ -42,7 +40,6 @@ export const ProjSearchField = ({
       value={value}
       onOpen={handleOpen}
       options={options ?? []}
-      filterOptions={(x) => x}
       loading={isLoading}
       loadingText={<CircularProgress />}
       noOptionsText="案件が見つかりません"
@@ -50,10 +47,13 @@ export const ProjSearchField = ({
       onInput={(e) => {
         setInputValue((e.target as HTMLInputElement).value);
       }}
-      onChange={(_, newValue) => {
+      onChange={(_, newValue, reason) => {
         setValue(newValue);
         setFieldValue<keyof DB.SavedRecord>('systemId', newValue?.id ?? '');
         setFieldValue<keyof DB.SavedRecord>('projName', newValue?.id ?? '');
+        if (reason === 'clear') {
+          setInputValue('');
+        }
       }}
       renderOption={(props, option) => (
         <li {...props} key={option.id}>

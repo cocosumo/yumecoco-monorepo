@@ -1,14 +1,16 @@
 import { Paper, Table, TableBody, TableContainer } from '@mui/material';
 import { EstimateTableBody } from './EstimatesTableBody';
 import { EstimateTableHead } from './EstimateTableHead';
-import { useContractsByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByCustGroupId, useInvoicesById, useInvoicesSummaryByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { splitEstimatesByProjId } from '../helper/splitEstimatesByProjId';
 import { convertContructsToForm } from '../api/convertContructsToForm';
 
 export const EstimatesTable = ({
+  invoiceId,
   custGroupId,
   isBilled,
 }: {
+  invoiceId: string
   custGroupId: string
   isBilled: boolean
 }) => {
@@ -17,10 +19,26 @@ export const EstimatesTable = ({
   const {
     estimates,
   } = values; */
-  const { data: contracts } = useContractsByCustGroupId(custGroupId);
 
+  const { data: datContracts } = useContractsByCustGroupId(custGroupId);
+  const { data: datInvoice } = useInvoicesById(invoiceId);
+  const { data: datInvoicesSummary } = useInvoicesSummaryByCustGroupId(custGroupId);
+  const {
+    records: recContracts,
+    calculated,
+  } = datContracts || {};
+  const {
+    record: recInvoice,
+  } = datInvoice || {};
 
-  const newContracts = convertContructsToForm();
+  const newContracts = convertContructsToForm({
+    recContracts,
+    calculated,
+    recInvoice,
+    datInvoicesSummary,
+  });
+
+  console.log('newContracts', newContracts);
 
   const sortContracts = splitEstimatesByProjId(newContracts);
 

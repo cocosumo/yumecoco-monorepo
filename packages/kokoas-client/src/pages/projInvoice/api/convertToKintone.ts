@@ -8,8 +8,7 @@ export const convertToKintone = ({
   plannedPaymentDate,
   exceedChecked,
   invoiceStatus,
-}: TypeOfForm,
-) => {
+}: TypeOfForm) => {
 
   const billingAmount = estimates.reduce((acc, cur) => {
     return acc + +cur.billingAmount;

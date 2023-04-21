@@ -33,6 +33,7 @@ export const FormInvoice = () => {
     custName,
     estimates,
     invoiceStatus,
+    invoiceId,
   } = values;
 
 
@@ -120,7 +121,8 @@ export const FormInvoice = () => {
               <Typography>
                 {'契約一覧'}
               </Typography>
-              <EstimatesTable 
+              <EstimatesTable
+                invoiceId={invoiceId}
                 custGroupId={custGroupId}
                 isBilled={isBilled}
               />

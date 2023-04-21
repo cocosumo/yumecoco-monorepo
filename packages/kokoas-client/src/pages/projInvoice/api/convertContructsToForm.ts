@@ -45,7 +45,7 @@ export const convertContructsToForm: ({
     return ({
       estimateIndex: String(idx),
       projId: data.projId.value,
-      projTypeName: data.工事名称.value,
+      projTypeName: data.工事種別名.value,
       dataId: data.dataId.value,
       contractAmount: Number(calculated?.[idx].summary.totalAmountAfterTax),
       nonTaxableAmount: Number(calculated?.[idx].summary.totalNonTaxableAmount),

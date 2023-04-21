@@ -38,9 +38,8 @@ export const EstimatesTable = ({
     datInvoicesSummary,
   });
 
-  console.log('newContracts', newContracts);
-
   const sortContracts = splitEstimatesByProjId(newContracts);
+
 
 
   return (

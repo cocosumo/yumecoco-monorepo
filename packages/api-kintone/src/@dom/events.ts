@@ -55,6 +55,13 @@ export const onSubmitSuccess = [
   ...onCreateSubmitSuccess,
 ];
 
+export const onDetailShow = [
+  'app.record.detail.show',
+  'mobile.app.record.detail.show',
+];
+
+
+
 export const onFieldChange = (fields : string | string[]) : string[] =>
   ([] as string[]).concat(fields).reduce(
     (acc : string[], curr) : string[] => {

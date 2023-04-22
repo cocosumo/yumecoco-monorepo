@@ -1,10 +1,9 @@
-import { getRecordInstance } from 'api-kintone';
 import { AndpadDetails } from './AndpadDetails';
 import { ProjSearchField } from './ProjSearchField';
 
 import { atom } from 'jotai';
 
-export const recordAtom = atom(getRecordInstance() as { record: DB.SavedRecord });
+export const recordAtom = atom(Object.create(null) as { record: DB.SavedRecord });
 
 export const Main = ({
   record,
@@ -25,7 +24,7 @@ export const Main = ({
           projStatus: '',
         }}
       />
-      <AndpadDetails /> 
+      <AndpadDetails record={record} /> 
     </div>
   );
 };

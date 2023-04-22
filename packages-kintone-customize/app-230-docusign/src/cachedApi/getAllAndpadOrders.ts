@@ -19,7 +19,7 @@ interface GetAllAndpadOrders {
  * @returns {GeyMyOrdersResponseProject}  
  * */
 export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<GetMyOrdersResponse> => {
-  console.log('triggered');
+
   const {
     beforeContractOnly = true,
     offset = 0,

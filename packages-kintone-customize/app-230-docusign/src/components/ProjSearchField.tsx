@@ -51,6 +51,7 @@ export const ProjSearchField = ({
         setInputValue((e.target as HTMLInputElement).value);
       }}
       onChange={(_, newValue, reason) => {
+        console.log('change');
         setValue(newValue);
         setFieldValue<keyof DB.SavedRecord>('systemId', newValue?.id ?? '');
         setFieldValue<keyof DB.SavedRecord>('projName', newValue?.label ?? '');

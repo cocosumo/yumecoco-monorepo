@@ -43,6 +43,11 @@ export const getPortalSpaceElement = () => (
     : kintone.portal.getContentSpaceElement()
 );
 
+export const getHeaderSpaceElement = () => (
+  isMobile()
+    ? kintone.mobile.app.getHeaderSpaceElement()
+    : kintone.app.record.getHeaderMenuSpaceElement()
+);
 
 /**
 * 要素を表示・非表示

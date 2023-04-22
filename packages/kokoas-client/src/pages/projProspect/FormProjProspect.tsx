@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import { Divider, Grid } from '@mui/material';
 import { FormikSelect } from '../../components/ui/selects';
 import { getFieldName, TypeOfForm } from './form';
-import { FormikMoneyField, FormikTextFieldV2 as FormikTextField } from '../../components/ui/textfield';
+import { FormikTextFieldV2 as FormikTextField } from '../../components/ui/textfield';
 import { FormikJADatePicker } from '../../components/ui/datetimepickers';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ProspectShortcuts } from './parts/ProspectShortcuts';
@@ -11,6 +11,7 @@ import { SearchProjects } from 'kokoas-client/src/components/ui/textfield/Search
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { FormikMoneyField2 } from 'kokoas-client/src/components/ui/textfield/FormikMoneyField2';
 
 export const FormProjProspect = () => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ export const FormProjProspect = () => {
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <FormikMoneyField
+        <FormikMoneyField2
           disabled={isDisabled}
           label="契約予定金額"
           name={getFieldName('schedContractPrice')}

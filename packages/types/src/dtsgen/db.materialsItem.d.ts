@@ -7,6 +7,7 @@ declare namespace DBMaterialsitem {
     大項目名: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
     中項目: kintone.fieldTypes.Number;
+    unit: kintone.fieldTypes.SingleLineText;
     単位: kintone.fieldTypes.DropDown;
   }
   interface SavedData extends Data {

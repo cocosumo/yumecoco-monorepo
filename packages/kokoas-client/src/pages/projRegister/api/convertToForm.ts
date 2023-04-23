@@ -24,23 +24,24 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     return (item.value.agentType.value as TAgents) === 'cocoConst';
   }).map(item => item.value.agentId.value);
 
-  const remarksFormatted : Remarks[] = remarks.value.map(({
-    value: items,
-  }, idx) => {
-    const {
-      note,
-      noteCreateTime,
-      noteUpdateTime,
-    } = items;
-    return {
-      id: `remarks.${idx + 1}`,
-      noteCreateTime: parseISO(noteCreateTime.value),
-      noteUpdateTime: parseISO(noteUpdateTime.value),
-      remark: note.value,
-    };
-  });
-
-  console.log('remarksFormatted', remarksFormatted);
+  const remarksFormatted : Remarks[] = remarks
+    .value
+    .filter(item => item.value.note.value)
+    .map(({
+      value: items,
+    }, idx) => {
+      const {
+        note,
+        noteCreateTime,
+        noteUpdateTime,
+      } = items;
+      return {
+        id: `remarks.${idx + 1}`,
+        noteCreateTime: parseISO(noteCreateTime.value),
+        noteUpdateTime: parseISO(noteUpdateTime.value),
+        remark: note.value,
+      };
+    });
 
   return {
     addressKari: addressKari.value,

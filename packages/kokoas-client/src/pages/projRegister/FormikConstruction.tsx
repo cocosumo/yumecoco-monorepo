@@ -36,6 +36,8 @@ export const FormikConstruction  = () => {
         const { projId } = values;
 
         const kintoneRecord = convertToKintone(values);
+        console.log('SAVING', kintoneRecord.remarks);
+
         const resp = await mutateAsync({
           record: kintoneRecord,
           projId,

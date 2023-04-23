@@ -1,9 +1,11 @@
-import { Grid } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { FieldArray, useFormikContext } from 'formik';
 import { KeysOfForm, TypeOfForm } from '../../form';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const fieldName: KeysOfForm =  'remarks';
 
@@ -11,15 +13,15 @@ const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
   {
     field: 'noteCreateTime',
     headerName: '作成日時',
-    width: 100,
-    type: 'date',
+    width: 150,
+    type: 'dateTime',
     editable: false,
   },
   {
     field: 'noteUpdateTime',
     headerName: '更新日時',
-    type: 'date',
-    width: 100,
+    type: 'dateTime',
+    width: 150,
     editable: false,
   },
   {
@@ -27,7 +29,6 @@ const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
     headerName: 'メモ',
     type: 'text',
     minWidth: 500,
-    flex: 1,
     editable: true,
     hideable: false,
   },
@@ -39,7 +40,6 @@ export const Remarks = () => {
     values: { remarks }, 
     setFieldValue,
   } = useFormikContext<TypeOfForm>();
-  console.log(remarks);
 
   return (
     <>
@@ -53,10 +53,12 @@ export const Remarks = () => {
               columns={columns}
               processRowUpdate={(params) => {
                 setFieldValue(`${params.id}.remark`, params.remark);
-                console.log('processRowUpdate', params);
                 return params;
               }}
               initialState={{
+                sorting: {
+                  sortModel: [{ field: 'noteCreateTime', sort: 'desc' }],
+                },
                 pagination: {
                   paginationModel: {
                     pageSize: 5,

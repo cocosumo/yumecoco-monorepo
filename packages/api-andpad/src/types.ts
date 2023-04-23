@@ -42,6 +42,8 @@ export const storeMap : Record<string, StoreNamesAndpad> = {
  * 選択方法についてですが、店舗の場合は、"ラベル:店舗":"ラベル1,ラベル2"のような指定となります。
  */
 export const saveProjectData = z.object({
+  'システムID': z.string().optional(),
+
   /**  顧客グループ番号 */
   '顧客管理ID': z.string(),
 
@@ -120,17 +122,19 @@ export const saveProjectData = z.object({
 });
 
 export type SaveProjectData = z.infer<typeof saveProjectData>;
+export type SaveProjectDataKeys = keyof SaveProjectData;
 
 export const projects = z.object({
   '顧客ID': z.number(),
-  '顧客管理ID': z.string(),
+  '顧客管理ID': z.string().nullable(),
   '物件ID': z.number(),
-  '物件管理ID': z.string(),
+  '物件管理ID': z.string().nullable(),
   'システムID': z.number(),
-  '案件管理ID': z.string(),
+  '案件管理ID': z.string().nullable(),
   '案件名': z.string(),
   '案件種別': z.string(),
 });
+
 export const saveProjectResponse = z.object({
   'data': z.object({
     'object': projects,
@@ -138,22 +142,26 @@ export const saveProjectResponse = z.object({
 });
 
 export type Projects = z.infer<typeof projects>;
+export type ProjectsKeys = keyof Projects;
 export type SaveProjectResponse = z.infer<typeof saveProjectResponse>;
 
 
 export interface GetMyOrders {
-  series?: (keyof SaveProjectData)[],
+  series?: SaveProjectDataKeys[],
   limit?: number,
   offset?: number,
   q?: string,
 }
 
-export interface GetMyOrdersResponse {
-  data: {
-    total: number,
-    last_flg: boolean,
-    limit: number,
-    offset: number,
-    objects: Array<SaveProjectData>
-  }
-}
+export const getMyOrdersResponse = z.object({
+  data: z.object({
+    total: z.number(),
+    last_flg: z.boolean(),
+    limit: z.number(),
+    offset: z.number(),
+    objects: z.array(saveProjectData),
+  }),
+});
+
+
+export type GetMyOrdersResponse = z.infer<typeof getMyOrdersResponse>; 

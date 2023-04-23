@@ -49,9 +49,18 @@ describe('getMyOrders', () => {
     expect(result.data.objects.length).toBe(1);
   });
 
+  it('should get orders by 案件フロー', async () => {
+    const value = '契約前';
+    const result = await getMyOrders({ q: `案件フロー = ${value}` });
+
+    console.log('COUNT', result.data.total);
+
+    expect(result.data.objects.length).toBeDefined();
+  });
+
   it('should get orders with aditional property: 顧客メールアドレス', async () => {
     const value = 'anken-test-only2';
-    const additionalProperty: keyof SaveProjectData = '顧客メールアドレス';
+    const additionalProperty: keyof SaveProjectData = '案件フロー';
     const result = await getMyOrders({ q: `案件管理ID = ${value}`, series: [additionalProperty] });
 
     console.log(result.data.objects );

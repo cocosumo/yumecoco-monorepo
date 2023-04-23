@@ -1,8 +1,6 @@
 import { Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 
-import * as React from 'react';
-import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
@@ -45,26 +43,26 @@ export const Remarks = () => {
   return (
     <>
       <PageSubTitle label="備考欄" />
-      <Grid item>
-        <Box sx={{ height: 400, width: '100%' }}>
-          <DataGrid
+      <Grid item sx={{ height: 400, width: '100%' }}>
+
+        <DataGrid
             
-            rows={remarks}
-            columns={columns}
-            onCellEditStop={(params, idx, details ) => {
-              console.log('onCellEditStop', params, idx, details);
-            }}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
-                },
+          rows={remarks}
+          columns={columns}
+          onCellEditStop={(params, idx, details ) => {
+            console.log('onCellEditStop', params, idx, details);
+          }}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
               },
-            }}
-            pageSizeOptions={[5]}
-            disableRowSelectionOnClick
-          />
-        </Box>
+            },
+          }}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+        />
+
       </Grid>
     </>
   );

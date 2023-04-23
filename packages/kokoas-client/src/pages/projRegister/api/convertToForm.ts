@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { formatDataId } from 'libs';
 import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Territory } from 'types';
-import { TypeOfForm } from '../form';
+import { Remarks, TypeOfForm } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
 
@@ -17,11 +17,28 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     projTypeName,
     storeId,
     作成日時: createTime,
+    remarks,
   } = projRec;
 
   const cocoConst = agents.value.filter(item => {
     return (item.value.agentType.value as TAgents) === 'cocoConst';
   }).map(item => item.value.agentId.value);
+
+  const remarksFormatted : Remarks[] = remarks.value.map(({
+    value: items,
+  }, idx) => {
+    const {
+      note,
+      noteCreateTime,
+      noteUpdateTime,
+    } = items;
+    return {
+      id: `remarks.${idx}`,
+      noteCreateTime: parseISO(noteCreateTime.value),
+      noteUpdateTime: parseISO(noteUpdateTime.value),
+      remark: note.value,
+    };
+  });
 
   return {
     addressKari: addressKari.value,
@@ -42,6 +59,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     projDataId: formatDataId(dataId.value),
     postal: postal.value,
     storeId: storeId.value,
+    remarks: remarksFormatted,
   };
 
 };

@@ -2,7 +2,12 @@
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { ConstructionInfo } from './sections/ConstructionInfo';
-import { ConstructionLocation, CustInfo, Remarks, StatusControls } from './sections';
+import { 
+  ConstructionLocation, 
+  CustInfo, 
+  Remarks, 
+  StatusControls, 
+} from './sections';
 import { Grid } from '@mui/material';
 import {  Form, useFormikContext } from 'formik';
 import { FabSave } from '../../components/ui/fabs/FabSave';
@@ -28,10 +33,13 @@ export const FormConstruction  = () => {
     projDataId,
     custGroupId,
     hasContract,
+    remarks,
   } = values;
 
   const isEditMode = !!projId;
   const isFormDisabled = hasContract;
+
+  console.log('remarks', remarks);
 
   return (
 

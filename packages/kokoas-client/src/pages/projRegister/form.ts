@@ -7,7 +7,7 @@ import {
 } from 'types';
 import { SaveProjectData } from 'api-andpad';
 
-interface Remarks {
+export interface Remarks {
   id: string,
   noteCreateTime: Date,
   noteUpdateTime: Date,
@@ -48,20 +48,7 @@ export const initialValues = {
   andpadDetails : undefined as SaveProjectData | undefined,
 
   // Remarks
-  remarks: [
-    {
-      id: 'test',
-      noteCreateTime: new Date(),
-      noteUpdateTime: new Date(),
-      remark: 'test',
-    },
-    {
-      id: 'tes2',
-      noteCreateTime: new Date(),
-      noteUpdateTime: new Date(),
-      remark: 'test2',
-    },
-  ] as Remarks[],
+  remarks: [] as Remarks[],
 };
 
 export type TypeOfForm = typeof initialValues;

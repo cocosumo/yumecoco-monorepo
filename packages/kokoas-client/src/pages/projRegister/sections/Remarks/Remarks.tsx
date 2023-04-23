@@ -2,15 +2,12 @@ import { Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useFormikContext } from 'formik';
-import { TypeOfForm } from '../../form';
+import { FieldArray, useFormikContext } from 'formik';
+import { KeysOfForm, TypeOfForm } from '../../form';
+
+const fieldName: KeysOfForm =  'remarks';
 
 const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
-  { 
-    field: 'id', 
-    headerName: 'ID', 
-    width: 90, 
-  },
   {
     field: 'noteCreateTime',
     headerName: '作成日時',
@@ -30,6 +27,7 @@ const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
     headerName: 'メモ',
     type: 'text',
     minWidth: 500,
+    flex: 1,
     editable: true,
     hideable: false,
   },
@@ -37,31 +35,39 @@ const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
 
 
 export const Remarks = () => {
-  const { values: { remarks } } = useFormikContext<TypeOfForm>();
+  const { 
+    values: { remarks }, 
+    setFieldValue,
+  } = useFormikContext<TypeOfForm>();
   console.log(remarks);
 
   return (
     <>
       <PageSubTitle label="備考欄" />
       <Grid item sx={{ height: 400, width: '100%' }}>
-
-        <DataGrid
-            
-          rows={remarks}
-          columns={columns}
-          onCellEditStop={(params, idx, details ) => {
-            console.log('onCellEditStop', params, idx, details);
-          }}
-          initialState={{
-            pagination: {
-              paginationModel: {
-                pageSize: 5,
-              },
-            },
-          }}
-          pageSizeOptions={[5]}
-          disableRowSelectionOnClick
+        <FieldArray 
+          name={fieldName}
+          render={() => (
+            <DataGrid
+              rows={remarks}
+              columns={columns}
+              processRowUpdate={(params) => {
+                setFieldValue(`${params.id}.remark`, params.remark);
+                console.log('processRowUpdate', params);
+                return params;
+              }}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              disableRowSelectionOnClick
+            />)}
         />
+        
 
       </Grid>
     </>

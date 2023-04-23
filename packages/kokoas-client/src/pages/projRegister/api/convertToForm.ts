@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 import { formatDataId } from 'libs';
 import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Territory } from 'types';
-import { Remarks, TypeOfForm } from '../form';
+import { Remarks, TypeOfForm, initialValues } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
 
@@ -33,12 +33,14 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
       noteUpdateTime,
     } = items;
     return {
-      id: `remarks.${idx}`,
+      id: `remarks.${idx + 1}`,
       noteCreateTime: parseISO(noteCreateTime.value),
       noteUpdateTime: parseISO(noteUpdateTime.value),
       remark: note.value,
     };
   });
+
+  console.log('remarksFormatted', remarksFormatted);
 
   return {
     addressKari: addressKari.value,
@@ -59,7 +61,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     projDataId: formatDataId(dataId.value),
     postal: postal.value,
     storeId: storeId.value,
-    remarks: remarksFormatted,
+    remarks: [initialValues.remarks[0], ...remarksFormatted],
   };
 
 };

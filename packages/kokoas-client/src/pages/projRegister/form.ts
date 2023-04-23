@@ -48,7 +48,12 @@ export const initialValues = {
   andpadDetails : undefined as SaveProjectData | undefined,
 
   // Remarks
-  remarks: [] as Remarks[],
+  remarks: [{
+    id: 'remarks.0',
+    noteCreateTime: new Date(),
+    noteUpdateTime: new Date(),
+    remark: '',
+  }] as Remarks[],
 };
 
 export type TypeOfForm = typeof initialValues;

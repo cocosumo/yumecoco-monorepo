@@ -58,11 +58,7 @@ export const Remarks = () => {
                 sorting: {
                   sortModel: [{ field: 'noteCreateTime', sort: 'desc' }],
                 },
-                pagination: {
-                  paginationModel: {
-                    pageSize: 5,
-                  },
-                },
+ 
               }}
               pageSizeOptions={[5]}
               disableRowSelectionOnClick

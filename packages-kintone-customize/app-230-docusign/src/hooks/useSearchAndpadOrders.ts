@@ -23,7 +23,7 @@ export const useSearchAndpadOrders = ({
           }) => {
             return {
               label: 案件名,
-              id: システムID ?? '',
+              id: String(システムID),
               projStatus: 案件フロー ?? '',
             };
           },

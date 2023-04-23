@@ -42,7 +42,7 @@ export const storeMap : Record<string, StoreNamesAndpad> = {
  * 選択方法についてですが、店舗の場合は、"ラベル:店舗":"ラベル1,ラベル2"のような指定となります。
  */
 export const saveProjectData = z.object({
-  'システムID': z.string().optional(),
+  'システムID': z.number().optional(),
 
   /**  顧客グループ番号 */
   '顧客管理ID': z.string(),

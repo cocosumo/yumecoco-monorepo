@@ -12,7 +12,7 @@ export const kintoneProxyWrapper = async (params: {
   url: string,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   headers: Record<string, string>,
-  data:Record<string, string>
+  data:object
 }) => {
   const {
     url,

@@ -20,7 +20,8 @@ export const getRecordPath = (
     recordId,
     appId,
     domain,
-  }: AppRecord) : string => {
+  }: AppRecord,
+) : string => {
   const nDomain = domain ? domain : window.location.origin;
   const nDevice = isMobile() ? 'k/m' : 'k';
   const nrecord = recordId
@@ -42,6 +43,11 @@ export const getPortalSpaceElement = () => (
     : kintone.portal.getContentSpaceElement()
 );
 
+export const getHeaderSpaceElement = () => (
+  isMobile()
+    ? kintone.mobile.app.getHeaderSpaceElement()
+    : kintone.app.record.getHeaderMenuSpaceElement()
+);
 
 /**
 * 要素を表示・非表示

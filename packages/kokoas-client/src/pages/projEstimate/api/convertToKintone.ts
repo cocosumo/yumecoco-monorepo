@@ -12,6 +12,7 @@ export const convertToKintone = ({
   status,
   taxRate,
   estimateRevision,
+  remarks,
 }: TypeOfForm) => {
 
   const parsedTaxRate = taxRate / 100;
@@ -76,7 +77,8 @@ export const convertToKintone = ({
         単位: { value: string },
         税率: { value: string }
       },
-    }>);
+    }>,
+  );
 
   const kintoneItems: Partial<IProjestimates>['内訳'] = {
     type: 'SUBTABLE',
@@ -94,6 +96,7 @@ export const convertToKintone = ({
     税: { value: taxRate.toString() },
     estimateStatus : { value: status || '' },
     内訳: kintoneItems,
+    remarks: { value: remarks || '' },
     $revision: {
       type: '__REVISION__',
       value: estimateRevision || '',

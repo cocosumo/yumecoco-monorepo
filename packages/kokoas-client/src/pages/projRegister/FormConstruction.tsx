@@ -33,13 +33,10 @@ export const FormConstruction  = () => {
     projDataId,
     custGroupId,
     hasContract,
-    remarks,
   } = values;
 
   const isEditMode = !!projId;
   const isFormDisabled = hasContract;
-
-  console.log('remarks', remarks);
 
   return (
 

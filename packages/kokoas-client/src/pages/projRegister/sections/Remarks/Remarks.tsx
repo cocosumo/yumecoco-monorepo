@@ -1,10 +1,9 @@
-import { Grid, IconButton } from '@mui/material';
+import { Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { FieldArray, useFormikContext } from 'formik';
 import { KeysOfForm, TypeOfForm } from '../../form';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 
 const fieldName: KeysOfForm =  'remarks';

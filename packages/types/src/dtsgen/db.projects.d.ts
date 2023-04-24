@@ -28,6 +28,17 @@ declare namespace DBProjects {
     buildingType: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     storeCode: kintone.fieldTypes.SingleLineText;
+    log: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          logType: kintone.fieldTypes.SingleLineText;
+          logNote: kintone.fieldTypes.SingleLineText;
+          logDateTime: kintone.fieldTypes.Date;
+        };
+      }>;
+    };
     agents: {
       type: "SUBTABLE";
       value: Array<{

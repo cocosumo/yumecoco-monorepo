@@ -2,9 +2,10 @@ import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { AndpadButton } from 'kokoas-client/src/components/ui/buttons/AndpadButton';
 import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useConvertToAndpadByProjId, useSaveAndpadProject } from 'kokoas-client/src/hooksQuery';
+import { useConvertToAndpadByProjId, useSaveAndpadProject, useSaveProject } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../../form';
 import { SaveToAndpadDialogContent } from './SaveToAndpadDialogContent';
+import { getProjById } from 'api-kintone';
 
 export const SaveToAndpadDialog = ({
   open,
@@ -23,11 +24,34 @@ export const SaveToAndpadDialog = ({
     },
   );
 
-  const { mutate: mutateAndpad } = useSaveAndpadProject();
+  const { mutateAsync: mutateAndpad } = useSaveAndpadProject();
+  const { mutate: mutateLog } = useSaveProject();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (data) {
-      mutateAndpad(data);
+      mutateAndpad(data)
+        .then(async () => {
+          const { 
+            log,
+          } = await getProjById(projId || '');
+
+          mutateLog({ projId, record: {
+            log: {
+              type: 'SUBTABLE',
+              value: [
+                {
+                  id: '',
+                  value: {
+                    logNote: { value: `Andpadへ${mode}` },
+                    logDateTime: { value: new Date().toISOString() },
+                  },
+                },
+                ...(log.value ?? []),
+              ],
+            },
+          } });
+
+        });
     }
     handleClose();
   };

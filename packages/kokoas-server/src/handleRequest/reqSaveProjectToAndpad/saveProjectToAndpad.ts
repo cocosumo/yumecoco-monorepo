@@ -19,7 +19,8 @@ SaveProjectData> = async (req, res) => {
     res.status(400).send(
       err?.response?.res?.text ?? {
         message: err?.message,
-      });
+      },
+    );
   }
 
 

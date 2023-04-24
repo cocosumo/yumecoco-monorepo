@@ -15,7 +15,7 @@ export interface Remarks {
 }
 
 export interface Log {
-  dateTime: Date,
+  dateTime?: Date,
   log: string,
   id: string,
 }

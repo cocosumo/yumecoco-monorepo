@@ -33,9 +33,8 @@ declare namespace DBProjects {
       value: Array<{
         id: string;
         value: {
-          logType: kintone.fieldTypes.SingleLineText;
           logNote: kintone.fieldTypes.SingleLineText;
-          logDateTime: kintone.fieldTypes.Date;
+          logDateTime: kintone.fieldTypes.DateTime;
         };
       }>;
     };

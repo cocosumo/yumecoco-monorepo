@@ -12,7 +12,8 @@ export const useSaveProject = () => {
     saveProject,
     {
       ...commonOptions,
-      onSuccess: () => {
+      onSuccess: (data) => {
+        console.log('DATA, ', data);
         commonOptions.onSuccess();
         queryClient.invalidateQueries({ queryKey: [AppIds.projects] });
       },

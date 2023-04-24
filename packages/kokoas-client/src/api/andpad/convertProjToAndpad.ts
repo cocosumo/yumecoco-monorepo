@@ -65,7 +65,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '案件管理ID': projRec.uuid.value,
     '案件名': `${custGroupRec.storeName.value}　${projRec.projName.value}`,
     '案件種別': projRec.projTypeName.value === '新築工事' ? '新築' : 'リフォーム',
-    '案件フロー': '契約前',
+    //'案件フロー': '契約前',
 
     // andpadのAPIの保存仕様ではyyyy-MM-ddですが、取得の際、yyyy/MM/dd
     //'契約日(実績)': estRec.contractDate.value ? format(parseISO(estRec.contractDate.value), 'yyyy/MM/dd') : '',

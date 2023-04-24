@@ -14,6 +14,8 @@ export const kokoasEndpoints = {
   /** 案件管理IDで案件を取得 */
   getProjectFromAndpadByProjId: 'andpad/project',
 
+  getProjectsFromAndpad: 'andpad/projects',
+
   /** 
    * 見積をAndpadの実行予算の形式でダウンロード 
    * download/estimate/andpad/:estimateId

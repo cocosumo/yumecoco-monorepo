@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es2016",
+    "module": "ESNext",
+    "strict": true,
+    "isolatedModules": true,
+    "lib": ["DOM", "ES2022"],
+    "types": ["vite/client", "jest"],
+    "allowJs": true
+  },
+  "files": [
+    "./src/app.ts",
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
+    "./types/kintone.data.d.ts"
+  ],
+  "exclude": [
+    "./dist",
+    "jest.config.js",
+    "webpack.config.js"
+  ]
+}

@@ -22,6 +22,7 @@ export const convertEstimateToForm = (
     envStatus,
     dataId,
     $revision,
+    remarks,
   } = recEstimate;
 
   const parsedTaxRate = +tax.value / 100;
@@ -140,6 +141,7 @@ export const convertEstimateToForm = (
     totalAmountBeforeTax,
     totalAmountAfterTax,
     estimateRevision: $revision.value,
+    remarks: remarks.value,
   };
 
 };

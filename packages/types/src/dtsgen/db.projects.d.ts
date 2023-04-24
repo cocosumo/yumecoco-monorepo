@@ -39,6 +39,17 @@ declare namespace DBProjects {
         };
       }>;
     };
+    remarks: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          note: kintone.fieldTypes.MultiLineText;
+          noteUpdateTime: kintone.fieldTypes.DateTime;
+          noteCreateTime: kintone.fieldTypes.DateTime;
+        };
+      }>;
+    };
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

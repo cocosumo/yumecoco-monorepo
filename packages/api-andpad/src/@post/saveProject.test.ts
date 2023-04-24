@@ -34,7 +34,7 @@ describe('saveProject', () => {
 
   /** 完成データを格納出来る */
   it('should save complete data', async () => {
-    const completeData: Required<SaveProjectData> = {
+    const completeData: SaveProjectData = {
       ...basicData,
       '顧客名': '試行',
       '顧客名（カナ）': 'テスト',

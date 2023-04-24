@@ -1,3 +1,4 @@
+import { getFormFields } from 'api-kintone';
 import { getInvoiceByEstDataId } from 'api-kintone/src/invoice/getInvoiceByEstDataId';
 import { saveInvoice } from 'api-kintone/src/invoice/saveInvoice';
 import { updateInvoices } from 'api-kintone/src/invoice/updateInvoices';
@@ -8,6 +9,7 @@ const baseUrl = process.env.KT_REDIRECT_URI;
 export default defineConfig({
   projectId: 'iemq2k',
   e2e: {
+    specPattern: 'cypress/{e2e,test}/**/*.{cy,spec}.{js,jsx,ts,tsx}',
     experimentalRunAllSpecs: true,
     baseUrl: `${baseUrl}#`,
     setupNodeEvents(on) {
@@ -38,6 +40,12 @@ export default defineConfig({
               invoiceStatus: { value: 'sent' },
             },
           });
+        },
+      });
+
+      on('task', {
+        async getDBFields(appId: string) {
+          return getFormFields({ app: appId });
         },
       });
     },

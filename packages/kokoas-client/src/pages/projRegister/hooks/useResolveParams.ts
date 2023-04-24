@@ -71,5 +71,7 @@ export const useResolveParams = () => {
     andpadDetails,
   ]);
 
+  console.log(initForm);
+
   return initForm;
 };

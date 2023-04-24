@@ -1,7 +1,5 @@
 import { Formik } from 'formik';
 
-import { validationSchema } from './form';
-
 import { useNavigate } from 'react-router-dom';
 
 import { FormConstruction } from './FormConstruction';
@@ -13,6 +11,7 @@ import { generateParams } from '../../helpers/url';
 import { convertToKintone } from './api/convertToKintone';
 import  { useSaveProject } from './../../hooksQuery';
 import { useResolveParams } from './hooks/useResolveParams';
+import { validationSchema } from './validationSchema';
 
 
 
@@ -37,6 +36,7 @@ export const FormikConstruction  = () => {
         const { projId } = values;
 
         const kintoneRecord = convertToKintone(values);
+
         const resp = await mutateAsync({
           record: kintoneRecord,
           projId,

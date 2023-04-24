@@ -21,7 +21,7 @@ export const BillingEntryTable = ({
 
   const { data: contracts } = useContractsByCustGroupId(custGroupId);
 
-  const filterTable = estimates.filter((estimate) => estimate.isForPayment);
+  const filterTable = estimates.filter((estimate) => estimate.isShow);
 
 
 
@@ -41,15 +41,7 @@ export const BillingEntryTable = ({
                   <>
                     {
                       estimates.map((row, idx) => {
-                        if (!row.isForPayment) return;
-                        const keyIdx = () => {
-                          const sameContractNum = estimates
-                            .filter(({ estimateIndex }) => estimateIndex === row.estimateIndex);
-
-                          if (sameContractNum.length === 1) return 0;
-                          
-                        };
-
+                        if (!row.isShow) return;
                         return (
                           <BillingEntryTableRow
                             estimate={row}
@@ -62,13 +54,12 @@ export const BillingEntryTable = ({
                                 billingAmount: 0,
                                 amountType: '',
                               };
-                              console.log('newRow', newRow);
                               insert(idx + 1, newRow);
                             }}
                             handleRemove={() => {
                               remove(idx);
                             }}
-                            key={`${row.dataId}_row_${row.billingAmount}`}
+                            key={`${row.estimateIndex}`}
                           />
                         );
                       })
@@ -76,6 +67,7 @@ export const BillingEntryTable = ({
                   </>
                 )}
               </FieldArray>
+
             </TableBody>
           </Table>
         </TableContainer>}

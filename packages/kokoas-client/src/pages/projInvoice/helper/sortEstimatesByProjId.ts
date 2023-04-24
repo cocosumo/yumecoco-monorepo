@@ -28,7 +28,7 @@ export const sortEstimatesByProjId = ({
       createdAmount: 0,
       billingAmount: 0,
       amountType: '',
-      isForPayment: !!(+record.isForPayment.value),
+      isShow: true,
       estimateId: record.uuid.value,
     };
 

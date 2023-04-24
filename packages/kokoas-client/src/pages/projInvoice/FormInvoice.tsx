@@ -33,16 +33,17 @@ export const FormInvoice = () => {
     custName,
     estimates,
     invoiceStatus,
+    invoiceId,
   } = values;
 
 
 
-  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isShow }) => {
     const totalBilledAmount = +billedAmount + +billingAmount;
     const isUnderContractAmount = (+contractAmount > 0) && (totalBilledAmount > +contractAmount);
     const isOverContractAmount = (+contractAmount <= 0) && (totalBilledAmount < +contractAmount);
 
-    return isForPayment && (isUnderContractAmount || isOverContractAmount);
+    return isShow && (isUnderContractAmount || isOverContractAmount);
   });
 
   const isBilled = (invoiceStatus !== 'created') && (invoiceStatus !== '');
@@ -120,7 +121,11 @@ export const FormInvoice = () => {
               <Typography>
                 {'契約一覧'}
               </Typography>
-              <EstimatesTable isBilled={isBilled} />
+              <EstimatesTable
+                invoiceId={invoiceId}
+                custGroupId={custGroupId}
+                isBilled={isBilled}
+              />
             </Grid>
 
 

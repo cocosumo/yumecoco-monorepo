@@ -37,7 +37,7 @@ export const FormikInvoice = () => {
           navigate(`?${generateParams({ invoiceId: id })}`);
         };
 
-        handleSave(); // 後々、保存処理と請求書発行処理(保存処理も実施)に分割する
+        handleSave();
       }}
     >
 

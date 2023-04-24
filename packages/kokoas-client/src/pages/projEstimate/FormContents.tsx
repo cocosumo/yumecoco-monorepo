@@ -16,7 +16,7 @@ import { EstBody } from './tables/estimatesVirtual/EstBody';
 import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
-
+import { Remarks } from './fields/Remarks';
 
 
 export const FormContents = ({
@@ -48,7 +48,7 @@ export const FormContents = ({
   });
 
   const disabled = !!envStatus;
-
+  
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(
     handleSubmit,
@@ -56,6 +56,8 @@ export const FormContents = ({
       disabled,
     },
   );
+
+  
 
   if (projId) {
     return (
@@ -124,6 +126,14 @@ export const FormContents = ({
 
         <Grid item xs={12} md={6}>
           <SubTotalTable />
+        </Grid>
+
+        <Grid item xs={12} mt={4}>
+          <PageSubTitle label={'その他'} />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Remarks />
         </Grid>
 
         <Grid item xs={12}>

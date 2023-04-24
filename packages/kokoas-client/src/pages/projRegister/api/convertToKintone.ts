@@ -1,5 +1,6 @@
 import {  IProjects, TAgents } from 'types';
 import { TypeOfForm } from '../form';
+import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
 export const convertToKintone = (
   rawValues: TypeOfForm,
@@ -10,6 +11,7 @@ export const convertToKintone = (
     buildingType, custGroupId, status,
     cancelStatus,
     storeCode,
+    remarks,
   } = rawValues;
 
   return {
@@ -42,6 +44,18 @@ export const convertToKintone = (
     storeCode: { value: storeCode },
     status: {  value: status  },
     cancelStatus: { value: cancelStatus.join(',') },
+    remarks: { type: 'SUBTABLE', 
+      value: remarks.map(item => {
+        return {
+          id: '',
+          value: {
+            note: { value: item.remark },
+            noteCreateTime: { value: toKintoneDateStr(item.noteCreateTime, true) },
+            noteUpdateTime: { value: toKintoneDateStr(new Date(), true) },
+          },
+        };
+      }), 
+    },
   };
 
 };

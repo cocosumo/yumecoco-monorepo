@@ -1,0 +1,1 @@
+export const serverlUrl = process.env.SERVER_URL;

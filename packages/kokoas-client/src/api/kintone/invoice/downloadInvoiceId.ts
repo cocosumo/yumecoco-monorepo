@@ -23,7 +23,7 @@ export const downloadInvoiceId = async ({
       'PUT',
       {
         'Content-Type': 'application/json',
-        'ngrok-skip-browser-warning': '122',
+        /* 'ngrok-skip-browser-warning': '122', */
       },
       {
         invoiceId,
@@ -39,7 +39,7 @@ export const downloadInvoiceId = async ({
     }
 
   } catch (error) {
-    throw new Error(`kintoneエラーです。管理者に連絡してください。 ${error.message}`);
+    throw new Error(error);
   }
 
 };

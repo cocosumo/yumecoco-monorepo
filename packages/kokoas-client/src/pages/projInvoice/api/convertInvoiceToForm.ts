@@ -7,8 +7,8 @@ export const convertInvoiceToForm = (
   recInvoice: DBInvoices.SavedData,
   estimates: TMaterials[],
   datInvoicesSummary: InvoiceSummary[],
-  estimateIdArray: string[],
 ): Partial<TypeOfForm> => {
+
   const {
     uuid,
     custGroupId,
@@ -19,58 +19,56 @@ export const convertInvoiceToForm = (
   } = recInvoice;
 
 
-  const newEstimates: TMaterials[] = estimates.reduce((
+  const newEstimates: TMaterials[] = estimateLists.value.reduce((
     acc,
-    {
-      // estimateIndex, ※この時点では設定されていないため、使用しない
+    { value },
+    idx,
+  ) => {
+
+    const {
+      amountPerContract,
+      dataId: dataIdByInvoice,
+      estimateId,
+      paymentType,
       projId,
       projTypeName,
-      dataId,
-      contractAmount,
-      nonTaxableAmount,
-      // billedAmount,
-      // billingAmount,
-      amountType,
-      // isForPayment,
-      estimateId,
-    },
-    idx) => {
+    } = value;
 
-    // 請求書内にdataIdが存在するものは、請求書に使用している
-    const tgtBillingAmount = estimateLists.value.find(({ value }) => {
-      return (value.dataId.value === dataId);
-    })?.value.amountPerContract.value ?? '0';
-
-    const invoiceSummary = datInvoicesSummary?.find(({ dataId: dataIdOfInvoice }) => {
-      return dataIdOfInvoice === dataId;
+    // 契約内容から、契約金額と非課税金額を取り出す
+    const contractInfo = estimates.find(({ dataId: dataIdByEstimate }) => {
+      return dataIdByEstimate === dataIdByInvoice.value;
     });
+    const contractAmount = contractInfo?.contractAmount;
+    const nonTaxableAmount = contractInfo?.nonTaxableAmount;
 
+    // 請求概要から、契約済み金額・作成済み金額を取り出す
+    const invoiceSummary = datInvoicesSummary?.find(({ dataId: dataIdByInvSummary }) => {
+      return dataIdByInvSummary === dataIdByInvoice.value;
+    });
     const invoiceStatusVal = invoiceStatus.value as TInvoiceStatus;
     const isBilled = invoiceStatusVal === 'completed' || invoiceStatusVal === 'sent';
     const tgtBilledAmount = isBilled
-      ? Big(invoiceSummary?.billedAmount ?? 0).minus(tgtBillingAmount)
+      ? Big(invoiceSummary?.billedAmount ?? 0).minus(amountPerContract.value)
         .toNumber()
       : (invoiceSummary?.billedAmount ?? 0);
     const tgtCreatedAmount = isBilled
-      ? Big(invoiceSummary?.createdAmount ?? 0).minus(tgtBillingAmount)
+      ? Big(invoiceSummary?.createdAmount ?? 0).minus(amountPerContract.value)
         .toNumber()
       : (invoiceSummary?.createdAmount ?? 0);
 
-    const isForPaymentFromURL = estimateIdArray.some((id) => id === estimateId);
-
     acc.push({
       estimateIndex: String(idx),
-      projId: projId,
-      projTypeName: projTypeName,
-      dataId: dataId,
+      projId: projId.value,
+      projTypeName: projTypeName.value,
+      dataId: dataIdByInvoice.value,
       contractAmount: Number(contractAmount),
-      nonTaxableAmount: nonTaxableAmount,
+      nonTaxableAmount: Number(nonTaxableAmount),
       billedAmount: tgtBilledAmount,
       createdAmount: tgtCreatedAmount,
-      billingAmount: Number(tgtBillingAmount),
-      amountType: amountType,
-      isForPayment: tgtBillingAmount !== '0' || isForPaymentFromURL,
-      estimateId: estimateId,
+      billingAmount: Number(amountPerContract.value),
+      amountType: paymentType.value,
+      isShow: true,
+      estimateId: estimateId.value,
     });
 
     return acc;

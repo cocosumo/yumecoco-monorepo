@@ -24,7 +24,7 @@ export const initialValues = {
   /** 見積もり情報 */
   estimates: [
     {
-      /** 見積もりインデックス */
+      /** 見積もりインデックス用uuid */
       estimateIndex: '',
 
       /** 工事番号 */
@@ -55,7 +55,7 @@ export const initialValues = {
       amountType: '',
 
       /** 請求使用有無 */
-      isForPayment: false,
+      isShow: false,
 
       /** 見積もりuuid */
       estimateId: '',
@@ -77,6 +77,9 @@ export const initialValues = {
 
 export type TypeOfForm = typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
+
+export const initialEstimateRow = initialValues.estimates[0];
+export type EstimateRow = typeof initialEstimateRow;
 
 /* Utility functions */
 

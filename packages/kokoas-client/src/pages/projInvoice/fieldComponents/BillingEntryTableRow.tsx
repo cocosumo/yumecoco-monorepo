@@ -50,7 +50,7 @@ export const BillingEntryTableRow = ({
   const billingAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = Number(e.target.value);
+        draft.estimates[idx].billingAmount = Number(e.target.value ?? 0);
       });
 
       return newVal;
@@ -62,7 +62,7 @@ export const BillingEntryTableRow = ({
 
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = Number(paymentItem?.paymentAmtPerType?.[arrayIdx]) ?? 0;
+        draft.estimates[idx].billingAmount = Number(paymentItem?.paymentAmtPerType?.[arrayIdx] ?? 0) ;
       });
 
       return newVal;

@@ -8,8 +8,7 @@ export const convertToKintone = ({
   plannedPaymentDate,
   exceedChecked,
   invoiceStatus,
-}: TypeOfForm,
-) => {
+}: TypeOfForm) => {
 
   const billingAmount = estimates.reduce((acc, cur) => {
     return acc + +cur.billingAmount;
@@ -26,7 +25,7 @@ export const convertToKintone = ({
     invoiceStatus: { value: invoiceStatus },
     estimateLists: {
       type: 'SUBTABLE',
-      value: estimates.filter(({ isForPayment }) => !!isForPayment)
+      value: estimates.filter(({ isShow }) => !!isShow)
         .map(({
           projId,
           dataId,

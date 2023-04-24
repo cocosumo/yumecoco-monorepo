@@ -1,7 +1,12 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
-import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
+import { LabeledCheckBox } from 'kokoas-client/src/components';
 import { roundTo } from 'libs';
-import { getEstimatesFieldName, TMaterials } from '../form';
+import { EstimateRow, TMaterials, TypeOfForm } from '../form';
+import { useFormikContext } from 'formik';
+import { produce } from 'immer';
+import { v4 as uuidV4 } from 'uuid';
+
+
 
 const CellContent = ({
   content,
@@ -28,13 +33,46 @@ export const EstimateTableBody = ({
   isBilled: boolean
 }) => {
 
+
+  const {
+    values,
+    setValues,
+  } = useFormikContext<TypeOfForm>();
+
   const {
     contractAmount,
     billedAmount,
   } = estimateRow;
-  
+
   const isRefund = contractAmount < 0;
   const disabled = !isRefund ? contractAmount <= billedAmount : contractAmount >= billedAmount;
+  const isExist = values.estimates.find(({ dataId }) => dataId === estimateRow.dataId);
+
+  const handleCheck = () => {
+
+    if (isExist) {
+      // 既にestimatesに対象の見積もり枝番情報が含まれる場合、対象の見積もり枝番のisShowの値を反転する
+      setValues((prev) => produce(prev, (draft) => {
+        draft.estimates = draft.estimates.map((estimate) => {
+          if (estimateRow.dataId !== estimate.dataId) return estimate;
+          return ({
+            ...estimate,
+            isShow: !estimate.isShow,
+          });
+        });
+      }));
+    } else {
+      // estimatesにまだ見積もり枝番情報がない場合、追加する
+      const newEstimateRow: EstimateRow = {
+        ...estimateRow,
+        estimateIndex: uuidV4(),
+        isShow: true,
+      };
+      setValues((prev) => produce(prev, (draft) => {
+        draft.estimates.push(newEstimateRow);
+      }));
+    }
+  };
 
 
   return (
@@ -77,8 +115,9 @@ export const EstimateTableBody = ({
       </TableCell>
       <TableCell>
         {/* 請求に使用する */}
-        <FormikLabeledCheckBox
-          name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
+        <LabeledCheckBox
+          checked={isExist?.isShow}
+          setCheckedHandler={handleCheck}
           disabled={disabled || isBilled}
         />
       </TableCell>

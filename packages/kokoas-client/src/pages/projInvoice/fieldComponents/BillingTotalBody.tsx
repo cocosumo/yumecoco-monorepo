@@ -73,8 +73,6 @@ export const BillingTotalBody = ({
     } else {
       const billingTotalAfterTax = estimates.reduce((acc, cur) => {
 
-
-        console.log('billingAmount', cur.billingAmount);
         return Big(acc).plus(cur.billingAmount)
           .toNumber();
 

@@ -43,7 +43,6 @@ describe('log', () => {
       .siblings('div')
       .should('have.length', 3);
 
-
     cy.get('@moreBtn').click();
     cy.contains('button', '閉じる')
       .siblings('div')

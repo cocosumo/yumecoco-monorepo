@@ -51,9 +51,9 @@ export const convertContructsToForm: ({
       nonTaxableAmount: Number(calculated?.[idx].summary.totalNonTaxableAmount),
       billedAmount: billedAmount,
       createdAmount: createdAmount,
-      billingAmount: Number(invoiceDetails?.amountPerContract.value),
+      billingAmount: Number(invoiceDetails?.amountPerContract.value ?? ''),
       amountType: invoiceDetails?.paymentType.value ?? '',
-      isForPayment: false, // dummy
+      isShow: false,
       estimateId: invoiceDetails?.estimateId.value ?? '',
     });
   });

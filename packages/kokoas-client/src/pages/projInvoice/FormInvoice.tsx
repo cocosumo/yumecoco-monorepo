@@ -38,12 +38,12 @@ export const FormInvoice = () => {
 
 
 
-  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isForPayment }) => {
+  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isShow }) => {
     const totalBilledAmount = +billedAmount + +billingAmount;
     const isUnderContractAmount = (+contractAmount > 0) && (totalBilledAmount > +contractAmount);
     const isOverContractAmount = (+contractAmount <= 0) && (totalBilledAmount < +contractAmount);
 
-    return isForPayment && (isUnderContractAmount || isOverContractAmount);
+    return isShow && (isUnderContractAmount || isOverContractAmount);
   });
 
   const isBilled = (invoiceStatus !== 'created') && (invoiceStatus !== '');

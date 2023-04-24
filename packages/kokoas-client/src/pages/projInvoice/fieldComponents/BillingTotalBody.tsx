@@ -31,14 +31,13 @@ export const BillingTotalBody = ({
       estimates.reduce(
         (acc,
           {
-            isForPayment,
+            isShow,
             contractAmount,
             billingAmount,
             billedAmount,
             nonTaxableAmount,
-          },
-        ) => {
-          if (!isForPayment) return acc;
+          }) => {
+          if (!isShow) return acc;
 
           const {
             billingAmountBeforeTax,
@@ -52,25 +51,32 @@ export const BillingTotalBody = ({
 
           return {
             ...acc,
-            billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount).toNumber(),
-            billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax).toNumber(),
+            billingTotalAfterTax: Big(acc.billingTotalAfterTax).plus(billingAmount)
+              .toNumber(),
+            billingTotalBeforeTax: Big(acc.billingTotalBeforeTax).plus(billingAmountBeforeTax)
+              .toNumber(),
           };
 
         }, {
           billingTotalAfterTax: 0,
           billingTotalBeforeTax: 0,
           taxAmount: 0,
-        });
+        },
+      );
 
       return {
         ...result,
-        taxAmount: Big(result.billingTotalAfterTax).minus(result.billingTotalBeforeTax).toNumber(),
+        taxAmount: Big(result.billingTotalAfterTax).minus(result.billingTotalBeforeTax)
+          .toNumber(),
       };
 
     } else {
       const billingTotalAfterTax = estimates.reduce((acc, cur) => {
 
-        return Big(acc).plus(cur.billingAmount).toNumber();
+
+        console.log('billingAmount', cur.billingAmount);
+        return Big(acc).plus(cur.billingAmount)
+          .toNumber();
 
       }, 0);
 
@@ -78,7 +84,8 @@ export const BillingTotalBody = ({
 
       return {
         billingTotalAfterTax: billingTotalAfterTax,
-        billingTotalBeforeTax: Big(billingTotalAfterTax).minus(taxAmount).toNumber(),
+        billingTotalBeforeTax: Big(billingTotalAfterTax).minus(taxAmount)
+          .toNumber(),
         taxAmount: taxAmount,
       };
     }

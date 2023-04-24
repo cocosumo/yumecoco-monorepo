@@ -25,7 +25,7 @@ export const convertToKintone = ({
     invoiceStatus: { value: invoiceStatus },
     estimateLists: {
       type: 'SUBTABLE',
-      value: estimates.filter(({ isForPayment }) => !!isForPayment)
+      value: estimates.filter(({ isShow }) => !!isShow)
         .map(({
           projId,
           dataId,

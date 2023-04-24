@@ -67,7 +67,7 @@ export const convertInvoiceToForm = (
       createdAmount: tgtCreatedAmount,
       billingAmount: Number(amountPerContract.value),
       amountType: paymentType.value,
-      isForPayment: true,
+      isShow: true,
       estimateId: estimateId.value,
     });
 

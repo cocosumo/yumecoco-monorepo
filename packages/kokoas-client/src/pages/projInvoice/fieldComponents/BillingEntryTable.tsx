@@ -20,7 +20,7 @@ export const BillingEntryTable = ({
 
   const { data: contracts } = useContractsByCustGroupId(custGroupId);
 
-  const filterTable = estimates.filter((estimate) => estimate.isForPayment);
+  const filterTable = estimates.filter((estimate) => estimate.isShow);
 
 
   return (
@@ -35,7 +35,7 @@ export const BillingEntryTable = ({
             <BillingEntryTableHead />
             <TableBody>
               {estimates.map((row, idx) => {
-                if (!row.isForPayment) return;
+                if (!row.isShow) return;
                 return (
                   <BillingEntryTableRow
                     estimate={row}

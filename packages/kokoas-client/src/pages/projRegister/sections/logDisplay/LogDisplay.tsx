@@ -3,6 +3,7 @@ import { blue } from '@mui/material/colors';
 import { useFormikContext } from 'formik';
 import { TypeOfForm } from '../../form';
 import { LogRow } from './LogRow';
+import { PageSubTitle } from 'kokoas-client/src/components';
 
 export const LogDisplay = () => {
   const { values: {
@@ -14,17 +15,21 @@ export const LogDisplay = () => {
   
 
   return (
-    <Grid item xs={12}>
-      <Box
-        sx={{
-          bgcolor: blue[50],
-          p: 2,
-        }}
-      >
-        {isRegistered && !logs.length && 'Andpadに登録されています。'}
-        {isRegistered && !!logs.length && logs.map((log) => <LogRow key={log.id} {...log} />)}
-        {!isRegistered && 'Andpadに登録されていません。'}
-      </Box>
-    </Grid>
+    <>
+      <PageSubTitle label="ログ" />
+      <Grid item xs={12}>
+        <Box
+          sx={{
+            bgcolor: blue[50],
+            p: 2,
+          }}
+        >
+          {isRegistered && !logs.length && 'Andpadに登録されています。'}
+          {isRegistered && !!logs.length && logs.map((log) => <LogRow key={log.id} {...log} />)}
+          {!isRegistered && 'Andpadに登録されていません。'}
+        </Box>
+      </Grid>
+    </>
+   
   );
 };

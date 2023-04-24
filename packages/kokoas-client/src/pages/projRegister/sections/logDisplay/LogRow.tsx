@@ -8,8 +8,8 @@ export const LogRow = ({
 }: Log) => {
   return (
     <Stack direction={'row'}>
-      <Box width={'20%'}>
-        {!!dateTime && format(dateTime, 'yyyy/MM/dd HH:mm:ss')}
+      <Box width={'15%'}>
+        {!!dateTime && format(dateTime, 'yyyy/MM/dd HH:mm')}
       </Box>
       <Box>
         {log}

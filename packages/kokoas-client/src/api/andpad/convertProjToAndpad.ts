@@ -1,20 +1,15 @@
 import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeMap } from 'api-andpad';
-import { getContractByProjId, getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
-import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
+import { getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
 import { bestStringMatch } from 'kokoas-client/src/lib';
 import { TAgents, TContact } from 'types';
 import { getAddressByPostal } from '../others';
 
 export const convertProjToAndpad = async (projId: string) => {
 
-  const [projRec, estData] = await Promise.all([
+  const [projRec] = await Promise.all([
     getProjById(projId),
-    getContractByProjId(projId),
   ]);
   if (!projRec) throw new Error('工事情報の取得が失敗しました。');
-  if (!estData) throw new Error('契約情報の取得が失敗しました。');
-
 
   const custGroupRec = await getCustGroupById(projRec?.custGroupId.value);
   if (!custGroupRec) throw new Error('顧客グループ情報の取得が失敗しました。');
@@ -34,9 +29,6 @@ export const convertProjToAndpad = async (projId: string) => {
 
   if (!projPrefecture) throw new Error('物件の都道府県の取得が失敗しました。');
   if (!custPrefecture) throw new Error('顧客の都道府県の取得が失敗しました。');
-
-
-  const { record: estRec } = estData;
 
 
   const firstAgent = custGroupRec
@@ -76,7 +68,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '案件フロー': '契約前',
 
     // andpadのAPIの保存仕様ではyyyy-MM-ddですが、取得の際、yyyy/MM/dd
-    '契約日(実績)': estRec.contractDate.value ? format(parseISO(estRec.contractDate.value), 'yyyy/MM/dd') : '',
+    //'契約日(実績)': estRec.contractDate.value ? format(parseISO(estRec.contractDate.value), 'yyyy/MM/dd') : '',
 
     'ラベル:工事内容': bestStringMatch(projRec.projTypeName.value, projectTypesAndpad, { valueIfNoMatch: 'その他' }),
     'ラベル:店舗': storeName,

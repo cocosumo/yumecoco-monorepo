@@ -13,6 +13,7 @@ export const useAndpadOrderByProjId = (projId: string) => {
     [AppIds.projects, 'andpad', projId],
     () => getOrderByProjId(projId),
     {
+      enabled: !!projId,
       staleTime: 5000,
       onError: (error: Error) => {
         setSnackState({

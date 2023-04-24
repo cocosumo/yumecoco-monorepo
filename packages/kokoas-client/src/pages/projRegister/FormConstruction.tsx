@@ -55,7 +55,9 @@ export const FormConstruction  = () => {
           spacing={2} mb={12}
         >
           <RecordSelect />
-          <LogDisplay />
+
+          {!!projId && <LogDisplay />}
+       
           <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <CustInfo />
 

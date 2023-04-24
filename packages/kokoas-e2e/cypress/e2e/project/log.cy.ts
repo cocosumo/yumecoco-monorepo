@@ -35,11 +35,18 @@ describe('log', () => {
 
       });
 
-    /* 
-    cy.contains('button', 'Andpadへ').as('andpadBtn');
-    cy.get('@andpadBtn').click();
+  });
 
-    cy.contains('button', 'はい').as('saveBtn')
-      .should('be.enabled'); */
+  it('「もっと見る」を押すと、ログが全て表示される', () => {
+    cy.contains('button', 'もっと見る')
+      .as('moreBtn')
+      .siblings('div')
+      .should('have.length', 3);
+
+
+    cy.get('@moreBtn').click();
+    cy.contains('button', '閉じる')
+      .siblings('div')
+      .should('have.length.gt', 3);
   });
 });

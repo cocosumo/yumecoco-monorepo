@@ -16,6 +16,7 @@ import { TypeOfForm } from './form';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
 import { RecordSelect } from './sections/RecordSelect/RecordSelect';
+import { LogDisplay } from './sections/logDisplay/LogDisplay';
 
 export const FormConstruction  = () => {
 
@@ -54,6 +55,7 @@ export const FormConstruction  = () => {
           spacing={2} mb={12}
         >
           <RecordSelect />
+          <LogDisplay />
           <UneditableInfo isVisible={isFormDisabled} projId={projId} />
           <CustInfo />
 

@@ -1,7 +1,9 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
-import { FormikLabeledCheckBox } from 'kokoas-client/src/components';
+import { LabeledCheckBox } from 'kokoas-client/src/components';
 import { roundTo } from 'libs';
-import { getEstimatesFieldName, TMaterials } from '../form';
+import { TMaterials, TypeOfForm } from '../form';
+import { useFormikContext } from 'formik';
+import { produce } from 'immer';
 
 const CellContent = ({
   content,
@@ -29,12 +31,37 @@ export const EstimateTableBody = ({
 }) => {
 
   const {
+    values,
+    setValues,
+  } = useFormikContext<TypeOfForm>();
+
+  const {
     contractAmount,
     billedAmount,
   } = estimateRow;
-  
+
   const isRefund = contractAmount < 0;
   const disabled = !isRefund ? contractAmount <= billedAmount : contractAmount >= billedAmount;
+
+  const handleCheck = () => {
+
+    if (values.estimates.find(({ dataId }) => dataId === estimateRow.dataId)) {
+      // 既にestimatesに対象の見積もり枝番情報が含まれる場合、対象の見積もり枝番のisShowの値を反転する
+      setValues((prev) => produce(prev, (draft) => {
+        draft.estimates.map((estimate) => {
+          if (estimateRow.dataId !== estimate.dataId) return estimate;
+          return ({
+            isShow: !estimate.isShow,
+          });
+        });
+      }));
+    } else {
+      // estimatesにまだ見積もり枝番情報がない場合、追加する
+      setValues((prev) => produce(prev, (draft) => {
+        draft.estimates.push(estimateRow);
+      }));
+    }
+  };
 
 
   return (
@@ -77,8 +104,8 @@ export const EstimateTableBody = ({
       </TableCell>
       <TableCell>
         {/* 請求に使用する */}
-        <FormikLabeledCheckBox
-          name={getEstimatesFieldName(+estimateRow.estimateIndex, 'isForPayment')}
+        <LabeledCheckBox
+          setCheckedHandler={handleCheck}
           disabled={disabled || isBilled}
         />
       </TableCell>

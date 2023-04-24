@@ -1,4 +1,4 @@
-import { FormControlLabel, Checkbox, FormControl, FormHelperText } from '@mui/material';
+import { FormControlLabel, Checkbox, FormControl, FormHelperText, CheckboxProps } from '@mui/material';
 
 interface LabeledCheckBoxProps {
   label?: string,
@@ -7,7 +7,7 @@ interface LabeledCheckBoxProps {
   setCheckedHandler?: ()=>void,
 }
 
-export function LabeledCheckBox(props : LabeledCheckBoxProps) {
+export function LabeledCheckBox(props : CheckboxProps & LabeledCheckBoxProps) {
   const {
     label = '',
     checked = false,

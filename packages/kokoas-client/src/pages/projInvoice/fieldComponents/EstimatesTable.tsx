@@ -15,11 +15,6 @@ export const EstimatesTable = ({
   isBilled: boolean
 }) => {
 
-  /* const { values } = useFormikContext<TypeOfForm>();
-  const {
-    estimates,
-  } = values; */
-
   const { data: datContracts } = useContractsByCustGroupId(custGroupId);
   const { data: datInvoice } = useInvoicesById(invoiceId);
   const { data: datInvoicesSummary } = useInvoicesSummaryByCustGroupId(custGroupId);

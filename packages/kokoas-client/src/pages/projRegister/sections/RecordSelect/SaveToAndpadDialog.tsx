@@ -9,16 +9,19 @@ import { SaveToAndpadDialogContent } from './SaveToAndpadDialogContent';
 export const SaveToAndpadDialog = ({
   open,
   handleClose,
+  mode,
 } : {
   open: boolean
   handleClose: () => void
+  mode: '登録' | '更新'
 }) => {
   const { projId } = useURLParams<TypeOfForm>();
   const { data, isLoading } = useConvertToAndpadByProjId(
     open ? projId : '',
     {
       onError: handleClose,
-    });
+    },
+  );
 
   const { mutate: mutateAndpad } = useSaveAndpadProject();
 
@@ -39,7 +42,7 @@ export const SaveToAndpadDialog = ({
       fullWidth
     >
       <DialogTitle>
-        アンドパッドへ登録しますか。
+        {`Andpadへ案件${mode}しますか？`}
       </DialogTitle>
       <SaveToAndpadDialogContent isLoading={isLoading} convertedData={data} />
       <DialogActions>

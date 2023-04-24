@@ -43,6 +43,8 @@ export const storeMap : Record<string, StoreNamesAndpad> = {
  */
 export const saveProjectData = z.object({
   'システムID': z.number().optional(),
+  '顧客ID': z.number().optional(),
+  '更新日時': z.string().optional(),
 
   /**  顧客グループ番号 */
   '顧客管理ID': z.string(),

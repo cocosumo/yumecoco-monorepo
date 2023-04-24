@@ -36,6 +36,8 @@ export const useResolveParams = () => {
 
   const { data: andpadDetails } = useAndpadOrderByProjId(projIdFromURL || '', { enabled: !!completed });  
 
+  console.log(andpadDetails);
+
   useEffect(() => {
 
     if (projIdFromURL && projRec && custGroupRec && contractSummary) {

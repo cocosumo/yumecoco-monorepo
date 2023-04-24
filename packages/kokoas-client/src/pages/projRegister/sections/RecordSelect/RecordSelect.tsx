@@ -112,7 +112,7 @@ export const RecordSelect = () => {
         md={2}
       >
 
-        <SaveToAndpadButton show={hasCompletedContract} />
+        <SaveToAndpadButton isExist={hasCompletedContract} />
 
       </Grid>
       <Grid

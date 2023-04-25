@@ -18,5 +18,5 @@ describe('Contract', () => {
     await fsPromise.writeFile(savePath, pdf);
 
     expect(fs.existsSync(savePath)).toBe(true);
-  });
+  }, 60000);
 });

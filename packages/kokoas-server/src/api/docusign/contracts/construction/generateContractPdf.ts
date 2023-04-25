@@ -21,6 +21,7 @@ export const generateContractPdf = async (
   contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
 ) => {
   const {
+    
     customers,
     cocoAG,
     contractId,
@@ -78,7 +79,7 @@ export const generateContractPdf = async (
 
   // Common alignments
   const x1 = 124; // 工事番号
-  const x2 = 183;
+  const x2 = 190;
   const x3 = 239;
 
 
@@ -88,7 +89,7 @@ export const generateContractPdf = async (
     contractId,
     {
       x: x1,
-      y: 782,
+      y: 775,
       font: msChinoFont,
     },
   );
@@ -99,7 +100,7 @@ export const generateContractPdf = async (
     projEstimateId,
     {
       x: 50,
-      y: 50,
+      y: 45,
       font: msChinoFont,
       size: 8,
 
@@ -113,7 +114,7 @@ export const generateContractPdf = async (
     projName,
     {
       x: x1 + 100,
-      y: 782,
+      y: 775,
       font: msChinoFont,
     },
   );
@@ -124,7 +125,7 @@ export const generateContractPdf = async (
     customers.map(({ custName }) => `${custName} 様` ).join('、'),
     {
       x: x1,
-      y: 680,
+      y: 675,
       font: msChinoFont,
     },
   );
@@ -135,7 +136,7 @@ export const generateContractPdf = async (
     projName,
     {
       x: x1,
-      y: 608,
+      y: 603,
       font: msChinoFont,
     },
   );
@@ -152,7 +153,7 @@ export const generateContractPdf = async (
     customers[0].address,
     {
       x: x2,
-      y: 238,
+      y: 240,
       size: 9,
       font: msChinoFont,
     }, {
@@ -167,7 +168,7 @@ export const generateContractPdf = async (
     projLocation,
     {
       x: x2,
-      y: 580,
+      y: 575,
       font: msChinoFont,
     },
   );
@@ -175,10 +176,10 @@ export const generateContractPdf = async (
   /* 工期：着手 */
   drawText(
     firstPage,
-    startDate ? format(parseISO(startDate), 'yyyy年MM月dd日') : '',
+    startDate ? format(parseISO(startDate), 'yyyy年MM月dd日') : '-',
     {
       x: 239,
-      y: 565,
+      y: 563,
       font: msChinoFont,
     },
     {
@@ -194,7 +195,7 @@ export const generateContractPdf = async (
     startDaysAfterContract,
     {
       x: 299,
-      y: 551,
+      y: 548,
       font: msChinoFont,
     },
     {
@@ -208,10 +209,10 @@ export const generateContractPdf = async (
   /* 工期：完成 */
   drawText(
     firstPage,
-    finishDate ? format(parseISO(finishDate), 'yyyy年MM月dd日') : '',
+    finishDate ? format(parseISO(finishDate), 'yyyy年MM月dd日') : '-',
     {
       x: 239,
-      y: 537,
+      y: 535,
       font: msChinoFont,
     },
     {
@@ -227,7 +228,7 @@ export const generateContractPdf = async (
     finishDaysAfterContract,
     {
       x: 299,
-      y: 523,
+      y: 520,
       font: msChinoFont,
     },
     {
@@ -240,10 +241,10 @@ export const generateContractPdf = async (
   /* 引渡しの時期、完成の日 */
   drawText(
     firstPage,
-    completeDate ? format(parseISO(completeDate), 'yyyy年MM月dd日') : '',
+    completeDate ? format(parseISO(completeDate), 'yyyy年MM月dd日') : '-',
     {
       x: 227,
-      y: 509,
+      y: 506,
       font: msChinoFont,
       size: 10,
     },
@@ -258,7 +259,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(totalAmountAfterTax || 0).toLocaleString()}`,
     {
       x: 211,
-      y: 494,
+      y: 493,
       size: 11,
       font: msChinoFont,
     },
@@ -275,7 +276,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(totalAmountBeforeTax || 0).toLocaleString() }`,
     {
       x: 214,
-      y: 480,
+      y: 479,
       size: 10,
       font: msChinoFont,
     },
@@ -308,7 +309,7 @@ export const generateContractPdf = async (
     `￥ ${Math.round(totalTaxAmount || 0).toLocaleString()}`,
     {
       x: 214,
-      y: 466,
+      y: 463,
       size: 10,
       font: msChinoFont,
     },
@@ -399,7 +400,7 @@ export const generateContractPdf = async (
     contractDate ? format(parseISO(contractDate), 'yyyy年MM月dd日') : '',
     {
       x: x1,
-      y: 252,
+      y: 255,
       font: msChinoFont,
       size: 9,
     },
@@ -414,7 +415,7 @@ export const generateContractPdf = async (
     officerName,
     {
       x: x2,
-      y: 152,
+      y: 154,
       font: msChinoFont,
     },
   );
@@ -423,8 +424,8 @@ export const generateContractPdf = async (
   /// 会社情報
 
   const companyX = x2;
-  const companyY = 665;
-  const companyY2 = 195;
+  const companyY = 660;
+  const companyY2 = 197;
   const companyLH = payLineHeight; // 行の高さ。 今支払いとあわせていますが、変わる可能性
 
   [companyY, companyY2].forEach((newY) => {

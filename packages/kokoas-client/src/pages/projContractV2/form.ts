@@ -1,6 +1,9 @@
 import { TypeOfForm } from './schema';
 
 export const initialForm : TypeOfForm = {
+  projId: '',
+  projName: '',
+
   totalContractAmt: 0,
   projectCost: 0,
   

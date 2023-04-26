@@ -2,6 +2,12 @@ import { z } from 'zod';
 
 const schema = z.object({
 
+  /** 工事のuuid */
+  projId: z.string().uuid(),
+
+  /** 工事名 */
+  projName: z.string(),
+
   /** 契約合計金額 */
   totalContractAmt: z.number(),
 

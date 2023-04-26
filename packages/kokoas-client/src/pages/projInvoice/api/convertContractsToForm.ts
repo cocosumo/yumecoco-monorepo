@@ -2,7 +2,7 @@ import { TMaterials } from '../form';
 import { InvoiceSummary } from 'kokoas-client/src/hooksQuery';
 import { calculateEstimateRecord } from 'api-kintone';
 
-type ConvertContructsToFormProps = {
+type ConvertContractsToFormProps = {
   recContracts: DBProjestimates.SavedData[] | undefined
   calculated: ReturnType<typeof calculateEstimateRecord>[] | undefined
   recInvoice: DBInvoices.SavedData | undefined
@@ -15,17 +15,12 @@ type ConvertContructsToFormProps = {
  * 必要な情報で構成されているため、form形式に変換することとします
  * @returns 
  */
-export const convertContructsToForm: ({
+export const convertContractsToForm = ({
   recContracts = [],
   calculated,
   recInvoice,
   datInvoicesSummary = [],
-}: ConvertContructsToFormProps) => TMaterials[] = ({
-  recContracts = [],
-  calculated,
-  recInvoice,
-  datInvoicesSummary = [],
-}: ConvertContructsToFormProps) => {
+}: ConvertContractsToFormProps): TMaterials[]=> {
 
   // 各契約書毎に、見積もり情報や請求情報を取り出す
   const newValues = recContracts.map((contract, idx) => {

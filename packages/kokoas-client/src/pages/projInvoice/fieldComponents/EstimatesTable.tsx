@@ -3,7 +3,7 @@ import { EstimateTableBody } from './EstimatesTableBody';
 import { EstimateTableHead } from './EstimateTableHead';
 import { useContractsByCustGroupId, useInvoicesById, useInvoicesSummaryByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { splitEstimatesByProjId } from '../helper/splitEstimatesByProjId';
-import { convertContructsToForm } from '../api/convertContructsToForm';
+import { convertContractsToForm } from '../api/convertContractsToForm';
 
 export const EstimatesTable = ({
   invoiceId,
@@ -26,7 +26,7 @@ export const EstimatesTable = ({
     record: recInvoice,
   } = datInvoice || {};
 
-  const newContracts = convertContructsToForm({
+  const newContracts = convertContractsToForm({
     recContracts,
     calculated,
     recInvoice,

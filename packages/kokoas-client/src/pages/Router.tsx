@@ -36,8 +36,13 @@ export const pages = {
   projProspect: '/project/prospect/register',
   projProspectSearch: '/project/prospect/search',
 
+  /** 本番にあるものを残しておきます。 
+   * コンパイルされません。
+  */
   projContractPreview: '/project/contract/preview',
   projContractSearch: 'project/contract/search',
+
+  projContractPreview2: '/project/contract/preview/v2',
 
   projInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',

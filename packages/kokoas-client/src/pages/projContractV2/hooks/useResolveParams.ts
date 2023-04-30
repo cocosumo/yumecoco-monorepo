@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initialForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
+import { useProjById } from 'kokoas-client/src/hooksQuery';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialForm);
@@ -9,19 +10,22 @@ export const useResolveParams = () => {
     projId: projIdFromURL,
   } = useURLParams();
 
+  const { data: projData } = useProjById(projIdFromURL || '');
+
   useEffect(() => {
-    if (projIdFromURL) {
+    if (projIdFromURL && projData) {
+      const { projName } = projData;
       setNewFormVal(prev => ({
         ...prev,
         projId: projIdFromURL,
-        projName: '田口亘様邸　新築付帯工事',
+        projName: projName.value,
       }));
     } else {
       setNewFormVal(initialForm);
     }
   }, 
   [
-    projIdFromURL,
+    projIdFromURL, projData,
   ]);
 
   return { 

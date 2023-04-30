@@ -1,8 +1,8 @@
-import { EmptyBox, FormContainer, PageTitle } from 'kokoas-client/src/components';
+import { FormContainer, PageTitle } from 'kokoas-client/src/components';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import schema, { TypeOfForm } from './schema';
-import { Box, Chip, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { useResolveParams } from './hooks/useResolveParams';
@@ -52,8 +52,8 @@ export const FormContract = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <SelectContracts projId={projId} />
-
         </Grid>
+   
        
 
       </FormContainer>

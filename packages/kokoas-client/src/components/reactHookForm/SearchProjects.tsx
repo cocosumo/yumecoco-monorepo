@@ -78,7 +78,7 @@ export function SearchProjects<T extends BaseFields>(
               projName,
             } : null}
             options={options}
-            getOptionLabel={(opt)=> opt.projName}
+            getOptionLabel={(opt)=> opt.projName || ''}
             isOptionEqualToValue={(opt, v) => opt.id === v.id}
             filterOptions={(x) => x}
             onInputChange={(_, val) => {

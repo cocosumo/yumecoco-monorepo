@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+export const subsidyTypes = ['工事に含む', '顧客に返金'] as const;
+export type SubsidyTypes = typeof subsidyTypes[number];
+
 const schema = z.object({
 
   /** 工事のuuid */
@@ -50,7 +53,7 @@ const schema = z.object({
   subsidyAmt: z.number().nullable(),
   
   /** 補助種類 */
-  subsidyType: z.enum(['工事に含む', '顧客に返金']),
+  subsidyType: z.enum(subsidyTypes),
   
   /** 支払い方法 */
   payMethod: z.enum(['持参', '集金', '振込']),

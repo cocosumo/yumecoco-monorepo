@@ -3,6 +3,7 @@ import { PaymentFieldGroup } from '../parts/PaymentFieldGroup';
 import { RefundAmount } from '../parts/RefundAmount';
 import { SubsidyAmount } from '../parts/SubsidyAmount';
 import { blue } from '@mui/material/colors';
+import { FormHelperText } from '@mui/material';
 
 export const PaymentSchedule = () => {
   return (
@@ -52,9 +53,14 @@ export const PaymentSchedule = () => {
         position={'relative'}
         left={-16}
         borderRadius={1}
+        spacing={2}
       >
+        <FormHelperText>
+          ※契約書には反映されません。
+        </FormHelperText>
         <RefundAmount />
         <SubsidyAmount />
+ 
       </Stack>
 
     </Stack>

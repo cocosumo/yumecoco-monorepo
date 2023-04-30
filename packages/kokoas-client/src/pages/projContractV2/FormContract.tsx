@@ -7,7 +7,8 @@ import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { useResolveParams } from './hooks/useResolveParams';
 import { useEffect } from 'react';
-import { SelectContracts } from 'kokoas-client/src/components/ui/selects/contracts/SelectContracts';
+import { FormInput } from './FormInput';
+import { ProjDetailsButton } from './parts/ProjDetailsButton';
 
 export const FormContract = () => {
 
@@ -25,12 +26,15 @@ export const FormContract = () => {
   const { 
     control, 
     reset,
+    watch,
   } = formReturn;
 
   useEffect(() => {
     reset({ ...newFormVal });
   }, [reset, newFormVal]);
 
+
+  console.log(watch());
 
 
   return (
@@ -50,11 +54,14 @@ export const FormContract = () => {
             }}
           />
         </Grid>
+
+        {projId && (
         <Grid item xs={12} md={4}>
-          <SelectContracts projId={projId} />
+          <ProjDetailsButton />
         </Grid>
-   
-       
+        )}
+
+        <FormInput />
 
       </FormContainer>
     </FormProvider>

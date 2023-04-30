@@ -1,11 +1,11 @@
 import { TextFieldProps } from '@mui/material';
 import { convertToHalfWidth } from 'libs';
-import { useEffect, useRef } from 'react';
+import { ChangeEventHandler, useEffect, useRef } from 'react';
 
 export interface UseNumberCommaFieldProps {
-  value: number | string
-  onChange: (value: number | string) => void,
-  onBlur?: () => void,
+  value?: number | string
+  onChange?: (value: number | string) => void,
+  onBlur?: ChangeEventHandler,
 }
 
 export const useNumberCommaField = ({
@@ -30,7 +30,7 @@ export const useNumberCommaField = ({
     } else {
       // 表示を更新する
       // 例：実値は1000だが、表示は1,000になる。
-      inputRef.current.value = (+value).toLocaleString();
+      inputRef.current.value = (Number(value)).toLocaleString();
 
     } 
 
@@ -53,7 +53,7 @@ export const useNumberCommaField = ({
       //console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
       const halfWidthNumber = +halfWidth;
       if (isNaN(halfWidthNumber)) return;
-      onChange(halfWidthNumber);
+      onChange?.(halfWidthNumber);
     },
     onInput: (e) => {
 
@@ -62,7 +62,7 @@ export const useNumberCommaField = ({
       } = e.target as HTMLInputElement;
    
       if (shouldChange.current) {
-        onChange(inputValue);
+        onChange?.(inputValue);
       }
     
     },
@@ -73,11 +73,11 @@ export const useNumberCommaField = ({
       const halfWidth = convertToHalfWidth(el.value);
       const halfWidthNumber = +halfWidth;
       if (isNaN(halfWidthNumber)) return;
-      onChange(halfWidthNumber);  
+      onChange?.(halfWidthNumber);  
       //console.log('BLUR', e.nativeEvent, newValue, el.value);
       el.value = halfWidthNumber.toLocaleString();
    
-      onBlur?.();
+      onBlur?.(e);
     },
     inputRef,
   };

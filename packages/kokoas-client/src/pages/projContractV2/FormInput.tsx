@@ -16,6 +16,8 @@ export const FormInput = () => {
         <PaymentSchedule />
       </Grid>
 
+      <PageSubTitle label={'工期'} />
+
 
     </>
   );

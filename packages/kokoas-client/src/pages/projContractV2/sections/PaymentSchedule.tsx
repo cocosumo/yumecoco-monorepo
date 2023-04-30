@@ -1,10 +1,17 @@
 import { Stack } from '@mui/system';
 import { PaymentFieldGroup } from '../parts/PaymentFieldGroup';
 import { RefundAmount } from '../parts/RefundAmount';
+import { SubsidyAmount } from '../parts/SubsidyAmount';
+import { blue } from '@mui/material/colors';
 
 export const PaymentSchedule = () => {
   return (
-    <Stack spacing={2} my={2}>
+    <Stack 
+      spacing={2} 
+      my={2}
+      position={'relative'}
+      maxWidth={600}
+    >
       <PaymentFieldGroup
         fieldNames={{
           chkFldName: 'hasContractAmt',
@@ -38,8 +45,16 @@ export const PaymentSchedule = () => {
         label='最終金'
       />
 
-      <Stack>
+      <Stack 
+        bgcolor={blue[50]}
+        p={2}
+        maxWidth={600}
+        position={'relative'}
+        left={-16}
+        borderRadius={1}
+      >
         <RefundAmount />
+        <SubsidyAmount />
       </Stack>
 
     </Stack>

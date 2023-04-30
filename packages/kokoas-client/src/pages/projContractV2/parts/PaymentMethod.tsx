@@ -60,12 +60,13 @@ export const PaymentMethod = ({
               ))}
         
               <TextField 
-                variant='standard'
+                variant='outlined'
                 label={'振込先'}
                 fullWidth
                 {...register('payDestination')}
                 sx={{
                   visibility: value === '振込' ? 'visible' : 'hidden',
+                  mt: 2,
                 }}
               />
               

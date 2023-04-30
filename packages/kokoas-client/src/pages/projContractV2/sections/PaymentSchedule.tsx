@@ -50,9 +50,9 @@ export const PaymentSchedule = () => {
       <Stack 
         bgcolor={blue[50]}
         p={2}
-        maxWidth={600}
         position={'relative'}
         left={-16}
+        width={'calc(100% + 32px)'}
         borderRadius={1}
         spacing={2}
       >

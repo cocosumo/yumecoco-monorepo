@@ -1,14 +1,22 @@
 import { Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 import { TotalAmount } from './sections/TotalAmount';
+import { PaymentSchedule } from './sections/PaymentSchedule';
 
 export const FormInput = () => {
   return (
-    <Grid 
-      item xs={12}
-    >
+    <>
       <PageSubTitle label={'合計金額'} />
-      <TotalAmount />
-    </Grid>
+      <Grid item xs={12}>
+        <TotalAmount />
+      </Grid>
+
+      <PageSubTitle label={'支払い予定'} />
+      <Grid item xs={12}>
+        <PaymentSchedule />
+      </Grid>
+
+
+    </>
   );
 };

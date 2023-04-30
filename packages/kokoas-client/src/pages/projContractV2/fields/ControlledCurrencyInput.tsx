@@ -1,13 +1,18 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { NumberCommaField } from 'kokoas-client/src/components/ui/textfield/NumberCommaField';
+import { TextFieldProps } from '@mui/material';
 
 export const ControlledCurrencyInput = ({
   name,
   label,
+  variant = 'outlined',
+  disabled = false,
 }: {
-  name: keyof TypeOfForm
+  name: keyof TypeOfForm,
   label?: string,
+  variant?: TextFieldProps['variant']
+  disabled?: boolean,
 }) => {
 
 
@@ -35,13 +40,15 @@ export const ControlledCurrencyInput = ({
             value={value as number}
             label={label}
             inputRef={ref}
-            defaultValue={(value as number).toLocaleString()}
+            defaultValue={typeof value === 'number' ? (value as number).toLocaleString() : value}
             name={name}
+            variant={variant}
             onChange={(v) => {
               onChange(v);
             }}
             onBlur={onBlur}
             error={!!error && isTouched}
+            disabled={disabled}
           />
         );
       }}

@@ -1,6 +1,10 @@
 import { Stack } from '@mui/material';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';
 
+/**
+ * 合計金額
+ * @returns 
+ */
 export const TotalAmount = () => {
 
   return (

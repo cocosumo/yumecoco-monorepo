@@ -44,3 +44,6 @@ export const initialForm : TypeOfForm = {
   contractDate: new Date(),
   
 };
+
+
+export type KeyOfForm = keyof TypeOfForm;

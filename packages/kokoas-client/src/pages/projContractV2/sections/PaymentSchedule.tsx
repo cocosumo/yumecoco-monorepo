@@ -12,6 +12,30 @@ export const PaymentSchedule = () => {
         }}
         label='契約金'
       />
+      <PaymentFieldGroup
+        fieldNames={{
+          chkFldName: 'hasStartAmt',
+          amtFldName: 'startAmt',
+          dateFldName: 'startAmtDate',
+        }}
+        label='着手金'
+      />
+      <PaymentFieldGroup
+        fieldNames={{
+          chkFldName: 'hasInterimAmt',
+          amtFldName: 'interimAmt',
+          dateFldName: 'interimAmtDate',
+        }}
+        label='中間金'
+      />
+      <PaymentFieldGroup
+        fieldNames={{
+          chkFldName: 'hasFinalAmt',
+          amtFldName: 'finalAmt',
+          dateFldName: 'finalAmtDate',
+        }}
+        label='最終金'
+      />
     </Stack>
   );
 };

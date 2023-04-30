@@ -8,6 +8,9 @@ const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** 契約のuuid */
+  contractId: z.string().uuid(),
+
   /** 契約合計金額 */
   totalContractAmt: z.number(),
 

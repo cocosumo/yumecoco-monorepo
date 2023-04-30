@@ -4,6 +4,7 @@ import { RefundAmount } from '../parts/RefundAmount';
 import { SubsidyAmount } from '../parts/SubsidyAmount';
 import { blue } from '@mui/material/colors';
 import { FormHelperText } from '@mui/material';
+import { PaymentMethod } from '../parts/PaymentMethod';
 
 export const PaymentSchedule = () => {
   return (
@@ -62,6 +63,8 @@ export const PaymentSchedule = () => {
         <SubsidyAmount />
  
       </Stack>
+      
+      <PaymentMethod />
 
     </Stack>
   );

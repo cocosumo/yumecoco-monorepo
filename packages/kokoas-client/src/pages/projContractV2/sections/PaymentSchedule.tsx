@@ -1,5 +1,6 @@
 import { Stack } from '@mui/system';
 import { PaymentFieldGroup } from '../parts/PaymentFieldGroup';
+import { RefundAmount } from '../parts/RefundAmount';
 
 export const PaymentSchedule = () => {
   return (
@@ -36,6 +37,11 @@ export const PaymentSchedule = () => {
         }}
         label='最終金'
       />
+
+      <Stack>
+        <RefundAmount />
+      </Stack>
+
     </Stack>
   );
 };

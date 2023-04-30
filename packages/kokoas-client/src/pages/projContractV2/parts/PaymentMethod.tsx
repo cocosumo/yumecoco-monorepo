@@ -68,6 +68,7 @@ export const PaymentMethod = ({
                   visibility: value === '振込' ? 'visible' : 'hidden',
                   mt: 2,
                 }}
+                placeholder='豊田信用金庫　朝日支店'
               />
               
               

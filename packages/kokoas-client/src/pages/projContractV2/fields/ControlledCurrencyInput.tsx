@@ -8,11 +8,13 @@ export const ControlledCurrencyInput = ({
   label,
   variant = 'outlined',
   disabled = false,
+  placeholder,
 }: {
   name: keyof TypeOfForm,
   label?: string,
   variant?: TextFieldProps['variant']
   disabled?: boolean,
+  placeholder?: string,
 }) => {
 
 
@@ -49,6 +51,7 @@ export const ControlledCurrencyInput = ({
             onBlur={onBlur}
             error={!!error && isTouched}
             disabled={disabled}
+            placeholder={placeholder}
           />
         );
       }}

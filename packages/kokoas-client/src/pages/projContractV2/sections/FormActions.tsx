@@ -1,8 +1,11 @@
 import { Button, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import PreviewIcon from '@mui/icons-material/Preview';
+import { useSubmitHandler } from '../hooks/useSubmitHandler';
 
 export const FormActions = () => {
+  const handleSubmit = useSubmitHandler();
+
   return (
     <Stack
       direction="row"
@@ -13,7 +16,7 @@ export const FormActions = () => {
         variant="outlined"
         size="large"
         startIcon={<SaveIcon />}
-        onClick={() => {}}
+        onClick={handleSubmit}
         //disabled={isSaveDisabled}
       >
         保存

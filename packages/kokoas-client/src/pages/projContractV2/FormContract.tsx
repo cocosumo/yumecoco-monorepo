@@ -9,6 +9,7 @@ import { useResolveParams } from './hooks/useResolveParams';
 import { useEffect } from 'react';
 import { FormInput } from './FormInput';
 import { ProjDetailsButton } from './parts/ProjDetailsButton';
+import { FormActions } from './sections/FormActions';
 
 export const FormContract = () => {
 
@@ -65,6 +66,10 @@ export const FormContract = () => {
         )}
 
         <FormInput />
+
+        <Grid item xs={12}>
+          <FormActions />
+        </Grid>
 
 
       </FormContainer>

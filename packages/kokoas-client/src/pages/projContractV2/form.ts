@@ -4,7 +4,7 @@ export const initialForm : TypeOfForm = {
   projId: '',
   projName: '',
 
-  contractId: '',
+  contractId: undefined,
 
   totalContractAmt: 0,
   projectCost: 0,

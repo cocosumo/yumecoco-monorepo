@@ -14,7 +14,8 @@ const schema = z.object({
   projName: z.string(),
 
   /** 契約のuuid */
-  contractId: z.string().uuid(),
+  contractId: z.string().uuid()
+    .optional(),
 
   /** 契約合計金額 */
   totalContractAmt: z.number(),

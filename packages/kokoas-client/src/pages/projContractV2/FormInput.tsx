@@ -4,7 +4,6 @@ import { TotalAmount } from './sections/TotalAmount';
 import { PaymentSchedule } from './sections/PaymentSchedule';
 import { ConstructionPeriods } from './sections/ConstructionPeriods';
 import { CustomerSummary } from './sections/CustomerSummary';
-import { FormActions } from './sections/FormActions';
 import { ProjectSummary } from './sections/ProjectSummary';
 
 export const FormInput = () => {
@@ -41,10 +40,6 @@ export const FormInput = () => {
 
       <Grid item xs={12}>
         <Divider />
-      </Grid>
-
-      <Grid item xs={12}>
-        <FormActions />
       </Grid>
 
     </Grid>

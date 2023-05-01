@@ -1,18 +1,22 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { JADatePicker } from 'kokoas-client/src/components';
-import { TextField } from '@mui/material';
+import { TextField, TextFieldProps } from '@mui/material';
 
 export const ControlledDatePicker = ({
   name,
   label,
   disabled = false,
   width,
+  variant = 'standard',
+  emphasized = false,
 }: {
   name: keyof TypeOfForm
   label?: string,
   disabled?: boolean,
   width?: string,
+  variant?: TextFieldProps['variant'],
+  emphasized?: boolean,
 }) => {
 
 
@@ -44,20 +48,22 @@ export const ControlledDatePicker = ({
             value={value || null}
             disablePast
             views={['year', 'month', 'day']}
-            InputProps={{
-              label: 'hello',
-            }}
             disabled={disabled}
             renderInput={(params) => (
               <TextField
                 {...params}
+                variant={variant}
                 label={label}
                 onBlur={onBlur}
-                variant={'standard'}
                 error={isShowError}
                 helperText={isShowError ? error.message : ''}
                 sx={{
                   width,
+                  ...(emphasized ? {
+                    '& .MuiOutlinedInput-root': {
+                      background: '#9CDAF9',
+                    },
+                  } : {}),
                 }}
               />)}
           />

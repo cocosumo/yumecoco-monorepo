@@ -22,10 +22,7 @@ export const ConstructionDates = ({
       <FormLabel>
         {label}
       </FormLabel>
-      <Stack direction={'row'} spacing={2} 
-        width={'100%'}
-        maxWidth={600}
-      > 
+      <Stack direction={'row'} spacing={2}> 
         <ControlledDatePicker name={dateFldName} width='50%' />
         <TextField 
           {...register(daysFldName)}

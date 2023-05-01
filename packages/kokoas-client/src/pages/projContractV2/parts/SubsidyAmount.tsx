@@ -22,7 +22,7 @@ export const SubsidyAmount = () => {
                   // チェックを外したら、エラーがあればクリアする
                   const { error } = getFieldState('subsidyAmt');
                   if (error) {
-                    setValue('subsidyAmt', null, { shouldValidate: true });
+                    setValue('subsidyAmt', 0, { shouldValidate: true });
                   }
                 }
               },

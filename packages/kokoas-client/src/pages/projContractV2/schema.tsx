@@ -28,35 +28,35 @@ const schema = z.object({
 
   /** 契約金 */
   hasContractAmt: z.boolean(),
-  contractAmt: z.number().nullable(),
+  contractAmt: z.number(),
   contractAmtDate: z.date().nullable(),
 
   /** 着手金 */
   hasStartAmt: z.boolean(),
-  startAmt: z.number().nullable(),
+  startAmt: z.number(),
   startAmtDate: z.date().nullable(),
 
   /** 中間金 */
   hasInterimAmt: z.boolean(),
-  interimAmt: z.number().nullable(),
+  interimAmt: z.number(),
   interimAmtDate: z.date().nullable(),
 
   /** 最終金 */
   hasFinalAmt: z.boolean(),
-  finalAmt: z.number().nullable(),
+  finalAmt: z.number(),
   finalAmtDate: z.date().nullable(),
   
   /** 返金有無 */
   hasRefund: z.boolean(),
   
   /** 返金額 */
-  refundAmt: z.number().nullable(),
+  refundAmt: z.number(),
 
   /** 補助金有無 */
   hasSubsidy: z.boolean(),
 
   /** 補助金 */
-  subsidyAmt: z.number().nullable(),
+  subsidyAmt: z.number(),
   
   /** 補助種類 */
   subsidyType: z.enum(subsidyTypes),

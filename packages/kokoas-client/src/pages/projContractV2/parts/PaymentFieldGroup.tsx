@@ -30,6 +30,7 @@ export const PaymentFieldGroup = (
     control, 
     register, 
     setValue, 
+    resetField,
     getFieldState,
     getValues,
   } = useFormContext<TypeOfForm>();
@@ -50,12 +51,12 @@ export const PaymentFieldGroup = (
                 if (!e.target.checked) { // チェックを外したら、
                  
                   // 金額をクリアする
-                  setValue(amtFldName, null, { shouldValidate: true });
+                  resetField(amtFldName);
 
                   // エラーがあれば、日付をクリアする
                   const { error: dateFldErr } = getFieldState(dateFldName);
                   if (dateFldErr) {
-                    setValue(dateFldName, null, { shouldValidate: true });
+                    resetField(dateFldName);
                   }
                 } else {
 

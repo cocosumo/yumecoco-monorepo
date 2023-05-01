@@ -10,26 +10,26 @@ export const initialForm : TypeOfForm = {
   projectCost: 0,
   
   hasContractAmt: false,
-  contractAmt: null,
+  contractAmt: 0,
   contractAmtDate: null,
   
   hasStartAmt: false,
-  startAmt: null,
+  startAmt: 0,
   startAmtDate: null,
 
   hasInterimAmt: false,
-  interimAmt: null,
+  interimAmt: 0,
   interimAmtDate: null,
 
   hasFinalAmt: false,
-  finalAmt: null,
+  finalAmt: 0,
   finalAmtDate: null,
   
   hasRefund: false,
-  refundAmt: null,
+  refundAmt: 0,
 
   hasSubsidy: false,
-  subsidyAmt: null,
+  subsidyAmt: 0,
   subsidyType: '顧客に返金',
   
   payMethod: '振込',

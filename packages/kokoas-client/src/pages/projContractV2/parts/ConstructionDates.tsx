@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, InputAdornment, Stack, TextField } from '@mui/material';
 import { ControlledDatePicker } from '../fields/ControlledDatePicker';
 import { KeyOfForm } from '../form';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useFormState } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 
 export const ConstructionDates = ({
@@ -15,7 +15,15 @@ export const ConstructionDates = ({
 }) => {
   const {
     register,
+    control,
   } = useFormContext<TypeOfForm>();
+
+  const { errors: {
+    [daysFldName]: daysFldNameErr,
+  } } = useFormState({
+    name: daysFldName,
+    control,
+  });
 
 
   return (
@@ -26,9 +34,10 @@ export const ConstructionDates = ({
       <Stack direction={'row'} spacing={2}> 
         <ControlledDatePicker name={dateFldName} width='50%' />
         <TextField 
-          {...register(daysFldName)}
+          {...register(daysFldName, { valueAsNumber: true })}
           sx={{ width: '50%' }} 
           fullWidth
+          type='number'
           variant='standard'
           InputProps={{
             startAdornment: (
@@ -45,6 +54,8 @@ export const ConstructionDates = ({
               textAlign: 'right',
             },
           }}
+          error={!!daysFldNameErr}
+          helperText={daysFldNameErr?.message}
         />
       </Stack>
     </FormControl>

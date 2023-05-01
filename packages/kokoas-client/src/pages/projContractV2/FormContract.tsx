@@ -27,15 +27,11 @@ export const FormContract = () => {
   const { 
     control, 
     reset,
-    watch,
   } = formReturn;
 
   useEffect(() => {
     reset({ ...newFormVal });
   }, [reset, newFormVal]);
-
-
-  console.log(watch());
 
 
   return (

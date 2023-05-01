@@ -38,12 +38,6 @@ export const ControlledCurrencyInput = ({
         
       }) => {
 
-        if (error) {
-          console.log('error', error);
-        }
-
-        console.log(isDirty);
-
         return (
           <NumberCommaField
             value={value as number}

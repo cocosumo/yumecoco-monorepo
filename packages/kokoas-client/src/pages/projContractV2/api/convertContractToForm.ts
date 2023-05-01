@@ -52,19 +52,19 @@ export const convertContractToForm = (
     totalContractAmt: +totalContractAmt.value,
     projectCost: +projectCost.value,
 
-    hasContractAmt: !!contractAmt.value,
+    hasContractAmt: !!+contractAmt.value,
     contractAmt: +contractAmt.value,
     contractAmtDate:  parseKintoneDate(contractAmtDate.value, null),
 
-    hasInitialAmt: !!initialAmt.value,
+    hasInitialAmt: !!+initialAmt.value,
     initialAmt: +initialAmt.value,
     initialAmtDate: parseKintoneDate(initialAmtDate.value, null),
 
-    hasInterimAmt: !!interimAmt.value,
+    hasInterimAmt: !!+interimAmt.value,
     interimAmt: +interimAmt.value,
     interimAmtDate: parseKintoneDate(interimAmtDate.value, null),
 
-    hasFinalAmt: !!finalAmt.value,
+    hasFinalAmt: !!+finalAmt.value,
     finalAmt: +finalAmt.value,
     finalAmtDate: parseKintoneDate(finalAmtDate.value, null),
 

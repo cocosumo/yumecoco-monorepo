@@ -35,9 +35,11 @@ export const PaymentFieldGroup = (
     getValues,
   } = useFormContext<TypeOfForm>();
   const isChecked = useWatch({
-    control,
     name: chkFldName,
+    control,
   });
+
+  console.log(isChecked, chkFldName);
 
   return (
     <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>
@@ -46,6 +48,7 @@ export const PaymentFieldGroup = (
         name={chkFldName}
         control={(
           <Checkbox
+            checked={isChecked as boolean}
             {...register(chkFldName, {
               onChange: (e) => {
                 if (!e.target.checked) { // チェックを外したら、

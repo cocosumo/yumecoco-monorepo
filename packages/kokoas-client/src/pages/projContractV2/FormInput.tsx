@@ -3,8 +3,9 @@ import { PageSubTitle } from 'kokoas-client/src/components';
 import { TotalAmount } from './sections/TotalAmount';
 import { PaymentSchedule } from './sections/PaymentSchedule';
 import { ConstructionPeriods } from './sections/ConstructionPeriods';
-import { CustomerDetails } from './sections/CustomerDetails';
+import { CustomerSummary } from './sections/CustomerSummary';
 import { FormActions } from './sections/FormActions';
+import { ProjectSummary } from './sections/ProjectSummary';
 
 export const FormInput = () => {
   return (
@@ -15,12 +16,12 @@ export const FormInput = () => {
     >
       <PageSubTitle label={'顧客情報'} />
       <Grid item xs={12}>
-        <CustomerDetails />
+        <CustomerSummary />
       </Grid>
 
       <PageSubTitle label={'工事情報'} />
       <Grid item xs={12}>
-        <CustomerDetails />
+        <ProjectSummary />
       </Grid>
 
       <PageSubTitle label={'合計金額'} />
@@ -41,7 +42,7 @@ export const FormInput = () => {
       <Grid item xs={12}>
         <Divider />
       </Grid>
-      
+
       <Grid item xs={12}>
         <FormActions />
       </Grid>

@@ -1,6 +1,6 @@
 import { Stack, Typography } from '@mui/material';
 
-export const Detail = ({
+export const Info = ({
   label,
   value,
 }: {

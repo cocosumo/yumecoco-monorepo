@@ -8,6 +8,7 @@ export const prodAppIds = {
   projEstimates: 210,
   custMemos: 211,
   invoices : 226,
+  contracts : 0, // 仮
 } as const;
 
 /* 開発環境 */
@@ -29,6 +30,9 @@ export const devAppIds = {
 
   /** 請求書 */
   invoices : 204,
+
+  /** 契約 */
+  contracts : 231,
 
 } as const;
 

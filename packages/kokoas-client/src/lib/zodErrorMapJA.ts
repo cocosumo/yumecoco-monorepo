@@ -4,6 +4,7 @@ import { z } from 'zod';
 const types : Record<string, string> = {
   number: '数値',
   string: '文字列',
+  nan: '数字ではないもの',
 };
 
 export const zodErrorMapJA =

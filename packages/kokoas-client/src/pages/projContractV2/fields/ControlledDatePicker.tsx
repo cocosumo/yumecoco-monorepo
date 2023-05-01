@@ -7,10 +7,12 @@ export const ControlledDatePicker = ({
   name,
   label,
   disabled = false,
+  width,
 }: {
   name: keyof TypeOfForm
   label?: string,
   disabled?: boolean,
+  width?: string,
 }) => {
 
 
@@ -54,7 +56,9 @@ export const ControlledDatePicker = ({
                 variant={'standard'}
                 error={isShowError}
                 helperText={isShowError ? error.message : ''}
-
+                sx={{
+                  width,
+                }}
               />)}
           />
         );

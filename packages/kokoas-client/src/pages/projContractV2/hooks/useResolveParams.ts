@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { initialForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { useContractById, useProjById } from 'kokoas-client/src/hooksQuery';
+import { convertContractToForm } from '../api/convertContractToForm';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialForm);
@@ -11,18 +12,24 @@ export const useResolveParams = () => {
     contractId: contractIdFromURL,
   } = useURLParams();
 
-
-  const { data: projData } = useProjById(projIdFromURL || '');
+  const { data: contractData } = useContractById(contractIdFromURL || '');
+  const { data: projData } = useProjById(
+    contractData?.projId.value || projIdFromURL || '',
+  );
 
 
 
   useEffect(() => {
 
-    if (contractIdFromURL && projData) {
+    if (contractIdFromURL && projData && contractData) {
+      const {
+        projName,
+      } = projData;
 
       setNewFormVal(prev => ({
         ...prev,
-        contractId: contractIdFromURL,
+        projName: projName.value,
+        ...convertContractToForm(contractData),
       }));
 
     } else if (projIdFromURL && projData) {
@@ -38,8 +45,9 @@ export const useResolveParams = () => {
   }, 
   [
     projIdFromURL, 
-    projData,
     contractIdFromURL,
+    projData,
+    contractData,
   ]);
 
   return { 

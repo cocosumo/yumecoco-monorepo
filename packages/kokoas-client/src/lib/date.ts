@@ -35,6 +35,7 @@ export const toKintoneDateStr = (rawDate: object | Date | string | null, withTim
  * @param kintoneDate
  * @returns {Date | ""} Javascript date object.
  */
-export const parseKintoneDate = (
+export const parseKintoneDate = <T = unknown>(
   kintoneDate: string | undefined | null,
-) => kintoneDate ? parseISO(kintoneDate) : '';
+  emptyVal: T = '' as T,
+): Date | T => kintoneDate ? parseISO(kintoneDate) : emptyVal;

@@ -5,6 +5,7 @@ export * from './useAddressPostalCode';
 export * from './useAddressTowns';
 export * from './useAndpadOrderByProjId';
 export * from './useCommonOptions';
+export * from './useContractById';
 export * from './useContractByProjId';
 export * from './useContracts';
 export * from './useContractsByCustGroupId';

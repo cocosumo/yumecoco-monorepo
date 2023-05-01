@@ -83,15 +83,25 @@ const schema = z.object({
   /** 契約日 */
   contractDate: z.date(),
   
-}).refine((data) => {
-  // Check if payMethod is 振込 and payDestination is not provided
-  if (data.payMethod === '振込' && !data.payDestination) {
-    return false;
-  }
-  return true;
-}, {
-  message: '振込先を入力してください。',
-});
+})
+  .refine(({ payMethod, payDestination }) => {
+    if (payMethod === '振込' && !payDestination) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['payDestination'],
+    message: '振込先を入力してください。',
+  })
+  .refine(({ hasContractAmt, contractAmt }) => {
+    if (hasContractAmt && !contractAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['contractAmt'],
+    message: '契約金を入力してください。',
+  });
 
 
 export type TypeOfForm = z.infer<typeof schema>;

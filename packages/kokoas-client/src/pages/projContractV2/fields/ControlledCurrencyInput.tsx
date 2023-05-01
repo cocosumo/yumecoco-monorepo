@@ -33,24 +33,24 @@ export const ControlledCurrencyInput = ({
         },
         fieldState: {
           error,
-          isDirty,
         },
         
       }) => {
 
         return (
           <NumberCommaField
-            value={value as number}
             label={label}
             inputRef={ref}
+            value={value as string}
             defaultValue={typeof value === 'number' ? (value as number).toLocaleString() : value}
             name={name}
             variant={variant}
             onChange={(v) => {
-              onChange(v);
+              const parsedValue = +v;
+              onChange(isNaN(parsedValue) ? v : parsedValue);
             }}
             onBlur={onBlur}
-            error={!!error && isDirty}
+            error={!!error}
             disabled={disabled}
             placeholder={placeholder}
             helperText={error?.message}

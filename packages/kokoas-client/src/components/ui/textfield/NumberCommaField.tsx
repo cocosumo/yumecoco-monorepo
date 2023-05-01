@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 
 
 
-export type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' | 'value' | 'type'> & UseNumberCommaFieldProps;
+export type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' | 'type'> & UseNumberCommaFieldProps;
 
 
 /**

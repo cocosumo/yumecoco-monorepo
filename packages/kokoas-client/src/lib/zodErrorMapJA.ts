@@ -57,7 +57,7 @@ export const zodErrorMapJA =
           };
         case z.ZodIssueCode.invalid_date:
           return {
-            message: 'Invalid date',
+            message: '日付が無効です。',
           };
         case z.ZodIssueCode.invalid_string:
           if (issue.validation !== 'regex') {

@@ -3,7 +3,7 @@ declare namespace DBContracts {
     initialPayment: kintone.fieldTypes.Number;
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
-    envCompleteDate: kintone.fieldTypes.SingleLineText;
+    envCompleteDate: kintone.fieldTypes.DateTime;
     initialPaymentDate: kintone.fieldTypes.Date;
     interimPaymentDate: kintone.fieldTypes.Date;
     envRecipients: kintone.fieldTypes.SingleLineText;

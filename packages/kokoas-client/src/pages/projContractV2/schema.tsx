@@ -24,7 +24,7 @@ const schema = z.object({
   totalContractAmt: z.number(),
 
   /** 売上原価 */
-  projectCost: z.number().nullable(),
+  projectCost: z.number(),
 
   /** 契約金 */
   hasContractAmt: z.boolean(),
@@ -32,9 +32,9 @@ const schema = z.object({
   contractAmtDate: z.date().nullable(),
 
   /** 着手金 */
-  hasStartAmt: z.boolean(),
-  startAmt: z.number(),
-  startAmtDate: z.date().nullable(),
+  hasInitialAmt: z.boolean(),
+  initialAmt: z.number(),
+  initialAmtDate: z.date().nullable(),
 
   /** 中間金 */
   hasInterimAmt: z.boolean(),
@@ -102,8 +102,8 @@ const schema = z.object({
     path: ['contractAmt'],
     message: '契約金を入力してください。',
   })
-  .refine(({ hasStartAmt, startAmt }) => {
-    if (hasStartAmt && !startAmt) {
+  .refine(({ hasInitialAmt, initialAmt }) => {
+    if (hasInitialAmt && !initialAmt) {
       return false;
     }
     return true;
@@ -150,11 +150,11 @@ const schema = z.object({
   .refine(({
     totalContractAmt,
     contractAmt,
-    startAmt,
+    initialAmt,
     interimAmt,
     finalAmt,
   }) => {
-    if (totalContractAmt !== (contractAmt ?? 0) + (startAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
+    if (totalContractAmt !== (contractAmt ?? 0) + (initialAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
       return false;
     }
     return true;

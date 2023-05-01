@@ -13,9 +13,9 @@ export const initialForm : TypeOfForm = {
   contractAmt: 0,
   contractAmtDate: null,
   
-  hasStartAmt: false,
-  startAmt: 0,
-  startAmtDate: null,
+  hasInitialAmt: false,
+  initialAmt: 0,
+  initialAmtDate: null,
 
   hasInterimAmt: false,
   interimAmt: 0,

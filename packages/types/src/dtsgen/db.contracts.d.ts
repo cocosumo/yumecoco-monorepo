@@ -1,17 +1,17 @@
 declare namespace DBContracts {
   interface Data {
-    initialPayment: kintone.fieldTypes.Number;
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     envCompleteDate: kintone.fieldTypes.DateTime;
-    initialPaymentDate: kintone.fieldTypes.Date;
-    interimPaymentDate: kintone.fieldTypes.Date;
     envRecipients: kintone.fieldTypes.SingleLineText;
+    finalAmtDate: kintone.fieldTypes.Date;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
+    initialAmt: kintone.fieldTypes.Number;
+    interimAmt: kintone.fieldTypes.Number;
     completeDate: kintone.fieldTypes.Date;
     payDestination: kintone.fieldTypes.SingleLineText;
-    finalPayment: kintone.fieldTypes.Number;
+    finalAmt: kintone.fieldTypes.Number;
     payMethod: kintone.fieldTypes.SingleLineText;
     envelopeId: kintone.fieldTypes.SingleLineText;
     contractAmtDate: kintone.fieldTypes.Date;
@@ -19,15 +19,15 @@ declare namespace DBContracts {
     totalContractAmt: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
-    interimPayment: kintone.fieldTypes.Number;
     refundAmt: kintone.fieldTypes.Number;
     systemId: kintone.fieldTypes.SingleLineText;
     hasSubsidy: kintone.fieldTypes.RadioButton;
     projName: kintone.fieldTypes.SingleLineText;
-    finalPaymentDate: kintone.fieldTypes.Date;
+    interimAmtDate: kintone.fieldTypes.Date;
     startDaysAfterContract: kintone.fieldTypes.Number;
     withRefund: kintone.fieldTypes.RadioButton;
     isForPayment: kintone.fieldTypes.RadioButton;
+    initialAmtDate: kintone.fieldTypes.Date;
     projectCost: kintone.fieldTypes.Number;
     subsidyMethod: kintone.fieldTypes.SingleLineText;
     contractAmt: kintone.fieldTypes.Number;

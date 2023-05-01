@@ -4,24 +4,24 @@ import { useFormContext } from 'react-hook-form';
 //import { useNavigate } from 'react-router-dom';
 import { TypeOfForm } from '../schema';
 import { convertToKintone } from '../api/convertToKintone';
+import { useSaveContract } from 'kokoas-client/src/hooksQuery';
 
 export const useSubmitHandler = () => {
   const { handleSubmit } = useFormContext<TypeOfForm>();
   const { setSnackState } = useSnackBar();
-  //const navigate = useNavigate();
+  const { mutateAsync } = useSaveContract();
 
   return () => handleSubmit(
     (data) => {
       // 成功の時
       const kintoneRecord = convertToKintone(data);
-
-      console.log(kintoneRecord);
-
-      setSnackState({
-        open: true,
-        message: '成功しました。（保存処理は開発中です）',
-        severity: 'success',
+      
+      const result = mutateAsync({
+        record: kintoneRecord,
+        recordId: data.contractId ?? '',
       });
+
+      console.log(result);
       
     },
     (errors) => {

@@ -41,6 +41,7 @@ export * from './useProjsByCustGroupId';
 export * from './useProjTypeById';
 export * from './useProjTypes';
 export * from './useSaveAndpadProject';
+export * from './useSaveContract';
 export * from './useSaveCustGroup';
 export * from './useSaveCustomers';
 export * from './useSaveEstimate';

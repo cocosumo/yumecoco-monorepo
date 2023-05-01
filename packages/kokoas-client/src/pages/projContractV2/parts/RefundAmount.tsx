@@ -1,5 +1,4 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
-import { Stack } from '@mui/system';
+import { Checkbox, FormControlLabel, Stack } from '@mui/material';
 import { TypeOfForm } from '../schema';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';

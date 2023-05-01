@@ -1,9 +1,8 @@
-import { Stack } from '@mui/system';
+import { Stack, FormHelperText } from '@mui/material';
 import { PaymentFieldGroup } from '../parts/PaymentFieldGroup';
 import { RefundAmount } from '../parts/RefundAmount';
 import { SubsidyAmount } from '../parts/SubsidyAmount';
 import { blue } from '@mui/material/colors';
-import { FormHelperText } from '@mui/material';
 import { PaymentMethod } from '../parts/PaymentMethod';
 
 export const PaymentSchedule = () => {

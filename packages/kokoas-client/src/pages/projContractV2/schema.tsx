@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
-export const subsidyTypes = ['工事に含む', '顧客に返金'] as const;
-export type SubsidyTypes = typeof subsidyTypes[number];
+export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
+export type SubsidyMethod = typeof subsidyMethods[number];
 
 export const payMethods = ['持参', '集金', '振込'] as const;
 
@@ -59,7 +59,7 @@ const schema = z.object({
   subsidyAmt: z.number(),
   
   /** 補助種類 */
-  subsidyType: z.enum(subsidyTypes),
+  subsidyMethod: z.enum(subsidyMethods),
   
   /** 支払い方法 */
   payMethod: z.enum(payMethods),

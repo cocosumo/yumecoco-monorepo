@@ -62,20 +62,20 @@ export const PaymentFieldGroup = (
 
                   // チェックを入れたら、残額を計算して、金額にセットする
                   const [
-                    startAmt,
+                    initialAmt,
                     interimAmt,
                     contractAmt,
                     finalAmt,
                     totalContractAmt,
                   ] = getValues([
-                    'startAmt', 
+                    'initialAmt', 
                     'interimAmt', 
                     'contractAmt', 
                     'finalAmt', 
                     'totalContractAmt',
                   ]);
 
-                  const amt = (startAmt ?? 0) + (interimAmt ?? 0) + (contractAmt ?? 0) + (finalAmt ?? 0);
+                  const amt = (initialAmt ?? 0) + (interimAmt ?? 0) + (contractAmt ?? 0) + (finalAmt ?? 0);
                   const remainingAmt = totalContractAmt - amt;
 
                   setValue(amtFldName, remainingAmt, { shouldValidate: true });

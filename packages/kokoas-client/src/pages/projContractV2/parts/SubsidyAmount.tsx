@@ -1,6 +1,6 @@
 import { Checkbox, FormControl, FormControlLabel, Radio, RadioGroup, Stack } from '@mui/material';
 import { Controller, useFormContext, useWatch } from 'react-hook-form';
-import { TypeOfForm, subsidyTypes } from '../schema';
+import { TypeOfForm, subsidyMethods } from '../schema';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';
 
 export const SubsidyAmount = () => {
@@ -40,7 +40,7 @@ export const SubsidyAmount = () => {
 
       {/* uncontrolledのやり方だと null　になるので、controlledにする */}
       <Controller
-        name={'subsidyType'}
+        name={'subsidyMethod'}
         control={control}
         render={({
           field: {
@@ -55,7 +55,7 @@ export const SubsidyAmount = () => {
                 {...otherFieldProps}
                 onChange={(_, value) => onChange(value)}
               >
-                {subsidyTypes
+                {subsidyMethods
                   .map((value) => (
                     <FormControlLabel 
                       key={value} 

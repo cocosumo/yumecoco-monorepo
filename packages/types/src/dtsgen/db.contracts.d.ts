@@ -5,6 +5,7 @@ declare namespace DBContracts {
     envCompleteDate: kintone.fieldTypes.DateTime;
     envRecipients: kintone.fieldTypes.SingleLineText;
     finalAmtDate: kintone.fieldTypes.Date;
+    hasRefund: kintone.fieldTypes.RadioButton;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
     initialAmt: kintone.fieldTypes.Number;
@@ -25,7 +26,6 @@ declare namespace DBContracts {
     projName: kintone.fieldTypes.SingleLineText;
     interimAmtDate: kintone.fieldTypes.Date;
     startDaysAfterContract: kintone.fieldTypes.Number;
-    withRefund: kintone.fieldTypes.RadioButton;
     isForPayment: kintone.fieldTypes.RadioButton;
     initialAmtDate: kintone.fieldTypes.Date;
     projectCost: kintone.fieldTypes.Number;

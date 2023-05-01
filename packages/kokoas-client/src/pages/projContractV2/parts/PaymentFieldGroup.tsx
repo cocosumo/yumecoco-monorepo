@@ -26,7 +26,14 @@ export const PaymentFieldGroup = (
     dateFldName, 
   } = fieldNames;
 
-  const { register, control, setValue, getFieldState } = useFormContext<TypeOfForm>();
+  const { 
+    control, 
+    register, 
+    setValue, 
+    resetField,
+    getFieldState,
+    getValues,
+  } = useFormContext<TypeOfForm>();
   const isChecked = useWatch({
     control,
     name: chkFldName,
@@ -41,16 +48,37 @@ export const PaymentFieldGroup = (
           <Checkbox
             {...register(chkFldName, {
               onChange: (e) => {
-                if (!e.target.checked) {
-                  // チェックを外したら、エラーがあればクリアする
-                  const { error: amtFldErr } = getFieldState(amtFldName);
+                if (!e.target.checked) { // チェックを外したら、
+                 
+                  // 金額をクリアする
+                  resetField(amtFldName);
+
+                  // エラーがあれば、日付をクリアする
                   const { error: dateFldErr } = getFieldState(dateFldName);
-                  if (amtFldErr) {
-                    setValue(amtFldName, null, { shouldValidate: true });
-                  }
                   if (dateFldErr) {
-                    setValue(dateFldName, null, { shouldValidate: true });
+                    resetField(dateFldName);
                   }
+                } else {
+
+                  // チェックを入れたら、残額を計算して、金額にセットする
+                  const [
+                    startAmt,
+                    interimAmt,
+                    contractAmt,
+                    finalAmt,
+                    totalContractAmt,
+                  ] = getValues([
+                    'startAmt', 
+                    'interimAmt', 
+                    'contractAmt', 
+                    'finalAmt', 
+                    'totalContractAmt',
+                  ]);
+
+                  const amt = (startAmt ?? 0) + (interimAmt ?? 0) + (contractAmt ?? 0) + (finalAmt ?? 0);
+                  const remainingAmt = totalContractAmt - amt;
+
+                  setValue(amtFldName, remainingAmt, { shouldValidate: true });
                 }
               },
             })}

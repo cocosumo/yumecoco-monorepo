@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 //import { useNavigate } from 'react-router-dom';
 import { TypeOfForm } from '../schema';
+import { convertToKintone } from '../api/convertToKintone';
 
 export const useSubmitHandler = () => {
   const { handleSubmit } = useFormContext<TypeOfForm>();
@@ -10,8 +11,12 @@ export const useSubmitHandler = () => {
   //const navigate = useNavigate();
 
   return () => handleSubmit(
-    () => {
+    (data) => {
       // 成功の時
+      const kintoneRecord = convertToKintone(data);
+
+      console.log(kintoneRecord);
+
       setSnackState({
         open: true,
         message: '成功しました。（保存処理は開発中です）',

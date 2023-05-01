@@ -10,7 +10,6 @@ declare namespace DBContracts {
     uuid: kintone.fieldTypes.SingleLineText;
     initialAmt: kintone.fieldTypes.Number;
     interimAmt: kintone.fieldTypes.Number;
-    completeDate: kintone.fieldTypes.Date;
     payDestination: kintone.fieldTypes.SingleLineText;
     finalAmt: kintone.fieldTypes.Number;
     payMethod: kintone.fieldTypes.SingleLineText;
@@ -19,6 +18,7 @@ declare namespace DBContracts {
     subsidyAmt: kintone.fieldTypes.Number;
     totalContractAmt: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
+    deliveryDate: kintone.fieldTypes.Date;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     refundAmt: kintone.fieldTypes.Number;
     systemId: kintone.fieldTypes.SingleLineText;

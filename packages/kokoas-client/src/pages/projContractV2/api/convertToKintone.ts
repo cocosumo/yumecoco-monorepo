@@ -67,7 +67,19 @@ export const convertToKintone = ({
 
     hasSubsidy: { value: hasSubsidy ? 'はい' : 'いいえ' },
     subsidyAmt: { value: (hasSubsidy ? subsidyAmt : 0).toString() },
-    subsidyMethod: { value: (hasSubsidy ? payMethod : '') },
+    subsidyMethod: { value: subsidyMethod },
+
+    payMethod: { value: payMethod },
+    payDestination: { value: payDestination ?? '' },
+
+    startDate: { value: startDate?.toISOString() ?? '' },
+    startDaysAfterContract: { value: startDaysAfterContractDate?.toString() ?? '' },
+
+    finishDate: { value: finishDate?.toISOString() ?? '' },
+    finishDaysAfterContract: { value: finishDaysAfterContractDate?.toString() ?? '' },
+
+    deliveryDate: { value: deliveryDate?.toISOString() ?? '' },
+    contractDate: { value: contractDate?.toISOString() ?? '' },
     
   };
 

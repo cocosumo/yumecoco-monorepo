@@ -8,12 +8,24 @@ export const useResolveParams = () => {
 
   const {
     projId: projIdFromURL,
+    contractId: contractIdFromURL,
   } = useURLParams();
+
 
   const { data: projData } = useProjById(projIdFromURL || '');
 
+
+
   useEffect(() => {
-    if (projIdFromURL && projData) {
+
+    if (contractIdFromURL && projData) {
+
+      setNewFormVal(prev => ({
+        ...prev,
+        contractId: contractIdFromURL,
+      }));
+
+    } else if (projIdFromURL && projData) {
       const { projName } = projData;
       setNewFormVal(prev => ({
         ...prev,
@@ -25,11 +37,14 @@ export const useResolveParams = () => {
     }
   }, 
   [
-    projIdFromURL, projData,
+    projIdFromURL, 
+    projData,
+    contractIdFromURL,
   ]);
 
   return { 
     newFormVal, 
+
   };
 
 };

@@ -45,7 +45,10 @@ export const FormContract = () => {
         <PageTitle 
           label={`契約${contractId ? '編集' : '作成'}`}
         />
-        <Grid item xs={12} md={4} >
+        <Grid item xs={12} 
+          md={8}
+          lg={4}
+        >
           <SearchProjects
             navigateTo={pages.projContractPreviewV2}
             controllerProps={{

@@ -34,12 +34,11 @@ export const PaymentFieldGroup = (
     getFieldState,
     getValues,
   } = useFormContext<TypeOfForm>();
+  
   const isChecked = useWatch({
     name: chkFldName,
     control,
   });
-
-  console.log(isChecked, chkFldName);
 
   return (
     <Stack direction={'row'} spacing={2} justifyContent={'space-between'}>

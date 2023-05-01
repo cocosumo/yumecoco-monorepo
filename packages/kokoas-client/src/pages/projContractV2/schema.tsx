@@ -108,7 +108,7 @@ const schema = z.object({
     }
     return true;
   }, {
-    path: ['startAmt'],
+    path: ['initialAmt'],
     message: '着手金を入力してください。',
   })
   .refine(({ hasInterimAmt, interimAmt }) => {

@@ -1,4 +1,7 @@
+import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 import { z } from 'zod';
+
+z.setErrorMap(zodErrorMapJA());
 
 export const subsidyTypes = ['工事に含む', '顧客に返金'] as const;
 export type SubsidyTypes = typeof subsidyTypes[number];
@@ -87,7 +90,7 @@ const schema = z.object({
   }
   return true;
 }, {
-  message: 'payDestination is required when payMethod is 振込',
+  message: '振込先を入力してください。',
 });
 
 

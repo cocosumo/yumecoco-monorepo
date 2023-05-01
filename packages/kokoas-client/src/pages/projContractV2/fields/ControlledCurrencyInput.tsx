@@ -33,9 +33,16 @@ export const ControlledCurrencyInput = ({
         },
         fieldState: {
           error,
-          isTouched,
+          isDirty,
         },
+        
       }) => {
+
+        if (error) {
+          console.log('error', error);
+        }
+
+        console.log(isDirty);
 
         return (
           <NumberCommaField
@@ -49,9 +56,10 @@ export const ControlledCurrencyInput = ({
               onChange(v);
             }}
             onBlur={onBlur}
-            error={!!error && isTouched}
+            error={!!error && isDirty}
             disabled={disabled}
             placeholder={placeholder}
+            helperText={error?.message}
           />
         );
       }}

@@ -17,6 +17,11 @@ export const FormInput = () => {
         <CustomerDetails />
       </Grid>
 
+      <PageSubTitle label={'工事情報'} />
+      <Grid item xs={12}>
+        <CustomerDetails />
+      </Grid>
+
       <PageSubTitle label={'合計金額'} />
       <Grid item xs={12}>
         <TotalAmount />

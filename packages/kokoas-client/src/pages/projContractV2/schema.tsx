@@ -146,7 +146,23 @@ const schema = z.object({
   }, {
     path: ['subsidyAmt'],
     message: '補助金を入力してください。',
+  })
+  .refine(({
+    totalContractAmt,
+    contractAmt,
+    startAmt,
+    interimAmt,
+    finalAmt,
+  }) => {
+    if (totalContractAmt !== (contractAmt ?? 0) + (startAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['totalContractAmt'],
+    message: '契約合計金額と契約金、着手金、中間金、最終金の合計が一致しません。',  
   });
+  
   
 
 

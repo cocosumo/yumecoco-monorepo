@@ -21,7 +21,7 @@ export const useCommonOptions = () => {
       setSnackState({
         open: true,
         severity: 'error',
-        message: `エラーが発生しました。${(error).message}`,
+        message: `エラーが発生しました。${(error).message} 。管理者に連絡してください。`,
       });
     },
 

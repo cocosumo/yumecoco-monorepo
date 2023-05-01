@@ -1,3 +1,4 @@
+import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { IContracts } from 'types';
 import { TypeOfForm } from '../schema';
 
@@ -51,16 +52,16 @@ export const convertToKintone = ({
     projectCost: { value: projectCost.toString() },
 
     contractAmt: { value: (hasContractAmt ? contractAmt : 0).toString() },
-    contractAmtDate: { value: (hasContractAmt ? contractAmtDate?.toISOString() ?? '' : '') },
+    contractAmtDate: { value: (hasContractAmt ? toKintoneDateStr(contractAmtDate) : '') },
 
     initialAmt: { value: (hasInitialAmt ? initialAmt : 0).toString() },
-    initialAmtDate: { value: (hasInitialAmt ? initialAmtDate?.toISOString() ?? '' : '') },
+    initialAmtDate: { value: (hasInitialAmt ? toKintoneDateStr(initialAmtDate) : '') },
 
     interimAmt: { value: (hasInterimAmt ? interimAmt : 0).toString() },
-    interimAmtDate: { value: (hasInterimAmt ? interimAmtDate?.toISOString() ?? '' : '') },
+    interimAmtDate: { value: (hasInterimAmt ? toKintoneDateStr(interimAmtDate) : '') },
 
     finalAmt: { value: (hasFinalAmt ? finalAmt : 0).toString() },
-    finalAmtDate: { value: (hasFinalAmt ? finalAmtDate?.toISOString() ?? '' : '') },
+    finalAmtDate: { value: (hasFinalAmt ? toKintoneDateStr(finalAmtDate) : '') },
 
     hasRefund: { value: hasRefund ? 'はい' : 'いいえ' },
     refundAmt: { value: (hasRefund ? refundAmt : 0).toString() },
@@ -72,14 +73,14 @@ export const convertToKintone = ({
     payMethod: { value: payMethod },
     payDestination: { value: payDestination ?? '' },
 
-    startDate: { value: startDate?.toISOString() ?? '' },
+    startDate: { value: toKintoneDateStr(startDate) },
     startDaysAfterContract: { value: startDaysAfterContractDate?.toString() ?? '' },
 
-    finishDate: { value: finishDate?.toISOString() ?? '' },
+    finishDate: { value: toKintoneDateStr(finishDate) },
     finishDaysAfterContract: { value: finishDaysAfterContractDate?.toString() ?? '' },
 
-    deliveryDate: { value: deliveryDate?.toISOString() ?? '' },
-    contractDate: { value: contractDate?.toISOString() ?? '' },
+    deliveryDate: { value: toKintoneDateStr(deliveryDate) },
+    contractDate: { value: toKintoneDateStr(contractDate) },
     
   };
 

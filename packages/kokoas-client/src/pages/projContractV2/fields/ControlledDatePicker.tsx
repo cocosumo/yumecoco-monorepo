@@ -10,6 +10,7 @@ export const ControlledDatePicker = ({
   width,
   variant = 'standard',
   emphasized = false,
+  inputRef,
 }: {
   name: keyof TypeOfForm
   label?: string,
@@ -17,6 +18,7 @@ export const ControlledDatePicker = ({
   width?: string,
   variant?: TextFieldProps['variant'],
   emphasized?: boolean,
+  inputRef?: React.Ref<HTMLInputElement>,
 }) => {
 
 
@@ -44,8 +46,8 @@ export const ControlledDatePicker = ({
         return (
           <JADatePicker
             onChange={onChange}
-            ref={ref}
             value={value || null}
+            ref={ref}
             disablePast
             views={['year', 'month', 'day']}
             disabled={disabled}

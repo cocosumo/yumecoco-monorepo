@@ -20,6 +20,7 @@ export const FormContract = () => {
   const formReturn = useForm<TypeOfForm>({
     defaultValues: newFormVal,
     resolver: zodResolver(schema),
+    
   });
 
   const { contractId, projId } = newFormVal;
@@ -27,14 +28,12 @@ export const FormContract = () => {
   const { 
     control, 
     reset,
-    watch,
   } = formReturn;
 
   useEffect(() => {
     reset({ ...newFormVal });
   }, [reset, newFormVal]);
 
-  console.log(watch());
 
   return (
     <FormProvider {...formReturn}>

@@ -18,7 +18,7 @@ const schema = z.object({
 
   /** 契約のuuid */
   contractId: z.string().uuid()
-    .optional(),
+    .nullable(),
 
   /** 契約合計金額 */
   totalContractAmt: z.number(),
@@ -101,7 +101,53 @@ const schema = z.object({
   }, {
     path: ['contractAmt'],
     message: '契約金を入力してください。',
+  })
+  .refine(({ hasStartAmt, startAmt }) => {
+    if (hasStartAmt && !startAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['startAmt'],
+    message: '着手金を入力してください。',
+  })
+  .refine(({ hasInterimAmt, interimAmt }) => {
+    if (hasInterimAmt && !interimAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['interimAmt'],
+    message: '中間金を入力してください。',
+  })
+  .refine(({ hasFinalAmt, finalAmt }) => {
+    if (hasFinalAmt && !finalAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['finalAmt'],
+    message: '最終金を入力してください。',
+  })
+  .refine(({ hasRefund, refundAmt }) => {
+    if (hasRefund && !refundAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['refundAmt'],
+    message: '返金額を入力してください。',
+  })
+  .refine(({ hasSubsidy, subsidyAmt }) => {
+    if (hasSubsidy && !subsidyAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['subsidyAmt'],
+    message: '補助金を入力してください。',
   });
+  
 
 
 export type TypeOfForm = z.infer<typeof schema>;

@@ -1,6 +1,6 @@
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup, TextField } from '@mui/material';
 import { TypeOfForm, payMethods } from '../schema';
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, useFormContext, useFormState  } from 'react-hook-form';
 
 
 export const PaymentMethod = ({
@@ -10,7 +10,15 @@ export const PaymentMethod = ({
 }) => {
 
   const { control, register } = useFormContext<TypeOfForm>();
-  
+
+  const {
+    errors: {
+      payDestination: payDestinationErr,
+    },
+  } = useFormState({
+    control,
+    name: 'payDestination',
+  });  
 
   return (
 
@@ -69,6 +77,8 @@ export const PaymentMethod = ({
                   mt: 2,
                 }}
                 placeholder='豊田信用金庫　朝日支店'
+                error={!!payDestinationErr}
+                helperText={payDestinationErr?.message}
               />
               
               

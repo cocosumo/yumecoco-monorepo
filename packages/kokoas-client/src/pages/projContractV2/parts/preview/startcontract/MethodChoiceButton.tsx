@@ -1,29 +1,34 @@
 import { Button, FormHelperText, Stack, Typography } from '@mui/material';
+import { ReactNode } from 'react';
 
 export const MethodChoiceButton = ({
   mainLabel,
   secondaryLabel,
   handleClick,
+  startIcon,
 }: {
   mainLabel: string,
   secondaryLabel: string,
-  handleClick: () => void
+  handleClick?: () => void
+  startIcon: ReactNode
 }) => {
   return (
     <Button
       variant='outlined'
       onClick={handleClick}
+      startIcon={startIcon}
+      size='large'
+      fullWidth
+      sx={{
+        justifyContent: 'flex-start',
+        height: '100px',
+      }}
     >
-      <Stack
-        direction={'column'}
-        alignItems={'flex-start'}
-        maxWidth={'300px'}
-      >
+      <Stack ml={2}>
         <Typography
-          sx={{ display: 'inline' }}
-          component="span"
           variant="h6"
           color="text.primary"
+          textAlign={'left'}
         >
           {mainLabel}
         </Typography>

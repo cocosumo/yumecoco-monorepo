@@ -7,7 +7,11 @@ import {
 } from '../api/docusign/contracts/';
 import { ReqDownloadParams } from 'types';
 
-
+/**
+ * 
+ * @param req 
+ * @deprecated 見積もりに依存しているので、廃止されます。
+ */
 export const reqDownloadContract: RequestHandler = async (req, res) => {
   try {
     const {

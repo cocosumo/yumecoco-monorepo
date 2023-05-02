@@ -8,6 +8,8 @@ import { handleTriggers } from '../handleRequest/webhookDocusign/handleTriggers'
 import { reqVoidEnvelope } from '../handleRequest/reqVoidEnvelope';
 import { reqGetSenderView } from '../handleRequest/reqGetSenderView';
 import { reqResendContract } from '../handleRequest/reqResendContract';
+import { docusignEndpoints } from 'libs';
+import { reqDownloadContractV2 } from '../handleRequest/reqDownloadContractV2';
 
 
 const route = router();
@@ -35,6 +37,8 @@ route.post('/contract/resend', reqResendContract);
 route.post('/contract/senderViewUrl', reqGetSenderView);
 
 route.get('/contract/download', reqDownloadContract);
+
+route.get(`/${docusignEndpoints.downloadContract}`, reqDownloadContractV2);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');

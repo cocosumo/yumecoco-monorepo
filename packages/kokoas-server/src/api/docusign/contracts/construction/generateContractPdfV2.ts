@@ -1,4 +1,3 @@
-import { getContractData } from '../../../kintone/getContractData';
 import { grayscale, PDFDocument } from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
@@ -6,6 +5,7 @@ import { drawText } from '../helpers/pdf';
 import { format, parseISO } from 'date-fns';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { getPayMethodX } from './helpers/getPayMethodX';
+import { getContractDataV2 } from 'kokoas-server/src/api/kintone/getContractDataV2';
 
 
 /**
@@ -17,7 +17,7 @@ import { getPayMethodX } from './helpers/getPayMethodX';
  * @returns {Uint8Array} for efficient saving as file.
  */
 export const generateContractPdfV2 = async (
-  contractData : Awaited<ReturnType<typeof getContractData>>,
+  contractData : Awaited<ReturnType<typeof getContractDataV2>>,
   contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
 ) => {
   const {
@@ -27,21 +27,21 @@ export const generateContractPdfV2 = async (
     contractId,
     projName,
     projLocation,
-    projEstimateId,
-    payments,
+    dataId,
     tax,
-    calculatedEstimates: {
-      summary: {
-        totalTaxAmount,
-        totalAmountAfterTax,
-        totalAmountBeforeTax,
-      },
-    },
+    totalTaxAmount,
+    totalContractAmtAfterTax,
+    totalContractAmtBeforeTax,
+
+    /* 支払い */
+    payments,
+
+
     startDate,
     startDaysAfterContract,
     finishDate,
     finishDaysAfterContract,
-    completeDate,
+    deliveryDate,
     contractDate,
     payDestination,
     payMethod,
@@ -64,8 +64,6 @@ export const generateContractPdfV2 = async (
   const existingPdfBytes = await fs.readFile(pdfPath);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
-
-
   const fontData = await fs.readFile(getFont());
 
 
@@ -86,7 +84,7 @@ export const generateContractPdfV2 = async (
   // 工事番号
   drawText(
     firstPage,
-    contractId,
+    dataId,
     {
       x: x1,
       y: 775,
@@ -97,7 +95,7 @@ export const generateContractPdfV2 = async (
   // 見積もり番号
   drawText(
     firstPage,
-    projEstimateId,
+    contractId,
     {
       x: 50,
       y: 45,
@@ -192,7 +190,7 @@ export const generateContractPdfV2 = async (
   /* 工期：着手の契約の日から＿＿日以内 */
   drawText(
     firstPage,
-    startDaysAfterContract,
+    startDaysAfterContract ? String(startDaysAfterContract) : '-',
     {
       x: 299,
       y: 548,
@@ -225,7 +223,7 @@ export const generateContractPdfV2 = async (
   /* 工期：完成の契約の日から＿＿日以内 */
   drawText(
     firstPage,
-    finishDaysAfterContract,
+    finishDaysAfterContract ? String(finishDaysAfterContract) : '-',
     {
       x: 299,
       y: 520,
@@ -241,7 +239,7 @@ export const generateContractPdfV2 = async (
   /* 引渡しの時期、完成の日 */
   drawText(
     firstPage,
-    completeDate ? format(parseISO(completeDate), 'yyyy年MM月dd日') : '-',
+    deliveryDate ? format(parseISO(deliveryDate), 'yyyy年MM月dd日') : '-',
     {
       x: 227,
       y: 506,
@@ -256,7 +254,7 @@ export const generateContractPdfV2 = async (
   /* 請負代金金額 */
   drawText(
     firstPage,
-    `￥ ${Math.round(totalAmountAfterTax || 0).toLocaleString()}`,
+    `￥ ${Math.round(totalContractAmtAfterTax || 0).toLocaleString()}`,
     {
       x: 211,
       y: 493,
@@ -273,7 +271,7 @@ export const generateContractPdfV2 = async (
   /* うち工事価格 */
   drawText(
     firstPage,
-    `￥ ${Math.round(totalAmountBeforeTax || 0).toLocaleString() }`,
+    `￥ ${Math.round(totalContractAmtBeforeTax || 0).toLocaleString() }`,
     {
       x: 214,
       y: 479,

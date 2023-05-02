@@ -54,6 +54,7 @@ export const getContractDataV2 = async (
     initialAmt,
     initialAmtDate,
 
+    interimAmt,
     interimAmtDate,
 
     finalAmt,
@@ -152,6 +153,20 @@ export const getContractDataV2 = async (
     },
   } = await getContractCheckers(storeId.value);
 
+  const parsedTaxRate = +tax.value;
+  const parsedTotalContractAmt = +totalContractAmt.value;
+  const totalContractAmtBeforeTax = parsedTotalContractAmt / (1 + parsedTaxRate);
+  const totalTaxAmount = parsedTotalContractAmt - totalContractAmtBeforeTax;
+
+  /* 支払い予定 */
+
+  const payments : Array<{ paymentAmt: number, paymentDate: string }> = [
+    { paymentAmt: +contractAmt.value, paymentDate: contractAmtDate.value },
+    { paymentAmt: +initialAmt.value, paymentDate: initialAmtDate.value },
+    { paymentAmt: +interimAmt.value, paymentDate: interimAmtDate.value },
+    { paymentAmt: +finalAmt.value, paymentDate: finalAmtDate.value },
+  ];
+
 
   const data = {
 
@@ -167,8 +182,10 @@ export const getContractDataV2 = async (
     }),
 
     /* 契約 */
-    tax: +tax.value * 100,
-    totalContractAmt: +totalContractAmt.value,
+    tax: parsedTaxRate * 100,
+    totalContractAmtAfterTax: parsedTotalContractAmt,
+    totalContractAmtBeforeTax,
+    totalTaxAmount,
     envelopeId: envelopeId.value,
     signMethod: signMethod.value as TSignMethod,
 
@@ -201,17 +218,7 @@ export const getContractDataV2 = async (
     contractDate: contractDate.value ?? '',
 
     /* 支払い */
-    contractAmt: +contractAmt.value,
-    contractAmtDate: contractAmtDate.value,
-
-    initialAmt: +initialAmt.value,
-    initialAmtDate: initialAmtDate.value,
-
-    interimAmt: +initialAmt.value,
-    interimAmtDate: interimAmtDate.value,
-
-    finalAmt: +finalAmt.value,
-    finalAmtDate: finalAmtDate.value,
+    payments,
     payDestination: payDestination.value,
     payMethod: payMethod.value as '持参' | '集金' | '振込',
 

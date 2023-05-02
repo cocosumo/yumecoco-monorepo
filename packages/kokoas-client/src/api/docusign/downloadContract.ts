@@ -1,6 +1,6 @@
 import { baseUrl } from 'config/src/baseUrl';
-import { kintoneProxyWrapper } from 'libs';
-import { reqDownloadContractV2Response } from 'types';
+import { docusignEndpoints, kintoneProxyWrapper } from 'libs';
+import { ApiNodes, reqDownloadContractV2Response } from 'types';
 
 export const downloadContract = async ({
   contractId,
@@ -9,8 +9,9 @@ export const downloadContract = async ({
 }) => {
   if (!contractId) throw new Error('契約番号は設定していません。');
 
+  const apiNode: ApiNodes = 'docusign';
 
-  const endpoint = `${baseUrl}/docusign/contract/download?contractId=${contractId}`;
+  const endpoint = `${baseUrl}/${apiNode}/${docusignEndpoints.downloadContract}?contractId=${contractId}`;
 
   const { data } = await kintoneProxyWrapper({
     url: endpoint,

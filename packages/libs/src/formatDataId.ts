@@ -1,5 +1,5 @@
-export function formatDataId(dataId: string) {
-  if (!dataId) return dataId;
+export function formatDataId(dataId?: string) {
+  if (!dataId) return '';
 
   // Split the dataId string by '-' character
   const parts = dataId.split('-');

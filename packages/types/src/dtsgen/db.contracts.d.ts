@@ -25,6 +25,7 @@ declare namespace DBContracts {
     hasSubsidy: kintone.fieldTypes.RadioButton;
     projName: kintone.fieldTypes.SingleLineText;
     interimAmtDate: kintone.fieldTypes.Date;
+    tax: kintone.fieldTypes.Number;
     startDaysAfterContract: kintone.fieldTypes.Number;
     isForPayment: kintone.fieldTypes.RadioButton;
     initialAmtDate: kintone.fieldTypes.Date;
@@ -32,7 +33,6 @@ declare namespace DBContracts {
     subsidyMethod: kintone.fieldTypes.SingleLineText;
     contractAmt: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;
-    リンク: kintone.fieldTypes.Link;
     startDate: kintone.fieldTypes.Date;
     signMethod: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;

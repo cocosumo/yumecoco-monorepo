@@ -156,10 +156,17 @@ export interface IVoidReq {
   voidedReason: string
 }
 
+/**
+ * @deprecated 見積もりに依存しているので、将来的には削除する。これからReqDownloadContractParamsを使用する
+ */
 export interface ReqDownloadParams {
   userCode: string,
   projEstimateId: string,
   fileType: 'pdf' | 'xlsx',
+}
+
+export interface ReqDownloadContractParams {
+  contractId: string,
 }
 
 export type ReqPreviewParams = {

@@ -1,34 +1,31 @@
 
 import { RequestHandler } from 'express';
-import { Xlsx } from 'exceljs';
-import { getContractData } from '../api/kintone/getContractData';
 import {
-  generateContractXlsx, generateContractPdf,
+  generateContractPdf,
 } from '../api/docusign/contracts/';
-import { ReqDownloadParams } from 'types';
+import { ReqDownloadContractParams } from 'types';
+import { getContractDataV2 } from '../api/kintone/getContractDataV2';
 
-/**
- * 
- * @param req 
- * @deprecated 見積もりに依存しているので、廃止されます。
- */
-export const reqDownloadContract: RequestHandler = async (req, res) => {
+
+export const reqDownloadContractV2: RequestHandler<
+unknown,
+unknown,
+unknown,
+ReqDownloadContractParams
+> = async (req, res) => {
   try {
     const {
-      projEstimateId,
-      userCode = 'RPA03',
-      fileType,
-    } = req.query as unknown as ReqDownloadParams;
+      contractId,
+    } = req.query;
 
-    let file;
+    //let file;
 
-    console.log('reqDownloadContract received', req.query);
+    console.log('reqDownloadContractV2 received', contractId);
 
-    if (!projEstimateId) throw new Error('projEstimateId not defined');
+    if (!contractId) throw new Error('契約IDは指定されていません');
 
-    const contractData = await getContractData({
-      projEstimateId,
-      userCode: userCode,
+    const contractData = await getContractDataV2({
+      contractId,
     });
 
     const {
@@ -36,8 +33,10 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
       envelopeStatus,
     } = contractData;
 
-    console.log('Contract data', projName, envelopeStatus);
-    switch (fileType) {
+    res.json(contractData);
+
+    console.log('Contract data', projName, envelopeStatus); 
+    /*    switch (fileType) {
       case 'xlsx':
         file = await generateContractXlsx(contractData, 'xlsx') as Xlsx;
 
@@ -57,9 +56,9 @@ export const reqDownloadContract: RequestHandler = async (req, res) => {
         });
 
         break;
-    }
-    res.end();
-  } catch (err: any) {
+    } */
+    //res.end();
+  } catch (err) {
     console.error(err?.message);
     res.status(400).send(
       err?.response?.res?.text ?? {

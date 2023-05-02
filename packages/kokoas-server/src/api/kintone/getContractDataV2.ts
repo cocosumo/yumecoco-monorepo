@@ -2,36 +2,34 @@ import {
   getCustGroupById,
   getCustomersByIds,
   getEmployeesByIds,
-  getEstimateById,
   getProjById,
-  calculateEstimateRecord,
+  getContractById,
 } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
 import { addressBuilder, formatDataId } from 'libs';
 import { TAgents, TSignMethod } from 'types';
-import { validateContractData } from './validateContractData';
+import { validateContractData } from './validateContractDataV2';
 
-export type TContractData = Awaited<ReturnType<typeof getContractData>>;
+export type TContractData = Awaited<ReturnType<typeof getContractDataV2>>;
 
 /**
  * Get Contract data across all involved database
  *
  * @param param
- * @param param.projEstimateId 見積番号
+ * @param param.contractId 見積番号
  * @param param.userCode Kintoneのユーザコード
  * @param isValidate Whether to validate or not. Default: false
  * @returns {TContractData} 契約に必要になるデータ
- * @deprecated 見積もりに依存しているので、将来的には削除する。これからgetContractDataV2を使用する
  */
-export const getContractData = async ({
-  projEstimateId,
-} : {
-  projEstimateId: string,
-  userCode: string,
-},
-isValidate = false) => {
-  if (!projEstimateId) throw new Error('Invalid projEstimateId');
+export const getContractDataV2 = async (
+  {
+    contractId,
+  } : {
+    contractId: string,
+  },
+  isValidate = false,
+) => {
 
   /* 会社情報 */
   const {
@@ -42,28 +40,41 @@ isValidate = false) => {
   } = await getCocosumoDetails();
 
   /* 見積情報 */
-  const estimatedRecord = await getEstimateById(projEstimateId);
-  const calculatedEstimates = calculateEstimateRecord({ record: estimatedRecord });
+  const contractRecord = await getContractById(contractId);
 
   const {
-    signMethod,
+    uuid,
     projId,
-    envId,
-    totalPaymentAmt,
-    税: tax,
-    envStatus,
-    支払い,
-    startDate,
-    startDaysAfterContract,
-    finishDate,
-    finishDaysAfterContract,
-    completeDate,
-    contractDate,
+    totalContractAmt,
+    tax,
+    
+    contractAmt,
+    contractAmtDate,
+
+    initialAmt,
+    initialAmtDate,
+
+    interimAmtDate,
+
+    finalAmt,
+    finalAmtDate,
+
     payMethod,
     payDestination,
-    dataId,
-    uuid,
-  } = estimatedRecord;
+
+    startDate,
+    startDaysAfterContract,
+
+    finishDate,
+    finishDaysAfterContract,
+
+    deliveryDate,
+    contractDate,
+    
+    envelopeId,
+    envelopeStatus,
+    signMethod,
+  } = contractRecord;
 
   /* 工事情報 */
   const {
@@ -71,6 +82,7 @@ isValidate = false) => {
     postal: projPostal,
     address1: projAddress1,
     address2: projAddress2,
+    dataId,
   } = await getProjById(projId.value);
 
   /* 顧客情報 */
@@ -123,9 +135,6 @@ isValidate = false) => {
       email: empEmail.value,
     }) );
 
-
-  console.log('cocoAGIds', cocoAGIds);
-
   const {
     /* 店長 */
     storeMgr: {
@@ -144,37 +153,23 @@ isValidate = false) => {
   } = await getContractCheckers(storeId.value);
 
 
-  /* 支払い */
-  const payments = 支払い.value?.map(({ value: {
-    isPayEnabled,
-    paymentAmt,
-    paymentDate,
-    paymentType,
-  } }) => {
-    return {
-      isPayEnabled: Boolean(+isPayEnabled.value),
-      paymentAmt: +paymentAmt?.value || 0,
-      paymentDate: paymentDate?.value || '',
-      paymentType: paymentType?.value || '',
-    };
-  }) ?? [];
-
   const data = {
 
     /* 工事 */
     projId: projId.value,
-    projEstimateId: uuid.value,
-    contractId: formatDataId(dataId.value),
+    contractId: uuid.value,
+    dataId: formatDataId(dataId.value),
     projName: `${storeName.value} ${projName.value}`,
     projLocation: addressBuilder({
       postal: projPostal.value,
       address1: projAddress1.value,
-      address2: projAddress2.value }),
+      address2: projAddress2.value, 
+    }),
 
     /* 契約 */
-    tax: tax.value,
-    contractPrice: totalPaymentAmt.value,
-    envelopeId: envId.value,
+    tax: +tax.value * 100,
+    totalContractAmt: +totalContractAmt.value,
+    envelopeId: envelopeId.value,
     signMethod: signMethod.value as TSignMethod,
 
     /* 顧客 */
@@ -195,23 +190,30 @@ isValidate = false) => {
     mainAccountingEmail: mainAccountingEmail.value,
 
     /* 契約関連 */
-    envelopeStatus: envStatus.value,
+    envelopeStatus: envelopeStatus.value,
 
     /* 工期 */
     startDate: startDate.value,
-    startDaysAfterContract: startDaysAfterContract.value,
+    startDaysAfterContract: +startDaysAfterContract.value,
     finishDate: finishDate.value,
-    finishDaysAfterContract: finishDaysAfterContract.value,
-    completeDate: completeDate.value,
+    finishDaysAfterContract: +finishDaysAfterContract.value,
+    deliveryDate: deliveryDate.value,
     contractDate: contractDate.value ?? '',
 
     /* 支払い */
-    payments,
+    contractAmt: +contractAmt.value,
+    contractAmtDate: contractAmtDate.value,
+
+    initialAmt: +initialAmt.value,
+    initialAmtDate: initialAmtDate.value,
+
+    interimAmt: +initialAmt.value,
+    interimAmtDate: interimAmtDate.value,
+
+    finalAmt: +finalAmt.value,
+    finalAmtDate: finalAmtDate.value,
     payDestination: payDestination.value,
     payMethod: payMethod.value as '持参' | '集金' | '振込',
-
-    /* 計算 */
-    calculatedEstimates,
 
     /* 会社情報 */
     companyAddress: companyAddress.value,

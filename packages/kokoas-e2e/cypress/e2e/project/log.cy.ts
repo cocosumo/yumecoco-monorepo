@@ -24,6 +24,9 @@ describe('log', () => {
         cy.get('@saveBtn').click();
 
         cy.contains('Andpadへ案件更新しますか').should('not.exist');
+        cy.contains('保存が出来ました').should('exist');
+        cy.contains('保存が出来ました').should('not.exist');
+
 
         cy.get('@latestLog').invoke('text')
           .then((text2) => {

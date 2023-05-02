@@ -1,10 +1,10 @@
 import { Alert, Button, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-import PreviewIcon from '@mui/icons-material/Preview';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
 import { useFormState } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { useMemo } from 'react';
+import { PreviewButton } from '../parts/preview/PreviewButton';
 
 export const FormActions = () => {
   const handleSubmit = useSubmitHandler();
@@ -43,14 +43,7 @@ export const FormActions = () => {
         保存
       </Button>
 
-      <Button
-        variant="outlined"
-        size="large"
-        startIcon={<PreviewIcon />}
-        disabled={isDirty}
-      >
-        プレビュー
-      </Button>
+      <PreviewButton disabled={isDirty} />
 
       {errorMessage && (
       <Alert severity="error" >

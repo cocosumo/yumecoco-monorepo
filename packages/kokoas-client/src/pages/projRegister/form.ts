@@ -14,6 +14,12 @@ export interface Remarks {
   remark: string,
 }
 
+export interface Log {
+  dateTime?: Date,
+  log: string,
+  id: string,
+}
+
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
  */
@@ -54,6 +60,8 @@ export const initialValues = {
     noteUpdateTime: new Date(),
     remark: '',
   }] as Remarks[],
+
+  logs: [] as Log[],
 };
 
 export type TypeOfForm = typeof initialValues;

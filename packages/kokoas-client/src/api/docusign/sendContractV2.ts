@@ -1,31 +1,31 @@
 import { ErrorDetails } from 'docusign-esign';
-import { ISendEnvelopeResponse, ReqSendContract } from 'types';
+import { ISendEnvelopeResponse, ReqSendContractParams } from 'types';
 import { baseUrl } from '../../config/settings';
+import { docusignEndpoints } from 'libs';
 
 /**
  * 
  * @param reqData 
- * @deprecated sendContract is deprecated. Use sendContractV2 instead.
  */
-export const sendContract = async (
-  reqData: ReqSendContract,
+export const sendContractV2 = async (
+  reqData: ReqSendContractParams,
 ) : Promise<ISendEnvelopeResponse> => {
 
 
   const {
-    projEstimateId,
+    contractId,
   } = reqData;
 
   try {
 
-    if (!projEstimateId) throw new Error('見積番号は設定されていません。');
+    if (!contractId) throw new Error('契約番号は設定されていません。');
     /**
      * TODO: Endpoints need stronger typing. (Endpointはより安全な型定義が必要)
      *
      * The number of endpoints in our server are expected to increase or change,
      * so we will need to make an SDK for easier maintenance.
      *  */
-    const endpoint = `${baseUrl}/docusign/contract/send/direct`;
+    const endpoint = `${baseUrl}/${docusignEndpoints.sendDirect}`;
 
     const [body, status] = await kintone.proxy(
       endpoint,

@@ -1,5 +1,5 @@
 import { EnvelopeUpdateSummary } from 'docusign-esign';
-import { TEnvelopeStatus } from './docusign';
+import { TEnvelopeStatus, signMethods } from './docusign';
 import { z } from 'zod';
 
 export type TProjReq = {
@@ -127,12 +127,21 @@ export interface ParsedCompanyDetailsDatReport {
   invoiceSystemNumber: string,
 }
 
-
+/**
+ * @deprecated 見積もりに依存しているので、将来的には削除する。これからReqDownloadParamsを使用する
+ */
 export interface ReqSendContract {
   userCode: string,
   projEstimateId: string,
   signMethod?: 'electronic' | 'wetInk',
 }
+
+export const reqSendContractParams = z.object({
+  contractId: z.string(),
+  signMethod: z.enum(signMethods),
+});
+
+export type ReqSendContractParams = z.infer<typeof reqSendContractParams>;
 
 
 export interface ISendEnvelopeResponse {

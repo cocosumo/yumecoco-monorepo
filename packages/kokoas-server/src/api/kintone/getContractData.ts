@@ -29,9 +29,7 @@ export const getContractData = async ({
   projEstimateId: string,
   userCode: string,
 },
-isValidate = false,
-
-) => {
+isValidate = false) => {
   if (!projEstimateId) throw new Error('Invalid projEstimateId');
 
   /* 会社情報 */
@@ -79,6 +77,7 @@ isValidate = false,
     agents,
     members,
     storeId,
+    storeName,
   } = await getCustGroupById(custGroupId.value);
 
 
@@ -165,7 +164,7 @@ isValidate = false,
     projId: projId.value,
     projEstimateId: uuid.value,
     contractId: formatDataId(dataId.value),
-    projName: projName.value,
+    projName: `${storeName.value} ${projName.value}`,
     projLocation: addressBuilder({
       postal: projPostal.value,
       address1: projAddress1.value,
@@ -186,6 +185,7 @@ isValidate = false,
     /* 店長 */
     storeMngrName: managerName.value,
     storeMngrEmail: managerEmail.value,
+    storeName: storeName.value,
 
     /* 経理 */
     accountingName: accountingName.value,

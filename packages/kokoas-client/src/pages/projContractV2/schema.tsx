@@ -18,7 +18,7 @@ const schema = z.object({
 
   /** 契約のuuid */
   contractId: z.string().uuid()
-    .optional(),
+    .nullable(),
 
   /** 契約合計金額 */
   totalContractAmt: z.number(),
@@ -28,35 +28,35 @@ const schema = z.object({
 
   /** 契約金 */
   hasContractAmt: z.boolean(),
-  contractAmt: z.number().nullable(),
+  contractAmt: z.number(),
   contractAmtDate: z.date().nullable(),
 
   /** 着手金 */
   hasStartAmt: z.boolean(),
-  startAmt: z.number().nullable(),
+  startAmt: z.number(),
   startAmtDate: z.date().nullable(),
 
   /** 中間金 */
   hasInterimAmt: z.boolean(),
-  interimAmt: z.number().nullable(),
+  interimAmt: z.number(),
   interimAmtDate: z.date().nullable(),
 
   /** 最終金 */
   hasFinalAmt: z.boolean(),
-  finalAmt: z.number().nullable(),
+  finalAmt: z.number(),
   finalAmtDate: z.date().nullable(),
   
   /** 返金有無 */
   hasRefund: z.boolean(),
   
   /** 返金額 */
-  refundAmt: z.number().nullable(),
+  refundAmt: z.number(),
 
   /** 補助金有無 */
   hasSubsidy: z.boolean(),
 
   /** 補助金 */
-  subsidyAmt: z.number().nullable(),
+  subsidyAmt: z.number(),
   
   /** 補助種類 */
   subsidyType: z.enum(subsidyTypes),
@@ -83,15 +83,87 @@ const schema = z.object({
   /** 契約日 */
   contractDate: z.date(),
   
-}).refine((data) => {
-  // Check if payMethod is 振込 and payDestination is not provided
-  if (data.payMethod === '振込' && !data.payDestination) {
-    return false;
-  }
-  return true;
-}, {
-  message: '振込先を入力してください。',
-});
+})
+  .refine(({ payMethod, payDestination }) => {
+    if (payMethod === '振込' && !payDestination) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['payDestination'],
+    message: '振込先を入力してください。',
+  })
+  .refine(({ hasContractAmt, contractAmt }) => {
+    if (hasContractAmt && !contractAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['contractAmt'],
+    message: '契約金を入力してください。',
+  })
+  .refine(({ hasStartAmt, startAmt }) => {
+    if (hasStartAmt && !startAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['initialAmt'],
+    message: '着手金を入力してください。',
+  })
+  .refine(({ hasInterimAmt, interimAmt }) => {
+    if (hasInterimAmt && !interimAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['interimAmt'],
+    message: '中間金を入力してください。',
+  })
+  .refine(({ hasFinalAmt, finalAmt }) => {
+    if (hasFinalAmt && !finalAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['finalAmt'],
+    message: '最終金を入力してください。',
+  })
+  .refine(({ hasRefund, refundAmt }) => {
+    if (hasRefund && !refundAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['refundAmt'],
+    message: '返金額を入力してください。',
+  })
+  .refine(({ hasSubsidy, subsidyAmt }) => {
+    if (hasSubsidy && !subsidyAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['subsidyAmt'],
+    message: '補助金を入力してください。',
+  })
+  .refine(({
+    totalContractAmt,
+    contractAmt,
+    startAmt,
+    interimAmt,
+    finalAmt,
+  }) => {
+    if (totalContractAmt !== (contractAmt ?? 0) + (startAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['totalContractAmt'],
+    message: '契約合計金額と契約金、着手金、中間金、最終金の合計が一致しません。',  
+  });
+  
+  
 
 
 export type TypeOfForm = z.infer<typeof schema>;

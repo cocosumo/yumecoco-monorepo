@@ -14,7 +14,7 @@ export const useSubmitHandler = () => {
       // 成功の時
       setSnackState({
         open: true,
-        message: '保存しました',
+        message: '成功しました。（保存処理は開発中です）',
         severity: 'success',
       });
       

@@ -20,6 +20,7 @@ export const FormContract = () => {
   const formReturn = useForm<TypeOfForm>({
     defaultValues: newFormVal,
     resolver: zodResolver(schema),
+    
   });
 
   const { contractId, projId } = newFormVal;

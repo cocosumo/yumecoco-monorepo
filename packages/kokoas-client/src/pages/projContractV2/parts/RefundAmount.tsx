@@ -4,7 +4,12 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';
 
 export const RefundAmount = () => {
-  const { register, control } = useFormContext<TypeOfForm>();
+  const { 
+    control, 
+    register,  
+    resetField,
+    getFieldState, 
+  } = useFormContext<TypeOfForm>();
 
   const isChecked = useWatch({
     control,
@@ -17,7 +22,17 @@ export const RefundAmount = () => {
         label={'返金額'}
         control={(
           <Checkbox
-            {...register('hasRefund')}
+            {...register('hasRefund', {
+              onChange: (e) => {
+                if (!e.target.checked) {
+                  // チェックを外したら、エラーがあればクリアする
+                  const { error } = getFieldState('refundAmt');
+                  if (error) {
+                    resetField('refundAmt');
+                  }
+                }
+              },
+            })}
             sx={{
               transform: 'scale(1.5)',
             }}

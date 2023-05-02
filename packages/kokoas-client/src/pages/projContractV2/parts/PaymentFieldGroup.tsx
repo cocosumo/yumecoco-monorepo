@@ -26,7 +26,14 @@ export const PaymentFieldGroup = (
     dateFldName, 
   } = fieldNames;
 
-  const { register, control } = useFormContext<TypeOfForm>();
+  const { 
+    control, 
+    register, 
+    setValue, 
+    resetField,
+    getFieldState,
+    getValues,
+  } = useFormContext<TypeOfForm>();
   const isChecked = useWatch({
     control,
     name: chkFldName,
@@ -39,7 +46,42 @@ export const PaymentFieldGroup = (
         name={chkFldName}
         control={(
           <Checkbox
-            {...register(chkFldName)}
+            {...register(chkFldName, {
+              onChange: (e) => {
+                if (!e.target.checked) { // チェックを外したら、
+                 
+                  // 金額をクリアする
+                  resetField(amtFldName);
+
+                  // エラーがあれば、日付をクリアする
+                  const { error: dateFldErr } = getFieldState(dateFldName);
+                  if (dateFldErr) {
+                    resetField(dateFldName);
+                  }
+                } else {
+
+                  // チェックを入れたら、残額を計算して、金額にセットする
+                  const [
+                    startAmt,
+                    interimAmt,
+                    contractAmt,
+                    finalAmt,
+                    totalContractAmt,
+                  ] = getValues([
+                    'startAmt', 
+                    'interimAmt', 
+                    'contractAmt', 
+                    'finalAmt', 
+                    'totalContractAmt',
+                  ]);
+
+                  const amt = (startAmt ?? 0) + (interimAmt ?? 0) + (contractAmt ?? 0) + (finalAmt ?? 0);
+                  const remainingAmt = totalContractAmt - amt;
+
+                  setValue(amtFldName, remainingAmt, { shouldValidate: true });
+                }
+              },
+            })}
             sx={{
               transform: 'scale(1.5)',
             }}

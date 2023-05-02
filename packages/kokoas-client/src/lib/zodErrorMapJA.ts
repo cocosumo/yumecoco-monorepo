@@ -4,6 +4,7 @@ import { z } from 'zod';
 const types : Record<string, string> = {
   number: '数値',
   string: '文字列',
+  nan: '数字ではないもの',
 };
 
 export const zodErrorMapJA =
@@ -57,7 +58,7 @@ export const zodErrorMapJA =
           };
         case z.ZodIssueCode.invalid_date:
           return {
-            message: 'Invalid date',
+            message: '日付が無効です。',
           };
         case z.ZodIssueCode.invalid_string:
           if (issue.validation !== 'regex') {

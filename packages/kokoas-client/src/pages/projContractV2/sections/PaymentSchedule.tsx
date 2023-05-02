@@ -17,7 +17,7 @@ export const PaymentSchedule = () => {
         fieldNames={{
           chkFldName: 'hasContractAmt',
           amtFldName: 'contractAmt',
-          dateFldName: 'contractDate',
+          dateFldName: 'contractAmtDate',
         }}
         label='契約金'
       />

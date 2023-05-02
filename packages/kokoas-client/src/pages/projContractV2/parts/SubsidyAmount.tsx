@@ -4,7 +4,7 @@ import { TypeOfForm, subsidyTypes } from '../schema';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';
 
 export const SubsidyAmount = () => {
-  const { register, control } = useFormContext<TypeOfForm>();
+  const { register, control, setValue, getFieldState } = useFormContext<TypeOfForm>();
 
   const isChecked = useWatch({
     control,
@@ -16,7 +16,17 @@ export const SubsidyAmount = () => {
         label={'補助金'}
         control={(
           <Checkbox
-            {...register('hasSubsidy')}
+            {...register('hasSubsidy', {
+              onChange: (e) => {
+                if (!e.target.checked) {
+                  // チェックを外したら、エラーがあればクリアする
+                  const { error } = getFieldState('subsidyAmt');
+                  if (error) {
+                    setValue('subsidyAmt', 0, { shouldValidate: true });
+                  }
+                }
+              },
+            })}
             sx={{
               transform: 'scale(1.5)',
             }}

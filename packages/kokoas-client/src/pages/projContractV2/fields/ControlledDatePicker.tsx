@@ -10,6 +10,7 @@ export const ControlledDatePicker = ({
   width,
   variant = 'standard',
   emphasized = false,
+
 }: {
   name: keyof TypeOfForm
   label?: string,
@@ -44,8 +45,8 @@ export const ControlledDatePicker = ({
         return (
           <JADatePicker
             onChange={onChange}
-            ref={ref}
             value={value || null}
+            ref={ref}
             disablePast
             views={['year', 'month', 'day']}
             disabled={disabled}

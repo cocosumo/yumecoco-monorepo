@@ -44,6 +44,7 @@ export const initialForm : TypeOfForm = {
   deliveryDate: null,
   contractDate: new Date(),
   
+  envelopeStatus: '',
 };
 
 

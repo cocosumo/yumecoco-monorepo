@@ -1,4 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
+import { envelopeStatuses } from 'types';
 import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
@@ -85,6 +86,9 @@ const schema = z.object({
 
   /** 契約日 */
   contractDate: z.date(),
+
+  /** エンヴェロープ */
+  envelopeStatus: z.enum(envelopeStatuses),
   
 })
   .refine(({ payMethod, payDestination }) => {

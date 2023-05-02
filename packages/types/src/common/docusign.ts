@@ -1,12 +1,15 @@
 
-export type TEnvelopeStatus =
-| 'sent'
-| 'created'
-| 'completed'
-| 'delivered'
-| 'voiding'
-| 'voided'
-| '' ;
+export const envelopeStatuses = [
+  'sent',
+  'created',
+  'completed',
+  'delivered',
+  'voiding',
+  'voided',
+  '',
+] as const;
+
+export type TEnvelopeStatus = typeof envelopeStatuses[number];
 
 export const roles = {
   officer: '担当者',

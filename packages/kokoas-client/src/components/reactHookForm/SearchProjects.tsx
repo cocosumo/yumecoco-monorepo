@@ -21,11 +21,15 @@ interface BaseFields {
 
 type FormProps<T extends BaseFields> = {
   controllerProps: UseControllerProps<T>;
+  navigateTo?: string,
 };
 
 
 export function SearchProjects<T extends BaseFields>(
-  { controllerProps }: FormProps<T>,
+  { 
+    controllerProps,
+    navigateTo = pages.projEstimate,
+  }: FormProps<T>,
 ) {
 
   const [inputVal, setInputVal] = useState('');
@@ -74,14 +78,14 @@ export function SearchProjects<T extends BaseFields>(
               projName,
             } : null}
             options={options}
-            getOptionLabel={(opt)=> opt.projName}
+            getOptionLabel={(opt)=> opt.projName || ''}
             isOptionEqualToValue={(opt, v) => opt.id === v.id}
             filterOptions={(x) => x}
             onInputChange={(_, val) => {
               setInputVal(val);
             }}
             onChange={(_, opt) => {
-              navigate(`${pages.projEstimate}?${generateParams({
+              navigate(`${navigateTo}?${generateParams({
                 projId: opt?.id,
               })}`);
             }}

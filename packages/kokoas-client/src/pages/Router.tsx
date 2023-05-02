@@ -12,6 +12,7 @@ import { Home } from './@home/Home';
 import { memo } from 'react';
 import { FormContractSearch } from './projContractSearch/FormContractSearch';
 import { UnderDevelopment } from './UnderDevelopment';
+import { FormContract } from './projContractV2/FormContract';
 
 
 
@@ -36,8 +37,12 @@ export const pages = {
   projProspect: '/project/prospect/register',
   projProspectSearch: '/project/prospect/search',
 
+  /** 旧契約 */
   projContractPreview: '/project/contract/preview',
   projContractSearch: 'project/contract/search',
+
+  /** 新契約 */
+  projContractPreviewV2: '/project/contract/preview/v2',
 
   projInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',
@@ -78,6 +83,10 @@ const Router = () => (
     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
     {/* 契約一覧 */}
     <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />
+
+    {/* 新契約 */}
+    <Route path={`${pages.projContractPreviewV2}`} element={<FormContract />} />
+
 
     {/* 入金管理グループ */}
     <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />

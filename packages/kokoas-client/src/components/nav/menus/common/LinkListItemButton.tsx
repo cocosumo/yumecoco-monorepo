@@ -10,7 +10,7 @@ export const LinkListItemButton = ({
   ...others
 }: Omit<ComponentProps<typeof Link>, 'to'> & {
   icon: ReactNode
-  text: string,
+  text: ReactNode,
   to?: string,
   indented?: boolean
 } ) => {

@@ -1,8 +1,8 @@
 import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeMap } from 'api-andpad';
 import { getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
+import { getAddressByPostal } from 'api-kintone/src/postal/getAddressByPostal';
 import { bestStringMatch } from 'kokoas-client/src/lib';
 import { TAgents, TContact } from 'types';
-import { getAddressByPostal } from '../others';
 
 export const convertProjToAndpad = async (projId: string) => {
 
@@ -20,11 +20,11 @@ export const convertProjToAndpad = async (projId: string) => {
 
 
   const {
-    prefecture: projPrefecture,
+    pref: { value: projPrefecture },
   } = await getAddressByPostal(projRec?.postal.value || '') ?? {};
 
   const {
-    prefecture: custPrefecture,
+    pref: { value: custPrefecture },
   } = await getAddressByPostal(firstCust?.postalCode.value || '') ?? {};
 
   if (!projPrefecture) throw new Error('物件の都道府県の取得が失敗しました。');

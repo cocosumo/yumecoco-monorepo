@@ -76,7 +76,7 @@ export const generateContractPdfV2 = async (
   const firstPage = pages[0];
 
   // Common alignments
-  const x1 = 124; // 工事番号
+  const x1 = 130; // 工事番号
   const x2 = 190;
   const x3 = 239;
 

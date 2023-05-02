@@ -18,6 +18,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     storeId,
     作成日時: createTime,
     remarks,
+    log,
   } = projRec;
 
   const cocoConst = agents.value.filter(item => {
@@ -63,6 +64,19 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     postal: postal.value,
     storeId: storeId.value,
     remarks: [initialValues.remarks[0], ...remarksFormatted],
+    logs: log.value.map(({
+      id,
+      value: {
+        logDateTime,
+        logNote,
+      },
+    }) => {
+      return {
+        dateTime: logDateTime.value ? parseISO(logDateTime.value) : undefined,
+        log: logNote.value,
+        id,
+      };
+    }),
   };
 
 };

@@ -175,6 +175,14 @@ export type ReqPreviewParams = {
   userCode: string,
 };
 
+export const reqDownloadContractV2Response = z.object({
+  documents: z.array(z.string()),
+  envelopeStatus: z.string(),
+  envelopeId: z.string(),
+});
+
+export type ReqDownloadContractV2Response = z.infer<typeof reqDownloadContractV2Response>;
+
 export interface IRequestJWTUserTokenResponse {
   body: {
     access_token: string,

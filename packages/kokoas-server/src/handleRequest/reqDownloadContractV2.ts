@@ -1,14 +1,14 @@
 
 import { RequestHandler } from 'express';
 
-import { ReqDownloadContractParams } from 'types';
+import { ReqDownloadContractParams, ReqDownloadContractV2Response } from 'types';
 import { getContractDataV2 } from '../api/kintone/getContractDataV2';
 import { generateContractPdfV2 } from '../api/docusign/contracts';
 
 
 export const reqDownloadContractV2: RequestHandler<
 unknown,
-unknown,
+ReqDownloadContractV2Response,
 unknown,
 ReqDownloadContractParams
 > = async (req, res) => {
@@ -16,8 +16,6 @@ ReqDownloadContractParams
     const {
       contractId,
     } = req.query;
-
-    //let file;
 
     console.log('reqDownloadContractV2 received', contractId);
 
@@ -30,16 +28,18 @@ ReqDownloadContractParams
     const {
       projName,
       envelopeStatus,
+      envelopeId,
     } = contractData;
 
     console.log('Contract data', projName, envelopeStatus); 
 
-    const file = await generateContractPdfV2(contractData, 'base64');
+    const file = await generateContractPdfV2(contractData, 'base64') as string;
     console.log('PDF File generated');
     res.status(200).json( {
       // Array here to accomodate multi-documents in the future
       documents: [file],
       envelopeStatus,
+      envelopeId,
     });
   
     res.end();

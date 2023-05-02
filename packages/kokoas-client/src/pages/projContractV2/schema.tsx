@@ -10,6 +10,9 @@ export const payMethods = ['持参', '集金', '振込'] as const;
 
 const schema = z.object({
 
+  /** 顧客グループ番号 */
+  custGroupId: z.string(),
+
   /** 工事のuuid */
   projId: z.string().uuid(),
 

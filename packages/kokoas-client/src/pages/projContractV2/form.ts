@@ -13,9 +13,9 @@ export const initialForm : TypeOfForm = {
   contractAmt: 0,
   contractAmtDate: null,
   
-  hasStartAmt: false,
-  startAmt: 0,
-  startAmtDate: null,
+  hasInitialAmt: false,
+  initialAmt: 0,
+  initialAmtDate: null,
 
   hasInterimAmt: false,
   interimAmt: 0,
@@ -30,7 +30,7 @@ export const initialForm : TypeOfForm = {
 
   hasSubsidy: false,
   subsidyAmt: 0,
-  subsidyType: '顧客に返金',
+  subsidyMethod: '顧客に返金',
   
   payMethod: '振込',
   payDestination: '豊田信用金庫　朝日支店',

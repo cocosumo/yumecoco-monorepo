@@ -23,9 +23,9 @@ export const PaymentSchedule = () => {
       />
       <PaymentFieldGroup
         fieldNames={{
-          chkFldName: 'hasStartAmt',
-          amtFldName: 'startAmt',
-          dateFldName: 'startAmtDate',
+          chkFldName: 'hasInitialAmt',
+          amtFldName: 'initialAmt',
+          dateFldName: 'initialAmtDate',
         }}
         label='着手金'
       />

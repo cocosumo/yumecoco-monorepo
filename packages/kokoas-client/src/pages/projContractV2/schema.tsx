@@ -3,8 +3,8 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
-export const subsidyTypes = ['工事に含む', '顧客に返金'] as const;
-export type SubsidyTypes = typeof subsidyTypes[number];
+export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
+export type SubsidyMethod = typeof subsidyMethods[number];
 
 export const payMethods = ['持参', '集金', '振込'] as const;
 
@@ -24,7 +24,7 @@ const schema = z.object({
   totalContractAmt: z.number(),
 
   /** 売上原価 */
-  projectCost: z.number().nullable(),
+  projectCost: z.number(),
 
   /** 契約金 */
   hasContractAmt: z.boolean(),
@@ -32,9 +32,9 @@ const schema = z.object({
   contractAmtDate: z.date().nullable(),
 
   /** 着手金 */
-  hasStartAmt: z.boolean(),
-  startAmt: z.number(),
-  startAmtDate: z.date().nullable(),
+  hasInitialAmt: z.boolean(),
+  initialAmt: z.number(),
+  initialAmtDate: z.date().nullable(),
 
   /** 中間金 */
   hasInterimAmt: z.boolean(),
@@ -59,7 +59,7 @@ const schema = z.object({
   subsidyAmt: z.number(),
   
   /** 補助種類 */
-  subsidyType: z.enum(subsidyTypes),
+  subsidyMethod: z.enum(subsidyMethods),
   
   /** 支払い方法 */
   payMethod: z.enum(payMethods),
@@ -102,8 +102,8 @@ const schema = z.object({
     path: ['contractAmt'],
     message: '契約金を入力してください。',
   })
-  .refine(({ hasStartAmt, startAmt }) => {
-    if (hasStartAmt && !startAmt) {
+  .refine(({ hasInitialAmt, initialAmt }) => {
+    if (hasInitialAmt && !initialAmt) {
       return false;
     }
     return true;
@@ -150,11 +150,11 @@ const schema = z.object({
   .refine(({
     totalContractAmt,
     contractAmt,
-    startAmt,
+    initialAmt,
     interimAmt,
     finalAmt,
   }) => {
-    if (totalContractAmt !== (contractAmt ?? 0) + (startAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
+    if (totalContractAmt !== (contractAmt ?? 0) + (initialAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
       return false;
     }
     return true;

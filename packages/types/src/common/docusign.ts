@@ -126,4 +126,5 @@ export interface IConnectEvent {
 
 
 export type IConnectRecipients = IConnectEvent['data']['envelopeSummary']['recipients'];
-export type TSignMethod = 'electronic' | 'wetInk';
+export const signMethods = ['electronic', 'wetInk'] as const;
+export type TSignMethod = typeof signMethods[number];

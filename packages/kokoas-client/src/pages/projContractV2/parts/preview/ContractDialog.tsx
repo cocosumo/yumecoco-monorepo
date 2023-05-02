@@ -1,6 +1,7 @@
 import { Dialog, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { PreviewContent } from './PreviewContent';
+import { PreviewHeader } from './PreviewHeader';
 
 
 
@@ -27,18 +28,14 @@ export const ContractDialog = ({
       open={open}
       onClose={handleClose}
       fullWidth
-      maxWidth={'lg'}
+      maxWidth={'md'}
       disablePortal
       sx={{
         zIndex: 5001, // So it will be above the App bar
       }}
     >
       <DialogTitle>
-        {/*         <PreviewHeader
-          isBusy={formLoading}
-          handleRefetch={handleRefetch}
-          handleClosePreview={handleClose}
-        /> */}
+        <PreviewHeader /> 
         <IconButton
           aria-label="close"
           onClick={handleClose}

@@ -45,6 +45,7 @@ export const convertContractToForm = (
     contractDate,
 
     envelopeStatus,
+    signMethod,
   } = contract;
 
   return {
@@ -91,6 +92,7 @@ export const convertContractToForm = (
     contractDate: parseKintoneDate(contractDate.value, null) || new Date(),
 
     envelopeStatus: envelopeStatus.value as TypeOfForm['envelopeStatus'],
+    signMethod: signMethod.value as TypeOfForm['signMethod'] || 'electronic',
   };
 
 

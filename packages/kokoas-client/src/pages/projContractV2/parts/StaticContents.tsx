@@ -2,10 +2,17 @@ import { Box, Button, LinearProgress, Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { Info } from './Info';
 
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../../Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { useFormContext } from 'react-hook-form';
+import { TypeOfForm } from '../schema';
+
 export const StaticContents = ({
   data,
   buttonLabel,
   isLoading,
+  pageUrl,
 }: {
   data: Array<{
     label: string,
@@ -13,7 +20,15 @@ export const StaticContents = ({
   }>
   buttonLabel: string,
   isLoading?: boolean,
+  pageUrl: typeof pages[keyof typeof pages],
 }) => {
+  const {
+    getValues,
+  } = useFormContext<TypeOfForm>();
+
+  const navigate = useNavigate();
+
+  
   return (
     <Box 
       bgcolor='white'
@@ -30,6 +45,22 @@ export const StaticContents = ({
             ))}
           </Stack>
           <Button
+            onClick={() => {
+              const [
+                projId,
+                contractId,
+                custGroupId,
+              ] = getValues([
+                'projId',
+                'contractId',
+                'custGroupId',
+              ]);
+              navigate(`${pageUrl}?${generateParams({
+                projId,
+                contractId,
+                custGroupId,
+              })}`);
+            }}
             variant='outlined'
             sx={{ mt: 2 }}
           >

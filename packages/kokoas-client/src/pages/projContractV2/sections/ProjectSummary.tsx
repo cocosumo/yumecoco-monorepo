@@ -6,6 +6,7 @@ import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
 import { TAgents } from 'types';
+import { pages } from '../../Router';
 
 export const ProjectSummary = () => {
   const projId = useWatch<TypeOfForm>({
@@ -52,6 +53,7 @@ export const ProjectSummary = () => {
       buttonLabel='工事情報を編集する'
       isLoading={isLoading}
       data={parsedData}
+      pageUrl={pages.projEdit}
     />
   );
 };

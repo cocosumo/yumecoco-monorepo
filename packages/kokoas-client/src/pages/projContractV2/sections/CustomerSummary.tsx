@@ -1,14 +1,16 @@
 
 import { useWatch } from 'react-hook-form';
 import { StaticContents } from '../parts/StaticContents';
-import { TypeOfForm } from '../schema';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
+import { pages } from '../../Router';
+
 
 export const CustomerSummary = () => {
-  
-  const custGroupId = useWatch<TypeOfForm>({
+
+
+  const custGroupId = useWatch({
     name: 'custGroupId',
   });
 
@@ -58,6 +60,7 @@ export const CustomerSummary = () => {
       buttonLabel='顧客情報を編集する'
       data={parsedData}
       isLoading={isLoading}
+      pageUrl={pages.custGroupEdit}
     />
   );
 };

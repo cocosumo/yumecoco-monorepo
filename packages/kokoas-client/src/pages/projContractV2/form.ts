@@ -1,6 +1,7 @@
 import { TypeOfForm } from './schema';
 
 export const initialForm : TypeOfForm = {
+  custGroupId: '',
   projId: '',
   projName: '',
 

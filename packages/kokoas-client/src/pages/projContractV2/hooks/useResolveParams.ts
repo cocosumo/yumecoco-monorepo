@@ -24,20 +24,23 @@ export const useResolveParams = () => {
     if (contractIdFromURL && projData && contractData) {
       const {
         projName,
+        custGroupId,
       } = projData;
 
       setNewFormVal(prev => ({
         ...prev,
         projName: projName.value,
+        custGroupId: custGroupId.value,
         ...convertContractToForm(contractData),
       }));
 
     } else if (projIdFromURL && projData) {
-      const { projName } = projData;
+      const { projName, custGroupId } = projData;
       setNewFormVal(prev => ({
         ...prev,
         projId: projIdFromURL,
         projName: projName.value,
+        custGroupId: custGroupId.value,
       }));
     } else {
       setNewFormVal(initialForm);

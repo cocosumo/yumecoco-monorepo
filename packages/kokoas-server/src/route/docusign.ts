@@ -1,3 +1,4 @@
+import { reqSendContractDirectV2 } from './../handleRequest/reqSendContractDirectV2/reqSendContractDirectV2';
 
 import { Router as router } from 'express';
 import bodyParser from 'body-parser';
@@ -39,7 +40,7 @@ route.post('/contract/senderViewUrl', reqGetSenderView);
 route.get('/contract/download', reqDownloadContract);
 
 route.get(`/${docusignEndpoints.downloadContract}`, reqDownloadContractV2);
-route.post(`/${docusignEndpoints.sendDirect}`, reqDownloadContractV2);
+route.post(`/${docusignEndpoints.sendDirect}`, reqSendContractDirectV2);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');

@@ -1,5 +1,5 @@
 import { ErrorDetails } from 'docusign-esign';
-import { ISendEnvelopeResponse, ReqSendContractParams } from 'types';
+import { ApiNodes, ISendEnvelopeResponse, ReqSendContractParams } from 'types';
 import { baseUrl } from '../../config/settings';
 import { docusignEndpoints } from 'libs';
 
@@ -25,7 +25,8 @@ export const sendContractV2 = async (
      * The number of endpoints in our server are expected to increase or change,
      * so we will need to make an SDK for easier maintenance.
      *  */
-    const endpoint = `${baseUrl}/${docusignEndpoints.sendDirect}`;
+    const apiNode: ApiNodes = 'docusign';
+    const endpoint = [baseUrl, apiNode, docusignEndpoints.sendDirect].join('/');
 
     const [body, status] = await kintone.proxy(
       endpoint,

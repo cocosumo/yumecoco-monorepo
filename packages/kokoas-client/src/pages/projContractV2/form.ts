@@ -37,9 +37,9 @@ export const initialForm : TypeOfForm = {
   payDestination: '豊田信用金庫　朝日支店',
 
   startDate: null,
-  startDaysAfterContractDate: null,
+  startDaysAfterContractDate: 0,
   finishDate: null,
-  finishDaysAfterContractDate: null,
+  finishDaysAfterContractDate: 0,
 
   deliveryDate: null,
   contractDate: new Date(),

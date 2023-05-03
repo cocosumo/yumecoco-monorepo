@@ -1,23 +1,29 @@
 import { DialogContent } from '@mui/material';
-import { useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../../schema';
-import { useContractFilesById } from 'kokoas-client/src/hooksQuery';
+import { useContractFilesById, useKintoneDownloadByFileKey } from 'kokoas-client/src/hooksQuery';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
+import { useIsFetching } from '@tanstack/react-query';
 
-export const PreviewContent = () => {
-  const contractId = useWatch<TypeOfForm>({
-    name: 'contractId',
+export const PreviewContent = ({
+  contractId,
+  selectedFileKey,
+}: {
+  contractId: string,
+  selectedFileKey: string | null,
+}) => {
+  const isFetching = !!useIsFetching();
+  const { data: fileData } = useContractFilesById({ 
+    id: contractId, 
+    enabled: !selectedFileKey,
   });
 
-  const { data, isLoading } = useContractFilesById({ id: contractId as string });
+  const { data: fileB64 } = useKintoneDownloadByFileKey(selectedFileKey || '');
   
   const {
     documents,
-  } = data || {};
+  } = fileData || {};
 
-  const pdfUrl = `data:application/pdf;base64,${documents?.[0]}`;
+  const pdfUrl = `data:application/pdf;base64,${documents?.[0] || fileB64}`;
 
-  
   return (
     <DialogContent
       sx={{
@@ -26,19 +32,17 @@ export const PreviewContent = () => {
         p: 0,
       }}
     >
-      {isLoading && (<Loading />)}
-      {!isLoading && !documents && (
-        'プレビューの生成が失敗しました。管理者にご連絡ください。'
-      )}
-      {!isLoading && documents && (
+      {isFetching && (<Loading />)}
+
+      {!isFetching && (
         <object 
           data={pdfUrl} 
           type="application/pdf" 
           width="100%"
           height='100%'
         />
-
       )}
+
     </DialogContent>
   );
 };

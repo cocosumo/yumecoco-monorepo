@@ -15,16 +15,22 @@ export const StartDialog = ({
 
   const [activeStep, setActiveStep] = useState(0);
 
+  const handleCloseDialog = () => {
+    handleClose();
+    setActiveStep(0);
+  };
+
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={handleCloseDialog}
       fullWidth
       maxWidth={'sm'}
       disablePortal
       sx={{
         zIndex: 5002, // So it will be above the App bar
       }}
+      key={'start-dialog'}
     >
       <DialogTitle sx={{ p: 4 }}>
         <Stepper activeStep={activeStep}>
@@ -41,12 +47,12 @@ export const StartDialog = ({
 
         {activeStep === 0 && (
         <StepConfirmation 
-          handleCancel={handleClose}
+          handleCancel={handleCloseDialog}
           handleYes={() => setActiveStep(prev => prev + 1)}
         />)}
 
         {activeStep === 1 && (
-          <StepChooseSignMethod handleCancel={handleClose} />
+          <StepChooseSignMethod handleCancel={handleCloseDialog} />
         )}
 
       </DialogContent>

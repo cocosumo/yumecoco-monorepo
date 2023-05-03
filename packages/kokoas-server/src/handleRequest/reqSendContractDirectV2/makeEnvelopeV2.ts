@@ -14,11 +14,11 @@ import { generateContractPdfV2 } from './generateContractPdfV2';
  *  */
 
 /*  Test emails */
+const testTantouEmail = 'cocosumo.rpa03@gmail.com'; // 担当
 const testCustEmail = 'lenzras@gmail.com'; // 顧客
-const testTantouEmail = 'yumecoco.rpa05@gmail.com'; // 担当
 const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
-const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
-const testHonKeiriEmail = 'yumecoco.rpa05@gmail.com'; //　本経理
+const testKeiriEmail = 'lenzras@gmail.com'; // 経理
+const testHonKeiriEmail = 'cocosumo.rpa03@gmail.com'; //　本経理
 
 /**
  * 担当者承認　→　全顧客並列でサイン　→　「店長」と「経理」並列承認　→　完了

@@ -1,27 +1,36 @@
-import { Dialog, DialogTitle, IconButton } from '@mui/material';
+import { Chip, Dialog, DialogActions, DialogTitle, IconButton, Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { PreviewContent } from './PreviewContent';
 import { PreviewHeader } from './PreviewHeader';
+import { useContractById } from 'kokoas-client/src/hooksQuery';
+import { useWatch } from 'react-hook-form';
+import { TypeOfForm } from '../../schema';
+import { useState } from 'react';
 
 
 
 export const ContractDialog = ({
   open,
-  //formLoading,
-  //previewUrl,
-  //selectedDoc,
-  //handleRefetch,
   handleClose,
-  //handlePreview,
 }: {
   open: boolean,
-  //formLoading: boolean,
-  //previewUrl: string,
-  //selectedDoc: string,
-  //handleRefetch: () => void,
   handleClose: () => void,
-  //handlePreview: (fileKey: string) => void,
 }) => {
+
+  
+  const contractId = useWatch<TypeOfForm>({
+    name: 'contractId',
+  }) as string;
+  
+  const { data: contractData } = useContractById(contractId);
+  
+  const {
+    envDocFileKeys,
+  } = contractData || {};
+  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value[0].fileKey || null);
+  
+  const hasContractFiles = !!envDocFileKeys;
+
 
   return (
     <Dialog
@@ -50,32 +59,33 @@ export const ContractDialog = ({
         </IconButton>
       </DialogTitle>
 
-      <PreviewContent />
-      {/* <DialogContent
-        sx={{
-          height: '100vh',
-          overflow: 'hidden',
-          p: 0,
-        }}
-      >
-                {!formLoading &&
-        <embed
-          src={previewUrl}
-          width="100%"
-          height='100%'
-        />}
-        {formLoading && <Loading />}
-      </DialogContent> */}
+      <PreviewContent 
+        contractId={contractId} 
+        selectedFileKey={selectedFileKey}
+      />
 
-      {/*       {!formLoading && (
-      <PreviewFooter >
-        <SelectDocuments
-          handlePreview={handlePreview}
-          selectedDoc={selectedDoc}
-        />
-      </PreviewFooter>
-      )} */}
+      <DialogActions>
+        {hasContractFiles && (
+        <Stack direction={'row'} spacing={1} py={1}
+          px={2}
+        >
+          {envDocFileKeys
+            .value
+            .map(({ name, fileKey }) => (
+              <Chip 
+                key={fileKey} 
+                label={name.replace('.pdf', '')} 
+                title={name}
+                size={'small'}
+                onClick={() => setSelectedFileKey(fileKey)}
+                color={selectedFileKey === fileKey ? 'primary' : 'default'}
+              />
+            ))}
+        </Stack>
+        )}
+      </DialogActions>
     </Dialog>
+
   );
 
 };

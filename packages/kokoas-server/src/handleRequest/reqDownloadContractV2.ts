@@ -2,7 +2,7 @@
 import { RequestHandler } from 'express';
 
 import { ReqDownloadContractParams, ReqDownloadContractV2Response } from 'types';
-import { getContractDataV2 } from '../api/kintone/getContractDataV2';
+import { getContractDataV2 } from './reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from '../api/docusign/contracts';
 
 
@@ -23,6 +23,7 @@ ReqDownloadContractParams
 
     const contractData = await getContractDataV2({
       contractId,
+      signMethod: 'electronic',
     });
 
     const {

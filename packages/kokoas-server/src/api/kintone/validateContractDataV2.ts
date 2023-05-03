@@ -1,4 +1,4 @@
-import { TContractData } from './getContractDataV2';
+import { TContractData } from '../../handleRequest/reqSendContractDirectV2/getContractDataV2';
 
 
 export const validateContractData = (data: TContractData) => {

@@ -1,12 +1,12 @@
 import { EnvelopesApi, EnvelopeSummary } from 'docusign-esign';
-import { getContractDataV2 } from 'kokoas-server/src/api/kintone/getContractDataV2';
+import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import {  ReqSendContractParams } from 'types';
-import { apiClient } from '../../../../config';
-import { updateEstimateEnvelope } from '../../../kintone/updateEstimateEnvelope';
-import { getAccountId } from '../../authentication';
+import { apiClient } from '../../config';
+import { getAccountId } from '../../api/docusign/authentication';
 import { makeEnvelopeV2 } from './makeEnvelopeV2';
+import { updateContractEnvelope } from './updateContractEnvelope';
 
-export const processContract = async (
+export const processContractV2 = async (
   params: ReqSendContractParams,
   status: 'created' | 'sent' = 'sent',
 ) => {
@@ -28,7 +28,7 @@ export const processContract = async (
     });
 
     let envSummary: EnvelopeSummary = Object.create(null);
-    const envDocFileKeys: string[] = [];
+    let envDocFileKeys: string[] = [];
 
     if (data.envelopeId) throw new Error(`エンヴェロープはもう存在しています。リロードして解決出来なかったら、お手数ですが、管理者にご連絡ください。 ${data.envelopeId}`);
 
@@ -46,7 +46,7 @@ export const processContract = async (
       console.log(`Updating contractId: ${data.contractId}`);
       const { envelopeId, status: newStatus } = envSummary;
 
-      /*       await updateEstimateEnvelope({
+      await updateContractEnvelope({
         envelopeId: envelopeId,
         envelopeStatus: newStatus ?? 'sent',
         event: 'envelope-sent',
@@ -58,12 +58,13 @@ export const processContract = async (
           };
         }),
         recipients: [],
-        projEstimateId: data.projEstimateId,
+        contractId: data.contractId,
       });
 
-      console.log(`Done updating midumori. ${data.projEstimateId}`);
+      console.log(`Done updating contract. ${data.contractId}`);
+
       envDocFileKeys = envelope
-        .documents?.map((d) => d.documentBase64 ?? '') ?? []; */
+        .documents?.map((d) => d.documentBase64 ?? '') ?? [];
     }
 
 
@@ -72,7 +73,7 @@ export const processContract = async (
       documents: envDocFileKeys,
       accountId,
     };
-  } catch (err: any) {
+  } catch (err) {
     throw new Error(err.message);
   }
 };

@@ -1,18 +1,19 @@
 import { uploadFilesToKintone } from 'api-kintone/src/@file';
-import { IProjestimates, IRecipient, ReqSendContractParams, TConnectEventType } from 'types';
-import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
+import { IContracts, IRecipient, ReqSendContractParams, TConnectEventType } from 'types';
+import { saveContract } from 'api-kintone';
+import { getContractByEnvId } from 'api-kintone/src/contracts/getContractByEnvId';
 
-export const updateEstimateEnvelopeV2 = async ({
+export const updateContractEnvelope = async ({
   envelopeId,
   documents,
   envelopeStatus,
   event,
   recipients,
-  projEstimateId,
+  contractId,
   signMethod,
 } : {
   custGroupId?: string,
-  projEstimateId?: string,
+  contractId?: string,
   signMethod?: ReqSendContractParams['signMethod'],
   envelopeId: string,
   documents: {
@@ -23,13 +24,13 @@ export const updateEstimateEnvelopeV2 = async ({
   event: TConnectEventType,
   recipients: IRecipient[]
 }) => {
-  let recordId = projEstimateId;
+  let recordId = contractId; // uuid of contract record
 
   // Search the id by envelope id,
   if (!recordId) {
     const {
       uuid,
-    } = await getEstimateByEnvId(envelopeId);
+    } = await getContractByEnvId(envelopeId);
     recordId = uuid.value;
   }
 
@@ -48,11 +49,11 @@ export const updateEstimateEnvelopeV2 = async ({
   }
 
   // Generate updated record and attach the file
-  const record : Partial<IProjestimates> = {
-    envId: {
+  const record : Partial<IContracts> = {
+    envelopeId: {
       value: envelopeId,
     },
-    envStatus: {
+    envelopeStatus: {
       value: envelopeStatus,
     },
     envRecipients: {
@@ -90,9 +91,9 @@ export const updateEstimateEnvelopeV2 = async ({
 
   if (!recordId) throw new Error('updateEstimateEnvelope Failed due to missing recordId.');
 
-  /*   const result = await saveEstimate({
+  const result = await saveContract({
     recordId,
     record,
-  }); */
+  }); 
   return result;
 };

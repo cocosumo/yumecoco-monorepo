@@ -6,7 +6,7 @@ import { ReqSendContractParams, roles } from 'types';
 import fs from 'fs/promises';
 import { getFilePath } from 'kokoas-server/src/assets';
 import { isProd } from 'config';
-import { getContractDataV2 } from 'kokoas-server/src/api/kintone/getContractDataV2';
+import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from './generateContractPdfV2';
 /**
  * 参考
@@ -116,7 +116,6 @@ export const makeEnvelopeV2 = async ({
               {
                 anchorString: `c${idx + 1}`,
                 anchorYOffset: '5',
-                scaleValue: '66',
               },
             ],
           },

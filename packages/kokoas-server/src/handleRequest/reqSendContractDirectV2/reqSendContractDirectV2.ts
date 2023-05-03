@@ -4,9 +4,8 @@ import {
   TEnvelopeStatus, 
   ReqSendContractParams, 
 } from 'types';
-import {
-  processContract,
-} from '../api/docusign/contracts/construction/processContract';
+import { processContractV2 } from './processContractV2';
+
 
 /**
  * Send contract directly without opening an intermediary link
@@ -28,14 +27,15 @@ ReqSendContractParams
 
   try {
     if (!contractId) {
-      throw new Error('契約番号は存在していません。');
+      throw new Error('契約番号は存在していません。管理者にお問い合わせください。');
     }
 
-    if (!userCode ) {
-      throw new Error('ユーザは存在していません。');
+    if (!signMethod) {
+      throw new Error('署名方法は指定していません。管理者にお問い合わせください。');
     }
 
-    const result = await processContract(body, 'sent');
+
+    const result = await processContractV2(req.body, 'sent');
     const {
       documents,
       envelopeSummary: {

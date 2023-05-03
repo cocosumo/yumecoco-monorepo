@@ -8,6 +8,7 @@ import {
  * Send contract directly without opening an intermediary link
  * @param req
  * @param res
+ * @deprecated along with other code related to midumori.
  */
 export const reqSendContractDirect: RequestHandler = async (req, res) => {
   const body: ReqSendContract = req.body;
@@ -54,6 +55,7 @@ export const reqSendContractDirect: RequestHandler = async (req, res) => {
     res.status(400).send(
       err?.response?.res?.text ?? {
         message: err?.message,
-      });
+      },
+    );
   }
 };

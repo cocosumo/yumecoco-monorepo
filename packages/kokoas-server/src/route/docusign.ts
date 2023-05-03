@@ -39,6 +39,7 @@ route.post('/contract/senderViewUrl', reqGetSenderView);
 route.get('/contract/download', reqDownloadContract);
 
 route.get(`/${docusignEndpoints.downloadContract}`, reqDownloadContractV2);
+route.post(`/${docusignEndpoints.sendDirect}`, reqDownloadContractV2);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');

@@ -52,7 +52,7 @@ export const StartDialog = ({
         />)}
 
         {activeStep === 1 && (
-          <StepChooseSignMethod handleCancel={handleCloseDialog} />
+          <StepChooseSignMethod handleClose={handleCloseDialog} />
         )}
 
       </DialogContent>

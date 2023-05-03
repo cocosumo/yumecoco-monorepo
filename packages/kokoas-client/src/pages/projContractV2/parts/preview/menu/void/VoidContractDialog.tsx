@@ -51,7 +51,6 @@ export const VoidContractDialog = ({
         {activeStep === 1 && (
           <StepReason 
             handleCloseDialog={handleCloseDialog}
-            handleNext={handleNext}
           />
         )}
       </DialogContent>

@@ -33,9 +33,6 @@ export const ContractDialog = ({
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
 
-  
-  console.log('selctedFileKey: ', selectedFileKey);
-
   return (
     <Dialog
       open={open}
@@ -46,6 +43,8 @@ export const ContractDialog = ({
       sx={{
         zIndex: 5001, // So it will be above the App bar
       }}
+      keepMounted={false}
+      
     >
       <DialogTitle>
         <PreviewHeader /> 

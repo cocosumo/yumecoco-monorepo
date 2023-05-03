@@ -9,22 +9,24 @@ import { TSignMethod } from 'types';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 
 export const StepChooseSignMethod = ({
-  handleCancel,
+  handleClose,
 } : {
-  handleCancel: () => void
+  handleClose: () => void
 }) => {
   const {
     getValues,
   } = useFormContext<TypeOfForm>();
 
   const {
-    mutate,
+    mutateAsync,
     isLoading,
   } = useSendContract();
 
-  const handleSendContract = (signMethod: TSignMethod) => {
+  const handleSendContract = async (signMethod: TSignMethod) => {
     const contractId = getValues('contractId') as string;
-    mutate({ contractId, signMethod });
+    await mutateAsync({ contractId, signMethod });
+
+    handleClose();
   };
 
   if (isLoading) {
@@ -60,7 +62,7 @@ export const StepChooseSignMethod = ({
         <Button
           color='error'
           variant='outlined'
-          onClick={handleCancel}
+          onClick={handleClose}
         >
           キャンセル
         </Button>

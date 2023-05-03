@@ -25,7 +25,6 @@ export const PreviewContent = ({
 
   const pdfUrl = `data:application/pdf;base64,${fileB64 || documents?.[0] }`;
 
-  console.log('selectedFileKeyContent: ', selectedFileKey);
   return (
     <DialogContent
       sx={{

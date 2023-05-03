@@ -27,11 +27,15 @@ export const ContractDialog = ({
   const {
     envDocFileKeys,
   } = contractData || {};
-  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value[0].fileKey || null);
+
+  console.log(envDocFileKeys);
+
+
+  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
   
-  const hasContractFiles = !!envDocFileKeys;
+  const hasContractFiles = !!envDocFileKeys?.value.length;
 
-
+  console.log(envDocFileKeys);
   return (
     <Dialog
       open={open}

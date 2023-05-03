@@ -8,7 +8,6 @@ import { StartContract } from './startcontract/StartContract';
 
 
 export const PreviewHeader = () => {
-
   const envelopeStatus = useWatch<TypeOfForm>({
     name: 'envelopeStatus',
   });

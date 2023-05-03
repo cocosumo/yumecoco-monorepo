@@ -1,11 +1,12 @@
-import { Chip, Dialog, DialogActions, DialogTitle, IconButton, Stack } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Chip, Dialog, DialogActions, DialogTitle, Stack } from '@mui/material';
 import { PreviewContent } from './PreviewContent';
 import { PreviewHeader } from './PreviewHeader';
 import { useContractById } from 'kokoas-client/src/hooksQuery';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { useState } from 'react';
+import { DialogCloseButton } from 'kokoas-client/src/components';
+import { ContractActionMenu } from './menu/ContractActionMenu';
 
 
 
@@ -28,14 +29,10 @@ export const ContractDialog = ({
     envDocFileKeys,
   } = contractData || {};
 
-  console.log(envDocFileKeys);
-
-
   const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
 
-  console.log(envDocFileKeys);
   return (
     <Dialog
       open={open}
@@ -49,18 +46,7 @@ export const ContractDialog = ({
     >
       <DialogTitle>
         <PreviewHeader /> 
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>
 
       <PreviewContent 
@@ -70,8 +56,12 @@ export const ContractDialog = ({
 
       <DialogActions>
         {hasContractFiles && (
-        <Stack direction={'row'} spacing={1} py={1}
+        <Stack 
+          direction={'row'} 
+          spacing={1} 
+          py={1}
           px={2}
+          alignItems={'center'}
         >
           {envDocFileKeys
             .value
@@ -85,6 +75,7 @@ export const ContractDialog = ({
                 color={selectedFileKey === fileKey ? 'primary' : 'default'}
               />
             ))}
+          <ContractActionMenu /> 
         </Stack>
         )}
       </DialogActions>

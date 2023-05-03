@@ -34,6 +34,7 @@ export const ContractDialog = ({
   const hasContractFiles = !!envDocFileKeys?.value.length;
 
   
+  console.log('selctedFileKey: ', selectedFileKey);
 
   return (
     <Dialog

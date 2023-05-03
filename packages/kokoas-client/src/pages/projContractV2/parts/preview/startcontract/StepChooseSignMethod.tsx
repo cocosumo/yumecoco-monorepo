@@ -6,6 +6,7 @@ import { useSendContract } from 'kokoas-client/src/hooksQuery';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
 import { TSignMethod } from 'types';
+import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 
 export const StepChooseSignMethod = ({
   handleCancel,
@@ -17,13 +18,20 @@ export const StepChooseSignMethod = ({
   } = useFormContext<TypeOfForm>();
 
   const {
-    mutateAsync,
+    mutate,
+    isLoading,
   } = useSendContract();
 
-  const handleSendContract = async (signMethod: TSignMethod) => {
+  const handleSendContract = (signMethod: TSignMethod) => {
     const contractId = getValues('contractId') as string;
-    mutateAsync({ contractId, signMethod });
+    mutate({ contractId, signMethod });
   };
+
+  if (isLoading) {
+    return (
+      <Loading />
+    );
+  }
 
 
   return (

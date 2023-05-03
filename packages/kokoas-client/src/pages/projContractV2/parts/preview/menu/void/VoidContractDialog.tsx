@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { StepConfirmation } from './StepConfirmation';
 import { StepReason } from './StepReason';
 
-const steps = ['確認', '理由記入', '無効化中'];
+const steps = ['確認', '理由記入'];
 
 export const VoidContractDialog = ({
   open,

@@ -12,17 +12,21 @@ export const StepReason = ({
   handleNext: () => void
 }) => {
   const [value, setValue] = useState('');
-  const { mutateAsync } = useVoidContract();
+  const { mutate } = useVoidContract();
   const envelopeId = useWatch<TypeOfForm>({
     name: 'envelopeId',
   }) as string;
 
   const handleVoid = async () => {
-    await mutateAsync({
+    mutate({
       envelopeId,
       voidedReason: `${kintone.getLoginUser().name} : ${value.trim()}`,
+    }, {
+      onSuccess: () => {
+        console.log('triggered onSuccess');
+        handleNext();
+      },
     });
-    handleNext();
   };
 
   if (!envelopeId) return (

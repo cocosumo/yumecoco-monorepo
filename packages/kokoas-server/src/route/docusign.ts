@@ -11,6 +11,7 @@ import { reqGetSenderView } from '../handleRequest/reqGetSenderView';
 import { reqResendContract } from '../handleRequest/reqResendContract';
 import { docusignEndpoints } from 'libs';
 import { reqDownloadContractV2 } from '../handleRequest/reqDownloadContractV2';
+import { reqVoidEnvelopeV2 } from '../handleRequest/reqVoidEnvelopeV2';
 
 
 const route = router();
@@ -41,6 +42,7 @@ route.get('/contract/download', reqDownloadContract);
 
 route.get(`/${docusignEndpoints.downloadContract}`, reqDownloadContractV2);
 route.post(`/${docusignEndpoints.sendDirect}`, reqSendContractDirectV2);
+route.post(`/${docusignEndpoints.void}`, reqVoidEnvelopeV2);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');

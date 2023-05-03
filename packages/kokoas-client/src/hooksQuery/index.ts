@@ -59,3 +59,4 @@ export * from './useStores';
 export * from './useSystemUpdate';
 export * from './useUploadDaikokuEst';
 export * from './useUploadDaikokuGenka';
+export * from './useVoidContract';

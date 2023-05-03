@@ -33,6 +33,8 @@ export const ContractDialog = ({
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
 
+  
+
   return (
     <Dialog
       open={open}
@@ -51,7 +53,7 @@ export const ContractDialog = ({
 
       <PreviewContent 
         contractId={contractId} 
-        selectedFileKey={selectedFileKey}
+        selectedFileKey={hasContractFiles ? selectedFileKey : null}
       />
 
       <DialogActions>

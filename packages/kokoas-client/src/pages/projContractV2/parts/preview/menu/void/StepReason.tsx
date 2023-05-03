@@ -1,5 +1,8 @@
 import { Alert, Button, Stack, TextField } from '@mui/material';
+import { useVoidContract } from 'kokoas-client/src/hooksQuery';
+import { TypeOfForm } from 'kokoas-client/src/pages/projContractV2/schema';
 import { useState } from 'react';
+import { useWatch } from 'react-hook-form';
 
 export const StepReason = ({
   handleCloseDialog,
@@ -9,6 +12,24 @@ export const StepReason = ({
   handleNext: () => void
 }) => {
   const [value, setValue] = useState('');
+  const { mutateAsync } = useVoidContract();
+  const envelopeId = useWatch<TypeOfForm>({
+    name: 'envelopeId',
+  }) as string;
+
+  const handleVoid = async () => {
+    await mutateAsync({
+      envelopeId,
+      voidedReason: `${kintone.getLoginUser().name} : ${value.trim()}`,
+    });
+    handleNext();
+  };
+
+  if (!envelopeId) return (
+    <Alert severity="error">
+      エンベロープIDがありません。管理者にご連絡ください。
+    </Alert>
+  );
 
 
   return (
@@ -32,11 +53,13 @@ export const StepReason = ({
         <Button
           color='error'
           variant='contained'
-          onClick={handleNext}
+          onClick={handleVoid}
+          disabled={!value.trim() || !envelopeId}
         >
           無効にする
         </Button>
       </Stack>
+      
     </Stack>
   );
 };

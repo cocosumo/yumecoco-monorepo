@@ -1,5 +1,6 @@
-import { IProjestimates } from 'types';
-import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
+import { IContracts } from 'types';
+import { saveContract } from 'api-kintone';
+import { getContractByEnvId } from 'api-kintone/src/contracts/getContractByEnvId';
 
 
 /**
@@ -14,18 +15,18 @@ export const voidEnvelopeV2 = async (envelopeId: string) => {
   const {
     uuid,
     voidedEnvelopes,
-  } = await getEstimateByEnvId(envelopeId);
+  } = await getContractByEnvId(envelopeId);
   console.log(`Voiding envelope id: ${envelopeId}`);
 
   // Other values are cleared at the frontend.
   // This might be faulty so I might have to rethink this flow.
-  const record : Partial<IProjestimates> = {
-    envId: { value: '' },
+  const record : Partial<IContracts> = {
+    envelopeId: { value: '' },
     envDocFileKeys: {
       type: 'FILE',
       value: [] as kintone.fieldTypes.File['value'], 
     }, // Remove attached files
-    envStatus: { value: '' },
+    envelopeStatus: { value: '' },
     envRecipients: { value: '' },
     voidedEnvelopes: {
       value: [
@@ -35,7 +36,7 @@ export const voidEnvelopeV2 = async (envelopeId: string) => {
 
   };
 
-  const result = await saveEstimate({
+  const result = await saveContract({
     recordId: uuid.value,
     record,
   });

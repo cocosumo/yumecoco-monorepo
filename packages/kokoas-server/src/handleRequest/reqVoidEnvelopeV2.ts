@@ -1,7 +1,8 @@
 import { RequestHandler } from 'express';
-import { IProjestimates, IVoidReq, IVoidRes } from 'types';
+import { IContracts, IVoidReq, IVoidRes } from 'types';
 import { voidEnvelope } from '../api/docusign';
-import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
+import { saveContract } from 'api-kintone';
+import { getContractByEnvId } from 'api-kintone/src/contracts/getContractByEnvId';
 
 /**
  * Request handler for voiding envelope
@@ -9,9 +10,8 @@ import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
  * @param req
  * @param {IVoidReq} req.body envelopeId, and voidedReason
  * @param res
- * @deprecated 見積もりに関係するものは不要になります
  */
-export const reqVoidEnvelope : RequestHandler = async (
+export const reqVoidEnvelopeV2 : RequestHandler = async (
   req, res,
 ) => {
   try {
@@ -28,15 +28,18 @@ export const reqVoidEnvelope : RequestHandler = async (
 
     const {
       uuid,
-    } = await getEstimateByEnvId(envelopeId);
+    } = await getContractByEnvId(envelopeId);
     console.log(`Voiding envelope id: ${envelopeId}`);
 
-    const record : Partial<IProjestimates> = {
-      envDocFileKeys: { value: [] } as any, // Remove attached files
-      envStatus: { value: 'voiding' },
+    const record : Partial<IContracts> = {
+      envDocFileKeys: { 
+        type: 'FILE',
+        value: [] as  kintone.fieldTypes.File['value'], 
+      }, // Remove attached files
+      envelopeStatus: { value: 'voiding' },
     };
 
-    await saveEstimate({
+    await saveContract({
       recordId: uuid.value,
       record,
     });

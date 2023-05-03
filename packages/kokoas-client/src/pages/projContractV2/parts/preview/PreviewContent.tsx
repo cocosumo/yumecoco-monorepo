@@ -11,6 +11,7 @@ export const PreviewContent = ({
   selectedFileKey: string | null,
 }) => {
   const isFetching = !!useIsFetching();
+  
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
     enabled: !selectedFileKey,

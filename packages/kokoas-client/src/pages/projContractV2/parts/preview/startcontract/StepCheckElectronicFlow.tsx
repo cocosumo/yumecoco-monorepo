@@ -64,12 +64,6 @@ export const StepCheckElectronicFlow = ({
         email: firstAgent?.value.email.value ?? '',
       },
     },
-    {
-      id: 'custGroupNode',
-      position: { x: 140, y: 125 },
-      type: 'circleNode',
-      data: { labe: null },
-    },
 
     ...members?.value.map((member, index) => {
       const custEmail = customersData
@@ -121,13 +115,6 @@ export const StepCheckElectronicFlow = ({
     },
 
     {
-      id: 'finalNode',
-      position: { x: 140, y: 525 },
-      type: 'circleNode',
-      data: { labe: null },
-    },
-
-    {
       id: 'mainAccounting',
       position: { x: 0, y: 600 },
       type: 'roleNode',
@@ -149,26 +136,19 @@ export const StepCheckElectronicFlow = ({
   ];
 
   const edges: Edge[] = [
-    { id: 'tantou-custGroupNode', source: 'tantou', target: 'custGroupNode', animated: true },
     ...nodes.filter(({ id }) => id.includes('member'))
-      .map(({ id }) => ({ id: `custGroupNode-${id}`, source: 'custGroupNode', target: id, animated: true })),
+      .map(({ id }) => ({ id: `tantou-${id}`, source: 'tantou', target: id, animated: true })),
     ...nodes.filter(({ id }) => id.includes('member'))
       .map(({ id }) => ({ id: `${id}-checkersNode`, source: id, target: 'checkersNode', animated: true })),
     { id: 'checkersNode-storeMgr', source: 'checkersNode', target: 'storeMgr', animated: true },
     { id: 'checkersNode-accounting', source: 'checkersNode', target: 'accounting', animated: true },
 
-    { id: 'accounting-finalNode', source: 'accounting', target: 'finalNode', animated: true },
-    { id: 'storeMgr-finalNode', source: 'storeMgr', target: 'finalNode', animated: true },
-
-    { id: 'finalNode-accounting', source: 'finalNode', target: 'mainAccounting', animated: true },
-    { id: 'finalNode-storeMgr', source: 'finalNode', target: 'mainAccounting', animated: true },
+    { id: 'accounting-mainAccounting', source: 'accounting', target: 'mainAccounting', animated: true },
+    { id: 'storeMgr-mainAccounting', source: 'storeMgr', target: 'mainAccounting', animated: true },
 
     { id: 'mainAccounting-completed', source: 'mainAccounting', target: 'completed', animated: true },
 
   ];
-
-  console.log('triggered');
-
 
   return (
     <>

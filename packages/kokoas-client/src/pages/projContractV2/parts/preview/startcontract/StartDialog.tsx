@@ -2,9 +2,14 @@ import { Dialog, DialogContent, DialogTitle, Step, StepLabel, Stepper } from '@m
 import { useState } from 'react';
 import { StepConfirmation } from './StepConfirmation';
 import { StepChooseSignMethod } from './StepChooseSignMethod';
-import { StepCheckFlow } from './StepCheckFlow';
+import { TSignMethod } from 'types';
+import { StepCheckElectronicFlow } from './StepCheckElectronicFlow';
+import { useSendContract } from 'kokoas-client/src/hooksQuery';
+import { useFormContext } from 'react-hook-form';
+import { TypeOfForm } from '../../../schema';
+import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 
-const steps = ['契約日確認', '署名手法', '送信済'];
+const steps = ['契約日確認', '署名手法', '送信前確認'];
 
 export const StartDialog = ({
   open,
@@ -13,12 +18,32 @@ export const StartDialog = ({
   open: boolean
   handleClose: () => void
 }) => {
-
+  const [method, setMethod] = useState<TSignMethod>('electronic');
   const [activeStep, setActiveStep] = useState(0);
+  const {
+    getValues,
+  } = useFormContext<TypeOfForm>();
+
+  const {
+    mutateAsync,
+    isLoading,
+  } = useSendContract();
+
+  const handleSendContract = async () => {
+    const contractId = getValues('contractId') as string;
+    await mutateAsync({ contractId, signMethod: method });
+
+    handleClose();
+  };
 
   const handleCloseDialog = () => {
     handleClose();
     setActiveStep(0);
+  };
+
+  const handleChooseMethod = (selectedMethod: TSignMethod) => {
+    setMethod(selectedMethod);
+    setActiveStep(prev => prev + 1);
   };
 
   return (
@@ -47,15 +72,25 @@ export const StartDialog = ({
       <DialogContent>
 
         {activeStep === 0 && (
-          <StepCheckFlow />
-        /*         <StepConfirmation 
+        <StepConfirmation 
           handleCancel={handleCloseDialog}
           handleYes={() => setActiveStep(prev => prev + 1)}
-        /> */
+        /> 
         )}
 
         {activeStep === 1 && (
-          <StepChooseSignMethod handleClose={handleCloseDialog} />
+          <StepChooseSignMethod handleChooseMethod={handleChooseMethod} handleClose={handleCloseDialog} />
+        )}
+
+        {!isLoading && activeStep === 2 && method === 'electronic' && (
+          <StepCheckElectronicFlow 
+            handleSendContract={handleSendContract}
+            handleCancel={handleCloseDialog}
+          />
+        )}
+
+        {isLoading && activeStep === 2 && (
+          <Loading />
         )}
 
       </DialogContent>

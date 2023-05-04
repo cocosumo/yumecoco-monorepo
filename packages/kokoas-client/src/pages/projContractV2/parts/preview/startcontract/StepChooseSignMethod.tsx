@@ -2,38 +2,16 @@ import { Box, Button, Stack } from '@mui/material';
 import { MethodChoiceButton } from './MethodChoiceButton';
 import { BiChip } from '@react-icons/all-files/bi/BiChip';
 import { FaFileSignature } from '@react-icons/all-files/fa/FaFileSignature';
-import { useSendContract } from 'kokoas-client/src/hooksQuery';
-import { useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../../../schema';
 import { TSignMethod } from 'types';
-import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 
 export const StepChooseSignMethod = ({
   handleClose,
+  handleChooseMethod,
 } : {
-  handleClose: () => void
+  handleClose: () => void,
+  handleChooseMethod: (signMethod: TSignMethod) => void,
 }) => {
-  const {
-    getValues,
-  } = useFormContext<TypeOfForm>();
 
-  const {
-    mutateAsync,
-    isLoading,
-  } = useSendContract();
-
-  const handleSendContract = async (signMethod: TSignMethod) => {
-    const contractId = getValues('contractId') as string;
-    await mutateAsync({ contractId, signMethod });
-
-    handleClose();
-  };
-
-  if (isLoading) {
-    return (
-      <Loading />
-    );
-  }
 
 
   return (
@@ -44,14 +22,14 @@ export const StepChooseSignMethod = ({
       <MethodChoiceButton
         mainLabel='電子手続き'
         secondaryLabel='顧客と担当者が電子サインしたら、店長と経理が最終確認を行います。'
-        handleClick={()=> handleSendContract('electronic')}
+        handleClick={()=> handleChooseMethod('electronic')}
         startIcon={<BiChip size={30} />}
       />
 
       <MethodChoiceButton
         mainLabel='紙印刷'
         secondaryLabel='担当者が印刷し、サインが出来たら、アップロードしてください。店長と経理が最終確認を行います。'
-        handleClick={()=> handleSendContract('wetInk')}
+        handleClick={()=> handleChooseMethod('wetInk')}
         startIcon={<FaFileSignature size={24} />}
       />
 

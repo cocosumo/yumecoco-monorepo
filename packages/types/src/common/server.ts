@@ -192,6 +192,8 @@ export const reqDownloadContractV2Response = z.object({
 
 export type ReqDownloadContractV2Response = z.infer<typeof reqDownloadContractV2Response>;
 
+
+
 export interface IRequestJWTUserTokenResponse {
   body: {
     access_token: string,

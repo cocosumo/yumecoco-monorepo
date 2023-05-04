@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogTitle, Step, StepLabel, Stepper } from '@m
 import { useState } from 'react';
 import { StepConfirmation } from './StepConfirmation';
 import { StepChooseSignMethod } from './StepChooseSignMethod';
+import { StepCheckFlow } from './StepCheckFlow';
 
 const steps = ['契約日確認', '署名手法', '送信済'];
 
@@ -46,10 +47,12 @@ export const StartDialog = ({
       <DialogContent>
 
         {activeStep === 0 && (
-        <StepConfirmation 
+          <StepCheckFlow />
+        /*         <StepConfirmation 
           handleCancel={handleCloseDialog}
           handleYes={() => setActiveStep(prev => prev + 1)}
-        />)}
+        /> */
+        )}
 
         {activeStep === 1 && (
           <StepChooseSignMethod handleClose={handleCloseDialog} />

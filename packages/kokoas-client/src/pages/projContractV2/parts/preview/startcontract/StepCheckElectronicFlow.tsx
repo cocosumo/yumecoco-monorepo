@@ -17,7 +17,7 @@ const nodeTypes =  ({
   roleNode: RoleNode, 
   circleNode: CircleNode,
 }) ;
-const childSpacing = 400;
+const childSpacing = 350;
 
 
 export const StepCheckElectronicFlow = ({
@@ -41,8 +41,6 @@ export const StepCheckElectronicFlow = ({
   // first cocoAgent
   const firstAgent = agents?.value
     .find((agent) => agent.value.agentType.value as TAgents === 'cocoAG'); 
-
-  const memberCount = members?.value.length ?? 0;
   
   const { data: customersData } = useCustomersByCustGroupId(custGroupId);
   const { data: contractCheckers } = useContractCheckersByStoreId(storeId?.value ?? '');
@@ -75,7 +73,7 @@ export const StepCheckElectronicFlow = ({
 
       return ({
         id: `member-${index}`,
-        position: { x: ((index - memberCount + 1) / 2) * childSpacing, y: 200 },
+        position: { x: (index  * childSpacing), y: 200 },
         type: 'roleNode',
         data: {
           role: '顧客',
@@ -94,7 +92,7 @@ export const StepCheckElectronicFlow = ({
 
     { 
       id: 'storeMgr',
-      position: { x: -200, y: 400 },
+      position: { x: 0, y: 400 },
       type: 'roleNode',
       data: {
         role: '店長',
@@ -105,7 +103,7 @@ export const StepCheckElectronicFlow = ({
 
     {
       id: 'accounting',
-      position: { x: 200, y: 400 },
+      position: { x: childSpacing, y: 400 },
       type: 'roleNode',
       data: {
         role: '経理',

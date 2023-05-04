@@ -4,7 +4,6 @@ import { RequestHandler } from 'express';
 import { ReqDownloadContractParams, ReqDownloadContractV2Response } from 'types';
 import { getContractDataV2 } from './reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from '../api/docusign/contracts';
-import { makeEnvelopeV2 } from './reqSendContractDirectV2/makeEnvelopeV2';
 
 
 export const reqDownloadContractV2: RequestHandler<

@@ -8,6 +8,7 @@ import { useSendContract } from 'kokoas-client/src/hooksQuery';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
+import { StepCheckWetInkFlow } from './StepCheckWetInkFlow';
 
 const steps = ['契約日確認', '署名手法', '送信前確認'];
 
@@ -84,6 +85,13 @@ export const StartDialog = ({
 
         {!isLoading && activeStep === 2 && method === 'electronic' && (
           <StepCheckElectronicFlow 
+            handleSendContract={handleSendContract}
+            handleCancel={handleCloseDialog}
+          />
+        )}
+
+        {!isLoading && activeStep === 2 && method === 'wetInk' && (
+          <StepCheckWetInkFlow  
             handleSendContract={handleSendContract}
             handleCancel={handleCloseDialog}
           />

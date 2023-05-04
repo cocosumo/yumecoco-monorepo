@@ -95,5 +95,7 @@ export const updateContractEnvelope = async ({
     recordId,
     record,
   }); 
+
+  console.log('saved to kintone: ', envelopeId);
   return result;
 };

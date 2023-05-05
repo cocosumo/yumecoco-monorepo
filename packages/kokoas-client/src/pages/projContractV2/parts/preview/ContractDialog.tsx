@@ -1,84 +1,88 @@
-import { Dialog, DialogTitle, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Chip, Dialog, DialogActions, DialogTitle, Stack } from '@mui/material';
 import { PreviewContent } from './PreviewContent';
+import { PreviewHeader } from './PreviewHeader';
+import { useContractById } from 'kokoas-client/src/hooksQuery';
+import { useWatch } from 'react-hook-form';
+import { TypeOfForm } from '../../schema';
+import { useState } from 'react';
+import { DialogCloseButton } from 'kokoas-client/src/components';
+import { ContractActionMenu } from './menu/ContractActionMenu';
 
 
 
 export const ContractDialog = ({
   open,
-  //formLoading,
-  //previewUrl,
-  //selectedDoc,
-  //handleRefetch,
   handleClose,
-  //handlePreview,
 }: {
   open: boolean,
-  //formLoading: boolean,
-  //previewUrl: string,
-  //selectedDoc: string,
-  //handleRefetch: () => void,
   handleClose: () => void,
-  //handlePreview: (fileKey: string) => void,
 }) => {
+
+  
+  const contractId = useWatch<TypeOfForm>({
+    name: 'contractId',
+  }) as string;
+  
+  const { data: contractData } = useContractById(contractId);
+  
+  const {
+    envDocFileKeys,
+  } = contractData || {};
+
+  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
+  
+  const hasContractFiles = !!envDocFileKeys?.value.length;
 
   return (
     <Dialog
       open={open}
       onClose={handleClose}
       fullWidth
-      maxWidth={'lg'}
+      maxWidth={'md'}
       disablePortal
       sx={{
         zIndex: 5001, // So it will be above the App bar
       }}
+      keepMounted={false}
+      
     >
       <DialogTitle>
-        {/*         <PreviewHeader
-          isBusy={formLoading}
-          handleRefetch={handleRefetch}
-          handleClosePreview={handleClose}
-        /> */}
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        <PreviewHeader /> 
+        <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>
 
-      <PreviewContent />
-      {/* <DialogContent
-        sx={{
-          height: '100vh',
-          overflow: 'hidden',
-          p: 0,
-        }}
-      >
-                {!formLoading &&
-        <embed
-          src={previewUrl}
-          width="100%"
-          height='100%'
-        />}
-        {formLoading && <Loading />}
-      </DialogContent> */}
+      <PreviewContent 
+        contractId={contractId} 
+        selectedFileKey={hasContractFiles ? selectedFileKey : null}
+      />
 
-      {/*       {!formLoading && (
-      <PreviewFooter >
-        <SelectDocuments
-          handlePreview={handlePreview}
-          selectedDoc={selectedDoc}
-        />
-      </PreviewFooter>
-      )} */}
+      <DialogActions>
+        {hasContractFiles && (
+        <Stack 
+          direction={'row'} 
+          spacing={1} 
+          py={1}
+          px={2}
+          alignItems={'center'}
+        >
+          {envDocFileKeys
+            .value
+            .map(({ name, fileKey }) => (
+              <Chip 
+                key={fileKey} 
+                label={name.replace('.pdf', '')} 
+                title={name}
+                size={'small'}
+                onClick={() => setSelectedFileKey(fileKey)}
+                color={selectedFileKey === fileKey ? 'primary' : 'default'}
+              />
+            ))}
+          <ContractActionMenu /> 
+        </Stack>
+        )}
+      </DialogActions>
     </Dialog>
+
   );
 
 };

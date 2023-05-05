@@ -78,7 +78,7 @@ export const generateContractPdf = async (
   const firstPage = pages[0];
 
   // Common alignments
-  const x1 = 124; // 工事番号
+  const x1 = 129; // 工事番号
   const x2 = 190;
   const x3 = 239;
 
@@ -192,7 +192,7 @@ export const generateContractPdf = async (
   /* 工期：着手の契約の日から＿＿日以内 */
   drawText(
     firstPage,
-    startDaysAfterContract,
+    +startDaysAfterContract ? startDaysAfterContract : '-',
     {
       x: 299,
       y: 548,
@@ -225,7 +225,7 @@ export const generateContractPdf = async (
   /* 工期：完成の契約の日から＿＿日以内 */
   drawText(
     firstPage,
-    finishDaysAfterContract,
+    +finishDaysAfterContract ? finishDaysAfterContract : '-',
     {
       x: 299,
       y: 520,

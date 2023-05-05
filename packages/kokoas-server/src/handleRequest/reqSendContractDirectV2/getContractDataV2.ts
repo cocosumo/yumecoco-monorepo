@@ -8,8 +8,8 @@ import {
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
 import { addressBuilder, formatDataId } from 'libs';
-import { TAgents, TSignMethod } from 'types';
-import { validateContractData } from './validateContractDataV2';
+import { ReqSendContractParams, TAgents } from 'types';
+import { validateContractData } from '../../api/kintone/validateContractDataV2';
 
 export type TContractData = Awaited<ReturnType<typeof getContractDataV2>>;
 
@@ -25,9 +25,8 @@ export type TContractData = Awaited<ReturnType<typeof getContractDataV2>>;
 export const getContractDataV2 = async (
   {
     contractId,
-  } : {
-    contractId: string,
-  },
+    signMethod = 'electronic',
+  } : Omit<ReqSendContractParams, 'electronic'>,
   isValidate = false,
 ) => {
 
@@ -74,7 +73,6 @@ export const getContractDataV2 = async (
     
     envelopeId,
     envelopeStatus,
-    signMethod,
   } = contractRecord;
 
   /* 工事情報 */
@@ -187,7 +185,6 @@ export const getContractDataV2 = async (
     totalContractAmtBeforeTax,
     totalTaxAmount,
     envelopeId: envelopeId.value,
-    signMethod: signMethod.value as TSignMethod,
 
     /* 顧客 */
     customers,
@@ -228,6 +225,7 @@ export const getContractDataV2 = async (
     companyTel: companyTel.value,
     representative: representative.value,
 
+    signMethod,
   };
 
   if (isValidate) validateContractData(data);

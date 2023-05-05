@@ -1,4 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
+import { envelopeStatuses, signMethods } from 'types';
 import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
@@ -73,18 +74,29 @@ const schema = z.object({
   /** 着手 */
   startDate: z.date().nullable(),
   /** 契約の日から着手までの日数*/
-  startDaysAfterContractDate: z.number().nullable(),
+  startDaysAfterContractDate: z.number(),
 
   /** 完成 */
   finishDate: z.date().nullable(),
   /** 契約の日から完成までの日数*/
-  finishDaysAfterContractDate: z.number().nullable(),
+  finishDaysAfterContractDate: z.number(),
   
   /** 引渡し時期 */
   deliveryDate: z.date().nullable(),
 
   /** 契約日 */
   contractDate: z.date(),
+
+  /** エンヴェロープ */
+  envelopeStatus: z.enum(envelopeStatuses),
+  
+  /**　エンヴェロープID */
+  envelopeId: z.string()
+    .optional(),
+  
+  /** 署名手法 */
+  signMethod: z.enum(signMethods),
+  
   
 })
   .refine(({ payMethod, payDestination }) => {

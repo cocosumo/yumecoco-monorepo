@@ -2,6 +2,11 @@ import { ErrorDetails } from 'docusign-esign';
 import { ISendEnvelopeResponse, ReqSendContract } from 'types';
 import { baseUrl } from '../../config/settings';
 
+/**
+ * 
+ * @param reqData 
+ * @deprecated sendContract is deprecated. Use sendContractV2 instead.
+ */
 export const sendContract = async (
   reqData: ReqSendContract,
 ) : Promise<ISendEnvelopeResponse> => {

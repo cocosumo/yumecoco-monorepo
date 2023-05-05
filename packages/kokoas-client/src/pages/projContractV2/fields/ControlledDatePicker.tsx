@@ -47,7 +47,6 @@ export const ControlledDatePicker = ({
             onChange={onChange}
             value={value || null}
             ref={ref}
-            disablePast
             views={['year', 'month', 'day']}
             disabled={disabled}
             renderInput={(params) => (

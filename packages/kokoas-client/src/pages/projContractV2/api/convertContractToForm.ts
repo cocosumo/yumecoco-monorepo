@@ -43,6 +43,10 @@ export const convertContractToForm = (
 
     deliveryDate,
     contractDate,
+
+    envelopeStatus,
+    envelopeId,
+    signMethod,
   } = contract;
 
   return {
@@ -87,6 +91,10 @@ export const convertContractToForm = (
 
     deliveryDate: parseKintoneDate(deliveryDate.value, null),
     contractDate: parseKintoneDate(contractDate.value, null) || new Date(),
+
+    envelopeId: envelopeId.value,
+    envelopeStatus: envelopeStatus.value as TypeOfForm['envelopeStatus'],
+    signMethod: signMethod.value as TypeOfForm['signMethod'] || 'electronic',
   };
 
 

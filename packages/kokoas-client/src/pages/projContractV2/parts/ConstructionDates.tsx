@@ -34,7 +34,9 @@ export const ConstructionDates = ({
       <Stack direction={'row'} spacing={2}> 
         <ControlledDatePicker name={dateFldName} width='50%' />
         <TextField 
-          {...register(daysFldName, { valueAsNumber: true })}
+          {...register(daysFldName, { setValueAs(value) {
+            return Number(value);
+          } })}
           sx={{ width: '50%' }} 
           fullWidth
           type='number'

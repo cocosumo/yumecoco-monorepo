@@ -1,12 +1,15 @@
 
-export type TEnvelopeStatus =
-| 'sent'
-| 'created'
-| 'completed'
-| 'delivered'
-| 'voiding'
-| 'voided'
-| '' ;
+export const envelopeStatuses = [
+  'sent',
+  'created',
+  'completed',
+  'delivered',
+  'voiding',
+  'voided',
+  '',
+] as const;
+
+export type TEnvelopeStatus = typeof envelopeStatuses[number];
 
 export const roles = {
   officer: '担当者',
@@ -123,4 +126,5 @@ export interface IConnectEvent {
 
 
 export type IConnectRecipients = IConnectEvent['data']['envelopeSummary']['recipients'];
-export type TSignMethod = 'electronic' | 'wetInk';
+export const signMethods = ['electronic', 'wetInk'] as const;
+export type TSignMethod = typeof signMethods[number];

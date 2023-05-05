@@ -7,7 +7,8 @@ import { ktClient } from '../client';
  * @returns ファイルキーの配列
  */
 export const uploadFilesToKintone = async (
-  documents : KtFileParam<'uploadFile'>['file'][]) => {
+  documents : KtFileParam<'uploadFile'>['file'][],
+) => {
   const KintoneClient = await ktClient();
   /* const data = Buffer.from(fileBase64, 'base64'); */
 

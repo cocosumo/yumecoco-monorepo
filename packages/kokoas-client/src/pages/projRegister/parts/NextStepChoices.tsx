@@ -32,10 +32,10 @@ export const NextStepChoices = ({ recordId }: {
         fullWidth
         onClick={()=>{
           handleClose();
-          navigate(`${pages.projEstimate}?${urlParams}`);
+          navigate(`${pages.projContractPreviewV2}?${urlParams}`);
         }}
       >
-        見積登録
+        契約登録
       </Button>
     </Stack>
   );

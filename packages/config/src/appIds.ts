@@ -8,7 +8,7 @@ export const prodAppIds = {
   projEstimates: 210,
   custMemos: 211,
   invoices : 226,
-  contracts : 0, // 仮
+  contracts : 232,
 } as const;
 
 /* 開発環境 */

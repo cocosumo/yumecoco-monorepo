@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 export const TRowLayout = ({
   contractStatus,
   projDataId,
-  estNum,
   projName,
   store,
   yumeAG,
@@ -23,7 +22,6 @@ export const TRowLayout = ({
 }: {
   contractStatus: ReactNode,
   projDataId: ReactNode,
-  estNum: ReactNode,
   projName: ReactNode,
   store: ReactNode,
   yumeAG: ReactNode,
@@ -48,9 +46,6 @@ export const TRowLayout = ({
         </Box>
         <Box pb={1}>
           {projDataId}
-        </Box>
-        <Box>
-          {estNum}
         </Box>
       </TableCell>
       <TableCell>

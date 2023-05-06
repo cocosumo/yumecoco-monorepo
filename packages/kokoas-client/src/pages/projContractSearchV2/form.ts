@@ -4,8 +4,8 @@ import { validationSchema } from './formValidation';
 
 
 export const initialValues: TypeOfForm = {
-  order: 'asc',
-  orderBy: 'estimateDataId',
+  order: 'desc',
+  orderBy: 'contractDate',
   mainSearch: '',
   contractDateFrom: null,
   contractDateTo: null,

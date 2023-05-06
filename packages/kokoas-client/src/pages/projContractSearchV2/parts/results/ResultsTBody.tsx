@@ -23,11 +23,10 @@ export const ResultsTBody = ({
         currentContractName,
         currentContractRole,
         contractStatus,
-        uuid,
+        contractId,
         custGroupId,
         projId,
         projDataId,
-        estimateDataId,
         projName,
         contractAmount,
         grossProfit,
@@ -59,13 +58,13 @@ export const ResultsTBody = ({
 
         return (
           <TRowLayout
-            key={uuid}
+            key={contractId}
             contractStatus={(
               <Chip
                 label={label}
                 size="small"
                 color={isCompleted ? 'success' : 'default'}
-                onClick={() => navigate(`${pages.projContractPreview}?${generateParams({ custGroupId, projEstimateId: uuid })}`)}
+                onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
               />
               )}
             projDataId={(
@@ -74,20 +73,9 @@ export const ResultsTBody = ({
                 size="small"
                 variant='outlined'
                 fullWidth
-                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
+                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId, contractId })}`)}
               >
                 {projDataId}
-              </ButtonWithToolTip>
-              )}
-            estNum={(
-              <ButtonWithToolTip
-                title={'見積もり画面へ移動'}
-                size="small"
-                variant='outlined'
-                fullWidth
-                onClick={() => navigate(`${pages.projEstimate}?${generateParams({ projEstimateId: uuid })}`)}
-              >
-                {estimateDataId.slice(-2)}
               </ButtonWithToolTip>
               )}
             projName={projName}
@@ -111,7 +99,7 @@ export const ResultsTBody = ({
             menu={(
               <Button
                 fullWidth
-                onClick={() => navigate(`${pages.projInvoice}?${generateParams({ custGroupId, projEstimateId: uuid })}`)}
+                onClick={() => navigate(`${pages.projInvoice}?${generateParams({ custGroupId, contractId })}`)}
               >
                 請求入力
               </Button>)}

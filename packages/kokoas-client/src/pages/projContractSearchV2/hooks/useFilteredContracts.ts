@@ -1,11 +1,10 @@
 import addDays from 'date-fns/addDays';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { calculateEstimateRecord } from 'api-kintone';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useCustGroups, useEstimates, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
+import { useAllContracts, useCustGroups, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
-import { formatDataId } from 'libs';
+import { calcProfitRate, formatDataId } from 'libs';
 import { IInvoices, TEnvelopeStatus, roles } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
@@ -16,11 +15,10 @@ export interface ContractRow {
   contractStatus: TEnvelopeStatus,
   currentContractRole: string,
   currentContractName: string,
-  uuid: string,
+  contractId: string,
   custGroupId: string,
   projId: string,
   projDataId: string,
-  estimateDataId: string,
   projName: string,
   store: string,
   yumeAG: string,
@@ -53,7 +51,7 @@ export const useFilteredContracts = () => {
     contractDateFrom,
     contractDateTo,
     order = initialValues.order,
-    orderBy = initialValues.orderBy || 'estimateDataId',
+    orderBy = initialValues.orderBy || 'contractDate',
     contractCompleted,
     contractStepAG,
     contractStepAccounting,
@@ -66,7 +64,7 @@ export const useFilteredContracts = () => {
   const { data: custGroupData } = useCustGroups();
   const { data: invoiceData } = useInvoices();
 
-  return useEstimates({
+  return useAllContracts({
     enabled: !!projData && !!custGroupData && !!invoiceData,
     select: useCallback((d) => {
 
@@ -78,14 +76,16 @@ export const useFilteredContracts = () => {
       // Combine data
       const items = d.reduce<ContractRow[]>((acc, cur) => {
 
-        /* 見積情報 */
+        /* 契約情報 */
         const {
           projId,
-          uuid,
-          dataId,
-          envStatus,
+          uuid: contractId,
+          envelopeStatus: envStatus,
           contractDate,
           envRecipients,
+          totalContractAmt,
+          projectCost,
+          tax,
         } = cur;
 
         // 契約進捗の中に何も選択されていないかチェック
@@ -109,6 +109,7 @@ export const useFilteredContracts = () => {
         const {
           projName,
           custGroupId,
+          dataId,
         } = projData.find((projRec) => projRec.uuid.value === projId.value ) || {};
 
         /* 顧客情報 */
@@ -127,21 +128,17 @@ export const useFilteredContracts = () => {
           uuid: invoiceId,
         } = invoiceData
           .reduce(
-            latestInvoiceReducer(uuid.value),
+            latestInvoiceReducer(contractId.value),
             undefined as IInvoices | undefined,
           ) || {};
 
-        const formattedDataId = formatDataId(dataId.value);
-        const projDataId = formattedDataId.substring(0, formattedDataId.length - 3);
 
-        /* 契約金額と粗利 */
-        const {
-          summary : {
-            totalProfit,
-            totalAmountAfterTax,
-            overallProfitRate,
-          },
-        } = calculateEstimateRecord({ record: cur });
+        const taxRate = +tax.value || 0.1;
+        const totalAmountAfterTax = +totalContractAmt.value;
+        const totalAmountBeforeTax = +totalContractAmt.value / (1 + taxRate);
+        const projCost = +projectCost.value;
+        const totalProfit = totalAmountBeforeTax - projCost;
+
 
         /* minとmaxを設定 */
         if (totalAmountAfterTax < minAmount) {
@@ -152,17 +149,18 @@ export const useFilteredContracts = () => {
           maxAmount = totalAmountAfterTax;
         }
 
+
+
         const envelopeStatus = envStatus.value as TEnvelopeStatus;
 
-        const resultRow = {
+        const resultRow: ContractRow = {
           contractStatus: envelopeStatus,
           currentContractRole: currentContractStep?.roleName || '',
           currentContractName: currentContractStep?.name || '',
-          uuid: uuid.value,
+          contractId: contractId.value,
           custGroupId: custGroupId?.value || '',
           projId: projId.value,
-          projDataId,
-          estimateDataId: formattedDataId,
+          projDataId: formatDataId(dataId?.value || ''),
           cocoAG: cocoAGNames?.value || '',
           yumeAG: yumeAGNames?.value || '',
           contractDate:  contractDate?.value  || '',
@@ -177,7 +175,7 @@ export const useFilteredContracts = () => {
           store: storeName?.value || '',
           contractAmount: totalAmountAfterTax,
           grossProfit: totalProfit,
-          profitRate: overallProfitRate,
+          profitRate: calcProfitRate(projCost, totalAmountBeforeTax ),
         };
 
         /* 絞り込み */
@@ -216,8 +214,7 @@ export const useFilteredContracts = () => {
 
         return acc;
       },
-      [],
-      );
+      []);
 
       // ソート
       const sortedItems = items.sort(itemsSorter({ order, orderBy }));

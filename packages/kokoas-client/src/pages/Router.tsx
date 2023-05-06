@@ -10,7 +10,7 @@ import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
-import { FormContractSearch } from './projContractSearch/FormContractSearch';
+import { FormContractSearch } from './projContractSearchV2/FormContractSearch';
 import { UnderDevelopment } from './UnderDevelopment';
 import { FormContract } from './projContractV2/FormContract';
 

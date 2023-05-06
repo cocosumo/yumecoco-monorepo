@@ -84,8 +84,11 @@ export const ResultsTBody = ({
             cocoAG={cocoAG}
             custName={custName}
             contractDate={contractDate}
-            contractAmount={`${contractAmount.toLocaleString()}円`}
-            grossProfit={`${grossProfit.toLocaleString()}円`}
+            contractAmount={`${contractAmount.toLocaleString()} 円`}
+            grossProfit={`${Big(grossProfit)
+              .round()
+              .toNumber()
+              .toLocaleString()} 円`}
             profitRate={`${Big(profitRate).mul(100)
               .round(2)
               .toNumber()}%`}

@@ -19,6 +19,7 @@ import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContra
 export const generateContractPdfV2 = async (
   contractData : Awaited<ReturnType<typeof getContractDataV2>>,
   contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
+  ukeoiDocVersion = '',
 ) => {
   const {
     
@@ -60,6 +61,7 @@ export const generateContractPdfV2 = async (
 
   const pdfPath = getFilePath({
     fileName: '請負契約書',
+    version: ukeoiDocVersion,
   });
   const existingPdfBytes = await fs.readFile(pdfPath);
   const pdfDoc = await PDFDocument.load(existingPdfBytes);

@@ -9,6 +9,7 @@ describe('Contract', () => {
     const contractData = await getContractDataV2({
       contractId: '12128397-14e7-47d5-90b6-f8b655b39988',
       signMethod: 'electronic',
+      ukeoiDocVersion: '20230501',
     });
 
     console.log(contractData);

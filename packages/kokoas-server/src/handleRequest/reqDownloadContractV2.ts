@@ -15,6 +15,7 @@ ReqDownloadContractParams
   try {
     const {
       contractId,
+      ukeoiDocVersion,
     } = req.query;
 
     console.log('reqDownloadContractV2 received', contractId);
@@ -24,6 +25,7 @@ ReqDownloadContractParams
     const contractData = await getContractDataV2({
       contractId,
       signMethod: 'electronic',
+      ukeoiDocVersion: '20230501',
     });
 
     const {
@@ -34,7 +36,7 @@ ReqDownloadContractParams
 
     console.log('Contract data', projName, envelopeStatus); 
 
-    const file = await generateContractPdfV2(contractData, 'base64') as string;
+    const file = await generateContractPdfV2(contractData, 'base64', ukeoiDocVersion) as string;
     console.log('PDF File generated');
 
     res.status(200).json( {

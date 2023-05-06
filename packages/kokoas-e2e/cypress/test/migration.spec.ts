@@ -3,16 +3,17 @@ import { fieldMapSorter, getLookUp, removeKeys, removeLookUp } from 'api-kintone
 import { prodAppIds, devAppIds } from 'config';
 import { before, context, cy, expect, it } from 'local-cypress';
 
-/**
- * Primitive, Lookup
- */
+// 廃止されるアプリは、以下に追加する。
+const except : (keyof typeof devAppIds)[] = ['projEstimates'];
 
 // All new DBs should be added to the devAppIds first.
 const appKeys = Object.keys(devAppIds) as (keyof typeof devAppIds)[];
 
 
 // Create a tupple of [prodAppId, devAppId] for each DB.
-const kokoasApps = appKeys.map((key) => ({ [key]: [prodAppIds[key], devAppIds[key]] }));
+const kokoasApps = appKeys
+  .filter((key) => !except.includes(key))
+  .map((key) => ({ [key]: [prodAppIds[key], devAppIds[key]] }));
 
 // テストしたいアプリがあれば、以下を編集する。
 //const kokoasApps = [{ projEstimates: [210, 202] }];

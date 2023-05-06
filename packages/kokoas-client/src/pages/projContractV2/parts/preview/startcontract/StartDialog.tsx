@@ -32,7 +32,7 @@ export const StartDialog = ({
 
   const handleSendContract = async () => {
     const contractId = getValues('contractId') as string;
-    await mutateAsync({ contractId, signMethod: method });
+    await mutateAsync({ contractId, signMethod: method, ukeoiDocVersion: '20230501' });
 
     handleClose();
   };

@@ -7,7 +7,6 @@ import CustomerMenu from './menus/CustomerMenu';
 import ContractMenu from './menus/ContractMenu';
 import SystemMenu from './menus/SystemMenu';
 import { ConstructionMenu } from './menus/ConstructionMenu';
-import EstimateMenu from './menus/EstimateMenu';
 import PaymentMenu from './menus/PaymentMenu';
 import packageInfo from 'kokoas-client/src/lib/packageInfo';
 import { Typography } from '@mui/material';
@@ -20,7 +19,7 @@ export default function MainMenu() {
       <List>
         <CustomerMenu />
         <ConstructionMenu />
-        <EstimateMenu />
+        {/* <EstimateMenu /> */}
         {/* <CustomerManagementMenu /> */}
         <ContractMenu />
         <PaymentMenu />

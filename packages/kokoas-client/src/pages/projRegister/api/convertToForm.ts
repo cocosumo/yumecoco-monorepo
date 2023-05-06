@@ -25,9 +25,9 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     return (item.value.agentType.value as TAgents) === 'cocoConst';
   }).map(item => item.value.agentId.value);
 
-  const remarksFormatted : Remarks[] = remarks
-    .value
-    .filter(item => item.value.note.value)
+  const remarksFormatted : Remarks[] | undefined = remarks
+    ?.value
+    ?.filter(item => item.value.note.value)
     .map(({
       value: items,
     }, idx) => {
@@ -42,7 +42,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
         noteUpdateTime: parseISO(noteUpdateTime.value),
         remark: note.value,
       };
-    });
+    }) ?? [];
 
   return {
     addressKari: addressKari.value,
@@ -64,7 +64,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     postal: postal.value,
     storeId: storeId.value,
     remarks: [initialValues.remarks[0], ...remarksFormatted],
-    logs: log.value.map(({
+    logs: log?.value?.map(({
       id,
       value: {
         logDateTime,
@@ -76,7 +76,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
         log: logNote.value,
         id,
       };
-    }),
+    }) ?? [],
   };
 
 };

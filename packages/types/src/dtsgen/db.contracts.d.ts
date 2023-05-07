@@ -29,7 +29,7 @@ declare namespace DBContracts {
     startDaysAfterContract: kintone.fieldTypes.Number;
     isForPayment: kintone.fieldTypes.RadioButton;
     initialAmtDate: kintone.fieldTypes.Date;
-    projectCost: kintone.fieldTypes.Number;
+    totalProfit: kintone.fieldTypes.Number;
     subsidyMethod: kintone.fieldTypes.SingleLineText;
     contractAmt: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;

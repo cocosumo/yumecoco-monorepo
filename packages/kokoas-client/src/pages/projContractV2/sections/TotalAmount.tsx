@@ -12,7 +12,7 @@ export const TotalAmount = () => {
       my={2}
     >
       <ControlledCurrencyInput name="totalContractAmt" label="契約合計金額" />
-      <ControlledCurrencyInput name="projectCost" label="粗利額" />
+      <ControlledCurrencyInput name="totalProfit" label="粗利額" />
     </Stack>
   );
 };

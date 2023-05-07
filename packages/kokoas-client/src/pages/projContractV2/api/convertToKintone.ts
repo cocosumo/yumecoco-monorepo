@@ -6,7 +6,7 @@ export const convertToKintone = ({
 
   projId,
   totalContractAmt,
-  projectCost,
+  totalProfit,
 
   hasContractAmt,
   contractAmt,
@@ -49,7 +49,7 @@ export const convertToKintone = ({
   const kintoneRecord: Partial<IContracts> = {
     projId: { value: projId },
     totalContractAmt: { value: totalContractAmt.toString() },
-    projectCost: { value: projectCost.toString() },
+    totalProfit: { value: totalProfit.toString() },
 
     contractAmt: { value: (hasContractAmt ? contractAmt : 0).toString() },
     contractAmtDate: { value: (hasContractAmt ? toKintoneDateStr(contractAmtDate) : '') },

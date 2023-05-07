@@ -84,7 +84,7 @@ export const useFilteredContracts = () => {
           contractDate,
           envRecipients,
           totalContractAmt,
-          projectCost,
+          totalProfit,
           tax,
         } = cur;
 
@@ -136,8 +136,7 @@ export const useFilteredContracts = () => {
         const taxRate = +tax.value || 0.1;
         const totalAmountAfterTax = +totalContractAmt.value;
         const totalAmountBeforeTax = +totalContractAmt.value / (1 + taxRate);
-        const projCost = +projectCost.value;
-        const totalProfit = totalAmountBeforeTax - projCost;
+        const totalCost = totalAmountBeforeTax - +totalProfit.value ;
 
 
         /* minとmaxを設定 */
@@ -174,8 +173,8 @@ export const useFilteredContracts = () => {
           projName: projName?.value || '',
           store: storeName?.value || '',
           contractAmount: totalAmountAfterTax,
-          grossProfit: totalProfit,
-          profitRate: calcProfitRate(projCost, totalAmountBeforeTax ),
+          grossProfit: +totalProfit.value,
+          profitRate: calcProfitRate(totalCost, totalAmountBeforeTax ),
         };
 
         /* 絞り込み */

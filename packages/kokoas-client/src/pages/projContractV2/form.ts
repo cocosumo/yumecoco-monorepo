@@ -8,7 +8,7 @@ export const initialForm : TypeOfForm = {
   contractId: undefined,
 
   totalContractAmt: 0,
-  projectCost: 0,
+  totalProfit: 0,
   
   hasContractAmt: false,
   contractAmt: 0,

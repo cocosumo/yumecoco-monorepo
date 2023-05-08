@@ -3,6 +3,7 @@ declare namespace DBContracts {
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     envCompleteDate: kintone.fieldTypes.DateTime;
+    totalProfit: kintone.fieldTypes.Number;
     envRecipients: kintone.fieldTypes.SingleLineText;
     finalAmtDate: kintone.fieldTypes.Date;
     hasRefund: kintone.fieldTypes.RadioButton;
@@ -27,9 +28,7 @@ declare namespace DBContracts {
     interimAmtDate: kintone.fieldTypes.Date;
     tax: kintone.fieldTypes.Number;
     startDaysAfterContract: kintone.fieldTypes.Number;
-    isForPayment: kintone.fieldTypes.RadioButton;
     initialAmtDate: kintone.fieldTypes.Date;
-    totalProfit: kintone.fieldTypes.Number;
     subsidyMethod: kintone.fieldTypes.SingleLineText;
     contractAmt: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;

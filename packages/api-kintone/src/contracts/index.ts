@@ -1,3 +1,4 @@
+export * from './deleteContractById';
 export * from './getAllContracts';
 export * from './getContractByEnvId';
 export * from './getContractById';

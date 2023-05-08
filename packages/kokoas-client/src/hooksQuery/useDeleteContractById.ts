@@ -1,23 +1,25 @@
-import { useQuery } from '@tanstack/react-query';
-import { getContracts } from 'api-kintone';
-import { AppIds } from 'config';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteContractById } from 'api-kintone';
 import { useCommonOptions } from './useCommonOptions';
+import { AppIds } from 'config';
 
 
 /**
- * 契約を取得する。
- * @deprecated 契約に関するデータは見積もりに依存しなくなるため、この関数は廃止されます。
+ * 契約を削除する。
+ * 
  */
-export const useContracts = (params: Parameters<typeof getContracts>[0]) => {
-  const {
-    onError,
-  } = useCommonOptions();
+export const useDeleteContractById = () => {
+  const commonOptions = useCommonOptions();
+  const qc = useQueryClient();
 
-  return useQuery(
-    [AppIds.projEstimates, 'contracts', params],
-    () => getContracts(params),
+  return useMutation(
+    deleteContractById,
     {
-      onError,
+      ...commonOptions,
+      onSuccess: () => {
+        commonOptions.onSuccess();
+        qc.invalidateQueries({ queryKey: [AppIds.contracts] });
+      },
     },
   );
 };

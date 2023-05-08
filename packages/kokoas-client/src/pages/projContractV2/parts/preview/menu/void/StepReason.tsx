@@ -60,7 +60,7 @@ export const StepReason = ({
           onClick={handleVoid}
           disabled={!value.trim() || !envelopeId}
         >
-          無効にする
+          取り下げ
         </Button>
       </Stack>
       

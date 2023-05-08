@@ -2,11 +2,12 @@
 import { useWatch } from 'react-hook-form';
 import { StaticContents } from '../parts/StaticContents';
 import { TypeOfForm } from '../schema';
-import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
 import { TAgents } from 'types';
 import { pages } from '../../Router';
+import { Link } from '@mui/material';
 
 export const ProjectSummary = () => {
   const projId = useWatch<TypeOfForm>({
@@ -14,6 +15,11 @@ export const ProjectSummary = () => {
   });
 
   const { data, isLoading } = useProjById(projId as string);
+  const { data: andPadData } = useAndpadOrderByProjId(projId as string);
+
+  const {
+    システムID: systemId,
+  } = andPadData || {};
 
   const parsedData : ComponentProps<typeof StaticContents>['data'] = useMemo(() => {
     if (!data) return [];
@@ -41,10 +47,19 @@ export const ProjectSummary = () => {
       { label: '工事名', value: projName.value },
       { label: '工事担当者', value: cocoConstNames },
       { label: '工事住所', value: address },
+      { label: 'AndpadシステムID', value: systemId 
+        ? ( 
+          <Link href={`https://andpad.jp/my/orders/${systemId}`}>
+            {systemId}
+          </Link> 
+        )
+        : '未登録', 
+      },
     ];
 
   }, [
     data,
+    systemId,
   ]);
     
 

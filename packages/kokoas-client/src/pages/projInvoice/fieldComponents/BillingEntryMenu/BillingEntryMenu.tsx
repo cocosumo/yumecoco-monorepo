@@ -5,11 +5,9 @@ import { MouseEvent, useState } from 'react';
 
 
 export const BillingEntryMenu = ({
-  rowIdx,
   handleInsert,
   handleRemove,
 }: {
-  rowIdx: number
   handleInsert: () => void
   handleRemove: () => void
 }) => {

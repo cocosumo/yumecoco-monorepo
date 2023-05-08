@@ -122,7 +122,6 @@ export const BillingEntryTableRow = ({
       </TableCell>
       <TableCell>
         <BillingEntryMenu
-          rowIdx={idx}
           handleInsert={handleInsert}
           handleRemove={handleRemove}
         />

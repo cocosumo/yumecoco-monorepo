@@ -34,7 +34,7 @@ export const useResolveParams = () => {
     hasContract,
   } = contractSummary || {};
 
-  const { data: andpadDetails } = useAndpadOrderByProjId(projIdFromURL || '', { enabled: !!completed });  
+  const { data: andpadDetails } = useAndpadOrderByProjId(projIdFromURL || '');  
 
   useEffect(() => {
 

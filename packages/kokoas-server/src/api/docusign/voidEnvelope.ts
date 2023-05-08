@@ -8,7 +8,8 @@ export const voidEnvelope = async (
   params: {
     envelopeId: string,
     voidedReason: string
-  }) => {
+  },
+) => {
   const {
     envelopeId,
     voidedReason = '理由なし',

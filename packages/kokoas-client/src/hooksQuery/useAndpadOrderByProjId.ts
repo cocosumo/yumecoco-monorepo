@@ -6,19 +6,15 @@ import { useSnackBar } from '../hooks/useSnackBar';
 /**
  * Andpadから案件データを取得する
  */
-export const useAndpadOrderByProjId = (projId: string, {
-  enabled = false,
-} : {
-  enabled: boolean,
-}) => {
+export const useAndpadOrderByProjId = (projId: string) => {
   const { setSnackState } = useSnackBar();
 
   return useQuery(
     [AppIds.projects, 'andpad', projId],
     () => getOrderByProjId(projId),
     {
+      enabled: !!projId,
       staleTime: 5000,
-      enabled: enabled && !!projId,
       onError: (error: Error) => {
         setSnackState({
           open: true,

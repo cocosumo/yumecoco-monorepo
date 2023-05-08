@@ -1,0 +1,239 @@
+import { calculateEstimateRecord, getAllRecords } from 'api-kintone/src';
+import { prodAppIds } from 'config';
+import { IProjestimates, KProjestimates } from 'types';
+import { KintoneClientBasicAuth } from './settings';
+
+export const paymentLabels = ['契約金', '着手金', '中間金', '最終金'] as const;
+type PaymentLabel = typeof paymentLabels[number];
+
+export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
+
+
+
+type PartialContractData = DBContracts.Data;
+
+export const migrateContracts = async () => {
+  const { 
+    record: KintoneRecord,
+    file: KtFile,
+  } = KintoneClientBasicAuth;
+
+  const envStatusField : KProjestimates = 'envStatus'; 
+
+  const estRecordsWithContract = await KintoneRecord.getAllRecords({
+    app: prodAppIds.projEstimates,
+    condition: `${envStatusField} != ""`,
+  }) as unknown as IProjestimates[];
+
+  const reuploadedFiles = await Promise.all(
+    estRecordsWithContract
+      .map(({ envDocFileKeys }) => Promise.all(
+        envDocFileKeys.value
+          .map(async ({ fileKey, name }) => {
+            const file =  await KtFile.downloadFile({ fileKey }); 
+            return KtFile
+              .uploadFile({ file: { name, data: file } });
+          }),
+      )),
+  );
+
+  console.log( reuploadedFiles);
+
+  const contractRecords: PartialContractData[] = estRecordsWithContract
+    .map<PartialContractData>((estRecord, idx) => {
+
+    const {
+      uuid,
+      支払い: {
+        value: paymentSchedule,
+      },
+
+      hasRefund,
+      refundAmt,
+
+      hasSubsidy,
+      subsidyAmt,
+      subsidyMethod,
+
+      payMethod,
+      payDestination,
+
+      startDate,
+      startDaysAfterContract,
+
+      finishDate,
+      finishDaysAfterContract,
+
+      completeDate,
+      contractDate,
+
+      signMethod,
+      envId,
+
+      envCompleteDate,
+      envStatus,
+      envRecipients,
+      voidedEnvelopes,
+
+      isForPayment,
+
+      projId,
+      税: tax,
+    } = estRecord;
+
+    const findPaymentType = (pivot: PaymentLabel) => {
+      return paymentSchedule
+        .find(
+          ({ value: { paymentType, isPayEnabled } }) => 
+            (paymentType.value as PaymentLabel) === pivot
+            && isPayEnabled.value === '1',
+        )?.value;
+    };
+
+    const {
+      summary: {
+        totalAmountAfterTax,
+        totalProfit,
+      },
+    } = calculateEstimateRecord({ record: estRecord });
+
+    const {
+      paymentAmt: contractAmt,
+      paymentDate: contractAmtDate,
+    } = findPaymentType('契約金') ?? {};
+
+    const {
+      paymentAmt: initialAmt,
+      paymentDate: initialAmtData,
+    } = findPaymentType('着手金') ?? {};
+
+    const {
+      paymentAmt: interimAmt,
+      paymentDate: interimAmtDate,
+    } = findPaymentType('中間金') ?? {};
+
+    const {
+      paymentAmt: finalAmt,
+      paymentDate: finalAmtDate,
+    } = findPaymentType('最終金') ?? {};
+  
+      
+    return {
+      uuid: { value: uuid.value },
+      totalContractAmt: { value: totalAmountAfterTax.toString() },
+      totalProfit: { value: totalProfit.toString() },
+
+      contractAmt: { value: contractAmt?.value || '' },
+      contractAmtDate: { value: contractAmtDate?.value || '' },
+
+      initialAmt: { value: initialAmt?.value || '' },
+      initialAmtDate: { value: initialAmtData?.value || '' },
+
+      interimAmt: { value: interimAmt?.value || '' },
+      interimAmtDate: { value: interimAmtDate?.value || '' },
+
+      finalAmt: { value: finalAmt?.value || '' },
+      finalAmtDate: { value: finalAmtDate?.value || '' },
+
+      hasRefund: { value: hasRefund.value === '1' ? 'はい' : 'いいえ' },
+      refundAmt: { value: refundAmt.value },
+
+      hasSubsidy: { value: hasSubsidy.value === '1' ? 'はい' : 'いいえ' },
+      subsidyAmt: { value: subsidyAmt.value },
+      subsidyMethod: { value: subsidyMethods[+subsidyMethod.value] },
+      
+      payMethod: { value: payMethod.value },
+      payDestination: { value: payDestination.value },
+
+      startDate: { value: startDate.value },
+      startDaysAfterContract: { value: startDaysAfterContract.value },
+
+      finishDate: { value: finishDate.value },
+      finishDaysAfterContract: { value: finishDaysAfterContract.value },
+
+      deliveryDate: { value: completeDate.value },
+      contractDate: { value: contractDate.value },
+
+      envelopeStatus: { value: envStatus.value },
+      envelopeId: { value: envId.value },
+      envDocFileKeys: { 
+        type: 'FILE',
+        value:  reuploadedFiles[idx],
+        // kintone has wrong type definition for file field,
+      } as any, 
+      envCompleteDate: { value: envCompleteDate.value },
+      signMethod: { value: signMethod.value },
+      envRecipients: { value: envRecipients.value },
+      voidedEnvelopes: { value: voidedEnvelopes.value },
+
+      isForPayment: { value: isForPayment.value.length ? 'いいえ' : 'はい' },
+
+      projId: { value: projId.value },
+
+      tax: { value: String(+(tax.value || 0) / 100) },
+      
+      /** andpad */
+      systemId: { value: '' },
+
+      /** autogenerated */
+      projName: { value: '' },
+      projAddress: { value: '' },
+      storeName: { value: '' },
+    };
+    
+  });
+
+
+  const oldRecUuids = contractRecords.map(({ uuid }) => uuid.value);
+
+  const existingUuids = await getAllRecords({
+    app: prodAppIds.contracts,
+    fields: ['uuid'],
+    condition: oldRecUuids.map((uuid) => `uuid = "${uuid}"`).join(' or '),
+  });
+
+  // seperate contractRecords between updateRecords and newRecords using reduce
+  const { updateRecords, newRecords } = contractRecords.reduce<{
+    updateRecords: PartialContractData[];
+    newRecords: PartialContractData[];
+  }>(
+    (acc, record) => {
+      const { uuid } = record;
+      const isExisting = existingUuids.some(({ uuid: existingUuid }) => existingUuid.value === uuid.value);
+      if (isExisting) {
+        acc.updateRecords.push(record);
+      } else {
+        acc.newRecords.push(record);
+      }
+      return acc;
+    },
+    {
+      updateRecords: [],
+      newRecords: [],
+    },
+  );
+
+  console.log('updateRecords', updateRecords.length);
+  console.log('newRecords', newRecords.length);
+
+  return Promise.all([
+    updateRecords.length ? KintoneRecord.updateAllRecords({
+      app: prodAppIds.contracts,
+      records: updateRecords.map(({ uuid, ...record }) => ({
+        updateKey: {
+          field: 'uuid',
+          value: uuid.value,
+        },
+        record: record,
+      })),
+    }) : Promise.resolve(),
+    newRecords.length ? KintoneRecord.addAllRecords({
+      app: prodAppIds.contracts,
+      records: newRecords as Record<string, any>[],
+    }) : Promise.resolve(),
+  ]).catch((err) => {
+    console.log(JSON.stringify(err.error));
+    console.log(err.errorIndex);
+    throw err;
+  });
+};

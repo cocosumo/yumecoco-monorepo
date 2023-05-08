@@ -1,17 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './projRegister/FormikConstruction';
-import { FormikContract } from './projContracts/';
 import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
-import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { SettingsPage } from './settingsPage/SettingsPage';
 import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
-import { FormContractSearch } from './projContractSearch/FormContractSearch';
+import { FormContractSearch } from './projContractSearchV2/FormContractSearch';
 import { UnderDevelopment } from './UnderDevelopment';
+import { FormContract } from './projContractV2/FormContract';
 
 
 
@@ -36,8 +35,12 @@ export const pages = {
   projProspect: '/project/prospect/register',
   projProspectSearch: '/project/prospect/search',
 
+  /** 旧契約 */
   projContractPreview: '/project/contract/preview',
   projContractSearch: 'project/contract/search',
+
+  /** 新契約 */
+  projContractPreviewV2: '/project/contract/preview/v2',
 
   projInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',
@@ -72,12 +75,18 @@ const Router = () => (
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} />
 
     {/* 見積もり登録 */}
-    <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} />
+    {/* <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} /> */}
 
     {/* 契約 */}
-    <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
+    {/*     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
+ */}    
+
     {/* 契約一覧 */}
     <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />
+
+    {/* 新契約 */}
+    <Route path={`${pages.projContractPreviewV2}`} element={<FormContract />} />
+
 
     {/* 入金管理グループ */}
     <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />

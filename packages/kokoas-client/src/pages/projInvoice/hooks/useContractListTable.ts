@@ -1,6 +1,6 @@
 import { useContractsByCustGroupId, useInvoicesById, useInvoicesSummaryByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../form';
-import { convertContructsToForm } from '../api/convertContructsToForm';
+import { convertContractsToForm } from '../api/convertContractsToForm';
 
 export const useContractListTable = (initialValues: TypeOfForm) => {
 
@@ -20,7 +20,7 @@ export const useContractListTable = (initialValues: TypeOfForm) => {
     record: recInvoice,
   } = datInvoice || {};
 
-  return convertContructsToForm({
+  return convertContractsToForm({
     recContracts,
     calculated,
     recInvoice,

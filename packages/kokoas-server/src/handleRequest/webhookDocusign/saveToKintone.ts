@@ -22,7 +22,6 @@ export const saveToKintone = async (payload: IConnectEvent) => {
     },
   } = payload;
 
-  // Get the firt document details
   // Will update this to be more flexible in case of
   // multiple documents.
   const documents = envelopeDocuments.map(({ PDFBytes, name }) => {

@@ -11,9 +11,11 @@ type FileName =
 export const getFilePath = ({
   fileName,
   fileType = 'pdf',
+  version = '',
 } : {
   fileName: FileName,
   fileType?: 'pdf' | 'xls' | 'xlsx',
+  version?: string
 }) => {
 
   let assetFolder = '';
@@ -28,7 +30,7 @@ export const getFilePath = ({
       break;
   }
 
-  const filePath = path.join(__dirname, assetFolder, `${fileName}.${fileType}`);
+  const filePath = path.join(__dirname, assetFolder, `${fileName}${version}.${fileType}`);
 
   if (fs.existsSync(filePath)) {
     return filePath;

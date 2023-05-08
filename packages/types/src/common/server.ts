@@ -1,5 +1,5 @@
 import { EnvelopeUpdateSummary } from 'docusign-esign';
-import { TEnvelopeStatus } from './docusign';
+import { TEnvelopeStatus, signMethods } from './docusign';
 import { z } from 'zod';
 
 export type TProjReq = {
@@ -127,12 +127,22 @@ export interface ParsedCompanyDetailsDatReport {
   invoiceSystemNumber: string,
 }
 
-
+/**
+ * @deprecated 見積もりに依存しているので、将来的には削除する。これからReqDownloadParamsを使用する
+ */
 export interface ReqSendContract {
   userCode: string,
   projEstimateId: string,
   signMethod?: 'electronic' | 'wetInk',
 }
+
+export const reqSendContractParams = z.object({
+  contractId: z.string(),
+  signMethod: z.enum(signMethods),
+  ukeoiDocVersion: z.string(),
+});
+
+export type ReqSendContractParams = z.infer<typeof reqSendContractParams>;
 
 
 export interface ISendEnvelopeResponse {
@@ -156,10 +166,18 @@ export interface IVoidReq {
   voidedReason: string
 }
 
+/**
+ * @deprecated 見積もりに依存しているので、将来的には削除する。これからReqDownloadContractParamsを使用する
+ */
 export interface ReqDownloadParams {
   userCode: string,
   projEstimateId: string,
   fileType: 'pdf' | 'xlsx',
+}
+
+export interface ReqDownloadContractParams {
+  contractId: string,
+  ukeoiDocVersion: string
 }
 
 export type ReqPreviewParams = {
@@ -167,6 +185,16 @@ export type ReqPreviewParams = {
   projEstimateId: string
   userCode: string,
 };
+
+export const reqDownloadContractV2Response = z.object({
+  documents: z.array(z.string()),
+  envelopeStatus: z.string(),
+  envelopeId: z.string(),
+});
+
+export type ReqDownloadContractV2Response = z.infer<typeof reqDownloadContractV2Response>;
+
+
 
 export interface IRequestJWTUserTokenResponse {
   body: {

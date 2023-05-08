@@ -14,8 +14,8 @@ import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { BuildingType } from './BuildingType';
 import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
-import { getAddressByPostal } from 'kokoas-client/src/api/';
 import { useCallback } from 'react';
+import { getAddressByPostal } from 'api-kintone';
 
 export const ConstructionLocation = () => {
 
@@ -38,9 +38,18 @@ export const ConstructionLocation = () => {
 
     if (newPostal && !address1) {
       getAddressByPostal(newPostal)
-        .then(resp => {
-          if (resp) {
-            setFieldValue(getFieldName('address1'), Object.values(resp).join(''));
+        .then(record => {
+          
+          const {
+            pref,
+            city,
+            town,
+          } = record;
+          if (record) {
+            setFieldValue(
+              getFieldName('address1'), 
+              [pref.value, city.value, town.value].join(''),
+            );
           }
         });
     }

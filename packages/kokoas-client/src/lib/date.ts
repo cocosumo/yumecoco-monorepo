@@ -1,7 +1,7 @@
 import { format, parseISO } from 'date-fns';
 
 export const isTypeOfDate = (
-  dirtyDate: object | string,
+  dirtyDate: object | string | null,
 ) => dirtyDate instanceof Date;
 
 /**
@@ -14,10 +14,11 @@ export const isTypeOfDate = (
  * @returns Formatted date str
  * @todo String parsable to date is not handled here, update when needed.
  */
-export const toKintoneDateStr = (rawDate: object | Date | string, withTime = false ) => {
+export const toKintoneDateStr = (rawDate: object | Date | string | null, withTime = false ) => {
   if (isTypeOfDate(rawDate)) {
     return format(
-      rawDate as Date, `yyyy-MM-dd${withTime ? "'T'HH:mm:ss+09:00" : ''}`);
+      rawDate as Date, `yyyy-MM-dd${withTime ? "'T'HH:mm:ss+09:00" : ''}`,
+    );
   } else {
     return '';
   }
@@ -34,6 +35,7 @@ export const toKintoneDateStr = (rawDate: object | Date | string, withTime = fal
  * @param kintoneDate
  * @returns {Date | ""} Javascript date object.
  */
-export const parseKintoneDate = (
+export const parseKintoneDate = <T = unknown>(
   kintoneDate: string | undefined | null,
-) => kintoneDate ? parseISO(kintoneDate) : '';
+  emptyVal: T = '' as T,
+): Date | T => kintoneDate ? parseISO(kintoneDate) : emptyVal;

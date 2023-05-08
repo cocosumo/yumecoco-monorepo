@@ -45,3 +45,6 @@ export type KCustmemos = keyof ICustmemos;
 
 export type IInvoices = DBInvoices.SavedData;
 export type KInvoices = keyof IInvoices;
+
+export type IContracts = DBContracts.SavedData;
+export type KContracts = keyof IContracts;

@@ -191,7 +191,7 @@ export const generateContractPdf = async (
   /* 工期：着手の契約の日から＿＿日以内 */
   drawText(
     firstPage,
-    startDaysAfterContract,
+    +startDaysAfterContract ? startDaysAfterContract : '',
     {
       x: 299,
       y: 551,
@@ -224,7 +224,7 @@ export const generateContractPdf = async (
   /* 工期：完成の契約の日から＿＿日以内 */
   drawText(
     firstPage,
-    finishDaysAfterContract,
+    +finishDaysAfterContract ? finishDaysAfterContract : '',
     {
       x: 299,
       y: 523,

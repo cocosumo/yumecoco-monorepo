@@ -36,3 +36,12 @@ export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;
 export type TKokoasEndpoint = typeof kokoasEndpoints[TKokoasEndpointKey];
 
 export const getKokoasEndpoint = (k: TKokoasEndpoint) => k;
+
+/** Docusign endpoints */
+
+export const docusignEndpoints = {
+  /** 請負契約書ダウンロード */
+  downloadContract: 'contract/download/v2',
+  sendDirect: 'contract/send/direct/v2',
+  void: 'contract/void/v2',
+} as const;

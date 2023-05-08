@@ -47,6 +47,7 @@ export const convertContractToForm = (
     envelopeStatus,
     envelopeId,
     signMethod,
+    tax,
   } = contract;
 
   return {
@@ -55,6 +56,7 @@ export const convertContractToForm = (
 
     totalContractAmt: +totalContractAmt.value,
     totalProfit: +totalProfit.value,
+    taxRate: +tax.value,
 
     hasContractAmt: !!+contractAmt.value,
     contractAmt: +contractAmt.value,

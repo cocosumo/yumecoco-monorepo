@@ -16,7 +16,7 @@ export const voidEnvelopeV2 = async (envelopeId: string) => {
     uuid,
     voidedEnvelopes,
   } = await getContractByEnvId(envelopeId);
-  console.log(`Voiding envelope id: ${envelopeId}`);
+  console.log(`Voiding envelope id: ${envelopeId}, uuid: ${uuid.value}}`);
 
   // Other values are cleared at the frontend.
   // This might be faulty so I might have to rethink this flow.

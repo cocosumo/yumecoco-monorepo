@@ -11,7 +11,7 @@ export const convertContractToForm = (
     projId,
 
     totalContractAmt,
-    projectCost,
+    totalProfit,
 
     contractAmt,
     contractAmtDate,
@@ -54,7 +54,7 @@ export const convertContractToForm = (
     projId: projId.value,
 
     totalContractAmt: +totalContractAmt.value,
-    projectCost: +projectCost.value,
+    totalProfit: +totalProfit.value,
 
     hasContractAmt: !!+contractAmt.value,
     contractAmt: +contractAmt.value,

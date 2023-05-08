@@ -1,4 +1,4 @@
-import { EmptyBox, FormContainer, PageTitle } from 'kokoas-client/src/components';
+import { EmptyBox, FormContainer, PageSubTitle, PageTitle } from 'kokoas-client/src/components';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import schema, { TypeOfForm } from './schema';
@@ -10,6 +10,9 @@ import { useEffect } from 'react';
 import { FormInput } from './FormInput';
 import { ProjDetailsButton } from './parts/ProjDetailsButton';
 import { FormActions } from './sections/FormActions';
+import { CustomerSummary } from './sections/CustomerSummary';
+import { ProjectSummary } from './sections/ProjectSummary';
+import { ContractStatus } from './sections/ContractStatus';
 
 export const FormContract = () => {
 
@@ -61,6 +64,22 @@ export const FormContract = () => {
             <Grid item xs={12} md={4}>
               <ProjDetailsButton />
             </Grid>
+
+
+            <Grid item xs={12}>
+              <ContractStatus />
+            </Grid>           
+
+            <PageSubTitle label={'顧客情報'} />
+            <Grid item xs={12}>
+              <CustomerSummary />
+            </Grid>
+
+            <PageSubTitle label={'工事情報'} />
+            <Grid item xs={12}>
+              <ProjectSummary />
+            </Grid>
+
           
             <FormInput />
 

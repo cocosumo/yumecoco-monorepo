@@ -27,8 +27,8 @@ const schema = z.object({
   /** 契約合計金額 */
   totalContractAmt: z.number(),
 
-  /** 売上原価 */
-  projectCost: z.number(),
+  /** 粗利額 */
+  totalProfit: z.number(),
 
   /** 契約金 */
   hasContractAmt: z.boolean(),

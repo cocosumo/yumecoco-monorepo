@@ -9,6 +9,11 @@ import WarningIcon from '@mui/icons-material/Warning';
 import { BillingEntryMenu } from './BillingEntryMenu/BillingEntryMenu';
 
 
+const additionalMenuList = [
+  '追加工事',
+  '減額工事',
+  'その他',
+];
 
 export const BillingEntryTableRow = ({
   estimate,
@@ -40,7 +45,8 @@ export const BillingEntryTableRow = ({
   } = estimate;
 
   const paymentItem = paymentList?.find(({ uuid }) => uuid === estimateId);
-  const paymentTypeOption = paymentItem?.paymentTypeList.map((item) => {
+  const newPaymentType = paymentItem?.paymentTypeList ? ['-'].concat(paymentItem.paymentTypeList) : ['-'];
+  const paymentTypeOption = newPaymentType.concat(additionalMenuList).map((item) => {
     return ({
       label: item,
       value: item,
@@ -58,7 +64,8 @@ export const BillingEntryTableRow = ({
   };
 
   const amountTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const arrayIdx = paymentTypeOption?.findIndex(({ value }) => value === e.target.value) ?? 0;
+    // 支払い種別の先頭の'-'要素分、インデックスを調整する
+    const arrayIdx = paymentTypeOption?.findIndex(({ value }) => value === e.target.value) - 1 ?? -1;
 
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {

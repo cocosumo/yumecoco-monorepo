@@ -6,6 +6,8 @@ import { TypeOfForm } from '../form';
 import { BillingEntryTableRow } from './BillingEntryTableRow';
 import { BillingEntryTableHead } from './BillingEntryTableHead';
 import { ExceedContractAmount } from './ExceedContractAmount';
+import { v4 as uuidV4 } from 'uuid';
+import { produce } from 'immer';
 
 
 export const BillingEntryTable = ({
@@ -16,7 +18,7 @@ export const BillingEntryTable = ({
   isBilled: boolean
 }) => {
 
-  const { values } = useFormikContext<TypeOfForm>();
+  const { values, setValues } = useFormikContext<TypeOfForm>();
   const { custGroupId, estimates } = values;
 
   const { data: contracts } = useContractsByCustGroupId(custGroupId);
@@ -37,7 +39,7 @@ export const BillingEntryTable = ({
             <BillingEntryTableHead />
             <TableBody>
               <FieldArray name="estimates" >
-                {({ insert, remove }) => (
+                {({ insert }) => (
                   <>
                     {
                       estimates.map((row, idx) => {
@@ -53,11 +55,15 @@ export const BillingEntryTable = ({
                                 ...estimates[idx],
                                 billingAmount: 0,
                                 amountType: '',
+                                estimateIndex: uuidV4(),
                               };
                               insert(idx + 1, newRow);
                             }}
                             handleRemove={() => {
-                              remove(idx);
+                              // 履歴として残せるよう、remove(idx)ではなくisShowで調整する
+                              setValues((prev) => produce(prev, (draft) => {
+                                draft.estimates[idx].isShow = false;
+                              }));
                             }}
                             key={`${row.estimateIndex}`}
                           />

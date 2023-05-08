@@ -1,11 +1,12 @@
 import { Stack, Typography } from '@mui/material';
+import { ReactNode } from 'react';
 
 export const Info = ({
   label,
   value,
 }: {
   label: string,
-  value: string,
+  value: ReactNode,
 }) => (
   <Stack 
     direction={'row'}

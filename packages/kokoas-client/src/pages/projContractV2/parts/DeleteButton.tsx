@@ -38,7 +38,7 @@ export const DeleteButton = () => {
         onClose={handleClose}
       >
         <DialogTitle>
-          まじで削除しますか？
+          本当に削除しますか？
         </DialogTitle>
         <DialogContent>
           <Alert

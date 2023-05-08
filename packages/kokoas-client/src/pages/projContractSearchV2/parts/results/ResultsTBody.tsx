@@ -61,7 +61,7 @@ export const ResultsTBody = ({
             key={contractId}
             contractStatus={(
               <Chip
-                label={label}
+                label={label || '未処理'}
                 size="small"
                 color={isCompleted ? 'success' : 'default'}
                 onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}

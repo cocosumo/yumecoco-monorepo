@@ -98,9 +98,6 @@ export const useFilteredContracts = () => {
           contractStepTencho,
         ].every((v) => !v);
 
-        /* 契約じゃないなら、次のレコードへ行く */
-        if (!envStatus.value) return acc;
-
         /* 契約進捗のフィルター */
         const currentContractStep = getCurrentContractStep(envRecipients.value);
         

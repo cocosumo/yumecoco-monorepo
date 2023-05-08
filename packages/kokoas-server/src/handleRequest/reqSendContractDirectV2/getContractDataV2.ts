@@ -172,7 +172,7 @@ export const getContractDataV2 = async (
     projId: projId.value,
     contractId: uuid.value,
     dataId: formatDataId(dataId.value),
-    projName: `${storeName.value} ${projName.value}`,
+    projName: projName.value,
     projLocation: addressBuilder({
       postal: projPostal.value,
       address1: projAddress1.value,

@@ -7,6 +7,7 @@ import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
+import { ReactNode } from 'react';
 
 export const StaticContents = ({
   data,
@@ -16,7 +17,7 @@ export const StaticContents = ({
 }: {
   data: Array<{
     label: string,
-    value: string,
+    value: ReactNode,
   }>
   buttonLabel: string,
   isLoading?: boolean,

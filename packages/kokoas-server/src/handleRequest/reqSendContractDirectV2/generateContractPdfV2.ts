@@ -22,7 +22,7 @@ export const generateContractPdfV2 = async (
   ukeoiDocVersion = '',
 ) => {
   const {
-    
+    storeName,
     customers,
     cocoAG,
     contractId,
@@ -111,7 +111,7 @@ export const generateContractPdfV2 = async (
   // 工事名
   drawText(
     firstPage,
-    projName,
+    `${storeName} ${projName}`,
     {
       x: x1 + 100,
       y: 775,

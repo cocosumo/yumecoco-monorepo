@@ -50,8 +50,7 @@ export const StepConfirmation = ({
         </Typography>
         
         <Typography >
-          {isPastDate && ('過去の日付になっています。このまま続きますか？')}
-          {!isPastDate && ('このまま続きますか？')}
+          {`${isPastDate ? '過去の日付になっています。' : ''}このまま続けますか？`}
         </Typography>
 
         <Stack 

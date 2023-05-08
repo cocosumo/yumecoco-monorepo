@@ -30,10 +30,12 @@ export const makeEnvelopeV2 = async ({
   data,
   status = 'sent',
   signMethod,
+  ukeoiDocVersion,
 } :{
   data: Awaited<ReturnType<typeof getContractDataV2>>,
   status: 'created' | 'sent',
   signMethod: ReqSendContractParams['signMethod'],
+  ukeoiDocVersion: string,
 }) => {
 
   const {
@@ -56,7 +58,7 @@ export const makeEnvelopeV2 = async ({
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
-  const mainContractB64 = await generateContractPdfV2(data, 'base64') as string;
+  const mainContractB64 = await generateContractPdfV2(data, 'base64', ukeoiDocVersion ) as string;
   const aggreementB64  = await fs.readFile(
     getFilePath({
       fileName: '工事請負契約約款',

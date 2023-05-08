@@ -10,6 +10,7 @@ export const PaymentFieldGroup = (
   {
     fieldNames,
     label,
+    disabled = false,
   }: {
     label: string,
     fieldNames: {
@@ -17,6 +18,7 @@ export const PaymentFieldGroup = (
       amtFldName: KeyOfForm,
       dateFldName: KeyOfForm,
     }
+    disabled?: boolean,
   },
 ) => {
 
@@ -45,6 +47,7 @@ export const PaymentFieldGroup = (
       <FormControlLabel
         label={label}
         name={chkFldName}
+        disabled={disabled}
         control={(
           <Checkbox
             checked={isChecked as boolean}
@@ -92,11 +95,11 @@ export const PaymentFieldGroup = (
       <ControlledCurrencyInput 
         name={amtFldName} 
         variant='standard'
-        disabled={!isChecked}
+        disabled={!isChecked || disabled}
       />
       <ControlledDatePicker 
         name={dateFldName}
-        disabled={!isChecked}
+        disabled={!isChecked || disabled}
       />
     </Stack>
   );

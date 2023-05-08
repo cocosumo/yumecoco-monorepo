@@ -5,6 +5,7 @@ import { useFormState, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { useMemo } from 'react';
 import { PreviewButton } from '../parts/preview/PreviewButton';
+import { DeleteButton } from '../parts/DeleteButton';
 
 export const FormActions = () => {
   const handleSubmit = useSubmitHandler();
@@ -14,8 +15,14 @@ export const FormActions = () => {
     isValidating, 
   } = useFormState<TypeOfForm>();
 
-  const contractId = useWatch<TypeOfForm>({
-    name: 'contractId',
+  const [
+    contractId,
+    envelopeStatus,
+  ] = useWatch<TypeOfForm>({
+    name: [
+      'contractId',
+      'envelopeStatus',
+    ],
   });
 
   const errorMessage = useMemo(() => {
@@ -45,14 +52,16 @@ export const FormActions = () => {
         size="large"
         startIcon={<SaveIcon />}
         onClick={handleSubmit}
-        //disabled={isSaveDisabled}
       >
         保存
       </Button>
 
       {contractId && (
-      <PreviewButton disabled={isDirty} />
+        <PreviewButton disabled={isDirty} />
+      )}
 
+      {contractId && !envelopeStatus && (
+        <DeleteButton />
       )}
 
       {errorMessage && (

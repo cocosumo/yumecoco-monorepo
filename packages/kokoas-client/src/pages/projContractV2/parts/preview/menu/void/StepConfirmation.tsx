@@ -8,7 +8,7 @@ export const StepConfirmation = ({
   return (
     <Stack direction={'column'} spacing={2}>
       <Alert color="warning" severity="warning">
-        エンベロープを無効にすると、受信者はそのエンベロープを表示したり署名したりできなくなります。
+        エンベロープを取り下げ「以下、無効」にすると、受信者はそのエンベロープを表示したり署名したりできなくなります。
       </Alert>
 
       <Typography variant='body1'>

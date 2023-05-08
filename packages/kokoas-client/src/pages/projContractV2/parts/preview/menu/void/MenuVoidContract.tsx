@@ -15,7 +15,7 @@ export const MenuVoidContract = () => {
       }}
       >
         <ListItemText>
-          無効化する
+          取り下げ
         </ListItemText>
       </MenuItem>
       <VoidContractDialog 

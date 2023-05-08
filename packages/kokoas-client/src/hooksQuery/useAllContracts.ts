@@ -5,7 +5,7 @@ import { AppIds } from 'config';
 type DefaultResult = Awaited<ReturnType<typeof getAllContracts>>;
 
 /**
- * 見積レコードを全て取得する
+ * 契約を全て取得する
  */
 export const useAllContracts = <T = DefaultResult>(options?: {
   enabled?: boolean,
@@ -13,7 +13,7 @@ export const useAllContracts = <T = DefaultResult>(options?: {
   onSuccess?: (data: T) => void
 }) => {
   return useQuery(
-    [AppIds.projEstimates],
+    [AppIds.contracts],
     () => getAllContracts(),
     {
       ...options,

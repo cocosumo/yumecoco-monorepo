@@ -25,6 +25,7 @@ export const processContractV2 = async (
       data,
       status,
       signMethod,
+      ukeoiDocVersion: params.ukeoiDocVersion,
     });
 
     let envSummary: EnvelopeSummary = Object.create(null);

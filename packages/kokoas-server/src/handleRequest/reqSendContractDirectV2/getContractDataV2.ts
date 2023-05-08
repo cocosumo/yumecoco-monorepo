@@ -30,6 +30,8 @@ export const getContractDataV2 = async (
   isValidate = false,
 ) => {
 
+  console.log();
+
   /* 会社情報 */
   const {
     companyAddress,

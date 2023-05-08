@@ -21,7 +21,7 @@ export default defineConfig({
             return ({
               id: $id.value,
               record: {
-                invoiceStatus: { value: 'moveTest' },
+                invoiceStatus: { value: 'voided' },
               },
             });
           });
@@ -29,7 +29,7 @@ export default defineConfig({
 
           return updateInvoices(updateValue);
 
-          
+
         },
       });
       on('task', {

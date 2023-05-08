@@ -24,8 +24,8 @@ describe('請求書を発行する', () => {
     cy.visit(`/project/payment/invoice?custGroupId=${testCustGroupId}`);
 
     // 使用する請求書にチェックを入れる
-    cy.get('input[name="estimates[1].isForPayment"]')
-      .as('isForPaymentInput')
+    cy.get('input[name="estimates[1].isShow"]')
+      .as('isShowInput')
       .click();
 
     // 請求金額を入力する
@@ -64,10 +64,10 @@ describe('請求書を発行する', () => {
 
     // 既存の請求書を更新する
     // 使用する請求書にチェックを入れる　選択解除＆再選択
-    cy.get('@isForPaymentInput')
+    cy.get('@isShowInput')
       .click(); // チェックを外す
 
-    cy.get('@isForPaymentInput')
+    cy.get('@isShowInput')
       .click();
 
     // 請求金額を入力する 符号間違い入力＆超過入力

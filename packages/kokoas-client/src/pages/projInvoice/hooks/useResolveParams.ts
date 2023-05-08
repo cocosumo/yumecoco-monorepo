@@ -32,45 +32,22 @@ export const useResolveParams = () => {
   useEffect(() => {
 
     if (projInvoiceIdFromURL && recInvoice && custData && recContracts && datInvoicesSummary) {
+      // URLに請求書番号が存在する場合、請求書の入力内容を復帰させる
 
       const newEstimates = sortEstimatesByProjId(recContracts);
 
       setNewFormVal((prev) => ({
         ...prev,
         ...convertCustDataToForm(custData),
-        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesSummary, estimateIdFromURL?.split(',') ?? []),
+        ...convertInvoiceToForm(recInvoice.record, newEstimates, datInvoicesSummary),
         invoiceId: projInvoiceIdFromURL,
       }));
-    } else if (custGroupIdFromURL && custData && recContracts) {
-
-      const newEstimates = sortEstimatesByProjId(recContracts);
+    } else if (custGroupIdFromURL && custData) {
+      // URLに請求書番号が存在しない場合、請求書の内容は保存しない
 
       const newValues = produce(initialValues, (draft) => {
         draft.custGroupId = custGroupIdFromURL;
         draft.custName = custData.custNames.value;
-        newEstimates?.forEach((data, idx) => {
-          const targetInvoice = datInvoicesSummary?.find(invoice => invoice.dataId === data.dataId);
-          const {
-            billedAmount = 0,
-            createdAmount = 0,
-          } = targetInvoice || {};
-          const newIsForPayment = (estimateIdFromURL || '').split(',').includes(data.estimateId);
-
-          draft.estimates[idx] = {
-            estimateIndex: String(idx),
-            projId: data.projId,
-            projTypeName: data.projTypeName,
-            dataId: data.dataId,
-            contractAmount: data.contractAmount,
-            nonTaxableAmount: data.nonTaxableAmount,
-            billedAmount: billedAmount,
-            createdAmount: createdAmount,
-            billingAmount: data.billingAmount,
-            amountType: '',
-            isForPayment: data.isForPayment || newIsForPayment,
-            estimateId: data.estimateId,
-          };
-        });
       });
 
       setNewFormVal(newValues);

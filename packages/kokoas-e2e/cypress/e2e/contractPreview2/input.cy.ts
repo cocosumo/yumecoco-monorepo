@@ -175,7 +175,7 @@ describe(
       
     });
 
-    it.only('支払い方法が指定出来る', () => {
+    it('支払い方法が指定出来る', () => {
       cy.log('初期状態は振込が選択されていること');
       cy.getRadiosByValue('振込').should('be.checked');
       cy.getTextInputsByLabel('振込先')

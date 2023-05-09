@@ -195,8 +195,10 @@ describe(
         .should('be.checked');
       cy.get('@payDestination').should('be.visible');
 
-  
     });
+
+    // その他のフィールドのテストは特別の挙動はないので省略
+    // 挙動に不具合が発生したら、当スペックに追加すること
   
   },
 );

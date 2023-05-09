@@ -4,7 +4,7 @@ import { useWatch } from 'react-hook-form';
 import { Controls, Edge, Node, ReactFlow } from 'reactflow';
 import { TypeOfForm } from '../schema';
 import { grey } from '@mui/material/colors';
-import { nodeTypes } from './preview/startcontract/customNodes/nodeTypes';
+import { nodeTypes } from './customNodes/nodeTypes';
 import { TAgents } from 'types';
 
 export const WetInkFlow = () => {

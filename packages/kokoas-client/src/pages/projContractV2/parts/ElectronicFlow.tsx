@@ -10,7 +10,7 @@ import {
 } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../schema';
 import { TAgents } from 'types';
-import { nodeTypes } from './preview/startcontract/customNodes/nodeTypes';
+import { nodeTypes } from './customNodes/nodeTypes';
 
 
 const childSpacing = 350;

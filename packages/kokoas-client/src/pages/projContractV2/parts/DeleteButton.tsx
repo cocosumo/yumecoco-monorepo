@@ -17,7 +17,7 @@ export const DeleteButton = () => {
     name: ['contractId', 'envelopeStatus'],
   });
 
-  const hasContract = !!envelopeStatus;
+  const canDelete = !envelopeStatus && !!contractId;
 
   const { mutateAsync } = useDeleteContractById();
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export const DeleteButton = () => {
             variant='outlined'
             color='error'
             onClick={() => setOpen(true)}
-            disabled={hasContract}
+            disabled={!canDelete}
             startIcon={<DeleteIcon />}
           >
             削除

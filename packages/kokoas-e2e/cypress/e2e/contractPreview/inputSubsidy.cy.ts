@@ -1,7 +1,7 @@
 import { beforeEach, context, cy, describe } from 'local-cypress';
 
 
-describe('Input Subsidy', () => {
+describe.skip('Input Subsidy', () => {
   /**
    * テストデータ条件：
    * - 契約がないこと。

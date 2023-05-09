@@ -1,4 +1,4 @@
-import { Button, Chip, TableBody } from '@mui/material';
+import { Button, Chip, TableBody, Tooltip } from '@mui/material';
 import { Big } from 'big.js';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from 'kokoas-client/src/pages/Router';
@@ -60,12 +60,14 @@ export const ResultsTBody = ({
           <TRowLayout
             key={contractId}
             contractStatus={(
-              <Chip
-                label={label || '未処理'}
-                size="small"
-                color={isCompleted ? 'success' : 'default'}
-                onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
-              />
+              <Tooltip title={'契約へ移動'}>
+                <Chip
+                  label={label || '未処理'}
+                  size="small"
+                  color={isCompleted ? 'success' : 'default'}
+                  onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
+                />
+              </Tooltip>
               )}
             projDataId={(
               <ButtonWithToolTip

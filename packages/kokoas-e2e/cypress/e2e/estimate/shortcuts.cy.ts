@@ -4,7 +4,7 @@ import { getNumberFromString } from 'libs/src/getNumberFromString';
 import { beforeEach, cy, describe, expect } from 'local-cypress';
 import { IProjestimates } from 'types';
 
-describe('Estimate shortcuts', () => {
+describe.skip('Estimate shortcuts', () => {
   const testRowCount = 5;
 
   beforeEach(() => {

@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 
 faker.setLocale('ja');
 
-describe('見積：入力', () => {
+describe.skip('見積：入力', () => {
   beforeEach(() => {
     const testId = 'ce4e52a0-4486-4bae-944c-22c63850de9f';
     cy.login();

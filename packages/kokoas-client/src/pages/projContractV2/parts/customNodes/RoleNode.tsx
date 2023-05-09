@@ -6,7 +6,7 @@ import  {
 import 'reactflow/dist/style.css';
 
 
-export const RoleNode = ({
+export default function RoleNode({
   data: {
     role,
     name,
@@ -18,7 +18,7 @@ export const RoleNode = ({
     name?: string,
     email?: string, 
   }
-}) => {
+}) {
   return (
     <>
       <Handle type="target" position={Position.Top} />
@@ -51,4 +51,4 @@ export const RoleNode = ({
     </>
 
   );
-};
+}

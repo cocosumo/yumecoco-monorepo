@@ -2,11 +2,9 @@ import { Grid } from '@mui/material';
 import { PageSubTitle } from 'kokoas-client/src/components';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { FieldArray, useFormikContext } from 'formik';
-import { KeysOfForm, TypeOfForm } from '../../form';
+import { useFormikContext } from 'formik';
+import { TypeOfForm } from '../../form';
 
-
-const fieldName: KeysOfForm =  'remarks';
 
 const columns: GridColDef<TypeOfForm['remarks'][number]>[] = [
   {

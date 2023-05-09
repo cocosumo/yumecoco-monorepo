@@ -17,11 +17,9 @@ export const FormActions = () => {
 
   const [
     contractId,
-    envelopeStatus,
   ] = useWatch<TypeOfForm>({
     name: [
       'contractId',
-      'envelopeStatus',
     ],
   });
 
@@ -42,35 +40,37 @@ export const FormActions = () => {
   ]);
 
   return (
-    <Stack
-      direction="row"
-      spacing={2}
-      pt={2}
-    >
-      <Button
-        variant="outlined"
-        size="large"
-        startIcon={<SaveIcon />}
-        onClick={handleSubmit}
+    <>
+      <Stack
+        direction="row"
+        spacing={2}
+        py={2}
+        alignItems={'center'}
       >
-        保存
-      </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          startIcon={<SaveIcon />}
+          onClick={handleSubmit}
+        >
+          保存
+        </Button>
 
-      {contractId && (
+        {contractId && (
         <PreviewButton disabled={isDirty} />
-      )}
+        )}
 
-      {contractId && !envelopeStatus && (
+     
         <DeleteButton />
-      )}
+
+      </Stack>
 
       {errorMessage && (
       <Alert severity="error" >
         {errorMessage}
       </Alert>
       )}
-
-      
-    </Stack>
+    </>
+    
   );
 };

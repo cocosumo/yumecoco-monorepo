@@ -6,7 +6,7 @@ import { useContractById } from 'kokoas-client/src/hooksQuery';
 import { TEnvelopeStatus, TSignMethod } from 'types';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { ja } from 'date-fns/locale';
+import jaLocale from 'date-fns/locale/ja';
 import { EnvelopeRecipients } from 'docusign-esign';
 import { grey } from '@mui/material/colors';
 import { Info } from '../parts/Info';
@@ -92,13 +92,13 @@ export const ContractStatus = () => {
                       {deliveredDateTime && (
                       <div>
                         受信日時：
-                        {format(parseISO(deliveredDateTime), 'PPpp', { locale: ja })}
+                        {format(parseISO(deliveredDateTime), 'PPpp', { locale: jaLocale })}
                       </div>
                       )}
                       {signedDateTime && (
                       <div>
                         承認日時：
-                        {format(parseISO(signedDateTime), 'PPpp', { locale: ja })}
+                        {format(parseISO(signedDateTime), 'PPpp', { locale: jaLocale })}
                       </div>  
                       )}
                     </Stack>

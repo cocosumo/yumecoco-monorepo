@@ -10,6 +10,7 @@ import jaLocale from 'date-fns/locale/ja';
 import { EnvelopeRecipients } from 'docusign-esign';
 import { grey } from '@mui/material/colors';
 import { Info } from '../parts/Info';
+import { useMemo } from 'react';
 
 export const ContractStatus = () => {
 
@@ -32,12 +33,18 @@ export const ContractStatus = () => {
   } : EnvelopeRecipients = JSON.parse(envRecipients?.value || '{}' ) || {};
 
   const parsedEnvRecipients = [...signers, ...carbonCopies];
-  const parsedSignMethod = signMethod?.value as TSignMethod;
+
+  const parsedSignMethod = useMemo(() => {
+    const sM = signMethod?.value as TSignMethod;
+    if (!sM) return;
+    if (sM === 'electronic') return '電子契約';
+    if (sM === 'wetInk') return '紙印刷';
+  }, [signMethod?.value]); 
 
   const data = [
-    { label: '契約ID', value: contractId as string },
-    { label: 'Docusign ID', value: envelopeId?.value ?? '' },
-    { label: '署名手法', value: parsedSignMethod === 'electronic' ? '電子' : '紙印刷' },
+    { label: '契約ID', value: contractId as string || '-' },
+    { label: 'Docusign ID', value: envelopeId?.value || '-' },
+    { label: '署名手法', value: parsedSignMethod || '-' },
   ];
 
   const hasContract = !!envelopeStatus?.value;
@@ -65,7 +72,7 @@ export const ContractStatus = () => {
 
         {!hasContract  && (
           <Alert severity='info'>
-            未処理
+            {contractId ? '未処理' : '新規' }
           </Alert>
         )}
 
@@ -116,7 +123,7 @@ export const ContractStatus = () => {
       
 
       </Stack>
-      {data.map(({ label, value }) => (
+      {contractId  && data.map(({ label, value }) => (
         <Info
           key={label}
           label={label}

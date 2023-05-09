@@ -24,9 +24,15 @@ export const AmountDetails = () => {
   const profitRate = calcProfitRate(costPrice, totalAmtBeforeTax) * 100;
 
   const data = [
+    { 
+      label: '税率', 
+      value: `${
+        (taxRate * 100)
+      } %`, 
+    },
     { label: '税抜金額', value: `${totalAmtBeforeTax.toLocaleString()} 円` },
     { label: '原価', value: `${costPrice.toLocaleString()} 円` },
-    { label: '粗利率', value: `${profitRate.toLocaleString()} %` },
+    { label: '粗利率', value: `${profitRate.toFixed(2)} %` },
   ];
 
   return (

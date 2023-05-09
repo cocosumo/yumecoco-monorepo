@@ -6,12 +6,20 @@ export const calcBeforeTax = (
   value: number,
   taxRate: number,
 ) => {
-  const normalizedValue = convertToHalfWidth(value);
+  try {
+    const normalizedValue = convertToHalfWidth(value);
 
-  const bTaxRate = Big(taxRate ?? 0.1).add(1); // 1.1
-  let result = Big(normalizedValue);
+    const bTaxRate = Big(taxRate ?? 0.1).add(1); // 1.1
+    let result = Big(normalizedValue);
 
-  result = result.div(bTaxRate).round();
+    result = result.div(bTaxRate).round();
   
-  return result.toNumber();
+    return result.toNumber();
+
+  } catch (e) {
+    console.error(e);
+    return 0;
+    
+  }
+
 };

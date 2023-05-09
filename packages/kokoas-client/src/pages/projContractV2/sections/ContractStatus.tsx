@@ -1,4 +1,4 @@
-import {  Alert, Button, Chip, Stack, Tooltip } from '@mui/material';
+import {  Alert, Chip, Stack, Tooltip } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
@@ -32,10 +32,12 @@ export const ContractStatus = () => {
   } : EnvelopeRecipients = JSON.parse(envRecipients?.value || '{}' ) || {};
 
   const parsedEnvRecipients = [...signers, ...carbonCopies];
+  const parsedSignMethod = signMethod?.value as TSignMethod;
 
   const data = [
     { label: '契約ID', value: contractId as string },
     { label: 'Docusign ID', value: envelopeId?.value ?? '' },
+    { label: '署名手法', value: parsedSignMethod === 'electronic' ? '電子' : '紙印刷' },
   ];
 
   const hasContract = !!envelopeStatus?.value;
@@ -121,21 +123,6 @@ export const ContractStatus = () => {
           value={value}
         />
       ))}
-
-      {hasContract && (
-
-        <Button
-          fullWidth={false}
-          variant="outlined"
-          sx={{
-            alignSelf: 'flex-start',
-          }}
-        >
-          流れの詳細を見る
-        </Button>
-
- 
-      )}
 
     </Stack>
     

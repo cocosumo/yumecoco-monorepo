@@ -12,7 +12,7 @@ declare namespace Cypress {
     /** ラベルで input[type="checkbox"] を取得する */
     getCheckboxesByLabel(label: string): Chainable<JQuery<HTMLInputElement>>,
 
-    /** ラベルで input[type="radios"] を取得する */
+    /** ラジオの値で input[type="radios"] を取得する */
     getRadiosByValue(label: string): Chainable<JQuery<HTMLInputElement>>,
   }
 }

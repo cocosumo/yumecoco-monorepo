@@ -1,4 +1,5 @@
 export * from './addressBuilder';
+export * from './calcBeforeTax';
 export * from './calcProfitRate';
 export * from './convertObjNumValsToFullWidth';
 export * from './convertObjNumValsToHalfWidth';

@@ -30,6 +30,9 @@ const schema = z.object({
   /** 粗利額 */
   totalProfit: z.number(),
 
+  /** 税金 */
+  taxRate: z.number(),
+
   /** 契約金 */
   hasContractAmt: z.boolean(),
   contractAmt: z.number(),

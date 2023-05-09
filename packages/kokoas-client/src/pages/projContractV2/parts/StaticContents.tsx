@@ -40,7 +40,7 @@ export const StaticContents = ({
       {isLoading && ( <LinearProgress  /> )}
       {!isLoading && (
         <>
-          <Stack maxWidth={600} spacing={2}>
+          <Stack spacing={2}>
             {data.map(({ label, value }) => (
               <Info key={label} label={label} value={value} />
             ))}

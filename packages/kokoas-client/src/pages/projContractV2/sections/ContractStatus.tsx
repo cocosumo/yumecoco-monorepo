@@ -9,6 +9,7 @@ import parseISO from 'date-fns/parseISO';
 import { ja } from 'date-fns/locale';
 import { EnvelopeRecipients } from 'docusign-esign';
 import { grey } from '@mui/material/colors';
+import { Info } from '../parts/Info';
 
 export const ContractStatus = () => {
 
@@ -16,13 +17,14 @@ export const ContractStatus = () => {
     name: 'contractId',
   });
 
-  const { data } = useContractById(contractId as string);
+  const { data: contractData } = useContractById(contractId as string);
 
   const {
     envRecipients,
     signMethod,
     envelopeStatus,
-  } = data || {};
+    envelopeId,
+  } = contractData || {};
 
   const {
     carbonCopies = [],
@@ -30,72 +32,99 @@ export const ContractStatus = () => {
   } : EnvelopeRecipients = JSON.parse(envRecipients?.value || '{}' ) || {};
 
   const parsedEnvRecipients = [...signers, ...carbonCopies];
+  const parsedSignMethod = signMethod?.value as TSignMethod;
 
+  const data = [
+    { label: '契約ID', value: contractId as string },
+    { label: 'Docusign ID', value: envelopeId?.value ?? '' },
+    { label: '署名手法', value: parsedSignMethod === 'electronic' ? '電子' : '紙印刷' },
+  ];
+
+  const hasContract = !!envelopeStatus?.value;
+  
   return (
-    <Stack 
+    <Stack
       p={2}
       border={1}
       borderColor={grey[300]}
       bgcolor='white'
-      direction={'row'} 
-      spacing={0} 
-      divider={<ArrowRightIcon sx={{ color: 'GrayText' }} />}
+      spacing={2}
     >
-      {!envRecipients && (envelopeStatus?.value as TEnvelopeStatus) === 'sent' && (
+      <Stack 
+        direction={'row'} 
+        spacing={0} 
+        divider={<ArrowRightIcon sx={{ color: 'GrayText' }} />}
+      >
+        {!parsedEnvRecipients.length && (envelopeStatus?.value as TEnvelopeStatus) === 'sent' && (
         <Alert severity='info'>
           {(signMethod?.value as TSignMethod) === 'electronic'
             ? 'まだ誰もサインしていません。'
             : '担当者がサインした契約書をまだアップロードしていません。' }
         </Alert>
-      )}
+        )}
 
-      {parsedEnvRecipients?.length && (
-        parsedEnvRecipients
-          ?.map(({
-            roleName,
-            recipientIdGuid,
-            status,
-            name,
-            email,
-            signedDateTime,
-            deliveredDateTime,
-          }) => {
-            return (
-              <Tooltip
-                key={recipientIdGuid}
-                placement="top"
-                title={(
-                  <Stack spacing={1}>
-                    <div>
-                      {`${name} <${email}>`}
-                    </div>
-                    {deliveredDateTime && (
-                    <div>
-                      受信日時：
-                      {format(parseISO(deliveredDateTime), 'PPpp', { locale: ja })}
-                    </div>
-                    )}
-                    {signedDateTime && (
+        {!hasContract  && (
+          <Alert severity='info'>
+            未処理
+          </Alert>
+        )}
+
+        {parsedEnvRecipients?.length && (
+          parsedEnvRecipients
+            ?.map(({
+              roleName,
+              recipientIdGuid,
+              status,
+              name,
+              email,
+              signedDateTime,
+              deliveredDateTime,
+            }) => {
+              return (
+                <Tooltip
+                  key={recipientIdGuid}
+                  placement="top"
+                  title={(
+                    <Stack spacing={1}>
+                      <div>
+                        {`${name} <${email}>`}
+                      </div>
+                      {deliveredDateTime && (
+                      <div>
+                        受信日時：
+                        {format(parseISO(deliveredDateTime), 'PPpp', { locale: ja })}
+                      </div>
+                      )}
+                      {signedDateTime && (
                       <div>
                         承認日時：
                         {format(parseISO(signedDateTime), 'PPpp', { locale: ja })}
                       </div>  
-                    )}
-                  </Stack>
+                      )}
+                    </Stack>
                 )}
-              >
-                <Chip
-                  label={roleName}
-                  size={'small'}
-                  color={status === 'completed' ? 'success' : 'default'}
-                />
-              </Tooltip>
-            );
-          })
-      )} 
-
+                >
+                  <Chip
+                    label={roleName}
+                    size={'small'}
+                    color={status === 'completed' ? 'success' : 'default'}
+                  />
+                </Tooltip>
+              );
+            })
+        )} 
       
 
+      </Stack>
+      {data.map(({ label, value }) => (
+        <Info
+          key={label}
+          label={label}
+          value={value}
+        />
+      ))}
+
     </Stack>
+    
   );
 };

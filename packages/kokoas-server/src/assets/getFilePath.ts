@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import validator from 'validator';
 
 type FileName =
 | '見積書'
@@ -24,7 +23,7 @@ export const getFilePath = ({
     fileType,
     version,
   ].forEach((value) => {
-    if (!validator.isAlphanumeric(value)) {
+    if (value.includes('/') || value.includes('\\') || value.includes('..')) {
       throw new Error('不正なファイルパス');
     }
   });

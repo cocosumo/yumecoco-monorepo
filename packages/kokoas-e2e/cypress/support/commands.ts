@@ -30,6 +30,10 @@ Cypress.Commands.add('login', () => {
       .find('input[type="checkbox"]');
   });
 
+  Cypress.Commands.add('getRadiosByValue', (value: string) => {
+    cy.get(`input[value="${value}"]`);
+  });
+
 
 
 });

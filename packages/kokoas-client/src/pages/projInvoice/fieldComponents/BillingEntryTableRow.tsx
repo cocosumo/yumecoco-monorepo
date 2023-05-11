@@ -53,6 +53,7 @@ export const BillingEntryTableRow = ({
     });
   });
 
+
   const billingAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
@@ -84,7 +85,7 @@ export const BillingEntryTableRow = ({
     rowAmountExceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
   }
 
-  const isOther = false; // 仮実装
+  const isOther = false; // 「その他」の選択状況
 
 
   return (

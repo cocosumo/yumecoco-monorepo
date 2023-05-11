@@ -52,6 +52,7 @@ export const ControlledDatePicker = ({
             renderInput={(params) => (
               <TextField
                 {...params}
+                name={name}
                 variant={variant}
                 label={label}
                 onBlur={onBlur}

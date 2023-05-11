@@ -18,6 +18,12 @@ export const getFilePath = ({
   version?: string
 }) => {
 
+  // js/path-injection攻撃に対する対策
+  if (fileType.includes('/') || fileName.includes('\\') || fileName.includes('..')) {
+    throw new Error('不正なファイルパス');
+  }
+  
+
   let assetFolder = '';
 
   switch (fileType) {
@@ -31,6 +37,7 @@ export const getFilePath = ({
   }
 
   const filePath = path.join(__dirname, assetFolder, `${fileName}${version}.${fileType}`);
+
 
   if (fs.existsSync(filePath)) {
     return filePath;

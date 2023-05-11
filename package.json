@@ -19,7 +19,6 @@
     "@kintone/customize-uploader": "^5.0.7",
     "@kintone/dts-gen": "^6.1.2",
     "@nrwl/nx-cloud": "latest",
-    "@testing-library/react-hooks": "^8.0.1",
     "@tsconfig/node16": "^1.0.3",
     "@types/big.js": "^6.1.6",
     "@types/docusign-esign": "^5.6.2",

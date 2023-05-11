@@ -19,6 +19,16 @@ export const getFilePath = ({
   version?: string
 }) => {
 
+  // js/path-injection攻撃に対する対策
+  [
+    fileType,
+    version,
+  ].forEach((value) => {
+    if (!validator.isAlphanumeric(value)) {
+      throw new Error('不正なファイルパス');
+    }
+  });
+
   let assetFolder = '';
 
   switch (fileType) {
@@ -29,11 +39,6 @@ export const getFilePath = ({
     default:
       assetFolder = fileType;
       break;
-  }
-
-  // js/path-injection に対する対策 
-  if (!validator.isAlphanumeric(fileType)) {
-    throw new Error('Invalid fileType.');
   }
 
   const filePath = path.join(__dirname, assetFolder, `${fileName}${version}.${fileType}`);

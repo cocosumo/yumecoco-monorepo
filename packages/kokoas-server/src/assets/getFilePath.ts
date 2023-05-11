@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import validator from 'validator';
 
 type FileName =
 | '見積書'
@@ -30,7 +31,13 @@ export const getFilePath = ({
       break;
   }
 
+  // js/path-injection に対する対策 
+  if (!validator.isAlphanumeric(fileType)) {
+    throw new Error('Invalid fileType.');
+  }
+
   const filePath = path.join(__dirname, assetFolder, `${fileName}${version}.${fileType}`);
+
 
   if (fs.existsSync(filePath)) {
     return filePath;

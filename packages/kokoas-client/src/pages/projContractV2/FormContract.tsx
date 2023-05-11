@@ -13,6 +13,7 @@ import { FormActions } from './sections/FormActions';
 import { CustomerSummary } from './sections/CustomerSummary';
 import { ProjectSummary } from './sections/ProjectSummary';
 import { ContractStatus } from './sections/ContractStatus';
+import { DevTool } from '@hookform/devtools';
 
 export const FormContract = () => {
 
@@ -99,7 +100,7 @@ export const FormContract = () => {
    
         )}
 
-
+        <DevTool control={control} />
       </FormContainer>
     </FormProvider>
   );

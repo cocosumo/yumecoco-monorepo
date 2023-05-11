@@ -148,6 +148,7 @@
     "react-transition-group": "^4.4.2",
     "react-use-file-upload": "^0.9.5",
     "reactflow": "^11.7.0",
+    "sanitize-filename": "^1.6.3",
     "shortid": "^2.2.16",
     "string-similarity": "^4.0.4",
     "styled-components": "^5.3.5",

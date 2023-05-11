@@ -96,7 +96,7 @@ describe(
           ['最終金', 'final'],
         ];
 
-        it('契約金すること', () => {
+        it('契約金額にコンマが追加されるのを確認する', () => {
           cy.getTextInputsByLabel('契約合計金額')
             .type(totalContractAmt.toString())
             .blur()

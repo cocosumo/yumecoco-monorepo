@@ -84,7 +84,7 @@
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@date-io/date-fns": "^2.13.1",
-    "@emotion/react": "^11.10.5",
+    "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.10.5",
     "@hookform/resolvers": "^2.9.10",
     "@kintone/rest-api-client": "^2.0.33",

@@ -132,8 +132,8 @@ describe(
           });
 
         payments.map(([label, namePart]) => {
-          it(`${label} - チェックを外すと残り金額が0になる`, () => {
-            cy.log(`${label} - チェックを外すと残り金額が0になる`);
+          it(`${label} - チェックを外すと対象の金額が0になる`, () => {
+            cy.log(`${label} - チェックを外すと対象の金額が0になる`);
             cy.getCheckboxesByLabel(label).uncheck();
             cy.get(`input[name="${namePart}Amt"]`)
               .should('value', '0');

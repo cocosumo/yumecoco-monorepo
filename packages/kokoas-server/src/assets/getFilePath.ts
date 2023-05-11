@@ -19,14 +19,10 @@ export const getFilePath = ({
 }) => {
 
   // js/path-injection攻撃に対する対策
-  [
-    fileType,
-    version,
-  ].forEach((value) => {
-    if (value.includes('/') || value.includes('\\') || value.includes('..')) {
-      throw new Error('不正なファイルパス');
-    }
-  });
+  if (fileType.includes('/') || fileName.includes('\\') || fileName.includes('..')) {
+    throw new Error('不正なファイルパス');
+  }
+  
 
   let assetFolder = '';
 

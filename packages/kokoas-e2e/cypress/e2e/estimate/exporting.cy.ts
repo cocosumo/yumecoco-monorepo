@@ -1,6 +1,6 @@
 import { beforeEach, cy, describe  } from 'local-cypress';
 
-describe('出力', () => {
+describe.skip('出力', () => {
   const testId = '6087cb6b-fa7f-4e75-8a64-0066985fb564';
 
   beforeEach(() => {

@@ -65,7 +65,7 @@ export const FormContract = () => {
               <ProjDetailsButton />
             </Grid>
 
-
+            <PageSubTitle label={'契約情報'} />
             <Grid item xs={12}>
               <ContractStatus />
             </Grid>           

@@ -6,9 +6,10 @@ export const initialForm : TypeOfForm = {
   projName: '',
 
   contractId: undefined,
-
+  
   totalContractAmt: 0,
   totalProfit: 0,
+  taxRate: 0.1,
   
   hasContractAmt: false,
   contractAmt: 0,

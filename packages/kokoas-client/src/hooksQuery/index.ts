@@ -21,6 +21,7 @@ export * from './useCustomers';
 export * from './useCustomersByCustGroupId';
 export * from './useCustomersById';
 export * from './useCustomersByIds';
+export * from './useDeleteContractById';
 export * from './useDownloadInvoiceId';
 export * from './useEmployeeByIds';
 export * from './useEmployeeOptions';

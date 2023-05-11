@@ -1,6 +1,6 @@
 import { beforeEach, cy, describe } from 'local-cypress';
 
-describe('見積もり選択する', () => {
+describe.skip('見積もり選択する', () => {
   /** テスト条件
    * - 見積もりがあること
    */

@@ -5,7 +5,11 @@ import { SubsidyAmount } from '../parts/SubsidyAmount';
 import { blue } from '@mui/material/colors';
 import { PaymentMethod } from '../parts/PaymentMethod';
 
-export const PaymentSchedule = () => {
+export const PaymentSchedule = ({
+  disabled,
+}: {
+  disabled: boolean
+}) => {
   return (
     <Stack 
       spacing={2} 
@@ -14,6 +18,7 @@ export const PaymentSchedule = () => {
       maxWidth={600}
     >
       <PaymentFieldGroup
+        disabled={disabled}
         fieldNames={{
           chkFldName: 'hasContractAmt',
           amtFldName: 'contractAmt',
@@ -22,6 +27,7 @@ export const PaymentSchedule = () => {
         label='契約金'
       />
       <PaymentFieldGroup
+        disabled={disabled}
         fieldNames={{
           chkFldName: 'hasInitialAmt',
           amtFldName: 'initialAmt',
@@ -30,6 +36,7 @@ export const PaymentSchedule = () => {
         label='着手金'
       />
       <PaymentFieldGroup
+        disabled={disabled}
         fieldNames={{
           chkFldName: 'hasInterimAmt',
           amtFldName: 'interimAmt',
@@ -38,6 +45,7 @@ export const PaymentSchedule = () => {
         label='中間金'
       />
       <PaymentFieldGroup
+        disabled={disabled}
         fieldNames={{
           chkFldName: 'hasFinalAmt',
           amtFldName: 'finalAmt',
@@ -63,7 +71,7 @@ export const PaymentSchedule = () => {
  
       </Stack>
       
-      <PaymentMethod />
+      <PaymentMethod disabled={disabled} />
 
     </Stack>
   );

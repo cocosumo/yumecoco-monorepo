@@ -8,10 +8,12 @@ export const ConstructionDates = ({
   label,
   dateFldName,
   daysFldName,
+  disabled,
 }: {
   label: string
   dateFldName: KeyOfForm
   daysFldName: KeyOfForm
+  disabled?: boolean,
 }) => {
   const {
     register,
@@ -32,7 +34,7 @@ export const ConstructionDates = ({
         {label}
       </FormLabel>
       <Stack direction={'row'} spacing={2}> 
-        <ControlledDatePicker name={dateFldName} width='50%' />
+        <ControlledDatePicker disabled={disabled} name={dateFldName} width='50%' />
         <TextField 
           {...register(daysFldName, { setValueAs(value) {
             return Number(value);
@@ -58,6 +60,7 @@ export const ConstructionDates = ({
           }}
           error={!!daysFldNameErr}
           helperText={daysFldNameErr?.message}
+          disabled={disabled}
         />
       </Stack>
     </FormControl>

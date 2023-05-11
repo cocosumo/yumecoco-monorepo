@@ -79,6 +79,7 @@ export const PaymentMethod = ({
                 placeholder='豊田信用金庫　朝日支店'
                 error={!!payDestinationErr}
                 helperText={payDestinationErr?.message}
+                disabled={disabled}
               />
               
               

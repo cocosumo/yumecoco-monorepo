@@ -5,6 +5,7 @@ import { useFormState, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { useMemo } from 'react';
 import { PreviewButton } from '../parts/preview/PreviewButton';
+import { DeleteButton } from '../parts/DeleteButton';
 
 export const FormActions = () => {
   const handleSubmit = useSubmitHandler();
@@ -14,8 +15,12 @@ export const FormActions = () => {
     isValidating, 
   } = useFormState<TypeOfForm>();
 
-  const contractId = useWatch<TypeOfForm>({
-    name: 'contractId',
+  const [
+    contractId,
+  ] = useWatch<TypeOfForm>({
+    name: [
+      'contractId',
+    ],
   });
 
   const errorMessage = useMemo(() => {
@@ -35,33 +40,37 @@ export const FormActions = () => {
   ]);
 
   return (
-    <Stack
-      direction="row"
-      spacing={2}
-      pt={2}
-    >
-      <Button
-        variant="outlined"
-        size="large"
-        startIcon={<SaveIcon />}
-        onClick={handleSubmit}
-        //disabled={isSaveDisabled}
+    <>
+      <Stack
+        direction="row"
+        spacing={2}
+        py={2}
+        alignItems={'center'}
       >
-        保存
-      </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          startIcon={<SaveIcon />}
+          onClick={handleSubmit}
+        >
+          保存
+        </Button>
 
-      {contractId && (
-      <PreviewButton disabled={isDirty} />
+        {contractId && (
+        <PreviewButton disabled={isDirty} />
+        )}
 
-      )}
+     
+        <DeleteButton />
+
+      </Stack>
 
       {errorMessage && (
       <Alert severity="error" >
         {errorMessage}
       </Alert>
       )}
-
-      
-    </Stack>
+    </>
+    
   );
 };

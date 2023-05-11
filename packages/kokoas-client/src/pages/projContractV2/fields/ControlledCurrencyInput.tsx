@@ -48,7 +48,8 @@ export const ControlledCurrencyInput = ({
             name={name}
             variant={variant}
             onChange={(v) => {
-              const parsedValue = +v;
+              const commaRemoved = typeof v === 'string' ? v.replace(/,/g, '') : v;
+              const parsedValue = +commaRemoved;
               onChange(isNaN(parsedValue) ? v : parsedValue);
             }}
             onBlur={onBlur}

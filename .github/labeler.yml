@@ -1,0 +1,12 @@
+# Add 'repo' label to any root file changes
+repo:
+- '*'
+
+'backend':
+- packages/kokoas-server/*
+
+'frontend':
+- packages/kokoas-client/*
+
+test:
+- src/**/*.cy.ts

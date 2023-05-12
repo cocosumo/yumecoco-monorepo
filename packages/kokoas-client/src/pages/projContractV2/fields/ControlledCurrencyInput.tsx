@@ -3,7 +3,6 @@ import { TypeOfForm } from '../schema';
 import { NumberCommaField } from 'kokoas-client/src/components/ui/textfield/NumberCommaField';
 import { TextFieldProps } from '@mui/material';
 
-// TODO: ブラウザーの推薦機能による不具合を調査し、修正する
 
 export const ControlledCurrencyInput = ({
   name,

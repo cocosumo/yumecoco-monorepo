@@ -121,7 +121,7 @@ describe(
         });
 
         payments
-          .map(([label, namePart], idx) => {
+          .forEach(([label, namePart], idx) => {
             it(`${label} - チェックが入ると残り金額が生成される`, () => {
               cy.log('初期状態はチェックが入っていないこと');
               cy.get(`input[name="${namePart}Amt"]`)
@@ -148,14 +148,15 @@ describe(
             });
           });
 
-        payments.map(([label, namePart]) => {
-          it(`${label} - チェックを外すと対象の金額が0になる`, () => {
-            cy.log(`${label} - チェックを外すと対象の金額が0になる`);
-            cy.getCheckboxesByLabel(label).uncheck();
-            cy.get(`input[name="${namePart}Amt"]`)
-              .should('value', '0');
+        payments
+          .forEach(([label, namePart]) => {
+            it(`${label} - チェックを外すと対象の金額が0になる`, () => {
+              cy.log(`${label} - チェックを外すと対象の金額が0になる`);
+              cy.getCheckboxesByLabel(label).uncheck();
+              cy.get(`input[name="${namePart}Amt"]`)
+                .should('value', '0');
+            });
           });
-        });
 
       },
     );

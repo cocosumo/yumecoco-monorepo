@@ -27,7 +27,7 @@ describe('プレビュー', () => {
           expect(documents.length).to.be.greaterThan(0, '書類が1つ以上存在すること');
         });
       },
-    );
+    ).as('downloadContract');
 
     cy.contains('button', 'プレビュー').click();
    

@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import sanitize from 'sanitize-filename';
 
 type FileName =
 | '見積書'
@@ -19,10 +20,8 @@ export const getFilePath = ({
 }) => {
 
   // js/path-injection攻撃に対する対策
-  if (fileType.includes('/') || fileName.includes('\\') || fileName.includes('..')) {
-    throw new Error('不正なファイルパス');
-  }
-  
+  const sanitizedFileType = sanitize(fileType);
+  const sanitizedVersion = sanitize(version);  
 
   let assetFolder = '';
 
@@ -36,7 +35,7 @@ export const getFilePath = ({
       break;
   }
 
-  const filePath = path.join(__dirname, assetFolder, `${fileName}${version}.${fileType}`);
+  const filePath = path.join(__dirname, assetFolder, `${fileName}${sanitizedVersion}.${sanitizedFileType}`);
 
 
   if (fs.existsSync(filePath)) {

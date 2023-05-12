@@ -28,7 +28,7 @@ const tblLabel: BillingTotalTbl[] = [{
 export const BillingTotal = () => {
 
   const { values } = useFormikContext<TypeOfForm>();
-  const { estimates } = values;
+  const { contracts } = values;
 
 
   return (
@@ -49,7 +49,7 @@ export const BillingTotal = () => {
         </TableHead>
         <TableBody>
           <BillingTotalBody
-            estimates={estimates}
+            estimates={contracts}
           />
         </TableBody>
       </Table>

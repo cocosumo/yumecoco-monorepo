@@ -13,7 +13,7 @@ const numberValidation = Yup
 
 
 /* unique validations */
-const billingAmountValidation = function (this: { parent: TypeOfForm['estimates'][number] }) {
+const billingAmountValidation = function (this: { parent: TypeOfForm['contracts'][number] }) {
   const {
     contractAmount,
     billingAmount,
@@ -32,11 +32,11 @@ export const validationSchema = Yup
   .object()
   .shape<Partial<Record<KeyOfForm, Yup.AnySchema>>>({
 
-  estimates: Yup.array()
+  contracts: Yup.array()
     .of(
       Yup.object({
         estimateIndex: numberValidation,
-        estimateId: Yup.string(),
+        contractId: Yup.string(),
         contractAmount: numberValidation,
         billingAmount: numberValidation
           .test(

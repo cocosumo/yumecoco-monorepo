@@ -3,7 +3,6 @@ import { TypeOfForm } from '../form';
 
 /**
  * 工事番号ごとに配列を分割する処理
- * @param estimates 
  */
 export const sortEstimatesByProjId = ({
   records,
@@ -15,7 +14,7 @@ export const sortEstimatesByProjId = ({
 
 
   /* データの再構成 */
-  const convertedEstimates: TypeOfForm['estimates'] | undefined = records?.map((record, idx) => {
+  const convertedEstimates: TypeOfForm['contracts'] | undefined = records?.map((record, idx) => {
 
     return {
       estimateIndex: '',
@@ -29,7 +28,7 @@ export const sortEstimatesByProjId = ({
       billingAmount: 0,
       amountType: '',
       isShow: true,
-      estimateId: record.uuid.value,
+      contractId: record.uuid.value,
     };
 
   });

@@ -12,12 +12,12 @@ import { pages } from '../Router';
 import { useEffect, useRef } from 'react';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import isEmpty from 'lodash/isEmpty';
-import { EstimatesTable } from './fieldComponents/EstimatesTable';
 import { BillingEntryTable } from './fieldComponents/BillingEntryTable';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
 import { BillingTotal } from './fieldComponents/BillingTotal';
 import { SelectInvoices } from './fieldComponents/selectInvoices/SelectInvoices';
 import { ActionButtons } from './fieldComponents/ActionButtons';
+import { EstimatesTable } from './fieldComponents/EstimatesTable';
 
 
 
@@ -31,14 +31,14 @@ export const FormInvoice = () => {
   const {
     custGroupId,
     custName,
-    estimates,
+    contracts,
     invoiceStatus,
     invoiceId,
   } = values;
 
 
 
-  const totalAmountExceeded = estimates.some(({ contractAmount, billedAmount, billingAmount, isShow }) => {
+  const totalAmountExceeded = contracts.some(({ contractAmount, billedAmount, billingAmount, isShow }) => {
     const totalBilledAmount = +billedAmount + +billingAmount;
     const isUnderContractAmount = (+contractAmount > 0) && (totalBilledAmount > +contractAmount);
     const isOverContractAmount = (+contractAmount <= 0) && (totalBilledAmount < +contractAmount);

@@ -4,13 +4,13 @@ import { TypeOfForm } from '../form';
 
 export const convertToKintone = ({
   custGroupId,
-  estimates,
+  contracts,
   plannedPaymentDate,
   exceedChecked,
   invoiceStatus,
 }: TypeOfForm) => {
 
-  const billingAmount = estimates.reduce((acc, cur) => {
+  const billingAmount = contracts.reduce((acc, cur) => {
     return acc + +cur.billingAmount;
   }, 0);
 
@@ -25,12 +25,12 @@ export const convertToKintone = ({
     invoiceStatus: { value: invoiceStatus },
     estimateLists: {
       type: 'SUBTABLE',
-      value: estimates.filter(({ isShow }) => !!isShow)
+      value: contracts.filter(({ isShow }) => !!isShow)
         .map(({
           projId,
           dataId,
           projTypeName,
-          estimateId,
+          contractId,
           billingAmount: amountPerContract,
           amountType,
         }) => {
@@ -40,7 +40,7 @@ export const convertToKintone = ({
               projId: { value: projId },
               dataId: { value: dataId },
               projTypeName: { value: projTypeName },
-              estimateId: { value: estimateId },
+              estimateId: { value: contractId },
               amountPerContract: { value: String(amountPerContract) },
               paymentType: { value: amountType },
             },

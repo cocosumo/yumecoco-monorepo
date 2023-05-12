@@ -13,6 +13,8 @@ export * from './useContractFilesById';
 export * from './useContracts';
 export * from './useContractsByCustGroupId';
 export * from './useContractsByProjId';
+export * from './useContractsV2ByCustGroupId';
+export * from './useContractV2';
 export * from './useConvertToAndpadByProjId';
 export * from './useCustGroupById';
 export * from './useCustGroupByProjId';

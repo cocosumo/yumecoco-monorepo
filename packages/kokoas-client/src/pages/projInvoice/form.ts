@@ -22,7 +22,7 @@ export const initialValues = {
   custName: '',
 
   /** 見積もり情報 */
-  estimates: [
+  contracts: [
     {
       /** 見積もりインデックス用uuid */
       estimateIndex: '',
@@ -58,7 +58,7 @@ export const initialValues = {
       isShow: false,
 
       /** 見積もりuuid */
-      estimateId: '',
+      contractId: '',
     },
   ],
 
@@ -78,14 +78,14 @@ export const initialValues = {
 export type TypeOfForm = typeof initialValues;
 export type KeyOfForm = keyof TypeOfForm;
 
-export const initialEstimateRow = initialValues.estimates[0];
+export const initialEstimateRow = initialValues.contracts[0];
 export type EstimateRow = typeof initialEstimateRow;
 
 /* Utility functions */
 
 export const getFieldName = (s: KeyOfForm) => s;
 
-export type TMaterials = TypeOfForm['estimates'][0];
+export type TMaterials = TypeOfForm['contracts'][0];
 export type TKMaterials = keyof TMaterials;
 
 export type TInvoiceStatus =
@@ -98,7 +98,7 @@ export type TInvoiceStatus =
  * 
  フィールド名取得、ヘルパー
  */
-const itemsName = getFieldName('estimates');
+const itemsName = getFieldName('contracts');
 export const getEstimatesFieldName = (
   rowIdx: number, fieldName: TKMaterials,
 ) => `${itemsName}[${rowIdx}].${fieldName}`;

@@ -31,7 +31,7 @@ export const BillingEntryTableRow = ({
 
   const {
     projTypeName,
-    estimateId,
+    contractId,
     dataId,
     contractAmount,
     billedAmount,
@@ -39,7 +39,7 @@ export const BillingEntryTableRow = ({
     amountType,
   } = estimate;
 
-  const paymentItem = paymentList?.find(({ uuid }) => uuid === estimateId);
+  const paymentItem = paymentList?.find(({ uuid }) => uuid === contractId);
   const paymentTypeOption = paymentItem?.paymentTypeList.map((item) => {
     return ({
       label: item,
@@ -50,7 +50,7 @@ export const BillingEntryTableRow = ({
   const billingAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = Number(e.target.value ?? 0);
+        draft.contracts[idx].billingAmount = Number(e.target.value ?? 0);
       });
 
       return newVal;
@@ -62,7 +62,7 @@ export const BillingEntryTableRow = ({
 
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = Number(paymentItem?.paymentAmtPerType?.[arrayIdx] ?? 0) ;
+        draft.contracts[idx].billingAmount = Number(paymentItem?.paymentAmtPerType?.[arrayIdx] ?? 0) ;
       });
 
       return newVal;

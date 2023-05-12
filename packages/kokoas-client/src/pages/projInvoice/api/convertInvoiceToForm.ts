@@ -68,7 +68,7 @@ export const convertInvoiceToForm = (
       billingAmount: Number(amountPerContract.value),
       amountType: paymentType.value,
       isShow: true,
-      estimateId: estimateId.value,
+      contractId: estimateId.value,
     });
 
     return acc;
@@ -81,7 +81,7 @@ export const convertInvoiceToForm = (
     plannedPaymentDate: plannedPaymentDate.value ? parseISO(plannedPaymentDate.value) : '',
     undecidedPaymentDate: !plannedPaymentDate.value,
     exceedChecked: Boolean(exceedChecked.value),
-    estimates: newEstimates,
+    contracts: newEstimates,
     invoiceStatus: invoiceStatus.value as TInvoiceStatus,
   };
 

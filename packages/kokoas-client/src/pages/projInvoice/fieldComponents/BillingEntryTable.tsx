@@ -19,11 +19,11 @@ export const BillingEntryTable = ({
 }) => {
 
   const { values, setValues } = useFormikContext<TypeOfForm>();
-  const { custGroupId, estimates } = values;
+  const { custGroupId, contracts } = values;
 
-  const { data: contracts } = useContractsByCustGroupId(custGroupId);
+  const { data: recContracts } = useContractsByCustGroupId(custGroupId);
 
-  const filterTable = estimates.filter((estimate) => estimate.isShow);
+  const filterTable = contracts.filter((contract) => contract.isShow);
 
 
 
@@ -38,21 +38,21 @@ export const BillingEntryTable = ({
           <Table size="small">
             <BillingEntryTableHead />
             <TableBody>
-              <FieldArray name="estimates" >
+              <FieldArray name="contracts" >
                 {({ insert }) => (
                   <>
                     {
-                      estimates.map((row, idx) => {
+                      contracts.map((row, idx) => {
                         if (!row.isShow) return;
                         return (
                           <BillingEntryTableRow
                             estimate={row}
                             idx={idx}
-                            paymentList={contracts?.paymentList}
+                            paymentList={recContracts?.paymentList}
                             isBilled={isBilled}
                             handleInsert={() => {
                               const newRow = {
-                                ...estimates[idx],
+                                ...contracts[idx],
                                 billingAmount: 0,
                                 amountType: '',
                                 estimateIndex: uuidV4(),
@@ -62,7 +62,7 @@ export const BillingEntryTable = ({
                             handleRemove={() => {
                               // 履歴として残せるよう、remove(idx)ではなくisShowで調整する
                               setValues((prev) => produce(prev, (draft) => {
-                                draft.estimates[idx].isShow = false;
+                                draft.contracts[idx].isShow = false;
                               }));
                             }}
                             key={`${row.estimateIndex}`}

@@ -50,7 +50,7 @@ export const convertContractsToForm = ({
       billingAmount: Number(invoiceDetails?.amountPerContract.value ?? ''),
       amountType: invoiceDetails?.paymentType.value ?? '',
       isShow: false,
-      estimateId: contract.uuid.value,
+      contractId: contract.uuid.value,
     });
   });
 

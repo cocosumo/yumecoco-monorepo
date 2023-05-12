@@ -46,18 +46,18 @@ export const EstimateTableBody = ({
 
   const isRefund = contractAmount < 0;
   const disabled = !isRefund ? contractAmount <= billedAmount : contractAmount >= billedAmount;
-  const isExist = values.estimates.find(({ dataId }) => dataId === estimateRow.dataId);
+  const isExist = values.contracts.find(({ dataId }) => dataId === estimateRow.dataId);
 
   const handleCheck = () => {
 
     if (isExist) {
       // 既にestimatesに対象の見積もり枝番情報が含まれる場合、対象の見積もり枝番のisShowの値を反転する
       setValues((prev) => produce(prev, (draft) => {
-        draft.estimates = draft.estimates.map((estimate) => {
-          if (estimateRow.dataId !== estimate.dataId) return estimate;
+        draft.contracts = draft.contracts.map((contract) => {
+          if (estimateRow.dataId !== contract.dataId) return contract;
           return ({
-            ...estimate,
-            isShow: !estimate.isShow,
+            ...contract,
+            isShow: !contract.isShow,
           });
         });
       }));
@@ -69,7 +69,7 @@ export const EstimateTableBody = ({
         isShow: true,
       };
       setValues((prev) => produce(prev, (draft) => {
-        draft.estimates.push(newEstimateRow);
+        draft.contracts.push(newEstimateRow);
       }));
     }
   };

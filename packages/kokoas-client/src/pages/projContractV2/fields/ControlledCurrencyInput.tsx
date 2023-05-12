@@ -3,6 +3,7 @@ import { TypeOfForm } from '../schema';
 import { NumberCommaField } from 'kokoas-client/src/components/ui/textfield/NumberCommaField';
 import { TextFieldProps } from '@mui/material';
 
+
 export const ControlledCurrencyInput = ({
   name,
   label,
@@ -46,7 +47,8 @@ export const ControlledCurrencyInput = ({
             name={name}
             variant={variant}
             onChange={(v) => {
-              const parsedValue = +v;
+              const commaRemoved = typeof v === 'string' ? v.replace(/,/g, '') : v;
+              const parsedValue = +commaRemoved;
               onChange(isNaN(parsedValue) ? v : parsedValue);
             }}
             onBlur={onBlur}

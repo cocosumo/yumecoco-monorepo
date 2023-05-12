@@ -21,6 +21,23 @@ describe(
 
     });
 
+    it('金額はブラウザ推薦機能で記入したら、エラーにならないこと', () => {
+      const simulatedInput = '123,456,789';
+
+      // ブラウザの推薦機能をシミュレーションする　
+      // ※ 私の環境では当機能が再現出来ないので、以下の手法で誤検知可能性あり。ras-2023-05-11
+      cy.getTextInputsByLabel('契約合計金額')
+        .invoke('val', simulatedInput)
+        .type('{ctrl}');
+        
+
+      cy.getCheckboxesByLabel('契約金')
+        .check({ scrollBehavior: 'center' });
+      
+      cy.get('input[name="contractAmt"]').should('have.value', simulatedInput);
+
+    });
+
     it('計算が合っていること', () => {
     
       cy.getTextInputsByLabel('契約合計金額')

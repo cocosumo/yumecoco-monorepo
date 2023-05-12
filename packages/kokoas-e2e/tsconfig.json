@@ -1,5 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "ES2019",
+    "lib": ["es2022","dom","DOM.Iterable"]
   },
 }

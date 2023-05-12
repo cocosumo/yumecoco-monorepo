@@ -71,8 +71,8 @@ export const saveProject = async (body: SaveProjectData) => {
       response,
       errors,
       message,
-    } = err as AxiosError & ZodError;
-    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}, ${message}。`;
+    } = (err || {}) as AxiosError & ZodError;
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data ?? ''}, ${message}。`;
 
     throw new Error(errorMsg);
   }

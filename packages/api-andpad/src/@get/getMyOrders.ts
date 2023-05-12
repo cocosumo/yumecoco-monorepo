@@ -40,8 +40,8 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
     const {
       response,
       errors,
-    } = err as AxiosError & ZodError;
-    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}`;
+    } = (err || {}) as AxiosError & ZodError;
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data ?? ''}`;
     console.error(err);
     throw new Error(`${errorMsg}`);
   }

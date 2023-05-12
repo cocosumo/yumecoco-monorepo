@@ -44,4 +44,7 @@ export const docusignEndpoints = {
   downloadContract: 'contract/download/v2',
   sendDirect: 'contract/send/direct/v2',
   void: 'contract/void/v2',
+
+  /** 修正画面 */
+  correct: 'contract/correct',
 } as const;

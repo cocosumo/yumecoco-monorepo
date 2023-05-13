@@ -3,7 +3,13 @@ import { docusignEndpoints, kintoneProxyWrapper } from 'libs';
 import { ApiNodes } from 'types';
 import { z } from 'zod';
 
-export const getCorrectViewUrl = async (envelopeId: string) => {
+export const getCorrectViewUrl = async ({
+  envelopeId,
+  returnUrl,
+}:{
+  envelopeId: string,
+  returnUrl?: string,
+}) => {
   if (!envelopeId) throw new Error('エンベロープIDは設定していません。');
 
 
@@ -16,6 +22,7 @@ export const getCorrectViewUrl = async (envelopeId: string) => {
     method: 'POST',
     data: {
       envelopeId,
+      returnUrl,
     },
     headers: {
       'Content-Type': 'application/json',

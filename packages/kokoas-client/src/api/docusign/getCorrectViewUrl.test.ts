@@ -9,7 +9,7 @@ describe('getCorrectViewUrl', () => {
      */
     const envelopeId = 'dcdc8c8c-6d3b-413e-8498-29fa034c6e87';
 
-    const result = await getCorrectViewUrl(envelopeId);
+    const result = await getCorrectViewUrl({ envelopeId });
 
     console.log(result);
 

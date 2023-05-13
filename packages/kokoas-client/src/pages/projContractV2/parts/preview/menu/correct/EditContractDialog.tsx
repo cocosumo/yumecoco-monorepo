@@ -20,12 +20,15 @@ export const EditContractDialog = ({
   } = useContractCorrectView();
 
   const handleOpenCorrectView = async () => {
-    const envelopeId = getValues('envelopeId');
+    const envelopeId = getValues('envelopeId') as string;
     const {
       url,
-    } = await getContractView(envelopeId as string);
-    window.open(url, '_blank');
-    handleClose();
+    } = await getContractView({
+      envelopeId,
+      returnUrl: window.location.href,
+    });
+
+    window.open(url, '_self');
   };
 
   return (

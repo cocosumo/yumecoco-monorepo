@@ -7,12 +7,14 @@ unknown,
 unknown,
 {
   envelopeId: string,
+  returnUrl?: string,
 }
 > = async (req, res) => {
   const body = req.body;
 
   const {
     envelopeId = '',
+    returnUrl,
   } = body;
 
   try {
@@ -22,7 +24,7 @@ unknown,
     }
     
     console.log('Request correct view', envelopeId);
-    const result = await createCorrectView(envelopeId);
+    const result = await createCorrectView(envelopeId, returnUrl);
 
     console.log('Sending correct view url.');
     res.status(200).json(result);

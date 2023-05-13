@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
 import { createCorrectView } from '../api/docusign/createCorrectView';
+import validator from 'validator';
 
 export const reqCreateCorrectView: RequestHandler<
 unknown,
@@ -27,6 +28,10 @@ unknown,
     res.status(200).json(result);
     
   } catch (error) {
-    res.status(400).send(`編集リクエストが失敗しました。Docusign上で確認するよう管理者にご連絡ください。 ${error.message}`);
+    const sanitizedError = validator.escape(error.message) ;
+ 
+    res
+      .status(400)
+      .send(`編集リクエストが失敗しました。Docusign上で確認するよう管理者にご連絡ください。 ${sanitizedError}`);
   }
 };

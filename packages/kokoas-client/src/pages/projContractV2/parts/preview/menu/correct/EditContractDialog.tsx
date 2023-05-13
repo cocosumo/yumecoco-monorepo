@@ -28,6 +28,8 @@ export const EditContractDialog = ({
       returnUrl: window.location.href,
     });
 
+    handleClose();
+
     window.open(url, '_self');
   };
 

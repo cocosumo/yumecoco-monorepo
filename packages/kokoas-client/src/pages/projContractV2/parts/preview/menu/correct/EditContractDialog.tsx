@@ -56,7 +56,9 @@ export const EditContractDialog = ({
             送信したエンベロープが完了していない場合は、修正することができます。
           </AlertTitle>
   
-          文書を修正したら、必ず［修正］または［変更の破棄］をクリックしてください。文書を修正した後でこれらをクリックせずにブラウザーを閉じると、受信者が文書にアクセスなくなります。
+          文書を修正したら、必ず［修正］または［変更の破棄］をクリックしてください。
+          文書を修正した後でこれらをクリックせずにブラウザーを閉じると、受信者が文書にアクセスなくなります。
+
           詳細は
           <Link href='https://support.docusign.com/s/articles/FAQs-related-to-correcting-envelopes-in-DocuSign?language=ja&rsc_301' target='_blank'>
             こちら

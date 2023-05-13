@@ -9,7 +9,7 @@ import { TEnvelopeStatus } from 'types';
  * エンベロープを修正する
  * @see https://support.docusign.com/s/document-item?language=ja&rsc_301=&langSet=1&bundleId=oeq1643226594604&topicId=dxr1578456334187.html&_LANG=jajp
  */
-const editableStates: TEnvelopeStatus[] = ['sent', 'created'];
+const editableStates: TEnvelopeStatus[] = ['sent', 'created', 'correct'];
 
 export const MenuCorrectContract = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +28,7 @@ export const MenuCorrectContract = () => {
             setOpen(true);
           }}
         >
-          取り下げ
+          修正
         </MenuItem>
       </div>
     </Tooltip>

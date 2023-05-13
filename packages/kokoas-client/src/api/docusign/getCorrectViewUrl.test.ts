@@ -5,6 +5,7 @@ describe('getCorrectViewUrl', () => {
     /**
      * Note:
      * ドキュメントにないですが、修正ビューURLを生成したあと、また生成したら、前のURLが無効になります。
+     * よって、キャッシュするかどうか検証中。
      */
     const envelopeId = 'dcdc8c8c-6d3b-413e-8498-29fa034c6e87';
 

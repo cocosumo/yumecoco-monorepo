@@ -26,14 +26,20 @@ app.use(`/${kokoasApiRoot}`, kokoas);
 app.get('/wp/*', (req, res) => {
 
   console.log("'/wp' call", req.url);
-  const actualEndpoint = req.url.replace('/wp', '');
+  const actualEndpoint = req.url.replace('/wp/', '');
   const endpoint = `${COCO_BASE_URL}/${actualEndpoint}`;
 
   console.log('endpoint', endpoint);
 
   axios.get(endpoint)
-    .then(data => res.json(data))
-    .catch(err => res.status(400).json(err));
+    .then(({ data }) => {
+      console.log('data', data);
+      res.json(data);
+    })
+    .catch(err => {
+      console.log('err', err);
+      res.status(400).json(err);
+    });
 });
 
 app.listen(PORT, () => {

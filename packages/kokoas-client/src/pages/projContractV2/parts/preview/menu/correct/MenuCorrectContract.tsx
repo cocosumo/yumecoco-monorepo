@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from 'kokoas-client/src/pages/projContractV2/schema';
 import { TEnvelopeStatus } from 'types';
+import { EditContractDialog } from './EditContractDialog';
 
 /**
  * エンベロープを修正する
@@ -20,17 +21,25 @@ export const MenuCorrectContract = () => {
   const isEditableState = editableStates.includes(envelopeStatus);
 
   return (
-    <Tooltip title={!isEditableState ? '進捗中の契約のみ修正出来ます' : ''}>
-      <div>
-        <MenuItem 
-          disabled={!isEditableState}
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          修正
-        </MenuItem>
-      </div>
-    </Tooltip>
+    <>
+      <Tooltip title={!isEditableState ? '進捗中の契約のみ修正出来ます' : ''}>
+        <div>
+          <MenuItem 
+            disabled={!isEditableState}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            修正
+          </MenuItem>
+        </div>
+      </Tooltip>
+    
+      <EditContractDialog 
+        handleClose={()=> setOpen(false)} 
+        open={open}
+      />
+    </>
+    
   );
 };

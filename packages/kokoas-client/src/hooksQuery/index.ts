@@ -9,6 +9,7 @@ export * from './useCommonOptions';
 export * from './useContractById';
 export * from './useContractByProjId';
 export * from './useContractCheckersByStoreId';
+export * from './useContractCorrectView';
 export * from './useContractFilesById';
 export * from './useContracts';
 export * from './useContractsByCustGroupId';

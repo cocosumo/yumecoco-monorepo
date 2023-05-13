@@ -17,7 +17,9 @@ export const getCorrectViewUrl = async (envelopeId: string) => {
     data: {
       envelopeId,
     },
-    headers: {},
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   const correctViewResult = z.object({

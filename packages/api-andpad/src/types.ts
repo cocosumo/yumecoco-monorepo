@@ -107,7 +107,7 @@ export const saveProjectData = z.object({
   '案件フロー':  z.enum(['契約前', '着工前', '進行中', '完工（精算前）', '精算完了', '失注']).optional(),
 
   /** 契約日 */
-  '契約日(実績)': z.string().optional(),
+  //'契約日(実績)': z.string().optional(),
 
   /** 工事種別で連携 */
   'ラベル:工事内容': z.enum(projectTypesAndpad),

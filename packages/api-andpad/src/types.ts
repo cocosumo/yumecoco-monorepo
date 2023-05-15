@@ -18,7 +18,7 @@ export type BuildingTypesAndpad = typeof buildingTypesAndpad[number];
 export const projectTypesAndpad = ['新築', '新築付帯', 'リフォーム', '太陽光', '外構', '解体', 'その他'] as const;
 export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
 
-export const storeNamesAndpad = ['豊田店', '中川店', '大林店', '美里店', '豊川店', '向山店', '八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '八熊店', '藤沢店', '豊田美里店', '岩田店'] as const;
+export const storeNamesAndpad = ['豊田店', '中川店', '大林店', '美里店', '豊川店', '向山店', '八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '八熊店', '藤沢店', '岩田店'] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
 export const storeMap : Record<string, StoreNamesAndpad> = {
@@ -114,7 +114,7 @@ export const saveProjectData = z.object({
   'ラベル:工事内容': z.enum(projectTypesAndpad),
 
   /** 店舗 */
-  'ラベル:店舗': z.enum(storeNamesAndpad),
+  'ラベル:店舗': z.string().optional(),
 
   /** 顧客都道府県 */
   '顧客都道府県': z.string().optional(),

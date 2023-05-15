@@ -65,7 +65,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '物件住所': `${projRec.address1.value.replace(projPrefecture?.value || '', '')}${projRec.address2?.value}`,
 
     '案件管理ID': projRec.uuid.value,
-    '案件名': `${custGroupRec.storeName.value}　${projRec.projName.value}`,
+    '案件名': `ここすも${storeName}　${projRec.projName.value}`,
     '案件種別': projRec.projTypeName.value === '新築工事' ? '新築' : 'リフォーム',
 
     // 見積との依存関係をなくすことにより、一旦コメントアウトします。

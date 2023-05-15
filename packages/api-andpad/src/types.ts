@@ -18,23 +18,24 @@ export type BuildingTypesAndpad = typeof buildingTypesAndpad[number];
 export const projectTypesAndpad = ['新築', '新築付帯', 'リフォーム', '太陽光', '外構', '解体', 'その他'] as const;
 export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
 
-export const storeNamesAndpad = ['豊田店', '大林店', '豊川中央店', '豊橋向山店', '豊川八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '中川八熊店', '豊橋藤沢店', '豊田美里店', '豊橋岩田店'] as const;
+export const storeNamesAndpad = ['豊田店', '中川店', '大林店', '美里店', '豊川店', '向山店', '八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '八熊店', '藤沢店', '豊田美里店', '岩田店'] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
 export const storeMap : Record<string, StoreNamesAndpad> = {
   豊田中央店: '豊田店',
-  豊川中央店: '豊川中央店',
-  豊橋向山店: '豊橋向山店',
+  豊川中央店: '豊川店',
+  豊橋向山店: '向山店',
   千種大久手店: '千種店',
   高浜中央店: '高浜店',
   豊田大林店: '大林店',
-  豊川八幡店: '豊川八幡店',
+  豊川八幡店: '八幡店',
   大垣店: '大垣店',
   蒲郡店: '蒲郡店',
-  中川八熊店: '中川八熊店',
-  豊橋藤沢店: '豊橋藤沢店',
-  豊田美里店: '豊田美里店',
-  豊橋岩田店: '豊橋岩田店',
+  豊橋藤沢店: '藤沢店',
+  中川八熊店: '中川店',
+  豊田美里店: '美里店',
+  豊橋岩田店: '岩田店',
+
 };
 
 /**

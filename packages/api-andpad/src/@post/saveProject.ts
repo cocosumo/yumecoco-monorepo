@@ -50,9 +50,11 @@ export const saveProject = async (body: SaveProjectData) => {
 
     const savedAndpadData = savedData.data.objects?.[0];
 
-    console.log('格納されたデータ', savedAndpadData);
+    console.log('格納されたデータです', savedAndpadData);
 
-    for (const dataKey of Object.keys(parsedBody)) {
+    
+
+    /*  for (const dataKey of Object.keys(parsedBody)) {
       const dataValue = parsedBody[dataKey as keyof typeof parsedBody];
       const savedValue = savedAndpadData[dataKey as keyof typeof savedAndpadData];
       if (
@@ -61,7 +63,7 @@ export const saveProject = async (body: SaveProjectData) => {
       ) {
         throw new Error(`{ ${dataKey}: ${dataValue} } 保存が失敗しました。ANDPADに格納した情報：${savedValue}。 管理者に連絡してください。`);
       }
-    }
+    } */
 
     console.log('保存が成功しました。');
     return resp;

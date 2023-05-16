@@ -1,5 +1,11 @@
-import axios from 'axios';
+import { kintoneProxyWrapper } from 'libs';
+import qs from 'qs';
 
+/**
+ * 
+ * @param param0 
+ * @see https://developer.chatwork.com/docs/endpoints
+ */
 export const sendMessage = (
   {
     body,
@@ -19,19 +25,19 @@ export const sendMessage = (
   const url = `https://api.chatwork.com/v2/rooms/${roomId}/messages`;
   const headers = {
     'X-ChatWorkToken': cwToken || '',
+
+
   };
-  const params = `body=${body}&self_unread=${selfUnread}`;
+  const params = qs.stringify({
+    body,
+    self_unread: selfUnread,
+  });
 
-  if (kintone) {
-    return kintone.proxy(url, 'POST', headers, params);
-  } else {
-    return axios({
-      url,
-      headers,
-      method: 'post',
-      data: params,
-    });
-  }
-
+  return kintoneProxyWrapper({
+    url:  `${url}?${params}`,
+    headers,
+    method: 'POST',
+    data: {},
+  });
 
 };

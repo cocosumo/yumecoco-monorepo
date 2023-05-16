@@ -42,7 +42,6 @@ export const Remarks = () => {
     <>
       <PageSubTitle label="備考欄" />
       <Grid item sx={{ height: 400, width: '100%' }}>
-        -
         <DataGrid
           rows={remarks}
           columns={columns}

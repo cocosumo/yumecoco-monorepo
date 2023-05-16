@@ -8,7 +8,6 @@ import {
   Remarks, 
   StatusControls, 
 } from './sections';
-import { Grid } from '@mui/material';
 import {  Form, useFormikContext } from 'formik';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
@@ -17,6 +16,7 @@ import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
 import { RecordSelect } from './sections/RecordSelect/RecordSelect';
 import { LogDisplay } from './sections/logDisplay/LogDisplay';
+import { ExternalLinks } from './sections/ExternalLinks';
 
 export const FormConstruction  = () => {
 
@@ -52,35 +52,35 @@ export const FormConstruction  = () => {
           textColor='#FFF'
           secondaryLabel={projDataId}
         />
-        <Grid container item
-          spacing={2} mb={12}
-        >
-          <RecordSelect />
+        <RecordSelect />
 
-          {!!projId && <LogDisplay />}
-       
-          <UneditableInfo 
-            projId={projId}
-            projName={projName}
-            isVisible={isFormDisabled} 
+        <ExternalLinks />
+
+        {!!projId && <LogDisplay />}
+
+        <UneditableInfo 
+          projId={projId}
+          projName={projName}
+          isVisible={isFormDisabled}
+        />
+        <CustInfo />
+
+        {custGroupId && (
+        <>
+          <ConstructionLocation />
+          <ConstructionInfo
+            storeId={storeId}
+            territory={territory}
+            projTypeId={projTypeId}
           />
-          <CustInfo />
-
-          {custGroupId && (
-            <>
-              <ConstructionLocation />
-              <ConstructionInfo
-                storeId={storeId}
-                territory={territory}
-                projTypeId={projTypeId}
-              />
-              <Remarks />
+          <Remarks />
               
-              {isEditMode && <StatusControls />}
+          {isEditMode && <StatusControls />}
 
-            </>
-          )}
-        </Grid>
+        </>
+        )}
+
+        
         <FabSave onClick={submitForm} url="project" appear={!!custGroupId && dirty} />
       </MainContainer>
 

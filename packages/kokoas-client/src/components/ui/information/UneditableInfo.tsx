@@ -3,16 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { pages } from '../../../pages/Router';
 
 export const UneditableInfo = ({
-  projId, isVisible,
+  projId, 
+  projName,
+  isVisible,
 }: {
   projId?: string
+  projName?: string,
   isVisible: boolean,
 }) => {
   const navigate = useNavigate();
   return (
     <Zoom in={isVisible} unmountOnExit={true}>
-
-
+      
       <Grid item xs={12} >
 
         <Alert
@@ -30,7 +32,7 @@ export const UneditableInfo = ({
           <br />
           {projId &&
           <Button
-            onClick={()=>navigate(`${pages.projContractPreview}?projId=${projId}`)}
+            onClick={()=>navigate(`/${pages.projContractSearch}?mainSearch=${projName}`)}
             color="inherit"
             variant={'outlined'}
             size="small"

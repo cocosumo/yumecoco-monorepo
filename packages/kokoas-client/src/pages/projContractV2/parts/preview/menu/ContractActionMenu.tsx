@@ -2,6 +2,7 @@ import { Button, Menu } from '@mui/material';
 import MoreIcon from '@mui/icons-material/More';
 import { useState } from 'react';
 import { MenuVoidContract } from './void/MenuVoidContract';
+import { MenuCorrectContract } from './correct/MenuCorrectContract';
 
 
 export const ContractActionMenu = () => {
@@ -38,6 +39,8 @@ export const ContractActionMenu = () => {
         }}
       >
 
+        <MenuCorrectContract />
+        
         <MenuVoidContract />
 
       </Menu>

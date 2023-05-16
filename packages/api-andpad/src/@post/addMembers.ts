@@ -77,7 +77,7 @@ export const addMembers = async ({
         await sendMessage({
           body: `ANDPADの案件メンバーの追加APIは変更仕様があるかもしれません。${JSON.stringify(data)}`,
           roomId: chatworkRooms.test,
-        });
+        }).catch();
         return data as AddMembersResult201;
       }
     }

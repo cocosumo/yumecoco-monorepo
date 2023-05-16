@@ -22,6 +22,7 @@ describe('削除処理', () => {
       .then((testIds) => {
         cy.visit(`/project/contract/preview/v2?contractId=${testIds.contractId}`);
       });
+
   });
 
   it('未処理の契約が削除できること', () => {
@@ -41,6 +42,8 @@ describe('削除処理', () => {
       });
     }).as('deleteContract');
 
+    cy.contains('h4', '契約編集').should('be.visible');
+
     cy.contains('button', '削除').click();
     cy.contains('削除しますか？').should('be.visible');
 
@@ -57,6 +60,7 @@ describe('削除処理', () => {
     .forEach((status) => {
       it(`「${status}」状態の契約は削除できないこと`, () => {
         interceptContractRequest(status);
+        cy.contains('h4', '契約編集').should('be.visible');
         cy.contains('button', '削除').should('be.disabled');
       });
     });

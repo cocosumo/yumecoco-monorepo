@@ -12,6 +12,7 @@ export const generateURI = () => {
     response_type: 'code',
     client_id: clientId,
     redirect_uri: redirectURI,
+    scope: 'openid+workman', // エンコードされるとエラーになるので、+ を手打ちにする
   };
 
   const url = `${endpoints.authCode}?${qs.stringify(params)}`;

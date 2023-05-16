@@ -13,7 +13,7 @@ let andpadToken: AuthToken = {
   token_type: 'Bearer',
   expires_in: 0,
   refresh_token: '',
-  scope: 'openid',
+  scope: 'openid+workman',
   created_at: 0,
   id_token: '',
 };
@@ -45,7 +45,7 @@ export const updateAuthDB = async <T = unknown>(data: T) => {
  */
 export const fetchToken = async () => {
   try {
-
+    console.log('fetching token...');
     if (!clientId)
       throw new Error('clientIdを指定してください。');
     if (!secretId)
@@ -70,8 +70,10 @@ export const fetchToken = async () => {
     return andpadToken;
 
   } catch (err) {
-    console.log(err.message);
-    throw new Error(err.message);
+
+    
+    console.log((err as Error).message);
+    throw new Error((err as Error).message);
   }
 };
 
@@ -106,7 +108,7 @@ export const refreshToken = async () => {
 
   } catch (err) {
     console.error(err);
-    throw new Error(err.message);
+    throw new Error((err as Error).message);
   }
 
 };
@@ -149,8 +151,8 @@ export const getToken = async () => {
     return accessToken;
 
   } catch (err) {
-    console.log(err.message);
-    throw new Error(err.message);
+    console.log((err as Error).message);
+    throw new Error((err as Error).message);
   }
 
 

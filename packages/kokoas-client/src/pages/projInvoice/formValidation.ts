@@ -17,10 +17,10 @@ const billingAmountValidation = function (this: { parent: TypeOfForm['estimates'
   const {
     contractAmount,
     billingAmount,
-    isForPayment,
+    isShow,
   } = this.parent;
 
-  if (!isForPayment) return true; // 請求に使用しないときはバリデーションから除外
+  if (!isShow) return true; // 請求に使用しないときはバリデーションから除外
   if (!billingAmount) return false; // 未入力もしくは0の場合はエラー
   if ((billingAmount >= 0 && contractAmount >= 0)
     || (billingAmount < 0 && contractAmount < 0)) return true;
@@ -46,7 +46,7 @@ export const validationSchema = Yup
           ),
         billedAmount: numberValidation,
         contractDate: dateValidation,
-        isForPayment: Yup.boolean(),
+        isShow: Yup.boolean(),
       }),
     ),
 

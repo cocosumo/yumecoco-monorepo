@@ -37,12 +37,23 @@ export const jaEnvelopeStatus  = (
         ja: '無効化中',
         desc: '無効化中です。',
       };
+    case 'correct' : {
+      return {
+        ja: '修正',
+        desc: '送信者が訂正のために封筒を開封しました。このステータスの封筒には署名プロセスが停止されます',
+      };
+    }
     case '': {
       return {
         ja: '未作成',
         desc: '契約はDocusign上でまだ作成していません。',
       };
     }
-    default: throw new Error('Unknown status.');
+    default: {
+      return {
+        ja: status,
+        desc: '未定義のステータスです。管理者へお問い合わせください。',
+      };
+    }
   }
 };

@@ -10,8 +10,8 @@ describe('契約検索画面へ飛ぶ', () => {
 
       cy.contains('h4', '契約一覧').should('be.visible');
 
-      cy.get('.MuiTableBody-root td')
-        .should('have.lengthOf.gt', '結果は1件以上あるはず');
+      cy.get('.MuiTableBody-root').find('tr')
+        .should('have.length.above', 0);
     });
     
     

@@ -2,11 +2,13 @@
 repo:
 - '*'
 
-'backend':
+backend:
 - packages/kokoas-server/*
+- packages/kokoas-server/**/*
 
-'frontend':
+frontend:
 - packages/kokoas-client/*
+- packages/kokoas-client/**/*
 
 test:
 - src/**/*.cy.ts

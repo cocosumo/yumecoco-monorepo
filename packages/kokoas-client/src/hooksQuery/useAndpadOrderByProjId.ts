@@ -1,13 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
 import { AppIds } from 'config';
 import { getOrderByProjId } from '../api/andpad/getOrderByProjId';
-import { useSnackBar } from '../hooks/useSnackBar';
+
+
+interface QueryOptions {
+  onError?: (error: Error) => void,
+}
 
 /**
  * Andpadから案件データを取得する
  */
-export const useAndpadOrderByProjId = (projId: string) => {
-  const { setSnackState } = useSnackBar();
+export const useAndpadOrderByProjId = (
+  projId: string,
+  options?: QueryOptions,
+) => {
+
+  const {
+    onError,
+  } = options || {};
 
   return useQuery(
     [AppIds.projects, 'andpad', projId],
@@ -15,14 +25,7 @@ export const useAndpadOrderByProjId = (projId: string) => {
     {
       enabled: !!projId,
       staleTime: 5000,
-      onError: (error: Error) => {
-        setSnackState({
-          open: true,
-          severity: 'warning',
-          autoHideDuration: 10000,
-          message: error.message,
-        });
-      },
+      onError,
     },
   );
 };

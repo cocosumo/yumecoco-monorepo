@@ -10,6 +10,7 @@ export default defineConfig({
   projectId: 'iemq2k',
   e2e: {
     specPattern: 'cypress/{e2e,test}/**/*.{cy,spec}.{js,jsx,ts,tsx}',
+    excludeSpecPattern: 'cypress/**/*.skip/**/*.{cy,spec}.{js,jsx,ts,tsx}',
     experimentalRunAllSpecs: true,
     baseUrl: `${baseUrl}#`,
     setupNodeEvents(on) {

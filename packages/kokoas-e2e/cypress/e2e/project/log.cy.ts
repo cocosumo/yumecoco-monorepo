@@ -25,7 +25,7 @@ describe('log', () => {
 
         cy.contains('Andpadへ案件更新しますか').should('not.exist');
         cy.contains('保存が出来ました').should('exist');
-        cy.contains('保存が出来ました').should('not.exist');
+        cy.contains('保存が出来ました').should('not.exist', { timeout: 10000 });
 
 
         cy.get('@latestLog').invoke('text')

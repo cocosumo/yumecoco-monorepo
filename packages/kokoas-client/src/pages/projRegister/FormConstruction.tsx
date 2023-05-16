@@ -28,6 +28,7 @@ export const FormConstruction  = () => {
 
   const {
     projId,
+    projName,
     storeId,
     territory,
     projTypeId,
@@ -51,14 +52,18 @@ export const FormConstruction  = () => {
           textColor='#FFF'
           secondaryLabel={projDataId}
         />
-        <Grid container item xl={8}
+        <Grid container item
           spacing={2} mb={12}
         >
           <RecordSelect />
 
           {!!projId && <LogDisplay />}
        
-          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
+          <UneditableInfo 
+            projId={projId}
+            projName={projName}
+            isVisible={isFormDisabled} 
+          />
           <CustInfo />
 
           {custGroupId && (

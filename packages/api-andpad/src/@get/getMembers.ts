@@ -1,13 +1,18 @@
 import axios, { AxiosError } from 'axios';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
+import { endpoints } from '../endpoints';
 
-export const getMembers = async () => {
+export const getMembers = async ({
+  systemId,
+}:{
+  systemId: string
+}) => {
 
   try {
 
 
-    const url = 'https://api.andpad.jp/v3/workman/clients/our/orders/10382327/members';
+    const url = endpoints.getMembers(systemId);
     
     const { data } = await axios({
       url,

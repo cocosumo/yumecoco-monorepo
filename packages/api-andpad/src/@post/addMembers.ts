@@ -75,9 +75,9 @@ export const addMembers = async ({
     } catch (err) {
       if (err instanceof ZodError) {
         await sendMessage({
-          body: `ANDPADの案件メンバーの追加APIは変更仕様があるかもしれません。${JSON.stringify(data)}`,
+          body: `ANDPADの案件メンバーの追加APIは変更仕様があるかもしれません。${err.message} ${JSON.stringify(data)}`,
           roomId: chatworkRooms.test,
-        });
+        }).catch();
         return data as AddMembersResult201;
       }
     }

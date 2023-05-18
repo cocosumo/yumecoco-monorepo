@@ -23,14 +23,13 @@ export const addMembersResult207 = z.object({
   errors: z.array(
     z.object({
       message: z.string(),
-      item: z.array(
-        z.object({
-          index: z.number().int(),
-          key: z.string(),
-          role: z.string().optional(),
-          job_names: z.array(z.string().max(191)),
-        }),
-      ),
+      item: z.object({
+        index: z.number().int(),
+        key: z.string(),
+        role: z.string().optional(),
+        job_names: z.array(z.string().max(191)).optional(),
+      }),
+      
     }),
   ),
 });

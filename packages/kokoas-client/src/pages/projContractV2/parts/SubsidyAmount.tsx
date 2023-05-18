@@ -16,6 +16,7 @@ export const SubsidyAmount = () => {
         label={'補助金'}
         control={(
           <Checkbox
+            checked={isChecked}
             {...register('hasSubsidy', {
               onChange: (e) => {
                 if (!e.target.checked) {

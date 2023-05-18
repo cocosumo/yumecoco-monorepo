@@ -7,7 +7,7 @@ export const RefundAmount = () => {
   const { 
     control, 
     register,  
-    resetField,
+    setValue,
     getFieldState, 
   } = useFormContext<TypeOfForm>();
 
@@ -22,13 +22,14 @@ export const RefundAmount = () => {
         label={'返金額'}
         control={(
           <Checkbox
+            checked={isChecked}
             {...register('hasRefund', {
               onChange: (e) => {
                 if (!e.target.checked) {
                   // チェックを外したら、エラーがあればクリアする
                   const { error } = getFieldState('refundAmt');
                   if (error) {
-                    resetField('refundAmt');
+                    setValue('refundAmt', 0);
                   }
                 }
               },

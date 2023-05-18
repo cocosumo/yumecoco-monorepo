@@ -23,13 +23,17 @@ const userSchema = z.object({
 const extendedUserSchema = userSchema
   .and(z.object({
     name: z.string(),
+    role: z.enum(['admin', 'basic']),
+    job_names: z.array(z.string()),
+  }));
+
+const extendedUserSchemaWithClient = extendedUserSchema
+  .and(z.object({
     client: z.object({
       id: z.number().int()
         .nullable(),
       name: z.string().nullable(),
     }),
-    role: z.enum(['admin', 'basic']),
-    job_names: z.array(z.string()),
   }));
 
 /**
@@ -44,7 +48,7 @@ export const getMembersResult = z.object({
     last_page: z.number().int(),
     total: z.number().int(),
   }),
-  data: z.array(extendedUserSchema),
+  data: z.array(extendedUserSchemaWithClient),
 });
 
 export type GetMembersResult = z.infer<typeof getMembersResult>;
@@ -93,3 +97,22 @@ export const delMembersResult207 = delMembersResult201
 
 export type DelMembersResult201 = z.infer<typeof delMembersResult201>;
 export type DelMembersResult207 = z.infer<typeof delMembersResult207>;
+
+
+/** 
+ * 自社案件の案件メンバー情報一括更新 
+ * */
+
+const updatedMembers = z.array(extendedUserSchema);
+
+export const updateMembersResult200 = z.object({
+  updated_members: updatedMembers,
+});
+
+export const updateMembersResult207 = updateMembersResult200
+  .and(z.object({
+    errors: errors,
+  }));
+
+export type UpdateMembersResult200 = z.infer<typeof updateMembersResult200>;
+export type UpdateMembersResult207 = z.infer<typeof updateMembersResult207>;

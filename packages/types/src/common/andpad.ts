@@ -22,7 +22,7 @@ const userSchema = z.object({
 
 const extendedUserSchema = userSchema
   .and(z.object({
-    name: z.string(),
+    name: z.string().optional(),
     role: z.enum(['admin', 'basic']),
     job_names: z.array(z.string()),
   }));

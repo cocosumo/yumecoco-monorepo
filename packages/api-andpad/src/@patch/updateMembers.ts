@@ -45,9 +45,7 @@ export const updateMembers = async ({
         return updateMembersResult200.parse(data);
       } else if (status === 207) {
         return updateMembersResult207.parse(data);
-      } else {
-        return data as UpdateMembersResult200;
-      }
+      } 
 
     } catch (err) {
       if (err instanceof ZodError) {
@@ -55,19 +53,22 @@ export const updateMembers = async ({
       }
     }
 
-  } catch (err) {
-    console.error(err);
+    return data as UpdateMembersResult200;
 
+  } catch (err) {
+    let errMessage = '自社案件の案件メンバー情報一括更新。管理者に連絡してください';
     if (err instanceof AxiosError) {
       const { response } = err;
       if (response) {
         const { status } = response;
-        throw new Error(`案件メンバーの更新に失敗しました。管理者に連絡してください。${status} ${err.message}`);
+        errMessage = `案件メンバーの追加に失敗しました。管理者に連絡してください。${status} ${err.message}`;
       }
     }
+
+    throw new Error(errMessage);
   }
-  
-
-
-  
 };
+  
+
+
+  

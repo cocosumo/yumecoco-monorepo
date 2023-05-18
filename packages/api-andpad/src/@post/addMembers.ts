@@ -2,27 +2,10 @@ import axios, { AxiosError } from 'axios';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
 import { AddMembersResult201, addMembersResult201, addMembersResult207 } from 'types';
-import { sendMessage } from 'api-chatwork';
 import { ZodError } from 'zod';
-import { chatworkRooms } from 'config';
+import { ReqAddMembersBody } from '../types';
+import { notifyAdmin } from 'libs/src/notifyAdmin';
 
-interface BodySchema {
-  /** 案件管理ID利用フラグ。trueを指定した場合、パスのorder_idを案件管理IDとして扱う */
-  use_order_common_id?: boolean,
-
-  /** 案件メンバー追加が成功したユーザに案件招待のお知らせを送るかどうか。 */
-  send_notification?: boolean,
-
-  /** emailもありますが、今回はcommon_id (社員名簿のuuid) のみに固定します。 */
-  identification_type: 'common_id' 
-
-  members : Array<{
-    key: string // 社員番号
-    role: 'admin'
-    job_names?: string[]
-  }>
-
-} 
 
 /**
  * 自社案件への案件メンバー一括登録
@@ -30,6 +13,7 @@ interface BodySchema {
  * @param param
  * @param param.systemId 自社案件ID
  * @param param.members 社員番号の配列 (Kintone上の社員名簿)
+ * @param param.sendNotification trueの場合、メンバー追加時にメンバーに通知が行われる
  */
 export const addMembers = async ({
   systemId,
@@ -42,7 +26,7 @@ export const addMembers = async ({
 }) => {
   try {
 
-    const body : BodySchema =  {
+    const body : ReqAddMembersBody =  {
       identification_type: 'common_id',
       send_notification: sendNotification,
       members: members.map((member) => ({
@@ -74,14 +58,11 @@ export const addMembers = async ({
       }
     } catch (err) {
       if (err instanceof ZodError) {
-        await sendMessage({
-          body: `ANDPADの案件メンバーの追加APIは変更仕様があるかもしれません。${err.message} ${JSON.stringify(data)}`,
-          roomId: chatworkRooms.test,
-        }).catch();
-        return data as AddMembersResult201;
+        await notifyAdmin(`Andpad側で自社案件の案件メンバー一括登録APIのレスポンスの仕様が変更されています。${err.message} ${JSON.stringify(data)}`);
       }
+      return data as AddMembersResult201;
+
     }
-    
 
   } catch (err) {
     console.error(err);

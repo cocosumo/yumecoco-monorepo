@@ -129,7 +129,7 @@
     "mui-image": "^1.0.5",
     "npm": "^8.2.0",
     "puppeteer": "^19.2.2",
-    "qs": "^6.11.0",
+    "qs": "^6.11.2",
     "random-js": "^2.1.0",
     "react": "^18.1.0",
     "react-awesome-reveal": "^3.8.1",

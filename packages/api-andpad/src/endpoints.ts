@@ -21,4 +21,8 @@ export const endpoints = {
 
   /** 自社案件への案件メンバー一括登録 */
   addMembers:  (systemId: string) => `${baseURL}/workman/clients/our/orders/${systemId}/members/bulk`,
+
+  /** 自社案件の案件メンバー一括削除 */
+  deleteMembers:  (systemId: string) => `${baseURL}/workman/clients/our/orders/${systemId}/members/bulk`,
+
 } as const;

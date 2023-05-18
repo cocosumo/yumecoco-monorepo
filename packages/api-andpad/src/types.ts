@@ -167,3 +167,30 @@ export const getMyOrdersResponse = z.object({
 
 
 export type GetMyOrdersResponse = z.infer<typeof getMyOrdersResponse>; 
+
+/** メンバー招待 */
+
+export interface ReqMemberBody {
+  /** 案件管理ID利用フラグ。trueを指定した場合、パスのorder_idを案件管理IDとして扱う */
+  use_order_common_id?: boolean,
+
+  /** emailもありますが、今回はcommon_id (社員名簿のuuid) のみに固定します。 */
+  identification_type: 'common_id' 
+
+} 
+
+export interface ReqDelMembersBody extends ReqMemberBody {
+  members : Array<{
+    key: string // 社員番号
+  }> 
+}
+
+export interface ReqAddMembersBody extends ReqMemberBody {
+  /** 案件メンバー追加が成功したユーザに案件招待のお知らせを送るかどうか。 */
+  send_notification?: boolean,
+  members : Array<{
+    key: string // 社員番号
+    role: 'admin'
+    job_names?: string[]
+  }>
+}

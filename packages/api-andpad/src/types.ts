@@ -179,18 +179,25 @@ export interface ReqMemberBody {
 
 } 
 
+export interface Member {
+  key: string // 社員番号
+}
+
+export interface ExtendedMember extends Member {
+  role: 'admin' | 'basic'
+  job_names?: string[]
+}
+
 export interface ReqDelMembersBody extends ReqMemberBody {
-  members : Array<{
-    key: string // 社員番号
-  }> 
+  members : Array<Member> 
 }
 
 export interface ReqAddMembersBody extends ReqMemberBody {
   /** 案件メンバー追加が成功したユーザに案件招待のお知らせを送るかどうか。 */
   send_notification?: boolean,
-  members : Array<{
-    key: string // 社員番号
-    role: 'admin'
-    job_names?: string[]
-  }>
+  members : Array<ExtendedMember>
 }
+
+export interface ReqUpdateMembersBody extends ReqMemberBody {
+  members : Array<ExtendedMember>
+} 

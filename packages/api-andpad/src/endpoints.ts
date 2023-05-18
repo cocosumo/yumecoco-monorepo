@@ -1,5 +1,7 @@
 import { baseURL } from './config';
 
+const getMembersBulkEndpoint = (systemId: string) => `${baseURL}/workman/clients/our/orders/${systemId}/members/bulk`;
+
 export const endpoints = {
   /** 認証コードの取得 */
   authCode: `${baseURL}/auth/oauth/authorize`,
@@ -20,9 +22,10 @@ export const endpoints = {
   getMembers: (systemId: string) => `${baseURL}/workman/clients/our/orders/${systemId}/members`,
 
   /** 自社案件への案件メンバー一括登録 */
-  addMembers:  (systemId: string) => `${baseURL}/workman/clients/our/orders/${systemId}/members/bulk`,
+  addMembers:  getMembersBulkEndpoint,
 
   /** 自社案件の案件メンバー一括削除 */
-  deleteMembers:  (systemId: string) => `${baseURL}/workman/clients/our/orders/${systemId}/members/bulk`,
+  deleteMembers:  getMembersBulkEndpoint,
 
+  updateMembers: getMembersBulkEndpoint,
 } as const;

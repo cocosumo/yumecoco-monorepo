@@ -21,6 +21,7 @@ describe('addMembers', () => {
     console.log('deleted result:', delResult);
 
     if ('errors' in delResult) {
+      // 案件管理者が1人の時に案件管理者を削除することはできません。
       console.log('削除済み', JSON.stringify(delResult.errors, null, 2));
     }
 

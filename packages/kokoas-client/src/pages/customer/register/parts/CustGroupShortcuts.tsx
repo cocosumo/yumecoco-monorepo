@@ -33,7 +33,7 @@ export  const  CustGroupShortcuts = (props : {
 
           {
             type: 'contract' as ShortCutType,
-            handleClick: ()=>navigate(`${pages.projContractPreview}?projId=${passedProjId}`),
+            handleClick: ()=>navigate(`${pages.projContractPreviewV2}?projId=${passedProjId}`),
           },
           {
             type: 'project' as ShortCutType,

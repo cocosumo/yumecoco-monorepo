@@ -36,10 +36,11 @@ export const FormContractSearch = () => {
     reset,
   } = methods;
 
-  useEffect(() => {
-    reset(newValues);
-  },
-  [newValues, reset],
+  useEffect(
+    () => {
+      reset(newValues);
+    },
+    [newValues, reset],
   );
 
   return (

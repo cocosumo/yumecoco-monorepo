@@ -13,20 +13,23 @@ describe('addMembers', () => {
       systemId,
     });
 
-    console.log('delete members for testing.');
-    const {} = await deleteMembers({
+    
+    const delResult = await deleteMembers({
       members,
       systemId,
     });
+    console.log('deleted result:', delResult);
+
+    if ('errors' in delResult) {
+      console.log('削除済み', JSON.stringify(delResult.errors, null, 2));
+    }
 
 
-    const {} = await getMembers({
+    const { data } = await getMembers({
       systemId,
     });
 
-
-    // assert that there is a member with the given key
-    expect(result).toHaveProperty('removed_members');
+    expect(data.find((member) => member.common_id === members[0])).toBeUndefined();
 
   });
 });

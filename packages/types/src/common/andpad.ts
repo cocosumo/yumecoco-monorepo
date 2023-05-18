@@ -20,9 +20,34 @@ const userSchema = z.object({
   email: z.string().email(),
 });
 
+const extendedUserSchema = userSchema
+  .and(z.object({
+    name: z.string(),
+    client: z.object({
+      id: z.number().int()
+        .nullable(),
+      name: z.string().nullable(),
+    }),
+    role: z.enum(['admin', 'basic']),
+    job_names: z.array(z.string()),
+  }));
+
 /**
  * 案件メンバー一覧取得
  */
+
+export const getMembersResult = z.object({
+  pagination: z.object({
+    //integer >= 1
+    page: z.number().int(),
+    per_page: z.number().int(),
+    last_page: z.number().int(),
+    total: z.number().int(),
+  }),
+  data: z.array(extendedUserSchema),
+});
+
+export type GetMembersResult = z.infer<typeof getMembersResult>;
 
 
 /** 

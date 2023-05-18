@@ -13,6 +13,7 @@ import { notifyAdmin } from 'libs/src/notifyAdmin';
  * @param param
  * @param param.systemId 自社案件ID
  * @param param.members 社員番号の配列 (Kintone上の社員名簿)
+ * @param param.sendNotification trueの場合、メンバー追加時にメンバーに通知が行われる
  */
 export const addMembers = async ({
   systemId,
@@ -57,7 +58,7 @@ export const addMembers = async ({
       }
     } catch (err) {
       if (err instanceof ZodError) {
-        await notifyAdmin(`ANDPADの自社案件の案件メンバー一括登録APIのレスポンスのスキーマが変更されています。${err.message} ${JSON.stringify(data)}`);
+        await notifyAdmin(`Andpad側で自社案件の案件メンバー一括登録APIのレスポンスの仕様が変更されています。${err.message} ${JSON.stringify(data)}`);
       }
       return data as AddMembersResult201;
 

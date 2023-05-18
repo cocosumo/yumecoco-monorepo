@@ -10,15 +10,17 @@ import { notifyAdmin } from 'libs/src/notifyAdmin';
 export const deleteMembers = async ({
   systemId,
   members,
+  idType = 'common_id',
 } : {
   systemId: string,
   members: string[],
+  idType?: 'common_id' | 'email',
 }) => {
 
   try {
 
     const body : ReqDelMembersBody = {
-      identification_type: 'common_id',
+      identification_type: idType,
       members: members.map((member) => ({
         key: member,
       })),
@@ -44,7 +46,7 @@ export const deleteMembers = async ({
       }
     } catch (err) {
       if (err instanceof ZodError) {
-        await notifyAdmin(`ANDPADの自社案件の案件メンバー一括削除APIのレスポンスのスキーマが変更されています。${err.message} ${JSON.stringify(data)}`);
+        await notifyAdmin(`Andpad側で自社案件の案件メンバー一括削除APIのレスポンスの仕様が変更されています。${err.message} ${JSON.stringify(data)}`);
       }
       return data as DelMembersResult201;
     }

@@ -2,6 +2,8 @@ import axios, { AxiosError } from 'axios';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
+import { GetMembersResult, getMembersResult } from 'types';
+import { notifyAdmin } from 'libs/src/notifyAdmin';
 
 export const getMembers = async ({
   systemId,
@@ -22,8 +24,16 @@ export const getMembers = async ({
       },
     });
 
-    return data;
+    const result = getMembersResult.safeParse(data);
+
+    if (!result.success) {
+      await notifyAdmin('Andpad側でgetMembersのレスポンスの仕様が変更されています。' + JSON.stringify(result.error));
+    }
+
+    return data as GetMembersResult;
+
   } catch (err) {
+
     const {
       response,
       errors,

@@ -175,7 +175,7 @@ export interface ReqMemberBody {
   use_order_common_id?: boolean,
 
   /** emailもありますが、今回はcommon_id (社員名簿のuuid) のみに固定します。 */
-  identification_type: 'common_id' 
+  identification_type: 'common_id' | 'email',
 
 } 
 

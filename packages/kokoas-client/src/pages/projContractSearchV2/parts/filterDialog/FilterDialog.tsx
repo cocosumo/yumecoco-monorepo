@@ -4,6 +4,7 @@ import { ContractDateRange } from './ContractDateRange';
 import { ContractStatus } from './ContractStatus';
 import { FilterDialogContent } from './FilterDialogContent';
 import { SubmitButton } from './SubmitButton';
+import { Stores } from './Stores';
 
 
 export const FilterDialog = ({
@@ -28,9 +29,10 @@ export const FilterDialog = ({
         絞り込み
       </DialogTitle>
       <FilterDialogContent>
+        <Stores />
+
         <AmountRange minAmount={minAmount} maxAmount={maxAmount} />
         <ContractDateRange />
-
         <ContractStatus />
 
       </FilterDialogContent>

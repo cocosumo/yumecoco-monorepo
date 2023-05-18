@@ -2,6 +2,10 @@
 repo:
 - '*'
 
+api:
+- packages/api-*/*
+- packages/api-*/**/*
+
 backend:
 - packages/kokoas-server/*
 - packages/kokoas-server/**/*
@@ -12,3 +16,4 @@ frontend:
 
 test:
 - src/**/*.cy.ts
+- src/**/*.test.ts

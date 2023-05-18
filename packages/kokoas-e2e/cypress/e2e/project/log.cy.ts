@@ -21,12 +21,19 @@ describe('log', () => {
         cy.get('@andpadBtn').click();
         cy.contains('button', 'はい').as('saveBtn')
           .should('be.enabled', { timeout: 10000 });
+        
+        cy.intercept(
+          'GET',
+          '*records.json?app=194*',
+        ).as('getLatestData');
+
         cy.get('@saveBtn').click();
 
         cy.contains('Andpadへ案件更新しますか').should('not.exist');
         cy.contains('保存が出来ました').should('exist');
         cy.contains('保存が出来ました').should('not.exist', { timeout: 10000 });
-
+        
+        cy.wait('@getLatestData');
 
         cy.get('@latestLog').invoke('text')
           .then((text2) => {

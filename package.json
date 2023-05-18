@@ -150,7 +150,7 @@
     "sanitize-filename": "^1.6.3",
     "shortid": "^2.2.16",
     "string-similarity": "^4.0.4",
-    "styled-components": "^5.3.5",
+    "styled-components": "^5.3.10",
     "text-mask-addons": "^3.8.0",
     "ts-node": "^10.5.0",
     "tslib": "^2.3.1",

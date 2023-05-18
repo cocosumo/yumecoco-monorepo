@@ -12,7 +12,7 @@ const employees : EmployeesOption[] = [];
 export const fetchEmployees = async () : Promise<EmployeesOption[]> => {
   if (employees.length > 0) return employees;
 
-  return (await getEmployees())
+  return (await getEmployees(true, ['有効', '保留(退職済)']))
     .map(({
       uuid,
       文字列＿氏名: employeeName,

@@ -1,9 +1,9 @@
-import { SaveProjectData, saveProjectResponse } from 'api-andpad';
+import { SaveProjectParams, saveProjectResponse } from 'api-andpad';
 import { baseUrl } from 'kokoas-client/src/config/settings';
 import { kokoasEndpoints } from 'libs';
 import { ApiNodes } from 'types';
 
-export const saveAndpadProject = async (data: SaveProjectData) => {
+export const saveAndpadProject = async (data: SaveProjectParams) => {
 
   const apiRoot : ApiNodes = 'kokoas';
   const endpoint = [

@@ -9,12 +9,13 @@ import { appId, RecordType } from './config';
  */
 export const getEmployees  = async (
   isActiveOnly = true,
+  statuses : ('有効' | '無効' | '保留(退職済)')[] = ['有効'], 
 ) => {
 
   const queryArray: string[] = [];
 
   if (isActiveOnly) {
-    queryArray.push('状態 in ("有効")');
+    queryArray.push(`状態 in ( ${statuses.map((s) => `"${s}"`).join(',')})`);
   }
 
   return getAllRecords<RecordType>({

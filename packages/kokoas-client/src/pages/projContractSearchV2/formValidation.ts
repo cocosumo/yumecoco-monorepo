@@ -60,5 +60,5 @@ export const validationSchema = yupJA
     contractStepAG: yupJA.boolean().required(),
     contractStepAccounting: yupJA.boolean().required(),
     contractStepMain: yupJA.boolean().required(),
-    storeNamesShort: yupJA.array(yupJA.string().required()).nullable(),
+    stores: yupJA.array(yupJA.string().required()).nullable(),
   });

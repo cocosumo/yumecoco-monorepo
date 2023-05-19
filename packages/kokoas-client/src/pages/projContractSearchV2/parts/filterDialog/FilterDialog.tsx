@@ -10,11 +10,13 @@ import { Stores } from './Stores';
 export const FilterDialog = ({
   open,
   handleClose,
+  handleSubmit,
   minAmount,
   maxAmount,
 }: {
   open: boolean,
   handleClose: () => void,
+  handleSubmit: () => void,
   minAmount: number,
   maxAmount: number,
 }) => {
@@ -40,7 +42,7 @@ export const FilterDialog = ({
         <Button variant={'text'} onClick={handleClose}>
           閉じる
         </Button>
-        <SubmitButton onClick={handleClose} >
+        <SubmitButton onClick={handleSubmit} >
           検索
         </SubmitButton>
       </DialogActions>

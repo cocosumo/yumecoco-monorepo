@@ -2,7 +2,7 @@ import { Alert, Button, DialogContent, Stack } from '@mui/material';
 import { SaveProjectData } from 'api-andpad';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 import { SaveToAndpadDialogData } from './SaveToAndpadDialogData';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 

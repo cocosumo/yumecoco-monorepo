@@ -15,6 +15,7 @@ export const useSaveProject = () => {
       onSuccess: () => {
         commonOptions.onSuccess();
         queryClient.invalidateQueries({ queryKey: [AppIds.projects] });
+        queryClient.invalidateQueries({ queryKey: ['andpad'] });
       },
     },
   );

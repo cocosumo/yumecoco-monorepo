@@ -50,7 +50,8 @@ export const validationSchema = yupJA
         function (value) {
           if (!value || !this.parent.amountFrom) return true;
           return value > this.parent.amountFrom;
-        })
+        },
+      )
       .optional(),
     contractCompleted: yupJA.boolean().required(),
     contractIncomplete: yupJA.boolean().required(),
@@ -59,4 +60,5 @@ export const validationSchema = yupJA
     contractStepAG: yupJA.boolean().required(),
     contractStepAccounting: yupJA.boolean().required(),
     contractStepMain: yupJA.boolean().required(),
+    stores: yupJA.array(yupJA.string().required()).nullable(),
   });

@@ -18,6 +18,7 @@ export const initialValues: TypeOfForm = {
   contractStepAG: false,
   contractStepAccounting: false,
   contractStepMain: false,
+  stores: [],
 };
 
 

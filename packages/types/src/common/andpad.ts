@@ -77,6 +77,7 @@ export const addMembersResult207 = addMembersResult201
     errors: errors,
   }));
 
+export type AndpadErrors = z.infer<typeof errors>;
 export type AddMembersResult201 = z.infer<typeof addMembersResult201>;
 export type AddMembersResult207 = z.infer<typeof addMembersResult207>;
 

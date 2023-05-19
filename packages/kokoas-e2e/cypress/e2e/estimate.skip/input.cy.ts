@@ -1,8 +1,8 @@
 import { convertObjNumValsToFullWidth } from 'libs/src/convertObjNumValsToFullWidth';
 import { beforeEach, context, cy, describe, expect } from 'local-cypress';
-import { faker } from '@faker-js/faker';
+import { fakerJA as faker } from '@faker-js/faker';
 
-faker.setLocale('ja');
+
 
 describe.skip('見積：入力', () => {
   beforeEach(() => {

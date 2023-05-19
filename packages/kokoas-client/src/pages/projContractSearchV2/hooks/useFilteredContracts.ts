@@ -1,7 +1,6 @@
 import addDays from 'date-fns/addDays';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useAllContracts, useCustGroups, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
 import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
 import { calcProfitRate, formatDataId } from 'libs';
@@ -10,6 +9,7 @@ import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
 import { useCallback } from 'react';
+import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
 
 export interface ContractRow {
   contractStatus: TEnvelopeStatus,
@@ -58,7 +58,8 @@ export const useFilteredContracts = () => {
     contractStepCustomer,
     contractStepMain,
     contractStepTencho,
-  } = useURLParams<TypeOfForm>();
+    stores = [],
+  } = useURLParamsV2<TypeOfForm>();
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
@@ -196,6 +197,7 @@ export const useFilteredContracts = () => {
           || (isIncompleteContract && contractStepMain && currentContractStep?.roleName === roles.main)
           || (isIncompleteContract && contractStepTencho && currentContractStep?.roleName === roles.storeMngr);
 
+        const isStoreSelected = stores?.length ? stores.includes(storeName?.value || '') : true;
 
         // 含むかどうか判定、
         if (isMainSearch
@@ -204,6 +206,7 @@ export const useFilteredContracts = () => {
           && afterContractDateFrom
           && beforeContractDateTo
           && isInContractStatus
+          && isStoreSelected
         ) {
           acc.push(resultRow);
         }
@@ -238,6 +241,7 @@ export const useFilteredContracts = () => {
       contractStepCustomer,
       contractStepMain,
       contractStepTencho,
+      stores,
     ]),
   });
 

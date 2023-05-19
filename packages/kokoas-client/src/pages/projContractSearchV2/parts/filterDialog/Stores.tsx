@@ -37,8 +37,6 @@ export const Stores = () => {
     
     setValue('stores', newValue);
   }, [setValue, stores]);
-
-  console.log(stores);
   
   return (
     <FormGroup >
@@ -54,7 +52,11 @@ export const Stores = () => {
             >
               <FormControlLabel 
                 control={(
-                  <Checkbox value={label} onChange={handleChange} />
+                  <Checkbox 
+                    checked={stores?.includes(label) ?? false}
+                    value={label} 
+                    onChange={handleChange}
+                  />
                 )} 
                 label={label}
               />

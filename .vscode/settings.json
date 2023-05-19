@@ -23,6 +23,7 @@
     "/packages/api-kintone/src/stores",
     "/automation/auto-common/src",
     "/packages/kokoas-client/src/hooksQuery",
-    "/packages/kokoas-client/src/components/ui/dialogs"
+    "/packages/kokoas-client/src/components/ui/dialogs",
+    "/packages/api-andpad/src"
   ]
 }

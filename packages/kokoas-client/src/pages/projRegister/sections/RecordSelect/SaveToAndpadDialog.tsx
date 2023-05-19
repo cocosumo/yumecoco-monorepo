@@ -68,7 +68,7 @@ export const SaveToAndpadDialog = ({
       <DialogTitle>
         {`Andpadへ案件${mode}しますか？`}
       </DialogTitle>
-      <SaveToAndpadDialogContent isLoading={isLoading} convertedData={data} />
+      <SaveToAndpadDialogContent isLoading={isLoading} convertedData={data?.projData} />
       <DialogActions>
         <Button onClick={handleClose}>
           キャンセル

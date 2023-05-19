@@ -1,4 +1,4 @@
-import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, storeMap } from 'api-andpad';
+import { buildingTypesAndpad, projectTypesAndpad, SaveProjectData, SaveProjectParams, storeMap } from 'api-andpad';
 import { getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
 import { getAddressByPostal } from 'api-kintone/src/postal/getAddressByPostal';
 import { bestStringMatch } from 'kokoas-client/src/lib';
@@ -14,8 +14,25 @@ export const convertProjToAndpad = async (projId: string) => {
   const custGroupRec = await getCustGroupById(projRec?.custGroupId.value);
   if (!custGroupRec) throw new Error('顧客グループ情報の取得が失敗しました。');
 
-  const firstCustId = custGroupRec?.members.value[0].value.custId.value;
+  const {
+    agents: projAgents,
+
+  } = projRec;
+
+  const {
+    members,
+    agents,
+  } = custGroupRec;
+
+  const firstCustId = members.value[0].value.custId.value;
   const firstCust = (await getCustomersByIds([firstCustId]))[0];
+
+  const cocoAGIds = agents.value
+    .filter((row) => (row.value.agentType.value as TAgents) === 'cocoAG')
+    .map((row) => row.value.employeeId.value);
+
+  const cocoAGConstIds = projAgents.value.map((row) => row.value.agentId.value);
+
   if (!firstCust) throw new Error('顧客情報の取得が失敗しました。');
 
 
@@ -76,6 +93,13 @@ export const convertProjToAndpad = async (projId: string) => {
     '顧客都道府県': custPrefecture?.value || '',
   };
 
-  return saveResult;
+  const dataToBeSaved : SaveProjectParams = {
+    projData: saveResult,
+    members: [...new Set([...cocoAGIds, ...cocoAGConstIds])],
+  };
+
+  
+
+  return dataToBeSaved;
 
 };

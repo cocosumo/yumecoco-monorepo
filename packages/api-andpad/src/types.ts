@@ -126,6 +126,12 @@ export const saveProjectData = z.object({
 export type SaveProjectData = z.infer<typeof saveProjectData>;
 export type SaveProjectDataKeys = keyof SaveProjectData;
 
+export interface SaveProjectParams {
+  projData: SaveProjectData,
+  members: string[],
+}
+
+
 export const projects = z.object({
   '顧客ID': z.number(),
   '顧客管理ID': z.string().nullable(),

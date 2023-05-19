@@ -43,7 +43,7 @@
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "core-js": "^3.15.0",
     "css-loader": "^5.2.6",
-    "css-minimizer-webpack-plugin": "^3.0.2",
+    "css-minimizer-webpack-plugin": "^5.0.0",
     "cypress": "^12.7.0",
     "dotenv-webpack": "^7.1.0",
     "eslint": "^8.26.0",

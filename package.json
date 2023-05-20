@@ -84,7 +84,7 @@
     "@babel/plugin-transform-runtime": "^7.21.4",
     "@date-io/date-fns": "^2.13.1",
     "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^2.9.10",
     "@kintone/rest-api-client": "^2.0.33",
     "@mui/icons-material": "^5.11.16",

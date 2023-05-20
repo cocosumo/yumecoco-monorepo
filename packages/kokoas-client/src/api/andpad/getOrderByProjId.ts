@@ -1,4 +1,4 @@
-import { saveProjectData } from 'api-andpad';
+import { SaveProjectData, saveProjectData } from 'api-andpad';
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 
@@ -18,7 +18,14 @@ export const getOrderByProjId = async (projId: string) => {
   });
   const { data } = result;
 
-  return saveProjectData.parse(data);
+  const parsed = saveProjectData.safeParse(data);
+
+  if (!parsed.success) {
+    
+    return data as SaveProjectData;
+  } 
+
+  return parsed.data;
 
 
 };

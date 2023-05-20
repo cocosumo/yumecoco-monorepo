@@ -35,7 +35,7 @@ export const schema = z.object({
 
   cancelStatus: z.array(z.enum(recordCancelStatuses)),
 
-  andpadDetails: saveProjectData.nullable(),
+  andpadDetails: saveProjectData.optional(),
 
   remarks: z.array(z.object({
     id: z.string(),
@@ -51,6 +51,3 @@ export const schema = z.object({
   })),
 
 });
-
-export type TypeOfForm = z.infer<typeof schema>;
-export type KeysOfForm = keyof TypeOfForm;

@@ -41,7 +41,7 @@ export const RecordSelect = () => {
         custGroupId: newCustGroupId,
       })}`);
     } else {
-      navigate(`${pages.projReg}`);
+      navigate(`${pages.projRegV2}`);
     }
   };
 

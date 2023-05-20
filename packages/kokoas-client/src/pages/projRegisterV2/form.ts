@@ -1,4 +1,5 @@
-import { TypeOfForm } from './schema';
+import { z } from 'zod';
+import { schema } from './schema';
 
 export const initialValues : TypeOfForm = {
   projId: '',
@@ -26,7 +27,7 @@ export const initialValues : TypeOfForm = {
   hasContract: false,
   hasCompletedContract: false,
   cancelStatus: [],
-  andpadDetails: null,
+  andpadDetails: undefined,
   remarks: [{
     id: 'remarks.0',
     noteCreateTime: new Date(),
@@ -37,3 +38,6 @@ export const initialValues : TypeOfForm = {
   logs: [],
 
 };
+
+export type TypeOfForm = z.infer<typeof schema>;
+export type KeysOfForm = keyof TypeOfForm;

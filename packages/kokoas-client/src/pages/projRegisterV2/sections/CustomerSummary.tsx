@@ -3,10 +3,10 @@ import { StaticContents } from 'kokoas-client/src/components';
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../schema';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
+import { TypeOfForm } from '../form';
 
 export const CustomerSummary = () => {
   const [
@@ -63,7 +63,7 @@ export const CustomerSummary = () => {
   return (
     <Grid xs={12}>
       <StaticContents 
-        editUrl={`${pages.projRegV2}?${generateParams({
+        editUrl={`${pages.custGroupEdit}?${generateParams({
           custGroupId: custGroupId as string,
           projId: projId as string,
         })}`}

@@ -19,8 +19,8 @@ describe('log', () => {
         cy.log(logBefore);
         cy.contains('button', 'Andpadへ').as('andpadBtn');
         cy.get('@andpadBtn').click();
-        cy.contains('button', 'はい').as('saveBtn')
-          .should('be.enabled', { timeout: 10000 });
+        cy.contains('button', 'はい', { timeout: 10000 }).as('saveBtn')
+          .should('be.enabled');
         
         cy.intercept(
           'GET',
@@ -31,7 +31,7 @@ describe('log', () => {
 
         cy.contains('Andpadへ案件更新しますか').should('not.exist');
         cy.contains('保存が出来ました').should('exist');
-        cy.contains('保存が出来ました').should('not.exist', { timeout: 10000 });
+        cy.contains('保存が出来ました', { timeout: 10000 }).should('not.exist');
         
         cy.wait('@getLatestData');
 

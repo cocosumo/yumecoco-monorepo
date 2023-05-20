@@ -21,7 +21,7 @@ export const kintoneProxyWrapper = async (params: {
     data,
   } = params;
 
-  if (kintone) {
+  if (typeof(kintone) !== 'undefined') {
   
     const result = await kintone.proxy(url, method, headers, data);
 

@@ -126,6 +126,12 @@ export const saveProjectData = z.object({
 export type SaveProjectData = z.infer<typeof saveProjectData>;
 export type SaveProjectDataKeys = keyof SaveProjectData;
 
+export interface SaveProjectParams {
+  projData: SaveProjectData,
+  members: string[],
+}
+
+
 export const projects = z.object({
   '顧客ID': z.number(),
   '顧客管理ID': z.string().nullable(),
@@ -167,3 +173,37 @@ export const getMyOrdersResponse = z.object({
 
 
 export type GetMyOrdersResponse = z.infer<typeof getMyOrdersResponse>; 
+
+/** メンバー招待 */
+
+export interface ReqMemberBody {
+  /** 案件管理ID利用フラグ。trueを指定した場合、パスのorder_idを案件管理IDとして扱う */
+  use_order_common_id?: boolean,
+
+  /** emailもありますが、今回はcommon_id (社員名簿のuuid) のみに固定します。 */
+  identification_type: 'common_id' | 'email',
+
+} 
+
+export interface Member {
+  key: string // 社員番号
+}
+
+export interface ExtendedMember extends Member {
+  role: 'admin' | 'basic'
+  job_names?: string[]
+}
+
+export interface ReqDelMembersBody extends ReqMemberBody {
+  members : Array<Member> 
+}
+
+export interface ReqAddMembersBody extends ReqMemberBody {
+  /** 案件メンバー追加が成功したユーザに案件招待のお知らせを送るかどうか。 */
+  send_notification?: boolean,
+  members : Array<ExtendedMember>
+}
+
+export interface ReqUpdateMembersBody extends ReqMemberBody {
+  members : Array<ExtendedMember>
+} 

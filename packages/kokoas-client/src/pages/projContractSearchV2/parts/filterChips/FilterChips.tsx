@@ -1,7 +1,7 @@
 import { Chip, Stack } from '@mui/material';
 import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KeyOfForm } from '../../form';
+import { KeyOfForm, TypeOfForm } from '../../form';
 import qs from 'qs';
 import { parseValueToLabel } from '../../helpers/parseValueToLabel';
 import { stepsKeys } from '../filterDialog/ContractStatusIncomplete';
@@ -11,8 +11,6 @@ import { filterNonNull } from 'libs';
 export const FilterChips = () => {
 
   const values = useNewValuesFromParams();
-
-
 
   const navigate = useNavigate();
 
@@ -44,6 +42,17 @@ export const FilterChips = () => {
     navigate(`?${qs.stringify(filterNonNull(newQuery))}`);
   }, [values, navigate]);
 
+  const handleDeleteStore = (value: string) => {
+    const newForm: TypeOfForm = { 
+      ...values, 
+      stores: values
+        ?.stores
+        ?.filter((store) => store !== value),   
+    };
+
+    navigate(`?${qs.stringify(filterNonNull(newForm))}`);
+  };
+
   return (
     <Stack
       direction={'row'}
@@ -58,20 +67,39 @@ export const FilterChips = () => {
         })
         .reduce((acc, [k, v]) => {
           const parsedValue = parseValueToLabel(k as KeyOfForm, v);
+  
+
           if (parsedValue) {
-            acc.push(
-              <Chip
-                sx={{ my: 1 }}
-                size={'small'}
-                key={k}
-                label={parsedValue}
-                onDelete={() => handleDelete(k as KeyOfForm)}
-              />);
+            // check if parsedValue is an array of string
+            if (Array.isArray(parsedValue)) {
+              parsedValue.forEach((value) => {
+                acc?.push(
+                  <Chip
+                    sx={{ my: 1 }}
+                    size={'small'}
+                    key={value}
+                    label={value}
+                    onDelete={() => handleDeleteStore(value)}
+                  />,
+                );
+              });
+            } else {
+              acc.push(
+                <Chip
+                  sx={{ my: 1 }}
+                  size={'small'}
+                  key={k}
+                  label={parsedValue}
+                  onDelete={() => handleDelete(k as KeyOfForm)}
+                />,
+              );
+            }
           }
+
+            
           return acc;
         },
-        [] as ReactNode[],
-        )}
+        [] as ReactNode[])}
     </Stack>
   );
 };

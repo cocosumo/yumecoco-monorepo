@@ -1,4 +1,4 @@
-import { TableCell, TableRow, Typography } from '@mui/material';
+import { TableCell, TableRow, TextField, Typography } from '@mui/material';
 import { createPaymentList } from 'api-kintone/src/estimates/createPaymentList';
 import { useFormikContext } from 'formik';
 import { produce } from 'immer';
@@ -6,17 +6,24 @@ import { FormikMoneyField, FormikSelect } from 'kokoas-client/src/components';
 import { ChangeEvent } from 'react';
 import { getEstimatesFieldName, TMaterials, TypeOfForm } from '../form';
 import WarningIcon from '@mui/icons-material/Warning';
+import { BillingEntryMenu } from './BillingEntryMenu/BillingEntryMenu';
+
+
 
 export const BillingEntryTableRow = ({
   estimate,
   idx,
   paymentList,
   isBilled,
+  handleInsert,
+  handleRemove,
 }: {
   estimate: TMaterials
   idx: number
   paymentList: ReturnType<typeof createPaymentList>[] | undefined
-  isBilled: boolean
+  isBilled: boolean  
+  handleInsert: () => void
+  handleRemove: () => void
 }) => {
   const {
     setValues,
@@ -43,7 +50,7 @@ export const BillingEntryTableRow = ({
   const billingAmountChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = Number(e.target.value);
+        draft.estimates[idx].billingAmount = Number(e.target.value ?? 0);
       });
 
       return newVal;
@@ -55,7 +62,7 @@ export const BillingEntryTableRow = ({
 
     setValues((prev) => {
       const newVal = produce(prev, (draft) => {
-        draft.estimates[idx].billingAmount = Number(paymentItem?.paymentAmtPerType?.[arrayIdx]) ?? 0;
+        draft.estimates[idx].billingAmount = Number(paymentItem?.paymentAmtPerType?.[arrayIdx] ?? 0) ;
       });
 
       return newVal;
@@ -70,6 +77,8 @@ export const BillingEntryTableRow = ({
     rowAmountExceeded = (+contractAmount > newBillingAmount) || (+billingAmount > 0);
   }
 
+  const isOther = false; // 仮実装
+
 
   return (
     <TableRow>
@@ -81,7 +90,7 @@ export const BillingEntryTableRow = ({
           {dataId.split('-').at(-1)}
         </Typography>
       </TableCell>
-      <TableCell align="right">
+      <TableCell colSpan={isOther ? 1 : 2} align="right">
         {!isBilled &&
           <FormikSelect
             name={getEstimatesFieldName(idx, 'amountType')}
@@ -94,6 +103,9 @@ export const BillingEntryTableRow = ({
             {amountType}
           </Typography>}
       </TableCell>
+      {isOther && <TableCell align="right">
+        <TextField size='small' />
+      </TableCell>}
       <TableCell align="right">
         {!isBilled &&
           <FormikMoneyField
@@ -107,6 +119,12 @@ export const BillingEntryTableRow = ({
           <Typography sx={{ color: 'gray' }}>
             {billingAmount}
           </Typography>}
+      </TableCell>
+      <TableCell>
+        <BillingEntryMenu
+          handleInsert={handleInsert}
+          handleRemove={handleRemove}
+        />
       </TableCell>
       <TableCell>
         {rowAmountExceeded && <WarningIcon color='warning' />}

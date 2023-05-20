@@ -236,6 +236,41 @@ describe('契約一覧', () => {
       // TODO: テスト用データ生成
     });
 
+    it('店舗で絞り込みが出来る', () => {
+      const stores = ['豊川中央店', '大垣店'];
+      stores.forEach((store) => {
+        cy.getCheckboxesByLabel(store)
+          .check()
+          .should('be.checked');
+      });
+
+      cy.get('@searchButton').click();
+
+      stores.forEach((store) => {
+        cy.get('@filterChipsContainer').should('contain', store);
+      });
+
+      cy.get('@tableBody').find('tr')
+        .each(($row) => {
+          const storeText = $row.find('td').eq(2)
+            .text();
+          // expect that any of the stores is in the storeText
+          
+          expect(stores.some((store) => storeText.includes(store)), `any of ${stores}`).to.be.true;
+          // make the above assertion more readable in the logs
+        });
+
+      stores.forEach((store) => {
+        cy.contains('.MuiChip-root', store)
+          .children('.MuiChip-deleteIcon')
+          .click()
+          .should('not.exist');
+      });
+
+      // TODO Add aditional assertions on the result. But I will need to generate test data first. ~ras 2023-05-19
+          
+    });
+
   });
 
 });

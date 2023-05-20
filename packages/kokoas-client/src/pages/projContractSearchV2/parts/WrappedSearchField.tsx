@@ -8,7 +8,7 @@ import {  useFormContext } from 'react-hook-form';
 import {  TypeOfForm } from '../form';
 
 import { SubmitButton } from './filterDialog/SubmitButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
 
 
@@ -21,6 +21,9 @@ export const WrappedSearchField = ({
 }) => {
   const [filterOpen, setFilterOpen] = useState(false);
   const navigate = useNavigate();
+  const {
+    search,
+  } = useLocation();
 
   const {
     register,
@@ -29,7 +32,11 @@ export const WrappedSearchField = ({
   const handleFilterOpen = () => setFilterOpen(true);
   const handleFilterClose = () => {
     setFilterOpen(false);
+    // navigate to the same page with the same parameters
+    navigate(`${search}`);
   };
+
+  const handleSubmit = () => setFilterOpen(false);
 
   return (
     <>
@@ -38,6 +45,7 @@ export const WrappedSearchField = ({
         minAmount={minAmount ?? 0}
         maxAmount={maxAmount ?? 0}
         handleClose={handleFilterClose}
+        handleSubmit={handleSubmit}
       />
 
       <Stack

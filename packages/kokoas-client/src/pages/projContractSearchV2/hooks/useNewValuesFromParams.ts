@@ -1,10 +1,10 @@
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
+import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
 import { useMemo } from 'react';
 import { initialValues, TypeOfForm } from '../form';
 import { stepsKeys } from '../parts/filterDialog/ContractStatusIncomplete';
 
 export const useNewValuesFromParams = () => {
-  const urlParams = useURLParams<TypeOfForm>();
+  const urlParams = useURLParamsV2<TypeOfForm>();
 
   return useMemo(() => {
 

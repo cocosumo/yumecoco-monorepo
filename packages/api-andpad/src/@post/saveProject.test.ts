@@ -25,7 +25,10 @@ describe('saveProject', () => {
 
   /** 最低限の情報で保存出来るように。 */
   it('should save test project　with required information', async () => {
-    const result = await saveProject(basicData);
+    const result = await saveProject({
+      projData: basicData,
+      members: [],
+    });
 
     console.log(result);
 
@@ -59,7 +62,13 @@ describe('saveProject', () => {
       '物件都道府県': '愛知県',
     };
 
-    const result = await saveProject(completeData);
+    const result = await saveProject({
+      projData: completeData,
+      members:   [
+        '2878b722-da66-44e0-934c-3f130154bbdc', // 高橋
+        'c606e9ef-22c9-4dac-a064-556708811d99', // 林
+      ],
+    });
 
     console.log('result', result);
 

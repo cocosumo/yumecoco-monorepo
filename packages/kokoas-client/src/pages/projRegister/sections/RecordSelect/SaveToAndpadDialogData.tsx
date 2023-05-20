@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { red } from '@mui/material/colors';
 import { SaveProjectData } from 'api-andpad';
 
 
@@ -18,11 +19,15 @@ export const SaveToAndpadDialogData = ({
               key={key}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell align="right">
+              <TableCell align="right" 
+                sx={{ color: !val ? red[500] : 'inherit' }}
+              >
                 {key}
               </TableCell>
-              <TableCell align="left">
-                {val}
+              <TableCell align="left"
+                sx={{ color: !val ? red[500] : 'inherit' }}
+              >
+                {val || '-'}
               </TableCell>
             </TableRow>
           ))}

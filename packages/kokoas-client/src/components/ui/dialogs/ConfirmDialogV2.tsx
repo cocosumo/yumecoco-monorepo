@@ -1,5 +1,5 @@
 import { IDialogState } from './GlobalConfirmDialog';
-import { DialogTitle, Dialog, DialogContent, DialogActions, Button  } from '@mui/material';
+import { DialogTitle, Dialog, DialogContent, DialogActions, Button, Alert  } from '@mui/material';
 
 export const ConfirmDialogV2 = ({
   open = true,
@@ -12,6 +12,7 @@ export const ConfirmDialogV2 = ({
   handleYes,
   handleNo,
   cancellable,
+  severity,
 }: IDialogState) => {
   return (
     <Dialog
@@ -22,7 +23,11 @@ export const ConfirmDialogV2 = ({
         {title}
       </DialogTitle>
       <DialogContent>
-        {content}
+        {!!severity && <Alert severity={severity}>
+          {content}
+        </Alert>}
+
+        {!severity && content}
       </DialogContent>
       <DialogActions>
         {withYes &&

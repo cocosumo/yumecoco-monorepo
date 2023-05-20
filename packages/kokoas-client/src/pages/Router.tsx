@@ -11,6 +11,7 @@ import { memo } from 'react';
 import { FormContractSearch } from './projContractSearchV2/FormContractSearch';
 import { UnderDevelopment } from './UnderDevelopment';
 import { FormContract } from './projContractV2/FormContract';
+import { FormProject } from './projRegisterV2/FormProject';
 
 
 
@@ -29,6 +30,8 @@ export const pages = {
 
   projEdit: '/project/edit',
   projReg: '/project/register',
+
+  projRegV2: '/project/register/v2',
 
   projEstimate: '/project/estimate/register',
 
@@ -66,6 +69,7 @@ const Router = () => (
     {/* 工事情報 */}
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'} />
     <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'} />
+    <Route path={`${pages.projRegV2}`} element={<FormProject />} />
 
 
     {/* 見込み検索 */}

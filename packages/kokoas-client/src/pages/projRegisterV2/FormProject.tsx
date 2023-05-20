@@ -3,8 +3,9 @@ import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TypeOfForm, schema } from './schema';
 import { useEffect } from 'react';
-import { MainContainer2, PageTitle2 } from 'kokoas-client/src/components';
+import { EmptyBox, MainContainer2, PageTitle2 } from 'kokoas-client/src/components';
 import { RecordSelect } from './sections/RecordSelect';
+import { FormInput } from './FormInput';
 
 export const FormProject = () => {
   
@@ -40,8 +41,18 @@ export const FormProject = () => {
             backgroundColor='#60498C'
             color='#FFF'
           />
+
           <RecordSelect />
+
+          {!projId && (
+            <EmptyBox>
+              顧客を選択してください
+            </EmptyBox>
+          )}
  
+
+          {!!projId && (<FormInput />)}
+
         </MainContainer2>
       </form>
     </FormProvider>

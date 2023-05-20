@@ -1,11 +1,12 @@
 import Grid from '@mui/material/Unstable_Grid2';
-import { SearchCustGroup, SearchOption, SelectProjectInCustGroup } from 'kokoas-client/src/components';
+import { ModeInfo, SearchCustGroup, SearchOption, SelectProjectInCustGroup } from 'kokoas-client/src/components';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { useFormState, useWatch } from 'react-hook-form';
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useCallback } from 'react';
+import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
 
 
 export const RecordSelect = () => {
@@ -16,10 +17,18 @@ export const RecordSelect = () => {
   const [
     custGroupId,
     custName,
+    projId,
+    projDataId,
+    createdDate,
+    andpadDetails,
   ] = useWatch({
     name: [
       'custGroupId',
       'custName',
+      'projId',
+      'projDataId',
+      'createdDate',
+      'andpadDetails',
     ],
   });
   const navigate = useStableNavigate();
@@ -86,7 +95,21 @@ export const RecordSelect = () => {
           }, [navigate])}
         />
       </Grid>
-      
+
+      <Grid xs={12} md={'auto'}>
+        {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
+      </Grid>
+
+
+      <Grid
+        xs={6}
+        md={'auto'}
+      >
+        <ModeInfo
+          recordId={projDataId || ''}
+          dateStr={createdDate}
+        />
+      </Grid>
 
     </>
   );

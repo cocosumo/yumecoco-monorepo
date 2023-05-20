@@ -36,7 +36,7 @@ export const StaticContents = ({
         <>
           <Stack spacing={2}>
             {data.map(({ label, value }) => (
-              <Info key={label} label={label} value={value} />
+              <Info key={label} label={label} value={value || '-'} />
             ))}
           </Stack>
           <Button

@@ -18,8 +18,8 @@ export default function MainMenu() {
       <Divider />
       <List>
         <CustomerMenu />
-        <ProspectMenu />
         <ConstructionMenu />
+        <ProspectMenu />
         {/* <EstimateMenu /> */}
         {/* <CustomerManagementMenu /> */}
         <ContractMenu />

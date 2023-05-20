@@ -10,14 +10,15 @@ import { ConstructionMenu } from './menus/ConstructionMenu';
 import PaymentMenu from './menus/PaymentMenu';
 import packageInfo from 'kokoas-client/src/lib/packageInfo';
 import { Typography } from '@mui/material';
+import { ProspectMenu } from './menus/ProspectMenu';
 
 export default function MainMenu() {
   return (
     <div>
-
       <Divider />
       <List>
         <CustomerMenu />
+        <ProspectMenu />
         <ConstructionMenu />
         {/* <EstimateMenu /> */}
         {/* <CustomerManagementMenu /> */}

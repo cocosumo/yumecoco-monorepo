@@ -56,8 +56,6 @@ export const FormConstruction  = () => {
 
         <ExternalLinks />
 
-        {!!projId && <LogDisplay />}
-
         <UneditableInfo 
           projId={projId}
           projName={projName}
@@ -74,13 +72,17 @@ export const FormConstruction  = () => {
             projTypeId={projTypeId}
           />
           <Remarks />
+
+                  
+          {!!projId && <LogDisplay />}
               
           {isEditMode && <StatusControls />}
 
         </>
         )}
 
-        
+
+
         <FabSave onClick={submitForm} url="project" appear={!!custGroupId && dirty} />
       </MainContainer>
 

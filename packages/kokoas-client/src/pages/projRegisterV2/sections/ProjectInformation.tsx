@@ -8,7 +8,7 @@ export const ProjectInformation = () => {
     <Grid 
       container
       xs={12}
-      spacing={1}
+      spacing={2}
     >
       <Grid 
         xs={12}
@@ -18,7 +18,7 @@ export const ProjectInformation = () => {
         <ProjectType />
       </Grid>
 
-      <Grid xs={12} lg={8} >
+      <Grid xs={12} lg={9} >
         <TextField label={'工事名称'} fullWidth />
       </Grid>
       

@@ -34,14 +34,14 @@ export const MemoColumn = ({ disabled }: { disabled:boolean }) => {
         container 
         item 
         xs={12}
-        lg={6}
         spacing={2}
       >
-        <PageSubTitle label={'メモ'} xs={7} />
-        <Grid item xs={5}>
+        <PageSubTitle label={'メモ'} xs={6} />
+        <Grid item xs={6}>
           <Button
             disabled={disabled}
-            variant="outlined" startIcon={<AddIcon />}
+            variant="outlined" 
+            startIcon={<AddIcon />}
             fullWidth onClick={
             ()=> handleOpen({
               custGroupId: id || '',

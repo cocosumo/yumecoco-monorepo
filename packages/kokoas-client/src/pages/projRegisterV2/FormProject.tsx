@@ -5,7 +5,7 @@ import {  schema } from './schema';
 import { useEffect } from 'react';
 import { EmptyBox, MainContainer2, PageTitle2 } from 'kokoas-client/src/components';
 import { RecordSelect } from './sections/RecordSelect';
-import { FormInput } from './FormInput';
+import { Contents } from './Contents';
 import { TypeOfForm } from './form';
 
 export const FormProject = () => {
@@ -53,7 +53,7 @@ export const FormProject = () => {
           )}
  
 
-          {!!custGroupId && (<FormInput />)}
+          {!!custGroupId && (<Contents />)}
 
         </MainContainer2>
       </form>

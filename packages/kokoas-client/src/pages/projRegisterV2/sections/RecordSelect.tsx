@@ -7,6 +7,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useCallback } from 'react';
 import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
+import { ExternalLinks } from './ExternalLinks';
 
 
 export const RecordSelect = () => {
@@ -99,6 +100,8 @@ export const RecordSelect = () => {
       <Grid xs={12} md={'auto'}>
         {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
       </Grid>
+
+      <ExternalLinks />
 
 
       <Grid

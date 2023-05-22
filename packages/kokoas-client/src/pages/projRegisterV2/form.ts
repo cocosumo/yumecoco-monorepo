@@ -41,3 +41,17 @@ export const initialValues : TypeOfForm = {
 
 export type TypeOfForm = z.infer<typeof schema>;
 export type KeysOfForm = keyof TypeOfForm;
+
+
+export interface Remarks {
+  id: string,
+  noteCreateTime: Date,
+  noteUpdateTime: Date,
+  remark: string,
+}
+
+export interface Log {
+  dateTime?: Date,
+  log: string,
+  id: string,
+}

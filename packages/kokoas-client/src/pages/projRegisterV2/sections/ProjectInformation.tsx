@@ -17,10 +17,29 @@ export const ProjectInformation = () => {
       >
         <ProjectType />
       </Grid>
+      <Grid />
 
-      <Grid xs={12} lg={9} >
+      <Grid xs={12} lg={8} >
         <TextField label={'工事名称'} fullWidth />
       </Grid>
+      <Grid />
+
+      <Grid 
+        xs={12}
+        md={6} 
+        lg={4}
+      >
+        <ProjectType />
+      </Grid>
+
+      <Grid 
+        xs={12}
+        md={6} 
+        lg={4}
+      >
+        <ProjectType />
+      </Grid>
+      
       
     </Grid>
   );

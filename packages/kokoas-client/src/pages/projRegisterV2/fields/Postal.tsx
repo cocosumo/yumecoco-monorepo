@@ -6,10 +6,12 @@ export const Postal = () => {
   return (
     <>
       <Grid 
-        xs={'auto'}
+        xs={12}
+        md={6} 
+        lg={4}
         spacing={2}
       >
-        <TextField label="郵便番号" placeholder='4418124' />
+        <TextField label="郵便番号" placeholder='4418124' fullWidth />
       </Grid>
       <Grid 
         xs={'auto'}

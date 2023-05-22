@@ -30,7 +30,11 @@ export const MemoColumn = ({ disabled }: { disabled:boolean }) => {
   return (
     <MemoColumnContainer>
 
-      <Grid container item xs={12}
+      <Grid 
+        container 
+        item 
+        xs={12}
+        lg={6}
         spacing={2}
       >
         <PageSubTitle label={'メモ'} xs={7} />

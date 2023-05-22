@@ -3,10 +3,12 @@ import { StaticContents } from 'kokoas-client/src/components';
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useWatch } from 'react-hook-form';
-import { useCustGroupById, useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
 import { TypeOfForm } from '../form';
+
+import { Customers } from '../parts/Customers';
 
 type Dt = ComponentProps<typeof StaticContents>['data'];
 
@@ -23,9 +25,6 @@ export const CustomerSummary = () => {
   });
 
   const { data, isLoading } = useCustGroupById(custGroupId as string);
-  const { data: custData } = useCustomersByCustGroupId(custGroupId as string);
-
-
 
   const parsedData : Dt = useMemo(() => {
 
@@ -53,14 +52,6 @@ export const CustomerSummary = () => {
       address2: address2.value,
     });
 
-    const contactDatails: Dt = custData?.map(({
-      
-    }) => {
-      return {
-        label
-      }
-    });
-
     return [
       { label: '店舗', value: storeName?.value },
       { label: '顧客名', value: custNames },
@@ -71,8 +62,8 @@ export const CustomerSummary = () => {
 
   }, [
     data,
-    custData,
   ]); 
+
 
   return (
     <Grid xs={12}>
@@ -83,8 +74,10 @@ export const CustomerSummary = () => {
         })}`}
         data={parsedData}
         isLoading={isLoading}
-      />
-    
+      > 
+        {custGroupId && <Customers custGroupId={custGroupId as string} />}
+      </StaticContents>
+
     </Grid>
   );
 };

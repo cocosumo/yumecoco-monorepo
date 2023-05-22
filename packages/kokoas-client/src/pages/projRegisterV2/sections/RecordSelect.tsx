@@ -37,11 +37,11 @@ export const RecordSelect = () => {
   const navigateToCustGroup = (newCustGroupId?: string) => {
 
     if (newCustGroupId) {
-      navigate(`${pages.projRegV2}?${generateParams({
+      navigate(`${pages.projEditV2}?${generateParams({
         custGroupId: newCustGroupId,
       })}`);
     } else {
-      navigate(`${pages.projRegV2}`);
+      navigate(`${pages.projEditV2}`);
     }
   };
 
@@ -89,7 +89,7 @@ export const RecordSelect = () => {
             fullWidth: true,
           }}
           onChange={useCallback(({  uuid }) => {
-            navigate(`${pages.projRegV2}?${generateParams({
+            navigate(`${pages.projEditV2}?${generateParams({
               projId: uuid.value,
             })}`);
           }, [navigate])}

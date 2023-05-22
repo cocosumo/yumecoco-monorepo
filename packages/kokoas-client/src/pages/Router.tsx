@@ -31,7 +31,7 @@ export const pages = {
   projEdit: '/project/edit',
   projReg: '/project/register',
 
-  projRegV2: '/project/register/v2',
+  projEditV2: '/project/edit/v2',
 
   projEstimate: '/project/estimate/register',
 
@@ -69,7 +69,7 @@ const Router = () => (
     {/* 工事情報 */}
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'} />
     <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'} />
-    <Route path={`${pages.projRegV2}`} element={<FormProject />} />
+    <Route path={`${pages.projEditV2}`} element={<FormProject />} />
 
 
     {/* 見込み検索 */}

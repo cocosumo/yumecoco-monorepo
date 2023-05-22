@@ -25,6 +25,11 @@ export const BuildingType = () => {
         return (
           <FormControl 
             error={isShowError}
+            sx={{
+              bgcolor: 'background.paper',
+              borderWidth: 2,
+              p: 2,
+            }}
           >
             <FormLabel>
               {'建物種別'}

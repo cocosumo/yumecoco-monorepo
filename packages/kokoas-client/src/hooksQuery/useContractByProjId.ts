@@ -8,6 +8,7 @@ import { useEstimates } from './useEstimates';
  * 工事番号で主な契約を取得する
  *
  * 主な契約とは、もっとも高い契約金額をさします。
+ * @deprecated 契約DBは見積もりから独立になり、このフックは廃止されます。
  */
 export const useContractByProjId = (
   projId = '',

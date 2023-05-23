@@ -17,9 +17,9 @@ export const TotalAmount = ({
       my={2}
     >
       <ControlledCurrencyInput disabled={disabled} name="totalContractAmtAfterTax" label="契約合計金額（税込）" />
-      <ProfitRate disabled={disabled} />
-
       <ControlledCurrencyInput disabled={disabled} name="totalContractAmtBeforeTax" label="契約合計金額（税抜）" />
+
+      <ProfitRate disabled={disabled} />
       <ControlledCurrencyInput disabled={disabled} name="totalProfit" label="粗利額 （税抜）" />
     </Stack>
   );

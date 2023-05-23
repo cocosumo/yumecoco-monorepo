@@ -160,7 +160,24 @@ export const generateContractPdfV2 = async (
       weight: 0.1,
     },
   );
-  // drawCustAddress(customers, x2, firstPage, msChinoFont);
+  
+  // 印の位置
+  const signWidth = 240;
+  const signGap = signWidth / 2;
+
+  customers.forEach((_, idx) => {
+    const signX = x2 + (signGap * (idx + 1));
+  
+    drawText(
+      firstPage,
+      '印',
+      {
+        x: signX,
+        y: 225,
+        font: msChinoFont,
+      },
+    );
+  });
 
   // 工事場所
   drawText(
@@ -408,6 +425,10 @@ export const generateContractPdfV2 = async (
       weight: 0.1,
     },
   );
+
+  // サイン印
+  
+
 
   // 担当者名
   drawText(

@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { groupCustContacts } from './helper/groupCustContact';
 import { dateStrToJA } from 'kokoas-client/src/helpers/utils';
 import { useCustGroups, useProjects, useCustomers, useAllContracts } from 'kokoas-client/src/hooksQuery';
-import { TAgents } from 'types';
+import { TAgents, TEnvelopeStatus } from 'types';
 import { TypeOfForm } from '../form';
 import { ISearchData } from '../parts/TableResult/settings';
 
@@ -53,7 +53,15 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
             const relProjectIds = relProjects?.map(({ uuid: projId }) => projId.value) || [];
 
             const relCustomers = recCustomers?.filter(({ uuid }) => rec?.members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
-            const relContracts = contractData?.filter(({ projId }) => relProjectIds.some((s) => s === projId.value));
+            const relContracts = contractData
+              ?.filter(
+                ({ 
+                  projId, 
+                  envelopeStatus, 
+                }) => relProjectIds
+                  .some((s) => s === projId.value)
+                && (envelopeStatus.value as TEnvelopeStatus) === 'completed',
+              );
             
 
             const recYumeAG = rec.agents?.value

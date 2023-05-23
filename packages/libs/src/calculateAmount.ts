@@ -78,11 +78,13 @@ export const calculateAmount = ({
         profit: newProfit,
       };
     }
+    
+
 
     // 契約金額（税抜）が編集されたとき
-    if (amountBeforeTax && profitRate) {
+    if (amountBeforeTax) {
       const newAmtAfterTax = calcAfterTax(amountBeforeTax, taxRate);
-      const newCostPrice = calcCostPrice(amountBeforeTax, profitRate);
+      const newCostPrice = calcCostPrice(amountBeforeTax, profitRate || 0);
       const newProfit = Big(amountBeforeTax).minus(newCostPrice)
         .toNumber();
 

@@ -76,7 +76,7 @@ export const ContractListItem = ({
           />
           <LabeledDetail
             label='粗利率'
-            value={`${(profitRate || 0) * 100} %`}
+            value={`${((profitRate || 0) * 100).toFixed(2)} %`}
           />
           <LabeledDetail
             label='作成日'

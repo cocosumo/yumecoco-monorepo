@@ -1,9 +1,9 @@
 import { CardContent, Stack } from '@mui/material';
 import { IProjects } from 'types';
-import { LabeledInfo } from '../../../../../../components/ui/typographies';
 import { generateParams } from '../../../../../../helpers/url';
 import { pages } from '../../../../../Router';
 import { ButtonEdit } from '../ButtonEdit';
+import { Info } from '../../common/Info';
 
 export const ProjectDetails = ({
   projectDetailsData : {
@@ -32,24 +32,24 @@ export const ProjectDetails = ({
 
     <CardContent sx={{ width: '40%' }}>
       <Stack spacing={1}>
-        <LabeledInfo label="工事番号" info={dataId.value} />
-        <LabeledInfo label="工事種別" info={projTypeName.value} />
-        <LabeledInfo label="工事名称" info={projName.value} />
-        <LabeledInfo label="建物種別" info={buildingType.value} />
-        <LabeledInfo
+        <Info label="工事番号" value={dataId.value} />
+        <Info label="工事種別" value={projTypeName.value} />
+        <Info label="工事名称" value={projName.value} />
+        <Info label="建物種別" value={buildingType.value} />
+        <Info
           label="工事住所"
-          info={[postal.value, address1.value, address2.value]
+          value={[postal.value, address1.value, address2.value]
             .filter(Boolean)
             .map(item=>item)
             .join(' ')}
         />
-        <LabeledInfo
+        <Info
           label="工事担当"
-          info={constructionOfficer}
+          value={constructionOfficer}
         />
 
-        <LabeledInfo label="担当確定" info={+isAgentConfirmed.value ? 'はい' : 'いいえ'} />
-        <LabeledInfo label="仮換地地番" info={addressKari.value} />
+        <Info label="担当確定" value={+isAgentConfirmed.value ? 'はい' : 'いいえ'} />
+        <Info label="仮換地地番" value={addressKari.value} />
         <ButtonEdit link={`${pages.projEdit}?${generateParams({
           projId: uuid.value,
         })}`}

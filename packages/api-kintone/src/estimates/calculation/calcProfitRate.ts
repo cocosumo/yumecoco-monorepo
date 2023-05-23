@@ -17,6 +17,9 @@ export const calcProfitRate = (
 
   if (+unitPrice === 0) return -1000000;
 
-  return Big(unitPrice).minus(costPrice).div(unitPrice).round(4).toNumber();
+  return Big(unitPrice).minus(costPrice)
+    .div(unitPrice)
+    .round(4)
+    .toNumber();
 
 };

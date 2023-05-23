@@ -5,7 +5,7 @@ import { TypeOfForm } from '../schema';
 export const convertToKintone = ({
 
   projId,
-  totalContractAmt,
+  totalContractAmtAfterTax,
   totalProfit,
 
   hasContractAmt,
@@ -48,7 +48,7 @@ export const convertToKintone = ({
 
   const kintoneRecord: Partial<IContracts> = {
     projId: { value: projId },
-    totalContractAmt: { value: totalContractAmt.toString() },
+    totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },
 
     contractAmt: { value: (hasContractAmt ? contractAmt : 0).toString() },

@@ -12,7 +12,7 @@ export const AmountDetails = () => {
     taxRate,
   ]  = useWatch<TypeOfForm>({
     name: [
-      'totalContractAmt',
+      'totalContractAmtAfterTax',
       'totalProfit',
       'taxRate',
     ],

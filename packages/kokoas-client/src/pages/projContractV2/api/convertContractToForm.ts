@@ -54,7 +54,7 @@ export const convertContractToForm = (
     contractId: uuid.value,
     projId: projId.value,
 
-    totalContractAmt: +totalContractAmt.value,
+    totalContractAmtAfterTax: +totalContractAmt.value,
     totalProfit: +totalProfit.value,
     taxRate: +tax.value,
 

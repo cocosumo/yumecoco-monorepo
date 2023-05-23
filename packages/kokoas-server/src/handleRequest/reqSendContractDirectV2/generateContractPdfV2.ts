@@ -163,7 +163,7 @@ export const generateContractPdfV2 = async (
   
   // 印の位置
   const signWidth = 240;
-  const signGap = signWidth / 2;
+  const signGap = signWidth / customers.length;
 
   customers.forEach((_, idx) => {
     const signX = x2 + (signGap * (idx + 1));
@@ -175,6 +175,20 @@ export const generateContractPdfV2 = async (
         x: signX,
         y: 225,
         font: msChinoFont,
+      },
+    );
+
+    drawText(
+      firstPage,
+      `c${idx + 1}`,
+      {
+        x: signX - 40,
+        y: 225,
+        font: msChinoFont,
+        color: grayscale(0.96), // 白に近い色
+      },
+      {
+        weight: 0.1,
       },
     );
   });

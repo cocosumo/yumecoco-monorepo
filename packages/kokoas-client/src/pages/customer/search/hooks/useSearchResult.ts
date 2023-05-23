@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
-import { useEstimates } from './../../../../hooksQuery/useEstimates';
 import { groupCustContacts } from './helper/groupCustContact';
 import { dateStrToJA } from 'kokoas-client/src/helpers/utils';
-import { useCustGroups, useProjects, useCustomers } from 'kokoas-client/src/hooksQuery';
-import { TAgents, TEnvelopeStatus } from 'types';
+import { useCustGroups, useProjects, useCustomers, useAllContracts } from 'kokoas-client/src/hooksQuery';
+import { TAgents } from 'types';
 import { TypeOfForm } from '../form';
 import { ISearchData } from '../parts/TableResult/settings';
 
@@ -15,10 +14,10 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
 
   const { data: recProjects } = useProjects();
   const { data: recCustomers } = useCustomers();
-  const { data: recEstimates } = useEstimates();
+  const { data: contractData } = useAllContracts();
 
   return useCustGroups({
-    enabled: !!recProjects && !!recCustomers && !!recEstimates,
+    enabled: !!recProjects && !!recCustomers && !!contractData,
     select: useCallback(
       (data) => {
 
@@ -50,9 +49,12 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
                   custGroupId.value === rec.uuid.value
                   && !cancelStatus.value,
               );
+
+            const relProjectIds = relProjects?.map(({ uuid: projId }) => projId.value) || [];
+
             const relCustomers = recCustomers?.filter(({ uuid }) => rec?.members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
-            const relEstimates = recEstimates?.filter(({ custGroupId }) =>  custGroupId.value === rec.uuid.value);
-            const relContracts = relEstimates?.filter(({ envStatus }) => (envStatus.value as TEnvelopeStatus) === 'completed' );
+            const relContracts = contractData?.filter(({ projId }) => relProjectIds.some((s) => s === projId.value));
+            
 
             const recYumeAG = rec.agents?.value
               ?.filter(item => item.value.agentType.value === 'yumeAG' as TAgents);
@@ -105,7 +107,8 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
                 'ここすも営業': recCocoAG
                   ?.map(item => item.value.employeeName.value)
                   .join('、 ') ?? '',
-                '工事担当(最近)': relProjects?.at(-1)?.agents.value.map(({ value: { agentName } }) => agentName.value).filter(Boolean).join(', ') || '',
+                '工事担当(最近)': relProjects?.at(-1)?.agents.value.map(({ value: { agentName } }) => agentName.value).filter(Boolean)
+                  .join(', ') || '',
                 '登録日時': dateStrToJA(rec.作成日時.value),
                 '更新日時': dateStrToJA(rec.更新日時.value),
               });
@@ -113,9 +116,10 @@ export const useSearchResult = (params?: Partial<TypeOfForm>) => {
 
             return acc;
           },
-          [] as ISearchData[]);
+          [] as ISearchData[],
+        );
       },
-      [params, recProjects, recCustomers, recEstimates],
+      [params, recProjects, recCustomers, contractData],
     ),
 
   });

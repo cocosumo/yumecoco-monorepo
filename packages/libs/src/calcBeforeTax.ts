@@ -12,7 +12,7 @@ export const calcBeforeTax = (
     const bTaxRate = Big(taxRate).add(1); // 1.1
     let result = Big(normalizedValue);
 
-    result = result.div(bTaxRate).round();
+    result = result.div(bTaxRate);
   
     return result.toNumber();
 

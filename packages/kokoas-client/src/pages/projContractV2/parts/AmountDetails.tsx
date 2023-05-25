@@ -3,36 +3,24 @@ import { grey } from '@mui/material/colors';
 import { Info } from './Info';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
-import { calcBeforeTax, calcProfitRate } from 'libs';
 
 export const AmountDetails = () => {
   const [
-    totalContractAmt,
-    totalProfit,
-    taxRate,
+    totalContractAmtAfterTax,
+    totalContractAmtBeforeTax,
   ]  = useWatch<TypeOfForm>({
     name: [
       'totalContractAmtAfterTax',
-      'totalProfit',
-      'taxRate',
+      'totalContractAmtBeforeTax',
     ],
     
   }) as number[];
 
-  const totalAmtBeforeTax = calcBeforeTax(totalContractAmt, taxRate);
-  const costPrice = totalAmtBeforeTax - totalProfit;
-  const profitRate = calcProfitRate(costPrice, totalAmtBeforeTax) * 100;
 
+  const taxValue = totalContractAmtAfterTax - totalContractAmtBeforeTax;
+ 
   const data = [
-    { 
-      label: '税率', 
-      value: `${
-        (taxRate * 100)
-      } %`, 
-    },
-    { label: '税抜金額', value: `${totalAmtBeforeTax.toLocaleString()} 円` },
-    { label: '原価', value: `${costPrice.toLocaleString()} 円` },
-    { label: '粗利率', value: `${profitRate.toFixed(2)} %` },
+    { label: '消費税', value: `${taxValue.toLocaleString()} 円` },
   ];
 
   return (
@@ -41,7 +29,6 @@ export const AmountDetails = () => {
       p={2}
       border={1}
       borderColor={grey[300]}
-      height={'100%'}
       spacing={1}
       justifyContent={'center'}
       alignContent={'flex-end'}

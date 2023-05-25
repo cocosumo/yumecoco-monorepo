@@ -51,6 +51,9 @@ export const makeEnvelopeV2 = async ({
 
     mainAccountingName,
     mainAccountingEmail,
+
+    subAccountingName,
+    subAccountingEmail,
   } = data;
 
   const {
@@ -189,6 +192,15 @@ export const makeEnvelopeV2 = async ({
     name: mainAccountingName,
     roleName: roles.main,
     recipientId: '4',
+    routingOrder: '4',
+  });
+
+  // 小出さん
+  ccs.push({
+    email: isProd ? subAccountingEmail : testHonKeiriEmail,
+    name: subAccountingName,
+    roleName: roles.accounting,
+    recipientId: '44',
     routingOrder: '4',
   });
 

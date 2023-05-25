@@ -49,22 +49,31 @@ export const FormIndividualCustomer  = () => {
 
       <PageTitle label="顧客登録（個人）" />
 
-      <Grid container item xs={12}
-        md={12} lg={12} xl={9}
+      <Grid 
+        container 
+        item 
+        xs={12}
         spacing={2} alignItems="flex-start" justifyContent={'flex-start'}
       >
         {isDeletedStatus && <CustomerStatus />}
 
         <Grid
           container item
-          xs={12} md={8} lg={5}
+          xs={12} 
+          md={8} 
+          lg={6}
+          xl={7}
           spacing={2}
         >
           <Customers disabled={isDeletedStatus} />
         </Grid>
 
-        <Grid container item xs={12}
-          md={4} lg={6} spacing={4}
+        <Grid container item 
+          xs={12}
+          md={4} 
+          lg={6}
+          xl={5} 
+          spacing={4}
           justifyContent="center"
         >
           <Agents disabled={isDeletedStatus} />

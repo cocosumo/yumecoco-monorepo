@@ -1,7 +1,7 @@
 import { Card, Divider, Stack } from '@mui/material';
 import { IProjects } from 'types';
-import { EstimatesList } from './EstimatesList';
 import { ProjectDetails } from './ProjectDetails';
+import { ContractsList } from './ContractsList';
 
 export const ProjectDetailsContainer = (props: {
   fetchedProjects : IProjects[],
@@ -26,7 +26,7 @@ export const ProjectDetailsContainer = (props: {
                 >
                   <ProjectDetails projectDetailsData={projectDetailsData} />
 
-                  <EstimatesList projId={uuid.value} />
+                  <ContractsList projId={uuid.value} />
                 </Stack>
               </Card>
             </Stack>

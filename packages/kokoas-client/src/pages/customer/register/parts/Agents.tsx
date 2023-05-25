@@ -60,8 +60,9 @@ export const Agents = ({
 
 
   return (
-    <Grid item xs={12} lg={6}
-      xl={6}
+    <Grid item 
+      xs={12} 
+      lg={6}
     >
       <Stack direction={'column'} spacing={2}>
         <PageSubTitle label='担当情報' />

@@ -14,6 +14,14 @@ frontend:
 - packages/kokoas-client/*
 - packages/kokoas-client/**/*
 
+rpa:
+- packages-automation/*
+- packages-automation/**/*
+
+customize:
+- packages-kintone-customize/*
+- packages-kintone-customize/**/*
+
 test:
 - src/**/*.cy.ts
 - src/**/*.test.ts

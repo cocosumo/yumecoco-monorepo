@@ -81,12 +81,11 @@ export const calculateAmount = (p : Values): Required<Values> => {
     // 契約金額（税込）か粗利率が編集されたとき
     if (p.amountAfterTax && p.profitRate) {
 
-      const newCostPrice = calcCostPrice(res.amountBeforeTax, res.profitRate);
+      res.costPrice = calcCostPrice(res.amountBeforeTax, res.profitRate);
 
-      const newProfit = Big(res.amountBeforeTax).minus(newCostPrice)
+      res.profit = Big(res.amountBeforeTax).minus(res.costPrice)
         .toNumber();
 
-      res.profit = newProfit;
     
       return res;
     }
@@ -112,7 +111,14 @@ export const calculateAmount = (p : Values): Required<Values> => {
       return res;
     }
         
-    // TODO：その他のケース
+    // 原価が編集されたとき
+    if (p.amountAfterTax && p.costPrice) {
+      res.profit = Big(res.amountBeforeTax).minus(p.costPrice)
+        .toNumber();
+      res.profitRate = calcProfitRate(p.costPrice, res.amountBeforeTax);
+
+      return res;
+    }
 
 
     return res;

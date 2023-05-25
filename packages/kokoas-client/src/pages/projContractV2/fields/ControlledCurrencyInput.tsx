@@ -28,7 +28,6 @@ export const ControlledCurrencyInput = ({
       control={control}
       render={({
         field: {
-          onBlur,
           onChange,
           ref,
           value,
@@ -50,6 +49,8 @@ export const ControlledCurrencyInput = ({
             onChange={(v) => {
               const commaRemoved = typeof v === 'string' ? v.replace(/,/g, '') : v;
               const parsedValue = +commaRemoved;
+
+              console.log('triggered', name, parsedValue);
               onChange(isNaN(parsedValue) ? v : parsedValue);
 
               const taxRate = getValues('taxRate');
@@ -62,14 +63,18 @@ export const ControlledCurrencyInput = ({
                   const {
                     amountBeforeTax,
                     profit,
+                    costPrice,
                   } = calculateAmount({
                     amountAfterTax: parsedValue,
                     taxRate,
                     profitRate,
                   });
 
+                  console.log('amountBeforeTax', amountBeforeTax);
+
                   setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
                   setValue('totalProfit', profit || 0);
+                  setValue('costPrice', costPrice || 0);
                   break;
                 }
                 case 'totalContractAmtBeforeTax': {
@@ -77,6 +82,7 @@ export const ControlledCurrencyInput = ({
                   const {
                     amountAfterTax,
                     profit,
+                    costPrice,
                   } = calculateAmount({
                     amountBeforeTax: parsedValue,
                     taxRate,
@@ -85,6 +91,7 @@ export const ControlledCurrencyInput = ({
 
                   setValue('totalContractAmtAfterTax', amountAfterTax || 0);
                   setValue('totalProfit', profit || 0);
+                  setValue('costPrice', costPrice || 0);
                   break;
                 }
                 case 'totalProfit': {
@@ -92,6 +99,7 @@ export const ControlledCurrencyInput = ({
                   const {
                     amountBeforeTax,
                     profitRate,
+                    costPrice,
                   } = calculateAmount({
                     amountAfterTax: totalContractAmtAfterTax,
                     profit: parsedValue,
@@ -99,12 +107,28 @@ export const ControlledCurrencyInput = ({
                   });
                   setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
                   setValue('profitRate', (profitRate || 0) * 100);
+                  setValue('costPrice', costPrice || 0);
                   break;
+                }
+                case 'costPrice' : {
+                  const totalContractAmtAfterTax = getValues('totalContractAmtAfterTax');
+                  const {
+                    amountBeforeTax,
+                    profitRate,
+                    profit,
+                  } = calculateAmount({
+                    amountAfterTax: totalContractAmtAfterTax,
+                    costPrice: parsedValue,
+                    taxRate,
+                  });
+
+                  setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
+                  setValue('profitRate', (profitRate || 0) * 100);
+                  setValue('totalProfit', profit || 0);
                 }
               }
 
             }}
-            onBlur={onBlur}
             error={!!error}
             disabled={disabled}
             placeholder={placeholder}

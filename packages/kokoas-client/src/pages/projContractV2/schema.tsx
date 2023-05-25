@@ -39,6 +39,9 @@ const schema = z.object({
   /** 税金 */
   taxRate: z.number(),
 
+  /** 原価 */
+  costPrice: z.number(),
+
   /** 契約金 */
   hasContractAmt: z.boolean(),
   contractAmt: z.number(),

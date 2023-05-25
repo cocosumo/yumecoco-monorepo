@@ -53,14 +53,16 @@ export const convertContractToForm = (
 
   const calcResult = calculateAmount({
     amountAfterTax: +totalContractAmt.value,
-    profitRate: +totalProfit.value,
+    profit: +totalProfit.value,
     taxRate: +tax.value,
   });
 
   const {
     amountBeforeTax,
     profitRate,
+    costPrice,
   } = calcResult;
+
 
   return {
     contractId: uuid.value,
@@ -69,8 +71,9 @@ export const convertContractToForm = (
     totalContractAmtAfterTax: +totalContractAmt.value,
     totalProfit: +totalProfit.value,
     taxRate: +tax.value,
-    profitRate: +(profitRate || 0),
+    profitRate: +(profitRate || 0) * 100,
     totalContractAmtBeforeTax: +(amountBeforeTax || 0),
+    costPrice: +(costPrice || 0),
     
 
     hasContractAmt: !!+contractAmt.value,

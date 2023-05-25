@@ -37,11 +37,12 @@ export const ProfitRate = ({
             variant={'outlined'}
             type='number'
             onChange={(e) => {
-              onChange(e);
+             
 
               const profitRate = +e.target.value;
              
-              if (!isNaN(value)) {
+              if (!isNaN(profitRate)) {
+                onChange(profitRate);
                 const totalContractAmtAfterTax = getValues('totalContractAmtAfterTax');
                 const taxRate = getValues('taxRate');
 

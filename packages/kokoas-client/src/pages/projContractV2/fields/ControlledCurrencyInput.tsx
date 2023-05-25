@@ -49,8 +49,6 @@ export const ControlledCurrencyInput = ({
             onChange={(v) => {
               const commaRemoved = typeof v === 'string' ? v.replace(/,/g, '') : v;
               const parsedValue = +commaRemoved;
-
-              console.log('triggered', name, parsedValue);
               onChange(isNaN(parsedValue) ? v : parsedValue);
 
               const taxRate = getValues('taxRate');

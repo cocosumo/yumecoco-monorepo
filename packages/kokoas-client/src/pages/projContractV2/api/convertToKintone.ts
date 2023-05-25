@@ -7,6 +7,7 @@ export const convertToKintone = ({
   projId,
   totalContractAmtAfterTax,
   totalProfit,
+  taxRate,
 
   hasContractAmt,
   contractAmt,
@@ -50,6 +51,7 @@ export const convertToKintone = ({
     projId: { value: projId },
     totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },
+    tax: { value: taxRate.toString() },
 
     contractAmt: { value: (hasContractAmt ? contractAmt : 0).toString() },
     contractAmtDate: { value: (hasContractAmt ? toKintoneDateStr(contractAmtDate) : '') },

@@ -166,13 +166,28 @@ export const generateContractPdfV2 = async (
   const signGap = signWidth / customers.length;
 
   customers.forEach((_, idx) => {
-    const signX = x2 + (signGap * (idx + 1));
+    const signX = x2 + (signGap * idx);
+  
+    drawText(
+      firstPage,
+      '署名',
+      {
+        x: signX,
+        y: 225,
+        font: msChinoFont,
+        size: 8,
+        color: grayscale(0.7), // 白に近い色
+      },
+      {
+        weight: 0.1,
+      },
+    );
 
     drawText(
       firstPage,
       `c${idx + 1}`,
       {
-        x: signX - 40,
+        x: signX + 40,
         y: 225,
         font: msChinoFont,
         color: grayscale(0.96), // 白に近い色

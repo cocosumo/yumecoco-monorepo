@@ -8,7 +8,7 @@ describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
-      signMethod: 'electronic',
+      signMethod: 'wetInk',
       ukeoiDocVersion: '20230523',
     });
 

@@ -28,6 +28,7 @@ export const WetInkFlow = () => {
     storeMgr,
     accounting,
     mainAccounting,
+    subAccounting,
   } = contractCheckers ?? {};
 
 
@@ -67,8 +68,16 @@ export const WetInkFlow = () => {
     },
 
     {
+      id: 'ccNode',
+      position: { x: 140, y: 400 },
+      type: 'circleNode',
+      data: { labe: null },
+    },
+
+
+    {
       id: 'mainAccounting',
-      position: { x: 0, y: 400 },
+      position: { x: -200, y: 600 },
       type: 'roleNode',
       data: {
         role: '本社経理',
@@ -78,8 +87,20 @@ export const WetInkFlow = () => {
     },
 
     {
+      id: 'subAccounting',
+      position: { x: 200, y: 600 },
+      type: 'roleNode',
+      data: {
+        role: '経理',
+        name: subAccounting?.文字列＿氏名?.value ?? '',
+        email: subAccounting?.email.value ?? '',
+      },
+    },
+
+
+    {
       id: 'completed',
-      position: { x: 75, y: 600 },
+      position: { x: 75, y: 800 },
       type: 'output',
       data: { label: '完了' },
     },
@@ -92,10 +113,15 @@ export const WetInkFlow = () => {
     { id: 'tantou-storeMgr', source: 'tantou', target: 'storeMgr', animated: true },
     { id: 'tantou-accounting', source: 'tantou', target: 'accounting', animated: true },
 
-    { id: 'accounting-mainAccounting', source: 'accounting', target: 'mainAccounting', animated: true },
-    { id: 'storeMgr-mainAccounting', source: 'storeMgr', target: 'mainAccounting', animated: true },
+    { id: 'accounting-ccNode', source: 'accounting', target: 'ccNode', animated: true },
+    { id: 'storeMgr-ccNode', source: 'storeMgr', target: 'ccNode', animated: true },
+
+    { id: 'ccNode-mainAccounting', source: 'ccNode', target: 'mainAccounting', animated: true },
+    { id: 'ccNode-subAccounting', source: 'ccNode', target: 'subAccounting', animated: true },
+
 
     { id: 'mainAccounting-completed', source: 'mainAccounting', target: 'completed', animated: true },
+    { id: 'subAccounting-completed', source: 'subAccounting', target: 'completed', animated: true },
 
   ];
 

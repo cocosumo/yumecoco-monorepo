@@ -38,6 +38,7 @@ export const ElectronicFlow = () => {
     storeMgr,
     accounting,
     mainAccounting,
+    subAccounting,
   } = contractCheckers ?? {};
 
   const nodes: Node[]  = [
@@ -102,6 +103,14 @@ export const ElectronicFlow = () => {
     },
 
     {
+      id: 'ccNode',
+      position: { x: 140, y: 525 },
+      type: 'circleNode',
+      data: { labe: null },
+    },
+
+
+    {
       id: 'mainAccounting',
       position: { x: 0, y: 600 },
       type: 'roleNode',
@@ -113,8 +122,20 @@ export const ElectronicFlow = () => {
     },
 
     {
+      id: 'subAccounting',
+      position: { x: childSpacing, y: 600 },
+      type: 'roleNode',
+      data: {
+        role: '経理',
+        name: subAccounting?.文字列＿氏名?.value ?? '',
+        email: subAccounting?.email.value ?? '',
+      },
+    },
+
+
+    {
       id: 'completed',
-      position: { x: 75, y: 750 },
+      position: { x: 75, y: 800 },
       type: 'output',
       data: { label: '完了' },
     },
@@ -130,10 +151,16 @@ export const ElectronicFlow = () => {
     { id: 'checkersNode-storeMgr', source: 'checkersNode', target: 'storeMgr', animated: true },
     { id: 'checkersNode-accounting', source: 'checkersNode', target: 'accounting', animated: true },
 
-    { id: 'accounting-mainAccounting', source: 'accounting', target: 'mainAccounting', animated: true },
-    { id: 'storeMgr-mainAccounting', source: 'storeMgr', target: 'mainAccounting', animated: true },
+    { id: 'accounting-mainAccounting', source: 'accounting', target: 'ccNode', animated: true },
+    { id: 'storeMgr-mainAccounting', source: 'storeMgr', target: 'ccNode', animated: true },
+
+    { id: 'ccNode-mainAccounting', source: 'ccNode', target: 'mainAccounting', animated: true },
+    { id: 'ccNode-subAccounting', source: 'ccNode', target: 'subAccounting', animated: true },
+
 
     { id: 'mainAccounting-completed', source: 'mainAccounting', target: 'completed', animated: true },
+    { id: 'subAccounting-completed', source: 'subAccounting', target: 'completed', animated: true },
+
 
   ];
 

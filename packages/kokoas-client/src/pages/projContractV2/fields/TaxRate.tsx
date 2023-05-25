@@ -40,7 +40,7 @@ export const TaxRate = () => {
               name={name}
               row
               onChange={(_, newVal) => {
-                onChange(newVal);
+                onChange(+newVal);
 
                 const totalContractAmtAfterTax = getValues('totalContractAmtAfterTax');
                 const profitRate = getValues('profitRate');

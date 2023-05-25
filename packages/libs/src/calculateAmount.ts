@@ -112,15 +112,10 @@ export const calculateAmount = (p : Values): Required<Values> => {
       return res;
     }
         
-
-
-
-
     // TODO：その他のケース
 
 
     return res;
-
 
   } catch (err) {
     console.error(err);

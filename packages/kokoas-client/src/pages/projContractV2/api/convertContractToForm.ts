@@ -62,8 +62,6 @@ export const convertContractToForm = (
     profitRate,
   } = calcResult;
 
-  console.log(calcResult);
-
   return {
     contractId: uuid.value,
     projId: projId.value,

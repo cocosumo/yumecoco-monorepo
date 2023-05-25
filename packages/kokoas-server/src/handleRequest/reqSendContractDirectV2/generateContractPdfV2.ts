@@ -167,16 +167,6 @@ export const generateContractPdfV2 = async (
 
   customers.forEach((_, idx) => {
     const signX = x2 + (signGap * (idx + 1));
-  
-    drawText(
-      firstPage,
-      '印',
-      {
-        x: signX,
-        y: 225,
-        font: msChinoFont,
-      },
-    );
 
     drawText(
       firstPage,

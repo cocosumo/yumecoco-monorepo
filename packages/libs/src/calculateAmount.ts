@@ -26,92 +26,90 @@ import { Big } from 'big.js';
 import { calcBeforeTax } from './calcBeforeTax';
 import { calcAfterTax, calcProfitRate } from 'libs';
 
-// A = C - CD
+
+interface Values {
+
+  /** 金額（税抜） */
+  amountAfterTax?: number,
+
+  /** 金額（税込） 又は単価 */
+  amountBeforeTax?: number,
+
+  /** 粗利率 */
+  profit?: number,
+
+  /** 原価 */
+  costPrice?: number,
+
+  /** 粗利率 Decimal form e.g. 0.1 */
+  profitRate?: number,
+
+  /** 税率  Decimal form e.g. 0.1 */
+  taxRate?: number
+}
+
+/** A = C - CD **/
 const calcCostPrice = (amtBeforeTax: number, profitRate: number) => {
   return Big(amtBeforeTax)
     .minus(Big(amtBeforeTax).times(profitRate))
     .toNumber();
 };
 
-export const calculateAmount = ({
-  taxRate = 0.1,
-  costPrice,
-  amountAfterTax,
-  amountBeforeTax,
-  profit,
-  profitRate,
-}:{
-  /** 税率 */
-  taxRate?: number,
+export const calculateAmount = (p : Values): Required<Values> => {
+  // don't mutate the original p params, mutate res instead
+  const res : Required<Values> =  {
+    amountAfterTax: p.amountAfterTax || 0,
+    amountBeforeTax: p.amountBeforeTax || 0,
+    profit: p.profit || 0,
+    costPrice: p.costPrice || 0,
+    profitRate: p.profitRate || 0,
+    taxRate: p.taxRate || 0.1, // default 10%
+  };
 
-  /** 原価 A */
-  costPrice?: number,
-
-  /** 金額（税抜） */
-  amountBeforeTax?: number,
-
-  /** 金額（税込） */
-  amountAfterTax?: number,
-
-  /** 粗利率 */
-  profitRate?: number,
-
-  /** 粗利額 */
-  profit?: number,
-
-}) => {
   try {
 
-    // 契約金額（税込）か粗利率が編集されたとき
-    if (amountAfterTax && profitRate) {
-      const newAmtBeforeTax = calcBeforeTax(amountAfterTax, taxRate);
-      const newCostPrice = calcCostPrice(newAmtBeforeTax, profitRate);
 
-      const newProfit = Big(newAmtBeforeTax).minus(newCostPrice)
+
+    if (p.amountAfterTax) {
+      res.amountBeforeTax = calcBeforeTax(res.amountAfterTax, p.taxRate);
+    }
+
+    if (p.amountBeforeTax) {
+      res.amountAfterTax = calcAfterTax(res.amountBeforeTax, p.taxRate);
+    }
+
+    // 契約金額（税込）か粗利率が編集されたとき
+    if (p.amountAfterTax && p.profitRate) {
+
+      const newCostPrice = calcCostPrice(res.amountBeforeTax, res.profitRate);
+
+      const newProfit = Big(res.amountBeforeTax).minus(newCostPrice)
         .toNumber();
+
+      res.profit = newProfit;
     
-      return {
-        amountAfterTax,
-        profitRate,
-        costPrice: newCostPrice,
-        amountBeforeTax: newAmtBeforeTax,
-        profit: newProfit,
-      };
+      return res;
     }
     
 
-
     // 契約金額（税抜）が編集されたとき
-    if (amountBeforeTax) {
-      const newAmtAfterTax = calcAfterTax(amountBeforeTax, taxRate);
-      const newCostPrice = calcCostPrice(amountBeforeTax, profitRate || 0);
-      const newProfit = Big(amountBeforeTax).minus(newCostPrice)
+    if (p.amountBeforeTax && p.profitRate) {
+
+      res.costPrice = calcCostPrice(res.amountBeforeTax, p.profitRate);
+      res.profit = Big(p.amountBeforeTax).minus(res.costPrice)
         .toNumber();
 
-      return {
-        amountBeforeTax,
-        profitRate,
-        costPrice: newCostPrice,
-        amountAfterTax: newAmtAfterTax,
-        profit: newProfit,
-      };
+      return res;
     }
 
 
     // 粗利額が編集されたとき
-    if (amountAfterTax && profit) {
-      const newAmtBeforeTax = calcBeforeTax(amountAfterTax, taxRate);
-      const newCostPrice = Big(newAmtBeforeTax).minus(profit)
+    if (p.amountAfterTax && p.profit) {
+      res.costPrice = Big(res.amountBeforeTax).minus(p.profit)
         .toNumber();
-      const newProfitRate = calcProfitRate(newCostPrice, newAmtBeforeTax);
+      res.profitRate = calcProfitRate(res.costPrice, res.amountBeforeTax);
 
-      return {
-        amountAfterTax,
-        profit,
-        costPrice: newCostPrice,
-        amountBeforeTax: newAmtBeforeTax,
-        profitRate: newProfitRate,
-      };
+      return res;
     }
         
 
@@ -121,24 +119,12 @@ export const calculateAmount = ({
     // TODO：その他のケース
 
 
-    return {
-      costPrice,
-      amountAfterTax,
-      amountBeforeTax,
-      profit,
-      profitRate,
-    };
+    return res;
 
 
   } catch (err) {
     console.error(err);
-    return {
-      costPrice,
-      amountAfterTax,
-      amountBeforeTax,
-      profit,
-      profitRate,
-    };
+    return res;
   } 
 
   

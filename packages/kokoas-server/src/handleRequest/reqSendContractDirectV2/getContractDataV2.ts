@@ -99,7 +99,7 @@ export const getContractDataV2 = async (
     storeNameShort,
     TEL: companyTel,
     住所: companyAddress,
-    
+    //officialStoreName,
   } = await getStoreById(storeId.value);
 
 
@@ -231,8 +231,8 @@ export const getContractDataV2 = async (
     payMethod: payMethod.value as '持参' | '集金' | '振込',
 
     /* 会社情報 */
-    companyAddress: companyAddress.value,
-    companyName: companyName.value,
+    companyAddress: `${companyAddress.value} ${storeName.value}`,
+    companyName: `${companyName.value} ${storeName.value}`,
     companyTel: companyTel.value,
     representative: representative.value,
 

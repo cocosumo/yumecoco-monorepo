@@ -95,6 +95,7 @@ export const ControlledCurrencyInput = ({
                   const {
                     amountBeforeTax,
                     profitRate,
+                    costPrice,
                   } = calculateAmount({
                     amountAfterTax: totalContractAmtAfterTax,
                     profit: parsedValue,
@@ -102,6 +103,7 @@ export const ControlledCurrencyInput = ({
                   });
                   setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
                   setValue('profitRate', (profitRate || 0) * 100);
+                  setValue('costPrice', costPrice || 0);
                   break;
                 }
                 case 'costPrice' : {

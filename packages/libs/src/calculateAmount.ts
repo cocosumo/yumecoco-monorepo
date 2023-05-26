@@ -78,7 +78,7 @@ export const calculateAmount = (p : Values): Required<Values> => {
       res.amountAfterTax = calcAfterTax(res.amountBeforeTax, p.taxRate);
     }
 
-    // 契約金額（税込）か粗利率が編集されたとき
+    // 契約金額（税込）と粗利率が編集されたとき
     if (p.amountAfterTax && p.profitRate) {
 
       res.costPrice = calcCostPrice(res.amountBeforeTax, res.profitRate);

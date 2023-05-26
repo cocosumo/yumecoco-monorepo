@@ -4,6 +4,7 @@ import {
   getEmployeesByIds,
   getProjById,
   getContractById,
+  getStoreById,
 } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
@@ -34,9 +35,9 @@ export const getContractDataV2 = async (
 
   /* 会社情報 */
   const {
-    companyAddress,
-    companyName,
-    companyTel,
+    //companyAddress,
+    //companyName,
+    //companyTel,
     representative,
   } = await getCocosumoDetails();
 
@@ -93,6 +94,14 @@ export const getContractDataV2 = async (
     storeId,
     storeName,
   } = await getCustGroupById(custGroupId.value);
+
+  const {
+    storeNameShort,
+    TEL: companyTel,
+    住所: companyAddress,
+    officialStoreName: companyName,
+    
+  } = await getStoreById(storeId.value);
 
 
 
@@ -198,6 +207,7 @@ export const getContractDataV2 = async (
     storeMngrName: managerName.value,
     storeMngrEmail: managerEmail.value,
     storeName: storeName.value,
+    storeNameShort: storeNameShort.value,
 
     /* 経理 */
     accountingName: accountingName.value,

@@ -22,7 +22,8 @@ export const generateContractPdfV2 = async (
   ukeoiDocVersion = '',
 ) => {
   const {
-    storeName,
+    //storeName,
+    storeNameShort,
     customers,
     cocoAG,
     contractId,
@@ -86,7 +87,7 @@ export const generateContractPdfV2 = async (
   // 工事番号
   drawText(
     firstPage,
-    dataId ?? '',
+    `${storeNameShort}-${dataId.slice(4) ?? ''}`,
     {
       x: x1,
       y: 775,
@@ -111,7 +112,7 @@ export const generateContractPdfV2 = async (
   // 工事名
   drawText(
     firstPage,
-    `${storeName} ${projName}`,
+    `${projName}`,
     {
       x: x1 + 100,
       y: 775,
@@ -463,32 +464,49 @@ export const generateContractPdfV2 = async (
   const companyY2 = 197;
   const companyLH = payLineHeight; // 行の高さ。 今支払いとあわせていますが、変わる可能性
 
-  [companyY, companyY2].forEach((newY) => {
+  // 会社名　上
+  drawText(
+    firstPage,
+    companyName,
+    {
+      x: companyX,
+      y: companyY,
+      font: msChinoFont,
+    },
+  );
 
-    // 会社名　上下
-    drawText(
-      firstPage,
-      companyName,
-      {
-        x: companyX,
-        y: newY,
-        font: msChinoFont,
-      },
-    );
+  // 会社住所 上下
+  drawText(
+    firstPage,
+    companyAddress,
+    {
+      x: companyX,
+      y: companyY - companyLH,
+      font: msChinoFont,
+    },
+  );
 
-    // 会社住所 上下
-    drawText(
-      firstPage,
-      companyAddress,
-      {
-        x: companyX,
-        y: newY - companyLH,
-        font: msChinoFont,
-      },
-    );
+  // 会社名　下
+  drawText(
+    firstPage,
+    companyAddress,
+    {
+      x: companyX,
+      y: companyY2,
+      font: msChinoFont,
+    },
+  );
 
-
-  });
+  // 会社住所 上下
+  drawText(
+    firstPage,
+    companyName,
+    {
+      x: companyX,
+      y: companyY2 - companyLH,
+      font: msChinoFont,
+    },
+  );
 
   // 会社連絡先 上
   drawText(

@@ -36,7 +36,7 @@ export const getContractDataV2 = async (
   /* 会社情報 */
   const {
     //companyAddress,
-    //companyName,
+    companyName,
     //companyTel,
     representative,
   } = await getCocosumoDetails();
@@ -99,7 +99,6 @@ export const getContractDataV2 = async (
     storeNameShort,
     TEL: companyTel,
     住所: companyAddress,
-    officialStoreName: companyName,
     
   } = await getStoreById(storeId.value);
 

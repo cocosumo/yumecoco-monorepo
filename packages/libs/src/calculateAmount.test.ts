@@ -16,7 +16,8 @@ describe('calculateAmount', () => {
     expect(result.amountAfterTax).toEqual(given.amountAfterTax);
     expect(result.profitRate).toEqual(given.profitRate);
     expect(result.amountBeforeTax).toEqual(100);
-    expect(result.costPrice).toEqual(80);
+    expect(result.costPrice).toEqual(80);    
+    expect(result.profit).toEqual(20);
   
   });
 

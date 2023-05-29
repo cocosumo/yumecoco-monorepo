@@ -48,7 +48,8 @@ export const ProfitRate = ({
 
                 const {
                   amountBeforeTax,
-                  profit,
+                  profit,                  
+                  costPrice,
                 } = calculateAmount({
                   taxRate: taxRate,
                   amountAfterTax: totalContractAmtAfterTax,
@@ -57,6 +58,7 @@ export const ProfitRate = ({
 
                 setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
                 setValue('totalProfit', profit || 0);
+                setValue('costPrice', costPrice || 0);
               }
              
             }}

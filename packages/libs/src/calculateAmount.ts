@@ -35,7 +35,7 @@ interface Values {
   /** 金額（税込） 又は単価 */
   amountBeforeTax?: number,
 
-  /** 粗利率 */
+  /** 粗利額 */
   profit?: number,
 
   /** 原価 */

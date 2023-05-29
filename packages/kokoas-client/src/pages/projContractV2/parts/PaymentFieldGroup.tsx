@@ -76,7 +76,7 @@ export const PaymentFieldGroup = (
                     'interimAmt', 
                     'contractAmt', 
                     'finalAmt', 
-                    'totalContractAmt',
+                    'totalContractAmtAfterTax',
                   ]);
 
                   const amt = (initialAmt ?? 0) + (interimAmt ?? 0) + (contractAmt ?? 0) + (finalAmt ?? 0);

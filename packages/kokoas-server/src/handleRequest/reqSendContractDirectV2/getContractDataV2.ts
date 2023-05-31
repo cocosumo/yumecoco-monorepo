@@ -232,6 +232,7 @@ export const getContractDataV2 = async (
 
     /* 会社情報 */
     companyAddress: `${companyAddress.value} ${storeName.value}`,
+    companyAddress2: `${companyAddress.value} ハウスドゥ ${storeName.value}`,
     companyName: `${companyName.value} ${storeName.value}`,
     companyTel: companyTel.value,
     representative: representative.value,

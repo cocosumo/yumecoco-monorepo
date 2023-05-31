@@ -27,6 +27,7 @@ describe('見込み管理：入力', () => {
           .focus();
 
         cy.get('@contractAmtField')
+          .clear()
           .type(testVal, { delay: 100 });
 
         cy.get('@contractAmtField').blur();

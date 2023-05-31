@@ -112,7 +112,7 @@
     "date-fns": "^2.25.0",
     "date-fns-tz": "^2.0.0",
     "docusign-esign": "^6.2.0",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.1.1",
     "find-up": "^6.3.0",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
     "formik": "^2.2.9",

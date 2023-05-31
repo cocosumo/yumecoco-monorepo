@@ -1,6 +1,8 @@
 export * from './addressBuilder';
+export * from './calcAfterTax';
 export * from './calcBeforeTax';
 export * from './calcProfitRate';
+export * from './calculateAmount';
 export * from './convertObjNumValsToFullWidth';
 export * from './convertObjNumValsToHalfWidth';
 export * from './convertToFullWidth';
@@ -14,6 +16,7 @@ export * from './isFullWidth';
 export * from './isMixedJpWidth';
 export * from './kitoneProxyWrapper';
 export * from './loadEnv';
+export * from './notifyAdmin';
 export * from './parseBoolean';
 export * from './parseExcelSerialDate';
 export * from './roundTo';

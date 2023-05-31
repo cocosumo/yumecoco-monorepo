@@ -24,14 +24,23 @@ const schema = z.object({
   contractId: z.string().uuid()
     .optional(),
 
-  /** 契約合計金額 */
-  totalContractAmt: z.number(),
+  /** 契約合計金額（税込）*/
+  totalContractAmtAfterTax: z.number(),
+
+  /** 契約合計金額（税抜）*/
+  totalContractAmtBeforeTax: z.number(),
 
   /** 粗利額 */
   totalProfit: z.number(),
 
+  /** 粗利率 */
+  profitRate: z.number(),
+
   /** 税金 */
   taxRate: z.number(),
+
+  /** 原価 */
+  costPrice: z.number(),
 
   /** 契約金 */
   hasContractAmt: z.boolean(),
@@ -166,18 +175,18 @@ const schema = z.object({
     message: '補助金を入力してください。',
   })
   .refine(({
-    totalContractAmt,
+    totalContractAmtAfterTax,
     contractAmt,
     initialAmt,
     interimAmt,
     finalAmt,
   }) => {
-    if (totalContractAmt !== (contractAmt ?? 0) + (initialAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
+    if (totalContractAmtAfterTax !== (contractAmt ?? 0) + (initialAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
       return false;
     }
     return true;
   }, {
-    path: ['totalContractAmt'],
+    path: ['totalContractAmtAfterTax'],
     message: '契約合計金額と契約金、着手金、中間金、最終金の合計が一致しません。',  
   });
   

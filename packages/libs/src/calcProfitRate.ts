@@ -19,7 +19,7 @@ export const calcProfitRate = (
 
     return Big(unitPrice).minus(costPrice)
       .div(unitPrice)
-      .round(4)
+      //.round(4)
       .toNumber();
 
   } catch (error) {

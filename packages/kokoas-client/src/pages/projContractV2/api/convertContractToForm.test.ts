@@ -8,7 +8,7 @@ describe('convertContractToForm', () => {
   
     expect(data.uuid.value).toEqual(testId);
 
-    const result = convertContractToForm(data);
+    const result = await convertContractToForm(data);
 
     console.log(result, data);
   });

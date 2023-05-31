@@ -12,12 +12,21 @@ describe('Contract', () => {
       ukeoiDocVersion: '20230523',
     });
 
-    console.log(contractData);
-    const pdf = await generateContractPdfV2(contractData, 'Uint8Array ', '20230523');
-    const savePath = path.join(__dirname, '__TEST__', 'ukeoiV2.test.pdf');
-
-    await fsPromise.writeFile(savePath, pdf);
-
-    expect(fs.existsSync(savePath)).toBe(true);
+    
+    for (let i = 1; i <= 3 ; i++) {
+      // limit number of customers based on i
+      const mockData : Awaited<ReturnType<typeof getContractDataV2>> = {
+        ...contractData,
+        customers: contractData.customers.slice(0, i),
+      };
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', '20230523');
+      const savePath = path.join(__dirname, '__TEST__', `ukeoi_custcount_${i}.pdf`);
+      await fsPromise.writeFile(savePath, pdf);
+      expect(fs.existsSync(savePath)).toBe(true);
+    }
+   
   }, 60000);
+
+
+  
 });

@@ -12,7 +12,7 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
   it('新規保存できること', () => {
     cy.visit(`/project/contract/preview/v2?projId=${testProjId}`);
-    cy.getTextInputsByLabel('契約合計金額')
+    cy.getTextInputsByLabel('契約合計金額（税込）')
       .type(correctInput.totalContractAmt.toString())
       .should('have.value', correctInput.totalContractAmt.toString());
 

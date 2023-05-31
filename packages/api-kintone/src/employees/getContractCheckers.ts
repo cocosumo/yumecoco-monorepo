@@ -9,6 +9,7 @@ import { appId, RecordType } from './config';
 export const getContractCheckers = async (storeId: string) => {
 
   const hqStoreId = '17212652-df2a-4616-ba51-8907947f9782';
+  const subAccountingId = '44e0d1ae-752e-4ef4-8542-c91495b52b52';
 
   const {
     territory, // エリア
@@ -44,7 +45,7 @@ export const getContractCheckers = async (storeId: string) => {
   const subAccountingQuery = [
     `${role} in ("経理")`,
     `${affiliation} in ("${cocosumo}")`,
-    'uuid = "44e0d1ae-752e-4ef4-8542-c91495b52b52"',
+    `uuid = "${subAccountingId}"`,
   ].join(' and ');
 
   const finalQuery = [
@@ -65,7 +66,7 @@ export const getContractCheckers = async (storeId: string) => {
   const storeMgr = records.find(({ 役職 }) => 役職.value === '店長' );
   const accounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value !== hqStoreId );
   const mainAccounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value === hqStoreId );
-  const subAccounting = records.find(({ uuid }) => uuid.value === '44e0d1ae-752e-4ef4-8542-c91495b52b52' );
+  const subAccounting = records.find(({ uuid }) => uuid.value === subAccountingId );
 
 
   if (!records.length) throw new Error(`確認者の情報取得ができませんでした。店舗番号：${storeId}`);

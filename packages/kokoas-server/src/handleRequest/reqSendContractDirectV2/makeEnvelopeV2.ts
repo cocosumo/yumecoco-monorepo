@@ -195,7 +195,7 @@ export const makeEnvelopeV2 = async ({
     routingOrder: '4',
   });
 
-  // 小出さん
+  // 経理(最終確認者）
   ccs.push({
     email: isProd ? subAccountingEmail : testHonKeiriEmail,
     name: subAccountingName,

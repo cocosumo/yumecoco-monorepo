@@ -2,7 +2,7 @@
 import { Big } from 'big.js';
 import { convertToHalfWidth } from 'libs';
 
-export const calcBeforeTax = (
+export const calcAfterTax = (
   value: number,
   taxRate = 0.1,
 ) => {
@@ -12,14 +12,13 @@ export const calcBeforeTax = (
     const bTaxRate = Big(taxRate).add(1); // 1.1
     let result = Big(normalizedValue);
 
-    result = result.div(bTaxRate);
+    result = result.mul(bTaxRate);
   
     return result.toNumber();
 
   } catch (e) {
     console.error(e);
     return 0;
-    
   }
 
 };

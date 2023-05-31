@@ -39,7 +39,7 @@ export const useNumberCommaField = ({
   return {
     onFocus: ({ target }) => {
       target.value = target.value.replace(/,/g, '');
-      target.select(); // ダブって原因でした。
+      //target.select(); // ダブって原因でした。
     },
     onCompositionStart : () => {
       //const el = e.target as HTMLInputElement;   
@@ -50,7 +50,7 @@ export const useNumberCommaField = ({
       // ここでは二重にならない
       const el = e.target as HTMLInputElement;
       const halfWidth = convertToHalfWidth(el.value);
-      //console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
+      // console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
       const halfWidthNumber = +halfWidth;
       if (isNaN(halfWidthNumber)) return;
       onChange?.(halfWidthNumber);

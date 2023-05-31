@@ -159,6 +159,10 @@ export const getContractDataV2 = async (
       文字列＿氏名: mainAccountingName,
       email: mainAccountingEmail,
     },
+    subAccounting: {
+      文字列＿氏名: subAccountingName,
+      email: subAccountingEmail,
+    },
   } = await getContractCheckers(storeId.value);
 
   const parsedTaxRate = +tax.value;
@@ -213,6 +217,8 @@ export const getContractDataV2 = async (
     accountingEmail: accountingEmail.value,
     mainAccountingName: mainAccountingName.value,
     mainAccountingEmail: mainAccountingEmail.value,
+    subAccountingName: subAccountingName.value,
+    subAccountingEmail: subAccountingEmail.value,
 
     /* 契約関連 */
     envelopeStatus: envelopeStatus.value,

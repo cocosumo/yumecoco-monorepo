@@ -497,7 +497,7 @@ export const generateContractPdfV2 = async (
     },
   );
 
-  // 会社住所 上下
+  // 会社名 下
   drawText(
     firstPage,
     companyName,

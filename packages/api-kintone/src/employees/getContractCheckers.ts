@@ -71,9 +71,9 @@ export const getContractCheckers = async (storeId: string) => {
 
   if (!records.length) throw new Error(`確認者の情報取得ができませんでした。店舗番号：${storeId}`);
   if (!storeMgr) throw new Error(`店長の情報取得ができませんでした。${storeMgr}`);
-  if (!accounting) throw new Error(`経理の情報取得ができませんでした。${accounting}`);
+  if (!accounting) throw new Error(`担当エリアの経理の情報取得ができませんでした。${accounting}`);
   if (!mainAccounting) throw new Error(`本社経理の情報取得ができませんでした。${mainAccounting}`);
-  if (!subAccounting) throw new Error(`S経理の情報取得ができませんでした。${subAccounting}`);
+  if (!subAccounting) throw new Error(`経理(最終確認者)の情報取得ができませんでした。${subAccounting}`);
 
 
   return {

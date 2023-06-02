@@ -1,0 +1,14 @@
+{
+  "name": "autopaymentalert",
+  "version": "0.0.0",
+  "devDependencies": {},
+  "dependencies": {
+    "api-kintone": "*",
+    "config": "*",
+    "types": "*",
+    "auto-common": "*"
+  },
+  "scripts": {
+    "start" : "nodemon ./index.ts"
+  }
+}

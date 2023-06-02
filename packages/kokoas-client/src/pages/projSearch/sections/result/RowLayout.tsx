@@ -1,5 +1,5 @@
 import { TableCell } from '@mui/material';
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { SearchResult } from '../../api/search';
 
 export const RowLayout = ({
@@ -12,8 +12,12 @@ export const RowLayout = ({
   tel,
 } : Partial<Record<keyof SearchResult[number], ReactNode>>) => {
   return (
-    <>
-      <TableCell>
+    <Fragment>
+      <TableCell 
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
         {storeName}
       </TableCell>
 
@@ -28,9 +32,10 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell 
-      sx={{
-        whiteSpace: 'nowrap',
-      }}>
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
         {tel}
       </TableCell>
 
@@ -41,7 +46,7 @@ export const RowLayout = ({
       <TableCell>
         {projCompletedDate}
       </TableCell>
-    </>
+    </Fragment>
   );
 };
 

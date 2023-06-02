@@ -4,6 +4,7 @@ import {
   getEmployeesByIds,
   getProjById,
   getContractById,
+  getStoreById,
 } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
@@ -34,9 +35,9 @@ export const getContractDataV2 = async (
 
   /* 会社情報 */
   const {
-    companyAddress,
+    //companyAddress,
     companyName,
-    companyTel,
+    //companyTel,
     representative,
   } = await getCocosumoDetails();
 
@@ -93,6 +94,13 @@ export const getContractDataV2 = async (
     storeId,
     storeName,
   } = await getCustGroupById(custGroupId.value);
+
+  const {
+    storeNameShort,
+    TEL: companyTel,
+    住所: companyAddress,
+    //officialStoreName,
+  } = await getStoreById(storeId.value);
 
 
 
@@ -151,6 +159,10 @@ export const getContractDataV2 = async (
       文字列＿氏名: mainAccountingName,
       email: mainAccountingEmail,
     },
+    subAccounting: {
+      文字列＿氏名: subAccountingName,
+      email: subAccountingEmail,
+    },
   } = await getContractCheckers(storeId.value);
 
   const parsedTaxRate = +tax.value;
@@ -198,12 +210,15 @@ export const getContractDataV2 = async (
     storeMngrName: managerName.value,
     storeMngrEmail: managerEmail.value,
     storeName: storeName.value,
+    storeNameShort: storeNameShort.value,
 
     /* 経理 */
     accountingName: accountingName.value,
     accountingEmail: accountingEmail.value,
     mainAccountingName: mainAccountingName.value,
     mainAccountingEmail: mainAccountingEmail.value,
+    subAccountingName: subAccountingName.value,
+    subAccountingEmail: subAccountingEmail.value,
 
     /* 契約関連 */
     envelopeStatus: envelopeStatus.value,
@@ -222,8 +237,9 @@ export const getContractDataV2 = async (
     payMethod: payMethod.value as '持参' | '集金' | '振込',
 
     /* 会社情報 */
-    companyAddress: companyAddress.value,
-    companyName: companyName.value,
+    companyAddress: `${companyAddress.value} ${storeName.value}`,
+    companyAddress2: `${companyAddress.value} ハウスドゥ ${storeName.value}`,
+    companyName: `${companyName.value} ${storeName.value}`,
     companyTel: companyTel.value,
     representative: representative.value,
 

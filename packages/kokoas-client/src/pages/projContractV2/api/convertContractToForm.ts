@@ -1,6 +1,7 @@
 import { parseKintoneDate } from 'kokoas-client/src/lib';
 import { IContracts } from 'types';
 import { TypeOfForm } from '../schema';
+import { calculateAmount } from 'libs';
 
 export const convertContractToForm = (
   contract: IContracts,
@@ -50,13 +51,30 @@ export const convertContractToForm = (
     tax,
   } = contract;
 
+  const calcResult = calculateAmount({
+    amountAfterTax: +totalContractAmt.value,
+    profit: +totalProfit.value,
+    taxRate: +tax.value,
+  });
+
+  const {
+    amountBeforeTax,
+    profitRate,
+    costPrice,
+  } = calcResult;
+
+
   return {
     contractId: uuid.value,
     projId: projId.value,
 
-    totalContractAmt: +totalContractAmt.value,
+    totalContractAmtAfterTax: +totalContractAmt.value,
     totalProfit: +totalProfit.value,
     taxRate: +tax.value,
+    profitRate: +(profitRate || 0) * 100,
+    totalContractAmtBeforeTax: +(amountBeforeTax || 0),
+    costPrice: +(costPrice || 0),
+    
 
     hasContractAmt: !!+contractAmt.value,
     contractAmt: +contractAmt.value,

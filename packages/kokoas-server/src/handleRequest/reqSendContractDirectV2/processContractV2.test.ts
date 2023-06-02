@@ -11,9 +11,9 @@ it('should porcess contract', async () => {
 
   const result = await processContractV2(
     {
-      contractId: '12128397-14e7-47d5-90b6-f8b655b39988',
+      contractId: '9d8f1262-0e6b-43ff-a48e-33b300bdd183',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230501',
+      ukeoiDocVersion: '20230523',
     },
     'sent',
   ).catch((e) => {

@@ -14,21 +14,30 @@ export const RowLayout = ({
   return (
     <>
       <TableCell>
-        {custName}
-        <br />
-        {custNameKana}
-      </TableCell>
-      <TableCell>
-        {tel}
-        <br />
-        {custAddress}
-      </TableCell>
-      <TableCell>
         {storeName}
       </TableCell>
+
+      <TableCell>
+        {custNameKana}
+        <br />
+        {custName}
+      </TableCell>
+
+      <TableCell>
+        {custAddress}
+      </TableCell>
+
+      <TableCell 
+      sx={{
+        whiteSpace: 'nowrap',
+      }}>
+        {tel}
+      </TableCell>
+
       <TableCell>
         {contractDate}
       </TableCell>
+
       <TableCell>
         {projCompletedDate}
       </TableCell>

@@ -50,7 +50,7 @@ export const generateContractPdfV2 = async (
 
     /* 会社情報 */
     companyAddress,
-    companyAddress2,
+    //companyAddress2,
     companyName,
     companyTel,
     representative,
@@ -495,7 +495,7 @@ export const generateContractPdfV2 = async (
   // 会社名　下
   drawText(
     firstPage,
-    companyAddress2,
+    companyAddress,
     {
       x: companyX,
       y: companyY2,

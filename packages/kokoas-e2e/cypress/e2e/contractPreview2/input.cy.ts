@@ -1,5 +1,5 @@
 import { beforeEach, context, cy, describe, it } from 'local-cypress';
-import { correctInputData, inputData, labelMap } from './testData';
+import { correctInputData, labelMap } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import { calculateAmount, roundTo } from 'libs';
@@ -39,45 +39,7 @@ describe(
 
     });
 
-    context.only(
-      '計算が合っていること', 
-      () => {
-
-        const profitRate = 11.11;
-        beforeEach(() => {
-          
-          cy.getTextInputsByLabel(labelMap.profitRate )
-            .type('{selectall}{backspace}{backspace}', { delay: 50 })
-            
-            .type((profitRate).toString(), { delay: 50 })
-            .should('have.value', profitRate);
-        });
-
-        it('契約金額とを入力したら計算が合っていること', () => {
-          const inputValue = 33333;
-          const {
-            amountBeforeTax,
-          } = calculateAmount({
-            amountAfterTax: inputValue,
-            profitRate: (profitRate / 100),
-          });
-
-          cy.getTextInputsByLabel(labelMap.amountAfterTax )
-            .clear()
-            .type((inputValue).toString(), { delay: 50 })
-            .should('have.value', inputValue);
-
-
-          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
-            .should('have.value', roundTo(amountBeforeTax).toLocaleString());
-        });
-
-        // TODO: 他のフィールドの計算が合っていることを確認する
-        
-
-      },
-    );
-
+    
     context(
       '支払いの挙動', 
       {
@@ -137,6 +99,90 @@ describe(
             });
           });
 
+      },
+    );
+
+
+    context(
+      '計算が合っていることと小数点以下が出ないこと', 
+      { testIsolation: false },
+      
+      () => {
+
+        const profitRate = 11.11;
+        beforeEach(() => {
+
+          cy.getTextInputsByLabel(labelMap.profitRate )
+            .clear()
+            .type((profitRate).toString(), { delay: 50 })
+            .should('have.value', profitRate);
+        });
+
+        it('契約金額とを入力したら、金額（税抜）と原価と利益額が計算されること', () => {
+          // 
+
+          const inputValue = 33333;
+          const {
+            amountBeforeTax,
+            costPrice,
+            profit,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (profitRate / 100),
+          });
+
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue);
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.costPrice)
+            .should('have.value', roundTo(costPrice).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.profit)
+            .should('have.value', roundTo(profit).toLocaleString());
+        });
+
+        it('粗利率を入力したら、契約金額（税抜き）と利益額と原価とが計算されること', () => {
+
+          const inputValue = 33333;
+          const newProfitRate = 12.12; // 利益率が変わることを確認するために、新しい利益率を設定する
+
+          const {
+            profit,
+            costPrice,
+            amountBeforeTax,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (newProfitRate / 100),
+          });
+
+          // 契約金額が入力してある状態で、
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue);
+
+          // 粗利率を再入力する
+          cy.getTextInputsByLabel(labelMap.profitRate )
+            .clear()
+            .type((newProfitRate).toString(), { delay: 50 })
+            .should('have.value', newProfitRate);
+
+          cy.getTextInputsByLabel(labelMap.profit)
+            .should('have.value', roundTo(profit).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.costPrice)
+            .should('have.value', roundTo(costPrice).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString());
+        });
+
+        // TODO: 他のフィールドの計算が合っていることを確認する
       },
     );
 

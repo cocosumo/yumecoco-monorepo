@@ -1,6 +1,6 @@
 // import faker
 import { faker } from '@faker-js/faker';
-import { calculateAmount } from 'libs';
+import { calculateAmount, Values } from 'libs';
 
 
 
@@ -19,7 +19,7 @@ export const inputData = calculateAmount({
   profit: 1000,
 });
 
-export const labelMap: Record<keyof typeof inputData, string> = {
+export const labelMap: Record<keyof Values, string> = {
   amountAfterTax: '契約合計金額（税込）',
   amountBeforeTax: '契約合計金額（税抜）',
   profit: '粗利額 （税抜）',

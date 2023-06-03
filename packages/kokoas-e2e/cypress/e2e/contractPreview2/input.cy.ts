@@ -1,7 +1,8 @@
-import { beforeEach, context, cy, describe, expect, it } from 'local-cypress';
-import { correctInputData } from './testData';
+import { beforeEach, context, cy, describe, it } from 'local-cypress';
+import { correctInputData, inputData, labelMap } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
+import { calculateAmount, roundTo } from 'libs';
 
 describe(
   '入力挙動', 
@@ -38,28 +39,44 @@ describe(
 
     });
 
-    it('計算が合っていること', () => {
+    context.only(
+      '計算が合っていること', 
+      () => {
 
-      // 10%の税率を設定、8%を撤回する依頼もあるので、固定にする。
-    
-      cy.getTextInputsByLabel('契約合計金額（税込）')
-        .type('1100')
-        .blur();
-
-      cy.log('契約合計金額（税抜）があっていること');
-      cy.getTextInputsByLabel('契約合計金額（税抜）')
-        .invoke('val')
-        .then((amtBeforeTax) => {
-          console.log('textTaxRate', totalContractAmt);
-          const parsedAmtBeforeTax = Number((amtBeforeTax as string)?.replace(/[^0-9]/g, ''));
-
-          expect(Math.round(parsedAmtBeforeTax)).to.eq(1000);
-
+        const profitRate = 11.11;
+        beforeEach(() => {
+          
+          cy.getTextInputsByLabel(labelMap.profitRate )
+            .type('{selectall}{backspace}{backspace}', { delay: 50 })
+            
+            .type((profitRate).toString(), { delay: 50 })
+            .should('have.value', profitRate);
         });
 
-      // その他の計算は、後でやります。s
-    
-    });
+        it('契約金額とを入力したら計算が合っていること', () => {
+          const inputValue = 33333;
+          const {
+            amountBeforeTax,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (profitRate / 100),
+          });
+
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue);
+
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString());
+        });
+
+        // TODO: 他のフィールドの計算が合っていることを確認する
+        
+
+      },
+    );
 
     context(
       '支払いの挙動', 

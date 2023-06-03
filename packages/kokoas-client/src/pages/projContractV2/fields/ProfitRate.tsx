@@ -1,14 +1,19 @@
-import { Controller, useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../schema';
+import { Controller } from 'react-hook-form';
 import { InputAdornment, TextField } from '@mui/material';
 import { calculateAmount } from 'libs';
+import { useFormContextExtended } from '../hooks/useFormContextExtended';
 
 export const ProfitRate = ({
   disabled,
 }: {
   disabled: boolean,
 }) => {
-  const { control, setValue, getValues } = useFormContext<TypeOfForm>();
+
+  const {
+    setRoundedValue,
+    control,
+    getValues,
+  } = useFormContextExtended();
 
   return (
     <Controller
@@ -56,9 +61,9 @@ export const ProfitRate = ({
                   profitRate: profitRate / 100,
                 });
 
-                setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
-                setValue('totalProfit', profit || 0);
-                setValue('costPrice', costPrice || 0);
+                setRoundedValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
+                setRoundedValue('totalProfit', profit || 0);
+                setRoundedValue('costPrice', costPrice || 0);
               }
              
             }}

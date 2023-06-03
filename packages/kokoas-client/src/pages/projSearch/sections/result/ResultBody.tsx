@@ -5,8 +5,6 @@ import { ResultRow } from './ResultRow';
 export const ResultBody = () => {
   const { data } = useSearch();
 
-  console.log('data', data);
-
   return (
     <TableBody>
       {data

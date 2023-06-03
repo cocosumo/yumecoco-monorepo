@@ -1,4 +1,8 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack } from '@mui/material';
+import { Stores } from './Stores';
+import { Territories } from './Territories';
+import { Officers } from './Officers';
+import { DateRange } from '../../../fields/DateRange';
 
 export const FilterDialog = ({
   open,
@@ -18,7 +22,13 @@ export const FilterDialog = ({
         絞り込み
       </DialogTitle>
       <DialogContent>
-        Test
+        <Stack spacing={2} divider={<Divider />}>
+          <Territories />
+          <Stores />
+          <Officers />
+          <DateRange label='契約日' />
+          <DateRange label='完工日' />
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button

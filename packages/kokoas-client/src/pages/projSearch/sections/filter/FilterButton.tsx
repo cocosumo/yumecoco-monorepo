@@ -11,15 +11,15 @@ export const FilterButton = () => {
 
   return (
     <>
-     <Tooltip title={'絞り込み'}>
-      <Button 
-        variant={'outlined'}
-        onClick={handleOpen}
-      >
-        <FilterListIcon />
-      </Button>
-    </Tooltip>
-    <FilterDialog open={open} handleClose={handleClose} />
+      <Tooltip title={'絞り込み'}>
+        <Button 
+          variant={'outlined'}
+          onClick={handleOpen}
+        >
+          <FilterListIcon />
+        </Button>
+      </Tooltip>
+      <FilterDialog open={open} handleClose={handleClose} />
     </>
    
   );

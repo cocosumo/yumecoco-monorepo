@@ -8,7 +8,6 @@ import { TunitChoices } from '../validationSchema';
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
 ) : Partial<TypeOfForm> => {
-  console.log(recEstimate);
 
   const {
     uuid,

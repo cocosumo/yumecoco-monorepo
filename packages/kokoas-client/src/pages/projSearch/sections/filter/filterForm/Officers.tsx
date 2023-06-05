@@ -1,5 +1,6 @@
 import { FormGroup, FormLabel, TextField } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
+import { CocoOfficer } from './CocoOfficer';
 
 export const Officers = () => {
   return (
@@ -10,7 +11,7 @@ export const Officers = () => {
 
       <Grid container mt={1} spacing={2}>
         <Grid xs>
-          <TextField fullWidth size="small" label="ここすも担当者" />
+          <CocoOfficer />
         </Grid>
         <Grid xs>
           <TextField fullWidth size="small" label="ゆめてつAG" />

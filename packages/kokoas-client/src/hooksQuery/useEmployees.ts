@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { AppIds } from 'config';
-import { getActiveEmployees } from 'api-kintone';
+import { getActiveEmployees, getEmployees } from 'api-kintone';
 
 /**
  * Retrieves all active employee records
@@ -14,7 +14,7 @@ export const useEmployees = <T = Awaited<ReturnType<typeof getActiveEmployees>>>
 ) => {
   return useQuery(
     [AppIds.employees],
-    getActiveEmployees,
+    () => getEmployees(false),
     { ...options },
   );
 };

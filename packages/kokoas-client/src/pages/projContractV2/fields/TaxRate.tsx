@@ -1,7 +1,7 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
-import { Controller, useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../schema';
+import { Controller } from 'react-hook-form';
 import { calculateAmount } from 'libs';
+import { useFormContextExtended } from '../hooks/useFormContextExtended';
 
 const taxRates = [
   {
@@ -16,7 +16,7 @@ const taxRates = [
 
 export const TaxRate = () => {
 
-  const { control, setValue, getValues } = useFormContext<TypeOfForm>();
+  const { control, setRoundedValue, getValues } = useFormContextExtended();
 
   return (
     <Controller
@@ -54,8 +54,8 @@ export const TaxRate = () => {
                   profitRate: profitRate / 100,
                 });
 
-                setValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
-                setValue('totalProfit', profit || 0);
+                setRoundedValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
+                setRoundedValue('totalProfit', profit || 0);
 
               }}
             >

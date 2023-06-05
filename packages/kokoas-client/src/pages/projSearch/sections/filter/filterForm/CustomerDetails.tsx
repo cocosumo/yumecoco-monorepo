@@ -10,7 +10,11 @@ export const CustomerDetails = () => {
 
       <Grid container mt={1} spacing={2}>
         <Grid xs={12}>
-          <TextField size="small" label="お客様名(カナも)" />
+          <TextField 
+            size="small" 
+            label="お客様名"
+            placeholder='氏名・シメイ'
+          />
         </Grid>
         <Grid xs>
           <TextField 

@@ -92,7 +92,9 @@ describe('roundTo', () => {
   
   it('roundHalfDown', () => {
     // 五捨六入
-
+    expect(roundTo(1.50, 0, 4)).toEqual(1);
+    expect(roundTo(1.59, 0, 4)).toEqual(1);
+    expect(roundTo(1.60, 0, 4)).toEqual(2);
     expect(roundTo(0.001, 2, 4)).toEqual(0);
     expect(roundTo(0.01, 2, 4)).toEqual(0.01);
     expect(roundTo(0.555, 2, 4)).toEqual(0.55);

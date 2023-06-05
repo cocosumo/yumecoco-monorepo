@@ -118,7 +118,7 @@ describe(
             .should('have.value', profitRate);
         });
 
-        it('契約金額とを入力したら、金額（税抜）と原価と利益額が計算されること', () => {
+        it('契約金額を入力したら、金額（税抜）と原価と利益額が計算されること', () => {
           // 
 
           const inputValue = 33333;
@@ -146,7 +146,7 @@ describe(
             .should('have.value', roundTo(profit).toLocaleString());
         });
 
-        it('粗利率を入力したら、契約金額（税抜き）と利益額と原価とが計算されること', () => {
+        it('粗利率を入力したら、契約金額（税抜き）と利益額と原価が計算されること', () => {
 
           const inputValue = 33333;
           const newProfitRate = 12.12; // 利益率が変わることを確認するために、新しい利益率を設定する

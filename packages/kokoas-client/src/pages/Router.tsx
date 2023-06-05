@@ -11,6 +11,7 @@ import { memo } from 'react';
 import { FormContractSearch } from './projContractSearchV2/FormContractSearch';
 import { UnderDevelopment } from './UnderDevelopment';
 import { FormContract } from './projContractV2/FormContract';
+import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 
 
 
@@ -74,8 +75,8 @@ const Router = () => (
     {/* 見込み登録 */}
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} />
 
-    {/* 見積もり登録 */}
-    {/* <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} /> */}
+    見積もり登録
+    <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} />
 
     {/* 契約 */}
     {/*     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />

@@ -7,6 +7,7 @@ export interface URLParams {
   menuOpen?: number,
   invoiceId?: string,
   clearFields?: string,
+  contractId?: string,
 }
 
 

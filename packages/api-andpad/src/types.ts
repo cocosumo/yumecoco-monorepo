@@ -18,15 +18,34 @@ export type BuildingTypesAndpad = typeof buildingTypesAndpad[number];
 export const projectTypesAndpad = ['新築', '新築付帯', 'リフォーム', '太陽光', '外構', '解体', 'その他'] as const;
 export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
 
-export const storeNamesAndpad = ['豊田店', '大林店', '豊川中央店', '豊橋向山店', '豊川八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '中川八熊店', '豊橋藤沢店', '豊田美里店', '豊橋岩田店'] as const;
+export const storeNamesAndpad = ['豊田店', '中川店', '大林店', '美里店', '豊川店', '向山店', '八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '八熊店', '藤沢店', '岩田店'] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
+export const storeMap : Record<string, StoreNamesAndpad> = {
+  豊田中央店: '豊田店',
+  豊川中央店: '豊川店',
+  豊橋向山店: '向山店',
+  千種大久手店: '千種店',
+  高浜中央店: '高浜店',
+  豊田大林店: '大林店',
+  豊川八幡店: '八幡店',
+  大垣店: '大垣店',
+  蒲郡店: '蒲郡店',
+  豊橋藤沢店: '藤沢店',
+  中川八熊店: '中川店',
+  豊田美里店: '美里店',
+  豊橋岩田店: '岩田店',
+
+};
 
 /**
  * string[]の場合、
  * 選択方法についてですが、店舗の場合は、"ラベル:店舗":"ラベル1,ラベル2"のような指定となります。
  */
 export const saveProjectData = z.object({
+  'システムID': z.number().optional(),
+  '顧客ID': z.number().optional(),
+
   /**  顧客グループ番号 */
   '顧客管理ID': z.string(),
 
@@ -49,7 +68,7 @@ export const saveProjectData = z.object({
   '顧客電話番号1': z.string().optional(),
 
   /** 顧客電話番号2 */
-  '顧客電話番号2': z.string().optional(),
+  '顧客電話番号2': z.string().nullish(),
 
   /** 顧客メールアドレス */
   '顧客メールアドレス': z.string().optional(),
@@ -83,19 +102,19 @@ export const saveProjectData = z.object({
   /** 工事種別　=>　"新築","リフォーム"で振り分ける
    * (リフォーム,新築,リノベーション,エクステリア,アフター,分譲,注文,その他)から選択。指定しない場合はリフォームが指定される
    */
-  '案件種別': z.enum(['新築', 'リフォーム']).optional(),
+  '案件種別': z.enum(['リフォーム', '新築', 'リノベーション', 'エクステリア', 'アフター', '分譲', '注文', 'その他']).optional(),
 
   /** “契約前”で固定 */
-  '案件フロー': z.literal('契約前').optional(),
+  '案件フロー':  z.enum(['契約前', '着工前', '進行中', '完工（精算前）', '精算完了', '失注']).optional(),
 
   /** 契約日 */
-  '契約日(実績)': z.string().optional(),
+  //'契約日(実績)': z.string().optional(),
 
   /** 工事種別で連携 */
   'ラベル:工事内容': z.enum(projectTypesAndpad),
 
   /** 店舗 */
-  'ラベル:店舗': z.enum(storeNamesAndpad),
+  'ラベル:店舗': z.string().optional(),
 
   /** 顧客都道府県 */
   '顧客都道府県': z.string().optional(),
@@ -105,17 +124,25 @@ export const saveProjectData = z.object({
 });
 
 export type SaveProjectData = z.infer<typeof saveProjectData>;
+export type SaveProjectDataKeys = keyof SaveProjectData;
+
+export interface SaveProjectParams {
+  projData: SaveProjectData,
+  members: string[],
+}
+
 
 export const projects = z.object({
   '顧客ID': z.number(),
-  '顧客管理ID': z.string(),
+  '顧客管理ID': z.string().nullable(),
   '物件ID': z.number(),
-  '物件管理ID': z.string(),
+  '物件管理ID': z.string().nullable(),
   'システムID': z.number(),
-  '案件管理ID': z.string(),
+  '案件管理ID': z.string().nullable(),
   '案件名': z.string(),
   '案件種別': z.string(),
 });
+
 export const saveProjectResponse = z.object({
   'data': z.object({
     'object': projects,
@@ -123,4 +150,60 @@ export const saveProjectResponse = z.object({
 });
 
 export type Projects = z.infer<typeof projects>;
+export type ProjectsKeys = keyof Projects;
 export type SaveProjectResponse = z.infer<typeof saveProjectResponse>;
+
+
+export interface GetMyOrders {
+  series?: SaveProjectDataKeys[],
+  limit?: number,
+  offset?: number,
+  q?: string,
+}
+
+export const getMyOrdersResponse = z.object({
+  data: z.object({
+    total: z.number(),
+    last_flg: z.boolean(),
+    limit: z.number(),
+    offset: z.number(),
+    objects: z.array(saveProjectData),
+  }),
+});
+
+
+export type GetMyOrdersResponse = z.infer<typeof getMyOrdersResponse>; 
+
+/** メンバー招待 */
+
+export interface ReqMemberBody {
+  /** 案件管理ID利用フラグ。trueを指定した場合、パスのorder_idを案件管理IDとして扱う */
+  use_order_common_id?: boolean,
+
+  /** emailもありますが、今回はcommon_id (社員名簿のuuid) のみに固定します。 */
+  identification_type: 'common_id' | 'email',
+
+} 
+
+export interface Member {
+  key: string // 社員番号
+}
+
+export interface ExtendedMember extends Member {
+  role: 'admin' | 'basic'
+  job_names?: string[]
+}
+
+export interface ReqDelMembersBody extends ReqMemberBody {
+  members : Array<Member> 
+}
+
+export interface ReqAddMembersBody extends ReqMemberBody {
+  /** 案件メンバー追加が成功したユーザに案件招待のお知らせを送るかどうか。 */
+  send_notification?: boolean,
+  members : Array<ExtendedMember>
+}
+
+export interface ReqUpdateMembersBody extends ReqMemberBody {
+  members : Array<ExtendedMember>
+} 

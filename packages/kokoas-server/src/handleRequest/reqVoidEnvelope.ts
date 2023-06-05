@@ -9,7 +9,7 @@ import { getEstimateByEnvId, saveEstimate } from 'api-kintone';
  * @param req
  * @param {IVoidReq} req.body envelopeId, and voidedReason
  * @param res
- *
+ * @deprecated 見積もりに関係するものは不要になります
  */
 export const reqVoidEnvelope : RequestHandler = async (
   req, res,
@@ -51,6 +51,7 @@ export const reqVoidEnvelope : RequestHandler = async (
     res.status(400).send(
       err?.response?.res?.text ?? {
         message: err?.message,
-      });
+      },
+    );
   }
 };

@@ -19,7 +19,8 @@ export const EstRowMove = ({
   rowIdx: number,
   isVisible: boolean,
   isAtBottom: boolean,
-  stackProps?: StackProps
+  stackProps?: StackProps,
+  rowsCount: number,
 }) => {
 
   const isAtTop = rowIdx === 0;

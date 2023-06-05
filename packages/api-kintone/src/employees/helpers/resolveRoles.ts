@@ -5,7 +5,7 @@ type RolesMap = {
 };
 
 export const rolesMap: RolesMap = {
-  'yumeAG': ['主任', '営業', '店長'],
+  'yumeAG': ['取締役', '主任', '営業', '店長', '店長代理'],
   'cocoAG': ['営業', '店長', '工務', '主任'],
   'cocoConst': ['営業', '店長', '工務', '主任'], // 当面、cocoAGと一緒ですが、変わるかもしれませんので、残しておきます。
   'sutekura': ['主任', '営業', '店長', '工務'],

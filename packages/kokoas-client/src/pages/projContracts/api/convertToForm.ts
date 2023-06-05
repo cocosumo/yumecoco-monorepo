@@ -4,7 +4,7 @@ import { produce } from 'immer';
 import { formatDataId } from 'libs';
 import { IConnectRecipients, IProjestimates, TEnvelopeStatus, TSignMethod } from 'types';
 import { parseKintoneDate } from '../../../lib/date';
-import { initialValues, TypeOfForm } from '../form';
+import { initialValues, SubsidyMethods, TypeOfForm } from '../form';
 
 export const convertToForm = ({
   record,
@@ -36,6 +36,10 @@ export const convertToForm = ({
     completeDate,
     signMethod,
     dataId,
+
+    hasSubsidy,
+    subsidyAmt,
+    subsidyMethod,
   } = record ?? {};
 
   const newPaymentFields = produce(initialValues.paymentFields, draft => {
@@ -93,6 +97,11 @@ export const convertToForm = ({
 
     hasRefund: Boolean(+(hasRefund?.value ?? 0)),
     refundAmt: +(refundAmt?.value ?? 0),
+
+    // 補助金関連
+    hasSubsidy: Boolean(+(hasSubsidy?.value ?? 0)),
+    subsidyAmt: +(subsidyAmt?.value ?? 0),
+    subsidyMethod: +(subsidyMethod?.value ?? 0) as SubsidyMethods,
   };
 
   return {

@@ -4,9 +4,9 @@ import { FormikLabeledCheckBox } from '../../../../../components/ui/checkboxes';
 import { TypeOfForm, getCustFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useLazyEffect } from '../../../../../hooks/useLazyEffect';
-import { getAddressByPostal } from '../../../../../api/others/getAddressByPostal';
 import { useRef } from 'react';
 import { AddressFields } from './AddressFields';
+import { getAddressByPostal } from 'api-kintone';
 
 
 
@@ -46,11 +46,22 @@ export const Address = (props: AddressProps) => {
     /* Automatically retrieve address if address is empty */
     if (postal && !address1) {
 
-      getAddressByPostal(postal as string).then((address)=>{
-        if (address) {
-          setFieldValue(`${namePrefix}${getCustFieldName('address1')}`, Object.values(address).join(''));
-        }
-      });
+      getAddressByPostal(postal as string)
+        .then((record)=>{
+          if (record) {
+
+            const {
+              pref,
+              city,
+              town,
+            } = record;
+
+            setFieldValue(
+              `${namePrefix}${getCustFieldName('address1')}`, 
+              [pref.value, city.value, town.value].join(''),
+            );
+          }
+        });
     }
   }, [postal], 300);
 

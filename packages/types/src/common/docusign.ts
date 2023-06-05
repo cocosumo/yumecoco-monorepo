@@ -1,12 +1,30 @@
 
-export type TEnvelopeStatus =
-| 'sent'
-| 'created'
-| 'completed'
-| 'delivered'
-| 'voiding'
-| 'voided'
-| '' ;
+/**
+ * docusignのステータスコード
+ * @see https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/envelopes/status-codes/
+ */
+export const envelopeStatuses = [  
+  'authoritativecopy', 
+  'completed',  
+  'correct',   
+  'created',   
+  'declined',   
+  'deleted',   
+  'delivered',   
+  'sent',   
+  'signed',   
+  'template',   
+  'timedout',   
+  'transfercompleted',   
+  'voided',
+
+  // custom statuses
+  'voiding',
+  '',
+] as const;
+
+
+export type TEnvelopeStatus = typeof envelopeStatuses[number];
 
 export const roles = {
   officer: '担当者',
@@ -123,4 +141,5 @@ export interface IConnectEvent {
 
 
 export type IConnectRecipients = IConnectEvent['data']['envelopeSummary']['recipients'];
-export type TSignMethod = 'electronic' | 'wetInk';
+export const signMethods = ['electronic', 'wetInk'] as const;
+export type TSignMethod = typeof signMethods[number];

@@ -18,6 +18,7 @@ export const useSaveCustGroup = () => {
         qc.invalidateQueries({ queryKey: [AppIds.customers] });
         qc.invalidateQueries({ queryKey: [AppIds.projects] });
         qc.invalidateQueries({ queryKey: [AppIds.projEstimates] });
+        qc.invalidateQueries({ queryKey: ['andpad'] });
         
       },
     },

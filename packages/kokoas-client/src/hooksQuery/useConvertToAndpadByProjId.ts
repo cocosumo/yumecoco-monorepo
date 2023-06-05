@@ -10,7 +10,8 @@ export const useConvertToAndpadByProjId = (
     onError,
   }: {
     onError: () => void
-  }) => {
+  },
+) => {
   const { setSnackState } = useSnackBar();
   return useQuery(
     ['andpad', AppIds.projects, projId],

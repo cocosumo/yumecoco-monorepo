@@ -2,8 +2,12 @@
 import { MainContainer } from '../../components/ui/containers';
 import { PageTitle } from '../../components/ui/labels';
 import { ConstructionInfo } from './sections/ConstructionInfo';
-import { ConstructionLocation, CustInfo, StatusControls } from './sections';
-import { Grid } from '@mui/material';
+import { 
+  ConstructionLocation, 
+  CustInfo, 
+  Remarks, 
+  StatusControls, 
+} from './sections';
 import {  Form, useFormikContext } from 'formik';
 import { FabSave } from '../../components/ui/fabs/FabSave';
 import { ScrollToFieldError } from '../../components/utils/ScrollToFieldError';
@@ -11,6 +15,8 @@ import { TypeOfForm } from './form';
 import { ProjectShortCuts } from './parts/ProjectShortCuts';
 import { UneditableInfo } from 'kokoas-client/src/components/ui/information/UneditableInfo';
 import { RecordSelect } from './sections/RecordSelect/RecordSelect';
+import { LogDisplay } from './sections/logDisplay/LogDisplay';
+import { ExternalLinks } from './sections/ExternalLinks';
 
 export const FormConstruction  = () => {
 
@@ -22,6 +28,7 @@ export const FormConstruction  = () => {
 
   const {
     projId,
+    projName,
     storeId,
     territory,
     projTypeId,
@@ -45,25 +52,37 @@ export const FormConstruction  = () => {
           textColor='#FFF'
           secondaryLabel={projDataId}
         />
-        <Grid container item xl={8}
-          spacing={2} mb={12}
-        >
-          <RecordSelect />
-          <UneditableInfo isVisible={isFormDisabled} projId={projId} />
-          <CustInfo />
+        <RecordSelect />
 
-          {custGroupId && (
-            <>
-              <ConstructionLocation />
-              <ConstructionInfo
-                storeId={storeId}
-                territory={territory}
-                projTypeId={projTypeId}
-              />
-              {isEditMode && <StatusControls />}
-            </>
-          )}
-        </Grid>
+        <ExternalLinks />
+
+        <UneditableInfo 
+          projId={projId}
+          projName={projName}
+          isVisible={isFormDisabled}
+        />
+        <CustInfo />
+
+        {custGroupId && (
+        <>
+          <ConstructionLocation />
+          <ConstructionInfo
+            storeId={storeId}
+            territory={territory}
+            projTypeId={projTypeId}
+          />
+          <Remarks />
+
+                  
+          {!!projId && <LogDisplay />}
+              
+          {isEditMode && <StatusControls />}
+
+        </>
+        )}
+
+
+
         <FabSave onClick={submitForm} url="project" appear={!!custGroupId && dirty} />
       </MainContainer>
 

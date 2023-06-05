@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import sanitize from 'sanitize-filename';
 
 type FileName =
 | '見積書'
@@ -11,10 +12,16 @@ type FileName =
 export const getFilePath = ({
   fileName,
   fileType = 'pdf',
+  version = '',
 } : {
   fileName: FileName,
   fileType?: 'pdf' | 'xls' | 'xlsx',
+  version?: string
 }) => {
+
+  // js/path-injection攻撃に対する対策
+  const sanitizedFileType = sanitize(fileType);
+  const sanitizedVersion = sanitize(version);  
 
   let assetFolder = '';
 
@@ -28,7 +35,8 @@ export const getFilePath = ({
       break;
   }
 
-  const filePath = path.join(__dirname, assetFolder, `${fileName}.${fileType}`);
+  const filePath = path.join(__dirname, assetFolder, `${fileName}${sanitizedVersion}.${sanitizedFileType}`);
+
 
   if (fs.existsSync(filePath)) {
     return filePath;

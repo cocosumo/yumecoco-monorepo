@@ -1,4 +1,3 @@
-import format from 'date-fns/format';
 import { getMyOrders } from '../@get';
 import { SaveProjectData } from '../types';
 import { saveProject } from './saveProject';
@@ -19,13 +18,17 @@ describe('saveProject', () => {
     '顧客名': '山田太郎 様',
     '物件名': '山田太郎 様邸',
     '物件管理ID': 'bukken-test-only',
+    '顧客担当者名': '',
     'ラベル:工事内容': '新築',
     'ラベル:店舗': '豊田店',
   };
 
   /** 最低限の情報で保存出来るように。 */
   it('should save test project　with required information', async () => {
-    const result = await saveProject(basicData);
+    const result = await saveProject({
+      projData: basicData,
+      members: [],
+    });
 
     console.log(result);
 
@@ -34,7 +37,7 @@ describe('saveProject', () => {
 
   /** 完成データを格納出来る */
   it('should save complete data', async () => {
-    const completeData: Required<SaveProjectData> = {
+    const completeData: SaveProjectData = {
       ...basicData,
       '顧客名': '試行',
       '顧客名（カナ）': 'テスト',
@@ -49,17 +52,23 @@ describe('saveProject', () => {
       '案件フロー': '契約前',
       '案件種別': '新築',
 
-      '物件住所': '愛知県豊橋市',
+      //'物件住所': '豊橋市野依町字山中',
       '物件住所種別': '新しい住所を入力する',
       '物件種別': 'その他',
-      '物件郵便番号': '4418124',
+      '物件郵便番号': '441-8124',
 
-      '契約日(実績)': format(new Date(), 'yyyy/MM/dd'),
+      //'契約日(実績)': format(new Date(), 'yyyy/MM/dd'),
       '顧客都道府県': '愛知県',
       '物件都道府県': '愛知県',
     };
 
-    const result = await saveProject(completeData);
+    const result = await saveProject({
+      projData: completeData,
+      members:   [
+        '2878b722-da66-44e0-934c-3f130154bbdc', // 高橋
+        'c606e9ef-22c9-4dac-a064-556708811d99', // 林
+      ],
+    });
 
     console.log('result', result);
 

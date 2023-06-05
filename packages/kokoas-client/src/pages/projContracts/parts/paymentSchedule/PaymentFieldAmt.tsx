@@ -5,7 +5,7 @@ import {  getPayFieldNameByIdx, TypeOfForm } from '../../form';
 
 import { FormikMoneyField } from 'kokoas-client/src/components';
 import { useEffect } from 'react';
-import produce from 'immer';
+import { produce } from 'immer';
 
 
 export const PaymentFieldAmt = (

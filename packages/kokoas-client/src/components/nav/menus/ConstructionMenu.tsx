@@ -5,10 +5,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import EngineeringIcon from '@mui/icons-material/Engineering';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import CarpenterIcon from '@mui/icons-material/Carpenter';
 
-import TableChartIcon from '@mui/icons-material/TableChart';
 import { pages } from '../../../pages/Router';
 import { CollapsibleList } from './common/CollapsibleList';
 import { LinkListItemButton } from './common/LinkListItemButton';
@@ -31,8 +29,6 @@ export const ConstructionMenu = () =>  {
       </ListItemButton>
       <CollapsibleList open={open}>
         <LinkListItemButton to={pages.projReg} icon={<CarpenterIcon />} text={'新規登録'} />
-        <LinkListItemButton to={pages.projProspect} icon={<NoteAddIcon />} text={'見込み登録'} />
-        <LinkListItemButton to={pages.projProspectSearch} icon={<TableChartIcon />} text={'見込み一覧'} />
       </CollapsibleList>
     </>
   );

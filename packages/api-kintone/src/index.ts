@@ -5,6 +5,7 @@ export * from './@proxy';
 export * from './@users';
 export * from './client';
 export * from './common';
+export * from './contracts';
 export * from './custgroups';
 export * from './custMemo';
 export * from './customers';

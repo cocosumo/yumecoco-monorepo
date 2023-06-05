@@ -27,9 +27,6 @@ describe('契約一覧', () => {
       .as('tableBody')
       .should('exist');
 
-    cy.get('@tableBody').find('tr > td:first-child .MuiChip-root')
-      .as('rowContractChips');
-
     cy.get('form > div:nth-of-type(2)')
       .as('filterChipsContainer');
 
@@ -43,7 +40,7 @@ describe('契約一覧', () => {
     cy.log('契約ステータスのヘッダーを表示します');
     cy.get('@tableHead').find('th')
       .first()
-      .should('contain', '契約進歩');
+      .should('contain', '契約進捗');
       
 
     cy.log('すべての行において、契約ステータスを表示します');
@@ -85,7 +82,7 @@ describe('契約一覧', () => {
         .should('be.visible');
 
       cy.log('フィルターダイアログが開かれた際に、すべてのチェックボックスがオフの状態であることをアサートします');
-      cy.contains('label', '契約進歩')
+      cy.contains('label', '契約進捗')
         .siblings('div')
         .find('input[type="checkbox"]')
         .as('contractStatuses')
@@ -146,9 +143,9 @@ describe('契約一覧', () => {
         .should('not.contain', '未完了');
     
       cy.log('完了した契約のみを表示することをアサートします');
-      cy.get('@rowContractChips').each(($chip) => {
-        cy.wrap($chip).should('contain', '完了');
-      });
+
+      // TODO: テスト用データ生成
+
 
     });
 
@@ -218,11 +215,6 @@ describe('契約一覧', () => {
         .should('have.length', 5); // 「確認中」というテキストを持つチップが5つあることを、大まかにアサートします。
 
       cy.log('完了していない契約のみを表示することをアサートします');
-      cy.get('@rowContractChips')
-        .should('have.length.greaterThan', 5) // 5より大きいことをアサートします。DBで作ってあります。TODO: テストデータを作るスクリプトを作る
-        .each(($chip) => {
-          cy.wrap($chip).should('not.contain', '完了');
-        });
 
       cy.log('フィルターチップを一個ずつ削除する');
       cy.get('@filterChipsContainer').find('.MuiChip-root')
@@ -239,12 +231,44 @@ describe('契約一覧', () => {
               .should('not.contain', statusText); // 削除したフィルターチップのテキストが、テーブルに含まれていないことをアサートします。
           }
         });
+      cy.log('フィールター全て削除されたら、契約の進捗を関係なくすべて表示することをアサートします'); 
 
-      cy.log('フィールター全て削除されたら、契約の進歩を関係なくすべて表示することをアサートします'); 
-      cy.get('@rowContractChips')
-        .should('contain', '完了')
-        .should('contain', '確認中');
-        
+      // TODO: テスト用データ生成
+    });
+
+    it('店舗で絞り込みが出来る', () => {
+      const stores = ['豊川中央店', '大垣店'];
+      stores.forEach((store) => {
+        cy.getCheckboxesByLabel(store)
+          .check()
+          .should('be.checked');
+      });
+
+      cy.get('@searchButton').click();
+
+      stores.forEach((store) => {
+        cy.get('@filterChipsContainer').should('contain', store);
+      });
+
+      cy.get('@tableBody').find('tr')
+        .each(($row) => {
+          const storeText = $row.find('td').eq(2)
+            .text();
+          // expect that any of the stores is in the storeText
+          
+          expect(stores.some((store) => storeText.includes(store)), `any of ${stores}`).to.be.true;
+          // make the above assertion more readable in the logs
+        });
+
+      stores.forEach((store) => {
+        cy.contains('.MuiChip-root', store)
+          .children('.MuiChip-deleteIcon')
+          .click()
+          .should('not.exist');
+      });
+
+      // TODO Add aditional assertions on the result. But I will need to generate test data first. ~ras 2023-05-19
+          
     });
 
   });

@@ -9,6 +9,8 @@ import {
 import { kokoasEndpoints } from 'libs/src/endpoints';
 import bodyParser from 'body-parser';
 import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloadInvoice';
+import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectFromAndpadByProjId';
+import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 
 
 const route = router();
@@ -32,13 +34,26 @@ route.post(
   saveProjectToAndpad,
 );
 
-route.get(`/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
+route.get(
+  `/${kokoasEndpoints.getProjectFromAndpadByProjId}/:projId`,
+  reqGetProjectFromAndpadByProjId,
+);
+
+route.get(
+  `/${kokoasEndpoints.getProjectsFromAndpad}`,
+  reqGetProjectsFromAndpad,
+);
+
+route.get(
+  `/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
   downloadEstimateAsAndpad,
 );
 
-route.get(`/${kokoasEndpoints.downloadEstimateForCustomer}/:estimateId`,
+route.get(
+  `/${kokoasEndpoints.downloadEstimateForCustomer}/:estimateId`,
   downloadEstimateForCustomer,
 );
+
 route.put(
   `/${kokoasEndpoints.downloadInvoice}`,
   bodyParser.json({ limit: '50mb' }),

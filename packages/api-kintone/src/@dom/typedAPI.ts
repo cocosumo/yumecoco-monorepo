@@ -20,7 +20,8 @@ export const getRecordPath = (
     recordId,
     appId,
     domain,
-  }: AppRecord) : string => {
+  }: AppRecord,
+) : string => {
   const nDomain = domain ? domain : window.location.origin;
   const nDevice = isMobile() ? 'k/m' : 'k';
   const nrecord = recordId
@@ -42,6 +43,11 @@ export const getPortalSpaceElement = () => (
     : kintone.portal.getContentSpaceElement()
 );
 
+export const getHeaderSpaceElement = () => (
+  isMobile()
+    ? kintone.mobile.app.getHeaderSpaceElement()
+    : kintone.app.record.getHeaderMenuSpaceElement()
+);
 
 /**
 * 要素を表示・非表示
@@ -53,5 +59,40 @@ export const setFieldShown = (fieldCode : string, isShown : boolean) => {
     kintone.mobile.app.record.setFieldShown(fieldCode, isShown);
   } else {
     kintone.app.record.setFieldShown(fieldCode, isShown);
+  }
+};
+
+/**
+ * レコードのインスタンスの値を取得する
+ * @see https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#get-record-details
+ **/
+export const getRecordInstance = () => {
+  if (isMobile()) {
+    return kintone.mobile.app.record.get();
+  } else {
+    return kintone.app.record.get();
+  }
+};
+
+
+/**
+ * フィールドの値をセットする
+ * @param fieldCode 
+ * @param value 
+ * @see https://kintone.dev/en/docs/kintone/js-api/get-data/get-record/#set-record-value
+ * 
+ * 現状kintoneの型定義で、以下のissueで解消されるかもしれませんが、３年近くでまだオープン。
+ * @see https://github.com/kintone/js-sdk/issues/445
+ */
+export const setFieldValue = <T extends string>(fieldCode : T, value : string) => {
+  const recordInstance = getRecordInstance();
+
+  recordInstance.record[fieldCode].value = value;
+  recordInstance.record[fieldCode].lookup = true;
+
+  if (isMobile()) {
+    kintone.mobile.app.record.set(recordInstance);
+  } else {
+    kintone.app.record.set(recordInstance);
   }
 };

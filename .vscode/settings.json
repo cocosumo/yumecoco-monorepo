@@ -15,13 +15,15 @@
     "/packages/api-kintone/src/postal/config.ts",
     "/packages/kokoas-client/src/components/MainScreen.tsx",
     "/packages/kokoas-client/src/components/App.tsx",
-    "/packages/kokoas-client/src/lib/packageInfo.ts"
+    "/packages/kokoas-client/src/lib/packageInfo.ts",
+    "/packages/api-kintone/src/contracts/config.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",
     "/packages/api-kintone/src/stores",
     "/automation/auto-common/src",
     "/packages/kokoas-client/src/hooksQuery",
-    "/packages/kokoas-client/src/components/ui/dialogs"
+    "/packages/kokoas-client/src/components/ui/dialogs",
+    "/packages/api-andpad/src"
   ]
 }

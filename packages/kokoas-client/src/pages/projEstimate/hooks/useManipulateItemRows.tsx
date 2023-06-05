@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect } from 'react';
 import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
-import { getItemsFieldName, TypeOfForm } from '../form';
+import { getItemsFieldName, KRowFields, TypeOfForm } from '../form';
 import { useRowValues } from './useRowValues';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 
 export type UseManipulateItemRows =  ReturnType<typeof useManipulateItemRows>;
@@ -10,8 +11,8 @@ export const useManipulateItemRows = (
   props : UseFieldArrayReturn<TypeOfForm>,
   onAddDelete: () => void,
 ) => {
-
-  const { setFocus } = useFormContext<TypeOfForm>();
+  const { setSnackState } = useSnackBar();
+  const { setFocus, reset, getValues } = useFormContext<TypeOfForm>();
 
   const {
     insert,
@@ -21,28 +22,50 @@ export const useManipulateItemRows = (
     fields,
   } = props;
 
+
+
   const {
     getNewRow,
   } = useRowValues();
-
-  const rowsCount = useMemo(() => fields.length, [fields]);
 
   const handleInsertItemBelow = useCallback((rowIdx: number) => {
     insert(rowIdx + 1, getNewRow());
   }, [insert, getNewRow]);
 
   const handleCopyItemBelow = useCallback((rowIdx: number) => {
-    const { id: _, ...newRow } = fields[rowIdx];
-    insert(rowIdx + 1, [newRow]);
-  }, [insert, fields]);
+    const row = getValues(`items.${rowIdx}`);
+    insert(rowIdx + 1, [{ ...row }]);
+  }, [insert, getValues]);
 
   const handleRemoveItem = useCallback((rowIdx: number) => {
-    remove(rowIdx);
+    const items = getValues('items');
+    const rowsCount = items.length;
+    const lastRowIdx = rowsCount - 1;
+    const isLastRow = rowIdx === lastRowIdx;
+    const isLastActiveRow = rowIdx === lastRowIdx - 1;
+    const isFirstRow = rowIdx === 0;
 
-    if (rowIdx > 0) {
-      setFocus(getItemsFieldName(rowIdx - 1, 'majorItem'));
+
+    if (isLastRow) {
+      setSnackState({
+        open: true,
+        message: '最後の行は削除出来ません',
+        severity: 'warning',
+        autoHideDuration: 10000,
+      });
+    } else {
+ 
+      const focustToIdx = isLastActiveRow && !isFirstRow ? rowIdx - 1 : rowIdx + 1;
+      const focusedInputElName = document.activeElement
+        ?.getAttribute('name')
+        ?.split('.')
+        .at(-1) as KRowFields;
+      // 同じ行の別のinputにフォーカスを移す
+      setFocus(getItemsFieldName(focustToIdx, focusedInputElName ));
+      remove(rowIdx);
     }
-  }, [remove, setFocus]);
+  }, [remove, setFocus, getValues, setSnackState]);
+
 
   const handleAppendItem = useCallback(() =>{
     append(getNewRow(), { shouldFocus: false });
@@ -58,6 +81,10 @@ export const useManipulateItemRows = (
   ) => {
     move(rowIdx, selectedRowIdx);
   };
+
+  const handleClearAll = useCallback(() => {
+    reset();
+  }, [reset]);
 
   /* 追加・削除の際、渡されたonAddDeleteを発火する */
   useEffect(() => {
@@ -75,7 +102,6 @@ export const useManipulateItemRows = (
     handleMoveRowUp,
     handleMoveRowDown,
     handleMoveAnywhere,
-    rowsCount,
-
+    handleClearAll,
   };
 };

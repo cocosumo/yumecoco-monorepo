@@ -30,14 +30,18 @@ export const MemoColumn = ({ disabled }: { disabled:boolean }) => {
   return (
     <MemoColumnContainer>
 
-      <Grid container item xs={12}
+      <Grid 
+        container 
+        item 
+        xs={12}
         spacing={2}
       >
-        <PageSubTitle label={'メモ'} xs={7} />
-        <Grid item xs={5}>
+        <PageSubTitle label={'メモ'} xs={6} />
+        <Grid item xs={6}>
           <Button
             disabled={disabled}
-            variant="outlined" startIcon={<AddIcon />}
+            variant="outlined" 
+            startIcon={<AddIcon />}
             fullWidth onClick={
             ()=> handleOpen({
               custGroupId: id || '',

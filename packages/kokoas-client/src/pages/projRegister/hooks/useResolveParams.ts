@@ -2,16 +2,24 @@
 
 
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useProjById, useCustGroupById, useProjContractSummary } from 'kokoas-client/src/hooksQuery';
+import { 
+  useProjById, 
+  useCustGroupById, 
+  useProjContractSummary, 
+  useAndpadOrderByProjId, 
+} from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertCustGroupToForm, convertProjToForm } from '../api/convertToForm';
 import { TypeOfForm, initialValues } from '../form';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 /**
  * URLで渡されたものを処理する
  */
 export const useResolveParams = () => {
   const [initForm, setInitForm] = useState<TypeOfForm>(initialValues);
+  const { setSnackState } = useSnackBar();
+
   const {
     projId: projIdFromURL,
     custGroupId: custGroupIdFromURL,
@@ -24,18 +32,35 @@ export const useResolveParams = () => {
 
   const { data: contractSummary } = useProjContractSummary(projRec?.uuid.value);
 
+  const {
+    completed,
+    hasContract,
+  } = contractSummary || {};
+
+  const { data: andpadDetails } = useAndpadOrderByProjId(
+    projIdFromURL || '',
+    {
+      onError: (error) => {
+        setSnackState({
+          open: true,
+          message: error.message,
+          severity: 'warning',
+          autoHideDuration: 10000,
+        });
+      },
+    },
+  );  
+
   useEffect(() => {
 
     if (projIdFromURL && projRec && custGroupRec && contractSummary) {
-      const {
-        completed,
-        hasContract,
-      } = contractSummary;
+
 
       setInitForm({
         ...initialValues,
-        hasContract,
-        hasCompetedContract: !!completed,
+        hasContract: !!hasContract,
+        hasCompletedContract: !!completed,
+        andpadDetails,
         ...convertProjToForm(projRec),
         ...convertCustGroupToForm(custGroupRec),
       });
@@ -50,10 +75,16 @@ export const useResolveParams = () => {
       setInitForm(initialValues);
 
     }
-
-
-
-  }, [projRec, custGroupRec, projIdFromURL, custGroupIdFromURL, contractSummary ]);
+  }, [
+    projRec, 
+    custGroupRec, 
+    projIdFromURL, 
+    custGroupIdFromURL,
+    hasContract,
+    completed,
+    contractSummary,
+    andpadDetails,
+  ]);
 
   return initForm;
 };

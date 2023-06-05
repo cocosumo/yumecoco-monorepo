@@ -111,7 +111,7 @@ export const MenuVoidContract = (
         severity='warning'
         message={
           <>
-            エンベロープを無効にすると、受信者はそのエンベロープを表示したり署名したりできなくなります。
+            エンベロープを取り下げ「以下、無効」にすると、受信者はそのエンベロープを表示したり署名したりできなくなります。
             <Button fullWidth target="_blank" href='https://support.docusign.com/s/articles/How-do-I-void-or-cancel-an-envelope?language=ja&rsc_301'>
               無効化についてもっと知りたい
             </Button>
@@ -129,7 +129,7 @@ export const MenuVoidContract = (
         <BlockIcon color='error' />
       </ListItemIcon>
       <ListItemText>
-        無効化する
+        取り下げ
       </ListItemText>
     </MenuItem>
   );

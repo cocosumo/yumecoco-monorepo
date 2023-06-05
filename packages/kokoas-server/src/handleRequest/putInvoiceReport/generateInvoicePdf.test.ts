@@ -22,9 +22,6 @@ describe('file', () => {
       datCocosumoDetails,
     );
 
-
-    console.log('datCustGroup', datCustGroup);
-
     const savePath = path.join(__dirname, '../__TEST__', '請求書.pdf');
     const pdfBuffer = Buffer.from(result, 'base64');
 

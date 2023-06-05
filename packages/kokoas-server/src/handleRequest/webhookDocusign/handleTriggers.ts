@@ -36,6 +36,7 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
       case 'envelope-voided':
       case 'envelope-deleted':
       case 'envelope-discard':
+      case 'envelope-declined':
         await voidEnvelope(data.envelopeId);
         break;
       // case 'envelope-sent':

@@ -5,10 +5,20 @@ import {
   RecordCancelStatus,
   BuildingType,
 } from 'types';
-import * as Yup from 'yup';
+import { SaveProjectData } from 'api-andpad';
 
-import { postalRegExp } from '../../helpers/yupValidator';
+export interface Remarks {
+  id: string,
+  noteCreateTime: Date,
+  noteUpdateTime: Date,
+  remark: string,
+}
 
+export interface Log {
+  dateTime?: Date,
+  log: string,
+  id: string,
+}
 
 /**
  * Set Initial values here in case MUI is shouting about un/controlled components.
@@ -39,8 +49,19 @@ export const initialValues = {
   isChkAddressKari: false,
   status: '追客中' as RecordStatus,
   hasContract: false,
-  hasCompetedContract: false,
+  hasCompletedContract: false,
   cancelStatus: [] as RecordCancelStatus[],
+  andpadDetails : undefined as SaveProjectData | undefined,
+
+  // Remarks
+  remarks: [{
+    id: 'remarks.0',
+    noteCreateTime: new Date(),
+    noteUpdateTime: new Date(),
+    remark: '',
+  }] as Remarks[],
+
+  logs: [] as Log[],
 };
 
 export type TypeOfForm = typeof initialValues;
@@ -48,36 +69,3 @@ export type KeysOfForm = keyof TypeOfForm;
 export type ProjectDetailsValues = Partial<Record<KeysOfForm, string | number | boolean | Array<any>>>;
 
 export const getFieldName = (fieldName: KeysOfForm) => fieldName;
-
-/**
- * Set Validation for fields that requires it.
- * Refer to YUM documentation.
- */
-export const validationSchema =  Yup
-  .object<Partial<Record<KeysOfForm, any>>>(
-  {
-    custGroupId: Yup
-      .string()
-      .required('必須です。'),
-
-    projTypeId: Yup
-      .string()
-      .required('必須です。'),
-    projName: Yup
-      .string()
-      .required('必須です。'),
-    cocoConst1: Yup
-      .string()
-      .required('必須です。'),
-    postal: Yup
-      .string()
-      .matches(postalRegExp, '半角数字。例：4418124')
-      .required('必須です。'),
-    address1: Yup
-      .string()
-      .required('必須です。'),
-    address2: Yup
-      .string()
-      .required('必須です。'),
-  },
-);

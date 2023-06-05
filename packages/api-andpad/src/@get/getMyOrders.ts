@@ -3,42 +3,30 @@ import qs from 'qs';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
-import { Projects, SaveProjectData } from '../types';
-
-interface GetMyOrders {
-  series?: (keyof SaveProjectData)[],
-  limit?: number,
-  offset?: number,
-  q?: string,
-}
-
-interface GetMyOrdersResponse {
-  data: {
-    total: number,
-    last_flg: boolean,
-    limit: number,
-    offset: number,
-    objects: Array<Projects>
-  }
-}
+import { GetMyOrders, GetMyOrdersResponse } from '../types';
 
 export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResponse> => {
   const {
     limit,
     q,
     series = [],
+    offset = 0,
   } = params || {};
   try {
+
+
 
     const urlParams = qs.stringify({
       limit,
       q,
       series: series.join(','),
+      offset,
     });
 
-    const url = `${endpoints.ourOrders}?${urlParams}`;
+    console.log('urlParams', urlParams);
 
-    console.log(url);
+    const url = `${endpoints.ourOrders}?${urlParams}`;
+    
     const { data } = await axios({
       url,
       method: 'GET',
@@ -52,8 +40,8 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
     const {
       response,
       errors,
-    } = err as AxiosError & ZodError;
-    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}`;
+    } = (err || {}) as AxiosError & ZodError;
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data ?? ''}`;
     console.error(err);
     throw new Error(`${errorMsg}`);
   }

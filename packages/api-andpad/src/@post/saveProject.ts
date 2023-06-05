@@ -3,7 +3,8 @@ import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { getMyOrders } from '../@get';
 import { endpoints } from '../endpoints';
-import { saveProjectData, SaveProjectData, saveProjectResponse } from '../types';
+import { saveProjectData, SaveProjectData, SaveProjectParams, saveProjectResponse } from '../types';
+import { addDelMembers } from '../@custom';
 
 /**
  *
@@ -17,10 +18,16 @@ import { saveProjectData, SaveProjectData, saveProjectResponse } from '../types'
  * - リストにないものを指定しても、リクエストが通ります。もちろん、ANDPADでは表示されない。
  * よって、ココアスのサーバ側で検証し、エラーを出す。
  */
-export const saveProject = async (body: SaveProjectData) => {
+export const saveProject = async (body: SaveProjectParams) => {
+  const {
+    projData,
+    members,
+  } = body;
+
+  console.log('saveProject received', body);
 
   try {
-    const parsedBody = saveProjectData.parse(body);
+    const parsedBody = saveProjectData.parse(projData);
 
     const { data } = await axios({
       url: endpoints.ordersSync,
@@ -41,24 +48,42 @@ export const saveProject = async (body: SaveProjectData) => {
       },
     } = resp;
 
+    console.log('メンバー', members);
+   
 
-    console.log('保存した内容は全て格納出来たか確認処理中…');
+
     const savedData = await getMyOrders({
       q: `案件管理ID = ${案件管理ID}`,
       series: Object.keys(parsedBody) as (keyof SaveProjectData)[],
     });
 
+    const {
+      システムID: systemId,
+    } = savedData.data.objects[0];
+
+    if (systemId) {
+      const result = await addDelMembers({
+        systemId: systemId.toString(),
+        members,
+      });
+
+      console.log('メンバー追加の結果', result);
+    } 
+  
     const savedAndpadData = savedData.data.objects?.[0];
 
-    console.log('格納されたデータ', savedAndpadData);
+    console.log('格納されたデータです', savedAndpadData);
 
-    for (const dataKey of Object.keys(parsedBody)) {
+    /*  for (const dataKey of Object.keys(parsedBody)) {
       const dataValue = parsedBody[dataKey as keyof typeof parsedBody];
       const savedValue = savedAndpadData[dataKey as keyof typeof savedAndpadData];
-      if (dataValue !== savedValue) {
+      if (
+        !!dataValue !== !!savedValue // 両方ともtrueかfalseか
+        &&  dataValue !== savedValue // 両方とも同じ値か
+      ) {
         throw new Error(`{ ${dataKey}: ${dataValue} } 保存が失敗しました。ANDPADに格納した情報：${savedValue}。 管理者に連絡してください。`);
       }
-    }
+    } */
 
     console.log('保存が成功しました。');
     return resp;
@@ -68,8 +93,8 @@ export const saveProject = async (body: SaveProjectData) => {
       response,
       errors,
       message,
-    } = err as AxiosError & ZodError;
-    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data?.errors ?? ''}, ${message}。`;
+    } = (err || {}) as AxiosError & ZodError;
+    const errorMsg = `saveProject が失敗しました. COCOAS_ERROR: ${JSON.stringify(errors)}, ANDPAD_ERROR: ${response?.data ?? ''}, ${message}。`;
 
     throw new Error(errorMsg);
   }

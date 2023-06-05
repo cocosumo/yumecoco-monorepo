@@ -59,6 +59,7 @@ module.exports = {
     "react/jsx-no-constructed-context-values": [2], //https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-no-constructed-context-values.md
     "react/jsx-pascal-case": [2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md
     "newline-per-chained-call": [2],
+    "function-paren-newline": ["error", "consistent"] ,
     "@typescript-eslint/no-unused-vars": [
       "error", {
       "argsIgnorePattern": "^_",
@@ -66,7 +67,6 @@ module.exports = {
       "caughtErrorsIgnorePattern": "^_"
     }],
     "import/no-extraneous-dependencies": "off", // Was having problems with this in a monorepo. Need help to resolve.
-
     "@typescript-eslint/naming-convention": [
       "error",
       {

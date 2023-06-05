@@ -1,3 +1,4 @@
+import { reqSendContractDirectV2 } from './../handleRequest/reqSendContractDirectV2/reqSendContractDirectV2';
 
 import { Router as router } from 'express';
 import bodyParser from 'body-parser';
@@ -8,6 +9,10 @@ import { handleTriggers } from '../handleRequest/webhookDocusign/handleTriggers'
 import { reqVoidEnvelope } from '../handleRequest/reqVoidEnvelope';
 import { reqGetSenderView } from '../handleRequest/reqGetSenderView';
 import { reqResendContract } from '../handleRequest/reqResendContract';
+import { docusignEndpoints } from 'libs';
+import { reqDownloadContractV2 } from '../handleRequest/reqDownloadContractV2';
+import { reqVoidEnvelopeV2 } from '../handleRequest/reqVoidEnvelopeV2';
+import { reqCreateCorrectView } from '../handleRequest/reqCreateCorrectView';
 
 
 const route = router();
@@ -35,6 +40,12 @@ route.post('/contract/resend', reqResendContract);
 route.post('/contract/senderViewUrl', reqGetSenderView);
 
 route.get('/contract/download', reqDownloadContract);
+
+route.get(`/${docusignEndpoints.downloadContract}`, reqDownloadContractV2);
+route.post(`/${docusignEndpoints.sendDirect}`, reqSendContractDirectV2);
+route.post(`/${docusignEndpoints.void}`, reqVoidEnvelopeV2);
+
+route.post(`/${docusignEndpoints.correct}`, reqCreateCorrectView);
 
 route.get('/test', (req, res)=>{
   console.log('Connection test is success');

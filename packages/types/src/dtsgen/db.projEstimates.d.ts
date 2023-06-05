@@ -1,37 +1,41 @@
 declare namespace DBProjestimates {
   interface Data {
-    projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     envCompleteDate: kintone.fieldTypes.DateTime;
     updateByName: kintone.fieldTypes.SingleLineText;
-    envRecipients: kintone.fieldTypes.SingleLineText;
-    daikokuDataId: kintone.fieldTypes.SingleLineText;
     hasRefund: kintone.fieldTypes.Number;
-    finishDaysAfterContract: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
     税: kintone.fieldTypes.Number;
     completeDate: kintone.fieldTypes.Date;
     payDestination: kintone.fieldTypes.SingleLineText;
-    dataId: kintone.fieldTypes.SingleLineText;
     顧客名: kintone.fieldTypes.SingleLineText;
-    estimateStatus: kintone.fieldTypes.SingleLineText;
     payMethod: kintone.fieldTypes.SingleLineText;
-    storeName: kintone.fieldTypes.SingleLineText;
-    custGroupId: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     工事種別名: kintone.fieldTypes.SingleLineText;
-    refundAmt: kintone.fieldTypes.Number;
     工事名称: kintone.fieldTypes.SingleLineText;
     envId: kintone.fieldTypes.SingleLineText;
     envStatus: kintone.fieldTypes.SingleLineText;
     updatedById: kintone.fieldTypes.Number;
     startDaysAfterContract: kintone.fieldTypes.Number;
-    工事種別利益: kintone.fieldTypes.Number;
-    projTypeId: kintone.fieldTypes.SingleLineText;
-    finishDate: kintone.fieldTypes.Date;
     updateDateTime: kintone.fieldTypes.DateTime;
     signMethod: kintone.fieldTypes.SingleLineText;
     startDate: kintone.fieldTypes.Date;
+    projId: kintone.fieldTypes.SingleLineText;
+    envRecipients: kintone.fieldTypes.SingleLineText;
+    daikokuDataId: kintone.fieldTypes.SingleLineText;
+    finishDaysAfterContract: kintone.fieldTypes.Number;
+    dataId: kintone.fieldTypes.SingleLineText;
+    estimateStatus: kintone.fieldTypes.SingleLineText;
+    subsidyAmt: kintone.fieldTypes.Number;
+    storeName: kintone.fieldTypes.SingleLineText;
+    custGroupId: kintone.fieldTypes.SingleLineText;
+    refundAmt: kintone.fieldTypes.Number;
+    hasSubsidy: kintone.fieldTypes.Number;
+    工事種別利益: kintone.fieldTypes.Number;
+    projTypeId: kintone.fieldTypes.SingleLineText;
+    subsidyMethod: kintone.fieldTypes.Number;
+    finishDate: kintone.fieldTypes.Date;
+    remarks: kintone.fieldTypes.SingleLineText;
     totalPaymentAmt: kintone.fieldTypes.Calc;
     isForPayment: kintone.fieldTypes.CheckBox;
 
@@ -49,8 +53,6 @@ declare namespace DBProjestimates {
           原価: kintone.fieldTypes.Number;
           部材名: kintone.fieldTypes.SingleLineText;
           中項目: kintone.fieldTypes.SingleLineText;
-          //taxType: kintone.fieldTypes.SingleLineText;
-          //金額: kintone.fieldTypes.Number;
           部材備考: kintone.fieldTypes.SingleLineText;
           単位: kintone.fieldTypes.SingleLineText;
         };
@@ -75,7 +77,7 @@ declare namespace DBProjestimates {
     更新者: kintone.fieldTypes.Modifier;
     作成者: kintone.fieldTypes.Creator;
     レコード番号: kintone.fieldTypes.RecordNumber;
-    更新日時: kintone.fieldTypes.UpdatedTime;
     作成日時: kintone.fieldTypes.CreatedTime;
+    更新日時: kintone.fieldTypes.UpdatedTime;
   }
 }

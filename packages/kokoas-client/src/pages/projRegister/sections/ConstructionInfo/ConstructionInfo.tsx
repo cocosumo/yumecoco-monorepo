@@ -11,6 +11,7 @@ import { useFormikContext } from 'formik';
 import { useProjTypes } from 'kokoas-client/src/hooksQuery/';
 import { ContractDetails } from './ContractDetails';
 import { Territory } from 'types';
+import { useIsFetching } from '@tanstack/react-query';
 
 
 
@@ -28,6 +29,8 @@ export const ConstructionInfo = (
       cocoConst1,
       projId,
       hasContract,
+      isAgentConfirmed,
+      andpadDetails,
     },
     setValues,
   } = useFormikContext<TypeOfForm>();
@@ -43,8 +46,18 @@ export const ConstructionInfo = (
       })),
   });
 
+  const isLoading = !!useIsFetching();  
 
   const [open, setOpen] = useState(false);
+
+  const {
+    案件フロー: andpadStatus,
+  } = andpadDetails || {};
+  
+  // 案件フロー === "完工（精算前）"
+  // Andpad上で、編集出来なかったので、実値がわからないです。よって、「完工」が含むにしています。
+  // ざっくりの実装で、不具合があれば、修正します。
+  const isConstructionCompleted = !!andpadStatus?.includes('完工');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -112,7 +125,7 @@ export const ConstructionInfo = (
             >
               <ConstructionAgent
                 number={num}
-                disabled={(!cocoConst1 && num === 2) || hasContract}
+                disabled={(!cocoConst1 && num === 2) || isAgentConfirmed || isLoading || isConstructionCompleted}
                 storeId={storeId}
                 territory={territory}
               />
@@ -121,8 +134,11 @@ export const ConstructionInfo = (
         }
 
         <Grid item xs={12} md={4}>
-          <FormikLabeledCheckBox name={getFieldName('isAgentConfirmed')} label="工事担当者を確定する" helperText='※工事担当者が未定の場合はチェックしないでください。'
-            disabled={hasContract}
+          <FormikLabeledCheckBox 
+            disabled={isLoading || isConstructionCompleted}
+            name={getFieldName('isAgentConfirmed')} 
+            label="工事担当者を確定する" 
+            helperText='※工事担当者が未定の場合はチェックしないでください。'
           />
 
         </Grid>

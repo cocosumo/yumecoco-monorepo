@@ -63,13 +63,7 @@ export const drawText = async (
   }
 
   if (boxWidth && font && isAutoSize) {
-
-    
-
     while (font?.widthOfTextAtSize(text, parsedSize) > boxWidth) {
-      if (text.includes('アア')) {
-        console.log(advancedOptions, font?.widthOfTextAtSize(text, parsedSize));
-      }
       parsedSize -= 0.5;
     }
   }

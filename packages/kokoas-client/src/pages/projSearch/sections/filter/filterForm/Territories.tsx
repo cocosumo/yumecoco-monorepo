@@ -4,6 +4,8 @@ import { territories } from 'types';
 
 
 export const Territories = () => {
+
+
   return (
     <FormGroup >
       <FormLabel>

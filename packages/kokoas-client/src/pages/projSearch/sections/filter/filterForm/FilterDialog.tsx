@@ -3,6 +3,8 @@ import { Stores } from './Stores';
 import { Territories } from './Territories';
 import { Officers } from './Officers';
 import { DateRange } from '../../../fields/DateRange';
+import { CustomerDetails } from './CustomerDetails';
+import { ProjType } from './ProjType';
 
 export const FilterDialog = ({
   open,
@@ -23,8 +25,10 @@ export const FilterDialog = ({
       </DialogTitle>
       <DialogContent>
         <Stack spacing={2} divider={<Divider />}>
+          <CustomerDetails />
           <Territories />
           <Stores />
+          <ProjType />
           <Officers />
           <DateRange label='契約日' />
           <DateRange label='完工日' />

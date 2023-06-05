@@ -27,7 +27,7 @@ import { calcBeforeTax } from './calcBeforeTax';
 import { calcAfterTax, calcProfitRate } from 'libs';
 
 
-interface Values {
+export interface Values {
 
   /** 金額（税抜） */
   amountAfterTax?: number,

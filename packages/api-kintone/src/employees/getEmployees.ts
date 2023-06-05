@@ -1,3 +1,4 @@
+import { EmpStatus } from 'types';
 import { getAllRecords } from '../common/getAllRecords';
 import { appId, RecordType } from './config';
 
@@ -9,7 +10,7 @@ import { appId, RecordType } from './config';
  */
 export const getEmployees  = async (
   isActiveOnly = true,
-  statuses : ('有効' | '無効' | '保留(退職済)')[] = ['有効'], 
+  statuses : EmpStatus[] = ['有効'], 
 ) => {
 
   const queryArray: string[] = [];
@@ -17,6 +18,8 @@ export const getEmployees  = async (
   if (isActiveOnly) {
     queryArray.push(`状態 in ( ${statuses.map((s) => `"${s}"`).join(',')})`);
   }
+
+  console.log('QueryArray', queryArray);
 
   return getAllRecords<RecordType>({
     app: appId,

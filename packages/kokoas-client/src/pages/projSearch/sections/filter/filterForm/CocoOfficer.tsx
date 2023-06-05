@@ -1,12 +1,16 @@
-import { FormControl, InputLabel, ListSubheader, ListSubheaderProps, MenuItem, Select } from '@mui/material';
-import { Option } from 'types';
-import { useCocoEmpGrpByRole } from '../../../hooks/useCocoEmpGrpByRole';
+import { 
+  FormControl, 
+  InputLabel, 
+  ListSubheader, 
+  ListSubheaderProps, 
+  MenuItem, 
+  Select,
+  Typography, 
+} from '@mui/material';
+import { Option, useCocoEmpGrpByRole } from '../../../hooks/useCocoEmpGrpByRole';
 import { Fragment } from 'react';
 
-const label = 'ここすも担当者';
-
-// ここで順番を変えると、表示される順番が変わる
-const roles = ['店長', '主任', '営業', '工務', '経理', 'サポート'];
+const inputLabel = 'ここすも担当者';
 
 function MyListSubheader(props: ListSubheaderProps) {
   return <ListSubheader {...props} />;
@@ -18,39 +22,95 @@ function MenuItems({
   options: Option[]
 }) {
   return (<>
-    {options.map((option) => (
-      <MenuItem key={option.value} value={option.value}>
-        {option.label}
+    {options.map(({
+      label,
+      value,
+      isRetired,
+    }) => (
+      <MenuItem key={value} value={value}>
+        {label}
+        {isRetired && (
+        <Typography ml={2} sx={{ color: 'text.secondary' }}>
+          退職者
+        </Typography>
+        )}  
+
       </MenuItem>
     ))}
   </>);
 }
 
+export const CocoOfficer = ({
+  includeRetired,
+}: {
+  includeRetired: boolean
+}) => {
+  const { data } = useCocoEmpGrpByRole(includeRetired);
 
-export const CocoOfficer = () => {
-  const { data } = useCocoEmpGrpByRole();
 
 
   return (
     <FormControl fullWidth size='small'>
       <InputLabel id="cocoAg">
-        {label}
+        {inputLabel}
       </InputLabel>
 
 
       <Select
         labelId="cocoAg"
-          //value={age}
-        label={label}
+        label={inputLabel}
       >
-        {roles.map((role) => (
-          <Fragment key={role}>
-            <MyListSubheader>
-              {role}
-            </MyListSubheader>
-            <MenuItems options={data?.[role] ?? []} />
-          </Fragment>
-        ))}
+        
+        <MyListSubheader >
+          店長・主任
+        </MyListSubheader>
+        { data && (
+          <MenuItems options={[
+            ...(data['店長'] || []),
+            ...(data['主任'] || []),
+          ]}
+          />
+        )}
+
+        <MyListSubheader >
+          営業
+        </MyListSubheader>
+        { data && (
+          <MenuItems options={data['営業'] || []} />
+        )}
+
+        
+        <MyListSubheader >
+          工務
+        </MyListSubheader>
+        { data && (
+          <MenuItems options={data['工務'] || []} />
+        )}
+
+
+        <MyListSubheader >
+          工務
+        </MyListSubheader>
+        { data && (
+          <MenuItems options={data['工務'] || []} />
+        )}
+
+        
+        <MyListSubheader >
+          経理
+        </MyListSubheader>
+        { data && (
+          <MenuItems options={data['経理'] || []} />
+        )}
+
+        <MyListSubheader >
+          サポート
+        </MyListSubheader>
+        { data && (
+          <MenuItems options={data['サポート'] || []} />
+        )}
+        
+        
       </Select>
     </FormControl>
   );

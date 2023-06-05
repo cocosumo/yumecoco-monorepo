@@ -1,18 +1,20 @@
 import { useEmployees } from 'kokoas-client/src/hooksQuery';
-import { EmpAffiliations } from 'types';
+import { EmpAffiliations, EmpStatus } from 'types';
 
 
 export type Option = {
   label: string,
   value: string,
+  isRetired: boolean,
 };
 
 type GroupedEmployees = {
   [key: string]: Option[]
 };
 
-export const useCocoEmpGrpByRole = () => {
+export const useCocoEmpGrpByRole = (includeRetired = false) => {
   return useEmployees({
+    isActive: !includeRetired,
     select: (d) => {
       return d.reduce(
         (acc, cur) => {
@@ -20,6 +22,7 @@ export const useCocoEmpGrpByRole = () => {
             affiliation,
             役職: role,
             文字列＿氏名: name,
+            状態: empStatus,
             uuid,
           } = cur;
 
@@ -30,6 +33,7 @@ export const useCocoEmpGrpByRole = () => {
           acc[role.value].push({
             label: name.value,
             value: uuid.value,
+            isRetired: (empStatus.value as EmpStatus) !== '有効',
           });
           return acc;
         }, 

@@ -8,6 +8,7 @@ import { TunitChoices } from '../validationSchema';
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
 ) : Partial<TypeOfForm> => {
+  console.log(recEstimate);
 
   const {
     uuid,
@@ -24,6 +25,8 @@ export const convertEstimateToForm = (
     $revision,
     remarks,
   } = recEstimate;
+
+ 
 
   const parsedTaxRate = +tax.value / 100;
 
@@ -141,7 +144,7 @@ export const convertEstimateToForm = (
     totalAmountBeforeTax,
     totalAmountAfterTax,
     estimateRevision: $revision.value,
-    remarks: remarks.value,
+    remarks: remarks?.value || '',
   };
 
 };

@@ -25,6 +25,10 @@ export const convertToKintone = ({
   finalAmt,
   finalAmtDate,
 
+  hasOthersAmt,
+  othersAmt,
+  othersAmtDate,
+
   hasRefund,
   refundAmt,
 
@@ -64,6 +68,9 @@ export const convertToKintone = ({
 
     finalAmt: { value: (hasFinalAmt ? finalAmt : 0).toString() },
     finalAmtDate: { value: (hasFinalAmt ? toKintoneDateStr(finalAmtDate) : '') },
+
+    othersAmt: { value: (hasOthersAmt ? othersAmt : 0).toString() },
+    othersAmtDate: { value: (hasOthersAmt ? toKintoneDateStr(othersAmtDate) : '') },
 
     hasRefund: { value: hasRefund ? 'はい' : 'いいえ' },
     refundAmt: { value: (hasRefund ? refundAmt : 0).toString() },

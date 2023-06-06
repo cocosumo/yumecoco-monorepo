@@ -61,6 +61,11 @@ const schema = z.object({
   hasFinalAmt: z.boolean(),
   finalAmt: z.number(),
   finalAmtDate: z.date().nullable(),
+
+  /** その他の金額 */
+  hasOthersAmt: z.boolean(),
+  othersAmt: z.number(),
+  othersAmtDate: z.date().nullable(),
   
   /** 返金有無 */
   hasRefund: z.boolean(),

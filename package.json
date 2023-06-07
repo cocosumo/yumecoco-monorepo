@@ -88,7 +88,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@kintone/rest-api-client": "^2.0.33",
     "@mui/icons-material": "^5.11.16",
-    "@mui/lab": "^5.0.0-alpha.119",
+    "@mui/lab": "^5.0.0-alpha.133",
     "@mui/material": "^5.11.8",
     "@mui/system": "^5.11.8",
     "@mui/types": "^7.2.3",

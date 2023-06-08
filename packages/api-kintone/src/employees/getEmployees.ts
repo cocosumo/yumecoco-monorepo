@@ -24,5 +24,6 @@ export const getEmployees  = async (
   return getAllRecords<RecordType>({
     app: appId,
     condition: queryArray.join(' and ') || undefined,
+    orderBy: 'sort asc',
   });
 };

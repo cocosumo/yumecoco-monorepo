@@ -6,8 +6,6 @@ import { useState } from 'react';
 export const Officers = () => {
   const [includeRetired, setIncludeRetired] = useState(false);
 
-  console.log(includeRetired);
-
   return (
     <FormGroup>
       <FormLabel>

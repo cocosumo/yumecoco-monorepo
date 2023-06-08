@@ -25,6 +25,8 @@ export const convertEstimateToForm = (
     remarks,
   } = recEstimate;
 
+ 
+
   const parsedTaxRate = +tax.value / 100;
 
   /* 内訳 */
@@ -141,7 +143,7 @@ export const convertEstimateToForm = (
     totalAmountBeforeTax,
     totalAmountAfterTax,
     estimateRevision: $revision.value,
-    remarks: remarks.value,
+    remarks: remarks?.value || '',
   };
 
 };

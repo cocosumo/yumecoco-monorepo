@@ -5,7 +5,7 @@ import { SearchResult } from '../../api/search';
 export const RowLayout = ({
   contractDate,
   custName,
-  custAddress,
+  projName,
   custNameKana,
   projCompletedDate,
   storeName,
@@ -28,7 +28,7 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell>
-        {custAddress}
+        {projName}
       </TableCell>
 
       <TableCell 

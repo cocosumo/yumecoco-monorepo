@@ -3,13 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from './generateContractPdfV2';
+import { produce } from 'immer';
 
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230523',
+      ukeoiDocVersion: '20230605',
     });
 
     
@@ -17,9 +18,23 @@ describe('Contract', () => {
       // limit number of customers based on i
       const mockData : Awaited<ReturnType<typeof getContractDataV2>> = {
         ...contractData,
+        // Mock ISO Dates
+        startDate: '2021-06-01T00:00:00.000Z',
+        finishDate: '2021-06-30T00:00:00.000Z', 
+        deliveryDate: '2021-07-01T00:00:00.000Z',
+
+        contractDate: '2021-05-31T00:00:00.000Z',
+        
         customers: contractData.customers.slice(0, i),
+        payments: produce(contractData.payments, draft => {
+          draft[0].paymentAmt = 10000;
+          draft[1].paymentAmt = 10000;
+          draft[2].paymentAmt = 10000;
+          draft[3].paymentAmt = 10000;
+          draft[4].paymentAmt = 10000;
+        }),
       };
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', '20230523');
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', '20230605');
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custcount_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);

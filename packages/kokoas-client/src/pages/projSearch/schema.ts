@@ -11,11 +11,17 @@ export const payMethods = ['持参', '集金', '振込'] as const;
 
 const schema = z.object({
 
+  /** 顧客名 */
+  custName : z.string().nullable(),
+
+  /** 発注者住所・工事場所住所 */
+  address : z.string().nullable(),
+
   /** 店舗 */
   stores : z.array(z.string()).nullable(),
 
   /** 領域 */
-  areas : z.enum(territories).nullable(),
+  territories : z.array(z.enum(territories)).nullable(),
   
   /** ここすもAG */
   cocoAG : z.array(z.string()).nullable(),

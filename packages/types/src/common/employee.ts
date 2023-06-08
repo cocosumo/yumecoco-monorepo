@@ -22,4 +22,15 @@ export const AGLabels : Record<TAgents, string> = {
   sutekura: 'すてくら',
 };
 
+/** 選択肢などに出てくる職種 */
+export const officerRoles = [
+  '取締役',
+  '店長',
+  '店長代理',
+  '主任',
+  '営業',
+  '工務',
+  '経理',
+];
+
 export type KEmployeeStores = KeyOfSubtable<IEmployees['affStores']>;

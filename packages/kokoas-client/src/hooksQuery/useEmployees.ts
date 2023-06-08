@@ -11,16 +11,21 @@ export const useEmployees = <T = Awaited<ReturnType<typeof getActiveEmployees>>>
   options?: {
     isActive?: boolean,
     select:  (data: Awaited<ReturnType<typeof getActiveEmployees>>) => T
+    enabled?: boolean,
   },
 ) => {
   const {
     isActive = true,
+    enabled = true,
     ...otherOptions
   } = options || {};
 
   return useQuery(
     [AppIds.employees, isActive],
     () => getEmployees(isActive),
-    { ...otherOptions },
+    { 
+      ...otherOptions,
+      enabled, 
+    },
   );
 };

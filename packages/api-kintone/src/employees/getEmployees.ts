@@ -19,8 +19,6 @@ export const getEmployees  = async (
     queryArray.push(`状態 in ( ${statuses.map((s) => `"${s}"`).join(',')})`);
   }
 
-  console.log('QueryArray', queryArray);
-
   return getAllRecords<RecordType>({
     app: appId,
     condition: queryArray.join(' and ') || undefined,

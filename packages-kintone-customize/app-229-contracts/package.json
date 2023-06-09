@@ -7,7 +7,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "build": "vite build",
-    "dev": "vite build --watch",
+    "dev": "webpack --mode development --watch",
     "webpack": "webpack --mode production",
     "upload": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.prod.json",
     "upload:local": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.local.json",
@@ -18,6 +18,10 @@
   "license": "ISC",
   "dependencies": {
     "api-chatwork": "*",
-    "api-kintone": "*"
+    "api-kintone": "*",
+    "crypto-es": "^1.2.7"
+  },
+  "browser": {
+    "crypto": false
   }
 }

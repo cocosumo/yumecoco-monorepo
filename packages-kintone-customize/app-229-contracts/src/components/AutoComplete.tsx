@@ -38,7 +38,7 @@ export function AutoLookup({
   return (
     <Autocomplete
       disablePortal
-      value={value}
+      value={value?.id ? value : null}
       onOpen={handleOpen}
       options={options}
       onChange={(_, newValue) => {

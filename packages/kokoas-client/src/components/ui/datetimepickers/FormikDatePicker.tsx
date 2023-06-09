@@ -1,10 +1,10 @@
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import jaLocale from 'date-fns/locale/ja';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useField } from 'formik';
 import { format } from 'date-fns';
+import { DatePicker } from '@mui/lab';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 interface DatePickerProps {
   label: string,
@@ -22,6 +22,7 @@ export const FormikDatePicker = (props: DatePickerProps) => {
   const {
     disabled = false,
     size = 'medium',
+    label,
   } = props;
 
   const [field, meta, helpers] = useField(props);
@@ -32,14 +33,14 @@ export const FormikDatePicker = (props: DatePickerProps) => {
 
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={jaLocale}>
       <DatePicker
         disabled={disabled}
-        label={props.label}
+        label={label}
         value={field.value ?? null}
         onAccept={handleAccept}
         onChange={()=>{}}
-        renderInput={(params) =>(
+        renderInput={(params: TextFieldProps) =>(
           <TextField
             {...params}
             error={!!meta.error}

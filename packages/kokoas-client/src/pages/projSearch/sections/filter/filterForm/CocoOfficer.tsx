@@ -39,7 +39,11 @@ export const CocoOfficer = ({
             <MenuItem key={value} value={value}>
               {label}
               {isRetired && (
-              <Typography ml={2} sx={{ color: 'text.secondary' }}>
+              <Typography 
+                ml={2} 
+                sx={{ color: 'text.secondary' }}
+                component={'span'}
+              >
                 退職者
               </Typography>
               )}

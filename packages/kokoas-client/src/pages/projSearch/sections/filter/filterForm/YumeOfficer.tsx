@@ -19,13 +19,13 @@ export const YumeOfficer = ({
 
   return (
     <FormControl fullWidth size='small'>
-      <InputLabel id="cocoAg">
+      <InputLabel id="yumeAg">
         {inputLabel}
       </InputLabel>
 
 
       <Select
-        labelId="cocoAg"
+        labelId="yumeAg"
         label={inputLabel}
       >
         {data && data.map(([store, content]) => {

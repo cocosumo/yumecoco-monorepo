@@ -1,26 +1,26 @@
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
-import { Chip, Stack } from '@mui/material';
+import { Chip, Stack, Typography } from '@mui/material';
 
 export const TaxAmount = () => {
 
   const [
     totalContractAmtAfterTax,
     totalContractAmtBeforeTax,
-  ]  = useWatch<TypeOfForm>({
+  ] = useWatch<TypeOfForm>({
     name: [
       'totalContractAmtAfterTax',
       'totalContractAmtBeforeTax',
     ],
-    
+
   }) as number[];
 
 
   const taxValue = totalContractAmtAfterTax - totalContractAmtBeforeTax;
   return (
-    <Chip 
+    <Chip
       sx={{
-        '& .MuiChip-label' : {
+        '& .MuiChip-label': {
           width: '100%',
         },
       }}
@@ -28,10 +28,20 @@ export const TaxAmount = () => {
         <div>
           消費税
         </div>
-        <div>
-          {`${taxValue.toLocaleString()} 円`}
-        </div>
+        <Stack
+          direction={'row'}
+          alignItems={'center'}
+          justifyContent={'space-around'}
+          spacing={1.5}
+        >
+          <Typography color={taxValue >= 0 ? 'black' : 'orange'}>
+            {`${taxValue.toLocaleString()} `}
+          </Typography>
+          <div>
+            円
+          </div>
+        </Stack>
       </Stack>}
-    /> 
+    />
   );
 };

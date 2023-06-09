@@ -4,7 +4,7 @@ import { useFormContext, Controller, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
 import { useStoresGrpByTerritory } from '../../../hooks/useStoresGrpByTerritory';
 import { territories } from 'types';
-import { checkArrayElements } from 'libs/src/checkArrayElements';
+import { isPartialArray } from 'libs/src/isPartialArray';
 
 
 export const Territories = () => {
@@ -44,7 +44,7 @@ export const Territories = () => {
             {territories
               ?.map((territory) => {
 
-                const storesInTerritory = checkArrayElements(data[territory], stores  ?? []); 
+                const partial = isPartialArray(data[territory], stores  ?? []); 
 
                 return (
                   <Grid 
@@ -55,7 +55,7 @@ export const Territories = () => {
                       control={(
                         <Checkbox 
                           checked={territoriesVal?.includes(territory) ?? false}
-                          indeterminate={storesInTerritory === 'Partial'}
+                          indeterminate={partial}
                           value={territory}
                         />
                     )} 

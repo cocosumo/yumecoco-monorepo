@@ -1,4 +1,4 @@
 
 /** 領域 */
-export const territories = ['東', '西'] as const;
+export const territories = ['西', '東'] as const;
 export type Territory = typeof territories[number];

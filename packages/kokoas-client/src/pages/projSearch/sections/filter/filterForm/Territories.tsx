@@ -1,9 +1,10 @@
 import { Checkbox, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useFormContext, Controller } from 'react-hook-form';
-import { Territory, territories } from 'types';
+import { useFormContext, Controller, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
-import { useStores } from 'kokoas-client/src/hooksQuery';
+import { useStoresGrpByTerritory } from '../../../hooks/useStoresGrpByTerritory';
+import { territories } from 'types';
+import { checkArrayElements } from 'libs/src/checkArrayElements';
 
 
 export const Territories = () => {
@@ -14,30 +15,14 @@ export const Territories = () => {
     getValues,
   } = useFormContext<TypeOfForm>();
 
-  const { data } = useStores((s) => {
-    return s.reduce(
-      (acc, cur) => {
-        const {
-          territory,
-          storeNameShort,
-        } = cur;
-        if (!storeNameShort.value) return acc;
-
-        const resolvedTerritory = territory.value as Territory;
-
-        if (!acc[resolvedTerritory]) {
-          acc[resolvedTerritory] = [];
-        }
-        acc[resolvedTerritory].push(storeNameShort.value);
-        return acc;
-      }, 
-      {} as Record<Territory, string[]>,
-    );
+  const { data } = useStoresGrpByTerritory();
+  const stores = useWatch({
+    name: 'stores',
+    control,
   });
 
 
   if (!data) return null;
-
 
   return (
     <FormGroup >
@@ -56,38 +41,43 @@ export const Territories = () => {
         }) => (
         
           <Grid container>
-            {territories?.map((territory) => {
-              return (
-                <Grid 
-                  key={territory} 
-                  xs={'auto'}
-                >
-                  <FormControlLabel 
-                    control={(
-                      <Checkbox 
-                        checked={territoriesVal?.includes(territory) ?? false}
-                        value={territory}
-                      />
-                    )} 
-                    label={territory}
-                    onChange={(_, checked) => {
-                      const newTerritoriesVal = checked
-                        ? [...(territoriesVal ?? []), territory]
-                        : (territoriesVal ?? []).filter((t) => t !== territory);
-                      onChange(newTerritoriesVal);
+            {territories
+              ?.map((territory) => {
 
-                      // side effect that sets stores
-                      const storesVal = getValues('stores');
-                      const updatedStoresVal = checked
-                        ? [...new Set([...(storesVal ?? []), ...data[territory]])]
-                        : (storesVal ?? []).filter((store) => !data[territory].includes(store));
-                      setValue('stores', updatedStoresVal);
+                const storesInTerritory = checkArrayElements(data[territory], stores  ?? []); 
+
+                return (
+                  <Grid 
+                    key={territory} 
+                    xs={'auto'}
+                  >
+                    <FormControlLabel 
+                      control={(
+                        <Checkbox 
+                          checked={territoriesVal?.includes(territory) ?? false}
+                          indeterminate={storesInTerritory === 'Partial'}
+                          value={territory}
+                        />
+                    )} 
+                      label={territory}
+                      onChange={(_, checked) => {
+                        const newTerritoriesVal = checked
+                          ? [...(territoriesVal ?? []), territory]
+                          : (territoriesVal ?? []).filter((t) => t !== territory);
+                        onChange(newTerritoriesVal);
+
+                        // side effect that sets stores
+                        const storesVal = getValues('stores');
+                        const updatedStoresVal = checked
+                          ? [...new Set([...(storesVal ?? []), ...data[territory]])]
+                          : (storesVal ?? []).filter((store) => !data[territory].includes(store));
+                        setValue('stores', updatedStoresVal);
                       
-                    }}
-                  />
-                </Grid>
-              );
-            })}
+                      }}
+                    />
+                  </Grid>
+                );
+              })}
       
           </Grid>
         )}

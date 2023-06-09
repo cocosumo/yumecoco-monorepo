@@ -1,31 +1,18 @@
 import { Checkbox, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useStores } from 'kokoas-client/src/hooksQuery';
-import { useCallback } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import { IStores } from 'types';
 import { TypeOfForm } from '../../../schema';
+import { useStoreOptions } from '../../../hooks/useStoreOptions';
+import { useStoresGrpByTerritory } from '../../../hooks/useStoresGrpByTerritory';
+import { territories } from 'types';
 
 
 export const Stores = () => {
 
-  const { control } = useFormContext<TypeOfForm>();
+  const { control, setValue, getValues } = useFormContext<TypeOfForm>();
 
-  const { data } = useStores(
-    useCallback(
-      (d: IStores[]) => {
-        
-        return d
-          .filter(({ storeNameShort }) => !!storeNameShort.value)
-          .map(({ storeNameShort, uuid }) => ({
-            label: storeNameShort.value,
-            key: uuid.value,
-          }));
-      }, 
-      [],
-    ),
-  );
-
+  const { data: stores } = useStoreOptions();
+  const { data: groupedStores } = useStoresGrpByTerritory();
 
   return (
     <FormGroup >
@@ -43,7 +30,7 @@ export const Stores = () => {
         }) => (
           <Grid container>
      
-            {data?.map(({ key, label }) => {
+            {stores?.map(({ key, label }) => {
               return (
                 <Grid 
                   key={key} 
@@ -52,11 +39,39 @@ export const Stores = () => {
                   <FormControlLabel 
                     control={(
                       <Checkbox 
-                    //checked={stores?.includes(label) ?? false}
+                        checked={(value ?? []).includes(label)}
                         value={label}
                       />
                     )} 
                     label={label}
+                    onChange={(_, checked) => {
+                      const newValue = checked
+                        ? [...(value ?? []), label]
+                        : (value ?? []).filter((t) => t !== label);
+         
+                      // side effect that sets territories
+                      const territoriesVal = getValues('territories') ?? [];
+
+                      if (!groupedStores) {
+                        return;
+                      }
+
+                      territories
+                        .forEach((territory) => {
+                          if (groupedStores[territory].includes(label)) {
+
+                            if (groupedStores[territory].every((store) => newValue.includes(store))) {
+                              setValue('territories', [...territoriesVal, territory]);
+                            } else {
+                              setValue('territories', territoriesVal.filter((t) => t !== territory));
+
+                            }
+                          }
+                        });
+
+                      onChange(newValue);
+
+                    }}
                   />
                 </Grid>
               );

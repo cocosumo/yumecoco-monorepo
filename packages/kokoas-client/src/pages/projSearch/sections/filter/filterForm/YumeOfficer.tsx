@@ -9,8 +9,26 @@ import {
 import { useYumeByStore } from '../../../hooks/useYumeByStore';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
+import { Option } from '../../../types';
 
 const inputLabel = 'ゆめてつAG';
+
+
+export const renderMenuItems = (options: Option[]) => {
+  return options
+    .map(({ isRetired, label, value: optVal }) => {
+      return (
+        <MenuItem key={optVal} value={label}>
+          {label}
+          {isRetired && (
+          <Typography ml={2} sx={{ color: 'text.secondary' }}>
+            退職者
+          </Typography>
+          )}
+        </MenuItem>
+      );
+    });
+};
 
 export const YumeOfficer = ({
   includeRetired,
@@ -26,18 +44,29 @@ export const YumeOfficer = ({
     <Controller 
       control={control}
       name='yumeAG'
-      render={() => (
+      render={({
+        field: {
+          value,
+          onChange,
+          name,
+        },
+      }) => (
         <FormControl 
           fullWidth 
           size='small'
+          sx={{ maxWidth: 259 }}
         >
-          <InputLabel id="yumeAG">
+          <InputLabel id={name}>
             {inputLabel}
           </InputLabel>
           <Select
-            labelId="yumeAG"
+            labelId={name}
             label={inputLabel}
+            value={value ?? []}
             multiple
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
           >
             {data && data.map(([store, content]) => {
 
@@ -46,24 +75,12 @@ export const YumeOfficer = ({
               } = content;
 
               return (
-                <div key={store}>
-                  <ListSubheader>
+                [
+                  <ListSubheader key={store}>
                     {store} 
-                  </ListSubheader>
-                  {options.map(({ isRetired, label, value }) => {
-                    return (
-                      <MenuItem key={value} value={value}>
-                        {label}
-                        {isRetired && (
-                        <Typography ml={2} sx={{ color: 'text.secondary' }}>
-                          退職者
-                        </Typography>
-                        )}
-                      </MenuItem>
-                    );
-                  })}
-                </div>);
- 
+                  </ListSubheader>,
+                  renderMenuItems(options),
+                ]);
             })}
         
           </Select>

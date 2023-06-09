@@ -19,7 +19,7 @@ import { Big } from 'big.js';
  * Big.roundHalfDown : 4 : 五捨六入
  * 
  */
-export const roundTo = (value: number, precision = 0, rmProperty = 2) => {
+export const roundTo = (value: number, precision = 0, rmProperty = 1) => {
 
   if (rmProperty === 4) {
     const base = Big(precision).plus(1)

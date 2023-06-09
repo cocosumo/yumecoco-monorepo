@@ -80,10 +80,7 @@ export const CocoOfficer = ({
             
           >
             <MenuItem onClick={() => onChange(null)}>
-              <Typography variant="caption" >
-                クリア
-              </Typography>
-              
+              全員
             </MenuItem>
 
             {menuItems.map(({

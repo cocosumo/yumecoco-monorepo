@@ -68,6 +68,9 @@ export const YumeOfficer = ({
               onChange(e.target.value);
             }}
           >
+            <MenuItem onClick={() => onChange(null)}>
+              全員
+            </MenuItem>
             {data && data.map(([store, content]) => {
 
               const {

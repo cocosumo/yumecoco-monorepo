@@ -70,6 +70,8 @@ export const Stores = () => {
                         });
 
                       onChange(newValue);
+                      setValue('cocoAG', []);
+                      setValue('yumeAG', []);
 
                     }}
                   />

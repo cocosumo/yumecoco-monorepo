@@ -72,7 +72,9 @@ export const Territories = () => {
                           ? [...new Set([...(storesVal ?? []), ...data[territory]])]
                           : (storesVal ?? []).filter((store) => !data[territory].includes(store));
                         setValue('stores', updatedStoresVal);
-                      
+                        
+                        setValue('cocoAG', []);
+                        setValue('yumeAG', []);
                       }}
                     />
                   </Grid>

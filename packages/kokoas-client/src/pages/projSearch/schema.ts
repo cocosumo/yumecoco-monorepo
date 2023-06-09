@@ -32,13 +32,23 @@ const schema = z.object({
   /** キーワード */
   keyword : z.string().nullable(),
   
-  /** TODO : 検証は仮実装です。ras 2023.06.02 */
+  /** 契約日　From */
+  contractDateFrom : z.date().nullable(),
 
+  /** 契約日　To */
+  contractDateTo : z.date().nullable(),
+
+  /** 完工日　From */
+  completionDateFrom : z.date().nullable(),
+
+  /** 完工日　To */
+  completionDateTo : z.date().nullable(),
 });
   
 
 
 export type TypeOfForm = z.infer<typeof schema>;
+export type KeyOfForm = keyof TypeOfForm;
 
 
 export default schema;

@@ -8,4 +8,10 @@ export const initialForm : TypeOfForm = {
   cocoAG: null,
   yumeAG: null,
   keyword: null,
+
+  completionDateFrom: null,
+  completionDateTo: null,
+
+  contractDateFrom: null,
+  contractDateTo: null,
 };

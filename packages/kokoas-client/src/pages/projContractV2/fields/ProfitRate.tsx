@@ -43,7 +43,7 @@ export const ProfitRate = ({
             type='number'
             onChange={(e) => {
               const profitRate = +e.target.value;
-              onChange(e.target.value);
+              onChange(typeof profitRate === 'number' ? profitRate : e.target.value);
 
               if (!isNaN(profitRate)) {
                 

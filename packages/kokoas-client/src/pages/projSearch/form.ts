@@ -6,7 +6,6 @@ export const initialForm : TypeOfForm = {
   stores: null,
   territories: null,
   cocoAG: null,
-  cocoConst: null,
   yumeAG: null,
   keyword: null,
 };

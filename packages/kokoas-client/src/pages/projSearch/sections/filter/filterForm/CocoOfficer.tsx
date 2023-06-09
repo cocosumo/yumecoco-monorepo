@@ -6,7 +6,10 @@ import {
   Typography, 
 } from '@mui/material';
 import { useCocoEmpGrpByArea } from '../../../hooks/useCocoEmpGrpByArea';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
+import { TypeOfForm } from '../../../schema';
+import { useEffect, useMemo } from 'react';
+import intersection from 'lodash/intersection';
 
 const inputLabel = 'ここすも担当者';
 
@@ -15,45 +18,94 @@ export const CocoOfficer = ({
 }: {
   includeRetired: boolean
 }) => {
+  const {
+    control,
+    setValue,
+    getValues,
+  } = useFormContext<TypeOfForm>();
   const { data } = useCocoEmpGrpByArea(includeRetired);
+
+  const menuItems = useMemo(() => data 
+    ? [...data['西'], ...data['東']] 
+    : [], 
+  [data]); 
+
+  useEffect(() => {
+    if (!menuItems.length) return;
+    // remove values that are not in the select menu
+    const labels = menuItems.map(({ label }) => label);
+    const currentVal = getValues('cocoAG') ?? [];
+    setValue('cocoAG', intersection(currentVal, labels ));
+  }, 
+  [
+    menuItems,
+    getValues,
+    setValue,
+  ]);
 
   return (
 
-    <FormControl fullWidth size='small'>
-      <InputLabel id="cocoAg">
-        {inputLabel}
-      </InputLabel>
-
-
-      <Select
-        labelId="cocoAg"
-        label={inputLabel}
-      >
-        {data && [
-          ...data['西'],
-          ...data['東'],
-        ].map(({
-          label,
+    <Controller 
+      name='cocoAG'
+      control={control}
+      render={({
+        field: {
           value,
-          isRetired,
-        }) => {
-          return (
-            <MenuItem key={value} value={value}>
-              {label}
-              {isRetired && (
-              <Typography 
-                ml={2} 
-                sx={{ color: 'text.secondary' }}
-                component={'span'}
-              >
-                退職者
+          onChange,
+        },
+      }) => (
+        <FormControl 
+          fullWidth 
+          size='small'
+          sx={{ maxWidth: 259 }}
+        >
+          <InputLabel id="cocoAg">
+            {inputLabel}
+          </InputLabel>
+
+
+          <Select
+            labelId="cocoAg"
+            label={inputLabel}
+            value={value ?? []}
+            multiple
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
+            
+          >
+            <MenuItem onClick={() => onChange(null)}>
+              <Typography variant="caption" >
+                クリア
               </Typography>
-              )}
+              
             </MenuItem>
-          );
-        })}
+
+            {menuItems.map(({
+              label,
+              value: itemValue,
+              isRetired,
+            }) => {
+              return (
+                <MenuItem key={itemValue} value={label}>
+                  {label}
+                  {isRetired && (
+                    <Typography 
+                      ml={2} 
+                      sx={{ color: 'text.secondary' }}
+                      component={'span'}
+                    >
+                      退職者
+                    </Typography>
+                  )}
+                </MenuItem>
+              );
+            })}
         
-      </Select>
-    </FormControl>
+          </Select>
+        </FormControl>
+      )}
+    />
+    
   );
 };

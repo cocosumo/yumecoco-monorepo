@@ -26,9 +26,6 @@ const schema = z.object({
   /** ここすもAG */
   cocoAG : z.array(z.string()).nullable(),
 
-  /** ここすも工事 */
-  cocoConst : z.array(z.string()).nullable(),
-
   /** ゆめてつAG */
   yumeAG : z.array(z.string()).nullable(),
 

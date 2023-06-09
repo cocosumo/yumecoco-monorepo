@@ -15,9 +15,7 @@ export const CocoOfficer = ({
   includeRetired: boolean
 }) => {
   const { data } = useCocoEmpGrpByArea(includeRetired);
-
-  console.log('data', data);
-
+  
   return (
     <FormControl fullWidth size='small'>
       <InputLabel id="cocoAg">

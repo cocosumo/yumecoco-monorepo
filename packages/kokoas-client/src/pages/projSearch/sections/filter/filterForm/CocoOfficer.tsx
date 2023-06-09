@@ -24,11 +24,17 @@ export const CocoOfficer = ({
     getValues,
   } = useFormContext<TypeOfForm>();
   const { data } = useCocoEmpGrpByArea(includeRetired);
+  console.log('data', data);
 
-  const menuItems = useMemo(() => data 
-    ? [...data['西'], ...data['東']] 
-    : [], 
-  [data]); 
+  const menuItems = useMemo(() => {
+    if (data) {
+      const westItems = data['西'] ?? [];
+      const eastItems = data['東'] ?? [];
+      return [...westItems, ...eastItems];
+    } else {
+      return [];
+    }
+  }, [data]);
 
   useEffect(() => {
     if (!menuItems.length) return;

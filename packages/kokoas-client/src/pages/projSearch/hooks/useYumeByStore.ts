@@ -1,7 +1,8 @@
 import { useEmployees, useStores } from 'kokoas-client/src/hooksQuery';
 import { EmpAffiliations, EmpStatus, officerRoles } from 'types';
 import { Option } from '../types';
-
+import { useSelectStoresId } from './useSelectedStoresId';
+import intersection from 'lodash/intersection';
 
 interface GroupedByStore {
   [storeName: string]: {
@@ -11,6 +12,8 @@ interface GroupedByStore {
 }
 
 export const useYumeByStore = (includeRetired = false) => {
+  const selectedStoresId = useSelectStoresId();
+
   const { data: storeData } = useStores((d) => d
     .map(({ 
       uuid, 
@@ -37,8 +40,14 @@ export const useYumeByStore = (includeRetired = false) => {
             sort,
             mainStoreId_v2: mainStoreId,
             mainStore_v2: mainStoreName,
+            affStores,
           } = cur;
 
+          const affStoresId = affStores.value.map(({ value: { affStoreId } }) => affStoreId.value);
+          const intersectedStores = intersection([...affStoresId, mainStoreId.value], selectedStoresId);
+          const isStoresInstersect = intersectedStores.length > 0;
+
+          if (selectedStoresId.length && !isStoresInstersect ) return acc;
           if ((affiliation.value as EmpAffiliations) !== 'ゆめてつ') return acc;
           if (!officerRoles.includes(role.value)) return acc;
 

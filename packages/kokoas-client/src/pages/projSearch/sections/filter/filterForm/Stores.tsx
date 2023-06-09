@@ -58,15 +58,15 @@ export const Stores = () => {
 
                       territories
                         .forEach((territory) => {
-                          if (groupedStores[territory].includes(label)) {
 
+                          if (groupedStores[territory].includes(label)) {
                             if (groupedStores[territory].every((store) => newValue.includes(store))) {
                               setValue('territories', [...territoriesVal, territory]);
                             } else {
                               setValue('territories', territoriesVal.filter((t) => t !== territory));
-
                             }
                           }
+                          
                         });
 
                       onChange(newValue);

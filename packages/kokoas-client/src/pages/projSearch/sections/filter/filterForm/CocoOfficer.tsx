@@ -24,7 +24,6 @@ export const CocoOfficer = ({
     getValues,
   } = useFormContext<TypeOfForm>();
   const { data } = useCocoEmpGrpByArea(includeRetired);
-  console.log('data', data);
 
   const menuItems = useMemo(() => {
     if (data) {

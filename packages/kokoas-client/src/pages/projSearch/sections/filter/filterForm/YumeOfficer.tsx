@@ -7,6 +7,8 @@ import {
   Typography, 
 } from '@mui/material';
 import { useYumeByStore } from '../../../hooks/useYumeByStore';
+import { Controller, useFormContext } from 'react-hook-form';
+import { TypeOfForm } from '../../../schema';
 
 const inputLabel = 'ゆめてつAG';
 
@@ -15,47 +17,60 @@ export const YumeOfficer = ({
 }: {
   includeRetired: boolean
 }) => {
+  const {
+    control,
+  } = useFormContext<TypeOfForm>();
   const { data } = useYumeByStore(includeRetired);
 
   return (
-    <FormControl fullWidth size='small'>
-      <InputLabel id="cocoAg">
-        {inputLabel}
-      </InputLabel>
+    <Controller 
+      control={control}
+      name='yumeAG'
+      render={() => (
+        <FormControl 
+          fullWidth 
+          size='small'
+        >
+          <InputLabel id="yumeAG">
+            {inputLabel}
+          </InputLabel>
+          <Select
+            labelId="yumeAG"
+            label={inputLabel}
+            multiple
+          >
+            {data && data.map(([store, content]) => {
 
+              const {
+                options,
+              } = content;
 
-      <Select
-        labelId="cocoAg"
-        label={inputLabel}
-      >
-        {data && data.map(([store, content]) => {
-
-          const {
-            options,
-          } = content;
-
-          return (
-            <div key={store}>
-              <ListSubheader>
-                {store} 
-              </ListSubheader>
-              {options.map(({ isRetired, label, value }) => {
-                return (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                    {isRetired && (
-                    <Typography ml={2} sx={{ color: 'text.secondary' }}>
-                      退職者
-                    </Typography>
-                    )}
-                  </MenuItem>
-                );
-              })}
-            </div>);
+              return (
+                <div key={store}>
+                  <ListSubheader>
+                    {store} 
+                  </ListSubheader>
+                  {options.map(({ isRetired, label, value }) => {
+                    return (
+                      <MenuItem key={value} value={value}>
+                        {label}
+                        {isRetired && (
+                        <Typography ml={2} sx={{ color: 'text.secondary' }}>
+                          退職者
+                        </Typography>
+                        )}
+                      </MenuItem>
+                    );
+                  })}
+                </div>);
  
-        })}
+            })}
         
-      </Select>
-    </FormControl>
+          </Select>
+        </FormControl>
+      )}
+    
+    />
+    
   );
 };

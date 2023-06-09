@@ -45,10 +45,14 @@ export const useYumeByStore = (includeRetired = false) => {
 
           const affStoresId = affStores.value.map(({ value: { affStoreId } }) => affStoreId.value);
           const intersectedStores = intersection([...affStoresId, mainStoreId.value], selectedStoresId);
-          const isStoresInstersect = intersectedStores.length > 0;
 
-          if (selectedStoresId.length && !isStoresInstersect ) return acc;
+          // Ignore if selectedStoresId is not empty and no intersection
+          if (selectedStoresId.length && !intersectedStores.length ) return acc;
+
+          // Ignore if affiliation is not ゆめてつ
           if ((affiliation.value as EmpAffiliations) !== 'ゆめてつ') return acc;
+
+          // Ignore if role is not one of officerRoles
           if (!officerRoles.includes(role.value)) return acc;
 
           const storeNameRec = storeData?.find(({ storeId }) => storeId === mainStoreId.value);
@@ -58,22 +62,23 @@ export const useYumeByStore = (includeRetired = false) => {
             sortNumber = 0,
           } = storeNameRec ?? {};
 
-          const resolvedStore = storeName;
+          const resolvedStoreName = storeName;
 
-          if (!acc[resolvedStore]?.options) {
-            acc[resolvedStore] = {
+          if (!acc[resolvedStoreName]?.options) {
+            acc[resolvedStoreName] = {
               options: [],
               sortKey: +(sortNumber || 0),
             };
           }
 
 
-          acc[resolvedStore].options.push({
+          acc[resolvedStoreName].options.push({
             label: name.value,
             value: uuid.value,
             isRetired: (empStatus.value as EmpStatus) !== '有効',
             sortKey: +(sort.value || 0),
           });
+          
           return acc;
         }, 
         Object.create(null) as GroupedByStore,

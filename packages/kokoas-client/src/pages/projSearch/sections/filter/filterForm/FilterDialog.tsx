@@ -5,6 +5,7 @@ import { Officers } from './Officers';
 import { DateRange } from '../../../fields/DateRange';
 import { CustomerDetails } from './CustomerDetails';
 import { ProjType } from './ProjType';
+import { SearchButton } from './SearchButton';
 
 export const FilterDialog = ({
   open,
@@ -48,9 +49,7 @@ export const FilterDialog = ({
         >
           キャンセル
         </Button>
-        <Button variant='contained'>
-          検索
-        </Button>
+        <SearchButton handleClose={handleClose} />
       </DialogActions>
     </Dialog>
   );

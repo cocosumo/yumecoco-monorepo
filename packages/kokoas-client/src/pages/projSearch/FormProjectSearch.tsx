@@ -7,14 +7,24 @@ import { Filter } from './sections/filter/Filter';
 import { Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { Result } from './sections/result/Result';
+import { useEffect } from 'react';
+import { useParseQuery } from './hooks/useParseQuery';
 
 
 export const FormProjectSearch = () => {
+  const parsedQuery = useParseQuery();
   const formReturn = useForm<TypeOfForm>({
-    defaultValues: initialForm,
+    defaultValues: parsedQuery,
     resolver: zodResolver(schema),
     
   });
+
+  const { reset } = formReturn;
+
+
+  useEffect(() => {
+    reset(parsedQuery);
+  }, [reset, parsedQuery]);
 
   return (
     <Stack

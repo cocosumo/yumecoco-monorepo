@@ -5,6 +5,7 @@ type AdvancedOptions = {
   boxWidth?: number, // フィールドの後ろのXから頭のＸを引いた数字。
   align?: 'left' | 'right' | 'center', // 水平方向への配置, boxWidthに依存している
   isShowBox?: boolean // trueにすると、赤い箱が表示されます。デバグの時、役に立つ
+  isAutoSize?: boolean // trueにすると、boxWidthに依存している
 };
 
 /**
@@ -35,14 +36,18 @@ export const drawText = async (
 ) => {
 
   const defaultText = text ?? '';
+  let parsedSize = size;
+
+
 
   const {
     weight = 0.4,
     align = 'left',
     boxWidth = 102,
     isShowBox = false,
-
+    isAutoSize = false,
   } = advancedOptions || {};
+  
   const textWidth = font?.widthOfTextAtSize(defaultText, size) ?? 0;
   const boxX = x ?? 0;
   const boxY = y ?? 0;
@@ -57,6 +62,12 @@ export const drawText = async (
     });
   }
 
+  if (boxWidth && font && isAutoSize) {
+    while (font?.widthOfTextAtSize(text, parsedSize) > boxWidth) {
+      parsedSize -= 0.5;
+    }
+  }
+
 
   for (let i = 0; i <= weight; i += 0.1) {
     switch (align) {
@@ -64,7 +75,7 @@ export const drawText = async (
         pdfPage.drawText(defaultText, {
           x: (x || 0) + i,
           y: y,
-          size: size,
+          size: parsedSize, // 影響は十分にテスト出来ないため、一応、ここのみサイズを変える
           font: font,
           color: color,
         });

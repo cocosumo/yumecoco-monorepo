@@ -1,5 +1,5 @@
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextFieldProps } from '@mui/material';
 import { useField } from 'formik';
 import { ComponentProps } from 'react';
 import { JADatePicker } from './JADatePicker';
@@ -26,9 +26,6 @@ export const FormikJADatePicker = (
   return (
     <JADatePicker
       {...dataPickerProps}
-      PopperProps={{
-        placement: 'auto',
-      }}
       disabled={!!disabled}
       /* Need to use null as empty. String won't work when clearing the field.
       This is different with other fields where they
@@ -39,15 +36,15 @@ export const FormikJADatePicker = (
         setTouched(true);
         setValue(v ?? '', true);
       }}
-      renderInput={(params) =>(
-        <TextField
-          {...params}
-          {...textFieldProps}
-          name={name}
-          onBlur={() => setTouched(true, true)}
-          error={isShowError}
-          helperText={isShowError ? error : ''}
-        />)}
+      slotProps={{
+        textField: {
+          ...textFieldProps,
+          name,
+          onBlur: () => setTouched(true, true),
+          error: isShowError,
+          helperText: isShowError ? error : '',
+        },
+      }}
     />
   );
 };

@@ -1,8 +1,7 @@
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import jaLocale from 'date-fns/locale/ja';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { ComponentProps, forwardRef, Ref } from 'react';
+import { DatePicker, DatePickerProps, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import jaLocale from 'date-fns/locale/ja';
+import { forwardRef, Ref } from 'react';
 
 
 /**
@@ -11,13 +10,14 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
  * @param props
  * @returns
  */
-export const JADatePicker = forwardRef(( datePickerProps: ComponentProps<typeof DatePicker>, ref) => {
+export const JADatePicker = forwardRef(( datePickerProps: DatePickerProps<any>, ref) => {
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={jaLocale}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={jaLocale}>
       <DatePicker
         {...datePickerProps}
-        inputRef={ref as Ref<HTMLInputElement>}
+        ref={ref as Ref<HTMLDivElement>}
+        
       />
 
     </LocalizationProvider>

@@ -182,6 +182,37 @@ describe(
             .should('have.value', roundTo(amountBeforeTax).toLocaleString());
         });
 
+        it('契約金額にマイナスの値を入力したら、オレンジ色になること', () => {
+          const inputValue = -2200;
+          const {
+            amountBeforeTax,
+            costPrice,
+            profit,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (profitRate / 100),
+          });
+
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .invoke('val', '')
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue)
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString())
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+
+          cy.getTextInputsByLabel(labelMap.costPrice)
+            .should('have.value', roundTo(costPrice).toLocaleString())
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+
+          cy.getTextInputsByLabel(labelMap.profit)
+            .should('have.value', roundTo(profit).toLocaleString())
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+        });
+
         // TODO: 他のフィールドの計算が合っていることを確認する
       },
     );

@@ -20,10 +20,15 @@ const schema = z.object({
   /** 店舗 */
   stores : z.array(z.string()).nullable(),
 
+  /** 工事種別 */
+  projTypes : z.array(z.string()).nullable(),
+
   /** 領域 */
   territories : z.array(z.enum(territories)).nullable(),
 
+  /** 退職者 */
   includeRetired : z.boolean(),
+  
   
   /** ここすもAG */
   cocoAG : z.array(z.string()).nullable(),

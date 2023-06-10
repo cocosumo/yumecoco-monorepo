@@ -1,6 +1,6 @@
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
-import { useStoreOptions } from './useStoreOptions';
+import { useStoreIds } from './useStoreIds';
 
 /**
  * 選択された店舗のIDを取得する
@@ -11,13 +11,7 @@ export const useSelectStoresId = () => {
     name: 'stores', 
   }) as string[] | null;
 
-  const { data: stores } = useStoreOptions();
-
-  if (!stores) return [];
-
-  return (selectedStores ?? []).map((storeAlias) => {
-    const selectedStore = stores.find(({ label }) => label === storeAlias );
-    return selectedStore?.key ?? '';
-  });  
+  const storeIds = useStoreIds(selectedStores ?? []);
+  return storeIds;
 
 };

@@ -3,6 +3,7 @@ import { useParseQuery } from './useParseQuery';
 import { SearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
 import { addressBuilder } from 'libs';
+import { useStoreIds } from './useStoreIds';
 //import { search } from '../api/search'; 
 
 // fakerは膨大なデータを生成するので、一旦コメントアウト
@@ -14,17 +15,21 @@ export const useSearchResult =  () => {
   const { data: recCustomers } = useCustomers();
   const { data: recCustGroup } = useCustGroups();
   const { data: recContracts } = useAllContracts();
-  
 
+  const {
+    keyword,
+    custName,
+    address,
+    stores,
+  } = parsedQuery || {};
+
+  const selectedStoreIds = useStoreIds(stores ?? []);
+
+  console.log('selectedStoreIds', selectedStoreIds);
 
   return useProjects<SearchResult[]>({
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
     select: (data) => {
-      const {
-        keyword,
-        custName,
-        address,
-      } = parsedQuery || {};
 
       return data?.reduce((acc, curr) => {
 
@@ -62,7 +67,10 @@ export const useSearchResult =  () => {
         const {
           members,
           storeName,
+          storeId,
         } = custGroup;
+
+        console.log('storeId', selectedStoreIds, storeId?.value);
 
         const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
         const { 
@@ -88,11 +96,13 @@ export const useSearchResult =  () => {
 
         const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
-        
+        const isMatchStore = !selectedStoreIds.length || selectedStoreIds.includes(storeId.value);
+
         if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName
             && isMatchAddress
+            && isMatchStore
           )
         ) {
           acc.push({

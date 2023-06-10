@@ -4,6 +4,9 @@ export const initialForm : TypeOfForm = {
   custName: null,
   address: null,
   stores: null,
+  
+  projTypes: null,
+
   territories: null,
 
   includeRetired: false,

@@ -1,13 +1,15 @@
-import { useStoreOptions } from './useStoreOptions';
+import { useStores } from 'kokoas-client/src/hooksQuery';
 
 export const useStoreIds = (selectedStores: string[]) => {
 
-  const { data: stores } = useStoreOptions();
+  return useStores((data) => {
+    return data?.reduce((acc, curr) => {
+      const { uuid, storeNameShort } = curr;
+      if (!selectedStores.includes(storeNameShort.value)) return acc;
+      
+      acc.push(uuid.value);
+      return acc;
+    }, [] as string[]);
+  });
 
-  if (!stores) return [];
-
-  return (selectedStores ?? []).map((storeAlias) => {
-    const selectedStore = stores.find(({ label }) => label === storeAlias );
-    return selectedStore?.key ?? '';
-  });  
 };

@@ -31,8 +31,7 @@ const schema = z.object({
   totalContractAmtBeforeTax: z.number(),
 
   /** 粗利額 */
-  // must be above 0
-  totalProfit: z.number().min(1),
+  totalProfit: z.number().gt(0),
 
   /** 粗利率 */
   profitRate: z.number(),

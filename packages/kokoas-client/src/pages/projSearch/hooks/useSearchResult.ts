@@ -4,6 +4,7 @@ import { SearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
 import { addressBuilder } from 'libs';
 import { useStoreIds } from './useStoreIds';
+import { useProjTypesIds } from './useProjTypesIds';
 //import { search } from '../api/search'; 
 
 // fakerは膨大なデータを生成するので、一旦コメントアウト
@@ -21,11 +22,13 @@ export const useSearchResult =  () => {
     custName,
     address,
     stores,
+    projTypes,
   } = parsedQuery || {};
 
-  const selectedStoreIds = useStoreIds(stores ?? []);
+  const { data: selectedStoreIds } = useStoreIds(stores ?? []);
+  const { data: selectedProjTypeIds } = useProjTypesIds(projTypes ?? []);
 
-  console.log('selectedStoreIds', selectedStoreIds);
+  console.log('selectedProjTypeIds', selectedProjTypeIds);
 
   return useProjects<SearchResult[]>({
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
@@ -43,6 +46,7 @@ export const useSearchResult =  () => {
           cocoConstNames,
           uuid: projId,
           projName,
+          projTypeId,
         } = curr; // 工事情報;
 
         const projAddress = addressBuilder({
@@ -70,7 +74,6 @@ export const useSearchResult =  () => {
           storeId,
         } = custGroup;
 
-        console.log('storeId', selectedStoreIds, storeId?.value);
 
         const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
         const { 
@@ -96,13 +99,15 @@ export const useSearchResult =  () => {
 
         const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
-        const isMatchStore = !selectedStoreIds.length || selectedStoreIds.includes(storeId.value);
+        const isMatchStore = !selectedStoreIds?.length || selectedStoreIds.includes(storeId.value);
+        const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
 
         if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName
             && isMatchAddress
             && isMatchStore
+            && isMatchProjType
           )
         ) {
           acc.push({

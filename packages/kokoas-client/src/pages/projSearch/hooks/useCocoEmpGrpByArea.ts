@@ -6,7 +6,7 @@ import { useWatch } from 'react-hook-form';
 
 export const useCocoEmpGrpByArea = () => {
 
-  const selectedStoresId = useSelectStoresId();
+  const { data: selectedStoresId } = useSelectStoresId();
   const includeRetired = useWatch({ name: 'includeRetired' }) as boolean;
 
 
@@ -26,7 +26,7 @@ export const useCocoEmpGrpByArea = () => {
             mainStoreId_v2: mainStoreId,
           } = cur;
 
-          if (selectedStoresId.length && !selectedStoresId.includes(mainStoreId.value)) return acc;
+          if (selectedStoresId?.length && !selectedStoresId.includes(mainStoreId.value)) return acc;
           if ((affiliation.value as EmpAffiliations) !== 'ここすも') return acc;
           if (!officerRoles.includes(role.value)) return acc;
 

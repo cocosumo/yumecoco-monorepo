@@ -13,7 +13,7 @@ interface GroupedByStore {
 }
 
 export const useYumeByStore = () => {
-  const selectedStoresId = useSelectStoresId();
+  const { data: selectedStoresId } = useSelectStoresId();
   const includeRetired = useWatch({ name: 'includeRetired' }) as boolean;
 
   const { data: storeData } = useStores((d) => d
@@ -49,7 +49,7 @@ export const useYumeByStore = () => {
           const intersectedStores = intersection([...affStoresId, mainStoreId.value], selectedStoresId);
 
           // Ignore if selectedStoresId is not empty and no intersection
-          if (selectedStoresId.length && !intersectedStores.length ) return acc;
+          if (selectedStoresId?.length && !intersectedStores.length ) return acc;
 
           // Ignore if affiliation is not ゆめてつ
           if ((affiliation.value as EmpAffiliations) !== 'ゆめてつ') return acc;

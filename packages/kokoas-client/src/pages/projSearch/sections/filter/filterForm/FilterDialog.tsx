@@ -30,8 +30,16 @@ export const FilterDialog = ({
           <Stores />
           <ProjType />
           <Officers />
-          <DateRange label='契約日' />
-          <DateRange label='完工日' />
+          <DateRange 
+            fromName='contractDateFrom'
+            toName='contractDateTo'
+            label='契約日'
+          />
+          <DateRange 
+            fromName='completionDateFrom'
+            toName='completionDateTo'
+            label='完工日'
+          />
         </Stack>
       </DialogContent>
       <DialogActions>

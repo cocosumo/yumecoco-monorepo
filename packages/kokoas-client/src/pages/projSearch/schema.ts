@@ -11,17 +11,22 @@ export const payMethods = ['持参', '集金', '振込'] as const;
 
 const schema = z.object({
 
+  /** 顧客名 */
+  custName : z.string().nullable(),
+
+  /** 発注者住所・工事場所住所 */
+  address : z.string().nullable(),
+
   /** 店舗 */
   stores : z.array(z.string()).nullable(),
 
   /** 領域 */
-  areas : z.enum(territories).nullable(),
+  territories : z.array(z.enum(territories)).nullable(),
+
+  includeRetired : z.boolean(),
   
   /** ここすもAG */
   cocoAG : z.array(z.string()).nullable(),
-
-  /** ここすも工事 */
-  cocoConst : z.array(z.string()).nullable(),
 
   /** ゆめてつAG */
   yumeAG : z.array(z.string()).nullable(),
@@ -29,13 +34,23 @@ const schema = z.object({
   /** キーワード */
   keyword : z.string().nullable(),
   
-  /** TODO : 検証は仮実装です。ras 2023.06.02 */
+  /** 契約日　From */
+  contractDateFrom : z.coerce.date().nullable(),
 
+  /** 契約日　To */
+  contractDateTo : z.coerce.date().nullable(),
+
+  /** 完工日　From */
+  completionDateFrom : z.coerce.date().nullable(),
+
+  /** 完工日　To */
+  completionDateTo : z.coerce.date().nullable(),
 });
   
 
 
 export type TypeOfForm = z.infer<typeof schema>;
+export type KeyOfForm = keyof TypeOfForm;
 
 
 export default schema;

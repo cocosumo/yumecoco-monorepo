@@ -1,36 +1,32 @@
-import { Box, Checkbox, FormControlLabel, FormGroup, FormLabel, Stack } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2';
+import { FormGroup, FormLabel, Stack } from '@mui/material';
 import { CocoOfficer } from './CocoOfficer';
-import { useState } from 'react';
 import { YumeOfficer } from './YumeOfficer';
+import { IncludeRetired } from './IncludeRetired';
 
 export const Officers = () => {
-  const [includeRetired, setIncludeRetired] = useState(false);
+
 
   return (
     <FormGroup>
-      <FormLabel>
-        <Stack spacing={2} direction="row">
-          <Box py={2}>
-            担当者
-          </Box>
-          <FormControlLabel 
-            control={<Checkbox checked={includeRetired} />} 
-            label="退職者を含む"
-            onChange={(_, checked) => setIncludeRetired(checked)}
-          />
-        </Stack>
+      <Stack spacing={2} direction="row">
 
-      </FormLabel>
+        <FormLabel 
+          sx={{ py: 2 }} // align with checkbox
+        >
+          担当者
+        </FormLabel>
+        <IncludeRetired />
 
-      <Grid container mt={1} spacing={2}>
-        <Grid xs>
-          <CocoOfficer includeRetired={includeRetired} />
-        </Grid>
-        <Grid xs>
-          <YumeOfficer includeRetired={includeRetired} />
-        </Grid>
-      </Grid>
+      </Stack>
+
+      <Stack 
+        mt={1} 
+        spacing={2} 
+        direction={{ xs: 'column', sm: 'row' }}
+      >
+        <CocoOfficer />
+        <YumeOfficer />
+      </Stack>
     </FormGroup>
   );
 };

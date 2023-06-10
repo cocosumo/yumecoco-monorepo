@@ -1,7 +1,9 @@
 import { useEmployees, useStores } from 'kokoas-client/src/hooksQuery';
 import { EmpAffiliations, EmpStatus, officerRoles } from 'types';
 import { Option } from '../types';
-
+import { useSelectStoresId } from './useSelectedStoresId';
+import intersection from 'lodash/intersection';
+import { useWatch } from 'react-hook-form';
 
 interface GroupedByStore {
   [storeName: string]: {
@@ -10,7 +12,10 @@ interface GroupedByStore {
   }
 }
 
-export const useYumeByStore = (includeRetired = false) => {
+export const useYumeByStore = () => {
+  const selectedStoresId = useSelectStoresId();
+  const includeRetired = useWatch({ name: 'includeRetired' }) as boolean;
+
   const { data: storeData } = useStores((d) => d
     .map(({ 
       uuid, 
@@ -37,9 +42,19 @@ export const useYumeByStore = (includeRetired = false) => {
             sort,
             mainStoreId_v2: mainStoreId,
             mainStore_v2: mainStoreName,
+            affStores,
           } = cur;
 
+          const affStoresId = affStores.value.map(({ value: { affStoreId } }) => affStoreId.value);
+          const intersectedStores = intersection([...affStoresId, mainStoreId.value], selectedStoresId);
+
+          // Ignore if selectedStoresId is not empty and no intersection
+          if (selectedStoresId.length && !intersectedStores.length ) return acc;
+
+          // Ignore if affiliation is not ゆめてつ
           if ((affiliation.value as EmpAffiliations) !== 'ゆめてつ') return acc;
+
+          // Ignore if role is not one of officerRoles
           if (!officerRoles.includes(role.value)) return acc;
 
           const storeNameRec = storeData?.find(({ storeId }) => storeId === mainStoreId.value);
@@ -49,22 +64,23 @@ export const useYumeByStore = (includeRetired = false) => {
             sortNumber = 0,
           } = storeNameRec ?? {};
 
-          const resolvedStore = storeName;
+          const resolvedStoreName = storeName;
 
-          if (!acc[resolvedStore]?.options) {
-            acc[resolvedStore] = {
+          if (!acc[resolvedStoreName]?.options) {
+            acc[resolvedStoreName] = {
               options: [],
               sortKey: +(sortNumber || 0),
             };
           }
 
 
-          acc[resolvedStore].options.push({
+          acc[resolvedStoreName].options.push({
             label: name.value,
             value: uuid.value,
             isRetired: (empStatus.value as EmpStatus) !== '有効',
             sortKey: +(sort.value || 0),
           });
+          
           return acc;
         }, 
         Object.create(null) as GroupedByStore,

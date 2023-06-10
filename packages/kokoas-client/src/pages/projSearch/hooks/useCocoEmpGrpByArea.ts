@@ -1,8 +1,14 @@
 import { useEmployees } from 'kokoas-client/src/hooksQuery';
 import { EmpAffiliations, EmpStatus, officerRoles  } from 'types';
 import { GroupedEmployees } from '../types';
+import { useSelectStoresId } from './useSelectedStoresId';
+import { useWatch } from 'react-hook-form';
 
-export const useCocoEmpGrpByArea = (includeRetired = false) => {
+export const useCocoEmpGrpByArea = () => {
+
+  const selectedStoresId = useSelectStoresId();
+  const includeRetired = useWatch({ name: 'includeRetired' }) as boolean;
+
 
   return useEmployees({
     isActive: !includeRetired,
@@ -17,8 +23,10 @@ export const useCocoEmpGrpByArea = (includeRetired = false) => {
             territory_v2: territory,
             役職: role,
             sort,
+            mainStoreId_v2: mainStoreId,
           } = cur;
 
+          if (selectedStoresId.length && !selectedStoresId.includes(mainStoreId.value)) return acc;
           if ((affiliation.value as EmpAffiliations) !== 'ここすも') return acc;
           if (!officerRoles.includes(role.value)) return acc;
 

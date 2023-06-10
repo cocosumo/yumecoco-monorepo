@@ -14,6 +14,7 @@ export * from './getNumberFromString';
 export * from './isEven';
 export * from './isFullWidth';
 export * from './isMixedJpWidth';
+export * from './isPartialArray';
 export * from './kitoneProxyWrapper';
 export * from './loadEnv';
 export * from './notifyAdmin';

@@ -7,7 +7,7 @@ import { addressBuilder } from 'libs';
 
 // fakerは膨大なデータを生成するので、一旦コメントアウト
 
-export const useSearch =  () => {
+export const useSearchResult =  () => {
 
   const parsedQuery = useParseQuery();
 
@@ -22,6 +22,7 @@ export const useSearch =  () => {
     select: (data) => {
       const {
         keyword,
+        custName,
       } = parsedQuery || {};
 
       return data?.reduce((acc, curr) => {
@@ -84,10 +85,12 @@ export const useSearch =  () => {
           projAddress,
         ].join('').includes(keyword);
 
+        const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
 
         if (!parsedQuery
-          || isMatchedKeyword
-          
+          || (isMatchedKeyword
+            && isMatchedCustName
+          )
         ) {
           acc.push({
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,

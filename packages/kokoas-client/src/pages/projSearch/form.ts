@@ -1,6 +1,8 @@
 import { TypeOfForm } from './schema';
 
 export const initialForm : TypeOfForm = {
+  keyword: null,
+  
   custName: null,
   address: null,
   stores: null,
@@ -12,7 +14,6 @@ export const initialForm : TypeOfForm = {
   includeRetired: false,
   cocoAG: null,
   yumeAG: null,
-  keyword: null,
 
   completionDateFrom: null,
   completionDateTo: null,

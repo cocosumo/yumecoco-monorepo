@@ -10,7 +10,8 @@ export const uploadDaikokuGenka = async (
   } :{
     projId: string,
     fileBlob: Blob,
-  }) => {
+  },
+) => {
   const apiRoot : ApiNodes = 'kokoas';
 
   const data = {

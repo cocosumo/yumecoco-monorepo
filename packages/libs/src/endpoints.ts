@@ -18,9 +18,13 @@ export const kokoasEndpoints = {
 
   /** 
    * 見積をAndpadの実行予算の形式でダウンロード 
-   * download/estimate/andpad/:estimateId
   */
-  downloadEstimateAsAndpad: 'download/estimate/andpad',
+  downloadEstimateAsAndpad: 'download/jikkoyosan/andpad',
+  
+  /** 
+   * 見積をAndpadの見積の形式でダウンロード 
+  */
+  downloadEstimateAsAndpadEst: 'download/midumori/andpad',
 
   /**
    * 見積を顧客用のxlsxの形式でダウンロード

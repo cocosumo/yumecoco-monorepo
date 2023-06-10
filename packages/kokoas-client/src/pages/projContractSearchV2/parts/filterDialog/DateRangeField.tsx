@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import { JADatePicker } from 'kokoas-client/src/components';
 import { Controller, useFormContext } from 'react-hook-form';
 import { KeyOfForm, TypeOfForm } from '../../form';
@@ -28,14 +27,14 @@ export const DateRangeField = ({
           <JADatePicker
             {...field}
             value={field.value ?? null} // keep it controlled
-            renderInput={(params) =>(
-              <TextField
-                {...params}
-                onBlur={onBlur}
-                variant={'outlined'}
-                size={'small'}
-                error={isShowError}
-              />)}
+            slotProps={{
+              textField: {
+                onBlur,
+                variant: 'outlined',
+                size: 'small',
+                error: isShowError,
+              },
+            }}
           />
         );
       }}

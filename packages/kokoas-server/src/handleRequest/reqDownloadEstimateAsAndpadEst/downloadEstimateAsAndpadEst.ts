@@ -17,7 +17,7 @@ ReqDownloadEstimateAsAndpad
       工事名称: projName,
     } = estimateRec;
 
-    res.attachment(`${projName.value}.xlsx`)
+    res.attachment(`${projName.value}-見積.xlsx`)
       .status(200);
     await estExcel.xlsx.write(res);
 

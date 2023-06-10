@@ -12,6 +12,7 @@ describe('andpadJsonToExcel', () => {
       estimateId: 'test',
       rows: [
         {
+          フォルダ１: '必須',
           工事場所: '',
           工事種類: '',
           摘要: '',
@@ -21,7 +22,7 @@ describe('andpadJsonToExcel', () => {
           原単価: 0,
           数量: 0,
           単位: '',
-          取引先ID: 207075,
+          取引先ID: '',
           取引先管理ID: '',
           取引先名: '',
           メモ: '',

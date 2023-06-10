@@ -1,8 +1,9 @@
 
 // Andpad側で必須になっているので、山豊工建の取引先IDにs固定
-const transactionPartnerId = 207075;
+//const transactionPartnerId = 207075;
 
 export const initialRow = {
+  フォルダ１: '',
   工事場所: '',
 
   工事種類: '',
@@ -15,7 +16,7 @@ export const initialRow = {
   原単価: 0,
   数量: 0,
   単位: '',
-  取引先ID: transactionPartnerId,
+  取引先ID: '',
   取引先管理ID: '',
   取引先名: '',
   メモ: '',

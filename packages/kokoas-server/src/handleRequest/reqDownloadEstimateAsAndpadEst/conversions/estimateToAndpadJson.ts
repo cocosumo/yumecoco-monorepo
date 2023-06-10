@@ -26,9 +26,11 @@ export const estimateToAndpadJson = ({
     } }) => {
       return {
         ...initialRow,
-        工事種類: `${大項目?.value} ${中項目?.value}`,
+        フォルダ１: 大項目?.value,
+        工事種類: 大項目?.value,
         摘要: 部材名?.value,
-        備考１: 部材備考?.value,
+        備考１: 中項目?.value,
+        備考２: 部材備考?.value,
         原単価: +原価?.value,
         見積単価: +単価?.value,
         数量: +数量?.value,

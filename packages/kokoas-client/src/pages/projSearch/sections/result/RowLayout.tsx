@@ -1,6 +1,6 @@
 import { TableCell } from '@mui/material';
 import { Fragment, ReactNode } from 'react';
-import { SearchResult } from '../../api/search';
+import { KeyOfSearchResult } from '../../types';
 
 export const RowLayout = ({
   contractDate,
@@ -10,7 +10,7 @@ export const RowLayout = ({
   projCompletedDate,
   storeName,
   tel,
-} : Partial<Record<keyof SearchResult[number], ReactNode>>) => {
+} : Partial<Record<KeyOfSearchResult, ReactNode>>) => {
   return (
     <Fragment>
       <TableCell 
@@ -31,15 +31,15 @@ export const RowLayout = ({
         {projName}
       </TableCell>
 
+      <TableCell>
+        {tel}
+      </TableCell>
+
       <TableCell 
         sx={{
           whiteSpace: 'nowrap',
         }}
       >
-        {tel}
-      </TableCell>
-
-      <TableCell>
         {contractDate}
       </TableCell>
 

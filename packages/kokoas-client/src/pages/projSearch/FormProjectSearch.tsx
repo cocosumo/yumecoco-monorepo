@@ -1,30 +1,22 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
-import { initialForm } from './form';
 import schema, { TypeOfForm } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Filter } from './sections/filter/Filter';
 import { Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { Result } from './sections/result/Result';
-import { useEffect } from 'react';
-import { useParseQuery } from './hooks/useParseQuery';
+import { initialForm } from './form';
 
 
 export const FormProjectSearch = () => {
-  const parsedQuery = useParseQuery();
+  //const parsedQuery = useParseQuery();
+
   const formReturn = useForm<TypeOfForm>({
-    defaultValues: parsedQuery,
+    defaultValues: initialForm,
     resolver: zodResolver(schema),
     
   });
-
-  const { reset } = formReturn;
-
-
-  useEffect(() => {
-    reset(parsedQuery);
-  }, [reset, parsedQuery]);
 
   return (
     <Stack

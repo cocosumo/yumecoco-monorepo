@@ -38,7 +38,7 @@ export function AutoLookup({
   return (
     <Autocomplete
       disablePortal
-      value={value}
+      value={value?.id ? value : null} // idが空の場合、表示で [object object]になるので、nullを渡す
       onOpen={handleOpen}
       options={options}
       onChange={(_, newValue) => {

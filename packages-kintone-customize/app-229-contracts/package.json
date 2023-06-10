@@ -6,9 +6,8 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "webpack": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
     "upload": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.prod.json",
     "upload:local": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.local.json",
     "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 229 --type-name Record --namespace DB -o types/kintone.data.d.ts"
@@ -18,6 +17,10 @@
   "license": "ISC",
   "dependencies": {
     "api-chatwork": "*",
-    "api-kintone": "*"
+    "api-kintone": "*",
+    "crypto-es": "^1.2.7"
+  },
+  "browser": {
+    "crypto": false
   }
 }

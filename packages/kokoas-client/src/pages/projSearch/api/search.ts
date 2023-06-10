@@ -14,18 +14,23 @@ const fakeAddress = () =>
 
 export const search = async () => {
 
+
   return Array
     .from({ length: 50 })
-    .map(() => ({
-      custName: faker.person.fullName(),
-      custNameKana: 'ココ二カナガヒョウジサレマス',
-      custAddress: fakeAddress(),
-      tel: faker.phone.number(),
-      storeName: faker.helpers.arrayElement(storeNamesAndpad),
-      contractDate: fakeDate(),
-      projCompletedDate: fakeDate(),
-      uuid: faker.database.mongodbObjectId(),
-    }));
+    .map(() => {
+      const fullName = faker.person.fullName();
+      return ({
+        custName: fullName,
+        custNameKana: 'ココ二カナガヒョウジサレマス',
+        custAddress: fakeAddress(),
+        tel: faker.phone.number(),
+        storeName: faker.helpers.arrayElement(storeNamesAndpad),
+        contractDate: fakeDate(),
+        projCompletedDate: fakeDate(),
+        projName: `${fullName} 様邸 新築工事`,
+        uuid: faker.database.mongodbObjectId(),
+      });
+    });
 
 };
 

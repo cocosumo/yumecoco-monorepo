@@ -26,20 +26,15 @@ export const CustomDate = ({
         },
       }) => (
         <JADatePicker
-          components={{
-            OpenPickerIcon: () =>   (
+          onChange={onChange}
+          value={value ?? null} // keep it controlled
+          slots={{
+            openPickerIcon: () =>   (
               <Typography variant='caption'>
                 {iconLabel}
               </Typography>),
           }}
-          onChange={onChange}
-          value={value ?? null} // keep it controlled
           slotProps={{
-            openPickerIcon: () => (
-              <Typography variant='caption'>
-                {iconLabel}
-              </Typography>
-            ),
             textField: {
               variant: 'outlined',
               size: 'small',

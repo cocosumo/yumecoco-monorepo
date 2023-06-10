@@ -3,13 +3,12 @@ import { Territory } from 'types';
 import { useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { useMemo } from 'react';
+import { initialForm } from '../form';
 
 export const useParseQuery = (): TypeOfForm => {
   const {
     search,
   } = useLocation();
-
- 
 
   const newMemoedForm = useMemo(() => {
     const parsedQuery: Partial<TypeOfForm> = qs.parse(search.replace(/^\?/, ''), { comma: true });
@@ -37,6 +36,7 @@ export const useParseQuery = (): TypeOfForm => {
     } = parsedQuery;
 
     return {
+      ...initialForm,
       keyword: keyword ?? null,
       custName: custName ?? null,
       address: address ?? null,

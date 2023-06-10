@@ -1,9 +1,13 @@
 import { Typography } from '@mui/material';
 
-export const ResultCount = () => {
+export const ResultCount = ({
+  count,
+}:{
+  count: number
+}) => {
   return (
     <Typography>
-      結果件数：123件
+      {`結果件数：${count}件`}
     </Typography>
   );
 };

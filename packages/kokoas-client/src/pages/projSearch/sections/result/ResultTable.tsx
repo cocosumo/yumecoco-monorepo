@@ -1,8 +1,13 @@
 import { Paper, Table, TableContainer } from '@mui/material';
 import { ResultHead } from './ResultHead';
 import { ResultBody } from './ResultBody';
+import { SearchResult } from '../../types';
 
-export const ResultTable = () => {
+export const ResultTable = ({
+  data,
+}: {
+  data?: SearchResult[]
+}) => {
   return (
     <Paper sx={{ width: '100%', overflow: 'scroll' }}>
       <TableContainer 
@@ -16,7 +21,7 @@ export const ResultTable = () => {
           stickyHeader
         >
           <ResultHead />
-          <ResultBody />
+          <ResultBody data={data} />
         </Table>
       </TableContainer>
     </Paper>

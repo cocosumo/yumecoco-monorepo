@@ -4,9 +4,9 @@ import { calculateAmount } from 'libs';
 import { useFormContextExtended } from '../hooks/useFormContextExtended';
 
 export const ProfitRate = ({
-  disabled,
+  disabled = false,
 }: {
-  disabled: boolean,
+  disabled?: boolean,
 }) => {
 
   const {

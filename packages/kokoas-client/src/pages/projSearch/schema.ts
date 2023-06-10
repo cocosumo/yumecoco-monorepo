@@ -4,10 +4,8 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
-export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
-export type SubsidyMethod = typeof subsidyMethods[number];
+const dateType = z.union([z.string(), z.date()]).nullable();
 
-export const payMethods = ['持参', '集金', '振込'] as const;
 
 const schema = z.object({
 
@@ -40,16 +38,16 @@ const schema = z.object({
   keyword : z.string().nullable(),
   
   /** 契約日　From */
-  contractDateFrom : z.coerce.date().nullable(),
+  contractDateFrom : dateType,
 
   /** 契約日　To */
-  contractDateTo : z.coerce.date().nullable(),
+  contractDateTo : dateType,
 
   /** 完工日　From */
-  completionDateFrom : z.coerce.date().nullable(),
+  completionDateFrom : dateType,
 
   /** 完工日　To */
-  completionDateTo : z.coerce.date().nullable(),
+  completionDateTo : dateType,
 });
   
 

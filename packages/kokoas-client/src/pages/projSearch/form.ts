@@ -15,9 +15,11 @@ export const initialForm : TypeOfForm = {
   cocoAG: null,
   yumeAG: null,
 
+  contractDateFrom: null,
+  contractDateTo: null,
+
   completionDateFrom: null,
   completionDateTo: null,
 
-  contractDateFrom: null,
-  contractDateTo: null,
+  
 };

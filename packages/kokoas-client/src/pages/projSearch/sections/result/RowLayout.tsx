@@ -43,7 +43,11 @@ export const RowLayout = ({
         {contractDate}
       </TableCell>
 
-      <TableCell>
+      <TableCell
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
         {projCompletedDate}
       </TableCell>
     </Fragment>

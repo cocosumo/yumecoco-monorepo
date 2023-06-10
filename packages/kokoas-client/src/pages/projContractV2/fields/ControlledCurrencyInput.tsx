@@ -40,7 +40,7 @@ export const ControlledCurrencyInput = ({
         fieldState: {
           error,
         },
-        
+
       }) => {
 
         return (
@@ -51,13 +51,14 @@ export const ControlledCurrencyInput = ({
             defaultValue={typeof value === 'number' ? (value as number).toLocaleString() : value}
             name={name}
             variant={variant}
+            inputProps={{ style: { color: value as number >= 0 ? 'black' : 'orange' } }}
             onChange={(v) => {
               const commaRemoved = typeof v === 'string' ? v.replace(/,/g, '') : v;
               const parsedValue = +commaRemoved;
               onChange(isNaN(parsedValue) ? v : parsedValue);
 
               const taxRate = getValues('taxRate');
-            
+
 
               // 逆算
               switch (name) {
@@ -111,7 +112,7 @@ export const ControlledCurrencyInput = ({
                   setRoundedValue('profitRate', profitRate * 100, 2);
                   break;
                 }
-                case 'costPrice' : {
+                case 'costPrice': {
                   const totalContractAmtAfterTax = getValues('totalContractAmtAfterTax');
                   const {
                     amountBeforeTax,

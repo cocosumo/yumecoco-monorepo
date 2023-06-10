@@ -13,17 +13,14 @@ import intersection from 'lodash/intersection';
 
 const inputLabel = 'ここすも担当者';
 
-export const CocoOfficer = ({
-  includeRetired,
-}: {
-  includeRetired: boolean
-}) => {
+export const CocoOfficer = () => {
   const {
     control,
     setValue,
     getValues,
   } = useFormContext<TypeOfForm>();
-  const { data } = useCocoEmpGrpByArea(includeRetired);
+
+  const { data } = useCocoEmpGrpByArea();
 
   const menuItems = useMemo(() => {
     if (data) {
@@ -62,7 +59,7 @@ export const CocoOfficer = ({
         <FormControl 
           fullWidth 
           size='small'
-          sx={{ maxWidth: 259 }}
+          sx={{ maxWidth: 259,  maxHeight: 39 }}
         >
           <InputLabel id="cocoAg">
             {inputLabel}

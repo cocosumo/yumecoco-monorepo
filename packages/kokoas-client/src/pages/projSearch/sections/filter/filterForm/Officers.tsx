@@ -1,26 +1,22 @@
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Stack } from '@mui/material';
+import { FormGroup, FormLabel, Stack } from '@mui/material';
 import { CocoOfficer } from './CocoOfficer';
-import { useState } from 'react';
 import { YumeOfficer } from './YumeOfficer';
+import { IncludeRetired } from './IncludeRetired';
 
 export const Officers = () => {
-  const [includeRetired, setIncludeRetired] = useState(false);
 
 
   return (
     <FormGroup>
       <Stack spacing={2} direction="row">
+
         <FormLabel 
           sx={{ py: 2 }} // align with checkbox
         >
           担当者
         </FormLabel>
-        <FormControlLabel 
-          control={<Checkbox checked={includeRetired} />} 
-          label="退職者を含む"
-          onChange={(_, checked) => setIncludeRetired(checked)}
-        />
-    
+        <IncludeRetired />
+
       </Stack>
 
       <Stack 
@@ -28,8 +24,8 @@ export const Officers = () => {
         spacing={2} 
         direction={{ xs: 'column', sm: 'row' }}
       >
-        <CocoOfficer includeRetired={includeRetired} />
-        <YumeOfficer includeRetired={includeRetired} />
+        <CocoOfficer />
+        <YumeOfficer />
       </Stack>
     </FormGroup>
   );

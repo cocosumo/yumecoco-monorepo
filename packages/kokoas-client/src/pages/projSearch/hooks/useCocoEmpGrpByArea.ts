@@ -2,10 +2,12 @@ import { useEmployees } from 'kokoas-client/src/hooksQuery';
 import { EmpAffiliations, EmpStatus, officerRoles  } from 'types';
 import { GroupedEmployees } from '../types';
 import { useSelectStoresId } from './useSelectedStoresId';
+import { useWatch } from 'react-hook-form';
 
-export const useCocoEmpGrpByArea = (includeRetired = false) => {
+export const useCocoEmpGrpByArea = () => {
 
   const selectedStoresId = useSelectStoresId();
+  const includeRetired = useWatch({ name: 'includeRetired' }) as boolean;
 
 
   return useEmployees({

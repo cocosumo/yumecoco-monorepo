@@ -22,6 +22,8 @@ const schema = z.object({
 
   /** 領域 */
   territories : z.array(z.enum(territories)).nullable(),
+
+  includeRetired : z.boolean(),
   
   /** ここすもAG */
   cocoAG : z.array(z.string()).nullable(),
@@ -33,16 +35,16 @@ const schema = z.object({
   keyword : z.string().nullable(),
   
   /** 契約日　From */
-  contractDateFrom : z.date().nullable(),
+  contractDateFrom : z.coerce.date().nullable(),
 
   /** 契約日　To */
-  contractDateTo : z.date().nullable(),
+  contractDateTo : z.coerce.date().nullable(),
 
   /** 完工日　From */
-  completionDateFrom : z.date().nullable(),
+  completionDateFrom : z.coerce.date().nullable(),
 
   /** 完工日　To */
-  completionDateTo : z.date().nullable(),
+  completionDateTo : z.coerce.date().nullable(),
 });
   
 

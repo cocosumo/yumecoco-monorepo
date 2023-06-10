@@ -10,6 +10,8 @@ import { useYumeByStore } from '../../../hooks/useYumeByStore';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
 import { Option } from '../../../types';
+import { useEffect } from 'react';
+import intersection from 'lodash/intersection';
 
 const inputLabel = 'ゆめてつAG';
 
@@ -30,15 +32,26 @@ export const renderMenuItems = (options: Option[]) => {
     });
 };
 
-export const YumeOfficer = ({
-  includeRetired,
-}: {
-  includeRetired: boolean
-}) => {
+export const YumeOfficer = () => {
   const {
     control,
+    getValues,
+    setValue,
   } = useFormContext<TypeOfForm>();
-  const { data } = useYumeByStore(includeRetired);
+  const { data } = useYumeByStore();
+
+  useEffect(() => {
+    if (!data?.length) return;
+    // remove values that are not in the select menu
+    const labels: string[] = data.flatMap(([_, { options }]) => options.map(option => option.label));
+    const currentVal = getValues('yumeAG') ?? [];
+    setValue('yumeAG', intersection(currentVal, labels ));
+  }, 
+  [
+    data,
+    getValues,
+    setValue,
+  ]);
 
   return (
     <Controller 
@@ -54,7 +67,7 @@ export const YumeOfficer = ({
         <FormControl 
           fullWidth 
           size='small'
-          sx={{ maxWidth: 259 }}
+          sx={{ maxWidth: 259, maxHeight: 39 }}
         >
           <InputLabel id={name}>
             {inputLabel}

@@ -3,6 +3,7 @@ import { EmpAffiliations, EmpStatus, officerRoles } from 'types';
 import { Option } from '../types';
 import { useSelectStoresId } from './useSelectedStoresId';
 import intersection from 'lodash/intersection';
+import { useWatch } from 'react-hook-form';
 
 interface GroupedByStore {
   [storeName: string]: {
@@ -11,8 +12,9 @@ interface GroupedByStore {
   }
 }
 
-export const useYumeByStore = (includeRetired = false) => {
+export const useYumeByStore = () => {
   const selectedStoresId = useSelectStoresId();
+  const includeRetired = useWatch({ name: 'includeRetired' }) as boolean;
 
   const { data: storeData } = useStores((d) => d
     .map(({ 

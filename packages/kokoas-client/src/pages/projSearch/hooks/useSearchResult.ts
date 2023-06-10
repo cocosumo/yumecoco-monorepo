@@ -5,9 +5,9 @@ import { groupCustContacts } from '../helpers/groupCustContacts';
 import { addressBuilder } from 'libs';
 import { useStoreIds } from './useStoreIds';
 import { useProjTypesIds } from './useProjTypesIds';
-//import { search } from '../api/search'; 
+import parseISO from 'date-fns/parseISO';
 
-// fakerは膨大なデータを生成するので、一旦コメントアウト
+
 
 export const useSearchResult =  () => {
 
@@ -17,20 +17,24 @@ export const useSearchResult =  () => {
   const { data: recCustGroup } = useCustGroups();
   const { data: recContracts } = useAllContracts();
 
+  // クエリパラメーター
   const {
     keyword,
     custName,
     address,
     stores,
     projTypes,
+    contractDateFrom,
+    contractDateTo,
+    completionDateFrom,
+    completionDateTo,
   } = parsedQuery || {};
 
   const { data: selectedStoreIds } = useStoreIds(stores ?? []);
   const { data: selectedProjTypeIds } = useProjTypesIds(projTypes ?? []);
 
-  console.log('selectedProjTypeIds', selectedProjTypeIds);
 
-  return useProjects<SearchResult[]>({
+  return useProjects<SearchResult[]>({ // 工事ベース
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
     select: (data) => {
 
@@ -84,6 +88,14 @@ export const useSearchResult =  () => {
           fullNameReadings,
         } = groupCustContacts(relCustomers);
 
+        /**　
+         * 含めるかどうか判定。重くなったら、改修。
+         * どうしても重いなら、サーバでキャッシュして処理する。
+         * キャッシュの有効期限を設定しますが、
+         * kintoneのwebhookで、更新されたら、キャッシュを削除するようにします。
+         * 手間がかかるので、後回し。ras 20230611
+        */
+
         const isMatchedKeyword = !keyword || [
           ...fullNames,
           ...fullNameReadings,
@@ -101,6 +113,10 @@ export const useSearchResult =  () => {
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
         const isMatchStore = !selectedStoreIds?.length || selectedStoreIds.includes(storeId.value);
         const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
+        const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
+        const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
+        const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && finishDate?.value && completionDateFrom <= parseISO(finishDate?.value));
+        const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
 
         if (!parsedQuery
           || (isMatchedKeyword
@@ -108,6 +124,10 @@ export const useSearchResult =  () => {
             && isMatchAddress
             && isMatchStore
             && isMatchProjType
+            && isMatchcontractDateFrom
+            && isMatchcontractDateTo
+            && isMatchcompletionDateFrom
+            && isMatchcompletionDateTo
           )
         ) {
           acc.push({

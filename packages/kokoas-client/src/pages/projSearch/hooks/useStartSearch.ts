@@ -12,13 +12,19 @@ export const useStartSearch = () => {
 
   const navigate = useNavigate();
 
-  const handleStartSearch = handleSubmit((data) => {
-    const queryStr =  qs.stringify(
-      removeNullFalsyEmptyFromObject(data), 
-      { arrayFormat: 'comma', encode: false },
-    );
-    navigate(`${pages.projSearch}?${queryStr}`);
-  });
+  const handleStartSearch = handleSubmit(
+    (data) => {
+      const queryStr =  qs.stringify(
+        removeNullFalsyEmptyFromObject(data), 
+        { arrayFormat: 'comma', encode: false },
+      );
+      navigate(`${pages.projSearch}?${queryStr}`);
+    },
+    (err) => {
+      // 管理者用で残す
+      console.error(err);
+    },
+  );
 
   return handleStartSearch;
 

@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import qs from 'qs';
 import { useMemo } from 'react';
 import { initialForm } from '../form';
+import { parseISO } from 'date-fns';
+
 
 export const useParseQuery = (): TypeOfForm => {
   const {
@@ -46,10 +48,10 @@ export const useParseQuery = (): TypeOfForm => {
       includeRetired: typeof includeRetired === 'string' && includeRetired === 'true',
       cocoAG: ([] as string[]).concat(cocoAG ?? []),
       yumeAG: ([] as string[]).concat(yumeAG ?? []),
-      completionDateFrom: completionDateFrom ?? null,
-      completionDateTo: completionDateTo ?? null,
-      contractDateFrom: contractDateFrom ?? null,
-      contractDateTo: contractDateTo ?? null,
+      completionDateFrom: completionDateFrom ? parseISO(completionDateFrom as string) : null,
+      completionDateTo: completionDateTo ? parseISO(completionDateTo as string) : null,
+      contractDateFrom: contractDateFrom ? parseISO(contractDateFrom as string) : null,
+      contractDateTo: contractDateTo ? parseISO(contractDateTo as string) : null,
     };
   }, [
     search,

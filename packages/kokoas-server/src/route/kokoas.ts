@@ -4,7 +4,9 @@ import {
   reqUploadDaikokuGenka, 
   saveProjectToAndpad, 
   downloadEstimateForCustomer, 
-  downloadEstimateAsAndpad, 
+  downloadEstimateAsAndpad,
+  downloadEstimateAsAndpadEst, 
+  
 } from '../handleRequest';
 import { kokoasEndpoints } from 'libs/src/endpoints';
 import bodyParser from 'body-parser';
@@ -47,6 +49,11 @@ route.get(
 route.get(
   `/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
   downloadEstimateAsAndpad,
+);
+
+route.get(
+  `/${kokoasEndpoints.downloadEstimateAsAndpadEst}/:estimateId`,
+  downloadEstimateAsAndpadEst,
 );
 
 route.get(

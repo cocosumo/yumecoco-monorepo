@@ -23,6 +23,7 @@ export const useSearchResult =  () => {
       const {
         keyword,
         custName,
+        address,
       } = parsedQuery || {};
 
       return data?.reduce((acc, curr) => {
@@ -86,10 +87,12 @@ export const useSearchResult =  () => {
         ].join('').includes(keyword);
 
         const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
-
+        const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
+        
         if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName
+            && isMatchAddress
           )
         ) {
           acc.push({

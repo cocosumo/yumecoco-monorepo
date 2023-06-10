@@ -1,7 +1,8 @@
-import { Box, Checkbox, FormControlLabel, FormGroup, FormLabel, Stack, TextField } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, FormGroup, FormLabel, Stack } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { CocoOfficer } from './CocoOfficer';
 import { useState } from 'react';
+import { YumeOfficer } from './YumeOfficer';
 
 export const Officers = () => {
   const [includeRetired, setIncludeRetired] = useState(false);
@@ -27,7 +28,7 @@ export const Officers = () => {
           <CocoOfficer includeRetired={includeRetired} />
         </Grid>
         <Grid xs>
-          <TextField fullWidth size="small" label="ゆめてつAG" />
+          <YumeOfficer includeRetired={includeRetired} />
         </Grid>
       </Grid>
     </FormGroup>

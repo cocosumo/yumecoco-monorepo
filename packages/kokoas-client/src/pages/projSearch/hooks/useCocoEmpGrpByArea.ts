@@ -1,27 +1,6 @@
 import { useEmployees } from 'kokoas-client/src/hooksQuery';
-import { EmpAffiliations, EmpStatus } from 'types';
-
-
-export type Option = {
-  label: string,
-  value: string,
-  isRetired: boolean,
-  sortKey: number,
-};
-
-type GroupedEmployees = {
-  [key: string]: Option[]
-};
-
-const inludeRoles = [
-  '取締役',
-  '店長',
-  '店長代理',
-  '主任',
-  '営業',
-  '工務',
-  '経理',
-];
+import { EmpAffiliations, EmpStatus, officerRoles  } from 'types';
+import { GroupedEmployees } from '../types';
 
 export const useCocoEmpGrpByArea = (includeRetired = false) => {
 
@@ -41,8 +20,8 @@ export const useCocoEmpGrpByArea = (includeRetired = false) => {
           } = cur;
 
           if ((affiliation.value as EmpAffiliations) !== 'ここすも') return acc;
-          if (!inludeRoles.includes(role.value)) return acc;
-          
+          if (!officerRoles.includes(role.value)) return acc;
+
           const resolvedTerritory = territory.value ?? '未設定';
 
           if (!acc[resolvedTerritory]) acc[resolvedTerritory] = [];

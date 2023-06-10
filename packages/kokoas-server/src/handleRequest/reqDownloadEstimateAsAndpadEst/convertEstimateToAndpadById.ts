@@ -3,20 +3,6 @@ import { estimateToAndpadJson } from './conversions/estimateToAndpadJson';
 import { andpadJsonToExcel } from './conversions/andpadJsonToExcel';
 
 
-/**
- * 必要な情報:
- * 
- *  明細名
- *  工事種類
- *  備考
- *  見積金額単価
- *  見積原価単価
- *  本体/追加
- *  数量
- *  単位
- *  実行予算単価
- *  メモ
- */
 
 export const convertEstimateToAndpadById = async (estimateId: string) => {
   
@@ -30,6 +16,9 @@ export const convertEstimateToAndpadById = async (estimateId: string) => {
 
   const estExcel = andpadJsonToExcel(estJson);
 
-  return estExcel;
+  return {
+    estExcel,
+    estimateRec,
+  };
 
 };

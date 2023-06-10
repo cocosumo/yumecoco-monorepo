@@ -12,7 +12,9 @@ describe('convertEstimateByIdToAndpad', () => {
   });
 
   it('見積もりIDが見つかる場合、エクセルファイルが返されます', async () => {
-    const result = await convertEstimateToAndpadById(testEstimateId);
+    const {
+      estExcel: result,
+    } = await convertEstimateToAndpadById(testEstimateId);
 
     // excel to base64
     const base64 = Buffer.from(await result.xlsx.writeBuffer())

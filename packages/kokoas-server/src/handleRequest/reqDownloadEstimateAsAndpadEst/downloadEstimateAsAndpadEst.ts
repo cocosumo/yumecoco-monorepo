@@ -8,11 +8,18 @@ ReqDownloadEstimateAsAndpad
   try {
     const { estimateId } = reqDownloadEstimateAsAndpad.parse(req.params);
 
-    const file =  await convertEstimateToAndpadById(estimateId);
+    const {
+      estExcel,
+      estimateRec,
+    } =  await convertEstimateToAndpadById(estimateId);
 
-    res.attachment('実行予算.xlsx')
+    const {
+      工事名称: projName,
+    } = estimateRec;
+
+    res.attachment(`${projName.value}.xlsx`)
       .status(200);
-    await file.xlsx.write(res);
+    await estExcel.xlsx.write(res);
 
     res.end();
 

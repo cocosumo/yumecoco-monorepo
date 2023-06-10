@@ -43,7 +43,7 @@ export const useParseQuery = (): TypeOfForm => {
       stores: ([] as string[]).concat(stores ?? []),
       projTypes: ([] as string[]).concat(projTypes ?? []),
       territories: ([] as Territory[]).concat(territories ?? []),
-      includeRetired: includeRetired ?? false,
+      includeRetired: typeof includeRetired === 'string' && includeRetired === 'true',
       cocoAG: ([] as string[]).concat(cocoAG ?? []),
       yumeAG: ([] as string[]).concat(yumeAG ?? []),
       completionDateFrom: completionDateFrom ?? null,

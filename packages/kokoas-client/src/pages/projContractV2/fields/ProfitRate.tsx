@@ -70,7 +70,7 @@ export const ProfitRate = ({
             error={!!error}
             disabled={disabled}
             placeholder={'12.34'}
-            helperText={error?.message}
+            helperText={error?.message || '粗利率を入れても自動計算出来ます'}
             inputProps={{ 
               style: { textAlign: 'right' }, 
             }}

@@ -90,7 +90,7 @@ export const ProjectDetails = ({
     const otherDetails: IDetail[] = [
       {
         label: 'ステータス',
-        value: cancelStatus.value || '-',
+        value: cancelStatus.value || '有効',
       },
       {
         label: '作成日時',

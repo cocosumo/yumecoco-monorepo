@@ -5,6 +5,8 @@ import { addressBuilder } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
+import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+
 
 export const ProjectDetails = ({
   recProj,
@@ -33,7 +35,7 @@ export const ProjectDetails = ({
       cancelStatus,
       dataId,
       log,
-      memo,
+      remarks,
       uuid: projId,
 
       作成日時: createDate,
@@ -94,11 +96,11 @@ export const ProjectDetails = ({
       },
       {
         label: '作成日時',
-        value: createDate.value,
+        value: parseISOTimeToFormat(createDate.value),
       },
       {
         label: '更新日時',
-        value: updateDate.value,
+        value: parseISOTimeToFormat(updateDate.value),
       },
       {
         label: '作成者',
@@ -114,10 +116,37 @@ export const ProjectDetails = ({
       },
     ];
 
+    const logDetails: IDetail[] = log.value.map(({
+      id,
+      value: {
+        logDateTime,
+        logNote,
+      },
+    }) => ({
+      key: id,
+      label: parseISOTimeToFormat(logDateTime.value),
+      value: logNote.value,
+    }));
+
+    const remarksDetails: IDetail[] = remarks.value.map(({
+      id,
+      value: {
+        note,
+        noteCreateTime,
+      },
+    }) => ({
+      key: id,
+      label: parseISOTimeToFormat(noteCreateTime.value),
+      value: note.value || '-',
+    }));
+
+
     return {
       mainDetails,
       agentDetails,
       otherDetails,
+      logDetails,
+      remarksDetails,
     };
 
   }, [recProj]);
@@ -139,7 +168,18 @@ export const ProjectDetails = ({
         title="管理用"
         details={details.otherDetails}
       />
-      
+
+      <DetailSection 
+        title="メモ"
+        details={details.remarksDetails}
+      />
+
+      <DetailSection 
+        title="ANDPAD登録ログ"
+        details={details.logDetails}
+      />
+
+
     </Stack>
   );
 };

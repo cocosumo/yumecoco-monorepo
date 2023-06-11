@@ -9,6 +9,7 @@ import { Customers } from './Customers';
 import { AgentDetails } from './AgentDetails';
 import { getAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { OtherDetails } from './OtherDetails';
+import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 
 export const CustomerDetails = ({
   custGroupId,
@@ -58,8 +59,8 @@ export const CustomerDetails = ({
       <OtherDetails 
         custGroupId={custGroupId}
         recordStatus={isDeleted?.value === '0' ? '有効' : '削除'}
-        createDate={createDate?.value || '-'}
-        updateDate={updateDate?.value || '-'}
+        createDate={parseISOTimeToFormat(createDate?.value)}
+        updateDate={parseISOTimeToFormat(updateDate?.value)}
         createdBy={createdBy?.value.name || '-'}
         updatedBy={updatedBy?.value.name || '-'}
       />

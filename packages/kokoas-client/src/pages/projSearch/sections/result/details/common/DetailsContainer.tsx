@@ -11,7 +11,7 @@ export const DetailsContainer = ({
   children: ReactNode
 }) => (
   <Stack
-    p={2} 
+    py={2} 
     bgcolor={'white'} 
     borderRadius={2}
     spacing={2}

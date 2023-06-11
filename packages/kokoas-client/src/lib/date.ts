@@ -39,3 +39,11 @@ export const parseKintoneDate = <T = unknown>(
   kintoneDate: string | undefined | null,
   emptyVal: T = '' as T,
 ): Date | T => kintoneDate ? parseISO(kintoneDate) : emptyVal;
+
+export const parseISOTimeToFormat = (
+  isoDate: string | null | undefined,
+  formatStr = 'yyyy/MM/dd HH:mm',
+) => {
+  if (!isoDate) return '';
+  return format(parseISO(isoDate), formatStr);
+};

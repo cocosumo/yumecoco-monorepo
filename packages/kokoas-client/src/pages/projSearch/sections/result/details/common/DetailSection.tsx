@@ -20,7 +20,7 @@ export const DetailSection = ({
         {details.map((detail) => {
           return (
             <Detail 
-              key={detail.label}
+              key={detail?.key || detail?.label}
               {...detail}
             />
           ); 

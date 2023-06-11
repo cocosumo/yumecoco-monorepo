@@ -7,7 +7,15 @@ export const Detail = ({
   value,
   fonstSize,
 }: IDetail) => (        
-  <Stack direction={'row'}>
+  <Stack 
+    direction={'row'}
+    px={2}
+    sx={{
+      ':hover': {
+        backgroundColor: grey[100],
+      },
+    }}
+  >
     <Typography color={grey[600]} width={'20%'}>
       {label}
     </Typography>

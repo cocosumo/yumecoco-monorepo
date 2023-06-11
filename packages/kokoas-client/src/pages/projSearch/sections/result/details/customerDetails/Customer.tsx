@@ -93,6 +93,8 @@ export const Customer = ({
 
   return ( 
     <DetailsContainer>
+      
+
       {details
         .filter((col) => col.length)
         .map((col) => (

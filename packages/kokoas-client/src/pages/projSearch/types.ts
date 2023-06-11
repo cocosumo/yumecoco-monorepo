@@ -24,6 +24,7 @@ export interface SearchResult {
 }
 
 export interface IDetail {
+  key?: string;
   label: string;
   value: ReactNode;
   fonstSize?: string;

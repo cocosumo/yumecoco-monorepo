@@ -1,7 +1,18 @@
 import { Divider, List, ListItem, ListItemButton, Paper, Typography } from '@mui/material';
+import { UseEstimateByProjIdReturn } from 'kokoas-client/src/hooksQuery';
 import { Fragment } from 'react';
 
-export const BranchList = () => {
+export const BranchList = ({
+  data,
+}: {
+  data: UseEstimateByProjIdReturn
+}) => {
+  
+  const {
+    records,
+    calculated,
+  } = data || {};
+
   return (
     <List
       sx={{
@@ -9,6 +20,7 @@ export const BranchList = () => {
         height: '60vh',
         overflow: 'auto',
         pt: 0,
+        width: '150px',
       }}
       component={Paper}
     >
@@ -29,14 +41,22 @@ export const BranchList = () => {
       </Typography>
       <Divider />
 
-      {Array.from(Array(10).keys()).map((i) => (
-        <Fragment key={i}>
+      {records?.map(({ uuid, $id }, index) => (
+        <Fragment key={uuid?.value || $id.value}>
           <ListItem disablePadding>
-            <ListItemButton alignItems='center'>
-              {(i + 1).toString().padStart(2, '0')}
+            <ListItemButton divider>
+              {(index + 1).toString().padStart(2, '0')}
+              <Typography 
+                variant='caption' 
+                width={'100%'} 
+                textAlign={'right'}
+                whiteSpace={'nowrap'}
+              >
+                {`${calculated?.[index]?.summary?.totalAmountAfterTax.toLocaleString()} 円`}
+                
+              </Typography>
             </ListItemButton>
           </ListItem>
-          <Divider />
         </Fragment>
       ))}
 

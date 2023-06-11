@@ -22,3 +22,5 @@ export const useEstimatesByProjId = (
     }, [projId]),
   }));
 };
+
+export type UseEstimateByProjIdReturn = ReturnType<typeof useEstimatesByProjId>['data'];

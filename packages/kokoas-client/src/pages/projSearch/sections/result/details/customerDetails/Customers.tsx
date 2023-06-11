@@ -1,6 +1,7 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { ICustomers } from 'types';
 import { Customer } from './Customer';
+import { DetailSectionTitle } from '../common';
 
 export const Customers = ({
   customers,
@@ -11,9 +12,9 @@ export const Customers = ({
     <Stack 
       spacing={1}
     >
-      <Typography variant='h6' color={'GrayText'}>
+      <DetailSectionTitle>
         顧客情報
-      </Typography>
+      </DetailSectionTitle>
 
       {customers.map((customer) => (
         <Customer key={customer.uuid.value} customer={customer} />

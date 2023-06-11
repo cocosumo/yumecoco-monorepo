@@ -3,6 +3,7 @@ import { grey } from '@mui/material/colors';
 import { CustomerDetails } from './customerDetails/CustomerDetails';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { ProjectDetails } from './projectDetails/ProjectDetails';
+import { EstimatesDetails } from './estimatesDetails/EstimatesDetails';
 
 export const DetailsContent = ({
   projId,
@@ -25,6 +26,7 @@ export const DetailsContent = ({
       sx={{
         bgcolor: grey[50],
       }}
+    
     >
       {tabIdx === 0 && custGroupId?.value && (
         <CustomerDetails 
@@ -34,6 +36,10 @@ export const DetailsContent = ({
 
       {tabIdx === 1 && recProj && (
         <ProjectDetails recProj={recProj} />
+      )}
+
+      {tabIdx === 2 && (
+        <EstimatesDetails projId={projId} />
       )}
 
     </DialogContent>

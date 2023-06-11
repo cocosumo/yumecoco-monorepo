@@ -30,7 +30,7 @@ export const DetailsDialog = ({
     <Dialog
       open={open}
       onClose={handleClose}
-      maxWidth={'md'}
+      maxWidth={'lg'}
       fullWidth
       PaperProps={{
         sx: {

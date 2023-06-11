@@ -4,8 +4,10 @@ import { Fragment } from 'react';
 
 export const BranchList = ({
   data,
+  handleSetIndex,
 }: {
-  data: UseEstimateByProjIdReturn
+  data: UseEstimateByProjIdReturn,
+  handleSetIndex: (idx: number) => void,
 }) => {
   
   const {
@@ -20,7 +22,7 @@ export const BranchList = ({
         height: '60vh',
         overflow: 'auto',
         pt: 0,
-        width: '150px',
+        minWidth: '155px',
       }}
       component={Paper}
     >
@@ -44,7 +46,10 @@ export const BranchList = ({
       {records?.map(({ uuid, $id }, index) => (
         <Fragment key={uuid?.value || $id.value}>
           <ListItem disablePadding>
-            <ListItemButton divider>
+            <ListItemButton 
+              divider
+              onClick={() => handleSetIndex(index)}
+            >
               {(index + 1).toString().padStart(2, '0')}
               <Typography 
                 variant='caption' 

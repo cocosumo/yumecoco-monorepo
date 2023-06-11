@@ -7,6 +7,7 @@ import { useEstimates } from '.';
  */
 export const useEstimatesByProjId = (
   projId = '',
+  withDetails = false,
 ) => {
 
   return useEstimates(({
@@ -17,10 +18,15 @@ export const useEstimatesByProjId = (
 
       return {
         records: filteredData,
-        calculated: filteredData.map((d) => calculateEstimateRecord({ record: d })),
+        calculated: filteredData
+          .map((d) => calculateEstimateRecord({ 
+            record: d, 
+            withDetails,
+          })),
       };
-    }, [projId]),
+    }, [projId, withDetails]),
   }));
 };
 
-export type UseEstimateByProjIdReturn = ReturnType<typeof useEstimatesByProjId>['data'];
+
+export type UseEstimateByProjIdReturn = NonNullable<ReturnType<typeof useEstimatesByProjId>['data']>;

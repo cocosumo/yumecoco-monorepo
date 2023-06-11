@@ -16,11 +16,11 @@ export const Detail = ({
       },
     }}
   >
-    <Typography color={grey[600]} width={'20%'}>
+    <Typography color={grey[600]} width={'15%'}>
       {label}
     </Typography>
     <Typography 
-      width={'80%'}
+      width={'75%'}
       fontSize={fonstSize}
     >
       {value}

@@ -3,18 +3,32 @@ import { ReactNode } from 'react';
 import { EstTableHead } from './EstTableHead';
 
 export const EstTableContainer = ({
-  children,
+  body,
+  summary,
 }:{
-  children: ReactNode
+  body: ReactNode,
+  summary: ReactNode,
 }) => {
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader >
+    <Paper sx={{ 
+      width: '100%', 
+      overflow: 'hidden', 
+    }}
+    >
+      <TableContainer 
+        sx={{
+          height: '45vh', 
+        }}
+      >
+        <Table 
+          stickyHeader
+          size="small"
+        >
           <EstTableHead />
-          {children}
+          {body}
         </Table>
       </TableContainer>
+      {summary}
     </Paper>
 
   );

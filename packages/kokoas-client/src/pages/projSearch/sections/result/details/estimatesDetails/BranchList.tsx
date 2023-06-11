@@ -23,6 +23,9 @@ export const BranchList = ({
         overflow: 'auto',
         pt: 0,
         minWidth: '155px',
+        position: 'absolute',
+        top: 112,
+        left: 20,
       }}
       component={Paper}
     >

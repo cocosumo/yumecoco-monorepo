@@ -51,6 +51,7 @@ export const useSearchResult =  () => {
           uuid: projId,
           projName,
           projTypeId,
+          dataId,
         } = curr; // 工事情報;
 
         const projAddress = addressBuilder({
@@ -107,7 +108,8 @@ export const useSearchResult =  () => {
           cocoConstNames.value,
           storeName.value,
           projAddress,
-        ].join('').includes(keyword);
+          dataId.value,
+        ].join('').includes(keyword.trim());
 
         const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);

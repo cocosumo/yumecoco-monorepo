@@ -1,10 +1,8 @@
 import { Stack } from '@mui/material';
 import { IProjects } from 'types';
-import { Detail, DetailSectionTitle, DetailsContainer } from '../common';
 import { useMemo } from 'react';
 import { addressBuilder } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
-import { getAgentNames } from 'api-kintone';
 import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
 
@@ -37,6 +35,12 @@ export const ProjectDetails = ({
       log,
       memo,
       uuid: projId,
+
+      作成日時: createDate,
+      更新日時: updateDate,
+      作成者: createdBy,
+      更新者: updatedBy,
+      // status, 廃止　（追客中など） 
     } = recProj;
 
     const mainDetails: IDetail[] = [
@@ -89,7 +93,23 @@ export const ProjectDetails = ({
         value: cancelStatus.value || '-',
       },
       {
-        label: 'ID',
+        label: '作成日時',
+        value: createDate.value,
+      },
+      {
+        label: '更新日時',
+        value: updateDate.value,
+      },
+      {
+        label: '作成者',
+        value: createdBy.value.name,
+      },
+      {
+        label: '更新者',
+        value: updatedBy.value.name,
+      },
+      {
+        label: '工事ID',
         value: projId.value,
       },
     ];
@@ -116,7 +136,7 @@ export const ProjectDetails = ({
       />
 
       <DetailSection 
-        title="その他"
+        title="管理用"
         details={details.otherDetails}
       />
       

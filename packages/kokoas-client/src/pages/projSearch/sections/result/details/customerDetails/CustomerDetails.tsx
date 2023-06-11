@@ -6,8 +6,9 @@ import {
   useCustomersByCustGroupId, 
 } from 'kokoas-client/src/hooksQuery';
 import { Customers } from './Customers';
-import { GeneralDetails } from './GeneralDetails';
+import { AgentDetails } from './AgentDetails';
 import { getAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
+import { OtherDetails } from './OtherDetails';
 
 export const CustomerDetails = ({
   custGroupId,
@@ -22,6 +23,11 @@ export const CustomerDetails = ({
   const {
     agents,
     storeName,
+    isDeleted,
+    作成日時: createDate,
+    更新日時: updateDate,
+    作成者: createdBy,
+    更新者: updatedBy,
   } = recCustGroup ?? {};
 
   const { data: recCust } = useCustomersByCustGroupId(custGroupId);
@@ -41,13 +47,22 @@ export const CustomerDetails = ({
 
       {recCust && <Customers customers={recCust} />}
 
-      {  recCustGroup && (
-        <GeneralDetails 
+      {recCustGroup && (
+        <AgentDetails 
           cocoAgs={cocoAgs || '-'}
           yumeAgs={yumeAgs || '-'}
           storeName={storeName?.value ?? ''}
         />
       )}
+
+      <OtherDetails 
+        custGroupId={custGroupId}
+        recordStatus={isDeleted?.value === '0' ? '有効' : '削除'}
+        createDate={createDate?.value || '-'}
+        updateDate={updateDate?.value || '-'}
+        createdBy={createdBy?.value.name || '-'}
+        updatedBy={updatedBy?.value.name || '-'}
+      />
       
      
     </Stack>

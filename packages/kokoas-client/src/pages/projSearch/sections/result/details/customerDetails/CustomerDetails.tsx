@@ -10,6 +10,10 @@ import { AgentDetails } from './AgentDetails';
 import { getAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { OtherDetails } from './OtherDetails';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { EditButton } from '../common/EditButton';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+
 
 export const CustomerDetails = ({
   custGroupId,
@@ -45,6 +49,10 @@ export const CustomerDetails = ({
     <Stack 
       spacing={2}
     >
+
+      <EditButton 
+        href={`${pages.custGroupEdit}?${generateParams({ custGroupId })}`}
+      />
 
       {recCust && <Customers customers={recCust} />}
 

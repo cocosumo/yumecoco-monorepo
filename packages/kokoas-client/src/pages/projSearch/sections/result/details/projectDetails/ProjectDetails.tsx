@@ -6,6 +6,9 @@ import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { EditButton } from '../common/EditButton';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
 
 
 export const ProjectDetails = ({
@@ -13,8 +16,6 @@ export const ProjectDetails = ({
 }:{
   recProj: IProjects
 }) => {
-
-
 
 
   const details = useMemo(() => {
@@ -155,6 +156,14 @@ export const ProjectDetails = ({
     <Stack 
       spacing={2}
     >
+
+      <EditButton 
+        href={`${pages.projEdit}?${generateParams({ 
+          projId: recProj.uuid.value,
+        })}`}
+      />
+      
+   
       <DetailSection 
         title="工事情報"
         details={details.mainDetails}

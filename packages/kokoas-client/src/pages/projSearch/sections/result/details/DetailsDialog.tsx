@@ -12,10 +12,12 @@ import { SyntheticEvent, useState } from 'react';
 export const DetailsDialog = ({
   open,
   projId,
+  projName,
   handleClose,
 }: {
   open: boolean
   projId: string
+  projName: string
   handleClose: () => void
 }) => {
   const [tabIdx, setTabIdx] = useState(0);
@@ -41,7 +43,7 @@ export const DetailsDialog = ({
           pb: 0,
         }}
       > 
-        詳細
+        {projName}
         <Tabs value={tabIdx} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="顧客" />
           <Tab label="工事" />

@@ -7,6 +7,7 @@ export const ResultRow = (props: RowLayoutProps) => {
 
   const {
     uuid: projId,
+    projName,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -38,6 +39,7 @@ export const ResultRow = (props: RowLayoutProps) => {
         open={open} 
         handleClose={handleClose}
         projId={typeof projId === 'string' ? projId : ''}
+        projName={typeof projName === 'string' ? projName : ''}
       />
     </>
 

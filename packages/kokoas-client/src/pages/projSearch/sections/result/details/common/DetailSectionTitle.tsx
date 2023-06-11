@@ -7,7 +7,7 @@ export const DetailSectionTitle = ({
   children: ReactNode
 }) => (
   <Typography 
-    variant='h6' 
+    variant='caption' 
     color={'GrayText'}
   >
     {children}

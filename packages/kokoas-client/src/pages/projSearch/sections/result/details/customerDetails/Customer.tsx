@@ -98,7 +98,7 @@ export const Customer = ({
         .map((col) => (
           <Stack 
             key={col[0].label} 
-            width={'50%'}
+            width={'100%'}
             spacing={1}
           >
             {col

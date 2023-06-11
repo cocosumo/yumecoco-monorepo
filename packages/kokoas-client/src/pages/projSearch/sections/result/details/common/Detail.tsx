@@ -8,11 +8,11 @@ export const Detail = ({
   fonstSize,
 }: IDetail) => (        
   <Stack direction={'row'}>
-    <Typography color={grey[600]} width={'30%'}>
+    <Typography color={grey[600]} width={'20%'}>
       {label}
     </Typography>
     <Typography 
-      width={'70%'}
+      width={'80%'}
       fontSize={fonstSize}
     >
       {value}

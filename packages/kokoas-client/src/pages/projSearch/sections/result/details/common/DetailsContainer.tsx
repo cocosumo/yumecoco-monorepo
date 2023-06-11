@@ -14,7 +14,6 @@ export const DetailsContainer = ({
     p={2} 
     bgcolor={'white'} 
     borderRadius={2}
-    direction={'row'}
     spacing={2}
     justifyContent={'space-between'}
   >

@@ -33,19 +33,17 @@ export const GeneralDetails = ({
         担当情報
       </DetailSectionTitle>
       <DetailsContainer>
-        <Stack spacing={2} width={'50%'}>
-          {generalDetails.map(({
-            label,
-            value,
-          }) => (
-            <Detail 
-              key={label} 
-              label={label} 
-              value={value}
-            />
-          ))}
+        {generalDetails.map(({
+          label,
+          value,
+        }) => (
+          <Detail 
+            key={label} 
+            label={label} 
+            value={value}
+          />
+        ))}
 
-        </Stack>
    
 
       </DetailsContainer>

@@ -18,14 +18,15 @@ export type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' |
  * 固定の部分があるので、必要に応じて改修　~ Ras
  */
 export const NumberCommaField = forwardRef<HTMLInputElement, NumberCommaFieldProps>((props, ref) => {
-  
-  const { 
+
+  const {
     value,
     onChange,
     onBlur,
+    inputProps,
     ...others
   } = props;
-  
+
   const textProps = useNumberCommaField({
     onChange,
     onBlur,
@@ -33,11 +34,14 @@ export const NumberCommaField = forwardRef<HTMLInputElement, NumberCommaFieldPro
   });
 
   return (
-    <TextField 
+    <TextField
       ref={ref}
       type='text' // numberだと、コンマを入れることが出来ない
-      inputProps={{ 
-        style: { textAlign: 'right' }, 
+      inputProps={{
+        style: {
+          ...inputProps?.style,
+          textAlign: 'right',
+        },
       }}
       InputProps={{
         endAdornment: (
@@ -46,7 +50,7 @@ export const NumberCommaField = forwardRef<HTMLInputElement, NumberCommaFieldPro
           </InputAdornment>
         ),
       }}
-      {...others} 
+      {...others}
       {...textProps}
     />
   );

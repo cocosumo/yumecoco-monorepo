@@ -117,6 +117,10 @@ export const generateContractPdfV2 = async (
       y: 775,
       font: msChinoFont,
     },
+    {
+      boxWidth: 280,
+      isAutoSize: true,
+    },
   );
 
   // 顧客名
@@ -138,6 +142,10 @@ export const generateContractPdfV2 = async (
       x: x1,
       y: 615,
       font: msChinoFont,
+    },
+    {
+      boxWidth: 300,
+      isAutoSize: true,
     },
   );
 

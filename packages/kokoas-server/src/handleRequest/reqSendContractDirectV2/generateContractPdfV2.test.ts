@@ -4,6 +4,8 @@ import path from 'path';
 import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from './generateContractPdfV2';
 import { produce } from 'immer';
+import { fakerJA as faker } from '@faker-js/faker';
+import { getProjTypes } from 'api-kintone';
 
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
@@ -42,6 +44,30 @@ describe('Contract', () => {
    
   }, 60000);
 
+  it("should automatically adjust font-size of customer's name depending on available space", async () => {
+    const contractData = await getContractDataV2({
+      contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
+      signMethod: 'electronic',
+      ukeoiDocVersion: '20230523',
+    });
 
+    const projTypesRed = await getProjTypes();
+    const projTypes = projTypesRed.map(projType => projType.label.value);
+
+    for (let i = 1; i <= 4; i++) {
+      const nameLength = i * 10;
+      const mockData : Awaited<ReturnType<typeof getContractDataV2>> = produce(contractData, draft => {
+        draft.projName = ('ア').repeat(nameLength) + ' ' + faker.helpers.arrayElement(projTypes);
+      });
+
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', '20230523');
+      const savePath = path.join(__dirname, '__TEST__', `ukeoi_custNameLength_${nameLength}.pdf`);
+      await fsPromise.writeFile(savePath, pdf);
+      expect(fs.existsSync(savePath)).toBe(true);
+    }
+
+
+
+  }, 60000);
   
 });

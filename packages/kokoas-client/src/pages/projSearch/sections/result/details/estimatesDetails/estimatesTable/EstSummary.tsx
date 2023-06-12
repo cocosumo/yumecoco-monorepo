@@ -1,5 +1,5 @@
 import { Divider, Stack, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { blue, green, grey } from '@mui/material/colors';
 import { TypographyProps } from '@mui/system';
 import { CompleteEstimateSummary } from 'api-kintone';
 
@@ -17,11 +17,17 @@ const SummaryItem = ({
       width={'100%'} 
       spacing={1} 
       textAlign={'center'}
+      p={2}
     >
-      <Typography>
+      <Typography color={grey[600]}>
         {label}
       </Typography>
-      <Typography {...valueProps}>
+      <Typography 
+        fontSize={18} 
+        color={grey[800]}
+        whiteSpace={'nowrap'} 
+        {...valueProps}
+      >
         {value}
       </Typography>
 
@@ -46,15 +52,35 @@ export const EstSummary = ({
 
   return (
     <Stack
-      p={2} 
-      spacing={2}
       direction={'row'}
       width={'100%'}
       justifyContent={'space-between'}
       borderTop={2}
       borderColor={grey[200]}
       divider={<Divider orientation="vertical" flexItem />}
+      sx={{
+        // even divs should have blue black bacground
+        // odd dis should have green background
+        '& > :nth-of-type(even)': {
+          bgcolor: blue[50],
+        },
+        '& > :nth-of-type(odd)': {
+          bgcolor: green[50],
+        },
+      }}
     >
+      <SummaryItem 
+        label='税抜金額'
+        value={`${totalAmountBeforeTax.toLocaleString()}`}
+      />
+      <SummaryItem 
+        label='税（円）'
+        value={`${totalTaxAmount.toLocaleString()}`}
+      />
+      <SummaryItem 
+        label='税込金額'
+        value={`${totalAmountAfterTax.toLocaleString()}`}
+      />
       <SummaryItem 
         label='原価合計'
         value={`${totalCostPrice.toLocaleString()}`}
@@ -66,22 +92,6 @@ export const EstSummary = ({
       <SummaryItem 
         label='粗利率'
         value={`${(overallProfitRate * 100).toLocaleString()} %`}
-      />
-      <SummaryItem 
-        label='税（円）'
-        value={`${totalTaxAmount.toLocaleString()}`}
-      />
-      <SummaryItem 
-        label='税抜金額'
-        value={`${totalAmountBeforeTax.toLocaleString()}`}
-      />
-      <SummaryItem 
-        label='税込金額'
-        value={`${totalAmountAfterTax.toLocaleString()}`}
-        valueProps={{
-          fontSize: 20,
-          fontWeight: 'bold',
-        }}
       />
     </Stack>
   );

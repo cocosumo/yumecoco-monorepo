@@ -40,6 +40,7 @@ export const EstTableBody = ({
             unitPrice,
             rowUnitPriceAfterTax,
             profitRate,
+            
           } = results[index];
 
           return (
@@ -53,7 +54,7 @@ export const EstTableBody = ({
               quantity={quantity}
               unit={unit.value}
               profitRate={`${roundTo(profitRate * 100, 2)} %`}
-              unitPrice={unitPrice.toLocaleString()}
+              unitPrice={roundTo(unitPrice).toLocaleString()}
               amountAfterTax={roundTo(rowUnitPriceAfterTax).toLocaleString()}
               remarks={remarks.value}
               

@@ -17,7 +17,7 @@ const SummaryItem = ({
       width={'100%'} 
       spacing={1} 
       textAlign={'center'}
-      p={2}
+      py={1}
     >
       <Typography color={grey[600]}>
         {label}

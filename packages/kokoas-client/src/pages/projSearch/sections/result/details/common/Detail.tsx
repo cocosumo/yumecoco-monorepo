@@ -16,12 +16,13 @@ export const Detail = ({
       },
     }}
   >
-    <Typography color={grey[600]} width={'15%'}>
+    <Typography color={grey[600]} width={'15%'} component={'div'}>
       {label}
     </Typography>
     <Typography 
       width={'75%'}
       fontSize={fonstSize}
+      component={'div'}
     >
       {value}
     </Typography>

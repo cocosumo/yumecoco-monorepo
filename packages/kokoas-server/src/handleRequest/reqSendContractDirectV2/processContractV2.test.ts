@@ -13,7 +13,7 @@ it('should porcess contract', async () => {
     {
       contractId: '9d8f1262-0e6b-43ff-a48e-33b300bdd183',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230523',
+      ukeoiDocVersion: '20230605',
     },
     'sent',
   ).catch((e) => {

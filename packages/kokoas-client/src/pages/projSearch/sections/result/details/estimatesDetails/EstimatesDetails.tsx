@@ -47,9 +47,11 @@ export const EstimatesDetails = ({
         direction={'row'}
         pl={20}
       >
-        {data && (
+        {records && (
         <BranchList 
-          handleSetIndex={handleSetIndex} data={data}
+          handleSetIndex={handleSetIndex} 
+          records={records}
+          selectedIndex={selectedEstIdx}
         />)}
 
         {selectedRecord && selectedRecordCal && selectedRecordSummary &&  (

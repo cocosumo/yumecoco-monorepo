@@ -14,7 +14,8 @@ export const useEstimatesByProjId = (
     select: useCallback((data) => {
 
       const filteredData = data
-        .filter((rec) => rec.projId.value === projId);
+        .filter((rec) => rec.projId.value === projId)
+        .sort((a, b) => a.dataId.value.localeCompare(b.dataId.value) );
 
       return {
         records: filteredData,

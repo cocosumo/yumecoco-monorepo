@@ -1,5 +1,25 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
 import { ReactNode } from 'react';
+import { styled } from '@mui/material/styles';
+import { amber, blue, grey } from '@mui/material/colors';
+
+
+const StyledTableRow = styled(TableRow)(() => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: amber[50],
+  },
+  '&:nth-of-type(odd)': {
+    backgroundColor: grey[50],
+  },
+  // hide last border
+  '&:last-child td': {
+    border: 0,
+  },
+
+  '&:hover': {
+    backgroundColor: blue[50],
+  },
+}));
 
 const NumberCell = ({
   children,
@@ -42,7 +62,7 @@ export const RowLayout = ({
   remarks: ReactNode,
 }) => {
   return (
-    <TableRow>
+    <StyledTableRow>
       <TableCell>
         {majorItem}
       </TableCell>
@@ -75,6 +95,6 @@ export const RowLayout = ({
       <TableCell>
         {remarks}
       </TableCell>
-    </TableRow>
+    </StyledTableRow>
   );
 };

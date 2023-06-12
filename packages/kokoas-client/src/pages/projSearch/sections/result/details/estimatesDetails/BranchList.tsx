@@ -1,19 +1,17 @@
-import { Divider, List, ListItem, ListItemButton, Paper, Typography } from '@mui/material';
-import { UseEstimateByProjIdReturn } from 'kokoas-client/src/hooksQuery';
+import { Divider, List, ListItem, ListItemButton, Paper, Stack, Typography } from '@mui/material';
+import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { Fragment } from 'react';
+import { IProjestimates } from 'types';
 
 export const BranchList = ({
-  data,
+  records,
   handleSetIndex,
+  selectedIndex,
 }: {
-  data: UseEstimateByProjIdReturn,
+  records: IProjestimates[],
   handleSetIndex: (idx: number) => void,
+  selectedIndex: number,
 }) => {
-  
-  const {
-    records,
-    calculated,
-  } = data || {};
 
   return (
     <List
@@ -29,10 +27,8 @@ export const BranchList = ({
       }}
       component={Paper}
     >
-      <Typography 
-        variant={'caption'}
+      <Stack 
         color={'GrayText'}
-        textAlign={'center'}
         fontWeight={700}
         component={'div'}
         p={1}
@@ -41,28 +37,35 @@ export const BranchList = ({
         bgcolor={'white'}
         position={'sticky'}
         boxShadow={2}
+        justifyContent={'space-between'}
       >
-        枝番
-      </Typography>
+        <div>
+          作成日
+        </div>
+        <div>
+          枝番
+        </div>
+      </Stack>
       <Divider />
 
-      {records?.map(({ uuid, $id }, index) => (
+      {records?.map(({ uuid, $id, dataId, 作成日時: createDate }, index) => (
         <Fragment key={uuid?.value || $id.value}>
           <ListItem disablePadding>
             <ListItemButton 
               divider
               onClick={() => handleSetIndex(index)}
             >
-              {(index + 1).toString().padStart(2, '0')}
+             
               <Typography 
                 variant='caption' 
                 width={'100%'} 
-                textAlign={'right'}
+                textAlign={'left'}
                 whiteSpace={'nowrap'}
               >
-                {`${calculated?.[index]?.summary?.totalAmountAfterTax.toLocaleString()} 円`}
-                
+                {`${parseISOTimeToFormat(createDate.value, 'yyyy/MM/dd')}`}
+
               </Typography>
+              {dataId.value.split('-').at(-1)}
             </ListItemButton>
           </ListItem>
         </Fragment>

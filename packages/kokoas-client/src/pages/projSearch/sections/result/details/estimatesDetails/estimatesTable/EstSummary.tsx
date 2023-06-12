@@ -1,19 +1,27 @@
 import { Divider, Stack, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
+import { TypographyProps } from '@mui/system';
 import { CompleteEstimateSummary } from 'api-kintone';
 
 const SummaryItem = ({
   label,
   value,
+  valueProps,
 }:{
   label: string,
   value: string,
+  valueProps?: TypographyProps
 }) => {
   return (
-    <Stack spacing={1} textAlign={'right'}>
+    <Stack 
+      width={'100%'} 
+      spacing={1} 
+      textAlign={'center'}
+    >
       <Typography>
         {label}
       </Typography>
-      <Typography>
+      <Typography {...valueProps}>
         {value}
       </Typography>
 
@@ -43,7 +51,9 @@ export const EstSummary = ({
       direction={'row'}
       width={'100%'}
       justifyContent={'space-between'}
-      divider={<Divider />}
+      borderTop={2}
+      borderColor={grey[200]}
+      divider={<Divider orientation="vertical" flexItem />}
     >
       <SummaryItem 
         label='原価合計'
@@ -68,6 +78,10 @@ export const EstSummary = ({
       <SummaryItem 
         label='税込金額'
         value={`${totalAmountAfterTax.toLocaleString()}`}
+        valueProps={{
+          fontSize: 20,
+          fontWeight: 'bold',
+        }}
       />
     </Stack>
   );

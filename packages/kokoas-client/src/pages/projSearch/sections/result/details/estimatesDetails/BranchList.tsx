@@ -38,6 +38,7 @@ export const BranchList = ({
         position={'sticky'}
         boxShadow={2}
         justifyContent={'space-between'}
+        direction={'row'}
       >
         <div>
           作成日

@@ -26,7 +26,7 @@ export const SchedInfo = ({
       const parsedDays = +daysAftrContract ? `契約の日から${daysAftrContract}日以内` : '';
       return {
         label,
-        value: `${parseISODateToFormat(date) ?? '-'} ${parsedDays}`,
+        value: `${parseISODateToFormat(date) || '-'} ${parsedDays}`,
       };
     });
 

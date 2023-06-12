@@ -9,6 +9,8 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { ContractInfo } from './ContractInfo';
 import { AmountInfo } from './AmountInfo';
 import { PaymentInfo } from './PaymentInfo';
+import { OtherInfo } from './OtherInfo';
+import { SchedInfo } from './SchedInfo';
 
 export const ContractDetails = ({
   projId,
@@ -42,6 +44,8 @@ export const ContractDetails = ({
           <ContractInfo record={selectedRecord} />
           <AmountInfo record={selectedRecord} />
           <PaymentInfo record={selectedRecord} />
+          <SchedInfo record={selectedRecord} />
+          <OtherInfo record={selectedRecord} />
         </>
 
       )}

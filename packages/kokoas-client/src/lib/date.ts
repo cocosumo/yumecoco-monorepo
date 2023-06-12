@@ -47,3 +47,15 @@ export const parseISOTimeToFormat = (
   if (!isoDate) return '';
   return format(parseISO(isoDate), formatStr);
 };
+
+/**
+ * convenience function to parse ISO date to format without time. 
+ *
+ */
+export const parseISODateToFormat = (
+  isoDate: string | null | undefined,
+  formatStr = 'yyyy/MM/dd', // 時間なし
+) => {
+  if (!isoDate) return '';
+  return parseISOTimeToFormat((isoDate), formatStr);
+};

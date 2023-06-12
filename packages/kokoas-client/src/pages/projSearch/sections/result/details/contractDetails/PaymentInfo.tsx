@@ -3,8 +3,7 @@ import { DetailSection } from '../common/DetailSection';
 import { useMemo } from 'react';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { roundTo } from 'libs';
-import { parseKintoneDate } from 'kokoas-client/src/lib';
-import format from 'date-fns/format';
+import { parseISODateToFormat } from 'kokoas-client/src/lib';
 
 export const PaymentInfo = ({
   record,
@@ -47,7 +46,7 @@ export const PaymentInfo = ({
       const parsedAmt = +amt;
       return {
         label,
-        value: `${roundTo(parsedAmt).toLocaleString()} ${date && parsedAmt ? `(${format(parseKintoneDate(date), 'yyyy/mm/dd')})` : '' }`,
+        value: `${roundTo(parsedAmt).toLocaleString()} ${date && parsedAmt ? `(${parseISODateToFormat((date))})` : '' }`,
       }; 
     });
 

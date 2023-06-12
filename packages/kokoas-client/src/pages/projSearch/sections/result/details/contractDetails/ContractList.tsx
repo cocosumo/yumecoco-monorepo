@@ -1,7 +1,7 @@
 import { Divider, List, ListItem, ListItemButton, ListSubheader, Paper } from '@mui/material';
 import { ListItemLayout } from './ListItemLayout';
 import { IContracts, TEnvelopeStatus } from 'types';
-import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { parseISODateToFormat } from 'kokoas-client/src/lib';
 import { ContractStatus } from './ContractStatus';
 
 export const ContractList = ({
@@ -45,7 +45,7 @@ export const ContractList = ({
           >
             <ListItemLayout 
               status={<ContractStatus envStatus={envelopeStatus.value as TEnvelopeStatus} />}
-              contractDate={`${parseISOTimeToFormat(contractDate.value, 'yy/MM/dd')}`}
+              contractDate={`${parseISODateToFormat(contractDate.value, 'yy/MM/dd')}`}
               contractAmount={(+totalContractAmt.value).toLocaleString()}
             />
              

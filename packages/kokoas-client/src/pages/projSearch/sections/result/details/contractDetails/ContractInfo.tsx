@@ -3,6 +3,7 @@ import { DetailSection } from '../common/DetailSection';
 import { useMemo } from 'react';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { locale } from 'libs';
+import { parseISODateToFormat } from 'kokoas-client/src/lib';
 
 export const ContractInfo = ({
   record,
@@ -14,10 +15,14 @@ export const ContractInfo = ({
     const {
       envelopeId,
       signMethod,
-      //envRecipients,
+      contractDate,
     } = record ?? {};
 
     const result: IDetail[] = [
+      {
+        label: '契約日',
+        value: parseISODateToFormat(contractDate.value),
+      },
       {
         label: 'ドキュサインID',
         value: envelopeId?.value ?? '-',

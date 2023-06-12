@@ -2,13 +2,11 @@ import { Stack, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const ListItemLayout = ({
-  status,
-  contractDate,
-  contractAmount,
+  createDate,
+  branchNum,
 }:{
-  status: ReactNode,
-  contractDate: ReactNode,
-  contractAmount: ReactNode,
+  createDate: ReactNode,
+  branchNum: ReactNode,
 }) => {
   return (
     <Stack
@@ -16,14 +14,11 @@ export const ListItemLayout = ({
       justifyContent={'space-between'}
       py={1}
     >
-      <Typography variant='caption' width={'30px'}>
-        {status}
-      </Typography>
-      <Typography variant='caption' width={'50px'}>
-        {contractDate}
+      <Typography variant='caption'>
+        {createDate}
       </Typography>
       <Typography variant='caption'>
-        {contractAmount}
+        {branchNum}
       </Typography>
     </Stack>
   );

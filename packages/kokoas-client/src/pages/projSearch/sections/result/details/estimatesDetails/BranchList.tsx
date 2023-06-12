@@ -1,7 +1,15 @@
-import { Divider, List, ListItem, ListItemButton, Paper, Stack, Typography } from '@mui/material';
+import { 
+  Divider, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListSubheader, 
+  Paper, 
+} from '@mui/material';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { Fragment } from 'react';
 import { IProjestimates } from 'types';
+import { ListItemLayout } from './ListItemLayout';
 
 export const BranchList = ({
   records,
@@ -27,26 +35,12 @@ export const BranchList = ({
       }}
       component={Paper}
     >
-      <Stack 
-        color={'GrayText'}
-        fontWeight={700}
-        component={'div'}
-        p={1}
-        top={0}
-        zIndex={50}
-        bgcolor={'white'}
-        position={'sticky'}
-        boxShadow={2}
-        justifyContent={'space-between'}
-        direction={'row'}
-      >
-        <div>
-          作成日
-        </div>
-        <div>
-          枝番
-        </div>
-      </Stack>
+      <ListSubheader>
+        <ListItemLayout 
+          createDate={'作成日'}
+          branchNum={'枝番'}
+        />
+      </ListSubheader>
       <Divider />
 
       {records?.map(({ uuid, $id, dataId, 作成日時: createDate }, index) => (
@@ -57,17 +51,11 @@ export const BranchList = ({
               onClick={() => handleSetIndex(index)}
               selected={selectedIndex === index}
             >
+              <ListItemLayout 
+                createDate={`${parseISOTimeToFormat(createDate.value, 'yyyy/MM/dd')}`}
+                branchNum={dataId.value.split('-').at(-1)}
+              />
              
-              <Typography 
-                variant='caption' 
-                width={'100%'} 
-                textAlign={'left'}
-                whiteSpace={'nowrap'}
-              >
-                {`${parseISOTimeToFormat(createDate.value, 'yyyy/MM/dd')}`}
-
-              </Typography>
-              {dataId.value.split('-').at(-1)}
             </ListItemButton>
           </ListItem>
         </Fragment>

@@ -40,27 +40,23 @@ export const EstimatesDetails = ({
   return (
     <Stack 
       spacing={2}
+      pl={21}
     >
       <EditButton href={`${pages.projEstimate}?${generateParams({ projEstimateId: projEstimateId?.value })}`} />
-   
-      <Stack 
-        direction={'row'}
-        pl={20}
-      >
-        {records && (
+      {records && (
         <BranchList 
           handleSetIndex={handleSetIndex} 
           records={records}
           selectedIndex={selectedEstIdx}
         />)}
 
-        {selectedRecord && selectedRecordCal && selectedRecordSummary &&  (
-        <EstimateContent 
-          record={selectedRecord}
-          results={selectedRecordCal}
-          summary={selectedRecordSummary}
-        />)}
-      </Stack>
+      {selectedRecord && selectedRecordCal && selectedRecordSummary &&  (
+      <EstimateContent 
+        record={selectedRecord}
+        results={selectedRecordCal}
+        summary={selectedRecordSummary}
+      />)}
+     
     </Stack>
   );
 };

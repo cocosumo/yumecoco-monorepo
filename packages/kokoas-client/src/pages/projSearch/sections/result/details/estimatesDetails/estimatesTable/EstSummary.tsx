@@ -1,4 +1,5 @@
 import { Divider, Stack, Typography } from '@mui/material';
+import { CompleteEstimateSummary } from 'api-kintone';
 
 const SummaryItem = ({
   label,
@@ -20,7 +21,21 @@ const SummaryItem = ({
   );
 };
 
-export const EstSummary = () => {
+export const EstSummary = ({
+  summary,
+}:{
+  summary: CompleteEstimateSummary
+}) => {
+
+  const {
+    totalCostPrice,
+    totalProfit,
+    overallProfitRate,
+    totalTaxAmount,
+    totalAmountBeforeTax,
+    totalAmountAfterTax,
+  } = summary;
+
   return (
     <Stack
       p={2} 
@@ -32,23 +47,27 @@ export const EstSummary = () => {
     >
       <SummaryItem 
         label='原価合計'
-        value={`${(100000).toLocaleString()} 円`}
+        value={`${totalCostPrice.toLocaleString()}`}
       />
       <SummaryItem 
-        label='原価合計'
-        value={`${(100000).toLocaleString()} 円`}
+        label='粗利'
+        value={`${totalProfit.toLocaleString()}`}
       />
       <SummaryItem 
-        label='原価合計'
-        value={`${(100000).toLocaleString()} 円`}
+        label='粗利率'
+        value={`${(overallProfitRate * 100).toLocaleString()} %`}
       />
       <SummaryItem 
-        label='原価合計'
-        value={`${(100000).toLocaleString()} 円`}
+        label='税（円）'
+        value={`${totalTaxAmount.toLocaleString()}`}
       />
       <SummaryItem 
-        label='原価合計'
-        value={`${(100000).toLocaleString()} 円`}
+        label='税抜金額'
+        value={`${totalAmountBeforeTax.toLocaleString()}`}
+      />
+      <SummaryItem 
+        label='税込金額'
+        value={`${totalAmountAfterTax.toLocaleString()}`}
       />
     </Stack>
   );

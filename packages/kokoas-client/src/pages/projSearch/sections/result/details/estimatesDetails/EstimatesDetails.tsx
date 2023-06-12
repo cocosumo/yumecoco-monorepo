@@ -22,7 +22,10 @@ export const EstimatesDetails = ({
   const [selectedEstIdx, setSelectedEstIdx] = useState(0);
 
   const selectedRecord = records?.[selectedEstIdx];
-  const selectedRecordCal = calculated?.[selectedEstIdx].details;
+  const { 
+    details: selectedRecordCal,
+    summary: selectedRecordSummary,
+  } = calculated?.[selectedEstIdx] ?? {};
 
   const {
     uuid: projEstimateId,
@@ -49,10 +52,11 @@ export const EstimatesDetails = ({
           handleSetIndex={handleSetIndex} data={data}
         />)}
 
-        {selectedRecord && selectedRecordCal &&  (
+        {selectedRecord && selectedRecordCal && selectedRecordSummary &&  (
         <EstimateContent 
           record={selectedRecord}
           results={selectedRecordCal}
+          summary={selectedRecordSummary}
         />)}
       </Stack>
     </Stack>

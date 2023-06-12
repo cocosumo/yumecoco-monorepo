@@ -11,6 +11,7 @@ import { AmountInfo } from './AmountInfo';
 import { PaymentInfo } from './PaymentInfo';
 import { OtherInfo } from './OtherInfo';
 import { SchedInfo } from './SchedInfo';
+import { Files } from './Files';
 
 export const ContractDetails = ({
   projId,
@@ -45,6 +46,7 @@ export const ContractDetails = ({
           <AmountInfo record={selectedRecord} />
           <PaymentInfo record={selectedRecord} />
           <SchedInfo record={selectedRecord} />
+          <Files />
           <OtherInfo record={selectedRecord} />
         </>
 

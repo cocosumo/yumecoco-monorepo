@@ -2,6 +2,7 @@ import { IProjestimates } from 'types';
 import { DetailSection } from '../common/DetailSection';
 import { useMemo } from 'react';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
+import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 
 export const OtherInfo = ({
   record,
@@ -21,11 +22,11 @@ export const OtherInfo = ({
     const result : IDetail[] = [
       {
         label: '作成日時',
-        value: createDate.value,
+        value: parseISOTimeToFormat(createDate.value),
       },
       {
         label: '更新日時',
-        value: updateDate.value,
+        value: parseISOTimeToFormat(updateDate.value),
       },
       {
         label: '作成者',

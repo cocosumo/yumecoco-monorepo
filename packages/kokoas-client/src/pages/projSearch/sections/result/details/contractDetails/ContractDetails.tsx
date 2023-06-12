@@ -6,6 +6,9 @@ import { ContractList } from './ContractList';
 import { useState } from 'react';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { ContractInfo } from './ContractInfo';
+import { AmountInfo } from './AmountInfo';
+import { PaymentInfo } from './PaymentInfo';
 
 export const ContractDetails = ({
   projId,
@@ -22,7 +25,10 @@ export const ContractDetails = ({
   } = selectedRecord ?? {};
 
   return (
-    <Stack spacing={2}>
+    <Stack 
+      spacing={2}
+      pl={28}
+    >
       <EditButton href={`${pages.projContractPreviewV2}?${generateParams({ contractId: contractId?.value })}`} />
       {records && (
         <ContractList 
@@ -30,6 +36,15 @@ export const ContractDetails = ({
           selectedIndex={selectedIdx}
           records={records}
         />)}
+
+      {selectedRecord && (
+        <>
+          <ContractInfo record={selectedRecord} />
+          <AmountInfo record={selectedRecord} />
+          <PaymentInfo record={selectedRecord} />
+        </>
+
+      )}
     </Stack>
   );
 };

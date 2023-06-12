@@ -3,9 +3,9 @@ import { BranchList } from './BranchList';
 import { EstimateContent } from './EstimateContent';
 import { useEstimatesByProjId } from 'kokoas-client/src/hooksQuery';
 import { useState } from 'react';
-import { EditButton } from '../common/EditButton';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { EditButton } from '../common/EditButton';
 
 export const EstimatesDetails = ({
   projId,

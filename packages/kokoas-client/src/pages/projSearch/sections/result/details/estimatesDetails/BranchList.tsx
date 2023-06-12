@@ -7,7 +7,6 @@ import {
   Paper, 
 } from '@mui/material';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
-import { Fragment } from 'react';
 import { IProjestimates } from 'types';
 import { ListItemLayout } from './ListItemLayout';
 
@@ -44,21 +43,20 @@ export const BranchList = ({
       <Divider />
 
       {records?.map(({ uuid, $id, dataId, 作成日時: createDate }, index) => (
-        <Fragment key={uuid?.value || $id.value}>
-          <ListItem disablePadding>
-            <ListItemButton 
-              divider
-              onClick={() => handleSetIndex(index)}
-              selected={selectedIndex === index}
-            >
-              <ListItemLayout 
-                createDate={`${parseISOTimeToFormat(createDate.value, 'yyyy/MM/dd')}`}
-                branchNum={dataId.value.split('-').at(-1)}
-              />
+
+        <ListItem key={uuid?.value || $id.value} disablePadding>
+          <ListItemButton 
+            divider
+            onClick={() => handleSetIndex(index)}
+            selected={selectedIndex === index}
+          >
+            <ListItemLayout 
+              createDate={`${parseISOTimeToFormat(createDate.value, 'yy/MM/dd')}`}
+              branchNum={dataId.value.split('-').at(-1)}
+            />
              
-            </ListItemButton>
-          </ListItem>
-        </Fragment>
+          </ListItemButton>
+        </ListItem>
       ))}
 
     </List>

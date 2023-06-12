@@ -14,15 +14,15 @@ export const ListItemLayout = ({
     <Stack
       direction={'row'}
       justifyContent={'space-between'}
-      py={1}
+      width={'100%'}
     >
-      <Typography variant='caption' width={'30px'}>
+      <Typography variant='caption' textAlign={'left'} width={'20%'}>
         {status}
       </Typography>
-      <Typography variant='caption' width={'50px'}>
+      <Typography variant='caption' textAlign={'center'} width={'30%'}>
         {contractDate}
       </Typography>
-      <Typography variant='caption'>
+      <Typography variant='caption' textAlign={'right'} width={'50%'}>
         {contractAmount}
       </Typography>
     </Stack>

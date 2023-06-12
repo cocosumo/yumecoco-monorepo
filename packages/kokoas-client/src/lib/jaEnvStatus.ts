@@ -45,7 +45,7 @@ export const jaEnvelopeStatus  = (
     }
     case '': {
       return {
-        ja: '未作成',
+        ja: '未処理',
         desc: '契約はDocusign上でまだ作成していません。',
       };
     }

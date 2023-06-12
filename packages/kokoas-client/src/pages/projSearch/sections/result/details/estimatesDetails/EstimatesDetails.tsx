@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { EditButton } from '../common/EditButton';
+import { OtherInfo } from './OtherInfo';
 
 export const EstimatesDetails = ({
   projId,
@@ -57,6 +58,9 @@ export const EstimatesDetails = ({
         summary={selectedRecordSummary}
       />)}
      
+      {selectedRecord && (
+      <OtherInfo record={selectedRecord} />
+      )}
     </Stack>
   );
 };

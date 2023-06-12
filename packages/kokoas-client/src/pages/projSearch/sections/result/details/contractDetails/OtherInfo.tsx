@@ -50,7 +50,7 @@ export const OtherInfo = ({
 
   return (
     <DetailSection
-      title={'契約情報'}
+      title={'管理用'}
       details={details}
     />
   );

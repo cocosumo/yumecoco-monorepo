@@ -34,7 +34,7 @@ export const DetailsDialog = ({
       fullWidth
       PaperProps={{
         sx: {
-          height: '80vh',
+          height: '90vh',
         },
       }}
     >

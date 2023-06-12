@@ -55,6 +55,7 @@ export const BranchList = ({
             <ListItemButton 
               divider
               onClick={() => handleSetIndex(index)}
+              selected={selectedIndex === index}
             >
              
               <Typography 

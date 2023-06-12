@@ -26,6 +26,9 @@ export const convertContractToForm = (
     finalAmt,
     finalAmtDate,
 
+    othersAmt,
+    othersAmtDate,
+
     hasRefund,
     refundAmt,
 
@@ -91,6 +94,11 @@ export const convertContractToForm = (
     hasFinalAmt: !!+finalAmt.value,
     finalAmt: +finalAmt.value,
     finalAmtDate: parseKintoneDate(finalAmtDate.value, null),
+
+    hasOthersAmt: !!+othersAmt.value,
+    othersAmt: +othersAmt.value,
+    othersAmtDate: parseKintoneDate(othersAmtDate.value, null),
+
 
     hasRefund: hasRefund.value === 'はい',
     refundAmt: +refundAmt.value,

@@ -10,8 +10,12 @@ export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
 
 
 
-type PartialContractData = DBContracts.Data;
+type PartialContractData = Partial<DBContracts.Data>;
 
+/**
+ * @deprecated 見積もりが再開されても、契約情報は契約DBに移行されたので、この関数は不要になった。
+ * 次回のリファクタリングで削除する。
+ */
 export const migrateContracts = async () => {
   const { 
     record: KintoneRecord,
@@ -179,12 +183,13 @@ export const migrateContracts = async () => {
       projName: { value: '' },
       projAddress: { value: '' },
       storeName: { value: '' },
+      
     };
     
   });
 
 
-  const oldRecUuids = contractRecords.map(({ uuid }) => uuid.value);
+  const oldRecUuids = contractRecords.map(({ uuid }) => uuid?.value);
 
   const existingUuids = await getAllRecords({
     app: prodAppIds.contracts,
@@ -199,7 +204,7 @@ export const migrateContracts = async () => {
   }>(
     (acc, record) => {
       const { uuid } = record;
-      const isExisting = existingUuids.some(({ uuid: existingUuid }) => existingUuid.value === uuid.value);
+      const isExisting = existingUuids.some(({ uuid: existingUuid }) => existingUuid.value === uuid?.value);
       if (isExisting) {
         acc.updateRecords.push(record);
       } else {
@@ -222,7 +227,7 @@ export const migrateContracts = async () => {
       records: updateRecords.map(({ uuid, ...record }) => ({
         updateKey: {
           field: 'uuid',
-          value: uuid.value,
+          value: uuid?.value || '',
         },
         record: record,
       })),

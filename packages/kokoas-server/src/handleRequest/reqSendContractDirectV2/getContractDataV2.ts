@@ -64,6 +64,9 @@ export const getContractDataV2 = async (
     finalAmt,
     finalAmtDate,
 
+    othersAmt,
+    othersAmtDate,
+
     payMethod,
     payDestination,
 
@@ -179,6 +182,7 @@ export const getContractDataV2 = async (
     { paymentAmt: +initialAmt.value, paymentDate: initialAmtDate.value },
     { paymentAmt: +interimAmt.value, paymentDate: interimAmtDate.value },
     { paymentAmt: +finalAmt.value, paymentDate: finalAmtDate.value },
+    { paymentAmt: +othersAmt.value, paymentDate: othersAmtDate.value },
   ];
 
 

@@ -46,13 +46,15 @@ describe(
         testIsolation: false,
       }, 
       () => {
-        const dividedAmt = Math.round(totalContractAmt / 4);
+       
         const payments = [
           ['契約金', 'contract'],
           ['着手金', 'initial'],
           ['中間金', 'interim'],
           ['最終金', 'final'],
+          ['その他', 'others'],
         ];
+        const dividedAmt = Math.round(totalContractAmt / payments.length);
 
         it('契約金額にコンマが追加されるのを確認する', () => {
           cy.getTextInputsByLabel('契約合計金額（税込）')
@@ -119,7 +121,6 @@ describe(
         });
 
         it('契約金額を入力したら、金額（税抜）と原価と利益額が計算されること', () => {
-          // 
 
           const inputValue = 33333;
           const {

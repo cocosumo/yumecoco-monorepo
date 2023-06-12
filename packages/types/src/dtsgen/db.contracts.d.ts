@@ -28,10 +28,12 @@ declare namespace DBContracts {
     interimAmtDate: kintone.fieldTypes.Date;
     tax: kintone.fieldTypes.Number;
     startDaysAfterContract: kintone.fieldTypes.Number;
+    othersAmt: kintone.fieldTypes.Number;
     initialAmtDate: kintone.fieldTypes.Date;
     subsidyMethod: kintone.fieldTypes.SingleLineText;
     contractAmt: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;
+    othersAmtDate: kintone.fieldTypes.Date;
     startDate: kintone.fieldTypes.Date;
     signMethod: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;

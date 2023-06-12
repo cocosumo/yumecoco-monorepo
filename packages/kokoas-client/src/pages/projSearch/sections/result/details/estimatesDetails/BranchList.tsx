@@ -35,7 +35,7 @@ export const BranchList = ({
       }}
       component={Paper}
     >
-      <ListSubheader>
+      <ListSubheader sx={{ py: 1 }}>
         <ListItemLayout 
           createDate={'作成日'}
           branchNum={'枝番'}

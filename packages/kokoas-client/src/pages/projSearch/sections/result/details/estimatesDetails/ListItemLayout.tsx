@@ -12,7 +12,7 @@ export const ListItemLayout = ({
     <Stack
       direction={'row'}
       justifyContent={'space-between'}
-      py={1}
+      width={'100%'}
     >
       <Typography variant='caption'>
         {createDate}

@@ -5,11 +5,13 @@ import { SearchProject } from './SearchProject';
 
 export const SelectAndpadProject = ({
   open,
+  projId,
   onClose,
 }:{
   open: boolean,
-  onClose: () => void
-  onSelectSystemId?: (systemId: string) => void
+  projId: string,
+  onClose: () => void,
+  onSelectSystemId?: (systemId: string) => void,
 }) => {
 
   const [stepIndex, setStepIndex] = useState(0);
@@ -25,7 +27,7 @@ export const SelectAndpadProject = ({
         Andpadとの強制接続
       </DialogTitle>
       {stepIndex === 0 && (<Confirmation onClose={onClose} handleNext={handleNext} />)}
-      {stepIndex === 1 && (<SearchProject />)}
+      {stepIndex === 1 && (<SearchProject projId={projId} />)}
     </Dialog>
   );
 };

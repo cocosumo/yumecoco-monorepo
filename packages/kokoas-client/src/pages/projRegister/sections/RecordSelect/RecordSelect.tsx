@@ -101,7 +101,7 @@ export const RecordSelect = () => {
    
 
       {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
-      {!!projId && <ForcedAndpadLink />}         
+      {!!projId && <ForcedAndpadLink projId={projId} />}         
 
       <ModeInfo
         recordId={projDataId || ''}

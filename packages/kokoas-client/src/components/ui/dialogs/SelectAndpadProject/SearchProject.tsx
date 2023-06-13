@@ -8,51 +8,46 @@ import {
   Typography, 
 } from '@mui/material';
 import { useDebounce } from 'usehooks-ts';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAndpadByProjName } from 'kokoas-client/src/hooksQuery';
 import { grey } from '@mui/material/colors';
+import { SaveProjectData } from 'api-andpad';
+import { AndpadProjComparison } from '../../tables/projAndpadComparison/ProjAndpadComparison';
+import { EmptyBox } from '../../information';
 
 
-interface AutocompleteOption {
-  id: string;
-  projName: string;
-}
 
-export const SearchProject = () => {
+
+export const SearchProject = ({
+  projId,
+}:{
+  projId: string,
+}) => {
   const [inputValue, setInputValue] = useState('');
-  const [value, setValue] = useState<AutocompleteOption | null>(null);
+  const [value, setValue] = useState<SaveProjectData | null>(null);
 
   const debouncedValue = useDebounce(inputValue, 500);
 
   const { data: options, isLoading } = useAndpadByProjName(debouncedValue, {
     select: (d) => {
-      return d.data.objects.map<AutocompleteOption>(({
-        案件名: projName,
-        システムID: systemId,
-      }) => {
-        return {
-          id: String(systemId),
-          projName,
-        };
-      });
-
-
+      return d.data.objects.map<SaveProjectData>((andpadRecord) => andpadRecord);
     },
   });
 
-  useEffect(() => {
-    
-    console.log(options);
-  }, [options]);
 
   return (
     <>
       <DialogContent sx={{ 
         height: '60vh', 
-        minWidth: '500px',
+        width: '500px',
+        overflow: 'hidden',
       }}
       >
-        <Stack direction={'row'} spacing={2} pt={2}>
+        <Stack 
+          pt={2} 
+          spacing={2}
+          height={'100%'}
+        >
           <Autocomplete
             value={value}
             loading={isLoading}
@@ -68,26 +63,41 @@ export const SearchProject = () => {
             onChange={(_, val) => setValue(val)}
             noOptionsText={'案件が見つかりません'}
             loadingText={'検索中...'}
-            getOptionLabel={(option) => option.projName || ''}
-            renderOption={(props, { projName, id }) => (
-              <li {...props} key={id}>
+            getOptionLabel={(option) => option.案件名 || ''}
+            renderOption={(props, { 案件名, システムID }) => (
+              <li {...props} key={システムID}>
                 <Stack>
                   <div>
-                    {projName}
+                    {案件名}
                   </div>
                   <Typography  
                     variant='caption'
                     color={grey[600]}
                   >
-                    {id}
+                    {システムID}
                   </Typography>
                 </Stack>
               </li>
             )}
-            
           />
-        </Stack>
+ 
+          {!!value && (
+          <AndpadProjComparison 
+            projId={projId}
+            andpadRecord={value}
+          />
+          ) } 
 
+          {!value && (
+            <EmptyBox height={'100%'}>
+              案件を選択したら、
+              <br />
+              ここにAndpadの情報が表示されます。
+            </EmptyBox>
+          )}
+
+
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button>

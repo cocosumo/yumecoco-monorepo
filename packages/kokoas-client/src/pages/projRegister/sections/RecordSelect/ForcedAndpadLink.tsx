@@ -3,7 +3,11 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useState } from 'react';
 import { SelectAndpadProject } from 'kokoas-client/src/components/ui/dialogs';
 
-export const ForcedAndpadLink = () => {
+export const ForcedAndpadLink = ({
+  projId,
+}:{
+  projId: string
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <div>
@@ -23,7 +27,7 @@ export const ForcedAndpadLink = () => {
           Andpadとの強制接続
         </Button>
       </Tooltip>
-      <SelectAndpadProject open={open} onClose={()=>setOpen(false)}  />
+      <SelectAndpadProject open={open} projId={projId} onClose={()=>setOpen(false)}  />
 
     </div>
 

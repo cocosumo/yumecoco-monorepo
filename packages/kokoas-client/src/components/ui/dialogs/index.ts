@@ -1,3 +1,4 @@
+export * from './CompareProjToAndpad.tsx';
 export * from './ConfirmDialog';
 export * from './ConfirmDialogV2';
 export * from './ContentWarning';

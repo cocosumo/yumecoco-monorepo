@@ -8,3 +8,6 @@ export const baseUrl = isProd ? process.env.BASE_URL : process.env.LOCAL_URL;
 const kokoasApiRoot : ApiNodes = 'kokoas';
 
 export const kokoasAPIBaseUrl = `${baseUrl}/${kokoasApiRoot}`; 
+
+export const andpadURL = 'https://work.andpad.jp/';
+export const loginURL = 'https://andpad.jp/login';

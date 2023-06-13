@@ -69,7 +69,10 @@ export const drawText = async (
   }
 
 
-  for (let i = 0; i <= weight; i += 0.1) {
+  for (let i = 0.1; i <= weight; i += 0.1) {
+    if (defaultText === 'c1') {
+      console.log('c1', i);
+    }
     switch (align) {
       case 'left':
         pdfPage.drawText(defaultText, {

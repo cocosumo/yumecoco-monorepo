@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useFormikContext } from 'formik';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
 import { SelectProjectInCustGroup } from 'kokoas-client/src/components/ui/dialogs/SelectProjectInCustGroup';
@@ -11,6 +11,7 @@ import { pages } from 'kokoas-client/src/pages/Router';
 import { SyntheticEvent, useCallback } from 'react';
 import { getFieldName, TypeOfForm } from '../../form';
 import { SaveToAndpadButton } from './SaveToAndpadButton';
+import { ForcedAndpadLink } from './ForcedAndpadLink';
 
 /**  */
 export const RecordSelect = () => {
@@ -63,69 +64,50 @@ export const RecordSelect = () => {
   };
 
   return (
-    <Grid
-      container
-      item
-      xs={12}
-      spacing={2}
-      justifyContent={'space-between'}
+    <Stack width={'100%'} direction={'row'} spacing={2}
+      py={2}
     >
-      <Grid item
-        xs={12}
-        md={3}
-      >
-        <SearchCustGroup
-          fullWidth
-          value={custGroupId ? {
-            id: custGroupId,
-            name: custName,
-          } : undefined}
-          onChange={handleChange}
-          inputProps={{
-            label: '顧客検索',
-            name: getFieldName('custGroupId'),
-          }}
-        />
-      </Grid>
+      <SearchCustGroup
+        fullWidth
+        value={custGroupId ? {
+          id: custGroupId,
+          name: custName,
+        } : undefined}
+        onChange={handleChange}
+        inputProps={{
+          label: '顧客検索',
+          name: getFieldName('custGroupId'),
+        }}
+        sx={{
+          minWidth: 300,
+        }}
+      />
+   
 
-      <Grid
-        container
-        item
-        xs={12}
-        md={4}
-      >
-        <SelectProjectInCustGroup
-          custGroupId={custGroupId}
-          buttonProps={{
-            fullWidth: true,
-          }}
-          onChange={useCallback(({  uuid }) => {
-            navigate(`${pages.projEdit}?${generateParams({
-              projId: uuid.value,
-            })}`);
-          }, [navigate])}
-        />
-      </Grid>
-      <Grid
-        container
-        item
-        xs={12}
-        md={2}
-      >
-        {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
-        
 
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        md={3}
-      >
-        <ModeInfo
-          recordId={projDataId || ''}
-          dateStr={createdDate}
-        />
-      </Grid>
-    </Grid>
+      <SelectProjectInCustGroup
+        custGroupId={custGroupId}
+        buttonProps={{
+          sx:{
+            whiteSpace: 'nowrap',
+          },
+        }}
+        onChange={useCallback(({  uuid }) => {
+          navigate(`${pages.projEdit}?${generateParams({
+            projId: uuid.value,
+          })}`);
+        }, [navigate])}
+      />
+   
+
+      {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
+      {!!projId && <ForcedAndpadLink />}         
+
+      <ModeInfo
+        recordId={projDataId || ''}
+        dateStr={createdDate}
+      />
+ 
+    </Stack>
   );
 };

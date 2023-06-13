@@ -26,7 +26,7 @@ export const SaveToAndpadButton = (
       <Tooltip title={`Anpadへ案件${mode}します`}>
         <AndpadButton
           onClick={handleClick}
-          fullWidth sx={{ height: '100%' }}
+          fullWidth sx={{ whiteSpace: 'nowrap' }}
           startIcon={<SaveIcon />}
         >
           {`Andpadへ${mode}`}

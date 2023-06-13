@@ -29,7 +29,7 @@ export const ExternalLinks = () => {
           component={'a'}
           href={`https://andpad.jp/my/orders/${systemId}`}
           target={'_blank'}
-          title='Andpadで見る'
+          title=''
         />
       
         )}

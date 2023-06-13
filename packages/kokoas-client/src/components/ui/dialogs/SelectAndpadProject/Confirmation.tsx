@@ -1,22 +1,14 @@
-import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, Typography } from '@mui/material';
+import { Alert, Button, DialogActions, DialogContent, Stack, Typography } from '@mui/material';
 
-export const CompareProjToAndpad = ({
-  open,
+export const Confirmation = ({
   onClose,
+  handleNext,
 }:{
-  open: boolean,
-  onClose: () => void
-  onSelectSystemId?: (systemId: string) => void
+  onClose: () => void,
+  handleNext?: () => void
 }) => {
-
   return (
-    <Dialog 
-      open={open}
-      onClose={onClose}
-    >
-      <DialogTitle>
-        Andpadとの強制接続
-      </DialogTitle>
+    <>
       <DialogContent>
         <Stack spacing={2}>
           <Typography>
@@ -31,10 +23,13 @@ export const CompareProjToAndpad = ({
         <Button onClick={onClose}>
           キャンセル
         </Button>
-        <Button variant='contained'>
+        <Button
+          onClick={handleNext} 
+          variant='contained'
+        >
           はい
         </Button>
       </DialogActions>
-    </Dialog>
+    </>
   );
 };

@@ -1,7 +1,7 @@
 import { Button, Tooltip } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useState } from 'react';
-import { CompareProjToAndpad } from 'kokoas-client/src/components/ui/dialogs/CompareProjToAndpad.tsx/CompareProjToAndpad';
+import { SelectAndpadProject } from 'kokoas-client/src/components/ui/dialogs';
 
 export const ForcedAndpadLink = () => {
   const [open, setOpen] = useState(false);
@@ -23,7 +23,7 @@ export const ForcedAndpadLink = () => {
           Andpadとの強制接続
         </Button>
       </Tooltip>
-      <CompareProjToAndpad open={open} onClose={()=>setOpen(false)}  />
+      <SelectAndpadProject open={open} onClose={()=>setOpen(false)}  />
 
     </div>
 

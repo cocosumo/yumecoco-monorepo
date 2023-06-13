@@ -22,12 +22,14 @@ export const DetailsContent = ({
   } = recProj ?? {};
 
   return (
+    
     <DialogContent 
       dividers
       sx={{
         bgcolor: grey[50],
+        height: '80vh',
+        overflow: 'hidden',
       }}
-    
     >
       {tabIdx === 0 && custGroupId?.value && (
         <CustomerDetails 
@@ -48,5 +50,7 @@ export const DetailsContent = ({
       )}
 
     </DialogContent>
+
+   
   );
 };

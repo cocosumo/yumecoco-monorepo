@@ -29,6 +29,10 @@ export const initialForm : TypeOfForm = {
   hasFinalAmt: false,
   finalAmt: 0,
   finalAmtDate: null,
+
+  hasOthersAmt: false,
+  othersAmt: 0,
+  othersAmtDate: null,
   
   hasRefund: false,
   refundAmt: 0,

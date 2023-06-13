@@ -87,9 +87,9 @@ export const zodErrorMapJA =
             };
           } else if (issue.type === 'number') {
             return {
-              message: `Number must be greater than ${
+              message: `${Number(issue.minimum) + 1} 以上の数字を入れてください ${
                 issue.inclusive ? 'or equal to ' : ''
-              }${issue.minimum}`,
+              }`,
             };
           } else {
             return { message: 'Invalid input' };

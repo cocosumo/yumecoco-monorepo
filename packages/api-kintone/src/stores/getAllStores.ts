@@ -7,6 +7,6 @@ import { appId, RecordType } from './config';
 export const getAllStores = async () => {
   return (await ktRecord()).getRecords({
     app: appId, 
-    query: 'sortNumber > 0 order by sortNumber desc', 
+    query: 'sortNumber > 0 order by sortNumber asc', 
   }).then(({ records }) => records as unknown as RecordType[]);
 };

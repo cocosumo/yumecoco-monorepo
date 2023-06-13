@@ -11,6 +11,8 @@ import { memo } from 'react';
 import { FormContractSearch } from './projContractSearchV2/FormContractSearch';
 import { UnderDevelopment } from './UnderDevelopment';
 import { FormContract } from './projContractV2/FormContract';
+import { FormProjectSearch } from './projSearch/FormProjectSearch';
+import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 
 
 
@@ -31,6 +33,7 @@ export const pages = {
   projReg: '/project/register',
 
   projEstimate: '/project/estimate/register',
+  projSearch: '/project/search',
 
   projProspect: '/project/prospect/register',
   projProspectSearch: '/project/prospect/search',
@@ -57,6 +60,8 @@ const Router = () => (
 
   <Routes>
     <Route path="/" element={<Home />} />
+    {/* 一覧 */}
+    <Route path={`${pages.projSearch}`} element={<FormProjectSearch />} />
 
     {/* 顧客グループ */}
     <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />
@@ -74,8 +79,7 @@ const Router = () => (
     {/* 見込み登録 */}
     <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} />
 
-    {/* 見積もり登録 */}
-    {/* <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} /> */}
+    <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} />
 
     {/* 契約 */}
     {/*     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />

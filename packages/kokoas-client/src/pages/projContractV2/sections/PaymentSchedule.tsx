@@ -54,6 +54,16 @@ export const PaymentSchedule = ({
         label='最終金'
       />
 
+      <PaymentFieldGroup
+        disabled={disabled}
+        fieldNames={{
+          chkFldName: 'hasOthersAmt',
+          amtFldName: 'othersAmt',
+          dateFldName: 'othersAmtDate',
+        }}
+        label='その他'
+      />
+
       <Stack 
         bgcolor={blue[50]}
         p={2}

@@ -6,7 +6,7 @@ import { IProjtypes } from 'types';
 /**
  * 全工事種別の取得
  */
-export const useProjTypes = <T>(options?: {
+export const useProjTypes = <T = IProjtypes[]>(options?: {
   select: (data: IProjtypes[]) =>  T
 }) => {
   return useQuery(

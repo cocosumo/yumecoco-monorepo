@@ -35,11 +35,13 @@ export const getContractDataV2 = async (
 
   /* 会社情報 */
   const {
-    //companyAddress,
+    companyAddress,
     companyName,
-    //companyTel,
+    companyTel,
     representative,
   } = await getCocosumoDetails();
+
+  console.log('Company Address', companyName.value);
 
   /* 見積情報 */
   const contractRecord = await getContractById(contractId);
@@ -61,6 +63,9 @@ export const getContractDataV2 = async (
 
     finalAmt,
     finalAmtDate,
+
+    othersAmt,
+    othersAmtDate,
 
     payMethod,
     payDestination,
@@ -97,8 +102,8 @@ export const getContractDataV2 = async (
 
   const {
     storeNameShort,
-    TEL: companyTel,
-    住所: companyAddress,
+    //TEL: companyTel,
+    //住所: companyAddress,
     //officialStoreName,
   } = await getStoreById(storeId.value);
 
@@ -177,6 +182,7 @@ export const getContractDataV2 = async (
     { paymentAmt: +initialAmt.value, paymentDate: initialAmtDate.value },
     { paymentAmt: +interimAmt.value, paymentDate: interimAmtDate.value },
     { paymentAmt: +finalAmt.value, paymentDate: finalAmtDate.value },
+    { paymentAmt: +othersAmt.value, paymentDate: othersAmtDate.value },
   ];
 
 
@@ -237,9 +243,9 @@ export const getContractDataV2 = async (
     payMethod: payMethod.value as '持参' | '集金' | '振込',
 
     /* 会社情報 */
-    companyAddress: `${companyAddress.value} ${storeName.value}`,
+    companyAddress: companyAddress.value,
     companyAddress2: `${companyAddress.value} ハウスドゥ ${storeName.value}`,
-    companyName: `${companyName.value} ${storeName.value}`,
+    companyName: companyName.value,
     companyTel: companyTel.value,
     representative: representative.value,
 

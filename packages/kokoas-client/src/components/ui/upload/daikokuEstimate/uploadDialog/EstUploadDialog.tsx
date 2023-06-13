@@ -1,8 +1,7 @@
 import { Dialog, DialogContent, DialogProps, DialogTitle, IconButton } from '@mui/material';
 import { EstUploadDialogContent } from './EstUploadDialogContent';
 import CloseIcon from '@mui/icons-material/Close';
-export const EstUploadDialog = (props: DialogProps,
-) => {
+export const EstUploadDialog = (props: DialogProps) => {
   const {
     onClose,
   } = props;

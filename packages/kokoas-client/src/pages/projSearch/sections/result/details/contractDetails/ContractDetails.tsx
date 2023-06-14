@@ -29,10 +29,10 @@ export const ContractDetails = ({
 
   return (
     <Stack 
+      height={'100%'}
       spacing={2}
-      pl={28}
+      direction={'row'}
     >
-      <EditButton href={`${pages.projContractPreviewV2}?${generateParams({ contractId: contractId?.value })}`} />
       {records && (
         <ContractList 
           handleSetIndex={setSelectedIdx}
@@ -41,14 +41,24 @@ export const ContractDetails = ({
         />)}
 
       {selectedRecord && (
-        <>
+        <Stack 
+          spacing={2}
+          py={2}
+          pr={2}
+          width={'100%'}
+          sx={{
+            overflowY: 'auto',
+          }}
+        >
+          <EditButton href={`${pages.projContractPreviewV2}?${generateParams({ contractId: contractId?.value })}`} />
+
           <ContractInfo record={selectedRecord} />
           <AmountInfo record={selectedRecord} />
           <PaymentInfo record={selectedRecord} />
           <SchedInfo record={selectedRecord} />
           <Files />
           <OtherInfo record={selectedRecord} />
-        </>
+        </Stack>
 
       )}
     </Stack>

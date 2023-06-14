@@ -1,4 +1,4 @@
-import { Divider, List, ListItem, ListItemButton, ListSubheader, Paper } from '@mui/material';
+import { Divider, List, ListItem, ListItemButton, ListSubheader } from '@mui/material';
 import { ListItemLayout } from './ListItemLayout';
 import { IContracts, TEnvelopeStatus } from 'types';
 import { parseISODateToFormat } from 'kokoas-client/src/lib';
@@ -17,15 +17,11 @@ export const ContractList = ({
     <List
       sx={{
         bgcolor: 'background.paper',
-        height: '60vh',
-        overflow: 'auto',
-        pt: 0,
+        height: '100%',
+        overflowY: 'auto',
         minWidth: '200px',
-        position: 'absolute',
-        top: 100,
-        left: 20,
+        borderRight: '1px solid rgba(0, 0, 0, 0.12)',
       }}
-      component={Paper}
     >
       <ListSubheader sx={{ py: 1 }}>
         <ListItemLayout

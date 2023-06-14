@@ -1,7 +1,7 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
-import { amber, blue, grey } from '@mui/material/colors';
+import { amber, blue } from '@mui/material/colors';
 
 
 const StyledTableRow = styled(TableRow)(() => ({

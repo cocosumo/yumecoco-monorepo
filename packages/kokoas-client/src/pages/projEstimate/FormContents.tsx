@@ -12,11 +12,12 @@ import { TypeOfForm } from './form';
 import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-import { EstBody } from './tables/estimatesVirtual/EstBody';
-import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
+//import { EstBody } from './tables/estimatesVirtual/EstBody';
+//import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 import { Remarks } from './fields/Remarks';
+import { EstimatesDataGrid } from './estimateDataGrid/EstimatesDataGrid';
 
 
 export const FormContents = ({
@@ -113,11 +114,12 @@ export const FormContents = ({
           <PageSubTitle label={<EstimateTableLabel />} />
         </Grid>
 
-        <Grid item xs={12}>
-          {/* 見積もり内訳のテーブル */}
-          {/* <EstTable isDisabled={disabled} /> */}
+        {/*  <Grid item xs={12}>
           {!disabled &&  <EstBody isDisabled={disabled} />}
           {disabled && <EstBodyReadOnly />}
+        </Grid> */}
+        <Grid item xs={12}>
+          <EstimatesDataGrid />
         </Grid>
 
         <Grid item xs={12} mt={4}>

@@ -17,7 +17,7 @@ import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 import { Remarks } from './fields/Remarks';
-import { EstimatesDataGrid } from './estimateDataGrid/EstimatesDataGrid';
+import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
 
 
 export const FormContents = ({

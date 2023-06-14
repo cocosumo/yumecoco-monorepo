@@ -9,7 +9,8 @@
             "./dist/assets.js"
         ],
         "css": [
-            "./dist/customize.css"
+            "./dist/customize.css",
+            "./dist/vendor.css"
         ]
     },
     "mobile": {
@@ -20,7 +21,8 @@
             "./dist/assets.js"
         ],
         "css": [
-            "./dist/customize.css"
+            "./dist/customize.css",
+            "./dist/vendor.css"
         ]
     }
 }

@@ -5,6 +5,7 @@ import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { locale } from 'libs';
 import { parseISODateToFormat } from 'kokoas-client/src/lib';
 import { Recipients } from './Recipients';
+import { Files } from './Files';
 
 export const ContractInfo = ({
   record,
@@ -19,6 +20,7 @@ export const ContractInfo = ({
       contractDate,
       envRecipients,
       envelopeStatus,
+      envDocFileKeys,
     } = record ?? {};
 
     const hasContract = !!envelopeStatus?.value;
@@ -27,6 +29,10 @@ export const ContractInfo = ({
       {
         label: '署名経路',
         value: <Recipients hasContract={hasContract} rawRecipients={envRecipients} />,
+      },
+      {
+        label: '書類',
+        value: <Files files={envDocFileKeys}  />,
       },
       {
         label: '契約日',
@@ -40,6 +46,7 @@ export const ContractInfo = ({
         label: '署名手法',
         value: locale[signMethod.value] || '-',
       },
+
     ];
 
     return result;

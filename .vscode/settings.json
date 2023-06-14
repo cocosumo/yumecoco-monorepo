@@ -24,6 +24,7 @@
     "/automation/auto-common/src",
     "/packages/kokoas-client/src/hooksQuery",
     "/packages/kokoas-client/src/components/ui/dialogs",
-    "/packages/api-andpad/src"
+    "/packages/api-andpad/src",
+    "/packages/libs/src"
   ]
 }

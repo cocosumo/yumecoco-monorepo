@@ -4,20 +4,21 @@ import { EstTableHead } from './EstTableHead';
 
 export const EstTableContainer = ({
   body,
-  summary,
+  footer,
 }:{
   body: ReactNode,
-  summary: ReactNode,
+  footer: ReactNode,
 }) => {
   return (
     <Paper sx={{ 
       width: '100%', 
       overflow: 'hidden', 
+      height: 'calc(80vh - 130px)',
     }}
     >
       <TableContainer 
         sx={{
-          height: '45vh', 
+          height: 'calc(100% - 72px)', 
         }}
       >
         <Table 
@@ -27,8 +28,10 @@ export const EstTableContainer = ({
           <EstTableHead />
           {body}
         </Table>
+        
       </TableContainer>
-      {summary}
+
+      {footer}
     </Paper>
 
   );

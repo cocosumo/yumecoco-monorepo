@@ -9,6 +9,7 @@ import {
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { IProjestimates } from 'types';
 import { ListItemLayout } from './ListItemLayout';
+import { useRef } from 'react';
 
 export const BranchList = ({
   records,
@@ -18,19 +19,20 @@ export const BranchList = ({
   records: IProjestimates[],
   handleSetIndex: (idx: number) => void,
   selectedIndex: number,
+  
 }) => {
+
+  const ref = useRef<HTMLDivElement>(null);
+
 
   return (
     <List
+      ref={ref}
       sx={{
         bgcolor: 'background.paper',
-        height: '60vh',
-        overflow: 'auto',
-        pt: 0,
+        height: '100%',
+        overflowY: 'auto',
         minWidth: '155px',
-        position: 'absolute',
-        top: 112,
-        left: 20,
       }}
       component={Paper}
     >

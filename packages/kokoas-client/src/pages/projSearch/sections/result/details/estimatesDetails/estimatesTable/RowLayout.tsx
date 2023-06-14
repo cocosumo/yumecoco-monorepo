@@ -9,7 +9,7 @@ const StyledTableRow = styled(TableRow)(() => ({
     backgroundColor: amber[50],
   },
   '&:nth-of-type(odd)': {
-    backgroundColor: grey[50],
+    backgroundColor: 'white',
   },
   // hide last border
   '&:last-child td': {

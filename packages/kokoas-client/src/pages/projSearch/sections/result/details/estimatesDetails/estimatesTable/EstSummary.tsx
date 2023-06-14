@@ -55,7 +55,7 @@ export const EstSummary = ({
       direction={'row'}
       width={'100%'}
       justifyContent={'space-between'}
-      borderTop={2}
+      border={2}
       borderColor={grey[200]}
       divider={<Divider orientation="vertical" flexItem />}
       sx={{
@@ -67,6 +67,8 @@ export const EstSummary = ({
         '& > :nth-of-type(odd)': {
           bgcolor: green[50],
         },
+        position: 'sticky',
+        bottom: 0,
       }}
     >
       <SummaryItem 

@@ -48,6 +48,11 @@ export const CustomerDetails = ({
   return (
     <Stack 
       spacing={2}
+      height={'100%'}
+      p={2}
+      sx={{
+        overflowY: 'auto',
+      }}
     >
 
       <EditButton 

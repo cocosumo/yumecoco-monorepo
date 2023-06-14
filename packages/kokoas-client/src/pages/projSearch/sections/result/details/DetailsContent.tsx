@@ -29,6 +29,7 @@ export const DetailsContent = ({
         bgcolor: grey[50],
         height: '80vh',
         overflow: 'hidden',
+        p: 0,
       }}
     >
       {tabIdx === 0 && custGroupId?.value && (

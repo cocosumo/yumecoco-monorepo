@@ -155,6 +155,11 @@ export const ProjectDetails = ({
   return (
     <Stack 
       spacing={2}
+      p={2}
+      sx={{
+        height: '100%',
+        overflowY: 'auto',
+      }}
     >
 
       <EditButton 

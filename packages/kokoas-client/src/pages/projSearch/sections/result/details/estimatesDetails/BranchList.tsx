@@ -14,7 +14,7 @@ export const BranchList = ({
   handleSetIndex,
   selectedIndex,
 }: {
-  records: IProjestimates[],
+  records?: IProjestimates[],
   handleSetIndex: (idx: number) => void,
   selectedIndex: number,
   

@@ -2,12 +2,12 @@ import { TableCell, TableRow } from '@mui/material';
 import { ReactNode } from 'react';
 import { KeyOfSearchResult } from '../../types';
 import { styled } from '@mui/material/styles';
-import { blue, green } from '@mui/material/colors';
+import { blue, grey } from '@mui/material/colors';
 
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:nth-of-type(even)': {
-    backgroundColor: green[50],
+    backgroundColor: grey[50],
   },
   '&:nth-of-type(odd)': {
     backgroundColor: 'white',

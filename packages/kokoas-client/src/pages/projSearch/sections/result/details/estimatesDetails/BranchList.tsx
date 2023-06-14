@@ -1,15 +1,13 @@
 import { 
-  Divider, 
+  Divider,
   List, 
   ListItem, 
   ListItemButton, 
   ListSubheader, 
-  Paper, 
 } from '@mui/material';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { IProjestimates } from 'types';
 import { ListItemLayout } from './ListItemLayout';
-import { useRef } from 'react';
 
 export const BranchList = ({
   records,
@@ -22,21 +20,23 @@ export const BranchList = ({
   
 }) => {
 
-  const ref = useRef<HTMLDivElement>(null);
 
 
   return (
     <List
-      ref={ref}
       sx={{
         bgcolor: 'background.paper',
         height: '100%',
         overflowY: 'auto',
         minWidth: '155px',
+        pt: 0, // remove default padding
       }}
-      component={Paper}
     >
-      <ListSubheader sx={{ py: 1 }}>
+      <ListSubheader 
+        sx={{ 
+          py: 1,           
+        }}
+      >
         <ListItemLayout 
           createDate={'作成日'}
           branchNum={'枝番'}

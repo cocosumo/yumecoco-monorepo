@@ -1,4 +1,10 @@
-import { Divider, List, ListItem, ListItemButton, ListSubheader } from '@mui/material';
+import { 
+  Divider, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListSubheader, 
+} from '@mui/material';
 import { ListItemLayout } from './ListItemLayout';
 import { IContracts, TEnvelopeStatus } from 'types';
 import { parseISODateToFormat } from 'kokoas-client/src/lib';
@@ -31,6 +37,8 @@ export const ContractList = ({
         />
       </ListSubheader>
       <Divider />
+
+
       {records?.map(({ uuid, contractDate, envelopeStatus, totalContractAmt }, index) => (
 
         <ListItem key={uuid.value} disablePadding>

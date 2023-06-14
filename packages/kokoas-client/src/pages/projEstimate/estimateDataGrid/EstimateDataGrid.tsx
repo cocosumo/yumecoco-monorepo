@@ -4,16 +4,27 @@ import { Box } from '@mui/material';
 
 
 import 'react-data-grid/lib/styles.css';
-import DataGrid, { DataGridProps  } from 'react-data-grid';
+import DataGrid, { DataGridProps, textEditor  } from 'react-data-grid';
 
 type MyColumn =  DataGridProps<any, any, any>['columns'][number] & {
   key: KRowFields;
 };
 
 const columns: MyColumn[] = [
-  { key: 'majorItem', name: '大項目', 
-    editable: true, frozen: false, sortable: true, resizable: true, width: 100  },
-  { key: 'middleItem', name: '中項目', editable: true },
+  { key: 'majorItem', 
+    name: '大項目', 
+    editable: true, 
+    sortable: true, 
+    resizable: true, 
+    width: 100,  
+    renderEditCell: textEditor,
+  },
+  { 
+    key: 'middleItem', 
+    name: '中項目', 
+    editable: true,
+    renderEditCell: textEditor,
+  },
 /*   { key: 'material', name: '中項目', editable: true },
   { key: 'materialDetails', name: '部材備考', editable: true },
   { key: 'costPrice', name: '原価', editable: true },
@@ -26,6 +37,7 @@ const columns: MyColumn[] = [
 ];
 
 const rows: Partial<Record<KRowFields, string>>[] = [
+  { majorItem: 'Hello', middleItem: 'World'  },
   { majorItem: 'Hello', middleItem: 'World'  },
 ];
 

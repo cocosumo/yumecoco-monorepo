@@ -55,7 +55,13 @@ export const login = async (page: Page) => {
   ]);
 
   console.log('!!!!! check point !!!!!');
-  
+
   // 二重認証のページに飛んでしまうため、要対応
 
+
+
+
+
+
+  console.log('finish login process');
 };

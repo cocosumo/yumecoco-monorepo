@@ -1,4 +1,4 @@
-import { prepareLogin } from './login/prepareLogin';
+import { preparePaymentAlert } from './preparePaymentAlert';
 
 
-prepareLogin();
+preparePaymentAlert();

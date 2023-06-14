@@ -48,7 +48,7 @@ export const ContractDetails = ({
         pr={2}
         width={'100%'}
         sx={{
-          overflowY: 'auto',
+          overflowY: 'scroll',
         }}
       >
         <Stack 

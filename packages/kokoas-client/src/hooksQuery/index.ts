@@ -39,6 +39,8 @@ export * from './useInvoicesByProjId';
 export * from './useInvoicesSummaryByCustGroupId';
 export * from './useInvoiceTotalByProjId';
 export * from './useKintoneDownloadByFileKey';
+export * from './useKintoneFile';
+export * from './useKintoneFileBase64';
 export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';

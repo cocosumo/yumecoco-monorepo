@@ -1,4 +1,5 @@
 export * from './addressBuilder';
+export * from './base64ToBlob';
 export * from './calcAfterTax';
 export * from './calcBeforeTax';
 export * from './calcProfitRate';
@@ -20,6 +21,7 @@ export * from './kitoneProxyWrapper';
 export * from './loadEnv';
 export * from './locale';
 export * from './notifyAdmin';
+export * from './openFileInNewTab';
 export * from './parseBoolean';
 export * from './parseExcelSerialDate';
 export * from './removeNullFalsyEmpty';

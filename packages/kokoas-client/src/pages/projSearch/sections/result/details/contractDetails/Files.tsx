@@ -1,8 +1,38 @@
-import { Chip, Stack, Tooltip } from '@mui/material';
-import { useKintoneDownloadByFileKey } from 'kokoas-client/src/hooksQuery';
-import { base64ToBlob } from 'libs/src/base64ToBlob';
-import { useEffect, useState } from 'react';
+import { Button, CircularProgress, Stack, Tooltip } from '@mui/material';
+import {  useKintoneFile } from 'kokoas-client/src/hooksQuery';
+import { roundTo } from 'libs';
 import { IContracts } from 'types';
+
+const PDFLink = ({
+  fileKey,
+  fileName,
+  fileSize,
+}:{
+  fileKey: string,
+  fileName: string,
+  fileSize: number,
+}) => {
+  const { data: fileData, isLoading } = useKintoneFile(fileKey);
+
+  if (!fileData || isLoading) return <CircularProgress size={16} />;
+
+  const url = URL.createObjectURL(new Blob([fileData], { type: 'application/pdf' }));
+  
+  return (
+    <Tooltip title={`${roundTo((fileSize / 1024), 2)?.toLocaleString()} KB`}>
+      <Button 
+        href={url}
+        download={fileName}
+        target="_blank"
+        rel="noopener noreferrer"
+        variant="outlined"
+        size="small"
+      >
+        {fileName}
+      </Button>
+    </Tooltip>
+  );
+};
 
 export const Files = ({
   files,
@@ -10,42 +40,17 @@ export const Files = ({
   files: IContracts['envDocFileKeys']
 }) => {
 
-  const [selectedFile, setSelectedFile] = useState({
-    fileKey: '',
-    name: '',
-  });
-
-  const { data: fileData } = useKintoneDownloadByFileKey(selectedFile.fileKey);
-
-  useEffect(() => {
-    if (!fileData) return;
-    const binaryFile = base64ToBlob(fileData, 'application/pdf', selectedFile.name);
-    const url = URL.createObjectURL(binaryFile);
-    window.open(url, '_blank');
-
-  }, [fileData, selectedFile.name]);
-
   return (
-    <Stack 
-      direction={'row'}
-      spacing={2}
-    >
-      {files.value.map(({
-        fileKey,
-        name,
-        size,
-      }) => (
-        <Tooltip key={fileKey} title={size}>
-          <Chip
-            label={name}
-            size='small'
-            key={fileKey}
-            onClick={() => setSelectedFile({
-              fileKey,
-              name,
-            })}
-          />
-        </Tooltip>))}
+    <Stack direction="row" spacing={2}>
+      {files.value.map(({ fileKey, name, size }) => (
+        <PDFLink
+          key={fileKey}
+          fileKey={fileKey}
+          fileName={name}
+          fileSize={+size}
+        />
+
+      ))}
     </Stack>
   );
 };

@@ -1,12 +1,14 @@
 
+import { setFieldValue } from 'auto-common';
 import { andpadURL, loginURL } from 'config';
 import { Page } from 'puppeteer';
 
-/* const selectors = {
-  user: '[name="username"]',
-  pass: '[name="password"]',
-  btnLogin: '.login-button',
-}; */
+const selectors = {
+  btnWinMove: '.button_main',
+  user: '#email',
+  pass: '#password',
+  btnLogin: '#btn-login',
+};
 
 export const login = async (page: Page) => {
   console.log('Andpad login started at ', page.url(), !page.url().includes('login'));
@@ -30,22 +32,30 @@ export const login = async (page: Page) => {
     await page.goto(loginURL, { waitUntil: 'domcontentloaded' });
   }
 
-  console.log('!!!!! check point !!!!!');
+  await Promise.all([
+    page.waitForNavigation({ timeout: 5000 }),
+    page.click(selectors.btnWinMove),
+  ]);
 
-  /* await page.waitForSelector(selectors.btnLogin);
-
+  await page.waitForSelector(selectors.user);
   await setFieldValue({
     page,
     selector: selectors.user,
-    newValue: username,
+    newValue: userId,
   });
   await setFieldValue({
     page,
     selector: selectors.pass,
-    newValue: password,
+    newValue: userPass,
   });
 
-  await Promise.all([page.waitForNavigation(), page.click(selectors.btnLogin)]); */
+  await Promise.all([
+    page.waitForNavigation({ timeout: 5000 }),
+    page.click(selectors.btnLogin),
+  ]);
 
+  console.log('!!!!! check point !!!!!');
+  
+  // 二重認証のページに飛んでしまうため、要対応
 
 };

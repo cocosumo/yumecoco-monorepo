@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { LinearProgress, Stack } from '@mui/material';
 
 import { useContractsByProjIdV2 } from 'kokoas-client/src/hooksQuery';
 import { EditButton } from '../common/EditButton';
@@ -12,6 +12,7 @@ import { PaymentInfo } from './PaymentInfo';
 import { OtherInfo } from './OtherInfo';
 import { SchedInfo } from './SchedInfo';
 import { NewButton } from '../common/NewButton';
+import { EmptyBox } from 'kokoas-client/src/components';
 
 export const ContractDetails = ({
   projId,
@@ -19,7 +20,7 @@ export const ContractDetails = ({
   projId: string,
 }) => {
   const [selectedIdx, setSelectedIdx] = useState(0);
-  const { data: records } = useContractsByProjIdV2(projId);
+  const { data: records, isLoading } = useContractsByProjIdV2(projId);
 
   const selectedRecord = records?.[selectedIdx];
 
@@ -57,7 +58,7 @@ export const ContractDetails = ({
         >
           <NewButton 
             href={`${pages.projContractPreviewV2}?${generateParams({ projId })}`}
-            title='当プロジェクトを利用し、契約書を作成します。金額は手打ちになります。見積と紐づく場合、見積タブで「契約」ボタンを押してください。'
+            title='当案件を利用し、契約書を作成します。金額は手打ちになります。見積と紐づく場合、見積タブで「契約」ボタンを押してください。'
           />
           {contractId?.value && (
           <EditButton 
@@ -67,6 +68,8 @@ export const ContractDetails = ({
           )}
        
         </Stack>
+
+
 
         {selectedRecord && (
         <>
@@ -79,6 +82,14 @@ export const ContractDetails = ({
           <OtherInfo record={selectedRecord} />
             
         </>
+        )}
+
+        {isLoading && (<LinearProgress />)}
+
+        {!isLoading && !records?.length && (
+          <EmptyBox>
+            契約書がありません
+          </EmptyBox>
         )}
 
       </Stack>

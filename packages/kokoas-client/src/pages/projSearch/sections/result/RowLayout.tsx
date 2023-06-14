@@ -1,6 +1,26 @@
-import { TableCell } from '@mui/material';
-import { Fragment, ReactNode } from 'react';
+import { TableCell, TableRow } from '@mui/material';
+import { ReactNode } from 'react';
 import { KeyOfSearchResult } from '../../types';
+import { styled } from '@mui/material/styles';
+import { blue, green } from '@mui/material/colors';
+
+
+const StyledTableRow = styled(TableRow)(() => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: green[50],
+  },
+  '&:nth-of-type(odd)': {
+    backgroundColor: 'white',
+  },
+  // hide last border
+  '&:last-child td': {
+    border: 0,
+  },
+
+  '&:hover': {
+    backgroundColor: blue[50],
+  },
+}));
 
 export const RowLayout = ({
   contractDate,
@@ -10,9 +30,15 @@ export const RowLayout = ({
   projCompletedDate,
   storeName,
   tel,
-} : Partial<Record<KeyOfSearchResult, ReactNode>>) => {
+  onClick,
+} : Partial<Record<KeyOfSearchResult, ReactNode>> & {
+  onClick?: () => void,
+}) => {
   return (
-    <Fragment>
+    <StyledTableRow onClick={onClick} sx={{
+      cursor: onClick ? 'pointer' : 'default',
+    }}
+    >
       <TableCell 
         sx={{
           whiteSpace: 'nowrap',
@@ -50,7 +76,7 @@ export const RowLayout = ({
       >
         {projCompletedDate}
       </TableCell>
-    </Fragment>
+    </StyledTableRow>
   );
 };
 

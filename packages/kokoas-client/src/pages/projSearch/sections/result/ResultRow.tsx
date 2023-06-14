@@ -1,4 +1,3 @@
-import { TableRow } from '@mui/material';
 import { RowLayout, RowLayoutProps } from './RowLayout';
 import { useState } from 'react';
 import { DetailsDialog } from './details/DetailsDialog';
@@ -23,17 +22,9 @@ export const ResultRow = (props: RowLayoutProps) => {
   return (
     <>
 
-      <TableRow 
-        sx={{
-          cursor: 'pointer',
-          '&:hover': {
-            backgroundColor: '#f5f5f5',
-          },
-        }}
-        onClick={handleOpen}
-      >
-        <RowLayout {...props} />
-      </TableRow>
+
+      <RowLayout {...props} onClick={handleOpen} />
+   
     
       <DetailsDialog 
         open={open} 

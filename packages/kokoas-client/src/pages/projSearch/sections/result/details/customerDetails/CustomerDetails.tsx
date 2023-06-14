@@ -57,6 +57,7 @@ export const CustomerDetails = ({
 
       <EditButton 
         href={`${pages.custGroupEdit}?${generateParams({ custGroupId })}`}
+        title='顧客を編集する'
       />
 
       {recCust && <Customers customers={recCust} />}

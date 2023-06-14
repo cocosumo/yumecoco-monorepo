@@ -49,7 +49,10 @@ export const ContractDetails = ({
             overflowY: 'auto',
           }}
         >
-          <EditButton href={`${pages.projContractPreviewV2}?${generateParams({ contractId: contractId?.value })}`} />
+          <EditButton 
+            href={`${pages.projContractPreviewV2}?${generateParams({ contractId: contractId?.value })}`}
+            title='契約書を編集する'
+          />
 
           <ContractInfo record={selectedRecord} />
           <AmountInfo record={selectedRecord} />

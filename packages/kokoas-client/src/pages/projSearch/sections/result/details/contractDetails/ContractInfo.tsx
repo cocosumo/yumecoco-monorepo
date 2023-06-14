@@ -32,7 +32,7 @@ export const ContractInfo = ({
       },
       {
         label: '書類',
-        value: <Files files={envDocFileKeys}  />,
+        value: envDocFileKeys.value.length ?  <Files files={envDocFileKeys}  /> : '-',
       },
       {
         label: '契約日',

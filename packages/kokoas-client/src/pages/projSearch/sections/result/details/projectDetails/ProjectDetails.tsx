@@ -166,6 +166,7 @@ export const ProjectDetails = ({
         href={`${pages.projEdit}?${generateParams({ 
           projId: recProj.uuid.value,
         })}`}
+        title='工事情報を編集する'
       />
       
    

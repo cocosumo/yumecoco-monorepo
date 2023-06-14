@@ -1,28 +1,14 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { ActionButton, ActionButtonProps } from './ActionButton';
 
-export const EditButton = ({
-  href,
-}:{
-  href?: string
-}) => {
+export const EditButton = (props:ActionButtonProps) => {
   return (
-    <Link 
-      to={href || ''}
-      style={{
-        alignSelf: 'flex-end',
-      }}
-      
+    <ActionButton
+      {...props}
+      startIcon={<EditIcon />}
     >
-      <Button 
-        startIcon={<EditIcon />}
-        variant='outlined'
-        disabled={!href}
-      >
-        編集
-      </Button>
-    </Link>
+      編集
+    </ActionButton>
 
   );
 };

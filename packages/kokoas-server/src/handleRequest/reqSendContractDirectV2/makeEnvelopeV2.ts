@@ -15,9 +15,9 @@ import { generateContractPdfV2 } from './generateContractPdfV2';
 
 /*  Test emails */
 const testTantouEmail = 'cocosumo.rpa03@gmail.com'; // 担当
-const testCustEmail = 'lenzras@gmail.com'; // 顧客
+const testCustEmail = 'cocosumo.rpa03@gmail.com'; // 顧客
 const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
-const testKeiriEmail = 'lenzras@gmail.com'; // 経理
+const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
 const testHonKeiriEmail = 'cocosumo.rpa03@gmail.com'; //　本経理
 
 /**

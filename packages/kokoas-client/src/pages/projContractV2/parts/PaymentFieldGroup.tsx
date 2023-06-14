@@ -70,16 +70,22 @@ export const PaymentFieldGroup = (
                     interimAmt,
                     contractAmt,
                     finalAmt,
+                    othersAmt,
                     totalContractAmt,
                   ] = getValues([
                     'initialAmt', 
                     'interimAmt', 
                     'contractAmt', 
-                    'finalAmt', 
-                    'totalContractAmt',
+                    'finalAmt',
+                    'othersAmt',
+                    'totalContractAmtAfterTax',
                   ]);
 
-                  const amt = (initialAmt ?? 0) + (interimAmt ?? 0) + (contractAmt ?? 0) + (finalAmt ?? 0);
+                  const amt = (initialAmt ?? 0) 
+                  + (interimAmt ?? 0) 
+                  + (contractAmt ?? 0) 
+                  + (finalAmt ?? 0)
+                  + (othersAmt ?? 0);
                   const remainingAmt = totalContractAmt - amt;
 
                   setValue(amtFldName, remainingAmt, { shouldValidate: true });

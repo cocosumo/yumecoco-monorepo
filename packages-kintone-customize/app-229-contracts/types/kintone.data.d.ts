@@ -3,10 +3,13 @@ declare namespace DB {
     yumeAGId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     粗利額: kintone.fieldTypes.Number;
+    cocoas_契約ID: kintone.fieldTypes.SingleLineText;
     cocosumoKoujiId: kintone.fieldTypes.SingleLineText;
     cocosumoAGName: kintone.fieldTypes.SingleLineText;
     cocosumoKoujiName: kintone.fieldTypes.SingleLineText;
     storeName: kintone.fieldTypes.SingleLineText;
+    finish: kintone.fieldTypes.Date;
+    yumeAGId2: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
@@ -16,10 +19,13 @@ declare namespace DB {
     yumeAGName: kintone.fieldTypes.SingleLineText;
     工事状況: kintone.fieldTypes.RadioButton;
     projTypeId: kintone.fieldTypes.SingleLineText;
+    yumeAGName2: kintone.fieldTypes.SingleLineText;
     cocosumoAGId: kintone.fieldTypes.SingleLineText;
     粗利率: kintone.fieldTypes.Calc;
     契約金額_税抜: kintone.fieldTypes.Calc;
+    抽出箇所: kintone.fieldTypes.CheckBox;
     自社物件: kintone.fieldTypes.CheckBox;
+    same_AG: kintone.fieldTypes.CheckBox;
   }
   interface SavedRecord extends Record {
     $id: kintone.fieldTypes.Id;

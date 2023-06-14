@@ -22,7 +22,8 @@ export const generateContractPdfV2 = async (
   ukeoiDocVersion = '',
 ) => {
   const {
-    storeName,
+    //storeName,
+    storeNameShort,
     customers,
     cocoAG,
     contractId,
@@ -39,9 +40,7 @@ export const generateContractPdfV2 = async (
 
 
     startDate,
-    startDaysAfterContract,
     finishDate,
-    finishDaysAfterContract,
     deliveryDate,
     contractDate,
     payDestination,
@@ -49,8 +48,9 @@ export const generateContractPdfV2 = async (
 
     /* 会社情報 */
     companyAddress,
+    //companyAddress2,
     companyName,
-    companyTel,
+    //companyTel,
     representative,
   } = contractData;
 
@@ -86,7 +86,7 @@ export const generateContractPdfV2 = async (
   // 工事番号
   drawText(
     firstPage,
-    dataId ?? '',
+    `${storeNameShort}-${dataId.slice(4) ?? ''}`,
     {
       x: x1,
       y: 775,
@@ -103,19 +103,23 @@ export const generateContractPdfV2 = async (
       y: 45,
       font: msChinoFont,
       size: 8,
-
+      color: grayscale(0.5),
     },
     { weight: 0.1 },
   );
 
-  // 工事名
+  // 工事名 上
   drawText(
     firstPage,
-    `${storeName} ${projName}`,
+    projName,
     {
       x: x1 + 100,
       y: 775,
       font: msChinoFont,
+    },
+    {
+      boxWidth: 280,
+      isAutoSize: true,
     },
   );
 
@@ -125,73 +129,25 @@ export const generateContractPdfV2 = async (
     customers.map(({ custName }) => `${custName} 様` ).join('、'),
     {
       x: x1,
-      y: 675,
+      y: 673,
       font: msChinoFont,
     },
   );
 
-  // 工事名
+  // 工事名 2
   drawText(
     firstPage,
     projName,
     {
       x: x1,
-      y: 603,
+      y: 615,
       font: msChinoFont,
     },
-  );
-
-
-  /**
-   * Footer
-   */
-
-
-  // 顧客住所
-  drawText(
-    firstPage,
-    customers[0].address,
     {
-      x: x2,
-      y: 240,
-      size: 9,
-      font: msChinoFont,
-    }, {
-      weight: 0.1,
+      boxWidth: 300,
+      isAutoSize: true,
     },
   );
-  
-  // 印の位置
-  const signWidth = 240;
-  const signGap = signWidth / customers.length;
-
-  customers.forEach((_, idx) => {
-    const signX = x2 + (signGap * (idx + 1));
-  
-    drawText(
-      firstPage,
-      '印',
-      {
-        x: signX,
-        y: 225,
-        font: msChinoFont,
-      },
-    );
-
-    drawText(
-      firstPage,
-      `c${idx + 1}`,
-      {
-        x: signX - 40,
-        y: 225,
-        font: msChinoFont,
-        color: grayscale(0.96), // 白に近い色
-      },
-      {
-        weight: 0.1,
-      },
-    );
-  });
 
   // 工事場所
   drawText(
@@ -199,18 +155,21 @@ export const generateContractPdfV2 = async (
     projLocation,
     {
       x: x2,
-      y: 575,
+      y: 586,
       font: msChinoFont,
     },
   );
 
+
+
   /* 工期：着手 */
+  const projDatesX = 239;
   drawText(
     firstPage,
     startDate ? format(parseISO(startDate), 'yyyy年MM月dd日') : '-',
     {
-      x: 239,
-      y: 563,
+      x: projDatesX,
+      y: 571,
       font: msChinoFont,
     },
     {
@@ -219,53 +178,20 @@ export const generateContractPdfV2 = async (
       align: 'center',
     },
   );
-
-  /* 工期：着手の契約の日から＿＿日以内 */
-  drawText(
-    firstPage,
-    startDaysAfterContract ? String(startDaysAfterContract) : '-',
-    {
-      x: 299,
-      y: 548,
-      font: msChinoFont,
-    },
-    {
-      weight: 0.1,
-      boxWidth: 30,
-      align: 'right',
-    },
-  );
-
 
   /* 工期：完成 */
   drawText(
     firstPage,
     finishDate ? format(parseISO(finishDate), 'yyyy年MM月dd日') : '-',
     {
-      x: 239,
-      y: 535,
+      x: projDatesX,
+      y: 557,
       font: msChinoFont,
     },
     {
       weight: 0.3,
       boxWidth: 102,
       align: 'center',
-    },
-  );
-
-  /* 工期：完成の契約の日から＿＿日以内 */
-  drawText(
-    firstPage,
-    finishDaysAfterContract ? String(finishDaysAfterContract) : '-',
-    {
-      x: 299,
-      y: 520,
-      font: msChinoFont,
-    },
-    {
-      weight: 0.3,
-      boxWidth: 30,
-      align: 'right',
     },
   );
 
@@ -274,13 +200,14 @@ export const generateContractPdfV2 = async (
     firstPage,
     deliveryDate ? format(parseISO(deliveryDate), 'yyyy年MM月dd日') : '-',
     {
-      x: 227,
-      y: 506,
+      x: projDatesX,
+      y: 544,
       font: msChinoFont,
-      size: 10,
     },
     {
       weight: 0.1,
+      boxWidth: 102,
+      align: 'center',
     },
   );
 
@@ -290,7 +217,7 @@ export const generateContractPdfV2 = async (
     `￥ ${Math.round(totalContractAmtAfterTax || 0).toLocaleString()}`,
     {
       x: 211,
-      y: 493,
+      y: 529,
       size: 11,
       font: msChinoFont,
     },
@@ -307,7 +234,7 @@ export const generateContractPdfV2 = async (
     `￥ ${Math.round(totalContractAmtBeforeTax || 0).toLocaleString() }`,
     {
       x: 214,
-      y: 479,
+      y: 515,
       size: 10,
       font: msChinoFont,
     },
@@ -319,13 +246,15 @@ export const generateContractPdfV2 = async (
   );
 
 
-  /* 税 */
+  /* 税率 */
+  const taxX = 214;
+  const taxY = 501;
   drawText(
     firstPage,
     `(${tax} %)`,
     {
-      x: 214,
-      y: 466,
+      x: taxX,
+      y: taxY,
       size: 10,
       font: msChinoFont,
     },
@@ -339,8 +268,8 @@ export const generateContractPdfV2 = async (
     firstPage,
     `￥ ${Math.round(totalTaxAmount || 0).toLocaleString()}`,
     {
-      x: 214,
-      y: 463,
+      x: taxX,
+      y: taxY,
       size: 10,
       font: msChinoFont,
     },
@@ -353,7 +282,7 @@ export const generateContractPdfV2 = async (
 
   /* 支払い */
   const payLineHeight = 14;
-  const payYBase = 422.5;
+  const payYBase = 457.5;
   payments.map(({
     paymentAmt,
     paymentDate,
@@ -399,9 +328,10 @@ export const generateContractPdfV2 = async (
   });
 
   /* 支払い方法 */
+  const payMethodY = 390;
   firstPage.drawCircle({
     x: getPayMethodX(payMethod),
-    y: 369,
+    y: payMethodY,
     size: 4,
     borderWidth: 1,
     color: grayscale(0.1),
@@ -414,7 +344,7 @@ export const generateContractPdfV2 = async (
       payDestination || '豊田信用金庫　朝日支店', // 当面、固定。頻繁に変わるなら、マスター設定に移行。
       {
         x: 380,
-        y: 367,
+        y: payMethodY - 2, // 
         font: msChinoFont,
       },
       {
@@ -424,14 +354,14 @@ export const generateContractPdfV2 = async (
       },
     );
   }
-
+  
   // 契約日
   drawText(
     firstPage,
-    contractDate ? format(parseISO(contractDate), 'yyyy年MM月dd日') : '',
+    contractDate ? format(parseISO(contractDate), 'yyyy年MM月dd日') : '---',
     {
       x: x1,
-      y: 255,
+      y: 273,
       font: msChinoFont,
       size: 9,
     },
@@ -439,64 +369,106 @@ export const generateContractPdfV2 = async (
       weight: 0.1,
     },
   );
-
-  // サイン印
   
-
-
-  // 担当者名
+  // 顧客住所
   drawText(
     firstPage,
-    officerName,
+    customers[0].address,
     {
       x: x2,
-      y: 154,
+      y: 260,
+      size: 9,
       font: msChinoFont,
+    }, {
+      weight: 0.1,
     },
   );
+  
+  // 印の位置
+  const signWidth = 240;
+  const signGap = signWidth / customers.length;
+  const signY = 229;
+  customers.forEach((_, idx) => {
+    const signX = x2 + (signGap * idx);
+  
+    drawText(
+      firstPage,
+      '署名',
+      {
+        x: signX,
+        y: signY,
+        font: msChinoFont,
+        size: 8,
+        color: grayscale(0.7), // 白に近い色
+      },
+      {
+        weight: 0.1,
+      },
+    );
+
+    drawText(
+      firstPage,
+      `c${idx + 1}`,
+      {
+        x: signX + 40,
+        y: signY,
+        font: msChinoFont,
+        color: grayscale(0.96), // 白に近い色
+      },
+      {
+        weight: 0.1,
+      },
+    );
+  });
 
 
   /// 会社情報
 
   const companyX = x2;
-  const companyY = 660;
-  const companyY2 = 197;
+  const companyY = 657;
+  const companyY2 = 201;
   const companyLH = payLineHeight; // 行の高さ。 今支払いとあわせていますが、変わる可能性
 
-  [companyY, companyY2].forEach((newY) => {
-
-    // 会社名　上下
-    drawText(
-      firstPage,
-      companyName,
-      {
-        x: companyX,
-        y: newY,
-        font: msChinoFont,
-      },
-    );
-
-    // 会社住所 上下
-    drawText(
-      firstPage,
-      companyAddress,
-      {
-        x: companyX,
-        y: newY - companyLH,
-        font: msChinoFont,
-      },
-    );
-
-
-  });
-
-  // 会社連絡先 上
+  // 会社名　上
   drawText(
     firstPage,
-    companyTel,
+    companyName,
     {
       x: companyX,
-      y: companyY - (companyLH * 2),
+      y: companyY,
+      font: msChinoFont,
+    },
+  );
+
+  // 会社住所 上
+  drawText(
+    firstPage,
+    companyAddress,
+    {
+      x: companyX,
+      y: companyY - companyLH,
+      font: msChinoFont,
+    },
+  );
+
+  // 会社名　下
+  drawText(
+    firstPage,
+    companyAddress,
+    {
+      x: companyX,
+      y: companyY2,
+      font: msChinoFont,
+    },
+  );
+
+  // 会社名 下
+  drawText(
+    firstPage,
+    companyName,
+    {
+      x: companyX,
+      y: companyY2 - companyLH,
       font: msChinoFont,
     },
   );
@@ -507,7 +479,7 @@ export const generateContractPdfV2 = async (
     representative,
     {
       x: companyX,
-      y: companyY - (companyLH * 3),
+      y: companyY - (companyLH * 2),
       font: msChinoFont,
     },
   );
@@ -523,7 +495,16 @@ export const generateContractPdfV2 = async (
     },
   );
 
-
+  // 担当者名
+  drawText(
+    firstPage,
+    officerName,
+    {
+      x: x2,
+      y: 158,
+      font: msChinoFont,
+    },
+  );
 
 
 

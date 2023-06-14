@@ -24,14 +24,23 @@ const schema = z.object({
   contractId: z.string().uuid()
     .optional(),
 
-  /** 契約合計金額 */
-  totalContractAmt: z.number(),
+  /** 契約合計金額（税込）*/
+  totalContractAmtAfterTax: z.number(),
+
+  /** 契約合計金額（税抜）*/
+  totalContractAmtBeforeTax: z.number(),
 
   /** 粗利額 */
-  totalProfit: z.number(),
+  totalProfit: z.number().gt(0),
+
+  /** 粗利率 */
+  profitRate: z.number(),
 
   /** 税金 */
   taxRate: z.number(),
+
+  /** 原価 */
+  costPrice: z.number(),
 
   /** 契約金 */
   hasContractAmt: z.boolean(),
@@ -52,6 +61,11 @@ const schema = z.object({
   hasFinalAmt: z.boolean(),
   finalAmt: z.number(),
   finalAmtDate: z.date().nullable(),
+
+  /** その他の金額 */
+  hasOthersAmt: z.boolean(),
+  othersAmt: z.number(),
+  othersAmtDate: z.date().nullable(),
   
   /** 返金有無 */
   hasRefund: z.boolean(),
@@ -147,6 +161,15 @@ const schema = z.object({
     path: ['finalAmt'],
     message: '最終金を入力してください。',
   })
+  .refine(({ hasOthersAmt, othersAmt }) => {
+    if (hasOthersAmt && !othersAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['othersAmt'],
+    message: 'その他の金額を入力してください。',
+  })
   .refine(({ hasRefund, refundAmt }) => {
     if (hasRefund && !refundAmt) {
       return false;
@@ -166,19 +189,28 @@ const schema = z.object({
     message: '補助金を入力してください。',
   })
   .refine(({
-    totalContractAmt,
+    totalContractAmtAfterTax,
     contractAmt,
     initialAmt,
     interimAmt,
     finalAmt,
+    othersAmt,
   }) => {
-    if (totalContractAmt !== (contractAmt ?? 0) + (initialAmt ?? 0) + (interimAmt ?? 0) + (finalAmt ?? 0)) {
+    const totalPaymentAmts = [
+      contractAmt,
+      initialAmt,
+      interimAmt,
+      finalAmt,
+      othersAmt,
+    ].reduce((acc, cur) => acc + (cur ?? 0), 0);
+
+    if (totalContractAmtAfterTax !== totalPaymentAmts) {
       return false;
     }
     return true;
   }, {
-    path: ['totalContractAmt'],
-    message: '契約合計金額と契約金、着手金、中間金、最終金の合計が一致しません。',  
+    path: ['totalContractAmtAfterTax'],
+    message: '契約合計金額と「契約金、着手金、中間金、最終金、その他」の合計が一致しません。',  
   });
   
   

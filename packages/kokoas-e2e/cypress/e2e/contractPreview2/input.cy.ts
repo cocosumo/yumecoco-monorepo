@@ -1,7 +1,8 @@
 import { beforeEach, context, cy, describe, it } from 'local-cypress';
-import { correctInputData } from './testData';
+import { correctInputData, labelMap } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
+import { calculateAmount, roundTo } from 'libs';
 
 describe(
   '入力挙動', 
@@ -12,7 +13,7 @@ describe(
     const projId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60';
     const {
       totalContractAmt,
-      totalProfit,
+      
     } = correctInputData();
   
     beforeEach(() => {
@@ -26,7 +27,7 @@ describe(
 
       // ブラウザの推薦機能をシミュレーションする　
       // ※ 私の環境では当機能が再現出来ないので、以下の手法で誤検知可能性あり。ras-2023-05-11
-      cy.getTextInputsByLabel('契約合計金額')
+      cy.getTextInputsByLabel('契約合計金額（税込）')
         .invoke('val', simulatedInput)
         .type('{ctrl}');
         
@@ -38,83 +39,25 @@ describe(
 
     });
 
-    it('計算が合っていること', () => {
     
-      cy.getTextInputsByLabel('契約合計金額')
-        .type(totalContractAmt.toString())
-        .blur();
-
-      cy.getTextInputsByLabel('粗利額')
-        .type(totalProfit.toString())
-        .blur();
-
-      cy.log('計算されていることを確認する');
-      cy.contains('span', '税率')
-        .siblings('span')
-        .invoke('text')
-        .then((textTaxRate) => {
-        // getNumber from text
-          const taxRate = 1 + (Number(textTaxRate.replace(/[^0-9]/g, '')) / 100);
-          return cy.wrap(taxRate);
-        })
-        .then((taxRate) => cy
-          .contains('span', '税抜金額')
-          .siblings('span')
-          .invoke('text')
-          .then((textTaxExcludeAmt) => {
-            const taxExcludedAmt = Number(textTaxExcludeAmt.replace(/[^0-9]/g, ''));
-            return cy.wrap(taxExcludedAmt)
-              .should('eq', Math.round(totalContractAmt / taxRate));
-          }))
-        .then((taxExcludedAmt) => cy
-          .contains('span', '原価')
-          .siblings('span')
-          .invoke('text')
-          .then((textCost) => {
-            const cost = Number(textCost.replace(/[^0-9]/g, ''));
-            cy.wrap(cost)
-              .should('eq', Math.round(taxExcludedAmt - totalProfit));
-            return cy.wrap({
-              taxExcludedAmt,
-              cost,
-            });
-          }))
-        .then(({
-          taxExcludedAmt,
-          cost,
-        }) => cy
-          .contains('span', '粗利率')
-          .siblings('span')
-          .invoke('text')
-          .then((textProfitRate) => {
-          // get profitRate with decimal point
-            const profitRate = Number(textProfitRate.replace(/[^0-9.]/g, ''));
-            console.log(taxExcludedAmt, cost, profitRate);
-         
-            /** 利益率 = ( 単価 - 原価) / 単価 */
-            const calculatedTaxRate = ((taxExcludedAmt - cost) /  taxExcludedAmt) * 100;
-        
-            cy.wrap(profitRate.toFixed(2))
-              .should('eq', calculatedTaxRate.toFixed(2));
-          }));
-    });
-
     context(
       '支払いの挙動', 
       {
         testIsolation: false,
       }, 
       () => {
-        const dividedAmt = Math.round(totalContractAmt / 4);
+       
         const payments = [
           ['契約金', 'contract'],
           ['着手金', 'initial'],
           ['中間金', 'interim'],
           ['最終金', 'final'],
+          ['その他', 'others'],
         ];
+        const dividedAmt = Math.round(totalContractAmt / payments.length);
 
         it('契約金額にコンマが追加されるのを確認する', () => {
-          cy.getTextInputsByLabel('契約合計金額')
+          cy.getTextInputsByLabel('契約合計金額（税込）')
             .type(totalContractAmt.toString())
             .blur()
             .should('value', totalContractAmt.toLocaleString());
@@ -158,6 +101,120 @@ describe(
             });
           });
 
+      },
+    );
+
+
+    context(
+      '計算が合っていることと小数点以下が出ないこと', 
+      { testIsolation: false },
+      
+      () => {
+
+        const profitRate = 11.11;
+        beforeEach(() => {
+
+          cy.getTextInputsByLabel(labelMap.profitRate )
+            .clear()
+            .type((profitRate).toString(), { delay: 50 })
+            .should('have.value', profitRate);
+        });
+
+        it('契約金額を入力したら、金額（税抜）と原価と利益額が計算されること', () => {
+
+          const inputValue = 33333;
+          const {
+            amountBeforeTax,
+            costPrice,
+            profit,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (profitRate / 100),
+          });
+
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue);
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.costPrice)
+            .should('have.value', roundTo(costPrice).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.profit)
+            .should('have.value', roundTo(profit).toLocaleString());
+        });
+
+        it('粗利率を入力したら、契約金額（税抜き）と利益額と原価が計算されること', () => {
+
+          const inputValue = 33333;
+          const newProfitRate = 12.12; // 利益率が変わることを確認するために、新しい利益率を設定する
+
+          const {
+            profit,
+            costPrice,
+            amountBeforeTax,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (newProfitRate / 100),
+          });
+
+          // 契約金額が入力してある状態で、
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue);
+
+          // 粗利率を再入力する
+          cy.getTextInputsByLabel(labelMap.profitRate )
+            .clear()
+            .type((newProfitRate).toString(), { delay: 50 })
+            .should('have.value', newProfitRate);
+
+          cy.getTextInputsByLabel(labelMap.profit)
+            .should('have.value', roundTo(profit).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.costPrice)
+            .should('have.value', roundTo(costPrice).toLocaleString());
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString());
+        });
+
+        it('契約金額にマイナスの値を入力したら、オレンジ色になること', () => {
+          const inputValue = -2200;
+          const {
+            amountBeforeTax,
+            costPrice,
+            profit,
+          } = calculateAmount({
+            amountAfterTax: inputValue,
+            profitRate: (profitRate / 100),
+          });
+
+          cy.getTextInputsByLabel(labelMap.amountAfterTax )
+            .invoke('val', '')
+            .clear()
+            .type((inputValue).toString(), { delay: 50 })
+            .should('have.value', inputValue)
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+
+          cy.getTextInputsByLabel(labelMap.amountBeforeTax )
+            .should('have.value', roundTo(amountBeforeTax).toLocaleString())
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+
+          cy.getTextInputsByLabel(labelMap.costPrice)
+            .should('have.value', roundTo(costPrice).toLocaleString())
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+
+          cy.getTextInputsByLabel(labelMap.profit)
+            .should('have.value', roundTo(profit).toLocaleString())
+            .should('have.css', 'color', 'rgb(255, 165, 0)');
+        });
+
+        // TODO: 他のフィールドの計算が合っていることを確認する
       },
     );
 

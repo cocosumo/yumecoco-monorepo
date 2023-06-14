@@ -1,6 +1,7 @@
 import { beforeEach, cy, describe, it } from 'local-cypress';
 import { correctInputData, testProjId } from './testData';
 import format from 'date-fns/format';
+import addMonths from 'date-fns/addMonths';
 
 
 describe('保存処理', { scrollBehavior: 'center' }, () => {
@@ -8,11 +9,11 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
   const correctInput = correctInputData();
   beforeEach(() => {
     cy.login();
+    cy.visit(`/project/contract/preview/v2?projId=${testProjId}`);
   });
 
   it('新規保存できること', () => {
-    cy.visit(`/project/contract/preview/v2?projId=${testProjId}`);
-    cy.getTextInputsByLabel('契約合計金額')
+    cy.getTextInputsByLabel('契約合計金額（税込）')
       .type(correctInput.totalContractAmt.toString())
       .should('have.value', correctInput.totalContractAmt.toString());
 
@@ -33,6 +34,37 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
     cy.wait('@saveContract');
 
     cy.get('.MuiAlert-message').should('contain', '保存が出来ました。');
+
+  });
+
+  it.only('編集で保存すると、更新されること', () => {
+
+    // TODO：リファクタリングして、網羅的に他フィールドも追加する
+
+    const randomAmt = Math.floor(Math.random() * 1000000);
+    const futureDate = format(new Date(addMonths(new Date(), 1)), 'yyyy/MM/dd');
+
+    cy.getTextInputsByLabel('契約合計金額（税込）')
+      .type(randomAmt.toString())
+      .should('have.value', randomAmt.toString());
+      
+
+    cy.getCheckboxesByLabel('その他').check();
+    cy.get('input[name="othersAmt"]')
+      .as('amt')
+      .should('have.value', randomAmt.toLocaleString());
+
+    cy.get('input[name="othersAmtDate"]')
+      .as('date')
+      .type(futureDate);
+
+    cy.contains('button', '保存').click();
+
+    cy.contains('保存が出来ました。').should('be.visible');
+    cy.getCheckboxesByLabel('その他').check();
+
+    cy.get('@amt').should('have.value', randomAmt.toLocaleString());
+    cy.get('@date').should('have.value', futureDate);
 
   });
 });

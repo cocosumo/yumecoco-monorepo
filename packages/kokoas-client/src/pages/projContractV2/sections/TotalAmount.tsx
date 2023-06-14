@@ -1,5 +1,8 @@
 import { Stack } from '@mui/material';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';
+import { ProfitRate } from '../fields/ProfitRate';
+import { TaxRate } from '../fields/TaxRate';
+import { TaxAmount } from '../parts/TaxAmount';
 
 /**
  * 合計金額
@@ -15,8 +18,14 @@ export const TotalAmount = ({
     <Stack maxWidth={450} width={'100%'} spacing={2}
       my={2}
     >
-      <ControlledCurrencyInput disabled={disabled} name="totalContractAmt" label="契約合計金額" />
-      <ControlledCurrencyInput disabled={disabled} name="totalProfit" label="粗利額" />
+      <TaxRate />
+      <ControlledCurrencyInput disabled={disabled} name="totalContractAmtAfterTax" label="契約合計金額（税込）" />
+      <ControlledCurrencyInput disabled={disabled} name="totalContractAmtBeforeTax" label="契約合計金額（税抜）" />
+      <TaxAmount />
+      <ControlledCurrencyInput name="costPrice" label="原価" />
+      <ControlledCurrencyInput name="totalProfit" label="粗利額 （税抜）" />
+      <ProfitRate />
+
     </Stack>
   );
 };

@@ -5,8 +5,9 @@ import { TypeOfForm } from '../schema';
 export const convertToKintone = ({
 
   projId,
-  totalContractAmt,
+  totalContractAmtAfterTax,
   totalProfit,
+  taxRate,
 
   hasContractAmt,
   contractAmt,
@@ -23,6 +24,10 @@ export const convertToKintone = ({
   hasFinalAmt,
   finalAmt,
   finalAmtDate,
+
+  hasOthersAmt,
+  othersAmt,
+  othersAmtDate,
 
   hasRefund,
   refundAmt,
@@ -48,8 +53,9 @@ export const convertToKintone = ({
 
   const kintoneRecord: Partial<IContracts> = {
     projId: { value: projId },
-    totalContractAmt: { value: totalContractAmt.toString() },
+    totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },
+    tax: { value: taxRate.toString() },
 
     contractAmt: { value: (hasContractAmt ? contractAmt : 0).toString() },
     contractAmtDate: { value: (hasContractAmt ? toKintoneDateStr(contractAmtDate) : '') },
@@ -62,6 +68,9 @@ export const convertToKintone = ({
 
     finalAmt: { value: (hasFinalAmt ? finalAmt : 0).toString() },
     finalAmtDate: { value: (hasFinalAmt ? toKintoneDateStr(finalAmtDate) : '') },
+
+    othersAmt: { value: (hasOthersAmt ? othersAmt : 0).toString() },
+    othersAmtDate: { value: (hasOthersAmt ? toKintoneDateStr(othersAmtDate) : '') },
 
     hasRefund: { value: hasRefund ? 'はい' : 'いいえ' },
     refundAmt: { value: (hasRefund ? refundAmt : 0).toString() },

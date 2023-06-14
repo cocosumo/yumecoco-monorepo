@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxProps, FormControlLabel } from '@mui/material';
-import { Control, Controller, FieldValues, Path, UnPackAsyncDefaultValues } from 'react-hook-form';
+import { Control, Controller, FieldValues, FieldPath } from 'react-hook-form';
 
 
 /**
@@ -15,7 +15,7 @@ export function ControlledCheckBox<T extends FieldValues >({
   ...others
 }: CheckboxProps & {
   control: Control<T>
-  name: Path<UnPackAsyncDefaultValues<T>>,
+  name: FieldPath<T>,
   label: string,
 }) {
 

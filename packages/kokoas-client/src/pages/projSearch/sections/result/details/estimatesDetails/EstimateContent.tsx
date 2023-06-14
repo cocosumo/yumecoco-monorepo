@@ -36,18 +36,20 @@ export const EstimateContent = (props: EstTableProps) => {
           direction={'row'}
           justifyContent={'flex-end'}
         >
-          <NewButton 
-            href={`${pages.projEstimate}?${generateParams({ projId: projId.value })}`}
-            title='見積を作成する'
-          />
+
           <ContractButton 
             href={`${pages.projContractPreviewV2}?${generateParams({ projId: projId.value, projEstimateId: projEstimateId.value })}`}
             title='見積を利用して契約を作成する'
+          />
+          <NewButton 
+            href={`${pages.projEstimate}?${generateParams({ projId: projId.value })}`}
+            title='見積を作成する'
           />
           <EditButton 
             href={`${pages.projEstimate}?${generateParams({ projEstimateId: projEstimateId?.value })}`}
             title='見積を編集する'
           />
+
         </Stack>
      
       

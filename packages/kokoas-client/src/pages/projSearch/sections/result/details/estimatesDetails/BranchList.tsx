@@ -29,6 +29,7 @@ export const BranchList = ({
         height: '100%',
         overflowY: 'auto',
         minWidth: '155px',
+        borderRight: '1px solid rgba(0, 0, 0, 0.12)',
         pt: 0, // remove default padding
       }}
     >

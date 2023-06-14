@@ -6,7 +6,6 @@ export const NewButton = (props:ActionButtonProps) => {
     <ActionButton
       {...props}
       startIcon={<AddBoxIcon />}
-      color={'success'}
     >
       新規
     </ActionButton>

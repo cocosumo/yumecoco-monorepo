@@ -61,28 +61,10 @@ export const ResultHead = () => {
     <TableHead>
       <RowLayout 
         custName={'顧客名'}
-        custNameKana={(
-          <EnhancedTableCell 
-            existingQuery={query}
-            fieldName='custNameKana'
-            label='顧客名（カナ）'
-          />
-        )}
+        custNameKana={'顧客名（カナ）'}
         custAddress={'発注者住所'} // 反映しませんが、変わるような予感がするので、とりあえず、残す
-        projName={(
-          <EnhancedTableCell 
-            existingQuery={query}
-            fieldName='projName'
-            label='工事名'
-          />
-        )}
-        tel={(
-          <EnhancedTableCell 
-            existingQuery={query}
-            fieldName='tel'
-            label='電話番号'
-          />
-        )}
+        projName={'工事名'}
+        tel={'電話番号'}
         storeName={(
           <EnhancedTableCell 
             existingQuery={query}

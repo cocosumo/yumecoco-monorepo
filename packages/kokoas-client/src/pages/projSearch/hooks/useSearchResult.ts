@@ -51,6 +51,7 @@ export const useSearchResult =  () => {
           uuid: projId,
           projName,
           projTypeId,
+          dataId,
         } = curr; // 工事情報;
 
         const projAddress = addressBuilder({
@@ -80,6 +81,7 @@ export const useSearchResult =  () => {
 
 
         const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
+
         const { 
           custEmails, 
           custTels, 
@@ -107,7 +109,8 @@ export const useSearchResult =  () => {
           cocoConstNames.value,
           storeName.value,
           projAddress,
-        ].join('').includes(keyword);
+          dataId.value,
+        ].join('').includes(keyword.trim());
 
         const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
@@ -134,7 +137,7 @@ export const useSearchResult =  () => {
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
             custNameKana: `${fullNameReadings[0]}`,
             custAddress: `${addresses[0]}`,
-            tel: `${custTels.join('、')}`,
+            tel: custTels[0],
             storeName: `${storeName.value}`,
             uuid: projId.value,
             projName: projName.value,

@@ -1,6 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { downloadFile } from 'api-kintone';
+import { downloadFileBase64 } from 'api-kintone/src/@file/downloadFileBase64';
 
+/**
+ * 
+ * @deprecated use `useKintoneFileBase64` or `useKintoneFile` instead.
+ */
 export const useKintoneDownloadByFileKey = (fileKey: string) => {
   return useQuery(
     /**
@@ -14,7 +18,7 @@ export const useKintoneDownloadByFileKey = (fileKey: string) => {
      * - ras 2023.05.02
      */
     ['kintone', fileKey],
-    () => downloadFile(fileKey),
+    () => downloadFileBase64(fileKey),
     {
       enabled: !!fileKey,
     },

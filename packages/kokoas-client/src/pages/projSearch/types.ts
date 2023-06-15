@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export type Option = {
   label: string,
   value: string,
@@ -19,6 +21,13 @@ export interface SearchResult {
   projCompletedDate: string;
   projName: string;
   uuid: string;
+}
+
+export interface IDetail {
+  key?: string;
+  label: string;
+  value: ReactNode;
+  fonstSize?: string;
 }
 
 export type KeyOfSearchResult = keyof SearchResult;

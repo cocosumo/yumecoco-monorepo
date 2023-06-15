@@ -9,7 +9,7 @@ export const ResultHead = () => {
         custNameKana={'顧客名（カナ）'}
         custAddress={'発注者住所'} // 反映しませんが、変わるような予感がするので、とりあえず、残す
         projName={'工事名'}
-        tel={'電話番号'}
+        tel={'代表TEL'}
         storeName={'店舗名'}
         contractDate={'契約日'}
         projCompletedDate={'完工日'}

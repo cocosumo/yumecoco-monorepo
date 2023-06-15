@@ -52,6 +52,7 @@ export const OtherInfo = ({
     <DetailSection
       title={'管理用'}
       details={details}
+      isSubtle
     />
   );
 };

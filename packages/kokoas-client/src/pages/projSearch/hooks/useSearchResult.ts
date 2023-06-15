@@ -1,4 +1,5 @@
-import { useAllContracts, useCustGroups, useCustomers, useProjects } from 'kokoas-client/src/hooksQuery';
+/* eslint-disable no-case-declarations */
+import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } from 'kokoas-client/src/hooksQuery';
 import { useParseQuery } from './useParseQuery';
 import { SearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
@@ -28,9 +29,12 @@ export const useSearchResult =  () => {
     contractDateTo,
     completionDateFrom,
     completionDateTo,
+    order,
+    orderBy = 'storeSortNumber',
   } = parsedQuery || {};
 
   const { data: selectedStoreIds } = useStoreIds(stores ?? []);
+  const { data: storeRec } = useStores();
   const { data: selectedProjTypeIds } = useProjTypesIds(projTypes ?? []);
 
 
@@ -38,7 +42,7 @@ export const useSearchResult =  () => {
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
     select: (data) => {
 
-      return data?.reduce((acc, curr) => {
+      const unsortedResult =  data?.reduce((acc, curr) => {
 
         const {
           custGroupId,
@@ -78,6 +82,10 @@ export const useSearchResult =  () => {
           storeName,
           storeId,
         } = custGroup;
+
+        const {
+          sortNumber,
+        } = storeRec?.find(({ uuid }) => uuid.value === storeId.value) || {};
 
 
         const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
@@ -143,11 +151,29 @@ export const useSearchResult =  () => {
             projName: projName.value,
             contractDate: contractDate?.value ? contractDate.value : '-',
             projCompletedDate: finishDate?.value ? finishDate.value : '-',
+            storeSortNumber: +(sortNumber?.value || 0),
           });
         }
 
         return acc;
       }, [] as SearchResult[]);
+
+      return unsortedResult.sort((a, b) => {
+        const parseOrderBy = orderBy as keyof SearchResult;
+
+
+        switch (parseOrderBy) {
+          case 'storeSortNumber':
+            return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
+          case 'contractDate':
+          case 'projCompletedDate':
+            return order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
+          default:
+            const valueA = a[parseOrderBy] || ''; 
+            const valueB = b[parseOrderBy] || ''; 
+            return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+        }
+      });
     },
   });
 };

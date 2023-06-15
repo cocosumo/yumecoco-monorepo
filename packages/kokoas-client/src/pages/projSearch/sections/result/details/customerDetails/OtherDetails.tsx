@@ -47,6 +47,7 @@ export const OtherDetails = ({
     <DetailSection 
       title={'管理用'}
       details={details}
+      isSubtle
     />
   );
 };

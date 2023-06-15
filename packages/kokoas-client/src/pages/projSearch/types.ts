@@ -21,6 +21,7 @@ export interface SearchResult {
   projCompletedDate: string;
   projName: string;
   uuid: string;
+  storeSortNumber: number;
 }
 
 export interface IDetail {
@@ -28,6 +29,7 @@ export interface IDetail {
   label: string;
   value: ReactNode;
   fonstSize?: string;
+  isSubtle?: boolean;
 }
 
 export type KeyOfSearchResult = keyof SearchResult;

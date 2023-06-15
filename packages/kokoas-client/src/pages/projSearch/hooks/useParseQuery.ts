@@ -35,10 +35,14 @@ export const useParseQuery = (): TypeOfForm => {
 
       contractDateFrom,
       contractDateTo,
+      order,
+      orderBy,
     } = parsedQuery;
 
     return {
       ...initialForm,
+      order: order ?? 'asc',
+      orderBy: orderBy ?? 'storeSortNumber',
       keyword: keyword ?? null,
       custName: custName ?? null,
       address: address ?? null,

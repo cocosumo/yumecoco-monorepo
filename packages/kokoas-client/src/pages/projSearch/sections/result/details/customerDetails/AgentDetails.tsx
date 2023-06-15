@@ -17,13 +17,14 @@ export const AgentDetails = ({
       value: storeName,
     },
     {
-      label: 'ここすも営業',
-      value: cocoAgs,
-    },
-    {
       label: 'ゆめてつAG',
       value: yumeAgs,
     },
+    {
+      label: 'ここすも営業',
+      value: cocoAgs,
+    },
+   
   ];
 
   return (

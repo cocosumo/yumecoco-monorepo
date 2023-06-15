@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { IProjects } from 'types';
 import { useMemo } from 'react';
-import { addressBuilder } from 'libs';
+import { addressBuilder, formatDataId } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
@@ -46,10 +46,12 @@ export const ProjectDetails = ({
       // status, 廃止　（追客中など） 
     } = recProj;
 
+    const newPostal = postal.value ? `〒${postal.value.slice(0, 3)}-${postal.value.slice(3)} ` : '';
+
     const mainDetails: IDetail[] = [
       {
         label: '工事番号',
-        value: dataId.value,
+        value: formatDataId(dataId.value),
       },
       {
         label: '工事種別',
@@ -61,12 +63,18 @@ export const ProjectDetails = ({
       },
       {
         label: '住所',
-        value: addressBuilder({
-          postal: postal.value,
-          address1: address1.value,
-          address2: address2.value,
-        }),
+        value: (<>
+          <div>
+            {newPostal}
+          </div>
+          {addressBuilder({
+            address1: address1.value,
+            address2: address2.value,
+          })}
+        </>
+        ),
       },
+      
       {
         label: '仮住所',
         value: addressKari.value || '-',
@@ -180,11 +188,6 @@ export const ProjectDetails = ({
       />
 
       <DetailSection 
-        title="管理用"
-        details={details.otherDetails}
-      />
-
-      <DetailSection 
         title="メモ"
         details={details.remarksDetails}
       />
@@ -193,6 +196,14 @@ export const ProjectDetails = ({
         title="ANDPAD登録ログ"
         details={details.logDetails}
       />
+
+      <DetailSection 
+        title="管理用"
+        details={details.otherDetails}
+        isSubtle
+      />
+
+
 
 
     </Stack>

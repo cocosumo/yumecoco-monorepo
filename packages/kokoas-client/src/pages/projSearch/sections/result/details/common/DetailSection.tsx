@@ -7,19 +7,22 @@ import { Detail } from './Detail';
 export const DetailSection = ({
   title,
   details,
+  isSubtle,
 }:{
   title: ReactNode,
   details: IDetail[]
+  isSubtle?: boolean,
 }) => {
   return (
     <>
       <DetailSectionTitle>
         {title}
       </DetailSectionTitle>
-      <DetailsContainer>
+      <DetailsContainer isSubtle={isSubtle}>
         {details.map((detail) => {
           return (
             <Detail 
+              isSubtle={isSubtle}
               key={detail?.key || detail?.label}
               {...detail}
             />

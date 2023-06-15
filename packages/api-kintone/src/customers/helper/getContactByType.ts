@@ -12,5 +12,5 @@ export const getContactByType = (
       resolveRelation = `(${relation.value})`;
     }
 
-    return `${contactValue.value} ${resolveRelation ? resolveRelation : '' }`;
+    return `${contactValue.value} ${resolveRelation ? resolveRelation : '' }`.trim();
   });

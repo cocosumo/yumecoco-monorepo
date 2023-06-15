@@ -64,7 +64,7 @@ export const FormContents = ({
     return (
       <Stack 
         spacing={2}
-        justifyContent={'start'}
+        justifyContent={'flex-start'}
       >
 
         

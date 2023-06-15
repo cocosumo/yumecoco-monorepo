@@ -6,6 +6,8 @@ import DataGrid, { DataGridProps, textEditor   } from 'react-data-grid';
 import { ReactNode } from 'react';
 import { roundTo } from 'libs';
 
+
+
 type MyColumn =  DataGridProps<any, any, any>['columns'][number] & {
   key: KRowFields;
 };
@@ -57,7 +59,6 @@ const columns: MyColumn[] = [
     name: '部材備考', 
     editable: true,
     renderEditCell: textEditor,
-    width: 300,
   },
   { 
     key: 'costPrice', 
@@ -149,7 +150,6 @@ const columns: MyColumn[] = [
     name: '備考', 
     editable: true,
     renderEditCell: textEditor,
-    width: 300,
   },
  
 ];
@@ -166,24 +166,40 @@ export const EstimatesDataGrid = () => {
   // 残す。検証用
   console.log(fields);
 
+  /**
+  * 
+  * Note:
+  * 
+  * Kintone is throwing kintone-jserror when resizing the grid
+  * when the parent is 100%.
+  * 
+  * So we need a fixed width for the grid.  
+  * Here, I set it to full width of the screen, minus the menu width.
+  * 
+  * TODO: Identify if the menu is open or not, and adjust the width accordingly.
+  * ~ras 2023-06-16
+  */
 
   return (
     <Box
-      width={'100%'}
+      sx={{
+        maxWidth: 'calc(100vw - 306px)',  
+      }}
       height={'100%'}
     >  
       <DataGrid 
         rowKeyGetter={(row: RowItem ) => row.id}
-        className='rdg-light fill-grid' // enforce light theme 
+        className='rdg-light' // enforce light theme 
         columns={columns} 
         rows={fields}
         defaultColumnOptions={{
           resizable: true,
+          width: 150,
         }}
         onRowsChange={() => {
 
         }} 
-
+        
       />
     </Box>
   );

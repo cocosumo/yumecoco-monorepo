@@ -27,15 +27,16 @@ export const MismatchedProfit = () => {
   return (
     <Alert
       severity={'info'}
-      action={
-        <Button
-          color="inherit"
-          size="small"
-          onClick={handleUpdateProfit}
-        >
-          はい
-        </Button>
-            }
+      sx={{
+        maxWidth: 600,
+      }}
+      action={(<Button
+        color="inherit"
+        size="small"
+        onClick={handleUpdateProfit}
+               >
+        はい
+      </Button>)}
     >
       {`${projTypeName}の最新の利益率は${projTypeProfitLatest}%です。更新しますか。`}
     </Alert>

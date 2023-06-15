@@ -1,5 +1,4 @@
-import { Divider, Grid } from '@mui/material';
-import { PageSubTitle } from 'kokoas-client/src/components';
+import { Divider, Stack } from '@mui/material';
 import {
   TextField,
   PercentField,
@@ -18,6 +17,7 @@ import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 import { Remarks } from './fields/Remarks';
 import { DataGridSamples } from './estimateDataGrid/DatagridSamples';
+import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
 
 
 export const FormContents = ({
@@ -62,8 +62,22 @@ export const FormContents = ({
 
   if (projId) {
     return (
-      <>
-        <Grid item xs={12} md={3}>
+      <Stack 
+        spacing={2}
+        justifyContent={'start'}
+      >
+
+        
+        {!!projTypeProfitLatest
+          && projTypeProfitLatest !== 0
+          && +(projTypeProfit ?? 0) !== +projTypeProfitLatest
+          && !disabled && <MismatchedProfit />}
+   
+
+        <Stack 
+          direction={'row'}
+          spacing={2}
+        >
           <TextField
             controllerProps={{
               name: 'projTypeName',
@@ -72,10 +86,9 @@ export const FormContents = ({
             textFieldProps={{
               label: '工事種別名',
               disabled: true,
+              size: 'small',
             }}
           />
-        </Grid>
-        <Grid item xs={12} md={3}>
 
           <PercentField
             controllerProps={{
@@ -85,16 +98,10 @@ export const FormContents = ({
             textFieldProps={{
               label: '利益率',
               disabled: projTypeProfitLatest !== 0 || disabled,
+              size: 'small',
             }}
           />
 
-          {!!projTypeProfitLatest
-          && projTypeProfitLatest !== 0
-          && +(projTypeProfit ?? 0) !== +projTypeProfitLatest
-          && !disabled && <MismatchedProfit />}
-
-        </Grid>
-        <Grid item xs={12} md={3}>
           <PercentField
             controllerProps={{
               name: 'taxRate',
@@ -103,53 +110,43 @@ export const FormContents = ({
             textFieldProps={{
               label: '税率',
               disabled,
+              size: 'small',
             }}
           />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <StatusSelect control={control} disabled={disabled} />
-        </Grid>
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label={<EstimateTableLabel />} />
-        </Grid>
+          <StatusSelect 
+            control={control} 
+            disabled={disabled}
+          />
 
+
+        </Stack>
+
+        <PageSubTitle3 label={<EstimateTableLabel />} />
+  
         {/*  <Grid item xs={12}>
           {!disabled &&  <EstBody isDisabled={disabled} />}
           {disabled && <EstBodyReadOnly />}
         </Grid> */}
-        <Grid item xs={12}>
-          <DataGridSamples />
-        </Grid>
+   
+        <DataGridSamples />
+      
+        <PageSubTitle3 label={'大項目小計欄'} />
+      
+        <SubTotalTable />
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label={'大項目小計欄'} />
-        </Grid>
+        <PageSubTitle3 label={'その他'} />
+     
+        <Remarks />
+  
+        <Divider />
 
-        <Grid item xs={12} md={6}>
-          <SubTotalTable />
-        </Grid>
-
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label={'その他'} />
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Remarks />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-
-        <Grid item xs={12}>
-          <GoToContractButton />
-        </Grid>
-
+        <GoToContractButton />
+   
         {/* 合計欄 */}
         <SummaryTable />
 
-      </>
+      </Stack>
 
     );
   } else {

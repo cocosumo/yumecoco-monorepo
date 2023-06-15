@@ -32,7 +32,7 @@ export const Select = <T extends FieldValues>(  {
         } = field;
 
         return (
-          <FormControl fullWidth error={isShowError}>
+          <FormControl size='small' fullWidth error={isShowError}>
             <InputLabel>
               {label}
             </InputLabel>
@@ -43,6 +43,7 @@ export const Select = <T extends FieldValues>(  {
                 onChange(e);
                 customOnChange?.(e, child);
               }}
+              size='small'
             >
               {children}
             </MuiSelect>

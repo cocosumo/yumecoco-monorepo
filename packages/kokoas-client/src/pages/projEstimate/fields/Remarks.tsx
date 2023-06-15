@@ -12,8 +12,13 @@ export const Remarks = () => {
     <TextField
       label={ja[regFieldProps.name]}
       multiline
+      rows={4}
       fullWidth
       placeholder='備考を入力してください。'
+      size='small'
+      sx={{
+        maxWidth: 400,
+      }}
       {...regFieldProps}
     />
   );

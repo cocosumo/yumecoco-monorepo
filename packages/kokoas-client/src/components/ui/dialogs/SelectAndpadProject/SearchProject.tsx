@@ -20,8 +20,10 @@ import { EmptyBox } from '../../information';
 
 export const SearchProject = ({
   projId,
+  onSelectSystemId,
 }:{
   projId: string,
+  onSelectSystemId?: (systemId: string) => void,
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState<SaveProjectData | null>(null);
@@ -33,6 +35,9 @@ export const SearchProject = ({
       return d.data.objects.map<SaveProjectData>((andpadRecord) => andpadRecord);
     },
   });
+
+
+  
 
 
   return (
@@ -105,6 +110,7 @@ export const SearchProject = ({
         </Button>
         <Button
           variant='contained'
+          onClick={() => onSelectSystemId?.(String(value?.システムID))}
         >
           確定
         </Button>

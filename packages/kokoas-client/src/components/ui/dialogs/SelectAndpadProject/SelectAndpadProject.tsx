@@ -7,6 +7,7 @@ export const SelectAndpadProject = ({
   open,
   projId,
   onClose,
+  onSelectSystemId,
 }:{
   open: boolean,
   projId: string,
@@ -27,7 +28,14 @@ export const SelectAndpadProject = ({
         Andpadとの強制接続
       </DialogTitle>
       {stepIndex === 0 && (<Confirmation onClose={onClose} handleNext={handleNext} />)}
-      {stepIndex === 1 && (<SearchProject projId={projId} />)}
+      {stepIndex === 1 && (
+      <SearchProject 
+        projId={projId}
+        onSelectSystemId={(systemId: string) => {
+          onSelectSystemId?.(systemId);
+          onClose();
+        }}
+      />)}
     </Dialog>
   );
 };

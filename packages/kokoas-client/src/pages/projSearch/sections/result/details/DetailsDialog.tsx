@@ -1,13 +1,12 @@
 import { 
-  Button, 
   Dialog, 
-  DialogActions, 
   DialogTitle, 
   Tab, 
   Tabs, 
 } from '@mui/material';
 import { DetailsContent } from './DetailsContent';
 import { SyntheticEvent, useState } from 'react';
+import { DialogCloseButton } from 'kokoas-client/src/components';
 
 export const DetailsDialog = ({
   open,
@@ -41,6 +40,7 @@ export const DetailsDialog = ({
       <DialogTitle
         sx={{
           pb: 0,
+          display: 'relative',
         }}
       > 
         {projName}
@@ -50,18 +50,13 @@ export const DetailsDialog = ({
           <Tab label="見積"  />
           <Tab label="契約"  />
         </Tabs>
+        <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>
 
       <DetailsContent 
         projId={projId}
         tabIdx={tabIdx}
       />
-
-      <DialogActions>
-        <Button onClick={handleClose}>
-          閉じる
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 };

@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { IProjects } from 'types';
 import { useMemo } from 'react';
-import { addressBuilder } from 'libs';
+import { addressBuilder, formatDataId } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
@@ -49,7 +49,7 @@ export const ProjectDetails = ({
     const mainDetails: IDetail[] = [
       {
         label: '工事番号',
-        value: dataId.value,
+        value: formatDataId(dataId.value),
       },
       {
         label: '工事種別',

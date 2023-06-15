@@ -36,6 +36,8 @@ export const Customer = ({
     const tels = getContactByType(contacts, 'tel');
     const emails = getContactByType(contacts, 'email');
 
+    console.log(tels, 'TELS');
+
     const firstColumn: IDetail[] = [
       {
         label: '顧客名',
@@ -52,7 +54,7 @@ export const Customer = ({
   
       { 
         label: '電話番号',
-        value: tels.join(', '),
+        value: tels.filter(Boolean).join(', '),
       },
       { 
         label: 'メアド',

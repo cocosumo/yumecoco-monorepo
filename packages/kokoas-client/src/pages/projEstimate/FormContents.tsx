@@ -17,7 +17,7 @@ import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import SummaryTable from './tables/SummaryTable/SummaryTable';
 import { Remarks } from './fields/Remarks';
-import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
+import { DataGridSamples } from './estimateDataGrid/DatagridSamples';
 
 
 export const FormContents = ({
@@ -119,7 +119,7 @@ export const FormContents = ({
           {disabled && <EstBodyReadOnly />}
         </Grid> */}
         <Grid item xs={12}>
-          <EstimatesDataGrid />
+          <DataGridSamples />
         </Grid>
 
         <Grid item xs={12} mt={4}>

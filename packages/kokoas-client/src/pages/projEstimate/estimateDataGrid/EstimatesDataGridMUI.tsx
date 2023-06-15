@@ -29,7 +29,7 @@ const columns: MyGridColDef[] = [
   { field: 'rowDetails', headerName: '備考', editable: true },
 ];
 
-export const EstimatesDataGrid = () => {
+export const EstimatesDataGridMUI = () => {
   const { fields } = useFieldArray<TypeOfForm>({
     name: 'items',
   });

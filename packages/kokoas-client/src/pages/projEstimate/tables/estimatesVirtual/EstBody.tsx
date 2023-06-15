@@ -15,9 +15,9 @@ import { EstRowContainer } from './EstRowContainer';
 import { EstBodyContainerEditable } from './EstBodyContainerEditable';
 
 export const EstBody = ({
-  isDisabled,
+  isDisabled = false,
 }: {
-  isDisabled: boolean
+  isDisabled?: boolean
 }) => {
 
   const fieldArrayHelpers = useFieldArray<TypeOfForm>({

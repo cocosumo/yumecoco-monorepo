@@ -180,11 +180,6 @@ export const ProjectDetails = ({
       />
 
       <DetailSection 
-        title="管理用"
-        details={details.otherDetails}
-      />
-
-      <DetailSection 
         title="メモ"
         details={details.remarksDetails}
       />
@@ -193,6 +188,14 @@ export const ProjectDetails = ({
         title="ANDPAD登録ログ"
         details={details.logDetails}
       />
+
+      <DetailSection 
+        title="管理用"
+        details={details.otherDetails}
+        isSubtle
+      />
+
+
 
 
     </Stack>

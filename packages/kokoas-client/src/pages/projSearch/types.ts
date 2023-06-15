@@ -21,6 +21,7 @@ export interface SearchResult {
   projCompletedDate: string;
   projName: string;
   uuid: string;
+  storeSortNumber: number;
 }
 
 export interface IDetail {

@@ -3,7 +3,8 @@ import { KRowFields, TypeOfForm } from '../form';
 import { Box } from '@mui/material';
 import 'react-data-grid/lib/styles.css';
 import DataGrid, { DataGridProps, textEditor   } from 'react-data-grid';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
+import { roundTo } from 'libs';
 
 type MyColumn =  DataGridProps<any, any, any>['columns'][number] & {
   key: KRowFields;
@@ -11,7 +12,12 @@ type MyColumn =  DataGridProps<any, any, any>['columns'][number] & {
 
 type RowItem = KRowFields & { id: string };
 
-const commaFormatter = (value: string | number) =>  Number(value).toLocaleString();
+const commaFormatter = (value: string | number) => {
+  const parseValue = +value;
+  if (isNaN(parseValue)) return value;
+
+  return parseValue.toLocaleString();
+};
 
 const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
   return (
@@ -22,11 +28,13 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 
 
 const columns: MyColumn[] = [
-  { key: 'majorItem', 
+  { 
+    key: 'majorItem', 
     name: '大項目', 
     editable: true, 
     sortable: true, 
     resizable: true, 
+    frozen: true,
     renderEditCell: textEditor,
     
   },
@@ -34,12 +42,14 @@ const columns: MyColumn[] = [
     key: 'middleItem', 
     name: '中項目', 
     editable: true,
+    frozen: true,
     renderEditCell: textEditor,
   },
   { 
     key: 'material', 
     name: '部材', 
     editable: true,
+    frozen: true,
     renderEditCell: textEditor,
   },
   { 
@@ -47,6 +57,7 @@ const columns: MyColumn[] = [
     name: '部材備考', 
     editable: true,
     renderEditCell: textEditor,
+    width: 300,
   },
   { 
     key: 'costPrice', 
@@ -57,10 +68,11 @@ const columns: MyColumn[] = [
       <RightAlignedDiv>
         {column.name}
       </RightAlignedDiv>),
-    renderCell: ({ row }) => (
-      <RightAlignedDiv>
+    renderCell: ({ row }) => {
+      return (<RightAlignedDiv>
         {commaFormatter(row.costPrice)}
-      </RightAlignedDiv>),
+      </RightAlignedDiv>);
+    },
   },
   { 
     key: 'quantity', 
@@ -84,17 +96,70 @@ const columns: MyColumn[] = [
     editable: true,
     renderEditCell: textEditor,
   },
+  { 
+    key: 'materialProfRate', 
+    name: '粗利率', 
+    editable: true,
+    renderEditCell: textEditor,
+    renderHeaderCell: ({ column }) => (
+      <RightAlignedDiv>
+        {column.name}
+      </RightAlignedDiv>),
+    renderCell: ({ row }) => {
+      return (
+        <RightAlignedDiv>
+          {`${roundTo(+(row.materialProfRate || 0), 2)} %`}
+        </RightAlignedDiv>);
+    },
+  },
+  { 
+    key: 'unitPrice', 
+    name: '単価', 
+    editable: true,
+    renderEditCell: textEditor,
+    renderHeaderCell: ({ column }) => (
+      <RightAlignedDiv>
+        {column.name}
+      </RightAlignedDiv>),
+    renderCell: ({ row }) => {
+      return (
+        <RightAlignedDiv>
+          {commaFormatter(row.unitPrice)}
+        </RightAlignedDiv>);
+    },
+  },
+  { 
+    key: 'rowUnitPriceBeforeTax', 
+    name: '税抜金額', 
+    editable: true,
+    renderEditCell: textEditor,
+    renderHeaderCell: ({ column }) => (
+      <RightAlignedDiv>
+        {column.name}
+      </RightAlignedDiv>),
+    renderCell: ({ row }) => {
+      return (
+        <RightAlignedDiv>
+          {commaFormatter(row.rowUnitPriceBeforeTax)}
+        </RightAlignedDiv>);
+    },
+  },
+  { 
+    key: 'rowDetails', 
+    name: '備考', 
+    editable: true,
+    renderEditCell: textEditor,
+    width: 300,
+  },
+ 
 ];
 
-const baseRows: Partial<Record<RowItem, string>>[] = [
-  { id: '1', majorItem: 'Hello', middleItem: 'World', costPrice: '1000'  },
-  { id: '2', majorItem: 'Hello', middleItem: 'World'  },
-];
+
 
 export const EstimatesDataGrid = () => {
-  const [rows, setRows] = useState(baseRows);
+  //const [rows, setRows] = useState(baseRows);
 
-  const { fields } = useFieldArray<TypeOfForm>({
+  const { fields, update } = useFieldArray<TypeOfForm>({
     name: 'items',
   });
 
@@ -109,10 +174,16 @@ export const EstimatesDataGrid = () => {
     >  
       <DataGrid 
         rowKeyGetter={(row: RowItem ) => row.id}
-        className='rdg-light' // enforce light theme 
+        className='rdg-light fill-grid' // enforce light theme 
         columns={columns} 
-        rows={rows}
-        onRowsChange={setRows}
+        rows={fields}
+        defaultColumnOptions={{
+          resizable: true,
+        }}
+        onRowsChange={() => {
+
+        }} 
+
       />
     </Box>
   );

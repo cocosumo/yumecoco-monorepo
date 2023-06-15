@@ -46,6 +46,8 @@ export const ProjectDetails = ({
       // status, 廃止　（追客中など） 
     } = recProj;
 
+    const newPostal = postal.value ? `〒${postal.value.slice(0, 3)}-${postal.value.slice(3)} ` : '';
+
     const mainDetails: IDetail[] = [
       {
         label: '工事番号',
@@ -61,12 +63,18 @@ export const ProjectDetails = ({
       },
       {
         label: '住所',
-        value: addressBuilder({
-          postal: postal.value,
-          address1: address1.value,
-          address2: address2.value,
-        }),
+        value: (<>
+          <div>
+            {newPostal}
+          </div>
+          {addressBuilder({
+            address1: address1.value,
+            address2: address2.value,
+          })}
+        </>
+        ),
       },
+      
       {
         label: '仮住所',
         value: addressKari.value || '-',

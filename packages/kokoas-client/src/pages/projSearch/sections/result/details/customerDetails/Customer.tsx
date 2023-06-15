@@ -36,8 +36,6 @@ export const Customer = ({
     const tels = getContactByType(contacts, 'tel');
     const emails = getContactByType(contacts, 'email');
 
-    console.log(tels, 'TELS');
-
     const firstColumn: IDetail[] = [
       {
         label: '顧客名',
@@ -63,6 +61,7 @@ export const Customer = ({
 
     ];
 
+    const newPostal = postalCode.value ? `〒${postalCode.value.slice(0, 3)}-${postalCode.value.slice(3)} ` : '';
     const secondColumn: IDetail[] = [
       {
         label: '生年月日',
@@ -76,11 +75,16 @@ export const Customer = ({
         label: '住所',
         value: +isSameAsMain.value 
           ? '顧客１と同じ' 
-          : addressBuilder({
-            postal: postalCode.value,
-            address1: address1.value,
-            address2: address2.value,
-          }),
+          : (<>
+            <div>
+              {newPostal}
+            </div>
+            { addressBuilder({
+              address1: address1.value,
+              address2: address2.value,
+            })}
+          </>
+          ),
       },
 
     ];

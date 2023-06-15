@@ -6,8 +6,10 @@ import { useSaveProject } from 'kokoas-client/src/hooksQuery';
 
 export const ForcedAndpadLink = ({
   projId,
+  disabled = false,
 }:{
-  projId: string
+  projId: string,
+  disabled?: boolean,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -31,6 +33,7 @@ export const ForcedAndpadLink = ({
           color='warning'
           startIcon={<WarningAmberIcon />}
           variant='outlined'
+          disabled={disabled}
           sx={{
             whiteSpace: 'nowrap',
           }}

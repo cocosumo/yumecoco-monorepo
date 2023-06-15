@@ -27,6 +27,7 @@ export const RecordSelect = () => {
     projDataId,
     projId,
     andpadDetails,
+    forceLinkedAndpadSystemId,
   } = values;
 
   const { setDialogState } = useConfirmDialog();
@@ -100,8 +101,16 @@ export const RecordSelect = () => {
       />
    
 
-      {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
-      {!!projId && <ForcedAndpadLink projId={projId} />}         
+      {!!projId && (
+      <SaveToAndpadButton 
+        isExist={!!andpadDetails}
+        disabled={!!forceLinkedAndpadSystemId} // Disabled if already forced linked
+      />)}
+      {!!projId && (
+      <ForcedAndpadLink 
+        projId={projId}
+        disabled={!!andpadDetails?.システムID} // Disabled if already normally linked 
+      />)}         
 
       <ModeInfo
         recordId={projDataId || ''}

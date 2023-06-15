@@ -1,6 +1,6 @@
 import { Dialog, DialogTitle  } from '@mui/material';
 import { Confirmation } from './Confirmation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchProject } from './SearchProject';
 
 export const SelectAndpadProject = ({
@@ -19,10 +19,15 @@ export const SelectAndpadProject = ({
 
   const handleNext = () => setStepIndex((prev) => prev + 1);
 
+  useEffect(() => {
+    if (open) setStepIndex(0);
+  }, [open]);
+
   return (
     <Dialog 
       open={open}
       onClose={onClose}
+      keepMounted={false}
     >
       <DialogTitle>
         Andpadとの強制接続
@@ -31,10 +36,8 @@ export const SelectAndpadProject = ({
       {stepIndex === 1 && (
       <SearchProject 
         projId={projId}
-        onSelectSystemId={(systemId: string) => {
-          onSelectSystemId?.(systemId);
-          onClose();
-        }}
+        onClose={onClose}
+        onSelectSystemId={onSelectSystemId}
       />)}
     </Dialog>
   );

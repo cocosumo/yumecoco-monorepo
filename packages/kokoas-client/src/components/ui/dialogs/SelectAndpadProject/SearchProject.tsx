@@ -21,9 +21,11 @@ import { EmptyBox } from '../../information';
 export const SearchProject = ({
   projId,
   onSelectSystemId,
+  onClose,
 }:{
   projId: string,
   onSelectSystemId?: (systemId: string) => void,
+  onClose: () => void,
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState<SaveProjectData | null>(null);
@@ -110,7 +112,10 @@ export const SearchProject = ({
         </Button>
         <Button
           variant='contained'
-          onClick={() => onSelectSystemId?.(String(value?.システムID))}
+          onClick={() => {
+            onSelectSystemId?.(String(value?.システムID));
+            onClose();
+          }}
         >
           確定
         </Button>

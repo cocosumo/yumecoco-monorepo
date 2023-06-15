@@ -56,6 +56,7 @@ export const DetailsDialog = ({
       <DetailsContent 
         projId={projId}
         tabIdx={tabIdx}
+        
       />
     </Dialog>
   );

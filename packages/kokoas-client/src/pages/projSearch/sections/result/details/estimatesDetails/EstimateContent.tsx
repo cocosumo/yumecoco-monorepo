@@ -75,7 +75,7 @@ export const EstimateContent = (props: Partial<EstTableProps> & {
 
  
         {record && (
-        <OtherInfo record={record} />
+        <OtherInfo record={record}  />
         )}
 
       </Stack>

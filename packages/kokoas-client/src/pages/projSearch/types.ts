@@ -28,6 +28,7 @@ export interface IDetail {
   label: string;
   value: ReactNode;
   fonstSize?: string;
+  isSubtle?: boolean;
 }
 
 export type KeyOfSearchResult = keyof SearchResult;

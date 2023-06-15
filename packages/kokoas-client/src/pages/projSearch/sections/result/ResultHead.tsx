@@ -8,47 +8,102 @@ import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { removeNullFalsyEmptyFromObject } from 'libs';
 import { pages } from 'kokoas-client/src/pages/Router';
+import { TypeOfForm } from '../../schema';
 
-export const ResultHead = () => {
-  const query = useParseQuery();
+const EnhancedTableCell = ({
+  fieldName,
+  label,
+  existingQuery,
+}: {
+  fieldName: keyof SearchResult,
+  label: string,
+  existingQuery: TypeOfForm
+}) => {
 
   const {
     orderBy,
     order,
-  } = query;
-
+  } = existingQuery;
   const navigate = useNavigate();
+
+  const isActive = (orderBy as keyof SearchResult) === fieldName;
+
+  return (
+    <TableSortLabel
+      active={isActive}
+      direction={isActive ? (order as Order) : 'asc'}
+      onClick={() => {
+        const queryStr =  qs.stringify(
+          removeNullFalsyEmptyFromObject({ 
+            ...existingQuery, 
+            orderBy: fieldName, 
+            order: (order as Order) === 'asc' ? 'desc' : 'asc', 
+          }), 
+          { arrayFormat: 'comma', encode: false },
+        );
+        navigate(`${pages.projSearch}?${queryStr}`);
+      }}
+    >
+      {label}
+      {(orderBy as keyof SearchResult) === 'storeSortNumber' ? (
+        <Box component="span" sx={visuallyHidden}>
+          {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+        </Box>
+      ) : null}
+    </TableSortLabel>
+  );
+};
+
+export const ResultHead = () => {
+  const query = useParseQuery();
 
   return (
     <TableHead>
       <RowLayout 
         custName={'顧客名'}
-        custNameKana={'顧客名（カナ）'}
-        custAddress={'発注者住所'} // 反映しませんが、変わるような予感がするので、とりあえず、残す
-        projName={'工事名'}
-        tel={'電話番号'}
-        storeName={(
-          <TableSortLabel
-            active={(orderBy as keyof SearchResult) === 'storeSortNumber'}
-            direction={(orderBy as keyof SearchResult) === 'storeSortNumber' ? (order as Order) : 'asc'}
-            onClick={() => {
-              const queryStr =  qs.stringify(
-                removeNullFalsyEmptyFromObject({ ...query, orderBy: 'storeSortNumber', order: (order as Order) === 'asc' ? 'desc' : 'asc' }), 
-                { arrayFormat: 'comma', encode: false },
-              );
-              navigate(`${pages.projSearch}?${queryStr}`);
-            }}
-          >
-            店舗
-            {(orderBy as keyof SearchResult) === 'storeSortNumber' ? (
-              <Box component="span" sx={visuallyHidden}>
-                {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-              </Box>
-            ) : null}
-          </TableSortLabel>
+        custNameKana={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='custNameKana'
+            label='顧客名（カナ）'
+          />
         )}
-        contractDate={'契約日'}
-        projCompletedDate={'完工日'}
+        custAddress={'発注者住所'} // 反映しませんが、変わるような予感がするので、とりあえず、残す
+        projName={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='projName'
+            label='工事名'
+          />
+        )}
+        tel={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='tel'
+            label='電話番号'
+          />
+        )}
+        storeName={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='storeSortNumber'
+            label='店舗名'
+          />
+        )}
+        contractDate={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='contractDate'
+            label='契約日'
+          />
+        )}
+        projCompletedDate={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='projCompletedDate'
+            label='完工日'
+          />
+        )}
       />
     </TableHead>
   );

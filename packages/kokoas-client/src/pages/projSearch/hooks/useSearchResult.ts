@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } from 'kokoas-client/src/hooksQuery';
 import { useParseQuery } from './useParseQuery';
 import { SearchResult } from '../types';
@@ -158,8 +159,8 @@ export const useSearchResult =  () => {
       }, [] as SearchResult[]);
 
       return unsortedResult.sort((a, b) => {
-
         const parseOrderBy = orderBy as keyof SearchResult;
+
 
         switch (parseOrderBy) {
           case 'storeSortNumber':
@@ -168,9 +169,10 @@ export const useSearchResult =  () => {
           case 'projCompletedDate':
             return order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
           default:
-            return order === 'asc' ? a[parseOrderBy].localeCompare(b[parseOrderBy]) : b[parseOrderBy].localeCompare(a[parseOrderBy]);
+            const valueA = a[parseOrderBy] || ''; 
+            const valueB = b[parseOrderBy] || ''; 
+            return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
         }
-        
       });
     },
   });

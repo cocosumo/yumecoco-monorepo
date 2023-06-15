@@ -24,6 +24,8 @@ export const FormContractSearch = () => {
 
   const newValues = useNewValuesFromParams();
 
+  console.log('newValues', newValues);
+
   const methods = useForm<TypeOfForm>({
     defaultValues: {
       ...newValues,

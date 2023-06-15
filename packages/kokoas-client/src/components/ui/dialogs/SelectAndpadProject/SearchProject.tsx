@@ -107,7 +107,9 @@ export const SearchProject = ({
         </Stack>
       </DialogContent>
       <DialogActions>
-        <Button>
+        <Button
+          onClick={onClose}
+        >
           キャンセル
         </Button>
         <Button

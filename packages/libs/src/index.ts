@@ -24,6 +24,7 @@ export * from './notifyAdmin';
 export * from './openFileInNewTab';
 export * from './parseBoolean';
 export * from './parseExcelSerialDate';
+export * from './removeCSSFile';
 export * from './removeNullFalsyEmpty';
 export * from './roundTo';
 export * from './sleep';

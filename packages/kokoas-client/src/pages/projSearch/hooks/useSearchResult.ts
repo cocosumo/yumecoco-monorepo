@@ -81,6 +81,7 @@ export const useSearchResult =  () => {
 
 
         const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
+
         const { 
           custEmails, 
           custTels, 
@@ -136,7 +137,7 @@ export const useSearchResult =  () => {
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
             custNameKana: `${fullNameReadings[0]}`,
             custAddress: `${addresses[0]}`,
-            tel: `${custTels.join('、')}`,
+            tel: custTels[0],
             storeName: `${storeName.value}`,
             uuid: projId.value,
             projName: projName.value,

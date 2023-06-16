@@ -30,7 +30,10 @@ export const ProjectSummary = () => {
       address1,
       address2,
       agents,
+      forceLinkedAndpadSystemId,
     } = data;
+
+    const parsedAndpadSystemId = forceLinkedAndpadSystemId.value || systemId;
 
     const cocoConstNames = agents.value
       .filter(({ value: { agentType } }) => (agentType.value as TAgents) === 'cocoConst')
@@ -47,10 +50,10 @@ export const ProjectSummary = () => {
       { label: '工事名', value: projName.value },
       { label: '工事担当者', value: cocoConstNames },
       { label: '工事住所', value: address },
-      { label: 'AndpadシステムID', value: systemId 
+      { label: 'AndpadシステムID', value: parsedAndpadSystemId 
         ? ( 
-          <Link href={`https://andpad.jp/my/orders/${systemId}`}>
-            {systemId}
+          <Link href={`https://andpad.jp/my/orders/${parsedAndpadSystemId}`} target='_blank'>
+            {parsedAndpadSystemId}
           </Link> 
         )
         : '未登録', 

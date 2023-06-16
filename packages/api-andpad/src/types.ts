@@ -125,6 +125,7 @@ export const saveProjectData = z.object({
 
 export type SaveProjectData = z.infer<typeof saveProjectData>;
 export type SaveProjectDataKeys = keyof SaveProjectData;
+export const saveProjectDataKeys = Object.keys(saveProjectData.shape) as SaveProjectDataKeys[];
 
 export interface SaveProjectParams {
   projData: SaveProjectData,

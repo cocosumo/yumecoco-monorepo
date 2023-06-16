@@ -98,6 +98,7 @@ export const Agents = ({
           label="ゆめてつAG1"
           options={yumeAGOptions}
           disabled={disabled || !store}
+          required
           onChange={(e)=> handleAGChange(e.target.value, 'yumeAG2')}
         />
 

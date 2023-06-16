@@ -30,7 +30,6 @@ export const ConstructionAgent = (props: ConstructionAgentProps) => {
       label={`工事担当者${number}`}
       options={agents}
       helperText={helperText}
-      required={number === 1}
       disabled={disabled || !agents}
     />
   );

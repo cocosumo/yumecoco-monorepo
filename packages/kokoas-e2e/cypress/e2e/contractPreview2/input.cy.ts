@@ -105,7 +105,7 @@ describe(
     );
 
 
-    context.only(
+    context(
       '計算が合っていることと小数点以下が出ないこと', 
       { testIsolation: false },
       

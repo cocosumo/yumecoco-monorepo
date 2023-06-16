@@ -17,6 +17,10 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
       .type(correctInput.totalContractAmt.toString())
       .should('have.value', correctInput.totalContractAmt.toString());
 
+    cy.getTextInputsByLabel(labelMap.profit)
+      .type(correctInput.totalContractAmt.toString())
+      .should('have.value', correctInput.totalContractAmt.toString());
+
     cy.getCheckboxesByLabel('契約金').check();
     cy.get('input[name="contractAmt"]').should('have.value', correctInput.totalContractAmt.toLocaleString());
 
@@ -49,11 +53,6 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
       .should('have.value', randomAmt.toString());
 
 
-    cy.getTextInputsByLabel(labelMap.profit)
-      .type(randomAmt.toString())
-      .should('have.value', randomAmt.toString());
-      
-
     cy.getCheckboxesByLabel('その他').check();
     cy.get('input[name="othersAmt"]')
       .as('amt')
@@ -65,8 +64,16 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
     cy.contains('button', '保存').click();
 
-    cy.contains('保存が出来ました。').should('be.visible');
-    cy.getCheckboxesByLabel('その他').check();
+    // 粗利額を入力していない状態だと、エラーが出るように
+    cy.get('.MuiAlert-message').should('contain', 'ください。');
+
+    cy.getTextInputsByLabel(labelMap.profit)
+      .type(randomAmt.toString())
+      .should('have.value', randomAmt.toString());
+
+    cy.contains('button', '保存').click();
+
+    cy.contains('保存が出来ました。').should('not.be.visible');
 
     cy.get('@amt').should('have.value', randomAmt.toLocaleString());
     cy.get('@date').should('have.value', futureDate);

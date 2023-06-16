@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { FormikConstruction } from './projRegister/FormikConstruction';
 import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
-import { FormikCustomerSearch } from './customer/search';
 import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import { SettingsPage } from './settingsPage/SettingsPage';
@@ -66,7 +65,7 @@ const Router = () => (
     {/* 顧客グループ */}
     <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />
     <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
-    <Route path={pages.custSearch} element={<FormikCustomerSearch />} />
+    {/*  <Route path={pages.custSearch} element={<FormikCustomerSearch />} /> */}
 
     {/* 工事情報 */}
     <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'} />

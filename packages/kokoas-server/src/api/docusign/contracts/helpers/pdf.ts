@@ -64,7 +64,7 @@ export const drawText = async (
 
   if (boxWidth && font && isAutoSize) {
     while (font?.widthOfTextAtSize(text, parsedSize) > boxWidth) {
-      parsedSize -= 0.5;
+      parsedSize -= 0.2;
     }
   }
 

@@ -5,6 +5,8 @@ import 'react-data-grid/lib/styles.css';
 import DataGrid, { DataGridProps, textEditor   } from 'react-data-grid';
 import { ReactNode } from 'react';
 import { roundTo } from 'libs';
+import { useAtomValue } from 'jotai';
+import { drawerWidthAtom, menuAtom } from 'kokoas-client/src/components/MainScreen';
 
 
 
@@ -154,14 +156,17 @@ const columns: MyColumn[] = [
  
 ];
 
-
+// compensate for container margins and paddings
+const menuOffsetWidth = 66;
 
 export const EstimatesDataGrid = () => {
   //const [rows, setRows] = useState(baseRows);
-
+  const menuOpen = useAtomValue(menuAtom);
+  const menuWidth = useAtomValue(drawerWidthAtom);
   const { fields, update } = useFieldArray<TypeOfForm>({
     name: 'items',
   });
+
 
   // 残す。検証用
   console.log(fields);
@@ -173,8 +178,11 @@ export const EstimatesDataGrid = () => {
   * Kintone is throwing kintone-jserror when resizing the grid
   * when the parent is 100%.
   * 
-  * So we need a fixed width for the grid.  
+  * Kintone suppresses Infinite Observale
+  * 
+  * So I used a fixed width for the grid.  
   * Here, I set it to full width of the screen, minus the menu width.
+  * 
   * 
   * TODO: Identify if the menu is open or not, and adjust the width accordingly.
   * ~ras 2023-06-16
@@ -183,7 +191,7 @@ export const EstimatesDataGrid = () => {
   return (
     <Box
       sx={{
-        maxWidth: 'calc(100vw - 306px)',  
+        maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`,  
       }}
       height={'100%'}
     >  

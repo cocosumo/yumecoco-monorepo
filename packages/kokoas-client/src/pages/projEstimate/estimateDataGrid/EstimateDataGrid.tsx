@@ -178,13 +178,14 @@ export const EstimatesDataGrid = () => {
   * Kintone is throwing kintone-jserror when resizing the grid
   * when the parent is 100%.
   * 
-  * Kintone suppresses Infinite Observale
+  * Kintone suppresses "resize observer limit loop exception" so it's
+  * likely that they are also experiencing this issue.
   * 
-  * So I used a fixed width for the grid.  
+  * As a solution, I used a fixed width for the grid.  
   * Here, I set it to full width of the screen, minus the menu width.
   * 
+  * Related Issue: https://github.com/adazzle/react-data-grid/pull/3261#issuecomment-1595213841
   * 
-  * TODO: Identify if the menu is open or not, and adjust the width accordingly.
   * ~ras 2023-06-16
   */
 

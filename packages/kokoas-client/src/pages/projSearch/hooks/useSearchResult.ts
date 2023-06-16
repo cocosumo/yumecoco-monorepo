@@ -7,6 +7,9 @@ import { addressBuilder } from 'libs';
 import { useStoreIds } from './useStoreIds';
 import { useProjTypesIds } from './useProjTypesIds';
 import parseISO from 'date-fns/parseISO';
+import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects/helpers/getAgentsByType';
+import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
+import intersection from 'lodash/intersection';
 
 
 
@@ -25,6 +28,8 @@ export const useSearchResult =  () => {
     address,
     stores,
     projTypes,
+    cocoAG,
+    yumeAG,
     contractDateFrom,
     contractDateTo,
     completionDateFrom,
@@ -36,6 +41,7 @@ export const useSearchResult =  () => {
   const { data: selectedStoreIds } = useStoreIds(stores ?? []);
   const { data: storeRec } = useStores();
   const { data: selectedProjTypeIds } = useProjTypesIds(projTypes ?? []);
+  
 
 
   return useProjects<SearchResult[]>({ // 工事ベース
@@ -49,14 +55,13 @@ export const useSearchResult =  () => {
           postal,
           address1,
           address2,
-          yumeAGNames,
-          cocoAGNames,
-          cocoConstNames,
           uuid: projId,
           projName,
           projTypeId,
           dataId,
+          agents: projAgents,
         } = curr; // 工事情報;
+
 
         const projAddress = addressBuilder({
           postal: postal.value,
@@ -81,7 +86,20 @@ export const useSearchResult =  () => {
           members,
           storeName,
           storeId,
+          agents,
         } = custGroup;
+
+        const cocoAGs = getAgentsByType(agents, 'cocoAG');
+        const cocoAGNames = cocoAGs.map(({ value: { employeeName } }) => employeeName.value);
+        const cocoAGIds = cocoAGs.map(({ value: { employeeId } }) => employeeId.value);
+
+        const yumeAGs = getAgentsByType(agents, 'yumeAG');
+        const yumeAGNames = yumeAGs.map(({ value: { employeeName } }) => employeeName.value);
+        const yumeAGIds = yumeAGs.map(({ value: { employeeId } }) => employeeId.value);
+
+        const cocoConst = getProjAgentsByType(projAgents, 'cocoConst');
+        const cocoConstNames = cocoConst.map(({ value: { agentName } }) => agentName.value);
+        const cocoConstIds = cocoConst.map(({ value: { agentId } }) => agentId.value);
 
         const {
           sortNumber,
@@ -112,29 +130,40 @@ export const useSearchResult =  () => {
           ...custEmails,
           ...custTels,
           ...addresses,
-          yumeAGNames.value,
-          cocoAGNames.value,
-          cocoConstNames.value,
+          ...yumeAGNames,
+          ...cocoAGNames,
+          ...cocoConstNames,
           storeName.value,
           projAddress,
           dataId.value,
         ].join('').includes(keyword.trim());
 
+        /*     cocoAG?.some((ag) => {
+          console.log(ag, cocoNames, cocoNames.includes(ag) );
+          return cocoNames.includes(ag);
+        });  */
+
+        // console.log('cocoNames', cocoAG, cocoNames, cocoAG?.some((ag) => cocoNames.includes(ag)) );
+
         const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
         const isMatchStore = !selectedStoreIds?.length || selectedStoreIds.includes(storeId.value);
         const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
+        const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
+        const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && finishDate?.value && completionDateFrom <= parseISO(finishDate?.value));
         const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
-
+        
         if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName
             && isMatchAddress
             && isMatchStore
             && isMatchProjType
+            && isMatchCocoNames
+            && isMatchYumeNames
             && isMatchcontractDateFrom
             && isMatchcontractDateTo
             && isMatchcompletionDateFrom

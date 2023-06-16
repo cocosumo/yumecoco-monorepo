@@ -12,6 +12,8 @@ import { useParseQuery } from './hooks/useParseQuery';
 export const FormProjectSearch = () => {
   const parsedQuery = useParseQuery();
 
+  console.log(parsedQuery);
+
   const formReturn = useForm<TypeOfForm>({
     defaultValues: parsedQuery,
     resolver: zodResolver(schema),

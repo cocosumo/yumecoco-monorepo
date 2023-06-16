@@ -7,12 +7,14 @@ import { produce } from 'immer';
 import { fakerJA as faker } from '@faker-js/faker';
 import { getProjTypes } from 'api-kintone';
 
+const latestUkeoiDocVersion = '20230605';
+
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230605',
+      ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
     
@@ -36,7 +38,7 @@ describe('Contract', () => {
           draft[4].paymentAmt = 10000;
         }),
       };
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', '20230605');
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custcount_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
@@ -48,11 +50,11 @@ describe('Contract', () => {
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230523',
+      ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
-    const projTypesRed = await getProjTypes();
-    const projTypes = projTypesRed.map(projType => projType.label.value);
+    const projTypesRec = await getProjTypes();
+    const projTypes = projTypesRec.map(projType => projType.label.value);
 
     for (let i = 1; i <= 4; i++) {
       const nameLength = i * 10;
@@ -60,14 +62,31 @@ describe('Contract', () => {
         draft.projName = ('ア').repeat(nameLength) + ' ' + faker.helpers.arrayElement(projTypes);
       });
 
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', '20230523');
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custNameLength_${nameLength}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
     }
+  }, 60000);
 
+  it('should automatically adjust font-size of 工事場所 depending on available space', async () => {
+    const contractData = await getContractDataV2({
+      contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
+      signMethod: 'electronic',
+      ukeoiDocVersion: latestUkeoiDocVersion,
+    });
 
+    for (let i = 1; i <= 4; i++) {
+      const length = i * 4;
+      const mockData : Awaited<ReturnType<typeof getContractDataV2>> = produce(contractData, draft => {
+        draft.projLocation = `〒${faker.location.zipCode()} ${faker.location.state()}${faker.location.city().repeat(length)}１９番地１６レジデンスなかま９９９号室`;
+      });
 
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
+      const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${mockData.projLocation.length}.pdf`);
+      await fsPromise.writeFile(savePath, pdf);
+      expect(fs.existsSync(savePath)).toBe(true);
+    }
   }, 60000);
   
 });

@@ -149,7 +149,7 @@ export const generateContractPdfV2 = async (
     },
   );
 
-  // 工事場所
+  /** 工事場所 */
   drawText(
     firstPage,
     projLocation,
@@ -157,6 +157,10 @@ export const generateContractPdfV2 = async (
       x: x2,
       y: 586,
       font: msChinoFont,
+    }, 
+    {
+      boxWidth: 370,
+      isAutoSize: true,
     },
   );
 

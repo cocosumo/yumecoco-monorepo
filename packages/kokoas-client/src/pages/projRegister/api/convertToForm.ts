@@ -93,15 +93,12 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<Type
     storeCode,
   } = custGroupRec;
 
-  const firstCustomer = members.value[0]?.value;
-
   return {
     custGroupId: uuid.value,
     storeId: storeId.value,
     territory: territory.value as Territory,
-    custName: firstCustomer.customerName.value || '',
+    custName: members.value[0]?.value.customerName.value || '',
     storeCode: storeCode.value,
-
   };
 
 };

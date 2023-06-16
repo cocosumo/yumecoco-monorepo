@@ -21,9 +21,7 @@ export const validationSchema =  Yup
     projName: Yup
       .string()
       .required('必須です。'),
-    cocoConst1: Yup
-      .string()
-      .required('必須です。'),
+
     postal: Yup
       .string()
       .matches(postalRegExp, '半角数字。例：4418124')

@@ -28,7 +28,7 @@ export const FormContractSearch = () => {
     defaultValues: {
       ...newValues,
     },
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema as any),
   });
 
 
@@ -39,8 +39,7 @@ export const FormContractSearch = () => {
   useEffect(() => {
     reset(newValues);
   },
-  [newValues, reset],
-  );
+  [newValues, reset]);
 
   return (
 

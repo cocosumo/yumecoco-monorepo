@@ -7,7 +7,6 @@ import { grey } from '@mui/material/colors';
 
 export const EmptyBox = (props: ComponentProps<typeof Box>) => {
   const { children, ...others } = props;
-  const isStringChild = typeof children === 'string';
 
   return (
     <Box
@@ -17,12 +16,15 @@ export const EmptyBox = (props: ComponentProps<typeof Box>) => {
         border: `2px dashed ${grey[300]}`,
         borderRadius: '10px',
         padding: '8px',
+        display: 'flex',
+        alignItems: 'center', // Center vertically
+        justifyContent: 'center', // Center horizontally
       }}
     >
-      {isStringChild && <Typography variant="h6" textAlign={'center'} color={grey[600]}>
+      <Typography variant="h6" textAlign={'center'} color={grey[600]}>
         {children}
-      </Typography>}
-      {!isStringChild && children}
+      </Typography>
+
     </Box>
 
   );

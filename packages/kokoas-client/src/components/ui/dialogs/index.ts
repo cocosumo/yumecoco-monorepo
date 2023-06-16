@@ -4,5 +4,6 @@ export * from './ContentWarning';
 export * from './CustomDialogContent';
 export * from './DialogCloseButton';
 export * from './GlobalConfirmDialog';
+export * from './SelectAndpadProject';
 export * from './SelectProjectInCustGroup';
 export * from './SelectProjInCustGroupContent';

@@ -10,6 +10,7 @@ import { postalRegExp } from '../../helpers/yupValidator';
 export const validationSchema =  Yup
   .object<Partial<Record<KeysOfForm, Yup.AnySchema>>>(
   {
+    
     custGroupId: Yup
       .string()
       .required('必須です。'),

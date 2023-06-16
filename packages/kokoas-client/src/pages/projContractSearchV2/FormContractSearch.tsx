@@ -24,13 +24,11 @@ export const FormContractSearch = () => {
 
   const newValues = useNewValuesFromParams();
 
-  console.log('newValues', newValues);
-
   const methods = useForm<TypeOfForm>({
     defaultValues: {
       ...newValues,
     },
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema as any),
   });
 
 

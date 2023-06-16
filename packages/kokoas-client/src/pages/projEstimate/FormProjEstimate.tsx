@@ -19,7 +19,7 @@ export const FormProjEstimate = () => {
 
   const formReturn = useForm<TypeOfForm>({
     defaultValues: initialForm,
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(validationSchema as any),
   });
 
   const {

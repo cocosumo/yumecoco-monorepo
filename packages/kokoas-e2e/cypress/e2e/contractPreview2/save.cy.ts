@@ -1,5 +1,5 @@
 import { beforeEach, cy, describe, it } from 'local-cypress';
-import { correctInputData, testProjId } from './testData';
+import { correctInputData, labelMap, testProjId } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 
@@ -37,7 +37,7 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
   });
 
-  it.only('編集で保存すると、更新されること', () => {
+  it('編集で保存すると、更新されること', () => {
 
     // TODO：リファクタリングして、網羅的に他フィールドも追加する
 
@@ -45,6 +45,11 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
     const futureDate = format(new Date(addMonths(new Date(), 1)), 'yyyy/MM/dd');
 
     cy.getTextInputsByLabel('契約合計金額（税込）')
+      .type(randomAmt.toString())
+      .should('have.value', randomAmt.toString());
+
+
+    cy.getTextInputsByLabel(labelMap.profit)
       .type(randomAmt.toString())
       .should('have.value', randomAmt.toString());
       

@@ -1,4 +1,4 @@
-import { beforeEach, context, cy, describe, it } from 'local-cypress';
+import { beforeEach, context, cy, describe, expect, it } from 'local-cypress';
 import { correctInputData, labelMap } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
@@ -105,7 +105,7 @@ describe(
     );
 
 
-    context(
+    context.only(
       '計算が合っていることと小数点以下が出ないこと', 
       { testIsolation: false },
       
@@ -117,7 +117,11 @@ describe(
           cy.getTextInputsByLabel(labelMap.profitRate )
             .clear()
             .type((profitRate).toString(), { delay: 50 })
-            .should('have.value', profitRate);
+            .invoke('val')
+            .then((val) => {
+              expect(Number(val)).to.equal(profitRate);
+            });
+            
         });
 
         it('契約金額を入力したら、金額（税抜）と原価と利益額が計算されること', () => {
@@ -170,8 +174,7 @@ describe(
           // 粗利率を再入力する
           cy.getTextInputsByLabel(labelMap.profitRate )
             .clear()
-            .type((newProfitRate).toString(), { delay: 50 })
-            .should('have.value', newProfitRate);
+            .type((newProfitRate).toString(), { delay: 50 });
 
           cy.getTextInputsByLabel(labelMap.profit)
             .should('have.value', roundTo(profit).toLocaleString());

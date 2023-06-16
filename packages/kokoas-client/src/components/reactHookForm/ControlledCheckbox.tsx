@@ -36,7 +36,7 @@ export function ControlledCheckBox<T extends FieldValues >({
                   field.onChange(e);
                   onChange?.(e, checked);
                 }}
-                indeterminate={value && indeterminate}
+                indeterminate={indeterminate}
               />)}
             label={label}
           />

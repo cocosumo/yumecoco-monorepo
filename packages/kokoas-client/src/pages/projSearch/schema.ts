@@ -48,6 +48,11 @@ const schema = z.object({
 
   /** 完工日　To */
   completionDateTo : dateType,
+
+  order: z.enum(['asc', 'desc']),
+
+  orderBy: z.string().nullable(),
+
 });
   
 

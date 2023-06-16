@@ -7,8 +7,10 @@ import { SaveToAndpadDialog } from './SaveToAndpadDialog';
 export const SaveToAndpadButton = (
   {
     isExist,
+    disabled = false,
   }:{
     isExist : boolean
+    disabled?: boolean
   },
 ) => {
 
@@ -23,15 +25,19 @@ export const SaveToAndpadButton = (
 
   return (
     <div>
-      <Tooltip title={`Anpadへ案件${mode}します`}>
-        <AndpadButton
-          onClick={handleClick}
-          fullWidth sx={{ height: '100%' }}
-          startIcon={<SaveIcon />}
-        >
-          {`Andpadへ${mode}`}
-        </AndpadButton>
+      <Tooltip title={disabled ? 'すでに強制接続されています' : `Anpadへ案件${mode}します`}>
+        {/* Keep tooltip working even if button is disableds */}
+        <div>
+          <AndpadButton
+            onClick={handleClick}
+            fullWidth sx={{ whiteSpace: 'nowrap' }}
+            startIcon={<SaveIcon />}
+            disabled={disabled}
+          >
+            {`Andpadへ${mode}`}
+          </AndpadButton>
 
+        </div>
       </Tooltip>
       <SaveToAndpadDialog open={open} mode={mode} handleClose={handleClose} />
     </div>

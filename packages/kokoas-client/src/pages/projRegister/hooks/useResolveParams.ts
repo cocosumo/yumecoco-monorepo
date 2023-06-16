@@ -25,12 +25,19 @@ export const useResolveParams = () => {
     custGroupId: custGroupIdFromURL,
   } = useURLParams();
 
-
-  const { data: projRec } = useProjById(projIdFromURL || '');
+  
+  const { 
+    data: projRec, 
+    isLoading: isProjRecLoading, 
+  } = useProjById(projIdFromURL || '');
 
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
 
   const { data: contractSummary } = useProjContractSummary(projRec?.uuid.value);
+
+  const {
+    forceLinkedAndpadSystemId,
+  } = projRec || {};
 
   const {
     completed,
@@ -41,12 +48,14 @@ export const useResolveParams = () => {
     projIdFromURL || '',
     {
       onError: (error) => {
-        setSnackState({
-          open: true,
-          message: error.message,
-          severity: 'warning',
-          autoHideDuration: 10000,
-        });
+        if (!forceLinkedAndpadSystemId?.value && !isProjRecLoading) {
+          setSnackState({
+            open: true,
+            message: error.message,
+            severity: 'warning',
+            autoHideDuration: 10000,
+          });
+        }
       },
     },
   );  

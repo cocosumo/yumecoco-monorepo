@@ -1,4 +1,4 @@
-import { Box, Collapse } from '@mui/material';
+import { Box } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
 import { SyntheticEvent } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
@@ -21,10 +21,6 @@ export const ContractStatusIncomplete = () => {
     setValue,
     getValues,
   } = useFormContext<TypeOfForm>();
-  const contractIncomplete = useWatch({
-    name: 'contractIncomplete',
-    control,
-  });
 
 
   const contractSteps = useWatch({
@@ -32,7 +28,10 @@ export const ContractStatusIncomplete = () => {
     control,
   });
 
-  const isPartialSteps = contractSteps.some((step) => !step);
+
+
+  const isPartialSteps = contractSteps.some((step) => !step) && !contractSteps.every((step) => !step);
+
 
   const handleChangeIncompleteCheckbox = (_: SyntheticEvent<HTMLInputElement>, checked: boolean) => {
 
@@ -66,19 +65,17 @@ export const ContractStatusIncomplete = () => {
         onChange={handleChangeIncompleteCheckbox}
       />
 
-      <Collapse in={contractIncomplete}>
-
-        <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
-          {stepsKeys.map((key) => (
-            <ControlledCheckBox
-              key={key}
-              label={translateKey(key)}
-              control={control}
-              name={key}
-              onChange={handleChangeStepCheckbox}
-            />))}
-        </Box>
-      </Collapse>
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
+        {stepsKeys.map((key) => (
+          <ControlledCheckBox
+            key={key}
+            label={translateKey(key)}
+            control={control}
+            name={key}
+            onChange={handleChangeStepCheckbox}
+          />))}
+      </Box>
+ 
     </>
 
   );

@@ -40,6 +40,10 @@ route.get(
   `/${kokoasEndpoints.getProjectFromAndpadByProjId}/:projId`,
   reqGetProjectFromAndpadByProjId,
 );
+route.get(
+  `/${kokoasEndpoints.getProjectsFromAndpad}`,
+  reqGetProjectsFromAndpad,
+);
 
 route.get(
   `/${kokoasEndpoints.getProjectsFromAndpad}`,

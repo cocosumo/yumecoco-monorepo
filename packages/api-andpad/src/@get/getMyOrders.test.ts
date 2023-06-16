@@ -22,7 +22,7 @@ describe('getMyOrders', () => {
 
   it('should get orders using LIKE operator', async () => {
 
-    const result = await getMyOrders({ q: '案件名　LIKE　テスト' });
+    const result = await getMyOrders({ q: '案件名　LIKE　岩川竜也様' });
 
     console.log(JSON.stringify(result, null, 2));
 

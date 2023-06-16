@@ -1,5 +1,6 @@
 import { addressBuilder } from 'libs';
-import { ICustomers, TContact } from 'types';
+import { ICustomers, TContact, TRelation } from 'types';
+
 
 export const groupCustContacts = (rec: ICustomers[]) => {
   return rec.reduce(
@@ -7,11 +8,13 @@ export const groupCustContacts = (rec: ICustomers[]) => {
       
       for (const { value: { contactType, contactValue, relation } } of contacts.value) {
         const cT  = contactType.value as TContact;
+        const parsedRelation = relation.value as TRelation | undefined;
+
         if (contactValue.value) {
           if (cT === 'email') {
             acc.custEmails.push(contactValue.value);
           } else if (cT === 'tel') {
-            acc.custTels.push(`${contactValue.value}${relation.value ? `（${relation.value}）` : ''}`);
+            acc.custTels.push(`${contactValue.value}${parsedRelation && parsedRelation !== '契約者' ? `（${parsedRelation}）` : ''}`);
           }
         }
       }

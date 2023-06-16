@@ -32,7 +32,7 @@ export const SelectProjectInCustGroup = ({
   const handleOpen = useCallback(() => setOpen(true), []);
 
   return (
-    <>
+    <div>
       <Button
         {...otherButtonProps}
         variant='contained'
@@ -40,7 +40,7 @@ export const SelectProjectInCustGroup = ({
         onClick={handleOpen}
         disabled={disabled}
         startIcon={startIcon}
-      
+        
       >
         {children}
       </Button>
@@ -61,6 +61,6 @@ export const SelectProjectInCustGroup = ({
         />
 
       </Dialog>
-    </>
+    </div>
   );
 };

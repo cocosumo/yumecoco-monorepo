@@ -6,6 +6,7 @@ import { Remarks, TypeOfForm, initialValues } from '../form';
 export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
 
   const {
+    forceLinkedAndpadSystemId,
     projTypeId,
     projName,
     custGroupId,
@@ -45,6 +46,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     }) ?? [];
 
   return {
+
     addressKari: addressKari.value,
     address1: address1.value,
     address2: address2.value,
@@ -54,6 +56,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     cocoConst2: cocoConst?.[1] || '',
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
+    forceLinkedAndpadSystemId: forceLinkedAndpadSystemId.value,
     isAgentConfirmed: Boolean(+isAgentConfirmed.value),
     isChkAddressKari: Boolean(+isChkAddressKari.value),
     projId: uuid.value,

@@ -2,6 +2,7 @@ import { Grid } from '@mui/material';
 import { FormikSelect } from '../../../../../components/ui/selects';
 import { FormikTextFieldV2 as FormikTextField } from '../../../../../components/ui/textfield';
 import {  getCustFieldName } from '../../form';
+import { relations } from 'types';
 
 interface ContactProps {
   name: string,
@@ -11,8 +12,9 @@ interface ContactProps {
   type?: string
 }
 
-const typeOptions = ['契約者', '配偶者', '婚約者', '家「固定電話」', '子', '祖父母', '兄弟姉妹', '同居人', '会社（固定電話）', '法人担当者', 'その他']
+const typeOptions = ([...relations] as string[])
   .map(item => ({ label: item, value: item }));
+  
 typeOptions.unshift({ label: '---', value: '' });
 
 export const Contact = (props: ContactProps) => {

@@ -77,9 +77,6 @@ const Router = () => (
 
     <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} />
 
-    {/* 契約 */}
-    {/*     <Route path={`${pages.projContractPreview}`} element={<FormikContract />} />
- */}    
 
     {/* 契約一覧 */}
     <Route path={`${pages.projContractSearch}`} element={<FormContractSearch />} />

@@ -220,13 +220,14 @@ describe('契約一覧', () => {
       cy.get('@filterChipsContainer').find('.MuiChip-root')
         .then(($chips) => $chips.get().reverse())
         .each(($chip, index, { length }) => {
-          const isLast = index === length - 1;
+          const isLast = index === length - 2;
           const statusText = $chip.text();
-     
+          console.log(statusText);
+
+          // 全レコード表示になるため、契約未完了と最後のチップの時、アサーションしない。
           if (!isLast) {
             cy.wrap($chip).find('.MuiChip-deleteIcon')
               .click();
-
             cy.get('@tableBody')
               .should('not.contain', statusText); // 削除したフィルターチップのテキストが、テーブルに含まれていないことをアサートします。
           }

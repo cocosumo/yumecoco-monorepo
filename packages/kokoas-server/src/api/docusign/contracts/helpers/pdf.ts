@@ -1,4 +1,6 @@
+import { splitText } from 'libs';
 import { PDFPage, PDFPageDrawTextOptions, rgb } from 'pdf-lib';
+
 
 type AdvancedOptions = {
   weight?: number, // 太さ デフォールト 0.4
@@ -6,6 +8,7 @@ type AdvancedOptions = {
   align?: 'left' | 'right' | 'center', // 水平方向への配置, boxWidthに依存している
   isShowBox?: boolean // trueにすると、赤い箱が表示されます。デバグの時、役に立つ
   isAutoSize?: boolean // trueにすると、boxWidthに依存している
+  maxLength?: number // 文字の最大長さ
 };
 
 /**
@@ -35,22 +38,53 @@ export const drawText = async (
   advancedOptions?: AdvancedOptions,
 ) => {
 
-  const defaultText = text ?? '';
-  let parsedSize = size;
-
-
-
   const {
     weight = 0.4,
     align = 'left',
     boxWidth = 102,
     isShowBox = false,
     isAutoSize = false,
+    maxLength = 70,
   } = advancedOptions || {};
+
+  const defaultText = text ?? '';
+  let parsedFontSize = size;
+
+  const hasMultilineText = defaultText.includes('\n'); // check if passed text has "\n"
+  const parsedTextArray = hasMultilineText // if passed text has multiline,
+    ? [defaultText] // don't split
+    : splitText(defaultText, maxLength); // else, split by maxTextLength
+
+  const parsedText = parsedTextArray.join('\n');
+  const textLines = parsedTextArray.length;
+  const isMultiLine = textLines > 1 || hasMultilineText;
+
+
+
   
-  const textWidth = font?.widthOfTextAtSize(defaultText, size) ?? 0;
+  const textWidth = font?.widthOfTextAtSize(parsedTextArray[0] ?? '', size) ?? 0;
+
+  if (boxWidth && font && isAutoSize) {
+    while (
+      font?.widthOfTextAtSize(
+        hasMultilineText 
+          ? defaultText.split('\n')[1] // for now, only check 2nd line, currently for 工事場所. Improve this to be more flexible. ras 2023-06-17 
+          : parsedTextArray[0] ?? '', 
+        parsedFontSize,
+      ) > boxWidth
+    ) {
+      parsedFontSize -= 0.2;
+    }
+  }
+
+  const renderLines = defaultText.includes('\n') 
+    ? 1 // if passed text has \n fix offset by 1 lineheight
+    : textLines - 1; // if split due to maxTextLength, adjust offset by number of lines
+
   const boxX = x ?? 0;
-  const boxY = y ?? 0;
+  const boxY = (y ?? 0) + (isMultiLine 
+    ? ((renderLines) * (parsedFontSize * 0.8)) 
+    : 0); // If multiline, add offset to Y
 
   if (isShowBox) {
     pdfPage.drawRectangle({
@@ -62,41 +96,40 @@ export const drawText = async (
     });
   }
 
-  if (boxWidth && font && isAutoSize) {
-    while (font?.widthOfTextAtSize(text, parsedSize) > boxWidth) {
-      parsedSize -= 0.2;
-    }
-  }
+  const parsedWeight = isMultiLine ? 0.1 : weight;
 
 
-  for (let i = 0.1; i <= weight; i += 0.1) {
-    if (defaultText === 'c1') {
-      console.log('c1', i);
+  for (let i = 0.1; i <= parsedWeight; i += 0.1) {
+    if (isMultiLine) {
+      console.log('multiline', parsedTextArray ?? '', parsedFontSize);
     }
+
     switch (align) {
       case 'left':
-        pdfPage.drawText(defaultText, {
+        pdfPage.drawText(parsedText, {
           x: (x || 0) + i,
-          y: y,
-          size: parsedSize, // 影響は十分にテスト出来ないため、一応、ここのみサイズを変える
+          y: boxY,
+          size: parsedFontSize, // 影響は十分にテスト出来ないため、一応、ここのみサイズを変える
           font: font,
           color: color,
+          lineHeight: parsedFontSize,
+
         });
         break;
       case 'right':
-        pdfPage.drawText(defaultText, {
+        pdfPage.drawText(parsedText, {
           x: boxX + boxWidth - textWidth,
           y: boxY,
           font,
-          size: size,
+          size: parsedFontSize,
         });
         break;
       case 'center':
-        pdfPage.drawText(defaultText, {
+        pdfPage.drawText(parsedText, {
           x: (boxX + (boxWidth / 2 )) - (textWidth / 2),
           y: boxY,
           font,
-          size: size,
+          size: parsedFontSize,
         });
         break;
     }

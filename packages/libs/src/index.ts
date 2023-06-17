@@ -4,6 +4,7 @@ export * from './calcAfterTax';
 export * from './calcBeforeTax';
 export * from './calcProfitRate';
 export * from './calculateAmount';
+export * from './calculateRowAmount';
 export * from './convertObjNumValsToFullWidth';
 export * from './convertObjNumValsToHalfWidth';
 export * from './convertToFullWidth';

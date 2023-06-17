@@ -156,7 +156,7 @@ export const columns = (): MyColumn[] => [
     renderCell: ({ row }) => {
       return (
         <RightAlignedDiv>
-          {commaFormatter(row.unitPrice)}
+          {commaFormatter(row.rowCostPrice)}
         </RightAlignedDiv>);
     },
   },

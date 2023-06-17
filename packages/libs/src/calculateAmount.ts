@@ -113,10 +113,22 @@ export const calculateAmount = (p : Values): Required<Values> => {
     }
         
     // 原価が編集されたとき
-    if (p.amountAfterTax && p.costPrice) {
+    if (res.amountAfterTax // 上で計算される
+      && p.costPrice) {
       res.profit = Big(res.amountBeforeTax).minus(p.costPrice)
         .toNumber();
       res.profitRate = calcProfitRate(p.costPrice, res.amountBeforeTax);
+
+      return res;
+    }
+
+
+    /** C = A / (1 - D ) */
+    if (p.costPrice && p.profitRate) {
+      res.amountBeforeTax = Big(p.costPrice).div(Big(1).minus(p.profitRate))
+        .toNumber();
+
+      res.amountAfterTax = calcAfterTax(res.amountBeforeTax, p.taxRate);
 
       return res;
     }
@@ -131,3 +143,4 @@ export const calculateAmount = (p : Values): Required<Values> => {
 
   
 };
+

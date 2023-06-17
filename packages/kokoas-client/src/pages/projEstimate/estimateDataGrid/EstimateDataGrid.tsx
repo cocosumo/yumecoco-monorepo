@@ -17,6 +17,7 @@ export const EstimatesDataGrid = () => {
 
   const fieldsWithIndex =  useMemo(
     ()=>{
+      console.log('fields', fields);
       return fields.map((field, index) => ({ ...field, index }));
     }, 
     [fields],

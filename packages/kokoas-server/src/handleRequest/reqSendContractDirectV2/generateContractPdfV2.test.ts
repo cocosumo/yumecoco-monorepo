@@ -76,14 +76,19 @@ describe('Contract', () => {
       ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
+    const fakeCity = faker.location.city();
+    const fakeState = faker.location.state();
+    const fakeZipCode = faker.location.zipCode();
+    
     for (let i = 1; i <= 4; i++) {
       const length = i * 4;
+      
       const mockData : Awaited<ReturnType<typeof getContractDataV2>> = produce(contractData, draft => {
-        draft.projLocation = `〒${faker.location.zipCode()} ${faker.location.state()}${faker.location.city().repeat(length)}１９番地１６レジデンスなかま９９９号室`;
+        draft.projLocation = `〒${fakeZipCode} ${fakeState}${fakeCity.repeat(length)}１９番地１６レジデンスなかま９９９号室`;
       });
-
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
-      const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${mockData.projLocation.length}.pdf`);
+      console.log(i, mockData.projLocation.length);
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);  
+      const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
     }

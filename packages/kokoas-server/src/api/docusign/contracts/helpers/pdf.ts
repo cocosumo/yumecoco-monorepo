@@ -1,4 +1,7 @@
+import { splitText } from 'libs';
 import { PDFPage, PDFPageDrawTextOptions, rgb } from 'pdf-lib';
+
+const maxTextLength = 70;
 
 type AdvancedOptions = {
   weight?: number, // 太さ デフォールト 0.4
@@ -36,8 +39,12 @@ export const drawText = async (
 ) => {
 
   const defaultText = text ?? '';
-  let parsedSize = size;
+  let parsedFontSize = size;
 
+  const parsedTextArray = splitText(defaultText, maxTextLength);
+  const parsedText = parsedTextArray.join('\n');
+  const textLines = parsedTextArray.length;
+  const isMultiLine = textLines > 1;
 
 
   const {
@@ -48,9 +55,17 @@ export const drawText = async (
     isAutoSize = false,
   } = advancedOptions || {};
   
-  const textWidth = font?.widthOfTextAtSize(defaultText, size) ?? 0;
+  const textWidth = font?.widthOfTextAtSize(parsedTextArray[0] ?? '', size) ?? 0;
+
+
+  if (boxWidth && font && isAutoSize) {
+    while (font?.widthOfTextAtSize(parsedTextArray[0] ?? '', parsedFontSize) > boxWidth) {
+      parsedFontSize -= 0.2;
+    }
+  }
+
   const boxX = x ?? 0;
-  const boxY = y ?? 0;
+  const boxY = (y ?? 0) + (isMultiLine ? ((textLines - 1) * (parsedFontSize * 0.8)) : 0); // If multiline, add offset to Y
 
   if (isShowBox) {
     pdfPage.drawRectangle({
@@ -62,41 +77,40 @@ export const drawText = async (
     });
   }
 
-  if (boxWidth && font && isAutoSize) {
-    while (font?.widthOfTextAtSize(text, parsedSize) > boxWidth) {
-      parsedSize -= 0.2;
-    }
-  }
+  const parsedWeight = isMultiLine ? 0.1 : weight;
 
 
-  for (let i = 0.1; i <= weight; i += 0.1) {
-    if (defaultText === 'c1') {
-      console.log('c1', i);
+  for (let i = 0.1; i <= parsedWeight; i += 0.1) {
+    if (isMultiLine) {
+      console.log('multiline', parsedTextArray ?? '', parsedFontSize);
     }
+
     switch (align) {
       case 'left':
-        pdfPage.drawText(defaultText, {
+        pdfPage.drawText(parsedText, {
           x: (x || 0) + i,
-          y: y,
-          size: parsedSize, // 影響は十分にテスト出来ないため、一応、ここのみサイズを変える
+          y: boxY,
+          size: parsedFontSize, // 影響は十分にテスト出来ないため、一応、ここのみサイズを変える
           font: font,
           color: color,
+          lineHeight: parsedFontSize,
+
         });
         break;
       case 'right':
-        pdfPage.drawText(defaultText, {
+        pdfPage.drawText(parsedText, {
           x: boxX + boxWidth - textWidth,
           y: boxY,
           font,
-          size: size,
+          size: parsedFontSize,
         });
         break;
       case 'center':
-        pdfPage.drawText(defaultText, {
+        pdfPage.drawText(parsedText, {
           x: (boxX + (boxWidth / 2 )) - (textWidth / 2),
           y: boxY,
           font,
-          size: size,
+          size: parsedFontSize,
         });
         break;
     }

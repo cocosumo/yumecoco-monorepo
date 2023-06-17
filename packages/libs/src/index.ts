@@ -27,4 +27,5 @@ export * from './parseExcelSerialDate';
 export * from './removeNullFalsyEmpty';
 export * from './roundTo';
 export * from './sleep';
+export * from './splitText';
 export * from './zeroPad';

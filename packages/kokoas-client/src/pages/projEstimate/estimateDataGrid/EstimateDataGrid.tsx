@@ -1,160 +1,15 @@
 import { useFieldArray } from 'react-hook-form';
-import { KRowFields, TypeOfForm } from '../form';
+import { TypeOfForm } from '../form';
 import { Box } from '@mui/material';
 import 'react-data-grid/lib/styles.css';
-import DataGrid, { DataGridProps, textEditor   } from 'react-data-grid';
-import { ReactNode } from 'react';
-import { roundTo } from 'libs';
+import DataGrid from 'react-data-grid';
+import { useMemo } from 'react';
 import { useAtomValue } from 'jotai';
 import { drawerWidthAtom, menuAtom } from 'kokoas-client/src/components/MainScreen';
+import { grey, orange } from '@mui/material/colors';
+import { RowItem, columns } from './columns';
 
 
-
-type MyColumn =  DataGridProps<any, any, any>['columns'][number] & {
-  key: KRowFields;
-};
-
-type RowItem = KRowFields & { id: string };
-
-const commaFormatter = (value: string | number) => {
-  const parseValue = +value;
-  if (isNaN(parseValue)) return value;
-
-  return parseValue.toLocaleString();
-};
-
-const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
-  return (
-    <div style={{ textAlign: 'right' }}>
-      {children}
-    </div>);
-};
-
-
-const columns: MyColumn[] = [
-  { 
-    key: 'majorItem', 
-    name: '大項目', 
-    editable: true, 
-    sortable: true, 
-    resizable: true, 
-    frozen: true,
-    renderEditCell: textEditor,
-    
-  },
-  { 
-    key: 'middleItem', 
-    name: '中項目', 
-    editable: true,
-    frozen: true,
-    renderEditCell: textEditor,
-  },
-  { 
-    key: 'material', 
-    name: '部材', 
-    editable: true,
-    frozen: true,
-    renderEditCell: textEditor,
-  },
-  { 
-    key: 'materialDetails', 
-    name: '部材備考', 
-    editable: true,
-    renderEditCell: textEditor,
-  },
-  { 
-    key: 'costPrice', 
-    name: '原価', 
-    editable: true,
-    renderEditCell: textEditor,
-    renderHeaderCell: ({ column }) => (
-      <RightAlignedDiv>
-        {column.name}
-      </RightAlignedDiv>),
-    renderCell: ({ row }) => {
-      return (<RightAlignedDiv>
-        {commaFormatter(row.costPrice)}
-      </RightAlignedDiv>);
-    },
-  },
-  { 
-    key: 'quantity', 
-    name: '数量', 
-    editable: true,
-    renderEditCell: textEditor,
-    renderHeaderCell: ({ column }) => (
-      <RightAlignedDiv>
-        {column.name}
-      </RightAlignedDiv>),
-    renderCell: ({ row }) => {
-      return (
-        <RightAlignedDiv>
-          {commaFormatter(row.quantity)}
-        </RightAlignedDiv>);
-    },
-  },
-  { 
-    key: 'unit', 
-    name: '単位', 
-    editable: true,
-    renderEditCell: textEditor,
-  },
-  { 
-    key: 'materialProfRate', 
-    name: '粗利率', 
-    editable: true,
-    renderEditCell: textEditor,
-    renderHeaderCell: ({ column }) => (
-      <RightAlignedDiv>
-        {column.name}
-      </RightAlignedDiv>),
-    renderCell: ({ row }) => {
-      return (
-        <RightAlignedDiv>
-          {`${roundTo(+(row.materialProfRate || 0), 2)} %`}
-        </RightAlignedDiv>);
-    },
-  },
-  { 
-    key: 'unitPrice', 
-    name: '単価', 
-    editable: true,
-    renderEditCell: textEditor,
-    renderHeaderCell: ({ column }) => (
-      <RightAlignedDiv>
-        {column.name}
-      </RightAlignedDiv>),
-    renderCell: ({ row }) => {
-      return (
-        <RightAlignedDiv>
-          {commaFormatter(row.unitPrice)}
-        </RightAlignedDiv>);
-    },
-  },
-  { 
-    key: 'rowUnitPriceBeforeTax', 
-    name: '税抜金額', 
-    editable: true,
-    renderEditCell: textEditor,
-    renderHeaderCell: ({ column }) => (
-      <RightAlignedDiv>
-        {column.name}
-      </RightAlignedDiv>),
-    renderCell: ({ row }) => {
-      return (
-        <RightAlignedDiv>
-          {commaFormatter(row.rowUnitPriceBeforeTax)}
-        </RightAlignedDiv>);
-    },
-  },
-  { 
-    key: 'rowDetails', 
-    name: '備考', 
-    editable: true,
-    renderEditCell: textEditor,
-  },
- 
-];
 
 // compensate for container margins and paddings
 const menuOffsetWidth = 66;
@@ -167,9 +22,16 @@ export const EstimatesDataGrid = () => {
     name: 'items',
   });
 
+  const fieldsWithIndex =  useMemo(
+    ()=>{
+      console.log('rendered');
+      return fields.map((field, index) => ({ ...field, index }));
+    }, 
+    [fields],
+  );
 
   // 残す。検証用
-  console.log(fields);
+  
 
   /**
   * 
@@ -192,23 +54,42 @@ export const EstimatesDataGrid = () => {
   return (
     <Box
       sx={{
-        maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`,  
+        maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`, 
+        height: '70vh',
+        '& .index' : {
+          fontSize: 8,
+          textAlign: 'center',
+        },
+        '& .index-header' : {
+          bgcolor: grey[50],
+          fontSize: 8,
+          textAlign: 'center',
+          px: 0,
+        },
+        // select odd rows, except the first column
+        '& .rdg-row:nth-child(odd) .rdg-cell:not(:first-child)' : {
+          bgcolor: orange[50],
+        },
+        '& div[aria-readonly="true"]': {
+          bgcolor: grey[100],
+        },
       }}
-      height={'100%'}
+    
     >  
       <DataGrid 
         rowKeyGetter={(row: RowItem ) => row.id}
         className='rdg-light' // enforce light theme 
         columns={columns} 
-        rows={fields}
+        rows={fieldsWithIndex}
         defaultColumnOptions={{
           resizable: true,
-          width: 150,
+          width: 'max-content',
+          minWidth: 100,
         }}
         onRowsChange={() => {
 
         }} 
-        
+        style={{ height: '100%' }}
       />
     </Box>
   );

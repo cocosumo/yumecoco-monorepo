@@ -56,7 +56,7 @@ describe('Contract', () => {
     const projTypesRec = await getProjTypes();
     const projTypes = projTypesRec.map(projType => projType.label.value);
 
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 5; i++) {
       const nameLength = i * 10;
       const mockData : Awaited<ReturnType<typeof getContractDataV2>> = produce(contractData, draft => {
         draft.projName = ('ア').repeat(nameLength) + ' ' + faker.helpers.arrayElement(projTypes);
@@ -76,17 +76,26 @@ describe('Contract', () => {
       ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
-    const fakeCity = faker.location.city();
+    const fakeCity = faker.location.city() + '中町';
     const fakeState = faker.location.state();
     const fakeZipCode = faker.location.zipCode();
-    
+    const fakeMansion = 'マンション';
+
     for (let i = 1; i <= 4; i++) {
-      const length = i * 4;
+      const length = i * 3;
       
       const mockData : Awaited<ReturnType<typeof getContractDataV2>> = produce(contractData, draft => {
-        draft.projLocation = `〒${fakeZipCode} ${fakeState}${fakeCity.repeat(length)}１９番地１６レジデンスなかま９９９号室`;
+        draft.customers[0].address2 = fakeMansion;
+        draft.projLocation = `〒${fakeZipCode} ${fakeState}${fakeCity}１９番地１６${fakeMansion.repeat(length)}９９９号室`;
+        draft.projectLocationData = {
+          postal: fakeZipCode,
+          address1: fakeState + fakeCity,
+          address2: `１９番地１６${fakeMansion.repeat(length)}９９９号室`,
+        };
       });
-      console.log(i, mockData.projLocation.length);
+
+      console.log(mockData.customers);
+      console.log(i, mockData.projectLocationData.address2.length);
       const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);  
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);

@@ -29,7 +29,7 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 };
 
 
-export const columns: MyColumn[] = [
+export const columns = (): MyColumn[] => [
   {
     key: 'index',
     name: 'No.',
@@ -110,6 +110,7 @@ export const columns: MyColumn[] = [
     key: 'unit', 
     name: '単位', 
     editable: true,
+    minWidth: 75,
     renderEditCell: textEditor,
   },
   { 
@@ -177,6 +178,7 @@ export const columns: MyColumn[] = [
   { 
     key: 'rowDetails', 
     name: '備考', 
+    width: 'auto',
     renderEditCell: textEditor,
   },
  

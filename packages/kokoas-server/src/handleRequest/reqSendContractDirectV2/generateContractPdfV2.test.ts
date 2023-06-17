@@ -94,8 +94,6 @@ describe('Contract', () => {
         };
       });
 
-      console.log(mockData.customers);
-      console.log(i, mockData.projectLocationData.address2.length);
       const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);  
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);

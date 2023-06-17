@@ -88,7 +88,7 @@ export const generateContractPdfV2 = async (
   // 工事番号
   drawText(
     firstPage,
-    `${storeNameShort}-${dataId.slice(4) ?? ''}`,
+    `${storeNameShort} ${dataId.slice(4) ?? ''}`,
     {
       x: x1,
       y: 775,

@@ -121,11 +121,6 @@ export const FormContents = ({
         </Stack>
 
         <PageSubTitle3 label={<EstimateTableLabel />} />
-  
-        {/*  <Grid item xs={12}>
-          {!disabled &&  <EstBody isDisabled={disabled} />}
-          {disabled && <EstBodyReadOnly />}
-        </Grid> */}
    
         <EstimatesDataGrid />
       

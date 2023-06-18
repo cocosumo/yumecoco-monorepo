@@ -134,7 +134,7 @@
     "random-js": "^2.1.0",
     "react": "^18.1.0",
     "react-awesome-reveal": "^3.8.1",
-    "react-data-grid": "^7.0.0-beta.33",
+    "react-data-grid": "^7.0.0-beta.34",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.44.3",
     "react-hotkeys-hook": "^4.4.0",

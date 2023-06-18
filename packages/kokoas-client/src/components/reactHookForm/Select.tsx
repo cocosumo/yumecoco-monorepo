@@ -32,7 +32,7 @@ export const Select = <T extends FieldValues>(  {
         } = field;
 
         return (
-          <FormControl size='small' fullWidth error={isShowError}>
+          <FormControl size='small' error={isShowError}>
             <InputLabel>
               {label}
             </InputLabel>

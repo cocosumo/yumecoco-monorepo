@@ -30,7 +30,7 @@ export const EstimateDataGridContainer = ({
           px: 0,
         },
         // select odd rows, except the first column
-        '& .rdg-row:nth-of-type(odd) .rdg-cell:not(:first-of-type):not(.rdg-editor-container)' : {
+        '& .rdg-row:nth-of-type(odd) .rdg-cell:not(:first-of-type):not(.rdg-editor-container):not([aria-readonly="true"])' : {
           bgcolor: orange[50],
         },
         '& div[aria-readonly="true"]': {

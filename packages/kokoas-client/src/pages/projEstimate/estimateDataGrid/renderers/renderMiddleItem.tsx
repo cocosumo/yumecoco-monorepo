@@ -19,7 +19,6 @@ const MiddleItemSelect = ({
 
   return (
     <Autocomplete
-      openOnFocus
       value={row.middleItem ?? undefined}
       freeSolo
       options={data ?? []}
@@ -49,7 +48,6 @@ const MiddleItemSelect = ({
           }}  
           sx={{
             pt: '4px',
-            px: '4px',
           }}
         />
       )}

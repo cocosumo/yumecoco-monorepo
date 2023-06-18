@@ -18,7 +18,6 @@ const Materials = (props: RenderEditCellProps<RowItem>) => {
 
   return (
     <Autocomplete
-      openOnFocus
       value={row.material ?? undefined}
       freeSolo
       options={data ?? []}

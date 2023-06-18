@@ -62,6 +62,11 @@ export const getColumns = (): MyColumn[] => [
     editable: true,
     frozen: true,
     width: 200,
+
+    editorOptions: {
+      displayCellContent: true,
+      commitOnOutsideClick: true,
+    },
     renderEditCell: renderMiddleItem,
   },
   { 

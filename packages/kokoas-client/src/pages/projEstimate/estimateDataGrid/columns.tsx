@@ -2,6 +2,7 @@ import { DataGridProps, textEditor } from 'react-data-grid';
 import { roundTo } from 'libs';
 import { ReactNode } from 'react';
 import { TItem } from '../schema';
+import { renderUnits } from './renderers/renderUnits';
 
 export type RowItem = TItem & { 
   id: string,
@@ -111,7 +112,7 @@ export const getColumns = (): MyColumn[] => [
     name: '単位', 
     editable: true,
     minWidth: 75,
-    renderEditCell: textEditor,
+    renderEditCell: renderUnits,
   },
   { 
     key: 'materialProfRate', 
@@ -125,7 +126,7 @@ export const getColumns = (): MyColumn[] => [
     renderCell: ({ row }) => {
       return (
         <RightAlignedDiv>
-          {`${roundTo(+(row.materialProfRate || 0), 2)} %`}
+          {`${roundTo(+(row.materialProfRate || 0), 2).toFixed(2)} %`}
         </RightAlignedDiv>);
     },
   },
@@ -171,7 +172,7 @@ export const getColumns = (): MyColumn[] => [
     renderCell: ({ row }) => {
       return (
         <RightAlignedDiv>
-          {commaFormatter(row.rowUnitPriceBeforeTax)}
+          {commaFormatter(roundTo(row.rowUnitPriceBeforeTax))}
         </RightAlignedDiv>);
     },
   },

@@ -45,8 +45,10 @@ export const EstimatesDataGrid = () => {
 
     if (!selectCell) return;
     if (args.mode === 'EDIT') {
-
-      dataGridRef.current?.selectCell({ rowIdx: args.rowIdx, idx: idx + 1 });
+      if (key === 'Enter') {
+        selectCell({ rowIdx: args.rowIdx, idx: idx + 1 });
+        preventDefault();
+      }
       return;
     }
 

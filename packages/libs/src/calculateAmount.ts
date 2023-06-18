@@ -113,10 +113,11 @@ export const calculateAmount = (p : Values): Required<Values> => {
     // 原価が編集されたとき
     if (res.amountAfterTax // 上で計算される
       && p.costPrice) {
+
       res.profit = Big(res.amountBeforeTax).minus(p.costPrice)
         .toNumber();
       res.profitRate = calcProfitRate(p.costPrice, res.amountBeforeTax);
-
+      
       return res;
     }
 
@@ -127,7 +128,6 @@ export const calculateAmount = (p : Values): Required<Values> => {
         .toNumber();
 
       res.amountAfterTax = calcAfterTax(res.amountBeforeTax, p.taxRate);
-
       return res;
     }
 

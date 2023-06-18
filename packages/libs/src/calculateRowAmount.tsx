@@ -77,6 +77,7 @@ export const calculateRowAmount = (
       amountAfterTax: rowUnitPriceAfterTax,
       profitRate: rowProfitRate,
       profit: rowProfit,
+      costPrice: rowCostPrice,
     } = calculateAmount({
       costPrice: +p.costPrice * +p.quantity,
       amountBeforeTax: +p.unitPrice * +p.quantity,
@@ -84,6 +85,7 @@ export const calculateRowAmount = (
 
     result = {
       ...result,
+      rowCostPrice,
       rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
       profitRate: rowProfitRate,

@@ -4,9 +4,10 @@ import { calculateRowAmount, roundTo } from 'libs';
 import { KItem, TForm } from '../schema';
 
 export const useChangeRows = () => {
-  const { getValues } = useFormContext<TForm>();
-  const fieldArrayHelpers = useFieldArray<TForm>({
+  const { getValues, control } = useFormContext<TForm>();
+  const fieldArrayHelpers = useFieldArray({
     name: 'items',
+    control,
   });
 
   const {
@@ -18,6 +19,7 @@ export const useChangeRows = () => {
     fieldName: KItem,
     rows: TForm['items'],
   ) => {
+
     const taxRate = getValues('taxRate') / 100;
     const {
       costPrice,

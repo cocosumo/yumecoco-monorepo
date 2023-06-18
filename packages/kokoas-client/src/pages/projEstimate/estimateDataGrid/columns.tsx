@@ -29,7 +29,7 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 };
 
 
-export const columns = (): MyColumn[] => [
+export const getColumns = (): MyColumn[] => [
   {
     key: 'index',
     name: 'No.',

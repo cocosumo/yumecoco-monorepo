@@ -1,7 +1,7 @@
 import 'react-data-grid/lib/styles.css';
-import DataGrid, { CellKeyDownArgs, CellKeyboardEvent } from 'react-data-grid';
-import { useMemo } from 'react';
-import { RowItem, columns } from './columns';
+import DataGrid, { CellKeyDownArgs, CellKeyboardEvent, DataGridHandle } from 'react-data-grid';
+import { useMemo, useRef } from 'react';
+import { RowItem, getColumns } from './columns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from '../hooks/useChangeRows';
 import { KItem } from '../schema';
@@ -13,6 +13,7 @@ export const EstimatesDataGrid = () => {
     handleRowChange,
     fields,
   } = useChangeRows();
+  const dataGridRef = useRef<DataGridHandle>(null);
   
 
   const fieldsWithIndex =  useMemo(
@@ -22,22 +23,35 @@ export const EstimatesDataGrid = () => {
     [fields],
   );
 
+  const columns = useMemo(() => getColumns(), []);
+
   const fieldsLength = fields.length;
 
   function handleCellKeyDown(args: CellKeyDownArgs<RowItem>, event: CellKeyboardEvent) {
-    if (args.mode === 'EDIT') return;
-    const { column, rowIdx, selectCell } = args;
-    const { idx } = column;
+   
+    const { column, rowIdx } = args;
+    const { idx, editable } = column;
     const { key } = event;
+
+    const {
+      selectCell,
+    } = dataGridRef.current || {};
 
     const preventDefault = () => {
       event.preventGridDefault();
       event.preventDefault();
     };
+    
 
-    console.log('entered', key);
+    if (!selectCell) return;
+    if (args.mode === 'EDIT') {
 
-    if (key === 'ArrowRight' && idx === columns.length - 1) {
+      dataGridRef.current?.selectCell({ rowIdx: args.rowIdx, idx: idx + 1 });
+      return;
+    }
+
+
+    if ((key === 'ArrowRight' || key === 'Enter') && idx === columns.length - 1) {
       if (fieldsLength === 0) return;
       if (rowIdx === -1) {
         selectCell({ rowIdx: 0, idx: 0 });
@@ -50,8 +64,11 @@ export const EstimatesDataGrid = () => {
       if (rowIdx === -1) return;
       selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 });
       preventDefault();
-    }
+    } else if (key === 'Enter' && !editable) {
 
+      selectCell({ rowIdx, idx: idx + 1 });
+      //preventDefault();
+    }
   
   }
 
@@ -60,7 +77,8 @@ export const EstimatesDataGrid = () => {
       <DataGrid 
         rowKeyGetter={(row: RowItem ) => row.id}
         className='rdg-light' // enforce light theme 
-        columns={columns()} 
+        columns={columns} 
+        ref={dataGridRef}
         rows={fieldsWithIndex}
         defaultColumnOptions={{
           resizable: true,
@@ -79,7 +97,7 @@ export const EstimatesDataGrid = () => {
           handleRowChange(changedIndex, key as KItem, rows);
         }} 
         style={{ height: '100%' }}
-        onCellKeyDown={handleCellKeyDown}
+        onCellKeyDown={handleCellKeyDown}        
       />
     </EstimateDataGridContainer>
   );

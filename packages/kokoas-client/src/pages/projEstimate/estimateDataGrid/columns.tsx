@@ -3,6 +3,9 @@ import { roundTo } from 'libs';
 import { ReactNode } from 'react';
 import { TItem } from '../schema';
 import { renderUnits } from './renderers/renderUnits';
+import { renderMajorItem } from './renderers/renderMajorItem';
+import { renderMiddleItem } from './renderers/renderMiddleItem';
+import { renderMaterials } from './renderers/renderMaterials';
 
 export type RowItem = TItem & { 
   id: string,
@@ -50,7 +53,7 @@ export const getColumns = (): MyColumn[] => [
     sortable: true, 
     resizable: true, 
     frozen: true,
-    renderEditCell: textEditor,
+    renderEditCell: renderMajorItem,
     
   },
   { 
@@ -59,7 +62,7 @@ export const getColumns = (): MyColumn[] => [
     editable: true,
     frozen: true,
     width: 200,
-    renderEditCell: textEditor,
+    renderEditCell: renderMiddleItem,
   },
   { 
     key: 'material', 
@@ -67,7 +70,11 @@ export const getColumns = (): MyColumn[] => [
     editable: true,
     frozen: true,
     width: 150,
-    renderEditCell: textEditor,
+    editorOptions: {
+      displayCellContent: true,
+      commitOnOutsideClick: true,
+    },
+    renderEditCell: renderMaterials,
   },
   { 
     key: 'materialDetails', 
@@ -86,8 +93,12 @@ export const getColumns = (): MyColumn[] => [
         {column.name}
       </RightAlignedDiv>),
     renderCell: ({ row }) => {
+      const value = row.costPrice;
+      if (isNaN(value)) {
+        return value;
+      }
       return (<RightAlignedDiv>
-        {commaFormatter(row.costPrice)}
+        {commaFormatter(value)}
       </RightAlignedDiv>);
     },
   },
@@ -101,9 +112,13 @@ export const getColumns = (): MyColumn[] => [
         {column.name}
       </RightAlignedDiv>),
     renderCell: ({ row }) => {
+      const value = row.quantity;
+      if (isNaN(value)) {
+        return value;
+      }
       return (
         <RightAlignedDiv>
-          {commaFormatter(row.quantity)}
+          {commaFormatter(value)}
         </RightAlignedDiv>);
     },
   },
@@ -124,9 +139,14 @@ export const getColumns = (): MyColumn[] => [
         {column.name}
       </RightAlignedDiv>),
     renderCell: ({ row }) => {
+      const value = row.materialProfRate;
+      if (isNaN(value)) {
+        return value;
+      }
+
       return (
         <RightAlignedDiv>
-          {`${roundTo(+(row.materialProfRate || 0), 2).toFixed(2)} %`}
+          {`${roundTo(+(value || 0), 2).toFixed(2)} %`}
         </RightAlignedDiv>);
     },
   },
@@ -140,9 +160,13 @@ export const getColumns = (): MyColumn[] => [
         {column.name}
       </RightAlignedDiv>),
     renderCell: ({ row }) => {
+      const value = row.unitPrice;
+      if (isNaN(value)) {
+        return value;
+      }
       return (
         <RightAlignedDiv>
-          {commaFormatter(row.unitPrice)}
+          {commaFormatter(roundTo(value))}
         </RightAlignedDiv>);
     },
   },
@@ -157,7 +181,7 @@ export const getColumns = (): MyColumn[] => [
     renderCell: ({ row }) => {
       return (
         <RightAlignedDiv>
-          {commaFormatter(row.rowCostPrice)}
+          {commaFormatter(roundTo(row.rowCostPrice))}
         </RightAlignedDiv>);
     },
   },

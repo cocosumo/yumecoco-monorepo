@@ -1,28 +1,26 @@
 import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../columns';
-import { useUnits } from 'kokoas-client/src/hooksQuery';
+import { useMaterialsMajor } from 'kokoas-client/src/hooksQuery';
 import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
 
 
-const UnitsSelect = ({
+/** 大項目 */
+const MajorItemSelect = ({
   row,
   onRowChange,
-
 }: RenderEditCellProps<RowItem>) => {
   const [open, setOpen] = useState(true);
-  const { data } = useUnits((u) => {
-    return u.map(({
-      unit,
-    }) => ({
-      value: unit.value,
-    }));
+
+  const { data } = useMaterialsMajor({
+    select: (d) => d
+      .map(({ 大項目名: majorItemName }) => ({ value: majorItemName.value }) ),
   });
 
   return (
     <Select
-      value={row.unit || undefined}
-      onChange={(event) => onRowChange({ ...row, unit: event.target.value }, true)}
+      value={row.majorItem || undefined}
+      onChange={(event) => onRowChange({ ...row, majorItem: event.target.value }, true)}
       autoFocus
       size='small'
       open={open}
@@ -39,8 +37,8 @@ const UnitsSelect = ({
   );
 };
 
-export const renderUnits = (props: RenderEditCellProps<RowItem>) => {
+export const renderMajorItem = (props: RenderEditCellProps<RowItem>) => {
   return (
-    <UnitsSelect {...props} />
+    <MajorItemSelect {...props} />
   );
 };

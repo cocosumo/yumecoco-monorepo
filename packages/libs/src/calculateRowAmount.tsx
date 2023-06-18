@@ -71,10 +71,7 @@ export const calculateRowAmount = (
       rowUnitPriceAfterTax,
       unitPrice: rowUnitPriceBeforeTax / +p.quantity,
     };
-  }
-
-  if (p.unitPrice && p.costPrice && p.quantity) {
-    console.log('calculateRowAmount: unitPrice, costPrice, quantity', p);
+  } else if (p.unitPrice && p.costPrice && p.quantity) {
     const {
       amountBeforeTax: rowUnitPriceBeforeTax,
       amountAfterTax: rowUnitPriceAfterTax,
@@ -92,9 +89,10 @@ export const calculateRowAmount = (
       profitRate: rowProfitRate,
       rowProfit,
     };
+  } else {
+    //　網羅的にテスト出来ないため、残す
+    console.warn('No calculation perfomed', p);
   }
-
-  console.log('result', result);
 
   return {
     ...result,

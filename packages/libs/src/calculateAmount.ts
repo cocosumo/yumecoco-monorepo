@@ -67,8 +67,6 @@ export const calculateAmount = (p : Values): Required<Values> => {
   };
 
   try {
-    console.log('input', p);
-
 
     if (p.amountAfterTax) {
       res.amountBeforeTax = calcBeforeTax(res.amountAfterTax, p.taxRate);

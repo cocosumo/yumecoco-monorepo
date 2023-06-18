@@ -14,10 +14,9 @@ import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 //import { EstBody } from './tables/estimatesVirtual/EstBody';
 //import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
-import SummaryTable from './tables/SummaryTable/SummaryTable';
 import { Remarks } from './fields/Remarks';
-import { DataGridSamples } from './estimateDataGrid/DatagridSamples';
 import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
+import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
 
 
 export const FormContents = ({
@@ -129,7 +128,7 @@ export const FormContents = ({
           {disabled && <EstBodyReadOnly />}
         </Grid> */}
    
-        <DataGridSamples />
+        <EstimatesDataGrid />
       
         <PageSubTitle3 label={'大項目小計欄'} />
       
@@ -142,9 +141,7 @@ export const FormContents = ({
         <Divider />
 
         <GoToContractButton />
-   
-        {/* 合計欄 */}
-        <SummaryTable />
+  
 
       </Stack>
 

@@ -2,14 +2,14 @@ import { Chip, FormControl, FormLabel, Stack, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { LabeledInfo } from 'kokoas-client/src/components';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 
 
 
 export const EstimatesInfo = () => {
 
-  const { control } = useFormContext<TypeOfForm>();
+  const { control } = useFormContext<TForm>();
   const [
     estimateId,
     createdDate,

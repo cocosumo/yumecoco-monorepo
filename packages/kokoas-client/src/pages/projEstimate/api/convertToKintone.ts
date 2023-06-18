@@ -1,5 +1,5 @@
 import { IProjestimates } from 'types';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 export const convertToKintone = ({
   customerName,
@@ -13,7 +13,7 @@ export const convertToKintone = ({
   taxRate,
   estimateRevision,
   remarks,
-}: TypeOfForm) => {
+}: TForm) => {
 
   const parsedTaxRate = taxRate / 100;
   /*
@@ -32,7 +32,6 @@ export const convertToKintone = ({
         quantity,
         unit,
         unitPrice,
-        taxable,
         rowDetails,
       },
       index,
@@ -55,9 +54,9 @@ export const convertToKintone = ({
           部材名: { value: material ?? '' },
           原価 : { value: costPrice.toString() },
           数量 : { value: quantity.toString() },
-          単位: { value: unit },
+          単位: { value: unit || '' },
           単価: { value : unitPrice.toString() },
-          税率: { value: (taxable ? parsedTaxRate : 0).toString() },
+          税率: { value: parsedTaxRate.toString() },
         },
       });
 
@@ -88,10 +87,10 @@ export const convertToKintone = ({
   /* 変換処理 */
   const kintoneRecord: Partial<IProjestimates> = {
     projId: { value: projId },
-    projTypeId: { value: projTypeId },
+    projTypeId: { value: projTypeId || '' },
     顧客名: { value: customerName || '' },
     工事名称: { value: projName },
-    工事種別名: { value: projTypeName },
+    工事種別名: { value: projTypeName || '' },
     工事種別利益: { value: (projTypeProfit || '').toString() },
     税: { value: taxRate.toString() },
     estimateStatus : { value: status || '' },

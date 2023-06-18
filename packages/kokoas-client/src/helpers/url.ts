@@ -1,13 +1,13 @@
 
 
 export interface URLParams {
-  projId?: string
-  projEstimateId?: string,
-  custGroupId?: string,
-  menuOpen?: number,
-  invoiceId?: string,
-  clearFields?: string,
-  contractId?: string,
+  projId?: string | null,
+  projEstimateId?: string | null,
+  custGroupId?: string | null,
+  menuOpen?: number | null,
+  invoiceId?: string | null,
+  clearFields?: string | null,
+  contractId?: string | null,
 }
 
 
@@ -24,7 +24,7 @@ export const getParams = () => {
 
 export const generateParams = (obj: URLParams) => {
   // Remove undefined
-  Object.keys(obj).forEach((key: keyof typeof obj) => (obj[key] === undefined || obj[key] === '' ) && delete obj[key]);
+  Object.keys(obj).forEach((key: keyof typeof obj) => (obj[key] === undefined || obj[key] === null || obj[key] === '' ) && delete obj[key]);
   return new URLSearchParams(obj as Record<string, string>).toString();
 };
 

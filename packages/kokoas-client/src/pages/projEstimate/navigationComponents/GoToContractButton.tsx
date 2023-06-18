@@ -1,15 +1,15 @@
 import { Button, FormHelperText, Box } from '@mui/material';
-import { TypeOfForm } from '../form';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { generateParams } from '../../../helpers/url';
 import { useFormContext, useFormState, useWatch } from 'react-hook-form';
+import { TForm } from '../schema';
 
 
 export const GoToContractButton = () => {
 
   const navigate = useNavigate();
-  const { control, getValues } = useFormContext<TypeOfForm>();
+  const { control, getValues } = useFormContext<TForm>();
 
   const { isDirty } = useFormState();
 

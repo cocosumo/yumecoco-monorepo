@@ -1,12 +1,12 @@
 import { Stack } from '@mui/material';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
-import { TypeOfForm } from '../form';
 import { useFormContext } from 'react-hook-form';
 import { EstimatesInfo } from '../staticComponents/EstimatesInfo';
 import { ButtonMenu } from '../fields/ButtonMenu';
+import { TForm } from '../schema';
 
 export const HeadSection = () => {
-  const { control } = useFormContext<TypeOfForm>();
+  const { control } = useFormContext<TForm>();
 
   return (
     <Stack 

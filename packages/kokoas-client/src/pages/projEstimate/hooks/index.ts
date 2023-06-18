@@ -1,7 +1,6 @@
 export * from './useChangeRows';
 export * from './useConfirmBeforeClose';
 export * from './useFormReset';
-export * from './useMaterialOptions';
 export * from './useResolveParam';
 export * from './useRowValues';
 export * from './useSaveForm';

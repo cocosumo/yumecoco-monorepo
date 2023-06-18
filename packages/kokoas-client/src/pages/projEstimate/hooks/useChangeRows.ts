@@ -1,11 +1,11 @@
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { KRowFields, TypeOfForm } from '../form';
 import { useCallback } from 'react';
 import { calculateRowAmount, roundTo } from 'libs';
+import { KItem, TForm } from '../schema';
 
 export const useChangeRows = () => {
-  const { getValues } = useFormContext<TypeOfForm>();
-  const fieldArrayHelpers = useFieldArray<TypeOfForm>({
+  const { getValues } = useFormContext<TForm>();
+  const fieldArrayHelpers = useFieldArray<TForm>({
     name: 'items',
   });
 
@@ -15,8 +15,8 @@ export const useChangeRows = () => {
   
   const handleRowChange = useCallback((
     index: number, 
-    fieldName: KRowFields,
-    rows: TypeOfForm['items'],
+    fieldName: KItem,
+    rows: TForm['items'],
   ) => {
     const taxRate = getValues('taxRate') / 100;
     const {

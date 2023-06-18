@@ -1,9 +1,9 @@
 import {  IProjtypes } from 'types';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 export const convertProjTypeToForm = (
   recProjType: IProjtypes,
-) : Partial<TypeOfForm> => {
+) : Partial<TForm> => {
 
   const {
     profitRate,

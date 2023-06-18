@@ -1,9 +1,9 @@
 import { DataGridProps, textEditor } from 'react-data-grid';
-import { Item } from '../form';
 import { roundTo } from 'libs';
 import { ReactNode } from 'react';
+import { TItem } from '../schema';
 
-export type RowItem = Item & { 
+export type RowItem = TItem & { 
   id: string,
   index: number,
 };

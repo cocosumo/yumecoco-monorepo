@@ -1,10 +1,10 @@
 import { useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../form';
 import { TextField } from '@mui/material';
 import { ja } from '../hooks/utils/fieldTranslations';
+import { TForm } from '../schema';
 
 export const Remarks = () => {
-  const { register } = useFormContext<TypeOfForm>();
+  const { register } = useFormContext<TForm>();
 
   const regFieldProps = register('remarks');
   

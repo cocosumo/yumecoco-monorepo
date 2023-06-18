@@ -1,7 +1,7 @@
-import { KeyOfForm, KRowFields } from '../../form';
+import { KForm, KItem } from './../../schema';
 
 /** hotfixで仮実装です。時間が空いたら、翻訳をシステム全体に共有出来るようにします。~RAS */
-export const ja: Record<KeyOfForm | KRowFields, string> = {
+export const ja: Record<KForm | KItem, string> = {
   costPrice: '原価',
   createdDate: '作成日',
   custGroupId: '顧客グループ番号',
@@ -28,11 +28,7 @@ export const ja: Record<KeyOfForm | KRowFields, string> = {
   rowDetails: '備考',
   rowUnitPriceAfterTax: '税込金額',
   rowUnitPriceBeforeTax: '税抜金額',
-  taxable: '課税',
   taxRate: '税率',
-  totalAmountBeforeTax: '税抜金額',
-  totalAmountAfterTax: '税込金額',
-  totalCostPrice: '原価合計',
   status: 'ステータス',
   unit: '単位',
   unitPrice: '単価',

@@ -3,26 +3,28 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
+export const estStatusChoices = [ '契約', '銀行用', '工事実行', '追加', '追加減額'] as const;
+
 const schema = z.object({
-  custGroupId : z.string().nullable(),
+  custGroupId : z.string(),
   customerName : z.string().nullable(),
   createdDate : z.date().nullable(),
 
-  estimateId: z.string().nullable(),
+  estimateId: z.string().optional(),
   estimateDataId: z.string().nullable(),
   estimateRevision: z.string().nullable(),
   envStatus: z.string().nullable(),
 
-  projDataId: z.string().nullable(),
-  projId: z.string().nullable(),
-  projName: z.string().nullable(),
+  projDataId: z.string(),
+  projId: z.string(),
+  projName: z.string(),
 
   projTypeId: z.string().nullable(),
   projTypeName: z.string().nullable(),
   projTypeProfit: z.number().max(100),
 
   projTypeProfitLatest: z.number(),
-  status: z.string().nullable(),
+  status: z.enum(estStatusChoices).nullable(),
   taxRate: z.number().max(100),
 
   items: z.array(z.object({
@@ -40,6 +42,8 @@ const schema = z.object({
     unitPrice: z.number(),
     rowDetails: z.string().nullable(),
   })),
+
+  remarks: z.string().nullable(),
 });
 
 export type TForm = z.infer<typeof schema>;

@@ -4,11 +4,17 @@ import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useSaveEstimate } from 'kokoas-client/src/hooksQuery';
 import isArray from 'lodash/isArray';
 import { useCallback } from 'react';
-import { FieldError, FieldErrorsImpl, SubmitErrorHandler, SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { 
+  FieldError, 
+  FieldErrorsImpl, 
+  SubmitErrorHandler, 
+  SubmitHandler, 
+  UseFormReturn, 
+} from 'react-hook-form';
 import { convertToKintone } from '../api/convertToKintone';
-import { TypeOfForm } from '../form';
 import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
 import { ja } from './utils/fieldTranslations';
+import { TForm } from '../schema';
 
 export type SaveButtonNames = 'temporary' | 'save';
 
@@ -16,7 +22,7 @@ export type UseSaveForm = ReturnType<typeof useSaveForm>;
 
 export const useSaveForm = ({
   handleSubmit,
-}: UseFormReturn<TypeOfForm>) => {
+}: UseFormReturn<TForm>) => {
 
 
   const { setSnackState } = useSnackBar();
@@ -28,7 +34,7 @@ export const useSaveForm = ({
   const navigate = useStableNavigate();
 
   const handleSave = useCallback(async (
-    data: TypeOfForm,
+    data: TForm,
   ) => {
     const {
       estimateId,
@@ -54,13 +60,13 @@ export const useSaveForm = ({
     };
   }, [saveMutation, setSnackState]);
 
-  const onSubmitValid: SubmitHandler<TypeOfForm> = useCallback(async (data) => {
+  const onSubmitValid: SubmitHandler<TForm> = useCallback(async (data) => {
     const { id } = await handleSave(data);
     navigate(`?${generateParams({ projEstimateId: id })}`);
   }, [handleSave, navigate]);
 
 
-  const onSubmitValidFinal: SubmitHandler<TypeOfForm> = useCallback( async (data) => {
+  const onSubmitValidFinal: SubmitHandler<TForm> = useCallback( async (data) => {
     setDialogState({
       title: '編集した内容で保存します',
       content: (
@@ -72,7 +78,7 @@ export const useSaveForm = ({
     });
   }, [setDialogState, handleClose, handleSave ]);
 
-  const onSubmitInvalid: SubmitErrorHandler<TypeOfForm> = async (errors) => {
+  const onSubmitInvalid: SubmitErrorHandler<TForm> = async (errors) => {
 
     const itemErrors = Object
       .entries(errors)
@@ -80,7 +86,7 @@ export const useSaveForm = ({
         (acc, [key, error]) => {
 
           if (isArray(error)) {
-            (error as FieldErrorsImpl<TypeOfForm['items']>)
+            (error as FieldErrorsImpl<TForm['items']>)
               .forEach((item, idx) => {
                 if (!item) return;
                 Object
@@ -98,7 +104,8 @@ export const useSaveForm = ({
           }
 
           return acc;
-        }, [] as  string[]);
+        }, [] as  string[],
+      );
 
     setSnackState({
       open: true,

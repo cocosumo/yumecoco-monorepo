@@ -1,14 +1,14 @@
 import { MenuItem } from '@mui/material';
 import { Select } from 'kokoas-client/src/components/reactHookForm';
 import { Control } from 'react-hook-form';
-import { TypeOfForm } from '../form';
 import { statusChoices } from '../validationSchema';
+import { TForm } from '../schema';
 
 export const StatusSelect = ({
   control,
   disabled,
 }:{
-  control: Control<TypeOfForm>,
+  control: Control<TForm>,
   disabled: boolean
 }) => {
 

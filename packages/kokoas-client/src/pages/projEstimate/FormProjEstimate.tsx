@@ -1,8 +1,5 @@
 import { Divider, Stack } from '@mui/material';
 import { Form, FormProvider, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { TypeOfForm } from './form';
-import { validationSchema } from './validationSchema';
 
 import { useResolveParam } from './hooks/useResolveParam';
 import { FormContents } from './FormContents';
@@ -12,13 +9,15 @@ import { ActionButtons } from './formActions/ActionButtons';
 import { useFormReset } from './hooks/useFormReset';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { HeadSection } from './sections/HeadSection';
+import schema, { TForm } from './schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
 
-  const formReturn = useForm<TypeOfForm>({
+  const formReturn = useForm<TForm>({
     defaultValues: initialForm,
-    resolver: yupResolver(validationSchema as any),
+    resolver: zodResolver(schema),
   });
 
   /* initialFormが変わったら、リセットする */

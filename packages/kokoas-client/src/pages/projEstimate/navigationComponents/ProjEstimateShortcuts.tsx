@@ -4,12 +4,12 @@ import { useFormContext } from 'react-hook-form';
 import { Shortcuts, ShortCutType } from '../../../components/ui/speedDials/Shortcuts';
 import { generateParams } from '../../../helpers/url';
 import { pages } from '../../Router';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 
 export const ProjEstimateShortcuts = () => {
 
-  const { getValues } = useFormContext<TypeOfForm>();
+  const { getValues } = useFormContext<TForm>();
 
   const navigate = useStableNavigate();
 
@@ -19,7 +19,10 @@ export const ProjEstimateShortcuts = () => {
       projEstimateId,
       custGroupId,
     ] = getValues(['projId', 'estimateId', 'custGroupId' ]);
-    navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId, projEstimateId })}`);
+    navigate(`${pages.custGroupEdit}?${generateParams({ 
+      projId, 
+      custGroupId: custGroupId,
+      projEstimateId: projEstimateId || '' })}`);
   }, [navigate, getValues]);
 
   const shortcuts : ComponentProps<typeof Shortcuts>['shortcuts'] = useMemo(() => {

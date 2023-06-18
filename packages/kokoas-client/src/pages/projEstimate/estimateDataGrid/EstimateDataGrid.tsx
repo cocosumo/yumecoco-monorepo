@@ -1,10 +1,10 @@
-import { KRowFields } from '../form';
 import 'react-data-grid/lib/styles.css';
 import DataGrid from 'react-data-grid';
 import { useMemo } from 'react';
 import { RowItem, columns } from './columns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from '../hooks/useChangeRows';
+import { KItem } from '../schema';
 
 
 
@@ -43,7 +43,7 @@ export const EstimatesDataGrid = () => {
           } = column;
           const changedIndex = indexes[0];
 
-          handleRowChange(changedIndex, key as KRowFields, rows);
+          handleRowChange(changedIndex, key as KItem, rows);
         }} 
         style={{ height: '100%' }}
       />

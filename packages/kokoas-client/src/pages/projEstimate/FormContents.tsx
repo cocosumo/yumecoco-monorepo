@@ -7,16 +7,15 @@ import {
 import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
-import { TypeOfForm } from './form';
 import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
 import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-//import { EstBody } from './tables/estimatesVirtual/EstBody';
-//import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
+
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import { Remarks } from './fields/Remarks';
 import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
 import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
+import { TForm } from './schema';
 
 
 export const FormContents = ({
@@ -27,7 +26,7 @@ export const FormContents = ({
 
   const {
     control,
-  } = useFormContext<TypeOfForm>();
+  } = useFormContext<TForm>();
 
   /* 閉じるまえに、確認アラートを表示する */
   useConfirmBeforeClose();

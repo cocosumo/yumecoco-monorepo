@@ -1,13 +1,13 @@
 import { useWatch } from 'react-hook-form';
-import { Item, TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 export const useSubTotalCalc = (): Array<[string, number]> => {
 
-  const items = useWatch<TypeOfForm>({
+  const items = useWatch<TForm>({
     name: 'items',
   });
 
-  const result = (items as Item[])
+  const result = (items as TForm['items'])
     .reduce((acc, { majorItem, rowUnitPriceAfterTax })=> {
 
       const parsedValue = +(rowUnitPriceAfterTax ?? 0);

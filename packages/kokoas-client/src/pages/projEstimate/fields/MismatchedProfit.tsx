@@ -1,6 +1,6 @@
 import { Alert, Button } from '@mui/material';
 import {  useFormContext, useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 /**
  * 利益は最新のものと格納されているものとと違う
@@ -13,7 +13,7 @@ export const MismatchedProfit = () => {
   const {
     setValue,
     control,
-  } = useFormContext<TypeOfForm>();
+  } = useFormContext<TForm>();
 
   const [projTypeProfitLatest, projTypeName] = useWatch({
     control,

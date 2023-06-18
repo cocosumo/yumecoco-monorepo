@@ -2,10 +2,11 @@ import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useEstimateById, useProjById, useProjTypeById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertEstimateToForm, convertProjToForm, convertProjTypeToForm } from '../api';
-import { initialValues, TypeOfForm } from '../form';
+import { initialValues } from '../form';
+import { TForm } from '../schema';
 
 export const useResolveParam = () => {
-  const [newFormVal, setNewFormVal] = useState<TypeOfForm>(initialValues);
+  const [newFormVal, setNewFormVal] = useState<TForm>(initialValues);
   const {
     projId: projIdFromURL,
     projEstimateId: projEstimateIdFromURL,

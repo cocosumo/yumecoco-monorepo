@@ -66,6 +66,8 @@ export const ProfitRate = ({
                 setRoundedValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
                 setRoundedValue('totalProfit', profit || 0);
                 setRoundedValue('costPrice', costPrice || 0);
+              } else {
+                onChange(e.target.value);
               }
              
             }}

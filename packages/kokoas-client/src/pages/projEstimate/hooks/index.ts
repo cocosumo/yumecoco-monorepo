@@ -1,4 +1,5 @@
 export * from './useConfirmBeforeClose';
+export * from './useEstTRowHotKeys';
 export * from './useFormReset';
 export * from './useResolveParam';
 export * from './useRowValues';

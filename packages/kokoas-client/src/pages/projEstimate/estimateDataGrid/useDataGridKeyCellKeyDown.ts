@@ -23,24 +23,31 @@ export const useDataGridKeyCellKeyDown = (columns: ReturnType<typeof getColumns>
     append, 
     remove,
     insert,
+    update,
   }  = fieldArrayHelpers;
 
   const {
     getNewRow,
   } = useRowValues();
 
-  const persistedRowIdx = useRef<number>(0);
-  const dataGridRef = useRef<DataGridHandle>(null);
+  const persistedState = useRef({
+    rowIdx: 0,
+    idx: 0,
+    length: fields.length,
+  });
 
+  const dataGridRef = useRef<DataGridHandle>(null);
+  
   const fieldsLength = fields.length;
 
+  
   const handleCellKeyDown =  (
     args: CellKeyDownArgs<RowItem>, 
     event: CellKeyboardEvent,
 
   ) => {
-    
-    const { column, rowIdx } = args;
+
+    const { column, rowIdx, row } = args;
     const { idx, editable } = column;
     const { 
       key, 
@@ -51,16 +58,23 @@ export const useDataGridKeyCellKeyDown = (columns: ReturnType<typeof getColumns>
       selectCell,
     } = dataGridRef.current || {};
 
+    if (!selectCell) return; // Datagrid is not ready yet
+
+
     const preventDefault = () => {
       event.preventGridDefault();
       event.preventDefault();
     };
     
-    if (!selectCell) return; // Datagrid is not ready yet
-    persistedRowIdx.current = rowIdx;
+    persistedState.current = {
+      rowIdx,
+      length: fieldsLength,
+      idx,
+    };
     const isLastRow = rowIdx === fieldsLength - 1;
     const isLastCellOfRow = idx === columns.length - 1;
     //const isLastRowAndCell = isLastRow && isLastCellOfRow;
+    const isHeadRow = rowIdx === -1;
 
     /************
      * 編集モード
@@ -81,17 +95,50 @@ export const useDataGridKeyCellKeyDown = (columns: ReturnType<typeof getColumns>
     /*************
      * 選択モード 
      ************/
-    if (shiftKey && key === 'Delete') {
-      // 選択中のセルで、Shift + Deleteキーを押した場合、行を削除する。
-      if (rowIdx === -1) return; // ヘッダーの場合、削除しない。
-      remove(rowIdx);
+    if (shiftKey && key === 'Insert') {
+      // 選択中のセルで、Shift + Insertキーを押した場合、行をコピーする。
+      if (isHeadRow) return;
+      insert(rowIdx, { ...row });
       preventDefault();
       return;
     }
 
-    if (key === 'Insert') {
+    if (!shiftKey && key === 'Insert') {
       // 選択中のセルで、Insertキーを押した場合、行を追加する。
       insert(rowIdx, getNewRow());
+      preventDefault();
+      return;
+    }
+
+    if (shiftKey && key === 'Delete') {
+      // 選択中のセルで、Shift + Deleteキーを押した場合、行を削除する。
+      if (isHeadRow) return; // ヘッダーの場合、削除しない。
+      remove(rowIdx);
+      selectCell({ rowIdx: rowIdx - 1, idx });
+      preventDefault();
+      return;
+    }
+
+
+    if (!shiftKey && key === 'Delete') {
+      // 選択中のセルで、Deleteキーを押した場合、値をクリアする。
+      if (isHeadRow) return; // ヘッダーの場合、クリアしない。
+
+      if (editable) {
+        update(rowIdx, { ...row, [column.key]: '' });
+      }
+
+      if (!isLastCellOfRow) {
+        selectCell({ rowIdx, idx: idx + 1 });
+      } else {
+        if (!isLastRow) {
+          selectCell({ rowIdx: rowIdx + 1, idx: 0 });
+        } else {
+          selectCell({ rowIdx, idx });
+        } 
+        
+      }
+      
       preventDefault();
       return;
     }
@@ -100,7 +147,7 @@ export const useDataGridKeyCellKeyDown = (columns: ReturnType<typeof getColumns>
       // 右端のセルで、右キーを押した場合、次の行の左端のセルに移動する。
      
       if (fieldsLength === 0) return; // No rows
-      if (rowIdx === -1) {
+      if (isHeadRow) {
         // ヘッダーの場合、最初の行の左端のセルに移動する。
         selectCell({ rowIdx: 0, idx: 0 });
       } else {

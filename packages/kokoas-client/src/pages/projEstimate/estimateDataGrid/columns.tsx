@@ -209,6 +209,7 @@ export const getColumns = (): MyColumn[] => [
     key: 'rowDetails', 
     name: '備考', 
     width: 'auto',
+    editable: true,
     renderEditCell: textEditor,
   },
  

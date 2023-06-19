@@ -69,7 +69,6 @@ export const EstRow = ({
           }}
           autoCompleteProps={{
             options : majorItemOpts,
-            freeSolo: false,
           }}
         />
       )}
@@ -81,7 +80,6 @@ export const EstRow = ({
           }}
           autoCompleteProps={{
             options : middleItemOpts,
-            freeSolo: false,
           }}
         />
       )}
@@ -93,7 +91,6 @@ export const EstRow = ({
           }}
           autoCompleteProps={{
             options : materialOpts,
-            freeSolo: true,
           }}
         />
       )}

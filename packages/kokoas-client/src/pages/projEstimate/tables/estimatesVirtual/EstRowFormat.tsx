@@ -18,7 +18,7 @@ export interface EstRowFormatProps {
   rowDetails: ReactNode,
 }
 
-export const EstRowFormat = forwardRef<HTMLElement, EstRowFormatProps>((props, ref ) => {
+export const EstRowFormat = forwardRef<HTMLDivElement, EstRowFormatProps>((props, ref ) => {
   const { control } = useFormContext<TypeOfForm>();
   const status = useWatch({
     name: 'status',

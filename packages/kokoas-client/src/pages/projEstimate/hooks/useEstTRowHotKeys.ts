@@ -32,7 +32,7 @@ export const useEstTRowHotKeys = ({
     }
   }, [rowIdx, isLastRow, setFocus]);
 
-  return useHotkeys<HTMLElement>(
+  return useHotkeys<HTMLDivElement>(
     hotkeys,
     (e, handler) => {
       const { keys, meta, shift } = handler;

@@ -2,6 +2,8 @@ import { Divider, Stack, Typography } from '@mui/material';
 import { useWatch } from 'react-hook-form';
 import { TForm } from '../schema';
 import { blue, green, grey } from '@mui/material/colors';
+import { useMemo } from 'react';
+import { calcProfitRate, roundTo } from 'libs';
 
 const SummaryContent = ({
   label,
@@ -28,7 +30,33 @@ const SummaryContent = ({
 export const Summary = () => {
   const items = useWatch<TForm>({
     name: 'items',
-  });
+  }) as TForm['items'];
+
+  const {
+    totalAmountBeforeTax,
+    totalAmountAfterTax,
+    totalCostPrice,
+    totalProfit,
+  } = useMemo(() => {
+    return items.reduce( (acc, cur) => { 
+      const {
+        rowUnitPriceBeforeTax,
+        rowUnitPriceAfterTax,
+        rowCostPrice,
+        
+      } = cur;
+      acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
+      acc.totalAmountAfterTax += rowUnitPriceAfterTax;
+      acc.totalCostPrice += rowCostPrice;
+      acc.totalProfit += (rowUnitPriceAfterTax - rowCostPrice);
+      return acc;
+    }, {
+      totalAmountBeforeTax: 0,
+      totalAmountAfterTax: 0,
+      totalCostPrice: 0,
+      totalProfit: 0,
+    });
+  }, [items]);
 
   
 
@@ -51,27 +79,27 @@ export const Summary = () => {
     >
       <SummaryContent
         label='税抜金額'
-        value='1000'
+        value={roundTo(totalAmountBeforeTax).toLocaleString()}
       />
       <SummaryContent
         label='消費税'
-        value='1000'
+        value={roundTo(totalAmountAfterTax - totalAmountBeforeTax).toLocaleString()}
       />
       <SummaryContent
         label='税込金額'
-        value='1000'
+        value={roundTo(totalAmountAfterTax).toLocaleString()}
       />
       <SummaryContent
         label='原価'
-        value='1000'
+        value={roundTo(totalCostPrice).toLocaleString()}
       />
       <SummaryContent
         label='粗利'
-        value='1000'
+        value={roundTo(totalProfit).toLocaleString()}
       />
       <SummaryContent
         label='粗利率'
-        value='1000'
+        value={`${roundTo((calcProfitRate(totalCostPrice, totalAmountBeforeTax) * 100), 2).toFixed(2)} %`}
       />
     </Stack>
   );

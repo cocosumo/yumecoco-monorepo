@@ -31,7 +31,13 @@ const schema = z.object({
   totalContractAmtBeforeTax: z.number(),
 
   /** 粗利額 */
-  totalProfit: z.number().gt(0),
+  totalProfit: z.number()
+    .refine(
+      (val) => val !== 0, 
+      {
+        message: '粗利額が0円です。',
+      },
+    ),
 
   /** 粗利率 */
   profitRate: z.number(),

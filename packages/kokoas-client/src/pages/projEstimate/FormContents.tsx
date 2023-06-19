@@ -16,6 +16,7 @@ import { Remarks } from './fields/Remarks';
 import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
 import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
 import { TForm } from './schema';
+import { Summary } from './sections/Summary';
 
 
 export const FormContents = ({
@@ -97,6 +98,11 @@ export const FormContents = ({
               label: '利益率',
               disabled: projTypeProfitLatest !== 0 || disabled,
               size: 'small',
+              InputProps: {
+                sx: {
+                  maxWidth: 100,
+                },  
+              },
             }}
           />
 
@@ -109,6 +115,11 @@ export const FormContents = ({
               label: '税率',
               disabled,
               size: 'small',
+              InputProps: {
+                sx: {
+                  maxWidth: 100,
+                },  
+              },
             }}
           />
 
@@ -122,7 +133,11 @@ export const FormContents = ({
 
         <PageSubTitle3 label={<EstimateTableLabel />} />
    
-        <EstimatesDataGrid />
+        <Stack>
+          <EstimatesDataGrid />
+          <Summary />
+        </Stack>
+
       
         <PageSubTitle3 label={'大項目小計欄'} />
       

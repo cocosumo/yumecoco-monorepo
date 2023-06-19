@@ -3,7 +3,6 @@ import { grey, orange } from '@mui/material/colors';
 import { useAtomValue } from 'jotai';
 import { drawerWidthAtom, menuAtom } from 'kokoas-client/src/components/MainScreen';
 import { ReactNode } from 'react';
-import { Summary } from './Summary';
 
 
 const menuOffsetWidth = 66;
@@ -44,7 +43,6 @@ export const EstimateDataGridContainer = ({
     
     >
       {children}
-      <Summary />
     </Box>
   );
 };

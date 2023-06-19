@@ -23,7 +23,9 @@ export const StatusSelect = ({
       selectProps={{
         label: 'ステータス',
         disabled,
-
+        sx: {
+          minWidth: 120,
+        },
       }}
     >
       {statusChoices.map((choice) => (

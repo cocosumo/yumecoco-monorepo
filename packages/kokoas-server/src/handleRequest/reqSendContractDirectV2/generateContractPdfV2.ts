@@ -236,11 +236,11 @@ export const generateContractPdfV2 = async (
     {
       x: 211,
       y: 529,
-      size: 11,
+      size: 12,
       font: msChinoFont,
     },
     {
-      weight: 0.3,
+      weight: 1,
       boxWidth: 218,
       align: 'center',
     },
@@ -321,9 +321,10 @@ export const generateContractPdfV2 = async (
         x: x3,
         y: rowY,
         font: msChinoFont,
+        size: 11,
       },
       {
-        weight: 0.3,
+        weight: 0.4,
         align: 'right',
       },
     );

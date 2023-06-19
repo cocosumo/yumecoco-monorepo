@@ -77,18 +77,10 @@ export const useResolveParams = () => {
       });
 
     } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec && custRecs) {
-      const {
-        postalCode,
-        address1,
-        address2,
-      } = custRecs[0];
 
       setInitForm({
         ...initialValues,
         ...convertCustGroupToForm(custGroupRec),
-        postal: postalCode.value.replace('-', ''),
-        address1: address1.value,
-        address2: address2.value,
       });
 
     } else if (!custGroupIdFromURL && !projIdFromURL) {

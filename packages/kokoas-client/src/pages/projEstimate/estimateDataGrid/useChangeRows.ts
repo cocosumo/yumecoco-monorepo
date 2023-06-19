@@ -1,17 +1,14 @@
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
 import { useCallback } from 'react';
 import { calculateRowAmount, roundTo } from 'libs';
 import { KItem, TForm } from '../schema';
 
-export const useChangeRows = () => {
-  const { getValues, control } = useFormContext<TForm>();
-  const fieldArrayHelpers = useFieldArray({
-    name: 'items',
-    control,
-  });
+export const useChangeRows = (fieldArrayHelpers: UseFieldArrayReturn<TForm>) => {
+  const { getValues } = useFormContext<TForm>();
 
   const {
     update,
+    fields,
   } = fieldArrayHelpers;
   
   const handleRowChange = useCallback((
@@ -94,7 +91,7 @@ export const useChangeRows = () => {
 
   return {
     handleRowChange,
-    ...fieldArrayHelpers,
+    fields,
   };
 
 };

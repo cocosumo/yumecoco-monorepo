@@ -10,15 +10,20 @@ import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
 
 
 export const EstimatesDataGrid = () => {
-  const {
-    handleRowChange,
-    fields,
-  } = useChangeRows();
+
   const columns = useMemo(() => getColumns(), []);
   const {
     handleCellKeyDown,
     dataGridRef,
+    fieldArrayHelpers,
   } = useDataGridKeyCellKeyDown(columns);
+  const {
+    handleRowChange,
+  } = useChangeRows(fieldArrayHelpers);
+
+  const {
+    fields,
+  } = fieldArrayHelpers;
 
   const fieldsWithIndex =  useMemo(
     ()=>{
@@ -26,6 +31,7 @@ export const EstimatesDataGrid = () => {
     }, 
     [fields],
   );
+
 
 
   return (

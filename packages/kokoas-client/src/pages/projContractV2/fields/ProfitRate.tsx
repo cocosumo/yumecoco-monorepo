@@ -41,6 +41,9 @@ export const ProfitRate = ({
             name={name}
             variant={'outlined'}
             type='number'
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={(e) => {
               const profitRate = +e.target.value;
               onChange(typeof profitRate === 'number' ? profitRate : e.target.value);

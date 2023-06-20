@@ -1,4 +1,4 @@
-import { Button, FormHelperText, Box } from '@mui/material';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { generateParams } from '../../../helpers/url';
@@ -33,26 +33,13 @@ export const GoToContractButton = () => {
   };
 
   return (
+    <Button
+      variant={'contained'}
+      disabled={!isEnabled}
+      onClick={handleGoToContractPage}
+    >
+      契約作成
+    </Button>
 
-    <Box width={'100%'} justifyContent={'center'} display="flex">
-      <div>
-        <Button
-          variant={'contained'}
-          disabled={!isEnabled}
-          sx={{
-            minHeight: '40px',
-            minWidth: '200px',
-          }}
-          onClick={handleGoToContractPage}
-        >
-          契約画面へいく
-        </Button>
-
-        {!isEnabled &&
-        <FormHelperText>
-          {!estimateId ? '保存してください。' : '保存されていない変更があります。' }
-        </FormHelperText>}
-      </div>
-    </Box>
   );
 };

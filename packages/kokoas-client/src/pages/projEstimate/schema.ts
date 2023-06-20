@@ -5,6 +5,8 @@ z.setErrorMap(zodErrorMapJA());
 
 export const estStatusChoices = [ '契約', '銀行用', '工事実行', '追加', '追加減額'] as const;
 
+export type EstStatusChoices = typeof estStatusChoices[number];
+
 const schema = z.object({
   custGroupId : z.string(),
   customerName : z.string().nullable(),
@@ -24,7 +26,7 @@ const schema = z.object({
   projTypeProfit: z.number().max(100),
 
   projTypeProfitLatest: z.number(),
-  status: z.enum(estStatusChoices).nullable(),
+  status: z.enum(estStatusChoices),
   taxRate: z.number().max(100),
 
   items: z.array(z.object({

@@ -35,7 +35,9 @@ export const ActionButtons = ({
         mountOnEnter
         unmountOnExit
       >
-        <Stack spacing={1} direction={'row'} maxHeight={40}>
+        <Stack 
+          spacing={1} direction={'row'} maxHeight={40}
+        >
           <ProjEstimateShortcuts />
           {estimateId && <ExportMenu />}
           <BtnSaveTemporary onClick={(e) => handleSubmit(e)} />

@@ -1,4 +1,4 @@
-import { TForm } from './schema';
+import { EstStatusChoices, TForm } from './schema';
 
 
 
@@ -22,7 +22,7 @@ export const initialValues : TForm = {
   projTypeProfit: 0,
   projTypeProfitLatest: 0,
 
-  status: null,
+  status: '' as EstStatusChoices,
   taxRate: 10,
   items: [
     {

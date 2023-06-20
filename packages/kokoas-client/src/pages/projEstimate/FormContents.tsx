@@ -65,6 +65,7 @@ export const FormContents = ({
       <Stack 
         spacing={2}
         justifyContent={'flex-start'}
+        pb={10}
       >
         <DevTool control={control} placement={'top-right'} />
         
@@ -150,7 +151,7 @@ export const FormContents = ({
 
         <Divider />  
 
-        <ActionButtons />
+        <ActionButtons handleSubmit={handleSubmit} />
   
       </Stack>
 

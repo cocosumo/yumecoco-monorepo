@@ -24,8 +24,8 @@ export const Select = <T extends FieldValues>(  {
     <Controller
       {...controllerProps}
       render={({ field, fieldState }) => {
-        const { error, isTouched } = fieldState;
-        const isShowError = !!error && !!isTouched;
+        const { error } = fieldState;
+        const isShowError = !!error;
         const {
           onChange,
           value,

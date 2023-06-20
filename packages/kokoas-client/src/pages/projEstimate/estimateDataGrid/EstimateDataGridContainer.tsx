@@ -31,10 +31,11 @@ export const EstimateDataGridContainer = ({
           px: 0,
         },
         // select odd rows, except the first column
-        '& .rdg-row:nth-of-type(odd) .rdg-cell:not(:first-of-type):not(.rdg-editor-container):not([aria-readonly="true"]):not(.error-cell)' : {
+        '& .rdg-row:nth-of-type(odd):not(:hover) .rdg-cell:not(:first-of-type):not(.rdg-editor-container):not([aria-readonly="true"]):not(.error-cell)' : {
           bgcolor: orange[50],
         },
-        '& div[aria-readonly="true"]': {
+        '& div[role="row"]:not(:hover) div[aria-readonly="true"]': {
+          // 読み取り専用セル
           bgcolor: grey[100],
         },
         '& div[role="gridcell"].rdg-cell.error-cell': {
@@ -53,8 +54,11 @@ export const EstimateDataGridContainer = ({
         '& .row-over .rdg-cell': {
           borderBottom: `2px solid ${blue[500]}`,
         },
-        '& [role="row"] .rdg-cell:first-of-type' :{
+        '& div[role="row"] .rdg-cell:first-of-type' :{
           cursor: 'grab',
+        },
+        '& div[role="row"]:not(.rdg-header-row):hover' :{
+          bgcolor: blue[50],
         },
       }}
     

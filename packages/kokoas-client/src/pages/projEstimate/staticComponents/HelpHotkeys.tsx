@@ -14,7 +14,7 @@ const hotkeysHelp = [
 export const HelpHotKeys = () => {
 
   return (
-    <Grid container width={150}>
+    <Grid container width={200}>
       {
         hotkeysHelp.map(([key, info]) => (
           <Fragment key={key}>

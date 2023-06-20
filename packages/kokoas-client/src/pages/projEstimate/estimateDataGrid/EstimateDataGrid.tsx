@@ -57,7 +57,7 @@ export const EstimatesDataGrid = () => {
     return <DraggableRowRenderer key={key} {...props} onRowReorder={onRowReorder} />;
   }, [fields, setValue]);
 
-
+  console.log(fieldsWithIndex);
 
   return (
     <EstimateDataGridContainer> 

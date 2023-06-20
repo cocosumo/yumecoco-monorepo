@@ -19,9 +19,10 @@ import { Big } from 'big.js';
  * Big.roundHalfDown : 4 : 五捨六入
  * 
  */
-export const roundTo = (value: number, precision = 0, rmProperty = 1) => {
+export const roundTo = (value: number | string, precision = 0, rmProperty = 1) => {
   try {
-
+    if (value === '') return 0;
+    
     if (rmProperty === 4) {
       const base = Big(precision).plus(1)
         .toNumber();

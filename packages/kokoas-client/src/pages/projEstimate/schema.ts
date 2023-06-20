@@ -28,18 +28,18 @@ const schema = z.object({
   taxRate: z.number().max(100),
 
   items: z.array(z.object({
-    costPrice: z.number(),
-    materialProfRate: z.number().max(100),
     majorItem: z.string().nullable(),
     middleItem: z.string().nullable(),
     material: z.string().nullable(),
     materialDetails: z.string().nullable(),
-    quantity: z.number(),
     rowCostPrice: z.number(),
     rowUnitPriceBeforeTax: z.number(),
     rowUnitPriceAfterTax: z.number(),
     unit: z.string().nullable(),
-    unitPrice: z.number(),
+    costPrice: z.coerce.number(),
+    quantity: z.coerce.number(),
+    unitPrice: z.coerce.number(),
+    materialProfRate: z.coerce.number(),
     rowDetails: z.string().nullable(),
   })),
 

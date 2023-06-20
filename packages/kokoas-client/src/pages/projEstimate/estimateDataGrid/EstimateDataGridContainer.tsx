@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { blue, grey, orange, red } from '@mui/material/colors';
+import { blue, grey, orange } from '@mui/material/colors';
 import { useAtomValue } from 'jotai';
 import { drawerWidthAtom, menuAtom } from 'kokoas-client/src/components/MainScreen';
 import { ReactNode } from 'react';
@@ -41,9 +41,13 @@ export const EstimateDataGridContainer = ({
         },
         '& .row-dragging': {
           opacity: 0.5,
+          cursor: 'grabbing',
         },
         '& .row-over .rdg-cell': {
           borderBottom: `2px solid ${blue[500]}`,
+        },
+        '& [role="row"] .rdg-cell:first-of-type' :{
+          cursor: 'grab',
         },
       }}
     

@@ -20,12 +20,14 @@ export const useSaveHotkey = (
       async () => {
         await handleSubmit();
       }, 
-      800),
+      800,
+    ),
     [handleSubmit],
   );
 
   useHotkeys('meta+s',
     (e) => {
+      console.log('entered');
       e.preventDefault();
       if (options.disabled) {
     
@@ -43,7 +45,6 @@ export const useSaveHotkey = (
       enableOnFormTags: ['INPUT', 'textarea'],
       enabled: !options.disabled,
     },
-    [options],
-  );
+    [options]);
 
 };

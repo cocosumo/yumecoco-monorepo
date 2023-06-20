@@ -5,7 +5,6 @@ import { useResolveParam } from './hooks/useResolveParam';
 import { FormContents } from './FormContents';
 import { useSaveForm } from './hooks/useSaveForm';
 import { Processing } from './formActions/Processing';
-import { ActionButtons } from './formActions/ActionButtons';
 import { useFormReset } from './hooks/useFormReset';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { HeadSection } from './sections/HeadSection';
@@ -29,7 +28,7 @@ export const FormProjEstimate = () => {
 
   const {
     handleSubmit,
-    handleSubmitFinal,
+    //handleSubmitFinal,
   } = useSaveForm(formReturn);
 
 
@@ -50,14 +49,12 @@ export const FormProjEstimate = () => {
 
           <Divider />
 
-          <FormContents handleSubmit={handleSubmit} />
+          <FormContents 
+            handleSubmit={handleSubmit}
+          />
 
           <Processing />
 
-          <ActionButtons
-            handleSubmit={handleSubmit}
-            handleSubmitFinal={handleSubmitFinal}
-          />
           
         </Stack>
 

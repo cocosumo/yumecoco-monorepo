@@ -8,7 +8,6 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
-import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
 
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
@@ -18,6 +17,7 @@ import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
 import { TForm } from './schema';
 import { Summary } from './sections/Summary';
 import { DevTool } from '@hookform/devtools';
+import { ActionButtons } from './sections/ActionButton';
 
 
 export const FormContents = ({
@@ -147,12 +147,11 @@ export const FormContents = ({
         <PageSubTitle3 label={'その他'} />
      
         <Remarks />
-  
-        <Divider />
 
-        <GoToContractButton />
-  
+        <Divider />  
 
+        <ActionButtons />
+  
       </Stack>
 
     );

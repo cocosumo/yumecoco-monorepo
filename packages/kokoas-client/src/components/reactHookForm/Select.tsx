@@ -28,6 +28,7 @@ export const Select = <T extends FieldValues>(  {
         const isShowError = !!error && !!isTouched;
         const {
           onChange,
+          value,
           ...otherFieldProps
         } = field;
 
@@ -39,6 +40,7 @@ export const Select = <T extends FieldValues>(  {
             <MuiSelect
               {...otherFieldProps}
               {...selectProps}
+              value={value || ''}
               onChange={(e, child) => {
                 onChange(e);
                 customOnChange?.(e, child);

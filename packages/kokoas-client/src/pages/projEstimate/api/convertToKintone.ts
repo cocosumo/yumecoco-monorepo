@@ -34,15 +34,8 @@ export const convertToKintone = ({
         unitPrice,
         rowDetails,
       },
-      index,
     ) => {
 
-      if (index === items.length - 1
-        && !(+(costPrice ?? 0))
-      ) {
-        // 最終行の原価はゼロだと、保存しない
-        return acc;
-      }
 
       acc.push({
         id: '', // 自動生成

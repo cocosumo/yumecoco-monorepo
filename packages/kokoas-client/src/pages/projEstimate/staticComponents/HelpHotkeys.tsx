@@ -2,11 +2,13 @@ import { Grid } from '@mui/material';
 import { Fragment } from 'react';
 
 const hotkeysHelp = [
-  ['ctrl + s', '一時保存'],
-  ['ctrl + i', '行追加'],
-  ['ctrl + delete', '行削除'],
-  ['ctrl + enter', '次の行に移動'],
-  ['ctrl + shift + i', '下にコピー'],
+  ['enter', '編集（セル移動）'],
+  ['tab', 'セル移動'],
+  ['矢印', 'セル移動'],
+  ['insert', '行追加'],
+  ['shift + insert', '下にコピー'],
+  ['delete', '削除'],
+  ['shift + delete', '行削除'],
 ];
 
 export const HelpHotKeys = () => {

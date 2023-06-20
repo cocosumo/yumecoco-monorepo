@@ -19,7 +19,7 @@ const MajorItemSelect = ({
 
   return (
     <Select
-      value={row.majorItem || undefined}
+      value={row.majorItem ?? ''}
       onChange={(event) => onRowChange({ ...row, majorItem: event.target.value }, true)}
       autoFocus
       size='small'
@@ -28,6 +28,9 @@ const MajorItemSelect = ({
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
     >
+      <MenuItem value={''}>
+        ---
+      </MenuItem >
       {data?.map(({ value }) => (
         <MenuItem key={value} value={value}>
           {value}

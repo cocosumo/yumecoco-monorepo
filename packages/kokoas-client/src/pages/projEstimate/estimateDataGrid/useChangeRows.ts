@@ -16,7 +16,7 @@ export const useChangeRows = (fieldArrayHelpers: UseFieldArrayReturn<TForm>) => 
     fieldName: KItem,
     rows: TForm['items'],
   ) => {
-
+ 
     const taxRate = getValues('taxRate') / 100;
     const {
       costPrice,

@@ -44,9 +44,9 @@ export const zodErrorMapJA =
           };
         case z.ZodIssueCode.invalid_enum_value:
           return {
-            message: `Invalid enum value. Expected ${issue.options
+            message: `「${issue.options
               .map((val) => (typeof val === 'string' ? `'${val}'` : val))
-              .join(' | ')}`,
+              .join(' | ')}」から選択肢ください`,
           };
         case z.ZodIssueCode.invalid_arguments:
           return {

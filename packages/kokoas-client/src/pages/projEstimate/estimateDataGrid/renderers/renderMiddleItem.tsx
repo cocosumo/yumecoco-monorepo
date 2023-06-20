@@ -13,13 +13,13 @@ const MiddleItemSelect = ({
 
   const { data } = useMaterialsMid({
     select: (d) => d
-      .filter(({ 大項目名: majorItem }) => majorItem.value === row.majorItem)
+      .filter(({ 大項目名: majorItem }) => !row.majorItem || row.majorItem === majorItem.value )
       .map(({ 中項目名: midItem }) => midItem.value ),
   });
 
   return (
     <Autocomplete
-      value={row.middleItem ?? undefined}
+      value={row.middleItem ?? ''}
       freeSolo
       options={data ?? []}
       onChange={(_, value) => {

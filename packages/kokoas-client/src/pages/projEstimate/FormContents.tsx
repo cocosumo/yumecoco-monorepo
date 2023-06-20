@@ -17,6 +17,7 @@ import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTit
 import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
 import { TForm } from './schema';
 import { Summary } from './sections/Summary';
+import { DevTool } from '@hookform/devtools';
 
 
 export const FormContents = ({
@@ -65,7 +66,7 @@ export const FormContents = ({
         spacing={2}
         justifyContent={'flex-start'}
       >
-
+        <DevTool control={control} placement={'top-right'} />
         
         {!!projTypeProfitLatest
           && projTypeProfitLatest !== 0

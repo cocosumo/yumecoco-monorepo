@@ -1,22 +1,34 @@
 import 'react-data-grid/lib/styles.css';
-import DataGrid from 'react-data-grid';
-import { useMemo } from 'react';
+import DataGrid, { RenderRowProps } from 'react-data-grid';
+import { useCallback, useMemo } from 'react';
 import { RowItem, getColumns } from './columns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from './useChangeRows';
-import { KItem } from '../schema';
+import { KItem, TForm } from '../schema';
 import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DraggableRowRenderer } from './DraggableRowRenderer';
+
 
 
 
 export const EstimatesDataGrid = () => {
+  const {
+    control,
+    setValue,
+  } = useFormContext<TForm>();
+  const fieldArrayHelpers = useFieldArray({
+    name: 'items',
+    control,
+  });
 
   const columns = useMemo(() => getColumns(), []);
   const {
     handleCellKeyDown,
     dataGridRef,
-    fieldArrayHelpers,
-  } = useDataGridKeyCellKeyDown(columns);
+  } = useDataGridKeyCellKeyDown(fieldArrayHelpers, columns);
   const {
     handleRowChange,
   } = useChangeRows(fieldArrayHelpers);
@@ -27,40 +39,56 @@ export const EstimatesDataGrid = () => {
 
   const fieldsWithIndex =  useMemo(
     ()=>{
+      
       return fields.map((field, index) => ({ ...field, index }));
     }, 
     [fields],
   );
 
+  const renderRow = useCallback((key: React.Key, props: RenderRowProps<RowItem>) => {
+    function onRowReorder(fromIndex: number, toIndex: number) {
+
+      const newRows = [...fields];
+      newRows.splice(toIndex, 0, newRows.splice(fromIndex, 1)[0]);
+
+      setValue('items', newRows);
+    }
+
+    return <DraggableRowRenderer key={key} {...props} onRowReorder={onRowReorder} />;
+  }, [fields, setValue]);
+
 
 
   return (
-    <EstimateDataGridContainer>  
-      <DataGrid 
-        rowKeyGetter={(row: RowItem ) => row.id}
-        className='rdg-light' // enforce light theme 
-        columns={columns} 
-        ref={dataGridRef}
-        rows={fieldsWithIndex}
-        defaultColumnOptions={{
-          resizable: true,
-          width: 'max-content',
-        }}
-        onRowsChange={(rows, changedRow) => {
-          const {
-            indexes,
-            column,
-          } = changedRow;
-          const {
-            key,
-          } = column;
-          const changedIndex = indexes[0];
+    <EstimateDataGridContainer> 
+      <DndProvider backend={HTML5Backend}>
+        <DataGrid 
+          rowKeyGetter={(row: RowItem ) => row.id}
+          className='rdg-light' // enforce light theme 
+          columns={columns} 
+          ref={dataGridRef}
+          rows={fieldsWithIndex}
+          defaultColumnOptions={{
+            resizable: true,
+            width: 'max-content',
+          }}
+          renderers={{ renderRow }}
+          onRowsChange={(rows, changedRow) => {
+            const {
+              indexes,
+              column,
+            } = changedRow;
+            const {
+              key,
+            } = column;
+            const changedIndex = indexes[0];
 
-          handleRowChange(changedIndex, key as KItem, rows);
-        }} 
-        style={{ height: '100%' }}
-        onCellKeyDown={handleCellKeyDown}        
-      />
+            handleRowChange(changedIndex, key as KItem, rows);
+          }} 
+          style={{ height: '100%' }}
+          onCellKeyDown={handleCellKeyDown}
+        />
+      </DndProvider>
     </EstimateDataGridContainer>
   );
 };

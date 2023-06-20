@@ -1,7 +1,6 @@
 import { parseISO } from 'date-fns';
 import { calculateRowAmount, formatDataId, roundTo } from 'libs';
 import { IProjestimates } from 'types';
-import { initialValues } from '../form';
 import { TunitChoices } from '../validationSchema';
 import { TForm } from '../schema';
 
@@ -84,25 +83,6 @@ export const convertEstimateToForm = (
 
     };
   });
-
-  /*
-    仮想行の追加
-    useAdvancedTableRow listens to changes on the last row to insert a virtual row,
-    but that makes the form "dirty".
-
-    To keep "dirty" false on initial load, I added it here.
-    This will need further refactoring as the user requirements become more stable.
-  */
-  if (!initialValues?.items?.[0]) throw new Error('!initialValues.items[0] is undefined');
-
-
-  // 契約ないなら、仮想行を追加する
-  if (!envStatus.value) {
-    newItems.push({
-      ...initialValues.items[0],
-      materialProfRate: +projTypeProfit.value,
-    });
-  }
 
   /* フォーム */
   return {

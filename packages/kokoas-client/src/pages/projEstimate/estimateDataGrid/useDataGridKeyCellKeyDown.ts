@@ -1,7 +1,7 @@
 import { CellKeyDownArgs, CellKeyboardEvent, DataGridHandle } from 'react-data-grid';
 import { RowItem, getColumns } from './columns';
 import { useRef } from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { UseFieldArrayReturn } from 'react-hook-form';
 import { TForm } from '../schema';
 import { useRowValues } from '../hooks';
 
@@ -12,11 +12,10 @@ import { useRowValues } from '../hooks';
  * ここには、Datagridのkeydownイベントを処理する関数が入っている。
  * 
  */
-export const useDataGridKeyCellKeyDown = (columns: ReturnType<typeof getColumns>) => {
-
-  const fieldArrayHelpers = useFieldArray<TForm>({
-    name: 'items',
-  });
+export const useDataGridKeyCellKeyDown = (
+  fieldArrayHelpers: UseFieldArrayReturn<TForm>,
+  columns: ReturnType<typeof getColumns>,
+) => {
 
   const { 
     fields, 

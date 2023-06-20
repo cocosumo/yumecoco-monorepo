@@ -44,6 +44,7 @@ export const EstimateContent = (props: Partial<EstTableProps> & {
               size='small'
               variant='outlined'
               href='https://rdmuhwtt6gx7.cybozu.com/k/177/#/project/estimate/register?projId=8f605463-6496-4099-a442-96947f9fadcf'
+              target='_blank '
             >
               最新版を検証する
             </Button>

@@ -25,7 +25,7 @@ export const GoToContractButton = () => {
   const handleGoToContractPage = () => {
    
 
-    navigate(`${pages.projContractPreview}?${generateParams({
+    navigate(`${pages.projContractPreviewV2}?${generateParams({
       projId: getValues('projId'),
       custGroupId: getValues('custGroupId'),
       projEstimateId: getValues('estimateId'),

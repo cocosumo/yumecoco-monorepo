@@ -42,7 +42,7 @@ export const EstimatesDataGrid = () => {
 
   const fieldsWithIndex =  useMemo(
     ()=>{
-      
+      console.log('triggerred');
       return fields.map((field, index) => ({ ...field, index }));
     }, 
     [fields],

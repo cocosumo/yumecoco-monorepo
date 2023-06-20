@@ -12,7 +12,7 @@ export const HeadSection = () => {
     <Stack 
       direction={'row'} 
       spacing={2}
-      justifyContent={'space-between'}
+      justifyContent={'flex-start'}
     >
       <SearchProjects
         controllerProps={{

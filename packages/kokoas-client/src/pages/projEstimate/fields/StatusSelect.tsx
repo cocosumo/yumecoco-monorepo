@@ -1,8 +1,7 @@
 import { MenuItem } from '@mui/material';
 import { Select } from 'kokoas-client/src/components/reactHookForm';
 import { Control } from 'react-hook-form';
-import { statusChoices } from '../validationSchema';
-import { TForm } from '../schema';
+import { TForm, estStatusChoices } from '../schema';
 
 export const StatusSelect = ({
   control,
@@ -28,7 +27,10 @@ export const StatusSelect = ({
         },
       }}
     >
-      {statusChoices.map((choice) => (
+      <MenuItem value={''}>
+        ---
+      </MenuItem>
+      {estStatusChoices.map((choice) => (
         <MenuItem key={choice} value={choice}>
           {choice}
         </MenuItem>

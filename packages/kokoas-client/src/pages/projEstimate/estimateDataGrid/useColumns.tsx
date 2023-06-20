@@ -6,7 +6,7 @@ import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
 import { renderMaterials } from './renderers/renderMaterials';
-import { FieldErrors } from 'react-hook-form';
+import { useFormState } from 'react-hook-form';
 
 export type RowItem = TItem & { 
   id: string,
@@ -34,9 +34,14 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 };
 
 
-export const getColumns = (errors?: FieldErrors<TForm>): MyColumn[] => {
+
+
+export const useColumns = (): MyColumn[] => {
+  const {
+    errors,
+  } = useFormState<TForm>();
+
   const itemErrors = errors?.items;
-  
   return [
     {
       key: 'index',
@@ -118,6 +123,9 @@ export const getColumns = (errors?: FieldErrors<TForm>): MyColumn[] => {
       key: 'quantity', 
       name: '数量', 
       editable: true,
+      cellClass: ({ index }) => {
+        return itemErrors?.[index]?.quantity ? 'error-cell' : '';
+      },
       renderEditCell: textEditor,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -145,6 +153,9 @@ export const getColumns = (errors?: FieldErrors<TForm>): MyColumn[] => {
       key: 'materialProfRate', 
       name: '粗利率', 
       editable: true,
+      cellClass: ({ index }) => {
+        return itemErrors?.[index]?.materialProfRate ? 'error-cell' : '';
+      },
       renderEditCell: textEditor,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -166,6 +177,9 @@ export const getColumns = (errors?: FieldErrors<TForm>): MyColumn[] => {
       key: 'unitPrice', 
       name: '単価', 
       editable: true,
+      cellClass: ({ index }) => {
+        return itemErrors?.[index]?.unitPrice ? 'error-cell' : '';
+      },
       renderEditCell: textEditor,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>

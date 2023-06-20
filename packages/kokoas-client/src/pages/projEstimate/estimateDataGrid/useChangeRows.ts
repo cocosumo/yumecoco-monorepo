@@ -1,15 +1,19 @@
 import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { calculateRowAmount, roundTo } from 'libs';
 import { KItem, TForm } from '../schema';
 
 export const useChangeRows = (fieldArrayHelpers: UseFieldArrayReturn<TForm>) => {
-  const { getValues } = useFormContext<TForm>();
+  const { getValues, trigger } = useFormContext<TForm>();
 
   const {
     update,
     fields,
   } = fieldArrayHelpers;
+
+  useEffect(() => {
+    trigger('items');
+  }, [fields, trigger]);
   
   const handleRowChange = useCallback((
     index: number, 
@@ -87,7 +91,7 @@ export const useChangeRows = (fieldArrayHelpers: UseFieldArrayReturn<TForm>) => 
 
     update(index, newRow);
 
-  }, [update, getValues]);
+  }, [ getValues, update ]);
 
   return {
     handleRowChange,

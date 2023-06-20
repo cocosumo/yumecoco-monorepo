@@ -1,5 +1,5 @@
 import { RenderEditCellProps } from 'react-data-grid';
-import { RowItem } from '../columns';
+import { RowItem } from '../useColumns';
 import { useMaterialsMajor } from 'kokoas-client/src/hooksQuery';
 import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';

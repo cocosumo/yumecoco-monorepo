@@ -41,7 +41,7 @@ export const EstimateDataGridContainer = ({
           // エラーがあるセル
           bgcolor: red[50],
           //outline: `1px solid ${red[500]}`,
-          border: `2px solid ${red[500]}`,
+          border: `1px solid ${red[300]}`,
         },
         '& div[row="columnheader"]': {
           bgcolor: grey[600],

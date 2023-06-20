@@ -1,7 +1,7 @@
 import 'react-data-grid/lib/styles.css';
 import DataGrid, { RenderRowProps } from 'react-data-grid';
 import { useCallback, useMemo } from 'react';
-import { RowItem, getColumns } from './columns';
+import { RowItem, useColumns } from './useColumns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from './useChangeRows';
 import { KItem, TForm } from '../schema';
@@ -18,9 +18,6 @@ export const EstimatesDataGrid = () => {
   const {
     control,
     setValue,
-    formState: {
-      errors,
-    },
   } = useFormContext<TForm>();
 
   const fieldArrayHelpers = useFieldArray({
@@ -31,10 +28,8 @@ export const EstimatesDataGrid = () => {
     fields,
   } = fieldArrayHelpers;
 
-  const columns = useMemo(() => {
-    if (!fields) return [];
-    return getColumns(errors);
-  }, [errors, fields]);
+  const columns = useColumns();
+
   const {
     handleCellKeyDown,
     dataGridRef,

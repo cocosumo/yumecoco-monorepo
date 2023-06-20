@@ -1,5 +1,5 @@
 import { RenderEditCellProps } from 'react-data-grid';
-import { RowItem } from '../columns';
+import { RowItem } from '../useColumns';
 import { useMaterialsMid } from 'kokoas-client/src/hooksQuery';
 import { Autocomplete, TextField } from '@mui/material';
 import { useRef } from 'react';

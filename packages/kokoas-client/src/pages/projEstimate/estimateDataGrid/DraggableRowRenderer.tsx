@@ -4,7 +4,6 @@ import { RenderRowProps, Row } from 'react-data-grid';
 
 
 
-
 interface DraggableRowRenderProps<R, SR> extends RenderRowProps<R, SR> {
   onRowReorder: (sourceIndex: number, targetIndex: number) => void;
 }
@@ -16,6 +15,7 @@ export function DraggableRowRenderer<R, SR>({
   onRowReorder,
   ...props
 }: DraggableRowRenderProps<R, SR>) {
+
   const [{ isDragging }, drag] = useDrag({
     type: 'ROW_DRAG',
     item: { index: rowIdx },

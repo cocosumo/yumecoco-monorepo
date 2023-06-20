@@ -18,13 +18,23 @@ export const EstimatesDataGrid = () => {
   const {
     control,
     setValue,
+    formState: {
+      errors,
+    },
   } = useFormContext<TForm>();
+
   const fieldArrayHelpers = useFieldArray({
     name: 'items',
     control,
   });
+  const {
+    fields,
+  } = fieldArrayHelpers;
 
-  const columns = useMemo(() => getColumns(), []);
+  const columns = useMemo(() => {
+    if (!fields) return [];
+    return getColumns(errors);
+  }, [errors, fields]);
   const {
     handleCellKeyDown,
     dataGridRef,
@@ -33,9 +43,7 @@ export const EstimatesDataGrid = () => {
     handleRowChange,
   } = useChangeRows(fieldArrayHelpers);
 
-  const {
-    fields,
-  } = fieldArrayHelpers;
+
 
   const fieldsWithIndex =  useMemo(
     ()=>{
@@ -56,8 +64,6 @@ export const EstimatesDataGrid = () => {
 
     return <DraggableRowRenderer key={key} {...props} onRowReorder={onRowReorder} />;
   }, [fields, setValue]);
-
-  console.log(fieldsWithIndex);
 
   return (
     <EstimateDataGridContainer> 

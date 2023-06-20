@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { blue, grey, orange } from '@mui/material/colors';
+import { blue, grey, orange, red } from '@mui/material/colors';
 import { useAtomValue } from 'jotai';
 import { drawerWidthAtom, menuAtom } from 'kokoas-client/src/components/MainScreen';
 import { ReactNode } from 'react';
@@ -14,6 +14,7 @@ export const EstimateDataGridContainer = ({
 }) => {
   const menuOpen = useAtomValue(menuAtom);
   const menuWidth = useAtomValue(drawerWidthAtom);
+
   return (
     <Box
       sx={{
@@ -30,11 +31,17 @@ export const EstimateDataGridContainer = ({
           px: 0,
         },
         // select odd rows, except the first column
-        '& .rdg-row:nth-of-type(odd) .rdg-cell:not(:first-of-type):not(.rdg-editor-container):not([aria-readonly="true"])' : {
+        '& .rdg-row:nth-of-type(odd) .rdg-cell:not(:first-of-type):not(.rdg-editor-container):not([aria-readonly="true"]):not(.error-cell)' : {
           bgcolor: orange[50],
         },
         '& div[aria-readonly="true"]': {
           bgcolor: grey[100],
+        },
+        '& div[role="gridcell"].rdg-cell.error-cell': {
+          // エラーがあるセル
+          bgcolor: red[50],
+          //outline: `1px solid ${red[500]}`,
+          border: `2px solid ${red[500]}`,
         },
         '& div[row="columnheader"]': {
           bgcolor: grey[600],

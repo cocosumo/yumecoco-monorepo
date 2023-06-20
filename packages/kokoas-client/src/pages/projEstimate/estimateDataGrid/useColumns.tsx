@@ -94,7 +94,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'materialDetails', 
       name: '部材備考', 
       editable: true,
-      minWidth: 150,
+      width: 150,
       renderEditCell: textEditor,
     },
     { 

@@ -43,7 +43,7 @@ export const OtherInfo = ({
       },
       {
         label: '見積番号',
-        value: projEstimateId.value,
+        value: projEstimateId.value || '-',
       },
     ];
 

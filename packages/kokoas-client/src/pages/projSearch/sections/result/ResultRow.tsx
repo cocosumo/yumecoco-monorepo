@@ -22,10 +22,8 @@ export const ResultRow = (props: RowLayoutProps) => {
   return (
     <>
 
-
       <RowLayout {...props} onClick={handleOpen} />
-   
-    
+  
       <DetailsDialog 
         open={open} 
         handleClose={handleClose}

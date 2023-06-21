@@ -36,9 +36,8 @@ export const EstimatesDataGrid = () => {
   } = useDataGridKeyCellKeyDown(fieldArrayHelpers, columns);
   const {
     handleRowChange,
-  } = useChangeRows(fieldArrayHelpers);
-
-
+    handleFill,
+  } = useChangeRows();
 
   const fieldsWithIndex =  useMemo(
     ()=>{
@@ -73,6 +72,7 @@ export const EstimatesDataGrid = () => {
             width: 'max-content',
           }}
           renderers={{ renderRow }}
+          onFill={handleFill}
           onRowsChange={(rows, changedRow) => {
             const {
               indexes,
@@ -81,9 +81,7 @@ export const EstimatesDataGrid = () => {
             const {
               key,
             } = column;
-            const changedIndex = indexes[0];
-
-            handleRowChange(changedIndex, key as KItem, rows);
+            handleRowChange(indexes, key as KItem, rows);
           }} 
           style={{ height: '100%' }}
           onCellKeyDown={handleCellKeyDown}

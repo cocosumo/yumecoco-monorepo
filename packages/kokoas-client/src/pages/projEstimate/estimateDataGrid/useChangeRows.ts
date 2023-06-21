@@ -1,38 +1,32 @@
-import { UseFieldArrayReturn, useFormContext } from 'react-hook-form';
-import { useCallback, useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useCallback } from 'react';
 import { calculateRowAmount, roundTo } from 'libs';
 import { KItem, TForm } from '../schema';
+import { FillEvent } from 'react-data-grid';
+import { RowItem } from './useColumns';
+import { produce } from 'immer';
 
-export const useChangeRows = (fieldArrayHelpers: UseFieldArrayReturn<TForm>) => {
-  const { getValues, trigger } = useFormContext<TForm>();
 
-  const {
-    update,
-    fields,
-  } = fieldArrayHelpers;
 
-  useEffect(() => {
-    trigger('items');
-  }, [fields, trigger]);
-  
-  const handleRowChange = useCallback((
-    index: number, 
-    fieldName: KItem,
-    rows: TForm['items'],
-  ) => {
- 
+
+
+export const useChangeRows = () => {
+  const { getValues, setValue } = useFormContext<TForm>();
+
+  const calculatedRow = (row: RowItem, fieldName: KItem) => {
     const taxRate = getValues('taxRate') / 100;
+
     const {
       costPrice,
       quantity,
       materialProfRate,
       unitPrice,
-    }  = rows[index];
+
+    } = row;
 
     const profitRate = materialProfRate / 100;
-    
-    let newRow = { ...rows[index] };
-    
+    let newRow = { ...row };
+
 
     switch (fieldName) {
       case 'quantity':
@@ -89,13 +83,40 @@ export const useChangeRows = (fieldArrayHelpers: UseFieldArrayReturn<TForm>) => 
 
     }
 
-    update(index, newRow);
+    return  newRow;
+  };
 
-  }, [ getValues, update ]);
+
+  const handleRowChange = useCallback((
+    indexes: number[], 
+    fieldName: KItem,
+    rows: RowItem[],
+  ) => {
+    //update(index, newRow);
+
+    setValue(
+      'items', 
+      produce(rows, draft => {
+        indexes.forEach((index) => {
+          draft[index] = calculatedRow(rows[index], fieldName);
+        });
+      }),
+      {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      },
+    );
+
+  }, [ getValues, setValue  ]);
+
+  function handleFill({ columnKey, sourceRow, targetRow }: FillEvent<RowItem>): RowItem {
+    return { ...targetRow, [columnKey]: sourceRow[columnKey as keyof RowItem] };
+  }
 
   return {
     handleRowChange,
-    fields,
+    handleFill,
   };
 
 };

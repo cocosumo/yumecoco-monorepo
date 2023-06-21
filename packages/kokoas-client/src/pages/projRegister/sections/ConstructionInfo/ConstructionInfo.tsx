@@ -1,15 +1,13 @@
 
-import { Grid, FormHelperText, Button } from '@mui/material';
+import { Grid } from '@mui/material';
 import { PageSubTitle } from '../../../../components/ui/labels/';
 import { ConstructionAgent } from './ConstructionAgent';
 import { FormikLabeledCheckBox } from '../../../../components/ui/checkboxes';
-import { useState } from 'react';
 import { FormikSelect } from '../../../../components/ui/selects';
 import { FormikTextFieldV2 as  FormikTextField } from '../../../../components/ui/textfield';
 import { TypeOfForm, getFieldName } from '../../form';
 import { useFormikContext } from 'formik';
 import { useProjTypes } from 'kokoas-client/src/hooksQuery/';
-import { ContractDetails } from './ContractDetails';
 import { Territory } from 'types';
 import { useIsFetching } from '@tanstack/react-query';
 
@@ -27,7 +25,6 @@ export const ConstructionInfo = (
   const {
     values: {
       cocoConst1,
-      projId,
       hasContract,
       isAgentConfirmed,
       andpadDetails,
@@ -48,8 +45,6 @@ export const ConstructionInfo = (
 
   const isLoading = !!useIsFetching();  
 
-  const [open, setOpen] = useState(false);
-
   const {
     案件フロー: andpadStatus,
   } = andpadDetails || {};
@@ -58,14 +53,6 @@ export const ConstructionInfo = (
   // Andpad上で、編集出来なかったので、実値がわからないです。よって、「完工」が含むにしています。
   // ざっくりの実装で、不具合があれば、修正します。
   const isConstructionCompleted = !!andpadStatus?.includes('完工');
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
 
   return (
@@ -91,23 +78,7 @@ export const ConstructionInfo = (
 
         </Grid>
 
-        <Grid item xs={12} md={4}>
-          {hasContract &&
-            <>
-              <FormHelperText>
-                契約済みのため編集できません
-              </FormHelperText>
-              <Button variant="text" size='small' onClick={handleClickOpen}>
-                詳しく見る
-              </Button>
-
-              <ContractDetails
-                open={open}
-                onClose={handleClose}
-                projId={projId ?? ''}
-              />
-            </>}
-        </Grid>
+       
         <Grid item xs={12}>
           <FormikTextField name={getFieldName('projName')} label="工事名称" placeholder="氏名/会社名様邸　工事種別"
             disabled={hasContract} required

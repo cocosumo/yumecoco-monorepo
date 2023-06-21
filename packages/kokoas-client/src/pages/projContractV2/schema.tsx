@@ -12,7 +12,7 @@ export const payMethods = ['持参', '集金', '振込'] as const;
 const schema = z.object({
 
   /** 見積番号 */
-  projEstimateId: z.string().uuid(),
+  projEstimateId: z.string(),
 
   /** 顧客グループ番号 */
   custGroupId: z.string(),

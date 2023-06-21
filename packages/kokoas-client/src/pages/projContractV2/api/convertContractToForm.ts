@@ -10,6 +10,7 @@ export const convertContractToForm = (
   const {
     uuid,
     projId,
+    projEstimateId,
 
     totalContractAmt,
     totalProfit,
@@ -70,6 +71,7 @@ export const convertContractToForm = (
   return {
     contractId: uuid.value,
     projId: projId.value,
+    projEstimateId: projEstimateId.value,
 
     totalContractAmtAfterTax: roundTo(+totalContractAmt.value),
     totalProfit: roundTo(+totalProfit.value),

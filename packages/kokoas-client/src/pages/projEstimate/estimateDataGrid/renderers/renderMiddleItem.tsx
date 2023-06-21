@@ -23,7 +23,7 @@ const MiddleItemSelect = ({
       freeSolo
       options={data ?? []}
       onChange={(_, value) => {
-        onRowChange({ ...row, middleItem: value }, true);
+        onRowChange({ ...row, middleItem: value || '' }, true);
       }}
       onBlur={(e) => {
         onRowChange({ ...row, middleItem: (e.target as HTMLInputElement).value }, true);

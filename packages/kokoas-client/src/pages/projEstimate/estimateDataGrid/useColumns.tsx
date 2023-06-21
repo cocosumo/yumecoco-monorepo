@@ -6,7 +6,7 @@ import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
 import { renderMaterials } from './renderers/renderMaterials';
-import { useFormState } from 'react-hook-form';
+import { useFormState, useWatch } from 'react-hook-form';
 
 export type RowItem = TItem & { 
   id: string,
@@ -40,8 +40,18 @@ export const useColumns = (): MyColumn[] => {
   const {
     errors,
   } = useFormState<TForm>();
+  const [
+    contractId,
+  ] = useWatch<TForm>({
+    name: [
+      'contractId',
+    ],
+  });
 
   const itemErrors = errors?.items;
+  const isEnabled = !contractId;
+  
+  
   return [
     {
       key: 'index',
@@ -58,7 +68,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'majorItem', 
       name: '大項目', 
-      editable: true, 
+      editable: isEnabled, 
       sortable: true, 
       resizable: true, 
       frozen: true,
@@ -68,7 +78,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'middleItem', 
       name: '中項目', 
-      editable: true,
+      editable: isEnabled,
       frozen: true,
       width: 200,
 
@@ -81,7 +91,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'material', 
       name: '部材', 
-      editable: true,
+      editable: isEnabled,
       frozen: true,
       width: 150,
       editorOptions: {
@@ -93,14 +103,14 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'materialDetails', 
       name: '部材備考', 
-      editable: true,
+      editable: isEnabled,
       width: 150,
       renderEditCell: textEditor,
     },
     { 
       key: 'costPrice', 
       name: '原価', 
-      editable: true,
+      editable: isEnabled,
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.costPrice ? 'error-cell' : '';
       },
@@ -122,7 +132,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'quantity', 
       name: '数量', 
-      editable: true,
+      editable: isEnabled,
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.quantity ? 'error-cell' : '';
       },
@@ -145,14 +155,14 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'unit', 
       name: '単位', 
-      editable: true,
+      editable: isEnabled,
       minWidth: 75,
       renderEditCell: renderUnits,
     },
     { 
       key: 'materialProfRate', 
       name: '粗利率', 
-      editable: true,
+      editable: isEnabled,
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.materialProfRate ? 'error-cell' : '';
       },
@@ -176,7 +186,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'unitPrice', 
       name: '単価', 
-      editable: true,
+      editable: isEnabled,
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.unitPrice ? 'error-cell' : '';
       },
@@ -230,7 +240,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'rowDetails', 
       name: '備考', 
       width: 'auto',
-      editable: true,
+      editable: isEnabled,
       renderEditCell: textEditor,
     },
  

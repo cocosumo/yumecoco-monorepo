@@ -22,7 +22,7 @@ const Materials = (props: RenderEditCellProps<RowItem>) => {
       freeSolo
       options={data ?? []}
       onChange={(_, value) => {
-        onRowChange({ ...row, material: value }, true);
+        onRowChange({ ...row, material: value || '' }, true);
       }}
       onBlur={(e) => {
         onRowChange({ ...row, material: (e.target as HTMLInputElement).value }, true);

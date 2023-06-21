@@ -6,7 +6,7 @@ import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from './useChangeRows';
 import { KItem, TForm } from '../schema';
 import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
@@ -19,6 +19,10 @@ export const EstimatesDataGrid = () => {
     control,
     setValue,
   } = useFormContext<TForm>();
+
+  const hasOnProcessContract = useWatch({
+    name: 'hasOnProcessContract',
+  });
 
   const fieldArrayHelpers = useFieldArray({
     name: 'items',
@@ -84,7 +88,7 @@ export const EstimatesDataGrid = () => {
             handleRowChange(indexes, key as KItem, rows);
           }} 
           style={{ height: '100%' }}
-          onCellKeyDown={handleCellKeyDown}
+          onCellKeyDown={hasOnProcessContract ? undefined : handleCellKeyDown}
         />
       </DndProvider>
     </EstimateDataGridContainer>

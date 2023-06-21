@@ -3,21 +3,22 @@ import { EstStatusChoices, TForm } from './schema';
 
 
 export const initialValues : TForm = {
+  hasOnProcessContract: false,
   custGroupId: '',
 
-  customerName: null,
-  createdDate: null,
+  customerName: '',
+  createdDate: undefined,
 
-  estimateId: undefined,
-  estimateDataId: null,
-  estimateRevision: null,
-  envStatus: null,
+  estimateId: '',
+  estimateDataId: '',
+  estimateRevision: '',
+  envStatus: '',
 
   projDataId: '',
   projId: '',
   projName: '',
 
-  projTypeId: null,
+  projTypeId: '',
   projTypeName: null,
   projTypeProfit: 0,
   projTypeProfitLatest: 0,
@@ -28,8 +29,8 @@ export const initialValues : TForm = {
     {
       costPrice: 0,
       materialProfRate: 0,
-      majorItem: null,
-      middleItem: null,
+      majorItem: '',
+      middleItem: '',
       material: '',
       materialDetails: '',
       quantity: 1,

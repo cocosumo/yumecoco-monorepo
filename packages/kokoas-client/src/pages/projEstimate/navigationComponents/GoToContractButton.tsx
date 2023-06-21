@@ -14,12 +14,18 @@ export const GoToContractButton = () => {
   const { isDirty } = useFormState();
 
 
-  const estimateId = useWatch({
-    name: 'estimateId',
+  const [
+    estimateId,
+    hasOnProcessContract,
+  ] = useWatch({
+    name: [
+      'estimateId',
+      'hasOnProcessContract',
+    ],
     control,
   });
 
-  const isEnabled = estimateId && !isDirty;
+  const isEnabled = estimateId && !isDirty && !hasOnProcessContract;
 
 
   const handleGoToContractPage = () => {

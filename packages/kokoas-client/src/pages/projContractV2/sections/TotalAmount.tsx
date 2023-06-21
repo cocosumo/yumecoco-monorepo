@@ -17,11 +17,18 @@ export const TotalAmount = ({
 }: {
   disabled: boolean
 }) => {
-  const projEstimateId = useWatch<TypeOfForm>({
-    name: 'projEstimateId',
-  }) as string;
+  const [
+    projEstimateId,
+    envelopeStatus,
+  ] = useWatch<TypeOfForm>({
+    name: [
+      'projEstimateId',
+      'envelopeStatus',
+    ],
+  });
 
   const hasEstimate = !!projEstimateId;
+  const isOnProcess = !!envelopeStatus;
 
   return (
     <>
@@ -32,16 +39,19 @@ export const TotalAmount = ({
           <Button 
             color='inherit' 
             size='small'
-            href={`#${pages.projEstimate}?${generateParams({ projEstimateId })}`}
+            variant='outlined'
+            href={`#${pages.projEstimate}?${generateParams({ projEstimateId: projEstimateId as string })}`}
           >
-            見積書を編集
+            見積
           </Button>
           )}
       >
         <AlertTitle>
           見積書からのデータ
         </AlertTitle>
-        見積書から紐づいています。金額の編集は右のボタンから見積書を編集してください。
+        見積書から紐づいています。
+        {isOnProcess ? '右のボタンでご覧頂けます。' : '金額の編集は右のボタンから見積書を編集してください。'}
+       
         </Alert>
       )}
       <Stack

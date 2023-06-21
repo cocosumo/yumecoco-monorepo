@@ -35,7 +35,7 @@ export const FormProjEstimate = () => {
     control,
   } = formReturn;
 
-
+  console.log(initialForm);
 
   return (
     <FormProvider {...formReturn}>

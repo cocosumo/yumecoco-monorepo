@@ -8,20 +8,22 @@ export const estStatusChoices = [ '契約', '銀行用', '工事実行', '追加
 export type EstStatusChoices = typeof estStatusChoices[number];
 
 const schema = z.object({
+  hasOnProcessContract: z.boolean(),
+  contractId: z.string().optional(),
   custGroupId : z.string(),
-  customerName : z.string().nullable(),
-  createdDate : z.date().nullable(),
+  customerName : z.string().optional(),
+  createdDate : z.date().optional(),
 
   estimateId: z.string().optional(),
-  estimateDataId: z.string().nullable(),
-  estimateRevision: z.string().nullable(),
-  envStatus: z.string().nullable(),
+  estimateDataId: z.string().optional(),
+  estimateRevision: z.string().optional(),
+  envStatus: z.string().optional(),
 
   projDataId: z.string(),
   projId: z.string(),
   projName: z.string(),
 
-  projTypeId: z.string().nullable(),
+  projTypeId: z.string().optional(),
   projTypeName: z.string().nullable(),
   projTypeProfit: z.number().max(100),
 
@@ -30,10 +32,10 @@ const schema = z.object({
   taxRate: z.number().max(100),
 
   items: z.array(z.object({
-    majorItem: z.string().nullable(),
-    middleItem: z.string().nullable(),
-    material: z.string().nullable(),
-    materialDetails: z.string().nullable(),
+    majorItem: z.string().optional(),
+    middleItem: z.string().optional(),
+    material: z.string().optional(),
+    materialDetails: z.string().optional(),
     rowCostPrice: z.number(),
     rowUnitPriceBeforeTax: z.number(),
     rowUnitPriceAfterTax: z.number(),

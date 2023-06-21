@@ -1,4 +1,4 @@
-import { Divider, Stack } from '@mui/material';
+import { Alert, Button, Divider, Stack } from '@mui/material';
 import {
   TextField,
   PercentField,
@@ -18,6 +18,9 @@ import { TForm } from './schema';
 import { Summary } from './sections/Summary';
 import { DevTool } from '@hookform/devtools';
 import { ActionButtons } from './sections/ActionButton';
+import { useIsFetching } from '@tanstack/react-query';
+import { pages } from '../Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
 
 
 export const FormContents = ({
@@ -25,7 +28,7 @@ export const FormContents = ({
 }: {
   handleSubmit: UseSaveForm['handleSubmit']
 }) => {
-
+  const busy = !!useIsFetching();
   const {
     control,
   } = useFormContext<TForm>();
@@ -37,18 +40,20 @@ export const FormContents = ({
     projId,
     projTypeProfit,
     projTypeProfitLatest,
-    envStatus,
+    hasOnProcessContract,
+    contractId,
   ] = useWatch({
     control,
     name: [
       'projId',
       'projTypeProfit',
       'projTypeProfitLatest',
-      'envStatus',
+      'hasOnProcessContract',
+      'contractId',
     ],
   });
 
-  const disabled = !!envStatus;
+  const disabled = hasOnProcessContract || busy;
   
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(
@@ -73,7 +78,21 @@ export const FormContents = ({
           && projTypeProfitLatest !== 0
           && +(projTypeProfit ?? 0) !== +projTypeProfitLatest
           && !disabled && <MismatchedProfit />}
-   
+        {!!contractId && (
+          <Alert
+            action={(
+              <Button
+                variant={'outlined'}
+                size={'small'}
+                href={`#${pages.projContractPreviewV2}?${generateParams({ contractId: contractId as string })}`}
+              >
+                契約
+              </Button>
+            )}
+          >
+            当見積の契約が進捗中です。右のボタンで契約を確認頂けます。
+          </Alert>
+        )}
 
         <Stack 
           direction={'row'}

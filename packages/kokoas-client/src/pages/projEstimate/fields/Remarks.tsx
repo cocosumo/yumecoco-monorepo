@@ -1,6 +1,5 @@
 import { useFormContext } from 'react-hook-form';
 import { TextField } from '@mui/material';
-import { ja } from '../hooks/utils/fieldTranslations';
 import { TForm } from '../schema';
 
 export const Remarks = () => {
@@ -10,7 +9,7 @@ export const Remarks = () => {
   
   return (
     <TextField
-      label={ja[regFieldProps.name]}
+      label={'備考'}
       multiline
       rows={4}
       fullWidth

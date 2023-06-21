@@ -64,6 +64,7 @@ export const useResolveParams = () => {
       const {
         projName,
         custGroupId,
+        
       } = projData;
 
       setNewFormVal(prev => ({

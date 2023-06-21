@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initialForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useContractById, useEstimateById, useProjById } from 'kokoas-client/src/hooksQuery';
+import { useContractById, useContractsByEstId, useEstimateById, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertContractToForm } from '../api/convertContractToForm';
 import { roundTo } from 'libs';
 
@@ -16,8 +16,10 @@ export const useResolveParams = () => {
 
 
   const { data: projEstimateData } = useEstimateById(projEstimateIdFromURL || '');
+  const { data: contractsByEstId } = useContractsByEstId(projEstimateIdFromURL || '');
 
   const { data: contractData } = useContractById(contractIdFromURL || '');
+
   const { data: projData } = useProjById(
     contractData?.projId.value 
     || projEstimateData?.record.projId.value
@@ -33,6 +35,8 @@ export const useResolveParams = () => {
       const {
         calculated,
       } = projEstimateData;
+
+      const contractDataByEstId = contractsByEstId?.[0];
 
       const {
         uuid: projId,
@@ -59,6 +63,7 @@ export const useResolveParams = () => {
         costPrice: totalCostPrice,
         totalProfit: totalProfit,
         profitRate: roundTo(overallProfitRate * 100, 2),
+        ...(contractDataByEstId ? convertContractToForm(contractDataByEstId) : {}),
       }));
     } else if (contractIdFromURL && projData && contractData) {
       const {
@@ -93,6 +98,7 @@ export const useResolveParams = () => {
     projData,
     contractData,
     projEstimateData,
+    contractsByEstId,
   ]);
 
   return { 

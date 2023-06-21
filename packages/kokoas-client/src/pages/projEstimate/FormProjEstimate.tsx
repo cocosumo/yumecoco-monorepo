@@ -1,4 +1,4 @@
-import { Divider, Stack } from '@mui/material';
+import { Divider, LinearProgress, Stack } from '@mui/material';
 import { Form, FormProvider, useForm } from 'react-hook-form';
 
 import { useResolveParam } from './hooks/useResolveParam';
@@ -9,9 +9,11 @@ import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { HeadSection } from './sections/HeadSection';
 import schema, { TForm } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useIsFetching } from '@tanstack/react-query';
 
 export const FormProjEstimate = () => {
   const { initialForm } = useResolveParam();
+  const isLoading = !!useIsFetching();
 
   const formReturn = useForm<TForm>({
     defaultValues: initialForm,
@@ -35,7 +37,7 @@ export const FormProjEstimate = () => {
     control,
   } = formReturn;
 
-  console.log(initialForm);
+  if (isLoading) (<LinearProgress />);
 
   return (
     <FormProvider {...formReturn}>

@@ -13,7 +13,7 @@ import { produce } from 'immer';
 export const useChangeRows = () => {
   const { getValues, setValue } = useFormContext<TForm>();
 
-  const calculatedRow = (row: RowItem, fieldName: KItem) => {
+  const calculatedRow = useCallback((row: RowItem, fieldName: KItem) => {
     const taxRate = getValues('taxRate') / 100;
 
     const {
@@ -84,7 +84,7 @@ export const useChangeRows = () => {
     }
 
     return  newRow;
-  };
+  }, [ getValues ]);
 
 
   const handleRowChange = useCallback((
@@ -108,7 +108,10 @@ export const useChangeRows = () => {
       },
     );
 
-  }, [ getValues, setValue  ]);
+  }, [ 
+    setValue, 
+    calculatedRow,  
+  ]);
 
   function handleFill({ columnKey, sourceRow, targetRow }: FillEvent<RowItem>): RowItem {
     return { ...targetRow, [columnKey]: sourceRow[columnKey as keyof RowItem] };

@@ -14,7 +14,6 @@ export * from './useContractCorrectView';
 export * from './useContractFilesById';
 export * from './useContracts';
 export * from './useContractsByCustGroupId';
-export * from './useContractsByProjId';
 export * from './useContractsByProjIdV2';
 export * from './useConvertToAndpadByProjId';
 export * from './useCustGroupById';

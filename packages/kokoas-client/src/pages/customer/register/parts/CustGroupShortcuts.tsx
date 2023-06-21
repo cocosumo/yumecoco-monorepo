@@ -1,7 +1,7 @@
 
 
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useConfirmDialog } from '../../../../hooks';
+import { useConfirmDialog } from '../../../../hooks';
 import { pages } from '../../../Router';
 
 import { Shortcuts, ShortCutType } from '../../../../components/ui/speedDials/Shortcuts';

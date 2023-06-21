@@ -1,6 +1,14 @@
 import { RowLayout, RowLayoutProps } from './RowLayout';
-import { useState } from 'react';
 import { DetailsDialog } from './details/DetailsDialog';
+import { useNavigate } from 'react-router-dom';
+import { pages } from 'kokoas-client/src/pages/Router';
+import qs from 'qs';
+import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
+
+
+type DetailsDialogProps = {
+  open: boolean;
+};
 
 export const ResultRow = (props: RowLayoutProps) => {
 
@@ -9,14 +17,18 @@ export const ResultRow = (props: RowLayoutProps) => {
     projName,
   } = props;
 
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const {
+    open = true,
+  } = useURLParamsV2<DetailsDialogProps>();
 
   const handleOpen = () => {
-    setOpen(true);
+    navigate(`${pages.projSearch}?${qs.stringify({ open: true })}`);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    navigate(`${pages.projSearch}?${qs.stringify({ open: false })}`);
   };
 
   return (
@@ -25,7 +37,6 @@ export const ResultRow = (props: RowLayoutProps) => {
 
       <RowLayout {...props} onClick={handleOpen} />
    
-    
       <DetailsDialog 
         open={open} 
         handleClose={handleClose}

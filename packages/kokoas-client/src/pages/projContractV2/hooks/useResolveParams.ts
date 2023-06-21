@@ -14,6 +14,7 @@ export const useResolveParams = () => {
     projEstimateId: projEstimateIdFromURL,
   } = useURLParams();
 
+
   const { data: projEstimateData } = useEstimateById(projEstimateIdFromURL || '');
 
   const { data: contractData } = useContractById(contractIdFromURL || '');

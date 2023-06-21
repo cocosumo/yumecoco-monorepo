@@ -34,11 +34,6 @@ const Materials = (props: RenderEditCellProps<RowItem>) => {
           fullWidth
           autoFocus
           inputRef={ref}
-          onFocus={(e) => {
-            setTimeout(() => {
-              e.target.select();
-            }, 50);
-          }} 
           variant='standard'
           InputProps={{
             ...params.InputProps,

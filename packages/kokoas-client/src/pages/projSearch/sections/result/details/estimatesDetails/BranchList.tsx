@@ -3,23 +3,27 @@ import {
   List, 
   ListItem, 
   ListItemButton, 
-  ListSubheader, 
+  ListSubheader,
+  Tooltip, 
 } from '@mui/material';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { IProjestimates } from 'types';
 import { ListItemLayout } from './ListItemLayout';
+import { useContractsByProjIdV2 } from 'kokoas-client/src/hooksQuery';
+import { green } from '@mui/material/colors';
 
 export const BranchList = ({
   records,
   handleSetIndex,
   selectedIndex,
+  projId,
 }: {
   records?: IProjestimates[],
   handleSetIndex: (idx: number) => void,
   selectedIndex: number,
-  
+  projId: string,
 }) => {
-
+  const { data: recContracts } = useContractsByProjIdV2(projId);
 
 
   return (
@@ -45,22 +49,31 @@ export const BranchList = ({
       </ListSubheader>
       <Divider />
 
-      {records?.map(({ uuid, $id, dataId, 作成日時: createDate }, index) => (
+      {records?.map(({ uuid, $id, dataId, 作成日時: createDate }, index) => {
 
-        <ListItem key={uuid?.value || $id.value} disablePadding>
-          <ListItemButton 
-            divider
-            onClick={() => handleSetIndex(index)}
-            selected={selectedIndex === index}
-          >
-            <ListItemLayout 
-              createDate={`${parseISOTimeToFormat(createDate.value, 'yy/MM/dd')}`}
-              branchNum={dataId.value.split('-').at(-1)}
-            />
+        const hasContract = recContracts?.some(({ projEstimateId }) => projEstimateId.value === uuid.value );
+
+        return (
+          <Tooltip key={uuid?.value || $id.value} title={hasContract ? '契約有ります' : ''}>
+            <ListItem disablePadding>
+              <ListItemButton 
+                divider
+                onClick={() => handleSetIndex(index)}
+                selected={selectedIndex === index}
+                sx={{
+                  bgcolor: hasContract ? green[50] : undefined,
+                }}
+              >
+                <ListItemLayout 
+                  createDate={`${parseISOTimeToFormat(createDate.value, 'yy/MM/dd')}`}
+                  branchNum={dataId.value.split('-').at(-1)}
+                />
              
-          </ListItemButton>
-        </ListItem>
-      ))}
+              </ListItemButton>
+            </ListItem>
+          </Tooltip>
+        );
+      })}
 
     </List>
   );

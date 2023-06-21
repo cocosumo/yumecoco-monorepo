@@ -14,8 +14,8 @@ import { CustomerSummary } from './sections/CustomerSummary';
 import { ProjectSummary } from './sections/ProjectSummary';
 import { ContractStatus } from './sections/ContractStatus';
 
-export const FormContract = () => {
 
+export const FormContract = () => {
   const {
     newFormVal,
   } = useResolveParams();

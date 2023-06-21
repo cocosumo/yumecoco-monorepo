@@ -44,6 +44,7 @@ export const EstimatesDetails = ({
         handleSetIndex={handleSetIndex} 
         records={records}
         selectedIndex={selectedEstIdx}
+        projId={projId}
       />
      
       {isLoading && <LinearProgress />}

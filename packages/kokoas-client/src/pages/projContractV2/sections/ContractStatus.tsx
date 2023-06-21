@@ -16,9 +16,11 @@ export const ContractStatus = () => {
 
   const contractId = useWatch<TypeOfForm>({
     name: 'contractId',
-  });
+  }) as string;
 
-  const { data: contractData, isLoading } = useContractById(contractId as string);
+  const { data: contractData, isLoading } = useContractById(contractId || '');
+  
+  const isBusy = contractId && isLoading;
 
   const {
     envRecipients,
@@ -62,10 +64,10 @@ export const ContractStatus = () => {
         spacing={0} 
         divider={<ArrowRightIcon sx={{ color: 'GrayText' }} />}
       >
-        {isLoading && (
+        {isBusy && (
           <CircularProgress size={20} />
         )}
-        {!isLoading && !parsedEnvRecipients.length && (envelopeStatus?.value as TEnvelopeStatus) === 'sent' && (
+        {!isBusy && !parsedEnvRecipients.length && (envelopeStatus?.value as TEnvelopeStatus) === 'sent' && (
         <Alert severity='info'>
           {(signMethod?.value as TSignMethod) === 'electronic'
             ? 'まだ誰もサインしていません。'
@@ -73,7 +75,7 @@ export const ContractStatus = () => {
         </Alert>
         )}
 
-        {!isLoading && !hasContract  && (
+        {!isBusy && !hasContract  && (
           <Alert severity='info'>
             {contractId ? '未処理' : '新規' }
           </Alert>

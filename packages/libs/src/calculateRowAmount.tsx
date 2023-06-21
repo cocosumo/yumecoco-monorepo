@@ -91,6 +91,26 @@ export const calculateRowAmount = (
       profitRate: rowProfitRate,
       rowProfit,
     };
+  } else if (p.unitPrice && p.quantity && !p.costPrice ) { 
+    const {
+      amountBeforeTax: rowUnitPriceBeforeTax,
+      amountAfterTax: rowUnitPriceAfterTax,
+      profitRate: rowProfitRate,
+      profit: rowProfit,
+      costPrice: rowCostPrice,
+    } = calculateAmount({
+      amountBeforeTax: +p.unitPrice * +p.quantity,
+      costPrice: 0,
+    });
+
+    result = {
+      ...result,
+      rowCostPrice,
+      rowUnitPriceBeforeTax,
+      rowUnitPriceAfterTax,
+      profitRate: rowProfitRate,
+      rowProfit,
+    };
   } else {
     //　網羅的にテスト出来ないため、残す
     console.warn('No calculation perfomed', p);

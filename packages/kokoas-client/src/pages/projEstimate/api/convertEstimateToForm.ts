@@ -29,7 +29,7 @@ export const convertEstimateToForm = (
   const parsedTaxRate = +tax.value / 100;
 
   /* 内訳 */
-  const newItems : TForm['items'] = estimateTable.map(({ value: row }) => {
+  const newItems : TForm['items'] = estimateTable.map(({ value: row }, idx) => {
     const {
       原価,
       大項目,
@@ -58,6 +58,11 @@ export const convertEstimateToForm = (
       taxRate: parsedTaxRate,
       unitPrice: +単価.value,
     });
+
+    if ( +原価.value === 0 ) {
+      console.log('原価が0です。', row, idx);
+      console.log(rowUnitPriceAfterTax, profitRate);
+    }
 
     // On empty row, adopt project type's profit rate.
     let resolveRowProfitRate = roundTo(profitRate * 100, 2);

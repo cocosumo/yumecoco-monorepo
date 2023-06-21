@@ -3,6 +3,7 @@ import { initialForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useContractById, useEstimateById, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertContractToForm } from '../api/convertContractToForm';
+import { roundTo } from 'libs';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialForm);
@@ -56,7 +57,7 @@ export const useResolveParams = () => {
         totalContractAmtBeforeTax: totalAmountBeforeTax,
         costPrice: totalCostPrice,
         totalProfit: totalProfit,
-        profitRate: overallProfitRate,
+        profitRate: roundTo(overallProfitRate * 100, 2),
       }));
     } else if (contractIdFromURL && projData && contractData) {
       const {

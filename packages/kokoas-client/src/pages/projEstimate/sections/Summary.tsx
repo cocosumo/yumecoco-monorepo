@@ -48,7 +48,7 @@ export const Summary = () => {
       acc.totalAmountBeforeTax += rowUnitPriceBeforeTax;
       acc.totalAmountAfterTax += rowUnitPriceAfterTax;
       acc.totalCostPrice += rowCostPrice;
-      acc.totalProfit += (rowUnitPriceAfterTax - rowCostPrice);
+      acc.totalProfit += (rowUnitPriceBeforeTax - rowCostPrice);
       return acc;
     }, {
       totalAmountBeforeTax: 0,

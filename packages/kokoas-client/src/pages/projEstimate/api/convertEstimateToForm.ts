@@ -29,7 +29,7 @@ export const convertEstimateToForm = (
   const parsedTaxRate = +tax.value / 100;
 
   /* 内訳 */
-  const newItems : TForm['items'] = estimateTable.map(({ value: row }, idx) => {
+  const newItems : TForm['items'] = estimateTable.map(({ value: row }) => {
     const {
       原価,
       大項目,

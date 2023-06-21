@@ -1,8 +1,10 @@
 import { DialogContent, List, ListItemButton, Typography, Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { format,  parseISO } from 'date-fns';
 import { ContentWarning } from 'kokoas-client/src/components/ui/dialogs/ContentWarning';
 import { Caption } from 'kokoas-client/src/components/ui/typographies';
+import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { useProjsByCustGroupId } from 'kokoas-client/src/hooksQuery/useProjsByCustGroupId';
 import { useMemo } from 'react';
 import { IProjects } from 'types';
@@ -17,14 +19,16 @@ export const SelectProjInCustGroupContent = ({
   onChange: (projRec: IProjects) => void
 }) => {
   const { data: projRecs } = useProjsByCustGroupId(custGroupId || '');
+  const { data: custGroupRec } = useCustGroupById(custGroupId || '');
 
   const options = useMemo(() => {
-
+    if (!custGroupRec) return;
     if (!projRecs?.length) {
       return (
         <ContentWarning content={'工事情報はまだ作成されていません'} direction="row" />
       );
     }
+
 
     return projRecs?.map((projRec) => {
 
@@ -34,11 +38,14 @@ export const SelectProjInCustGroupContent = ({
         作成日時: createTime,
         cocoAGNames,
         yumeAGNames,
-        cocoConstNames,
+        //cocoConstNames,
+        agents,
         address1,
         address2,
         postal,
       } = projRec;
+
+      const cocoConstNames = getAgentNamesByType(agents, 'cocoConst');
 
       return (
         <ListItemButton
@@ -71,7 +78,7 @@ export const SelectProjInCustGroupContent = ({
             <Stack>
               <Caption text={`ゆめてつAG：${yumeAGNames.value}`} />
               <Caption text={`ここすも担当者：${cocoAGNames.value}`} />
-              <Caption text={`工事担当者：${cocoConstNames.value}`} />
+              <Caption text={`工事担当者：${cocoConstNames}`} />
             </Stack>
           </Stack>
         </ListItemButton>
@@ -80,6 +87,7 @@ export const SelectProjInCustGroupContent = ({
 
   },
   [
+    custGroupRec,
     projRecs,
     handleClose,
     onChange,

@@ -59,11 +59,6 @@ export const convertEstimateToForm = (
       unitPrice: +単価.value,
     });
 
-    if ( +原価.value === 0 ) {
-      console.log('原価が0です。', row, idx);
-      console.log(rowUnitPriceAfterTax, profitRate);
-    }
-
     // On empty row, adopt project type's profit rate.
     let resolveRowProfitRate = roundTo(profitRate * 100, 2);
     if (!rowUnitPriceAfterTax && !profitRate) {

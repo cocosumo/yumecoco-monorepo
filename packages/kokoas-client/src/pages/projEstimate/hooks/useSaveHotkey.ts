@@ -25,9 +25,9 @@ export const useSaveHotkey = (
     [handleSubmit],
   );
 
-  useHotkeys('meta+s',
+
+  useHotkeys('Control+s',
     (e) => {
-      console.log('entered');
       e.preventDefault();
       if (options.disabled) {
     
@@ -42,7 +42,7 @@ export const useSaveHotkey = (
 
     },
     {
-      enableOnFormTags: ['INPUT', 'textarea'],
+      // /enableOnFormTags: ['INPUT', 'textarea'],
       enabled: !options.disabled,
     },
     [options]);

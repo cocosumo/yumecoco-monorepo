@@ -51,6 +51,7 @@ export const useDataGridKeyCellKeyDown = (
     const { 
       key, 
       shiftKey,
+      ctrlKey,
     } = event;
 
     const {
@@ -75,6 +76,14 @@ export const useDataGridKeyCellKeyDown = (
     //const isLastRowAndCell = isLastRow && isLastCellOfRow;
     const isHeadRow = rowIdx === -1;
 
+    /**********
+     * 無視するキー
+     **********/
+    if (ctrlKey && key === 's') {
+      preventDefault();
+      return;
+    } 
+
     /************
      * 編集モード
      ***********/
@@ -94,6 +103,7 @@ export const useDataGridKeyCellKeyDown = (
     /*************
      * 選択モード 
      ************/
+
     if (shiftKey && key === 'Insert') {
       // 選択中のセルで、Shift + Insertキーを押した場合、行をコピーする。
       if (isHeadRow) return;

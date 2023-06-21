@@ -38,6 +38,10 @@ export const EstimateDataGridContainer = ({
           // 読み取り専用セル
           bgcolor: `${grey[100]} !important`,
         },
+        '& div[role="row"]:nth-of-type(odd):not(:hover) div[aria-readonly="true"]': {
+          // 読み取り専用セル
+          bgcolor: 'white !important',
+        },
         '& div[role="row"] > div[role="gridcell"].rdg-cell.error-cell': {
           // エラーがあるセル
           bgcolor: `${red[50]} !important`,

@@ -1,14 +1,15 @@
 declare namespace DBTicketsystem {
   interface Data {
     completedTime: kintone.fieldTypes.DateTime;
-    importance: kintone.fieldTypes.DropDown;
     requestMethod: kintone.fieldTypes.DropDown;
     dueDate: kintone.fieldTypes.Date;
     title: kintone.fieldTypes.SingleLineText;
     priority: kintone.fieldTypes.DropDown;
     requestTime: kintone.fieldTypes.DateTime;
+    scope: kintone.fieldTypes.DropDown;
     announcementTitle: kintone.fieldTypes.SingleLineText;
     details: kintone.fieldTypes.RichText;
+    updateType: kintone.fieldTypes.DropDown;
 
     requestor: kintone.fieldTypes.UserSelect;
     attachment: kintone.fieldTypes.File;

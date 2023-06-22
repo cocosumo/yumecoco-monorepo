@@ -155,6 +155,7 @@
     "shortid": "^2.2.16",
     "string-similarity": "^4.0.4",
     "styled-components": "^5.3.10",
+    "svg-url-loader": "^8.0.0",
     "text-mask-addons": "^3.8.0",
     "ts-node": "^10.5.0",
     "tslib": "^2.5.3",

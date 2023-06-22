@@ -72,6 +72,9 @@ export const AppIds = {
 
   /** 単位 */
   units : 228,
+  
+  /**　システムの依頼  */
+  ticketSystem: 236,
 
   ...(isProd ? prodAppIds : devAppIds),
 } as const;

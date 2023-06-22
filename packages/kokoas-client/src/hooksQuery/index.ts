@@ -7,6 +7,7 @@ export * from './useAllContracts';
 export * from './useAndpadByProjName';
 export * from './useAndpadOrderByProjId';
 export * from './useCommonOptions';
+export * from './useCompletedTickets';
 export * from './useContractById';
 export * from './useContractCheckersByStoreId';
 export * from './useContractCorrectView';

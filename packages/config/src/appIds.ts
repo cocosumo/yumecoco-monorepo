@@ -70,6 +70,9 @@ export const AppIds = {
   /** 郵便番号 */
   postalCode: 219,
 
+  /**　システムの依頼  */
+  ticketSystem: 236,
+
   ...(isProd ? prodAppIds : devAppIds),
 } as const;
 

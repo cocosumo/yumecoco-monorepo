@@ -2,7 +2,6 @@ import { Stack } from '@mui/material';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { useFormContext } from 'react-hook-form';
 import { EstimatesInfo } from '../staticComponents/EstimatesInfo';
-import { ButtonMenu } from '../fields/ButtonMenu';
 import { TForm } from '../schema';
 
 export const HeadSection = () => {
@@ -21,8 +20,6 @@ export const HeadSection = () => {
         }}
       />
       <EstimatesInfo />
-
-      <ButtonMenu />
 
 
     </Stack>

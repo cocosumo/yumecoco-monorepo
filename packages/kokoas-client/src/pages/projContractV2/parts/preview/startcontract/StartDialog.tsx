@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, Step, StepLabel, Stepper } from '@mui/material';
+import { Dialog, DialogTitle, Step, StepLabel, Stepper } from '@mui/material';
 import { useState } from 'react';
 import { StepConfirmation } from './StepConfirmation';
 import { StepChooseSignMethod } from './StepChooseSignMethod';
@@ -21,6 +21,7 @@ export const StartDialog = ({
 }) => {
   const [method, setMethod] = useState<TSignMethod>('electronic');
   const [activeStep, setActiveStep] = useState(0);
+
   const {
     getValues,
   } = useFormContext<TypeOfForm>();
@@ -70,38 +71,34 @@ export const StartDialog = ({
           ))}
         </Stepper>
       </DialogTitle>
-      <DialogContent>
+      {activeStep === 0 && (
+      <StepConfirmation 
+        handleCancel={handleCloseDialog}
+        handleYes={() => setActiveStep(prev => prev + 1)}
+      /> 
+      )}
 
-        {activeStep === 0 && (
-        <StepConfirmation 
-          handleCancel={handleCloseDialog}
-          handleYes={() => setActiveStep(prev => prev + 1)}
-        /> 
-        )}
+      {activeStep === 1 && (
+      <StepChooseSignMethod handleChooseMethod={handleChooseMethod} handleClose={handleCloseDialog} />
+      )}
 
-        {activeStep === 1 && (
-          <StepChooseSignMethod handleChooseMethod={handleChooseMethod} handleClose={handleCloseDialog} />
-        )}
+      {!isLoading && activeStep === 2 && method === 'electronic' && (
+      <StepCheckElectronicFlow 
+        handleSendContract={handleSendContract}
+        handleCancel={handleCloseDialog}
+      />
+      )}
 
-        {!isLoading && activeStep === 2 && method === 'electronic' && (
-          <StepCheckElectronicFlow 
-            handleSendContract={handleSendContract}
-            handleCancel={handleCloseDialog}
-          />
-        )}
+      {!isLoading && activeStep === 2 && method === 'wetInk' && (
+      <StepCheckWetInkFlow  
+        handleSendContract={handleSendContract}
+        handleCancel={handleCloseDialog}
+      />
+      )}
 
-        {!isLoading && activeStep === 2 && method === 'wetInk' && (
-          <StepCheckWetInkFlow  
-            handleSendContract={handleSendContract}
-            handleCancel={handleCloseDialog}
-          />
-        )}
-
-        {isLoading && activeStep === 2 && (
-          <Loading />
-        )}
-
-      </DialogContent>
+      {isLoading && activeStep === 2 && (
+      <Loading />
+      )}
 
     </Dialog>
 

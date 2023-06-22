@@ -28,6 +28,9 @@ export type KStores = keyof IStores;
 export type IPostalcode = DBPostalcode.SavedData;
 export type KPostalcode = keyof IPostalcode;
 
+export type ITicketsystem = DBTicketsystem.SavedData;
+export type KTicketsystem = keyof ITicketsystem;
+
 export type ICustomers = DBCustomers.SavedData;
 export type KCustomers = keyof ICustomers;
 

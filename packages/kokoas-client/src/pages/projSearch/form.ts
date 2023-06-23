@@ -6,7 +6,7 @@ export const initialForm : TypeOfForm = {
   order: 'asc',
   keyword: null,
 
-  includeDeletedCust: false,
+  includeDeleted: false,
   
   custName: null,
   address: null,

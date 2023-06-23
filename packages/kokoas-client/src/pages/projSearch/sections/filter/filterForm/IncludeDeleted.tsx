@@ -8,7 +8,7 @@ export const IncludeDeleted = () => {
   return (
     <Controller 
       control={control}
-      name="includeDeletedCust"
+      name="includeDeleted"
       render={({
         field: {
           value,

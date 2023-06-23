@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Unstable_Grid2/';
 import { StaticContents } from 'kokoas-client/src/components';
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
@@ -66,18 +65,18 @@ export const CustomerSummary = () => {
 
 
   return (
-    <Grid xs={12}>
-      <StaticContents 
-        editUrl={`${pages.custGroupEdit}?${generateParams({
-          custGroupId: custGroupId as string,
-          projId: projId as string,
-        })}`}
-        data={parsedData}
-        isLoading={isLoading}
-      > 
-        {custGroupId && <Customers custGroupId={custGroupId as string} />}
-      </StaticContents>
 
-    </Grid>
+    <StaticContents 
+      editUrl={`${pages.custGroupEdit}?${generateParams({
+        custGroupId: custGroupId as string,
+        projId: projId as string,
+      })}`}
+      data={parsedData}
+      isLoading={isLoading}
+    > 
+      {custGroupId && <Customers custGroupId={custGroupId as string} />}
+    </StaticContents>
+
+   
   );
 };

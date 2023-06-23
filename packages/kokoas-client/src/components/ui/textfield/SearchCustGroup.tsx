@@ -58,7 +58,8 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
         };
 
       }),
-    });
+    },
+  );
 
   useEffect(() => {
     if (newOptions?.length) {
@@ -81,13 +82,19 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
       getOptionLabel={(opt) => opt.name}
       isOptionEqualToValue={(opt, val) => opt.id === val.id}
       filterOptions={(x) => x}
+      sx={{
+        maxWidth: 400,
+      }}
       renderInput={(params) => (
         <TextField
           {...params}
           {...inputProps}
-          fullWidth
-          InputProps={isFetching ?  { endAdornment: <CircularProgress size={20} /> } : params.InputProps}
+          size='small'
+          InputProps={isFetching ?  { 
+            endAdornment: <CircularProgress size={20} />, 
+          } : params.InputProps}
           placeholder="山田　タロウ"
+          
         />)}
       renderOption={(p, opt) => {
         const key = `listItem-${opt.id}`;

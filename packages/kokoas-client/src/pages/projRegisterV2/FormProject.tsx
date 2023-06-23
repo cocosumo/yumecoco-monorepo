@@ -1,12 +1,14 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { Form, FormProvider, useForm } from 'react-hook-form';
 import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {  schema } from './schema';
 import { useEffect } from 'react';
-import { EmptyBox, MainContainer2, PageTitle2 } from 'kokoas-client/src/components';
+import { EmptyBox } from 'kokoas-client/src/components';
 import { RecordSelect } from './sections/RecordSelect';
 import { Contents } from './Contents';
 import { TypeOfForm } from './form';
+import { Stack } from '@mui/material';
+import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 
 export const FormProject = () => {
   
@@ -35,15 +37,16 @@ export const FormProject = () => {
 
   return (
     <FormProvider {...formReturn}>
-      <form noValidate>
-        <MainContainer2 spacing={4} alignItems={'center'}>
-          <PageTitle2
+      <Form noValidate>
+        <Stack 
+          spacing={2}
+        >
+          <PageTitle3
             label={`工事情報${projId ? '編集' : '登録'}`}
             secondaryLabel={projDataId}
             backgroundColor='#60498C'
             color='#FFF'
           />
-
           <RecordSelect />
 
           {!custGroupId && (
@@ -51,12 +54,11 @@ export const FormProject = () => {
               顧客を選択してください
             </EmptyBox>
           )}
- 
 
           {!!custGroupId && (<Contents />)}
-
-        </MainContainer2>
-      </form>
+ 
+        </Stack>
+      </Form>
     </FormProvider>
   );
 };

@@ -106,7 +106,10 @@ export const ProjectDetails = ({
     const otherDetails: IDetail[] = [
       {
         label: 'ステータス',
-        value: cancelStatus.value || '有効',
+        value: cancelStatus.value
+          .split(',')
+          .filter(Boolean) // There are empty strings in the array
+          .join(',') || '有効',
       },
       {
         label: '作成日時',

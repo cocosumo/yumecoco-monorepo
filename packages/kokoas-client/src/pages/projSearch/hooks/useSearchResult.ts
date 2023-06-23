@@ -36,6 +36,7 @@ export const useSearchResult =  () => {
     completionDateTo,
     order,
     orderBy = 'storeSortNumber',
+    includeDeleted,
   } = parsedQuery || {};
 
   const { data: selectedStoreIds } = useStoreIds(stores ?? []);
@@ -60,9 +61,10 @@ export const useSearchResult =  () => {
           projTypeId,
           dataId,
           agents: projAgents,
+          cancelStatus: projCancelStatus,
         } = curr; // 工事情報;
 
-
+        const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
         const projAddress = addressBuilder({
           postal: postal.value,
           address1: address1.value,
@@ -87,7 +89,10 @@ export const useSearchResult =  () => {
           storeName,
           storeId,
           agents,
+          isDeleted,
         } = custGroup;
+
+        const isCustGroupDeleted = isDeleted.value === '1';
 
         const cocoAGs = getAgentsByType(agents, 'cocoAG');
         const cocoAGNames = cocoAGs.map(({ value: { employeeName } }) => employeeName.value);
@@ -155,7 +160,14 @@ export const useSearchResult =  () => {
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && finishDate?.value && completionDateFrom <= parseISO(finishDate?.value));
         const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
-        
+        const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
+
+        if (projCancelStatus.value || isDeleted.value === '1' ) {
+          console.log(includeDeleted, isProjectDeleted, isCustGroupDeleted, projCancelStatus.value, isDeleted.value);
+        }
+
+
+
         if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName
@@ -168,6 +180,7 @@ export const useSearchResult =  () => {
             && isMatchcontractDateTo
             && isMatchcompletionDateFrom
             && isMatchcompletionDateTo
+            && isIncludeDeleted
           )
         ) {
           acc.push({

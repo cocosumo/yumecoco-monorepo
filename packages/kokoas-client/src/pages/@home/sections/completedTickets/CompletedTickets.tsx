@@ -8,15 +8,12 @@ import TimelineOppositeContent, {
   timelineOppositeContentClasses,
 } from '@mui/lab/TimelineOppositeContent';
 import { useCompletedTickets } from 'kokoas-client/src/hooksQuery';
-import {  LinearProgress, Link, Tooltip } from '@mui/material';
+import {  LinearProgress, Link } from '@mui/material';
 import parseISO from 'date-fns/fp/parseISO';
-import format from 'date-fns/format';
-import intlFormatDistance from 'date-fns/intlFormatDistance';
 import { AppIds } from 'config';
 import { TUpdateType, TimelineIcon } from './TimelineIcon';
-import { TimelineHeader } from './TimelineHeader';
 import differenceInDays from 'date-fns/differenceInDays';
-import { NewIndicator } from './NewIndicator';
+import { DynamicTime } from './DynamicTime';
 
 const ptOffset = '44px';
 
@@ -38,9 +35,6 @@ export const CompletedTickets = () => {
       }}
     >
       {isLoading && <LinearProgress />}
-
-
-      <TimelineHeader />
 
       <TimelineConnector />
       {!isLoading && data?.map(({
@@ -65,16 +59,12 @@ export const CompletedTickets = () => {
                 pt: ptOffset,
               }}
             >
-              <Tooltip title={format(parsedCompletedTime, 'yyyy/MM/dd HH:mm:ss')}>
-                <span>
-                  {intlFormatDistance(parsedCompletedTime, currentTime )}
-                </span>
-              </Tooltip>
+              <DynamicTime time={parsedCompletedTime} />
             </TimelineOppositeContent>
     
             <TimelineSeparator>
               <TimelineConnector />
-              <TimelineIcon updateType={updateType.value as TUpdateType}  />
+              <TimelineIcon updateType={updateType.value as TUpdateType} isNew={isNew}  />
             </TimelineSeparator>
             <TimelineContent 
               sx={{
@@ -87,7 +77,6 @@ export const CompletedTickets = () => {
                 target='_blank'
                 rel="noopener"
               >
-                {isNew && <NewIndicator />}
                 {announcementTitle.value}
               </Link>
             </TimelineContent>

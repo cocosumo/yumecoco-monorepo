@@ -18,7 +18,7 @@ import { TimelineHeader } from './TimelineHeader';
 import differenceInDays from 'date-fns/differenceInDays';
 import { NewIndicator } from './NewIndicator';
 
-const ptOffset = '52px';
+const ptOffset = '44px';
 
 export const CompletedTickets = () => {
   const { data, isLoading } = useCompletedTickets();
@@ -56,7 +56,7 @@ export const CompletedTickets = () => {
           <TimelineItem 
             key={$id.value}
             sx={{
-              minHeight: '90px',
+              minHeight: '80px',
             }}
           >
             <TimelineOppositeContent 

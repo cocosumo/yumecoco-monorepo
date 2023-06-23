@@ -11,6 +11,7 @@ export const Home = () => {
         spacing={2}
         sx={{
           flexGrow: 1,
+          height: '50vh',
         }}
       >
         <Title />

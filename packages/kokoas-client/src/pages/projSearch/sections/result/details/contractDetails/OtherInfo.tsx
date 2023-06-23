@@ -12,6 +12,7 @@ export const OtherInfo = ({
 
   const details = useMemo(() => {
     const {
+      projEstimateId,
       作成日時: createDate,
       更新日時: updateDate,
       作成者: createdBy,
@@ -39,6 +40,10 @@ export const OtherInfo = ({
       {
         label: '契約ID',
         value: contractId.value,
+      },
+      {
+        label: '見積番号',
+        value: projEstimateId.value || '-',
       },
     ];
 

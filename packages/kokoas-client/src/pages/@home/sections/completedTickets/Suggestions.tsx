@@ -2,9 +2,7 @@ import { Button, Stack, Tooltip, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ChatworkLogo } from 'kokoas-client/src/components/ui/icons/ChatworkLogo';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
-
-
-const chatworkLink = process.env.CW_CHATWORK_TICKET;
+import { chatWorkLink } from 'config';
 
 export const Suggestions = () => {
   return (
@@ -34,10 +32,10 @@ export const Suggestions = () => {
         </Button>
       </Tooltip>
 
-      {chatworkLink && (
+      {chatWorkLink && (
       <Tooltip title="チャットワークでの連絡となります。回答が遅れる場合がございます。">
         <Button
-          href={chatworkLink}
+          href={chatWorkLink}
           variant='outlined'
           target='_blank'
           rel='noopener noreferrer'

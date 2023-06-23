@@ -10,7 +10,7 @@ import { AppIds } from 'config';
  */
 export const useContractById = (id: string) => {
   return useQuery(
-    [AppIds.contracts, id],
+    [AppIds.contracts, 'contractId', id],
     () => getContractById(id),
     {
       enabled: !!id,

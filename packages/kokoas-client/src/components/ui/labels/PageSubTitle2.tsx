@@ -1,6 +1,6 @@
-import { Divider, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2';
+import { PageSubTitle3 } from './PageSubTitle3';
 
 /**
  * 新Gridを利用した見出しです。
@@ -18,11 +18,7 @@ export const PageSubTitle2 = (props: Grid2Props & {
 
   return (
     <Grid xs={12} {...others}>
-      <Divider textAlign="left">
-        <Typography variant="h6">
-          {label}
-        </Typography>
-      </Divider>
+      <PageSubTitle3 label={label} />
     </Grid>
   );
 };

@@ -19,7 +19,7 @@ export const StepCheckInfo = (
   }: {
     parsedDaikoku: ParsedDaikokuGenka,
     handleNext: () => void,
-    projId?: string
+    projId?: string | null
   },
 ) => {
 

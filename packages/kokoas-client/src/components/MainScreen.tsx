@@ -3,28 +3,29 @@
 import CssBaseline from '@mui/material/CssBaseline';
 import PersistentAppBar from './appBars/PersistentAppBar';
 import PersistentDesktopDrawer from './nav/persistentNav/PersistentDesktopDrawer';
-import { useQuery } from '../hooks';
 import { MainScreenContainer } from './MainScreenContainer';
 import { QueryContext } from './QueryContext';
 import { StyledMain } from './StyledMain';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Box } from '@mui/material';
+import { atom, useAtom } from 'jotai';
 
+
+
+export const menuAtom = atom(true);
+export const drawerWidthAtom = atom(240);
 
 
 export default function MainScreen() {
-  const menuOpen = Boolean(+(useQuery().get('menuOpen') ?? 1));
-  const [open, setOpen] = useState(menuOpen);
-
-  const drawerWidth = 240;
+  const [open, setOpen] = useAtom(menuAtom);
 
   const handleDrawerOpen = useCallback(() => {
     setOpen((prev) => !prev);
-  }, []);
+  }, [setOpen]);
 
   const handleDrawerClose = useCallback(() => {
     setOpen(false);
-  }, []);
+  }, [setOpen]);
 
   return (
     <QueryContext >
@@ -35,7 +36,6 @@ export default function MainScreen() {
           <PersistentDesktopDrawer 
             handleDrawerClose={handleDrawerClose}
             open={open}
-            drawerWidth={drawerWidth}
           />
           <StyledMain open={open} />
         </Box>

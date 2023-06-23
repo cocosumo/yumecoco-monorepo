@@ -11,7 +11,7 @@ import { NextButton } from './NextButton';
 
 export const StepSelectProject = (
   props: useFileUploadHook & {
-    projId?: string,
+    projId?: string | null,
     handleReset: () => void,
     handleSubmit: (e: Event) => void
   },

@@ -1,14 +1,15 @@
 import { useCallback } from 'react';
-import {  initialRow, TypeOfForm } from '../form';
 import { useFormContext } from 'react-hook-form';
+import { TForm, TItem } from '../schema';
+import { initialRow } from '../form';
 
 export const useRowValues = () => {
 
   const {
     getValues,
-  } = useFormContext<TypeOfForm>();
+  } = useFormContext<TForm>();
 
-  const getNewRow = useCallback(() : TypeOfForm['items'][number] => {
+  const getNewRow = useCallback(() : TItem => {
     return ({
       ...initialRow,
       materialProfRate: getValues('projTypeProfit'),

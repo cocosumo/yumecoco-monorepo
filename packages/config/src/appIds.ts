@@ -70,6 +70,9 @@ export const AppIds = {
   /** 郵便番号 */
   postalCode: 219,
 
+  /** 単位 */
+  units : 228,
+  
   /**　システムの依頼  */
   ticketSystem: 236,
 

@@ -1,9 +1,9 @@
 import { IProjects } from 'types';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 export const convertProjToForm = (
   recProj: IProjects,
-) : Partial<TypeOfForm> => {
+) : Partial<TForm> => {
   const {
     custNames,
     custGroupId,

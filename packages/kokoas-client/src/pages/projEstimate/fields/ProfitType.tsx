@@ -1,13 +1,12 @@
 import { NumberField } from 'kokoas-client/src/components/reactHookForm';
 import { Control } from 'react-hook-form';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 export function ProfitType({
   control,
 }:   {
-  control: Control<TypeOfForm>
-},
-) {
+  control: Control<TForm>
+}) {
 
   
 

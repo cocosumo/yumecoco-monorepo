@@ -1,15 +1,15 @@
 import { SpeedDialAction, SpeedDialActionProps } from '@mui/material';
 import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
 import { useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../../form';
 import { forwardRef } from 'react';
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
 import { kokoasEndpoints } from 'libs';
 import { useSnackBar } from 'kokoas-client/src/hooks';
+import { TForm } from '../../schema';
 
 export const ExportToAndpad = forwardRef<HTMLElement, SpeedDialActionProps>((props, ref) => {
   const { setSnackState } = useSnackBar();
-  const { getValues } = useFormContext<TypeOfForm>();
+  const { getValues } = useFormContext<TForm>();
 
   const handleClick = () => {
     const estimateId = getValues('estimateId');

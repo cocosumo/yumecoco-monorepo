@@ -14,7 +14,11 @@ const taxRates = [
   },
 ];
 
-export const TaxRate = () => {
+export const TaxRate = ({
+  disabled,
+}:{
+  disabled?: boolean;
+}) => {
 
   const { control, setRoundedValue, getValues } = useFormContextExtended();
 
@@ -31,7 +35,7 @@ export const TaxRate = () => {
   
       }) => {
         return (
-          <FormControl>
+          <FormControl disabled={disabled}>
             <FormLabel id="demo-radio-buttons-group-label">
               税率
             </FormLabel>

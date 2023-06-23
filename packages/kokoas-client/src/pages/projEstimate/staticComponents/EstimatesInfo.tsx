@@ -1,24 +1,23 @@
-import { Chip, FormControl, FormLabel, Stack, Typography } from '@mui/material';
+import { FormControl, FormLabel, Stack, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { LabeledInfo } from 'kokoas-client/src/components';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../form';
+import { TForm } from '../schema';
 
 
 
 
 export const EstimatesInfo = () => {
 
-  const { control } = useFormContext<TypeOfForm>();
+  const { control } = useFormContext<TForm>();
   const [
     estimateId,
     createdDate,
     estimateDataId,
-    envStatus,
     projId,
   ] = useWatch({
     control,
-    name: ['estimateId', 'createdDate', 'estimateDataId', 'envStatus', 'projId'],
+    name: ['estimateId', 'createdDate', 'estimateDataId', 'projId'],
   });
 
   if (!projId) {
@@ -54,17 +53,6 @@ export const EstimatesInfo = () => {
           />
           )}
 
-        </Stack>}
-      {!!envStatus &&
-        <Stack direction={'row'} spacing={1}>
-          <Chip
-            size='small'
-            color='success'
-            label='契約'
-          />
-          <Typography borderBottom={1} color={'error'}>
-            契約済のため編集不可
-          </Typography>
         </Stack>}
     </FormControl>
   );

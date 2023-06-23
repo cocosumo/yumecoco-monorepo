@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, DialogActions, DialogContent } from '@mui/material';
 
 
 
@@ -19,13 +19,14 @@ export const StepCheckWetInkFlow = ({
 
   return (
     <>
-      <WetInkFlow />
-      <Stack 
-        direction={'row'}
-        spacing={2} 
-        justifyContent={'flex-end'}
-        mt={2}
+      <DialogContent
+        sx={{
+          height: 600,
+        }}
       >
+        <WetInkFlow />
+      </DialogContent>
+      <DialogActions>
         <Button
           onClick={handleCancel}
         >
@@ -39,8 +40,7 @@ export const StepCheckWetInkFlow = ({
         >
           送信
         </Button> 
-      </Stack>
-    
+      </DialogActions>    
     </>
    
   );

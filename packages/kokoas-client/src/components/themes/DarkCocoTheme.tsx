@@ -3,6 +3,9 @@ import { jaJP } from '@mui/x-data-grid';
 import { isMobile } from './../../helpers/kintone';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
+import { jaJP as coreJaJP } from '@mui/material/locale';
+import { jaJP as pickersJaJP } from '@mui/x-date-pickers/locales';
+
 
 
 
@@ -149,6 +152,8 @@ const darkTheme = createTheme(
 
   },
   jaJP,
+  coreJaJP,
+  pickersJaJP,
 );
 
 export default function EnableColorOnDarkAppBar({ children }: { children: ReactNode }) {

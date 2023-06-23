@@ -9,6 +9,7 @@ import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { EditButton } from '../common/EditButton';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { SystemId } from './SystemId';
 
 
 export const ProjectDetails = ({
@@ -17,8 +18,8 @@ export const ProjectDetails = ({
   recProj: IProjects
 }) => {
 
-
   const details = useMemo(() => {
+
     const {
       postal,
       address1,
@@ -49,6 +50,10 @@ export const ProjectDetails = ({
     const newPostal = postal.value ? `〒${postal.value.slice(0, 3)}-${postal.value.slice(3)} ` : '';
 
     const mainDetails: IDetail[] = [
+      {
+        label: 'Andpad番号',
+        value: (<SystemId recProj={recProj} />),
+      },
       {
         label: '工事番号',
         value: formatDataId(dataId.value),
@@ -101,7 +106,10 @@ export const ProjectDetails = ({
     const otherDetails: IDetail[] = [
       {
         label: 'ステータス',
-        value: cancelStatus.value || '有効',
+        value: cancelStatus.value
+          .split(',')
+          .filter(Boolean) // There are empty strings in the array
+          .join(',') || '有効',
       },
       {
         label: '作成日時',
@@ -158,7 +166,9 @@ export const ProjectDetails = ({
       remarksDetails,
     };
 
-  }, [recProj]);
+  }, [
+    recProj,
+  ]);
 
   return (
     <Stack 

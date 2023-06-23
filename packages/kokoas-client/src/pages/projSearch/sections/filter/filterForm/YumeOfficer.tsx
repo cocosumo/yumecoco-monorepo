@@ -20,7 +20,7 @@ export const renderMenuItems = (options: Option[]) => {
   return options
     .map(({ isRetired, label, value: optVal }) => {
       return (
-        <MenuItem key={optVal} value={label}>
+        <MenuItem key={optVal} value={optVal}>
           {label}
           {isRetired && (
           <Typography ml={2} sx={{ color: 'text.secondary' }}>
@@ -43,9 +43,9 @@ export const YumeOfficer = () => {
   useEffect(() => {
     if (!data?.length) return;
     // remove values that are not in the select menu
-    const labels: string[] = data.flatMap(([_, { options }]) => options.map(option => option.label));
+    const values: string[] = data.flatMap(([_, { options }]) => options.map(option => option.value));
     const currentVal = getValues('yumeAG') ?? [];
-    setValue('yumeAG', intersection(currentVal, labels ));
+    setValue('yumeAG', intersection(currentVal, values ));
   }, 
   [
     data,

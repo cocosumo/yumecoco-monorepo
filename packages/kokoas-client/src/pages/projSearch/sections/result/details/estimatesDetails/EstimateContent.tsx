@@ -43,6 +43,8 @@ export const EstimateContent = (props: Partial<EstTableProps> & {
           direction={'row'}
           justifyContent={'flex-end'}
         >
+          
+
           {projEstimateId?.value && (
           <ContractButton 
             href={`${pages.projContractPreviewV2}?${generateParams({ projEstimateId: projEstimateId.value })}`}

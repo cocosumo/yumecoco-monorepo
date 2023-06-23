@@ -19,22 +19,30 @@ import { Big } from 'big.js';
  * Big.roundHalfDown : 4 : 五捨六入
  * 
  */
-export const roundTo = (value: number, precision = 0, rmProperty = 1) => {
-
-  if (rmProperty === 4) {
-    const base = Big(precision).plus(1)
-      .toNumber();
-    const exponent = Big(10).pow(base);
-    const adjustedValue = Big(1).div(exponent);
-    const newValue = Big(value).minus(adjustedValue);
+export const roundTo = (value: number | string, precision = 0, rmProperty = 1) => {
+  try {
+    if (value === '') return 0;
     
-    return Big(newValue).round(precision, 1)
-      .toNumber();
+    if (rmProperty === 4) {
+      const base = Big(precision).plus(1)
+        .toNumber();
+      const exponent = Big(10).pow(base);
+      const adjustedValue = Big(1).div(exponent);
+      const newValue = Big(value).minus(adjustedValue);
+      
+      return Big(newValue).round(precision, 1)
+        .toNumber();
+  
+    } else {
+      return new Big(value)
+        .round(precision, rmProperty)
+        .toNumber();
+    }
 
-  } else {
-    return new Big(value)
-      .round(precision, rmProperty)
-      .toNumber();
+  } catch (error) {
+    console.error(error);
+    return 0;
   }
+
 
 };

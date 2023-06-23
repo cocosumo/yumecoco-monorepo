@@ -1,11 +1,13 @@
 
 
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useConfirmDialog } from '../../../../hooks';
+import { useConfirmDialog } from '../../../../hooks';
 import { pages } from '../../../Router';
 
 import { Shortcuts, ShortCutType } from '../../../../components/ui/speedDials/Shortcuts';
 import { useSoftDelCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
+import { generateParams } from 'kokoas-client/src/helpers/url';
 
 
 export  const  CustGroupShortcuts = (props : {
@@ -16,7 +18,8 @@ export  const  CustGroupShortcuts = (props : {
   const { mutate: softDelCustGroupById } = useSoftDelCustGroupById();
   const navigate = useNavigate();
 
-  const passedProjId = useQuery().get('projId');
+  const params = useURLParamsV2();
+
   const { custGroupId } = props;
 
   const handleDelete = () => {
@@ -29,22 +32,19 @@ export  const  CustGroupShortcuts = (props : {
     <Shortcuts
       shortcuts={[
 
-        ...(passedProjId ? [
-
-          {
-            type: 'contract' as ShortCutType,
-            handleClick: ()=>navigate(`${pages.projContractPreviewV2}?projId=${passedProjId}`),
-          },
-          {
-            type: 'project' as ShortCutType,
-            handleClick: ()=>navigate(`${pages.projEdit}?projId=${passedProjId}`),
-          },
-          {
-            type: 'prospect' as ShortCutType,
-            handleClick: ()=>navigate(`${pages.projProspect}?projId=${passedProjId}`),
-          },
-        ] : []),
-
+        {
+          type: 'contract' as ShortCutType,
+          handleClick: ()=>navigate(`${pages.projContractPreviewV2}?${generateParams(params)}`),
+        },
+        {
+          type: 'project' as ShortCutType,
+          handleClick: ()=>navigate(`${pages.projEdit}?${generateParams(params)}`),
+        },
+        {
+          type: 'prospect' as ShortCutType,
+          handleClick: ()=>navigate(`${pages.projProspect}?${generateParams(params)}`),
+        },
+     
         {
           type: 'delete',
           handleClick: ()=>setDialogState({ title: '確認', content: '削除しますか。', handleYes:  handleDelete }),

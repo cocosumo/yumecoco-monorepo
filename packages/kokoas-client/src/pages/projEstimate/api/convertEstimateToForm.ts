@@ -1,13 +1,12 @@
-import { calculateEstimateRow, calculateEstimateSummary } from 'api-kintone';
 import { parseISO } from 'date-fns';
-import { formatDataId, roundTo } from 'libs';
+import { calculateRowAmount, formatDataId, roundTo } from 'libs';
 import { IProjestimates } from 'types';
-import { initialValues, TypeOfForm } from '../form';
 import { TunitChoices } from '../validationSchema';
+import { TForm } from '../schema';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
-) : Partial<TypeOfForm> => {
+) : Partial<TForm> => {
 
   const {
     uuid,
@@ -19,7 +18,6 @@ export const convertEstimateToForm = (
     estimateStatus,
     projTypeId,
     作成日時,
-    envStatus,
     dataId,
     $revision,
     remarks,
@@ -30,7 +28,7 @@ export const convertEstimateToForm = (
   const parsedTaxRate = +tax.value / 100;
 
   /* 内訳 */
-  const newItems : TypeOfForm['items'] = estimateTable.map(({ value: row }) => {
+  const newItems : TForm['items'] = estimateTable.map(({ value: row }) => {
     const {
       原価,
       大項目,
@@ -53,12 +51,11 @@ export const convertEstimateToForm = (
       rowCostPrice,
       rowUnitPriceBeforeTax,
       rowUnitPriceAfterTax,
-    } = calculateEstimateRow({
+    } = calculateRowAmount({
       costPrice: +原価.value,
       quantity: +数量.value,
       taxRate: parsedTaxRate,
       unitPrice: +単価.value,
-      isTaxable,
     });
 
     // On empty row, adopt project type's profit rate.
@@ -86,46 +83,6 @@ export const convertEstimateToForm = (
     };
   });
 
-  /*
-    仮想行の追加
-    useAdvancedTableRow listens to changes on the last row to insert a virtual row,
-    but that makes the form "dirty".
-
-    To keep "dirty" false on initial load, I added it here.
-    This will need further refactoring as the user requirements become more stable.
-  */
-  if (!initialValues?.items?.[0]) throw new Error('!initialValues.items[0] is undefined');
-
-  const {
-    totalCostPrice,
-    totalAmountAfterTax,
-    totalAmountBeforeTax,
-  } = calculateEstimateSummary(
-    newItems.map(({
-      rowCostPrice,
-      rowUnitPriceBeforeTax,
-      taxable,
-    }) =>{
-      return {
-        isTaxable: taxable,
-        rowUnitPriceBeforeTax,
-        rowCostPrice,
-      };
-    }),
-    parsedTaxRate,
-  );
-
-  // 契約ないなら、仮想行を追加する
-  if (!envStatus.value) {
-    newItems.push({
-      ...initialValues.items[0],
-      materialProfRate: +projTypeProfit.value,
-    });
-  }
-
-
-
-
   /* フォーム */
   return {
     estimateId: uuid.value,
@@ -135,13 +92,9 @@ export const convertEstimateToForm = (
     projTypeProfit : +projTypeProfit.value,
     projTypeId : projTypeId.value,
     taxRate : +tax.value,
-    status : estimateStatus.value as TypeOfForm['status'],
+    status : estimateStatus.value as TForm['status'],
     createdDate : parseISO(作成日時.value),
-    envStatus : envStatus.value,
     items: newItems,
-    totalCostPrice,
-    totalAmountBeforeTax,
-    totalAmountAfterTax,
     estimateRevision: $revision.value,
     remarks: remarks?.value || '',
   };

@@ -34,9 +34,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.json', '.ts', '.tsx', '.jsx'],
     fallback: {
-      "fs": false,
-      "path": false,
-      "os": false,
+      fs: false,
+      path: false,
+      os: false,
       crypto: false,
     },
   },
@@ -55,7 +55,7 @@ module.exports = {
         test: /\.(svg)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'svg-url-loader',
           },
         ],
       },
@@ -71,7 +71,7 @@ module.exports = {
           'css-loader',
         ],
       },
-/*       {
+      /*       {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',

@@ -131,6 +131,10 @@ export const getContractDataV2 = async (
         postal: postalCode.value,
         address1: address1.value,
         address2: address2.value }),
+      shortAddress: addressBuilder({
+        postal: postalCode.value,
+        address1: address1.value,
+      }),
       postalCode: postalCode.value,
       address1: address1.value,
       address2: address2.value,
@@ -198,7 +202,11 @@ export const getContractDataV2 = async (
       address1: projAddress1.value,
       address2: projAddress2.value, 
     }),
-
+    projectLocationData: {
+      postal: projPostal.value,
+      address1: projAddress1.value,
+      address2: projAddress2.value,
+    },
     /* 契約 */
     tax: parsedTaxRate * 100,
     totalContractAmtAfterTax: parsedTotalContractAmt,

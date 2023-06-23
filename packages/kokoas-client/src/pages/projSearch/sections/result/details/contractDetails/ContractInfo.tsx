@@ -2,26 +2,38 @@ import { IContracts } from 'types';
 import { DetailSection } from '../common/DetailSection';
 import { useMemo } from 'react';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
-import { locale } from 'libs';
+import { formatDataId, locale } from 'libs';
 import { parseISODateToFormat } from 'kokoas-client/src/lib';
 import { Recipients } from './Recipients';
 import { Files } from './Files';
+import { useEstimateById } from 'kokoas-client/src/hooksQuery';
 
 export const ContractInfo = ({
   record,
 }:{
   record: IContracts
 }) => {
+  const {
+    envelopeId,
+    projEstimateId,
+    signMethod,
+    contractDate,
+    envRecipients,
+    envelopeStatus,
+    envDocFileKeys,
+  } = record ?? {};
+
+  const { data: estData } = useEstimateById(projEstimateId.value || '');
+
+  const {
+    record: estRec,
+  } = estData || {};
+
+  const {
+    dataId,
+  } = estRec || {};
 
   const details = useMemo(() => {
-    const {
-      envelopeId,
-      signMethod,
-      contractDate,
-      envRecipients,
-      envelopeStatus,
-      envDocFileKeys,
-    } = record ?? {};
 
     const hasContract = !!envelopeStatus?.value;
 
@@ -39,6 +51,12 @@ export const ContractInfo = ({
         value: parseISODateToFormat(contractDate.value),
       },
       {
+        label: '見積枝番',
+        value: formatDataId(dataId?.value)
+          .split('-')
+          .at(-1) || '-',
+      },
+      {
         label: 'ドキュサインID',
         value: envelopeId?.value || '-',
       },
@@ -52,7 +70,15 @@ export const ContractInfo = ({
     return result;
 
   }, 
-  [record]);
+  [
+    envelopeId,
+    signMethod,
+    contractDate,
+    envRecipients,
+    envelopeStatus,
+    envDocFileKeys,
+    dataId,
+  ]);
 
 
   return (

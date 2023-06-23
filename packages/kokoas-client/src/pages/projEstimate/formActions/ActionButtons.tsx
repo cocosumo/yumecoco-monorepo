@@ -1,7 +1,6 @@
 import { Stack, Zoom } from '@mui/material';
 import { useIsFetching, useIsMutating } from '@tanstack/react-query';
 import { useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../form';
 import { UseSaveForm } from '../hooks';
 import { ProjEstimateShortcuts } from '../navigationComponents/ProjEstimateShortcuts';
 import { BtnCancelEdit } from './BtnCancelEdit';
@@ -9,6 +8,7 @@ import { BtnSave } from './BtnSave';
 import { BtnSaveTemporary } from './BtnSaveTemporary';
 import { ExportMenu } from './exportMenu/ExportMenu';
 import { FormActionsContainer } from './FormActionsContainer';
+import { TForm } from '../schema';
 
 export const ActionButtons = ({
   handleSubmit,
@@ -17,7 +17,7 @@ export const ActionButtons = ({
   handleSubmit: UseSaveForm['handleSubmit']
   handleSubmitFinal: UseSaveForm['handleSubmitFinal']
 }) => {
-  const [envStatus, projId, estimateId] = useWatch<TypeOfForm>({
+  const [envStatus, projId, estimateId] = useWatch<TForm>({
     name: ['envStatus', 'projId', 'estimateId'],
   });
   const loading = useIsFetching();

@@ -1,18 +1,13 @@
-import * as Yup from 'yup';
-import { validationSchema } from './validationSchema';
-
-
-export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
-export type KeyOfForm = keyof TypeOfForm;
-export type KRowFields = keyof TypeOfForm['items'][number];
+import { EstStatusChoices, TForm } from './schema';
 
 
 
-export const initialValues : TypeOfForm = {
+export const initialValues : TForm = {
+  hasOnProcessContract: false,
   custGroupId: '',
 
   customerName: '',
-  createdDate: null,
+  createdDate: undefined,
 
   estimateId: '',
   estimateDataId: '',
@@ -24,11 +19,11 @@ export const initialValues : TypeOfForm = {
   projName: '',
 
   projTypeId: '',
-  projTypeName: '',
+  projTypeName: null,
   projTypeProfit: 0,
   projTypeProfitLatest: 0,
 
-  status: '',
+  status: '' as EstStatusChoices,
   taxRate: 10,
   items: [
     {
@@ -43,26 +38,12 @@ export const initialValues : TypeOfForm = {
       rowDetails: '',
       rowUnitPriceBeforeTax: 0,
       rowUnitPriceAfterTax: 0,
-      taxable: true,
       unit: '式',
       unitPrice: 0,
     },
   ],
 
-  totalCostPrice: 0,
-  totalAmountBeforeTax: 0,
-  totalAmountAfterTax: 0,
-
-  // 備考
-  remarks: '',
+  remarks: null,
 };
 
-export const estArrayFieldName : KeyOfForm = 'items';
-
 export const initialRow = initialValues.items[0];
-export type Item = typeof initialRow;
-
-export const getItemsFieldName = <T = 'items.0.costPrice'>(
-  rowIdx: number, fieldName?: KRowFields,
-) => `${estArrayFieldName}.${rowIdx}.${fieldName}` as T;
-

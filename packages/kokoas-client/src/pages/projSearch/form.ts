@@ -5,6 +5,8 @@ export const initialForm : TypeOfForm = {
   orderBy: 'storeSortNumber' as keyof SearchResult,
   order: 'asc',
   keyword: null,
+
+  includeDeleted: false,
   
   custName: null,
   address: null,

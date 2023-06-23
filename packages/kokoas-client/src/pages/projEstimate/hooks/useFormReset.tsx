@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { UseFormReturn, useWatch } from 'react-hook-form';
-import { KeyOfForm, TypeOfForm } from '../form';
+import { KForm, TForm } from '../schema';
 
 /**
  * projIdやestimadeIdが変わったら、データを取得し、initialFormのステートに格納します。
@@ -10,8 +10,8 @@ export const useFormReset = ({
   initialForm,
   formReturn,
 } : {
-  initialForm : TypeOfForm,
-  formReturn: UseFormReturn<TypeOfForm>
+  initialForm : TForm,
+  formReturn: UseFormReturn<TForm>
 }) => {
   const activeElementName = useRef<string>('');
   const {
@@ -33,7 +33,7 @@ export const useFormReset = ({
   useEffect(() => {
     /* Return focus after reset */
     if (estimateRevision && activeElementName.current) {
-      setFocus(activeElementName.current as KeyOfForm);
+      setFocus(activeElementName.current as KForm);
     }
   }, [estimateRevision, setFocus]);
 

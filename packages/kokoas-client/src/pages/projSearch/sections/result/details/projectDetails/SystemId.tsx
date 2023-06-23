@@ -29,7 +29,7 @@ export const SystemId = ({
   }
 
 
-  const link = `https://andpad.jp/my/orders/${systemId}`;
+  const link = `https://andpad.jp/my/orders/${resolvedSystemId}`;
 
   return (
     <Link

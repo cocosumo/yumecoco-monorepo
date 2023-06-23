@@ -2,13 +2,17 @@ import { Grid } from '@mui/material';
 import { Fragment } from 'react';
 
 const hotkeysHelp = [
-  ['enter', '編集（セル移動）'],
-  ['tab', 'セル移動'],
-  ['矢印', 'セル移動'],
-  ['insert', '行追加'],
-  ['shift + insert', '下にコピー'],
-  ['delete', '削除'],
-  ['shift + delete', '行削除'],
+  ['編集', 'enter'],
+  ['次のセル', 'tab'],
+  ['前のセル', 'shift + tab'],
+  ['セル移動', '↑ ↓ ← →'],
+  ['行追加', 'insert'],
+  ['下にコピー', 'shift + insert'],
+  ['セル内容削除', 'delete'],
+  ['行削除', 'shift + delete'],
+  ['保存', 'ctrl + s'],
+  ['行の最初セル', 'home'],
+  ['行の最後セル', 'end'],
 ];
 
 export const HelpHotKeys = () => {

@@ -28,6 +28,7 @@ export const Suggestions = () => {
           variant='outlined'
           color={'warning'}
           startIcon={<TipsAndUpdatesIcon />}
+          size='small'
         >
           依頼登録
         </Button>
@@ -42,6 +43,7 @@ export const Suggestions = () => {
           rel='noopener noreferrer'
           startIcon={<ChatworkLogo />}
           color='error'
+          size='small'
         >
           チャットワーク
         </Button>

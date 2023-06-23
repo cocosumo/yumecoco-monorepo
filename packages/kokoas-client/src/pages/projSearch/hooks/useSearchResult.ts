@@ -36,6 +36,7 @@ export const useSearchResult =  () => {
     completionDateTo,
     order,
     orderBy = 'storeSortNumber',
+    includeDeletedCust,
   } = parsedQuery || {};
 
   const { data: selectedStoreIds } = useStoreIds(stores ?? []);

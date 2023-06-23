@@ -26,6 +26,7 @@ export const useParseQuery = (): TypeOfForm => {
       territories,
 
       includeRetired,
+      includeDeletedCust,
       cocoAG,
 
       yumeAG,
@@ -50,6 +51,7 @@ export const useParseQuery = (): TypeOfForm => {
       projTypes: ([] as string[]).concat(projTypes ?? []),
       territories: ([] as Territory[]).concat(territories ?? []),
       includeRetired: typeof includeRetired === 'string' && includeRetired === 'true',
+      includeDeletedCust: typeof includeDeletedCust === 'string' && includeDeletedCust === 'true',
       cocoAG: ([] as string[]).concat(cocoAG ?? []),
       yumeAG: ([] as string[]).concat(yumeAG ?? []),
       completionDateFrom: completionDateFrom ? parseISO(completionDateFrom as string) : null,

@@ -12,6 +12,9 @@ const schema = z.object({
   /** 顧客名 */
   custName : z.string().nullable(),
 
+  /** 顧客削除 */
+  includeDeletedCust : z.boolean(),
+
   /** 発注者住所・工事場所住所 */
   address : z.string().nullable(),
 

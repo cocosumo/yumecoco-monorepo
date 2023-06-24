@@ -1,8 +1,21 @@
 import { TextField } from '@mui/material';
-import { useTypedFormContext } from '../../../hooks/useTypedRHF';
 import { Controller } from 'react-hook-form';
+import { useTypedFormContext } from '../hooks/useTypedRHF';
+import { KForm } from '../schema';
 
-export const PostalField = () => {
+export const ControlledTextField = ({
+  name,
+  label,
+  width,
+  placeholder,
+  disabled,
+}:{
+  name: KForm;
+  label: string;
+  width?: number;
+  placeholder?: string;
+  disabled?: boolean;
+}) => {
   const {
     control,
   } = useTypedFormContext();
@@ -10,7 +23,7 @@ export const PostalField = () => {
   return (
     <Controller 
       control={control}
-      name='postal'
+      name={name}
       render={({
         field,
         fieldState: {
@@ -23,10 +36,11 @@ export const PostalField = () => {
         return (
           <TextField 
             {...field}
-            label="郵便番号" 
-            placeholder='4418124'
+            label={label} 
+            placeholder={placeholder}
+            disabled={disabled}
             sx={{
-              width: '200px',
+              width,
             }}
             size='small'
             error={isTouched && !!error}

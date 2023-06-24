@@ -1,5 +1,5 @@
 import { Button, Stack } from '@mui/material';
-import { PostalField } from './PostalField';
+import { ControlledTextField } from '../../../fields/ControlledTextField';
 
 export const Postal = () => {
   return (
@@ -8,7 +8,11 @@ export const Postal = () => {
       spacing={2}
     >
 
-      <PostalField />
+      <ControlledTextField
+        name='postal'
+        label='郵便番号'
+        placeholder='4418124'
+      />
 
       <Button
         variant='outlined'

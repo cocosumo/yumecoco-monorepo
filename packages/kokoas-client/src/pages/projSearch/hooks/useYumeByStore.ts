@@ -28,7 +28,7 @@ export const useYumeByStore = () => {
     })));
 
   return useEmployees({
-    isActive: !includeRetired,
+    isActiveOnly: !includeRetired,
     enabled: !!storeData,
     select: (d) => {
       const groupedData = d.reduce(

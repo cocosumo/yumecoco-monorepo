@@ -1,31 +1,36 @@
 import { useQuery } from '@tanstack/react-query';
 import { AppIds } from 'config';
-import { getActiveEmployees, getEmployees } from 'api-kintone';
+import { getEmployees } from 'api-kintone';
+
+
+
 
 /**
  * Retrieves all active employee records
  * 全社員レコードを取得する
  *
  */
-export const useEmployees = <T = Awaited<ReturnType<typeof getActiveEmployees>>>(
+export const useEmployees = <T = UseEmployeesReturn>(
   options?: {
-    isActive?: boolean,
-    select:  (data: Awaited<ReturnType<typeof getActiveEmployees>>) => T
+    isActiveOnly?: boolean,
+    select:  (data: UseEmployeesReturn) => T
     enabled?: boolean,
   },
 ) => {
   const {
-    isActive = true,
+    isActiveOnly = true,
     enabled = true,
     ...otherOptions
   } = options || {};
 
   return useQuery(
-    [AppIds.employees, isActive],
-    () => getEmployees(isActive),
+    [AppIds.employees, isActiveOnly],
+    () => getEmployees(isActiveOnly),
     { 
       ...otherOptions,
       enabled, 
     },
   );
 };
+
+export type UseEmployeesReturn = Awaited<ReturnType<typeof getEmployees>>;

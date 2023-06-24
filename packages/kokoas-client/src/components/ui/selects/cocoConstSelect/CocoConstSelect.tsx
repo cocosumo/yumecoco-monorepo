@@ -1,6 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
-export const ProjectType = () => {
+export const CocoConstSelect = () => {
+
   return (
     <FormControl 
       size='small'
@@ -12,9 +13,8 @@ export const ProjectType = () => {
         工事種別
       </InputLabel>
       <Select
-        //value={age}
-        label="工事種別"
-        //onChange={handleChange}
+      //value={age}
+        label="工事担当者"
       >
         <MenuItem value={10}>
           Ten

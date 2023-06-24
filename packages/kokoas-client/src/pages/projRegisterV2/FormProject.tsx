@@ -7,8 +7,9 @@ import { EmptyBox } from 'kokoas-client/src/components';
 import { RecordSelect } from './sections/RecordSelect';
 import { Contents } from './Contents';
 import { TypeOfForm } from './form';
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
+import { FormActions } from './sections/formActions/FormActions';
 
 export const FormProject = () => {
   
@@ -56,7 +57,9 @@ export const FormProject = () => {
           )}
 
           {!!custGroupId && (<Contents />)}
- 
+
+          <Divider />
+          <FormActions />
         </Stack>
       </Form>
     </FormProvider>

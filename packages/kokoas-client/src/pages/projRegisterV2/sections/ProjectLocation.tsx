@@ -29,12 +29,13 @@ export const ProjectLocation = () => {
       <TextField
         size='small'
         label={'住所'}
-        placeholder='愛知県豊川市'
+        placeholder='愛知県とよはし'
       />
   
       <TextField
         label={'住所（番地以降）'}
         size='small'
+        placeholder='愛知県豊川市'
       />
       <ControlledCheckBox label='仮換地地番を入力する' name="isAddressKari" control={control} />
       <TextField 

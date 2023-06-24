@@ -1,46 +1,29 @@
-import Grid from '@mui/material/Unstable_Grid2/';
+import { CocoConstSelect } from 'kokoas-client/src/components/ui/selects/cocoConstSelect/CocoConstSelect';
 import { ProjectType } from '../fields/ProjectType';
-import { TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 
 
 export const ProjectInformation = () => {
   return (
-    <Grid 
-      container
-      xs={12}
+    <Stack 
       spacing={2}
+      sx={{
+        maxWidth: '600px',
+      }}
     >
-      <Grid 
-        xs={12}
-        md={6} 
-        lg={4}
-      >
-        <ProjectType />
-      </Grid>
-      <Grid />
 
-      <Grid xs={12} lg={8} >
-        <TextField label={'工事名称'} fullWidth />
-      </Grid>
-      <Grid />
+      <ProjectType />
 
-      <Grid 
-        xs={12}
-        md={6} 
-        lg={4}
-      >
-        <ProjectType />
-      </Grid>
+      <TextField 
+        size='small'
+        label={'工事名称'}
+      />
 
-      <Grid 
-        xs={12}
-        md={6} 
-        lg={4}
-      >
-        <ProjectType />
-      </Grid>
-      
-      
-    </Grid>
+      <Stack direction={'row'} spacing={2}>
+        <CocoConstSelect />
+        <CocoConstSelect />
+      </Stack>
+
+    </Stack>
   );
 };

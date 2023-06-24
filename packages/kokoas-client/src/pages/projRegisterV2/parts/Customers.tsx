@@ -62,7 +62,13 @@ export const Customers = ({
         </TabList>
       </Box>
       {customers.map((cust, index) => (
-        <TabPanel key={`顧客${index + 1}`} value={String(index + 1)}>
+        <TabPanel 
+          key={`顧客${index + 1}`} 
+          value={String(index + 1)}
+          sx={{
+            px: 0,
+          }}
+        >
           {cust.map(({ label, value: _value }) => (
             <Info key={label} label={label} value={_value || '-'} />
           ))}

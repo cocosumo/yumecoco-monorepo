@@ -1,4 +1,5 @@
 import { Stack, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { StackProps } from '@mui/system';
 import { ReactNode } from 'react';
 
@@ -15,7 +16,7 @@ export const Info = ({
     direction={'row'}
     justifyContent={justifyContent}
   >
-    <Typography variant='caption' width={'20%'}>
+    <Typography color={grey[700]} width={'200px'}>
       {label}
     </Typography>
     <Typography variant='body1' component={'span'}>

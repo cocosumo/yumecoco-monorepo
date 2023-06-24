@@ -29,15 +29,19 @@ export const StaticContents = ({
   return (
     <Stack 
       bgcolor='white'
-      p={2}
+      py={2}
+      px={4}
       border={1}
       borderColor={grey[300]}
+      borderRadius={1}
       spacing={2}
     >
       {isLoading && ( <LinearProgress  /> )}
       {!isLoading && (
         <>
-          <Stack spacing={2}>
+          <Stack 
+            spacing={2}
+          >
             {data.map(({ label, value }) => (
               <Info key={label} label={label} value={value || '-'} />
             ))}

@@ -1,6 +1,7 @@
 import { CocoConstSelect } from 'kokoas-client/src/components/ui/selects/cocoConstSelect/CocoConstSelect';
 import { ProjectType } from './ProjectType';
-import { Stack, TextField } from '@mui/material';
+import { Stack } from '@mui/material';
+import { ControlledTextField } from '../../fields/ControlledTextField';
 
 
 export const ProjectInformation = () => {
@@ -14,11 +15,11 @@ export const ProjectInformation = () => {
 
       <ProjectType />
 
-      <TextField 
-        size='small'
-        label={'工事名称'}
+      <ControlledTextField
+        label='工事名称'
+        placeholder='山田太郎様　新築工事'
+        name='projName'
       />
-
       <Stack direction={'row'} spacing={2}>
         <CocoConstSelect />
         <CocoConstSelect />

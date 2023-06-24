@@ -9,6 +9,8 @@ import { Contents } from './Contents';
 import { Divider, Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { FormActions } from './sections/formActions/FormActions';
+import { DevTool } from '@hookform/devtools';
+
 
 export const FormProject = () => {
   
@@ -23,6 +25,7 @@ export const FormProject = () => {
 
   const { 
     reset,
+    control,
   } = formReturn;
 
   useEffect(() => {
@@ -59,6 +62,8 @@ export const FormProject = () => {
 
           <Divider />
           <FormActions />
+
+          <DevTool control={control} placement='top-right' />
         </Stack>
       </Form>
     </FormProvider>

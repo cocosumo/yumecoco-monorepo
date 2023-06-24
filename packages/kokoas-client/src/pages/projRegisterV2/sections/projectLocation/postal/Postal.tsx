@@ -1,4 +1,5 @@
-import { Button, Stack, TextField } from '@mui/material';
+import { Button, Stack } from '@mui/material';
+import { PostalField } from './PostalField';
 
 export const Postal = () => {
   return (
@@ -7,14 +8,7 @@ export const Postal = () => {
       spacing={2}
     >
 
-      <TextField 
-        label="郵便番号" 
-        placeholder='4418124'
-        sx={{
-          width: '200px',
-        }}
-        size='small'
-      />
+      <PostalField />
 
       <Button
         variant='outlined'

@@ -18,8 +18,8 @@ export const SearchByNumber = ({
   const debouncedValue = useDebounce(value, 500);
 
   useEffect(() => {
-    if (!debouncedValue) return;
-    const foundRecord = data?.find(({ sort }) => sort.value === debouncedValue);
+    const foundRecord = debouncedValue 
+      ? data?.find(({ sort }) => sort.value === debouncedValue) : undefined;
 
     onChange(foundRecord);
   }, [debouncedValue, data, onChange]);

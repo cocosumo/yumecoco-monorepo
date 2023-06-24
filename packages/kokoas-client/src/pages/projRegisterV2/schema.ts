@@ -51,3 +51,7 @@ export const schema = z.object({
   })),
 
 });
+
+
+export type TForm = z.infer<typeof schema>;
+export type KForm = keyof TForm;

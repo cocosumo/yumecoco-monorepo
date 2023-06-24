@@ -5,9 +5,9 @@ import { useWatch } from 'react-hook-form';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
-import { TypeOfForm } from '../form';
 
 import { Customers } from '../parts/Customers';
+import { TForm } from '../schema';
 
 type Dt = ComponentProps<typeof StaticContents>['data'];
 
@@ -15,7 +15,7 @@ export const CustomerSummary = () => {
   const [
     custGroupId,
     projId,
-  ] = useWatch<TypeOfForm>({
+  ] = useWatch<TForm>({
     name: [
       'custGroupId',
       'projId',

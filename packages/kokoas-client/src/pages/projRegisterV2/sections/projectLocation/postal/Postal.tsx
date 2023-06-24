@@ -28,18 +28,11 @@ export const Postal = () => {
         住所を選択
       </Button>
 
-
- 
       <Button
         variant='outlined'
       >
         住所から検索
       </Button>
-
-         
-
- 
-
     
     </Stack>
 

@@ -1,5 +1,5 @@
 import { CustomerSummary } from './sections/CustomerSummary';
-import { ProjectLocation } from './sections/ProjectLocation';
+import { ProjectLocation } from './sections/projectLocation/ProjectLocation';
 import { ProjectInformation } from './sections/ProjectInformation';
 import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { Remarks } from './fields/Remarks';

@@ -3,7 +3,8 @@ import { initialValues } from '../form';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
 import { useAndpadOrderByProjId, useCustGroupById, useProjById, useProjContractSummary } from 'kokoas-client/src/hooksQuery';
-import { convertCustGroupToForm, convertProjToForm } from '../api/convertToForm';
+import { convertProjToForm } from '../api/convertProjToForm';
+import { convertCustGroupToForm } from '../api/convertCustGroupToForm';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialValues);

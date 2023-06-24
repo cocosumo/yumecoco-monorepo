@@ -5,7 +5,7 @@ import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
 import { useConvertToAndpadByProjId, useSaveAndpadProject, useSaveProject } from 'kokoas-client/src/hooksQuery';
 import { SaveToAndpadDialogContent } from './SaveToAndpadDialogContent';
 import { getProjById } from 'api-kintone';
-import { TypeOfForm } from '../../form';
+import { TForm } from '../../schema';
 
 export const SaveToAndpadDialog = ({
   open,
@@ -16,7 +16,7 @@ export const SaveToAndpadDialog = ({
   handleClose: () => void
   mode: '登録' | '更新'
 }) => {
-  const { projId } = useURLParams<TypeOfForm>();
+  const { projId } = useURLParams<TForm>();
   const { data, isLoading } = useConvertToAndpadByProjId(
     open ? projId : '',
     {

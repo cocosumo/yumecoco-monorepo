@@ -1,12 +1,11 @@
 import { Form, FormProvider, useForm } from 'react-hook-form';
 import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {  schema } from './schema';
+import {  TForm, schema } from './schema';
 import { useEffect } from 'react';
 import { EmptyBox } from 'kokoas-client/src/components';
 import { RecordSelect } from './sections/RecordSelect';
 import { Contents } from './Contents';
-import { TypeOfForm } from './form';
 import { Divider, Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { FormActions } from './sections/formActions/FormActions';
@@ -17,7 +16,7 @@ export const FormProject = () => {
     newFormVal,
   } = useResolveParams();
 
-  const formReturn = useForm<TypeOfForm>({
+  const formReturn = useForm<TForm>({
     defaultValues: newFormVal,
     resolver: zodResolver(schema),
   });

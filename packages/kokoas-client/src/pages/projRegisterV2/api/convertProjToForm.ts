@@ -1,9 +1,11 @@
-import { format, parseISO } from 'date-fns';
+import { BuildingType, IProjects, RecordCancelStatus, TAgents } from 'types';
+import { TForm } from '../schema';
 import { formatDataId } from 'libs';
-import { BuildingType, ICustgroups, IProjects, RecordCancelStatus, TAgents, Territory } from 'types';
-import { TypeOfForm, initialValues } from '../form';
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
+import { initialValues } from '../form';
 
-export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
+export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
 
   const {
     projTypeId,
@@ -25,7 +27,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
     return (item.value.agentType.value as TAgents) === 'cocoConst';
   }).map(item => item.value.agentId.value);
 
-  const remarksFormatted : TypeOfForm['remarks'] | undefined = remarks
+  const remarksFormatted : TForm['remarks'] | undefined = remarks
     ?.value
     ?.filter(item => item.value.note.value)
     .map(({
@@ -77,25 +79,6 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TypeOfForm> => {
         id,
       };
     }) ?? [],
-  };
-
-};
-
-export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<TypeOfForm> => {
-  const {
-    storeId,
-    territory,
-    uuid,
-    members,
-    storeCode,
-  } = custGroupRec;
-
-  return {
-    custGroupId: uuid.value,
-    storeId: storeId.value,
-    territory: territory.value as Territory,
-    custName: members.value[0]?.value.customerName.value || '',
-    storeCode: storeCode.value,
   };
 
 };

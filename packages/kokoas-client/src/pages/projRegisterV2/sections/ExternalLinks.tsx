@@ -1,12 +1,11 @@
 import { Avatar, Chip, Stack } from '@mui/material';
 import { AndpadLogo } from 'kokoas-client/src/components/ui/icons';
-import { TypeOfForm } from '../form';
-import { useWatch } from 'react-hook-form';
 import Grid from '@mui/material/Unstable_Grid2';
 
 
+import { useTypedWatch } from '../hooks/useTypedRHF';
 export const ExternalLinks = () => {
-  const systemId = useWatch<TypeOfForm>({
+  const systemId = useTypedWatch({
     name: 'andpadDetails.システムID',
   });
 

@@ -1,10 +1,10 @@
 import { Box, Button } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import { TypeOfForm } from '../../form';
 import { LogRow } from './LogRow';
 import { useState } from 'react';
-import { useWatch } from 'react-hook-form';
 import Grid from '@mui/material/Unstable_Grid2/';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
+import { TForm } from '../../schema';
 
 
 export const LogDisplay = () => {
@@ -15,14 +15,14 @@ export const LogDisplay = () => {
   const [
     andpadDetails,
     logs,
-  ] = useWatch<TypeOfForm>({
+  ] = useTypedWatch({
     name: [
       'andpadDetails',
       'logs',
     ],
   }) as [
-    TypeOfForm['andpadDetails'],
-    TypeOfForm['logs'],
+    TForm['andpadDetails'],
+    TForm['logs'],
   ];
 
   const displayedLogs = isAllLogs ? logs : logs.slice(0, 3) || [];

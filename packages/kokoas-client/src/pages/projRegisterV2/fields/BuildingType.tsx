@@ -1,10 +1,10 @@
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup } from '@mui/material';
-import { Controller, useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../form';
+import { Controller } from 'react-hook-form';
 import { buildingTypes } from 'types';
+import { useTypedFormContext } from '../hooks/useTypedRHF';
 
 export const BuildingType = () => {
-  const { control } = useFormContext<TypeOfForm>();
+  const { control } = useTypedFormContext();
 
   return (
     <Controller

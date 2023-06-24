@@ -1,7 +1,6 @@
-import { z } from 'zod';
-import { schema } from './schema';
+import { TForm } from './schema';
 
-export const initialValues : TypeOfForm = {
+export const initialValues : TForm = {
   projId: '',
   projTypeName: '',
   projTypeId: '',
@@ -38,9 +37,6 @@ export const initialValues : TypeOfForm = {
   logs: [],
 
 };
-
-export type TypeOfForm = z.infer<typeof schema>;
-export type KeysOfForm = keyof TypeOfForm;
 
 
 export interface Remarks {

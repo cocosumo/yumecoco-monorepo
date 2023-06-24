@@ -1,5 +1,5 @@
 import { CocoConstSelect } from 'kokoas-client/src/components/ui/selects/cocoConstSelect/CocoConstSelect';
-import { ProjectType } from '../fields/ProjectType';
+import { ProjectType } from './ProjectType';
 import { Stack, TextField } from '@mui/material';
 
 

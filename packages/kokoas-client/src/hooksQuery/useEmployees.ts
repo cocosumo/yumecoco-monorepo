@@ -13,7 +13,7 @@ import { getEmployees } from 'api-kintone';
 export const useEmployees = <T = UseEmployeesReturn>(
   options?: {
     isActiveOnly?: boolean,
-    select:  (data: UseEmployeesReturn) => T
+    select?:  (data: UseEmployeesReturn) => T
     enabled?: boolean,
   },
 ) => {

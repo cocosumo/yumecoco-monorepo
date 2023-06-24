@@ -2,6 +2,7 @@ import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioG
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../form';
 import { buildingTypes } from 'types';
+import { grey, red } from '@mui/material/colors';
 
 export const BuildingType = () => {
   const { control } = useFormContext<TypeOfForm>();
@@ -27,8 +28,10 @@ export const BuildingType = () => {
             error={isShowError}
             sx={{
               bgcolor: 'background.paper',
-              borderWidth: 2,
-              p: 2,
+              p: 1,
+              px: 2,
+              border: '1px solid #ced4da',
+              borderRadius: 1,
             }}
           >
             <FormLabel>

@@ -1,5 +1,4 @@
 import { Button, Stack, TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 
 export const Postal = () => {
   return (
@@ -16,19 +15,30 @@ export const Postal = () => {
         }}
         size='small'
       />
- 
-   
+
       <Button
-        startIcon={<SearchIcon />} 
         variant='outlined'
       >
-        郵便番号から住所を検索
+        郵便番号から検索
       </Button>
- 
- 
-      <Button>
-        住所から郵便番号を検索
+
+      <Button
+        variant='outlined'
+      >
+        住所を選択
       </Button>
+
+
+ 
+      <Button
+        variant='outlined'
+      >
+        住所から検索
+      </Button>
+
+         
+
+ 
 
     
     </Stack>

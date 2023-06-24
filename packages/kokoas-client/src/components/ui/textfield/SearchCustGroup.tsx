@@ -73,6 +73,12 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
       value={value ?? fieldVal ?? null}
       options={options}
       onFocus={() => setHadFocus(true)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }}
       onInputChange={onInputChange ? onInputChange : (_, val) => {
         setInputVal(val);
       }}
@@ -83,7 +89,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
       isOptionEqualToValue={(opt, val) => opt.id === val.id}
       filterOptions={(x) => x}
       sx={{
-        maxWidth: 400,
+        width: 400,
       }}
       renderInput={(params) => (
         <TextField

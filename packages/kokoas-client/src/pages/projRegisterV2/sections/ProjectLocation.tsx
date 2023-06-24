@@ -1,7 +1,6 @@
-import Grid from '@mui/material/Unstable_Grid2/';
 import { CopyProjLocation } from '../parts/CopyProjLocation';
 import { Postal } from '../fields/Postal';
-import { TextField } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../form';
@@ -14,10 +13,11 @@ export const ProjectLocation = () => {
   } = useFormContext<TypeOfForm>();
 
   return (
-    <Grid 
-      container
-      xs={12}
+    <Stack 
       spacing={2}
+      sx={{
+        maxWidth: '600px',
+      }}
     >
 
       <CopyProjLocation />
@@ -25,22 +25,24 @@ export const ProjectLocation = () => {
 
       <Postal />
 
-      <Grid xs={12} lg={8}>
-        <TextField fullWidth label={'住所'} />
-      </Grid>
-      <Grid xs={12} lg={8}>
-        <TextField fullWidth label={'住所（番地以降）'} />
-      </Grid>
-      <Grid xs={12} lg={4}>
-        <ControlledCheckBox label='仮換地地番を入力する' name="isAddressKari" control={control} />
-      </Grid>
-      <Grid xs={12} lg={8}>
-        <TextField fullWidth label={'仮換地住所'} />
-      </Grid>
-      <Grid xs={12} lg={8}>
-        <BuildingType />
-      </Grid>
-    </Grid>
+
+      <TextField
+        size='small'
+        label={'住所'}
+        placeholder='愛知県豊川市'
+      />
+  
+      <TextField
+        label={'住所（番地以降）'}
+        size='small'
+      />
+      <ControlledCheckBox label='仮換地地番を入力する' name="isAddressKari" control={control} />
+      <TextField 
+        size='small' 
+        label={'仮換地住所'}
+      />
+      <BuildingType />
+    </Stack>
 
   );
 };

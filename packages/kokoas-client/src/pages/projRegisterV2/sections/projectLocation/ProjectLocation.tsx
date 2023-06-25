@@ -1,4 +1,3 @@
-import { CopyProjLocation } from '../../parts/CopyProjLocation';
 import { Postal } from './postalField/Postal';
 import { Stack } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
@@ -6,6 +5,7 @@ import { BuildingType } from '../../fields/BuildingType';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { ControlledTextField } from '../../fields/ControlledTextField';
 import { TempAddressField } from './TempAddressField';
+import { CopyLocation } from './copyLocation/CopyLocation';
 
 export const ProjectLocation = () => {
 
@@ -21,11 +21,9 @@ export const ProjectLocation = () => {
       }}
     >
 
-      <CopyProjLocation />
-
+      <CopyLocation />
 
       <Postal />
-
 
       <ControlledTextField
         name='address1'

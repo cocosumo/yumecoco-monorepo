@@ -3,7 +3,10 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 export const CopyCustLocation = () => {
   return (
-    <Tooltip title="顧客の現住所をコピーする">
+    <Tooltip 
+      title="顧客の現住所をコピーする"
+      placement='top'
+    >
       <Button 
         variant='outlined' 
         startIcon={<ContentCopyIcon />} 
@@ -11,7 +14,7 @@ export const CopyCustLocation = () => {
           alignSelf: 'flex-start',
         }}
       >
-        現住所をコピーする
+        顧客の現住所
       </Button>
     </Tooltip>
   );

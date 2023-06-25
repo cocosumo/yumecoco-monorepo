@@ -1,5 +1,6 @@
 import { Button, Stack } from '@mui/material';
 import { ControlledTextField } from '../../../fields/ControlledTextField';
+import { AddressByPostal } from './AddressByPostal';
 
 export const Postal = () => {
   return (
@@ -14,11 +15,7 @@ export const Postal = () => {
         placeholder='4418124'
       />
 
-      <Button
-        variant='outlined'
-      >
-        郵便番号から検索
-      </Button>
+      <AddressByPostal />
 
       <Button
         variant='outlined'

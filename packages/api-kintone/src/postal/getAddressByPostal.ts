@@ -9,5 +9,5 @@ export const getAddressByPostal = async (postal : string) => {
   return getRecords<RecordType>({
     app: appId,
     query,
-  }).then(({ records }) => records[0]);
+  }).then(({ records }) => records?.[0] || null);
 };

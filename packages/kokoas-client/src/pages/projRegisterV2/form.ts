@@ -25,14 +25,9 @@ export const initialValues : TForm = {
   status: '追客中',
   hasContract: false,
   hasCompletedContract: false,
-  cancelStatus: [],
+  cancelStatus: undefined,
   andpadDetails: undefined,
-  remarks: [{
-    id: 'remarks.0',
-    noteCreateTime: new Date(),
-    noteUpdateTime: new Date(),
-    remark: '',
-  }],
+  memo: '',
 
   logs: [],
 

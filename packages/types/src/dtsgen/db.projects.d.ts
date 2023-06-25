@@ -21,6 +21,7 @@ declare namespace DBProjects {
     projTypeName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
+    remarks_0: kintone.fieldTypes.MultiLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;

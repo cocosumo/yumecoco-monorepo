@@ -33,16 +33,10 @@ export const schema = z.object({
   hasContract: z.boolean(),
   hasCompletedContract: z.boolean(),
 
-  cancelStatus: z.array(z.enum(recordCancelStatuses)),
+  cancelStatus: z.array(z.enum(recordCancelStatuses)).optional(),
 
   andpadDetails: saveProjectData.optional(),
-
-  remarks: z.array(z.object({
-    id: z.string(),
-    noteCreateTime: z.date(),
-    noteUpdateTime: z.date(),
-    remark: z.string(),
-  })),
+  memo: z.string().optional(),
 
   logs: z.array(z.object({
     dateTime: z.date().optional(),

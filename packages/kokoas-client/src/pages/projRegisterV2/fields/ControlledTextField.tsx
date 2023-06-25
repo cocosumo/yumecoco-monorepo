@@ -8,7 +8,6 @@ export const ControlledTextField = ({
   label,
   width,
   placeholder,
-  disabled,
 }:{
   name: KForm;
   label: string;
@@ -38,7 +37,6 @@ export const ControlledTextField = ({
             {...field}
             label={label} 
             placeholder={placeholder}
-            disabled={disabled}
             sx={{
               width,
             }}

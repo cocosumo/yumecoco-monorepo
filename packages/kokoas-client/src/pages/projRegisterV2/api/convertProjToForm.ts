@@ -3,7 +3,6 @@ import { TForm } from '../schema';
 import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { initialValues } from '../form';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
 
@@ -19,7 +18,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     projTypeName,
     storeId,
     作成日時: createTime,
-    remarks,
+    memo,
     log,
   } = projRec;
 
@@ -27,31 +26,16 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     return (item.value.agentType.value as TAgents) === 'cocoConst';
   }).map(item => item.value.agentId.value);
 
-  const remarksFormatted : TForm['remarks'] | undefined = remarks
-    ?.value
-    ?.filter(item => item.value.note.value)
-    .map(({
-      value: items,
-    }, idx) => {
-      const {
-        note,
-        noteCreateTime,
-        noteUpdateTime,
-      } = items;
-      return {
-        id: `remarks.${idx + 1}`,
-        noteCreateTime: parseISO(noteCreateTime.value),
-        noteUpdateTime: parseISO(noteUpdateTime.value),
-        remark: note.value,
-      };
-    }) ?? [];
 
   return {
     addressKari: addressKari.value,
     address1: address1.value,
     address2: address2.value,
     buildingType: buildingType.value as BuildingType,
-    cancelStatus: cancelStatus.value.split(',') as RecordCancelStatus[],
+    cancelStatus: cancelStatus
+      .value
+      .split(',')
+      .filter(Boolean) as RecordCancelStatus[],
     cocoConst1: cocoConst?.[0] || '',
     cocoConst2: cocoConst?.[1] || '',
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
@@ -65,7 +49,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     projDataId: formatDataId(dataId.value),
     postal: postal.value,
     storeId: storeId.value,
-    remarks: [initialValues.remarks[0], ...remarksFormatted],
+    memo: memo.value,
     logs: log?.value?.map(({
       id,
       value: {

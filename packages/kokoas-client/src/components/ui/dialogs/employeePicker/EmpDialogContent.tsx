@@ -17,7 +17,7 @@ import { EmpStatus } from 'types';
 type Option = {
   empId: string;
   empName: string;
-  sortNumber: string;
+  sortNumber: number;
   affiliation: string;
   isResigned: boolean;
 };
@@ -33,38 +33,48 @@ export const EmpDialogContent = () => {
     if (!data) return [];
 
     return data
-      .reduce((acc, cur) => {
-        const {
-          uuid: empId,
-          文字列＿氏名: empName,
-          氏名ふりがな: empNameKana,
-          sort: sortNumber,
-          状態: status,
-          affiliation: affiliation,
-        } = cur;
+      .reduce(
+        (acc, cur) => {
+          const {
+            uuid: empId,
+            文字列＿氏名: empName,
+            氏名ふりがな: empNameKana,
+            sort: sortNumber,
+            状態: status,
+            affiliation: affiliation,
+          } = cur;
 
-        if (!includeResigned && (status.value as EmpStatus) !==  '有効') {
-          return acc;
-        }
+          if (!includeResigned && (status.value as EmpStatus) !==  '有効') {
+            return acc;
+          }
 
-        if (keyword && !((empName.value + empNameKana.value).includes(keyword))) {
-          return acc;
-        }
+          if (keyword && !((empName.value + empNameKana.value).includes(keyword))) {
+            return acc;
+          }
 
-        if (selectedAffiliation.length && !selectedAffiliation.includes(affiliation.value)) {
-          return acc;
-        }
+          if (selectedAffiliation.length && !selectedAffiliation.includes(affiliation.value)) {
+            return acc;
+          }
 
-        acc.push({
-          empId: empId.value,
-          empName: `${empName.value}`,
-          sortNumber: sortNumber.value,
-          isResigned: (status.value as EmpStatus) !==  '有効',
-          affiliation: affiliation.value,
-        });
+          acc.push({
+            empId: empId.value,
+            empName: `${empName.value}`,
+            sortNumber: +sortNumber.value,
+            isResigned: (status.value as EmpStatus) !==  '有効',
+            affiliation: affiliation.value,
+          });
         
-        return acc;
-      }, [] as Option[]);
+          return acc;
+        }, 
+        [] as Option[],
+      ).sort((a, b) => {
+        // sortNumber that is zero should be at the bottom
+        // sortNumber by descending order
+        if (a.sortNumber === 0) return 1;
+        if (b.sortNumber === 0) return -1;
+        return b.sortNumber - a.sortNumber;
+        
+      });
  
   }, [
     data, 
@@ -144,7 +154,7 @@ export const EmpDialogContent = () => {
                   color={grey[500]}
                   ml={1}
                 >
-                  {sortNumber && `#${sortNumber} `}
+                  {!!sortNumber && `#${sortNumber} `}
                   {isResigned && '(退職者)'}
                 </Typography>
               </ListItemText>

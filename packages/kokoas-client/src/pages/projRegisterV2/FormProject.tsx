@@ -58,10 +58,14 @@ export const FormProject = () => {
             </EmptyBox>
           )}
 
-          {!!custGroupId && (<Contents />)}
+          {!!custGroupId && (
+          <>
+            <Contents />
+            <Divider />
+            <FormActions />
+          </>
+          )}
 
-          <Divider />
-          <FormActions />
 
           <DevTool control={control} placement='top-right' />
         </Stack>

@@ -1,5 +1,4 @@
 import { Autocomplete, InputBase, Stack, Typography, createFilterOptions } from '@mui/material';
-import { useAllEmployees } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';
 import { EmpStatus, IEmployees } from 'types';
 
@@ -20,16 +19,19 @@ const filterOptions = createFilterOptions({
 
 export const SearchByName = ({
   selectedRecord,
+  filteredData,
   onChange,
+  onBlur,
 }:{
   selectedRecord: IEmployees | undefined,
-  onChange: (empRecord: IEmployees | undefined) => void,
+  filteredData: IEmployees[] | undefined,
+  onChange: (emdId: string | undefined) => void,
+  onBlur?: () => void,
 }) => {
 
-  const { data } = useAllEmployees();
 
   const options = useMemo(() => {
-    return data?.map<Option>(({ 
+    return filteredData?.map<Option>(({ 
       uuid,
       文字列＿氏名: empName,
       氏名ふりがな: empNameReading,
@@ -46,7 +48,7 @@ export const SearchByName = ({
         status: status.value as EmpStatus,
       });
     }) || [];
-  }, [data]);
+  }, [filteredData]);
 
 
   const parsedValue = useMemo(() => {
@@ -63,9 +65,10 @@ export const SearchByName = ({
       sx={{ ml: 1, flex: 1 }}
       filterOptions={filterOptions}
       getOptionLabel={(option) => option.empName}
+      onBlur={onBlur}
       onChange={(_, newValue) => {
-        const newRecord = data?.find(({ uuid }) => uuid.value === newValue?.empId);
-        onChange(newRecord);
+        const newRecord = filteredData?.find(({ uuid }) => uuid.value === newValue?.empId);
+        onChange(newRecord?.uuid.value);
       }}
       renderOption={(
         props, 

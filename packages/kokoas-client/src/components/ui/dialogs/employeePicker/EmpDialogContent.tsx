@@ -22,7 +22,13 @@ type Option = {
   isResigned: boolean;
 };
 
-export const EmpDialogContent = () => {
+export const EmpDialogContent = ({
+  selectedEmpId,
+  onSelectEmpId,
+}:{
+  selectedEmpId: string;
+  onSelectEmpId: (empId: string) => void
+}) => {
   const [includeResigned, setIncludeResigned] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState([] as string[]);
   const [keyword, setKeyword] = useState('');
@@ -141,7 +147,11 @@ export const EmpDialogContent = () => {
           isResigned,
         }) => {
           return (
-            <MenuItem key={empId}>
+            <MenuItem 
+              key={empId}
+              selected={selectedEmpId === empId}
+              onClick={() => onSelectEmpId(empId)}
+            >
               <ListItemText>
                 <Typography 
                   component={'span'}

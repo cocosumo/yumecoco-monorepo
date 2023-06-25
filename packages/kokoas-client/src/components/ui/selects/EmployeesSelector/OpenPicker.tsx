@@ -10,7 +10,7 @@ export const OpenPicker = () => {
   return (
     <>
 
-      <Tooltip title="退職者を含むより高度な検索。">
+      <Tooltip title="退職者を含むより高度な検索">
         <IconButton 
           type="button" 
           sx={{ p: '10px' }} 

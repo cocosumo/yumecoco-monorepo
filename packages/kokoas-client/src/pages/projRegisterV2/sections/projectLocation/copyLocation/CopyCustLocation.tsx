@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { useTypedFormContext, useTypedWatch } from '../../../hooks/useTypedRHF';
@@ -22,7 +22,8 @@ export const CopyCustLocation = () => {
       placement='top'
     >
       <LoadingButton 
-        variant='outlined' 
+        variant='outlined'
+        color='primary' 
         startIcon={<ContentCopyIcon />} 
         loading={isLoading}
         disabled={!data}

@@ -10,17 +10,9 @@ import {
   Typography, 
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { useAllEmployees } from 'kokoas-client/src/hooksQuery';
-import { useMemo, useState } from 'react';
-import { EmpStatus } from 'types';
+import { useOptions } from './useOptions';
+import { useState } from 'react';
 
-type Option = {
-  empId: string;
-  empName: string;
-  sortNumber: number;
-  affiliation: string;
-  isResigned: boolean;
-};
 
 export const EmpDialogContent = ({
   selectedEmpId,
@@ -32,62 +24,12 @@ export const EmpDialogContent = ({
   const [includeResigned, setIncludeResigned] = useState(false);
   const [selectedAffiliation, setSelectedAffiliation] = useState([] as string[]);
   const [keyword, setKeyword] = useState('');
-  const { data } = useAllEmployees();
 
-  const options = useMemo(() => {
-
-    if (!data) return [];
-
-    return data
-      .reduce(
-        (acc, cur) => {
-          const {
-            uuid: empId,
-            文字列＿氏名: empName,
-            氏名ふりがな: empNameKana,
-            sort: sortNumber,
-            状態: status,
-            affiliation: affiliation,
-          } = cur;
-
-          if (!includeResigned && (status.value as EmpStatus) !==  '有効') {
-            return acc;
-          }
-
-          if (keyword && !((empName.value + empNameKana.value).includes(keyword))) {
-            return acc;
-          }
-
-          if (selectedAffiliation.length && !selectedAffiliation.includes(affiliation.value)) {
-            return acc;
-          }
-
-          acc.push({
-            empId: empId.value,
-            empName: `${empName.value}`,
-            sortNumber: +sortNumber.value,
-            isResigned: (status.value as EmpStatus) !==  '有効',
-            affiliation: affiliation.value,
-          });
-        
-          return acc;
-        }, 
-        [] as Option[],
-      ).sort((a, b) => {
-        // sortNumber that is zero should be at the bottom
-        // sortNumber by descending order
-        if (a.sortNumber === 0) return 1;
-        if (b.sortNumber === 0) return -1;
-        return b.sortNumber - a.sortNumber;
-        
-      });
- 
-  }, [
-    data, 
+  const options = useOptions({
     includeResigned,
     keyword,
     selectedAffiliation,
-  ]);
+  });
 
   
   return (
@@ -108,7 +50,7 @@ export const EmpDialogContent = ({
       >
         <OutlinedInput 
           size='small'
-          placeholder='社員名を検索'
+          placeholder='部分検索'
           onChange={(e) => setKeyword(e.target.value)}
         />
         {['ゆめてつ', 'ここすも' ].map((affiliation) => (

@@ -1,21 +1,39 @@
 import { Button, Tooltip } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { useTypedFormContext, useTypedWatch } from '../../../hooks/useTypedRHF';
+import { LoadingButton } from '@mui/lab';
 
 export const CopyCustLocation = () => {
+  const { setValue } = useTypedFormContext();
+  const custGroupId = useTypedWatch({
+    name: 'custGroupId',
+  });
+  const { data, isLoading } = useCustomersByCustGroupId(custGroupId as string);
+  const {
+    postalCode,
+    address1,
+    address2,
+  } = data?.[0] || {};
+
   return (
     <Tooltip 
       title="顧客の現住所をコピーする"
       placement='top'
     >
-      <Button 
+      <LoadingButton 
         variant='outlined' 
         startIcon={<ContentCopyIcon />} 
-        sx={{
-          alignSelf: 'flex-start',
+        loading={isLoading}
+        disabled={!data}
+        onClick={() => {
+          setValue('postal', postalCode?.value || '');
+          setValue('address1', address1?.value || '');
+          setValue('address2', address2?.value || '');
         }}
       >
         顧客の現住所
-      </Button>
+      </LoadingButton>
     </Tooltip>
   );
 };

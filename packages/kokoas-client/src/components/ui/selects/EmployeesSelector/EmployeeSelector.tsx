@@ -1,11 +1,10 @@
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
 import { Box, FormLabel, Stack } from '@mui/material';
 import { SearchByNumber } from './SearchByNumber';
 import { useCallback, useState } from 'react';
 import { IEmployees } from 'types';
 import { SearchByName } from './SearchByName';
+import { OpenPicker } from './OpenPicker';
 
 export const EmployeeSelector = ({
   onChange,
@@ -30,7 +29,7 @@ export const EmployeeSelector = ({
 
 
   return (
-    <Stack spacing={0.5}>
+    <Stack spacing={0.5} width={300}>
     
       <FormLabel>
         従業員
@@ -44,7 +43,6 @@ export const EmployeeSelector = ({
           p: '2px 4px', 
           display: 'flex', 
           alignItems: 'center', 
-          minWidth: 280,
         }}
       >
         <SearchByNumber 
@@ -56,9 +54,7 @@ export const EmployeeSelector = ({
           onChange={handleChange}
           selectedRecord={selectedEmpRecord}
         />
-        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
+        <OpenPicker />
       </Box>
     </Stack>
   );

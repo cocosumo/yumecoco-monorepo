@@ -7,11 +7,11 @@ describe('resolveAffiliations', () => {
   });
 
   it('should resolve affiliations of an array of agents', () => {
-    expect(resolveAffiliations(['yumeAG', 'cocoAG', 'cocoConst'])).toMatchObject(['ゆめてつ', 'ここすも']);
+    expect(resolveAffiliations(['yumeAG', 'cocoAG', 'cocoConst'])).toBe(['ゆめてつ', 'ここすも']);
   });
 
   it('should resolve unique affiliations of an array of agents with duplicates', () => {
-    expect(resolveAffiliations(['yumeAG', 'cocoAG', 'cocoConst', 'cocoAG', 'cocoAG', 'cocoAG'])).toMatchObject(['ゆめてつ', 'ここすも']);
+    expect(resolveAffiliations(['yumeAG', 'cocoAG', 'cocoConst', 'cocoAG', 'cocoAG', 'cocoAG'])).toBe(['ゆめてつ', 'ここすも']);
   });
 });
 

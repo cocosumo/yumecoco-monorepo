@@ -1,4 +1,5 @@
 import { generateURI } from './generateURI';
+import { expect, it } from '@jest/globals';
 
 it('should generate URI', () => {
 

@@ -2,6 +2,7 @@ import { getAllCustGroups, getAllStores } from 'api-kintone';
 import { AppIds } from 'config';
 import { ICustgroups, KCustgroups } from 'types';
 import { KintoneClientBasicAuth } from '../settings';
+import { describe, it } from '@jest/globals';
 
 /* Fix */
 describe('fixCustGroup', () => {

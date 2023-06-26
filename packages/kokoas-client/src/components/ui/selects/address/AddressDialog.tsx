@@ -1,10 +1,11 @@
 import {  Dialog, DialogContent, DialogProps } from '@mui/material';
-import { useReducer } from 'react';
+import { ComponentProps, useReducer } from 'react';
 import { AddressDialogTitle } from './AddressDialogTitle';
 import { addressReducer, initialValues, TypeOfForm } from './addressReducer';
 import { Cities } from './choices/Cities';
 import { Prefectures } from './choices/Prefectures';
 import { Towns } from './choices/Towns';
+
 
 export const AddressDialog = ({
   open,
@@ -84,3 +85,5 @@ export const AddressDialog = ({
     </Dialog>
   );
 };
+
+export type AddressDialogProps = ComponentProps<typeof AddressDialog>;

@@ -4,6 +4,7 @@ import { getAccountId } from '../authentication';
 import { createEnvelopeFromFile } from '../createEnvelopeFromFile';
 import fs from 'fs';
 import { getEnvelope } from '../getEnvelope';
+import { expect, describe, it } from '@jest/globals';
 
 describe('Envelope', () => {
   it('should create and retrieve the envelope.', async () => {

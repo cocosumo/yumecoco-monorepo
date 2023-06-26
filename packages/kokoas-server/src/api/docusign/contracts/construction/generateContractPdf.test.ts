@@ -3,6 +3,7 @@ import { generateContractPdf } from './generateContractPdf';
 import fsPromise from 'fs/promises';
 import fs from 'fs';
 import path from 'path';
+import { describe, it, expect } from '@jest/globals';
 
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{

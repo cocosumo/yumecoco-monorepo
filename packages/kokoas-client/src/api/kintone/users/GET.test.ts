@@ -1,6 +1,6 @@
-import 'regenerator-runtime/runtime';
 
 import { getKintoneUserByEmpId, getKintoneUsers, getUserCodeById, getUserCodesByIds } from './GET';
+import { describe, expect } from '@jest/globals';
 
 describe('Kintone User', ()=>{
   test('are all retrieved', async ()=>{

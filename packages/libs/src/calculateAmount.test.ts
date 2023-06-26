@@ -1,4 +1,5 @@
 import { calculateAmount } from './calculateAmount';
+import { expect, describe, it } from '@jest/globals';
 
 describe('calculateAmount', () => {
 

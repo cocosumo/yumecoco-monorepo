@@ -1,6 +1,8 @@
 import xlsx from 'xlsx';
 import path from 'path';
 import { parseMajorItems } from './parseMajorItems';
+import { expect, describe, it } from '@jest/globals';
+
 
 describe('parseMajorItem', () => {
   it('it should parse majorItems', async () => {

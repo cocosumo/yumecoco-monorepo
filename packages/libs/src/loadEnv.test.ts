@@ -1,4 +1,5 @@
 import { loadEnv } from './loadEnv';
+import { expect, it } from '@jest/globals';
 
 it('should load env', () => {
   loadEnv();

@@ -1,5 +1,6 @@
 import { getCustGroupById } from 'api-kintone';
 import { parseCustGroupDat } from './parseCustGroupDat';
+import { expect, describe, it } from '@jest/globals';
 
 describe('parsing custGroup record', () => {
   it('should validate file', async () => {

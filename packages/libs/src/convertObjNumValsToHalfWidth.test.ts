@@ -1,4 +1,5 @@
 import { convertObjNumValsToHalfWidth } from './convertObjNumValsToHalfWidth';
+import { expect, describe, it } from '@jest/globals';
 
 describe('convertObjectNumbersToHalfWidth', () => {
   it('オブジェクトの全角数値を半角に変換します', () => {

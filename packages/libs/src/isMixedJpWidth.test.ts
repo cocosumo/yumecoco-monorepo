@@ -1,4 +1,5 @@
 import { isMixedJpWidth } from './isMixedJpWidth';
+import { expect, describe, test } from '@jest/globals';
 
 describe('isMixedWidth', () => {
   test('全角文字と半角文字が混在している場合、trueを返す', () => {

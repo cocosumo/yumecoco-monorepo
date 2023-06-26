@@ -1,4 +1,5 @@
 import { fetchUserInfo, getAccountId } from './fetchUserInfo';
+import { describe, it, expect } from '@jest/globals';
 
 describe('User Info', ()=>{
   it('should get base uri', async ()=>{

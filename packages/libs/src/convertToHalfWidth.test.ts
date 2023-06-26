@@ -1,4 +1,5 @@
 import { convertToHalfWidth } from './convertToHalfWidth';
+import { expect, describe, it } from '@jest/globals';
 
 describe('convertToHalfWidth', () => {
   it('文字列でない入力はそのまま返す', () => {

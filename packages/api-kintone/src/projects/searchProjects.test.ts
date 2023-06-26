@@ -1,5 +1,6 @@
 import { RecordKey } from './config';
 import { searchProjects } from './searchProjects';
+import { describe, it, expect } from '@jest/globals';
 
 
 
@@ -20,8 +21,7 @@ describe('search projects', () => {
 
     expect(results
       .every((rec) => searchFields
-        .some((fld) => (rec[fld].value as string).includes(testData))),
-    )
+        .some((fld) => (rec[fld].value as string).includes(testData))))
       .toBeTruthy();
   });
 });

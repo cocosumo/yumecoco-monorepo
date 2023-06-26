@@ -6,6 +6,8 @@ import { generateContractPdfV2 } from './generateContractPdfV2';
 import { produce } from 'immer';
 import { fakerJA as faker } from '@faker-js/faker';
 import { getProjTypes } from 'api-kintone';
+import { expect, describe, it } from '@jest/globals';
+
 
 const latestUkeoiDocVersion = '20230605';
 

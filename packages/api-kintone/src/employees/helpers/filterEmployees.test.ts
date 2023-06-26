@@ -5,6 +5,7 @@
 import { EmpAffiliations, IEmployees, Territory } from 'types';
 import { getEmployees } from '../getEmployees';
 import { filterEmployees } from './filterEmployees';
+import { describe, it, expect } from '@jest/globals';
 
 /**
  * 「IEmployees」を含む入力オブジェクトから指定されたプロパティと値を持つフラットなオブジェクトを返します。
@@ -38,7 +39,8 @@ describe('filterEmployees', () => {
       employees,
       {
         agentType: 'cocoAG',
-      });
+      },
+    );
 
     const isMatch = result
       .every(({ affiliation }) => (affiliation.value as EmpAffiliations) === 'ここすも' );
@@ -52,7 +54,8 @@ describe('filterEmployees', () => {
       employees,
       {
         agentType: 'yumeAG',
-      });
+      },
+    );
 
     const isMatch = result
       .every(({ affiliation }) => (affiliation.value as EmpAffiliations) === 'ゆめてつ' );
@@ -96,8 +99,7 @@ describe('filterEmployees', () => {
         affiliation,
       }) => (territory.value as Territory) === '東'
         && (affiliation.value as EmpAffiliations) === 'ゆめてつ'
-        && ( mainStoreId.value === toyokawaStoreId || affStores.value.some(({ value: { affStoreId } }) => affStoreId.value === toyokawaStoreId) ),
-      );
+        && ( mainStoreId.value === toyokawaStoreId || affStores.value.some(({ value: { affStoreId } }) => affStoreId.value === toyokawaStoreId) ));
 
     expect(isMatch).toBe(true);
   });
@@ -133,8 +135,7 @@ describe('filterEmployees', () => {
               || affStores.value
                 .some(({ value: { affStoreId: _storeId } }) => _storeId.value === storeId )
           ))
-        ),
-      );
+        ));
 
     expect(isMatch).toBe(true);
   });

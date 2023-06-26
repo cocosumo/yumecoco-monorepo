@@ -1,4 +1,5 @@
 import { getAuthByServiceName } from './getAuthByServiceName';
+import { describe, it, expect } from '@jest/globals';
 
 describe('getAuthByServiceName', () => {
   it('should get auth by service name', async () => {

@@ -1,5 +1,6 @@
 import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { removeLookUp } from './removeLookUp';
+import { describe, it, expect } from '@jest/globals';
 
 describe('removeLookUp', () => {
   it('オブジェクト内のすべてのルックアップフィールドを削除すること', () => {

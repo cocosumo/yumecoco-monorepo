@@ -2,7 +2,7 @@ import { BuildingTypesAndpad, buildingTypesAndpad, projectTypesAndpad, storeName
 import { getAllStores, getProjTypes } from 'api-kintone';
 import { BuildingType } from 'types';
 import { bestStringMatch } from './bestStringMatch';
-import { describe, it, expect } from '@jest/globals';
+import { describe, test, it, expect } from '@jest/globals';
 
 describe('bestStringMatch', () => {
   const cases : [BuildingType, BuildingTypesAndpad][] = [

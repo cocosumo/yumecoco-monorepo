@@ -2,6 +2,7 @@ import { getContractData } from '../../../kintone/getContractData';
 import { generateContractXlsx } from './generateContractXlsx';
 import path from 'path';
 import fs from 'fs';
+import { describe, it, expect } from '@jest/globals';
 
 describe('Generate Contract', () => {
   it('should generate contract in excel', async () => {

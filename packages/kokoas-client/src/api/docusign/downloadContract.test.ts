@@ -1,4 +1,5 @@
 import { downloadContract } from './downloadContract';
+import { describe, it, expect } from '@jest/globals';
 
 describe('Contract', () => {
   it('should download contract', async () => {

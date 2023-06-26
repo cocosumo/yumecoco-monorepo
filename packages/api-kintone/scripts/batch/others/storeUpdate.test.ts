@@ -1,6 +1,7 @@
 import { AppIds } from 'config';
 import { IEmployees } from 'types';
 import { KintoneClientBasicAuth } from '../settings';
+import { describe, it } from '@jest/globals';
 
 describe('store migrate', () => {
   const ktr = KintoneClientBasicAuth.record;

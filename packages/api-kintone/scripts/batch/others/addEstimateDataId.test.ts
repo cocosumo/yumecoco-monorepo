@@ -3,6 +3,7 @@ import { AppIds } from 'config';
 import { zeroPad } from 'libs';
 import { IProjects } from 'types';
 import { KintoneClientBasicAuth } from '../settings';
+import { expect, describe, it } from '@jest/globals';
 
 describe('addProjId', () => {
   const ktr = KintoneClientBasicAuth.record;

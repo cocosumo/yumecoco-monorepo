@@ -1,5 +1,6 @@
 import { IProjects } from 'types';
 import { getProjects } from './getProjects';
+import { describe, it, expect } from '@jest/globals';
 
 describe('getProjects', () => {
   const limit = 10;

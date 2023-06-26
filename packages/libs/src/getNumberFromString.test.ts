@@ -1,3 +1,4 @@
+import { expect, describe } from '@jest/globals';
 import { getNumberFromString } from './getNumberFromString';
 
 describe('getNumberFromString', () => {

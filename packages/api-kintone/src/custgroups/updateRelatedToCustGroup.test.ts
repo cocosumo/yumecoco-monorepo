@@ -1,5 +1,6 @@
 import { AppIds } from 'config';
 import { objArrOfIdAndRevision } from 'utils-jest';
+import { describe, it, expect } from '@jest/globals';
 
 import { updateRelatedToCustGroup } from './updateRelatedToCustGroup';
 

@@ -1,4 +1,5 @@
 import { getContractData } from './getContractData';
+import { expect, describe, it } from '@jest/globals';
 
 describe('Contract', () => {
   it('should be able to get contract data', async () => {

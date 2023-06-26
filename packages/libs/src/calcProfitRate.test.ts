@@ -1,4 +1,6 @@
 import { calcProfitRate } from 'api-kintone';
+import { expect, describe, it } from '@jest/globals';
+
 
 describe('calcProfitRate', () => {
   it('should calculate profit rate', () => {

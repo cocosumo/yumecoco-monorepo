@@ -2,6 +2,7 @@
 import {  getAllProjects } from 'api-kintone';
 import { AppIds } from 'config';
 import { IProjects } from 'types';
+import { describe, it } from '@jest/globals';
 
 import { KintoneClientBasicAuth } from '../settings';
 

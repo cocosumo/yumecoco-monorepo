@@ -2,6 +2,7 @@ import { getAllCustGroups } from 'api-kintone';
 import { AppIds } from 'config';
 import { ICustgroups, KCustgroups } from 'types';
 import { KintoneClientBasicAuth } from '../settings';
+import { describe, it } from '@jest/globals';
 
 describe('updateCustGroup', () => {
   const ktr = KintoneClientBasicAuth.record;

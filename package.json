@@ -44,7 +44,7 @@
     "core-js": "^3.15.0",
     "css-loader": "^5.2.6",
     "css-minimizer-webpack-plugin": "^5.0.0",
-    "cypress": "^12.7.0",
+    "cypress": "^12.15.0",
     "dotenv-webpack": "^7.1.0",
     "eslint": "^8.42.0",
     "eslint-config-airbnb": "^19.0.4",

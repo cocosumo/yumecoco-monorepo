@@ -128,7 +128,7 @@ export const generateContractPdfV2 = async (
   // 顧客名
   drawText(
     firstPage,
-    customers.map(({ custName }) => `${custName} 様` ).join('、'),
+    customers.map(({ custName }) => `${custName} ` ).join('、'),
     {
       x: x1,
       y: 673,

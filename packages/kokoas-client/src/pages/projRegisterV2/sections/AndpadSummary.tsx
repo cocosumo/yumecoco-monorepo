@@ -2,6 +2,7 @@ import { useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuer
 import { useTypedWatch } from '../hooks/useTypedRHF';
 import { StaticContents } from 'kokoas-client/src/components';
 import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
+import { Link } from '@mui/material';
 
 export const AndpadSummary = () => {
   const projId = useTypedWatch({
@@ -44,7 +45,15 @@ export const AndpadSummary = () => {
   const parsedData = [
     {
       label: 'システムID',
-      value: parsedSystemId || '未接続',
+      value: parsedSystemId ? (
+        <Link 
+          href={`https://andpad.jp/my/orders/${parsedSystemId}`}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          {parsedSystemId}
+        </Link>
+      ) : '未接続',
     },
     {
       label: '接続手法',

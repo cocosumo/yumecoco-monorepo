@@ -28,11 +28,11 @@ const ManualRouter = () => {
       </div>}
       />
 
-      <Route path={pages.projEdit} element={<div>
+      <Route path={pages.projEditV2} element={<div>
         projEdit
       </div>}
       />
-      <Route path={pages.projReg} element={<div>
+      <Route path={pages.projEditV2} element={<div>
         projReg
       </div>}
       />

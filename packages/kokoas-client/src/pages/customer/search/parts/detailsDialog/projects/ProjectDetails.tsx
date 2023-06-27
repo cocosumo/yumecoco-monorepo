@@ -50,7 +50,7 @@ export const ProjectDetails = ({
 
         <Info label="担当確定" value={+isAgentConfirmed.value ? 'はい' : 'いいえ'} />
         <Info label="仮換地地番" value={addressKari.value} />
-        <ButtonEdit link={`${pages.projEdit}?${generateParams({
+        <ButtonEdit link={`${pages.projEditV2}?${generateParams({
           projId: uuid.value,
         })}`}
         />

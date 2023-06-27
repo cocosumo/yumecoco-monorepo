@@ -26,7 +26,6 @@ export const initialValues : TForm = {
   hasContract: false,
   hasCompletedContract: false,
   cancelStatus: undefined,
-  andpadDetails: undefined,
   memo: '',
 
   logs: [],

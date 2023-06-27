@@ -1,4 +1,3 @@
-import { saveProjectData } from 'api-andpad';
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 import { buildingTypes, recordCancelStatuses, recordStatuses, territories } from 'types';
 import { z } from 'zod';
@@ -35,7 +34,6 @@ export const schema = z.object({
 
   cancelStatus: z.array(z.enum(recordCancelStatuses)).optional(),
 
-  andpadDetails: saveProjectData.optional(),
   memo: z.string().optional(),
 
   logs: z.array(z.object({

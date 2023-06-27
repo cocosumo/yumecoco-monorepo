@@ -21,7 +21,7 @@ export const ProspectShortcuts = () => {
         shortcuts={[
           {
             type: 'project',
-            handleClick: ()=>navigate(`${pages.projEdit}?${generateParams({
+            handleClick: ()=>navigate(`${pages.projEditV2}?${generateParams({
               projId,
             })}`),
           },

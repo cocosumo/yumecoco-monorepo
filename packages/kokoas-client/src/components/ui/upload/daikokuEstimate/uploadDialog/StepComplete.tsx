@@ -54,7 +54,7 @@ export const StepComplete = ({
           原価明細アップロード
         </Button>
         <Button
-          onClick={() => navigate(`${pages.projEdit}?${params}`)}
+          onClick={() => navigate(`${pages.projEditV2}?${params}`)}
         >
           工事内容編集
         </Button>

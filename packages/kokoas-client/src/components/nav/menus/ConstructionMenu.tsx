@@ -28,7 +28,7 @@ export const ConstructionMenu = () =>  {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <CollapsibleList open={open}>
-        <LinkListItemButton to={pages.projReg} icon={<CarpenterIcon />} text={'新規登録'} />
+        <LinkListItemButton to={pages.projEditV2} icon={<CarpenterIcon />} text={'新規登録'} />
       </CollapsibleList>
     </>
   );

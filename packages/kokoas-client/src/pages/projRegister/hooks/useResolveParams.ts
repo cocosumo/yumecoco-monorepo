@@ -71,7 +71,7 @@ export const useResolveParams = () => {
         ...initialValues,
         hasContract: !!hasContract,
         hasCompletedContract: !!completed,
-        andpadDetails,
+        andpadDetails: andpadDetails as any,
         ...convertProjToForm(projRec),
         ...convertCustGroupToForm(custGroupRec),
       });

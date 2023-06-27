@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { FormikConstruction } from './projRegister/FormikConstruction';
+//import { FormikConstruction } from './projRegister/FormikConstruction';
 import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
@@ -29,8 +29,8 @@ export const pages = {
   custGroupEdit: '/custgroup/edit',
   custSearch: '/customer/search',
 
-  projEdit: '/project/edit',
-  projReg: '/project/register',
+  //projEdit: '/project/edit',
+  //projReg: '/project/register',
 
   projEditV2: '/project/edit/v2',
 
@@ -71,8 +71,8 @@ const Router = () => (
     {/*  <Route path={pages.custSearch} element={<FormikCustomerSearch />} /> */}
 
     {/* 工事情報 */}
-    <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'} />
-    <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'} />
+    {/* <Route path={pages.projReg} element={<FormikConstruction />} key={'regConst'} /> */}
+    {/* <Route path={`${pages.projEdit}`} element={<FormikConstruction />} key={'edit'} /> */}
     <Route path={`${pages.projEditV2}`} element={<FormProject />} />
 
 

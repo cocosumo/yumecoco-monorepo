@@ -34,14 +34,14 @@ export const RecordSelect = () => {
   const navigate = useStableNavigate();
 
   const navigateToCustGroup = (newCustGroupId?: string) => {
-
-    if (newCustGroupId) {
-      navigate(`${pages.projEdit}?${generateParams({
+    const projEditURL = newCustGroupId 
+      ? `${pages.projEditV2}?${generateParams({
         custGroupId: newCustGroupId,
-      })}`);
-    } else {
-      navigate(`${pages.projReg}`);
-    }
+      })}` 
+      : `${pages.projEditV2}`;
+
+    navigate(projEditURL);
+
   };
 
   const handleChange = (_: SyntheticEvent<Element, Event>, val: SearchOption | null) => {
@@ -94,7 +94,7 @@ export const RecordSelect = () => {
           },
         }}
         onChange={useCallback(({  uuid }) => {
-          navigate(`${pages.projEdit}?${generateParams({
+          navigate(`${pages.projEditV2}?${generateParams({
             projId: uuid.value,
           })}`);
         }, [navigate])}

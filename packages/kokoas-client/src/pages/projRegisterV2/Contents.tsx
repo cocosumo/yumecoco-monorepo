@@ -4,17 +4,27 @@ import { ProjectInformation } from './sections/projectInformation/ProjectInforma
 import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { Memo } from './sections/memo/Memo';
 import { AndpadSummary } from './sections/AndpadSummary';
+import { useTypedWatch } from './hooks/useTypedRHF';
 
 export const Contents = () => {
+  const projId = useTypedWatch({
+    name: 'projId',
+  });
+
+
+
   return (
     <>
-    
-      <PageSubTitle3 label={'Andpad情報'} />
-      <AndpadSummary />
-      
+      {projId && (
+        <>
+          <PageSubTitle3 label={'Andpad情報'} />
+          <AndpadSummary />
+        </>
+      )}
+
+
       <PageSubTitle3 label={'顧客情報'} />
       <CustomerSummary />
-
 
       <PageSubTitle3 label={'工事場所情報'} />
       <ProjectLocation />

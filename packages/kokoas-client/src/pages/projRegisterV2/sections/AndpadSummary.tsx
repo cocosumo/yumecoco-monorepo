@@ -3,13 +3,17 @@ import { useTypedWatch } from '../hooks/useTypedRHF';
 import { StaticContents } from 'kokoas-client/src/components';
 import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
 import { Link } from '@mui/material';
+import { ForcedAndpadLink } from '../parts/ForcedAndpadLink';
 
 export const AndpadSummary = () => {
   const projId = useTypedWatch({
     name: 'projId',
   });
 
-  const { data: projRec, isLoading } = useProjById(projId as string);
+  const { 
+    data: projRec, 
+    isLoading: projLoading, 
+  } = useProjById(projId as string);
 
 
   const {
@@ -18,12 +22,17 @@ export const AndpadSummary = () => {
 
   const forcedSystemId = forceLinkedAndpadSystemId?.value;
 
-  const { data: andpadRec } = useAndpadOrderByProjId(
+  const { 
+    data: andpadRec, 
+    isLoading: andpadRecLoading,
+  } = useAndpadOrderByProjId(
     projId as string,
     {
       enabled: projRec && !forcedSystemId,
     },
   );
+
+  const isBusy = projLoading || andpadRecLoading;
 
   const {
     システムID: systemId,
@@ -69,9 +78,17 @@ export const AndpadSummary = () => {
   return (
     <StaticContents 
       data={parsedData}
-      isLoading={isLoading}
+      isLoading={isBusy}
       actions={(
-        <SaveToAndpadButton isExist={!!andpadRec} />
+        <>
+          <SaveToAndpadButton isExist={!!andpadRec} />
+        
+          <ForcedAndpadLink 
+            projId={projId as string} 
+            disabled={!!systemId}
+            isLoading={isBusy}
+          />        
+        </>
       )}
     />
   );

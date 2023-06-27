@@ -40,7 +40,13 @@ export const StaticContents = ({
           </Stack>
           {children}
 
-          <Stack direction={'row'} spacing={2}>
+          <Stack 
+            direction={'row'} 
+            spacing={2}
+            justifyContent={'flex-start'}
+            alignItems={'flex-start'}
+            alignContent={'flex-start'}
+          >
             {actions}
           </Stack>
 

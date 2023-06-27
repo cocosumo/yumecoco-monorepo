@@ -22,11 +22,10 @@ export const SaveToAndpadButton = (
   const mode = isExist ? '更新' : '登録';
 
   return (
-    <div>
+    <>
       <Tooltip title={`Anpadへ案件${mode}します`}>
         <AndpadButton
           onClick={handleClick}
-          fullWidth
           startIcon={<SaveIcon />}
           size='small'
         >
@@ -35,7 +34,7 @@ export const SaveToAndpadButton = (
 
       </Tooltip>
       <SaveToAndpadDialog open={open} mode={mode} handleClose={handleClose} />
-    </div>
+    </>
 
   );
 };

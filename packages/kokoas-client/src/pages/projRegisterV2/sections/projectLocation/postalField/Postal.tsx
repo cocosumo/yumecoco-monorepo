@@ -1,7 +1,8 @@
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { ControlledTextField } from '../../../fields/ControlledTextField';
 import { AddressByPostal } from './AddressByPostal';
 import { SelectAddress } from './SelectAddress';
+import { PostalByAddress } from './PostalByAddress';
 
 export const Postal = () => {
   return (
@@ -18,11 +19,7 @@ export const Postal = () => {
 
       <AddressByPostal />
 
-      <Button
-        variant='outlined'
-      >
-        住所から検索
-      </Button>
+      <PostalByAddress />
 
       <SelectAddress />
 

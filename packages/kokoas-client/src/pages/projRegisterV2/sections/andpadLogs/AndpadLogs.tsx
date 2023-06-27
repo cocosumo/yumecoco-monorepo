@@ -6,11 +6,15 @@ import { grey } from '@mui/material/colors';
 import { useState } from 'react';
 import { TransitionGroup } from 'react-transition-group';
 
+const maxRows = 3;
+
 export const AndpadLog = () => {
   const [expanded, setExpanded] = useState(false);
   const logs = useTypedWatch({
     name: 'logs',
   }) as TForm['logs'];
+
+  const rowsLength = logs.length;
 
   return (
     <Stack
@@ -22,7 +26,7 @@ export const AndpadLog = () => {
       }}
     >
       <TransitionGroup>
-        {logs.slice(0, !expanded ? 3 : undefined)?.map(({
+        {logs.slice(0, !expanded ? maxRows : undefined)?.map(({
           id,
           log,
           dateTime,
@@ -50,13 +54,17 @@ export const AndpadLog = () => {
           </Collapse>
         ))}
       </TransitionGroup>
+      {rowsLength > maxRows && (
       <Button
         size='small'
         onClick={() => setExpanded((prev) => !prev)}
       >
-        {`${ expanded ? '非表示' :  `全部表示 (${logs.length})`} `}
+        {`${ expanded ? '非表示' :  `全部表示 (${rowsLength})`} `}
 
       </Button>
+
+      )}
+
     </Stack>
   );
 };

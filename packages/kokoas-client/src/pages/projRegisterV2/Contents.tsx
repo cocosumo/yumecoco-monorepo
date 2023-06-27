@@ -3,7 +3,7 @@ import { ProjectLocation } from './sections/projectLocation/ProjectLocation';
 import { ProjectInformation } from './sections/projectInformation/ProjectInformation';
 import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { Memo } from './sections/memo/Memo';
-import { AndpadSummary } from './sections/AndpadSummary';
+import { AndpadSummary } from './sections/projectLocation/andpadSummary/AndpadSummary';
 import { useTypedWatch } from './hooks/useTypedRHF';
 
 export const Contents = () => {

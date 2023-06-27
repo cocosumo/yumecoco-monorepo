@@ -7,8 +7,10 @@ import { SaveToAndpadDialog } from './SaveToAndpadDialog';
 export const SaveToAndpadButton = (
   {
     isExist,
+    disabled = false,
   }:{
     isExist : boolean
+    disabled?: boolean,
   },
 ) => {
 
@@ -28,6 +30,7 @@ export const SaveToAndpadButton = (
           onClick={handleClick}
           startIcon={<SaveIcon />}
           size='small'
+          disabled={disabled}
         >
           {`Andpadへ${mode}`}
         </AndpadButton>

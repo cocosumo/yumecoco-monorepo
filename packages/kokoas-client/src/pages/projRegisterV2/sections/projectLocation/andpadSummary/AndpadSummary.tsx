@@ -1,9 +1,10 @@
 import { useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
-import { useTypedWatch } from '../hooks/useTypedRHF';
+import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { StaticContents } from 'kokoas-client/src/components';
-import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
-import { Link } from '@mui/material';
-import { ForcedAndpadLink } from '../parts/ForcedAndpadLink';
+import { SaveToAndpadButton } from '../../../parts/saveToAndpad/SaveToAndpadButton';
+import { Alert } from '@mui/material';
+import { ForcedAndpadLink } from '../../../parts/ForcedAndpadLink';
+import { SystemId } from './SystemId';
 
 export const AndpadSummary = () => {
   const projId = useTypedWatch({
@@ -55,13 +56,11 @@ export const AndpadSummary = () => {
     {
       label: 'システムID',
       value: parsedSystemId ? (
-        <Link 
-          href={`https://andpad.jp/my/orders/${parsedSystemId}`}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          {parsedSystemId}
-        </Link>
+        <SystemId 
+          projId={projId as string}
+          systemId={systemId}
+          forceLinkedAndpadSystemId={forcedSystemId}
+        />
       ) : '未接続',
     },
     {
@@ -81,7 +80,10 @@ export const AndpadSummary = () => {
       isLoading={isBusy}
       actions={(
         <>
-          <SaveToAndpadButton isExist={!!andpadRec} />
+          <SaveToAndpadButton 
+            isExist={!!andpadRec}
+            disabled={!!forcedSystemId}
+          />
         
           <ForcedAndpadLink 
             projId={projId as string} 
@@ -90,6 +92,15 @@ export const AndpadSummary = () => {
           />        
         </>
       )}
-    />
+    >
+      {!isBusy && !parsedSystemId && (
+        <Alert
+          severity='warning'
+        >
+          Andpadで案件管理IDが見つかりません。Andpadへ登録をお願いします。
+        </Alert>
+      )}
+
+    </StaticContents>
   );
 };

@@ -5,6 +5,7 @@ import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { Memo } from './sections/memo/Memo';
 import { AndpadSummary } from './sections/projectLocation/andpadSummary/AndpadSummary';
 import { useTypedWatch } from './hooks/useTypedRHF';
+import { CancelStatus } from './sections/cancelStatus.tsx/CancelStatus';
 
 export const Contents = () => {
   const projId = useTypedWatch({
@@ -34,6 +35,9 @@ export const Contents = () => {
 
       <PageSubTitle3 label={'メモ'} />
       <Memo />
+      
+      <PageSubTitle3 label={'状態'} />
+      <CancelStatus />
 
 
     </>

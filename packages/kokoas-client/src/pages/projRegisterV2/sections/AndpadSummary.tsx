@@ -1,6 +1,7 @@
 import { useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { useTypedWatch } from '../hooks/useTypedRHF';
 import { StaticContents } from 'kokoas-client/src/components';
+import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
 
 export const AndpadSummary = () => {
   const projId = useTypedWatch({
@@ -60,7 +61,9 @@ export const AndpadSummary = () => {
     <StaticContents 
       data={parsedData}
       isLoading={isLoading}
-      
+      actions={(
+        <SaveToAndpadButton isExist={!!andpadRec} />
+      )}
     />
   );
 };

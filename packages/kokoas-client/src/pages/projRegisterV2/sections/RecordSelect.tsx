@@ -5,8 +5,6 @@ import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useCallback } from 'react';
-import { SaveToAndpadButton } from '../parts/saveToAndpad/SaveToAndpadButton';
-import { ExternalLinks } from './ExternalLinks';
 import { Stack } from '@mui/material';
 
 
@@ -18,18 +16,14 @@ export const RecordSelect = () => {
   const [
     custGroupId,
     custName,
-    projId,
     projDataId,
     createdDate,
-    andpadDetails,
   ] = useWatch({
     name: [
       'custGroupId',
       'custName',
-      'projId',
       'projDataId',
       'createdDate',
-      'andpadDetails',
     ],
   });
   const navigate = useStableNavigate();
@@ -93,13 +87,6 @@ export const RecordSelect = () => {
           })}`);
         }, [navigate])}
       />
-  
-
-   
-      {!!projId && <SaveToAndpadButton isExist={!!andpadDetails} />}
- 
-      <ExternalLinks />
-
 
       <ModeInfo
         recordId={projDataId || ''}

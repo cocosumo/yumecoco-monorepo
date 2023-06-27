@@ -10,6 +10,7 @@ import { Divider, Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { FormActions } from './sections/formActions/FormActions';
 import { DevTool } from '@hookform/devtools';
+import { FormStatus } from './sections/FormStatus';
 
 
 export const FormProject = () => {
@@ -29,7 +30,7 @@ export const FormProject = () => {
   } = formReturn;
 
   useEffect(() => {
-    reset({ ...newFormVal });
+    reset(newFormVal);
   }, [reset, newFormVal]);
   
   const {
@@ -43,6 +44,7 @@ export const FormProject = () => {
       <Form noValidate>
         <Stack 
           spacing={2}
+          mb={28}
         >
           <PageTitle3
             label={`工事情報${projId ? '編集' : '登録'}`}
@@ -62,7 +64,10 @@ export const FormProject = () => {
           <>
             <Contents />
             <Divider />
+            
+            <FormStatus />
             <FormActions />
+         
           </>
           )}
 

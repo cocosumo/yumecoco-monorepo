@@ -43,7 +43,7 @@ export const CompletedTickets = () => {
         completedTime,
         updateType,
       }) => {
-        const parsedCompletedTime = parseISO(completedTime.value);
+        const parsedCompletedTime = completedTime.value ?  parseISO(completedTime.value) : currentTime;
         const isNew = differenceInDays(currentTime, parsedCompletedTime) < 2;
 
         return (

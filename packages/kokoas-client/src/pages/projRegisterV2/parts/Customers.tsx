@@ -1,7 +1,8 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Tab } from '@mui/material';
-import { Info } from 'kokoas-client/src/components';
+import { StaticContentInfos } from 'kokoas-client/src/components/ui/information/StaticContentInfos';
 import { useCustomersByCustGroupId } from 'kokoas-client/src/hooksQuery';
+import { addressBuilder } from 'libs';
 import { useMemo, useState } from 'react';
 import { ICustomers, TContact } from 'types';
 
@@ -35,15 +36,25 @@ export const Customers = ({
     const contactDatails = custData?.map(({
       fullName,
       contacts,
+      postalCode,
+      address1,
+      address2,
     }) => {
       const tels = resolveContact(contacts, 'tel');
       
       const email = resolveContact(contacts, 'email');
 
+      const address = addressBuilder({
+        postal: postalCode.value,
+        address1: address1.value,
+        address2: address2.value,
+      });
+
       const custInfo = [
         { label: '氏名', value: fullName.value },
-        { label: '電話番号', value: tels.join(', ') },
-        { label: 'メールアドレス', value: email.join(', ') },
+        { label: '住所', value: address || '-' },
+        { label: '電話番号', value: tels.join(', ') || '-' },
+        { label: 'メールアドレス', value: email.join(', ') || '-' },
       ];
       
 
@@ -69,9 +80,7 @@ export const Customers = ({
             px: 0,
           }}
         >
-          {cust.map(({ label, value: _value }) => (
-            <Info key={label} label={label} value={_value || '-'} />
-          ))}
+          <StaticContentInfos data={cust} />
         </TabPanel>
       ))}
     </TabContext>

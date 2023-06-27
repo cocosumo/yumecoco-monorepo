@@ -1,8 +1,9 @@
-import {  LinearProgress, Stack } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import {  LinearProgress } from '@mui/material';
 
 import { ReactNode } from 'react';
-import { Info } from './Info';
+import { StaticContentContainer } from './StaticContentContainer';
+import { StaticContentActions } from './StaticContentActions';
+import { StaticContentInfos } from './StaticContentInfos';
 
 export const StaticContents = ({
   data,
@@ -20,41 +21,22 @@ export const StaticContents = ({
 }) => {
   
   return (
-    <Stack 
-      bgcolor='white'
-      p={4}
-      border={1}
-      borderColor={grey[300]}
-      borderRadius={1}
-      spacing={2}
-    >
+    <StaticContentContainer>
       {isLoading && ( <LinearProgress  /> )}
       {!isLoading && (
         <>
-          <Stack 
-            spacing={2}
-          >
-            {data.map(({ label, value }) => (
-              <Info key={label} label={label} value={value || '-'} />
-            ))}
-          </Stack>
+          <StaticContentInfos 
+            data={data}
+          />
           {children}
 
-          <Stack 
-            direction={'row'} 
-            spacing={2}
-            justifyContent={'flex-start'}
-            alignItems={'flex-start'}
-            alignContent={'flex-start'}
-          >
+          <StaticContentActions>
             {actions}
-          </Stack>
+          </StaticContentActions>
 
         </>
       )}
 
-     
-      
-    </Stack>
+    </StaticContentContainer>
   );
 };

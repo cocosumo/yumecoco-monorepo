@@ -1,17 +1,17 @@
-import { StaticContents } from 'kokoas-client/src/components';
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useWatch } from 'react-hook-form';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
-import { ComponentProps, useMemo } from 'react';
-import { addressBuilder } from 'libs';
+import {  useMemo } from 'react';
 
 import { Customers } from '../parts/Customers';
 import { TForm } from '../schema';
-import { Button } from '@mui/material';
+import { Button, LinearProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { StaticContentContainer } from 'kokoas-client/src/components/ui/information/StaticContentContainer';
+import { StaticContentInfos } from 'kokoas-client/src/components/ui/information/StaticContentInfos';
+import { StaticContentActions } from 'kokoas-client/src/components/ui/information/StaticContentActions';
 
-type Dt = ComponentProps<typeof StaticContents>['data'];
 
 export const CustomerSummary = () => {
   const [
@@ -27,51 +27,51 @@ export const CustomerSummary = () => {
 
   const { data, isLoading } = useCustGroupById(custGroupId as string);
   const navigate = useNavigate();
-  const parsedData : Dt = useMemo(() => {
 
-    if (!data ) return [];
+
+  const parsedData = useMemo(() => {
+
+    if (!data ) return {
+      custData: [],
+      officerData: [],
+    };
 
     const {
       storeName,
-      members,
       cocoAGNames,
       yumeAGNames,
     } = data || {};
-
-    const custNames = members.value
-      .map(({ value: { customerName } }) => customerName.value )
-      .join(', ');
-    const {
-      postal,
-      address1,
-      address2,
-    } = members.value[0].value;
-    
-    const address = addressBuilder({
-      postal: postal.value,
-      address1: address1.value,
-      address2: address2.value,
-    });
-
-    return [
+  
+    const custData = [
       { label: '店舗', value: storeName?.value },
-      { label: '顧客名', value: custNames },
-      { label: '現住所', value: address },
+    ];
+
+    const officerData = [
       { label: 'ここすも営業担当者', value: cocoAGNames.value },
       { label: 'ゆめてつAG', value: yumeAGNames.value },
     ];
+
+    return {
+      custData,
+      officerData,
+    };
 
   }, [
     data,
   ]); 
 
+  if (isLoading) return <LinearProgress />;
 
   return (
+    <StaticContentContainer>
 
-    <StaticContents 
-      data={parsedData}
-      isLoading={isLoading}
-      actions={(
+      {custGroupId && <Customers custGroupId={custGroupId as string} />}
+
+      <StaticContentInfos 
+        data={[...parsedData.custData, ...parsedData.officerData]}
+      />
+
+      <StaticContentActions>
         <Button
           onClick={() => navigate(`${pages.custGroupEdit}?${generateParams({
             custGroupId: custGroupId as string,
@@ -81,11 +81,11 @@ export const CustomerSummary = () => {
         >
           編集
         </Button>
-      )}
-    > 
-      {custGroupId && <Customers custGroupId={custGroupId as string} />}
-    </StaticContents>
+      </StaticContentActions>
 
-   
+    </StaticContentContainer>
   );
+
+
+ 
 };

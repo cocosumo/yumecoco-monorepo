@@ -3,13 +3,16 @@ import { grey } from '@mui/material/colors';
 import { StackProps } from '@mui/system';
 import { ReactNode } from 'react';
 
+export interface InfoProps {
+  label: string,
+  value: ReactNode,
+}
+
 export const Info = ({
   label,
   value,
   justifyContent,
-}: {
-  label: string,
-  value: ReactNode,
+}: InfoProps & {
   justifyContent?: StackProps['justifyContent']
 }) => (
   <Stack 

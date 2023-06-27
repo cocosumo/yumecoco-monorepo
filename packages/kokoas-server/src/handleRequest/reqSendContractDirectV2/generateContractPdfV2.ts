@@ -277,7 +277,7 @@ export const generateContractPdfV2 = async (
       font: msChinoFont,
     },
     {
-      weight: 0,
+      weight: 0.1,
     },
   );
 
@@ -292,7 +292,7 @@ export const generateContractPdfV2 = async (
       font: msChinoFont,
     },
     {
-      weight: 0,
+      weight: 0.1,
       boxWidth: 200,
       align: 'right',
     },

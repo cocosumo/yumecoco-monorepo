@@ -8,6 +8,8 @@ import { addressBuilder } from 'libs';
 
 import { Customers } from '../parts/Customers';
 import { TForm } from '../schema';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 type Dt = ComponentProps<typeof StaticContents>['data'];
 
@@ -24,7 +26,7 @@ export const CustomerSummary = () => {
   });
 
   const { data, isLoading } = useCustGroupById(custGroupId as string);
-
+  const navigate = useNavigate();
   const parsedData : Dt = useMemo(() => {
 
     if (!data ) return [];
@@ -67,12 +69,19 @@ export const CustomerSummary = () => {
   return (
 
     <StaticContents 
-      editUrl={`${pages.custGroupEdit}?${generateParams({
-        custGroupId: custGroupId as string,
-        projId: projId as string,
-      })}`}
       data={parsedData}
       isLoading={isLoading}
+      actions={(
+        <Button
+          onClick={() => navigate(`${pages.custGroupEdit}?${generateParams({
+            custGroupId: custGroupId as string,
+            projId: projId as string,
+          })}`)}
+          variant='outlined'
+        >
+          編集
+        </Button>
+      )}
     > 
       {custGroupId && <Customers custGroupId={custGroupId as string} />}
     </StaticContents>

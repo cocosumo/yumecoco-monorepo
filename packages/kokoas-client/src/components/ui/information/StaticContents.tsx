@@ -1,36 +1,28 @@
-import {  Button, LinearProgress, Stack } from '@mui/material';
+import {  LinearProgress, Stack } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
-import { useNavigate } from 'react-router-dom';
 import { ReactNode } from 'react';
 import { Info } from './Info';
 
 export const StaticContents = ({
   data,
-  buttonLabel = '編集する',
   isLoading,
-  editUrl,
   children,
+  actions,
 }: {
   data: Array<{
     label: string,
     value: ReactNode,
   }>
-  buttonLabel?: string,
   isLoading?: boolean,
-  editUrl: string,
   children?: ReactNode
+  actions?: ReactNode
 }) => {
-
-
-  const navigate = useNavigate();
-
   
   return (
     <Stack 
       bgcolor='white'
-      py={2}
-      px={4}
+      p={4}
       border={1}
       borderColor={grey[300]}
       borderRadius={1}
@@ -47,17 +39,11 @@ export const StaticContents = ({
             ))}
           </Stack>
           {children}
-          <Button
-            onClick={() => {
-              navigate(editUrl);
-            }}
-            sx={{
-              alignSelf: 'flex-start',
-            }}
-            variant='outlined'
-          >
-            {buttonLabel}
-          </Button>
+
+          <Stack direction={'row'} spacing={2}>
+            {actions}
+          </Stack>
+
         </>
       )}
 

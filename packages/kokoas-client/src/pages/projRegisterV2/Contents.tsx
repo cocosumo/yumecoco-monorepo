@@ -7,6 +7,8 @@ import { Memo } from './sections/memo/Memo';
 export const Contents = () => {
   return (
     <>
+      <PageSubTitle3 label={'Andpad情報'} />
+
       <PageSubTitle3 label={'顧客情報'} />
       <CustomerSummary />
 

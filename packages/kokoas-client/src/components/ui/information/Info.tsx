@@ -16,7 +16,7 @@ export const Info = ({
     direction={'row'}
     justifyContent={justifyContent}
   >
-    <Typography color={grey[700]} width={'200px'}>
+    <Typography color={grey[600]} width={'200px'}>
       {label}
     </Typography>
     <Typography variant='body1' component={'span'}>

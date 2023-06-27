@@ -26,15 +26,16 @@ export const SaveToAndpadButton = (
   return (
     <>
       <Tooltip title={`Anpadへ案件${mode}します`}>
-        <AndpadButton
-          onClick={handleClick}
-          startIcon={<SaveIcon />}
-          size='small'
-          disabled={disabled}
-        >
-          {`Andpadへ${mode}`}
-        </AndpadButton>
-
+        <span>
+          <AndpadButton
+            onClick={handleClick}
+            startIcon={<SaveIcon />}
+            size='small'
+            disabled={disabled}
+          >
+            {`Andpadへ${mode}`}
+          </AndpadButton>
+        </span>
       </Tooltip>
       <SaveToAndpadDialog open={open} mode={mode} handleClose={handleClose} />
     </>

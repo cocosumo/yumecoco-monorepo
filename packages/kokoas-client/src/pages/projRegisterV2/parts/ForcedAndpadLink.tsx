@@ -29,18 +29,19 @@ export const ForcedAndpadLink = ({
   return (
     <>
       <Tooltip title="Andpadで先に登録してしまった場合"> 
-
+        <span>
+          <LoadingButton
+            color='warning'
+            startIcon={<WarningAmberIcon />}
+            variant='outlined'
+            disabled={disabled}
+            onClick={()=>setOpen(true)}
+            loading={isLoading}
+          >
+            Andpadとの強制接続
+          </LoadingButton>
+        </span>
  
-        <LoadingButton
-          color='warning'
-          startIcon={<WarningAmberIcon />}
-          variant='outlined'
-          disabled={disabled}
-          onClick={()=>setOpen(true)}
-          loading={isLoading}
-        >
-          Andpadとの強制接続
-        </LoadingButton>
       </Tooltip>
       <SelectAndpadProject 
         open={open} 

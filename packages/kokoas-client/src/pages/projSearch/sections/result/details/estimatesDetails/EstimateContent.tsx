@@ -7,6 +7,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { NewButton } from '../common/NewButton';
 import { ContractButton } from '../common/ContractButton';
 import { ReactNode } from 'react';
+import { ExportButton } from './ExportButton';
 
 export const EstimateContent = (props: Partial<EstTableProps> & {
   projId: string,
@@ -46,11 +47,19 @@ export const EstimateContent = (props: Partial<EstTableProps> & {
           
 
           {projEstimateId?.value && (
-          <ContractButton 
-            href={`${pages.projContractPreviewV2}?${generateParams({ projEstimateId: projEstimateId.value })}`}
-            title='（当機能は開発中です）見積を利用して契約を作成する。'
-          />
+            <>
+              <ContractButton
+                href={`${pages.projContractPreviewV2}?${generateParams({ projEstimateId: projEstimateId.value })}`}
+                title='（当機能は開発中です）見積を利用して契約を作成する。'
+              />
+
+              <ExportButton
+                projEstimateId={projEstimateId.value}
+              />
+            </>
+
           )}
+
           <NewButton 
             href={`${pages.projEstimate}?${generateParams({ projId })}`}
             title='見積を作成する'

@@ -1,9 +1,9 @@
 import { useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
-import { useTypedWatch } from '../../../hooks/useTypedRHF';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { StaticContents } from 'kokoas-client/src/components';
-import { SaveToAndpadButton } from '../../../parts/saveToAndpad/SaveToAndpadButton';
+import { SaveToAndpadButton } from '../../parts/saveToAndpad/SaveToAndpadButton';
 import { Alert } from '@mui/material';
-import { ForcedAndpadLink } from '../../../parts/ForcedAndpadLink';
+import { ForcedAndpadLink } from '../../parts/ForcedAndpadLink';
 import { SystemId } from './SystemId';
 
 export const AndpadSummary = () => {

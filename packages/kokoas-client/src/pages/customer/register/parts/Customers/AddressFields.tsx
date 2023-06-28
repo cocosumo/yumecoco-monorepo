@@ -47,15 +47,15 @@ export const AddressFields = ({
       <Grid item xs={12} >
         <FormikTextField disabled={disabled}
           name={`${namePrefix}${getCustFieldName('address1')}`}
-          label="住所"
-          placeholder='愛知県豊田市汐見町8丁目87-8'
+          label="住所（県市区町村）"
+          placeholder='愛知県豊川市千歳通'
         />
       </Grid>
       <Grid item xs={12} mb={2}>
         <FormikTextField disabled={disabled}
           name={`${namePrefix}${getCustFieldName('address2')}`}
-          label="住所（建物名）"
-          placeholder='マンション山豊101'
+          label="住所（番地以降）"
+          placeholder='３丁目１−１'
         />
       </Grid>
 

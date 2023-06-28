@@ -37,13 +37,14 @@ export const ProjectDetails = ({
       cancelStatus,
       dataId,
       log,
-      remarks,
+
       uuid: projId,
 
       作成日時: createDate,
       更新日時: updateDate,
       作成者: createdBy,
       更新者: updatedBy,
+      memo,
       // status, 廃止　（追客中など） 
     } = recProj;
 
@@ -87,6 +88,10 @@ export const ProjectDetails = ({
       {
         label: '建物種別',
         value: buildingType.value,
+      },
+      {
+        label: '備考',
+        value: memo.value || '-',
       },
     ];
 
@@ -145,25 +150,12 @@ export const ProjectDetails = ({
       value: logNote.value,
     }));
 
-    const remarksDetails: IDetail[] = remarks.value.map(({
-      id,
-      value: {
-        note,
-        noteCreateTime,
-      },
-    }) => ({
-      key: id,
-      label: parseISOTimeToFormat(noteCreateTime.value),
-      value: note.value || '-',
-    }));
-
 
     return {
       mainDetails,
       agentDetails,
       otherDetails,
       logDetails,
-      remarksDetails,
     };
 
   }, [
@@ -195,11 +187,6 @@ export const ProjectDetails = ({
       <DetailSection 
         title="担当情報"
         details={details.agentDetails}
-      />
-
-      <DetailSection 
-        title="メモ"
-        details={details.remarksDetails}
       />
 
       <DetailSection 

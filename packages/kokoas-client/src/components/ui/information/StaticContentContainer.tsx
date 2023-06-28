@@ -10,7 +10,8 @@ export const StaticContentContainer = ({
   return (
     <Stack 
       bgcolor='white'
-      p={4}
+      py={2}
+      px={4}
       border={1}
       borderColor={grey[300]}
       borderRadius={1}

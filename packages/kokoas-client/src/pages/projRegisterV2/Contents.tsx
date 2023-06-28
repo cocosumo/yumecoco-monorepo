@@ -3,9 +3,10 @@ import { ProjectLocation } from './sections/projectLocation/ProjectLocation';
 import { ProjectInformation } from './sections/projectInformation/ProjectInformation';
 import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { Memo } from './sections/memo/Memo';
-import { AndpadSummary } from './sections/projectLocation/andpadSummary/AndpadSummary';
+import { AndpadSummary } from './sections/andpadSummary/AndpadSummary';
 import { useTypedWatch } from './hooks/useTypedRHF';
 import { CancelStatus } from './sections/cancelStatus.tsx/CancelStatus';
+import { ContractsSummary } from './sections/contractsSummary/ContractsSummary';
 
 export const Contents = () => {
   const projId = useTypedWatch({
@@ -20,6 +21,9 @@ export const Contents = () => {
         <>
           <PageSubTitle3 label={'Andpad情報'} />
           <AndpadSummary />
+
+          <PageSubTitle3 label={'契約情報'} />
+          <ContractsSummary />
         </>
       )}
 

@@ -1,6 +1,5 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Button, Tab } from '@mui/material';
-import { StaticContentActions } from 'kokoas-client/src/components/ui/information/StaticContentActions';
+import { Box, Tab } from '@mui/material';
 import { StaticContentInfos } from 'kokoas-client/src/components/ui/information/StaticContentInfos';
 import { useState } from 'react';
 import { IContracts } from 'types';

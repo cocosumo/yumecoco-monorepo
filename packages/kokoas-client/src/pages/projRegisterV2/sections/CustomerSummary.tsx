@@ -57,8 +57,8 @@ export const CustomerSummary = () => {
     ];
 
     const officerData = [
-      { label: 'ここすも営業担当者', value: cocoAGNames.value },
       { label: 'ゆめてつAG', value: yumeAGNames.value },
+      { label: 'ここすも営業担当者', value: cocoAGNames.value },
       { label: '工事担当者', value: constructionOfficers || '' },
     ];
 

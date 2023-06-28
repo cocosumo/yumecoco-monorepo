@@ -17,7 +17,7 @@ export const AddressByPostal = () => {
         variant='outlined'
         onClick={async () => {
           const postal = getValues('postal');
-
+          console.log('pospsopso', postal);
           const result = await queryClient.fetchQuery(
             ['addressPostalCode', { postalCode: postal }],
             () => getAddressByPostal(postal as string),

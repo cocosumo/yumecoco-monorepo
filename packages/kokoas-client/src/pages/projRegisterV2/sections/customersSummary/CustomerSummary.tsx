@@ -1,11 +1,11 @@
-import { pages } from '../../Router';
+import { pages } from '../../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useWatch } from 'react-hook-form';
 import { useCustGroupById, useEmployeeByIds } from 'kokoas-client/src/hooksQuery';
 import {  useMemo } from 'react';
 
-import { Customers } from '../parts/Customers';
-import { TForm } from '../schema';
+import { Customers } from './Customers';
+import { TForm } from '../../schema';
 import { Button, LinearProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { StaticContentContainer } from 'kokoas-client/src/components/ui/information/StaticContentContainer';

@@ -1,7 +1,7 @@
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useWatch } from 'react-hook-form';
-import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { useCustGroupById, useEmployeeByIds } from 'kokoas-client/src/hooksQuery';
 import {  useMemo } from 'react';
 
 import { Customers } from '../parts/Customers';
@@ -17,15 +17,21 @@ export const CustomerSummary = () => {
   const [
     custGroupId,
     projId,
+    cocoConst1,
+    cocoConst2,
   ] = useWatch<TForm>({
     name: [
       'custGroupId',
       'projId',
-      
+      'cocoConst1',
+      'cocoConst2',
     ],
-  });
+  }) as string[];
 
   const { data, isLoading } = useCustGroupById(custGroupId as string);
+  const { data: empData } = useEmployeeByIds([
+    cocoConst1, cocoConst2]);
+
   const navigate = useNavigate();
 
 
@@ -35,6 +41,10 @@ export const CustomerSummary = () => {
       custData: [],
       officerData: [],
     };
+
+    const constructionOfficers = empData?.map(({
+      文字列＿氏名: empName,
+    }) => empName.value).join('、');
 
     const {
       storeName,
@@ -49,15 +59,18 @@ export const CustomerSummary = () => {
     const officerData = [
       { label: 'ここすも営業担当者', value: cocoAGNames.value },
       { label: 'ゆめてつAG', value: yumeAGNames.value },
+      { label: '工事担当者', value: constructionOfficers || '' },
     ];
 
     return {
       custData,
       officerData,
+      
     };
 
   }, [
     data,
+    empData,
   ]); 
 
   if (isLoading) return <LinearProgress />;

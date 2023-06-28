@@ -4,7 +4,7 @@ import { useTypedWatch } from '../../hooks/useTypedRHF';
 export const TempAddressField = () => {
   const isEnabled = useTypedWatch({
     name: 'isAddressKari',
-  });
+  }) as  boolean;
 
   return (
     <ControlledTextField

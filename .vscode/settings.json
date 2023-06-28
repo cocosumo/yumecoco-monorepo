@@ -28,5 +28,6 @@
     "/packages/api-andpad/src",
     "/packages/libs/src",
     "/packages/kokoas-client/src/pages/projEstimate/hooks"
-  ]
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

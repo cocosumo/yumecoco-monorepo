@@ -28,7 +28,9 @@ export const ForcedAndpadLink = ({
 
   return (
     <>
-      <Tooltip title="Andpadで先に登録してしまった場合"> 
+      <Tooltip 
+        title={disabled ? '既に接続しているため、強制接続が出来ません' : 'Andpadで先に登録してしまった場合'}
+      > 
         <span>
           <LoadingButton
             color='warning'

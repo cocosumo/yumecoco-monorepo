@@ -15,6 +15,7 @@ export const AndpadButton = styled(Button)<ButtonProps>(({ theme }) => ({
   lineHeight: 1.5,
   backgroundColor: baseColor,
   borderColor: baseColor,
+  width: 'unset',
   '&:hover': {
     backgroundColor: hoverColor,
     borderColor: hoverColor,

@@ -11,7 +11,7 @@ export const useCocoEmpGrpByArea = () => {
 
 
   return useEmployees({
-    isActive: !includeRetired,
+    isActiveOnly: !includeRetired,
     select: (d) => {
       return d.reduce(
         (acc, cur) => {

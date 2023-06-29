@@ -4,9 +4,9 @@ import { useMemo } from 'react';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { formatDataId, locale } from 'libs';
 import { parseISODateToFormat } from 'kokoas-client/src/lib';
-import { Recipients } from './Recipients';
 import { Files } from './Files';
 import { useEstimateById } from 'kokoas-client/src/hooksQuery';
+import { ContractRecipients } from 'kokoas-client/src/components/ui/information/';
 
 export const ContractInfo = ({
   record,
@@ -40,7 +40,7 @@ export const ContractInfo = ({
     const result: IDetail[] = [
       {
         label: '署名経路',
-        value: <Recipients hasContract={hasContract} rawRecipients={envRecipients} />,
+        value: <ContractRecipients hasContract={hasContract} rawRecipients={envRecipients} />,
       },
       {
         label: '書類',

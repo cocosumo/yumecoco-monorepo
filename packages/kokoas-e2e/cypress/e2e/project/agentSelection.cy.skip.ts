@@ -1,5 +1,10 @@
 import { beforeEach, cy, describe } from 'local-cypress';
 
+/**
+ * 「工事担当者を確定する」がなくなりました
+ * 
+ */
+
 describe('agentSelection', () => {
   const testProjId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60';
 

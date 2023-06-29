@@ -8,7 +8,7 @@ import {
 import { ListItemLayout } from './ListItemLayout';
 import { IContracts, TEnvelopeStatus } from 'types';
 import { parseISODateToFormat } from 'kokoas-client/src/lib';
-import { ContractStatus } from './ContractStatus';
+import { ContractStatus } from 'kokoas-client/src/components';
 
 export const ContractList = ({
   records,

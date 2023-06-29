@@ -38,7 +38,7 @@ export  const  CustGroupShortcuts = (props : {
         },
         {
           type: 'project' as ShortCutType,
-          handleClick: ()=>navigate(`${pages.projEdit}?${generateParams(params)}`),
+          handleClick: ()=>navigate(`${pages.projEditV2}?${generateParams(params)}`),
         },
         {
           type: 'prospect' as ShortCutType,

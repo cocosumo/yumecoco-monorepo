@@ -14,7 +14,7 @@ export const ProjDetailsButton = () => {
   return (
     <Button
       variant='outlined'
-      onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId })}`)}
+      onClick={() => navigate(`${pages.projEditV2}?${generateParams({ projId })}`)}
     >
       工事情報の詳細
     </Button>

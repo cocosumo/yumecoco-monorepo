@@ -33,7 +33,7 @@ export const FormikIndividualCustomer = () => {
       setDialogState({
         title: '次へ進む',
         content: '工事情報を登録しますか。',
-        handleYes: ()=>navigate(`${pages.projReg}?${generateParams({
+        handleYes: ()=>navigate(`${pages.projEditV2}?${generateParams({
           custGroupId,
         })}`),
         handleNo: ()=>navigate(`${pages.custGroupEdit}?${generateParams({

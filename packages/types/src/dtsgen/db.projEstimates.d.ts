@@ -35,7 +35,7 @@ declare namespace DBProjestimates {
     projTypeId: kintone.fieldTypes.SingleLineText;
     subsidyMethod: kintone.fieldTypes.Number;
     finishDate: kintone.fieldTypes.Date;
-    remarks: kintone.fieldTypes.SingleLineText;
+    remarks: kintone.fieldTypes.MultiLineText;
     totalPaymentAmt: kintone.fieldTypes.Calc;
     isForPayment: kintone.fieldTypes.CheckBox;
 

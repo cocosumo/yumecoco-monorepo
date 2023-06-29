@@ -4,6 +4,8 @@ import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 
 export const getOrderByProjId = async (projId: string) => {
 
+  if (!projId) return null;
+  
   const endpoint = [
     kokoasAPIBaseUrl,
     kokoasEndpoints.getProjectFromAndpadByProjId,

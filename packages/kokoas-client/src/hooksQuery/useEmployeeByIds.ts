@@ -1,18 +1,17 @@
 import { useQuery } from '@tanstack/react-query';
 import { AppIds } from 'config';
-import { getActiveEmployees } from 'api-kintone';
+import { getEmployees } from 'api-kintone';
 
 export const useEmployeeByIds = (empId: string | string[]) => {
   return useQuery(
     [AppIds.employees],
-    getActiveEmployees,
+    () => getEmployees(false),
     {
       select: (data) => data.filter(({
-        $id,
+        uuid,
       }) => typeof empId === 'string'
-        ?  $id.value === empId
-        : empId.some(e => $id.value === e),
-      ),
+        ?  uuid.value === empId
+        : empId.some(e => uuid.value === e)),
     },
   );
 };

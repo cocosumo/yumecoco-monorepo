@@ -75,7 +75,7 @@ export const ResultsTBody = ({
                 size="small"
                 variant='outlined'
                 fullWidth
-                onClick={() => navigate(`${pages.projEdit}?${generateParams({ projId, contractId })}`)}
+                onClick={() => navigate(`${pages.projEditV2}?${generateParams({ projId, contractId })}`)}
               >
                 {projDataId}
               </ButtonWithToolTip>

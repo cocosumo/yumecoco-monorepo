@@ -13,6 +13,7 @@ import bodyParser from 'body-parser';
 import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloadInvoice';
 import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectFromAndpadByProjId';
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
+import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
 
 
 const route = router();
@@ -40,14 +41,16 @@ route.get(
   `/${kokoasEndpoints.getProjectFromAndpadByProjId}/:projId`,
   reqGetProjectFromAndpadByProjId,
 );
+
 route.get(
   `/${kokoasEndpoints.getProjectsFromAndpad}`,
   reqGetProjectsFromAndpad,
 );
 
+
 route.get(
-  `/${kokoasEndpoints.getProjectsFromAndpad}`,
-  reqGetProjectsFromAndpad,
+  `/${kokoasEndpoints.getProjectFromAndpadBySystemId}`,
+  reqGetProjectBySystemId,
 );
 
 route.get(

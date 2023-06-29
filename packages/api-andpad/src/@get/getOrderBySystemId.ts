@@ -12,14 +12,14 @@ import { KAndpadOrderResult } from 'types/src/common/andpad.order';
  */
 
 
-export const getOrderBySystemId = async (
-  systemId: string,
-  series: KAndpadOrderResult[] | undefined = [],
-) => {
+export const getOrderBySystemId = async ({
+  systemId,
+  series,
+}: GetOrderBySystemIdParams) => {
   if (!systemId) return;
 
   const query = qs.stringify({
-    series: series?.join(','),
+    series,
   }, {
     arrayFormat: 'comma',
   });
@@ -36,3 +36,8 @@ export const getOrderBySystemId = async (
 
   return data; 
 };
+
+export interface GetOrderBySystemIdParams {
+  systemId: string;
+  series?: KAndpadOrderResult[];
+}

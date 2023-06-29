@@ -14,6 +14,8 @@ export const kokoasEndpoints = {
   /** 案件管理IDで案件を取得 */
   getProjectFromAndpadByProjId: 'andpad/project',
 
+  getProjectFromAndpadBySystemId: 'andpad/system',
+
   getProjectsFromAndpad: 'andpad/projects',
 
   /** 

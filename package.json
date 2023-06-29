@@ -134,7 +134,7 @@
     "qs": "^6.11.2",
     "random-js": "^2.1.0",
     "react": "^18.1.0",
-    "react-awesome-reveal": "^3.8.1",
+    "react-awesome-reveal": "^4.2.4",
     "react-data-grid": "^7.0.0-beta.34",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",

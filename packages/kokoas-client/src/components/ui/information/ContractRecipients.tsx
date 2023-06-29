@@ -8,7 +8,7 @@ import format from 'date-fns/format';
 import jaLocale from 'date-fns/locale/ja';
 
 
-export const Recipients = ({
+export const ContractRecipients = ({
   hasContract,
   rawRecipients,
 }:{

@@ -1,6 +1,6 @@
 import { AppIds } from 'config';
-import { ICompanydetails, KCompanydetails } from 'types';
+import { IAndpadpaymentdata, KAndpadpaymentdata } from 'types';
 
-export const appId = AppIds.;
-export type RecordType = ICompanydetails;
-export type RecordKey = KCompanydetails;
+export const appId = AppIds.andpadPaymentData;
+export type RecordType = IAndpadpaymentdata;
+export type RecordKey = KAndpadpaymentdata;

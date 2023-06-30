@@ -11,6 +11,7 @@ export interface ActionButtonBaseProps extends ActionButtonProps {
   startIcon?: ReactNode
   children?: ReactNode
   color?: ButtonProps['color']
+  target?: string
 }
 
 
@@ -21,6 +22,7 @@ export const ActionButton = ({
   startIcon,
   children,
   color,
+  target,
 } : ActionButtonBaseProps) => {
   return (
     <Tooltip 
@@ -32,6 +34,7 @@ export const ActionButton = ({
         style={{
           alignSelf: 'flex-end',
         }}
+        target={target}
       >
         <Button 
           startIcon={startIcon}

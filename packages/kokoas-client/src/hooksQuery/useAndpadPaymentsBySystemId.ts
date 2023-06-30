@@ -11,7 +11,7 @@ interface QueryOptions {
  * Andpadから入金データを取得する
  */
 export const useAndpadPaymentsBySystemId = (
-  systemId: string,
+  systemId: string | number,
   options?: QueryOptions,
 ) => {
 

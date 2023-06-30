@@ -13,12 +13,17 @@ export const PayTableContainer = ({
     <Paper sx={{ 
       width: '100%', 
       overflow: 'hidden', 
-      height: 'calc(80vh - 130px)',
+      height: 'calc(60vh - 100px)',
     }}
     >
       <TableContainer 
         sx={{
           height: 'calc(100% - 72px)', 
+          '& th': {
+            py: 2,
+            fontWeight: 'bold',
+            color: 'text.secondary',
+          },
         }}
       >
         <Table 

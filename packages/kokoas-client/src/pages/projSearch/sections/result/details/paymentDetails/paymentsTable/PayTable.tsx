@@ -2,6 +2,7 @@
 import { useAndpadPaymentsBySystemId } from 'kokoas-client/src/hooksQuery';
 import { PayTableBody } from './PayTableBody';
 import { PayTableContainer } from './PayTableContainer';
+import { PayTableFooter } from './PayTableFooter';
 
 
 
@@ -15,8 +16,8 @@ export const PayTable = ({
   
   return (
     <PayTableContainer
-      body={<PayTableBody />}
-      footer={null}
+      body={<PayTableBody records={data || []} />}
+      footer={<PayTableFooter records={data || []} />}
     />
   );
 };

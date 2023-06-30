@@ -52,6 +52,7 @@ export const PaymentDetails  = ({
           <ActionButton
             href={`https://andpad.jp/manager/my/orders/${systemId}/customer_agreement`}
             title='入金情報をAndpadで見る'
+            target='_blank'
           >
             入金情報
           </ActionButton>

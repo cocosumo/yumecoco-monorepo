@@ -37,40 +37,69 @@ const NumberCell = ({
 );
 
 export const RowLayout = ({
-  expectedPaymentAmount,
+  index,
+  paymentStatus,
+  paymentType,
   paymentDate,
   paymentMethod,
   paymentAmount,
+  actualPaymentAmount,
   handlingFee,
   remarks,
 }:{
-  expectedPaymentAmount: ReactNode,
+  index?: ReactNode,
+  paymentStatus?: ReactNode,
+  paymentType?: ReactNode,
   paymentDate: ReactNode,
   paymentMethod: ReactNode,
   paymentAmount: ReactNode,
+  actualPaymentAmount: ReactNode,
   handlingFee: ReactNode,
   remarks: ReactNode,
 }) => {
   return (
     <StyledTableRow>
-      <NumberCell>
-        {expectedPaymentAmount}
-      </NumberCell>
-      <TableCell>
-        {paymentDate}
+      <TableCell
+        sx={{
+          maxWidth: '10px',
+        }}
+      >
+        {index}
+      </TableCell>
+      <TableCell 
+        align='center'
+        sx={{
+          maxWidth: '50px',
+        }}
+      >
+        {paymentStatus}
+        <br />
+        {paymentType}
       </TableCell>
       <TableCell>
         {paymentMethod}
       </TableCell>
+
+      <TableCell>
+        {paymentDate}
+      </TableCell>
+
       <NumberCell>
-        {paymentAmount}
+        {actualPaymentAmount}
       </NumberCell>
+
       <NumberCell>
         {handlingFee}
       </NumberCell>
+
+      <NumberCell>
+        {paymentAmount}
+      </NumberCell>
+
       <TableCell>
         {remarks}
       </TableCell>
+
     </StyledTableRow>
   );
 };

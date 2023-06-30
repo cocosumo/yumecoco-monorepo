@@ -18,7 +18,7 @@ declare namespace DBAndpadpaymentdata {
     billingDate: kintone.fieldTypes.Date;
     paymentMethod: kintone.fieldTypes.SingleLineText;
     expectedPaymentAmount: kintone.fieldTypes.Number;
-    日付_0: kintone.fieldTypes.Date;
+    paymentDate: kintone.fieldTypes.Date;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

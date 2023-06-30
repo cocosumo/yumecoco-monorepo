@@ -24,7 +24,7 @@ export const useAndpadPaymentsBySystemId = (
     () => getAndpadPaymentsBySystemId(systemId),
     {
       enabled: enabled && !!systemId,
-      staleTime: 5000,
+      staleTime: 10000,
     },
   );
 };

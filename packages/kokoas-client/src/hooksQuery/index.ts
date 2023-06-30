@@ -28,6 +28,7 @@ export * from './useCustomersByCustGroupId';
 export * from './useCustomersById';
 export * from './useCustomersByIds';
 export * from './useDeleteContractById';
+export * from './useDetailedAndpadOrderByProjId';
 export * from './useDownloadInvoiceId';
 export * from './useEmployeeByIds';
 export * from './useEmployeeOptions';

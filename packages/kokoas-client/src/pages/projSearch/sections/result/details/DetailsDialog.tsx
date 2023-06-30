@@ -7,6 +7,7 @@ import {
 import { DetailsContent } from './DetailsContent';
 import { SyntheticEvent, useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
+import { DetailsDialogTitle } from './DetailsDialogTitle';
 
 export const DetailsDialog = ({
   open,
@@ -43,12 +44,16 @@ export const DetailsDialog = ({
           display: 'relative',
         }}
       > 
-        {projName}
+        <DetailsDialogTitle
+          projId={projId}
+          projName={projName}
+        />
         <Tabs value={tabIdx} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="顧客" />
           <Tab label="工事" />
           <Tab label="見積"  />
           <Tab label="契約"  />
+          <Tab label="入金"  />
         </Tabs>
         <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>

@@ -162,12 +162,6 @@ export const useSearchResult =  () => {
         const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
         const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
 
-        if (projCancelStatus.value || isDeleted.value === '1' ) {
-          console.log(includeDeleted, isProjectDeleted, isCustGroupDeleted, projCancelStatus.value, isDeleted.value);
-        }
-
-
-
         if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName

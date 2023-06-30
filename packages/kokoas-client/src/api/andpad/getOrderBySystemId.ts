@@ -1,7 +1,7 @@
-import { GetOrderBySystemIdParams, saveProjectData } from 'api-andpad';
+import { GetOrderBySystemIdParams } from 'api-andpad';
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
-import { TAndpadOrderResult } from 'types/src/common/andpad.order';
+import { TAndpadOrderResult, andpadOrderSchema } from 'types/src/common/andpad.order';
 import qs from 'qs';
 
 export const getOrderBySystemId = async (params: GetOrderBySystemIdParams) => {
@@ -31,7 +31,7 @@ export const getOrderBySystemId = async (params: GetOrderBySystemIdParams) => {
   });
   const { data } = result;
 
-  const parsed = saveProjectData.safeParse(data);
+  const parsed = andpadOrderSchema.safeParse(data);
 
   if (!parsed.success) {
     

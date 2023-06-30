@@ -26,7 +26,7 @@ export const useAndpadBySystemId = (
     [AppIds.projects, 'andpad', params],
     () => getOrderBySystemId(params),
     {
-      enabled: !!params.systemId || enabled,
+      enabled: enabled,
       staleTime: 5000,
       onError,
     },

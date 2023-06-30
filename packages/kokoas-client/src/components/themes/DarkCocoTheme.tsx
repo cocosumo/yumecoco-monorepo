@@ -1,5 +1,4 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { jaJP } from '@mui/x-data-grid';
 import { isMobile } from './../../helpers/kintone';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
@@ -151,7 +150,6 @@ const darkTheme = createTheme(
     },
 
   },
-  jaJP,
   coreJaJP,
   pickersJaJP,
 );

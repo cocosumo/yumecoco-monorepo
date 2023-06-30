@@ -8,7 +8,7 @@ interface QueryOptions {
 }
 
 /**
- * Andpadから案件データを取得する
+ * Andpadから入金データを取得する
  */
 export const useAndpadPaymentsBySystemId = (
   systemId: string,

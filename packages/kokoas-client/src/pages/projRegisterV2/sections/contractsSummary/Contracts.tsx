@@ -13,7 +13,7 @@ export const Contracts = ({
 }: {
   data: IContracts[]
 }) => {
-  const [value, setValue] = useState(data[0].uuid.value);
+  const [value, setValue] = useState(data[0]?.uuid.value);
   const navigate = useNavigateWithQuery();
 
   const handleChange = (_: unknown, newValue: string) => {
@@ -74,16 +74,20 @@ export const Contracts = ({
           );
         })}
       </TabContext>
-      <StaticContentActions>
-        <Button
-          onClick={() => navigate('projContractPreviewV2', {
-            contractId: value,
-          })}
-          variant='outlined'
-        >
-          編集
-        </Button>
-      </StaticContentActions>
+      {value && (
+        <StaticContentActions>
+          <Button
+            onClick={() => navigate('projContractPreviewV2', {
+              contractId: value,
+            })}
+            variant='outlined'
+          >
+            編集
+          </Button>
+        </StaticContentActions>
+
+      )}
+      
     </>
   );
 };

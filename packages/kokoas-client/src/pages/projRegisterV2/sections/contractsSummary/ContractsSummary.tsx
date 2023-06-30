@@ -14,7 +14,8 @@ export const ContractsSummary = () => {
   return (
     <StaticContentContainer>
       {isLoading && (<LinearProgress />)}
-      {data && !isLoading && (<Contracts data={data} />)}
+      {!!data?.length && !isLoading && (<Contracts data={data} />)}
+      {!data?.length && !isLoading && '契約がありません'}
     </StaticContentContainer>
   );
 };

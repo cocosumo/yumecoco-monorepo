@@ -3,6 +3,19 @@ import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import { amber, blue } from '@mui/material/colors';
 
+export interface RowLayoutProps {
+  index?: ReactNode,
+  paymentStatus?: ReactNode,
+  paymentType?: ReactNode,
+  paymentDate: ReactNode,
+  paymentMethod: ReactNode,
+  paymentAmount: ReactNode,
+  actualPaymentAmount: ReactNode,
+  handlingFee: ReactNode,
+  remarks: ReactNode,
+}
+
+export type KRowLayoutProps = keyof RowLayoutProps; 
 
 const StyledTableRow = styled(TableRow)(() => ({
   '&:nth-of-type(even)': {
@@ -73,7 +86,7 @@ export const RowLayout = ({
         <br />
         {paymentType}
       </TableCell>
-      <TableCell width={100}>
+      <TableCell width={120}>
         {paymentMethod}
       </TableCell>
 

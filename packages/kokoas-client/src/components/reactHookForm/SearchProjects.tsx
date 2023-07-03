@@ -73,6 +73,10 @@ export function SearchProjects<T extends BaseFields>(
           <Autocomplete 
             {...field} 
             fullWidth
+            sx={{
+              maxWidth: 400,
+            }}
+            size='small'
             value={field.value ? {
               id: field.value,
               projName,

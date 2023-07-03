@@ -1,5 +1,4 @@
-import { Divider, Grid } from '@mui/material';
-import { PageSubTitle } from 'kokoas-client/src/components';
+import { Alert, Button, Divider, Stack } from '@mui/material';
 import {
   TextField,
   PercentField,
@@ -8,15 +7,21 @@ import {
 import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
-import { TypeOfForm } from './form';
 import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
-import { GoToContractButton } from './navigationComponents/GoToContractButton';
 import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-import { EstBody } from './tables/estimatesVirtual/EstBody';
-import { EstBodyReadOnly } from './tables/estimatesVirtual/readonly/EstBodyReadOnly';
+
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
-import SummaryTable from './tables/SummaryTable/SummaryTable';
 import { Remarks } from './fields/Remarks';
+import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
+import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
+import { TForm } from './schema';
+import { Summary } from './sections/Summary';
+import { DevTool } from '@hookform/devtools';
+import { ActionButtons } from './sections/ActionButton';
+import { useIsFetching } from '@tanstack/react-query';
+import { pages } from '../Router';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { BetaWarning } from 'kokoas-client/src/components/ui/static/BetaWarning';
 
 
 export const FormContents = ({
@@ -24,10 +29,10 @@ export const FormContents = ({
 }: {
   handleSubmit: UseSaveForm['handleSubmit']
 }) => {
-
+  const busy = !!useIsFetching();
   const {
     control,
-  } = useFormContext<TypeOfForm>();
+  } = useFormContext<TForm>();
 
   /* 閉じるまえに、確認アラートを表示する */
   useConfirmBeforeClose();
@@ -36,18 +41,20 @@ export const FormContents = ({
     projId,
     projTypeProfit,
     projTypeProfitLatest,
-    envStatus,
+    hasOnProcessContract,
+    contractId,
   ] = useWatch({
     control,
     name: [
       'projId',
       'projTypeProfit',
       'projTypeProfitLatest',
-      'envStatus',
+      'hasOnProcessContract',
+      'contractId',
     ],
   });
 
-  const disabled = !!envStatus;
+  const disabled = hasOnProcessContract || busy;
   
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(
@@ -61,8 +68,37 @@ export const FormContents = ({
 
   if (projId) {
     return (
-      <>
-        <Grid item xs={12} md={3}>
+      <Stack 
+        spacing={2}
+        justifyContent={'flex-start'}
+        pb={10}
+      >
+        <DevTool control={control} placement={'top-right'} />
+        <BetaWarning />
+        {!!projTypeProfitLatest
+          && projTypeProfitLatest !== 0
+          && +(projTypeProfit ?? 0) !== +projTypeProfitLatest
+          && !disabled && <MismatchedProfit />}
+        {!!contractId && (
+          <Alert
+            action={(
+              <Button
+                variant={'outlined'}
+                size={'small'}
+                href={`#${pages.projContractPreviewV2}?${generateParams({ contractId: contractId as string })}`}
+              >
+                契約
+              </Button>
+            )}
+          >
+            当見積の契約が進捗中です。右のボタンで契約を確認頂けます。
+          </Alert>
+        )}
+
+        <Stack 
+          direction={'row'}
+          spacing={2}
+        >
           <TextField
             controllerProps={{
               name: 'projTypeName',
@@ -71,10 +107,9 @@ export const FormContents = ({
             textFieldProps={{
               label: '工事種別名',
               disabled: true,
+              size: 'small',
             }}
           />
-        </Grid>
-        <Grid item xs={12} md={3}>
 
           <PercentField
             controllerProps={{
@@ -84,16 +119,15 @@ export const FormContents = ({
             textFieldProps={{
               label: '利益率',
               disabled: projTypeProfitLatest !== 0 || disabled,
+              size: 'small',
+              InputProps: {
+                sx: {
+                  maxWidth: 100,
+                },  
+              },
             }}
           />
 
-          {!!projTypeProfitLatest
-          && projTypeProfitLatest !== 0
-          && +(projTypeProfit ?? 0) !== +projTypeProfitLatest
-          && !disabled && <MismatchedProfit />}
-
-        </Grid>
-        <Grid item xs={12} md={3}>
           <PercentField
             controllerProps={{
               name: 'taxRate',
@@ -102,52 +136,44 @@ export const FormContents = ({
             textFieldProps={{
               label: '税率',
               disabled,
+              size: 'small',
+              InputProps: {
+                sx: {
+                  maxWidth: 100,
+                },  
+              },
             }}
           />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <StatusSelect control={control} disabled={disabled} />
-        </Grid>
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label={<EstimateTableLabel />} />
-        </Grid>
+          <StatusSelect 
+            control={control} 
+            disabled={disabled}
+          />
 
-        <Grid item xs={12}>
-          {/* 見積もり内訳のテーブル */}
-          {/* <EstTable isDisabled={disabled} /> */}
-          {!disabled &&  <EstBody isDisabled={disabled} />}
-          {disabled && <EstBodyReadOnly />}
-        </Grid>
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label={'大項目小計欄'} />
-        </Grid>
+        </Stack>
 
-        <Grid item xs={12} md={6}>
-          <SubTotalTable />
-        </Grid>
+        <PageSubTitle3 label={<EstimateTableLabel />} />
+   
+        <Stack>
+          <EstimatesDataGrid />
+          <Summary />
+        </Stack>
 
-        <Grid item xs={12} mt={4}>
-          <PageSubTitle label={'その他'} />
-        </Grid>
+      
+        <PageSubTitle3 label={'大項目小計欄'} />
+      
+        <SubTotalTable />
 
-        <Grid item xs={12} md={6}>
-          <Remarks />
-        </Grid>
+        <PageSubTitle3 label={'その他'} />
+     
+        <Remarks />
 
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
+        <Divider />  
 
-        <Grid item xs={12}>
-          <GoToContractButton />
-        </Grid>
-
-        {/* 合計欄 */}
-        <SummaryTable />
-
-      </>
+        <ActionButtons handleSubmit={handleSubmit} />
+  
+      </Stack>
 
     );
   } else {

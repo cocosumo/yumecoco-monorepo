@@ -14,6 +14,9 @@ export const validationSchema =  Yup.object().shape(
     'cocoAG1' : Yup
       .string()
       .required('必須です。'),
+    'yumeAG1': Yup
+      .string()
+      .required('必須です。'),
     'customers': Yup.array()
       .of(
         Yup.object().shape({
@@ -30,7 +33,8 @@ export const validationSchema =  Yup.object().shape(
               then: Yup.string().matches(postalRegExp, '半角数字。例：4418124'),
             }),
 
-          'phone1': Yup.string().matches(phoneRegExp, '半角数字。例：07012641265').required('必須です。'),
+          'phone1': Yup.string().matches(phoneRegExp, '半角数字。例：07012641265')
+            .required('必須です。'),
           'phone1Rel': Yup.string().required('連絡先の続柄を選択してください'),
 
           'phone2': Yup.string().matches(phoneRegExp, '半角数字。例：07012641265'),

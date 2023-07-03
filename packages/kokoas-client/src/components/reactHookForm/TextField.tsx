@@ -28,7 +28,6 @@ export function TextField<T extends FieldValues>(
           <MuiTextField 
             {...textFieldProps}
             {...field} 
-            fullWidth
             error={isShowError}
             helperText={isShowError ? error.message : ''}
           />

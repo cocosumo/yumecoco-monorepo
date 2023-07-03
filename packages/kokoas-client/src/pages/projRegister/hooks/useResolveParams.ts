@@ -6,7 +6,8 @@ import {
   useProjById, 
   useCustGroupById, 
   useProjContractSummary, 
-  useAndpadOrderByProjId, 
+  useAndpadOrderByProjId,
+  useCustomersByCustGroupId, 
 } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertCustGroupToForm, convertProjToForm } from '../api/convertToForm';
@@ -25,12 +26,20 @@ export const useResolveParams = () => {
     custGroupId: custGroupIdFromURL,
   } = useURLParams();
 
-
-  const { data: projRec } = useProjById(projIdFromURL || '');
+  
+  const { 
+    data: projRec, 
+    isLoading: isProjRecLoading, 
+  } = useProjById(projIdFromURL || '');
 
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
+  const { data: custRecs } = useCustomersByCustGroupId(custGroupIdFromURL || '');
 
   const { data: contractSummary } = useProjContractSummary(projRec?.uuid.value);
+
+  const {
+    forceLinkedAndpadSystemId,
+  } = projRec || {};
 
   const {
     completed,
@@ -41,12 +50,14 @@ export const useResolveParams = () => {
     projIdFromURL || '',
     {
       onError: (error) => {
-        setSnackState({
-          open: true,
-          message: error.message,
-          severity: 'warning',
-          autoHideDuration: 10000,
-        });
+        if (!forceLinkedAndpadSystemId?.value && !isProjRecLoading) {
+          setSnackState({
+            open: true,
+            message: error.message,
+            severity: 'warning',
+            autoHideDuration: 10000,
+          });
+        }
       },
     },
   );  
@@ -65,7 +76,8 @@ export const useResolveParams = () => {
         ...convertCustGroupToForm(custGroupRec),
       });
 
-    } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {
+    } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec && custRecs) {
+
       setInitForm({
         ...initialValues,
         ...convertCustGroupToForm(custGroupRec),
@@ -84,6 +96,7 @@ export const useResolveParams = () => {
     completed,
     contractSummary,
     andpadDetails,
+    custRecs,
   ]);
 
   return initForm;

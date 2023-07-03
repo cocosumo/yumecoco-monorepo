@@ -12,7 +12,7 @@ export const useParseQuery = (): TypeOfForm => {
     search,
   } = useLocation();
 
-  const newMemoedForm = useMemo(() => {
+  const newMemoedForm = useMemo((): TypeOfForm => {
     const parsedQuery: Partial<TypeOfForm> = qs.parse(search.replace(/^\?/, ''), { comma: true });
 
     const {
@@ -26,6 +26,7 @@ export const useParseQuery = (): TypeOfForm => {
       territories,
 
       includeRetired,
+      includeDeleted,
       cocoAG,
 
       yumeAG,
@@ -35,10 +36,14 @@ export const useParseQuery = (): TypeOfForm => {
 
       contractDateFrom,
       contractDateTo,
+      order,
+      orderBy,
     } = parsedQuery;
 
     return {
       ...initialForm,
+      order: order ?? 'asc',
+      orderBy: orderBy ?? 'storeSortNumber',
       keyword: keyword ?? null,
       custName: custName ?? null,
       address: address ?? null,
@@ -46,6 +51,7 @@ export const useParseQuery = (): TypeOfForm => {
       projTypes: ([] as string[]).concat(projTypes ?? []),
       territories: ([] as Territory[]).concat(territories ?? []),
       includeRetired: typeof includeRetired === 'string' && includeRetired === 'true',
+      includeDeleted: typeof includeDeleted === 'string' && includeDeleted === 'true',
       cocoAG: ([] as string[]).concat(cocoAG ?? []),
       yumeAG: ([] as string[]).concat(yumeAG ?? []),
       completionDateFrom: completionDateFrom ? parseISO(completionDateFrom as string) : null,

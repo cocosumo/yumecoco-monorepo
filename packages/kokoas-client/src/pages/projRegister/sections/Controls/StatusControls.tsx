@@ -2,9 +2,9 @@ import { Button,  Stack, Typography } from '@mui/material';
 import { useField } from 'formik';
 import { ReactNode } from 'react';
 import { PageSubTitle } from '../../../../components/ui/labels';
-import { RecordCancelStatus, recordCancelStatuses } from '../../../../config/formValues';
 import { useConfirmDialog, useSnackBar } from '../../../../hooks';
 import { KeysOfForm, TypeOfForm } from '../../form';
+import { RecordCancelStatus, recordCancelStatuses } from 'types';
 
 export const StatusButton = (
   { children, statusType } :

@@ -7,18 +7,27 @@ import { useEstimates } from '.';
  */
 export const useEstimatesByProjId = (
   projId = '',
+  withDetails = false,
 ) => {
 
   return useEstimates(({
     select: useCallback((data) => {
 
       const filteredData = data
-        .filter((rec) => rec.projId.value === projId);
+        .filter((rec) => rec.projId.value === projId)
+        .sort((a, b) => a.dataId.value.localeCompare(b.dataId.value) );
 
       return {
         records: filteredData,
-        calculated: filteredData.map((d) => calculateEstimateRecord({ record: d })),
+        calculated: filteredData
+          .map((d) => calculateEstimateRecord({ 
+            record: d, 
+            withDetails,
+          })),
       };
-    }, [projId]),
+    }, [projId, withDetails]),
   }));
 };
+
+
+export type UseEstimateByProjIdReturn = NonNullable<ReturnType<typeof useEstimatesByProjId>['data']>;

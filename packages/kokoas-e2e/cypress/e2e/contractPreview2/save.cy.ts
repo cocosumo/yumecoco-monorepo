@@ -1,5 +1,5 @@
 import { beforeEach, cy, describe, it } from 'local-cypress';
-import { correctInputData, testProjId } from './testData';
+import { correctInputData, labelMap, testProjId } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 
@@ -14,6 +14,10 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
   it('新規保存できること', () => {
     cy.getTextInputsByLabel('契約合計金額（税込）')
+      .type(correctInput.totalContractAmt.toString())
+      .should('have.value', correctInput.totalContractAmt.toString());
+
+    cy.getTextInputsByLabel(labelMap.profit)
       .type(correctInput.totalContractAmt.toString())
       .should('have.value', correctInput.totalContractAmt.toString());
 
@@ -37,7 +41,7 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
   });
 
-  it.only('編集で保存すると、更新されること', () => {
+  it('編集で保存すると、更新されること', () => {
 
     // TODO：リファクタリングして、網羅的に他フィールドも追加する
 
@@ -47,7 +51,7 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
     cy.getTextInputsByLabel('契約合計金額（税込）')
       .type(randomAmt.toString())
       .should('have.value', randomAmt.toString());
-      
+
 
     cy.getCheckboxesByLabel('その他').check();
     cy.get('input[name="othersAmt"]')
@@ -60,8 +64,16 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
     cy.contains('button', '保存').click();
 
-    cy.contains('保存が出来ました。').should('be.visible');
-    cy.getCheckboxesByLabel('その他').check();
+    // 粗利額を入力していない状態だと、エラーが出るように
+    cy.get('.MuiAlert-message').should('contain', 'ください。');
+
+    cy.getTextInputsByLabel(labelMap.profit)
+      .type(randomAmt.toString())
+      .should('have.value', randomAmt.toString());
+
+    cy.contains('button', '保存').click();
+
+    cy.contains('保存が出来ました。').should('not.be.visible');
 
     cy.get('@amt').should('have.value', randomAmt.toLocaleString());
     cy.get('@date').should('have.value', futureDate);

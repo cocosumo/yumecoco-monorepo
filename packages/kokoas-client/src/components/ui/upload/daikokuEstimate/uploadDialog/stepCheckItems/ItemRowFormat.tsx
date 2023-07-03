@@ -8,7 +8,7 @@ export type ItemRowFormatProps = Record<ParsedFields, ReactNode> & {
   stackProps?: StackProps,
 };
 
-export const ItemRowFormat = forwardRef<HTMLElement, Partial<ItemRowFormatProps>>((props, ref ) => {
+export const ItemRowFormat = forwardRef<HTMLDivElement, Partial<ItemRowFormatProps>>((props, ref ) => {
 
   const {
     stackProps,

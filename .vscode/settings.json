@@ -16,7 +16,8 @@
     "/packages/kokoas-client/src/components/MainScreen.tsx",
     "/packages/kokoas-client/src/components/App.tsx",
     "/packages/kokoas-client/src/lib/packageInfo.ts",
-    "/packages/api-kintone/src/contracts/config.ts"
+    "/packages/api-kintone/src/contracts/config.ts",
+    "/packages/api-kintone/src/units/config.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",
@@ -24,6 +25,8 @@
     "/automation/auto-common/src",
     "/packages/kokoas-client/src/hooksQuery",
     "/packages/kokoas-client/src/components/ui/dialogs",
-    "/packages/api-andpad/src"
+    "/packages/api-andpad/src",
+    "/packages/libs/src",
+    "/packages/kokoas-client/src/pages/projEstimate/hooks"
   ]
 }

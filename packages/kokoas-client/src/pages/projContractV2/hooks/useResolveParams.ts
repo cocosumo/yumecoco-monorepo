@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { initialForm } from '../form';
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useContractById, useProjById } from 'kokoas-client/src/hooksQuery';
+import { useContractById, useContractsByEstId, useEstimateById, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertContractToForm } from '../api/convertContractToForm';
+import { roundTo } from 'libs';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialForm);
@@ -10,21 +11,65 @@ export const useResolveParams = () => {
   const {
     projId: projIdFromURL,
     contractId: contractIdFromURL,
+    projEstimateId: projEstimateIdFromURL,
   } = useURLParams();
 
+
+  const { data: projEstimateData } = useEstimateById(projEstimateIdFromURL || '');
+  const { data: contractsByEstId } = useContractsByEstId(projEstimateIdFromURL || '');
+
   const { data: contractData } = useContractById(contractIdFromURL || '');
+
   const { data: projData } = useProjById(
-    contractData?.projId.value || projIdFromURL || '',
+    contractData?.projId.value 
+    || projEstimateData?.record.projId.value
+    || projIdFromURL 
+    || '',
   );
 
 
 
-  useEffect(() => {
 
-    if (contractIdFromURL && projData && contractData) {
+  useEffect(() => {
+    if (projEstimateIdFromURL && projEstimateData && projData ) {
+      const {
+        calculated,
+      } = projEstimateData;
+
+      const contractDataByEstId = contractsByEstId?.[0];
+
+      const {
+        uuid: projId,
+        projName,
+        custGroupId,
+      } = projData;
+
+      const {
+        totalAmountAfterTax,
+        totalAmountBeforeTax,
+        totalCostPrice,
+        totalProfit,
+        overallProfitRate,
+      } = calculated.summary;
+
+      setNewFormVal(prev => ({
+        ...prev,
+        projEstimateId: projEstimateIdFromURL,
+        projId: projId.value,
+        projName: projName.value,
+        custGroupId: custGroupId.value,
+        totalContractAmtAfterTax: totalAmountAfterTax,
+        totalContractAmtBeforeTax: totalAmountBeforeTax,
+        costPrice: totalCostPrice,
+        totalProfit: totalProfit,
+        profitRate: roundTo(overallProfitRate * 100, 2),
+        ...(contractDataByEstId ? convertContractToForm(contractDataByEstId) : {}),
+      }));
+    } else if (contractIdFromURL && projData && contractData) {
       const {
         projName,
         custGroupId,
+        
       } = projData;
 
       setNewFormVal(prev => ({
@@ -49,8 +94,11 @@ export const useResolveParams = () => {
   [
     projIdFromURL, 
     contractIdFromURL,
+    projEstimateIdFromURL,
     projData,
     contractData,
+    projEstimateData,
+    contractsByEstId,
   ]);
 
   return { 

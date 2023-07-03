@@ -12,6 +12,9 @@ const schema = z.object({
   /** 顧客名 */
   custName : z.string().nullable(),
 
+  /** 削除含む */
+  includeDeleted : z.boolean(),
+
   /** 発注者住所・工事場所住所 */
   address : z.string().nullable(),
 
@@ -48,6 +51,11 @@ const schema = z.object({
 
   /** 完工日　To */
   completionDateTo : dateType,
+
+  order: z.enum(['asc', 'desc']),
+
+  orderBy: z.string().nullable(),
+
 });
   
 

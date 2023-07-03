@@ -7,6 +7,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { useMediaQuery } from '@mui/material';
+import { useAtomValue } from 'jotai';
+import { drawerWidthAtom } from '../../MainScreen';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -18,16 +20,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 interface PersDeskProps {
-  drawerWidth: number
   open: boolean
   handleDrawerClose: ()=>void
 }
 
 
-export default function PersistentDesktopDrawer({ drawerWidth, handleDrawerClose, open }: PersDeskProps) {
+export default function PersistentDesktopDrawer({ handleDrawerClose, open }: PersDeskProps) {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const drawerWidth = useAtomValue(drawerWidthAtom);
   return (
     <Drawer
       sx={{

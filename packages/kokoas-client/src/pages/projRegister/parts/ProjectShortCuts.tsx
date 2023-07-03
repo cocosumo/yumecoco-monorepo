@@ -30,6 +30,10 @@ export const ProjectShortCuts = () => {
           type: 'estimate',
           handleClick: ()=>navigate(`${pages.projEstimate}?${urlParams}`),
         },
+        {
+          type: 'contract',
+          handleClick: ()=>navigate(`${pages.projContractPreviewV2}?${urlParams}`),
+        },
       ]}
     />);
 };

@@ -2,17 +2,23 @@ import { Grid } from '@mui/material';
 import { Fragment } from 'react';
 
 const hotkeysHelp = [
-  ['ctrl + s', '一時保存'],
-  ['ctrl + i', '行追加'],
-  ['ctrl + delete', '行削除'],
-  ['ctrl + enter', '次の行に移動'],
-  ['ctrl + shift + i', '下にコピー'],
+  ['編集', 'enter'],
+  ['次のセル', 'tab'],
+  ['前のセル', 'shift + tab'],
+  ['セル移動', '↑ ↓ ← →'],
+  ['行追加', 'insert'],
+  ['下にコピー', 'shift + insert'],
+  ['セル内容削除', 'delete'],
+  ['行削除', 'shift + delete'],
+  ['保存', 'ctrl + s'],
+  ['行の最初セル', 'home'],
+  ['行の最後セル', 'end'],
 ];
 
 export const HelpHotKeys = () => {
 
   return (
-    <Grid container width={150}>
+    <Grid container width={200}>
       {
         hotkeysHelp.map(([key, info]) => (
           <Fragment key={key}>

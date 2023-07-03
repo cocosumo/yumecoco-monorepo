@@ -2,7 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { AppIds } from 'config';
 import { getAllStores } from 'api-kintone';
 
-export const useStores = <K = unknown>(
+type GetAllStoresReturn = Awaited<ReturnType<typeof getAllStores>>;
+
+export const useStores = <K = GetAllStoresReturn>(
   select?: (data: Awaited<ReturnType<typeof getAllStores>>) => K) => {
   return useQuery(
     [AppIds.stores],

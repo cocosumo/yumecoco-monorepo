@@ -41,6 +41,9 @@ export const ProfitRate = ({
             name={name}
             variant={'outlined'}
             type='number'
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={(e) => {
               const profitRate = +e.target.value;
               onChange(typeof profitRate === 'number' ? profitRate : e.target.value);
@@ -63,6 +66,8 @@ export const ProfitRate = ({
                 setRoundedValue('totalContractAmtBeforeTax', amountBeforeTax || 0);
                 setRoundedValue('totalProfit', profit || 0);
                 setRoundedValue('costPrice', costPrice || 0);
+              } else {
+                onChange(e.target.value);
               }
              
             }}

@@ -1,4 +1,4 @@
-import { Box, Button, FormLabel, Typography } from '@mui/material';
+import { Box, Button, DialogActions, DialogContent, FormLabel, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
@@ -13,17 +13,13 @@ const iconSize = {
   width: '100px',
 };
 
-export const StepConfirmation = ({
-  handleCancel,
-  handleYes,
-} : {
-  handleCancel: () => void
-  handleYes: () => void
+const Content = ({
+  isPastDate,
+  contractDate,
+}:{
+  isPastDate: boolean
+  contractDate: Date
 }) => {
-  const contractDate = useWatch<TypeOfForm>({ name: 'contractDate' }) as Date;
-
-  const isPastDate = isPast(addDays(contractDate, 1));
-
   return (
     <Stack spacing={4} direction={'row'} justifyContent={'space-between'}>
       <Box width={'20%'} 
@@ -31,10 +27,10 @@ export const StepConfirmation = ({
         textAlign={'center'}
       >
         {isPastDate && (
-          <WarningIcon color='warning' sx={iconSize} />
+        <WarningIcon color='warning' sx={iconSize} />
         )}
         {!isPastDate && (
-          <CheckCircleIcon color='success' sx={iconSize} />
+        <CheckCircleIcon color='success' sx={iconSize} />
         )}
         
       </Box>
@@ -53,29 +49,47 @@ export const StepConfirmation = ({
           {`${isPastDate ? '過去の日付になっています。' : ''}このまま続けますか？`}
         </Typography>
 
-        <Stack 
-          direction={'row'} 
-          justifyContent={'right'}
-          spacing={2}
-        >
-          <Button 
-            variant='outlined'
-            onClick={handleYes}
-          >
-            はい
-          </Button>
-          <Button 
-            variant='outlined' 
-            onClick={handleCancel}
-            color='error'
-          >
-            いいえ
-          </Button>
-        </Stack>
       </Stack>
 
-
-
     </Stack>
+  );
+};
+
+export const StepConfirmation = ({
+  handleCancel,
+  handleYes,
+} : {
+  handleCancel: () => void
+  handleYes: () => void
+}) => {
+  const contractDate = useWatch<TypeOfForm>({ name: 'contractDate' }) as Date;
+
+  const isPastDate = isPast(addDays(contractDate, 1));
+
+  return (
+    <>
+
+      <DialogContent>
+        <Content 
+          contractDate={contractDate}
+          isPastDate={isPastDate}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button 
+          variant='outlined'
+          onClick={handleYes}
+        >
+          はい
+        </Button>
+        <Button 
+          variant='outlined' 
+          onClick={handleCancel}
+          color='error'
+        >
+          いいえ
+        </Button>
+      </DialogActions>
+    </>
   );
 };

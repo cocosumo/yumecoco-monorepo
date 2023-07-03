@@ -127,7 +127,7 @@ export const WetInkFlow = () => {
 
   return (
     <Box 
-      height={600} 
+      height={'100%'} 
       border={1}
       borderColor={grey[100]}
       borderRadius={2}

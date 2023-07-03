@@ -24,25 +24,28 @@ export const Select = <T extends FieldValues>(  {
     <Controller
       {...controllerProps}
       render={({ field, fieldState }) => {
-        const { error, isTouched } = fieldState;
-        const isShowError = !!error && !!isTouched;
+        const { error } = fieldState;
+        const isShowError = !!error;
         const {
           onChange,
+          value,
           ...otherFieldProps
         } = field;
 
         return (
-          <FormControl fullWidth error={isShowError}>
+          <FormControl size='small' error={isShowError}>
             <InputLabel>
               {label}
             </InputLabel>
             <MuiSelect
               {...otherFieldProps}
               {...selectProps}
+              value={value || ''}
               onChange={(e, child) => {
                 onChange(e);
                 customOnChange?.(e, child);
               }}
+              size='small'
             >
               {children}
             </MuiSelect>

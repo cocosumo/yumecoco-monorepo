@@ -17,6 +17,7 @@ import { UneditableInfo } from 'kokoas-client/src/components/ui/information/Uned
 import { RecordSelect } from './sections/RecordSelect/RecordSelect';
 import { LogDisplay } from './sections/logDisplay/LogDisplay';
 import { ExternalLinks } from './sections/ExternalLinks';
+import { Grid } from '@mui/material';
 
 export const FormConstruction  = () => {
 
@@ -52,7 +53,10 @@ export const FormConstruction  = () => {
           textColor='#FFF'
           secondaryLabel={projDataId}
         />
-        <RecordSelect />
+
+        <Grid item xs={'auto'}>
+          <RecordSelect />
+        </Grid>
 
         <ExternalLinks />
 

@@ -7,7 +7,7 @@ import { calculateEstimateRecord } from 'api-kintone';
 /**
  * 見積番号で取得する
  */
-export const useEstimateById = (projEstimateId: string) => {
+export const useEstimateById = (projEstimateId: string ) => {
   return useEstimates(({
     enabled: !!projEstimateId,
     select: useCallback((data) => {

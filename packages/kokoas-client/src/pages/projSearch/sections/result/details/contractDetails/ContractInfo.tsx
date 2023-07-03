@@ -1,0 +1,90 @@
+import { IContracts } from 'types';
+import { DetailSection } from '../common/DetailSection';
+import { useMemo } from 'react';
+import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
+import { formatDataId, locale } from 'libs';
+import { parseISODateToFormat } from 'kokoas-client/src/lib';
+import { Recipients } from './Recipients';
+import { Files } from './Files';
+import { useEstimateById } from 'kokoas-client/src/hooksQuery';
+
+export const ContractInfo = ({
+  record,
+}:{
+  record: IContracts
+}) => {
+  const {
+    envelopeId,
+    projEstimateId,
+    signMethod,
+    contractDate,
+    envRecipients,
+    envelopeStatus,
+    envDocFileKeys,
+  } = record ?? {};
+
+  const { data: estData } = useEstimateById(projEstimateId.value || '');
+
+  const {
+    record: estRec,
+  } = estData || {};
+
+  const {
+    dataId,
+  } = estRec || {};
+
+  const details = useMemo(() => {
+
+    const hasContract = !!envelopeStatus?.value;
+
+    const result: IDetail[] = [
+      {
+        label: '署名経路',
+        value: <Recipients hasContract={hasContract} rawRecipients={envRecipients} />,
+      },
+      {
+        label: '書類',
+        value: envDocFileKeys.value.length ?  <Files files={envDocFileKeys}  /> : '-',
+      },
+      {
+        label: '契約日',
+        value: parseISODateToFormat(contractDate.value),
+      },
+      {
+        label: '見積枝番',
+        value: formatDataId(dataId?.value)
+          .split('-')
+          .at(-1) || '-',
+      },
+      {
+        label: 'ドキュサインID',
+        value: envelopeId?.value || '-',
+      },
+      {
+        label: '署名手法',
+        value: locale[signMethod.value] || '-',
+      },
+
+    ];
+
+    return result;
+
+  }, 
+  [
+    envelopeId,
+    signMethod,
+    contractDate,
+    envRecipients,
+    envelopeStatus,
+    envDocFileKeys,
+    dataId,
+  ]);
+
+
+  return (
+    <DetailSection
+      title={'契約情報'}
+      details={details}
+    />
+  );
+};

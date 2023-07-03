@@ -6,6 +6,7 @@ import { DateRange } from '../../../fields/DateRange';
 import { CustomerDetails } from './CustomerDetails';
 import { ProjType } from './ProjType';
 import { SearchButton } from './SearchButton';
+import { IncludeDeleted } from './IncludeDeleted';
 
 export const FilterDialog = ({
   open,
@@ -41,6 +42,7 @@ export const FilterDialog = ({
             toName='completionDateTo'
             label='完工日'
           />
+          <IncludeDeleted />
         </Stack>
       </DialogContent>
       <DialogActions>

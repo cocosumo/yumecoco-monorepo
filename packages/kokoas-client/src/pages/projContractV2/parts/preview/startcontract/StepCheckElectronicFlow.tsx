@@ -2,7 +2,7 @@
 import 'reactflow/dist/style.css';
 
 import { ElectronicFlow } from '../../ElectronicFlow';
-import { Button, Stack } from '@mui/material';
+import { Button, DialogActions, DialogContent } from '@mui/material';
 
 
 
@@ -16,13 +16,14 @@ export const StepCheckElectronicFlow = ({
 
   return (
     <>
-      <ElectronicFlow />
-      <Stack 
-        direction={'row'}
-        spacing={2} 
-        justifyContent={'flex-end'}
-        mt={2}
+      <DialogContent 
+        sx={{
+          height: 600,
+        }}
       >
+        <ElectronicFlow />
+      </DialogContent>
+      <DialogActions>
         <Button
           onClick={handleCancel}
         >
@@ -36,7 +37,8 @@ export const StepCheckElectronicFlow = ({
         >
           送信
         </Button> 
-      </Stack>
+      </DialogActions>
+      
     </>
  
 

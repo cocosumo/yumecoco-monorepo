@@ -35,9 +35,9 @@ export const CocoOfficer = () => {
   useEffect(() => {
     if (!menuItems.length) return;
     // remove values that are not in the select menu
-    const labels = menuItems.map(({ label }) => label);
+    const values = menuItems.map(({ value }) => value);
     const currentVal = getValues('cocoAG') ?? [];
-    setValue('cocoAG', intersection(currentVal, labels ));
+    setValue('cocoAG', intersection(currentVal, values ));
   }, 
   [
     menuItems,
@@ -86,7 +86,7 @@ export const CocoOfficer = () => {
               isRetired,
             }) => {
               return (
-                <MenuItem key={itemValue} value={label}>
+                <MenuItem key={itemValue} value={itemValue}>
                   {label}
                   {isRetired && (
                     <Typography 

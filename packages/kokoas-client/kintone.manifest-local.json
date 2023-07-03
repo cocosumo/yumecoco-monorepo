@@ -9,7 +9,8 @@
             "https://127.0.0.1:5500/packages/kokoas-client/dist/assets.js"
         ],
         "css": [
-            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.css"
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.css",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/vendor.css"
         ]
     },
     "mobile": {
@@ -20,7 +21,8 @@
             "https://127.0.0.1:5500/packages/kokoas-client/dist/assets.js"
         ],
         "css": [
-            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.css"
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/customize.css",
+            "https://127.0.0.1:5500/packages/kokoas-client/dist/vendor.css"
         ]
     }
 }

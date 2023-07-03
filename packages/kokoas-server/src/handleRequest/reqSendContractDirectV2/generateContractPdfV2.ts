@@ -29,6 +29,8 @@ export const generateContractPdfV2 = async (
     contractId,
     projName,
     projLocation,
+    projectLocationData,
+
     dataId,
     tax,
     totalTaxAmount,
@@ -86,7 +88,7 @@ export const generateContractPdfV2 = async (
   // 工事番号
   drawText(
     firstPage,
-    `${storeNameShort}-${dataId.slice(4) ?? ''}`,
+    `${storeNameShort} ${dataId.slice(4) ?? ''}`,
     {
       x: x1,
       y: 775,
@@ -149,14 +151,30 @@ export const generateContractPdfV2 = async (
     },
   );
 
-  // 工事場所
+  const projLocationMaxLength = 65;
+  let parsedProjectLocation = projLocation;
+  if (projLocation.length > projLocationMaxLength) {
+    const {
+      postal: projPostalCode,
+      address1: projAddress1,
+      address2: projAddress2,
+    } = projectLocationData;
+
+    parsedProjectLocation = `〒${projPostalCode} ${projAddress1}\n${projAddress2}`;
+  }
+
+  /** 工事場所 */
   drawText(
     firstPage,
-    projLocation,
+    parsedProjectLocation,
     {
       x: x2,
       y: 586,
       font: msChinoFont,
+    }, 
+    {
+      boxWidth: 370,
+      isAutoSize: true,
     },
   );
 
@@ -218,11 +236,11 @@ export const generateContractPdfV2 = async (
     {
       x: 211,
       y: 529,
-      size: 11,
+      size: 12,
       font: msChinoFont,
     },
     {
-      weight: 0.3,
+      weight: 1,
       boxWidth: 218,
       align: 'center',
     },
@@ -303,9 +321,10 @@ export const generateContractPdfV2 = async (
         x: x3,
         y: rowY,
         font: msChinoFont,
+        size: 11,
       },
       {
-        weight: 0.3,
+        weight: 0.4,
         align: 'right',
       },
     );
@@ -373,7 +392,7 @@ export const generateContractPdfV2 = async (
   // 顧客住所
   drawText(
     firstPage,
-    customers[0].address,
+    customers[0].shortAddress,
     {
       x: x2,
       y: 260,

@@ -5,10 +5,10 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateParams } from 'kokoas-client/src/helpers/url';
-import { KeyOfForm } from '../../form';
 import { pages } from '../../../Router';
 import { useBackdrop, useConfirmDialog, useSnackBar } from 'kokoas-client/src/hooks';
 import { CopyDialogContent } from './CopyDialogContent';
+import { KForm } from '../../schema';
 
 
 
@@ -40,7 +40,7 @@ export const CopyForm = () => {
        * if same project, use the current state but clear estimate id,
        * otherwise, use initialValue and only copy items.
        */
-      const fieldToClear : KeyOfForm = 'estimateId'; 
+      const fieldToClear : KForm = 'estimateId'; 
       
       navigate(`${pages.projEstimate}?${generateParams({
         clearFields: isSameProj.current ? fieldToClear : '0',

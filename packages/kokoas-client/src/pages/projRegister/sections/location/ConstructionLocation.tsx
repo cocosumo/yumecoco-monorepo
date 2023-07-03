@@ -1,6 +1,7 @@
 import {
   Grid,
   FormHelperText,
+  Stack,
 } from '@mui/material';
 import {
   FormikLabeledCheckBox,
@@ -16,6 +17,7 @@ import { getFieldName, initialValues } from '../../form';
 import { useFormikContext } from 'formik';
 import { useCallback } from 'react';
 import { getAddressByPostal } from 'api-kintone';
+import { CopyCustomerAddress } from './CopyCustomerAddress';
 
 export const ConstructionLocation = () => {
 
@@ -78,6 +80,7 @@ export const ConstructionLocation = () => {
         <FormHelperText id="my-helper-text">
           過去の工事情報から参照する
         </FormHelperText>
+
       </Grid>
 
       {/* Offset. Remove when migrated to Grid2 */}
@@ -94,15 +97,20 @@ export const ConstructionLocation = () => {
         />
       </Grid>
       <Grid item>
-        <SearchAddress
-          handleChange={({ postalCode, prefecture, city, town }) => {
-            setValues((prev) => ({
-              ...prev,
-              postal: postalCode,
-              address1: [prefecture, city, town].join(''),
-            }));
-          }}
-        />
+        <Stack direction={'row'} spacing={2}>
+          <SearchAddress
+            handleChange={({ postalCode, prefecture, city, town }) => {
+              setValues((prev) => ({
+                ...prev,
+                postal: postalCode,
+                address1: [prefecture, city, town].join(''),
+              }));
+            }}
+          />
+
+          <CopyCustomerAddress />
+        </Stack>
+        
       </Grid>
 
       <Grid item md={12} />

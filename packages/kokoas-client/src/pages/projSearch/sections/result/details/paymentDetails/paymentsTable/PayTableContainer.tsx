@@ -1,11 +1,12 @@
 import { Paper, Table, TableContainer } from '@mui/material';
 import { ReactNode } from 'react';
-import { PayTableHead } from './PayTableHead';
 
 export const PayTableContainer = ({
+  head,
   body,
   footer,
 }:{
+  head: ReactNode,
   body: ReactNode,
   footer: ReactNode,
 }) => {
@@ -34,7 +35,7 @@ export const PayTableContainer = ({
             width: '100%',
           }}
         >
-          <PayTableHead />
+          {head}
           {body}
         </Table>
         

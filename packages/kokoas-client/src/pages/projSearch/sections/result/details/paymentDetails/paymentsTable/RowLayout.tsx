@@ -1,4 +1,4 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow, Tooltip } from '@mui/material';
 import { ReactNode } from 'react';
 import { styled } from '@mui/material/styles';
 import { amber, blue } from '@mui/material/colors';
@@ -93,14 +93,16 @@ export const RowLayout = ({
         {paymentAmount}
       </NumberCell>
 
-      <TableCell 
-        width="auto"
-        sx={{
-          overflowWrap: 'anywhere',
-        }}
-      >
-        {remarks}
-      </TableCell>
+      <Tooltip title="開発中のため、備考は閲覧不可です。当面、備考はAndpad上でご確認ください。">
+        <TableCell 
+          width="auto"
+          sx={{
+            overflowWrap: 'anywhere',
+          }}
+        >
+          {remarks}
+        </TableCell>
+      </Tooltip>
 
     </StyledTableRow>
   );

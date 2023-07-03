@@ -93,7 +93,12 @@ export const RowLayout = ({
         {paymentAmount}
       </NumberCell>
 
-      <TableCell >
+      <TableCell 
+        width="auto"
+        sx={{
+          overflowWrap: 'anywhere',
+        }}
+      >
         {remarks}
       </TableCell>
 

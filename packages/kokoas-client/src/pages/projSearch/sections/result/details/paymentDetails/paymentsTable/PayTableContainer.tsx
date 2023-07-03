@@ -18,6 +18,7 @@ export const PayTableContainer = ({
     >
       <TableContainer 
         sx={{
+          width: '100%',
           height: 'calc(100% - 72px)', 
           '& th': {
             py: 2,
@@ -29,6 +30,9 @@ export const PayTableContainer = ({
         <Table 
           stickyHeader
           size="small"
+          sx={{
+            width: '100%',
+          }}
         >
           <PayTableHead />
           {body}

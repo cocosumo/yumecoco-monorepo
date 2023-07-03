@@ -11,10 +11,12 @@
     "skipLibCheck": true,
     "isolatedModules": false,
     "lib": ["ES2022"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
   },
   "files": [
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
+    // include google types
+    //"./../../node_modules/@types/google.maps/index.d.ts",
   ],
   "exclude": [
     "./dist",

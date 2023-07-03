@@ -1,5 +1,7 @@
 import { ICustgroups, KCustGroupAgents, TAgents } from 'types';
 import { searchCustGroups } from './searchCustGroups';
+import { describe, it, expect } from '@jest/globals';
+
 
 const agentContains = (
   agents: ICustgroups['agents'],
@@ -13,8 +15,7 @@ const agentContains = (
         .some(fieldKey => {
           return row[fieldKey].value.includes(value)
           && row.agentType.value === agentType;
-        } ),
-      )
+        } ))
   );
 };
 

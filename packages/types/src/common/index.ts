@@ -1,4 +1,4 @@
-export * from './andpad';
+export * from './andpad.member';
 export * from './auth';
 export * from './customers';
 export * from './docusign';

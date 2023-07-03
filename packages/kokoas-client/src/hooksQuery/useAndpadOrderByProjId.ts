@@ -5,6 +5,7 @@ import { getOrderByProjId } from '../api/andpad/getOrderByProjId';
 
 interface QueryOptions {
   onError?: (error: Error) => void,
+  enabled?: boolean,
 }
 
 /**
@@ -17,13 +18,14 @@ export const useAndpadOrderByProjId = (
 
   const {
     onError,
+    enabled = true,
   } = options || {};
 
   return useQuery(
     [AppIds.projects, 'andpad', projId],
     () => getOrderByProjId(projId),
     {
-      enabled: !!projId,
+      enabled: !!projId || enabled,
       staleTime: 5000,
       onError,
     },

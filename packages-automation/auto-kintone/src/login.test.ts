@@ -1,5 +1,6 @@
 import { headFullBrowser } from 'auto-common';
 import { login } from './login';
+import { expect, describe, it } from '@jest/globals';
 
 describe('login', () => {
   it('should login to kintone', async () => {

@@ -1,4 +1,5 @@
 import { migrateContracts } from './migrateContracts';
+import { expect, describe, it } from '@jest/globals';
 
 describe('migrateContracts', () => {
   it('should process migrateContracts', async () => {

@@ -4,7 +4,7 @@ import { prodAppIds, devAppIds } from 'config';
 import { before, context, cy, expect, it } from 'local-cypress';
 
 // 廃止されるアプリは、以下に追加する。
-const except : (keyof typeof devAppIds)[] = ['projEstimates'];
+const except : (keyof typeof devAppIds)[] = [];
 
 // All new DBs should be added to the devAppIds first.
 const appKeys = Object.keys(devAppIds) as (keyof typeof devAppIds)[];

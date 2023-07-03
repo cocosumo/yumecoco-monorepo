@@ -4,6 +4,7 @@
 
 
 import { convertProjToAndpad } from './convertProjToAndpad';
+import { describe, it, expect } from '@jest/globals';
 
 describe('convertProjToAndpad', () => {
   it('should convert project to andpand　案件', async () => {

@@ -29,7 +29,8 @@ export const filterEmployees = (
     storeId?: string | string[],
     agentType?: TAgents | TAgents[],
     territory?: Territory
-  }) => {
+  },
+) => {
 
   let affiliations: string[] = [];
   let roles: string[] = [];
@@ -76,3 +77,5 @@ export const filterEmployees = (
     });
 
 };
+
+export type FilterEmployeesParams = Parameters<typeof filterEmployees>[1];

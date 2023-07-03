@@ -25,7 +25,7 @@ export const CellItem = (
   switch (cellHeader) {
     case '工事番号': return (
       <Link
-        to={`${pages.projEdit}?${generateParams({
+        to={`${pages.projEditV2}?${generateParams({
           projId: row['工事uuid'],
         })}`}
         target="_blank"

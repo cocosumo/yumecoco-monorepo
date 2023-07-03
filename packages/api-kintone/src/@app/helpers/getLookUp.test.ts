@@ -1,5 +1,6 @@
 import { Properties } from '@kintone/rest-api-client/lib/client/types';
 import { getLookUp } from './getLookUp';
+import { describe, it, expect } from '@jest/globals';
 
 
 describe('getLookUp', () => {

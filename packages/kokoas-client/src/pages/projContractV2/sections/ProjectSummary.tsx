@@ -71,7 +71,7 @@ export const ProjectSummary = () => {
       buttonLabel='工事情報を編集する'
       isLoading={isLoading}
       data={parsedData}
-      pageUrl={pages.projEdit}
+      pageUrl={pages.projEditV2}
     />
   );
 };

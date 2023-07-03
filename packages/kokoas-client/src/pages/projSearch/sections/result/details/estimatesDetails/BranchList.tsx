@@ -32,7 +32,7 @@ export const BranchList = ({
         bgcolor: 'background.paper',
         height: '100%',
         overflowY: 'auto',
-        minWidth: '155px',
+        minWidth: '180px',
         borderRight: '1px solid rgba(0, 0, 0, 0.12)',
         pt: 0, // remove default padding
       }}
@@ -45,11 +45,21 @@ export const BranchList = ({
         <ListItemLayout 
           createDate={'作成日'}
           branchNum={'枝番'}
+          estType={'区分'}
         />
       </ListSubheader>
       <Divider />
 
-      {records?.map(({ uuid, $id, dataId, 作成日時: createDate }, index) => {
+      {records?.map((
+        {
+          uuid, $id,
+          dataId,
+          作成日時:
+          createDate,
+          estimateStatus,
+        },
+        index,
+      ) => {
 
         const hasContract = recContracts?.some(({ projEstimateId }) => projEstimateId.value === uuid.value );
 
@@ -67,6 +77,7 @@ export const BranchList = ({
                 <ListItemLayout 
                   createDate={`${parseISOTimeToFormat(createDate.value, 'yy/MM/dd')}`}
                   branchNum={dataId.value.split('-').at(-1)}
+                  estType={estimateStatus.value || '-'}
                 />
              
               </ListItemButton>

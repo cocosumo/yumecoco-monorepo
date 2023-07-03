@@ -1,3 +1,4 @@
+import { andpadProjFlow, andpadProjTypes } from 'types/src/common/andpad.order';
 import { z } from 'zod';
 
 export const authToken = z.object({
@@ -102,10 +103,10 @@ export const saveProjectData = z.object({
   /** 工事種別　=>　"新築","リフォーム"で振り分ける
    * (リフォーム,新築,リノベーション,エクステリア,アフター,分譲,注文,その他)から選択。指定しない場合はリフォームが指定される
    */
-  '案件種別': z.enum(['リフォーム', '新築', 'リノベーション', 'エクステリア', 'アフター', '分譲', '注文', 'その他']).optional(),
+  '案件種別': z.enum(andpadProjTypes).optional(),
 
   /** “契約前”で固定 */
-  '案件フロー':  z.enum(['契約前', '着工前', '進行中', '完工（精算前）', '精算完了', '失注']).optional(),
+  '案件フロー':  z.enum(andpadProjFlow).optional(),
 
   /** 契約日 */
   //'契約日(実績)': z.string().optional(),

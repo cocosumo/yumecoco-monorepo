@@ -1,5 +1,6 @@
 import { ktClient, ktRecord } from './client';
 import { AppIds } from 'config';
+import { describe, it, expect } from '@jest/globals';
 
 
 describe('Kintone client', () => {

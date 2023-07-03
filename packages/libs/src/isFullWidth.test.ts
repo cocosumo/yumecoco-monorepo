@@ -1,4 +1,5 @@
 import { isFullWidth } from './isFullWidth';
+import { expect, describe, test } from '@jest/globals';
 
 describe('isFullWidth関数', () => {
   test('全角文字が含まれる場合、trueを返すこと', () => {

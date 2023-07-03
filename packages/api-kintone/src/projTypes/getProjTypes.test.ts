@@ -1,4 +1,5 @@
 import { getProjTypes } from './getProjTypes';
+import { describe, it, expect } from '@jest/globals';
 
 describe('Get Project Types', () => {
   it('should retrieve all project types', async () => {

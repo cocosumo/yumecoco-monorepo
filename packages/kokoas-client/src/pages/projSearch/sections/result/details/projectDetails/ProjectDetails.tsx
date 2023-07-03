@@ -9,7 +9,7 @@ import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { EditButton } from '../common/EditButton';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
-import { SystemId } from './SystemId';
+import { AndpadDetails } from './AndpadDetails';
 
 
 export const ProjectDetails = ({
@@ -37,23 +37,20 @@ export const ProjectDetails = ({
       cancelStatus,
       dataId,
       log,
-      remarks,
+
       uuid: projId,
 
       作成日時: createDate,
       更新日時: updateDate,
       作成者: createdBy,
       更新者: updatedBy,
+      memo,
       // status, 廃止　（追客中など） 
     } = recProj;
 
     const newPostal = postal.value ? `〒${postal.value.slice(0, 3)}-${postal.value.slice(3)} ` : '';
 
     const mainDetails: IDetail[] = [
-      {
-        label: 'Andpad番号',
-        value: (<SystemId recProj={recProj} />),
-      },
       {
         label: '工事番号',
         value: formatDataId(dataId.value),
@@ -87,6 +84,10 @@ export const ProjectDetails = ({
       {
         label: '建物種別',
         value: buildingType.value,
+      },
+      {
+        label: '備考',
+        value: memo.value || '-',
       },
     ];
 
@@ -145,25 +146,12 @@ export const ProjectDetails = ({
       value: logNote.value,
     }));
 
-    const remarksDetails: IDetail[] = remarks.value.map(({
-      id,
-      value: {
-        note,
-        noteCreateTime,
-      },
-    }) => ({
-      key: id,
-      label: parseISOTimeToFormat(noteCreateTime.value),
-      value: note.value || '-',
-    }));
-
 
     return {
       mainDetails,
       agentDetails,
       otherDetails,
       logDetails,
-      remarksDetails,
     };
 
   }, [
@@ -181,11 +169,13 @@ export const ProjectDetails = ({
     >
 
       <EditButton 
-        href={`${pages.projEdit}?${generateParams({ 
+        href={`${pages.projEditV2}?${generateParams({ 
           projId: recProj.uuid.value,
         })}`}
         title='工事情報を編集する'
       />
+
+      <AndpadDetails recProj={recProj} />
       
    
       <DetailSection 
@@ -195,11 +185,6 @@ export const ProjectDetails = ({
       <DetailSection 
         title="担当情報"
         details={details.agentDetails}
-      />
-
-      <DetailSection 
-        title="メモ"
-        details={details.remarksDetails}
       />
 
       <DetailSection 

@@ -1,4 +1,5 @@
 import { getAddressByPostal } from './getAddressByPostal';
+import { describe, it, expect } from '@jest/globals';
 
 describe('getAddressByPostal', () => {
   it('should be defined', async () => {

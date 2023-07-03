@@ -1,4 +1,5 @@
 import { AppIds, prodAppIds } from './appIds';
+import { describe, it, expect } from '@jest/globals';
 
 describe('appIds', () => {
   const originalEnv = process.env;

@@ -49,7 +49,7 @@ export const FormikConstruction  = () => {
           noText: '閉じる',
         });
 
-        navigate(`${pages.projEdit}?${generateParams({
+        navigate(`${pages.projEditV2}?${generateParams({
           projId: resp.id,
         })}`);
 

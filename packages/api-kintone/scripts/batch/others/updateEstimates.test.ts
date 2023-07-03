@@ -1,6 +1,7 @@
 import { AppIds } from 'config';
 import {  IProjestimates, KProjestimates } from 'types';
 import { KintoneClientBasicAuth } from '../settings';
+import { describe, it } from '@jest/globals';
 
 describe('updateCustGroup', () => {
   const ktr = KintoneClientBasicAuth.record;

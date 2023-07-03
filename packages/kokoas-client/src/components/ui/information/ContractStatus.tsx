@@ -1,8 +1,8 @@
 
 import CircleIcon from '@mui/icons-material/Circle';
 import { Tooltip } from '@mui/material';
+import { useContractColor } from 'kokoas-client/src/hooks/useContractColor';
 import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
-import { useMemo } from 'react';
 import { TEnvelopeStatus } from 'types';
 
 
@@ -12,24 +12,12 @@ export const ContractStatus = ({
   envStatus: TEnvelopeStatus
 }) => {
 
-  const color = useMemo(() => {
-    switch (envStatus) {
-      case 'completed':
-        return 'success';
-      case 'sent':
-        return 'info';
-      case 'voided':
-      case 'voiding':
-        return 'error';
-      default:
-        return 'disabled';
-    }
-  }, [envStatus]);
+  const getContractColor = useContractColor();
 
 
   return (
     <Tooltip title={jaEnvelopeStatus(envStatus).ja} placement="top">
-      <CircleIcon color={color} />
+      <CircleIcon fontSize={'small'} color={getContractColor(envStatus)} />
     </Tooltip>
   );
 };

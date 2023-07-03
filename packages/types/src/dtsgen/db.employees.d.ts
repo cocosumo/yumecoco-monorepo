@@ -1,7 +1,6 @@
 declare namespace DBEmployees {
   interface Data {
     文字列＿氏名: kintone.fieldTypes.SingleLineText;
-    文字列__1行_: kintone.fieldTypes.SingleLineText;
     職種: kintone.fieldTypes.DropDown;
     mainStore: kintone.fieldTypes.SingleLineText;
     日付＿誕生日: kintone.fieldTypes.Date;
@@ -15,6 +14,7 @@ declare namespace DBEmployees {
     状態: kintone.fieldTypes.DropDown;
     氏名ふりがな: kintone.fieldTypes.SingleLineText;
     email: kintone.fieldTypes.SingleLineText;
+    氏名ローマ字: kintone.fieldTypes.SingleLineText;
     mainStoreId_v2: kintone.fieldTypes.SingleLineText;
     sort: kintone.fieldTypes.Number;
     期生: kintone.fieldTypes.DropDown;

@@ -1,4 +1,5 @@
 import { processContract } from './processContract';
+import { it, expect } from '@jest/globals';
 
 
 it('should porcess contract', async () => {

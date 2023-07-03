@@ -4,28 +4,33 @@ import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 
 export const getOrderByProjId = async (projId: string) => {
 
-  const endpoint = [
-    kokoasAPIBaseUrl,
-    kokoasEndpoints.getProjectFromAndpadByProjId,
-    projId,
-  ].join('/');
+  try {
+    if (!projId) return null;
+  
+    const endpoint = [
+      kokoasAPIBaseUrl,
+      kokoasEndpoints.getProjectFromAndpadByProjId,
+      projId,
+    ].join('/');
 
-  const result = await kintoneProxyWrapper({
-    url: `${endpoint}`,
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    data: {},
-  });
-  const { data } = result;
+    const result = await kintoneProxyWrapper({
+      url: `${endpoint}`,
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      data: {},
+    });
+    const { data } = result;
 
-  const parsed = saveProjectData.safeParse(data);
+    const parsed = saveProjectData.safeParse(data);
 
-  if (!parsed.success) {
+    if (!parsed.success) {
     
-    return data as SaveProjectData;
-  } 
+      return data as SaveProjectData;
+    } 
 
-  return parsed.data;
-
-
+    return parsed.data;
+  } catch (err) {
+    console.warn(err);
+    return null;
+  }
 };

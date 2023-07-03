@@ -31,7 +31,6 @@ export const getContractDataV2 = async (
   isValidate = false,
 ) => {
 
-  console.log();
 
   /* 会社情報 */
   const {
@@ -189,6 +188,7 @@ export const getContractDataV2 = async (
     { paymentAmt: +othersAmt.value, paymentDate: othersAmtDate.value },
   ];
 
+  console.log(totalTaxAmount);
 
   const data = {
 

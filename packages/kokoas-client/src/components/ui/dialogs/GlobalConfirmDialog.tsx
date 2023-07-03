@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 import { ConfirmDialogV2 } from './ConfirmDialogV2';
+import { AlertProps } from '@mui/material';
 
 export interface IDialogState {
   open?: boolean,
@@ -13,6 +14,7 @@ export interface IDialogState {
   handleNo?: () => void,
   willCloseOnYes?: boolean
   cancellable?: boolean
+  severity?: AlertProps['severity']
 }
 
 const initialState: IDialogState = {

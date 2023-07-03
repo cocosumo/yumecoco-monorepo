@@ -23,11 +23,14 @@ const StyledTableRow = styled(TableRow)(() => ({
 
 const NumberCell = ({
   children,
+  width,
 }:{
-  children: ReactNode
+  children: ReactNode,
+  width?: number,
 }) => (
   <TableCell 
     align='right' 
+    width={width}
     sx={{
       whiteSpace: 'nowrap',
     }}
@@ -59,44 +62,38 @@ export const RowLayout = ({
 }) => {
   return (
     <StyledTableRow>
-      <TableCell
-        sx={{
-          maxWidth: '10px',
-        }}
-      >
+      <TableCell width={10}>
         {index}
       </TableCell>
       <TableCell 
         align='center'
-        sx={{
-          maxWidth: '50px',
-        }}
+        width={100}
       >
         {paymentStatus}
         <br />
         {paymentType}
       </TableCell>
-      <TableCell>
+      <TableCell width={100}>
         {paymentMethod}
       </TableCell>
 
-      <TableCell>
+      <TableCell width={100}>
         {paymentDate}
       </TableCell>
 
-      <NumberCell>
+      <NumberCell width={100}>
         {actualPaymentAmount}
       </NumberCell>
 
-      <NumberCell>
+      <NumberCell width={100}>
         {handlingFee}
       </NumberCell>
 
-      <NumberCell>
+      <NumberCell width={100}>
         {paymentAmount}
       </NumberCell>
 
-      <TableCell>
+      <TableCell >
         {remarks}
       </TableCell>
 

@@ -80,7 +80,7 @@
     "webpack": "^5.87.0",
     "webpack-bundle-analyzer": "^4.9.0",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.0"
+    "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.22.5",

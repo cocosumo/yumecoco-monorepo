@@ -63,5 +63,5 @@ export const login = async (page: Page) => {
 
 
 
-  console.log('finish login process');
+  console.log('Login completed');
 };

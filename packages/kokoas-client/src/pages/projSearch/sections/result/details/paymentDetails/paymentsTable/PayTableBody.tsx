@@ -4,8 +4,6 @@ import { RowLayout } from './RowLayout';
 import { PaymentStatus } from './PaymentStatus';
 import { IOrder } from './PayTableHead';
 import { useMemo } from 'react';
-import format from 'date-fns/format';
-import { faker } from '@faker-js/faker/locale/ja';
 
 export const PayTableBody = ({
   records,
@@ -26,40 +24,32 @@ export const PayTableBody = ({
 
         const {
           ID,
-          //handlingFee,
-          //paymentAmount,
+          handlingFee,
+          paymentAmount,
           paymentMethod,
           paymentType,
-          //paymentDate,
+          paymentDate,
           paymentStatus,
           //expectedPaymentAmount,
         
         } = record;
 
-        const parsedHandlingFee = Math.floor(Math.random() * 1000) + 100;
-        const parsedPaymentAmount = Math.floor(Math.random() * 1000000) + 1000;
+        const parsedHandlingFee = +handlingFee.value;
+        const parsedPaymentAmount = +paymentAmount.value;
 
         const actualPaymentAmount = parsedPaymentAmount + parsedHandlingFee;
-
-        // random number from 1000 to 1000000
-        //const actualPaymentAmount = Math.floor(Math.random() * 1000000) + 1000;
-
-        // random date string from 2020/01/01 to 2099/12/31
-        const paymentDate = new Date(
-          Math.floor(Math.random() * (4102444800000 - 1577836800000 + 1)) + 1577836800000,
-        );
 
         return {
           key: ID.value,
           paymentStatus: paymentStatus.value,
           paymentType: paymentType.value,
-          paymentDate: format(paymentDate, 'yyyy/MM/dd'),
+          paymentDate: paymentDate.value,
           paymentMethod: paymentMethod.value,
           paymentAmount: parsedPaymentAmount,
           actualPaymentAmount,
           handlingFee: parsedHandlingFee,
           // random japanese string
-          remarks: faker.lorem.sentences(2),
+          remarks: '-',
         };
 
          

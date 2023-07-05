@@ -6,13 +6,18 @@ export const PayTableFooter = ({
 }: {
   records: IAndpadpaymentdata[]
 }) => {
-  const totalAmount = records.reduce((acc, cur) => {
-    const parsedPaymentAmount = +cur.paymentAmount.value;
-    const parsedHandlingFee = +cur.handlingFee.value;
-    const actualPaymentAmount = parsedPaymentAmount + parsedHandlingFee;
-    return acc + actualPaymentAmount;
-  }
-  , 0);
+
+  console.log('records', records);
+  const totalAmount = records.reduce(
+    (acc, cur) => {
+      console.log('cur', cur);
+      const parsedPaymentAmount = +cur.paymentAmount.value;
+      const parsedHandlingFee = +cur.handlingFee.value;
+      const actualPaymentAmount = parsedPaymentAmount + parsedHandlingFee;
+      return acc + actualPaymentAmount;
+    }, 
+    0,
+  );
 
 
   return (

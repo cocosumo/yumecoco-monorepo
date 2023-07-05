@@ -1,10 +1,10 @@
 import { describe, it } from '@jest/globals';
-import { openMockBrowser } from './openMockBrowser';
+import { connectToBrowser } from './connectToBrowser';
 import { sleep } from 'libs';
 
 describe('Open Mock Browser', () => {
   it('should open mock browser', async () => {
-    const browser = await openMockBrowser();
+    const browser = await connectToBrowser();
 
     await browser
       .newPage()

@@ -1,11 +1,11 @@
 import { describe, it } from '@jest/globals';
 import { getPageFromBrowser } from './getPageFromBrowser';
-import { openMockBrowser } from './openMockBrowser';
+import { connectToBrowser } from './connectToBrowser';
 import { faker } from '@faker-js/faker';
 
 describe('Get Page From Browser', () => {
   it('should get page from browser', async () => {
-    const browser = await openMockBrowser();
+    const browser = await connectToBrowser();
     const page = await getPageFromBrowser(browser);
 
     // Navigate to random page to test if page is working.

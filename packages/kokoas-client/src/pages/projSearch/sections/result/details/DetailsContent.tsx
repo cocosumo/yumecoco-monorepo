@@ -5,6 +5,7 @@ import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { ProjectDetails } from './projectDetails/ProjectDetails';
 import { EstimatesDetails } from './estimatesDetails/EstimatesDetails';
 import { ContractDetails } from './contractDetails/ContractDetails';
+import { PaymentDetails } from './paymentDetails/PaymentDetails';
 
 export const DetailsContent = ({
   projId,
@@ -48,6 +49,10 @@ export const DetailsContent = ({
 
       {tabIdx === 3 && (
         <ContractDetails projId={projId} />
+      )}
+
+      {tabIdx === 4 && (
+        <PaymentDetails projId={projId} />
       )}
 
     </DialogContent>

@@ -26,7 +26,7 @@ export const useAndpadOrderByProjId = (
     () => getOrderByProjId(projId),
     {
       enabled: !!projId || enabled,
-      staleTime: 5000,
+      staleTime: 10000,
       onError,
     },
   );

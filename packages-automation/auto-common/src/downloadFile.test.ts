@@ -1,15 +1,17 @@
 import { describe, it } from '@jest/globals';
-import { connectToBrowser } from './connectToBrowser';
-import { getPageFromBrowser } from './getPageFromBrowser';
 import { downloadFile } from './downloadFile';
 import fs from 'fs';
 import path from 'path';
+import { connectToBrowserPage } from './connectToBrowserPage';
 
 describe('Download File', () => {
-  it('should download file from andpad', async () => {
+  it('should download excel file from andpad', async () => {
     // Must be logged in to andpad. It doesn't matter which page of andpad.
-    const browser = await connectToBrowser();
-    const page = await getPageFromBrowser(browser);
+
+    const {
+      page,
+      browser,
+    } = await connectToBrowserPage();
 
     const result = await downloadFile(
       page, 
@@ -18,11 +20,20 @@ describe('Download File', () => {
 
     console.log('RESULT', result);
 
-    const data = Buffer.from(result, 'binary');
+    // This is just a sample If the goal is to upload to kintone, no
+
+    const data = Buffer.from(result); // convert b64 string to buffer
+
+    // Create a directory to store the downloaded file.
     const downloadDir = path.join(__dirname, '__TEST__');
-    const outputFileName = '入金一覧.xlsx';
 
+    // Check if the directory exists. Create if it doesn't.
+    fs.existsSync(downloadDir) || fs.mkdirSync(downloadDir);
 
+    // we know this is an excel file, so we can hardcode the extension
+    const outputFileName = '入金一覧.xlsx'; 
+
+    // Write the file to the directory.
     fs.writeFileSync(path.join(downloadDir, outputFileName), data);
 
     browser.disconnect();

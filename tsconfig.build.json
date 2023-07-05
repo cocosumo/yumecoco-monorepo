@@ -85,5 +85,11 @@
       "path": "./packages-automation/auto-kintone"
     },
 
+    {
+      "path": "./packages-automation/autopaymentalert"
+    },
+    {
+      "path": "./packages-automation/autopaymentalert"
+    },
   ]
 }

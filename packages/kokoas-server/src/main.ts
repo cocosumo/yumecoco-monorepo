@@ -4,6 +4,7 @@ import docusignSend from './route/docusign';
 import kokoas from './route/kokoas';
 import { ApiNodes } from 'types';
 import axios from 'axios';
+import { errorHandler } from './middlewares/errorHandler';
 
 
 loadEnv();
@@ -41,6 +42,9 @@ app.get('/wp/*', (req, res) => {
       res.status(400).json(err);
     });
 });
+
+// Error handler middleware
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost:${PORT}`);

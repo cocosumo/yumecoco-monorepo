@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
-import qs from 'qs';
+import qs, { ParsedQs } from 'qs';
 import { KAndpadOrderResult } from 'types/src/common/andpad.order';
 
 
@@ -37,7 +37,7 @@ export const getOrderBySystemId = async ({
   return data; 
 };
 
-export interface GetOrderBySystemIdParams {
+export interface GetOrderBySystemIdParams extends ParsedQs {
   systemId: string;
   series?: KAndpadOrderResult[];
 }

@@ -7,16 +7,16 @@ unknown,
 unknown, 
 unknown, 
 GetOrderBySystemIdParams > = async (req, res) => {
-  try {
+  // try {
     
-    console.log('getOrderByProjId', req.query);
+  console.log('getOrderByProjId', req.query);
     
-    const result = await getOrderBySystemId(req.query);
-
-    res.json(result); 
-  } catch (err) {
-    console.error(err?.message);
-    res.status(400)
-      .send(validator.escape(err?.message || 'Error in reqGetProjectBySystemid'));
-  }
+  const result = await getOrderBySystemId(req.query);
+  throw new Error('test');
+  res.json(result); 
+  // } catch (err) {
+  //   console.error(err?.message);
+  //   res.status(400)
+  //     .send(validator.escape(err?.message || 'Error in reqGetProjectBySystemid'));
+  // }
 };

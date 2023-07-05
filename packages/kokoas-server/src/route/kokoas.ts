@@ -14,6 +14,7 @@ import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloa
 import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectFromAndpadByProjId';
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 
 const route = router();
@@ -50,6 +51,7 @@ route.get(
 
 route.get(
   `/${kokoasEndpoints.getProjectFromAndpadBySystemId}`,
+  authMiddleware,
   reqGetProjectBySystemId,
 );
 

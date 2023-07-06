@@ -29,7 +29,6 @@ export const AndpadDetails = ({
 
 
   const {
-    案件フロー: fProcessFlow,
     案件名: fProjectName,
   } = fAndpadOrder?.data?.object ?? {};
 
@@ -43,7 +42,6 @@ export const AndpadDetails = ({
 
   const {
     システムID: systemId,
-    案件フロー: processFlow,
     案件名: projectName,
   } = andpadOrder || {};
 
@@ -79,10 +77,6 @@ export const AndpadDetails = ({
     {
       label: '案件名',
       value: fProjectName || projectName || '-',
-    },
-    {
-      label: '案件フロー',
-      value: fProcessFlow || processFlow || '-',
     },
   ];
 

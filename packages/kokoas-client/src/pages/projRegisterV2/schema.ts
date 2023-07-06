@@ -23,9 +23,12 @@ export const schema = z.object({
   isAgentConfirmed: z.boolean(),
   cocoConst1: z.string(),
   cocoConst2: z.string(),
-  postal: z.string(),
-  address1: z.string(),
-  address2: z.string(),
+  postal: z.string()
+    .min(7, {
+      message: '郵便番号を入力してください。',
+    }),
+  address1: z.string().nonempty(),
+  address2: z.string().nonempty(),
   finalAddress: z.string(),
 
   addressKari: z.string(),

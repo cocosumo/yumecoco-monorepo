@@ -29,12 +29,18 @@ export const schema = z.object({
     }),
   address1: z.string().nonempty(),
   address2: z.string().nonempty(),
-  finalAddress: z.string(),
 
-  addressKari: z.string(),
-  buildingType: z.enum(buildingTypes),
+  finalPostal: z.string(),
+  finalAddress1: z.string(),
+  finalAddress2: z.string(),
+
+  //addressKari: z.string(),
 
   isAddressKari: z.boolean(),
+  isShowFinalAddress: z.boolean(),
+
+  buildingType: z.enum(buildingTypes),
+
   status: z.enum(recordStatuses),
   hasContract: z.boolean(),
   hasCompletedContract: z.boolean(),

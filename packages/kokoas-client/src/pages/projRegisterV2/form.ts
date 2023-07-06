@@ -19,11 +19,17 @@ export const initialValues : TForm = {
   postal: '',
   address1: '',
   address2: '',
-  finalAddress: '',
 
-  addressKari: '',
+  finalPostal: '',
+  finalAddress1: '',
+  finalAddress2: '',
+  //addressKari: '',
+
   buildingType: '戸建て',
+
   isAddressKari: false,
+  isShowFinalAddress: false,
+
   status: '追客中',
   hasContract: false,
   hasCompletedContract: false,

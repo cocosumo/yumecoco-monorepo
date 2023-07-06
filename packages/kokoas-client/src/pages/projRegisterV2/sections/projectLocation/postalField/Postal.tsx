@@ -14,7 +14,11 @@ export const Postal = ({
       direction={'row'} 
       spacing={2}
     >
-      <MaskedPostal disabled={disabled} /> 
+      <MaskedPostal 
+        name='postal'
+        disabled={disabled}
+        required
+      /> 
 
       {!disabled && (
         <>

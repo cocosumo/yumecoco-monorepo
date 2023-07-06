@@ -10,6 +10,7 @@ export const ControlledTextField = ({
   placeholder,
   disabled = false,
   required,
+  helperText,
 }:{
   name: KForm,
   label: string,
@@ -17,6 +18,7 @@ export const ControlledTextField = ({
   placeholder?: string,
   disabled?: boolean,
   required?: boolean,
+  helperText?: string,
 }) => {
   const {
     control,
@@ -45,7 +47,7 @@ export const ControlledTextField = ({
             }}
             size='small'
             error={isTouched && !!error}
-            helperText={isTouched && error?.message}
+            helperText={error?.message || helperText}
             disabled={disabled}
             required={required}
           />

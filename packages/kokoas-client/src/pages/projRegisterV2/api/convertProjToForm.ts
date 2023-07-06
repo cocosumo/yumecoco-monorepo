@@ -13,7 +13,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     dataId,
     uuid,
     isAgentConfirmed, postal, address1, address2,
-    buildingType, isChkAddressKari, agents, addressKari,
+    buildingType, isChkAddressKari, agents, 
     cancelStatus,
     projTypeName,
     storeId,
@@ -28,7 +28,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
 
 
   return {
-    addressKari: addressKari.value,
+    //addressKari: addressKari.value,
     address1: address1.value,
     address2: address2.value,
     buildingType: buildingType.value as BuildingType,

@@ -6,7 +6,7 @@ export const convertToKintone = (
 ): Partial<IProjects>  => {
   const {
     cocoConst1, cocoConst2, projTypeId, projName,
-    isAgentConfirmed, postal, address1, address2, addressKari, 
+    isAgentConfirmed, postal, address1, address2, 
     isAddressKari,
     buildingType, custGroupId, status,
     cancelStatus,
@@ -24,7 +24,7 @@ export const convertToKintone = (
     address1: { value: address1 },
     address2: { value: address2 },
     isChkAddressKari: { value: (+isAddressKari).toString() },
-    addressKari: { value: addressKari },
+    //addressKari: { value: addressKari },
     buildingType: { value: buildingType },
     agents: {
       type: 'SUBTABLE',

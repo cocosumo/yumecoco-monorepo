@@ -40,7 +40,6 @@ export const ProjectLocation = () => {
       {!hasContract && (<CopyLocation />)}
 
       <Postal disabled={hasContract} />
-
   
       <ControlledTextField
         name='address1'

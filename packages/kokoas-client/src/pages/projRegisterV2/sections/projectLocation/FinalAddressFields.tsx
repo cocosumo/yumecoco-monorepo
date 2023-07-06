@@ -1,9 +1,11 @@
 import { Button, Stack } from '@mui/material';
 import { MaskedPostal } from './postalField/MaskedPostal';
 import { ControlledTextField } from '../../fields/ControlledTextField';
+import { useTypedFormContext } from '../../hooks';
 
 export const FinalAddressFields = () => {
-
+  
+  const { getValues, setValue } = useTypedFormContext();
 
   return (
     <>
@@ -18,6 +20,21 @@ export const FinalAddressFields = () => {
         <Button
           size='small'
           variant='outlined'
+          onClick={() => {
+            const [
+              postal,
+              address1,
+              address2,
+            ] = getValues([
+              'postal',
+              'address1',
+              'address2',
+            ]);
+            
+            setValue('finalPostal', postal, { shouldValidate: true });
+            setValue('finalAddress1', address1, { shouldValidate: true });
+            setValue('finalAddress2', address2, { shouldValidate: true });
+          }}
         >
           仮換地住所をコピー
         </Button>

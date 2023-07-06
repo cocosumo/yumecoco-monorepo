@@ -7,7 +7,9 @@ z.setErrorMap(zodErrorMapJA());
 export const schema = z.object({
   projId: z.string().optional(),
   projTypeName: z.string(),
-  projTypeId: z.string(),
+  projTypeId: z.string().nonempty({
+    message: '工事種別を選択してください。',
+  }),
   projName: z.string(),
   projDataId: z.string(),
   createdDate: z.string(),

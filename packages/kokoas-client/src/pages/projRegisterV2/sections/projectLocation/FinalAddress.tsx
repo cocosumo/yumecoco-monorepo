@@ -23,18 +23,20 @@ export const FinalAddress = () => {
           onChange,
         } = field;
 
+        const showError = isTouched && !!error;
+
         return (
           <TextField 
             {...field}
             label={'確定後住所'} 
             placeholder={'〒123-4567 愛知県名古屋市中区２番地１９'}
             size='small'
-            error={isTouched && !!error}
-            helperText={isTouched && error?.message}
+            error={showError}
+            helperText={showError ? error?.message : '契約'}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Tooltip title="契約時住所をコピーする">
+                  <Tooltip title="上記の住所をコピーする">
                     <IconButton
                       onClick={() => {
                         const [

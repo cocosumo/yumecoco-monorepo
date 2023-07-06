@@ -4,19 +4,26 @@ import { SelectAddress } from './SelectAddress';
 import { PostalByAddress } from './PostalByAddress';
 import { MaskedPostal } from './MaskedPostal';
 
-export const Postal = () => {
+export const Postal = ({
+  disabled = false,
+}:{
+  disabled?: boolean;
+}) => {
   return (
     <Stack 
       direction={'row'} 
       spacing={2}
     >
-      <MaskedPostal /> 
+      <MaskedPostal disabled={disabled} /> 
 
-      <AddressByPostal />
+      {!disabled && (
+        <>
+          <AddressByPostal />
+          <PostalByAddress />
+          <SelectAddress />
+        </>
+      )}
 
-      <PostalByAddress />
-
-      <SelectAddress />
 
     
     </Stack>

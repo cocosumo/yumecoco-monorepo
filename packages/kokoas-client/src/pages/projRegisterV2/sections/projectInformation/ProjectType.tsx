@@ -5,7 +5,11 @@ import { Controller } from 'react-hook-form';
 import { useEffect } from 'react';
 
 
-export const ProjectType = () => {
+export const ProjectType = ({
+  disabled,
+}:{
+  disabled?: boolean;
+}) => {
   const { control, setValue, register, getValues } = useTypedFormContext();
 
   const { data: projTypeOptions } = useProjTypes({
@@ -30,6 +34,7 @@ export const ProjectType = () => {
       name="projTypeId"
       render={({
         field:{
+          onBlur,
           onChange,
           value: newValue,
         },
@@ -38,6 +43,8 @@ export const ProjectType = () => {
           isTouched,
         },
       }) => {
+        const showError = isTouched && !!error;
+
         return (
           <FormControl 
             size='small'
@@ -45,7 +52,9 @@ export const ProjectType = () => {
               width: 300,
             }}
             placeholder='工事種別'
-            error={isTouched && !!error}
+            error={showError}
+            disabled={disabled}
+            required
           >
             <InputLabel>
               工事種別
@@ -53,6 +62,7 @@ export const ProjectType = () => {
             <Select
               value={newValue}
               label="工事種別"
+              onBlur={onBlur}
               onChange={(e) => {
                 const newProjTypeName = projTypeOptions
                   ?.find(({ value }) => value === e.target.value)

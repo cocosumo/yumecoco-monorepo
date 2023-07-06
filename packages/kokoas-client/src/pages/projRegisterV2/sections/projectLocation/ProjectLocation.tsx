@@ -1,8 +1,7 @@
 import { Postal } from './postalField/Postal';
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
-import { BuildingType } from '../../fields/BuildingType';
-import { useTypedFormContext } from '../../hooks/useTypedRHF';
+import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedRHF';
 import { ControlledTextField } from '../../fields/ControlledTextField';
 import { TempAddressField } from './TempAddressField';
 import { CopyLocation } from './copyLocation/CopyLocation';
@@ -14,6 +13,10 @@ export const ProjectLocation = () => {
     control,
   } = useTypedFormContext();
 
+  const hasContract = useTypedWatch({
+    name: 'hasContract',
+  }) as boolean;
+
   return (
     <Stack 
       spacing={2}
@@ -21,21 +24,28 @@ export const ProjectLocation = () => {
         maxWidth: '600px',
       }}
     >
+      {hasContract && (
+        <Alert severity='info'>
+          契約後は一部編集出来ません。
+        </Alert>
+      )}
 
-      <CopyLocation />
+      {!hasContract && (<CopyLocation />)}
 
-      <Postal />
+      <Postal disabled={hasContract} />
 
       <ControlledTextField
         name='address1'
         label='住所（県市区町村）'
         placeholder='愛知県名古屋市中区'
+        disabled={hasContract}
       />
   
       <ControlledTextField
         name={'address2'}
         label='住所（番地以降）'
         placeholder='２番地１９'
+        disabled={hasContract}
       />
 
       <FinalAddress />
@@ -48,7 +58,6 @@ export const ProjectLocation = () => {
 
       <TempAddressField /> 
 
-      <BuildingType />
     </Stack>
 
   );

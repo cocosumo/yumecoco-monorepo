@@ -29,7 +29,11 @@ const PostalMask = forwardRef<HTMLElement, CustomProps>(
   },
 );
 
-export const MaskedPostal = () => {
+export const MaskedPostal = ({
+  disabled,
+}:{
+  disabled?: boolean;
+}) => {
   const { control } = useTypedFormContext();
 
 
@@ -60,6 +64,7 @@ export const MaskedPostal = () => {
             onChange={onChange}
             onBlur={onBlur}
             inputRef={ref}
+            disabled={disabled}
             InputProps={{
               inputComponent: PostalMask as any,
             }}

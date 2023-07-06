@@ -20,7 +20,6 @@ export const schema = z.object({
   storeId: z.string(),
   territory: z.enum(territories).nullable(),
 
-  isAgentConfirmed: z.boolean(),
   cocoConst1: z.string(),
   cocoConst2: z.string(),
   postal: z.string()
@@ -33,8 +32,6 @@ export const schema = z.object({
   finalPostal: z.string(),
   finalAddress1: z.string(),
   finalAddress2: z.string(),
-
-  //addressKari: z.string(),
 
   isAddressKari: z.boolean(),
   isShowFinalAddress: z.boolean(),
@@ -55,7 +52,42 @@ export const schema = z.object({
     id: z.string(),
   })),
 
-});
+})
+  .superRefine((
+    {
+      isShowFinalAddress,
+      finalPostal,
+      finalAddress1,
+      finalAddress2,
+    },
+    ctx,
+  ) => {
+    if (isShowFinalAddress) {
+      if (!finalPostal) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '郵便番号を入力してください。',
+          path: ['finalPostal'],
+        });
+      }
+      if (!finalAddress1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '住所を入力してください。',
+          path: ['finalAddress1'],
+        });
+      }
+      if (!finalAddress2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '住所を入力してください。',
+          path: ['finalAddress2'],
+        });
+      }
+    }
+  });
+
+  
 
 
 export type TForm = z.infer<typeof schema>;

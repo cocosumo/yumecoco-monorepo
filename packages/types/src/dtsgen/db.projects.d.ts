@@ -10,6 +10,7 @@ declare namespace DBProjects {
     schedContractPrice: kintone.fieldTypes.Number;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     dataId: kintone.fieldTypes.SingleLineText;
+    isShowFinalAddress: kintone.fieldTypes.Number;
     forceLinkedAndpadSystemId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
     estatePurchaseDate: kintone.fieldTypes.Date;

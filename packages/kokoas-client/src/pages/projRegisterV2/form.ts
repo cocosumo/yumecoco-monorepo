@@ -13,7 +13,6 @@ export const initialValues : TForm = {
   storeId: '',
   territory: null,
   
-  isAgentConfirmed: false,
   cocoConst1: '',
   cocoConst2: '',
   postal: '',

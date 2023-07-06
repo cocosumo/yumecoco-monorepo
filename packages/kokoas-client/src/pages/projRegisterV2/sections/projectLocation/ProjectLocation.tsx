@@ -39,6 +39,7 @@ export const ProjectLocation = () => {
         label='住所（県市区町村）'
         placeholder='愛知県名古屋市中区'
         disabled={hasContract}
+        required
       />
   
       <ControlledTextField
@@ -46,6 +47,7 @@ export const ProjectLocation = () => {
         label='住所（番地以降）'
         placeholder='２番地１９'
         disabled={hasContract}
+        required
       />
 
       <FinalAddress />

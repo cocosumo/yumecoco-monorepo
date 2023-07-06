@@ -65,6 +65,7 @@ export const MaskedPostal = ({
             onBlur={onBlur}
             inputRef={ref}
             disabled={disabled}
+            required
             InputProps={{
               inputComponent: PostalMask as any,
             }}

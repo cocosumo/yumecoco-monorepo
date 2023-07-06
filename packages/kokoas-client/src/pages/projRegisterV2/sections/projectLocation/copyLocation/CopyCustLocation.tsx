@@ -6,8 +6,13 @@ import { LoadingButton } from '@mui/lab';
 
 export const CopyCustLocation = () => {
   const { setValue } = useTypedFormContext();
-  const custGroupId = useTypedWatch({
-    name: 'custGroupId',
+  const [
+    custGroupId,
+  ] = useTypedWatch({
+    name: [
+      'custGroupId',
+      'hasContract',
+    ],
   });
   const { data, isLoading } = useCustomersByCustGroupId(custGroupId as string);
   const {

@@ -7,7 +7,9 @@ z.setErrorMap(zodErrorMapJA());
 export const schema = z.object({
   projId: z.string().optional(),
   projTypeName: z.string(),
-  projTypeId: z.string(),
+  projTypeId: z.string().nonempty({
+    message: '工事種別を選択してください。',
+  }),
   projName: z.string(),
   projDataId: z.string(),
   createdDate: z.string(),
@@ -18,16 +20,24 @@ export const schema = z.object({
   storeId: z.string(),
   territory: z.enum(territories).nullable(),
 
-  isAgentConfirmed: z.boolean(),
   cocoConst1: z.string(),
   cocoConst2: z.string(),
-  postal: z.string(),
-  address1: z.string(),
-  address2: z.string(),
-  addressKari: z.string(),
-  buildingType: z.enum(buildingTypes),
+  postal: z.string()
+    .min(7, {
+      message: '郵便番号を入力してください。',
+    }),
+  address1: z.string().nonempty(),
+  address2: z.string().nonempty(),
+
+  finalPostal: z.string(),
+  finalAddress1: z.string(),
+  finalAddress2: z.string(),
 
   isAddressKari: z.boolean(),
+  isShowFinalAddress: z.boolean(),
+
+  buildingType: z.enum(buildingTypes),
+
   status: z.enum(recordStatuses),
   hasContract: z.boolean(),
   hasCompletedContract: z.boolean(),
@@ -42,7 +52,42 @@ export const schema = z.object({
     id: z.string(),
   })),
 
-});
+})
+  .superRefine((
+    {
+      isShowFinalAddress,
+      finalPostal,
+      finalAddress1,
+      finalAddress2,
+    },
+    ctx,
+  ) => {
+    if (isShowFinalAddress) {
+      if (!finalPostal) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '郵便番号を入力してください。',
+          path: ['finalPostal'],
+        });
+      }
+      if (!finalAddress1) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '住所を入力してください。',
+          path: ['finalAddress1'],
+        });
+      }
+      if (!finalAddress2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '住所を入力してください。',
+          path: ['finalAddress2'],
+        });
+      }
+    }
+  });
+
+  
 
 
 export type TForm = z.infer<typeof schema>;

@@ -12,8 +12,13 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     custGroupId,
     dataId,
     uuid,
-    isAgentConfirmed, postal, address1, address2,
-    buildingType, isChkAddressKari, agents, addressKari,
+     
+    postal, address1, address2,
+
+    isShowFinalAddress,
+    finalPostal, finalAddress1, finalAddress2,
+
+    buildingType, isChkAddressKari, agents, 
     cancelStatus,
     projTypeName,
     storeId,
@@ -28,7 +33,11 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
 
 
   return {
-    addressKari: addressKari.value,
+    //addressKari: addressKari.value,
+    finalPostal: finalPostal.value,
+    finalAddress1: finalAddress1.value,
+    finalAddress2: finalAddress2.value,
+
     address1: address1.value,
     address2: address2.value,
     buildingType: buildingType.value as BuildingType,
@@ -40,8 +49,11 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     cocoConst2: cocoConst?.[1] || '',
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
-    isAgentConfirmed: Boolean(+isAgentConfirmed.value),
+    //isAgentConfirmed: Boolean(+isAgentConfirmed.value),
+    
     isAddressKari: Boolean(+isChkAddressKari.value),
+    isShowFinalAddress: Boolean(+isShowFinalAddress.value),
+
     projId: uuid.value,
     projTypeId: projTypeId.value,
     projTypeName: projTypeName.value,

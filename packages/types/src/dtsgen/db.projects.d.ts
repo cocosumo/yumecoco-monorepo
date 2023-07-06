@@ -6,6 +6,7 @@ declare namespace DBProjects {
     memo: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
+    finalPostal: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     dataId: kintone.fieldTypes.SingleLineText;
@@ -20,7 +21,9 @@ declare namespace DBProjects {
     projName: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
+    finalAddress2: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
+    finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;

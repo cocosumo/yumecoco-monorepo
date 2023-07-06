@@ -6,6 +6,7 @@ import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { ControlledTextField } from '../../fields/ControlledTextField';
 import { TempAddressField } from './TempAddressField';
 import { CopyLocation } from './copyLocation/CopyLocation';
+import { FinalAddress } from './FinalAddress';
 
 export const ProjectLocation = () => {
 
@@ -36,6 +37,8 @@ export const ProjectLocation = () => {
         label='住所（番地以降）'
         placeholder='２番地１９'
       />
+
+      <FinalAddress />
 
       <ControlledCheckBox 
         label='仮換地地番を入力する' 

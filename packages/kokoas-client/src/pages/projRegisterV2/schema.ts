@@ -24,6 +24,8 @@ export const schema = z.object({
   postal: z.string(),
   address1: z.string(),
   address2: z.string(),
+  finalAddress: z.string(),
+
   addressKari: z.string(),
   buildingType: z.enum(buildingTypes),
 

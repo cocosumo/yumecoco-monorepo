@@ -19,6 +19,8 @@ export const initialValues : TForm = {
   postal: '',
   address1: '',
   address2: '',
+  finalAddress: '',
+
   addressKari: '',
   buildingType: '戸建て',
   isAddressKari: false,

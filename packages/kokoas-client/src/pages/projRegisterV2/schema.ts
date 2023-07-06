@@ -22,10 +22,8 @@ export const schema = z.object({
 
   cocoConst1: z.string(),
   cocoConst2: z.string(),
-  postal: z.string()
-    .min(7, {
-      message: '郵便番号を入力してください。',
-    }),
+
+  postal: z.string(),
   address1: z.string().nonempty(),
   address2: z.string().nonempty(),
 
@@ -56,20 +54,13 @@ export const schema = z.object({
   .superRefine((
     {
       isShowFinalAddress,
-      finalPostal,
       finalAddress1,
       finalAddress2,
     },
     ctx,
   ) => {
     if (isShowFinalAddress) {
-      if (!finalPostal) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: '郵便番号を入力してください。',
-          path: ['finalPostal'],
-        });
-      }
+
       if (!finalAddress1) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -77,6 +68,7 @@ export const schema = z.object({
           path: ['finalAddress1'],
         });
       }
+
       if (!finalAddress2) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,

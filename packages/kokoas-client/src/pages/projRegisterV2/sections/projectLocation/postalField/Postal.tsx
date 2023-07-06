@@ -17,7 +17,6 @@ export const Postal = ({
       <MaskedPostal 
         name='postal'
         disabled={disabled}
-        required
       /> 
 
       {!disabled && (

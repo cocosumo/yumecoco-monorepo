@@ -23,7 +23,7 @@ describe('Download File', () => {
     // This is just a sample where the data is saved to the local machine.
     // We can do whatever we want to the base64 data without writing to disk.
   
-    const data = Buffer.from(result); // convert b64 string to buffer
+    const data = Buffer.from(result, 'binary'); // convert b64 string to buffer
 
     // Create a directory to store the downloaded file.
     const downloadDir = path.join(__dirname, '__TEST__');

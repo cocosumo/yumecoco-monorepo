@@ -1,14 +1,11 @@
-import { ElementHandle, Page } from 'puppeteer';
+import { Page } from 'puppeteer';
 
-async function clickElementWithText(page: Page, text: string) {
-  console.log('Text', text);
+async function getIdOfElementByText(page: Page, text: string) {
   return page.$$eval(
     'div[role="menuitemradio"]', (options, passedText) => {
       for (const option of options) {
-        console.log('option', option.textContent);
         if (option.textContent?.includes(passedText)) {
-          option.click();
-          return option;
+          return option.id;
         }
       }
     }, text,
@@ -18,15 +15,15 @@ async function clickElementWithText(page: Page, text: string) {
 
 export const selectEncoding = async (
   page: Page,
-  encoding: string,
+  encoding: 'UTF-8' | 'Shift-JIS' | 'Latin-1',
 ) => {
   
   await page.click('#importFileCharset-gaia');
 
-  const optionToClick = await clickElementWithText(page, encoding);
+  const optionId = await getIdOfElementByText(page, encoding);
 
-  if (!optionToClick) throw new Error(`Encoding ${encoding} not found`);
-
-  //optionToClick.click();
+  if (!optionId) throw new Error(`Encoding ${encoding} not found`);
   
+  // use puppeteer's click so that it will wait for the element to be visible
+  await page.click(`#\\${optionId}`); // escape the id because it contains a colon
 };

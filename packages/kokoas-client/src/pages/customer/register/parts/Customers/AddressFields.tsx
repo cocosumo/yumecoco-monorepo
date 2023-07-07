@@ -55,7 +55,7 @@ export const AddressFields = ({
         <FormikTextField disabled={disabled}
           name={`${namePrefix}${getCustFieldName('address2')}`}
           label="住所（番地以降）"
-          placeholder='３丁目１−１'
+          placeholder='２番地１９マンション２３号'
         />
       </Grid>
 

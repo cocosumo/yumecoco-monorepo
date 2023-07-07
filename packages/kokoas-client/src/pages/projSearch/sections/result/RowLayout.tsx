@@ -30,6 +30,7 @@ export const RowLayout = ({
   projCompletedDate,
   storeName,
   tel,
+  createdAt,
   onClick,
 } : Partial<Record<KeyOfSearchResult, ReactNode>> & {
   onClick?: () => void,
@@ -75,6 +76,15 @@ export const RowLayout = ({
         }}
       >
         {projCompletedDate}
+      </TableCell>
+
+      
+      <TableCell 
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {createdAt}
       </TableCell>
     </StyledTableRow>
   );

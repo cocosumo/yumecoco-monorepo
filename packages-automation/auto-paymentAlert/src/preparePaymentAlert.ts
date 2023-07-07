@@ -13,4 +13,5 @@ export const preparePaymentAlert = async () => {
 
   await downloadPaymentfile(page);
   
+  // kintoneへのアップロード処理
 };

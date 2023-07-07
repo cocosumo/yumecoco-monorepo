@@ -22,6 +22,7 @@ export interface SearchResult {
   projName: string;
   uuid: string;
   storeSortNumber: number;
+  createdAt: string;
 }
 
 export interface IDetail {

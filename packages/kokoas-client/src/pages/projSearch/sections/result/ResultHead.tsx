@@ -86,6 +86,13 @@ export const ResultHead = () => {
             label='完工日'
           />
         )}
+        createdAt={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='createdAt'
+            label='作成日時'
+          />
+        )}
       />
     </TableHead>
   );

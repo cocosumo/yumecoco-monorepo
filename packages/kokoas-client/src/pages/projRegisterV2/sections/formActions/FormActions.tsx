@@ -7,6 +7,8 @@ import { useSnackBar } from 'kokoas-client/src/hooks';
 import { useNavigate } from 'react-router-dom';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { fieldMapJa } from '../../api/fieldMapJA';
+import { KForm } from '../../schema';
 
 export const FormActions = () => {
   const { setSnackState } = useSnackBar();
@@ -33,9 +35,17 @@ export const FormActions = () => {
     },
     (errors) => {
       console.warn(errors); // 保存できない原因で、残す
+      // summarize errors into string
+      const errorString = Object.entries(errors).reduce((acc, [key, value]) => {
+        if (value) {
+          acc += `${fieldMapJa[key as KForm]}: ${value.message}\n`;
+        }
+        return acc;
+      }, '');
+
       setSnackState({
         open: true,
-        message: '入力内容に不備があります', 
+        message: `「${errorString}」  修正が出来ない場合はお手数ですが、管理者に連絡してください。`, 
         severity: 'error',
         
       });

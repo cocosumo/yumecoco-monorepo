@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { IProjects } from 'types';
 import { useMemo } from 'react';
-import { addressBuilder, formatDataId } from 'libs';
+import { addressBuilder, formatDataId, postalBuilder } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
@@ -10,6 +10,24 @@ import { EditButton } from '../common/EditButton';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { AndpadDetails } from './AndpadDetails';
+
+const Address = ({
+  postal,
+  address,
+}:{
+  postal: string,
+  address: string,
+}) => {
+  return (
+    <>
+      {postal && (
+      <div>
+        {postal}
+      </div>)}
+      {address || '-'}
+    </>
+  );
+};
 
 
 export const ProjectDetails = ({
@@ -24,7 +42,10 @@ export const ProjectDetails = ({
       postal,
       address1,
       address2,
-      addressKari,
+      
+      finalPostal,
+      finalAddress1,
+      finalAddress2,
   
       buildingType,
       projTypeName,
@@ -48,8 +69,6 @@ export const ProjectDetails = ({
       // status, 廃止　（追客中など） 
     } = recProj;
 
-    const newPostal = postal.value ? `〒${postal.value.slice(0, 3)}-${postal.value.slice(3)} ` : '';
-
     const mainDetails: IDetail[] = [
       {
         label: '工事番号',
@@ -65,21 +84,28 @@ export const ProjectDetails = ({
       },
       {
         label: '住所',
-        value: (<>
-          <div>
-            {newPostal}
-          </div>
-          {addressBuilder({
-            address1: address1.value,
-            address2: address2.value,
-          })}
-        </>
+        value: (
+          <Address
+            postal={postalBuilder(postal.value)}
+            address={addressBuilder({
+              address1: address1.value,
+              address2: address2.value,
+            })}
+          />
         ),
       },
       
       {
-        label: '仮住所',
-        value: addressKari.value || '-',
+        label: '確定住所',
+        value: (
+          <Address
+            postal={postalBuilder(finalPostal.value)}
+            address={addressBuilder({
+              address1: finalAddress1.value,
+              address2: finalAddress2.value,
+            })}
+          />
+        ),
       },
       {
         label: '建物種別',

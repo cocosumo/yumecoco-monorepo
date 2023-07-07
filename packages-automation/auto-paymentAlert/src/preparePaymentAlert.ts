@@ -1,6 +1,6 @@
 import { headFullBrowser } from 'auto-common';
 import { login } from './login/login';
-import { pageTransition } from './downloadPaymentList/pageTransition';
+import { downloadPaymentfile } from './downloadPaymentList/downloadPaymentfile';
 
 export const preparePaymentAlert = async () => {
   console.log('start auto-paymentAlert');
@@ -11,6 +11,6 @@ export const preparePaymentAlert = async () => {
 
   await login(page); // andpadログイン
 
-  await pageTransition(page);
+  await downloadPaymentfile(page);
   
 };

@@ -64,7 +64,7 @@ export const saveProject = async (body: SaveProjectParams) => {
     if (systemId) {
       const result = await addDelMembers({
         systemId: systemId.toString(),
-        members,
+        members: members.filter(Boolean), // remove empty items
       });
 
       console.log('メンバー追加の結果', result);

@@ -3,6 +3,19 @@ import { getCustGroupById, getCustomersByIds, getProjById } from 'api-kintone';
 import { getAddressByPostal } from 'api-kintone/src/postal/getAddressByPostal';
 import { bestStringMatch } from 'kokoas-client/src/lib';
 import { TAgents, TContact } from 'types';
+import { getPostalByAddress } from '../others';
+
+
+const resolvePostalByAddress = async (postal: string | undefined, address: string) => {
+  let parsedProjPostal = postal;
+
+  if (!parsedProjPostal) {
+    parsedProjPostal = await getPostalByAddress(address);
+  }
+
+  return parsedProjPostal;
+
+};
 
 export const convertProjToAndpad = async (projId: string) => {
 
@@ -35,14 +48,24 @@ export const convertProjToAndpad = async (projId: string) => {
 
   if (!firstCust) throw new Error('顧客情報の取得が失敗しました。');
 
+  const parsedProjPostal = await resolvePostalByAddress(
+    projRec?.postal.value, 
+    projRec.address1.value + projRec.address2.value,
+  );
+
+  const parsedCustPostal = await resolvePostalByAddress(
+    firstCust?.postalCode?.value,
+    firstCust?.address1?.value + firstCust?.address2?.value,
+  );
+
 
   const {
     pref: projPrefecture,
-  } = await getAddressByPostal(projRec?.postal?.value || '') ?? {};
+  } = await getAddressByPostal(parsedProjPostal) ?? {};
 
   const {
     pref: custPrefecture,
-  } = await getAddressByPostal(firstCust?.postalCode?.value || '') ?? {};
+  } = await getAddressByPostal(parsedCustPostal) ?? {};
 
   //if (!projPrefecture) throw new Error('物件の都道府県の取得が失敗しました。');
   //if (!custPrefecture) throw new Error('顧客の都道府県の取得が失敗しました。');
@@ -65,7 +88,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '顧客管理ID': custGroupRec.uuid.value,
     '顧客名': firstCust.fullName.value,
     '顧客名（カナ）': firstCust.fullNameReading?.value || '',
-    '顧客郵便番号': firstCust?.postalCode?.value || '',
+    '顧客郵便番号': parsedCustPostal || '',
     '顧客現住所': [firstCust.address1?.value.trim(), firstCust.address2?.value.trim()].filter(Boolean).join(',') || '',
     '顧客担当者名': firstAgent?.employeeName.value,
     '顧客電話番号1': firstCustTel1.value.contactValue.value,
@@ -76,8 +99,8 @@ export const convertProjToAndpad = async (projId: string) => {
     '物件種別': bestStringMatch(projRec.buildingType.value, buildingTypesAndpad, { valueIfNoMatch: 'その他' }),
     '物件名': `${firstCust.fullName.value}様邸`,
     '物件住所種別': '新しい住所を入力する',
-    '物件郵便番号': projRec.postal?.value || '',
-    '物件都道府県': projPrefecture.value || '', 
+    '物件郵便番号': parsedProjPostal || '',
+    '物件都道府県': projPrefecture?.value || '', 
     // remove 都道府県 from address1 as andpad will add it automatically
     '物件住所': `${projRec.address1.value.replace(projPrefecture?.value || '', '')}${projRec.address2?.value}`,
 

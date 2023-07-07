@@ -3,7 +3,11 @@ import { Controller } from 'react-hook-form';
 import { buildingTypes } from 'types';
 import { useTypedFormContext } from '../hooks/useTypedRHF';
 
-export const BuildingType = () => {
+export const BuildingType = ({
+  disabled,
+}:{
+  disabled?: boolean;
+}) => {
   const { control } = useTypedFormContext();
 
   return (
@@ -32,6 +36,7 @@ export const BuildingType = () => {
               border: '1px solid #ced4da',
               borderRadius: 1,
             }}
+            disabled={disabled}
           >
             <FormLabel>
               {'建物種別'}

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { initialValues } from '../form';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
-import { useCustGroupById, useProjById, useProjContractSummary } from 'kokoas-client/src/hooksQuery';
+import { useContractsByProjIdV2, useCustGroupById, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertProjToForm } from '../api/convertProjToForm';
 import { convertCustGroupToForm } from '../api/convertCustGroupToForm';
+import { TEnvelopeStatus } from 'types';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialValues);
@@ -17,16 +18,20 @@ export const useResolveParams = () => {
 
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
 
-  const { data: contractSummary } = useProjContractSummary(projRec?.uuid.value);
-
+  const { data: contracts } = useContractsByProjIdV2(projRec?.uuid.value);
+  /* 
   const {
     completed,
     hasContract,
-  } = contractSummary || {};
+  } = contractSummary || {}; */
+
+  const hasContract = contracts && contracts?.length > 0;
+  const completed =  contracts && contracts
+    ?.some((contract) => (contract.envelopeStatus.value as TEnvelopeStatus) === 'completed');
 
   useEffect(() => {
 
-    if (projIdFromURL && projRec && custGroupRec && contractSummary) {
+    if (projIdFromURL && projRec && custGroupRec && contracts) {
 
 
       setNewFormVal({
@@ -54,7 +59,7 @@ export const useResolveParams = () => {
     custGroupIdFromURL,
     hasContract,
     completed,
-    contractSummary,
+    contracts,
   ]);
 
   return { newFormVal };

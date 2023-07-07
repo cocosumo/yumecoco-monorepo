@@ -52,12 +52,12 @@ export const deleteMembers = async ({
     }
 
   } catch (err) {
-    let errMessage = '案件メンバーの追加に失敗しました。管理者に連絡してください';
+    let errMessage = '案件メンバーの削除に失敗しました。管理者に連絡してください';
     if (err instanceof AxiosError) {
       const { response } = err;
       if (response) {
         const { status } = response;
-        errMessage = `案件メンバーの追加に失敗しました。管理者に連絡してください。${status} ${err.message}`;
+        errMessage = `案件メンバーの削除に失敗しました。管理者に連絡してください。${status} ${err.message}`;
       }
     }
 

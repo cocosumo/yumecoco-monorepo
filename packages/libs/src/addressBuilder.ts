@@ -1,11 +1,7 @@
 
 export const postalBuilder = (postal: string | undefined) => {
   if (!postal) return '';
-  console.log('entered', postal);
   const normalizedPostal = postal.replace('-', '');
-
-  console.log('normalizedPostal', `〒${normalizedPostal.slice(0, 3)}-${normalizedPostal.slice(3)} `);
-
   return `〒${normalizedPostal.slice(0, 3)}-${normalizedPostal.slice(3)} `;
 };
 

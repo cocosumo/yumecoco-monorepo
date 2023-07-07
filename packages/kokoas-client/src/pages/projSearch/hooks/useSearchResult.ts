@@ -10,6 +10,7 @@ import parseISO from 'date-fns/parseISO';
 import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects/helpers/getAgentsByType';
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
 import intersection from 'lodash/intersection';
+import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 
 
 
@@ -62,6 +63,7 @@ export const useSearchResult =  () => {
           dataId,
           agents: projAgents,
           cancelStatus: projCancelStatus,
+          作成日時: createdAt,
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
@@ -188,6 +190,7 @@ export const useSearchResult =  () => {
             contractDate: contractDate?.value ? contractDate.value : '-',
             projCompletedDate: finishDate?.value ? finishDate.value : '-',
             storeSortNumber: +(sortNumber?.value || 0),
+            createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
           });
         }
 

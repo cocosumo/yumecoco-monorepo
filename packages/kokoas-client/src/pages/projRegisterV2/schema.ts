@@ -10,7 +10,7 @@ export const schema = z.object({
   projTypeId: z.string().nonempty({
     message: '工事種別を選択してください。',
   }),
-  projName: z.string(),
+  projName: z.string().nonempty(),
   projDataId: z.string(),
   createdDate: z.string(),
   storeCode: z.string(),

@@ -35,7 +35,6 @@ export const YumeAGSelect = ({
                 '店長代理', 
                 '取締役',
                 '主任', 
-                '工務', 
                 '営業',
               ],
             }}

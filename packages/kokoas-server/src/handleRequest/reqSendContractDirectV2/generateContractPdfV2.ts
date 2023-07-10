@@ -392,7 +392,7 @@ export const generateContractPdfV2 = async (
   // 顧客住所
   drawText(
     firstPage,
-    customers[0].shortAddress,
+    customers[0].address,
     {
       x: x2,
       y: 260,

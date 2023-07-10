@@ -3,6 +3,7 @@ import { downloadFile } from './downloadFile';
 import fs from 'fs';
 import path from 'path';
 import { connectToBrowserPage } from './connectToBrowserPage';
+import xlsx from 'xlsx';
 
 describe('Download File', () => {
   it('should download excel file from andpad', async () => {
@@ -32,10 +33,16 @@ describe('Download File', () => {
     fs.existsSync(downloadDir) || fs.mkdirSync(downloadDir);
 
     // we know this is an excel file, so we can hardcode the extension
-    const outputFileName = '入金一覧.xlsx'; 
+    const outputFileName = '入金一覧.csv'; 
+
+    const fullPath = path.join(downloadDir, outputFileName);
 
     // Write the file to the directory.
-    fs.writeFileSync(path.join(downloadDir, outputFileName), data);
+    //fs.writeFileSync(fullPath, data);
+    const workbook = xlsx.read(data);
+    xlsx.writeFile(workbook, fullPath, {
+      bookType: 'csv',
+    });
 
     browser.disconnect();
   }, 60000);

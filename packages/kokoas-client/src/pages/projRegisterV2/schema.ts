@@ -4,12 +4,16 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
+const nonEmptyDropdown = z.string().nonempty({
+  message: '選択してください。',
+});
+
 export const schema = z.object({
   projId: z.string().optional(),
   projTypeName: z.string(),
-  projTypeId: z.string().nonempty({
-    message: '工事種別を選択してください。',
-  }),
+
+  projTypeId: nonEmptyDropdown,
+  
   projName: z.string().nonempty(),
   projDataId: z.string(),
   createdDate: z.string(),
@@ -23,14 +27,10 @@ export const schema = z.object({
   cocoConst1: z.string(),
   cocoConst2: z.string(),
 
-  yumeAG1: z.string().nonempty({
-    message: 'ゆめてつAG1を選択してください。',
-  }),
+  yumeAG1: nonEmptyDropdown,
   yumeAG2: z.string(),
 
-  cocoAG1: z.string().nonempty({
-    message: 'ここすもAG1を選択してください。',
-  }),
+  cocoAG1: nonEmptyDropdown,
   cocoAG2: z.string(),
 
   postal: z.string(),

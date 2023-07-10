@@ -2,7 +2,7 @@ import { Page } from 'puppeteer';
 import { kintoneBaseUrl } from 'api-kintone';
 import { setFieldValue } from 'auto-common';
 
-const selectors = {
+export const selectors = {
   user: '[name="username"]',
   pass: '[name="password"]',
   btnLogin: '.login-button',

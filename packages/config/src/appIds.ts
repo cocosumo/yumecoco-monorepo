@@ -9,6 +9,7 @@ export const prodAppIds = {
   custMemos: 211,
   invoices : 226,
   contracts : 232,
+  payments : 248,
 } as const;
 
 /* 開発環境 */
@@ -33,6 +34,9 @@ export const devAppIds = {
 
   /** 契約 */
   contracts : 231,
+
+  /** 入金 */
+  payments : 233,
 
 } as const;
 
@@ -76,7 +80,7 @@ export const AppIds = {
   /**　システムの依頼  */
   ticketSystem: 236,
 
-  /** Andpad入金だデータ */
+  /** Andpad入金データ */
   andpadPaymentData: 233,
 
   ...(isProd ? prodAppIds : devAppIds),

@@ -1,6 +1,9 @@
 import { headFullBrowser } from 'auto-common';
 import { login } from './login/login';
 import { downloadPaymentfile } from './downloadPaymentsData/downloadPaymentsData';
+import { uploadSingleCSV } from '../../auto-kintone/src/uploadCSV';
+import { AppIds } from 'config';
+import { filePath } from '../config';
 
 export const preparePaymentAlert = async () => {
   console.log('start auto-paymentAlert');
@@ -12,6 +15,8 @@ export const preparePaymentAlert = async () => {
   await login(page); // andpadログイン
 
   await downloadPaymentfile(page);
-  
+
+
   // kintoneへのアップロード処理
+  await uploadSingleCSV(page, AppIds.payments.toString(), filePath, 'ID');
 };

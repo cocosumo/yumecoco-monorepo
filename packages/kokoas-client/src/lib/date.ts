@@ -42,7 +42,7 @@ export const parseKintoneDate = <T = unknown>(
 
 export const parseISOTimeToFormat = (
   isoDate: string | null | undefined,
-  formatStr = 'yyyy/MM/dd HH:mm',
+  formatStr = 'yyyy-MM-dd HH:mm',
 ) => {
   if (!isoDate) return '';
   return format(parseISO(isoDate), formatStr);
@@ -54,7 +54,7 @@ export const parseISOTimeToFormat = (
  */
 export const parseISODateToFormat = (
   isoDate: string | null | undefined,
-  formatStr = 'yyyy/MM/dd', // 時間なし
+  formatStr = 'yyyy-MM-dd', // 時間なし
 ) => {
   if (!isoDate) return '';
   return parseISOTimeToFormat((isoDate), formatStr);

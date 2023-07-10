@@ -4,13 +4,6 @@ import { translations } from 'kokoas-client/src/helpers/translations';
 import { ResultsTHeadSortLabel } from './ResultsTHeadSortLabel';
 import { TRowLayout } from './TRowLayout';
 
-export const headCells = [
-  ['projId', 'projEstimateId'],
-  ['projName', 'projType'],
-  ['store', 'yumeAG', 'cocoAG'],
-  ['custName', 'contractDate'],
-  ['contractAmount', 'grossProfit'],
-] as const;
 
 export const getAlign = (idx: number): TableCellProps['align'] => {
   switch (idx) {
@@ -43,11 +36,10 @@ export const ResultsTHead = () => {
         custName={<ResultsTHeadSortLabel headerLabel='custName' />}
         contractDate={<ResultsTHeadSortLabel headerLabel='contractDate' />}
         contractAmount={<ResultsTHeadSortLabel headerLabel='contractAmount' />}
-        latestInvoiceDate={<ResultsTHeadSortLabel headerLabel='latestInvoiceDate' />}
-        latestInvoiceAmount={<ResultsTHeadSortLabel headerLabel='latestInvoiceAmount' />}
-        plannedPaymentDate={<ResultsTHeadSortLabel headerLabel='plannedPaymentDate' />}
         grossProfit={<ResultsTHeadSortLabel headerLabel='grossProfit' />}
         profitRate={<ResultsTHeadSortLabel headerLabel='profitRate' />}
+        createdAt={<ResultsTHeadSortLabel headerLabel='createdAt' />}
+        updatedAt={<ResultsTHeadSortLabel headerLabel='updatedAt' />}
       />
 
     </TableHead>

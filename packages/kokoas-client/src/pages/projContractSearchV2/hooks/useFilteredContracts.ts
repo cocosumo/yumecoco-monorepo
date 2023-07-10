@@ -1,15 +1,14 @@
 import addDays from 'date-fns/addDays';
-import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
-import { useAllContracts, useCustGroups, useInvoices, useProjects } from 'kokoas-client/src/hooksQuery';
-import { latestInvoiceReducer } from '../helpers/latestInvoiceReducer';
+
+import { useAllContracts, useCustGroups, useProjects } from 'kokoas-client/src/hooksQuery';
 import { calcProfitRate, formatDataId } from 'libs';
-import { IInvoices, TEnvelopeStatus, roles } from 'types';
+import { TEnvelopeStatus, roles } from 'types';
 import { initialValues, TypeOfForm } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
 import { useCallback } from 'react';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
+import { parseISODateToFormat, parseISOTimeToFormat } from 'kokoas-client/src/lib';
 
 export interface ContractRow {
   contractStatus: TEnvelopeStatus,
@@ -28,10 +27,13 @@ export interface ContractRow {
   contractAmount: number,
   grossProfit: number,
   profitRate: number,
-  latestInvoiceDate: string,
-  latestInvoiceAmount: number,
-  plannedPaymentDate: string,
-  invoiceId: string,
+  //latestInvoiceDate: string,
+  //latestInvoiceAmount: number,
+  //plannedPaymentDate: string,
+  //invoiceId: string,
+
+  createdAt: string,
+  updatedAt: string,
 }
 
 
@@ -63,13 +65,12 @@ export const useFilteredContracts = () => {
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
-  const { data: invoiceData } = useInvoices();
 
   return useAllContracts({
-    enabled: !!projData && !!custGroupData && !!invoiceData,
+    enabled: !!projData && !!custGroupData,
     select: useCallback((d) => {
 
-      if (!projData || !custGroupData || !invoiceData) return;
+      if (!projData || !custGroupData) return;
 
       let minAmount = 0;
       let maxAmount = 0;
@@ -87,7 +88,10 @@ export const useFilteredContracts = () => {
           totalContractAmt,
           totalProfit,
           tax,
-        } = cur;
+
+          作成日時: createdAt,
+          更新日時: updatedAt,
+        } = cur; // 契約のデータ;
 
         // 契約進捗の中に何も選択されていないかチェック
         const noContractStatusSelected = [
@@ -118,17 +122,7 @@ export const useFilteredContracts = () => {
           storeName,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
 
-        /* 直近請求情報 */
-        const {
-          plannedPaymentDate,
-          issuedDateTime,
-          billingAmount,
-          uuid: invoiceId,
-        } = invoiceData
-          .reduce(
-            latestInvoiceReducer(contractId.value),
-            undefined as IInvoices | undefined,
-          ) || {};
+
 
 
         const taxRate = +tax.value || 0.1;
@@ -160,12 +154,12 @@ export const useFilteredContracts = () => {
           projDataId: formatDataId(dataId?.value || ''),
           cocoAG: cocoAGNames?.value || '-',
           yumeAG: yumeAGNames?.value || '-',
-          contractDate:  contractDate?.value  || '-',
+          contractDate:  parseISODateToFormat(contractDate?.value)  || '-',
 
-          latestInvoiceAmount: +(billingAmount?.value || ''),
-          latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '',
-          plannedPaymentDate: plannedPaymentDate?.value || '',
-          invoiceId: invoiceId?.value || '',
+          //latestInvoiceAmount: +(billingAmount?.value || ''),
+          //latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '',
+          //plannedPaymentDate: plannedPaymentDate?.value || '',
+          //invoiceId: invoiceId?.value || '',
 
           custName: custNames?.value || '-',
           projName: projName?.value || '-',
@@ -173,6 +167,9 @@ export const useFilteredContracts = () => {
           contractAmount: totalAmountAfterTax,
           grossProfit: +totalProfit.value,
           profitRate: calcProfitRate(totalCost, totalAmountBeforeTax ),
+
+          createdAt: parseISOTimeToFormat(createdAt.value),
+          updatedAt: parseISOTimeToFormat(updatedAt.value),
         };
 
         /* 絞り込み */
@@ -227,7 +224,6 @@ export const useFilteredContracts = () => {
     }, [
       projData,
       custGroupData,
-      invoiceData,
       mainSearch,
       amountFrom,
       amountTo,

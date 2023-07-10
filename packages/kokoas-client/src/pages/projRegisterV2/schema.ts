@@ -23,10 +23,14 @@ export const schema = z.object({
   cocoConst1: z.string(),
   cocoConst2: z.string(),
 
-  yumeAG1: z.string(),
+  yumeAG1: z.string().nonempty({
+    message: 'ゆめてつAG1を選択してください。',
+  }),
   yumeAG2: z.string(),
 
-  cocoAG1: z.string(),
+  cocoAG1: z.string().nonempty({
+    message: 'ここすもAG1を選択してください。',
+  }),
   cocoAG2: z.string(),
 
   postal: z.string(),

@@ -14,6 +14,7 @@ export const EmployeeSelector = ({
   onChange,
   onBlur,
   filter,
+  required,
 }:{
   label: string,
   /** 社員のuuid */
@@ -21,6 +22,7 @@ export const EmployeeSelector = ({
   onChange?: (empId: string,) => void,
   onBlur?: () => void,
   filter?: FilterOptions,
+  required?: boolean,
 }) => {
   const [includeInactive, setIncludeInactive] = useState(false);
   const { 
@@ -55,7 +57,7 @@ export const EmployeeSelector = ({
   return (
     <Stack spacing={0.5} width={300}>
     
-      <FormLabel>
+      <FormLabel required={required}>
         {label}
       </FormLabel>
     

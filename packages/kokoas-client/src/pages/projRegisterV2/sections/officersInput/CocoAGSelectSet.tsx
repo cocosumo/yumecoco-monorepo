@@ -6,6 +6,7 @@ export const CocoAGSelectSet = () => {
     <Stack direction={'row'} spacing={2}>
       <CocoAGSelect 
         name='cocoAG1'
+        required
       />
       <CocoAGSelect 
         name='cocoAG2'

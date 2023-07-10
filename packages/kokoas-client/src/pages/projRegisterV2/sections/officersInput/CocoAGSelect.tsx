@@ -6,8 +6,10 @@ import { fieldMapJa } from '../../api/fieldMapJa';
 
 export const CocoAGSelect = ({
   name,
+  required,
 }:{
   name: KForm,
+  required?: boolean,
 }) => {
   const { control } = useTypedFormContext();
 
@@ -28,6 +30,7 @@ export const CocoAGSelect = ({
             value={value as string}
             onChange={onChange}
             onBlur={onBlur}
+            required={required}
             filter={{
               affiliation: ['ここすも'],
               roles:[ 

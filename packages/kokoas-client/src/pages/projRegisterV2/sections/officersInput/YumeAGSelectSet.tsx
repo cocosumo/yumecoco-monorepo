@@ -6,6 +6,7 @@ export const YumeAGSelectSet = () => {
     <Stack direction={'row'} spacing={2}>
       <YumeAGSelect 
         name='yumeAG1'
+        required
       />
       <YumeAGSelect 
         name='yumeAG2'

@@ -10,7 +10,7 @@ interface CustomProps {
   name: string;
 }
 
-const PostalMask = forwardRef<HTMLElement, CustomProps>(
+const PostalMask = forwardRef<HTMLInputElement, CustomProps>(
   function TextMaskCustom(props, ref) {
     const { onChange, ...other } = props;
     return (

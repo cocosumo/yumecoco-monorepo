@@ -9,6 +9,7 @@ export const translations: Record<string, string> = {
   contractStatus: '契約進捗',
   contractDate: '契約日',
   custName: '顧客名',
+  createdAt: '作成日',
   email: 'メアド',
   estNum: '枝番',
   estimateId: '見積番号',
@@ -25,6 +26,7 @@ export const translations: Record<string, string> = {
   store: '店舗名',
   tel: '電話番号',
   totalAmountAfterTax: '税込金額',
+  updatedAt: '更新日',
   yumeAG: 'ゆめてつAG',
 
 };

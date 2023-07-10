@@ -7,7 +7,7 @@ import { useSnackBar } from 'kokoas-client/src/hooks';
 import { useNavigate } from 'react-router-dom';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
-import { fieldMapJa } from '../../api/fieldMapJA';
+import { fieldMapJa } from '../../api/fieldMapJa';
 import { KForm } from '../../schema';
 
 export const FormActions = () => {

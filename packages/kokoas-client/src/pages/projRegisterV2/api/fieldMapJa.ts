@@ -5,8 +5,17 @@ export const fieldMapJa : Record<KForm, string> = {
   address2: '住所2',
   buildingType: '建物種別',
   cancelStatus: 'キャンセルステータス',
+
   cocoConst1: '工事担当者１',
   cocoConst2: '工事担当者２',
+
+  cocoAG1: '営業担当者１',
+  cocoAG2: '営業担当者２',
+
+  yumeAG1: 'ゆめてつAG１',
+  yumeAG2: 'ゆめてつAG２',
+
+
   createdDate: '登録日',
   custGroupId: '顧客グループ',
   custName: '顧客名',

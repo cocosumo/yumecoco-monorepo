@@ -2,12 +2,11 @@ import { EmployeeSelector } from 'kokoas-client/src/components';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { KForm } from '../../schema';
 import { Controller } from 'react-hook-form';
+import { fieldMapJa } from '../../api/fieldMapJa';
 
-export const CocoConstSelect = ({
-  label,
+export const CocoAGSelect = ({
   name,
 }:{
-  label: string,
   name: KForm,
 }) => {
   const { control } = useTypedFormContext();
@@ -25,7 +24,7 @@ export const CocoConstSelect = ({
       }) => {
         return (
           <EmployeeSelector
-            label={label}
+            label={fieldMapJa[name]}
             value={value as string}
             onChange={onChange}
             onBlur={onBlur}
@@ -38,7 +37,6 @@ export const CocoConstSelect = ({
                 '主任', 
                 '工務', 
                 '営業',
-    
               ],
             }}
           />

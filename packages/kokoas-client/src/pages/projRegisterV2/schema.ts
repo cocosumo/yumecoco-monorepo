@@ -23,6 +23,12 @@ export const schema = z.object({
   cocoConst1: z.string(),
   cocoConst2: z.string(),
 
+  yumeAG1: z.string(),
+  yumeAG2: z.string(),
+
+  cocoAG1: z.string(),
+  cocoAG2: z.string(),
+
   postal: z.string(),
   address1: z.string().nonempty(),
   address2: z.string().nonempty(),

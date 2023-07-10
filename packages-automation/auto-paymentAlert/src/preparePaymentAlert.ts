@@ -1,6 +1,6 @@
 import { headFullBrowser } from 'auto-common';
 import { login } from './login/login';
-import { downloadPaymentfile } from './downloadPaymentList/downloadPaymentfile';
+import { downloadPaymentfile } from './downloadPaymentsData/downloadPaymentsData';
 
 export const preparePaymentAlert = async () => {
   console.log('start auto-paymentAlert');

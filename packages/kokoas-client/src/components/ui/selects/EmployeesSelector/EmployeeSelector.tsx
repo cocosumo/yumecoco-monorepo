@@ -20,7 +20,7 @@ export const EmployeeSelector = ({
   value: string,
   onChange?: (empId: string,) => void,
   onBlur?: () => void,
-  filter?: FilterOptions
+  filter?: FilterOptions,
 }) => {
   const [includeInactive, setIncludeInactive] = useState(false);
   const { 

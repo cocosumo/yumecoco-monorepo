@@ -13,8 +13,8 @@ export const TRowLayout = ({
   contractAmount,
   grossProfit,
   profitRate,
-  //createdAt,
-  //updatedAt,
+  createdAt,
+  updatedAt,
 }: {
   contractStatus: ReactNode,
   projDataId: ReactNode,
@@ -62,11 +62,11 @@ export const TRowLayout = ({
         <br />
         {profitRate}
       </TableCell>
-      {/*       <TableCell>
+      <TableCell>
         {createdAt}
         <br />
         {updatedAt}
-      </TableCell> */}
+      </TableCell>
     </TableRow>
   );
 };

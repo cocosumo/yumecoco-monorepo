@@ -7,9 +7,9 @@ export const OfficersInput = () => {
   return (
     <Stack spacing={2}>
 
-      <CocoAGSelectSet />
-
       <YumeAGSelectSet />
+
+      <CocoAGSelectSet />
 
       <CocoConstSelectSet />
 

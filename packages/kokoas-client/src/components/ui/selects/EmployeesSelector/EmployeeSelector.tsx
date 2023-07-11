@@ -1,23 +1,13 @@
 import Divider from '@mui/material/Divider';
 import { Box, FormHelperText, FormLabel, IconButton, Stack, Tooltip } from '@mui/material';
 import { SearchByNumber } from './SearchByNumber';
-import { useCallback, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useMemo, useState } from 'react';
 import { SearchByName } from './SearchByName';
 import { FilterOptions, useFilteredEmployees } from './useFilteredEmployees';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-
-export const EmployeeSelector = ({
-  label,
-  value,
-  onChange,
-  onBlur,
-  filter,
-  required,
-  error,
-  helperText,
-}:{
+interface EmployeeSelectorProps {
   label: string,
   /** 社員のuuid */
   value: string,
@@ -27,7 +17,20 @@ export const EmployeeSelector = ({
   required?: boolean,
   error?: boolean,
   helperText?: string,
-}) => {
+  name?: string,
+}
+
+export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorProps>(({
+  label,
+  value,
+  onChange,
+  onBlur,
+  filter,
+  required,
+  error,
+  helperText,
+  name,
+}, ref) => {
 
   const [includeInactive, setIncludeInactive] = useState(false);
   const { 
@@ -89,10 +92,12 @@ export const EmployeeSelector = ({
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
         <SearchByName
+          name={name}
           onChange={handleChange}
           selectedRecord={selectedEmpRecord}
           filteredData={filteredData}
           onBlur={onBlur}
+          ref={ref}
         />
 
         <Tooltip 
@@ -110,4 +115,6 @@ export const EmployeeSelector = ({
       </FormHelperText>
     </Stack>
   );
-};
+});
+
+EmployeeSelector.displayName = 'EmployeeSelector';

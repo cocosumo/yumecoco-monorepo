@@ -21,24 +21,26 @@ export const ControlledEmployeeSelector = ({
       name={name}
       control={control}
       render={({
-        field: {
-          value,
-          onChange,
-          onBlur,
-        },
+        field,
         fieldState: {
           isTouched,
           error,
         },
+        formState: {
+          submitCount,
+        },
       }) => {
-        const showError = isTouched && !!error;
+        const {
+          value,
+          ...fieldRest
+        } = field;
+        const showError = (isTouched || !!submitCount) && !!error;
 
         return (
           <EmployeeSelector
+            {...fieldRest}
             label={fieldMapJa[name]}
             value={value as string}
-            onChange={onChange}
-            onBlur={onBlur}
             error={showError}
             helperText={error?.message}
             required={required}

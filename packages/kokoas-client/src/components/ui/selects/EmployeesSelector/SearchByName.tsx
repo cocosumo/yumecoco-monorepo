@@ -1,5 +1,5 @@
 import { Autocomplete, InputBase, Stack, Typography, createFilterOptions } from '@mui/material';
-import { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { EmpStatus, IEmployees } from 'types';
 
 type Option = {
@@ -11,23 +11,27 @@ type Option = {
   status: EmpStatus,
 };
 
+interface SearchByNameProps {
+  selectedRecord: IEmployees | undefined,
+  filteredData: IEmployees[] | undefined,
+  onChange: (emdId: string | undefined) => void,
+  onBlur?: () => void,
+  name?: string,
+}
+
 const filterOptions = createFilterOptions({
   matchFrom: 'any',
   stringify: (option: Option) => option.empName + option.empNameReading,
 });
 
 
-export const SearchByName = ({
+export const SearchByName = forwardRef<HTMLInputElement, SearchByNameProps >(({
   selectedRecord,
   filteredData,
   onChange,
   onBlur,
-}:{
-  selectedRecord: IEmployees | undefined,
-  filteredData: IEmployees[] | undefined,
-  onChange: (emdId: string | undefined) => void,
-  onBlur?: () => void,
-}) => {
+  name,
+}, ref) => {
 
 
   const options = useMemo(() => {
@@ -99,9 +103,13 @@ export const SearchByName = ({
           <InputBase 
             {...params.InputProps}
             {...rest}
+            name={name}
             placeholder='氏名・ふりがな'
+            inputRef={ref}
           />);
       }}
     />
   );
-};
+});
+
+SearchByName.displayName = 'SearchByName';

@@ -55,7 +55,7 @@ export const TotalAmount = ({
         </Alert>
       )}
       <Stack
-        maxWidth={'450px'}
+        maxWidth={300}
         width={'100%'} 
         spacing={2}
         mb={2}

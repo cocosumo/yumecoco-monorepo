@@ -5,6 +5,7 @@ import { PaymentSchedule } from './sections/PaymentSchedule';
 import { ConstructionPeriods } from './sections/ConstructionPeriods';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from './schema';
+import { ContractType } from './sections/contractType/ContractType';
 
 export const FormInput = () => {
 
@@ -16,6 +17,9 @@ export const FormInput = () => {
 
   return (
     <>
+      <Divider />
+      <ContractType />
+
       <PageSubTitle3 label={'合計金額'} />
       <TotalAmount disabled={hasContract} />
 

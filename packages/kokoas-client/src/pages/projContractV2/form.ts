@@ -7,6 +7,7 @@ export const initialForm : TypeOfForm = {
   projName: '',
 
   contractId: undefined,
+  contractType: '契約',
   
   totalContractAmtAfterTax: 0,
   totalContractAmtBeforeTax: 0, 

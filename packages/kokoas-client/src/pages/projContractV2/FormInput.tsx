@@ -1,5 +1,5 @@
-import { Divider, Grid } from '@mui/material';
-import { PageSubTitle } from 'kokoas-client/src/components';
+import { Divider, Stack } from '@mui/material';
+import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { TotalAmount } from './sections/TotalAmount';
 import { PaymentSchedule } from './sections/PaymentSchedule';
 import { ConstructionPeriods } from './sections/ConstructionPeriods';
@@ -15,30 +15,18 @@ export const FormInput = () => {
   const hasContract = !!envelopeStatus;
 
   return (
-    <Grid 
-      container 
-      item
-      spacing={4}
-    >
-      <PageSubTitle label={'合計金額'} />
-      <Grid item xs={12}>
-        <TotalAmount disabled={hasContract} />
-      </Grid>
+    <Stack spacing={2}>
+      <PageSubTitle3 label={'合計金額'} />
+      <TotalAmount disabled={hasContract} />
 
-      <PageSubTitle label={'支払い予定'} />
-      <Grid item xs={12}>
-        <PaymentSchedule disabled={hasContract} />
-      </Grid>
+      <PageSubTitle3 label={'支払い予定'} />
+      <PaymentSchedule disabled={hasContract} />
 
-      <PageSubTitle label={'工期'} />
-      <Grid item xs={12}>
-        <ConstructionPeriods disabled={hasContract} />
-      </Grid>
+      <PageSubTitle3 label={'工期'} />
+      <ConstructionPeriods disabled={hasContract} />
 
-      <Grid item xs={12}>
-        <Divider />
-      </Grid>
+      <Divider />
 
-    </Grid>
+    </Stack>
   );
 };

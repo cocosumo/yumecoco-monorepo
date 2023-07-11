@@ -1,8 +1,9 @@
-import { BuildingType, IProjects, RecordCancelStatus, TAgents } from 'types';
+import { BuildingType, IProjects, RecordCancelStatus } from 'types';
 import { TForm } from '../schema';
 import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
+import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
 
 export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
 
@@ -13,10 +14,14 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     dataId,
     uuid,
      
-    postal, address1, address2,
+    postal, 
+    address1, 
+    address2,
 
     isShowFinalAddress,
-    finalPostal, finalAddress1, finalAddress2,
+    finalPostal, 
+    finalAddress1,
+    finalAddress2,
 
     buildingType, isChkAddressKari, agents, 
     cancelStatus,
@@ -27,9 +32,11 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     log,
   } = projRec;
 
-  const cocoConst = agents.value.filter(item => {
-    return (item.value.agentType.value as TAgents) === 'cocoConst';
-  }).map(item => item.value.agentId.value);
+  const {
+    cocoAG,
+    cocoConst,
+    yumeAG,
+  } = groupAgentsByType(agents);
 
 
   return {
@@ -45,8 +52,14 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
       .value
       .split(',')
       .filter(Boolean) as RecordCancelStatus[],
-    cocoConst1: cocoConst?.[0] || '',
-    cocoConst2: cocoConst?.[1] || '',
+
+    cocoConst1: cocoConst?.[0]?.value.agentId.value || '',
+    cocoConst2: cocoConst?.[1]?.value.agentId.value || '',
+    cocoAG1: cocoAG?.[0]?.value.agentId.value || '',
+    cocoAG2: cocoAG?.[1]?.value.agentId.value || '',
+    yumeAG1: yumeAG?.[0]?.value.agentId.value || '',
+    yumeAG2: yumeAG?.[1]?.value.agentId.value || '',
+
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
     //isAgentConfirmed: Boolean(+isAgentConfirmed.value),

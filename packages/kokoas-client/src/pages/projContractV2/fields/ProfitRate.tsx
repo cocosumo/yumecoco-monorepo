@@ -41,6 +41,7 @@ export const ProfitRate = ({
             name={name}
             variant={'outlined'}
             type='number'
+            size='small'
             onFocus={(e) => {
               e.target.select();
             }}

@@ -1,4 +1,4 @@
-import { Divider, Stack } from '@mui/material';
+import { Divider } from '@mui/material';
 import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { TotalAmount } from './sections/TotalAmount';
 import { PaymentSchedule } from './sections/PaymentSchedule';
@@ -15,7 +15,7 @@ export const FormInput = () => {
   const hasContract = !!envelopeStatus;
 
   return (
-    <Stack spacing={2}>
+    <>
       <PageSubTitle3 label={'合計金額'} />
       <TotalAmount disabled={hasContract} />
 
@@ -27,6 +27,6 @@ export const FormInput = () => {
 
       <Divider />
 
-    </Stack>
+    </>
   );
 };

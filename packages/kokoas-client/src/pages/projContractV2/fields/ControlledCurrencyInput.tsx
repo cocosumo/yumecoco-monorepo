@@ -51,6 +51,7 @@ export const ControlledCurrencyInput = ({
             defaultValue={typeof value === 'number' ? (value as number).toLocaleString() : value}
             name={name}
             variant={variant}
+            size='small'
             inputProps={{ style: { color: value as number >= 0 ? 'black' : 'orange' } }}
             onChange={(v) => {
               const commaRemoved = typeof v === 'string' ? v.replace(/,/g, '') : v;

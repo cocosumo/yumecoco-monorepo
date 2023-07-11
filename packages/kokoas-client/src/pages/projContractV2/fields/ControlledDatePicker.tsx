@@ -58,6 +58,7 @@ export const ControlledDatePicker = ({
                 variant,
                 onBlur,
                 error: isShowError,
+                size: 'small',
                 helperText: isShowError ? error.message : '',
                 sx: {
                   width,

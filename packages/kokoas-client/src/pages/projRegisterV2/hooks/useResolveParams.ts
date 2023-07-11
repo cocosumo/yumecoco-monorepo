@@ -59,10 +59,10 @@ export const useResolveParams = () => {
         ...restOfCustGroupData,
 
         //　空の場合はcustGroupRecの値を入れる
-        cocoAG1: custCocoAG1 || cocoAG1 || '',
-        cocoAG2: custCocoAG2 || cocoAG2 || '',
-        yumeAG1: custYumeAG1 || yumeAG1 || '',
-        yumeAG2: custYumeAG2 || yumeAG2 || '',
+        cocoAG1: cocoAG1 || custCocoAG1 || '',
+        cocoAG2: cocoAG2 || custCocoAG2 || '',
+        yumeAG1: yumeAG1 || custYumeAG1 || '',
+        yumeAG2: yumeAG2 || custYumeAG2 || '',
 
       });
 

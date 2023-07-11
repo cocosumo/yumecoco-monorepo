@@ -1,5 +1,5 @@
 import Divider from '@mui/material/Divider';
-import { Box, FormLabel, IconButton, Stack, Tooltip } from '@mui/material';
+import { Box, FormHelperText, FormLabel, IconButton, Stack, Tooltip } from '@mui/material';
 import { SearchByNumber } from './SearchByNumber';
 import { useCallback, useMemo, useState } from 'react';
 import { SearchByName } from './SearchByName';
@@ -15,6 +15,8 @@ export const EmployeeSelector = ({
   onBlur,
   filter,
   required,
+  error,
+  helperText,
 }:{
   label: string,
   /** 社員のuuid */
@@ -23,7 +25,10 @@ export const EmployeeSelector = ({
   onBlur?: () => void,
   filter?: FilterOptions,
   required?: boolean,
+  error?: boolean,
+  helperText?: string,
 }) => {
+
   const [includeInactive, setIncludeInactive] = useState(false);
   const { 
     data,
@@ -57,14 +62,18 @@ export const EmployeeSelector = ({
   return (
     <Stack spacing={0.5} width={300}>
     
-      <FormLabel required={required}>
+      <FormLabel 
+        required={required}
+        error={error}
+      >
         {label}
       </FormLabel>
     
       <Box
         sx={{ 
           bgcolor: 'background.paper',
-          border: '1px solid #ced4da',
+          border: '1px solid',
+          borderColor: error ? 'red' : 'grey.500',
           borderRadius: 1,
           p: '2px 4px', 
           display: 'flex', 
@@ -95,8 +104,10 @@ export const EmployeeSelector = ({
             {!includeInactive && <VisibilityOffIcon />}
           </IconButton>
         </Tooltip>
-        
       </Box>
+      <FormHelperText error={error}>
+        {helperText}
+      </FormHelperText>
     </Stack>
   );
 };

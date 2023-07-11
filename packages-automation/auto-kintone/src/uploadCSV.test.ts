@@ -4,6 +4,7 @@ import { APP_IDS } from '../config';
 import { attachFile, uploadSingleCSV } from './uploadCSV';
 import { connectToBrowserPage } from 'auto-common/src/connectToBrowserPage';
 import { KPayments } from 'types';
+import { describe, it } from '@jest/globals';
 
 export const browserTimeOut = 1000 * 60 * 60 * 6;
 
@@ -21,7 +22,7 @@ describe('CSV', () => {
 });
 
 describe('Upload', () => {
-  it('upload single cSV.', async () => {
+  it('upload single CSV.', async () => {
 
     const {
       page,
@@ -43,7 +44,7 @@ describe('Upload', () => {
     // expect(await page.close()).toMatchSnapshot();
     
     browser.disconnect();
-  });
+  }, 150000);
 
 });
 

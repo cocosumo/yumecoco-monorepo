@@ -1,6 +1,7 @@
-import { Page } from 'puppeteer';
+import { ElementHandle, Page } from 'puppeteer';
 import { selectors as loginSels, login } from './login';
 import { selectEncoding } from './selectEncoding';
+import { kintoneBaseUrl } from 'api-kintone';
 
 const timeout = 600000;
 
@@ -13,17 +14,24 @@ export const selectors = {
 
 
 export const goToImportPage = async (page: Page, appId: string) => {
-  const baseUrl = process.env.KINTONE_BASE_URL;
+  const baseUrl = process.env.KT_BASE_URL;
+  if (!baseUrl) throw new Error('process.env.KINTONE_BASE_URL is undefined.');
 
-  console.log('★★★★★ baseUrl', baseUrl);
-  const uploadUrl = `${baseUrl}/k/${appId}/importRecord`;
+  const uploadUrl = `${kintoneBaseUrl}/k/${appId}/importRecord`;
 
-  await page.goto(uploadUrl);
+  console.log('navigation waiting', uploadUrl);
+
+  await page.goto(uploadUrl, { waitUntil: 'domcontentloaded' });
+
+  console.log('navigation successfull');
 
   const btnLogin = (await page.$(loginSels.btnLogin));
   if (btnLogin) {
     await login(page);
   }
+
+  console.log('login successfull');
+
 
   await page.waitForSelector(
     '.button-submit-cybozu.button-disabled-cybozu',
@@ -34,11 +42,14 @@ export const goToImportPage = async (page: Page, appId: string) => {
     });
 };
 
+
 export const attachFile = async (page: Page, filePath: string) => {
+  console.log('function attachFile started');
   await page.waitForSelector(selectors.inputFile, { timeout });
-  const inputUploadHandle = await page.$(selectors.inputFile);
+  const inputUploadHandle = await page.$(selectors.inputFile) as ElementHandle<HTMLInputElement>;
 
   await inputUploadHandle?.uploadFile(filePath);
+  console.log('attach File successful');
 
   await page.waitForSelector(
     selectors.headerYes,
@@ -47,6 +58,7 @@ export const attachFile = async (page: Page, filePath: string) => {
       timeout,
     },
   );
+  console.log('wait for selector [読み込むファイルの先頭行はフィールド名ですか？]');
 
   await page.click(selectors.headerYes);
 };
@@ -54,16 +66,27 @@ export const attachFile = async (page: Page, filePath: string) => {
 export const handleUpload = async (
   page: Page, keyField: string,
 ) => {
-  await page.waitForNetworkIdle();
+  console.log('function handleUpload started');
+  // await page.waitForNetworkIdle({ idleTime: 1000 });
+  await page.waitForTimeout(2000);
+
+  await selectEncoding(page, 'UTF-8'); // エンコーディング指定
+  console.log('set the encoding');
+  await page.waitForResponse('https://rdmuhwtt6gx7.cybozu.com/k/api/ntf/countMention.json?_lc=ja&_ref=https%3A%2F%2Frdmuhwtt6gx7.cybozu.com%2F%2Fk%2F233%2FimportRecord');
+
+  console.log('wait for network idle');
+
   await page.waitForSelector(`input[id^='${keyField}']`, {
     visible: true,
     timeout,
   });
+  console.log('wait for id field to appear');
+
   await page.click(`input[id^='${keyField}']`);
+  console.log('click id field');
 
   await page.waitForSelector(selectors.btnImport, { timeout });
-
-  await selectEncoding(page, 'UTF-8'); // エンコーディング指定
+  console.log('wait for import button to appear');
 
   //  await page.click(selectors.btnImport);
 };

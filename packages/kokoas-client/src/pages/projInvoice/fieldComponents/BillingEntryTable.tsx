@@ -1,5 +1,5 @@
 import { Paper, Table, TableBody, TableContainer } from '@mui/material';
-import { FieldArray, useFormikContext } from 'formik';
+import { ArrayHelpers, FieldArray, useFormikContext } from 'formik';
 import { EmptyBox } from 'kokoas-client/src/components/ui/information/EmptyBox';
 import { useContractsByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { TypeOfForm } from '../form';
@@ -39,7 +39,7 @@ export const BillingEntryTable = ({
             <BillingEntryTableHead />
             <TableBody>
               <FieldArray name="estimates" >
-                {({ insert }) => (
+                {({ insert }: ArrayHelpers) => (
                   <>
                     {
                       estimates.map((row, idx) => {

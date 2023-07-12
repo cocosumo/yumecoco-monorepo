@@ -1,5 +1,5 @@
 import {  Button, Grid } from '@mui/material';
-import { FieldArray, useFormikContext } from 'formik';
+import { ArrayHelpers, FieldArray, useFormikContext } from 'formik';
 import {  CustomerInstance, initialCustomerValue, KeyOfForm, TypeOfForm } from '../../form';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { nativeMath, string as randomStr } from 'random-js';
@@ -24,7 +24,7 @@ export const Customers = ({
     >
       <FieldArray
         name={arrayFieldName}
-        render={(arrHelpers) => {
+        render={(arrHelpers: ArrayHelpers) => {
           return (
             <Grid
               item
@@ -43,8 +43,7 @@ export const Customers = ({
 
                   />
                 );
-              },
-              )}
+              })}
 
               {!isMaxCust && !disabled &&
               <Grid item xs={12}>

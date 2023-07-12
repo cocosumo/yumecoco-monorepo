@@ -9,10 +9,18 @@ export const useContractFilesById = ({
   id?: string,
   enabled?: boolean,
 }) => {
+
   return useQuery(
-    [AppIds.contracts, id, 'files'],
-    () => downloadContract({ contractId: id ?? '' }),
+    [
+      AppIds.contracts, 
+      id, 
+      'files',
+    ],
+    () => {
+      return downloadContract({ contractId: id ?? '' });
+    },
     {
+      refetchOnMount: true,
       enabled: !!id && enabled,
     },
   );

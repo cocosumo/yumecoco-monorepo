@@ -12,6 +12,7 @@ export const downloadContract = async ({
 
   const queryStr = qs.stringify({
     contractId,
+    requestTime: new Date().getTime(), // to prevent caching
   });
 
   const apiNode: ApiNodes = 'docusign';

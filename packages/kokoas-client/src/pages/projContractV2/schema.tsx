@@ -9,7 +9,20 @@ export type SubsidyMethod = typeof subsidyMethods[number];
 
 export const payMethods = ['持参', '集金', '振込'] as const;
 
+export const contractTypes = [ 
+  '契約', 
+  '銀行用', 
+  '工事実行', 
+  '追加', 
+] as const;
+
 const schema = z.object({
+
+  /** 区分 */
+  contractType: z.string(),
+
+  /** 追加区分 */
+  contractAddType: z.string().optional(),
 
   /** 見積番号 */
   projEstimateId: z.string(),

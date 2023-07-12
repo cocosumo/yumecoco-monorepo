@@ -70,6 +70,7 @@ export const PaymentMethod = ({
               <TextField 
                 variant='outlined'
                 label={'振込先'}
+                size='small'
                 fullWidth
                 {...register('payDestination')}
                 sx={{

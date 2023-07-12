@@ -53,7 +53,11 @@ export const WrappedSearchField = ({
         spacing={1}
         maxWidth={600}
       >
-        <OutlinedInput fullWidth {...register('mainSearch')} />
+        <OutlinedInput 
+          fullWidth {...register('mainSearch')}
+          placeholder={'工事番号や工事名や顧客名など'}
+          size='small'
+        />
 
         <SubmitButton>
           <SearchIcon />

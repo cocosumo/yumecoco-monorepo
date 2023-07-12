@@ -18,7 +18,6 @@ export const AdditionalContract = () => {
       render={({
         field,
       }) => {
-        
         return (
           <FormControl 
             size='small'

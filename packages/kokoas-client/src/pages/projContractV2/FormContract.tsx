@@ -37,7 +37,6 @@ export const FormContract = () => {
     reset({ ...newFormVal });
   }, [reset, newFormVal]);
 
-
   return (
     <FormProvider {...formReturn}>
       <Form

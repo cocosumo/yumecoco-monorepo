@@ -1,7 +1,7 @@
 import { Alert, Button, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useSubmitHandler } from '../hooks/useSubmitHandler';
-import { useFormState, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { useMemo } from 'react';
 import { PreviewButton } from '../parts/preview/PreviewButton';
@@ -10,9 +10,15 @@ import { DeleteButton } from '../parts/DeleteButton';
 export const FormActions = () => {
   const handleSubmit = useSubmitHandler();
   const {
+    formState,
+  } = useFormContext<TypeOfForm>();
+  // as of this wrting, useFormState's isDirty is not working
+
+  const {
+    isValidating,
     isDirty,
-    isValidating, 
-  } = useFormState<TypeOfForm>();
+  } = formState;
+
 
   const [
     contractId,
@@ -35,6 +41,7 @@ export const FormActions = () => {
     isValidating, 
     contractId,
   ]);
+
 
   return (
     <>

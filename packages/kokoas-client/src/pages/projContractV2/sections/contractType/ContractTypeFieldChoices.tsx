@@ -1,11 +1,16 @@
 import { MenuItem, Select, SelectProps } from '@mui/material';
 import { contractTypes } from '../../schema';
+import { forwardRef } from 'react';
 
-export const ContractTypeFieldChoices = (props: SelectProps) => {
+export const ContractTypeFieldChoices = forwardRef<HTMLSelectElement, SelectProps>((
+  props: SelectProps,
+  ref,
+) => {
 
   return (
     <Select
       {...props}
+      ref={ref}
     >
       {contractTypes
         .map(choice => (
@@ -18,4 +23,6 @@ export const ContractTypeFieldChoices = (props: SelectProps) => {
         ))}
     </Select>
   );
-};
+});
+
+ContractTypeFieldChoices.displayName = 'ContractTypeFieldChoices';

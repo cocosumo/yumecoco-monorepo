@@ -7,16 +7,16 @@ import { produce } from 'immer';
 import { fakerJA as faker } from '@faker-js/faker';
 import { getProjTypes } from 'api-kintone';
 import { expect, describe, it } from '@jest/globals';
+import { ukeoiContractVersion } from 'config';
 
 
-const latestUkeoiDocVersion = '20230605';
 
 describe('Contract', () => {
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: latestUkeoiDocVersion,
+      ukeoiDocVersion: ukeoiContractVersion,
     });
 
     
@@ -40,7 +40,7 @@ describe('Contract', () => {
           draft[4].paymentAmt = 10000;
         }),
       };
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custcount_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
@@ -52,7 +52,6 @@ describe('Contract', () => {
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
     const projTypesRec = await getProjTypes();
@@ -64,7 +63,7 @@ describe('Contract', () => {
         draft.projName = ('ア').repeat(nameLength) + ' ' + faker.helpers.arrayElement(projTypes);
       });
 
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custNameLength_${nameLength}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
@@ -75,7 +74,7 @@ describe('Contract', () => {
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: latestUkeoiDocVersion,
+      ukeoiDocVersion: ukeoiContractVersion,
     });
 
     const fakeCity = faker.location.city() + '中町';
@@ -96,7 +95,7 @@ describe('Contract', () => {
         };
       });
 
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);  
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');  
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);

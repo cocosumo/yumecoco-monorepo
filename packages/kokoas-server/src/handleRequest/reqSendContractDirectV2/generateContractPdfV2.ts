@@ -6,6 +6,7 @@ import { format, parseISO } from 'date-fns';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { getPayMethodX } from '../../api/docusign/contracts/construction/helpers/getPayMethodX';
 import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
+import { ukeoiContractVersion } from 'config';
 
 
 /**
@@ -19,7 +20,7 @@ import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContra
 export const generateContractPdfV2 = async (
   contractData : Awaited<ReturnType<typeof getContractDataV2>>,
   contentType: 'base64' | 'img' | 'Uint8Array ' = 'base64',
-  ukeoiDocVersion = '',
+  ukeoiDocVersion = ukeoiContractVersion,
 ) => {
   const {
     //storeName,
@@ -96,7 +97,7 @@ export const generateContractPdfV2 = async (
     },
   );
 
-  // 見積もり番号
+  // 契約番号
   drawText(
     firstPage,
     contractId,
@@ -109,6 +110,23 @@ export const generateContractPdfV2 = async (
     },
     { weight: 0.1 },
   );
+
+  // 見出し
+  drawText(
+    firstPage,
+    '工事請負契約書',
+    {
+      x: x1 + 100,
+      y: 775,
+      font: msChinoFont,
+    },
+    {
+      isShowBox: true,
+      boxWidth: 280,
+      isAutoSize: true,
+    },
+  );
+
 
   // 工事名 上
   drawText(

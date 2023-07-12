@@ -139,7 +139,7 @@ export interface ReqSendContract {
 export const reqSendContractParams = z.object({
   contractId: z.string(),
   signMethod: z.enum(signMethods),
-  ukeoiDocVersion: z.string(),
+  ukeoiDocVersion: z.string().optional(),
 });
 
 export type ReqSendContractParams = z.infer<typeof reqSendContractParams>;

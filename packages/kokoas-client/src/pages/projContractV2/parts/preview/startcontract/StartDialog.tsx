@@ -9,6 +9,7 @@ import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 import { StepCheckWetInkFlow } from './StepCheckWetInkFlow';
+import { ukeoiContractVersion } from 'config';
 
 const steps = ['契約日確認', '署名手法', '送信前確認'];
 
@@ -33,7 +34,7 @@ export const StartDialog = ({
 
   const handleSendContract = async () => {
     const contractId = getValues('contractId') as string;
-    await mutateAsync({ contractId, signMethod: method, ukeoiDocVersion: '20230605' });
+    await mutateAsync({ contractId, signMethod: method, ukeoiDocVersion: ukeoiContractVersion });
 
     handleClose();
   };

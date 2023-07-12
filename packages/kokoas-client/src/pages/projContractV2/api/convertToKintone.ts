@@ -62,7 +62,7 @@ export const convertToKintone = ({
     projEstimateId: { value: projEstimateId },
 
     contractType: { value: contractType },
-    contractAddType: { value: contractAddType },
+    contractAddType: { value: contractAddType || '' },
 
     totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },

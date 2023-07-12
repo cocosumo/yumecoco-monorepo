@@ -11,7 +11,6 @@ export const FormActions = () => {
   const handleSubmit = useSubmitHandler();
   const {
     isDirty,
-    isValid,
     isValidating, 
   } = useFormState<TypeOfForm>();
 
@@ -23,18 +22,16 @@ export const FormActions = () => {
     ],
   });
 
+
   const errorMessage = useMemo(() => {
     if (isDirty)
       return '保存されていない変更があります。保存してください。';
-    if (!isValid)
-      return 'フォームにエラーがあります。保存ボタンを押すと、エラー箇所が分かります。';
     if (isValidating)
       return '処理中です。';
     if (!contractId)
       return '保存されるまで、プレビューが出来ません。';
   }, [
     isDirty,
-    isValid,
     isValidating, 
     contractId,
   ]);

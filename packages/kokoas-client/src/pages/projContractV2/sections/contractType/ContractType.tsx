@@ -9,6 +9,7 @@ export const ContractType = () => {
   const contractType = useWatch<TypeOfForm>({
     name: 'contractType',
   }) as string;
+  
 
   return (
     <Stack 

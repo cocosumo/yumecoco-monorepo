@@ -5,7 +5,7 @@ import validator from 'validator';
 export const reqGetProjectsFromAndpad: RequestHandler<unknown, unknown, unknown, GetMyOrders > = async (req, res) => {
   try {
     
-    console.log('getOrderByProjId', req.query);
+    console.log('reqGetProjectsFromAndpad');
     
     const result = await getMyOrders({
       ...req.query,

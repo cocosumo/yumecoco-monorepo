@@ -22,7 +22,7 @@ const schema = z.object({
   contractType: z.string(),
 
   /** 追加区分 */
-  contractAddType: z.string(),
+  contractAddType: z.string().optional(),
 
   /** 見積番号 */
   projEstimateId: z.string(),

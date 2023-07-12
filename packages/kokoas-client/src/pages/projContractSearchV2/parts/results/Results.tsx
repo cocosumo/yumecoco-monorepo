@@ -1,8 +1,9 @@
-import { Grid, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { ResultsCount } from '../ResultsCount';
 import { ResultsTable } from './ResultsTable';
 import { ResultsTBody } from './ResultsTBody';
+import { ResultTotalAmount } from './ResultTotalAmount';
 
 export const Results = ({
   items = [],
@@ -11,22 +12,18 @@ export const Results = ({
 }) => {
 
   return (
-    <>
-      <Grid item xs={12} >
-        <Stack
-          justifyContent={'space-between'}
-          direction={'row'}
-          alignItems={'flex-end'}
-        >
-          <ResultsCount resultCount={items?.length ?? 0} />
-          {/* ここに何か配置する */}
-        </Stack>
-      </Grid>
-      <Grid item xs={12}>
-        <ResultsTable >
-          <ResultsTBody items={items} />
-        </ResultsTable>
-      </Grid>
-    </>
+    <Stack spacing={1}>
+      <Stack
+        direction={'row'}
+        alignItems={'flex-end'}
+        spacing={4}
+      >
+        <ResultsCount resultCount={items?.length ?? 0} />
+        <ResultTotalAmount items={items} />
+      </Stack>
+      <ResultsTable >
+        <ResultsTBody items={items} />
+      </ResultsTable>
+    </Stack>
   );
 };

@@ -6,6 +6,10 @@ export const convertToKintone = ({
 
   projId,
   projEstimateId,
+
+  contractType,
+  contractAddType,
+
   totalContractAmtAfterTax,
   totalProfit,
   taxRate,
@@ -52,9 +56,14 @@ export const convertToKintone = ({
 
 }: TypeOfForm) => {
 
+  console.log('convertToKintone', contractAddType, contractType);
+
   const kintoneRecord: Partial<IContracts> = {
     projId: { value: projId },
     projEstimateId: { value: projEstimateId },
+
+    contractType: { value: contractType },
+    contractAddType: { value: contractAddType },
 
     totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },

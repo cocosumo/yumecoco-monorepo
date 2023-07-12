@@ -49,6 +49,8 @@ export const generateContractPdfV2 = async (
     payDestination,
     payMethod,
 
+    isAdditionalContract,
+
     /* 会社情報 */
     companyAddress,
     //companyAddress2,
@@ -111,23 +113,6 @@ export const generateContractPdfV2 = async (
     { weight: 0.1 },
   );
 
-  // 見出し
-  drawText(
-    firstPage,
-    '工事請負契約書',
-    {
-      x: x1 + 100,
-      y: 775,
-      font: msChinoFont,
-    },
-    {
-      isShowBox: true,
-      boxWidth: 280,
-      isAutoSize: true,
-    },
-  );
-
-
   // 工事名 上
   drawText(
     firstPage,
@@ -142,6 +127,27 @@ export const generateContractPdfV2 = async (
       isAutoSize: true,
     },
   );
+
+  
+  // 見出し
+  drawText(
+    firstPage,
+    `工事請負契約書${isAdditionalContract ? '（追加工事）' : ''}`,
+    {
+      x: 0,
+      y: 700,
+      font: msChinoFont,
+      size: 18,
+    },
+    {
+      boxWidth: firstPage.getWidth(),
+      isAutoSize: true,
+      align: 'center',
+      weight: 0.5,
+
+    },
+  );
+
 
   // 顧客名
   drawText(

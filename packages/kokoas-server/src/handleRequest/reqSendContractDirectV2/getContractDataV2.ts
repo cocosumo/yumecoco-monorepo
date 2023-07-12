@@ -80,6 +80,9 @@ export const getContractDataV2 = async (
     
     envelopeId,
     envelopeStatus,
+
+    contractType,
+    contractAddType,
   } = contractRecord;
 
   /* 工事情報 */
@@ -258,6 +261,9 @@ export const getContractDataV2 = async (
     representative: representative.value,
 
     signMethod,
+    contractType: contractType.value,
+    contractAddType: contractAddType.value,
+    isAdditionalContract: contractType.value === '追加',
   };
 
   if (isValidate) validateContractData(data);

@@ -3,4 +3,4 @@
  */
 
 /** 請負契約書の最新バージョン */
-export const ukeoiContractVersion = '20230605';
+export const ukeoiContractVersion = '20230712';

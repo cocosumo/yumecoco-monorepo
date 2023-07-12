@@ -56,7 +56,6 @@ export const convertToKintone = ({
 
 }: TypeOfForm) => {
 
-  console.log('convertToKintone', contractAddType, contractType);
 
   const kintoneRecord: Partial<IContracts> = {
     projId: { value: projId },

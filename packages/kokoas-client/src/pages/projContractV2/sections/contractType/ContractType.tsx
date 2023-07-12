@@ -11,7 +11,10 @@ export const ContractType = () => {
   }) as string;
 
   return (
-    <Stack spacing={2}>
+    <Stack 
+      direction={'row'} 
+      spacing={2}
+    >
       <ContractTypeField />
       {contractType === '追加' && (
         <AdditionalContract />

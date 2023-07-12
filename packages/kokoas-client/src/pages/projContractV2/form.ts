@@ -8,6 +8,7 @@ export const initialForm : TypeOfForm = {
 
   contractId: undefined,
   contractType: '契約',
+  contractAddType: '追加工事',
   
   totalContractAmtAfterTax: 0,
   totalContractAmtBeforeTax: 0, 

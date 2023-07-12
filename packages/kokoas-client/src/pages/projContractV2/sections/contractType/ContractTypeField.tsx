@@ -1,6 +1,7 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
-import { TypeOfForm, contractTypes } from '../../schema';
+import { TypeOfForm } from '../../schema';
+import { ContractTypeFieldChoices } from './ContractTypeFieldChoices';
 
 
 
@@ -30,20 +31,11 @@ export const ContractTypeField = () => {
             <InputLabel>
               カテゴリ
             </InputLabel>
-            <Select
+            <ContractTypeFieldChoices 
               label="カテゴリ"
               onChange={onChange}
               value={value}
-            >
-              {contractTypes.map(choice => (
-                <MenuItem
-                  key={choice}
-                  value={choice}
-                >
-                  {choice}
-                </MenuItem>
-              ))}
-            </Select>
+            />
           </FormControl>
         );
       }}

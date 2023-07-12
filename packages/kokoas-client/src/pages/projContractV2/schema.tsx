@@ -21,6 +21,9 @@ const schema = z.object({
   /** 区分 */
   contractType: z.string(),
 
+  /** 追加区分 */
+  contractAddType: z.string(),
+
   /** 見積番号 */
   projEstimateId: z.string(),
 

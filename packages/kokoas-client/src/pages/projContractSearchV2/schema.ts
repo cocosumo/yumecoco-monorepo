@@ -18,6 +18,7 @@ export const schema = z.object({
   contractStepAG: z.boolean(),
   contractStepAccounting: z.boolean(),
   contractStepMain: z.boolean(),
+  projTypes: z.array(z.string()).optional(),
   stores: z.array(z.string()).optional(),
 }).superRefine((data) => {
   if (data.contractDateFrom && data.contractDateTo) {

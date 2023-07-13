@@ -18,6 +18,7 @@ export const initialValues: TForm = {
   contractStepAG: false,
   contractStepAccounting: false,
   contractStepMain: false,
+  projTypes: [],
   stores: [],
 };
 

@@ -15,6 +15,13 @@ export const initialValues : TForm = {
   
   cocoConst1: '',
   cocoConst2: '',
+
+  yumeAG1: '',
+  yumeAG2: '',
+
+  cocoAG1: '',
+  cocoAG2: '',
+
   postal: '',
   address1: '',
   address2: '',

@@ -1,13 +1,18 @@
-import { Typography } from '@mui/material';
+import { ResultInfoDisplay } from './results/ResultInfoDisplay';
 
 export const ResultsCount = ({
   resultCount,
 }: {
   resultCount: number
 }) => {
+
+  
   return (
-    <Typography variant={'subtitle1'}>
-      {`${resultCount} 件`}
-    </Typography>
+    <ResultInfoDisplay 
+      label='件数'
+      value={resultCount}
+      unit='件'
+    />
+
   );
 };

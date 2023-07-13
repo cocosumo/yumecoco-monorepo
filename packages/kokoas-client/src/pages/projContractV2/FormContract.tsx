@@ -1,18 +1,18 @@
-import { EmptyBox, FormContainer, PageSubTitle, PageTitle } from 'kokoas-client/src/components';
-import { FormProvider, useForm } from 'react-hook-form';
+import { EmptyBox, PageSubTitle3, PageTitle3 } from 'kokoas-client/src/components';
+import { FormProvider, useForm, Form } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import schema, { TypeOfForm } from './schema';
-import { Grid } from '@mui/material';
+import {  Stack } from '@mui/material';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { useResolveParams } from './hooks/useResolveParams';
 import { useEffect } from 'react';
 import { FormInput } from './FormInput';
-import { ProjDetailsButton } from './parts/ProjDetailsButton';
 import { FormActions } from './sections/FormActions';
 import { CustomerSummary } from './sections/CustomerSummary';
 import { ProjectSummary } from './sections/ProjectSummary';
 import { ContractStatus } from './sections/ContractStatus';
+import { DevTool } from '@hookform/devtools';
 
 
 export const FormContract = () => {
@@ -37,19 +37,16 @@ export const FormContract = () => {
     reset({ ...newFormVal });
   }, [reset, newFormVal]);
 
-
   return (
     <FormProvider {...formReturn}>
-      <FormContainer
+      <Form
         noValidate
       >
-        <PageTitle 
-          label={`契約${contractId ? '編集' : '作成'}`}
-        />
-        <Grid item xs={12} 
-          md={8}
-          lg={4}
-        >
+        <Stack spacing={2}>
+          <PageTitle3 
+            label={`契約${contractId ? '編集' : '作成'}`}
+          />
+
           <SearchProjects
             navigateTo={pages.projContractPreviewV2}
             controllerProps={{
@@ -57,49 +54,37 @@ export const FormContract = () => {
               control,
             }}
           />
-        </Grid>
 
-        {projId && (
-          <>
-            <Grid item xs={12} md={4}>
-              <ProjDetailsButton />
-            </Grid>
+          {projId && (
+          <>        
 
-            <PageSubTitle label={'契約情報'} />
-            <Grid item xs={12}>
-              <ContractStatus />
-            </Grid>           
+            <PageSubTitle3 label={'契約情報'} />
+            <ContractStatus />
 
-            <PageSubTitle label={'顧客情報'} />
-            <Grid item xs={12}>
-              <CustomerSummary />
-            </Grid>
+            <PageSubTitle3 label={'顧客情報'} />
+            <CustomerSummary />
 
-            <PageSubTitle label={'工事情報'} />
-            <Grid item xs={12}>
-              <ProjectSummary />
-            </Grid>
+            <PageSubTitle3 label={'工事情報'} />
+            <ProjectSummary />
 
           
             <FormInput />
 
-            <Grid item xs={12}>
-              <FormActions />
-            </Grid>
+            <FormActions />
           </>
-        )}  
+          )}  
 
-  
-        {!projId && (
-          <Grid item xs={12}>
+          {!projId && (
             <EmptyBox>
               工事を選択してください
             </EmptyBox>
-          </Grid>
    
-        )}
+          )}
         
-      </FormContainer>
+        </Stack>
+      </Form>
+      <DevTool control={control} />
+
     </FormProvider>
   );
 };

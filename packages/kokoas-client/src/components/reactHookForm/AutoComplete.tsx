@@ -52,7 +52,7 @@ export const Autocomplete = <T extends FieldValues>( {
             freeSolo={freeSolo}
             autoSelect
             onInputChange={(_, newValue) => {
-              onChange(newValue);
+              onChange(newValue as any);
             }}
             value={value}
             options={options}

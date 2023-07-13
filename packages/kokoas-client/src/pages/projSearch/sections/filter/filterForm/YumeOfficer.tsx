@@ -78,7 +78,7 @@ export const YumeOfficer = () => {
             value={value ?? []}
             multiple
             onChange={(e) => {
-              onChange(e.target.value);
+              onChange(e.target.value as string[]);
             }}
           >
             <MenuItem onClick={() => onChange(null)}>

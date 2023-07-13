@@ -9,7 +9,7 @@ export const ConstructionPeriods = ({
 }) => {
 
   return (
-    <Stack spacing={4} maxWidth={600}>
+    <Stack spacing={2} maxWidth={600}>
       <ConstructionDates
         disabled={disabled}
         label='着手'

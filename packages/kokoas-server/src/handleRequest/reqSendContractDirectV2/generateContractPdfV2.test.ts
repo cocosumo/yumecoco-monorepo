@@ -6,17 +6,53 @@ import { generateContractPdfV2 } from './generateContractPdfV2';
 import { produce } from 'immer';
 import { fakerJA as faker } from '@faker-js/faker';
 import { getProjTypes } from 'api-kintone';
-import { expect, describe, it } from '@jest/globals';
+import { expect, describe, it, beforeAll } from '@jest/globals';
+import { ukeoiContractVersion } from 'config';
 
 
-const latestUkeoiDocVersion = '20230605';
 
 describe('Contract', () => {
+  beforeAll(async () => {
+    // delete all files in __TEST__ folder
+    const testFolder = path.join(__dirname, '__TEST__');
+    const files = await fsPromise.readdir(testFolder);
+    for (const file of files) {
+      await fsPromise.unlink(path.join(testFolder, file));
+    }
+  });
+
+  it('should show title 請負契約書 if contract is main', async () => {
+    const contractData = await getContractDataV2({
+      contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
+      signMethod: 'electronic',
+    });
+
+    const pdf = await generateContractPdfV2(contractData, 'Uint8Array ');
+    const savePath = path.join(__dirname, '__TEST__', 'ukeoi_main.pdf');
+    await fsPromise.writeFile(savePath, pdf);
+    expect(fs.existsSync(savePath)).toBe(true);
+  });
+
+  it('should show title 請負契約書（追加工事）if contract is additional', async () => {
+    const contractData = await getContractDataV2({
+      contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
+      signMethod: 'electronic',
+    });
+
+    const mockData = produce(contractData, draft => {
+      draft.isAdditionalContract = true;
+    });
+
+    const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');
+    const savePath = path.join(__dirname, '__TEST__', 'ukeoi_add.pdf');
+    await fsPromise.writeFile(savePath, pdf);
+    expect(fs.existsSync(savePath)).toBe(true);
+  });
+
   it('should generate contract in pdf', async () =>{
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
     
@@ -40,7 +76,7 @@ describe('Contract', () => {
           draft[4].paymentAmt = 10000;
         }),
       };
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custcount_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
@@ -52,7 +88,6 @@ describe('Contract', () => {
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: latestUkeoiDocVersion,
     });
 
     const projTypesRec = await getProjTypes();
@@ -64,7 +99,7 @@ describe('Contract', () => {
         draft.projName = ('ア').repeat(nameLength) + ' ' + faker.helpers.arrayElement(projTypes);
       });
 
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_custNameLength_${nameLength}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);
@@ -75,7 +110,7 @@ describe('Contract', () => {
     const contractData = await getContractDataV2({
       contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
       signMethod: 'electronic',
-      ukeoiDocVersion: latestUkeoiDocVersion,
+      ukeoiDocVersion: ukeoiContractVersion,
     });
 
     const fakeCity = faker.location.city() + '中町';
@@ -96,7 +131,7 @@ describe('Contract', () => {
         };
       });
 
-      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ', latestUkeoiDocVersion);  
+      const pdf = await generateContractPdfV2(mockData, 'Uint8Array ');  
       const savePath = path.join(__dirname, '__TEST__', `ukeoi_projLocLength_${i}.pdf`);
       await fsPromise.writeFile(savePath, pdf);
       expect(fs.existsSync(savePath)).toBe(true);

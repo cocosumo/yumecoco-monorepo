@@ -1,3 +1,4 @@
+import { ukeoiContractVersion } from 'config';
 import { getContractDataV2 } from './getContractDataV2';
 import { expect, describe, it } from '@jest/globals';
 
@@ -6,7 +7,7 @@ describe('Contract', () => {
     const result = await getContractDataV2({
       contractId: 'ed521df8-2bce-4cf6-bc6b-5bc6419054fd',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230605',
+      ukeoiDocVersion: ukeoiContractVersion,
     });
 
     console.log(result);

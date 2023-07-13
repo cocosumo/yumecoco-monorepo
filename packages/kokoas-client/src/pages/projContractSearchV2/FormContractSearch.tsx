@@ -1,5 +1,4 @@
-import { MainContainer } from '../../components/ui/containers';
-import { PageTitle } from '../../components/ui/labels';
+import { PageTitle3 } from '../../components/ui/labels';
 
 import { WrappedSearchField } from './parts/WrappedSearchField';
 import { Results } from './parts/results/Results';
@@ -12,6 +11,7 @@ import { TypeOfForm } from './form';
 import { FilterForm } from './parts/filterDialog/FilterForm';
 import { FilterChips } from './parts/filterChips/FilterChips';
 import { useNewValuesFromParams } from './hooks/useNewValuesFromParams';
+import { Stack } from '@mui/material';
 
 export const FormContractSearch = () => {
   const { data } = useFilteredContracts();
@@ -45,8 +45,10 @@ export const FormContractSearch = () => {
 
   return (
 
-    <MainContainer justifyContent={'center'}>
-      <PageTitle label='契約一覧' />
+    <Stack
+      spacing={2}
+    >
+      <PageTitle3 label='契約一覧' />
       <FilterForm useFormMethods={methods}>
         <WrappedSearchField
           minAmount={minAmount}
@@ -55,7 +57,7 @@ export const FormContractSearch = () => {
         <FilterChips />
         <Results items={items} />
       </FilterForm>
-    </MainContainer>
+    </Stack>
 
   );
 };

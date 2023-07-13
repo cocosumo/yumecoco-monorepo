@@ -1,3 +1,4 @@
+import { ukeoiContractVersion } from 'config';
 import { processContractV2 } from './processContractV2';
 import { expect, it } from '@jest/globals';
 
@@ -14,7 +15,7 @@ it('should porcess contract', async () => {
     {
       contractId: '9d8f1262-0e6b-43ff-a48e-33b300bdd183',
       signMethod: 'electronic',
-      ukeoiDocVersion: '20230605',
+      ukeoiDocVersion: ukeoiContractVersion,
     },
     'sent',
   ).catch((e) => {

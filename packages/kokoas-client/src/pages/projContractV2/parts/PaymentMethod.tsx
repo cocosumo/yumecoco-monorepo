@@ -52,7 +52,7 @@ export const PaymentMethod = ({
             <RadioGroup
               {...otherFieldProps}
               onChange={(_, newValue) => {
-                onChange(newValue);
+                onChange(newValue as TypeOfForm['payMethod']);
               }}
               value={value}
               row
@@ -70,6 +70,7 @@ export const PaymentMethod = ({
               <TextField 
                 variant='outlined'
                 label={'振込先'}
+                size='small'
                 fullWidth
                 {...register('payDestination')}
                 sx={{

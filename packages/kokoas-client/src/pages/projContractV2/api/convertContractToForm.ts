@@ -12,6 +12,9 @@ export const convertContractToForm = (
     projId,
     projEstimateId,
 
+    contractType,
+    contractAddType,
+
     totalContractAmt,
     totalProfit,
 
@@ -72,6 +75,9 @@ export const convertContractToForm = (
     contractId: uuid.value,
     projId: projId.value,
     projEstimateId: projEstimateId.value,
+
+    contractType: contractType.value || '契約',
+    contractAddType: contractAddType.value || '追加工事',
 
     totalContractAmtAfterTax: roundTo(+totalContractAmt.value),
     totalProfit: roundTo(+totalProfit.value),

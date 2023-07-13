@@ -72,7 +72,7 @@ export const ProjectType = ({
                 
                 setValue('projTypeName', newProjTypeName);
                 setValue('projName', `${custName}様邸　${newProjTypeName}`);
-                onChange(e);
+                onChange(e.target.value);
               }}
             >
               <MenuItem value="">

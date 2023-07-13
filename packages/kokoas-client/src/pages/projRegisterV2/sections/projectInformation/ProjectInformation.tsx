@@ -1,7 +1,6 @@
 import { ProjectType } from './ProjectType';
 import { Stack } from '@mui/material';
 import { ControlledTextField } from '../../fields/ControlledTextField';
-import { CocoConstSelect } from './CocoConstSelect';
 import { useTypedWatch } from '../../hooks';
 import { BuildingType } from '../../fields/BuildingType';
 
@@ -29,16 +28,7 @@ export const ProjectInformation = () => {
         disabled={hasContract}
         required
       />
-      <Stack direction={'row'} spacing={2}>
-        <CocoConstSelect 
-          label={'工事担当者１'}
-          name='cocoConst1'
-        />
-        <CocoConstSelect 
-          label={'工事担当者２'}
-          name='cocoConst2'
-        />
-      </Stack>
+
 
     </Stack>
   );

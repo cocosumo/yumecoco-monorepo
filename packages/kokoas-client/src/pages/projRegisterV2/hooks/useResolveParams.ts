@@ -33,13 +33,37 @@ export const useResolveParams = () => {
 
     if (projIdFromURL && projRec && custGroupRec && contracts) {
 
+      const {
+        cocoAG1,
+        cocoAG2,
+        yumeAG1,
+        yumeAG2,
+        ...restOfProjData
+      } = convertProjToForm(projRec);
+
+      const {
+        cocoAG1: custCocoAG1,
+        cocoAG2: custCocoAG2,
+        yumeAG1: custYumeAG1,
+        yumeAG2: custYumeAG2,
+        ...restOfCustGroupData
+      } = convertCustGroupToForm(custGroupRec);
+
 
       setNewFormVal({
         ...initialValues,
         hasContract: !!hasContract,
         hasCompletedContract: !!completed,
-        ...convertProjToForm(projRec),
-        ...convertCustGroupToForm(custGroupRec),
+
+        ...restOfProjData,
+        ...restOfCustGroupData,
+
+        //　空の場合はcustGroupRecの値を入れる
+        cocoAG1: cocoAG1 || custCocoAG1 || '',
+        cocoAG2: cocoAG2 || custCocoAG2 || '',
+        yumeAG1: yumeAG1 || custYumeAG1 || '',
+        yumeAG2: yumeAG2 || custYumeAG2 || '',
+
       });
 
     } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {

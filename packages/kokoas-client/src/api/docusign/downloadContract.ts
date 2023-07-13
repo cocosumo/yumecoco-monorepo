@@ -12,7 +12,7 @@ export const downloadContract = async ({
 
   const queryStr = qs.stringify({
     contractId,
-    ukeoiDocVersion: '20230605',
+    requestTime: new Date().getTime(), // to prevent caching
   });
 
   const apiNode: ApiNodes = 'docusign';

@@ -54,7 +54,7 @@ export const SubsidyAmount = () => {
               <RadioGroup 
                 row
                 {...otherFieldProps}
-                onChange={(_, value) => onChange(value)}
+                onChange={(_, value) => onChange(value as typeof subsidyMethods[number])}
               >
                 {subsidyMethods
                   .map((value) => (

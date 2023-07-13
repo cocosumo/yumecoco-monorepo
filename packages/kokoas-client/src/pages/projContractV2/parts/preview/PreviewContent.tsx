@@ -1,5 +1,5 @@
 import { DialogContent } from '@mui/material';
-import { useContractFilesById, useKintoneDownloadByFileKey } from 'kokoas-client/src/hooksQuery';
+import { useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 import { useIsFetching } from '@tanstack/react-query';
 
@@ -17,7 +17,7 @@ export const PreviewContent = ({
     enabled: !selectedFileKey,
   });
 
-  const { data: fileB64 } = useKintoneDownloadByFileKey(selectedFileKey || '');
+  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '');
   
   const {
     documents,

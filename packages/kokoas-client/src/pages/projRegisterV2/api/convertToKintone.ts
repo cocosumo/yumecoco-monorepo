@@ -1,11 +1,38 @@
 import {  IProjects, TAgents } from 'types';
 import { TForm } from '../schema';
 
+const convertToAgentsTbl = (
+  empIds: string[],
+  agentType: TAgents,
+) => {
+  return empIds.filter(Boolean)
+    .map(item => {
+      return {
+        id: '',
+        value: {
+          agentType: { value: agentType },
+          agentId: { value: item as string },
+          agentName: { value: '' },
+        },
+      };
+    });
+};
+
 export const convertToKintone = (
   rawValues: TForm,
 ): Partial<IProjects>  => {
   const {
-    cocoConst1, cocoConst2, projTypeId, projName,
+    cocoConst1, 
+    cocoConst2, 
+
+    cocoAG1,
+    cocoAG2,
+
+    yumeAG1,
+    yumeAG2,
+    
+    projTypeId, 
+    projName,
     //sisAgentConfirmed, 
     postal, 
     address1, 
@@ -20,6 +47,14 @@ export const convertToKintone = (
     storeCode,
     memo,
   } = rawValues;
+
+
+
+  const agentsTable = [
+    ...convertToAgentsTbl([cocoConst1, cocoConst2], 'cocoConst'),
+    ...convertToAgentsTbl([cocoAG1, cocoAG2], 'cocoAG'),
+    ...convertToAgentsTbl([yumeAG1, yumeAG2], 'yumeAG'),
+  ];
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
@@ -41,18 +76,7 @@ export const convertToKintone = (
     buildingType: { value: buildingType },
     agents: {
       type: 'SUBTABLE',
-      value: [cocoConst1, cocoConst2]
-        .filter(Boolean)
-        .map(item => {
-          return {
-            id: '',
-            value: {
-              agentType: { value: 'cocoConst' as TAgents },
-              agentId: { value: item as string },
-              agentName: { value: '' },
-            },
-          };
-        }),
+      value: agentsTable,
     },
     storeCode: { value: storeCode },
     status: {  value: status  },

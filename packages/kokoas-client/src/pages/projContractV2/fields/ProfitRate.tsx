@@ -41,12 +41,13 @@ export const ProfitRate = ({
             name={name}
             variant={'outlined'}
             type='number'
+            size='small'
             onFocus={(e) => {
               e.target.select();
             }}
             onChange={(e) => {
               const profitRate = +e.target.value;
-              onChange(typeof profitRate === 'number' ? profitRate : e.target.value);
+              onChange(typeof profitRate === 'number' ? profitRate : e);
 
               if (!isNaN(profitRate)) {
                 
@@ -67,7 +68,7 @@ export const ProfitRate = ({
                 setRoundedValue('totalProfit', profit || 0);
                 setRoundedValue('costPrice', costPrice || 0);
               } else {
-                onChange(e.target.value);
+                onChange(e.target.value as unknown as number);
               }
              
             }}

@@ -25,7 +25,6 @@ export const ContractTypeField = () => {
         },
       }) => {
         const showError = !!error && isTouched;
-        console.log(value);
         return (
           <FormControl 
             fullWidth

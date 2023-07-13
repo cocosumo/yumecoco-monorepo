@@ -76,8 +76,8 @@ export const AppIds = {
   /**　システムの依頼  */
   ticketSystem: 236,
 
-  /** Andpad入金だデータ */
-  andpadPaymentData: 233,
+  /** Andpad入金データ */
+  andpadPayments: 233,
 
   ...(isProd ? prodAppIds : devAppIds),
 } as const;

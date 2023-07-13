@@ -1,4 +1,4 @@
-declare namespace DBAndpadpaymentdata {
+declare namespace DBAndpadpayments {
   interface Data {
     projId: kintone.fieldTypes.SingleLineText;
     handlingFee: kintone.fieldTypes.Number;

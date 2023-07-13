@@ -63,6 +63,7 @@ export const useFilteredContracts = () => {
     contractStepMain,
     contractStepTencho,
     stores = [],
+    projTypes = [],
   } = useTypedURLParams();
 
   const { data: projData } = useProjects();
@@ -114,6 +115,7 @@ export const useFilteredContracts = () => {
           projName,
           custGroupId,
           dataId,
+          projTypeName,
         } = projData.find((projRec) => projRec.uuid.value === projId.value ) || {};
 
         /* 顧客情報 */
@@ -197,6 +199,7 @@ export const useFilteredContracts = () => {
           || (isIncompleteContract && contractStepTencho && currentContractStep?.roleName === roles.storeMngr);
 
         const isStoreSelected = stores?.length ? stores.includes(storeName?.value || '') : true;
+        const isProjTypeSelected = projTypes?.length ? projTypes.includes(projTypeName?.value || '') : true;
 
         // 含むかどうか判定、
         if (isMainSearch
@@ -206,6 +209,7 @@ export const useFilteredContracts = () => {
           && beforeContractDateTo
           && isInContractStatus
           && isStoreSelected
+          && isProjTypeSelected
         ) {
           acc.push(resultRow);
         }

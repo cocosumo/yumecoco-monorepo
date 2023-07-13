@@ -42,12 +42,14 @@ export const FilterChips = () => {
     navigate(`?${qs.stringify(filterNonNull(newQuery))}`);
   }, [values, navigate]);
 
-  const handleDeleteStore = (value: string) => {
-    const newForm: TForm = { 
-      ...values, 
-      stores: values
-        ?.stores
-        ?.filter((store) => store !== value),   
+  const handleDeleteArrayItem = (
+    name: KForm, 
+    value: string,
+  ) => {
+    const newForm: TForm = {
+      ...values,
+      [name]: (values[name] as string[])?.filter((v) => v !== value),
+        
     };
 
     navigate(`?${qs.stringify(filterNonNull(newForm))}`);
@@ -68,7 +70,6 @@ export const FilterChips = () => {
         .reduce((acc, [k, v]) => {
           const parsedValue = parseValueToLabel(k as KForm, v);
   
-
           if (parsedValue) {
             // check if parsedValue is an array of string
             if (Array.isArray(parsedValue)) {
@@ -79,7 +80,7 @@ export const FilterChips = () => {
                     size={'small'}
                     key={value}
                     label={value}
-                    onDelete={() => handleDeleteStore(value)}
+                    onDelete={() => handleDeleteArrayItem(k as KForm, value)}
                   />,
                 );
               });
@@ -95,7 +96,6 @@ export const FilterChips = () => {
               );
             }
           }
-
             
           return acc;
         },

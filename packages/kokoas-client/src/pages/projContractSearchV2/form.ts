@@ -1,16 +1,16 @@
-import * as Yup from 'yup';
-import { validationSchema } from './formValidation';
+
+import { TForm } from './schema';
 
 
 
-export const initialValues: TypeOfForm = {
+export const initialValues: TForm = {
   order: 'asc',
   orderBy: 'contractDate',
   mainSearch: '',
   contractDateFrom: null,
   contractDateTo: null,
-  amountFrom: undefined,
-  amountTo: undefined,
+  amountFrom: null,
+  amountTo: null,
   contractCompleted: false,
   contractIncomplete: false,
   contractStepTencho: false,
@@ -22,5 +22,5 @@ export const initialValues: TypeOfForm = {
 };
 
 
-export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
-export type KeyOfForm = keyof TypeOfForm;
+//export type TypeOfForm =  Yup.InferType<typeof validationSchema> ;
+//export type KeyOfForm = keyof TypeOfForm;

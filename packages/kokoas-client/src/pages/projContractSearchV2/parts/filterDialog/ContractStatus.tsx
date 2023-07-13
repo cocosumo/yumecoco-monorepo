@@ -1,15 +1,14 @@
 import { FormGroup } from '@mui/material';
 import { OutlinedDiv } from 'kokoas-client/src/components';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
-import { useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../../form';
 import { ContractStatusIncomplete } from './ContractStatusIncomplete';
+import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
 
 
 
 export const ContractStatus = () => {
-  const { control } = useFormContext<TypeOfForm>();
+  const { control } = useTypedFormContext();
 
 
   return (

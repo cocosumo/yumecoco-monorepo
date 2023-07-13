@@ -1,12 +1,13 @@
 import { Box } from '@mui/material';
 import { ControlledCheckBox } from 'kokoas-client/src/components/reactHookForm';
 import { SyntheticEvent } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
-import { KeyOfForm, TypeOfForm } from '../../form';
+import { useWatch } from 'react-hook-form';
 import { translateKey } from '../../helpers/translateKey';
+import { useTypedFormContext } from '../../hooks/useTypedHooks';
+import { KForm } from '../../schema';
 
 
-export const stepsKeys: KeyOfForm[] = [
+export const stepsKeys: KForm[] = [
   'contractStepAG',
   'contractStepCustomer',
   'contractStepTencho',
@@ -20,7 +21,7 @@ export const ContractStatusIncomplete = () => {
     control,
     setValue,
     getValues,
-  } = useFormContext<TypeOfForm>();
+  } = useTypedFormContext();
 
 
   const contractSteps = useWatch({

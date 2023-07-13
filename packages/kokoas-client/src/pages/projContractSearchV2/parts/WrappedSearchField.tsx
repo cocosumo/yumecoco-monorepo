@@ -4,12 +4,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { useState } from 'react';
-import {  useFormContext } from 'react-hook-form';
-import {  TypeOfForm } from '../form';
 
 import { SubmitButton } from './filterDialog/SubmitButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
+import { useTypedFormContext } from '../hooks/useTypedHooks';
 
 
 export const WrappedSearchField = ({
@@ -27,7 +26,7 @@ export const WrappedSearchField = ({
 
   const {
     register,
-  } = useFormContext<TypeOfForm>();
+  } = useTypedFormContext();
 
   const handleFilterOpen = () => setFilterOpen(true);
   const handleFilterClose = () => {

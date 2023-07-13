@@ -3,12 +3,12 @@ import addDays from 'date-fns/addDays';
 import { useAllContracts, useCustGroups, useProjects } from 'kokoas-client/src/hooksQuery';
 import { calcProfitRate, formatDataId } from 'libs';
 import { TEnvelopeStatus, roles } from 'types';
-import { initialValues, TypeOfForm } from '../form';
+import { initialValues } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
 import { useCallback } from 'react';
-import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
 import { parseISODateToFormat, parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { useTypedURLParams } from './useTypedHooks';
 
 export interface ContractRow {
   contractStatus: TEnvelopeStatus,
@@ -36,6 +36,8 @@ export interface ContractRow {
   updatedAt: string,
 }
 
+export type KContractRow = keyof ContractRow;
+
 
 /**
  *
@@ -61,7 +63,7 @@ export const useFilteredContracts = () => {
     contractStepMain,
     contractStepTencho,
     stores = [],
-  } = useURLParamsV2<TypeOfForm>();
+  } = useTypedURLParams();
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
@@ -213,7 +215,7 @@ export const useFilteredContracts = () => {
       []);
 
       // ソート
-      const sortedItems = items.sort(itemsSorter({ order, orderBy }));
+      const sortedItems = items.sort(itemsSorter({ order, orderBy: orderBy as KContractRow }));
 
       // 結果
       return {

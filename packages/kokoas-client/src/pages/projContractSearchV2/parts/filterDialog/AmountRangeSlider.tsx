@@ -1,8 +1,7 @@
 import { Slider } from '@mui/material';
 import isArray from 'lodash/isArray';
 import { useCallback } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../../form';
+import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedHooks';
 
 
 export const AmountRangeSlider = ({
@@ -17,15 +16,17 @@ export const AmountRangeSlider = ({
     control,
     setValue,
     clearErrors,
-  } = useFormContext<TypeOfForm>();
+  } = useTypedFormContext();
 
-  const [amountFrom, amountTo] = useWatch({
+  const [
+    amountFrom, 
+    amountTo] = useTypedWatch({
     name: [
       'amountFrom',
       'amountTo',
     ],
     control,
-  });
+  }) as number[];
 
   /**
    * スライダーの値を判定する

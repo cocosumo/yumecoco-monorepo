@@ -1,14 +1,14 @@
 import { ReactNode } from 'react';
 import { FormProvider, UseFormReturn } from 'react-hook-form';
-import { TypeOfForm } from '../../form';
 import { DevTool } from '@hookform/devtools';
+import { TForm } from '../../schema';
 
 export const FilterForm = ({
   children,
   useFormMethods,
 }: {
   children: ReactNode,
-  useFormMethods: UseFormReturn<TypeOfForm>
+  useFormMethods: UseFormReturn<TForm>
 }) => {
 
   const {

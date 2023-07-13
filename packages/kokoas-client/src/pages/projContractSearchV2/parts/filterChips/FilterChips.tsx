@@ -1,12 +1,12 @@
 import { Chip, Stack } from '@mui/material';
 import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { KeyOfForm, TypeOfForm } from '../../form';
 import qs from 'qs';
 import { parseValueToLabel } from '../../helpers/parseValueToLabel';
 import { stepsKeys } from '../filterDialog/ContractStatusIncomplete';
 import { useNewValuesFromParams } from '../../hooks/useNewValuesFromParams';
 import { filterNonNull } from 'libs';
+import { KForm, TForm } from '../../schema';
 
 export const FilterChips = () => {
 
@@ -17,7 +17,7 @@ export const FilterChips = () => {
   /**
    * チップの✖をクリックしたときの処理
    */
-  const handleDelete = useCallback((key: KeyOfForm) => {
+  const handleDelete = useCallback((key: KForm) => {
 
     // keyを除いたオブジェクトを作成
 
@@ -43,7 +43,7 @@ export const FilterChips = () => {
   }, [values, navigate]);
 
   const handleDeleteStore = (value: string) => {
-    const newForm: TypeOfForm = { 
+    const newForm: TForm = { 
       ...values, 
       stores: values
         ?.stores
@@ -66,7 +66,7 @@ export const FilterChips = () => {
           return k1.localeCompare(k2);
         })
         .reduce((acc, [k, v]) => {
-          const parsedValue = parseValueToLabel(k as KeyOfForm, v);
+          const parsedValue = parseValueToLabel(k as KForm, v);
   
 
           if (parsedValue) {
@@ -90,7 +90,7 @@ export const FilterChips = () => {
                   size={'small'}
                   key={k}
                   label={parsedValue}
-                  onDelete={() => handleDelete(k as KeyOfForm)}
+                  onDelete={() => handleDelete(k as KForm)}
                 />,
               );
             }

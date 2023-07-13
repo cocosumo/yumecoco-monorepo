@@ -1,8 +1,8 @@
-import { KeyOfForm, TypeOfForm } from '../form';
 import isValid from 'date-fns/isValid';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { translateKey } from './translateKey';
+import { KForm, TForm } from '../schema';
 
 
 const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') => {
@@ -13,8 +13,8 @@ const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') =>
   }
 };
 
-export const parseValueToLabel = <T extends KeyOfForm>(
-  name: T, value: TypeOfForm[T],
+export const parseValueToLabel = <T extends KForm>(
+  name: T, value: TForm[T],
 ) => {
 
   if ( typeof value !== 'number' && !value) return;

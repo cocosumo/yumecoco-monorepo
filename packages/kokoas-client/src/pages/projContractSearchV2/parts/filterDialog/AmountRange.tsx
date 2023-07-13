@@ -1,10 +1,9 @@
 import { Box, FormLabel, Stack } from '@mui/material';
-import { TypeOfForm } from '../../form';
 import { OutlinedMoneyInput } from 'kokoas-client/src/components/reactHookForm/OutlinedMoneyInput';
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
-import { useFormContext } from 'react-hook-form';
 import { grey } from '@mui/material/colors';
 import { AmountRangeSlider } from './AmountRangeSlider';
+import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
 
 export const AmountRange = ({
@@ -23,7 +22,7 @@ export const AmountRange = ({
         amountTo,
       },
     },
-  } = useFormContext<TypeOfForm>();
+  } = useTypedFormContext();
 
   const errorMessage = (amountFrom || amountTo)?.message;
   const isError = !!errorMessage;

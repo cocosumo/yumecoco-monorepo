@@ -1,19 +1,19 @@
 import { useSnackBar } from 'kokoas-client/src/hooks';
-import { useFormContext } from 'react-hook-form';
-import { TypeOfForm } from '../form';
 import qs from 'qs';
 import { filterNonNull } from 'libs';
 import { useNavigate } from 'react-router-dom';
+import { TForm } from '../schema';
+import { useTypedFormContext } from './useTypedHooks';
 
 interface HandleSubmitParam {
   /** バリデーションが成功した時、実行 */
   onValid?: () => void,
   /** フォームデータを置き換える */
-  newData?: Partial<TypeOfForm>
+  newData?: Partial<TForm>
 }
 
 export const useSubmitHandler = () => {
-  const { handleSubmit } = useFormContext<TypeOfForm>();
+  const { handleSubmit } = useTypedFormContext();
   const { setSnackState } = useSnackBar();
   const navigate = useNavigate();
 

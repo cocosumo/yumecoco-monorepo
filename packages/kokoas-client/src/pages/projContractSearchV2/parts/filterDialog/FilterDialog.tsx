@@ -1,24 +1,21 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
-import { AmountRange } from './AmountRange';
+import { Button, Dialog, DialogActions, DialogTitle, Divider } from '@mui/material';
+import { AmountRange } from './amountRange/AmountRange';
 import { ContractDateRange } from './ContractDateRange';
 import { ContractStatus } from './ContractStatus';
 import { FilterDialogContent } from './FilterDialogContent';
 import { SubmitButton } from './SubmitButton';
 import { Stores } from './Stores';
+import { ProjectTypes } from './ProjectTypes';
 
 
 export const FilterDialog = ({
   open,
   handleClose,
   handleSubmit,
-  minAmount,
-  maxAmount,
 }: {
   open: boolean,
   handleClose: () => void,
   handleSubmit: () => void,
-  minAmount: number,
-  maxAmount: number,
 }) => {
 
   return (
@@ -27,15 +24,26 @@ export const FilterDialog = ({
       open={open}
       onClose={handleClose}
     >
+
       <DialogTitle>
         絞り込み
+
       </DialogTitle>
       <FilterDialogContent>
         <Stores />
+        <Divider />
 
-        <AmountRange minAmount={minAmount} maxAmount={maxAmount} />
+        <ProjectTypes />
+        <Divider />
+
+        <AmountRange />
+        <Divider />
+
         <ContractDateRange />
+        <Divider />
+        
         <ContractStatus />
+        <Divider />
 
       </FilterDialogContent>
       <DialogActions>

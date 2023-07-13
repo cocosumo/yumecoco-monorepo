@@ -1,5 +1,5 @@
-import { TypeOfForm } from '../form';
-import { ContractRow } from '../hooks/useFilteredContracts';
+import { ContractRow, KContractRow } from '../hooks/useFilteredContracts';
+import { TForm } from '../schema';
 
 /** 数字をソートする */
 const sortNumber = (a: number, b: number, desc: boolean) =>
@@ -9,8 +9,8 @@ export const itemsSorter = ({
   order,
   orderBy,
 }:{
-  order: TypeOfForm['order']
-  orderBy: keyof ContractRow
+  order: TForm['order']
+  orderBy: KContractRow
 }) =>
   (a: ContractRow, b: ContractRow) => {
     const asc = order === 'asc';

@@ -1,13 +1,13 @@
 import { Checkbox, FormControlLabel, FormGroup, Grid } from '@mui/material';
 import { useStores } from 'kokoas-client/src/hooksQuery';
 import { useCallback } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 import { IStores } from 'types';
-import { TypeOfForm } from '../../form';
+import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
 export const Stores = () => {
   
-  const { setValue, control } = useFormContext<TypeOfForm>();
+  const { setValue, control } = useTypedFormContext();
 
   const stores = useWatch({
     name: 'stores',

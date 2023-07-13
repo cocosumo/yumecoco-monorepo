@@ -1,10 +1,9 @@
-import { TableSortLabel } from '@mui/material';
+import { TableSortLabel, TableSortLabelProps } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { translations } from 'kokoas-client/src/helpers/translations';
-import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { TypeOfForm } from '../../form';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { useSubmitHandler } from '../../hooks/useSubmitHandler';
+import { useTypedURLParams } from '../../hooks/useTypedHooks';
 
 export const ResultsTHeadSortLabel = ({
   headerLabel,
@@ -14,13 +13,13 @@ export const ResultsTHeadSortLabel = ({
   const {
     order,
     orderBy,
-  } = useURLParams<TypeOfForm>();
+  } = useTypedURLParams();
   const handleSubmit = useSubmitHandler();
 
   return (
     <TableSortLabel
       active={orderBy === headerLabel}
-      direction={order}
+      direction={order as TableSortLabelProps['direction']}
       onClick={() => {
         handleSubmit({
           newData: {

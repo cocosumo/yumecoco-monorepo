@@ -10,7 +10,7 @@ describe('Open Browser', () => {
 
     await page.goto('https://www.google.com');
     
-    console.log('Connected. Disconnecting in 5 seconds...');
+    console.log('Closing in 5 seconds...');
 
     await sleep(5000);
     

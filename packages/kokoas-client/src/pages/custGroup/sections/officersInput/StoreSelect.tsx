@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 import { useStores } from 'kokoas-client/src/hooksQuery';
@@ -13,7 +13,7 @@ export const StoreSelect = () => {
         sortNumber,
       }) => ({
         label: storeName.value,
-        value: uuid.value,
+        id: uuid.value,
         sortNumber: sortNumber.value,
       }))
       .sort((a, b) => {
@@ -25,7 +25,19 @@ export const StoreSelect = () => {
     <Controller
       name="store"
       control={control}
-      render={() => {
+      render={({
+        field: {
+          onChange,
+          value,
+          ...restFields
+        },
+        fieldState: {
+          isTouched,
+          error,
+          isDirty,
+        },
+      }) => {
+        const showError = !!error && (isTouched || isDirty);
         return (
           <FormControl
             size='small' 
@@ -33,26 +45,33 @@ export const StoreSelect = () => {
             sx={{
               maxWidth: 300,
             }}
+            error={true}
           >
             <InputLabel >
               店舗
             </InputLabel>
             <Select
-              //value={age}
+              value={value}
               label="店舗"
-              //onChange={handleChange}
+              onChange={(e) => {
+                onChange(e.target.value as string);
+              }}
+              {...restFields}
             >
               <MenuItem value="">
                 <em>
                   --- 未選択 ---
                 </em>
               </MenuItem>
-              {data?.map(({ label, value }) => (
-                <MenuItem key={value} value={value}>
+              {data?.map(({ label, id }) => (
+                <MenuItem key={id} value={id}>
                   {label}
                 </MenuItem>
               ))}
             </Select>
+            <FormHelperText>
+              {showError && error.message}
+            </FormHelperText>
           </FormControl>
         );
       }}

@@ -23,6 +23,7 @@ describe('CSV', () => {
 
 describe('Upload', () => {
   it('upload single CSV.', async () => {
+    // アップロード用のファイルを、"./__TEMP__/入金一覧.csv"として格納する必要があります。
 
     const {
       page,
@@ -39,9 +40,9 @@ describe('Upload', () => {
       csvFilePath,
       'ID' as KPayments,
     );
-    await page.waitForTimeout(5000);
+    await page.waitForSelector('.dialog-ok-button-cybozu');
 
-    // expect(await page.close()).toMatchSnapshot();
+    expect(await page.close());
     
     browser.disconnect();
   }, 150000);

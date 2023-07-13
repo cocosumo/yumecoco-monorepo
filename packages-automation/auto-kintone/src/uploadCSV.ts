@@ -67,12 +67,11 @@ export const handleUpload = async (
   page: Page, keyField: string,
 ) => {
   console.log('function handleUpload started');
-  // await page.waitForNetworkIdle({ idleTime: 1000 });
-  await page.waitForTimeout(2000);
+  await page.waitForResponse(res => res.url().includes('importRecord'));
 
   await selectEncoding(page, 'UTF-8'); // エンコーディング指定
   console.log('set the encoding');
-  await page.waitForResponse('https://rdmuhwtt6gx7.cybozu.com/k/api/ntf/countMention.json?_lc=ja&_ref=https%3A%2F%2Frdmuhwtt6gx7.cybozu.com%2F%2Fk%2F233%2FimportRecord');
+  await page.waitForResponse(res => res.url().includes('importRecord'));
 
   console.log('wait for network idle');
 
@@ -88,7 +87,7 @@ export const handleUpload = async (
   await page.waitForSelector(selectors.btnImport, { timeout });
   console.log('wait for import button to appear');
 
-  //  await page.click(selectors.btnImport);
+  await page.click(selectors.btnImport);
 };
 
 /**

@@ -10,6 +10,6 @@
     "auto-common": "*"
   },
   "scripts": {
-    "start" : "nodemon ./index.ts"
+    "start" : "ts-node --files ./index.ts -T"
   }
 }

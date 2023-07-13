@@ -1,5 +1,5 @@
 import { FormControl, FormHelperText, InputLabel, Select as MuiSelect } from '@mui/material';
-import { ComponentProps, ReactNode } from 'react';
+import { ChangeEvent, ComponentProps, ReactNode } from 'react';
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form';
 
 
@@ -42,7 +42,7 @@ export const Select = <T extends FieldValues>(  {
               {...selectProps}
               value={value || ''}
               onChange={(e, child) => {
-                onChange(e);
+                onChange(e as ChangeEvent<Element>);
                 customOnChange?.(e, child);
               }}
               size='small'

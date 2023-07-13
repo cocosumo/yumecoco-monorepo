@@ -1,7 +1,8 @@
-import { FormControl, FormHelperText, InputLabel } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, Select } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { ContractTypeFieldChoices } from './ContractTypeFieldChoices';
+import { ChangeEvent } from 'react';
 
 
 
@@ -15,7 +16,10 @@ export const ContractTypeField = () => {
       name={'contractType'}
       control={control}
       render={({
-        field,
+        field: {
+          onChange,
+          ...restField
+        },
         fieldState: {
           isTouched,
           error,
@@ -35,10 +39,16 @@ export const ContractTypeField = () => {
             <InputLabel>
               カテゴリ
             </InputLabel>
-            <ContractTypeFieldChoices 
+            <Select
               label="カテゴリ"
-              {...field}
-            />
+              onChange={(e) => {
+                onChange(e as ChangeEvent<Element>);
+              }}
+              {...restField}
+
+            >
+              <ContractTypeFieldChoices />
+            </Select>
             <FormHelperText>
               {showError && error.message}
             </FormHelperText>

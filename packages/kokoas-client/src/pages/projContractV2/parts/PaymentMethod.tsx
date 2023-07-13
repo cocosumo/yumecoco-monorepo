@@ -52,7 +52,7 @@ export const PaymentMethod = ({
             <RadioGroup
               {...otherFieldProps}
               onChange={(_, newValue) => {
-                onChange(newValue);
+                onChange(newValue as TypeOfForm['payMethod']);
               }}
               value={value}
               row

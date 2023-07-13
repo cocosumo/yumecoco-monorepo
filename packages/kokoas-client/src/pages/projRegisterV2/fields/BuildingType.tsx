@@ -1,6 +1,6 @@
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { buildingTypes } from 'types';
+import { BuildingType as TBuildingType, buildingTypes } from 'types';
 import { useTypedFormContext } from '../hooks/useTypedRHF';
 
 export const BuildingType = ({
@@ -49,7 +49,7 @@ export const BuildingType = ({
             <RadioGroup
               {...otherFieldProps}
               onChange={(_, newValue) => {
-                onChange(newValue);
+                onChange(newValue as TBuildingType);
               }}
               value={value}
               row

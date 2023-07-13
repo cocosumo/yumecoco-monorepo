@@ -1,15 +1,13 @@
 import isValid from 'date-fns/isValid';
 import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
 import { translateKey } from './translateKey';
 import { KForm, TForm } from '../schema';
 
 
 const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') => {
-  if (typeof value !== 'string') return;
-  const dateObj = parseISO(value as string);
-  if (isValid(dateObj)) {
-    return `契約日：${format(dateObj, 'yyyy-MM-dd')} ${suffix}`;
+
+  if (isValid(value)) {
+    return `契約日：${format(value as Date, 'yyyy-MM-dd')} ${suffix}`;
   }
 };
 

@@ -10,7 +10,11 @@ export const ContractDateRange = () => {
       <FormLabel>
         契約日
       </FormLabel>
-      <Stack direction={'row'} spacing={1} alignItems={'center'}>
+      <Stack 
+        direction={'row'} 
+        spacing={1} 
+        justifyContent={'space-between'}
+      >
         <DateRangeField name={'contractDateFrom'} />
         <DoubleArrowIcon htmlColor={grey[700]} />
         <DateRangeField name={'contractDateTo'} />

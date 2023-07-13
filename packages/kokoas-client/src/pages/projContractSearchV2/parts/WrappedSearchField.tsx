@@ -11,13 +11,7 @@ import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/Butto
 import { useTypedFormContext } from '../hooks/useTypedHooks';
 
 
-export const WrappedSearchField = ({
-  minAmount,
-  maxAmount,
-}: {
-  minAmount?: number,
-  maxAmount?: number,
-}) => {
+export const WrappedSearchField = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const navigate = useNavigate();
   const {
@@ -41,8 +35,6 @@ export const WrappedSearchField = ({
     <>
       <FilterDialog
         open={filterOpen}
-        minAmount={minAmount ?? 0}
-        maxAmount={maxAmount ?? 0}
         handleClose={handleFilterClose}
         handleSubmit={handleSubmit}
       />

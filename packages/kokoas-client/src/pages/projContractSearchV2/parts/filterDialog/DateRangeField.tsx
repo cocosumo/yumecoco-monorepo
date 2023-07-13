@@ -1,6 +1,5 @@
 import { JADatePicker } from 'kokoas-client/src/components';
 import { Controller } from 'react-hook-form';
-import parseISO from 'date-fns/parseISO';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 import { KForm } from '../../schema';
 
@@ -16,18 +15,24 @@ export const DateRangeField = ({
       control={control}
       name={name}
       render={({
-        field: { onBlur, ...field },
+        field: { 
+          onBlur, 
+          onChange,
+          value,
+          ...field 
+        },
         fieldState: {
           isTouched,
           error,
         },
       }) => {
-
         const isShowError = !!error?.message && !!isTouched;
+
         return (
           <JADatePicker
             {...field}
-            value={field.value ? parseISO(field.value as string) : null} // keep it controlled
+            value={value} // keep it controlled
+            onChange={onChange}
             slotProps={{
               textField: {
                 onBlur,

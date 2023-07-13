@@ -16,8 +16,6 @@ export const FormContractSearch = () => {
   const { data } = useFilteredContracts();
   const {
     items,
-    minAmount,
-    maxAmount,
   } = data || {};
 
 
@@ -49,10 +47,7 @@ export const FormContractSearch = () => {
     >
       <PageTitle3 label='契約一覧' />
       <FilterForm useFormMethods={methods}>
-        <WrappedSearchField
-          minAmount={minAmount}
-          maxAmount={maxAmount}
-        />
+        <WrappedSearchField />
         <FilterChips />
         <Results items={items} />
       </FilterForm>

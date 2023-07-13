@@ -20,7 +20,7 @@ export const useAndpadPaymentsBySystemId = (
   } = options || {};
 
   return useQuery(
-    [AppIds.andpadPaymentData, 'andpad', systemId],
+    [AppIds.andpadPayments, 'andpad', systemId],
     () => getAndpadPaymentsBySystemId(systemId),
     {
       enabled: enabled && !!systemId,

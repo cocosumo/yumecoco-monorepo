@@ -1,5 +1,5 @@
 import { TableBody } from '@mui/material';
-import { IAndpadpaymentdata } from 'types';
+import { IAndpadpayments } from 'types';
 import { RowLayout } from './RowLayout';
 import { PaymentStatus } from './PaymentStatus';
 import { IOrder } from './PayTableHead';
@@ -9,7 +9,7 @@ export const PayTableBody = ({
   records,
   orderDetails,
 }: {
-  records: IAndpadpaymentdata[],
+  records: IAndpadpayments[],
   orderDetails: IOrder
 }) => {
 

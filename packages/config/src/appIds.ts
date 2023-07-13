@@ -77,7 +77,7 @@ export const AppIds = {
   ticketSystem: 236,
 
   /** Andpad入金データ */
-  andpadPaymentData: 233,
+  andpadPayments: 233,
 
   ...(isProd ? prodAppIds : devAppIds),
 } as const;

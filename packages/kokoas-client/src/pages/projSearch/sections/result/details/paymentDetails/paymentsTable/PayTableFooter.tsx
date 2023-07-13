@@ -1,10 +1,10 @@
 import { Stack, Typography } from '@mui/material';
-import { IAndpadpaymentdata } from 'types';
+import { IAndpadpayments } from 'types';
 
 export const PayTableFooter = ({
   records,
 }: {
-  records: IAndpadpaymentdata[]
+  records: IAndpadpayments[]
 }) => {
 
   console.log('records', records);

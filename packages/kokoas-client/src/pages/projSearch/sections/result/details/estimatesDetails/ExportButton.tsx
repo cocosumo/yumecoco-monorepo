@@ -41,12 +41,12 @@ export const ExportButton = ({
         anchorEl={anchorEl}
       >
         <MenuItem
-          onClick={() => handleDownload(`${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateAsAndpad}/${projEstimateId}`)}
+          onClick={() => handleDownload(`${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateAsAndpadEst}/${projEstimateId}`)}
         >
           Andpadの見積形式
         </MenuItem>
         <MenuItem
-          onClick={() => handleDownload(`${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateAsAndpadEst}/${projEstimateId}`)}
+          onClick={() => handleDownload(`${kokoasAPIBaseUrl}/${kokoasEndpoints.downloadEstimateAsAndpad}/${projEstimateId}`)}
         >
           Andpadの実行予算形式
         </MenuItem>

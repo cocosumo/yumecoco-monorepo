@@ -33,7 +33,7 @@ const customerSchema = z.object({
 });
 
 /** MAIN SCHEMA */
-const schema = z.object({
+export const schema = z.object({
   custGroupId: z.string(),
   store: z.string(),
   cocoAG1: z.string().nonempty(),

@@ -13,6 +13,7 @@ import { FormContract } from './projContractV2/FormContract';
 import { FormProject } from './projRegisterV2/FormProject';
 import { FormProjectSearch } from './projSearch/FormProjectSearch';
 import { FormProjEstimate } from './projEstimate/FormProjEstimate';
+import { FormCustGroup } from './custGroup/FormCustGroup';
 
 
 
@@ -27,6 +28,9 @@ import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 export const pages = {
   custGroupReg: '/custgroup/register',
   custGroupEdit: '/custgroup/edit',
+
+  custGroupEditV2: '/custgroup/edit/v2',
+
   custSearch: '/customer/search',
 
   //projEdit: '/project/edit',
@@ -68,6 +72,9 @@ const Router = () => (
     {/* 顧客グループ */}
     <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />
     <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
+    
+    {/* 顧客グループV2 */}
+    <Route path={`${pages.custGroupEditV2}`} element={<FormCustGroup />} />
     {/*  <Route path={pages.custSearch} element={<FormikCustomerSearch />} /> */}
 
     {/* 工事情報 */}

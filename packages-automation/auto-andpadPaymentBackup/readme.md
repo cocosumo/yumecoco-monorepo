@@ -1,3 +1,3 @@
-# payment alert
+# andpad payment backup
 
-入金に関わる通知設定
+ANDPAD入金一覧をkintoneアプリにバックアップします

@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 import path from 'path';
-import { APP_IDS } from '../config';
 import { attachFile, uploadSingleCSV } from './uploadCSV';
 import { connectToBrowserPage } from 'auto-common/src/connectToBrowserPage';
 import { KPayments } from 'types';
 import { describe, it } from '@jest/globals';
+import { AppIds } from 'config';
 
 export const browserTimeOut = 1000 * 60 * 60 * 6;
 
@@ -36,7 +36,7 @@ describe('Upload', () => {
 
     await uploadSingleCSV(
       page,
-      APP_IDS.andpadPaymentList,
+      AppIds.andpadPayments.toString(),
       csvFilePath,
       'ID' as KPayments,
     );

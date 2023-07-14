@@ -1,20 +1,18 @@
-import { KeyOfForm, TypeOfForm } from '../form';
 import isValid from 'date-fns/isValid';
 import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
 import { translateKey } from './translateKey';
+import { KForm, TForm } from '../schema';
 
 
 const transformToLabel = <T = unknown>(value: T, suffix: 'から' | 'まで') => {
-  if (typeof value !== 'string') return;
-  const dateObj = parseISO(value as string);
-  if (isValid(dateObj)) {
-    return `契約日：${format(dateObj, 'yyyy-MM-dd')} ${suffix}`;
+
+  if (isValid(value)) {
+    return `契約日：${format(value as Date, 'yyyy-MM-dd')} ${suffix}`;
   }
 };
 
-export const parseValueToLabel = <T extends KeyOfForm>(
-  name: T, value: TypeOfForm[T],
+export const parseValueToLabel = <T extends KForm>(
+  name: T, value: TForm[T],
 ) => {
 
   if ( typeof value !== 'number' && !value) return;
@@ -32,6 +30,8 @@ export const parseValueToLabel = <T extends KeyOfForm>(
     case 'mainSearch': return `検索ワード：${value}`;
 
     case 'stores': return (value || []) as string[];
+
+    case 'projTypes': return (value || []) as string[];
     
 
     default: return value ? translateKey(name) : undefined;

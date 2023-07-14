@@ -66,12 +66,12 @@ export const FilterChips = () => {
                 key={k}
                 label={parsedValue}
                 onDelete={() => handleDelete(k as KeyOfForm)}
-              />);
+              />,
+            );
           }
           return acc;
         },
-        [] as ReactNode[],
-        )}
+        [] as ReactNode[])}
     </Stack>
   );
 };

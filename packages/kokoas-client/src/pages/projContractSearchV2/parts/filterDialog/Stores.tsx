@@ -1,13 +1,14 @@
-import { Checkbox, FormControlLabel, FormGroup, Grid } from '@mui/material';
+import { Checkbox, Divider, FormControlLabel, FormGroup, FormLabel, Grid } from '@mui/material';
 import { useStores } from 'kokoas-client/src/hooksQuery';
 import { useCallback } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
-import { IStores } from 'types';
-import { TypeOfForm } from '../../form';
+import { useWatch } from 'react-hook-form';
+import { IStores, Territory } from 'types';
+import { useTypedFormContext } from '../../hooks/useTypedHooks';
+import { grey } from '@mui/material/colors';
 
 export const Stores = () => {
   
-  const { setValue, control } = useFormContext<TypeOfForm>();
+  const { setValue, control } = useTypedFormContext();
 
   const stores = useWatch({
     name: 'stores',
@@ -17,17 +18,35 @@ export const Stores = () => {
   const { data } = useStores(
     useCallback(
       (d: IStores[]) => {
-        
-        return d
-          .filter(({ storeNameShort }) => !!storeNameShort.value)
-          .map(({ 店舗名, uuid }) => ({
-            label: 店舗名.value,
+        const grouped = d.reduce((acc, cur) => {
+          const { territory, uuid, storeNameShort,  店舗名: storeName } = cur;
+          if (!storeNameShort.value) return acc;
+          const key = territory.value as Territory;
+          const label = storeName.value;
+          if (!acc[key]) {
+            acc[key] = [];
+          }
+          acc[key].push({
             key: uuid.value,
-          }));
+            label,
+          });
+          return acc;
+        }, {} as Record<Territory, { key: string; label: string; }[]>);
+        
+        
+
+        return grouped;
+          
       }, 
       [],
     ),
   );
+
+  const {
+    東: east,
+    西: west,
+  } = data || {};
+  
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = e.target;
@@ -40,9 +59,44 @@ export const Stores = () => {
   
   return (
     <FormGroup >
-      <Grid container>
+      <FormLabel>
+        店舗
+      </FormLabel>
+      <Grid 
+        container
+        bgcolor={grey[50]}
+        borderRadius={1}
+        p={1}
+      >
      
-        {data?.map(({ key, label }) => {
+        {west?.map(({ key, label }) => {
+          return (
+            <Grid 
+              key={key} 
+              item 
+              xs={6}
+              md={4}
+            >
+              <FormControlLabel 
+                control={(
+                  <Checkbox 
+                    checked={stores?.includes(label) ?? false}
+                    value={label} 
+                    onChange={handleChange}
+                  />
+                )} 
+                label={label}
+              />
+            </Grid>
+          );
+        })}
+
+        <Grid xs={12}>
+          <Divider />
+        </Grid>
+
+
+        {east?.map(({ key, label }) => {
           return (
             <Grid 
               key={key} 

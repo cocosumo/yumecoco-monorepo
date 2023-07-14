@@ -4,21 +4,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { useState } from 'react';
-import {  useFormContext } from 'react-hook-form';
-import {  TypeOfForm } from '../form';
 
 import { SubmitButton } from './filterDialog/SubmitButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
+import { useTypedFormContext } from '../hooks/useTypedHooks';
 
 
-export const WrappedSearchField = ({
-  minAmount,
-  maxAmount,
-}: {
-  minAmount?: number,
-  maxAmount?: number,
-}) => {
+export const WrappedSearchField = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const navigate = useNavigate();
   const {
@@ -27,7 +20,7 @@ export const WrappedSearchField = ({
 
   const {
     register,
-  } = useFormContext<TypeOfForm>();
+  } = useTypedFormContext();
 
   const handleFilterOpen = () => setFilterOpen(true);
   const handleFilterClose = () => {
@@ -42,8 +35,6 @@ export const WrappedSearchField = ({
     <>
       <FilterDialog
         open={filterOpen}
-        minAmount={minAmount ?? 0}
-        maxAmount={maxAmount ?? 0}
         handleClose={handleFilterClose}
         handleSubmit={handleSubmit}
       />

@@ -11,7 +11,7 @@ export const downloadPaymentfile = async (page: Page) => {
 
   const result = await downloadFile(
     page,
-    'https://andpad.jp/manager/our/box_in/customer_agreement_payments?action=index&controller=manager%2Fpc%2Fusers%2Four%2Fbox_in%2Fcustomer_agreement_payments&format=xlsx&host=andpad.jp&page=1&pp=20&q%5Bplanned_date_start%5D=2023-07&q%5Bs%5D=created_at+desc',
+    'https://andpad.jp/manager/our/box_in/customer_agreement_payments?action=index&controller=manager%2Fpc%2Fusers%2Four%2Fbox_in%2Fcustomer_agreement_payments&format=xlsx&host=andpad.jp&page=1&pp=20&q%5Bcustomer_name_cont%5D=&q%5Bplanned_date_start%5D=&q%5Bs%5D=created_at+desc&q%5Bstate_eq%5D=',
   );
 
 

@@ -17,7 +17,7 @@ export const preparePaymentAlert = async () => {
   await downloadPaymentfile(page);
 
   // kintoneへのアップロード処理
-  await uploadSingleCSV(page, AppIds.payments.toString(), filePath, 'ID');
+  await uploadSingleCSV(page, AppIds.andpadPayments.toString(), filePath, 'ID');
 
   await page.waitForSelector('.dialog-ok-button-cybozu');
 

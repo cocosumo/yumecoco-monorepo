@@ -7,6 +7,7 @@ import { useFieldArray } from 'react-hook-form';
 import { AddButton } from './AddButton';
 import { initialCustomerValue } from 'kokoas-client/src/pages/customer/register/form';
 import { DeleteButton } from './DeleteButton';
+import { Summary } from './Summary';
 
 export const CustomersInput = () => {
   const { control } = useTypedFormContext();
@@ -54,12 +55,10 @@ export const CustomersInput = () => {
                   justifyContent={'space-between'}
                   width={'100%'}
                 >
-                  <Typography sx={{ width: '33%' }}>
-                    General settings
-                  </Typography>
-                  <Typography sx={{ color: 'text.secondary' }}>
-                    I am an accordion
-                  </Typography>
+                  <Summary 
+                    label={index === 0 ? '代表者' : `顧客${index}`}
+                    custName={'テスト'}
+                  />
 
                   {index !== 0 && (
                   <DeleteButton 

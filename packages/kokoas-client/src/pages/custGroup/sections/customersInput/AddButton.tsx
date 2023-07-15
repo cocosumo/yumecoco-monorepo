@@ -12,17 +12,14 @@ export const AddButton = ({
     <Tooltip 
       title={'顧客を追加'}
     > 
-      <span>
-        <Button
-          color='success'
-          startIcon={<AddIcon />}
-          variant='contained'
-          onClick={onClick}
-
-        >
-          追加
-        </Button>
-      </span>
+      <Button
+        color='success'
+        startIcon={<AddIcon />}
+        variant='contained'
+        onClick={onClick}
+      >
+        追加
+      </Button>
     </Tooltip>
   
   );

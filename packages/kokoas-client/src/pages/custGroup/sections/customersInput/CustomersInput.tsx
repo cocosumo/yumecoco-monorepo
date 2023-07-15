@@ -33,14 +33,21 @@ export const CustomersInput = () => {
 
 
   return (
-    <Stack spacing={2}>
-      <Box>
+    <Stack 
+      spacing={2}
+      alignItems={'flex-start'}
+    >
+      <Box
+        width={'100%'}
+      >
         {customers.map((
-          {
-            id,
-          },
+          cust,
           index,
         ) => {
+
+          const {
+            id,
+          } = cust;
 
           return (
             <Accordion 

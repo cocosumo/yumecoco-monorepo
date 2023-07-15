@@ -12,7 +12,11 @@ export const Summary = ({
       direction={'row'}
       width={'100%'}
     >
-      <Typography sx={{ width: 100 }}>
+      <Typography 
+        fontWeight={'bold'}
+        color={'text.secondary'}
+        sx={{ width: 100 }}
+      >
         {label}
       </Typography>
       <Typography sx={{ color: 'text.secondary' }}>

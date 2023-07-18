@@ -6,11 +6,20 @@ import { InputAdornment, OutlinedInput } from '@mui/material';
 export const ControlledNumberInput = ({
   index,
   name,
+  prefix,
   suffix,
+  width,
+  borderRadius,
+  ...rest
 }:{
   index: number,
   name: KFormCustomer,
+  prefix?: string,
   suffix?: string,
+  width?: number,
+  min?: number,
+  max?: number,
+  borderRadius?: string,
 }) => {
   const { control } = useTypedFormContext();
 
@@ -29,13 +38,23 @@ export const ControlledNumberInput = ({
           <OutlinedInput 
             inputRef={ref}
             {...restFields}
+            {...rest}
             size='small'
             type='number'
+            sx={{
+              width: width || 100,
+              borderRadius,            
+            }}
             inputProps={{
               style: {
                 textAlign: 'right',
+                
               },
             }}
+            startAdornment={(
+              <InputAdornment position="start">
+                {prefix}
+              </InputAdornment>)}
             endAdornment={(
               <InputAdornment position="end">
                 {suffix}

@@ -13,17 +13,22 @@ export const Birthdate = ({
         <ControlledNumberInput
           index={index}
           name='birthYear'
+          prefix='西暦'
           suffix={'年'}
+          width={150}
+          borderRadius='4px 0 0 4px'
         />
         <ControlledNumberInput
           index={index}
           name='birthMonth'
           suffix={'月'}
+          borderRadius='0'
         />
         <ControlledNumberInput
           index={index}
           name='birthDay'
           suffix={'日'}
+          borderRadius='0 4px 4px 0'
         />
 
       </Stack>

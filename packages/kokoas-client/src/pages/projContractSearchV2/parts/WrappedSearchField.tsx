@@ -1,4 +1,4 @@
-import { Button, OutlinedInput, Stack } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 import { FilterDialog } from './filterDialog/FilterDialog';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { SubmitButton } from './filterDialog/SubmitButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
-import { useTypedFormContext } from '../hooks/useTypedHooks';
+import { SearchField } from './SearchField';
 
 
 export const WrappedSearchField = () => {
@@ -17,10 +17,6 @@ export const WrappedSearchField = () => {
   const {
     search,
   } = useLocation();
-
-  const {
-    register,
-  } = useTypedFormContext();
 
   const handleFilterOpen = () => setFilterOpen(true);
   const handleFilterClose = () => {
@@ -44,11 +40,7 @@ export const WrappedSearchField = () => {
         spacing={1}
         maxWidth={600}
       >
-        <OutlinedInput 
-          fullWidth {...register('mainSearch')}
-          placeholder={'工事番号や工事名や顧客名など'}
-          size='small'
-        />
+        <SearchField />
 
         <SubmitButton>
           <SearchIcon />

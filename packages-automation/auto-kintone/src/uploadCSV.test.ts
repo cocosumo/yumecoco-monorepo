@@ -2,7 +2,7 @@
 import path from 'path';
 import { attachFile, uploadSingleCSV } from './uploadCSV';
 import { connectToBrowserPage } from 'auto-common/src/connectToBrowserPage';
-import { KPayments } from 'types';
+import { KAndpadpayments } from 'types';
 import { describe, it } from '@jest/globals';
 import { AppIds } from 'config';
 
@@ -38,7 +38,7 @@ describe('Upload', () => {
       page,
       AppIds.andpadPayments.toString(),
       csvFilePath,
-      'ID' as KPayments,
+      'ID' as KAndpadpayments,
     );
     await page.waitForSelector('.dialog-ok-button-cybozu');
 

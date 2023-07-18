@@ -6,6 +6,7 @@ import { FilterDialogContent } from './FilterDialogContent';
 import { SubmitButton } from './SubmitButton';
 import { Stores } from './Stores';
 import { ProjectTypes } from './ProjectTypes';
+import { CustName } from './CustName';
 
 
 export const FilterDialog = ({
@@ -27,9 +28,14 @@ export const FilterDialog = ({
 
       <DialogTitle>
         絞り込み
-
       </DialogTitle>
+
       <FilterDialogContent>
+        <Divider />
+        
+        <CustName />
+        <Divider />
+
         <Stores />
         <Divider />
 
@@ -46,6 +52,7 @@ export const FilterDialog = ({
         <Divider />
 
       </FilterDialogContent>
+
       <DialogActions>
         <Button variant={'text'} onClick={handleClose}>
           閉じる

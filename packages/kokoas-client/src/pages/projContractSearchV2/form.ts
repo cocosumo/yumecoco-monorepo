@@ -6,6 +6,8 @@ import { TForm } from './schema';
 export const initialValues: TForm = {
   order: 'asc',
   orderBy: 'contractDate',
+  custName: '',
+  
   mainSearch: '',
   contractDateFrom: null,
   contractDateTo: null,

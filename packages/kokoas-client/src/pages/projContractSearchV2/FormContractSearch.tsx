@@ -8,12 +8,12 @@ import { useEffect } from 'react';
 import { FilterForm } from './parts/filterDialog/FilterForm';
 import { FilterChips } from './parts/filterChips/FilterChips';
 import { useNewValuesFromParams } from './hooks/useNewValuesFromParams';
-import { Stack } from '@mui/material';
+import { LinearProgress, Stack } from '@mui/material';
 import { TForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export const FormContractSearch = () => {
-  const { data } = useFilteredContracts();
+  const { data, isLoading } = useFilteredContracts();
   const {
     items,
   } = data || {};
@@ -49,7 +49,10 @@ export const FormContractSearch = () => {
       <FilterForm useFormMethods={methods}>
         <WrappedSearchField />
         <FilterChips />
+        {isLoading && <LinearProgress />}
+        {!isLoading && (
         <Results items={items} />
+        )}
       </FilterForm>
     </Stack>
 

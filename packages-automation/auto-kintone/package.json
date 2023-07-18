@@ -8,6 +8,8 @@
     "test": "npm run test:unit"
   },
   "dependencies": {
-    "auto-common" : "*"
+    "auto-common": "*",
+    "api-kintone": "*",
+    "types": "*"
   }
 }

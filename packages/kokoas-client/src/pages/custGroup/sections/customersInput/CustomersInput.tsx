@@ -1,5 +1,5 @@
 
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, Stack } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
@@ -8,6 +8,7 @@ import { AddButton } from './AddButton';
 import { initialCustomerValue } from 'kokoas-client/src/pages/customer/register/form';
 import { DeleteButton } from './DeleteButton';
 import { Summary } from './Summary';
+import { CustomerInputDetails } from './CustomerInputDetails';
 
 export const CustomersInput = () => {
   const { control } = useTypedFormContext();
@@ -77,10 +78,9 @@ export const CustomersInput = () => {
 
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
-                  Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-                  Aliquam eget maximus est, id dignissim quam.
-                </Typography>
+                <CustomerInputDetails 
+                  index={index}
+                />
               </AccordionDetails>
             </Accordion>
           );

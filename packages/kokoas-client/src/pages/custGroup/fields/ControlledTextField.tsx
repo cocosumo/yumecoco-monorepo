@@ -1,20 +1,22 @@
 import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { KForm } from '../schema';
+import { KForm, KFormCustomer } from '../schema';
 import { useTypedFormContext } from '../hooks/useTypedHooks';
 
 export const ControlledTextField = ({
   name,
   label,
   width,
+  maxWidth,
   placeholder,
   disabled = false,
   required,
   helperText,
 }:{
-  name: KForm,
+  name: KForm | `customers.${number}.${KFormCustomer}`,
   label: string,
-  width?: number;
+  width?: number,
+  maxWidth?: number,
   placeholder?: string,
   disabled?: boolean,
   required?: boolean,
@@ -44,6 +46,7 @@ export const ControlledTextField = ({
             placeholder={placeholder}
             sx={{
               width,
+              maxWidth,
             }}
             size='small'
             error={isTouched && !!error}

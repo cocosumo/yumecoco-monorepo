@@ -38,6 +38,8 @@ export const StoreSelect = () => {
         },
       }) => {
         const showError = !!error && (isTouched || isDirty);
+
+
         return (
           <FormControl
             size='small' 
@@ -45,7 +47,7 @@ export const StoreSelect = () => {
             sx={{
               maxWidth: 300,
             }}
-            error={true}
+            error={showError}
           >
             <InputLabel >
               店舗

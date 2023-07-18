@@ -5,10 +5,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 import { useFieldArray } from 'react-hook-form';
 import { AddButton } from './AddButton';
-import { initialCustomerValue } from 'kokoas-client/src/pages/customer/register/form';
 import { DeleteButton } from './DeleteButton';
 import { Summary } from './Summary';
 import { CustomerInputDetails } from './CustomerInputDetails';
+import { initCustomerValue } from '../../form';
 
 export const CustomersInput = () => {
   const { control } = useTypedFormContext();
@@ -98,7 +98,12 @@ export const CustomersInput = () => {
 
       {!isMaxCust && (
       <AddButton 
-        onClick={() => append(initialCustomerValue)}
+        onClick={() => {
+          append({ 
+            ...initCustomerValue, 
+            isSameAddress: true,
+          });
+        }}
       />
       )}
 

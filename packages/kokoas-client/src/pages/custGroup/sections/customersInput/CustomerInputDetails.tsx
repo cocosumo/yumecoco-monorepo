@@ -2,8 +2,8 @@ import { Divider, Stack } from '@mui/material';
 import { ControlledTextField } from '../../fields/ControlledTextField';
 import { SelectGender } from './SelectGender';
 import { Birthdate } from './birthdate/Birthdate';
-import { Postal } from './address/postal/Postal';
 import { CustomerSectionContainer } from './CustomerSectionContainer';
+import { CustomerAddressSection } from './address/CustAddressSection';
 
 export const CustomerInputDetails = ({
   index,
@@ -13,7 +13,7 @@ export const CustomerInputDetails = ({
 
   return (
     <Stack
-      spacing={2}
+      spacing={4}
       divider={<Divider />}
     >
       <CustomerSectionContainer>
@@ -46,18 +46,10 @@ export const CustomerInputDetails = ({
         </Stack>
       </CustomerSectionContainer>
      
+      <CustomerAddressSection index={index} />
+
       <CustomerSectionContainer>
-        <Postal index={index} />
-        <ControlledTextField 
-          name={`customers.${index}.${'address1'}`}
-          label='住所（県市区町村）'
-          placeholder='愛知県豊川市千歳通'
-        />
-        <ControlledTextField 
-          name={`customers.${index}.${'address2'}`}
-          label='住所（番地以降）'
-          placeholder='２番地１９マンション２３号'
-        />
+
       </CustomerSectionContainer>
 
     </Stack>

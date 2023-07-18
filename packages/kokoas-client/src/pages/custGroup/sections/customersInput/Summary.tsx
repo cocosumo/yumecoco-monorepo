@@ -15,6 +15,7 @@ export const Summary = ({
       <Typography 
         fontWeight={'bold'}
         color={'text.secondary'}
+        fontSize={18}
         sx={{ width: 100 }}
       >
         {label}

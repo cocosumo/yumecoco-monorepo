@@ -1,6 +1,6 @@
 import { TForm, TFormCustomer } from './schema';
 
-const initCustomerValue: TFormCustomer = {
+export const initCustomerValue: TFormCustomer = {
   custId: '',
   custName: '',
   custNameReading: '',

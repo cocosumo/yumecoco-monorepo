@@ -53,14 +53,12 @@ export const validationSchema = Yup
   plannedPaymentDate: dateValidation
     .when(getFieldName('undecidedPaymentDate'), {
       is: false,
-      then: dateValidation.required('入金予定日を設定してください'),
+      then: (schema) => schema.required('入金予定日を設定してください'),
     }),
 
   exceedChecked: Yup.boolean()
     .when(getFieldName('exceededContract'), {
       is: true,
-      then: Yup
-        .boolean()
-        .oneOf([true], '契約金の超過確認にチェックが入っていません'),
+      then: (schema) => schema.oneOf([true], '契約金の超過確認にチェックが入っていません'),
     }),
 });

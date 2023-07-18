@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
@@ -49,7 +49,9 @@ export const SelectGender = ({
               ))}
               
             </Select>
-
+            <FormHelperText>
+              {' '}
+            </FormHelperText>
           </FormControl>);
       }}
     />

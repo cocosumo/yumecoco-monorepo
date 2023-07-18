@@ -1,27 +1,37 @@
-import { Controller } from 'react-hook-form';
-import { useTypedFormContext } from '../../../hooks/useTypedHooks';
-import { Box } from '@mui/material';
+import {  FormGroup, FormHelperText, Stack } from '@mui/material';
+import { ControlledNumberInput } from './ControlledNumberInput';
 
 export const Birthdate = ({
   index,
 }:{
   index: number,
 }) => {
-  const { control } = useTypedFormContext();
   
   return (
-    <Box
-      sx={{ 
-        bgcolor: 'background.paper',
-        border: '1px solid',
-        //borderColor: error ? 'red' : 'grey.500',
-        borderRadius: 1,
-        p: '2px 4px', 
-        display: 'flex', 
-        alignItems: 'center', 
-      }}
-    >
-      Hello
-    </Box>
+    <FormGroup>
+      <Stack direction='row' width={300}>
+        <ControlledNumberInput
+          index={index}
+          name='birthYear'
+          suffix={'年'}
+        />
+        <ControlledNumberInput
+          index={index}
+          name='birthMonth'
+          suffix={'月'}
+        />
+        <ControlledNumberInput
+          index={index}
+          name='birthDay'
+          suffix={'日'}
+        />
+
+      </Stack>
+      <FormHelperText>
+        {'生年月日：<任意>個別設定可能'}
+      </FormHelperText>
+    </FormGroup>
+    
+
   );
 };

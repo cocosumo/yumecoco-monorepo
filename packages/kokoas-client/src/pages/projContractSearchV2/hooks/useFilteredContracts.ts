@@ -1,6 +1,6 @@
 import addDays from 'date-fns/addDays';
 
-import { useAllContracts, useCustGroups, useProjects } from 'kokoas-client/src/hooksQuery';
+import { useAllContracts, useCustGroups, useCustomers, useProjects } from 'kokoas-client/src/hooksQuery';
 import { calcProfitRate, formatDataId } from 'libs';
 import { TEnvelopeStatus, roles } from 'types';
 import { initialValues } from '../form';
@@ -27,6 +27,7 @@ export interface ContractRow {
   contractAmount: number,
   grossProfit: number,
   profitRate: number,
+  custNamesKana: string,
   //latestInvoiceDate: string,
   //latestInvoiceAmount: number,
   //plannedPaymentDate: string,
@@ -52,6 +53,7 @@ export const useFilteredContracts = () => {
     mainSearch,
     amountFrom,
     amountTo,
+    custName,
     contractDateFrom,
     contractDateTo,
     order = initialValues.order,
@@ -68,9 +70,10 @@ export const useFilteredContracts = () => {
 
   const { data: projData } = useProjects();
   const { data: custGroupData } = useCustGroups();
+  const { data: custData } = useCustomers(); 
 
   return useAllContracts({
-    enabled: !!projData && !!custGroupData,
+    enabled: !!projData && !!custGroupData && !!custData,
     select: useCallback((d) => {
 
       if (!projData || !custGroupData) return;
@@ -120,13 +123,36 @@ export const useFilteredContracts = () => {
 
         /* 顧客情報 */
         const {
-          custNames,
           cocoAGNames,
           yumeAGNames,
           storeName,
+          members,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
 
+        /* 顧客名 */
+        const custIds = members?.value?.map(({ value: { custId } }) => custId.value) || [];
+        const custDatas = custData?.filter(({ uuid }) => custIds.includes(uuid.value)) || [];
 
+        // Group into comma delimited string
+        const {
+          custNames,
+          custNamesKana,
+        } = custDatas.reduce<{
+          custNames: string,
+          custNamesKana: string,
+        }>((custAcc, custCur) => {
+          const { fullName, fullNameReading } = custCur;
+          const { custNames: _custNames, custNamesKana: _custNamesKana } = custAcc;
+
+          return {
+            custNames: _custNames ? `${_custNames}, ${fullName.value}` : fullName.value,
+            custNamesKana: _custNamesKana ? `${_custNamesKana}, ${fullNameReading.value}` : fullNameReading.value,
+          };
+        }, {
+          custNames: '',
+          custNamesKana: '',
+        });
+          
 
 
         const taxRate = +tax.value || 0.1;
@@ -165,7 +191,8 @@ export const useFilteredContracts = () => {
           //plannedPaymentDate: plannedPaymentDate?.value || '',
           //invoiceId: invoiceId?.value || '',
 
-          custName: custNames?.value || '-',
+          custName: custNames || '-',
+          custNamesKana: custNamesKana || '-',
           projName: projName?.value || '-',
           store: storeName?.value || '-',
           contractAmount: totalAmountAfterTax,
@@ -178,7 +205,7 @@ export const useFilteredContracts = () => {
 
         /* 絞り込み */
         const contractDateMil = contractDate.value ? new Date(contractDate.value) : undefined ;
-
+        const isMatchCustName = !custName || custNames?.includes(custName) || custNamesKana?.includes(custName); 
         const isMainSearch = !mainSearch || Object.values(resultRow).some((val) => val.toString().includes(mainSearch));
         const isAboveMinAmount = !(amountFrom && totalAmountAfterTax < +amountFrom);
         const isBelowMaxAmount = !(amountTo && totalAmountAfterTax > +amountTo);
@@ -203,6 +230,7 @@ export const useFilteredContracts = () => {
 
         // 含むかどうか判定、
         if (isMainSearch
+          && isMatchCustName
           && isAboveMinAmount
           && isBelowMaxAmount
           && afterContractDateFrom
@@ -230,6 +258,7 @@ export const useFilteredContracts = () => {
     }, [
       projData,
       custGroupData,
+      custData,
       mainSearch,
       amountFrom,
       amountTo,
@@ -244,6 +273,8 @@ export const useFilteredContracts = () => {
       contractStepMain,
       contractStepTencho,
       stores,
+      custName,
+      projTypes,
     ]),
   });
 

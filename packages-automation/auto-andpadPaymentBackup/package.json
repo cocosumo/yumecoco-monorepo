@@ -1,5 +1,5 @@
 {
-  "name": "autopaymentalert",
+  "name": "autoandpadpaymentbackup",
   "version": "0.0.0",
   "devDependencies": {},
   "dependencies": {
@@ -10,6 +10,6 @@
     "auto-common": "*"
   },
   "scripts": {
-    "start" : "nodemon ./index.ts"
+    "start" : "ts-node --files ./index.ts -T"
   }
 }

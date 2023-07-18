@@ -30,7 +30,7 @@ export const validationSchema =  Yup.object().shape(
               is: (isSameAddress: boolean, index: number) => {
                 return index === 0 || index > 0 && !isSameAddress;
               },
-              then: Yup.string().matches(postalRegExp, '半角数字。例：4418124'),
+              then: (schema) => schema.matches(postalRegExp, '半角数字。例：4418124'),
             }),
 
           'phone1': Yup.string().matches(phoneRegExp, '半角数字。例：07012641265')
@@ -41,14 +41,14 @@ export const validationSchema =  Yup.object().shape(
           'phone2Rel': Yup.string()
             .when('phone2', {
               is: (val: string) => !!val,
-              then: Yup.string().required('連絡先の続柄を選択してください'),
+              then: (schema)  => schema.email('連絡先の続柄を選択してください'), 
             }),
 
           'email': Yup.string().email('有効なメールアドレスを入力ください。例：info@cocosumo.jp'),
           'emailRel': Yup.string()
             .when('email', {
               is: (val: string) => !!val,
-              then: Yup.string().required('連絡先の続柄を選択してください。'),
+              then: (schema) => schema.email('連絡先の続柄を選択してください'),
             }),
 
         } as Partial<Record<CustomerInstanceKeys, any>>),

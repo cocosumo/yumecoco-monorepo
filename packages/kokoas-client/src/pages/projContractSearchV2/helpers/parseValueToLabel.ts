@@ -29,6 +29,8 @@ export const parseValueToLabel = <T extends KForm>(
 
     case 'mainSearch': return `検索ワード：${value}`;
 
+    case 'custName': return `顧客名：${value}`;
+
     case 'stores': return (value || []) as string[];
 
     case 'projTypes': return (value || []) as string[];

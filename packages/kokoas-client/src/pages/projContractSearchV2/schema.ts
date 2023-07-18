@@ -6,6 +6,8 @@ z.setErrorMap(zodErrorMapJA());
 export const schema = z.object({
   orderBy: z.string().optional(),
   order: z.enum(['asc', 'desc']).optional(),
+  custName: z.string().optional(),
+
   contractDateFrom: z.date().nullable(),
   contractDateTo: z.date().nullable(),
   amountFrom: z.number({ coerce: true }).nullable(),

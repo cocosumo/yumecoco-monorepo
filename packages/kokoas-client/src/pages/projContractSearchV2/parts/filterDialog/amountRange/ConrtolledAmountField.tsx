@@ -18,7 +18,10 @@ export const ControlledAmountField = ({
       name={name}
       control={control}
       render={({
-        field,
+        field: {
+          value,
+          ...otherFields
+        },
         fieldState: {
           isTouched,
           isDirty,
@@ -32,7 +35,8 @@ export const ControlledAmountField = ({
             fullWidth
             error={showError}
             type='number'
-            {...field}            
+            value={value || ''}
+            {...otherFields}            
           />
         );
       }}

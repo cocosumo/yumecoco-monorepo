@@ -1,8 +1,8 @@
 import fs from 'fs';
 import { connectToBrowserPage } from 'auto-common/src/connectToBrowserPage';
 import { downloadPaymentfile } from './downloadPaymentsData';
-import path from 'path';
 import { describe, it, expect } from '@jest/globals';
+import { dir, filePath as csvFilePath } from '../../config';
 
 
 /**
@@ -24,12 +24,9 @@ describe('Download Payment File', () => {
       browser,
     } = await connectToBrowserPage();
 
-    const tempFolderPath = path.join(__dirname, '__TEMP__');
-    const csvFilePath = `${tempFolderPath}/入金一覧.csv`;
-
     // フォルダが存在しない場合は作成
-    if (!fs.existsSync(tempFolderPath)) {
-      fs.mkdirSync(tempFolderPath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
     }
 
     const initialMtimeMs = getFileModifiedTime(csvFilePath);

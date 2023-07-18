@@ -29,7 +29,8 @@ export const validationSchema =  Yup.object().shape(
       .required('必須です。'),
     'notifyTo': Yup.array().when('isNotify', {
       is: true,
-      then: Yup.array().min(1, '「担当者を通知する」に☑を入れましたが、担当者が選択されていません。'),
+      then: (schema) => schema.min(1, '「担当者を通知する」に☑を入れましたが、担当者が選択されていません。'),
+      //then: Yup.array().min(1, '「担当者を通知する」に☑を入れましたが、担当者が選択されていません。'),
     }),
 
   } as Partial<Record<MemoFormKeys, any>>,

@@ -1,11 +1,8 @@
 import { useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
-import { useNavigate } from 'react-router-dom';
 import { useTypedFormContext } from './useTypedHooks';
 import { useSaveCustGroup } from 'kokoas-client/src/hooksQuery';
-import { KForm } from '../schema';
 import { formToDBCustomers } from '../api/formToDBCustomers';
 import { formToDBCustGroup } from '../api/formToDBCustGroup';
-import { pages } from '../../Router';
 
 export const useSubmitHandler = () => {
   const { setSnackState } = useSnackBar();
@@ -13,7 +10,6 @@ export const useSubmitHandler = () => {
 
   const {
     handleSubmit,
-    getValues,
   } = useTypedFormContext();
 
   const { mutateAsync: saveCustGroupMutation } = useSaveCustGroup();
@@ -41,6 +37,7 @@ export const useSubmitHandler = () => {
     },
 
     (errors) => {
+      // eslint-disable-next-line no-console
       console.warn(errors); // 保存できない原因で、残す
       setSnackState({
         open: true,

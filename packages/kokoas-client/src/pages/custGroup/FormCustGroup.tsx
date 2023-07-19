@@ -1,12 +1,14 @@
 import { Form, FormProvider, useForm } from 'react-hook-form';
 import { TForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import { PageSubTitle3, PageTitle3 } from 'kokoas-client/src/components';
 import { useResolveParams } from './hooks/useResolveParams';
 import { OfficersInput } from './sections/officersInput/OfficersInput';
 import { DevTool } from '@hookform/devtools';
 import { CustomersInput } from './sections/customersInput/CustomersInput';
+import { MemoInput } from './sections/memoInput/MemoInput';
+import { Actions } from './sections/actions/Actions';
 
 export const FormCustGroup = () => {
   const initialValues = useResolveParams();
@@ -36,8 +38,11 @@ export const FormCustGroup = () => {
           <PageSubTitle3 label={'担当者情報'} />
           <OfficersInput />
 
+          <PageSubTitle3 label={'備考'} />
+          <MemoInput />
 
-
+          <Divider />
+          <Actions />
 
         </Stack>
 

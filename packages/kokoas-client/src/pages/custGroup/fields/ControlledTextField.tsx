@@ -36,8 +36,12 @@ export const ControlledTextField = ({
           error,
           isTouched,
         },
+        formState: {
+          isSubmitted,
+        },
       }) => {
 
+        const showError = !!error?.message && (isTouched || isSubmitted);
 
         return (
           <TextField 
@@ -49,8 +53,8 @@ export const ControlledTextField = ({
               maxWidth,
             }}
             size='small'
-            error={isTouched && !!error}
-            helperText={error?.message || helperText}
+            error={showError}
+            helperText={showError ? error?.message : helperText}
             disabled={disabled}
             required={required}
           />

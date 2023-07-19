@@ -9,12 +9,14 @@ const contactsFields: Array<{
   relationField: KFormCustomer,
   label: string,
   placeholder: string,
+  required?: boolean,
 }> = [
   {
     contactField: 'phone1',
     relationField: 'phone1Rel',
     label: '電話番号１',
     placeholder: '000-0000-0000',
+    required: true,
   },
   {
     contactField: 'phone2',
@@ -44,6 +46,7 @@ export const ContactInput = ({
         relationField,
         label,
         placeholder,
+        required,
       }) => {
         return (
           <Stack
@@ -57,10 +60,12 @@ export const ContactInput = ({
               label={label}
               placeholder={placeholder}
               width={200}
+              required={required}
             />
             <ContactRelation
               index={index}
               name={relationField}
+              required={required}
             />
           </Stack>
         );

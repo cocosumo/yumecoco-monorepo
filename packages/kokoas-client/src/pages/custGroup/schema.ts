@@ -3,11 +3,16 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
+const requiredString = z.string().nonempty({
+  message: '必須です。',
+});
+
 const customerSchema = z.object({
   custId: z.string(),
 
-  custName: z.string().nonempty(),
-  custNameReading: z.string().nonempty(),
+  custName: requiredString,
+
+  custNameReading: requiredString,
 
   gender: z.string(),
 
@@ -21,8 +26,8 @@ const customerSchema = z.object({
 
   isSameAddress: z.boolean(),
 
-  phone1: z.string(),
-  phone1Rel: z.string(),
+  phone1: requiredString,
+  phone1Rel: requiredString,
 
   phone2: z.string(),
   phone2Rel: z.string(),
@@ -35,13 +40,17 @@ const customerSchema = z.object({
 /** MAIN SCHEMA */
 export const schema = z.object({
   custGroupId: z.string(),
-  store: z.string(),
-  cocoAG1: z.string().nonempty(),
+  store: requiredString,
+
+  cocoAG1: requiredString,
   cocoAG2: z.string(),
-  yumeAG1: z.string().nonempty(),
+
+  yumeAG1: requiredString,
   yumeAG2: z.string(),
+
   memo: z.string(),
-  customers: z.array(customerSchema),
+  customers: z.array(customerSchema)
+    .min(1, '顧客情報を入力してください。'),
 
   isDeleted: z.boolean(),
 

@@ -1,15 +1,17 @@
 import { Controller } from 'react-hook-form';
 import { KFormCustomer } from '../../../schema';
 import { useTypedFormContext } from '../../../hooks/useTypedHooks';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { relations } from 'types';
 
 export const ContactRelation = ({
   index,
   name,
+  required,
 } : {
   index: number,
   name: KFormCustomer,
+  required?: boolean,
 }) => {
   const { control } = useTypedFormContext();
   return (
@@ -19,26 +21,38 @@ export const ContactRelation = ({
       render={({
         field: {
           onChange,
-          value,
+          ...otherFields
+        },
+        fieldState: { 
+          error, 
+          isTouched,
+        },
+        formState: {
+          isSubmitted,
         },
       }) => {
+
+        const showError = !!error && (isTouched || isSubmitted);
+
         return (
           <FormControl
             size='small'
             sx={{
               width: 200,
             }}
+            required={required}
+            error={showError}
           >
             <InputLabel>
               続柄
             </InputLabel>
             <Select
-              value={value}
               onChange={(e) => {
                 onChange(e.target.value);
               }}
               label='続柄'
               size='small'
+              {...otherFields}
             >
               {/* Empty */}
               <MenuItem value={''}>
@@ -59,6 +73,9 @@ export const ContactRelation = ({
                 })
               }
             </Select>
+            <FormHelperText>
+              {showError && error.message}
+            </FormHelperText>
           </FormControl>
         );
       }}

@@ -13,11 +13,11 @@ export const initCustomerValue: TFormCustomer = {
   address2: '',
   isSameAddress: false,
   phone1: '',
-  phone1Rel: '契約者',
+  phone1Rel: '',
   phone2: '',
-  phone2Rel: '契約者',
+  phone2Rel: '',
   email: '',
-  emailRel: '契約者',
+  emailRel: '',
   
 };
 

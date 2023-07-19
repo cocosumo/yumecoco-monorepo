@@ -22,12 +22,14 @@ export const CustomerInputDetails = ({
           name={`customers.${index}.${'custName'}`}
           label='氏名'
           placeholder='山田　太郎'
+          required
         />
 
         <ControlledTextField 
           name={`customers.${index}.${'custNameReading'}`}
           label='氏名フリガナ'
           placeholder='ヤマダ　タロウ'
+          required
         />
 
         <Stack

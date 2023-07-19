@@ -37,10 +37,10 @@ export const schema = z.object({
   custGroupId: z.string(),
   store: z.string(),
   cocoAG1: z.string().nonempty(),
-  cocoAG2: z.string().nonempty(),
+  cocoAG2: z.string(),
   yumeAG1: z.string().nonempty(),
-  yumeAG2: z.string().nonempty(),
-  memo: z.string().nonempty(),
+  yumeAG2: z.string(),
+  memo: z.string(),
   customers: z.array(customerSchema),
 
   isDeleted: z.boolean(),

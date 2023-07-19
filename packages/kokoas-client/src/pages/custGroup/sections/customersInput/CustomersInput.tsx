@@ -64,8 +64,7 @@ export const CustomersInput = () => {
                   width={'100%'}
                 >
                   <Summary 
-                    label={index === 0 ? '代表者' : `顧客${index + 1}`}
-                    custName={'テスト'}
+                    index={index}
                   />
 
                   {index !== 0 && (

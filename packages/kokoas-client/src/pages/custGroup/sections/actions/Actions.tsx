@@ -1,7 +1,6 @@
 import { Alert, Button, Paper, Stack } from '@mui/material';
 import { SaveButton } from './SaveButton';
 import { RelatedProjButton } from './RelatedProjButton';
-import { RelatedContracts } from './RelatedContracts';
 import { DeleteButton } from './DeleteButton';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
@@ -44,7 +43,6 @@ export const Actions = () => {
         >
           <SaveButton />
           <RelatedProjButton disabled={isDirty} />
-          <RelatedContracts disabled={isDirty} />
         </Stack>
       
         <DeleteButton disabled={isDirty} />

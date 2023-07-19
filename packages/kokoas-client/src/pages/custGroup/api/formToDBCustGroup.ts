@@ -13,6 +13,7 @@ export const formToDBCustGroup = (
     yumeAG1,
     yumeAG2,
     isDeleted,
+    memo,
   } = formData;
 
 
@@ -33,6 +34,7 @@ export const formToDBCustGroup = (
   return {
     isDeleted: { value: (+isDeleted).toString() },
     storeId: { value: store },
+    memo: { value: memo },
     agents: {
       type: 'SUBTABLE',
       value: agents?.map(([type, empId])=>{

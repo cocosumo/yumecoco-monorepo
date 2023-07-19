@@ -9,17 +9,26 @@ import { DevTool } from '@hookform/devtools';
 import { CustomersInput } from './sections/customersInput/CustomersInput';
 import { MemoInput } from './sections/memoInput/MemoInput';
 import { Actions } from './sections/actions/Actions';
+import { useEffect } from 'react';
 
 export const FormCustGroup = () => {
-  const initialValues = useResolveParams();
+  const formValues = useResolveParams();
   const formReturn = useForm<TForm>({
-    defaultValues: initialValues,
+    defaultValues: formValues,
     resolver: zodResolver(schema),
   });
 
   const {
     custGroupId,
-  } = initialValues;
+  } = formValues;
+
+  const { 
+    reset,
+  } = formReturn;
+
+  useEffect(() => {
+    reset(formValues);
+  }, [reset, formValues]);
 
 
   return (

@@ -41,7 +41,7 @@ export function DetailsTabs(props : {
       </Box>
       <TabPanel value="1">
         <DTCustomer loading={!!isFetching} record={custGroupRec} />
-        <ButtonEdit link={`${pages.custGroupEdit}?${generateParams({
+        <ButtonEdit link={`${pages.custGroupEditV2}?${generateParams({
           custGroupId,
         })}`}
         />

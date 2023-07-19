@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 //import { FormikConstruction } from './projRegister/FormikConstruction';
-import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
+//import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
 import { FormikProjProspect } from './projProspect';
 import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import { SettingsPage } from './settingsPage/SettingsPage';
@@ -26,8 +26,8 @@ import { FormCustGroup } from './custGroup/FormCustGroup';
 // RouteMatch, useParams : TS access to dynamic route
 
 export const pages = {
-  custGroupReg: '/custgroup/register',
-  custGroupEdit: '/custgroup/edit',
+  //custGroupReg: '/custgroup/register',
+  //custGroupEdit: '/custgroup/edit',
 
   custGroupEditV2: '/custgroup/edit/v2',
 
@@ -70,8 +70,8 @@ const Router = () => (
     <Route path={`${pages.projSearch}`} element={<FormProjectSearch />} />
 
     {/* 顧客グループ */}
-    <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} />
-    <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} />
+    {/* <Route path={`${pages.custGroupEdit}`} element={<FormikIndividualCustomer />} /> */}
+    {/* <Route path={pages.custGroupReg} element={<FormikIndividualCustomer key={'register'} />} /> */}
     
     {/* 顧客グループV2 */}
     <Route path={`${pages.custGroupEditV2}`} element={<FormCustGroup />} />

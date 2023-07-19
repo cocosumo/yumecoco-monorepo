@@ -43,7 +43,7 @@ export const CellItem = (
 
     case '顧客番号': return (
       <Link
-        to={`${pages.custGroupEdit}?${generateParams({
+        to={`${pages.custGroupEditV2}?${generateParams({
           projId: row['工事番号'],
           custGroupId: row['顧客番号uuid'],
         })}`}

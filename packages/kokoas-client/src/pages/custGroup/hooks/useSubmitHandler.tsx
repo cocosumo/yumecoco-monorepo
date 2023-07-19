@@ -1,14 +1,16 @@
-import { useSnackBar } from 'kokoas-client/src/hooks';
+import { useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useTypedFormContext } from './useTypedHooks';
 import { useSaveCustGroup } from 'kokoas-client/src/hooksQuery';
 import { KForm } from '../schema';
 import { formToDBCustomers } from '../api/formToDBCustomers';
 import { formToDBCustGroup } from '../api/formToDBCustGroup';
+import { pages } from '../../Router';
 
 export const useSubmitHandler = () => {
   const { setSnackState } = useSnackBar();
-  const navigate = useNavigate();
+  const navigate = useNavigateWithQuery();
+
   const {
     handleSubmit,
     getValues,
@@ -30,7 +32,12 @@ export const useSubmitHandler = () => {
         customerRecords,
       });
 
-      console.log('save!', newCustGroupId);
+      navigate(
+        'custGroupEditV2', 
+        {
+          custGroupId: newCustGroupId,
+        },
+      );
     },
 
     (errors) => {

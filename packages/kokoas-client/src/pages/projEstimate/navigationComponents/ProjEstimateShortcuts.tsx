@@ -19,7 +19,7 @@ export const ProjEstimateShortcuts = () => {
       projEstimateId,
       custGroupId,
     ] = getValues(['projId', 'estimateId', 'custGroupId' ]);
-    navigate(`${pages.custGroupEdit}?${generateParams({ 
+    navigate(`${pages.custGroupEditV2}?${generateParams({ 
       projId, 
       custGroupId: custGroupId,
       projEstimateId: projEstimateId || '' })}`);

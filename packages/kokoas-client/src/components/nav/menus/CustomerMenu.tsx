@@ -29,7 +29,7 @@ export default function CustomerMenu() {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <CollapsibleList open={open}>
-        <LinkListItemButton to={pages.custGroupReg} icon={<AppRegistrationIcon />} text={'新規登録'}  />
+        <LinkListItemButton to={pages.custGroupEditV2} icon={<AppRegistrationIcon />} text={'新規登録'}  />
         <LinkListItemButton to={pages.projSearch} icon={<PersonSearchIcon />} text={'顧客検索'}  />
       </CollapsibleList>
     </>

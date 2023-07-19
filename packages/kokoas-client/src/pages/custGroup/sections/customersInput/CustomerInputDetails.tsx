@@ -4,6 +4,7 @@ import { SelectGender } from './SelectGender';
 import { Birthdate } from './birthdate/Birthdate';
 import { CustomerSectionContainer } from './CustomerSectionContainer';
 import { CustomerAddressSection } from './address/CustAddressSection';
+import { ContactInput } from './contactInput/ContactInput';
 
 export const CustomerInputDetails = ({
   index,
@@ -13,7 +14,7 @@ export const CustomerInputDetails = ({
 
   return (
     <Stack
-      spacing={4}
+      spacing={2}
       divider={<Divider />}
     >
       <CustomerSectionContainer>
@@ -48,9 +49,7 @@ export const CustomerInputDetails = ({
      
       <CustomerAddressSection index={index} />
 
-      <CustomerSectionContainer>
-
-      </CustomerSectionContainer>
+      <ContactInput index={index} />
 
     </Stack>
   );

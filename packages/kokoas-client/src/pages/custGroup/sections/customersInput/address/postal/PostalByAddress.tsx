@@ -19,6 +19,7 @@ export const PostalByAddress = ({
 
       <Button
         variant='outlined'
+        size='small'
         onClick={async () => {
           const address = getValues(`customers.${index}.address1`);
 

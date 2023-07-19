@@ -19,6 +19,7 @@ export const AddressByPostal = ({
 
       <Button
         variant='outlined'
+        size='small'
         onClick={async () => {
           const postal = getValues(`customers.${index}.postal`);
           const result = await queryClient.fetchQuery(

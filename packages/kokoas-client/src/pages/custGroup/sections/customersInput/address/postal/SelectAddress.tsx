@@ -35,6 +35,7 @@ export const SelectAddress = ({
       <Tooltip title="住所の各項目を選択する">
         <Button
           variant='outlined'
+          size='small'
           onClick={() => setOpen(true)}
         >
           住所を選択

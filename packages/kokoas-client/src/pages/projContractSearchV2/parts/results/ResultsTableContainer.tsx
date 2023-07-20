@@ -1,5 +1,5 @@
 import { Paper, Table, TableContainer } from '@mui/material';
-import { grey, red } from '@mui/material/colors';
+import { grey, yellow } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
 export const ResultsTableContainer = ({
@@ -19,7 +19,7 @@ export const ResultsTableContainer = ({
         // clickable rows
         '& tbody tr:hover': {
           cursor: 'pointer',
-          backgroundColor: red[50],
+          backgroundColor: yellow[50],
         },
       }}
     >

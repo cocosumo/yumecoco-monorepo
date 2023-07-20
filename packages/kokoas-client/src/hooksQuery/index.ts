@@ -46,6 +46,7 @@ export * from './useInvoiceTotalByProjId';
 export * from './useKintoneDownloadByFileKey';
 export * from './useKintoneFile';
 export * from './useKintoneFileBase64';
+export * from './useLogicalDeleteCustGroupById';
 export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';

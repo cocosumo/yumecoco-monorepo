@@ -15,6 +15,7 @@ export const TRowLayout = ({
   profitRate,
   createdAt,
   updatedAt,
+  onClick,
 }: {
   contractStatus: ReactNode,
   projDataId: ReactNode,
@@ -29,9 +30,12 @@ export const TRowLayout = ({
   profitRate: ReactNode,
   createdAt?: ReactNode,
   updatedAt?: ReactNode,
+  onClick?: () => void,
 }) => {
   return (
-    <TableRow >
+    <TableRow 
+      onClick={onClick}
+    >
       <TableCell >
         <Box pb={1}>
           {contractStatus}

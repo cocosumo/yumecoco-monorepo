@@ -10,6 +10,6 @@
     "auto-common": "*"
   },
   "scripts": {
-    "start" : "ts-node --files ./index.ts -T"
+    "start" : "ts-node --files ./main.ts -T"
   }
 }

@@ -88,6 +88,8 @@ export const handleUpload = async (
   console.log('wait for import button to appear');
 
   await page.click(selectors.btnImport);
+
+  console.log('upload completed!');
 };
 
 /**

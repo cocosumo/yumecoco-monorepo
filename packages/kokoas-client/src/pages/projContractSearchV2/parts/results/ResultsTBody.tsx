@@ -36,6 +36,7 @@ export const ResultsTBody = ({
         custName,
         contractDate,
 
+        signMethod,
         createdAt,
         updatedAt,
       })=>{
@@ -66,6 +67,7 @@ export const ResultsTBody = ({
                 />
               </Tooltip>
               )}
+            signMethod={signMethod === 'wetInk' ? '手書' : '電子'}
             projDataId={projDataId}
             projName={projName}
             store={store}

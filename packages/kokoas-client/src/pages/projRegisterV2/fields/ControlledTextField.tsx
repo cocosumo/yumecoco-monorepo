@@ -11,6 +11,7 @@ export const ControlledTextField = ({
   disabled = false,
   required,
   helperText,
+  fullWidth,
 }:{
   name: KForm,
   label: string,
@@ -19,6 +20,7 @@ export const ControlledTextField = ({
   disabled?: boolean,
   required?: boolean,
   helperText?: string,
+  fullWidth?: boolean,
 }) => {
   const {
     control,
@@ -50,6 +52,7 @@ export const ControlledTextField = ({
             helperText={error?.message || helperText}
             disabled={disabled}
             required={required}
+            fullWidth={fullWidth}
           />
         );
       }}

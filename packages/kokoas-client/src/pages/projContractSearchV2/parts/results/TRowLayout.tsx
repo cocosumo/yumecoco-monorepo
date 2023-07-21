@@ -1,4 +1,4 @@
-import { Box, TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const TRowLayout = ({
@@ -15,6 +15,7 @@ export const TRowLayout = ({
   profitRate,
   createdAt,
   updatedAt,
+  signMethod,
   onClick,
 }: {
   contractStatus: ReactNode,
@@ -30,6 +31,7 @@ export const TRowLayout = ({
   profitRate: ReactNode,
   createdAt?: ReactNode,
   updatedAt?: ReactNode,
+  signMethod?: ReactNode,
   onClick?: () => void,
 }) => {
   return (
@@ -37,12 +39,13 @@ export const TRowLayout = ({
       onClick={onClick}
     >
       <TableCell >
-        <Box pb={1}>
-          {contractStatus}
-        </Box>
-        <Box pb={1}>
-          {projDataId}
-        </Box>
+   
+        {contractStatus}
+        <br />
+        {projDataId}
+        <br />
+        {signMethod}
+     
       </TableCell>
       <TableCell>
         {projName}

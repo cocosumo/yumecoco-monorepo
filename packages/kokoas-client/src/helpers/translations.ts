@@ -1,5 +1,5 @@
 export const translations: Record<string, string> = {
-
+  signMethod: '署名方法',
   cocoAG: 'ここすもAG',
   cocoConst: 'ここすも工事',
   completed: '完了',

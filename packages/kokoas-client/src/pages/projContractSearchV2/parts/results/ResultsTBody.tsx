@@ -6,7 +6,6 @@ import { docusignLocale } from 'kokoas-server/src/api/docusign/locale/docusign';
 import { useNavigate } from 'react-router-dom';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
-import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
 
 export const ResultsTBody = ({
   items,
@@ -25,7 +24,7 @@ export const ResultsTBody = ({
         contractStatus,
         contractId,
         custGroupId,
-        projId,
+        //projId,
         projDataId,
         projName,
         contractAmount,
@@ -37,6 +36,7 @@ export const ResultsTBody = ({
         custName,
         contractDate,
 
+        signMethod,
         createdAt,
         updatedAt,
       })=>{
@@ -63,21 +63,12 @@ export const ResultsTBody = ({
                   label={label || '未処理'}
                   size="small"
                   color={isCompleted ? 'success' : 'default'}
-                  onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
+                  //onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
                 />
               </Tooltip>
               )}
-            projDataId={(
-              <ButtonWithToolTip
-                title={'工事情報へ移動'}
-                size="small"
-                variant='outlined'
-                fullWidth
-                onClick={() => navigate(`${pages.projEditV2}?${generateParams({ projId, contractId })}`)}
-              >
-                {projDataId}
-              </ButtonWithToolTip>
-              )}
+            signMethod={signMethod === 'wetInk' ? '手書' : '電子'}
+            projDataId={projDataId}
             projName={projName}
             store={store}
             yumeAG={yumeAG}
@@ -94,7 +85,7 @@ export const ResultsTBody = ({
               .toNumber()}%`}
             createdAt={createdAt}
             updatedAt={updatedAt}
- 
+            onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
           />
         );
       })}

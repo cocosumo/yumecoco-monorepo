@@ -11,6 +11,8 @@ export const useNewValuesFromParams = () => {
     const {
       contractDateFrom,
       contractDateTo,
+      order,
+      orderBy,
     } = urlParams;
     // 一部のステップが選択されている場合は、未完了チェックボックスをオンにする
     const someStepsSelected = stepsKeys.some((key) => urlParams[key]);
@@ -18,6 +20,8 @@ export const useNewValuesFromParams = () => {
     return {
       ...initialValues,
       ...urlParams,
+      order: order || 'desc',
+      orderBy: orderBy || 'contractDate',
       contractIncomplete: someStepsSelected,
       contractDateFrom: contractDateFrom ? parseISO(contractDateFrom as unknown as string) : null,
       contractDateTo: contractDateTo ? parseISO(contractDateTo as unknown as string) : null,

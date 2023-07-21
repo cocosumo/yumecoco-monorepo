@@ -3,14 +3,16 @@ import { SaveButton } from './SaveButton';
 import { RelatedProjButton } from './RelatedProjButton';
 import { DeleteButton } from './DeleteButton';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
+import { useReset } from '../../hooks/useReset';
 
 export const Actions = () => {
   const { 
-    reset,
     formState: {
       isDirty,
     },
   } = useTypedFormContext();
+
+  const handleReset  = useReset();
 
   return (
     <Stack
@@ -23,7 +25,7 @@ export const Actions = () => {
           <Button
             color='inherit'
             size='small'
-            onClick={() => reset()}
+            onClick={handleReset}
           >
             リセット
           </Button>)}

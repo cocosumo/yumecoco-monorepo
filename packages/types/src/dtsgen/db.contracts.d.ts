@@ -20,6 +20,7 @@ declare namespace DBContracts {
     signMethod: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
     totalProfit: kintone.fieldTypes.Number;
+    projType: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     finalAmtDate: kintone.fieldTypes.Date;
     finishDaysAfterContract: kintone.fieldTypes.Number;

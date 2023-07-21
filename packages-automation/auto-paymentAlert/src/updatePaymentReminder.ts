@@ -1,7 +1,22 @@
-export const updatePaymentReminder = () =>  {
-  
+import { headFullBrowser } from 'auto-common';
+import { login } from '../../auto-kintone';
+import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
+
+
+
+export const updatePaymentReminder = async () => {
+  console.log('start update payment reminder');
+
+  // ブラウザを開く
+  const browser = await headFullBrowser();
+  const page = await browser.newPage();
+
   // kintoneにログインする
+  await login(page);
+
   // 契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得
+  await extractUpdatedRecords();
+
   // リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出 - (1)
   // (1)に対応するandpadのレコードに対して処理を行う -(2)
   // (2)-1 サブテーブルに情報を格納し、[alertState]を[1]にし、通知対象者を設定する

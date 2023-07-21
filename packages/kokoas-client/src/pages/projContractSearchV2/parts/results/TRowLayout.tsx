@@ -1,4 +1,4 @@
-import { Box, Stack, TableCell, TableRow } from '@mui/material';
+import { TableCell, TableRow } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const TRowLayout = ({
@@ -39,15 +39,13 @@ export const TRowLayout = ({
       onClick={onClick}
     >
       <TableCell >
-        <Stack spacing={1}>
-          <span>
-            {contractStatus}
-          </span>
-          <span>
-            {projDataId}
-          </span>
-        </Stack>
-
+   
+        {contractStatus}
+        <br />
+        {projDataId}
+        <br />
+        {signMethod}
+     
       </TableCell>
       <TableCell>
         {projName}

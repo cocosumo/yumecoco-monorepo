@@ -10,6 +10,7 @@ import { CustomersInput } from './sections/customersInput/CustomersInput';
 import { MemoInput } from './sections/memoInput/MemoInput';
 import { Actions } from './sections/actions/Actions';
 import { useEffect } from 'react';
+import { DeletedAlert } from './sections/DeletedAlert';
 
 export const FormCustGroup = () => {
   const formValues = useResolveParams();
@@ -37,9 +38,12 @@ export const FormCustGroup = () => {
         noValidate
       >
         <Stack spacing={2}>
+
           <PageTitle3 
             label={`顧客登録（個人）${custGroupId ? '編集' : '登録'}`}
           />
+
+          <DeletedAlert />
 
           <PageSubTitle3 label={'顧客情報'} />
           <CustomersInput />

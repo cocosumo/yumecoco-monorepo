@@ -1,9 +1,12 @@
 import { saveCustGroup } from './saveCustGroup';
 
-export const logicalDeleteByCustGroupId = (
+export const logicalDeleteByCustGroupId = ({
+  custGroupId,
+  shouldDelete,
+}:{
   custGroupId: string, 
-  shouldDelete = true,
-) => {
+  shouldDelete: boolean, // falseの場合、復元
+}) => {
   
   return saveCustGroup({
     custGroupId,

@@ -2,8 +2,9 @@ import { Alert, Button, Paper, Stack } from '@mui/material';
 import { SaveButton } from './SaveButton';
 import { RelatedProjButton } from './RelatedProjButton';
 import { DeleteButton } from './DeleteButton';
-import { useTypedFormContext } from '../../hooks/useTypedHooks';
+import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedHooks';
 import { useReset } from '../../hooks/useReset';
+import { RestoreButton } from './RestoreButton';
 
 export const Actions = () => {
   const { 
@@ -11,6 +12,10 @@ export const Actions = () => {
       isDirty,
     },
   } = useTypedFormContext();
+
+  const isDeleted = useTypedWatch({
+    name: 'isDeleted',
+  }) as boolean;
 
   const handleReset  = useReset();
 
@@ -47,7 +52,12 @@ export const Actions = () => {
           <RelatedProjButton disabled={isDirty} />
         </Stack>
       
-        <DeleteButton disabled={isDirty} />
+        {!isDeleted && (
+          <DeleteButton disabled={isDirty} />
+        )}
+        {isDeleted && (
+          <RestoreButton disabled={isDirty} />
+        )}
       </Stack>
 
     </Stack>

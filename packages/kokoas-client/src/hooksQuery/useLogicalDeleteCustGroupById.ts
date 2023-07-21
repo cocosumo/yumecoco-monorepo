@@ -17,7 +17,7 @@ export const useLogicalDeleteCustGroupById  = () => {
       onSuccess: () => {
         setSnackState({
           open: true,
-          message: '論理削除が出来ました。',
+          message: '成功しました',
           severity: 'success',
         });
         qc.invalidateQueries({ queryKey: [AppIds.custGroups] });

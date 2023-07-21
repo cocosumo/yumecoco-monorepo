@@ -3,7 +3,7 @@ import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { useLogicalDeleteCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
-export const DeleteButton = ({
+export const RestoreButton = ({
   disabled,
 }:{
   disabled: boolean,
@@ -22,32 +22,32 @@ export const DeleteButton = ({
   
   return (
     <Tooltip
-      title={'顧客を削除します。'}
+      title={'顧客を復元します。'}
     >
       <Button
         variant='contained'
-        color='error'
+        color='success'
         disabled={disabled}
         onClick={() => {
           setDialogState({
             open: true,
-            title: '顧客を削除しますか？',
+            title: '顧客を復元しますか？',
             handleYes: () => {
               const custGroupId = getValues('custGroupId');
               mutate({
                 custGroupId,
-                shouldDelete: true,
+                shouldDelete: false,
               });
             },
             content: (
               <Alert severity='warning'>
-                論理削除します。よろしいですか？
+                論理復元します。よろしいですか？
               </Alert>
             ),
           });
         }}
       >
-        削除
+        復元
       </Button>
     </Tooltip>
   );

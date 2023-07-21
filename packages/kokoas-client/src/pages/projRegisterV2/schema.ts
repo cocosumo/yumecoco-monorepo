@@ -13,8 +13,9 @@ export const schema = z.object({
   projTypeName: z.string(),
 
   projTypeId: nonEmptyDropdown,
-  
   projName: z.string().nonempty(),
+  otherProjType: z.string().optional(),
+
   projDataId: z.string(),
   createdDate: z.string(),
   storeCode: z.string(),
@@ -66,6 +67,9 @@ export const schema = z.object({
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,
+
+      projTypeName,
+      otherProjType,
     },
     ctx,
   ) => {
@@ -87,6 +91,16 @@ export const schema = z.object({
         });
       }
     }
+
+    if (projTypeName.includes('その他')) {
+      if (!otherProjType) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '工事種別を入力してください。',
+          path: ['otherProjType'],
+        });
+      }
+    } 
   });
 
   

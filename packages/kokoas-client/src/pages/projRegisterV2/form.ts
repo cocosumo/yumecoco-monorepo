@@ -5,7 +5,11 @@ export const initialValues : TForm = {
   projTypeName: '',
   projTypeId: '',
   projName: '',
+  otherProjType: '',
+  
   projDataId: '',
+
+
   createdDate: '',
   storeCode: '',
   custGroupId: null,

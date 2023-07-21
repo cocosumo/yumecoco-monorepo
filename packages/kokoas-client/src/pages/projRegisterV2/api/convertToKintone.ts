@@ -33,7 +33,8 @@ export const convertToKintone = (
     
     projTypeId, 
     projName,
-    //sisAgentConfirmed, 
+    otherProjType,
+
     postal, 
     address1, 
     address2,
@@ -61,7 +62,9 @@ export const convertToKintone = (
 
     projTypeId: { value: projTypeId },
     projName: { value: projName },
-    //isAgentConfirmed: { value: (+isAgentConfirmed).toString() },
+    otherProjType: { value: otherProjType || '' },
+    
+
     postal: { value: postal },
     address1: { value: address1 },
     address2: { value: address2 },

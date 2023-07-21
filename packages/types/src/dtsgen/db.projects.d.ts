@@ -8,6 +8,7 @@ declare namespace DBProjects {
     uuid: kintone.fieldTypes.SingleLineText;
     finalPostal: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;
+    otherProjType: kintone.fieldTypes.SingleLineText;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
     dataId: kintone.fieldTypes.SingleLineText;
     isShowFinalAddress: kintone.fieldTypes.Number;

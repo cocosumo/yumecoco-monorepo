@@ -38,6 +38,8 @@ export const fieldMapJa : Record<KForm, string> = {
   projName: '工事名',
   projTypeId: '工事種別ID',
   projTypeName: '工事種別名',
+  otherProjType: 'その他工事種別',
+
   status: 'ステータス',
   storeCode: '店舗コード',
   storeId: '店舗ID',

@@ -40,6 +40,7 @@ export const ResultsTHead = () => {
         profitRate={<ResultsTHeadSortLabel headerLabel='profitRate' />}
         createdAt={<ResultsTHeadSortLabel headerLabel='createdAt' />}
         updatedAt={<ResultsTHeadSortLabel headerLabel='updatedAt' />}
+        signMethod={<ResultsTHeadSortLabel headerLabel='signMethod' />}
       />
 
     </TableHead>

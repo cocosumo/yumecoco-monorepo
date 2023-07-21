@@ -2,7 +2,7 @@ import addDays from 'date-fns/addDays';
 
 import { useAllContracts, useCustGroups, useCustomers, useProjects } from 'kokoas-client/src/hooksQuery';
 import { calcProfitRate, formatDataId } from 'libs';
-import { TEnvelopeStatus, roles } from 'types';
+import { TEnvelopeStatus, TSignMethod, roles } from 'types';
 import { initialValues } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
@@ -33,6 +33,7 @@ export interface ContractRow {
   //plannedPaymentDate: string,
   //invoiceId: string,
 
+  signMethod: TSignMethod,
   createdAt: string,
   updatedAt: string,
 }
@@ -97,6 +98,8 @@ export const useFilteredContracts = () => {
 
           作成日時: createdAt,
           更新日時: updatedAt,
+
+          signMethod,
         } = cur; // 契約のデータ;
 
         // 契約進捗の中に何も選択されていないかチェック
@@ -175,6 +178,7 @@ export const useFilteredContracts = () => {
         const envelopeStatus = envStatus.value as TEnvelopeStatus;
 
         const resultRow: ContractRow = {
+          signMethod: signMethod.value as TSignMethod,
           contractStatus: envelopeStatus,
           currentContractRole: currentContractStep?.roleName || '',
           currentContractName: currentContractStep?.name || '',

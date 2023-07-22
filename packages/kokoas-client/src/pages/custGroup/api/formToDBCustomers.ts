@@ -45,9 +45,9 @@ export const formToDBCustomers = (formData: TForm): Array<Partial<ICustomers>>  
             .map(([type, val, rel]) => ({
               id: '',
               value: {
-                contactValue: { value: val },
-                contactType: { value: type },
-                relation: { value: rel },
+                contactValue: { value: val || '' },
+                contactType: { value: type || '' },
+                relation: { value: rel || '' },
               },
             })),
 

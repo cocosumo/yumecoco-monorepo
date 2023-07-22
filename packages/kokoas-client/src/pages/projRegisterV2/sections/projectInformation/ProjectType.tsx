@@ -16,9 +16,11 @@ export const ProjectType = ({
   const { data: projTypeOptions } = useProjTypes({
     select: (d) => d
       ?.map(({
-        label, uuid,
+        label,
+        projectName,
+        uuid,
       }) => ({
-        label: label?.value,
+        label: projectName.value || label?.value,
         value: uuid?.value,
       })),
   });

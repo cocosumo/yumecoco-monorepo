@@ -1,6 +1,6 @@
-/* import { RequestHandler } from 'express';
+import { RequestHandler } from 'express';
 import validator from 'validator';
-import { askForReading } from 'api-openAI';
+import { askForReading } from 'api-openai';
 
 export const reqAskForReading: RequestHandler<
 unknown,
@@ -39,4 +39,3 @@ unknown,
       .send(`OPENAI:reqAskForReadingが失敗しました。${sanitizedError}`);
   }
 };
- */

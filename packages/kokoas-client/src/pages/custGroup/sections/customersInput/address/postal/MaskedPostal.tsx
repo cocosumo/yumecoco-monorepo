@@ -19,8 +19,12 @@ const PostalMask = forwardRef<HTMLInputElement, CustomProps>(
         definitions={{
           '#': /[1-9]/,
         }}
+        unmask={false}
         inputRef={ref}
+        // DO NOT USE onChange TO HANDLE CHANGES!
+        // USE onAccept INSTEAD
         onAccept={(value: any) => {
+          console.log('onAccept', value);
           onChange({ target: { name: props.name, value } });
         }}
         overwrite
@@ -58,16 +62,23 @@ export const MaskedPostal = ({
           error,
           isTouched,
         },
+        formState: {
+          isSubmitted
+        }
       }) => {
-        const showError = !!error && isTouched;
+        const showError = !!error && (isTouched || isSubmitted);
+
         return (
           <TextField
             size='small'
             label={label}
-            name="postal"
             id="postal"
             value={value}
-            onChange={onChange}
+            onInput={(e) => {
+              const newValue = (e.target as HTMLInputElement).value;
+              onChange(newValue)
+            }}
+            // onChange, is flaky when used with IMaskInput
             onBlur={onBlur}
             inputRef={ref}
             disabled={disabled}

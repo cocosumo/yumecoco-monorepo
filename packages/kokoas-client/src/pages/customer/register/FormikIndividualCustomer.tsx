@@ -36,7 +36,7 @@ export const FormikIndividualCustomer = () => {
         handleYes: ()=>navigate(`${pages.projEditV2}?${generateParams({
           custGroupId,
         })}`),
-        handleNo: ()=>navigate(`${pages.custGroupEdit}?${generateParams({
+        handleNo: ()=>navigate(`${pages.custGroupEditV2}?${generateParams({
           custGroupId,
         })}`),
       });

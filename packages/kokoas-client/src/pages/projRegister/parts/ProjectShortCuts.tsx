@@ -20,7 +20,7 @@ export const ProjectShortCuts = () => {
       shortcuts={[
         {
           type: 'custGroup',
-          handleClick: ()=>navigate(`${pages.custGroupEdit}?${urlParams}`),
+          handleClick: ()=>navigate(`${pages.custGroupEditV2}?${urlParams}`),
         },
         {
           type: 'prospect',

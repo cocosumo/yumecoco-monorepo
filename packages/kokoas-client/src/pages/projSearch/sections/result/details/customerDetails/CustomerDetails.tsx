@@ -56,7 +56,7 @@ export const CustomerDetails = ({
     >
 
       <EditButton 
-        href={`${pages.custGroupEdit}?${generateParams({ custGroupId })}`}
+        href={`${pages.custGroupEditV2}?${generateParams({ custGroupId })}`}
         title='顧客を編集する'
       />
 

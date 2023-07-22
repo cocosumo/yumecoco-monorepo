@@ -219,4 +219,5 @@ export interface DownloadInvoiceResponse {
 
 export type ApiNodes =
   | 'docusign'
-  | 'kokoas';
+  | 'kokoas'
+  | 'openai';

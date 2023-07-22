@@ -54,3 +54,7 @@ export const docusignEndpoints = {
   /** 修正画面 */
   correct: 'contract/correct',
 } as const;
+
+export const openAIEndpoints = {
+  generateReading: 'generateReading',
+};

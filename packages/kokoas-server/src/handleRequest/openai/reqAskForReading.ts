@@ -1,4 +1,4 @@
-/* import { RequestHandler } from 'express';
+import { RequestHandler } from 'express';
 import validator from 'validator';
 import { askForReading } from 'api-openAI';
 
@@ -39,4 +39,3 @@ unknown,
       .send(`OPENAI:reqAskForReadingが失敗しました。${sanitizedError}`);
   }
 };
- */

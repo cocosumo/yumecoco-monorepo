@@ -2,7 +2,7 @@ import { loadEnv } from 'libs';
 import express from 'express';
 import docusignSend from './route/docusign';
 import kokoas from './route/kokoas';
-//import openai from './route/openai';
+import openai from './route/openai';
 import { ApiNodes } from 'types';
 import axios from 'axios';
 
@@ -19,12 +19,12 @@ app.get('/', (_, res )=>{
 
 const docusignApiRoot : ApiNodes = 'docusign';
 const kokoasApiRoot : ApiNodes = 'kokoas';
-//const openAIRoot : ApiNodes = 'openai';
+const openAIRoot : ApiNodes = 'openai';
 
 
 app.use(`/${docusignApiRoot}`, docusignSend);
 app.use(`/${kokoasApiRoot}`, kokoas);
-//app.use(`/${openAIRoot}`, openai );
+app.use(`/${openAIRoot}`, openai );
 
 // cocosumo proxy
 app.get('/wp/*', (req, res) => {

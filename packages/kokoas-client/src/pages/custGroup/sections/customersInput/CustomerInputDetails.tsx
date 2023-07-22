@@ -1,10 +1,11 @@
 import { Divider, Stack } from '@mui/material';
-import { ControlledTextField } from '../../fields/ControlledTextField';
 import { SelectGender } from './SelectGender';
 import { Birthdate } from './birthdate/Birthdate';
 import { CustomerSectionContainer } from './CustomerSectionContainer';
 import { CustomerAddressSection } from './address/CustAddressSection';
 import { ContactInput } from './contactInput/ContactInput';
+import { CustName } from './CustName';
+import { CustNameReading } from './CustNameReading';
 
 export const CustomerInputDetails = ({
   index,
@@ -18,18 +19,12 @@ export const CustomerInputDetails = ({
       divider={<Divider />}
     >
       <CustomerSectionContainer>
-        <ControlledTextField 
-          name={`customers.${index}.${'custName'}`}
-          label='氏名'
-          placeholder='山田　太郎'
-          required
+        <CustName 
+          index={index}
         />
 
-        <ControlledTextField 
-          name={`customers.${index}.${'custNameReading'}`}
-          label='氏名フリガナ'
-          placeholder='ヤマダ　タロウ'
-          required
+        <CustNameReading
+          index={index}
         />
 
         <Stack

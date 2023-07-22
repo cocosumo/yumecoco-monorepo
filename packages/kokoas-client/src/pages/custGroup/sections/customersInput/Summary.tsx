@@ -33,8 +33,6 @@ export const Summary = ({
   
   const hasErrors = Boolean(errors);
 
-  console.log(hasErrors);
-
   return (
     <Stack
       direction={'row'}

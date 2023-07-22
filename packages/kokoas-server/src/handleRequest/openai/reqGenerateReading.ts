@@ -11,8 +11,6 @@ unknown,
 > = async (req, res) => {
   const body = req.body;
 
-  console.log(req);
-
   try {
     console.log('OpenAI Generating reading...', body);
 

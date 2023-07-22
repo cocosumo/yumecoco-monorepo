@@ -10,9 +10,6 @@ export const useResolveParams = () => {
   const {
     custGroupId,
   } = useURLParamsV2();
-
-  console.log('custGroupId', custGroupId);
-
   
   const { data: recCustGroup } = useCustGroupById(custGroupId || '');
 

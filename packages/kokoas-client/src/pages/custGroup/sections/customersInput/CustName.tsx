@@ -48,7 +48,18 @@ export const CustName = ({
           onChange,
           ...otherField
         },
+        fieldState:{
+          error,
+          isTouched,
+        },
+        formState: {
+          isSubmitted,
+        },
+
       }) => {
+
+        const showError = (isSubmitted || isTouched) && !!error;
+
         return (
           <TextField
             label='氏名'
@@ -57,6 +68,7 @@ export const CustName = ({
             inputRef={ref}
             placeholder='山田　太郎'
             required
+            error={showError}
             onChange={async (e) => {
               const newValue = e.target.value;
               handleSetReading(newValue);
@@ -73,6 +85,9 @@ export const CustName = ({
                 </InputAdornment> 
                 : null,
             }}
+            helperText={showError
+              ? error?.message
+              : ''}
           />
         );
       }}

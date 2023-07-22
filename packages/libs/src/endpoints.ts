@@ -57,4 +57,5 @@ export const docusignEndpoints = {
 
 export const openAIEndpoints = {
   generateReading: 'generateReading',
+  askForReading: 'askForReading',
 };

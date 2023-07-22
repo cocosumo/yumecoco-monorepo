@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import validator from 'validator';
-import { generateReading } from 'api-openAI';
+import { askForReading } from 'api-openAI';
 
-export const reqGenerateReading: RequestHandler<
+export const reqAskForReading: RequestHandler<
 unknown,
 unknown,
 {
@@ -12,7 +12,7 @@ unknown,
   const body = req.body;
 
   try {
-    console.log('OpenAI Generating reading...', body);
+    console.log('OpenAI asking for reading...', body);
 
     const {
       text = '',
@@ -25,15 +25,15 @@ unknown,
       return;
     }
  
-    const result = await generateReading(text);
+    const result = await askForReading(text);
 
-    console.log('Sending result...', result.choices[0].text);
+    console.log('Sending result...', result.choices[0].message?.content);
     res.status(200).json(result);
     
   } catch (error) {
     const sanitizedError = validator.escape(error.message) ;
     res
       .status(400)
-      .send(`OPENAI:generateReadingが失敗しました。${sanitizedError}`);
+      .send(`OPENAI:reqAskForReadingが失敗しました。${sanitizedError}`);
   }
 };

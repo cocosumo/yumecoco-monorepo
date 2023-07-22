@@ -1,9 +1,9 @@
 
 import { kintoneProxyWrapper, openAIEndpoints } from 'libs';
 import { openAIBaseUrl } from './config';
-import { CreateEditResponse } from 'openai';
+import { CreateChatCompletionRequest } from 'openai';
  
-export const generateReading = async (text: string) => {
+export const askForReading = async (text: string) => {
 
   try {
 
@@ -11,7 +11,7 @@ export const generateReading = async (text: string) => {
 
     const endpoint = [
       openAIBaseUrl,
-      openAIEndpoints.generateReading,
+      openAIEndpoints.askForReading,
     ].join('/');
   
 
@@ -28,7 +28,7 @@ export const generateReading = async (text: string) => {
     // eslint-disable-next-line no-console
     console.log('AI request', data);
 
-    return data as CreateEditResponse;
+    return data as CreateChatCompletionRequest;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);

@@ -23,7 +23,16 @@ export const CustNameReading = ({
           onChange,
           ...otherField
         },
+        fieldState:{ 
+          error,
+          isTouched,
+        },
+        formState: {
+          isSubmitted,
+        },
       }) => {
+        const showError = (isSubmitted || isTouched) && !!error;
+
         return (
           <TextField
             label='氏名フリガナ'
@@ -36,6 +45,8 @@ export const CustNameReading = ({
               const newValue = e.target.value;
               onChange(newValue);
             }}
+            error={showError}
+            helperText={showError ? error?.message : '氏名フリガナはAIにより生成されており、正確でない可能性があります。必要に応じて修正してください。'}
           />
         );
       }}

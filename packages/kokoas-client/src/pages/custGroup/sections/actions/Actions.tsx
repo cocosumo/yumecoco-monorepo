@@ -13,9 +13,15 @@ export const Actions = () => {
     },
   } = useTypedFormContext();
 
-  const isDeleted = useTypedWatch({
-    name: 'isDeleted',
-  }) as boolean;
+  const [
+    isDeleted,
+    custGroupId,
+  ] = useTypedWatch({
+    name: [
+      'isDeleted',
+      'custGroupId',
+    ],
+  });
 
   const handleReset  = useReset();
 
@@ -49,7 +55,14 @@ export const Actions = () => {
           spacing={2}
         >
           <SaveButton />
-          <RelatedProjButton disabled={isDirty} />
+          
+          {!!custGroupId && (
+          <RelatedProjButton 
+            disabled={isDirty}
+            custGroupId={custGroupId as string}
+          />
+          )}
+ 
         </Stack>
       
         {!isDeleted && (

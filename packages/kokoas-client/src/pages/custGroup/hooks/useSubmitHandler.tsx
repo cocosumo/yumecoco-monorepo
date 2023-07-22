@@ -1,6 +1,6 @@
 import { useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
 import { useTypedFormContext } from './useTypedHooks';
-import { useSaveCustGroup } from 'kokoas-client/src/hooksQuery';
+import { useAllEmployees, useSaveCustGroup } from 'kokoas-client/src/hooksQuery';
 import { formToDBCustomers } from '../api/formToDBCustomers';
 import { formToDBCustGroup } from '../api/formToDBCustGroup';
 
@@ -13,6 +13,7 @@ export const useSubmitHandler = () => {
   } = useTypedFormContext();
 
   const { mutateAsync: saveCustGroupMutation } = useSaveCustGroup();
+  const { data: employees } = useAllEmployees();
 
   const handleSave = handleSubmit(
     async (data) => {
@@ -20,7 +21,7 @@ export const useSubmitHandler = () => {
         custGroupId,
       } = data;
       const customerRecords = formToDBCustomers(data);
-      const custGroupRecord = formToDBCustGroup(data);
+      const custGroupRecord = formToDBCustGroup(data, employees || []);
 
       const { id: newCustGroupId } = await saveCustGroupMutation({
         custGroupId: custGroupId,

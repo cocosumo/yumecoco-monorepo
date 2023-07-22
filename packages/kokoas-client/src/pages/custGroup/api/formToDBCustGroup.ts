@@ -1,8 +1,9 @@
-import { ICustgroups } from 'types';
+import { ICustgroups, IEmployees } from 'types';
 import { TForm } from '../schema';
 
 export const formToDBCustGroup = (
   formData: TForm,
+  employees: IEmployees[],
 ): Partial<ICustgroups> => {
 
 
@@ -15,6 +16,12 @@ export const formToDBCustGroup = (
     isDeleted,
     memo,
   } = formData;
+
+  const getEmpNameById = (id: string) => employees
+    .find(({ uuid }) => uuid.value === id)?.文字列＿氏名.value || '';
+
+
+  
 
 
   /* Only include specified agents */
@@ -43,7 +50,7 @@ export const formToDBCustGroup = (
           value: {
             agentType: { value: type },
             employeeId: { value: empId },
-            employeeName: { value: 'auto' },
+            employeeName: { value: getEmpNameById(empId) },
             email: { value: 'auto' },
           },
         };

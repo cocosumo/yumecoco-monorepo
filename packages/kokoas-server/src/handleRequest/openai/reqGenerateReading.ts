@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+/* import { RequestHandler } from 'express';
 import validator from 'validator';
 import { generateReading } from 'api-openAI';
 
@@ -37,3 +37,4 @@ unknown,
       .send(`OPENAI:generateReadingが失敗しました。${sanitizedError}`);
   }
 };
+ */

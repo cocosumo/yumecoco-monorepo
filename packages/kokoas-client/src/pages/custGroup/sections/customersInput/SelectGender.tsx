@@ -2,7 +2,7 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 
-const genderChoices = ['女性', '男性'] as const;
+const genderChoices = ['女性', '男性'];
 
 export const SelectGender = ({
   index,
@@ -17,6 +17,7 @@ export const SelectGender = ({
       render={({
         field: {
           onChange,
+          value,
           ...restFields
         },
       })=> {
@@ -33,19 +34,22 @@ export const SelectGender = ({
               性別
             </InputLabel>
             <Select
+              value={value}
               onChange={(e) => onChange(e.target.value)}
               label={'性別'}
               {...restFields}
             >
               <MenuItem value="">
                 <em>
-                  --- 指定ないし ---
+                  ---
                 </em>
               </MenuItem>
-              {genderChoices.map((g) => (
-                <MenuItem key={g} value={g}>
-                  {g}
-                </MenuItem>
+              {(!!value && !genderChoices.includes(value) 
+                ? [...genderChoices, value] 
+                : genderChoices).map((g) => (
+                  <MenuItem key={g} value={g}>
+                    {g}
+                  </MenuItem>
               ))}
               
             </Select>

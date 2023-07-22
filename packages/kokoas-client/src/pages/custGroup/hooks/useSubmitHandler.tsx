@@ -1,4 +1,4 @@
-import { useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
+import { useConfirmDialog, useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
 import { useTypedFormContext } from './useTypedHooks';
 import { useAllEmployees, useSaveCustGroup } from 'kokoas-client/src/hooksQuery';
 import { formToDBCustomers } from '../api/formToDBCustomers';
@@ -6,6 +6,7 @@ import { formToDBCustGroup } from '../api/formToDBCustGroup';
 
 export const useSubmitHandler = () => {
   const { setSnackState } = useSnackBar();
+  const { setDialogState } = useConfirmDialog();
   const navigate = useNavigateWithQuery();
 
   const {
@@ -23,18 +24,21 @@ export const useSubmitHandler = () => {
       const customerRecords = formToDBCustomers(data);
       const custGroupRecord = formToDBCustGroup(data, employees || []);
 
-      const { id: newCustGroupId } = await saveCustGroupMutation({
+      await saveCustGroupMutation({
         custGroupId: custGroupId,
         record: custGroupRecord,
         customerRecords,
       });
 
-      navigate(
-        'custGroupEditV2', 
-        {
-          custGroupId: newCustGroupId,
-        },
-      );
+      //if (!custGroupId) {
+      setDialogState({
+        title: '次へ進む',
+        content: '工事情報を登録しますか。',
+        handleYes: ()=>navigate('projEditV2', {
+          custGroupId,
+        }),
+      });
+      
     },
 
     (errors) => {

@@ -45,7 +45,10 @@ export const AddressByPostal = ({
             town,
           } = result;
           const newAddress1 = `${pref.value}${city.value}${town.value}`;
-          setValue(`customers.${index}.address1`, newAddress1);
+          setValue(`customers.${index}.address1`, newAddress1, {
+            shouldDirty: true,
+            shouldTouch: true,
+          });
           setSnackState({
             open: true,
             message: '郵便番号から住所を取得しました',

@@ -40,7 +40,10 @@ export const PostalByAddress = ({
             return;
           }
 
-          setValue(`customers.${index}.postal`, result);
+          setValue(`customers.${index}.postal`, result, {
+            shouldDirty: true,
+            shouldTouch: true,
+          });
           setSnackState({
             open: true,
             message: '住所から郵便番号を取得しました',

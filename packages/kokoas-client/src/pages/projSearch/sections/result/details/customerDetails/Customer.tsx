@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { getContactByType } from 'api-kintone/src/customers/helper/getContactByType';
-import { addressBuilder } from 'libs';
+import { addressBuilder, postalBuilder } from 'libs';
 import { dateBuilder } from 'libs/src/dateBuilder';
 import { useMemo } from 'react';
 import { ICustomers } from 'types';
@@ -61,7 +61,7 @@ export const Customer = ({
 
     ];
 
-    const newPostal = postalCode.value ? `〒${postalCode.value.slice(0, 3)}-${postalCode.value.slice(3)} ` : '';
+    const newPostal = postalBuilder(postalCode.value);
     const secondColumn: IDetail[] = [
       {
         label: '生年月日',

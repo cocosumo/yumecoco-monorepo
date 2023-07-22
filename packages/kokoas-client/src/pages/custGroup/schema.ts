@@ -32,7 +32,7 @@ const customerSchema = z.object({
   phone2: z.string(),
   phone2Rel: z.string(),
 
-  email: z.string(),
+  email: z.string().email(),
   emailRel: z.string(),
 
 });

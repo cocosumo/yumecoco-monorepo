@@ -1,7 +1,7 @@
 
 import { kintoneProxyWrapper, openAIEndpoints } from 'libs';
 import { openAIBaseUrl } from './config';
-import { CreateChatCompletionRequest } from 'openai';
+import { CreateChatCompletionResponse } from 'openai';
  
 export const askForReading = async (text: string) => {
 
@@ -21,6 +21,7 @@ export const askForReading = async (text: string) => {
       headers: { 'Content-Type': 'application/json' },
       data: { 
         text, 
+        user: kintone.getLoginUser().name,
       },
     });
     const { data } = result;
@@ -28,11 +29,13 @@ export const askForReading = async (text: string) => {
     // eslint-disable-next-line no-console
     console.log('AI request', data);
 
-    return data as CreateChatCompletionRequest;
+    return data as CreateChatCompletionResponse;
+
+
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
-    return null;
+    return undefined;
   }
 
 };

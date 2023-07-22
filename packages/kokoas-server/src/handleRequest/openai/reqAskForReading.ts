@@ -7,17 +7,19 @@ unknown,
 unknown,
 {
   text: string,
+  user: string,
 }
 > = async (req, res) => {
   const body = req.body;
 
   try {
-    console.log('OpenAI asking for reading...', body);
 
     const {
       text = '',
+      user = '',
     } = body;
 
+    console.log(`USER:${user} OpenAI Asking for reading... ${text}`);
 
     if (!text) {
      
@@ -25,9 +27,9 @@ unknown,
       return;
     }
  
-    const result = await askForReading(text);
+    const result = await askForReading(text, user);
 
-    console.log('Sending result...', result.choices[0].message?.content);
+    console.log('Sending result...', result.choices[0].message?.content, result.usage);
     res.status(200).json(result);
     
   } catch (error) {

@@ -46,7 +46,7 @@ export const CustNameReading = ({
               onChange(newValue);
             }}
             error={showError}
-            helperText={showError ? error?.message : '氏名フリガナはAIにより生成されており、正確でない可能性があります。必要に応じて修正してください。'}
+            helperText={showError ? error?.message : '氏名フリガナはchatGPT3.5により生成されており、正確でない可能性があります。必要に応じて修正してください。'}
           />
         );
       }}

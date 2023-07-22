@@ -54,9 +54,15 @@ export const CustomersInput = () => {
             <Accordion 
               key={id}
               expanded={expanded === id} onChange={handleChange(id)}
+              sx={{
+                '& div.Mui-expanded': {
+                  mb: 0,
+                },
+              }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
+      
               >
                 <Stack
                   direction={'row'}

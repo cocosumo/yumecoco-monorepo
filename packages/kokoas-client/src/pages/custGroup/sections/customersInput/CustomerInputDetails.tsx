@@ -17,6 +17,8 @@ export const CustomerInputDetails = ({
     <Stack
       spacing={2}
       divider={<Divider />}
+      mt={3} // prevent misclick to accordion
+
     >
       <CustomerSectionContainer>
         <CustName 

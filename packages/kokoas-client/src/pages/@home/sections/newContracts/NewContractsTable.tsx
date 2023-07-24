@@ -1,4 +1,4 @@
-import { LinearProgress, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow, Tooltip } from '@mui/material';
+import { LinearProgress, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import {  useLatestCompletedContracts } from 'kokoas-client/src/hooksQuery';
 import { grey } from '@mui/material/colors';
 import { CocoAgent } from './CocoAgent';
@@ -27,7 +27,6 @@ export const NewContractsTable = () => {
             storeName,
             projName,
             projId,
-            totalContractAmt,
             uuid: contractId,
           }) => {
             
@@ -75,7 +74,7 @@ export const NewContractsTable = () => {
     
                 </TableCell>
 
-                <TableCell sx={{
+                {/*<TableCell sx={{
                   color: grey[400],
                 }} align='right'
                 >
@@ -85,7 +84,7 @@ export const NewContractsTable = () => {
 
                     </span>
                   </Tooltip>
-                </TableCell>
+                </TableCell> */}
 
                 <TableCell width={'auto'} align='right'>
                   <OpenCertificate 

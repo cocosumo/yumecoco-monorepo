@@ -1,17 +1,31 @@
 import { IconButton, Tooltip } from '@mui/material';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import { CertViewer } from './certViewer/CertViewer';
+import { useState } from 'react';
 
 export const OpenCertificate = ({
   contractId,
 }:{
   contractId: string
 }) => {
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+
   return (
-    <Tooltip title={'契約報告書を開く'}>
-      <IconButton>
-        <CardGiftcardIcon />
-      </IconButton>
-    </Tooltip>
+    <>
+      <Tooltip title={'契約報告書を開く'}>
+        <IconButton onClick={handleOpen}>
+          <CardGiftcardIcon />
+        </IconButton>
+      </Tooltip>
+      <CertViewer 
+        open={open}
+        contractId={contractId}
+        handleClose={handleClose}
+      />
+    </>
+
 
   );
 };

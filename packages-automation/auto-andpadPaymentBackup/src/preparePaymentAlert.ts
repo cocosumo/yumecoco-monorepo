@@ -1,4 +1,4 @@
-import { headFullBrowser } from 'auto-common';
+import { getPageFromBrowser, headFullBrowser } from 'auto-common';
 import { login } from './login/login';
 import { downloadPaymentfile } from './downloadPaymentsData/downloadPaymentsData';
 import { uploadSingleCSV } from '../../auto-kintone/src/uploadCSV';
@@ -10,9 +10,11 @@ export const preparePaymentAlert = async () => {
 
   // ブラウザを開く
   const browser = await headFullBrowser();
-  const page = await browser.newPage();
+  const page = await getPageFromBrowser(browser);
+  // TODO クッキーの存在を確認
 
   await login(page); // andpadログイン
+  // TODO ログインに成功したら、クッキーの保存
 
   await downloadPaymentfile(page);
 

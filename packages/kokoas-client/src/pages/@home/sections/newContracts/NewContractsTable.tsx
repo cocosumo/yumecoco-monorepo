@@ -1,8 +1,8 @@
-import { IconButton, LinearProgress, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { LinearProgress, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableRow, Tooltip } from '@mui/material';
 import {  useLatestCompletedContracts } from 'kokoas-client/src/hooksQuery';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import { grey } from '@mui/material/colors';
 import { CocoAgent } from './CocoAgent';
+import { OpenCertificate } from './OpenCertificate';
 
 
 export const NewContractsTable = () => {
@@ -28,12 +28,12 @@ export const NewContractsTable = () => {
             projName,
             projId,
             totalContractAmt,
-            uuid,
+            uuid: contractId,
           }) => {
             
             return (
               <TableRow
-                key={uuid.value}
+                key={contractId.value}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell 
@@ -79,16 +79,19 @@ export const NewContractsTable = () => {
                   color: grey[400],
                 }} align='right'
                 >
-                  {`${(+totalContractAmt.value).toLocaleString()} 円`}
+                  <Tooltip title='契約金額'>
+                    <span>
+                      {`${(+totalContractAmt.value).toLocaleString()} 円`}
+
+                    </span>
+                  </Tooltip>
                 </TableCell>
 
                 <TableCell width={'auto'} align='right'>
-                  <IconButton>
-                    <CardGiftcardIcon />
-                  </IconButton>
+                  <OpenCertificate 
+                    contractId={contractId.value}
+                  />
                 </TableCell>
-
-      
               </TableRow>
             );
           })}

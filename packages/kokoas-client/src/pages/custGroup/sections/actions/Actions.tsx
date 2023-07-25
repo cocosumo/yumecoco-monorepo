@@ -1,4 +1,4 @@
-import { Alert, Button, Paper, Stack } from '@mui/material';
+import { Alert, Button, Paper, Stack, Tooltip } from '@mui/material';
 import { SaveButton } from './SaveButton';
 import { RelatedProjButton } from './RelatedProjButton';
 import { DeleteButton } from './DeleteButton';
@@ -33,13 +33,16 @@ export const Actions = () => {
       <Alert 
         severity='warning'
         action={(
-          <Button
-            color='inherit'
-            size='small'
-            onClick={handleReset}
-          >
-            リセット
-          </Button>)}
+          <Tooltip title={'最後に保存した状態に戻ります。'}>
+            <Button
+              color='inherit'
+              size='small'
+              onClick={handleReset}
+            >
+              リセット
+            </Button>
+     
+          </Tooltip>)}
       >
         保存されていない変更があります。
       </Alert>

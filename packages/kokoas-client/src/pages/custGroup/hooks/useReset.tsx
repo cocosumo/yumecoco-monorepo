@@ -11,7 +11,7 @@ export const useReset = () => {
   const { setDialogState } = useConfirmDialog();
   
   return () => setDialogState({
-    title: 'もう一度確認しますが、リセットしますか？',
+    title: 'リセットしますか？',
     content:  (
       <Alert severity="warning">
         最後に保存した状態に戻ります。

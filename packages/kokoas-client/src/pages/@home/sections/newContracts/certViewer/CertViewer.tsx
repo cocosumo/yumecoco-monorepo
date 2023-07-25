@@ -1,7 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
 import { useCallback, useRef } from 'react';
-import { toPng, toJpeg } from 'html-to-image';
+import {  toJpeg } from 'html-to-image';
+import { CertViewerContent } from './CertViewerContent';
 
 
 export const CertViewer = ({
@@ -23,7 +24,11 @@ export const CertViewer = ({
       return;
     }
 
-    toJpeg(ref.current, { cacheBust: true })
+    toJpeg(ref.current, { 
+      cacheBust: true, 
+      skipFonts: true,
+      
+    })
       .then((dataUrl) => {
         const link = document.createElement('a');
         link.download = 'my-image-name.png';
@@ -41,7 +46,6 @@ export const CertViewer = ({
       onClose={handleClose}
       open={open}
       maxWidth='md'
-      fullWidth
 
     >
       <DialogTitle>
@@ -50,12 +54,13 @@ export const CertViewer = ({
       <DialogContent
         ref={ref}
         sx={{
-          height: '80vh',
           color: 'red',
+          overflow: 'hidden',
         }}
       >
-        Hello
-        {contractId}
+        <CertViewerContent 
+          contractId={contractId}
+        />
       </DialogContent>
       <DialogActions >
         <Button

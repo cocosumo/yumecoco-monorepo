@@ -36,6 +36,7 @@ export * from './useEmployees';
 export * from './useEstimateById';
 export * from './useEstimates';
 export * from './useEstimatesByProjId';
+export * from './useExternalImg';
 export * from './useFilteredEmployees';
 export * from './useGenerateReading';
 export * from './useInvoices';

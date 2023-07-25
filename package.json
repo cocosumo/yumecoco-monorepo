@@ -106,6 +106,7 @@
     "@types/node-cron": "^3.0.8",
     "axios": "^1.4.0",
     "big.js": "^6.2.1",
+    "canvas": "^2.11.2",
     "cross-env": "^7.0.3",
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.0",

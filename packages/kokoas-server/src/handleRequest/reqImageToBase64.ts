@@ -21,9 +21,9 @@ unknown,
 
     if (!imageUrl) throw new Error('URLは指定されていません');
 
+
     const result = await axios.get(imageUrl, {
       responseType: 'arraybuffer',
-
     });
 
     const base64Img = Buffer.from(result.data, 'binary').toString('base64');

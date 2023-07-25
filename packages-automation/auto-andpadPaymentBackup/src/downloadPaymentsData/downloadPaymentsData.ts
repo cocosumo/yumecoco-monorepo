@@ -8,6 +8,7 @@ import { dir as downloadDir, fileName as outputFileName } from '../../config';
 
 
 export const downloadPaymentfile = async (page: Page) => {
+  console.log('downloading andpad payments file started.');
 
   const result = await downloadFile(
     page,
@@ -24,4 +25,5 @@ export const downloadPaymentfile = async (page: Page) => {
   // excelファイルのデータを読み込む
   xlsx.writeFile(workbook, path.join(downloadDir, outputFileName), { bookType: 'csv' });
 
+  console.log('downloading andpad payments file completed.');
 };

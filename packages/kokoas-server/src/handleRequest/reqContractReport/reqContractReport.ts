@@ -1,5 +1,4 @@
 
-import axios from 'axios';
 import { RequestHandler } from 'express';
 
 export const reqContractReport: RequestHandler<
@@ -19,9 +18,6 @@ unknown,
     console.log(req.body);
 
     if (!contractId) throw new Error('URLは指定されていません');
-
-
-    
 
     res.status(200).json({
       base64Img: 'base64Img',

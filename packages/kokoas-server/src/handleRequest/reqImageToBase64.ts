@@ -36,11 +36,6 @@ unknown,
 
     
   } catch (err) {
-    console.error(err?.message);
-    res.status(400).send(
-      err?.response?.res?.text ?? {
-        message: err?.message,
-      },
-    );
+    res.status(400).send(err);
   }
 };

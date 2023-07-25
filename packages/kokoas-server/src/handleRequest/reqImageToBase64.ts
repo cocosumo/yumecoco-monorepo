@@ -21,8 +21,9 @@ unknown,
 
     if (!imageUrl) throw new Error('URLは指定されていません');
 
+    const sanitizedImageUrl = imageUrl.replace(/ /g, '%20');
 
-    const result = await axios.get(imageUrl, {
+    const result = await axios.get(sanitizedImageUrl, {
       responseType: 'arraybuffer',
     });
 

@@ -1,4 +1,5 @@
 import { spawnSync } from 'child_process';
+import { decode, encode } from 'iconv-lite';
 import path from 'path';
 
 
@@ -9,24 +10,15 @@ export const runBatchFile = async (batchFileName: string) => {
   const batchFilePath = path.join(__dirname, batchFileName);
 
   // spawnメソッドを使ってバッチファイルを実行
-  const result = spawnSync(batchFilePath, [], { shell: true, encoding: 'ascii' });
+  const result = spawnSync(batchFilePath, []);
 
   // バッチファイルの実行が正常に終了した場合
-  console.log('stdout', result.stdout.toString());
-  /* childProcess('close', (code) => {
-    if (code === 0) {
-      console.log('バッチファイルの実行が完了しました');
-    } else {
-      console.error(`バッチファイルの実行中にエラーが発生しました。エラーコード: ${code}`);
-    }
-  }); */
+  const stdout = decode(result.stdout, 'Shift_JIS');
+  console.log('stdout', stdout);
 
   // バッチファイルの実行中にエラーが発生した場合
-  console.log('error::', result.stderr.toString());
-  console.log('error::', result.error?.message.toString());
-  /* childProcess.on('error', (err) => {
-    console.error(`エラーが発生しました: ${err.message}`);
-  }); */
-
+  const stderr = decode(result.stderr, 'Shift_JIS');
+  console.log('error::', stderr);
   console.log('batchFile process completed.');
+
 };

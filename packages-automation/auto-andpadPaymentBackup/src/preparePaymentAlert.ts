@@ -1,14 +1,14 @@
-import { getPageFromBrowser, headFullBrowser } from 'auto-common';
-import { login } from './login/login';
-import { downloadPaymentfile } from './downloadPaymentsData/downloadPaymentsData';
-import { uploadSingleCSV } from '../../auto-kintone/src/uploadCSV';
-import { AppIds } from 'config';
-import { filePath } from '../config';
+//import { getPageFromBrowser, headFullBrowser } from 'auto-common';
+//import { login } from './login/login';
+//import { downloadPaymentfile } from './downloadPaymentsData/downloadPaymentsData';
+import { runBatchFile } from '../../auto-kintone/cli-kintone-win/runBatchFile';
+
+
 
 export const preparePaymentAlert = async () => {
   console.log('start auto-paymentAlert');
 
-  // ブラウザを開く
+  /* // ブラウザを開く
   const browser = await headFullBrowser();
   const page = await getPageFromBrowser(browser);
   // TODO クッキーの存在を確認
@@ -16,12 +16,10 @@ export const preparePaymentAlert = async () => {
   await login(page); // andpadログイン
   // TODO ログインに成功したら、クッキーの保存
 
-  await downloadPaymentfile(page);
+  await downloadPaymentfile(page); */
 
-  // kintoneへのアップロード処理
-  await uploadSingleCSV(page, AppIds.andpadPayments.toString(), filePath, 'ID');
+  // kintoneアップロード
+  await runBatchFile('exportApp233.bat');
 
-  await page.waitForSelector('.dialog-ok-button-cybozu');
-
-  await page.browser().close();
+  /* await page.browser().close(); */
 };

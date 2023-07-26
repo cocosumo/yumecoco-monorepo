@@ -8,11 +8,11 @@ import { runBatchFile } from './runBatchFile';
  * @param filePath : タイムスタンプを取得するファイルのパス
  * @returns 
  */
-function getFileModifiedTime(filePath: string): number {
+const getFileModifiedTime = async (filePath: string) => {
   if (!fs.existsSync(filePath)) return 0;
   const stats = fs.statSync(filePath);
   return stats.mtimeMs;
-}
+};
 
 const csvFileName = 'exportApp233.csv';
 
@@ -20,7 +20,7 @@ describe('run batch file', () => {
   it('should export kintone app records', async () => {
 
     // フォルダが存在しない場合は作成
-    const initialMtimeMs = getFileModifiedTime(csvFileName);
+    const initialMtimeMs = await getFileModifiedTime(csvFileName);
 
     await runBatchFile('exportApp233.bat');
 
@@ -29,5 +29,6 @@ describe('run batch file', () => {
     // 処理実行前後で、ファイルの更新時間が変更されていることを確認する
     await expect(updatedMtimeMs).toBeGreaterThan(initialMtimeMs);
 
+    console.log('test');
   }, 10000);
 });

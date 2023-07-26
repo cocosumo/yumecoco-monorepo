@@ -46,6 +46,10 @@ export const initialValues : TForm = {
   cancelStatus: undefined,
   memo: '',
 
+  deliveryDate: null,
+  projFinDate: null,
+  payFinDate: null,
+
   logs: [],
 
 };

@@ -22,16 +22,15 @@ export const CustomersInput = () => {
     name: 'customers',
   });
 
-  const [expanded, setExpanded] = useState<string | false>(customers.length ? customers[0].id : false);
+  const [expanded, setExpanded] = useState<number | null>(0);
 
   const handleChange =
-    (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
+    (index: number) => (event: SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? index : null);
     };
 
   const custLength = customers.length;
   const isMaxCust  = custLength >= 3;
-
 
   return (
     <Stack 
@@ -53,7 +52,8 @@ export const CustomersInput = () => {
           return (
             <Accordion 
               key={id}
-              expanded={expanded === id} onChange={handleChange(id)}
+              expanded={expanded === index} 
+              onChange={handleChange(index)}
               sx={{
                 '& div.Mui-expanded': {
                   mb: 0,

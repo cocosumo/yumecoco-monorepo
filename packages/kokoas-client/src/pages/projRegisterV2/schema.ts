@@ -55,6 +55,10 @@ export const schema = z.object({
 
   memo: z.string().optional(),
 
+  deliveryDate: z.date().nullable(),
+  projFinDate: z.date().nullable(),
+  payFinDate: z.date().nullable(),
+
   logs: z.array(z.object({
     dateTime: z.date().optional(),
     log: z.string(),

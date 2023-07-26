@@ -72,6 +72,13 @@ export const ResultHead = () => {
             label='店舗名'
           />
         )}
+        projDataId={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='projDataId'
+            label='工事番号'
+          />
+        )}
         contractDate={(
           <EnhancedTableCell 
             existingQuery={query}
@@ -79,11 +86,25 @@ export const ResultHead = () => {
             label='契約日'
           />
         )}
-        projCompletedDate={(
+        deliveryDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='deliveryDate'
+            label='引渡日'
+          />
+        )}
+        payFinDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='payFinDate'
+            label='支払完了日'
+          />
+        )}
+        projFinDate={(
           <EnhancedTableCell 
             existingQuery={query}
-            fieldName='projCompletedDate'
-            label='完工日'
+            fieldName='projFinDate'
+            label='物件完了日'
           />
         )}
         createdAt={(
@@ -91,6 +112,13 @@ export const ResultHead = () => {
             existingQuery={query}
             fieldName='createdAt'
             label='作成日時'
+          />
+        )}
+        updatedAt={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='updatedAt'
+            label='更新日時'
           />
         )}
       />

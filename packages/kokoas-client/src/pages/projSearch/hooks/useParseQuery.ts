@@ -42,8 +42,8 @@ export const useParseQuery = (): TypeOfForm => {
 
     return {
       ...initialForm,
-      order: order ?? 'asc',
-      orderBy: orderBy ?? 'storeSortNumber',
+      order: order ?? initialForm.order,
+      orderBy: orderBy ?? initialForm.orderBy,
       keyword: keyword ?? null,
       custName: custName ?? null,
       address: address ?? null,

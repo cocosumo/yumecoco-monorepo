@@ -57,8 +57,6 @@ const EnhancedTableCell = ({
 export const ResultHead = () => {
   const query = useParseQuery();
 
-  console.log(query);
-
   return (
     <TableHead>
       <RowLayout 
@@ -88,11 +86,25 @@ export const ResultHead = () => {
             label='契約日'
           />
         )}
-        projCompletedDate={(
+        deliveryDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='deliveryDate'
+            label='引渡日'
+          />
+        )}
+        payFinDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='payFinDate'
+            label='支払完了日'
+          />
+        )}
+        projFinDate={(
           <EnhancedTableCell 
             existingQuery={query}
-            fieldName='projCompletedDate'
-            label='完工日'
+            fieldName='projFinDate'
+            label='物件完了日'
           />
         )}
         createdAt={(

@@ -1,5 +1,6 @@
 import {  IProjects, TAgents } from 'types';
 import { TForm } from '../schema';
+import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
 const convertToAgentsTbl = (
   empIds: string[],
@@ -47,6 +48,10 @@ export const convertToKintone = (
     cancelStatus,
     storeCode,
     memo,
+
+    deliveryDate,
+    projFinDate,
+    payFinDate,
   } = rawValues;
 
 
@@ -85,6 +90,10 @@ export const convertToKintone = (
     status: {  value: status  },
     cancelStatus: { value: cancelStatus?.filter(Boolean).join(',') || '' },
     memo: { value: memo || '' },
+
+    deliveryDate: { value: toKintoneDateStr(deliveryDate) },
+    projFinDate: { value: toKintoneDateStr(projFinDate) },
+    payFinDate: { value: toKintoneDateStr(payFinDate) },
   };
 
 };

@@ -31,6 +31,10 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     作成日時: createTime,
     memo,
     log,
+
+    projFinDate,
+    payFinDate,
+    deliveryDate,
   } = projRec;
 
   const {
@@ -78,6 +82,11 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     postal: postal.value,
     storeId: storeId.value,
     memo: memo.value,
+
+    deliveryDate: deliveryDate.value ? parseISO(deliveryDate.value) : null,
+    projFinDate: projFinDate.value ? parseISO(projFinDate.value) : null,
+    payFinDate: payFinDate.value ? parseISO(payFinDate.value) : null,
+
     logs: log?.value?.map(({
       id,
       value: {

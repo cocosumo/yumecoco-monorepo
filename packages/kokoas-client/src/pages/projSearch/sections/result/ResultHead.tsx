@@ -72,6 +72,13 @@ export const ResultHead = () => {
             label='店舗名'
           />
         )}
+        projDataId={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='projDataId'
+            label='工事番号'
+          />
+        )}
         contractDate={(
           <EnhancedTableCell 
             existingQuery={query}

@@ -2,7 +2,7 @@ import { TypeOfForm } from './schema';
 import { SearchResult } from './types';
 
 export const initialForm : TypeOfForm = {
-  orderBy: 'storeSortNumber' as keyof SearchResult,
+  orderBy: 'createdAt' as keyof SearchResult,
   order: 'asc',
   keyword: null,
 

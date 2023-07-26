@@ -1,7 +1,12 @@
 import { createCanvas, loadImage } from 'canvas';
 import { imageAssets } from 'config';
+import { getContractReportData } from './getContractReportData';
 
 export const generateContractReport = async (contractId: string) => {
+
+  const {
+    cocoAGNames,
+  } = await getContractReportData(contractId);
 
   const canvas = createCanvas(1276, 1790); // A4 size at DPI: 150
   const ctx = canvas.getContext('2d');

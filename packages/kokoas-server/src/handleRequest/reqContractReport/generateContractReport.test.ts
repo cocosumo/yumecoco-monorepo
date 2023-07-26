@@ -8,8 +8,13 @@ describe('generateContractReport', () => {
     
     const base64 = await generateContractReport('191ff145-9e3a-4065-a497-6d17a9501be5');
 
+    const dir = path.join(__dirname, '__TEST__');
 
-    const savePath = path.join(__dirname, '__TEST__', 'test.png');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
+    const savePath = path.join(dir, 'test.png');
 
     const fileTosave = base64.split(',')[1];
 

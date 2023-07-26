@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { RequestHandler } from 'express';
-
+import { sanitizeUrl } from '@braintree/sanitize-url';
 
 export const reqImageToBase64: RequestHandler<
 unknown,
@@ -21,7 +21,7 @@ unknown,
 
     if (!imageUrl) throw new Error('URLは指定されていません');
 
-    const sanitizedImageUrl = imageUrl.replace(/ /g, '%20');
+    const sanitizedImageUrl = sanitizeUrl(imageUrl);
 
     const result = await axios.get(sanitizedImageUrl, {
       responseType: 'arraybuffer',
@@ -36,6 +36,10 @@ unknown,
 
     
   } catch (err) {
-    res.status(400).send(err);
+    console.log(err);
+    console.log(err?.message);
+    res.status(400).send({
+      base64Img: '',
+    });
   }
 };

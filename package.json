@@ -83,6 +83,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.22.9",
+    "@braintree/sanitize-url": "^6.0.2",
     "@date-io/date-fns": "^2.13.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",

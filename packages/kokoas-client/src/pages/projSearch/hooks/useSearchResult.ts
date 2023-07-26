@@ -3,7 +3,7 @@ import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } 
 import { useParseQuery } from './useParseQuery';
 import { SearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
-import { addressBuilder } from 'libs';
+import { addressBuilder, formatDataId } from 'libs';
 import { useStoreIds } from './useStoreIds';
 import { useProjTypesIds } from './useProjTypesIds';
 import parseISO from 'date-fns/parseISO';
@@ -64,6 +64,7 @@ export const useSearchResult =  () => {
           agents: projAgents,
           cancelStatus: projCancelStatus,
           作成日時: createdAt,
+          更新日時: updatedAt,
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
@@ -180,6 +181,7 @@ export const useSearchResult =  () => {
           )
         ) {
           acc.push({
+            projDataId: formatDataId(dataId.value),
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
             custNameKana: `${fullNameReadings[0]}`,
             custAddress: `${addresses[0]}`,
@@ -191,6 +193,7 @@ export const useSearchResult =  () => {
             projCompletedDate: finishDate?.value ? finishDate.value : '-',
             storeSortNumber: +(sortNumber?.value || 0),
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
+            updatedAt: parseISOTimeToFormat(updatedAt.value, 'yyyy-MM-dd HH:mm'), 
           });
         }
 
@@ -206,6 +209,8 @@ export const useSearchResult =  () => {
             return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'contractDate':
           case 'projCompletedDate':
+          case 'createdAt':
+          case 'updatedAt':
 
             // put "-" or undefined at the bottom of the result
             if (a[parseOrderBy] === '-' || !a[parseOrderBy]) return 1;

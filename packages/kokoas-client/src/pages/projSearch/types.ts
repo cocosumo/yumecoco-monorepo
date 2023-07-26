@@ -20,9 +20,11 @@ export interface SearchResult {
   contractDate: string;
   projCompletedDate: string;
   projName: string;
+  projDataId: string;
   uuid: string;
   storeSortNumber: number;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface IDetail {

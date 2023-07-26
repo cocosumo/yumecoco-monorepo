@@ -51,6 +51,7 @@ coverage
 *.pem
 **/build/*
 *.snap
+*.exe
 
 *.key
 *auth.json

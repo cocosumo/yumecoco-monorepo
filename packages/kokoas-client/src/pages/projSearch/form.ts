@@ -3,7 +3,7 @@ import { SearchResult } from './types';
 
 export const initialForm : TypeOfForm = {
   orderBy: 'createdAt' as keyof SearchResult,
-  order: 'asc',
+  order: 'desc',
   keyword: null,
 
   includeDeleted: false,

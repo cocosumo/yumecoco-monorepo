@@ -57,6 +57,8 @@ const EnhancedTableCell = ({
 export const ResultHead = () => {
   const query = useParseQuery();
 
+  console.log(query);
+
   return (
     <TableHead>
       <RowLayout 
@@ -98,6 +100,13 @@ export const ResultHead = () => {
             existingQuery={query}
             fieldName='createdAt'
             label='作成日時'
+          />
+        )}
+        updatedAt={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='updatedAt'
+            label='更新日時'
           />
         )}
       />

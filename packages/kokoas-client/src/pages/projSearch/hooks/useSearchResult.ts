@@ -209,6 +209,8 @@ export const useSearchResult =  () => {
             return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'contractDate':
           case 'projCompletedDate':
+          case 'createdAt':
+          case 'updatedAt':
 
             // put "-" or undefined at the bottom of the result
             if (a[parseOrderBy] === '-' || !a[parseOrderBy]) return 1;

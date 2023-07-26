@@ -67,7 +67,26 @@ export const ProjectDetails = ({
       更新者: updatedBy,
       memo,
       // status, 廃止　（追客中など） 
+
+      deliveryDate,
+      projFinDate,
+      payFinDate,
     } = recProj;
+
+    const projDates: IDetail[] = [
+      {
+        label: '引渡日',
+        value: deliveryDate.value,
+      },
+      {
+        label: '物件完了日',
+        value: projFinDate.value,
+      },
+      {
+        label: '支払完了日',
+        value: payFinDate.value,
+      },
+    ];
 
     const mainDetails: IDetail[] = [
       {
@@ -174,6 +193,7 @@ export const ProjectDetails = ({
 
 
     return {
+      projDates,
       mainDetails,
       agentDetails,
       otherDetails,
@@ -201,8 +221,12 @@ export const ProjectDetails = ({
         title='工事情報を編集する'
       />
 
+      <DetailSection 
+        title="工事日程"
+        details={details.projDates}
+      />
+
       <AndpadDetails recProj={recProj} />
-      
    
       <DetailSection 
         title="工事情報"

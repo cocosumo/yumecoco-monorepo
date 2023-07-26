@@ -18,7 +18,9 @@ export interface SearchResult {
   tel: string;
   storeName: string;
   contractDate: string;
-  projCompletedDate: string;
+  deliveryDate: string;
+  projFinDate: string;
+  payFinDate: string;
   projName: string;
   projDataId: string;
   uuid: string;

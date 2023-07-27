@@ -1,7 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
 import { useCallback, useEffect, useRef } from 'react';
-import {  toJpeg } from 'html-to-image';
 import { CertViewerContent } from './CertViewerContent';
 import { useContractReport } from 'kokoas-client/src/hooksQuery';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
@@ -33,25 +32,12 @@ export const CertViewer = ({
   });
 
   const onButtonClick = useCallback(() => {
-    if (ref.current === null) {
+    if (!ref.current || !imageBase64) {
       return;
     }
 
-    toJpeg(ref.current, { 
-      cacheBust: true, 
-      skipFonts: true,
-      
-    })
-      .then((dataUrl) => {
-        const link = document.createElement('a');
-        link.download = 'my-image-name.png';
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [ref]);
+    window.location.href = imageBase64;
+  }, [ref, imageBase64]);
 
 
   const newFormValue = useResolveForm(contractId, open);
@@ -82,6 +68,12 @@ export const CertViewer = ({
       <Dialog 
         onClose={handleClose}
         open={open}
+        PaperProps={{
+          sx: {
+            width: '100%',
+            maxWidth: '650px',
+          },
+        }}
       >
         <DialogTitle>
           契約報告書
@@ -91,7 +83,6 @@ export const CertViewer = ({
           sx={{
             overflow: 'hidden',
             height: '75vh',
-            width: '600px',
           }}
         >
           {isLoading && (
@@ -122,7 +113,9 @@ export const CertViewer = ({
           <Button
             variant='contained'
             onClick={onButtonClick}
-            disabled={isDirty || isSubmitting}
+            disabled={isDirty || isSubmitting || !imageBase64}
+            href={imageBase64 || '#'}
+            download={`契約報告書_${contractId}.png`}
           >
             ダウンロード
           </Button>

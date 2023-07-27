@@ -3,6 +3,7 @@ declare namespace DBProjects {
     schedContractDate: kintone.fieldTypes.Date;
     addressKari: kintone.fieldTypes.SingleLineText;
     cancelStatus: kintone.fieldTypes.SingleLineText;
+    projFinDate: kintone.fieldTypes.Date;
     memo: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
@@ -16,6 +17,8 @@ declare namespace DBProjects {
     rank: kintone.fieldTypes.SingleLineText;
     estatePurchaseDate: kintone.fieldTypes.Date;
     custGroupId: kintone.fieldTypes.SingleLineText;
+    deliveryDate: kintone.fieldTypes.Date;
+    payFinDate: kintone.fieldTypes.Date;
     isChkAddressKari: kintone.fieldTypes.Number;
     planApplicationDate: kintone.fieldTypes.Date;
     address2: kintone.fieldTypes.SingleLineText;

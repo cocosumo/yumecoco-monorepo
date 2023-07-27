@@ -3,13 +3,13 @@ import { IProjects } from 'types';
 import { useMemo } from 'react';
 import { addressBuilder, formatDataId, postalBuilder } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
-import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { DetailSection } from '../common/DetailSection';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { EditButton } from '../common/EditButton';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { AndpadDetails } from './AndpadDetails';
+import { OfficerDetails } from './OfficerDetails';
 
 const Address = ({
   postal,
@@ -35,6 +35,7 @@ export const ProjectDetails = ({
 }:{
   recProj: IProjects
 }) => {
+  
 
   const details = useMemo(() => {
 
@@ -49,12 +50,7 @@ export const ProjectDetails = ({
   
       buildingType,
       projTypeName,
-      projName,
-
-      isAgentConfirmed,
-  
-      agents,
-  
+      projName,  
       cancelStatus,
       dataId,
       log,
@@ -67,7 +63,26 @@ export const ProjectDetails = ({
       更新者: updatedBy,
       memo,
       // status, 廃止　（追客中など） 
+
+      deliveryDate,
+      projFinDate,
+      payFinDate,
     } = recProj;
+
+    const projDates: IDetail[] = [
+      {
+        label: '引渡日',
+        value: deliveryDate.value || '-',
+      },
+      {
+        label: '物件完了日',
+        value: projFinDate.value || '-',
+      },
+      {
+        label: '支払完了日',
+        value: payFinDate.value || '-',
+      },
+    ];
 
     const mainDetails: IDetail[] = [
       {
@@ -118,18 +133,6 @@ export const ProjectDetails = ({
     ];
 
 
-    const agentDetails: IDetail[] = [
-      {
-        label: '担当決定',
-        value: isAgentConfirmed.value === '0' ? '未決定' : '決定済み',
-      },
-      {
-        label: '担当者',
-        value: getAgentNamesByType(agents, 'cocoConst'),
-      },
-    ];
-
-
     const otherDetails: IDetail[] = [
       {
         label: 'ステータス',
@@ -174,8 +177,8 @@ export const ProjectDetails = ({
 
 
     return {
+      projDates,
       mainDetails,
-      agentDetails,
       otherDetails,
       logDetails,
     };
@@ -201,17 +204,20 @@ export const ProjectDetails = ({
         title='工事情報を編集する'
       />
 
+      <DetailSection 
+        title="工事日程"
+        details={details.projDates}
+      />
+
       <AndpadDetails recProj={recProj} />
-      
    
       <DetailSection 
         title="工事情報"
         details={details.mainDetails}
       />
-      <DetailSection 
-        title="担当情報"
-        details={details.agentDetails}
-      />
+
+      <OfficerDetails recProj={recProj} />
+      
 
       <DetailSection 
         title="ANDPAD登録ログ"

@@ -1,0 +1,39 @@
+import { useEffect, useState } from 'react';
+import { initialForm } from '../form';
+import { useContractById } from 'kokoas-client/src/hooksQuery';
+
+export const useResolveForm = (contractId: string, enabled: boolean) => {
+  const [newFormValues, setNewFormValues] = useState(initialForm);
+  const { data } = useContractById(contractId, {
+    enabled,
+  });
+
+
+  useEffect(() => {
+    if (data) {
+      const {
+        financingMethod,
+        financialInstitution,
+        financialContactFax,
+        financialContactTel,
+        financialInstitutionBranch,
+      } = data;
+
+      console.log('data', data);
+      setNewFormValues({
+        financingMethod: financingMethod.value,
+        financialInstitution: financialInstitution.value,
+        tel: financialContactTel.value,
+        fax: financialContactFax.value,
+        branchName: financialInstitutionBranch.value,
+      });
+    }
+
+  }, 
+  [
+    data,
+  ]);
+
+  return newFormValues;
+
+};

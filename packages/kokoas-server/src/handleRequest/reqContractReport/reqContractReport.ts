@@ -1,5 +1,6 @@
 
 import { RequestHandler } from 'express';
+import { generateContractReport } from './generateContractReport';
 
 export const reqContractReport: RequestHandler<
 unknown,
@@ -19,13 +20,15 @@ unknown,
 
     if (!contractId) throw new Error('URLは指定されていません');
 
+    const base64Img = await generateContractReport(contractId);
+
     res.status(200).json({
-      base64Img: 'base64Img',
+      base64Img,
     });
 
     
   } catch (err) {
-    console.error(err?.message);
+    console.error(err);
     res.status(400).send(
       err?.response?.res?.text ?? {
         message: err?.message,

@@ -1,8 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import {  toJpeg } from 'html-to-image';
 import { CertViewerContent } from './CertViewerContent';
+import { useContractReport } from 'kokoas-client/src/hooksQuery';
+import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useResolveForm } from './hooks/useResolveForm';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { schema } from './schema';
 
 
 export const CertViewer = ({
@@ -18,6 +24,13 @@ export const CertViewer = ({
   const ref = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigateWithQuery();
+
+  const { 
+    data: imageBase64,
+    isLoading, 
+  } = useContractReport(contractId, {
+    enabled: open,
+  });
 
   const onButtonClick = useCallback(() => {
     if (ref.current === null) {
@@ -41,49 +54,76 @@ export const CertViewer = ({
   }, [ref]);
 
 
-  return (
-    <Dialog 
-      onClose={handleClose}
-      open={open}
-      maxWidth='md'
+  const newFormValue = useResolveForm(contractId, open);
 
-    >
-      <DialogTitle>
-        契約報告書
-      </DialogTitle>
-      <DialogContent
-        ref={ref}
-        sx={{
-          color: 'red',
-          overflow: 'hidden',
-        }}
+  const formReturn = useForm({
+    defaultValues: newFormValue,
+    resolver: zodResolver(schema),
+  });
+  
+  const {
+    reset,
+  } = formReturn;
+
+
+  useEffect(() => {
+    reset(newFormValue);
+  }, [
+    reset,
+    newFormValue,
+  ]);
+
+  return (
+    <FormProvider {...formReturn}>
+      <Dialog 
+        onClose={handleClose}
+        open={open}
+        maxWidth='sm'
+        fullWidth
       >
-        <CertViewerContent 
-          contractId={contractId}
-        />
-      </DialogContent>
-      <DialogActions >
-        <Button
-          onClick={handleClose}
+        <DialogTitle>
+          契約報告書
+        </DialogTitle>
+        <DialogContent
+          ref={ref}
+          sx={{
+            overflow: 'hidden',
+            height: '75vh',
+          }}
         >
-          閉じる
-        </Button>
-        <Button
-          onClick={() => {
-            navigate('projContractPreviewV2', {
-              contractId,
-            });
-          }} 
-        >
-          編集する
-        </Button>
-        <Button
-          variant='contained'
-          onClick={onButtonClick}
-        >
-          ダウンロード
-        </Button>
-      </DialogActions>
-    </Dialog>
+          {isLoading && (
+          <Loading />
+          )}
+          {imageBase64 && (
+          <CertViewerContent 
+            imageBase64={imageBase64}
+          />
+          )}
+   
+        </DialogContent>
+        <DialogActions >
+          <Button
+            onClick={handleClose}
+          >
+            閉じる
+          </Button>
+          <Button
+            onClick={() => {
+              navigate('projContractPreviewV2', {
+                contractId,
+              });
+            }}
+          >
+            編集する
+          </Button>
+          <Button
+            variant='contained'
+            onClick={onButtonClick}
+          >
+            ダウンロード
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </FormProvider>
   );
 };

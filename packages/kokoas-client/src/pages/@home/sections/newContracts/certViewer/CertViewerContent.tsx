@@ -1,47 +1,42 @@
-import { Box, LinearProgress } from '@mui/material';
-import { imageAssets } from 'config';
-import { useExternalImage } from 'kokoas-client/src/hooksQuery';
+import { Box, Paper, Stack } from '@mui/material';
 import { forwardRef } from 'react';
+import { InputForm } from './InputForm';
 
 interface CertViewerContentProps {
-  contractId: string;
+  imageBase64: string;
 }
 
-const frameUrl = `${imageAssets}/ContractReport.png`;
 
 export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentProps>((props, ref) => {
 
   const  {
-    contractId,
+    imageBase64,
   } = props;
 
-  const {
-    data: base64Png,
-    isLoading,
-  } = useExternalImage({
-    url: frameUrl,
-  });
-
-  if (isLoading) {
-    return <LinearProgress />;
-  }
 
   return (
-    <Box
+    <Stack
       ref={ref}
+      direction='row'
+      spacing={2}
       sx={{
-        height: '75vh',
         // fit image to container
         backgroundSize: 'contain',
         overflow: 'hidden',
-        width: 'fit-content',
+        height: '100%',
       }}
     >
-      <img 
-        src={`data:image/png;base64,${base64Png}`}
-        height={'100%'}
-      />
-    </Box>
+      <Box
+        component={Paper}
+      >
+        <img 
+          src={imageBase64}
+          height={'100%'}
+        />
+      </Box>
+
+      <InputForm />
+    </Stack>
   );
 });
 

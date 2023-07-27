@@ -3,18 +3,21 @@ import { baseUrl } from 'config';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 import { ApiNodes } from 'types';
 
-export const useExternalImage = ({
-  url,
-}: {
-  url: string,
-}) => {
+export const useContractReport = (
+  contractId : string, 
+  {
+    enabled,
+  }: {
+    enabled: boolean,
+  },
+) => {
 
 
   return useQuery(
-    [url], 
+    [contractId], 
     async () => {
       const apiNode: ApiNodes = 'kokoas';
-      const endpoint = [baseUrl, apiNode, kokoasEndpoints.getImage].join('/');
+      const endpoint = [baseUrl, apiNode, kokoasEndpoints.downloadContractReport].join('/');
 
       const {
         data,
@@ -27,13 +30,14 @@ export const useExternalImage = ({
           'Content-Type': 'application/json',
         },
         data: {
-          imageUrl: url,
+          contractId,
         },
       });
 
-
       return data.base64Img;
-
+    },
+    {
+      enabled: enabled && !!contractId,
     },
   );
 };

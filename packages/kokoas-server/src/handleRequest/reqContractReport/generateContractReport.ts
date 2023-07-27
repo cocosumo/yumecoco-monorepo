@@ -4,6 +4,12 @@ import { getContractReportData } from './getContractReportData';
 
 
 const parseDate = (date: string) => {
+  if (!date) return {
+    year: '',
+    month: '',
+    day: '',
+  };
+  
   const [year, month, day] = date.split('-').map((str) => String(+str));
   return {
     year,

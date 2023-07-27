@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { baseUrl } from 'config';
+import { AppIds, baseUrl } from 'config';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 import { ApiNodes } from 'types';
 
@@ -14,7 +14,7 @@ export const useContractReport = (
 
 
   return useQuery(
-    [contractId], 
+    [AppIds.contracts, contractId], 
     async () => {
       const apiNode: ApiNodes = 'kokoas';
       const endpoint = [baseUrl, apiNode, kokoasEndpoints.downloadContractReport].join('/');

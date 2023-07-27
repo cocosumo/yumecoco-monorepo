@@ -24,8 +24,6 @@ export const useSubmitHandler = () => {
       const customerRecords = formToDBCustomers(data);
       const custGroupRecord = formToDBCustGroup(data, employees || []);
 
-      console.log('saving', data)
-
       await saveCustGroupMutation({
         custGroupId: custGroupId,
         record: custGroupRecord,

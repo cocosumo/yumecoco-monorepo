@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const schema = z.object({
+  contractId: z.string(),
   financingMethod: z.string(),
   financialInstitution: z.string(),
   branchName: z.string(),

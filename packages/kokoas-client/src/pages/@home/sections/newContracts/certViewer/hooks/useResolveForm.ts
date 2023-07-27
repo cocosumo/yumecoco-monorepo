@@ -12,6 +12,7 @@ export const useResolveForm = (contractId: string, enabled: boolean) => {
   useEffect(() => {
     if (data) {
       const {
+        uuid,
         financingMethod,
         financialInstitution,
         financialContactFax,
@@ -20,6 +21,7 @@ export const useResolveForm = (contractId: string, enabled: boolean) => {
       } = data;
 
       setNewFormValues({
+        contractId: uuid.value,
         financingMethod: financingMethod.value,
         financialInstitution: financialInstitution.value,
         tel: financialContactTel.value,

@@ -63,6 +63,10 @@ export const CertViewer = ({
   
   const {
     reset,
+    formState: {
+      isDirty,
+      isSubmitting,
+    },
   } = formReturn;
 
 
@@ -118,6 +122,7 @@ export const CertViewer = ({
           <Button
             variant='contained'
             onClick={onButtonClick}
+            disabled={isDirty || isSubmitting}
           >
             ダウンロード
           </Button>

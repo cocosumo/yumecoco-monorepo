@@ -45,7 +45,7 @@ export const NewContractsTable = () => {
                   {contractDate.value}
                 </TableCell>
                 <TableCell 
-                  width={100}
+                  width={150}
                   sx={{
                     color: grey[600],
                     fontWeight: 'bold',

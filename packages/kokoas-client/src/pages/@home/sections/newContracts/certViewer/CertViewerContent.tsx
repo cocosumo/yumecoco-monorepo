@@ -1,6 +1,6 @@
-import { Box, Paper, Stack } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
 import { forwardRef } from 'react';
-import { InputForm } from './InputForm';
+import { InputForm } from './inputForm/InputForm';
 
 interface CertViewerContentProps {
   imageBase64: string;
@@ -25,15 +25,18 @@ export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentPro
         overflow: 'hidden',
         height: '100%',
       }}
+      justifyContent={'center'}
     >
-      <Box
-        component={Paper}
+      <Paper
+        sx={{
+          m: 1,
+        }}
       >
         <img 
           src={imageBase64}
           height={'100%'}
         />
-      </Box>
+      </Paper>
 
       <InputForm />
     </Stack>

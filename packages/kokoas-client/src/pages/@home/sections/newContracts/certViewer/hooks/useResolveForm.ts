@@ -19,7 +19,6 @@ export const useResolveForm = (contractId: string, enabled: boolean) => {
         financialInstitutionBranch,
       } = data;
 
-      console.log('data', data);
       setNewFormValues({
         financingMethod: financingMethod.value,
         financialInstitution: financialInstitution.value,

@@ -78,8 +78,6 @@ export const CertViewer = ({
       <Dialog 
         onClose={handleClose}
         open={open}
-        maxWidth='sm'
-        fullWidth
       >
         <DialogTitle>
           契約報告書
@@ -89,6 +87,7 @@ export const CertViewer = ({
           sx={{
             overflow: 'hidden',
             height: '75vh',
+            width: '600px',
           }}
         >
           {isLoading && (

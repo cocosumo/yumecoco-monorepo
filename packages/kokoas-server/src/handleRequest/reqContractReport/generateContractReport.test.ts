@@ -6,7 +6,7 @@ import path from 'path';
 describe('generateContractReport', () => {
   it('should return base64Img', async () => {
     
-    const base64 = await generateContractReport('191ff145-9e3a-4065-a497-6d17a9501be5');
+    const base64 = await generateContractReport('3bbf6f94-5958-4d7f-810c-a7891a722c36');
 
     const dir = path.join(__dirname, '__TEST__');
 

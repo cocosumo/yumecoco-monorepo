@@ -31,6 +31,12 @@ export const generateContractReport = async (contractId: string) => {
     totalContractAmt,
     totalProfit,
 
+    financingMethod,
+    financialInstitution,
+    financialInstitutionBranch,
+    financialContactTel,
+    financialContactFax,
+
     yumeAGNames,
     
     contractAmt,
@@ -101,6 +107,16 @@ export const generateContractReport = async (contractId: string) => {
   ctx.fillText(totalContractAmt.toLocaleString(), 410, 1073);
   ctx.fillText(totalProfit.toLocaleString(), 880, 1073);
 
+  ctx.font = '40px "Noto Sans JP"';
+  ctx.fillText(financingMethod, 500, 1160);
+
+  ctx.font = '24px "Noto Sans JP"';
+  ctx.fillText(financialInstitution, 350, 1240);
+  ctx.fillText(financialInstitutionBranch, 820, 1240);
+  ctx.fillText(financialContactTel, 450, 1340);
+  ctx.fillText(financialContactFax, 820, 1340);
+
+  ctx.font = '34px "Noto Sans JP"';
   if (contractAmt) {
     ctx.fillText(contractAmt.toLocaleString(), 875, 1433);
     const {

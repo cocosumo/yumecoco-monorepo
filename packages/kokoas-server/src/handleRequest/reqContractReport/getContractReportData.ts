@@ -1,7 +1,7 @@
 import { getContractById, getCustGroupById, getProjById } from 'api-kintone';
-import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
-
-
+import { getAgentNamesByType as custGetAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
+import { getAgentNamesByType as projAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
+ 
 export const getContractReportData = async (contractId: string) => {
   console.log('contractId', contractId);
   const record = await getContractById(contractId);
@@ -27,6 +27,14 @@ export const getContractReportData = async (contractId: string) => {
     finalAmtDate,
 
     totalProfit,
+
+    financingMethod,
+
+    financialInstitution,
+    financialInstitutionBranch,
+
+    financialContactTel,
+    financialContactFax,
   } = record || {};
 
   const {
@@ -39,11 +47,12 @@ export const getContractReportData = async (contractId: string) => {
   const {
     storeName,
     members,
+    agents: custAgents,
   } = await getCustGroupById(custGroupId.value);
 
 
-  const cocoAGNames = getAgentNamesByType(agents, 'cocoAG');
-  const yumeAGNames = getAgentNamesByType(agents, 'yumeAG');
+  const cocoAGNames = projAgentNamesByType(agents, 'cocoAG') || custGetAgentNamesByType(custAgents, 'cocoAG');
+  const yumeAGNames = projAgentNamesByType(agents, 'yumeAG') || custGetAgentNamesByType(custAgents, 'yumeAG');
 
   const custNames = members.value.map(({ value:{ customerName } }) => customerName.value).join('、');
 
@@ -59,6 +68,12 @@ export const getContractReportData = async (contractId: string) => {
     storeName: storeName.value,
     projTypeName: projTypeName.value,
     
+    financingMethod: financingMethod.value,
+    financialInstitution: financialInstitution.value,
+    financialInstitutionBranch: financialInstitutionBranch.value,
+    financialContactTel: financialContactTel.value,
+    financialContactFax: financialContactFax.value,
+
     contractAmt: +contractAmt.value,
     contractAmtDate: contractAmtDate.value,
 
@@ -72,6 +87,8 @@ export const getContractReportData = async (contractId: string) => {
     finalAmtDate: finalAmtDate.value,
     
     totalProfit: +totalProfit.value,
+
+    
   };
 };
 

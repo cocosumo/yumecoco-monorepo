@@ -63,6 +63,7 @@ export const generateContractReport = async (contractId: string) => {
   // ここすも担当者名
   ctx.font = '24px "Noto Sans JP"';
   ctx.fillText(cocoAGNames, 940, 480);
+  ctx.fillStyle = '#333333';
 
   // 契約者名
   ctx.font = '40px "Noto Sans JP"';
@@ -108,8 +109,10 @@ export const generateContractReport = async (contractId: string) => {
   ctx.fillText(totalProfit.toLocaleString(), 880, 1073);
 
   ctx.font = '40px "Noto Sans JP"';
+  ctx.fillStyle = '#3a87b9';
   ctx.fillText(financingMethod, 500, 1160);
 
+  ctx.fillStyle = '#333333';
   ctx.font = '24px "Noto Sans JP"';
   ctx.fillText(financialInstitution, 350, 1240);
   ctx.fillText(financialInstitutionBranch, 820, 1240);

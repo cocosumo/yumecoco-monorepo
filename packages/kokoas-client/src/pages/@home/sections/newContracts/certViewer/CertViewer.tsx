@@ -102,6 +102,7 @@ export const CertViewer = ({
             閉じる
           </Button>
           <Button
+            disabled={isSubmitting || isLoading}
             onClick={() => {
               navigate('projContractPreviewV2', {
                 contractId,
@@ -113,7 +114,7 @@ export const CertViewer = ({
           <Button
             variant='contained'
             onClick={onButtonClick}
-            disabled={isDirty || isSubmitting || !imageBase64}
+            disabled={isDirty || isSubmitting || isLoading || !imageBase64}
             href={imageBase64 || '#'}
             download={`契約報告書_${contractId}.png`}
           >

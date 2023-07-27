@@ -3,6 +3,7 @@ import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNa
 
 
 export const getContractReportData = async (contractId: string) => {
+  console.log('contractId', contractId);
   const record = await getContractById(contractId);
 
   const {
@@ -24,7 +25,9 @@ export const getContractReportData = async (contractId: string) => {
 
     finalAmt,
     finalAmtDate,
-  } = record;
+
+    totalProfit,
+  } = record || {};
 
   const {
     agents,
@@ -45,7 +48,7 @@ export const getContractReportData = async (contractId: string) => {
   const custNames = members.value.map(({ value:{ customerName } }) => customerName.value).join('、');
 
   return {
-    contractId: uuid.value,
+    contractId: uuid?.value,
     totalContractAmt: +totalContractAmt.value,
     projName: projName.value,
     cocoAGNames,
@@ -60,14 +63,15 @@ export const getContractReportData = async (contractId: string) => {
     contractAmtDate: contractAmtDate.value,
 
     initialAmt: +initialAmt.value,
-    initialDate: initialAmtDate.value,
+    initialAmtDate: initialAmtDate.value,
 
     interimAmt: +interimAmt.value,
-    interimDate: interimAmtDate.value,
+    interimAmtDate: interimAmtDate.value,
 
     finalAmt: +finalAmt.value,
     finalAmtDate: finalAmtDate.value,
     
+    totalProfit: +totalProfit.value,
   };
 };
 

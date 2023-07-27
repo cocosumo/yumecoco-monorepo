@@ -2,6 +2,16 @@ import { createCanvas, loadImage } from 'canvas';
 import { imageAssets } from 'config';
 import { getContractReportData } from './getContractReportData';
 
+
+const parseDate = (date: string) => {
+  const [year, month, day] = date.split('-').map((str) => String(+str));
+  return {
+    year,
+    month,
+    day,
+  };
+};
+
 export const generateContractReport = async (contractId: string) => {
 
   const {
@@ -9,6 +19,25 @@ export const generateContractReport = async (contractId: string) => {
     custNames,
     contractDate,
     deliveryDate,
+    storeName,
+
+    projTypeName,
+    totalContractAmt,
+    totalProfit,
+
+    yumeAGNames,
+    
+    contractAmt,
+    contractAmtDate,
+
+    initialAmt,
+    initialAmtDate,
+
+    interimAmt,
+    interimAmtDate,
+
+    finalAmt,
+    finalAmtDate,
   } = await getContractReportData(contractId);
 
   const canvas = createCanvas(1276, 1790); // A4 size at DPI: 150
@@ -19,7 +48,7 @@ export const generateContractReport = async (contractId: string) => {
 
   ctx.drawImage(frameImage, 0, 0, 1276, 1790);
 
-  // 担当者名
+  // ここすも担当者名
   ctx.font = '24px "Noto Sans JP"';
   ctx.fillText(cocoAGNames, 940, 480);
 
@@ -27,33 +56,90 @@ export const generateContractReport = async (contractId: string) => {
   ctx.font = '40px "Noto Sans JP"';
   ctx.fillText(custNames, 370, 630);
 
+  console.log('contractDate', deliveryDate, contractDate);
+
+
   if (contractDate) {
     // 契約日（月）
-    ctx.font = '40px "Noto Sans JP"';
-    ctx.fillText(contractDate.split('-')?.[1].replace('0', ''), 570, 712);
+    const {
+      month,
+      day,
+    } = parseDate(contractDate);
+    ctx.fillText(month, 570, 712);
   
     // 契約日（日）
-    ctx.fillText(contractDate.split('-')?.[2].replace('0', ''), 768, 712);
+    ctx.fillText(day, 768, 712);
   }
 
-  // 工事完了予定日(月)
-  ctx.fillText(deliveryDate?.split('-')?.[1].replace('0', '') || '', 570, 790);
+  if (deliveryDate) {
+    const {
+      month,
+      day,
+    } = parseDate(deliveryDate);
+    // 工事完了予定日(月)
+    ctx.fillText(month, 570, 800);
+
+    // 工事完了予定日(日)
+    ctx.fillText(day, 768, 800);
+  }
   
-
-  // Draw line under text
-  const text = ctx.measureText('Awesome!');
-  ctx.strokeStyle = 'rgba(0,0,0,0.5)';
-  ctx.beginPath();
-  ctx.lineTo(50, 102);
-  ctx.lineTo(50 + text.width, 102);
-  ctx.stroke();
-
+  ctx.fillText(storeName.replace('店', ''), 400, 888);
   
-  console.log('imageUrl', imageUrl);
+  ctx.font = '24px "Noto Sans JP"';
+  ctx.fillText(yumeAGNames, 900, 888);
 
+  ctx.font = '40px "Noto Sans JP"';
+  ctx.fillText(projTypeName, 400, 976);
 
+  ctx.font = '34px "Noto Sans JP"';
+  ctx.fillText(totalContractAmt.toLocaleString(), 410, 1073);
+  ctx.fillText(totalProfit.toLocaleString(), 880, 1073);
 
+  if (contractAmt) {
+    ctx.fillText(contractAmt.toLocaleString(), 875, 1433);
+    const {
+      month,
+      day,
+    } = parseDate(contractAmtDate);
   
+    ctx.fillText(month, 583, 1433);
+    ctx.fillText(day, 670, 1433 );
+  }
+
+  if (initialAmt) {
+    ctx.fillText(initialAmt.toLocaleString(), 875, 1510);
+    const {
+      month,
+      day,
+    } = parseDate(initialAmtDate);
+
+    ctx.fillText(month, 583, 1510);
+    ctx.fillText(day, 670, 1510 );
+  }
+
+  if (interimAmt) {
+    ctx.fillText(interimAmt.toLocaleString(), 875, 1584);
+    const {
+      month,
+      day,
+    } = parseDate(interimAmtDate);
+    
+    ctx.fillText(month, 583, 1584);
+    ctx.fillText(day, 670, 1584);
+  }
+
+  if (finalAmt) {
+    ctx.fillText(finalAmt.toLocaleString(), 875, 1660);
+    const {
+      month,
+      day,
+    } = parseDate(finalAmtDate);
+
+    ctx.fillText(month, 583, 1660);
+    ctx.fillText(day, 670, 1660);
+  }
+
+
   return canvas.toDataURL('image/png');
 
 };

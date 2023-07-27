@@ -8,23 +8,12 @@ import { AppIds } from 'config';
 /**
  * 契約のuuidで契約レコードを取得する
  */
-export const useContractById = (
-  id: string, 
-  options?: {
-    enabled: boolean,
-  }, 
-) => {
-
-  const {
-    enabled = true,
-  } = options || {};
-
-
+export const useContractById = (id: string) => {
   return useQuery(
     [AppIds.contracts, 'contractId', id],
     () => getContractById(id),
     {
-      enabled: enabled && !!id,
+      enabled: !!id,
     },
   );
 

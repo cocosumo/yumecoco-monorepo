@@ -1,30 +1,22 @@
-import { Box, Divider, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { Title } from './parts/Title';
 import { OtherMenu } from './otherMenu/OtherMenu';
 import { CompletedTickets } from './sections/completedTickets/CompletedTickets';
-import { NewContracts } from './sections/newContracts/NewContracts';
+import { Suggestions } from './sections/completedTickets/Suggestions';
 
 export const Home = () => {
   return (
-    <Box sx={{ 
-      display: 'flex' }}
-    >
+    <Box sx={{ display: 'flex' }}>
       <Stack 
         spacing={2}
         sx={{
           flexGrow: 1,
+          height: '50vh',
         }}
-        pb={8}
       >
-        <Title content={'アップデート情報'} />
+        <Title />
         <CompletedTickets />
-
-        <Divider />
-
-        <Title content={'最新契約'} />
-        <NewContracts />
-
-
+        <Suggestions />
       </Stack>
       <OtherMenu />
     </Box>

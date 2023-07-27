@@ -8,7 +8,6 @@ declare namespace DBContracts {
     uuid: kintone.fieldTypes.SingleLineText;
     initialAmt: kintone.fieldTypes.Number;
     payDestination: kintone.fieldTypes.SingleLineText;
-    financingMethod: kintone.fieldTypes.SingleLineText;
     finalAmt: kintone.fieldTypes.Number;
     payMethod: kintone.fieldTypes.SingleLineText;
     envelopeId: kintone.fieldTypes.SingleLineText;
@@ -21,7 +20,6 @@ declare namespace DBContracts {
     signMethod: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
     totalProfit: kintone.fieldTypes.Number;
-    projType: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     finalAmtDate: kintone.fieldTypes.Date;
     finishDaysAfterContract: kintone.fieldTypes.Number;
@@ -30,22 +28,17 @@ declare namespace DBContracts {
     subsidyAmt: kintone.fieldTypes.Number;
     totalContractAmt: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
-    projTypeUuid: kintone.fieldTypes.SingleLineText;
     deliveryDate: kintone.fieldTypes.Date;
     refundAmt: kintone.fieldTypes.Number;
     systemId: kintone.fieldTypes.SingleLineText;
     hasSubsidy: kintone.fieldTypes.RadioButton;
     projName: kintone.fieldTypes.SingleLineText;
-    financialInstitutionBranch: kintone.fieldTypes.SingleLineText;
     interimAmtDate: kintone.fieldTypes.Date;
     othersAmt: kintone.fieldTypes.Number;
     initialAmtDate: kintone.fieldTypes.Date;
     subsidyMethod: kintone.fieldTypes.SingleLineText;
     finishDate: kintone.fieldTypes.Date;
     othersAmtDate: kintone.fieldTypes.Date;
-    financialInstitution: kintone.fieldTypes.SingleLineText;
-    financialContactTel: kintone.fieldTypes.SingleLineText;
-    financialContactFax: kintone.fieldTypes.SingleLineText;
     envelopeStatus: kintone.fieldTypes.SingleLineText;
 
     envDocFileKeys: kintone.fieldTypes.File;

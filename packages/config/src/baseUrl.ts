@@ -13,5 +13,3 @@ export const andpadURL = 'https://work.andpad.jp/';
 export const loginURL = 'https://andpad.jp/login';
 export const andpaPaymentListURL = 'https://andpad.jp/manager/our/box_in/customer_agreement_payments';
 export const chatWorkLink = process.env.CW_CHATWORK_TICKET;
-
-export const imageAssets = `${process.env.COCO_BASE_URL}/img/kokoas`;

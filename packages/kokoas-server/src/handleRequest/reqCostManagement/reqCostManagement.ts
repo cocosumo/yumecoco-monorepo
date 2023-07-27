@@ -2,6 +2,9 @@ import { generateCostManagement } from './generateCostManagement';
 
 export const reqCostManagement = () => {
   
-  generateCostManagement();
+  const andpadProjId = '11487098'; // TODO:URLからandpadProjIdを取得する
+
+
+  generateCostManagement(andpadProjId);
 
 };

@@ -6,7 +6,7 @@ describe('getAndpadOrdersByAndpadProjId.test', () => {
     const andpadProjId = '11487098';
     const result = await getAndpadOrdersByAndpadProjId(andpadProjId);
 
-    console.log(result.length); // 13件
+    console.log(result.length);
 
     expect(result).toBeDefined();
   });

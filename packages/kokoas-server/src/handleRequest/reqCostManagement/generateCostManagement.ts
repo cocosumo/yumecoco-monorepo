@@ -1,3 +1,4 @@
+import { getAndpadOrdersByAndpadProjId } from 'api-kintone/src/andpadOrders/getAndpadOrdersByAndpadProjId';
 import { getCostManagement } from './getCostManagement';
 
 /**
@@ -6,9 +7,12 @@ import { getCostManagement } from './getCostManagement';
  * excelファイルを生成する
  * outputはbase64に変換する
  */
-export const generateCostManagement = () => {
+export const generateCostManagement = (andpadProjId: string) => {
 
+  // 対象案件の発注一覧の取得
+  const andpadOrders = getAndpadOrdersByAndpadProjId(andpadProjId);
   
-  getCostManagement();
+  const costManagementList = getCostManagement(andpadOrders);
+
 
 };

@@ -1,4 +1,4 @@
-
+/* 
 import { RequestHandler } from 'express';
 import { generateContractReport } from './generateContractReport';
 
@@ -36,3 +36,4 @@ unknown,
     );
   }
 };
+ */

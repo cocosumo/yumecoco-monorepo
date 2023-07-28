@@ -15,7 +15,7 @@ import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectF
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
 import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
-import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
+//import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
 
 const route = router();
@@ -76,11 +76,11 @@ route.post(
   reqImageToBase64,
 );
 
-route.post(
+/* route.post(
   `/${kokoasEndpoints.downloadContractReport}`,
   bodyParser.json({ limit: '1mb' }),
   reqContractReport,
-);
+); */
 
 route.put(
   `/${kokoasEndpoints.downloadInvoice}`,

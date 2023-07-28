@@ -1,4 +1,4 @@
-import { describe } from '@jest/globals';
+/* import { describe } from '@jest/globals';
 import { generateContractReport } from './generateContractReport';
 import fs from 'fs';
 import path from 'path';
@@ -25,4 +25,4 @@ describe('generateContractReport', () => {
     fs.writeFileSync(savePath, fileTosave, 'base64');
         
   });
-});
+}); */

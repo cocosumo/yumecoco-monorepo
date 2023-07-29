@@ -4,7 +4,7 @@ import { useContractById } from 'kokoas-client/src/hooksQuery';
 
 export const useResolveForm = (contractId: string, enabled: boolean) => {
   const [newFormValues, setNewFormValues] = useState(initialForm);
-  const { data } = useContractById(contractId, {
+  const { data, isLoading } = useContractById(contractId, {
     enabled,
   });
 
@@ -35,6 +35,9 @@ export const useResolveForm = (contractId: string, enabled: boolean) => {
     data,
   ]);
 
-  return newFormValues;
+  return {
+    newFormValues,
+    isLoading, 
+  };
 
 };

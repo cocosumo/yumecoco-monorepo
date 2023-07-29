@@ -1,13 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
-import { useCallback, useEffect, useRef } from 'react';
-import { CertViewerContent } from './CertViewerContent';
-import { useContractReport } from 'kokoas-client/src/hooksQuery';
-import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
+import { Dialog } from '@mui/material';
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useResolveForm } from './hooks/useResolveForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './schema';
+import { CertViewerDialogBody } from './CertViewerDialogBody';
 
 
 export const CertViewer = ({
@@ -20,54 +17,38 @@ export const CertViewer = ({
   contractId: string,
 }) => {
   
-  const ref = useRef<HTMLDivElement>(null);
-
-  const navigate = useNavigateWithQuery();
-
-  const { 
-    data: imageBase64,
-    isLoading, 
-  } = useContractReport(contractId, {
-    enabled: open,
-  });
-
-  const onButtonClick = useCallback(() => {
-    if (!ref.current || !imageBase64) {
-      return;
-    }
-
-    window.location.href = imageBase64;
-  }, [ref, imageBase64]);
-
-
-  const newFormValue = useResolveForm(contractId, open);
+  const {
+    newFormValues,
+  } = useResolveForm(contractId, open);
 
   const formReturn = useForm({
-    defaultValues: newFormValue,
+    defaultValues: newFormValues,
     resolver: zodResolver(schema),
   });
   
   const {
     reset,
-    formState: {
-      isDirty,
-      isSubmitting,
-    },
   } = formReturn;
 
 
   useEffect(() => {
-    reset(newFormValue);
+    if (!open) return;
+    console.log('resetting form');
+    reset(newFormValues);
   }, [
     reset,
-    newFormValue,
+    newFormValues,
+    open,
   ]);
+
+
 
   return (
     <FormProvider {...formReturn}>
       <Dialog 
         onClose={handleClose}
         open={open}
+        keepMounted={false}
         PaperProps={{
           sx: {
             width: '100%',
@@ -75,52 +56,10 @@ export const CertViewer = ({
           },
         }}
       >
-        <DialogTitle>
-          契約報告書
-        </DialogTitle>
-        <DialogContent
-          ref={ref}
-          sx={{
-            overflow: 'hidden',
-            height: '75vh',
-          }}
-        >
-          {isLoading && (
-          <Loading />
-          )}
-          {imageBase64 && (
-          <CertViewerContent 
-            imageBase64={imageBase64}
-          />
-          )}
-   
-        </DialogContent>
-        <DialogActions >
-          <Button
-            onClick={handleClose}
-          >
-            閉じる
-          </Button>
-          <Button
-            disabled={isSubmitting || isLoading}
-            onClick={() => {
-              navigate('projContractPreviewV2', {
-                contractId,
-              });
-            }}
-          >
-            編集する
-          </Button>
-          <Button
-            variant='contained'
-            onClick={onButtonClick}
-            disabled={isDirty || isSubmitting || isLoading || !imageBase64}
-            href={imageBase64 || '#'}
-            download={`契約報告書_${contractId}.png`}
-          >
-            ダウンロード
-          </Button>
-        </DialogActions>
+        <CertViewerDialogBody 
+          contractId={contractId}
+          handleClose={handleClose}
+        />
       </Dialog>
     </FormProvider>
   );

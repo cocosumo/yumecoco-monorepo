@@ -5,8 +5,10 @@ import { ApiNodes } from 'types';
 
 export const useExternalImage = ({
   url,
+  enabled = false,
 }: {
   url: string,
+  enabled?: boolean,
 }) => {
 
 
@@ -34,6 +36,9 @@ export const useExternalImage = ({
 
       return data.base64Img;
 
+    },
+    {
+      enabled,
     },
   );
 };

@@ -3,16 +3,15 @@ import { forwardRef } from 'react';
 import { InputForm } from './inputForm/InputForm';
 
 interface CertViewerContentProps {
-  imageBase64: string;
+  canvasRef: (node: HTMLCanvasElement) =>  void;
 }
 
 
 export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentProps>((props, ref) => {
 
-  const  {
-    imageBase64,
+  const {
+    canvasRef,
   } = props;
-
 
   return (
     <Stack
@@ -32,10 +31,10 @@ export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentPro
           m: 1,
         }}
       >
-        <img 
-          src={imageBase64}
-          height={'100%'}
+        <canvas 
+          ref={canvasRef} 
         />
+
       </Paper>
 
       <InputForm />

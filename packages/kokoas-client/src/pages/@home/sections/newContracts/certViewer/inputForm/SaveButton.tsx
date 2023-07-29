@@ -3,24 +3,28 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useTypedFormContext } from '../hooks/useTypedRHF';
 import { IContracts } from 'types';
 import { useSaveContract } from 'kokoas-client/src/hooksQuery';
+import { useState } from 'react';
 import { sleep } from 'libs';
 
 export const SaveButton = () => {
+  const [loadingSave, setLoadingSave] = useState(false); 
 
   const { 
     handleSubmit,
-    formState: {
-      isDirty,
-      isSubmitting,
-      
-    },
+    formState,
   } = useTypedFormContext();
+
+  const {
+    isDirty,
+    isSubmitting,
+  } = formState;
 
 
   const { mutateAsync, isLoading  } = useSaveContract();
 
   const handleSave = handleSubmit(
     async (data) => {
+      setLoadingSave(true);
       const {
         financingMethod,
         financialInstitution,
@@ -36,16 +40,21 @@ export const SaveButton = () => {
         financialContactTel: { value: tel },
         financialContactFax: { value: fax },
       };
-      await sleep(2000); // throttle
       await mutateAsync({
         record,
         recordId: contractId,
       });
+      await sleep(1000);
+      setLoadingSave(false);
+      
     },
     (err) => {
       console.warn(err);
     },
   );
+  
+  const isFormLoading = isLoading || isSubmitting || loadingSave;
+  const isSaveDisabled = !isDirty || isFormLoading;
 
   return (
     <LoadingButton
@@ -53,7 +62,7 @@ export const SaveButton = () => {
       color='success'
       loading={isLoading || isSubmitting}
       startIcon={<SaveIcon />}
-      disabled={!isDirty || isLoading || isSubmitting}
+      disabled={isSaveDisabled}
       onClick={handleSave}
       loadingPosition='start'
       sx={{

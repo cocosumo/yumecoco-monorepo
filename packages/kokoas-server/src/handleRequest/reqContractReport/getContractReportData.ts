@@ -1,4 +1,4 @@
-import { getContractById, getCustGroupById, getProjById } from 'api-kintone';
+/* import { getContractById, getCustGroupById, getProjById } from 'api-kintone';
 import { getAgentNamesByType as custGetAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
  
@@ -92,4 +92,4 @@ export const getContractReportData = async (contractId: string) => {
   };
 };
 
-export type ContractReportData = Awaited<ReturnType<typeof getContractReportData>>;
+export type ContractReportData = Awaited<ReturnType<typeof getContractReportData>>; */

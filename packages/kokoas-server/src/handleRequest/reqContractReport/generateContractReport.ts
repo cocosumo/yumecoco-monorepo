@@ -1,4 +1,4 @@
-import { createCanvas, loadImage } from 'canvas';
+/* import { createCanvas, loadImage } from 'canvas';
 import { imageAssets } from 'config';
 import { getContractReportData } from './getContractReportData';
 
@@ -167,4 +167,4 @@ export const generateContractReport = async (contractId: string) => {
 
   return canvas.toDataURL('image/png');
 
-};
+}; */

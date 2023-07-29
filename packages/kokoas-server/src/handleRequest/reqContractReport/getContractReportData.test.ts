@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+/* import { describe, expect, it } from '@jest/globals';
 import { getContractReportData } from './getContractReportData';
 
 describe('getContractReportData', () => {
@@ -11,4 +11,4 @@ describe('getContractReportData', () => {
     
     expect(result.contractId).toBe(testId);
   });
-});
+}); */

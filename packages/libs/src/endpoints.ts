@@ -41,7 +41,7 @@ export const kokoasEndpoints = {
   getImage: 'image',
 
   /** 契約報告書 */
-  downloadContractReport: 'download/contract/report',
+  // downloadContractReport: 'download/contract/report',
 } as const;
 
 export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;

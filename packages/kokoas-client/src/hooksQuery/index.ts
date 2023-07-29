@@ -15,7 +15,6 @@ export * from './useContractById';
 export * from './useContractCheckersByStoreId';
 export * from './useContractCorrectView';
 export * from './useContractFilesById';
-export * from './useContractReport';
 export * from './useContracts';
 export * from './useContractsByCustGroupId';
 export * from './useContractsByEstId';

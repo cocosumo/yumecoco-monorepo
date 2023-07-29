@@ -5,6 +5,7 @@ import kokoas from './route/kokoas';
 import openai from './route/openai';
 import { ApiNodes } from 'types';
 import axios from 'axios';
+import { baseUrl } from 'config';
 
 
 loadEnv();
@@ -48,4 +49,5 @@ app.get('/wp/*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost:${PORT}`);
+  console.log(`Test server ${baseUrl}`);
 });

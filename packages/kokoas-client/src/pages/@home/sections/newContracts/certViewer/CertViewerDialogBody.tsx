@@ -39,7 +39,7 @@ export const CertViewerDialogBody = ({
       <DialogContent
         sx={{
           overflow: 'hidden',
-          height: '75vh',
+          //height: '80vh',
         }}
       >
         {isLoading && (

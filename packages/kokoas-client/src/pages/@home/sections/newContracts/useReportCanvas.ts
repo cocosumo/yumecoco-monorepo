@@ -58,7 +58,7 @@ export const useReportCanvas = (contractId: string) => {
     if (!canvas) return;
     canvas.width = 1276;
     canvas.height = 1790;
-    canvas.style.width = '350px';
+    canvas.style.width = '340px';
     canvas.style.height = '100%';
 
     const ctx = canvas.getContext('2d');

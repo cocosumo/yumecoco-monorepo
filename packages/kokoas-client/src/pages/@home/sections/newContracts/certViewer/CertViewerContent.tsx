@@ -1,13 +1,14 @@
 import { Paper, Stack } from '@mui/material';
-import { forwardRef } from 'react';
 import { InputForm } from './inputForm/InputForm';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 interface CertViewerContentProps {
   canvasRef: (node: HTMLCanvasElement) =>  void;
+  hideCanvas?: boolean;
 }
 
 
-export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentProps>((props, ref) => {
+export const CertViewerContent = (props: CertViewerContentProps) => {
 
   const {
     canvasRef,
@@ -15,7 +16,6 @@ export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentPro
 
   return (
     <Stack
-      ref={ref}
       direction='row'
       spacing={2}
       sx={{
@@ -26,20 +26,22 @@ export const CertViewerContent = forwardRef<HTMLDivElement, CertViewerContentPro
       }}
       justifyContent={'center'}
     >
-      <Paper
-        sx={{
-          m: 1,
-        }}
-      >
-        <canvas 
-          ref={canvasRef} 
-        />
 
-      </Paper>
+      <TransformWrapper>
+        <TransformComponent>
+
+          <canvas 
+            ref={canvasRef}
+          />
+
+        </TransformComponent>
+
+      </TransformWrapper>   
+
 
       <InputForm />
     </Stack>
   );
-});
 
-CertViewerContent.displayName = 'CertViewerContent';
+
+};

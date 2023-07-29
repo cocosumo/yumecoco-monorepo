@@ -26,6 +26,7 @@ export const CertViewerDialogBody = ({
   const {
     canvasRef,
     isLoading,
+    isGenerating,
     dataUrl,
   } = useReportCanvas(contractId);
 
@@ -48,6 +49,7 @@ export const CertViewerDialogBody = ({
         {!isLoading && (
         <CertViewerContent 
           canvasRef={canvasRef}
+          hideCanvas={isGenerating || isLoading}
         />
         )}
     

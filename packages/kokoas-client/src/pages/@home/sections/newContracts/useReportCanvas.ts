@@ -22,6 +22,7 @@ const parseDate = (date: string) => {
 
 export const useReportCanvas = (contractId: string) => {
   const [dataUrl, setDataUrl] = useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
   
 
   //const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -48,6 +49,7 @@ export const useReportCanvas = (contractId: string) => {
 
 
   const ref = useCallback((canvasRef: HTMLCanvasElement) => {
+    setIsGenerating(true);
     if (!rectContract || !recProj || !recCust) return;
     if (!imageBase64) return;
 
@@ -109,6 +111,7 @@ export const useReportCanvas = (contractId: string) => {
 
     const image = new Image();
     image.onload = function () {
+     
       console.log('Generating image...');
       ctx.drawImage(image, 0, 0);
       ctx.fillStyle = '#333333';
@@ -219,6 +222,7 @@ export const useReportCanvas = (contractId: string) => {
   
       
       setDataUrl(canvas.toDataURL('image/png'));
+      setIsGenerating(false);
     };
     image.src = `data:image/png;base64,${imageBase64}`;
 
@@ -232,6 +236,7 @@ export const useReportCanvas = (contractId: string) => {
 
   return {
     isLoading,
+    isGenerating,
     canvasRef: ref,
     imageBase64,
     dataUrl,

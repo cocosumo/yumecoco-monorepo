@@ -3,6 +3,7 @@ import { useContractById, useCustGroupById, useExternalImage, useProjById } from
 import { useCallback, useState } from 'react';
 import { getAgentNamesByType as custGetAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
+import { resizeText } from './helpers/resizeText';
  
 
 const parseDate = (date: string) => {
@@ -124,10 +125,11 @@ export const useReportCanvas = (contractId: string) => {
       // 契約者名
       ctx.font = '40px "Noto Sans JP"';
       ctx.textAlign = 'center';
-      ctx.fillText(custNames, 620, 620);
+      resizeText(ctx, custNames, 700, 40);
+      ctx.fillText(custNames, 710, 620);
 
       ctx.textAlign = 'start';
-  
+      ctx.font = '40px "Noto Sans JP"';
       if (contractDate.value) {
         // 契約日（月）
         const {
@@ -161,8 +163,8 @@ export const useReportCanvas = (contractId: string) => {
       ctx.fillText(projTypeName.value, 400, 976);
 
       ctx.font = '34px "Noto Sans JP"';
-      ctx.fillText(totalContractAmt.value.toLocaleString(), 410, 1073);
-      ctx.fillText(totalProfit.value.toLocaleString(), 880, 1073);
+      ctx.fillText((+totalContractAmt.value).toLocaleString(), 410, 1073);
+      ctx.fillText((+totalProfit.value).toLocaleString(), 880, 1073);
 
       ctx.font = '40px "Noto Sans JP"';
       ctx.fillStyle = '#3a87b9';
@@ -177,7 +179,7 @@ export const useReportCanvas = (contractId: string) => {
 
       ctx.font = '34px "Noto Sans JP"';
       if (contractAmt.value) {
-        ctx.fillText(contractAmt.value.toLocaleString(), 875, 1433);
+        ctx.fillText((+contractAmt.value).toLocaleString(), 875, 1433);
         const {
           month,
           day,
@@ -188,7 +190,7 @@ export const useReportCanvas = (contractId: string) => {
       }
 
       if (initialAmt.value) {
-        ctx.fillText(initialAmt.value.toLocaleString(), 875, 1510);
+        ctx.fillText((+initialAmt.value).toLocaleString(), 875, 1510);
         const {
           month,
           day,
@@ -199,7 +201,7 @@ export const useReportCanvas = (contractId: string) => {
       }
 
       if (interimAmt.value) {
-        ctx.fillText(interimAmt.value.toLocaleString(), 875, 1584);
+        ctx.fillText((+interimAmt.value).toLocaleString(), 875, 1584);
         const {
           month,
           day,
@@ -210,7 +212,7 @@ export const useReportCanvas = (contractId: string) => {
       }
 
       if (finalAmt.value) {
-        ctx.fillText(finalAmt.value.toLocaleString(), 875, 1660);
+        ctx.fillText((+finalAmt.value).toLocaleString(), 875, 1660);
         const {
           month,
           day,

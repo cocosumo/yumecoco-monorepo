@@ -33,6 +33,7 @@ export const CertViewerContent = (props: CertViewerContentProps) => {
           wrapperStyle={{
             border: `1px solid ${grey[300]}`,
             borderRadius: '4px',
+            cursor: 'grab',
           }}
         >
           <canvas 

@@ -15,10 +15,9 @@ export const CocoAgent = ({
   const {
     agents,
     custGroupId,
-
   } = data || {};
 
-  const cocoAgents = agents ? projGetAgentNamesByType(agents, 'cocoAG') : '';
+  const projCocoAgents = agents ? projGetAgentNamesByType(agents, 'cocoAG') : '';
 
 
   const { 
@@ -26,24 +25,27 @@ export const CocoAgent = ({
     isLoading: cusIsLoading,
   } = useCustGroupById(
     custGroupId?.value || '',
-    !projIsLoading && !cocoAgents,
+    !projIsLoading && !projCocoAgents,
   );
 
   const {
     agents: custGroupAgents,
   } = custGroupRec || {};
 
-  if (projIsLoading || cusIsLoading) {
+  const custGroupCocoAgents = custGroupAgents ? custAgentNamesByType(custGroupAgents, 'cocoAG') : '';
+  
+  const resolvedAgents = projCocoAgents || custGroupCocoAgents;
+
+  if (!resolvedAgents && (projIsLoading || cusIsLoading)) {
     return <CircularProgress size={14} />;
   }
 
-  const custGroupCocoAgents = custGroupAgents ? custAgentNamesByType(custGroupAgents, 'cocoAG') : '';
 
   return (
     <Typography 
       variant={'caption'}
     >
-      {cocoAgents || custGroupCocoAgents}
+      {resolvedAgents}
     </Typography>
   );
 };

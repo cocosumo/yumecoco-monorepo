@@ -14,6 +14,8 @@ import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloa
 import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectFromAndpadByProjId';
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
+import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
+//import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
 
 const route = router();
@@ -67,6 +69,18 @@ route.get(
   `/${kokoasEndpoints.downloadEstimateForCustomer}/:estimateId`,
   downloadEstimateForCustomer,
 );
+
+route.post(
+  `/${kokoasEndpoints.getImage}`,
+  bodyParser.json({ limit: '1mb' }),
+  reqImageToBase64,
+);
+
+/* route.post(
+  `/${kokoasEndpoints.downloadContractReport}`,
+  bodyParser.json({ limit: '1mb' }),
+  reqContractReport,
+); */
 
 route.put(
   `/${kokoasEndpoints.downloadInvoice}`,

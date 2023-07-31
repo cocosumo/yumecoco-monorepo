@@ -48,4 +48,11 @@ export const fieldMapJa : Record<KForm, string> = {
   storeCode: '店舗コード',
   storeId: '店舗ID',
   territory: 'エリア',
+
+  rank: 'ランク',
+  schedContractPrice: '契約予定金額',
+  schedContractDate: '契約予定日',
+  estatePurchaseDate: '不動産決済日',
+  planApplicationDate: '計画申し込み日',
+
 };

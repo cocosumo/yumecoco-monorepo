@@ -6,7 +6,7 @@ export const LinkListItemButton = ({
   icon,
   text,
   to = '/',
-  indented = true,
+  indented = false,
   ...others
 }: Omit<ComponentProps<typeof Link>, 'to'> & {
   icon: ReactNode

@@ -1,9 +1,8 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks';
-import { InputLabel, Rating, Stack, Typography } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { fieldMapJa } from '../../api/fieldMapJa';
 import { rankingValues } from '../../api/rankingValues';
-import { grey } from '@mui/material/colors';
 
 const name = 'rank';
 const label = fieldMapJa[name];
@@ -20,51 +19,56 @@ export const Rank = () => {
       render={({
         field: {
           onChange,
-          value,
-          ref,
+          ...fieldProps
         },
+        fieldState: {
+          error,
+          isTouched,
+        },
+        formState: {
+          isDirty,
+        },
+
       }) => {
-        
-        const parsedValue = rankingValues.findIndex((v) => v === value);
+        const showError = (isTouched || isDirty) && !!error;
         
         return (
-          <Stack 
-            direction="row"
-            spacing={2}
-            alignContent={'center'}
+          <FormControl 
+            error={showError}
+            size='small'
+            sx={{
+              minWidth: 120,
+            }}
           >
-            <Stack>
-              <InputLabel>
-                {label}
-              </InputLabel>
-          
-              <Rating
-                name={name}
-                size='large'
-                ref={ref}
-                value={parsedValue}
-                onChange={(_, newValue) => {
-              
-                  onChange(rankingValues[newValue || 0]);
-                }}
-                max={4}
-              />
-            </Stack>
-            {!!value && (
-            <Typography
-              fontWeight='bold'
-              fontSize={30}
-              color={grey[700]}
-              px={2}
-              border={1}
-              borderRadius={2}
-              borderColor={grey[500]}
+            <InputLabel>
+              {label}
+            </InputLabel>
+            <Select 
+              {...fieldProps}
+              onChange={(e) => onChange(e.target.value)}
+              label={label}
             >
-              {value}
-            </Typography>
-            )}
-           
-          </Stack>
+              <MenuItem value={''}>
+                <em>
+                  ---
+                </em>
+              </MenuItem>
+              {
+                rankingValues.map((v) => (
+                  <MenuItem 
+                    key={v}
+                    value={v}
+                  >
+                    {v}
+                  </MenuItem>
+                ))
+              }
+
+            </Select>
+            <FormHelperText>
+              {error?.message}
+            </FormHelperText>
+          </FormControl>
         ); 
       }}
     />

@@ -6,7 +6,7 @@ describe('getAndpadOrdersByAndpadProjId.test', () => {
     const andpadProjId = '11487098';
     const result = await getAndpadOrdersByAndpadProjId(andpadProjId);
 
-    console.log(result.length);
+    console.log(result);
 
     expect(result).toBeDefined();
   });

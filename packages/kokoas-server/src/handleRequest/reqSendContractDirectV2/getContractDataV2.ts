@@ -92,6 +92,8 @@ export const getContractDataV2 = async (
     address1: projAddress1,
     address2: projAddress2,
     dataId,
+    projTypeName,
+    projTypeId,
   } = await getProjById(projId.value);
 
   /* 顧客情報 */
@@ -210,6 +212,9 @@ export const getContractDataV2 = async (
       address1: projAddress1.value,
       address2: projAddress2.value,
     },
+    projTypeId: projTypeId.value,
+    projTypeName: projTypeName.value,
+
     /* 契約 */
     tax: parsedTaxRate * 100,
     totalContractAmtAfterTax: parsedTotalContractAmt,

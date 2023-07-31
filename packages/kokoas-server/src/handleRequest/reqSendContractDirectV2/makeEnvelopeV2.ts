@@ -2,12 +2,12 @@ import {
   CarbonCopy,
   EnvelopeDefinition,
   Signer } from 'docusign-esign';
-import { ReqSendContractParams, roles } from 'types';
+import { roles } from 'types';
 import fs from 'fs/promises';
 import { getFilePath } from 'kokoas-server/src/assets';
 import { isProd } from 'config';
-import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from './generateContractPdfV2';
+import { TContractData } from './getContractDataV2';
 /**
  * 参考
  * https://www.docusign.com/blog/developers/tabs-deep-dive-placing-tabs-documents#:~:text=In%20the%20DocuSign%20web%20app,specifying%20x%20and%20y%20position.
@@ -29,11 +29,9 @@ const testHonKeiriEmail = 'cocosumo.rpa03@gmail.com'; //　本経理
 export const makeEnvelopeV2 = async ({
   data,
   status = 'sent',
-  signMethod,
 } :{
-  data: Awaited<ReturnType<typeof getContractDataV2>>,
+  data: TContractData,
   status: 'created' | 'sent',
-  signMethod: ReqSendContractParams['signMethod'],
 }) => {
 
   const {
@@ -52,6 +50,8 @@ export const makeEnvelopeV2 = async ({
 
     subAccountingName,
     subAccountingEmail,
+
+    signMethod,
   } = data;
 
   const {

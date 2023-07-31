@@ -65,6 +65,12 @@ export const schema = z.object({
     id: z.string(),
   })),
 
+  // 見込み
+  rank: z.string().optional(),
+  schedContractPrice: z.number().optional(),
+  schedContractDate: z.date().nullable(),
+  estatePurchaseDate: z.date().nullable(),
+  planApplicationDate: z.date().nullable(),
 })
   .superRefine((
     {

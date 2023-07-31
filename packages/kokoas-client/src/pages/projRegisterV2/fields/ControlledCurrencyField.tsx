@@ -1,13 +1,12 @@
-import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../hooks/useTypedRHF';
 import { KForm } from '../schema';
 import { fieldMapJa } from '../api/fieldMapJa';
+import { NumberCommaField } from 'kokoas-client/src/components/ui/textfield/NumberCommaField';
 
-export const ControlledTextField = ({
+export const ControlledCurrencyField = ({
   name,
   label,
-  width,
   placeholder,
   disabled = false,
   required,
@@ -26,34 +25,44 @@ export const ControlledTextField = ({
   const {
     control,
   } = useTypedFormContext();
+  
 
   return (
     <Controller 
       control={control}
       name={name}
       render={({
-        field,
+        field:{
+          onChange,
+          value,
+          ref,
+        },
         fieldState: {
           error,
           isTouched,
         },
+        formState: {
+          isDirty,
+        },
       }) => {
 
-
+        const showError = (isTouched || isDirty) && !!error;
         return (
-          <TextField 
-            {...field}
-            label={label || fieldMapJa[name]} 
-            placeholder={placeholder}
-            sx={{
-              width,
-            }}
+          <NumberCommaField
+            name={name}
+            onChange={onChange}
+            value={value as string}
+            inputRef={ref}
+            label={label || fieldMapJa[name]}
+            variant={'outlined'}
             size='small'
-            error={isTouched && !!error}
-            helperText={error?.message || helperText}
+            error={showError}
             disabled={disabled}
+            placeholder={placeholder}
+            helperText={error?.message || helperText}
             required={required}
             fullWidth={fullWidth}
+
           />
         );
       }}

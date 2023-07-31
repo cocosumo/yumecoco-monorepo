@@ -3,10 +3,8 @@ import { TContractData } from '../getContractDataV2';
 
 export const getContractFlow = ({
   data,
-  signMethod,
 }:{
   data: TContractData,
-  signMethod: ReqSendContractParams['signMethod'],
 }) => {
 
   const {
@@ -25,7 +23,20 @@ export const getContractFlow = ({
 
     subAccountingName,
     subAccountingEmail,
+
+    projTypeName,
+    
+    signMethod,
+    
   } = data;
+
+  // electronic
+
+  // wetInk
+
+  // jisha
+  
+  // b
 
 
 

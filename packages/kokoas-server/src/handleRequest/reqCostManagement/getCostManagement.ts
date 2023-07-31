@@ -53,8 +53,8 @@ export const getCostManagement = async (
 
 
   const profitability = calcProfitability({
-    orderAmount: costManagemenList.受注金額_税抜,
-    additionalAmount: costManagemenList.追加金額_税抜,
+    orderAmount: contracts?.契約金額 ?? 0,
+    additionalAmount: contracts?.追加金額 ?? 0,
     purchaseAmount: costManagemenList.発注金額_税抜,
     paymentAmount: costManagemenList.支払金額_税抜,
   }); // TODO

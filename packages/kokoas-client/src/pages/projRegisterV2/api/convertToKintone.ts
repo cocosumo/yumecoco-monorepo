@@ -52,6 +52,12 @@ export const convertToKintone = (
     deliveryDate,
     projFinDate,
     payFinDate,
+
+    rank,
+    schedContractPrice,
+    schedContractDate,
+    estatePurchaseDate,
+    planApplicationDate,
   } = rawValues;
 
 
@@ -94,6 +100,14 @@ export const convertToKintone = (
     deliveryDate: { value: toKintoneDateStr(deliveryDate) },
     projFinDate: { value: toKintoneDateStr(projFinDate) },
     payFinDate: { value: toKintoneDateStr(payFinDate) },
+
+    // 見込み
+    rank: { value: rank || '' },
+    schedContractPrice: { value: String(schedContractPrice) },
+    schedContractDate: { value: toKintoneDateStr(schedContractDate) },
+    estatePurchaseDate: { value: toKintoneDateStr(estatePurchaseDate) },
+    planApplicationDate: { value: toKintoneDateStr(planApplicationDate) },
+
   };
 
 };

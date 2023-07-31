@@ -7,12 +7,15 @@ import { getCostManagement } from './getCostManagement';
  * excelファイルを生成する
  * outputはbase64に変換する
  */
-export const generateCostManagement = (andpadProjId: string) => {
+export const generateCostManagement = async (
+  projId: string,
+  andpadProjId: string,
+) => {
 
   // 対象案件の発注一覧の取得
-  const andpadOrders = getAndpadOrdersByAndpadProjId(andpadProjId);
+  const andpadOrders = await getAndpadOrdersByAndpadProjId(andpadProjId);
   
-  const costManagementList = getCostManagement(andpadOrders);
+  const costManagementList = await getCostManagement(projId, andpadProjId, andpadOrders);
 
 
 };

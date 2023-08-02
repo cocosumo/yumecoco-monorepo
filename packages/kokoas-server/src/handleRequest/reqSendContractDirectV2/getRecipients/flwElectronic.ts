@@ -5,6 +5,8 @@ import { commonCC } from './commonCC';
 import { commonSigners } from './commonSigners';
 
 export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
+  console.log('Flow：電子');
+
   const {
     customers,
     cocoAG,

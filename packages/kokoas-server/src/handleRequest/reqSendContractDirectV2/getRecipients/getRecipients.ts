@@ -1,5 +1,7 @@
 import { TContractData } from '../getContractDataV2';
 import { flwElectronic } from './flwElectronic';
+import { flwJisha } from './flwJisha';
+import { flwService } from './flwService';
 import { flwWetInk } from './flwWetInk';
 
 export const getRecipients = (data: TContractData) => {
@@ -20,14 +22,24 @@ export const getRecipients = (data: TContractData) => {
 
     subAccountingName,
     subAccountingEmail,
-
-    projTypeName, */
+*/
+    projTypeName, 
     
     signMethod,
     
   } = data;
 
-  // 順番にチェックされるので、
+
+  // 自社物件
+  if (projTypeName === '自社物件') {
+    return flwJisha(data);
+  }
+
+  // サービス工事
+  if (projTypeName === 'サービス工事') {
+    return flwService(data);
+  }
+
 
   // 電子契約
   if (signMethod === 'electronic') {
@@ -38,13 +50,5 @@ export const getRecipients = (data: TContractData) => {
   if (signMethod === 'wetInk') {
     return flwWetInk(data);
   }
-
-  // wetInk
-
-  // jisha
-
-  // sabisu
-
-
 
 };

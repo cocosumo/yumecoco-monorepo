@@ -9,7 +9,7 @@ import {
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
 import { addressBuilder, formatDataId } from 'libs';
-import { ReqSendContractParams, TAgents } from 'types';
+import { ReqSendContractParams, TAgents, Territory } from 'types';
 import { validateContractData } from '../../api/kintone/validateContractDataV2';
 import { isProd } from 'config';
 
@@ -113,6 +113,7 @@ export const getContractDataV2 = async (
 
   const {
     storeNameShort,
+    territory,
     //TEL: companyTel,
     //住所: companyAddress,
     //officialStoreName,
@@ -187,7 +188,10 @@ export const getContractDataV2 = async (
       文字列＿氏名: subAccountingName,
       email: subAccountingEmail,
     },
-  } = await getContractCheckers(storeId.value);
+  } = await getContractCheckers({
+    storeId: storeId.value,
+    territory: territory.value,
+  });
 
   const parsedTaxRate = +tax.value;
   const parsedTotalContractAmt = +totalContractAmt.value;
@@ -244,6 +248,7 @@ export const getContractDataV2 = async (
     storeMngrEmail: isProd ? managerEmail.value : testTenchoEmail,
     storeName: storeName.value,
     storeNameShort: storeNameShort.value,
+    territory: territory.value as Territory,
 
     /* 経理 */
     accountingName: accountingName.value,

@@ -32,7 +32,7 @@ export const LinkListItemButton = ({
       <ListItemButton 
         selected={location.pathname.includes(to)}
         sx={{ 
-          pl: indented ? 4 : undefined,         
+          pl: indented ? '48px' : undefined,         
         }}
       >
         <ListItemIcon>

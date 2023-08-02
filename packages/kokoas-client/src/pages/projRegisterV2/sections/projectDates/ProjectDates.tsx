@@ -5,7 +5,8 @@ export const ProjectDates = () => {
   return (
     <Stack 
       spacing={2}
-      width={300}
+      direction='row'
+      maxWidth={600}
     >
       
       <ControlledDatePicker 

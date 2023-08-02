@@ -35,6 +35,12 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     projFinDate,
     payFinDate,
     deliveryDate,
+
+    rank,
+    schedContractPrice,
+    estatePurchaseDate,
+    planApplicationDate,
+    schedContractDate,
   } = projRec;
 
   const {
@@ -100,6 +106,14 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
         id,
       };
     }) ?? [],
+
+    // 見込み
+    rank: rank.value,
+    schedContractPrice: +schedContractPrice.value,
+    schedContractDate: schedContractDate.value ? parseISO(schedContractDate.value) : null,
+    estatePurchaseDate: estatePurchaseDate.value ? parseISO(estatePurchaseDate.value) : null,
+    planApplicationDate: planApplicationDate.value ? parseISO(planApplicationDate.value) : null,
+
   };
 
 };

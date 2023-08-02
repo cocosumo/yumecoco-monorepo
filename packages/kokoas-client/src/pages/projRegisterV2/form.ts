@@ -52,6 +52,13 @@ export const initialValues : TForm = {
 
   logs: [],
 
+  // 見込み
+  rank: '',
+  schedContractPrice: 0,
+  schedContractDate: null,
+  estatePurchaseDate: null,
+  planApplicationDate: null,
+
 };
 
 

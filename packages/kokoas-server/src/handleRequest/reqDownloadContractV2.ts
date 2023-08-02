@@ -4,11 +4,15 @@ import { RequestHandler } from 'express';
 import { ReqDownloadContractParams, ReqDownloadContractV2Response } from 'types';
 import { getContractDataV2 } from './reqSendContractDirectV2/getContractDataV2';
 import { generateContractPdfV2 } from '../api/docusign/contracts';
+import { getRecipients } from './reqSendContractDirectV2/getRecipients/getRecipients';
+import { EnvelopeRecipients } from 'docusign-esign';
 
 
 export const reqDownloadContractV2: RequestHandler<
 unknown,
-ReqDownloadContractV2Response,
+ReqDownloadContractV2Response & {
+  recipients?: EnvelopeRecipients
+},
 unknown,
 ReqDownloadContractParams
 > = async (req, res) => {
@@ -32,6 +36,8 @@ ReqDownloadContractParams
       envelopeId,
     } = contractData;
 
+    const recipients = getRecipients(contractData);
+ 
     console.log('Contract data', projName, envelopeStatus); 
 
     const file = await generateContractPdfV2(contractData, 'base64') as string;
@@ -42,6 +48,7 @@ ReqDownloadContractParams
       documents: [file],
       envelopeStatus,
       envelopeId,
+      recipients,
     });
   
     res.end();

@@ -1,7 +1,7 @@
-import { getAndpadOrdersByAndpadProjId } from 'api-kintone/src/andpadOrders/getAndpadOrdersByAndpadProjId';
+import { getAndpadOrdersByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadOrdersByAndpadProjId';
 import { summarizeOrderingCompanyInfo } from './summarizeOrderingCompanyInfo';
 import { getAndpadPaymentsBySystemId, getContractsByProjId, getProjById, getProjTypeById } from 'api-kintone';
-import { calcProfitability } from 'api-kintone/src/andpadOrders/calculation/calcProfitability';
+import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
 
 
 

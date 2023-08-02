@@ -5,6 +5,12 @@ import { appId, RecordType } from './config';
 
 /**
  * 店舗番号で店長の社員レコードを取得する
+ * 
+ * @returns {Checkers}
+ * @returns {Checkers.storeMgr} 店長
+ * @returns {Checkers.accounting} 担当エリアの経理
+ * @returns {Checkers.mainAccounting} 本社経理
+ * @returns {Checkers.subAccounting} 経理(最終確認者)
  */
 export const getContractCheckers = async (storeId: string) => {
 

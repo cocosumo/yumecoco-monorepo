@@ -20,7 +20,7 @@ export const reqVoidEnvelopeV2 : RequestHandler = async (
       envelopeId,
       voidedReason,
     } = body;
-
+    console.log('VOIDING...');
 
     if (!voidedReason) throw new Error('Server: 無効にする理由は定義されていません。');
 
@@ -51,6 +51,7 @@ export const reqVoidEnvelopeV2 : RequestHandler = async (
     } as IVoidRes);
   } catch (err: any) {
     // Return error from docusign api or validation error.
+    console.log(err);
     res.status(400).send(
       err?.response?.res?.text ?? {
         message: err?.message,

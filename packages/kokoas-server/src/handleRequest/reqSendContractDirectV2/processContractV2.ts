@@ -24,7 +24,6 @@ export const processContractV2 = async (
     const envelope = await makeEnvelopeV2({
       data,
       status,
-      signMethod,
     });
 
     let envSummary: EnvelopeSummary = Object.create(null);

@@ -5,6 +5,11 @@ import { LinkListItemButton } from './common/LinkListItemButton';
 
 export const ContractSearch = () => {
   return (
-    <LinkListItemButton to={pages.projContractSearch} icon={<ManageSearchIcon />} text={'契約一覧'} />
+    <LinkListItemButton 
+      to={pages.projContractSearch} 
+      icon={<ManageSearchIcon />}
+      text={'一覧・検索'}
+      indented
+    />
   );
 };

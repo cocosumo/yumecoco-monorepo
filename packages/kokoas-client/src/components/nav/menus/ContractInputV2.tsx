@@ -5,6 +5,8 @@ import { LinkListItemButton } from './common/LinkListItemButton';
 
 export const ContractInputV2 = () => {
   return (
-    <LinkListItemButton to={pages.projContractPreviewV2} icon={<LocalPrintshopIcon />} text={'契約を印刷'} />
+    <LinkListItemButton to={pages.projContractPreviewV2} icon={<LocalPrintshopIcon />} text={'電子契約'}
+      indented
+    />
   );
 };

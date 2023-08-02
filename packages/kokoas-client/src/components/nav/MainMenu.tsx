@@ -11,16 +11,18 @@ import { Typography } from '@mui/material';
 //import { ProspectMenu } from './menus/ProspectMenu';
 import { Registrations } from './menus/registrations/Registrations';
 import { Search } from './menus/search/Search';
+import CustomerMenu from './menus/CustomerMenu';
+import ContractMenu from './menus/ContractMenu';
+import { ConstructionMenu } from './menus/ConstructionMenu';
 
 export default function MainMenu() {
   return (
     <div>
-
-      <Search />
-
-      <Registrations />
-
-
+      <CustomerMenu />
+      <ConstructionMenu />
+      <ContractMenu />
+      {/*  <Registrations /> */}
+      {/* <Search /> */}
       <Divider />
       <SystemMenu />
 

@@ -13,7 +13,7 @@ export const Registrations = () => {
         登録
       </Divider>
       <LinkListItemButton to={pages.custGroupEditV2} icon={<GroupAddIcon />} text={'顧客登録'}  />
-      <LinkListItemButton to={pages.projEditV2} icon={<HardwareIcon />} text={'案件登録'}  />
+      <LinkListItemButton to={pages.projEditV2} icon={<HardwareIcon />} text={'工事情報登録'}  />
       <LinkListItemButton to={pages.projContractPreviewV2} icon={<FaFileSignature size={18} />} text={'契約登録'}  />
 
     </>

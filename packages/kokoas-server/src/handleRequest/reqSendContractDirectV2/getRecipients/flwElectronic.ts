@@ -1,6 +1,8 @@
-import { CarbonCopy, EnvelopeRecipients, Signer } from 'docusign-esign';
+import { EnvelopeRecipients, Signer } from 'docusign-esign';
 import { TContractData } from '../getContractDataV2';
 import { roles } from 'types';
+import { commonCC } from './commonCC';
+import { commonSigners } from './commonSigners';
 
 export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
   const {
@@ -15,7 +17,6 @@ export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
 
 
   const signers : Signer[] = [];
-  const ccs : CarbonCopy[] = [];
 
   signers.push({
     email: officerEmail,
@@ -43,6 +44,10 @@ export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
       },
       idx,
     ) => {
+      if (!custEmail) {
+        throw new Error(`顧客${idx + 1}のメールアドレスがありません`);
+      }
+
       return {
         email: custEmail,
         name: custName,
@@ -67,7 +72,10 @@ export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
   ));
 
   return {
-    signers,
-    
+    signers: [
+      ...signers,
+      ...commonSigners(data),
+    ],
+    carbonCopies: commonCC(data),
   };
 };

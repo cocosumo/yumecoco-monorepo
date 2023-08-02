@@ -11,7 +11,7 @@ describe('getRecipients', () => {
 
     const recipients = getRecipients({
       ...data,
-      projTypeName: '自社物件',
+      projTypeName: '新築工事',
     });
 
     console.log(JSON.stringify(recipients, null,  2));

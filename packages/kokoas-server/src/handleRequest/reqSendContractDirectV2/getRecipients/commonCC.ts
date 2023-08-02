@@ -10,6 +10,11 @@ export const commonCC = (data: TContractData) => {
 
     subAccountingEmail,
     subAccountingName,
+
+    accountingEmail,
+    accountingName,
+
+    territory,
   } = data;
 
   const ccs : CarbonCopy[] = [];
@@ -31,6 +36,18 @@ export const commonCC = (data: TContractData) => {
     recipientId: '44',
     routingOrder: '4',
   });
+
+  // 依頼番号：K118
+  if (territory === '東') {
+    ccs.push({
+      email: accountingEmail,
+      name: accountingName,
+      roleName: roles.accounting,
+      recipientId: '444',
+      routingOrder: '4',
+    });
+  }
+
   
   return ccs;
 };

@@ -2,7 +2,7 @@ import { EnvelopeRecipients, Signer } from 'docusign-esign';
 import { TContractData } from '../getContractDataV2';
 import { roles } from 'types';
 import { commonCC } from './commonCC';
-import { commonSigners } from './commonSigners';
+//import { commonSigners } from './commonSigners';
 
 export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
   console.log('Flow：電子');
@@ -74,10 +74,7 @@ export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
   ));
 
   return {
-    signers: [
-      ...signers,
-      ...commonSigners(data),
-    ],
+    signers,
     carbonCopies: commonCC(data),
   };
 };

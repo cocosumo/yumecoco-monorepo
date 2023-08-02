@@ -1,7 +1,7 @@
 import { EnvelopeRecipients, Signer } from 'docusign-esign';
 import { TContractData } from '../getContractDataV2';
 import { roles } from 'types';
-import { commonSigners } from './commonSigners';
+//import { commonSigners } from './commonSigners';
 
 export const flwWetInk = (data: TContractData): EnvelopeRecipients => {
   console.log('Flow：紙');
@@ -32,9 +32,6 @@ export const flwWetInk = (data: TContractData): EnvelopeRecipients => {
   });
 
   return {
-    signers: [
-      ...signers,
-      ...commonSigners(data),
-    ],
+    signers,
   };
 };

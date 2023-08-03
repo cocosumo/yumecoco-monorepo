@@ -1,29 +1,15 @@
 import { DialogContent } from '@mui/material';
-import { useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 import { useIsFetching } from '@tanstack/react-query';
 
 export const PreviewContent = ({
-  contractId,
-  selectedFileKey,
+  documentB64,
 }: {
-  contractId: string,
-  selectedFileKey: string | null,
+  documentB64: string | null,  
 }) => {
   const isFetching = !!useIsFetching();
   
-  const { data: fileData } = useContractFilesById({ 
-    id: contractId, 
-    enabled: !selectedFileKey,
-  });
-
-  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '');
-  
-  const {
-    documents,
-  } = fileData || {};
-
-  const pdfUrl = `data:application/pdf;base64,${fileB64 || documents?.[0] }`;
+  const pdfUrl = `data:application/pdf;base64,${documentB64}`;
 
   return (
     <DialogContent

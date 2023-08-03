@@ -5,9 +5,14 @@ import { TypeOfForm } from '../../schema';
 import { TEnvelopeStatus } from 'types';
 import { RefreshButton } from './RefreshButton';
 import { StartContract } from './startcontract/StartContract';
+import { EnvelopeRecipients } from 'docusign-esign';
 
 
-export const PreviewHeader = () => {
+export const PreviewHeader = ({
+  recipients,
+}:{
+  recipients?: EnvelopeRecipients
+}) => {
   const envelopeStatus = useWatch<TypeOfForm>({
     name: 'envelopeStatus',
   });
@@ -30,7 +35,7 @@ export const PreviewHeader = () => {
       )}
 
       {!isWithContract && (
-        <StartContract />
+        <StartContract recipients={recipients} />
       ) }
 
       {/* <ContractStatus /> */}

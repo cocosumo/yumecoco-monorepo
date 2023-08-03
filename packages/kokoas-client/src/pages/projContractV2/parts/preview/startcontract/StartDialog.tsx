@@ -3,22 +3,24 @@ import { useState } from 'react';
 import { StepConfirmation } from './StepConfirmation';
 import { StepChooseSignMethod } from './StepChooseSignMethod';
 import { TSignMethod } from 'types';
-import { StepCheckElectronicFlow } from './StepCheckElectronicFlow';
 import { useSendContract } from 'kokoas-client/src/hooksQuery';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../../schema';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
-import { StepCheckWetInkFlow } from './StepCheckWetInkFlow';
 import { ukeoiContractVersion } from 'config';
+import { EnvelopeRecipients } from 'docusign-esign';
+import { SigningFlow } from './SigningFlow';
 
 const steps = ['契約日確認', '署名手法', '送信前確認'];
 
 export const StartDialog = ({
   open,
   handleClose,
+  recipients,
 } : {
   open: boolean
   handleClose: () => void
+  recipients?: EnvelopeRecipients
 }) => {
   const [method, setMethod] = useState<TSignMethod>('electronic');
   const [activeStep, setActiveStep] = useState(0);
@@ -49,10 +51,10 @@ export const StartDialog = ({
     setActiveStep(prev => prev + 1);
   };
 
+
   return (
     <Dialog
       open={open}
-      onClose={handleCloseDialog}
       fullWidth
       maxWidth={'sm'}
       disablePortal
@@ -83,19 +85,15 @@ export const StartDialog = ({
       <StepChooseSignMethod handleChooseMethod={handleChooseMethod} handleClose={handleCloseDialog} />
       )}
 
-      {!isLoading && activeStep === 2 && method === 'electronic' && (
-      <StepCheckElectronicFlow 
-        handleSendContract={handleSendContract}
-        handleCancel={handleCloseDialog}
-      />
-      )}
+      {!isLoading && activeStep === 2 && (
+        <SigningFlow 
+          recipients={recipients}
+          method={method}
+          handleSendContract={handleSendContract}
+          handleCancel={handleCloseDialog}
+        />)}
+ 
 
-      {!isLoading && activeStep === 2 && method === 'wetInk' && (
-      <StepCheckWetInkFlow  
-        handleSendContract={handleSendContract}
-        handleCancel={handleCloseDialog}
-      />
-      )}
 
       {isLoading && activeStep === 2 && (
       <Loading />

@@ -1,4 +1,4 @@
-import { getAndpadOrdersByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadOrdersByAndpadProjId';
+import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
 import { summarizeOrderingCompanyInfo } from './summarizeOrderingCompanyInfo';
 import { getAndpadPaymentsBySystemId, getContractsByProjId, getProjById, getProjTypeById } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
@@ -13,7 +13,7 @@ import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation
 export const getCostManagement = async (
   projId: string,
   andpadProjId: string,
-  andpadOrders: Awaited<ReturnType<typeof getAndpadOrdersByAndpadProjId>>,
+  andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
 ) => {
 
   // 取得したデータを整形する

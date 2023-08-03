@@ -1,9 +1,9 @@
 import { getRecords } from '../common';
 import { RecordKey, RecordType, appId } from './config';
 
-export const getAndpadOrdersByAndpadProjId = async (andpadProjId: string | number) => {
+export const getAndpadProcurementByAndpadProjId = async (systemId: string | number) => {
   const idField: RecordKey = 'andpadProjId';
-  const query = `${idField}="${andpadProjId}"`;
+  const query = `${idField}="${systemId}"`;
 
   return getRecords<RecordType>({
     app: appId,

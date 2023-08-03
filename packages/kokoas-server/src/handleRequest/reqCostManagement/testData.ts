@@ -1,7 +1,7 @@
-import { getAndpadOrdersByAndpadProjId } from 'api-kintone/src/andpadOrders/getAndpadOrdersByAndpadProjId';
+import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
 
 
-export const testData:Awaited<ReturnType<typeof getAndpadOrdersByAndpadProjId>> = [
+export const testData:Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>> = [
   {
     orderAmountBeforeTax: { type: 'NUMBER', value: '25000' },
     '支払日': { type: 'DATE', value: '2023-08-31' },

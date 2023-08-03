@@ -1,4 +1,4 @@
-import { getAndpadOrdersByAndpadProjId } from 'api-kintone/src/andpadOrders/getAndpadOrdersByAndpadProjId';
+import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
 
 interface PaymentHistory {
   paymentDate: string;
@@ -24,7 +24,7 @@ export interface CostManagement {
  * @returns 
  */
 export const summarizeOrderingCompanyInfo = (
-  andpadOrders: Awaited<ReturnType<typeof getAndpadOrdersByAndpadProjId>>,
+  andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
 ) => {
 
   const costManagemenList = andpadOrders.reduce((acc, {

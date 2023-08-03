@@ -1,4 +1,4 @@
-import { TContractData } from 'kokoas-server/src/api/kintone/getContractData';
+import { TContractData } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 
 export const getPayMethodX = (
   payMethod: TContractData['payMethod'],

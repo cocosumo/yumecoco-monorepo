@@ -1,5 +1,4 @@
 export * from './reqCreateCorrectView';
-export * from './reqDownloadContract';
 export * from './reqDownloadContractV2';
 export * from './reqDownloadEstimateAsAndpad';
 export * from './reqDownloadEstimateAsAndpadEst';
@@ -9,7 +8,6 @@ export * from './reqGetProjectsFromAndpad';
 export * from './reqGetSenderView';
 export * from './reqResendContract';
 export * from './reqSaveProjectToAndpad';
-export * from './reqSendContractDirect';
 export * from './reqUploadDaikokuEst';
 export * from './reqUploadDaikokuGenka';
 export * from './reqVoidEnvelope';

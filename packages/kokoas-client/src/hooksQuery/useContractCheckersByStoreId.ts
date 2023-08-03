@@ -8,12 +8,22 @@ import { AppIds } from 'config';
 /**
  * 契約の確認者のレコードを取得する
  */
-export const useContractCheckersByStoreId = (id: string) => {
+export const useContractCheckersByStoreId = ({
+  storeId,
+  territory,
+}: {
+  storeId: string,
+  territory: string,
+}) => {
   return useQuery(
-    [AppIds.contracts, id],
-    () => getContractCheckers(id),
+    [AppIds.contracts, storeId],
+    () => getContractCheckers({
+      storeId,
+      territory,
+
+    }),
     {
-      enabled: !!id,
+      enabled: !!storeId,
     },
   );
 

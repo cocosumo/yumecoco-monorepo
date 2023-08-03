@@ -1,19 +1,30 @@
 import { EmpAffiliations, KEmployees, KEmployeeStores } from 'types';
 import { getRecords } from '../common';
-import { getStoreById } from '../stores';
 import { appId, RecordType } from './config';
 
 /**
  * 店舗番号で店長の社員レコードを取得する
+ * 
+ * @returns {Checkers}
+ * @returns {Checkers.storeMgr} 店長
+ * @returns {Checkers.accounting} 担当エリアの経理
+ * @returns {Checkers.mainAccounting} 本社経理
+ * @returns {Checkers.subAccounting} 経理(最終確認者)
  */
-export const getContractCheckers = async (storeId: string) => {
+export const getContractCheckers = async ({
+  territory, // エリア
+  storeId, // 店舗番号
+}:{
+  storeId: string,
+  territory: string,
+}) => {
 
   const hqStoreId = '17212652-df2a-4616-ba51-8907947f9782';
   const subAccountingId = '44e0d1ae-752e-4ef4-8542-c91495b52b52';
 
-  const {
+  /*   const {
     territory, // エリア
-  } =  await getStoreById(storeId);
+  } =  await getStoreById(storeId); */
 
 
   const keyStoreId : KEmployeeStores = 'affStoreId';
@@ -32,7 +43,7 @@ export const getContractCheckers = async (storeId: string) => {
   const accountingQuery = [
     `${role} in ("経理")`,
     `${affiliation} in ("${cocosumo}")`,
-    `${empTerritory} = "${territory.value}"`,
+    `${empTerritory} = "${territory}"`,
   ].join(' and ');
 
   const accountingHQQuery = [

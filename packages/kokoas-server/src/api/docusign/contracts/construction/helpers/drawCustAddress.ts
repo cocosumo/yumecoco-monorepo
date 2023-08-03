@@ -1,6 +1,6 @@
-import { getContractData } from 'kokoas-server/src/api/kintone/getContractData';
 import { PDFFont, PDFPage } from 'pdf-lib';
 import { drawText } from '../../helpers/pdf';
+import { TContractData } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 
 /**
  * Just in case,
@@ -12,7 +12,7 @@ import { drawText } from '../../helpers/pdf';
  * @param font
  */
 export const drawCustAddress = (
-  customers: Awaited<ReturnType<typeof getContractData>>['customers'],
+  customers: TContractData['customers'],
   baseX: number,
   page: PDFPage,
   font: PDFFont,

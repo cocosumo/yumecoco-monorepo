@@ -15,8 +15,8 @@ export const getContractCheckers = async ({
   territory, // エリア
   storeId, // 店舗番号
 }:{
-  territory: string,
   storeId: string,
+  territory: string,
 }) => {
 
   const hqStoreId = '17212652-df2a-4616-ba51-8907947f9782';

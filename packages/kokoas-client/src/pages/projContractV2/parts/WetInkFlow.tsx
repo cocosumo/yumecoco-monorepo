@@ -16,13 +16,17 @@ export const WetInkFlow = () => {
   const {
     agents,
     storeId,
+    territory,
   } = custGroupData || {};
 
   // first cocoAgent
   const firstAgent = agents?.value
     .find((agent) => agent.value.agentType.value as TAgents === 'cocoAG'); 
   
-  const { data: contractCheckers } = useContractCheckersByStoreId(storeId?.value ?? '');
+  const { data: contractCheckers } = useContractCheckersByStoreId({
+    storeId: storeId?.value || '',
+    territory: territory?.value || '',
+  });
 
   const {
     storeMgr,

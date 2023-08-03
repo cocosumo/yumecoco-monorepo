@@ -25,7 +25,7 @@ ReqDownloadContractParams
     const contractData = await getContractDataV2({
       contractId,
       signMethod: 'electronic',
-    });
+    }, false);
 
     const {
       projName,

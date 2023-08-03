@@ -287,6 +287,7 @@ export const getContractDataV2 = async (
     contractType: contractType.value,
     contractAddType: contractAddType.value,
     isAdditionalContract: contractType.value === '追加',
+    isValidate,
   };
 
   if (isValidate) validateContractData(data);

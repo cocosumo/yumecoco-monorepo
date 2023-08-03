@@ -10,6 +10,7 @@ export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
   const {
     customers,
     cocoAG,
+    isValidate,
   } = data;
 
   const {
@@ -46,7 +47,7 @@ export const flwElectronic = (data: TContractData) : EnvelopeRecipients => {
       },
       idx,
     ) => {
-      if (!custEmail) {
+      if (isValidate && !custEmail) {
         throw new Error(`顧客${idx + 1}のメールアドレスがありません`);
       }
 

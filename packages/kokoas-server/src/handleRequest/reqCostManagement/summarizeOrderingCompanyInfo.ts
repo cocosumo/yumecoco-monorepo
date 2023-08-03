@@ -25,7 +25,7 @@ export interface CostManagement {
  */
 export const summarizeOrderingCompanyInfo = (
   andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
-) => {
+): CostManagement => {
 
   const costManagemenList = andpadOrders.reduce((acc, {
     supplierName,

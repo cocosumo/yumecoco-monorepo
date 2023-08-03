@@ -1,6 +1,7 @@
 import { EnvelopeRecipients, Signer } from 'docusign-esign';
 import { TContractData } from '../getContractDataV2';
 import { roles } from 'types';
+import { commonCC } from './commonCC';
 //import { commonSigners } from './commonSigners';
 
 export const flwWetInk = (data: TContractData): EnvelopeRecipients => {
@@ -33,5 +34,6 @@ export const flwWetInk = (data: TContractData): EnvelopeRecipients => {
 
   return {
     signers,
+    carbonCopies: commonCC(data),
   };
 };

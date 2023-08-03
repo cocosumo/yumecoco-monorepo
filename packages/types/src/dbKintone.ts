@@ -37,6 +37,9 @@ export type KTicketsystem = keyof ITicketsystem;
 export type IAndpadpayments = DBAndpadpayments.SavedData;
 export type KAndpadpayments = keyof IAndpadpayments;
 
+export type IAndpadorders = DBAndpadorders.SavedData;
+export type KAndpadorders = keyof IAndpadorders;
+
 export type ICustomers = DBCustomers.SavedData;
 export type KCustomers = keyof ICustomers;
 

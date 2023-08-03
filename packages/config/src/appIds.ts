@@ -7,32 +7,32 @@ export const prodAppIds = {
   projects: 209,
   projEstimates: 210,
   custMemos: 211,
-  invoices : 226,
-  contracts : 232,
+  invoices: 226,
+  contracts: 232,
 } as const;
 
 /* 開発環境 */
 export const devAppIds = {
   /** 顧客 */
-  customers : 173,
+  customers: 173,
 
   /** 顧客グループ */
-  custGroups : 185,
+  custGroups: 185,
 
   /** 工事 */
-  projects : 194,
+  projects: 194,
 
   /** 見積 */
-  projEstimates : 202,
+  projEstimates: 202,
 
   /** 顧客メモ */
-  custMemos : 181,
+  custMemos: 181,
 
   /** 請求書 */
-  invoices : 204,
+  invoices: 204,
 
   /** 契約 */
-  contracts : 231,
+  contracts: 231,
 
 } as const;
 
@@ -41,7 +41,7 @@ export const devAppIds = {
 export const AppIds = {
 
   /* 認証 */
-  authDB : 221,
+  authDB: 221,
 
   /* システム改修履歴 */
   systemUpdate: 220,
@@ -50,7 +50,7 @@ export const AppIds = {
   companyDetails: 205,
 
   /** 社員名簿 */
-  employees : 34,
+  employees: 34,
 
   /** 部材 */
   materialsItem: 69,
@@ -62,22 +62,25 @@ export const AppIds = {
   materialsMid: 68,
 
   /** 工事種別 */
-  projTypes : 190,
+  projTypes: 190,
 
   /** 店舗 */
-  stores : 19,
+  stores: 19,
 
   /** 郵便番号 */
   postalCode: 219,
 
   /** 単位 */
-  units : 228,
-  
+  units: 228,
+
   /**　システムの依頼  */
   ticketSystem: 236,
 
   /** Andpad入金データ */
   andpadPayments: 233,
+
+  /** Andpad発注データ */
+  andpadOrders: 253,
 
   ...(isProd ? prodAppIds : devAppIds),
 } as const;

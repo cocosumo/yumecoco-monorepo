@@ -3,7 +3,7 @@
 
 export const kokoasEndpoints = {
   /** 大黒さんの見積をアップロードし、変換する */
-  uploadEstimates : 'upload/daikoku/estimate',
+  uploadEstimates: 'upload/daikoku/estimate',
 
   /** 大黒さんの原価をアップロードし、、変換する */
   uploadGenka: 'upload/daikoku/genka',
@@ -22,18 +22,23 @@ export const kokoasEndpoints = {
    * 見積をAndpadの実行予算の形式でダウンロード 
   */
   downloadEstimateAsAndpad: 'download/jikkoyosan/andpad',
-  
+
   /** 
    * 見積をAndpadの見積の形式でダウンロード 
   */
   downloadEstimateAsAndpadEst: 'download/midumori/andpad',
 
   /**
+   * Andpadの発注一覧をkintoneからダウンロード
+   */
+  downloadCostManagement: 'download/costmanagement/',
+
+  /**
    * 見積を顧客用のxlsxの形式でダウンロード
    * 'download/estimate/customer/:estimateId'
    */
   downloadEstimateForCustomer: 'download/estimate/customer',
-  
+
   /** 請求書 */
   downloadInvoice: 'download/invoice',
 

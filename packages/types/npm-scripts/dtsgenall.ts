@@ -24,7 +24,7 @@ loadEnv();
 process.setMaxListeners(0);
 
 /** define and clear dtsgen directory */
-const saveDir = 'src/dtsgen' ;
+const saveDir = 'src/dtsgen';
 fsExtra.emptyDirSync(path.join(root, saveDir));
 
 /** Environment */
@@ -69,7 +69,8 @@ runAll(
     stdout: process.stdout,
     stdin: process.stdin,
     //stderr: process.stderr,
-  })
+  },
+)
   .catch(({ results }: any) => {
     results
       .filter(({ code }: any) => code)

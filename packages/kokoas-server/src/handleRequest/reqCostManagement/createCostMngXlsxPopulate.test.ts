@@ -1,13 +1,13 @@
 import { describe, expect } from '@jest/globals';
-import { createCostMngXlsx } from './createCostMngXlsx';
+import { createCostMngXlsxPopulate } from './createCostMngXlsxPopulate';
 import { testCostMngDat } from './testData';
 import fs from 'fs';
 import path from 'path';
 
 
 
-describe('createCostMngXlsx', () => {
-  const outputFilePath = path.join(__dirname, `./__TEMP__/原価見積_${testCostMngDat.projNum}.xlsx`);
+describe('createCostMngXlsxPopulate', () => {
+  const outputFilePath = path.join(__dirname, `./__TEMP__/原価見積_${testCostMngDat.projNum}_ver2.xlsx`);
 
   // テストが実行される前に実行される処理
   beforeAll(() => {
@@ -21,8 +21,8 @@ describe('createCostMngXlsx', () => {
   });
 
 
-  it('should get andpad orders by AndpadProjId', () => {
-    createCostMngXlsx(testCostMngDat);
+  it('should get andpad orders by AndpadProjId', async () => {
+    await createCostMngXlsxPopulate(testCostMngDat);
 
     console.log('outputFilePath::', outputFilePath);
 

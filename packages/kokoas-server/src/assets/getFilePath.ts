@@ -6,7 +6,8 @@ type FileName =
 | '見積書'
 | '請負契約書'
 | '工事請負契約約款'
-| '請求書';
+| '請求書'
+| '原価見積';
 
 
 export const getFilePath = ({

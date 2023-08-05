@@ -1,6 +1,6 @@
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
-import { GetCostManagement } from 'types';
+import type { GetCostMgtData } from 'types';
 
 export const getCostMgtDataByProjId = async (projId: string) => {
 
@@ -13,6 +13,7 @@ export const getCostMgtDataByProjId = async (projId: string) => {
       projId,
     ].join('/');
 
+
     const result = await kintoneProxyWrapper({
       url: `${endpoint}`,
       method: 'GET',
@@ -21,7 +22,7 @@ export const getCostMgtDataByProjId = async (projId: string) => {
     });
     const { data } = result;
 
-    return data as GetCostManagement | null;
+    return data as GetCostMgtData | null;
 
   } catch (err) {
     console.warn(err);

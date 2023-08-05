@@ -15,16 +15,19 @@ export const CostMgtDetails = ({
 
   if (isLoading) return <LinearProgress />;
 
-  console.log(data);
-
 
   return (
     <Stack
       spacing={2}
+      p={2}
+      width={'100%'}
     >
+      {data && (
       <Summary 
-      
+        costMgtData={data}
       />
+      )}
+
     </Stack>
   );
 };

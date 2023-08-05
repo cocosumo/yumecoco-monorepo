@@ -1,6 +1,6 @@
 import { saveProjectData } from 'api-andpad';
-import { GetCostManagement } from 'api-kintone';
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
+import type { GetCostManagement } from 'kokoas-server/src/handleRequest/reqCostManagement/getCostMgtDataByProjId';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
 
 export const getCostMgtDataByProjId = async (projId: string) => {

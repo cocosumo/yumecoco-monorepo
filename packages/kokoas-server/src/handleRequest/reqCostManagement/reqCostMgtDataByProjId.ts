@@ -1,6 +1,6 @@
-import { getCostMgtDataByProjId } from 'api-kintone';
 import { RequestHandler } from 'express';
 import validator from 'validator';
+import { getCostMgtDataByProjId } from './getCostMgtDataByProjId';
 
 export const reqCostMgtDataByProjId: RequestHandler<
 { projId: string }

@@ -46,7 +46,7 @@ export interface GetCostManagement {
  */
 export const getCostMgtData = async (
   projId: string,
-): Promise<GetCostManagement> => {
+) => {
 
   const {
     dataId: projDataId,
@@ -74,7 +74,7 @@ export const getCostMgtData = async (
 
   const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID);
   
-  if (!andpadSystemId) throw new Error('Andpadと接続されていません。');
+  if (!andpadSystemId) return null;
 
   const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // andpad発注情報
   // 取得したデータを整形する
@@ -138,9 +138,7 @@ export const getCostMgtData = async (
   });
 
 
-
-
-  return ({
+  const result : GetCostManagement = {
     projNum: projDataId.value,
     projName: projName.value,
     custGroupName: custNames.value,
@@ -164,5 +162,8 @@ export const getCostMgtData = async (
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
     発注情報詳細: costManagemenList,
-  });
+  };
+
+
+  return result;
 };

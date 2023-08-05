@@ -1,7 +1,7 @@
 import xlsx from 'xlsx';
-import { GetCostManagement } from './getCostManagement';
 import { getFilePath } from 'kokoas-server/src/assets';
 import path from 'path';
+import { GetCostManagement } from 'api-kintone/src/andpadProcurement/getCostMgtData';
 
 
 /**

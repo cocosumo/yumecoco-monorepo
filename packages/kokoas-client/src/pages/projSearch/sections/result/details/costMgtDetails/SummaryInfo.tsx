@@ -22,7 +22,7 @@ const SummaryValue = ({
         color={grey[500]}
         fontSize={12}
         component={'span'}
-        ml={1}
+        ml={0.5}
       >
         {suffix}
       </Typography>

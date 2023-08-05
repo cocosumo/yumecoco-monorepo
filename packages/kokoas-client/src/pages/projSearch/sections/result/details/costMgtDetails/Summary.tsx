@@ -31,7 +31,8 @@ export const Summary = ({
       spacing={8}
       direction='row'
       width={'100%'}
-      p={4}
+      py={2}
+      px={4}
       bgcolor={'white'} 
       border={1}
       borderColor={grey[200]}
@@ -59,6 +60,7 @@ export const Summary = ({
         />
       </Stack>
       <Stack
+        spacing={1}
         flex={0.25}
       >
         <SummaryInfo 
@@ -78,6 +80,7 @@ export const Summary = ({
 
       </Stack>
       <Stack
+        spacing={1}
         flex={0.2}
       >
         

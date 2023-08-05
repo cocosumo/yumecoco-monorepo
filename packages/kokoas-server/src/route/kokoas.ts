@@ -15,6 +15,7 @@ import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectF
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
 import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
+import { reqCostMgtDataByProjId } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjId';
 //import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
 
@@ -53,6 +54,11 @@ route.get(
 route.get(
   `/${kokoasEndpoints.getProjectFromAndpadBySystemId}`,
   reqGetProjectBySystemId,
+);
+
+route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjId}/:projId`,
+  reqCostMgtDataByProjId,
 );
 
 route.get(

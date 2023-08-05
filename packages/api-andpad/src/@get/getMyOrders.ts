@@ -1,10 +1,9 @@
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
 import qs from 'qs';
 import { ZodError } from 'zod';
 import { getToken } from '../@auth/andpadClient';
 import { endpoints } from '../endpoints';
 import { GetMyOrders, GetMyOrdersResponse } from '../types';
-import { kintoneProxyWrapper } from 'libs';
 
 export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResponse> => {
   const {
@@ -24,26 +23,19 @@ export const getMyOrders = async (params?: GetMyOrders): Promise<GetMyOrdersResp
       offset,
     });
 
+    console.log('urlParams', urlParams);
+
     const url = `${endpoints.ourOrders}?${urlParams}`;
-    /*     
+    
     const { data } = await axios({
       url,
       method: 'GET',
       headers: {
         Authorization: `Bearer ${await getToken()}`,
       },
-    }); */
-
-    const { data } = await kintoneProxyWrapper({
-      method: 'GET',
-      url,
-      headers: {
-        Authorization: `Bearer ${await getToken()}`,
-      },
     });
-  
 
-    return data as GetMyOrdersResponse;
+    return data;
   } catch (err) {
     const {
       response,

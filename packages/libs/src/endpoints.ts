@@ -45,6 +45,9 @@ export const kokoasEndpoints = {
   /** 画像を取得 */
   getImage: 'image',
 
+  /** 原価管理データ */
+  getCostMgtDataByProjId: 'costmanagement/data',
+
   /** 契約報告書 */
   // downloadContractReport: 'download/contract/report',
 } as const;

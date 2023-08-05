@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getCostMgtDataByProjId } from 'api-kintone';
 import { AppIds } from 'config';
+import { getCostMgtDataByProjId } from '../api/andpad/getCostMgtDataByProjId';
 
 export const useAndpadCostMgtDataByProjId = (projId: string) => {
 

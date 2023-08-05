@@ -1,4 +1,4 @@
-import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
+import { getAndpadProcurementByAndpadProjId } from './getAndpadProcurementByAndpadProjId';
 
 interface PaymentHistory {
   paymentDate: string;

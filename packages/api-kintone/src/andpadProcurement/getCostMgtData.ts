@@ -1,6 +1,11 @@
-import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
 import { CostManagement, summarizeOrderingCompanyInfo } from './summarizeOrderingCompanyInfo';
-import { getAndpadPaymentsBySystemId, getContractsByProjId, getProjById, getProjTypeById } from 'api-kintone';
+import { 
+  getAndpadPaymentsBySystemId, 
+  getAndpadProcurementByAndpadProjId, 
+  getContractsByProjId, 
+  getProjById, 
+  getProjTypeById, 
+} from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
 
 
@@ -38,11 +43,10 @@ export interface GetCostManagement {
 export const getCostMgtData = async (
   projId: string,
   andpadProjId: string,
-  andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
 ): Promise<GetCostManagement> => {
 
+  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadProjId); // andpad発注情報
   // 取得したデータを整形する
-  console.log('andpadOrders', andpadOrders);
 
   const projInfo = await getProjById(projId); // ココアス工事情報
   const depositAmount = (await getAndpadPaymentsBySystemId(+andpadProjId)) // andpad入金情報：入金額総額
@@ -74,7 +78,7 @@ export const getCostMgtData = async (
       税率: 0.1,
     });
 
-  const costManagemenList = summarizeOrderingCompanyInfo(andpadOrders); // 発注会社ごとに整形したデータ
+  const costManagemenList = summarizeOrderingCompanyInfo(andpadProcurements); // 発注会社ごとに整形したデータ
 
   const {
     orderAmount,

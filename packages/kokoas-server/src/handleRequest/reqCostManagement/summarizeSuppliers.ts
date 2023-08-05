@@ -1,4 +1,4 @@
-import { getAndpadProcurementByAndpadProjId } from './getAndpadProcurementByAndpadProjId';
+import { IAndpadprocurements } from 'types';
 
 interface PaymentHistory {
   paymentDate: string;
@@ -24,7 +24,7 @@ export interface CostManagement {
  * @returns 
  */
 export const summarizeSuppliers = (
-  andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
+  andpadOrders: IAndpadprocurements[],
 ): CostManagement => {
 
   const costManagemenList = andpadOrders.reduce((acc, {

@@ -8,9 +8,9 @@ import {
   getProjTypeById, 
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
-import { getAgentNamesByType as projGetAgentNamesByType } from '../projects/helpers/getAgentNamesByType';
 import { getOrderByProjId } from 'api-andpad';
-import { getAgentNamesByType as custGetAgentsNamesByType } from '../custgroups/helpers/getAgentNamesByType';
+import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
+import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 
 
 export interface GetCostManagement {

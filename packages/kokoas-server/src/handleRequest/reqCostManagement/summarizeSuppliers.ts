@@ -1,4 +1,4 @@
-import type { CostManagement, IAndpadprocurements } from 'types';
+import type { ProcurementData, IAndpadprocurements } from 'types';
 
 
 /**
@@ -52,7 +52,7 @@ export const summarizeSuppliers = (
     発注金額_税抜: 0,
     支払金額_税抜: 0,
     orderInfo: [],
-  } as CostManagement);
+  } as ProcurementData);
 
   return costManagemenList;
 };

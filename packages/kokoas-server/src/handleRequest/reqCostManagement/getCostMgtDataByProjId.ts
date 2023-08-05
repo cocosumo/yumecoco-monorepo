@@ -11,7 +11,7 @@ import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation
 import { getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
-import type { GetCostManagement } from 'types';
+import type { GetCostMgtData } from 'types';
 
 
 
@@ -117,7 +117,7 @@ export const getCostMgtDataByProjId = async (
   });
 
 
-  const result : GetCostManagement = {
+  const result : GetCostMgtData = {
     projNum: projDataId.value,
     projName: projName.value,
     custGroupName: custNames.value,

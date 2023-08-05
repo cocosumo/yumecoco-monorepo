@@ -1,4 +1,4 @@
-import { getCostMgtDataByProjId } from 'api-kintone';
+import { getCostMgtDataByProjId } from './getCostMgtDataByProjId';
 
 /**
  * プロジェクトIDを渡されたら,

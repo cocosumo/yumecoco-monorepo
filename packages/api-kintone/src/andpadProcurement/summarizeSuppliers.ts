@@ -23,7 +23,7 @@ export interface CostManagement {
  * @param andpadOrders andpadの発注情報
  * @returns 
  */
-export const summarizeOrderingCompanyInfo = (
+export const summarizeSuppliers = (
   andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
 ): CostManagement => {
 

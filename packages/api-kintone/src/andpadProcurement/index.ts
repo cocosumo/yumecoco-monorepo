@@ -1,3 +1,3 @@
 export * from './getAndpadProcurementByAndpadProjId';
-export * from './getCostMgtData';
-export * from './summarizeOrderingCompanyInfo';
+export * from './getCostMgtDataByProjId';
+export * from './summarizeSuppliers';

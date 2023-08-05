@@ -1,4 +1,4 @@
-import { CostManagement, summarizeOrderingCompanyInfo } from './summarizeOrderingCompanyInfo';
+import { CostManagement, summarizeSuppliers } from './summarizeSuppliers';
 import { 
   getAndpadPaymentsBySystemId, 
   getAndpadProcurementByAndpadProjId, 
@@ -44,7 +44,7 @@ export interface GetCostManagement {
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
  */
-export const getCostMgtData = async (
+export const getCostMgtDataByProjId = async (
   projId: string,
 ) => {
 
@@ -57,6 +57,10 @@ export const getCostMgtData = async (
     projTypeId,
     custGroupId,
   } = await getProjById(projId);
+
+  const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID);
+  
+  if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
 
   const {
     agents: custGroupAgents,
@@ -72,11 +76,9 @@ export const getCostMgtData = async (
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
 
-  const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID);
-  
-  if (!andpadSystemId) return null;
-
   const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // andpad発注情報
+  const costManagemenList = summarizeSuppliers(andpadProcurements); // 発注会社ごとに整形したデータ
+
   // 取得したデータを整形する
 
   const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
@@ -108,7 +110,6 @@ export const getCostMgtData = async (
       税率: 0.1,
     });
 
-  const costManagemenList = summarizeOrderingCompanyInfo(andpadProcurements); // 発注会社ごとに整形したデータ
 
   const {
     orderAmount,

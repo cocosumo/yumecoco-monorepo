@@ -28,6 +28,7 @@ export const useDetailedAndpadOrderByProjId = ({
   } = andpadOrder || {};
   
   const parsedSystemId = String(forceLinkedAndpadSystemId?.value || systemId || '');
+  
 
   const result = useAndpadBySystemId({
     systemId: parsedSystemId,

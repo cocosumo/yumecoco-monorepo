@@ -22,15 +22,12 @@ export const useAndpadBySystemId = (
     enabled = true,
   } = options || {};
 
-  const {
-    systemId,
-  } = params || {};
 
   return useQuery(
     [AppIds.projects, 'andpad', params],
     () => getOrderBySystemId(params),
     {
-      enabled: !!systemId && enabled,
+      enabled: enabled,
       staleTime: 5000,
       onError,
     },

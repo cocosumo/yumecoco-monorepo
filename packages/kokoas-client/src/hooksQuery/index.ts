@@ -7,7 +7,6 @@ export * from './useAllContracts';
 export * from './useAllEmployees';
 export * from './useAndpadByProjName';
 export * from './useAndpadBySystemId';
-export * from './useAndpadCostMgtData';
 export * from './useAndpadOrderByProjId';
 export * from './useAndpadPaymentsBySystemId';
 export * from './useCommonOptions';

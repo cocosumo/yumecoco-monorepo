@@ -12,6 +12,8 @@ interface ProcurementInfo {
 export interface ProcurementData {
   発注金額_税抜: number,
   支払金額_税抜: number,
+  minDate: Date,
+  maxDate: Date,
   orderInfo: ProcurementInfo[]
 }
 

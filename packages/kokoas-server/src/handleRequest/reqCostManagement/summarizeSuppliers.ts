@@ -17,41 +17,37 @@ export const summarizeSuppliers = (
   }) => {
     const tgtSupplierName = supplierName.value;
 
+    
+
     // 支払い履歴に支払日を追加する
     const index = acc.orderInfo.findIndex((val) => val.supplierName === tgtSupplierName);
+    const paymentAmount = 支払日.value ? +orderAmountBeforeTax.value : 0;
+
 
     if (index !== -1) {
-      acc.orderInfo[index].paymentHistory.push({
+      acc.orderInfo[index].paymentHistory = [];
+    } 
+
+    acc.orderInfo.push({
+      supplierName: supplierName.value,
+      orderAmountBeforeTax: +orderAmountBeforeTax.value,
+      paymentHistory: [{
         paymentDate: 支払日.value,
-        paymentAmountBeforeTax: 支払日.value ? +orderAmountBeforeTax.value : 0,
-      });
+        paymentAmountBeforeTax: paymentAmount,
+      }],
+    });
+    
+    acc.発注金額_税抜 += +orderAmountBeforeTax.value;
+    acc.支払金額_税抜 += paymentAmount;
 
-      // 発注金額(税抜総額)を更新する
-      acc.orderInfo[index] = {
-        ...acc.orderInfo[index],
-        orderAmountBeforeTax: +acc.orderInfo[index].orderAmountBeforeTax + +orderAmountBeforeTax.value,
-      };
-
-    } else {
-      acc.orderInfo.push({
-        supplierName: supplierName.value,
-        orderAmountBeforeTax: +orderAmountBeforeTax.value,
-        paymentHistory: [{
-          paymentDate: 支払日.value,
-          paymentAmountBeforeTax: 支払日.value ? +orderAmountBeforeTax.value : 0,
-        }],
-      });
-    }
-    return {
-      ...acc,
-      発注金額_税抜: acc.発注金額_税抜 + +orderAmountBeforeTax.value,
-      支払金額_税抜: acc.支払金額_税抜 + 支払日.value ? +orderAmountBeforeTax.value : 0,
-    };
+    return acc;
 
   }, {
     発注金額_税抜: 0,
     支払金額_税抜: 0,
     orderInfo: [],
+    minDate: new Date(),
+    maxDate: new Date(),
   } as ProcurementData);
 
   return costManagemenList;

@@ -9,7 +9,7 @@ describe('getCostMgtData', () => {
 
     const result = await getCostMgtDataByProjId(projId);
 
-    console.log(result);
+    console.log(JSON.stringify(result, null, 2) );
 
     expect(result).toBeDefined();
   });

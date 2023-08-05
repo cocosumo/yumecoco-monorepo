@@ -1,6 +1,6 @@
 import { describe, expect } from '@jest/globals';
 import { summarizeSuppliers } from './summarizeSuppliers';
-import { getAndpadProcurementByAndpadProjId } from './getAndpadProcurementByAndpadProjId';
+import { getAndpadProcurementByAndpadProjId } from 'api-kintone';
 
 
 

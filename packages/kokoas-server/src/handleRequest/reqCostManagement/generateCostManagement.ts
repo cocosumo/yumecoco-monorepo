@@ -1,5 +1,5 @@
 import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
-import { getCostManagement } from './getCostManagement';
+import { getCostMgtData } from 'api-kintone/src/andpadProcurement/getCostMgtData';
 
 /**
  * プロジェクトIDを渡されたら,
@@ -15,7 +15,7 @@ export const generateCostManagement = async (
   // 対象案件の発注一覧の取得
   const andpadOrders = await getAndpadProcurementByAndpadProjId(andpadProjId);
   
-  const costManagementList = await getCostManagement(projId, andpadProjId, andpadOrders);
+  const costManagementList = await getCostMgtData(projId, andpadProjId, andpadOrders);
 
 
 };

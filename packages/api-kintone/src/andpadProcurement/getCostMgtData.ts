@@ -35,7 +35,7 @@ export interface GetCostManagement {
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
  */
-export const getCostManagement = async (
+export const getCostMgtData = async (
   projId: string,
   andpadProjId: string,
   andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,

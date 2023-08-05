@@ -17,9 +17,15 @@ const columns: ColumnDef<GetCostMgtData['発注情報詳細']['orderInfo'][numbe
     footer: props => props.column.id,
   },
   {
-    header: 'Info',
+    header: '発注金額',
+    accessorKey: 'orderAmountBeforeTax',
+    cell: info => info.getValue(),
     footer: props => props.column.id,
-    /* columns: [
+  },
+  /*{
+    header: '発注金がk',
+    footer: props => props.column.id,
+     columns: [
       {
         accessorKey: 'age',
         header: () => 'Age',
@@ -47,8 +53,8 @@ const columns: ColumnDef<GetCostMgtData['発注情報詳細']['orderInfo'][numbe
           },
         ],
       },
-    ], */
-  },
+    ], 
+  },*/
 ];
 
 export const Purchases = ({

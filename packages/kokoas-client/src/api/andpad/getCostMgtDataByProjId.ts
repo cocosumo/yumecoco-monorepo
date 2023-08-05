@@ -1,6 +1,6 @@
 import { kokoasAPIBaseUrl } from 'kokoas-client/src/config/settings';
-import type { GetCostManagement } from 'kokoas-server/src/handleRequest/reqCostManagement/getCostMgtDataByProjId';
 import { kintoneProxyWrapper, kokoasEndpoints } from 'libs';
+import { GetCostManagement } from 'types';
 
 export const getCostMgtDataByProjId = async (projId: string) => {
 

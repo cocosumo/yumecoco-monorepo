@@ -1,5 +1,6 @@
 import { LinearProgress, Stack } from '@mui/material';
 import { useAndpadCostMgtDataByProjId } from 'kokoas-client/src/hooksQuery';
+import { Summary } from './Summary';
 
 export const CostMgtDetails = ({
   projId,
@@ -21,9 +22,9 @@ export const CostMgtDetails = ({
     <Stack
       spacing={2}
     >
-      projId: 
-      {' '}
-      {projId}
+      <Summary 
+      
+      />
     </Stack>
   );
 };

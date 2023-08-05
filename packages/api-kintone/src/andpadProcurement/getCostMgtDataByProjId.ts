@@ -58,7 +58,9 @@ export const getCostMgtDataByProjId = async (
     custGroupId,
   } = await getProjById(projId);
 
-  const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID);
+  const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID || '');
+
+  console.log(andpadSystemId);
   
   if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
 

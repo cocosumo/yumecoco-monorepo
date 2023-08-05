@@ -1,5 +1,4 @@
-import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
-import { getCostMgtData } from 'api-kintone/src/andpadProcurement/getCostMgtData';
+import { getAndpadProcurementByAndpadProjId, getCostMgtData } from 'api-kintone';
 
 /**
  * プロジェクトIDを渡されたら,

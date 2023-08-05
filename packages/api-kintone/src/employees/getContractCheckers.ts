@@ -48,7 +48,7 @@ export const getContractCheckers = async ({
 
   const accountingHQQuery = [
     `${role} in ("経理")`,
-    `${affiliation} in ("${cocosumo}")`,
+    `${affiliation} in ("山豊")`,
     `${empStoreId} = "${hqStoreId}"`,
   ].join(' and ');
 
@@ -78,7 +78,6 @@ export const getContractCheckers = async ({
   const accounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value !== hqStoreId );
   const mainAccounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value === hqStoreId );
   const subAccounting = records.find(({ uuid }) => uuid.value === subAccountingId );
-
 
   if (!records.length) throw new Error(`確認者の情報取得ができませんでした。店舗番号：${storeId}`);
   if (!storeMgr) throw new Error(`店長の情報取得ができませんでした。${storeMgr}`);

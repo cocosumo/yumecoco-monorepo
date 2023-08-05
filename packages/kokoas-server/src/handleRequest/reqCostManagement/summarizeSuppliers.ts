@@ -1,21 +1,4 @@
-import { IAndpadprocurements } from 'types';
-
-interface PaymentHistory {
-  paymentDate: string;
-  paymentAmountBeforeTax: number;
-}
-
-interface OrderInfo {
-  supplierName: string;
-  orderAmountBeforeTax: number;
-  paymentHistory: PaymentHistory[];
-}
-
-export interface CostManagement {
-  発注金額_税抜: number,
-  支払金額_税抜: number,
-  orderInfo: OrderInfo[]
-}
+import type { CostManagement, IAndpadprocurements } from 'types';
 
 
 /**
@@ -25,7 +8,7 @@ export interface CostManagement {
  */
 export const summarizeSuppliers = (
   andpadOrders: IAndpadprocurements[],
-): CostManagement => {
+) => {
 
   const costManagemenList = andpadOrders.reduce((acc, {
     supplierName,

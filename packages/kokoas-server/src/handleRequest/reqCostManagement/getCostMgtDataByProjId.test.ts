@@ -11,6 +11,6 @@ describe('getCostMgtData', () => {
 
     console.log(result);
 
-    expect(result).toBeDefined();
+    expect(result).toMatchSnapshot();
   });
 });

@@ -6,6 +6,8 @@ export const testCostMngDat: GetCostMgtData = {
   projNum: 'TEST-PROJ-No',
   projName: '山田太郎様邸　新築付帯工事',
   custGroupName: '山田太郎',
+  maxPaymentDate: new Date(2023, 6, 31).toISOString(),
+  minPaymentDate: new Date(2023, 4, 31).toISOString(),
   受注金額_税抜: 3100000,
   追加金額_税抜: 0,
   発注金額_税抜: 1721090,
@@ -30,11 +32,11 @@ export const testCostMngDat: GetCostMgtData = {
     orderAmountBeforeTax: 18000,
     paymentHistory: [
       {
-        paymentDate: '2023.06.30',
+        paymentDate: new Date(2023, 5, 30),
         paymentAmountBeforeTax: 8000,
       },
       {
-        paymentDate: '2023.07.31',
+        paymentDate: new Date(2023, 6, 31),
         paymentAmountBeforeTax: 10000,
       },
     ],
@@ -44,25 +46,25 @@ export const testCostMngDat: GetCostMgtData = {
     orderAmountBeforeTax: 200000,
     paymentHistory: [
       {
-        paymentDate: '2023.06.30',
+        paymentDate: new Date(2023, 5, 30),
         paymentAmountBeforeTax: 200000,
       },
     ],
   },
   {
     supplierName: 'CCC社',
-    orderAmountBeforeTax: 40000,
+    orderAmountBeforeTax: 30000,
     paymentHistory: [
       {
-        paymentDate: '2023.05.31',
+        paymentDate: new Date(2023, 4, 31),
         paymentAmountBeforeTax: 10000,
       },
       {
-        paymentDate: '2023.06.30',
-        paymentAmountBeforeTax: 25000,
+        paymentDate: new Date(2023, 5, 30),
+        paymentAmountBeforeTax: 15000,
       },
       {
-        paymentDate: '2023.07.31',
+        paymentDate:  new Date(2023, 6, 31),
         paymentAmountBeforeTax: 5000,
       },
     ],

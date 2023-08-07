@@ -7,7 +7,7 @@ import { testCostMngDat } from '../testData';
 
 
 describe('createCostMngXlsx', () => {
-  const outputFilePath = path.join(__dirname, `./__TEMP__/原価見積_${testCostMngDat.projNum}.xlsx`);
+  const outputFilePath = path.join(__dirname, `../__TEMP__/原価見積_${testCostMngDat.projNum}.xlsx`);
 
   // テストが実行される前に実行される処理
   beforeAll(() => {
@@ -21,8 +21,8 @@ describe('createCostMngXlsx', () => {
   });
 
 
-  it('should get andpad orders by AndpadProjId', () => {
-    createCostMngXlsx(testCostMngDat);
+  it('should get andpad orders by AndpadProjId', async () => {
+    await createCostMngXlsx(testCostMngDat);
 
     console.log('outputFilePath::', outputFilePath);
 

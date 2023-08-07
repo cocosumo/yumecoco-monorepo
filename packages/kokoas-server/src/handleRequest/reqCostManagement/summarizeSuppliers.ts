@@ -1,5 +1,12 @@
-import type { ProcurementData, IAndpadprocurements } from 'types';
+import type { IAndpadprocurements, ProcurementInfo } from 'types';
 
+
+
+export interface ProcurementData {
+  発注金額_税抜: number,
+  支払金額_税抜: number,
+  orderInfo: ProcurementInfo[]
+}
 
 /**
  * 発注会社ごとに発注情報の詳細をまとめる

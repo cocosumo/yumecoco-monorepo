@@ -23,8 +23,6 @@ export const Purchases = ({
 
   const columns = useColumns(costMgtData);
 
-  console.log('orderInfo', data);
-
   const table = useReactTable({
     data,
     columns,

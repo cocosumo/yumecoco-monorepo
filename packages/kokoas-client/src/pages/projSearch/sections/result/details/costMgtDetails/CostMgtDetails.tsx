@@ -16,6 +16,7 @@ export const CostMgtDetails = ({
 
   if (isLoading) return <LinearProgress />;
 
+  console.log(data);
 
   return (
     <Stack

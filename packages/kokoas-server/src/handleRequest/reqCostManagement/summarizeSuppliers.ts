@@ -45,7 +45,7 @@ export const summarizeSuppliers = (
 
     if (index !== -1) {
       acc.orderInfo[index].paymentHistory.push({
-        paymentDate: parsedPaymentDate,
+        paymentDate: parsedPaymentDate?.toISOString() || null,
         paymentAmountBeforeTax: parsedPaymentDate ? +orderAmountBeforeTax.value : 0,
       });
 
@@ -60,7 +60,7 @@ export const summarizeSuppliers = (
         supplierName: supplierName.value,
         orderAmountBeforeTax: +orderAmountBeforeTax.value,
         paymentHistory: [{
-          paymentDate: parsedPaymentDate,
+          paymentDate: parsedPaymentDate?.toISOString() || null,
           paymentAmountBeforeTax: parsedPaymentDate ? +orderAmountBeforeTax.value : 0,
         }],
       });

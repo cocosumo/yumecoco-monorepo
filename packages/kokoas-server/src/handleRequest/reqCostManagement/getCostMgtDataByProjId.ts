@@ -140,7 +140,7 @@ export const getCostMgtDataByProjId = async (
     夢てつ営業: yumeAGNames,
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
-    発注情報詳細: costManagemenList,
+    発注情報詳細: costManagemenList.orderInfo,
   };
 
 

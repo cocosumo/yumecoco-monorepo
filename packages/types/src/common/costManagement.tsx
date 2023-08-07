@@ -3,16 +3,10 @@ interface PaymentHistory {
   paymentAmountBeforeTax: number;
 }
 
-interface ProcurementInfo {
+export interface ProcurementInfo {
   supplierName: string;
   orderAmountBeforeTax: number;
   paymentHistory: PaymentHistory[];
-}
-
-export interface ProcurementData {
-  発注金額_税抜: number,
-  支払金額_税抜: number,
-  orderInfo: ProcurementInfo[]
 }
 
 export interface GetCostMgtData {
@@ -38,5 +32,5 @@ export interface GetCostMgtData {
   夢てつ営業: string,
   ここすも営業: string,
   ここすも工事: string,
-  発注情報詳細: ProcurementData,
+  発注情報詳細: ProcurementInfo[],
 }

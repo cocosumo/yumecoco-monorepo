@@ -57,6 +57,11 @@ export const getCostMgtDataByProjId = async (
   const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // andpad発注情報
   const costManagemenList = summarizeSuppliers(andpadProcurements); // 発注会社ごとに整形したデータ
 
+  const {
+    maxPaymentDate,
+    minPaymentDate,
+  } = costManagemenList;
+
   // 取得したデータを整形する
 
   const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
@@ -141,8 +146,15 @@ export const getCostMgtDataByProjId = async (
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
     発注情報詳細: costManagemenList.orderInfo,
+    maxPaymentDate: (maxPaymentDate || new Date()).toISOString(),
+    minPaymentDate: (minPaymentDate || new Date())?.toISOString(),
   };
 
+  const TOTAL = costManagemenList.orderInfo.reduce((acc, { orderAmountBeforeTax }) => {
+    return acc + orderAmountBeforeTax;
+  }, 0);
+
+  console.log(TOTAL);
 
   return result;
 };

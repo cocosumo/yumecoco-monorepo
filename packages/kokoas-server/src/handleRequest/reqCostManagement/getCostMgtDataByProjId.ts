@@ -150,11 +150,5 @@ export const getCostMgtDataByProjId = async (
     minPaymentDate: (minPaymentDate || new Date())?.toISOString(),
   };
 
-  const TOTAL = costManagemenList.orderInfo.reduce((acc, { orderAmountBeforeTax }) => {
-    return acc + orderAmountBeforeTax;
-  }, 0);
-
-  console.log(TOTAL);
-
   return result;
 };

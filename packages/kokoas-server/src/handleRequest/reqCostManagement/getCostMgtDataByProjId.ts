@@ -1,55 +1,69 @@
-import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
-import { CostManagement, summarizeOrderingCompanyInfo } from './summarizeOrderingCompanyInfo';
-import { getAndpadPaymentsBySystemId, getContractsByProjId, getProjById, getProjTypeById } from 'api-kintone';
+import { summarizeSuppliers } from './summarizeSuppliers';
+import { 
+  getAndpadPaymentsBySystemId, 
+  getAndpadProcurementByAndpadProjId, 
+  getContractsByProjId, 
+  getCustGroupById, 
+  getProjById, 
+  getProjTypeById, 
+} from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
+import { getOrderByProjId } from 'api-andpad';
+import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
+import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
+import type { GetCostMgtData } from 'types';
 
 
-export interface GetCostManagement {
-  projNum: string,
-  projName: string,
-  custGroupName: string,
-  受注金額_税抜: number,
-  追加金額_税抜: number,
-  発注金額_税抜: number,
-  支払金額_税抜: number,
-  予定利益率: number,
-  予定利益額: number,
-  実利益率: number,
-  実利益額: number,
-  利益配分_夢てつ: number,
-  利益配分_ここすも: number,
-  実利益税抜_夢てつ: number,
-  実利益税抜_ここすも: number,
-  受注額計_税込: number,
-  受注額計_税抜: number,
-  入金額: number,
-  未入金: number,
-  夢てつ営業: string,
-  ここすも営業: string,
-  ここすも工事: string,
-  発注情報詳細: CostManagement,
-}
 
 /**
  * 必要なファイルを取得する
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
  */
-export const getCostMgtData = async (
+export const getCostMgtDataByProjId = async (
   projId: string,
-  andpadProjId: string,
-  andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
-): Promise<GetCostManagement> => {
+) => {
+
+  const {
+    dataId: projDataId,
+    projName,
+    custNames,
+    agents: projAgents,
+    forceLinkedAndpadSystemId,
+    projTypeId,
+    custGroupId,
+  } = await getProjById(projId);
+
+  const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID || '');
+
+  console.log(andpadSystemId);
+  
+  if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
+
+  const {
+    agents: custGroupAgents,
+  } = await getCustGroupById(custGroupId.value);
+
+  const {
+    yumeCommFeeRate,
+  } = await getProjTypeById(projTypeId.value); // 工事種別
+
+  // 古い工事情報データにはcocoAGとyumeAGの記入はないので、顧客グループのデータから取得
+  const cocoAgNames = projGetAgentNamesByType(projAgents, 'cocoAG') || custGetAgentsNamesByType(custGroupAgents, 'cocoAG');
+  const yumeAGNames = projGetAgentNamesByType(projAgents, 'yumeAG') || custGetAgentsNamesByType(custGroupAgents, 'yumeAG');
+  const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
+
+
+  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // andpad発注情報
+  const costManagemenList = summarizeSuppliers(andpadProcurements); // 発注会社ごとに整形したデータ
 
   // 取得したデータを整形する
-  console.log('andpadOrders', andpadOrders);
 
-  const projInfo = await getProjById(projId); // ココアス工事情報
-  const depositAmount = (await getAndpadPaymentsBySystemId(+andpadProjId)) // andpad入金情報：入金額総額
+  const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
     .reduce((acc, { paymentAmount }) => {
       return acc + +paymentAmount.value;
     }, 0);
-  const projType = await getProjTypeById(projInfo.projTypeId.value); // 工事種別
+
   const contracts = (await getContractsByProjId(projId))
     .reduce((acc, {
       contractType,
@@ -74,7 +88,6 @@ export const getCostMgtData = async (
       税率: 0.1,
     });
 
-  const costManagemenList = summarizeOrderingCompanyInfo(andpadOrders); // 発注会社ごとに整形したデータ
 
   const {
     orderAmount,
@@ -99,15 +112,15 @@ export const getCostMgtData = async (
     purchaseAmount: costManagemenList.発注金額_税抜,
     paymentAmount: costManagemenList.支払金額_税抜,
     depositAmount: depositAmount,
-    yumeCommFeeRate: +projType.yumeCommFeeRate.value,
+    yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,
   });
 
 
-  return ({
-    projNum: projInfo.dataId.value,
-    projName: projInfo.projName.value,
-    custGroupName: projInfo.custNames.value,
+  const result : GetCostMgtData = {
+    projNum: projDataId.value,
+    projName: projName.value,
+    custGroupName: custNames.value,
     受注金額_税抜: orderAmount,
     追加金額_税抜: additionalAmount,
     発注金額_税抜: purchaseAmount,
@@ -124,9 +137,12 @@ export const getCostMgtData = async (
     受注額計_税抜: 受注額計_税抜,
     入金額: 入金額,
     未入金: 未入金,
-    夢てつ営業: projInfo.yumeAGNames.value,
-    ここすも営業: projInfo.cocoAGNames.value,
-    ここすも工事: projInfo.cocoConstNames.value,
+    夢てつ営業: yumeAGNames,
+    ここすも営業: cocoAgNames,
+    ここすも工事: cocoConstNames,
     発注情報詳細: costManagemenList,
-  });
+  };
+
+
+  return result;
 };

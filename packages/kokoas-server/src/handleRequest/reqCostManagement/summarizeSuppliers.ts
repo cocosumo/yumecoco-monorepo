@@ -1,21 +1,4 @@
-import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
-
-interface PaymentHistory {
-  paymentDate: string;
-  paymentAmountBeforeTax: number;
-}
-
-interface OrderInfo {
-  supplierName: string;
-  orderAmountBeforeTax: number;
-  paymentHistory: PaymentHistory[];
-}
-
-export interface CostManagement {
-  発注金額_税抜: number,
-  支払金額_税抜: number,
-  orderInfo: OrderInfo[]
-}
+import type { ProcurementData, IAndpadprocurements } from 'types';
 
 
 /**
@@ -23,9 +6,9 @@ export interface CostManagement {
  * @param andpadOrders andpadの発注情報
  * @returns 
  */
-export const summarizeOrderingCompanyInfo = (
-  andpadOrders: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>>,
-): CostManagement => {
+export const summarizeSuppliers = (
+  andpadOrders: IAndpadprocurements[],
+) => {
 
   const costManagemenList = andpadOrders.reduce((acc, {
     supplierName,
@@ -69,7 +52,7 @@ export const summarizeOrderingCompanyInfo = (
     発注金額_税抜: 0,
     支払金額_税抜: 0,
     orderInfo: [],
-  } as CostManagement);
+  } as ProcurementData);
 
   return costManagemenList;
 };

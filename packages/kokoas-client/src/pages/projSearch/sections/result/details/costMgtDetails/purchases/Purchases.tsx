@@ -8,6 +8,8 @@ import {
 } from '@tanstack/react-table';
 import { GetCostMgtData } from 'types';
 import { useColumns } from './useColumns';
+import { TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { PurchasesTableContainer } from './PurchasesTableContainer';
 
 
 export const Purchases = ({
@@ -32,64 +34,62 @@ export const Purchases = ({
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,
-  });
 
+  });
   return (
-    <div className="p-2 block max-w-full overflow-x-scroll overflow-y-hidden">
-      <div className="h-2" />
-      <table className="w-full ">
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
-                return (
-                  <th
-                    key={header.id}
-                    colSpan={header.colSpan}
-                    style={{ position: 'relative', width: header.getSize() }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                    {header.column.getCanResize() && (
-                      <div
-                        onMouseDown={header.getResizeHandler()}
-                        onTouchStart={header.getResizeHandler()}
-                        className={`resizer ${
-                          header.column.getIsResizing() ? 'isResizing' : ''
-                        }`}
-                      ></div>
+    <PurchasesTableContainer 
+      width={table.getTotalSize()}
+    >
+      <TableHead>
+        {table.getHeaderGroups().map(headerGroup => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map(header => {
+              return (
+                <TableCell
+                  key={header.id}
+                  colSpan={header.colSpan}
+                  style={{ width: header.getSize() }}
+                >
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
                     )}
-                  </th>
+                  {header.column.getCanResize() && (
+                  <div
+                    onMouseDown={header.getResizeHandler()}
+                    onTouchStart={header.getResizeHandler()}
+                    className={`resizer ${
+                      header.column.getIsResizing() ? 'isResizing' : ''
+                    }`}
+                  ></div>
+                  )}
+                </TableCell>
+              );
+            })}
+          </TableRow>
+        ))}
+      </TableHead>
+      <TableBody>
+        {table.getRowModel().rows.map(row => {
+          return (
+            <TableRow key={row.id}>
+              {row.getVisibleCells().map(cell => {
+                return (
+                  <TableCell key={cell.id} style={{ width: cell.column.getSize() }}>
+                    {flexRender(
+                      cell.column.columnDef.cell,
+                      cell.getContext(),
+                    )}
+                  </TableCell>
                 );
               })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => {
-            return (
-              <tr key={row.id}>
-                {row.getVisibleCells().map(cell => {
-                  return (
-                    <td key={cell.id} style={{ width: cell.column.getSize() }}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div className="h-4" />
-    </div>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </PurchasesTableContainer>
   );
 };
 

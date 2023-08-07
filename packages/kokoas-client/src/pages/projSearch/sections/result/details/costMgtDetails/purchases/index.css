@@ -1,4 +1,4 @@
-table {
+/* table {
   border: 1px solid lightgray;
 }
 
@@ -19,7 +19,7 @@ tfoot {
 tfoot th {
   font-weight: normal;
 }
-
+ */
 .resizer {
   position: absolute;
   right: 0;

@@ -1,11 +1,12 @@
 import {
   ColumnDef,
 } from '@tanstack/react-table';
+import differenceInMonths from 'date-fns/differenceInMonths';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import subMonths from 'date-fns/subMonths';
 import { useMemo } from 'react';
-import { GetCostMgtData } from 'types';
+import { GetCostMgtData, PaymentHistory } from 'types';
 
 type ColumnType = ColumnDef<GetCostMgtData['発注情報詳細'][number]>;
 
@@ -18,34 +19,35 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
       const {
         maxPaymentDate,
         minPaymentDate,
-        発注情報詳細: orderInfo,
       } = costMgtData;
 
 
-      const normMaxDate = typeof maxPaymentDate === 'string' ? parseISO(maxPaymentDate) : maxPaymentDate || new Date(); 
+      const parsedMaxDate = maxPaymentDate ? parseISO(maxPaymentDate) : new Date(); 
+      const parsedMinDate = maxPaymentDate ? parseISO(minPaymentDate) : new Date();
 
+      const minMaxDateMonthDiff  = differenceInMonths(parsedMaxDate, parsedMinDate);
+
+      const parsedPaymentColumsMonths = minMaxDateMonthDiff > defaultPaymentColumns ? minMaxDateMonthDiff : defaultPaymentColumns;
 
       const paymentDateColumns = Array.from(
-        { length: defaultPaymentColumns },
+        { length: parsedPaymentColumsMonths },
         (_, i) => {
-          console.log('normMaxDate', normMaxDate);
-          const currDateColumn = subMonths(normMaxDate, i);
-          console.log('currDateColumn', normMaxDate);
+          const currDateColumn = subMonths(parsedMaxDate, i);
           const formattedDateColumn = format(currDateColumn, 'yyyy/MM');
-          console.log('formattedDateColumn', formattedDateColumn);
 
 
           const column: ColumnType = {
             id: formattedDateColumn,
             header: formattedDateColumn,
             footer: props => props.column.id,
-            /*             columns: [
+            columns: [
               {
-                header: '支払日',
+                header: '日付',
                 accessorKey: 'paymentHistory',
                 cell: info => {
-                  console.log(info.getValue());
-                  return undefined;
+                  const value = info.getValue() as PaymentHistory;
+                  console.log(paymentDate, info.getValue());
+                  return value?.[0]?.paymentDate;
                 },
                 footer: props => props.column.id,
               },
@@ -55,7 +57,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
                 cell: info => info.getValue(),
                 footer: props => props.column.id,
               },
-            ], */
+            ],
           };
 
           return column;

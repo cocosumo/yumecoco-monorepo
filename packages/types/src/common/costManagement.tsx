@@ -13,8 +13,8 @@ export interface GetCostMgtData {
   projNum: string,
   projName: string,
   custGroupName: string,
-  maxPaymentDate: Date | null,
-  minPaymentDate: Date | null,
+  maxPaymentDate: string, // ISO string
+  minPaymentDate: string, // ISO string
   受注金額_税抜: number,
   追加金額_税抜: number,
   発注金額_税抜: number,

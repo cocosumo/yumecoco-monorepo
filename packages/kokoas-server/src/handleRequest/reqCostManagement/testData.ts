@@ -1,7 +1,8 @@
 import { getAndpadProcurementByAndpadProjId } from 'api-kintone/src/andpadProcurement/getAndpadProcurementByAndpadProjId';
-import { GetCostManagement } from './getCostManagement';
+import { GetCostMgtData } from 'types';
 
-export const testCostMngDat: GetCostManagement = {
+
+export const testCostMngDat: GetCostMgtData = {
   projNum: 'TEST-PROJ-No',
   projName: '山田太郎様邸　新築付帯工事',
   custGroupName: '山田太郎',
@@ -24,54 +25,48 @@ export const testCostMngDat: GetCostManagement = {
   夢てつ営業: 'ゆめてつ 太郎',
   ここすも営業: 'ここすも 花子',
   ここすも工事: 'ここすも 次郎',
-  発注情報詳細: {
-    発注金額_税抜: 1721090,
-    支払金額_税抜: 248000,
-    orderInfo: [
+  発注情報詳細: [{
+    supplierName: 'AAA社',
+    orderAmountBeforeTax: 18000,
+    paymentHistory: [
       {
-        supplierName: 'AAA社',
-        orderAmountBeforeTax: 18000,
-        paymentHistory: [
-          {
-            paymentDate: '2023.06.30',
-            paymentAmountBeforeTax: 8000,
-          },
-          {
-            paymentDate: '2023.07.31',
-            paymentAmountBeforeTax: 10000,
-          },
-        ],
+        paymentDate: '2023.06.30',
+        paymentAmountBeforeTax: 8000,
       },
       {
-        supplierName: 'BBB社',
-        orderAmountBeforeTax: 200000,
-        paymentHistory: [
-          {
-            paymentDate: '2023.06.30',
-            paymentAmountBeforeTax: 200000,
-          },
-        ],
-      },
-      {
-        supplierName: 'CCC社',
-        orderAmountBeforeTax: 40000,
-        paymentHistory: [
-          {
-            paymentDate: '2023.05.31',
-            paymentAmountBeforeTax: 10000,
-          },
-          {
-            paymentDate: '2023.06.30',
-            paymentAmountBeforeTax: 25000,
-          },
-          {
-            paymentDate: '2023.07.31',
-            paymentAmountBeforeTax: 5000,
-          },
-        ],
+        paymentDate: '2023.07.31',
+        paymentAmountBeforeTax: 10000,
       },
     ],
   },
+  {
+    supplierName: 'BBB社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: '2023.06.30',
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'CCC社',
+    orderAmountBeforeTax: 40000,
+    paymentHistory: [
+      {
+        paymentDate: '2023.05.31',
+        paymentAmountBeforeTax: 10000,
+      },
+      {
+        paymentDate: '2023.06.30',
+        paymentAmountBeforeTax: 25000,
+      },
+      {
+        paymentDate: '2023.07.31',
+        paymentAmountBeforeTax: 5000,
+      },
+    ],
+  }],
 };
 
 export const testData: Awaited<ReturnType<typeof getAndpadProcurementByAndpadProjId>> = [

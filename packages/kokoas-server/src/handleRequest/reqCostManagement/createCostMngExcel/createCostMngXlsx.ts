@@ -4,12 +4,11 @@ import path from 'path';
 import { GetCostMgtData } from 'types';
 import { initCostMngWorksheet } from './initCostMngWorksheet';
 import { Big } from 'big.js';
-import { format } from 'date-fns';
 
 
 
 interface OrderAmountPerMonth {
-  paymentDate: Date | null
+  paymentDate: string
   OrderAmtTgtMonth: number
 }
 
@@ -62,7 +61,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
       const tgtMonth = paymentHistory.paymentDate?.toString() ?? '';
       if (typeof orderAmountPerMonth[tgtMonth] === 'undefined') {
         orderAmountPerMonth[tgtMonth] = {
-          paymentDate: paymentHistory.paymentDate,
+          paymentDate: paymentHistory.paymentDate ?? '',
           OrderAmtTgtMonth: paymentHistory.paymentAmountBeforeTax,
         };
       } else {        
@@ -84,11 +83,11 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   // 合計欄の記入
   rowIdx = 39;
   ws.getCell(`C${rowIdx}`).value = costManagement.発注金額_税抜;  
-  ws.getCell(`D${rowIdx}`).value = forDebug[0].paymentDate ? format(forDebug[0].paymentDate, 'yyyy.MM.dd') : ''; // forDebug
+  ws.getCell(`D${rowIdx}`).value = forDebug[0].paymentDate; // forDebug
   ws.getCell(`F${rowIdx}`).value = forDebug[0].OrderAmtTgtMonth;
-  ws.getCell(`G${rowIdx}`).value = forDebug[1].paymentDate ? format(forDebug[1].paymentDate, 'yyyy.MM.dd') : '';
+  ws.getCell(`G${rowIdx}`).value = forDebug[1].paymentDate;
   ws.getCell(`H${rowIdx}`).value = forDebug[1].OrderAmtTgtMonth;
-  ws.getCell(`I${rowIdx}`).value = forDebug[2].paymentDate ? format(forDebug[2].paymentDate, 'yyyy.MM.dd') : '';
+  ws.getCell(`I${rowIdx}`).value = forDebug[2].paymentDate;
   ws.getCell(`J${rowIdx}`).value = forDebug[2].OrderAmtTgtMonth;
   ws.getCell(`L${rowIdx}`).value = 0;
   ws.getCell(`N${rowIdx}`).value = 0;

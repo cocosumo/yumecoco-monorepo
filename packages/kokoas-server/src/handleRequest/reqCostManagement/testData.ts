@@ -32,11 +32,11 @@ export const testCostMngDat: GetCostMgtData = {
     orderAmountBeforeTax: 18000,
     paymentHistory: [
       {
-        paymentDate: new Date(2023, 5, 30),
+        paymentDate: new Date(2023, 5, 30).toISOString(),
         paymentAmountBeforeTax: 8000,
       },
       {
-        paymentDate: new Date(2023, 6, 31),
+        paymentDate: new Date(2023, 6, 31).toISOString(),
         paymentAmountBeforeTax: 10000,
       },
     ],
@@ -46,7 +46,7 @@ export const testCostMngDat: GetCostMgtData = {
     orderAmountBeforeTax: 200000,
     paymentHistory: [
       {
-        paymentDate: new Date(2023, 5, 30),
+        paymentDate: new Date(2023, 5, 30).toISOString(),
         paymentAmountBeforeTax: 200000,
       },
     ],
@@ -56,15 +56,15 @@ export const testCostMngDat: GetCostMgtData = {
     orderAmountBeforeTax: 30000,
     paymentHistory: [
       {
-        paymentDate: new Date(2023, 4, 31),
+        paymentDate: new Date(2023, 4, 31).toISOString(),
         paymentAmountBeforeTax: 10000,
       },
       {
-        paymentDate: new Date(2023, 5, 30),
+        paymentDate: new Date(2023, 5, 30).toISOString(),
         paymentAmountBeforeTax: 15000,
       },
       {
-        paymentDate:  new Date(2023, 6, 31),
+        paymentDate:  new Date(2023, 6, 31).toISOString(),
         paymentAmountBeforeTax: 5000,
       },
     ],

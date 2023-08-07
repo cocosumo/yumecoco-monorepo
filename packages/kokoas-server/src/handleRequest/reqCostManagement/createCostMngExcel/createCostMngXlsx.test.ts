@@ -1,8 +1,8 @@
 import { describe, expect } from '@jest/globals';
 import { createCostMngXlsx } from './createCostMngXlsx';
-import { testCostMngDat } from './testData';
 import fs from 'fs';
 import path from 'path';
+import { testCostMngDat } from '../testData';
 
 
 

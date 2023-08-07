@@ -1,5 +1,5 @@
 interface PaymentHistory {
-  paymentDate: string;
+  paymentDate: Date | null;
   paymentAmountBeforeTax: number;
 }
 
@@ -13,6 +13,8 @@ export interface GetCostMgtData {
   projNum: string,
   projName: string,
   custGroupName: string,
+  maxPaymentDate: Date | null,
+  minPaymentDate: Date | null,
   受注金額_税抜: number,
   追加金額_税抜: number,
   発注金額_税抜: number,

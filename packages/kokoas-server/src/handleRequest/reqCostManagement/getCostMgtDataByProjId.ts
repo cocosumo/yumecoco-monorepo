@@ -141,8 +141,15 @@ export const getCostMgtDataByProjId = async (
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
     発注情報詳細: costManagemenList.orderInfo,
+    maxPaymentDate: costManagemenList.maxPaymentDate,
+    minPaymentDate: costManagemenList.minPaymentDate,
   };
 
+  const TOTAL = costManagemenList.orderInfo.reduce((acc, { orderAmountBeforeTax }) => {
+    return acc + orderAmountBeforeTax;
+  }, 0);
+
+  console.log(TOTAL);
 
   return result;
 };

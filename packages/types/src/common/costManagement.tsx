@@ -1,5 +1,5 @@
-interface PaymentHistory {
-  paymentDate: Date | null;
+export interface PaymentHistory {
+  paymentDate: string | null;
   paymentAmountBeforeTax: number;
 }
 

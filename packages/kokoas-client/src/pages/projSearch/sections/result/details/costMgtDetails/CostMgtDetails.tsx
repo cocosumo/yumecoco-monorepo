@@ -15,7 +15,7 @@ export const CostMgtDetails = ({
   } = useAndpadCostMgtDataByProjId(projId);
 
   if (isLoading) return <LinearProgress />;
-
+  
   console.log(data);
 
   return (

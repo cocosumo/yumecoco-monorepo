@@ -98,8 +98,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           header: '発注先',
           accessorKey: 'supplierName',
           cell: info => info.getValue(),
-          footer: props => props.column.id,
-          size: 200,
+          size: 20,
         },
         {
           header: () => (

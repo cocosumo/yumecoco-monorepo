@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import type { GetCostMgtData } from 'types';
-import { SummaryInfo } from './SummaryInfo';
 import { grey } from '@mui/material/colors';
+import { SummaryInfo } from './SummaryInfo';
 
 export const Summary = ({
   costMgtData,

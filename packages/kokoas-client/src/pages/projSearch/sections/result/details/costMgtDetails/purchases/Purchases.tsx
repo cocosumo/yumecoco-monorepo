@@ -34,6 +34,7 @@ export const Purchases = ({
     debugTable: true,
     debugHeaders: true,
     debugColumns: true,
+    enablePinning: true,
 
   });
   return (

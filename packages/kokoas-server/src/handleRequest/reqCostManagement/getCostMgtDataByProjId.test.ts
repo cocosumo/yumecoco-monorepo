@@ -9,7 +9,7 @@ describe('getCostMgtData', () => {
 
     const result = await getCostMgtDataByProjId(projId);
 
-    console.log(result);
+    //console.log(result);
 
     expect(result).toMatchSnapshot();
   });

@@ -1,5 +1,5 @@
 import { LinearProgress, Stack } from '@mui/material';
-import { useAndpadCostMgtDataByProjId } from 'kokoas-client/src/hooksQuery';
+import { useAndpadCostMgtDataByProjId, useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { Summary } from './Summary';
 import { Purchases } from './purchases/Purchases';
 
@@ -14,9 +14,12 @@ export const CostMgtDetails = ({
     isLoading, 
   } = useAndpadCostMgtDataByProjId(projId);
 
-  if (isLoading) return <LinearProgress />;
+  const { data: projRec } = useProjById(projId);
+  const { data: andpadRec } = useAndpadOrderByProjId(projId);
 
-  console.log('data', data);
+  const parsedSystemId = projRec?.forceLinkedAndpadSystemId.value || String(andpadRec?.システムID);
+
+  if (isLoading) return <LinearProgress />;
   
   return (
     <Stack
@@ -30,6 +33,7 @@ export const CostMgtDetails = ({
         <>
           <Summary 
             costMgtData={data}
+            systemId={parsedSystemId}
           />
           <Purchases 
             costMgtData={data}

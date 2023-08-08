@@ -50,6 +50,8 @@ export const SummaryInfo = ({
       justifyContent='space-between'
       alignItems='center'
       direction='row'
+      whiteSpace={'nowrap'}
+      spacing={2}
     >
       <Typography
         color={grey[500]}

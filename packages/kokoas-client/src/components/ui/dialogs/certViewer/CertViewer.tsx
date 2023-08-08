@@ -33,7 +33,6 @@ export const CertViewer = ({
 
   useEffect(() => {
     if (!open) return;
-    console.log('resetting form');
     reset(newFormValues);
   }, [
     reset,

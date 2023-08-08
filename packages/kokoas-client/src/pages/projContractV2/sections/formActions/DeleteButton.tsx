@@ -2,9 +2,9 @@ import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Toolt
 import { useDeleteContractById } from 'kokoas-client/src/hooksQuery';
 import { useState } from 'react';
 import { useWatch } from 'react-hook-form';
-import { TypeOfForm } from '../schema';
+import { TypeOfForm } from '../../schema';
 import { useNavigate } from 'react-router-dom';
-import { pages } from '../../Router';
+import { pages } from '../../../Router';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 /**
@@ -41,6 +41,7 @@ export const DeleteButton = () => {
             onClick={() => setOpen(true)}
             disabled={!canDelete}
             startIcon={<DeleteIcon />}
+            size='small'
           >
             削除
           </Button>

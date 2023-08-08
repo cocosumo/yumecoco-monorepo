@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { FormHelperText, Stack } from '@mui/material';
 import type { GetCostMgtData } from 'types';
 import { grey } from '@mui/material/colors';
 import { SummaryInfo } from './SummaryInfo';
@@ -19,7 +19,7 @@ export const Summary = ({
     実利益率,
     実利益額,
 
-    受注額計_税抜,
+    受注額計_税込,
     // 請求額計
 
     入金額,
@@ -86,7 +86,7 @@ export const Summary = ({
         
         <SummaryInfo 
           label='受注額計'
-          value={受注額計_税抜}
+          value={受注額計_税込}
         />
 
         {/*         <SummaryInfo 
@@ -104,9 +104,19 @@ export const Summary = ({
           value={未入金}
         />
 
+        <FormHelperText
+          sx={{
+            whiteSpace: 'nowrap',
+          }}
+        >
+          ※ 税込と記載のない金額は税抜とする
+        </FormHelperText>
+
       
       </Stack>
 
     </Stack>
   );
 };
+
+// 税込と記載のない金額は税抜とする

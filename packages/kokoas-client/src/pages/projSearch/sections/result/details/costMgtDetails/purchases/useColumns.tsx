@@ -1,4 +1,5 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import {
   ColumnDef,
 } from '@tanstack/react-table';
@@ -50,7 +51,11 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           const column: ColumnType[] = [
             {
               id: `${formattedDateColumn}_date`, // `yyyy/MM_date
-              header: formattedDateColumn,
+              header: () => (
+                <Typography align='center'>
+                  {formattedDateColumn}
+                </Typography>
+              ),
               accessorKey: 'paymentHistory',
               cell: info => {
                 const value = info.getValue() as PaymentHistory[] | undefined;
@@ -61,15 +66,24 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
                 );
 
                 if (!sameMonthPayment?.paymentDate) return '';
+                
 
-                return format(parseISO(sameMonthPayment.paymentDate), 'MM/dd');
+                return (
+                  <Typography align='center'>
+                    {format(parseISO(sameMonthPayment.paymentDate), 'MM/dd')}
+                  </Typography>
+                ) ;
                   
               },
               footer: props => props.column.id,
             },
             {
               id: `${formattedDateColumn}_amount`, 
-              header: '金額',
+              header: () => (
+                <Typography align='right'>
+                  金額
+                </Typography>
+              ),
               accessorKey: 'paymentHistory',
               cell: info => {
                 const value = info.getValue() as PaymentHistory[] | undefined;
@@ -81,7 +95,13 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
 
                 if (!sameMonthPayment?.paymentDate) return '';
 
-                return sameMonthPayment.paymentAmountBeforeTax.toLocaleString();
+                const amountValue = sameMonthPayment.paymentAmountBeforeTax.toLocaleString();
+
+                return (
+                  <Typography align='right'>
+                    {amountValue}
+                  </Typography>
+                );
               },
               footer: props => props.column.id,
             },
@@ -94,11 +114,34 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
         
 
       return [
+        /*         {
+          id: 'No',
+          header: 'No',
+          cell: info => info.row.index + 1,
+          size: 20,
+        }, */
         {
+          id: 'supplierName',
           header: '発注先',
           accessorKey: 'supplierName',
-          cell: info => info.getValue(),
-          size: 20,
+          cell: info =>  {
+            
+           
+            return (
+              <Stack
+                direction={'row'}
+                spacing={1}
+              >
+                <Typography fontSize={12} color={grey[500]}>
+                  {info.row.index + 1}
+                </Typography>
+                <Typography>
+                  {String(info.getValue())}
+                </Typography>
+              </Stack>
+            );
+          },
+          size: 200,
         },
         {
           header: () => (
@@ -115,6 +158,22 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           footer: props => props.column.id,
         },
         ...paymentDateColumns.flatMap(column => column),
+        {
+          header: () => (
+            <Typography align='right'>
+              未入金
+            </Typography>
+          ),
+          accessorKey: '未入金',
+          cell: info => {
+            console.log('info', info.getValue());
+            return (
+              <Typography align='right'>
+                {((info.getValue() || 0) as number).toLocaleString()}
+              </Typography>
+            );
+          },
+        },
      
       ];
 

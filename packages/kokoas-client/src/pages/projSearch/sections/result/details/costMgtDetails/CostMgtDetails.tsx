@@ -15,9 +15,9 @@ export const CostMgtDetails = ({
   } = useAndpadCostMgtDataByProjId(projId);
 
   if (isLoading) return <LinearProgress />;
-  
-  console.log(data);
 
+  console.log('data', data);
+  
   return (
     <Stack
       spacing={2}

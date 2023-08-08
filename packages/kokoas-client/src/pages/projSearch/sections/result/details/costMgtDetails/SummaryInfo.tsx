@@ -15,6 +15,7 @@ const SummaryValue = ({
         color={grey[900]}
         textAlign='right'
         component={'span'}
+        whiteSpace={'nowrap'}
       >
         {value.toLocaleString()}
       </Typography>

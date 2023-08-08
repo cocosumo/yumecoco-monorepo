@@ -8,7 +8,7 @@ import { pages } from '../Router';
 import { useResolveParams } from './hooks/useResolveParams';
 import { useEffect } from 'react';
 import { FormInput } from './FormInput';
-import { FormActions } from './sections/FormActions';
+import { FormActions } from './sections/formActions/FormActions';
 import { CustomerSummary } from './sections/CustomerSummary';
 import { ProjectSummary } from './sections/ProjectSummary';
 import { ContractStatus } from './sections/ContractStatus';

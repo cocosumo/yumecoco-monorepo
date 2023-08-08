@@ -29,7 +29,7 @@ export const NewContractsTable = () => {
             projId,
             uuid: contractId,
           }) => {
-            console.log(projId.value);
+
             return (
               <TableRow
                 key={contractId.value}

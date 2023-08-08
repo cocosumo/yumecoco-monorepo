@@ -7,7 +7,7 @@ export const testCostMngDat: GetCostMgtData = {
   projName: '山田太郎様邸　新築付帯工事',
   custGroupName: '山田太郎',
   maxPaymentDate: new Date(2023, 6, 31).toISOString(),
-  minPaymentDate: new Date(2023, 4, 31).toISOString(),
+  minPaymentDate: new Date(2022, 9, 30).toISOString(),
   受注金額_税抜: 3100000,
   追加金額_税抜: 0,
   発注金額_税抜: 1721090,
@@ -47,7 +47,11 @@ export const testCostMngDat: GetCostMgtData = {
     paymentHistory: [
       {
         paymentDate: new Date(2023, 5, 30).toISOString(),
-        paymentAmountBeforeTax: 200000,
+        paymentAmountBeforeTax: 100000,
+      },
+      {
+        paymentDate: new Date(2023, 5, 30).toISOString(),
+        paymentAmountBeforeTax: 100000,
       },
     ],
   },
@@ -66,6 +70,158 @@ export const testCostMngDat: GetCostMgtData = {
       {
         paymentDate:  new Date(2023, 6, 31).toISOString(),
         paymentAmountBeforeTax: 5000,
+      },
+    ],
+  },
+  {
+    supplierName: 'D社',
+    orderAmountBeforeTax: 30000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2023, 2, 31).toISOString(),
+        paymentAmountBeforeTax: 10000,
+      },
+      {
+        paymentDate: new Date(2023, 5, 30).toISOString(),
+        paymentAmountBeforeTax: 15000,
+      },
+      {
+        paymentDate:  new Date(2023, 6, 31).toISOString(),
+        paymentAmountBeforeTax: 5000,
+      },
+    ],
+  },
+  {
+    supplierName: 'E社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'F社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 100000,
+      },
+      {
+        paymentDate: new Date(2022, 9, 30).toISOString(),
+        paymentAmountBeforeTax: 100000,
+      },
+    ],
+  },
+  {
+    supplierName: 'G社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'H社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'I社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'J社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'K社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'L社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'M社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'N社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'O社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'P社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
+      },
+    ],
+  },
+  {
+    supplierName: 'Q社',
+    orderAmountBeforeTax: 200000,
+    paymentHistory: [
+      {
+        paymentDate: new Date(2022, 10, 30).toISOString(),
+        paymentAmountBeforeTax: 200000,
       },
     ],
   }],

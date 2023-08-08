@@ -8,6 +8,19 @@ import { createOrderAmountPerMonth } from './createOrderAmountPerMonth';
 import { format, lastDayOfMonth } from 'date-fns';
 
 
+const maxMonths = 6;
+
+const unPaidMoney = (ws: Excel.Worksheet, rowIdx: number, columnOffset: number) => {
+  let returnVal = ws.getCell(`C${rowIdx}`).value ?? '0';
+  for (let idx = 0; idx <= maxMonths; idx++) {
+    const subAmt = ws.getCell(rowIdx, columnOffset + (idx * 4) + 3).value ?? '0';
+    returnVal = Big(+returnVal).minus(+subAmt)
+      .toNumber();
+  }
+
+  return returnVal;
+};
+
 const dateFormat = (isoStringDate: string) => {
 
   const isoDate = new Date(isoStringDate);
@@ -32,9 +45,10 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   // 月ごとの発注額合計計算要のobjを準備する
   const orderAmountPerMonth = createOrderAmountPerMonth(costManagement.maxPaymentDate, costManagement.minPaymentDate);
   const tgtMonthList = Object.keys(orderAmountPerMonth);
+  const isOverflow = tgtMonthList.length > maxMonths;
 
   // excelファイル書き込み処理
-  const maxRows = 15;
+  const maxRows = 25;
   const rowOffset = 13; // 14行目から開始
   const columnOffset = 3; // 4列目(D列)から開始
 
@@ -45,6 +59,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   let ws = initCostMngWorksheet(wsName, workbook, costManagement);
   let rowIdx = currRowIdx + rowOffset;
 
+  // 支払処理済欄を反映する
   for (const procurement of costManagement.発注情報詳細) {
     if (currRowIdx > maxRows) {
       // 次のシートへ
@@ -55,7 +70,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
 
     rowIdx = currRowIdx + rowOffset;
     // 発注先情報の反映
-    ws.getCell(`A${rowIdx}`).value = currRowIdx;
+    ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * 15);
     ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
     ws.getCell(`C${rowIdx}`).value = procurement.orderAmountBeforeTax;
 
@@ -63,19 +78,49 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
     for (const paymentHistory of procurement.paymentHistory) {
       const tgtMonth = dateFormat(paymentHistory.paymentDate ?? '');
 
+      // 月ごとの合計金額を計算する
       orderAmountPerMonth[tgtMonth] = {
         ...orderAmountPerMonth[tgtMonth],
         orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmountBeforeTax)
           .toNumber(),
       };
 
-      const arrayIndex = tgtMonthList.indexOf(tgtMonth);
-      const columnIndex = columnOffset + (arrayIndex * 4) + 1;
+
+      let tgtMonthIndex = tgtMonthList.indexOf(tgtMonth);
+      if (isOverflow && tgtMonthIndex > maxMonths) tgtMonthIndex = 5;
+      const columnIndex = columnOffset + (tgtMonthIndex * 4) + 1;
+
+      // 6か月以前の発注履歴は行を追加して対応する
+      const wsMonth = ws.getCell(rowIdx, columnIndex).value?.toString();
+      if (wsMonth !== undefined && wsMonth !== tgtMonth) {
+
+        // 未払金列の反映
+        ws.getCell(`AB${rowIdx}`).value = unPaidMoney(ws, rowIdx, columnOffset);
+
+        currRowIdx++;
+        if (currRowIdx > maxRows) {
+          // 次のシートへ
+          currRowIdx = 1;
+          wsName = `原価管理表 (${++currSheetIdx})`;
+          ws = initCostMngWorksheet(wsName, workbook, costManagement);
+        }
+        rowIdx = currRowIdx + rowOffset;
+
+        // 発注先情報も追加する
+        ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * maxRows);
+        ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
+        ws.getCell(`C${rowIdx}`).value = '';
+
+      }
+      const paymentAmtVal = ws.getCell(rowIdx, columnIndex + 2).value ?? '0';
 
       ws.getCell(rowIdx, columnIndex).value = tgtMonth;
-      ws.getCell(rowIdx, columnIndex + 2).value = paymentHistory.paymentAmountBeforeTax;
+      ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmountBeforeTax)
+        .toNumber();
     }
 
+    // 未払金列の反映
+    ws.getCell(`AB${rowIdx}`).value = unPaidMoney(ws, rowIdx, columnOffset);
 
     currRowIdx++; // 次の行へ
   }

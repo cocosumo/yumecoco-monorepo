@@ -1,7 +1,7 @@
 import { IconButton, Tooltip } from '@mui/material';
-import { CertViewer } from './certViewer/CertViewer';
 import { useState } from 'react';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import { CertViewer } from 'kokoas-client/src/components/ui/dialogs/certViewer/CertViewer';
 
 export const OpenCertificate = ({
   contractId,

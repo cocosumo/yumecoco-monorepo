@@ -1,7 +1,7 @@
 import { Button, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { CertViewerContent } from './CertViewerContent';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
-import { useReportCanvas } from '../useReportCanvas';
+import { useReportCanvas } from './useReportCanvas';
 import { useTypedFormContext } from './hooks/useTypedRHF';
 import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
 

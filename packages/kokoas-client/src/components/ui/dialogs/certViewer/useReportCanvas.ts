@@ -113,7 +113,7 @@ export const useReportCanvas = (contractId: string) => {
     const image = new Image();
     image.onload = function () {
      
-      console.log('Generating image...');
+      console.log('Generating image....');
       ctx.drawImage(image, 0, 0);
       ctx.fillStyle = '#333333';
       ctx.textAlign = 'start';
@@ -178,15 +178,17 @@ export const useReportCanvas = (contractId: string) => {
       ctx.fillText(financialContactFax.value, 820, 1340);
 
       ctx.font = '34px "Noto Sans JP"';
+      const monthX = 570;
+      const dayX = 665;
       if (contractAmt.value) {
         ctx.fillText((+contractAmt.value).toLocaleString(), 875, 1433);
         const {
           month,
           day,
         } = parseDate(contractAmtDate.value);
-  
-        ctx.fillText(month, 583, 1433);
-        ctx.fillText(day, 670, 1433 );
+        
+        ctx.fillText(month, monthX, 1433);
+        ctx.fillText(day, dayX, 1433 );
       }
 
       if (initialAmt.value) {
@@ -196,8 +198,8 @@ export const useReportCanvas = (contractId: string) => {
           day,
         } = parseDate(initialAmtDate.value);
 
-        ctx.fillText(month, 583, 1510);
-        ctx.fillText(day, 670, 1510 );
+        ctx.fillText(month, monthX, 1510);
+        ctx.fillText(day, dayX, 1510 );
       }
 
       if (interimAmt.value) {
@@ -207,8 +209,8 @@ export const useReportCanvas = (contractId: string) => {
           day,
         } = parseDate(interimAmtDate.value);
     
-        ctx.fillText(month, 583, 1584);
-        ctx.fillText(day, 670, 1584);
+        ctx.fillText(month, monthX, 1584);
+        ctx.fillText(day, dayX, 1584);
       }
 
       if (finalAmt.value) {
@@ -218,8 +220,8 @@ export const useReportCanvas = (contractId: string) => {
           day,
         } = parseDate(finalAmtDate.value);
 
-        ctx.fillText(month, 583, 1660);
-        ctx.fillText(day, 670, 1660);
+        ctx.fillText(month, monthX, 1660);
+        ctx.fillText(day, dayX, 1660);
       }
   
       

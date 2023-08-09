@@ -27,7 +27,7 @@ export const StepReason = ({
 
   if (!envelopeId) return (
     <Alert severity="error">
-      エンベロープIDがありません。管理者にご連絡ください。
+      エンベロープIDがありません。
     </Alert>
   );
 

@@ -40,8 +40,8 @@ export const getAccountId = async () => {
 
   // docusign側は曖昧なエラーを出すので、ここでチェックして、エラーを出します。
   // ユーザ向けより、開発者向けです。
-  if (!authorization) throw new Error('リクエストに認証情報はありませんでした。管理者にご連絡ください。' );
-  if (!defaultUser?.accountId) throw new Error('アカウント番号が取得出来ませんでした。管理者にご連絡ください。' );
+  if (!authorization) throw new Error('リクエストに認証情報はありませんでした。' );
+  if (!defaultUser?.accountId) throw new Error('アカウント番号が取得出来ませんでした。' );
 
   return defaultUser.accountId;
 };

@@ -44,7 +44,7 @@ export const FormikProjProspectSearch = () => {
                 open:true,
                 autoHideDuration: 20000,
                 severity: 'error',
-                message: `エラーが発生しました。管理者にご連絡ください。${err.message}`,
+                message: `エラーが発生しました。${err.message}`,
               });
             })
             .finally(()=>{

@@ -22,6 +22,9 @@ describe('createCostMngXlsx', () => {
 
 
   it('should get andpad orders by AndpadProjId', async () => {
+    
+    /* const projId = '055c2aca-cbdd-42ab-be2a-e4cd6dd362de';
+    const testCostMngDat = await getCostMgtDataByProjId(projId) || {} as GetCostMgtData; */
     await createCostMngXlsx(testCostMngDat);
 
     console.log('outputFilePath::', outputFilePath);

@@ -23,6 +23,7 @@ const unPaidMoney = (ws: Excel.Worksheet, rowIdx: number, columnOffset: number) 
 
 const dateFormat = (isoStringDate: string) => {
 
+  if (isoStringDate === '') return '';
   const isoDate = new Date(isoStringDate);
   return format(lastDayOfMonth(isoDate), 'yyyy.MM.dd');
 };
@@ -79,44 +80,46 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
       const tgtMonth = dateFormat(paymentHistory.paymentDate ?? '');
 
       // 月ごとの合計金額を計算する
-      orderAmountPerMonth[tgtMonth] = {
-        ...orderAmountPerMonth[tgtMonth],
-        orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmountBeforeTax)
-          .toNumber(),
-      };
+      if (tgtMonth !== '') {
+        orderAmountPerMonth[tgtMonth] = {
+          ...orderAmountPerMonth[tgtMonth],
+          orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmountBeforeTax)
+            .toNumber(),
+        };
 
 
-      let tgtMonthIndex = tgtMonthList.indexOf(tgtMonth);
-      if (isOverflow && tgtMonthIndex > maxMonths) tgtMonthIndex = 5;
-      const columnIndex = columnOffset + (tgtMonthIndex * 4) + 1;
+        let tgtMonthIndex = tgtMonthList.indexOf(tgtMonth);
+        if (isOverflow && tgtMonthIndex > maxMonths) tgtMonthIndex = 5;
+        const columnIndex = columnOffset + (tgtMonthIndex * 4) + 1;
 
-      // 6か月以前の発注履歴は行を追加して対応する
-      const wsMonth = ws.getCell(rowIdx, columnIndex).value?.toString();
-      if (wsMonth !== undefined && wsMonth !== tgtMonth) {
+        // 6か月以前の発注履歴は行を追加して対応する
+        const wsMonth = ws.getCell(rowIdx, columnIndex).value?.toString();
+        if (wsMonth !== undefined && wsMonth !== tgtMonth) {
 
-        // 未払金列の反映
-        ws.getCell(`AB${rowIdx}`).value = unPaidMoney(ws, rowIdx, columnOffset);
+          // 未払金列の反映
+          ws.getCell(`AB${rowIdx}`).value = unPaidMoney(ws, rowIdx, columnOffset);
 
-        currRowIdx++;
-        if (currRowIdx > maxRows) {
-          // 次のシートへ
-          currRowIdx = 1;
-          wsName = `原価管理表 (${++currSheetIdx})`;
-          ws = initCostMngWorksheet(wsName, workbook, costManagement);
+          currRowIdx++;
+          if (currRowIdx > maxRows) {
+            // 次のシートへ
+            currRowIdx = 1;
+            wsName = `原価管理表 (${++currSheetIdx})`;
+            ws = initCostMngWorksheet(wsName, workbook, costManagement);
+          }
+          rowIdx = currRowIdx + rowOffset;
+
+          // 発注先情報も追加する
+          ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * maxRows);
+          ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
+          ws.getCell(`C${rowIdx}`).value = '';
+
         }
-        rowIdx = currRowIdx + rowOffset;
+        const paymentAmtVal = ws.getCell(rowIdx, columnIndex + 2).value ?? '0';
 
-        // 発注先情報も追加する
-        ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * maxRows);
-        ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
-        ws.getCell(`C${rowIdx}`).value = '';
-
+        ws.getCell(rowIdx, columnIndex).value = tgtMonth;
+        ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmountBeforeTax)
+          .toNumber();
       }
-      const paymentAmtVal = ws.getCell(rowIdx, columnIndex + 2).value ?? '0';
-
-      ws.getCell(rowIdx, columnIndex).value = tgtMonth;
-      ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmountBeforeTax)
-        .toNumber();
     }
 
     // 未払金列の反映
@@ -132,8 +135,14 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   ws.getCell(`AB${rowIdx}`).value = costManagement.発注金額_税抜 - costManagement.支払金額_税抜;
 
   Object.values(orderAmountPerMonth).forEach((orderAmount, index) => {
-    const columnIndex = columnOffset + 3 + (index * 4);
-    ws.getCell(rowIdx, columnIndex).value = orderAmount.orderAmtTgtMonth;
+    if (index < maxMonths) {
+      const columnIndex = columnOffset + 3 + (index * 4);
+      ws.getCell(rowIdx, columnIndex).value = orderAmount.orderAmtTgtMonth;
+    } else {
+      const columnIndex = columnOffset + 3 + ((maxMonths - 1) * 4);
+      const totalAmt = ws.getCell(rowIdx, columnIndex).value ?? 0;
+      ws.getCell(rowIdx, columnIndex).value = +totalAmt + orderAmount.orderAmtTgtMonth;
+    }
   });
 
 

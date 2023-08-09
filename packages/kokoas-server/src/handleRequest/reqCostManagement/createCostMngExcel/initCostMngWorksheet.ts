@@ -15,14 +15,18 @@ export const initCostMngWorksheet = (
   ws.getCell('C6').value = costManagement.追加金額_税抜; // 追加金額
   ws.getCell('C7').value = costManagement.発注金額_税抜; // 発注金額
   ws.getCell('C8').value = costManagement.支払金額_税抜; // 支払金額
-  ws.getCell('H6').value = `${costManagement.予定利益率}%`; // 予定利益率
-  ws.getCell('J6').value = costManagement.予定利益額; // 予定利益額
-  ws.getCell('H7').value = `${costManagement.実利益率}%`; // 実利益率
-  ws.getCell('J7').value = costManagement.実利益額; // 実利益額
-  ws.getCell('H9').value = `${costManagement.利益配分_夢てつ}%`; // 夢てつ利益配分率
-  ws.getCell('J9').value = costManagement.実利益税抜_夢てつ; // 夢てつ実利益額
-  ws.getCell('H10').value = `${costManagement.利益配分_ここすも}%`; // ここすも利益配分率
-  ws.getCell('J10').value = costManagement.実利益税抜_ここすも; // ここすも実利益額
+
+  ws.getCell('H5').value = `${costManagement.予定利益率}%`; // 予定利益率
+  ws.getCell('K5').value = costManagement.予定利益額; // 予定利益額
+  ws.getCell('H6').value = `${costManagement.実利益率}%`; // 実利益率
+  ws.getCell('K6').value = costManagement.実利益額; // 実利益額
+  ws.getCell('H8').value = `${costManagement.利益配分_夢てつ}%`; // 夢てつ利益配分率
+  ws.getCell('K8').value = `${costManagement.利益配分_ここすも}%`; // ここすも利益配分率
+  ws.getCell('H9').value = costManagement.実利益税抜_夢てつ; // 夢てつ実利益額
+  ws.getCell('K9').value = costManagement.実利益税抜_ここすも; // ここすも実利益額
+  ws.getCell('H10').value = ''; // ここすも実利益額
+  ws.getCell('K10').value = ''; // ここすも実利益額
+
   ws.getCell('R5').value = costManagement.受注額計_税込; // 受注額計税込
   ws.getCell('R6').value = costManagement.受注額計_税抜; // 受注額計税抜
   ws.getCell('R7').value = costManagement.入金額; // 入金額

@@ -14,7 +14,10 @@ describe('accessAPI', () => {
 
       const page = await getPageFromBrowser(browser);
 
-      const result = await accessAPI(page, 'https://api.andpad.jp/manager/v2/orders/11999912/planned_budget/planned_budget_groups' );
+      const result = await accessAPI(
+        page, 
+        '', // enter the endpoint here
+      );
 
       //await sleep(60000);
 

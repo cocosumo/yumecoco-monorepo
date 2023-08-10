@@ -1,6 +1,12 @@
 import path from 'path';
+import fs from 'fs';
 
 
-export const dir = path.join(__dirname, '__TEMP__');
-export const fileName = '入金一覧.csv';
-export const filePath = path.join(dir, fileName);
+export const tempDir = path.join(__dirname, '__TEMP__');
+export const cookiePath = path.join(tempDir, 'cookies.json');
+
+// create temp dir if not exists
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir);
+}
+

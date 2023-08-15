@@ -1,5 +1,5 @@
 export * from './andpad.member';
-export * from './andpad.monthly.procurement';
+export * from './andpad.procurement.monthly';
 export * from './andpad.order';
 export * from './auth';
 export * from './customers';

@@ -55,6 +55,7 @@ coverage
 
 *.key
 *auth.json
+cookies.json
 
 **/backup/**/*
 

@@ -30,7 +30,8 @@
     "/packages/kokoas-client/src/components/ui/dialogs",
     "/packages/api-andpad/src",
     "/packages/libs/src",
-    "/packages/kokoas-client/src/pages/projEstimate/hooks"
+    "/packages/kokoas-client/src/pages/projEstimate/hooks",
+    "/packages/api-aws/src"
   ],
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

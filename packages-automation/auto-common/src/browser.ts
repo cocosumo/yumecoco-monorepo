@@ -11,3 +11,8 @@ export const headFullBrowser = () => browser({
   headless: false,
   defaultViewport: null,
 });
+
+export const headLessBrowser = () => browser({
+  headless: 'new',
+  defaultViewport: null,
+});

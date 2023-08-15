@@ -1,0 +1,1626 @@
+{
+  "data": {
+    "conditions": {
+      "contract_order_state_range_start": 302,
+      "contract_order_state_range_end": 504,
+      "base_date_type": "billing_date"
+    },
+    "months": [
+      "202308",
+      "202309",
+      "202310",
+      "202311",
+      "202312",
+      "202401",
+      "unknown"
+    ],
+    "groups": {
+      "id": 1387314,
+      "name": "root",
+      "position": 1,
+      "memo": null,
+      "parent_planned_budget_group_id": null,
+      "total_planned_budget_cost": 1445302,
+      "items_total_planned_budget_cost": 0,
+      "total_contract_order_cost": 857610,
+      "items_total_contract_order_cost": 0,
+      "months": [
+        {
+          "month": "202308",
+          "price": 720400,
+          "piecework": false
+        },
+        {
+          "month": "unknown",
+          "price": 137210,
+          "piecework": false
+        },
+        {
+          "month": "total",
+          "price": 857610,
+          "piecework": false
+        }
+      ],
+      "contracts": [],
+      "children": [
+        {
+          "id": 1387315,
+          "name": "未設定",
+          "position": 1,
+          "memo": "",
+          "parent_planned_budget_group_id": 1387314,
+          "total_planned_budget_cost": 1445302,
+          "items_total_planned_budget_cost": 0,
+          "total_contract_order_cost": 857610,
+          "items_total_contract_order_cost": 0,
+          "months": [
+            {
+              "month": "202308",
+              "price": 720400,
+              "piecework": false
+            },
+            {
+              "month": "unknown",
+              "price": 137210,
+              "piecework": false
+            },
+            {
+              "month": "total",
+              "price": 857610,
+              "piecework": false
+            }
+          ],
+          "contracts": [],
+          "children": [
+            {
+              "id": 1387316,
+              "name": "アルミサッシ工事",
+              "position": 1,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 70000,
+              "items_total_planned_budget_cost": 70000,
+              "total_contract_order_cost": 70000,
+              "items_total_contract_order_cost": 70000,
+              "months": [
+                {
+                  "month": "202308",
+                  "price": 70000,
+                  "piecework": false
+                },
+                {
+                  "month": "total",
+                  "price": 70000,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 77893,
+                  "name": "株式会社アルシス",
+                  "items_total_planned_budget_cost": 70000,
+                  "items_total_contract_order_cost": 70000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615339,
+                        "planned_budget_group_id": 1387316,
+                        "contract_id": null,
+                        "client_unit_master_id": 409065,
+                        "name": "網戸工事",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 70000,
+                        "state": "requested_contract_order",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 70000,
+                        "contract_name": "",
+                        "contract_order_cost": 70000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 70000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 70000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 70000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 70000,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": null,
+                  "name": "発注先未定",
+                  "items_total_planned_budget_cost": 0,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615340,
+                        "planned_budget_group_id": 1387316,
+                        "contract_id": null,
+                        "client_unit_master_id": 409065,
+                        "name": "建付調整",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "1.0",
+                        "unit_cost": 0,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 0,
+                        "contract_name": "",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387317,
+              "name": "木製建具工事",
+              "position": 2,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 56110,
+              "items_total_planned_budget_cost": 56110,
+              "total_contract_order_cost": 0,
+              "items_total_contract_order_cost": 0,
+              "months": [
+                {
+                  "month": "total",
+                  "price": 0,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 80686,
+                  "name": "サンレジャン株式会社　安城店",
+                  "items_total_planned_budget_cost": 56110,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615341,
+                        "planned_budget_group_id": 1387317,
+                        "contract_id": 80686,
+                        "client_unit_master_id": 4397883,
+                        "name": "ｶｰﾃﾝﾚｰﾙ",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "8.0",
+                        "unit_cost": 3800,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "ヵ所",
+                        "cost": 30400,
+                        "contract_name": "サンレジャン株式会社　安城店",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615342,
+                        "planned_budget_group_id": 1387317,
+                        "contract_id": 80686,
+                        "client_unit_master_id": 4397883,
+                        "name": "ﾛｰﾙｽｸﾘｰﾝ",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "1.0",
+                        "unit_cost": 14910,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "ヵ所",
+                        "cost": 14910,
+                        "contract_name": "サンレジャン株式会社　安城店",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615343,
+                        "planned_budget_group_id": 1387317,
+                        "contract_id": 80686,
+                        "client_unit_master_id": 4397883,
+                        "name": "取付費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 2,
+                        "quantity": "9.0",
+                        "unit_cost": 1200,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "ヵ所",
+                        "cost": 10800,
+                        "contract_name": "サンレジャン株式会社　安城店",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387318,
+              "name": "塗装工事",
+              "position": 3,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 207000,
+              "items_total_planned_budget_cost": 207000,
+              "total_contract_order_cost": 207000,
+              "items_total_contract_order_cost": 207000,
+              "months": [
+                {
+                  "month": "202308",
+                  "price": 207000,
+                  "piecework": false
+                },
+                {
+                  "month": "total",
+                  "price": 207000,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 76049,
+                  "name": "株式会社プロコート",
+                  "items_total_planned_budget_cost": 207000,
+                  "items_total_contract_order_cost": 207000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615344,
+                        "planned_budget_group_id": 1387318,
+                        "contract_id": 76049,
+                        "client_unit_master_id": 4397882,
+                        "name": "ﾌﾛｱｺｰﾃｨﾝｸﾞ",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "90.0",
+                        "unit_cost": 2300,
+                        "state": "requested_delivery",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "㎡",
+                        "cost": 207000,
+                        "contract_name": "株式会社プロコート",
+                        "contract_order_cost": 207000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 207000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 207000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 207000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 207000,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": null,
+                  "name": "発注先未定",
+                  "items_total_planned_budget_cost": 0,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615345,
+                        "planned_budget_group_id": 1387318,
+                        "contract_id": null,
+                        "client_unit_master_id": 4397882,
+                        "name": "清掃剥離",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "90.0",
+                        "unit_cost": 0,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "㎡",
+                        "cost": 0,
+                        "contract_name": "",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387319,
+              "name": "照明機器工事",
+              "position": 4,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 46200,
+              "items_total_planned_budget_cost": 46200,
+              "total_contract_order_cost": 46200,
+              "items_total_contract_order_cost": 46200,
+              "months": [
+                {
+                  "month": "202308",
+                  "price": 46200,
+                  "piecework": false
+                },
+                {
+                  "month": "total",
+                  "price": 46200,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 119680,
+                  "name": "株式会社鈴木電気商会",
+                  "items_total_planned_budget_cost": 37200,
+                  "items_total_contract_order_cost": 37200,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615346,
+                        "planned_budget_group_id": 1387319,
+                        "contract_id": null,
+                        "client_unit_master_id": 4397883,
+                        "name": "ｼｰﾘﾝｸﾞﾗｲﾄ",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "6.0",
+                        "unit_cost": 6200,
+                        "state": "requested_delivery",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "ヵ所",
+                        "cost": 37200,
+                        "contract_name": "",
+                        "contract_order_cost": 37200
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 37200,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 37200,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 37200,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 37200,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": 77836,
+                  "name": "村田電気",
+                  "items_total_planned_budget_cost": 9000,
+                  "items_total_contract_order_cost": 9000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615347,
+                        "planned_budget_group_id": 1387319,
+                        "contract_id": 77836,
+                        "client_unit_master_id": 4397883,
+                        "name": "取付費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "6.0",
+                        "unit_cost": 1500,
+                        "state": "requested_contract_order",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "ヵ所",
+                        "cost": 9000,
+                        "contract_name": "村田電気",
+                        "contract_order_cost": 9000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 9000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 9000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 9000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 9000,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387320,
+              "name": "電気工事",
+              "position": 5,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 38000,
+              "items_total_planned_budget_cost": 38000,
+              "total_contract_order_cost": 38000,
+              "items_total_contract_order_cost": 38000,
+              "months": [
+                {
+                  "month": "202308",
+                  "price": 38000,
+                  "piecework": false
+                },
+                {
+                  "month": "total",
+                  "price": 38000,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 77836,
+                  "name": "村田電気",
+                  "items_total_planned_budget_cost": 38000,
+                  "items_total_contract_order_cost": 38000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615348,
+                        "planned_budget_group_id": 1387320,
+                        "contract_id": 77836,
+                        "client_unit_master_id": 4097330,
+                        "name": "TVｱﾝﾃﾅ工事",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 38000,
+                        "state": "requested_contract_order",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "セット",
+                        "cost": 38000,
+                        "contract_name": "村田電気",
+                        "contract_order_cost": 38000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 38000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 38000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 38000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 38000,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387321,
+              "name": "空調工事",
+              "position": 6,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 309200,
+              "items_total_planned_budget_cost": 309200,
+              "total_contract_order_cost": 309200,
+              "items_total_contract_order_cost": 309200,
+              "months": [
+                {
+                  "month": "202308",
+                  "price": 309200,
+                  "piecework": false
+                },
+                {
+                  "month": "total",
+                  "price": 309200,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 119680,
+                  "name": "株式会社鈴木電気商会",
+                  "items_total_planned_budget_cost": 252200,
+                  "items_total_contract_order_cost": 252200,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615349,
+                        "planned_budget_group_id": 1387321,
+                        "contract_id": 119680,
+                        "client_unit_master_id": 4097334,
+                        "name": "エアコン",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 158200,
+                        "state": "requested_delivery",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "台",
+                        "cost": 158200,
+                        "contract_name": "株式会社鈴木電気商会",
+                        "contract_order_cost": 158200
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 158200,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 158200,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615350,
+                        "planned_budget_group_id": 1387321,
+                        "contract_id": 119680,
+                        "client_unit_master_id": 4097334,
+                        "name": "エアコン",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "1.0",
+                        "unit_cost": 50000,
+                        "state": "requested_delivery",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "台",
+                        "cost": 50000,
+                        "contract_name": "株式会社鈴木電気商会",
+                        "contract_order_cost": 50000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 50000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 50000,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615351,
+                        "planned_budget_group_id": 1387321,
+                        "contract_id": 119680,
+                        "client_unit_master_id": 4097334,
+                        "name": "エアコン",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 2,
+                        "quantity": "1.0",
+                        "unit_cost": 44000,
+                        "state": "requested_delivery",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "台",
+                        "cost": 44000,
+                        "contract_name": "株式会社鈴木電気商会",
+                        "contract_order_cost": 44000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 44000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 44000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 252200,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 252200,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": 77836,
+                  "name": "村田電気",
+                  "items_total_planned_budget_cost": 57000,
+                  "items_total_contract_order_cost": 57000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615352,
+                        "planned_budget_group_id": 1387321,
+                        "contract_id": 77836,
+                        "client_unit_master_id": 4097334,
+                        "name": "施工費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 3,
+                        "quantity": "3.0",
+                        "unit_cost": 19000,
+                        "state": "requested_contract_order",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "台",
+                        "cost": 57000,
+                        "contract_name": "村田電気",
+                        "contract_order_cost": 57000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 57000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 57000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 57000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 57000,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387322,
+              "name": "住宅衛生設備工事",
+              "position": 7,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 186580,
+              "items_total_planned_budget_cost": 186580,
+              "total_contract_order_cost": 187210,
+              "items_total_contract_order_cost": 187210,
+              "months": [
+                {
+                  "month": "202308",
+                  "price": 50000,
+                  "piecework": false
+                },
+                {
+                  "month": "unknown",
+                  "price": 137210,
+                  "piecework": false
+                },
+                {
+                  "month": "total",
+                  "price": 187210,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 76043,
+                  "name": "株式会社シミズ",
+                  "items_total_planned_budget_cost": 136580,
+                  "items_total_contract_order_cost": 137210,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615353,
+                        "planned_budget_group_id": 1387322,
+                        "contract_id": 76043,
+                        "client_unit_master_id": 4097329,
+                        "name": "ｶｯﾌﾟﾎﾞｰﾄﾞ",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 136580,
+                        "state": "requested_delivery",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "個",
+                        "cost": 136580,
+                        "contract_name": "株式会社シミズ",
+                        "contract_order_cost": 137210
+                      },
+                      "months": [
+                        {
+                          "month": "unknown",
+                          "price": 137210,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 137210,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "unknown",
+                      "price": 137210,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 137210,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": 77889,
+                  "name": "伊藤　健吾",
+                  "items_total_planned_budget_cost": 35000,
+                  "items_total_contract_order_cost": 35000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615354,
+                        "planned_budget_group_id": 1387322,
+                        "contract_id": 77889,
+                        "client_unit_master_id": 409065,
+                        "name": "組立施工費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "1.0",
+                        "unit_cost": 35000,
+                        "state": "requested_contract_order",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 35000,
+                        "contract_name": "伊藤　健吾",
+                        "contract_order_cost": 35000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 35000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 35000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 35000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 35000,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": 77836,
+                  "name": "村田電気",
+                  "items_total_planned_budget_cost": 15000,
+                  "items_total_contract_order_cost": 15000,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615355,
+                        "planned_budget_group_id": 1387322,
+                        "contract_id": 77836,
+                        "client_unit_master_id": 409065,
+                        "name": "電源工事",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 2,
+                        "quantity": "1.0",
+                        "unit_cost": 15000,
+                        "state": "requested_contract_order",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 15000,
+                        "contract_name": "村田電気",
+                        "contract_order_cost": 15000
+                      },
+                      "months": [
+                        {
+                          "month": "202308",
+                          "price": 15000,
+                          "piecework": false
+                        },
+                        {
+                          "month": "total",
+                          "price": 15000,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "202308",
+                      "price": 15000,
+                      "piecework": false
+                    },
+                    {
+                      "month": "total",
+                      "price": 15000,
+                      "piecework": false
+                    }
+                  ]
+                },
+                {
+                  "id": null,
+                  "name": "発注先未定",
+                  "items_total_planned_budget_cost": 0,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615356,
+                        "planned_budget_group_id": 1387322,
+                        "contract_id": null,
+                        "client_unit_master_id": 409065,
+                        "name": "残材処分",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 3,
+                        "quantity": "1.0",
+                        "unit_cost": 0,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 0,
+                        "contract_name": "",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387323,
+              "name": "エクステリア工事",
+              "position": 8,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 532212,
+              "items_total_planned_budget_cost": 532212,
+              "total_contract_order_cost": 0,
+              "items_total_contract_order_cost": 0,
+              "months": [
+                {
+                  "month": "total",
+                  "price": 0,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": 77832,
+                  "name": "ナカムラエクステリア",
+                  "items_total_planned_budget_cost": 532212,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615357,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 4097330,
+                        "name": "2台用カーポート",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 198800,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "セット",
+                        "cost": 198800,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615358,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "標準施工費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "1.0",
+                        "unit_cost": 75000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 75000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615359,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 4097328,
+                        "name": "土間CONカッターはつり",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 2,
+                        "quantity": "4.0",
+                        "unit_cost": 6000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "ヶ所",
+                        "cost": 24000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615360,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "発生資材運搬",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 3,
+                        "quantity": "1.0",
+                        "unit_cost": 18000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 18000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615361,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 4097330,
+                        "name": "ウッドデッキ",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 4,
+                        "quantity": "1.0",
+                        "unit_cost": 73160,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "セット",
+                        "cost": 73160,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615362,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "組立施工費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 5,
+                        "quantity": "1.0",
+                        "unit_cost": 30000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 30000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615363,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "発生資材運搬",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 6,
+                        "quantity": "1.0",
+                        "unit_cost": 5000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 5000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615364,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 4097330,
+                        "name": "テラス屋根",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 7,
+                        "quantity": "1.0",
+                        "unit_cost": 59472,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "セット",
+                        "cost": 59472,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615365,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "ロング柱",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 8,
+                        "quantity": "1.0",
+                        "unit_cost": 3820,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 3820,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615366,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "吊下式固定物干",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 9,
+                        "quantity": "1.0",
+                        "unit_cost": 5960,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 5960,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615367,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "組立施工費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 10,
+                        "quantity": "1.0",
+                        "unit_cost": 34000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 34000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615368,
+                        "planned_budget_group_id": 1387323,
+                        "contract_id": 77832,
+                        "client_unit_master_id": 409065,
+                        "name": "発生資材運搬",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 11,
+                        "quantity": "1.0",
+                        "unit_cost": 5000,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 5000,
+                        "contract_name": "ナカムラエクステリア",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387324,
+              "name": "付帯工事費用",
+              "position": 9,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 0,
+              "items_total_planned_budget_cost": 0,
+              "total_contract_order_cost": 0,
+              "items_total_contract_order_cost": 0,
+              "months": [
+                {
+                  "month": "total",
+                  "price": 0,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": null,
+                  "name": "発注先未定",
+                  "items_total_planned_budget_cost": 0,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615369,
+                        "planned_budget_group_id": 1387324,
+                        "contract_id": null,
+                        "client_unit_master_id": 409065,
+                        "name": "現場管理費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 0,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 0,
+                        "contract_name": "",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    },
+                    {
+                      "planned_budget_item": {
+                        "id": 4615370,
+                        "planned_budget_group_id": 1387324,
+                        "contract_id": null,
+                        "client_unit_master_id": 409065,
+                        "name": "設計管理費",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 1,
+                        "quantity": "1.0",
+                        "unit_cost": 0,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 0,
+                        "contract_name": "",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            },
+            {
+              "id": 1387325,
+              "name": "値引き",
+              "position": 10,
+              "memo": "",
+              "parent_planned_budget_group_id": 1387315,
+              "total_planned_budget_cost": 0,
+              "items_total_planned_budget_cost": 0,
+              "total_contract_order_cost": 0,
+              "items_total_contract_order_cost": 0,
+              "months": [
+                {
+                  "month": "total",
+                  "price": 0,
+                  "piecework": false
+                }
+              ],
+              "contracts": [
+                {
+                  "id": null,
+                  "name": "発注先未定",
+                  "items_total_planned_budget_cost": 0,
+                  "items_total_contract_order_cost": 0,
+                  "items": [
+                    {
+                      "planned_budget_item": {
+                        "id": 4615371,
+                        "planned_budget_group_id": 1387325,
+                        "contract_id": null,
+                        "client_unit_master_id": 409065,
+                        "name": "端数値引き",
+                        "memo": "",
+                        "planned_budget_memo": null,
+                        "position": 0,
+                        "quantity": "1.0",
+                        "unit_cost": 0,
+                        "state": "fixed_item",
+                        "out_of_planned_budget_flg": false,
+                        "unit": "式",
+                        "cost": 0,
+                        "contract_name": "",
+                        "contract_order_cost": null
+                      },
+                      "months": [
+                        {
+                          "month": "total",
+                          "price": 0,
+                          "piecework": false
+                        }
+                      ]
+                    }
+                  ],
+                  "months": [
+                    {
+                      "month": "total",
+                      "price": 0,
+                      "piecework": false
+                    }
+                  ]
+                }
+              ],
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    "pieceworks": [],
+    "summaries": [
+      {
+        "month": "202308",
+        "price": 720400
+      },
+      {
+        "month": "unknown",
+        "price": 137210
+      },
+      {
+        "month": "total",
+        "price": 857610
+      }
+    ],
+    "totals": [
+      {
+        "month": "202308",
+        "price": 720400
+      },
+      {
+        "month": "202309",
+        "price": 720400
+      },
+      {
+        "month": "202310",
+        "price": 720400
+      },
+      {
+        "month": "202311",
+        "price": 720400
+      },
+      {
+        "month": "202312",
+        "price": 720400
+      },
+      {
+        "month": "202401",
+        "price": 720400
+      },
+      {
+        "month": "unknown",
+        "price": 857610
+      }
+    ]
+  }
+}

@@ -6,7 +6,6 @@
   "dependencies": {
     "config": "*",
     "helpers": "*",
-    "jest-environment-node": "^29.6.2",
     "types": "*",
     "utils-jest": "*"
   },

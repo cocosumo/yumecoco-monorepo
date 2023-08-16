@@ -52,7 +52,6 @@ coverage
 **/build/*
 *.snap
 *.exe
-
 *.key
 *auth.json
 cookies.json
@@ -95,3 +94,5 @@ Backup of *.doc*
 
 **/cypress/videos
 **/cypress/screenshots
+
+**/__TEST__/*.json

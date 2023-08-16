@@ -8,7 +8,9 @@ export interface CostManagement {
   yumeProfitSharing: number,
   cocoProfitSharing: number,
   予定利益率: number,
+  予定利益額: number,
   実利益率: number,
+  実利益額: number,
   実利益税抜_夢てつ: number,
   実利益税抜_ここすも: number,
   受注額計_税込: number,
@@ -43,10 +45,12 @@ export const calcProfitability = ({
     .toNumber();
 
   /** 予定利益額 */
-  const plannedProfit = Big(orderTotalBeforeTax).minus(purchaseAmount);
+  const plannedProfit = Big(orderTotalBeforeTax).minus(purchaseAmount)
+    .toNumber();
 
   /** 実利益額 */
-  const actualProfit = Big(orderTotalBeforeTax).minus(paymentAmount);
+  const actualProfit = Big(orderTotalBeforeTax).minus(paymentAmount)
+    .toNumber();
 
   /** 予定利益率 */
   const plannedProfitMargin = Big(plannedProfit).div(orderTotalBeforeTax)
@@ -89,7 +93,9 @@ export const calcProfitability = ({
     purchaseAmount: purchaseAmount,
     paymentAmount: paymentAmount,
     予定利益率: plannedProfitMargin,
+    予定利益額: plannedProfit,
     実利益率: actualProfitMargin,
+    実利益額: actualProfit,
     yumeProfitSharing: yumeCommFeeRate,
     cocoProfitSharing: cocoProfitSharing,
     実利益税抜_夢てつ: yumeActualProfit,

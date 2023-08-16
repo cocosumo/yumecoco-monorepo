@@ -6,6 +6,7 @@ import { ProjectDetails } from './projectDetails/ProjectDetails';
 import { EstimatesDetails } from './estimatesDetails/EstimatesDetails';
 import { ContractDetails } from './contractDetails/ContractDetails';
 import { PaymentDetails } from './paymentDetails/PaymentDetails';
+import { CostMgtDetails } from './costMgtDetails/CostMgtDetails';
 
 export const DetailsContent = ({
   projId,
@@ -53,6 +54,10 @@ export const DetailsContent = ({
 
       {tabIdx === 4 && (
         <PaymentDetails projId={projId} />
+      )}
+
+      {tabIdx === 5 && (
+      <CostMgtDetails projId={projId} />
       )}
 
     </DialogContent>

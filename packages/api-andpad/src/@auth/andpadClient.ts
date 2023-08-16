@@ -130,7 +130,7 @@ export const getToken = async () => {
 
       if (!parsedAuthToken) {
         // 認証URLから取得が必要
-        throw new Error('authDBにトークンが見つかりませんでした。管理者にご連絡ください。');
+        throw new Error('authDBにトークンが見つかりませんでした。');
       }
 
       setAndpadToken(parsedAuthToken);

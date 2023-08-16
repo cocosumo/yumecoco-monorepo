@@ -1,4 +1,4 @@
-declare namespace DBAndpadorders {
+declare namespace DBAndpadprocurements {
   interface Data {
     orderType: kintone.fieldTypes.SingleLineText;
     note: kintone.fieldTypes.SingleLineText;

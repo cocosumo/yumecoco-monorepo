@@ -18,7 +18,9 @@
     "/packages/kokoas-client/src/lib/packageInfo.ts",
     "/packages/api-kintone/src/contracts/config.ts",
     "/packages/api-kintone/src/units/config.ts",
-    "/packages/api-kintone/src/andpadPaymentsData/config.ts"
+    "/packages/api-kintone/src/andpadPaymentsData/config.ts",
+    "/packages/api-kintone/src/andpadProcurement/config.ts",
+    "/packages/api-kintone/src/andpadProcurement/testData.ts"
   ],
   "exportall.config.folderListener": [
     "/packages/api-kintone/src",

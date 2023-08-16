@@ -80,7 +80,7 @@ export const AppIds = {
   andpadPayments: 233,
 
   /** Andpad発注データ */
-  andpadOrders: 253,
+  andpadProcurements: 253,
 
   ...(isProd ? prodAppIds : devAppIds),
 } as const;

@@ -15,6 +15,8 @@ import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectF
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
 import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
+import { reqCostMgtDataByProjId } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjId';
+//import { reqAndpadApi } from '../handleRequest/reqAndpadApi/reqAndpadApi';
 //import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
 
@@ -56,6 +58,11 @@ route.get(
 );
 
 route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjId}/:projId`,
+  reqCostMgtDataByProjId,
+);
+
+route.get(
   `/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
   downloadEstimateAsAndpad,
 );
@@ -87,6 +94,13 @@ route.put(
   bodyParser.json({ limit: '50mb' }),
   reqDownloadInvoice,
 );
+
+// endpoints using browser won't work on xserver
+/* route.post(
+  `/${kokoasEndpoints.accessAndpadApi}`,
+  bodyParser.json({ limit: '5mb' }),
+  reqAndpadApi,
+); */
 
 
 // "テスト"

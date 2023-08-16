@@ -54,6 +54,7 @@ export const DetailsDialog = ({
           <Tab label="見積"  />
           <Tab label="契約"  />
           <Tab label="入金"  />
+          <Tab label="原価管理"  />
         </Tabs>
         <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>

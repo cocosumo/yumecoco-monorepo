@@ -20,7 +20,7 @@ export const uploadDaikokuGenka = async (
   };
 
   if (!baseUrl) {
-    throw new Error('環境にBase_URLが設定していません。管理者にご連絡ください。');
+    throw new Error('環境にBase_URLが設定していません。');
   }
   const endpoint = [
     baseUrl,

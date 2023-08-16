@@ -10,6 +10,7 @@ export const getOrderBySystemId = async (params: GetOrderBySystemIdParams) => {
     systemId,
   } = params;
 
+  console.log('getOrderBySystemId', params);
   if (!systemId) return null;
   
   const endpoint = [

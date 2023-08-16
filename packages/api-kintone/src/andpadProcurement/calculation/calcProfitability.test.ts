@@ -7,7 +7,7 @@ describe('calcProfitability', () => {
     orderAmount: 20636364,
     additionalAmount: 1363636,
     purchaseAmount: 16041147,
-    paymentAmount: 16041147,
+    paymentAmount: 15000000,
     depositAmount: 24200000,
     yumeCommFeeRate: 19,
     tax: 0.1,
@@ -19,7 +19,9 @@ describe('calcProfitability', () => {
     purchaseAmount,
     paymentAmount,
     予定利益率,
+    予定利益額,
     実利益率,
+    実利益額,
     yumeProfitSharing,
     cocoProfitSharing,
     実利益税抜_夢てつ,
@@ -45,15 +47,23 @@ describe('calcProfitability', () => {
   });
 
   it('正しい「支払金額」を返す', () => {
-    expect(paymentAmount).toBe(16041147);
+    expect(paymentAmount).toBe(15000000);
   });
 
   it('正しい「予定利益率」を返す', () => {
     expect(予定利益率).toBe(27.09);
   });
 
+  it('正しい「予定利益額」を返す', () => {
+    expect(予定利益額).toBe(5958853);
+  });
+
   it('正しい「実利益率」を返す', () => {
-    expect(実利益率).toBe(27.09);
+    expect(実利益率).toBe(31.82);
+  });
+  
+  it('正しい「実利益額」を返す', () => {
+    expect(実利益額).toBe(7000000);
   });
 
   it('正しい「ゆめてつ利益配分」を返す', () => {
@@ -65,11 +75,11 @@ describe('calcProfitability', () => {
   });
 
   it('正しい「実利益税抜_夢てつ」を返す', () => {
-    expect(実利益税抜_夢てつ).toBe(1132182);
+    expect(実利益税抜_夢てつ).toBe(1330000);
   });
 
   it('正しい「実利益税抜_ここすも」を返す', () => {
-    expect(実利益税抜_ここすも).toBe(4826671);
+    expect(実利益税抜_ここすも).toBe(5670000);
   });
 
   it('正しい「受注額計_税込」を返す', () => {

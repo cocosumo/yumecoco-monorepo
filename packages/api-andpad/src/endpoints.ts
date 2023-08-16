@@ -28,4 +28,6 @@ export const endpoints = {
   deleteMembers:  getMembersBulkEndpoint,
 
   updateMembers: getMembersBulkEndpoint,
+
+  getDataByUrl : 'https://ga7mbwr93h.execute-api.ap-northeast-1.amazonaws.com/prod/andpad-api',
 } as const;

@@ -1,17 +1,16 @@
-import { summarizeSuppliers } from './summarizeSuppliers';
 import { 
   getAndpadPaymentsBySystemId, 
-  getAndpadProcurementByAndpadProjId, 
   getContractsByProjId, 
   getCustGroupById, 
   getProjById, 
   getProjTypeById, 
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
-import { getOrderByProjId } from 'api-andpad';
+import { getMonthlyProcurementBySystemId, getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
+import { convertMonthlyProcurement } from './helpers/convertMonthlyProcurement';
 
 
 
@@ -56,16 +55,18 @@ export const getCostMgtDataByProjIdV2 = async (
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
 
-  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // andpad発注情報
-  const costManagemenList = summarizeSuppliers(andpadProcurements); // 発注会社ごとに整形したデータ
+  const andpadProcurements = await getMonthlyProcurementBySystemId(andpadSystemId); // andpad発注情報
+  const costManagemenList = convertMonthlyProcurement(andpadProcurements); // 発注会社ごとに整形したデータ
 
   const {
+    months,
     maxPaymentDate,
     minPaymentDate,
   } = costManagemenList;
 
   // 取得したデータを整形する
 
+  /** 入金 */
   const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
     .reduce((acc, { paymentAmount }) => {
       return acc + +paymentAmount.value;
@@ -116,8 +117,8 @@ export const getCostMgtDataByProjIdV2 = async (
   } = calcProfitability({
     orderAmount: contracts?.契約金額 ?? 0,
     additionalAmount: contracts?.追加金額 ?? 0,
-    purchaseAmount: costManagemenList.発注金額_税抜,
-    paymentAmount: costManagemenList.支払金額_税抜,
+    purchaseAmount: costManagemenList.totalPlannedBudgetCost,
+    paymentAmount: costManagemenList.totalContractOrderCost,
     depositAmount: depositAmount,
     yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,
@@ -147,9 +148,10 @@ export const getCostMgtDataByProjIdV2 = async (
     夢てつ営業: yumeAGNames,
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
-    発注情報詳細: costManagemenList.orderInfo,
-    maxPaymentDate: (maxPaymentDate || new Date()).toISOString(),
-    minPaymentDate: (minPaymentDate || new Date())?.toISOString(),
+    発注情報詳細: costManagemenList.result,
+    maxPaymentDate,
+    minPaymentDate,
+    months,
   };
 
   return result;

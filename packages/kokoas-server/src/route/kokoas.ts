@@ -63,6 +63,11 @@ route.get(
 );
 
 route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjIdV2}/:projId`,
+  reqCostMgtDataByProjId,
+);
+
+route.get(
   `/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
   downloadEstimateAsAndpad,
 );

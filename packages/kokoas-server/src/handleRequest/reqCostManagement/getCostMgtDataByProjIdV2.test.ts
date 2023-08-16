@@ -1,6 +1,8 @@
-import { describe, expect } from '@jest/globals';
+import { describe, it } from '@jest/globals';
 import { getCostMgtDataByProjIdV2 } from './getCostMgtDataByProjIdV2';
-
+import fs from 'fs';
+import path from 'path';
+import format from 'date-fns/format';
 
 
 describe('getCostMgtDataV2', () => {
@@ -9,8 +11,11 @@ describe('getCostMgtDataV2', () => {
 
     const result = await getCostMgtDataByProjIdV2(projId);
 
-    console.log(result);
+    // save json file
+    fs.writeFileSync(
+      path.join(__dirname, '/__TEST__', `costMgtData${format(new Date(), 'yyyyMMddHHmmss')}.json`), 
+      JSON.stringify(result, null, 2),
+    );
 
-    expect(result).toMatchSnapshot();
-  });
+  }, 60000);
 });

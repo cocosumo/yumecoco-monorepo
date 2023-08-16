@@ -19,6 +19,8 @@ import type { GetCostMgtData } from 'types';
  * 必要なファイルを取得する
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
+ * 
+ * @deprecated replaced with getCostMgtDataByProjIdV2
  */
 export const getCostMgtDataByProjId = async (
   projId: string,
@@ -148,6 +150,7 @@ export const getCostMgtDataByProjId = async (
     発注情報詳細: costManagemenList.orderInfo,
     maxPaymentDate: (maxPaymentDate || new Date()).toISOString(),
     minPaymentDate: (minPaymentDate || new Date())?.toISOString(),
+    months: [],
   };
 
   return result;

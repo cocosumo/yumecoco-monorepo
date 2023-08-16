@@ -31,7 +31,7 @@ export const calcProfitability = ({
 }: {
   orderAmount: number // 受注金額
   additionalAmount: number // 追加金額
-  purchaseAmount: number // 発注金額
+  purchaseAmount: number // 実行予算金額
   paymentAmount: number // 支払金額
   depositAmount: number // 入金金額
   yumeCommFeeRate: number // ゆめてつ紹介料率

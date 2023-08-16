@@ -5,7 +5,7 @@ export interface AndpadProcurementMonthly {
 export interface Data {
   conditions: Conditions;
   months:     string[];
-  groups:     Groups;
+  groups:     Group;
   pieceworks: any[];
   summaries:  Summary[];
   totals:     Summary[];
@@ -17,7 +17,7 @@ export interface Conditions {
   base_date_type:                   string;
 }
 
-export interface Groups {
+export interface Group {
   id:                              number;
   name:                            string;
   position:                        number;
@@ -29,7 +29,7 @@ export interface Groups {
   items_total_contract_order_cost: number;
   months:                          Month[];
   contracts:                       Contract[];
-  children:                        Groups[];
+  children:                        Group[];
 }
 
 export interface Contract {
@@ -47,7 +47,7 @@ export interface Item {
 }
 
 export interface Month {
-  month:     string;
+  month:     string | 'unknown' | 'total';
   price:     number;
   piecework: boolean;
 }
@@ -63,7 +63,7 @@ export interface PlannedBudgetItem {
   position:                  number;
   quantity:                  string;
   unit_cost:                 number;
-  state:                     State;
+  state:                     string;
   out_of_planned_budget_flg: boolean;
   unit:                      string;
   cost:                      number;
@@ -71,11 +71,6 @@ export interface PlannedBudgetItem {
   contract_order_cost:       number | null;
 }
 
-export enum State {
-  FixedItem = 'fixed_item',
-  RequestedContractOrder = 'requested_contract_order',
-  RequestedDelivery = 'requested_delivery',
-}
 
 export interface Summary {
   month: string;

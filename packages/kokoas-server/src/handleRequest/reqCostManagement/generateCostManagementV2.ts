@@ -1,12 +1,10 @@
-import { getCostMgtDataByProjId } from './getCostMgtDataByProjId';
+import { getCostMgtDataByProjIdV2 } from './getCostMgtDataByProjIdV2';
 
 /**
  * プロジェクトIDを渡されたら,
  * getCostManagementでデータの成形をして、
  * excelファイルを生成する
  * outputはbase64に変換する
- * 
- * @deprecated generateCostManagementV2 に移行
  */
 export const generateCostManagement = async (
   projId: string,
@@ -14,7 +12,7 @@ export const generateCostManagement = async (
 
   // 対象案件の発注一覧の取得
   
-  const costManagementList = await getCostMgtDataByProjId(projId);
+  const costManagementList = await getCostMgtDataByProjIdV2(projId);
 
 
 };

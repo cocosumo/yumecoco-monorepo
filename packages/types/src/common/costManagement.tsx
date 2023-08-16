@@ -1,20 +1,45 @@
 export interface PaymentHistory {
   paymentDate: string | null;
-  paymentAmountBeforeTax: number;
+  paymentAmtBeforeTax: number;
 }
 
+export interface ProcurementDetails {
+  [supplierName : string]: {
+
+    /**実行予算金額 (税抜) */
+    plannedBudgetCost: number;
+
+    /**発注・経費金額(税抜) */
+    contractOrderCost: number;
+
+    /** 発注 */
+    paymentHistory: PaymentHistory[];
+  }
+}
+
+/** @deprecated will use ProcurementDetails instead */
 export interface ProcurementInfo {
   supplierName: string;
   orderAmountBeforeTax: number;
-  paymentHistory: PaymentHistory[];
+  paymentHistory: Array<{
+    paymentDate: string | null;
+    paymentAmountBeforeTax: number;
+  }>;
 }
+
 
 export interface GetCostMgtData {
   projNum: string,
   projName: string,
   custGroupName: string,
+
+  /** @deprecated */
   maxPaymentDate: string, // ISO string
+
+  /** @deprecated */
   minPaymentDate: string, // ISO string
+
+  months: string[],
   受注金額_税抜: number,
   追加金額_税抜: number,
   発注金額_税抜: number,
@@ -34,5 +59,5 @@ export interface GetCostMgtData {
   夢てつ営業: string,
   ここすも営業: string,
   ここすも工事: string,
-  発注情報詳細: ProcurementInfo[],
+  発注情報詳細: ProcurementDetails | ProcurementInfo[],
 }

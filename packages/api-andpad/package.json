@@ -2,12 +2,11 @@
   "name": "api-andpad",
   "version": "0.0.0",
   "main": "./src/index.ts",
-  "scripts": {
-
-  },
+  "scripts": {},
   "dependencies": {
     "config": "*",
     "helpers": "*",
+    "jest-environment-node": "^29.6.2",
     "types": "*",
     "utils-jest": "*"
   },

@@ -8,7 +8,7 @@ export const reqCostMgtDataByProjIdV2: RequestHandler<
   try {
     const projId = validator.escape(req.params.projId);
     if (!projId) throw new Error('projId is required');
-    console.log('getCostMgtDataByProjId', req.query);
+    console.log('getCostMgtDataByProjIdV2', projId);
     
     const result = await getCostMgtDataByProjIdV2(projId);
 

@@ -147,7 +147,7 @@ export const getCostMgtDataByProjId = async (
     夢てつ営業: yumeAGNames,
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
-    発注情報詳細: costManagemenList.orderInfo,
+    発注情報詳細: costManagemenList.orderInfo as any,
     maxPaymentDate: (maxPaymentDate || new Date()).toISOString(),
     minPaymentDate: (minPaymentDate || new Date())?.toISOString(),
     months: [],

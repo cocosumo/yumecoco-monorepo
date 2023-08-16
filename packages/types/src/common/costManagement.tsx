@@ -3,18 +3,20 @@ export interface PaymentHistory {
   paymentAmtBeforeTax: number;
 }
 
-export interface ProcurementDetails {
-  [supplierName : string]: {
+export interface ProcurementSupplierDetails {
 
-    /**実行予算金額 (税抜) */
-    plannedBudgetCost: number;
+  /**発注先名 */
+  supplierName: string;
 
-    /**発注・経費金額(税抜) */
-    contractOrderCost: number;
+  /**実行予算金額 (税抜) */
+  plannedBudgetCost: number;
 
-    /** 発注 */
-    paymentHistory: PaymentHistory[];
-  }
+  /**発注・経費金額(税抜) */
+  contractOrderCost: number;
+
+  /** 発注 */
+  paymentHistory: PaymentHistory[];
+
 }
 
 /** @deprecated will use ProcurementDetails instead */
@@ -59,5 +61,5 @@ export interface GetCostMgtData {
   夢てつ営業: string,
   ここすも営業: string,
   ここすも工事: string,
-  発注情報詳細: ProcurementDetails | ProcurementInfo[],
+  発注情報詳細: ProcurementSupplierDetails[],
 }

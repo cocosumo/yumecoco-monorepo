@@ -1,5 +1,5 @@
 import parse from 'date-fns/parse';
-import { AndpadProcurementMonthly, Group, ProcurementDetails } from 'types';
+import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails } from 'types';
 
 
 export const convertMonthlyProcurement = (
@@ -18,7 +18,7 @@ export const convertMonthlyProcurement = (
     total_planned_budget_cost: totalPlannedBudgetCost,
   } = groups;
 
-  const result : ProcurementDetails = {};
+  const result : ProcurementSupplierDetails[] = [];
 
   // Each Group has contracts and children props
   // supplierName and months (payment history) is inside contracts 
@@ -28,18 +28,22 @@ export const convertMonthlyProcurement = (
 
     for (const contract of group.contracts) {
 
-      if (!result[contract.name]) {
-        result[contract.name] = {
+      const existingSupplier = result.findIndex((supplier) => supplier.supplierName === contract.name);
+
+
+      if (existingSupplier !== -1) {
+        result[existingSupplier].contractOrderCost += contract.items_total_contract_order_cost;
+        result[existingSupplier].plannedBudgetCost += contract.items_total_planned_budget_cost;
+      } else {
+        result.push({
+          supplierName: contract.name,
           contractOrderCost: contract.items_total_contract_order_cost || 0,
           plannedBudgetCost: contract.items_total_planned_budget_cost || 0,
           paymentHistory: [],
-        };
-
-      } else {
-        result[contract.name].contractOrderCost += contract.items_total_contract_order_cost;
-        result[contract.name].plannedBudgetCost += contract.items_total_planned_budget_cost;
-
+        });
       }
+
+      const parsedIdx = existingSupplier !== -1 ? existingSupplier : result.length - 1;
 
       for (const gMonth of contract.months) {
 
@@ -48,21 +52,22 @@ export const convertMonthlyProcurement = (
         if (parsedDate === 'total') continue;
 
         if (/^[0-9]+$/.test(parsedDate)) {
+
           parsedDate = parse(gMonth.month, 'yyyyMM', new Date()).toISOString();
         }
 
-        result[contract.name].paymentHistory.push({
+        result[parsedIdx].paymentHistory.push({
           paymentAmtBeforeTax: gMonth.price,
           paymentDate: parsedDate,
         }); 
       }
-    } 
+    }
 
     // Traverse child groups
     for (const childGroup of group.children) {
       console.log('traversing child group');
       traverseGroup(childGroup);
-    }
+    } 
   };
 
 

@@ -61,7 +61,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   let rowIdx = currRowIdx + rowOffset;
 
   // 支払処理済欄を反映する
-  for (const procurement of costManagement.発注情報詳細) {
+  for (const procurement of costManagement.発注情報詳細 as any) {
     if (currRowIdx > maxRows) {
       // 次のシートへ
       currRowIdx = 1;

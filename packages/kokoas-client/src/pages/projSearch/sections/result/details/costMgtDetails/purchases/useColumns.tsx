@@ -9,9 +9,9 @@ import isSameMonth from 'date-fns/isSameMonth';
 import parseISO from 'date-fns/parseISO';
 import subMonths from 'date-fns/subMonths';
 import { ReactNode, useMemo } from 'react';
-import { GetCostMgtData, PaymentHistory } from 'types';
+import { GetCostMgtData, PaymentHistory, ProcurementSupplierDetails } from 'types';
 
-type ColumnType = ColumnDef<GetCostMgtData['発注情報詳細'][number]>;
+type ColumnType = ColumnDef<ProcurementSupplierDetails>;
 
 const BoldCell = ({
   children,
@@ -95,7 +95,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
 
                 if (!sameMonthPayment?.paymentDate) return '';
 
-                const amountValue = sameMonthPayment.paymentAmountBeforeTax.toLocaleString();
+                const amountValue = sameMonthPayment.paymentAmtBeforeTax.toLocaleString();
 
                 return (
                   <Typography align='right'>
@@ -125,7 +125,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           header: '発注先',
           accessorKey: 'supplierName',
           cell: info =>  {
-            
+            console.log('SUPPLIERNAME', info.getValue());
            
             return (
               <Stack
@@ -148,28 +148,30 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
             <BoldCell align='right'>
               発注金額
             </BoldCell>),
-          accessorKey: 'orderAmountBeforeTax',
+          accessorKey: 'contractOrderCost',
           cell: info => {
             return (
               <BoldCell align='right'>
-                {(info.getValue() as number).toLocaleString()}
+                {(info.getValue() as number || 0).toLocaleString()}
               </BoldCell>);
           },
           footer: props => props.column.id,
         },
         ...paymentDateColumns.flatMap(column => column),
         {
+          id: 'unpaidAmout',
           header: () => (
             <Typography align='right'>
               未入金
             </Typography>
           ),
-          accessorKey: '未入金',
           cell: info => {
-            console.log('info', info.getValue());
+            const row = info.row;
+            const contractOrderCost: number = row.original.contractOrderCost || 0;
+            const plannedBudgetCost: number = row.original.plannedBudgetCost || 0;
             return (
               <Typography align='right'>
-                {((info.getValue() || 0) as number).toLocaleString()}
+                {((plannedBudgetCost - contractOrderCost || 0) as number).toLocaleString()}
               </Typography>
             );
           },

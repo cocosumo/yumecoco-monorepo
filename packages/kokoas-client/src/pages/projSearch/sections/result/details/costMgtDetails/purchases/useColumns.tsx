@@ -3,15 +3,21 @@ import { grey } from '@mui/material/colors';
 import {
   ColumnDef,
 } from '@tanstack/react-table';
-import differenceInMonths from 'date-fns/differenceInMonths';
 import format from 'date-fns/format';
-import isSameMonth from 'date-fns/isSameMonth';
+import parse from 'date-fns/parse';
 import parseISO from 'date-fns/parseISO';
-import subMonths from 'date-fns/subMonths';
 import { ReactNode, useMemo } from 'react';
 import { GetCostMgtData, PaymentHistory, ProcurementSupplierDetails } from 'types';
 
 type ColumnType = ColumnDef<ProcurementSupplierDetails>;
+
+const findSameMonthPayment =  (paymentDate: string | null, month: string) => {
+  const normalizedPaymentDate  = paymentDate || 'unknown'; 
+  console.log(month, normalizedPaymentDate);
+  const parsePaymentDateToMonth = normalizedPaymentDate === 'unknown' ? normalizedPaymentDate : format(parseISO(normalizedPaymentDate), 'yyyyMM');
+  return parsePaymentDateToMonth === month;
+              
+};
 
 const BoldCell = ({
   children,
@@ -27,71 +33,45 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
 
   const columns = useMemo<ColumnType[]>(
     () => {
-      const defaultPaymentColumns = 6;
       
       const {
-        maxPaymentDate,
-        minPaymentDate,
+        months,
       } = costMgtData;
 
-
-      const parsedMaxDate = maxPaymentDate ? parseISO(maxPaymentDate) : new Date(); 
-      const parsedMinDate = maxPaymentDate ? parseISO(minPaymentDate) : new Date();
-
-      const minMaxDateMonthDiff  = differenceInMonths(parsedMaxDate, parsedMinDate);
-
-      const parsedPaymentColumsMonths = minMaxDateMonthDiff > defaultPaymentColumns ? minMaxDateMonthDiff : defaultPaymentColumns;
-
-      const paymentDateColumns = Array.from(
-        { length: parsedPaymentColumsMonths },
-        (_, i) => {
-          const currDateColumn = subMonths(parsedMaxDate, i);
-          const formattedDateColumn = format(currDateColumn, 'yyyy/MM');
-
+      const paymentDateColumns = months
+        .reverse()
+        .map((month) => {
           const column: ColumnType[] = [
             {
-              id: `${formattedDateColumn}_date`, // `yyyy/MM_date
-              header: () => (
-                <Typography align='center'>
-                  {formattedDateColumn}
-                </Typography>
-              ),
-              accessorKey: 'paymentHistory',
-              cell: info => {
-                const value = info.getValue() as PaymentHistory[] | undefined;
-                if (!value) return '';
+              id: `${month}_amount`, 
+              header: () => {
 
-                const sameMonthPayment = value.find(
-                  ({ paymentDate }) => paymentDate && isSameMonth(currDateColumn, parseISO(paymentDate)),
-                );
+                let parsedDisplay;
 
-                if (!sameMonthPayment?.paymentDate) return '';
-                
-
+                if (month === 'unknown') {
+                  parsedDisplay = '未定';
+                } else {
+                  try {
+                    parsedDisplay = format(parse(month, 'yyyyMM', new Date()), 'yyyy.MM');
+                  } catch (e) {
+                    console.warn(e);
+                    parsedDisplay = 'エラー';
+                  }
+                }
+              
                 return (
-                  <Typography align='center'>
-                    {format(parseISO(sameMonthPayment.paymentDate), 'MM/dd')}
+                  <Typography align='right'>
+                    {parsedDisplay}
                   </Typography>
-                ) ;
-                  
+                );
               },
-              footer: props => props.column.id,
-            },
-            {
-              id: `${formattedDateColumn}_amount`, 
-              header: () => (
-                <Typography align='right'>
-                  金額
-                </Typography>
-              ),
               accessorKey: 'paymentHistory',
               cell: info => {
                 const value = info.getValue() as PaymentHistory[] | undefined;
                 if (!value) return '';
 
-                const sameMonthPayment = value.find(
-                  ({ paymentDate }) => paymentDate && isSameMonth(currDateColumn, parseISO(paymentDate)),
-                );
+                const sameMonthPayment = value
+                  .find(({ paymentDate }) => findSameMonthPayment(paymentDate, month));
 
                 if (!sameMonthPayment?.paymentDate) return '';
 
@@ -108,24 +88,17 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           ];
 
           return column;
-        },
-      );
-      
+
+
+        });
         
 
       return [
-        /*         {
-          id: 'No',
-          header: 'No',
-          cell: info => info.row.index + 1,
-          size: 20,
-        }, */
         {
           id: 'supplierName',
           header: '発注先',
           accessorKey: 'supplierName',
           cell: info =>  {
-            console.log('SUPPLIERNAME', info.getValue());
            
             return (
               <Stack
@@ -142,6 +115,20 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
             );
           },
           size: 200,
+        },
+        {
+          header: () => (
+            <BoldCell align='right'>
+              実行予算金額
+            </BoldCell>),
+          accessorKey: 'plannedBudgetCost',
+          cell: info => {
+            return (
+              <Typography align='right'>
+                {(info.getValue() as number || 0).toLocaleString()}
+              </Typography>);
+          },
+          footer: props => props.column.id,
         },
         {
           header: () => (

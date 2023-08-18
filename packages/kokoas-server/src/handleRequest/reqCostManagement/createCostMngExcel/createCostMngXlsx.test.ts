@@ -1,4 +1,4 @@
-import { describe, expect } from '@jest/globals';
+import { beforeAll, describe, expect } from '@jest/globals';
 import { createCostMngXlsx } from './createCostMngXlsx';
 import fs from 'fs';
 import path from 'path';
@@ -7,13 +7,10 @@ import testData from './__TEST__/testData.json';
 
 
 describe('createCostMngXlsx', () => {
-  const outputFilePath = path.join(__dirname, `../__TEMP__/原価見積_${testData.projNum}.xlsx`);
+  const outputFilePath = path.join(__dirname, `../__TEST__/原価見積_${testData.projNum}.xlsx`);
 
   // テストが実行される前に実行される処理
   beforeAll(() => {
-    if (!fs.existsSync('./__TEMP__')) {
-      fs.mkdirSync('./__TEMP__');
-    }
 
     if (fs.existsSync(outputFilePath)) {
       fs.unlinkSync(outputFilePath);

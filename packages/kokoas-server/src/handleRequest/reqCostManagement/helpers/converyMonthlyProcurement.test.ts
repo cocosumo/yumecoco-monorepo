@@ -6,7 +6,6 @@ describe('convertMonthlyProcurement', () => {
   it('should convert monthly procurement', () => {
     const result = convertMonthlyProcurement(testData);
     
-
     console.log(JSON.stringify(result, null, 2));
   }, 50000);
 });

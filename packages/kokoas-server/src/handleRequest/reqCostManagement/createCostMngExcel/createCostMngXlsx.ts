@@ -37,11 +37,14 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   const costMngFilePath = getFilePath({
     fileName: '原価見積',
     fileType: 'xlsx',
+    version: '20230808',
   });
 
   // Read excel file.
   let workbook = new Excel.Workbook();
   workbook = await workbook.xlsx.readFile(costMngFilePath);
+
+  console.log('costManagement::', costManagement);
 
   // 月ごとの発注額合計計算要のobjを準備する
   const orderAmountPerMonth = createOrderAmountPerMonth(costManagement.maxPaymentDate, costManagement.minPaymentDate);
@@ -61,7 +64,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   let rowIdx = currRowIdx + rowOffset;
 
   // 支払処理済欄を反映する
-  for (const procurement of costManagement.発注情報詳細 as any) {
+  for (const procurement of costManagement.発注情報詳細) {
     if (currRowIdx > maxRows) {
       // 次のシートへ
       currRowIdx = 1;
@@ -73,7 +76,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
     // 発注先情報の反映
     ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * 15);
     ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
-    ws.getCell(`C${rowIdx}`).value = procurement.orderAmountBeforeTax;
+    ws.getCell(`C${rowIdx}`).value = procurement.contractOrderCost;
 
     // 支払い実績の反映
     for (const paymentHistory of procurement.paymentHistory) {
@@ -83,7 +86,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
       if (tgtMonth !== '') {
         orderAmountPerMonth[tgtMonth] = {
           ...orderAmountPerMonth[tgtMonth],
-          orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmountBeforeTax)
+          orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmtBeforeTax)
             .toNumber(),
         };
 
@@ -117,7 +120,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
         const paymentAmtVal = ws.getCell(rowIdx, columnIndex + 2).value ?? '0';
 
         ws.getCell(rowIdx, columnIndex).value = tgtMonth;
-        ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmountBeforeTax)
+        ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmtBeforeTax)
           .toNumber();
       }
     }
@@ -152,6 +155,6 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   }
 
   // 発注詳細
-  const savePath = path.join(__dirname, `../__TEMP__/原価見積_${costManagement.projNum}.xlsx`);
+  const savePath = path.join(__dirname, `../__TEST__/原価見積_${costManagement.projNum}.xlsx`);
   await workbook.xlsx.writeFile(savePath);
 };

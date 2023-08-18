@@ -15,6 +15,8 @@ export const createOrderAmountPerMonth = (
   minPaymentDate: string,
 ): Record<string, OrderAmountPerMonth> => {
 
+  console.log('maxPaymentDate::', maxPaymentDate);
+
   // 月ごとの発注額合計計算要のobjを準備する
   const newOrderAmountPerMonth = {} as Record<string, OrderAmountPerMonth>;
   const isoMaxDate = new Date(maxPaymentDate);

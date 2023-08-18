@@ -5,6 +5,7 @@ import { initCostMngWorksheet } from './initCostMngWorksheet';
 import { Big } from 'big.js';
 import { createOrderAmountPerMonth } from './createOrderAmountPerMonth';
 import { format, lastDayOfMonth } from 'date-fns';
+import parseISO from 'date-fns/parseISO';
 
 
 const maxMonths = 6;
@@ -22,9 +23,15 @@ const unPaidMoney = (ws: Excel.Worksheet, rowIdx: number, columnOffset: number) 
 
 const dateFormat = (isoStringDate: string) => {
 
-  if (isoStringDate === '') return '';
-  const isoDate = new Date(isoStringDate);
-  return format(lastDayOfMonth(isoDate), 'yyyy.MM.dd');
+  try {
+    if (isoStringDate === 'unknown') return '未定';
+    const isoDate = parseISO(isoStringDate);
+    return format(lastDayOfMonth(isoDate), 'yyyy.MM.dd');
+  } catch (e) {
+    console.log('dateFormat error', e);
+    return 'エラー';
+  }
+
 };
 
 /**
@@ -45,10 +52,19 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
 
   console.log('costManagement::', costManagement);
 
+
+  const {
+    months,
+  } = costManagement;
+
   // 月ごとの発注額合計計算要のobjを準備する
-  const orderAmountPerMonth = createOrderAmountPerMonth(costManagement.maxPaymentDate, costManagement.minPaymentDate);
+  const orderAmountPerMonth = createOrderAmountPerMonth(months);
+
+
   const tgtMonthList = Object.keys(orderAmountPerMonth);
   const isOverflow = tgtMonthList.length > maxMonths;
+
+  console.log('tgtMonthList::', tgtMonthList, isOverflow);
 
   // excelファイル書き込み処理
   const maxRows = 25;
@@ -61,6 +77,9 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
 
   let ws = initCostMngWorksheet(wsName, workbook, costManagement);
   let rowIdx = currRowIdx + rowOffset;
+
+  console.log(orderAmountPerMonth);
+
 
   // 支払処理済欄を反映する
   for (const procurement of costManagement.発注情報詳細) {
@@ -78,6 +97,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
     ws.getCell(`C${rowIdx}`).value = procurement.contractOrderCost;
 
     // 支払い実績の反映
+
     for (const paymentHistory of procurement.paymentHistory) {
       const tgtMonth = dateFormat(paymentHistory.paymentDate ?? '');
 

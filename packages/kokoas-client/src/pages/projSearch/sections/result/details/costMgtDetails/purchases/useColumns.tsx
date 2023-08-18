@@ -13,7 +13,6 @@ type ColumnType = ColumnDef<ProcurementSupplierDetails>;
 
 const findSameMonthPayment =  (paymentDate: string | null, month: string) => {
   const normalizedPaymentDate  = paymentDate || 'unknown'; 
-  console.log(month, normalizedPaymentDate);
   const parsePaymentDateToMonth = normalizedPaymentDate === 'unknown' ? normalizedPaymentDate : format(parseISO(normalizedPaymentDate), 'yyyyMM');
   return parsePaymentDateToMonth === month;
               

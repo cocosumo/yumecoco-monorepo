@@ -1,4 +1,5 @@
-import { format, lastDayOfMonth, subMonths } from 'date-fns';
+import { format, lastDayOfMonth } from 'date-fns';
+import parse from 'date-fns/parse';
 
 
 
@@ -11,14 +12,29 @@ export interface OrderAmountPerMonth {
  * 月ごとの発注額合計計算要のobjを準備する
  */
 export const createOrderAmountPerMonth = (
-  maxPaymentDate: string,
-  minPaymentDate: string,
-): Record<string, OrderAmountPerMonth> => {
+  months: string[],
+) => {
 
-  console.log('maxPaymentDate::', maxPaymentDate);
+  const newOrderAmountPerMonth: Record<string, OrderAmountPerMonth> = {};
 
+  for (const month of months.reverse()) {
+    const formatedMonth = month === 'unknown' 
+      ? '未定' 
+      : format(
+        lastDayOfMonth(
+          parse(month, 'yyyyMM', new Date()),
+        ), 
+        'yyyy.MM.dd',
+      );
+
+    newOrderAmountPerMonth[formatedMonth] = {
+      paymentDate: formatedMonth,
+      orderAmtTgtMonth: 0,
+    };
+  }
+
+  /* 
   // 月ごとの発注額合計計算要のobjを準備する
-  const newOrderAmountPerMonth = {} as Record<string, OrderAmountPerMonth>;
   const isoMaxDate = new Date(maxPaymentDate);
   const maxDateFormat = format(lastDayOfMonth(isoMaxDate), 'yyyy.MM.dd');
   const isoMinDate = new Date(minPaymentDate);
@@ -39,6 +55,6 @@ export const createOrderAmountPerMonth = (
       orderAmtTgtMonth: 0,
     };
   } while (newDateFormat !== minDateFormat);
-
+ */
   return newOrderAmountPerMonth;
 };

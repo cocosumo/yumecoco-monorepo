@@ -22,10 +22,10 @@ describe('createCostMngXlsx', () => {
     
     /* const projId = '055c2aca-cbdd-42ab-be2a-e4cd6dd362de';
     const testCostMngDat = await getCostMgtDataByProjId(projId) || {} as GetCostMgtData; */
-    await createCostMngXlsx(testData as any);
+    const workbook = await createCostMngXlsx(testData);
 
     console.log('outputFilePath::', outputFilePath);
-
+    await workbook.xlsx.writeFile(outputFilePath);
     // ファイルが存在することを確認
     expect(fs.existsSync(outputFilePath)).toBe(true);
   });

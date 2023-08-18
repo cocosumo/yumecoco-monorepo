@@ -12,6 +12,7 @@ import { getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
+import { formatDataId } from 'libs';
 
 
 
@@ -125,8 +126,10 @@ export const getCostMgtDataByProjId = async (
 
 
   const result : GetCostMgtData = {
-    projNum: projDataId.value,
+    projNum: formatDataId(projDataId.value),
+    projId: projId,
     projName: projName.value,
+    andpadSystemId: andpadSystemId,
     custGroupName: custNames.value,
     受注金額_税抜: orderAmount,
     追加金額_税抜: additionalAmount,

@@ -46,8 +46,10 @@ export const kokoasEndpoints = {
   getImage: 'image',
 
   /** 原価管理データ */
-  getCostMgtDataByProjId: 'costmanagement/data',
+  //getCostMgtDataByProjId: 'costmanagement/data',
   getCostMgtDataByProjIdV2: 'costmanagement/data/v2',
+  getCostMgtExcelByData: 'costmanagement/excel',
+
   /* AndpadのAPIを取得 */
   accessAndpadApi: 'access/andpad/api',
 

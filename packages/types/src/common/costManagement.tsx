@@ -31,8 +31,10 @@ export interface ProcurementInfo {
 
 
 export interface GetCostMgtData {
+  projId: string,
   projNum: string,
   projName: string,
+  andpadSystemId: string,
   custGroupName: string,
 
   /** @deprecated */

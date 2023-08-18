@@ -1,6 +1,5 @@
 import Excel from 'exceljs';
 import { getFilePath } from 'kokoas-server/src/assets';
-import path from 'path';
 import { GetCostMgtData } from 'types';
 import { initCostMngWorksheet } from './initCostMngWorksheet';
 import { Big } from 'big.js';
@@ -155,6 +154,8 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   }
 
   // 発注詳細
-  const savePath = path.join(__dirname, `../__TEST__/原価見積_${costManagement.projNum}.xlsx`);
-  await workbook.xlsx.writeFile(savePath);
+  //const savePath = path.join(__dirname, `../__TEST__/原価見積_${costManagement.projNum}.xlsx`);
+  //await workbook.xlsx.writeFile(savePath);
+
+  return workbook;
 };

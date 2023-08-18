@@ -162,7 +162,7 @@
     "react-transition-group": "^4.4.2",
     "react-use-file-upload": "^0.9.5",
     "react-zoom-pan-pinch": "^3.1.0",
-    "reactflow": "^11.7.4",
+    "reactflow": "^11.8.2",
     "sanitize-filename": "^1.6.3",
     "shortid": "^2.2.16",
     "string-similarity": "^4.0.4",

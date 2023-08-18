@@ -1,19 +1,14 @@
-import { RequestHandler } from 'express';
 import validator from 'validator';
 //import { getCostMgtDataByProjIdV2 } from './getCostMgtDataByProjIdV2';
-import { GetCostMgtData } from 'types';
 import { isEmpty } from 'lodash';
 import { createCostMngXlsx } from './createCostMngExcel/createCostMngXlsx';
 import format from 'date-fns/format';
+import type { RequestHandler } from 'express';
+import type { GetCostMgtData, GetCostMgtExcelByDataResult } from 'types';
 
 export const reqCostMgtExcelByData: RequestHandler<
 unknown,
-{
-  result: {
-    fileName: string;
-    fileB64: string;
-  } | Error;
-},
+GetCostMgtExcelByDataResult,
 GetCostMgtData
 > = async (req, res) => {
   try {
@@ -38,20 +33,16 @@ GetCostMgtData
     
 
     res.json({
-      result: {
-        fileName,
-        fileB64: (result as Buffer).toString('base64'), // kintone proxyはbase64しか受け付けない
-      },
+      fileName,
+      fileB64: (result as Buffer).toString('base64'), // kintone proxyはbase64しか受け付けない
     });
 
   } catch (err) {
     console.error(err?.message);
     res.status(400)
       .json({
-        result: {
-          message: validator.escape(err?.message || 'Error in getCostMgtDataByProjId'),
-          name: err?.name || 'getCostMgtDataByProjId',
-        },
+        message: validator.escape(err?.message || 'Error in getCostMgtDataByProjId'),
+        name: err?.name || 'getCostMgtDataByProjId',
       });
   }
 };

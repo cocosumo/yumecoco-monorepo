@@ -11,6 +11,7 @@ import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
 import { convertMonthlyProcurement } from './helpers/convertMonthlyProcurement';
+import { formatDataId } from 'libs';
 
 
 
@@ -126,8 +127,10 @@ export const getCostMgtDataByProjIdV2 = async (
 
 
   const result : GetCostMgtData = {
-    projNum: projDataId.value,
+    projNum: formatDataId(projDataId.value),
     projName: projName.value,
+    projId: projId,
+    andpadSystemId: andpadSystemId,
     custGroupName: custNames.value,
     受注金額_税抜: orderAmount,
     追加金額_税抜: additionalAmount,

@@ -26,7 +26,10 @@ export const Summary = ({
     >
 
       <SummaryDetails costMgtData={costMgtData} />
-      <Actions systemId={systemId} />
+      <Actions 
+        costMgtData={costMgtData} 
+        systemId={systemId}
+      />
 
     </Stack>
    

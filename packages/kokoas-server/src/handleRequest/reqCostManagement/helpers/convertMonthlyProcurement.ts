@@ -81,10 +81,11 @@ export const convertMonthlyProcurement = (
   const { maxPaymentDate, minPaymentDate } = months.reduce((acc, month) => {
     if (/^[0-9]+$/.test(month)) {
       const parsedDate = parse(month, 'yyyyMM', new Date()).toISOString();
-      if (parsedDate > acc.maxPaymentDate) {
+
+      if (parsedDate > acc.maxPaymentDate || acc.maxPaymentDate === '') {
         acc.maxPaymentDate = parsedDate;
       }
-      if (parsedDate < acc.minPaymentDate) {
+      if (parsedDate < acc.minPaymentDate || acc.minPaymentDate === '') {
         acc.minPaymentDate = parsedDate;
       }
     }

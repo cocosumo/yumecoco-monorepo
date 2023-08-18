@@ -1,11 +1,11 @@
 import Excel from 'exceljs';
 import { getFilePath } from 'kokoas-server/src/assets';
-import path from 'path';
 import { GetCostMgtData } from 'types';
 import { initCostMngWorksheet } from './initCostMngWorksheet';
 import { Big } from 'big.js';
 import { createOrderAmountPerMonth } from './createOrderAmountPerMonth';
 import { format, lastDayOfMonth } from 'date-fns';
+import parseISO from 'date-fns/parseISO';
 
 
 const maxMonths = 6;
@@ -23,9 +23,15 @@ const unPaidMoney = (ws: Excel.Worksheet, rowIdx: number, columnOffset: number) 
 
 const dateFormat = (isoStringDate: string) => {
 
-  if (isoStringDate === '') return '';
-  const isoDate = new Date(isoStringDate);
-  return format(lastDayOfMonth(isoDate), 'yyyy.MM.dd');
+  try {
+    if (isoStringDate === 'unknown') return '未定';
+    const isoDate = parseISO(isoStringDate);
+    return format(lastDayOfMonth(isoDate), 'yyyy.MM.dd');
+  } catch (e) {
+    console.log('dateFormat error', e);
+    return 'エラー';
+  }
+
 };
 
 /**
@@ -37,16 +43,28 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   const costMngFilePath = getFilePath({
     fileName: '原価見積',
     fileType: 'xlsx',
+    version: '20230808',
   });
 
   // Read excel file.
   let workbook = new Excel.Workbook();
   workbook = await workbook.xlsx.readFile(costMngFilePath);
 
+  console.log('costManagement::', costManagement);
+
+
+  const {
+    months,
+  } = costManagement;
+
   // 月ごとの発注額合計計算要のobjを準備する
-  const orderAmountPerMonth = createOrderAmountPerMonth(costManagement.maxPaymentDate, costManagement.minPaymentDate);
+  const orderAmountPerMonth = createOrderAmountPerMonth(months);
+
+
   const tgtMonthList = Object.keys(orderAmountPerMonth);
   const isOverflow = tgtMonthList.length > maxMonths;
+
+  console.log('tgtMonthList::', tgtMonthList, isOverflow);
 
   // excelファイル書き込み処理
   const maxRows = 25;
@@ -60,8 +78,11 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   let ws = initCostMngWorksheet(wsName, workbook, costManagement);
   let rowIdx = currRowIdx + rowOffset;
 
+  console.log(orderAmountPerMonth);
+
+
   // 支払処理済欄を反映する
-  for (const procurement of costManagement.発注情報詳細 as any) {
+  for (const procurement of costManagement.発注情報詳細) {
     if (currRowIdx > maxRows) {
       // 次のシートへ
       currRowIdx = 1;
@@ -73,9 +94,10 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
     // 発注先情報の反映
     ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * 15);
     ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
-    ws.getCell(`C${rowIdx}`).value = procurement.orderAmountBeforeTax;
+    ws.getCell(`C${rowIdx}`).value = procurement.contractOrderCost;
 
     // 支払い実績の反映
+
     for (const paymentHistory of procurement.paymentHistory) {
       const tgtMonth = dateFormat(paymentHistory.paymentDate ?? '');
 
@@ -83,7 +105,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
       if (tgtMonth !== '') {
         orderAmountPerMonth[tgtMonth] = {
           ...orderAmountPerMonth[tgtMonth],
-          orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmountBeforeTax)
+          orderAmtTgtMonth: Big(orderAmountPerMonth[tgtMonth].orderAmtTgtMonth).plus(paymentHistory.paymentAmtBeforeTax)
             .toNumber(),
         };
 
@@ -117,7 +139,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
         const paymentAmtVal = ws.getCell(rowIdx, columnIndex + 2).value ?? '0';
 
         ws.getCell(rowIdx, columnIndex).value = tgtMonth;
-        ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmountBeforeTax)
+        ws.getCell(rowIdx, columnIndex + 2).value = Big(+paymentAmtVal).plus(paymentHistory.paymentAmtBeforeTax)
           .toNumber();
       }
     }
@@ -152,6 +174,8 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   }
 
   // 発注詳細
-  const savePath = path.join(__dirname, `../__TEMP__/原価見積_${costManagement.projNum}.xlsx`);
-  await workbook.xlsx.writeFile(savePath);
+  //const savePath = path.join(__dirname, `../__TEST__/原価見積_${costManagement.projNum}.xlsx`);
+  //await workbook.xlsx.writeFile(savePath);
+
+  return workbook;
 };

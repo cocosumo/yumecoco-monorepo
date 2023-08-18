@@ -31,8 +31,10 @@ export interface ProcurementInfo {
 
 
 export interface GetCostMgtData {
+  projId: string,
   projNum: string,
   projName: string,
+  andpadSystemId: string,
   custGroupName: string,
 
   /** @deprecated */
@@ -63,3 +65,13 @@ export interface GetCostMgtData {
   ここすも工事: string,
   発注情報詳細: ProcurementSupplierDetails[],
 }
+
+
+/*************************
+ * REQUESTS HANDLER TYPES
+ */
+
+export type GetCostMgtExcelByDataResult = {
+  fileName: string;
+  fileB64: string;
+} | Error;

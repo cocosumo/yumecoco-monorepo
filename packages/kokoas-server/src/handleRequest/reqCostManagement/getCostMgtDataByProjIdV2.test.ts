@@ -7,7 +7,7 @@ import format from 'date-fns/format';
 
 describe('getCostMgtDataV2', () => {
   it('should get andpad orders by AndpadProjId', async () => {
-    const projId = '055c2aca-cbdd-42ab-be2a-e4cd6dd362de';
+    const projId = 'b16e9a2d-3b7e-453b-8e64-fce7347f5c7b';
 
     const result = await getCostMgtDataByProjIdV2(projId);
 

@@ -17,6 +17,7 @@ import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemI
 import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
 //import { reqCostMgtDataByProjId } from '../handleRequest/reqCostManagement';
 import { reqCostMgtDataByProjIdV2 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV2';
+import { reqCostMgtExcelByData } from '../handleRequest/reqCostManagement/reqCostMgtExcelByData';
 //import { reqAndpadApi } from '../handleRequest/reqAndpadApi/reqAndpadApi';
 //import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
@@ -67,6 +68,12 @@ route.get(
 route.get(
   `/${kokoasEndpoints.getCostMgtDataByProjIdV2}/:projId`,
   reqCostMgtDataByProjIdV2,
+);
+
+route.post(
+  `/${kokoasEndpoints.getCostMgtExcelByData}`,
+  bodyParser.json({ limit: '50mb' }),
+  reqCostMgtExcelByData,
 );
 
 route.get(

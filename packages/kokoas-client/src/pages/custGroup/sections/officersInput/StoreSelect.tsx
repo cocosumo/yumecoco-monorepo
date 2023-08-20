@@ -48,6 +48,7 @@ export const StoreSelect = () => {
               maxWidth: 300,
             }}
             error={showError}
+            required
           >
             <InputLabel >
               店舗

@@ -11,9 +11,15 @@ describe('getCostMgtDataV2', () => {
 
     const result = await getCostMgtDataByProjIdV2(projId);
 
+    const dir = path.join(__dirname, '/__TEST__');
+
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
     // save json file
     fs.writeFileSync(
-      path.join(__dirname, '/__TEST__', `costMgtData${format(new Date(), 'yyyyMMddHHmmss')}.json`), 
+      path.join(dir, `costMgtData${format(new Date(), 'yyyyMMddHHmmss')}.json`), 
       JSON.stringify(result, null, 2),
     );
 

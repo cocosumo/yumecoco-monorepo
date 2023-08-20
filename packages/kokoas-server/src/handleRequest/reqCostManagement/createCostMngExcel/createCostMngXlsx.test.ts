@@ -2,6 +2,9 @@ import { beforeAll, describe, expect } from '@jest/globals';
 import { createCostMngXlsx } from './createCostMngXlsx';
 import fs from 'fs';
 import path from 'path';
+
+// Need to run test for getCostMgtDataByProjIdV2,
+// then transfer the result to the following file.
 import testData from './__TEST__/testData.json';
 
 

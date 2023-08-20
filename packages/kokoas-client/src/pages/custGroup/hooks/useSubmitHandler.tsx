@@ -24,7 +24,9 @@ export const useSubmitHandler = () => {
       const customerRecords = formToDBCustomers(data);
       const custGroupRecord = formToDBCustGroup(data, employees || []);
 
-      await saveCustGroupMutation({
+      const {
+        id,
+      } = await saveCustGroupMutation({
         custGroupId: custGroupId,
         record: custGroupRecord,
         customerRecords,
@@ -35,7 +37,7 @@ export const useSubmitHandler = () => {
         title: '次へ進む',
         content: '工事情報を登録しますか。',
         handleYes: ()=>navigate('projEditV2', {
-          custGroupId,
+          custGroupId: id,
         }),
       });
       

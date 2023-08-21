@@ -1,8 +1,8 @@
 import { Big } from 'big.js';
 
 export interface CostManagement {
-  orderAmount: number,
-  additionalAmount: number,
+  orderAmountBeforeTax: number,
+  additionalAmountBeforeTax: number,
   purchaseAmount: number,
   paymentAmount: number,
   yumeProfitSharing: number,
@@ -21,16 +21,16 @@ export interface CostManagement {
 
 
 export const calcProfitability = ({
-  orderAmount,
-  additionalAmount,
+  orderAmountAfterTax,
+  additionalAmountAfterTax,
   purchaseAmount,
   paymentAmount,
   depositAmount,
   yumeCommFeeRate,
   tax,
 }: {
-  orderAmount: number // 受注金額
-  additionalAmount: number // 追加金額
+  orderAmountAfterTax: number // 受注金額(税込)
+  additionalAmountAfterTax: number // 追加金額(税込)
   purchaseAmount: number // 実行予算金額
   paymentAmount: number // 支払金額
   depositAmount: number // 入金金額
@@ -40,8 +40,18 @@ export const calcProfitability = ({
 
   const taxForCalc = Big(tax).add(1);
 
+  /** 受注金額(税抜) */
+  const orderAmountBeforeTax = Big(orderAmountAfterTax).div(taxForCalc)
+    .round(0, 1)
+    .toNumber();
+
+  /** 追加金額(税抜) */
+  const additionalAmountBeforeTax = Big(additionalAmountAfterTax).div(taxForCalc)
+    .round(0, 1)
+    .toNumber();
+
   /** 受注総額 */
-  const orderTotalBeforeTax = Big(orderAmount).plus(additionalAmount)
+  const orderTotalBeforeTax = Big(orderAmountBeforeTax).plus(additionalAmountBeforeTax)
     .toNumber();
 
   /** 予定利益額 */
@@ -88,8 +98,8 @@ export const calcProfitability = ({
     .toNumber();
 
   return {
-    orderAmount: orderAmount,
-    additionalAmount: additionalAmount,
+    orderAmountBeforeTax: orderAmountBeforeTax,
+    additionalAmountBeforeTax: additionalAmountBeforeTax,
     purchaseAmount: purchaseAmount,
     paymentAmount: paymentAmount,
     予定利益率: plannedProfitMargin,

@@ -99,8 +99,8 @@ export const getCostMgtDataByProjIdV2 = async (
 
 
   const {
-    orderAmount,
-    additionalAmount,
+    orderAmountBeforeTax,
+    additionalAmountBeforeTax,
     purchaseAmount,
     paymentAmount,
     予定利益率,
@@ -116,8 +116,8 @@ export const getCostMgtDataByProjIdV2 = async (
     入金額,
     未入金,
   } = calcProfitability({
-    orderAmount: contracts?.契約金額 ?? 0,
-    additionalAmount: contracts?.追加金額 ?? 0,
+    orderAmountAfterTax: contracts?.契約金額 ?? 0,
+    additionalAmountAfterTax: contracts?.追加金額 ?? 0,
     purchaseAmount: costManagemenList.totalPlannedBudgetCost,
     paymentAmount: costManagemenList.totalContractOrderCost,
     depositAmount: depositAmount,
@@ -132,8 +132,8 @@ export const getCostMgtDataByProjIdV2 = async (
     projId: projId,
     andpadSystemId: andpadSystemId,
     custGroupName: custNames.value,
-    受注金額_税抜: orderAmount,
-    追加金額_税抜: additionalAmount,
+    受注金額_税抜: orderAmountBeforeTax,
+    追加金額_税抜: additionalAmountBeforeTax,
     発注金額_税抜: purchaseAmount,
     支払金額_税抜: paymentAmount,
     予定利益率: 予定利益率,

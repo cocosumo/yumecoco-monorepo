@@ -29,7 +29,7 @@ export const CompletedTickets = () => {
         position="right"
         sx={{
           [`& .${timelineOppositeContentClasses.root}`]: {
-            flex: 0.1,
+            flex: 0.2,
           },
           backgroundColor: 'white',
           borderRadius: 4,
@@ -67,7 +67,11 @@ export const CompletedTickets = () => {
     
               <TimelineSeparator>
                 <TimelineConnector />
-                <TimelineIcon updateType={updateType.value as TUpdateType} isNew={isNew}  />
+                <TimelineIcon 
+                  updateType={updateType.value as TUpdateType} 
+                  isNew={isNew}
+                  recId={$id.value}
+                />
               </TimelineSeparator>
               <TimelineContent 
                 sx={{

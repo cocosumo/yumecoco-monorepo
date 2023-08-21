@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { getAgentNamesByType as custGetAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import { resizeText } from './helpers/resizeText';
+import { calcBeforeTax, calcProfitRate } from 'libs';
  
 
 const parseDate = (date: string) => {
@@ -92,7 +93,15 @@ export const useReportCanvas = (contractId: string) => {
 
       financialContactTel,
       financialContactFax,
+
+      tax,
     } = rectContract || {};
+
+    const totalContractAmtBeforeTax = calcBeforeTax(+totalContractAmt.value, +tax.value );
+
+    const totalCostPrice = totalContractAmtBeforeTax - +totalProfit.value;
+
+    const profitRate = (calcProfitRate(totalCostPrice, totalContractAmtBeforeTax) * 100).toFixed(2);
 
     const {
       agents,
@@ -162,9 +171,9 @@ export const useReportCanvas = (contractId: string) => {
       ctx.font = '40px "Noto Sans JP"';
       ctx.fillText(projTypeName.value, 400, 976);
 
-      ctx.font = '34px "Noto Sans JP"';
+      ctx.font = '28px "Noto Sans JP"';
       ctx.fillText((+totalContractAmt.value).toLocaleString(), 410, 1073);
-      ctx.fillText((+totalProfit.value).toLocaleString(), 880, 1073);
+      ctx.fillText(`${(+totalProfit.value).toLocaleString()} (${profitRate} %)`, 880, 1073);
 
       ctx.font = '40px "Noto Sans JP"';
       ctx.fillStyle = '#3a87b9';

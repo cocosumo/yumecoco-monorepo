@@ -23,8 +23,6 @@ export const CostMgtDetails = ({
   const navigate = useNavigateWithQuery();
 
   const parsedSystemId = projRec?.forceLinkedAndpadSystemId.value || String(andpadRec?.システムID || '');
-
-  console.log('parsedSystemId', parsedSystemId);
   
   return (
     <Stack

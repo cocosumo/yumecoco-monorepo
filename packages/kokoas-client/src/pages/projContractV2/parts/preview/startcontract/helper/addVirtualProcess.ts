@@ -42,7 +42,7 @@ export const addVirtualProcess = (processes: CustomTimeLineItemProps[] ) => {
     });
 
   newProcesses.splice(1, 0, printProcess);
-  newProcesses.splice(lastCustIndex - 1, 0, uploadProcess);
+  newProcesses.splice(lastCustIndex, 0, uploadProcess);
 
   return newProcesses;
     

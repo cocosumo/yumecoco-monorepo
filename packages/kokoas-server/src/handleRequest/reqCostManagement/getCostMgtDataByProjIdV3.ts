@@ -20,10 +20,9 @@ import { formatDataId } from 'libs';
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
  * 
- * セッションでAPIをアクセス
- * @deprecated replaced with getCostMgtDataByProjIdV3
+ * セッションでAPIをアクセス + kintoneから実績取得
  */
-export const getCostMgtDataByProjIdV2 = async (
+export const getCostMgtDataByProjIdV3 = async (
   projId: string,
 ) => {
 

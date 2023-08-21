@@ -45,6 +45,12 @@ export const SigningFlow = ({
     sortedRecipients = addVirtualProcess(sortedRecipients);
   }
 
+  sortedRecipients.push({
+    type: 'complete',
+    roleName: '',
+    name: '',
+    recipientId: 'complete',
+  });
   
   return (
   
@@ -60,15 +66,11 @@ export const SigningFlow = ({
             },
           }}
         >
-          {sortedRecipients.map(({
-            type,
-            recipientId,
-            ...signProps
-          }) => {
+          {sortedRecipients.map((signProps) => {
+
             return (
               <CustomTimeLineItem
-                key={recipientId}
-                type={type as ViewType}
+                key={signProps.recipientId}
                 {...signProps}
               />
             );

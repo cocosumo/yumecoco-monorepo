@@ -24,7 +24,7 @@ export const Summary = ({
       borderColor={grey[200]}
       borderRadius={2}
     >
-
+      
       <SummaryDetails costMgtData={costMgtData} />
       <Actions 
         costMgtData={costMgtData} 

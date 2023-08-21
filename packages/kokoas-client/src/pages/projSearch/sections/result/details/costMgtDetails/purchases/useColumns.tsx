@@ -148,7 +148,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           id: 'unpaidAmout',
           header: () => (
             <Typography align='right'>
-              未入金
+              未払金
             </Typography>
           ),
           cell: info => {

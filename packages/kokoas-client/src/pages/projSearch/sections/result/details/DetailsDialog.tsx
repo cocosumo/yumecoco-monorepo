@@ -1,4 +1,5 @@
 import { 
+  Chip,
   Dialog, 
   DialogTitle, 
   Tab, 
@@ -54,7 +55,15 @@ export const DetailsDialog = ({
           <Tab label="見積"  />
           <Tab label="契約"  />
           <Tab label="入金"  />
-          <Tab label="原価管理"  />
+          <Tab label={(<>
+            原価管理表
+            <Chip 
+              color={'warning'}
+              label={'試験中'}
+              size='small'
+            />
+          </>)}
+          />
         </Tabs>
         <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>

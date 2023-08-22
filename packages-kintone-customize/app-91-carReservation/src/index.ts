@@ -2,14 +2,15 @@
 import { 
   onEditOrCreate, 
   onIndexShow,
-  onSubmitSuccess, 
+  onSubmit,
 } from 'api-kintone';
 import onIndexShowHandler from './handlers/onIndexShowHandler/onIndexShowHandler';
-import onEditOrCreateHandler from './handlers/onIndexShowHandler/onEditOrCreateHandler/onEditOrCreateHandler';
+import onEditOrCreateHandler from './handlers/onEditOrCreateHandler/onEditOrCreateHandler';
+import { onSubmitHandler } from './handlers/onSubmitHandler/onSubmitHandler';
 
 
 (() => {
   kintone.events.on(onIndexShow, onIndexShowHandler);
   kintone.events.on(onEditOrCreate, onEditOrCreateHandler);
-  kintone.events.on(onSubmitSuccess, onEditOrCreateSubmitHandler);
+  kintone.events.on(onSubmit, onSubmitHandler);
 })();

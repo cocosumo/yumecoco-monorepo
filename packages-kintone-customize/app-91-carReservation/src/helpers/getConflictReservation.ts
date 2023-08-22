@@ -1,5 +1,6 @@
-import { fetchConflictByCarAndDate } from '../../../../api/fetchConflictByCarAndDate';
-import { fetchConflictByDateExceptId } from '../../../../api/fetchConflictByCarAndDateExceptId';
+import { fetchConflictByCarAndDate } from '../api/fetchConflictByCarAndDate';
+import { fetchConflictByDateExceptId } from '../api/fetchConflictByCarAndDateExceptId';
+
 
 export const getConflictReservations = async (record: DB.SavedRecord, isByCar = false) => {
   const {

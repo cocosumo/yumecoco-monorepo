@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
-import { fetchCars } from '../../../api/fetchCars';
 import { AvailableCarsV2 } from './AvailableCarsV2';
 import { getSpaceElement } from 'api-kintone';
+import { fetchCars } from '../../api/fetchCars';
 
 const renderAvailableCarsContainer = async (record: kintone.types.SavedCarAppFields) => {
   const allCars = await fetchCars();

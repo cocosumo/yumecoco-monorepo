@@ -10,15 +10,24 @@ export const preparePaymentAlertProcess = async (page: Page) => {
   //await page.goto('https://work.andpad.jp/');
 
 
+  console.log('setting login details...');
   await setCookie(page); // andpadログイン
   // TODO ログインに成功したら、クッキーの保存
-  
-  await page.goto('https://work.andpad.jp/');
 
+  console.log('Navigating to andpad..');
+  await page.goto('https://work.andpad.jp/');
+  if (page.url().includes('login')) {
+    console.log('Fail to navigate, logging in...');
+    await setCookie(page, true);
+  } 
+
+  console.log('Downloading data...');
   await downloadPaymentfile(page);
 
   // kintoneへのアップロード処理
+  console.log('Uploading data...');
   await uploadSingleCSV(page, AppIds.andpadPayments.toString(), filePath, 'ID');
 
+  console.log('Done!');
   await page.waitForSelector('.dialog-ok-button-cybozu');
 };

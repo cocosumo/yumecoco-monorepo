@@ -157,7 +157,7 @@ export const useReportCanvas = (contractId: string) => {
           day,
         } = parseDate(deliveryDate.value);
         // 工事完了予定日(月)
-        ctx.fillText(month, 570, 800);
+        ctx.fillText(month, 550, 800);
 
         // 工事完了予定日(日)
         ctx.fillText(day, 768, 800);

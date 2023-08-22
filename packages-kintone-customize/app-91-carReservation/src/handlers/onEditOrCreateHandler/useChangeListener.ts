@@ -11,6 +11,7 @@ const watchFieldKeys : (keyof DB.SavedRecord)[] = [
   '終了',
   '店舗',
   'fullDay',
+  'returnDate',
 ];
 
 const onChangeTriggers = onFieldChange(watchFieldKeys);

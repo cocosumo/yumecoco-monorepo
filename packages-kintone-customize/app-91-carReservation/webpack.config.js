@@ -5,6 +5,7 @@ module.exports = {
   mode: 'development',
   plugins: [
     new Dotenv({ path: '../../.env' }),
+    new Dotenv({ path: './.env' }),
   ],
 
   entry: {

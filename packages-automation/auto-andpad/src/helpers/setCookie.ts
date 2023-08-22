@@ -6,6 +6,7 @@ import { login } from '../login/login';
 export const setCookie = async (page: Page, forceLogin = false) => {
 
   if (!fs.existsSync(cookiePath) || forceLogin) {
+    console.log('No cookie found, or trying to login');
     await login(page);
   }
 

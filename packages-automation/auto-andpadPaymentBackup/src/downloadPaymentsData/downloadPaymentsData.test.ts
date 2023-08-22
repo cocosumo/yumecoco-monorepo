@@ -11,6 +11,11 @@ import { dir, filePath as csvFilePath } from '../../config';
  * @returns 
  */
 function getFileModifiedTime(filePath: string): number {
+
+  if (!fs.existsSync(csvFilePath)) {
+    return 0;
+  }
+
   const stats = fs.statSync(filePath);
   return stats.mtimeMs;
 }
@@ -29,17 +34,18 @@ describe('Download Payment File', () => {
       fs.mkdirSync(dir);
     }
 
+
     const initialMtimeMs = getFileModifiedTime(csvFilePath);
 
 
     await downloadPaymentfile(page);
 
-    const updatedMtimeMs = getFileModifiedTime(csvFilePath);
+    const updatedMtimeMs =  getFileModifiedTime(csvFilePath);
 
     // 処理実行前後で、ファイルの更新時間が変更されていることを確認する
     expect(updatedMtimeMs).toBeGreaterThan(initialMtimeMs);
 
     browser.disconnect();
-  });
+  }, 5000);
 
 });

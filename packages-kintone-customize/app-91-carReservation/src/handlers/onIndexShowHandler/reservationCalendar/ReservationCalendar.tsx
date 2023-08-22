@@ -44,7 +44,8 @@ export default function ReservationCalendar({
       setReservations(()=>{
         return records.map<EventInput>((record) => {
           const {
-            申請者: { value: { name: applicant } },
+            reservingPerson: { value: reservingPerson },
+            //申請者: { value: { name: applicant } },
             号車: { value: carNumber },
             店舗: { value: store },
             開始: { value: startTime },
@@ -56,7 +57,7 @@ export default function ReservationCalendar({
           const textColor = carProps?.textColor;
 
           return {
-            title: `${store}-${carNumber}号車 ${applicant}`,
+            title: `${store}-${carNumber}号車 ${reservingPerson}`,
             start: parseISO(startTime),
             end: parseISO(endTime),
             color: bgColor,

@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { constIndexViewId } from '../../config';
 import ReservationStatus from './ReservationStatus';
@@ -26,10 +26,6 @@ const Content = ({
 
 const App = ({ viewId }: AppProps) => {
 
-  
-
-
-
   return (
     <CustomTheme>
       <Content viewId={viewId} />
@@ -37,10 +33,13 @@ const App = ({ viewId }: AppProps) => {
   );
 };
 
+
+
 const renderBody = (viewId: number) => {
   const rootElement = document.getElementById('root');
   if (rootElement) {
-    ReactDOM.render(<App {...{ viewId }} />, rootElement);
+    const root = createRoot( rootElement);
+    root.render(<App viewId={viewId} />);
   }
 };
 
@@ -50,3 +49,25 @@ const onIndexShowHandler = (event: IndexEvent) => {
 };
 
 export default onIndexShowHandler;
+
+
+/* import { createRoot } from 'react-dom/client';
+
+import App from '../components/App';
+
+import { generateRoot } from '../helpers/utils';
+
+let container: HTMLElement  | null = null;
+
+export default function onIndexShowHandler() {
+
+  // Client side navigation triggers this callback so
+  // If container already exist, prevent createRoot from triggering.
+
+  if (!container) {
+    generateRoot();
+    container = document.getElementById('app');
+    const root = createRoot( container!);
+    root.render(<App />);
+  }
+} */

@@ -27,6 +27,7 @@
         "@fullcalendar/daygrid": "^6.1.8",
         "@fullcalendar/react": "^6.1.8",
         "api-chatwork": "*",
+        "api-kintone": "*",
         "fullcalendar": "^6.1.8",
         "luxon": "^3.4.0",
         "sweetalert2": "^11.7.27"

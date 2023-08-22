@@ -49,6 +49,12 @@ export const getHeaderSpaceElement = () => (
     : kintone.app.record.getHeaderMenuSpaceElement()
 );
 
+
+export const getSpaceElement = (spaceId: string) => (
+  isMobile()
+    ? kintone.mobile.app.record.getSpaceElement(spaceId)
+    : kintone.app.record.getSpaceElement(spaceId));
+
 /**
 * 要素を表示・非表示
 * @param fieldCode {string} 要素のフィールドコード

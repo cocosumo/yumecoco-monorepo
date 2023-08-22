@@ -27,6 +27,10 @@
         "@fullcalendar/daygrid": "^6.1.8",
         "@fullcalendar/react": "^6.1.8",
         "api-chatwork": "*",
-        "fullcalendar": "^6.1.8"
+        "fullcalendar": "^6.1.8",
+        "luxon": "^3.4.0"
+    },
+    "devDependencies": {
+        "@types/luxon": "^3.3.1"
     }
 }

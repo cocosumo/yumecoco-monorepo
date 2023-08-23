@@ -222,4 +222,5 @@ export interface DownloadInvoiceResponse {
 export type ApiNodes =
   | 'docusign'
   | 'kokoas'
-  | 'openai';
+  | 'openai'
+  | 'sendgrid';

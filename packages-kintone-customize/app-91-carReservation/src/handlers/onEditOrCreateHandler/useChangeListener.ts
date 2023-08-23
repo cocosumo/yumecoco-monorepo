@@ -4,15 +4,19 @@ import { getConflictReservations } from '../../helpers/getConflictReservation';
 import { extractBasicCarDetails, toArray } from '../../helpers/extractBasicDetails';
 import { DateTime as dt } from 'luxon';
 import { onFieldChange } from 'api-kintone';
+import { KSavedRecord } from '../../types/event';
 
 
-const watchFieldKeys : (keyof DB.SavedRecord)[] = [
+
+const watchFieldKeys : (KSavedRecord)[] = [
   '開始',
   '終了',
   '店舗',
   'fullDay',
   'returnDate',
 ];
+
+const returnDateKey: KSavedRecord = 'returnDate';
 
 const onChangeTriggers = onFieldChange(watchFieldKeys);
 
@@ -34,14 +38,24 @@ export const useChangeListener = ({
   const updateAvailableCarsHandler = (
     event: {
       record: DB.SavedRecord;
+      type: string;
     },
   ) => {
     const {
       record: availableCarsRecord,
+      type,
     } = event;
-    const { 開始, 終了, 期間, fullDay } = availableCarsRecord;
+
+    console.log(event);
+
+    const { 開始, 終了, 期間, fullDay, returnDate } = availableCarsRecord;
 
     const isFullDay = fullDay.value.includes('終日');
+
+    if (type.includes(returnDateKey)) {
+      // If return date is changed, set the return date to the end date
+      終了.value = returnDate.value;
+    }
 
     if (isFullDay) {
       if (開始.value) {

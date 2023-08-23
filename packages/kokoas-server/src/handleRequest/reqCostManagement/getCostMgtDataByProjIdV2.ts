@@ -1,9 +1,9 @@
-import { 
-  getAndpadPaymentsBySystemId, 
-  getContractsByProjId, 
-  getCustGroupById, 
-  getProjById, 
-  getProjTypeById, 
+import {
+  getAndpadPaymentsBySystemId,
+  getContractsByProjId,
+  getCustGroupById,
+  getProjById,
+  getProjTypeById,
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
 import { getMonthlyProcurementBySystemId, getOrderByProjId } from 'api-andpad';
@@ -39,7 +39,7 @@ export const getCostMgtDataByProjIdV2 = async (
   const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID || '');
 
   console.log(andpadSystemId);
-  
+
   if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
 
   const {
@@ -78,23 +78,31 @@ export const getCostMgtDataByProjIdV2 = async (
       contractType,
       totalContractAmt,
       tax,
+      hasRefund,
+      hasSubsidy,
     }) => {
       if (contractType.value === '契約' || contractType.value === '') {
         return {
           ...acc,
           契約金額: acc?.契約金額 + +totalContractAmt.value,
           税率: +tax.value,
+          返金: hasRefund.value === 'はい' ? true : false,
+          補助金: hasSubsidy.value === 'はい' ? true : false,
         };
       } else if (contractType.value === '追加') {
         return {
           ...acc,
           追加金額: acc.追加金額 + +totalContractAmt.value,
+          返金: acc?.返金 || hasRefund.value === 'はい' ? true : false,
+          補助金: acc?.補助金 || hasSubsidy.value === 'はい' ? true : false,
         };
       }
     }, {
       契約金額: 0,
       追加金額: 0,
       税率: 0.1,
+      返金: false,
+      補助金: false,
     });
 
 
@@ -111,6 +119,8 @@ export const getCostMgtDataByProjIdV2 = async (
     cocoProfitSharing,
     実利益税抜_夢てつ,
     実利益税抜_ここすも,
+    利益税抜_夢てつ,
+    利益税抜_ここすも,
     受注額計_税込,
     受注額計_税抜,
     入金額,
@@ -123,10 +133,11 @@ export const getCostMgtDataByProjIdV2 = async (
     depositAmount: depositAmount,
     yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,
+    hasRefund: contracts?.返金 ?? false,
   });
 
 
-  const result : GetCostMgtData = {
+  const result: GetCostMgtData = {
     projNum: formatDataId(projDataId.value),
     projName: projName.value,
     projId: projId,
@@ -144,6 +155,8 @@ export const getCostMgtDataByProjIdV2 = async (
     利益配分_ここすも: cocoProfitSharing,
     実利益税抜_夢てつ: 実利益税抜_夢てつ,
     実利益税抜_ここすも: 実利益税抜_ここすも,
+    利益税抜_夢てつ: 利益税抜_夢てつ,
+    利益税抜_ここすも: 利益税抜_ここすも,
     受注額計_税込: 受注額計_税込,
     受注額計_税抜: 受注額計_税抜,
     入金額: 入金額,

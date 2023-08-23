@@ -11,6 +11,7 @@ describe('calcProfitability', () => {
     depositAmount: 24200000,
     yumeCommFeeRate: 19,
     tax: 0.1,
+    hasRefund: true,
   };
 
   const {
@@ -26,6 +27,8 @@ describe('calcProfitability', () => {
     cocoProfitSharing,
     実利益税抜_夢てつ,
     実利益税抜_ここすも,
+    利益税抜_夢てつ,
+    利益税抜_ここすも,
     受注額計_税込,
     受注額計_税抜,
     入金額,
@@ -80,6 +83,14 @@ describe('calcProfitability', () => {
 
   it('正しい「実利益税抜_ここすも」を返す', () => {
     expect(実利益税抜_ここすも).toBe(5670000);
+  });
+
+  it('正しい「利益税抜_夢てつ」を返す', () => {
+    expect(利益税抜_夢てつ).toBe(1263500);
+  });
+
+  it('正しい「利益税抜_ここすも」を返す', () => {
+    expect(利益税抜_ここすも).toBe(5736500);
   });
 
   it('正しい「受注額計_税込」を返す', () => {

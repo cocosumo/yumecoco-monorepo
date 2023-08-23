@@ -10,6 +10,8 @@ export const isMobile = () => (window?.location.href || '').includes('k/m') ;
 
 export const getAppId = () : number | null => {
   const url = window?.location.href;
+  if (!url) return 0;
+
   return url.includes('k/m')
     ? kintone.mobile.app.getId()
     : kintone.app.getId();

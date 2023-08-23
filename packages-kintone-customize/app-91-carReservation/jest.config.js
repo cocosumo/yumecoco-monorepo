@@ -10,6 +10,7 @@ module.exports = {
   verbose: true,
   globals: {
     kintone: undefined,
+    window: undefined,
     XMLHttpRequest: undefined,
     'ts-jest': {
       isolatedModules: true,

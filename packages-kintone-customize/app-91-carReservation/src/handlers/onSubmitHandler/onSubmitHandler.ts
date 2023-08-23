@@ -29,8 +29,6 @@ export const onSubmitHandler = async (event: {
 
   if (!isValid) showCantReserveError();
 
-  
-
   return isValid;
 };
 

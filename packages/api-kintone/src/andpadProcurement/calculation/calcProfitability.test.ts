@@ -4,18 +4,19 @@ import { calcProfitability } from './calcProfitability';
 
 describe('calcProfitability', () => {
   const testData = {
-    orderAmount: 20636364,
-    additionalAmount: 1363636,
+    orderAmountAfterTax: 22700000,
+    additionalAmountAfterTax: 1500000,
     purchaseAmount: 16041147,
     paymentAmount: 15000000,
     depositAmount: 24200000,
     yumeCommFeeRate: 19,
     tax: 0.1,
+    hasRefund: true,
   };
 
   const {
-    orderAmount,
-    additionalAmount,
+    orderAmountBeforeTax,
+    additionalAmountBeforeTax,
     purchaseAmount,
     paymentAmount,
     予定利益率,
@@ -26,6 +27,8 @@ describe('calcProfitability', () => {
     cocoProfitSharing,
     実利益税抜_夢てつ,
     実利益税抜_ここすも,
+    利益税抜_夢てつ,
+    利益税抜_ここすも,
     受注額計_税込,
     受注額計_税抜,
     入金額,
@@ -35,11 +38,11 @@ describe('calcProfitability', () => {
 
 
   it('正しい「発注金額」を返す', () => {
-    expect(orderAmount).toBe(20636364);
+    expect(orderAmountBeforeTax).toBe(20636364);
   });
 
   it('正しい「追加金額」を返す', () => {
-    expect(additionalAmount).toBe(1363636);
+    expect(additionalAmountBeforeTax).toBe(1363636);
   });
 
   it('正しい「発注金額」を返す', () => {
@@ -80,6 +83,14 @@ describe('calcProfitability', () => {
 
   it('正しい「実利益税抜_ここすも」を返す', () => {
     expect(実利益税抜_ここすも).toBe(5670000);
+  });
+
+  it('正しい「利益税抜_夢てつ」を返す', () => {
+    expect(利益税抜_夢てつ).toBe(1263500);
+  });
+
+  it('正しい「利益税抜_ここすも」を返す', () => {
+    expect(利益税抜_ここすも).toBe(5736500);
   });
 
   it('正しい「受注額計_税込」を返す', () => {

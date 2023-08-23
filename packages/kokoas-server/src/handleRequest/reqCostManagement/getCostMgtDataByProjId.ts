@@ -98,8 +98,8 @@ export const getCostMgtDataByProjId = async (
 
 
   const {
-    orderAmount,
-    additionalAmount,
+    orderAmountBeforeTax,
+    additionalAmountBeforeTax,
     purchaseAmount,
     paymentAmount,
     予定利益率,
@@ -110,18 +110,21 @@ export const getCostMgtDataByProjId = async (
     cocoProfitSharing,
     実利益税抜_夢てつ,
     実利益税抜_ここすも,
+    利益税抜_夢てつ,
+    利益税抜_ここすも,
     受注額計_税込,
     受注額計_税抜,
     入金額,
     未入金,
   } = calcProfitability({
-    orderAmount: contracts?.契約金額 ?? 0,
-    additionalAmount: contracts?.追加金額 ?? 0,
+    orderAmountAfterTax: contracts?.契約金額 ?? 0,
+    additionalAmountAfterTax: contracts?.追加金額 ?? 0,
     purchaseAmount: costManagemenList.発注金額_税抜,
     paymentAmount: costManagemenList.支払金額_税抜,
     depositAmount: depositAmount,
     yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,
+    hasRefund: false,
   });
 
 
@@ -131,8 +134,8 @@ export const getCostMgtDataByProjId = async (
     projName: projName.value,
     andpadSystemId: andpadSystemId,
     custGroupName: custNames.value,
-    受注金額_税抜: orderAmount,
-    追加金額_税抜: additionalAmount,
+    受注金額_税抜: orderAmountBeforeTax,
+    追加金額_税抜: additionalAmountBeforeTax,
     発注金額_税抜: purchaseAmount,
     支払金額_税抜: paymentAmount,
     予定利益率: 予定利益率,
@@ -143,6 +146,8 @@ export const getCostMgtDataByProjId = async (
     利益配分_ここすも: cocoProfitSharing,
     実利益税抜_夢てつ: 実利益税抜_夢てつ,
     実利益税抜_ここすも: 実利益税抜_ここすも,
+    利益税抜_夢てつ: 利益税抜_夢てつ,
+    利益税抜_ここすも: 利益税抜_ここすも,
     受注額計_税込: 受注額計_税込,
     受注額計_税抜: 受注額計_税抜,
     入金額: 入金額,

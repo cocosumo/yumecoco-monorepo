@@ -17,7 +17,7 @@ export const Keyword = () => {
       size='small' 
       label={'キーワード'}
       placeholder='氏名や工事名や住所など'
-      style={{ width: '100%' }}
+      style={{ width: '200px' }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           handleStartSearch();

@@ -43,7 +43,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   const costMngFilePath = getFilePath({
     fileName: '原価見積',
     fileType: 'xlsx',
-    version: '20230808',
+    version: '20230823',
   });
 
   // Read excel file.

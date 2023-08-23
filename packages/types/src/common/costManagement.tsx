@@ -19,7 +19,7 @@ export interface ProcurementSupplierDetails {
 
 }
 
-/** @deprecated will use ProcurementDetails instead */
+/** @deprecated will use ProcurementSupplierDetails instead */
 export interface ProcurementInfo {
   supplierName: string;
   orderAmountBeforeTax: number;

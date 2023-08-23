@@ -1,15 +1,16 @@
 import { sendEmail } from '../../api/sendEmail';
+import { KintoneEvent } from '../../types/event';
 
-export const onSubmitSuccessHandler = async (event: {
-  record: DB.SavedRecord
-}) => {
+export const onSubmitSuccessHandler = async (event: KintoneEvent) => {
   const {
     record,
   } = event;
 
   console.log(event, record);
 
-  await sendEmail(event);
+  const result = await sendEmail(event);
+
+  console.log(result);
 
   return event;
 };

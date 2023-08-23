@@ -3,3 +3,8 @@ export interface IndexEvent {
 }
 
 export type KSavedRecord = keyof DB.SavedRecord;
+
+export interface KintoneEvent {
+  record: DB.SavedRecord,
+  type: string
+}

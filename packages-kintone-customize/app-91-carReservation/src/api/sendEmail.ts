@@ -1,5 +1,5 @@
 import { ApiNodes } from 'types';
-import { apiKey, baseUrl, notifEmail } from '../config';
+import { apiKey, baseUrl, notifEmail, senderEmail } from '../config';
 import { kintoneProxyWrapper, sendGridEndpoints } from 'libs';
 import { generateHTMLNotification } from '../helpers/generateHTMLNotifcation';
 
@@ -38,7 +38,7 @@ export const sendEmail = async (event : {
         'name': '報告用',
         'email': notifEmail,
       },
-      'from': 'system@cocosumo.co.jp',
+      'from': senderEmail,
       'subject': `社有車予約のお知らせ : ${reservingPerson.value} - ${isNew ? '新規' : `編集(${$revision.value})`}`,
       //'text': '$id',
       'html': generateHTMLNotification(event),

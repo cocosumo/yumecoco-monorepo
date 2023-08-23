@@ -13,6 +13,8 @@ export interface CostManagement {
   実利益額: number,
   実利益税抜_夢てつ: number,
   実利益税抜_ここすも: number,
+  利益税抜_夢てつ: number,
+  利益税抜_ここすも: number,
   受注額計_税込: number,
   受注額計_税抜: number,
   入金額: number,
@@ -28,6 +30,7 @@ export const calcProfitability = ({
   depositAmount,
   yumeCommFeeRate,
   tax,
+  hasRefund,
 }: {
   orderAmountAfterTax: number // 受注金額(税込)
   additionalAmountAfterTax: number // 追加金額(税込)
@@ -36,6 +39,7 @@ export const calcProfitability = ({
   depositAmount: number // 入金金額
   yumeCommFeeRate: number // ゆめてつ紹介料率
   tax: number // 税率
+  hasRefund: boolean // 返金有無(0: なし, 1: あり)
 }): CostManagement => {
 
   const taxForCalc = Big(tax).add(1);
@@ -85,6 +89,16 @@ export const calcProfitability = ({
     .round(0, 1)
     .toNumber();
 
+  /** 利益税抜_夢てつ */
+  const yumeActualProfitHasRefund = !hasRefund ? 0 : Big(yumeActualProfit).mul(0.95)
+    .round(0, 1)
+    .toNumber();
+
+  /** 利益税抜_ここすも */
+  const cocoActualProfitHasRefund = !hasRefund ? 0 : Big(actualProfit).sub(yumeActualProfitHasRefund)
+    .round(0, 1)
+    .toNumber();
+
   /** 受注額計_税込 */
   const orderTotalAfterAmount = Big(orderTotalBeforeTax).mul(taxForCalc)
     .toNumber();
@@ -110,6 +124,8 @@ export const calcProfitability = ({
     cocoProfitSharing: cocoProfitSharing,
     実利益税抜_夢てつ: yumeActualProfit,
     実利益税抜_ここすも: cocoActualProfit,
+    利益税抜_夢てつ: yumeActualProfitHasRefund,
+    利益税抜_ここすも: cocoActualProfitHasRefund,
     受注額計_税込: orderTotalAfterAmount,
     受注額計_税抜: orderTotalBeforeTax,
     入金額: depositAmount,

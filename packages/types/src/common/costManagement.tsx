@@ -56,6 +56,8 @@ export interface GetCostMgtData {
   利益配分_ここすも: number,
   実利益税抜_夢てつ: number,
   実利益税抜_ここすも: number,
+  利益税抜_夢てつ: number,
+  利益税抜_ここすも: number,
   受注額計_税込: number,
   受注額計_税抜: number,
   入金額: number,

@@ -11,9 +11,8 @@ import { getMonthlyProcurementBySystemId, getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
-import { convertMonthlyProcurement } from './helpers/convertMonthlyProcurement';
 import { formatDataId } from 'libs';
-import { summarizeSuppliers } from './summarizeSuppliers';
+import { convertMonthlyProcurementV2 } from './helpers/convertMonthlyProcurementV2';
 
 
 
@@ -57,13 +56,13 @@ export const getCostMgtDataByProjIdV3 = async (
   const yumeAGNames = projGetAgentNamesByType(projAgents, 'yumeAG') || custGetAgentsNamesByType(custGroupAgents, 'yumeAG');
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
-  // 推移表より、実行予算(未発注分含む)
-  const andpadBudgetExecution = await getMonthlyProcurementBySystemId(andpadSystemId); // andpad発注情報
-  const costManagemenList = convertMonthlyProcurement(andpadBudgetExecution); // 発注会社ごとに整形したデータ
 
-  // 発注実績
-  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId);
-  const procurementsHistory = summarizeSuppliers(andpadProcurements);
+  const andpadBudgetExecution = await getMonthlyProcurementBySystemId(andpadSystemId); // 推移表より、実行予算
+  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
+
+  // 発注会社ごとにデータを整形する
+  const costManagemenList = convertMonthlyProcurementV2(andpadBudgetExecution, andpadProcurements);
+
 
 
   const {

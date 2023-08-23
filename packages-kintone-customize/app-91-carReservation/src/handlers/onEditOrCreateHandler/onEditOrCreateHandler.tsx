@@ -22,7 +22,7 @@ const renderAvailableCarsContainer = async (record: kintone.types.SavedCarAppFie
 
 };
 
-const onEditOrCreateHandler = (event: {
+export const onEditOrCreateHandler = (event: {
   record: kintone.types.SavedCarAppFields;
 }) => {
   const { record } = event;
@@ -32,5 +32,3 @@ const onEditOrCreateHandler = (event: {
 
   return event;
 };
-
-export default onEditOrCreateHandler;

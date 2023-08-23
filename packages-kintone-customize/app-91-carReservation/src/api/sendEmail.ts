@@ -2,8 +2,14 @@ import { ApiNodes } from 'types';
 import { apiKey, baseUrl } from '../config';
 import { kintoneProxyWrapper, sendGridEndpoints } from 'libs';
 
-export const sendEmail = async (record: DB.SavedRecord) => {
-  
+export const sendEmail = async (event : { 
+  record: DB.SavedRecord,
+  type: string, 
+}) => {
+  const {
+    record,
+    type,
+  } = event;
   const {
     $revision,
   } = record;

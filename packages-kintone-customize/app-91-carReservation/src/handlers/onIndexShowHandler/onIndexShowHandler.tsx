@@ -44,11 +44,9 @@ const renderBody = (viewId: number) => {
 };
 
 
-const onIndexShowHandler = (event: IndexEvent) => {
+export const onIndexShowHandler = (event: IndexEvent) => {
   renderBody(event.viewId);
 };
-
-export default onIndexShowHandler;
 
 
 /* import { createRoot } from 'react-dom/client';

@@ -10,6 +10,8 @@ export const isMobile = () => (window?.location.href || '').includes('k/m') ;
 
 export const getAppId = () : number | null => {
   const url = window?.location.href;
+  if (!url) return 0;
+
   return url.includes('k/m')
     ? kintone.mobile.app.getId()
     : kintone.app.getId();
@@ -48,6 +50,12 @@ export const getHeaderSpaceElement = () => (
     ? kintone.mobile.app.getHeaderSpaceElement()
     : kintone.app.record.getHeaderMenuSpaceElement()
 );
+
+
+export const getSpaceElement = (spaceId: string) => (
+  isMobile()
+    ? kintone.mobile.app.record.getSpaceElement(spaceId)
+    : kintone.app.record.getSpaceElement(spaceId));
 
 /**
 * 要素を表示・非表示

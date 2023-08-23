@@ -116,6 +116,8 @@ route.put(
   reqAndpadApi,
 ); */
 
+// PROTECTED ROUTES
+
 
 // "テスト"
 route.get('/', (req, res) => {

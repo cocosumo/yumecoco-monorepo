@@ -110,6 +110,8 @@ export const getCostMgtDataByProjId = async (
     cocoProfitSharing,
     実利益税抜_夢てつ,
     実利益税抜_ここすも,
+    利益税抜_夢てつ,
+    利益税抜_ここすも,
     受注額計_税込,
     受注額計_税抜,
     入金額,
@@ -122,6 +124,7 @@ export const getCostMgtDataByProjId = async (
     depositAmount: depositAmount,
     yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,
+    hasRefund: false,
   });
 
 
@@ -143,6 +146,8 @@ export const getCostMgtDataByProjId = async (
     利益配分_ここすも: cocoProfitSharing,
     実利益税抜_夢てつ: 実利益税抜_夢てつ,
     実利益税抜_ここすも: 実利益税抜_ここすも,
+    利益税抜_夢てつ: 利益税抜_夢てつ,
+    利益税抜_ここすも: 利益税抜_ここすも,
     受注額計_税込: 受注額計_税込,
     受注額計_税抜: 受注額計_税抜,
     入金額: 入金額,

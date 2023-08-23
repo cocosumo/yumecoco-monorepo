@@ -137,9 +137,11 @@ export const getCostMgtDataByProjIdV2 = async (
     hasRefund: contracts?.返金 ?? false,
   });
 
+  const formatProjNum = formatDataId(projDataId.value);
 
   const result: GetCostMgtData = {
-    projNum: formatDataId(projDataId.value),
+    projNumJa: `${formatProjNum.split('-')[0]} ${formatProjNum}`,
+    projNum: formatProjNum,
     projName: projName.value,
     projId: projId,
     andpadSystemId: andpadSystemId,

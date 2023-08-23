@@ -143,8 +143,11 @@ export const getCostMgtDataByProjIdV3 = async (
   });
 
 
+  const formatProjNum = formatDataId(projDataId.value);
+
   const result: GetCostMgtData = {
-    projNum: formatDataId(projDataId.value),
+    projNumJa: `${formatProjNum.split('-')[0]} ${formatProjNum}`,
+    projNum: formatProjNum,
     projName: projName.value,
     projId: projId,
     andpadSystemId: andpadSystemId,

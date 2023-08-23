@@ -1,11 +1,11 @@
 import { summarizeSuppliers } from './summarizeSuppliers';
-import { 
-  getAndpadPaymentsBySystemId, 
-  getAndpadProcurementByAndpadProjId, 
-  getContractsByProjId, 
-  getCustGroupById, 
-  getProjById, 
-  getProjTypeById, 
+import {
+  getAndpadPaymentsBySystemId,
+  getAndpadProcurementByAndpadProjId,
+  getContractsByProjId,
+  getCustGroupById,
+  getProjById,
+  getProjTypeById,
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
 import { getOrderByProjId } from 'api-andpad';
@@ -40,7 +40,7 @@ export const getCostMgtDataByProjId = async (
   const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID || '');
 
   console.log(andpadSystemId);
-  
+
   if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
 
   const {
@@ -127,9 +127,11 @@ export const getCostMgtDataByProjId = async (
     hasRefund: false,
   });
 
+  const formatProjNum = formatDataId(projDataId.value);
 
-  const result : GetCostMgtData = {
-    projNum: formatDataId(projDataId.value),
+  const result: GetCostMgtData = {
+    projNumJa: `${formatProjNum.split('-')[0]} ${formatProjNum}`,
+    projNum: formatProjNum,
     projId: projId,
     projName: projName.value,
     andpadSystemId: andpadSystemId,

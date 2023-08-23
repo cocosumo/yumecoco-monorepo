@@ -75,7 +75,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   let currSheetIdx = 1;
   let wsName = '原価管理表';
 
-  let ws = await initCostMngWorksheet(wsName, workbook, costManagement);
+  let ws = initCostMngWorksheet(wsName, workbook, costManagement);
   let rowIdx = currRowIdx + rowOffset;
 
   console.log(orderAmountPerMonth);
@@ -87,7 +87,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
       // 次のシートへ
       currRowIdx = 1;
       wsName = `原価管理表 (${++currSheetIdx})`;
-      ws = await initCostMngWorksheet(wsName, workbook, costManagement);
+      ws = initCostMngWorksheet(wsName, workbook, costManagement);
     }
 
     rowIdx = currRowIdx + rowOffset;
@@ -126,7 +126,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
             // 次のシートへ
             currRowIdx = 1;
             wsName = `原価管理表 (${++currSheetIdx})`;
-            ws = await initCostMngWorksheet(wsName, workbook, costManagement);
+            ws = initCostMngWorksheet(wsName, workbook, costManagement);
           }
           rowIdx = currRowIdx + rowOffset;
 

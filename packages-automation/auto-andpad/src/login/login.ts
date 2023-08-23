@@ -20,25 +20,39 @@ export const login = async (page: Page) => {
     const userPass = process.env.ANDPAD_USER_PASS;
     if (!userPass) throw new Error('process.env.ANDPAD_USER_PASS is undefined.');
 
-    
-    /* Fresh instance of the browser */
-    await page.goto(loginURL, { waitUntil: 'domcontentloaded' });
+    console.log('Current URL:', page.url());
+    if (!page.url().includes('login')) {
+      console.log('Navigating to initial login page...', loginURL);
+      /* Fresh instance of the browser */
+      await page.goto(loginURL, { waitUntil: 'domcontentloaded' });
 
-    await Promise.all([
-      page.waitForNavigation({ timeout: 10000 }),
-      page.click(selectors.btnWinMove),
-    ]);
+      console.log('Clicking navigate to login button...');
+      await Promise.all([
+        page.waitForNavigation({ timeout: 10000 }),
+        page.click(selectors.btnWinMove),
+      ]);
+    } else {
+      console.log('Already on initial login page..clicking navigate to login button.');
+      await page.click(selectors.btnWinMove);
+    }
 
+    console.log('Waiting for login page to load...');
     await page.waitForSelector(selectors.user);
 
-    await page.type(selectors.user, userId);
-    await page.type(selectors.pass, userPass);
+    console.log('Typing login details...');
+    await page.type(selectors.user, userId, { delay: 10 });
+    await page.type(selectors.pass, userPass, { delay: 10 });
 
+    console.log('Finding login button...');
+    await page.waitForSelector(selectors.btnLogin);
+    await page.click(selectors.btnLogin);
+
+    await page.waitForNavigation({ timeout: 20000, waitUntil: 'load' });
+    /*     console.log('Clicking login button...');
     await Promise.all([
       page.waitForNavigation({ timeout: 20000, waitUntil: 'load' }),
-      page.click(selectors.btnLogin),
     ]);
-
+ */
     console.log('Login completed');
 
     await saveCookie(page);

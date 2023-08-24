@@ -17,8 +17,10 @@ export const convertMonthlyProcurementV2 = (
 
   const {
     total_contract_order_cost: totalContractOrderCost,
-    total_planned_budget_cost: totalPlannedBudgetCost,
+    // total_planned_budget_cost: totalPlannedBudgetCost,
   } = groups;
+
+  let totalPlannedBudgetCost = 0;
 
   const result: ProcurementSupplierDetails[] = [];
   let maxPaymentDate = '';
@@ -36,18 +38,20 @@ export const convertMonthlyProcurementV2 = (
 
 
       if (existingSupplier !== -1) {
-        result[existingSupplier].contractOrderCost += contract.items_total_contract_order_cost;
-        result[existingSupplier].plannedBudgetCost += contract.items_total_planned_budget_cost;
+        // 実績ベースの支払額を反映する
+        // result[existingSupplier].contractOrderCost += contract.items_total_contract_order_cost;
+        result[existingSupplier].plannedBudgetCost += contract.items_total_contract_order_cost;
       } else {
         result.push({
           supplierName: contract.name,
-          contractOrderCost: contract.items_total_contract_order_cost || 0,
-          plannedBudgetCost: contract.items_total_planned_budget_cost || 0,
+          contractOrderCost: 0,
+          plannedBudgetCost: contract.items_total_contract_order_cost || 0,
           paymentHistory: [],
         });
 
         // paymentHistoryの更新
         const parsedIdx = existingSupplier !== -1 ? existingSupplier : result.length - 1;
+        let supplierPlannedBudgetCost = 0;
 
         for (const procurement of andpadProcurements) {
           // 発注先名が一致する発注実績を格納する
@@ -58,11 +62,13 @@ export const convertMonthlyProcurementV2 = (
 
           if (parsedDate === '') continue; // 支払日の設定が無い場合は実績に反映しない
 
+          const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
           result[parsedIdx].paymentHistory.push({
-            paymentAmtBeforeTax: +procurement.orderAmountAfterTax.value,
+            paymentAmtBeforeTax: orderAmountBeforeTax,
             paymentDate: parsedDate,
           });
-
+          totalPlannedBudgetCost += orderAmountBeforeTax;
+          supplierPlannedBudgetCost += orderAmountBeforeTax;
 
           if (parsedDate > maxPaymentDate || maxPaymentDate === '') {
             maxPaymentDate = parsedDate;
@@ -71,6 +77,9 @@ export const convertMonthlyProcurementV2 = (
             minPaymentDate = parsedDate;
           }
         }
+
+        // 発注先ごとの発注金額を反映する
+        result[parsedIdx].contractOrderCost = supplierPlannedBudgetCost;
       }
     }
 

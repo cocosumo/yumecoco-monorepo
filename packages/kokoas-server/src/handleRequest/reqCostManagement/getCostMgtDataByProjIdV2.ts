@@ -4,6 +4,7 @@ import {
   getCustGroupById,
   getProjById,
   getProjTypeById,
+  getStoreByStoreCode,
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
 import { getMonthlyProcurementBySystemId, getOrderByProjId } from 'api-andpad';
@@ -138,9 +139,10 @@ export const getCostMgtDataByProjIdV2 = async (
   });
 
   const formatProjNum = formatDataId(projDataId.value);
+  const { storeNameShort } = await getStoreByStoreCode(formatProjNum.split('-')[0]);
 
   const result: GetCostMgtData = {
-    projNumJa: `${formatProjNum.split('-')[0]} ${formatProjNum}`,
+    projNumJa: `${storeNameShort.value} ${formatProjNum.split('-')[1]}`,
     projNum: formatProjNum,
     projName: projName.value,
     projId: projId,

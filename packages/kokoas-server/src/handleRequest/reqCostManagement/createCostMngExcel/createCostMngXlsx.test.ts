@@ -3,7 +3,7 @@ import { createCostMngXlsx } from './createCostMngXlsx';
 import fs from 'fs';
 import path from 'path';
 
-// Need to run test for getCostMgtDataByProjIdV2,
+// Need to run test for getCostMgtDataByProjIdV3,
 // then transfer the result to the following file.
 import testData from './__TEST__/testData.json';
 

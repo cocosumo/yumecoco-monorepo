@@ -1,18 +1,20 @@
 import parse from 'date-fns/parse';
 import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails } from 'types';
+import { createMonths } from './createMonths';
+import { format, parseISO } from 'date-fns';
 
 
 export const convertMonthlyProcurementV2 = (
-  monthlyProcurement: AndpadProcurementMonthly,
+  andpadBudgetExecution: AndpadProcurementMonthly,
   andpadProcurements: DBAndpadprocurements.SavedData[],
 ) => {
 
   const {
     data: {
       groups,
-      months,
+      // months,
     },
-  } = monthlyProcurement;
+  } = andpadBudgetExecution;
 
   const {
     total_contract_order_cost: totalContractOrderCost,
@@ -20,6 +22,8 @@ export const convertMonthlyProcurementV2 = (
   } = groups;
 
   const result: ProcurementSupplierDetails[] = [];
+  let maxPaymentDate = '';
+  let minPaymentDate = '';
 
   // Each Group has contracts and children props
   // supplierName and months (payment history) is inside contracts 
@@ -42,25 +46,32 @@ export const convertMonthlyProcurementV2 = (
           plannedBudgetCost: contract.items_total_planned_budget_cost || 0,
           paymentHistory: [],
         });
-      }
 
-      const parsedIdx = existingSupplier !== -1 ? existingSupplier : result.length - 1;
+        // paymentHistoryの更新
+        const parsedIdx = existingSupplier !== -1 ? existingSupplier : result.length - 1;
 
-      for (const gMonth of contract.months) {
+        for (const procurement of andpadProcurements) {
+          // 発注先名が一致する発注実績を格納する
+          if (procurement.supplierName.value !== contract.name) continue;
 
-        let parsedDate = gMonth.month;
+          const paymentDate = procurement.支払日.value ? parseISO(procurement.支払日.value) : '';
+          const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
 
-        if (parsedDate === 'total') continue;
+          if (parsedDate === '') continue; // 支払日の設定が無い場合は実績に反映しない
 
-        if (/^[0-9]+$/.test(parsedDate)) {
+          result[parsedIdx].paymentHistory.push({
+            paymentAmtBeforeTax: +procurement.orderAmountAfterTax.value,
+            paymentDate: parsedDate,
+          });
 
-          parsedDate = parse(gMonth.month, 'yyyyMM', new Date()).toISOString();
+
+          if (parsedDate > maxPaymentDate || maxPaymentDate === '') {
+            maxPaymentDate = parsedDate;
+          }
+          if (parsedDate < minPaymentDate || minPaymentDate === '') {
+            minPaymentDate = parsedDate;
+          }
         }
-
-        result[parsedIdx].paymentHistory.push({
-          paymentAmtBeforeTax: gMonth.price,
-          paymentDate: parsedDate,
-        });
       }
     }
 
@@ -77,26 +88,8 @@ export const convertMonthlyProcurementV2 = (
 
   console.log(JSON.stringify(result, null, 2));
 
-  // get max and min payment date from months where the format of the date is yyyyMM and unknown
-
-  const { maxPaymentDate, minPaymentDate } = months.reduce((acc, month) => {
-    if (/^[0-9]+$/.test(month)) {
-      const parsedDate = parse(month, 'yyyyMM', new Date()).toISOString();
-
-      if (parsedDate > acc.maxPaymentDate || acc.maxPaymentDate === '') {
-        acc.maxPaymentDate = parsedDate;
-      }
-      if (parsedDate < acc.minPaymentDate || acc.minPaymentDate === '') {
-        acc.minPaymentDate = parsedDate;
-      }
-    }
-    return acc;
-  }, {
-    maxPaymentDate: '',
-    minPaymentDate: '',
-  });
-
-
+  // monthsの作成
+  const months = createMonths(maxPaymentDate, minPaymentDate);
 
   return {
     result,

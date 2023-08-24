@@ -1,19 +1,20 @@
 import { Route, Routes } from 'react-router-dom';
 //import { FormikConstruction } from './projRegister/FormikConstruction';
 //import { FormikIndividualCustomer } from './customer/register/FormikIndividualCustomer';
-import { FormikProjProspect } from './projProspect';
-import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
+//import { FormikProjProspect } from './projProspect';
+//import { FormikProjProspectSearch } from './projProspectSearch/FormikProjProspectSearch';
 import { SettingsPage } from './settingsPage/SettingsPage';
-import { FormikInvoice } from './projInvoice/FormikInvoice';
+//import { FormikInvoice } from './projInvoice/FormikInvoice';
 import { Home } from './@home/Home';
 import { memo } from 'react';
 import { FormContractSearch } from './projContractSearchV2/FormContractSearch';
-import { UnderDevelopment } from './UnderDevelopment';
+//import { UnderDevelopment } from './UnderDevelopment';
 import { FormContract } from './projContractV2/FormContract';
 import { FormProject } from './projRegisterV2/FormProject';
 import { FormProjectSearch } from './projSearch/FormProjectSearch';
 import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { FormCustGroup } from './custGroup/FormCustGroup';
+import { FormProspectSearch } from './projProspectSearchV2/FormProspectSearch';
 
 
 
@@ -41,7 +42,7 @@ export const pages = {
   projEstimate: '/project/estimate/register',
   projSearch: '/project/search',
 
-  projProspect: '/project/prospect/register',
+  //projProspect: '/project/prospect/register',
   projProspectSearch: '/project/prospect/search',
 
   /** 旧契約 */
@@ -84,10 +85,10 @@ const Router = () => (
 
 
     {/* 見込み検索 */}
-    <Route path={`${pages.projProspectSearch}`} element={<FormikProjProspectSearch />} key={'search'} />
+    <Route path={`${pages.projProspectSearch}`} element={<FormProspectSearch />} key={'search'} />
 
     {/* 見込み登録 */}
-    <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} />
+    {/* <Route path={`${pages.projProspect}`} element={<FormikProjProspect />} key={'edit'} /> */}
 
     <Route path={`${pages.projEstimate}`} element={<FormProjEstimate />} />
 
@@ -100,9 +101,9 @@ const Router = () => (
 
 
     {/* 入金管理グループ */}
-    <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} />
-    <Route path={`${pages.projPaymentSearch}`} element={<UnderDevelopment />} />
-    <Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} />
+    {/* <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} /> */}
+    {/* <Route path={`${pages.projPaymentSearch}`} element={<UnderDevelopment />} /> */}
+    {/* <Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} /> */}
 
     {/* 設定 */}
     <Route path={`${pages.settings}/*`} element={<SettingsPage />} />

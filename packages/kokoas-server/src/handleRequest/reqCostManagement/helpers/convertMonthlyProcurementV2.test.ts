@@ -1,6 +1,4 @@
 import { describe, it } from '@jest/globals';
-import fs from 'fs';
-import path from 'path';
 import { convertMonthlyProcurementV2 } from './convertMonthlyProcurementV2';
 
 // need to run test for getMonthlyProcurementBySystemId, 

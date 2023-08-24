@@ -78,3 +78,7 @@ export const openAIEndpoints = {
   generateReading: 'generateReading',
   askForReading: 'askForReading',
 };
+
+export const sendGridEndpoints = {
+  sendEmail: 'sendEmail',
+};

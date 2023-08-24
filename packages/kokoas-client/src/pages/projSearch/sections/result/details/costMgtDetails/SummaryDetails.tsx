@@ -1,6 +1,7 @@
 import { FormHelperText, Stack } from '@mui/material';
 import type { GetCostMgtData } from 'types';
 import { SummaryInfo } from './SummaryInfo';
+import { roundTo } from 'libs';
 
 
 export const SummaryDetails = ({
@@ -81,7 +82,7 @@ export const SummaryDetails = ({
         
         <SummaryInfo 
           label='受注額計'
-          value={受注額計_税込}
+          value={roundTo(受注額計_税込)}
         />
 
         {/*         <SummaryInfo 
@@ -96,7 +97,7 @@ export const SummaryDetails = ({
         />
         <SummaryInfo 
           label='未入金額'
-          value={未入金}
+          value={roundTo(未入金)}
         />
 
         <FormHelperText

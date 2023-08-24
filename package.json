@@ -131,7 +131,7 @@
     "html-to-image": "^1.11.11",
     "immer": "^10.0.2",
     "jest-esm-transformer": "^1.0.0",
-    "jotai": "^2.2.2",
+    "jotai": "^2.4.0",
     "jp-numerals": "^3.0.0",
     "js-crypto-random": "^1.0.4",
     "json2csv": "^5.0.7",

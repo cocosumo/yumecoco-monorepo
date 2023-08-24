@@ -8,6 +8,8 @@ import { parseISO } from 'date-fns';
 import './ReservationCalendar.css';
 import { fetchConflictByDate } from '../../../api/fetchConflictByDate';
 import { DatesSetArg, EventInput, EventSourceInput } from '@fullcalendar/core';
+import { getRecordPath } from 'api-kintone/src';
+import { currAppId } from '../../../config';
 
 
 type FCDateRange = DatesSetArg | undefined;
@@ -50,6 +52,7 @@ export default function ReservationCalendar({
             店舗: { value: store },
             開始: { value: startTime },
             終了: { value: endTime },
+            $id: { value: id },
           } = record;
 
           const carProps = cars.find(({ carNumber: _carNumber })=> _carNumber === carNumber);
@@ -62,6 +65,8 @@ export default function ReservationCalendar({
             end: parseISO(endTime),
             color: bgColor,
             textColor: textColor,
+            // extended props
+            recordId: id,
           };
         });
       });
@@ -78,7 +83,7 @@ export default function ReservationCalendar({
       locale={jaLocale}
       fixedWeekCount={false}
       height="auto"
-      initialView="timeGridWeek"
+      initialView="dayGridMonth"
       headerToolbar={{
         left: 'prev,next today',
         center: 'title',
@@ -86,6 +91,19 @@ export default function ReservationCalendar({
       }}
       events={reservations}
       datesSet={(dateInfo) => setDateRange(dateInfo)}
+      eventClick={(info) => {
+        const {
+          recordId,
+        } = info.event.extendedProps;
+        if (recordId) {
+          const recordPath = getRecordPath({
+            recordId,
+            appId: String(currAppId),
+          });
+
+          window.open(recordPath, '_blank');
+        }
+      }}
     />
   );
 }

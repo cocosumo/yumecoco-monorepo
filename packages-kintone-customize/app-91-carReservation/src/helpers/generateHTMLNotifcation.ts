@@ -1,7 +1,7 @@
 import { KintoneEvent } from '../types/event';
 import { DateTime as dt } from 'luxon';
 import { getRecordPath } from 'api-kintone';
-import { currAppId } from '../config';
+import { constIndexViewId, currAppId } from '../config';
 
 const formatDateTime = (dateTimeISO: string, isFullDay = false) => {
   if (!dateTimeISO) return '-';
@@ -33,12 +33,16 @@ export const generateHTMLNotification = (event: KintoneEvent) => {
     fullDay,
   } = record;
 
+
+  const appId = String(currAppId);
   const isNew = type.includes('create');
   const isFullDay = fullDay.value.includes('終日');
   const kintoneLink = getRecordPath({ 
     recordId: $id.value,
-    appId: String(currAppId), 
+    appId, 
   });
+
+  const monthViewLink = `https://rdmuhwtt6gx7.cybozu.com/k/${appId}/?view=${constIndexViewId}`;
 
   const startDate = formatDateTime(開始.value, isFullDay);
   const endDate = formatDateTime(終了.value, isFullDay);
@@ -60,11 +64,12 @@ export const generateHTMLNotification = (event: KintoneEvent) => {
   <style>
     table {
       border-collapse: collapse;
+      border-radius: 8px;
     }
     table, th, td {
-      border: 1px solid gray;
+      border: 1px solid #e5e7eb;
       text-align: left;
-      padding: 8px;
+      padding: 16px;
     }
 
   </style>
@@ -113,9 +118,16 @@ export const generateHTMLNotification = (event: KintoneEvent) => {
     </tr>
   </table>
 
+  <p>
+      <a href="${kintoneLink}">詳細はこちら</a>
+  </p>
+
+  <p>
+      <a href="${monthViewLink}">カレンダーで見る</a>
+  </p>
+
   <p>どうぞよろしくお願い申し上げます。</p>
 
-  <a href="${kintoneLink}">詳細はこちら</a>
 
   <p>敬具</p>
 </body>

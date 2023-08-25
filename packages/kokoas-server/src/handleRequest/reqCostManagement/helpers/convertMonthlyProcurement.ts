@@ -1,7 +1,13 @@
 import parse from 'date-fns/parse';
 import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails } from 'types';
 
-
+/**
+ * 月ごとの発注履歴データの変換処理
+ * @param monthlyProcurement andpad推移表データ
+ * @returns 
+ * 
+ * @deprecated replaced with convertMonthlyProcurementV2
+ */
 export const convertMonthlyProcurement = (
   monthlyProcurement: AndpadProcurementMonthly, 
 ) => {

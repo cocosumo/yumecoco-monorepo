@@ -1,5 +1,5 @@
 import { describe, it } from '@jest/globals';
-import { convertMonthlyProcurementV2 } from './convertMonthlyProcurementV2';
+import { convertMonthlyProcurementV3 } from './convertMonthlyProcurementV3';
 import fs from 'fs';
 import path from 'path';
 
@@ -10,7 +10,7 @@ describe('convertMonthlyProcurement', () => {
 
     // need to run test for getMonthlyProcurementBySystemId, 
     // then transfer the result to the following file. 
-    const testDataBEPath = path.join(__dirname, '../__TEST__/monthly.json');
+    const testDataBEPath = path.join(__dirname, '../__TEST__/budget.json');
     const testDataBE = JSON.parse(fs.readFileSync(testDataBEPath, 'utf8'));
 
     // need to run test for getAndpadProcurementByAndpadProjId, 
@@ -20,7 +20,7 @@ describe('convertMonthlyProcurement', () => {
 
 
 
-    const result = convertMonthlyProcurementV2(testDataBE, testDataAP);
+    const result = convertMonthlyProcurementV3(testDataBE, testDataAP);
 
     console.log(JSON.stringify(result, null, 2));
   }, 50000);

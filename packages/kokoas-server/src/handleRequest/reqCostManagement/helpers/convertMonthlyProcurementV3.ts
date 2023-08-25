@@ -5,13 +5,11 @@ import { format, parseISO } from 'date-fns';
 
 /**
  * 月ごとの発注履歴データの変換処理
- * @param andpadBudgetExecution andpad推移表データ
+ * @param andpadBudgetExecution andpad原価管理表データ
  * @param andpadProcurements kintoneよりandpad発注一覧
  * @returns 
- * 
- * @deprecated replaced with convertMonthlyProcurementV3
  */
-export const convertMonthlyProcurementV2 = (
+export const convertMonthlyProcurementV3 = (
   andpadBudgetExecution: AndpadProcurementMonthly,
   andpadProcurements: DBAndpadprocurements.SavedData[],
 ) => {

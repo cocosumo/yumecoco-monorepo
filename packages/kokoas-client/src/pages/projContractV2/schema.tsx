@@ -97,7 +97,10 @@ const schema = z.object({
   hasRefund: z.boolean(),
   
   /** 返金額 */
-  refundAmt: z.number(),
+  refundAmt: z.number()
+    .min(0, {
+      message: 'マイナス"-"入力しないでください',
+    }),
 
   /** 返金方法 */
   refundMethod: z.enum(refundMethod),
@@ -106,7 +109,10 @@ const schema = z.object({
   hasReduction: z.boolean(),
 
   /** 減額 */
-  reductionAmt: z.number(),
+  reductionAmt: z.number()
+    .min(0, {
+      message: 'マイナス"-"入力しないでください',
+    }),
 
   /** 補助金有無 */
   hasSubsidy: z.boolean(),
@@ -213,6 +219,15 @@ const schema = z.object({
   }, {
     path: ['refundAmt'],
     message: '返金額を入力してください。',
+  })
+  .refine(({ hasReduction, reductionAmt }) => {
+    if (hasReduction && !reductionAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['reductionAmt'],
+    message: '減額を入力してください。',
   })
   .refine(({ hasSubsidy, subsidyAmt }) => {
     if (hasSubsidy && !subsidyAmt) {

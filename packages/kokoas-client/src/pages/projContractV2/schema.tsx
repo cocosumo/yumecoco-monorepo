@@ -4,8 +4,12 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
-export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
-export type SubsidyMethod = typeof subsidyMethods[number];
+//export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
+export const refundMethod = ['山豊工建', '顧客'] as const;
+export type RefundMethod = typeof refundMethod[number];
+
+
+//export type SubsidyMethod = typeof subsidyMethods[number];
 
 export const payMethods = ['持参', '集金', '振込'] as const;
 
@@ -95,15 +99,22 @@ const schema = z.object({
   /** 返金額 */
   refundAmt: z.number(),
 
+  /** 返金方法 */
+  refundMethod: z.enum(refundMethod),
+
+  /** 減額有無 */
+  hasReduction: z.boolean(),
+
+  /** 減額 */
+  reductionAmt: z.number(),
+
   /** 補助金有無 */
   hasSubsidy: z.boolean(),
 
   /** 補助金 */
   subsidyAmt: z.number(),
   
-  /** 補助種類 
-   * Removed at K137
-  */
+  /** 補助種類 Removed at K137 */
   // subsidyMethod: z.enum(subsidyMethods),
   
   /** 支払い方法 */

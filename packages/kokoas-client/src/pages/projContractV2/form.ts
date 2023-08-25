@@ -39,6 +39,10 @@ export const initialForm : TypeOfForm = {
   
   hasRefund: false,
   refundAmt: 0,
+  refundMethod: '山豊工建',
+  
+  hasReduction: false,
+  reductionAmt: 0,
 
   hasSubsidy: false,
   subsidyAmt: 0,

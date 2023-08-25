@@ -14,6 +14,9 @@ export const SubsidyAmount = () => {
     <Stack direction={'row'} spacing={2}>
       <FormControlLabel
         label={'補助金'}
+        sx={{
+          width: '90px',
+        }}
         control={(
           <Checkbox
             checked={isChecked}
@@ -35,7 +38,7 @@ export const SubsidyAmount = () => {
       />
       <ControlledCurrencyInput 
         name="subsidyAmt" 
-        variant='standard'
+        variant='outlined'
         disabled={!isChecked}
       />
 

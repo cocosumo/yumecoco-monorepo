@@ -16,11 +16,11 @@ export const convertMonthlyProcurementV2 = (
   } = andpadBudgetExecution;
 
   const {
-    total_contract_order_cost: totalContractOrderCost,
+    total_contract_order_cost: totalPlannedBudgetCost, // 発注金額を発注原価として扱います
     // total_planned_budget_cost: totalPlannedBudgetCost,
   } = groups;
 
-  let totalPlannedBudgetCost = 0;
+  let totalContractOrderCost = 0;
 
   const result: ProcurementSupplierDetails[] = [];
   let maxPaymentDate = '';
@@ -56,6 +56,14 @@ export const convertMonthlyProcurementV2 = (
         for (const procurement of andpadProcurements) {
           // 発注先名が一致する発注実績を格納する
           if (procurement.supplierName.value !== contract.name) continue;
+          
+          console.log('発注状況', procurement.orderStatus.value);
+          // 発注状況が集計対象外の物は除外する
+          if ((procurement.orderStatus.value === '見積依頼作成中') ||
+          (procurement.orderStatus.value === '見積作成中') ||
+          (procurement.orderStatus.value === '発注作成中') ||
+          (procurement.orderStatus.value === '発注済') ||
+          (procurement.orderStatus.value === '請負承認待ち')) continue;
 
           const paymentDate = procurement.支払日.value ? parseISO(procurement.支払日.value) : '';
           const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
@@ -67,7 +75,7 @@ export const convertMonthlyProcurementV2 = (
             paymentAmtBeforeTax: orderAmountBeforeTax,
             paymentDate: parsedDate,
           });
-          totalPlannedBudgetCost += orderAmountBeforeTax;
+          totalContractOrderCost += orderAmountBeforeTax;
           supplierPlannedBudgetCost += orderAmountBeforeTax;
 
           if (parsedDate > maxPaymentDate || maxPaymentDate === '') {

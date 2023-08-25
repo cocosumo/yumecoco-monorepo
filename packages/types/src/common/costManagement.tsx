@@ -63,6 +63,7 @@ export interface GetCostMgtData {
   受注額計_税抜: number,
   入金額: number,
   未入金: number,
+  補助金?: number,
   夢てつ営業: string,
   ここすも営業: string,
   ここすも工事: string,

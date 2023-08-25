@@ -43,7 +43,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   const costMngFilePath = getFilePath({
     fileName: '原価見積',
     fileType: 'xlsx',
-    version: '20230823',
+    version: '20230825',
   });
 
   // Read excel file.
@@ -83,6 +83,10 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
 
   // 支払処理済欄を反映する
   for (const procurement of costManagement.発注情報詳細) {
+    // 発注金額0,支払い実績なしの場合は反映しない
+    if ((procurement.plannedBudgetCost === 0)
+      && (procurement.paymentHistory.length === 0)) continue;
+
     if (currRowIdx > maxRows) {
       // 次のシートへ
       currRowIdx = 1;
@@ -94,10 +98,9 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
     // 発注先情報の反映
     ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * 15);
     ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
-    ws.getCell(`C${rowIdx}`).value = procurement.contractOrderCost;
+    ws.getCell(`C${rowIdx}`).value = procurement.plannedBudgetCost;
 
     // 支払い実績の反映
-
     for (const paymentHistory of procurement.paymentHistory) {
       const tgtMonth = dateFormat(paymentHistory.paymentDate ?? '');
 

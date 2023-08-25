@@ -46,6 +46,7 @@ export const RefundAmount = () => {
         name="refundAmt" 
         variant='outlined'
         disabled={!isChecked}
+        width={260}
         startAdornment={(
           <InputAdornment position='start'>
             ▲

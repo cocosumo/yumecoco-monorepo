@@ -40,6 +40,7 @@ export const SubsidyAmount = () => {
         name="subsidyAmt" 
         variant='outlined'
         disabled={!isChecked}
+        width={260}
       />
 
       {/* uncontrolledのやり方だと null　になるので、controlledにする */}

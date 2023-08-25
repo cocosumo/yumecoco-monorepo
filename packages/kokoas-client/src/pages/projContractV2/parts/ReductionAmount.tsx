@@ -48,6 +48,7 @@ export const ReductionAmount = () => {
       <ControlledCurrencyInput 
         name="reductionAmt" 
         variant='outlined'
+        width={260}
         startAdornment={(
           <InputAdornment position='start'>
             ▲

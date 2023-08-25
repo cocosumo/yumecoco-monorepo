@@ -14,6 +14,7 @@ export const ControlledCurrencyInput = ({
   disabled = false,
   placeholder,
   startAdornment,
+  width,
 }: {
   name: keyof TypeOfForm,
   label?: string,
@@ -21,6 +22,7 @@ export const ControlledCurrencyInput = ({
   disabled?: boolean,
   placeholder?: string,
   startAdornment?: ReactNode,
+  width?: number,
 }) => {
 
 
@@ -47,7 +49,7 @@ export const ControlledCurrencyInput = ({
       }) => {
 
         return (
-          <Box width={260}>
+          <Box width={width}>
             <NumberCommaField
               label={label}
               inputRef={ref}

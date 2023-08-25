@@ -38,7 +38,7 @@ export const convertContractToForm = (
 
     hasSubsidy,
     subsidyAmt,
-    subsidyMethod,
+    //subsidyMethod,
 
     payMethod,
     payDestination,
@@ -114,7 +114,7 @@ export const convertContractToForm = (
     hasSubsidy: hasSubsidy.value === 'はい',
     subsidyAmt: +subsidyAmt.value,
 
-    subsidyMethod: subsidyMethod.value as TypeOfForm['subsidyMethod'],
+    //subsidyMethod: subsidyMethod.value as TypeOfForm['subsidyMethod'],
     payMethod: payMethod.value as TypeOfForm['payMethod'],
 
     payDestination: payDestination.value,

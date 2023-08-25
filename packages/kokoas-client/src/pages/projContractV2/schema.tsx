@@ -101,8 +101,10 @@ const schema = z.object({
   /** 補助金 */
   subsidyAmt: z.number(),
   
-  /** 補助種類 */
-  subsidyMethod: z.enum(subsidyMethods),
+  /** 補助種類 
+   * Removed at K137
+  */
+  // subsidyMethod: z.enum(subsidyMethods),
   
   /** 支払い方法 */
   payMethod: z.enum(payMethods),

@@ -39,7 +39,7 @@ export const convertToKintone = ({
 
   hasSubsidy,
   subsidyAmt,
-  subsidyMethod,
+  //subsidyMethod,
 
   payMethod,
   payDestination,
@@ -88,7 +88,7 @@ export const convertToKintone = ({
 
     hasSubsidy: { value: hasSubsidy ? 'はい' : 'いいえ' },
     subsidyAmt: { value: (hasSubsidy ? subsidyAmt : 0).toString() },
-    subsidyMethod: { value: subsidyMethod },
+    //subsidyMethod: { value: subsidyMethod },
 
     payMethod: { value: payMethod },
     payDestination: { value: payDestination ?? '' },

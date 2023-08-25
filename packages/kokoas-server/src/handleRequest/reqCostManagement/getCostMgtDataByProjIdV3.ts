@@ -1,5 +1,6 @@
 import {
   getAndpadPaymentsBySystemId,
+  getAndpadProcurementByAndpadProjId,
   getContractsByProjId,
   getCustGroupById,
   getProjById,
@@ -11,8 +12,8 @@ import { getMonthlyProcurementBySystemId, getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
-import { convertMonthlyProcurement } from './helpers/convertMonthlyProcurement';
 import { formatDataId } from 'libs';
+import { convertMonthlyProcurementV2 } from './helpers/convertMonthlyProcurementV2';
 
 
 
@@ -21,10 +22,9 @@ import { formatDataId } from 'libs';
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
  * 
- * セッションでAPIをアクセス
- * @deprecated replaced with getCostMgtDataByProjIdV3
+ * セッションでAPIをアクセス + kintoneから実績取得
  */
-export const getCostMgtDataByProjIdV2 = async (
+export const getCostMgtDataByProjIdV3 = async (
   projId: string,
 ) => {
 
@@ -58,8 +58,13 @@ export const getCostMgtDataByProjIdV2 = async (
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
 
-  const andpadProcurements = await getMonthlyProcurementBySystemId(andpadSystemId); // andpad発注情報
-  const costManagemenList = convertMonthlyProcurement(andpadProcurements); // 発注会社ごとに整形したデータ
+  const andpadBudgetExecution = await getMonthlyProcurementBySystemId(andpadSystemId); // 推移表より、実行予算
+  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
+
+  // 発注会社ごとにデータを整形する
+  const costManagemenList = convertMonthlyProcurementV2(andpadBudgetExecution, andpadProcurements);
+
+
 
   const {
     months,
@@ -137,6 +142,7 @@ export const getCostMgtDataByProjIdV2 = async (
     tax: contracts?.税率 ?? 0.1,
     hasRefund: contracts?.返金 ?? false,
   });
+
 
   const formatProjNum = formatDataId(projDataId.value);
   const { storeNameShort } = await getStoreByStoreCode(formatProjNum.split('-')[0]);

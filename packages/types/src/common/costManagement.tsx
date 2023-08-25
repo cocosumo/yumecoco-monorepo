@@ -19,7 +19,7 @@ export interface ProcurementSupplierDetails {
 
 }
 
-/** @deprecated will use ProcurementDetails instead */
+/** @deprecated will use ProcurementSupplierDetails instead */
 export interface ProcurementInfo {
   supplierName: string;
   orderAmountBeforeTax: number;
@@ -33,6 +33,7 @@ export interface ProcurementInfo {
 export interface GetCostMgtData {
   projId: string,
   projNum: string,
+  projNumJa: string,
   projName: string,
   andpadSystemId: string,
   custGroupName: string,

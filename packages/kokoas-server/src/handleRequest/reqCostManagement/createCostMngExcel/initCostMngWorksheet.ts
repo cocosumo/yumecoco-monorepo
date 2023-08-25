@@ -1,15 +1,14 @@
 import Excel from 'exceljs';
 import { GetCostMgtData } from 'types';
-import { shapeProjNum } from './helpers/shapeProjNum';
 
 
-export const initCostMngWorksheet = async (
+export const initCostMngWorksheet = (
   sheetName: string,
   wb: Excel.Workbook,
   costManagement: GetCostMgtData,
 ) => {
   const ws = wb.getWorksheet(sheetName);
-  ws.getCell('C3').value = await shapeProjNum(costManagement.projNum); // 工事番号
+  ws.getCell('C3').value = costManagement.projNumJa; // 工事番号
   ws.getCell('E3').value = costManagement.projName; // 工事名
   ws.getCell('T3').value = costManagement.custGroupName; // 発注者
   ws.getCell('C5').value = costManagement.受注金額_税抜; // 受注金額

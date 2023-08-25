@@ -25,8 +25,13 @@ export const initCostMngWorksheet = (
   ws.getCell('K8').value = `${costManagement.利益配分_ここすも}%`; // ここすも利益配分率
   ws.getCell('H9').value = costManagement.実利益税抜_夢てつ; // 夢てつ実利益額
   ws.getCell('K9').value = costManagement.実利益税抜_ここすも; // ここすも実利益額
-  ws.getCell('H10').value = costManagement.利益税抜_夢てつ === 0 ? '' : costManagement.利益税抜_夢てつ; // ここすも実利益額
-  ws.getCell('K10').value = costManagement.利益税抜_ここすも === 0 ? '' : costManagement.利益税抜_ここすも; // ここすも実利益額
+
+  // 返金ありの時のみ: 夢てつ利益額 & ここすも利益額
+  if (costManagement.hasRefund) {
+    ws.getCell('H10').value = costManagement.利益税抜_夢てつ;
+    ws.getCell('K10').value = costManagement.利益税抜_ここすも;
+    ws.getCell('N10').value = ' 返金あり';
+  }
 
   ws.getCell('R5').value = costManagement.受注額計_税込; // 受注額計税込
   ws.getCell('R6').value = costManagement.入金額; // 入金額

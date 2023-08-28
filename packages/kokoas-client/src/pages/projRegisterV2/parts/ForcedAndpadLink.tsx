@@ -32,7 +32,7 @@ export const ForcedAndpadLink = ({
     <>
 
       <AndpadButtonContainer
-        emphasis='登録あるの場合'
+        emphasis='登録ある場合'
         disabled={disabled}
         disabledMessage='既に接続しているため、強制接続が出来ません'
         onClick={handleClick}

@@ -4,6 +4,7 @@ import { RefundAmount } from '../parts/RefundAmount';
 import { SubsidyAmount } from '../parts/SubsidyAmount';
 import { blue } from '@mui/material/colors';
 import { PaymentMethod } from '../parts/PaymentMethod';
+import { ReductionAmount } from '../parts/ReductionAmount';
 
 export const PaymentSchedule = ({
   disabled,
@@ -77,6 +78,7 @@ export const PaymentSchedule = ({
           ※契約書には反映されません。
         </FormHelperText>
         <RefundAmount />
+        <ReductionAmount />
         <SubsidyAmount />
  
       </Stack>

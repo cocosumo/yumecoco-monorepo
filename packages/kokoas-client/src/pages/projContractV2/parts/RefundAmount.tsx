@@ -1,6 +1,6 @@
-import { Checkbox, FormControlLabel, Stack } from '@mui/material';
-import { TypeOfForm } from '../schema';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { Checkbox, FormControl, FormControlLabel, InputAdornment, Radio, RadioGroup, Stack } from '@mui/material';
+import { TypeOfForm, refundMethod } from '../schema';
+import { Controller, useFormContext, useWatch } from 'react-hook-form';
 import { ControlledCurrencyInput } from '../fields/ControlledCurrencyInput';
 
 export const RefundAmount = () => {
@@ -19,7 +19,10 @@ export const RefundAmount = () => {
   return (
     <Stack direction={'row'} spacing={2}>
       <FormControlLabel
-        label={'返金額'}
+        label={'返金'}
+        sx={{
+          width: '90px',
+        }}
         control={(
           <Checkbox
             checked={isChecked}
@@ -41,8 +44,46 @@ export const RefundAmount = () => {
       />
       <ControlledCurrencyInput 
         name="refundAmt" 
-        variant='standard'
+        variant='outlined'
         disabled={!isChecked}
+        width={260}
+        startAdornment={(
+          <InputAdornment position='start'>
+            ▲
+          </InputAdornment>
+          )}
+      />
+
+      <Controller
+        name={'refundMethod'}
+        control={control}
+        render={({
+          field: {
+            onChange,
+            ...otherFieldProps
+          },
+        }) => {
+          return (
+            <FormControl disabled={!isChecked}>
+              <RadioGroup 
+                row
+                {...otherFieldProps}
+                onChange={(_, value) => onChange(value as typeof refundMethod[number])}
+              >
+                {refundMethod
+                  .map((value) => (
+                    <FormControlLabel 
+                      key={value} 
+                      value={value} 
+                      control={<Radio />}
+                      label={value}
+                      sx={{ mr: 0, ml: 1 }}
+                    /> 
+                  ))}
+              </RadioGroup>
+            </FormControl>
+          );
+        }}
       />
 
     </Stack>

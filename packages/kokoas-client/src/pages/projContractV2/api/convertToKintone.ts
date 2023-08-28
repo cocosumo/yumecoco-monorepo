@@ -36,6 +36,10 @@ export const convertToKintone = ({
 
   hasRefund,
   refundAmt,
+  refundMethod,
+
+  hasReduction,
+  reductionAmt,
 
   hasSubsidy,
   subsidyAmt,
@@ -85,6 +89,10 @@ export const convertToKintone = ({
 
     hasRefund: { value: hasRefund ? 'はい' : 'いいえ' },
     refundAmt: { value: (hasRefund ? refundAmt : 0).toString() },
+    refundMethod: { value: refundMethod || '' },
+
+    hasReduction: { value: hasReduction ? 'はい' : 'いいえ' },
+    reductionAmt: { value: (hasReduction ? reductionAmt : 0).toString() },
 
     hasSubsidy: { value: hasSubsidy ? 'はい' : 'いいえ' },
     subsidyAmt: { value: (hasSubsidy ? subsidyAmt : 0).toString() },

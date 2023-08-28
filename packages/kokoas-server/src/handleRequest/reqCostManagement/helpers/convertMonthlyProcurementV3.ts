@@ -1,8 +1,8 @@
 import Big from 'big.js';
 import { createMonths } from './createMonths';
-import { format, parseISO } from 'date-fns';
 import { ProcurementSupplierDetails } from 'types';
 import { AndpadBudgetResult, Datum } from 'types/src/common/andpad.order.budget';
+import parseISO from 'date-fns/parseISO';
 
 
 /**
@@ -32,7 +32,7 @@ export const convertMonthlyProcurementV3 = (
     datas.forEach((data) => {
       for (const item of data.planned_budget_items) {
 
-        let existingSupplier = -1;
+        //let existingSupplier = -1;
         // 見積情報
         let budgetItem = {
           supplierName: item.contract_name ? item.contract_name : `(${item.name})`, // 予算発注先が無い場合は部材名
@@ -59,7 +59,8 @@ export const convertMonthlyProcurementV3 = (
         }
         totalPlannedBudgetCost += budgetItem.plannedBudgetCost;
 
-        existingSupplier = result.findIndex((supplier) => supplier.supplierName === budgetItem.supplierName);
+        const existingSupplier = result.findIndex((supplier) => supplier.supplierName === budgetItem.supplierName);
+        
 
         if (existingSupplier !== -1) {
           // 実績ベースの支払額を反映する
@@ -87,24 +88,25 @@ export const convertMonthlyProcurementV3 = (
               (procurement.orderStatus.value === '発注作成中') ||
               (procurement.orderStatus.value === '発注済') ||
               (procurement.orderStatus.value === '請負承認待ち')) continue;
+            
+            const paymentDateISO =  parseISO(procurement.支払日.value).toISOString();
 
-            const paymentDate = procurement.支払日.value ? parseISO(procurement.支払日.value) : '';
-            const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
-
-            if (parsedDate === '') continue; // 支払日の設定が無い場合は実績に反映しない
+            // const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
+ 
+            if (!paymentDateISO) continue; // 支払日の設定が無い場合は実績に反映しない
 
             const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
             result[parsedIdx].paymentHistory.push({
               paymentAmtBeforeTax: orderAmountBeforeTax,
-              paymentDate: parsedDate,
+              paymentDate: paymentDateISO,
             });
             totalContractOrderCost += orderAmountBeforeTax;
 
-            if (parsedDate > maxPaymentDate || maxPaymentDate === '') {
-              maxPaymentDate = parsedDate;
+            if (paymentDateISO > maxPaymentDate || maxPaymentDate === '') {
+              maxPaymentDate = paymentDateISO;
             }
-            if (parsedDate < minPaymentDate || minPaymentDate === '') {
-              minPaymentDate = parsedDate;
+            if (paymentDateISO < minPaymentDate || minPaymentDate === '') {
+              minPaymentDate = paymentDateISO;
             }
           }
         }

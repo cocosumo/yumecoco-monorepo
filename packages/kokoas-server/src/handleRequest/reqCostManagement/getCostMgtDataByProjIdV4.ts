@@ -8,12 +8,12 @@ import {
   getStoreById,
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
-import { getMonthlyProcurementBySystemId, getOrderByProjId } from 'api-andpad';
+import { getBudgetBySystemId, getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
 import { formatDataId } from 'libs';
-import { convertMonthlyProcurementV2 } from './helpers/convertMonthlyProcurementV2';
+import { convertMonthlyProcurementV3 } from './helpers/convertMonthlyProcurementV3';
 
 
 
@@ -23,9 +23,8 @@ import { convertMonthlyProcurementV2 } from './helpers/convertMonthlyProcurement
  * データを成形する(簡単な形に)
  * 
  * セッションでAPIをアクセス + kintoneから実績取得
- * @deprecated replaced with getCostMgtDataByProjIdV4
  */
-export const getCostMgtDataByProjIdV3 = async (
+export const getCostMgtDataByProjIdV4 = async (
   projId: string,
 ) => {
 
@@ -60,11 +59,11 @@ export const getCostMgtDataByProjIdV3 = async (
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
 
-  const andpadBudgetExecution = await getMonthlyProcurementBySystemId(andpadSystemId); // 推移表より、実行予算
+  const andpadBudgetExecution = await getBudgetBySystemId(andpadSystemId); // 実行予算
   const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
 
   // 発注会社ごとにデータを整形する
-  const costManagemenList = convertMonthlyProcurementV2(andpadBudgetExecution, andpadProcurements);
+  const costManagemenList = convertMonthlyProcurementV3(andpadBudgetExecution, andpadProcurements);
 
 
 

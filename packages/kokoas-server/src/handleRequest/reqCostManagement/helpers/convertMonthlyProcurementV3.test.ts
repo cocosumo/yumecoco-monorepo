@@ -8,7 +8,7 @@ import path from 'path';
 describe('convertMonthlyProcurement', () => {
   it('should convert monthly procurement', () => {
 
-    // need to run test for getMonthlyProcurementBySystemId, 
+    // need to run test for getBudgetBySystemId, 
     // then transfer the result to the following file. 
     const testDataBEPath = path.join(__dirname, '../__TEST__/budget.json');
     const testDataBE = JSON.parse(fs.readFileSync(testDataBEPath, 'utf8'));

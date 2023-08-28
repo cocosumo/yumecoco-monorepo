@@ -1,6 +1,8 @@
-import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails } from 'types';
+import Big from 'big.js';
 import { createMonths } from './createMonths';
 import { format, parseISO } from 'date-fns';
+import { ProcurementSupplierDetails } from 'types';
+import { AndpadBudgetResult, Datum } from 'types/src/common/andpad.order.budget';
 
 
 /**
@@ -10,103 +12,113 @@ import { format, parseISO } from 'date-fns';
  * @returns 
  */
 export const convertMonthlyProcurementV3 = (
-  andpadBudgetExecution: AndpadProcurementMonthly,
+  andpadBudgetExecution: AndpadBudgetResult,
   andpadProcurements: DBAndpadprocurements.SavedData[],
 ) => {
 
   const {
-    data: {
-      groups,
-      // months,
-    },
+    data: andpadBudgetResult,
   } = andpadBudgetExecution;
 
-  const {
-    total_contract_order_cost: totalPlannedBudgetCost, // 発注金額を発注原価として扱います
-    // total_planned_budget_cost: totalPlannedBudgetCost,
-  } = groups;
-
-  let totalContractOrderCost = 0;
+  let totalPlannedBudgetCost = 0; // 発注金額
+  let totalContractOrderCost = 0; // 支払金額
 
   const result: ProcurementSupplierDetails[] = [];
   let maxPaymentDate = '';
   let minPaymentDate = '';
 
-  // Each Group has contracts and children props
-  // supplierName and months (payment history) is inside contracts 
-  // while children contains Groups
-  // Refer to ./../__TEST__/monthly.json for the data structure ~ras 20230816
-  const traverseGroup = (group: Group) => {
+  const traverseData = (datas: Datum[]) => {
 
-    for (const contract of group.contracts) {
+    datas.forEach((data) => {
+      for (const item of data.planned_budget_items) {
 
-      const existingSupplier = result.findIndex((supplier) => supplier.supplierName === contract.name);
-
-
-      if (existingSupplier !== -1) {
-        // 実績ベースの支払額を反映する
-        // result[existingSupplier].contractOrderCost += contract.items_total_contract_order_cost;
-        result[existingSupplier].plannedBudgetCost += contract.items_total_contract_order_cost;
-      } else {
-        result.push({
-          supplierName: contract.name,
+        let existingSupplier = -1;
+        // 見積情報
+        let budgetItem = {
+          supplierName: item.contract_name ? item.contract_name : `(${item.name})`, // 予算発注先が無い場合は部材名
           contractOrderCost: 0,
-          plannedBudgetCost: contract.items_total_contract_order_cost || 0,
-          paymentHistory: [],
-        });
+          plannedBudgetCost: Big(item.unit_cost).mul(+item.quantity)
+            .toNumber(),
+        };
 
-        // paymentHistoryの更新
-        const parsedIdx = existingSupplier !== -1 ? existingSupplier : result.length - 1;
-        let supplierPlannedBudgetCost = 0;
+        const contractItem = item.contract_order_item;
+        const estimateItem = item.planned_budget_estimate_item;
+        if (contractItem) {
+          // 発注実績がある場合
+          budgetItem = {
+            supplierName: contractItem.contract_name,
+            contractOrderCost: contractItem.cost_price,
+            plannedBudgetCost: contractItem.cost_price,
+          };
+        } else if (estimateItem) {
+          budgetItem = {
+            ...budgetItem,
+            contractOrderCost: 0,
+            plannedBudgetCost: estimateItem.cost_price ?? 0,
+          };
+        }
+        totalPlannedBudgetCost += budgetItem.plannedBudgetCost;
 
-        for (const procurement of andpadProcurements) {
-          // 発注先名が一致する発注実績を格納する
-          if (procurement.supplierName.value !== contract.name) continue;
-          
-          console.log('発注状況', procurement.orderStatus.value);
-          // 発注状況が集計対象外の物は除外する
-          if ((procurement.orderStatus.value === '見積依頼作成中') ||
-          (procurement.orderStatus.value === '見積作成中') ||
-          (procurement.orderStatus.value === '発注作成中') ||
-          (procurement.orderStatus.value === '発注済') ||
-          (procurement.orderStatus.value === '請負承認待ち')) continue;
+        existingSupplier = result.findIndex((supplier) => supplier.supplierName === budgetItem.supplierName);
 
-          const paymentDate = procurement.支払日.value ? parseISO(procurement.支払日.value) : '';
-          const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
-
-          if (parsedDate === '') continue; // 支払日の設定が無い場合は実績に反映しない
-
-          const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
-          result[parsedIdx].paymentHistory.push({
-            paymentAmtBeforeTax: orderAmountBeforeTax,
-            paymentDate: parsedDate,
+        if (existingSupplier !== -1) {
+          // 実績ベースの支払額を反映する
+          result[existingSupplier].contractOrderCost += budgetItem.contractOrderCost;
+          result[existingSupplier].plannedBudgetCost += budgetItem.plannedBudgetCost;
+        } else {
+          result.push({
+            supplierName: budgetItem.supplierName,
+            contractOrderCost: budgetItem.contractOrderCost,
+            plannedBudgetCost: budgetItem.plannedBudgetCost,
+            paymentHistory: [],
           });
-          totalContractOrderCost += orderAmountBeforeTax;
-          supplierPlannedBudgetCost += orderAmountBeforeTax;
 
-          if (parsedDate > maxPaymentDate || maxPaymentDate === '') {
-            maxPaymentDate = parsedDate;
-          }
-          if (parsedDate < minPaymentDate || minPaymentDate === '') {
-            minPaymentDate = parsedDate;
+
+          // paymentHistoryの更新
+          const parsedIdx = existingSupplier !== -1 ? existingSupplier : result.length - 1;
+
+          for (const procurement of andpadProcurements) {
+            // 発注先名が一致する発注実績を格納する
+            if (procurement.supplierName.value !== budgetItem.supplierName) continue;
+
+            // 発注状況が集計対象外の物は除外する
+            if ((procurement.orderStatus.value === '見積依頼作成中') ||
+              (procurement.orderStatus.value === '見積作成中') ||
+              (procurement.orderStatus.value === '発注作成中') ||
+              (procurement.orderStatus.value === '発注済') ||
+              (procurement.orderStatus.value === '請負承認待ち')) continue;
+
+            const paymentDate = procurement.支払日.value ? parseISO(procurement.支払日.value) : '';
+            const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
+
+            if (parsedDate === '') continue; // 支払日の設定が無い場合は実績に反映しない
+
+            const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
+            result[parsedIdx].paymentHistory.push({
+              paymentAmtBeforeTax: orderAmountBeforeTax,
+              paymentDate: parsedDate,
+            });
+            totalContractOrderCost += orderAmountBeforeTax;
+
+            if (parsedDate > maxPaymentDate || maxPaymentDate === '') {
+              maxPaymentDate = parsedDate;
+            }
+            if (parsedDate < minPaymentDate || minPaymentDate === '') {
+              minPaymentDate = parsedDate;
+            }
           }
         }
-
-        // 発注先ごとの発注金額を反映する
-        result[parsedIdx].contractOrderCost = supplierPlannedBudgetCost;
       }
-    }
 
-    // Traverse child groups
-    for (const childGroup of group.children) {
-      console.log('traversing child group');
-      traverseGroup(childGroup);
-    }
+      for (const childData of data.child_planned_budget_groups) {
+        traverseData(childData.child_planned_budget_groups);
+      }
+    });
   };
 
 
   // execute group traversal
-  traverseGroup(groups);
+  traverseData(andpadBudgetResult);
 
   console.log(JSON.stringify(result, null, 2));
 

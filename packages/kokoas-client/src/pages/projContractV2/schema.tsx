@@ -4,8 +4,12 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
-export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
-export type SubsidyMethod = typeof subsidyMethods[number];
+//export const subsidyMethods = ['工事に含む', '顧客に返金'] as const;
+export const refundMethod = ['山豊工建', '顧客'] as const;
+export type RefundMethod = typeof refundMethod[number];
+
+
+//export type SubsidyMethod = typeof subsidyMethods[number];
 
 export const payMethods = ['持参', '集金', '振込'] as const;
 
@@ -93,7 +97,22 @@ const schema = z.object({
   hasRefund: z.boolean(),
   
   /** 返金額 */
-  refundAmt: z.number(),
+  refundAmt: z.number()
+    .min(0, {
+      message: 'マイナス"-"入力しないでください',
+    }),
+
+  /** 返金方法 */
+  refundMethod: z.enum(refundMethod),
+
+  /** 減額有無 */
+  hasReduction: z.boolean(),
+
+  /** 減額 */
+  reductionAmt: z.number()
+    .min(0, {
+      message: 'マイナス"-"入力しないでください',
+    }),
 
   /** 補助金有無 */
   hasSubsidy: z.boolean(),
@@ -101,9 +120,7 @@ const schema = z.object({
   /** 補助金 */
   subsidyAmt: z.number(),
   
-  /** 補助種類 
-   * Removed at K137
-  */
+  /** 補助種類 Removed at K137 */
   // subsidyMethod: z.enum(subsidyMethods),
   
   /** 支払い方法 */
@@ -202,6 +219,15 @@ const schema = z.object({
   }, {
     path: ['refundAmt'],
     message: '返金額を入力してください。',
+  })
+  .refine(({ hasReduction, reductionAmt }) => {
+    if (hasReduction && !reductionAmt) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['reductionAmt'],
+    message: '減額を入力してください。',
   })
   .refine(({ hasSubsidy, subsidyAmt }) => {
     if (hasSubsidy && !subsidyAmt) {

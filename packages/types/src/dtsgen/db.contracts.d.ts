@@ -15,12 +15,14 @@ declare namespace DBContracts {
     envelopeId: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
     tax: kintone.fieldTypes.Number;
+    hasReduction: kintone.fieldTypes.RadioButton;
     startDaysAfterContract: kintone.fieldTypes.Number;
     contractAddType: kintone.fieldTypes.SingleLineText;
     contractAmt: kintone.fieldTypes.Number;
     startDate: kintone.fieldTypes.Date;
     signMethod: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
+    refundMethod: kintone.fieldTypes.SingleLineText;
     totalProfit: kintone.fieldTypes.Number;
     projType: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
@@ -35,6 +37,7 @@ declare namespace DBContracts {
     refundAmt: kintone.fieldTypes.Number;
     systemId: kintone.fieldTypes.SingleLineText;
     hasSubsidy: kintone.fieldTypes.RadioButton;
+    reductionAmt: kintone.fieldTypes.Number;
     projName: kintone.fieldTypes.SingleLineText;
     interimAmtDate: kintone.fieldTypes.Date;
     othersAmt: kintone.fieldTypes.Number;

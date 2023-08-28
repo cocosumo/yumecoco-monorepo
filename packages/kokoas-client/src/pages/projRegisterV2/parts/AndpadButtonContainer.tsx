@@ -65,9 +65,6 @@ export const AndpadButtonContainer = forwardRef<HTMLDivElement, Props>((props, r
           >
             {emphasis}
           </Typography>
-          <Typography>
-            、押してください
-          </Typography>
 
         </Stack>
         

@@ -1,9 +1,9 @@
-import { Tooltip } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useState } from 'react';
 import { SelectAndpadProject } from 'kokoas-client/src/components/ui/dialogs';
 import { useSaveProject } from 'kokoas-client/src/hooksQuery';
 import { LoadingButton } from '@mui/lab';
+import { AndpadButtonContainer } from './AndpadButtonContainer';
 
 export const ForcedAndpadLink = ({
   projId,
@@ -26,25 +26,30 @@ export const ForcedAndpadLink = ({
     });
   };
 
+  const handleClick = () => setOpen(true);
+
   return (
     <>
-      <Tooltip 
-        title={disabled ? '既に接続しているため、強制接続が出来ません' : 'Andpadで先に登録してしまった場合'}
-      > 
-        <span>
-          <LoadingButton
-            color='warning'
-            startIcon={<WarningAmberIcon />}
-            variant='outlined'
-            disabled={disabled}
-            onClick={()=>setOpen(true)}
-            loading={isLoading}
-          >
-            Andpadとの強制接続
-          </LoadingButton>
-        </span>
+
+      <AndpadButtonContainer
+        emphasis='登録あるの場合'
+        disabled={disabled}
+        disabledMessage='既に接続しているため、強制接続が出来ません'
+        onClick={handleClick}
+      >
+        <LoadingButton
+          color='warning'
+          startIcon={<WarningAmberIcon />}
+          variant='outlined'
+          disabled={disabled}
+          onClick={handleClick}
+          loading={isLoading}
+        >
+          Andpadとの強制接続
+        </LoadingButton>
+      </AndpadButtonContainer>
  
-      </Tooltip>
+
       <SelectAndpadProject 
         open={open} 
         projId={projId} 

@@ -1,4 +1,4 @@
-import Big from 'big.js';
+import { Big } from 'big.js';
 import { createMonths } from './createMonths';
 import { ProcurementSupplierDetails } from 'types';
 import { AndpadBudgetResult, Datum } from 'types/src/common/andpad.order.budget';
@@ -7,18 +7,18 @@ import parseISO from 'date-fns/parseISO';
 
 /**
  * 月ごとの発注履歴データの変換処理
- * @param andpadBudgetExecution andpad原価管理表データ
+ * @param andpadBudget andpad実行予算データ
  * @param andpadProcurements kintoneよりandpad発注一覧
  * @returns 
  */
 export const convertMonthlyProcurementV3 = (
-  andpadBudgetExecution: AndpadBudgetResult,
+  andpadBudget: AndpadBudgetResult,
   andpadProcurements: DBAndpadprocurements.SavedData[],
 ) => {
 
   const {
     data: andpadBudgetResult,
-  } = andpadBudgetExecution;
+  } = andpadBudget;
 
   let totalPlannedBudgetCost = 0; // 発注金額
   let totalContractOrderCost = 0; // 支払金額
@@ -32,7 +32,6 @@ export const convertMonthlyProcurementV3 = (
     datas.forEach((data) => {
       for (const item of data.planned_budget_items) {
 
-        //let existingSupplier = -1;
         // 見積情報
         let budgetItem = {
           supplierName: item.contract_name ? item.contract_name : `(${item.name})`, // 予算発注先が無い場合は部材名
@@ -60,7 +59,7 @@ export const convertMonthlyProcurementV3 = (
         totalPlannedBudgetCost += budgetItem.plannedBudgetCost;
 
         const existingSupplier = result.findIndex((supplier) => supplier.supplierName === budgetItem.supplierName);
-        
+
 
         if (existingSupplier !== -1) {
           // 実績ベースの支払額を反映する
@@ -83,16 +82,20 @@ export const convertMonthlyProcurementV3 = (
             if (procurement.supplierName.value !== budgetItem.supplierName) continue;
 
             // 発注状況が集計対象外の物は除外する
-            if ((procurement.orderStatus.value === '見積依頼作成中') ||
-              (procurement.orderStatus.value === '見積作成中') ||
-              (procurement.orderStatus.value === '発注作成中') ||
-              (procurement.orderStatus.value === '発注済') ||
-              (procurement.orderStatus.value === '請負承認待ち')) continue;
-            
-            const paymentDateISO =  parseISO(procurement.支払日.value).toISOString();
+            if ([
+              '見積依頼作成中',
+              '見積作成中',
+              '発注作成中',
+              '発注済',
+              '請負承認待ち',
+            ].includes(procurement.orderStatus.value)) {
+              continue;
+            }
+
+            const paymentDateISO = parseISO(procurement.支払日.value).toISOString();
 
             // const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
- 
+
             if (!paymentDateISO) continue; // 支払日の設定が無い場合は実績に反映しない
 
             const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;

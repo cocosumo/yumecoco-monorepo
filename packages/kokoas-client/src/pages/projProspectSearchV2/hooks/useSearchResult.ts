@@ -1,16 +1,14 @@
 /* eslint-disable no-case-declarations */
 import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } from 'kokoas-client/src/hooksQuery';
 import { useParseQuery } from './useParseQuery';
-import { SearchResult } from '../types';
+import { ISearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
-import { addressBuilder, formatDataId } from 'libs';
-import { useStoreIds } from './useStoreIds';
-import { useProjTypesIds } from './useProjTypesIds';
+import { formatDataId } from 'libs';
 import parseISO from 'date-fns/parseISO';
 import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects/helpers/getAgentsByType';
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
-import intersection from 'lodash/intersection';
-import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+
+import format from 'date-fns/format';
 
 
 
@@ -22,74 +20,59 @@ export const useSearchResult =  () => {
   const { data: recCustGroup } = useCustGroups();
   const { data: recContracts } = useAllContracts();
 
-  // クエリパラメーター
-  const {
-    keyword,
-    custName,
-    address,
-    stores,
-    projTypes,
-    cocoAG,
-    yumeAG,
-    contractDateFrom,
-    contractDateTo,
-    completionDateFrom,
-    completionDateTo,
-    order,
-    orderBy = 'storeSortNumber',
-    includeDeleted,
-  } = parsedQuery || {};
+  // Alias parsedQuery to q for brevity, and to avoid collision with the record variables
+  const q = parsedQuery;
 
-  const { data: selectedStoreIds } = useStoreIds(stores ?? []);
+  //const { data: selectedStoreIds } = useStoreIds(stores ?? []);
   const { data: storeRec } = useStores();
-  const { data: selectedProjTypeIds } = useProjTypesIds(projTypes ?? []);
   
 
 
-  return useProjects<SearchResult[]>({ // 工事ベース
+  return useProjects<ISearchResult[]>({ // 工事ベース
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
     select: (data) => {
 
       const unsortedResult =  data?.reduce((acc, curr) => {
 
         const {
-          custGroupId,
-          postal,
-          address1,
-          address2,
           uuid: projId,
           projName,
-          projTypeId,
+          rank,
+          custGroupId,
+
           dataId,
           agents: projAgents,
           cancelStatus: projCancelStatus,
-          作成日時: createdAt,
-          更新日時: updatedAt,
-
+          作成日時: createDate,
+          更新日時: updateDate,
           deliveryDate,
           projFinDate,
           payFinDate,
+          
+          estatePurchaseDate,
+          planApplicationDate,
+          schedContractDate,
+          
+          schedContractPrice: schedContractAmt,
+
         } = curr; // 工事情報;
 
-        const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
-        const projAddress = addressBuilder({
-          postal: postal.value,
-          address1: address1.value,
-          address2: address2.value,
-        });
-        
+        const isProjectDeleted = projCancelStatus.value !== ''; 
+
+        // 削除、中止など、除外
+        if (isProjectDeleted) return acc;
+
+        // 顧客情報がなかったら、除外
         if (!custGroupId) return acc;
 
         const custGroup = recCustGroup?.find(({ uuid }) => uuid.value === custGroupId.value);
         if (!custGroup) return acc;
 
-        const contracts = recContracts?.filter(({ projId: _prodId }) => projId.value === _prodId.value);
-        const firstContract = contracts?.[0];
 
-        const {
-          contractDate,
-          finishDate,
-        } = firstContract || {};
+        const contracts = recContracts?.filter(({ projId: _prodId }) => projId.value === _prodId.value);
+
+        // 契約があったら、除外
+        if (contracts?.length) return acc; 
 
         const {
           members,
@@ -99,11 +82,12 @@ export const useSearchResult =  () => {
           isDeleted,
         } = custGroup;
 
-        const isCustGroupDeleted = isDeleted.value === '1';
+        //const isCustGroupDeleted = isDeleted.value === '1';
+        
 
         const cocoAGs = getAgentsByType(agents, 'cocoAG');
         const cocoAGNames = cocoAGs.map(({ value: { employeeName } }) => employeeName.value);
-        const cocoAGIds = cocoAGs.map(({ value: { employeeId } }) => employeeId.value);
+        //const cocoAGIds = cocoAGs.map(({ value: { employeeId } }) => employeeId.value);
 
         const yumeAGs = getAgentsByType(agents, 'yumeAG');
         const yumeAGNames = yumeAGs.map(({ value: { employeeName } }) => employeeName.value);
@@ -111,7 +95,7 @@ export const useSearchResult =  () => {
 
         const cocoConst = getProjAgentsByType(projAgents, 'cocoConst');
         const cocoConstNames = cocoConst.map(({ value: { agentName } }) => agentName.value);
-        const cocoConstIds = cocoConst.map(({ value: { agentId } }) => agentId.value);
+        //const cocoConstIds = cocoConst.map(({ value: { agentId } }) => agentId.value);
 
         const {
           sortNumber,
@@ -120,12 +104,8 @@ export const useSearchResult =  () => {
 
         const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
 
-        const { 
-          custEmails, 
-          custTels, 
-          addresses, 
+        const {  
           fullNames,
-          fullNameReadings,
         } = groupCustContacts(relCustomers);
 
         /**　
@@ -136,7 +116,7 @@ export const useSearchResult =  () => {
          * 手間がかかるので、後回し。ras 20230611
         */
 
-        const isMatchedKeyword = !keyword || [
+        /*         const isMatchedKeyword = !keyword || [
           ...fullNames,
           ...fullNameReadings,
           ...custEmails,
@@ -148,7 +128,7 @@ export const useSearchResult =  () => {
           storeName.value,
           projAddress,
           dataId.value,
-        ].join('').includes(keyword.trim());
+        ].join('').includes(keyword.trim()); */
 
         /*     cocoAG?.some((ag) => {
           console.log(ag, cocoNames, cocoNames.includes(ag) );
@@ -157,7 +137,7 @@ export const useSearchResult =  () => {
 
         // console.log('cocoNames', cocoAG, cocoNames, cocoAG?.some((ag) => cocoNames.includes(ag)) );
 
-        const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
+        /*  const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
         const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
         const isMatchStore = !selectedStoreIds?.length || selectedStoreIds.includes(storeId.value);
         const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
@@ -167,9 +147,9 @@ export const useSearchResult =  () => {
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && finishDate?.value && completionDateFrom <= parseISO(finishDate?.value));
         const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
-        const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
+        const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted); */
 
-        if (!parsedQuery
+        /* if (!parsedQuery
           || (isMatchedKeyword
             && isMatchedCustName
             && isMatchAddress
@@ -201,13 +181,32 @@ export const useSearchResult =  () => {
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
             updatedAt: parseISOTimeToFormat(updatedAt.value, 'yyyy-MM-dd HH:mm'), 
           });
-        }
+        } */
+
+        acc.push({
+          rank: rank.value,
+          custNames: fullNames.join(','),
+          cocoAG: cocoAGNames.join(','),
+          yumeAG: yumeAGNames.join(','),
+          cocoConst: cocoConstNames.join(','),
+          projId: formatDataId(dataId.value),
+          estatePurchaseDate: estatePurchaseDate?.value ? estatePurchaseDate.value : '-',
+          planApplicationDate: planApplicationDate?.value ? planApplicationDate.value : '-',
+          projName: projName.value,
+          storeName: storeName.value,
+          schedContractAmt: +schedContractAmt.value,
+          schedContractDate: schedContractDate?.value ? schedContractDate.value : '-',
+          createDate: format(parseISO(createDate.value), 'yyyy-MM-dd HH:mm'),
+          updateDate: format(parseISO(updateDate.value), 'yyyy-MM-dd HH:mm'),
+        });
 
         return acc;
-      }, [] as SearchResult[]);
+      }, [] as ISearchResult[]);
 
-      return unsortedResult.sort((a, b) => {
-        const parseOrderBy = orderBy as keyof SearchResult;
+      return unsortedResult;
+
+      /* return unsortedResult.sort((a, b) => {
+        const parseOrderBy = orderBy as KSearchResult;
 
 
         switch (parseOrderBy) {
@@ -230,7 +229,7 @@ export const useSearchResult =  () => {
             const valueB = b[parseOrderBy] || ''; 
             return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
         }
-      });
+      }); */
     },
   });
 };

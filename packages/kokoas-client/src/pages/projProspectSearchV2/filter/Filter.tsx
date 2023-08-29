@@ -30,7 +30,7 @@ export const Filter = () => {
             // handleStartSearch();
           }
         }}
-        {...register('custName')}
+        {...register('custNames')}
       />
       <SearchButton />
       {/* <FilterButton /> */}

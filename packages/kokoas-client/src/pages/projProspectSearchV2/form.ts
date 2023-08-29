@@ -6,7 +6,7 @@ import { TForm } from './schema';
 export const initialForm: TForm = {
   projDataId: '',
   custGroupId: '',
-  custName: '',
+  custNames: '',
   ranks: [],
   keyword: '',
   projName: '',

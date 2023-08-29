@@ -22,6 +22,8 @@ describe('convertMonthlyProcurement', () => {
 
     const result = convertMonthlyProcurementV3(testDataBE, testDataAP);
 
-    console.log(JSON.stringify(result, null, 2));
+    const savePath = path.join(__dirname, '__TEST__/convertMonthlyProcurementV3.json');
+    fs.writeFileSync(savePath, JSON.stringify(result, null, 2));
+
   }, 50000);
 });

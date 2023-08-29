@@ -63,6 +63,7 @@ export const getCostMgtDataByProjIdV4 = async (
   const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
 
   // 発注会社ごとにデータを整形する
+  console.log('Converting andpadbudgets') ;
   const costManagemenList = convertMonthlyProcurementV3(andpadBudgetExecution, andpadProcurements);
 
 
@@ -75,12 +76,14 @@ export const getCostMgtDataByProjIdV4 = async (
 
   // 取得したデータを整形する
 
+  console.log('Retrieving Payment Data...');
   /** 入金 */
   const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
     .reduce((acc, { paymentAmount }) => {
       return acc + +paymentAmount.value;
     }, 0);
 
+  console.log('Retrieving Contracts Data...');
   const contracts = (await getContractsByProjId(projId))
     .reduce((acc, {
       contractType,
@@ -114,7 +117,7 @@ export const getCostMgtDataByProjIdV4 = async (
       補助金: 0,
     });
 
-
+  console.log('Calculating Profitability...');
   const {
     orderAmountBeforeTax,
     additionalAmountBeforeTax,

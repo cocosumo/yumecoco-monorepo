@@ -9,7 +9,7 @@ export const getCostMgtDataByProjId = async (projId: string) => {
   
     const endpoint = [
       kokoasAPIBaseUrl,
-      kokoasEndpoints.getCostMgtDataByProjIdV2,
+      kokoasEndpoints.getCostMgtDataByProjIdV4,
       projId,
     ].join('/');
 

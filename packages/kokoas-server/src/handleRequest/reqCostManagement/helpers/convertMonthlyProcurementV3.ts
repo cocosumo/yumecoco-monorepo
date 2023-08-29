@@ -128,7 +128,10 @@ export const convertMonthlyProcurementV3 = (
   console.log(JSON.stringify(result, null, 2));
 
   // monthsの作成
-  const months = createMonths(maxPaymentDate, minPaymentDate);
+  const months = createMonths({
+    minPaymentISODate: minPaymentDate,
+    maxPaymentISODate: maxPaymentDate,
+  });
 
   return {
     result,

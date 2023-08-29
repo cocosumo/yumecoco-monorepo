@@ -4,17 +4,22 @@ import parseISO from 'date-fns/parseISO';
 import differenceInMonths from 'date-fns/differenceInMonths';
 import subMonths from 'date-fns/subMonths';
 
-export const createMonths = (
-  maxPaymentISODate: string, 
+export const createMonths = ({ 
+  minPaymentISODate,
+  maxPaymentISODate,
+}: {
   minPaymentISODate: string,
-) => {
+  maxPaymentISODate: string,
+}) => {
 
   let minNumberOfMonths = 6; // 最低表示月数
 
   console.log('maxPaymentDate', maxPaymentISODate);
   console.log('minPaymentDate', minPaymentISODate);
 
-  const difference = differenceInMonths(parseISO(maxPaymentISODate), parseISO(minPaymentISODate));
+  const difference = differenceInMonths(parseISO(maxPaymentISODate), parseISO(minPaymentISODate)) + 1;
+
+  console.log('differenceInMonths', difference);
 
   if (minNumberOfMonths < difference) { // 最低表示月数より差分が大きい場合は最低表示月数を更新
     minNumberOfMonths = difference;

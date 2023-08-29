@@ -17,7 +17,7 @@ export const createOrderAmountPerMonth = (
 
   const newOrderAmountPerMonth: Record<string, OrderAmountPerMonth> = {};
 
-  for (const month of months.reverse()) {
+  for (const month of months) {
     const formatedMonth = month === 'unknown' 
       ? '未定' 
       : format(

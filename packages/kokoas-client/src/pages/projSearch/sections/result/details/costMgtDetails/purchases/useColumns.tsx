@@ -155,11 +155,9 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           ),
           cell: info => {
             const row = info.row;
-            const contractOrderCost: number = row.original.contractOrderCost || 0;
-            const plannedBudgetCost: number = row.original.plannedBudgetCost || 0;
             return (
               <Typography align='right'>
-                {((plannedBudgetCost - contractOrderCost || 0) as number).toLocaleString()}
+                {((row.original.totalUnpaidAmount || 0) as number).toLocaleString()}
               </Typography>
             );
           },

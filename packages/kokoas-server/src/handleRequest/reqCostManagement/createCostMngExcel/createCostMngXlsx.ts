@@ -62,9 +62,9 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
 
 
   const tgtMonthList = Object.keys(orderAmountPerMonth);
-  const isOverflow = tgtMonthList.length > maxMonths;
+  //const isOverflow = tgtMonthList.length > maxMonths;
 
-  console.log('tgtMonthList::', tgtMonthList, isOverflow);
+  //console.log('tgtMonthList::', tgtMonthList, isOverflow);
 
   // excelファイル書き込み処理
   const maxRows = 25;
@@ -114,7 +114,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
 
 
         let tgtMonthIndex = tgtMonthList.indexOf(tgtMonth);
-        if (isOverflow && tgtMonthIndex > maxMonths) tgtMonthIndex = 5;
+        if (tgtMonthIndex >= maxMonths) tgtMonthIndex = 5;
         const columnIndex = columnOffset + (tgtMonthIndex * 4) + 1;
 
         // 6か月以前の発注履歴は行を追加して対応する

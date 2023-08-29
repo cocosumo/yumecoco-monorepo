@@ -32,7 +32,7 @@ export const convertMonthlyProcurementV3 = (
     datas.forEach((data) => {
       for (const item of data.planned_budget_items) {
 
-        // 見積情報
+        // 予算情報
         let budgetItem = {
           supplierName: item.contract_name ? item.contract_name : `(${item.name})`, // 予算発注先が無い場合は部材名
           contractOrderCost: 0,
@@ -50,6 +50,7 @@ export const convertMonthlyProcurementV3 = (
             plannedBudgetCost: contractItem.cost_price,
           };
         } else if (estimateItem) {
+          // 見積情報がある場合
           budgetItem = {
             ...budgetItem,
             contractOrderCost: 0,
@@ -65,11 +66,18 @@ export const convertMonthlyProcurementV3 = (
           // 実績ベースの支払額を反映する
           result[existingSupplier].contractOrderCost += budgetItem.contractOrderCost;
           result[existingSupplier].plannedBudgetCost += budgetItem.plannedBudgetCost;
+
+          // 発注先ごとの支払い済み金額・未払い金額を更新する
+          result[existingSupplier].totalUnpaidAmount = Big(result[existingSupplier].contractOrderCost)
+            .minus(result[existingSupplier].totalPaidAmount)
+            .toNumber();
         } else {
           result.push({
             supplierName: budgetItem.supplierName,
             contractOrderCost: budgetItem.contractOrderCost,
             plannedBudgetCost: budgetItem.plannedBudgetCost,
+            totalPaidAmount: 0,
+            totalUnpaidAmount: 0,
             paymentHistory: [],
           });
 
@@ -99,6 +107,15 @@ export const convertMonthlyProcurementV3 = (
             if (!paymentDateISO) continue; // 支払日の設定が無い場合は実績に反映しない
 
             const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
+
+            // 発注先ごとの支払い済み金額・未払い金額を更新する
+            const totalpaidAmount = Big(result[parsedIdx].totalPaidAmount).plus(orderAmountBeforeTax)
+              .toNumber();
+            result[parsedIdx].totalPaidAmount = totalpaidAmount;
+            result[parsedIdx].totalUnpaidAmount = Big(result[parsedIdx].contractOrderCost).minus(totalpaidAmount)
+              .toNumber();
+
+            // 支払い履歴の更新
             result[parsedIdx].paymentHistory.push({
               paymentAmtBeforeTax: orderAmountBeforeTax,
               paymentDate: paymentDateISO,

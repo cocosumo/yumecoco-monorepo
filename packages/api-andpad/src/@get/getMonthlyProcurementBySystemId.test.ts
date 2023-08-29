@@ -5,14 +5,15 @@ import path from 'path';
 
 describe('getMonthlyProcurementBySystemId', () => {
   it('should get data by systemId', async () => {
+    const testSystemId = 11648284;
 
-    const result = await getMonthlyProcurementBySystemId(11908295);
+    const result = await getMonthlyProcurementBySystemId(testSystemId);
 
     console.log(result.data.months);
 
     expect(result).toBeDefined();
 
-    fs.writeFileSync(path.resolve(__dirname, '__TEST__', './getMonthlyProcurementBySystemId.json'), JSON.stringify(result, null, 2));
+    fs.writeFileSync(path.resolve(__dirname, '__TEST__', `./getMonthlyProcurementBySystemId_${testSystemId}.json`), JSON.stringify(result, null, 2));
   }, 60000);
 
 });

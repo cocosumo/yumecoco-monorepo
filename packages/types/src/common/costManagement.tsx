@@ -15,10 +15,10 @@ export interface ProcurementSupplierDetails {
   contractOrderCost: number;
   
   /**支払合計金額(税抜) */
-  totalPaidAmount: number,
+  totalPaidAmount?: number,
 
   /**未払い金額(税抜) */
-  totalUnpaidAmount: number,
+  totalUnpaidAmount?: number,
 
   /** 発注 */
   paymentHistory: PaymentHistory[];

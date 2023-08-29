@@ -16,8 +16,9 @@ import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAnd
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
 import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
 //import { reqCostMgtDataByProjId } from '../handleRequest/reqCostManagement';
-import { reqCostMgtDataByProjIdV2 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV2';
+//import { reqCostMgtDataByProjIdV2 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV2';
 import { reqCostMgtExcelByData } from '../handleRequest/reqCostManagement/reqCostMgtExcelByData';
+import { reqCostMgtDataByProjIdV4 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV4';
 //import { reqAndpadApi } from '../handleRequest/reqAndpadApi/reqAndpadApi';
 //import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
@@ -65,9 +66,14 @@ route.get(
   reqCostMgtDataByProjId,
 ); */
 
-route.get(
+/* route.get(
   `/${kokoasEndpoints.getCostMgtDataByProjIdV2}/:projId`,
   reqCostMgtDataByProjIdV2,
+); */
+
+route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjIdV4}/:projId`,
+  reqCostMgtDataByProjIdV4,
 );
 
 route.post(

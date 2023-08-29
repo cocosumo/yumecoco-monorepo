@@ -69,7 +69,7 @@ export const convertMonthlyProcurementV3 = (
 
           // 発注先ごとの支払い済み金額・未払い金額を更新する
           result[existingSupplier].totalUnpaidAmount = Big(result[existingSupplier].contractOrderCost)
-            .minus(result[existingSupplier].totalPaidAmount)
+            .minus(result[existingSupplier].totalPaidAmount ?? 0)
             .toNumber();
         } else {
           result.push({
@@ -109,7 +109,7 @@ export const convertMonthlyProcurementV3 = (
             const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
 
             // 発注先ごとの支払い済み金額・未払い金額を更新する
-            const totalpaidAmount = Big(result[parsedIdx].totalPaidAmount).plus(orderAmountBeforeTax)
+            const totalpaidAmount = Big(result[parsedIdx].totalPaidAmount ?? 0).plus(orderAmountBeforeTax)
               .toNumber();
             result[parsedIdx].totalPaidAmount = totalpaidAmount;
             result[parsedIdx].totalUnpaidAmount = Big(result[parsedIdx].contractOrderCost).minus(totalpaidAmount)

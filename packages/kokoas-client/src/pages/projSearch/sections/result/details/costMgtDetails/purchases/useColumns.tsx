@@ -38,7 +38,6 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
       } = costMgtData;
 
       const paymentDateColumns = months
-        .reverse()
         .map((month) => {
           const column: ColumnType[] = [
             {

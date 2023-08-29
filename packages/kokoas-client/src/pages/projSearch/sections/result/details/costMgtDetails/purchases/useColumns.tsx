@@ -68,12 +68,15 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
                 const value = info.getValue() as PaymentHistory[] | undefined;
                 if (!value) return '';
 
-                const sameMonthPayment = value
-                  .find(({ paymentDate }) => findSameMonthPayment(paymentDate, month));
+                const sameMonthPayments = value
+                  .filter(({ paymentDate }) => findSameMonthPayment(paymentDate, month));
 
-                if (!sameMonthPayment?.paymentDate) return '';
+                if (!sameMonthPayments.length) return '';
 
-                const amountValue = sameMonthPayment.paymentAmtBeforeTax.toLocaleString();
+                const amountValue = sameMonthPayments.reduce((acc, curr) => {
+                  const paymentAmtBeforeTax = curr.paymentAmtBeforeTax || 0;
+                  return acc + paymentAmtBeforeTax;
+                }, 0).toLocaleString();
 
                 return (
                   <Typography align='right'>

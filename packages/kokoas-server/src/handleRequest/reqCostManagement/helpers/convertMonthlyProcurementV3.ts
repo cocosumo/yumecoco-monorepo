@@ -91,7 +91,7 @@ export const convertMonthlyProcurementV3 = (
           for (const procurement of andpadProcurements) {
             // 発注先名が一致する発注実績を格納する
             if (procurement.supplierName.value !== budgetItem.supplierName) continue;
-            if (!procurement.支払日.value) continue; // 支払日の設定が無い場合は実績に反映しない
+
             // 発注状況が集計対象外の物は除外する
             if ([
               '見積依頼作成中',
@@ -103,6 +103,17 @@ export const convertMonthlyProcurementV3 = (
               continue;
             }
 
+            const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
+
+            // 発注先ごとの支払い済み金額・未払い金額を更新する
+            const totalpaidAmount = Big(result[parsedIdx].totalPaidAmount ?? 0).plus(orderAmountBeforeTax)
+              .toNumber();
+            result[parsedIdx].totalPaidAmount = totalpaidAmount;
+            result[parsedIdx].totalUnpaidAmount = Big(result[parsedIdx].contractOrderCost).minus(totalpaidAmount)
+              .toNumber();
+
+            if (!procurement.支払日.value) continue; // 支払日の設定が無い場合は実績に反映しない
+
             // 発注状態に関係なく、 最大・最小支払日の更新
             const paymentDateISO = parseISO(procurement.支払日.value).toISOString();
             
@@ -112,15 +123,7 @@ export const convertMonthlyProcurementV3 = (
             if (paymentDateISO < minPaymentDate || minPaymentDate === '') {
               minPaymentDate = paymentDateISO;
             }
-           
-            const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
 
-            // 発注先ごとの支払い済み金額・未払い金額を更新する
-            const totalpaidAmount = Big(result[parsedIdx].totalPaidAmount ?? 0).plus(orderAmountBeforeTax)
-              .toNumber();
-            result[parsedIdx].totalPaidAmount = totalpaidAmount;
-            result[parsedIdx].totalUnpaidAmount = Big(result[parsedIdx].contractOrderCost).minus(totalpaidAmount)
-              .toNumber();
 
             // 支払い履歴の更新
             result[parsedIdx].paymentHistory.push({

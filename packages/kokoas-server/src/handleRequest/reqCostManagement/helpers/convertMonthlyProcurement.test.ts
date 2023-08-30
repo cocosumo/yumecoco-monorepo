@@ -10,7 +10,7 @@ import { getMonthlyProcurementBySystemId } from 'api-andpad';
 describe('convertMonthlyProcurement', () => {
   it('should convert monthly procurement', async () => {
     const testSystemId = 11637372;
-    const testPath = path.join(__dirname, `./__TEST__/monthly_${testSystemId}.json`);
+    const testPath = path.join(__dirname, `./__TEST__/convertMonthlyProcurement_${testSystemId}.json`);
 
     let testData = Object.create(null);
 
@@ -23,7 +23,7 @@ describe('convertMonthlyProcurement', () => {
 
     const result = convertMonthlyProcurement(testData);
 
-    fs.writeFileSync(path.join(__dirname, `./__TEST__/monthly_${testSystemId}_result.json`), JSON.stringify(result, null, 2));
+    fs.writeFileSync(path.join(__dirname, `./__TEST__/convertMonthlyProcurement_${testSystemId}_result.json`), JSON.stringify(result, null, 2));
     
     console.log(JSON.stringify(result, null, 2));
   }, 50000);

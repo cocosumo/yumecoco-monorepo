@@ -2,27 +2,42 @@ import { describe, it } from '@jest/globals';
 import { convertMonthlyProcurementV3 } from './convertMonthlyProcurementV3';
 import fs from 'fs';
 import path from 'path';
+import { getBudgetBySystemId } from 'api-andpad';
+import { getAndpadProcurementByAndpadProjId } from 'api-kintone';
 
 
 
 describe('convertMonthlyProcurement', () => {
-  it('should convert monthly procurement', () => {
+  it('should convert monthly procurement', async () => {
+    const testSystemId = 11637372;
 
-    // need to run test for getBudgetBySystemId, 
-    // then transfer the result to the following file. 
-    const testDataBEPath = path.join(__dirname, '../__TEST__/budget.json');
-    const testDataBE = JSON.parse(fs.readFileSync(testDataBEPath, 'utf8'));
+    const testDataBudgetPath = path.join(__dirname, `./__TEST__/convertMonthlyProcurementV3_${testSystemId}_budget.json`);
 
-    // need to run test for getAndpadProcurementByAndpadProjId, 
-    // then transfer the result to the following file. 
-    const testDataAPPath = path.join(__dirname, '../__TEST__/procurements.json');
-    const testDataAP = JSON.parse(fs.readFileSync(testDataAPPath, 'utf8'));
+    let testDataBudget = Object.create(null);
+    
+    if (fs.existsSync(testDataBudgetPath)) {
+      testDataBudget = JSON.parse(fs.readFileSync(testDataBudgetPath, 'utf8'));
+    } else {
+      testDataBudget = await getBudgetBySystemId(testSystemId);
+      fs.writeFileSync(testDataBudgetPath, JSON.stringify(testDataBudget, null, 2));
+    }
+
+    const testDataProcurementPath = path.join(__dirname, `./__TEST__/convertMonthlyProcurementV3_${testSystemId}_procurement.json`);
+
+    let testDataProcurement = Object.create(null);
+
+    if (fs.existsSync(testDataProcurementPath)) {
+      testDataProcurement = JSON.parse(fs.readFileSync(testDataProcurementPath, 'utf8'));
+    } else {
+      testDataProcurement = await getAndpadProcurementByAndpadProjId(testSystemId);
+      fs.writeFileSync(testDataProcurementPath, JSON.stringify(testDataProcurement, null, 2));
+    }
 
 
 
-    const result = convertMonthlyProcurementV3(testDataBE, testDataAP);
+    const result = convertMonthlyProcurementV3(testDataBudget, testDataProcurement);
 
-    const savePath = path.join(__dirname, '__TEST__/convertMonthlyProcurementV3.json');
+    const savePath = path.join(__dirname, `__TEST__/convertMonthlyProcurementV3_${testSystemId}_result.json`);
     fs.writeFileSync(savePath, JSON.stringify(result, null, 2));
 
   }, 50000);

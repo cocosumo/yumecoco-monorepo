@@ -72,7 +72,9 @@ export const convertMonthlyProcurementV3 = (
           totalContractOrderCost += contractOrderCost;
         } 
 
+
         const existingSupplierIdx = result.findIndex((supplier) => supplier.supplierName === supplierName);
+        
 
         if (existingSupplierIdx !== -1) {
           
@@ -80,12 +82,14 @@ export const convertMonthlyProcurementV3 = (
           result[existingSupplierIdx].contractOrderCost += contractOrderCost;
           result[existingSupplierIdx].plannedBudgetCost += plannedBudgetCost;
 
-          // 発注先ごとの支払い済み金額・未払い金額を更新する
-          //result[existingSupplierIdx].totalUnpaidAmount = Big(result[existingSupplierIdx].contractOrderCost)
-          //  .minus(result[existingSupplierIdx].totalPaidAmount ?? 0)
-          //  .toNumber();
+          // 発注先ごとの未払い金額を更新する
+          result[existingSupplierIdx].totalUnpaidAmount = Big(result[existingSupplierIdx].contractOrderCost)
+            .minus(result[existingSupplierIdx].totalPaidAmount ?? 0)
+            .toNumber();
 
         } else {
+
+          // 発注先は配列に存在しない場合、初期化して、支払い情報を取得する
           result.push({
             supplierName: supplierName,
             contractOrderCost: contractOrderCost,
@@ -94,16 +98,16 @@ export const convertMonthlyProcurementV3 = (
             totalUnpaidAmount: 0,
             paymentHistory: [],
           });
-
-          /**************
-           * 支払いの更新
-           *************/
-
           const parsedIdx = existingSupplierIdx !== -1 ? existingSupplierIdx : result.length - 1;
 
+          /**************
+           * 支払い取得
+           *************/
+          
           // 発注先名が一致する発注実績を格納する
 
           for (const procurement of andpadProcurements) {
+
             // 発注先名が一致する発注実績を格納する
             if (procurement.supplierName.value !== supplierName) continue;
 
@@ -119,16 +123,12 @@ export const convertMonthlyProcurementV3 = (
               .plus(orderAmountBeforeTax)
               .toNumber();
 
-            const unpaidAmount = Big(result[parsedIdx].contractOrderCost)
-              .minus(paidAmount)
-              .toNumber();
-
             result[parsedIdx].totalPaidAmount = paidAmount;
-            result[parsedIdx].totalUnpaidAmount = unpaidAmount;
 
-            if (!procurement.支払日.value) continue; // 支払日の設定が無い場合は実績に反映しない
+            // 支払日の設定が無い場合は実績に反映しない
+            if (!procurement.支払日.value) continue; 
 
-            // 発注状態に関係なく、 最大・最小支払日の更新
+            // 支払日の最大値・最小値を更新する
             const paymentDateISO = parseISO(procurement.支払日.value).toISOString();
             
             if (paymentDateISO > maxPaymentDate || maxPaymentDate === '') {
@@ -138,19 +138,21 @@ export const convertMonthlyProcurementV3 = (
               minPaymentDate = paymentDateISO;
             }
 
-
             // 支払い履歴の更新
             result[parsedIdx].paymentHistory.push({
               paymentAmtBeforeTax: orderAmountBeforeTax,
               paymentDate: paymentDateISO,
-            });
-            totalContractOrderCost += orderAmountBeforeTax;
-
+            }); 
           }
-
-          // 発注先ごとの支払い済み金額・未払い金額を更新する
-          totalPaidAmount += result[parsedIdx].totalPaidAmount ?? 0;
+          
+          // 全体の支払い済み金額・未払い金額を更新する
+          totalPaidAmount = Big(result[parsedIdx].totalPaidAmount ?? 0)
+            .plus(totalPaidAmount)
+            .toNumber();
         }
+
+
+        
       }
 
       for (const childData of data.child_planned_budget_groups) {

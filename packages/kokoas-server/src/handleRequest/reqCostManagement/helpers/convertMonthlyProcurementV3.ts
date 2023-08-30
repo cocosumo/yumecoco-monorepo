@@ -30,10 +30,9 @@ export const convertMonthlyProcurementV3 = (
 
 
   const traverseData = (datas: Datum[]) => {
-    datas.forEach((data) => {
+    datas?.forEach((data) => {
  
       for (const item of data.planned_budget_items) {
-        console.log('item', item);
         // 予算情報
         let budgetItem = {
           supplierName: item.contract_name ? item.contract_name : `(${item.name})`, // 予算発注先が無い場合は部材名
@@ -63,7 +62,6 @@ export const convertMonthlyProcurementV3 = (
 
         const existingSupplier = result.findIndex((supplier) => supplier.supplierName === budgetItem.supplierName);
 
-        console.log('Existing Supplier', existingSupplier);
         if (existingSupplier !== -1) {
 
 
@@ -77,7 +75,6 @@ export const convertMonthlyProcurementV3 = (
             .minus(result[existingSupplier].totalPaidAmount ?? 0)
             .toNumber();
 
-          console.log('partialResult', result);
         } else {
           result.push({
             supplierName: budgetItem.supplierName,
@@ -94,18 +91,7 @@ export const convertMonthlyProcurementV3 = (
           for (const procurement of andpadProcurements) {
             // 発注先名が一致する発注実績を格納する
             if (procurement.supplierName.value !== budgetItem.supplierName) continue;
-
-            console.log('procurement', procurement);
-
-            // 発注状態に関係なく、 最大・最小支払日の更新
-            const paymentDateISO = parseISO(procurement.支払日.value).toISOString();
-            if (paymentDateISO > maxPaymentDate || maxPaymentDate === '') {
-              maxPaymentDate = paymentDateISO;
-            }
-            if (paymentDateISO < minPaymentDate || minPaymentDate === '') {
-              minPaymentDate = paymentDateISO;
-            }
-           
+            if (!procurement.支払日.value) continue; // 支払日の設定が無い場合は実績に反映しない
             // 発注状況が集計対象外の物は除外する
             if ([
               '見積依頼作成中',
@@ -117,10 +103,16 @@ export const convertMonthlyProcurementV3 = (
               continue;
             }
 
-            // const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
-
-            if (!paymentDateISO) continue; // 支払日の設定が無い場合は実績に反映しない
-
+            // 発注状態に関係なく、 最大・最小支払日の更新
+            const paymentDateISO = parseISO(procurement.支払日.value).toISOString();
+            
+            if (paymentDateISO > maxPaymentDate || maxPaymentDate === '') {
+              maxPaymentDate = paymentDateISO;
+            }
+            if (paymentDateISO < minPaymentDate || minPaymentDate === '') {
+              minPaymentDate = paymentDateISO;
+            }
+           
             const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
 
             // 発注先ごとの支払い済み金額・未払い金額を更新する
@@ -137,12 +129,6 @@ export const convertMonthlyProcurementV3 = (
             });
             totalContractOrderCost += orderAmountBeforeTax;
 
-            if (paymentDateISO > maxPaymentDate || maxPaymentDate === '') {
-              maxPaymentDate = paymentDateISO;
-            }
-            if (paymentDateISO < minPaymentDate || minPaymentDate === '') {
-              minPaymentDate = paymentDateISO;
-            }
           }
         }
       }
@@ -158,7 +144,6 @@ export const convertMonthlyProcurementV3 = (
   traverseData(andpadBudgetResult);
 
   // monthsの作成
-  
   const months = createMonths({
     minPaymentISODate: minPaymentDate,
     maxPaymentISODate: maxPaymentDate,

@@ -5,7 +5,7 @@ import path from 'path';
 
 describe('getMonthlyProcurementBySystemId', () => {
   it('should get data by systemId', async () => {
-    const testSystemId = 11648284;
+    const testSystemId = 11637372;
 
     const result = await getMonthlyProcurementBySystemId(testSystemId);
 

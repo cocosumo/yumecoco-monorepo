@@ -12,49 +12,30 @@ export const createMonths = ({
   maxPaymentISODate: string,
 }) => {
 
-  let minNumberOfMonths = 6; // 最低表示月数
+  // 最低6ヶ月分のデータを生成する
+  const minNumberOfMonths = 6;
 
-  console.log('maxPaymentDate', maxPaymentISODate);
-  console.log('minPaymentDate', minPaymentISODate);
+  // Date型に変換
+  // 空の場合は現在の日付を設定
+  const startDate = maxPaymentISODate ? parseISO(maxPaymentISODate) : new Date();
+  const endDate = minPaymentISODate ? parseISO(minPaymentISODate) : new Date();
+  
+  // 月の差分を取得
+  const difference = differenceInMonths(startDate, endDate);
 
-  const difference = differenceInMonths(parseISO(maxPaymentISODate), parseISO(minPaymentISODate)) + 1;
+  // 最低6ヶ月分のデータを生成する
+  const numMonths = Math.max(
+    minNumberOfMonths, 
+    difference + 1, //　最後の月を含めるために + 1
+  );
+  
+  // 月のリストを生成
+  return Array.from(
+    { length: numMonths }, 
+    (_, index) => {
+      const newDate = subMonths(startDate, index);
+      return format(newDate, 'yyyyMM');
+    },
+  );
 
-  console.log('differenceInMonths', difference);
-
-  if (minNumberOfMonths < difference) { // 最低表示月数より差分が大きい場合は最低表示月数を更新
-    minNumberOfMonths = difference;
-  }
-
-
-  const monthList = [];
-
-  for (let i = 0; i < minNumberOfMonths; i++) {
-    const dateObject = parseISO(maxPaymentISODate);
-    const newDate = new Date(dateObject);
-
-    const parsedNewDate = format(subMonths(newDate, i), 'yyyyMM');
-
-    monthList.push(parsedNewDate);
-  }
-
-  /*   
-  if (maxPaymentDate === minPaymentDate) return [maxPaymentDate];
-
-  const monthList = [maxPaymentDate];
-  const parsedNewDate = maxPaymentDate;
-
-  do {
-    const dateObject = parseISO(parsedNewDate);
-    const newDate = new Date(dateObject);
-
-    console.log('newDate::', newDate, ', parsedNewDate::',  parsedNewDate);
-
-    // 1か月前の日付を計算
-    newDate.setMonth(newDate.getMonth() - 1);
-    parsedNewDate = format(newDate, 'yyyyMM');
-
-    monthList.push(parsedNewDate);
-  } while (parsedNewDate !== minPaymentDate); */
-
-  return monthList;
 };

@@ -11,7 +11,6 @@ describe('createMonths', () => {
       minPaymentISODate: '',
       maxPaymentISODate: '',
     });
-    
 
     // Expect that the first element of the array is the current year and month
     expect(result[0]).toEqual(format(new Date(), 'yyyyMM'));
@@ -19,7 +18,21 @@ describe('createMonths', () => {
     // Expect that the length of the array is 6
     expect(result.length).toEqual(6);
   });
-      
+
+  it('should generate 6 months if dates are invalid', () => {
+
+    const result = createMonths({
+      minPaymentISODate: 'invalidなんとかストリング',
+      maxPaymentISODate: 'invalidなんとかストリング',
+    });
+
+    // Expect that the first element of the array is the current year and month
+    expect(result[0]).toEqual(format(new Date(), 'yyyyMM'));
+    
+    // Expect that the length of the array is 6
+    expect(result.length).toEqual(6);
+
+  } );
       
 
   it('should generate 6 months if min and max dates are equal', () => {

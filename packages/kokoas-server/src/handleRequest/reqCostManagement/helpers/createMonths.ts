@@ -12,22 +12,30 @@ export const createMonths = ({
   maxPaymentISODate: string,
 }) => {
 
+  // 最低6ヶ月分のデータを生成する
   const minNumberOfMonths = 6;
 
-  const startDate = parseISO(maxPaymentISODate);
-  const endDate = parseISO(minPaymentISODate);
+  // Date型に変換
+  // 空の場合は現在の日付を設定
+  const startDate = maxPaymentISODate ? parseISO(maxPaymentISODate) : new Date();
+  const endDate = minPaymentISODate ? parseISO(minPaymentISODate) : new Date();
   
+  // 月の差分を取得
   const difference = differenceInMonths(startDate, endDate);
-  const numMonths = Math.max(minNumberOfMonths, difference + 1);
+
+  // 最低6ヶ月分のデータを生成する
+  const numMonths = Math.max(
+    minNumberOfMonths, 
+    difference + 1, //　最後の月を含めるために + 1
+  );
   
-  const monthList = Array.from(
+  // 月のリストを生成
+  return Array.from(
     { length: numMonths }, 
     (_, index) => {
       const newDate = subMonths(startDate, index);
       return format(newDate, 'yyyyMM');
     },
   );
-
-  return monthList;
 
 };

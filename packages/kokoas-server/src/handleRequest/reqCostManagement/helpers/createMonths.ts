@@ -23,7 +23,7 @@ export const createMonths = ({
   // 月の差分を取得
   const difference = differenceInMonths(startDate, endDate);
 
-  // 最低6ヶ月分のデータを生成する
+  // 月の差分が最低6ヶ月分より小さい場合は、最低6ヶ月分のデータを生成する
   const numMonths = Math.max(
     minNumberOfMonths, 
     difference + 1, //　最後の月を含めるために + 1

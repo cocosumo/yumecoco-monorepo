@@ -105,17 +105,20 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               <Stack
                 direction={'row'}
                 spacing={1}
+                width={'100%'}
               >
-                <Typography fontSize={12} color={grey[500]}>
+                <Typography fontSize={10} color={grey[500]}>
                   {info.row.index + 1}
                 </Typography>
-                <Typography>
+                <Typography
+                  fontSize={10}
+                >
                   {String(info.getValue())}
                 </Typography>
               </Stack>
             );
           },
-          size: 200,
+          minSize: 200,
         },
         {
           header: () => (

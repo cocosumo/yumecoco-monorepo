@@ -2,15 +2,6 @@ import { Paper, Table, TableContainer } from '@mui/material';
 import { grey, yellow } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
-const stickyCellStyle = (_: number, leftOffset: number) => ({
-  position: 'sticky',
-  left: leftOffset,
-  zIndex: 5,
-  backgroundColor: 'white',
-  borderRight: '2px solid lightgray',
-
-  //boxShadow: index === 3 ? '2px 0px 2px lightgray' : undefined,
-});
 
 export const PurchasesTableContainer = ({
   children,
@@ -40,9 +31,27 @@ export const PurchasesTableContainer = ({
             zIndex: 1,
           },
           
-          '& th:first-of-type, & td:first-of-type': stickyCellStyle(0, 0),
-          '& th:nth-of-type(2), & td:nth-of-type(2)': stickyCellStyle(1, col1Width),
-          '& th:nth-of-type(3), & td:nth-of-type(3)': stickyCellStyle(2, col1Width + col2Width),
+          '& th:first-of-type, & td:first-of-type': {
+            position: 'sticky',
+            left: 0,
+            zIndex: 5,
+            backgroundColor: 'white',
+          },
+          '& th:nth-of-type(2), & td:nth-of-type(2)': {
+            position: 'sticky',
+            left: col1Width,
+            zIndex: 5,
+            backgroundColor: 'white',
+            borderLeft: '2px solid lightgray',
+          },
+          '& th:nth-of-type(3), & td:nth-of-type(3)': {
+            position: 'sticky',
+            left: col1Width + col2Width,
+            zIndex: 5,
+            backgroundColor: 'white',
+            borderLeft: '2px solid lightgray',
+            borderRight: '2px solid lightgray',
+          },
 
           // sticky last column
           '& th:last-of-type, & td:last-of-type': {

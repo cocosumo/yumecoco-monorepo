@@ -28,6 +28,7 @@ export interface CostItem {
   note: null;
 }
 
+/** 予算　(茶色い列) */
 export interface PlannedBudgetItem {
   id: number;
   planned_budget_group_id: number;
@@ -66,11 +67,15 @@ export interface PlannedBudgetItem {
   requested_contract_order_cost: null;
   fixed_date: string | null;
   planned_budget_estimate_item?: PlannedBudgetEstimateItem;
+
+  /** 部材・明細 */
   contract_order_item?: ContractOrderItem;
+
   requested_fixed_authorize_id: null;
   requested_fixed_authorize_read_flg: boolean;
 }
 
+/** 発注・経費　(赤い列) */
 export interface ContractOrderItem {
   id: number;
   contract_order_id: number;
@@ -107,6 +112,7 @@ export interface ContractOrderItem {
   client_accounting_cost_master_id: null;
 }
 
+/** 見積 (列) */
 export interface PlannedBudgetEstimateItem {
   id: number;
   planned_budget_item_id: number;

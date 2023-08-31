@@ -1,4 +1,4 @@
-import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails } from 'types';
+import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails, Status } from 'types';
 import { createMonths } from './createMonths';
 import { format, parseISO } from 'date-fns';
 
@@ -81,6 +81,7 @@ export const convertMonthlyProcurementV2 = (
           const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
           result[parsedIdx].paymentHistory.push({
             paymentAmtBeforeTax: orderAmountBeforeTax,
+            state: procurement.orderStatus.value as Status,
             paymentDate: parsedDate,
           });
           totalContractOrderCost += orderAmountBeforeTax;

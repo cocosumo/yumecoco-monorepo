@@ -130,6 +130,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </Typography>);
           },
           footer: props => props.column.id,
+          size: 130,
         },
         {
           header: () => (
@@ -144,6 +145,8 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </BoldCell>);
           },
           footer: props => props.column.id,
+          size: 130,
+          
         },
         ...paymentDateColumns.flatMap(column => column),
         {
@@ -166,6 +169,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </Typography>
             );
           },
+          size: 130,
         },
      
       ];

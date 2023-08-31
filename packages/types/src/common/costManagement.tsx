@@ -1,5 +1,18 @@
+
+export const statuses = [
+  '発注作成中',
+  '請負承認待ち',
+  '工事中',
+  '工事完了確認待ち',
+  '工事完了',
+  '請求確認済',
+  '支払確認済',
+] as const;
+
+export type Status = typeof statuses[number];
 export interface PaymentHistory {
   paymentDate: string | null;
+  state: Status,
   paymentAmtBeforeTax: number;
 }
 
@@ -23,16 +36,6 @@ export interface ProcurementSupplierDetails {
   /** 発注 */
   paymentHistory: PaymentHistory[];
 
-}
-
-/** @deprecated will use ProcurementSupplierDetails instead */
-export interface ProcurementInfo {
-  supplierName: string;
-  orderAmountBeforeTax: number;
-  paymentHistory: Array<{
-    paymentDate: string | null;
-    paymentAmountBeforeTax: number;
-  }>;
 }
 
 

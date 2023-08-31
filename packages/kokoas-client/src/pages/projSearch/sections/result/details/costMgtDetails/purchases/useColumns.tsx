@@ -158,11 +158,11 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
 
             const {
               totalPaidAmount = 0,
-              plannedBudgetCost = 0,
+              contractOrderCost = 0,
             } = row.original;
             return (
               <Typography align='right'>
-                {((plannedBudgetCost - totalPaidAmount) as number).toLocaleString()}
+                {((contractOrderCost - totalPaidAmount) as number).toLocaleString()}
               </Typography>
             );
           },

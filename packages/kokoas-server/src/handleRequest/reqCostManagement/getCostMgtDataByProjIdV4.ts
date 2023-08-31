@@ -142,8 +142,8 @@ export const getCostMgtDataByProjIdV4 = async (
   } = calcProfitability({
     orderAmountAfterTax: contracts?.契約金額 ?? 0,
     additionalAmountAfterTax: contracts?.追加金額 ?? 0,
-    purchaseAmount: costManagemenList.totalPlannedBudgetCost,
-    paymentAmount: costManagemenList.totalContractOrderCost,
+    purchaseAmount: costManagemenList.totalContractOrderCost,
+    paymentAmount: costManagemenList.totalPaidAmount,
     depositAmount: depositAmount,
     yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,

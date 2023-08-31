@@ -1,6 +1,6 @@
 import { Big } from 'big.js';
 import { createMonths } from './createMonths';
-import { ProcurementSupplierDetails } from 'types';
+import { ProcurementSupplierDetails, Status } from 'types';
 import { AndpadBudgetResult, Datum } from 'types/src/common/andpad.order.budget';
 import parseISO from 'date-fns/parseISO';
 
@@ -141,6 +141,7 @@ export const convertMonthlyProcurementV3 = (
             // 支払い履歴の更新
             result[parsedIdx].paymentHistory.push({
               paymentAmtBeforeTax: orderAmountBeforeTax,
+              state: procurement.orderStatus.value as Status,
               paymentDate: paymentDateISO,
             }); 
           }

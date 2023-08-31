@@ -5,11 +5,13 @@ import path from 'path';
 import { getBudgetBySystemId } from 'api-andpad';
 import { getAndpadProcurementByAndpadProjId } from 'api-kintone';
 
+// テストデータ
+// 12160769 見積原価と実行予算が一致しない
 
 
 describe('convertMonthlyProcurement', () => {
   it('should convert monthly procurement', async () => {
-    const testSystemId = 11637372;
+    const testSystemId = 12160769;
 
     const testDataBudgetPath = path.join(__dirname, `./__TEST__/convertMonthlyProcurementV3_${testSystemId}_budget.json`);
 

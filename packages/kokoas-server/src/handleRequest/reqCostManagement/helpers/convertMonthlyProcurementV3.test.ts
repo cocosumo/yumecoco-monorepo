@@ -11,7 +11,7 @@ import { getAndpadProcurementByAndpadProjId } from 'api-kintone';
 
 describe('convertMonthlyProcurement', () => {
   it('should convert monthly procurement', async () => {
-    const testSystemId = 11471781;
+    const testSystemId = 11550052;
 
     const testDataBudgetPath = path.join(__dirname, `./__TEST__/convertMonthlyProcurementV3_${testSystemId}_budget.json`);
 

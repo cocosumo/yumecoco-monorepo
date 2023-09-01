@@ -53,10 +53,13 @@ export const getCostMgtDataByProjIdV4 = async (
     yumeCommFeeRate,
   } = await getProjTypeById(projTypeId.value); // 工事種別
 
+
   // 古い工事情報データにはcocoAGとyumeAGの記入はないので、顧客グループのデータから取得
   const cocoAgNames = projGetAgentNamesByType(projAgents, 'cocoAG') || custGetAgentsNamesByType(custGroupAgents, 'cocoAG');
   const yumeAGNames = projGetAgentNamesByType(projAgents, 'yumeAG') || custGetAgentsNamesByType(custGroupAgents, 'yumeAG');
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
+
+  const hasYumeAG = yumeAGNames && !yumeAGNames.includes('ここすも');
 
 
   const andpadBudgetExecution = await getBudgetBySystemId(andpadSystemId); // 実行予算
@@ -158,7 +161,7 @@ export const getCostMgtDataByProjIdV4 = async (
     purchaseAmount: costManagemenList.totalContractOrderCost,
     paymentAmount: costManagemenList.totalPaidAmount,
     depositAmount: depositAmount,
-    yumeCommFeeRate: +yumeCommFeeRate.value,
+    yumeCommFeeRate: hasYumeAG ? +yumeCommFeeRate.value : 0,
     tax: contracts?.税率 ?? 0.1,
     hasRefund: contracts?.返金 ?? false,
     subsidyAmt: contracts?.補助金Amt ?? 0,

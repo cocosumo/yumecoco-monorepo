@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { grey, red } from '@mui/material/colors';
 
 const SummaryValue = ({
   value,
@@ -12,7 +12,7 @@ const SummaryValue = ({
     <span>
       <Typography
         fontWeight={600}
-        color={grey[900]}
+        color={value >= 0 ? grey[900] : red[500]}
         textAlign='right'
         component={'span'}
         whiteSpace={'nowrap'}

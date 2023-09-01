@@ -61,7 +61,7 @@ export const PaymentInfo = ({
       ...resolvePayment,
       {
         label: '返金',
-        value: refundAmt.value ? `${(+refundAmt.value).toLocaleString()} (${refundMethod.value})` : '-',
+        value: +refundAmt.value ? `${(+refundAmt.value).toLocaleString()} (${refundMethod.value})` : '-',
       },
       {
         label: '減額',

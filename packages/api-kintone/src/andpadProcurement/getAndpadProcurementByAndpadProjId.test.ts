@@ -5,7 +5,7 @@ import path from 'path';
 
 describe('getAndpadProcurementByAndpadProjId.test', () => {
   it('should get andpad orders by andpadProjId', async () => {
-    const systemId = '11648284';
+    const systemId = '11593849';
     const result = await getAndpadProcurementByAndpadProjId(systemId);
 
     console.log(result);

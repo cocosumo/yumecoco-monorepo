@@ -74,7 +74,6 @@ export const getCostMgtDataByProjIdV4 = async (
     minPaymentDate,
   } = costManagemenList;
 
-  // 取得したデータを整形する
 
   console.log('Retrieving Payment Data...');
   /** 入金 */
@@ -89,32 +88,46 @@ export const getCostMgtDataByProjIdV4 = async (
       contractType,
       totalContractAmt,
       tax,
+
       hasRefund,
+      refundAmt,
+
+      hasReduction,
+      reductionAmt,
+
       hasSubsidy,
       subsidyAmt,
     }) => {
-      if (contractType.value === '契約' || contractType.value === '') {
-        return {
-          ...acc,
-          契約金額: acc?.契約金額 + +totalContractAmt.value,
-          税率: +tax.value,
-          返金: hasRefund.value === 'はい' ? true : false,
-          補助金: acc?.補助金 + hasSubsidy.value === 'はい' ? +subsidyAmt.value : 0,
-        };
+      const newAcc = { ...acc };
+
+      if (contractType.value === '契約' 
+      || contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
+      ) {
+        newAcc.契約金額 += +totalContractAmt.value;
       } else if (contractType.value === '追加') {
-        return {
-          ...acc,
-          追加金額: acc.追加金額 + +totalContractAmt.value,
-          返金: acc?.返金 || hasRefund.value === 'はい' ? true : false,
-          補助金: acc?.補助金 + hasSubsidy.value === 'はい' ? +subsidyAmt.value : 0,
-        };
+        newAcc.追加金額 += +totalContractAmt.value;
       }
+
+      // 返金がある場合は、返金フラグをtrueにする
+      newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい' ? true : false;
+
+      newAcc.税率 = +tax.value;
+      newAcc.補助金Amt += hasSubsidy.value === 'はい' ? +subsidyAmt.value : 0;
+
+      // K165で追加金額に返金と減額を含めるようになったが、「返金」「減額」も表示する依頼がくるかもしれないので、
+      // 別々のプロパティにする
+      newAcc.減額Amt += hasReduction.value === 'はい' ? +reductionAmt.value : 0;
+      newAcc.返金Amt += hasRefund.value === 'はい' ? +refundAmt.value : 0;
+
+      return newAcc;
     }, {
       契約金額: 0,
       追加金額: 0,
       税率: 0.1,
       返金: false,
-      補助金: 0,
+      減額Amt: 0,
+      返金Amt: 0,
+      補助金Amt: 0,
     });
 
   console.log('Calculating Profitability...');
@@ -141,14 +154,14 @@ export const getCostMgtDataByProjIdV4 = async (
     補助金,
   } = calcProfitability({
     orderAmountAfterTax: contracts?.契約金額 ?? 0,
-    additionalAmountAfterTax: contracts?.追加金額 ?? 0,
+    additionalAmountAfterTax: contracts.追加金額 - (contracts.返金Amt + contracts.減額Amt), 
     purchaseAmount: costManagemenList.totalContractOrderCost,
     paymentAmount: costManagemenList.totalPaidAmount,
     depositAmount: depositAmount,
     yumeCommFeeRate: +yumeCommFeeRate.value,
     tax: contracts?.税率 ?? 0.1,
     hasRefund: contracts?.返金 ?? false,
-    subsidyAmt: contracts?.補助金 ?? 0,
+    subsidyAmt: contracts?.補助金Amt ?? 0,
   });
 
 

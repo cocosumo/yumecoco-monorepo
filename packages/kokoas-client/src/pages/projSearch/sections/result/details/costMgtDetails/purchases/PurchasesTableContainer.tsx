@@ -2,13 +2,18 @@ import { Paper, Table, TableContainer } from '@mui/material';
 import { grey, yellow } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
+
 export const PurchasesTableContainer = ({
   children,
   width = 1300,
+  allWidth,
 }: {
   children: ReactNode,
   width?: number,
+  allWidth: number[],
 }) => {
+
+  const [col1Width, col2Width] = allWidth;
 
   return (
     <Paper>
@@ -31,19 +36,35 @@ export const PurchasesTableContainer = ({
             left: 0,
             zIndex: 5,
             backgroundColor: 'white',
-            borderRight: '2px solid lightgray',
-
           },
-          /*           '& th:nth-of-type(2), & td:nth-of-type(2)': {
+          '& th:nth-of-type(2), & td:nth-of-type(2)': {
             position: 'sticky',
-            borderRight: '2px solid lightgray',
-            left: firstColumnWidth,
+            left: col1Width,
+            zIndex: 5,
             backgroundColor: 'white',
-            zIndex: 10,
-          }, */
+            borderLeft: '2px solid lightgray',
+          },
+          '& th:nth-of-type(3), & td:nth-of-type(3)': {
+            position: 'sticky',
+            left: col1Width + col2Width,
+            zIndex: 5,
+            backgroundColor: 'white',
+            borderLeft: '2px solid lightgray',
+            borderRight: '2px solid lightgray',
+          },
 
-          '& td:first-of-type, & th:nth-of-type(2)': {
-            zIndex: 2,
+          // sticky last column
+          '& th:last-of-type, & td:last-of-type': {
+            position: 'sticky',
+            right: 0,
+            zIndex: 5,
+            backgroundColor: 'white',
+            borderLeft: '2px solid lightgray',
+            boxShadow: '2px 0px 2px lightgray',
+          },
+
+          '& th:first-of-type, th:nth-of-type(2), th:nth-of-type(3), th:last-of-type' : {
+            zIndex: 10,
           },
 
           '& tr:nth-of-type(even) td': {

@@ -105,17 +105,20 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               <Stack
                 direction={'row'}
                 spacing={1}
+                width={'100%'}
               >
-                <Typography fontSize={12} color={grey[500]}>
+                <Typography fontSize={10} color={grey[500]}>
                   {info.row.index + 1}
                 </Typography>
-                <Typography>
+                <Typography
+                  fontSize={10}
+                >
                   {String(info.getValue())}
                 </Typography>
               </Stack>
             );
           },
-          size: 200,
+          minSize: 200,
         },
         {
           header: () => (
@@ -130,6 +133,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </Typography>);
           },
           footer: props => props.column.id,
+          size: 130,
         },
         {
           header: () => (
@@ -144,6 +148,8 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </BoldCell>);
           },
           footer: props => props.column.id,
+          size: 130,
+          
         },
         ...paymentDateColumns.flatMap(column => column),
         {
@@ -166,6 +172,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </Typography>
             );
           },
+          size: 130,
         },
      
       ];

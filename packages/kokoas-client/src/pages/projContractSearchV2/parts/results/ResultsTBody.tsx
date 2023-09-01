@@ -24,6 +24,10 @@ export const ResultsTBody = ({
         contractStatus,
         contractId,
         custGroupId,
+        category,
+        refundAmt,
+        reductionAmt,
+        subsidyAmt,
         //projId,
         projDataId,
         projName,
@@ -67,6 +71,10 @@ export const ResultsTBody = ({
                 />
               </Tooltip>
               )}
+            category={category || '契約'}
+            refundAmt={refundAmt ? refundAmt.toLocaleString() : '-'}
+            reductionAmt={reductionAmt ? reductionAmt.toLocaleString() : '-'}
+            subsidyAmt={subsidyAmt ? subsidyAmt.toLocaleString() : '-'}
             signMethod={signMethod === 'wetInk' ? '手書' : '電子'}
             projDataId={projDataId}
             projName={projName}

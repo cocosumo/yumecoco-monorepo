@@ -1,4 +1,5 @@
-import { format, lastDayOfMonth } from 'date-fns';
+import lastDayOfMonth from 'date-fns/lastDayOfMonth';
+import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 
 

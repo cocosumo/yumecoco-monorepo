@@ -98,7 +98,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
     // 発注先情報の反映
     ws.getCell(`A${rowIdx}`).value = currRowIdx + ((currSheetIdx - 1) * 15);
     ws.getCell(`B${rowIdx}`).value = procurement.supplierName;
-    ws.getCell(`C${rowIdx}`).value = procurement.plannedBudgetCost;
+    ws.getCell(`C${rowIdx}`).value = procurement.contractOrderCost;
 
     // 支払い実績の反映
     for (const paymentHistory of procurement.paymentHistory) {

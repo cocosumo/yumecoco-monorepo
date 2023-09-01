@@ -1,6 +1,5 @@
 import { TableCellProps, TableHead } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { translations } from 'kokoas-client/src/helpers/translations';
 import { ResultsTHeadSortLabel } from './ResultsTHeadSortLabel';
 import { TRowLayout } from './TRowLayout';
 
@@ -28,7 +27,7 @@ export const ResultsTHead = () => {
     >
       <TRowLayout
         contractStatus={<ResultsTHeadSortLabel headerLabel='contractStatus' />}
-        projDataId={translations.projDataId}
+        projDataId={<ResultsTHeadSortLabel headerLabel='projDataId' />}
         projName={<ResultsTHeadSortLabel headerLabel='projName' />}
         store={<ResultsTHeadSortLabel headerLabel='store' />}
         yumeAG={<ResultsTHeadSortLabel headerLabel='yumeAG' />}
@@ -41,6 +40,11 @@ export const ResultsTHead = () => {
         createdAt={<ResultsTHeadSortLabel headerLabel='createdAt' />}
         updatedAt={<ResultsTHeadSortLabel headerLabel='updatedAt' />}
         signMethod={<ResultsTHeadSortLabel headerLabel='signMethod' />}
+        category={<ResultsTHeadSortLabel headerLabel='category' />}
+        refundAmt={<ResultsTHeadSortLabel headerLabel='refundAmt' />}
+        reductionAmt={<ResultsTHeadSortLabel headerLabel='reductionAmt' />}
+        subsidyAmt={<ResultsTHeadSortLabel headerLabel='subsidyAmt' />}
+
       />
 
     </TableHead>

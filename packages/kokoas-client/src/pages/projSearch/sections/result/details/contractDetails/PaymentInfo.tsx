@@ -29,6 +29,10 @@ export const PaymentInfo = ({
       othersAmtDate,
 
       refundAmt,
+
+      reductionAmt,
+      refundMethod,
+
       subsidyAmt,
       subsidyMethod,
 
@@ -57,7 +61,11 @@ export const PaymentInfo = ({
       ...resolvePayment,
       {
         label: '返金',
-        value: (+refundAmt.value).toLocaleString(),
+        value: refundAmt.value ? `${(+refundAmt.value).toLocaleString()} (${refundMethod.value})` : '-',
+      },
+      {
+        label: '減額',
+        value: `${(+reductionAmt.value).toLocaleString() }`,
       },
       {
         label: '補助金',

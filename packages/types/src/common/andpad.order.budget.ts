@@ -140,6 +140,8 @@ export interface PlannedBudgetEstimateItem {
   /** 見積金額（金額） */
   estimate_price: number;
 
+
+
 }
 
 export type State = (

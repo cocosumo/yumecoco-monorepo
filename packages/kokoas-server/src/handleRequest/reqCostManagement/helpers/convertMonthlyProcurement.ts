@@ -64,6 +64,7 @@ export const convertMonthlyProcurement = (
 
         result[parsedIdx].paymentHistory.push({
           paymentAmtBeforeTax: gMonth.price,
+          state: '' as any,
           paymentDate: parsedDate,
         }); 
       }

@@ -16,7 +16,7 @@ const exemptedStates = [
  * 月ごとの発注履歴データの変換処理
  * 
  * @param andpadBudget andpad実行予算データ (実行予算と発注実績を取得する)
- * @param andpadProcurements kintoneよりandpad (支払い情報を取得する)
+ * @param andpadProcurements Andpadのデータエクスポートの発注をKintoneに格納したもの (支払い情報を取得する)
  * @returns 
  */
 export const convertMonthlyProcurementV3 = (
@@ -151,14 +151,11 @@ export const convertMonthlyProcurementV3 = (
             .plus(totalPaidAmount)
             .toNumber();
         }
-
-
-        
       }
 
-      for (const childData of data.child_planned_budget_groups) {
-        traverseData(childData.child_planned_budget_groups);
-      }
+      console.log('child_planned_budget_groups', data.child_planned_budget_groups);
+      traverseData(data.child_planned_budget_groups);
+
     });
   };
 

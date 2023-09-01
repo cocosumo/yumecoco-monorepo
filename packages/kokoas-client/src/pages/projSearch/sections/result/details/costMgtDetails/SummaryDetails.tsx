@@ -81,7 +81,7 @@ export const SummaryDetails = ({
       >
         
         <SummaryInfo 
-          label='受注額計'
+          label='受注額計（税込）'
           value={roundTo(受注額計_税込)}
         />
 
@@ -92,11 +92,11 @@ export const SummaryDetails = ({
 
 
         <SummaryInfo 
-          label='入金額'
+          label='入金額（税込）'
           value={入金額}
         />
         <SummaryInfo 
-          label='未入金額'
+          label='未入金額（税込）'
           value={roundTo(未入金)}
         />
 

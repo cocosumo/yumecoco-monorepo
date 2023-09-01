@@ -1,8 +1,16 @@
-import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails } from 'types';
+import { AndpadProcurementMonthly, Group, ProcurementSupplierDetails, Status } from 'types';
 import { createMonths } from './createMonths';
 import { format, parseISO } from 'date-fns';
 
 
+/**
+ * 月ごとの発注履歴データの変換処理
+ * @param andpadBudgetExecution andpad推移表データ
+ * @param andpadProcurements kintoneよりandpad発注一覧
+ * @returns 
+ * 
+ * @deprecated replaced with convertMonthlyProcurementV3
+ */
 export const convertMonthlyProcurementV2 = (
   andpadBudgetExecution: AndpadProcurementMonthly,
   andpadProcurements: DBAndpadprocurements.SavedData[],
@@ -56,14 +64,14 @@ export const convertMonthlyProcurementV2 = (
         for (const procurement of andpadProcurements) {
           // 発注先名が一致する発注実績を格納する
           if (procurement.supplierName.value !== contract.name) continue;
-          
+
           console.log('発注状況', procurement.orderStatus.value);
           // 発注状況が集計対象外の物は除外する
           if ((procurement.orderStatus.value === '見積依頼作成中') ||
-          (procurement.orderStatus.value === '見積作成中') ||
-          (procurement.orderStatus.value === '発注作成中') ||
-          (procurement.orderStatus.value === '発注済') ||
-          (procurement.orderStatus.value === '請負承認待ち')) continue;
+            (procurement.orderStatus.value === '見積作成中') ||
+            (procurement.orderStatus.value === '発注作成中') ||
+            (procurement.orderStatus.value === '発注済') ||
+            (procurement.orderStatus.value === '請負承認待ち')) continue;
 
           const paymentDate = procurement.支払日.value ? parseISO(procurement.支払日.value) : '';
           const parsedDate = paymentDate !== '' ? format(paymentDate, 'yyyyMM') : '';
@@ -73,6 +81,7 @@ export const convertMonthlyProcurementV2 = (
           const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
           result[parsedIdx].paymentHistory.push({
             paymentAmtBeforeTax: orderAmountBeforeTax,
+            state: procurement.orderStatus.value as Status,
             paymentDate: parsedDate,
           });
           totalContractOrderCost += orderAmountBeforeTax;
@@ -105,7 +114,10 @@ export const convertMonthlyProcurementV2 = (
   console.log(JSON.stringify(result, null, 2));
 
   // monthsの作成
-  const months = createMonths(maxPaymentDate, minPaymentDate);
+  const months = createMonths({
+    minPaymentISODate: minPaymentDate,
+    maxPaymentISODate: maxPaymentDate,
+  });
 
   return {
     result,

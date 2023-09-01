@@ -64,7 +64,7 @@ export const Actions = ({
         size='small'
         variant='outlined'
           // 固定、テスト用
-        href={`https://budget.andpad.jp/orders/${systemId}/contract_order_payments/`}
+        href={`https://andpad.jp/manager/my/orders/${systemId}/contract_orders`}
         target={'_blank'}
       >
         Andpadで開く

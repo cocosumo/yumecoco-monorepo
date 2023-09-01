@@ -24,17 +24,7 @@ export interface CostManagement {
 }
 
 
-export const calcProfitability = ({
-  orderAmountAfterTax,
-  additionalAmountAfterTax,
-  purchaseAmount,
-  paymentAmount,
-  depositAmount,
-  yumeCommFeeRate,
-  tax,
-  hasRefund,
-  subsidyAmt = 0,
-}: {
+export const calcProfitability = (params: {
   orderAmountAfterTax: number // 受注金額(税込)
   additionalAmountAfterTax: number // 追加金額(税込)
   purchaseAmount: number // 実行予算金額
@@ -45,6 +35,20 @@ export const calcProfitability = ({
   hasRefund: boolean // 返金有無(0: なし, 1: あり)
   subsidyAmt?: number // 補助金額
 }): CostManagement => {
+
+  console.log('CalcProfitability params', params);
+
+  const {
+    orderAmountAfterTax,
+    additionalAmountAfterTax,
+    purchaseAmount,
+    paymentAmount,
+    depositAmount,
+    yumeCommFeeRate,
+    tax,
+    hasRefund,
+    subsidyAmt = 0,
+  } = params;
 
   const taxForCalc = Big(tax).add(1);
 
@@ -71,16 +75,22 @@ export const calcProfitability = ({
     .toNumber();
 
   /** 予定利益率 */
-  const plannedProfitMargin = Big(plannedProfit).div(orderTotalBeforeTax)
-    .mul(100)
-    .round(2, 1)
-    .toNumber();
+  const plannedProfitMargin = orderTotalBeforeTax 
+    ? Big(plannedProfit)
+      .div(orderTotalBeforeTax)
+      .mul(100)
+      .round(2, 1)
+      .toNumber()
+    : 0;
 
   /** 実利益率 */
-  const actualProfitMargin = Big(actualProfit).div(orderTotalBeforeTax)
-    .mul(100)
-    .round(2, 1)
-    .toNumber();
+  const actualProfitMargin = orderTotalBeforeTax 
+    ?  Big(actualProfit)
+      .div(orderTotalBeforeTax)
+      .mul(100)
+      .round(2, 1)
+      .toNumber()
+    : 0;
 
   /** 実利益税抜_夢てつ */
   const yumeActualProfit = Big(actualProfit).mul(yumeCommFeeRate)

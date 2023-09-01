@@ -23,6 +23,8 @@ export const CostMgtDetails = ({
   const navigate = useNavigateWithQuery();
 
   const parsedSystemId = projRec?.forceLinkedAndpadSystemId.value || String(andpadRec?.システムID || '');
+
+  console.log('data', data);
   
   return (
     <Stack
@@ -39,7 +41,18 @@ export const CostMgtDetails = ({
         要望などありましたら、西ー小出、東ー林 まで連絡お願いします。
       </Alert>
       {isLoading && (
-        <Loading />
+        <Stack
+          spacing={2}
+        >
+          <Button
+            href={`https://andpad.jp/manager/my/orders/${parsedSystemId}/contract_orders`}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Andpadで開く
+          </Button>
+          <Loading />
+        </Stack>
       )}
 
       {!isLoading && !parsedSystemId && (

@@ -38,7 +38,6 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
       } = costMgtData;
 
       const paymentDateColumns = months
-        .reverse()
         .map((month) => {
           const column: ColumnType[] = [
             {
@@ -69,12 +68,15 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
                 const value = info.getValue() as PaymentHistory[] | undefined;
                 if (!value) return '';
 
-                const sameMonthPayment = value
-                  .find(({ paymentDate }) => findSameMonthPayment(paymentDate, month));
+                const sameMonthPayments = value
+                  .filter(({ paymentDate }) => findSameMonthPayment(paymentDate, month));
 
-                if (!sameMonthPayment?.paymentDate) return '';
+                if (!sameMonthPayments.length) return '';
 
-                const amountValue = sameMonthPayment.paymentAmtBeforeTax.toLocaleString();
+                const amountValue = sameMonthPayments.reduce((acc, curr) => {
+                  const paymentAmtBeforeTax = curr.paymentAmtBeforeTax || 0;
+                  return acc + paymentAmtBeforeTax;
+                }, 0).toLocaleString();
 
                 return (
                   <Typography align='right'>
@@ -103,17 +105,20 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               <Stack
                 direction={'row'}
                 spacing={1}
+                width={'100%'}
               >
-                <Typography fontSize={12} color={grey[500]}>
+                <Typography fontSize={10} color={grey[500]}>
                   {info.row.index + 1}
                 </Typography>
-                <Typography>
+                <Typography
+                  fontSize={10}
+                >
                   {String(info.getValue())}
                 </Typography>
               </Stack>
             );
           },
-          size: 200,
+          minSize: 200,
         },
         {
           header: () => (
@@ -128,6 +133,7 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </Typography>);
           },
           footer: props => props.column.id,
+          size: 130,
         },
         {
           header: () => (
@@ -142,6 +148,8 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
               </BoldCell>);
           },
           footer: props => props.column.id,
+          size: 130,
+          
         },
         ...paymentDateColumns.flatMap(column => column),
         {
@@ -153,14 +161,18 @@ export const useColumns = (costMgtData: GetCostMgtData) => {
           ),
           cell: info => {
             const row = info.row;
-            const contractOrderCost: number = row.original.contractOrderCost || 0;
-            const plannedBudgetCost: number = row.original.plannedBudgetCost || 0;
+
+            const {
+              totalPaidAmount = 0,
+              contractOrderCost = 0,
+            } = row.original;
             return (
               <Typography align='right'>
-                {((plannedBudgetCost - contractOrderCost || 0) as number).toLocaleString()}
+                {((contractOrderCost - totalPaidAmount) as number).toLocaleString()}
               </Typography>
             );
           },
+          size: 130,
         },
      
       ];

@@ -40,6 +40,7 @@ export const Purchases = ({
   return (
     <PurchasesTableContainer 
       width={table.getTotalSize()}
+      allWidth={table.getAllColumns().map((column) => column.getSize())}
     >
       <TableHead>
         {table.getHeaderGroups().map(headerGroup => (

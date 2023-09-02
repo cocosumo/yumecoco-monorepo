@@ -25,7 +25,7 @@ export const useResolveParams = () => {
     hasContract,
   } = contractSummary || {}; */
 
-  const hasContract = contracts && contracts?.length > 0;
+  const hasContract = contracts && contracts.some(({ envelopeStatus }) => envelopeStatus.value );
   const completed =  contracts && contracts
     ?.some((contract) => (contract.envelopeStatus.value as TEnvelopeStatus) === 'completed');
 

@@ -23,7 +23,7 @@ export const MenuVoidContract = () => {
 
   return (
     <>
-      <Tooltip title={isTerminalState ? '進捗中の契約は取り下げできません' : ''}>
+      <Tooltip title={isTerminalState ? '完了した契約は取り下げできません' : ''}>
         <div>
           <MenuItem 
             disabled={isTerminalState}

@@ -65,7 +65,7 @@ export const TotalAmount = ({
         <ControlledCurrencyInput disabled={disabled || hasEstimate} name="totalContractAmtAfterTax" label="契約合計金額（税込）" />
         <ControlledCurrencyInput disabled={disabled || hasEstimate} name="totalContractAmtBeforeTax" label="契約合計金額（税抜）" />
         <TaxAmount />
-        <ControlledCurrencyInput disabled={hasEstimate} name="costPrice" label="原価" />
+        <ControlledCurrencyInput disabled={hasEstimate} name="costPrice" label="原価（税抜）" />
         <ControlledCurrencyInput disabled={hasEstimate} name="totalProfit" label="粗利額 （税抜）" />
         <ProfitRate disabled={hasEstimate} />
 

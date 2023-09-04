@@ -13,8 +13,9 @@ export const schema = z.object({
   projTypeName: z.string(),
 
   projTypeId: nonEmptyDropdown,
-  
   projName: z.string().nonempty(),
+  otherProjType: z.string().optional(),
+
   projDataId: z.string(),
   createdDate: z.string(),
   storeCode: z.string(),
@@ -54,18 +55,33 @@ export const schema = z.object({
 
   memo: z.string().optional(),
 
+  deliveryDate: z.date().nullable(),
+  projFinDate: z.date().nullable(),
+  payFinDate: z.date().nullable(),
+
   logs: z.array(z.object({
     dateTime: z.date().optional(),
     log: z.string(),
     id: z.string(),
   })),
 
+  // 見込み
+  rank: z.string().optional(),
+  schedContractPrice: z.number().optional(),
+  schedContractDate: z.date().nullable(),
+  estatePurchaseDate: z.date().nullable(),
+  planApplicationDate: z.date().nullable(),
 })
   .superRefine((
     {
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,
+
+      projTypeName,
+      otherProjType,
+
+      hasContract,
     },
     ctx,
   ) => {
@@ -87,6 +103,16 @@ export const schema = z.object({
         });
       }
     }
+
+    if (projTypeName.includes('その他')) {
+      if (!hasContract && !otherProjType) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '工事種別を入力してください。',
+          path: ['otherProjType'],
+        });
+      }
+    } 
   });
 
   

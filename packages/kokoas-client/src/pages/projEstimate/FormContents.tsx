@@ -21,7 +21,6 @@ import { ActionButtons } from './sections/ActionButton';
 import { useIsFetching } from '@tanstack/react-query';
 import { pages } from '../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
-import { BetaWarning } from 'kokoas-client/src/components/ui/static/BetaWarning';
 
 
 export const FormContents = ({
@@ -74,7 +73,7 @@ export const FormContents = ({
         pb={10}
       >
         <DevTool control={control} placement={'top-right'} />
-        <BetaWarning />
+       
         {!!projTypeProfitLatest
           && projTypeProfitLatest !== 0
           && +(projTypeProfit ?? 0) !== +projTypeProfitLatest

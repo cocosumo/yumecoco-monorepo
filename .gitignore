@@ -51,9 +51,10 @@ coverage
 *.pem
 **/build/*
 *.snap
-
+*.exe
 *.key
 *auth.json
+cookies.json
 
 **/backup/**/*
 
@@ -87,8 +88,11 @@ Backup of *.doc*
 *.xlsx
 *.docx
 *.mp4
+*.png
 
 #test
 
 **/cypress/videos
 **/cypress/screenshots
+
+**/__TEST__/*.json

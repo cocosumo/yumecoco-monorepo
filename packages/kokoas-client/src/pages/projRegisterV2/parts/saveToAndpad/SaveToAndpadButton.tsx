@@ -1,8 +1,8 @@
 import { AndpadButton } from 'kokoas-client/src/components/ui/buttons/AndpadButton';
 import SaveIcon from '@mui/icons-material/Save';
-import { Tooltip } from '@mui/material';
 import { useState } from 'react';
 import { SaveToAndpadDialog } from './SaveToAndpadDialog';
+import { AndpadButtonContainer } from '../AndpadButtonContainer';
 
 export const SaveToAndpadButton = (
   {
@@ -25,18 +25,22 @@ export const SaveToAndpadButton = (
 
   return (
     <>
-      <Tooltip title={`Anpadへ案件${mode}します`}>
-        <span>
-          <AndpadButton
-            onClick={handleClick}
-            startIcon={<SaveIcon />}
-            size='small'
-            disabled={disabled}
-          >
-            {`Andpadへ${mode}`}
-          </AndpadButton>
-        </span>
-      </Tooltip>
+
+      <AndpadButtonContainer
+        emphasis='登録ない場合'
+        disabled={disabled}
+        disabledMessage='既に強制接続のため、登録が出来ません'
+        onClick={handleClick}
+      >
+        <AndpadButton
+          onClick={handleClick}
+          startIcon={<SaveIcon />}
+          size='small'
+          disabled={disabled}
+        >
+          {`Andpadへ${mode}`}
+        </AndpadButton>
+      </AndpadButtonContainer>
       <SaveToAndpadDialog open={open} mode={mode} handleClose={handleClose} />
     </>
 

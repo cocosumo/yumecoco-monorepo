@@ -24,13 +24,12 @@ export const processContractV2 = async (
     const envelope = await makeEnvelopeV2({
       data,
       status,
-      signMethod,
     });
 
     let envSummary: EnvelopeSummary = Object.create(null);
     let envDocFileKeys: string[] = [];
 
-    if (data.envelopeId) throw new Error(`エンヴェロープはもう存在しています。リロードして解決出来なかったら、お手数ですが、管理者にご連絡ください。 ${data.envelopeId}`);
+    if (data.envelopeId) throw new Error(`エンヴェロープはもう存在しています。リロードして解決出来なかったら、お手数です。 ${data.envelopeId}`);
 
     console.log('Creating envelope.');
     envSummary = await envelopesApi.createEnvelope(

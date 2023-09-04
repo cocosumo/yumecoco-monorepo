@@ -54,7 +54,8 @@ export const CustInfo = () => {
         custNames: [] as string[],
         custNamesReading: [] as string[],
       }),
-    [customerRecords]);
+    [customerRecords],
+  );
 
   const mainCust = useMemo(
     () => {
@@ -79,7 +80,8 @@ export const CustInfo = () => {
       }) ;
     }
     ,
-    [customerRecords]);
+    [customerRecords],
+  );
 
   const refactoredAgents = custGroupRecord?.agents
     .value
@@ -131,7 +133,7 @@ export const CustInfo = () => {
                     variant="outlined"
                     color="inherit"
                     startIcon={<EditIcon />}
-                    onClick={()=>navigate(`${pages.custGroupEdit}?${generateParams({
+                    onClick={()=>navigate(`${pages.custGroupEditV2}?${generateParams({
                       custGroupId,
                       projId,
                     })}`)}

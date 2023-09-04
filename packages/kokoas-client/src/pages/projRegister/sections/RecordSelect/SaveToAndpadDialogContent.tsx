@@ -39,7 +39,7 @@ export const SaveToAndpadDialogContent = ({
             <Button 
               color="inherit" 
               size="small"
-              onClick={() => navigate(`${pages.custGroupEdit}?${generateParams({ custGroupId, projId })}`)}
+              onClick={() => navigate(`${pages.custGroupEditV2}?${generateParams({ custGroupId, projId })}`)}
             >
               顧客情報を編集
             </Button>

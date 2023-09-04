@@ -1,12 +1,20 @@
+import styled from '@emotion/styled';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { ComponentProps, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 
 export const LinkListItemButton = ({
   icon,
   text,
   to = '/',
-  indented = true,
+  indented = false,
   ...others
 }: Omit<ComponentProps<typeof Link>, 'to'> & {
   icon: ReactNode
@@ -14,14 +22,24 @@ export const LinkListItemButton = ({
   to?: string,
   indented?: boolean
 } ) => {
+
+  // use current location
+  const location = useLocation();
   return (
-    <Link {...others} to={to} >
-      <ListItemButton sx={{ pl: indented ? 4 : undefined }}>
+    <StyledLink 
+      {...others} to={to}
+    >
+      <ListItemButton 
+        selected={location.pathname.includes(to)}
+        sx={{ 
+          pl: indented ? '48px' : undefined,         
+        }}
+      >
         <ListItemIcon>
           {icon}
         </ListItemIcon>
         <ListItemText primary={text} />
       </ListItemButton>
-    </Link>
+    </StyledLink>
   );
 };

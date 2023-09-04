@@ -10,6 +10,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
   const {
     projTypeId,
     projName,
+    otherProjType,
     custGroupId,
     dataId,
     uuid,
@@ -30,6 +31,16 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     作成日時: createTime,
     memo,
     log,
+
+    projFinDate,
+    payFinDate,
+    deliveryDate,
+
+    rank,
+    schedContractPrice,
+    estatePurchaseDate,
+    planApplicationDate,
+    schedContractDate,
   } = projRec;
 
   const {
@@ -70,11 +81,18 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     projId: uuid.value,
     projTypeId: projTypeId.value,
     projTypeName: projTypeName.value,
+    otherProjType: otherProjType.value,
+    
     projName: projName.value,
     projDataId: formatDataId(dataId.value),
     postal: postal.value,
     storeId: storeId.value,
     memo: memo.value,
+
+    deliveryDate: deliveryDate.value ? parseISO(deliveryDate.value) : null,
+    projFinDate: projFinDate.value ? parseISO(projFinDate.value) : null,
+    payFinDate: payFinDate.value ? parseISO(payFinDate.value) : null,
+
     logs: log?.value?.map(({
       id,
       value: {
@@ -88,6 +106,14 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
         id,
       };
     }) ?? [],
+
+    // 見込み
+    rank: rank.value,
+    schedContractPrice: +schedContractPrice.value,
+    schedContractDate: schedContractDate.value ? parseISO(schedContractDate.value) : null,
+    estatePurchaseDate: estatePurchaseDate.value ? parseISO(estatePurchaseDate.value) : null,
+    planApplicationDate: planApplicationDate.value ? parseISO(planApplicationDate.value) : null,
+
   };
 
 };

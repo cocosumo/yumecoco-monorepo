@@ -8,6 +8,8 @@ import { useTypedWatch } from './hooks/useTypedRHF';
 import { CancelStatus } from './sections/cancelStatus.tsx/CancelStatus';
 import { ContractsSummary } from './sections/contractsSummary/ContractsSummary';
 import { OfficersInput } from './sections/officersInput/OfficersInput';
+import { ProjectDates } from './sections/projectDates/ProjectDates';
+import { Prospect } from './sections/prospect/Prospect';
 
 export const Contents = () => {
   const projId = useTypedWatch({
@@ -43,6 +45,13 @@ export const Contents = () => {
 
       <PageSubTitle3 label={'メモ'} />
       <Memo />
+
+      <PageSubTitle3 label={'工事日程'} />
+      <ProjectDates />
+
+      <PageSubTitle3 label={'見込み情報'} />
+      <Prospect />
+
       
       <PageSubTitle3 label={'状態'} />
       <CancelStatus />

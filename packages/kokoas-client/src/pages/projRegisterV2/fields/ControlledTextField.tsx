@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../hooks/useTypedRHF';
 import { KForm } from '../schema';
+import { fieldMapJa } from '../api/fieldMapJa';
 
 export const ControlledTextField = ({
   name,
@@ -11,14 +12,16 @@ export const ControlledTextField = ({
   disabled = false,
   required,
   helperText,
+  fullWidth,
 }:{
   name: KForm,
-  label: string,
+  label?: string,
   width?: number;
   placeholder?: string,
   disabled?: boolean,
   required?: boolean,
   helperText?: string,
+  fullWidth?: boolean,
 }) => {
   const {
     control,
@@ -40,7 +43,7 @@ export const ControlledTextField = ({
         return (
           <TextField 
             {...field}
-            label={label} 
+            label={label || fieldMapJa[name]} 
             placeholder={placeholder}
             sx={{
               width,
@@ -50,6 +53,7 @@ export const ControlledTextField = ({
             helperText={error?.message || helperText}
             disabled={disabled}
             required={required}
+            fullWidth={fullWidth}
           />
         );
       }}

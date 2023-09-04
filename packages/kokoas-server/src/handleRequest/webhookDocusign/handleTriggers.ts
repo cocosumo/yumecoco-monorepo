@@ -15,10 +15,11 @@
  */
 
 import { RequestHandler } from 'express';
-import { voidEnvelope } from './voidEnvelope';
+//import { voidEnvelope } from './voidEnvelope';
 import { saveToKintone } from './saveToKintone';
 import { format } from 'date-fns';
 import { IConnectEvent } from 'types';
+import { voidEnvelopeV2 } from './voidEnvelopeV2';
 
 
 export const handleTriggers: RequestHandler = async (req, res) =>{
@@ -37,7 +38,7 @@ export const handleTriggers: RequestHandler = async (req, res) =>{
       case 'envelope-deleted':
       case 'envelope-discard':
       case 'envelope-declined':
-        await voidEnvelope(data.envelopeId);
+        await voidEnvelopeV2(data.envelopeId);
         break;
       // case 'envelope-sent':
       case 'envelope-corrected':

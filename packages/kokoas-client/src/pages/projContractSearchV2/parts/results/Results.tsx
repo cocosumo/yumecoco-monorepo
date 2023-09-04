@@ -4,6 +4,7 @@ import { ResultsCount } from '../ResultsCount';
 import { ResultsTable } from './ResultsTable';
 import { ResultsTBody } from './ResultsTBody';
 import { ResultTotalAmount } from './ResultTotalAmount';
+import { NewContractButton } from './NewContractButton';
 
 export const Results = ({
   items = [],
@@ -15,12 +16,19 @@ export const Results = ({
     <Stack spacing={1}>
       <Stack
         direction={'row'}
-        alignItems={'flex-end'}
-        spacing={4}
+        justifyContent={'space-between'}
       >
-        <ResultsCount resultCount={items?.length ?? 0} />
-        <ResultTotalAmount items={items} />
+        <Stack
+          direction={'row'}
+          alignItems={'flex-end'}
+          spacing={4}
+        >
+          <ResultsCount resultCount={items?.length ?? 0} />
+          <ResultTotalAmount items={items} />
+        </Stack>
+        <NewContractButton />
       </Stack>
+
       <ResultsTable >
         <ResultsTBody items={items} />
       </ResultsTable>

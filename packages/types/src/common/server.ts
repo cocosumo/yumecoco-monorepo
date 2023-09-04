@@ -1,4 +1,4 @@
-import { EnvelopeUpdateSummary } from 'docusign-esign';
+import { EnvelopeRecipients, EnvelopeUpdateSummary } from 'docusign-esign';
 import { TEnvelopeStatus, signMethods } from './docusign';
 import { z } from 'zod';
 
@@ -192,7 +192,9 @@ export const reqDownloadContractV2Response = z.object({
   envelopeId: z.string(),
 });
 
-export type ReqDownloadContractV2Response = z.infer<typeof reqDownloadContractV2Response>;
+export type ReqDownloadContractV2Response = z.infer<typeof reqDownloadContractV2Response> & {
+  recipients?: EnvelopeRecipients
+};
 
 
 
@@ -219,4 +221,6 @@ export interface DownloadInvoiceResponse {
 
 export type ApiNodes =
   | 'docusign'
-  | 'kokoas';
+  | 'kokoas'
+  | 'openai'
+  | 'sendgrid';

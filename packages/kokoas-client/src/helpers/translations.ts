@@ -1,5 +1,6 @@
 export const translations: Record<string, string> = {
-
+  signMethod: '署名方法',
+  category: 'カテゴリ',
   cocoAG: 'ここすもAG',
   cocoConst: 'ここすも工事',
   completed: '完了',
@@ -14,6 +15,7 @@ export const translations: Record<string, string> = {
   estNum: '枝番',
   estimateId: '見積番号',
   estimateDataId: '見積管理番号',
+  refundAmt: '返金',
   grossProfit: '粗利',
   latestInvoiceAmount: '直近請求金額(税込)',
   latestInvoiceDate: '直近請求日',
@@ -23,6 +25,8 @@ export const translations: Record<string, string> = {
   projDataId: '工事管理番号',
   projName: '工事名',
   projType: '工事種別',
+  reductionAmt: '減額',
+  subsidyAmt: '補助金',
   store: '店舗名',
   tel: '電話番号',
   totalAmountAfterTax: '税込金額',

@@ -33,7 +33,7 @@ export const ProspectShortcuts = () => {
           },
           {
             type: 'custGroup',
-            handleClick: ()=>navigate(`${pages.custGroupEdit}?${generateParams({
+            handleClick: ()=>navigate(`${pages.custGroupEditV2}?${generateParams({
               projId, custGroupId,
             })}`),
           },

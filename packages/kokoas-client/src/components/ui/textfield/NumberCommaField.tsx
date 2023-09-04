@@ -1,11 +1,15 @@
 import { InputAdornment, TextField, TextFieldProps } from '@mui/material';
 import { UseNumberCommaFieldProps, useNumberCommaField } from 'kokoas-client/src/hooks/useNumberCommaField';
-import { forwardRef } from 'react';
+import { ReactNode, forwardRef } from 'react';
 
 
 
 
-export type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' | 'type'> & UseNumberCommaFieldProps;
+export type NumberCommaFieldProps = Omit<TextFieldProps, 'onChange' | 'onBlur' | 'type'> 
+& UseNumberCommaFieldProps 
+& {
+  startAdornment?: ReactNode,
+};
 
 
 /**
@@ -24,6 +28,7 @@ export const NumberCommaField = forwardRef<HTMLInputElement, NumberCommaFieldPro
     onChange,
     onBlur,
     inputProps,
+    startAdornment,
     ...others
   } = props;
 
@@ -44,6 +49,7 @@ export const NumberCommaField = forwardRef<HTMLInputElement, NumberCommaFieldPro
         },
       }}
       InputProps={{
+        startAdornment: startAdornment ?? undefined,
         endAdornment: (
           <InputAdornment position='end' disablePointerEvents>
             円

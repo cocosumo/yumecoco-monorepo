@@ -35,10 +35,14 @@ export const convertContractToForm = (
 
     hasRefund,
     refundAmt,
+    refundMethod,
+
+    hasReduction,
+    reductionAmt,
 
     hasSubsidy,
     subsidyAmt,
-    subsidyMethod,
+    //subsidyMethod,
 
     payMethod,
     payDestination,
@@ -110,11 +114,15 @@ export const convertContractToForm = (
 
     hasRefund: hasRefund.value === 'はい',
     refundAmt: +refundAmt.value,
+    refundMethod: refundMethod.value as TypeOfForm['refundMethod'] || '山豊工建',
+
+    hasReduction: hasReduction.value === 'はい',
+    reductionAmt: +reductionAmt.value,
 
     hasSubsidy: hasSubsidy.value === 'はい',
     subsidyAmt: +subsidyAmt.value,
 
-    subsidyMethod: subsidyMethod.value as TypeOfForm['subsidyMethod'],
+    //subsidyMethod: subsidyMethod.value as TypeOfForm['subsidyMethod'],
     payMethod: payMethod.value as TypeOfForm['payMethod'],
 
     payDestination: payDestination.value,

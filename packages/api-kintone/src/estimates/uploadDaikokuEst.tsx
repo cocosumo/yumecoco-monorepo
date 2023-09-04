@@ -10,7 +10,8 @@ export const uploadDaikokuEst = async (
   } :{
     projId: string,
     fileBlob: Blob,
-  }) => {
+  },
+) => {
   const apiRoot : ApiNodes = 'kokoas';
 
   const data = {
@@ -19,7 +20,7 @@ export const uploadDaikokuEst = async (
   };
 
   if (!baseUrl) {
-    throw new Error('環境にBase_URLが設定していません。管理者にご連絡ください。');
+    throw new Error('環境にBase_URLが設定していません。');
   }
   const endpoint = [
     baseUrl,

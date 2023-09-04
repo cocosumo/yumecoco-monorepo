@@ -1,7 +1,7 @@
 import { Chip, Dialog, DialogActions, DialogTitle, Stack } from '@mui/material';
 import { PreviewContent } from './PreviewContent';
 import { PreviewHeader } from './PreviewHeader';
-import { useContractById } from 'kokoas-client/src/hooksQuery';
+import { useContractById, useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { useState } from 'react';
@@ -18,7 +18,6 @@ export const ContractDialog = ({
   handleClose: () => void,
 }) => {
 
-  
   const contractId = useWatch<TypeOfForm>({
     name: 'contractId',
   }) as string;
@@ -32,6 +31,19 @@ export const ContractDialog = ({
   const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
+
+  const { data: fileData } = useContractFilesById({ 
+    id: contractId, 
+    enabled: !selectedFileKey,
+  });
+
+  
+  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '');
+
+  const {
+    documents,
+    recipients,
+  } = fileData || {};
 
   return (
     <Dialog
@@ -47,13 +59,12 @@ export const ContractDialog = ({
       
     >
       <DialogTitle>
-        <PreviewHeader /> 
+        <PreviewHeader recipients={recipients} /> 
         <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>
 
       <PreviewContent 
-        contractId={contractId} 
-        selectedFileKey={hasContractFiles ? selectedFileKey : null}
+        documentB64={fileB64 || documents?.[0] || null}
       />
 
       <DialogActions>

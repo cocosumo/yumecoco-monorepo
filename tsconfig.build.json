@@ -66,6 +66,9 @@
       "path": "./packages/api-kintone"
     },
     {
+      "path": "./packages/api-openai"
+    },
+    {
       "path": "./packages/is-even"
     },
     {

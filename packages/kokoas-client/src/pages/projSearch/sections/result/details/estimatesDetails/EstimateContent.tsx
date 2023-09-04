@@ -50,7 +50,7 @@ export const EstimateContent = (props: Partial<EstTableProps> & {
             <>
               <ContractButton
                 href={`${pages.projContractPreviewV2}?${generateParams({ projEstimateId: projEstimateId.value })}`}
-                title='（当機能は開発中です）見積を利用して契約を作成する。'
+                title='見積を利用して契約を作成する。'
               />
 
               <ExportButton

@@ -5,7 +5,11 @@ export const initialValues : TForm = {
   projTypeName: '',
   projTypeId: '',
   projName: '',
+  otherProjType: '',
+  
   projDataId: '',
+
+
   createdDate: '',
   storeCode: '',
   custGroupId: null,
@@ -42,7 +46,18 @@ export const initialValues : TForm = {
   cancelStatus: undefined,
   memo: '',
 
+  deliveryDate: null,
+  projFinDate: null,
+  payFinDate: null,
+
   logs: [],
+
+  // 見込み
+  rank: '',
+  schedContractPrice: 0,
+  schedContractDate: null,
+  estatePurchaseDate: null,
+  planApplicationDate: null,
 
 };
 

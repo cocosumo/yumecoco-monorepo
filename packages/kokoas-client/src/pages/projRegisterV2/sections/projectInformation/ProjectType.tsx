@@ -1,8 +1,9 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
 import { useProjTypes } from 'kokoas-client/src/hooksQuery';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { Controller } from 'react-hook-form';
 import { useEffect } from 'react';
+import { OtherProjType } from './OtherProjType';
 
 
 export const ProjectType = ({
@@ -15,9 +16,11 @@ export const ProjectType = ({
   const { data: projTypeOptions } = useProjTypes({
     select: (d) => d
       ?.map(({
-        label, uuid,
+        label,
+        projectName,
+        uuid,
       }) => ({
-        label: label?.value,
+        label: projectName.value || label?.value,
         value: uuid?.value,
       })),
   });
@@ -46,53 +49,65 @@ export const ProjectType = ({
         const showError = isTouched && !!error;
 
         return (
-          <FormControl 
-            size='small'
-            sx={{
-              width: 300,
-            }}
-            placeholder='工事種別'
-            error={showError}
-            disabled={disabled}
-            required
+          <Stack
+            direction={'row'}
+            spacing={2}
+            justifyContent={'space-between'}
+            width={600}
           >
-            <InputLabel>
-              工事種別
-            </InputLabel>
-            <Select
-              value={newValue}
-              label="工事種別"
-              onBlur={onBlur}
-              onChange={(e) => {
-                const newProjTypeName = projTypeOptions
-                  ?.find(({ value }) => value === e.target.value)
-                  ?.label || '';
-
-                const custName = getValues('custName');
-                
-                setValue('projTypeName', newProjTypeName);
-                setValue('projName', `${custName}様邸　${newProjTypeName}`);
-                onChange(e.target.value);
+            <FormControl 
+              size='small'
+              sx={{
+                width: 300,
               }}
+              placeholder='工事種別'
+              error={showError}
+              disabled={disabled}
+              required
             >
-              <MenuItem value="">
-                ---
-              </MenuItem>
-              {projTypeOptions?.map(({
-                label, value,
-              }) => {
-                return (
-                  <MenuItem key={value} value={value}>
-                    {label}
-                  </MenuItem>
-                );
-              })}
+              <InputLabel>
+                工事種別
+              </InputLabel>
+              <Select
+                value={newValue}
+                label="工事種別"
+                onBlur={onBlur}
+                onChange={(e) => {
+                  const newProjTypeName = projTypeOptions
+                    ?.find(({ value }) => value === e.target.value)
+                    ?.label || '';
+
+                  const custName = getValues('custName');
+                
+                  setValue('projTypeName', newProjTypeName);
+                  setValue('projName', `${custName}様邸　${newProjTypeName}`);
+                  onChange(e.target.value);
+                }}
+              >
+                <MenuItem value="">
+                  ---
+                </MenuItem>
+                {projTypeOptions?.map(({
+                  label, value,
+                }) => {
+                  return (
+                    <MenuItem key={value} value={value}>
+                      {label}
+                    </MenuItem>
+                  );
+                })}
     
-            </Select>
-            <FormHelperText>
-              {error?.message}
-            </FormHelperText>
-          </FormControl>
+              </Select>
+              <FormHelperText>
+                {error?.message}
+              </FormHelperText>
+            </FormControl>
+
+            
+            <OtherProjType disabled={disabled} />
+            
+  
+          </Stack>
         );
 
       }}

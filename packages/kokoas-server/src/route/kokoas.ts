@@ -14,6 +14,13 @@ import { reqDownloadInvoice } from '../handleRequest/putInvoiceReport/reqDownloa
 import { reqGetProjectFromAndpadByProjId } from '../handleRequest/reqGetProjectFromAndpadByProjId';
 import { reqGetProjectsFromAndpad } from '../handleRequest/reqGetProjectsFromAndpad';
 import { reqGetProjectBySystemId } from '../handleRequest/reqGetProjectBySystemId';
+import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
+//import { reqCostMgtDataByProjId } from '../handleRequest/reqCostManagement';
+//import { reqCostMgtDataByProjIdV2 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV2';
+import { reqCostMgtExcelByData } from '../handleRequest/reqCostManagement/reqCostMgtExcelByData';
+import { reqCostMgtDataByProjIdV4 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV4';
+//import { reqAndpadApi } from '../handleRequest/reqAndpadApi/reqAndpadApi';
+//import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
 
 const route = router();
@@ -53,6 +60,28 @@ route.get(
   reqGetProjectBySystemId,
 );
 
+
+/* route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjId}/:projId`,
+  reqCostMgtDataByProjId,
+); */
+
+/* route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjIdV2}/:projId`,
+  reqCostMgtDataByProjIdV2,
+); */
+
+route.get(
+  `/${kokoasEndpoints.getCostMgtDataByProjIdV4}/:projId`,
+  reqCostMgtDataByProjIdV4,
+);
+
+route.post(
+  `/${kokoasEndpoints.getCostMgtExcelByData}`,
+  bodyParser.json({ limit: '50mb' }),
+  reqCostMgtExcelByData,
+);
+
 route.get(
   `/${kokoasEndpoints.downloadEstimateAsAndpad}/:estimateId`,
   downloadEstimateAsAndpad,
@@ -68,11 +97,32 @@ route.get(
   downloadEstimateForCustomer,
 );
 
+route.post(
+  `/${kokoasEndpoints.getImage}`,
+  bodyParser.json({ limit: '1mb' }),
+  reqImageToBase64,
+);
+
+/* route.post(
+  `/${kokoasEndpoints.downloadContractReport}`,
+  bodyParser.json({ limit: '1mb' }),
+  reqContractReport,
+); */
+
 route.put(
   `/${kokoasEndpoints.downloadInvoice}`,
   bodyParser.json({ limit: '50mb' }),
   reqDownloadInvoice,
 );
+
+// endpoints using browser won't work on xserver
+/* route.post(
+  `/${kokoasEndpoints.accessAndpadApi}`,
+  bodyParser.json({ limit: '5mb' }),
+  reqAndpadApi,
+); */
+
+// PROTECTED ROUTES
 
 
 // "テスト"

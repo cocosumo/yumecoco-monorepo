@@ -38,8 +38,21 @@ export const fieldMapJa : Record<KForm, string> = {
   projName: '工事名',
   projTypeId: '工事種別ID',
   projTypeName: '工事種別名',
+  otherProjType: 'その他工事種別',
+
+  deliveryDate: '引渡日',
+  projFinDate: '物件完了日',
+  payFinDate: '支払完了日',
+
   status: 'ステータス',
   storeCode: '店舗コード',
   storeId: '店舗ID',
   territory: 'エリア',
+
+  rank: 'ランク',
+  schedContractPrice: '契約予定金額',
+  schedContractDate: '契約予定日',
+  estatePurchaseDate: '不動産決済日',
+  planApplicationDate: '計画申し込み日',
+
 };

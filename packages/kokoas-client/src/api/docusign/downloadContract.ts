@@ -1,6 +1,6 @@
 import { baseUrl } from 'config/src/baseUrl';
 import { docusignEndpoints, kintoneProxyWrapper } from 'libs';
-import { ApiNodes, reqDownloadContractV2Response } from 'types';
+import { ApiNodes, ReqDownloadContractV2Response } from 'types';
 import qs from 'qs';
 
 export const downloadContract = async ({
@@ -28,5 +28,5 @@ export const downloadContract = async ({
 
   
 
-  return reqDownloadContractV2Response.parse(data);
+  return data as ReqDownloadContractV2Response;
 };

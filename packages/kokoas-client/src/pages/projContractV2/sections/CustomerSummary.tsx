@@ -60,7 +60,7 @@ export const CustomerSummary = () => {
       buttonLabel='顧客情報を編集する'
       data={parsedData}
       isLoading={isLoading}
-      pageUrl={pages.custGroupEdit}
+      pageUrl={pages.custGroupEditV2}
     />
   );
 };

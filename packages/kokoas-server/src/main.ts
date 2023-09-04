@@ -2,8 +2,12 @@ import { loadEnv } from 'libs';
 import express from 'express';
 import docusignSend from './route/docusign';
 import kokoas from './route/kokoas';
+import openai from './route/openai';
+import sendgrid from './route/sendgrid';
+
 import { ApiNodes } from 'types';
 import axios from 'axios';
+import { baseUrl } from 'config';
 
 
 loadEnv();
@@ -18,9 +22,14 @@ app.get('/', (_, res )=>{
 
 const docusignApiRoot : ApiNodes = 'docusign';
 const kokoasApiRoot : ApiNodes = 'kokoas';
+const openAIRoot : ApiNodes = 'openai';
+const sendGridRoot : ApiNodes = 'sendgrid';
+
 
 app.use(`/${docusignApiRoot}`, docusignSend);
 app.use(`/${kokoasApiRoot}`, kokoas);
+app.use(`/${openAIRoot}`, openai );
+app.use(`/${sendGridRoot}`, sendgrid);
 
 // cocosumo proxy
 app.get('/wp/*', (req, res) => {
@@ -44,4 +53,5 @@ app.get('/wp/*', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost:${PORT}`);
+  console.log(`Test server ${baseUrl}`);
 });

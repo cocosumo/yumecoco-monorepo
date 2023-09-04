@@ -1,5 +1,6 @@
 import {  IProjects, TAgents } from 'types';
 import { TForm } from '../schema';
+import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
 const convertToAgentsTbl = (
   empIds: string[],
@@ -33,7 +34,8 @@ export const convertToKintone = (
     
     projTypeId, 
     projName,
-    //sisAgentConfirmed, 
+    otherProjType,
+
     postal, 
     address1, 
     address2,
@@ -46,6 +48,16 @@ export const convertToKintone = (
     cancelStatus,
     storeCode,
     memo,
+
+    deliveryDate,
+    projFinDate,
+    payFinDate,
+
+    rank,
+    schedContractPrice,
+    schedContractDate,
+    estatePurchaseDate,
+    planApplicationDate,
   } = rawValues;
 
 
@@ -61,7 +73,9 @@ export const convertToKintone = (
 
     projTypeId: { value: projTypeId },
     projName: { value: projName },
-    //isAgentConfirmed: { value: (+isAgentConfirmed).toString() },
+    otherProjType: { value: otherProjType || '' },
+    
+
     postal: { value: postal },
     address1: { value: address1 },
     address2: { value: address2 },
@@ -82,6 +96,18 @@ export const convertToKintone = (
     status: {  value: status  },
     cancelStatus: { value: cancelStatus?.filter(Boolean).join(',') || '' },
     memo: { value: memo || '' },
+
+    deliveryDate: { value: toKintoneDateStr(deliveryDate) },
+    projFinDate: { value: toKintoneDateStr(projFinDate) },
+    payFinDate: { value: toKintoneDateStr(payFinDate) },
+
+    // 見込み
+    rank: { value: rank || '' },
+    schedContractPrice: { value: String(schedContractPrice) },
+    schedContractDate: { value: toKintoneDateStr(schedContractDate) },
+    estatePurchaseDate: { value: toKintoneDateStr(estatePurchaseDate) },
+    planApplicationDate: { value: toKintoneDateStr(planApplicationDate) },
+
   };
 
 };

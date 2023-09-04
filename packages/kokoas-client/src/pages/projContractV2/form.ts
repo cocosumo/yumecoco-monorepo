@@ -39,10 +39,14 @@ export const initialForm : TypeOfForm = {
   
   hasRefund: false,
   refundAmt: 0,
+  refundMethod: '山豊工建',
+  
+  hasReduction: false,
+  reductionAmt: 0,
 
   hasSubsidy: false,
   subsidyAmt: 0,
-  subsidyMethod: '顧客に返金',
+  //subsidyMethod: '顧客に返金',
   
   payMethod: '振込',
   payDestination: '豊田信用金庫　朝日支店',

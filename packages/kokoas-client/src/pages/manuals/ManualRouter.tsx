@@ -15,11 +15,11 @@ const ManualRouter = () => {
     <Routes>
       <Route path="/" element={<HelpMain />} />
 
-      <Route path={pages.custGroupEdit} element={<div>
+      <Route path={pages.custGroupEditV2} element={<div>
         custGroupEdit
       </div>}
       />
-      <Route path={pages.custGroupReg} element={<div>
+      <Route path={pages.custGroupEditV2} element={<div>
         custGroupReg
       </div>}
       />

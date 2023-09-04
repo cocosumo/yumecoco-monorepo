@@ -26,7 +26,7 @@ export const FormProjProspectSearch = ({
   return (
     <Form noValidate>
       <MainContainer justifyContent={'center'}>
-        <PageTitle label="見込み一覧" />
+        <PageTitle label="見込一覧" />
         <Grid item xs={12} md={8}>
           <FormikSearchField
             name={getFieldName('mainSearch')}

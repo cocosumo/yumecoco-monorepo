@@ -86,7 +86,7 @@ export const CustomerSummary = () => {
 
       <StaticContentActions>
         <Button
-          onClick={() => navigate(`${pages.custGroupEdit}?${generateParams({
+          onClick={() => navigate(`${pages.custGroupEditV2}?${generateParams({
             custGroupId: custGroupId as string,
             projId: projId as string,
           })}`)}

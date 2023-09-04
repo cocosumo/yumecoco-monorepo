@@ -1,0 +1,21 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "outDir": "dist",
+    "declarationMap": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "files": [
+    "./index.ts",
+    "./../../node_modules/@kintone/dts-gen/kintone.d.ts"
+  ],
+  "exclude": [
+    "./dist"
+  ]
+}

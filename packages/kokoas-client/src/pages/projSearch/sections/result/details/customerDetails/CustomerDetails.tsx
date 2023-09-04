@@ -13,6 +13,7 @@ import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { EditButton } from '../common/EditButton';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { Memo } from './Memo';
 
 
 export const CustomerDetails = ({
@@ -29,6 +30,7 @@ export const CustomerDetails = ({
     agents,
     storeName,
     isDeleted,
+    memo,
     作成日時: createDate,
     更新日時: updateDate,
     作成者: createdBy,
@@ -56,11 +58,15 @@ export const CustomerDetails = ({
     >
 
       <EditButton 
-        href={`${pages.custGroupEdit}?${generateParams({ custGroupId })}`}
+        href={`${pages.custGroupEditV2}?${generateParams({ custGroupId })}`}
         title='顧客を編集する'
       />
 
       {recCust && <Customers customers={recCust} />}
+
+      <Memo 
+        memo={memo?.value || '-'}
+      />
 
       {recCustGroup && (
         <AgentDetails 

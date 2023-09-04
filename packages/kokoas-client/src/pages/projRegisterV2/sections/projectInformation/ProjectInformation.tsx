@@ -19,6 +19,7 @@ export const ProjectInformation = () => {
     >
       <BuildingType disabled={hasContract} />
 
+
       <ProjectType disabled={hasContract} />
 
       <ControlledTextField

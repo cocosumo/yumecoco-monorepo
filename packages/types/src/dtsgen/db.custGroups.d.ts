@@ -1,6 +1,7 @@
 declare namespace DBCustgroups {
   interface Data {
     projectCount: kintone.fieldTypes.Number;
+    memo: kintone.fieldTypes.MultiLineText;
     storeId: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;

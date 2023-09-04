@@ -9,6 +9,7 @@ import { SubmitButton } from './filterDialog/SubmitButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ButtonWithToolTip } from 'kokoas-client/src/components/ui/buttons/ButtonWithSimpleToolTip';
 import { SearchField } from './SearchField';
+import { CustName } from './filterDialog/CustName';
 
 
 export const WrappedSearchField = () => {
@@ -41,6 +42,8 @@ export const WrappedSearchField = () => {
         maxWidth={600}
       >
         <SearchField />
+
+        <CustName />
 
         <SubmitButton>
           <SearchIcon />

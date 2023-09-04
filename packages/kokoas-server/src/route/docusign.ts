@@ -2,9 +2,8 @@ import { reqSendContractDirectV2 } from './../handleRequest/reqSendContractDirec
 
 import { Router as router } from 'express';
 import bodyParser from 'body-parser';
-import {
-  reqSendContractDirect } from '../handleRequest/reqSendContractDirect';
-import { reqDownloadContract } from '../handleRequest/reqDownloadContract';
+
+//import { reqDownloadContract } from '../handleRequest/reqDownloadContract';
 import { handleTriggers } from '../handleRequest/webhookDocusign/handleTriggers';
 import { reqVoidEnvelope } from '../handleRequest/reqVoidEnvelope';
 import { reqGetSenderView } from '../handleRequest/reqGetSenderView';
@@ -33,13 +32,13 @@ route.post('/webhook', handleTriggers );
 
 route.post('/contract/void', reqVoidEnvelope);
 
-route.post('/contract/send/direct', reqSendContractDirect);
+//route.post('/contract/send/direct', reqSendContractDirect);
 
 route.post('/contract/resend', reqResendContract);
 
 route.post('/contract/senderViewUrl', reqGetSenderView);
 
-route.get('/contract/download', reqDownloadContract);
+//route.get('/contract/download', reqDownloadContract);
 
 route.get(`/${docusignEndpoints.downloadContract}`, reqDownloadContractV2);
 route.post(`/${docusignEndpoints.sendDirect}`, reqSendContractDirectV2);

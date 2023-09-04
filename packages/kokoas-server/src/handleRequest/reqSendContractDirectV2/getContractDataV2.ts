@@ -9,10 +9,17 @@ import {
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getContractCheckers } from 'api-kintone/src/employees/getContractCheckers';
 import { addressBuilder, formatDataId } from 'libs';
-import { ReqSendContractParams, TAgents } from 'types';
+import { ReqSendContractParams, TAgents, Territory } from 'types';
 import { validateContractData } from '../../api/kintone/validateContractDataV2';
+import { isProd } from 'config';
 
 export type TContractData = Awaited<ReturnType<typeof getContractDataV2>>;
+
+const testTantouEmail = 'cocosumo.rpa03@gmail.com'; // 担当
+const testCustEmail = 'cocosumo.rpa03@gmail.com'; // 顧客
+const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
+const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
+const testHonKeiriEmail = 'cocosumo.rpa03@gmail.com'; //　本経理
 
 /**
  * Get Contract data across all involved database
@@ -92,6 +99,8 @@ export const getContractDataV2 = async (
     address1: projAddress1,
     address2: projAddress2,
     dataId,
+    projTypeName,
+    projTypeId,
   } = await getProjById(projId.value);
 
   /* 顧客情報 */
@@ -104,6 +113,7 @@ export const getContractDataV2 = async (
 
   const {
     storeNameShort,
+    territory,
     //TEL: companyTel,
     //住所: companyAddress,
     //officialStoreName,
@@ -124,11 +134,15 @@ export const getContractDataV2 = async (
     address1,
     address2,
   }) => {
+    const custEmail = isProd 
+      ? contacts.value
+        .find(({ value: { contactType } }) => contactType.value === 'email')
+        ?.value.contactValue.value
+      : testCustEmail;
+
     return {
       custName: fullName.value,
-      email: contacts.value
-        .find(({ value: { contactType } }) => contactType.value === 'email')
-        ?.value.contactValue.value,
+      email: custEmail,
       address: addressBuilder({
         postal: postalCode.value,
         address1: address1.value,
@@ -152,7 +166,7 @@ export const getContractDataV2 = async (
     .records
     .map(({ 文字列＿氏名: empName, email: empEmail }) => ({
       name: empName.value,
-      email: empEmail.value,
+      email: isProd ?  empEmail.value : testTantouEmail,
     }) );
 
   const {
@@ -174,7 +188,10 @@ export const getContractDataV2 = async (
       文字列＿氏名: subAccountingName,
       email: subAccountingEmail,
     },
-  } = await getContractCheckers(storeId.value);
+  } = await getContractCheckers({
+    storeId: storeId.value,
+    territory: territory.value,
+  });
 
   const parsedTaxRate = +tax.value;
   const parsedTotalContractAmt = +totalContractAmt.value;
@@ -210,6 +227,9 @@ export const getContractDataV2 = async (
       address1: projAddress1.value,
       address2: projAddress2.value,
     },
+    projTypeId: projTypeId.value,
+    projTypeName: projTypeName.value,
+
     /* 契約 */
     tax: parsedTaxRate * 100,
     totalContractAmtAfterTax: parsedTotalContractAmt,
@@ -225,17 +245,20 @@ export const getContractDataV2 = async (
 
     /* 店長 */
     storeMngrName: managerName.value,
-    storeMngrEmail: managerEmail.value,
+    storeMngrEmail: isProd ? managerEmail.value : testTenchoEmail,
     storeName: storeName.value,
     storeNameShort: storeNameShort.value,
+    territory: territory.value as Territory,
 
     /* 経理 */
     accountingName: accountingName.value,
-    accountingEmail: accountingEmail.value,
+    accountingEmail: isProd ? accountingEmail.value : testKeiriEmail,
+
     mainAccountingName: mainAccountingName.value,
-    mainAccountingEmail: mainAccountingEmail.value,
+    mainAccountingEmail: isProd ? mainAccountingEmail.value : testHonKeiriEmail,
+
     subAccountingName: subAccountingName.value,
-    subAccountingEmail: subAccountingEmail.value,
+    subAccountingEmail: isProd ? subAccountingEmail.value : testHonKeiriEmail,
 
     /* 契約関連 */
     envelopeStatus: envelopeStatus.value,
@@ -264,6 +287,7 @@ export const getContractDataV2 = async (
     contractType: contractType.value,
     contractAddType: contractAddType.value,
     isAdditionalContract: contractType.value === '追加',
+    isValidate,
   };
 
   if (isValidate) validateContractData(data);

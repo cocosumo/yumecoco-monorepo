@@ -1,7 +1,7 @@
 
 export const postalBuilder = (postal: string | undefined) => {
   if (!postal) return '';
-  const normalizedPostal = postal.replace('-', '');
+  const normalizedPostal = postal.replaceAll('-', '');
   return `〒${normalizedPostal.slice(0, 3)}-${normalizedPostal.slice(3)} `;
 };
 

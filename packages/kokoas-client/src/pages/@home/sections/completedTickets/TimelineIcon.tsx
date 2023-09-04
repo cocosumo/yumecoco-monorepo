@@ -11,6 +11,7 @@ export type TUpdateType = '追加' | '変更' | '修正';
 type TimelineIconProps = {
   updateType: TUpdateType;
   isNew: boolean;
+  recId: string;
 };
 
 
@@ -37,6 +38,7 @@ const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
 export const TimelineIcon = ({
   updateType,
   isNew,
+  recId,
 }: TimelineIconProps) => {
 
   let toolTipTitle = '';
@@ -63,7 +65,7 @@ export const TimelineIcon = ({
 
 
   return  (
-    <Tooltip title={toolTipTitle}>
+    <Tooltip title={`${toolTipTitle} - id: ${recId}`}>
       <TimelineDot color={color}>
         {isNew && (
         <StyledBadge badgeContent={'新'}>

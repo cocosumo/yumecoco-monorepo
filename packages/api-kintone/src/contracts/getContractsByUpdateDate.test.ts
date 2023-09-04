@@ -8,10 +8,11 @@ describe('getContractsByUpdateDate', () => {
     
     const result = await getContractsByUpdateDate(number, period);
 
-    console.log('result:::', result.length);
+    console.log('result:::', result);
 
     expect(result).toBeInstanceOf(Array);
-    // expect(result.length).toBeGreaterThan(0);
+
+    expect(result[0].$id).toBeDefined();
     // expect(result[0].$id).toBeDefined();
     
   });

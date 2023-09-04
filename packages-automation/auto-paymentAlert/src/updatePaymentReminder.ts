@@ -1,6 +1,7 @@
 import { headFullBrowser } from 'auto-common';
 import { login } from '../../auto-kintone';
 import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
+import { postContractToRemainderApp } from './contracts/postContractToRemainderApp';
 
 
 
@@ -14,8 +15,12 @@ export const updatePaymentReminder = async () => {
   // kintoneにログインする
   await login(page);
 
-  // 契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得
-  await extractUpdatedRecords();
+  // 契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得 - (0)
+  const tgtProjTypeContracts = await extractUpdatedRecords();
+
+  // (0)で取得したデータを、リマインダーアプリへ登録する
+  await postContractToRemainderApp({ projTypeContracts: tgtProjTypeContracts });
+  
 
   // リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出 - (1)
   // (1)に対応するandpadのレコードに対して処理を行う -(2)

@@ -37,7 +37,6 @@ export const convertContractsToRemainder = async ({
     uuid: contractId,
     projId: projIdByContract,
     contractDate,
-    projType,
     totalContractAmt,
     contractAmt,
     contractAmtDate,
@@ -49,6 +48,7 @@ export const convertContractsToRemainder = async ({
 
     const {
       cocoAGNames,
+      projTypeName,
     } = projects.find(({ uuid }) => uuid.value === projIdByContract.value) || {};
 
     const {
@@ -72,7 +72,7 @@ export const convertContractsToRemainder = async ({
 
     // 通知日の設定
     const alertDate = calcAlertDate({
-      projType: projType.value as TgtProjType,
+      projType: projTypeName?.value as TgtProjType,
       contractAmt: +contractAmt.value,
       contractAmtPaymentDate: contractAmtPaymentDate,
       contractDateStr: contractDate.value,
@@ -83,7 +83,7 @@ export const convertContractsToRemainder = async ({
       alertDate: { value: alertDate },
       contract: { value: contractId.value },
       projId: { value: projIdByContract.value },
-      projType: { value: projType.value },
+      projType: { value: projTypeName?.value },
       totalContractAmount: { value: totalContractAmt.value },
       expectedPaymentDate: { value: contractAmtPaymentDate },
       paymentTable: [paymentTable],

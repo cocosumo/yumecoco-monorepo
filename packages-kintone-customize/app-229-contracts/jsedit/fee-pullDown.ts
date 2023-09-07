@@ -1,6 +1,8 @@
 
 import moment from 'moment';
 import { IStores } from 'types';
+import  $ from 'jquery';
+
 
 (function () {
   'use strict';
@@ -8,6 +10,7 @@ import { IStores } from 'types';
   const commisionRates = 6343111; // 紹介料一覧
   const storeAppId = 19;
   const contractsAppId = 229;
+  
   
   
   function getFirstAndLastDay(

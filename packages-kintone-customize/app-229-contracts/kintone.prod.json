@@ -3,12 +3,9 @@
   "scope": "ALL",
   "desktop": {
     "js": [
-      "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
       "./dist/customize.js"
     ],
-    "css": [
-      "./jsedit/yumetetsu syokairyou.css"
-    ]
+    "css": []
   },
   "mobile": {
     "js": ["./dist/customize.js"],

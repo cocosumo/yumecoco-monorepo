@@ -1,12 +1,26 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+//const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+
 
 module.exports = (env) => {
   console.log('env', env);
   const environment = env.production ? 'production' : 'development';
   return {
     mode: env.production ? 'production' : 'development',
-    plugins: [new Dotenv({ path: `.env` })],
+    plugins: [
+      new Dotenv({ path: `.env` }),
+      //new ForkTsCheckerWebpackPlugin(),
+      new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
+    ],
 
     entry: {
       customize: './src/app.ts',
@@ -47,15 +61,23 @@ module.exports = (env) => {
           },
         },
         {
-          test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: path.resolve(__dirname, 'dist'),
+            },
+          },
+          'css-loader',
+        ],
         },
         {
           test: /\.(ts|tsx)$/,
           loader: 'ts-loader',
           options: {
             transpileOnly: true,
-            experimentalWatchApi: true,
+          //  experimentalWatchApi: true,
           },
         },
         {
@@ -64,5 +86,48 @@ module.exports = (env) => {
         },
       ],
     },
+    optimization: {
+      splitChunks: {
+      minSize: 20000,
+
+      cacheGroups: {
+        default: false,
+        common: {
+          name: 'common',
+          minChunks: 2,
+          chunks: 'async',
+          priority: 20,
+          reuseExistingChunk: true,
+          enforce: true,
+        },
+        assets: {
+          chunks: 'all',
+          name: 'assets',
+          test: /[\\/]assets[\\/]/,
+          priority: -30,
+        },
+        mui: {
+          chunks: 'all',
+          name: 'vendor-mui',
+
+          test: /[\\/]@mui[\\/]/,
+          priority: 0,
+        },
+        vendors: {
+          // sync + async chunks
+          name: 'vendor',
+          chunks: 'initial',
+          priority: -10,
+          // import file path containing node_modules
+          test: /node_modules/,
+        },
+      },
+    },
+    minimizer: [
+      //'...',
+      new CssMinimizerPlugin(),
+    ],
+    },
+
   };
 };

@@ -27,6 +27,8 @@
     "crypto": false
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.18"
+    "@types/jquery": "^3.5.18",
+    "javascript-obfuscator": "^4.1.0",
+    "webpack-obfuscator": "^3.5.1"
   }
 }

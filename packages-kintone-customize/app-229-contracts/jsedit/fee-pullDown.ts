@@ -10,7 +10,49 @@ import  $ from 'jquery';
   const commisionRates = 6343111; // 紹介料一覧
   const storeAppId = 19;
   const contractsAppId = 229;
+
+  function getWeekDates(year: number, month: number) {
+
+    const date = new Date(year, month, 0);
+    const maxDays = date.getDate();    //該当月の最終日付
+      
+    console.log(maxDays);
+      
+    const weeks = [];
+      
+    const currResult: Record<string, null | Date> = {
+      startDate: null,  //週の始まりの日付
+      endDate: null,    //週の終わりの日付
+    };
+      
+    for (let i = 1; i <= maxDays; i++ ) {
+      const currDate = new Date(year, date.getMonth(), i);
+          
+      const weekIdx = currDate.getDay();
+          
+      if (weekIdx === 0 && i === 1) {
+        currResult.startDate = currDate;
+        currResult.endDate = currDate;
+      }
+          
+      if (i === 1 || weekIdx === 1) {
+        currResult.startDate = currDate;    
+      } else if (i === maxDays || weekIdx === 0) {
+        currResult.endDate = currDate;
+      }
+          
+      if (currResult.startDate && currResult.endDate ) {
+        weeks.push({
+          startDate: currResult.startDate,
+          endDate: currResult.endDate,
+        });
+        currResult.startDate = null;
+        currResult.endDate = null;
+      }
+    }
   
+    return weeks;
+  }
   
   
   function getFirstAndLastDay(
@@ -111,46 +153,83 @@ import  $ from 'jquery';
         
             $('#mainTable tbody')
               .append(`
-           <tr>
-              <th id="number">${idx + 1}</th>
-              <th id="projTypeName">${projTypeName.value}</th>
-              <th id="custName">${custName.value}</th>
-              <th id="projName">${projName.value}</th>
-              <th id="contractDate">${contractDate.value}</th>
-              <th id="contractAmountIntax">${formatCurrency(parseFloat(contractAmountIntax.value))}</th>
-              <th id="contractAmountNotax">${formatCurrency(parseFloat(contractAmountNotax.value))}</th>
-              <th id="profit">${formatCurrency(parseFloat(profit.value))}</th>
-              <th id="profitIntax">${formatCurrency(+profit.value * 1.1)}</th>
-              <th id="fee">${formatCurrency(parseFloat(fee.value))}</th>
-              <th id="editProfit">${formattedGrossProfitMargin}</th>
-              <th id="yumeAGName">${yumeAGName.value}</th>
-              <th id="yumeAGName2">${yumeAGName2.value}</th>
-            </tr>
-          `);
+                <tr>
+                    <th id="number">${idx + 1}</th>
+                    <th id="projTypeName">${projTypeName.value}</th>
+                    <th id="custName">${custName.value}</th>
+                    <th id="projName">${projName.value}</th>
+                    <th id="contractDate">${contractDate.value}</th>
+                    <th id="contractAmountIntax">${formatCurrency(parseFloat(contractAmountIntax.value))}</th>
+                    <th id="contractAmountNotax">${formatCurrency(parseFloat(contractAmountNotax.value))}</th>
+                    <th id="profit">${formatCurrency(parseFloat(profit.value))}</th>
+                    <th id="profitIntax">${formatCurrency(+profit.value * 1.1)}</th>
+                    <th id="fee">${formatCurrency(parseFloat(fee.value))}</th>
+                    <th id="editProfit">${formattedGrossProfitMargin}</th>
+                    <th id="yumeAGName">${yumeAGName.value}</th>
+                    <th id="yumeAGName2">${yumeAGName2.value}</th>
+                  </tr>
+                `);
        
           });
+
+        const getWeeks = getWeekDates(
+          +(document.querySelector('#selectYear') as HTMLSelectElement).value, 
+          +(document.querySelector('#selectMonth') as HTMLSelectElement).value,
+        ); 
+
+        $('#subTable tbody').empty();  //選択変更時にリストをリセット
+
+        const weeklyTotalFees = new Array(getWeeks.length).fill(0);
+
+        // 各契約日を該当する週に関連付ける
+        const contractWeeks = records.map((rec) => {
+          const contractDate = moment(rec.contractDate.value);
+          const weekIndex = getWeeks.findIndex((week) => contractDate.isBetween(week.startDate, week.endDate, undefined, '[]'));
+          return {
+            contractDate,
+            weekIndex,
+          };
+        });
+
+        getWeeks.forEach((item, index) => {
+
+          // let totalFee = 0;
+          const totalContractAmountIntax = 0;
+          const totalProfit = 0;
+          const totalNumberSum = 0;
+    
+    
+ 
+          for (const contract of contractWeeks) {
+            if (contract.weekIndex === index) {
+              //weeklyTotalFees[index] += +rec.fee.value; // 一旦コメントアウト -RAS
+            }
+          }
+    
+          $('#subTable tbody')
+            .append(`
+            <tr>
+                  <th id="weekHeader">第${index + 1}週：${moment(item.startDate).format('M/D')}～${moment(item.endDate).format('M/D')}</th>
+                  <th id="weekContractAmountIntax"></th>
+                  <th id="weekProfit"></th>
+                  <th id="weekProfitIntax"></th>
+                  <th id="weekFee">${weeklyTotalFees[index]}</th>
+                  <th id="WeekNumberSum"></th>
+              </tr>
+            `);
+
+        });
+
      
-  
-     
-        $('subTable tbody')
-          .append(`
-           <tr>
-                <th id="weekHeader"></th>
-                <th id="weekContractAmountIntax"></th>
-                <th id="weekProfit"></th>
-                <th id="weekProfitIntax"></th>
-                <th id="weekFee"></th>
-                <th id="WeekNumberSum"></th>
-            </tr>
-          `);
 
       });
    
 
-
+    
   
   // 表示
   };
+
 
   const refreshResult = () => {
     const currentDate = new Date();

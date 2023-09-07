@@ -3,9 +3,7 @@
 import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
 import { postContractToRemainderApp } from './contracts/postContractToRemainderApp';
 import { convertContractsToRemainder } from './contracts/convertContractsToRemainder';
-import { getAllProjects } from 'api-kintone';
-import { getAllPaymentConfRemainder } from 'api-kintone/src/paymentConfRemainder/getAllPaymentConfRemainder';
-import { getAllAndpadPayments } from 'api-kintone/src/andpadPayments/getAllAndpadPayments';
+import { getAllProjects, getAllPaymentRemainder, getAllAndpadPayments } from 'api-kintone';
 
 
 
@@ -22,7 +20,7 @@ export const updatePaymentReminder = async () => {
   // 処理前準備
   // 工事情報のレコードを一括取得する
   const allProjects = await getAllProjects();
-  const allRemainders = await getAllPaymentConfRemainder();
+  const allRemainders = await getAllPaymentRemainder();
   const allAndpadPayments = await getAllAndpadPayments();
 
   // 契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得 - (0)
@@ -40,6 +38,8 @@ export const updatePaymentReminder = async () => {
 
 
   // リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出 - (1)
+
+
   // (1)に対応するandpadのレコードに対して処理を行う -(2)
   // (2)-1 サブテーブルに情報を格納し、[alertState]を[1]にし、通知対象者を設定する
   // (2)-2 １度でも入金があれば、[alertState]を[0]にし、次のレコードに処理を移す

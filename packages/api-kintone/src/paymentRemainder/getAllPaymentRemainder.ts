@@ -2,7 +2,7 @@ import { appId, RecordType } from './config';
 import { getAllRecords } from '../common';
 
 
-export const getAllPaymentConfRemainder = async (
+export const getAllPaymentRemainder = async (
   params?: Omit<Parameters<typeof getAllRecords>[0], 'app'>,
 ) => getAllRecords<RecordType>({
   ...params,

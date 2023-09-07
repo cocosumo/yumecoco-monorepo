@@ -5,9 +5,7 @@ import format from 'date-fns/format';
 import { convertContractsToRemainder } from './convertContractsToRemainder';
 import { extractUpdatedRecords } from './extractUpdatedRecords';
 import { IContracts } from 'types';
-import { getAllProjects } from 'api-kintone';
-import { getAllPaymentConfRemainder } from 'api-kintone/src/paymentConfRemainder/getAllPaymentConfRemainder';
-import { getAllAndpadPayments } from 'api-kintone/src/andpadPayments/getAllAndpadPayments';
+import { getAllProjects, getAllPaymentRemainder, getAllAndpadPayments } from 'api-kintone';
 
 
 describe('convertContractsToRemainder', () => {
@@ -29,7 +27,7 @@ describe('convertContractsToRemainder', () => {
     }
 
     const allProjects = await getAllProjects();
-    const allRemainders = await getAllPaymentConfRemainder();
+    const allRemainders = await getAllPaymentRemainder();
     const allAndpadPayments = await getAllAndpadPayments();
 
     const result = await convertContractsToRemainder({

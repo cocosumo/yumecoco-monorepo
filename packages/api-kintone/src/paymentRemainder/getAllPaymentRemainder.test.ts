@@ -1,10 +1,10 @@
 import { describe, it, expect } from '@jest/globals';
-import { getAllPaymentConfRemainder } from './getAllPaymentConfRemainder';
+import { getAllPaymentRemainder } from './getAllPaymentRemainder';
 
 
-describe('getAllPaymentConfRemainder', () => {
+describe('getAllPaymentRemainder', () => {
   it('入金確認リマインダーアプリの全レコードを取得します', async () => {
-    const result = await getAllPaymentConfRemainder();
+    const result = await getAllPaymentRemainder();
 
     console.log('result::', result[0].alertTarget.value);
 

@@ -2,8 +2,13 @@
   "app": "229",
   "scope": "ALL",
   "desktop": {
-    "js": ["./dist/customize.js"],
-    "css": []
+    "js": [
+      "https://js.cybozu.com/jquery/2.2.4/jquery.min.js",
+      "./dist/customize.js"
+    ],
+    "css": [
+      "./jsedit/yumetetsu syokairyou.css"
+    ]
   },
   "mobile": {
     "js": ["./dist/customize.js"],

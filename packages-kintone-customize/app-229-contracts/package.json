@@ -18,7 +18,8 @@
   "dependencies": {
     "api-chatwork": "*",
     "api-kintone": "*",
-    "crypto-es": "^1.2.7"
+    "crypto-es": "^1.2.7",
+    "moment": "^2.29.4"
   },
   "browser": {
     "crypto": false

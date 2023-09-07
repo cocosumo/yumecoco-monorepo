@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+body {
+    font-family: "Arial", sans-serif;
+}
+
+/* プルダウンのスタイル */
+#selectYear, #selectMonth, #selectStore {
+    width: 100px; /* 幅を調整 */
+    margin-right: 10px;
+    border-radius: 8px;
+}
+
+/* ボタンのスタイル */
+#printButton {
+    background-color: #008b8b; /* ボタンの背景色を変更 */
+    color: #fff; /* テキストの色を変更 */
+    padding: 3px 20px; /* パディングを調整 */
+    border-radius: 8px;
+}
+
+#todayDate {
+    text-align: right;
+    font-size: 10pt;
+    margin-right: 10px;
+}
+
+#headerTitle {
+    width: 100%;
+    margin: 20px;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center; /* テキストを中央に配置 */
+}
+
+#mainTable {
+    margin: 0 auto;
+    font-size: 10.5pt;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    font-weight: normal;
+}
+
+#mainTable th {
+    padding: 3px 5px;
+    margin: auto;
+    
+}
+
+#custom-content {
+    /* カスタムコンテンツのスタイルを指定 */
+    margin-bottom: 50px;
+    font-family: sans-serif;
+}
+
+#subTable {
+    margin: 10px;
+    float: right;
+    padding-bottom: 80px;
+}
+
+#subTable th {
+    padding: 3px 5px;
+    margin: auto;
+}
+

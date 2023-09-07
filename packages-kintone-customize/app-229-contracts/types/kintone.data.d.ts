@@ -1,31 +1,47 @@
 declare namespace DB {
   interface Record {
-    yumeAGId: kintone.fieldTypes.SingleLineText;
+    codes: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
-    粗利額: kintone.fieldTypes.Number;
-    cocoas_契約ID: kintone.fieldTypes.SingleLineText;
     cocosumoKoujiId: kintone.fieldTypes.SingleLineText;
+    projTypeName: kintone.fieldTypes.SingleLineText;
+    yumeAGName: kintone.fieldTypes.SingleLineText;
+    最終請負金額: kintone.fieldTypes.Number;
+    cocosumoAGId: kintone.fieldTypes.SingleLineText;
+    Ccodes: kintone.fieldTypes.SingleLineText;
+    年度: kintone.fieldTypes.SingleLineText;
+    refund: kintone.fieldTypes.RadioButton;
+    yumeAGId: kintone.fieldTypes.SingleLineText;
+    cocoas_契約ID: kintone.fieldTypes.SingleLineText;
+    文字列__1行_: kintone.fieldTypes.SingleLineText;
+    紹介料: kintone.fieldTypes.Number;
     cocosumoAGName: kintone.fieldTypes.SingleLineText;
+    完工日: kintone.fieldTypes.Date;
     cocosumoKoujiName: kintone.fieldTypes.SingleLineText;
+    contractAmountIntax: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;
-    finish: kintone.fieldTypes.Date;
+    最終粗利額: kintone.fieldTypes.Number;
+    profit: kintone.fieldTypes.Number;
     yumeAGId2: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
-    projTypeName: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
     custName: kintone.fieldTypes.SingleLineText;
-    返金: kintone.fieldTypes.RadioButton;
-    契約金額: kintone.fieldTypes.Number;
-    yumeAGName: kintone.fieldTypes.SingleLineText;
+    文字列__1行__0: kintone.fieldTypes.SingleLineText;
     工事状況: kintone.fieldTypes.RadioButton;
     projTypeId: kintone.fieldTypes.SingleLineText;
     yumeAGName2: kintone.fieldTypes.SingleLineText;
-    cocosumoAGId: kintone.fieldTypes.SingleLineText;
-    粗利率: kintone.fieldTypes.Calc;
-    契約金額_税抜: kintone.fieldTypes.Calc;
+    contractYear: kintone.fieldTypes.Calc;
+    最終請負金額_税抜: kintone.fieldTypes.Calc;
+    fee: kintone.fieldTypes.Calc;
+    contractAmountNotax: kintone.fieldTypes.Calc;
+    editProfit: kintone.fieldTypes.Calc;
+    最終粗利率: kintone.fieldTypes.Calc;
+    profitMargin: kintone.fieldTypes.Calc;
+    紹介料新築: kintone.fieldTypes.Calc;
+    contractMonth: kintone.fieldTypes.Calc;
     抽出箇所: kintone.fieldTypes.CheckBox;
     自社物件: kintone.fieldTypes.CheckBox;
     same_AG: kintone.fieldTypes.CheckBox;
+    ユーザー選択: kintone.fieldTypes.UserSelect;
   }
   interface SavedRecord extends Record {
     $id: kintone.fieldTypes.Id;
@@ -33,7 +49,7 @@ declare namespace DB {
     更新者: kintone.fieldTypes.Modifier;
     作成者: kintone.fieldTypes.Creator;
     レコード番号: kintone.fieldTypes.RecordNumber;
-    更新日時: kintone.fieldTypes.UpdatedTime;
     作成日時: kintone.fieldTypes.CreatedTime;
+    更新日時: kintone.fieldTypes.UpdatedTime;
   }
 }

@@ -1,8 +1,9 @@
 import { ContractRecordType, PaymentRemainderRecordType, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
+import { IAndpadpayments, IPaymentconfremainder, IProjects } from 'types';
 
 
-/**配列内から一番過去の日付を取得します */ 
+/**配列内から一番過去の日付を取得します */
 function getOldestDate(...dates: string[]) {
   let oldestDate = null;
 
@@ -14,24 +15,30 @@ function getOldestDate(...dates: string[]) {
       }
     }
   }
-
   return oldestDate;
 }
 
 /**
  * 契約一覧のデータを入金リマインダーアプリ形式へ変換します
  */
-export const convertContractsToRemainder = ({
+export const convertContractsToRemainder = async ({
   projTypeContracts,
+  projects,
+  remainders,
+  andpadPayments,
 }: {
   projTypeContracts: ContractRecordType[]
+  projects: IProjects[]
+  remainders: IPaymentconfremainder[]
+  andpadPayments: IAndpadpayments[]
 }) => {
 
-  const remainderRecords: Partial<PaymentRemainderRecordType> = projTypeContracts.map(({
-    uuid,
+  const convertRemainderRecords = projTypeContracts.map(({
+    uuid: contractId,
+    projId: projIdByContract,
     contractDate,
-    envCompleteDate,
     projType,
+    totalContractAmt,
     contractAmt,
     contractAmtDate,
     initialAmtDate,
@@ -39,9 +46,20 @@ export const convertContractsToRemainder = ({
     finalAmtDate,
     othersAmtDate,
   }) => {
-    const systemId = '11487098'; // TODO 対象顧客のsystemIdを取得する
 
-    const alertState = 0; //TODO データ更新の場合は保存されている値を取得する
+    const {
+      cocoAGNames,
+    } = projects.find(({ uuid }) => uuid.value === projIdByContract.value) || {};
+
+    const {
+      alertState,
+    } = remainders.find(({ projId }) => projId.value === projIdByContract.value) || {};
+
+    const andpadPaymentsByProjId = andpadPayments.filter(({ projId }) => projId.value === projIdByContract.value) || {};
+
+    const paymentTable = andpadPaymentsByProjId.map(({ ID }) => {
+      return { andpadId: { value: ID.value } };
+    });
 
     // 一番過去の支払日を取得する
     const contractAmtPaymentDate = getOldestDate(
@@ -52,6 +70,7 @@ export const convertContractsToRemainder = ({
       othersAmtDate.value,
     );
 
+    // 通知日の設定
     const alertDate = calcAlertDate({
       projType: projType.value as TgtProjType,
       contractAmt: +contractAmt.value,
@@ -60,19 +79,17 @@ export const convertContractsToRemainder = ({
     });
 
     return {
-      andpadUrl: { value: `https://andpad.jp/manager/my/orders/${systemId}/contract_orders` },
-      alertState: alertState,
-      alertDate: alertDate,
-      contract: uuid.value, // updateKey
-      projId,
-      projType,
-      totalContractAmount,
-      expectedPaymentDate,
-      andpadStatus,
-      paymentTable,
-      alertTarget,
-    };
+      alertState: { value: alertState },
+      alertDate: { value: alertDate },
+      contract: { value: contractId.value },
+      projId: { value: projIdByContract.value },
+      projType: { value: projType.value },
+      totalContractAmount: { value: totalContractAmt.value },
+      expectedPaymentDate: { value: contractAmtPaymentDate },
+      paymentTable: [paymentTable],
+      alertTarget: { value: cocoAGNames?.value },
+    } as unknown as Partial<PaymentRemainderRecordType>;
   });
 
-  return remainderRecords;
+  return convertRemainderRecords;
 };

@@ -2,7 +2,7 @@ import { Form, FormProvider, useForm } from 'react-hook-form';
 import { TForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialForm } from './form';
-import { Filter } from './sections/Filter';
+import { Filter } from './sections/filter/Filter';
 
 export const FormCumulative = () => {
   const formReturn = useForm<TForm>({

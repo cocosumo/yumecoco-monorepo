@@ -2,6 +2,7 @@ import { Form, FormProvider, useForm } from 'react-hook-form';
 import { TForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialForm } from './form';
+import { Filter } from './sections/Filter';
 
 export const FormCumulative = () => {
   const formReturn = useForm<TForm>({
@@ -16,7 +17,7 @@ export const FormCumulative = () => {
       <Form
         noValidate
       >
-        Hello
+        <Filter />
 
       </Form>
     </FormProvider>

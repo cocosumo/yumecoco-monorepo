@@ -20,6 +20,8 @@ export const FiscalMonths = ({
     data,
   } = fiscalYearQuery;
 
+  console.log(data);
+
   return (
     <>
       {selectedMonths.map((month) => {

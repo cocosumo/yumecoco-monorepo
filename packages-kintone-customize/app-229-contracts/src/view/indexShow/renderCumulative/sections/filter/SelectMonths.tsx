@@ -2,14 +2,9 @@ import { Controller } from 'react-hook-form';
 import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedRHF';
 import { Box, Chip, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { getFiscalMonths } from '../../../../../helpers/getFiscalMonths';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
+import { formatYearMonth } from '../../../../../helpers/formatYearMonth';
 
 
-const formatYearMonth = (yearMonth: string) => {
-
-  return `${format(parse(yearMonth, 'yyyy-MM', new Date()), 'M')}月`;
-};
 
 export const SelectMonths = () => {
 
@@ -19,6 +14,8 @@ export const SelectMonths = () => {
   }) as string;
 
   const fiscalMonths = getFiscalMonths(selectedYear);
+
+  console.log(fiscalMonths);
 
   return (
     <Controller 

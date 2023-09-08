@@ -2,6 +2,7 @@ import { Stack, Table, TableBody, TableHead, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import style from './FiscalMonthTable.module.css';
 import { TableRowLayout } from './TableRowLayout';
+import { roundTo } from 'libs';
 
 export const FiscalMonthTable = ({
   title,
@@ -57,10 +58,10 @@ export const FiscalMonthTable = ({
                 custName={custName.value}
                 projName={projName.value}
                 contractDate={contractDate.value}
-                contractAmtExclTax={contractAmtExclTax.value}
-                contractAmtInclTax={contractAmtInclTax.value}
-                grossProfit={grossProfit.value}
-                grossProfitRate={grossProfitRate.value}
+                contractAmtExclTax={roundTo(contractAmtExclTax.value).toLocaleString()}
+                contractAmtInclTax={roundTo(contractAmtInclTax.value).toLocaleString()}
+                grossProfit={roundTo(grossProfit.value).toLocaleString()}
+                grossProfitRate={(+grossProfitRate.value).toFixed(2)}
                 agent={agents.length ?  agents.join('、 ') : 'ここすも'}
               />);
           })}

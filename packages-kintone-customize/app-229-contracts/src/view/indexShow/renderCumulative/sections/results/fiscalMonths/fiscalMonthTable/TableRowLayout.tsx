@@ -32,14 +32,19 @@ export const TableRowLayout = (props: TableRowLayoutProps) => {
 
   return (
     <TableRow>
-      <TableCell align='left'>
-        <Typography 
-          component={'span'}
-          fontSize={10}
-          color={grey[500]}
-          pr={2}
-        >
-          {rowNum}
+      <TableCell 
+        align='left'
+
+      >
+        <Typography component={'span'}>
+          <Typography 
+            component={'span'}
+            fontSize={10}
+            color={grey[500]}
+            pr={1}
+          >
+            {rowNum}
+          </Typography>
         </Typography>
         {projType}
       </TableCell>

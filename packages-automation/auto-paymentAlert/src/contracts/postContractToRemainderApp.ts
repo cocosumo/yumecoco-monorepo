@@ -1,27 +1,20 @@
 import { PaymentRemainderRecordType } from '../../config';
 
-export const postContractToRemainderApp = ({
-  projTypeContracts,
+
+
+/**入金確認リマインダーアプリへレコードを更新する処理 */
+export const postContractToRemainderApp = async ({
+  convertDatas,
 }:{
-  projTypeContracts: Partial<PaymentRemainderRecordType>[]
+  convertDatas: {
+    addRecords: Partial<PaymentRemainderRecordType>[]
+    updateRecords: Partial<PaymentRemainderRecordType>[]
+  }
 }) => {
-  const convertContracts = projTypeContracts.map(({
-    uuid,
-    andpadUrl,
-    alertState,
-    alertDate,
-    contract, // updateKey
-    projId,
-    projType,
-    totalContractAmount,
-    expectedPaymentDate,
-    andpadStatus,
-    paymentTable,
-    alertTarget,    
-  }) => {
+  
 
+  // TODO
+  console.log('convertDatas', convertDatas);
 
-    
-  });
 
 };

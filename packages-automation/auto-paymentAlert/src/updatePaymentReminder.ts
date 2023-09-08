@@ -3,7 +3,7 @@
 import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
 import { postContractToRemainderApp } from './contracts/postContractToRemainderApp';
 import { convertContractsToRemainder } from './contracts/convertContractsToRemainder';
-import { getAllProjects, getAllPaymentRemainder, getAllAndpadPayments } from 'api-kintone';
+import { getAllProjects, getAllPaymentRemainder, getAllAndpadPayments, getUsers } from 'api-kintone';
 
 
 
@@ -22,6 +22,7 @@ export const updatePaymentReminder = async () => {
   const allProjects = await getAllProjects();
   const allRemainders = await getAllPaymentRemainder();
   const allAndpadPayments = await getAllAndpadPayments();
+  const allUsers = await getUsers();
 
   // 契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得 - (0)
   const tgtProjTypeContracts = await extractUpdatedRecords();
@@ -32,6 +33,7 @@ export const updatePaymentReminder = async () => {
     projects: allProjects,
     remainders: allRemainders,
     andpadPayments: allAndpadPayments,
+    users: allUsers,
   });
 
   await postContractToRemainderApp({ convertDatas: convertDatas });

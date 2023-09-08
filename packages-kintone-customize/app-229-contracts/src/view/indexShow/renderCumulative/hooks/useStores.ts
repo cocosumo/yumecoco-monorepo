@@ -5,11 +5,6 @@ export const useStores = () => {
   
   return useQuery(
     ['stores'],
-    () => getAllStores(), {
-      select: (data) => data
-        .filter(() => {
-          return true;
-        }),
-    },
+    () => getAllStores(),
   );
 };

@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { SelectMonths } from './SelectMonths';
 import { SelectStores } from './SelectStores';
+import { SelectYear } from './SelectYear';
 
 export const Filter = () => {
   
@@ -8,10 +9,12 @@ export const Filter = () => {
     <Stack
       direction='row'
       spacing={2}
-      p={2}
+      py={2}
     >
-      <SelectStores />
+  
+      <SelectYear />
       <SelectMonths />
+      <SelectStores />
 
     </Stack>
   );

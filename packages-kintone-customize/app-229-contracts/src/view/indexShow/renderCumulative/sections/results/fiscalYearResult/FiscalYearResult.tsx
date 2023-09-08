@@ -1,23 +1,20 @@
-import { LinearProgress, Table, TableBody, TableHead } from '@mui/material';
+import { Table, TableBody, TableHead } from '@mui/material';
 import styles from './FiscalYearResult.module.css';
 import { TableRowLayout } from './TableRowLayout';
-import { useContractsByFiscalYear } from './useContractsByFiscalYear';
+import { UseContractsByFiscalYearReturn } from '../../../hooks/useContractsByFiscalYear';
 import parse from 'date-fns/parse';
 import format from 'date-fns/format';
 import { calcProfitRate, roundTo } from 'libs';
 
-export const FiscalYearResult = () => {
+export const FiscalYearResult = ({
+  fiscalYearQuery,
+}:{
+  fiscalYearQuery: UseContractsByFiscalYearReturn
+}) => {
   const { 
     data,
     fiscalMonths,
-    isLoading,
-  } = useContractsByFiscalYear();
-
-  if (isLoading) {
-    return <LinearProgress />;
-  }
-
-  console.log(fiscalMonths);
+  } = fiscalYearQuery;
 
   return (
     <Table className={styles.table}>

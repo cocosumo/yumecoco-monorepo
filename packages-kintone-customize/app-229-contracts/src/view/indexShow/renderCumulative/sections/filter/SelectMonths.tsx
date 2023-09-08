@@ -1,13 +1,24 @@
 import { Controller } from 'react-hook-form';
-import { useTypedFormContext } from '../../hooks/useTypedRHF';
+import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedRHF';
 import { Box, Chip, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { useLatestMonths } from '../../hooks/useLatestMonths';
+import { getFiscalMonths } from '../../../../../helpers/getFiscalMonths';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
+
+
+const formatYearMonth = (yearMonth: string) => {
+
+  return `${format(parse(yearMonth, 'yyyy-MM', new Date()), 'M')}月`;
+};
 
 export const SelectMonths = () => {
 
   const { control } = useTypedFormContext();
+  const selectedYear = useTypedWatch({
+    name: 'year',
+  }) as string;
 
-  const latestMonths = useLatestMonths();
+  const fiscalMonths = getFiscalMonths(selectedYear);
 
   return (
     <Controller 
@@ -38,18 +49,18 @@ export const SelectMonths = () => {
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                   {selected.map((s) => (
-                    <Chip size='small' key={s} label={s} />
+                    <Chip size='small' key={s} label={formatYearMonth(s)} />
                   ))}
                 </Box>
               )}
               {...otherField}
             >
-              {latestMonths.map((month) => (
+              {fiscalMonths.map((month) => (
                 <MenuItem 
                   key={month}
                   value={month}
                 >
-                  {month}
+                  {formatYearMonth(month)}
                 </MenuItem>
               ))}
                   

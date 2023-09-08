@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { initialForm } from './form';
 import { Filter } from './sections/filter/Filter';
 import { Stack } from '@mui/material';
-import { FiscalYearResult } from './sections/fiscalYearResult/FiscalYearResult';
+import { Results } from './sections/results/Results';
 
 export const FormCumulative = () => {
   const formReturn = useForm<TForm>({
@@ -26,7 +26,7 @@ export const FormCumulative = () => {
         >
 
           <Filter />
-          <FiscalYearResult />
+          <Results />
         </Stack>
 
       </Form>

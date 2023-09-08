@@ -1,9 +1,9 @@
-import { useTypedWatch } from '../../hooks/useTypedRHF';
-import { useContracts } from '../../hooks/useContracts';
+import { useTypedWatch } from './useTypedRHF';
+import { useContracts } from './useContracts';
 import format from 'date-fns/format';
 import endOfMonth from 'date-fns/endOfMonth';
 import { useMemo } from 'react';
-import { getFiscalMonths } from '../../../../../helpers/getFiscalMonths';
+import { getFiscalMonths } from '../../../../helpers/getFiscalMonths';
 
 interface FiscalMonth {
   contracts: DB.SavedRecord[],
@@ -17,6 +17,7 @@ interface FiscalYearData {
 }
 
 const contractDateKey: keyof DB.SavedRecord = 'contractDate';
+
 
 export const useContractsByFiscalYear = () => {
   const year = useTypedWatch({
@@ -78,3 +79,5 @@ export const useContractsByFiscalYear = () => {
     ...contractsQuery,
   };
 };
+
+export type UseContractsByFiscalYearReturn = ReturnType<typeof useContractsByFiscalYear>;

@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { useAndpadCostMgtDataByProjId, useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { Summary } from './Summary';
 import { Purchases } from './purchases/Purchases';
@@ -23,8 +23,6 @@ export const CostMgtDetails = ({
   const navigate = useNavigateWithQuery();
 
   const parsedSystemId = projRec?.forceLinkedAndpadSystemId.value || String(andpadRec?.システムID || '');
-
-  console.log('data', data);
   
   return (
     <Stack
@@ -34,12 +32,6 @@ export const CostMgtDetails = ({
       height={'100%'}
       overflow='auto'
     >
-      <Alert severity='info'>
-        <AlertTitle>
-          試験中です
-        </AlertTitle> 
-        要望などありましたら、西ー小出、東ー林 まで連絡お願いします。
-      </Alert>
       {isLoading && (
         <Stack
           spacing={2}

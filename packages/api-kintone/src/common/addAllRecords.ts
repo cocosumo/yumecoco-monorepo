@@ -1,5 +1,5 @@
-import { KintoneClientBasicAuth } from 'api-kintone/scripts/batch/settings';
 import { KtRecordParam } from 'types';
+import { ktRecord } from '../client';
 
 
 /**
@@ -11,7 +11,7 @@ export const addAllRecords = async (
   params: KtRecordParam<'addAllRecords'>,
 ) => {
 
-  const KintoneRecord = KintoneClientBasicAuth.record;
+  const KintoneRecord = await ktRecord();
   return KintoneRecord.addAllRecords({
     ...params,
   });

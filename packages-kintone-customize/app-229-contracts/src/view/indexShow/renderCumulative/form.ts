@@ -5,15 +5,14 @@ import { getFiscalYear } from '../../../helpers/getFiscalYear';
 import { getFiscalMonths } from '../../../helpers/getFiscalMonths';
 
 
-const today = new Date(2022, 11, 1);
+const today = new Date(2023, 0, 1);
+const fiscalYear = getFiscalYear(today);
+
 
 const getLatestMonths = (maxMonths: number) => {
-  const fiscalYear = getFiscalYear(today);
   const fiscalMonths = getFiscalMonths(fiscalYear);
 
-  console.log('fiscal', fiscalYear, fiscalMonths );
-
-  const months = [];
+  const months: string[] = [];
 
   for (let i = 0; i < maxMonths; i++) {
     const date = subMonths(today, i);
@@ -23,13 +22,13 @@ const getLatestMonths = (maxMonths: number) => {
       months.push(formattedDate);
     }
   }
-  return months;
+  return months.reverse();
 
 };
 
 
 export const initialForm: TForm = {
   months: getLatestMonths(3),
-  year: format(today, 'yyyy'),
+  year: fiscalYear.toString(),
   stores: [],
 };

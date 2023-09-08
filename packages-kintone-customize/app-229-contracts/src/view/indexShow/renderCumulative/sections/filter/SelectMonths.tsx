@@ -44,7 +44,7 @@ export const SelectMonths = () => {
               id="selectMonths"
               value={value}
               label="年月"
-              onChange={(e) => onChange(([] as string[]).concat(e.target.value))}
+              onChange={(e) => onChange(([] as string[]).concat(e.target.value).sort())}
               multiple
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>

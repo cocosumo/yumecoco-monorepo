@@ -38,8 +38,6 @@ export const FiscalYearResult = ({
             totalProfit = 0,
             contracts,
           } = data?.[month] || {};
-
-          console.log(totalAmountExclTax, totalProfit);
           return (
             <TableRowLayout
               key={month}

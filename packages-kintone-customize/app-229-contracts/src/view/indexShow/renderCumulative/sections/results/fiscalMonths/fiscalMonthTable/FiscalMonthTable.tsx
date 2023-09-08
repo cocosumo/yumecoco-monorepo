@@ -14,7 +14,7 @@ export const FiscalMonthTable = ({
 
   return (
     <Stack spacing={2}>
-      <Typography variant='h4'>
+      <Typography variant='h6'>
         {title}
       </Typography>
       <Table className={style.table}>
@@ -47,6 +47,8 @@ export const FiscalMonthTable = ({
               yumeAGName2,
             } = record;
 
+            const agents = [yumeAGName.value, yumeAGName2.value].filter(Boolean);
+
             return (
               <TableRowLayout
                 key={$id.value}
@@ -59,7 +61,7 @@ export const FiscalMonthTable = ({
                 contractAmtInclTax={contractAmtInclTax.value}
                 grossProfit={grossProfit.value}
                 grossProfitRate={grossProfitRate.value}
-                agent={[yumeAGName.value, yumeAGName2.value].join('、 ')}
+                agent={agents.length ?  agents.join('、 ') : 'ここすも'}
               />);
           })}
         </TableBody>

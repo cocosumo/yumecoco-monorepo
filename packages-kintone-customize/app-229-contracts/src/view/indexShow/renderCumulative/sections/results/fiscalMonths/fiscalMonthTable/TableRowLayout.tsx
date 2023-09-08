@@ -1,4 +1,5 @@
 import { TableCell, TableRow, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
 export interface TableRowLayoutProps {
@@ -31,8 +32,13 @@ export const TableRowLayout = (props: TableRowLayoutProps) => {
 
   return (
     <TableRow>
-      <TableCell align='center'>
-        <Typography component={'span'}>
+      <TableCell align='left'>
+        <Typography 
+          component={'span'}
+          fontSize={10}
+          color={grey[500]}
+          pr={2}
+        >
           {rowNum}
         </Typography>
         {projType}

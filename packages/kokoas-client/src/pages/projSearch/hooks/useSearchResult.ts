@@ -67,8 +67,10 @@ export const useSearchResult =  () => {
           更新日時: updatedAt,
 
           deliveryDate,
-          projFinDate,
           payFinDate,
+          projFinDate,
+
+          
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
@@ -88,7 +90,6 @@ export const useSearchResult =  () => {
 
         const {
           contractDate,
-          finishDate,
         } = firstContract || {};
 
         const {
@@ -165,8 +166,8 @@ export const useSearchResult =  () => {
         const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
-        const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && finishDate?.value && completionDateFrom <= parseISO(finishDate?.value));
-        const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
+        const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && projFinDate?.value && completionDateFrom <= parseISO(projFinDate?.value));
+        const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && projFinDate?.value && completionDateTo >= parseISO(projFinDate?.value));
         const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
 
         if (!parsedQuery

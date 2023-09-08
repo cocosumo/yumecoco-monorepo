@@ -16,4 +16,5 @@ const getLatestMonths = (maxMonths: number) => {
 export const initialForm: TForm = {
   months: getLatestMonths(3),
   year: format(today, 'yyyy'),
+  stores: [],
 };

@@ -13,10 +13,18 @@
   color: white;
   background: #abadad;
   border: 1px solid #a09e9e;
+  white-space: nowrap;
+
 }
 
 .table td {
-  border: 1px solid #a09e9e;
+  border: 1px solid #e7e2e2;
   padding: 3px 5px;
   margin: auto;
+  white-space: nowrap;
+}
+
+/* alternace color for each row */
+.table tr:nth-child(even) {
+  background-color: #faf8f8;
 }

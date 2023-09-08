@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { SelectYear } from './SelectYear';
+import { SelectMonths } from './SelectMonths';
 
 export const Filter = () => {
   
@@ -10,7 +10,7 @@ export const Filter = () => {
       p={2}
     >
       
-      <SelectYear />
+      <SelectMonths />
 
     </Stack>
   );

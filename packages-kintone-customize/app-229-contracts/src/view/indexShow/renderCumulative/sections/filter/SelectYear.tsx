@@ -1,41 +1,69 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { useState } from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { useMemo } from 'react';
+import { useTypedFormContext } from '../../hooks/useTypedRHF';
+import { Controller } from 'react-hook-form';
+
 
 export const SelectYear = () => {
-  const [age, setAge] = useState('');
+  const {
+    control,
+  } = useTypedFormContext();
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
+  const years = useMemo(
+    () => {
+      const currentDate = new Date();
+      const latestYear = currentDate.getFullYear() + 1;
+      return Array.from(
+        { length: 4 },
+        (_, index) => latestYear - index,
+      );
+      
+    }, 
+    [],
+  );
 
   return (
-    <FormControl 
-      fullWidth
-      size='small'
-      sx={{
-        maxWidth: '150px',
+    <Controller 
+      name='year'
+      control={control}
+      render={({
+        field: { onChange, value, ...otherField },
+        
+      }) => {
+
+        return (
+          <FormControl 
+            fullWidth
+            size='small'
+            sx={{
+              maxWidth: '150px',
+            }}
+          >
+            <InputLabel id="selectYearLabel">
+              年度
+            </InputLabel>
+            <Select
+              labelId="selectYear"
+              id="selectYear"
+              value={value}
+              label="年度"
+              onChange={(e) => onChange(e.target.value)}
+              {...otherField}
+            >
+              {years.map((year) => (
+                <MenuItem 
+                  key={year}
+                  value={year}
+                >
+                  {year}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        );
       }}
-    >
-      <InputLabel id="demo-simple-select-label">
-        年度
-      </InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={age}
-        label="Age"
-        onChange={handleChange}
-      >
-        <MenuItem value={10}>
-          2023
-        </MenuItem>
-        <MenuItem value={20}>
-          2022
-        </MenuItem>
-        <MenuItem value={30}>
-          2021
-        </MenuItem>
-      </Select>
-    </FormControl>
+    />
+
+    
   );
 };

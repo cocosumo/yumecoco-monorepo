@@ -1,3 +1,4 @@
+import { formatYearMonth } from '../../../../../../helpers/formatYearMonth';
 import { UseContractsByFiscalYearReturn } from '../../../hooks/useContractsByFiscalYear';
 import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { FiscalMonthTable } from './fiscalMonthTable/FiscalMonthTable';
@@ -20,15 +21,13 @@ export const FiscalMonths = ({
     data,
   } = fiscalYearQuery;
 
-  console.log(data);
-
   return (
     <>
       {selectedMonths.map((month) => {
         return (
           <FiscalMonthTable 
             key={month}
-            title={`${month}月度`}
+            title={`${formatYearMonth(month)}度`}
             records={data?.[month]?.contracts || []}
           />
         );

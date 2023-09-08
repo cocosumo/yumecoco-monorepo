@@ -5,7 +5,7 @@ import path from 'path';
 import format from 'date-fns/format';
 
 
-describe('getAllPaymentRemainder', () => {
+describe('getAllPaymentReminder', () => {
   it('入金確認リマインダーアプリの全レコードを取得します', async () => {
     const result = await getAllPaymentReminder();
 
@@ -21,7 +21,7 @@ describe('getAllPaymentRemainder', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `PaymentRemainder_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, `PaymentReminder_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
   });

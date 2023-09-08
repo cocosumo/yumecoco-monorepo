@@ -20,7 +20,7 @@ export const updatePaymentReminder = async () => {
   // 処理前準備
   // 工事情報のレコードを一括取得する
   const allProjects = await getAllProjects();
-  const allRemainders = await getAllPaymentReminder();
+  const allReminders = await getAllPaymentReminder();
   const allAndpadPayments = await getAllAndpadPayments();
   const allUsers = await getUsers();
 
@@ -31,7 +31,7 @@ export const updatePaymentReminder = async () => {
   const convertDatas = await convertContractsToReminder({
     projTypeContracts: tgtProjTypeContracts,
     projects: allProjects,
-    remainders: allRemainders,
+    reminders: allReminders,
     andpadPayments: allAndpadPayments,
     users: allUsers,
   });

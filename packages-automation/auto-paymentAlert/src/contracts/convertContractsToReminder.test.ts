@@ -19,7 +19,7 @@ describe('convertContractsToRemainder', () => {
     const result = await convertContractsToReminder({
       projTypeContracts: tgtProjTypeContracts,
       projects: allProjects,
-      remainders: allRemainders,
+      reminders: allRemainders,
       andpadPayments: allAndpadPayments,
       users: allUsers,
     });

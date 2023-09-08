@@ -1,6 +1,6 @@
-import { ContractRecordType, PaymentRemainderRecordType, TgtProjType } from '../../config';
+import { ContractRecordType, PaymentReminderRecordType, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
-import { IAndpadpayments, IPaymentconfremainder, IProjects, IUser } from 'types';
+import { IAndpadpayments, IPaymentreminder, IProjects, IUser } from 'types';
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
 
@@ -27,13 +27,13 @@ function getOldestDate(...dates: string[]) {
 export const convertContractsToReminder = async ({
   projTypeContracts,
   projects,
-  remainders,
+  reminders,
   andpadPayments,
   users,
 }: {
   projTypeContracts: ContractRecordType[]
   projects: IProjects[]
-  remainders: IPaymentconfremainder[]
+  reminders: IPaymentreminder[]
   andpadPayments: IAndpadpayments[]
   users: IUser[]
 }) => {
@@ -59,7 +59,7 @@ export const convertContractsToReminder = async ({
       agents,
     } = projects.find(({ uuid }) => uuid.value === projIdByContract.value) || {};
 
-    const remainderDat = remainders.find(({ projId }) => projId.value === projIdByContract.value);
+    const remainderDat = reminders.find(({ projId }) => projId.value === projIdByContract.value);
 
     const andpadPaymentsByProjId = andpadPayments.filter(({ projId }) => projId.value === projIdByContract.value) || {};
 
@@ -128,7 +128,7 @@ export const convertContractsToReminder = async ({
       acc.updateRecords.push({
         alertState: { value: remainderDat.alertState.value },
         alertDate: { value: alertDate },
-        contract: { value: contractId.value },
+        contractId: { value: contractId.value },
         projId: { value: projIdByContract.value },
         projType: { value: projTypeName?.value ?? '' },
         totalContractAmount: { value: totalContractAmt.value },
@@ -143,7 +143,7 @@ export const convertContractsToReminder = async ({
       acc.addRecords.push({
         alertState: { value: '1' },
         alertDate: { value: alertDate },
-        contract: { value: contractId.value },
+        contractId: { value: contractId.value },
         projId: { value: projIdByContract.value },
         projType: { value: projTypeName?.value ?? '' },
         totalContractAmount: { value: totalContractAmt.value },
@@ -158,8 +158,8 @@ export const convertContractsToReminder = async ({
 
     return acc;
   }, {
-    addRecords: [] as unknown as Partial<PaymentRemainderRecordType>[],
-    updateRecords: [] as unknown as Partial<PaymentRemainderRecordType>[],
+    addRecords: [] as unknown as Partial<PaymentReminderRecordType>[],
+    updateRecords: [] as unknown as Partial<PaymentReminderRecordType>[],
   });
 
   return convertRemainderRecords;

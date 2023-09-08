@@ -1,13 +1,13 @@
-declare namespace DBPaymentconfremainder {
+declare namespace DBPaymentreminder {
   interface Data {
     projId: kintone.fieldTypes.SingleLineText;
     expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
-    contract: kintone.fieldTypes.SingleLineText;
     alertDate: kintone.fieldTypes.Date;
     andpadStatus: kintone.fieldTypes.SingleLineText;
     totalContractAmount: kintone.fieldTypes.Number;
     andpadUrl: kintone.fieldTypes.Link;
+    contractId: kintone.fieldTypes.SingleLineText;
     alertState: kintone.fieldTypes.SingleLineText;
 
     alertTarget: kintone.fieldTypes.UserSelect;

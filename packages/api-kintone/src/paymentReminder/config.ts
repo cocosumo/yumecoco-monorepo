@@ -1,6 +1,6 @@
 import { AppIds } from 'config';
-import { IPaymentconfremainder, KPaymentconfremainder } from 'types';
+import { IPaymentreminder, KPaymentreminder } from 'types';
 
-export const appId = AppIds.paymentConfRemainder;
-export type RecordType = IPaymentconfremainder;
-export type RecordKey = KPaymentconfremainder;
+export const appId = AppIds.paymentReminder;
+export type RecordType = IPaymentreminder;
+export type RecordKey = KPaymentreminder;

@@ -60,3 +60,6 @@ export type KInvoices = keyof IInvoices;
 
 export type IContracts = DBContracts.SavedData;
 export type KContracts = keyof IContracts;
+
+export type IPaymentreminder = DBPaymentreminder.SavedData;
+export type KPaymentreminder = keyof IPaymentreminder;

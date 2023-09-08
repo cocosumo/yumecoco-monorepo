@@ -24,7 +24,7 @@ function getOldestDate(...dates: string[]) {
 /**
  * 契約一覧のデータを入金リマインダーアプリ形式へ変換します
  */
-export const convertContractsToRemainder = async ({
+export const convertContractsToReminder = async ({
   projTypeContracts,
   projects,
   remainders,

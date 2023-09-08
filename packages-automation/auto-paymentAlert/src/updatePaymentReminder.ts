@@ -1,9 +1,9 @@
 //import { headFullBrowser } from 'auto-common';
 //import { login } from '../../auto-kintone';
 import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
-import { postContractToRemainderApp } from './contracts/postContractToRemainderApp';
-import { convertContractsToRemainder } from './contracts/convertContractsToRemainder';
-import { getAllProjects, getAllPaymentRemainder, getAllAndpadPayments, getUsers } from 'api-kintone';
+import { postContractToReminderApp } from './contracts/postContractToReminderApp';
+import { convertContractsToReminder } from './contracts/convertContractsToReminder';
+import { getAllProjects, getAllPaymentReminder, getAllAndpadPayments, getUsers } from 'api-kintone';
 
 
 
@@ -20,7 +20,7 @@ export const updatePaymentReminder = async () => {
   // 処理前準備
   // 工事情報のレコードを一括取得する
   const allProjects = await getAllProjects();
-  const allRemainders = await getAllPaymentRemainder();
+  const allRemainders = await getAllPaymentReminder();
   const allAndpadPayments = await getAllAndpadPayments();
   const allUsers = await getUsers();
 
@@ -28,7 +28,7 @@ export const updatePaymentReminder = async () => {
   const tgtProjTypeContracts = await extractUpdatedRecords();
 
   // (0)で取得したデータを、リマインダーアプリへ登録する
-  const convertDatas = await convertContractsToRemainder({
+  const convertDatas = await convertContractsToReminder({
     projTypeContracts: tgtProjTypeContracts,
     projects: allProjects,
     remainders: allRemainders,
@@ -36,7 +36,7 @@ export const updatePaymentReminder = async () => {
     users: allUsers,
   });
 
-  await postContractToRemainderApp({ convertDatas: convertDatas });
+  await postContractToReminderApp({ convertDatas: convertDatas });
 
 
   // リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出 - (1)

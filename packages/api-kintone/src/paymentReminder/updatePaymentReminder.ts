@@ -3,7 +3,7 @@ import { updateAllRecords } from '../common/updateAllRecords';
 import { RecordType, appId } from './config';
 
 
-type UpdatePaymentRemainder = {
+type UpdatePaymentReminder = {
   id: RecordID
   record?: Partial<RecordType> | undefined
   revision?: Revision | undefined
@@ -17,7 +17,7 @@ type UpdatePaymentRemainder = {
 /**
  * 入金アラートレコードを一括更新する
  */
-export const updatePaymentRemainder = (params: UpdatePaymentRemainder[]) => {
+export const updatePaymentReminder = (params: UpdatePaymentReminder[]) => {
 
   return updateAllRecords({
     records: params,

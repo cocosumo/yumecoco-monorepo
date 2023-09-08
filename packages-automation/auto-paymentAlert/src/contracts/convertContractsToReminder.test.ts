@@ -2,9 +2,9 @@ import { describe, it } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { convertContractsToRemainder } from './convertContractsToRemainder';
+import { convertContractsToReminder } from './convertContractsToReminder';
 import { extractUpdatedRecords } from './extractUpdatedRecords';
-import { getAllProjects, getAllPaymentRemainder, getAllAndpadPayments, getUsers } from 'api-kintone';
+import { getAllProjects, getAllPaymentReminder, getAllAndpadPayments, getUsers } from 'api-kintone';
 
 
 describe('convertContractsToRemainder', () => {
@@ -12,11 +12,11 @@ describe('convertContractsToRemainder', () => {
 
     const tgtProjTypeContracts = await extractUpdatedRecords();
     const allProjects = await getAllProjects();
-    const allRemainders = await getAllPaymentRemainder();
+    const allRemainders = await getAllPaymentReminder();
     const allAndpadPayments = await getAllAndpadPayments();
     const allUsers = await getUsers();
 
-    const result = await convertContractsToRemainder({
+    const result = await convertContractsToReminder({
       projTypeContracts: tgtProjTypeContracts,
       projects: allProjects,
       remainders: allRemainders,

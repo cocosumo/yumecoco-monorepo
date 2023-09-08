@@ -2,7 +2,7 @@ import { RecordKey, appId } from './config';
 import { addAllRecords } from '../common/addAllRecords';
 
 
-type AddPaymentRemainder = {
+type AddPaymentReminder = {
   [fieldCode: RecordKey[number]]: {
     value: unknown
   }
@@ -11,7 +11,7 @@ type AddPaymentRemainder = {
 /**
  * 入金アラートレコードを一括更新する
  */
-export const updatePaymentRemainder = (params: AddPaymentRemainder[]) => {
+export const updatePaymentReminder = (params: AddPaymentReminder[]) => {
 
   return addAllRecords({
     app: appId,

@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals';
-import { getAllPaymentRemainder } from './getAllPaymentRemainder';
+import { getAllPaymentReminder } from './getAllPaymentReminder';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
@@ -7,7 +7,7 @@ import format from 'date-fns/format';
 
 describe('getAllPaymentRemainder', () => {
   it('入金確認リマインダーアプリの全レコードを取得します', async () => {
-    const result = await getAllPaymentRemainder();
+    const result = await getAllPaymentReminder();
 
     expect(result).toBeInstanceOf(Array);
     expect(result.length).toBeGreaterThan(0);

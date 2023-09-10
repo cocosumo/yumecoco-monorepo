@@ -7,9 +7,9 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = (env) => {
   console.log('env', env);
-  const environment = env.production ? 'production' : 'development';
+  const environment = env.production  ? 'production' : 'development';
   return {
-    mode: env.production ? 'production' : 'development',
+    mode: environment,
     plugins: [
       new Dotenv({ path: `.env` }),
       //new ForkTsCheckerWebpackPlugin(),
@@ -124,7 +124,7 @@ module.exports = (env) => {
       },
     },
     minimizer: [
-      //'...',
+      '...',
       new CssMinimizerPlugin(),
     ],
     },

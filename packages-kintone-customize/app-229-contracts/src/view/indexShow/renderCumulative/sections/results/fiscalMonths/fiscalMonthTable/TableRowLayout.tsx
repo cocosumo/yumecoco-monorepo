@@ -51,7 +51,7 @@ export const TableRowLayout = (props: TableRowLayoutProps) => {
       <TableCell>
         {custName}
       </TableCell>
-      <TableCell>
+      <TableCell width={300}>
         {projName}
       </TableCell>
       <TableCell>

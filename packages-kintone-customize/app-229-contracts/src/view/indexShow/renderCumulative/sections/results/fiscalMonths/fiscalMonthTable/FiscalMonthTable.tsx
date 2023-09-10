@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import style from './FiscalMonthTable.module.css';
 import { TableRowLayout } from './TableRowLayout';
 import { roundTo } from 'libs';
+import { FitText } from '../../../../components/FitText';
 
 export const FiscalMonthTable = ({
   title,
@@ -56,7 +57,7 @@ export const FiscalMonthTable = ({
                 rowNum={index + 1}
                 projType={projTypeName.value}
                 custName={custName.value}
-                projName={projName.value}
+                projName={(<FitText content={projName.value} />)}
                 contractDate={contractDate.value}
                 contractAmtExclTax={roundTo(contractAmtExclTax.value).toLocaleString()}
                 contractAmtInclTax={roundTo(contractAmtInclTax.value).toLocaleString()}

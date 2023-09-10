@@ -5,16 +5,17 @@
   border: 1px solid #ddd;
   font-size: 14px;
   font-family: Arial, Helvetica, sans-serif;
+  table-layout: fixed;
 }
 
 .table th {
   padding: 3px 5px;
   margin: auto;
-  color: white;
-  background: #abadad;
+  color: #333;
+  background: #faf8f8;
   border: 1px solid #a09e9e;
   white-space: nowrap;
-
+  font-weight: bold;
 }
 
 .table td {
@@ -22,6 +23,8 @@
   padding: 3px 5px;
   margin: auto;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* alternace color for each row */

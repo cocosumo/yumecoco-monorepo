@@ -7,6 +7,7 @@ import format from 'date-fns/format';
 import { calcProfitRate, roundTo } from 'libs';
 import { Stack } from '@mui/system';
 import { useTypedWatch } from '../../../hooks/useTypedRHF';
+import { useStoreNameById } from '../../../hooks/useStoreNameById';
 
 export const FiscalYearResult = ({
   fiscalYearQuery,
@@ -22,7 +23,10 @@ export const FiscalYearResult = ({
       'year',
       'stores',
     ],
-  });
+  }) as [string, string];
+
+  const storeName = useStoreNameById(stores);
+  
 
   const { 
     data,
@@ -32,7 +36,7 @@ export const FiscalYearResult = ({
   return (
     <Stack spacing={1}>
       <Typography variant='h5'>
-        {`${year}年度 ${stores}	契約累積表`}
+        {`${year}年度 ${storeName ? storeName : ''}	契約累積表`}
       </Typography>
   
       <Table className={styles.table}>

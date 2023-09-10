@@ -21,3 +21,8 @@
   padding: 3px 5px;
   margin: auto;
 }
+
+/* alternace color for each row */
+.table tr:nth-child(even) {
+  background-color: #faf8f8;
+}

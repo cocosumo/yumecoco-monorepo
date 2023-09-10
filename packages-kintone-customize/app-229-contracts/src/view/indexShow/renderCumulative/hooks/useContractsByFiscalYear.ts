@@ -20,19 +20,34 @@ const contractDateKey: keyof DB.SavedRecord = 'contractDate';
 
 
 export const useContractsByFiscalYear = () => {
-  const year = useTypedWatch({
-    name: 'year',
-  }) as string;
+  const [
+    year,
+    stores,
+  ] = useTypedWatch({
+    name: [
+      'year',
+      'stores',
+    ],
+  }) as [
+    string,
+    string,
+  ];
 
   const minDateStr = format(new Date(+year - 1, 11, 1), 'yyyy-MM-dd');
   
   const maxDateteStr = format(endOfMonth(new Date(+year, 10, 1)), 'yyyy-MM-dd');
+
+  const condition = [
+    `${contractDateKey} >= "${minDateStr}"`,
+    `${contractDateKey} <= "${maxDateteStr}"`,
+    stores ? `storeId = "${stores}"` : undefined,
+  ].filter(Boolean).join(' and ');
   
   const {
     data: contracts,
     ...contractsQuery
   } = useContracts({
-    condition: `${contractDateKey} >= "${minDateStr}" and ${contractDateKey} <= "${maxDateteStr}"`,
+    condition: condition,
   });
 
   const groupedByMonth = useMemo(() => {

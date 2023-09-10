@@ -21,7 +21,8 @@
     "api-kintone": "*",
     "crypto-es": "^1.2.7",
     "jquery": "^3.7.1",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "use-fit-text": "^2.4.0"
   },
   "browser": {
     "crypto": false

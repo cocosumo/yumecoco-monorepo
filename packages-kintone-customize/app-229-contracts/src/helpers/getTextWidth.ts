@@ -6,7 +6,7 @@ export function getTextWidth(text: string, fontSize = 16) {
     return 0;
   }
   
-  context.font = `${fontSize}px sans-serif`;
+  context.font = `${fontSize}pt sans-serif`;
 
   return context.measureText(text).width;
 }

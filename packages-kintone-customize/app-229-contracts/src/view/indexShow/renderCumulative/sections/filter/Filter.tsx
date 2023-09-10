@@ -9,7 +9,7 @@ export const Filter = () => {
     <Stack
       direction='row'
       spacing={2}
-      py={2}
+      width={'70%'}
     >
   
       <SelectYear />

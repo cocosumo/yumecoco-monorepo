@@ -2,9 +2,9 @@ import { Form, FormProvider, useForm } from 'react-hook-form';
 import { TForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { initialForm } from './form';
-import { Filter } from './sections/filter/Filter';
 import { Stack } from '@mui/material';
 import { Results } from './sections/results/Results';
+import { Toolbar } from './sections/toolbar/Toolbar';
 
 export const FormCumulative = () => {
   const formReturn = useForm<TForm>({
@@ -22,10 +22,11 @@ export const FormCumulative = () => {
         <Stack
           spacing={2}
           px={4}
+          pt={2}
           pb={4}
         >
 
-          <Filter />
+          <Toolbar />
           <Results />
         </Stack>
 

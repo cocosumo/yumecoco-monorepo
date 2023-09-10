@@ -3,7 +3,7 @@
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid #ddd;
-  font-size: 14px;
+  font-size: 12px;
   font-family: Arial, Helvetica, sans-serif;
   table-layout: fixed;
 }
@@ -16,6 +16,7 @@
   border: 1px solid #a09e9e;
   white-space: nowrap;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .table td {
@@ -30,4 +31,16 @@
 /* alternace color for each row */
 .table tr:nth-child(even) {
   background-color: #faf8f8;
+}
+
+@media print {
+  .title {
+    page-break-after: avoid;
+  }
+
+  .table {
+    transform: scaleX(0.9);
+    transform-origin: left top;
+  }
+
 }

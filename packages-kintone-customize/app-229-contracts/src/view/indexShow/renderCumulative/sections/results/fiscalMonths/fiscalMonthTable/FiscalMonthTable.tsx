@@ -15,13 +15,17 @@ export const FiscalMonthTable = ({
 
 
   return (
-    <Stack spacing={2}>
-      <Typography variant='h6'>
+    <Stack 
+      spacing={0.5} 
+      width={'100%'}
+    >
+      <Typography className={style.title} variant='h6'>
         {title}
       </Typography>
       <Table className={style.table}>
         <TableHead>
           <TableRowLayout 
+            rowNum='件数'
             projType='工事種別'
             custName='発注者'
             projName='工事名'
@@ -55,15 +59,15 @@ export const FiscalMonthTable = ({
               <TableRowLayout
                 key={$id.value}
                 rowNum={index + 1}
-                projType={projTypeName.value}
-                custName={custName.value}
+                projType={<FitText content={projTypeName.value} />}
+                custName={<FitText content={custName.value} />}
                 projName={(<FitText content={projName.value} />)}
                 contractDate={contractDate.value}
                 contractAmtExclTax={roundTo(contractAmtExclTax.value).toLocaleString()}
                 contractAmtInclTax={roundTo(contractAmtInclTax.value).toLocaleString()}
                 grossProfit={roundTo(grossProfit.value).toLocaleString()}
                 grossProfitRate={(+grossProfitRate.value).toFixed(2)}
-                agent={agents.length ?  agents.join('、 ') : 'ここすも'}
+                agent={<FitText content={agents.length ?  agents.join('、 ') : 'ここすも'} />}
               />);
           })}
         </TableBody>

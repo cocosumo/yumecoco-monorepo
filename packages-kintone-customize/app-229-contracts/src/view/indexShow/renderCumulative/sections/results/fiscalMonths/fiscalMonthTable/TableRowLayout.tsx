@@ -1,4 +1,4 @@
-import { TableCell, TableRow, Typography } from '@mui/material';
+import { TableCell, TableRow } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
@@ -33,43 +33,42 @@ export const TableRowLayout = (props: TableRowLayoutProps) => {
   return (
     <TableRow>
       <TableCell 
-        align='left'
-
+        sx={{
+          color: grey[500],
+          fontSize: '0.8rem',
+          width: '15pt',
+        }}
       >
-        <Typography component={'span'}>
-          <Typography 
-            component={'span'}
-            fontSize={10}
-            color={grey[500]}
-            pr={1}
-          >
-            {rowNum}
-          </Typography>
-        </Typography>
+        {rowNum}
+      </TableCell>
+      <TableCell 
+        align='left'
+        width={80}
+      >
         {projType}
       </TableCell>
-      <TableCell>
+      <TableCell width={'200pt'}>
         {custName}
       </TableCell>
-      <TableCell width={300}>
+      <TableCell width={'200pt'}>
         {projName}
       </TableCell>
-      <TableCell>
+      <TableCell width={80}>
         {contractDate}
       </TableCell>
-      <TableCell align='right'>
+      <TableCell width={120} align='right'>
         {contractAmtInclTax}
       </TableCell>
-      <TableCell align='right'>
+      <TableCell width={120} align='right'>
         {contractAmtExclTax}
       </TableCell>
-      <TableCell align='right'>
+      <TableCell width={80} align='right'>
         {grossProfit}
       </TableCell>
-      <TableCell align='right'>
+      <TableCell width={50} align='right'>
         {grossProfitRate}
       </TableCell>
-      <TableCell>
+      <TableCell width={'100pt'}>
         {agent}
       </TableCell>
     </TableRow>

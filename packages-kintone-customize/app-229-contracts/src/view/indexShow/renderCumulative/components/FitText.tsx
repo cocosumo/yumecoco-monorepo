@@ -4,8 +4,12 @@ import useFitText from 'use-fit-text';
 
 export const FitText = ({
   content,
+  color,
+  bgColor,
 }:{
   content: string,
+  color?: string,
+  bgColor?: string
 }) => {
   const {
     fontSize,
@@ -18,6 +22,8 @@ export const FitText = ({
     <Typography
       ref={ref}
       fontSize={fontSize}
+      color={color}
+      bgcolor={bgColor}
     >
       {content}
     </Typography>

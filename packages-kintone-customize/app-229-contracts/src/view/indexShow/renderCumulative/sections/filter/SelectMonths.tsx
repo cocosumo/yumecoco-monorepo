@@ -15,8 +15,6 @@ export const SelectMonths = () => {
 
   const fiscalMonths = getFiscalMonths(selectedYear);
 
-  console.log(fiscalMonths);
-
   return (
     <Controller 
       name='months'

@@ -2,252 +2,17 @@
 import moment from 'moment';
 import { IStores } from 'types';
 import  $ from 'jquery';
+import './yumetetsu_syokairyou.css';
+import { refreshResult } from './refreshResult';
+import { hightlightRowsByWeek } from './highlightRowsByWeek';
 
 
 (function () {
   'use strict';
 
-  const commisionRates = 6343111; // 紹介料一覧
+  const commissionRates = 6343111; // 紹介料一覧
+  const commissionRatesDev = 6343125; // 紹介料一覧（開発用）
   const storeAppId = 19;
-  const contractsAppId = 229;
-
-  function getWeekDates(year: number, month: number) {
-
-    const date = new Date(year, month, 0);
-    const maxDays = date.getDate();    //該当月の最終日付
-      
-    console.log(maxDays);
-      
-    const weeks = [];
-      
-    const currResult: Record<string, null | Date> = {
-      startDate: null,  //週の始まりの日付
-      endDate: null,    //週の終わりの日付
-    };
-      
-    for (let i = 1; i <= maxDays; i++ ) {
-      const currDate = new Date(year, date.getMonth(), i);
-          
-      const weekIdx = currDate.getDay();
-          
-      if (weekIdx === 0 && i === 1) {
-        currResult.startDate = currDate;
-        currResult.endDate = currDate;
-      }
-          
-      if (i === 1 || weekIdx === 1) {
-        currResult.startDate = currDate;    
-      } else if (i === maxDays || weekIdx === 0) {
-        currResult.endDate = currDate;
-      }
-          
-      if (currResult.startDate && currResult.endDate ) {
-        weeks.push({
-          startDate: currResult.startDate,
-          endDate: currResult.endDate,
-        });
-        currResult.startDate = null;
-        currResult.endDate = null;
-      }
-    }
-  
-    return weeks;
-  }
-  
-  
-  function getFirstAndLastDay(
-    year: number, 
-    month: number,
-  ) {
-  // Create a Date object for the first day of the month
-    const firstDay = moment({ year, month: month - 1, day: 1 });
-    const lastDay = moment({ year, month: month - 1 }).endOf('month');
-
-    return {
-      firstDay: firstDay.format('YYYY-MM-DD'),
-      lastDay: lastDay.format('YYYY-MM-DD'),
-    };
-  }
-  
-  
-  const getContractRecords = async (
-    year: number, 
-    month: number, 
-    store: string,
-  ) : Promise<{
-    records: Array<DB.SavedRecord>,
-    totalCount: number,
-  }> => {
-    const {
-      firstDay,
-      lastDay,
-    } = getFirstAndLastDay(year, month);
-  
-    const query = `contractDate >= "${firstDay}" and contractDate <= "${lastDay}" and storeId = "${store}" order by contractDate asc `;
-  
-    console.log('Query', query);
-  
-    return kintone.api(
-      kintone.api.url('/k/v1/records', true),
-      'GET',
-      {
-        app: contractsAppId,
-        query: query,
-      },
-    );
-  
-  };
-
-
-
-  const showContractRecords = (
-    year: number, 
-    month: number, 
-    store: string,
-  ) => {
-  // レコードIDを取得
-    getContractRecords(year, month, store)
-      .then((result) => {
-        const { records } = result;
-     
-        //records.sort((a, b) => {
-        //   const dateA = new Date(a.contractDate.value);
-        //   const dateB = new Date(b.contractDate.value);
-        //   return dateA - dateB;
-        // });
-     
-        $('#mainTable tbody').empty();
-     
-        records
-          .forEach((rec, idx: number) => {
-            console.log('rec', rec);
-       
-            const {
-              projName,
-              projTypeName,
-              custName,
-              contractDate,
-              contractAmountIntax,
-              contractAmountNotax,
-              profit,
-              editProfit,
-              fee,
-              yumeAGName,
-              yumeAGName2,
-            } = rec;
-       
-            // 粗利率を計算
-            const grossProfitMargin = (+editProfit.value / +contractAmountNotax.value) * 100;
-            console.log(grossProfitMargin);
-        
-            // 粗利率を表示（小数点以下2桁まで）
-            const formattedGrossProfitMargin = grossProfitMargin.toFixed(2) + '%';
-            console.log(formattedGrossProfitMargin);
-          
-            function formatCurrency(amount: number) {
-              // 3桁ごとにカンマを挿入するフォーマットに変換
-              const formattedAmount = amount.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' });
-              return formattedAmount;
-
-            }
-        
-            $('#mainTable tbody')
-              .append(`
-                <tr>
-                    <th id="number">${idx + 1}</th>
-                    <th id="projTypeName">${projTypeName.value}</th>
-                    <th id="custName">${custName.value}</th>
-                    <th id="projName">${projName.value}</th>
-                    <th id="contractDate">${contractDate.value}</th>
-                    <th id="contractAmountIntax">${formatCurrency(parseFloat(contractAmountIntax.value))}</th>
-                    <th id="contractAmountNotax">${formatCurrency(parseFloat(contractAmountNotax.value))}</th>
-                    <th id="profit">${formatCurrency(parseFloat(profit.value))}</th>
-                    <th id="profitIntax">${formatCurrency(+profit.value * 1.1)}</th>
-                    <th id="fee">${formatCurrency(parseFloat(fee.value))}</th>
-                    <th id="editProfit">${formattedGrossProfitMargin}</th>
-                    <th id="yumeAGName">${yumeAGName.value}</th>
-                    <th id="yumeAGName2">${yumeAGName2.value}</th>
-                  </tr>
-                `);
-       
-          });
-
-        const getWeeks = getWeekDates(
-          +(document.querySelector('#selectYear') as HTMLSelectElement).value, 
-          +(document.querySelector('#selectMonth') as HTMLSelectElement).value,
-        ); 
-
-        $('#subTable tbody').empty();  //選択変更時にリストをリセット
-
-        const weeklyTotalFees = new Array(getWeeks.length).fill(0);
-
-        // 各契約日を該当する週に関連付ける
-        const contractWeeks = records.map((rec) => {
-          const contractDate = moment(rec.contractDate.value);
-          const weekIndex = getWeeks.findIndex((week) => contractDate.isBetween(week.startDate, week.endDate, undefined, '[]'));
-          return {
-            contractDate,
-            weekIndex,
-          };
-        });
-
-        getWeeks.forEach((item, index) => {
-
-          // let totalFee = 0;
-          const totalContractAmountIntax = 0;
-          const totalProfit = 0;
-          const totalNumberSum = 0;
-    
-    
- 
-          for (const contract of contractWeeks) {
-            if (contract.weekIndex === index) {
-              //weeklyTotalFees[index] += +rec.fee.value; // 一旦コメントアウト -RAS
-            }
-          }
-    
-          $('#subTable tbody')
-            .append(`
-            <tr>
-                  <th id="weekHeader">第${index + 1}週：${moment(item.startDate).format('M/D')}～${moment(item.endDate).format('M/D')}</th>
-                  <th id="weekContractAmountIntax"></th>
-                  <th id="weekProfit"></th>
-                  <th id="weekProfitIntax"></th>
-                  <th id="weekFee">${weeklyTotalFees[index]}</th>
-                  <th id="WeekNumberSum"></th>
-              </tr>
-            `);
-
-        });
-
-     
-
-      });
-   
-
-    
-  
-  // 表示
-  };
-
-
-  const refreshResult = () => {
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1;
-
-    const selectedYear = +(document.querySelector('#selectYear') as HTMLSelectElement).value || currentYear;
-    const selectedMonth = +(document.querySelector('#selectMonth') as HTMLSelectElement).value || currentMonth;
-    const selectedStore = (document.querySelector('#selectStore') as HTMLSelectElement).value;
-
-
-    showContractRecords(
-      selectedYear,
-      selectedMonth,
-      String(selectedStore),
-    );
-  };
-  
 
   kintone.events.on('app.record.index.show', (event)=>{
     console.log(event);
@@ -257,7 +22,25 @@ import  $ from 'jquery';
     } = event;
       
     console.log('viewId', viewId);
-    if (viewId === commisionRates) {
+    if (viewId === commissionRates || viewId === commissionRatesDev) {
+
+      $('#custom_toolbar').append(`
+        <label for="selectYear">　年：</label>
+        <select id="selectYear"></select>
+        
+        <label for="selectMonth">月：</label>
+        <select id="selectMonth"></select>
+        
+        <label for="selectStore">店舗：</label>
+        <select id="selectStore"></select>
+
+        <label for="selectWeek">ハイライト：</label>
+        <select id="selectWeek"></select>
+
+        <button id="printButton">印刷</button>
+      `);
+
+      $('#todayDate').text(`作成日：${moment().format('YYYY年MM月DD日')}`);
 
       const selectYear = document.getElementById('selectYear') as HTMLSelectElement;
       const selectMonth = document.getElementById('selectMonth') as HTMLSelectElement;
@@ -285,6 +68,34 @@ import  $ from 'jquery';
       }
       const toMonth = new Date().getMonth() + 1;
       selectMonth.value = String(toMonth);
+
+      // middle align 件数　with 30px width
+
+      $('#mainTable')
+        .append(`
+        <thead>
+            <tr>
+              
+                <th style="width: 30px;">
+                  件数
+                </th>
+                <th style="width: 80px;">工事種別</th>
+                <th style="width: 150px;">発注者</th>
+                <th style="width: 200px;">工事名</th>
+                <th style="width: 80px;">契約日</th>
+                <th>契約金額(税込)</th>
+                <th>粗利金額(税抜)</th>
+                <th>粗利金額(税抜)</th> 
+                <th>粗利金額(税込)</th>       <!-- フィールド内は税抜きのためprofit*1.1すること -->
+                <th>夢てつ入金(税込)</th>
+                <th style="width: 70px;">総粗利率</th>
+                <th>AG1</th>
+                <th>AG2</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+                `);
         
       kintone.api(
         kintone.api.url('/k/v1/records', true),
@@ -317,23 +128,31 @@ import  $ from 'jquery';
               selectStore.add(option);
             }
           });
-            
+
           refreshResult();
-            
+
         },
         function (error) {
           console.error('店舗リストの取得に失敗しました:', error);
         },
       );
         
-
+      
       $('#selectYear, #selectMonth, #selectStore').change(function () {
         refreshResult();
       });
+
+      $('#printButton').click(function () {
+        window.print();
+      });
+
+      $('#selectWeek').change(function () {
+        console.log('selectWeek changed');
+        hightlightRowsByWeek();
+      });
               
     }
-      
-      
+    
     
   });
 

@@ -43,7 +43,7 @@ export const FiscalYearResult = ({
   return (
     <Stack spacing={1}>
       <Typography variant='h5'>
-        {`${year}年度 ${storeName ? storeName : ''}	契約累積表`}
+        {`${year}年度 ${storeName ? storeName : '全店舗'}	契約累積表`}
       </Typography>
   
       <Table className={styles.table}>

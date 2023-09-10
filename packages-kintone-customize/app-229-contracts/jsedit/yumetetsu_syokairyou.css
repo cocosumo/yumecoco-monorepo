@@ -3,9 +3,18 @@
   \***************************************************************************************/
 /*  @charset "UTF-8"; */
 
+#custom_toolbar {
+    /* ツールバーのスタイルを指定 */
+    height: 40px;
+    padding: 8px;
+    width: 100%;
+}
+
 /* プルダウンのスタイル */
 #selectYear,
-#selectMonth {
+#selectMonth,
+#selectStore,
+#selectWeek {
   width: 80px; /* 幅を調整 */
   height: 32px;
   margin-right: 10px;
@@ -15,10 +24,6 @@
 
 #selectStore {
   width: 120px;
-  height: 32px;
-  margin-right: 10px;
-  border-radius: 8px;
-  text-align: center;
 }
 
 /* ボタンのスタイル */

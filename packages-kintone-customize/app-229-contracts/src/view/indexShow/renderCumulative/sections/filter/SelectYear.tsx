@@ -41,12 +41,10 @@ export const SelectYear = () => {
               maxWidth: '150px',
             }}
           >
-            <InputLabel id="selectYearLabel">
+            <InputLabel>
               年度
             </InputLabel>
             <Select
-              labelId="selectYear"
-              id="selectYear"
               value={value}
               label="年度"
               onChange={(e) => {

@@ -58,7 +58,7 @@ export const FiscalYearResult = ({
               totalAmountInclTax = 0,
               totalProfit = 0,
               contracts,
-            } = data?.[month] || {};
+            } = data?.details?.[month] || {};
             return (
               <TableRowLayout
                 key={month}

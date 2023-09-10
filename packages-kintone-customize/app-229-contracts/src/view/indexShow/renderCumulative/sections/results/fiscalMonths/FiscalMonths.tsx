@@ -28,7 +28,7 @@ export const FiscalMonths = ({
           <FiscalMonthTable 
             key={month}
             title={`${formatYearMonth(month)}度`}
-            records={data?.[month]?.contracts || []}
+            records={data?.details?.[month]?.contracts || []}
           />
         );
 

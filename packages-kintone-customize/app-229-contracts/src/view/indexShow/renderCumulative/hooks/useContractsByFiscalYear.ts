@@ -12,9 +12,19 @@ interface FiscalMonth {
   totalProfit: number,
 }
 
-interface FiscalYearData {
+interface FiscalYearDetails {
   [key: string]: FiscalMonth
 }
+interface FiscalYearData {
+  totalCount: number,
+  totalAmountInclTax: number,
+  totalAmountExclTax: number,
+  totalProfit: number,
+  totalProfitRate: number,
+  details: FiscalYearDetails,
+}
+
+
 
 const contractDateKey: keyof DB.SavedRecord = 'contractDate';
 
@@ -65,7 +75,7 @@ export const useContractsByFiscalYear = () => {
 
           const month = format(new Date(contractDate.value), 'yyyy-MM');
 
-          const fiscalMonth = acc[month] || {
+          const fiscalMonth = acc.details?.[month] || {
             contracts: [],
             totalAmountInclTax: 0,
             totalAmountExclTax: 0,
@@ -79,7 +89,10 @@ export const useContractsByFiscalYear = () => {
           
           return {
             ...acc,
-            [month]: fiscalMonth,
+            details: {
+              ...acc.details,
+              [month]: fiscalMonth,
+            },
           };
 
         }, 

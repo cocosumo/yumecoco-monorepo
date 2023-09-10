@@ -1,3 +1,7 @@
+.print {
+  max-width: 210mm;
+}
+
 @media print {
   @page {
     size: auto; /* auto is the initial value */
@@ -7,14 +11,10 @@
 
   /* Max width is A4 */
 
-  body {
-    max-width: 210mm;
-  }
-
   thead {
     display: table-row-group;
   }
   tr {
-    page-break-inside: avoid;  /* fix overlapping content with header */
+    page-break-inside: avoid; /* fix overlapping content with header */
   }
 }

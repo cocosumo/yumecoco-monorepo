@@ -20,7 +20,6 @@ interface FiscalYearData {
   totalAmountInclTax: number,
   totalAmountExclTax: number,
   totalProfit: number,
-  totalProfitRate: number,
   details: FiscalYearDetails,
 }
 
@@ -86,6 +85,11 @@ export const useContractsByFiscalYear = () => {
           fiscalMonth.totalAmountInclTax += +contractAmountIntax.value;
           fiscalMonth.totalAmountExclTax += +contractAmountNotax.value;
           fiscalMonth.totalProfit += +profit.value;
+
+          acc.totalCount += 1;
+          acc.totalAmountInclTax += +contractAmountIntax.value;
+          acc.totalAmountExclTax += +contractAmountNotax.value;
+          acc.totalProfit += +profit.value;
           
           return {
             ...acc,
@@ -96,10 +100,17 @@ export const useContractsByFiscalYear = () => {
           };
 
         }, 
-        {} as FiscalYearData,
+        {
+          totalCount: 0,
+          totalAmountInclTax: 0,
+          totalAmountExclTax: 0,
+          totalProfit: 0,
+          details: {},
+        } as FiscalYearData,
       );
 
   }, [contracts]);
+
 
   return {
     data: groupedByMonth,

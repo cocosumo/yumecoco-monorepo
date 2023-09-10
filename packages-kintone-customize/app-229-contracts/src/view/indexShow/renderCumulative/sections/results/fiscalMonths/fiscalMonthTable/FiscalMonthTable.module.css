@@ -38,6 +38,7 @@
     page-break-after: avoid;
   }
 
+  /* Force not to overflow */
   .table {
     transform: scaleX(0.9);
     transform-origin: left top;

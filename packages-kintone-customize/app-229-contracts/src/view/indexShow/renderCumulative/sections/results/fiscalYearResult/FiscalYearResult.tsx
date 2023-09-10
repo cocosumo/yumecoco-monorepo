@@ -1,4 +1,4 @@
-import { Table, TableBody, TableHead, Typography } from '@mui/material';
+import { Table, TableBody, TableFooter, TableHead, Typography } from '@mui/material';
 import styles from './FiscalYearResult.module.css';
 import { TableRowLayout } from './TableRowLayout';
 import { UseContractsByFiscalYearReturn } from '../../../hooks/useContractsByFiscalYear';
@@ -33,6 +33,13 @@ export const FiscalYearResult = ({
     fiscalMonths,
   } = fiscalYearQuery;
 
+  const {
+    totalCount,
+    totalAmountInclTax = 0,
+    totalAmountExclTax = 0,
+    totalProfit = 0,
+  } = data || {};
+
   return (
     <Stack spacing={1}>
       <Typography variant='h5'>
@@ -54,9 +61,9 @@ export const FiscalYearResult = ({
           {fiscalMonths.map((month) => {
 
             const {
-              totalAmountExclTax = 0,
-              totalAmountInclTax = 0,
-              totalProfit = 0,
+              totalAmountInclTax: _totalAmountInclTax = 0,
+              totalAmountExclTax: _totalAmountExclTax = 0,
+              totalProfit: _totalProfit = 0,
               contracts,
             } = data?.details?.[month] || {};
             return (
@@ -64,16 +71,26 @@ export const FiscalYearResult = ({
                 key={month}
                 month={`${format(parse(month, 'yyyy-MM', new Date()), 'M')}月度`}
                 count={contracts?.length || 0}
-                contractAmountIncTax={roundTo(totalAmountInclTax).toLocaleString() || '0'}
-                contractAmountExclTax={roundTo(totalAmountExclTax).toLocaleString() || '0'}
-                grossProfit={roundTo(totalProfit).toLocaleString() || '0'}
-                grossProfitRate={roundTo(calcProfitRate(totalAmountExclTax - totalProfit, totalAmountExclTax) * 100, 2)}
+                contractAmountIncTax={roundTo(_totalAmountInclTax).toLocaleString() || '0'}
+                contractAmountExclTax={roundTo(_totalAmountExclTax).toLocaleString() || '0'}
+                grossProfit={roundTo(_totalProfit).toLocaleString() || '0'}
+                grossProfitRate={roundTo(calcProfitRate(_totalAmountExclTax - _totalProfit, _totalAmountExclTax) * 100, 2)}
               />
             );
           })}
        
 
         </TableBody>
+        <TableFooter>
+          <TableRowLayout
+            month='合計'
+            count={totalCount || 0}
+            contractAmountIncTax={roundTo(totalAmountInclTax).toLocaleString() || '0'}
+            contractAmountExclTax={roundTo(totalAmountExclTax).toLocaleString() || '0'}
+            grossProfit={roundTo(totalProfit).toLocaleString() || '0'}
+            grossProfitRate={roundTo(calcProfitRate(totalAmountExclTax - totalProfit, totalAmountExclTax) * 100, 2)}
+          />
+        </TableFooter>
       </Table>
     </Stack>
   );

@@ -10,6 +10,8 @@
     "auto-common": "*"
   },
   "scripts": {
-    "start" : "ts-node --files ./main.ts -T"
+    "start": "ts-node --files ./main.ts -T",
+    "dtsgen": "npx @kintone/dts-gen",
+    "update:types": "ts-node --files npm-scripts/dtsgen.ts -T"
   }
 }

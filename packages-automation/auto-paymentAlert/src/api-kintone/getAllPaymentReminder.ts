@@ -1,5 +1,5 @@
+import { getAllRecords } from 'api-kintone';
 import { appId, RecordType } from './config';
-import { getAllRecords } from '../common';
 
 
 export const getAllPaymentReminder = async (

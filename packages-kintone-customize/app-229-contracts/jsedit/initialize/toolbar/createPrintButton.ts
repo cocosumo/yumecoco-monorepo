@@ -4,7 +4,7 @@ const printButtonId = 'printButton';
 
 export const createPrintButton = () => {
   $('#custom_toolbar').append(`
-    <button id="${printButtonId}">印刷</button>
+    <button value='test' id="${printButtonId}">印刷</button>
   `);
 
   return $(`#${printButtonId}`);

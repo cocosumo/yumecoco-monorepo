@@ -1,0 +1,26 @@
+
+table.table_contracts_list {
+  width: 100%;
+}
+
+/* Common styles for table header and body */
+.table_contracts_list th,
+.table_contracts_list tbody td {
+  padding: 3px 5px;
+  margin: auto;
+  white-space: nowrap;
+}
+
+/* Styles for table body cells */
+.table_contracts_list tbody td {
+  border: 1px solid #888;
+}
+
+/* Styles for table header cells */
+.table_contracts_list thead th {
+  font-size: 14px;
+  color: #283618;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #888;
+}

@@ -1,4 +1,6 @@
 import initialize from './initialize';
+import { refreshResult } from './result/refreshResult';
+import { addPrintButtonTrigger } from './triggers/button';
 import { addResultRefreshTriggers } from './triggers/select';
 import './yumetetsu_syokairyou.css';
 
@@ -9,7 +11,7 @@ const commissionRates = 6343111;
 const commissionRatesDev = 6343125; 
 
 (()=> {
-  kintone.events.on('app.record.index.show', (event)=>{
+  kintone.events.on('app.record.index.show', async  (event)=>{
 
     const {
       viewId,
@@ -17,9 +19,13 @@ const commissionRatesDev = 6343125;
     
     if (viewId === commissionRates || viewId === commissionRatesDev) {
 
-      initialize();
+      await initialize();
 
       addResultRefreshTriggers();
+
+      addPrintButtonTrigger();
+
+      refreshResult();
       
 
       /* const selectYear = document.getElementById('selectYear') as HTMLSelectElement;

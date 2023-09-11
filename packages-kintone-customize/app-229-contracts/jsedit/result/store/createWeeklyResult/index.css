@@ -1,0 +1,29 @@
+
+table.table_weekly_result {
+  width: 50%;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 16px;
+}
+
+/* Common styles for table header and body */
+.table_weekly_result th,
+.table_weekly_result tbody td {
+  padding: 3px 5px;
+  margin: auto;
+  white-space: nowrap;
+}
+
+/* Styles for table body cells */
+.table_weekly_result tbody td {
+  border: 1px solid #888;
+}
+
+/* Styles for table header cells */
+.table_weekly_result thead th {
+  font-size: 14px;
+  color: #283618;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #888;
+}

@@ -1,19 +1,22 @@
 
 import { toolbarInit } from './toolbar/toolbarInit';
-import { createDateInit } from './createDateInit';
+import { createPrintArea } from './createPrintArea';
 
 
 /**
  * 主なHTML要素を作成して初期化する
  * 
  */
-export default function () {
+export default async function () {
 
   // ツールバーを表示する
-  toolbarInit();
+  await toolbarInit();
 
   // 作成日を表示する
-  createDateInit();
+  //createDateInit();
+
+  // 印刷エリアを表示する
+  createPrintArea();
 
   // メインテーブルを表示する
   //resultTableInit();

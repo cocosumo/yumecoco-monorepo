@@ -3,8 +3,8 @@ import { appId } from '../../src/constants';
 import { getFirstAndLastDay } from './getFirstAndLastDay';
 
 export interface GetContractRecordsParams {
-  year: number,
-  month: number,
+  year: number | string,
+  month: number | string,
   store?: string,
 }
 
@@ -27,7 +27,7 @@ export const getContractRecords = async (
   const {
     firstDay,
     lastDay,
-  } = getFirstAndLastDay(year, month);
+  } = getFirstAndLastDay(+year, +month);
 
   const queryArr = [
     `contractDate >= "${firstDay}"`,

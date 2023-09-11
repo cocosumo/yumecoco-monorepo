@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import moment from 'moment';
-import { getWeekDates } from '../../../getWeekDates';
 import { getFormValues } from '../../../api/getFormValues';
+import { getWeekDates } from '../../../api/getWeekDates';
 
 export const hightlightRowsByWeek = () => {
   const {

@@ -2,7 +2,7 @@ import initialize from './initialize';
 import { refreshResult } from './result/refreshResult';
 import { addPrintButtonTrigger } from './triggers/button';
 import { addResultRefreshTriggers, addWeekHighlightTriggers } from './triggers/select';
-import './yumetetsu_syokairyou.css';
+import './main.css';
 
 /** 紹介料一覧 */
 const commissionRates = 6343111; 

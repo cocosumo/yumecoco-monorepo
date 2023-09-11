@@ -1,0 +1,16 @@
+
+
+
+@media print {
+  .contents-actionmenu-gaia,
+  .contents-bottommenu-gaia,
+  header,
+  nav,
+  #custom_toolbar {
+    display: none !important;
+  }
+
+  body {
+    background-color: #fff;
+  }
+}

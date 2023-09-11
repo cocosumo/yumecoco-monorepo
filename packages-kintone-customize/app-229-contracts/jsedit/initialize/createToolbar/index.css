@@ -13,3 +13,11 @@
 #selectHighlight {
   width: 100px;
 }
+
+/* ボタンのスタイル */
+#printButton {
+  background-color: #008b8b; /* ボタンの背景色を変更 */
+  color: #fff; /* テキストの色を変更 */
+  padding: 3px 20px; /* パディングを調整 */
+  border-radius: 8px;
+}

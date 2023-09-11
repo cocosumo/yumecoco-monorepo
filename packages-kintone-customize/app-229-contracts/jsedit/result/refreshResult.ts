@@ -22,6 +22,8 @@ export const refreshResult = async () => {
   
   getPrintArea().empty();
 
+  console.log(result);
+
   for (const [storeId, contracts] of Object.entries(result)) {
 
     await showResultByStore({

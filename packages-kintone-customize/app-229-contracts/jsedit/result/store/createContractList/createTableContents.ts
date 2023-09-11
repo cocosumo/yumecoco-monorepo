@@ -51,5 +51,4 @@ export const createTableContents = (
 
 
     });
-  console.log($tbody);
 };

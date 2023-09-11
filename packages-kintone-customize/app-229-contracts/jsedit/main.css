@@ -1,4 +1,17 @@
+.contents-bottommenu-gaia {
+  display: none;
+}
+
+#root {
+  padding-bottom: 80px;
+}
+
 @media print {
+  html,
+  body {
+    height: 90%;
+  }
+
   .contents-actionmenu-gaia,
   .contents-bottommenu-gaia,
   .kintone-app-header-space,
@@ -7,8 +20,7 @@
   #custom_toolbar,
   #header-global-navigation-root,
   #view-list-bottom-gaia,
-  .contents-bottommenu-gaia
-  {
+  .contents-bottommenu-gaia {
     display: none !important;
   }
 
@@ -21,17 +33,13 @@
     background-color: #fff;
   }
 
-  .store_container {
+/*   .store_container {
     page-break-inside: avoid;
-  }
+  } */
 
   /* page break before all .store_container except the first instance */
   .store_container:not(:first-child) {
     page-break-before: always;
   }
 
-
-  #header-global-navigation-root {
-    height: 0px !important;
-  }
 }

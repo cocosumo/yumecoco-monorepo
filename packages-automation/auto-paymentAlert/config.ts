@@ -7,16 +7,10 @@ import { IPaymentreminder, KPaymentreminder } from './src/dbKintone';
 export const tgtProjType = ['新築付帯工事', 'リフォーム工事', '新築工事'] as const;
 export type TgtProjType = typeof tgtProjType[number];
 
-export const prodAppIds = {
-  paymentReminder: 261,
-};
-export const devAppIds = {
-  paymentReminder: 249,
-};
+export const prodAppIds = 261;
+export const devAppIds = 249;
 
-export const reminderAppIds = {
-  ...(isProd ? prodAppIds : devAppIds),
-} as const;
+export const reminderAppId = isProd ? prodAppIds : devAppIds;
 
 export const contractAppId = AppIds.contracts;
 export const andpadPaymentsAppId = AppIds.andpadPayments;

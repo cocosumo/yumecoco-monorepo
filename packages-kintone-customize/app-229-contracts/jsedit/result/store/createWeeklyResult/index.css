@@ -12,6 +12,7 @@ table.table_weekly_result {
   padding: 3px 5px;
   margin: auto;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 /* Styles for table body cells */
@@ -21,7 +22,7 @@ table.table_weekly_result {
 
 /* Styles for table header cells */
 .table_weekly_result thead th {
-  font-size: 14px;
+  
   color: #283618;
   text-align: center;
   font-weight: bold;

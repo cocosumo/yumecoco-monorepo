@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToReminder } from './convertContractsToReminder';
-import { extractUpdatedRecords } from './extractUpdatedRecords';
+import { extractUpdatedContracts } from './extractUpdatedContracts';
 import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
 import { getAllPaymentReminder } from '../api-kintone';
 
@@ -11,7 +11,7 @@ import { getAllPaymentReminder } from '../api-kintone';
 describe('convertContractsToRemainder', () => {
   it('should convert contracts to Remainder app', async () => {
 
-    const tgtProjTypeContracts = await extractUpdatedRecords();
+    const tgtProjTypeContracts = await extractUpdatedContracts();
     const allProjects = await getAllProjects();
     const allRemainders = await getAllPaymentReminder();
     const allAndpadPayments = await getAllAndpadPayments();

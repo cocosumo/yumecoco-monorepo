@@ -1,10 +1,12 @@
 //import { headFullBrowser } from 'auto-common';
 //import { login } from '../../auto-kintone';
-import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
+import { extractUpdatedRecords } from './contracts/extractUpdatedContracts';
 import { postContractToReminderApp } from './contracts/postContractToReminderApp';
 import { convertContractsToReminder } from './contracts/convertContractsToReminder';
 import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
 import { getAllPaymentReminder } from './api-kintone';
+import { convertReminders } from './contracts/convertReminders';
+import { extractUpdatedAndpadPayments } from './contracts/extractUpdatedAndpadPayments';
 
 
 
@@ -25,10 +27,10 @@ export const updatePaymentReminder = async () => {
   const allAndpadPayments = await getAllAndpadPayments();
   const allUsers = await getUsers();
 
-  // 契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得 - (0)
+  // 1.契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得
   const tgtProjTypeContracts = await extractUpdatedRecords();
 
-  // (0)で取得したデータを、リマインダーアプリへ登録する
+  // 2. 1で取得したデータを、リマインダーアプリのデータ形式へ変換する
   const convertDatas = await convertContractsToReminder({
     projTypeContracts: tgtProjTypeContracts,
     projects: allProjects,
@@ -36,16 +38,19 @@ export const updatePaymentReminder = async () => {
     andpadPayments: allAndpadPayments,
     users: allUsers,
   });
+ 
 
+  // 3.リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出
+  const tgtReminderDat = allReminders.filter(({ alertState }) => alertState.value !== '0');
+  const tgtAndpadPayments = await extractUpdatedAndpadPayments();
+
+  // 4. 3に対応するandpadのレコードに対して処理を行う
+  const updateReminderDat = convertReminders({
+    reminders: tgtReminderDat,
+    andpadPayments: tgtAndpadPayments,
+  });
+
+
+  // 編集したデータをリマインダーアプリへ登録する  
   await postContractToReminderApp({ convertDatas: convertDatas });
-
-
-  // リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出 - (1)
-
-
-  // (1)に対応するandpadのレコードに対して処理を行う -(2)
-  // (2)-1 サブテーブルに情報を格納し、[alertState]を[1]にし、通知対象者を設定する
-  // (2)-2 １度でも入金があれば、[alertState]を[0]にし、次のレコードに処理を移す
-  // (2)-3 (1度も入金なしの物に対して)通知開始日を設定する ->　物件種別ごとに変わるため、要設定
-
 };

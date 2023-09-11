@@ -72,16 +72,35 @@ export const convertContractsToReminder = async ({
       expectedPaymentDate,
       paymentDate,
     }) => {
-      return {
-        id: '', // 自動採番のため、省略
-        value: {
-          andpadId: { value: ID.value },
-          andpadProjName: { value: andpadProjName.value },
-          paymentType: { value: paymentType.value },
-          andpadExpectedPaymentDate: { value: expectedPaymentDate.value },
-          andpadPaymentDate: { value: paymentDate.value },
-        },
-      };
+
+      const subtableDat = remainderDat?.paymentTable.value.find(
+        ({ value: { andpadId } }) => andpadId.value === ID.value,
+      );
+
+      if (subtableDat) {
+        //既に同IDで登録済みのサブテーブルのデータがある場合は情報を更新する
+        return {
+          id: subtableDat.id,
+          value: {
+            andpadId: { value: ID.value },
+            andpadProjName: { value: andpadProjName.value },
+            paymentType: { value: paymentType.value },
+            andpadExpectedPaymentDate: { value: expectedPaymentDate.value },
+            andpadPaymentDate: { value: paymentDate.value },
+          },
+        };
+      } else {
+        return {
+          id: '', // 自動採番のため、省略
+          value: {
+            andpadId: { value: ID.value },
+            andpadProjName: { value: andpadProjName.value },
+            paymentType: { value: paymentType.value },
+            andpadExpectedPaymentDate: { value: expectedPaymentDate.value },
+            andpadPaymentDate: { value: paymentDate.value },
+          },
+        };
+      }
     });
 
     // 一番過去の支払日を取得する
@@ -125,9 +144,16 @@ export const convertContractsToReminder = async ({
       name: '',
     }];
 
+    // 支払日が1つでも入力されていれば、アラート不要(0)
+    const alertState = paymentTable.find(({ value: { andpadPaymentDate } }) => {
+      return andpadPaymentDate.value !== '';
+    }) ? '1' : '0';
+
+
+
     if (remainderDat) {
       acc.updateRecords.push({
-        alertState: { value: remainderDat.alertState.value },
+        alertState: { value: alertState },
         alertDate: { value: alertDate },
         contractId: { value: contractId.value },
         projId: { value: projIdByContract.value },
@@ -142,7 +168,7 @@ export const convertContractsToReminder = async ({
       });
     } else {
       acc.addRecords.push({
-        alertState: { value: '1' },
+        alertState: { value: alertState },
         alertDate: { value: alertDate },
         contractId: { value: contractId.value },
         projId: { value: projIdByContract.value },

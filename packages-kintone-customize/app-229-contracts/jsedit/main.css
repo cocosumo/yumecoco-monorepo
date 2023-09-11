@@ -10,6 +10,7 @@
   html,
   body {
     height: 90%;
+    background-color: #fff;
   }
 
   .contents-actionmenu-gaia,
@@ -28,14 +29,6 @@
     /* remove border */
     border: none !important;
   }
-
-  body {
-    background-color: #fff;
-  }
-
-/*   .store_container {
-    page-break-inside: avoid;
-  } */
 
   /* page break before all .store_container except the first instance */
   .store_container:not(:first-child) {

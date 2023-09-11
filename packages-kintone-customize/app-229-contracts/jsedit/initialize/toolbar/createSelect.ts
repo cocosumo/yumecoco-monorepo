@@ -12,6 +12,6 @@ export const createSelect = (
       <select id="${id}"></select>
    </label>
   `);
-  
+
   return $(`#${id}`);
 };

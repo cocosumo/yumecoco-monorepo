@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { createPrintButton } from './createButton';
+import { createPrintButton } from './createPrintButton';
 import { createSelectYear } from './createSelectYear';
 import { createSelectMonth } from './createSelectMonth';
 import { createSelectStore } from './createSelectStore';
@@ -15,7 +15,7 @@ export const toolbarInit = async () => {
 
   createSelectYear();
   createSelectMonth();
-  
+
   await createSelectStore();
 
   createPrintButton();

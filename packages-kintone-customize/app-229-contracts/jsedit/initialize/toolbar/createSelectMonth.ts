@@ -1,4 +1,6 @@
 import { createSelect } from './createSelect';
+import $ from 'jquery';
+
 
 export const selectMonthId = 'selectMonth';
 
@@ -17,3 +19,5 @@ export const createSelectMonth = () => {
   $select.val(new Date().getMonth() + 1);
 
 };
+
+export const getSelectMonth = () => $(`#${selectMonthId}`);

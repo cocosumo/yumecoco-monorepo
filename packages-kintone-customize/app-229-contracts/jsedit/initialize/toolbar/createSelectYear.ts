@@ -1,4 +1,5 @@
 import { createSelect } from './createSelect';
+import $ from 'jquery';
 
 export const selectYearId = 'selectYear';
 export const createSelectYear = () => {
@@ -18,3 +19,5 @@ export const createSelectYear = () => {
   $select.val(year);
 
 };
+
+export const getSelectYear = () => $(`#${selectYearId}`);

@@ -1,8 +1,10 @@
 import { getAllStores } from 'api-kintone';
 import { createSelect } from './createSelect';
+import $ from 'jquery';
 
 
 export const selectStoreId = 'selectStore';
+
 export const createSelectStore = async () => {
   const $selectStore = createSelect(selectStoreId, '店舗');
 
@@ -19,3 +21,5 @@ export const createSelectStore = async () => {
   });
 
 };
+
+export const getSelectStore = () => $(`#${selectStoreId}`);

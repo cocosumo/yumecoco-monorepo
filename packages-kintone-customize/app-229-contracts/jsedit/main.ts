@@ -1,4 +1,5 @@
 import initialize from './initialize';
+import { addResultRefreshTriggers } from './triggers/select';
 import './yumetetsu_syokairyou.css';
 
 /** 紹介料一覧 */
@@ -6,10 +7,6 @@ const commissionRates = 6343111;
 
 /** 紹介料一覧（開発用） */
 const commissionRatesDev = 6343125; 
-
-/** 店舗 */
-const storeAppId = 19; // 店舗
-
 
 (()=> {
   kintone.events.on('app.record.index.show', (event)=>{
@@ -21,6 +18,9 @@ const storeAppId = 19; // 店舗
     if (viewId === commissionRates || viewId === commissionRatesDev) {
 
       initialize();
+
+      addResultRefreshTriggers();
+      
 
       /* const selectYear = document.getElementById('selectYear') as HTMLSelectElement;
       const selectMonth = document.getElementById('selectMonth') as HTMLSelectElement;

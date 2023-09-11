@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { calcFontSize } from './calcFontSize';
+import { calcFontSize } from './api/calcFontSize';
 import { getContractRecords } from './getContractRecords';
 import { getWeekDates } from './getWeekDates';
 import $ from 'jquery';

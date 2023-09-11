@@ -1,7 +1,10 @@
 import axios from 'axios';
 import { endpoints } from '../endpoints';
 
-export const getDataByUrl = async <T>(andpadEndpoint: string) : Promise<T> => {
+export const getDataByUrl = async <T>(
+  andpadEndpoint: string,
+  method: 'GET' | 'POST' = 'POST',
+) : Promise<T> => {
 
   const url = endpoints.getDataByUrl;
 
@@ -13,7 +16,7 @@ export const getDataByUrl = async <T>(andpadEndpoint: string) : Promise<T> => {
     
   const { data } = await axios({
     url,
-    method: 'POST',
+    method: method,
     headers,
     data: {
       url: andpadEndpoint,

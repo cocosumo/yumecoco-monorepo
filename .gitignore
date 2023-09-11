@@ -96,3 +96,4 @@ Backup of *.doc*
 **/cypress/screenshots
 
 **/__TEST__/*.json
+**/__TEST__/*.html

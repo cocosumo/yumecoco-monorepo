@@ -1,9 +1,8 @@
 import { createStoreContainer } from './createStoreContainer';
-import { addHeaderTitle } from './addHeaderTitle';
+import { createHeaderTitle } from './createHeaderTitle';
 import { createDateInit } from './createDateInit';
 import createContractList from './createContractList';
 import createWeeklyResult from './createWeeklyResult';
-import './showResultByStore.css';
 
 
 export const showResultByStore = ({
@@ -16,7 +15,7 @@ export const showResultByStore = ({
 
   const $storeContainer = createStoreContainer(storeId);
 
-  addHeaderTitle($storeContainer);
+  createHeaderTitle($storeContainer);
   createDateInit($storeContainer);
   createContractList($storeContainer, records);
   createWeeklyResult($storeContainer, records);

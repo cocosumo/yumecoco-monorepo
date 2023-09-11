@@ -14,7 +14,10 @@ import { hightlightRowsByWeek } from '../result/store/createContractList/highlig
  */
 export const addResultRefreshTriggers = () => {
   $(`#${selectYearId}, #${selectMonthId}, #${selectStoreId}`)
-    .on('change', refreshResult ) ;
+    .on('change', async () => {
+      await refreshResult();
+      hightlightRowsByWeek();
+    }) ;
 };
 
 /**

@@ -19,7 +19,6 @@ export const refreshResult = async () => {
   });
 
 
-
   for (const [storeId, contracts] of Object.entries(result)) {
 
     await showResultByStore({

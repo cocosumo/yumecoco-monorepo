@@ -1,5 +1,6 @@
 import { getRootElement } from '../api/getRootElement';
 import $ from 'jquery';
+import './createPrintArea.css';
 
 export const printAreaId = 'printArea';
 

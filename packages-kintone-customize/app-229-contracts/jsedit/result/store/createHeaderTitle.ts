@@ -1,8 +1,8 @@
 import { getStoreNameById } from '../../api/getCachedStores';
 import { getFormValues } from '../../api/getFormValues';
+import './createHeaderTitle.css';
 
-
-export const addHeaderTitle = (el: JQuery<HTMLElement>) => {
+export const createHeaderTitle = (el: JQuery<HTMLElement>) => {
   const {
     month,
     store,

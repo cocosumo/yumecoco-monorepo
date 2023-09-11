@@ -14,7 +14,26 @@ export const createHightlightOptions = (
     });
   weekOptions.unshift('<option value="">-</option>');
 
-  getSelectWeek()
+  const $selectWeek = getSelectWeek();
+
+  const selectWeekValue = $selectWeek.val() as string;
+
+
+  $selectWeek
     .empty()
     .append(weekOptions.join(''));
+
+
+  if (selectWeekValue) {
+
+    console.log(weeks.length, selectWeekValue, +selectWeekValue);
+
+    if ((weeks.length - 1) < +selectWeekValue) {
+      // 月の週数より大きい値が選択されていたら、最後の週を選択する
+      $selectWeek.val(String(weeks.length - 1));
+    } else {
+      // それ以外はそのまま
+      $selectWeek.val(selectWeekValue);
+    }
+  }
 };

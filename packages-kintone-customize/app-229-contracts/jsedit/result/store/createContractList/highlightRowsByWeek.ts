@@ -12,10 +12,8 @@ export const hightlightRowsByWeek = () => {
 
   const $rows = $('.table_contracts_list tbody tr');
 
-  console.log('triggered');
-
-  $rows
-    .removeClass('highlight');
+  // remove highlight class from all rows
+  $rows.removeClass('highlight');
 
   if (!selectedYear || !selectedMonth || !selectedWeek) {
     return;
@@ -37,7 +35,6 @@ export const hightlightRowsByWeek = () => {
 
         if (index === +selectedWeek) {
           const isWithin = date.isBetween(week.startDate, week.endDate, undefined, '[]');
-          console.log('week', selectedWeek, date.format('YYYY-MM-DD'), moment(week.startDate).format('YYYY-MM-DD'), moment(week.endDate).format('YYYY-MM-DD'), isWithin);
           return isWithin;
         }
         return false;

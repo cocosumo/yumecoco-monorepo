@@ -4,10 +4,10 @@
 /*  @charset "UTF-8"; */
 
 #custom_toolbar {
-    /* ツールバーのスタイルを指定 */
-    height: 40px;
-    padding: 8px;
-    width: 100%;
+  /* ツールバーのスタイルを指定 */
+  height: 40px;
+  padding: 8px;
+  width: 100%;
 }
 
 /* プルダウンのスタイル */
@@ -87,6 +87,7 @@
   font-weight: 100;
   white-space: nowrap;
   padding: 0 4px;
+  border: 1px solid #888;
 }
 
 #mainTable thead th {
@@ -95,6 +96,7 @@
   text-align: center;
   font-weight: bold;
   white-space: nowrap;
+  border: 1px solid #888;
 }
 
 #custom-content {
@@ -138,7 +140,7 @@
 }
 
 .highlight_solar {
-  background-color: #b0d9fd ;
+  background-color: #b0d9fd;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }

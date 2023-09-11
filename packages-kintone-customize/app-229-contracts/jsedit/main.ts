@@ -3,6 +3,7 @@ import { refreshResult } from './result/refreshResult';
 import { addPrintButtonTrigger } from './triggers/button';
 import { addResultRefreshTriggers, addWeekHighlightTriggers } from './triggers/select';
 import './main.css';
+import { removeElements } from './initialize/removeElements';
 
 /** 紹介料一覧 */
 const commissionRates = 6343111; 
@@ -27,7 +28,7 @@ const commissionRatesDev = 6343125;
       addPrintButtonTrigger();
 
       refreshResult();
-              
+      removeElements();
     }
     
     

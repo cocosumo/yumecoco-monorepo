@@ -1,3 +1,7 @@
+#custom_toolbar {
+  margin: 8px 0;
+}
+
 #custom_toolbar select {
   width: 80px; /* 幅を調整 */
   height: 32px;

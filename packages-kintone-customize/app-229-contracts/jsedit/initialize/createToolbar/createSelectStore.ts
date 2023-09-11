@@ -10,9 +10,9 @@ export const createSelectStore = async () => {
 
   const stores = await getCachedStores();
 
-  /* $selectStore.append(`
+  $selectStore.append(`
     <option value="">全店舗</option>
-  `); */
+  `);
 
   stores.forEach((store) => {
     $selectStore.append(`

@@ -15,7 +15,7 @@ export const showResultByStore = ({
 
   const $storeContainer = createStoreContainer(storeId);
 
-  createHeaderTitle($storeContainer);
+  createHeaderTitle($storeContainer, storeId);
   createDateInit($storeContainer);
   createContractList($storeContainer, records);
   createWeeklyResult($storeContainer, records);

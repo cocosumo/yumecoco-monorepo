@@ -15,6 +15,7 @@ export const createTableContents = ($el: JQuery<HTMLElement>, records: DB.SavedR
     let totalProfitInclTax = 0;
     let totalProfitExclTax = 0;
     let totalFee = 0;
+    let totalCount = 0;
 
     const thisWeekRecords = records
       .filter(({
@@ -25,20 +26,23 @@ export const createTableContents = ($el: JQuery<HTMLElement>, records: DB.SavedR
       });
 
     for (const rec of thisWeekRecords) {
+      if (rec.yumeAGName.value === '' || rec.yumeAGName.value === 'ここすも') continue;
+
       totalContractAmountIntax += parseFloat(rec.contractAmountIntax.value);
       totalProfitExclTax += parseFloat(rec.profit.value);
       totalProfitInclTax +=  parseFloat(rec.profit.value) * 1.1;
       totalFee += parseFloat(rec.fee.value);
+      totalCount++;
     }
 
     $el.find('tbody').append(`
       <tr>
-        <td id="weekHeader">第${index + 1}週：${moment(w.startDate).format('M/D')}～${moment(w.endDate).format('M/D')}</td>
-        <td id="weekContractAmountIntax">${totalContractAmountIntax.toLocaleString()}</td>
-        <td id="weekProfit">${ totalProfitExclTax.toLocaleString()}</td>
-        <td id="weekProfitIntax">${Math.round(totalProfitInclTax).toLocaleString() }</td>
-        <td id="weekFee">${totalFee.toLocaleString()}</td>
-        <td id="WeekNumberSum">${thisWeekRecords.length}</td>
+        <td >第${index + 1}週：${moment(w.startDate).format('M/D')}～${moment(w.endDate).format('M/D')}</td>
+        <td style="text-align: right;">${totalContractAmountIntax.toLocaleString()}</td>
+        <td style="text-align: right;">${ totalProfitExclTax.toLocaleString()}</td>
+        <td style="text-align: right;">${Math.round(totalProfitInclTax).toLocaleString() }</td>
+        <td style="text-align: right;">${totalFee.toLocaleString()}</td>
+        <td style="text-align: center;">${totalCount}</td>
     </tr>
     `);
   });

@@ -2,13 +2,12 @@ import { getStoreNameById } from '../../api/getCachedStores';
 import { getFormValues } from '../../api/getFormValues';
 import './createHeaderTitle.css';
 
-export const createHeaderTitle = (el: JQuery<HTMLElement>) => {
+export const createHeaderTitle = (el: JQuery<HTMLElement>, storeId: string) => {
   const {
     month,
-    store,
   } = getFormValues();
 
-  const storeName = getStoreNameById(store);
+  const storeName = getStoreNameById(storeId);
 
   el.append(`
     <h2 class="store_header_title">

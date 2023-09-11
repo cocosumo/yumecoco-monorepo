@@ -3,11 +3,14 @@ import { createSelectYear } from './createSelectYear';
 import { createSelectMonth } from './createSelectMonth';
 import { createSelectStore } from './createSelectStore';
 import { getRootElement } from '../../api/getRootElement';
+import './index.css';
+import { createSelectWeek } from './createSelectWeek';
+
 
 /**
  * ツールバーの初期化
  */
-export const toolbarInit = async () => {
+export default async function () {
   getRootElement()
     .append(`
     <div id="custom_toolbar"/>
@@ -18,6 +21,7 @@ export const toolbarInit = async () => {
 
   await createSelectStore();
 
+  createSelectWeek();
   createPrintButton();
 
-};
+}

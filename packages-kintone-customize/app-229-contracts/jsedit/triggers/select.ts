@@ -1,8 +1,10 @@
 import { refreshResult } from '../result/refreshResult';
-import { selectMonthId } from '../initialize/toolbar/createSelectMonth';
-import { selectStoreId } from '../initialize/toolbar/createSelectStore';
-import { selectYearId } from '../initialize/toolbar/createSelectYear';
+import { selectMonthId } from '../initialize/createToolbar/createSelectMonth';
+import { selectStoreId } from '../initialize/createToolbar/createSelectStore';
+import { selectYearId } from '../initialize/createToolbar/createSelectYear';
 import $ from 'jquery';
+import { getSelectWeek } from '../initialize/createToolbar/createSelectWeek';
+import { hightlightRowsByWeek } from '../result/store/createContractList/highlightRowsByWeek';
 
 /**
  * フォームの変更によって結果を更新するトリガーを追加する
@@ -13,5 +15,14 @@ import $ from 'jquery';
 export const addResultRefreshTriggers = () => {
   $(`#${selectYearId}, #${selectMonthId}, #${selectStoreId}`)
     .on('change', refreshResult ) ;
+};
+
+/**
+ * 週の選択によって行をハイライトするトリガーを追加する
+ * 
+ */
+export const addWeekHighlightTriggers = () => {
+  getSelectWeek()
+    .on('change', hightlightRowsByWeek);
 };
 

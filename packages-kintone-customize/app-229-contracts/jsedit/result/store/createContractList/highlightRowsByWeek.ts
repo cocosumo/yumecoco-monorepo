@@ -1,13 +1,20 @@
 import $ from 'jquery';
 import moment from 'moment';
-import { getWeekDates } from './getWeekDates';
+import { getWeekDates } from '../../../getWeekDates';
+import { getFormValues } from '../../../api/getFormValues';
 
 export const hightlightRowsByWeek = () => {
-  const selectedWeek = $('#selectWeek').val();
-  const selectedYear = $('#selectYear').val();
-  const selectedMonth = $('#selectMonth').val();
+  const {
+    year: selectedYear,
+    month: selectedMonth,
+    week: selectedWeek,
+  } = getFormValues();
 
-  $('#mainTable tbody tr')
+  const $rows = $('.table_contracts_list tbody tr');
+
+  console.log('triggered');
+
+  $rows
     .removeClass('highlight');
 
   if (!selectedYear || !selectedMonth || !selectedWeek) {
@@ -17,7 +24,7 @@ export const hightlightRowsByWeek = () => {
   const weeks = getWeekDates(+selectedYear, +selectedMonth);
 
 
-  $('#mainTable tbody tr')
+  $rows
     .each((i, tr) => {
     // return true if 4th column is within the week index
       const contractDate = $(tr).find('td')

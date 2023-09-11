@@ -24,3 +24,15 @@ table.table_contracts_list {
   font-weight: bold;
   border: 1px solid #888;
 }
+
+.highlight_solar {
+  background-color: #b0d9fd;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.highlight {
+  background-color: #f0e9b0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}

@@ -1,0 +1,15 @@
+#custom_toolbar select {
+  width: 80px; /* 幅を調整 */
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#selectStore {
+  width: 100px;
+}
+
+#selectHighlight {
+  width: 100px;
+}

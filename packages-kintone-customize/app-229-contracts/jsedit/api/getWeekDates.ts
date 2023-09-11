@@ -1,4 +1,15 @@
+const cachedWeeks: Record<string, Record<string, null | Date>[]> = Object.create(null);
+
+/**
+ * キャッシュを利用して、指定された年月の週の日付を取得する
+ */
 export function getWeekDates(year: number, month: number) {
+
+  const cachedKey = `${year}-${month}`;
+
+  if (cachedWeeks[cachedKey]) {
+    return cachedWeeks[cachedKey];
+  }
 
   const date = new Date(year, month, 0);
   const maxDays = date.getDate();    //該当月の最終日付

@@ -1,4 +1,4 @@
-import { getPrintButton } from '../initialize/toolbar/createPrintButton';
+import { getPrintButton } from '../initialize/createToolbar/createPrintButton';
 
 /**
  * プリントボタンを押したときのトリガーを追加する

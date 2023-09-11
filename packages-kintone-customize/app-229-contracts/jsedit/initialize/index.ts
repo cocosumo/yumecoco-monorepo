@@ -1,6 +1,6 @@
 
-import { toolbarInit } from './toolbar/toolbarInit';
 import { createPrintArea } from './createPrintArea';
+import createToolbar from './createToolbar';
 
 
 /**
@@ -10,15 +10,10 @@ import { createPrintArea } from './createPrintArea';
 export default async function () {
 
   // ツールバーを表示する
-  await toolbarInit();
-
-  // 作成日を表示する
-  //createDateInit();
-
+  await createToolbar();
+  
   // 印刷エリアを表示する
   createPrintArea();
 
-  // メインテーブルを表示する
-  //resultTableInit();
 
 }

@@ -3,7 +3,7 @@ import { IStores } from 'types';
 import  $ from 'jquery';
 import './yumetetsu_syokairyou.css';
 import { refreshResult } from './refreshResult';
-import { hightlightRowsByWeek } from './highlightRowsByWeek';
+import { hightlightRowsByWeek } from './result/store/createContractList/highlightRowsByWeek';
 import { initializeContainer } from './initializeContainer';
 
 

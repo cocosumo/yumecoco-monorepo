@@ -11,6 +11,10 @@ import { parseISODateToFormat, parseISOTimeToFormat } from 'kokoas-client/src/li
 import { useTypedURLParams } from './useTypedHooks';
 
 export interface ContractRow {
+  category: string,
+  refundAmt: number,
+  reductionAmt: number,
+  subsidyAmt: number,
   contractStatus: TEnvelopeStatus,
   currentContractRole: string,
   currentContractName: string,
@@ -98,7 +102,10 @@ export const useFilteredContracts = () => {
 
           作成日時: createdAt,
           更新日時: updatedAt,
-
+          refundAmt,
+          reductionAmt,
+          subsidyAmt,
+          contractType,
           signMethod,
         } = cur; // 契約のデータ;
 
@@ -189,6 +196,11 @@ export const useFilteredContracts = () => {
           cocoAG: cocoAGNames?.value || '-',
           yumeAG: yumeAGNames?.value || '-',
           contractDate:  parseISODateToFormat(contractDate?.value)  || '-',
+
+          refundAmt: +refundAmt.value,
+          reductionAmt: +reductionAmt.value,
+          subsidyAmt: +subsidyAmt.value,
+          category: contractType?.value || '契約',
 
           //latestInvoiceAmount: +(billingAmount?.value || ''),
           //latestInvoiceDate: issuedDateTime?.value ? format(parseISO(issuedDateTime.value), 'yyyy-MM-dd') : '',

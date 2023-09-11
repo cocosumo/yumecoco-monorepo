@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
 export const TRowLayout = ({
@@ -16,6 +17,10 @@ export const TRowLayout = ({
   createdAt,
   updatedAt,
   signMethod,
+  category,
+  refundAmt,
+  reductionAmt,
+  subsidyAmt,
   onClick,
 }: {
   contractStatus: ReactNode,
@@ -32,20 +37,31 @@ export const TRowLayout = ({
   createdAt?: ReactNode,
   updatedAt?: ReactNode,
   signMethod?: ReactNode,
+  category?: ReactNode,
+  refundAmt?: ReactNode,
+  reductionAmt?: ReactNode,
+  subsidyAmt?: ReactNode,
   onClick?: () => void,
 }) => {
   return (
     <TableRow 
       onClick={onClick}
     >
-      <TableCell >
+      <TableCell 
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
    
         {contractStatus}
         <br />
         {projDataId}
         <br />
+        {category}
+        {' '}
+        (
         {signMethod}
-     
+        )
       </TableCell>
       <TableCell>
         {projName}
@@ -62,18 +78,43 @@ export const TRowLayout = ({
         {cocoAG}
       </TableCell>
       
-      <TableCell align='right'>
+      <TableCell 
+        align='right'
+        sx={{
+          whiteSpace: 'nowrap',
+          textAlign: 'right',
+        }}
+      >
         {contractAmount}
         <br />
         {grossProfit}
         <br />
         {profitRate}
       </TableCell>
-      <TableCell>
+      <TableCell
+        align='right'
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {refundAmt}
+        <br />
+        {reductionAmt}
+        <br />
+        {subsidyAmt}
+      </TableCell>
+      <TableCell
+        sx={{
+          whiteSpace: 'nowrap',
+          color: grey[600],
+          fontSize: '0.75rem',
+        }}
+      >
         {createdAt}
         <br />
         {updatedAt}
       </TableCell>
+
     </TableRow>
   );
 };

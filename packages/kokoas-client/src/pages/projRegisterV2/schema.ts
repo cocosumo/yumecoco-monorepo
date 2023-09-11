@@ -80,6 +80,8 @@ export const schema = z.object({
 
       projTypeName,
       otherProjType,
+
+      hasContract,
     },
     ctx,
   ) => {
@@ -103,7 +105,7 @@ export const schema = z.object({
     }
 
     if (projTypeName.includes('その他')) {
-      if (!otherProjType) {
+      if (!hasContract && !otherProjType) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: '工事種別を入力してください。',

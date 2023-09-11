@@ -1,0 +1,164 @@
+/*!***************************************************************************************!*\
+  !*** css ../../node_modules/css-loader/dist/cjs.js!./jsedit/yumetetsu_syokairyou.css ***!
+  \***************************************************************************************/
+/*  @charset "UTF-8"; */
+
+#custom_toolbar {
+    /* ツールバーのスタイルを指定 */
+    height: 40px;
+    padding: 8px;
+    width: 100%;
+}
+
+/* プルダウンのスタイル */
+#selectYear,
+#selectMonth,
+#selectStore,
+#selectWeek {
+  width: 80px; /* 幅を調整 */
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#selectStore {
+  width: 120px;
+}
+
+/* ボタンのスタイル */
+#printButton {
+  background-color: #008b8b; /* ボタンの背景色を変更 */
+  color: #fff; /* テキストの色を変更 */
+  padding: 3px 20px; /* パディングを調整 */
+  border-radius: 8px;
+}
+
+#printArea {
+  margin: 10px;
+  font-family: 'Arial', sans-serif;
+  font-weight: normal;
+}
+
+#todayDate {
+  text-align: right;
+  font-size: 10pt;
+  margin-right: 30px;
+}
+
+#headerTitle {
+  width: 100%;
+  margin-top: 30px;
+  font-size: 16pt;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-align: center; /* テキストを中央に配置 */
+}
+
+#mainTable th {
+  padding: 3px 5px;
+  margin: auto;
+  white-space: nowrap;
+}
+
+#contractAmountIntax,
+#contractAmountNotax,
+#profit,
+#profitIntax,
+#fee {
+  text-align: right;
+}
+
+#projName {
+  text-align: left;
+  font-size: 8pt;
+}
+
+#mainTable {
+  width: 95vw;
+  margin: 0 auto;
+  /* table-layout: fixed; */
+}
+
+#mainTable tbody td {
+  /* font-size: 1vw; */
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  font-weight: 100;
+  white-space: nowrap;
+  padding: 0 4px;
+}
+
+#mainTable thead th {
+  font-family: 'Arial', sans-serif;
+  font-size: 90%;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#custom-content {
+  /* カスタムコンテンツのスタイルを指定 */
+  margin-bottom: 200px;
+}
+
+#subTable {
+  margin: 10px;
+  margin-right: 30px;
+  float: right;
+  padding-bottom: 80px;
+  white-space: nowrap;
+}
+
+#subTable thead th {
+  text-align: center;
+  font-size: 1vw;
+  font-weight: bold;
+  white-space: nowrap;
+  padding: 3px 10px;
+}
+
+#subTable th {
+  padding: 2px 5px;
+  margin: 0 auto;
+  font-size: 10.5pt;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+#weekContractAmountIntax,
+#weekProfit,
+#weekProfitIntax,
+#weekFee {
+  text-align: right;
+}
+
+#weekHeader {
+  text-align: left;
+}
+
+.highlight_solar {
+  background-color: #b0d9fd ;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.highlight {
+  background-color: #f0e9b0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@media print {
+  .contents-actionmenu-gaia,
+  .contents-bottommenu-gaia,
+  header,
+  nav,
+  #custom_toolbar {
+    display: none !important;
+  }
+
+  body {
+    background-color: #fff;
+  }
+}

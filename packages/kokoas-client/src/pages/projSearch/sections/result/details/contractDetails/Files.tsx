@@ -19,14 +19,22 @@ const PDFLink = ({
   const url = URL.createObjectURL(new Blob([fileData], { type: 'application/pdf' }));
   
   return (
-    <Tooltip title={`${roundTo((fileSize / 1024), 2)?.toLocaleString()} KB`}>
-      <Button 
+    <Tooltip title={`${fileName} (${roundTo((fileSize / 1024), 2)?.toLocaleString()} KB)`}>
+      <Button
         href={url}
         download={fileName}
         target="_blank"
         rel="noopener noreferrer"
         variant="outlined"
         size="small"
+        sx={{
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textAlign: 'left',
+          display: 'inline-block',
+          maxWidth: '150px',
+        }}
       >
         {fileName}
       </Button>

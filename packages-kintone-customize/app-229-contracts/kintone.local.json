@@ -1,12 +1,24 @@
 {
-  "app": "229",
+  "app": "260",
   "scope": "ALL",
   "desktop": {
-    "js": ["https://127.0.0.1:5500/dist/customize.js"],
-    "css": []
+    "js": [
+      "https://127.0.0.1:5500/dist/customize.js",
+      "https://127.0.0.1:5500/dist/vendor.js",
+      "https://127.0.0.1:5500/dist/vendor-mui.js"
+    ],
+    "css": [
+      "https://127.0.0.1:5500/dist/customize.css"
+    ]
   },
   "mobile": {
-    "js": [],
-    "css": []
+    "js": [
+      "https://127.0.0.1:5500/dist/customize.js",
+      "https://127.0.0.1:5500/dist/vendor.js",
+      "https://127.0.0.1:5500/dist/vendor-mui.js"
+    ],
+    "css": [
+      "https://127.0.0.1:5500/dist/customize.css"
+    ]
   }
 }

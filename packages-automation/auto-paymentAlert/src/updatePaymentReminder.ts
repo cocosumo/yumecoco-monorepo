@@ -1,12 +1,12 @@
 //import { headFullBrowser } from 'auto-common';
 //import { login } from '../../auto-kintone';
-import { extractUpdatedRecords } from './contracts/extractUpdatedContracts';
 import { postContractToReminderApp } from './contracts/postContractToReminderApp';
 import { convertContractsToReminder } from './contracts/convertContractsToReminder';
 import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
 import { getAllPaymentReminder } from './api-kintone';
 import { convertReminders } from './contracts/convertReminders';
 import { extractUpdatedAndpadPayments } from './contracts/extractUpdatedAndpadPayments';
+import { extractUpdatedContracts } from './contracts/extractUpdatedContracts';
 
 
 
@@ -28,7 +28,7 @@ export const updatePaymentReminder = async () => {
   const allUsers = await getUsers();
 
   // 1.契約アプリを参照し、24時間以内に更新かつ、対象の工事種別のレコードを取得
-  const tgtProjTypeContracts = await extractUpdatedRecords();
+  const tgtProjTypeContracts = await extractUpdatedContracts();
 
   // 2. 1で取得したデータを、リマインダーアプリのデータ形式へ変換する
   const convertDatas = await convertContractsToReminder({

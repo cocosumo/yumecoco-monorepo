@@ -1,7 +1,8 @@
 import { ContractRecordType, PaymentReminderRecordType, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
-import { IAndpadpayments, IPaymentreminder, IProjects, IUser } from 'types';
+import { IAndpadpayments, IProjects, IUser } from 'types';
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
+import { IPaymentreminder } from '../dbKintone';
 
 
 /**配列内から一番過去の日付を取得します */

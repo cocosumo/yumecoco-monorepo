@@ -10,6 +10,7 @@
     "auto-common": "*"
   },
   "scripts": {
-    "start" : "ts-node --files ./main.ts -T"
+    "start": "ts-node --files ./main.ts -T",
+    "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 249 --type-name Data --namespace DBPaymentreminder -o types/kintone.data.d.ts"
   }
 }

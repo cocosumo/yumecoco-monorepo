@@ -1,5 +1,5 @@
+import { addAllRecords } from 'api-kintone';
 import { RecordKey, appId } from './config';
-import { addAllRecords } from '../common/addAllRecords';
 
 
 type AddPaymentReminder = {

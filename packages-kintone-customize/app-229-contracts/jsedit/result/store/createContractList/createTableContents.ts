@@ -22,6 +22,7 @@ export const createTableContents = (
         yumeAGName,
         yumeAGName2,
         editProfit,
+        $id,
       } = record;
 
       // 粗利率を計算
@@ -32,7 +33,7 @@ export const createTableContents = (
     
 
       $tbody.append(`
-       <tr class=${projTypeName.value.includes('太陽') ? 'highlight_solar' : ''}>
+       <tr data-uuid="${$id.value}" class=${projTypeName.value.includes('太陽') ? 'highlight_solar' : ''}>
           <td style="text-align: center;">${index + 1}</td>
           <td style="font-size: ${calcFontSize(80, projTypeName.value)}px;">${projTypeName.value}</td>
           <td style="font-size: ${calcFontSize(150, custName.value)}px;">${custName.value}</td>

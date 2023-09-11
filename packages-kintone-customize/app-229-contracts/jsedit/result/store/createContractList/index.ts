@@ -1,6 +1,7 @@
 import { createTableContainer } from './createTableContainer';
 import './index.css';
 import { createTableContents } from './createTableContents';
+import { addTriggers } from './addTriggers';
 
 export default function (
   $el: JQuery<HTMLElement>, 
@@ -11,5 +12,5 @@ export default function (
 
   // Add the table contents
   createTableContents($table, records);
-  
+  addTriggers();
 }

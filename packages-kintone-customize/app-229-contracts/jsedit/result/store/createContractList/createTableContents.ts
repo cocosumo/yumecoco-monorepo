@@ -33,7 +33,7 @@ export const createTableContents = (
     
 
       $tbody.append(`
-       <tr data-uuid="${$id.value}" class=${projTypeName.value.includes('太陽') ? 'highlight_solar' : ''}>
+       <tr data-id="${$id.value}" class=${projTypeName.value.includes('太陽') ? 'highlight_solar' : ''}>
           <td style="text-align: center;">${index + 1}</td>
           <td style="font-size: ${calcFontSize(80, projTypeName.value)}px;">${projTypeName.value}</td>
           <td style="font-size: ${calcFontSize(150, custName.value)}px;">${custName.value}</td>

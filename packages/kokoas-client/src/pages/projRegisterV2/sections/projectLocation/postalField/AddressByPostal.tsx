@@ -15,38 +15,43 @@ export const AddressByPostal = () => {
 
       <Button
         variant='outlined'
-        onClick={async () => {
+        onClick={() => {
           const postal = getValues('postal');
-          console.log('pospsopso', postal);
-          const result = await queryClient.fetchQuery(
+
+          queryClient.fetchQuery(
             ['addressPostalCode', { postalCode: postal }],
             () => getAddressByPostal(postal as string),
             {
               staleTime: 1000 * 60 * 60 * 24,
             },
-          );
+          )
+            .then((result) => {
+              if (!result) {
+                setSnackState({
+                  open: true,
+                  message: '郵便番号から住所を取得できませんでした',
+                  severity: 'warning',
+                });
+                return;
+              }
 
-          if (!result) {
-            setSnackState({
-              open: true,
-              message: '郵便番号から住所を取得できませんでした',
-              severity: 'warning',
+              const {
+                pref,
+                city,
+                town,
+              } = result;
+              const newAddress1 = `${pref.value}${city.value}${town.value}`;
+              setValue('address1', newAddress1);
+              setSnackState({
+                open: true,
+                message: '郵便番号から住所を取得しました',
+                severity: 'success',
+              });
+
+
             });
-            return;
-          }
 
-          const {
-            pref,
-            city,
-            town,
-          } = result;
-          const newAddress1 = `${pref.value}${city.value}${town.value}`;
-          setValue('address1', newAddress1);
-          setSnackState({
-            open: true,
-            message: '郵便番号から住所を取得しました',
-            severity: 'success',
-          });
+          
         }}
       >
         郵便番号から検索

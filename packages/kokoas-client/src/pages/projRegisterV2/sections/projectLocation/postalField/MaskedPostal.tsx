@@ -1,34 +1,11 @@
 import { TextField } from '@mui/material';
-import { forwardRef } from 'react';
 import { Controller } from 'react-hook-form';
-import { IMaskInput } from 'react-imask';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
 import { KForm } from '../../../schema';
+import { PatternFormat  } from 'react-number-format';
 
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-}
 
-const PostalMask = forwardRef<HTMLInputElement, CustomProps>(
-  function TextMaskCustom(props, ref) {
-    const { onChange, ...other } = props;
-    return (
-      <IMaskInput
-        {...other}
-        mask="000-0000"
-        definitions={{
-          '#': /[1-9]/,
-        }}
-        inputRef={ref}
-        onAccept={(value: any) => {
-          onChange({ target: { name: props.name, value } });
-        }}
-        overwrite
-      />
-    );
-  },
-);
+
 
 export const MaskedPostal = ({
   disabled,
@@ -62,25 +39,27 @@ export const MaskedPostal = ({
       }) => {
         const showError = !!error && isTouched;
         return (
-          <TextField
+          <PatternFormat 
+            value={(value as string).replace('-', '')} 
+            format="###-####"
+            onValueChange={(e) => {
+              console.log('onValueChange', e);
+              onChange(e.value);
+            }}
+            onBlur={onBlur}
+            name="postal"
+            customInput={TextField}
+            error={showError}
             size='small'
             label={label}
-            name="postal"
-            id="postal"
-            value={value}
-            onChange={onChange}
-            onBlur={onBlur}
-            inputRef={ref}
             disabled={disabled}
             required={required}
+            inputRef={ref}
             InputProps={{
               sx: {
-                width: 200,
+                width: 150,
               },
-              inputComponent: PostalMask as any,
             }}
-            error={showError}
-            helperText={showError ? error?.message : null}
           />
         );
       }}

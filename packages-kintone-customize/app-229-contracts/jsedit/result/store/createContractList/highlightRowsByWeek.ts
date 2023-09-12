@@ -1,14 +1,23 @@
 import $ from 'jquery';
 import moment from 'moment';
-import { getWeekDates } from './getWeekDates';
+import { getFormValues } from '../../../api/getFormValues';
+import { getWeekDates } from '../../../api/getWeekDates';
 
+/**
+ * 選択された週に該当する行をハイライトする
+ * 
+ */
 export const hightlightRowsByWeek = () => {
-  const selectedWeek = $('#selectWeek').val();
-  const selectedYear = $('#selectYear').val();
-  const selectedMonth = $('#selectMonth').val();
+  const {
+    year: selectedYear,
+    month: selectedMonth,
+    week: selectedWeek,
+  } = getFormValues();
 
-  $('#mainTable tbody tr')
-    .removeClass('highlight');
+  const $rows = $('.table_contracts_list tbody tr');
+
+  // remove highlight class from all rows
+  $rows.removeClass('highlight');
 
   if (!selectedYear || !selectedMonth || !selectedWeek) {
     return;
@@ -17,7 +26,7 @@ export const hightlightRowsByWeek = () => {
   const weeks = getWeekDates(+selectedYear, +selectedMonth);
 
 
-  $('#mainTable tbody tr')
+  $rows
     .each((i, tr) => {
     // return true if 4th column is within the week index
       const contractDate = $(tr).find('td')
@@ -30,7 +39,6 @@ export const hightlightRowsByWeek = () => {
 
         if (index === +selectedWeek) {
           const isWithin = date.isBetween(week.startDate, week.endDate, undefined, '[]');
-          console.log('week', selectedWeek, date.format('YYYY-MM-DD'), moment(week.startDate).format('YYYY-MM-DD'), moment(week.endDate).format('YYYY-MM-DD'), isWithin);
           return isWithin;
         }
         return false;

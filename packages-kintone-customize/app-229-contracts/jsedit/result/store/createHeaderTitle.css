@@ -1,0 +1,8 @@
+.store_header_title {
+  width: 100%;
+  margin-top: 30px;
+  font-size: 16pt;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-align: center; /* テキストを中央に配置 */
+}

@@ -4,7 +4,8 @@ import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToReminder } from './convertContractsToReminder';
 import { extractUpdatedRecords } from './extractUpdatedRecords';
-import { getAllProjects, getAllPaymentReminder, getAllAndpadPayments, getUsers } from 'api-kintone';
+import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
+import { getAllPaymentReminder } from '../api-kintone';
 
 
 describe('convertContractsToRemainder', () => {

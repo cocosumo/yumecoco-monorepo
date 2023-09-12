@@ -1,6 +1,8 @@
 import { TableCell, TableRow } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { getRecordPath } from 'api-kintone';
 import { ReactNode } from 'react';
+import { appId } from '../../../../../../../constants';
 
 export interface TableRowLayoutProps {
   rowNum?: ReactNode,
@@ -13,6 +15,7 @@ export interface TableRowLayoutProps {
   grossProfit: ReactNode,
   grossProfitRate: ReactNode,
   agent: ReactNode,
+  recId?: string,
 }
 
 export const TableRowLayout = (props: TableRowLayoutProps) => {
@@ -27,11 +30,23 @@ export const TableRowLayout = (props: TableRowLayoutProps) => {
     grossProfit,
     grossProfitRate,
     agent,
+    recId,
   } = props;
+
+  const handleClickRow = () => {
+    if (recId) {
+      const path = getRecordPath({
+        recordId: recId,
+        appId: String(appId),
+      });
+
+      window.open(path, '_blank');
+    }
+  };
 
 
   return (
-    <TableRow>
+    <TableRow onClick={handleClickRow}>
       <TableCell 
         sx={{
           color: grey[500],

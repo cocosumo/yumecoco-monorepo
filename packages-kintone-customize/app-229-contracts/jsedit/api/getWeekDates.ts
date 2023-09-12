@@ -1,4 +1,19 @@
+const cachedWeeks: Record<string, Record<string, null | Date>[]> = Object.create(null);
+
+const startOfWeek = 1; // 月曜日
+const endOfWeek = 0;   // 日曜日
+
+
+/**
+ * キャッシュを利用して、指定された年月の週の日付を取得する
+ */
 export function getWeekDates(year: number, month: number) {
+
+  const cachedKey = `${year}-${month}`;
+
+  if (cachedWeeks[cachedKey]) {
+    return cachedWeeks[cachedKey];
+  }
 
   const date = new Date(year, month, 0);
   const maxDays = date.getDate();    //該当月の最終日付
@@ -10,21 +25,28 @@ export function getWeekDates(year: number, month: number) {
     endDate: null,    //週の終わりの日付
   };
       
-  for (let i = 1; i <= maxDays; i++ ) {
-    const currDate = new Date(year, date.getMonth(), i);
+  for (let day = 1; day <= maxDays; day++ ) {
+    
+    const currDate = new Date(year, date.getMonth(), day);
           
     const weekIdx = currDate.getDay();
+
           
-    if (weekIdx === 0 && i === 1) {
+    if (day === 1 && weekIdx === endOfWeek) {
+      currResult.startDate = currDate;
+      currResult.endDate = currDate;
+    }
+
+    if (day === maxDays && weekIdx === startOfWeek ) {
       currResult.startDate = currDate;
       currResult.endDate = currDate;
     }
           
-    if (i === 1 || weekIdx === 1) {
+    if (day === 1 || weekIdx === startOfWeek) {
       currResult.startDate = currDate;    
-    } else if (i === maxDays || weekIdx === 0) {
+    } else if (day === maxDays || weekIdx === endOfWeek) {
       currResult.endDate = currDate;
-    }
+    } 
           
     if (currResult.startDate && currResult.endDate ) {
       weeks.push({

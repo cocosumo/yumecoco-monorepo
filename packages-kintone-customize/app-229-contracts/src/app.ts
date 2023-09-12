@@ -5,7 +5,7 @@ import {
 import { isProd } from 'config';
 import customizeFields from './view/customizeFields';
 
-import './../jsedit/fee-pullDown';
+import './../jsedit/main';
 import { indexShow } from './view/indexShow/indexShow';
 
 

@@ -3,6 +3,10 @@ import moment from 'moment';
 import { getFormValues } from '../../../api/getFormValues';
 import { getWeekDates } from '../../../api/getWeekDates';
 
+/**
+ * 選択された週に該当する行をハイライトする
+ * 
+ */
 export const hightlightRowsByWeek = () => {
   const {
     year: selectedYear,

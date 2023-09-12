@@ -28,9 +28,20 @@
   text-overflow: ellipsis;
 }
 
+.table tbody tr {
+  cursor: pointer;
+  /* animate hover, fast in, slow out */
+  transition: all 0.3s ease-in-out;
+
+}
+
 /* alternace color for each row */
-.table tr:nth-child(even) {
+.table tbody tr:nth-child(even) {
   background-color: #faf8f8;
+}
+
+.table tbody tr:hover {
+  background-color: #dbd7d7;
 }
 
 @media print {

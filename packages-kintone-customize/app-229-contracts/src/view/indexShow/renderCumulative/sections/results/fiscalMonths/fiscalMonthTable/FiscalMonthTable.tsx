@@ -58,6 +58,7 @@ export const FiscalMonthTable = ({
             return (
               <TableRowLayout
                 key={$id.value}
+                recId={$id.value}
                 rowNum={index + 1}
                 projType={<FitText content={projTypeName.value} />}
                 custName={<FitText content={custName.value} />}

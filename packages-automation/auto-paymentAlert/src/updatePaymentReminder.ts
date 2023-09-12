@@ -3,7 +3,8 @@
 import { extractUpdatedRecords } from './contracts/extractUpdatedRecords';
 import { postContractToReminderApp } from './contracts/postContractToReminderApp';
 import { convertContractsToReminder } from './contracts/convertContractsToReminder';
-import { getAllProjects, getAllPaymentReminder, getAllAndpadPayments, getUsers } from 'api-kintone';
+import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
+import { getAllPaymentReminder } from './api-kintone';
 
 
 

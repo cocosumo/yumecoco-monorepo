@@ -3,6 +3,7 @@ import { getFormValues } from '../api/getFormValues';
 import { getPrintArea } from '../initialize/createPrintArea';
 import { getSelectStore } from '../initialize/createToolbar/createSelectStore';
 import { createHightlightOptions } from './createHightlightOptions';
+import { handleClickRow } from './store/createContractList/handleClickRow';
 import { showResultByStore } from './store/showResultByStore';
 import $ from 'jquery';
 
@@ -45,6 +46,7 @@ export const refreshResult = async () => {
       });
   }
   
+  handleClickRow();
 
 
 };

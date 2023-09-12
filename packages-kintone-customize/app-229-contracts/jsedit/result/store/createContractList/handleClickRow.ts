@@ -2,14 +2,15 @@ import { getRecordPath } from 'api-kintone';
 import $ from 'jquery';
 import { appId } from '../../../../src/constants';
 
-export const addTriggers = () => {
-
+export const handleClickRow = () => {
   $('.table_contracts_list tbody tr').off()
     .on('click', (event) => {
 
+      const $row = $(event.target) // td
+        .closest('tr');
 
       const kintonePath = getRecordPath({
-        recordId: $(event.target).data('id'),
+        recordId: $row.data('id'),
         appId: String(appId),
 
       });

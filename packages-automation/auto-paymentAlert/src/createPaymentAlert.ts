@@ -1,10 +1,10 @@
 import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
 import { getAllPaymentReminder } from './api-kintone';
-import { filterContractsByTargetProjType } from './contracts/filterContractsByTargetProjType';
-import { filterContractsToAlertTarget } from './contracts/filterContractsToAlertTarget';
+import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
+import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTarget';
 import { format } from 'date-fns';
-import { convertContractsToJson } from './contracts/convertContractsToJson';
-import { convertReminderToJson } from './contracts/convertReminderToJson';
+import { convertContractsToJson } from './helpers/convertContractsToJson';
+import { convertReminderToJson } from './helpers/convertReminderToJson';
 
 
 /**

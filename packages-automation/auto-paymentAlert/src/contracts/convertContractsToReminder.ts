@@ -3,6 +3,7 @@ import { calcAlertDate } from './calcAlertDate';
 import { IAndpadpayments, IProjects, IUser } from 'types';
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { IPaymentreminder } from '../dbKintone';
+import { format } from 'date-fns';
 
 
 /**配列内から一番過去の日付を取得します */
@@ -128,7 +129,7 @@ export const convertContractsToReminder = async ({
     if (remainderDat) {
       acc.updateRecords.push({
         alertState: { value: remainderDat.alertState.value },
-        alertDate: { value: alertDate },
+        alertDate: { value: format(alertDate, 'yyyy-MM-dd') },
         contractId: { value: contractId.value },
         projId: { value: projIdByContract.value },
         projType: { value: projTypeName?.value ?? '' },
@@ -143,7 +144,7 @@ export const convertContractsToReminder = async ({
     } else {
       acc.addRecords.push({
         alertState: { value: '1' },
-        alertDate: { value: alertDate },
+        alertDate: { value: format(alertDate, 'yyyy-MM-dd') },
         contractId: { value: contractId.value },
         projId: { value: projIdByContract.value },
         projType: { value: projTypeName?.value ?? '' },

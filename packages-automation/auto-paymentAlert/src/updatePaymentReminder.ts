@@ -40,11 +40,12 @@ export const updatePaymentReminder = async () => {
   });
  
 
-  // 3.リマインダーアプリの内、[alertState]が[0以外]のレコードを抽出
+  // 3.リマインダーアプリで通知必要になっているレコードに対して、
+  // 24時間以内に更新された支払い情報があれば支払情報を追加します
   const tgtReminderDat = allReminders.filter(({ alertState }) => alertState.value !== '0');
   const tgtAndpadPayments = await extractUpdatedAndpadPayments();
 
-  // 4. 3に対応するandpadのレコードに対して処理を行う
+  // 4. 3に対応するandpadのレコードをkintone形式にします
   const updateReminderDat = convertReminders({
     reminders: tgtReminderDat,
     andpadPayments: tgtAndpadPayments,

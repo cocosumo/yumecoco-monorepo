@@ -1,6 +1,5 @@
 import { addMonths, parseISO } from 'date-fns';
 import { TgtProjType } from '../../config';
-import format from 'date-fns/format';
 
 export const calcAlertDate = ({
   contractDateStr,
@@ -38,6 +37,6 @@ export const calcAlertDate = ({
     }
   }
 
-  return format(paymentDate, 'yyyy-MM-dd');
+  return paymentDate;
 
 };

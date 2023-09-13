@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import { updatePaymentReminder } from './src/updatePaymentReminder';
+import { createPaymentAlert } from './src/createPaymentAlert';
 
 
 
@@ -8,4 +8,4 @@ import { updatePaymentReminder } from './src/updatePaymentReminder';
  *
  * At 12:00 every day
  */
-cron.schedule('0 0 12 * * *', () => updatePaymentReminder());
+cron.schedule('0 0 12 * * *', () => createPaymentAlert());

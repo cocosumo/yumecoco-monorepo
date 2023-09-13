@@ -7,7 +7,9 @@ import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
 import { getAllPaymentReminder } from './api-kintone';
 
 
-
+/**
+ * @deprecated 入金アラートの実装方法を変更します
+ */
 export const updatePaymentReminder = async () => {
   console.log('start update payment reminder');
 

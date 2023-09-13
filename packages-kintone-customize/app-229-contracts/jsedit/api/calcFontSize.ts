@@ -1,4 +1,4 @@
-import { getTextWidth } from '../src/helpers/getTextWidth';
+import { getTextWidth } from '../../src/helpers/getTextWidth';
 
 export const calcFontSize = (
   width: number,

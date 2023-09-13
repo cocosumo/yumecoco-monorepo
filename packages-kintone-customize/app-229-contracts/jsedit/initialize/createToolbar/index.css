@@ -1,0 +1,27 @@
+#custom_toolbar {
+  margin: 8px 0;
+}
+
+#custom_toolbar select {
+  width: 80px; /* 幅を調整 */
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+#selectStore {
+  width: 100px;
+}
+
+#selectHighlight {
+  width: 100px;
+}
+
+/* ボタンのスタイル */
+#printButton {
+  background-color: #008b8b; /* ボタンの背景色を変更 */
+  color: #fff; /* テキストの色を変更 */
+  padding: 3px 20px; /* パディングを調整 */
+  border-radius: 8px;
+}

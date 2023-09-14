@@ -1,6 +1,7 @@
 import { IAndpadpayments } from 'types';
 import { ContractRecordType, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
+import format from 'date-fns/format';
 
 
 
@@ -16,7 +17,7 @@ function getOldestDate(...dates: string[]) {
       }
     }
   }
-  return oldestDate;
+  return oldestDate ? format(oldestDate, 'yyyy-MM-dd') : null;
 }
 
 
@@ -59,7 +60,7 @@ export const filterContractsToAlertTarget = async ({
       contractDateStr: contractDate.value,
       projType: projType.value as TgtProjType,
       contractAmt: +totalContractAmt.value,
-      contractAmtPaymentDate: contractAmtPaymentDate,
+      contractAmtPaymentDateStr: contractAmtPaymentDate,
     });
 
     // 既に支払い履歴が存在するかを確認する(支払情報があれば通知不要)
@@ -69,7 +70,7 @@ export const filterContractsToAlertTarget = async ({
     }) => (projId.value === contractProjId.value) && (paymentDate.value !== ''));
 
     // 支払情報が存在しないかつ、今日が通知日の場合
-    if (!paymentInfo && (alertDate === new Date())) {
+    if (!paymentInfo && (alertDate === format(new Date(), 'yyyy-MM-dd'))) {
       acc?.push(contract);
     }
 

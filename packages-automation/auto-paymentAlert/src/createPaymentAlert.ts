@@ -2,9 +2,9 @@ import { getAllProjects, getAllAndpadPayments, getUsers } from 'api-kintone';
 import { getAllPaymentReminder } from './api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTarget';
-import { format } from 'date-fns';
 import { convertContractsToJson } from './helpers/convertContractsToJson';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
+import format from 'date-fns/format';
 
 
 /**

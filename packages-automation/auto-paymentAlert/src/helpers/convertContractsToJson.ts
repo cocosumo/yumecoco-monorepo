@@ -1,4 +1,4 @@
-import { IProjects, IUser } from 'types';
+import { IProjects, IStores, IUser } from 'types';
 import { ContractRecordType } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 
@@ -8,10 +8,12 @@ export const convertContractsToJson = ({
   contracts,
   projects,
   users,
+  stores,
 }: {
   contracts: ContractRecordType[]
   projects: IProjects[]
   users: IUser[]
+  stores: IStores[]
 }) => {
 
 
@@ -25,7 +27,10 @@ export const convertContractsToJson = ({
     // 通知対象者を抽出する
     const {
       agents,
+      storeCode: storeCodeByProjct,
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
+
+    const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 
     const alertTarget = agents?.value.filter(({ value }) => {
       return value.agentType.value === 'cocoAG';
@@ -56,6 +61,7 @@ export const convertContractsToJson = ({
       projType: projType.value,
       totalContractAmount: totalContractAmt.value,
       alertTarget: alertTarget,
+      territory: store?.area.value,
     }) as PaymentReminder;
   });
 

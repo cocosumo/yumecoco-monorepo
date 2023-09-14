@@ -1,5 +1,6 @@
 declare namespace DBPaymentreminder {
   interface Data {
+    area: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
     expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;

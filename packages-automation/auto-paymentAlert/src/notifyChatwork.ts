@@ -1,3 +1,4 @@
+import { territories } from 'types';
 import { PaymentReminder } from '../types/paymentReminder';
 
 
@@ -14,5 +15,17 @@ export const notifyChatwork = ({
   console.log(reminderJson);
 
   // TODO 通知処理を実装する
+
+
+  // TODO 店長への通知処理を実装する
+
+  for (let i = 0; i < territories.length; i++) {
+    const reminderDat = reminderJson.filter(({ territory }) => territory === territories[i]);
+
+    console.log(reminderDat);
+    // 各エリアの店長へ、件数とメッセージを通知する
+  }
+
+
 
 };

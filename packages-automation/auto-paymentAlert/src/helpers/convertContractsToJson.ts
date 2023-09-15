@@ -41,6 +41,10 @@ export const convertContractsToJson = ({
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
       || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
 
+    const andpadPaymentUrl = andpadSystemId ?
+      `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
+      : '';
+
     const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 
     const alertTarget = notificationRecipientsSet({
@@ -49,7 +53,7 @@ export const convertContractsToJson = ({
     });
 
     return ({
-      andpadPaymentUrl: `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`,
+      andpadPaymentUrl: andpadPaymentUrl,
       contractId: contractId.value,
       projId: projId.value,
       projType: projType.value,

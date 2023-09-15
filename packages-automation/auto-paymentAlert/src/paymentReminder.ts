@@ -1,5 +1,5 @@
 import { createPaymentAlert } from './createPaymentAlert';
-import { notifyChatwork } from './notifyChatwork';
+import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 
 
 /**
@@ -10,7 +10,7 @@ export const paymentReminder = async () => {
 
   const reminderJson = await createPaymentAlert();
 
-  notifyChatwork({
+  notifyPaymentAlertToChatwork({
     reminderJson: reminderJson,
   });
 

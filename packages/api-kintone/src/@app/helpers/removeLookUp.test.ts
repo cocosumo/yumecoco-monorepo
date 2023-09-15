@@ -1,4 +1,4 @@
-import { Properties } from '@kintone/rest-api-client/lib/client/types';
+import { Properties } from '@kintone/rest-api-client/lib/src/client/types';
 import { removeLookUp } from './removeLookUp';
 import { describe, it, expect } from '@jest/globals';
 

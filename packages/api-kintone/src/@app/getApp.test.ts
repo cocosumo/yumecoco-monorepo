@@ -1,4 +1,4 @@
-import { App } from '@kintone/rest-api-client/lib/client/types';
+import { App } from '@kintone/rest-api-client/lib/src/client/types';
 import { getApp } from './getApp';
 import { describe, it, expect } from '@jest/globals';
 

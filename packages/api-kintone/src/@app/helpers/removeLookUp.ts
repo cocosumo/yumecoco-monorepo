@@ -1,4 +1,4 @@
-import { Properties } from '@kintone/rest-api-client/lib/client/types';
+import { Properties } from '@kintone/rest-api-client/lib/src/client/types';
 
 export const removeLookUp = <T extends Properties>(obj: T): T => {
   const newObj = Object.create(null);

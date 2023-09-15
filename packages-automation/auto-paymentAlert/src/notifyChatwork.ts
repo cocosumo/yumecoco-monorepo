@@ -1,5 +1,6 @@
 import { territories } from 'types';
 import { PaymentReminder } from '../types/paymentReminder';
+import { sendMessage } from 'api-chatwork';
 
 
 /**
@@ -24,6 +25,10 @@ export const notifyChatwork = ({
 
     console.log(reminderDat);
     // 各エリアの店長へ、件数とメッセージを通知する
+    sendMessage({
+      body:,
+      roomId:,
+    })
   }
 
 

@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToJson } from './convertContractsToJson';
-import { getAllProjects, getUsers } from 'api-kintone';
+import { getAllProjects, getAllStores, getUsers } from 'api-kintone';
 
 
 describe('convertContractsToJson', () => {
@@ -15,11 +15,13 @@ describe('convertContractsToJson', () => {
 
     const allProjects = await getAllProjects();
     const allUsers = await getUsers();
+    const allStores = await getAllStores();
 
     const result = await convertContractsToJson({
       contracts: contracts,
       projects: allProjects,
       users: allUsers,
+      stores: allStores,
     });
 
     const dir = path.join(__dirname, '__TEST__');

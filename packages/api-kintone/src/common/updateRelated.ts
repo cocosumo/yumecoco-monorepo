@@ -1,5 +1,5 @@
 import { getLookUpFields } from './getLookUpFields';
-import { Record, RecordID } from '@kintone/rest-api-client/lib/client/types';
+import { Record, RecordID } from '@kintone/rest-api-client/lib/src/client/types';
 import { VAppIds } from 'config';
 import { ktRecord } from '../client';
 

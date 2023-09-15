@@ -1,4 +1,4 @@
-import { RecordID, Revision, UpdateKey } from '@kintone/rest-api-client/lib/client/types';
+import { RecordID, Revision, UpdateKey } from '@kintone/rest-api-client/lib/src/client/types';
 import { RecordType, appId } from './config';
 import { updateAllRecords } from 'api-kintone';
 

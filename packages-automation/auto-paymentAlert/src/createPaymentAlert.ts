@@ -5,6 +5,7 @@ import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTa
 import { convertContractsToJson } from './helpers/convertContractsToJson';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
 import format from 'date-fns/format';
+import { getMyOrders } from 'api-andpad';
 
 
 /**
@@ -19,6 +20,7 @@ export const createPaymentAlert = async () => {
   const allAndpadPayments = await getAllAndpadPayments();
   const allUsers = await getUsers();
   const allStores = await getAllStores();
+  const allOrders = await getMyOrders();
 
   // 契約アプリを参照し、対象の工事種別のレコードを取得する
   const tgtProjTypeContracts = await filterContractsByTargetProjType();
@@ -34,6 +36,7 @@ export const createPaymentAlert = async () => {
     projects: allProjects,
     users: allUsers,
     stores: allStores,
+    allOrders: allOrders,
   });
 
   // 再通知アプリより、今日通知予定のレコードを取得する - (1)

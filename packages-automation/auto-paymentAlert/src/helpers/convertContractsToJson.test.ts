@@ -4,6 +4,7 @@ import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToJson } from './convertContractsToJson';
 import { getAllProjects, getAllStores, getUsers } from 'api-kintone';
+import { getMyOrders } from 'api-andpad';
 
 
 describe('convertContractsToJson', () => {
@@ -16,12 +17,14 @@ describe('convertContractsToJson', () => {
     const allProjects = await getAllProjects();
     const allUsers = await getUsers();
     const allStores = await getAllStores();
+    const allOrders = await getMyOrders();
 
     const result = await convertContractsToJson({
       contracts: contracts,
       projects: allProjects,
       users: allUsers,
       stores: allStores,
+      allOrders: allOrders,
     });
 
     const dir = path.join(__dirname, '__TEST__');

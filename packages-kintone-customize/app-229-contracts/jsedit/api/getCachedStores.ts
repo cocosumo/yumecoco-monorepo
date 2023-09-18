@@ -1,6 +1,6 @@
-import { getAllStores } from 'api-kintone';
 import { isEmpty } from 'lodash';
 import { IStores } from 'types';
+import { getAllStoresMeeting } from './getAllStoresMeeting';
 
 let storeRecords: IStores[] = Object.create(null);
 
@@ -13,7 +13,7 @@ let storeRecords: IStores[] = Object.create(null);
  */
 export const getCachedStores = async () => {
   if (isEmpty(storeRecords)) {
-    storeRecords = await getAllStores();
+    storeRecords = await getAllStoresMeeting();
   }
   return storeRecords;
 };

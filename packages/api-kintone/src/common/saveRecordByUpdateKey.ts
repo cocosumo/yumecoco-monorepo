@@ -1,7 +1,7 @@
 import { ktRecord } from './../client';
 import { VAppIds } from 'config';
 import { KtRecordParam } from 'types';
-import { UpdateKey } from '@kintone/rest-api-client/lib/client/types';
+import { UpdateKey } from '@kintone/rest-api-client/lib/src/client/types';
 import { v4 as uuidV4 } from 'uuid';
 
 /**

@@ -54,6 +54,7 @@ export const RowLayout = ({
         sx={{
           whiteSpace: 'nowrap',
         }}
+        align='center'
       >
         {rank}
       </TableCell>

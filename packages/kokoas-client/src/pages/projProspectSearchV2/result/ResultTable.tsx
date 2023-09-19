@@ -10,7 +10,7 @@ export const ResultTable = ({
 }) => {
 
   return (
-    <Paper>
+    <Paper sx={{ width: '100%', overflowY: 'scroll' }}>
       <TableContainer
         sx={{ 
           overflowX: 'initial', 

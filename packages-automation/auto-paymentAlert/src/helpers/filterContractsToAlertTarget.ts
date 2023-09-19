@@ -24,7 +24,7 @@ function getOldestDate(...dates: string[]) {
 /**
  * 通知対象の契約のみに絞り込む
  */
-export const filterContractsToAlertTarget = async ({
+export const filterContractsToAlertTarget = ({
   contracts,
   andpadPayments,
 }: {

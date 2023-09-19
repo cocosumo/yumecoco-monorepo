@@ -16,17 +16,25 @@ export const createPaymentAlert = async () => {
 
   // 処理前準備
   // 関連するレコード情報を取得する
-  const allProjects = await getAllProjects();
-  const allAndpadPayments = await getAllAndpadPayments();
-  const allUsers = await getUsers();
-  const allStores = await getAllStores();
-  const allOrders = await getMyOrders();
+  const [
+    allProjects,
+    allAndpadPayments,
+    allUsers,
+    allStores,
+    allOrders,
+    tgtProjTypeContracts,
+  ] = await Promise.all([
+    getAllProjects(),
+    getAllAndpadPayments(),
+    getUsers(),
+    getAllStores(),
+    getMyOrders(),
+    filterContractsByTargetProjType(),
+  ]);
 
-  // 契約アプリを参照し、対象の工事種別のレコードを取得する
-  const tgtProjTypeContracts = await filterContractsByTargetProjType();
 
   // 通知対象のレコードのみに絞り込む
-  const alertContracts = await filterContractsToAlertTarget({
+  const alertContracts = filterContractsToAlertTarget({
     contracts: tgtProjTypeContracts,
     andpadPayments: allAndpadPayments,
   });

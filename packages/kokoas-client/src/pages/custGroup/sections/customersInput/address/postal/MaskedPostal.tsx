@@ -1,37 +1,9 @@
 import { TextField } from '@mui/material';
 import { useTypedFormContext } from 'kokoas-client/src/pages/custGroup/hooks/useTypedHooks';
-import { forwardRef } from 'react';
 import { Controller } from 'react-hook-form';
-import { IMaskInput } from 'react-imask';
+import { PatternFormat } from 'react-number-format';
 
-interface CustomProps {
-  onChange: (event: { target: { name: string; value: string } }) => void;
-  name: string;
-}
 
-const PostalMask = forwardRef<HTMLInputElement, CustomProps>(
-  function TextMaskCustom(props, ref) {
-    const { onChange, ...other } = props;
-    return (
-      <IMaskInput
-        {...other}
-        mask="000-0000"
-        definitions={{
-          '#': /[1-9]/,
-        }}
-        unmask={false}
-        inputRef={ref}
-        // DO NOT USE onChange TO HANDLE CHANGES!
-        // USE onAccept INSTEAD
-        onAccept={(value: any) => {
-          console.log('onAccept', value);
-          onChange({ target: { name: props.name, value } });
-        }}
-        overwrite
-      />
-    );
-  },
-);
 
 export const MaskedPostal = ({
   disabled,
@@ -63,35 +35,32 @@ export const MaskedPostal = ({
           isTouched,
         },
         formState: {
-          isSubmitted
-        }
+          isSubmitted,
+        },
       }) => {
         const showError = !!error && (isTouched || isSubmitted);
 
         return (
-          <TextField
+          <PatternFormat 
+            value={(value as string).replace('-', '')} 
+            format="###-####"
+            onValueChange={(e) => {
+              onChange(e.value);
+            }}
+            onBlur={onBlur}
+            name="postal"
+            customInput={TextField}
+            error={showError}
             size='small'
             label={label}
-            id="postal"
-            value={value}
-            onInput={(e) => {
-              const newValue = (e.target as HTMLInputElement).value;
-              onChange(newValue)
-            }}
-            // onChange, is flaky when used with IMaskInput
-            onBlur={onBlur}
-            inputRef={ref}
             disabled={disabled}
             required={required}
-            placeholder='441-3111'
+            inputRef={ref}
             InputProps={{
               sx: {
-                width: 200,
+                width: 150,
               },
-              inputComponent: PostalMask as any,
             }}
-            error={showError}
-            helperText={showError ? error?.message : null}
           />
         );
       }}

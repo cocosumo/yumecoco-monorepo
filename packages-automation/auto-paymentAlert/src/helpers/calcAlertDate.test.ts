@@ -15,7 +15,7 @@ describe('calcAlertDate', () => {
     expect(result).toBe('2023-04-30');
   }, 60000);
 
-  it('リフォーム工事(500万円以上)の時、3か月後の日付が返ってくること', async () => {
+  it('リフォーム工事(500万円以上)の時、3か月後の日付が返ってくること', () => {
 
     const result = calcAlertDate({
       contractDateStr: '2023-11-30',
@@ -27,7 +27,7 @@ describe('calcAlertDate', () => {
     expect(result).toBe('2024-02-29');
   }, 60000);
 
-  it('リフォーム工事(300万円以上)の時、2か月後の日付が返ってくること', async () => {
+  it('リフォーム工事(300万円以上)の時、2か月後の日付が返ってくること', () => {
 
     const result = calcAlertDate({
       contractDateStr: '2023-07-31',
@@ -39,7 +39,7 @@ describe('calcAlertDate', () => {
     expect(result).toBe('2023-09-30');
   }, 60000);
 
-  it('リフォーム工事(300万円以上)の時、1か月後の日付が返ってくること', async () => {
+  it('リフォーム工事(300万円以上)の時、1か月後の日付が返ってくること', () => {
 
     const result = calcAlertDate({
       contractDateStr: '2023-01-31',
@@ -51,7 +51,7 @@ describe('calcAlertDate', () => {
     expect(result).toBe('2023-02-28');
   }, 60000);
 
-  it('新築工事の時、契約日が返ってくること', async () => {
+  it('新築工事の時、契約日が返ってくること', () => {
 
     const result = calcAlertDate({
       contractDateStr: '2023-05-31',
@@ -63,7 +63,7 @@ describe('calcAlertDate', () => {
     expect(result).toBe('2023-10-15');
   }, 60000);
 
-  it('新築工事の時、契約日が空の場合は3か月後の日付が返ってくること', async () => {
+  it('新築工事の時、契約日が空の場合は3か月後の日付が返ってくること', () => {
 
     const result = calcAlertDate({
       contractDateStr: '2023-05-31',

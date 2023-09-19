@@ -2,23 +2,8 @@ import { IAndpadpayments } from 'types';
 import { ContractRecordType, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
 import format from 'date-fns/format';
+import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 
-
-
-/**配列内から一番過去の日付を取得します */
-function getOldestDate(...dates: string[]) {
-  let oldestDate = null;
-
-  for (const dateStr of dates) {
-    if (dateStr !== null) {
-      const currentDate = new Date(dateStr);
-      if (!oldestDate || currentDate < oldestDate) {
-        oldestDate = currentDate;
-      }
-    }
-  }
-  return oldestDate ? format(oldestDate, 'yyyy-MM-dd') : null;
-}
 
 
 /**
@@ -38,22 +23,36 @@ export const filterContractsToAlertTarget = ({
       totalContractAmt,
       contractDate,
       projType,
+      contractAmt,
       contractAmtDate,
+      initialAmt,
       initialAmtDate,
+      interimAmt,
       interimAmtDate,
+      finalAmt,
       finalAmtDate,
+      othersAmt,
       othersAmtDate,
     } = contract;
 
 
     // 契約書から一番過去の支払日を取得する
-    const contractAmtPaymentDate = getOldestDate(
-      contractAmtDate.value,
-      initialAmtDate.value,
-      interimAmtDate.value,
-      finalAmtDate.value,
-      othersAmtDate.value,
-    );
+    const contractAmtPaymentDate = getEarliestDateOfContract({
+      dates: [
+        contractAmtDate.value,
+        initialAmtDate.value,
+        interimAmtDate.value,
+        finalAmtDate.value,
+        othersAmtDate.value,
+      ],
+      contractAmts:[
+        contractAmt.value,
+        initialAmt.value,
+        interimAmt.value,
+        finalAmt.value,
+        othersAmt.value,
+      ],
+    });
 
     // 契約書より、支払日を設定する
     const alertDate = calcAlertDate({
@@ -64,7 +63,7 @@ export const filterContractsToAlertTarget = ({
     });
 
     // 既に支払い履歴が存在するかを確認する(支払情報があれば通知不要)
-    const paymentInfo = andpadPayments.find(({
+    const paymentInfo = andpadPayments.some(({
       projId,
       paymentDate,
     }) => (projId.value === contractProjId.value) && (paymentDate.value !== ''));

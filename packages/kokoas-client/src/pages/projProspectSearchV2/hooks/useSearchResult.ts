@@ -185,6 +185,7 @@ export const useSearchResult =  () => {
 
         acc.push({
           rank: rank.value,
+          storeSortNumber: +(sortNumber?.value || 0),
           custNames: fullNames.join(','),
           cocoAG: cocoAGNames.join(','),
           yumeAG: yumeAGNames.join(','),

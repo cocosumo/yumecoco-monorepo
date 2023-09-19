@@ -5,6 +5,7 @@ import { Stack } from '@mui/material';
 import { PageTitle3 } from 'kokoas-client/src/components';
 import { useParseQuery } from './hooks/useParseQuery';
 import { Filter } from './filter/Filter';
+import { Result } from './result/Result';
 
 export const FormProspectSearch = () => {
   const parsedQuery = useParseQuery();
@@ -25,7 +26,8 @@ export const FormProspectSearch = () => {
         <Filter />
       </FormProvider>
 
-      {/* <Result /> */}
+
+      <Result />
 
     </Stack>
   );

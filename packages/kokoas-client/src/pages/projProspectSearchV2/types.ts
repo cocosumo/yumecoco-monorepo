@@ -17,6 +17,9 @@ export interface ISearchResult {
   /** 店舗名 */
   storeName: string,
 
+  /** 顧客ソート順 */
+  storeSortNumber: number,
+
   /**　ここすもAG */
   cocoAG: string,
 

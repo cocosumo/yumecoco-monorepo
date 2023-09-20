@@ -10,6 +10,8 @@ export const initialForm: TForm = {
   projName: '',
   contractAmtFrom: null,
   contractAmtTo: null,
+  contractDateFrom: null,
+  contractDateTo: null,
 };
 
 

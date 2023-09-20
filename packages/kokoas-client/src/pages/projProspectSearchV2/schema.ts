@@ -13,6 +13,11 @@ export const schema = z.object({
   contractAmtFrom: z.number({ coerce: true }).nullable(),
   contractAmtTo: z.number({ coerce: true }).nullable(),
 
+  contractDateFrom: z.string()
+    .nullable(),
+  contractDateTo: z.string()
+    .nullable(),
+
   orderBy: z.string().optional(),
   order: z.string().optional(),
 });

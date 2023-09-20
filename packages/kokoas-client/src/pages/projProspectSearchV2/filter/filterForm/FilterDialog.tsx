@@ -3,6 +3,7 @@ import { SearchButton } from './SearchButton';
 import { RankField } from './RankField';
 import { NameFields } from './NameFields';
 import { ContractAmt } from './ContractAmt';
+import { DateRange } from '../fields/DateRange';
 
 export const FilterDialog = ({
   open,
@@ -26,6 +27,11 @@ export const FilterDialog = ({
           <RankField />
           <NameFields />
           <ContractAmt />
+          <DateRange 
+            fromName='contractDateFrom'
+            toName='contractDateTo'
+            label='契約予定日'
+          />
         </Stack>
       </DialogContent>
       <DialogActions>

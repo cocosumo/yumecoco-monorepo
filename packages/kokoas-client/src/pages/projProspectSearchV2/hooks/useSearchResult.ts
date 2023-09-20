@@ -55,6 +55,9 @@ export const useSearchResult =  () => {
           
           schedContractPrice: schedContractAmt,
 
+          
+          
+
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; 
@@ -69,10 +72,6 @@ export const useSearchResult =  () => {
         if (!custGroup) return acc;
 
 
-        const contracts = recContracts?.filter(({ projId: _prodId }) => projId.value === _prodId.value);
-
-        // 契約があったら、除外
-        if (contracts?.length) return acc; 
 
         const {
           members,
@@ -82,7 +81,15 @@ export const useSearchResult =  () => {
           isDeleted,
         } = custGroup;
 
-        //const isCustGroupDeleted = isDeleted.value === '1';
+        const isCustGroupDeleted = isDeleted.value === '1';
+        // 顧客グループが削除されていたら、除外
+        if (isCustGroupDeleted) return acc;
+
+        
+        const hasContract = recContracts?.some(({ projId: _prodId }) => projId.value === _prodId.value);
+
+        // 契約があったら、除外
+        if (hasContract) return acc; 
         
 
         const cocoAGs = getAgentsByType(agents, 'cocoAG');
@@ -91,7 +98,7 @@ export const useSearchResult =  () => {
 
         const yumeAGs = getAgentsByType(agents, 'yumeAG');
         const yumeAGNames = yumeAGs.map(({ value: { employeeName } }) => employeeName.value);
-        const yumeAGIds = yumeAGs.map(({ value: { employeeId } }) => employeeId.value);
+        //const yumeAGIds = yumeAGs.map(({ value: { employeeId } }) => employeeId.value);
 
         const cocoConst = getProjAgentsByType(projAgents, 'cocoConst');
         const cocoConstNames = cocoConst.map(({ value: { agentName } }) => agentName.value);

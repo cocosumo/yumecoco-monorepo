@@ -14,9 +14,9 @@ export const schema = z.object({
   contractAmtFrom: z.number({ coerce: true }).nullable(),
   contractAmtTo: z.number({ coerce: true }).nullable(),
 
-  contractDateFrom: z.string()
+  contractDateFrom: z.date()
     .nullable(),
-  contractDateTo: z.string()
+  contractDateTo: z.date()
     .nullable(),
 
   orderBy: z.string().optional(),

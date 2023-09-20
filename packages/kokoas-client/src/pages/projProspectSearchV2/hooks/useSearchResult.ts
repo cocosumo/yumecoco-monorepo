@@ -25,9 +25,9 @@ export const useSearchResult =  () => {
 
   //const { data: selectedStoreIds } = useStoreIds(stores ?? []);
   const { data: storeRec } = useStores();
-  
 
-  console.log(q);
+  console.log('parsedQuery', parsedQuery);
+  
 
   return useProjects<ISearchResult[]>({ // 工事ベース
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
@@ -142,8 +142,7 @@ export const useSearchResult =  () => {
         const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo) >= parseISO(schedContractDate?.value));
         const isMatchMemo = !q.memo || (q.memo && projName.value.includes(q.memo.trim()));
 
-        console.log(parsedQueryContractAmtFrom, parsedContractAmt, isMatchContractAmtFrom);
-        
+        console.log(isMatchContractDateFrom, q.contractDateFrom, schedContractDate?.value);
         const isMatchKeyword = !q.keyword || [
           ...fullNames,
           ...cocoAGNames,

@@ -17,13 +17,17 @@ const AmountField = ({
       name={fieldName}
       control={control}
       render={({
-        field,
+        field: {
+          value,
+          ...otherField
+        },
       }) => (
         <OutlinedInput
           fullWidth
           size="small"
           type='number'
-          {...field}
+          value={value ?? ''}
+          {...otherField}
           inputProps={{
             style: {
               textAlign: 'right',

@@ -81,7 +81,11 @@ export const RowLayout = ({
         {schedContractAmt}
       </TableCell>
 
-      <TableCell>
+      <TableCell
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
         {estatePurchaseDate}
         <br />
         {planApplicationDate}

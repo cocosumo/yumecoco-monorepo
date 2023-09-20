@@ -46,9 +46,6 @@ export const useSearchResult =  () => {
           cancelStatus: projCancelStatus,
           作成日時: createDate,
           更新日時: updateDate,
-          deliveryDate,
-          projFinDate,
-          payFinDate,
           
           estatePurchaseDate,
           planApplicationDate,
@@ -56,8 +53,7 @@ export const useSearchResult =  () => {
           
           schedContractPrice: schedContractAmt,
 
-          
-          
+          memo,
 
         } = curr; // 工事情報;
 
@@ -142,7 +138,8 @@ export const useSearchResult =  () => {
         const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo) >= parseISO(schedContractDate?.value));
         const isMatchMemo = !q.memo || (q.memo && projName.value.includes(q.memo.trim()));
 
-        console.log(isMatchContractDateFrom, q.contractDateFrom, schedContractDate?.value);
+        //console.log(isMatchContractDateFrom, q.contractDateFrom, schedContractDate?.value);
+        
         const isMatchKeyword = !q.keyword || [
           ...fullNames,
           ...cocoAGNames,
@@ -152,6 +149,7 @@ export const useSearchResult =  () => {
           projName.value,
           projId.value,
           custGroupId.value,
+          memo.value,
           formatDataId(dataId.value),
         ].join('').includes(q.keyword.trim());
         

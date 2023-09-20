@@ -1,6 +1,7 @@
 import { FormGroup, FormLabel, InputAdornment, OutlinedInput, Stack } from '@mui/material';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 import { KForm } from '../../schema';
+import { Controller } from 'react-hook-form';
 
 const AmountField = ({
   fieldName,
@@ -9,21 +10,31 @@ const AmountField = ({
   fieldName: KForm;
   suffix: string;
 }) => {
-  const { register } = useTypedFormContext();
+  const { control } = useTypedFormContext();
 
   return (
-    <OutlinedInput 
-      fullWidth
-      size="small"
-      {...register(fieldName)}
-      inputProps={{
-        style: {
-          textAlign: 'right',
-        },
-      }}
-      endAdornment={(<InputAdornment position="end">
-        {suffix}
-      </InputAdornment>)}
+    <Controller
+      name={fieldName}
+      control={control}
+      render={({
+        field,
+      }) => (
+        <OutlinedInput
+          fullWidth
+          size="small"
+          type='number'
+          {...field}
+          inputProps={{
+            style: {
+              textAlign: 'right',
+            },
+          }}
+          endAdornment={(
+            <InputAdornment position="end">
+              {suffix}
+            </InputAdornment>)}
+        />
+      )}
     />
   );
 };
@@ -46,7 +57,7 @@ export const ContractAmt = () => {
           suffix='万円から'
         />
         <AmountField 
-          fieldName='contractAmtFrom' 
+          fieldName='contractAmtTo' 
           suffix='万円まで'
         />
       </Stack>

@@ -27,6 +27,7 @@ export const useSearchResult =  () => {
   const { data: storeRec } = useStores();
   
 
+  console.log(q);
 
   return useProjects<ISearchResult[]>({ // 工事ベース
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
@@ -124,17 +125,25 @@ export const useSearchResult =  () => {
          * 手間がかかるので、後回し。ras 20230611
         */
 
+        // フォームの契約金額は、万円単位なので、10000倍する
+        const parsedQueryContractAmtFrom = q.contractAmtFrom ? +q.contractAmtFrom * 10000 : 0;
+        const parsedQueryContractAmtTo = q.contractAmtTo ? +q.contractAmtTo * 10000 : 0;
+
+        const parsedContractAmt = +schedContractAmt.value;
+
         const isRankMatch = !q.ranks?.length || q.ranks?.includes(rank.value);
         const isMatchCustname = !q.custName || fullNames
           .concat(fullNameReadings).join('')
           .includes(q.custName.trim());
         const isMatchProjName = !q.projName || projName.value.includes(q.projName.trim());
-        const isMatchContractAmtFrom = !q.contractAmtFrom || (q.contractAmtFrom && schedContractAmt.value && +q.contractAmtFrom <= +schedContractAmt.value);
-        const isMatchContractAmtTo = !q.contractAmtTo || (q.contractAmtTo && schedContractAmt.value && +q.contractAmtTo >= +schedContractAmt.value);
+        const isMatchContractAmtFrom = !q.contractAmtFrom || (q.contractAmtFrom && parsedContractAmt >= parsedQueryContractAmtFrom);
+        const isMatchContractAmtTo = !q.contractAmtTo || (q.contractAmtTo && parsedContractAmt <= parsedQueryContractAmtTo);
         const isMatchContractDateFrom = !q.contractDateFrom || (q.contractDateFrom && schedContractDate?.value && parseISO(q.contractDateFrom) <= parseISO(schedContractDate?.value));
         const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo) >= parseISO(schedContractDate?.value));
         const isMatchMemo = !q.memo || (q.memo && projName.value.includes(q.memo.trim()));
 
+        console.log(parsedQueryContractAmtFrom, parsedContractAmt, isMatchContractAmtFrom);
+        
         const isMatchKeyword = !q.keyword || [
           ...fullNames,
           ...cocoAGNames,

@@ -1,6 +1,7 @@
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, Stack } from '@mui/material';
 import { useSearchResult } from '../hooks/useSearchResult';
 import { ResultTable } from './ResultTable';
+import { ResultSummary } from './ResultSummary';
 
 export const Result = () => {
 
@@ -9,7 +10,12 @@ export const Result = () => {
   if (isLoading) return (<LinearProgress />);
 
   return (
-    <ResultTable data={data} />
+    <Stack
+      spacing={1}
+    >
+      <ResultSummary dataCount={data?.length} />
+      <ResultTable data={data} />
+    </Stack>
   );
   
 };

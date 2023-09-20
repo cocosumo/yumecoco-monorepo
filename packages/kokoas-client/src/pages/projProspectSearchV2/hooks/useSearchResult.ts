@@ -124,6 +124,18 @@ export const useSearchResult =  () => {
         */
 
         const isRankMatch = !q.ranks?.length || q.ranks?.includes(rank.value);
+        const isMatchKeyword = !q.keyword || [
+          ...fullNames,
+          ...cocoAGNames,
+          ...yumeAGNames,
+          ...cocoConstNames,
+          storeName.value,
+          projName.value,
+          projId.value,
+          custGroupId.value,
+          formatDataId(dataId.value),
+        ].join('').includes(q.keyword.trim());
+        
 
         /*         const isMatchedKeyword = !keyword || [
           ...fullNames,
@@ -192,7 +204,13 @@ export const useSearchResult =  () => {
           });
         } */
 
-        if (isRankMatch) {
+        if (!q || 
+          (
+            isMatchKeyword
+          && isRankMatch
+
+          )
+        ) {
           acc.push({
             rank: rank.value,
             storeSortNumber: +(sortNumber?.value || 0),

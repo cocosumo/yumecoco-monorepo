@@ -113,6 +113,7 @@ export const useSearchResult =  () => {
 
         const {  
           fullNames,
+          fullNameReadings,
         } = groupCustContacts(relCustomers);
 
         /**　
@@ -124,6 +125,16 @@ export const useSearchResult =  () => {
         */
 
         const isRankMatch = !q.ranks?.length || q.ranks?.includes(rank.value);
+        const isMatchCustname = !q.custName || fullNames
+          .concat(fullNameReadings).join('')
+          .includes(q.custName.trim());
+        const isMatchProjName = !q.projName || projName.value.includes(q.projName.trim());
+        const isMatchContractAmtFrom = !q.contractAmtFrom || (q.contractAmtFrom && schedContractAmt.value && +q.contractAmtFrom <= +schedContractAmt.value);
+        const isMatchContractAmtTo = !q.contractAmtTo || (q.contractAmtTo && schedContractAmt.value && +q.contractAmtTo >= +schedContractAmt.value);
+        const isMatchContractDateFrom = !q.contractDateFrom || (q.contractDateFrom && schedContractDate?.value && parseISO(q.contractDateFrom) <= parseISO(schedContractDate?.value));
+        const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo) >= parseISO(schedContractDate?.value));
+        const isMatchMemo = !q.memo || (q.memo && projName.value.includes(q.memo.trim()));
+
         const isMatchKeyword = !q.keyword || [
           ...fullNames,
           ...cocoAGNames,
@@ -137,78 +148,17 @@ export const useSearchResult =  () => {
         ].join('').includes(q.keyword.trim());
         
 
-        /*         const isMatchedKeyword = !keyword || [
-          ...fullNames,
-          ...fullNameReadings,
-          ...custEmails,
-          ...custTels,
-          ...addresses,
-          ...yumeAGNames,
-          ...cocoAGNames,
-          ...cocoConstNames,
-          storeName.value,
-          projAddress,
-          dataId.value,
-        ].join('').includes(keyword.trim()); */
-
-        /*     cocoAG?.some((ag) => {
-          console.log(ag, cocoNames, cocoNames.includes(ag) );
-          return cocoNames.includes(ag);
-        });  */
-
-        // console.log('cocoNames', cocoAG, cocoNames, cocoAG?.some((ag) => cocoNames.includes(ag)) );
-
-        /*  const isMatchedCustName = !custName || [...fullNames, ...fullNameReadings].join('').includes(custName);
-        const isMatchAddress = !address || [...addresses, projAddress].join('').includes(address);
-        const isMatchStore = !selectedStoreIds?.length || selectedStoreIds.includes(storeId.value);
-        const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
-        const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
-        const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
-        const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
-        const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
-        const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && finishDate?.value && completionDateFrom <= parseISO(finishDate?.value));
-        const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && finishDate?.value && completionDateTo >= parseISO(finishDate?.value));
-        const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted); */
-
-        /* if (!parsedQuery
-          || (isMatchedKeyword
-            && isMatchedCustName
-            && isMatchAddress
-            && isMatchStore
-            && isMatchProjType
-            && isMatchCocoNames
-            && isMatchYumeNames
-            && isMatchcontractDateFrom
-            && isMatchcontractDateTo
-            && isMatchcompletionDateFrom
-            && isMatchcompletionDateTo
-            && isIncludeDeleted
-          )
-        ) {
-          acc.push({
-            projDataId: formatDataId(dataId.value),
-            custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
-            custNameKana: `${fullNameReadings[0]}`,
-            custAddress: `${addresses[0]}`,
-            tel: custTels[0],
-            storeName: `${storeName.value}`,
-            uuid: projId.value,
-            projName: projName.value,
-            contractDate: contractDate?.value ? contractDate.value : '-',
-            deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
-            projFinDate: projFinDate?.value ? projFinDate.value : '-',
-            payFinDate: payFinDate?.value ? payFinDate.value : '-',
-            storeSortNumber: +(sortNumber?.value || 0),
-            createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
-            updatedAt: parseISOTimeToFormat(updatedAt.value, 'yyyy-MM-dd HH:mm'), 
-          });
-        } */
-
         if (!q || 
           (
             isMatchKeyword
           && isRankMatch
-
+          && isMatchCustname
+          && isMatchProjName
+          && isMatchContractAmtFrom
+          && isMatchContractAmtTo
+          && isMatchContractDateFrom
+          && isMatchContractDateTo
+          && isMatchMemo
           )
         ) {
           acc.push({

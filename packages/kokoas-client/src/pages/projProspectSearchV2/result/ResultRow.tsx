@@ -6,11 +6,13 @@ export const ResultRow = (props: RowLayoutProps) => {
 
   const {
     rank,
+    schedContractAmt,
     ...otherProps
   } = props;
 
   return  (
     <RowLayout 
+      schedContractAmt={schedContractAmt?.toLocaleString()}
       rank={(
         <Typography 
           fontSize={24} 

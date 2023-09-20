@@ -71,6 +71,7 @@ export const ResultHead = () => {
             label='店舗名'
           />
         )}
+        cocoAG={'ここすもAG'}
         yumeAG={'ゆめてつAG'}
         cocoConst={'ここすも工事'}
         schedContractAmt={'契約予定金額'}

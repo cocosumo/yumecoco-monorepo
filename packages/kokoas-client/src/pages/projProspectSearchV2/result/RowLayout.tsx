@@ -60,9 +60,9 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell>
+        {projName} 
+        <br /> 
         {custNames}
-        <br />
-        {projName}    
       </TableCell>
 
       <TableCell>
@@ -77,7 +77,7 @@ export const RowLayout = ({
         {cocoConst}
       </TableCell>
 
-      <TableCell>
+      <TableCell align='right'>
         {schedContractAmt}
       </TableCell>
 

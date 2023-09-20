@@ -6,13 +6,13 @@ export const calcAlertDate = ({
   contractDateStr,
   projType,
   contractAmt,
-  contractAmtPaymentDate,
-}:{
-  contractDateStr: string
+  contractAmtPaymentDateStr,
+}: {
+  contractDateStr: string // ISO string
   projType: TgtProjType
   contractAmt: number
-  contractAmtPaymentDate: Date | null
-}) => {  
+  contractAmtPaymentDateStr: string | null // ISO string
+}) => {
   const contractDate = parseISO(contractDateStr);
 
   let paymentDate = new Date();
@@ -24,14 +24,14 @@ export const calcAlertDate = ({
     if (contractAmt >= 5000000) {
       paymentDate = addMonths(contractDate, 3);
     } else if (contractAmt >= 3000000) {
-      paymentDate = addMonths(contractDate, 2);       
+      paymentDate = addMonths(contractDate, 2);
     } else {
       paymentDate = addMonths(contractDate, 1);
     }
   } else if (projType === '新築工事') {
     // 支払予定日
-    if (contractAmtPaymentDate) {
-      paymentDate = contractAmtPaymentDate;
+    if (contractAmtPaymentDateStr) {
+      paymentDate = parseISO(contractAmtPaymentDateStr);
     } else {
       // 支払予定日が設定されていないものは、3か月後
       paymentDate = addMonths(contractDate, 3);

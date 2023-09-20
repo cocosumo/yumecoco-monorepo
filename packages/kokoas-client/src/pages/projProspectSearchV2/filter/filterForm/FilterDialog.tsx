@@ -1,9 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack, TextField } from '@mui/material';
 import { SearchButton } from './SearchButton';
 import { RankField } from './RankField';
 import { NameFields } from './NameFields';
 import { ContractAmt } from './ContractAmt';
 import { DateRange } from '../fields/DateRange';
+import { MemoField } from './MemoField';
 
 export const FilterDialog = ({
   open,
@@ -32,6 +33,7 @@ export const FilterDialog = ({
             toName='contractDateTo'
             label='契約予定日'
           />
+          <MemoField />
         </Stack>
       </DialogContent>
       <DialogActions>

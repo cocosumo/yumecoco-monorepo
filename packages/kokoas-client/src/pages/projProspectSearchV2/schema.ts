@@ -1,4 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
+import { orders } from 'types';
 import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
@@ -19,7 +20,8 @@ export const schema = z.object({
     .nullable(),
 
   orderBy: z.string().optional(),
-  order: z.string().optional(),
+  order: z.enum(orders) .optional(),
+  memo: z.string().optional(),
 });
 
 export type TForm = z.infer<typeof schema>;

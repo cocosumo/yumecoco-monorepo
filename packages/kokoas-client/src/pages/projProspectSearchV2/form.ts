@@ -12,6 +12,9 @@ export const initialForm: TForm = {
   contractAmtTo: null,
   contractDateFrom: null,
   contractDateTo: null,
+  memo: '',
+  orderBy: 'rank',
+  order: 'asc',
 };
 
 

@@ -9,7 +9,9 @@ export type KFlatCustGroup =
 | KCustGroupMembers
 | KCustGroupAgents;
 
-export type TProjRank = 'A' | 'B' | 'C' | 'D' | '';
+
+export const ranks = ['A', 'B', 'C', 'D', ''] as const;
+export type TProjRank = typeof ranks[number];
 export type TContact = 'email' | 'tel';
 
 

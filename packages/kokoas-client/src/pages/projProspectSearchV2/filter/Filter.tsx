@@ -6,6 +6,7 @@ import { useTypedFormContext } from '../hooks/useTypedHooks';
 import { DevTool } from '@hookform/devtools';
 import { Keyword } from './Keyword';
 import { SearchButton } from './SearchButton';
+import { FilterButton } from './FilterButton';
 
 
 export const Filter = () => {
@@ -33,8 +34,11 @@ export const Filter = () => {
         {...register('custNames')}
       />
       <SearchButton />
+      <FilterButton />
+
       {/* <FilterButton /> */}
       <DevTool control={control} />
+
     </Stack>
  
   );

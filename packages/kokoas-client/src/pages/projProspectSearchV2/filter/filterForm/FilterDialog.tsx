@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack } from '@mui/material';
 import { SearchButton } from './SearchButton';
+import { RankField } from './RankField';
 
 export const FilterDialog = ({
   open,
@@ -20,7 +21,7 @@ export const FilterDialog = ({
       </DialogTitle>
       <DialogContent>
         <Stack spacing={2} divider={<Divider />}>
-          
+          <RankField />
         </Stack>
       </DialogContent>
       <DialogActions>

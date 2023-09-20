@@ -1,9 +1,9 @@
 import { territories } from 'types';
 import { PaymentReminder } from '../types/paymentReminder';
 import { sendMessage } from 'api-chatwork';
-import { chatworkRooms } from 'config';
-import { generateMessage } from './helpers/generateMessage';
-import { generateMessageForManager } from './helpers/generateMessageForManager';
+import { generateMessage } from './notificationFunc/generateMessage';
+import { generateMessageForManager } from './notificationFunc/generateMessageForManager';
+import { chatworkRoomsforCocoSystem } from '../config';
 
 
 /**
@@ -24,7 +24,8 @@ export const notifyPaymentAlertToChatwork = ({
 
     sendMessage({
       body: message,
-      roomId: chatworkRooms.rpa02,
+      roomId: chatworkRoomsforCocoSystem.rpa02,
+      cwToken: process.env.CW_TOKEN_COCOSYSTEM,
     });
   });
 
@@ -41,7 +42,8 @@ export const notifyPaymentAlertToChatwork = ({
     
     sendMessage({
       body: message,
-      roomId: chatworkRooms.rpa02,
+      roomId: chatworkRoomsforCocoSystem.rpa02,
+      cwToken: process.env.CW_TOKEN_COCOSYSTEM,
     });
   }
 

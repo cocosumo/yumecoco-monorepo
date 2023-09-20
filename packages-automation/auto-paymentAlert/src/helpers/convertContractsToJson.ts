@@ -1,7 +1,7 @@
 import { IProjects, IStores, IUser } from 'types';
 import { ContractRecordType } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
-import { notificationRecipientsSet } from './notificationRecipientsSet';
+import { notificationRecipientsSet } from '../notificationFunc/notificationRecipientsSet';
 import { getMyOrders } from 'api-andpad';
 
 

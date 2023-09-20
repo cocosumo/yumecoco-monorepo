@@ -3,6 +3,7 @@ import { Territory } from 'types';
 
 export interface PaymentReminder {
   andpadPaymentUrl: string,
+  reminderUrl: string,
   contractId: string,
   projId: string,
   projName: string,

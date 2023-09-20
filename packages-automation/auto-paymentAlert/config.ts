@@ -20,3 +20,16 @@ export type ContractRecordKeys = KContracts;
 
 export type PaymentReminderRecordType = IPaymentreminder;
 export type PaymentReminderRecordKeys = KPaymentreminder;
+
+/**
+ * chatworkのルームID
+ */
+export const chatworkRoomsforCocoSystem = {
+  /** ココアス通知用 */
+  cocoasGroup: '335602129',
+
+  /** RPAチーム */
+  rpa: '335603515',
+  rpa02: '335600969',
+
+};

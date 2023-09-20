@@ -116,6 +116,8 @@ export const useSearchResult =  () => {
          * 手間がかかるので、後回し。ras 20230611
         */
 
+        const isRankMatch = !q.ranks?.length || q.ranks?.includes(rank.value);
+
         /*         const isMatchedKeyword = !keyword || [
           ...fullNames,
           ...fullNameReadings,
@@ -183,23 +185,26 @@ export const useSearchResult =  () => {
           });
         } */
 
-        acc.push({
-          rank: rank.value,
-          storeSortNumber: +(sortNumber?.value || 0),
-          custNames: fullNames.join(','),
-          cocoAG: cocoAGNames.join(','),
-          yumeAG: yumeAGNames.join(','),
-          cocoConst: cocoConstNames.join(','),
-          projId: formatDataId(dataId.value),
-          estatePurchaseDate: estatePurchaseDate?.value ? estatePurchaseDate.value : '-',
-          planApplicationDate: planApplicationDate?.value ? planApplicationDate.value : '-',
-          projName: projName.value,
-          storeName: storeName.value,
-          schedContractAmt: +schedContractAmt.value,
-          schedContractDate: schedContractDate?.value ? schedContractDate.value : '-',
-          createDate: format(parseISO(createDate.value), 'yyyy-MM-dd HH:mm'),
-          updateDate: format(parseISO(updateDate.value), 'yyyy-MM-dd HH:mm'),
-        });
+        if (isRankMatch) {
+          acc.push({
+            rank: rank.value,
+            storeSortNumber: +(sortNumber?.value || 0),
+            custNames: fullNames.join(','),
+            cocoAG: cocoAGNames.join(','),
+            yumeAG: yumeAGNames.join(','),
+            cocoConst: cocoConstNames.join(','),
+            projId: formatDataId(dataId.value),
+            estatePurchaseDate: estatePurchaseDate?.value ? estatePurchaseDate.value : '-',
+            planApplicationDate: planApplicationDate?.value ? planApplicationDate.value : '-',
+            projName: projName.value,
+            storeName: storeName.value,
+            schedContractAmt: +schedContractAmt.value,
+            schedContractDate: schedContractDate?.value ? schedContractDate.value : '-',
+            createDate: format(parseISO(createDate.value), 'yyyy-MM-dd HH:mm'),
+            updateDate: format(parseISO(updateDate.value), 'yyyy-MM-dd HH:mm'),
+          });
+        }
+       
 
         return acc;
       }, [] as ISearchResult[]);

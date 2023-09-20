@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import { useStartSearch } from '../../hooks/useStartSearch';
 //import { useStartSearch } from '../../../hooks/useStartSearch';
 
 export const SearchButton = ({
@@ -6,12 +7,12 @@ export const SearchButton = ({
 }:{
   handleClose: () => void
 }) => {
-  //const handleStartSearch = useStartSearch();
+  const handleStartSearch = useStartSearch();
 
   return (
     <Button
       onClick={() => {
-        //handleStartSearch();
+        handleStartSearch();
         handleClose();
       }} 
       variant='contained'

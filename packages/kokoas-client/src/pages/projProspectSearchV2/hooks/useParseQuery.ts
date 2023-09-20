@@ -16,6 +16,7 @@ export const useParseQuery = (): TForm => {
     return {
       ...initialForm,
       ...parsedQuery,
+      ranks: ([] as string[]).concat(parsedQuery.ranks || []),
     };
   }, [
     search,

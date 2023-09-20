@@ -31,7 +31,7 @@ export const Filter = () => {
             // handleStartSearch();
           }
         }}
-        {...register('custNames')}
+        {...register('custName')}
       />
       <SearchButton />
       <FilterButton />

@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Sta
 import { SearchButton } from './SearchButton';
 import { RankField } from './RankField';
 import { NameFields } from './NameFields';
+import { ContractAmt } from './ContractAmt';
 
 export const FilterDialog = ({
   open,
@@ -24,6 +25,7 @@ export const FilterDialog = ({
         <Stack spacing={2} divider={<Divider />}>
           <RankField />
           <NameFields />
+          <ContractAmt />
         </Stack>
       </DialogContent>
       <DialogActions>

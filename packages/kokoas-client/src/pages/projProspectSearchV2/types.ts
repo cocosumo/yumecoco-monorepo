@@ -8,8 +8,11 @@ export interface ISearchResult {
   /** 顧客番号 */
   custNames: string,
 
-  /** 工事番号 */
+  /** 工事番号  */
   projId: string,
+
+  /** 工事データ番号 */
+  projDataId: string,
   
   /** 工事名 */
   projName: string,

@@ -1,14 +1,18 @@
 import { Typography } from '@mui/material';
 import { RowLayout, RowLayoutProps } from './RowLayout';
 import { grey } from '@mui/material/colors';
+import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
 
 export const ResultRow = (props: RowLayoutProps) => {
 
   const {
     rank,
     schedContractAmt,
+    projId,
     ...otherProps
   } = props;
+  
+  const navigate = useNavigateWithQuery();
 
   return  (
     <RowLayout 
@@ -27,6 +31,7 @@ export const ResultRow = (props: RowLayoutProps) => {
           {rank || '-'}
         </Typography>
     )}
+      onClick={() => navigate('projEditV2', { projId })}
       {...otherProps}
     />);
 };

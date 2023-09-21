@@ -54,7 +54,7 @@ export const convertContractsToJson = ({
 
     return ({
       andpadPaymentUrl: andpadPaymentUrl,
-      reminderUrl: '',
+      reminderUrl: '', //TODO
       contractId: contractId.value,
       projId: projId.value,
       projName: projName.value,

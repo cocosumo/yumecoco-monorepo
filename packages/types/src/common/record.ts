@@ -6,7 +6,9 @@ export const recordCancelStatuses = [
 
 
 export type RecordCancelStatus = typeof recordCancelStatuses[number];
-export type Order = 'asc' | 'desc';
+
+export const orders = ['asc', 'desc'] as const;
+export type Order = typeof orders[number];
 
 export const taxChoices = ['課税', '非課税'] as const;
 export type TaxType = typeof taxChoices[number];

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
+//import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 import TableChartIcon from '@mui/icons-material/TableChart';
 import { pages } from '../../../pages/Router';
@@ -29,7 +29,7 @@ export const ProspectMenu = () =>  {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <CollapsibleList open={open}>
-        <LinkListItemButton to={pages.projProspect} icon={<NoteAddIcon />} text={'見込登録'} />
+        {/*  <LinkListItemButton to={pages.projProspect} icon={<NoteAddIcon />} text={'見込登録'} /> */}
         <LinkListItemButton to={pages.projProspectSearch} icon={<TableChartIcon />} text={'見込一覧'} />
       </CollapsibleList>
     </>

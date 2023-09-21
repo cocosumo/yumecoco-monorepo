@@ -20,7 +20,6 @@ export const notifyPaymentAlertToChatwork = async ({
 
   console.log(reminderJson);
 
-  // TODO 通知処理を実装する
   reminderJson.forEach((reminderInfo) => {
     const message = generateMessage(reminderInfo);
 
@@ -35,7 +34,6 @@ export const notifyPaymentAlertToChatwork = async ({
 
 
 
-  // TODO 店長への通知処理を実装する
   for (let i = 0; i < territories.length; i++) {
     const reminderDat = reminderJson.filter(({ territory }) => territory === territories[i]);
 

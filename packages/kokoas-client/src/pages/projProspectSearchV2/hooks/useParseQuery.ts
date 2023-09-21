@@ -20,7 +20,7 @@ export const useParseQuery = (): TForm => {
     // ranksが空文字の場合は['']にする
     const parsedRanks = (!Array.isArray(parsedQuery.ranks) && parsedQuery.ranks === '') 
       ? [''] 
-      : ([] as string[]).concat(parsedQuery.ranks as string[]);
+      : ([] as string[]).concat(parsedQuery.ranks ?? []);
 
     return {
       ...initialForm,

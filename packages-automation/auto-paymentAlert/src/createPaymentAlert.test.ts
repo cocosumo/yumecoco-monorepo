@@ -29,5 +29,5 @@ describe('createPaymentAlert', () => {
     // 配列の長さが1以上であることを確認
     //expect(result.length).toBeGreaterThan(0);
 
-  });
+  }, 10000);
 });

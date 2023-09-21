@@ -19,10 +19,10 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
 
   const agentNames = cwRoomIds.map(({ agentName })=> agentName).join(', ');
 
-  const content = `契約日：${format(parseISO(contractDate), 'yyyy年M月d日')}
-工事名:${projName}
-契約金額: ${totalContractAmount}
-担当者:${agentNames}`;
+  const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
+工事名  : ${projName}
+契約金額: ${(+totalContractAmount).toLocaleString()} 円
+担当者  : ${agentNames}`;
 
   const link = `[info][title]ANDPAD入金ページ[/title]${andpadPaymentUrl}[/info]`;
 

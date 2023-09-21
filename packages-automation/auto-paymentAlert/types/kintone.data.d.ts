@@ -16,7 +16,7 @@ declare namespace DBPaymentreminder {
     reminderDate: kintone.fieldTypes.DropDown;
 
     alertTarget_破棄予定: kintone.fieldTypes.UserSelect;
-    テーブル: {
+    notificationSettings: {
       type: "SUBTABLE";
       value: Array<{
         id: string;

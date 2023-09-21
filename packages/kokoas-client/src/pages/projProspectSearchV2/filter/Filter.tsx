@@ -1,17 +1,15 @@
 import { Stack, TextField } from '@mui/material';
-//import { SearchButton } from './SearchButton';
-//import { FilterButton } from './FilterButton';
-//import { useStartSearch } from '../../hooks/useStartSearch';
 import { useTypedFormContext } from '../hooks/useTypedHooks';
 import { DevTool } from '@hookform/devtools';
 import { Keyword } from './Keyword';
 import { SearchButton } from './SearchButton';
 import { FilterButton } from './FilterButton';
+import { useStartSearch } from '../hooks/useStartSearch';
 
 
 export const Filter = () => {
   const { control, register } = useTypedFormContext();
-  ///const handleStartSearch = useStartSearch();
+  const handleStartSearch = useStartSearch();
 
   return (
     <Stack 
@@ -28,7 +26,7 @@ export const Filter = () => {
         placeholder='氏名・シメイ'
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
-            // handleStartSearch();
+            handleStartSearch();
           }
         }}
         {...register('custName')}

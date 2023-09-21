@@ -6,7 +6,7 @@ import { PageTitle3 } from 'kokoas-client/src/components';
 import { useParseQuery } from './hooks/useParseQuery';
 import { Filter } from './filter/Filter';
 import { Result } from './result/Result';
-import parseISO from 'date-fns/parseISO';
+//import parseISO from 'date-fns/parseISO';
 
 export const FormProspectSearch = () => {
   const parsedQuery = useParseQuery();
@@ -14,8 +14,8 @@ export const FormProspectSearch = () => {
   const formReturn = useForm<TForm>({
     defaultValues: {
       ...parsedQuery,
-      contractDateFrom: parseISO(parsedQuery.contractDateFrom),
-      contractDateTo: parseISO(parsedQuery.contractDateTo),
+      //contractDateFrom: parseISO(parsedQuery.contractDateFrom),
+      //contractDateTo: parseISO(parsedQuery.contractDateTo),
     },
     resolver: zodResolver(schema),
   });

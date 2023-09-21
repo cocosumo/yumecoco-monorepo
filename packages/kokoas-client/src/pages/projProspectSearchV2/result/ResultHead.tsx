@@ -2,12 +2,12 @@ import { KSearchResult } from '../types';
 import { Box, TableHead, TableSortLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Order } from 'types';
-import { KForm } from '../schema';
+import { KForm, TForm } from '../schema';
 import { removeNullFalsyEmptyFromObject } from 'libs';
 import qs from 'qs';
 import { pages } from '../../Router';
 import { visuallyHidden } from '@mui/utils';
-import { TFormQuery, useParseQuery } from '../hooks/useParseQuery';
+import { useParseQuery } from '../hooks/useParseQuery';
 import { RowLayout } from './RowLayout';
 
 
@@ -18,7 +18,7 @@ const EnhancedTableCell = ({
 }: {
   fieldName: KSearchResult,
   label: string,
-  existingQuery: TFormQuery
+  existingQuery: TForm
 }) => {
 
   const {

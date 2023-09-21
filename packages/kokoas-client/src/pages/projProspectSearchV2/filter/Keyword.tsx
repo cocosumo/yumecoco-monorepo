@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
-//import { useStartSearch } from '../../hooks/useStartSearch';
 import { useTypedFormContext } from '../hooks/useTypedHooks';
+import { useStartSearch } from '../hooks/useStartSearch';
 
 export const Keyword = () => {
 
@@ -8,7 +8,7 @@ export const Keyword = () => {
     register,
   } = useTypedFormContext();
   
-  //const handleStartSearch = useStartSearch();
+  const handleStartSearch = useStartSearch();
 
   return (
 
@@ -19,7 +19,7 @@ export const Keyword = () => {
       style={{ width: '200px' }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
-          //handleStartSearch();
+          handleStartSearch();
         }
       }}
       {...register('keyword')}

@@ -4,6 +4,9 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
+const dateType = z.union([z.string(), z.date()]).nullable();
+
+
 export const schema = z.object({
   //projDataId: z.string().optional(),
   //custGroupId: z.string().optional(),
@@ -14,10 +17,8 @@ export const schema = z.object({
   contractAmtFrom: z.number({ coerce: true }).nullable(),
   contractAmtTo: z.number({ coerce: true }).nullable(),
 
-  contractDateFrom: z.date()
-    .nullable(),
-  contractDateTo: z.date()
-    .nullable(),
+  contractDateFrom: dateType,
+  contractDateTo: dateType,
 
   orderBy: z.string().optional(),
   order: z.enum(orders) .optional(),

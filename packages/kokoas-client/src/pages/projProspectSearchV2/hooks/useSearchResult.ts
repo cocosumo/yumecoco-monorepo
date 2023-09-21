@@ -134,12 +134,12 @@ export const useSearchResult =  () => {
         const isMatchProjName = !q.projName || projName.value.includes(q.projName.trim());
         const isMatchContractAmtFrom = !q.contractAmtFrom || (q.contractAmtFrom && parsedContractAmt >= parsedQueryContractAmtFrom);
         const isMatchContractAmtTo = !q.contractAmtTo || (q.contractAmtTo && parsedContractAmt <= parsedQueryContractAmtTo);
-        const isMatchContractDateFrom = !q.contractDateFrom || (q.contractDateFrom && schedContractDate?.value && parseISO(q.contractDateFrom) <= parseISO(schedContractDate?.value));
-        const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo) >= parseISO(schedContractDate?.value));
+        const isMatchContractDateFrom = !q.contractDateFrom || (q.contractDateFrom && schedContractDate?.value && parseISO(q.contractDateFrom as string) <= parseISO(schedContractDate?.value));
+        const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo as string) >= parseISO(schedContractDate?.value));
         const isMatchMemo = !q.memo || (q.memo && projName.value.includes(q.memo.trim()));
 
         //console.log(isMatchContractDateFrom, q.contractDateFrom, schedContractDate?.value);
-        
+
         const isMatchKeyword = !q.keyword || [
           ...fullNames,
           ...cocoAGNames,

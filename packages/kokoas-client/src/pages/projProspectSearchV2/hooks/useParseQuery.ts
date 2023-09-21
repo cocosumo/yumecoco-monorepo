@@ -4,18 +4,18 @@ import qs from 'qs';
 import { useMemo } from 'react';
 import { initialForm } from '../form';
 
-export interface TFormQuery extends Omit<TForm, 'contractDateFrom' | 'contractDateTo'> {
+/* export interface TFormQuery extends Omit<TForm, 'contractDateFrom' | 'contractDateTo'> {
   contractDateFrom: string,
   contractDateTo: string,
 }
-
-export const useParseQuery = (): TFormQuery => {
+ */
+export const useParseQuery = (): TForm => {
   const {
     search,
   } = useLocation();
 
-  const newMemoedForm = useMemo((): TFormQuery => {
-    const parsedQuery: Partial<TFormQuery> = qs.parse(search.replace(/^\?/, ''), { comma: true });
+  const newMemoedForm = useMemo((): TForm => {
+    const parsedQuery: Partial<TForm> = qs.parse(search.replace(/^\?/, ''), { comma: true });
 
     return {
       ...initialForm,

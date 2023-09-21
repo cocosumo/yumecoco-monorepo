@@ -8,22 +8,22 @@ declare namespace DBPaymentreminder {
     projName: kintone.fieldTypes.SingleLineText;
     alertDate: kintone.fieldTypes.Date;
     andpadStatus: kintone.fieldTypes.SingleLineText;
+    lastAlertDate: kintone.fieldTypes.Date;
     totalContractAmount: kintone.fieldTypes.Number;
     andpadUrl: kintone.fieldTypes.Link;
     contractId: kintone.fieldTypes.SingleLineText;
     alertState: kintone.fieldTypes.SingleLineText;
+    reminderDate: kintone.fieldTypes.DropDown;
 
-    alertTarget: kintone.fieldTypes.UserSelect;
-    paymentTable: {
+    alertTarget_破棄予定: kintone.fieldTypes.UserSelect;
+    テーブル: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          andpadExpectedPaymentDate: kintone.fieldTypes.Date;
-          andpadProjName: kintone.fieldTypes.SingleLineText;
-          andpadId: kintone.fieldTypes.SingleLineText;
-          andpadPaymentDate: kintone.fieldTypes.Date;
-          paymentType: kintone.fieldTypes.SingleLineText;
+          chatworkRoomId: kintone.fieldTypes.SingleLineText;
+          alertTargetId: kintone.fieldTypes.SingleLineText;
+          alertTargetName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

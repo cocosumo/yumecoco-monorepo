@@ -22,7 +22,8 @@ export const useNavigateWithQuery = () => {
 
   return <T = NavigateWithQueryProps>(
     path: keyof typeof pages, 
-    query?: T) => {
+    query?: T,
+  ) => {
     
     const stringifiedQuery = qs.stringify(query);
 

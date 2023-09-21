@@ -18,6 +18,8 @@ export const useStartSearch = () => {
         removeNullFalsyEmptyFromObject(data), 
         { arrayFormat: 'comma', encode: false },
       );
+
+      
       navigate(`${pages.projProspectSearch}?${queryStr}`);
     },
     (err) => {

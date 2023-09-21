@@ -6,6 +6,8 @@ import { PageTitle3 } from 'kokoas-client/src/components';
 import { useParseQuery } from './hooks/useParseQuery';
 import { Filter } from './filter/Filter';
 import { Result } from './result/Result';
+import { FilterChips } from './filter/FilterChips';
+import { useEffect } from 'react';
 //import parseISO from 'date-fns/parseISO';
 
 export const FormProspectSearch = () => {
@@ -14,11 +16,15 @@ export const FormProspectSearch = () => {
   const formReturn = useForm<TForm>({
     defaultValues: {
       ...parsedQuery,
-      //contractDateFrom: parseISO(parsedQuery.contractDateFrom),
-      //contractDateTo: parseISO(parsedQuery.contractDateTo),
     },
     resolver: zodResolver(schema),
   });
+
+  const { reset } = formReturn;
+
+  useEffect(() => {
+    reset(parsedQuery);
+  }, [reset, parsedQuery]);
 
 
   return (
@@ -26,11 +32,11 @@ export const FormProspectSearch = () => {
       spacing={2}
     >
       <PageTitle3 label='見込一覧' color='#333333' />
-      
+
       <FormProvider {...formReturn}>
         <Filter />
       </FormProvider>
-
+      <FilterChips />
 
       <Result />
 

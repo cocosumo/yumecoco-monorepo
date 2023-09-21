@@ -24,10 +24,7 @@ export const useSearchResult =  () => {
   const q = parsedQuery;
 
   //const { data: selectedStoreIds } = useStoreIds(stores ?? []);
-  const { data: storeRec } = useStores();
-
-  console.log('parsedQuery', parsedQuery);
-  
+  const { data: storeRec } = useStores();  
 
   return useProjects<ISearchResult[]>({ // 工事ベース
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,

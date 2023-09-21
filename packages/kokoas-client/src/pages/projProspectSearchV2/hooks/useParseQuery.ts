@@ -17,10 +17,15 @@ export const useParseQuery = (): TForm => {
   const newMemoedForm = useMemo((): TForm => {
     const parsedQuery: Partial<TForm> = qs.parse(search.replace(/^\?/, ''), { comma: true });
 
+    // ranksが空文字の場合は['']にする
+    const parsedRanks = (!Array.isArray(parsedQuery.ranks) && parsedQuery.ranks === '') 
+      ? [''] 
+      : ([] as string[]).concat(parsedQuery.ranks as string[]);
+
     return {
       ...initialForm,
       ...parsedQuery,
-      ranks: ([] as string[]).concat(parsedQuery.ranks || []),
+      ranks: parsedRanks,
       contractDateFrom: parsedQuery.contractDateFrom as string || '',
       contractDateTo: parsedQuery.contractDateTo as string || '',
     };

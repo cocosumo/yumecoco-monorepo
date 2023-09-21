@@ -24,12 +24,7 @@ export type PaymentReminderRecordKeys = KPaymentreminder;
 /**
  * chatworkのルームID
  */
-export const chatworkRoomsforCocoSystem = {
-  /** ココアス通知用 */
+export const chatworkRooms = {
   cocoasGroup: '335602129',
-
-  /** RPAチーム */
-  rpa: '335603515',
-  rpa02: '335600969',
-
+  test: '335600969',
 };

@@ -1,5 +1,9 @@
 import { Territory } from 'types';
 
+export interface CwRoomIds {
+  cwRoomId: string,
+  agentName: string,
+}
 
 export interface PaymentReminder {
   andpadPaymentUrl: string,
@@ -11,8 +15,5 @@ export interface PaymentReminder {
   contractDate: string,
   totalContractAmount: string,
   territory: Territory,
-  alertTarget: {
-    code: string,
-    name: string,
-  }[]
+  cwRoomIds: CwRoomIds[],
 }

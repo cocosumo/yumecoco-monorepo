@@ -21,6 +21,8 @@ export const ContractInfo = ({
     envRecipients,
     envelopeStatus,
     envDocFileKeys,
+    contractType,
+    contractAddType,
   } = record ?? {};
 
   const { data: estData } = useEstimateById(projEstimateId.value || '');
@@ -33,7 +35,13 @@ export const ContractInfo = ({
     dataId,
   } = estRec || {};
 
+
   const details = useMemo(() => {
+
+    let parsedContractType = contractType.value || '契約';
+    if (contractType.value === '追加') {
+      parsedContractType = `${parsedContractType} (${contractAddType.value})`;
+    }
 
     const hasContract = !!envelopeStatus?.value;
 
@@ -64,6 +72,10 @@ export const ContractInfo = ({
         label: '署名手法',
         value: locale[signMethod.value] || '-',
       },
+      {
+        label: '署名手法',
+        value: parsedContractType || '-',
+      },
 
     ];
 
@@ -78,6 +90,8 @@ export const ContractInfo = ({
     envelopeStatus,
     envDocFileKeys,
     dataId,
+    contractType,
+    contractAddType,
   ]);
 
 

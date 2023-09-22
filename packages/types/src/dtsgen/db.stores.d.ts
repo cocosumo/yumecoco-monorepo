@@ -8,6 +8,7 @@ declare namespace DBStores {
     住所: kintone.fieldTypes.SingleLineText;
     店舗名: kintone.fieldTypes.SingleLineText;
     area: kintone.fieldTypes.SingleLineText;
+    meetingNumber: kintone.fieldTypes.Number;
     Eメール: kintone.fieldTypes.SingleLineText;
     storeNameShort: kintone.fieldTypes.SingleLineText;
     店長名: kintone.fieldTypes.SingleLineText;

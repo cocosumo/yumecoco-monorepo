@@ -1,21 +1,21 @@
-import { IProjects, IStores, IUser } from 'types';
+import { IEmployees, IProjects, IStores } from 'types';
 import { ContractRecordType } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
-import { notificationRecipientsSet } from './notificationRecipientsSet';
 import { getMyOrders } from 'api-andpad';
+import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 
 
 
 export const convertContractsToJson = ({
   contracts,
   projects,
-  users,
+  employees,
   stores,
   allOrders,
 }: {
   contracts: ContractRecordType[]
   projects: IProjects[]
-  users: IUser[]
+  employees: IEmployees[]
   stores: IStores[]
   allOrders: Awaited<ReturnType<typeof getMyOrders>>
 }) => {
@@ -47,21 +47,22 @@ export const convertContractsToJson = ({
 
     const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 
-    const alertTarget = notificationRecipientsSet({
+    const chatworkRoomIds = chatworkRoomIdSetting({
       agents: agents,
-      users: users,
+      employees: employees,
     });
 
     return ({
       andpadPaymentUrl: andpadPaymentUrl,
+      reminderUrl: '', //TODO
       contractId: contractId.value,
       projId: projId.value,
-      projType: projType.value,
       projName: projName.value,
+      projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmt.value,
-      alertTarget: alertTarget,
       territory: store?.area.value,
+      cwRoomIds:chatworkRoomIds,
     }) as PaymentReminder;
   });
 

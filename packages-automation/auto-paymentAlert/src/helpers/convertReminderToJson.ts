@@ -1,5 +1,8 @@
-import { PaymentReminderRecordType } from '../../config';
-import { PaymentReminder } from '../../types/paymentReminder';
+import { kintoneBaseUrl } from 'api-kintone';
+import { PaymentReminderRecordType, reminderAppId } from '../../config';
+import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
+
+
 
 export const convertReminderToJson = ({
   reminder,
@@ -8,6 +11,7 @@ export const convertReminderToJson = ({
 }) => {
 
   return reminder.map(({
+    $id,
     andpadUrl,
     area,
     contractId,
@@ -16,19 +20,36 @@ export const convertReminderToJson = ({
     projName,
     contractDate,
     totalContractAmount,
-    alertTarget,
+    notificationSettings,
   }) => {
+
+    const cwRoomIds = notificationSettings.value.map(({ value }) => {
+      const {
+        //alertTargetId,
+        alertTargetName,
+        chatworkRoomId,
+      } = value;
+
+      return {
+        agentName: alertTargetName.value,
+        cwRoomId: chatworkRoomId.value,
+      } as CwRoomIds;
+    });
+
+
+    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}`;
 
     return ({
       andpadPaymentUrl: andpadUrl.value,
+      reminderUrl: reminderUrl,
       contractId: contractId.value,
       projId: projId.value,
-      projType: projType.value,
       projName: projName.value,
+      projType: projType.value,
       contractDate: contractDate.value,
-      territory: area.value,
       totalContractAmount: totalContractAmount.value,
-      alertTarget: alertTarget.value,
+      territory: area.value,
+      cwRoomIds: cwRoomIds,
     }) as PaymentReminder;
   });
 

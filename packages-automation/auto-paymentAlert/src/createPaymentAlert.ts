@@ -1,4 +1,4 @@
-import { getAllProjects, getAllAndpadPayments, getUsers, getAllStores } from 'api-kintone';
+import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees } from 'api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTarget';
 import { convertContractsToJson } from './helpers/convertContractsToJson';
@@ -18,7 +18,7 @@ export const createPaymentAlert = async () => {
   const [
     allProjects,
     allAndpadPayments,
-    allUsers,
+    allMembers,
     allStores,
     allOrders,
     tgtProjTypeContracts,
@@ -26,7 +26,7 @@ export const createPaymentAlert = async () => {
   ] = await Promise.all([
     getAllProjects(),
     getAllAndpadPayments(),
-    getUsers(),
+    getEmployees(),
     getAllStores(),
     getMyOrders(),
     filterContractsByTargetProjType(),
@@ -43,7 +43,7 @@ export const createPaymentAlert = async () => {
   const alertContractsJson = convertContractsToJson({
     contracts: alertContracts,
     projects: allProjects,
-    users: allUsers,
+    employees: allMembers,
     stores: allStores,
     allOrders: allOrders,
   });

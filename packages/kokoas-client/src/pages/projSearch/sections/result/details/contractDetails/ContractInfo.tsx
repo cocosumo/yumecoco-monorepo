@@ -73,7 +73,7 @@ export const ContractInfo = ({
         value: locale[signMethod.value] || '-',
       },
       {
-        label: '契約種類',
+        label: 'カテゴリ',
         value: parsedContractType || '-',
       },
 

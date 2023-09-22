@@ -73,7 +73,7 @@ export const ContractInfo = ({
         value: locale[signMethod.value] || '-',
       },
       {
-        label: '署名手法',
+        label: '契約種類',
         value: parsedContractType || '-',
       },
 

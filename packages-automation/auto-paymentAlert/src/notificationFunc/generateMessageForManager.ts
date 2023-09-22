@@ -19,7 +19,8 @@ export const generateMessageForManager = (paymentReminder: PaymentReminder[]) =>
   const title = '[title]【ココアス】お客さまからの入金が確認できていません[/title]';
   
   const message = `${paymentReminder.length}件の入金確認が遅れています。
-必要に応じて担当者へのフォローをお願いします`;
+必要に応じて担当者へのフォローをお願いします。
+※この連絡は契約日から一定期間お客さまからの入金がない契約に対して実施しています。`;
 
   const content = `[info][title]概要[/title]${contractSummary.join('\n')}[/info]`;
 

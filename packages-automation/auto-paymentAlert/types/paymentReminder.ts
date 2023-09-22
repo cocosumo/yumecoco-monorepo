@@ -2,6 +2,7 @@ import { Territory } from 'types';
 
 export interface CwRoomIds {
   cwRoomId: string,
+  agentId: string,
   agentName: string,
 }
 
@@ -15,5 +16,6 @@ export interface PaymentReminder {
   contractDate: string,
   totalContractAmount: string,
   territory: Territory,
+  expectedPaymentDate: string,
   cwRoomIds: CwRoomIds[],
 }

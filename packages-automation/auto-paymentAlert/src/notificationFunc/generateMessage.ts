@@ -19,6 +19,10 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
 
   const agentNames = cwRoomIds.map(({ agentName })=> agentName).join(', ');
 
+  const message = `契約から一定期間お客さまからの入金がない契約に対して案内しています。
+本連絡と前後してお客さまから入金がされている場合はご容赦ください。
+`;
+
   const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
 工事名  : ${projName}
 契約金額: ${(+totalContractAmount).toLocaleString()} 円
@@ -27,7 +31,9 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
   const link = `[info][title]ANDPAD入金ページ[/title]${andpadPaymentUrl}[/info]`;
 
   const reminder = `[info][title]下記リンク先より、再通知日を設定してください[/title]
-${reminderUrl ?? '工事中'}[/info]`;
+${reminderUrl ?? '工事中'}
+お客さまからの入金が確認された場合は、再通知は行われません[/info]`;
 
-  return `[info]${[title, content, link, reminder].join('\n')}[/info]`;
+
+  return `[info]${[title, message, content, link, reminder].join('\n')}[/info]`;
 };

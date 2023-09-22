@@ -1,13 +1,16 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { PaymentReminderRecordType, reminderAppId } from '../../config';
 import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
+//import { IAndpadpayments } from 'types';
 
 
 
 export const convertReminderToJson = ({
   reminder,
+  //andpadPayments, // TODO
 }: {
   reminder: PaymentReminderRecordType[]
+  //andpadPayments: IAndpadpayments[],
 }) => {
 
   return reminder.map(({
@@ -25,13 +28,14 @@ export const convertReminderToJson = ({
 
     const cwRoomIds = notificationSettings.value.map(({ value }) => {
       const {
-        //alertTargetId,
+        alertTargetId,
         alertTargetName,
         chatworkRoomId,
       } = value;
 
       return {
         agentName: alertTargetName.value,
+        agentId: alertTargetId.value,
         cwRoomId: chatworkRoomId.value,
       } as CwRoomIds;
     });

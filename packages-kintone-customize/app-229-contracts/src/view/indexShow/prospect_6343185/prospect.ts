@@ -39,31 +39,51 @@ export const prospect = async () => {
             `);
         });
 
-    for(const [storeName, projects] of Object.entries(groupStore)) {
-        console.log(storeName, projects);
+    let selectedStore = "";
 
-        const gbProjType = groupByProjType(projects as any);
+    $('#selectStore').on('change', (e) => {
 
-        console.log(gbProjType);
+        const selectStoreName = stores.find(({uuid}) => {
+            return (e.target as any).value === uuid.value;
 
-                
-
-
-        $('#root').append(`
-            
-            <h1>≪見込み物件≫受注予定表（${storeName}）</h1>
-            <p>作成日：${createDate.format('YYYY年MM月DD日')}</p>`
-
-            
+        })?.uuid.value;
 
 
 
-            
-            
-            
-            );
+        if((e.target as any).value) {
+            $('#printArea').empty();
+            for(const [storeName, projects] of Object.entries(groupStore)) {
+                console.log(storeName, projects);
+                if(selectStoreName != storeName) {
+                    continue;
+                }
         
-    }
+                const gbProjType = groupByProjType(projects as any);
+        
+                console.log(gbProjType);
+        
+                        
+        
+        
+                $('#printArea').append(`
+                    
+                    <h1>≪見込み物件≫受注予定表（${storeName}）</h1>
+                    <p>作成日：${createDate.format('YYYY年MM月DD日')}</p>`
+        
+                    
+                    );
+                
+            }
+
+        }
+        console.log("selectChange", e);
+    })
+
+    $('#root').append(`
+        <div id ="printArea"></div>
+    `)
+
+    
 
 
 }

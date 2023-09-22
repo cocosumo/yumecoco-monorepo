@@ -9,6 +9,6 @@ export const getPaymentRemindersByAlertDate = (date: Date) => {
   console.log('dateStr', dateStr);
 
   return getAllPaymentReminder({
-    condition: `alertDate = "${dateStr}"`,
+    condition: `alertDate = "${dateStr}" and alertState != "0"`,
   });
 };

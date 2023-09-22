@@ -7,6 +7,7 @@ export interface CwRoomIds {
 }
 
 export interface PaymentReminder {
+  alertState: boolean,
   andpadPaymentUrl: string,
   reminderUrl: string,
   contractId: string,

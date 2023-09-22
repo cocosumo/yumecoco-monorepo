@@ -82,6 +82,7 @@ export const convertContractsToJson = ({
     });
 
     return ({
+      alertState: true,
       andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: contractId.value,

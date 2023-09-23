@@ -2,6 +2,7 @@ import { Stack } from '@mui/material';
 import { ControlledCurrencyField } from '../../fields/ControlledCurrencyField';
 import { Rank } from './Rank';
 import { ControlledDatePicker } from '../../fields/ControlledDatePicker';
+import { ControlledTextField } from '../../fields/ControlledTextField';
 
 export const Prospect = () => {
 
@@ -13,13 +14,19 @@ export const Prospect = () => {
       <Stack
         direction='row'
         spacing={2}
+        justifyContent={'space-between'}
       >
         <Rank />
 
         <ControlledCurrencyField 
           name="schedContractPrice"
-          fullWidth
+          width={400}
         />
+
+        <ControlledTextField
+          name='paymentMethod'
+        />
+
 
       </Stack>
 

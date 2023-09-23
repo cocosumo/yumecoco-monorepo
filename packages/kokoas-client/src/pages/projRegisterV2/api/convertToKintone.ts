@@ -58,6 +58,7 @@ export const convertToKintone = (
     schedContractDate,
     estatePurchaseDate,
     planApplicationDate,
+    paymentMethod,
   } = rawValues;
 
 
@@ -107,6 +108,7 @@ export const convertToKintone = (
     schedContractDate: { value: toKintoneDateStr(schedContractDate) },
     estatePurchaseDate: { value: toKintoneDateStr(estatePurchaseDate) },
     planApplicationDate: { value: toKintoneDateStr(planApplicationDate) },
+    paymentMethod: { value: paymentMethod || '' },
 
   };
 

@@ -16,13 +16,13 @@ export const groupByProjType = (projects: IProjects[]) => {
                 ...groupProjType,
                 [projTypeValue]:[projects[i]]
             }
-            console.log('projTypeValue', projTypeValue);
+           //console.log('projTypeValue', projTypeValue);
 
         } else {
             groupProjType[projTypeValue].push(projects[i]);
         }
     }
 
-    console.log(groupProjType);
+    //console.log(groupProjType);
     return groupProjType;
 }

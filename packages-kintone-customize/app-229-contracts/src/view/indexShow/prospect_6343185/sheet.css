@@ -1,0 +1,33 @@
+.tableContainer {
+    /* display: flex; */
+    margin: 0 auto;
+    width: 90%;
+    justify-content: center; /* 水平方向にセンターに配置 */
+    align-items: center; /* 垂直方向にセンターに配置 */
+   
+}
+
+.tableContainer thead th {
+    text-align: 5px;
+    padding: 3px 10px;
+}
+
+.unknown {
+    text-align: center;
+}
+
+
+.projNameHeader {
+    padding: 3px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.totalTable {
+    margin: 0 auto;
+    width: 90%;
+    justify-content: center; /* 水平方向にセンターに配置 */
+    align-items: left; /* 垂直方向にセンターに配置 */
+
+}

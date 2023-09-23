@@ -19,6 +19,7 @@ export const indexShow = (event: EventType) => {
     case 6343118: // 契約累積表
       renderCumulative();
       break;
+    case 6343211: // 見込み一覧　dev
     case 6343185: // 見込み一覧
       prospect();
   }

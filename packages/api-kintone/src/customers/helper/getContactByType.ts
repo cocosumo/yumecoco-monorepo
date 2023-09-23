@@ -6,10 +6,12 @@ export const getContactByType = (
   type: TContact,
 ) => contacts.value
   ?.filter(({ value: { contactType } }) => (contactType.value as TContact) === type)
-  .map(({ value: { contactValue, relation } }) => {
+  .map(({ value: { contactValue, relation, contactName } }) => {
     let resolveRelation = '';
     if (relation.value && (relation.value as TRelation) !== '契約者') {
-      resolveRelation = `(${relation.value})`;
+
+      const resolveName = contactName.value ? `：${contactName.value}` : '';
+      resolveRelation = `（${relation.value}${resolveName}）`;
     }
 
     return `${contactValue.value} ${resolveRelation ? resolveRelation : '' }`.trim();

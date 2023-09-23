@@ -70,7 +70,8 @@ export const displayResult = async (selectStoreName?: string) => {
 
            // console.log('contentsRows', contentsRows);
 
-            return `<table class="prospectTable" border="1">
+            return `<div class="prospectTableContainer">
+            <table class="prospectTable">
             <thead>
                 <tr>
                     <td class="projNameHeader" colspan="11">${pn}</td>
@@ -96,10 +97,11 @@ export const displayResult = async (selectStoreName?: string) => {
             <tfoot>
                 <tr>
                     <td class="totalCell" colspan="3">小計</td>
-                    <td>${formatCurrency(totalSchedContractPrice)}</td>
+                    <td colspan="8">${formatCurrency(totalSchedContractPrice)}</td>
                 </tr>
             </tfoot>
-            </table>`
+            </table>
+            </div>`
             
             
         }).join("");
@@ -116,9 +118,9 @@ export const displayResult = async (selectStoreName?: string) => {
             <div class="tableContainer">
             ${contentsTable}
             
-            <table class="totalTable" border="1">
+            <table class="totalTable">
                 <tr>
-                    <td class="allTotalCell" colspan="3">総合計</td>
+                    <td class="allTotalCell">総合計</td>
                     <td>123,456</td>
                 </tr>
             </table>

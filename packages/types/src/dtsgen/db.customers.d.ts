@@ -19,6 +19,7 @@ declare namespace DBCustomers {
         id: string;
         value: {
           contactValue: kintone.fieldTypes.SingleLineText;
+          contactName: kintone.fieldTypes.SingleLineText;
           contactType: kintone.fieldTypes.SingleLineText;
           relation: kintone.fieldTypes.SingleLineText;
         };

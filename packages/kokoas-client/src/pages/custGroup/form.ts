@@ -12,12 +12,18 @@ export const initCustomerValue: TFormCustomer = {
   address1: '',
   address2: '',
   isSameAddress: false,
+
   phone1: '',
   phone1Rel: '',
+  phone1Name: '',
+
   phone2: '',
   phone2Rel: '',
+  phone2Name: '',
+  
   email: '',
   emailRel: '',
+  emailName: '',
   
 };
 

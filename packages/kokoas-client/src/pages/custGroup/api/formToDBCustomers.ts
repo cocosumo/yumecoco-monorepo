@@ -1,7 +1,7 @@
 import { ICustomers } from 'types';
 import { TForm } from '../schema';
 
-export const formToDBCustomers = (formData: TForm): Array<Partial<ICustomers>>  => {
+export const formToDBCustomers = (formData: TForm) => {
   const {
     customers,
   } = formData;
@@ -9,9 +9,30 @@ export const formToDBCustomers = (formData: TForm): Array<Partial<ICustomers>>  
   return customers
     .map(({
       custId,
-      custName, custNameReading, gender, birthYear, birthMonth, birthDay,
-      postal, address1, address2, phone1, phone1Rel, phone2, phone2Rel,
-      email, emailRel, isSameAddress,
+      custName, 
+      custNameReading, 
+      gender, 
+      birthYear, 
+      birthMonth, 
+      birthDay,
+      
+      postal, 
+      address1, 
+      address2, 
+      isSameAddress,
+
+      phone1, 
+      phone1Rel, 
+      phone1Name,
+
+      phone2, 
+      phone2Rel,
+      phone2Name,
+
+      email, 
+      emailRel, 
+      emailName,
+      
     }, index )=> {
 
       const mainCust =  customers[0];
@@ -38,21 +59,22 @@ export const formToDBCustomers = (formData: TForm): Array<Partial<ICustomers>>  
         contacts: {
           type: 'SUBTABLE',
           value: [
-            ['tel', phone1, phone1Rel],
-            ['tel', phone2, phone2Rel],
-            ['email', email, emailRel],
+            ['tel', phone1, phone1Rel, phone1Name],
+            ['tel', phone2, phone2Rel, phone2Name],
+            ['email', email, emailRel, emailName],
           ]
-            .map(([type, val, rel]) => ({
+            .map(([type, val, rel, name]) => ({
               id: '',
               value: {
                 contactValue: { value: val || '' },
                 contactType: { value: type || '' },
                 relation: { value: rel || '' },
+                contactName: { value: name || '' },
               },
             })),
 
         },
-      };
+      } as Partial<ICustomers>;
 
     });
 };

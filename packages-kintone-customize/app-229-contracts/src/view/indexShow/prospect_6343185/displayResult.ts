@@ -3,6 +3,7 @@ import { getGroupByStore } from "./getGroupByStore";
 import { groupByProjType } from "./groupByProjType";
 import $ from 'jquery';
 import { formatCurrency } from "../../../../jsedit/api/formatCurrency";
+import { calcFontSize } from "../../../../jsedit/api/calcFontSize";
 
 
 export const displayResult = async (selectStoreName?: string) => {
@@ -53,17 +54,17 @@ export const displayResult = async (selectStoreName?: string) => {
                 totalSchedContractPrice += number;
 
                 return `<tr data-uuid="${ob.uuid.value}">
-                    <td>${index +1}</td>
-                    <td>${ob.rank.value || "-"}</td>
-                    <td>${ob.custNames.value}</td>
-                    <td>${formatCurrency(ob.schedContractPrice.value) || "未定"}</td>
-                    <td>${ob.paymentMethod.value}</td>
-                    <td>${ob.cocoAGNames.value}</td>
-                    <td>${ob.yumeAGNames.value}</td>
-                    <td>${ob.estatePurchaseDate.value || ""}</td>
-                    <td>${ob.planApplicationDate.value || ""}</td>
-                    <td>${ob.schedContractDate.value || ""}</td>
-                    <td>${ob.memo.value || ""}</td>
+                    <td style="text-align: center;">${index +1}</td>
+                    <td style="text-align: center;">${ob.rank.value || "-"}</td>
+                    <tdstyle="font-size: ${calcFontSize(100, ob.custName.value)}px;">${ob.custNames.value}</td>
+                    <td style="text-align: right;">${formatCurrency(ob.schedContractPrice.value) || "未定"}</td>
+                    <td style="text-align: center;">${ob.paymentMethod.value}</td>
+                    <td style="text-align: center;">${ob.cocoAGNames.value}</td>
+                    <td style="text-align: center;">${ob.yumeAGNames.value}</td>
+                    <td style="text-align: center;">${ob.estatePurchaseDate.value || ""}</td>
+                    <td style="text-align: center;">${ob.planApplicationDate.value || ""}</td>
+                    <td style="text-align: center;">${ob.schedContractDate.value || ""}</td>
+                    <td style="text-align: left;">${ob.memo.value || ""}</td>
                 </tr>`
 
             }).filter(Boolean).join("");
@@ -79,15 +80,15 @@ export const displayResult = async (selectStoreName?: string) => {
                 <tr class="contractHeader">
                     <th>No.</th> <!-- index -->
                     <th>ランク</th>
-                    <th>お客様名</th>
-                    <th>契約予定金額</th>
+                    <th style="width: 100px;">お客様名</th>
+                    <th style="width: 60px;">契約予定金額</th>
                     <th>金融機関</th>
                     <th>担当者</th>          <!-- ここすも営業 -->
                     <th>エージェント</th>    <!-- ゆめてつAG -->
                     <th>不動産決済日</th>
                     <th>設計申込日</th>
                     <th>契約予定日</th>
-                    <th>備考</th>   
+                    <th style="width: 150px;">備考</th>   
                 </tr>
             </thead>
             <tbody>
@@ -95,8 +96,8 @@ export const displayResult = async (selectStoreName?: string) => {
                 
             </tbody>
             <tfoot>
-                <tr>
-                    <td class="totalCell" colspan="3">小計</td>
+                <tr class="totalCell">
+                    <td colspan="3">小計</td>
                     <td colspan="8">${formatCurrency(totalSchedContractPrice)}</td>
                 </tr>
             </tfoot>

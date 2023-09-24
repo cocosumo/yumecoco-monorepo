@@ -1,10 +1,16 @@
 .tableContainer {
     /* display: flex; */
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
     justify-content: center; /* 水平方向にセンターに配置 */
     align-items: center; /* 垂直方向にセンターに配置 */
    
+}
+
+.contractHeader {
+    width: 100%;
+    text-align: center;
+    font-family: sans-serif, sans-serif;
 }
 
 .prospectTableContainer, .totalTable {
@@ -12,6 +18,13 @@
     margin-bottom: 12px;
     border-collapse: collapse; /* セルのボーダーを重ねないように設定 */
     border-radius: 10px; /* 角を丸くする半径を設定 */
+    width: 100%;
+    
+}
+
+.prospectTable tr th, tbody td {
+    white-space: nowrap;
+
 }
 
 .prospectTable td , th , .allTotalCell {
@@ -35,6 +48,7 @@
 
 .unknown {
     text-align: center;
+    width: 100%;
 }
 
 
@@ -45,7 +59,7 @@
     text-align: center;
 }
 
-.totalTable {
+.totalTable, .totalCell {
     margin: 0 auto;
     width: 100%;
     justify-content: center; /* 水平方向にセンターに配置 */

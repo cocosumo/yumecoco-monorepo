@@ -3,9 +3,9 @@ export const createTable = ($el: JQuery<HTMLElement>) => {
         <thead id="prospectProj"></thead> <!-- 工事種別名 -->
         <thead>
             <tr>
-                <th style="width: 30px;">No.</th> <!-- index -->
-                <th style="width: 50px;">ランク</th>
-                <th style="width: 150px;">お客様名</th>
+                <th style="width: 15px;">No.</th> <!-- index -->
+                <th style="width: 30px;">ランク</th>
+                <th style="width: 100px;">お客様名</th>
                 <th>契約予定金額</th>
                 <th>金融機関</th>
                 <th>担当者</th>          <!-- ここすも営業 -->

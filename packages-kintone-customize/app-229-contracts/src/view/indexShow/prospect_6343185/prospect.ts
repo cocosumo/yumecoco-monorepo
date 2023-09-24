@@ -9,7 +9,7 @@ export const prospect = async () => {
 
    
     $('#root').append(`
-        <label>店舗：</label>
+        <label>  店舗：</label>
         <select id="selectStore"></select>
              
         

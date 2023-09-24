@@ -14,7 +14,8 @@ export const displayResult = async (selectStoreName?: string) => {
     const today = moment().format('YYYY年MM月DD日');  //作成日の表示
 
     $('#printArea').empty();
-   
+
+    let totalPrice = 0;   
 
     for(const [storeName, projects] of Object.entries(groupStore)) {
         //console.log('selectStoreName',selectStoreName, storeName, projects);
@@ -46,12 +47,14 @@ export const displayResult = async (selectStoreName?: string) => {
             const projByType = gbProjType[pn] as any[];
 
             let totalSchedContractPrice = 0;
-
+            
             const contentsRows = projByType?.map((ob, index) => {
 
                 const number = +ob.schedContractPrice.value;
-
                 totalSchedContractPrice += number;
+
+                const totalnumber = +totalSchedContractPrice;
+                totalPrice += totalnumber;
 
                 return `<tr data-uuid="${ob.uuid.value}">
                     <td style="text-align: center;">${index +1}</td>
@@ -91,7 +94,7 @@ export const displayResult = async (selectStoreName?: string) => {
                     <th style="width: 150px;">備考</th>   
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="prospectContents">
                 ${contentsRows || '<tr><td class="unknown" colspan="11">なし</td></tr>'}
                 
             </tbody>
@@ -107,25 +110,23 @@ export const displayResult = async (selectStoreName?: string) => {
             
         }).join("");
 
-        let totalPrice = 0;
-        //const totalnumber = +totalSchedContractPrice;
-        //totalPrice += totalnumber;
+        
 
 
         $('#printArea').append(`
             
-            <h1>≪見込み物件≫受注予定表（${storeName}）</h1>
-            <p>作成日：${today}</p>
+            <h1 id="prospectTitle">≪見込み物件≫受注予定表（${storeName}）</h1>
+            <p id="prospectDate">作成日：${today}</p>
             <div class="tableContainer">
             ${contentsTable}
             
             <table class="totalTable">
                 <tr>
                     <td class="allTotalCell">総合計</td>
-                    <td>123,456</td>
+                    <td>${formatCurrency(totalPrice)}</td>
                 </tr>
             </table>
-                <p>【ランク】 A：設計契約済み 又は、契約確実　B：多分契約できる　C：交渉中　D：未定</p>
+                <p id="memo">【ランク】 A：設計契約済み 又は、契約確実　B：多分契約できる　C：交渉中　D：未定</p>
                 
              </div>
 
@@ -135,7 +136,7 @@ export const displayResult = async (selectStoreName?: string) => {
               
     }
 
-    $('tr').click((event) => {
+    $('.prospectContents').click((event) => {
         console.log(event);
         const clickedRow = $((event as any).target).closest('tr');
         const uuid = clickedRow.data("uuid");

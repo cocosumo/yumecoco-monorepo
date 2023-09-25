@@ -6,6 +6,7 @@ import { convertReminderToJson } from './helpers/convertReminderToJson';
 import { getMyOrders } from 'api-andpad';
 import { getPaymentRemindersByAlertDate } from './api-kintone/getPaymentRemindersByAlertDate';
 import { registerReminders } from './helpers/registerReminders';
+import { getAllPaymentReminder } from './api-kintone';
 
 
 
@@ -25,6 +26,7 @@ export const createPaymentAlert = async () => {
     allOrders,
     tgtProjTypeContracts,
     alertReminder,
+    allPaymentReminder,
   ] = await Promise.all([
     getAllProjects(),
     getAllAndpadPayments(),
@@ -33,6 +35,7 @@ export const createPaymentAlert = async () => {
     getMyOrders(),
     filterContractsByTargetProjType(),
     getPaymentRemindersByAlertDate(new Date()),
+    getAllPaymentReminder(),
   ]);
 
 
@@ -41,6 +44,7 @@ export const createPaymentAlert = async () => {
   const alertContracts = filterContractsToAlertTarget({
     contracts: tgtProjTypeContracts,
     andpadPayments: allAndpadPayments,
+    reminders: allPaymentReminder,
   });
 
   const alertContractsJson = convertContractsToJson({

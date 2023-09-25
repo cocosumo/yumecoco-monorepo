@@ -1,133 +1,185 @@
 /* 店舗選択 */
 #selectStore {
-    padding: 3px 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* 印刷エリア */
+@media print {
+  @page {
+    size: A4;
+    margin: 20px;
+  }
+
+  /* ボディ要素の余白を設定 */
+    html,
+    body {
+        height: 90%;
+        background-color: #fff;
+    }
+
+    /* ページ内の要素がA4用紙内に収まるように設定 */
+    #printArea {
+        width: 100%;
+        height: 100%;
+        page-break-before: auto;
+        page-break-after: auto;
+      }
+
+
+    .printContainer:not(:last-child) {
+        width: 90%;
+        height: 100%;
+        background-color: #ffffff;
+       /*  page-break-before: always; */
+        page-break-after: always;
+        break-inside: avoid; /* ページ内で分割を避ける */
+    }
+
+    /* .printContainer:first-child {
+        page-break-before: auto;
+    }
+
+    /* 最後の.printContainerにはページブレークを避けない */
+    /* .printContainer:last-child {
+        page-break-after: auto;
+    }  */
+
+    
+
+    .selectButtonArea, /* 選択ボタン（店舗、印刷） */
+    .contents-actionmenu-gaia,
+    .contents-bottommenu-gaia,
+    .kintone-app-header-space,
+    header,
+    nav,
+    #header-global-navigation-root,
+    #view-list-bottom-gaia,
+    .contents-bottommenu-gaia {
+        display: none !important;
+    }
+ 
 }
 
 /* タイトル */
 #prospectTitle {
-    clear: both;
-    float:left;
-    margin-left: 15px;
-    font-size: 14pt;
-    font-weight: bold;
-    font-family: 'Arial', sans-serif;
+  clear: both;
+  float: left;
+  margin-left: 15px;
+  font-size: 14pt;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
 }
 
 /* 作成日 */
 #prospectDate {
-    float: right;
-    margin-right:10px;
-    font-size: 10pt;
-    font-weight: normal;
-    font-family: 'Arial', sans-serif;
+  float: right;
+  margin-right: 10px;
+  font-size: 10pt;
+  font-weight: normal;
+  font-family: 'Arial', sans-serif;
 }
-
 
 /* 表全体（タイトル・作成日除く） */
 .tableContainer {
-    /* display: flex; */
-    clear: both;
-    margin: 0 auto;
-    width: 100%;
-    justify-content: center; /* 水平方向にセンターに配置 */
-    align-items: center; /* 垂直方向にセンターに配置 */
-    font-family: 'Arial', sans-serif;
-    margin-bottom: 20px;
+  /* display: flex; */
+  clear: both;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center; /* 水平方向にセンターに配置 */
+  align-items: center; /* 垂直方向にセンターに配置 */
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
 }
 
 /* 工事種別 */
 .projNameHeader {
-    background-color: #2e52b4;
-    color: #ffffff;
-    padding: 5px 10px;
-    width: 100%;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
+  background-color: #2e52b4;
+  color: #ffffff;
+  padding: 5px 10px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /* ヘッダー(個別) */
 .contractHeader {
-    width: 100%;
-    font-size: 12pt;
-    text-align: center;
-    padding: 3px 2px;
+  width: 100%;
+  font-size: 12pt;
+  text-align: center;
+  padding: 3px 2px;
 }
 
 /* ヘッダー全体、総合計テーブル */
-.prospectTableContainer, .totalTable {
-    margin: 0 auto;
-    margin-bottom: 18px;
-   
-    
+.prospectTableContainer,
+.totalTable {
+  margin: 0 auto;
+  margin-bottom: 18px;
 }
 
 /* 見込み一覧ヘッダーセル、結果セル */
-.prospectTable tr th, .prospectContents tbody td {
-    font-size: 12pt;
-    white-space: nowrap;
-    padding: 3px 10px;
-
+.prospectTable tr th,
+.prospectContents tbody td {
+  font-size: 12pt;
+  white-space: nowrap;
+  padding: 3px 10px;
 }
 
 /* 見込み一覧結果の行をhoverしたとき */
 .prospectContents tbody tr:hover {
-    background-color:#a1ecff;
-    cursor: pointer;
+  background-color: #a1ecff;
+  cursor: pointer;
 }
 
 /* 表全体セル */
-.prospectTable td , th , .allTotalCell {
-    border: 1px solid black;
-    
-    
+.prospectTable td,
+th,
+.allTotalCell {
+  border: 1px solid black;
 }
 
 /* 小計テーブル */
 .totalCell {
-    background-color: #fff79a;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-    font-size: 12pt;
-
+  background-color: #fff79a;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  font-size: 12pt;
 }
 
 /* 一覧結果がなしの場合 */
 .unknown {
-    text-align: center;
-    width: 100%;
+  text-align: center;
+  width: 100%;
 }
 
 /* 総合計テーブル */
 .totalTable {
-    border: 1px solid black;
-    float: left;
-    width: 450px;
-    /* margin: 0 auto; */
-    text-align: center;
-    font-size: 12pt;
-    /* justify-content: center; /* 水平方向にセンターに配置 */
-    /* align-items: left; /* 垂直方向にセンターに配置 */ 
-
+  border: 1px solid black;
+  width: 50%;
+  /* margin: 0 auto; */
+  text-align: center;
+  float: left;
+  padding: 5px 20px;
+  font-size: 14pt;
+  font-weight: bold;
+  /* justify-content: center; /* 水平方向にセンターに配置 */
+  /* align-items: left; /* 垂直方向にセンターに配置 */
 }
 
 /* 総合計名称セル */
 .allTotalCell {
-    background-color: #ffa551;
-    font-weight: bold;
-    width: 150px;
-
+  background-color: #ffa551;
+  width: 150px;
 }
-
 
 /* 【ランク】 */
 #memo {
-    clear: both;
-    float: left;
-    padding-bottom: 40px;
-    font-size: 12pt;
-    font-family: Arial, sans-serif;
+  clear: both;
+  float: left;
+  padding-bottom: 40px;
+  font-size: 12pt;
+  font-family: Arial, sans-serif;
 }

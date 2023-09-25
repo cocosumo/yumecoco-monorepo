@@ -56,18 +56,22 @@ export const displayResult = async (selectStoreName?: string) => {
                 const totalnumber = +totalSchedContractPrice;
                 totalPrice += totalnumber;
 
-                return `<tr data-uuid="${ob.uuid.value}">
+                if(ob === undefined) {
+                    return;
+                }
+
+                return `<tr data-uuid="${ob.uuid?.value}">
                     <td style="text-align: center;">${index +1}</td>
-                    <td style="text-align: center;">${ob.rank.value || "-"}</td>
-                    <tdstyle="font-size: ${calcFontSize(100, ob.custName.value)}px;">${ob.custNames.value}</td>
-                    <td style="text-align: right;">${formatCurrency(ob.schedContractPrice.value) || "未定"}</td>
-                    <td style="text-align: center;">${ob.paymentMethod.value}</td>
-                    <td style="text-align: center;">${ob.cocoAGNames.value}</td>
-                    <td style="text-align: center;">${ob.yumeAGNames.value}</td>
-                    <td style="text-align: center;">${ob.estatePurchaseDate.value || ""}</td>
-                    <td style="text-align: center;">${ob.planApplicationDate.value || ""}</td>
-                    <td style="text-align: center;">${ob.schedContractDate.value || ""}</td>
-                    <td style="text-align: left;">${ob.memo.value || ""}</td>
+                    <td style="text-align: center;">${ob.rank?.value || "-"}</td>
+                    <td style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
+                    <td style="text-align: right;">${formatCurrency(ob.schedContractPrice?.value) || "未定"}</td>
+                    <td style="text-align: center;">${ob.paymentMethod?.value}</td>
+                    <td style="text-align: center;">${ob.cocoAGNames?.value}</td>
+                    <td style="text-align: center;">${ob.yumeAGNames?.value}</td>
+                    <td style="text-align: center;">${ob.estatePurchaseDate?.value || ""}</td>
+                    <td style="text-align: center;">${ob.planApplicationDate?.value || ""}</td>
+                    <td style="text-align: center;">${ob.schedContractDate?.value || ""}</td>
+                    <td style="text-align: left;">${ob.memo?.value || ""}</td>
                 </tr>`
 
             }).filter(Boolean).join("");
@@ -114,21 +118,22 @@ export const displayResult = async (selectStoreName?: string) => {
 
 
         $('#printArea').append(`
-            
-            <h1 id="prospectTitle">≪見込み物件≫受注予定表（${storeName}）</h1>
-            <p id="prospectDate">作成日：${today}</p>
-            <div class="tableContainer">
-            ${contentsTable}
-            
-            <table class="totalTable">
-                <tr>
-                    <td class="allTotalCell">総合計</td>
-                    <td>${formatCurrency(totalPrice)}</td>
-                </tr>
-            </table>
-                <p id="memo">【ランク】 A：設計契約済み 又は、契約確実　B：多分契約できる　C：交渉中　D：未定</p>
-                
-             </div>
+            <div class="printContainer">
+                <h1 id="prospectTitle">≪見込み物件≫受注予定表（${storeName}）</h1>
+                <p id="prospectDate">作成日：${today}</p>
+                    <div class="tableContainer">
+                        ${contentsTable}
+                        
+                        <table class="totalTable">
+                            <tr>
+                                <td class="allTotalCell">総合計</td>
+                                <td>${formatCurrency(totalPrice)}</td>
+                            </tr>
+                        </table>
+                            <p id="memo">【ランク】 A：設計契約済み 又は、契約確実　B：多分契約できる　C：交渉中　D：未定</p>
+                        
+                    </div>
+            </div>
 
             
             `);

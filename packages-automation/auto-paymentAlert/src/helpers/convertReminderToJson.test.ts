@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { convertReminderToJson } from './convertReminderToJson';
+import { getAllAndpadPayments } from 'api-kintone';
 
 
 describe('convertReminderToJson', () => {
@@ -12,9 +13,11 @@ describe('convertReminderToJson', () => {
     const remindersPath = path.join(__dirname, './__TEST__/reminders.json');
     const reminders = JSON.parse(fs.readFileSync(remindersPath, 'utf8'));
 
+    const allAndpadPayments = await getAllAndpadPayments();
 
     const result = await convertReminderToJson({
       reminder: reminders,
+      andpadPayments: allAndpadPayments,
     });
 
     const dir = path.join(__dirname, '__TEST__');

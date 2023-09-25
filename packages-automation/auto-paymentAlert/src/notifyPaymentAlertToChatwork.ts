@@ -20,22 +20,27 @@ export const notifyPaymentAlertToChatwork = async ({
 
   console.log(reminderJson);
 
-  reminderJson.forEach((reminderInfo) => {
-    const message = generateMessage(reminderInfo);
+  reminderJson.filter(({ alertState }) => alertState)
+    .forEach((reminderInfo) => {
+      const message = generateMessage(reminderInfo);
 
-    for (const cwRoomId of reminderInfo.cwRoomIds) {
-      sendMessage({
-        body: message,
-        roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
-    }
-  });
+      for (const cwRoomId of reminderInfo.cwRoomIds) {
+        sendMessage({
+          body: message,
+          roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+      }
+    });
 
 
 
   for (let i = 0; i < territories.length; i++) {
-    const reminderDat = reminderJson.filter(({ territory }) => territory === territories[i]);
+    const reminderDat = reminderJson.filter(({
+      territory,
+      alertState,
+    }) => (territory === territories[i]) && alertState);
+
 
     if (reminderDat.length === 0) continue;
 

@@ -11,10 +11,12 @@ export const paymentReminder = async () => {
 
   const reminderJson = await createPaymentAlert();
 
+  // chatworkへの通知処理
   notifyPaymentAlertToChatwork({
     reminderJson: reminderJson,
   });
 
+  // リマインダーレコードの更新処理
   updateReportedReminders({
     reportedReminder: reminderJson,
   });

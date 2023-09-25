@@ -5,11 +5,11 @@ import { UpdatePaymentReminder } from '../api-kintone';
 
 export const convertReminderToKintoneUpdate = ({
   paymentReminderJson,
-  lastPaymentDate,
+  lastAlertDate,
   alertDate,
 }: {
   paymentReminderJson: PaymentReminder[]
-  lastPaymentDate: string
+  lastAlertDate: string
   alertDate: string
 }) => {
 
@@ -21,30 +21,33 @@ export const convertReminderToKintoneUpdate = ({
     projId,
     projName,
     projType,
-    reminderUrl,
     territory,
     totalContractAmount,
+    alertState,
+    expectedPaymentDate,
   }) => {
 
     return ({
       updateKey: {
-        field: 'contractId',
-        value: contractId,
+        field: 'projId',
+        value: projId,
       },
       record: {
         andpadPaymentUrl: { value: andpadPaymentUrl },
-        contractDate: { value: contractDate },
+        alertState: { value: alertState ? '1' : '0' },
+        lastAlertDate: { value: lastAlertDate },
+        scheduledAlertDate: { value: alertDate },
+        //reminderDate: { value: format(addDays(new Date(), 1), 'yyyy-MM-dd')},
         contractId: { value: contractId },
-        cwRoomIds: { value: cwRoomIds },
         projId: { value: projId },
-        projName: { value: projName },
         projType: { value: projType },
-        reminderUrl: { value: reminderUrl },
+        projName: { value: projName },
         territory: { value: territory },
+        contractDate: { value: contractDate },
         totalContractAmount: { value: totalContractAmount },
-
-        lastPaymentDate: { value: lastPaymentDate },
-        alertDate: { value: alertDate },
+        expectedPaymentDate: { value: expectedPaymentDate },
+        andpadStatus: { value: alertState ? '' : '実績あり' },
+        cwRoomIds: { value: cwRoomIds },
       },
     });
   });

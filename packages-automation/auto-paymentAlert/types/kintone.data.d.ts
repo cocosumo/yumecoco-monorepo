@@ -1,19 +1,20 @@
 declare namespace DBPaymentreminder {
   interface Data {
-    area: kintone.fieldTypes.SingleLineText;
+    projId_破棄予定: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
-    projName: kintone.fieldTypes.SingleLineText;
-    alertDate: kintone.fieldTypes.Date;
     andpadStatus: kintone.fieldTypes.SingleLineText;
-    lastAlertDate: kintone.fieldTypes.Date;
     totalContractAmount: kintone.fieldTypes.Number;
-    andpadUrl: kintone.fieldTypes.Link;
-    contractId: kintone.fieldTypes.SingleLineText;
+    scheduledAlertDate: kintone.fieldTypes.Date;
     alertState: kintone.fieldTypes.SingleLineText;
     reminderDate: kintone.fieldTypes.DropDown;
+    area: kintone.fieldTypes.SingleLineText;
+    projName: kintone.fieldTypes.SingleLineText;
+    lastAlertDate: kintone.fieldTypes.Date;
+    andpadUrl: kintone.fieldTypes.Link;
+    contractId: kintone.fieldTypes.SingleLineText;
 
     alertTarget_破棄予定: kintone.fieldTypes.UserSelect;
     notificationSettings: {

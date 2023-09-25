@@ -14,8 +14,8 @@ export const updateReportedReminders = ({
 
   const kintoneRecords = convertReminderToKintoneUpdate({
     paymentReminderJson: reportedReminder,
-    lastPaymentDate: format(addDays(new Date(), 3), 'yyyy-MM-dd'),
-    alertDate: format(new Date(), 'yyyy-MM-dd'),
+    alertDate: format(addDays(new Date(), 3), 'yyyy-MM-dd'),
+    lastAlertDate: format(new Date(), 'yyyy-MM-dd'),
   });
   
   updatePaymentReminder(kintoneRecords);

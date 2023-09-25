@@ -31,7 +31,7 @@
   }
 
   /* page break before all .store_container except the first instance */
-  .store_container:not(:first-child) {
+  .store_container:not(:last-child) {
     page-break-before: always;
   }
 

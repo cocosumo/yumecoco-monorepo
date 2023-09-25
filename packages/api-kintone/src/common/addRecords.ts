@@ -7,12 +7,12 @@ import { ktRecord } from '../client';
  *
  * @link https://github.com/kintone/js-sdk/blob/master/packages/rest-api-client/docs/record.md#addAllRecords
  */
-export const addAllRecords = async (
-  params: KtRecordParam<'addAllRecords'>,
+export const addRecords = async (
+  params: KtRecordParam<'addRecords'>,
 ) => {
 
   const KintoneRecord = await ktRecord();
-  return KintoneRecord.addAllRecords({
+  return KintoneRecord.addRecords({
     ...params,
   });
 };

@@ -1,4 +1,4 @@
-export * from './addAllRecords';
+export * from './addRecords';
 export * from './fieldMatches';
 export * from './getAllRecords';
 export * from './getLookUpFields';

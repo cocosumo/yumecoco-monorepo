@@ -5,6 +5,8 @@ import { convertContractsToJson } from './helpers/convertContractsToJson';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
 import { getMyOrders } from 'api-andpad';
 import { getPaymentRemindersByAlertDate } from './api-kintone/getPaymentRemindersByAlertDate';
+import { registerReminders } from './helpers/registerReminders';
+
 
 
 /**
@@ -35,6 +37,7 @@ export const createPaymentAlert = async () => {
 
 
   // 通知対象のレコードのみに絞り込む
+  // 契約書から通知対象を取得する
   const alertContracts = filterContractsToAlertTarget({
     contracts: tgtProjTypeContracts,
     andpadPayments: allAndpadPayments,
@@ -48,8 +51,15 @@ export const createPaymentAlert = async () => {
     allOrders: allOrders,
   });
 
+  await registerReminders({
+    reminderJson: alertContractsJson,
+  });
+
+
+  // リマインダーアプリから通知対象を取得する
   const alertReminderJson = convertReminderToJson({
     reminder: alertReminder,
+    //andpadPayments: allAndpadPayments,
   });
 
   return alertContractsJson.concat(alertReminderJson);

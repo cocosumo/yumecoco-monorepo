@@ -1,7 +1,6 @@
-import { reminderAppId } from '../../config';
-import { IPaymentreminder, KPaymentreminder } from '../dbKintone';
+import { IPaymentReminder, KPaymentReminder, reminderAppId } from '../../config';
 
 
 export const appId = reminderAppId;
-export type RecordType = IPaymentreminder;
-export type RecordKey = KPaymentreminder;
+export type RecordType = IPaymentReminder;
+export type RecordKey = KPaymentReminder;

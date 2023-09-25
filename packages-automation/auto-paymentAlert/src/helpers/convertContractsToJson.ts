@@ -3,6 +3,7 @@ import { ContractRecordType } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
+import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 
 
 
@@ -28,6 +29,16 @@ export const convertContractsToJson = ({
     projName,
     totalContractAmt,
     contractDate,
+    contractAmtDate,
+    contractAmt,
+    initialAmtDate,
+    initialAmt,
+    interimAmtDate,
+    interimAmt,
+    finalAmtDate,
+    finalAmt,
+    othersAmtDate,
+    othersAmt,
   }) => {
 
     // 通知対象者を抽出する
@@ -52,16 +63,35 @@ export const convertContractsToJson = ({
       employees: employees,
     });
 
+    // 契約書から一番過去の支払日を取得する
+    const contractAmtPaymentDate = getEarliestDateOfContract({
+      dates: [
+        contractAmtDate.value,
+        initialAmtDate.value,
+        interimAmtDate.value,
+        finalAmtDate.value,
+        othersAmtDate.value,
+      ],
+      contractAmts:[
+        contractAmt.value,
+        initialAmt.value,
+        interimAmt.value,
+        finalAmt.value,
+        othersAmt.value,
+      ],
+    });
+
     return ({
       andpadPaymentUrl: andpadPaymentUrl,
-      reminderUrl: '', //TODO
+      reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: contractId.value,
       projId: projId.value,
       projName: projName.value,
       projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmt.value,
-      territory: store?.area.value,
+      territory: store?.territory.value,
+      expectedPaymentDate: contractAmtPaymentDate,
       cwRoomIds:chatworkRoomIds,
     }) as PaymentReminder;
   });

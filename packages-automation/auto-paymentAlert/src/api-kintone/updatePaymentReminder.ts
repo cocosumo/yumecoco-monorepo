@@ -3,7 +3,7 @@ import { RecordType, appId } from './config';
 import { updateAllRecords } from 'api-kintone';
 
 
-type UpdatePaymentReminder = {
+export type UpdatePaymentReminder = {
   id: RecordID
   record?: Partial<RecordType> | undefined
   revision?: Revision | undefined

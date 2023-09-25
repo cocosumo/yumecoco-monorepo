@@ -1,6 +1,5 @@
 import { AppIds, isProd } from 'config';
 import { IContracts, KContracts } from 'types';
-import { IPaymentreminder, KPaymentreminder } from './src/dbKintone';
 
 
 /**アラート対象の工事種別 */
@@ -18,8 +17,8 @@ export const andpadPaymentsAppId = AppIds.andpadPayments;
 export type ContractRecordType = IContracts;
 export type ContractRecordKeys = KContracts;
 
-export type PaymentReminderRecordType = IPaymentreminder;
-export type PaymentReminderRecordKeys = KPaymentreminder;
+export type IPaymentReminder = DBPaymentreminder.SavedData;
+export type KPaymentReminder =  keyof IPaymentReminder;
 
 /**
  * chatworkのルームID

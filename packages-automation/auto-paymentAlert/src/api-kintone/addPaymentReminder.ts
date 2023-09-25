@@ -1,17 +1,12 @@
 import { addRecords } from 'api-kintone';
-import { RecordKey, appId } from './config';
+import { appId } from './config';
+import { IPaymentReminder } from '../../config';
 
-
-export type AddPaymentReminder = {
-  [fieldCode: RecordKey[number]]: {
-    value: unknown
-  }
-};
 
 /**
  * 入金アラートレコードを一括登録する
  */
-export const addPaymentReminder = (params: AddPaymentReminder[]) => {
+export const addPaymentReminder = (params: Partial<IPaymentReminder>[]) => {
 
   return addRecords({
     app: appId,

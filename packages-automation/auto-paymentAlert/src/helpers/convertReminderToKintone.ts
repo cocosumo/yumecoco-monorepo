@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 import { PaymentReminder } from '../../types/paymentReminder';
-import { AddPaymentReminder } from '../api-kintone/addPaymentReminder';
+import { IPaymentReminder } from '../../config';
 
 
 
@@ -10,7 +10,7 @@ export const convertReminderToKintone = ({
   paymentReminderJson: PaymentReminder[]
 }) => {
 
-  const kintoneData: AddPaymentReminder[] = paymentReminderJson.map(({
+  const kintoneData: Partial<IPaymentReminder>[] = paymentReminderJson.map(({
     andpadPaymentUrl,
     contractDate,
     contractId,
@@ -26,10 +26,11 @@ export const convertReminderToKintone = ({
 
     const cwRoomIdsKintone = cwRoomIds.map(({ agentName, agentId, cwRoomId }) => {
       return ({
+        id: '',
         value: {
-          chatworkRoomId: cwRoomId,
-          alertTargetId: agentId,
-          alertTargetName: agentName,
+          chatworkRoomId: { value: cwRoomId },
+          alertTargetId: { value: agentId },
+          alertTargetName: { value: agentName },
         },
       });
 
@@ -51,6 +52,7 @@ export const convertReminderToKintone = ({
       alertState: { value: '1' },
       //reminderDate: { value: '' }, //再通知日はこのタイミングでは設定しない
       notificationSettings: {
+        type: 'SUBTABLE',
         value: cwRoomIdsKintone,
       },
     });

@@ -1,5 +1,5 @@
 import { kintoneBaseUrl } from 'api-kintone';
-import { PaymentReminderRecordType, reminderAppId } from '../../config';
+import { IPaymentReminder, reminderAppId } from '../../config';
 import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
 //import { IAndpadpayments } from 'types';
 
@@ -9,7 +9,7 @@ export const convertReminderToJson = ({
   reminder,
   //andpadPayments, // TODO
 }: {
-  reminder: PaymentReminderRecordType[]
+  reminder: IPaymentReminder[]
   //andpadPayments: IAndpadpayments[],
 }) => {
 

@@ -28,14 +28,17 @@ const customerSchema = z.object({
 
   phone1: requiredString,
   phone1Rel: requiredString,
+  phone1Name: z.string(),
 
   phone2: z.string(),
   phone2Rel: z.string(),
+  phone2Name: z.string(),
 
   email: z.string().email()
     .optional()
     .or(z.literal('')),
   emailRel: z.string(),
+  emailName: z.string(),
 
 });
 

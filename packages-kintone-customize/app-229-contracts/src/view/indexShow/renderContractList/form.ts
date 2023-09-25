@@ -1,6 +1,6 @@
+import { today } from './config';
 import { TForm } from './schema';
 
-const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 

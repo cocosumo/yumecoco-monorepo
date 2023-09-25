@@ -3,6 +3,7 @@ import { TForm, schema } from './schema';
 import { initialForm } from './form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
+import { Toolbar } from './sections/toolbar/Toolbar';
 
 export const FormContractList = () => {
   const formReturn = useForm<TForm>({
@@ -21,10 +22,8 @@ export const FormContractList = () => {
           pt={2}
           pb={4}
         >
+          <Toolbar />
 
-          {/* <Toolbar /> */}
-          {/* <Results /> */}
-          FFFF
         </Stack>
 
       </Form>

@@ -85,16 +85,16 @@ export const displayResult = async (selectStoreName?: string) => {
                     <td class="projNameHeader" colspan="11">${pn}</td>
                 </tr>
                 <tr class="contractHeader">
-                    <th>No.</th> <!-- index -->
-                    <th>ランク</th>
-                    <th style="width: 100px;">お客様名</th>
-                    <th style="width: 60px;">契約予定金額</th>
-                    <th>金融機関</th>
-                    <th>担当者</th>          <!-- ここすも営業 -->
-                    <th>エージェント</th>    <!-- ゆめてつAG -->
-                    <th>不動産決済日</th>
-                    <th>設計申込日</th>
-                    <th>契約予定日</th>
+                    <th style="width: 10px;">No.</th> <!-- index -->
+                    <th style="width: 10px;">ランク</th>
+                    <th style="width: 200px;">お客様名</th>
+                    <th style="width: 150px;">契約予定金額</th>
+                    <th style="width: 100px;">金融機関</th>
+                    <th style="width: 100px;">担当者</th>          <!-- ここすも営業 -->
+                    <th style="width: 100px;">エージェント</th>    <!-- ゆめてつAG -->
+                    <th style="width: 100px;">不動産決済日</th>
+                    <th style="width: 100px;">設計申込日</th>
+                    <th style="width: 100px;">契約予定日</th>
                     <th style="width: 150px;">備考</th>   
                 </tr>
             </thead>

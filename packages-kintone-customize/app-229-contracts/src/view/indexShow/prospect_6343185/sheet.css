@@ -10,6 +10,7 @@
   @page {
     size: A4;
     margin: 20px;
+    float: center;
   }
 
   /* ボディ要素の余白を設定 */
@@ -37,14 +38,16 @@
         break-inside: avoid; /* ページ内で分割を避ける */
     }
 
-    /* .printContainer:first-child {
-        page-break-before: auto;
+    /* ヘッダー(個別)印刷時 */
+    .contractHeader th {
+        font-size: 12pt;
+        text-align: center;
+        padding: 5px 10px;
     }
 
-    /* 最後の.printContainerにはページブレークを避けない */
-    /* .printContainer:last-child {
-        page-break-after: auto;
-    }  */
+    .prospectTableContainer {
+        width: 200mm;
+    }
 
     
 
@@ -85,12 +88,13 @@
 .tableContainer {
   /* display: flex; */
   clear: both;
-  margin: 0 auto;
+  
   width: 100%;
   justify-content: center; /* 水平方向にセンターに配置 */
   align-items: center; /* 垂直方向にセンターに配置 */
   font-family: 'Arial', sans-serif;
   margin-bottom: 20px;
+  
 }
 
 /* 工事種別 */
@@ -105,26 +109,25 @@
 }
 
 /* ヘッダー(個別) */
-.contractHeader {
-  width: 100%;
+.contractHeader th {
   font-size: 12pt;
   text-align: center;
-  padding: 3px 2px;
+  padding: 5px 10px;
 }
 
 /* ヘッダー全体、総合計テーブル */
 .prospectTableContainer,
 .totalTable {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   margin-bottom: 18px;
 }
 
 /* 見込み一覧ヘッダーセル、結果セル */
 .prospectTable tr th,
-.prospectContents tbody td {
+tbody td {
   font-size: 12pt;
   white-space: nowrap;
-  padding: 3px 10px;
+  padding: 5px 10px;
 }
 
 /* 見込み一覧結果の行をhoverしたとき */

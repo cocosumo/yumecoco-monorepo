@@ -6,7 +6,6 @@ const queryClient = new QueryClient();
 
 
 export const renderContractList = () => {
-  console.log('FIREs');
   const root = createRoot(document.getElementById('root') as Element);
 
   root.render(

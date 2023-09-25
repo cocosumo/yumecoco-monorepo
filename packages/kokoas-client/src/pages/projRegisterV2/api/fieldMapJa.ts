@@ -54,5 +54,6 @@ export const fieldMapJa : Record<KForm, string> = {
   schedContractDate: '契約予定日',
   estatePurchaseDate: '不動産決済日',
   planApplicationDate: '計画申し込み日',
+  paymentMethod: '金融機関',
 
 };

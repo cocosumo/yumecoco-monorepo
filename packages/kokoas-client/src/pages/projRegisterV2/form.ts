@@ -58,6 +58,7 @@ export const initialValues : TForm = {
   schedContractDate: null,
   estatePurchaseDate: null,
   planApplicationDate: null,
+  paymentMethod: '',
 
 };
 

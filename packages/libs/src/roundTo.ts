@@ -1,4 +1,4 @@
-import { Big } from 'big.js';
+import { Big, RoundingMode } from 'big.js';
 
 /**
  * なぜ：
@@ -35,7 +35,7 @@ export const roundTo = (value: number | string, precision = 0, rmProperty = 1) =
   
     } else {
       return new Big(value)
-        .round(precision, rmProperty)
+        .round(precision, rmProperty as RoundingMode)
         .toNumber();
     }
 

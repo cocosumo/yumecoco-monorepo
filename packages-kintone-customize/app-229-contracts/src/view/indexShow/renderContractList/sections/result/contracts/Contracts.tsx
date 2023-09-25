@@ -1,4 +1,4 @@
-import { Box, LinearProgress } from '@mui/material';
+import { Box, LinearProgress, Paper } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
 import { useContractsResultGroupedByStore } from '../../../hooks/useContractResultGroupedByStore';
 import { useStores } from '../../../../../../hooks/useStores';
@@ -13,12 +13,24 @@ export const Contracts = () => {
 
   if (isLoading) return <LinearProgress />;
 
-  console.log(data);
 
   return (
-    <Box sx={{ minHeight: 393 }}>
+    <Box 
+      p={1}
+      sx={{ 
+        minHeight: 393,
+        overflowX: 'auto',
+        overflowY: 'hidden',
+      }}
+      component={Paper}
+    >
       {!!stores && !!data && (
-        <Masonry columns={3} spacing={2}>
+        <Masonry 
+          sx={{
+            width: 2400,
+          }}
+          columns={3} spacing={2}
+        >
           {stores.map(({
             店舗名: storeName,
             uuid: storeId,
@@ -26,7 +38,7 @@ export const Contracts = () => {
             <ByStoreTable 
               key={storeId.value}
               storeName={storeName.value}
-              rec={data[storeName.value] || []}
+              records={data[storeName.value] || []}
             />
           ))}
         </Masonry>

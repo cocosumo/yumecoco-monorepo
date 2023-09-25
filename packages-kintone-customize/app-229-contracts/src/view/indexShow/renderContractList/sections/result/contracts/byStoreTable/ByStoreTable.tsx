@@ -1,20 +1,26 @@
 import { Table, TableContainer } from '@mui/material';
 import { ByStoreTHead } from './ByStoreTHead';
+import { ByStoreTBody } from './ByStoreTBody';
 
 export const ByStoreTable = ({
   storeName,
-  rec,
+  records,
 }:{
   storeName: string,
-  rec: DB.SavedRecord[]
+  records: DB.SavedRecord[]
 }) => {
-  console.log(rec);
 
   return (
-    <TableContainer>
+    <TableContainer 
+      sx={{
+        width: '100%',
+      }}
+    >
       <Table 
         size='small'
         sx={{
+          tableLayout: 'auto',
+          width: '100%',
           '& td, & th': {
             border: '1px solid rgba(224, 224, 224, 1)',
             whiteSpace: 'nowrap',
@@ -27,6 +33,8 @@ export const ByStoreTable = ({
         }}
       >
         <ByStoreTHead tableTitle={storeName} />
+
+        <ByStoreTBody records={records} />
 
       </Table>
     </TableContainer>

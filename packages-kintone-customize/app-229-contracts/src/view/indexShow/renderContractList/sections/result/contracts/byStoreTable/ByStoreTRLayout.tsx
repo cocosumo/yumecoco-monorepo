@@ -22,13 +22,13 @@ export const ByStoreTRLayout = ({
 
   return (
     <TableRow>
-      <TableCell>
+      <TableCell width={20}>
         {index}
       </TableCell>
-      <TableCell>
+      <TableCell width={80}>
         {custName}
       </TableCell>
-      <TableCell>
+      <TableCell width={100}>
         {projName}
       </TableCell>
       <TableCell align='center'>

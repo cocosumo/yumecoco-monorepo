@@ -10,7 +10,7 @@ export const Summary = () => {
       direction={'row'}
       justifyContent={'space-between'}
       spacing={2}
-      width={2400}
+      width={2100}
     >
       {/* 備考 */}
       <OverallRemarks />

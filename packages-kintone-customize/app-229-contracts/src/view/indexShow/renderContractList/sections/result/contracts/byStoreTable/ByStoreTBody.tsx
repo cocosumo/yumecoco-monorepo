@@ -37,7 +37,11 @@ export const ByStoreTBody = ({
             projName={<FitText content={projName.value} />}
             contractDate={contractDate.value}
             contractAmt={(+contractAmountIntax.value).toLocaleString()}
-            agentNames={isCompanyProperty ? cocosumoAGName.value : yumeAGNames}
+            agentNames={
+              <FitText 
+                content={isCompanyProperty ? cocosumoAGName.value : yumeAGNames}
+              />
+}
             recId={$id.value}
           />
         );

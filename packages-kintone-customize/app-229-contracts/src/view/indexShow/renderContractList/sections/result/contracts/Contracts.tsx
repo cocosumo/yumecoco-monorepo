@@ -17,7 +17,7 @@ export const Contracts = () => {
       {!isLoading && !!stores && !!data && (
         <Masonry 
           sx={{
-            width: 2400,
+            width: 2100,
             
           }}
           columns={3} spacing={2}
@@ -35,7 +35,7 @@ export const Contracts = () => {
           <ByStoreTable 
             records={data[companyPropertyField] || []}
             storeName={companyPropertyField}
-            
+
           />
         </Masonry>
 

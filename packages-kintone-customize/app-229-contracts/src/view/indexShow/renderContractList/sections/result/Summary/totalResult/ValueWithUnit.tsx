@@ -14,7 +14,7 @@ export const ValueWithUnit = ({
     <>
       <Typography 
         component={'span'}
-        fontSize={28}
+        fontSize={24}
         color={grey[700]}
         letterSpacing={2}
       >

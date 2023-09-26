@@ -2,6 +2,7 @@ import { ByStoreTHead } from './ByStoreTHead';
 import { ByStoreTBody } from './ByStoreTBody';
 import { ByStoreTableContainer } from './ByStoreTableContainer';
 import { ByStoreSummary } from './ByStoreSummary';
+import { ByStoreNoRecords } from './ByStoreNoRecords';
 
 export const ByStoreTable = ({
   storeName,
@@ -11,13 +12,24 @@ export const ByStoreTable = ({
   records: DB.SavedRecord[]
 }) => {
 
+  const hasRecords = records.length > 0;
+
   return (
     <ByStoreTableContainer
       storeName={storeName}
     >
-      <ByStoreTHead />
-      <ByStoreTBody records={records} />
-      <ByStoreSummary records={records} />
+      {hasRecords && (
+      <>
+        <ByStoreTHead />
+        <ByStoreTBody records={records} />
+        <ByStoreSummary records={records} />
+      </>
+      )}
+
+      {!hasRecords && (
+        <ByStoreNoRecords />
+      )}
+
     </ByStoreTableContainer>
   );
 };

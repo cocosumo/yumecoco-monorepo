@@ -1,7 +1,59 @@
 import { TableBody, TableCell, TableRow } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useContractsResult } from '../../../../hooks/useContractsResult';
+import { useMemo } from 'react';
 
 export const ProspectBody = () => {
+  const { data } = useContractsResult();
+  
+
+  const {
+    numOfProspectsBefore,
+    amtOfProspectsBefore,
+
+    numOfProspectsThisMonth,
+    amtOfProspectsThisMonth,
+
+    numOfProspectsNextMonth,
+    amtOfProspectsNextMonth,
+  } = useMemo(() => {
+    const initialValues = {
+      numOfProspectsThisMonth: 0,
+      amtOfProspectsThisMonth: 0,
+
+      numOfProspectsNextMonth: 0,
+      amtOfProspectsNextMonth: 0,
+
+      numOfProspectsBefore: 0,
+      amtOfProspectsBefore: 0,
+    };
+
+    if (!data) {
+      return initialValues;
+    }
+
+    return data.reduce((acc, cur) => {
+      const {
+        projectId,
+      } = cur;
+
+      if (!projectId.value) {
+        return {
+          ...acc,
+          numOfProspectsBefore: acc.numOfProspectsBefore + 1,
+          amtOfProspectsBefore: acc.amtOfProspectsBefore + (+cur.contractAmountIntax.value),
+        };
+      }
+
+      return acc;
+
+    }, initialValues);
+
+    
+  }, [data]);
+
+
+
   return (
     <TableBody 
       sx={{
@@ -25,24 +77,27 @@ export const ProspectBody = () => {
     >
       <TableRow>
         <TableCell>
-          63件
+          {numOfProspectsBefore}
+          件
         </TableCell>
         <TableCell>
-          185,682,950		
-        </TableCell>
-
-        <TableCell>
-          18件
-        </TableCell>
-        <TableCell>
-          10,850,400
+          {amtOfProspectsBefore.toLocaleString()}	
         </TableCell>
 
         <TableCell>
-          53件
+          {numOfProspectsThisMonth}
+          件
         </TableCell>
         <TableCell>
-          65,006,000				
+          {amtOfProspectsThisMonth.toLocaleString()}
+        </TableCell>
+
+        <TableCell>
+          {numOfProspectsNextMonth}
+          件
+        </TableCell>
+        <TableCell>
+          {amtOfProspectsNextMonth.toLocaleString()}
         </TableCell>
       </TableRow>
     </TableBody>

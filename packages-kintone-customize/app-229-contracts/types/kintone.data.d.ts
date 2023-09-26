@@ -3,16 +3,16 @@ declare namespace DB {
     codes: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     cocosumoKoujiId: kintone.fieldTypes.SingleLineText;
+    ルックアップ: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
     yumeAGName: kintone.fieldTypes.SingleLineText;
     最終請負金額: kintone.fieldTypes.Number;
     cocosumoAGId: kintone.fieldTypes.SingleLineText;
     Ccodes: kintone.fieldTypes.SingleLineText;
     年度: kintone.fieldTypes.SingleLineText;
+    projectId: kintone.fieldTypes.SingleLineText;
     refund: kintone.fieldTypes.RadioButton;
     yumeAGId: kintone.fieldTypes.SingleLineText;
-    cocoas_契約ID: kintone.fieldTypes.SingleLineText;
-    文字列__1行_: kintone.fieldTypes.SingleLineText;
     紹介料: kintone.fieldTypes.Number;
     cocosumoAGName: kintone.fieldTypes.SingleLineText;
     完工日: kintone.fieldTypes.Date;

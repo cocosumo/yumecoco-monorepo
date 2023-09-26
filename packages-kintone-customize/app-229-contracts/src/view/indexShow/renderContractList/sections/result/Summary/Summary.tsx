@@ -6,13 +6,15 @@ export const Summary = () => {
   return (
     <Stack
       direction={'row'}
-      justifyContent={'space-between'}
+      //justifyContent={'space-between'}
+      spacing={2}
+      width={2400}
     >
       {/* 備考 */}
       <Remarks />
-
+      
       {/* 見込み情報 */}
-      {/* <Prospect /> */}
+      <Prospect />
 
       {/* 成功と失敗事例 */}
 

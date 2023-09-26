@@ -10,15 +10,18 @@ export const RemarksContainer = ({
   return (
     <TableContainer 
       sx={{
-        width: 'fit-content',
+        width: 'auto',
       }}
       component={Paper}
     >
       <Table
         size='small'
         sx={{
+          height: '100%',
           '& th':{
-            bgcolor: grey[200],
+            bgcolor: grey[50],
+            fontWeight: 'bold',
+            color: grey[700],
           },
           '& td, & th':{
             fontSize: '12px',

@@ -13,6 +13,7 @@ export const Result = () => {
         height: 'calc(80vh - 72px)',
       }}
       component={Paper}
+      width={'100%'}
     >
       <Contracts />
       <Summary />

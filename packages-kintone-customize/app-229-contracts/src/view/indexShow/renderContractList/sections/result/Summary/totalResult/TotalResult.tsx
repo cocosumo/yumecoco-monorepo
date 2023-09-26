@@ -1,8 +1,45 @@
 import { TableCell, TableRow } from '@mui/material';
 import { TotalResultContainer } from './TotalResultContainer';
 import { ValueWithUnit } from './ValueWithUnit';
+import { useMemo } from 'react';
+import { useContractsResult } from '../../../../hooks/useContractsResult';
 
 export const TotalResult = () => {
+
+  const { data } = useContractsResult();
+
+
+  const {
+    totalAmtInclTax,
+    totalAmtExclTax,
+    totalNumOfContracts,
+  } = useMemo(() => {
+    if (!data) return {
+      totalAmtInclTax: 0,
+      totalAmtExclTax: 0,
+      totalNumOfContracts: 0,
+    };
+
+    return data?.reduce((acc, cur) => {
+      const {
+        contractAmountIntax,
+        contractAmountNotax,
+      } = cur;
+
+      return {
+        totalAmtInclTax: acc.totalAmtInclTax + +contractAmountIntax.value,
+        totalAmtExclTax: acc.totalAmtExclTax + +contractAmountNotax.value,
+        totalNumOfContracts: acc.totalNumOfContracts + 1,
+      };
+    }, {
+      totalAmtInclTax: 0,
+      totalAmtExclTax: 0,
+      totalNumOfContracts: 0,
+    });
+
+
+  }, [data]);
+
   return (
     <TotalResultContainer>
       <TableRow>
@@ -13,7 +50,7 @@ export const TotalResult = () => {
         </TableCell>
         <TableCell align='right'>
           <ValueWithUnit
-            value={12121212}
+            value={totalAmtExclTax}
             unit={'円'}
           />
         </TableCell>
@@ -25,7 +62,7 @@ export const TotalResult = () => {
         </TableCell>
         <TableCell align='right'>
           <ValueWithUnit
-            value={12121212}
+            value={totalAmtInclTax}
             unit={'円'}
           />
         </TableCell>
@@ -37,7 +74,7 @@ export const TotalResult = () => {
         </TableCell>
         <TableCell align='right'>
           <ValueWithUnit
-            value={63}
+            value={totalNumOfContracts}
             unit={'件'}
           />
         </TableCell>

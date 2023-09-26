@@ -32,6 +32,7 @@ export const useContractsResultGroupedByStore = () => {
 
   return {
     data: groupedByStore,
+    rawData: data,
     ...others,
   };
 };

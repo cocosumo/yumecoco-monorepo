@@ -1,5 +1,6 @@
 import { Paper, Stack } from '@mui/material';
 import { Contracts } from './contracts/Contracts';
+import { Summary } from './Summary/Summary';
 
 export const Result = () => {
   
@@ -14,6 +15,7 @@ export const Result = () => {
       component={Paper}
     >
       <Contracts />
+      <Summary />
     </Stack>
   );
 };

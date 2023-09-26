@@ -12,7 +12,8 @@
   "files": [
     "./src/app.ts",
     "./../../node_modules/@kintone/dts-gen/kintone.d.ts",
-    "./types/kintone.data.d.ts"
+    "./types/kintone.data.d.ts",
+    "./types/overallremarks.data.d.ts",
   ],
   "exclude": [
     "./dist",

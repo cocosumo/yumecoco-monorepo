@@ -2,8 +2,20 @@ import { TableCell, TableRow } from '@mui/material';
 import { OutcomesRemarksContainer } from './OutcomesRemarksContainer';
 import { grey } from '@mui/material/colors';
 import { OutcomesByArea } from './OutcomesByArea';
+import { useOverallRemarks } from '../../../../hooks/useOverallRemarks';
 
 export const OutcomesRemarks = () => {
+
+  
+  const { data } = useOverallRemarks();
+
+  const {
+    eastSuccess,
+    eastFailed,
+    
+    westSuccess,
+    westFailed,
+  } = data || {};
   
   return (
     <OutcomesRemarksContainer>
@@ -25,14 +37,14 @@ export const OutcomesRemarks = () => {
 
       <OutcomesByArea 
         area='西エリア'
-        success='少ない打合せ回数で新築受注となり効率的な動きが出来ました。'
-        failure='月初から新築契約もありながらも、目標契約金額に少し届いていない。'    
+        success={westSuccess?.value || '-'}
+        failure={westFailed?.value || '-'}   
       />
 
       <OutcomesByArea 
         area='東エリア'
-        success='少ない打合せ回数で新築受注となり効率的な動きが出来ました。'
-        failure='紹介数が少ない時に、待ちの状態から脱却できないので、夢てつからの紹介を増やしてもらうような案を考えていきます。'    
+        success={eastSuccess?.value || '-'}
+        failure={eastFailed?.value || '-'}   
       />
 
       

@@ -20,12 +20,22 @@ export const ProspectHead = () => {
 
       <TableRow>
         <TableCell 
-          colSpan={6}
+          colSpan={4}
           sx={{
             bgcolor: grey[200],
           }}
         >
           いつの見込み案件か
+        </TableCell>
+        <TableCell 
+          colSpan={2} 
+          rowSpan={2}
+          style={{
+            borderLeft: '4px double',
+            borderColor: grey[300],
+          }}
+        >
+          来月の見込み
         </TableCell>
       </TableRow>
 
@@ -46,9 +56,7 @@ export const ProspectHead = () => {
         <TableCell colSpan={2}>
           当月での反響
         </TableCell>
-        <TableCell colSpan={2}>
-          来月の見込み
-        </TableCell>
+
       </TableRow>
 
       <TableRow

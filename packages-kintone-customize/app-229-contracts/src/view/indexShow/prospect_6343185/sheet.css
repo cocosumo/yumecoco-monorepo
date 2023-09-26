@@ -28,10 +28,11 @@
         page-break-after: auto;
       }
 
-
+      
     .printContainer:not(:last-child) {
-        width: 90%;
+        width: 95%;
         height: 100%;
+        margin: 0 auto;
         background-color: #ffffff;
        /*  page-break-before: always; */
         page-break-after: always;
@@ -40,17 +41,26 @@
 
     /* ヘッダー(個別)印刷時 */
     .contractHeader th {
-        font-size: 12pt;
+        font-size: 10.5pt;
         text-align: center;
         padding: 5px 10px;
+    }
+
+    .projNameHeader {
+        width: 100%;
+
     }
 
     .prospectTableContainer {
         width: 200mm;
     }
-
     
-
+    .prospectTable {
+        margin: 0 auto;
+        /* width: 980px; */
+        table-layout: fixed;
+    }
+ 
     .selectButtonArea, /* 選択ボタン（店舗、印刷） */
     .contents-actionmenu-gaia,
     .contents-bottommenu-gaia,
@@ -113,6 +123,10 @@
   font-size: 12pt;
   text-align: center;
   padding: 5px 10px;
+}
+
+.newline {
+  white-space: pre-wrap;
 }
 
 /* ヘッダー全体、総合計テーブル */

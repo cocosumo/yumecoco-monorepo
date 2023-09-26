@@ -4,6 +4,8 @@ import { groupByProjType } from "./groupByProjType";
 import $ from 'jquery';
 import { formatCurrency } from "../../../../jsedit/api/formatCurrency";
 import { calcFontSize } from "../../../../jsedit/api/calcFontSize";
+import parseISO from "date-fns/parseISO";
+import format from "date-fns/format";
 
 
 export const displayResult = async (selectStoreName?: string) => {
@@ -60,7 +62,7 @@ export const displayResult = async (selectStoreName?: string) => {
                     return;
                 }
 
-                return `<tr data-uuid="${ob.uuid?.value}">
+                return `<tr class="dataContents" data-uuid="${ob.uuid?.value}">
                     <td style="text-align: center;">${index +1}</td>
                     <td style="text-align: center;">${ob.rank?.value || "-"}</td>
                     <td style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
@@ -68,10 +70,10 @@ export const displayResult = async (selectStoreName?: string) => {
                     <td style="text-align: center;">${ob.paymentMethod?.value}</td>
                     <td style="text-align: center;">${ob.cocoAGNames?.value}</td>
                     <td style="text-align: center;">${ob.yumeAGNames?.value}</td>
-                    <td style="text-align: center;">${ob.estatePurchaseDate?.value || ""}</td>
-                    <td style="text-align: center;">${ob.planApplicationDate?.value || ""}</td>
-                    <td style="text-align: center;">${ob.schedContractDate?.value || ""}</td>
-                    <td style="text-align: left;">${ob.memo?.value || ""}</td>
+                    <td style="text-align: center;">${format(parseISO(ob.estatePurchaseDate?.value),'yy/MM/dd')  || ""}</td>
+                    <td style="text-align: center;">${format(parseISO(ob.planApplicationDate?.value),'yy/MM/dd') || ""}</td>
+                    <td style="text-align: center;">${format(parseISO(ob.schedContractDate?.value),'yy/MM/dd') || ""}</td>
+                    <td style="text-align: left;">${ ob.memo?.value || ""}</td>
                 </tr>`
 
             }).filter(Boolean).join("");
@@ -87,15 +89,15 @@ export const displayResult = async (selectStoreName?: string) => {
                 <tr class="contractHeader">
                     <th style="width: 10px;">No.</th> <!-- index -->
                     <th style="width: 10px;">ランク</th>
-                    <th style="width: 200px;">お客様名</th>
-                    <th style="width: 150px;">契約予定金額</th>
+                    <th style="width: 120px;">お客様名</th>
+                    <th style="width: 100px;">契約予定金額</th>
                     <th style="width: 100px;">金融機関</th>
-                    <th style="width: 100px;">担当者</th>          <!-- ここすも営業 -->
-                    <th style="width: 100px;">エージェント</th>    <!-- ゆめてつAG -->
-                    <th style="width: 100px;">不動産決済日</th>
-                    <th style="width: 100px;">設計申込日</th>
-                    <th style="width: 100px;">契約予定日</th>
-                    <th style="width: 150px;">備考</th>   
+                    <th style="width: 80px;">担当者</th>          <!-- ここすも営業 -->
+                    <th style="width: 80px;">AG</th>    <!-- ゆめてつAG -->
+                    <th style="width: 80px;">不動産<br/>決済日</th>
+                    <th style="width: 80px;">設計<br/>申込日</th>
+                    <th style="width: 80px;">契約<br/>予定日</th>
+                    <th style="width: 100px;">備考</th>   
                 </tr>
             </thead>
             <tbody class="prospectContents">

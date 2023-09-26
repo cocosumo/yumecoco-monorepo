@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableContainer } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
-export const RemarksContainer = ({
+export const OverallRemarksContainer = ({
   children,
 }:{
   children: ReactNode

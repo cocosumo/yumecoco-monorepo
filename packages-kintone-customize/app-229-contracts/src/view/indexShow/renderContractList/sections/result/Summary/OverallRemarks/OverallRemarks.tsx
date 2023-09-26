@@ -1,10 +1,10 @@
 import { TableCell, TableRow } from '@mui/material';
-import { RemarksContainer } from './RemarksContainer';
+import { OverallRemarksContainer } from './OverallRemarksContainer';
 
-export const Remarks = () => {
+export const OverallRemarks = () => {
   
   return (
-    <RemarksContainer>
+    <OverallRemarksContainer>
       <TableRow>
         <TableCell 
           variant='head'
@@ -27,6 +27,6 @@ export const Remarks = () => {
           新築で数字を作るしかないので、何とか今の案件を契約まで持って行きます。
         </TableCell>
       </TableRow>
-    </RemarksContainer>
+    </OverallRemarksContainer>
   );
 };

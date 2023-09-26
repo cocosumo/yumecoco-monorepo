@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { Prospect } from './prospect/Prospect';
-import { Remarks } from './remarks/Remarks';
+import { OverallRemarks } from './OverallRemarks/OverallRemarks';
+import { OutcomesRemarks } from './outcomesRemarks/OutcomesRemarks';
 
 export const Summary = () => {
   return (
@@ -11,12 +12,13 @@ export const Summary = () => {
       width={2400}
     >
       {/* 備考 */}
-      <Remarks />
+      <OverallRemarks />
       
       {/* 見込み情報 */}
       <Prospect />
 
       {/* 成功と失敗事例 */}
+      <OutcomesRemarks />
 
       {/* 合計 */}
     </Stack>

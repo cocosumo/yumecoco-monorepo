@@ -1,6 +1,7 @@
 import { Paper, Stack } from '@mui/material';
 import { Contracts } from './contracts/Contracts';
 import { Summary } from './Summary/Summary';
+import style from './Result.module.css';
 
 export const Result = () => {
   
@@ -14,6 +15,8 @@ export const Result = () => {
       }}
       component={Paper}
       width={'100%'}
+      id='printNode'
+      className={style.print}
     >
       <Contracts />
       <Summary />

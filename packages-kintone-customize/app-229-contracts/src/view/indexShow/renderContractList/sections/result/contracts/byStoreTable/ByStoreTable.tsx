@@ -3,6 +3,7 @@ import { ByStoreTBody } from './ByStoreTBody';
 import { ByStoreTableContainer } from './ByStoreTableContainer';
 import { ByStoreSummary } from './ByStoreSummary';
 import { ByStoreNoRecords } from './ByStoreNoRecords';
+import { companyPropertyField } from '../../../../hooks/useContractResultGroupedByStore';
 
 export const ByStoreTable = ({
   storeName,
@@ -13,6 +14,7 @@ export const ByStoreTable = ({
 }) => {
 
   const hasRecords = records.length > 0;
+  const isCompanyProperty = storeName === companyPropertyField;
 
   return (
     <ByStoreTableContainer
@@ -20,8 +22,8 @@ export const ByStoreTable = ({
     >
       {hasRecords && (
       <>
-        <ByStoreTHead />
-        <ByStoreTBody records={records} />
+        <ByStoreTHead isCompanyProperty={isCompanyProperty} />
+        <ByStoreTBody records={records} isCompanyProperty={isCompanyProperty} />
         <ByStoreSummary records={records} />
       </>
       )}

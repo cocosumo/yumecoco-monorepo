@@ -4,8 +4,10 @@ import { FitText } from '../../../../../components/FitText';
 
 export const ByStoreTBody = ({
   records,
+  isCompanyProperty = false,
 }:{
-  records: DB.SavedRecord[]
+  records: DB.SavedRecord[],
+  isCompanyProperty?: boolean,
 }) => {
 
   return (
@@ -16,19 +18,26 @@ export const ByStoreTBody = ({
         projName,
         contractDate,
         contractAmountIntax,
-        yumeAGName, yumeAGName2,
+        yumeAGName, 
+        yumeAGName2,
+
+        cocosumoAGName,
+        storeName,
+        
       },
       index) => {
+
+        const yumeAGNames = [yumeAGName.value, yumeAGName2.value].filter(Boolean).join(', ');
 
         return (
           <ByStoreTRLayout 
             key={$id.value}
             index={index + 1}
-            custName={<FitText content={custName.value} />}
+            custName={<FitText content={isCompanyProperty ? storeName.value : custName.value} />}
             projName={<FitText content={projName.value} />}
             contractDate={contractDate.value}
             contractAmt={(+contractAmountIntax.value).toLocaleString()}
-            agentNames={[yumeAGName.value, yumeAGName2.value].filter(Boolean).join(', ')}
+            agentNames={isCompanyProperty ? cocosumoAGName.value : yumeAGNames}
             recId={$id.value}
           />
         );

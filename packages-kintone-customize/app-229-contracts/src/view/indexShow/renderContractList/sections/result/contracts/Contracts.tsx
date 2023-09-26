@@ -1,6 +1,6 @@
 import { LinearProgress } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
-import { useContractsResultGroupedByStore } from '../../../hooks/useContractResultGroupedByStore';
+import { companyPropertyField, useContractsResultGroupedByStore } from '../../../hooks/useContractResultGroupedByStore';
 import { useStores } from '../../../../../../hooks/useStores';
 import { ByStoreTable } from './byStoreTable/ByStoreTable';
 
@@ -32,6 +32,11 @@ export const Contracts = () => {
               records={data[storeName.value] || []}
             />
           ))}
+          <ByStoreTable 
+            records={data[companyPropertyField] || []}
+            storeName={companyPropertyField}
+            
+          />
         </Masonry>
 
       ) }

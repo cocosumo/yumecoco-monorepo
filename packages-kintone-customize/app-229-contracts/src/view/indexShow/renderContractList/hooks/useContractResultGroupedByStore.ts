@@ -1,6 +1,9 @@
 import { useMemo } from 'react';
 import { useContractsResult } from './useContractsResult';
 
+export const companyPropertyField = '自社物件';
+
+
 export const useContractsResultGroupedByStore = () => {
   const {
     data,
@@ -12,14 +15,26 @@ export const useContractsResultGroupedByStore = () => {
 
       const {
         storeName,
+        自社物件,
       } = cur;
+
+      const isCompanyProperty = 自社物件?.value.includes(companyPropertyField);
 
       const storeNameVal = storeName?.value;
 
-      if (acc[storeNameVal]) {
-        acc[storeNameVal].push(cur);
+      if (isCompanyProperty) {
+        // 自社物件の場合
+        if (acc[companyPropertyField]) {
+          acc[companyPropertyField].push(cur);
+        } else {
+          acc[companyPropertyField] = [cur];
+        }
       } else {
-        acc[storeNameVal] = [cur];
+        if (acc[storeNameVal]) {
+          acc[storeNameVal].push(cur);
+        } else {
+          acc[storeNameVal] = [cur];
+        }
       }
 
       return acc;

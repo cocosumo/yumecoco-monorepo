@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
 export interface RowLayoutProps {
@@ -23,17 +24,21 @@ export const ByStoreTRLayout = ({
   return (
     <TableRow>
       <TableCell 
-        sx={{ width: '10px' }}
+        align='center'
+        sx={{ 
+          width: '10px', 
+          fontSize: 10,
+        }}
       >
         {index}
       </TableCell>
       <TableCell
-        sx={{ width: '50px' }}
+        sx={{ width: '60px' }}
       >
         {custName}
       </TableCell>
       <TableCell 
-        sx={{ width: '100px' }}
+        sx={{ width: '120px' }}
       >
         {projName}
       </TableCell>
@@ -50,7 +55,7 @@ export const ByStoreTRLayout = ({
         {contractAmt}
       </TableCell>
       <TableCell 
-        sx={{ width: '20px' }}
+        sx={{ width: '30px' }}
       >
         {agentNames}
       </TableCell>

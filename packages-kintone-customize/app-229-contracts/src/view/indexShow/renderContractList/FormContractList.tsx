@@ -18,10 +18,9 @@ export const FormContractList = () => {
         noValidate
       >
         <Stack
-          spacing={2}
+          spacing={1}
           px={4}
           pt={2}
-          pb={4}
         >
           <Toolbar />
           <Result />

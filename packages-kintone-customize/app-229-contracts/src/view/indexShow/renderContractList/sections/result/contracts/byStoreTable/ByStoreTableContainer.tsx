@@ -1,4 +1,4 @@
-import { Box, Table, TableContainer } from '@mui/material';
+import { Box, Paper, Table, TableContainer } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
@@ -11,7 +11,7 @@ export const ByStoreTableContainer = ({
 }) => {
 
   return (
-    <TableContainer>
+    <TableContainer component={Paper}>
       {/* 
         Tried to set the title as the first row in thead but 
         column widths were ignored.

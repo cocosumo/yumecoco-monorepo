@@ -1,5 +1,6 @@
 import { TableBody } from '@mui/material';
 import { ByStoreTRLayout } from './ByStoreTRLayout';
+import { FitText } from '../../../../../components/FitText';
 
 export const ByStoreTBody = ({
   records,
@@ -23,8 +24,8 @@ export const ByStoreTBody = ({
           <ByStoreTRLayout 
             key={$id.value}
             index={index + 1}
-            custName={custName.value}
-            projName={projName.value}
+            custName={<FitText content={custName.value} />}
+            projName={<FitText content={projName.value} />}
             contractDate={contractDate.value}
             contractAmt={(+contractAmountIntax.value).toLocaleString()}
             agentNames={[yumeAGName.value, yumeAGName2.value].filter(Boolean).join(', ')}

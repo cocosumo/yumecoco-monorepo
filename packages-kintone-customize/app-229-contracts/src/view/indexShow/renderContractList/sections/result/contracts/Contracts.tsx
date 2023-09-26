@@ -1,4 +1,4 @@
-import { Box, LinearProgress, Paper } from '@mui/material';
+import { Box, LinearProgress } from '@mui/material';
 import Masonry from '@mui/lab/Masonry';
 import { useContractsResultGroupedByStore } from '../../../hooks/useContractResultGroupedByStore';
 import { useStores } from '../../../../../../hooks/useStores';
@@ -12,14 +12,7 @@ export const Contracts = () => {
   const { data: stores } = useStores();
 
   return (
-    <Box 
-      p={1}
-      sx={{ 
-        overflow: 'auto',
-        height: 'calc(80vh - 72px)',
-      }}
-      component={Paper}
-    >
+    <Box>
       {isLoading && <LinearProgress />}
       {!isLoading && !!stores && !!data && (
         <Masonry 

@@ -1,5 +1,7 @@
 import { TableCell, TableRow } from '@mui/material';
+import { getRecordPath } from 'api-kintone';
 import { ReactNode } from 'react';
+import { appId } from '../../../../../../../constants';
 
 export interface RowLayoutProps {
   index: ReactNode,
@@ -8,7 +10,7 @@ export interface RowLayoutProps {
   contractDate: ReactNode,
   contractAmt: ReactNode,
   agentNames: ReactNode, // ゆめてつAG
-
+  recId?: string,
 }
 
 export const ByStoreTRLayout = ({
@@ -18,10 +20,22 @@ export const ByStoreTRLayout = ({
   contractDate,
   contractAmt,
   agentNames,
+  recId,
 }: RowLayoutProps) => {
 
+  const handleClickRow = () => {
+    if (recId) {
+      const path = getRecordPath({
+        recordId: recId,
+        appId: String(appId),
+      });
+
+      window.open(path, '_blank');
+    }
+  };
+
   return (
-    <TableRow>
+    <TableRow onClick={handleClickRow}>
       <TableCell 
         align='center'
         sx={{ 

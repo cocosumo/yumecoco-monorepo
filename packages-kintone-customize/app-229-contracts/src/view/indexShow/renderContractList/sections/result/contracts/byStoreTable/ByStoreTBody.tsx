@@ -29,6 +29,7 @@ export const ByStoreTBody = ({
             contractDate={contractDate.value}
             contractAmt={(+contractAmountIntax.value).toLocaleString()}
             agentNames={[yumeAGName.value, yumeAGName2.value].filter(Boolean).join(', ')}
+            recId={$id.value}
           />
         );
       })}

@@ -52,6 +52,11 @@ export const ByStoreTableContainer = ({
           '& tbody tr:nth-of-type(odd)': {
             bgcolor: grey[50],
           },
+          // change row color when hovered
+          '& tbody tr:hover': {
+            bgcolor: grey[200],
+            cursor: 'pointer',
+          },
         }}
       >
         {children}

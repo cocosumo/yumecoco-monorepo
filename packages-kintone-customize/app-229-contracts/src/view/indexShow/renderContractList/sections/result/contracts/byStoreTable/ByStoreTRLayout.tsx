@@ -22,22 +22,36 @@ export const ByStoreTRLayout = ({
 
   return (
     <TableRow>
-      <TableCell width={20}>
+      <TableCell 
+        sx={{ width: '10px' }}
+      >
         {index}
       </TableCell>
-      <TableCell width={80}>
+      <TableCell
+        sx={{ width: '50px' }}
+      >
         {custName}
       </TableCell>
-      <TableCell width={100}>
+      <TableCell 
+        sx={{ width: '100px' }}
+      >
         {projName}
       </TableCell>
-      <TableCell align='center'>
+      <TableCell 
+        sx={{ width: '25px' }} 
+        align='center'
+      >
         {contractDate}
       </TableCell>
-      <TableCell align='right'>
+      <TableCell 
+        sx={{ width: '25px' }} 
+        align='right'
+      >
         {contractAmt}
       </TableCell>
-      <TableCell>
+      <TableCell 
+        sx={{ width: '20px' }}
+      >
         {agentNames}
       </TableCell>
     </TableRow>

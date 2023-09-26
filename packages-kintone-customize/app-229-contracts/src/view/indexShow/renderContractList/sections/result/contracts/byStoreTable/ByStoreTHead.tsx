@@ -1,24 +1,11 @@
-import { TableCell, TableHead, TableRow } from '@mui/material';
+import { TableHead } from '@mui/material';
 import { ByStoreTRLayout } from './ByStoreTRLayout';
 
-export const ByStoreTHead = ({
-  tableTitle,
-}:{
-  tableTitle: string,
-}) => {
+export const ByStoreTHead = () => {
   
   return (
-    <TableHead>
-      <TableRow
-        sx={{
-          backgroundColor: 'rgba(224, 224, 224, 1)',
-        }}
-      >
-        <TableCell align='center' colSpan={6}>
-          {tableTitle}
-        </TableCell>
-      </TableRow>
-  
+    <TableHead >
+
       <ByStoreTRLayout 
         index='件数'
         custName='発注者'

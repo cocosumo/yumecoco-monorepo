@@ -11,23 +11,21 @@ export const Contracts = () => {
   const { data, isLoading } = useContractsResultGroupedByStore();
   const { data: stores } = useStores();
 
-  if (isLoading) return <LinearProgress />;
-
-
   return (
     <Box 
       p={1}
       sx={{ 
-        minHeight: 393,
-        overflowX: 'auto',
-        overflowY: 'hidden',
+        overflow: 'auto',
+        height: 'calc(80vh - 72px)',
       }}
       component={Paper}
     >
-      {!!stores && !!data && (
+      {isLoading && <LinearProgress />}
+      {!isLoading && !!stores && !!data && (
         <Masonry 
           sx={{
             width: 2400,
+            
           }}
           columns={3} spacing={2}
         >

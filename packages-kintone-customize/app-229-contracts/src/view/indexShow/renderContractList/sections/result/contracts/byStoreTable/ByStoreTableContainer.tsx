@@ -25,6 +25,7 @@ export const ByStoreTableContainer = ({
           fontWeight: 'bold',
           fontSize: '16px',
           bgcolor: grey[300],
+          color: grey[800],
         }}
         
       >
@@ -43,6 +44,7 @@ export const ByStoreTableContainer = ({
           '& td, & th': {
             padding: '0px 4px',
             fontSize: '12px',
+            color: grey[700],
           },
           '& th': {
             fontWeight: 'bold ',

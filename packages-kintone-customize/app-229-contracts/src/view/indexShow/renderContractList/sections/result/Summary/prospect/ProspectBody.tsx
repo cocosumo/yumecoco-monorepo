@@ -17,7 +17,9 @@ export const ProspectBody = () => {
           borderColor: grey[300],
 
         },
-        textAlign: 'center',
+        '& td':{
+          textAlign: 'center',
+        },
         
       }}
     >

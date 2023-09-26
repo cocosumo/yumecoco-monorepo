@@ -10,7 +10,7 @@ export const ProspectContainer = ({
     <TableContainer 
       component={Paper}
       sx={{
-        width: 'fit-content',
+        width: '25%',
       }}
     >
       <Table 

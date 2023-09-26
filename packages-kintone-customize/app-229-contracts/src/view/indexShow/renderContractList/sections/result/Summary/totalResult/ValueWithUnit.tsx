@@ -15,6 +15,8 @@ export const ValueWithUnit = ({
       <Typography 
         component={'span'}
         fontSize={28}
+        color={grey[700]}
+        letterSpacing={2}
       >
         {roundTo(value).toLocaleString()}
       </Typography>

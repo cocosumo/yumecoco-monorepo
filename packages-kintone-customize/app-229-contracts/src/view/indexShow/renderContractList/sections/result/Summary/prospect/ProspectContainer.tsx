@@ -15,6 +15,9 @@ export const ProspectContainer = ({
     >
       <Table 
         size='small'
+        sx={{
+          height: '100%',
+        }}
       >
         {children}
       </Table>

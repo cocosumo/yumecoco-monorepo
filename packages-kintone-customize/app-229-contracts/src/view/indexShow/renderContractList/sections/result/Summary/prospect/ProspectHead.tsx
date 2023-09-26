@@ -21,6 +21,9 @@ export const ProspectHead = () => {
       <TableRow>
         <TableCell 
           colSpan={6}
+          sx={{
+            bgcolor: grey[200],
+          }}
         >
           いつの見込み案件か
         </TableCell>

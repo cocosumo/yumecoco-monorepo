@@ -19,7 +19,7 @@ export const OverallRemarksContainer = ({
         sx={{
           height: '100%',
           '& th':{
-            bgcolor: grey[50],
+            bgcolor: grey[200],
             fontWeight: 'bold',
             color: grey[700],
           },

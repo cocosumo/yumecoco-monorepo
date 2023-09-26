@@ -9,6 +9,7 @@ export const OverallRemarks = () => {
         <TableCell 
           variant='head'
           component={'th'}
+          width={30}
         >
           未達の理由
         </TableCell>

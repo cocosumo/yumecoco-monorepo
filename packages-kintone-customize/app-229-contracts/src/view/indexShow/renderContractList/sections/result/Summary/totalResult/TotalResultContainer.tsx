@@ -2,34 +2,36 @@ import { Paper, Table, TableBody, TableContainer } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 
-export const OverallRemarksContainer = ({
+export const TotalResultContainer = ({
   children,
 }:{
   children: ReactNode
 }) => {
+  
   return (
-    <TableContainer 
+    <TableContainer
+      component={Paper}
       sx={{
         width: '20%',
       }}
-      component={Paper}
     >
       <Table
         size='small'
         sx={{
           height: '100%',
           '& th':{
-            bgcolor: grey[200],
             fontWeight: 'bold',
+            bgcolor: grey[200],
+            fontSize: 16,
             color: grey[700],
+            width: 160,
           },
-          '& td, & th':{
-            fontSize: '12px',
-          },
+          
         }}
       >
         <TableBody>
           {children}
+
         </TableBody>
       </Table>
     </TableContainer>

@@ -2,12 +2,13 @@ import { Stack } from '@mui/material';
 import { Prospect } from './prospect/Prospect';
 import { OverallRemarks } from './OverallRemarks/OverallRemarks';
 import { OutcomesRemarks } from './outcomesRemarks/OutcomesRemarks';
+import { TotalResult } from './totalResult/TotalResult';
 
 export const Summary = () => {
   return (
     <Stack
       direction={'row'}
-      //justifyContent={'space-between'}
+      justifyContent={'space-between'}
       spacing={2}
       width={2400}
     >
@@ -21,6 +22,7 @@ export const Summary = () => {
       <OutcomesRemarks />
 
       {/* 合計 */}
+      <TotalResult />
     </Stack>
   );
 };

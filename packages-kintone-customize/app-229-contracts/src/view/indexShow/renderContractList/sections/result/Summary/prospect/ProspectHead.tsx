@@ -31,7 +31,7 @@ export const ProspectHead = () => {
           '& th': {
             fontSize: 12,
           },
-          '& th:not(:last-child)': {
+          '& th:not(:last-of-type)': {
             borderRight: '4px double',
             borderColor: grey[300],
           },
@@ -50,7 +50,7 @@ export const ProspectHead = () => {
 
       <TableRow
         sx={{
-          '& th:nth-child(2n):not(:last-child)': {
+          '& th:nth-of-type(2n):not(:last-of-type)': {
             borderRight: '4px double',
             borderColor: grey[300],
           },

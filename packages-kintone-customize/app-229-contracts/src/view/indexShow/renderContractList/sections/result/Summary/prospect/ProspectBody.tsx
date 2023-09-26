@@ -5,14 +5,14 @@ export const ProspectBody = () => {
   return (
     <TableBody 
       sx={{
-        // apply thick border to every 2nd cell, exept the last one
-        '& td:nth-child(2n):not(:last-child)': {
+        //convert above to nth-of-type
+        '& td:nth-of-type(2n):not(:last-of-type)': {
           borderRight: '4px double',
           borderColor: grey[300],
 
         },
-        // apply a thin border to every 1st cell
-        '& td:nth-child(2n+1)': {
+
+        '& td:nth-of-type(2n+1)': {
           borderRight: '1px solid',
           borderColor: grey[300],
 

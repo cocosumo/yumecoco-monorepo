@@ -24,7 +24,7 @@ export const ByStoreTableContainer = ({
           height: '30px',
           fontWeight: 'bold',
           fontSize: '16px',
-          bgcolor: grey[100],
+          bgcolor: grey[300],
         }}
         
       >
@@ -49,7 +49,7 @@ export const ByStoreTableContainer = ({
             bgcolor: grey[200],
           },
           // alternate row color
-          '& tbody tr:nth-of-type(odd)': {
+          '& tbody tr:nth-of-type(even)': {
             bgcolor: grey[50],
           },
           // change row color when hovered

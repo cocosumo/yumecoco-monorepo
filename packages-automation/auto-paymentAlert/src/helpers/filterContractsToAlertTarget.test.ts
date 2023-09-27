@@ -19,12 +19,17 @@ describe('filterContractsToAlertTarget', () => {
     const contracts = JSON.parse(fs.readFileSync(contractsPath, 'utf8')) as ContractRecordType[];
 
     const newDate = addMonths(new Date(), -3);
-    const idx = contracts.findIndex(({ uuid })=> uuid.value === testId);
+    const idx = contracts.findIndex(({ uuid }) => uuid.value === testId);
     contracts[idx].contractDate.value = format(newDate, 'yyyy-MM-dd');
 
 
-    const allAndpadPayments = await getAllAndpadPayments();
-    const allPaymentReminders = await getAllPaymentReminder();
+    const [
+      allAndpadPayments,
+      allPaymentReminders,
+    ] = await Promise.all([
+      getAllAndpadPayments(),
+      getAllPaymentReminder(),
+    ]);
 
     const result = await filterContractsToAlertTarget({
       contracts: contracts,

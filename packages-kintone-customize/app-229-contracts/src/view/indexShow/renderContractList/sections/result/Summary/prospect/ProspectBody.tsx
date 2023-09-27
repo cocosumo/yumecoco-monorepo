@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useFilteredProjects } from '../../../../hooks/useFilteredProjects';
 import { useTotalResult } from '../../../../hooks/useTotalResult';
 import { roundTo } from 'libs';
+import { ProspectsNextMonth } from './ProspectsNextMonth';
 
 /**
  * 当月反響
@@ -83,10 +84,6 @@ export const ProspectBody = () => {
   const numOfProspectsBefore = totalNumOfContracts - numOfProspectsThisMonth;
   const amtOfProspectsBefore = totalAmtExclTax - amtOfProspectsThisMonth ;
 
-  const numOfProspectsNextMonth = 0;
-  const amtOfProspectsNextMonth = 0;
-
-
   return (
     <TableBody 
       sx={{
@@ -125,13 +122,7 @@ export const ProspectBody = () => {
           {amtOfProspectsThisMonth.toLocaleString()}
         </TableCell>
 
-        <TableCell>
-          {numOfProspectsNextMonth}
-          件
-        </TableCell>
-        <TableCell>
-          {amtOfProspectsNextMonth.toLocaleString()}
-        </TableCell>
+        <ProspectsNextMonth />
       </TableRow>
     </TableBody>
   );

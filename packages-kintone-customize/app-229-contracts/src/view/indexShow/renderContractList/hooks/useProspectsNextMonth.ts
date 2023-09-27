@@ -1,6 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { getMonthRange } from "../../../../helpers/getMonthRange";
-import { useTypedWatch } from "./useTypedRHF";
+import { useQuery } from '@tanstack/react-query';
+import { getMonthRange } from '../../../../helpers/getMonthRange';
+import { useTypedWatch } from './useTypedRHF';
+import { KProjects } from 'types';
+import { getAllProjects } from 'api-kintone';
+
+const dateFieldKey: KProjects = 'schedContractDate';
+
 
 /**
  * 来月見込み
@@ -21,13 +26,14 @@ export const useProspectsNextMonth = () => {
   });
 
   const {
-    minDateStr,
-    maxDateteStr,
+    maxDateStr,
   } = getMonthRange(year, month);
 
   const condition = [
-
-  ]
+    `${dateFieldKey} > "${maxDateStr}"`,
+    `${dateFieldKey} = ""`,
+  ].join(' or ');
+  
 
   return useQuery(
     ['prospectsNextMonth', condition],

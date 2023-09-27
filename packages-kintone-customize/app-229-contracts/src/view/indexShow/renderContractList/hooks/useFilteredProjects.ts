@@ -24,12 +24,12 @@ export const useFilteredProjects = () => {
 
   const {
     minDateStr,
-    maxDateteStr,
+    maxDateStr,
   } = getMonthRange(year, month);
 
   const condition = [
     `${dateFieldKey} >= "${minDateStr}"`,
-    `${dateFieldKey} <= "${maxDateteStr}"`,
+    `${dateFieldKey} <= "${maxDateStr}"`,
   ].join(' and ');
   
 

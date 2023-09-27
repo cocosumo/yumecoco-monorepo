@@ -4,17 +4,26 @@ import { KContracts } from 'types';
 
 /** ココアスの契約情報 */
 const envStatusKey: KContracts = 'envelopeStatus';
-export const useCompletedContracts = () => {
+const projIdKey: KContracts = 'projId';
+export const useCompletedContracts = (projIds: string[]) => {
+
+  const projIdsConditions = projIds
+    .map((projId) => `${projIdKey} = "${projId}"`)
+    .join(' or ');
 
   const condition = [
-    `${envStatusKey} = "completed"`,
+    `${envStatusKey} != ""`,
+    `(${projIdsConditions})`,
   ].join(' and ');
 
   return useQuery(
-    ['completed-contracts'],
+    ['completed-contracts', projIds],
     async () => getAllContracts({
       condition,
       orderBy: `${envStatusKey} desc`,
     }),
+    {
+      enabled: projIds.length > 0,
+    },
   );
 };

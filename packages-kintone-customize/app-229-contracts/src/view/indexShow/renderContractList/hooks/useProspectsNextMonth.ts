@@ -4,8 +4,12 @@ import { useTypedWatch } from './useTypedRHF';
 import { KProjects } from 'types';
 import { getAllProjects } from 'api-kintone';
 import { useCompletedContracts } from './useCompletedContracts';
+import { useMemo } from 'react';
+//import endOfMonth from 'date-fns/endOfMonth';
+//import format from 'date-fns/format';
 
-const schedContractDate: KProjects = 'schedContractDate';
+const schedContractDateKey: KProjects = 'schedContractDate';
+const createDate: KProjects = '作成日時';
 
 
 /**
@@ -31,28 +35,50 @@ export const useProspectsNextMonth = () => {
     maxDateStr,
   } = getMonthRange(year, month);
 
-  const condition = [
-    `${schedContractDate} > "${maxDateStr}"`,
-    `${schedContractDate} = ""`,
+  const schedContractCondition = [
+    `${schedContractDateKey} > "${maxDateStr}"`,
+    `${schedContractDateKey} = ""`,
   ].join(' or ');
 
-  const { data: contracts } = useCompletedContracts();
+  const condition = [
+    `(${schedContractCondition})`,
+    `${createDate} <= "${maxDateStr}"`,
+  ].join(' and ');
 
-  return useQuery(
+  
+
+  const result = useQuery(
     ['prospectsNextMonth', condition],
     async () => getAllProjects({
       condition,
-    }).then(
-      (res) => res
-        .filter((project) => {
-        // 契約がないもののみ
-          const hasContract = contracts?.some((c) => c.projId.value === project.uuid.value);
-          return !hasContract;
-        }),
-    ),
-    {
-      enabled: !!contracts,
-    },
-
+    }),
   );
+  const { data: prospects } = result || {};
+
+  const projIds = prospects?.map((prospect) => prospect.uuid.value) || [];
+
+  const { data: contracts } = useCompletedContracts(projIds);
+
+  const filteredData = useMemo(() => {
+    if (!prospects || !contracts) {
+      return null;
+    }
+
+    return  prospects?.filter((prospect) => {
+      const projId = prospect.uuid.value;
+      const hasContract = contracts?.some((contract) => contract.projId.value === projId);
+      return !hasContract;
+    });
+  }, [
+    prospects,
+    contracts,
+  ]);
+
+  return {
+    ...result,
+    data: { 
+      filteredData,
+      contracts,
+    },
+  };
 };

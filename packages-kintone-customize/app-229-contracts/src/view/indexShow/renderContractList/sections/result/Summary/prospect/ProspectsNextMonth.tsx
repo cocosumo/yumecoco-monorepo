@@ -7,7 +7,8 @@ export const ProspectsNextMonth = () => {
 
   const result = useMemo(
     () =>{
-      return data?.reduce((acc, cur) => {
+      
+      return data?.filteredData?.reduce((acc, cur) => {
         return {
           numOfProspectsNextMonth: acc.numOfProspectsNextMonth + 1,
           amtOfProspectsNextMonth: acc.amtOfProspectsNextMonth + (+cur.schedContractPrice.value),

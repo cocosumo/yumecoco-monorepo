@@ -12,6 +12,9 @@
     height: 90%;
     background-color: #fff;
   }
+  #root {
+    padding-bottom: 12px;
+  }
 
   .contents-actionmenu-gaia,
   .contents-bottommenu-gaia,

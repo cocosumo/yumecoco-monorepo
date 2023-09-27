@@ -1,4 +1,4 @@
-import { Divider, Menu } from '@mui/material';
+import { Menu } from '@mui/material';
 import { useProspectsNextMonth } from '../../../../../hooks/useProspectsNextMonth';
 import { ProspectItem } from './ProspectItem';
 
@@ -33,20 +33,16 @@ export const ProspectsList = ({
         vertical: 'top',
         horizontal: 'left',
       }}
-
+      
     >
       {filteredData?.map((projRec, idx) => {
         return (
-          <>
-            <ProspectItem 
-              idx={idx}
-              handleClose={handleClose}
-              key={projRec.uuid.value}
-              {...projRec}
-            />
-            <Divider />
-
-          </>
+          <ProspectItem 
+            idx={idx}
+            handleClose={handleClose}
+            key={projRec.uuid.value}
+            {...projRec}
+          />
           
         );
       })}

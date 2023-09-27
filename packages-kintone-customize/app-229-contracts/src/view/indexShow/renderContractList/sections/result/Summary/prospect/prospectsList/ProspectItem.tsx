@@ -24,10 +24,12 @@ export const ProspectItem = ({
   };
 
   return (
-    <MenuItem onClick={() =>{
-      handleClick();
-      handleClose();
-    }}
+    <MenuItem 
+      onClick={() =>{
+        handleClick();
+        handleClose();
+      }}
+      divider
     >
       <Stack>
         <Stack

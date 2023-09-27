@@ -4,12 +4,10 @@ import { useTypedWatch } from './useTypedRHF';
 import { KProjects } from 'types';
 import { getAllProjects } from 'api-kintone';
 import { useCompletedContracts } from './useCompletedContracts';
-import { useMemo } from 'react';
-//import endOfMonth from 'date-fns/endOfMonth';
-//import format from 'date-fns/format';
 
 const schedContractDateKey: KProjects = 'schedContractDate';
 const createDate: KProjects = '作成日時';
+const recordStatus: KProjects = 'cancelStatus';
 
 
 /**
@@ -43,41 +41,48 @@ export const useProspectsNextMonth = () => {
   const condition = [
     `(${schedContractCondition})`,
     `${createDate} <= "${maxDateStr}"`,
+    `${recordStatus} = ""`,
   ].join(' and ');
 
   
 
+  // cache projects
   const result = useQuery(
-    ['prospectsNextMonth', condition],
+    ['registeredProjects', condition],
     async () => getAllProjects({
       condition,
     }),
   );
-  const { data: prospects } = result || {};
+  const { data: projects } = result || {};
 
-  const projIds = prospects?.map((prospect) => prospect.uuid.value) || [];
-
+  const projIds = projects?.map((p) => p.uuid.value) || [];
+  
+  // cache contracts
   const { data: contracts } = useCompletedContracts(projIds);
 
-  const filteredData = useMemo(() => {
-    if (!prospects || !contracts) {
-      return null;
-    }
-
-    return  prospects?.filter((prospect) => {
-      const projId = prospect.uuid.value;
-      const hasContract = contracts?.some((contract) => contract.projId.value === projId);
-      return !hasContract;
-    });
-  }, [
-    prospects,
-    contracts,
-  ]);
+  // Cached final result
+  const { data: prospectsNextMonth } = useQuery(
+    ['prospectsNextMonth', condition],
+    async () => {
+      if (!projects || !contracts) {
+        return null;
+      }
+  
+      return  projects?.filter((p) => {
+        const projId = p.uuid.value;
+        const hasContract = contracts?.some((contract) => contract.projId.value === projId);
+        return !hasContract;
+      });
+    },
+    {
+      enabled: !!projects && !!contracts,
+    },
+  );
 
   return {
     ...result,
     data: { 
-      filteredData,
+      filteredData: prospectsNextMonth,
       contracts,
     },
   };

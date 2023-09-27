@@ -1,5 +1,6 @@
 import { TableCell, TableHead, TableRow } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { ProspectNextMonthHead } from './ProspectNextMonthHead';
 
 export const ProspectHead = () => {
   return (
@@ -18,33 +19,28 @@ export const ProspectHead = () => {
       }}
     >
 
-      <TableRow>
+      <TableRow
+        sx={{
+          '& th:first-of-type': {
+            bgcolor: grey[200],
+            borderRight: '4px double',
+            borderColor: grey[300],
+          },
+        }}
+      >
         <TableCell 
           colSpan={4}
-          sx={{
-            bgcolor: grey[200],
-          }}
         >
           いつの見込み案件か
         </TableCell>
-        <TableCell 
-          colSpan={2} 
-          rowSpan={2}
-          style={{
-            borderLeft: '4px double',
-            borderColor: grey[300],
-          }}
-        >
-          来月の見込み
-        </TableCell>
+
+        <ProspectNextMonthHead />
       </TableRow>
 
       <TableRow
         sx={{
           '& th': {
             fontSize: 12,
-          },
-          '& th:not(:last-of-type)': {
             borderRight: '4px double',
             borderColor: grey[300],
           },

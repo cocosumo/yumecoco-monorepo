@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { useFilteredProjects } from '../../../../hooks/useFilteredProjects';
 import { useTotalResult } from '../../../../hooks/useTotalResult';
 import { roundTo } from 'libs';
-import { ProspectsNextMonth } from './ProspectsNextMonth';
+import { ProspectsNextMonthContent } from './ProspectsNextMonthContent';
 
 /**
  * 当月反響
@@ -122,7 +122,7 @@ export const ProspectBody = () => {
           {amtOfProspectsThisMonth.toLocaleString()}
         </TableCell>
 
-        <ProspectsNextMonth />
+        <ProspectsNextMonthContent />
       </TableRow>
     </TableBody>
   );

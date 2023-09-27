@@ -2,7 +2,7 @@ import { TableCell } from '@mui/material';
 import { useProspectsNextMonth } from '../../../../hooks/useProspectsNextMonth';
 import { useMemo } from 'react';
 
-export const ProspectsNextMonth = () => {
+export const ProspectsNextMonthContent = () => {
   const { data } = useProspectsNextMonth();
 
   const result = useMemo(

@@ -33,6 +33,7 @@ export const OutcomesByArea = ({
         </TableCell>
         <TableCell 
           sx={{
+            width: 40,
             color: grey[700],
             fontWeight: 'bold',
             borderColor: grey[300],

@@ -20,8 +20,6 @@ export const useTotalResult = () => {
         totalNumOfContracts: 0,
       };
 
-      console.log('recalculated');
-
       return data?.reduce((acc, cur) => {
         const {
           contractAmountIntax,

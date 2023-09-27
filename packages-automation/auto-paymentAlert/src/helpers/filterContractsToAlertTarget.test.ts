@@ -6,6 +6,7 @@ import { filterContractsToAlertTarget } from './filterContractsToAlertTarget';
 import { getAllAndpadPayments } from 'api-kintone';
 import { ContractRecordType } from '../../config';
 import addMonths from 'date-fns/addMonths';
+import { getAllPaymentReminder } from '../api-kintone';
 
 
 describe('filterContractsToAlertTarget', () => {
@@ -18,15 +19,22 @@ describe('filterContractsToAlertTarget', () => {
     const contracts = JSON.parse(fs.readFileSync(contractsPath, 'utf8')) as ContractRecordType[];
 
     const newDate = addMonths(new Date(), -3);
-    const idx = contracts.findIndex(({ uuid })=> uuid.value === testId);
+    const idx = contracts.findIndex(({ uuid }) => uuid.value === testId);
     contracts[idx].contractDate.value = format(newDate, 'yyyy-MM-dd');
 
 
-    const allAndpadPayments = await getAllAndpadPayments();
+    const [
+      allAndpadPayments,
+      allPaymentReminders,
+    ] = await Promise.all([
+      getAllAndpadPayments(),
+      getAllPaymentReminder(),
+    ]);
 
     const result = await filterContractsToAlertTarget({
       contracts: contracts,
       andpadPayments: allAndpadPayments,
+      reminders: allPaymentReminders,
     });
 
     const dir = path.join(__dirname, '__TEST__');

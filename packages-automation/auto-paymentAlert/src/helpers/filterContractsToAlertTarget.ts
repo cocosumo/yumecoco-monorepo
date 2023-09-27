@@ -1,5 +1,5 @@
 import { IAndpadpayments } from 'types';
-import { ContractRecordType, TgtProjType } from '../../config';
+import { ContractRecordType, IPaymentReminder, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
 import format from 'date-fns/format';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';
@@ -12,9 +12,11 @@ import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 export const filterContractsToAlertTarget = ({
   contracts,
   andpadPayments,
+  reminders,
 }: {
   contracts: ContractRecordType[]
   andpadPayments: IAndpadpayments[]
+  reminders: IPaymentReminder[]
 }) => {
 
   return contracts.reduce((acc, contract) => {
@@ -35,6 +37,11 @@ export const filterContractsToAlertTarget = ({
       othersAmtDate,
     } = contract;
 
+    // 既に同工事のリマインダーが存在する場合は処理行わない
+    if (reminders.some(({ projId }) => projId.value === contractProjId.value)) {
+      console.log('工事番号の重複を確認しました:', contractProjId);
+      return acc;
+    }
 
     // 契約書から一番過去の支払日を取得する
     const contractAmtPaymentDate = getEarliestDateOfContract({
@@ -45,7 +52,7 @@ export const filterContractsToAlertTarget = ({
         finalAmtDate.value,
         othersAmtDate.value,
       ],
-      contractAmts:[
+      contractAmts: [
         contractAmt.value,
         initialAmt.value,
         interimAmt.value,

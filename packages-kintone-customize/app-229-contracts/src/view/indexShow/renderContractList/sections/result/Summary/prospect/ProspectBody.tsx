@@ -2,56 +2,89 @@ import { TableBody, TableCell, TableRow } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { useContractsResult } from '../../../../hooks/useContractsResult';
 import { useMemo } from 'react';
+import { useFilteredProjects } from '../../../../hooks/useFilteredProjects';
+import { useTotalResult } from '../../../../hooks/useTotalResult';
+import { roundTo } from 'libs';
 
+/**
+ * 当月反響
+ * * 作成日と契約日の月が一緒
+ * 
+ * 前月反響
+ * * (実績 - 当月反響)
+ * 
+ * 来月見込み
+ * * 次月と見込み案件の「契約予定日」の月が一緒、もしくは「契約予定日」が空。
+ * * 引っ張るのは「契約予定金額」
+ * 
+ */
 export const ProspectBody = () => {
-  const { data } = useContractsResult();
+  const { data: contracts } = useContractsResult();
+  const { data: projects } = useFilteredProjects();
+  const { data: totalResult } = useTotalResult();
+
+  const {
+    totalAmtExclTax = 0,
+    totalNumOfContracts = 0,
+  } = totalResult || {};
   
 
   const {
-    numOfProspectsBefore,
-    amtOfProspectsBefore,
 
     numOfProspectsThisMonth,
     amtOfProspectsThisMonth,
 
-    numOfProspectsNextMonth,
-    amtOfProspectsNextMonth,
   } = useMemo(() => {
     const initialValues = {
       numOfProspectsThisMonth: 0,
       amtOfProspectsThisMonth: 0,
 
-      numOfProspectsNextMonth: 0,
-      amtOfProspectsNextMonth: 0,
-
-      numOfProspectsBefore: 0,
-      amtOfProspectsBefore: 0,
     };
 
-    if (!data) {
+    if (!contracts) {
       return initialValues;
     }
 
-    return data.reduce((acc, cur) => {
+    return contracts.reduce((acc, cur) => {
       const {
-        projectId,
+        projectId: fkProjId,
       } = cur;
 
-      if (!projectId.value) {
-        return {
-          ...acc,
-          numOfProspectsBefore: acc.numOfProspectsBefore + 1,
-          amtOfProspectsBefore: acc.amtOfProspectsBefore + (+cur.contractAmountIntax.value),
-        };
+      if (fkProjId.value) {
+        const isContratThisMonth = projects?.some(({
+          uuid: projId,
+
+        }) => {
+
+          return projId.value === fkProjId.value;
+        });
+
+
+        if (isContratThisMonth) {
+          return {
+            ...acc,
+            numOfProspectsThisMonth: acc.numOfProspectsThisMonth + 1,
+            amtOfProspectsThisMonth: acc.amtOfProspectsThisMonth + (+cur.contractAmountIntax.value),
+          };
+        } 
+
       }
 
       return acc;
-
+      
     }, initialValues);
 
     
-  }, [data]);
+  }, [
+    contracts, 
+    projects,
+  ]);
 
+  const numOfProspectsBefore = totalNumOfContracts - numOfProspectsThisMonth;
+  const amtOfProspectsBefore = totalAmtExclTax - amtOfProspectsThisMonth ;
+
+  const numOfProspectsNextMonth = 0;
+  const amtOfProspectsNextMonth = 0;
 
 
   return (
@@ -77,11 +110,11 @@ export const ProspectBody = () => {
     >
       <TableRow>
         <TableCell>
-          {numOfProspectsBefore}
+          {numOfProspectsBefore.toLocaleString()}
           件
         </TableCell>
         <TableCell>
-          {amtOfProspectsBefore.toLocaleString()}	
+          {roundTo(amtOfProspectsBefore).toLocaleString()}	
         </TableCell>
 
         <TableCell>

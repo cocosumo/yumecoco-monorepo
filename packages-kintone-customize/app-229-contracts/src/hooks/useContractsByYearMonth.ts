@@ -21,9 +21,11 @@ export const useContractsByYearMonth = ({
     `${contractDateKey} <= "${maxDateteStr}"`,
   ].join(' and ');
 
-  return useContracts({
+  return {
     condition,
-  });
+    ...useContracts({
+      condition,
+    }) };
   
 
 };

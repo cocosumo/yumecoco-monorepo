@@ -1,44 +1,17 @@
 import { TableCell, TableRow } from '@mui/material';
 import { TotalResultContainer } from './TotalResultContainer';
 import { ValueWithUnit } from './ValueWithUnit';
-import { useMemo } from 'react';
-import { useContractsResult } from '../../../../hooks/useContractsResult';
+import { useTotalResult } from '../../../../hooks/useTotalResult';
 
 export const TotalResult = () => {
 
-  const { data } = useContractsResult();
-
+  const { data } = useTotalResult();
 
   const {
-    totalAmtInclTax,
     totalAmtExclTax,
+    totalAmtInclTax,
     totalNumOfContracts,
-  } = useMemo(() => {
-    if (!data) return {
-      totalAmtInclTax: 0,
-      totalAmtExclTax: 0,
-      totalNumOfContracts: 0,
-    };
-
-    return data?.reduce((acc, cur) => {
-      const {
-        contractAmountIntax,
-        contractAmountNotax,
-      } = cur;
-
-      return {
-        totalAmtInclTax: acc.totalAmtInclTax + +contractAmountIntax.value,
-        totalAmtExclTax: acc.totalAmtExclTax + +contractAmountNotax.value,
-        totalNumOfContracts: acc.totalNumOfContracts + 1,
-      };
-    }, {
-      totalAmtInclTax: 0,
-      totalAmtExclTax: 0,
-      totalNumOfContracts: 0,
-    });
-
-
-  }, [data]);
+  } = data || {};
 
   return (
     <TotalResultContainer>
@@ -50,7 +23,7 @@ export const TotalResult = () => {
         </TableCell>
         <TableCell align='right'>
           <ValueWithUnit
-            value={totalAmtExclTax}
+            value={totalAmtExclTax || 0}
             unit={'円'}
           />
         </TableCell>
@@ -62,7 +35,7 @@ export const TotalResult = () => {
         </TableCell>
         <TableCell align='right'>
           <ValueWithUnit
-            value={totalAmtInclTax}
+            value={totalAmtInclTax || 0}
             unit={'円'}
           />
         </TableCell>
@@ -74,7 +47,7 @@ export const TotalResult = () => {
         </TableCell>
         <TableCell align='right'>
           <ValueWithUnit
-            value={totalNumOfContracts}
+            value={totalNumOfContracts || 0}
             unit={'件'}
           />
         </TableCell>

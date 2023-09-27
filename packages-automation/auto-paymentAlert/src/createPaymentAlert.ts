@@ -59,7 +59,7 @@ export const createPaymentAlert = async () => {
   // リマインダーアプリから通知対象を取得する
   const alertReminderJson = convertReminderToJson({
     reminder: alertReminder,
-    //andpadPayments: allAndpadPayments,
+    andpadPayments: allAndpadPayments,
   });
 
   return alertContractsJson.concat(alertReminderJson);

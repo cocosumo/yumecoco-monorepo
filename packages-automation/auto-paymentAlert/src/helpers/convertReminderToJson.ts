@@ -1,16 +1,16 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IPaymentReminder, reminderAppId } from '../../config';
 import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
-//import { IAndpadpayments } from 'types';
+import { IAndpadpayments } from 'types';
 
 
 
 export const convertReminderToJson = ({
   reminder,
-  //andpadPayments, // TODO
+  andpadPayments,
 }: {
   reminder: IPaymentReminder[]
-  //andpadPayments: IAndpadpayments[],
+  andpadPayments: IAndpadpayments[],
 }) => {
 
   return reminder.map(({
@@ -18,14 +18,16 @@ export const convertReminderToJson = ({
     andpadUrl,
     area,
     contractId,
-    projId,
+    projId: projIdReminder,
     projType,
     projName,
     contractDate,
     totalContractAmount,
     notificationSettings,
+    expectedPaymentDate,
   }) => {
 
+    // 通知先情報(chatwork)を設定する
     const cwRoomIds = notificationSettings.value.map(({ value }) => {
       const {
         alertTargetId,
@@ -40,14 +42,23 @@ export const convertReminderToJson = ({
       } as CwRoomIds;
     });
 
-
+    // kintoneのリマインダーURLを設定する
     const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}`;
 
+    // 顧客からの入金情報を確認する
+    const paymentHistory = andpadPayments.some(({
+      projId,
+      paymentDate,
+      //paymentAmount,
+    }) => ((projIdReminder.value === projId.value) && (paymentDate.value !== '')));
+
     return ({
+      alertState: !paymentHistory,
+      expectedPaymentDate: expectedPaymentDate.value,
       andpadPaymentUrl: andpadUrl.value,
       reminderUrl: reminderUrl,
       contractId: contractId.value,
-      projId: projId.value,
+      projId: projIdReminder.value,
       projName: projName.value,
       projType: projType.value,
       contractDate: contractDate.value,

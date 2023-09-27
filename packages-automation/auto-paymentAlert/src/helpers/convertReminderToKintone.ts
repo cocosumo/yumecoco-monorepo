@@ -43,7 +43,7 @@ export const convertReminderToKintone = ({
       expectedPaymentDate: { value: expectedPaymentDate ?? '' },
       projType: { value: projType },
       projName: { value: projName },
-      alertDate: { value: format(new Date(), 'yyyy-MM-dd') },
+      lastAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
       andpadStatus: { value: '未確認' },
       //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
       totalContractAmount: { value: totalContractAmount },

@@ -1,6 +1,5 @@
 import { addRecords } from 'api-kintone';
-import { appId } from './config';
-import { IPaymentReminder } from '../../config';
+import { IPaymentReminder, reminderAppId } from '../../config';
 
 
 /**
@@ -9,7 +8,7 @@ import { IPaymentReminder } from '../../config';
 export const addPaymentReminder = (params: Partial<IPaymentReminder>[]) => {
 
   return addRecords({
-    app: appId,
+    app: reminderAppId,
     records: params,
   });
 

@@ -7,6 +7,11 @@ import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 
 
 
+/**
+ * 契約書レコードをリマインダーレコードへ変換する
+ * @param param0 
+ * @returns 
+ */
 export const convertContractsToJson = ({
   contracts,
   projects,

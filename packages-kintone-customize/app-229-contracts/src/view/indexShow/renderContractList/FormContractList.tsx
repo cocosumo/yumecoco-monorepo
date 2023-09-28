@@ -21,6 +21,10 @@ export const FormContractList = () => {
           spacing={1}
           px={4}
           pt={2}
+          width={'fit-content'}
+          height={'fit-content'}
+          bgcolor={'#fff'}
+
         >
           <Toolbar />
           <Result />

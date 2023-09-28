@@ -18,6 +18,7 @@ export const indexShow = (event: EventType) => {
       renderCumulative();
       break;
     case 6343230: // 契約一覧表　開発環境
+    case 6343246: // 契約一覧表
       renderContractList();
   }
 };

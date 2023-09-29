@@ -1,5 +1,5 @@
 import addDays from 'date-fns/addDays';
-import { reminderList } from '../config';
+import { KReminderList, reminderList } from '../config';
 import format from 'date-fns/format';
 import addWeeks from 'date-fns/addWeeks';
 import addMonths from 'date-fns/addMonths';
@@ -7,9 +7,9 @@ import addYears from 'date-fns/addYears';
 
 
 
-export const calcReminderDate = (reminderStr: keyof typeof reminderList) => {
+export const calcReminderDate = (reminderStr: KReminderList) => {
 
-  let newDate = '';
+
   for (const reminderKey of Object.keys(reminderList)) {
     if (reminderStr === reminderKey) {
       const reminderVal = reminderList[reminderKey];
@@ -17,25 +17,27 @@ export const calcReminderDate = (reminderStr: keyof typeof reminderList) => {
       const span = reminderVal.replace(/[0-9]/g, '');
       switch (span) {
         case 'day':
-          newDate = format(addDays(new Date(), number), 'yyyy-MM-dd');
-          break;
+          return format(addDays(new Date(), number), 'yyyy-MM-dd');
+
         case 'week':
-          newDate = format(addWeeks(new Date(), number), 'yyyy-MM-dd');
-          break;
+          return format(addWeeks(new Date(), number), 'yyyy-MM-dd');
+
         case 'month':
-          newDate = format(addMonths(new Date(), number), 'yyyy-MM-dd');
-          break;
+          return format(addMonths(new Date(), number), 'yyyy-MM-dd');
+
         case 'year':
-          newDate = format(addYears(new Date(), number), 'yyyy-MM-dd');
+          return format(addYears(new Date(), number), 'yyyy-MM-dd');
+
+        case 'default':
+          return 'default';
+
+        default:
           break;
       }
-      break;
     }
   }
 
-  if (newDate === '') {
-    console.error('リマインダー設定の処理更新が必要です'); // 開発者用
-  }
+  console.error('リマインダー設定の処理更新が必要です'); // 開発者用
+  return 'default';
 
-  return newDate;
 };

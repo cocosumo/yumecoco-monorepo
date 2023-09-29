@@ -4,9 +4,9 @@ declare namespace DBPaymentreminder {
     contractDate: kintone.fieldTypes.Date;
     expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
-    andpadStatus: kintone.fieldTypes.SingleLineText;
     totalContractAmount: kintone.fieldTypes.Number;
     scheduledAlertDate: kintone.fieldTypes.Date;
+    andpaddepositamount: kintone.fieldTypes.SingleLineText;
     alertState: kintone.fieldTypes.SingleLineText;
     reminderDate: kintone.fieldTypes.DropDown;
     area: kintone.fieldTypes.SingleLineText;

@@ -24,7 +24,6 @@ describe('calcReminderDate', () => {
   }, 60000);
 
 
-
   it('1か月後の日付を返すこと', () => {
 
     const result = calcReminderDate('1か月後');
@@ -33,11 +32,19 @@ describe('calcReminderDate', () => {
   }, 60000);
 
 
-
   it('3か月後の日付を返すこと', () => {
 
     const result = calcReminderDate('3か月後');
 
     expect(result).toBe(format(addMonths(new Date(), 3), 'yyyy-MM-dd'));
+  }, 60000);
+
+
+  it('"default"を返すこと', () => {
+
+    const result = calcReminderDate('-----');
+
+    expect(result).toBe('default');
+    console.log('result', result);
   }, 60000);
 });

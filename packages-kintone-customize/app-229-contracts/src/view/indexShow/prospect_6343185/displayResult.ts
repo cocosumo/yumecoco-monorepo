@@ -15,7 +15,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
     const today = moment().format('YYYY年MM月DD日');  //作成日の表示
 
-    $('#printArea').empty();
+    $('#printArea').empty(); //選択時一覧をリセット
 
     let totalPrice = 0;   
 
@@ -61,18 +61,18 @@ export const displayResult = async (selectStoreName?: string) => {
                 if(ob === undefined) {
                     return;
                 }
-
+                //　抽出結果を出力
                 return `<tr class="dataContents" data-uuid="${ob.uuid?.value}">
-                    <td style="text-align: center;">${index +1}</td>
-                    <td style="text-align: center;">${ob.rank?.value || "-"}</td>
-                    <td style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
+                    <td id="number" style="text-align: center;">${index +1}</td>
+                    <td id="rank" style="text-align: center;">${ob.rank?.value || "-"}</td>
+                    <td id="custNamefield" style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
                     <td style="text-align: right;">${formatCurrency(ob.schedContractPrice?.value) || "未定"}</td>
                     <td style="text-align: center;">${ob.paymentMethod?.value}</td>
-                    <td style="text-align: center;">${ob.cocoAGNames?.value}</td>
-                    <td style="text-align: center;">${ob.yumeAGNames?.value}</td>
-                    <td style="text-align: center;">${format(parseISO(ob.estatePurchaseDate?.value),'yy/MM/dd')  || ""}</td>
-                    <td style="text-align: center;">${format(parseISO(ob.planApplicationDate?.value),'yy/MM/dd') || ""}</td>
-                    <td style="text-align: center;">${format(parseISO(ob.schedContractDate?.value),'yy/MM/dd') || ""}</td>
+                    <td class="agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
+                    <td class="agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
+                    <td class="date" style="text-align: center;">${format(parseISO(ob.estatePurchaseDate?.value),'yy.M.d')  || ""}</td>
+                    <td class="date" style="text-align: center;">${format(parseISO(ob.planApplicationDate?.value),'yy.M.d') || ""}</td>
+                    <td class="date" style="text-align: center;">${format(parseISO(ob.schedContractDate?.value),'yy.M.d') || ""}</td>
                     <td style="text-align: left;">${ ob.memo?.value || ""}</td>
                 </tr>`
 
@@ -87,17 +87,17 @@ export const displayResult = async (selectStoreName?: string) => {
                     <td class="projNameHeader" colspan="11">${pn}</td>
                 </tr>
                 <tr class="contractHeader">
-                    <th style="width: 10px;">No.</th> <!-- index -->
-                    <th style="width: 10px;">ランク</th>
-                    <th style="width: 120px;">お客様名</th>
-                    <th style="width: 100px;">契約予定金額</th>
+                    <th id="numberIndex" style="width: 20px;">No.</th>
+                    <th id="rankIndex" style="width: 20px;">ランク</th>
+                    <th style="width: 150px;">お客様名</th>
+                    <th style="width: 150px;">契約<br/>予定金額</th>
                     <th style="width: 100px;">金融機関</th>
-                    <th style="width: 80px;">担当者</th>          <!-- ここすも営業 -->
-                    <th style="width: 80px;">AG</th>    <!-- ゆめてつAG -->
+                    <th style="width: 80px;">担当者</th> 
+                    <th style="width: 80px;">AG</th>
                     <th style="width: 80px;">不動産<br/>決済日</th>
                     <th style="width: 80px;">設計<br/>申込日</th>
                     <th style="width: 80px;">契約<br/>予定日</th>
-                    <th style="width: 100px;">備考</th>   
+                    <th style="width: 200px;">備考</th>   
                 </tr>
             </thead>
             <tbody class="prospectContents">
@@ -118,7 +118,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
         
 
-
+        //一覧表示（全て）
         $('#printArea').append(`
             <div class="printContainer">
                 <h1 id="prospectTitle">≪見込み物件≫受注予定表（${storeName}）</h1>
@@ -143,15 +143,21 @@ export const displayResult = async (selectStoreName?: string) => {
               
     }
 
-    $('.prospectContents').click((event) => {
+    
+    //一覧を選択したら該当ぺージに遷移
+    $('.prospectContents').on(
+        'click',
+        (event) => {
         console.log(event);
         const clickedRow = $((event as any).target).closest('tr');
         const uuid = clickedRow.data("uuid");
         //console.log(uuid);
+        
+        //遷移先
         const url = `https://rdmuhwtt6gx7.cybozu.com/k/149/#/project/edit/v2?projId=${uuid}`;
         console.log(url);
         window.open(url, '_blank');
-    })
+    });
     
 
 }

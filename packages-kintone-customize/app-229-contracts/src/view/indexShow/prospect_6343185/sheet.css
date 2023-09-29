@@ -22,7 +22,7 @@
 
     /* ページ内の要素がA4用紙内に収まるように設定 */
     #printArea {
-        width: 100%;
+        width: 100% !important;
         height: 100%;
         page-break-before: auto;
         page-break-after: auto;
@@ -39,26 +39,49 @@
         break-inside: avoid; /* ページ内で分割を避ける */
     }
 
-    /* ヘッダー(個別)印刷時 */
-    .contractHeader th {
-        font-size: 10.5pt;
-        text-align: center;
-        padding: 5px 10px;
+    #number , #rank ,
+    #numberIndex , #rankIndex {
+      width: 20px;
     }
+
+    .agName {
+      font-size: 8.8pt;
+      padding: 3px 1px;
+    }
+
+    .date {
+      font-size: 10pt;
+      padding: 3px 0px;
+    }
+
+    #custNamefield {
+      text-align: center;
+    }
+
 
     .projNameHeader {
-        width: 100%;
+      width: 100%;
 
     }
+   
 
+    /* ヘッダー(個別)印刷時 */
+    /* .contractHeader th {
+        text-align: center;
+        padding: 3px 5px;
+    }
+ */
+    
+
+    
     .prospectTableContainer {
         width: 200mm;
     }
     
     .prospectTable {
         margin: 0 auto;
-        /* width: 980px; */
-        table-layout: fixed;
+        width: 960px;
+        /* table-layout: fixed; */
     }
  
     .selectButtonArea, /* 選択ボタン（店舗、印刷） */
@@ -144,12 +167,6 @@ tbody td {
   padding: 5px 10px;
 }
 
-/* 見込み一覧結果の行をhoverしたとき */
-.prospectContents tbody tr:hover {
-  background-color: #a1ecff;
-  cursor: pointer;
-}
-
 /* 表全体セル */
 .prospectTable td,
 th,
@@ -199,4 +216,10 @@ th,
   padding-bottom: 40px;
   font-size: 12pt;
   font-family: Arial, sans-serif;
+}
+
+/* 一覧を選択している時 */
+.prospectContents :hover {
+  background-color:#9dd4d4;
+  cursor: pointer;
 }

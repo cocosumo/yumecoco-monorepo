@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-
+//店舗選択の生成
 export const createSelect = (
   id: string,
   label: string,

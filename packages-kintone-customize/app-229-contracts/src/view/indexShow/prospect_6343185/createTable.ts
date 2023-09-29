@@ -1,3 +1,6 @@
+//表枠の生成
+//不使用
+
 export const createTable = ($el: JQuery<HTMLElement>) => {
     $el.append(`<table class="table_prospect_list" border="1">
         <thead id="prospectProj"></thead> <!-- 工事種別名 -->

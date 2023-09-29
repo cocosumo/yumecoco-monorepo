@@ -28,7 +28,7 @@
         page-break-after: auto;
       }
 
-      
+    /* 店舗ごとの印刷ページを分割 */
     .printContainer:not(:last-child) {
         width: 95%;
         height: 100%;
@@ -36,29 +36,33 @@
         background-color: #ffffff;
        /*  page-break-before: always; */
         page-break-after: always;
-        break-inside: avoid; /* ページ内で分割を避ける */
+        break-inside: avoid; /* ページ内で分割を避ける（最終ページに空白ページが表示されるため） */
     }
 
+    /*No.とランクだけ印刷時も幅を固定 */
     #number , #rank ,
     #numberIndex , #rankIndex {
       width: 20px;
     }
 
+    /* 担当者名だけ文字の大きさを変更（印刷時のみ） */
     .agName {
       font-size: 8.8pt;
       padding: 3px 1px;
     }
 
+    /* 日付部分のみ文字の大きさを変更（印刷時のみ） */
     .date {
       font-size: 10pt;
       padding: 3px 0px;
     }
 
+    /* 顧客名を中央揃えにする（印刷時のみ） */
     #custNamefield {
       text-align: center;
     }
 
-
+    /* 工事名称の幅指定 */
     .projNameHeader {
       width: 100%;
 
@@ -73,17 +77,19 @@
  */
     
 
-    
+    /* 印刷時の幅指定 */
     .prospectTableContainer {
         width: 200mm;
     }
     
+    /* 印刷時のテーブル幅指定 */
     .prospectTable {
         margin: 0 auto;
         width: 960px;
         /* table-layout: fixed; */
     }
  
+    /* 印刷時に非表示する部分の指定 */
     .selectButtonArea, /* 選択ボタン（店舗、印刷） */
     .contents-actionmenu-gaia,
     .contents-bottommenu-gaia,
@@ -121,7 +127,6 @@
 .tableContainer {
   /* display: flex; */
   clear: both;
-  
   width: 100%;
   justify-content: center; /* 水平方向にセンターに配置 */
   align-items: center; /* 垂直方向にセンターに配置 */

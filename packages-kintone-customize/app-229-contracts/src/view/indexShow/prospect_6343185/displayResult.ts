@@ -7,6 +7,7 @@ import { calcFontSize } from "../../../../jsedit/api/calcFontSize";
 import parseISO from "date-fns/parseISO";
 import format from "date-fns/format";
 
+//表の中身の生成
 
 export const displayResult = async (selectStoreName?: string) => {
     const groupStore = await getGroupByStore();
@@ -19,6 +20,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
     let totalPrice = 0;   
 
+    //店舗と工事名称でグループ
     for(const [storeName, projects] of Object.entries(groupStore)) {
         //console.log('selectStoreName',selectStoreName, storeName, projects);
 
@@ -31,6 +33,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
         //console.log(gbProjType);
 
+        //表示する工事名称を指定（工事種別と一致させる）
         const projectNames = [
             '新築工事',
             'リフォーム工事',
@@ -41,20 +44,23 @@ export const displayResult = async (selectStoreName?: string) => {
         //console.log(storeName, gbProjType['新築付帯工事'], gbProjType);
 
         
-
+        //工事種別ごとで表作成
         const contentsTable = projectNames.map((pn) => {
             //console.log('店舗名', storeName, pn, gbProjType[pn]);
 
            // console.log(gbProjType[pn]);
             const projByType = gbProjType[pn] as any[];
 
+            //総計をリセット
             let totalSchedContractPrice = 0;
             
             const contentsRows = projByType?.map((ob, index) => {
-
+                
+                //小計の計算（契約予定金額を合計）
                 const number = +ob.schedContractPrice.value;
                 totalSchedContractPrice += number;
 
+                //総計の計算（小計を合計）
                 const totalnumber = +totalSchedContractPrice;
                 totalPrice += totalnumber;
 
@@ -80,6 +86,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
            // console.log('contentsRows', contentsRows);
 
+           //表の生成
             return `<div class="prospectTableContainer">
             <table class="prospectTable">
             <thead>
@@ -143,7 +150,7 @@ export const displayResult = async (selectStoreName?: string) => {
               
     }
 
-    
+
     //一覧を選択したら該当ぺージに遷移
     $('.prospectContents').on(
         'click',
@@ -153,7 +160,7 @@ export const displayResult = async (selectStoreName?: string) => {
         const uuid = clickedRow.data("uuid");
         //console.log(uuid);
         
-        //遷移先
+        //遷移先（ココアス工事登録）
         const url = `https://rdmuhwtt6gx7.cybozu.com/k/149/#/project/edit/v2?projId=${uuid}`;
         console.log(url);
         window.open(url, '_blank');

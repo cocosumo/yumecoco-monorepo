@@ -17,6 +17,13 @@ export const prospect = async () => {
             <label>　店舗：</label>
             <select id="selectStore"></select>
             <button value='test' id="${printButtonId}">印刷</button>
+                <div class="attention">
+                    <h1 style="font-size: 16pt;">【見込み一覧の表示内容について】</h1>
+                    <p>・「未契約」かつ「ランク」が入っているものだけ表示されます。</p>
+                    <p>　※ランクが「- ハイフン（未指定）」のものは表示されません。</p>
+                    <p>・行をクリックすると編集画面に移ります。</p>
+                    <p>　画面一番下に見込み入力箇所があるので、必要に応じてランク等を変更してください。</p>
+                </div>
         </div>
         <div id ="printArea"></div>
     `);

@@ -8,7 +8,7 @@ export const useStores = <K = GetAllStoresReturn>(
   select?: (data: Awaited<ReturnType<typeof getAllStores>>) => K) => {
   return useQuery(
     [AppIds.stores],
-    getAllStores,
+    () => getAllStores(),
     { 
       select, 
       //initialData: [],

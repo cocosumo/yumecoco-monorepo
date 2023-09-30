@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllRecords } from 'api-kintone';
-import { appId } from '../../../../constants';
+import { appId } from '../constants';
 
 interface Params {
   condition?: string,

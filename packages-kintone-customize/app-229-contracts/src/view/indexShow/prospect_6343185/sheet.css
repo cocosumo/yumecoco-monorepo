@@ -6,7 +6,7 @@
 }
 
 /* 注意書き */
-.attention {
+.prospect_attention {
   line-height: 0.6; /* 行間調整 */
   font-weight: bold;
   margin: 5px 30px;
@@ -32,7 +32,7 @@
     }
 
     /* ページ内の要素がA4用紙内に収まるように設定 */
-    #printArea {
+    #prospect_printArea {
         width: 100% !important;
         height: 100%;
         page-break-before: auto;
@@ -40,7 +40,7 @@
       }
 
     /* 店舗ごとの印刷ページを分割 */
-    .printContainer:not(:last-child) {
+    .prospect_printContainer:not(:last-child) {
         width: 95%;
         height: 100%;
         margin: 0 auto;
@@ -51,30 +51,30 @@
     }
 
     /*No.とランクだけ印刷時も幅を固定 */
-    #number , #rank ,
-    #numberIndex , #rankIndex {
+    #prospect_number , #prospect_rank ,
+    #prospect_numberIndex , #prospect_rankIndex {
       width: 20px;
     }
 
     /* 担当者名だけ文字の大きさを変更（印刷時のみ） */
-    .agName {
+    .prospect_agName {
       font-size: 8.8pt;
       padding: 3px 1px;
     }
 
     /* 日付部分のみ文字の大きさを変更（印刷時のみ） */
-    .date {
+    .prospect_date {
       font-size: 10pt;
       padding: 3px 0px;
     }
 
     /* 顧客名を中央揃えにする（印刷時のみ） */
-    #custNamefield {
+    #prospect_custNamefield {
       text-align: center;
     }
 
     /* 工事名称の幅指定 */
-    .projNameHeader {
+    .prospect_projNameHeader {
       width: 100%;
 
     }
@@ -135,10 +135,11 @@
 }
 
 /* 表全体（タイトル・作成日除く） */
-.tableContainer {
+.prospect_tableContainer {
   /* display: flex; */
   clear: both;
   width: 100%;
+  margin: 0px 10px;
   justify-content: center; /* 水平方向にセンターに配置 */
   align-items: center; /* 垂直方向にセンターに配置 */
   font-family: 'Arial', sans-serif;
@@ -147,8 +148,8 @@
 }
 
 /* 工事種別 */
-.projNameHeader {
-  background-color: #2e52b4;
+.prospect_projNameHeader {
+  background-color: #2e83b4;
   color: #ffffff;
   padding: 5px 10px;
   width: 100%;
@@ -158,7 +159,7 @@
 }
 
 /* ヘッダー(個別) */
-.contractHeader th {
+.prospect_contractHeader th {
   font-size: 12pt;
   text-align: center;
   padding: 5px 10px;
@@ -170,7 +171,7 @@
 
 /* ヘッダー全体、総合計テーブル */
 .prospectTableContainer,
-.totalTable {
+.prospect_totalTable {
   /* margin: 0 auto; */
   margin-bottom: 18px;
 }
@@ -186,12 +187,12 @@ tbody td {
 /* 表全体セル */
 .prospectTable td,
 th,
-.allTotalCell {
+.prospect_allTotalCell {
   border: 1px solid black;
 }
 
 /* 小計テーブル */
-.totalCell {
+.prospect_totalCell {
   background-color: #fff79a;
   font-weight: bold;
   width: 100%;
@@ -200,13 +201,13 @@ th,
 }
 
 /* 一覧結果がなしの場合 */
-.unknown {
+.prospect_unknown {
   text-align: center;
   width: 100%;
 }
 
 /* 総合計テーブル */
-.totalTable {
+.prospect_totalTable {
   border: 1px solid black;
   width: 50%;
   /* margin: 0 auto; */
@@ -220,13 +221,13 @@ th,
 }
 
 /* 総合計名称セル */
-.allTotalCell {
+.prospect_allTotalCell {
   background-color: #ffa551;
   width: 150px;
 }
 
 /* 【ランク】 */
-#memo {
+#prospect_memo {
   clear: both;
   float: left;
   padding-bottom: 40px;

@@ -1,4 +1,3 @@
-import { getAllProjects } from "api-kintone"
 import { IProjects } from "types";
 
 //工事種別ごとの一覧を生成

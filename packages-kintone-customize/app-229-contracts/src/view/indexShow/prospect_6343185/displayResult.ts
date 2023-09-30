@@ -16,7 +16,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
     const today = moment().format('YYYY年MM月DD日');  //作成日の表示
 
-    $('#printArea').empty(); //選択時一覧をリセット
+    $('#prospect_printArea').empty(); //選択時一覧をリセット
 
     let totalPrice = 0;   
 
@@ -68,17 +68,17 @@ export const displayResult = async (selectStoreName?: string) => {
                     return;
                 }
                 //　抽出結果を出力
-                return `<tr class="dataContents" data-uuid="${ob.uuid?.value}">
-                    <td id="number" style="text-align: center;">${index +1}</td>
-                    <td id="rank" style="text-align: center;">${ob.rank?.value || "-"}</td>
-                    <td id="custNamefield" style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
+                return `<tr class="prospect_dataContents" data-uuid="${ob.uuid?.value}">
+                    <td id="prospect_number" style="text-align: center;">${index +1}</td>
+                    <td id="prospect_rank" style="text-align: center;">${ob.rank?.value || "-"}</td>
+                    <td id="prospect_custNamefield" style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
                     <td style="text-align: right;">${formatCurrency(ob.schedContractPrice?.value) || "未定"}</td>
                     <td style="text-align: center;">${ob.paymentMethod?.value}</td>
-                    <td class="agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
-                    <td class="agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
-                    <td class="date" style="text-align: center;">${format(parseISO(ob.estatePurchaseDate?.value),'yy.M.d')  || ""}</td>
-                    <td class="date" style="text-align: center;">${format(parseISO(ob.planApplicationDate?.value),'yy.M.d') || ""}</td>
-                    <td class="date" style="text-align: center;">${format(parseISO(ob.schedContractDate?.value),'yy.M.d') || ""}</td>
+                    <td class="prospect_agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
+                    <td class="prospect_agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
+                    <td class="prospect_date" style="text-align: center;">${format(parseISO(ob.estatePurchaseDate?.value),'yy.M.d')  || ""}</td>
+                    <td class="prospect_date" style="text-align: center;">${format(parseISO(ob.planApplicationDate?.value),'yy.M.d') || ""}</td>
+                    <td class="prospect_date" style="text-align: center;">${format(parseISO(ob.schedContractDate?.value),'yy.M.d') || ""}</td>
                     <td style="text-align: left;">${ ob.memo?.value || ""}</td>
                 </tr>`
 
@@ -91,11 +91,11 @@ export const displayResult = async (selectStoreName?: string) => {
             <table class="prospectTable">
             <thead>
                 <tr>
-                    <td class="projNameHeader" colspan="11">${pn}</td>
+                    <td class="prospect_projNameHeader" colspan="11">${pn}</td>
                 </tr>
-                <tr class="contractHeader">
-                    <th id="numberIndex" style="width: 20px;">No.</th>
-                    <th id="rankIndex" style="width: 20px;">ランク</th>
+                <tr class="prospect_contractHeader">
+                    <th id="prospect_numberIndex" style="width: 20px;">No.</th>
+                    <th id="prospect_rankIndex" style="width: 20px;">ランク</th>
                     <th style="width: 150px;">お客様名</th>
                     <th style="width: 150px;">契約<br/>予定金額</th>
                     <th style="width: 100px;">金融機関</th>
@@ -108,11 +108,11 @@ export const displayResult = async (selectStoreName?: string) => {
                 </tr>
             </thead>
             <tbody class="prospectContents">
-                ${contentsRows || '<tr><td class="unknown" colspan="11">なし</td></tr>'}
+                ${contentsRows || '<tr><td class="prospect_unknown" colspan="11">なし</td></tr>'}
                 
             </tbody>
             <tfoot>
-                <tr class="totalCell">
+                <tr class="prospect_totalCell">
                     <td colspan="3">小計</td>
                     <td colspan="8">${formatCurrency(totalSchedContractPrice)}</td>
                 </tr>
@@ -126,20 +126,20 @@ export const displayResult = async (selectStoreName?: string) => {
         
 
         //一覧表示（全て）
-        $('#printArea').append(`
-            <div class="printContainer">
+        $('#prospect_printArea').append(`
+            <div class="prospect_printContainer">
                 <h1 id="prospectTitle">≪見込み物件≫受注予定表（${storeName}）</h1>
                 <p id="prospectDate">作成日：${today}</p>
-                    <div class="tableContainer">
+                    <div class="prospect_tableContainer">
                         ${contentsTable}
                         
-                        <table class="totalTable">
+                        <table class="prospect_totalTable">
                             <tr>
-                                <td class="allTotalCell">総合計</td>
+                                <td class="prospect_allTotalCell">総合計</td>
                                 <td>${formatCurrency(totalPrice)}</td>
                             </tr>
                         </table>
-                            <p id="memo">【ランク】 A：設計契約済み 又は、契約確実　B：多分契約できる　C：交渉中　D：未定</p>
+                            <p id="prospect_memo">【ランク】 A：設計契約済み 又は、契約確実　B：多分契約できる　C：交渉中　D：未定</p>
                         
                     </div>
             </div>

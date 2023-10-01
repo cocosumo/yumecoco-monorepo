@@ -1,4 +1,4 @@
-import { getAllProjects, getAllRecords } from "api-kintone"
+import { getAllRecords } from "api-kintone"
 import { appId } from "../../../constants";
 import { getCachedStores } from "../../../../jsedit/api/getCachedStores";
 
@@ -6,21 +6,26 @@ import { getCachedStores } from "../../../../jsedit/api/getCachedStores";
 
 export const getGroupByStore = async () => {
 
-    //const stores = await getAllProjects();
     //ここすも契約一覧の工事uuidを参照
     const contracts = await getAllRecords({app: appId,condition: 'projectId !=""'})as any;
     //【本番用】ココアス工事内容より参照（アプリID：209）
     const projProspect = await getAllRecords({app: 209, condition: 'rank !=""'})as any;
-    //console.log(contracts);
-    console.log(projProspect);
+    // console.log(contracts);
+    // console.log('projProspect', projProspect);
 
     const stores = await getCachedStores();
+    console.log('stores', stores);
     //生成した一覧をリセット
-    let groupStore = Object.create(null);
+    //let groupStore = Object.create(null);
+    let groupStore: Record<string, any[]> = {};
     
     //店舗ごとに一覧をソート生成
-    for(const s of stores) {
-        groupStore[s.店舗名.value] = [];
+    for(const store of stores) {
+        if (!groupStore[store.店舗名.value]) {
+            //console.log('groupStore', groupStore);
+            groupStore[store.店舗名.value] = [];
+            //console.log('ObjectKeys',Object.keys(groupStore));
+        }
     }
    
     

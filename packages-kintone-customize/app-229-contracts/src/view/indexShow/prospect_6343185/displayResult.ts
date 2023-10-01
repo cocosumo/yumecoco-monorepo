@@ -14,7 +14,16 @@ export const displayResult = async (selectStoreName?: string) => {
 
     //console.log(groupStore);
 
-    const today = moment().format('YYYY年MM月DD日');  //作成日の表示
+    //const today = moment().format('YYYY年MM月DD日');  //作成日の表示
+
+    //作成日の表示（moment不使用ver）
+    const today = new Date().toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+      
+      
 
     $('#prospect_printArea').empty(); //選択時一覧をリセット
 
@@ -22,7 +31,7 @@ export const displayResult = async (selectStoreName?: string) => {
 
     //店舗と工事名称でグループ
     for(const [storeName, projects] of Object.entries(groupStore)) {
-        //console.log('selectStoreName',selectStoreName, storeName, projects);
+        console.log('selectStoreName',selectStoreName, storeName, projects);
 
         if(selectStoreName != storeName && selectStoreName !== undefined) {
            continue;
@@ -67,6 +76,10 @@ export const displayResult = async (selectStoreName?: string) => {
                 if(ob === undefined) {
                     return;
                 }
+
+                console.log('ob.estatePurchaseDate', ob.estatePurchaseDate?.value);
+                console.log('formattedDate', format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d'));
+
                 //　抽出結果を出力
                 return `<tr class="prospect_dataContents" data-uuid="${ob.uuid?.value}">
                     <td id="prospect_number" style="text-align: center;">${index +1}</td>
@@ -76,15 +89,16 @@ export const displayResult = async (selectStoreName?: string) => {
                     <td style="text-align: center;">${ob.paymentMethod?.value}</td>
                     <td class="prospect_agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
                     <td class="prospect_agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
-                    <td class="prospect_date" style="text-align: center;">${format(parseISO(ob.estatePurchaseDate?.value),'yy.M.d')  || ""}</td>
-                    <td class="prospect_date" style="text-align: center;">${format(parseISO(ob.planApplicationDate?.value),'yy.M.d') || ""}</td>
-                    <td class="prospect_date" style="text-align: center;">${format(parseISO(ob.schedContractDate?.value),'yy.M.d') || ""}</td>
+                    <td class="prospect_date" style="text-align: center;">${ob.estatePurchaseDate?.value ? format(parseISO(ob.estatePurchaseDate?.value),'yy.M.d') : ""}</td>
+                    <td class="prospect_date" style="text-align: center;">${ob.planApplicationDate?.value ? format(parseISO(ob.planApplicationDate?.value),'yy.M.d') : ""}</td>
+                    <td class="prospect_date" style="text-align: center;">${ob.schedContractDate?.value ? format(parseISO(ob.schedContractDate?.value),'yy.M.d') : ""}</td>
+
                     <td style="text-align: left;">${ ob.memo?.value || ""}</td>
                 </tr>`
 
             }).filter(Boolean).join("");
 
-           // console.log('contentsRows', contentsRows);
+            console.log('contentsRows', contentsRows);
 
            //表の生成
             return `<div class="prospectTableContainer">

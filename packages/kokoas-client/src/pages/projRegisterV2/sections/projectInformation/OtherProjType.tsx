@@ -2,11 +2,7 @@ import { Controller } from 'react-hook-form';
 import { useTypedFormContext, useTypedWatch } from '../../hooks';
 import { TextField } from '@mui/material';
 
-export const OtherProjType = ({
-  disabled,
-}:{
-  disabled?: boolean
-}) => {
+export const OtherProjType = () => {
   const {
     control,
     setValue,
@@ -56,7 +52,7 @@ export const OtherProjType = ({
               setValue('projName', `${custName}様邸　${newValue || projTypeName}`);
             }}
             {...otherField}
-            disabled={disabled}
+            //disabled={disabled}
             size='small'
             error={showError} 
             helperText={error?.message}

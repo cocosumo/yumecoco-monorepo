@@ -72,7 +72,7 @@ export const convertToKintone = (
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
 
-    projTypeId: { value: projTypeId },
+    projTypeId: { value: projTypeId || '' },
     projName: { value: projName },
     otherProjType: { value: otherProjType || '' },
     

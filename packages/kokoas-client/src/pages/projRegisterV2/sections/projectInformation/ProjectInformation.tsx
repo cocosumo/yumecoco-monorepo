@@ -20,7 +20,7 @@ export const ProjectInformation = () => {
       <BuildingType disabled={hasContract} />
 
 
-      <ProjectType disabled={hasContract} />
+      <ProjectType />
 
       <ControlledTextField
         label='工事名称'

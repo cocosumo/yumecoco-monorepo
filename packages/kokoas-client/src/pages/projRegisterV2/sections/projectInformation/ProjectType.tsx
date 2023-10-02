@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
 import { useProjTypes } from 'kokoas-client/src/hooksQuery';
-import { useTypedFormContext } from '../../hooks/useTypedRHF';
+import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedRHF';
 import { Controller } from 'react-hook-form';
 import { useEffect } from 'react';
 import { OtherProjType } from './OtherProjType';
@@ -78,9 +78,16 @@ export const ProjectType = ({
                     ?.label || '';
 
                   const custName = getValues('custName');
+                  const hasContract = getValues('hasContract');
+
+                  
+                  if (!hasContract) {
+                    // 契約がないときのみ、工事名称を変更する
+                    setValue('projTypeName', newProjTypeName);
+                    setValue('projName', `${custName}様邸　${newProjTypeName}`);
+                  }
                 
-                  setValue('projTypeName', newProjTypeName);
-                  setValue('projName', `${custName}様邸　${newProjTypeName}`);
+                  
                   onChange(e.target.value);
                 }}
               >

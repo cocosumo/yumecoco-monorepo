@@ -12,12 +12,12 @@ export const schema = z.object({
   projId: z.string().optional(),
   projTypeName: z.string(),
 
-  projTypeId: z.string(),
-  projName: z.string(),
+  projTypeId: nonEmptyDropdown,
+  projName: z.string().nonempty(),
   otherProjType: z.string().optional(),
 
-  projDataId: nonEmptyDropdown,
-  createdDate: z.string().nonempty(),
+  projDataId: z.string(),
+  createdDate: z.string(),
   storeCode: z.string(),
 
   custGroupId: z.string().nullable(),
@@ -78,7 +78,6 @@ export const schema = z.object({
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,
-
       projTypeName,
       otherProjType,
 

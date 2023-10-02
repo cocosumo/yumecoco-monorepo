@@ -16,8 +16,8 @@ export const schema = z.object({
   projName: z.string(),
   otherProjType: z.string().optional(),
 
-  projDataId: z.string(),
-  createdDate: z.string(),
+  projDataId: nonEmptyDropdown,
+  createdDate: z.string().nonempty(),
   storeCode: z.string(),
 
   custGroupId: z.string().nullable(),
@@ -79,7 +79,6 @@ export const schema = z.object({
       finalAddress1,
       finalAddress2,
 
-      projTypeId,
       projTypeName,
       otherProjType,
 
@@ -102,16 +101,6 @@ export const schema = z.object({
           code: z.ZodIssueCode.custom,
           message: '住所を入力してください。',
           path: ['finalAddress2'],
-        });
-      }
-    }
-
-    if (!hasContract) {
-      if (!projTypeId) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: '工事種別を入力してください。',
-          path: ['projTypeId'],
         });
       }
     }

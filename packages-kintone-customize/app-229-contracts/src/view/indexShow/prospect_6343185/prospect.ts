@@ -1,18 +1,18 @@
 import $ from 'jquery';
-import { getCachedStores } from "../../../../jsedit/api/getCachedStores";
+import { getCachedStores } from '../../../../jsedit/api/getCachedStores';
 import { displayResult } from './displayResult';
 import './sheet.css';
 
 //見込み一覧の作成
 
 export const prospect = async () => {
-    console.log("見込み一覧、開始しました");
+  console.log('見込み一覧、開始しました');
 
     
-    const printButtonId = 'printButton';
+  const printButtonId = 'printButton';
 
-    //選択ボタン、印刷ボタンの生成
-    $('#prospect_root').append(`
+  //選択ボタン、印刷ボタンの生成
+  $('#prospect_root').append(`
         <div class="selectButtonArea">
             <label>　店舗：</label>
             <select id="prospect_selectStore"></select>
@@ -28,66 +28,70 @@ export const prospect = async () => {
         <div id ="prospect_printArea"></div>
     `);
 
-    //印刷アクション
-    $('#printButton').on(
-        'click',
-         (e) => {
-            window.print();
+  //印刷アクション
+  $('#printButton').on(
+    'click',
+    (e) => {
+      window.print();
 
-    });
+    },
+  );
       
-        //選択肢（店舗及び全店舗）を生成
-        const stores = await getCachedStores();
+  //選択肢（店舗及び全店舗）を生成
+  const stores = await getCachedStores();
         
-        $('#prospect_selectStore').append(`
+  $('#prospect_selectStore').append(`
             <option value="">全店舗</option>
         `);
 
-        stores.forEach((store) => {
-            //console.log('店舗名', store.店舗名, 'uuid', store.uuid);
-            $('#prospect_selectStore').append(`
+  stores.forEach((store) => {
+    //console.log('店舗名', store.店舗名, 'uuid', store.uuid);
+    $('#prospect_selectStore').append(`
             <option value="${store.uuid.value}">${store.storeNameShort.value}</option>
             `);
-        });
+  });
 
        
 
-    //event
-    displayResult();
+  //event
+  displayResult();
 
-    //店舗選択が変更された時に表示結果も変更する
-    $('#prospect_selectStore').on('change', (e) => {
+  //店舗選択が変更された時に表示結果も変更する
+  $('#prospect_selectStore').on('change', (e) => {
+        
+    const selectedStoreUUID = (e.target as any).value;
 
-        const selectedStoreUUID = (e.target as any).value;
-        console.log("選択された店舗のUUID:", selectedStoreUUID);
+    console.log('stores', stores);
 
-        const selectStoreName = stores.find(({uuid}) => {
-            const storeUUID = uuid.value; // 文字列に変換する
-            console.log("selectedStoreUUID:", selectedStoreUUID);
-            console.log("storeUUID:", storeUUID);
-            console.log("Match:", selectedStoreUUID.value == storeUUID);
-            console.log("selectedStoreUUID type:", typeof selectedStoreUUID);
-            console.log("storeUUID type:", typeof storeUUID);
+    const selectStoreName = stores.find(({ uuid }) => {
+      const storeUUID = uuid.value; // 文字列に変換する
+      //console.log('selectedStoreUUID:', selectedStoreUUID);
+      //console.log('storeUUID:', storeUUID);
+      //console.log('Match:', selectedStoreUUID.value == storeUUID);
+      //console.log('selectedStoreUUID type:', typeof selectedStoreUUID);
+      //console.log('storeUUID type:', typeof storeUUID);
 
-            return selectedStoreUUID.value == storeUUID;
+      return selectedStoreUUID == storeUUID;
 
-            //return selectedStoreUUID.value === uuid.value;
+      //return selectedStoreUUID.value === uuid.value;
 
-        })?.店舗名.value;
+    })?.店舗名.value;
+
+    console.log('選択された店舗のUUID:', selectStoreName, selectedStoreUUID);
 
         
 
 
-        console.log("選択された店舗の名前:", selectStoreName);
+    //console.log('選択された店舗の名前:', selectStoreName);
 
     
-        //event
-        displayResult(selectStoreName);
+    //event
+    displayResult(selectStoreName);
 
 
 
                
-    });
+  });
 
 
 
@@ -96,4 +100,4 @@ export const prospect = async () => {
     
 
 
-}
+};

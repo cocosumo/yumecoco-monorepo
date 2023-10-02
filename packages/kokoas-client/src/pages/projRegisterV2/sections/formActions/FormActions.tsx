@@ -64,6 +64,7 @@ export const FormActions = () => {
         startIcon={<SaveIcon />}
         variant='contained'
         onClick={handleSave}
+        size='small'
       >
         保存
       </Button>

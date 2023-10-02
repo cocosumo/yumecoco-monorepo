@@ -78,7 +78,7 @@ export const displayResult = async (selectStoreName?: string) => {
         }
 
         console.log('ob.estatePurchaseDate', ob.estatePurchaseDate?.value);
-        console.log('formattedDate', format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d'));
+        //console.log('formattedDate', format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d'));
 
         //　抽出結果を出力
         return `<tr class="prospect_dataContents" data-uuid="${ob.uuid?.value}">

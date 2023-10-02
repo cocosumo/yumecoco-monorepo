@@ -5,7 +5,7 @@ import { PageSubTitle3 } from 'kokoas-client/src/components';
 import { Memo } from './sections/memo/Memo';
 import { AndpadSummary } from './sections/andpadSummary/AndpadSummary';
 import { useTypedWatch } from './hooks/useTypedRHF';
-import { CancelStatus } from './sections/cancelStatus.tsx/CancelStatus';
+//import { CancelStatus } from './sections/cancelStatus/CancelStatus';
 import { ContractsSummary } from './sections/contractsSummary/ContractsSummary';
 import { OfficersInput } from './sections/officersInput/OfficersInput';
 import { ProjectDates } from './sections/projectDates/ProjectDates';
@@ -53,8 +53,8 @@ export const Contents = () => {
       <Prospect />
 
       
-      <PageSubTitle3 label={'状態'} />
-      <CancelStatus />
+      {/* <PageSubTitle3 label={'状態'} /> */}
+      {/* <CancelStatus /> */}
 
 
     </>

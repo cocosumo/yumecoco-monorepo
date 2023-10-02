@@ -22,11 +22,13 @@ export const CancelStatus = () => {
             value={value}
             onChange={(_, newValues) => onChange(newValues)}
             color='error'
+            
           >
             {recordCancelStatuses.map((s) => (
               <ToggleButton 
                 key={s} 
                 value={s}
+                
               >
                 {s}
               </ToggleButton>

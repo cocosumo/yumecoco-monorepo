@@ -1,4 +1,4 @@
-import { Button, Stack } from '@mui/material';
+import { Button, Paper, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { useSaveProject } from 'kokoas-client/src/hooksQuery';
@@ -9,6 +9,7 @@ import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { fieldMapJa } from '../../api/fieldMapJa';
 import { KForm } from '../../schema';
+import { CancelStatus } from '../cancelStatus/CancelStatus';
 
 export const FormActions = () => {
   const { setSnackState } = useSnackBar();
@@ -53,7 +54,12 @@ export const FormActions = () => {
   );
 
   return (
-    <Stack direction={'row'} spacing={2}>
+    <Stack 
+      direction={'row'} 
+      justifyContent={'space-between'}
+      component={Paper}
+      p={1}
+    >
       <Button
         startIcon={<SaveIcon />}
         variant='contained'
@@ -61,6 +67,7 @@ export const FormActions = () => {
       >
         保存
       </Button>
+      <CancelStatus />
     </Stack>
   );
 };

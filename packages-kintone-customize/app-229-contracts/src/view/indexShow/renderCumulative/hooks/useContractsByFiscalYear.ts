@@ -1,5 +1,5 @@
 import { useTypedWatch } from './useTypedRHF';
-import { useContracts } from './useContracts';
+import { useContracts } from '../../../../hooks/useContracts';
 import format from 'date-fns/format';
 import endOfMonth from 'date-fns/endOfMonth';
 import { useMemo } from 'react';

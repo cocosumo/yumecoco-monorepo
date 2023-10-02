@@ -1,0 +1,13 @@
+@media print {
+  @page {
+   
+    size: A3 landscape;  /* 297 x 420 mm */
+    margin: 25mm 25mm 25mm 25mm;
+  }
+  .print {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    /* A3 height */
+    height: 380mm;
+  }
+}

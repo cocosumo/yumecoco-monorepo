@@ -12,6 +12,9 @@
     height: 90%;
     background-color: #fff;
   }
+  #root {
+    padding-bottom: 12px;
+  }
 
   .contents-actionmenu-gaia,
   .contents-bottommenu-gaia,
@@ -31,7 +34,7 @@
   }
 
   /* page break before all .store_container except the first instance */
-  .store_container:not(:first-child) {
+  .store_container:not(:last-child) {
     page-break-before: always;
   }
 

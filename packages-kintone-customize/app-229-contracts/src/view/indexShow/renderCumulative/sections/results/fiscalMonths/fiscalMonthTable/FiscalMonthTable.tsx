@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import style from './FiscalMonthTable.module.css';
 import { TableRowLayout } from './TableRowLayout';
 import { roundTo } from 'libs';
-import { FitText } from '../../../../components/FitText';
+import { FitText } from '../../../../../components/FitText';
 
 export const FiscalMonthTable = ({
   title,

@@ -76,10 +76,10 @@ export const ProjectType = () => {
                   const custName = getValues('custName');
                   const hasContract = getValues('hasContract');
 
+                  setValue('projTypeName', newProjTypeName);
                   
                   if (!hasContract) {
                     // 契約がないときのみ、工事名称を変更する
-                    setValue('projTypeName', newProjTypeName);
                     setValue('projName', `${custName}様邸　${newProjTypeName}`);
                   }
                 

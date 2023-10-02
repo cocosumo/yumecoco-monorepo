@@ -94,7 +94,7 @@
     "@kintone/rest-api-client": "^4.1.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/lab": "^5.0.0-alpha.137",
-    "@mui/material": "^5.14.1",
+    "@mui/material": "^5.14.11",
     "@mui/system": "^5.13.6",
     "@mui/types": "^7.2.3",
     "@mui/utils": "^5.14.8",

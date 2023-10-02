@@ -3,7 +3,7 @@ import { isProd } from 'config';
 import { onDetailShowHandler } from './eventHandlers/onDetailShowHandler';
 import { KeyOfDB } from './types/types';
 import { onChangeRDHandler } from './eventHandlers/onChangeRDHandler';
-import { onEditOrCreateHandler } from './eventHandlers/onEditHandler';
+import { onEditOrCreateHandler } from './eventHandlers/onEditOrCreateHandler';
 
 
 (() => {

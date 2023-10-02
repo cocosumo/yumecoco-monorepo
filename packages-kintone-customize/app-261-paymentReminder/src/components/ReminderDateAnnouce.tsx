@@ -1,4 +1,5 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import { PreviewMessage } from './PreviewMessage';
 
 
 /**
@@ -15,7 +16,8 @@ export const ReminderDateAnnouce = ({
   const dateSplit = (reminderDate ?? '').split('-');
   const previewDate = dateSplit.length >= 3 ?
     `${dateSplit[0]}年${dateSplit[1]}月${dateSplit[2]}日`
-    : dateSplit;
+    : reminderDate;
+  
 
   return (
     <Stack
@@ -27,18 +29,7 @@ export const ReminderDateAnnouce = ({
         paddingLeft: 2,
       }}
     >
-      {reminderDate === 'default' ?
-        '再通知日を設定してください'
-        : <>
-          <Stack spacing={2} direction={'row'} alignItems={'flex-end'}>
-            再通知日を
-            <Typography variant='h6' component={'span'}>
-              {previewDate}
-            </Typography>
-            にします。
-          </Stack>
-          よろしければ「保存」ボタンをクリックしてください。
-        </>}
+      <PreviewMessage previewDate={previewDate} />
     </Stack>
   );
 

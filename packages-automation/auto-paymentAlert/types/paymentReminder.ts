@@ -18,5 +18,6 @@ export interface PaymentReminder {
   totalContractAmount: string,
   territory: Territory,
   expectedPaymentDate: string,
+  yumeAG: string,
   cwRoomIds: CwRoomIds[],
 }

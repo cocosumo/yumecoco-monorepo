@@ -43,7 +43,7 @@ export const convertReminderToJson = ({
     });
 
     // kintoneのリマインダーURLを設定する
-    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}`;
+    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
     // 顧客からの入金情報を確認する
     const paymentHistory = andpadPayments.some(({

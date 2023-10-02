@@ -37,20 +37,20 @@ export const convertReminderToKintone = ({
     });
 
     return ({
-      area: { value: territory },
       projId: { value: projId },
       contractDate: { value: contractDate ?? '' },
       expectedPaymentDate: { value: expectedPaymentDate ?? '' },
       projType: { value: projType },
-      projName: { value: projName },
-      lastAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
-      andpadStatus: { value: '未確認' },
-      //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
       totalContractAmount: { value: totalContractAmount },
-      andpadUrl: { value: andpadPaymentUrl },
-      contractId: { value: contractId },
+      scheduledAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
       alertState: { value: '1' },
       //reminderDate: { value: '' }, //再通知日はこのタイミングでは設定しない
+      andpadDepositAmount: { value: '未確認' },
+      area: { value: territory },
+      projName: { value: projName },
+      //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
+      andpadUrl: { value: andpadPaymentUrl },
+      contractId: { value: contractId },
       notificationSettings: {
         type: 'SUBTABLE',
         value: cwRoomIdsKintone,

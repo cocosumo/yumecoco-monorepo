@@ -2,15 +2,14 @@ import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees } from
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTarget';
 import { convertContractsToJson } from './helpers/convertContractsToJson';
-import { convertReminderToJson } from './helpers/convertReminderToJson';
 import { getMyOrders } from 'api-andpad';
 import { registerReminders } from './helpers/registerReminders';
-import { getAllPaymentReminder, getPaymentRemindersByAlertDate } from './api-kintone';
+import { getAllPaymentReminder } from './api-kintone';
 
 
 
 /**
- * 通知対象のレコード情報をまとめます
+ * 通知対象の契約レコード情報を、入金確認リマインダーへ登録します
  */
 export const createPaymentAlert = async () => {
   console.log('start create payment reminder');
@@ -24,7 +23,7 @@ export const createPaymentAlert = async () => {
     allStores,
     allOrders,
     tgtProjTypeContracts,
-    alertReminder,
+    //alertReminder,
     allPaymentReminder,
   ] = await Promise.all([
     getAllProjects(),
@@ -33,7 +32,7 @@ export const createPaymentAlert = async () => {
     getAllStores(),
     getMyOrders(),
     filterContractsByTargetProjType(),
-    getPaymentRemindersByAlertDate(new Date()),
+    //getPaymentRemindersByAlertDate(new Date()),
     getAllPaymentReminder(),
   ]);
 
@@ -57,12 +56,4 @@ export const createPaymentAlert = async () => {
     reminderJson: alertContractsJson,
   });
 
-
-  // リマインダーアプリから通知対象を取得する
-  const alertReminderJson = convertReminderToJson({
-    reminder: alertReminder,
-    andpadPayments: allAndpadPayments,
-  });
-
-  return alertContractsJson.concat(alertReminderJson);
 };

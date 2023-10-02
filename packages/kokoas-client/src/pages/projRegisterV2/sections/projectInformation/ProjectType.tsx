@@ -111,7 +111,7 @@ export const ProjectType = ({
             </FormControl>
 
             
-            <OtherProjType disabled={disabled} />
+            <OtherProjType />
             
   
           </Stack>

@@ -6,11 +6,7 @@ import { useEffect } from 'react';
 import { OtherProjType } from './OtherProjType';
 
 
-export const ProjectType = ({
-  disabled,
-}:{
-  disabled?: boolean;
-}) => {
+export const ProjectType = () => {
   const { control, setValue, register, getValues } = useTypedFormContext();
 
   const { data: projTypeOptions } = useProjTypes({

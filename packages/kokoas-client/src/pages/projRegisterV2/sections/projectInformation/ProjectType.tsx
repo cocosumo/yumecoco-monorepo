@@ -62,7 +62,7 @@ export const ProjectType = ({
               }}
               placeholder='工事種別'
               error={showError}
-              disabled={disabled}
+              //disabled={disabled}
               required
             >
               <InputLabel>

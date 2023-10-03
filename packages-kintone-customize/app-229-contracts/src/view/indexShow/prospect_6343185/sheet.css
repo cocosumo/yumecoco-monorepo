@@ -35,6 +35,7 @@
     #prospect_printArea {
         width: 100% !important;
         height: 100%;
+        background-color: #ffffff;
         page-break-before: auto;
         page-break-after: auto;
       }
@@ -174,6 +175,11 @@
 .prospect_totalTable {
   /* margin: 0 auto; */
   margin-bottom: 18px;
+  background-color: #ffffff;
+}
+
+.page-app-index {
+  background-color: #ffffff;
 }
 
 /* 見込み一覧ヘッダーセル、結果セル */

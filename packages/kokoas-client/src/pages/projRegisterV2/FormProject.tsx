@@ -66,8 +66,8 @@ export const FormProject = () => {
             <Contents />
             <Divider />
             
-            <FormStatus />
             <FormActions />
+            <FormStatus />
             <AndpadLog />
           </>
           )}

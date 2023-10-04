@@ -26,20 +26,22 @@ export const CopyCustLocation = () => {
       title="顧客の現住所をコピーする"
       placement='top'
     >
-      <LoadingButton 
-        variant='outlined'
-        color='primary' 
-        startIcon={<ContentCopyIcon />} 
-        loading={isLoading}
-        disabled={!data}
-        onClick={() => {
-          setValue('postal', postalCode?.value || '');
-          setValue('address1', address1?.value || '');
-          setValue('address2', address2?.value || '');
-        }}
-      >
-        顧客の現住所
-      </LoadingButton>
+      <span>
+        <LoadingButton 
+          variant='outlined'
+          color='primary' 
+          startIcon={<ContentCopyIcon />} 
+          loading={isLoading}
+          disabled={!data}
+          onClick={() => {
+            setValue('postal', postalCode?.value || '');
+            setValue('address1', address1?.value || '');
+            setValue('address2', address2?.value || '');
+          }}
+        >
+          顧客の現住所
+        </LoadingButton>
+      </span>
     </Tooltip>
   );
 };

@@ -1,42 +1,51 @@
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { useTypedFormContext } from '../../hooks/useTypedRHF';
-import { Controller } from 'react-hook-form';
-import { recordCancelStatuses } from 'types';
+import { Button, Stack } from '@mui/material';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
+import { RecordCancelStatus, recordCancelStatuses } from 'types';
+import { useUpdateCancelStatus } from '../../hooks/useUpdateCancelStatus';
+import DeleteIcon from '@mui/icons-material/Delete';
+import MoveDownIcon from '@mui/icons-material/MoveDown';
+import CancelIcon from '@mui/icons-material/Cancel';
+
+const getCancelIcon = (cancelStatus: RecordCancelStatus) => {
+  switch (cancelStatus) {
+    case '中止':
+      return <CancelIcon />;
+    case '他決':
+      return <MoveDownIcon />;
+    case '削除':
+      return <DeleteIcon />;
+    default:
+      return '';
+  }
+};
 
 export const CancelStatus = () => {
-  const { control } = useTypedFormContext();
+  const {
+    updateCancelStatus,
+  } = useUpdateCancelStatus();
 
+  const cancelStatus = useTypedWatch({
+    name: 'cancelStatus',
+  }) as RecordCancelStatus;
 
   return (
-    <Controller 
-      control={control}
-      name="cancelStatus"
-      render={(
-        { field: {
-          value,
-          onChange,
-        } },
-      ) => {
-        return (
-          <ToggleButtonGroup
-            value={value}
-            onChange={(_, newValues) => onChange(newValues)}
-            color='error'
-            size='small'
-          >
-            {recordCancelStatuses.map((s) => (
-              <ToggleButton 
-                key={s} 
-                value={s}
-                
-              >
-                {s}
-              </ToggleButton>
-            ))}
-          </ToggleButtonGroup>
-        );
-      }}
-    />
-    
+    <Stack
+      direction={'row'}
+      spacing={1}
+    >
+      {recordCancelStatuses.map((item) => (
+        <Button
+          key={item}
+          onClick={() => updateCancelStatus(item)}
+          variant={cancelStatus?.includes(item) ? 'contained' : 'outlined'}
+          color={cancelStatus?.includes(item) ? 'error' : 'primary'}
+          startIcon={getCancelIcon(item)}
+        >
+          {item}
+        </Button>
+      ))}
+
+    </Stack>
   );
+
 };

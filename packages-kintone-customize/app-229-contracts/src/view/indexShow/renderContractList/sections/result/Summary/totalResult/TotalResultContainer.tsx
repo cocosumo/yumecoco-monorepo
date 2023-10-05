@@ -12,7 +12,7 @@ export const TotalResultContainer = ({
     <TableContainer
       component={Paper}
       sx={{
-        width: '20%',
+        width: '22%',
       }}
     >
       <Table

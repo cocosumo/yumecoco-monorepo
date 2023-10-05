@@ -1,6 +1,5 @@
-import { ApiNodes } from 'types';
-import { apiKey, baseUrl, notifEmail, senderEmail } from '../config';
-import { kintoneProxyWrapper, sendGridEndpoints } from 'libs';
+import { apiKey, notifEmail, notifEmailWest, sendEmailEndpoint, senderEmail } from '../config';
+import { kintoneProxyWrapper } from 'libs';
 import { generateHTMLNotification } from '../helpers/generateHTMLNotifcation';
 
 
@@ -15,29 +14,33 @@ export const sendEmail = async (event : {
   const {
     $revision,
     reservingPerson,
+    territory,
   } = record;
 
   const isNew = type.includes('create');
-  const apiRoot: ApiNodes = 'sendgrid';
 
   if (!apiKey) throw new Error('API_KEY is not defined');
 
-  const endpoint = [
-    baseUrl,
-    apiRoot,
-    sendGridEndpoints.sendEmail,
-  ].join('/');
+  const recipients = [
+    {
+      'name': '報告用',
+      'email': notifEmail,
+    },
+  ];
 
-  console.log('endpoint', endpoint);
+  if (territory.value.includes('西')) {
+    recipients.push({
+      'name': '本社経理',
+      'email': notifEmailWest,
+    });
+  }
+
 
   const result = await kintoneProxyWrapper({
     method: 'POST',
-    url: endpoint,
+    url: sendEmailEndpoint,
     data: {
-      'to': {
-        'name': '報告用',
-        'email': notifEmail,
-      },
+      'to': recipients,
       'from': senderEmail,
       'subject': `社有車予約のお知らせ : ${reservingPerson.value} - ${isNew ? '新規' : `編集(${$revision.value})`}`,
       //'text': '$id',

@@ -1,13 +1,17 @@
 declare namespace DB {
   interface Record {
     備考: kintone.fieldTypes.SingleLineText;
-    店舗: kintone.fieldTypes.SingleLineText;
     終了: kintone.fieldTypes.DateTime;
+    returnDate: kintone.fieldTypes.DateTime;
+    所属: kintone.fieldTypes.DropDown;
+    carKeyFetchTime: kintone.fieldTypes.DateTime;
+    店舗: kintone.fieldTypes.SingleLineText;
+    所属店舗: kintone.fieldTypes.SingleLineText;
     reserveState: kintone.fieldTypes.RadioButton;
     開始: kintone.fieldTypes.DateTime;
-    returnDate: kintone.fieldTypes.DateTime;
     reservingPerson: kintone.fieldTypes.SingleLineText;
     号車: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
     期間: kintone.fieldTypes.Calc;
     fullDay: kintone.fieldTypes.CheckBox;
   }

@@ -19,6 +19,7 @@ declare namespace DBProjects {
     postal: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     storeCode: kintone.fieldTypes.SingleLineText;
+    commissionRate: kintone.fieldTypes.Number;
     addressKari: kintone.fieldTypes.SingleLineText;
     projFinDate: kintone.fieldTypes.Date;
     dataId: kintone.fieldTypes.SingleLineText;
@@ -33,11 +34,22 @@ declare namespace DBProjects {
     projName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     finalAddress2: kintone.fieldTypes.SingleLineText;
+    profitRate: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
     finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
+    commRateByRoles: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          role: kintone.fieldTypes.SingleLineText;
+          commRateByRole: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
     log: {
       type: "SUBTABLE";
       value: Array<{

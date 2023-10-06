@@ -44,14 +44,15 @@ export const EmployeeSelectFields = ({
       {fields.map(({
         id,
         empType,
-      }) => {
+      }, index) => {
 
         return (
           <ControlledEmployeeSelector 
             affiliation={[empAffiliations[empType as TAgents]]}
             key={id}
-            name={`${name}.${id}`}
+            name={`${name}.${index}`}
             label={`${empFieldLabels[empType as TAgents]}`}
+            agentType={empType as TAgents}
           />);
 
       })}

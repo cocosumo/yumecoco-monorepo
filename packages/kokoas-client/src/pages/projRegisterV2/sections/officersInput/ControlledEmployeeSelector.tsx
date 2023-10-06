@@ -39,13 +39,11 @@ export const ControlledEmployeeSelector = ({
         } = field;
         const showError = (isTouched || !!submitCount) && !!error;
         
-        console.log('value', value, name);
-
         return (
           <EmployeeSelector
             {...fieldRest}
             label={label}
-            value={value.empId}
+            value={value?.empId || ''}
             error={showError}
             helperText={error?.message}
             onChange={(empId, empRec) => {

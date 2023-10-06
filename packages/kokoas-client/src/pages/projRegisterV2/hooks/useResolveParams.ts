@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initialValues } from '../form';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
-import { useContractsByProjIdV2, useCustGroupById, useProjById } from 'kokoas-client/src/hooksQuery';
+import { useContractsByProjIdV2, useCustGroupById, useProjById, useProjTypeById } from 'kokoas-client/src/hooksQuery';
 import { convertProjToForm } from '../api/convertProjToForm';
 import { convertCustGroupToForm } from '../api/convertCustGroupToForm';
 import { TEnvelopeStatus } from 'types';
@@ -19,17 +19,18 @@ export const useResolveParams = () => {
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
 
   const { data: contracts } = useContractsByProjIdV2(projRec?.uuid.value);
-  /* 
-  const {
-    completed,
-    hasContract,
-  } = contractSummary || {}; */
 
-  const hasContract = contracts && contracts.some(({ envelopeStatus }) => envelopeStatus.value );
+  const { data: projTypeRec, isLoading: projTypeRecIsLoading } = useProjTypeById(projRec?.projTypeId.value || '');
+
+
+  const hasContract = !!contracts && contracts.some(({ envelopeStatus }) => envelopeStatus.value);
+
   const completed =  contracts && contracts
     ?.some((contract) => (contract.envelopeStatus.value as TEnvelopeStatus) === 'completed');
 
   useEffect(() => {
+    // Prevent loading from overwriting form values
+    if (projTypeRecIsLoading) return;
 
     if (projIdFromURL && projRec && custGroupRec && contracts) {
 
@@ -39,7 +40,11 @@ export const useResolveParams = () => {
         yumeAG1,
         yumeAG2,
         ...restOfProjData
-      } = convertProjToForm(projRec);
+      } = convertProjToForm({
+        hasContract,
+        projRec,
+        projTypeRec,
+      });
 
       const {
         cocoAG1: custCocoAG1,
@@ -67,6 +72,7 @@ export const useResolveParams = () => {
       });
 
     } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {
+      // 新規
       setNewFormVal({
         ...initialValues,
         ...convertCustGroupToForm(custGroupRec),
@@ -84,6 +90,8 @@ export const useResolveParams = () => {
     hasContract,
     completed,
     contracts,
+    projTypeRec,
+    projTypeRecIsLoading,
   ]);
 
   return { newFormVal };

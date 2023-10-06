@@ -1,11 +1,88 @@
-import { BuildingType, IProjects, RecordCancelStatus } from 'types';
+import { BuildingType, IProjects, IProjtypes, RecordCancelStatus } from 'types';
 import { TForm } from '../schema';
 import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
 
-export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
+interface IConvertProjToFormParams {
+  projRec: IProjects,
+  projTypeRec: IProjtypes | undefined,
+  hasContract: boolean,
+}
+
+/**
+ * 運用が変わっても、変わらないフィールドを取得する。
+ * なお、役職による紹介料率は、2023.10.01までには無かったので、
+ * 以下の条件で設定する
+ * * 役職による紹介料率がある場合は、それ以外は、プロジェクトタイプの紹介料率を設定する
+ */
+const getPersistentFields = ({
+  projTypeRec,
+  projRec,
+  hasContract,
+}: IConvertProjToFormParams): Pick<TForm, 'commissionRate' | 'commRateByRole' | 'profitRate'> => {
+
+  const {
+    yumeCommFeeRate,
+    profitRate,
+    commRateByRoles,
+  } = projTypeRec || {};
+
+  const {
+    commissionRate: commissionRateFromProj,
+    profitRate: profitRateFromProj,
+    commRateByRoles: commRateByRolesFromProj,
+  } = projRec;
+
+  // Default to project records values
+  let parsedCommRate: string = commissionRateFromProj.value;
+  let parsedProfitRate: string = profitRateFromProj.value;
+
+  const projHasCommRateByRole = commRateByRolesFromProj?.value
+    .some(({ value: { role } }) => !!role.value);
+
+  let parsedCommRateByRoles: TForm['commRateByRole'] | null = projHasCommRateByRole
+    ? commRateByRolesFromProj?.value
+      .filter(({ value: { role } }) => !!role.value)
+      .map(({
+        value: { role, commRateByRole },
+      }) => ({
+        role: role.value,
+        rate: Number(commRateByRole.value),
+      }))
+    : null;
+
+  if (!hasContract) {
+    // If there's no contract, use Project Type's values
+    parsedCommRate = parsedCommRate || yumeCommFeeRate?.value || '';
+    parsedProfitRate = parsedProfitRate || profitRate?.value || '';
+    parsedCommRateByRoles = parsedCommRateByRoles
+      || commRateByRoles?.value
+        .filter(({ value: { role } }) => !!role.value)
+        .map(({
+          value: { role, commRateByRole },
+        }) => ({
+          role: role.value,
+          rate: Number(commRateByRole.value),
+        }))
+      || null;
+  }
+
+  // If there's no value, set to null to avoid validation error
+  return {
+    commissionRate: parsedCommRate === '' ? null : Number(parsedCommRate),
+    profitRate: parsedProfitRate === '' ? null : Number(parsedProfitRate),
+    commRateByRole: parsedCommRateByRoles,
+  };
+};
+
+export const convertProjToForm = ({
+  projRec,
+  projTypeRec,
+  hasContract,
+}: IConvertProjToFormParams): Partial<TForm> => {
+
 
   const {
     projTypeId,
@@ -42,6 +119,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     planApplicationDate,
     schedContractDate,
     paymentMethod,
+
   } = projRec;
 
   const {
@@ -51,8 +129,10 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
   } = groupAgentsByType(agents);
 
 
+
   return {
     //addressKari: addressKari.value,
+
     finalPostal: finalPostal.value,
     finalAddress1: finalAddress1.value,
     finalAddress2: finalAddress2.value,
@@ -115,6 +195,13 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     estatePurchaseDate: estatePurchaseDate.value ? parseISO(estatePurchaseDate.value) : null,
     planApplicationDate: planApplicationDate.value ? parseISO(planApplicationDate.value) : null,
     paymentMethod: paymentMethod.value,
+
+    // Persistent fields
+    ...getPersistentFields({
+      projRec,
+      projTypeRec,
+      hasContract,
+    }),
 
   };
 

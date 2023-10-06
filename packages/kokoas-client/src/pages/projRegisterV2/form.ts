@@ -60,6 +60,11 @@ export const initialValues : TForm = {
   planApplicationDate: null,
   paymentMethod: '',
 
+  // 紹介料
+  commissionRate: null,
+  commRateByRole: null,
+  profitRate: null,
+
 };
 
 

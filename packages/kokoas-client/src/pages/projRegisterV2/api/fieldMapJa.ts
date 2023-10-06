@@ -56,4 +56,9 @@ export const fieldMapJa : Record<KForm, string> = {
   planApplicationDate: '計画申し込み日',
   paymentMethod: '金融機関',
 
+  commissionRate: '紹介料率',
+  commRateByRole: '紹介料率',
+  profitRate: '利益率',
+
+
 };

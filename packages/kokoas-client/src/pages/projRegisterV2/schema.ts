@@ -65,6 +65,20 @@ export const schema = z.object({
     id: z.string(),
   })),
 
+  /** 利益率 */
+  profitRate: z.number().nullable(),
+
+  /** 紹介率 */
+  commissionRate: z.number().nullable(),
+
+  /** 紹介率 */
+  commRateByRole: z.array(z.object({
+    role: z.string(),
+    rate: z.number(),
+  })).nullable(),
+
+
+
   // 見込み
   rank: z.string().optional(),
   schedContractPrice: z.number().optional(),

@@ -39,7 +39,7 @@ export const ControlledEmployeeSelector = ({
         return (
           <EmployeeSelector
             {...fieldRest}
-            label={fieldMapJa[name]}
+            label={fieldMapJa[name] || ''}
             value={value as string}
             error={showError}
             helperText={error?.message}

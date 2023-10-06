@@ -1,12 +1,13 @@
 import { KForm } from '../schema';
 
-export const fieldMapJa : Record<KForm, string> = {
+export const fieldMapJa: Partial<Record<KForm, string>> = {
   address1: '住所1',
   address2: '住所2',
   buildingType: '建物種別',
   cancelStatus: 'キャンセルステータス',
 
   cocoConst1: '工事担当者１',
+
   cocoConst2: '工事担当者２',
 
   cocoAG1: '営業担当者１',
@@ -57,8 +58,7 @@ export const fieldMapJa : Record<KForm, string> = {
   paymentMethod: '金融機関',
 
   commissionRate: '紹介料率',
-  commRateByRole: '紹介料率',
+  commRateByRole: '役職による紹介料率',
   profitRate: '利益率',
-
 
 };

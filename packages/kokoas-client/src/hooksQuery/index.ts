@@ -71,6 +71,7 @@ export * from './useSearchCustGroup';
 export * from './useSearchProjects';
 export * from './useSendContract';
 export * from './useSoftDelCustGroupById';
+export * from './useStoreById';
 export * from './useStoreOptions';
 export * from './useStores';
 export * from './useSystemUpdate';

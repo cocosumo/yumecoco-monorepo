@@ -1,15 +1,18 @@
-import { BuildingType, IProjects, IProjtypes, RecordCancelStatus } from 'types';
+import { BuildingType, IEmployees, IProjects, IProjtypes, RecordCancelStatus, TAgents, Territory } from 'types';
 import { TForm } from '../schema';
 import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
 
-interface IConvertProjToFormParams {
+interface IGetPersistentFieldsParams {
   projRec: IProjects,
   projTypeRec: IProjtypes | undefined,
   hasContract: boolean,
 }
+interface IConvertProjToFormParams extends IGetPersistentFieldsParams {
+  employeeRecs: IEmployees[],
+}
+
 
 /**
  * 運用が変わっても、変わらないフィールドを取得する。
@@ -21,7 +24,7 @@ const getPersistentFields = ({
   projTypeRec,
   projRec,
   hasContract,
-}: IConvertProjToFormParams): Pick<TForm, 'commissionRate' | 'commRateByRole' | 'profitRate'> => {
+}: IGetPersistentFieldsParams): Pick<TForm, 'commissionRate' | 'commRateByRole' | 'profitRate'> => {
 
   const {
     yumeCommFeeRate,
@@ -81,6 +84,7 @@ export const convertProjToForm = ({
   projRec,
   projTypeRec,
   hasContract,
+  employeeRecs,
 }: IConvertProjToFormParams): Partial<TForm> => {
 
 
@@ -104,7 +108,6 @@ export const convertProjToForm = ({
     buildingType, isChkAddressKari, agents, 
     cancelStatus,
     projTypeName,
-    storeId,
     作成日時: createTime,
     memo,
     log,
@@ -120,14 +123,11 @@ export const convertProjToForm = ({
     schedContractDate,
     paymentMethod,
 
+    storeId,
+    storeCode,
+    store: storeName,
+    territory,
   } = projRec;
-
-  const {
-    cocoAG,
-    cocoConst,
-    yumeAG,
-  } = groupAgentsByType(agents);
-
 
 
   return {
@@ -145,12 +145,24 @@ export const convertProjToForm = ({
       .split(',')
       .filter(Boolean) as RecordCancelStatus[],
 
-    cocoConst1: cocoConst?.[0]?.value.agentId.value || '',
-    cocoConst2: cocoConst?.[1]?.value.agentId.value || '',
-    cocoAG1: cocoAG?.[0]?.value.agentId.value || '',
-    cocoAG2: cocoAG?.[1]?.value.agentId.value || '',
-    yumeAG1: yumeAG?.[0]?.value.agentId.value || '',
-    yumeAG2: yumeAG?.[1]?.value.agentId.value || '',
+    agents: agents.value.map(({
+      value: {
+        agentId,
+        empRole,
+        agentName,
+        agentType,
+      },
+    }) => {
+
+      const agentRec = employeeRecs.find(({ uuid: _empId }) => _empId.value === agentId.value);
+      return ({
+        empId: agentId.value,
+        empRole: empRole.value || agentRec?.役職.value || '',
+        empName: agentName.value || agentRec?.文字列＿氏名.value || '',
+        empType: agentType.value as TAgents,
+
+      });
+    }),
 
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value,
@@ -167,7 +179,7 @@ export const convertProjToForm = ({
     projName: projName.value,
     projDataId: formatDataId(dataId.value),
     postal: postal.value,
-    storeId: storeId.value,
+
     memo: memo.value,
 
     deliveryDate: deliveryDate.value ? parseISO(deliveryDate.value) : null,
@@ -203,6 +215,11 @@ export const convertProjToForm = ({
       hasContract,
     }),
 
+    // 店舗情報
+    storeId: storeId.value,
+    storeName: storeName.value,
+    storeCode: storeCode.value,
+    territory: territory.value as Territory,
   };
 
 };

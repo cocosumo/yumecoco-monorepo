@@ -2,18 +2,24 @@ import {  IProjects, TAgents } from 'types';
 import { TForm } from '../schema';
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
-const convertToAgentsTbl = (
+const convertToAgentsTbl = ({
+  empIds,
+  empType,
+  empRole,
+}: {
   empIds: string[],
-  agentType: TAgents,
-) => {
+  empType: TAgents,
+  empRole: string,
+  empName: string,
+}) => {
   return empIds.filter(Boolean)
     .map(item => {
       return {
         id: '',
         value: {
-          agentType: { value: agentType },
+          agentType: { value: empType },
           agentId: { value: item as string },
-          agentName: { value: '' },
+          agentName: { value: empName },
         },
       };
     });
@@ -23,14 +29,23 @@ export const convertToKintone = (
   rawValues: TForm,
 ): Partial<IProjects>  => {
   const {
-    cocoConst1, 
+    cocoConst1,
+    cocoConst1Role,
+
     cocoConst2, 
+    cocoConst2Role,
 
     cocoAG1,
+    cocoAG1Role,
+
     cocoAG2,
+    cocoAG2Role,
 
     yumeAG1,
+    yumeAG1Role,
+
     yumeAG2,
+    yumeAG2Role,
     
     projTypeId, 
     projName,

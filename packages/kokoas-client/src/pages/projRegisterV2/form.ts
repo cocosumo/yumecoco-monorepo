@@ -9,22 +9,30 @@ export const initialValues : TForm = {
   
   projDataId: '',
 
-
   createdDate: '',
-  storeCode: '',
   custGroupId: null,
   custName: '',
-  storeId: '',
-  territory: null,
-  
-  cocoConst1: '',
+
+  agents: [],
+
+
+  /* cocoConst1: '',
+  cocoConst1Role: '',
+
   cocoConst2: '',
+  cocoConst2Role: '',
 
   yumeAG1: '',
+  yumeAG1Role: '',
+
   yumeAG2: '',
+  yumeAG2Role: '',
 
   cocoAG1: '',
+  cocoAG1Role: '',
+
   cocoAG2: '',
+  cocoAG2Role: '', */
 
   postal: '',
   address1: '',
@@ -64,6 +72,12 @@ export const initialValues : TForm = {
   commissionRate: null,
   commRateByRole: null,
   profitRate: null,
+
+  // 店舗情報
+  storeName: '',
+  storeId: '',
+  territory: '',
+  storeCode: '',
 
 };
 

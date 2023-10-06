@@ -10,6 +10,7 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<TFor
     members,
     storeCode,
     agents,
+    storeName,
   } = custGroupRec;
 
   const {
@@ -20,9 +21,10 @@ export const convertCustGroupToForm = (custGroupRec: ICustgroups) : Partial<TFor
   return {
     custGroupId: uuid.value,
     storeId: storeId.value,
+    storeCode: storeCode.value,
+    storeName: storeName.value,
     territory: territory.value as Territory,
     custName: members.value[0]?.value.customerName.value || '',
-    storeCode: storeCode.value,
 
     cocoAG1: cocoAG?.[0]?.value.employeeId.value || '',
     cocoAG2: cocoAG?.[1]?.value.employeeId.value || '',

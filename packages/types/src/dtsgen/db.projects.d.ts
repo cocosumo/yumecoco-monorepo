@@ -40,6 +40,7 @@ declare namespace DBProjects {
     cocoConstNames: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
     commRateByRoles: {
       type: "SUBTABLE";
       value: Array<{
@@ -67,6 +68,7 @@ declare namespace DBProjects {
         value: {
           agentId: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
+          empRole: kintone.fieldTypes.SingleLineText;
           agentName: kintone.fieldTypes.SingleLineText;
         };
       }>;

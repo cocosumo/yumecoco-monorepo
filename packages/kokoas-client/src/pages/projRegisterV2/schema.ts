@@ -1,5 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
-import { buildingTypes, recordCancelStatuses, recordStatuses, territories } from 'types';
+import { agentTypes, buildingTypes, recordCancelStatuses, recordStatuses } from 'types';
 import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
@@ -18,21 +18,17 @@ export const schema = z.object({
 
   projDataId: z.string(),
   createdDate: z.string(),
-  storeCode: z.string(),
 
   custGroupId: z.string().nullable(),
   custName: z.string(),
-  storeId: z.string(),
-  territory: z.enum(territories).nullable(),
 
-  cocoConst1: z.string(),
-  cocoConst2: z.string(),
 
-  yumeAG1: nonEmptyDropdown,
-  yumeAG2: z.string(),
-
-  cocoAG1: nonEmptyDropdown,
-  cocoAG2: z.string(),
+  agents: z.array(z.object({
+    empId: z.string(),
+    empRole: z.string(),
+    empName: z.string(),
+    empType: z.enum(agentTypes),
+  })),
 
   postal: z.string(),
   address1: z.string().nonempty(),
@@ -78,7 +74,6 @@ export const schema = z.object({
   })).nullable(),
 
 
-
   // 見込み
   rank: z.string().optional(),
   schedContractPrice: z.number().optional(),
@@ -86,6 +81,13 @@ export const schema = z.object({
   estatePurchaseDate: z.date().nullable(),
   planApplicationDate: z.date().nullable(),
   paymentMethod: z.string().optional(),
+
+  // 店舗情報
+  storeName: z.string(),
+  storeId: z.string(),
+  storeCode: z.string(),
+  territory: z.string(),
+
 })
   .superRefine((
     {

@@ -13,26 +13,9 @@ export const initialValues : TForm = {
   custGroupId: null,
   custName: '',
 
-  agents: [],
-
-
-  /* cocoConst1: '',
-  cocoConst1Role: '',
-
-  cocoConst2: '',
-  cocoConst2Role: '',
-
-  yumeAG1: '',
-  yumeAG1Role: '',
-
-  yumeAG2: '',
-  yumeAG2Role: '',
-
-  cocoAG1: '',
-  cocoAG1Role: '',
-
-  cocoAG2: '',
-  cocoAG2Role: '', */
+  yumeAG: [],
+  cocoAG: [],
+  cocoConst: [],
 
   postal: '',
   address1: '',

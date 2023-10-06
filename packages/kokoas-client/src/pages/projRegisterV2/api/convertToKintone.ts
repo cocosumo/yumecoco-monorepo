@@ -1,52 +1,17 @@
-import {  IProjects, TAgents } from 'types';
+import { IProjects } from 'types';
 import { TForm } from '../schema';
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
-const convertToAgentsTbl = ({
-  empIds,
-  empType,
-  empRole,
-}: {
-  empIds: string[],
-  empType: TAgents,
-  empRole: string,
-  empName: string,
-}) => {
-  return empIds.filter(Boolean)
-    .map(item => {
-      return {
-        id: '',
-        value: {
-          agentType: { value: empType },
-          agentId: { value: item as string },
-          agentName: { value: empName },
-        },
-      };
-    });
-};
 
 export const convertToKintone = (
   rawValues: TForm,
 ): Partial<IProjects>  => {
   const {
-    cocoConst1,
-    cocoConst1Role,
 
-    cocoConst2, 
-    cocoConst2Role,
+    yumeAG,
+    cocoAG,
+    cocoConst,
 
-    cocoAG1,
-    cocoAG1Role,
-
-    cocoAG2,
-    cocoAG2Role,
-
-    yumeAG1,
-    yumeAG1Role,
-
-    yumeAG2,
-    yumeAG2Role,
-    
     projTypeId, 
     projName,
     otherProjType,
@@ -77,13 +42,6 @@ export const convertToKintone = (
   } = rawValues;
 
 
-
-  const agentsTable = [
-    ...convertToAgentsTbl([cocoConst1, cocoConst2], 'cocoConst'),
-    ...convertToAgentsTbl([cocoAG1, cocoAG2], 'cocoAG'),
-    ...convertToAgentsTbl([yumeAG1, yumeAG2], 'yumeAG'),
-  ];
-
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
 
@@ -104,9 +62,27 @@ export const convertToKintone = (
     isShowFinalAddress: { value: (+isShowFinalAddress).toString() },
     //addressKari: { value: addressKari },
     buildingType: { value: buildingType },
+
     agents: {
       type: 'SUBTABLE',
-      value: agentsTable,
+      value: [
+        ...yumeAG,
+        ...cocoAG,
+        ...cocoConst,
+      ].map(({
+        empId,
+        empName,
+        empType,
+        empRole,
+      }) => ({
+        id: '',
+        value: {
+          agentId: { value: empId },
+          agentName: { value: empName },
+          agentType: { value: empType || '' },
+          empRole: { value: empRole },
+        },
+      })),
     },
     storeCode: { value: storeCode },
     status: {  value: status  },

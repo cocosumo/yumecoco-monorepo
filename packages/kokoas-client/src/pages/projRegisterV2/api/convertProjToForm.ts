@@ -1,8 +1,9 @@
-import { BuildingType, IEmployees, IProjects, IProjtypes, RecordCancelStatus, TAgents, Territory } from 'types';
+import { BuildingType, ICustgroups, IEmployees, IProjects, IProjtypes, RecordCancelStatus, TAgents, Territory } from 'types';
 import { TForm } from '../schema';
 import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
+import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
 
 interface IGetPersistentFieldsParams {
   projRec: IProjects,
@@ -11,6 +12,7 @@ interface IGetPersistentFieldsParams {
 }
 interface IConvertProjToFormParams extends IGetPersistentFieldsParams {
   employeeRecs: IEmployees[],
+  custGroupRec: ICustgroups
 }
 
 
@@ -85,10 +87,12 @@ export const convertProjToForm = ({
   projTypeRec,
   hasContract,
   employeeRecs,
+  custGroupRec,
 }: IConvertProjToFormParams): Partial<TForm> => {
 
 
   const {
+
     projTypeId,
     projName,
     otherProjType,
@@ -105,7 +109,11 @@ export const convertProjToForm = ({
     finalAddress1,
     finalAddress2,
 
-    buildingType, isChkAddressKari, agents, 
+    buildingType,
+    isChkAddressKari,
+
+    agents,
+
     cancelStatus,
     projTypeName,
     作成日時: createTime,
@@ -129,10 +137,51 @@ export const convertProjToForm = ({
     territory,
   } = projRec;
 
+  const {
+    storeId: cgStoreId,
+    territory: cgTerritory,
+    uuid: cgId,
+    members: cgMembers,
+    storeCode: cgStoreCode,
+    agents: cgAgents,
+    storeName: cgStoreName,
+  } = custGroupRec;
+
+  const {
+    yumeAG,
+    cocoAG,
+    cocoConst,
+  } = groupAgentsByType(agents);
+
+  const convertAgentsToForm = (_agents: IProjects['agents']['value'], _agType: TAgents) => {
+    return _agents?.filter(({ value: { agentId } }) => !!agentId.value)
+      .map(({
+        value: {
+          agentId,
+          empRole,
+          agentName,
+          agentType,
+        },
+      }) => {
+
+        const agentRec = employeeRecs.find(({ uuid: _empId }) => _empId.value === agentId.value);
+        const cgAgent = cgAgents.value.find(({ value: { employeeId } }) => employeeId.value === agentId.value)?.value;
+
+        return ({
+          empId: agentId.value,
+          empRole: empRole?.value || agentRec?.役職.value || '',
+          empName: agentName.value || cgAgent?.employeeName.value || agentRec?.文字列＿氏名.value || '',
+          empType: (agentType.value || cgAgent?.agentType.value || _agType) as TAgents,
+
+        });
+      });
+  };
+
 
   return {
     //addressKari: addressKari.value,
 
+    custName: cgMembers.value[0]?.value.customerName.value || '',
     finalPostal: finalPostal.value,
     finalAddress1: finalAddress1.value,
     finalAddress2: finalAddress2.value,
@@ -145,27 +194,12 @@ export const convertProjToForm = ({
       .split(',')
       .filter(Boolean) as RecordCancelStatus[],
 
-    agents: agents.value.map(({
-      value: {
-        agentId,
-        empRole,
-        agentName,
-        agentType,
-      },
-    }) => {
-
-      const agentRec = employeeRecs.find(({ uuid: _empId }) => _empId.value === agentId.value);
-      return ({
-        empId: agentId.value,
-        empRole: empRole.value || agentRec?.役職.value || '',
-        empName: agentName.value || agentRec?.文字列＿氏名.value || '',
-        empType: agentType.value as TAgents,
-
-      });
-    }),
+    yumeAG: convertAgentsToForm(yumeAG, 'yumeAG'),
+    cocoAG: convertAgentsToForm(cocoAG, 'cocoAG'),
+    cocoConst: convertAgentsToForm(cocoConst, 'cocoConst'),
 
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
-    custGroupId: custGroupId.value,
+    custGroupId: custGroupId.value || cgId.value,
     //isAgentConfirmed: Boolean(+isAgentConfirmed.value),
     
     isAddressKari: Boolean(+isChkAddressKari.value),
@@ -216,10 +250,10 @@ export const convertProjToForm = ({
     }),
 
     // 店舗情報
-    storeId: storeId.value,
-    storeName: storeName.value,
-    storeCode: storeCode.value,
-    territory: territory.value as Territory,
+    storeId: storeId.value || cgStoreId.value,
+    storeName: storeName.value || cgStoreName.value,
+    storeCode: storeCode.value || cgStoreCode.value,
+    territory: (territory?.value as Territory || cgTerritory) || '',
   };
 
 };

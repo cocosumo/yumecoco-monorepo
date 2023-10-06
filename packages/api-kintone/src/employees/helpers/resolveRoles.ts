@@ -8,7 +8,7 @@ export const rolesMap: RolesMap = {
   'yumeAG': ['取締役', '主任', '営業', '店長', '店長代理'],
   'cocoAG': ['営業', '店長', '工務', '主任'],
   'cocoConst': ['営業', '店長', '工務', '主任'], // 当面、cocoAGと一緒ですが、変わるかもしれませんので、残しておきます。
-  'sutekura': ['主任', '営業', '店長', '工務'],
+  //'sutekura': ['主任', '営業', '店長', '工務'],
 };
 
 export const resolveRoles = (dirtyType: TAgents | TAgents[]) => {

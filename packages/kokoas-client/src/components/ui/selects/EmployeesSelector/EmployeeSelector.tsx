@@ -6,12 +6,13 @@ import { SearchByName } from './SearchByName';
 import { FilterOptions, useFilteredEmployees } from './useFilteredEmployees';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { IEmployees } from 'types';
 
 interface EmployeeSelectorProps {
   label: string,
   /** 社員のuuid */
   value: string,
-  onChange?: (empId: string,) => void,
+  onChange?: (empId: string, empRec?: IEmployees) => void,
   onBlur?: () => void,
   filter?: FilterOptions,
   required?: boolean,
@@ -54,12 +55,12 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
   } = selectedEmpRecord || {};
   
   const handleChange = useCallback(
-    (empId: string | undefined) => {
+    (empId: string | undefined ) => {
       if (onChange) {
-        onChange(empId || '');
+        onChange(empId || '', data?.find((empRecord) => empRecord.uuid.value === empId));
       }
     }, 
-    [onChange],
+    [onChange, data],
   );
 
   return (

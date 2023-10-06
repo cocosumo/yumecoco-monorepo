@@ -38,58 +38,19 @@ export const useResolveParams = () => {
 
     if (projIdFromURL && projRec && custGroupRec && contracts && storeRec && employeeRecs) {
 
-      const {
-        cocoAG1,
-        cocoAG2,
-        yumeAG1,
-        yumeAG2,
-
-        // 店舗情報
-        storeId,
-        storeCode,
-        storeName,
-        territory,
-        ...restOfProjData
-      } = convertProjToForm({
+      const projData = convertProjToForm({
         hasContract,
         projRec,
         projTypeRec,
         employeeRecs,
+        custGroupRec,
       });
-
-      const {
-        cocoAG1: custCocoAG1,
-        cocoAG2: custCocoAG2,
-        yumeAG1: custYumeAG1,
-        yumeAG2: custYumeAG2,
-        storeId: custStoreId,
-        storeCode: custStoreCode,
-        storeName: custStoreName,
-        territory: custTerritory,
-        ...restOfCustGroupData
-      } = convertCustGroupToForm(custGroupRec);
-
 
       setNewFormVal({
         ...initialValues,
         hasContract: !!hasContract,
         hasCompletedContract: !!completed,
-
-        ...restOfProjData,
-        ...restOfCustGroupData,
-
-        //　空の場合はcustGroupRecの値を入れる
-        cocoAG1: cocoAG1 || custCocoAG1 || '',
-
-        cocoAG2: cocoAG2 || custCocoAG2 || '',
-        yumeAG1: yumeAG1 || custYumeAG1 || '',
-        yumeAG2: yumeAG2 || custYumeAG2 || '',
-
-        // 店舗情報
-        storeId: storeId || custStoreId || storeRec.uuid.value || '',
-        storeCode: storeCode || custStoreCode || storeRec.storeCode.value || '',
-        storeName: storeName || custStoreName || storeRec.店舗名.value || '',
-        territory: territory || custTerritory || storeRec.area.value || '',
+        ...projData,
 
       });
 

@@ -1,17 +1,19 @@
 import { Stack } from '@mui/material';
-import { CocoAGSelectSet } from './CocoAGSelectSet';
-import { YumeAGSelectSet } from './YumeAGSelectSet';
-import { CocoConstSelectSet } from './CocoConstSelectSet';
+import { EmployeeSelectFields } from './EmployeeSelectFields';
+
+
+
 
 export const OfficersInput = () => {
+
+
   return (
-    <Stack spacing={2}>
-
-      <YumeAGSelectSet />
-
-      <CocoAGSelectSet />
-
-      <CocoConstSelectSet />
+    <Stack 
+      spacing={2}
+    >
+      <EmployeeSelectFields name='yumeAG' />
+      <EmployeeSelectFields name='cocoAG' />
+      <EmployeeSelectFields name='cocoConst' />
 
     </Stack>
   );

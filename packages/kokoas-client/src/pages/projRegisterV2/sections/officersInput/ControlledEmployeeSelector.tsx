@@ -1,24 +1,25 @@
 import { EmployeeSelector } from 'kokoas-client/src/components';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
-import { KForm } from '../../schema';
 import { Controller } from 'react-hook-form';
-import { fieldMapJa } from '../../api/fieldMapJa';
 import { EmpAffiliations } from 'types';
+import { KForm } from '../../schema';
 
 export const ControlledEmployeeSelector = ({
-  name,
   affiliation,
   required,
+  label = '',
+  name,
 }:{
-  name: KForm,
   affiliation: EmpAffiliations[]
   required?: boolean,
+  label?: string,
+  name: string,
 }) => {
   const { control } = useTypedFormContext();
 
   return (
     <Controller 
-      name={name}
+      name={name as KForm}
       control={control}
       render={({
         field,
@@ -31,18 +32,24 @@ export const ControlledEmployeeSelector = ({
         },
       }) => {
         const {
-          value,
+          onChange: _,
           ...fieldRest
         } = field;
         const showError = (isTouched || !!submitCount) && !!error;
 
+
+
         return (
           <EmployeeSelector
             {...fieldRest}
-            label={fieldMapJa[name] || ''}
-            value={value as string}
+            label={label}
+            //value={currEmpId}
+            value={''}
             error={showError}
             helperText={error?.message}
+            onChange={(empId, empRec) => {
+              console.log('empId', empId, empRec);
+            }}
             required={required}
             filter={{
               affiliation: affiliation,

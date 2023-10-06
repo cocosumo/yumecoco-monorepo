@@ -8,6 +8,16 @@ const nonEmptyDropdown = z.string().nonempty({
   message: '選択してください。',
 });
 
+
+
+const agentSchema = z.object({
+  empId: z.string(),
+  empRole: z.string(),
+  empName: z.string(),
+  empType: z.enum(agentTypes).nullable(),
+});
+
+
 export const schema = z.object({
   projId: z.string().optional(),
   projTypeName: z.string(),
@@ -23,12 +33,9 @@ export const schema = z.object({
   custName: z.string(),
 
 
-  agents: z.array(z.object({
-    empId: z.string(),
-    empRole: z.string(),
-    empName: z.string(),
-    empType: z.enum(agentTypes),
-  })),
+  yumeAG: z.array(agentSchema),
+  cocoAG: z.array(agentSchema),
+  cocoConst: z.array(agentSchema),
 
   postal: z.string(),
   address1: z.string().nonempty(),
@@ -91,6 +98,7 @@ export const schema = z.object({
 })
   .superRefine((
     {
+
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,

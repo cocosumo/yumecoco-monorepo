@@ -4,6 +4,7 @@ import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
+import { getDefaultEmployee } from '../form';
 
 interface IGetPersistentFieldsParams {
   projRec: IProjects,
@@ -153,8 +154,18 @@ export const convertProjToForm = ({
     cocoConst,
   } = groupAgentsByType(agents);
 
-  const convertAgentsToForm = (_agents: IProjects['agents']['value'], _agType: TAgents) => {
-    return _agents?.filter(({ value: { agentId } }) => !!agentId.value)
+  const convertAgentsToForm = (_agents: IProjects['agents']['value'] | undefined, _agType: TAgents) => {
+
+    const defaultAgentFields = getDefaultEmployee(_agType);
+    const filteredAgents = _agents
+      ?.filter(({ value: { agentId } }) => !!agentId.value);
+
+
+    if (!filteredAgents?.length) {
+      return defaultAgentFields;
+    }
+
+    const modified = filteredAgents
       .map(({
         value: {
           agentId,
@@ -175,6 +186,14 @@ export const convertProjToForm = ({
 
         });
       });
+
+
+    const spliced = defaultAgentFields.splice(0, modified.length, ...modified);
+
+    console.log('spliced', spliced);
+
+    return spliced; 
+
   };
 
 

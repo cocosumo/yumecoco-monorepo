@@ -1,10 +1,11 @@
-import { useFieldArray } from 'react-hook-form';
-import { useTypedFormContext } from '../../hooks';
-import { KForm } from '../../schema';
-import { Stack } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
+import { KForm, TForm } from '../../schema';
+import { Button, FormControl, InputLabel, MenuItem, Select, Stack } from '@mui/material';
 import { EmpAffiliations, TAgents } from 'types';
 import { useEffect } from 'react';
 import { EmployeeSelector } from 'kokoas-client/src/components';
+import { useTypedWatch } from '../../hooks';
+import { v4 as uuidv4 } from 'uuid';
 
 /* const empInputs: TAgents[] = [
   'yumeAG',
@@ -31,25 +32,13 @@ export const EmployeeSelectFields = ({
   name: KForm,
   agentType: TAgents,
 }) => {
-  const { control, setValue } = useTypedFormContext();
-  const { fields, append, update } = useFieldArray({
+  const { control, setValue } = useFormContext<TForm>();
+  const fields = useTypedWatch({
     control,
-    name: name as 'cocoAG', // TODO: fix this
-  });
+    name: name,
+  }) as TForm['cocoAG'];
 
-  useEffect(() => {
-    if (fields.length !== 2 ) {
-      // append empty fields based on length
-      append({
-        empId: '',
-        empName: '',
-        empRole: '',
-        empType: agentType,
-      });
-      
-    }
-
-  }, [fields, append, agentType, update]);
+  console.log(name, fields);
 
 
   return (
@@ -57,44 +46,20 @@ export const EmployeeSelectFields = ({
       direction={'row'}
       spacing={2}
     >
-      {fields.map(({
-        id,
-        empId,
-      }, index) => {
+      {fields
+        .map(({
+          empId,
+        }, index) => {
 
-        return (
-          <EmployeeSelector
-            key={id}
-            label={`${empFieldLabels[agentType]}${index + 1}`}
-            value={empId || ''}
-            //error={showError}
-            //helperText={error?.message}
-            onChange={(_empId, empRec) => {
-              console.log('onChange', agentType, _empId);
-              setValue(`${name as 'cocoAG'}.${index}.empId`, _empId);
-              /* update(index, {
-                empId: _empId,
-                empName: empRec?.文字列＿氏名?.value || '',
-                empRole: empRec?.役職?.value || '',
-                empType: agentType,
-              }); */
+          return (
+            <EmployeeSelector 
+              key={uuidv4()}
+              label={`${empFieldLabels[agentType]}${index + 1}`}
+              value={empId}
+            />
+          );
 
-            }}
-            //required={required}
-            filter={{
-              affiliation: [empAffiliations[agentType]],
-              roles:[ 
-                '店長', 
-                '店長代理', 
-                '取締役',
-                '主任', 
-                '工務', 
-                '営業',
-              ],
-            }}
-          />);
-
-      })}
+        })}
     </Stack>
   );
 

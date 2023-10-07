@@ -12,8 +12,8 @@ export const OfficersInput = () => {
       spacing={2}
     >
       <EmployeeSelectFields name='yumeAG' agentType='yumeAG' />
-      {/*  <EmployeeSelectFields name='cocoAG' agentType='cocoAG' />
-      <EmployeeSelectFields name='cocoConst' agentType='cocoConst' /> */}
+      <EmployeeSelectFields name='cocoAG' agentType='cocoAG' />
+      <EmployeeSelectFields name='cocoConst' agentType='cocoConst' />
 
     </Stack>
   );

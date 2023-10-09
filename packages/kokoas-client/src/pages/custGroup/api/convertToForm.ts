@@ -62,12 +62,20 @@ export const convertToForm = (
         postal: postalCode.value,
         address1: address1.value,
         address2: address2.value,
+
         phone1: tels?.[0].value.contactValue.value || '',
         phone1Rel: tels?.[0].value.relation.value || '',
+        phone1Name: tels?.[0].value.contactName.value || '',
+        
+
         phone2: tels?.[1].value.contactValue.value || '',
         phone2Rel: tels?.[1].value.relation.value || '',
+        phone2Name: tels?.[1].value.contactName.value || '',
+
         email: email?.value.contactValue.value || '',
         emailRel: email?.value.relation.value || '',
+        emailName: email?.value.contactName.value || '',
+
         isSameAddress: Boolean(+isSameAsMain.value),
         
       };

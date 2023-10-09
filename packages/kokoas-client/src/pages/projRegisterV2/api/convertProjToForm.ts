@@ -41,6 +41,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     estatePurchaseDate,
     planApplicationDate,
     schedContractDate,
+    paymentMethod,
   } = projRec;
 
   const {
@@ -113,6 +114,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     schedContractDate: schedContractDate.value ? parseISO(schedContractDate.value) : null,
     estatePurchaseDate: estatePurchaseDate.value ? parseISO(estatePurchaseDate.value) : null,
     planApplicationDate: planApplicationDate.value ? parseISO(planApplicationDate.value) : null,
+    paymentMethod: paymentMethod.value,
 
   };
 

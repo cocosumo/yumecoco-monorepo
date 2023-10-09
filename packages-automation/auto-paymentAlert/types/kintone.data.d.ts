@@ -1,26 +1,27 @@
 declare namespace DBPaymentreminder {
   interface Data {
     projId: kintone.fieldTypes.SingleLineText;
+    contractDate: kintone.fieldTypes.Date;
     expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
-    alertDate: kintone.fieldTypes.Date;
-    andpadStatus: kintone.fieldTypes.SingleLineText;
     totalContractAmount: kintone.fieldTypes.Number;
+    scheduledAlertDate: kintone.fieldTypes.Date;
+    andpaddepositamount: kintone.fieldTypes.SingleLineText;
+    alertState: kintone.fieldTypes.SingleLineText;
+    reminderDate: kintone.fieldTypes.DropDown;
+    area: kintone.fieldTypes.SingleLineText;
+    projName: kintone.fieldTypes.SingleLineText;
+    lastAlertDate: kintone.fieldTypes.Date;
     andpadUrl: kintone.fieldTypes.Link;
     contractId: kintone.fieldTypes.SingleLineText;
-    alertState: kintone.fieldTypes.SingleLineText;
-
-    alertTarget: kintone.fieldTypes.UserSelect;
-    paymentTable: {
+    notificationSettings: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          andpadExpectedPaymentDate: kintone.fieldTypes.Date;
-          andpadProjName: kintone.fieldTypes.SingleLineText;
-          andpadId: kintone.fieldTypes.SingleLineText;
-          andpadPaymentDate: kintone.fieldTypes.Date;
-          paymentType: kintone.fieldTypes.SingleLineText;
+          chatworkRoomId: kintone.fieldTypes.SingleLineText;
+          alertTargetId: kintone.fieldTypes.SingleLineText;
+          alertTargetName: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

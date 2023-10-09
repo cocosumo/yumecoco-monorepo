@@ -71,13 +71,14 @@ export const schema = z.object({
   schedContractDate: z.date().nullable(),
   estatePurchaseDate: z.date().nullable(),
   planApplicationDate: z.date().nullable(),
+  paymentMethod: z.string().optional(),
 })
   .superRefine((
     {
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,
-
+      
       projTypeName,
       otherProjType,
 

@@ -6,6 +6,7 @@ import { DevTool } from '@hookform/devtools';
 import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { useStartSearch } from '../../hooks/useStartSearch';
+import { DeletedProjectsToggle } from './filterForm/DeletedProjectsToggle';
 
 
 export const Filter = () => {
@@ -14,26 +15,34 @@ export const Filter = () => {
 
   return (
     <Stack 
-      spacing={1}
       direction={'row'}
-      sx={({ breakpoints }) => ({
-        maxWidth: breakpoints.values.sm,
-      })}
+      justifyContent={'space-between'}
     >
-      <Keyword />
-      <TextField 
-        size="small" 
-        label="お客様名"
-        placeholder='氏名・シメイ'
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleStartSearch();
-          }
-        }}
-        {...register('custName')}
-      />
-      <SearchButton />
-      <FilterButton />
+      <Stack
+        spacing={1}
+        direction={'row'}
+        sx={({ breakpoints }) => ({
+          maxWidth: breakpoints.values.sm,
+        })}
+      >
+
+     
+        <Keyword />
+        <TextField 
+          size="small" 
+          label="お客様名"
+          placeholder='氏名・シメイ'
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleStartSearch();
+            }
+          }}
+          {...register('custName')}
+        />
+        <SearchButton />
+        <FilterButton />
+      </Stack>
+      <DeletedProjectsToggle submitOnchange />
       <DevTool control={control} />
     </Stack>
  

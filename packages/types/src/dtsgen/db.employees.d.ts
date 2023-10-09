@@ -14,6 +14,7 @@ declare namespace DBEmployees {
     状態: kintone.fieldTypes.DropDown;
     氏名ふりがな: kintone.fieldTypes.SingleLineText;
     email: kintone.fieldTypes.SingleLineText;
+    chatworkRoomId: kintone.fieldTypes.SingleLineText;
     氏名ローマ字: kintone.fieldTypes.SingleLineText;
     mainStoreId_v2: kintone.fieldTypes.SingleLineText;
     sort: kintone.fieldTypes.Number;

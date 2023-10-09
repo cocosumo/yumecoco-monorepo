@@ -5,9 +5,9 @@ export function removeNullFalsyEmptyFromObject(obj: Record<string, any>): Record
     const value = obj[key];
 
     if (value !== null && value !== undefined && value !== false && value !== '') {
-      if (Array.isArray(value) && value.length === 0) {
+      /*       if (Array.isArray(value) && value.length === 0) {
         continue;
-      }
+      } */
 
       result[key] = value;
     }

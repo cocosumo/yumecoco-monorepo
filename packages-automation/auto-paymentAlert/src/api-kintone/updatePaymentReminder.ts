@@ -1,15 +1,15 @@
 import { RecordID, Revision, UpdateKey } from '@kintone/rest-api-client/lib/src/client/types';
-import { RecordType, appId } from './config';
 import { updateAllRecords } from 'api-kintone';
+import { IPaymentReminder, reminderAppId } from '../../config';
 
 
-type UpdatePaymentReminder = {
+export type UpdatePaymentReminder = {
   id: RecordID
-  record?: Partial<RecordType> | undefined
+  record?: Partial<IPaymentReminder> | undefined
   revision?: Revision | undefined
 } | {
   updateKey: UpdateKey
-  record?: Partial<RecordType> | undefined
+  record?: Partial<IPaymentReminder> | undefined
   revision?: Revision | undefined
 };
 
@@ -21,7 +21,7 @@ export const updatePaymentReminder = (params: UpdatePaymentReminder[]) => {
 
   return updateAllRecords({
     records: params,
-    app: appId,
+    app: reminderAppId,
   });
 
 };

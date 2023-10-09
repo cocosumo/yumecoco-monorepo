@@ -44,6 +44,8 @@ coverage
 # sensitive
 *.env
 *.env.json
+*.env.local
+*.env.development
 *.bat
 *.ps1
 *.csv

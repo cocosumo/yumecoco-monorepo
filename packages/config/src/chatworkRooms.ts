@@ -10,4 +10,6 @@ export const chatworkRooms = {
 
   /** RPAチーム */
   rpa: '213232379',
+  rpa02: '210203919',
+
 };

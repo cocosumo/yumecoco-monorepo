@@ -1,4 +1,4 @@
-import { useStores } from './useStores';
+import { useStores } from '../../../../hooks/useStores';
 
 export const useStoreNameById = (id: string) => {
   const { data } = useStores();

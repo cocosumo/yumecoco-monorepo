@@ -18,10 +18,11 @@ interface IConvertProjToFormParams extends IGetPersistentFieldsParams {
 
 
 /**
- * 運用が変わっても、変わらないフィールドを取得する。
- * なお、役職による紹介料率は、2023.10.01までには無かったので、
- * 以下の条件で設定する
- * * 役職による紹介料率がある場合は、それ以外は、プロジェクトタイプの紹介料率を設定する
+ * 最新設定に依存しない情報。
+ * 
+ * * 紹介料率
+ * * 利益率
+ * * 役割別紹介料率
  */
 const getPersistentFields = ({
   projTypeRec,
@@ -83,6 +84,60 @@ const getPersistentFields = ({
   };
 };
 
+/**
+ * KintoneのAGデータをスキーマに沿った成形に変換する
+ */
+const convertAgentsToForm = ({
+  agType,
+  agents,
+  employeeRecs,
+  cgAgents,
+}: {
+  agents: IProjects['agents']['value'] | undefined,
+  agType: TAgents
+  employeeRecs: IEmployees[],
+  cgAgents: ICustgroups['agents'],
+}) => {
+
+  const result = agents
+    ?.filter(({ value: { agentId } }) => !!agentId.value)
+    .map(({
+      value: {
+        agentId,
+        empRole,
+        agentName,
+        agentType,
+      },
+    }) => {
+
+      const agentRec = employeeRecs.find(({ uuid: _empId }) => _empId.value === agentId.value);
+      const cgAgent = cgAgents.value.find(({ value: { employeeId } }) => employeeId.value === agentId.value)?.value;
+
+      return ({
+        empId: agentId.value,
+        empRole: empRole?.value || agentRec?.役職.value || '',
+        empName: agentName.value || cgAgent?.employeeName.value || agentRec?.文字列＿氏名.value || '',
+        empType: (agentType.value || cgAgent?.agentType.value || agType) as TAgents,
+
+      });
+    }) || [];
+
+  // 二つまで選択出来る。加減はこちららで行う。
+  // よく変わるものなら、マスター設定に実装し、そこから取得する。
+  const maxNumOfAgents = 2;
+  while (result.length < maxNumOfAgents) {
+    result.push(getDefaultEmployee(agType));
+  }
+
+  return result;
+
+};
+
+
+/***********************************
+ * Kintoneのレコードをスキーマに沿った成形に変換する
+ * 
+ **********************************/
 export const convertProjToForm = ({
   projRec,
   projTypeRec,
@@ -154,48 +209,6 @@ export const convertProjToForm = ({
     cocoConst,
   } = groupAgentsByType(agents);
 
-  const convertAgentsToForm = (_agents: IProjects['agents']['value'] | undefined, _agType: TAgents) => {
-
-    const defaultAgentFields = getDefaultEmployee(_agType);
-    const filteredAgents = _agents
-      ?.filter(({ value: { agentId } }) => !!agentId.value);
-
-
-    if (!filteredAgents?.length) {
-      return defaultAgentFields;
-    }
-
-    const modified = filteredAgents
-      .map(({
-        value: {
-          agentId,
-          empRole,
-          agentName,
-          agentType,
-        },
-      }) => {
-
-        const agentRec = employeeRecs.find(({ uuid: _empId }) => _empId.value === agentId.value);
-        const cgAgent = cgAgents.value.find(({ value: { employeeId } }) => employeeId.value === agentId.value)?.value;
-
-        return ({
-          empId: agentId.value,
-          empRole: empRole?.value || agentRec?.役職.value || '',
-          empName: agentName.value || cgAgent?.employeeName.value || agentRec?.文字列＿氏名.value || '',
-          empType: (agentType.value || cgAgent?.agentType.value || _agType) as TAgents,
-
-        });
-      });
-
-
-    const spliced = defaultAgentFields.splice(0, modified.length, ...modified);
-
-    console.log('spliced', spliced);
-
-    return spliced; 
-
-  };
-
 
   return {
     //addressKari: addressKari.value,
@@ -213,9 +226,24 @@ export const convertProjToForm = ({
       .split(',')
       .filter(Boolean) as RecordCancelStatus[],
 
-    yumeAG: convertAgentsToForm(yumeAG, 'yumeAG'),
-    cocoAG: convertAgentsToForm(cocoAG, 'cocoAG'),
-    cocoConst: convertAgentsToForm(cocoConst, 'cocoConst'),
+    yumeAG: convertAgentsToForm({
+      agents: yumeAG,
+      cgAgents: cgAgents,
+      agType: 'yumeAG',
+      employeeRecs,
+    }),
+    cocoAG: convertAgentsToForm({
+      agents: cocoAG,
+      cgAgents: cgAgents,
+      agType: 'cocoAG',
+      employeeRecs,
+    }),
+    cocoConst: convertAgentsToForm({
+      agents: cocoConst,
+      cgAgents: cgAgents,
+      agType: 'cocoConst',
+      employeeRecs,
+    }),
 
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value || cgId.value,

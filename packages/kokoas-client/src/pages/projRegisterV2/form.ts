@@ -1,14 +1,12 @@
 import { TAgents } from 'types';
 import { TForm } from './schema';
 
-export const getDefaultEmployee = (agentType: TAgents): TForm['cocoAG'] => (
-  Array(2).fill({
-    empId: '',
-    empName: '',
-    empRole: '',
-    empType: agentType,
-  })
-);
+export const getDefaultEmployee = (agentType: TAgents): TForm['cocoAG'][number] => ({
+  empId: '',
+  empName: '',
+  empRole: '',
+  empType: agentType,
+});
 
 export const initialValues : TForm = {
   projId: '',
@@ -23,9 +21,9 @@ export const initialValues : TForm = {
   custGroupId: null,
   custName: '',
 
-  yumeAG: getDefaultEmployee('yumeAG'),
-  cocoAG: getDefaultEmployee('cocoAG'),
-  cocoConst: getDefaultEmployee('cocoConst'),
+  yumeAG: [],
+  cocoAG: [],
+  cocoConst: [],
 
   postal: '',
   address1: '',

@@ -14,7 +14,7 @@ const agentSchema = z.object({
   empId: z.string(),
   empRole: z.string(),
   empName: z.string(),
-  empType: z.enum(agentTypes).nullable(),
+  empType: z.enum(agentTypes),
 });
 
 

@@ -12,7 +12,12 @@ interface EmployeeSelectorProps {
   label: string,
   /** 社員のuuid */
   value: string,
-  onChange?: (empId: string, empRec?: IEmployees) => void,
+  onChange?: (
+    /**　選択された社員のuuid */
+    empId: string, 
+    /** 社員のレコード */
+    empRec?: IEmployees
+  ) => void,
   onBlur?: () => void,
   filter?: FilterOptions,
   required?: boolean,

@@ -1,7 +1,9 @@
 import { TAgents } from 'types';
 import { TForm } from './schema';
+import { v4 as uuidv4 } from 'uuid';
 
 export const getDefaultEmployee = (agentType: TAgents): TForm['cocoAG'][number] => ({
+  key: uuidv4(), // generate stable key for rendering
   empId: '',
   empName: '',
   empRole: '',

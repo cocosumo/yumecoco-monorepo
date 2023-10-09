@@ -1,23 +1,10 @@
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { KForm, TForm } from '../../schema';
-import { Button, FormControl, InputLabel, MenuItem, Select, Stack } from '@mui/material';
-import { EmpAffiliations, TAgents } from 'types';
-import { useEffect } from 'react';
+import { Stack } from '@mui/material';
+import { TAgents } from 'types';
 import { EmployeeSelector } from 'kokoas-client/src/components';
 import { useTypedWatch } from '../../hooks';
-import { v4 as uuidv4 } from 'uuid';
 
-/* const empInputs: TAgents[] = [
-  'yumeAG',
-  'cocoAG',
-  'cocoConst',
-]; */
-
-const empAffiliations: Record<TAgents, EmpAffiliations> = {
-  yumeAG: 'ゆめてつ',
-  cocoAG: 'ここすも',
-  cocoConst: 'ここすも',
-};
 
 const empFieldLabels: Partial<Record<TAgents, string>> = {
   yumeAG: 'ゆめてつAG',
@@ -38,9 +25,6 @@ export const EmployeeSelectFields = ({
     name: name,
   }) as TForm['cocoAG'];
 
-  console.log(name, fields);
-
-
   return (
     <Stack
       direction={'row'}
@@ -48,14 +32,28 @@ export const EmployeeSelectFields = ({
     >
       {fields
         .map(({
+          key,
           empId,
         }, index) => {
 
           return (
             <EmployeeSelector 
-              key={uuidv4()}
+              key={key}
               label={`${empFieldLabels[agentType]}${index + 1}`}
               value={empId}
+              onChange={(selectedEmpId, rec) => {
+                
+                const {
+                  役職: empRole,
+                  文字列＿氏名: empName,
+                } = rec || {};
+                const fieldPath = `${name}.${index}` as `${TAgents}.${number}`;
+                
+                setValue(`${fieldPath}.empId`, selectedEmpId || '');
+                setValue(`${fieldPath}.empRole`, empRole?.value || '');
+                setValue(`${fieldPath}.empName`, empName?.value || '');
+
+              }}
             />
           );
 

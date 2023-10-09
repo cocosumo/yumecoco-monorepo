@@ -11,6 +11,7 @@ const nonEmptyDropdown = z.string().nonempty({
 
 
 const agentSchema = z.object({
+  key: z.string(),
   empId: z.string(),
   empRole: z.string(),
   empName: z.string(),

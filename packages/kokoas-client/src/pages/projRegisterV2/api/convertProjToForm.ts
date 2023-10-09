@@ -114,11 +114,10 @@ const convertAgentsToForm = ({
       const cgAgent = cgAgents.value.find(({ value: { employeeId } }) => employeeId.value === agentId.value)?.value;
 
       return ({
+        ...getDefaultEmployee((agentType.value || cgAgent?.agentType.value || agType) as TAgents),
         empId: agentId.value,
         empRole: empRole?.value || agentRec?.役職.value || '',
         empName: agentName.value || cgAgent?.employeeName.value || agentRec?.文字列＿氏名.value || '',
-        empType: (agentType.value || cgAgent?.agentType.value || agType) as TAgents,
-
       });
     }) || [];
 
@@ -300,7 +299,7 @@ export const convertProjToForm = ({
     storeId: storeId.value || cgStoreId.value,
     storeName: storeName.value || cgStoreName.value,
     storeCode: storeCode.value || cgStoreCode.value,
-    territory: (territory?.value as Territory || cgTerritory) || '',
+    territory: (territory?.value as Territory || cgTerritory.value) || '',
   };
 
 };

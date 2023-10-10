@@ -1,9 +1,10 @@
-import { useFormContext } from 'react-hook-form';
 import { KForm, TForm } from '../../schema';
 import { Stack } from '@mui/material';
 import { TAgents } from 'types';
-import { EmployeeSelector } from 'kokoas-client/src/components';
-import { useTypedWatch } from '../../hooks';
+import { ControlledEmpSelecField } from './ControlledEmpSelectField';
+import { useTypedFormContext } from '../../hooks';
+import { useFieldArray } from 'react-hook-form';
+import { getDefaultEmployee } from '../../form';
 
 
 const empFieldLabels: Partial<Record<TAgents, string>> = {
@@ -19,41 +20,39 @@ export const EmployeeSelectFields = ({
   name: KForm,
   agentType: TAgents,
 }) => {
-  const { control, setValue } = useFormContext<TForm>();
-  const fields = useTypedWatch({
+
+  const { control } = useTypedFormContext();
+
+  const arrayHelpers = useFieldArray({
     control,
-    name: name,
-  }) as TForm['cocoAG'];
+    name: name as 'yumeAG',
+  });
+
+  const {
+    fields,
+    append,
+  } = arrayHelpers;
 
   return (
     <Stack
       direction={'row'}
       spacing={2}
     >
-      {fields
+      {(fields as TForm['yumeAG'])
         .map(({
           key,
-          empId,
         }, index) => {
 
+
           return (
-            <EmployeeSelector 
+            <ControlledEmpSelecField 
               key={key}
               label={`${empFieldLabels[agentType]}${index + 1}`}
-              value={empId}
-              onChange={(selectedEmpId, rec) => {
-                
-                const {
-                  役職: empRole,
-                  文字列＿氏名: empName,
-                } = rec || {};
-                const fieldPath = `${name}.${index}` as `${TAgents}.${number}`;
-                
-                setValue(`${fieldPath}.empId`, selectedEmpId || '');
-                setValue(`${fieldPath}.empRole`, empRole?.value || '');
-                setValue(`${fieldPath}.empName`, empName?.value || '');
-
-              }}
+              name={name}
+              index={index}
+              agentType={agentType}
+              fields={fields}
+              appendNew={() => append(getDefaultEmployee(agentType))}
             />
           );
 

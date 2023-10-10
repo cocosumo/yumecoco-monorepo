@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { EmployeeSelectFields } from './EmployeeSelectFields';
+import { Store } from './Store';
 
 
 
@@ -11,6 +12,7 @@ export const OfficersInput = () => {
     <Stack 
       spacing={2}
     >
+      <Store />
       <EmployeeSelectFields name='yumeAG' agentType='yumeAG' />
       <EmployeeSelectFields name='cocoAG' agentType='cocoAG' />
       <EmployeeSelectFields name='cocoConst' agentType='cocoConst' />

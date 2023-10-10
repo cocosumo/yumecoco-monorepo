@@ -108,6 +108,8 @@ export const schema = z.object({
       otherProjType,
 
       hasContract,
+
+      yumeAG,
     },
     ctx,
   ) => {
@@ -139,6 +141,16 @@ export const schema = z.object({
         });
       }
     } 
+
+    const hasSelectedYumeAG = yumeAG.some((ag) => ag.empId !== '');
+    if (!hasSelectedYumeAG) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'ゆめてつAGを入力してください。',
+        path: ['yumeAG.0'],
+      });
+    }
+
   });
 
   

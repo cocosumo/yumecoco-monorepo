@@ -121,12 +121,14 @@ const convertAgentsToForm = ({
       });
     }) || [];
 
-  // 二つまで選択出来る。加減はこちららで行う。
-  // よく変わるものなら、マスター設定に実装し、そこから取得する。
-  const maxNumOfAgents = 2;
-  while (result.length < maxNumOfAgents) {
+
+  const hasLastValue = !!result.at(-1)?.empId;
+
+  // add field if empty or last value is not empty, up to 2
+  if (!result.length || (hasLastValue && result.length < 2)) {
     result.push(getDefaultEmployee(agType));
   }
+
 
   return result;
 

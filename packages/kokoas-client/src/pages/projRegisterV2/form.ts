@@ -23,7 +23,7 @@ export const initialValues : TForm = {
   custGroupId: null,
   custName: '',
 
-  yumeAG: [],
+  yumeAG: [getDefaultEmployee('yumeAG')],
   cocoAG: [],
   cocoConst: [],
 

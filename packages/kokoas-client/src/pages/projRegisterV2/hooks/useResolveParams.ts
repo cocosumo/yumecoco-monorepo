@@ -58,7 +58,9 @@ export const useResolveParams = () => {
       // 新規ですが、顧客グループIDがある場合
       setNewFormVal({
         ...initialValues,
-        ...convertCustGroupToForm(custGroupRec),
+        ...convertCustGroupToForm(
+          custGroupRec, employeeRecs || [],
+        ),
       });
 
     } else if (!custGroupIdFromURL && !projIdFromURL) {

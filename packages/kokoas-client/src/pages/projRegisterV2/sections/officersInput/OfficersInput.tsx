@@ -13,7 +13,7 @@ export const OfficersInput = () => {
       spacing={2}
     >
       <Store />
-      <EmployeeSelectFields name='yumeAG' agentType='yumeAG' />
+      <EmployeeSelectFields name='yumeAG' agentType='yumeAG' required />
       <EmployeeSelectFields name='cocoAG' agentType='cocoAG' />
       <EmployeeSelectFields name='cocoConst' agentType='cocoConst' />
 

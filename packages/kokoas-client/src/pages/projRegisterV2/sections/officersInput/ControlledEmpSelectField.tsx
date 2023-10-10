@@ -11,6 +11,7 @@ export const ControlledEmpSelecField = ({
   label,
   agentType,
   fields,
+  required,
   appendNew,
 }:{
   name: KForm,
@@ -18,6 +19,7 @@ export const ControlledEmpSelecField = ({
   label: string,
   agentType: TAgents,
   fields: TForm['yumeAG'],
+  required?: boolean,
   appendNew: () => void,
 }) => {
 
@@ -53,6 +55,7 @@ export const ControlledEmpSelecField = ({
             error={hasError}
             ref={ref}
             onBlur={onBlur}
+            required={index === 0 ? required : false}
             onChange={(selectedEmpId, rec) => {
                 
               const {
@@ -67,12 +70,11 @@ export const ControlledEmpSelecField = ({
                 empRole: newEmpRole?.value || '',
               });
 
-              if (selectedEmpId) {
-                if (index === 0 && fields.length === 1) {
+              if (index === 0) {
+                if (selectedEmpId && fields.length === 1) {
                   appendNew();
                 }
               }
-  
 
             }}
           />);

@@ -16,9 +16,11 @@ const empFieldLabels: Partial<Record<TAgents, string>> = {
 export const EmployeeSelectFields = ({
   name,
   agentType,
+  required,
 }:{
   name: KForm,
   agentType: TAgents,
+  required?: boolean,
 }) => {
 
   const { control } = useTypedFormContext();
@@ -33,6 +35,7 @@ export const EmployeeSelectFields = ({
     append,
   } = arrayHelpers;
 
+
   return (
     <Stack
       direction={'row'}
@@ -43,7 +46,6 @@ export const EmployeeSelectFields = ({
           key,
         }, index) => {
 
-
           return (
             <ControlledEmpSelecField 
               key={key}
@@ -52,6 +54,7 @@ export const EmployeeSelectFields = ({
               index={index}
               agentType={agentType}
               fields={fields}
+              required={required}
               appendNew={() => append(getDefaultEmployee(agentType))}
             />
           );

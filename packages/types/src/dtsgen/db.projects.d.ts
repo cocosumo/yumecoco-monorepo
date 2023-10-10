@@ -41,13 +41,15 @@ declare namespace DBProjects {
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;
-    commRateByRoles: {
+    commRateByEmpList: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          role: kintone.fieldTypes.SingleLineText;
-          commRateByRole: kintone.fieldTypes.Number;
+          commEmpId: kintone.fieldTypes.SingleLineText;
+          commEmpRole: kintone.fieldTypes.SingleLineText;
+          commEmpName: kintone.fieldTypes.SingleLineText;
+          commRateByEmp: kintone.fieldTypes.Number;
         };
       }>;
     };
@@ -58,6 +60,16 @@ declare namespace DBProjects {
         value: {
           logNote: kintone.fieldTypes.SingleLineText;
           logDateTime: kintone.fieldTypes.DateTime;
+        };
+      }>;
+    };
+    commRateByRoleList: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          role: kintone.fieldTypes.SingleLineText;
+          commRateByRole: kintone.fieldTypes.Number;
         };
       }>;
     };

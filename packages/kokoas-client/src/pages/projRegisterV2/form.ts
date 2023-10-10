@@ -65,8 +65,8 @@ export const initialValues : TForm = {
   // 紹介料
   commissionRate: 0,
   profitRate: 0,
-  commRateByRole: null,
-  commRateByPerson: null,
+  commRateByRole: [],
+  commRateByEmployee: [],
 
   // 店舗情報
   storeName: '',

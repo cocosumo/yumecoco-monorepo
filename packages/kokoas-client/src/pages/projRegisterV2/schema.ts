@@ -79,13 +79,15 @@ export const schema = z.object({
   commRateByRole: z.array(z.object({
     role: z.string(),
     rate: z.number(),
-  })).nullable(),
+  })),
 
-  /** 紹介率 */
-  commRateByPerson: z.array(z.object({
-    role: z.string(),
-    rate: z.number(),
-  })).nullable(),
+  /** 個別紹介率 */
+  commRateByEmployee: z.array(z.object({
+    commEmpName: z.string(),
+    commEmpRole: z.string(),
+    commEmpId: z.string(),
+    commEmpRate: z.number(),
+  })),
 
 
   // 見込み

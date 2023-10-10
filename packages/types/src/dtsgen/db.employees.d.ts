@@ -19,6 +19,7 @@ declare namespace DBEmployees {
     mainStoreId_v2: kintone.fieldTypes.SingleLineText;
     sort: kintone.fieldTypes.Number;
     期生: kintone.fieldTypes.DropDown;
+    mail_foot: kintone.fieldTypes.MultiLineText;
     mainStore_v2: kintone.fieldTypes.SingleLineText;
     所属チーム: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;

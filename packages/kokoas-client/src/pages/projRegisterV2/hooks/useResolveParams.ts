@@ -5,6 +5,7 @@ import { useAllEmployees, useContractsByProjIdV2, useCustGroupById, useProjById,
 import { convertProjToForm } from '../api/convertProjToForm';
 import { convertCustGroupToForm } from '../api/convertCustGroupToForm';
 import { TEnvelopeStatus } from 'types';
+import { getPersistentFields } from '../api/getPersistentFields';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialValues);
@@ -41,9 +42,14 @@ export const useResolveParams = () => {
       const projData = convertProjToForm({
         hasContract,
         projRec,
-        projTypeRec,
         employeeRecs,
         custGroupRec,
+      });
+
+      const persistentData = getPersistentFields({
+        projRec,
+        projTypeRec,
+        hasContract,
       });
 
       setNewFormVal({
@@ -51,7 +57,7 @@ export const useResolveParams = () => {
         hasContract: !!hasContract,
         hasCompletedContract: !!completed,
         ...projData,
-
+        ...persistentData,
       });
 
     } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {

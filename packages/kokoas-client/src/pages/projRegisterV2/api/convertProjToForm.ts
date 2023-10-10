@@ -28,7 +28,7 @@ const getPersistentFields = ({
   projTypeRec,
   projRec,
   hasContract,
-}: IGetPersistentFieldsParams): Pick<TForm, 'commissionRate' | 'commRateByRole' | 'profitRate'> => {
+}: IGetPersistentFieldsParams): Pick<TForm, 'commissionRate' | 'commRateByRole' | 'profitRate' | 'commRateByPerson'> => {
 
   const {
     yumeCommFeeRate,
@@ -60,6 +60,8 @@ const getPersistentFields = ({
       }))
     : null;
 
+  const parseCommRateByPerson: TForm['commRateByPerson'] | null = [];
+
   if (!hasContract) {
     // If there's no contract, use Project Type's values
     parsedCommRate = parsedCommRate || yumeCommFeeRate?.value || '';
@@ -74,13 +76,15 @@ const getPersistentFields = ({
           rate: Number(commRateByRole.value),
         }))
       || null;
+
   }
 
   // If there's no value, set to null to avoid validation error
   return {
-    commissionRate: parsedCommRate === '' ? null : Number(parsedCommRate),
-    profitRate: parsedProfitRate === '' ? null : Number(parsedProfitRate),
+    commissionRate: parsedCommRate === '' ? 0 : Number(parsedCommRate),
+    profitRate: parsedProfitRate === '' ? 0 : Number(parsedProfitRate),
     commRateByRole: parsedCommRateByRoles,
+    commRateByPerson: parseCommRateByPerson,
   };
 };
 

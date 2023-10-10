@@ -70,13 +70,19 @@ export const schema = z.object({
   })),
 
   /** 利益率 */
-  profitRate: z.number().nullable(),
+  profitRate: z.number(),
 
   /** 紹介率 */
-  commissionRate: z.number().nullable(),
+  commissionRate: z.number(),
 
-  /** 紹介率 */
+  /** 役職による紹介率 */
   commRateByRole: z.array(z.object({
+    role: z.string(),
+    rate: z.number(),
+  })).nullable(),
+
+  /** 紹介率 */
+  commRateByPerson: z.array(z.object({
     role: z.string(),
     rate: z.number(),
   })).nullable(),

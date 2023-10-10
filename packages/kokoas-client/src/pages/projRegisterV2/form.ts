@@ -27,6 +27,7 @@ export const initialValues : TForm = {
   cocoAG: [],
   cocoConst: [],
 
+
   postal: '',
   address1: '',
   address2: '',
@@ -62,9 +63,10 @@ export const initialValues : TForm = {
   paymentMethod: '',
 
   // 紹介料
-  commissionRate: null,
+  commissionRate: 0,
+  profitRate: 0,
   commRateByRole: null,
-  profitRate: null,
+  commRateByPerson: null,
 
   // 店舗情報
   storeName: '',

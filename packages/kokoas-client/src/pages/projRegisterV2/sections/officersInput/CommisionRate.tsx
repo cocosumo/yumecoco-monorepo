@@ -13,6 +13,7 @@ export const CommissionRate = () => {
       render={({
         field:{
           value,
+          onChange,
           ...otherValue
         },
         fieldState: {
@@ -23,10 +24,15 @@ export const CommissionRate = () => {
 
 
         return (
+          
           <TextField 
             {...otherValue}
             value={value || ''}
             label={fieldMapJa.commissionRate} 
+            onChange={({ target: { value: newValue } }) => {
+
+              onChange(newValue === '' ? null : Number(newValue));
+            }}
             sx={{
               width: '110px',
             }}

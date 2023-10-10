@@ -73,7 +73,7 @@ export const schema = z.object({
   profitRate: z.number(),
 
   /** 紹介率 */
-  commissionRate: z.number(),
+  commissionRate: z.number({ invalid_type_error: '数値を入力してください。' }),
 
   /** 役職による紹介率 */
   commRateByRole: z.array(z.object({

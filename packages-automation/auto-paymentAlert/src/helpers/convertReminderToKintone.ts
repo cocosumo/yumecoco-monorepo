@@ -22,6 +22,7 @@ export const convertReminderToKintone = ({
     territory,
     totalContractAmount,
     expectedPaymentDate,
+    yumeAG,
   }) => {
 
     const cwRoomIdsKintone = cwRoomIds.map(({ agentName, agentId, cwRoomId }) => {
@@ -45,12 +46,13 @@ export const convertReminderToKintone = ({
       scheduledAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
       alertState: { value: '1' },
       //reminderDate: { value: '' }, //再通知日はこのタイミングでは設定しない
-      andpadDepositAmount: { value: '未確認' },
+      andpadDepositAmount: { value: '0' }, //TODO string ->numberに合わせて、要処理修正
       area: { value: territory },
       projName: { value: projName },
       //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
       andpadUrl: { value: andpadPaymentUrl },
       contractId: { value: contractId },
+      yumeAG: { value: yumeAG },
       notificationSettings: {
         type: 'SUBTABLE',
         value: cwRoomIdsKintone,

@@ -4,6 +4,7 @@ import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';
+import { getYumeAgNames } from './getYumeAgNames';
 
 
 
@@ -51,6 +52,7 @@ export const convertContractsToJson = ({
       agents,
       storeCode: storeCodeByProjct,
       forceLinkedAndpadSystemId,
+      yumeAGNames,
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
 
     // システムIDを取得する
@@ -77,7 +79,7 @@ export const convertContractsToJson = ({
         finalAmtDate.value,
         othersAmtDate.value,
       ],
-      contractAmts:[
+      contractAmts: [
         contractAmt.value,
         initialAmt.value,
         interimAmt.value,
@@ -85,6 +87,12 @@ export const convertContractsToJson = ({
         othersAmt.value,
       ],
     });
+
+    const yumeAGs = getYumeAgNames({
+      agents: agents,
+      yumeAGNames: yumeAGNames?.value ?? '',
+    });
+
 
     return ({
       alertState: true,
@@ -98,8 +106,8 @@ export const convertContractsToJson = ({
       totalContractAmount: totalContractAmt.value,
       territory: store?.territory.value as Territory,
       expectedPaymentDate: contractAmtPaymentDate,
-      yumeAG: '', // 要設定
-      cwRoomIds:chatworkRoomIds,
+      yumeAG: yumeAGs,
+      cwRoomIds: chatworkRoomIds,
     });
   });
 

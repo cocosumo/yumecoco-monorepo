@@ -25,6 +25,7 @@ export const convertReminderToKintoneUpdate = ({
     totalContractAmount,
     alertState,
     expectedPaymentDate,
+    yumeAG,
   }) => {
 
     return ({
@@ -37,7 +38,7 @@ export const convertReminderToKintoneUpdate = ({
         alertState: { value: alertState ? '1' : '0' },
         lastAlertDate: { value: lastAlertDate },
         scheduledAlertDate: { value: alertDate },
-        //reminderDate: { value: format(addDays(new Date(), 1), 'yyyy-MM-dd')},
+        //reminderDate: { value: format(addDays(new Date(), 3), 'yyyy-MM-dd')},
         contractId: { value: contractId },
         projId: { value: projId },
         projType: { value: projType },
@@ -47,7 +48,7 @@ export const convertReminderToKintoneUpdate = ({
         totalContractAmount: { value: totalContractAmount },
         expectedPaymentDate: { value: expectedPaymentDate ?? '' },
         andpadStatus: { value: alertState ? '' : '実績あり' },
-        yumeAG: { value: '' }, // 要設定
+        yumeAG: { value: yumeAG },
         cwRoomIds: { value: cwRoomIds },
       },
     });

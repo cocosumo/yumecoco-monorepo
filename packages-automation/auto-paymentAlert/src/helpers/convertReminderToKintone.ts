@@ -3,7 +3,13 @@ import { PaymentReminder } from '../../types/paymentReminder';
 import { IPaymentReminder } from '../../config';
 
 
-
+/**
+ * 入金確認リマインダーアプリ用データへ変換する
+ * 本関数は契約書からアラート対象を取得時に呼び出されることを想定しているため
+ * 通知予定日は当日を設定する
+ * @param param0 paymentReminderJson: 入金リマインダーデータ配列
+ * @returns 入金確認リマインダーアプリ用レコード
+ */
 export const convertReminderToKintone = ({
   paymentReminderJson,
 }: {

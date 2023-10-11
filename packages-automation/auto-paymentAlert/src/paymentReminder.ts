@@ -1,7 +1,4 @@
-import { getAllAndpadPayments } from 'api-kintone';
-import { getPaymentRemindersByAlertDate } from './api-kintone';
 import { createPaymentAlert } from './createPaymentAlert';
-import { convertReminderToJson } from './helpers/convertReminderToJson';
 import { updateReportedReminders } from './helpers/updateReportedReminders';
 import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 
@@ -12,21 +9,7 @@ import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 export const paymentReminder = async () => {
   console.log('start payment reminder');
 
-  await createPaymentAlert();
-
-  const [
-    alertReminder,
-    allAndpadPayments,
-  ] = await Promise.all([
-    getPaymentRemindersByAlertDate(new Date()),    
-    getAllAndpadPayments(),
-  ]);
-
-  // リマインダーアプリから通知対象を取得する
-  const alertReminderJson = convertReminderToJson({
-    reminder: alertReminder,
-    andpadPayments: allAndpadPayments,
-  });
+  const alertReminderJson = await createPaymentAlert();
 
   // chatworkへの通知処理
   notifyPaymentAlertToChatwork({

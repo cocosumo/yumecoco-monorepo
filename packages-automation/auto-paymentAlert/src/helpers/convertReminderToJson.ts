@@ -1,7 +1,7 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IPaymentReminder, reminderAppId } from '../../config';
 import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
-import { IAndpadpayments } from 'types';
+import { IAndpadpayments, Territory } from 'types';
 
 
 
@@ -25,10 +25,10 @@ export const convertReminderToJson = ({
     totalContractAmount,
     notificationSettings,
     expectedPaymentDate,
-  }) => {
+  }): PaymentReminder => {
 
     // 通知先情報(chatwork)を設定する
-    const cwRoomIds = notificationSettings.value.map(({ value }) => {
+    const cwRoomIds: CwRoomIds[] = notificationSettings.value.map(({ value }) => {
       const {
         alertTargetId,
         alertTargetName,
@@ -39,7 +39,7 @@ export const convertReminderToJson = ({
         agentName: alertTargetName.value,
         agentId: alertTargetId.value,
         cwRoomId: chatworkRoomId.value,
-      } as CwRoomIds;
+      };
     });
 
     // kintoneのリマインダーURLを設定する
@@ -63,9 +63,10 @@ export const convertReminderToJson = ({
       projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmount.value,
-      territory: area.value,
+      territory: area.value as Territory,
+      yumeAG: '', // 要設定
       cwRoomIds: cwRoomIds,
-    }) as PaymentReminder;
+    });
   });
 
 };

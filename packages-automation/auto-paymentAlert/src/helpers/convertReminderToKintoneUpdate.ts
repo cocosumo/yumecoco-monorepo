@@ -45,8 +45,9 @@ export const convertReminderToKintoneUpdate = ({
         territory: { value: territory },
         contractDate: { value: contractDate },
         totalContractAmount: { value: totalContractAmount },
-        expectedPaymentDate: { value: expectedPaymentDate },
+        expectedPaymentDate: { value: expectedPaymentDate ?? '' },
         andpadStatus: { value: alertState ? '' : '実績あり' },
+        yumeAG: { value: '' }, // 要設定
         cwRoomIds: { value: cwRoomIds },
       },
     });

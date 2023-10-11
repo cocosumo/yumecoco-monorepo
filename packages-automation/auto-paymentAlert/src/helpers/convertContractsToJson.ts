@@ -1,4 +1,4 @@
-import { IEmployees, IProjects, IStores } from 'types';
+import { IEmployees, IProjects, IStores, Territory } from 'types';
 import { ContractRecordType } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
@@ -27,7 +27,7 @@ export const convertContractsToJson = ({
 }) => {
 
 
-  const alertContracts = contracts.map(({
+  const alertContracts: PaymentReminder[] = contracts.map(({
     uuid: contractId,
     projId,
     projType,
@@ -96,10 +96,11 @@ export const convertContractsToJson = ({
       projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmt.value,
-      territory: store?.territory.value,
+      territory: store?.territory.value as Territory,
       expectedPaymentDate: contractAmtPaymentDate,
+      yumeAG: '', // 要設定
       cwRoomIds:chatworkRoomIds,
-    }) as PaymentReminder;
+    });
   });
 
   return alertContracts;

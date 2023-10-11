@@ -7,11 +7,17 @@ import addYears from 'date-fns/addYears';
 
 
 
-export const calcReminderDate = (reminderStr: KReminderList) => {
+export const calcReminderDate = ({
+  reminderDate,
+  depositDate,
+}:{
+  reminderDate: KReminderList
+  depositDate: string
+}) => {
 
 
   for (const reminderKey of Object.keys(reminderList)) {
-    if (reminderStr === reminderKey) {
+    if (reminderDate === reminderKey) {
       const reminderVal = reminderList[reminderKey];
       const number = +reminderVal.replace(/[^0-9]/g, '');
       const span = reminderVal.replace(/[0-9]/g, '');
@@ -28,6 +34,8 @@ export const calcReminderDate = (reminderStr: KReminderList) => {
         case 'year':
           return format(addYears(new Date(), number), 'yyyy-MM-dd');
 
+        case 'depositDate':
+          return depositDate;
         case 'default':
           return 'default';
 

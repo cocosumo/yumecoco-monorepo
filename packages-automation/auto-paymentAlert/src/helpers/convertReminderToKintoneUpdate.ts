@@ -33,6 +33,7 @@ export const convertReminderToKintoneUpdate = ({
     yumeAG,
   }) => {
 
+
     return ({
       updateKey: {
         field: 'projId',
@@ -48,7 +49,7 @@ export const convertReminderToKintoneUpdate = ({
         scheduledAlertDate: { value: alertDate },
         alertState: { value: alertState ? '1' : '0' },
         // reminderDate: { value: '' }, ユーザーがプルダウンから選択するため、対象外とする
-        andpadDepositAmount: { value: '0' }, // TODO 入金金額の総額を取得する処理を実装する
+        andpadDepositAmount: { value: '0' }, // TODO 　入金金額の総額を取得する処理を実装する
         area: { value: territory },
         projName: { value: projName },
         lastAlertDate: { value: lastAlertDate },

@@ -52,7 +52,7 @@ export const convertReminderToKintone = ({
       scheduledAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
       alertState: { value: '1' },
       //reminderDate: { value: '' }, //再通知日はこのタイミングでは設定しない
-      andpadDepositAmount: { value: '0' }, //TODO string ->numberに合わせて、要処理修正
+      andpadDepositAmount: { value: '0' }, //TODO  入金金額の総額を取得する処理を実装する
       area: { value: territory },
       projName: { value: projName },
       //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない

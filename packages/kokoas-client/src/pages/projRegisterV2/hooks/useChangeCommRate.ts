@@ -31,9 +31,19 @@ export const useChangeCommRate = () => {
     ],
   }) as [TForm['projTypeId'], TForm['yumeAG']];
 
-
+  // CHANGE: 紹介料率の再設定
 
   useEffect(() => {
+
+    if (selectedYumeAG.some(({ empName }) => empName === 'ここすも')
+      || selectedYumeAG.every(({ empName }) => empName === '')) {
+      // ここすも又は空の場合は、紹介料率を0にする
+      setValue('commissionRate', 0, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+      return;
+    }
 
 
     const {

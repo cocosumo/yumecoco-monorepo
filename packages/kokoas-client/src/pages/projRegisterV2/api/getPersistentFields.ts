@@ -2,6 +2,7 @@ import { IProjects, IProjtypes } from 'types';
 import { TForm } from '../schema';
 import { convertCommRateByEmployee } from './convertCommRateByEmployee';
 import { convertCommRateByRole } from './convertCommRateByRole';
+import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
 
 interface IGetPersistentFieldsParams {
   projRec: IProjects,
@@ -40,10 +41,19 @@ export const getPersistentFields = ({
     profitRate: profitRateFromProj,
     commRateByRoleList: commRateByRoleFromProj,
     commRateByEmpList: commRateByEmpFromProj,
+    agents,
   } = projRec;
 
+  const {
+    yumeAG,
+  } = groupAgentsByType(agents);
+
+  const isEmptyOrCocoumoYumeAg = yumeAG.length === 0 || yumeAG.some(({ value: { agentName } }) => agentName.value === 'ここすも');
+
   // Default to project records values
-  let parsedCommRate: string = commissionRateFromProj.value;
+  let parsedCommRate: string = commissionRateFromProj.value ||
+    isEmptyOrCocoumoYumeAg ? '0' : '';
+
   let parsedProfitRate: string = profitRateFromProj.value;
 
   // 役職による紹介料率
@@ -79,6 +89,7 @@ export const getPersistentFields = ({
 
   if (!hasContract) {
     // If there's no contract, use Project Type's values
+
     parsedCommRate = parsedCommRate || yumeCommFeeRate?.value || '';
     parsedProfitRate = parsedProfitRate || profitRate?.value || '';
     parsedCommRateByRoles = projHasCommRateByRole
@@ -91,6 +102,7 @@ export const getPersistentFields = ({
 
   }
 
+  console.log('parsedCommRateFinal', parsedCommRate, parsedCommRate === '' ? 0 : Number(parsedCommRate));
   return {
     commissionRate: parsedCommRate === '' ? 0 : Number(parsedCommRate),
     profitRate: parsedProfitRate === '' ? 0 : Number(parsedProfitRate),

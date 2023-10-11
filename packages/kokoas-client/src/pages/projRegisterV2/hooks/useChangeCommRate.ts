@@ -48,13 +48,20 @@ export const useChangeCommRate = () => {
     const matchedRole = commRateByRoleList?.value
       .find(({ value: { role: ptRole } }) => selectedYumeAG.some(({ empRole }) => empRole === ptRole.value));
 
+    let newCommRate = 0;
+
     if (matchedEmp) {
-      setValue('commissionRate', Number(matchedEmp.value.commRateByEmp.value));
+      newCommRate = Number(matchedEmp.value.commRateByEmp.value);
     } else if (matchedRole) {
-      setValue('commissionRate', Number(matchedRole.value.commRateByRole.value));
+      newCommRate = Number(matchedRole.value.commRateByRole.value);
     } else {
-      setValue('commissionRate', Number(yumeCommFeeRate?.value));
+      newCommRate = Number(yumeCommFeeRate?.value);
     }
+
+    setValue('commissionRate', newCommRate, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
 
   }, [
     setValue,

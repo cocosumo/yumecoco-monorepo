@@ -62,7 +62,7 @@ export const CommissionRate = () => {
                 marginLeft: '0px', // override default margin that adds 14px
               }}
             >
-              {error?.message || ' '}
+              {error?.message || '工事種別又はゆめてつAGを変更したら、更新されます'}
             </FormHelperText>
           </FormControl>
         );

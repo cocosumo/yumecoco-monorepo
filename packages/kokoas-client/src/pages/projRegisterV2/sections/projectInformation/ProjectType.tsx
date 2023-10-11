@@ -7,7 +7,7 @@ import { OtherProjType } from './OtherProjType';
 import { convertCommRateByEmployee } from '../../api/convertCommRateByEmployee';
 import { convertCommRateByRole } from '../../api/convertCommRateByRole';
 import { useChangeCommRate } from '../../hooks/useChangeCommRate';
-
+import { ProjTypeHelp } from './projTypeHelp/ProjTypeHelp';
 
 export const ProjectType = () => {
   const { control, setValue, register, getValues } = useTypedFormContext();
@@ -82,6 +82,7 @@ export const ProjectType = () => {
                 value={newValue}
                 label="工事種別"
                 onBlur={onBlur}
+                startAdornment={<ProjTypeHelp />}
                 onChange={(e) => {
                   const newProjTypeId = e.target.value;
 

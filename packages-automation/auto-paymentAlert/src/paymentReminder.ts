@@ -9,16 +9,16 @@ import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 export const paymentReminder = async () => {
   console.log('start payment reminder');
 
-  const alertReminderJson = await createPaymentAlert();
+  const reminderJson = await createPaymentAlert();
 
   // chatworkへの通知処理
   notifyPaymentAlertToChatwork({
-    reminderJson: alertReminderJson,
+    reminderJson: reminderJson,
   });
 
   // リマインダーレコードの更新処理
   updateReportedReminders({
-    reportedReminder: alertReminderJson,
+    reportedReminder: reminderJson,
   });
 
 };

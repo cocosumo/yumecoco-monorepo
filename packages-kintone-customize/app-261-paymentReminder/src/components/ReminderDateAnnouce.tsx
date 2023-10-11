@@ -1,5 +1,7 @@
 import { Stack } from '@mui/material';
 import { PreviewMessage } from './PreviewMessage';
+import { format } from 'date-fns';
+import parseISO from 'date-fns/parseISO';
 
 
 /**
@@ -14,10 +16,12 @@ export const ReminderDateAnnouce = ({
 }) => {
 
   const dateSplit = (reminderDate ?? '').split('-');
-  const previewDate = dateSplit.length >= 3 ?
-    `${dateSplit[0]}年${dateSplit[1]}月${dateSplit[2]}日`
-    : reminderDate;
-  
+  let previewDate = reminderDate;
+  if (dateSplit.length >= 3) {
+    const parsedDate = parseISO(reminderDate);
+    previewDate = format(parsedDate, 'yyyy年MM月dd日');
+  }
+
 
   return (
     <Stack

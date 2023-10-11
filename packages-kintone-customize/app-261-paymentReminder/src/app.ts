@@ -5,10 +5,10 @@ import { KeyOfDB } from './types/types';
 import { onChangeRDHandler } from './eventHandlers/onChangeRDHandler';
 import { onEditOrCreateHandler } from './eventHandlers/onEditOrCreateHandler';
 
-const watchFieldKeys = [
+const watchFieldKeys: Array<KeyOfDB> = [
   'reminderDate',
   'expectedPaymentDate',
-] as Array<KeyOfDB>;
+];
 
 (() => {
   console.log(`Running in ${isProd ? 'production' : 'development'}`);

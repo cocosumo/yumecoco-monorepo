@@ -1,4 +1,4 @@
-import { InputAdornment, TextField } from '@mui/material';
+import { FormControl, FormHelperText, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { fieldMapJa } from '../../api/fieldMapJa';
 
@@ -14,7 +14,7 @@ export const CommissionRate = () => {
         field:{
           value,
           onChange,
-          ...otherValue
+          ...otherFieldProps
         },
         fieldState: {
           error,
@@ -22,34 +22,49 @@ export const CommissionRate = () => {
         },
       }) => {
 
+        console.log('RECEIVED VALUE', value, typeof value);
 
         return (
-          
-          <TextField 
-            {...otherValue}
-            value={value || ''}
-            label={fieldMapJa.commissionRate} 
-            onChange={({ target: { value: newValue } }) => {
-
-              onChange(newValue === '' ? null : Number(newValue));
-            }}
-            sx={{
-              width: '110px',
-            }}
-            placeholder='50'
-            size='small'
-            type='number'
+          <FormControl
             error={isTouched && !!error}
-            helperText={error?.message}
+            size='small'
+          >
+            <InputLabel
+              htmlFor={otherFieldProps.name}
+            >
+              {fieldMapJa.commissionRate} 
+            </InputLabel>
+            <OutlinedInput 
+              {...otherFieldProps}
+              id={otherFieldProps.name}
+              value={value ?? ''}
+              label={fieldMapJa.commissionRate} 
+              onChange={({ target: { value: newValue } }) => {
+                console.log(newValue, typeof newValue, Number(newValue), value);
+
+                onChange(newValue === '' ? null : Number(newValue));
+              }}
+              sx={{
+                width: '110px',
+              }}
+              placeholder='50'
+              type='number'
             // end adornment is %
-            InputProps={{
-              endAdornment: (
+              endAdornment={(
                 <InputAdornment position='end'>
                   %
-                </InputAdornment>),
-            }}
-            required
-          />
+                </InputAdornment>
+              )}
+              required
+            />
+            <FormHelperText
+              sx={{
+                marginLeft: '0px', // override default margin that adds 14px
+              }}
+            >
+              {error?.message || ' '}
+            </FormHelperText>
+          </FormControl>
         );
       }}
     />

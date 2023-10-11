@@ -17,7 +17,7 @@ export const OfficersInput = () => {
       <Stack
         direction={'row'}
         spacing={2}
-        alignItems={'center'}
+        alignItems={'flex-end'}
       >
         <EmployeeSelectFields name='yumeAG' agentType='yumeAG' required />
         <CommissionRate />

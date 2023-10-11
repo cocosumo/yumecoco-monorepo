@@ -69,7 +69,7 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
   );
 
   return (
-    <Stack spacing={0.5} width={300}>
+    <Stack spacing={0.4} width={300}>
     
       <FormLabel 
         required={required}
@@ -84,7 +84,7 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
           border: '1px solid',
           borderColor: error ? 'red' : 'grey.500',
           borderRadius: 1,
-          p: '2px 4px', 
+          p: '0px 4px', 
           display: 'flex', 
           alignItems: 'center', 
         }}

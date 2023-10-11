@@ -109,9 +109,7 @@ export const zodErrorMapJA =
             };
           } else if (issue.type === 'number') {
             return {
-              message: `Number must be less than ${
-                issue.inclusive ? 'or equal to ' : ''
-              }${issue.maximum}`,
+              message: `${issue.maximum}${issue.inclusive ? '以下でなければなりません' : ''}`,
             };
           } else {
             return {

@@ -107,7 +107,8 @@ export const getPersistentFields = ({
 
   }
 
-  // If there's no value, set to null to avoid validation error
+  console.log('CommRate', parsedCommRate);
+
   return {
     commissionRate: parsedCommRate === '' ? 0 : Number(parsedCommRate),
     profitRate: parsedProfitRate === '' ? 0 : Number(parsedProfitRate),

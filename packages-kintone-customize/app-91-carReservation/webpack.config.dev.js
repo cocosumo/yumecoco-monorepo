@@ -1,11 +1,12 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
-module.exports = {
+module.exports = env => {
+  console.log('env', env, 'development');
+  return ({
   mode: 'development',
   plugins: [
-    new Dotenv({ path: '../../.env' }),
-    new Dotenv({ path: './.env' }),
+    new Dotenv({ path: './.env.development' }),
   ],
 
   entry: {
@@ -65,4 +66,4 @@ module.exports = {
       },
     ],
   },
-};
+})};

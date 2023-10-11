@@ -10,6 +10,7 @@ export const reminderList = {
   '1週間後': '1week',
   '1か月後': '1month',
   '3か月後': '3month',
+  '入金予定日': 'depositDate',
 };
 
 export type KReminderList = keyof typeof reminderList;

@@ -31,8 +31,10 @@ export const flwService = (data: TContractData): EnvelopeRecipients => {
     recipientId: '1',
     routingOrder: '1',
     tabs: {
-      signerAttachmentTabs: [{
+      approveTabs: [{
         anchorString: '/tt/',
+        documentId: '1',
+        pageNumber: '1',
         tabLabel: roles.officer,
       }],
     },

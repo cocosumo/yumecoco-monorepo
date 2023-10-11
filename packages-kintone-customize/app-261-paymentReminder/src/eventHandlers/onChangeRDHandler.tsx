@@ -16,11 +16,15 @@ export const onChangeRDHandler = (event: KintoneEvent) => {
   const { record: {
     reminderDate,
     scheduledAlertDate,
+    expectedPaymentDate,
   } } = event;
 
   // 再通知日を表示する
   const spaceElement = getSpaceElement('reminderDateAnnounce');
-  const newDate = calcReminderDate(reminderDate.value as KReminderList);
+  const newDate = calcReminderDate({
+    reminderDate: reminderDate.value as KReminderList,
+    depositDate: expectedPaymentDate.value,
+  });
 
   if (!spaceElement) return;
 

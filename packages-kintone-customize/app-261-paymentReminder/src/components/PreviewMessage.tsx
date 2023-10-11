@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 
 export const PreviewMessage = ({
   previewDate,
@@ -9,28 +9,27 @@ export const PreviewMessage = ({
 
   if (!previewDate) {
     return (
-      <Stack spacing={2} direction={'row'} alignItems={'flex-end'}>
+      <Typography variant='body1'>
         入金予定日を設定してください
-      </Stack>
+      </Typography>
     );
   } else if (previewDate === 'default') {
     return (
-      <Stack spacing={2} direction={'row'} alignItems={'flex-end'}>
+      <Typography variant='body1'>
         再通知日を設定してください
-      </Stack>
+      </Typography>
     );
   } else {
     return (
-      <>
-        <Stack spacing={2} direction={'row'} alignItems={'flex-end'}>
-          再通知日を
-          <Typography variant='h6' component={'span'}>
-            {previewDate}
-          </Typography>
-          にします。
-        </Stack>
+      <Box>
+        再通知日を
+        <Typography variant='h6' component={'span'}>
+          {previewDate}
+        </Typography>
+        にします。
+        <br />
         よろしければ「保存」ボタンをクリックしてください。
-      </>
+      </Box>
     );
   }
 };

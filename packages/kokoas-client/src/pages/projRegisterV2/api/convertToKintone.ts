@@ -39,6 +39,21 @@ export const convertToKintone = (
     estatePurchaseDate,
     planApplicationDate,
     paymentMethod,
+
+    // 紹介率
+    commissionRate,
+    commRateByEmployee,
+    commRateByRole,
+
+    // 店舗情報
+    storeId,
+    territory,
+    storeName,
+
+    // 利益率
+    profitRate,
+
+
   } = rawValues;
 
 
@@ -78,13 +93,14 @@ export const convertToKintone = (
         id: '',
         value: {
           agentId: { value: empId },
-          agentName: { value: empName },
+          agentName: {
+            value: empName,
+          },
           agentType: { value: empType || '' },
           empRole: { value: empRole },
         },
       })),
     },
-    storeCode: { value: storeCode },
     status: {  value: status  },
     cancelStatus: { value: cancelStatus?.filter(Boolean).join(',') || '' },
     memo: { value: memo || '' },
@@ -100,6 +116,53 @@ export const convertToKintone = (
     estatePurchaseDate: { value: toKintoneDateStr(estatePurchaseDate) },
     planApplicationDate: { value: toKintoneDateStr(planApplicationDate) },
     paymentMethod: { value: paymentMethod || '' },
+
+    // 紹介率
+    commissionRate: { value: String(commissionRate) },
+    // 役職別紹介率
+    commRateByRoleList: {
+      type: 'SUBTABLE',
+      value: commRateByRole.map(({
+        role,
+        rate,
+      }) => ({
+        id: '',
+        value: {
+          commRateByRole: { value: String(rate) },
+          role: { value: role },
+          rate: { value: String(rate) },
+        },
+      })),
+    },
+    // 個別紹介率
+    commRateByEmpList: {
+      type: 'SUBTABLE',
+      value: commRateByEmployee.map(({
+        commEmpId,
+        commEmpName,
+        commEmpRole,
+        commEmpRate,
+      }) => ({
+        id: '',
+        value: {
+          commRateByEmp: { value: String(commEmpRate) },
+          commEmpId: { value: commEmpId },
+          commEmpName: { value: commEmpName },
+          commEmpRole: { value: commEmpRole },
+          commEmpRate: { value: String(commEmpRate) },
+        },
+      })),
+    },
+
+    // 店舗情報
+    storeId: { value: storeId },
+    territory: { value: territory },
+    store: { value: storeName },
+    storeCode: { value: storeCode },
+
+    // 利益率
+    profitRate: { value: String(profitRate) },
+
 
   };
 

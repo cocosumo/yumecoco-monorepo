@@ -49,6 +49,10 @@ export const CommissionRate = () => {
               }}
               placeholder='50'
               type='number'
+              inputProps={{
+                // Prevent change by mouse wheel
+                onWheel: (e) => e.currentTarget.blur(),
+              }}
             // end adornment is %
               endAdornment={(
                 <InputAdornment position='end'>

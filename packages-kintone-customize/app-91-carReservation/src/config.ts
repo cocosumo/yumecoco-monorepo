@@ -1,4 +1,6 @@
 import { getAppId } from 'api-kintone';
+import { sendGridEndpoints } from 'libs';
+import { ApiNodes } from 'types';
 
 export const prodAppId = 91;
 export const currAppId = getAppId();
@@ -8,19 +10,25 @@ export const isProd = currAppId === prodAppId;
 export const constIndexViewId = isProd ? 5533779 : 5533776;
 
 
-export const notifEmail = isProd 
-  ? process.env.reportEmail 
-  : process.env.reportEmailDev;
+export const notifEmail = process.env.reportEmail;
+
+export const notifEmailWest = process.env.reportEmailWest;
 
 export const senderEmail = process.env.SENDER_EMAIL;
 
-export const baseUrl = isProd
-  ? process.env.BASE_URL
-  : process.env.LOCAL_URL;
+export const baseUrl = process.env.BASE_URL;
 
 export const apiKey = process.env.SERVER_API_KEY;
 
+const apiRoot: ApiNodes = 'sendgrid';
+
+export const sendEmailEndpoint = [
+  baseUrl,
+  apiRoot,
+  sendGridEndpoints.sendEmail,
+].join('/');
+
 console.log('Running in', isProd ? 'production' : 'development');
-console.log('Notifications will go to', notifEmail);
+console.log('Notifications will go to', notifEmail, notifEmailWest);
 console.log('Sender email is', senderEmail);
 console.log('Connected to', baseUrl);

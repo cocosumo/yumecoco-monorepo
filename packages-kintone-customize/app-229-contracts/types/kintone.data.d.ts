@@ -25,10 +25,10 @@ declare namespace DB {
     projName: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
     custName: kintone.fieldTypes.SingleLineText;
-    文字列__1行__0: kintone.fieldTypes.SingleLineText;
     工事状況: kintone.fieldTypes.RadioButton;
     projTypeId: kintone.fieldTypes.SingleLineText;
     yumeAGName2: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
     contractYear: kintone.fieldTypes.Calc;
     最終請負金額_税抜: kintone.fieldTypes.Calc;
     fee: kintone.fieldTypes.Calc;

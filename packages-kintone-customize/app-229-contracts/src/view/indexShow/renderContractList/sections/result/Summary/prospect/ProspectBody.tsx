@@ -22,12 +22,11 @@ import { ProspectsNextMonthContent } from './ProspectsNextMonthContent';
 export const ProspectBody = () => {
   const { data: contracts } = useContractsResult();
   const { data: projects } = useFilteredProjects();
-  const { data: totalResult } = useTotalResult();
 
   const {
     totalAmtExclTax = 0,
     totalNumOfContracts = 0,
-  } = totalResult || {};
+  } = useTotalResult() || {};
   
 
   const {

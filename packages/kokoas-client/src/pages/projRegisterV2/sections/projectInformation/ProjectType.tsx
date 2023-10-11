@@ -6,11 +6,7 @@ import { useEffect } from 'react';
 import { OtherProjType } from './OtherProjType';
 
 
-export const ProjectType = ({
-  disabled,
-}:{
-  disabled?: boolean;
-}) => {
+export const ProjectType = () => {
   const { control, setValue, register, getValues } = useTypedFormContext();
 
   const { data: projTypeOptions } = useProjTypes({
@@ -62,7 +58,7 @@ export const ProjectType = ({
               }}
               placeholder='工事種別'
               error={showError}
-              disabled={disabled}
+              //disabled={disabled}
               required
             >
               <InputLabel>
@@ -78,9 +74,16 @@ export const ProjectType = ({
                     ?.label || '';
 
                   const custName = getValues('custName');
-                
+                  const hasContract = getValues('hasContract');
+
                   setValue('projTypeName', newProjTypeName);
-                  setValue('projName', `${custName}様邸　${newProjTypeName}`);
+                  
+                  if (!hasContract) {
+                    // 契約がないときのみ、工事名称を変更する
+                    setValue('projName', `${custName}様邸　${newProjTypeName}`);
+                  }
+                
+                  
                   onChange(e.target.value);
                 }}
               >
@@ -104,7 +107,7 @@ export const ProjectType = ({
             </FormControl>
 
             
-            <OtherProjType disabled={disabled} />
+            <OtherProjType />
             
   
           </Stack>

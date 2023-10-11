@@ -2,19 +2,50 @@ import { TableCell, TableRow } from '@mui/material';
 import { TotalResultContainer } from './TotalResultContainer';
 import { ValueWithUnit } from './ValueWithUnit';
 import { useTotalResult } from '../../../../hooks/useTotalResult';
+import { TerritorySummary } from './TerritorySummary';
 
 export const TotalResult = () => {
 
-  const { data } = useTotalResult();
+
 
   const {
     totalAmtExclTax,
     totalAmtInclTax,
     totalNumOfContracts,
-  } = data || {};
+    eastRecords,
+    westRecords,
+
+    eastTotalAmtInclTax,
+
+    westTotalAmtInclTax,
+
+  } = useTotalResult() || {};
 
   return (
     <TotalResultContainer>
+      <TerritorySummary 
+        records={westRecords || []}
+        territory={'西'}
+        value={westTotalAmtInclTax || 0}
+      />
+
+      <TerritorySummary 
+        records={eastRecords || []}
+        territory={'東'}
+        value={eastTotalAmtInclTax || 0}
+      />
+
+      <TableRow>
+        <TableCell component={'th'}>
+          合計件数
+        </TableCell>
+        <TableCell align='right'>
+          <ValueWithUnit
+            value={totalNumOfContracts || 0}
+            unit={'件'}
+          />
+        </TableCell>
+      </TableRow>
       <TableRow>
         <TableCell 
           component={'th'}
@@ -41,17 +72,7 @@ export const TotalResult = () => {
         </TableCell>
       </TableRow>
 
-      <TableRow>
-        <TableCell component={'th'}>
-          合計件数
-        </TableCell>
-        <TableCell align='right'>
-          <ValueWithUnit
-            value={totalNumOfContracts || 0}
-            unit={'件'}
-          />
-        </TableCell>
-      </TableRow>
+
     </TotalResultContainer>
   );
 };

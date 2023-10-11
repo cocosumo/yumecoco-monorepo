@@ -1,2 +1,4 @@
-webpack.config.js
+webpack.config.*
 jest.config.js
+
+.env.*

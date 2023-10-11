@@ -9,7 +9,8 @@
   ],
   "exclude": [
     "./dist",
-    "webpack.config.js",
+    "webpack.config.dev.js",
+    "webpack.config.prod.js",
     "jest.config.js"
   ],
   "include": [

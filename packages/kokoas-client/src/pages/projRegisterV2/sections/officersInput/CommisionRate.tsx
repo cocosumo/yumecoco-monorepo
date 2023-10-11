@@ -22,8 +22,6 @@ export const CommissionRate = () => {
         },
       }) => {
 
-        console.log('RECEIVED VALUE', value, typeof value);
-
         return (
           <FormControl
             error={isTouched && !!error}
@@ -40,8 +38,6 @@ export const CommissionRate = () => {
               value={value ?? ''}
               label={fieldMapJa.commissionRate} 
               onChange={({ target: { value: newValue } }) => {
-                console.log(newValue, typeof newValue, Number(newValue), value);
-
                 onChange(newValue === '' ? null : Number(newValue));
               }}
               sx={{

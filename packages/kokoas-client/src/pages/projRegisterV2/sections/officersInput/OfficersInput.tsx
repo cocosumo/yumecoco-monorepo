@@ -3,11 +3,7 @@ import { EmployeeSelectFields } from './EmployeeSelectFields';
 import { Store } from './Store';
 import { CommissionRate } from './CommisionRate';
 
-
-
-
 export const OfficersInput = () => {
-
 
   return (
     <Stack 
@@ -19,7 +15,11 @@ export const OfficersInput = () => {
         spacing={2}
         alignItems={'flex-end'}
       >
-        <EmployeeSelectFields name='yumeAG' agentType='yumeAG' required />
+        <EmployeeSelectFields 
+          name='yumeAG' 
+          agentType='yumeAG' 
+          required
+        />
         <CommissionRate />
       </Stack>
       <EmployeeSelectFields name='cocoAG' agentType='cocoAG' />

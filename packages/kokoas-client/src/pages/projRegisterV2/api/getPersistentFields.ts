@@ -1,5 +1,7 @@
 import { IProjects, IProjtypes } from 'types';
 import { TForm } from '../schema';
+import { convertCommRateByEmployee } from './convertCommRateByEmployee';
+import { convertCommRateByRole } from './convertCommRateByRole';
 
 interface IGetPersistentFieldsParams {
   projRec: IProjects,
@@ -73,8 +75,6 @@ export const getPersistentFields = ({
       commEmpName: commEmpName.value,
       commEmpRate: Number(commRateByEmp.value),
       commEmpRole: commEmpRole.value,
-      //commEmpRole:  ,
-      //rate: Number(commRateByEmp.value),
     }));
 
   if (!hasContract) {
@@ -83,31 +83,13 @@ export const getPersistentFields = ({
     parsedProfitRate = parsedProfitRate || profitRate?.value || '';
     parsedCommRateByRoles = projHasCommRateByRole
       ? parsedCommRateByRoles
-      : commRateByRoleList?.value
-        .filter(({ value: { role } }) => !!role.value)
-        .map(({
-          value: { role, commRateByRole },
-        }) => ({
-          role: role.value,
-          rate: Number(commRateByRole.value),
-        }))
-      || [];
+      : convertCommRateByRole(commRateByRoleList);
 
     parseCommRateByEmployee = projHasCommRateByEmployee
       ? parseCommRateByEmployee
-      : commRateByEmpList?.value
-        .filter(({ value: { empId } }) => !!empId.value)
-        .map(({ value: { empId, commRateByEmp, empName, empRole } }) => ({
-          empId: empId.value,
-          commEmpId: empId.value,
-          commEmpName: empName.value,
-          commEmpRole: empRole.value,
-          commEmpRate: Number(commRateByEmp.value),
-        })) || [];
+      : convertCommRateByEmployee(commRateByEmpList);
 
   }
-
-  console.log('CommRate', parsedCommRate);
 
   return {
     commissionRate: parsedCommRate === '' ? 0 : Number(parsedCommRate),

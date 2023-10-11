@@ -4,10 +4,15 @@ import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { Controller } from 'react-hook-form';
 import { useEffect } from 'react';
 import { OtherProjType } from './OtherProjType';
+import { convertCommRateByEmployee } from '../../api/convertCommRateByEmployee';
+import { convertCommRateByRole } from '../../api/convertCommRateByRole';
+import { useChangeCommRate } from '../../hooks/useChangeCommRate';
 
 
 export const ProjectType = () => {
   const { control, setValue, register, getValues } = useTypedFormContext();
+
+  useChangeCommRate();
 
   const { data: projTypeOptions } = useProjTypes({
     select: (d) => d
@@ -15,9 +20,18 @@ export const ProjectType = () => {
         label,
         projectName,
         uuid,
+        commRateByEmpList,
+        commRateByRoleList,
+        yumeCommFeeRate,
+        profitRate,
+
       }) => ({
         label: projectName.value || label?.value,
-        value: uuid?.value,
+        projTypeId: uuid?.value,
+        commRateByEmpList,
+        commRateByRoleList,
+        yumeCommFeeRate,
+        profitRate,
       })),
   });
 
@@ -69,14 +83,28 @@ export const ProjectType = () => {
                 label="工事種別"
                 onBlur={onBlur}
                 onChange={(e) => {
-                  const newProjTypeName = projTypeOptions
-                    ?.find(({ value }) => value === e.target.value)
-                    ?.label || '';
+                  const newProjTypeId = e.target.value;
+
+                  const { 
+                    label: newProjTypeName = '',
+                    profitRate,
+
+                    // 以下の順番で紹介料を取得する
+                    commRateByEmpList,
+                    commRateByRoleList,
+                  } = projTypeOptions
+                    ?.find(({ projTypeId }) => projTypeId === newProjTypeId) || {};
 
                   const custName = getValues('custName');
                   const hasContract = getValues('hasContract');
+                  const newCommRateByEmp = convertCommRateByEmployee(commRateByEmpList);
+                  const newCommRateByRole = convertCommRateByRole(commRateByRoleList);
 
+
+                  setValue('commRateByEmployee', newCommRateByEmp);
                   setValue('projTypeName', newProjTypeName);
+                  setValue('commRateByRole', newCommRateByRole);
+                  setValue('profitRate', Number(profitRate?.value));
                   
                   if (!hasContract) {
                     // 契約がないときのみ、工事名称を変更する
@@ -85,16 +113,19 @@ export const ProjectType = () => {
                 
                   
                   onChange(e.target.value);
+
+                
                 }}
               >
                 <MenuItem value="">
                   ---
                 </MenuItem>
                 {projTypeOptions?.map(({
-                  label, value,
+                  label, 
+                  projTypeId,
                 }) => {
                   return (
-                    <MenuItem key={value} value={value}>
+                    <MenuItem key={projTypeId} value={projTypeId}>
                       {label}
                     </MenuItem>
                   );

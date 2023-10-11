@@ -4,6 +4,7 @@ import { EmployeeSelector } from 'kokoas-client/src/components';
 import { useTypedFormContext } from '../../hooks';
 import { TAgents } from 'types';
 import { getDefaultEmployee } from '../../form';
+import { useChangeCommRate } from '../../hooks/useChangeCommRate';
 
 export const ControlledEmpSelecField = ({
   name,
@@ -26,6 +27,8 @@ export const ControlledEmpSelecField = ({
   const {
     control,
   } = useTypedFormContext();
+
+  useChangeCommRate();
 
 
   return (
@@ -63,12 +66,14 @@ export const ControlledEmpSelecField = ({
                 文字列＿氏名: newEmpName,
               } = rec || {};
 
-              onChange({
+              const newAgent = {
                 ...getDefaultEmployee(agentType),
                 empId: selectedEmpId,
                 empName: newEmpName?.value || '',
                 empRole: newEmpRole?.value || '',
-              });
+              };
+
+              onChange(newAgent);
 
               if (index === 0) {
                 if (selectedEmpId && fields.length === 1) {

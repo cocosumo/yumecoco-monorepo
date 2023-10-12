@@ -21,6 +21,7 @@ export const resolveCommisionRate = ({
   empRecs: IEmployees[];
   projTypeRec: IProjtypes;
 }) => {
+  console.log('resolveCommisionRate');
   const { agents: projAgents, commissionRate } = projRec;
 
   const { agents: custGroupAgents } = custGroupRec;

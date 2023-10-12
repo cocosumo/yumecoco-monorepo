@@ -26,6 +26,7 @@ import { resolveCommisionRate } from './resolveCommissionRate';
  */
 export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   const projRec = await getProjById(projId);
+
   const {
     dataId: projDataId,
     projName,
@@ -45,12 +46,35 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
 
   console.log(andpadSystemId);
 
-  if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
+  //if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
 
-  const custGroupRec = await getCustGroupById(custGroupId.value);
+  const [
+    custGroupRec,
+    projTypeRec,
+    employeesRec,
+    andpadBudgetExecution, // 実行予算
+    andpadProcurements,
+    andpadPayments, // andpad入金情報：入金額総額
+    contractRecs, // 契約情報
+    storeRec,
+  ] = await Promise.all([
+    getCustGroupById(custGroupId.value),
+    getProjTypeById(projTypeId.value),
+    getEmployees(false),
+    getBudgetBySystemId(andpadSystemId),
+    getAndpadProcurementByAndpadProjId(andpadSystemId), 
+    getAndpadPaymentsBySystemId(andpadSystemId),
+    getContractsByProjId(projId),
+    getStoreById(storeId.value),
+  ]);
+
   const { agents: custGroupAgents } = custGroupRec;
-
-  const projTypeRec = await getProjTypeById(projTypeId.value); // 工事種別
+  const resolvedCommRate = resolveCommisionRate({
+    custGroupRec,
+    projRec,
+    projTypeRec,
+    empRecs: employeesRec,
+  });
 
   // 古い工事情報データにはcocoAGとyumeAGの記入はないので、顧客グループのデータから取得
   const cocoAgNames =
@@ -62,28 +86,29 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
 
-  const andpadBudgetExecution = await getBudgetBySystemId(andpadSystemId); // 実行予算
-  const andpadProcurements =
-    await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
-
   // 発注会社ごとにデータを整形する
   console.log('Converting andpadbudgets');
+  
   const costManagemenList = convertMonthlyProcurementV3(
     andpadBudgetExecution,
     andpadProcurements,
   );
 
-  const { months, maxPaymentDate, minPaymentDate } = costManagemenList;
+  const { 
+    months = [], 
+    maxPaymentDate = '', 
+    minPaymentDate = '', 
+  } = costManagemenList || {};
 
   console.log('Retrieving Payment Data...');
   /** 入金 */
-  const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
+  const depositAmount = andpadPayments // andpad入金情報：入金額総額
     .reduce((acc, { paymentAmount }) => {
       return acc + +paymentAmount.value;
     }, 0);
 
   console.log('Retrieving Contracts Data...');
-  const contracts = (await getContractsByProjId(projId)).reduce(
+  const contracts = contractRecs.reduce(
     (
       acc,
       {
@@ -136,13 +161,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     },
   );
 
-  const employeesRec = await getEmployees(false);
-  const resolvedCommRate = resolveCommisionRate({
-    custGroupRec,
-    projRec,
-    projTypeRec,
-    empRecs: employeesRec,
-  });
+
 
   console.log('Calculating Profitability...');
   const {
@@ -170,8 +189,8 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     orderAmountAfterTax: contracts?.契約金額 ?? 0,
     additionalAmountAfterTax:
       contracts.追加金額 - (contracts.返金Amt + contracts.減額Amt),
-    purchaseAmount: costManagemenList.totalContractOrderCost,
-    paymentAmount: costManagemenList.totalPaidAmount,
+    purchaseAmount: costManagemenList?.totalContractOrderCost ?? 0,
+    paymentAmount: costManagemenList?.totalPaidAmount ?? 0,
     depositAmount: depositAmount,
     yumeCommFeeRate: resolvedCommRate,
     tax: contracts?.税率 ?? 0.1,
@@ -180,7 +199,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   });
 
   const formatProjNum = formatDataId(projDataId.value);
-  const { storeNameShort } = await getStoreById(storeId.value);
+  const { storeNameShort } = storeRec;
 
   const result: GetCostMgtData = {
     projNumJa: `${storeNameShort.value} ${formatProjNum.split('-')[1]}`,
@@ -212,8 +231,8 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     夢てつ営業: yumeAGNames,
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
-    発注情報詳細: costManagemenList.result,
-    maxPaymentDate,
+    発注情報詳細: costManagemenList?.result || [],
+    maxPaymentDate: maxPaymentDate,
     minPaymentDate,
     months,
   };

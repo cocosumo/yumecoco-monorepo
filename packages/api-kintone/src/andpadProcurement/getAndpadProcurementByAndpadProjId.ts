@@ -4,6 +4,7 @@ import { RecordKey, RecordType, appId } from './config';
 
 /** 対象のシステムIDの発注一覧を取得する */
 export const getAndpadProcurementByAndpadProjId = async (systemId: string | number) => {
+  if (!systemId) return null;
   const idField: RecordKey = 'andpadProjId';
   const deletedField: RecordKey = 'deletedState';
   const query = [

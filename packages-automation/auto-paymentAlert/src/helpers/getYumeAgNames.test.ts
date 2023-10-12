@@ -10,10 +10,9 @@ describe('getYumeAgNames', () => {
 
     const result = getYumeAgNames({
       agents: projcts.agents,
-      yumeAGNames: 'テストさん',
     });
 
-    expect(result).toBe('テストさん');
+    expect(result).toBe('取得に失敗しました');
   }, 60000);
 
 
@@ -23,7 +22,6 @@ describe('getYumeAgNames', () => {
 
     const result = getYumeAgNames({
       agents: projcts.agents,
-      yumeAGNames: 'テストさん',
     });
 
     expect(result).toBe('山豊工建');

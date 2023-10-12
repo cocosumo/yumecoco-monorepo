@@ -52,7 +52,6 @@ export const convertContractsToJson = ({
       agents,
       storeCode: storeCodeByProjct,
       forceLinkedAndpadSystemId,
-      yumeAGNames,
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
 
     // システムIDを取得する
@@ -90,7 +89,6 @@ export const convertContractsToJson = ({
 
     const yumeAGs = getYumeAgNames({
       agents: agents,
-      yumeAGNames: yumeAGNames?.value ?? '',
     });
 
 

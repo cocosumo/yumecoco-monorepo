@@ -3,10 +3,8 @@ import { TAgents } from 'types';
 
 export const getYumeAgNames = ({
   agents,
-  yumeAGNames,
 }: {
   agents: RecordType['agents'] | undefined,
-  yumeAGNames: string,
 }) => {
 
   const yumeAgents = agents?.value.filter(({ value }) => {
@@ -18,12 +16,10 @@ export const getYumeAgNames = ({
   });
 
   if (yumeAgents) {
-    console.log('夢てつAG', yumeAgents);
     if (yumeAgents.length >= 1) {
       return yumeAgents.map(({ value }) => value.agentName.value).join(', ');
     }
   }
-  console.log('旧式で取得', yumeAGNames);
 
-  return yumeAGNames;
+  return '取得に失敗しました';
 };

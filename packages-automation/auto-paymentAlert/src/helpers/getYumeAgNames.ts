@@ -15,10 +15,8 @@ export const getYumeAgNames = ({
     return agentType.value === 'yumeAG' as TAgents;
   });
 
-  if (yumeAgents) {
-    if (yumeAgents.length >= 1) {
-      return yumeAgents.map(({ value }) => value.agentName.value).join(', ');
-    }
+  if (yumeAgents?.length) {
+    return yumeAgents.map(({ value }) => value.agentName.value).join(', ');
   }
 
   return '取得に失敗しました';

@@ -48,7 +48,7 @@ export const getPersistentFields = ({
     yumeAG,
   } = groupAgentsByType(agents);
 
-  const isEmptyOrCocoumoYumeAg = yumeAG.length === 0 || yumeAG.some(({ value: { agentName } }) => agentName.value === 'ここすも');
+  const isEmptyOrCocoumoYumeAg = !yumeAG?.length || yumeAG.some(({ value: { agentName } }) => agentName.value === 'ここすも');
 
 
   // Default to project records values

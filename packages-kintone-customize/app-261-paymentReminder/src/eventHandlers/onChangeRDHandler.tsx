@@ -1,11 +1,14 @@
 import { getSpaceElement } from 'api-kintone';
-import { createRoot } from 'react-dom/client';
+import { Root, createRoot } from 'react-dom/client';
 import { KintoneEvent } from '../types/types';
 import { ReminderDateAnnouce } from '../components/ReminderDateAnnouce';
 import { calcReminderDate } from '../helpers/calcReminderDate';
 import { KReminderList } from '../config';
 import format from 'date-fns/format';
 import addDays from 'date-fns/addDays';
+
+
+let root: Root | undefined = undefined;
 
 /**
  * レコード編集/作成画面で'reminderDate'フィールドの値を変更したときのイベント処理
@@ -28,8 +31,9 @@ export const onChangeRDHandler = (event: KintoneEvent) => {
 
   if (!spaceElement) return;
 
-  const root = createRoot(spaceElement);
-
+  if (!root) {
+    root = createRoot(spaceElement);
+  }
 
   root.render(
     <ReminderDateAnnouce reminderDate={newDate} />,

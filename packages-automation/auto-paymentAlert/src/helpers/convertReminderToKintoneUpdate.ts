@@ -3,6 +3,11 @@ import { UpdatePaymentReminder } from '../api-kintone';
 
 
 
+/**
+ * アラート通知後の、入金確認リマインダーアプリ更新用データを作成します
+ * @param param0 
+ * @returns 
+ */
 export const convertReminderToKintoneUpdate = ({
   paymentReminderJson,
   lastAlertDate,
@@ -17,7 +22,7 @@ export const convertReminderToKintoneUpdate = ({
     andpadPaymentUrl,
     contractDate,
     contractId,
-    cwRoomIds,
+    //cwRoomIds,
     projId,
     projName,
     projType,
@@ -25,6 +30,7 @@ export const convertReminderToKintoneUpdate = ({
     totalContractAmount,
     alertState,
     expectedPaymentDate,
+    yumeAG,
   }) => {
 
     return ({
@@ -33,21 +39,22 @@ export const convertReminderToKintoneUpdate = ({
         value: projId,
       },
       record: {
-        andpadPaymentUrl: { value: andpadPaymentUrl },
-        alertState: { value: alertState ? '1' : '0' },
-        lastAlertDate: { value: lastAlertDate },
-        scheduledAlertDate: { value: alertDate },
-        //reminderDate: { value: format(addDays(new Date(), 1), 'yyyy-MM-dd')},
-        contractId: { value: contractId },
         projId: { value: projId },
-        projType: { value: projType },
-        projName: { value: projName },
-        territory: { value: territory },
         contractDate: { value: contractDate },
+        yumeAG: { value: yumeAG },
+        expectedPaymentDate: { value: expectedPaymentDate ?? '' },
+        projType: { value: projType },
         totalContractAmount: { value: totalContractAmount },
-        expectedPaymentDate: { value: expectedPaymentDate },
-        andpadStatus: { value: alertState ? '' : '実績あり' },
-        cwRoomIds: { value: cwRoomIds },
+        scheduledAlertDate: { value: alertDate },
+        alertState: { value: alertState ? '1' : '0' },
+        // reminderDate: { value: '' }, ユーザーがプルダウンから選択するため、対象外とする
+        andpadDepositAmount: { value: '0' }, // TODO 入金金額の総額を取得する処理を実装する
+        area: { value: territory },
+        projName: { value: projName },
+        lastAlertDate: { value: lastAlertDate },
+        andpadUrl: { value: andpadPaymentUrl },
+        contractId: { value: contractId },
+        // notificationSettings: {}, // 通知対象の更新処理は不要？実装要検討
       },
     });
   });

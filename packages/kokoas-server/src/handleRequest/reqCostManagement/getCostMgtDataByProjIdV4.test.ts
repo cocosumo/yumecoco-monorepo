@@ -7,7 +7,7 @@ import { getCostMgtDataByProjIdV4 } from './getCostMgtDataByProjIdV4';
 
 describe('getCostMgtDataV4', () => {
   it('should get andpad orders by AndpadProjId', async () => {
-    const projId = 'e6a8e273-8c62-4fff-82cd-9ca97c97813f';
+    const projId = '055c2aca-cbdd-42ab-be2a-e4cd6dd362de';
 
     
     const result = await getCostMgtDataByProjIdV4(projId);

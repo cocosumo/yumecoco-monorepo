@@ -103,7 +103,6 @@ export const getPersistentFields = ({
 
   }
 
-  console.log('parsedCommRateFinal', parsedCommRate, parsedCommRate === '' ? 0 : Number(parsedCommRate));
   return {
     commissionRate: parsedCommRate === '' ? 0 : Number(parsedCommRate),
     profitRate: parsedProfitRate === '' ? 0 : Number(parsedProfitRate),

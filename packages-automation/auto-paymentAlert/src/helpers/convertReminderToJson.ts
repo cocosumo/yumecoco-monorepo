@@ -1,7 +1,7 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IPaymentReminder, reminderAppId } from '../../config';
 import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
-import { IAndpadpayments } from 'types';
+import { IAndpadpayments, Territory } from 'types';
 
 
 
@@ -25,10 +25,11 @@ export const convertReminderToJson = ({
     totalContractAmount,
     notificationSettings,
     expectedPaymentDate,
-  }) => {
+    yumeAG,
+  }): PaymentReminder => {
 
     // 通知先情報(chatwork)を設定する
-    const cwRoomIds = notificationSettings.value.map(({ value }) => {
+    const cwRoomIds: CwRoomIds[] = notificationSettings.value.map(({ value }) => {
       const {
         alertTargetId,
         alertTargetName,
@@ -39,11 +40,11 @@ export const convertReminderToJson = ({
         agentName: alertTargetName.value,
         agentId: alertTargetId.value,
         cwRoomId: chatworkRoomId.value,
-      } as CwRoomIds;
+      };
     });
 
     // kintoneのリマインダーURLを設定する
-    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}`;
+    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
     // 顧客からの入金情報を確認する
     const paymentHistory = andpadPayments.some(({
@@ -63,9 +64,10 @@ export const convertReminderToJson = ({
       projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmount.value,
-      territory: area.value,
+      territory: area.value as Territory,
+      yumeAG: yumeAG.value,
       cwRoomIds: cwRoomIds,
-    }) as PaymentReminder;
+    });
   });
 
 };

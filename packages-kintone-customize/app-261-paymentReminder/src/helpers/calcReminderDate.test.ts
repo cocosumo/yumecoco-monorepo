@@ -9,7 +9,10 @@ import addMonths from 'date-fns/addMonths';
 describe('calcReminderDate', () => {
   it('1日後の日付を返すこと', () => {
 
-    const result = calcReminderDate('1日後');
+    const result = calcReminderDate({
+      depositDate: '2000-01-01',
+      reminderDate: '1日後',
+    });
 
     expect(result).toBe(format(addDays(new Date(), 1), 'yyyy-MM-dd'));
     console.log('result', result);
@@ -18,7 +21,10 @@ describe('calcReminderDate', () => {
 
   it('1週間後の日付を返すこと', () => {
 
-    const result = calcReminderDate('1週間後');
+    const result = calcReminderDate({
+      depositDate: '2000-01-01',
+      reminderDate: '1週間後',
+    });
 
     expect(result).toBe(format(addWeeks(new Date(), 1), 'yyyy-MM-dd'));
   }, 60000);
@@ -26,7 +32,10 @@ describe('calcReminderDate', () => {
 
   it('1か月後の日付を返すこと', () => {
 
-    const result = calcReminderDate('1か月後');
+    const result = calcReminderDate({
+      depositDate: '2000-01-01',
+      reminderDate: '1か月後',
+    });
 
     expect(result).toBe(format(addMonths(new Date(), 1), 'yyyy-MM-dd'));
   }, 60000);
@@ -34,17 +43,23 @@ describe('calcReminderDate', () => {
 
   it('3か月後の日付を返すこと', () => {
 
-    const result = calcReminderDate('3か月後');
+    const result = calcReminderDate({
+      depositDate: '2000-01-01',
+      reminderDate: '3か月後',
+    });
 
     expect(result).toBe(format(addMonths(new Date(), 3), 'yyyy-MM-dd'));
   }, 60000);
 
 
-  it('"default"を返すこと', () => {
+  it('入金予定日を返すこと', () => {
 
-    const result = calcReminderDate('-----');
+    const result = calcReminderDate({
+      depositDate: '2000-01-01',
+      reminderDate: '入金予定日',
+    });
 
-    expect(result).toBe('default');
+    expect(result).toBe('2000-01-01');
     console.log('result', result);
   }, 60000);
 });

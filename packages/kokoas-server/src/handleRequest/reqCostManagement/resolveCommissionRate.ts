@@ -22,7 +22,10 @@ export const resolveCommisionRate = ({
   projTypeRec: IProjtypes;
 }) => {
   console.log('resolveCommisionRate');
-  const { agents: projAgents, commissionRate } = projRec;
+  const { 
+    agents: projAgents, 
+    commissionRate, 
+  } = projRec;
 
   const { agents: custGroupAgents } = custGroupRec;
 
@@ -41,11 +44,12 @@ export const resolveCommisionRate = ({
 
   const pAg = projGroupAgentsByType(projAgents);
 
-  // 古い工事データにはゆめてつAGがないので、顧客グループのゆめてつAGを使う
+
+  
   const cgAg = custGroupAgentsByType(custGroupAgents);
 
   // 変換する
-  if (pAg.yumeAG.length) {
+  if (pAg?.yumeAG?.length) {
     yumeAGs = pAg.yumeAG.map(({ value: { agentId, agentName, empRole } }) => {
       const empRec = empRecs.find(
         ({ uuid: empId }) => empId.value === agentId.value,
@@ -57,7 +61,7 @@ export const resolveCommisionRate = ({
         empRole: empRole.value || empRec?.役職.value || '',
       };
     });
-  } else if (cgAg.yumeAG.length) {
+  } else if (cgAg?.yumeAG?.length) {
     yumeAGs = cgAg.yumeAG.map(({ value: { employeeId, employeeName } }) => {
       const empRec = empRecs.find(
         ({ uuid: empId }) => empId.value === employeeId.value,
@@ -71,8 +75,11 @@ export const resolveCommisionRate = ({
     });
   }
 
-  const hasYumeAG =
-    yumeAGs.length && !yumeAGs.some(({ empName }) => empName === 'ここすも');
+  const hasNoYumeAG = !yumeAGs.length 
+  || yumeAGs.some(({ empName }) => empName === 'ここすも');
+
+  console.log('PROJAGENTS', JSON.stringify(yumeAGs, null, 2));
+
 
   if (commissionRate.value) {
     // 工事内容で設定してある場合、それを使う
@@ -81,7 +88,7 @@ export const resolveCommisionRate = ({
     return parsedCommRate;
   }
 
-  if (!hasYumeAG) {
+  if (hasNoYumeAG) {
     // ゆめてつAGがいない場合、紹介率は0
     console.log('紹介率：ゆめてつAGがいなので、0');
     return 0;

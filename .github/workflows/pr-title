@@ -1,0 +1,3 @@
+- name: Enforce Pull Request Title includes Issue Key
+uses: ryanvade/enforce-pr-title-style-action@v1
+            

@@ -117,7 +117,7 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
         </Tooltip>
       </Box>
       <FormHelperText error={error}>
-        {helperText}
+        {helperText || ' '}
       </FormHelperText>
     </Stack>
   );

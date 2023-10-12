@@ -6,12 +6,18 @@ import { SearchByName } from './SearchByName';
 import { FilterOptions, useFilteredEmployees } from './useFilteredEmployees';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { IEmployees } from 'types';
 
 interface EmployeeSelectorProps {
   label: string,
   /** 社員のuuid */
   value: string,
-  onChange?: (empId: string,) => void,
+  onChange?: (
+    /**　選択された社員のuuid */
+    empId: string, 
+    /** 社員のレコード */
+    empRec?: IEmployees
+  ) => void,
   onBlur?: () => void,
   filter?: FilterOptions,
   required?: boolean,
@@ -54,16 +60,16 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
   } = selectedEmpRecord || {};
   
   const handleChange = useCallback(
-    (empId: string | undefined) => {
+    (empId: string | undefined ) => {
       if (onChange) {
-        onChange(empId || '');
+        onChange(empId || '', data?.find((empRecord) => empRecord.uuid.value === empId));
       }
     }, 
-    [onChange],
+    [onChange, data],
   );
 
   return (
-    <Stack spacing={0.5} width={300}>
+    <Stack spacing={0.4} width={300}>
     
       <FormLabel 
         required={required}
@@ -78,7 +84,7 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
           border: '1px solid',
           borderColor: error ? 'red' : 'grey.500',
           borderRadius: 1,
-          p: '2px 4px', 
+          p: '0px 4px', 
           display: 'flex', 
           alignItems: 'center', 
         }}
@@ -111,7 +117,7 @@ export const EmployeeSelector = forwardRef<HTMLInputElement, EmployeeSelectorPro
         </Tooltip>
       </Box>
       <FormHelperText error={error}>
-        {helperText}
+        {helperText || ' '}
       </FormHelperText>
     </Stack>
   );

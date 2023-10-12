@@ -1,5 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
-import { buildingTypes, recordCancelStatuses, recordStatuses, territories } from 'types';
+import { agentTypes, buildingTypes, recordCancelStatuses, recordStatuses } from 'types';
 import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
@@ -7,6 +7,17 @@ z.setErrorMap(zodErrorMapJA());
 const nonEmptyDropdown = z.string().nonempty({
   message: '選択してください。',
 });
+
+
+
+const agentSchema = z.object({
+  key: z.string(),
+  empId: z.string(),
+  empRole: z.string(),
+  empName: z.string(),
+  empType: z.enum(agentTypes),
+});
+
 
 export const schema = z.object({
   projId: z.string().optional(),
@@ -18,21 +29,14 @@ export const schema = z.object({
 
   projDataId: z.string(),
   createdDate: z.string(),
-  storeCode: z.string(),
 
   custGroupId: z.string().nullable(),
   custName: z.string(),
-  storeId: z.string(),
-  territory: z.enum(territories).nullable(),
 
-  cocoConst1: z.string(),
-  cocoConst2: z.string(),
 
-  yumeAG1: nonEmptyDropdown,
-  yumeAG2: z.string(),
-
-  cocoAG1: nonEmptyDropdown,
-  cocoAG2: z.string(),
+  yumeAG: z.array(agentSchema),
+  cocoAG: z.array(agentSchema),
+  cocoConst: z.array(agentSchema),
 
   postal: z.string(),
   address1: z.string().nonempty(),
@@ -65,6 +69,32 @@ export const schema = z.object({
     id: z.string(),
   })),
 
+  /** 利益率 */
+  profitRate: z.number()
+    .min(0)
+    .max(100),
+
+  /** 紹介率 */
+  commissionRate: z
+    .number({ invalid_type_error: '数値を入力してください。' })
+    .min(0)
+    .max(100),
+
+  /** 役職による紹介率 */
+  commRateByRole: z.array(z.object({
+    role: z.string(),
+    rate: z.number(),
+  })),
+
+  /** 個別紹介率 */
+  commRateByEmployee: z.array(z.object({
+    commEmpName: z.string(),
+    commEmpRole: z.string(),
+    commEmpId: z.string(),
+    commEmpRate: z.number(),
+  })),
+
+
   // 見込み
   rank: z.string().optional(),
   schedContractPrice: z.number().optional(),
@@ -72,9 +102,17 @@ export const schema = z.object({
   estatePurchaseDate: z.date().nullable(),
   planApplicationDate: z.date().nullable(),
   paymentMethod: z.string().optional(),
+
+  // 店舗情報
+  storeName: z.string(),
+  storeId: z.string(),
+  storeCode: z.string(),
+  territory: z.string(),
+
 })
   .superRefine((
     {
+
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,
@@ -83,6 +121,8 @@ export const schema = z.object({
       otherProjType,
 
       hasContract,
+
+      yumeAG,
     },
     ctx,
   ) => {
@@ -114,6 +154,16 @@ export const schema = z.object({
         });
       }
     } 
+
+    const hasSelectedYumeAG = yumeAG.some((ag) => ag.empId !== '');
+    if (!hasSelectedYumeAG) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'ゆめてつAGを入力してください。',
+        path: ['yumeAG.0'],
+      });
+    }
+
   });
 
   

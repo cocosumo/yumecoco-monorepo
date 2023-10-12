@@ -7,6 +7,28 @@ declare namespace DBProjtypes {
     uuid: kintone.fieldTypes.SingleLineText;
     数値: kintone.fieldTypes.Number;
     projectName: kintone.fieldTypes.SingleLineText;
+    commRateByRoleList: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          role: kintone.fieldTypes.DropDown;
+          commRateByRole: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
+    commRateByEmpList: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          empId: kintone.fieldTypes.SingleLineText;
+          empName: kintone.fieldTypes.SingleLineText;
+          empRole: kintone.fieldTypes.SingleLineText;
+          commRateByEmp: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

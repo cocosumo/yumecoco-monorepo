@@ -32,7 +32,10 @@ export const ControlledTextField = ({
       control={control}
       name={name}
       render={({
-        field,
+        field:{
+          value,
+          ...otherValue
+        },
         fieldState: {
           error,
           isTouched,
@@ -42,7 +45,8 @@ export const ControlledTextField = ({
 
         return (
           <TextField 
-            {...field}
+            {...otherValue}
+            value={value || ''}
             label={label || fieldMapJa[name]} 
             placeholder={placeholder}
             sx={{

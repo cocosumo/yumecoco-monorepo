@@ -1,4 +1,14 @@
+import { TAgents } from 'types';
 import { TForm } from './schema';
+import { v4 as uuidv4 } from 'uuid';
+
+export const getDefaultEmployee = (agentType: TAgents): TForm['cocoAG'][number] => ({
+  key: uuidv4(), // generate stable key for rendering
+  empId: '',
+  empName: '',
+  empRole: '',
+  empType: agentType,
+});
 
 export const initialValues : TForm = {
   projId: '',
@@ -9,22 +19,14 @@ export const initialValues : TForm = {
   
   projDataId: '',
 
-
   createdDate: '',
-  storeCode: '',
   custGroupId: null,
   custName: '',
-  storeId: '',
-  territory: null,
-  
-  cocoConst1: '',
-  cocoConst2: '',
 
-  yumeAG1: '',
-  yumeAG2: '',
+  yumeAG: [getDefaultEmployee('yumeAG')],
+  cocoAG: [],
+  cocoConst: [],
 
-  cocoAG1: '',
-  cocoAG2: '',
 
   postal: '',
   address1: '',
@@ -59,6 +61,18 @@ export const initialValues : TForm = {
   estatePurchaseDate: null,
   planApplicationDate: null,
   paymentMethod: '',
+
+  // 紹介料
+  commissionRate: 0,
+  profitRate: 0,
+  commRateByRole: [],
+  commRateByEmployee: [],
+
+  // 店舗情報
+  storeName: '',
+  storeId: '',
+  territory: '',
+  storeCode: '',
 
 };
 

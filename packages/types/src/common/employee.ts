@@ -1,7 +1,7 @@
 import { IEmployees } from '../dbKintone';
 import { KeyOfSubtable } from '../utils';
 
-export const agentTypes = ['yumeAG', 'cocoAG', 'cocoConst', 'sutekura'] as const;
+export const agentTypes = ['yumeAG', 'cocoAG', 'cocoConst'] as const;
 export type TAgents = typeof agentTypes[number];
 
 export const employeeStatus = ['有効', '無効', '保留(退職済)'] as const;
@@ -19,7 +19,7 @@ export const AGLabels : Record<TAgents, string> = {
   cocoAG : '営業担当者',
   yumeAG : 'ゆめてつAG',
   cocoConst : '工事担当者',
-  sutekura: 'すてくら',
+  //sutekura: 'すてくら',
 };
 
 /** 選択肢などに出てくる職種 */

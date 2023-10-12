@@ -50,9 +50,10 @@ export const getPersistentFields = ({
 
   const isEmptyOrCocoumoYumeAg = yumeAG.length === 0 || yumeAG.some(({ value: { agentName } }) => agentName.value === 'ここすも');
 
+
   // Default to project records values
-  let parsedCommRate: string = commissionRateFromProj.value ||
-    isEmptyOrCocoumoYumeAg ? '0' : '';
+  let parsedCommRate: string = commissionRateFromProj.value
+    || (isEmptyOrCocoumoYumeAg ? '0' : '');
 
   let parsedProfitRate: string = profitRateFromProj.value;
 

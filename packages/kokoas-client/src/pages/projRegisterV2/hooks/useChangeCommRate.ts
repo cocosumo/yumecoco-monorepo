@@ -18,6 +18,9 @@ export const useChangeCommRate = () => {
   const {
     setValue,
     control,
+    formState: {
+      isDirty,
+    },
   } = useTypedFormContext();
 
   const [
@@ -34,6 +37,7 @@ export const useChangeCommRate = () => {
   // CHANGE: 紹介料率の再設定
 
   useEffect(() => {
+    if (!isDirty) return;
 
     if (selectedYumeAG.some(({ empName }) => empName === 'ここすも')
       || selectedYumeAG.every(({ empName }) => empName === '')) {

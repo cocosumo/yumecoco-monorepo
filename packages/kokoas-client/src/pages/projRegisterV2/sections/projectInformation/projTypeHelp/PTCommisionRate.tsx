@@ -1,11 +1,18 @@
 import { Stack, Typography } from '@mui/material';
 import { useTypedWatch } from '../../../hooks';
 import { TForm } from '../../../schema';
+import { useProjTypeById } from 'kokoas-client/src/hooksQuery';
 
 export const PTCommisionRate = () => {
-  const commissionRate = useTypedWatch({
-    name: 'commissionRate',
-  }) as TForm['commissionRate'];
+  const projTypeId = useTypedWatch({
+    name: 'projTypeId',
+  }) as TForm['projTypeId'];
+
+  const { data } = useProjTypeById(projTypeId);
+
+  const {
+    yumeCommFeeRate,
+  } = data || {};
 
   return (
     <Stack
@@ -13,10 +20,10 @@ export const PTCommisionRate = () => {
       direction={'row'}
     >
       <Typography>
-        規定紹介料率：
+        ゆめてつ紹介料率：
       </Typography>
       <Typography>
-        {commissionRate}
+        {Number(yumeCommFeeRate?.value || 0)}
         %
       </Typography>
 

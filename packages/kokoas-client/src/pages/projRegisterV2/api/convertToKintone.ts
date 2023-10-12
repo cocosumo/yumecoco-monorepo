@@ -56,8 +56,6 @@ export const convertToKintone = (
 
   } = rawValues;
 
-  console.log('rawValues', commissionRate, rawValues);
-
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),

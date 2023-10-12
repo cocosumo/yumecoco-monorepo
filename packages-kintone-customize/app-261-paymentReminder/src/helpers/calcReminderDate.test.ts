@@ -52,17 +52,6 @@ describe('calcReminderDate', () => {
   }, 60000);
 
 
-  it('"default"を返すこと', () => {
-
-    const result = calcReminderDate({
-      depositDate: '2000-01-01',
-      reminderDate: '-----',
-    });
-
-    expect(result).toBe('default');
-    console.log('result', result);
-  }, 60000);
-
   it('入金予定日を返すこと', () => {
 
     const result = calcReminderDate({

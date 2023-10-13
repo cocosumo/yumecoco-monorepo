@@ -1,7 +1,7 @@
 import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTarget';
 import { convertContractsToJson } from './helpers/convertContractsToJson';
 import { getMyOrders } from 'api-andpad';
-import { ContractRecordType, IPaymentReminder } from '../config';
+import { ContractRecordType, IInvoiceReminder } from '../config';
 import { IAndpadpayments, IEmployees, IProjects, IStores } from 'types';
 
 
@@ -9,7 +9,7 @@ import { IAndpadpayments, IEmployees, IProjects, IStores } from 'types';
 /**
  * 契約アプリからアラート対象レコードを取得する
  */
-export const createPaymentAlertFromContracts = ({
+export const createInvoiceAlertFromContracts = ({
   tgtProjTypeContracts,
   andpadPayments,
   reminders,
@@ -20,7 +20,7 @@ export const createPaymentAlertFromContracts = ({
 }: {
   tgtProjTypeContracts: ContractRecordType[]
   andpadPayments: IAndpadpayments[]
-  reminders: IPaymentReminder[]
+  reminders: IInvoiceReminder[]
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]

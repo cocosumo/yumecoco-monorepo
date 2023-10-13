@@ -1,10 +1,10 @@
 import { getAllRecords } from 'api-kintone';
-import { IPaymentReminder, reminderAppId } from '../../config';
+import { IInvoiceReminder, reminderAppId } from '../../config';
 
 
-export const getAllPaymentReminder = async (
+export const getAllInvoiceReminder = async (
   params?: Omit<Parameters<typeof getAllRecords>[0], 'app'>,
-) => getAllRecords<IPaymentReminder>({
+) => getAllRecords<IInvoiceReminder>({
   ...params,
   app: reminderAppId,
   orderBy: '作成日時 desc',

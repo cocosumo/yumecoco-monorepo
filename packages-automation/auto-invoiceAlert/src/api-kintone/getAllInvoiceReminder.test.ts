@@ -1,13 +1,13 @@
 import { describe, it, expect } from '@jest/globals';
-import { getAllPaymentReminder } from './getAllPaymentReminder';
+import { getAllInvoiceReminder } from './getAllInvoiceReminder';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 
 
-describe('getAllPaymentReminder', () => {
+describe('getAllInvoiceReminder', () => {
   it('入金確認リマインダーアプリの全レコードを取得します', async () => {
-    const result = await getAllPaymentReminder();
+    const result = await getAllInvoiceReminder();
 
     expect(result).toBeInstanceOf(Array);
     expect(result.length).toBeGreaterThan(0);
@@ -21,7 +21,7 @@ describe('getAllPaymentReminder', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `PaymentReminder_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, `invoiceReminder_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
   });

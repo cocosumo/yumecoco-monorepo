@@ -2,8 +2,8 @@ import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees } from
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getMyOrders } from 'api-andpad';
 import { registerReminders } from './helpers/registerReminders';
-import { getAllPaymentReminder, getPaymentRemindersByAlertDate } from './api-kintone';
-import { createPaymentAlertFromContracts } from './createPaymentAlertFromContracts';
+import { getAllInvoiceReminder, getInvoiceRemindersByAlertDate } from './api-kintone';
+import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
 
 
@@ -11,8 +11,8 @@ import { convertReminderToJson } from './helpers/convertReminderToJson';
 /**
  * 通知対象の契約レコード情報をまとめます
  */
-export const createPaymentAlert = async () => {
-  console.log('start create payment reminder');
+export const createInvoiceAlert = async () => {
+  console.log('start create invoice reminder');
 
   // 処理前準備
   // 関連するレコード情報を取得する
@@ -23,8 +23,7 @@ export const createPaymentAlert = async () => {
     allStores,
     allOrders,
     tgtProjTypeContracts,
-    //alertReminder,
-    allPaymentReminder,
+    allInvoiceReminder,
   ] = await Promise.all([
     getAllProjects(),
     getAllAndpadPayments(),
@@ -32,18 +31,17 @@ export const createPaymentAlert = async () => {
     getAllStores(),
     getMyOrders(),
     filterContractsByTargetProjType(),
-    //getPaymentRemindersByAlertDate(new Date()),
-    getAllPaymentReminder(),
+    getAllInvoiceReminder(),
   ]);
 
 
   // 契約書の内容からアラート対象を取得する
-  const alertContractsJson = createPaymentAlertFromContracts({
+  const alertContractsJson = createInvoiceAlertFromContracts({
     allOrders: allOrders,
     andpadPayments: allAndpadPayments,
     employees: allMembers,
     projects: allProjects,
-    reminders: allPaymentReminder,
+    reminders: allInvoiceReminder,
     stores: allStores,
     tgtProjTypeContracts: tgtProjTypeContracts,
   });
@@ -54,7 +52,7 @@ export const createPaymentAlert = async () => {
   });
 
   // 今日通知予定のリマインダーレコードを取得する(含：契約書から取得したアラート)
-  const alertReminder = await getPaymentRemindersByAlertDate(new Date());
+  const alertReminder = await getInvoiceRemindersByAlertDate(new Date());
 
   const alertReminderJson = convertReminderToJson({
     reminder: alertReminder,

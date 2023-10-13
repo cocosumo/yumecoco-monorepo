@@ -12,7 +12,7 @@ import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAre
  * chatworkへ通知する
  * @param param0 
  */
-export const notifyPaymentAlertToChatwork = async ({
+export const notifyInvoiceAlertToChatwork = async ({
   reminderJson,
 }: {
   reminderJson: InvoiceReminder[]

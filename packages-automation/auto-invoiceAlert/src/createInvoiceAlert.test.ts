@@ -2,13 +2,13 @@ import { describe, it/* , expect */ } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { createPaymentAlert } from './createPaymentAlert';
+import { createInvoiceAlert } from './createInvoiceAlert';
 
 
-describe('createPaymentAlert', () => {
+describe('createInvoiceAlert', () => {
   it('should return alert data', async () => {
 
-    const result = await createPaymentAlert();
+    const result = await createInvoiceAlert();
 
     const dir = path.join(__dirname, '__TEST__');
 
@@ -18,7 +18,7 @@ describe('createPaymentAlert', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `createPaymentAlert_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, `createInvoiceAlert_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
   }, 10000);

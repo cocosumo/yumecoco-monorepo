@@ -46,7 +46,7 @@ export const convertReminderToJson = ({
     // kintoneのリマインダーURLを設定する
     const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
-    // 顧客からの入金情報を確認する
+    // 請求書が発行されているかどうかを確認する
     const hasInvoice = andpadPayments.some(({
       projId,
     }) => ((projIdReminder.value === projId.value)));

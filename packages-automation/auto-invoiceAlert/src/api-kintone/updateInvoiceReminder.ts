@@ -15,7 +15,7 @@ export type UpdateInvoiceReminder = {
 
 
 /**
- * 入金アラートレコードを一括更新する
+ * 請求書発行アラートレコードを一括更新する
  */
 export const updateInvoiceReminder = (params: UpdateInvoiceReminder[]) => {
 

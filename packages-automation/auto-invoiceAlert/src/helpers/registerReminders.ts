@@ -5,7 +5,7 @@ import { convertReminderToKintone } from './convertReminderToKintone';
 
 /**
  * リマインダーアプリへ未登録の契約を登録する
- * @param reminderJson 登録する入金リマインダーのデータ配列
+ * @param reminderJson 登録する請求書用リマインダーのデータ配列
  */
 export const registerReminders = async ({
   reminderJson,

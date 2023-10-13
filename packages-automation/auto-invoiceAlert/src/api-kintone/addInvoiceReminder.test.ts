@@ -5,7 +5,7 @@ import { addInvoiceReminder } from './addInvoiceReminder';
 describe('addInvoiceReminder', () => {
   it('should get lookup fields of project', async () => {
 
-    // 入金リマインダーアプリからdummyIdのレコードを削除してから実施すること
+    // 請求書用リマインダーアプリからdummyIdのレコードを削除してから実施すること
     const result = await addInvoiceReminder([{
       contractId: { value: 'dummyId' },
     }]);

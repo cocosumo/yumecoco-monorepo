@@ -3,7 +3,7 @@ import { IInvoiceReminder, reminderAppId } from '../../config';
 
 
 /**
- * 入金アラートレコードを一括登録する
+ * 請求書発行アラートレコードを一括登録する
  */
 export const addInvoiceReminder = (params: Partial<IInvoiceReminder>[]) => {
 

@@ -4,7 +4,7 @@ import { notifyInvoiceAlertToChatwork } from './notifyInvoiceAlertToChatwork';
 
 
 /**
- * 入金アラートを通知します
+ * 請求書発行アラートを通知します
  */
 export const invoiceReminder = async () => {
   console.log('start invoice reminder');

@@ -6,7 +6,7 @@ import format from 'date-fns/format';
 
 
 describe('getAllInvoiceReminder', () => {
-  it('入金確認リマインダーアプリの全レコードを取得します', async () => {
+  it('請求書用リマインダーアプリの全レコードを取得します', async () => {
     const result = await getAllInvoiceReminder();
 
     expect(result).toBeInstanceOf(Array);

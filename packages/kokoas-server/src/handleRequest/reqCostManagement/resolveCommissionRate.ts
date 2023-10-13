@@ -78,8 +78,6 @@ export const resolveCommisionRate = ({
   const hasNoYumeAG = !yumeAGs.length 
   || yumeAGs.some(({ empName }) => empName === 'ここすも');
 
-  console.log('PROJAGENTS', JSON.stringify(yumeAGs, null, 2));
-
 
   if (commissionRate.value) {
     // 工事内容で設定してある場合、それを使う
@@ -106,14 +104,14 @@ export const resolveCommisionRate = ({
     return parsedCommRate;
   }
 
-  const matchedCommRateByRold = commRateByRoleList.value.find(
+  const matchedCommRateByRole = commRateByRoleList.value.find(
     ({ value: { role } }) => {
       return yumeAGs.some(({ empRole }) => empRole === role.value);
     },
   );
-  if (matchedCommRateByRold) {
+  if (matchedCommRateByRole) {
     // ゆめてつAGの役職と一致する場合、それを使う
-    const parsedCommRate = +matchedCommRateByRold.value.commRateByRole.value;
+    const parsedCommRate = +matchedCommRateByRole.value.commRateByRole.value;
     console.log('役職紹介率', parsedCommRate);
     return parsedCommRate;
   }

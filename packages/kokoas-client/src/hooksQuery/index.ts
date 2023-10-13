@@ -10,6 +10,7 @@ export * from './useAndpadBySystemId';
 export * from './useAndpadCostMgtDataByProjId';
 export * from './useAndpadOrderByProjId';
 export * from './useAndpadPaymentsBySystemId';
+export * from './useCocoAG';
 export * from './useCommonOptions';
 export * from './useCompletedTickets';
 export * from './useContractById';

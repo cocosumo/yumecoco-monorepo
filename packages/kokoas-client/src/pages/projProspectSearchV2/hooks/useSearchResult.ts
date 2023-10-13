@@ -9,6 +9,7 @@ import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
 
 import format from 'date-fns/format';
+import { matchCocoAgentsById } from '../helpers/matchCocoAgentsById';
 
 
 
@@ -135,6 +136,13 @@ export const useSearchResult =  () => {
         const isMatchContractDateTo = !q.contractDateTo || (q.contractDateTo && schedContractDate?.value && parseISO(q.contractDateTo as string) >= parseISO(schedContractDate?.value));
         const isMatchMemo = !q.memo || (q.memo && projName.value.includes(q.memo.trim()));
 
+        const matchedCocoAG = matchCocoAgentsById({
+          empIdToMatch: q.cocoAGId,
+          projAgents,
+          custAgents: agents,
+        });
+        const isMatchedCocoAGId = !q.cocoAGId || !!matchedCocoAG;
+
         //console.log(isMatchContractDateFrom, q.contractDateFrom, schedContractDate?.value);
 
         const isMatchKeyword = !q.keyword || [
@@ -162,6 +170,7 @@ export const useSearchResult =  () => {
           && isMatchContractDateFrom
           && isMatchContractDateTo
           && isMatchMemo
+          && isMatchedCocoAGId
           )
         ) {
           acc.push({

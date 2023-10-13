@@ -8,6 +8,7 @@ describe('summarizeOrderingCompanyInfo', () => {
   it('should summarize ordering company info', async () => {
     const andpadSystemId = '11487098';
     const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // andpad発注情報
+    if (!andpadProcurements) return;
     const result = summarizeSuppliers(andpadProcurements);
 
     console.log(result);

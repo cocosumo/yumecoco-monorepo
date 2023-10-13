@@ -33,8 +33,16 @@ export const useSearchResult =  () => {
     yumeAG,
     contractDateFrom,
     contractDateTo,
+
     completionDateFrom,
     completionDateTo,
+
+    deliveryDateFrom,
+    deliveryDateTo,
+
+    paidDateFrom,
+    paidDateTo,
+
     order,
     orderBy = 'storeSortNumber',
     includeDeleted,
@@ -164,10 +172,16 @@ export const useSearchResult =  () => {
         const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
         const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
         const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
+        
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && projFinDate?.value && completionDateFrom <= parseISO(projFinDate?.value));
         const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && projFinDate?.value && completionDateTo >= parseISO(projFinDate?.value));
+        const isMatchDeliveryDateFrom = !deliveryDateFrom || (deliveryDateFrom && deliveryDate?.value && deliveryDateFrom <= parseISO(deliveryDate?.value));
+        const isMatchDeliveryDateTo = !deliveryDateTo || (deliveryDateTo && deliveryDate?.value && deliveryDateTo >= parseISO(deliveryDate?.value));
+        const isMatchPaidDateFrom = !paidDateFrom || (paidDateFrom && payFinDate?.value && paidDateFrom <= parseISO(payFinDate?.value));
+        const isMatchPaidDateTo = !paidDateTo || (paidDateTo && payFinDate?.value && paidDateTo >= parseISO(payFinDate?.value));
+
         const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
 
         if (!parsedQuery
@@ -182,6 +196,10 @@ export const useSearchResult =  () => {
             && isMatchcontractDateTo
             && isMatchcompletionDateFrom
             && isMatchcompletionDateTo
+            && isMatchDeliveryDateFrom
+            && isMatchDeliveryDateTo
+            && isMatchPaidDateFrom
+            && isMatchPaidDateTo
             && isIncludeDeleted
           )
         ) {

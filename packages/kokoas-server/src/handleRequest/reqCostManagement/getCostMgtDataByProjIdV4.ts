@@ -85,10 +85,6 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   // 移行の間、店舗IDがない工事データが出てきますので、ここでフォールバックを設ける
   const storeRec = await getStoreById(storeId.value || custGroupStoreId.value);
 
-  console.log(JSON.stringify(projRec, null, 2), storeId.value, storeRec );
-
-
-
   // 古い工事情報データにはcocoAGとyumeAGの記入はないので、顧客グループのデータから取得
   const cocoAgNames =
     projGetAgentNamesByType(projAgents, 'cocoAG') ||

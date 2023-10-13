@@ -31,11 +31,11 @@ export const generateMessage = (reminderJson: InvoiceReminder) => {
 担当者  : ${agentNames}
 夢てつAG: ${yumeAG}`;
 
-  const link = `[info][title]ANDPAD請求書作成ページ[/title]${andpadInvoiceUrl}[/info]`;
+  const link = `[info][title]ANDPAD入金ページ[/title]
+${andpadInvoiceUrl === '' ? '取得に失敗しました' : andpadInvoiceUrl}[/info]`;
 
-  const reminder = `[info][title]下記リンク先より、再通知日${expectedCreateInvoiceDate ? '' : 'と請求書作成予定日'}を設定してください[/title]
-${reminderUrl ?? '工事中'}
-お客さまからの入金が確認された場合は、再通知は行われません[/info]`;
+  const reminder = `[info][title]下記リンク先より、再通知日${expectedCreateInvoiceDate ? '' : 'と入金予定日'}を設定してください[/title]
+${reminderUrl === '' ? '取得に失敗しました' : reminderUrl}[/info]`;
 
 
   return `[info]${[title, message, content, link, reminder].join('\n')}[/info]`;

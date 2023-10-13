@@ -6,7 +6,7 @@ import { filterContractsToAlertTarget } from './filterContractsToAlertTarget';
 import { getAllAndpadPayments } from 'api-kintone';
 import { ContractRecordType } from '../../config';
 import addMonths from 'date-fns/addMonths';
-import { getAllPaymentReminder } from '../api-kintone';
+import { getAllInvoiceReminder } from '../api-kintone';
 
 
 describe('filterContractsToAlertTarget', () => {
@@ -25,16 +25,16 @@ describe('filterContractsToAlertTarget', () => {
 
     const [
       allAndpadPayments,
-      allPaymentReminders,
+      allInvoiceReminders,
     ] = await Promise.all([
       getAllAndpadPayments(),
-      getAllPaymentReminder(),
+      getAllInvoiceReminder(),
     ]);
 
     const result = await filterContractsToAlertTarget({
       contracts: contracts,
       andpadPayments: allAndpadPayments,
-      reminders: allPaymentReminders,
+      reminders: allInvoiceReminders,
     });
 
     const dir = path.join(__dirname, '__TEST__');

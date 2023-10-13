@@ -9,7 +9,7 @@ import { getAllAndpadPayments } from 'api-kintone';
 describe('convertReminderToJson', () => {
   it('should convert reminder data to JSON data', async () => {
 
-    // set output file of getAllPaymentReminder.test.ts
+    // set output file of getAllInvoiceReminder.test.ts
     const remindersPath = path.join(__dirname, './__TEST__/reminders.json');
     const reminders = JSON.parse(fs.readFileSync(remindersPath, 'utf8'));
 

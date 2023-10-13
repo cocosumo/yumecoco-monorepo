@@ -2,11 +2,11 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 
 
 
-export const generateMessageForManager = (paymentReminder: InvoiceReminder[]) => {
+export const generateMessageForManager = (invoiceReminder: InvoiceReminder[]) => {
 
-  console.log(paymentReminder);
+  console.log(invoiceReminder);
 
-  const contractSummary = paymentReminder.map(({
+  const contractSummary = invoiceReminder.map(({
     projName,
     cwRoomIds,
   }, idx) => {
@@ -18,7 +18,7 @@ export const generateMessageForManager = (paymentReminder: InvoiceReminder[]) =>
 
   const title = '[title]【ココアス】お客さまからの入金が確認できていません[/title]';
   
-  const message = `${paymentReminder.length}件の入金確認が遅れています。
+  const message = `${invoiceReminder.length}件の入金確認が遅れています。
 必要に応じて担当者へのフォローをお願いします。
 ※この連絡は契約日から一定期間お客さまからの入金がない契約に対して実施しています。`;
 

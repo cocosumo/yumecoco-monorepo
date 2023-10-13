@@ -1,5 +1,5 @@
 import { IAndpadpayments } from 'types';
-import { ContractRecordType, IPaymentReminder, TgtProjType } from '../../config';
+import { ContractRecordType, IInvoiceReminder, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
 import format from 'date-fns/format';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';
@@ -16,7 +16,7 @@ export const filterContractsToAlertTarget = ({
 }: {
   contracts: ContractRecordType[]
   andpadPayments: IAndpadpayments[]
-  reminders: IPaymentReminder[]
+  reminders: IInvoiceReminder[]
 }) => {
 
   return contracts.reduce((acc, contract) => {
@@ -70,13 +70,12 @@ export const filterContractsToAlertTarget = ({
     });
 
     // 既に支払い履歴が存在するかを確認する(支払情報があれば通知不要)
-    const paymentInfo = andpadPayments.some(({
+    const hasInvoice = andpadPayments.some(({
       projId,
-      paymentDate,
-    }) => (projId.value === contractProjId.value) && (paymentDate.value !== ''));
+    }) => (projId.value === contractProjId.value));
 
     // 支払情報が存在しないかつ、今日が通知日の場合
-    if (!paymentInfo && (alertDate === format(new Date(), 'yyyy-MM-dd'))) {
+    if (!hasInvoice && (alertDate === format(new Date(), 'yyyy-MM-dd'))) {
       acc?.push(contract);
     }
 

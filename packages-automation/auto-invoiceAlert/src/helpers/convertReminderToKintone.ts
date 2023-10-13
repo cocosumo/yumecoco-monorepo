@@ -1,23 +1,23 @@
 import format from 'date-fns/format';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
-import { IPaymentReminder } from '../../config';
+import { IInvoiceReminder } from '../../config';
 
 
 /**
- * 入金確認リマインダーアプリ用データへ変換する
+ * 請求リマインダーアプリ用データへ変換する
  * 本関数は契約書からアラート対象を取得時に呼び出されることを想定しているため
  * 通知予定日は当日を設定する
- * @param param0 paymentReminderJson: 入金リマインダーデータ配列
- * @returns 入金確認リマインダーアプリ用レコード
+ * @param param0 invoiceReminderJson: 請求リマインダーデータ配列
+ * @returns 請求リマインダーアプリ用レコード
  */
 export const convertReminderToKintone = ({
-  paymentReminderJson,
+  invoiceReminderJson,
 }: {
-  paymentReminderJson: InvoiceReminder[]
+  invoiceReminderJson: InvoiceReminder[]
 }) => {
 
-  const kintoneData: Partial<IPaymentReminder>[] = paymentReminderJson.map(({
-    andpadPaymentUrl,
+  const kintoneData: Partial<IInvoiceReminder>[] = invoiceReminderJson.map(({
+    andpadInvoiceUrl,
     contractDate,
     contractId,
     cwRoomIds,
@@ -27,7 +27,6 @@ export const convertReminderToKintone = ({
     // reminderUrl, このタイミングでは設定されていないため、使用しない
     territory,
     totalContractAmount,
-    expectedPaymentDate,
     yumeAG,
   }) => {
 
@@ -46,9 +45,9 @@ export const convertReminderToKintone = ({
     return ({
       projId: { value: projId },
       contractDate: { value: contractDate ?? '' },
-      expectedPaymentDate: { value: expectedPaymentDate ?? '' },
+      expectedCreateInvoiceDate: { value: '' },
       projType: { value: projType },
-      totalContractAmount: { value: totalContractAmount },
+      totalContractAmount: { value: totalContractAmount || '' },
       scheduledAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
       alertState: { value: '1' },
       //reminderDate: { value: '' }, //再通知日はこのタイミングでは設定しない
@@ -56,7 +55,7 @@ export const convertReminderToKintone = ({
       area: { value: territory },
       projName: { value: projName },
       //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
-      andpadUrl: { value: andpadPaymentUrl },
+      andpadUrl: { value: andpadInvoiceUrl },
       contractId: { value: contractId },
       yumeAG: { value: yumeAG },
       notificationSettings: {

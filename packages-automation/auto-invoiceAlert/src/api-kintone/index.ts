@@ -1,3 +1,3 @@
-export * from './getAllPaymentReminder';
-export * from './getPaymentRemindersByAlertDate';
-export * from './updatePaymentReminder';
+export * from './getAllInvoiceReminder';
+export * from './getInvoiceRemindersByAlertDate';
+export * from './updateInvoiceReminder';

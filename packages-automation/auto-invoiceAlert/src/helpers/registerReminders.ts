@@ -13,7 +13,7 @@ export const registerReminders = async ({
   reminderJson: InvoiceReminder[]
 }) => {
 
-  const kintoneRecords = convertReminderToKintone({ paymentReminderJson: reminderJson });
+  const kintoneRecords = convertReminderToKintone({ invoiceReminderJson: reminderJson });
 
 
   try {

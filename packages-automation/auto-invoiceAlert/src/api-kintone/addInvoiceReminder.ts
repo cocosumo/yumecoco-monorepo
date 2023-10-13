@@ -1,11 +1,11 @@
 import { addRecords } from 'api-kintone';
-import { IPaymentReminder, reminderAppId } from '../../config';
+import { IInvoiceReminder, reminderAppId } from '../../config';
 
 
 /**
  * 入金アラートレコードを一括登録する
  */
-export const addInvoiceReminder = (params: Partial<IPaymentReminder>[]) => {
+export const addInvoiceReminder = (params: Partial<IInvoiceReminder>[]) => {
 
   return addRecords({
     app: reminderAppId,

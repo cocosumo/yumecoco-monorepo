@@ -4,7 +4,7 @@ import { invoiceReminder } from './src/invoiceReminder';
 
 
 /**
- * Update the kintone payment reminder app.
+ * send invoice alerts.
  *
  * At 12:00 every day
  */

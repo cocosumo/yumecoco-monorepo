@@ -23,8 +23,8 @@ export const andpadPaymentsAppId = AppIds.andpadPayments;
 export type ContractRecordType = IContracts;
 export type ContractRecordKeys = KContracts;
 
-export type IPaymentReminder = DBPaymentreminder.SavedData;
-export type KPaymentReminder = keyof IPaymentReminder;
+export type IInvoiceReminder = DBInvoiceReminder.SavedData;
+export type KInvoiceReminder = keyof IInvoiceReminder;
 
 
 

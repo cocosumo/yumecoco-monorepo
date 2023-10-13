@@ -3,7 +3,7 @@ import { ContractRecordType } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
-import { getEarliestDateOfContract } from './getEarliestDateOfContract';
+//import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 import { getYumeAgNames } from './getYumeAgNames';
 
 
@@ -35,16 +35,16 @@ export const convertContractsToJson = ({
     projName,
     totalContractAmt,
     contractDate,
-    contractAmtDate,
-    contractAmt,
-    initialAmtDate,
-    initialAmt,
-    interimAmtDate,
-    interimAmt,
-    finalAmtDate,
-    finalAmt,
-    othersAmtDate,
-    othersAmt,
+    //contractAmtDate,
+    //contractAmt,
+    //initialAmtDate,
+    //initialAmt,
+    //interimAmtDate,
+    //interimAmt,
+    //finalAmtDate,
+    //finalAmt,
+    //othersAmtDate,
+    //othersAmt,
   }) => {
 
     // 通知対象者を抽出する
@@ -58,7 +58,7 @@ export const convertContractsToJson = ({
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
       || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
 
-    const andpadPaymentUrl = andpadSystemId ?
+    const andpadInvoiceUrl = andpadSystemId ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
       : '';
 
@@ -70,7 +70,7 @@ export const convertContractsToJson = ({
     });
 
     // 契約書から一番過去の支払日を取得する
-    const contractAmtPaymentDate = getEarliestDateOfContract({
+    /* const contractAmtPaymentDate = getEarliestDateOfContract({
       dates: [
         contractAmtDate.value,
         initialAmtDate.value,
@@ -85,7 +85,7 @@ export const convertContractsToJson = ({
         finalAmt.value,
         othersAmt.value,
       ],
-    });
+    }); */
 
     const yumeAGs = getYumeAgNames({
       agents: agents,
@@ -94,7 +94,6 @@ export const convertContractsToJson = ({
 
     return ({
       alertState: true,
-      andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: contractId.value,
       projId: projId.value,
@@ -105,9 +104,8 @@ export const convertContractsToJson = ({
       territory: store?.territory.value as Territory,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,
-      andpadInvoiceUrl: '',
+      andpadInvoiceUrl: andpadInvoiceUrl,
       expectedCreateInvoiceDate: '',
-      expectedPaymentDate: contractAmtPaymentDate || '', // dummy
     });
   });
 

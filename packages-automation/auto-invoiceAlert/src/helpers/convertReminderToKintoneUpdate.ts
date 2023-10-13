@@ -1,5 +1,5 @@
 import { InvoiceReminder } from '../../types/InvoiceReminder';
-import { UpdatePaymentReminder } from '../api-kintone';
+import { UpdateInvoiceReminder } from '../api-kintone';
 
 
 
@@ -9,17 +9,16 @@ import { UpdatePaymentReminder } from '../api-kintone';
  * @returns 
  */
 export const convertReminderToKintoneUpdate = ({
-  paymentReminderJson,
+  invoiceReminderJson,
   lastAlertDate,
   alertDate,
 }: {
-  paymentReminderJson: InvoiceReminder[]
+  invoiceReminderJson: InvoiceReminder[]
   lastAlertDate: string
   alertDate: string
 }) => {
 
-  const kintoneData: UpdatePaymentReminder[] = paymentReminderJson.map(({
-    andpadPaymentUrl,
+  const kintoneData: UpdateInvoiceReminder[] = invoiceReminderJson.map(({
     contractDate,
     contractId,
     //cwRoomIds,
@@ -29,7 +28,6 @@ export const convertReminderToKintoneUpdate = ({
     territory,
     totalContractAmount,
     alertState,
-    expectedPaymentDate,
     yumeAG,
   }) => {
 
@@ -42,7 +40,6 @@ export const convertReminderToKintoneUpdate = ({
         projId: { value: projId },
         contractDate: { value: contractDate },
         yumeAG: { value: yumeAG },
-        expectedPaymentDate: { value: expectedPaymentDate ?? '' },
         projType: { value: projType },
         totalContractAmount: { value: totalContractAmount },
         scheduledAlertDate: { value: alertDate },
@@ -52,7 +49,6 @@ export const convertReminderToKintoneUpdate = ({
         area: { value: territory },
         projName: { value: projName },
         lastAlertDate: { value: lastAlertDate },
-        andpadUrl: { value: andpadPaymentUrl },
         contractId: { value: contractId },
         // notificationSettings: {}, // 通知対象の更新処理は不要？実装要検討
       },

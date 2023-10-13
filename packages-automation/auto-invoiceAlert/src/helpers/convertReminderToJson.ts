@@ -1,5 +1,5 @@
 import { kintoneBaseUrl } from 'api-kintone';
-import { IPaymentReminder, reminderAppId } from '../../config';
+import { IInvoiceReminder, reminderAppId } from '../../config';
 import { CwRoomIds, InvoiceReminder } from '../../types/InvoiceReminder';
 import { IAndpadpayments, Territory } from 'types';
 
@@ -9,7 +9,7 @@ export const convertReminderToJson = ({
   reminder,
   andpadPayments,
 }: {
-  reminder: IPaymentReminder[]
+  reminder: IInvoiceReminder[]
   andpadPayments: IAndpadpayments[],
 }) => {
 
@@ -24,7 +24,7 @@ export const convertReminderToJson = ({
     contractDate,
     totalContractAmount,
     notificationSettings,
-    expectedPaymentDate,
+    expectedCreateInvoiceDate,
     yumeAG,
   }): InvoiceReminder => {
 
@@ -47,16 +47,12 @@ export const convertReminderToJson = ({
     const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
     // 顧客からの入金情報を確認する
-    const paymentHistory = andpadPayments.some(({
+    const hasInvoice = andpadPayments.some(({
       projId,
-      paymentDate,
-      //paymentAmount,
-    }) => ((projIdReminder.value === projId.value) && (paymentDate.value !== '')));
+    }) => ((projIdReminder.value === projId.value)));
 
     return ({
-      alertState: !paymentHistory,
-      expectedPaymentDate: expectedPaymentDate.value,
-      andpadPaymentUrl: andpadUrl.value,
+      alertState: !hasInvoice,
       reminderUrl: reminderUrl,
       contractId: contractId.value,
       projId: projIdReminder.value,
@@ -67,8 +63,8 @@ export const convertReminderToJson = ({
       territory: area.value as Territory,
       yumeAG: yumeAG.value,
       cwRoomIds: cwRoomIds,
-      andpadInvoiceUrl: '',
-      expectedCreateInvoiceDate: '',
+      andpadInvoiceUrl: andpadUrl.value,
+      expectedCreateInvoiceDate: expectedCreateInvoiceDate.value,
     });
   });
 

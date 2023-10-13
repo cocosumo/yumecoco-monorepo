@@ -19,9 +19,5 @@ export interface InvoiceReminder {
   expectedCreateInvoiceDate: string | null
   yumeAG: string
   cwRoomIds: CwRoomIds[]
-
-  // dummy
-  andpadPaymentUrl: string
   totalContractAmount: string
-  expectedPaymentDate: string
 }

@@ -5,14 +5,14 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 export const generateMessage = (reminderJson: InvoiceReminder) => {
 
   const {
-    andpadPaymentUrl,
+    andpadInvoiceUrl, 
     contractDate,
     projName,
     totalContractAmount,
     reminderUrl,
     cwRoomIds,
-    expectedPaymentDate,
     yumeAG,
+    expectedCreateInvoiceDate,
   } = reminderJson;
 
   console.log('parseISO(contractDate)', parseISO(contractDate));
@@ -27,13 +27,13 @@ export const generateMessage = (reminderJson: InvoiceReminder) => {
 
   const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
 工事名  : ${projName}
-契約金額: ${(+totalContractAmount).toLocaleString()} 円
+契約金額: ${(+totalContractAmount ?? 0).toLocaleString()} 円
 担当者  : ${agentNames}
 夢てつAG: ${yumeAG}`;
 
-  const link = `[info][title]ANDPAD入金ページ[/title]${andpadPaymentUrl}[/info]`;
+  const link = `[info][title]ANDPAD請求書作成ページ[/title]${andpadInvoiceUrl}[/info]`;
 
-  const reminder = `[info][title]下記リンク先より、再通知日${expectedPaymentDate ? '' : 'と入金予定日'}を設定してください[/title]
+  const reminder = `[info][title]下記リンク先より、再通知日${expectedCreateInvoiceDate ? '' : 'と請求書作成予定日'}を設定してください[/title]
 ${reminderUrl ?? '工事中'}
 お客さまからの入金が確認された場合は、再通知は行われません[/info]`;
 

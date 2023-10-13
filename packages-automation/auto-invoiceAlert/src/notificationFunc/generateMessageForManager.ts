@@ -1,8 +1,8 @@
-import { PaymentReminder } from '../../types/InvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
 
 
 
-export const generateMessageForManager = (paymentReminder: PaymentReminder[]) => {
+export const generateMessageForManager = (paymentReminder: InvoiceReminder[]) => {
 
   console.log(paymentReminder);
 

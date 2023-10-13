@@ -1,5 +1,5 @@
 import { territories } from 'types';
-import { PaymentReminder } from '../types/InvoiceReminder';
+import { InvoiceReminder } from '../types/InvoiceReminder';
 import { sendMessage } from 'api-chatwork';
 import { generateMessage } from './notificationFunc/generateMessage';
 import { generateMessageForManager } from './notificationFunc/generateMessageForManager';
@@ -15,7 +15,7 @@ import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAre
 export const notifyPaymentAlertToChatwork = async ({
   reminderJson,
 }: {
-  reminderJson: PaymentReminder[]
+  reminderJson: InvoiceReminder[]
 }) => {
 
   console.log(reminderJson);

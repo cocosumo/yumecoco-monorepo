@@ -1,4 +1,4 @@
-import { PaymentReminder } from '../../types/InvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { UpdatePaymentReminder } from '../api-kintone';
 
 
@@ -13,7 +13,7 @@ export const convertReminderToKintoneUpdate = ({
   lastAlertDate,
   alertDate,
 }: {
-  paymentReminderJson: PaymentReminder[]
+  paymentReminderJson: InvoiceReminder[]
   lastAlertDate: string
   alertDate: string
 }) => {

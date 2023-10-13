@@ -1,8 +1,8 @@
 import { format, parseISO } from 'date-fns';
-import { PaymentReminder } from '../../types/InvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
 
 
-export const generateMessage = (reminderJson: PaymentReminder) => {
+export const generateMessage = (reminderJson: InvoiceReminder) => {
 
   const {
     andpadPaymentUrl,

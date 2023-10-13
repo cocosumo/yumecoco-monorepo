@@ -1,5 +1,5 @@
-import { PaymentReminder } from '../../types/InvoiceReminder';
-import { addPaymentReminder } from '../api-kintone/addInvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
+import { addInvoiceReminder } from '../api-kintone/addInvoiceReminder';
 import { convertReminderToKintone } from './convertReminderToKintone';
 
 
@@ -10,14 +10,14 @@ import { convertReminderToKintone } from './convertReminderToKintone';
 export const registerReminders = async ({
   reminderJson,
 }: {
-  reminderJson: PaymentReminder[]
+  reminderJson: InvoiceReminder[]
 }) => {
 
   const kintoneRecords = convertReminderToKintone({ paymentReminderJson: reminderJson });
 
 
   try {
-    await addPaymentReminder(kintoneRecords);
+    await addInvoiceReminder(kintoneRecords);
   } catch (error) {
     console.error('kintoneへのリマインダーアプリ登録処理でエラーが発生しました。', error);
   }

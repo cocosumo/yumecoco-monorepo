@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import { PaymentReminder } from '../../types/InvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
 import addDays from 'date-fns/addDays';
 import { updatePaymentReminder } from '../api-kintone';
 import { convertReminderToKintoneUpdate } from './convertReminderToKintoneUpdate';
@@ -9,7 +9,7 @@ import { convertReminderToKintoneUpdate } from './convertReminderToKintoneUpdate
 export const updateReportedReminders = ({
   reportedReminder,
 }: {
-  reportedReminder: PaymentReminder[],
+  reportedReminder: InvoiceReminder[],
 }) => {
 
   // 通知実施後のリマインダーレコード更新処理、通知日は今日、再通知日は仮に3日後を設定する

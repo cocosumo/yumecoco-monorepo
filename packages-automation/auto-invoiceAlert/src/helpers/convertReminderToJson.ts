@@ -1,6 +1,6 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IPaymentReminder, reminderAppId } from '../../config';
-import { CwRoomIds, PaymentReminder } from '../../types/InvoiceReminder';
+import { CwRoomIds, InvoiceReminder } from '../../types/InvoiceReminder';
 import { IAndpadpayments, Territory } from 'types';
 
 
@@ -26,7 +26,7 @@ export const convertReminderToJson = ({
     notificationSettings,
     expectedPaymentDate,
     yumeAG,
-  }): PaymentReminder => {
+  }): InvoiceReminder => {
 
     // 通知先情報(chatwork)を設定する
     const cwRoomIds: CwRoomIds[] = notificationSettings.value.map(({ value }) => {
@@ -67,6 +67,8 @@ export const convertReminderToJson = ({
       territory: area.value as Territory,
       yumeAG: yumeAG.value,
       cwRoomIds: cwRoomIds,
+      andpadInvoiceUrl: '',
+      expectedCreateInvoiceDate: '',
     });
   });
 

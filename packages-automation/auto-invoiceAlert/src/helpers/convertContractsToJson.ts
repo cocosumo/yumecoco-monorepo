@@ -1,6 +1,6 @@
 import { IEmployees, IProjects, IStores, Territory } from 'types';
 import { ContractRecordType } from '../../config';
-import { PaymentReminder } from '../../types/InvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';
@@ -28,7 +28,7 @@ export const convertContractsToJson = ({
 }) => {
 
 
-  const alertContracts: PaymentReminder[] = contracts.map(({
+  const alertContracts: InvoiceReminder[] = contracts.map(({
     uuid: contractId,
     projId,
     projType,
@@ -103,9 +103,11 @@ export const convertContractsToJson = ({
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmt.value,
       territory: store?.territory.value as Territory,
-      expectedPaymentDate: contractAmtPaymentDate,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,
+      andpadInvoiceUrl: '',
+      expectedCreateInvoiceDate: '',
+      expectedPaymentDate: contractAmtPaymentDate || '', // dummy
     });
   });
 

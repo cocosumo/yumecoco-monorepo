@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import { PaymentReminder } from '../../types/InvoiceReminder';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { IPaymentReminder } from '../../config';
 
 
@@ -13,7 +13,7 @@ import { IPaymentReminder } from '../../config';
 export const convertReminderToKintone = ({
   paymentReminderJson,
 }: {
-  paymentReminderJson: PaymentReminder[]
+  paymentReminderJson: InvoiceReminder[]
 }) => {
 
   const kintoneData: Partial<IPaymentReminder>[] = paymentReminderJson.map(({

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { initialValues } from '../form';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks/useURLParamsV2';
-import { useContractsByProjIdV2, useCustGroupById, useProjById } from 'kokoas-client/src/hooksQuery';
+import { useAllEmployees, useContractsByProjIdV2, useCustGroupById, useProjById, useProjTypeById, useStoreById } from 'kokoas-client/src/hooksQuery';
 import { convertProjToForm } from '../api/convertProjToForm';
 import { convertCustGroupToForm } from '../api/convertCustGroupToForm';
 import { TEnvelopeStatus } from 'types';
+import { getPersistentFields } from '../api/getPersistentFields';
 
 export const useResolveParams = () => {
   const [newFormVal, setNewFormVal] = useState(initialValues);
@@ -19,60 +20,57 @@ export const useResolveParams = () => {
   const { data: custGroupRec } = useCustGroupById(projRec?.custGroupId.value || custGroupIdFromURL || '');
 
   const { data: contracts } = useContractsByProjIdV2(projRec?.uuid.value);
-  /* 
-  const {
-    completed,
-    hasContract,
-  } = contractSummary || {}; */
 
-  const hasContract = contracts && contracts.some(({ envelopeStatus }) => envelopeStatus.value );
+  const { data: projTypeRec, isLoading: projTypeRecIsLoading } = useProjTypeById(projRec?.projTypeId.value || '');
+
+  const { data: storeRec } = useStoreById(projRec?.storeId.value || custGroupRec?.storeId.value || '');
+
+  const { data: employeeRecs } = useAllEmployees();
+
+
+  const hasContract = !!contracts && contracts.some(({ envelopeStatus }) => envelopeStatus.value);
+
   const completed =  contracts && contracts
     ?.some((contract) => (contract.envelopeStatus.value as TEnvelopeStatus) === 'completed');
 
   useEffect(() => {
+    // Prevent loading from overwriting form values
+    if (projTypeRecIsLoading) return;
 
-    if (projIdFromURL && projRec && custGroupRec && contracts) {
+    if (projIdFromURL && projRec && custGroupRec && contracts && storeRec && employeeRecs) {
 
-      const {
-        cocoAG1,
-        cocoAG2,
-        yumeAG1,
-        yumeAG2,
-        ...restOfProjData
-      } = convertProjToForm(projRec);
+      const projData = convertProjToForm({
+        hasContract,
+        projRec,
+        employeeRecs,
+        custGroupRec,
+      });
 
-      const {
-        cocoAG1: custCocoAG1,
-        cocoAG2: custCocoAG2,
-        yumeAG1: custYumeAG1,
-        yumeAG2: custYumeAG2,
-        ...restOfCustGroupData
-      } = convertCustGroupToForm(custGroupRec);
-
+      const persistentData = getPersistentFields({
+        projRec,
+        projTypeRec,
+        hasContract,
+      });
 
       setNewFormVal({
         ...initialValues,
         hasContract: !!hasContract,
         hasCompletedContract: !!completed,
-
-        ...restOfProjData,
-        ...restOfCustGroupData,
-
-        //　空の場合はcustGroupRecの値を入れる
-        cocoAG1: cocoAG1 || custCocoAG1 || '',
-        cocoAG2: cocoAG2 || custCocoAG2 || '',
-        yumeAG1: yumeAG1 || custYumeAG1 || '',
-        yumeAG2: yumeAG2 || custYumeAG2 || '',
-
+        ...projData,
+        ...persistentData,
       });
 
     } else if (custGroupIdFromURL && !projIdFromURL && custGroupRec) {
+      // 新規ですが、顧客グループIDがある場合
       setNewFormVal({
         ...initialValues,
-        ...convertCustGroupToForm(custGroupRec),
+        ...convertCustGroupToForm(
+          custGroupRec, employeeRecs || [],
+        ),
       });
 
     } else if (!custGroupIdFromURL && !projIdFromURL) {
+      // 新規
       setNewFormVal(initialValues);
 
     }
@@ -84,6 +82,10 @@ export const useResolveParams = () => {
     hasContract,
     completed,
     contracts,
+    projTypeRec,
+    projTypeRecIsLoading,
+    storeRec,
+    employeeRecs,
   ]);
 
   return { newFormVal };

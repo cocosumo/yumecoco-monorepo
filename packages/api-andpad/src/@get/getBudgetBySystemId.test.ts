@@ -10,7 +10,7 @@ describe('getBudgetBySystemId', () => {
     const testSystemId = 11648284;
     const result = await getBudgetBySystemId(testSystemId);
 
-    console.log(result.data[0]);
+    console.log(result?.data[0]);
 
 
     fs.writeFileSync(path.join(__dirname, `__TEST__/getBudgetBySystemId_${testSystemId}.json`), JSON.stringify(result, null, 2));

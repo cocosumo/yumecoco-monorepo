@@ -46,6 +46,18 @@ const schema = z.object({
   /** 契約日　To */
   contractDateTo : dateType,
 
+  /** 引き渡し日　From */
+  deliveryDateFrom : dateType,
+
+  /** 引き渡し日　To */
+  deliveryDateTo : dateType,
+
+  /** 支払い完了日 From */
+  paidDateFrom : dateType,
+
+  /** 支払い完了日 To */
+  paidDateTo : dateType,
+
   /** 完工日　From */
   completionDateFrom : dateType,
 

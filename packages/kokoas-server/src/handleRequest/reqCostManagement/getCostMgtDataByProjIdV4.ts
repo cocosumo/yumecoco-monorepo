@@ -3,6 +3,7 @@ import {
   getAndpadProcurementByAndpadProjId,
   getContractsByProjId,
   getCustGroupById,
+  getEmployees,
   getProjById,
   getProjTypeById,
   getStoreById,
@@ -14,19 +15,17 @@ import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/
 import type { GetCostMgtData } from 'types';
 import { formatDataId } from 'libs';
 import { convertMonthlyProcurementV3 } from './helpers/convertMonthlyProcurementV3';
-
-
+import { resolveCommisionRate } from './resolveCommissionRate';
 
 /**
  * 必要なファイルを取得する
  * プロジェクトIDを渡されたら、原価管理表を生成するためのデータを取得し、
  * データを成形する(簡単な形に)
- * 
+ *
  * セッションでAPIをアクセス + kintoneから実績取得
  */
-export const getCostMgtDataByProjIdV4 = async (
-  projId: string,
-) => {
+export const getCostMgtDataByProjIdV4 = async (projId: string) => {
+  const projRec = await getProjById(projId);
 
   const {
     dataId: projDataId,
@@ -37,74 +36,110 @@ export const getCostMgtDataByProjIdV4 = async (
     projTypeId,
     custGroupId,
     storeId,
-  } = await getProjById(projId);
+  } = projRec;
 
-  const andpadSystemId = String(forceLinkedAndpadSystemId?.value || (await getOrderByProjId(projId))?.システムID || '');
+  const andpadSystemId = String(
+    forceLinkedAndpadSystemId?.value ||
+      (await getOrderByProjId(projId))?.システムID ||
+      '',
+  );
 
   console.log(andpadSystemId);
 
-  if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
+  //if (!andpadSystemId) return null; // andpadシステムIDがない場合は、原価管理表データを取得しない
 
-  const {
-    agents: custGroupAgents,
-  } = await getCustGroupById(custGroupId.value);
+  const [
+    custGroupRec,
+    projTypeRec,
+    employeesRec,
+    andpadBudgetExecution, // 実行予算
+    andpadProcurements,
+    andpadPayments, // andpad入金情報：入金額総額
+    contractRecs, // 契約情報
+  ] = await Promise.all([
+    getCustGroupById(custGroupId.value),
+    getProjTypeById(projTypeId.value),
+    getEmployees(false),
+    getBudgetBySystemId(andpadSystemId),
+    getAndpadProcurementByAndpadProjId(andpadSystemId), 
+    getAndpadPaymentsBySystemId(andpadSystemId),
+    getContractsByProjId(projId),
+    getStoreById(storeId.value),
+  ]);
 
-  const {
-    yumeCommFeeRate,
-  } = await getProjTypeById(projTypeId.value); // 工事種別
 
+
+  const { 
+    agents: custGroupAgents, 
+    storeId: custGroupStoreId,
+  } = custGroupRec;
+  const resolvedCommRate = resolveCommisionRate({
+    custGroupRec,
+    projRec,
+    projTypeRec,
+    empRecs: employeesRec,
+    
+  });
+
+  // 工事データの店舗を保持できるように、顧客グループのルークアップに、店舗IDをコピーしないようにしました。
+  // 移行の間、店舗IDがない工事データが出てきますので、ここでフォールバックを設ける
+  const storeRec = await getStoreById(storeId.value || custGroupStoreId.value);
 
   // 古い工事情報データにはcocoAGとyumeAGの記入はないので、顧客グループのデータから取得
-  const cocoAgNames = projGetAgentNamesByType(projAgents, 'cocoAG') || custGetAgentsNamesByType(custGroupAgents, 'cocoAG');
-  const yumeAGNames = projGetAgentNamesByType(projAgents, 'yumeAG') || custGetAgentsNamesByType(custGroupAgents, 'yumeAG');
+  const cocoAgNames =
+    projGetAgentNamesByType(projAgents, 'cocoAG') ||
+    custGetAgentsNamesByType(custGroupAgents, 'cocoAG');
+  const yumeAGNames =
+    projGetAgentNamesByType(projAgents, 'yumeAG') ||
+    custGetAgentsNamesByType(custGroupAgents, 'yumeAG');
   const cocoConstNames = projGetAgentNamesByType(projAgents, 'cocoConst');
 
-  const hasYumeAG = yumeAGNames && !yumeAGNames.includes('ここすも');
-
-
-  const andpadBudgetExecution = await getBudgetBySystemId(andpadSystemId); // 実行予算
-  const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
 
   // 発注会社ごとにデータを整形する
-  console.log('Converting andpadbudgets') ;
-  const costManagemenList = convertMonthlyProcurementV3(andpadBudgetExecution, andpadProcurements);
+  console.log('Converting andpadbudgets');
+  
+  const costManagemenList = convertMonthlyProcurementV3(
+    andpadBudgetExecution,
+    andpadProcurements,
+  );
 
-
-
-  const {
-    months,
-    maxPaymentDate,
-    minPaymentDate,
-  } = costManagemenList;
-
+  const { 
+    months = [], 
+    maxPaymentDate = '', 
+    minPaymentDate = '', 
+  } = costManagemenList || {};
 
   console.log('Retrieving Payment Data...');
   /** 入金 */
-  const depositAmount = (await getAndpadPaymentsBySystemId(andpadSystemId)) // andpad入金情報：入金額総額
+  const depositAmount = andpadPayments // andpad入金情報：入金額総額
     .reduce((acc, { paymentAmount }) => {
       return acc + +paymentAmount.value;
     }, 0);
 
   console.log('Retrieving Contracts Data...');
-  const contracts = (await getContractsByProjId(projId))
-    .reduce((acc, {
-      contractType,
-      totalContractAmt,
-      tax,
+  const contracts = contractRecs.reduce(
+    (
+      acc,
+      {
+        contractType,
+        totalContractAmt,
+        tax,
 
-      hasRefund,
-      refundAmt,
+        hasRefund,
+        refundAmt,
 
-      hasReduction,
-      reductionAmt,
+        hasReduction,
+        reductionAmt,
 
-      hasSubsidy,
-      subsidyAmt,
-    }) => {
+        hasSubsidy,
+        subsidyAmt,
+      },
+    ) => {
       const newAcc = { ...acc };
 
-      if (contractType.value === '契約' 
-      || contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
+      if (
+        contractType.value === '契約' ||
+        contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
       ) {
         newAcc.契約金額 += +totalContractAmt.value;
       } else if (contractType.value === '追加') {
@@ -123,7 +158,8 @@ export const getCostMgtDataByProjIdV4 = async (
       newAcc.返金Amt += hasRefund.value === 'はい' ? +refundAmt.value : 0;
 
       return newAcc;
-    }, {
+    },
+    {
       契約金額: 0,
       追加金額: 0,
       税率: 0.1,
@@ -131,7 +167,10 @@ export const getCostMgtDataByProjIdV4 = async (
       減額Amt: 0,
       返金Amt: 0,
       補助金Amt: 0,
-    });
+    },
+  );
+
+
 
   console.log('Calculating Profitability...');
   const {
@@ -157,19 +196,19 @@ export const getCostMgtDataByProjIdV4 = async (
     補助金,
   } = calcProfitability({
     orderAmountAfterTax: contracts?.契約金額 ?? 0,
-    additionalAmountAfterTax: contracts.追加金額 - (contracts.返金Amt + contracts.減額Amt), 
-    purchaseAmount: costManagemenList.totalContractOrderCost,
-    paymentAmount: costManagemenList.totalPaidAmount,
+    additionalAmountAfterTax:
+      contracts.追加金額 - (contracts.返金Amt + contracts.減額Amt),
+    purchaseAmount: costManagemenList?.totalContractOrderCost ?? 0,
+    paymentAmount: costManagemenList?.totalPaidAmount ?? 0,
     depositAmount: depositAmount,
-    yumeCommFeeRate: hasYumeAG ? +yumeCommFeeRate.value : 0,
+    yumeCommFeeRate: resolvedCommRate,
     tax: contracts?.税率 ?? 0.1,
     hasRefund: contracts?.返金 ?? false,
     subsidyAmt: contracts?.補助金Amt ?? 0,
   });
 
-
   const formatProjNum = formatDataId(projDataId.value);
-  const { storeNameShort } = await getStoreById(storeId.value);
+  const { storeNameShort } = storeRec;
 
   const result: GetCostMgtData = {
     projNumJa: `${storeNameShort.value} ${formatProjNum.split('-')[1]}`,
@@ -201,8 +240,8 @@ export const getCostMgtDataByProjIdV4 = async (
     夢てつ営業: yumeAGNames,
     ここすも営業: cocoAgNames,
     ここすも工事: cocoConstNames,
-    発注情報詳細: costManagemenList.result,
-    maxPaymentDate,
+    発注情報詳細: costManagemenList?.result || [],
+    maxPaymentDate: maxPaymentDate,
     minPaymentDate,
     months,
   };

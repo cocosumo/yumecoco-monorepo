@@ -64,7 +64,7 @@ export const getCostMgtDataByProjIdV3 = async (
   const andpadProcurements = await getAndpadProcurementByAndpadProjId(andpadSystemId); // 発注実績
 
   // 発注会社ごとにデータを整形する
-  const costManagemenList = convertMonthlyProcurementV2(andpadBudgetExecution, andpadProcurements);
+  const costManagemenList = convertMonthlyProcurementV2(andpadBudgetExecution, andpadProcurements as any);
 
 
 

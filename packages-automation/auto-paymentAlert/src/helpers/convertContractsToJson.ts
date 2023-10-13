@@ -1,9 +1,10 @@
-import { IEmployees, IProjects, IStores } from 'types';
+import { IEmployees, IProjects, IStores, Territory } from 'types';
 import { ContractRecordType } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';
+import { getYumeAgNames } from './getYumeAgNames';
 
 
 
@@ -27,7 +28,7 @@ export const convertContractsToJson = ({
 }) => {
 
 
-  const alertContracts = contracts.map(({
+  const alertContracts: PaymentReminder[] = contracts.map(({
     uuid: contractId,
     projId,
     projType,
@@ -55,9 +56,10 @@ export const convertContractsToJson = ({
 
     // システムIDを取得する
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
-      || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
+      || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value)?.システムID?.toString()
+      || '';
 
-    const andpadPaymentUrl = andpadSystemId ?
+    const andpadPaymentUrl = andpadSystemId !== '' ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
       : '';
 
@@ -77,7 +79,7 @@ export const convertContractsToJson = ({
         finalAmtDate.value,
         othersAmtDate.value,
       ],
-      contractAmts:[
+      contractAmts: [
         contractAmt.value,
         initialAmt.value,
         interimAmt.value,
@@ -85,6 +87,11 @@ export const convertContractsToJson = ({
         othersAmt.value,
       ],
     });
+
+    const yumeAGs = getYumeAgNames({
+      agents: agents,
+    });
+
 
     return ({
       alertState: true,
@@ -96,10 +103,11 @@ export const convertContractsToJson = ({
       projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmt.value,
-      territory: store?.territory.value,
+      territory: store?.territory.value as Territory,
       expectedPaymentDate: contractAmtPaymentDate,
-      cwRoomIds:chatworkRoomIds,
-    }) as PaymentReminder;
+      yumeAG: yumeAGs,
+      cwRoomIds: chatworkRoomIds,
+    });
   });
 
   return alertContracts;

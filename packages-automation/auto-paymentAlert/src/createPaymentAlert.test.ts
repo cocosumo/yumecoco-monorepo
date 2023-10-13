@@ -6,8 +6,7 @@ import { createPaymentAlert } from './createPaymentAlert';
 
 
 describe('createPaymentAlert', () => {
-  it('should return alert date', async () => {
-
+  it('should return alert data', async () => {
 
     const result = await createPaymentAlert();
 
@@ -22,12 +21,5 @@ describe('createPaymentAlert', () => {
       path.join(dir, `createPaymentAlert_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
-
-    // 配列であることを確認
-    //expect(Array.isArray(result)).toBe(true);
-
-    // 配列の長さが1以上であることを確認
-    //expect(result.length).toBeGreaterThan(0);
-
   }, 10000);
 });

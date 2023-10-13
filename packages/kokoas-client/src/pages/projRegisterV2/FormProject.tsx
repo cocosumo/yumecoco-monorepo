@@ -39,7 +39,6 @@ export const FormProject = () => {
     projDataId,
     custGroupId,
   } = newFormVal;
-
   return (
     <FormProvider {...formReturn}>
       <Form noValidate>

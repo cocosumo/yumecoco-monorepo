@@ -1,13 +1,33 @@
-import { BuildingType, IProjects, RecordCancelStatus } from 'types';
+import { BuildingType, ICustgroups, IEmployees, IProjects, RecordCancelStatus, Territory } from 'types';
 import { TForm } from '../schema';
 import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
+import { convertProjAgentsToForm } from './convertProjAgentsToForm';
 
-export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
+interface IConvertProjToFormParams {
+  hasContract: boolean,
+  employeeRecs: IEmployees[],
+  custGroupRec: ICustgroups,
+  projRec: IProjects,
+}
+
+
+
+/***********************************
+ * Kintoneのレコードをスキーマに沿った成形に変換する
+ * 
+ **********************************/
+export const convertProjToForm = ({
+  projRec,
+  employeeRecs,
+  custGroupRec,
+}: IConvertProjToFormParams): Partial<TForm> => {
+
 
   const {
+
     projTypeId,
     projName,
     otherProjType,
@@ -24,10 +44,13 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     finalAddress1,
     finalAddress2,
 
-    buildingType, isChkAddressKari, agents, 
+    buildingType,
+    isChkAddressKari,
+
+    agents,
+
     cancelStatus,
     projTypeName,
-    storeId,
     作成日時: createTime,
     memo,
     log,
@@ -42,17 +65,34 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     planApplicationDate,
     schedContractDate,
     paymentMethod,
+
+    storeId,
+    storeCode,
+    store: storeName,
+    territory,
   } = projRec;
 
   const {
+    storeId: cgStoreId,
+    territory: cgTerritory,
+    uuid: cgId,
+    members: cgMembers,
+    storeCode: cgStoreCode,
+    agents: cgAgents,
+    storeName: cgStoreName,
+  } = custGroupRec;
+
+  const {
+    yumeAG,
     cocoAG,
     cocoConst,
-    yumeAG,
   } = groupAgentsByType(agents);
 
 
   return {
     //addressKari: addressKari.value,
+
+    custName: cgMembers.value[0]?.value.customerName.value || '',
     finalPostal: finalPostal.value,
     finalAddress1: finalAddress1.value,
     finalAddress2: finalAddress2.value,
@@ -65,15 +105,27 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
       .split(',')
       .filter(Boolean) as RecordCancelStatus[],
 
-    cocoConst1: cocoConst?.[0]?.value.agentId.value || '',
-    cocoConst2: cocoConst?.[1]?.value.agentId.value || '',
-    cocoAG1: cocoAG?.[0]?.value.agentId.value || '',
-    cocoAG2: cocoAG?.[1]?.value.agentId.value || '',
-    yumeAG1: yumeAG?.[0]?.value.agentId.value || '',
-    yumeAG2: yumeAG?.[1]?.value.agentId.value || '',
+    yumeAG: convertProjAgentsToForm({
+      agents: yumeAG,
+      cgAgents: cgAgents,
+      agType: 'yumeAG',
+      employeeRecs,
+    }),
+    cocoAG: convertProjAgentsToForm({
+      agents: cocoAG,
+      cgAgents: cgAgents,
+      agType: 'cocoAG',
+      employeeRecs,
+    }),
+    cocoConst: convertProjAgentsToForm({
+      agents: cocoConst,
+      cgAgents: cgAgents,
+      agType: 'cocoConst',
+      employeeRecs,
+    }),
 
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
-    custGroupId: custGroupId.value,
+    custGroupId: custGroupId.value || cgId.value,
     //isAgentConfirmed: Boolean(+isAgentConfirmed.value),
     
     isAddressKari: Boolean(+isChkAddressKari.value),
@@ -87,7 +139,7 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     projName: projName.value,
     projDataId: formatDataId(dataId.value),
     postal: postal.value,
-    storeId: storeId.value,
+
     memo: memo.value,
 
     deliveryDate: deliveryDate.value ? parseISO(deliveryDate.value) : null,
@@ -116,6 +168,12 @@ export const convertProjToForm = (projRec: IProjects) : Partial<TForm> => {
     planApplicationDate: planApplicationDate.value ? parseISO(planApplicationDate.value) : null,
     paymentMethod: paymentMethod.value,
 
+
+    // 店舗情報
+    storeId: storeId.value || cgStoreId.value,
+    storeName: storeName.value || cgStoreName.value,
+    storeCode: storeCode.value || cgStoreCode.value,
+    territory: (territory?.value as Territory || cgTerritory.value) || '',
   };
 
 };

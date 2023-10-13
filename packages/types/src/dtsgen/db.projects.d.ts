@@ -19,6 +19,7 @@ declare namespace DBProjects {
     postal: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     storeCode: kintone.fieldTypes.SingleLineText;
+    commissionRate: kintone.fieldTypes.Number;
     addressKari: kintone.fieldTypes.SingleLineText;
     projFinDate: kintone.fieldTypes.Date;
     dataId: kintone.fieldTypes.SingleLineText;
@@ -33,11 +34,25 @@ declare namespace DBProjects {
     projName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     finalAddress2: kintone.fieldTypes.SingleLineText;
+    profitRate: kintone.fieldTypes.SingleLineText;
     storeId: kintone.fieldTypes.SingleLineText;
     finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
+    territory: kintone.fieldTypes.SingleLineText;
+    commRateByEmpList: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          commEmpId: kintone.fieldTypes.SingleLineText;
+          commEmpRole: kintone.fieldTypes.SingleLineText;
+          commEmpName: kintone.fieldTypes.SingleLineText;
+          commRateByEmp: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
     log: {
       type: "SUBTABLE";
       value: Array<{
@@ -48,6 +63,16 @@ declare namespace DBProjects {
         };
       }>;
     };
+    commRateByRoleList: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          role: kintone.fieldTypes.SingleLineText;
+          commRateByRole: kintone.fieldTypes.Number;
+        };
+      }>;
+    };
     agents: {
       type: "SUBTABLE";
       value: Array<{
@@ -55,6 +80,7 @@ declare namespace DBProjects {
         value: {
           agentId: kintone.fieldTypes.SingleLineText;
           agentType: kintone.fieldTypes.SingleLineText;
+          empRole: kintone.fieldTypes.SingleLineText;
           agentName: kintone.fieldTypes.SingleLineText;
         };
       }>;

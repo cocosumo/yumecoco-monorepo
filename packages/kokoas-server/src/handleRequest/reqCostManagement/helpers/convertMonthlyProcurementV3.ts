@@ -20,9 +20,12 @@ const exemptedStates = [
  * @returns 
  */
 export const convertMonthlyProcurementV3 = (
-  andpadBudget: AndpadBudgetResult,
-  andpadProcurements: DBAndpadprocurements.SavedData[],
+  andpadBudget: AndpadBudgetResult | null,
+  andpadProcurements: DBAndpadprocurements.SavedData[] | null,
 ) => {
+
+  if (!andpadBudget) return null;
+  if (!andpadProcurements) return null;
 
   const {
     data: andpadBudgetResult,
@@ -153,7 +156,6 @@ export const convertMonthlyProcurementV3 = (
         }
       }
 
-      console.log('child_planned_budget_groups', data.child_planned_budget_groups);
       traverseData(data.child_planned_budget_groups);
 
     });

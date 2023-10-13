@@ -13,5 +13,8 @@ export const useContractsByProjIdV2 = (
   return useQuery(
     [AppIds.contracts, 'projId', projId],
     () => getContractsByProjId(projId),
+    {
+      enabled: !!projId,
+    },
   );
 };

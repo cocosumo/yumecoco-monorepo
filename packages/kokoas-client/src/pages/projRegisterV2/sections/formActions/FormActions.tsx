@@ -39,14 +39,15 @@ export const FormActions = () => {
       // summarize errors into string
       const errorString = Object.entries(errors).reduce((acc, [key, value]) => {
         if (value) {
-          acc += `${fieldMapJa[key as KForm]}: ${value.message}\n`;
+          const keyJa = fieldMapJa[key as KForm];
+          acc += `${ keyJa ? `${fieldMapJa[key as KForm]}：` : ''} ${value.message}\n`;
         }
         return acc;
       }, '');
 
       setSnackState({
         open: true,
-        message: `「${errorString}」  修正が出来ない場合はお手数ですが、管理者に連絡してください。`, 
+        message: `「${errorString}」 。 不具合があれば、お手数ですが、管理者に連絡してください。`, 
         severity: 'error',
         
       });

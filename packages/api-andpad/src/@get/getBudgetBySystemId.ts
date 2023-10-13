@@ -3,7 +3,7 @@ import { getDataByUrl } from './getDataByUrl';
 
 export const getBudgetBySystemId = async (systemId: string | number) => {
   if (!systemId) {
-    throw new Error('systemId is required');
+    return null;
   }
   const endpoint = `https://api.andpad.jp/manager/v2/orders/${systemId}/planned_budget/planned_budget_groups`;
   

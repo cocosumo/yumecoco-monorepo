@@ -56,7 +56,6 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     andpadProcurements,
     andpadPayments, // andpad入金情報：入金額総額
     contractRecs, // 契約情報
-    storeRec,
   ] = await Promise.all([
     getCustGroupById(custGroupId.value),
     getProjTypeById(projTypeId.value),
@@ -68,13 +67,27 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     getStoreById(storeId.value),
   ]);
 
-  const { agents: custGroupAgents } = custGroupRec;
+
+
+  const { 
+    agents: custGroupAgents, 
+    storeId: custGroupStoreId,
+  } = custGroupRec;
   const resolvedCommRate = resolveCommisionRate({
     custGroupRec,
     projRec,
     projTypeRec,
     empRecs: employeesRec,
+    
   });
+
+  // 工事データの店舗を保持できるように、顧客グループのルークアップに、店舗IDをコピーしないようにしました。
+  // 移行の間、店舗IDがない工事データが出てきますので、ここでフォールバックを設ける
+  const storeRec = await getStoreById(storeId.value || custGroupStoreId.value);
+
+  console.log(JSON.stringify(projRec, null, 2), storeId.value, storeRec );
+
+
 
   // 古い工事情報データにはcocoAGとyumeAGの記入はないので、顧客グループのデータから取得
   const cocoAgNames =

@@ -10,8 +10,8 @@ export type TgtProjType = typeof tgtProjType[number];
 
 
 /**アプリIDの設定 */
-export const prodAppIds = 261;
-export const devAppIds = 249;
+export const prodAppIds = 269;
+export const devAppIds = 268;
 export const reminderAppId = isProd ? prodAppIds : devAppIds;
 
 export const contractAppId = AppIds.contracts;

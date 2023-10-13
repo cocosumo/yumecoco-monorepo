@@ -1,5 +1,5 @@
 import { IEmployees, IProjects } from 'types';
-import { CwRoomIds } from '../../types/paymentReminder';
+import { CwRoomIds } from '../../types/InvoiceReminder';
 import { chatworkRooms } from '../../config';
 
 /**

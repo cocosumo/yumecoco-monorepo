@@ -1,12 +1,12 @@
 
 import { describe, it, expect } from '@jest/globals';
-import { addPaymentReminder } from './addPaymentReminder';
+import { addInvoiceReminder } from './addInvoiceReminder';
 
-describe('addPaymentReminder', () => {
+describe('addInvoiceReminder', () => {
   it('should get lookup fields of project', async () => {
 
     // 入金リマインダーアプリからdummyIdのレコードを削除してから実施すること
-    const result = await addPaymentReminder([{
+    const result = await addInvoiceReminder([{
       contractId: { value: 'dummyId' },
     }]);
 

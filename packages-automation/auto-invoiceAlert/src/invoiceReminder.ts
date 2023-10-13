@@ -6,8 +6,8 @@ import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 /**
  * 入金アラートを通知します
  */
-export const paymentReminder = async () => {
-  console.log('start payment reminder');
+export const invoiceReminder = async () => {
+  console.log('start invoice reminder');
 
   const reminderJson = await createPaymentAlert();
 

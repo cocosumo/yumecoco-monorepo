@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import { PaymentReminder } from '../../types/paymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
 import addDays from 'date-fns/addDays';
 import { updatePaymentReminder } from '../api-kintone';
 import { convertReminderToKintoneUpdate } from './convertReminderToKintoneUpdate';

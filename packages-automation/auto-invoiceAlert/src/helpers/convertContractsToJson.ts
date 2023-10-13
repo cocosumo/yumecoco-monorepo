@@ -1,6 +1,6 @@
 import { IEmployees, IProjects, IStores, Territory } from 'types';
 import { ContractRecordType } from '../../config';
-import { PaymentReminder } from '../../types/paymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';

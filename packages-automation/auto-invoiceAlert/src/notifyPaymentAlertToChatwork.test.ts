@@ -2,7 +2,7 @@ import { describe, it/* , expect */ } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
-import { PaymentReminder } from '../types/paymentReminder';
+import { PaymentReminder } from '../types/InvoiceReminder';
 
 
 describe('notifyPaymentAlertToChatwork', () => {

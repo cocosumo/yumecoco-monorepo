@@ -1,6 +1,6 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IPaymentReminder, reminderAppId } from '../../config';
-import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
+import { CwRoomIds, PaymentReminder } from '../../types/InvoiceReminder';
 import { IAndpadpayments, Territory } from 'types';
 
 

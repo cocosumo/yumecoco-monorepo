@@ -6,18 +6,17 @@ export interface CwRoomIds {
   agentName: string,
 }
 
-export interface PaymentReminder {
+export interface InvoiceReminder {
   alertState: boolean,
-  andpadPaymentUrl: string,
+  andpadInvoiceUrl: string,
   reminderUrl: string,
   contractId: string,
   projId: string,
   projName: string,
   projType: string,
   contractDate: string,
-  totalContractAmount: string,
   territory: Territory,
-  expectedPaymentDate: string | null,
+  expectedCreateInvoiceDate: string | null,
   yumeAG: string,
   cwRoomIds: CwRoomIds[],
 }

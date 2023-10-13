@@ -1,9 +1,8 @@
-declare namespace DBPaymentreminder {
+declare namespace DBInvoiceReminder {
   interface Data {
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     yumeAG: kintone.fieldTypes.SingleLineText;
-    expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
     totalContractAmount: kintone.fieldTypes.Number;
     scheduledAlertDate: kintone.fieldTypes.Date;
@@ -12,6 +11,7 @@ declare namespace DBPaymentreminder {
     andpadDepositAmount: kintone.fieldTypes.Number;
     area: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
+    expectedCreateInvoiceDate: kintone.fieldTypes.Date;
     lastAlertDate: kintone.fieldTypes.Date;
     andpadUrl: kintone.fieldTypes.Link;
     contractId: kintone.fieldTypes.SingleLineText;

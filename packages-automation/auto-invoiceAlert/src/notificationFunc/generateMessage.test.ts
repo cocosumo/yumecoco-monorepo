@@ -2,7 +2,7 @@ import { describe, it } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import { generateMessage } from './generateMessage';
-import { PaymentReminder } from '../../types/paymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
 
 
 describe('generateMessage', () => {

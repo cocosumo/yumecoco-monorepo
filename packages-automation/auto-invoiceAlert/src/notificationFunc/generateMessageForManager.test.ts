@@ -1,7 +1,7 @@
 import { describe, it } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
-import { PaymentReminder } from '../../types/paymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
 import { generateMessageForManager } from './generateMessageForManager';
 
 

@@ -1,5 +1,5 @@
-import { PaymentReminder } from '../../types/paymentReminder';
-import { addPaymentReminder } from '../api-kintone/addPaymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
+import { addPaymentReminder } from '../api-kintone/addInvoiceReminder';
 import { convertReminderToKintone } from './convertReminderToKintone';
 
 

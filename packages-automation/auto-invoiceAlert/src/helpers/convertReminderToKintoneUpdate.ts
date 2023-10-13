@@ -1,4 +1,4 @@
-import { PaymentReminder } from '../../types/paymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
 import { UpdatePaymentReminder } from '../api-kintone';
 
 

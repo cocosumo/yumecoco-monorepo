@@ -1,5 +1,5 @@
 import { territories } from 'types';
-import { PaymentReminder } from '../types/paymentReminder';
+import { PaymentReminder } from '../types/InvoiceReminder';
 import { sendMessage } from 'api-chatwork';
 import { generateMessage } from './notificationFunc/generateMessage';
 import { generateMessageForManager } from './notificationFunc/generateMessageForManager';

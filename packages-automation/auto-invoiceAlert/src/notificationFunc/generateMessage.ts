@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { PaymentReminder } from '../../types/paymentReminder';
+import { PaymentReminder } from '../../types/InvoiceReminder';
 
 
 export const generateMessage = (reminderJson: PaymentReminder) => {

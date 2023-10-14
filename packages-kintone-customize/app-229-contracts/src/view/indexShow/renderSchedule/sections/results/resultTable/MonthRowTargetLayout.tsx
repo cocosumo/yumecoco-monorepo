@@ -1,21 +1,27 @@
 import { TableCell } from '@mui/material';
 import { Fragment } from 'react';
-import { useFiscalYearData } from '../../../hooks/useFiscalYearData';
+import { IProjTypeGoals } from '../../../config';
 
-export const MonthRowTarget = () => {
-
-  const; 
-  const { data } = useFiscalYearData(); 
-
+export const MonthRowTargetLayout = ({
+  projTypeGoals,
+  otherGoals,
+}:{
+  projTypeGoals: IProjTypeGoals,
+  otherGoals: {
+    yearGoal: number,
+    monthGoal: number,
+  },
+}) => {
   const {
-    
-  } = data || {};
-
+    monthGoal,
+  } = otherGoals;
+  
   return (
     <Fragment>
       <TableCell>
         目標値
       </TableCell>
+      {}
 
       {/* 新築工事 */}
       <TableCell>
@@ -39,7 +45,7 @@ export const MonthRowTarget = () => {
 
       {/* その他 */}
       <TableCell>
-        555
+        {monthGoal.toLocaleString()}
       </TableCell>
     </Fragment>
   );

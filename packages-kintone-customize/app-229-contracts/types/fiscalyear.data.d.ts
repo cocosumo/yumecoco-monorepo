@@ -4,7 +4,7 @@ declare namespace DBFYData {
     westTotalGoal: kintone.fieldTypes.Number;
     personalTotalJudge_west: kintone.fieldTypes.SingleLineText;
     eastTotalGoal: kintone.fieldTypes.Number;
-    creationYear: kintone.fieldTypes.Number;
+    fiscalYear: kintone.fieldTypes.Number;
     adTotal: kintone.fieldTypes.Calc;
     eastAnother: kintone.fieldTypes.Calc;
     expensesTotal: kintone.fieldTypes.Calc;
@@ -36,15 +36,15 @@ declare namespace DBFYData {
         };
       }>;
     };
-    WestConstractTargetTable: {
+    eastConstractTargetTable: {
       type: "SUBTABLE";
       value: Array<{
         id: string;
         value: {
-          westAnnualGoal: kintone.fieldTypes.Number;
-          westProjUuid: kintone.fieldTypes.SingleLineText;
-          ルックアップ_2: kintone.fieldTypes.SingleLineText;
-          westMonthlyGoal: kintone.fieldTypes.Calc;
+          eastAnnualGoal: kintone.fieldTypes.Number;
+          ルックアップ_1: kintone.fieldTypes.SingleLineText;
+          eastProjUuid: kintone.fieldTypes.SingleLineText;
+          eastMonthlyGoal: kintone.fieldTypes.Calc;
         };
       }>;
     };
@@ -70,6 +70,18 @@ declare namespace DBFYData {
         };
       }>;
     };
+    westConstractTargetTable: {
+      type: "SUBTABLE";
+      value: Array<{
+        id: string;
+        value: {
+          westAnnualGoal: kintone.fieldTypes.Number;
+          westProjUuid: kintone.fieldTypes.SingleLineText;
+          ルックアップ_2: kintone.fieldTypes.SingleLineText;
+          westMonthlyGoal: kintone.fieldTypes.Calc;
+        };
+      }>;
+    };
     personalGoalTable_east: {
       type: "SUBTABLE";
       value: Array<{
@@ -78,18 +90,6 @@ declare namespace DBFYData {
           personalGoal_east: kintone.fieldTypes.Number;
           ルックアップ: kintone.fieldTypes.SingleLineText;
           monthlyPersonalGoal_east: kintone.fieldTypes.Calc;
-        };
-      }>;
-    };
-    EastConstractTargetTable: {
-      type: "SUBTABLE";
-      value: Array<{
-        id: string;
-        value: {
-          eastAnnualGoal: kintone.fieldTypes.Number;
-          ルックアップ_1: kintone.fieldTypes.SingleLineText;
-          eastProjUuid: kintone.fieldTypes.SingleLineText;
-          eastMonthlyGoal: kintone.fieldTypes.Calc;
         };
       }>;
     };

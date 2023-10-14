@@ -18,9 +18,9 @@ export const FormSchedule = () => {
         noValidate
       >
         <Stack
-          spacing={1}
+          spacing={2}
           px={4}
-          pt={2}
+          p={2}
           width={'fit-content'}
           height={'fit-content'}
           bgcolor={'#fff'}

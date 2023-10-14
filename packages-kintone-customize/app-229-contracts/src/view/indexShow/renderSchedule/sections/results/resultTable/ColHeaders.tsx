@@ -1,4 +1,5 @@
 import { TableCell, TableHead, TableRow } from '@mui/material';
+import { ColHeaderProjTypes } from './ColHeadersProjTypes';
 
 export const ColHeaders = () => {
   return (
@@ -6,9 +7,9 @@ export const ColHeaders = () => {
 
       <TableRow>
 
-        <TableCell width={100} rowSpan={2} />
+        <TableCell width={80} rowSpan={2} />
 
-        <TableCell rowSpan={2} align='center'>
+        <TableCell width={80} rowSpan={2} align='center'>
           行事/イベント
         </TableCell>
 
@@ -44,27 +45,8 @@ export const ColHeaders = () => {
 
 
       </TableRow>
-      <TableRow>
-        <TableCell align='center'>
-          新築工事	
-        </TableCell>
 
-        <TableCell align='center'>
-          付帯工事	
-        </TableCell>
-
-        <TableCell align='center'>
-          太陽光	
-        </TableCell>
-
-        <TableCell align='center'>
-          リフォーム工事	
-        </TableCell>
-        <TableCell align='center' >
-          その他(造成・外構等)		
-        </TableCell>
-        
-      </TableRow>
+      <ColHeaderProjTypes />
 
       
     </TableHead>

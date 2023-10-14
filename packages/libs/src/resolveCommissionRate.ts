@@ -19,9 +19,12 @@ export const resolveCommisionRate = ({
   custGroupRec: ICustgroups;
   projRec: IProjects;
   empRecs: IEmployees[];
-  projTypeRec: IProjtypes;
+  projTypeRec: IProjtypes | undefined;
 }) => {
   console.log('resolveCommisionRate');
+
+  if (!projTypeRec) return 0;
+
   const { 
     agents: projAgents, 
     commissionRate, 

@@ -80,8 +80,6 @@ export const SummaryDetails = ({
           value={yumeCommRate}
           suffix='%'
         />
-
-
         
       </Stack>
       <Stack

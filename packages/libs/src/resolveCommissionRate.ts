@@ -78,8 +78,8 @@ export const resolveCommisionRate = ({
     });
   }
 
-  const hasNoYumeAG = !yumeAGs.length 
-  || yumeAGs.some(({ empName }) => empName === 'ここすも');
+  const hasNoYumeAG = !yumeAGs.length // ゆめてつAGがいない、
+  || yumeAGs.some(({ empName }) => empName === 'ここすも'); // 又は、ゆめてつAGに設定はあるが、「ここすも」になっている
 
 
   if (commissionRate.value) {

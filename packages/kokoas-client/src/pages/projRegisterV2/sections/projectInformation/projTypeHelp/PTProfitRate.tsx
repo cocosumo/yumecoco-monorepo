@@ -1,11 +1,18 @@
 import { Stack, Typography } from '@mui/material';
 import { useTypedWatch } from '../../../hooks';
 import { TForm } from '../../../schema';
+import { useProjTypeById } from 'kokoas-client/src/hooksQuery';
 
 export const PTProfitRate = () => {
-  const profitRate = useTypedWatch({
-    name: 'profitRate',
-  }) as TForm['profitRate'];
+  const projTypeId = useTypedWatch({
+    name: 'projTypeId',
+  }) as TForm['projTypeId'];
+
+  const { data } = useProjTypeById(projTypeId);
+
+  const {
+    profitRate,
+  } = data || {};
 
   return (
     <Stack
@@ -16,7 +23,7 @@ export const PTProfitRate = () => {
         利益率：
       </Typography>
       <Typography>
-        {profitRate}
+        {Number(profitRate?.value || 0)}
         %
       </Typography>
 

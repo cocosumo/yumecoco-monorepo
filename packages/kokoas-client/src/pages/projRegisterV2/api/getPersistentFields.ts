@@ -1,13 +1,15 @@
-import { IProjects, IProjtypes } from 'types';
+import { ICustgroups, IEmployees, IProjects, IProjtypes } from 'types';
 import { TForm } from '../schema';
 import { convertCommRateByEmployee } from './convertCommRateByEmployee';
 import { convertCommRateByRole } from './convertCommRateByRole';
-import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
+import { resolveCommisionRate } from 'libs';
 
 interface IGetPersistentFieldsParams {
   projRec: IProjects,
   projTypeRec: IProjtypes | undefined,
+  custGroupRec: ICustgroups,
   hasContract: boolean,
+  empRecs: IEmployees[],
 }
 
 /**
@@ -26,36 +28,22 @@ interface IGetPersistentFieldsParams {
 export const getPersistentFields = ({
   projTypeRec,
   projRec,
-  hasContract,
+  custGroupRec,
+  empRecs,
 }: IGetPersistentFieldsParams): Pick<TForm, 'commissionRate' | 'commRateByRole' | 'profitRate' | 'commRateByEmployee'> => {
 
+
   const {
-    yumeCommFeeRate,
     profitRate,
     commRateByRoleList,
     commRateByEmpList,
   } = projTypeRec || {};
 
   const {
-    commissionRate: commissionRateFromProj,
     profitRate: profitRateFromProj,
     commRateByRoleList: commRateByRoleFromProj,
     commRateByEmpList: commRateByEmpFromProj,
-    agents,
   } = projRec;
-
-  const {
-    yumeAG,
-  } = groupAgentsByType(agents);
-
-  const isEmptyOrCocosumoYumeAg = !yumeAG?.length || yumeAG.some(({ value: { agentName } }) => agentName.value === 'ここすも');
-
-
-  // Default to project records values
-  let parsedCommRate: string = commissionRateFromProj.value
-    || (isEmptyOrCocosumoYumeAg ? '0' : '');
-
-  let parsedProfitRate: string = profitRateFromProj.value;
 
   // 役職による紹介料率
   const filteredCommRateByRole = commRateByRoleFromProj?.value
@@ -88,23 +76,30 @@ export const getPersistentFields = ({
       commEmpRole: commEmpRole.value,
     }));
 
-  if (!hasContract) {
-    // If there's no contract, use Project Type's values
+  // If there's no contract, use Project Type's values
 
-    parsedCommRate = parsedCommRate || yumeCommFeeRate?.value || '';
-    parsedProfitRate = parsedProfitRate || profitRate?.value || '';
-    parsedCommRateByRoles = projHasCommRateByRole
-      ? parsedCommRateByRoles
-      : convertCommRateByRole(commRateByRoleList);
+  const parsedProfitRate = profitRateFromProj.value || profitRate?.value || '';
+  parsedCommRateByRoles = projHasCommRateByRole
+    ? parsedCommRateByRoles
+    : convertCommRateByRole(commRateByRoleList);
 
-    parseCommRateByEmployee = projHasCommRateByEmployee
-      ? parseCommRateByEmployee
-      : convertCommRateByEmployee(commRateByEmpList);
+  parseCommRateByEmployee = projHasCommRateByEmployee
+    ? parseCommRateByEmployee
+    : convertCommRateByEmployee(commRateByEmpList);
 
-  }
+
+  const commRate = resolveCommisionRate({
+    custGroupRec,
+    projRec,
+    projTypeRec,
+    empRecs,
+  });
+
+
+
 
   return {
-    commissionRate: parsedCommRate === '' ? 0 : Number(parsedCommRate),
+    commissionRate: commRate,
     profitRate: parsedProfitRate === '' ? 0 : Number(parsedProfitRate),
     commRateByRole: parsedCommRateByRoles,
     commRateByEmployee: parseCommRateByEmployee,

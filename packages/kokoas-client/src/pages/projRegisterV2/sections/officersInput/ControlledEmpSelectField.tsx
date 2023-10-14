@@ -4,7 +4,7 @@ import { EmployeeSelector } from 'kokoas-client/src/components';
 import { useTypedFormContext } from '../../hooks';
 import { TAgents } from 'types';
 import { getDefaultEmployee } from '../../form';
-import { useChangeCommRate } from '../../hooks/useChangeCommRate';
+import { useUpdateCommRate } from '../../hooks/useUpdateCommRate';
 
 export const ControlledEmpSelecField = ({
   name,
@@ -28,7 +28,9 @@ export const ControlledEmpSelecField = ({
     control,
   } = useTypedFormContext();
 
-  useChangeCommRate();
+  const {
+    handleUpdateCommRate,
+  } = useUpdateCommRate();
 
 
   return (
@@ -80,6 +82,16 @@ export const ControlledEmpSelecField = ({
                   appendNew();
                 }
               }
+
+              if (agentType === 'yumeAG') {
+                handleUpdateCommRate({
+                  newYumeAG: {
+                    index,
+                    value: newAgent,
+                  },
+                });
+              }
+   
 
             }}
           />);

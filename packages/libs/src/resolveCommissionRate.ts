@@ -85,7 +85,7 @@ export const resolveCommisionRate = ({
   if (commissionRate.value) {
     // 工事内容で設定してある場合、それを使う
     const parsedCommRate = +commissionRate.value;
-    console.log('工事データにある紹介率：', parsedCommRate);
+    console.log('工事データにある紹介率：', parsedCommRate, commissionRate.value);
     return parsedCommRate;
   }
 

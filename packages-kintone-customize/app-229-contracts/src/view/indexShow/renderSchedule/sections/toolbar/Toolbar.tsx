@@ -1,7 +1,8 @@
-import { Paper } from '@mui/material';
+import { Divider, Paper } from '@mui/material';
 import { Stack } from '@mui/system';
 import { YearSelect } from './YearSelect';
 import { PrintButton } from './PrintButton';
+import { TerritorySelect } from './TerritorySelect';
 
 export const Toolbar = () => {
 
@@ -22,12 +23,13 @@ export const Toolbar = () => {
       }}
     >
       <Stack
-        spacing={1}
+        spacing={2}
         direction='row'
+        divider={<Divider orientation='vertical' flexItem />}
       >
         <YearSelect />
 
-        {/* <TerritorySelect /> */}
+        <TerritorySelect />
         
       </Stack>
 

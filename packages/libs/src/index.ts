@@ -27,6 +27,7 @@ export * from './parseBoolean';
 export * from './parseExcelSerialDate';
 export * from './removeCSSFile';
 export * from './removeNullFalsyEmpty';
+export * from './resolveCommissionRate';
 export * from './roundTo';
 export * from './sleep';
 export * from './splitText';

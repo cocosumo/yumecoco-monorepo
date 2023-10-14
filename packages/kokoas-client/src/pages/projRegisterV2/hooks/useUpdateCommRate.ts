@@ -34,11 +34,16 @@ export const useUpdateCommRate = () => {
     },
   }) => {
     console.log('starting to calculate');
-    const selectedYumeAG = produce(getValues('yumeAG'), (draft) => {
-      if (newYumeAG) {
+    
+    // Deep copy, as we don't want to mutate the original value
+    let selectedYumeAG: TForm['yumeAG'] = JSON.parse(JSON.stringify(getValues('yumeAG')));
+
+    if (newYumeAG) {
+      selectedYumeAG = produce(selectedYumeAG, draft => {
         draft[newYumeAG.index] = newYumeAG.value;
-      }
-    });
+      });
+    }
+
     const selectedProjTypeId = newProjTypeId || getValues('projTypeId');
 
     if (selectedYumeAG.some(({ empName }) => empName === 'ここすも')

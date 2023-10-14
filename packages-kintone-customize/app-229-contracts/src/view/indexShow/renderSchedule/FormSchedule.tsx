@@ -4,6 +4,7 @@ import { initialForm } from './form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import { Toolbar } from './sections/toolbar/Toolbar';
+import { Results } from './sections/results/Results';
 
 export const FormSchedule = () => {
   const formReturn = useForm<TForm>({
@@ -26,7 +27,7 @@ export const FormSchedule = () => {
 
         >
           <Toolbar />
-          {/* <Result /> */}
+          <Results />
         </Stack>
 
       </Form>

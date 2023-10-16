@@ -32,5 +32,8 @@ export const initialForm : TypeOfForm = {
   completionDateFrom: null,
   completionDateTo: null,
 
+  lastBillDateFrom: null,
+  lastBillDateTo: null,
+
   
 };

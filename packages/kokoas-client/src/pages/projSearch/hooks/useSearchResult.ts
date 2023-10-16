@@ -43,6 +43,9 @@ export const useSearchResult =  () => {
     paidDateFrom,
     paidDateTo,
 
+    lastBillDateFrom,
+    lastBillDateTo,
+
     order,
     orderBy = 'storeSortNumber',
     includeDeleted,
@@ -77,7 +80,7 @@ export const useSearchResult =  () => {
           deliveryDate,
           payFinDate,
           projFinDate,
-
+          lastBillingDate,
           
         } = curr; // 工事情報;
 
@@ -181,6 +184,8 @@ export const useSearchResult =  () => {
         const isMatchDeliveryDateTo = !deliveryDateTo || (deliveryDateTo && deliveryDate?.value && deliveryDateTo >= parseISO(deliveryDate?.value));
         const isMatchPaidDateFrom = !paidDateFrom || (paidDateFrom && payFinDate?.value && paidDateFrom <= parseISO(payFinDate?.value));
         const isMatchPaidDateTo = !paidDateTo || (paidDateTo && payFinDate?.value && paidDateTo >= parseISO(payFinDate?.value));
+        const isMatchLastBillDateFrom = !lastBillDateFrom || (lastBillDateFrom && lastBillingDate?.value && lastBillDateFrom <= parseISO(lastBillingDate?.value));
+        const isMatchLastBillDateTo = !lastBillDateTo || (lastBillDateTo && lastBillingDate?.value && lastBillDateTo >= parseISO(lastBillingDate?.value));
 
         const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
 
@@ -200,6 +205,8 @@ export const useSearchResult =  () => {
             && isMatchDeliveryDateTo
             && isMatchPaidDateFrom
             && isMatchPaidDateTo
+            && isMatchLastBillDateFrom
+            && isMatchLastBillDateTo
             && isIncludeDeleted
           )
         ) {
@@ -215,6 +222,7 @@ export const useSearchResult =  () => {
             contractDate: contractDate?.value ? contractDate.value : '-',
             deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
             projFinDate: projFinDate?.value ? projFinDate.value : '-',
+            lastBillDate: lastBillingDate?.value ? lastBillingDate.value : '-',
             payFinDate: payFinDate?.value ? payFinDate.value : '-',
             storeSortNumber: +(sortNumber?.value || 0),
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
@@ -238,6 +246,7 @@ export const useSearchResult =  () => {
           case 'projFinDate':
           case 'payFinDate':
           case 'deliveryDate':
+          case 'lastBillDate':
 
             // put "-" or undefined at the bottom of the result
             if (a[parseOrderBy] === '-' || !a[parseOrderBy]) return 1;

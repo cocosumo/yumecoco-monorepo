@@ -7,6 +7,7 @@ import { useFormContext } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { useStartSearch } from '../../hooks/useStartSearch';
 import { DeletedProjectsToggle } from './filterForm/DeletedProjectsToggle';
+import { ResetButton } from './ResetButton';
 
 
 export const Filter = () => {
@@ -41,6 +42,7 @@ export const Filter = () => {
         />
         <SearchButton />
         <FilterButton />
+        <ResetButton />
       </Stack>
       <DeletedProjectsToggle submitOnchange />
       <DevTool control={control} />

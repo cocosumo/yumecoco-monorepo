@@ -3,6 +3,7 @@ import { PayTable } from './paymentsTable/PayTable';
 import { ActionButton } from '../common/ActionButton';
 import { useDetailedAndpadOrderByProjId } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
+import { Actions } from './actions/Actions';
 
 export const PaymentDetails  = ({
   projId,
@@ -49,15 +50,8 @@ export const PaymentDetails  = ({
       {!isLoading && systemId && (
 
         <>
-          <ActionButton
-            href={`https://andpad.jp/manager/my/orders/${systemId}/customer_agreement`}
-            title='入金情報をAndpadで見る'
-            target='_blank'
-          >
-            入金情報
-          </ActionButton>
+          <Actions systemId={systemId} projId={projId} />
           <PayTable systemId={systemId} />
-
         </>
 
       )}

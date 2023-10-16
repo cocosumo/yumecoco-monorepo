@@ -1,6 +1,5 @@
 import { LinearProgress, Stack } from '@mui/material';
 import { PayTable } from './paymentsTable/PayTable';
-import { ActionButton } from '../common/ActionButton';
 import { useDetailedAndpadOrderByProjId } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
 import { Actions } from './actions/Actions';
@@ -51,7 +50,7 @@ export const PaymentDetails  = ({
 
         <>
           <Actions systemId={systemId} projId={projId} />
-          <PayTable systemId={systemId} />
+          <PayTable projId={projId} systemId={systemId} />
         </>
 
       )}

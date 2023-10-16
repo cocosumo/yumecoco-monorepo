@@ -1,14 +1,18 @@
-import { TableBody } from '@mui/material';
+import { Chip, TableBody, Tooltip } from '@mui/material';
 import { IAndpadpayments } from 'types';
 import { RowLayout } from './RowLayout';
 import { PaymentStatus } from './PaymentStatus';
 import { IOrder } from './PayTableHead';
 import { useMemo } from 'react';
+import { useProjById } from 'kokoas-client/src/hooksQuery';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 export const PayTableBody = ({
+  projId,
   records,
   orderDetails,
 }: {
+  projId: string,
   records: IAndpadpayments[],
   orderDetails: IOrder
 }) => {
@@ -17,6 +21,14 @@ export const PayTableBody = ({
     order,
     orderBy,
   } = orderDetails;
+
+  const {
+    data: projRec,
+  } = useProjById(projId);
+
+  const {
+    lastBillingDate,
+  } = projRec || {};
 
   const parsedRecords = useMemo(() => {
     return records
@@ -104,7 +116,16 @@ export const PayTableBody = ({
             paymentType={paymentType || '-'}
             paymentDate={paymentDate || '-'}
             paymentMethod={paymentMethod || '-'}
-            billingDate={billingDate || '-'}
+            billingDate={lastBillingDate?.value === billingDate 
+              ? (<Tooltip title='最終請求日'>
+                <Chip 
+                  label={billingDate} 
+                  size='small'
+                  icon={<CheckCircleIcon color='success' />}
+                />
+              </Tooltip>
+              ) 
+              : billingDate || '-'}
             paymentAmount={paymentAmount.toLocaleString() || '-'}
             handlingFee={handlingFee.toLocaleString() || '-'}
             actualPaymentAmount={actualPaymentAmount.toLocaleString() || '-'}

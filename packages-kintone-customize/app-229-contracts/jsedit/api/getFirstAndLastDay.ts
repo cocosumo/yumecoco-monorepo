@@ -1,5 +1,11 @@
 import moment from 'moment';
-
+/**
+ * 一ヵ月の開始日と最終日を取得する
+ * momentのため注意
+ * @param year 
+ * @param month 
+ * @returns 
+ */
 export const  getFirstAndLastDay = (
   year: number, 
   month: number,

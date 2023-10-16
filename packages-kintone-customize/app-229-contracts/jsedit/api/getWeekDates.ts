@@ -5,7 +5,10 @@ const endOfWeek = 0;   // 日曜日
 
 
 /**
- * キャッシュを利用して、指定された年月の週の日付を取得する
+ * キャッシュを利用して週の曜日を取得計算する
+ * @param year 
+ * @param month 
+ * @returns 
  */
 export function getWeekDates(year: number, month: number) {
 

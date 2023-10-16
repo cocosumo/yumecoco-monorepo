@@ -116,10 +116,14 @@ export const PayTableBody = ({
             paymentType={paymentType || '-'}
             paymentDate={paymentDate || '-'}
             paymentMethod={paymentMethod || '-'}
-            billingDate={lastBillingDate?.value === billingDate 
+            billingDate={!!lastBillingDate?.value 
+              && (
+                lastBillingDate.value === billingDate
+                || lastBillingDate.value === paymentDate
+              ) 
               ? (<Tooltip title='最終請求日'>
                 <Chip 
-                  label={billingDate} 
+                  label={billingDate || '-'} 
                   size='small'
                   icon={<CheckCircleIcon color='success' />}
                 />

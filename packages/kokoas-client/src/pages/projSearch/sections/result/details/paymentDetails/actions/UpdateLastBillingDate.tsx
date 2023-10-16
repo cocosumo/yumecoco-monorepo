@@ -1,7 +1,9 @@
 import { Checkbox, FormControlLabel, Tooltip } from '@mui/material';
-import { useAndpadPaymentsBySystemId, useSaveProject } from 'kokoas-client/src/hooksQuery';
+import { useSaveProject } from 'kokoas-client/src/hooksQuery';
 import { ChangeEvent, useMemo, useState } from 'react';
 import { IProjects } from 'types';
+import { useLastBillingDate } from './useLastBillingDate';
+import { LastBillingLabel } from './LastBillingLabel';
 
 export const UpdateLastBillingDate = ({
   systemId,
@@ -16,36 +18,19 @@ export const UpdateLastBillingDate = ({
     lastBillingDate: lastBillingDateFromProj,
   } = projRec || {};
   const [checked, setChecked] = useState(!!lastBillingDateFromProj.value);
-  const { data } = useAndpadPaymentsBySystemId(systemId);
   
-  const { mutate } = useSaveProject();
+  const { mutate, isLoading } = useSaveProject();
 
-  const lastBillingDateFromPayments = useMemo(() => {
-    // find the last billing date
-    return data?.reduce((acc, curr) => {
-      const {
-        billingDate,
-      } = curr;
-      if (billingDate) {
-        const {
-          value,
-        } = billingDate;
-        if (value > acc) {
-          return value;
-        }
-      }
-      return acc;
-    },
-    '');
+  const {
+    isLoading: isLoadingPayments,
+    lastBillingDate: lastBillingDateFromPayments,
+    sortedData,
+  } = useLastBillingDate(systemId);
 
-
-  }, [
-    data,
-  ]);
+  const hasPaymentData = !!sortedData?.length;
 
   const handleCheck = (_: ChangeEvent<HTMLInputElement>, newChecked: boolean) => {
     setChecked(newChecked);
-    console.log('lastBillingDate', lastBillingDateFromPayments);
     if (lastBillingDateFromPayments) {
       mutate({
         projId,
@@ -58,7 +43,7 @@ export const UpdateLastBillingDate = ({
   };
 
   const tooltipTText = useMemo(() => {
-    if (!data?.length ) {
+    if (!hasPaymentData ) {
       return '入金情報がありません。';
     } 
 
@@ -72,7 +57,7 @@ export const UpdateLastBillingDate = ({
       return 'チェックを入れたら、最終請求日が設定されます。';
     }
   }, [
-    data,
+    hasPaymentData,
     checked,
     lastBillingDateFromPayments,
   ]);
@@ -82,14 +67,18 @@ export const UpdateLastBillingDate = ({
 
   
       <FormControlLabel 
-        disabled={!data?.length || !lastBillingDateFromPayments}
+        disabled={!hasPaymentData}
         control={(
           <Checkbox
             onChange={handleCheck} 
             checked={checked}
           />
           )} 
-        label="最終請求日"
+        label={(
+          <LastBillingLabel
+            isLoading={isLoading || isLoadingPayments}
+            lastBillingDate={lastBillingDateFromProj.value || ''}
+          />)}
       />
     </Tooltip>
   );

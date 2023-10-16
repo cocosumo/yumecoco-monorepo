@@ -84,6 +84,12 @@ export const PayTableHead = (props : PayTableHeadProps) => {
             {...props}
           />
         )}
+        billingDate={(
+          <EnhancedTableCell
+            fieldName='billingDate'
+            label='請求日'
+            {...props}
+          />)}
         paymentAmount={(
           <EnhancedTableCell
             fieldName='paymentAmount'

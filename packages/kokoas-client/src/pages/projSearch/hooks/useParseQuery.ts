@@ -45,6 +45,9 @@ export const useParseQuery = (): TypeOfForm => {
       completionDateFrom,
       completionDateTo,
 
+      lastBillDateFrom,
+      lastBillDateTo,
+
       order,
       orderBy,
     } = parsedQuery;
@@ -73,8 +76,13 @@ export const useParseQuery = (): TypeOfForm => {
       deliveryDateFrom: resolveDate(deliveryDateFrom),
       deliveryDateTo: resolveDate(deliveryDateTo),
 
+      lastBillDateFrom: resolveDate(lastBillDateFrom),
+      lastBillDateTo: resolveDate(lastBillDateTo),
+      
       paidDateFrom: resolveDate(paidDateFrom),
       paidDateTo: resolveDate(paidDateTo),
+
+
 
     };
   }, [

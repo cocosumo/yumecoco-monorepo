@@ -1,6 +1,7 @@
 declare namespace DBProjects {
   interface Data {
     schedContractDate: kintone.fieldTypes.Date;
+    lastBillingDate: kintone.fieldTypes.Date;
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
     custNames: kintone.fieldTypes.SingleLineText;

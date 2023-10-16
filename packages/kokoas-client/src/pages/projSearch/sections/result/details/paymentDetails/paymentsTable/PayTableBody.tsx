@@ -30,6 +30,7 @@ export const PayTableBody = ({
           paymentType,
           paymentDate,
           paymentStatus,
+          billingDate,
           //expectedPaymentAmount,
         
         } = record;
@@ -45,6 +46,7 @@ export const PayTableBody = ({
           paymentType: paymentType.value,
           paymentDate: paymentDate.value,
           paymentMethod: paymentMethod.value,
+          billingDate: billingDate.value,
           paymentAmount: parsedPaymentAmount,
           actualPaymentAmount,
           handlingFee: parsedHandlingFee,
@@ -69,6 +71,7 @@ export const PayTableBody = ({
           case 'paymentType':
           case 'paymentMethod':
           case 'paymentDate':
+          case 'billingDate':
           case 'remarks':
             return String(a[orderBy])
               .localeCompare(String(b[orderBy]), 'ja', { sensitivity: 'base' }) * (isAsc ? 1 : -1);
@@ -85,11 +88,13 @@ export const PayTableBody = ({
           key,
           actualPaymentAmount,
           handlingFee,
+          billingDate,
           paymentAmount,
           paymentDate,
           paymentMethod,
           paymentStatus,
           paymentType,
+
           remarks,
         }, index) => (
           <RowLayout 
@@ -99,6 +104,7 @@ export const PayTableBody = ({
             paymentType={paymentType || '-'}
             paymentDate={paymentDate || '-'}
             paymentMethod={paymentMethod || '-'}
+            billingDate={billingDate || '-'}
             paymentAmount={paymentAmount.toLocaleString() || '-'}
             handlingFee={handlingFee.toLocaleString() || '-'}
             actualPaymentAmount={actualPaymentAmount.toLocaleString() || '-'}

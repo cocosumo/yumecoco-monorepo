@@ -12,6 +12,7 @@ declare namespace DBProjects {
     forceLinkedAndpadSystemId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
     estatePurchaseDate: kintone.fieldTypes.Date;
+    realEstateStatus: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
@@ -34,7 +35,7 @@ declare namespace DBProjects {
     projName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     finalAddress2: kintone.fieldTypes.SingleLineText;
-    profitRate: kintone.fieldTypes.SingleLineText;
+    profitRate: kintone.fieldTypes.Number;
     storeId: kintone.fieldTypes.SingleLineText;
     finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;

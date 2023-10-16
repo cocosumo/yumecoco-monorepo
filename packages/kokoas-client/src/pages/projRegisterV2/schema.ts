@@ -1,5 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
-import { agentTypes, buildingTypes, recordCancelStatuses, recordStatuses } from 'types';
+import { agentTypes, buildingTypes, realEstateStatus, recordCancelStatuses, recordStatuses } from 'types';
 import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
@@ -98,6 +98,7 @@ export const schema = z.object({
   // 見込み
   rank: z.string().optional(),
   schedContractPrice: z.number().optional(),
+  realEstateStatus: z.enum(realEstateStatus),
   schedContractDate: z.date().nullable(),
   estatePurchaseDate: z.date().nullable(),
   planApplicationDate: z.date().nullable(),

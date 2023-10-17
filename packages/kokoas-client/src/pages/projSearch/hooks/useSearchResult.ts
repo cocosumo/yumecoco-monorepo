@@ -33,8 +33,19 @@ export const useSearchResult =  () => {
     yumeAG,
     contractDateFrom,
     contractDateTo,
+
     completionDateFrom,
     completionDateTo,
+
+    deliveryDateFrom,
+    deliveryDateTo,
+
+    paidDateFrom,
+    paidDateTo,
+
+    lastBillDateFrom,
+    lastBillDateTo,
+
     order,
     orderBy = 'storeSortNumber',
     includeDeleted,
@@ -69,7 +80,7 @@ export const useSearchResult =  () => {
           deliveryDate,
           payFinDate,
           projFinDate,
-
+          lastBillingDate,
           
         } = curr; // 工事情報;
 
@@ -164,10 +175,18 @@ export const useSearchResult =  () => {
         const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
         const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
         const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
+        
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && projFinDate?.value && completionDateFrom <= parseISO(projFinDate?.value));
         const isMatchcompletionDateTo = !completionDateTo || (completionDateTo && projFinDate?.value && completionDateTo >= parseISO(projFinDate?.value));
+        const isMatchDeliveryDateFrom = !deliveryDateFrom || (deliveryDateFrom && deliveryDate?.value && deliveryDateFrom <= parseISO(deliveryDate?.value));
+        const isMatchDeliveryDateTo = !deliveryDateTo || (deliveryDateTo && deliveryDate?.value && deliveryDateTo >= parseISO(deliveryDate?.value));
+        const isMatchPaidDateFrom = !paidDateFrom || (paidDateFrom && payFinDate?.value && paidDateFrom <= parseISO(payFinDate?.value));
+        const isMatchPaidDateTo = !paidDateTo || (paidDateTo && payFinDate?.value && paidDateTo >= parseISO(payFinDate?.value));
+        const isMatchLastBillDateFrom = !lastBillDateFrom || (lastBillDateFrom && lastBillingDate?.value && lastBillDateFrom <= parseISO(lastBillingDate?.value));
+        const isMatchLastBillDateTo = !lastBillDateTo || (lastBillDateTo && lastBillingDate?.value && lastBillDateTo >= parseISO(lastBillingDate?.value));
+
         const isIncludeDeleted = includeDeleted ? (isProjectDeleted || isCustGroupDeleted) : !(isProjectDeleted || isCustGroupDeleted);
 
         if (!parsedQuery
@@ -182,6 +201,12 @@ export const useSearchResult =  () => {
             && isMatchcontractDateTo
             && isMatchcompletionDateFrom
             && isMatchcompletionDateTo
+            && isMatchDeliveryDateFrom
+            && isMatchDeliveryDateTo
+            && isMatchPaidDateFrom
+            && isMatchPaidDateTo
+            && isMatchLastBillDateFrom
+            && isMatchLastBillDateTo
             && isIncludeDeleted
           )
         ) {
@@ -197,6 +222,7 @@ export const useSearchResult =  () => {
             contractDate: contractDate?.value ? contractDate.value : '-',
             deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
             projFinDate: projFinDate?.value ? projFinDate.value : '-',
+            lastBillDate: lastBillingDate?.value ? lastBillingDate.value : '-',
             payFinDate: payFinDate?.value ? payFinDate.value : '-',
             storeSortNumber: +(sortNumber?.value || 0),
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
@@ -220,6 +246,7 @@ export const useSearchResult =  () => {
           case 'projFinDate':
           case 'payFinDate':
           case 'deliveryDate':
+          case 'lastBillDate':
 
             // put "-" or undefined at the bottom of the result
             if (a[parseOrderBy] === '-' || !a[parseOrderBy]) return 1;

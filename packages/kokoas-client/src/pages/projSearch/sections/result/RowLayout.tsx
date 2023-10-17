@@ -32,6 +32,7 @@ export const RowLayout = ({
   projFinDate,
   storeName,
   tel,
+  lastBillDate,
   createdAt,
   updatedAt,
   projDataId,
@@ -87,6 +88,14 @@ export const RowLayout = ({
         {deliveryDate}
       </TableCell>
 
+      <TableCell
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {lastBillDate}
+      </TableCell>
+
       
       <TableCell
         sx={{
@@ -103,9 +112,6 @@ export const RowLayout = ({
       >
         {projFinDate}
       </TableCell>
-
-
-
       
       <TableCell 
         sx={{

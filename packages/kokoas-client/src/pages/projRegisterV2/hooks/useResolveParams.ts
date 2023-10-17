@@ -50,6 +50,8 @@ export const useResolveParams = () => {
         projRec,
         projTypeRec,
         hasContract,
+        custGroupRec,
+        empRecs: employeeRecs,
       });
 
       setNewFormVal({

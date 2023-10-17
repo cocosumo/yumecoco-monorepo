@@ -19,9 +19,12 @@ export const resolveCommisionRate = ({
   custGroupRec: ICustgroups;
   projRec: IProjects;
   empRecs: IEmployees[];
-  projTypeRec: IProjtypes;
+  projTypeRec: IProjtypes | undefined;
 }) => {
   console.log('resolveCommisionRate');
+
+  if (!projTypeRec) return 0;
+
   const { 
     agents: projAgents, 
     commissionRate, 
@@ -75,14 +78,14 @@ export const resolveCommisionRate = ({
     });
   }
 
-  const hasNoYumeAG = !yumeAGs.length 
-  || yumeAGs.some(({ empName }) => empName === 'ここすも');
+  const hasNoYumeAG = !yumeAGs.length // ゆめてつAGがいない、
+  || yumeAGs.some(({ empName }) => empName === 'ここすも'); // 又は、ゆめてつAGに設定はあるが、「ここすも」になっている
 
 
   if (commissionRate.value) {
     // 工事内容で設定してある場合、それを使う
     const parsedCommRate = +commissionRate.value;
-    console.log('工事データにある紹介率：', parsedCommRate);
+    console.log('工事データにある紹介率：', parsedCommRate, commissionRate.value);
     return parsedCommRate;
   }
 

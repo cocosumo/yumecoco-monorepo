@@ -14,6 +14,7 @@ export const OfficerDetails = ({
   const {
     agents,
     custGroupId,
+    commissionRate,
   } = recProj || {};
 
   const { 
@@ -35,11 +36,10 @@ export const OfficerDetails = ({
   || (custGroupAgents && getAgentNamesByType(custGroupAgents, 'cocoConst'))
   || '-';
 
-
   const agentDetails: IDetail[] = [
     {
       label: 'ゆめてつAG',
-      value: yumeAGNames,
+      value:  `${yumeAGNames}　${commissionRate.value ? `紹介料率：${commissionRate.value}%` : ''}`,
     },
     {
       label: '営業担当者',
@@ -55,7 +55,7 @@ export const OfficerDetails = ({
   return (
        
     <DetailSection 
-      title="工事情報"
+      title="担当者情報"
       details={agentDetails}
     />
   );

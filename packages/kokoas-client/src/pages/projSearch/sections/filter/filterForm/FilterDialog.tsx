@@ -38,6 +38,21 @@ export const FilterDialog = ({
             label='契約日'
           />
           <DateRange 
+            fromName='deliveryDateFrom'
+            toName='deliveryDateTo'
+            label='引き渡し日'
+          />
+          <DateRange 
+            fromName='lastBillDateFrom'
+            toName='lastBillDateTo'
+            label='最終請求日'
+          />
+          <DateRange 
+            fromName='paidDateFrom'
+            toName='paidDateTo'
+            label='支払完了日'
+          />
+          <DateRange 
             fromName='completionDateFrom'
             toName='completionDateTo'
             label='完工日'

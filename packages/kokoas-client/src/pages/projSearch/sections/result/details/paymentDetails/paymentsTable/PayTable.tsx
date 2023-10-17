@@ -10,8 +10,10 @@ import { useState } from 'react';
 
 export const PayTable = ({
   systemId,
+  projId,
 }:{
   systemId: string | number,
+  projId: string,
 }) => {
   const [orderDetails, setOrderDetails] = useState<IOrder>({
     orderBy: 'paymentDate',
@@ -32,6 +34,7 @@ export const PayTable = ({
         />)}
       body={(
         <PayTableBody 
+          projId={projId}
           records={data || []}
           orderDetails={orderDetails}
         />)}

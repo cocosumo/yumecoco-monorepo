@@ -60,6 +60,7 @@ export const convertProjToForm = ({
     deliveryDate,
 
     rank,
+    realEstateStatus,
     schedContractPrice,
     estatePurchaseDate,
     planApplicationDate,
@@ -162,6 +163,7 @@ export const convertProjToForm = ({
 
     // 見込み
     rank: rank.value,
+    realEstateStatus: (realEstateStatus.value || 'あり') as TForm['realEstateStatus'],
     schedContractPrice: +schedContractPrice.value,
     schedContractDate: schedContractDate.value ? parseISO(schedContractDate.value) : null,
     estatePurchaseDate: estatePurchaseDate.value ? parseISO(estatePurchaseDate.value) : null,

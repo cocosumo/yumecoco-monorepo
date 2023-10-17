@@ -107,6 +107,13 @@ export const ResultHead = () => {
             label='物件完了日'
           />
         )}
+        lastBillDate={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='lastBillDate'
+            label='最終請求日'
+          />
+        )}
         createdAt={(
           <EnhancedTableCell 
             existingQuery={query}

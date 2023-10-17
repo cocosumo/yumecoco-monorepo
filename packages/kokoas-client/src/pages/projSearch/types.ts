@@ -21,6 +21,7 @@ export interface SearchResult {
   deliveryDate: string;
   projFinDate: string;
   payFinDate: string;
+  lastBillDate: string;
   projName: string;
   projDataId: string;
   uuid: string;

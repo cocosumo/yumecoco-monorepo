@@ -34,6 +34,7 @@ export const convertToKintone = (
     payFinDate,
 
     rank,
+    realEstateStatus,
     schedContractPrice,
     schedContractDate,
     estatePurchaseDate,
@@ -111,6 +112,7 @@ export const convertToKintone = (
 
     // 見込み
     rank: { value: rank || '' },
+    realEstateStatus: { value: realEstateStatus || 'あり' },
     schedContractPrice: { value: String(schedContractPrice) },
     schedContractDate: { value: toKintoneDateStr(schedContractDate) },
     estatePurchaseDate: { value: toKintoneDateStr(estatePurchaseDate) },

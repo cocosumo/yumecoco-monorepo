@@ -7,10 +7,8 @@ export const PayTableFooter = ({
   records: IAndpadpayments[]
 }) => {
 
-  console.log('records', records);
   const totalAmount = records.reduce(
     (acc, cur) => {
-      console.log('cur', cur);
       const parsedPaymentAmount = +cur.paymentAmount.value;
       const parsedHandlingFee = +cur.handlingFee.value;
       const actualPaymentAmount = parsedPaymentAmount + parsedHandlingFee;

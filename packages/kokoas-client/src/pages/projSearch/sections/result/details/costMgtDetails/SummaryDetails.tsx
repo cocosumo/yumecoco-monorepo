@@ -26,6 +26,8 @@ export const SummaryDetails = ({
 
     入金額,
     未入金,
+
+    利益配分_夢てつ: yumeCommRate,
     
   } = costMgtData;
   
@@ -73,7 +75,12 @@ export const SummaryDetails = ({
           suffix='%'
         />
 
-
+        <SummaryInfo 
+          label='ゆめてつ紹介料率'
+          value={yumeCommRate}
+          suffix='%'
+        />
+        
       </Stack>
       <Stack
         spacing={1}
@@ -89,7 +96,6 @@ export const SummaryDetails = ({
           label='請求額計'
           value={実利益率}
         /> */}
-
 
         <SummaryInfo 
           label='入金額（税込）'

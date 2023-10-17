@@ -7,6 +7,7 @@ export const initialForm: TForm = {
   custName: '',
   ranks: [],
   keyword: '',
+  cocoAGId: '',
   projName: '',
   contractAmtFrom: null,
   contractAmtTo: null,

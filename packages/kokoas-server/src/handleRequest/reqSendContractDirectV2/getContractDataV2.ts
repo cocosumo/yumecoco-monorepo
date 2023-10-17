@@ -101,15 +101,22 @@ export const getContractDataV2 = async (
     dataId,
     projTypeName,
     projTypeId,
+    agents: projAgents,
+    store: projStoreName,
+    storeId: projStoreId,
   } = await getProjById(projId.value);
+
 
   /* 顧客情報 */
   const {
-    agents,
+    agents: cgAgents,
     members,
-    storeId,
-    storeName,
+    storeId: cgStoreId,
+    storeName: cgStoreName,
   } = await getCustGroupById(custGroupId.value);
+
+  const resolvedStoreId = projStoreId.value || cgStoreId.value;
+
 
   const {
     storeNameShort,
@@ -117,7 +124,7 @@ export const getContractDataV2 = async (
     //TEL: companyTel,
     //住所: companyAddress,
     //officialStoreName,
-  } = await getStoreById(storeId.value);
+  } = await getStoreById(resolvedStoreId);
 
 
 
@@ -157,11 +164,23 @@ export const getContractDataV2 = async (
     };
   });
 
-  /* 担当情報 */
-  const cocoAGIds = agents.value
-    .filter(({ value: { agentType } }) => (
-      (agentType.value as TAgents) === 'cocoAG'))
-    .map(({ value: { employeeId } }) => employeeId.value );
+  /*  担当情報 
+      工事データに担当者が入っている場合はそちらを優先する
+  */
+  let cocoAGIds = projAgents.value
+    .filter(({ value: { agentType, agentId } }) => (
+      (agentType.value as TAgents) === 'cocoAG' && !!agentId.value))
+    .map(({ value: { agentId } }) => agentId.value );
+
+  if (!cocoAGIds.length) {
+    cocoAGIds = cgAgents.value
+      .filter(({ value: { agentType, employeeId } }) => (
+        (agentType.value as TAgents) === 'cocoAG' && !!employeeId.value))
+      .map(({ value: { employeeId } }) => employeeId.value );
+  }
+
+
+
   const cocoAG = (await getEmployeesByIds(cocoAGIds))
     .records
     .map(({ 文字列＿氏名: empName, email: empEmail }) => ({
@@ -189,7 +208,7 @@ export const getContractDataV2 = async (
       email: subAccountingEmail,
     },
   } = await getContractCheckers({
-    storeId: storeId.value,
+    storeId: projStoreId.value || cgStoreId.value,
     territory: territory.value,
   });
 
@@ -209,6 +228,8 @@ export const getContractDataV2 = async (
   ];
 
   console.log(totalTaxAmount);
+
+  const resolvedStoreName = projStoreName.value || cgStoreName.value;
 
   const data = {
 
@@ -246,7 +267,7 @@ export const getContractDataV2 = async (
     /* 店長 */
     storeMngrName: managerName.value,
     storeMngrEmail: isProd ? managerEmail.value : testTenchoEmail,
-    storeName: storeName.value,
+    storeName: resolvedStoreName,
     storeNameShort: storeNameShort.value,
     territory: territory.value as Territory,
 
@@ -278,7 +299,7 @@ export const getContractDataV2 = async (
 
     /* 会社情報 */
     companyAddress: companyAddress.value,
-    companyAddress2: `${companyAddress.value} ハウスドゥ ${storeName.value}`,
+    companyAddress2: `${companyAddress.value} ハウスドゥ ${resolvedStoreName}`,
     companyName: companyName.value,
     companyTel: companyTel.value,
     representative: representative.value,

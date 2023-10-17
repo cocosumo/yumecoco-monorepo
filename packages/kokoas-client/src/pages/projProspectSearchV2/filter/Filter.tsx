@@ -7,6 +7,7 @@ import { FilterButton } from './FilterButton';
 import { useStartSearch } from '../hooks/useStartSearch';
 import { useNavigate } from 'react-router-dom';
 import { useSnackBar } from 'kokoas-client/src/hooks';
+import { CocoAGSearch } from './CocoAGSearch';
 
 
 export const Filter = () => {
@@ -33,6 +34,7 @@ export const Filter = () => {
         }}
         {...register('custName')}
       />
+      <CocoAGSearch />
       <SearchButton />
       <FilterButton />
       <Button onClick={() => {

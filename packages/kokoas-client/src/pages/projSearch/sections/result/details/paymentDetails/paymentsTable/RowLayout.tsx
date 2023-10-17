@@ -12,6 +12,7 @@ export interface RowLayoutProps {
   paymentAmount: ReactNode,
   actualPaymentAmount: ReactNode,
   handlingFee: ReactNode,
+  billingDate?: ReactNode,
   remarks: ReactNode,
 }
 
@@ -61,9 +62,11 @@ export const RowLayout = ({
   paymentAmount,
   actualPaymentAmount,
   handlingFee,
+  billingDate,
   remarks,
 }:{
   index?: ReactNode,
+  billingDate?: ReactNode,
   paymentStatus?: ReactNode,
   paymentType?: ReactNode,
   paymentDate: ReactNode,
@@ -92,6 +95,9 @@ export const RowLayout = ({
 
       <TableCell width={100}>
         {paymentDate}
+      </TableCell>
+      <TableCell width={100}>
+        {billingDate}
       </TableCell>
 
       <NumberCell width={100}>

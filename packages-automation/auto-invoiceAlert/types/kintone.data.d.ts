@@ -11,6 +11,7 @@ declare namespace DBInvoiceReminder {
     andpadDepositAmount: kintone.fieldTypes.Number;
     area: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
+    store: kintone.fieldTypes.SingleLineText;
     expectedCreateInvoiceDate: kintone.fieldTypes.Date;
     lastAlertDate: kintone.fieldTypes.Date;
     andpadUrl: kintone.fieldTypes.Link;

@@ -26,6 +26,7 @@ export const convertReminderToJson = ({
     notificationSettings,
     expectedCreateInvoiceDate,
     yumeAG,
+    store,
   }): InvoiceReminder => {
 
     // 通知先情報(chatwork)を設定する
@@ -65,6 +66,7 @@ export const convertReminderToJson = ({
       cwRoomIds: cwRoomIds,
       andpadInvoiceUrl: andpadUrl.value,
       expectedCreateInvoiceDate: expectedCreateInvoiceDate.value,
+      storeName: store.value,
     });
   });
 

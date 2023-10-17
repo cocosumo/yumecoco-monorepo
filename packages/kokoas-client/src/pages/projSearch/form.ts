@@ -23,8 +23,17 @@ export const initialForm : TypeOfForm = {
   contractDateFrom: null,
   contractDateTo: null,
 
+  deliveryDateFrom: null,
+  deliveryDateTo: null,
+
+  paidDateFrom: null,
+  paidDateTo: null,
+
   completionDateFrom: null,
   completionDateTo: null,
+
+  lastBillDateFrom: null,
+  lastBillDateTo: null,
 
   
 };

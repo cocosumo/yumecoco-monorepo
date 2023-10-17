@@ -6,13 +6,15 @@ import { useEffect } from 'react';
 import { OtherProjType } from './OtherProjType';
 import { convertCommRateByEmployee } from '../../api/convertCommRateByEmployee';
 import { convertCommRateByRole } from '../../api/convertCommRateByRole';
-import { useChangeCommRate } from '../../hooks/useChangeCommRate';
+import { useUpdateCommRate } from '../../hooks/useUpdateCommRate';
 import { ProjTypeHelp } from './projTypeHelp/ProjTypeHelp';
 
 export const ProjectType = () => {
   const { control, setValue, register, getValues } = useTypedFormContext();
 
-  useChangeCommRate();
+  const {
+    handleUpdateCommRate,
+  } = useUpdateCommRate();
 
   const { data: projTypeOptions } = useProjTypes({
     select: (d) => d
@@ -113,8 +115,11 @@ export const ProjectType = () => {
                   }
                 
                   
-                  onChange(e.target.value);
+                  onChange(newProjTypeId);
 
+                  handleUpdateCommRate({
+                    newProjTypeId,
+                  });
                 
                 }}
               >

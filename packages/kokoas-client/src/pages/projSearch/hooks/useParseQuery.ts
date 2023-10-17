@@ -6,6 +6,8 @@ import { useMemo } from 'react';
 import { initialForm } from '../form';
 import { parseISO } from 'date-fns';
 
+const resolveDate = <T = unknown>(date: T) => typeof date === 'string' ? parseISO(date) : null;
+
 
 export const useParseQuery = (): TypeOfForm => {
   const {
@@ -31,11 +33,21 @@ export const useParseQuery = (): TypeOfForm => {
 
       yumeAG,
 
+      contractDateFrom,
+      contractDateTo,
+
+      deliveryDateFrom,
+      deliveryDateTo,
+
+      paidDateFrom,
+      paidDateTo,
+
       completionDateFrom,
       completionDateTo,
 
-      contractDateFrom,
-      contractDateTo,
+      lastBillDateFrom,
+      lastBillDateTo,
+
       order,
       orderBy,
     } = parsedQuery;
@@ -54,10 +66,24 @@ export const useParseQuery = (): TypeOfForm => {
       includeDeleted: typeof includeDeleted === 'string' && includeDeleted === 'true',
       cocoAG: ([] as string[]).concat(cocoAG ?? []),
       yumeAG: ([] as string[]).concat(yumeAG ?? []),
-      completionDateFrom: completionDateFrom ? parseISO(completionDateFrom as string) : null,
-      completionDateTo: completionDateTo ? parseISO(completionDateTo as string) : null,
-      contractDateFrom: contractDateFrom ? parseISO(contractDateFrom as string) : null,
-      contractDateTo: contractDateTo ? parseISO(contractDateTo as string) : null,
+
+      contractDateFrom: resolveDate(contractDateFrom),
+      contractDateTo: resolveDate(contractDateTo),
+
+      completionDateFrom: resolveDate(completionDateFrom),
+      completionDateTo: resolveDate(completionDateTo),
+
+      deliveryDateFrom: resolveDate(deliveryDateFrom),
+      deliveryDateTo: resolveDate(deliveryDateTo),
+
+      lastBillDateFrom: resolveDate(lastBillDateFrom),
+      lastBillDateTo: resolveDate(lastBillDateTo),
+      
+      paidDateFrom: resolveDate(paidDateFrom),
+      paidDateTo: resolveDate(paidDateTo),
+
+
+
     };
   }, [
     search,

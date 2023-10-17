@@ -13,6 +13,8 @@ export const schema = z.object({
   //custGroupId: z.string().optional(),
   custName: z.string().optional(),
   projName: z.string().optional(),
+  cocoAGId: z.string().optional(),
+
   keyword: z.string().optional(),
   ranks: z.array(z.string()).optional(),
   contractAmtFrom: z.number({ coerce: true })

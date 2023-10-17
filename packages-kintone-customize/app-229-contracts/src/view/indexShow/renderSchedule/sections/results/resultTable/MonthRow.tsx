@@ -54,19 +54,37 @@ export const MonthRow = ({
           id,
         }) => {
           return (
-            <TableCell key={id}>
+            <TableCell 
+              key={id} align='right'
+              sx={{
+                fontSize: 20,
+                fontWeight: 'bold',
+              }}
+            >
               {roundTo(targets?.[id]?.monthlyTarget ?? 0).toLocaleString()}
             </TableCell>
           );
         })}
 
         {/* その他 */}
-        <TableCell>
+        <TableCell 
+          align='right'
+          sx={{
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}
+        >
           {roundTo(othersMonthlyTarget ?? 0).toLocaleString()}
         </TableCell>
 
         {/* 目標合計 */}
-        <TableCell>
+        <TableCell 
+          align='right'
+          sx={{
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}
+        >
           {roundTo(totalMonthlyTarget ?? 0).toLocaleString()}
         </TableCell>
 
@@ -82,32 +100,33 @@ export const MonthRow = ({
 
       </TableRow>
 
-      {/*行事/イベント  */}
       <TableRow >
         <TableCell>
           昨年実績値
         </TableCell>
-        <TableCell>
-          0
-        </TableCell>
+        {projTypesToShow.map(({
+          id,
+        }) => {
+          return (
+            <TableCell 
+              sx={{
+                fontSize: 18,
+                fontWeight: 'bold',
+              }}
+              key={id} align='right'
+            >
+              0
+            </TableCell>
+          );
+        })}
 
-        <TableCell>
-          0
-        </TableCell>
-
-        <TableCell>
-          0
-        </TableCell>
-
-        <TableCell>
-          0
-        </TableCell>
-
-        <TableCell>
-          0
-        </TableCell>
-
-        <TableCell>
+        <TableCell 
+          align='right'
+          sx={{
+            fontSize: 18,
+            fontWeight: 'bold',
+          }}
+        >
           0
         </TableCell>
 

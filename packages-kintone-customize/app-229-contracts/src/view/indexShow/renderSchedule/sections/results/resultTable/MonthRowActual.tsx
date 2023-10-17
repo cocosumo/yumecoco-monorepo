@@ -15,7 +15,17 @@ export const MonthRowActual = ({
 
 
   return (
-    <TableRow >
+    <TableRow 
+      sx={{
+
+        '& .MuiTableCell-root:not(:first-of-type)': {
+          fontWeight: 'bold',
+          fontSize: 20,
+          color: 'red',
+          textAlign: 'right',
+        },
+      }}
+    >
       <TableCell>
         実績値
       </TableCell>
@@ -24,7 +34,7 @@ export const MonthRowActual = ({
       }) => {
         const {
           totalContractAmtExclTax = 0,
-        } = groupedContractsByProjId?.[id] ?? {};
+        } = groupedContractsByProjId?.data?.[id] ?? {};
         return (
           <TableCell key={id}>
             {roundTo(totalContractAmtExclTax / 10000).toLocaleString()}
@@ -35,12 +45,12 @@ export const MonthRowActual = ({
 
       {/* その他 */}
       <TableCell>
-        {roundTo((groupedContractsByProjId?.['その他'].totalContractAmtExclTax ?? 0) / 10000).toLocaleString()}
+        {roundTo((groupedContractsByProjId?.data['その他'].totalContractAmtExclTax ?? 0) / 10000).toLocaleString()}
       </TableCell>
 
 
       <TableCell>
-        -
+        {roundTo((groupedContractsByProjId?.totalAmtExclTax ?? 0) / 10000 ).toLocaleString()}
       </TableCell>
 
       <TableCell>

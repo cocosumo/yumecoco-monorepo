@@ -39,7 +39,7 @@ export const useTargetData = () => {
       westMonthlyAnother,
     } = data;
 
-    const groupedContracts = groupContracts(contracts || []);
+    const groupedContracts = groupContracts(contracts || [], territory);
 
     console.log('groupedContracts', groupedContracts);
 

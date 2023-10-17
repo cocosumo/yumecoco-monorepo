@@ -4,24 +4,24 @@ import { MonthHeader } from './MonthHeader';
 import { projTypesToShow } from '../../../config';
 
 import { roundTo } from 'libs';
-import { useTargetData } from '../../../hooks/useTargetData';
+import { UseTargetDataReturn } from '../../../hooks/useTargetData';
+import { MonthRowActual } from './MonthRowActual';
 
 export const MonthRow = ({
   month,
+  data,
 }:{
   month: number;
+  data: UseTargetDataReturn['data']
 }) => {
 
-  const { data } = useTargetData();
   const {
     events,
     totalMonthlyTarget,
     othersMonthlyTarget,
     targets,
-
+    groupedContracts,
   } = data || {};
-
-
 
   return (
     <Fragment key={month}>
@@ -88,27 +88,27 @@ export const MonthRow = ({
           昨年実績値
         </TableCell>
         <TableCell>
-          111
+          0
         </TableCell>
 
         <TableCell>
-          222
+          0
         </TableCell>
 
         <TableCell>
-          333
+          0
         </TableCell>
 
         <TableCell>
-          444
+          0
         </TableCell>
 
         <TableCell>
-          555
+          0
         </TableCell>
 
         <TableCell>
-          666
+          0
         </TableCell>
 
         <TableCell>
@@ -118,41 +118,9 @@ export const MonthRow = ({
               
       </TableRow>
 
-      <TableRow >
-        <TableCell>
-          実績値
-        </TableCell>
-        <TableCell>
-          111
-        </TableCell>
-
-        <TableCell>
-          222
-        </TableCell>
-
-        <TableCell>
-          333
-        </TableCell>
-
-        <TableCell>
-          444
-        </TableCell>
-
-        <TableCell>
-          555
-        </TableCell>
-
-        <TableCell>
-          666
-        </TableCell>
+      <MonthRowActual groupedContractsByProjId={groupedContracts?.[month]} />
 
 
-        <TableCell>
-          -
-        </TableCell>
-
-
-      </TableRow>
 
     </Fragment>
   );

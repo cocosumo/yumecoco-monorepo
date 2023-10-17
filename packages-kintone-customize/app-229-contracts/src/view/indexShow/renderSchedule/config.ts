@@ -32,3 +32,5 @@ export const projTypesToShow: IProjTypeShow[] = [
     name: 'リフォーム工事',
   },
 ];
+
+export const projTypeIds = projTypesToShow.map((projType) => projType.id);

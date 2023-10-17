@@ -2,19 +2,31 @@ import { useMemo } from 'react';
 import { Targets, useFiscalYearData } from './useFiscalYearData';
 import { useTypedWatch } from './useTypedRHF';
 import { TForm } from '../schema';
+import { useContractsByFiscalYear } from '../../../../hooks/useContractsByFiscalYear';
+import { groupContracts } from './groupContracts';
+
+
+export type UseTargetDataReturn = ReturnType<typeof useTargetData>;
 
 export const useTargetData = () => {
-  const [territory] = useTypedWatch({
+  const [
+    territory,
+    fiscalYear,
+  ] = useTypedWatch({
     name: [
       'territory',
+      'fiscalYear',
     ],
   }) as [
     TForm['territory'],
+    TForm['fiscalYear'],
   ];
   const { data, ...others } = useFiscalYearData();
+  const { data: contracts } = useContractsByFiscalYear(fiscalYear);
+
 
   const newData = useMemo(() => {
-    if (!data) return null;
+    if (!data || !contracts) return null;
 
     const {
       meetingEventTable,
@@ -26,6 +38,10 @@ export const useTargetData = () => {
       westAnother,
       westMonthlyAnother,
     } = data;
+
+    const groupedContracts = groupContracts(contracts || []);
+
+    console.log('groupedContracts', groupedContracts);
 
     /** 月でグループしたイベント */
     const events = meetingEventTable.value.reduce((acc, cur) => {
@@ -124,7 +140,6 @@ export const useTargetData = () => {
             }
             return acc;
           }, { ...westTargets });
-        console.log('targets', targets);
         othersMonthlyTarget = eastOthersMonthlyTarget + westOthersMonthlyTarget;
         othersYearlyTarget = eastOthersYearlyTarget + westOthersYearlyTarget;
         break;
@@ -161,9 +176,15 @@ export const useTargetData = () => {
       othersYearlyTarget,
       totalMonthlyTarget,
 
+      /* 形成された契約データ */
+      groupedContracts,
     };
 
-  }, [data, territory]);
+  }, [
+    data, 
+    territory, 
+    contracts,
+  ]);
 
   return {
     data: newData,

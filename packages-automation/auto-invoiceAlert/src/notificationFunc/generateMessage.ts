@@ -17,7 +17,7 @@ export const generateMessage = (reminderJson: InvoiceReminder) => {
 
   console.log('parseISO(contractDate)', parseISO(contractDate));
 
-  const title = '[title]【ココアス】お客さまからの入金が確認できていません[/title]';
+  const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
 
   const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 

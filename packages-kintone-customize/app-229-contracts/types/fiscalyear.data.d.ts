@@ -42,7 +42,7 @@ declare namespace DBFYData {
         id: string;
         value: {
           eastAnnualGoal: kintone.fieldTypes.Number;
-          ルックアップ_1: kintone.fieldTypes.SingleLineText;
+          eastProjTypeName: kintone.fieldTypes.SingleLineText;
           eastProjUuid: kintone.fieldTypes.SingleLineText;
           eastMonthlyGoal: kintone.fieldTypes.Calc;
         };
@@ -75,9 +75,9 @@ declare namespace DBFYData {
       value: Array<{
         id: string;
         value: {
+          westProjTypeName: kintone.fieldTypes.SingleLineText;
           westAnnualGoal: kintone.fieldTypes.Number;
           westProjUuid: kintone.fieldTypes.SingleLineText;
-          ルックアップ_2: kintone.fieldTypes.SingleLineText;
           westMonthlyGoal: kintone.fieldTypes.Calc;
         };
       }>;

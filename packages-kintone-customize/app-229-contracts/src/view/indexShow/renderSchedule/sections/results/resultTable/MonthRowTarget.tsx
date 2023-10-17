@@ -1,15 +1,8 @@
 import { TableCell } from '@mui/material';
 import { Fragment } from 'react';
-import { useFiscalYearData } from '../../../hooks/useFiscalYearData';
 
 export const MonthRowTarget = () => {
 
-  const; 
-  const { data } = useFiscalYearData(); 
-
-  const {
-    
-  } = data || {};
 
   return (
     <Fragment>

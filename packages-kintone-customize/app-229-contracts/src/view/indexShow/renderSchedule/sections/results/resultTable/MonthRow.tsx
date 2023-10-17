@@ -1,21 +1,27 @@
-import { TableCell, TableRow } from '@mui/material';
+import { Stack, TableCell, TableRow, Typography } from '@mui/material';
 import { Fragment } from 'react';
 import { MonthHeader } from './MonthHeader';
-import { useFiscalYearData } from '../../../hooks/useFiscalYearData';
+import { projTypesToShow } from '../../../config';
+
+import { roundTo } from 'libs';
+import { useTargetData } from '../../../hooks/useTargetData';
 
 export const MonthRow = ({
   month,
 }:{
   month: number;
 }) => {
-  const { data } = useFiscalYearData();
 
+  const { data } = useTargetData();
   const {
-    meetingEventTable,
+    events,
+    totalMonthlyTarget,
+    othersMonthlyTarget,
+    targets,
+
   } = data || {};
 
-  const events = (meetingEventTable?.value || [])
-    .filter((row) => parseInt(row.value.eventMonth.value) === month);
+
 
   return (
     <Fragment key={month}>
@@ -23,48 +29,45 @@ export const MonthRow = ({
         <MonthHeader month={month} />
 
         <TableCell rowSpan={3}>
-          {events.map(({ 
-            id,
-            value:{ eventDetails }, 
-          }) => {
-            return (
-              <div key={id}>
-                {eventDetails.value}
-              </div>);
-          })}
+          <Stack
+            direction="column"
+            height={100}
+          >
+            {events?.[month]?.map((eventDetails) => {
+              return (
+                <Fragment key={eventDetails}>
+                  <Typography fontSize={12} >
+                    {eventDetails}
+                  </Typography>
+                </Fragment>
+              );
+            })}
+
+          </Stack>
         </TableCell>
 
         <TableCell>
           目標値
         </TableCell>
 
-        {/* 新築工事 */}
-        <TableCell>
-          111
-        </TableCell>
-
-        {/* 新築付帯工事 */}
-        <TableCell>
-          222
-        </TableCell>
-
-        {/* 太陽光 */}
-        <TableCell>
-          333
-        </TableCell>
-
-        {/* リフォーム工事 */}
-        <TableCell>
-          444
-        </TableCell>
+        {projTypesToShow.map(({
+          id,
+        }) => {
+          return (
+            <TableCell key={id}>
+              {roundTo(targets?.[id]?.monthlyTarget ?? 0).toLocaleString()}
+            </TableCell>
+          );
+        })}
 
         {/* その他 */}
         <TableCell>
-          555
+          {roundTo(othersMonthlyTarget ?? 0).toLocaleString()}
         </TableCell>
 
+        {/* 目標合計 */}
         <TableCell>
-          666
+          {roundTo(totalMonthlyTarget ?? 0).toLocaleString()}
         </TableCell>
 
         <TableCell rowSpan={3} />

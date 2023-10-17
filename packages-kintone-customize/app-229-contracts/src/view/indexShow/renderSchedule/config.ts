@@ -20,7 +20,7 @@ export const projTypesToShow: IProjTypeShow[] = [
     name: '新築工事',
   },
   {
-    id: 'd0865079-7ea1-4752-838d-e11f84bb0621',
+    id: '68ee1fa3-93be-43a7-a3d1-e5a77bb1cc43',
     name: '新築付帯工事',
   },
   {

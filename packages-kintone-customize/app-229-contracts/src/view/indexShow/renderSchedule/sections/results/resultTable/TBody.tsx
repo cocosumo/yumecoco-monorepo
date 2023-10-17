@@ -2,24 +2,11 @@ import { TableBody } from '@mui/material';
 
 import { MonthRow } from './MonthRow';
 
-const fiscalMonths = [
-  12,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-];
+
+const fiscalMonths = Array.from({ length: 12 }, (_, i) => (i + 12) % 12 + 1);
+
 
 export const TBody = () => {
-
-
 
 
   return (
@@ -27,7 +14,10 @@ export const TBody = () => {
       {fiscalMonths
         .map((month) => {
           return (
-            <MonthRow month={month} key={month}  />
+            <MonthRow 
+              month={month} 
+              key={month}
+            />
           );
         })}
      

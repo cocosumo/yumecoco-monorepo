@@ -36,14 +36,14 @@ const Memo = (({
 }) => {
   const splitVal = value.split('\n');
   return (
-    <div>
+    <>
       {splitVal.map((line) => (
         <Fragment key={`remarks-${line}`}>
           {line}
           <br />
         </Fragment>
       ))}
-    </div>);
+    </>);
 });
 
 

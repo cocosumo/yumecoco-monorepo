@@ -1,38 +1,63 @@
 import { TableCell } from '@mui/material';
 import { Fragment } from 'react';
+import { projTypesToShow } from '../../../config';
+import { roundTo } from 'libs';
+import { UseTargetDataReturn } from '../../../hooks/useTargetData';
 
-export const MonthRowTarget = () => {
+export const MonthRowTarget = ({
+  data,
+}:{
+  data: UseTargetDataReturn['data'] | null,
+}) => {
 
+  const {
+    targets,
+    othersMonthlyTarget,
+    totalMonthlyTarget,
+  } = data || {};
 
   return (
     <Fragment>
       <TableCell>
         目標値
       </TableCell>
+      {projTypesToShow.map(({
+        id,
+      }) => {
+        return (
 
-      {/* 新築工事 */}
-      <TableCell>
-        111
-      </TableCell>
-
-      {/* 新築付帯工事 */}
-      <TableCell>
-        222
-      </TableCell>
-
-      {/* 太陽光 */}
-      <TableCell>
-        333
-      </TableCell>
-
-      {/* リフォーム工事 */}
-      <TableCell>
-        444
-      </TableCell>
+          <TableCell 
+            key={id} align='right'
+            sx={{
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}
+          >
+            {roundTo(targets?.[id]?.monthlyTarget ?? 0).toLocaleString()}
+          </TableCell>
+        );
+      })}
 
       {/* その他 */}
-      <TableCell>
-        555
+      <TableCell 
+        align='right'
+        sx={{
+          fontSize: 20,
+          fontWeight: 'bold',
+        }}
+      >
+        {roundTo(othersMonthlyTarget ?? 0).toLocaleString()}
+      </TableCell>
+
+      {/* 目標合計 */}
+      <TableCell 
+        align='right'
+        sx={{
+          fontSize: 20,
+          fontWeight: 'bold',
+        }}
+      >
+        {roundTo(totalMonthlyTarget ?? 0).toLocaleString()}
       </TableCell>
     </Fragment>
   );

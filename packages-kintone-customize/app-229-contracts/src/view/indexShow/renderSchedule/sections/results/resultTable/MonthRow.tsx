@@ -1,11 +1,12 @@
-import { Stack, TableCell, TableRow, Typography } from '@mui/material';
+import { TableCell, TableRow } from '@mui/material';
 import { Fragment } from 'react';
 import { MonthHeader } from './MonthHeader';
 import { projTypesToShow } from '../../../config';
 
-import { roundTo } from 'libs';
 import { UseTargetDataReturn } from '../../../hooks/useTargetData';
 import { MonthRowActual } from './MonthRowActual';
+import { MonthRowTarget } from './MonthRowTarget';
+import { MonthRowEvents } from './MonthlyEvents';
 
 export const MonthRow = ({
   month,
@@ -19,9 +20,6 @@ export const MonthRow = ({
 
   const {
     events,
-    totalMonthlyTarget,
-    othersMonthlyTarget,
-    targets,
     groupedContracts,
   } = data || {};
 
@@ -30,65 +28,9 @@ export const MonthRow = ({
       <TableRow>
         <MonthHeader month={month} />
 
-        <TableCell rowSpan={3}>
-          <Stack
-            direction="column"
-            height={100}
-          >
-            {events?.[month]?.map((eventDetails) => {
-              return (
-                <Fragment key={eventDetails}>
-                  <Typography fontSize={12} >
-                    {eventDetails}
-                  </Typography>
-                </Fragment>
-              );
-            })}
+        <MonthRowEvents eventsByMonth={events?.[month]} />
 
-          </Stack>
-        </TableCell>
-
-        <TableCell>
-          目標値
-        </TableCell>
-
-        {projTypesToShow.map(({
-          id,
-        }) => {
-          return (
-            <TableCell 
-              key={id} align='right'
-              sx={{
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}
-            >
-              {roundTo(targets?.[id]?.monthlyTarget ?? 0).toLocaleString()}
-            </TableCell>
-          );
-        })}
-
-        {/* その他 */}
-        <TableCell 
-          align='right'
-          sx={{
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
-        >
-          {roundTo(othersMonthlyTarget ?? 0).toLocaleString()}
-        </TableCell>
-
-        {/* 目標合計 */}
-        <TableCell 
-          align='right'
-          sx={{
-            fontSize: 20,
-            fontWeight: 'bold',
-          }}
-        >
-          {roundTo(totalMonthlyTarget ?? 0).toLocaleString()}
-        </TableCell>
+        <MonthRowTarget data={data} />
 
         <TableCell rowSpan={3} />
         <TableCell rowSpan={3} />
@@ -136,7 +78,6 @@ export const MonthRow = ({
           -
         </TableCell>
  
-              
       </TableRow>
 
       <MonthRowActual groupedContractsByProjId={groupedContracts?.[fiscalYear]?.monthlyData[month]} />

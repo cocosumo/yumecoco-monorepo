@@ -6,7 +6,7 @@ import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { TForm } from '../../../schema';
 
 
-const fiscalMonths = Array.from({ length: 12 }, (_, i) => (i + 12) % 12 + 1);
+const fiscalMonths = Array.from({ length: 12 }, (_, index) => (index + 11) % 12 + 1);
 
 export const TBody = () => {
   const { data } = useTargetData();

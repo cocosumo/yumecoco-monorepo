@@ -11,7 +11,10 @@ export const YearlyCell = ({
     <TableCell 
       sx={{
         bgcolor: orange[100],
+        fontSize: 22,
+        fontWeight: 'bold',
       }}
+      align='right'
     >
       {children}
     </TableCell>

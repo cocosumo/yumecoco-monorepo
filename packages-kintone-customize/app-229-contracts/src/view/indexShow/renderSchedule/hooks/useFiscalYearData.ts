@@ -3,11 +3,7 @@ import { useTypedWatch } from './useTypedRHF';
 import { getRecords } from 'api-kintone';
 import { TForm } from '../schema';
 
-export type Targets = Record<string, {
-  yearlyTarget: number;
-  monthlyTarget: number;
-  projTypeName: string;
-}>;
+
 
 export const useFiscalYearData = () => {
 

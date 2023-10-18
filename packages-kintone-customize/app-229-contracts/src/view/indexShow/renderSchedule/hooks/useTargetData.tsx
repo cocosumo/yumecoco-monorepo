@@ -1,10 +1,16 @@
 import { useMemo } from 'react';
-import { Targets, useFiscalYearData } from './useFiscalYearData';
+import {  useFiscalYearData } from './useFiscalYearData';
 import { useTypedWatch } from './useTypedRHF';
 import { TForm } from '../schema';
 import { useContractsByFiscalYear } from './useContractsByFiscalYear';
 import { groupContracts } from './groupContracts';
 
+
+export type Targets = Record<string, {
+  yearlyTarget: number,
+  monthlyTarget: number,
+  projTypeName: string,
+}>;
 
 export type UseTargetDataReturn = ReturnType<typeof useTargetData>;
 
@@ -143,12 +149,17 @@ export const useTargetData = () => {
       
     }
 
-    const totalMonthlyTarget = Object.values({ ...targets })
-      .reduce((acc, cur) => {
-        acc += cur.monthlyTarget;
+    const { 
+      totalMonthlyTarget, 
+      totalTargetAmt, 
+    } = Object.values({ ...targets }).reduce(
+      (acc, cur) => {
+        acc.totalMonthlyTarget += cur.monthlyTarget;
+        acc.totalTargetAmt += cur.yearlyTarget;
         return acc;
-      }, othersMonthlyTarget);
-
+      },
+      { totalMonthlyTarget: othersMonthlyTarget, totalTargetAmt: othersYearlyTarget },
+    );
 
 
     return {
@@ -173,6 +184,7 @@ export const useTargetData = () => {
       othersMonthlyTarget,
       othersYearlyTarget,
       totalMonthlyTarget,
+      totalTargetAmt,
 
       /* 形成された契約データ */
     };

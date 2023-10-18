@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { IProjects } from 'types';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { addressBuilder, formatDataId, postalBuilder } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { DetailSection } from '../common/DetailSection';
@@ -36,14 +36,14 @@ const Memo = (({
 }) => {
   const splitVal = value.split('\n');
   return (
-    <>
-      {splitVal.map((line, index) => (
-        <div key={`remarks-${line}`}>
+    <div>
+      {splitVal.map((line) => (
+        <Fragment key={`remarks-${line}`}>
           {line}
-          {index < (splitVal.length - 1) && <br />}
-        </div>
+          <br />
+        </Fragment>
       ))}
-    </>);
+    </div>);
 });
 
 

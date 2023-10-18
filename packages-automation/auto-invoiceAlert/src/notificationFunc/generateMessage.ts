@@ -17,12 +17,12 @@ export const generateMessage = (reminderJson: InvoiceReminder) => {
 
   console.log('parseISO(contractDate)', parseISO(contractDate));
 
-  const title = '[title]【ココアス】お客さまからの入金が確認できていません[/title]';
+  const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
 
   const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 
-  const message = `契約から一定期間お客さまからの入金がない契約に対して案内しています。
-本連絡と前後してお客さまから入金がされている場合はご容赦ください。
+  const message = `契約から一定期間、お客さまへの請求書作成がされていない案件に対して案内しています。
+本連絡と前後して処理されている場合はご容赦ください。
 `;
 
   const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
@@ -31,10 +31,10 @@ export const generateMessage = (reminderJson: InvoiceReminder) => {
 担当者  : ${agentNames}
 夢てつAG: ${yumeAG}`;
 
-  const link = `[info][title]ANDPAD入金ページ[/title]
+  const link = `[info][title]ANDPAD引合粗利管理[入金](請求書作成ページ)[/title]
 ${andpadInvoiceUrl === '' ? '取得に失敗しました' : andpadInvoiceUrl}[/info]`;
 
-  const reminder = `[info][title]下記リンク先より、再通知日${expectedCreateInvoiceDate ? '' : 'と入金予定日'}を設定してください[/title]
+  const reminder = `[info][title]下記リンク先より、再通知日${expectedCreateInvoiceDate ? '' : 'と請求書発行予定日'}を設定してください[/title]
 ${reminderUrl === '' ? '取得に失敗しました' : reminderUrl}[/info]`;
 
 

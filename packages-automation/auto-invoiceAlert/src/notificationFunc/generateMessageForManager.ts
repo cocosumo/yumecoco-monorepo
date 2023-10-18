@@ -9,10 +9,16 @@ export const generateMessageForManager = (invoiceReminder: InvoiceReminder[]) =>
   const contractSummary = invoiceReminder.map(({
     projName,
     cwRoomIds,
+    storeName,
+    contractDate,
+    totalContractAmount,
   }, idx) => {
     const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 
-    return `${idx + 1}件目: 工事名 = ${projName},  担当者 = ${agentNames}`;
+    return `${idx + 1}件目
+${storeName}　${projName}
+契約日:${contractDate}　契約金額 ￥${(+totalContractAmount).toLocaleString()}　担当者:${agentNames}
+[hr]`;
   });
 
 

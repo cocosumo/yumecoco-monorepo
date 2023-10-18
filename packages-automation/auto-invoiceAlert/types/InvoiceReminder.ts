@@ -14,6 +14,7 @@ export interface InvoiceReminder {
   projId: string
   projName: string
   projType: string
+  storeName: string
   contractDate: string
   territory: Territory
   expectedCreateInvoiceDate: string | null

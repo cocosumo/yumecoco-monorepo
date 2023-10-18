@@ -28,6 +28,7 @@ export const convertReminderToKintone = ({
     territory,
     totalContractAmount,
     yumeAG,
+    storeName,
   }) => {
 
     const cwRoomIdsKintone = cwRoomIds.map(({ agentName, agentId, cwRoomId }) => {
@@ -54,6 +55,7 @@ export const convertReminderToKintone = ({
       andpadDepositAmount: { value: '0' }, //TODO string ->numberに合わせて、要処理修正
       area: { value: territory },
       projName: { value: projName },
+      store: { value: storeName },
       //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
       andpadUrl: { value: andpadInvoiceUrl },
       contractId: { value: contractId },

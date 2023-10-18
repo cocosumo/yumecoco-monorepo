@@ -35,6 +35,7 @@ export const convertContractsToJson = ({
     projName,
     totalContractAmt,
     contractDate,
+    storeName,
     //contractAmtDate,
     //contractAmt,
     //initialAmtDate,
@@ -106,6 +107,7 @@ export const convertContractsToJson = ({
       cwRoomIds: chatworkRoomIds,
       andpadInvoiceUrl: andpadInvoiceUrl,
       expectedCreateInvoiceDate: '',
+      storeName: storeName.value,
     });
   });
 

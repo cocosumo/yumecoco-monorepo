@@ -10,7 +10,7 @@ export const PreviewMessage = ({
   if (!previewDate) {
     return (
       <Typography variant='body1'>
-        入金予定日を設定してください
+        請求書の作成予定日を設定してください
       </Typography>
     );
   } else if (previewDate === 'default') {

@@ -7,7 +7,7 @@ import { onEditOrCreateHandler } from './eventHandlers/onEditOrCreateHandler';
 
 const watchFieldKeys: Array<KeyOfDB> = [
   'reminderDate',
-  'expectedPaymentDate',
+  'expectedCreateInvoiceDate',
 ];
 
 (() => {

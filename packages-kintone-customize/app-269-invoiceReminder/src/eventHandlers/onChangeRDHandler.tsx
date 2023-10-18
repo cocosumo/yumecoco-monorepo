@@ -2,10 +2,10 @@ import { getSpaceElement } from 'api-kintone';
 import { Root, createRoot } from 'react-dom/client';
 import { KintoneEvent } from '../types/types';
 import { ReminderDateAnnouce } from '../components/ReminderDateAnnouce';
-import { calcReminderDate } from '../helpers/calcReminderDate';
-import { KReminderList } from '../config';
 import format from 'date-fns/format';
 import addDays from 'date-fns/addDays';
+import { calcInvoiceReminderDate } from '../helpers/calcInvoiceReminderDate';
+import { KInvoiceReminderList } from '../config';
 
 
 let root: Root | undefined = undefined;
@@ -19,14 +19,14 @@ export const onChangeRDHandler = (event: KintoneEvent) => {
   const { record: {
     reminderDate,
     scheduledAlertDate,
-    expectedPaymentDate,
+    expectedCreateInvoiceDate,
   } } = event;
 
   // 再通知日を表示する
   const spaceElement = getSpaceElement('reminderDateAnnounce');
-  const newDate = calcReminderDate({
-    reminderDate: reminderDate.value as KReminderList,
-    depositDate: expectedPaymentDate.value,
+  const newDate = calcInvoiceReminderDate({
+    reminderDate: reminderDate.value as KInvoiceReminderList,
+    expectedCreateInvoiceDate: expectedCreateInvoiceDate.value,
   });
 
   if (!spaceElement) return;

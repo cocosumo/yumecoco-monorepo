@@ -1,9 +1,10 @@
 import { TableBody } from '@mui/material';
 
-import { MonthRow } from './MonthRow';
+import { MonthRow } from './monthRow/MonthRow';
 import { useTargetData } from '../../../hooks/useTargetData';
 import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { TForm } from '../../../schema';
+import { YearlySummary } from './yearlySummary/YearlySummary';
 
 
 const fiscalMonths = Array.from({ length: 12 }, (_, index) => (index + 11) % 12 + 1);
@@ -29,7 +30,11 @@ export const TBody = () => {
             />
           );
         })}
-     
 
+      <YearlySummary
+        data={data}
+        fiscalYear={fiscalYear}
+      />
+      
     </TableBody>);
 };

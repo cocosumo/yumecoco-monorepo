@@ -1,5 +1,5 @@
 import { TableCell, TableHead, TableRow } from '@mui/material';
-import { ColHeaderProjTypes } from './ColHeadersProjTypes';
+import { ColHeaderProjTypes } from './monthRow/ColHeadersProjTypes';
 
 export const ColHeaders = () => {
   return (

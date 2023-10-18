@@ -1,12 +1,13 @@
 import { TableCell, TableRow } from '@mui/material';
 import { Fragment } from 'react';
-import { MonthHeader } from './MonthHeader';
+import { MonthHeader } from '../MonthHeader';
 
-import { UseTargetDataReturn } from '../../../hooks/useTargetData';
+import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
 import { MonthRowActual } from './MonthRowActual';
 import { MonthRowTarget } from './MonthRowTarget';
 import { MonthRowEvents } from './MonthlyEvents';
 import { MonthRowActualLastYear } from './MonthRowActualLastYear';
+import { grey } from '@mui/material/colors';
 
 export const MonthRow = ({
   month,
@@ -41,10 +42,12 @@ export const MonthRow = ({
         <TableCell rowSpan={3} />
         <TableCell rowSpan={3} />
 
-        <TableCell>
-          -
-        </TableCell>
- 
+        <TableCell 
+          sx={{
+            bgcolor: grey[200],
+          }} 
+        />
+
         <TableCell rowSpan={3} />
 
 

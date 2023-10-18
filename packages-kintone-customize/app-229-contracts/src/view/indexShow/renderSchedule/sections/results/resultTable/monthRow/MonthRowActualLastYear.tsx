@@ -1,12 +1,9 @@
 import { TableCell, TableRow } from '@mui/material';
-import { GroupedContracts } from '../../../hooks/groupContracts';
-import { projTypesToShow } from '../../../config';
-import { ContractsCell } from './tableComponents/ContractsCell';
+import { projTypesToShow } from '../../../../config';
+import { GroupedContracts } from '../../../../hooks/groupContracts';
+import { ContractsCell } from '../tableComponents/ContractsCell';
 
-
-
-
-export const MonthRowActual = ({
+export const MonthRowActualLastYear = ({
   contractsData,
 }:{
   contractsData?: GroupedContracts[string]['monthlyData'][number]
@@ -24,14 +21,13 @@ export const MonthRowActual = ({
 
         '& .MuiTableCell-root:not(:first-of-type)': {
           fontWeight: 'bold',
-          fontSize: 24,
-          color: 'red',
+          fontSize: 20,
           textAlign: 'right',
         },
       }}
     >
       <TableCell>
-        実績値
+        昨年実績値
       </TableCell>
       {projTypesToShow.map(({
         id,
@@ -44,7 +40,7 @@ export const MonthRowActual = ({
 
       {/* その他 */}
       <ContractsCell values={contractsByType?.['その他']} />
- 
+
       {/* 合計 */}
       <ContractsCell values={{
         data: contracts,
@@ -58,7 +54,5 @@ export const MonthRowActual = ({
 
 
     </TableRow>
-
   );
-  
 };

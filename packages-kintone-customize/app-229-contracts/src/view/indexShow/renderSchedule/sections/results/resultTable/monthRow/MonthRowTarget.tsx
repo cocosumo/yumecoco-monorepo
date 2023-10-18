@@ -1,8 +1,8 @@
 import { TableCell } from '@mui/material';
 import { Fragment } from 'react';
-import { projTypesToShow } from '../../../config';
+import { projTypesToShow } from '../../../../config';
 import { roundTo } from 'libs';
-import { UseTargetDataReturn } from '../../../hooks/useTargetData';
+import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
 
 export const MonthRowTarget = ({
   data,

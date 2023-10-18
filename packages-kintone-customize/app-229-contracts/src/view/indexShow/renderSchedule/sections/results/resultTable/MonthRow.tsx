@@ -1,12 +1,12 @@
 import { TableCell, TableRow } from '@mui/material';
 import { Fragment } from 'react';
 import { MonthHeader } from './MonthHeader';
-import { projTypesToShow } from '../../../config';
 
 import { UseTargetDataReturn } from '../../../hooks/useTargetData';
 import { MonthRowActual } from './MonthRowActual';
 import { MonthRowTarget } from './MonthRowTarget';
 import { MonthRowEvents } from './MonthlyEvents';
+import { MonthRowActualLastYear } from './MonthRowActualLastYear';
 
 export const MonthRow = ({
   month,
@@ -44,43 +44,13 @@ export const MonthRow = ({
 
       </TableRow>
 
-      <TableRow >
-        <TableCell>
-          昨年実績値
-        </TableCell>
-        {projTypesToShow.map(({
-          id,
-        }) => {
-          return (
-            <TableCell 
-              sx={{
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}
-              key={id} align='right'
-            >
-              0
-            </TableCell>
-          );
-        })}
+      <MonthRowActualLastYear 
+        groupedContractsByProjId={groupedContracts?.[fiscalYear - 1]?.monthlyData[month]}
+      />
 
-        <TableCell 
-          align='right'
-          sx={{
-            fontSize: 18,
-            fontWeight: 'bold',
-          }}
-        >
-          0
-        </TableCell>
-
-        <TableCell>
-          -
-        </TableCell>
- 
-      </TableRow>
-
-      <MonthRowActual groupedContractsByProjId={groupedContracts?.[fiscalYear]?.monthlyData[month]} />
+      <MonthRowActual 
+        groupedContractsByProjId={groupedContracts?.[fiscalYear]?.monthlyData[month]}
+      />
 
     </Fragment>
   );

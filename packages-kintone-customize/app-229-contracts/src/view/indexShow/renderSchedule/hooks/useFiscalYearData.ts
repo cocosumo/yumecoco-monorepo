@@ -21,11 +21,11 @@ export const useFiscalYearData = () => {
 
   const { data, ...others } = useQuery(
     ['fiscalYearData', fisyearYear],
-    () => getRecords<DBFYData.SavedRecord>({
+    () => getRecords<DBFYData.SavedRecord | null>({
       app: 270,
       query: `fiscalYear = "${fisyearYear}"`,
     })
-      .then((res) => res.records?.[0]),
+      .then((res) => res.records?.[0] ?? null),
     {
       enabled: !!fisyearYear,
     },

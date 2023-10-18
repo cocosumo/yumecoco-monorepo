@@ -1,18 +1,13 @@
 import { TableCell, TableRow } from '@mui/material';
-import { GroupedContracts } from '../../../hooks/groupContracts';
 import { projTypesToShow } from '../../../config';
+import { GroupedContracts } from '../../../hooks/groupContracts';
 import { roundTo } from 'libs';
 
-
-
-
-export const MonthRowActual = ({
+export const MonthRowActualLastYear = ({
   groupedContractsByProjId,
 }:{
   groupedContractsByProjId?: GroupedContracts[string]['monthlyData'][number]
 }) => {
-
-
 
   return (
     <TableRow 
@@ -20,8 +15,7 @@ export const MonthRowActual = ({
 
         '& .MuiTableCell-root:not(:first-of-type)': {
           fontWeight: 'bold',
-          fontSize: 24,
-          color: 'red',
+          fontSize: 20,
           textAlign: 'right',
         },
       }}
@@ -59,7 +53,5 @@ export const MonthRowActual = ({
 
 
     </TableRow>
-
   );
-  
 };

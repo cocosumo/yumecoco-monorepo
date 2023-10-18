@@ -26,7 +26,6 @@ export const useTargetData = () => {
 
 
   const newData = useMemo(() => {
-    if (!data || !contracts) return null;
 
     const {
       meetingEventTable,
@@ -37,7 +36,7 @@ export const useTargetData = () => {
       westConstractTargetTable,
       westAnother,
       westMonthlyAnother,
-    } = data;
+    } = data || {};
 
     const groupedContracts = groupContracts({
       contractRecs: contracts,
@@ -45,7 +44,7 @@ export const useTargetData = () => {
     });
 
     /** 月でグループしたイベント */
-    const events = meetingEventTable.value.reduce((acc, cur) => {
+    const events = meetingEventTable?.value.reduce((acc, cur) => {
       const month = parseInt(cur.value.eventMonth.value);
       if (acc[month]) {
         acc[month].push(cur.value.eventDetails.value);
@@ -59,7 +58,7 @@ export const useTargetData = () => {
     /***********
      * 東 エリア
      **********/
-    const eastTargets = eastConstractTargetTable.value
+    const eastTargets = eastConstractTargetTable?.value
       .reduce((acc, cur) => {
         const projTypeId = cur.value.eastProjUuid.value;
         const yearTarget = +cur.value.eastAnnualGoal.value;
@@ -79,13 +78,13 @@ export const useTargetData = () => {
         return acc;
       }, {} as Targets);
 
-    const eastOthersYearlyTarget = +eastAnother.value; 
-    const eastOthersMonthlyTarget = +eastMonthlyAnother.value;
+    const eastOthersYearlyTarget = +(eastAnother?.value ?? 0); 
+    const eastOthersMonthlyTarget = +(eastMonthlyAnother?.value ?? 0);
 
     /***********
      * 西 エリア
      **********/
-    const westTargets = westConstractTargetTable.value
+    const westTargets = westConstractTargetTable?.value
       .reduce((acc, cur) => {
         const projTypeId = cur.value.westProjUuid.value;
         const yearTarget = +cur.value.westAnnualGoal.value;
@@ -105,12 +104,12 @@ export const useTargetData = () => {
         return acc;
       }, {} as Targets);
 
-    const westOthersYearlyTarget = +westAnother.value;
-    const westOthersMonthlyTarget = +westMonthlyAnother.value;
+    const westOthersYearlyTarget = +(westAnother?.value ?? 0);
+    const westOthersMonthlyTarget = +(westMonthlyAnother?.value ?? 0);
 
     // 合計
 
-    let targets: Targets = {};
+    let targets: Targets | undefined = {};
     let othersMonthlyTarget = 0;
     let othersYearlyTarget = 0;
 
@@ -144,6 +143,7 @@ export const useTargetData = () => {
         othersMonthlyTarget = eastOthersMonthlyTarget + westOthersMonthlyTarget;
         othersYearlyTarget = eastOthersYearlyTarget + westOthersYearlyTarget;
         break;
+      
     }
 
     const totalMonthlyTarget = Object.values({ ...targets })

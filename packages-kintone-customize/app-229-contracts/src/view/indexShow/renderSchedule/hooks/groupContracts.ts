@@ -27,9 +27,11 @@ export const groupContracts = ({
   contractRecs,
   territory,
 }:{
-  contractRecs: DB.SavedRecord[], 
+  contractRecs: DB.SavedRecord[] | undefined, 
   territory: TForm['territory'],
 }) => {
+
+  if (!contractRecs) return null;
 
   return contractRecs.reduce((acc, cur) => {
     const fiscalYear = parseInt(cur.年度.value); 
@@ -88,7 +90,7 @@ export const groupContracts = ({
     acc[fiscalYear].totalsByProjType.data.push(cur);
     acc[fiscalYear].totalsByProjType.totalContractAmtExclTax += parsedContractAmtExclTax;
     acc[fiscalYear].totalAmtExclTax += parsedContractAmtExclTax;
-    
+
     
 
     return acc;

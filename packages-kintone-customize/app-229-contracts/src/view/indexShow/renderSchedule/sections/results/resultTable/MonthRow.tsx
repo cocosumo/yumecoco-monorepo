@@ -9,10 +9,12 @@ import { MonthRowActual } from './MonthRowActual';
 
 export const MonthRow = ({
   month,
+  fiscalYear,
   data,
 }:{
-  month: number;
-  data: UseTargetDataReturn['data']
+  month: number,
+  fiscalYear: number,
+  data: UseTargetDataReturn['data'],
 }) => {
 
   const {
@@ -137,9 +139,7 @@ export const MonthRow = ({
               
       </TableRow>
 
-      <MonthRowActual groupedContractsByProjId={groupedContracts?.[month]} />
-
-
+      <MonthRowActual groupedContractsByProjId={groupedContracts?.[fiscalYear]?.monthlyData[month]} />
 
     </Fragment>
   );

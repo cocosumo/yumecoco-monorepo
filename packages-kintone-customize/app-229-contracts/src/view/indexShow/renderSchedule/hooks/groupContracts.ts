@@ -1,53 +1,97 @@
 import { projTypeIds } from '../config';
 import { TForm } from '../schema';
 
-export interface GroupedContracts {
+export interface DataByProjType {
+  data: DB.SavedRecord[],
+  totalContractAmtExclTax: number,
+}
+export interface MonthlyData {
   [month: string]: {
     totalAmtExclTax: number,
     data: {
-      [projTypeId: string]: {
-        data: DB.SavedRecord[],
-        totalContractAmtExclTax: number,
-      },
+      [projTypeId: string]: DataByProjType,
     }
+  }
+}
 
+export interface GroupedContracts {
+  [fiscalYear : string]: {
+    monthlyData: MonthlyData,
+    totalsByProjType: DataByProjType,
+    totalAmtExclTax: number,
   }
 }
 
 
-export const groupContracts = (contractRecs: DB.SavedRecord[], territory: TForm['territory']) => {
+export const groupContracts = ({
+  contractRecs,
+  territory,
+}:{
+  contractRecs: DB.SavedRecord[], 
+  territory: TForm['territory'],
+}) => {
 
   return contractRecs.reduce((acc, cur) => {
-   
+    const fiscalYear = parseInt(cur.年度.value); 
     const month = cur.contractMonth.value;
     const projTypeId = cur.projTypeId.value;
 
     if (territory !== '全店舗' && territory !== cur.territory.value) return acc;
 
     const isIncluded = projTypeIds.includes(projTypeId);
-
+    const parsedContractAmtExclTax = parseInt(cur.contractAmountNotax.value);
     const resolvedProjTypeIdKey = isIncluded ? projTypeId : 'その他';
 
-    if (!acc[month]) {
-      acc[month] = {
-        totalAmtExclTax: 0,
-        data: {},
+    if (!acc[fiscalYear]) {
+      acc[fiscalYear] = {
+        monthlyData: {
+          [month]: {
+            totalAmtExclTax: parsedContractAmtExclTax,
+            data: {
+              [resolvedProjTypeIdKey]: {
+                data: [cur],
+                totalContractAmtExclTax: parsedContractAmtExclTax,
+              },
+            },
+          },
+        },
+        totalsByProjType: {
+          data: [cur],
+          totalContractAmtExclTax: parsedContractAmtExclTax,
+        },
+        totalAmtExclTax: parsedContractAmtExclTax,
       };
     }
 
-    if (!acc[month].data[resolvedProjTypeIdKey]) {
-      acc[month].data[resolvedProjTypeIdKey] = {
-        data: [],
-        totalContractAmtExclTax: 0,
+    if (!acc[fiscalYear].monthlyData[month]) {
+      acc[fiscalYear].monthlyData[month] = {
+        totalAmtExclTax: parsedContractAmtExclTax,
+        data: {
+          [resolvedProjTypeIdKey]: {
+            data: [cur],
+            totalContractAmtExclTax: parsedContractAmtExclTax,
+          },
+        },
       };
     }
 
-    acc[month].data[resolvedProjTypeIdKey].data.push(cur);
-    acc[month].data[resolvedProjTypeIdKey].totalContractAmtExclTax += +cur.contractAmountNotax.value;
-    acc[month].totalAmtExclTax += +cur.contractAmountNotax.value;
+    if (!acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey]) {
+      acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey] = {
+        data: [cur],
+        totalContractAmtExclTax: parsedContractAmtExclTax,
+      };
+    }
+
+    acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey].data.push(cur);
+    acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey].totalContractAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].monthlyData[month].totalAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].totalsByProjType.data.push(cur);
+    acc[fiscalYear].totalsByProjType.totalContractAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].totalAmtExclTax += parsedContractAmtExclTax;
+    
+    
 
     return acc;
-
 
   }, {} as GroupedContracts);
   

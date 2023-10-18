@@ -9,7 +9,7 @@ import { roundTo } from 'libs';
 export const MonthRowActual = ({
   groupedContractsByProjId,
 }:{
-  groupedContractsByProjId?: GroupedContracts[string]
+  groupedContractsByProjId?: GroupedContracts[string]['monthlyData'][number]
 }) => {
 
 

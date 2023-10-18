@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Targets, useFiscalYearData } from './useFiscalYearData';
 import { useTypedWatch } from './useTypedRHF';
 import { TForm } from '../schema';
-import { useContractsByFiscalYear } from '../../../../hooks/useContractsByFiscalYear';
+import { useContractsByFiscalYear } from './useContractsByFiscalYear';
 import { groupContracts } from './groupContracts';
 
 
@@ -39,9 +39,10 @@ export const useTargetData = () => {
       westMonthlyAnother,
     } = data;
 
-    const groupedContracts = groupContracts(contracts || [], territory);
-
-    console.log('groupedContracts', groupedContracts);
+    const groupedContracts = groupContracts({
+      contractRecs: contracts,
+      territory,
+    });
 
     /** 月でグループしたイベント */
     const events = meetingEventTable.value.reduce((acc, cur) => {

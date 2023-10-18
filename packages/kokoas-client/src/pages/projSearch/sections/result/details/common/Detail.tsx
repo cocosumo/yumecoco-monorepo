@@ -7,31 +7,33 @@ export const Detail = ({
   value,
   fonstSize,
   isSubtle,
-}: IDetail) => (        
-  <Stack 
-    direction={'row'}
-    sx={{
-      ':hover': {
-        backgroundColor: grey[100],
-      },
-    }}
-  >
-    <Typography 
-      color={grey[600]} 
-      width={'15%'} 
-      component={'div'}
-      px={2}
-      fontSize={isSubtle ? 8 : 14}
+}: IDetail) => {
+  return (
+    <Stack
+      direction={'row'}
+      sx={{
+        ':hover': {
+          backgroundColor: grey[100],
+        },
+      }}
     >
-      {label}
-    </Typography>
-    <Typography 
-      width={'75%'}
-      color={isSubtle ? grey[600] : undefined}
-      fontSize={isSubtle ? 8 : fonstSize}
-      component={'div'}
-    >
-      {value}
-    </Typography>
-  </Stack>
-);
+      <Typography
+        color={grey[600]}
+        width={'15%'}
+        component={'div'}
+        px={2}
+        fontSize={isSubtle ? 8 : 14}
+      >
+        {label}
+      </Typography>
+      <Typography
+        width={'75%'}
+        color={isSubtle ? grey[600] : undefined}
+        fontSize={isSubtle ? 8 : fonstSize}
+        component={'div'}
+      >
+        {value}
+      </Typography>
+    </Stack>
+  );
+};

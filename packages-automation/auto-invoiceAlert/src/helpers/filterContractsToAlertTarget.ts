@@ -1,7 +1,6 @@
 import { IAndpadpayments } from 'types';
 import { ContractRecordType, IInvoiceReminder, TgtProjType } from '../../config';
 import { calcAlertDate } from './calcAlertDate';
-import format from 'date-fns/format';
 import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 
 
@@ -37,11 +36,13 @@ export const filterContractsToAlertTarget = ({
       othersAmtDate,
     } = contract;
 
-    // 既に同工事のリマインダーが存在する場合は処理行わない
-    if (reminders.some(({ projId }) => projId.value === contractProjId.value)) {
-      console.log('工事番号の重複を確認しました:', contractProjId);
-      return acc;
-    }
+
+    const hasInvoice = andpadPayments.some(({ projId }) => (projId.value === contractProjId.value));
+    const hasReminder = reminders.some(({ projId }) => projId.value === contractProjId.value);
+
+    // 既に請求書もしくは、同工事のリマインダーが存在する場合は処理行わない
+    if (hasInvoice || hasReminder) return acc;
+
 
     // 契約書から一番過去の支払日を取得する
     const contractAmtPaymentDate = getEarliestDateOfContract({
@@ -69,13 +70,9 @@ export const filterContractsToAlertTarget = ({
       contractAmtPaymentDateStr: contractAmtPaymentDate,
     });
 
-    // 既に支払い履歴が存在するかを確認する(支払情報があれば通知不要)
-    const hasInvoice = andpadPayments.some(({
-      projId,
-    }) => (projId.value === contractProjId.value));
 
-    // 支払情報が存在しないかつ、今日が通知日の場合
-    if (!hasInvoice && (alertDate === format(new Date(), 'yyyy-MM-dd'))) {
+    // 通知対象日を過ぎている場合
+    if ((alertDate.getTime() <= new Date().getTime())) {
       acc?.push(contract);
     }
 

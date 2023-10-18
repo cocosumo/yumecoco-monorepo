@@ -5,6 +5,12 @@ import { IAndpadpayments, Territory } from 'types';
 
 
 
+/**
+ * リマインダーアプリのレコードを通知用のJSON型へ変換する
+ * @param param0 reminder: 請求リマインダーアプリのレコード配列
+ *               andpadPayments: andpad入金情報アプリのレコード配列
+ * @returns InvoiceReminder[]
+ */
 export const convertReminderToJson = ({
   reminder,
   andpadPayments,

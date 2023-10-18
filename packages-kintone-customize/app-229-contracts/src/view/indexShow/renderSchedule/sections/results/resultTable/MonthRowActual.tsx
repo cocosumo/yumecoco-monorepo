@@ -1,18 +1,22 @@
 import { TableCell, TableRow } from '@mui/material';
 import { GroupedContracts } from '../../../hooks/groupContracts';
 import { projTypesToShow } from '../../../config';
-import { roundTo } from 'libs';
+import { ContractsCell } from './tableComponents/ContractsCell';
 
 
 
 
 export const MonthRowActual = ({
-  groupedContractsByProjId,
+  contractsData,
 }:{
-  groupedContractsByProjId?: GroupedContracts[string]['monthlyData'][number]
+  contractsData?: GroupedContracts[string]['monthlyData'][number]
 }) => {
 
-
+  const {
+    contractsByType,
+    totalAmtExclTax = 0,
+    contracts = [],
+  } = contractsData ?? {};
 
   return (
     <TableRow 
@@ -32,26 +36,21 @@ export const MonthRowActual = ({
       {projTypesToShow.map(({
         id,
       }) => {
-        const {
-          totalContractAmtExclTax = 0,
-        } = groupedContractsByProjId?.data?.[id] ?? {};
         return (
-          <TableCell key={id}>
-            {roundTo(totalContractAmtExclTax / 10000).toLocaleString()}
-          </TableCell>
+          <ContractsCell key={id} values={contractsByType?.[id]} />
         );
       })}
 
 
       {/* その他 */}
-      <TableCell>
-        {roundTo((groupedContractsByProjId?.data['その他'].totalContractAmtExclTax ?? 0) / 10000).toLocaleString()}
-      </TableCell>
-
-
-      <TableCell>
-        {roundTo((groupedContractsByProjId?.totalAmtExclTax ?? 0) / 10000 ).toLocaleString()}
-      </TableCell>
+      <ContractsCell values={contractsByType?.['その他']} />
+ 
+      {/* 合計 */}
+      <ContractsCell values={{
+        data: contracts,
+        totalAmtExclTax,
+      }}
+      />
 
       <TableCell>
         -

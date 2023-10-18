@@ -3,23 +3,27 @@ import { TForm } from '../schema';
 
 export interface DataByProjType {
   data: DB.SavedRecord[],
-  totalContractAmtExclTax: number,
+  totalAmtExclTax: number,
 }
+
+
 export interface MonthlyData {
   [month: string]: {
     totalAmtExclTax: number,
-    data: {
-      [projTypeId: string]: DataByProjType,
-    }
+    contractsByType: Record<string, DataByProjType>
+    contracts: DB.SavedRecord[],
   }
 }
 
+export interface YearlyData {
+  monthlyData: MonthlyData,
+  contractsByType: Record<string, DataByProjType>
+  contracts: DB.SavedRecord[],
+  totalAmtExclTax: number,
+}
+
 export interface GroupedContracts {
-  [fiscalYear : string]: {
-    monthlyData: MonthlyData,
-    totalsByProjType: DataByProjType,
-    totalAmtExclTax: number,
-  }
+  [fiscalYear : string]: YearlyData
 }
 
 
@@ -40,60 +44,56 @@ export const groupContracts = ({
 
     if (territory !== '全店舗' && territory !== cur.territory.value) return acc;
 
-    const isIncluded = projTypeIds.includes(projTypeId);
-    const parsedContractAmtExclTax = parseInt(cur.contractAmountNotax.value);
-    const resolvedProjTypeIdKey = isIncluded ? projTypeId : 'その他';
+    const isOthers = !projTypeIds.includes(projTypeId);
+    const parsedContractAmtExclTax = parseInt(cur.contractAmountNotax.value ?? '0');
+    const resolvedProjTypeIdKey = isOthers ? 'その他' : projTypeId ;
 
-    if (!acc[fiscalYear]) {
-      acc[fiscalYear] = {
-        monthlyData: {
-          [month]: {
-            totalAmtExclTax: parsedContractAmtExclTax,
-            data: {
-              [resolvedProjTypeIdKey]: {
-                data: [cur],
-                totalContractAmtExclTax: parsedContractAmtExclTax,
-              },
-            },
-          },
-        },
-        totalsByProjType: {
-          data: [cur],
-          totalContractAmtExclTax: parsedContractAmtExclTax,
-        },
-        totalAmtExclTax: parsedContractAmtExclTax,
-      };
-    }
+    const yearlyData = acc[fiscalYear] ?? {
+      monthlyData: {},
+      contractsByType: {},
+      contracts: [],
+      totalAmtExclTax: 0,
+    };
 
-    if (!acc[fiscalYear].monthlyData[month]) {
-      acc[fiscalYear].monthlyData[month] = {
-        totalAmtExclTax: parsedContractAmtExclTax,
-        data: {
-          [resolvedProjTypeIdKey]: {
-            data: [cur],
-            totalContractAmtExclTax: parsedContractAmtExclTax,
-          },
-        },
-      };
-    }
+    const monthlyData = yearlyData.monthlyData[month] ?? {
+      totalAmtExclTax: 0,
+      contractsByType: {},
+      contracts: [],
+    };
 
-    if (!acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey]) {
-      acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey] = {
-        data: [cur],
-        totalContractAmtExclTax: parsedContractAmtExclTax,
-      };
-    }
+    const contractsByType = monthlyData.contractsByType[resolvedProjTypeIdKey] ?? {
+      data: [],
+      totalAmtExclTax: 0,
+    };
 
-    acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey].data.push(cur);
-    acc[fiscalYear].monthlyData[month].data[resolvedProjTypeIdKey].totalContractAmtExclTax += parsedContractAmtExclTax;
-    acc[fiscalYear].monthlyData[month].totalAmtExclTax += parsedContractAmtExclTax;
-    acc[fiscalYear].totalsByProjType.data.push(cur);
-    acc[fiscalYear].totalsByProjType.totalContractAmtExclTax += parsedContractAmtExclTax;
-    acc[fiscalYear].totalAmtExclTax += parsedContractAmtExclTax;
+    const contracts = monthlyData.contracts;
 
-    
+    contracts.push(cur);
+
+    contractsByType.data.push(cur);
+
+    contractsByType.totalAmtExclTax += parsedContractAmtExclTax;
+
+    monthlyData.totalAmtExclTax += parsedContractAmtExclTax;
+
+    monthlyData.contractsByType[resolvedProjTypeIdKey] = contractsByType;
+
+    monthlyData.contracts = contracts;
+
+    yearlyData.monthlyData[month] = monthlyData;
+
+    yearlyData.contracts.push(cur);
+
+    yearlyData.contractsByType[resolvedProjTypeIdKey] = contractsByType;
+
+    yearlyData.totalAmtExclTax += parsedContractAmtExclTax;
+
+    acc[fiscalYear] = yearlyData;
+
 
     return acc;
+   
+
 
   }, {} as GroupedContracts);
   

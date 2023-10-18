@@ -19,9 +19,15 @@ export const MonthRow = ({
 }) => {
 
   const {
-    events,
-    groupedContracts,
+    fiscalYearData,
+    contractsData,
   } = data || {};
+
+  console.log('contractsData', contractsData);
+
+  const {
+    events,
+  } = fiscalYearData || {};
 
   return (
     <Fragment key={month}>
@@ -45,11 +51,11 @@ export const MonthRow = ({
       </TableRow>
 
       <MonthRowActualLastYear 
-        groupedContractsByProjId={groupedContracts?.[fiscalYear - 1]?.monthlyData[month]}
+        contractsData={contractsData?.[fiscalYear - 1]?.monthlyData[month]}
       />
 
       <MonthRowActual 
-        groupedContractsByProjId={groupedContracts?.[fiscalYear]?.monthlyData[month]}
+        contractsData={contractsData?.[fiscalYear]?.monthlyData[month]}
       />
 
     </Fragment>

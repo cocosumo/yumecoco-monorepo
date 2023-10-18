@@ -11,10 +11,14 @@ export const MonthRowTarget = ({
 }) => {
 
   const {
+    fiscalYearData,
+  } = data || {};
+
+  const {
     targets,
     othersMonthlyTarget,
     totalMonthlyTarget,
-  } = data || {};
+  } = fiscalYearData || {};
 
   return (
     <Fragment>

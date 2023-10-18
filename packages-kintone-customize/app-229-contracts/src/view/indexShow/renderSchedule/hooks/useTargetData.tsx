@@ -25,7 +25,7 @@ export const useTargetData = () => {
   const { data: contracts } = useContractsByFiscalYear(fiscalYear);
 
 
-  const newData = useMemo(() => {
+  const fiscalYearData = useMemo(() => {
 
     const {
       meetingEventTable,
@@ -38,10 +38,7 @@ export const useTargetData = () => {
       westMonthlyAnother,
     } = data || {};
 
-    const groupedContracts = groupContracts({
-      contractRecs: contracts,
-      territory,
-    });
+
 
     /** 月でグループしたイベント */
     const events = meetingEventTable?.value.reduce((acc, cur) => {
@@ -178,17 +175,27 @@ export const useTargetData = () => {
       totalMonthlyTarget,
 
       /* 形成された契約データ */
-      groupedContracts,
     };
 
   }, [
     data, 
     territory, 
-    contracts,
   ]);
 
+  const contractsData = useMemo(() => {
+    if (!contracts) return undefined;
+    return groupContracts({
+      contractRecs: contracts,
+      territory,
+    });
+  }
+  , [contracts, territory]);
+
   return {
-    data: newData,
+    data: {
+      fiscalYearData,
+      contractsData,
+    },
     ...others,
   };
   

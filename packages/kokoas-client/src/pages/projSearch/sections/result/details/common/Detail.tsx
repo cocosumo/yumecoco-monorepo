@@ -9,8 +9,6 @@ export const Detail = ({
   isSubtle,
 }: IDetail) => {
 
-  console.log(label, '::value', value);
-
   let newVal = value;
   if (label === '備考' && typeof value === 'string') {
     // value内の改行文字を<br>要素に変換

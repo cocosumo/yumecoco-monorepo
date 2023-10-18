@@ -24,8 +24,6 @@ export const MonthRow = ({
     contractsData,
   } = data || {};
 
-  console.log('contractsData', contractsData);
-
   const {
     events,
   } = fiscalYearData || {};

@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
-import { projTypesToShow } from '../../../../config';
+import { projTypeIds } from '../../../../config';
 import { YearlyRowHeader } from './YearlyRowHeader';
 import { YearlyCell } from './YearlyCell';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
-import { roundTo } from 'libs';
+import { StyledSummaryCell } from './StyledSummaryCell';
 
 export const YearlyTarget = ({
   data,
@@ -20,25 +20,29 @@ export const YearlyTarget = ({
     targets,
   } = fiscalYearData || {};
 
-  console.log('targets', targets);
 
   return (
     <Fragment>
       <YearlyRowHeader label={'目標売上額'} />
 
-      {projTypesToShow.map(({ id }) => {
+      {projTypeIds.map((id) => {
         return (
-          <YearlyCell key={id} >
-            {roundTo(targets?.[id].yearlyTarget || 0).toLocaleString()}
-          </YearlyCell>
+          <StyledSummaryCell
+            key={id}
+          >
+            {targets?.[id].yearlyTarget || 0}
+          </StyledSummaryCell> 
+  
         );
       })}
-      <YearlyCell>
-        {roundTo(othersYearlyTarget).toLocaleString()}
-      </YearlyCell>
-      <YearlyCell>
-        {roundTo(totalTargetAmt).toLocaleString()}
-      </YearlyCell>
+      <StyledSummaryCell>
+        {othersYearlyTarget}
+      </StyledSummaryCell>
+
+      <StyledSummaryCell>
+        {totalTargetAmt}
+      </StyledSummaryCell>
+
     </Fragment>
   );
 };

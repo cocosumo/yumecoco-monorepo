@@ -195,13 +195,16 @@ export const useTargetData = () => {
   ]);
 
   const contractsData = useMemo(() => {
-    if (!contracts) return undefined;
+    if (!contracts) return null;
     return groupContracts({
       contractRecs: contracts,
       territory,
     });
-  }
-  , [contracts, territory]);
+  }, 
+  [
+    contracts, 
+    territory,
+  ]);
 
   return {
     data: {

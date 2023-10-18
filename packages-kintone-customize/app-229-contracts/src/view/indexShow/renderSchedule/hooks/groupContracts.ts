@@ -48,49 +48,49 @@ export const groupContracts = ({
     const parsedContractAmtExclTax = parseInt(cur.contractAmountNotax.value ?? '0');
     const resolvedProjTypeIdKey = isOthers ? 'その他' : projTypeId ;
 
-    const yearlyData = acc[fiscalYear] ?? {
-      monthlyData: {},
-      contractsByType: {},
-      contracts: [],
-      totalAmtExclTax: 0,
-    };
+    
+    if (!acc[fiscalYear]) {
+      acc[fiscalYear] = {
+        monthlyData: {},
+        contractsByType: {},
+        contracts: [],
+        totalAmtExclTax: 0,
+      };
+    }
 
-    const monthlyData = yearlyData.monthlyData[month] ?? {
-      totalAmtExclTax: 0,
-      contractsByType: {},
-      contracts: [],
-    };
+    if (!acc[fiscalYear].monthlyData[month]) {
+      acc[fiscalYear].monthlyData[month] = {
+        totalAmtExclTax: 0,
+        contractsByType: {},
+        contracts: [],
+      };
+    }
 
-    const contractsByType = monthlyData.contractsByType[resolvedProjTypeIdKey] ?? {
-      data: [],
-      totalAmtExclTax: 0,
-    };
+    if (!acc[fiscalYear].contractsByType[resolvedProjTypeIdKey]) {
+      acc[fiscalYear].contractsByType[resolvedProjTypeIdKey] = {
+        data: [],
+        totalAmtExclTax: 0,
+      };
+    }
 
-    const contracts = monthlyData.contracts;
+    if (!acc[fiscalYear].monthlyData[month].contractsByType[resolvedProjTypeIdKey]) {
+      acc[fiscalYear].monthlyData[month].contractsByType[resolvedProjTypeIdKey] = {
+        data: [],
+        totalAmtExclTax: 0,
+      };
+    }
 
-    contracts.push(cur);
+    acc[fiscalYear].contracts.push(cur);
+    acc[fiscalYear].contractsByType[resolvedProjTypeIdKey].data.push(cur);
+    acc[fiscalYear].totalAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].contractsByType[resolvedProjTypeIdKey].totalAmtExclTax += parsedContractAmtExclTax;
 
-    contractsByType.data.push(cur);
+    acc[fiscalYear].monthlyData[month].contracts.push(cur);
+    acc[fiscalYear].monthlyData[month].totalAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].monthlyData[month].contractsByType[resolvedProjTypeIdKey].data.push(cur);
+    acc[fiscalYear].monthlyData[month].contractsByType[resolvedProjTypeIdKey].totalAmtExclTax += parsedContractAmtExclTax;
 
-    contractsByType.totalAmtExclTax += parsedContractAmtExclTax;
-
-    monthlyData.totalAmtExclTax += parsedContractAmtExclTax;
-
-    monthlyData.contractsByType[resolvedProjTypeIdKey] = contractsByType;
-
-    monthlyData.contracts = contracts;
-
-    yearlyData.monthlyData[month] = monthlyData;
-
-    yearlyData.contracts.push(cur);
-
-    yearlyData.contractsByType[resolvedProjTypeIdKey] = contractsByType;
-
-    yearlyData.totalAmtExclTax += parsedContractAmtExclTax;
-
-    acc[fiscalYear] = yearlyData;
-
-
+    
     return acc;
    
 

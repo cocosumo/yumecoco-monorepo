@@ -1,22 +1,40 @@
-import { TableCell } from '@mui/material';
+import { Tooltip } from '@mui/material';
 import { orange } from '@mui/material/colors';
-import { ReactNode } from 'react';
+import { roundTo } from 'libs';
+import { StyledSummaryCell } from './StyledSummaryCell';
 
 export const YearlyCell = ({
-  children,
+  value,
+  color,
+  contracts,
 }:{
-  children?: ReactNode
+  contracts?: DB.SavedRecord[]
+  value: number
+  color?: string
+  tooltip?: string
 }) => {
+
+  const parsedValue = roundTo(value / 10000).toLocaleString();
+
   return (
-    <TableCell 
-      sx={{
-        bgcolor: orange[100],
-        fontSize: 22,
-        fontWeight: 'bold',
-      }}
-      align='right'
+    <Tooltip 
+      title={`${contracts?.length || 0} 件 : ${value.toLocaleString()} 円`}
+      placement="top-end"
+      arrow
     >
-      {children}
-    </TableCell>
+      <StyledSummaryCell 
+        sx={{
+          ':hover': {
+            bgcolor: orange[200],
+            cursor: 'pointer',
+          },
+          color: color || undefined,
+
+        }}
+        align='right'
+      >
+        {parsedValue}
+      </StyledSummaryCell>
+    </Tooltip>
   );
 };

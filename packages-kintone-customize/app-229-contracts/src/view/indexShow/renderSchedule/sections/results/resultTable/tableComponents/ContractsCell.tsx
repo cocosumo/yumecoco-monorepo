@@ -15,7 +15,7 @@ export const ContractsCell = ({
   } = values || {};
 
   return (
-    <Tooltip title={`${data.length}件`}>
+    <Tooltip title={`${data.length} 件 : ${totalAmtExclTax.toLocaleString()} 円`}>
       <TableCell
         sx={{
           ':hover': {

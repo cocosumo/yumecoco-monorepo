@@ -1,0 +1,28 @@
+{
+    "name": "app-269",
+    "version": "1.0.0",
+    "description": "",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node scripts/npm-start.js",
+        "upload": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.prod.json",
+        "upload:local": "kintone-customize-uploader --base-url https://rdmuhwtt6gx7.cybozu.com ./kintone.local.json",
+        "develop": "npm run build -- --watch",
+        "build": "webpack",
+        "build:prod": "webpack --mode production"
+    },
+    "keywords": [
+        "Autoprefixer",
+        "PostCSS",
+        "Webpack",
+        "React",
+        "Babel"
+    ],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+    },
+    "dependencies": {
+        "api-kintone": "*"
+    }
+}

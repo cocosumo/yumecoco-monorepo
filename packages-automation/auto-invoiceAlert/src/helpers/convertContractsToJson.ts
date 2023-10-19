@@ -28,7 +28,7 @@ export const convertContractsToJson = ({
 }) => {
 
 
-  const alertContracts: InvoiceReminder[] = contracts.map(({
+  const alertContracts: InvoiceReminder[] = contracts.reduce((acc, {
     uuid: contractId,
     projId,
     projType,
@@ -36,16 +36,6 @@ export const convertContractsToJson = ({
     totalContractAmt,
     contractDate,
     storeName,
-    //contractAmtDate,
-    //contractAmt,
-    //initialAmtDate,
-    //initialAmt,
-    //interimAmtDate,
-    //interimAmt,
-    //finalAmtDate,
-    //finalAmt,
-    //othersAmtDate,
-    //othersAmt,
   }) => {
 
     // 通知対象者を抽出する
@@ -61,7 +51,9 @@ export const convertContractsToJson = ({
 
     const andpadInvoiceUrl = andpadSystemId ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
-      : '';
+      : undefined;
+
+    if (!andpadInvoiceUrl) return acc; // andpadと接続されていない案件は除外する
 
     const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 
@@ -70,30 +62,12 @@ export const convertContractsToJson = ({
       employees: employees,
     });
 
-    // 契約書から一番過去の支払日を取得する
-    /* const contractAmtPaymentDate = getEarliestDateOfContract({
-      dates: [
-        contractAmtDate.value,
-        initialAmtDate.value,
-        interimAmtDate.value,
-        finalAmtDate.value,
-        othersAmtDate.value,
-      ],
-      contractAmts: [
-        contractAmt.value,
-        initialAmt.value,
-        interimAmt.value,
-        finalAmt.value,
-        othersAmt.value,
-      ],
-    }); */
-
     const yumeAGs = getYumeAgNames({
       agents: agents,
     });
 
 
-    return ({
+    acc?.push({
       alertState: true,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: contractId.value,
@@ -109,7 +83,10 @@ export const convertContractsToJson = ({
       expectedCreateInvoiceDate: '',
       storeName: storeName.value,
     });
-  });
+
+    return acc;
+
+  }, [] as InvoiceReminder[]);
 
   return alertContracts;
 

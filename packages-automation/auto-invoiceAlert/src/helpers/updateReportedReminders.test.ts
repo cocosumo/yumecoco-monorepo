@@ -16,7 +16,7 @@ describe('updateReportedReminders', () => {
       reportedReminder: reminderDat,
     });
 
-    console.log('kintoneアプリにてテスト結果を確認してください');
+    console.log('kintoneアプリでテスト結果を確認してください');
   }, 60000);
 
 });

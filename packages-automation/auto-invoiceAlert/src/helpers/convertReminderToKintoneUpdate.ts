@@ -37,7 +37,7 @@ export const convertReminderToKintoneUpdate = ({
         value: projId,
       },
       record: {
-        projId: { value: projId },
+        //projId: { value: projId }, //updatekeyに指定した値は更新できないため、対象外とする
         contractDate: { value: contractDate },
         yumeAG: { value: yumeAG },
         projType: { value: projType },

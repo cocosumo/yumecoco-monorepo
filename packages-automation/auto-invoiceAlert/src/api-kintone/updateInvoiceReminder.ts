@@ -1,5 +1,5 @@
 import { RecordID, Revision, UpdateKey } from '@kintone/rest-api-client/lib/src/client/types';
-import { updateAllRecords } from 'api-kintone';
+import { updateRecords } from 'api-kintone';
 import { IInvoiceReminder, reminderAppId } from '../../config';
 
 
@@ -19,7 +19,7 @@ export type UpdateInvoiceReminder = {
  */
 export const updateInvoiceReminder = (params: UpdateInvoiceReminder[]) => {
 
-  return updateAllRecords({
+  return updateRecords({
     records: params,
     app: reminderAppId,
   });

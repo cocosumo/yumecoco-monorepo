@@ -1,6 +1,11 @@
 import { getCachedStores } from '../../api/getCachedStores';
 import { getSelectStore } from '../createToolbar/createSelectStore';
 
+/**
+ * 店舗セレクタの生成
+ * 
+ * デフォルトをローカルに依存させる
+*/
 export const populateSelectStore = async () => {
   const stores = await getCachedStores();
   const $selectStore = getSelectStore();

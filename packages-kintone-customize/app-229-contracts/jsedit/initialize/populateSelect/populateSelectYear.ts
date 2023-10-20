@@ -1,5 +1,10 @@
 import { getSelectYear } from '../createToolbar/createSelectYear';
 
+/**
+ * 年セレクタの生成
+ * 
+ * デフォルトを当年にする
+*/
 export const populateSelectYear = async () => {
 
   const $select = getSelectYear();

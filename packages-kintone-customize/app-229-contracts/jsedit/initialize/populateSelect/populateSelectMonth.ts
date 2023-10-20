@@ -1,5 +1,10 @@
 import { getSelectMonth } from '../createToolbar/createSelectMonth';
 
+/**
+ * 月セレクタの生成（1月 から 12月）
+ * 
+ * デフォルトを当月にする
+*/
 export const populateSelectMonth = () => {
   const $select = getSelectMonth();
 

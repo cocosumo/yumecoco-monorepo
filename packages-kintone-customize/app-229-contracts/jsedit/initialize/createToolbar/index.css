@@ -1,27 +1,33 @@
+/* 選択ボタン（プルダウン）用css */
+
+/* 選択肢フィールド */
 #custom_toolbar {
   margin: 8px 0;
 }
 
+/* 選択肢フィールド内の選択プルダウン */
 #custom_toolbar select {
   width: 80px; /* 幅を調整 */
-  height: 32px;
+  height: 32px; /* 高さを調整 */
   margin-right: 10px;
-  border-radius: 8px;
+  border-radius: 8px; /* 角を丸くする */
   text-align: center;
 }
 
+/* 店舗 */
 #selectStore {
   width: 100px;
 }
 
+/* 週ハイライト */
 #selectHighlight {
   width: 100px;
 }
 
-/* ボタンのスタイル */
+/* 印刷ボタンのスタイル */
 #printButton {
   background-color: #008b8b; /* ボタンの背景色を変更 */
   color: #fff; /* テキストの色を変更 */
   padding: 3px 20px; /* パディングを調整 */
-  border-radius: 8px;
+  border-radius: 8px; /* 角を丸くする */
 }

@@ -69,12 +69,16 @@
       padding: 3px 0px;
     }
 
-    /* 顧客名と金融機関名を中央揃えにする（印刷時のみ） */
-    #prospect_custNamefield,
-    #prospect_paymentMethod {
+    /* 顧客名を中央揃えにする（印刷時のみ） */
+    #prospect_custNamefield {
       text-align: center;
     }
 
+    /* 金融機関名のフォントサイズを調整（印刷時のみ） */
+    #prospect_paymentMethod {
+      font-size: 8.8pt;
+    }
+    
     /* 工事名称の幅指定 */
     .prospect_projNameHeader {
       width: 100%;

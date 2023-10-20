@@ -69,8 +69,9 @@
       padding: 3px 0px;
     }
 
-    /* 顧客名を中央揃えにする（印刷時のみ） */
-    #prospect_custNamefield {
+    /* 顧客名と金融機関名を中央揃えにする（印刷時のみ） */
+    #prospect_custNamefield,
+    #prospect_paymentMethod {
       text-align: center;
     }
 

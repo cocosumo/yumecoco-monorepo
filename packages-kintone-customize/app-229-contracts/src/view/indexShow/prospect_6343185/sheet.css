@@ -57,9 +57,11 @@
       width: 20px;
     }
 
-    /* 担当者名だけ文字の大きさを変更（印刷時のみ） */
-    .prospect_agName {
+    /* 担当者名と金融機関だけ文字の大きさを変更（印刷時のみ） */
+    .prospect_agName,
+    .prospect_paymentMethod {
       font-size: 8.8pt;
+      text-align: center;
       padding: 3px 1px;
     }
 
@@ -74,11 +76,6 @@
       text-align: center;
     }
 
-    /* 金融機関名のフォントサイズを調整（印刷時のみ） */
-    #prospect_paymentMethod {
-      font-size: 8.8pt;
-    }
-    
     /* 工事名称の幅指定 */
     .prospect_projNameHeader {
       width: 100%;

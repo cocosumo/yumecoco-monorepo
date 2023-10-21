@@ -1,6 +1,9 @@
 import { getWeekDates } from '../api/getWeekDates';
 import { getSelectWeek } from '../initialize/createToolbar/createSelectWeek';
-
+/**
+ * ハイライト選択の生成
+ * @returns '第○週'
+*/
 export const createHightlightOptions = (
   year: number,
   month: number,

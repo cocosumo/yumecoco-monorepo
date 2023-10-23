@@ -5,7 +5,7 @@ import { Chip, FormControl, FormHelperText, InputLabel, MenuItem, Select } from 
 
 export const Store = () => {
 
-  const { control, setValue, watch } = useTypedFormContext();
+  const { control, setValue } = useTypedFormContext();
   const { data } = useStores((d) => {
     return d
       ?.map(({

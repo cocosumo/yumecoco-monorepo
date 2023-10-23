@@ -15,6 +15,7 @@ export const OfficerDetails = ({
     agents,
     custGroupId,
     commissionRate,
+    territory,
   } = recProj || {};
 
   const { 
@@ -38,6 +39,10 @@ export const OfficerDetails = ({
 
   const agentDetails: IDetail[] = [
     {
+      label: '店舗',
+      value: territory.value,
+    },
+    {
       label: 'ゆめてつAG',
       value:  `${yumeAGNames}　${commissionRate.value ? `紹介料率：${commissionRate.value}%` : ''}`,
     },
@@ -55,7 +60,7 @@ export const OfficerDetails = ({
   return (
        
     <DetailSection 
-      title="担当者情報"
+      title="担当情報"
       details={agentDetails}
     />
   );

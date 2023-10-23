@@ -37,7 +37,7 @@ export const RowLayout = ({
   updatedAt,
   projDataId,
   onClick,
-} : Partial<Record<KeyOfSearchResult, ReactNode>> & {
+}: Partial<Record<KeyOfSearchResult, ReactNode>> & {
   onClick?: () => void,
 }) => {
   return (
@@ -45,7 +45,7 @@ export const RowLayout = ({
       cursor: onClick ? 'pointer' : 'default',
     }}
     >
-      <TableCell 
+      <TableCell
         sx={{
           whiteSpace: 'nowrap',
         }}
@@ -55,13 +55,17 @@ export const RowLayout = ({
         {projDataId}
       </TableCell>
 
-      <TableCell>
+      <TableCell sx={{
+        minWidth: '100px',
+      }}
+      >
         {custNameKana}
         <br />
         {custName}
       </TableCell>
 
       <TableCell sx={{
+        minWidth: '100px',
         maxWidth: '200px',
       }}
       >
@@ -69,13 +73,14 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell sx={{
-        whiteSpace: 'nowrap',
+        whiteSpace: 'normal',
+        maxWidth: '200px',
       }}
       >
         {tel}
       </TableCell>
 
-      <TableCell 
+      <TableCell
         sx={{
           whiteSpace: 'nowrap',
         }}
@@ -99,7 +104,7 @@ export const RowLayout = ({
         {lastBillDate}
       </TableCell>
 
-      
+
       <TableCell
         sx={{
           whiteSpace: 'nowrap',
@@ -115,8 +120,8 @@ export const RowLayout = ({
       >
         {projFinDate}
       </TableCell>
-      
-      <TableCell 
+
+      <TableCell
         sx={{
           whiteSpace: 'nowrap',
           fontSize: 10,

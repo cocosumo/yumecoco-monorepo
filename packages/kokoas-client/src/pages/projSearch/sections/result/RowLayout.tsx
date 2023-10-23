@@ -68,7 +68,10 @@ export const RowLayout = ({
         {projName}
       </TableCell>
 
-      <TableCell>
+      <TableCell sx={{
+        whiteSpace: 'nowrap',
+      }}
+      >
         {tel}
       </TableCell>
 

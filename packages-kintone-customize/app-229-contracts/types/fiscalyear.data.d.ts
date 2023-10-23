@@ -20,7 +20,7 @@ declare namespace DBFYData {
       value: Array<{
         id: string;
         value: {
-          ad: kintone.fieldTypes.Number;
+          adExpense: kintone.fieldTypes.Number;
           adDetails: kintone.fieldTypes.SingleLineText;
           adMonth: kintone.fieldTypes.DropDown;
         };
@@ -64,9 +64,9 @@ declare namespace DBFYData {
       value: Array<{
         id: string;
         value: {
+          otherExpenses: kintone.fieldTypes.Number;
           expensesMonth: kintone.fieldTypes.DropDown;
           expensesDetails: kintone.fieldTypes.SingleLineText;
-          expenses: kintone.fieldTypes.Number;
         };
       }>;
     };

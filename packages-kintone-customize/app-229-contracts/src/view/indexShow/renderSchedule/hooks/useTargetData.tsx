@@ -12,6 +12,18 @@ export type Targets = Record<string, {
   projTypeName: string,
 }>;
 
+export interface Expenses {
+  id: string,
+  month: number,
+  description: string,
+  expense: number,
+}
+
+export type ExpensesByMonth = Record<number, {
+  expenses: Expenses[],
+  totalExpenses: number,
+}>;
+
 export type UseTargetDataReturn = ReturnType<typeof useTargetData>;
 
 export const useTargetData = () => {
@@ -42,6 +54,13 @@ export const useTargetData = () => {
       westConstractTargetTable,
       westAnother,
       westMonthlyAnother,
+
+      expensesTable,
+      expensesTotal,
+
+      adTable,
+      adTotal,
+
     } = data || {};
 
 
@@ -186,8 +205,52 @@ export const useTargetData = () => {
       totalMonthlyTarget,
       totalTargetAmt,
 
-      /* 形成された契約データ */
+      /* 報告宣伝費 */
+      ads: adTable?.value.reduce((acc, cur) => {
+        const month = parseInt(cur.value.adMonth.value);
+        if (!acc[month]) {
+          acc[month] = {
+            expenses: [],
+            totalExpenses: 0,
+          };
+        }
+        acc[month].expenses.push({
+          id: cur.id || '',
+          month: month,
+          description: cur.value.adDetails.value,
+          expense: +cur.value.adExpense.value,
+        });
+
+        acc[month].totalExpenses += +cur.value.adExpense.value;
+
+        return acc;
+        
+      }, {} as ExpensesByMonth),
+      totalAdExpenses: +(adTotal?.value ?? 0),
+
+      /* その他諸経費 */
+      otherExpenses: expensesTable?.value.reduce((acc, cur) => {
+        const month = parseInt(cur.value.expensesMonth.value);
+        if (!acc[month]) {
+          acc[month] = {
+            expenses: [],
+            totalExpenses: 0,
+          };
+        }
+        acc[month].expenses.push({
+          id: cur.id || '',
+          month: month,
+          description: cur.value.expensesDetails.value,
+          expense: +cur.value.otherExpenses.value,
+        });
+
+        acc[month].totalExpenses += +cur.value.otherExpenses.value;
+
+        return acc;
+      }, {} as ExpensesByMonth),
+      totalOtherExpenses: +(expensesTotal?.value ?? 0),
     };
+   
 
   }, [
     data, 

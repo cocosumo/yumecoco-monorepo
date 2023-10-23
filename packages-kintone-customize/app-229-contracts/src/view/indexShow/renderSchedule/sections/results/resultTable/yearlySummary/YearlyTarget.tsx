@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
 import { projTypeIds } from '../../../../config';
 import { YearlyRowHeader } from './YearlyRowHeader';
-import { YearlyCell } from './YearlyCell';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
 import { StyledSummaryCell } from './StyledSummaryCell';
 

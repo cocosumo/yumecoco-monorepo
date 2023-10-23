@@ -4,6 +4,7 @@ import { YearlyTarget } from './YearlyTarget';
 import { Fragment } from 'react';
 import { YearActualPerformance } from './YearActualPerformance';
 import { red } from '@mui/material/colors';
+import { YearlyTargetDifference } from './YearlyTargetDifference';
 
 export const YearlySummary = ({
   fiscalYear,
@@ -29,6 +30,12 @@ export const YearlySummary = ({
           label='売上額'
           color={red[600]}
           data={data.contractsData?.[fiscalYear]}
+        />
+      </TableRow>
+      <TableRow>
+        <YearlyTargetDifference 
+          data={data}
+          year={fiscalYear}
         />
       </TableRow>
     </Fragment>

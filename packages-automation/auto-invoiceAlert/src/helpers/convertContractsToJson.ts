@@ -3,7 +3,6 @@ import { ContractRecordType } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
-//import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 import { getYumeAgNames } from './getYumeAgNames';
 
 

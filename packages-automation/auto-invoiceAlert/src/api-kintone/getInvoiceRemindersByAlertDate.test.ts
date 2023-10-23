@@ -6,7 +6,7 @@ import { getInvoiceRemindersByAlertDate } from './getInvoiceRemindersByAlertDate
 
 
 describe('getInvoiceRemindersByAlertDate', () => {
-  it('通知対象日の請求書用リマインダーのレコードを取得します', async () => {
+  it('指定日以前に通知予定の請求書用リマインダーレコードを取得します', async () => {
     const result = await getInvoiceRemindersByAlertDate(new Date());
 
     expect(result).toBeInstanceOf(Array);

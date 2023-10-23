@@ -5,6 +5,7 @@ import { Fragment } from 'react';
 import { YearActualPerformance } from './YearActualPerformance';
 import { red } from '@mui/material/colors';
 import { YearlyTargetDifference } from './YearlyTargetDifference';
+import { TotalProfit } from './TotalProfit';
 
 export const YearlySummary = ({
   fiscalYear,
@@ -37,6 +38,9 @@ export const YearlySummary = ({
           data={data}
           year={fiscalYear}
         />
+      </TableRow>
+      <TableRow>
+        <TotalProfit />
       </TableRow>
     </Fragment>
 

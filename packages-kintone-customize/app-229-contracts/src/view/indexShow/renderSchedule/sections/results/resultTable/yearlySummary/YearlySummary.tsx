@@ -40,7 +40,9 @@ export const YearlySummary = ({
         />
       </TableRow>
       <TableRow>
-        <TotalProfit />
+        <TotalProfit 
+          totalProfit={data.contractsData?.[fiscalYear]?.totalProfit || 0}
+        />
       </TableRow>
     </Fragment>
 

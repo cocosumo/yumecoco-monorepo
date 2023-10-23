@@ -46,7 +46,7 @@ export const MonthRow = ({
           }} 
         />
 
-        <TableCell rowSpan={3} />
+        {/* <TableCell rowSpan={3} /> */}
 
 
       </TableRow>

@@ -38,10 +38,10 @@ export const ColHeaders = () => {
         <TableCell align='center' rowSpan={2}>
           夢てつ紹介料	          
         </TableCell>
-
+        {/* 
         <TableCell align='center' rowSpan={2}>
           その他取組	          
-        </TableCell>
+        </TableCell> */}
 
 
       </TableRow>

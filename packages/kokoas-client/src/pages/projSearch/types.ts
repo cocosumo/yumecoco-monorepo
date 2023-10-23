@@ -16,6 +16,7 @@ export interface SearchResult {
   custNameKana: string;
   custAddress: string;
   tel: string;
+  telRelation: string;
   storeName: string;
   contractDate: string;
   deliveryDate: string;

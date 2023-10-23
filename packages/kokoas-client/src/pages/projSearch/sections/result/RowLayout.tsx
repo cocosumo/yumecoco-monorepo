@@ -32,6 +32,7 @@ export const RowLayout = ({
   projFinDate,
   storeName,
   tel,
+  telRelation,
   lastBillDate,
   createdAt,
   updatedAt,
@@ -56,7 +57,7 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell sx={{
-        minWidth: '100px',
+        minWidth: '150px',
       }}
       >
         {custNameKana}
@@ -65,7 +66,7 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell sx={{
-        minWidth: '100px',
+        minWidth: '150px',
         maxWidth: '200px',
       }}
       >
@@ -73,11 +74,13 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell sx={{
-        whiteSpace: 'normal',
+        whiteSpace: 'nowrap',
         maxWidth: '200px',
       }}
       >
         {tel}
+        <br />
+        {telRelation}
       </TableCell>
 
       <TableCell

@@ -14,7 +14,7 @@ import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 
 
 
-export const useSearchResult =  () => {
+export const useSearchResult = () => {
 
   const parsedQuery = useParseQuery();
 
@@ -54,14 +54,14 @@ export const useSearchResult =  () => {
   const { data: selectedStoreIds } = useStoreIds(stores ?? []);
   const { data: storeRec } = useStores();
   const { data: selectedProjTypeIds } = useProjTypesIds(projTypes ?? []);
-  
+
 
 
   return useProjects<SearchResult[]>({ // 工事ベース
     enabled: !!parsedQuery && !!recCustomers && !!recContracts,
     select: (data) => {
 
-      const unsortedResult =  data?.reduce((acc, curr) => {
+      const unsortedResult = data?.reduce((acc, curr) => {
 
         const {
           custGroupId,
@@ -81,7 +81,7 @@ export const useSearchResult =  () => {
           payFinDate,
           projFinDate,
           lastBillingDate,
-          
+
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
@@ -90,7 +90,7 @@ export const useSearchResult =  () => {
           address1: address1.value,
           address2: address2.value,
         });
-        
+
         if (!custGroupId) return acc;
 
         const custGroup = recCustGroup?.find(({ uuid }) => uuid.value === custGroupId.value);
@@ -130,12 +130,13 @@ export const useSearchResult =  () => {
         } = storeRec?.find(({ uuid }) => uuid.value === storeId.value) || {};
 
 
-        const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value )) || [];
+        const relCustomers = recCustomers?.filter(({ uuid }) => members?.value.some(({ value: { custId } }) => custId.value === uuid.value)) || [];
 
-        const { 
-          custEmails, 
-          custTels, 
-          addresses, 
+        const {
+          custEmails,
+          custTels,
+          custTelRelation,
+          addresses,
           fullNames,
           fullNameReadings,
         } = groupCustContacts(relCustomers);
@@ -153,6 +154,7 @@ export const useSearchResult =  () => {
           ...fullNameReadings,
           ...custEmails,
           ...custTels,
+          ...custTelRelation,
           ...addresses,
           ...yumeAGNames,
           ...cocoAGNames,
@@ -175,7 +177,7 @@ export const useSearchResult =  () => {
         const isMatchProjType = !selectedProjTypeIds?.length || selectedProjTypeIds.includes(projTypeId.value);
         const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
         const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
-        
+
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && projFinDate?.value && completionDateFrom <= parseISO(projFinDate?.value));
@@ -216,6 +218,7 @@ export const useSearchResult =  () => {
             custNameKana: `${fullNameReadings[0]}`,
             custAddress: `${addresses[0]}`,
             tel: custTels[0],
+            telRelation: custTelRelation[0],
             storeName: `${storeName.value}`,
             uuid: projId.value,
             projName: projName.value,
@@ -226,7 +229,7 @@ export const useSearchResult =  () => {
             payFinDate: payFinDate?.value ? payFinDate.value : '-',
             storeSortNumber: +(sortNumber?.value || 0),
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
-            updatedAt: parseISOTimeToFormat(updatedAt.value, 'yyyy-MM-dd HH:mm'), 
+            updatedAt: parseISOTimeToFormat(updatedAt.value, 'yyyy-MM-dd HH:mm'),
           });
         }
 
@@ -254,8 +257,8 @@ export const useSearchResult =  () => {
 
             return order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
           default:
-            const valueA = a[parseOrderBy] || ''; 
-            const valueB = b[parseOrderBy] || ''; 
+            const valueA = a[parseOrderBy] || '';
+            const valueB = b[parseOrderBy] || '';
             return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
         }
       });

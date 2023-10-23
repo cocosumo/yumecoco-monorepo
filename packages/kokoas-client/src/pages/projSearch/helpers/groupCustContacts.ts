@@ -14,7 +14,8 @@ export const groupCustContacts = (rec: ICustomers[]) => {
           if (cT === 'email') {
             acc.custEmails.push(contactValue.value);
           } else if (cT === 'tel') {
-            acc.custTels.push(`${contactValue.value}${parsedRelation && parsedRelation !== '契約者' ? `（${parsedRelation}）` : ''}`);
+            acc.custTels.push(`${contactValue.value}`);
+            acc.custTelRelation.push(`${parsedRelation && parsedRelation !== '契約者' ? `${parsedRelation}` : ''}`);
           }
         }
       }
@@ -37,6 +38,7 @@ export const groupCustContacts = (rec: ICustomers[]) => {
       addresses: [] as string[],
       custEmails: [] as string[],
       custTels: [] as string[],
+      custTelRelation: [] as string[],
     },
   );
 };

@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-  .printNode td {
+  .printNode td, .printNode th {
     padding-top: 0;
     padding-bottom: 0;
   }

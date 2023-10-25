@@ -1,0 +1,5 @@
+@media print {
+  th.eventCol {
+    font-size: 0.8rem;
+  }
+}

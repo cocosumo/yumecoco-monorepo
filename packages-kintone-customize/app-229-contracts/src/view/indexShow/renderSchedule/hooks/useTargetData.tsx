@@ -66,9 +66,6 @@ export const useTargetData = () => {
 
     } = data || {};
 
-    console.log('data', data, adTotal);
-
-
 
     /** 月でグループしたイベント */
     const events = meetingEventTable?.value.reduce((acc, cur) => {

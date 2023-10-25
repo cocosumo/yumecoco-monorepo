@@ -8,7 +8,9 @@
   }
 
   table.resultTable {
-    width: 100%;
+    width: 280mm;
+    height: 200mm;
     transform-origin:top left;
+    table-layout: fixed;
   }
 }

@@ -17,6 +17,7 @@ export const ResultTable = () => {
         },
         '& th' : {
           backgroundColor: blue[50],
+          px: 0.5,
         },
       }}
       className={styles.resultTableContainer}

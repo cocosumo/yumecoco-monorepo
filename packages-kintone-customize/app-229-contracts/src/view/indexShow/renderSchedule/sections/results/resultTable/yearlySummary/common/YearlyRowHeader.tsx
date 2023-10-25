@@ -11,6 +11,12 @@ export const YearlyRowHeader = ({
       align='center'
       sx={{
         fontSize: 20,
+        '&&': {
+          borderLeft: '2px solid #000',
+          borderTop: '2px solid #000',
+          borderBottom: '2px solid #000',
+        },
+
       }}
     >
       {label}

@@ -29,6 +29,9 @@ export const YearlyCommision = ({
           bgcolor: bgColor,
           fontWeight: 'bold',
           fontSize: 20,
+          '&&':{
+            border: '2px solid black',
+          },
         }}
       >
         {roundTo(amount / 10000).toLocaleString()} 

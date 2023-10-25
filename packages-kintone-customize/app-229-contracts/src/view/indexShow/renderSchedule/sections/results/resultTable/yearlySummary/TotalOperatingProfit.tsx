@@ -1,32 +1,33 @@
-import { roundTo } from 'libs';
 import { Fragment } from 'react';
 import { YearlyRowHeader } from './common/YearlyRowHeader';
-import { green } from '@mui/material/colors';
 import { TotalCell } from './common/TotalCell';
+import { blue } from '@mui/material/colors';
+import { roundTo } from 'libs';
 import { Tooltip } from '@mui/material';
 
-export const TotalProfit = ({
+export const TotalOperatingProfit = ({
   amt,
 }:{
-  amt: number;
+  amt: number,
 }) => {
-  
+
+
   return (
     <Fragment>
-      <YearlyRowHeader label={'粗利金額合計'} />
+      <YearlyRowHeader label={'営業利益'} />
 
       <Tooltip title={`${amt.toLocaleString()} 円`}>
-        
         <TotalCell
           colSpan={2}
           sx={{
-            bgcolor: green[200],
+            bgcolor: blue[600],
           }}
         >
-          {roundTo(amt / 10000).toLocaleString()}
+          {roundTo(  amt / 10000).toLocaleString()}
         </TotalCell>
       </Tooltip>
 
+    
     </Fragment>
   );
 };

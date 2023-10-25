@@ -14,6 +14,9 @@ export const ExpensesCell = ({
     <TableCell
       sx={{
         p: 0,
+        '&&':{
+          border: '2px solid black',
+        },
       }}
     >
       <Stack

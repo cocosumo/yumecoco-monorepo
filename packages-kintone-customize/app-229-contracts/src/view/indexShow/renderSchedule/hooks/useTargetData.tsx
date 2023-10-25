@@ -39,8 +39,11 @@ export const useTargetData = () => {
     TForm['territory'],
     TForm['fiscalYear'],
   ];
-  const { data, ...others } = useFiscalYearData();
-  const { data: contracts } = useContractsByFiscalYear(fiscalYear);
+  const { 
+    data, 
+    isLoading: fiscalYearIsLoading,
+    ...others } = useFiscalYearData();
+  const { data: contracts, isLoading: contractIsLoading } = useContractsByFiscalYear(fiscalYear);
 
 
   const fiscalYearData = useMemo(() => {
@@ -271,11 +274,22 @@ export const useTargetData = () => {
     territory,
   ]);
 
+  const totalAdExpenses = (fiscalYearData?.totalAdExpenses || 0) ;
+  const totalOtherExpenses = (fiscalYearData?.totalOtherExpenses || 0) * 10000;
+  const totalCommission = (contractsData?.[fiscalYear]?.totalCommission || 0) ;
+  const totalProfitThisYear = contractsData?.[fiscalYear]?.totalProfit || 0;
+
+  const totalExpenseAmt = totalCommission + totalAdExpenses + totalOtherExpenses;
+  const totalOperatingProfit = totalProfitThisYear - totalExpenseAmt;
+
   return {
     data: {
       fiscalYearData,
       contractsData,
+      totalExpenseAmt,
+      totalOperatingProfit,
     },
+    isLoading: fiscalYearIsLoading || contractIsLoading,
     ...others,
   };
   

@@ -11,6 +11,8 @@ import { YearlyOtherExpenseAmt } from './YearlyOtherExpense';
 import { IgnoredCell } from './common/IgnoredCell';
 import { BorderlessCell } from './common/BorderlessCell';
 import { YearlyCommision } from './YearlyCommision';
+import { TotalExpenses } from './TotalExpenses';
+import { TotalOperatingProfit } from './TotalOperatingProfit';
 
 export const YearlySummary = ({
   fiscalYear,
@@ -65,7 +67,17 @@ export const YearlySummary = ({
       </TableRow>
       <TableRow>
         <TotalProfit 
-          totalProfit={data.contractsData?.[fiscalYear]?.totalProfit || 0}
+          amt={data.contractsData?.[fiscalYear]?.totalProfit || 0}
+        />
+      </TableRow>
+      <TableRow>
+        <TotalExpenses
+          amt={data.totalExpenseAmt}
+        />
+      </TableRow>
+      <TableRow>
+        <TotalOperatingProfit
+          amt={data.totalOperatingProfit}
         />
       </TableRow>
     </Fragment>

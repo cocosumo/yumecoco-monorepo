@@ -1,7 +1,6 @@
-import { roundTo } from 'libs';
-import { StyledCell } from './common/StyledCell';
-import { Typography } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
+
+import { blue } from '@mui/material/colors';
+import { MonthlyCommisionCell } from './common/MontlyCommisionCell';
 
 export const MonthCommisionActual = ({
   amt,
@@ -10,19 +9,9 @@ export const MonthCommisionActual = ({
 }) => {
   
   return (
-    <StyledCell
-      sx={{
-        color: blue[600],
-      }}
-    >
-      {roundTo(amt / 10000).toLocaleString()}
-      <Typography 
-        variant='caption' 
-        color={grey[400]}
-        ml={0.5}
-      >
-        万円
-      </Typography>
-    </StyledCell>
+    <MonthlyCommisionCell 
+      amt={amt}
+      color={blue[600]}
+    />
   );
 };

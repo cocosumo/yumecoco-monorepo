@@ -7,5 +7,7 @@ export const StyledSummaryCell = styled(TableCell)`
     font-weight: bold;
     text-align: right;
     background-color: ${orange[100]};
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
   }
 `;

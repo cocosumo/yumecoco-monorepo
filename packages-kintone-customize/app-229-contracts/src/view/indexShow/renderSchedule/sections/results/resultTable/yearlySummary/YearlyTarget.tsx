@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
 import { projTypeIds } from '../../../../config';
-import { YearlyRowHeader } from './YearlyRowHeader';
+import { YearlyRowHeader } from './common/YearlyRowHeader';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
-import { StyledSummaryCell } from './StyledSummaryCell';
+import { StyledSummaryCell } from './common/StyledSummaryCell';
 
 export const YearlyTarget = ({
   data,
@@ -29,7 +29,7 @@ export const YearlyTarget = ({
           <StyledSummaryCell
             key={id}
           >
-            {(targets?.[id].yearlyTarget || 0).toLocaleString()}
+            {(targets?.[id]?.yearlyTarget || 0).toLocaleString()}
           </StyledSummaryCell> 
   
         );
@@ -38,7 +38,13 @@ export const YearlyTarget = ({
         {othersYearlyTarget.toLocaleString()}
       </StyledSummaryCell>
 
-      <StyledSummaryCell>
+      <StyledSummaryCell
+        sx={{
+          '&&': {
+            borderRight: '2px solid black',
+          },
+        }}
+      >
         {totalTargetAmt.toLocaleString()}
       </StyledSummaryCell>
 

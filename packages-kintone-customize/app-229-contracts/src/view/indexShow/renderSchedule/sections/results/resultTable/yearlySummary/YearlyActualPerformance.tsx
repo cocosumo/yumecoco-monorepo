@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { YearlyRowHeader } from './YearlyRowHeader';
+import { YearlyRowHeader } from './common/YearlyRowHeader';
 import { YearlyCell } from './common/YearlyCell';
 import { projTypeIds } from '../../../../config';
 import { GroupedContracts } from '../../../../hooks/groupContracts';
@@ -43,6 +43,7 @@ export const YearlyActualPerformance = ({
         color={color}
         contracts={contracts || []}
         value={totalAmtExclTax}
+        borderRight='2px solid black'
       />
 
     </Fragment>

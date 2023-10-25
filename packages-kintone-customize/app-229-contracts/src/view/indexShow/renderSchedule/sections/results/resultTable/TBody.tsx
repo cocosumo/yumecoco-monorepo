@@ -1,4 +1,4 @@
-import { TableBody } from '@mui/material';
+import { LinearProgress, TableBody, TableCell, TableRow } from '@mui/material';
 
 import { MonthRow } from './monthRow/MonthRow';
 import { useTargetData } from '../../../hooks/useTargetData';
@@ -10,10 +10,21 @@ import { YearlySummary } from './yearlySummary/YearlySummary';
 const fiscalMonths = Array.from({ length: 12 }, (_, index) => (index + 11) % 12 + 1);
 
 export const TBody = () => {
-  const { data } = useTargetData();
+  const { data, isLoading } = useTargetData();
   const fiscalYear = useTypedWatch({
     name: 'fiscalYear',
   }) as TForm['fiscalYear'];
+
+
+  if (isLoading) return (
+    <TableBody>
+      <TableRow>
+        <TableCell colSpan={100}>
+          <LinearProgress />
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  );
 
   return (
     <TableBody>

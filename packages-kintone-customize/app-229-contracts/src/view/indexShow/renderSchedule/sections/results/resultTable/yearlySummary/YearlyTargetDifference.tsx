@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
-import { YearlyRowHeader } from './YearlyRowHeader';
+import { YearlyRowHeader } from './common/YearlyRowHeader';
 import { projTypeIds } from '../../../../config';
 import { red } from '@mui/material/colors';
-import { StyledSummaryCell } from './StyledSummaryCell';
+import { StyledSummaryCell } from './common/StyledSummaryCell';
 import { roundTo } from 'libs';
 
 /** 目標まで差額 */
@@ -70,6 +70,9 @@ export const YearlyTargetDifference = ({
       <StyledSummaryCell
         sx={{
           color: red[600],
+          '&&': {
+            borderRight: '2px solid black',
+          },
         }}
       >
         {roundTo(

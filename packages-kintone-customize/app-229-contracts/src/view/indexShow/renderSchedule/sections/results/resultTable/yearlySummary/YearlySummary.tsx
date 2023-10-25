@@ -8,6 +8,7 @@ import { YearlyTargetDifference } from './YearlyTargetDifference';
 import { TotalProfit } from './TotalProfit';
 import { YearlyAdExpenseAmt } from './YearlyAdExpenseAmt';
 import { YearlyOtherExpenseAmt } from './YearlyOtherExpense';
+import { IgnoredCell } from './common/IgnoredCell';
 
 export const YearlySummary = ({
   fiscalYear,
@@ -27,6 +28,7 @@ export const YearlySummary = ({
         <YearlyOtherExpenseAmt 
           amount={data.fiscalYearData?.totalOtherExpenses || 0}
         />
+        <IgnoredCell />
       </TableRow>
       <TableRow>
         <YearlyActualPerformance 

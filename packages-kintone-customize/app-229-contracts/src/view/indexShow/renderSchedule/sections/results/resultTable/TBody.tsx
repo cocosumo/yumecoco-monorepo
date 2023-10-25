@@ -15,8 +15,6 @@ export const TBody = () => {
     name: 'fiscalYear',
   }) as TForm['fiscalYear'];
 
-  console.log('data', data);
-
   return (
     <TableBody>
       {fiscalMonths

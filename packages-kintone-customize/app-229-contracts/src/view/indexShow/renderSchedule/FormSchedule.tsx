@@ -24,7 +24,6 @@ export const FormSchedule = () => {
           width={'fit-content'}
           height={'fit-content'}
           bgcolor={'#fff'}
-
         >
           <Toolbar />
           <Results />

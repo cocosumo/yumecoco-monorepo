@@ -1,0 +1,14 @@
+@media print {
+  div.resultTableContainer {
+    width: 280mm;
+    height: 200mm;
+    overflow: hidden;
+    border: 1px solid red;
+    transform-origin:top left;
+  }
+
+  table.resultTable {
+    width: 100%;
+    transform-origin:top left;
+  }
+}

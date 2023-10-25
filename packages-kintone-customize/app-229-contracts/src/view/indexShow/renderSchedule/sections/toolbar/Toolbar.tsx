@@ -20,6 +20,7 @@ export const Toolbar = () => {
         width: 'calc(100vw - 150px)',
         // reduce opacity
         bgcolor: 'rgba(255, 255, 255, 0.9)',
+        zIndex: 9999,
       }}
     >
       <Stack

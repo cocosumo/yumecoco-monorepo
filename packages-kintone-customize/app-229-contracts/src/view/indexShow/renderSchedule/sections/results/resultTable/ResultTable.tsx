@@ -2,6 +2,7 @@ import { Table, TableContainer } from '@mui/material';
 import { ColHeaders } from './ColHeaders';
 import { TBody } from './TBody';
 import { blue, grey } from '@mui/material/colors';
+import styles from './ResultTable.module.css';
 
 export const ResultTable = () => {
   return (
@@ -17,10 +18,10 @@ export const ResultTable = () => {
         '& th' : {
           backgroundColor: blue[50],
         },
-
       }}
+      className={styles.resultTableContainer}
     >
-      <Table size='small'>
+      <Table size='small' className={styles.resultTable}>
         <ColHeaders />
         <TBody />
       </Table>

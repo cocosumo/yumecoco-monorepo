@@ -9,7 +9,7 @@ import { convertReminderToJson } from './helpers/convertReminderToJson';
 
 
 /**
- * 通知対象の契約レコード情報をまとめます
+ * 通知対象の契約レコード情報をまとめます todo:アラート条件の変更
  */
 export const createPaymentAlert = async () => {
   console.log('start create payment reminder');

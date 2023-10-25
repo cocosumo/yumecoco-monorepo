@@ -2,7 +2,7 @@ import { Stack, TableCell, Typography } from '@mui/material';
 import { ExpensesByMonth } from '../../../../hooks/useTargetData';
 import { yellow } from '@mui/material/colors';
 
-export const MonthlyOtherExpenses = ({
+export const MonthAds = ({
   data,
 }:{ 
   data: ExpensesByMonth[number] | undefined,

@@ -5,11 +5,13 @@ import { MonthHeader } from '../MonthHeader';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
 import { MonthRowActual } from './MonthRowActual';
 import { MonthRowTarget } from './MonthRowTarget';
-import { MonthRowEvents } from './MonthlyEvents';
+import { MonthRowEvents } from './MonthEvents';
 import { MonthRowActualLastYear } from './MonthRowActualLastYear';
 import { grey } from '@mui/material/colors';
-import { MonthlyAds } from './MonthlyAds';
-import { MonthlyOtherExpenses } from './MonthlyOtherExpenses';
+import { MonthAds } from './MonthAds';
+import { MonthOtherExpenses } from './MonthOtherExpenses';
+import { MonthCommisionActual } from './MonthCommisionActual';
+import { MonthCommisionActualLastYear } from './MonthCommisionActualLastYear';
 
 export const MonthRow = ({
   month,
@@ -39,11 +41,11 @@ export const MonthRow = ({
 
         <MonthRowTarget data={data} />
 
-        <MonthlyAds 
+        <MonthAds 
           data={fiscalYearData.ads?.[month]}
         />
 
-        <MonthlyOtherExpenses 
+        <MonthOtherExpenses 
           data={fiscalYearData.otherExpenses?.[month]}
         />
 
@@ -60,9 +62,10 @@ export const MonthRow = ({
         <MonthRowActualLastYear 
           contractsData={contractsData?.[fiscalYear - 1]?.monthlyData[month]}
         />
-        <TableCell>
-          -
-        </TableCell>
+
+        <MonthCommisionActualLastYear 
+          amt={contractsData?.[fiscalYear - 1]?.monthlyData?.[month]?.totalCommission || 0}
+        />
 
       </TableRow>
 
@@ -71,9 +74,11 @@ export const MonthRow = ({
         <MonthRowActual 
           contractsData={contractsData?.[fiscalYear]?.monthlyData[month]}
         />
-        <TableCell>
-          -
-        </TableCell>
+        <MonthCommisionActual 
+          amt={contractsData?.[fiscalYear]?.monthlyData?.[month]?.totalCommission || 0}
+        />
+
+
       </TableRow>
 
     </Fragment>

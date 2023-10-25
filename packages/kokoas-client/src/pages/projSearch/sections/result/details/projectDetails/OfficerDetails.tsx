@@ -16,6 +16,7 @@ export const OfficerDetails = ({
     custGroupId,
     commissionRate,
     territory,
+    store,
   } = recProj || {};
 
   const { 
@@ -40,7 +41,7 @@ export const OfficerDetails = ({
   const agentDetails: IDetail[] = [
     {
       label: '店舗',
-      value: territory.value,
+      value: `${territory.value} - ${store.value}`,
     },
     {
       label: 'ゆめてつAG',

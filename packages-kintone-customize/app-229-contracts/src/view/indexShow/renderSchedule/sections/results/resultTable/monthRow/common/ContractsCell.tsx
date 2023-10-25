@@ -1,12 +1,15 @@
-import { TableCell, Tooltip } from '@mui/material';
-import { DataByProjType } from '../../../../hooks/groupContracts';
+import { Tooltip } from '@mui/material';
+import { DataByProjType } from '../../../../../hooks/groupContracts';
 import { roundTo } from 'libs';
 import { yellow } from '@mui/material/colors';
+import { StyledCell } from './StyledCell';
 
 export const ContractsCell = ({
   values,
+  color,
 }:{
-  values: DataByProjType | undefined
+  values: DataByProjType | undefined,
+  color?: string
 }) => {
 
   const {
@@ -16,8 +19,9 @@ export const ContractsCell = ({
 
   return (
     <Tooltip title={`${data.length} 件 : ${totalAmtExclTax.toLocaleString()} 円`}>
-      <TableCell
+      <StyledCell
         sx={{
+          color,
           ':hover': {
             bgcolor: yellow[100],
             cursor: 'pointer',
@@ -25,7 +29,7 @@ export const ContractsCell = ({
         }}
       >
         {roundTo((totalAmtExclTax ?? 0) / 10000).toLocaleString()}
-      </TableCell>
+      </StyledCell>
     </Tooltip>
   );
 };

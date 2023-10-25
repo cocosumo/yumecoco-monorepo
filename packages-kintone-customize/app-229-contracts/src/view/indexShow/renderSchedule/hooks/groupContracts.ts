@@ -13,6 +13,7 @@ export interface MonthlyData {
     contractsByType: Record<string, DataByProjType>
     contracts: DB.SavedRecord[],
     totalProfit: number,
+    totalCommission: number,
   }
 }
 
@@ -22,6 +23,7 @@ export interface YearlyData {
   contracts: DB.SavedRecord[],
   totalAmtExclTax: number,
   totalProfit: number,
+  totalCommission: number,
 }
 
 export interface GroupedContracts {
@@ -61,6 +63,7 @@ export const groupContracts = ({
         contracts: [],
         totalAmtExclTax: 0,
         totalProfit: 0,
+        totalCommission: 0,
       };
     }
 
@@ -70,6 +73,7 @@ export const groupContracts = ({
         contracts: [],
         totalAmtExclTax: 0,
         totalProfit: 0,
+        totalCommission: 0,
       };
     }
 
@@ -92,12 +96,14 @@ export const groupContracts = ({
     acc[fiscalYear].totalAmtExclTax += parsedContractAmtExclTax;
     acc[fiscalYear].totalProfit += parsedTotalProfit;
     acc[fiscalYear].contractsByType[resolvedProjTypeIdKey].totalAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].totalCommission += parseInt(cur.commission.value ?? '0');
 
     acc[fiscalYear].monthlyData[month].contracts.push(cur);
     acc[fiscalYear].monthlyData[month].totalAmtExclTax += parsedContractAmtExclTax;
     acc[fiscalYear].monthlyData[month].totalProfit += parsedTotalProfit;
     acc[fiscalYear].monthlyData[month].contractsByType[resolvedProjTypeIdKey].data.push(cur);
     acc[fiscalYear].monthlyData[month].contractsByType[resolvedProjTypeIdKey].totalAmtExclTax += parsedContractAmtExclTax;
+    acc[fiscalYear].monthlyData[month].totalCommission += parseInt(cur.commission.value ?? '0');
 
     
     return acc;

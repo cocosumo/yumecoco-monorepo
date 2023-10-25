@@ -54,16 +54,27 @@ export const MonthRow = ({
           }} 
         />
 
-        {/* <TableCell rowSpan={3} /> */}
       </TableRow>
 
-      <MonthRowActualLastYear 
-        contractsData={contractsData?.[fiscalYear - 1]?.monthlyData[month]}
-      />
+      <TableRow>
+        <MonthRowActualLastYear 
+          contractsData={contractsData?.[fiscalYear - 1]?.monthlyData[month]}
+        />
+        <TableCell>
+          -
+        </TableCell>
 
-      <MonthRowActual 
-        contractsData={contractsData?.[fiscalYear]?.monthlyData[month]}
-      />
+      </TableRow>
+
+      <TableRow>
+
+        <MonthRowActual 
+          contractsData={contractsData?.[fiscalYear]?.monthlyData[month]}
+        />
+        <TableCell>
+          -
+        </TableCell>
+      </TableRow>
 
     </Fragment>
   );

@@ -1,7 +1,8 @@
-import { TableCell, TableRow } from '@mui/material';
+import { TableCell } from '@mui/material';
 import { projTypesToShow } from '../../../../config';
 import { GroupedContracts } from '../../../../hooks/groupContracts';
-import { ContractsCell } from '../tableComponents/ContractsCell';
+import { ContractsCell } from './common/ContractsCell';
+import { Fragment } from 'react';
 
 export const MonthRowActualLastYear = ({
   contractsData,
@@ -16,16 +17,7 @@ export const MonthRowActualLastYear = ({
   } = contractsData ?? {};
 
   return (
-    <TableRow 
-      sx={{
-
-        '& .MuiTableCell-root:not(:first-of-type)': {
-          fontWeight: 'bold',
-          fontSize: 20,
-          textAlign: 'right',
-        },
-      }}
-    >
+    <Fragment>
       <TableCell>
         昨年実績値
       </TableCell>
@@ -48,11 +40,7 @@ export const MonthRowActualLastYear = ({
       }}
       />
 
-      <TableCell>
-        -
-      </TableCell>
 
-
-    </TableRow>
+    </Fragment>
   );
 };

@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { IProjects } from 'types';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 import { addressBuilder, formatDataId, postalBuilder } from 'libs';
 import { IDetail } from 'kokoas-client/src/pages/projSearch/types';
 import { DetailSection } from '../common/DetailSection';
@@ -14,28 +14,45 @@ import { OfficerDetails } from './OfficerDetails';
 const Address = ({
   postal,
   address,
-}:{
+}: {
   postal: string,
   address: string,
 }) => {
   return (
     <>
       {postal && (
-      <div>
-        {postal}
-      </div>)}
+        <div>
+          {postal}
+        </div>)}
       {address || '-'}
     </>
   );
 };
 
+const Memo = (({
+  value,
+}: {
+  value: string,
+}) => {
+  const splitVal = value.split('\n');
+  return (
+    <>
+      {splitVal.map((line) => (
+        <Fragment key={`remarks-${line}`}>
+          {line}
+          <br />
+        </Fragment>
+      ))}
+    </>);
+});
+
 
 export const ProjectDetails = ({
   recProj,
-}:{
+}: {
   recProj: IProjects
 }) => {
-  
+
 
   const details = useMemo(() => {
 
@@ -43,14 +60,14 @@ export const ProjectDetails = ({
       postal,
       address1,
       address2,
-      
+
       finalPostal,
       finalAddress1,
       finalAddress2,
-  
+
       buildingType,
       projTypeName,
-      projName,  
+      projName,
       cancelStatus,
       dataId,
       log,
@@ -109,7 +126,7 @@ export const ProjectDetails = ({
           />
         ),
       },
-      
+
       {
         label: '確定住所',
         value: (
@@ -128,7 +145,7 @@ export const ProjectDetails = ({
       },
       {
         label: '備考',
-        value: memo.value || '-',
+        value: (<Memo value={memo.value || '-'} />),
       },
     ];
 
@@ -188,7 +205,7 @@ export const ProjectDetails = ({
   ]);
 
   return (
-    <Stack 
+    <Stack
       spacing={2}
       p={2}
       sx={{
@@ -197,34 +214,34 @@ export const ProjectDetails = ({
       }}
     >
 
-      <EditButton 
-        href={`${pages.projEditV2}?${generateParams({ 
+      <EditButton
+        href={`${pages.projEditV2}?${generateParams({
           projId: recProj.uuid.value,
         })}`}
         title='工事情報を編集する'
       />
 
-      <DetailSection 
+      <DetailSection
         title="工事日程"
         details={details.projDates}
       />
 
       <AndpadDetails recProj={recProj} />
-   
-      <DetailSection 
+
+      <DetailSection
         title="工事情報"
         details={details.mainDetails}
       />
 
       <OfficerDetails recProj={recProj} />
-      
 
-      <DetailSection 
+
+      <DetailSection
         title="ANDPAD登録ログ"
         details={details.logDetails}
       />
 
-      <DetailSection 
+      <DetailSection
         title="管理用"
         details={details.otherDetails}
         isSubtle

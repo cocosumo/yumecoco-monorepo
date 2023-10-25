@@ -7,8 +7,8 @@ export const Detail = ({
   value,
   fonstSize,
   isSubtle,
-}: IDetail) => (        
-  <Stack 
+}: IDetail) => (
+  <Stack
     direction={'row'}
     sx={{
       ':hover': {
@@ -16,16 +16,16 @@ export const Detail = ({
       },
     }}
   >
-    <Typography 
-      color={grey[600]} 
-      width={'15%'} 
+    <Typography
+      color={grey[600]}
+      width={'15%'}
       component={'div'}
       px={2}
       fontSize={isSubtle ? 8 : 14}
     >
       {label}
     </Typography>
-    <Typography 
+    <Typography
       width={'75%'}
       color={isSubtle ? grey[600] : undefined}
       fontSize={isSubtle ? 8 : fonstSize}

@@ -29,17 +29,17 @@ export const YearlyTarget = ({
           <StyledSummaryCell
             key={id}
           >
-            {targets?.[id].yearlyTarget || 0}
+            {(targets?.[id].yearlyTarget || 0).toLocaleString()}
           </StyledSummaryCell> 
   
         );
       })}
       <StyledSummaryCell>
-        {othersYearlyTarget}
+        {othersYearlyTarget.toLocaleString()}
       </StyledSummaryCell>
 
       <StyledSummaryCell>
-        {totalTargetAmt}
+        {totalTargetAmt.toLocaleString()}
       </StyledSummaryCell>
 
     </Fragment>

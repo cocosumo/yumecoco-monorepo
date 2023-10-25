@@ -4,7 +4,7 @@ import { YearlyCell } from './common/YearlyCell';
 import { projTypeIds } from '../../../../config';
 import { GroupedContracts } from '../../../../hooks/groupContracts';
 
-export const YearActualPerformance = ({
+export const YearlyActualPerformance = ({
   data,
   color,
   label,

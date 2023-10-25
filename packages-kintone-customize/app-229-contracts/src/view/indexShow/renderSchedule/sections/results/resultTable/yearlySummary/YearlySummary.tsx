@@ -2,7 +2,7 @@ import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
 import { TableRow } from '@mui/material';
 import { YearlyTarget } from './YearlyTarget';
 import { Fragment } from 'react';
-import { YearActualPerformance } from './YearActualPerformance';
+import { YearlyActualPerformance } from './YearlyActualPerformance';
 import { red } from '@mui/material/colors';
 import { YearlyTargetDifference } from './YearlyTargetDifference';
 import { TotalProfit } from './TotalProfit';
@@ -29,13 +29,13 @@ export const YearlySummary = ({
         />
       </TableRow>
       <TableRow>
-        <YearActualPerformance 
+        <YearlyActualPerformance 
           label='昨年度売上実績	'
           data={data.contractsData?.[fiscalYear - 1]}
         />
       </TableRow>
       <TableRow>
-        <YearActualPerformance 
+        <YearlyActualPerformance 
           label='売上額'
           color={red[600]}
           data={data.contractsData?.[fiscalYear]}

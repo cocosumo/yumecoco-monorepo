@@ -5,13 +5,13 @@ import { getRecipients } from './getRecipients';
 describe('getRecipients', () => {
   it('should return Electronic recipients', async () => {
     const data = await getContractDataV2({
-      contractId: 'f9e39157-232a-4828-8802-9aa89298747f',
-      signMethod: 'electronic',
+      contractId: 'a18b4ba7-5377-41a6-9750-ebebb377e8c5',
+      signMethod: 'wetInk',
     });
 
     const recipients = getRecipients({
       ...data,
-      projTypeName: '新築工事',
+      projTypeName: 'サービス工事',
     });
 
     console.log(JSON.stringify(recipients, null,  2));

@@ -8,7 +8,7 @@ import { YearlyTargetDifference } from './YearlyTargetDifference';
 import { TotalProfit } from './TotalProfit';
 import { YearlyAdExpenseAmt } from './YearlyAdExpenseAmt';
 import { YearlyOtherExpenseAmt } from './YearlyOtherExpense';
-import { IgnoredCell } from './common/IgnoredCell';
+import { IgnoredCell } from '../common/IgnoredCell';
 import { BorderlessCell } from './common/BorderlessCell';
 import { YearlyCommision } from './YearlyCommision';
 import { TotalExpenses } from './TotalExpenses';

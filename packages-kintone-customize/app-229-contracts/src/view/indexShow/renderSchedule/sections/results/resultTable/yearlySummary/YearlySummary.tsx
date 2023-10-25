@@ -3,13 +3,14 @@ import { TableRow } from '@mui/material';
 import { YearlyTarget } from './YearlyTarget';
 import { Fragment } from 'react';
 import { YearlyActualPerformance } from './YearlyActualPerformance';
-import { red } from '@mui/material/colors';
+import { red, yellow } from '@mui/material/colors';
 import { YearlyTargetDifference } from './YearlyTargetDifference';
 import { TotalProfit } from './TotalProfit';
 import { YearlyAdExpenseAmt } from './YearlyAdExpenseAmt';
 import { YearlyOtherExpenseAmt } from './YearlyOtherExpense';
 import { IgnoredCell } from './common/IgnoredCell';
-import { OffsetCells } from './common/OffsetCells';
+import { BorderlessCell } from './common/BorderlessCell';
+import { YearlyCommision } from './YearlyCommision';
 
 export const YearlySummary = ({
   fiscalYear,
@@ -36,7 +37,12 @@ export const YearlySummary = ({
           label='昨年度売上実績	'
           data={data.contractsData?.[fiscalYear - 1]}
         />
-        <OffsetCells offset={2} />
+        <BorderlessCell />
+        <YearlyCommision
+          label='昨年度合計'
+          amount={data.contractsData?.[fiscalYear - 1]?.totalCommission || 0}
+        />
+
       </TableRow>
       <TableRow>
         <YearlyActualPerformance 
@@ -44,7 +50,12 @@ export const YearlySummary = ({
           color={red[600]}
           data={data.contractsData?.[fiscalYear]}
         />
-        <OffsetCells offset={2} />
+        <BorderlessCell />
+        <YearlyCommision
+          label='今年度合計'
+          amount={data.contractsData?.[fiscalYear]?.totalCommission || 0}
+          bgColor={yellow.A200}
+        />
       </TableRow>
       <TableRow>
         <YearlyTargetDifference 

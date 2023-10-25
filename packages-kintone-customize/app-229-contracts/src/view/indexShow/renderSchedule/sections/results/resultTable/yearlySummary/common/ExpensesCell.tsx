@@ -34,7 +34,7 @@ export const ExpensesCell = ({
           textAlign={'right'}
           fontSize={20}
           fontWeight={'bold'}
-          bgcolor={yellow[300]}
+          bgcolor={yellow.A200}
           width={'100%'}
         >
           {roundTo(expenseAmt).toLocaleString()}

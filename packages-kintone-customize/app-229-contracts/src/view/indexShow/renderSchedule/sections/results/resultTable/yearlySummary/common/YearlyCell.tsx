@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import { orange } from '@mui/material/colors';
 import { roundTo } from 'libs';
-import { StyledSummaryCell } from './StyledSummaryCell';
+import { StyledSummaryCell } from '../StyledSummaryCell';
 
 export const YearlyCell = ({
   value,

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { YearlyRowHeader } from './YearlyRowHeader';
-import { YearlyCell } from './YearlyCell';
+import { YearlyCell } from './common/YearlyCell';
 import { projTypeIds } from '../../../../config';
 import { GroupedContracts } from '../../../../hooks/groupContracts';
 

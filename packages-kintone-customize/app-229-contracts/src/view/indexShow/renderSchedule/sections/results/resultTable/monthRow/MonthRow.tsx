@@ -9,6 +9,7 @@ import { MonthRowEvents } from './MonthlyEvents';
 import { MonthRowActualLastYear } from './MonthRowActualLastYear';
 import { grey } from '@mui/material/colors';
 import { MonthlyAds } from './MonthlyAds';
+import { MonthlyOtherExpenses } from './MonthlyOtherExpenses';
 
 export const MonthRow = ({
   month,
@@ -41,7 +42,10 @@ export const MonthRow = ({
         <MonthlyAds 
           data={fiscalYearData.ads?.[month]}
         />
-        <TableCell rowSpan={3} />
+
+        <MonthlyOtherExpenses 
+          data={fiscalYearData.otherExpenses?.[month]}
+        />
 
 
         <TableCell 

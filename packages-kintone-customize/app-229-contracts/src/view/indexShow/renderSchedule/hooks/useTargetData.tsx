@@ -63,6 +63,8 @@ export const useTargetData = () => {
 
     } = data || {};
 
+    console.log('data', data, adTotal);
+
 
 
     /** 月でグループしたイベント */

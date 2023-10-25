@@ -6,6 +6,8 @@ import { YearActualPerformance } from './YearActualPerformance';
 import { red } from '@mui/material/colors';
 import { YearlyTargetDifference } from './YearlyTargetDifference';
 import { TotalProfit } from './TotalProfit';
+import { YearlyAdExpenseAmt } from './YearlyAdExpenseAmt';
+import { YearlyOtherExpenseAmt } from './YearlyOtherExpense';
 
 export const YearlySummary = ({
   fiscalYear,
@@ -19,6 +21,12 @@ export const YearlySummary = ({
     <Fragment>
       <TableRow>
         <YearlyTarget data={data} />
+        <YearlyAdExpenseAmt 
+          amount={data.fiscalYearData?.totalAdExpenses || 0}
+        />
+        <YearlyOtherExpenseAmt 
+          amount={data.fiscalYearData?.totalOtherExpenses || 0}
+        />
       </TableRow>
       <TableRow>
         <YearActualPerformance 

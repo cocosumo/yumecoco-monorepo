@@ -4,6 +4,7 @@ import { IProjects } from 'types';
 import { DetailSection } from '../common/DetailSection';
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { getAgentNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
+import { Tooltip, Typography } from '@mui/material';
 
 export const OfficerDetails = ({
   recProj,
@@ -16,6 +17,7 @@ export const OfficerDetails = ({
     custGroupId,
     commissionRate,
     territory,
+    store,
   } = recProj || {};
 
   const { 
@@ -24,6 +26,8 @@ export const OfficerDetails = ({
 
   const {
     agents: custGroupAgents,
+    storeName: custGrpStoreName,
+    territory: custGroupTerritory,
   }  = recCustGroup || {};
   const yumeAGNames =  projGetAgentNamesByType(agents, 'yumeAG') 
   || (custGroupAgents && getAgentNamesByType(custGroupAgents, 'yumeAG')) 
@@ -40,7 +44,12 @@ export const OfficerDetails = ({
   const agentDetails: IDetail[] = [
     {
       label: '店舗',
-      value: territory.value,
+      value: (
+        <Tooltip title={`${territory.value || custGroupTerritory?.value} - ${store.value ? '工事データ' : '顧客データ'}`}>
+          <Typography noWrap>
+            {store.value || custGrpStoreName?.value}
+          </Typography>
+        </Tooltip>),
     },
     {
       label: 'ゆめてつAG',

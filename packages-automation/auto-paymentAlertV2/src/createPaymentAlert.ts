@@ -9,13 +9,11 @@ import { convertReminderToJson } from './helpers/convertReminderToJson';
 
 
 /**
- * 通知対象の契約レコード情報をまとめます todo:アラート条件の変更
+ * 通知対象の契約レコード情報をまとめます
  */
 export const createPaymentAlert = async () => {
-  console.log('start create payment reminder');
+  console.log('start create payment reminder ver2');
 
-  // 処理前準備
-  // 関連するレコード情報を取得する
   const [
     allProjects,
     allAndpadPayments,

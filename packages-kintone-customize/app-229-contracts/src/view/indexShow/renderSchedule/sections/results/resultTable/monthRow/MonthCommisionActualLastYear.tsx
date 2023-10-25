@@ -1,4 +1,4 @@
-import { blue, grey } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import { StyledCell } from './common/StyledCell';
 import { roundTo } from 'libs';
 import { Typography } from '@mui/material';
@@ -10,13 +10,13 @@ export const MonthCommisionActualLastYear = ({
 }) => {
   
   return (
-    <StyledCell
-      sx={{
-        color: blue[600],
-      }}
-    >
+    <StyledCell>
       {roundTo(amt / 10000).toLocaleString()}
-      <Typography variant='caption' color={grey[100]}>
+      <Typography 
+        variant='caption' 
+        color={grey[400]}
+        ml={0.5}
+      >
         万円
       </Typography>
     </StyledCell>

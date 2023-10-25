@@ -1,0 +1,23 @@
+import { Territory } from 'types';
+
+export interface CwRoomIds {
+  cwRoomId: string,
+  agentId: string,
+  agentName: string,
+}
+
+export interface PaymentReminder {
+  alertState: boolean,
+  andpadPaymentUrl: string,
+  reminderUrl: string,
+  contractId: string,
+  projId: string,
+  projName: string,
+  projType: string,
+  contractDate: string,
+  totalContractAmount: string,
+  territory: Territory,
+  expectedPaymentDate: string | null,
+  yumeAG: string,
+  cwRoomIds: CwRoomIds[],
+}

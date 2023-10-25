@@ -8,7 +8,7 @@ import { convertReminderToKintoneUpdate } from './convertReminderToKintoneUpdate
 /**
  * kintoneのリマインダーレコードを更新します
  */
-export const updateReportedReminders = ({
+export const updateReportedReminders = async ({
   reportedReminder,
 }: {
   reportedReminder: InvoiceReminder[],
@@ -21,5 +21,5 @@ export const updateReportedReminders = ({
     lastAlertDate: format(new Date(), 'yyyy-MM-dd'),
   });
 
-  updateInvoiceReminder(kintoneRecords);
+  await updateInvoiceReminder(kintoneRecords);
 };

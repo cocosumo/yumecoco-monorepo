@@ -1,0 +1,6 @@
+@media print {
+  td.headerCell {
+    font-size: 0.6rem;
+    padding: 0 8px;
+  }
+}

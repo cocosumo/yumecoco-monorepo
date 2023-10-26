@@ -1,0 +1,10 @@
+@media print {
+  td.cell {
+    font-size: 0.6rem;
+    padding: 0 8px;
+  }
+
+  span.suffix {
+    font-size: 0.4rem;
+  }
+}

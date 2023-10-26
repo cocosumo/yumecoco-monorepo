@@ -1,0 +1,6 @@
+@media print {
+  td.cell {
+    font-size: 0.8rem;
+    padding: 0 8px;
+  }
+}

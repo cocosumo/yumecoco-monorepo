@@ -1,6 +1,6 @@
 @media print {
   div.resultTableContainer {
-    width: 260mm;
+    width: 280mm;
     height: 200mm;
    /*  overflow: hidden; */
     border: 1px solid red;
@@ -8,7 +8,7 @@
   }
 
   table.resultTable {
-    width: 260mm;
+    width: 100%;
     table-layout: fixed;
     border-spacing: 0;
     border-collapse: collapse;

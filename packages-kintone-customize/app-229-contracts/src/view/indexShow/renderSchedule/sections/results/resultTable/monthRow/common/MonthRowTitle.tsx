@@ -13,6 +13,7 @@ export const MonthRowTitle = ({
       }}
       className={styles.monthRowTitle}
     >
+
       {label}
     </TableCell>
   );

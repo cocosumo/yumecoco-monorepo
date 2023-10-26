@@ -1,5 +1,5 @@
 
-import { Stack, TableCell, Typography } from '@mui/material';
+import { Stack, TableCell } from '@mui/material';
 import { Fragment } from 'react';
 import styles from './MonthRowEvents.module.css';
 
@@ -16,17 +16,11 @@ export const MonthRowEvents = ({
     >
       <Stack
         direction="column"
-        height={100}
       >
         {eventsByMonth?.map((eventDetails) => {
           return (
             <Fragment key={eventDetails}>
-              <Typography 
-                fontSize={12}
-                className={styles.events}
-              >
-                {eventDetails}
-              </Typography>
+              {eventDetails}
             </Fragment>
           );
         })}

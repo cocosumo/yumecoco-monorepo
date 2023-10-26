@@ -17,7 +17,7 @@ export const ColHeaders = () => {
         />
 
         <TableCell 
-          width={80} 
+          width={120} 
           rowSpan={2} align='center'
           className={styles.eventCol}
         >
@@ -27,12 +27,14 @@ export const ColHeaders = () => {
         </TableCell>
 
         <IgnoredCell 
-          width={80} 
           rowSpan={2}
           bgColor={blue[50]}
         />
 
-        <TableCell align='center' colSpan={5}>
+        <TableCell 
+          align='center' 
+          colSpan={5}
+        >
           売上目標									
         </TableCell>
 

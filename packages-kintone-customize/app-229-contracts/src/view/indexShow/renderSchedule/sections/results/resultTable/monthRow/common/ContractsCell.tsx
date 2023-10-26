@@ -30,6 +30,7 @@ export const ContractsCell = ({
         }}
         className={styles.contractsCell}
       >
+
         {roundTo((totalAmtExclTax ?? 0) / 10000).toLocaleString()}
       </StyledCell>
     </Tooltip>

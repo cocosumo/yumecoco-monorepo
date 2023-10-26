@@ -1,5 +1,5 @@
 import { TableCell } from '@mui/material';
-
+import styles from './YearlyRowHeader.module.css';
 export const YearlyRowHeader = ({
   label,
 }:{ 
@@ -9,6 +9,7 @@ export const YearlyRowHeader = ({
     <TableCell 
       colSpan={3} 
       align='center'
+      className={styles.cell}
       sx={{
         fontSize: 20,
         '&&': {

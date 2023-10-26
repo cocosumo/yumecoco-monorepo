@@ -21,6 +21,7 @@ export const YearlyCommision = ({
           fontWeight: 'bold',
           fontSize: 18,
         }}
+        colSpan={2}
       >
         {label}
       </BorderlessCell>

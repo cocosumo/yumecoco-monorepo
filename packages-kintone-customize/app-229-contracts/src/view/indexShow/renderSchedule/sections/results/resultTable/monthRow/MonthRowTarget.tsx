@@ -41,6 +41,7 @@ export const MonthRowTarget = ({
 
           >
             {roundTo(targets?.[id]?.monthlyTarget ?? 0).toLocaleString()}
+
           </TableCell>
         );
       })}
@@ -54,7 +55,9 @@ export const MonthRowTarget = ({
         }}
         className={styles.monthRowTarget}
       >
+
         {roundTo(othersMonthlyTarget ?? 0).toLocaleString()}
+
       </TableCell>
 
       {/* 目標合計 */}
@@ -66,7 +69,9 @@ export const MonthRowTarget = ({
         }}
         className={styles.monthRowTarget}
       >
+
         {roundTo(totalMonthlyTarget ?? 0).toLocaleString()}
+
       </TableCell>
     </Fragment>
   );

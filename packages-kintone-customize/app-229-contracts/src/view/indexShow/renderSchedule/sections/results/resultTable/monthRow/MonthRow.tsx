@@ -44,7 +44,7 @@ export const MonthRow = ({
         <MonthAds 
           data={fiscalYearData.ads?.[month]}
         />
-
+        
         <MonthOtherExpenses 
           data={fiscalYearData.otherExpenses?.[month]}
         />
@@ -53,7 +53,7 @@ export const MonthRow = ({
         <TableCell 
           sx={{
             bgcolor: grey[200],
-          }} 
+          }}
         />
 
       </TableRow>
@@ -77,7 +77,7 @@ export const MonthRow = ({
         <MonthCommisionActual 
           amt={contractsData?.[fiscalYear]?.monthlyData?.[month]?.totalCommission || 0}
         />
-
+ 
 
       </TableRow>
 

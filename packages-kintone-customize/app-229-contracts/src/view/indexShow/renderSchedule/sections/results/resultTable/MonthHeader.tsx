@@ -13,6 +13,7 @@ export const MonthHeader = ({
       rowSpan={3}
       sx={{
         color: grey[700],
+        whiteSpace: 'nowrap',
       }}
       className={styles.headerCell}
     >

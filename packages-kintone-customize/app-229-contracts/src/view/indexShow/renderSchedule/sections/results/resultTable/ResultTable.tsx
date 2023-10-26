@@ -19,6 +19,9 @@ export const ResultTable = () => {
           backgroundColor: blue[50],
           px: 0.5,
         },
+        '& table *': {
+          fontFamily: '"メイリオ","Hiragino Kaku Gothic ProN",Meiryo,sans-serif',
+        },
       }}
       className={styles.resultTableContainer}
     >

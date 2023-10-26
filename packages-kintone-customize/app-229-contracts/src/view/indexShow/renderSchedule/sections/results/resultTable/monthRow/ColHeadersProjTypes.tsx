@@ -28,12 +28,14 @@ export const ColHeaderProjTypes = () => {
       <TableCell align='center' 
         sx={{
           '& > span':{
-            fontSize: 8,
+            fontSize: 10,
           },
         }}
       >
         <span>
-          その他(造成・外構等)		
+          その他
+          <br />
+          (造成・外構等)		
 
         </span>
       </TableCell>

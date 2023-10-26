@@ -1,9 +1,7 @@
 @media print {
-  .events {
-    font-size: 0.6rem;
-  }
 
   td.eventsCell {
     padding: 0 8px;
+    font-size: 0.4rem;
   }
 }

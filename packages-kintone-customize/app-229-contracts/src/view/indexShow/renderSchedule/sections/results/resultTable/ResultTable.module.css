@@ -14,10 +14,9 @@
     border-collapse: collapse;
     /* transform: scale(1, 0.5);
     transform-origin:top left; */
+
+    font-size: xx-small;
   }
 
 
-  table.resultTable td, table.resultTable th {
-    /* line-height: 0.5rem */
-  }
 }

@@ -1,24 +1,20 @@
 import { TableCell, TableRow } from '@mui/material';
 import { projTypesToShow } from '../../../../config';
+import styles from './ColHeaderProjTypes.module.css';
+
 
 export const ColHeaderProjTypes = () => {
   
   return (
-    <TableRow 
-      sx={{
-        '& > th': {
-          fontSize: 10,
-          width: 80,
-          px: 0.5,
-        },
-      }}
-    >
+    <TableRow>
       {
         projTypesToShow.map(({ id, name }) => {
           return (
             <TableCell 
+              width={60}
               key={id}
               align='center'
+              className={styles.cell}
             >
               {name}
             </TableCell>);
@@ -27,17 +23,12 @@ export const ColHeaderProjTypes = () => {
         
       <TableCell align='center' 
         sx={{
-          '& > span':{
-            fontSize: 10,
-          },
+          fontSize: 10,
         }}
+        className={styles.others}
       >
-        <span>
-          その他
-          <br />
-          (造成・外構等)		
+        その他(造成・外構等)		
 
-        </span>
       </TableCell>
         
     </TableRow>

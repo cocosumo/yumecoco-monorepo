@@ -17,7 +17,7 @@ export const ColHeaders = () => {
         />
 
         <TableCell 
-          width={120} 
+          width={100} 
           rowSpan={2} align='center'
           className={styles.eventCol}
         >

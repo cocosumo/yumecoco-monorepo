@@ -13,6 +13,9 @@ export const MonthRowEvents = ({
     <TableCell 
       rowSpan={3}
       className={styles.eventsCell}
+      sx={{
+        fontSize: 12,
+      }}
     >
       <Stack
         direction="column"

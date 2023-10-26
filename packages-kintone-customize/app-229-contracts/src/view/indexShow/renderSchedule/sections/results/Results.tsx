@@ -17,7 +17,7 @@ export const Results = () => {
     >
       <Title />
       <ResultTable />
-
+     
     </Stack>
   );
 };

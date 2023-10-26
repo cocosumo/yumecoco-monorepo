@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack } from '@mui/material';
 import { Toolbar } from './sections/toolbar/Toolbar';
 import { Results } from './sections/results/Results';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 export const FormSchedule = () => {
   const formReturn = useForm<TForm>({
@@ -28,6 +29,7 @@ export const FormSchedule = () => {
           <Toolbar />
           <Results />
         </Stack>
+        <ReactQueryDevtools initialIsOpen={false} />
 
       </Form>
     </FormProvider>

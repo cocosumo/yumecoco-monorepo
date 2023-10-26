@@ -8,4 +8,9 @@ export const TotalCell = styled(TableCell)`
     border-bottom: 2px solid black;
     border-right: 2px solid black;
   }
+  @media print {
+    && {
+      font-size: 0.75rem;
+    }
+  }
 `;

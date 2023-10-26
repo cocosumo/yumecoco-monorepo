@@ -28,7 +28,7 @@ export const ContractsCell = ({
             cursor: 'pointer',
           },
         }}
-        className={styles.contractsCell}
+        className={`${styles.contractsCell} ${color === 'red' ? styles.emphasized : ''}`}
       >
 
         {roundTo((totalAmtExclTax ?? 0) / 10000).toLocaleString()}

@@ -51,7 +51,6 @@ export const MonthRowActual = ({
         color='red'
 
       />
-
     </Fragment>
 
   );

@@ -23,7 +23,7 @@ export const ColHeaderProjTypes = () => {
         
       <TableCell align='center' 
         sx={{
-          fontSize: 10,
+          fontSize: 9,
         }}
         className={styles.others}
       >

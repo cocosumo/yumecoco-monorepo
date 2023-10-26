@@ -1,0 +1,20 @@
+@media print {
+  div.resultTableContainer {
+    width: 280mm;
+    height: 210mm;
+    /*  overflow: hidden; */
+    /*  border: 1px solid red;*/
+    transform-origin: top left;
+  }
+
+  table.resultTable {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+    /* transform: scale(1, 0.5);
+    transform-origin:top left; */
+
+    font-size: xx-small;
+  }
+}

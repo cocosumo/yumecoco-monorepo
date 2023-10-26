@@ -5,6 +5,7 @@ import { formatCurrency } from '../../../../jsedit/api/formatCurrency';
 import { calcFontSize } from '../../../../jsedit/api/calcFontSize';
 import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
+import { IProjects } from 'types';
 
 //表の中身の生成
 
@@ -57,7 +58,7 @@ export const displayResult = async (selectStoreName?: string) => {
       //console.log('店舗名', storeName, pn, gbProjType[pn]);
 
       // console.log(gbProjType[pn]);
-      const projByType = gbProjType[pn] as any[];
+      const projByType = gbProjType[pn] as IProjects[];
 
       //総計をリセット
       let totalSchedContractPrice = 0;
@@ -82,6 +83,12 @@ export const displayResult = async (selectStoreName?: string) => {
           if (ob === undefined) {
             continue;
           }
+
+          const parsedEstatePurchaseDate = ob.estatePurchaseDate?.value ? format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d') : '';
+          const parsedRealEstateStatus = ob.realEstateStatus?.value || parsedEstatePurchaseDate || 'なし'; // 古いレコードいには不動産状況がないので、「なし」とする
+
+          /** @see https://rdmuhwtt6gx7.cybozu.com/k/236/show#record=221 */
+          const resolvedRealEstateStatus = parsedRealEstateStatus === 'あり' ? parsedEstatePurchaseDate : parsedRealEstateStatus; 
   
           //　抽出結果を出力
           contentsRows.push(`<tr class="prospect_dataContents" data-uuid="${ob.uuid?.value}">
@@ -92,7 +99,7 @@ export const displayResult = async (selectStoreName?: string) => {
                       <td style="text-align: center;">${ob.paymentMethod?.value}</td>
                       <td class="prospect_agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
                       <td class="prospect_agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
-                      <td class="prospect_date" style="text-align: center;">${ob.estatePurchaseDate?.value ? format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d') : ''}</td>
+                      <td class="prospect_date" style="text-align: center;">${resolvedRealEstateStatus}</td>
                       <td class="prospect_date" style="text-align: center;">${ob.planApplicationDate?.value ? format(parseISO(ob.planApplicationDate?.value), 'yy.M.d') : ''}</td>
                       <td class="prospect_date" style="text-align: center;">${ob.schedContractDate?.value ? format(parseISO(ob.schedContractDate?.value), 'yy.M.d') : ''}</td>
   
@@ -140,94 +147,7 @@ export const displayResult = async (selectStoreName?: string) => {
             </div>`);
 
     }
-              
-        
-    /* //工事種別ごとで表作成
-    const contentsTable = projectNames.map((pn) => {
-      //console.log('店舗名', storeName, pn, gbProjType[pn]);
-
-      // console.log(gbProjType[pn]);
-      const projByType = gbProjType[pn] as any[];
-
-      //総計をリセット
-      let totalSchedContractPrice = 0;
             
-      const contentsRows = projByType?.map((ob, index) => {
-                
-        //小計の計算（契約予定金額を合計）
-        const number = +(ob.schedContractPrice?.value || 0);
-        totalSchedContractPrice += number;
-
-        //総計の計算（小計を合計）
-        const totalnumber = +totalSchedContractPrice;
-        totalPrice += totalnumber;
-
-        if (ob === undefined) {
-          return;
-        }
-
-        console.log('ob.estatePurchaseDate', ob.estatePurchaseDate?.value);
-        //console.log('formattedDate', format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d'));
-
-        //　抽出結果を出力
-        return `<tr class="prospect_dataContents" data-uuid="${ob.uuid?.value}">
-                    <td id="prospect_number" style="text-align: center;">${index + 1}</td>
-                    <td id="prospect_rank" style="text-align: center;">${ob.rank?.value || '-'}</td>
-                    <td id="prospect_custNamefield" style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
-                    <td style="text-align: right;">${formatCurrency(ob.schedContractPrice?.value) || '未定'}</td>
-                    <td class="prospect_paymentMethod">${ob.paymentMethod?.value}</td>
-                    <td class="prospect_agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
-                    <td class="prospect_agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
-                    <td class="prospect_date" style="text-align: center;">${ob.estatePurchaseDate?.value ? format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d') : ''}</td>
-                    <td class="prospect_date" style="text-align: center;">${ob.planApplicationDate?.value ? format(parseISO(ob.planApplicationDate?.value), 'yy.M.d') : ''}</td>
-                    <td class="prospect_date" style="text-align: center;">${ob.schedContractDate?.value ? format(parseISO(ob.schedContractDate?.value), 'yy.M.d') : ''}</td>
-
-                    <td style="text-align: left;">${ ob.memo?.value || ''}</td>
-                </tr>`;
-
-      }).filter(Boolean)
-        .join(''); */
-
-    //console.log('contentsRows', contentsRows);
-
-    //表の生成
-    /*  return `<div class="prospectTableContainer">
-            <table class="prospectTable">
-            <thead>
-                <tr>
-                    <td class="prospect_projNameHeader" colspan="11">${pn}</td>
-                </tr>
-                <tr class="prospect_contractHeader">
-                    <th id="prospect_numberIndex" style="width: 20px;">No.</th>
-                    <th id="prospect_rankIndex" style="width: 20px;">ランク</th>
-                    <th style="width: 150px;">お客様名</th>
-                    <th style="width: 150px;">契約<br/>予定金額</th>
-                    <th style="width: 100px;">金融機関</th>
-                    <th style="width: 80px;">担当者</th> 
-                    <th style="width: 80px;">AG</th>
-                    <th style="width: 80px;">不動産<br/>決済日</th>
-                    <th style="width: 80px;">設計<br/>申込日</th>
-                    <th style="width: 80px;">契約<br/>予定日</th>
-                    <th style="width: 200px;">備考</th>   
-                </tr>
-            </thead>
-            <tbody class="prospectContents">
-                ${contentsRows || '<tr><td class="prospect_unknown" colspan="11">なし</td></tr>'}
-                
-            </tbody>
-            <tfoot>
-                <tr class="prospect_totalCell">
-                    <td colspan="3">小計</td>
-                    <td colspan="8">${formatCurrency(totalSchedContractPrice)}</td>
-                </tr>
-            </tfoot>
-            </table>
-            </div>`;
-            
-            
-    }).join(''); */
-
-        
 
     //一覧表示（全て）
     $('#prospect_printArea').append(`

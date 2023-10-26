@@ -1,0 +1,15 @@
+@media print {
+  td.label {
+    font-size: 0.75rem;
+  }
+
+  td.expenseAmt {
+    font-size: 0.75rem;
+    padding: 0 8px;
+  }
+
+  span.suffix {
+    font-size: 0.4rem;
+  }
+  
+}

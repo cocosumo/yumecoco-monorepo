@@ -1,0 +1,17 @@
+@media print {
+  th.eventCol {
+    font-size: 0.8rem;
+  }
+
+  th.reform {
+    font-size: 0.7rem;
+  }
+
+  th.adsExpenses {
+    font-size: 0.7rem;
+  }
+
+  th.commision {
+    font-size: 0.75rem;
+  }
+}

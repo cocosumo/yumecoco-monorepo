@@ -63,6 +63,13 @@ const schema = z.object({
 
   /** 完工日　To */
   completionDateTo : dateType,
+  
+  /** 最終請求日 From*/
+  lastBillDateFrom : dateType,
+
+  /** 最終請求日 To */
+  lastBillDateTo : dateType,
+
 
   order: z.enum(['asc', 'desc']),
 

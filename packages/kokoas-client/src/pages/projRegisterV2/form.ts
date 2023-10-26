@@ -57,6 +57,7 @@ export const initialValues : TForm = {
   // 見込み
   rank: '',
   schedContractPrice: 0,
+  realEstateStatus: 'あり',
   schedContractDate: null,
   estatePurchaseDate: null,
   planApplicationDate: null,

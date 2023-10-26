@@ -33,12 +33,12 @@ const EnhancedTableCell = ({
       active={isActive}
       direction={isActive ? (order as Order) : 'asc'}
       onClick={() => {
-        const queryStr =  qs.stringify(
-          removeNullFalsyEmptyFromObject({ 
-            ...existingQuery, 
-            orderBy: fieldName, 
-            order: (order as Order) === 'asc' ? 'desc' : 'asc', 
-          }), 
+        const queryStr = qs.stringify(
+          removeNullFalsyEmptyFromObject({
+            ...existingQuery,
+            orderBy: fieldName,
+            order: (order as Order) === 'asc' ? 'desc' : 'asc',
+          }),
           { arrayFormat: 'comma', encode: false },
         );
         navigate(`${pages.projSearch}?${queryStr}`);
@@ -59,28 +59,29 @@ export const ResultHead = () => {
 
   return (
     <TableHead>
-      <RowLayout 
+      <RowLayout
         custName={'顧客名'}
         custNameKana={'顧客名（カナ）'}
         custAddress={'発注者住所'} // 反映しませんが、変わるような予感がするので、とりあえず、残す
         projName={'工事名'}
         tel={'電話番号'}
+        telRelation={'続柄'}
         storeName={(
-          <EnhancedTableCell 
+          <EnhancedTableCell
             existingQuery={query}
             fieldName='storeSortNumber'
             label='店舗名'
           />
         )}
         projDataId={(
-          <EnhancedTableCell 
+          <EnhancedTableCell
             existingQuery={query}
             fieldName='projDataId'
             label='工事番号'
           />
         )}
         contractDate={(
-          <EnhancedTableCell 
+          <EnhancedTableCell
             existingQuery={query}
             fieldName='contractDate'
             label='契約日'
@@ -101,21 +102,28 @@ export const ResultHead = () => {
           />
         )}
         projFinDate={(
-          <EnhancedTableCell 
+          <EnhancedTableCell
             existingQuery={query}
             fieldName='projFinDate'
             label='物件完了日'
           />
         )}
+        lastBillDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='lastBillDate'
+            label='最終請求日'
+          />
+        )}
         createdAt={(
-          <EnhancedTableCell 
+          <EnhancedTableCell
             existingQuery={query}
             fieldName='createdAt'
             label='作成日時'
           />
         )}
         updatedAt={(
-          <EnhancedTableCell 
+          <EnhancedTableCell
             existingQuery={query}
             fieldName='updatedAt'
             label='更新日時'

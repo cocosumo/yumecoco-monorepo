@@ -1,0 +1,11 @@
+@media print {
+  td .label {
+    font-size: 0.5rem;
+    padding: 4px 4px;
+  }
+
+  td .expenseAmt {
+    font-size: 0.75rem;
+    padding: 4px 4px;
+  }
+}

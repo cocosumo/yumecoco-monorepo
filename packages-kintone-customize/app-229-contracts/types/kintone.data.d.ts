@@ -31,12 +31,12 @@ declare namespace DB {
     territory: kintone.fieldTypes.SingleLineText;
     contractYear: kintone.fieldTypes.Calc;
     最終請負金額_税抜: kintone.fieldTypes.Calc;
-    fee: kintone.fieldTypes.Calc;
     contractAmountNotax: kintone.fieldTypes.Calc;
     editProfit: kintone.fieldTypes.Calc;
     最終粗利率: kintone.fieldTypes.Calc;
+    commisionNewHouse: kintone.fieldTypes.Calc;
     profitMargin: kintone.fieldTypes.Calc;
-    紹介料新築: kintone.fieldTypes.Calc;
+    commission: kintone.fieldTypes.Calc;
     contractMonth: kintone.fieldTypes.Calc;
     抽出箇所: kintone.fieldTypes.CheckBox;
     自社物件: kintone.fieldTypes.CheckBox;

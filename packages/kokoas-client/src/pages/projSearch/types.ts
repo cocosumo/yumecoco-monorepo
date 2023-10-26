@@ -16,11 +16,13 @@ export interface SearchResult {
   custNameKana: string;
   custAddress: string;
   tel: string;
+  telRelation: string;
   storeName: string;
   contractDate: string;
   deliveryDate: string;
   projFinDate: string;
   payFinDate: string;
+  lastBillDate: string;
   projName: string;
   projDataId: string;
   uuid: string;

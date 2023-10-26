@@ -145,7 +145,7 @@ export const useReportCanvas = (contractId: string) => {
           month,
           day,
         } = parseDate(contractDate.value);
-        ctx.fillText(month, 570, 712);
+        ctx.fillText(month, month.length > 1 ? 550 : 570, 712);
   
         // 契約日（日）
         ctx.fillText(day, 768, 712);

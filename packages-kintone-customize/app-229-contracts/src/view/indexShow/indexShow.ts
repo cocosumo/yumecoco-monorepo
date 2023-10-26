@@ -2,6 +2,7 @@
 import { prospect } from './prospect_6343185/prospect';
 import { renderContractList } from './renderContractList/renderContractList';
 import { renderCumulative } from './renderCumulative/renderCumulative';
+import { renderSchedule } from './renderSchedule/renderSchedule';
 
 interface EventType {
   appId: number,
@@ -29,5 +30,10 @@ export const indexShow = (event: EventType) => {
     case 6343246: // 契約一覧表
       renderContractList();
       break;
+    case 6343616: // スケジュール 開発環境
+    case 6343614: // スケジュール 本番
+      renderSchedule();
+      break;
+  
   }
 };

@@ -29,16 +29,21 @@ export const ColHeaders = () => {
         <IgnoredCell 
           rowSpan={2}
           bgColor={blue[50]}
+          width={60}
         />
 
         <TableCell 
           align='center' 
           colSpan={5}
+          width={325} // 5 col * 65
         >
           売上目標									
         </TableCell>
 
-        <TableCell align='center' rowSpan={2}>
+        <TableCell 
+          width={60}
+          align='center' rowSpan={2}
+        >
           合計	
         </TableCell>
 

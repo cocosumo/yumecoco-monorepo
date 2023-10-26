@@ -11,7 +11,7 @@ export const ColHeaderProjTypes = () => {
         projTypesToShow.map(({ id, name }) => {
           return (
             <TableCell 
-              width={60}
+              width={40}
               key={id}
               align='center'
               className={styles.cell}

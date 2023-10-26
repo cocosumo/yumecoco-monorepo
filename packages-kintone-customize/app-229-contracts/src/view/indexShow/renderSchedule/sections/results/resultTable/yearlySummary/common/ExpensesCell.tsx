@@ -2,6 +2,7 @@ import { Divider, TableCell, Typography } from '@mui/material';
 import { yellow } from '@mui/material/colors';
 import { Stack } from '@mui/system';
 import { roundTo } from 'libs';
+import styles from './ExpensesCell.module.css';
 
 export const ExpensesCell = ({
   label,
@@ -28,6 +29,8 @@ export const ExpensesCell = ({
         <Typography 
           p={1}
           fontSize={12}
+          className={styles.label}
+
         >
           {label}
 
@@ -39,6 +42,7 @@ export const ExpensesCell = ({
           fontWeight={'bold'}
           bgcolor={yellow.A200}
           width={'100%'}
+          className={styles.expenseAmt}
         >
           {roundTo(expenseAmt).toLocaleString()}
           万円

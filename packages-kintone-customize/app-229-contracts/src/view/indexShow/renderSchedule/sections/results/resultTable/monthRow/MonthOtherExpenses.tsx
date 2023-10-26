@@ -32,6 +32,7 @@ export const MonthOtherExpenses = ({
         <Stack
           spacing={1}
           p={1}
+          className={styles.container}
         >
           {expenses?.map(({
             description,

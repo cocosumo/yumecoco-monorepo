@@ -37,7 +37,7 @@ export const YearlyTargetDifference = ({
       <YearlyRowHeader label={'目標まで差額'} />
 
       {projTypeIds.map((id) => {
-        const targetValue = (targets?.[id].yearlyTarget || 0) * 10000;
+        const targetValue = (targets?.[id]?.yearlyTarget || 0) * 10000;
         const actualValue = contractsByType?.[id]?.totalAmtExclTax || 0;
         const diff = roundTo((targetValue - actualValue) / 10000);
         return (

@@ -11,7 +11,7 @@ export const ColHeaders = () => {
       <TableRow>
 
         <IgnoredCell 
-          width={30} 
+          width={40} 
           rowSpan={2}
           bgColor='white'
         />
@@ -41,7 +41,11 @@ export const ColHeaders = () => {
         </TableCell>
 
         
-        <TableCell align='center' rowSpan={2}>
+        <TableCell 
+          align='center' 
+          rowSpan={2}
+          className={styles.adsExpenses}
+        >
           広告宣伝費等	
 
         </TableCell>
@@ -50,7 +54,11 @@ export const ColHeaders = () => {
           その他経費          
         </TableCell>
         
-        <TableCell align='center' rowSpan={2}>
+        <TableCell 
+          align='center' 
+          rowSpan={2}
+          className={styles.commision}
+        >
           夢てつ紹介料	          
         </TableCell>
         {/* 

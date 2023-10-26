@@ -1,5 +1,5 @@
 
-import { MonthlyCommisionCell } from './common/MontlyCommisionCell';
+import { MonthlyCommisionCell } from './common/MonthlyCommisionCell';
 
 export const MonthCommisionActualLastYear = ({
   amt,

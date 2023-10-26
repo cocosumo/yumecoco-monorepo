@@ -1,0 +1,6 @@
+@media print {
+  td.monthRowTarget {
+    font-size: 1rem;
+    padding: 0 8px;
+  }
+}

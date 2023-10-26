@@ -3,6 +3,7 @@ import { DataByProjType } from '../../../../../hooks/groupContracts';
 import { roundTo } from 'libs';
 import { yellow } from '@mui/material/colors';
 import { StyledCell } from './StyledCell';
+import styles from './ContractsCell.module.css';
 
 export const ContractsCell = ({
   values,
@@ -27,6 +28,7 @@ export const ContractsCell = ({
             cursor: 'pointer',
           },
         }}
+        className={styles.contractsCell}
       >
         {roundTo((totalAmtExclTax ?? 0) / 10000).toLocaleString()}
       </StyledCell>

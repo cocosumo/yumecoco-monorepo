@@ -5,13 +5,13 @@ import { MonthHeader } from '../MonthHeader';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
 import { MonthRowActual } from './MonthRowActual';
 import { MonthRowTarget } from './MonthRowTarget';
-import { MonthRowEvents } from './MonthEvents';
 import { MonthRowActualLastYear } from './MonthRowActualLastYear';
 import { grey } from '@mui/material/colors';
 import { MonthAds } from './MonthAds';
 import { MonthOtherExpenses } from './MonthOtherExpenses';
 import { MonthCommisionActual } from './MonthCommisionActual';
 import { MonthCommisionActualLastYear } from './MonthCommisionActualLastYear';
+import { MonthRowEvents } from './MonthRowEvents';
 
 export const MonthRow = ({
   month,

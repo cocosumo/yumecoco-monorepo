@@ -1,16 +1,23 @@
 @media print {
   div.resultTableContainer {
-    width: 280mm;
+    width: 260mm;
     height: 200mm;
-    overflow: hidden;
+   /*  overflow: hidden; */
     border: 1px solid red;
     transform-origin:top left;
   }
 
   table.resultTable {
-    width: 280mm;
-    height: 200mm;
-    transform-origin:top left;
+    width: 260mm;
     table-layout: fixed;
+    border-spacing: 0;
+    border-collapse: collapse;
+    /* transform: scale(1, 0.5);
+    transform-origin:top left; */
+  }
+
+
+  table.resultTable td, table.resultTable th {
+    /* line-height: 0.5rem */
   }
 }

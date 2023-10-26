@@ -1,6 +1,6 @@
 import { TableCell } from '@mui/material';
 import { grey } from '@mui/material/colors';
-
+import styles from './MonthHeader.module.css';
 export const MonthHeader = ({
   month,
 }:{
@@ -14,6 +14,7 @@ export const MonthHeader = ({
       sx={{
         color: grey[700],
       }}
+      className={styles.headerCell}
     >
       {month}
       月

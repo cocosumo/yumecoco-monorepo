@@ -1,6 +1,8 @@
 import { Stack, TableCell, Typography } from '@mui/material';
 import { ExpensesByMonth } from '../../../../hooks/useTargetData';
 import { yellow } from '@mui/material/colors';
+import styles from './MonthOtherExpenses.module.css';
+
 
 export const MonthOtherExpenses = ({
   data,
@@ -17,9 +19,10 @@ export const MonthOtherExpenses = ({
     <TableCell 
       rowSpan={3}
       sx={{
-        height: '100px', // これがないと、月別の行の高さが揃わない
+        height: '0px',
         p: 0,
       }}
+      className={styles.printText}
     >
       <Stack
         justifyContent={'space-between'}
@@ -48,6 +51,7 @@ export const MonthOtherExpenses = ({
           bgcolor={yellow[100]}
           textAlign={'right'}
           fontSize={14}
+          component={'div'}
         >
           {(totalExpenses || 0).toLocaleString()}
           万円

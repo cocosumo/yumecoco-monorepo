@@ -1,8 +1,8 @@
-import { TableCell } from '@mui/material';
 import { projTypesToShow } from '../../../../config';
 import { GroupedContracts } from '../../../../hooks/groupContracts';
 import { ContractsCell } from './common/ContractsCell';
 import { Fragment } from 'react';
+import { MonthRowTitle } from './common/MonthRowTitle';
 
 export const MonthRowActualLastYear = ({
   contractsData,
@@ -18,9 +18,9 @@ export const MonthRowActualLastYear = ({
 
   return (
     <Fragment>
-      <TableCell>
-        昨年実績値
-      </TableCell>
+
+      <MonthRowTitle label='昨年実績値' />
+
       {projTypesToShow.map(({
         id,
       }) => {

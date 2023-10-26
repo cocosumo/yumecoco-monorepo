@@ -1,6 +1,6 @@
 
 import { blue } from '@mui/material/colors';
-import { MonthlyCommisionCell } from './common/MontlyCommisionCell';
+import { MonthlyCommisionCell } from './common/MonthlyCommisionCell';
 
 export const MonthCommisionActual = ({
   amt,

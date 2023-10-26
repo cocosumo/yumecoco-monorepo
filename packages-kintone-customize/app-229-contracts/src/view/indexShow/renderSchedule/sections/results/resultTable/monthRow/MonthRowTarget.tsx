@@ -3,6 +3,8 @@ import { Fragment } from 'react';
 import { projTypesToShow } from '../../../../config';
 import { roundTo } from 'libs';
 import { UseTargetDataReturn } from '../../../../hooks/useTargetData';
+import styles from './MonthRowTarget.module.css';
+import { MonthRowTitle } from './common/MonthRowTitle';
 
 export const MonthRowTarget = ({
   data,
@@ -22,9 +24,8 @@ export const MonthRowTarget = ({
 
   return (
     <Fragment>
-      <TableCell>
-        目標値
-      </TableCell>
+      <MonthRowTitle label='目標値' />
+      
       {projTypesToShow.map(({
         id,
       }) => {
@@ -36,6 +37,8 @@ export const MonthRowTarget = ({
               fontSize: 20,
               fontWeight: 'bold',
             }}
+            className={styles.monthRowTarget}
+
           >
             {roundTo(targets?.[id]?.monthlyTarget ?? 0).toLocaleString()}
           </TableCell>
@@ -49,6 +52,7 @@ export const MonthRowTarget = ({
           fontSize: 20,
           fontWeight: 'bold',
         }}
+        className={styles.monthRowTarget}
       >
         {roundTo(othersMonthlyTarget ?? 0).toLocaleString()}
       </TableCell>
@@ -60,6 +64,7 @@ export const MonthRowTarget = ({
           fontSize: 20,
           fontWeight: 'bold',
         }}
+        className={styles.monthRowTarget}
       >
         {roundTo(totalMonthlyTarget ?? 0).toLocaleString()}
       </TableCell>

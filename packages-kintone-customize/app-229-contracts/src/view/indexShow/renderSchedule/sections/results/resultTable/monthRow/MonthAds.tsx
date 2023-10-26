@@ -1,6 +1,7 @@
 import { Stack, TableCell, Typography } from '@mui/material';
 import { ExpensesByMonth } from '../../../../hooks/useTargetData';
 import { yellow } from '@mui/material/colors';
+import styles from './MonthAds.module.css';
 
 export const MonthAds = ({
   data,
@@ -17,9 +18,10 @@ export const MonthAds = ({
     <TableCell 
       rowSpan={3}
       sx={{
-        height: '100px', // これがないと、月別の行の高さが揃わない
+        height: '0px',
         p: 0,
       }}
+      className={styles.printText}
     >
       <Stack
         justifyContent={'space-between'}
@@ -48,6 +50,7 @@ export const MonthAds = ({
           bgcolor={yellow[100]}
           textAlign={'right'}
           fontSize={14}
+          component={'div'}
         >
           {(totalExpenses || 0).toLocaleString()}
           万円

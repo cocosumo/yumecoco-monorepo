@@ -174,8 +174,8 @@ export const displayResult = async (selectStoreName?: string) => {
                     <td id="prospect_number" style="text-align: center;">${index + 1}</td>
                     <td id="prospect_rank" style="text-align: center;">${ob.rank?.value || '-'}</td>
                     <td id="prospect_custNamefield" style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
-                    <td style="text-align: right;">${ob.schedContractPrice?.value ? formatCurrency(ob.schedContractPrice?.value) : '未定'}</td>
-                    <td style="text-align: center;">${ob.paymentMethod?.value}</td>
+                    <td style="text-align: right;">${formatCurrency(ob.schedContractPrice?.value) || '未定'}</td>
+                    <td class="prospect_paymentMethod">${ob.paymentMethod?.value}</td>
                     <td class="prospect_agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>
                     <td class="prospect_agName" style="text-align: center;">${ob.yumeAGNames?.value}</td>
                     <td class="prospect_date" style="text-align: center;">${ob.estatePurchaseDate?.value ? format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d') : ''}</td>

@@ -57,9 +57,11 @@
       width: 20px;
     }
 
-    /* 担当者名だけ文字の大きさを変更（印刷時のみ） */
-    .prospect_agName {
+    /* 担当者名と金融機関だけ文字の大きさを変更（印刷時のみ） */
+    .prospect_agName,
+    .prospect_paymentMethod {
       font-size: 8.8pt;
+      text-align: center;
       padding: 3px 1px;
     }
 
@@ -210,6 +212,7 @@ tbody td {
 .prospect_unknown {
   text-align: center;
   width: 100%;
+  height: 30px;
 }
 
 /* 総合計テーブル */

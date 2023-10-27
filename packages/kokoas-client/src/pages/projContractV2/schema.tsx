@@ -26,6 +26,21 @@ const schema = z.object({
   /** 区分 */
   contractType: z.string(),
 
+  /** 用途 */
+  purpose: z.string().optional(),
+
+  /** 構造 */
+  structure: z.string().optional(),
+
+  /** 規模 */
+  scale: z.string().optional(),
+
+  /** 業務の期間 */
+  projPeriod: z.number().optional(),
+
+  /** 報酬額 注釈 */
+  annotation: z.string().optional(),
+
   /** 追加区分 */
   contractAddType: z.string().optional(),
 

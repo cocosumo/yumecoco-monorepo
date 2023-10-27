@@ -31,7 +31,7 @@ export const createTableContents = ($el: JQuery<HTMLElement>, records: DB.SavedR
       totalContractAmountIntax += parseFloat(rec.contractAmountIntax.value);
       totalProfitExclTax += parseFloat(rec.profit.value);
       totalProfitInclTax +=  parseFloat(rec.profit.value) * 1.1;
-      totalFee += parseFloat(rec.fee.value);
+      totalFee += parseFloat(rec.commission.value);
       totalCount++;
     }
 

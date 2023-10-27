@@ -14,6 +14,7 @@ declare namespace DBContracts {
     payMethod: kintone.fieldTypes.SingleLineText;
     envelopeId: kintone.fieldTypes.SingleLineText;
     voidedEnvelopes: kintone.fieldTypes.SingleLineText;
+    projPeriod: kintone.fieldTypes.Number;
     tax: kintone.fieldTypes.Number;
     hasReduction: kintone.fieldTypes.RadioButton;
     startDaysAfterContract: kintone.fieldTypes.Number;
@@ -24,9 +25,11 @@ declare namespace DBContracts {
     projId: kintone.fieldTypes.SingleLineText;
     refundMethod: kintone.fieldTypes.SingleLineText;
     totalProfit: kintone.fieldTypes.Number;
+    purpose: kintone.fieldTypes.SingleLineText;
     projType: kintone.fieldTypes.SingleLineText;
     envRecipients: kintone.fieldTypes.SingleLineText;
     finalAmtDate: kintone.fieldTypes.Date;
+    scale: kintone.fieldTypes.SingleLineText;
     finishDaysAfterContract: kintone.fieldTypes.Number;
     interimAmt: kintone.fieldTypes.Number;
     contractAmtDate: kintone.fieldTypes.Date;
@@ -35,11 +38,13 @@ declare namespace DBContracts {
     storeName: kintone.fieldTypes.SingleLineText;
     deliveryDate: kintone.fieldTypes.Date;
     refundAmt: kintone.fieldTypes.Number;
+    annotation: kintone.fieldTypes.MultiLineText;
     systemId: kintone.fieldTypes.SingleLineText;
     hasSubsidy: kintone.fieldTypes.RadioButton;
     reductionAmt: kintone.fieldTypes.Number;
     projName: kintone.fieldTypes.SingleLineText;
     interimAmtDate: kintone.fieldTypes.Date;
+    structure: kintone.fieldTypes.SingleLineText;
     othersAmt: kintone.fieldTypes.Number;
     projTypeId: kintone.fieldTypes.SingleLineText;
     initialAmtDate: kintone.fieldTypes.Date;

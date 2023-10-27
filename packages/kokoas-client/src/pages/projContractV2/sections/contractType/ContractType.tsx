@@ -1,8 +1,9 @@
-import { Stack } from '@mui/material';
+import { Collapse, Stack } from '@mui/material';
 import { ContractTypeField } from './ContractTypeField';
 import { AdditionalContract } from './AdditionalContract';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
+import { ProjPlanContract } from './projPlanContract/ProjPlanContract';
 
 export const ContractType = () => {
 
@@ -12,14 +13,25 @@ export const ContractType = () => {
   
 
   return (
-    <Stack 
-      direction={'row'} 
+    <Stack
       spacing={2}
     >
-      <ContractTypeField />
-      {contractType === '追加' && (
+      <Stack 
+        direction={'row'} 
+        spacing={2}
+      >
+        <ContractTypeField />
+        {contractType === '追加' && (
         <AdditionalContract />
-      )}
+        )}
+
+      </Stack>
+
+      <Collapse in={contractType === '設計契約'}>
+        <ProjPlanContract />
+      </Collapse>
+
     </Stack>
+    
   );
 };

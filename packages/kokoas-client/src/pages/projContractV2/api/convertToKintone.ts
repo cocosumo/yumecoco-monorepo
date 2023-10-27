@@ -9,6 +9,11 @@ export const convertToKintone = ({
 
   contractType,
   contractAddType,
+  purpose,
+  structure,
+  scale,
+  projPeriod,
+  annotation,
 
   totalContractAmtAfterTax,
   totalProfit,
@@ -60,6 +65,7 @@ export const convertToKintone = ({
 
 }: TypeOfForm) => {
 
+  const isProjPlanContract = contractType === '設計契約';
 
   const kintoneRecord: Partial<IContracts> = {
     projId: { value: projId },
@@ -74,6 +80,12 @@ export const convertToKintone = ({
 
     contractAmt: { value: (hasContractAmt ? contractAmt : 0).toString() },
     contractAmtDate: { value: (hasContractAmt ? toKintoneDateStr(contractAmtDate) : '') },
+
+    purpose: { value: String(isProjPlanContract ? purpose : '') },
+    structure: { value: String(isProjPlanContract ? structure : '') },
+    scale: { value: String(isProjPlanContract ? scale : '') },
+    projPeriod: { value: String(isProjPlanContract ? projPeriod : '') },
+    annotation: { value: String(isProjPlanContract ? annotation : '') },
 
     initialAmt: { value: (hasInitialAmt ? initialAmt : 0).toString() },
     initialAmtDate: { value: (hasInitialAmt ? toKintoneDateStr(initialAmtDate) : '') },

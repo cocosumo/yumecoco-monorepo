@@ -18,6 +18,7 @@ export const contractTypes = [
   '銀行用', 
   '工事実行', 
   '追加', 
+  '設計契約',
 ] as const;
 
 const schema = z.object({

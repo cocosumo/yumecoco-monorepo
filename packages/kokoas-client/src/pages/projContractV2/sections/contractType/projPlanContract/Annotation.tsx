@@ -20,7 +20,7 @@ export const Annotation = () => {
             size="small"
             fullWidth
             multiline
-            rows={2}
+            minRows={2}
             placeholder='例：建物面積により決定'
           />);
 

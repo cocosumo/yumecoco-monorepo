@@ -91,7 +91,7 @@ export const convertContractToForm = (
     purpose: purpose.value || selectFieldConfig.purpose?.default || '',
     structure: structure.value || selectFieldConfig.structure?.default || '',
     scale: scale.value || selectFieldConfig.scale?.default || '',
-    projPeriod: +(projPeriod.value || 60),
+    projPeriod: +(projPeriod.value || 30),
     annotation: annotation.value || '',
 
     totalContractAmtAfterTax: roundTo(+totalContractAmt.value),

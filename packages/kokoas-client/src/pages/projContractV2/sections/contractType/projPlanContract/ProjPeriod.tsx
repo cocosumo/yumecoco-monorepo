@@ -19,13 +19,9 @@ export const ProjPeriod = () => {
             label="業務の期間"
             size="small"
             type="number"
+            onChange={({ target: { value: newValue } }) =>  field.onChange((newValue ? Number(newValue) : newValue) as number)}
             sx={{
-              width: 150,
-            }}
-            inputProps={{
-              style: {
-                textAlign: 'right',
-              },
+              width: 100,
             }}
             InputProps={{
               endAdornment: (

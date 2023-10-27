@@ -32,6 +32,7 @@ export const useResolveParams = () => {
 
   useEffect(() => {
     if (projEstimateIdFromURL && projEstimateData && projData ) {
+      // 見積からの新規
       const {
         calculated,
       } = projEstimateData;
@@ -66,6 +67,8 @@ export const useResolveParams = () => {
         ...(contractDataByEstId ? convertContractToForm(contractDataByEstId) : {}),
       }));
     } else if (contractIdFromURL && projData && contractData) {
+      // 契約編集
+
       const {
         projName,
         custGroupId,
@@ -80,6 +83,7 @@ export const useResolveParams = () => {
       }));
 
     } else if (projIdFromURL && projData) {
+      // 新規
       const { projName, custGroupId } = projData;
       setNewFormVal(prev => ({
         ...prev,

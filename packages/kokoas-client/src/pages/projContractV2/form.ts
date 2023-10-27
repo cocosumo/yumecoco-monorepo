@@ -12,8 +12,8 @@ export const initialForm : TypeOfForm = {
   purpose: '専用住宅',
   structure: '木造（軸組み）',
   scale: '2階建て',
-  annotation: '建物面積により決定',
   projPeriod: 30,
+  annotation: '建物面積により決定',
 
   
   totalContractAmtAfterTax: 0,

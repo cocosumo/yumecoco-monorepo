@@ -36,7 +36,6 @@ export const selectFieldConfig : Partial<Record<KeyOfForm, FieldConfig >> = {
     default: '2階建て',
     required: false,
     options: [
-      '',
       '平屋',
       '2階建て',
       '3階建て',

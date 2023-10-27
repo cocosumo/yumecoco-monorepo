@@ -33,7 +33,7 @@ export const SelectWithOthers = ({
 
         let parsedSelectValue = value;
 
-        const isInOptions = value && options.includes(value);
+        const isInOptions = value === '' ||  options.includes(value || '');
 
         if (!isInOptions) {
           parsedSelectValue = 'その他';
@@ -62,12 +62,18 @@ export const SelectWithOthers = ({
                 onChange={(e) => onChange(e.target.value as string)}
                 {...otherFields}
               >
+                {!required && (
+                  <MenuItem value={''}>
+                    --未設定--
+                  </MenuItem>
+                
+                )}
                 {options.map((option) => (
                   <MenuItem 
                     key={option}
                     value={option}
                   >
-                    {option || '未設定'}
+                    {option}
                   </MenuItem>
                 ))}
                 <MenuItem value={'その他'}>

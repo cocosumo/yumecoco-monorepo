@@ -1,2 +1,2 @@
 
-export * from '../../../../handleRequest/reqSendContractDirectV2/generateContractPdfV2';
+export * from '../../../../handleRequest/reqSendContractDirectV2/generate/generateContractPdfV2';

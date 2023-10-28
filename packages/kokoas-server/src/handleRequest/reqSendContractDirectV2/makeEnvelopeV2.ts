@@ -3,7 +3,7 @@ import {
 } from 'docusign-esign';
 import fs from 'fs/promises';
 import { getFilePath } from 'kokoas-server/src/assets';
-import { generateContractPdfV2 } from './generateContractPdfV2';
+import { generateContractPdfV2 } from './generate/generateContractPdfV2';
 import { TContractData } from './getContractDataV2';
 import { getRecipients } from './getRecipients/getRecipients';
 /**

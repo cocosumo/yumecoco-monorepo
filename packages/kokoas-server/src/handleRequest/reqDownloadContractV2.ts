@@ -38,6 +38,8 @@ ReqDownloadContractParams
     console.log('Contract data', projName, envelopeStatus); 
 
     const file = await generateContractPdfV2(contractData, 'base64') as string;
+
+    
     console.log('PDF File generated');
 
     res.status(200).json( {

@@ -29,6 +29,7 @@ export const ContractDialog = ({
   } = contractData || {};
 
   const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
+  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
 
@@ -64,7 +65,7 @@ export const ContractDialog = ({
       </DialogTitle>
 
       <PreviewContent 
-        documentB64={fileB64 || documents?.[0] || null}
+        documentB64={fileB64 || documents?.[selectedFileIndex]?.data || null}
       />
 
       <DialogActions>
@@ -90,6 +91,27 @@ export const ContractDialog = ({
             ))}
           <ContractActionMenu /> 
         </Stack>
+        )}
+
+        {!hasContractFiles && !!documents && (
+          <Stack 
+            direction={'row'} 
+            spacing={1} 
+            py={1}
+            px={2}
+            alignItems={'center'}
+          >
+            {documents.map((doc, index) => (
+              <Chip 
+                key={doc.key} 
+                label={doc.fileName} 
+                size={'small'}
+                onClick={() => setSelectedFileIndex(index)}
+                color={selectedFileIndex === index ? 'primary' : 'default'}
+              />
+            ))}
+  
+          </Stack>
         )}
       </DialogActions>
     </Dialog>

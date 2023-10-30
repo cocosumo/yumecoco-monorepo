@@ -187,7 +187,11 @@ export type ReqPreviewParams = {
 };
 
 export const reqDownloadContractV2Response = z.object({
-  documents: z.array(z.string()),
+  documents: z.array(z.object({
+    data: z.string(),
+    fileName: z.string(),
+    key: z.string(),
+  })),
   envelopeStatus: z.string(),
   envelopeId: z.string(),
 });

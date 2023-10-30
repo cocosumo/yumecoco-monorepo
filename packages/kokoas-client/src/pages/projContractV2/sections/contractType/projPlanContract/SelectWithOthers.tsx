@@ -30,14 +30,13 @@ export const SelectWithOthers = ({
         }, 
         fieldState: {
           error,
-          isTouched,
         },
       }) => {
 
 
         let parsedSelectValue = value;
 
-        const showError = !!error && isTouched;
+        const showError = !!error;
 
         const isInOptions = value === '' ||  options.includes(value || '');
 

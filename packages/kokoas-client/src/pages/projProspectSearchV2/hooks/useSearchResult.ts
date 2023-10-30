@@ -55,6 +55,8 @@ export const useSearchResult =  () => {
 
         } = curr; // 工事情報;
 
+
+
         const isProjectDeleted = projCancelStatus.value !== ''; 
 
         // 削除、中止など、除外
@@ -81,7 +83,15 @@ export const useSearchResult =  () => {
         if (isCustGroupDeleted) return acc;
 
         
-        const hasContract = recContracts?.some(({ projId: _prodId }) => projId.value === _prodId.value);
+        const hasContract = recContracts
+          ?.some(
+            ({ 
+              projId: _prodId, 
+              contractType, 
+            }) => projId.value === _prodId.value 
+            && contractType.value !== '設計契約', // 契約として扱いしない　K229, 
+          );
+
 
         // 契約があったら、除外
         if (hasContract) return acc; 

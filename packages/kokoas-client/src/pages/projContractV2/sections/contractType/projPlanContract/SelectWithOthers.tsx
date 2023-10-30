@@ -1,7 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { KeyOfForm } from '../../../form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
-import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import { selectFieldConfig } from '../../../selectFieldConfig';
 
 
@@ -28,10 +28,16 @@ export const SelectWithOthers = ({
           onChange,
           ...otherFields
         }, 
+        fieldState: {
+          error,
+          isTouched,
+        },
       }) => {
 
 
         let parsedSelectValue = value;
+
+        const showError = !!error && isTouched;
 
         const isInOptions = value === '' ||  options.includes(value || '');
 
@@ -50,6 +56,7 @@ export const SelectWithOthers = ({
                 width: 300,
               }}
               required={required}
+              error={showError}
             >
               <InputLabel id={`label-${name}`}>
                 {label}
@@ -80,6 +87,9 @@ export const SelectWithOthers = ({
                   その他
                 </MenuItem>
               </Select>
+              <FormHelperText>
+                {showError && error?.message}
+              </FormHelperText>
             </FormControl>
             {!isInOptions && (
               <TextField 

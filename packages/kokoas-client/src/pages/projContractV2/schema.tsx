@@ -277,7 +277,32 @@ const schema = z.object({
   }, {
     path: ['totalContractAmtAfterTax'],
     message: '契約合計金額と「契約金、着手金、中間金、最終金、その他」の合計が一致しません。',  
+  })
+  .refine(({
+    contractType,
+    purpose,
+  }) => {
+    if (contractType === '設計契約' && !purpose) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['purpose'],
+    message: '用途を入力してください。',
+  })
+  .refine(({
+    contractType,
+    structure,
+  }) => {
+    if (contractType === '設計契約' && !structure) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['structure'],
+    message: '構造を入力してください。',
   });
+    
   
   
 

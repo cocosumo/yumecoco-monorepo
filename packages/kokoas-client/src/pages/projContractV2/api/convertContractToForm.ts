@@ -2,7 +2,6 @@ import { parseKintoneDate } from 'kokoas-client/src/lib';
 import { IContracts } from 'types';
 import { TypeOfForm } from '../schema';
 import { calculateAmount, roundTo } from 'libs';
-import { selectFieldConfig } from '../selectFieldConfig';
 
 export const convertContractToForm = (
   contract: IContracts,
@@ -88,9 +87,9 @@ export const convertContractToForm = (
 
     contractType: contractType.value || '契約',
     contractAddType: contractAddType.value || '追加工事',
-    purpose: purpose.value || selectFieldConfig.purpose?.default || '',
-    structure: structure.value || selectFieldConfig.structure?.default || '',
-    scale: scale.value || selectFieldConfig.scale?.default || '',
+    purpose: purpose.value || '',
+    structure: structure.value || '',
+    scale: scale.value || '',
     projPeriod: +(projPeriod.value || 30),
     annotation: annotation.value || '',
 

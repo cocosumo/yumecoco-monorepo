@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import { SelectWithOthers } from './SelectWithOthers';
 import { forwardRef } from 'react';
 import { StackProps } from '@mui/system';
@@ -16,6 +16,11 @@ export const ProjPlanContract = forwardRef<HTMLDivElement, StackProps>((props, r
       {...props}
       maxWidth={600}
     >
+      <Alert 
+        color='warning'
+      >
+        検証段階です。内容をよく確認して、ご利用ください。不具合がありましたら、お手数ですが。システム管理者にご連絡ください。
+      </Alert>
       <SelectWithOthers name='purpose' />
       <SelectWithOthers name='structure' />
       <SelectWithOthers name='scale' />

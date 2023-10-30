@@ -2,7 +2,11 @@ import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { s3client } from './config';
 
 
-
+/**
+ * AWS S3 からテンプレートを取得する
+ * @param fileName 
+ * @returns 
+ */
 export const getTemplate = async (fileName: string) => {
   const command = new GetObjectCommand({
     Bucket: 'sanpokoken-templates',

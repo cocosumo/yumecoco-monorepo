@@ -1,6 +1,6 @@
 import { getTemplate } from 'api-aws/src/s3/getTemplate';
 import { TContractData } from '../getContractDataV2';
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument, grayscale } from 'pdf-lib';
 import fontkit from '@pdf-lib/fontkit';
 import { getFont } from 'kokoas-server/src/assets';
 import fs from 'fs/promises';
@@ -36,6 +36,9 @@ export const generatePlanContract = async (
 
     totalContractAmtAfterTax,
     annotation,
+
+    projId,
+    contractId,
   } = contractData;
 
   const templateName = '設計契約書_20231028.03.pdf';
@@ -56,9 +59,9 @@ export const generatePlanContract = async (
   // 工事番号
   drawText(
     firstPage,
-    `${dataId}`,
+    `工事番号：${dataId}`,
     {
-      x: 490,
+      x: 460,
       y: 810,
       font: msChinoFont,
     },
@@ -82,16 +85,44 @@ export const generatePlanContract = async (
     },
   );
 
-  // 顧客名
-  drawText(
-    firstPage,
-    customers.map(({ custName }) => `${custName} 様` ).join('、'),
-    {
-      x: 160,
-      y: 685,
-      font: msChinoFont,
-    },
-  );
+
+  // 顧客 署名
+  const signWidth = 350;
+  const signGap = signWidth / customers.length;
+  const signY = 688.5;
+  customers.forEach((_, idx) => {
+    const signX = 160 + (signGap * idx);
+   
+    drawText(
+      firstPage,
+      '署名',
+      {
+        x: signX,
+        y: signY,
+        font: msChinoFont,
+        size: 8,
+        color: grayscale(0.7),
+      },
+      {
+        weight: 0.1,
+      },
+    );
+ 
+    drawText(
+      firstPage,
+      `c${idx + 1}`,
+      {
+        x: signX + 40,
+        y: signY,
+        font: msChinoFont,
+        color: grayscale(0.96), // 白に近い色
+      },
+      {
+        weight: 0.1,
+      },
+    );
+  });
+ 
 
   // 顧客住所
   drawText(
@@ -210,6 +241,23 @@ export const generatePlanContract = async (
       weight: 0.1,
     },
   );
+
+  // 工事uuid - 契約uuid
+  drawText(
+    firstPage,
+    `projId-${projId} contractId-${contractId}`,
+    {
+      x: 35,
+      y: 65,
+      font: msChinoFont,
+      size: 7,
+      color: grayscale(0.9),
+    }, {
+      weight: 0.1,
+      maxLength: 200,
+    },
+  );
+
 
   switch (contentType) {
     case 'base64':

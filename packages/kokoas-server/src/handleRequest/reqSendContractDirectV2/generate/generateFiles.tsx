@@ -31,15 +31,16 @@ export const generateFiles = async (contractData: TContractData) => {
       key: uuidv4(),
     });
   } else {
+    const fileName = '工事請負契約約款';
     const yakkanFile = await fs.readFile(
       getFilePath({
-        fileName: '工事請負契約約款',
+        fileName: fileName,
       }),
       { encoding: 'base64' },
     );
     documents.push({
       data: yakkanFile,
-      fileName: '工事請負契約約款.pdf',
+      fileName: `${fileName}.pdf`,
       key: uuidv4(),
     });
   }

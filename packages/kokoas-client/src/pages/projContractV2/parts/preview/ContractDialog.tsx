@@ -26,20 +26,24 @@ export const ContractDialog = ({
   
   const {
     envDocFileKeys,
+    $revision,
+    envelopeStatus,
   } = contractData || {};
 
   const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
   const [selectedFileIndex, setSelectedFileIndex] = useState(0);
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
+  const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);
 
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
-    enabled: !selectedFileKey,
+    revision: $revision?.value || '',
+    enabled: !isFileKeyIncluded, // disable when selectedFileKey is not included in envDocFileKeys
   });
 
   
-  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '');
+  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '', isFileKeyIncluded);
 
   const {
     documents,
@@ -65,7 +69,9 @@ export const ContractDialog = ({
       </DialogTitle>
 
       <PreviewContent 
-        documentB64={fileB64 || documents?.[selectedFileIndex]?.data || null}
+        documentB64={envelopeStatus?.value 
+          ? fileB64 || documents?.[selectedFileIndex]?.data || null 
+          : documents?.[selectedFileIndex]?.data || null}
       />
 
       <DialogActions>

@@ -90,6 +90,12 @@ export const getContractDataV2 = async (
 
     contractType,
     contractAddType,
+
+    purpose,
+    structure,
+    scale,
+    projPeriod,
+    annotation,
   } = contractRecord;
 
   /* 工事情報 */
@@ -314,6 +320,21 @@ export const getContractDataV2 = async (
     contractAddType: contractAddType.value,
     isAdditionalContract: contractType.value === '追加',
     isValidate,
+
+    /** 用途 */
+    purpose: purpose.value,
+
+    /** 構造 */
+    structure: structure.value,
+
+    /** 規模 */
+    scale: scale.value,
+
+    /** 業務の期間 */
+    projPeriod: +projPeriod.value,
+
+    /** 注釈 */
+    annotation: annotation.value,
   };
 
   if (isValidate) validateContractData(data);

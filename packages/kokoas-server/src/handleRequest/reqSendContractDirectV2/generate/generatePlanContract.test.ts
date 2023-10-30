@@ -3,6 +3,7 @@ import { generatePlanContract } from './generatePlanContract';
 import path from 'path';
 import fs from 'fs';
 import { TContractData, getContractDataV2 } from '../getContractDataV2';
+import { produce } from 'immer';
 
 describe('generatePlanContract', () => {
   const testContractId = '1de692dc-de27-4001-b946-50e9bbb35b8c';
@@ -50,6 +51,24 @@ describe('generatePlanContract', () => {
 
     fs.writeFileSync(savePath, pdf);
     expect(fs.existsSync(savePath)).toBe(true);
+
+  });
+
+  it('should generate 設計契約　details', async () => {
+    const mockedData = produce(contractData, draft => {
+      draft.purpose = '事務所併用住宅';
+      draft.structure = '鉄筋コンクリート造（RC造）';
+      draft.scale = '3階建て';
+      draft.projPeriod = 60;
+      draft.annotation = '建物面積により決定、1.5万/坪目安最低50万～';
+    });
+
+    const pdf = await generatePlanContract(mockedData, 'Uint8Array');
+    const savePath = path.join(testPath, '用途構造規模.pdf');
+
+    fs.writeFileSync(savePath, pdf);
+    expect(fs.existsSync(savePath)).toBe(true);
+
 
   });
 });

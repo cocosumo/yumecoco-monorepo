@@ -27,6 +27,15 @@ export const generatePlanContract = async (
 
     projName,
     projLocation,
+
+    purpose,
+    structure,
+    scale,
+
+    projPeriod,
+
+    totalContractAmtAfterTax,
+    annotation,
   } = contractData;
 
   const templateName = '設計契約書_20231028.03.pdf';
@@ -102,7 +111,7 @@ export const generatePlanContract = async (
     firstPage,
     customers[0].contactNumber || ' -',
     {
-      x: 160,
+      x: 168,
       y: 651,
       font: msChinoFont,
     }, {
@@ -141,6 +150,64 @@ export const generatePlanContract = async (
       boxWidth: 403,
       maxLength: 80,
       isAutoSize: true,
+    },
+  );
+
+  /** 用途、構造、規模 */
+  drawText(
+    firstPage,
+    `${[purpose, structure, scale].join('　')}`,
+    {
+      x: 152,
+      y: 515,
+      font: msChinoFont,
+    }, 
+    {
+      boxWidth: 403,
+      maxLength: 80,
+      isAutoSize: true,
+    },
+  );
+
+  // 業務の期間
+  drawText(
+    firstPage,
+    projPeriod ? `${projPeriod}日間` : '-',
+    {
+      x: 265,
+      y: 414,
+      font: msChinoFont,
+      size: 10,
+    }, {
+      weight: 0.1,
+    },
+  );
+
+  // 契約金額
+  drawText(
+    firstPage,
+    `${totalContractAmtAfterTax.toLocaleString()}円（税抜）`,
+    {
+      x: 160,
+      y: 328,
+      font: msChinoFont,
+      size: 11,
+    }, {
+      weight: 0.1,
+    },
+  );
+  
+  // 注釈
+  drawText(
+    firstPage,
+    `＊ ${annotation}`,
+    {
+      x: 147,
+      y: 311,
+      font: msChinoFont,
+      size: 9,
+    }, {
+      weight: 0.1,
     },
   );
 

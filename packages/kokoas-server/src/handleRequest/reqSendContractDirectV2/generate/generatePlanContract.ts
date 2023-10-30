@@ -1,6 +1,12 @@
 import { getTemplate } from 'api-aws/src/s3/getTemplate';
 import { TContractData } from '../getContractDataV2';
 import { PDFDocument } from 'pdf-lib';
+import fontkit from '@pdf-lib/fontkit';
+import { getFont } from 'kokoas-server/src/assets';
+import fs from 'fs/promises';
+import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
+import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 
 /**
  * 設計契約を生成する
@@ -12,13 +18,131 @@ export const generatePlanContract = async (
   contractData : TContractData,
   contentType: 'base64' | 'img' | 'Uint8Array' = 'base64',
 ) => {
-  const templateName = '設計契約書_20231028.01.pdf';
+
+  const {
+    dataId,
+    
+    contractDate,
+    customers,
+
+    projName,
+    projLocation,
+  } = contractData;
+
+  const templateName = '設計契約書_20231028.03.pdf';
   const template = await getTemplate(templateName);
+
   if (!template) throw new Error(`${templateName}が取得できませんでした。`);
 
-  const pdfDoc = await PDFDocument.load(template);
 
-  
+  const pdfDoc = await PDFDocument.load(template);
+  pdfDoc.registerFontkit(fontkit);
+  const fontData = await fs.readFile(getFont());
+
+  const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
+  const pages = pdfDoc.getPages();
+
+  const firstPage = pages[0];
+
+  // 工事番号
+  drawText(
+    firstPage,
+    `${dataId}`,
+    {
+      x: 490,
+      y: 810,
+      font: msChinoFont,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 契約日
+  drawText(
+    firstPage,
+    contractDate ? format(parseISO(contractDate), 'yyyy年MM月dd日') : '---',
+    {
+      x: 490,
+      y: 717,
+      font: msChinoFont,
+      size: 11,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 顧客名
+  drawText(
+    firstPage,
+    customers.map(({ custName }) => `${custName} 様` ).join('、'),
+    {
+      x: 160,
+      y: 685,
+      font: msChinoFont,
+    },
+  );
+
+  // 顧客住所
+  drawText(
+    firstPage,
+    customers[0].address,
+    {
+      x: 160,
+      y: 668,
+      font: msChinoFont,
+    }, {
+      weight: 0.1,
+    },
+  );
+
+  // 顧客連絡先
+  drawText(
+    firstPage,
+    customers[0].contactNumber || ' -',
+    {
+      x: 160,
+      y: 651,
+      font: msChinoFont,
+    }, {
+      weight: 0.1,
+    },
+  );
+
+  // 工事名
+  drawText(
+    firstPage,
+    projName,
+    {
+      x: 152,
+      y: 549,
+      font: msChinoFont,
+      maxWidth: 200,
+    },
+    {
+      
+      boxWidth: 403,
+      isAutoSize: true,
+      maxLength: 80,
+    },
+  );
+
+  /** 工事場所 */
+  drawText(
+    firstPage,
+    projLocation,
+    {
+      x: 152,
+      y: 532,
+      font: msChinoFont,
+    }, 
+    {
+      boxWidth: 403,
+      maxLength: 80,
+      isAutoSize: true,
+    },
+  );
 
   switch (contentType) {
     case 'base64':

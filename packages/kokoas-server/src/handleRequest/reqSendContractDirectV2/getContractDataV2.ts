@@ -147,9 +147,14 @@ export const getContractDataV2 = async (
         ?.value.contactValue.value
       : testCustEmail;
 
+    const contactNum = contacts.value
+      .find(({ value: { contactType, contactValue } }) => contactType.value === 'tel' && !!contactValue.value)
+      ?.value.contactValue.value;
+
     return {
       custName: fullName.value,
       email: custEmail,
+      contactNumber: contactNum,
       address: addressBuilder({
         postal: postalCode.value,
         address1: address1.value,

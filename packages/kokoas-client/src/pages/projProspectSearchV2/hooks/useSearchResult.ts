@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } from 'kokoas-client/src/hooksQuery';
 import { useParseQuery } from './useParseQuery';
-import { ISearchResult } from '../types';
+import { ISearchResult, KSearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
 import { formatDataId } from 'libs';
 import parseISO from 'date-fns/parseISO';
@@ -10,6 +10,7 @@ import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByT
 
 import format from 'date-fns/format';
 import { matchCocoAgentsById } from '../helpers/matchCocoAgentsById';
+import { useCallback } from 'react';
 
 
 
@@ -28,9 +29,9 @@ export const useSearchResult =  () => {
   const { data: storeRec } = useStores();  
 
   return useProjects<ISearchResult[]>({ // 工事ベース
-    enabled: !!parsedQuery && !!recCustomers && !!recContracts,
-    select: (data) => {
-
+    enabled: !!parsedQuery && !!recCustomers?.length && !!recContracts?.length && !!recCustGroup?.length && !!storeRec?.length,
+    select: useCallback((data) => {
+      console.log('FIRE!');
       const unsortedResult =  data?.reduce((acc, curr) => {
 
         const {
@@ -207,33 +208,33 @@ export const useSearchResult =  () => {
         return acc;
       }, [] as ISearchResult[]);
 
-      return unsortedResult;
+      //return unsortedResult;
 
-      /* return unsortedResult.sort((a, b) => {
-        const parseOrderBy = orderBy as KSearchResult;
+
+      return unsortedResult.sort((a, b) => {
+        const parseOrderBy = q.orderBy as KSearchResult;
 
 
         switch (parseOrderBy) {
           case 'storeSortNumber':
-            return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
-          case 'contractDate':
-          case 'createdAt':
-          case 'updatedAt':
-          case 'projFinDate':
-          case 'payFinDate':
-          case 'deliveryDate':
-
-            // put "-" or undefined at the bottom of the result
-            if (a[parseOrderBy] === '-' || !a[parseOrderBy]) return 1;
-            if (b[parseOrderBy] === '-' || !b[parseOrderBy]) return -1;
-
-            return order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
+            return q.order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
+          case 'updateDate':
+          case 'createDate':
+            return q.order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
+          case 'rank': // rank is string
+            return q.order === 'asc' ? a[parseOrderBy].localeCompare(b[parseOrderBy]) : b[parseOrderBy].localeCompare(a[parseOrderBy]);
           default:
-            const valueA = a[parseOrderBy] || ''; 
-            const valueB = b[parseOrderBy] || ''; 
-            return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+            return 0;
         }
-      }); */
-    },
+        
+      }); 
+    }, 
+    [
+      q, 
+      recCustomers, 
+      recCustGroup, 
+      recContracts, 
+      storeRec,
+    ]),
   });
 };

@@ -220,9 +220,19 @@ export const useSearchResult =  () => {
             return q.order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'updateDate':
           case 'createDate':
-            return q.order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
-          case 'rank': // rank is string
-            return q.order === 'asc' ? a[parseOrderBy].localeCompare(b[parseOrderBy]) : b[parseOrderBy].localeCompare(a[parseOrderBy]);
+            const dateA = parseISO(a[parseOrderBy]);
+            const dateB = parseISO(b[parseOrderBy]);
+            return q.order === 'asc' 
+              ? dateA.getTime() - dateB.getTime()
+              : dateB.getTime() - dateA.getTime();
+          case 'rank': 
+            // rank is string, but empty string should be treated as the lowest rank
+            const rankA = a[parseOrderBy] || 'Z';
+            const rankB = b[parseOrderBy] || 'Z';
+            return q.order === 'asc' 
+              ? rankA.localeCompare(rankB)
+              : rankB.localeCompare(rankA);
+            
           default:
             return 0;
         }

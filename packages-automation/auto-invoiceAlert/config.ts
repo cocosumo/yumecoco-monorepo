@@ -31,5 +31,7 @@ export type KInvoiceReminder = keyof IInvoiceReminder;
 /**chatworkのルームID */
 export const chatworkRooms = {
   cocoasGroup: '335602129',
+  rpaChatGroup: '213232379',
+  testRoom: '225800073',
   test: '335600969',
 };

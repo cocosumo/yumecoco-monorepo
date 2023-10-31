@@ -2,7 +2,6 @@ import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores, Territory 
 import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
-import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 import { getYumeAgNames } from './getYumeAgNames';
 
 
@@ -31,6 +30,8 @@ export const convertPaymentsToJson = ({
 
   const alertPaymentReminders: PaymentReminder[] = alertPayments.map(({
     projId,
+    expectedPaymentDate,
+    作成日時,
   }) => {
 
     // 通知対象者を抽出する
@@ -46,16 +47,6 @@ export const convertPaymentsToJson = ({
       uuid: contractId,
       contractDate,
       totalContractAmt,
-      contractAmtDate,
-      initialAmtDate,
-      interimAmtDate,
-      finalAmtDate,
-      othersAmtDate,
-      contractAmt,
-      initialAmt,
-      interimAmt,
-      finalAmt,
-      othersAmt,
     } = contracts.find(({ projId: contractProjId }) => contractProjId.value === projId.value) || {};
 
     // システムIDを取得する
@@ -75,22 +66,7 @@ export const convertPaymentsToJson = ({
     });
 
     // 契約書から一番過去の支払日を取得する
-    const contractAmtPaymentDate = getEarliestDateOfContract({
-      dates: [
-        contractAmtDate?.value ?? '',
-        initialAmtDate?.value ?? '',
-        interimAmtDate?.value ?? '',
-        finalAmtDate?.value ?? '',
-        othersAmtDate?.value ?? '',
-      ],
-      contractAmts: [
-        contractAmt?.value ?? '',
-        initialAmt?.value ?? '',
-        interimAmt?.value ?? '',
-        finalAmt?.value ?? '',
-        othersAmt?.value ?? '',
-      ],
-    });
+    const paymentDate = expectedPaymentDate.value === '' ? 作成日時.value : expectedPaymentDate.value;
 
     const yumeAGs = getYumeAgNames({
       agents: agents,
@@ -108,7 +84,7 @@ export const convertPaymentsToJson = ({
       contractDate: contractDate?.value ?? '取得に失敗しました',
       totalContractAmount: totalContractAmt?.value ??  '取得に失敗しました',
       territory: store?.territory.value as Territory,
-      expectedPaymentDate: contractAmtPaymentDate,
+      expectedPaymentDate: paymentDate,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,
     });

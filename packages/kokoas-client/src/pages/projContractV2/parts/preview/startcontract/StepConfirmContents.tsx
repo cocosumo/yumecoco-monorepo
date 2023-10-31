@@ -33,11 +33,13 @@ const Contents = ({
   customers,
   totalContractAmtAfterTax,
   storeName,
+  contractType,
 }:{
   projName: string,
   customers: string,
   totalContractAmtAfterTax: string,
-  storeName: string
+  storeName: string,
+  contractType: string,
 }) => {
 
 
@@ -61,6 +63,10 @@ const Contents = ({
         <Info
           label='店舗名'
           value={storeName}
+        />
+        <Info
+          label='カテゴリ'
+          value={contractType}
         />
         <Info
           label='顧客名'
@@ -112,6 +118,7 @@ export const StepConfirmContents = ({
     projName = '-',
     totalContractAmtAfterTax = 0,
     storeName = '-',
+    contractType = '-',
   } = fileData?.contractData || {};
 
 
@@ -127,6 +134,7 @@ export const StepConfirmContents = ({
           projName={projName}
           totalContractAmtAfterTax={`${totalContractAmtAfterTax.toLocaleString()} 円`}
           storeName={storeName}
+          contractType={contractType}
         />)}
       </DialogContent>
       <DialogActions>

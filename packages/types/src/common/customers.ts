@@ -10,7 +10,7 @@ export type KFlatCustGroup =
 | KCustGroupAgents;
 
 
-export const ranks = ['設計契約', 'A', 'B', 'C', 'D' ] as const;
+export const ranks = ['設契済', 'A', 'B', 'C', 'D' ] as const;
 export type TProjRank = typeof ranks[number];
 export type TContact = 'email' | 'tel';
 

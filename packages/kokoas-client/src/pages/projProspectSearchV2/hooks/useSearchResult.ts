@@ -227,9 +227,18 @@ export const useSearchResult =  () => {
               : dateB.getTime() - dateA.getTime();
           case 'rank': 
             // rank is string, but empty string should be treated as the lowest rank
+            // if rank = '設計契約' should be the highest rank
+        
             const rankA = a[parseOrderBy] || 'Z';
             const rankB = b[parseOrderBy] || 'Z';
-            return q.order === 'asc' 
+            
+            if (rankA === '設計契約' || rankB === '設計契約') {
+              // multiply the result by 1 or -1 based on the order.
+              return (rankA === '設計契約' ? -1 : 1) * (q.order === 'asc' ? 1 : -1);
+            }
+            
+
+            return q.order === 'asc'
               ? rankA.localeCompare(rankB)
               : rankB.localeCompare(rankA);
             

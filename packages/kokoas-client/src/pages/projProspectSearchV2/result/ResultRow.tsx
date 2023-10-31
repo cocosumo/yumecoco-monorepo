@@ -14,15 +14,18 @@ export const ResultRow = (props: RowLayoutProps) => {
   
   const navigate = useNavigateWithQuery();
 
+  const rankIsLong = (rank as string).length > 1;
+
   return  (
     <RowLayout 
       schedContractAmt={schedContractAmt?.toLocaleString()}
       rank={(
         <Typography 
-          fontSize={24} 
+          fontSize={rankIsLong ? 12 :  24} 
           color={grey[500]} 
           fontWeight={'bold'}
-          p={1}
+          py={rankIsLong ? 2 : 1}
+          px={1}
           border={4}
           borderRadius={4}
           borderColor={grey[100]}

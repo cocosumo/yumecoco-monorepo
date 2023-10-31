@@ -18,29 +18,38 @@ export const notifyInvoiceAlertToChatwork = async ({
   reminderJson: InvoiceReminder[]
 }) => {
 
-  console.log(reminderJson);
+  const alertReminder = reminderJson.filter(({ alertState }) => alertState);
 
-  reminderJson.filter(({ alertState }) => alertState)
-    .forEach(async (reminderInfo) => {
-      const message = generateMessage(reminderInfo);
+  for (const reminderInfo of alertReminder) {
+    const message = generateMessage(reminderInfo);
 
-      for await (const cwRoomId of reminderInfo.cwRoomIds) {
-        const result = await sendMessage({
+    for (const cwRoomId of reminderInfo.cwRoomIds) {
+
+      try {
+
+        await sendMessage({
           body: message,
-          roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
+          roomId: cwRoomId.cwRoomId,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
 
-        // 送信に失敗した場合は、ココアスグループへ送信します
-        if (result.status !== 200) {
-          sendMessage({
-            body: message,
-            roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
-            cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-          });
-        }
+      } catch (error) {
+
+        await sendMessage({
+          body: message,
+          roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+
+        await sendMessage({
+          body: `${[`【送信エラー】${cwRoomId.agentName}宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
+          roomId: chatworkRooms.testRoom,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+
       }
-    });
+    }
+  }
 
 
 
@@ -57,19 +66,28 @@ export const notifyInvoiceAlertToChatwork = async ({
     const managerDat = await getCocoAreaMngrByTerritory(territories[i]);
     const message = generateMessageForManager(reminderDat);
 
-    const result = await sendMessage({
-      body: message,
-      roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
-      cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-    });
-    
-    // 送信に失敗した場合は、ココアスグループへ送信します
-    if (result.status !== 200) {
-      sendMessage({
+    try {
+
+      await sendMessage({
+        body: message,
+        roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+    } catch (error) {
+
+      await sendMessage({
         body: message,
         roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
         cwToken: process.env.CW_TOKEN_COCOSYSTEM,
       });
+
+      await sendMessage({
+        body: `${[`【送信エラー】${territories[i]}店長宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
+        roomId: chatworkRooms.testRoom,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
     }
   }
 

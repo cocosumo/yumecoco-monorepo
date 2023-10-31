@@ -1,5 +1,5 @@
 import { RecordID, Revision } from '@kintone/rest-api-client/lib/src/client/types';
-import { updateAllRecords } from '../common/updateAllRecords';
+import { updateRecords } from '../common/updateRecords';
 import { RecordType, appId } from './config';
 
 
@@ -14,7 +14,7 @@ type UpdateInvoices = {
  */
 export const updateInvoices = (params: UpdateInvoices[]) => {
 
-  return updateAllRecords({
+  return updateRecords({
     records: params,
     app: appId,
   });

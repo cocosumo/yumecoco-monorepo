@@ -5,4 +5,5 @@ export * from './getLookUpFields';
 export * from './getRecords';
 export * from './saveRecord';
 export * from './updateAllRecords';
+export * from './updateRecords';
 export * from './updateRelated';

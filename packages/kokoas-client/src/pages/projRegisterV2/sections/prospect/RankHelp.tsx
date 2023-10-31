@@ -5,8 +5,8 @@ import { TProjRank } from 'types';
 
 const rankDesc : Record<TProjRank, string> = {
   '設契済': '設計契約を済ませている',
-  'A': '設計契約済み 又は、契約確実',
-  'B': '多分契約できる',
+  'A': '契約確実',
+  'B': '概ね契約',
   'C': '交渉中',
   'D': '未定',
 };

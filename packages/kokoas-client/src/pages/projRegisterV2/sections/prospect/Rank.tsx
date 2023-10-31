@@ -2,10 +2,12 @@ import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { fieldMapJa } from '../../api/fieldMapJa';
-import { ranks } from 'types';
+import {  ranks } from 'types';
+import { RankHelp } from './RankHelp';
 
 const name = 'rank';
 const label = fieldMapJa[name];
+
 
 export const Rank = () => {
   const { 
@@ -47,6 +49,7 @@ export const Rank = () => {
               {...fieldProps}
               onChange={(e) => onChange(e.target.value)}
               label={label}
+              startAdornment={<RankHelp />}
             >
               <MenuItem value={''}>
                 <em>

@@ -1,6 +1,6 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { isMobile } from './../../helpers/kintone';
-import { grey } from '@mui/material/colors';
+import { blueGrey, grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
 import { jaJP as coreJaJP } from '@mui/material/locale';
 import { jaJP as pickersJaJP } from '@mui/x-date-pickers/locales';
@@ -23,8 +23,9 @@ const darkTheme = createTheme(
         styleOverrides: {
 
           outlinedPrimary: {
-            color: grey[700],
+            color: grey[900],
             borderColor: grey[300],
+            backgroundColor: blueGrey[100],
             ':hover': {
               borderColor: grey[700],
             },
@@ -32,9 +33,9 @@ const darkTheme = createTheme(
           outlinedSecondary: {
             color: grey[700],
             borderColor: grey[300],
+            backgroundColor: blueGrey[50],
             ':hover': {
               borderColor: grey[300],
-              background: 'whitesmoke',
             },
           },
           outlinedWarning: {

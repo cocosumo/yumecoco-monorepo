@@ -5,8 +5,20 @@ export interface ISearchResult {
   /** ランク */
   rank: string,
 
-  /** 顧客番号 */
+  /** 顧客名 */
   custNames: string,
+
+  /** 電話番号 */
+  tel: string,
+
+  /** 顧客住所 */
+  custAddress: string,
+
+  /** 工事住所　*/
+  projAddress: string,
+
+  /** 工事確定住所 */
+  projAddressConfirmed: string,
 
   /** 工事番号  */
   projId: string,

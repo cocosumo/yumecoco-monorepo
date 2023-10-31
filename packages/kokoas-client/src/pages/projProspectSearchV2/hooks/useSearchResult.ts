@@ -3,7 +3,7 @@ import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } 
 import { useParseQuery } from './useParseQuery';
 import { ISearchResult, KSearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
-import { formatDataId } from 'libs';
+import { addressBuilder, formatDataId } from 'libs';
 import parseISO from 'date-fns/parseISO';
 import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects/helpers/getAgentsByType';
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
@@ -54,8 +54,26 @@ export const useSearchResult =  () => {
 
           memo,
 
+          postal,
+          address1,
+          address2,
+
+          finalPostal,
+          finalAddress1,
+          finalAddress2,
         } = curr; // 工事情報;
 
+        const projAddress = addressBuilder({
+          postal: postal.value,
+          address1: address1.value,
+          address2: address2.value,
+        });
+
+        const projAddressConfirmed = addressBuilder({
+          postal: finalPostal.value,
+          address1: finalAddress1.value,
+          address2: finalAddress2.value,
+        });
 
 
         const isProjectDeleted = projCancelStatus.value !== ''; 
@@ -120,6 +138,9 @@ export const useSearchResult =  () => {
         const {  
           fullNames,
           fullNameReadings,
+          custTels,
+          addresses,
+
         } = groupCustContacts(relCustomers);
 
         /**　
@@ -201,6 +222,13 @@ export const useSearchResult =  () => {
             schedContractDate: schedContractDate?.value ? schedContractDate.value : '-',
             createDate: format(parseISO(createDate.value), 'yyyy-MM-dd HH:mm'),
             updateDate: format(parseISO(updateDate.value), 'yyyy-MM-dd HH:mm'),
+
+            tel: custTels?.[0] || '-',
+            custAddress: addresses?.[0] || '-',
+            projAddress: projAddress,
+            projAddressConfirmed: projAddressConfirmed,
+            
+
           });
         }
        

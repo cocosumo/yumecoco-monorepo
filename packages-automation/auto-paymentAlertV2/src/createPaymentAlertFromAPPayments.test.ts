@@ -2,14 +2,14 @@ import { describe, it/* , expect */ } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { createPaymentAlertFromContracts } from './createPaymentAlertFromContracts';
+import { createPaymentAlertFromAPPayments } from './createPaymentAlertFromAPPayments';
 import { getAllAndpadPayments, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { getMyOrders } from 'api-andpad';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getAllPaymentReminder } from './api-kintone';
 
 
-describe('createPaymentAlertFromContracts', () => {
+describe('createPaymentAlertFromAPPayments', () => {
   it('should return alert data', async () => {
 
     const [
@@ -32,7 +32,7 @@ describe('createPaymentAlertFromContracts', () => {
   
   
     // 契約書の内容からアラート対象を取得する
-    const result = createPaymentAlertFromContracts({
+    const result = createPaymentAlertFromAPPayments({
       allOrders: allOrders,
       andpadPayments: allAndpadPayments,
       employees: allMembers,

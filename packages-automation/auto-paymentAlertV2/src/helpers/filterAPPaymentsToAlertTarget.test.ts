@@ -2,38 +2,24 @@ import { describe, it, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { filterContractsToAlertTarget } from './filterContractsToAlertTarget';
-import { getAllAndpadPayments } from 'api-kintone';
-import { ContractRecordType } from '../../config';
-import addMonths from 'date-fns/addMonths';
+import { filterAPPaymentsToAlertTarget } from './filterAPPaymentsToAlertTarget';
 import { getAllPaymentReminder } from '../api-kintone';
+import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
 
 
 describe('filterContractsToAlertTarget', () => {
   it('should return alert date', async () => {
 
-    const testId = '87bfde1a-81a1-4fc9-8c54-979ca61f9766';
-
-    // set output file of filterContractsByTargetProjType.test.ts
-    const contractsPath = path.join(__dirname, './__TEST__/contracts.json');
-    const contracts = JSON.parse(fs.readFileSync(contractsPath, 'utf8')) as ContractRecordType[];
-
-    const newDate = addMonths(new Date(), -3);
-    const idx = contracts.findIndex(({ uuid }) => uuid.value === testId);
-    contracts[idx].contractDate.value = format(newDate, 'yyyy-MM-dd');
-
-
     const [
-      allAndpadPayments,
+      unpaidAndpadPayments,
       allPaymentReminders,
     ] = await Promise.all([
-      getAllAndpadPayments(),
+      getUnpaidAndpadPayments(),
       getAllPaymentReminder(),
     ]);
 
-    const result = await filterContractsToAlertTarget({
-      contracts: contracts,
-      andpadPayments: allAndpadPayments,
+    const result = await filterAPPaymentsToAlertTarget({
+      unpaidAndpadPayments: unpaidAndpadPayments,
       reminders: allPaymentReminders,
     });
 

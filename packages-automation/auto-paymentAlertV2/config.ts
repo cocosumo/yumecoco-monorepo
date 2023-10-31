@@ -20,9 +20,6 @@ export const andpadPaymentsAppId = AppIds.andpadPayments;
 
 
 /**kintoneレコードタイプ、レコードキーの設定 */
-export type ContractRecordType = IContracts;
-export type ContractRecordKeys = KContracts;
-
 export type IPaymentReminder = DBPaymentreminder.SavedData;
 export type KPaymentReminder = keyof IPaymentReminder;
 

@@ -32,6 +32,7 @@ export const useSubmitHandler = () => {
           projId: data.projId,
           record: { 
             planApplicationDate: kintoneRecord.contractDate, 
+            rank: { value: '設契済' },
           }, 
         });
       }

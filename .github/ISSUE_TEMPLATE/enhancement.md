@@ -4,6 +4,7 @@ desciption: 一つのPRに収まらない大きい機能。
 title: feat-
 labels: enhancement
 assignees: ''
+
 ---
 
 **依頼の説明**
@@ -12,8 +13,7 @@ assignees: ''
 
 **タスク**
 
-- [] タスク１
-- [] タスク２
+- タスク１
 
 **備考**
 

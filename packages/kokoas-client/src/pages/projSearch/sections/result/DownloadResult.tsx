@@ -3,10 +3,13 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { SearchResult } from '../../types';
 import { mkConfig, generateCsv, download } from 'export-to-csv';
 
-// mkConfig merges your options with the defaults
-// and returns WithDefaults<ConfigOptions>
-const csvConfig = mkConfig({ useKeysAsHeaders: true });
 
+
+
+/**
+ * 依頼：K226
+ * 
+ */
 export const DownloadResult = ({
   data,
 }:{
@@ -14,6 +17,10 @@ export const DownloadResult = ({
 }) => {
 
   const handleDownload = () => {
+    const csvConfig = mkConfig({ 
+      useKeysAsHeaders: true, 
+      filename: `顧客一覧_${data.length}件`,
+    });
     const convertedData: Record<string, string>[] = data.map((d) => {
       return ({
         店舗名: d.storeName,

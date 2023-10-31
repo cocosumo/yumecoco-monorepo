@@ -16,7 +16,7 @@ export const DownloadResult = ({
   const handleDownload = () => {
     const csvConfig = mkConfig({ 
       useKeysAsHeaders: true, 
-      filename: `顧客一覧_${data.length}件`,
+      filename: `見込み一覧_${data.length}件`,
     });
     const convertedData: Record<string, string | number>[] = data.map((d) => {
       return ({

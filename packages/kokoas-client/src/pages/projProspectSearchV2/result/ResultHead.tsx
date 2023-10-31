@@ -61,7 +61,13 @@ export const ResultHead = () => {
   return (
     <TableHead>
       <RowLayout
-        rank={'ランク'}
+        rank={(
+          <EnhancedTableCell 
+            existingQuery={query}
+            fieldName='rank'
+            label='ランク'
+          />
+        )}
         custNames={'顧客名'}
         projName={'工事名'}
         storeName={(

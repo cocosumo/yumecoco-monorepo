@@ -49,6 +49,7 @@ ReqDownloadContractParams
       envelopeStatus,
       envelopeId,
       recipients,
+      contractData,
     });
   
     res.end();

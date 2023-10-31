@@ -82,6 +82,10 @@ export const useSearchResult = () => {
           projFinDate,
           lastBillingDate,
 
+          finalPostal,
+          finalAddress1,
+          finalAddress2,
+
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
@@ -89,6 +93,12 @@ export const useSearchResult = () => {
           postal: postal.value,
           address1: address1.value,
           address2: address2.value,
+        });
+
+        const projAddressConfirmed = addressBuilder({
+          postal: finalPostal?.value,
+          address1: finalAddress1?.value,
+          address2: finalAddress2?.value,
         });
 
         if (!custGroupId) return acc;
@@ -215,6 +225,7 @@ export const useSearchResult = () => {
           acc.push({
             projDataId: formatDataId(dataId.value),
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
+            custNames: fullNames.join('、'),
             custNameKana: `${fullNameReadings[0]}`,
             custAddress: `${addresses[0]}`,
             tel: custTels[0],
@@ -222,6 +233,8 @@ export const useSearchResult = () => {
             storeName: `${storeName.value}`,
             uuid: projId.value,
             projName: projName.value,
+            projAddress: projAddress,
+            projAddressConfirmed: projAddressConfirmed,
             contractDate: contractDate?.value ? contractDate.value : '-',
             deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
             projFinDate: projFinDate?.value ? projFinDate.value : '-',
@@ -230,6 +243,10 @@ export const useSearchResult = () => {
             storeSortNumber: +(sortNumber?.value || 0),
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),
             updatedAt: parseISOTimeToFormat(updatedAt.value, 'yyyy-MM-dd HH:mm'),
+            yumeAG: yumeAGNames.join('、'),
+            cocoAG: cocoAGNames.join('、'),
+            cocoConst: cocoConstNames.join('、'),
+            
           });
         }
 

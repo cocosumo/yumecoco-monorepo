@@ -1,6 +1,6 @@
 ---
 name: 新機能
-about: 
+desciption: 一つのPRに収まらない大きい機能。 
 title: feat-
 labels: enhancement
 assignees: ''

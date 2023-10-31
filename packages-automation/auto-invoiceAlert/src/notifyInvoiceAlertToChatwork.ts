@@ -21,15 +21,24 @@ export const notifyInvoiceAlertToChatwork = async ({
   console.log(reminderJson);
 
   reminderJson.filter(({ alertState }) => alertState)
-    .forEach((reminderInfo) => {
+    .forEach(async (reminderInfo) => {
       const message = generateMessage(reminderInfo);
 
-      for (const cwRoomId of reminderInfo.cwRoomIds) {
-        sendMessage({
+      for await (const cwRoomId of reminderInfo.cwRoomIds) {
+        const result = await sendMessage({
           body: message,
           roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
+
+        // 送信に失敗した場合は、ココアスグループへ送信します
+        if (result.status !== 200) {
+          sendMessage({
+            body: message,
+            roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+            cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+          });
+        }
       }
     });
 
@@ -48,11 +57,20 @@ export const notifyInvoiceAlertToChatwork = async ({
     const managerDat = await getCocoAreaMngrByTerritory(territories[i]);
     const message = generateMessageForManager(reminderDat);
 
-    sendMessage({
+    const result = await sendMessage({
       body: message,
       roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
       cwToken: process.env.CW_TOKEN_COCOSYSTEM,
     });
+    
+    // 送信に失敗した場合は、ココアスグループへ送信します
+    if (result.status !== 200) {
+      sendMessage({
+        body: message,
+        roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+    }
   }
 
 };

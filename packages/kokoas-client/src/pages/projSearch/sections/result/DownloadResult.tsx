@@ -36,7 +36,7 @@ export const DownloadResult = ({
         契約日: d.contractDate,
         引渡日:d.deliveryDate,
         物件完了日: d.projFinDate,
-
+        リンク : `https://rdmuhwtt6gx7.cybozu.com/k/149/#/project/edit/v2?projId=${d.uuid}`,
       });
     });
 

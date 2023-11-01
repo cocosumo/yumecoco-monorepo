@@ -46,13 +46,16 @@ export const createPaymentAlert = async () => {
     allOrders: allOrders,
   });
 
+
   // アラートレコードをリマインダーアプリへ登録する
   await registerReminders({
     reminderJson: alertPaymentsJson,
   });
 
-  // 今日通知予定のリマインダーレコードを取得する(含：入金一覧から取得したアラート)
+
+  // 今日までに通知予定のリマインダーレコードを取得する(含：入金一覧から取得したアラート)
   const alertReminder = await getPaymentRemindersByAlertDate(new Date());
+
 
   const alertReminderJson = convertReminderToJson({
     reminder: alertReminder,

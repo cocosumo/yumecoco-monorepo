@@ -66,7 +66,7 @@ export const convertPaymentsToJson = ({
       employees: employees,
     });
 
-    // 支払予定日を設定する。未入力の場合は、作成日から10日後とする
+
     const paymentDate = calcPaymentDate({
       expectedPaymentDate: expectedPaymentDate.value,
       createDate: 作成日時.value,

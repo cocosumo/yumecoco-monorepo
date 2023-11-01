@@ -4,7 +4,7 @@ import { PreviewHeader } from './PreviewHeader';
 import { useContractById, useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { ContractActionMenu } from './menu/ContractActionMenu';
 
@@ -30,8 +30,19 @@ export const ContractDialog = ({
     envelopeStatus,
   } = contractData || {};
 
-  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
+  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(null);
   const [selectedFileIndex, setSelectedFileIndex] = useState(0);
+  
+  useEffect(() => {
+    if (envDocFileKeys?.value?.length) {
+      setSelectedFileKey(envDocFileKeys?.value?.[0]?.fileKey);
+    } else {
+      setSelectedFileKey(null);
+    }
+  }, [
+    envDocFileKeys,
+  ]);
+
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
   const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);
@@ -39,11 +50,15 @@ export const ContractDialog = ({
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
     revision: $revision?.value || '',
-    enabled: !isFileKeyIncluded, // disable when selectedFileKey is not included in envDocFileKeys
+    enabled: !isFileKeyIncluded && open, // disable when selectedFileKey is not included in envDocFileKeys
   });
 
   
-  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '', isFileKeyIncluded);
+  const { data: fileB64 } = useKintoneFileBase64(
+    selectedFileKey || '', 
+    isFileKeyIncluded && open,
+  );
+
 
   const {
     documents,

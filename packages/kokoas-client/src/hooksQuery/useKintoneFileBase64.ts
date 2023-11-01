@@ -14,6 +14,8 @@ export const useKintoneFileBase64 = (fileKey: string, enabled = true ) => {
     () => downloadFileBase64(fileKey),
     {
       enabled: !!fileKey && enabled,
+      cacheTime: 5000,
+      staleTime: 5000,
     },
   );
 };

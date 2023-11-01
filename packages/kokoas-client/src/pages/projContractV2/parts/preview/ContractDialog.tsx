@@ -36,9 +36,7 @@ export const ContractDialog = ({
   useEffect(() => {
     if (envDocFileKeys?.value?.length) {
       setSelectedFileKey(envDocFileKeys?.value?.[0]?.fileKey);
-    } else {
-      setSelectedFileKey(null);
-    }
+    } 
   }, [
     envDocFileKeys,
   ]);
@@ -47,17 +45,19 @@ export const ContractDialog = ({
   const hasContractFiles = !!envDocFileKeys?.value.length;
   const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);
 
-  const { data: fileData } = useContractFilesById({ 
-    id: contractId, 
-    revision: $revision?.value || '',
-    enabled: !isFileKeyIncluded && open, // disable when selectedFileKey is not included in envDocFileKeys
-  });
-
-  
   const { data: fileB64 } = useKintoneFileBase64(
     selectedFileKey || '', 
     isFileKeyIncluded && open,
   );
+
+  const { data: fileData } = useContractFilesById({ 
+    id: contractId, 
+    revision: $revision?.value || '',
+    enabled: open && !envDocFileKeys?.value?.length, // Only fetch when there is no contract files
+  });
+
+  
+
 
 
   const {

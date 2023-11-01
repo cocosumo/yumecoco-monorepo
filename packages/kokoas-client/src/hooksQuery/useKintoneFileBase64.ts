@@ -15,7 +15,7 @@ export const useKintoneFileBase64 = (fileKey: string, enabled = true ) => {
     {
       enabled: !!fileKey && enabled,
       cacheTime: 5000,
-      staleTime: 5000,
+      staleTime: 0,
     },
   );
 };

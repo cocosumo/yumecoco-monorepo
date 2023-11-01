@@ -15,6 +15,8 @@ export const filterAPPaymentsToAlertTarget = ({
   reminders: IPaymentReminder[]
 }) => {
 
+  const todayStr = format(new Date(), 'yyyy-MM-dd');
+
   return unpaidAndpadPayments.reduce((acc, andpadPayment) => {
     const {
       ID,
@@ -28,7 +30,7 @@ export const filterAPPaymentsToAlertTarget = ({
     }
 
     // 支払情報が存在しないかつ、今日以前が通知日の場合
-    if (expectedPaymentDate.value <= format(new Date(), 'yyyy-MM-dd')) {
+    if (expectedPaymentDate.value <= todayStr) {
       acc?.push(andpadPayment);
     }
 

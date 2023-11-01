@@ -3,6 +3,7 @@ import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getYumeAgNames } from './getYumeAgNames';
+import { calcPaymentDate } from './calcPaymentDate';
 
 
 
@@ -65,8 +66,11 @@ export const convertPaymentsToJson = ({
       employees: employees,
     });
 
-    // 契約書から一番過去の支払日を取得する
-    const paymentDate = expectedPaymentDate.value === '' ? 作成日時.value : expectedPaymentDate.value;
+    // 支払予定日を設定する。未入力の場合は、作成日から10日後とする
+    const paymentDate = calcPaymentDate({
+      expectedPaymentDate: expectedPaymentDate.value,
+      createDate: 作成日時.value,
+    });
 
     const yumeAGs = getYumeAgNames({
       agents: agents,

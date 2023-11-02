@@ -2,44 +2,44 @@ import { describe, it/* , expect */ } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { createPaymentAlertFromContracts } from './createPaymentAlertFromContracts';
-import { getAllAndpadPayments, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
+import { createPaymentAlertFromAPPayments } from './createPaymentAlertFromAPPayments';
+import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { getMyOrders } from 'api-andpad';
-import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getAllPaymentReminder } from './api-kintone';
+import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
 
 
-describe('createPaymentAlertFromContracts', () => {
+describe('createPaymentAlertFromAPPayments', () => {
   it('should return alert data', async () => {
 
     const [
       allProjects,
-      allAndpadPayments,
+      unpaidAndpadPayments,
       allMembers,
       allStores,
       allOrders,
-      tgtProjTypeContracts,
+      allContracts,
       allPaymentReminder,
     ] = await Promise.all([
       getAllProjects(),
-      getAllAndpadPayments(),
+      getUnpaidAndpadPayments(),
       getEmployees(),
       getAllStores(),
       getMyOrders(),
-      filterContractsByTargetProjType(),
+      getAllContracts(),
       getAllPaymentReminder(),
     ]);
-  
-  
+
+
     // 契約書の内容からアラート対象を取得する
-    const result = createPaymentAlertFromContracts({
+    const result = createPaymentAlertFromAPPayments({
       allOrders: allOrders,
-      andpadPayments: allAndpadPayments,
+      unpaidAndpadPayments: unpaidAndpadPayments,
       employees: allMembers,
       projects: allProjects,
       reminders: allPaymentReminder,
       stores: allStores,
-      tgtProjTypeContracts: tgtProjTypeContracts,
+      contracts: allContracts,
     });
 
     const dir = path.join(__dirname, '__TEST__');

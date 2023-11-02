@@ -1,26 +1,27 @@
-import { IEmployees, IProjects, IStores, Territory } from 'types';
-import { ContractRecordType } from '../../config';
+import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores, Territory } from 'types';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
-import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 import { getYumeAgNames } from './getYumeAgNames';
+import { calcPaymentDate } from './calcPaymentDate';
 
 
 
 /**
- * 契約書レコードをリマインダーレコードへ変換する
+ * 入金一覧のレコードをリマインダーレコードへ変換する
  * @param param0 
  * @returns 
  */
-export const convertContractsToJson = ({
+export const convertPaymentsToJson = ({
+  alertPayments,
   contracts,
   projects,
   employees,
   stores,
   allOrders,
 }: {
-  contracts: ContractRecordType[]
+  alertPayments: IAndpadpayments[]
+  contracts: IContracts[]
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
@@ -28,23 +29,10 @@ export const convertContractsToJson = ({
 }) => {
 
 
-  const alertContracts: PaymentReminder[] = contracts.map(({
-    uuid: contractId,
+  const alertPaymentReminders: PaymentReminder[] = alertPayments.map(({
     projId,
-    projType,
-    projName,
-    totalContractAmt,
-    contractDate,
-    contractAmtDate,
-    contractAmt,
-    initialAmtDate,
-    initialAmt,
-    interimAmtDate,
-    interimAmt,
-    finalAmtDate,
-    finalAmt,
-    othersAmtDate,
-    othersAmt,
+    expectedPaymentDate,
+    作成日時,
   }) => {
 
     // 通知対象者を抽出する
@@ -52,7 +40,15 @@ export const convertContractsToJson = ({
       agents,
       storeCode: storeCodeByProjct,
       forceLinkedAndpadSystemId,
+      projName,
+      projTypeName,
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
+
+    const {
+      uuid: contractId,
+      contractDate,
+      totalContractAmt,
+    } = contracts.find(({ projId: contractProjId }) => contractProjId.value === projId.value) || {};
 
     // システムIDを取得する
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
@@ -70,22 +66,10 @@ export const convertContractsToJson = ({
       employees: employees,
     });
 
-    // 契約書から一番過去の支払日を取得する
-    const contractAmtPaymentDate = getEarliestDateOfContract({
-      dates: [
-        contractAmtDate.value,
-        initialAmtDate.value,
-        interimAmtDate.value,
-        finalAmtDate.value,
-        othersAmtDate.value,
-      ],
-      contractAmts: [
-        contractAmt.value,
-        initialAmt.value,
-        interimAmt.value,
-        finalAmt.value,
-        othersAmt.value,
-      ],
+
+    const paymentDate = calcPaymentDate({
+      expectedPaymentDate: expectedPaymentDate.value,
+      createDate: 作成日時.value,
     });
 
     const yumeAGs = getYumeAgNames({
@@ -97,19 +81,19 @@ export const convertContractsToJson = ({
       alertState: true,
       andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      contractId: contractId.value,
+      contractId: contractId?.value ?? '取得に失敗しました',
       projId: projId.value,
-      projName: projName.value,
-      projType: projType.value,
-      contractDate: contractDate.value,
-      totalContractAmount: totalContractAmt.value,
+      projName: projName?.value ?? '取得に失敗しました',
+      projType: projTypeName?.value ?? '取得に失敗しました',
+      contractDate: contractDate?.value ?? '取得に失敗しました',
+      totalContractAmount: totalContractAmt?.value ??  '取得に失敗しました',
       territory: store?.territory.value as Territory,
-      expectedPaymentDate: contractAmtPaymentDate,
+      expectedPaymentDate: paymentDate,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,
     });
   });
 
-  return alertContracts;
+  return alertPaymentReminders;
 
 };

@@ -2,32 +2,35 @@ import { describe, it } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { convertContractsToJson } from './convertContractsToJson';
-import { getAllProjects, getAllStores, getEmployees } from 'api-kintone';
+import { convertPaymentsToJson } from './convertPaymentsToJson';
+import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { getMyOrders } from 'api-andpad';
+import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
 
 
-describe('convertContractsToJson', () => {
-  it('should convert contract data to JSON data', async () => {
+describe('convertPaymentsToJson', () => {
+  it('should convert payments data to JSON data', async () => {
 
-    // set output file of filterContractsByTargetProjType.test.ts
-    const contractsPath = path.join(__dirname, './__TEST__/contracts.json');
-    const contracts = JSON.parse(fs.readFileSync(contractsPath, 'utf8'));
 
     const [
+      alertPayments,
       allProjects,
       allEmployees,
       allStores,
       allOrders,
+      allContracts,
     ] = await Promise.all([
+      getUnpaidAndpadPayments(),
       getAllProjects(),
       getEmployees(),
       getAllStores(),
       getMyOrders(),
+      getAllContracts(),
     ]);
 
-    const result = await convertContractsToJson({
-      contracts: contracts,
+    const result = await convertPaymentsToJson({
+      alertPayments: alertPayments,
+      contracts: allContracts,
       projects: allProjects,
       employees: allEmployees,
       stores: allStores,
@@ -42,7 +45,7 @@ describe('convertContractsToJson', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `convertContractsToJson_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, `convertPaymentsToJson_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
 

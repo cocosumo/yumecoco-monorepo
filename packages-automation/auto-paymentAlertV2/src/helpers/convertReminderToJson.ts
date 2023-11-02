@@ -18,7 +18,7 @@ export const convertReminderToJson = ({
     andpadUrl,
     area,
     contractId,
-    projId: projIdReminder,
+    projId,
     projType,
     projName,
     contractDate,
@@ -26,6 +26,7 @@ export const convertReminderToJson = ({
     notificationSettings,
     expectedPaymentDate,
     yumeAG,
+    paymentId,
   }): PaymentReminder => {
 
     // 通知先情報(chatwork)を設定する
@@ -48,10 +49,9 @@ export const convertReminderToJson = ({
 
     // 顧客からの入金情報を確認する
     const paymentHistory = andpadPayments.some(({
-      projId,
+      ID,
       paymentDate,
-      //paymentAmount,
-    }) => ((projIdReminder.value === projId.value) && (paymentDate.value !== '')));
+    }) => ((paymentId.value === ID.value) && (paymentDate.value !== '')));
 
     return ({
       alertState: !paymentHistory,
@@ -59,7 +59,7 @@ export const convertReminderToJson = ({
       andpadPaymentUrl: andpadUrl.value,
       reminderUrl: reminderUrl,
       contractId: contractId.value,
-      projId: projIdReminder.value,
+      projId: projId.value,
       projName: projName.value,
       projType: projType.value,
       contractDate: contractDate.value,

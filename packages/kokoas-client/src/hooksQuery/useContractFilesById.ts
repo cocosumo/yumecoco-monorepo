@@ -25,6 +25,8 @@ export const useContractFilesById = ({
     {
       refetchOnMount: true,
       enabled: !!id && enabled,
+      cacheTime: 2000,
+      staleTime: 0,
     },
   );
 };

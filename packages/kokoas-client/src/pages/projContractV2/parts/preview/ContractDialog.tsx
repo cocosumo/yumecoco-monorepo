@@ -4,7 +4,7 @@ import { PreviewHeader } from './PreviewHeader';
 import { useContractById, useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { ContractActionMenu } from './menu/ContractActionMenu';
 
@@ -26,19 +26,39 @@ export const ContractDialog = ({
   
   const {
     envDocFileKeys,
+    $revision,
+    envelopeStatus,
   } = contractData || {};
 
-  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
+  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(null);
+  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
+  
+  useEffect(() => {
+    if (envDocFileKeys?.value?.length) {
+      setSelectedFileKey(envDocFileKeys?.value?.[0]?.fileKey);
+    } else {
+      setSelectedFileKey(null);
+    }
+  }, [
+    envDocFileKeys,
+  ]);
+
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
+  const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);
 
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
-    enabled: !selectedFileKey,
+    revision: $revision?.value || '',
+    enabled: !isFileKeyIncluded && open, // disable when selectedFileKey is not included in envDocFileKeys
   });
 
   
-  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '');
+  const { data: fileB64 } = useKintoneFileBase64(
+    selectedFileKey || '', 
+    isFileKeyIncluded && open,
+  );
+
 
   const {
     documents,
@@ -64,7 +84,9 @@ export const ContractDialog = ({
       </DialogTitle>
 
       <PreviewContent 
-        documentB64={fileB64 || documents?.[0] || null}
+        documentB64={envelopeStatus?.value 
+          ? fileB64 || documents?.[selectedFileIndex]?.data || null 
+          : documents?.[selectedFileIndex]?.data || null}
       />
 
       <DialogActions>
@@ -90,6 +112,27 @@ export const ContractDialog = ({
             ))}
           <ContractActionMenu /> 
         </Stack>
+        )}
+
+        {!hasContractFiles && !!documents && (
+          <Stack 
+            direction={'row'} 
+            spacing={1} 
+            py={1}
+            px={2}
+            alignItems={'center'}
+          >
+            {documents.map((doc, index) => (
+              <Chip 
+                key={doc.key} 
+                label={doc.fileName} 
+                size={'small'}
+                onClick={() => setSelectedFileIndex(index)}
+                color={selectedFileIndex === index ? 'primary' : 'default'}
+              />
+            ))}
+  
+          </Stack>
         )}
       </DialogActions>
     </Dialog>

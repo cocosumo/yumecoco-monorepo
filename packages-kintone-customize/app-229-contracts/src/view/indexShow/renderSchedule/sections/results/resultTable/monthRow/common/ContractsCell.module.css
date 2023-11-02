@@ -1,0 +1,10 @@
+@media print {
+  td.contractsCell {
+    font-size: 0.6rem;
+    padding: 0 8px;
+  }
+
+  td.emphasized {
+    font-size: 0.7rem;
+  }
+}

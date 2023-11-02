@@ -41,7 +41,7 @@ export const matchCocoAgentsById = ({
       };
     }
   } else {
-    const matchedCustAgent = custGroupCocoAG.find(({ value: { employeeId } }) => employeeId.value === empIdToMatch);
+    const matchedCustAgent = custGroupCocoAG?.find(({ value: { employeeId } }) => employeeId.value === empIdToMatch);
     if (matchedCustAgent) {
       const { employeeId, employeeName } = matchedCustAgent.value;
       return {

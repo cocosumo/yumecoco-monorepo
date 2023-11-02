@@ -1,11 +1,9 @@
 import {
   EnvelopeDefinition,
 } from 'docusign-esign';
-import fs from 'fs/promises';
-import { getFilePath } from 'kokoas-server/src/assets';
-import { generateContractPdfV2 } from './generateContractPdfV2';
 import { TContractData } from './getContractDataV2';
 import { getRecipients } from './getRecipients/getRecipients';
+import { generateFiles } from './generate/generateFiles';
 /**
  * 参考
  * https://www.docusign.com/blog/developers/tabs-deep-dive-placing-tabs-documents#:~:text=In%20the%20DocuSign%20web%20app,specifying%20x%20and%20y%20position.
@@ -36,31 +34,21 @@ export const makeEnvelopeV2 = async ({
     projName,
   } = data;
 
+  const documents = await generateFiles(data);
 
-  const mainContractB64 = await generateContractPdfV2(data, 'base64' ) as string;
-  const aggreementB64  = await fs.readFile(
-    getFilePath({
-      fileName: '工事請負契約約款',
-    }),
-    { encoding: 'base64' },
-  );
+  const envDocuments: EnvelopeDefinition['documents'] = documents.map(({
+    data: dataB64,
+    fileName,
+  }, index) => ({
+    fileExtension: fileName.split('.').pop() as string,
+    documentBase64: dataB64,
+    name: fileName.split('.').shift() as string,
+    documentId: `${index + 1}`,
+  }));
 
   const env: EnvelopeDefinition = {
     emailSubject: `【${projName}】`,
-    documents: [
-      {
-        documentBase64: aggreementB64,
-        name: '工事請負契約約款',
-        fileExtension: 'pdf',
-        documentId: '2',
-      },
-      {
-        documentBase64: mainContractB64,
-        name: '請負契約書',
-        fileExtension: 'pdf',
-        documentId: '1',
-      },
-    ],
+    documents: envDocuments,
     recipients: getRecipients(data),
     status: status,
   };

@@ -1,10 +1,10 @@
 import { grayscale, PDFDocument } from 'pdf-lib';
 import fs from 'fs/promises';
 import fontkit from '@pdf-lib/fontkit';
-import { drawText } from '../../api/docusign/contracts/helpers/pdf';
+import { drawText } from '../../../api/docusign/contracts/helpers/pdf';
 import { format, parseISO } from 'date-fns';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
-import { getPayMethodX } from '../../api/docusign/contracts/construction/helpers/getPayMethodX';
+import { getPayMethodX } from '../../../api/docusign/contracts/construction/helpers/getPayMethodX';
 import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import { ukeoiContractVersion } from 'config';
 

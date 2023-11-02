@@ -14,7 +14,6 @@ export const RefreshButton = () => {
   const [
     signMethod,
     envelopeStatus,
-    contractId,
   ] = useWatch<TypeOfForm>({
     name: [
       'signMethod', 
@@ -38,8 +37,9 @@ export const RefreshButton = () => {
       loading={isFetching}
       onClick={() => {
         queryClient.invalidateQueries({ 
-          queryKey: [AppIds.contracts, contractId],
+          queryKey: [AppIds.contracts],
         });
+
       }}
     >
       {`${isWithContract ? jaSignMethod : '更新'}`}

@@ -1,6 +1,7 @@
 import { EnvelopeRecipients, EnvelopeUpdateSummary } from 'docusign-esign';
 import { TEnvelopeStatus, signMethods } from './docusign';
 import { z } from 'zod';
+import { TContractData } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 
 export type TProjReq = {
   projId?: string,
@@ -187,13 +188,18 @@ export type ReqPreviewParams = {
 };
 
 export const reqDownloadContractV2Response = z.object({
-  documents: z.array(z.string()),
+  documents: z.array(z.object({
+    data: z.string(),
+    fileName: z.string(),
+    key: z.string(),
+  })),
   envelopeStatus: z.string(),
   envelopeId: z.string(),
 });
 
 export type ReqDownloadContractV2Response = z.infer<typeof reqDownloadContractV2Response> & {
   recipients?: EnvelopeRecipients
+  contractData: TContractData
 };
 
 

@@ -7,13 +7,15 @@ import { downloadFileBase64 } from 'api-kintone/src/@file/downloadFileBase64';
  * @param fileKey
  * @returns {string} // base64
  */
-export const useKintoneFileBase64 = (fileKey: string) => {
+export const useKintoneFileBase64 = (fileKey: string, enabled = true ) => {
   return useQuery(
 
     ['kintone', fileKey],
     () => downloadFileBase64(fileKey),
     {
-      enabled: !!fileKey,
+      enabled: !!fileKey && enabled,
+      cacheTime: 5000,
+      staleTime: 5000,
     },
   );
 };

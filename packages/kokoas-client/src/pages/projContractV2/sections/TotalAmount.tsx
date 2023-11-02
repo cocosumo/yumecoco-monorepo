@@ -7,6 +7,7 @@ import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../schema';
 import { pages } from '../../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { HasProjPlan } from './alerts/HasProjPlan';
 
 /**
  * 合計金額
@@ -32,6 +33,7 @@ export const TotalAmount = ({
 
   return (
     <>
+      <HasProjPlan />
       {hasEstimate && (
       <Alert 
         severity='info'

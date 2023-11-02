@@ -8,13 +8,14 @@ import { useQuery } from '@tanstack/react-query';
  */
 export const useContractsByProjIdV2 = (
   projId = '',
+  enabled = true,
 ) => {
 
   return useQuery(
     [AppIds.contracts, 'projId', projId],
     () => getContractsByProjId(projId),
     {
-      enabled: !!projId,
+      enabled: !!projId && enabled,
     },
   );
 };

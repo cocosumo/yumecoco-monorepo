@@ -246,7 +246,7 @@ export const useSearchResult = () => {
             yumeAG: yumeAGNames.join('、'),
             cocoAG: cocoAGNames.join('、'),
             cocoConst: cocoConstNames.join('、'),
-            
+            totalContractAmtIncTax: 0,
           });
         }
 
@@ -259,6 +259,7 @@ export const useSearchResult = () => {
 
         switch (parseOrderBy) {
           case 'storeSortNumber':
+          case 'totalContractAmtIncTax':
             return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'contractDate':
           case 'createdAt':

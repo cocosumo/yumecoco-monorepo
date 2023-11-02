@@ -1,4 +1,4 @@
-import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees } from 'api-kintone';
+import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees, getAllContracts } from 'api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getMyOrders } from 'api-andpad';
 import { registerReminders } from './helpers/registerReminders';
@@ -24,6 +24,7 @@ export const createInvoiceAlert = async () => {
     allOrders,
     tgtProjTypeContracts,
     allInvoiceReminder,
+    allContracts,
   ] = await Promise.all([
     getAllProjects(),
     getAllAndpadPayments(),
@@ -32,6 +33,7 @@ export const createInvoiceAlert = async () => {
     getMyOrders(),
     filterContractsByTargetProjType(),
     getAllInvoiceReminder(),
+    getAllContracts(),
   ]);
 
 
@@ -44,6 +46,7 @@ export const createInvoiceAlert = async () => {
     reminders: allInvoiceReminder,
     stores: allStores,
     tgtProjTypeContracts: tgtProjTypeContracts,
+    allContracts: allContracts,
   });
 
   // 契約書から取得したアラート用データをリマインダーアプリへ登録する

@@ -4,6 +4,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getYumeAgNames } from './getYumeAgNames';
+import { calcContractInformation } from './calcContractInformation';
 
 
 
@@ -14,12 +15,14 @@ import { getYumeAgNames } from './getYumeAgNames';
  */
 export const convertContractsToJson = ({
   contracts,
+  allContracts,
   projects,
   employees,
   stores,
   allOrders,
 }: {
   contracts: ContractRecordType[]
+  allContracts: ContractRecordType[]
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
@@ -28,12 +31,9 @@ export const convertContractsToJson = ({
 
 
   const alertContracts: InvoiceReminder[] = contracts.reduce((acc, {
-    uuid: contractId,
     projId,
     projType,
     projName,
-    totalContractAmt,
-    contractDate,
     storeName,
   }) => {
 
@@ -43,6 +43,9 @@ export const convertContractsToJson = ({
       storeCode: storeCodeByProjct,
       forceLinkedAndpadSystemId,
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
+
+    const tgtContracts = allContracts.filter(({ projId: contractProjId }) => contractProjId.value === projId.value) || [];
+    const contractData = calcContractInformation({ tgtContracts: tgtContracts });
 
     // システムIDを取得する
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
@@ -69,12 +72,12 @@ export const convertContractsToJson = ({
     acc?.push({
       alertState: true,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      contractId: contractId.value,
+      contractId: contractData.contractId,
       projId: projId.value,
       projName: projName.value,
       projType: projType.value,
-      contractDate: contractDate.value,
-      totalContractAmount: totalContractAmt.value,
+      contractDate: contractData.contractDate,
+      totalContractAmount: contractData.totalContractAmt.toString(),
       territory: store?.territory.value as Territory,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,

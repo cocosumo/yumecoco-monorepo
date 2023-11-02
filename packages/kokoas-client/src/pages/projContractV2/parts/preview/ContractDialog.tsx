@@ -4,7 +4,7 @@ import { PreviewHeader } from './PreviewHeader';
 import { useContractById, useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { ContractActionMenu } from './menu/ContractActionMenu';
 
@@ -30,17 +30,9 @@ export const ContractDialog = ({
     envelopeStatus,
   } = contractData || {};
 
-  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(null);
-  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
-  
-  useEffect(() => {
-    if (envDocFileKeys?.value?.length) {
-      setSelectedFileKey(envDocFileKeys?.value?.[0]?.fileKey);
-    } 
-  }, [
-    envDocFileKeys,
-  ]);
 
+  const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
+  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
   const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);

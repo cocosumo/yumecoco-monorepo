@@ -1,4 +1,11 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm, contractTypes } from '../../schema';
 
@@ -20,46 +27,42 @@ export const ContractTypeField = () => {
           ...restField
         },
         fieldState: {
-          isTouched,
+          isDirty,
           error,
         },
       }) => {
-        const showError = !!error && isTouched;
+        const showError = !!error && isDirty;
         return (
-          <FormControl 
-            fullWidth
-            size='small'
-            sx={{
-              maxWidth: 300,
-            }}
-            error={showError}
-          >
-            <InputLabel>
+          <FormControl>
+            <FormLabel id="contractTypeLabel">
               カテゴリ
-            </InputLabel>
-            <Select
-              label="カテゴリ"
-              value={value}
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="contractTypeLabel"
               onChange={(e) => {
                 onChange(e.target.value as string);
               }}
+              value={value}
+              
               {...restField}
-
             >
+           
               {contractTypes
                 .map(choice => (
-                  <MenuItem
+                  <FormControlLabel
                     key={choice}
                     value={choice}
-                  >
-                    {choice}
-                  </MenuItem>
+                    control={<Radio />}
+                    label={choice}
+                  />
                 ))}
-            </Select>
+            </RadioGroup>
             <FormHelperText>
-              {showError && error.message}
+              {showError && error?.message}
             </FormHelperText>
           </FormControl>
+         
         );
       }}
     />

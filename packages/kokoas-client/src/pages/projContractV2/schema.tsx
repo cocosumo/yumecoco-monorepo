@@ -56,6 +56,9 @@ const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** 工事種別のuuid */
+  projTypeId: z.string(),
+
   /** 契約のuuid */
   contractId: z.string().uuid()
     .optional(),

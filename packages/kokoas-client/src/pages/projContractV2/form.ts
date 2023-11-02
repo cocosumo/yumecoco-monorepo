@@ -5,6 +5,7 @@ export const initialForm : TypeOfForm = {
   custGroupId: '',
   projId: '',
   projName: '',
+  projTypeId: '',
 
   contractId: undefined,
   contractType: '契約',

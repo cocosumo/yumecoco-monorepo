@@ -18,23 +18,43 @@ export const notifyPaymentAlertToChatwork = async ({
   reminderJson: PaymentReminder[]
 }) => {
 
-  console.log(reminderJson);
+  const alertReminder = reminderJson.filter(({ alertState }) => alertState);
 
-  reminderJson.filter(({ alertState }) => alertState)
-    .forEach((reminderInfo) => {
-      const message = generateMessage(reminderInfo);
+  // 営業担当者へアラートメッセージを送信する
+  for (const reminderInfo of alertReminder) {
+    const message = generateMessage(reminderInfo);
 
-      for (const cwRoomId of reminderInfo.cwRoomIds) {
-        sendMessage({
+    for (const cwRoomId of reminderInfo.cwRoomIds) {
+
+
+      try {
+
+        await sendMessage({
           body: message,
-          roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
+          roomId: cwRoomId.cwRoomId,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
+
+      } catch (error) {
+
+        await sendMessage({
+          body: message,
+          roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+
+        await sendMessage({
+          body: `${[`【送信エラー】${cwRoomId.agentName}宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
+          roomId: chatworkRooms.testRoom,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+
       }
-    });
+    }
+  }
 
 
-
+  // 各エリアの店長へ、件数とメッセージを送信する
   for (let i = 0; i < territories.length; i++) {
     const reminderDat = reminderJson.filter(({
       territory,
@@ -44,15 +64,33 @@ export const notifyPaymentAlertToChatwork = async ({
 
     if (reminderDat.length === 0) continue;
 
-    // 各エリアの店長へ、件数とメッセージを通知する
     const managerDat = await getCocoAreaMngrByTerritory(territories[i]);
     const message = generateMessageForManager(reminderDat);
 
-    sendMessage({
-      body: message,
-      roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
-      cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-    });
+
+    try {
+
+      await sendMessage({
+        body: message,
+        roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+    } catch (error) {
+
+      await sendMessage({
+        body: message,
+        roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+      await sendMessage({
+        body: `${[`【送信エラー】${territories[i]}店長宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
+        roomId: chatworkRooms.testRoom,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+    }
   }
 
 };

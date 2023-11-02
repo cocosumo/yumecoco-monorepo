@@ -1,12 +1,12 @@
 import { TEnvelopeStatus } from 'types';
 
 export const jaEnvelopeStatus  = (
-  status: TEnvelopeStatus,
+  status: string,
 ) : {
   ja: string,
   desc: string,
 } => {
-  switch (status) {
+  switch (status as TEnvelopeStatus) {
     case 'created':
       return {
         ja: '下書き',

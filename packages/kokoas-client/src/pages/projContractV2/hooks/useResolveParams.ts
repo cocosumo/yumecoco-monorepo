@@ -43,6 +43,7 @@ export const useResolveParams = () => {
         uuid: projId,
         projName,
         custGroupId,
+        projTypeId,
       } = projData;
 
       const {
@@ -58,6 +59,7 @@ export const useResolveParams = () => {
         projEstimateId: projEstimateIdFromURL,
         projId: projId.value,
         projName: projName.value,
+        projTypeId: projTypeId.value,
         custGroupId: custGroupId.value,
         totalContractAmtAfterTax: totalAmountAfterTax,
         totalContractAmtBeforeTax: totalAmountBeforeTax,
@@ -72,12 +74,13 @@ export const useResolveParams = () => {
       const {
         projName,
         custGroupId,
-        
+        projTypeId,
       } = projData;
 
       setNewFormVal(prev => ({
         ...prev,
         projName: projName.value,
+        projTypeId: projTypeId.value,
         custGroupId: custGroupId.value,
         ...convertContractToForm(contractData),
       }));

@@ -44,11 +44,27 @@ export const convertPaymentsToJson = ({
       projTypeName,
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
 
-    const {
+    const tgtContracts = contracts.filter(({ projId: contractProjId }) => contractProjId.value === projId.value) || [];
+    const contractData = tgtContracts.reduce((acc, {
       uuid: contractId,
+      contractType,
       contractDate,
       totalContractAmt,
-    } = contracts.find(({ projId: contractProjId }) => contractProjId.value === projId.value) || {};
+    }) => {
+
+      acc.contractId = `${acc.contractId}, ${contractId.value}`;
+      if (contractType.value === '契約') {
+        acc.contractDate = contractDate.value;
+      }
+      acc.totalContractAmt += +totalContractAmt.value;
+
+      return acc;
+
+    }, {
+      contractId: '',
+      contractDate: '',
+      totalContractAmt: 0,
+    });
 
     // システムIDを取得する
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
@@ -81,12 +97,12 @@ export const convertPaymentsToJson = ({
       alertState: true,
       andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      contractId: contractId?.value ?? '取得に失敗しました',
+      contractId: contractData.contractId ?? '取得に失敗しました',
       projId: projId.value,
       projName: projName?.value ?? '取得に失敗しました',
       projType: projTypeName?.value ?? '取得に失敗しました',
-      contractDate: contractDate?.value ?? '取得に失敗しました',
-      totalContractAmount: totalContractAmt?.value ??  '取得に失敗しました',
+      contractDate: contractData.contractDate ?? '取得に失敗しました',
+      totalContractAmount: contractData.totalContractAmt.toString() ?? '取得に失敗しました',
       territory: store?.territory.value as Territory,
       expectedPaymentDate: paymentDate,
       yumeAG: yumeAGs,

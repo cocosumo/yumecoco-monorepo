@@ -17,6 +17,7 @@ export const OutcomesRemarksContainer = ({
         size='small'
         sx={{
           fontSize: 12,
+          height: '100%',
         }}
       >
         <TableBody>

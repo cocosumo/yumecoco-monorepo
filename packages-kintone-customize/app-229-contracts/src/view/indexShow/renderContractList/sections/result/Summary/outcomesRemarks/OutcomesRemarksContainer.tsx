@@ -1,4 +1,4 @@
-import { Table, TableBody } from '@mui/material';
+import { Paper, Table, TableBody, TableContainer } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const OutcomesRemarksContainer = ({
@@ -7,17 +7,23 @@ export const OutcomesRemarksContainer = ({
   children: ReactNode
 }) => {
   return (
-
-    <Table
-      size='small'
+    <TableContainer
+      component={Paper}
       sx={{
-        fontSize: 12,
         width: '28%',
       }}
     >
-      <TableBody>
-        {children}
-      </TableBody>
-    </Table>
+      <Table
+        size='small'
+        sx={{
+          fontSize: 12,
+        }}
+      >
+        <TableBody>
+          {children}
+        </TableBody>
+      </Table>
+    </TableContainer>
+
   );
 };

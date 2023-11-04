@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm, contractTypes } from '../../schema';
+import { useHasMainContract } from '../../hooks/useHasMainContract';
 
 
 
@@ -16,6 +17,9 @@ export const ContractTypeField = () => {
 
   const { control } = useFormContext<TypeOfForm>();
 
+  const hasMainContract = useHasMainContract();
+
+ 
   return (
     <Controller
       name={'contractType'}
@@ -44,19 +48,22 @@ export const ContractTypeField = () => {
                 onChange(e.target.value as string);
               }}
               value={value}
-              
               {...restField}
             >
            
               {contractTypes
-                .map(choice => (
-                  <FormControlLabel
-                    key={choice}
-                    value={choice}
-                    control={<Radio />}
-                    label={choice}
-                  />
-                ))}
+                .map(choice => {
+
+                  return (
+                    <FormControlLabel
+                      key={choice}
+                      value={choice}
+                      control={<Radio />}
+                      label={choice}
+                      disabled={hasMainContract && choice === '追加'} // K192 本契約がある場合は追加契約は選択できない
+                    />
+                  );
+                })}
             </RadioGroup>
             <FormHelperText>
               {showError && error?.message}

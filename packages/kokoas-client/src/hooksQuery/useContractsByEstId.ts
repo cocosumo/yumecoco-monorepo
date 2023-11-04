@@ -13,7 +13,7 @@ export const useContractsByEstId = (
 ) => {
 
   return useQuery(
-    [AppIds.contracts, 'projId', projEstimateId],
+    [AppIds.contracts, 'estId', projEstimateId],
     () => getContractByEstId(projEstimateId),
   );
 };

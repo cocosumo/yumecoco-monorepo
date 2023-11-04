@@ -225,9 +225,9 @@ export const useFilteredContracts = () => {
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
 
-        const isMathIncompleteContract = envelopeStatus !== 'completed';
         const isMatchContractStatus = noContractStatusSelected 
-          || (contractCompleted && envelopeStatus === 'completed');
+          || (contractCompleted && envelopeStatus === 'completed')
+          || (contractIncomplete && envelopeStatus !== 'completed');
 
 
         const isStoreSelected = stores?.length ? stores.includes(storeName?.value || '') : true;

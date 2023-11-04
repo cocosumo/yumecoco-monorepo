@@ -55,7 +55,7 @@ export const FilterDialog = ({
           <DateRange 
             fromName='completionDateFrom'
             toName='completionDateTo'
-            label='完工日'
+            label='物件完了日'
           />
           <DeletedProjectsToggle />
         </Stack>

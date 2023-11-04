@@ -31,6 +31,8 @@ export interface SearchResult {
   projName: string;
   projDataId: string;
 
+  totalContractAmtIncTax: number;
+
   yumeAG: string;
   cocoAG: string;
   cocoConst: string;

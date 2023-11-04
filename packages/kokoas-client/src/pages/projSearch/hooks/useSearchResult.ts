@@ -11,6 +11,7 @@ import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
 import intersection from 'lodash/intersection';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
 
 
 
@@ -107,6 +108,10 @@ export const useSearchResult = () => {
         if (!custGroup) return acc;
 
         const contracts = recContracts?.filter(({ projId: _prodId }) => projId.value === _prodId.value);
+        
+        const {
+          契約金額税込: totalContractAmtIncTax,
+        } = getContractsSummary(contracts || []);
         const firstContract = contracts?.[0];
 
         const {
@@ -246,7 +251,7 @@ export const useSearchResult = () => {
             yumeAG: yumeAGNames.join('、'),
             cocoAG: cocoAGNames.join('、'),
             cocoConst: cocoConstNames.join('、'),
-            
+            totalContractAmtIncTax: totalContractAmtIncTax,
           });
         }
 
@@ -259,6 +264,7 @@ export const useSearchResult = () => {
 
         switch (parseOrderBy) {
           case 'storeSortNumber':
+          case 'totalContractAmtIncTax':
             return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'contractDate':
           case 'createdAt':

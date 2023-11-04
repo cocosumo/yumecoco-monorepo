@@ -8,14 +8,16 @@ import {
 } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm, contractTypes } from '../../schema';
-
-
+import { useHasMainContract } from '../../hooks/useHasMainContract';
 
 
 export const ContractTypeField = () => {
 
   const { control } = useFormContext<TypeOfForm>();
 
+  const { data: hasMainContract } = useHasMainContract();
+
+ 
   return (
     <Controller
       name={'contractType'}
@@ -32,6 +34,8 @@ export const ContractTypeField = () => {
         },
       }) => {
         const showError = !!error && isDirty;
+        
+
         return (
           <FormControl>
             <FormLabel id="contractTypeLabel">
@@ -44,19 +48,26 @@ export const ContractTypeField = () => {
                 onChange(e.target.value as string);
               }}
               value={value}
-              
               {...restField}
             >
            
               {contractTypes
-                .map(choice => (
-                  <FormControlLabel
-                    key={choice}
-                    value={choice}
-                    control={<Radio />}
-                    label={choice}
-                  />
-                ))}
+                .map(choice => {
+
+                  const disallowAdd = choice === '追加' && !hasMainContract;
+
+                  return (
+                    <FormControlLabel
+                      key={choice}
+                      value={choice}
+                      control={<Radio />}
+                      label={choice}
+                      disabled={disallowAdd}
+                      title={disallowAdd ? '工事に本契約ないと追加契約ができません' : undefined}
+                    />    
+                  );
+                })}
+
             </RadioGroup>
             <FormHelperText>
               {showError && error?.message}

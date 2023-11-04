@@ -11,7 +11,7 @@ import { FormInput } from './FormInput';
 import { FormActions } from './sections/formActions/FormActions';
 import { CustomerSummary } from './sections/CustomerSummary';
 import { ProjectSummary } from './sections/ProjectSummary';
-import { ContractStatus } from './sections/ContractStatus';
+import { ContractStatus } from './sections/contractStatus/ContractStatus';
 import { DevTool } from '@hookform/devtools';
 
 

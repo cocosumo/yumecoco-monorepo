@@ -33,6 +33,9 @@ export const useParseQuery = (): TypeOfForm => {
 
       yumeAG,
 
+      totalContractAmtIncTaxFrom,
+      totalContractAmtIncTaxTo,
+
       contractDateFrom,
       contractDateTo,
 
@@ -54,6 +57,8 @@ export const useParseQuery = (): TypeOfForm => {
 
     return {
       ...initialForm,
+      totalContractAmtIncTaxFrom: totalContractAmtIncTaxFrom ?? initialForm.totalContractAmtIncTaxFrom,
+      totalContractAmtIncTaxTo: totalContractAmtIncTaxTo ?? initialForm.totalContractAmtIncTaxTo,
       order: order ?? initialForm.order,
       orderBy: orderBy ?? initialForm.orderBy,
       keyword: keyword ?? null,

@@ -32,6 +32,10 @@ export const useSearchResult = () => {
     projTypes,
     cocoAG,
     yumeAG,
+
+    totalContractAmtIncTaxFrom,
+    totalContractAmtIncTaxTo,
+
     contractDateFrom,
     contractDateTo,
 
@@ -193,6 +197,9 @@ export const useSearchResult = () => {
         const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
         const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
 
+        const isMatchContractAmtFrom = !totalContractAmtIncTaxFrom || (totalContractAmtIncTaxFrom && totalContractAmtIncTax >= totalContractAmtIncTaxFrom);
+        const isMatchContractAmtTo = !totalContractAmtIncTaxTo || (totalContractAmtIncTaxTo && totalContractAmtIncTax <= totalContractAmtIncTaxTo);
+
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && projFinDate?.value && completionDateFrom <= parseISO(projFinDate?.value));
@@ -214,6 +221,8 @@ export const useSearchResult = () => {
             && isMatchProjType
             && isMatchCocoNames
             && isMatchYumeNames
+            && isMatchContractAmtFrom
+            && isMatchContractAmtTo
             && isMatchcontractDateFrom
             && isMatchcontractDateTo
             && isMatchcompletionDateFrom

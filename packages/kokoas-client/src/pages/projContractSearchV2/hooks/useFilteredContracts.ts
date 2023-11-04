@@ -2,7 +2,7 @@ import addDays from 'date-fns/addDays';
 
 import { useAllContracts, useCustGroups, useCustomers, useProjects } from 'kokoas-client/src/hooksQuery';
 import { calcProfitRate, formatDataId } from 'libs';
-import { TEnvelopeStatus, TSignMethod, roles } from 'types';
+import { TEnvelopeStatus, TSignMethod } from 'types';
 import { initialValues } from '../form';
 import { itemsSorter } from '../helpers/itemsSorter';
 import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
@@ -64,11 +64,8 @@ export const useFilteredContracts = () => {
     order = initialValues.order,
     orderBy = initialValues.orderBy || 'contractDate',
     contractCompleted,
-    contractStepAG,
-    contractStepAccounting,
-    contractStepCustomer,
-    contractStepMain,
-    contractStepTencho,
+    contractIncomplete,
+
     stores = [],
     projTypes = [],
   } = useTypedURLParams();
@@ -112,11 +109,7 @@ export const useFilteredContracts = () => {
         // 契約進捗の中に何も選択されていないかチェック
         const noContractStatusSelected = [
           contractCompleted,
-          contractStepAG,
-          contractStepAccounting,
-          contractStepCustomer,
-          contractStepMain,
-          contractStepTencho,
+          contractIncomplete,
         ].every((v) => !v);
 
         /* 契約進捗のフィルター */
@@ -232,14 +225,10 @@ export const useFilteredContracts = () => {
           ? addDays(new Date(contractDateTo), 1) >= contractDateMil
           : !contractDateTo;
 
-        const isIncompleteContract = envelopeStatus === 'sent';
-        const isInContractStatus = noContractStatusSelected 
-          || (contractCompleted && envelopeStatus === 'completed')
-          || (isIncompleteContract && contractStepAG && currentContractStep?.roleName === roles.officer)
-          || (isIncompleteContract && contractStepAccounting && currentContractStep?.roleName === roles.accounting)
-          || (isIncompleteContract && contractStepCustomer && currentContractStep?.roleName === roles.customer)
-          || (isIncompleteContract && contractStepMain && currentContractStep?.roleName === roles.main)
-          || (isIncompleteContract && contractStepTencho && currentContractStep?.roleName === roles.storeMngr);
+        const isMathIncompleteContract = envelopeStatus !== 'completed';
+        const isMatchContractStatus = noContractStatusSelected 
+          || (contractCompleted && envelopeStatus === 'completed');
+
 
         const isStoreSelected = stores?.length ? stores.includes(storeName?.value || '') : true;
         const isProjTypeSelected = projTypes?.length ? projTypes.includes(projTypeName?.value || '') : true;
@@ -251,7 +240,7 @@ export const useFilteredContracts = () => {
           && isBelowMaxAmount
           && afterContractDateFrom
           && beforeContractDateTo
-          && isInContractStatus
+          && isMatchContractStatus
           && isStoreSelected
           && isProjTypeSelected
         ) {
@@ -283,11 +272,7 @@ export const useFilteredContracts = () => {
       order,
       orderBy,
       contractCompleted,
-      contractStepAG,
-      contractStepAccounting,
-      contractStepCustomer,
-      contractStepMain,
-      contractStepTencho,
+      contractIncomplete,
       stores,
       custName,
       projTypes,

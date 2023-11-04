@@ -15,11 +15,7 @@ export const schema = z.object({
   mainSearch: z.string().optional(),
   contractCompleted: z.boolean(),
   contractIncomplete: z.boolean(),
-  contractStepTencho: z.boolean(),
-  contractStepCustomer: z.boolean(),
-  contractStepAG: z.boolean(),
-  contractStepAccounting: z.boolean(),
-  contractStepMain: z.boolean(),
+  
   projTypes: z.array(z.string()).optional(),
   stores: z.array(z.string()).optional(),
 }).superRefine((data) => {

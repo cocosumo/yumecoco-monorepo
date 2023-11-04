@@ -1,4 +1,4 @@
-import { Paper, Table, TableContainer } from '@mui/material';
+import { Table } from '@mui/material';
 import { ReactNode } from 'react';
 
 export const ProspectContainer = ({
@@ -7,20 +7,14 @@ export const ProspectContainer = ({
   children: ReactNode
 }) => {
   return (
-    <TableContainer 
-      component={Paper}
+
+    <Table 
+      size='small'
       sx={{
-        width: '25%',
+        width: '22%',
       }}
     >
-      <Table 
-        size='small'
-        sx={{
-          height: '100%',
-        }}
-      >
-        {children}
-      </Table>
-    </TableContainer>
+      {children}
+    </Table>
   );
 };

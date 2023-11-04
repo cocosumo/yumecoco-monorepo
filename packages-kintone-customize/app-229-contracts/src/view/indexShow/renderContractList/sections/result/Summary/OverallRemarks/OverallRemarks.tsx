@@ -21,7 +21,12 @@ export const OverallRemarks = () => {
         >
           未達の理由
         </TableCell>
-        <TableCell width={200}>
+        <TableCell 
+          width={200} 
+          sx={{
+            whiteSpace: 'normal',
+          }}
+        >
           {unachieved?.value}
         </TableCell>
       </TableRow>
@@ -32,7 +37,11 @@ export const OverallRemarks = () => {
         >
           次月の改善
         </TableCell>
-        <TableCell>
+        <TableCell 
+          sx={{
+            whiteSpace: 'normal',
+          }}
+        >
           {improvement?.value}
         </TableCell>
       </TableRow>

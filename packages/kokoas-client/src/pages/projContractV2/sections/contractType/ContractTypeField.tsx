@@ -11,13 +11,11 @@ import { TypeOfForm, contractTypes } from '../../schema';
 import { useHasMainContract } from '../../hooks/useHasMainContract';
 
 
-
-
 export const ContractTypeField = () => {
 
   const { control } = useFormContext<TypeOfForm>();
 
-  const hasMainContract = useHasMainContract();
+  const { data: hasMainContract } = useHasMainContract();
 
  
   return (
@@ -36,6 +34,8 @@ export const ContractTypeField = () => {
         },
       }) => {
         const showError = !!error && isDirty;
+        
+
         return (
           <FormControl>
             <FormLabel id="contractTypeLabel">
@@ -54,16 +54,20 @@ export const ContractTypeField = () => {
               {contractTypes
                 .map(choice => {
 
+                  const disallowAdd = choice === '追加' && !hasMainContract;
+
                   return (
                     <FormControlLabel
                       key={choice}
                       value={choice}
                       control={<Radio />}
                       label={choice}
-                      disabled={hasMainContract && choice === '追加'} // K192 本契約がある場合は追加契約は選択できない
-                    />
+                      disabled={disallowAdd}
+                      title={disallowAdd ? '工事に本契約ないと追加契約ができません' : undefined}
+                    />    
                   );
                 })}
+
             </RadioGroup>
             <FormHelperText>
               {showError && error?.message}

@@ -21,7 +21,7 @@ export const DownloadResult = ({
       useKeysAsHeaders: true, 
       filename: `顧客一覧_${data.length}件`,
     });
-    const convertedData: Record<string, string>[] = data.map((d) => {
+    const convertedData: Record<string, string | number>[] = data.map((d) => {
       return ({
         店舗名: d.storeName,
         '顧客名（連名）': d.custNames,
@@ -32,6 +32,7 @@ export const DownloadResult = ({
         夢てつAG: d.yumeAG,
         ここすも営業担当: d.cocoAG,
         ここすも工事担当: d.cocoConst,
+        '契約金額（税込）': d.totalContractAmtIncTax,
         契約日: d.contractDate,
         引渡日:d.deliveryDate,
         物件完了日: d.projFinDate,

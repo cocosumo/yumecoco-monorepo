@@ -52,7 +52,6 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       newAcc.減額Amt += hasReduction.value === 'はい' ? +reductionAmt.value : 0;
       newAcc.返金Amt += hasRefund.value === 'はい' ? +refundAmt.value : 0;
 
-
       return newAcc;
     },
     {

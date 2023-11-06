@@ -16,7 +16,6 @@ export const IncludeContractPlanAmt = () => {
           ...otherFieldProps
         } }) => {
 
-    
         return (
           <FormControl
             sx={{
@@ -31,7 +30,7 @@ export const IncludeContractPlanAmt = () => {
               <FormControlLabel 
                 control={(
                   <Checkbox 
-                    value={value}
+                    checked={value}
                     onChange={onChange}
                   />)} 
                 label={value ? '含まれる' : '含まれない'}

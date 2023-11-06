@@ -55,7 +55,7 @@ export const ContractFlow = () => {
                   ? 'まだ誰もサインしていません'
                   : '担当者がサインした契約書をまだアップロードしていません'}
                 size={'small'}
-                color={'secondary'}
+                color={'warning'}
                 icon={<InfoIcon />}
               />
             )
@@ -75,7 +75,7 @@ export const ContractFlow = () => {
           <Chip
             label={'未処理'}
             size={'small'}
-            color={'warning'}
+            color={'secondary'}
             icon={<PauseCircleIcon />}
           />
           )}

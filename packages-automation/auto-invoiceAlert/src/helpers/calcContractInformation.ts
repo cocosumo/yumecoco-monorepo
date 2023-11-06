@@ -8,10 +8,10 @@ import { ContractRecordType } from '../../config';
  * @param param0 
  * @returns 
  */
-export const  calcContractInformation = ({
+export const calcContractInformation = ({
   tgtContracts,
 
-}:{
+}: {
   tgtContracts: ContractRecordType[]
 }) => {
 
@@ -37,7 +37,10 @@ export const  calcContractInformation = ({
     reductionAmt,
   }) => {
 
-    acc.contractId = `${acc.contractId}, ${curContractId.value}`;
+    acc.contractId = acc.contractId.length === 0 ?
+      curContractId.value
+      : `${acc.contractId}, ${curContractId.value}`;
+      
     if (contractType.value === '契約') {
       acc.contractDate = curContractDate.value;
     }

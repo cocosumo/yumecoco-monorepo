@@ -33,6 +33,7 @@ export const createInvoiceAlertFromContracts = ({
     contracts: tgtProjTypeContracts,
     andpadPayments: andpadPayments,
     reminders: reminders,
+    projects: projects,
   });
 
 

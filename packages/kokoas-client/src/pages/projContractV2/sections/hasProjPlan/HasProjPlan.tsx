@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, Button, Collapse, Stack, Typography } from '@mui/material';
+import { Alert, AlertTitle, Button, Collapse } from '@mui/material';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { useContractProjPlanByProjId } from '../../hooks/useContractProjPlanByProjId';
 import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
@@ -58,16 +58,8 @@ export const HasProjPlan = () => {
         <AlertTitle>
           {`設計契約書（${contractStatusJa}）が存在しています。設計契約金額（税込）: ${(+(data?.totalContractAmt.value || 0)).toLocaleString()} 円`} 
         </AlertTitle>
-        <Stack 
-          direction={'row'}
-          spacing={2}
-          alignItems={'center'}
-        >
-          <Typography variant='body1' fontSize={14}>
-            本契約には「設計契約金」が
-          </Typography> 
-          <IncludeContractPlanAmt />
-        </Stack>
+
+        <IncludeContractPlanAmt />
 
 
       </Alert>

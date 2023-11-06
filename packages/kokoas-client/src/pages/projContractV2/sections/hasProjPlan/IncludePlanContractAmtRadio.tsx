@@ -1,6 +1,7 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
-import { Checkbox, FormControl, FormControlLabel, FormGroup, Stack, Typography } from '@mui/material';
+import { FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 
 export const IncludeContractPlanAmt = () => {
   const { control } = useTypedFormContext();
@@ -12,7 +13,7 @@ export const IncludeContractPlanAmt = () => {
       alignItems={'center'}
     >
       <Typography variant='body1' fontSize={14}>
-        本契約には「設計契約金」が
+        「設計契約金」は含まれますか？
       </Typography>
       <Controller 
         name='includePlanContractAmt'
@@ -30,21 +31,28 @@ export const IncludeContractPlanAmt = () => {
                 ml:2, // avoid croppping the radio button
               }}
             >
-              <FormGroup
+              <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
                 row
+                value={value}
+                onChange={onChange}
                 {...otherFieldProps}
               >
-                <FormControlLabel 
-                  control={(
-                    <Checkbox 
-                      checked={value}
-                      onChange={onChange}
-                    />)} 
-                  label={value ? '含まれる' : '含まれない'}
-                />
+                {(['はい', 'いいえ'] as const).map((label) => {
+                
+                  return (
+
+                    <FormControlLabel
+                      key={label}
+                      value={label === 'はい'}
+                      control={<Radio />}
+                      label={label}
+                    />
+                  );
+                })}
+
             
-              </FormGroup>
+              </RadioGroup>
             </FormControl>);
         }}
       />

@@ -15,6 +15,7 @@ import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/
 import type { GetCostMgtData } from 'types';
 import { formatDataId, resolveCommisionRate } from 'libs';
 import { convertMonthlyProcurementV3 } from './helpers/convertMonthlyProcurementV3';
+import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
 
 /**
  * 必要なファイルを取得する
@@ -63,7 +64,6 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     getAndpadProcurementByAndpadProjId(andpadSystemId), 
     getAndpadPaymentsBySystemId(andpadSystemId),
     getContractsByProjId(projId),
-    getStoreById(storeId.value),
   ]);
 
 
@@ -116,60 +116,8 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     }, 0);
 
   console.log('Retrieving Contracts Data...');
-  const contracts = contractRecs.reduce(
-    (
-      acc,
-      {
-        contractType,
-        totalContractAmt,
-        tax,
-
-        hasRefund,
-        refundAmt,
-
-        hasReduction,
-        reductionAmt,
-
-        hasSubsidy,
-        subsidyAmt,
-      },
-    ) => {
-      const newAcc = { ...acc };
-
-      if (
-        contractType.value === '契約' ||
-        contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
-      ) {
-        newAcc.契約金額 += +totalContractAmt.value;
-      } else if (contractType.value === '追加') {
-        newAcc.追加金額 += +totalContractAmt.value;
-      }
-
-      // 返金がある場合は、返金フラグをtrueにする
-      newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい' ? true : false;
-
-      newAcc.税率 = +tax.value;
-      newAcc.補助金Amt += hasSubsidy.value === 'はい' ? +subsidyAmt.value : 0;
-
-      // K165で追加金額に返金と減額を含めるようになったが、「返金」「減額」も表示する依頼がくるかもしれないので、
-      // 別々のプロパティにする
-      newAcc.減額Amt += hasReduction.value === 'はい' ? +reductionAmt.value : 0;
-      newAcc.返金Amt += hasRefund.value === 'はい' ? +refundAmt.value : 0;
-
-      return newAcc;
-    },
-    {
-      契約金額: 0,
-      追加金額: 0,
-      税率: 0.1,
-      返金: false,
-      減額Amt: 0,
-      返金Amt: 0,
-      補助金Amt: 0,
-    },
-  );
-
-
+  const contracts = getContractsSummary(contractRecs);
+  
 
   console.log('Calculating Profitability...');
   const {
@@ -194,9 +142,9 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     未入金,
     補助金,
   } = calcProfitability({
-    orderAmountAfterTax: contracts?.契約金額 ?? 0,
+    orderAmountAfterTax: contracts?.契約金額税込 ?? 0,
     additionalAmountAfterTax:
-      contracts.追加金額 - (contracts.返金Amt + contracts.減額Amt),
+      contracts.追加金額税込 - (contracts.返金Amt + contracts.減額Amt),
     purchaseAmount: costManagemenList?.totalContractOrderCost ?? 0,
     paymentAmount: costManagemenList?.totalPaidAmount ?? 0,
     depositAmount: depositAmount,

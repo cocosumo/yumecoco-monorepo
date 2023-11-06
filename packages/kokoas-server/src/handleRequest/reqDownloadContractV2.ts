@@ -3,9 +3,9 @@ import { RequestHandler } from 'express';
 
 import { ReqDownloadContractParams, ReqDownloadContractV2Response } from 'types';
 import { getContractDataV2 } from './reqSendContractDirectV2/getContractDataV2';
-import { generateContractPdfV2 } from '../api/docusign/contracts';
 import { getRecipients } from './reqSendContractDirectV2/getRecipients/getRecipients';
 
+import { generateFiles } from './reqSendContractDirectV2/generate/generateFiles';
 
 export const reqDownloadContractV2: RequestHandler<
 unknown,
@@ -31,21 +31,25 @@ ReqDownloadContractParams
       projName,
       envelopeStatus,
       envelopeId,
+
     } = contractData;
 
     const recipients = getRecipients(contractData);
  
     console.log('Contract data', projName, envelopeStatus); 
 
-    const file = await generateContractPdfV2(contractData, 'base64') as string;
+    const documents: ReqDownloadContractV2Response['documents'] = await generateFiles(contractData);
+
+
     console.log('PDF File generated');
 
     res.status(200).json( {
       // Array here to accomodate multi-documents in the future
-      documents: [file],
+      documents: documents,
       envelopeStatus,
       envelopeId,
       recipients,
+      contractData,
     });
   
     res.end();

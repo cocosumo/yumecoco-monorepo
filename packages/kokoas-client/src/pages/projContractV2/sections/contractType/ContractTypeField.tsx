@@ -1,14 +1,23 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { TypeOfForm, contractTypes } from '../../schema';
-
-
+import { useHasMainContract } from '../../hooks/useHasMainContract';
 
 
 export const ContractTypeField = () => {
 
   const { control } = useFormContext<TypeOfForm>();
 
+  const { data: hasMainContract } = useHasMainContract();
+
+ 
   return (
     <Controller
       name={'contractType'}
@@ -20,46 +29,51 @@ export const ContractTypeField = () => {
           ...restField
         },
         fieldState: {
-          isTouched,
+          isDirty,
           error,
         },
       }) => {
-        const showError = !!error && isTouched;
+        const showError = !!error && isDirty;
+        
+
         return (
-          <FormControl 
-            fullWidth
-            size='small'
-            sx={{
-              maxWidth: 300,
-            }}
-            error={showError}
-          >
-            <InputLabel>
+          <FormControl>
+            <FormLabel id="contractTypeLabel">
               カテゴリ
-            </InputLabel>
-            <Select
-              label="カテゴリ"
-              value={value}
+            </FormLabel>
+            <RadioGroup
+              row
+              aria-labelledby="contractTypeLabel"
               onChange={(e) => {
                 onChange(e.target.value as string);
               }}
+              value={value}
               {...restField}
-
             >
+           
               {contractTypes
-                .map(choice => (
-                  <MenuItem
-                    key={choice}
-                    value={choice}
-                  >
-                    {choice}
-                  </MenuItem>
-                ))}
-            </Select>
+                .map(choice => {
+
+                  const disallowAdd = choice === '追加' && !hasMainContract;
+
+                  return (
+                    <FormControlLabel
+                      key={choice}
+                      value={choice}
+                      control={<Radio />}
+                      label={choice}
+                      disabled={disallowAdd}
+                      title={disallowAdd ? '工事に本契約ないと追加契約ができません' : undefined}
+                    />    
+                  );
+                })}
+
+            </RadioGroup>
             <FormHelperText>
-              {showError && error.message}
+              {showError && error?.message}
             </FormHelperText>
           </FormControl>
+         
         );
       }}
     />

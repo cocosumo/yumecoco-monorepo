@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { downloadFileBase64 } from 'api-kintone/src/@file/downloadFileBase64';
+
+import { useKintoneFile } from './useKintoneFile';
 
 /**
  * Download kintone file by file key.
@@ -7,13 +7,17 @@ import { downloadFileBase64 } from 'api-kintone/src/@file/downloadFileBase64';
  * @param fileKey
  * @returns {string} // base64
  */
-export const useKintoneFileBase64 = (fileKey: string) => {
-  return useQuery(
+export const useKintoneFileBase64 = (fileKey: string, enabled = true ) => {
 
-    ['kintone', fileKey],
-    () => downloadFileBase64(fileKey),
-    {
-      enabled: !!fileKey,
-    },
-  );
+  const { data, ...others } = useKintoneFile(fileKey, enabled);
+
+  return {
+    ...others,
+    data: data ? window.btoa(new Uint8Array(data).reduce(
+      function (d, byte) {
+        return d + String.fromCharCode(byte);
+      },
+      '',
+    )) : undefined,
+  };
 };

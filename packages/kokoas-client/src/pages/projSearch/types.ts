@@ -12,18 +12,31 @@ export type GroupedEmployees = {
 };
 
 export interface SearchResult {
+  /** 一つ目の顧客 */
   custName: string;
+  /** 全顧客 */
+  custNames: string;
   custNameKana: string;
   custAddress: string;
   tel: string;
+  telRelation: string;
   storeName: string;
   contractDate: string;
   deliveryDate: string;
+  projAddress: string;
+  projAddressConfirmed: string;
   projFinDate: string;
   payFinDate: string;
   lastBillDate: string;
   projName: string;
   projDataId: string;
+
+  totalContractAmtIncTax: number;
+
+  yumeAG: string;
+  cocoAG: string;
+  cocoConst: string;
+
   uuid: string;
   storeSortNumber: number;
   createdAt: string;

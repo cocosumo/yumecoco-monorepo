@@ -8,7 +8,7 @@ describe('processContractV2', () => {
 
     const result = await processContractV2(
       {
-        contractId: '3093b55a-1cd4-4ee4-a08f-a902fea1422c',
+        contractId: '1de692dc-de27-4001-b946-50e9bbb35b8c',
         signMethod: 'electronic',
       },
       'sent',

@@ -25,7 +25,7 @@ export const RankField = () => {
             direction={'row'}
             justifyContent={'space-between'}
           >
-            {ranks.map((r) => {
+            {[...ranks, ''].map((r) => {
 
               return (
                 <FormControlLabel

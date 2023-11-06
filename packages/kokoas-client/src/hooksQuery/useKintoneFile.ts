@@ -7,13 +7,13 @@ import { downloadFile } from 'api-kintone';
  * @param fileKey
  * @returns {ArrayBuffer}
  */
-export const useKintoneFile = (fileKey: string) => {
+export const useKintoneFile = (fileKey: string, enabled = true) => {
   return useQuery(
 
     ['kintone', fileKey],
     () => downloadFile(fileKey),
     {
-      enabled: !!fileKey,
+      enabled: !!fileKey && enabled,
     },
   );
 };

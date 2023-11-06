@@ -7,6 +7,7 @@ import { CustomerDetails } from './CustomerDetails';
 import { ProjType } from './ProjType';
 import { SearchButton } from './SearchButton';
 import { DeletedProjectsToggle } from './DeletedProjectsToggle';
+import { TotalContractAmtIncTax } from './TotalContractAmtIncTax';
 
 export const FilterDialog = ({
   open,
@@ -32,6 +33,8 @@ export const FilterDialog = ({
           <Stores />
           <ProjType />
           <Officers />
+          <TotalContractAmtIncTax />
+
           <DateRange 
             fromName='contractDateFrom'
             toName='contractDateTo'
@@ -55,7 +58,7 @@ export const FilterDialog = ({
           <DateRange 
             fromName='completionDateFrom'
             toName='completionDateTo'
-            label='完工日'
+            label='物件完了日'
           />
           <DeletedProjectsToggle />
         </Stack>

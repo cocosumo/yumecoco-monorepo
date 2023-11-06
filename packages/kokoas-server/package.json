@@ -12,6 +12,7 @@
     "upstart": "cross-env NODE_ENV=production git pull && npm run start",
     "build": "cross-env NODE_ENV=production rimraf ./dist && tsc --build tsconfig.json",
     "start": "cross-env NODE_ENV=production ts-node --files ./src/main.ts -T",
+    "restart": "nx killport kokoas-server && nx forever kokoas-server && forever logs kokoas-server -f",
     "forever": "forever start --uid kokoas-server -a -v -o kokoas-server.log -e kokoas-server-err.log -c 'nx start kokoas-server' ./",
     "killport": "kill $(lsof -t -i:3010)"
   },

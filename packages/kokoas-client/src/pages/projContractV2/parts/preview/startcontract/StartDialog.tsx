@@ -10,8 +10,9 @@ import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 import { ukeoiContractVersion } from 'config';
 import { EnvelopeRecipients } from 'docusign-esign';
 import { SigningFlow } from './SigningFlow';
+import { StepConfirmContents } from './StepConfirmContents';
 
-const steps = ['契約日確認', '署名手法', '送信前確認'];
+const steps = ['契約日確認', '署名手法', '内容確認', '送信前確認'];
 
 export const StartDialog = ({
   open,
@@ -85,7 +86,14 @@ export const StartDialog = ({
       <StepChooseSignMethod handleChooseMethod={handleChooseMethod} handleClose={handleCloseDialog} />
       )}
 
-      {!isLoading && activeStep === 2 && (
+      {activeStep === 2 && (
+        <StepConfirmContents 
+          handleCancel={handleCloseDialog}
+          handleYes={() => setActiveStep(prev => prev + 1)}
+        />
+      )}
+
+      {!isLoading && activeStep === 3 && (
         <SigningFlow 
           recipients={recipients}
           method={method}
@@ -95,7 +103,7 @@ export const StartDialog = ({
  
 
 
-      {isLoading && activeStep === 2 && (
+      {isLoading && activeStep === 3 && (
       <Loading />
       )}
 

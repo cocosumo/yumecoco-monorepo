@@ -28,6 +28,7 @@ export const OutcomesRemarks = () => {
             fontWeight: 'bold',
             borderBottom: '4px double',
             borderColor: grey[300],
+            width: 300,
 
           }}
         >

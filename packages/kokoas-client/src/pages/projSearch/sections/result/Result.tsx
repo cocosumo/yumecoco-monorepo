@@ -3,10 +3,15 @@ import { useSearchResult } from '../../hooks/useSearchResult';
 import { ResultCount } from './ResultCount';
 import { ResultTable } from './ResultTable';
 import { NewCustomerButton } from './NewCustomerButton';
+import { DownloadResult } from './DownloadResult';
 
 export const Result = () => {
 
-  const { data, isLoading } = useSearchResult();
+  const { 
+    data = [], 
+    isLoading, 
+  } = useSearchResult();
+  
   return (
     <>
       <Stack 
@@ -17,7 +22,16 @@ export const Result = () => {
 
         <ResultCount count={data?.length ?? 0} />
 
-        <NewCustomerButton />
+        <Stack
+          direction='row'
+          alignItems={'center'}
+          spacing={2}
+        >
+          <DownloadResult data={data} />
+          <NewCustomerButton />
+
+        </Stack>
+
 
       </Stack>
       {!isLoading &&  <ResultTable data={data} />}

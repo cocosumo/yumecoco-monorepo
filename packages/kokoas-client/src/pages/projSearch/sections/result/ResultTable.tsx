@@ -9,7 +9,7 @@ export const ResultTable = ({
   data?: SearchResult[]
 }) => {
   return (
-    <Paper sx={{ width: '100%', overflowY: 'scroll' }}>
+    <Paper sx={{ width: '100%', overflow: 'scroll' }}>
       <TableContainer 
         sx={{ 
           overflowX: 'initial', 

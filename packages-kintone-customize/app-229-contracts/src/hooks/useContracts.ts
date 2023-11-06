@@ -7,6 +7,7 @@ interface Params {
 }
 
 
+const contractDateKey: keyof DB.SavedRecord = 'contractDate';
 export const useContracts = (params?: Params) => {
 
   const {
@@ -18,6 +19,10 @@ export const useContracts = (params?: Params) => {
     () => getAllRecords<DB.SavedRecord>({
       app: appId,
       condition,
+      orderBy: `${contractDateKey} asc`,
     }),
+    {
+      staleTime: 1000 * 60 * 5,
+    },
   );
 };

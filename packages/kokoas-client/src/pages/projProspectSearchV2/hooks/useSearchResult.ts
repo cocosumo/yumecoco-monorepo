@@ -1,15 +1,16 @@
 /* eslint-disable no-case-declarations */
 import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } from 'kokoas-client/src/hooksQuery';
 import { useParseQuery } from './useParseQuery';
-import { ISearchResult } from '../types';
+import { ISearchResult, KSearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
-import { formatDataId } from 'libs';
+import { addressBuilder, formatDataId } from 'libs';
 import parseISO from 'date-fns/parseISO';
 import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects/helpers/getAgentsByType';
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
 
 import format from 'date-fns/format';
 import { matchCocoAgentsById } from '../helpers/matchCocoAgentsById';
+import { useCallback } from 'react';
 
 
 
@@ -28,9 +29,9 @@ export const useSearchResult =  () => {
   const { data: storeRec } = useStores();  
 
   return useProjects<ISearchResult[]>({ // 工事ベース
-    enabled: !!parsedQuery && !!recCustomers && !!recContracts,
-    select: (data) => {
-
+    enabled: !!parsedQuery && !!recCustomers?.length && !!recContracts?.length && !!recCustGroup?.length && !!storeRec?.length,
+    select: useCallback((data) => {
+      console.log('FIRE!');
       const unsortedResult =  data?.reduce((acc, curr) => {
 
         const {
@@ -53,7 +54,27 @@ export const useSearchResult =  () => {
 
           memo,
 
+          postal,
+          address1,
+          address2,
+
+          finalPostal,
+          finalAddress1,
+          finalAddress2,
         } = curr; // 工事情報;
+
+        const projAddress = addressBuilder({
+          postal: postal.value,
+          address1: address1.value,
+          address2: address2.value,
+        });
+
+        const projAddressConfirmed = addressBuilder({
+          postal: finalPostal.value,
+          address1: finalAddress1.value,
+          address2: finalAddress2.value,
+        });
+
 
         const isProjectDeleted = projCancelStatus.value !== ''; 
 
@@ -81,7 +102,15 @@ export const useSearchResult =  () => {
         if (isCustGroupDeleted) return acc;
 
         
-        const hasContract = recContracts?.some(({ projId: _prodId }) => projId.value === _prodId.value);
+        const hasContract = recContracts
+          ?.some(
+            ({ 
+              projId: _prodId, 
+              contractType, 
+            }) => projId.value === _prodId.value 
+            && contractType.value !== '設計契約', // 契約として扱いしない　K229, 
+          );
+
 
         // 契約があったら、除外
         if (hasContract) return acc; 
@@ -109,6 +138,9 @@ export const useSearchResult =  () => {
         const {  
           fullNames,
           fullNameReadings,
+          custTels,
+          addresses,
+
         } = groupCustContacts(relCustomers);
 
         /**　
@@ -190,6 +222,13 @@ export const useSearchResult =  () => {
             schedContractDate: schedContractDate?.value ? schedContractDate.value : '-',
             createDate: format(parseISO(createDate.value), 'yyyy-MM-dd HH:mm'),
             updateDate: format(parseISO(updateDate.value), 'yyyy-MM-dd HH:mm'),
+
+            tel: custTels?.[0] || '-',
+            custAddress: addresses?.[0] || '-',
+            projAddress: projAddress,
+            projAddressConfirmed: projAddressConfirmed,
+            
+
           });
         }
        
@@ -197,33 +236,52 @@ export const useSearchResult =  () => {
         return acc;
       }, [] as ISearchResult[]);
 
-      return unsortedResult;
+      //return unsortedResult;
 
-      /* return unsortedResult.sort((a, b) => {
-        const parseOrderBy = orderBy as KSearchResult;
+
+      return unsortedResult.sort((a, b) => {
+        const parseOrderBy = q.orderBy as KSearchResult;
 
 
         switch (parseOrderBy) {
           case 'storeSortNumber':
-            return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
-          case 'contractDate':
-          case 'createdAt':
-          case 'updatedAt':
-          case 'projFinDate':
-          case 'payFinDate':
-          case 'deliveryDate':
+            return q.order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
+          case 'updateDate':
+          case 'createDate':
+            const dateA = parseISO(a[parseOrderBy]);
+            const dateB = parseISO(b[parseOrderBy]);
+            return q.order === 'asc' 
+              ? dateA.getTime() - dateB.getTime()
+              : dateB.getTime() - dateA.getTime();
+          case 'rank': 
+            // rank is string, but empty string should be treated as the lowest rank
+            // if rank = '設計契約' should be the highest rank
+        
+            const rankA = a[parseOrderBy] || 'Z';
+            const rankB = b[parseOrderBy] || 'Z';
+            
+            if (rankA === '設計契約' || rankB === '設計契約') {
+              // multiply the result by 1 or -1 based on the order.
+              return (rankA === '設計契約' ? -1 : 1) * (q.order === 'asc' ? 1 : -1);
+            }
+            
 
-            // put "-" or undefined at the bottom of the result
-            if (a[parseOrderBy] === '-' || !a[parseOrderBy]) return 1;
-            if (b[parseOrderBy] === '-' || !b[parseOrderBy]) return -1;
-
-            return order === 'asc' ? new Date(a[parseOrderBy]).getTime() - new Date(b[parseOrderBy]).getTime() : new Date(b[parseOrderBy]).getTime() - new Date(a[parseOrderBy]).getTime();
+            return q.order === 'asc'
+              ? rankA.localeCompare(rankB)
+              : rankB.localeCompare(rankA);
+            
           default:
-            const valueA = a[parseOrderBy] || ''; 
-            const valueB = b[parseOrderBy] || ''; 
-            return order === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+            return 0;
         }
-      }); */
-    },
+        
+      }); 
+    }, 
+    [
+      q, 
+      recCustomers, 
+      recCustGroup, 
+      recContracts, 
+      storeRec,
+    ]),
   });
 };

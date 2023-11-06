@@ -7,7 +7,7 @@ import { parseISODateToFormat } from 'kokoas-client/src/lib';
 
 export const PaymentInfo = ({
   record,
-}:{
+}: {
   record: IContracts
 }) => {
 
@@ -15,7 +15,7 @@ export const PaymentInfo = ({
     const {
       contractAmt,
       contractAmtDate,
-      
+
       initialAmt,
       initialAmtDate,
 
@@ -50,8 +50,8 @@ export const PaymentInfo = ({
       const parsedAmt = +amt;
       return {
         label,
-        value: `${roundTo(parsedAmt).toLocaleString()} ${date && parsedAmt ? `(${parseISODateToFormat((date))})` : '' }`,
-      }; 
+        value: `${roundTo(parsedAmt).toLocaleString()} ${date && parsedAmt ? `(${parseISODateToFormat((date))})` : ''}`,
+      };
     });
 
     const parsedSubsidyAmt = +subsidyAmt.value;
@@ -65,22 +65,22 @@ export const PaymentInfo = ({
       },
       {
         label: '減額',
-        value: `${(+reductionAmt.value).toLocaleString() }`,
+        value: `${(+reductionAmt.value).toLocaleString()}`,
       },
       {
         label: '補助金',
-        value:  `${(parsedSubsidyAmt).toLocaleString()} ${parsedSubsidyAmt ? `(${subsidyMethod.value})` : '' }`,
+        value: `${(parsedSubsidyAmt).toLocaleString()}`,
       },
       {
         label: '支払方法',
-        value: `${payMethod.value} ${payMethod.value === '振込' ? `(${payDestination.value})` : '' }`,
+        value: `${payMethod.value} ${payMethod.value === '振込' ? `(${payDestination.value})` : ''}`,
       },
     ];
-    
+
 
     return result;
 
-  }, 
+  },
   [record]);
 
 

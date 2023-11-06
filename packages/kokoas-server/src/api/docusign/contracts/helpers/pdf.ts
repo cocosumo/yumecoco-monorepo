@@ -34,6 +34,7 @@ export const drawText = async (
     color = rgb(0, 0, 0),
     size = 10,
     font,
+    ...otherOptions
   } : PDFPageDrawTextOptions,
   advancedOptions?: AdvancedOptions,
 ) => {
@@ -73,7 +74,7 @@ export const drawText = async (
         parsedFontSize,
       ) > boxWidth
     ) {
-      parsedFontSize -= 0.2;
+      parsedFontSize -= 0.1;
     }
   }
 
@@ -113,7 +114,7 @@ export const drawText = async (
           font: font,
           color: color,
           lineHeight: parsedFontSize,
-
+          ...otherOptions,
         });
         break;
       case 'right':
@@ -122,6 +123,7 @@ export const drawText = async (
           y: boxY,
           font,
           size: parsedFontSize,
+          ...otherOptions,
         });
         break;
       case 'center':
@@ -130,6 +132,7 @@ export const drawText = async (
           y: boxY,
           font,
           size: parsedFontSize,
+          ...otherOptions,
         });
         break;
     }

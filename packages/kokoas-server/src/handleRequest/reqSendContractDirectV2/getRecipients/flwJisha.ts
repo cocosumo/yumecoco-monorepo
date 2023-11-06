@@ -1,4 +1,4 @@
-import { EnvelopeRecipients, Signer } from 'docusign-esign';
+import { EnvelopeRecipientTabs, EnvelopeRecipients, Signer } from 'docusign-esign';
 import { TContractData } from '../getContractDataV2';
 import { roles } from 'types';
 import { commonCC } from './commonCC';
@@ -12,6 +12,7 @@ export const flwJisha = (data: TContractData) : EnvelopeRecipients => {
   
   const {
     cocoAG,
+    signMethod,
   } = data;
 
   const {
@@ -21,6 +22,21 @@ export const flwJisha = (data: TContractData) : EnvelopeRecipients => {
 
 
   const signers : Signer[] = [];
+  const envelopeRecipientTabs: EnvelopeRecipientTabs = {};
+
+  if (signMethod === 'electronic') {
+    envelopeRecipientTabs.approveTabs = [{
+      anchorString: '/tt/',
+      documentId: '1',
+      pageNumber: '1',
+      tabLabel: roles.officer,
+    }];
+  } else {
+    envelopeRecipientTabs.signerAttachmentTabs = [{
+      anchorString: '/tt/',
+      tabLabel: roles.officer,
+    }];
+  }
 
   signers.push({
     email: officerEmail,
@@ -28,14 +44,7 @@ export const flwJisha = (data: TContractData) : EnvelopeRecipients => {
     roleName: roles.officer,
     recipientId: '1',
     routingOrder: '1',
-    tabs: {
-      approveTabs: [{
-        anchorString: '/tt/',
-        documentId: '1',
-        pageNumber: '1',
-        tabLabel: roles.officer,
-      }],
-    },
+    tabs: envelopeRecipientTabs,
   });
 
 

@@ -26,19 +26,31 @@ export const ContractDialog = ({
   
   const {
     envDocFileKeys,
+    $revision,
+    envelopeStatus,
   } = contractData || {};
 
+
   const [selectedFileKey, setSelectedFileKey] = useState<string | null>(envDocFileKeys?.value?.[0]?.fileKey || null);
+  const [selectedFileIndex, setSelectedFileIndex] = useState(0);
   
   const hasContractFiles = !!envDocFileKeys?.value.length;
+  const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);
+
+  const { data: fileB64 } = useKintoneFileBase64(
+    selectedFileKey || '', 
+    isFileKeyIncluded && open,
+  );
 
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
-    enabled: !selectedFileKey,
+    revision: $revision?.value || '',
+    enabled: open && !envDocFileKeys?.value?.length, // Only fetch when there is no contract files
   });
 
   
-  const { data: fileB64 } = useKintoneFileBase64(selectedFileKey || '');
+
+
 
   const {
     documents,
@@ -64,7 +76,9 @@ export const ContractDialog = ({
       </DialogTitle>
 
       <PreviewContent 
-        documentB64={fileB64 || documents?.[0] || null}
+        documentB64={envelopeStatus?.value 
+          ? fileB64 || documents?.[selectedFileIndex]?.data || null 
+          : documents?.[selectedFileIndex]?.data || null}
       />
 
       <DialogActions>
@@ -90,6 +104,27 @@ export const ContractDialog = ({
             ))}
           <ContractActionMenu /> 
         </Stack>
+        )}
+
+        {!hasContractFiles && !!documents && (
+          <Stack 
+            direction={'row'} 
+            spacing={1} 
+            py={1}
+            px={2}
+            alignItems={'center'}
+          >
+            {documents.map((doc, index) => (
+              <Chip 
+                key={doc.key} 
+                label={doc.fileName} 
+                size={'small'}
+                onClick={() => setSelectedFileIndex(index)}
+                color={selectedFileIndex === index ? 'primary' : 'default'}
+              />
+            ))}
+  
+          </Stack>
         )}
       </DialogActions>
     </Dialog>

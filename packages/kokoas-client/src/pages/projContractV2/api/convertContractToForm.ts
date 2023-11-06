@@ -14,6 +14,11 @@ export const convertContractToForm = (
 
     contractType,
     contractAddType,
+    purpose,
+    structure,
+    scale,
+    projPeriod,
+    annotation,
 
     totalContractAmt,
     totalProfit,
@@ -82,6 +87,11 @@ export const convertContractToForm = (
 
     contractType: contractType.value || '契約',
     contractAddType: contractAddType.value || '追加工事',
+    purpose: purpose?.value || '',
+    structure: structure?.value || '',
+    scale: scale?.value || '',
+    projPeriod: +(projPeriod?.value || 30),
+    annotation: annotation?.value || '',
 
     totalContractAmtAfterTax: roundTo(+totalContractAmt.value),
     totalProfit: roundTo(+totalProfit.value),

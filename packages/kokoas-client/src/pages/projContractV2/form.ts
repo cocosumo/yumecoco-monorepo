@@ -5,10 +5,17 @@ export const initialForm : TypeOfForm = {
   custGroupId: '',
   projId: '',
   projName: '',
+  projTypeId: '',
 
   contractId: undefined,
   contractType: '契約',
   contractAddType: '追加工事',
+  purpose: '専用住宅',
+  structure: '木造（軸組み）',
+  scale: '2階建て',
+  projPeriod: 30,
+  annotation: '建物面積により決定',
+
   
   totalContractAmtAfterTax: 0,
   totalContractAmtBeforeTax: 0, 

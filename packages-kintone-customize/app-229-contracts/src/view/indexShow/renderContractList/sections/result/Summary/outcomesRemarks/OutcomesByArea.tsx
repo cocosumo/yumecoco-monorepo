@@ -46,6 +46,7 @@ export const OutcomesByArea = ({
         <TableCell 
           sx={{
             fontSize: 12,
+            whiteSpace: 'normal',
           }}
         >
           {success}
@@ -75,6 +76,7 @@ export const OutcomesByArea = ({
         <TableCell 
           sx={{
             fontSize: 12,
+            whiteSpace: 'normal',
           }}
         >
           {failure}

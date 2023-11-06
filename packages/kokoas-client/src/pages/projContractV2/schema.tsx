@@ -18,12 +18,28 @@ export const contractTypes = [
   '銀行用', 
   '工事実行', 
   '追加', 
+  '設計契約',
 ] as const;
 
 const schema = z.object({
 
   /** 区分 */
   contractType: z.string(),
+
+  /** 用途 */
+  purpose: z.string().optional(),
+
+  /** 構造 */
+  structure: z.string().optional(),
+
+  /** 規模 */
+  scale: z.string().optional(),
+
+  /** 業務の期間 */
+  projPeriod: z.number().optional(),
+
+  /** 報酬額 注釈 */
+  annotation: z.string().optional(),
 
   /** 追加区分 */
   contractAddType: z.string().optional(),
@@ -39,6 +55,9 @@ const schema = z.object({
 
   /** 工事名 */
   projName: z.string(),
+
+  /** 工事種別のuuid */
+  projTypeId: z.string(),
 
   /** 契約のuuid */
   contractId: z.string().uuid()
@@ -261,7 +280,32 @@ const schema = z.object({
   }, {
     path: ['totalContractAmtAfterTax'],
     message: '契約合計金額と「契約金、着手金、中間金、最終金、その他」の合計が一致しません。',  
+  })
+  .refine(({
+    contractType,
+    purpose,
+  }) => {
+    if (contractType === '設計契約' && !purpose) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['purpose'],
+    message: '用途を入力してください。',
+  })
+  .refine(({
+    contractType,
+    structure,
+  }) => {
+    if (contractType === '設計契約' && !structure) {
+      return false;
+    }
+    return true;
+  }, {
+    path: ['structure'],
+    message: '構造を入力してください。',
   });
+    
   
   
 

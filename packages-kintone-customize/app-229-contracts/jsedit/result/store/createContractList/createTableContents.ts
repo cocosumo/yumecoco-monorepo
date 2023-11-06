@@ -49,7 +49,7 @@ export const createTableContents = (
           <td style="text-align: right;">${formatCurrency(parseFloat(contractAmountNotax.value))}</td>
           <td style="text-align: right;">${formatCurrency(profit.value)}</td>
           <td style="text-align: right;">${formatCurrency(+profit.value * 1.1)}</td>
-          <td style="text-align: right;">${formatCurrency(fee.value)}</td>
+          <td style="text-align: right;">${formatCurrency(commission.value)}</td>
           <td style="text-align: right;">${formattedGrossProfitMargin}</td>
           <td>${yumeAGName.value || 'ここすも'}</td>
           <td>${yumeAGName2.value}</td>

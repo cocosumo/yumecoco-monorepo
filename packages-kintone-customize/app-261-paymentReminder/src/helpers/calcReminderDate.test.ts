@@ -5,7 +5,7 @@ import addDays from 'date-fns/addDays';
 import addWeeks from 'date-fns/addWeeks';
 import addMonths from 'date-fns/addMonths';
 
-/* 
+
 describe('calcReminderDate', () => {
   it('1日後の日付を返すこと', () => {
 
@@ -63,4 +63,3 @@ describe('calcReminderDate', () => {
     console.log('result', result);
   }, 60000);
 });
- */

@@ -1,3 +1,6 @@
+/**
+ * ゆめてつ紹介料 HTMLコンテナ
+*/
 export const createTableContainer = ($el: JQuery<HTMLElement>) => {
   $el.append(`<table class="table_contracts_list">
     <thead>

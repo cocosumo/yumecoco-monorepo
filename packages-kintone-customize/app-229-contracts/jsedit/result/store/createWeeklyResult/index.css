@@ -1,4 +1,7 @@
+/* ゆめてつ紹介料CSS
+   週次計算テーブル */
 
+/* 週次計算テーブル */
 table.table_weekly_result {
   width: 50%;
   margin-left: auto;
@@ -7,6 +10,7 @@ table.table_weekly_result {
 }
 
 /* Common styles for table header and body */
+/* テーブルのヘッダーと一覧 */
 .table_weekly_result th,
 .table_weekly_result tbody td {
   padding: 3px 5px;
@@ -16,11 +20,13 @@ table.table_weekly_result {
 }
 
 /* Styles for table body cells */
+/* 一覧のテーブル枠 */
 .table_weekly_result tbody td {
   border: 1px solid #888;
 }
 
 /* Styles for table header cells */
+/* ヘッダーセル */
 .table_weekly_result thead th {
   
   color: #283618;

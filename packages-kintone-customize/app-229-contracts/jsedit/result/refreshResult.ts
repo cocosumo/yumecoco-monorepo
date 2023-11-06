@@ -6,22 +6,28 @@ import { createHightlightOptions } from './createHightlightOptions';
 import { handleClickRow } from './store/createContractList/handleClickRow';
 import { showResultByStore } from './store/showResultByStore';
 import $ from 'jquery';
-
+/**
+ * 一覧の結果をリフレッシュして表示を更新する。
+*/
 export const refreshResult = async () => {
+  // フォームから年、月、店舗を取得
   const {
     year,
     month,
     store,
   } = getFormValues();
 
+  // ハイライトのオプションを作成
   createHightlightOptions(+year, +month);
 
+  // 契約データを取得
   const result = await getContractsGroupedByStore({
     year,
     month,
     store,
   });
   
+  // 表示エリアをクリア
   getPrintArea().empty();
 
   if (store) {

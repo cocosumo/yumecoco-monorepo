@@ -1,7 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
-import { FormControl, FormControlLabel, Radio, RadioGroup, Tooltip, tooltipClasses } from '@mui/material';
-import { ChoiceTooltip } from './ChoiceTooltip';
+import { Checkbox, FormControl, FormControlLabel, FormGroup } from '@mui/material';
 
 export const IncludeContractPlanAmt = () => {
   const { control } = useTypedFormContext();
@@ -24,39 +23,21 @@ export const IncludeContractPlanAmt = () => {
               ml:2, // avoid croppping the radio button
             }}
           >
-            <RadioGroup
+            <FormGroup
               aria-labelledby="demo-controlled-radio-buttons-group"
-              value={value}
               row
-              onChange={onChange}
               {...otherFieldProps}
             >
-              {
-              (['はい', 'いいえ'] as const).map((label) => {
-
-                
-                return (
-                  <Tooltip
-                    key={label}
-                    title={<ChoiceTooltip label={label} />} 
-                    placement={'top'}
-                    sx={{
-                      [`& .${tooltipClasses.tooltip}`]:{
-                        maxWidth: 500,
-                      },
-                    }}
-                  >
-             
-                    <FormControlLabel
-                      value={label === 'はい'}
-                      control={<Radio />}
-                      label={label === 'はい' ? '含まれる' : '含まれない'}
-                    />
-                  </Tooltip>
-                );
-              })
-            }
-            </RadioGroup>
+              <FormControlLabel 
+                control={(
+                  <Checkbox 
+                    value={value}
+                    onChange={onChange}
+                  />)} 
+                label={value ? '含まれる' : '含まれない'}
+              />
+            
+            </FormGroup>
           </FormControl>);
       }}
     />

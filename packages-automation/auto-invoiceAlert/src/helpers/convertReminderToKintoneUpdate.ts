@@ -29,6 +29,7 @@ export const convertReminderToKintoneUpdate = ({
     totalContractAmount,
     alertState,
     yumeAG,
+    systemId,
   }) => {
 
     return ({
@@ -51,6 +52,7 @@ export const convertReminderToKintoneUpdate = ({
         lastAlertDate: { value: lastAlertDate },
         contractId: { value: contractId },
         // notificationSettings: {}, // 通知対象の更新処理は不要？実装要検討
+        systemId: { value: systemId },
       },
     });
   });

@@ -40,6 +40,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       } else if (contractType.value === '追加') {
         newAcc.追加金額税込 += +totalContractAmt.value;
       }
+      newAcc.合計受注金額税込 += +totalContractAmt.value;
 
       // 返金がある場合は、返金フラグをtrueにする
       newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい';
@@ -49,14 +50,24 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
 
       // K165で追加金額に返金と減額を含めるようになったが、「返金」「減額」も表示する依頼がくるかもしれないので、
       // 別々のプロパティにする
-      newAcc.減額Amt += hasReduction.value === 'はい' ? +reductionAmt.value : 0;
-      newAcc.返金Amt += hasRefund.value === 'はい' ? +refundAmt.value : 0;
+      if (hasReduction.value === 'はい') {
+        newAcc.減額Amt += +reductionAmt.value;
+        newAcc.追加金額税込 -= +reductionAmt.value;
+        newAcc.合計受注金額税込 -= +reductionAmt.value;
+      }
+
+      if (hasRefund.value === 'はい') {
+        newAcc.減額Amt += +refundAmt.value;
+        newAcc.追加金額税込 -= +refundAmt.value;
+        newAcc.合計受注金額税込 -= +refundAmt.value;
+      }
 
       return newAcc;
     },
     {
       契約金額税込: 0,
       追加金額税込: 0,
+      合計受注金額税込: 0,
       税率: 0.1,
       返金: false,
       減額Amt: 0,

@@ -114,7 +114,7 @@ export const calcProfitability = (params: {
     .toNumber();
 
   /** 受注額計_税込 */
-  const orderTotalAfterAmount = Big(orderTotalBeforeTax).mul(taxForCalc)
+  const orderTotalAfterAmount = Big(orderAmountAfterTax).plus(additionalAmountAfterTax)
     .round(0, 1)
     .toNumber();
 

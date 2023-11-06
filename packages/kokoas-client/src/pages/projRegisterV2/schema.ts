@@ -117,6 +117,9 @@ export const schema = z.object({
       isShowFinalAddress,
       finalAddress1,
       finalAddress2,
+
+      deliveryDate,
+      projFinDate,
       
       projTypeName,
       otherProjType,
@@ -162,6 +165,15 @@ export const schema = z.object({
         code: z.ZodIssueCode.custom,
         message: 'ゆめてつAGを入力してください。',
         path: ['yumeAG.0'],
+      });
+    }
+
+    // K217 物件完了日を入力したら、保存するとき、引き渡し日は必須項目になる
+    if (projFinDate && !deliveryDate) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: '物件完了日を入力したら、引き渡し日が必須項目になります。',
+        path: ['deliveryDate'],
       });
     }
 

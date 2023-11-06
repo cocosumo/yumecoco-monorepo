@@ -31,6 +31,8 @@ export const HasProjPlan = () => {
     enabled: contractType === '契約' && !envelopeStatus, // 本契約で未処理の契約の場合のみ、警告を出す
   });
 
+  console.log('Data', data?.uuid.value);
+
   if (!data) return null;
 
   const contractStatusJa = jaEnvelopeStatus(data.envelopeStatus.value).ja;
@@ -55,7 +57,7 @@ export const HasProjPlan = () => {
       <AlertTitle>
         {`設計契約書（${contractStatusJa}）が存在しています。設計契約金額（税込）: ${(+(data.totalContractAmt.value)).toLocaleString()} 円`} 
       </AlertTitle>
-      この契約書には、「設計契約」の契約金額は含まれません。
+      「設計契約金」は含まれますか？
     </Alert>
   );
 };

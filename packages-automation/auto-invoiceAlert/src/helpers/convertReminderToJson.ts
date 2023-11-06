@@ -33,6 +33,7 @@ export const convertReminderToJson = ({
     expectedCreateInvoiceDate,
     yumeAG,
     store,
+    systemId: systemIdReminder,
   }): InvoiceReminder => {
 
     // 通知先情報(chatwork)を設定する
@@ -55,12 +56,14 @@ export const convertReminderToJson = ({
 
     // 請求書が発行されているかどうかを確認する
     const hasInvoice = andpadPayments.some(({
-      projId,
-    }) => ((projIdReminder.value === projId.value)));
+      //projId,
+      systemId,
+    }) => ((systemIdReminder.value === systemId.value)));
 
     return ({
       alertState: !hasInvoice,
       reminderUrl: reminderUrl,
+      systemId: systemIdReminder.value,
       contractId: contractId.value,
       projId: projIdReminder.value,
       projName: projName.value,

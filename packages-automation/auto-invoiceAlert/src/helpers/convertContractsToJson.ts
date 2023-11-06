@@ -49,7 +49,7 @@ export const convertContractsToJson = ({
 
     // システムIDを取得する
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
-      || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
+      || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value)?.案件管理ID;
 
     const andpadInvoiceUrl = andpadSystemId ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
@@ -72,6 +72,7 @@ export const convertContractsToJson = ({
     acc?.push({
       alertState: true,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
+      systemId: andpadSystemId ?? '',
       contractId: contractData.contractId,
       projId: projId.value,
       projName: projName.value,

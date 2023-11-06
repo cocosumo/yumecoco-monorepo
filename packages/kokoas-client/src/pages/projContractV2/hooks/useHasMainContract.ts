@@ -20,8 +20,6 @@ export const useHasMainContract = () => {
     ...others
   } = useContractsByProjIdV2(projId);
 
-  console.log('contracts', contracts, contractId);
-
   return {
     data: contracts
       .some((contract) => contract.contractType.value === '契約' && contract.uuid.value !== contractId),

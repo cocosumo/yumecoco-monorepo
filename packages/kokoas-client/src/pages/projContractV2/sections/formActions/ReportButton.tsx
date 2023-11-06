@@ -22,8 +22,6 @@ export const ReportButton = () => {
     ],
   }) as [string, TEnvelopeStatus];
 
-  console.log('envelopeStatus', envelopeStatus);
-
   return (
     <>
       {envelopeStatus === 'completed' && (

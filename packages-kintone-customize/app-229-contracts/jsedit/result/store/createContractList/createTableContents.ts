@@ -20,7 +20,6 @@ export const createTableContents = (
         contractAmountNotax, // --契約金額(税抜)
         contractDate, // ---------契約日
         custName, // -------------顧客名
-        fee, // ------------------紹介料
         profit, // ---------------粗利額
         projName, // -------------工事名
         projTypeName, // ---------工事種別
@@ -28,6 +27,7 @@ export const createTableContents = (
         yumeAGName2, // ----------ゆめてつAG2
         editProfit, // -----------税込粗利額
         $id, // ------------------契約ID
+        commission, // -----------紹介料
       } = record;
 
       // 粗利率を計算

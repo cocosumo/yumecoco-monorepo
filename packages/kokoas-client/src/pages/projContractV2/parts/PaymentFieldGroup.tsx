@@ -109,7 +109,8 @@ export const PaymentFieldGroup = (
       />
       <ControlledDatePicker 
         name={dateFldName}
-        disabled={!isChecked}
+        disabled={!isChecked} // K141 契約後、編集可能にする
+        helperText={hasContract && isChecked ? '契約後、編集しても書面に反映されません' : ''}
       />
     </Stack>
   );

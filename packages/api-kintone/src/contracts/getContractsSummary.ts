@@ -32,6 +32,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     ) => {
       const newAcc = { ...acc };
 
+      // TODO 設計契約用の計算処理を追加する
       if (
         contractType.value === '契約' ||
         contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
@@ -42,8 +43,11 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       }
       newAcc.合計受注金額税込 += +totalContractAmt.value;
 
-      // 返金がある場合は、返金フラグをtrueにする
+      // 返金・減額・補助金がある場合は、各フラグをtrueにする
       newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい';
+      newAcc.減額 = newAcc.減額 || hasReduction.value === 'はい';
+      newAcc.補助金 = newAcc.補助金 || hasSubsidy.value === 'はい';
+
 
       newAcc.税率 = +tax.value;
       newAcc.補助金Amt += hasSubsidy.value === 'はい' ? +subsidyAmt.value : 0;
@@ -57,7 +61,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       }
 
       if (hasRefund.value === 'はい') {
-        newAcc.減額Amt += +refundAmt.value;
+        newAcc.返金Amt += +refundAmt.value;
         newAcc.追加金額税込 -= +refundAmt.value;
         newAcc.合計受注金額税込 -= +refundAmt.value;
       }
@@ -70,8 +74,10 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       合計受注金額税込: 0,
       税率: 0.1,
       返金: false,
-      減額Amt: 0,
       返金Amt: 0,
+      減額: false,
+      減額Amt: 0,
+      補助金: false,
       補助金Amt: 0,
     },
   );

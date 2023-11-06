@@ -17,6 +17,7 @@ export const createInvoiceAlertFromContracts = ({
   employees,
   stores,
   allOrders,
+  allContracts,
 }: {
   tgtProjTypeContracts: ContractRecordType[]
   andpadPayments: IAndpadpayments[]
@@ -25,17 +26,20 @@ export const createInvoiceAlertFromContracts = ({
   employees: IEmployees[]
   stores: IStores[]
   allOrders: Awaited<ReturnType<typeof getMyOrders>>
+  allContracts: ContractRecordType[]
 }) => {
 
   const alertContracts = filterContractsToAlertTarget({
     contracts: tgtProjTypeContracts,
     andpadPayments: andpadPayments,
     reminders: reminders,
+    projects: projects,
   });
 
 
   return convertContractsToJson({
     contracts: alertContracts,
+    allContracts: allContracts,
     projects: projects,
     employees: employees,
     stores: stores,

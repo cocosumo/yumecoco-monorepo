@@ -8,6 +8,10 @@ import format from 'date-fns/format';
 describe('filterContractsByTargetProjType', () => {
   it('should return alert date', async () => {
 
+    // env設定の確認
+    console.log('env_mode', process.env);
+
+
 
     const result = await filterContractsByTargetProjType();
 

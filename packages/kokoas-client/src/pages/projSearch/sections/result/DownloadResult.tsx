@@ -27,8 +27,13 @@ export const DownloadResult = ({
         '顧客名（連名）': d.custNames,
         電話番号: d.tel,
         工事名: d.projName,
+        顧客郵便番号: d.custPostalCode,
         顧客住所: d.custAddress,
-        工事住所: d.projAddress,
+
+        // K246 工事確定住所が入力されている工事は、工事確定住所を工事住所として表示してほしい
+        工事郵便番号: d.projAddress ? d.projPostalCode : d.projPostalCodeConfirmed,
+        工事住所: d.projAddress || d.projAddressConfirmed,
+
         夢てつAG: d.yumeAG,
         ここすも営業担当: d.cocoAG,
         ここすも工事担当: d.cocoConst,

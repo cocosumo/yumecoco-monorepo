@@ -38,7 +38,7 @@ export const createInvoiceAlert = async () => {
 
 
   // 契約書の内容からアラート対象を取得する
-  const alertContractsJson = createInvoiceAlertFromContracts({
+  const alertContractsJson = await createInvoiceAlertFromContracts({
     allOrders: allOrders,
     andpadPayments: allAndpadPayments,
     employees: allMembers,
@@ -48,6 +48,11 @@ export const createInvoiceAlert = async () => {
     tgtProjTypeContracts: tgtProjTypeContracts,
     allContracts: allContracts,
   });
+  
+  const consoleContracts = alertContractsJson.map(({ projName }) => projName);
+  console.log('通知対象の契約:絞り込み後', alertContractsJson.length, consoleContracts);
+
+  //throw new Error('アラート対象の抽出が完了しました');
 
   // 契約書から取得したアラート用データをリマインダーアプリへ登録する
   await registerReminders({

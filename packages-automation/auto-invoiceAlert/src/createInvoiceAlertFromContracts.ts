@@ -9,7 +9,7 @@ import { IAndpadpayments, IEmployees, IProjects, IStores } from 'types';
 /**
  * 契約アプリからアラート対象レコードを取得する
  */
-export const createInvoiceAlertFromContracts = ({
+export const createInvoiceAlertFromContracts = async ({
   tgtProjTypeContracts,
   andpadPayments,
   reminders,
@@ -36,6 +36,9 @@ export const createInvoiceAlertFromContracts = ({
     projects: projects,
   });
 
+  const consoleContracts = alertContracts.map(({ projName }) => projName.value);
+
+  console.log('通知対象の契約', alertContracts.length, consoleContracts);
 
   return convertContractsToJson({
     contracts: alertContracts,

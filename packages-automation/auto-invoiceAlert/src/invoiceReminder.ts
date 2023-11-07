@@ -21,4 +21,5 @@ export const invoiceReminder = async () => {
     reportedReminder: reminderJson,
   });
 
+  console.log('finish invoice reminder');
 };

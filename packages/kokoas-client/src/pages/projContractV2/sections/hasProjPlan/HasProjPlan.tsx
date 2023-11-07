@@ -5,7 +5,7 @@ import { jaEnvelopeStatus } from 'kokoas-client/src/lib';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { TEnvelopeStatus } from 'types';
-import { IncludeContractPlanAmt } from './IncludePlanContractAmt';
+import { IncludeContractPlanAmt } from './IncludePlanContractAmtRadio';
 
 export const HasProjPlan = () => {
   const [

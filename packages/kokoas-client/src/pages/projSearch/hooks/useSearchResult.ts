@@ -115,8 +115,12 @@ export const useSearchResult = () => {
         const contracts = recContracts?.filter(({ projId: _prodId }) => projId.value === _prodId.value);
         
         const {
-          合計受注金額税込: totalContractAmtIncTax,
+          契約金額税込,
+          追加金額税込,
         } = getContractsSummary(contracts || []);
+
+        const totalContractAmtIncTax = 契約金額税込 + 追加金額税込;
+        
         const firstContract = contracts?.[0];
 
         const {

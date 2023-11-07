@@ -1,10 +1,10 @@
 import { IEmployees, IProjects, IStores, Territory } from 'types';
 import { ContractRecordType } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
-import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getYumeAgNames } from './getYumeAgNames';
 import { calcContractInformation } from './calcContractInformation';
+import { getTargetAndpadOrders } from './getTargetAndpadOrders';
 
 
 
@@ -19,17 +19,18 @@ export const convertContractsToJson = ({
   projects,
   employees,
   stores,
-  allOrders,
+  tgtOrders,
 }: {
   contracts: ContractRecordType[]
   allContracts: ContractRecordType[]
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
-  allOrders: Awaited<ReturnType<typeof getMyOrders>>
+  tgtOrders: Awaited<ReturnType<typeof getTargetAndpadOrders>>
 }) => {
 
-
+  
+  
   const alertContracts: InvoiceReminder[] = contracts.reduce((acc, {
     projId,
     projType,
@@ -48,14 +49,19 @@ export const convertContractsToJson = ({
     const contractData = calcContractInformation({ tgtContracts: tgtContracts });
 
     // システムIDを取得する
+    const andpadProjct = tgtOrders.find(({ 案件管理ID }) => 案件管理ID === projId.value);
+
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
-      || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value)?.案件管理ID;
+      || andpadProjct?.案件管理ID;
+
+    console.log('andpadSystemId', andpadSystemId ? andpadSystemId : 'undefined');
 
     const andpadInvoiceUrl = andpadSystemId ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
       : undefined;
 
-    if (!andpadInvoiceUrl) return acc; // andpadと接続されていない案件は除外する
+    // andpadと接続されていない案件と、失注の案件は除外する
+    if (!andpadInvoiceUrl || andpadProjct?.案件フロー === '失注') return acc;
 
     const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 

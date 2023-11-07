@@ -1,6 +1,5 @@
 import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees, getAllContracts } from 'api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
-import { getMyOrders } from 'api-andpad';
 import { registerReminders } from './helpers/registerReminders';
 import { getAllInvoiceReminder, getInvoiceRemindersByAlertDate } from './api-kintone';
 import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
@@ -21,7 +20,6 @@ export const createInvoiceAlert = async () => {
     allAndpadPayments,
     allMembers,
     allStores,
-    allOrders,
     tgtProjTypeContracts,
     allInvoiceReminder,
     allContracts,
@@ -30,7 +28,6 @@ export const createInvoiceAlert = async () => {
     getAllAndpadPayments(),
     getEmployees(),
     getAllStores(),
-    getMyOrders(),
     filterContractsByTargetProjType(),
     getAllInvoiceReminder(),
     getAllContracts(),
@@ -39,7 +36,6 @@ export const createInvoiceAlert = async () => {
 
   // 契約書の内容からアラート対象を取得する
   const alertContractsJson = await createInvoiceAlertFromContracts({
-    allOrders: allOrders,
     andpadPayments: allAndpadPayments,
     employees: allMembers,
     projects: allProjects,

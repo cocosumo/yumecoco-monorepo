@@ -4,7 +4,7 @@ import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToJson } from './convertContractsToJson';
 import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
+import { getTargetAndpadOrders } from './getTargetAndpadOrders';
 
 
 describe('convertContractsToJson', () => {
@@ -18,15 +18,18 @@ describe('convertContractsToJson', () => {
       allProjects,
       allEmployees,
       allStores,
-      allOrders,
       allContracts,
     ] = await Promise.all([
       getAllProjects(),
       getEmployees(),
       getAllStores(),
-      getMyOrders(),
       getAllContracts(),
     ]);
+
+    const tgtOrders = await getTargetAndpadOrders({
+      contracts: contracts,
+      projects: allProjects,
+    });
 
     const result = await convertContractsToJson({
       allContracts: allContracts,
@@ -34,7 +37,7 @@ describe('convertContractsToJson', () => {
       projects: allProjects,
       employees: allEmployees,
       stores: allStores,
-      allOrders: allOrders,
+      tgtOrders: tgtOrders,
     });
 
     const dir = path.join(__dirname, '__TEST__');

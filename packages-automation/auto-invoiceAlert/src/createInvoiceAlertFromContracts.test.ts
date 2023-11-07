@@ -4,7 +4,6 @@ import path from 'path';
 import format from 'date-fns/format';
 import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
 import { getAllAndpadPayments, getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getAllInvoiceReminder } from './api-kintone';
 
@@ -17,7 +16,6 @@ describe('createInvoiceAlertFromContracts', () => {
       allAndpadPayments,
       allMembers,
       allStores,
-      allOrders,
       tgtProjTypeContracts,
       allInvoiceReminder,
       allContracts,
@@ -26,7 +24,6 @@ describe('createInvoiceAlertFromContracts', () => {
       getAllAndpadPayments(),
       getEmployees(),
       getAllStores(),
-      getMyOrders(),
       filterContractsByTargetProjType(),
       getAllInvoiceReminder(),
       getAllContracts(),
@@ -35,7 +32,6 @@ describe('createInvoiceAlertFromContracts', () => {
 
     const result = await createInvoiceAlertFromContracts({
       allContracts: allContracts,
-      allOrders: allOrders,
       andpadPayments: allAndpadPayments,
       employees: allMembers,
       projects: allProjects,

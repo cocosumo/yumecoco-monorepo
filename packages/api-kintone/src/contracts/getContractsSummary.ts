@@ -39,22 +39,20 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       ) {
         newAcc.設計契約金込み = newAcc.設計契約金込み || includePlanContractAmt.value === '1';
         newAcc.契約金額税込 += +totalContractAmt.value;
-        newAcc.本契約件数 += 1;
-        newAcc.合計受注金額税込 += +totalContractAmt.value;
+        newAcc.本契約件数++;
 
       } else if (contractType.value === '追加') {
         newAcc.追加金額税込 += +totalContractAmt.value;
-        newAcc.追加契約件数 += 1;
-        newAcc.合計受注金額税込 += +totalContractAmt.value;
+        newAcc.追加契約件数++;
 
       } else if (contractType.value === '設計契約') {
         newAcc.設計契約金額税込 += +totalContractAmt.value;
-        newAcc.設計契約件数 += 1;
+        newAcc.設計契約件数++;
+
       } else {
         // その他カテゴリーは無視する
         return newAcc;
       }
-      
 
       // 設計契約を含むかどうか
 
@@ -87,7 +85,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       契約金額税込: 0,
       追加金額税込: 0,
       設計契約金額税込: 0,
-      設計契約金込み: false,
+      設計契約金込み: false, 
       合計受注金額税込: 0,
       税率: 0.1,
       返金: false,
@@ -102,10 +100,22 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     },
   );
 
-
   if (!result.設計契約金込み) {
-    result.合計受注金額税込 += result.設計契約金額税込;
+
+    if (result.本契約件数 && result.設計契約件数) {
+      // K244 原価管理表には、設計契約を追加契約金額として計算したい。
+      result.追加金額税込 += result.設計契約金額税込;
+
+    } else if (!result.本契約件数 && result.設計契約件数) { 
+      // K244 ただし、設計契約１つのみの工事は設計契約の金額を契約金額として計算してほしい
+      result.契約金額税込 += result.設計契約金額税込;
+    }
   } 
+
+  result.合計受注金額税込 = result.契約金額税込 + result.追加金額税込;
+
+  // 本契約の登録に設計契約が含まれていると設定した場合、設計契約金は追加契約金額と契約金額には計算しない。
+
 
   return result;
 };

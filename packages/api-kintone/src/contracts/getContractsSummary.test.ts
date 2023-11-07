@@ -160,6 +160,8 @@ describe('getContractsSummary', () => {
 
     console.log(result);
 
+   
+    expect(result.契約金額税込).toBe(100000);  // K244 設計契約１つのみの工事は設計契約の金額を契約金額として計算してほしい
     expect(result.合計受注金額税込).toBe(100000);
 
   });
@@ -219,6 +221,6 @@ describe('getContractsSummary', () => {
     console.log(result);
 
     expect(result.合計受注金額税込).toBe(500000);
-    
+
   });
 });

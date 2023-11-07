@@ -8,6 +8,7 @@ export interface CwRoomIds {
 
 export interface InvoiceReminder {
   alertState: boolean
+  systemId: string
   andpadInvoiceUrl: string
   reminderUrl: string
   contractId: string

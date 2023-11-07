@@ -1,7 +1,11 @@
-import { AppIds, isProd } from 'config';
+import { AppIds } from 'config';
 import { IContracts, KContracts } from 'types';
 
 
+/**モードの設定 */
+export const isProd = process.env.NODE_ENV_INVOICE === 'production';
+
+console.log('chk', process.env.NODE_ENV_INVOICE);
 
 /**アラート対象の工事種別 */
 export const tgtProjType = ['新築付帯工事', 'リフォーム工事', '新築工事'] as const;

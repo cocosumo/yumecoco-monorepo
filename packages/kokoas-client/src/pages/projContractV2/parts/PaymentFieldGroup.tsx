@@ -10,7 +10,6 @@ export const PaymentFieldGroup = (
   {
     fieldNames,
     label,
-    disabled = false,
   }: {
     label: string,
     fieldNames: {
@@ -18,9 +17,15 @@ export const PaymentFieldGroup = (
       amtFldName: KeyOfForm,
       dateFldName: KeyOfForm,
     }
-    disabled?: boolean,
   },
 ) => {
+
+  const envelopeStatus = useWatch<TypeOfForm>({
+    name: 'envelopeStatus',
+  });
+
+  const hasContract = !!envelopeStatus;
+
 
   const { 
     chkFldName, 
@@ -46,7 +51,7 @@ export const PaymentFieldGroup = (
       <FormControlLabel
         label={label}
         name={chkFldName}
-        disabled={disabled}
+        disabled={hasContract}
         control={(
           <Checkbox
             checked={isChecked as boolean}
@@ -100,11 +105,12 @@ export const PaymentFieldGroup = (
       <ControlledCurrencyInput 
         name={amtFldName} 
         variant='standard'
-        disabled={!isChecked || disabled}
+        disabled={!isChecked || hasContract}
       />
       <ControlledDatePicker 
         name={dateFldName}
-        disabled={!isChecked || disabled}
+        disabled={!isChecked} // K141 契約後、編集可能にする
+        helperText={hasContract && isChecked ? '契約後、編集しても書面に反映されません' : ''}
       />
     </Stack>
   );

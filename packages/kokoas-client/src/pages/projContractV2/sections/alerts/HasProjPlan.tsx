@@ -11,25 +11,18 @@ export const HasProjPlan = () => {
     projId,
     contractType,
     envelopeStatus,
-    contractId,
   ] = useTypedWatch({
     name: [
       'projId',
       'contractType',
       'envelopeStatus',
-      'contractId',
     ],
-  }) as [
-    string, 
-    string, 
-    TEnvelopeStatus, 
-    string];
+  }) as [string, string, TEnvelopeStatus];
   
-  const { data } = useContractProjPlanByProjId({
+  const { data } = useContractProjPlanByProjId(
     projId, 
-    contractId,
-    enabled: contractType === '契約' && !envelopeStatus, // 本契約で未処理の契約の場合のみ、警告を出す
-  });
+    contractType === '契約' && !envelopeStatus, // 本契約で未処理の契約の場合のみ、警告を出す
+  );
 
   if (!data) return null;
 

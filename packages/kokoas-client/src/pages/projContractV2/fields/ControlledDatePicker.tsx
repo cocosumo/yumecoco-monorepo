@@ -10,7 +10,7 @@ export const ControlledDatePicker = ({
   width,
   variant = 'standard',
   emphasized = false,
-
+  helperText,
 }: {
   name: keyof TypeOfForm
   label?: string,
@@ -18,6 +18,7 @@ export const ControlledDatePicker = ({
   width?: string,
   variant?: TextFieldProps['variant'],
   emphasized?: boolean,
+  helperText?: string,
 }) => {
 
 
@@ -59,7 +60,9 @@ export const ControlledDatePicker = ({
                 onBlur,
                 error: isShowError,
                 size: 'small',
-                helperText: isShowError ? error.message : '',
+                helperText: isShowError 
+                  ? error.message 
+                  : helperText || '',
                 sx: {
                   width,
                   ...(emphasized ? {

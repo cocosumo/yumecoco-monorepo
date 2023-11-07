@@ -12,7 +12,7 @@ import { RecordType } from './config';
  */
 export const getContractsSummary = (contractRecs: RecordType[]) => {
 
-  return contractRecs.reduce(
+  const result = contractRecs.reduce(
     (
       acc,
       {
@@ -41,7 +41,6 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       } else if (contractType.value === '追加') {
         newAcc.追加金額税込 += +totalContractAmt.value;
       }
-      newAcc.合計受注金額税込 += +totalContractAmt.value;
 
       // 返金・減額・補助金がある場合は、各フラグをtrueにする
       newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい';
@@ -52,19 +51,8 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       newAcc.税率 = +tax.value;
       newAcc.補助金Amt += hasSubsidy.value === 'はい' ? +subsidyAmt.value : 0;
 
-      // K165で追加金額に返金と減額を含めるようになったが、「返金」「減額」も表示する依頼がくるかもしれないので、
-      // 別々のプロパティにする
-      if (hasReduction.value === 'はい') {
-        newAcc.減額Amt += +reductionAmt.value;
-        newAcc.追加金額税込 -= +reductionAmt.value;
-        newAcc.合計受注金額税込 -= +reductionAmt.value;
-      }
-
-      if (hasRefund.value === 'はい') {
-        newAcc.返金Amt += +refundAmt.value;
-        newAcc.追加金額税込 -= +refundAmt.value;
-        newAcc.合計受注金額税込 -= +refundAmt.value;
-      }
+      newAcc.減額Amt += hasReduction.value === 'はい' ? +reductionAmt.value : 0;
+      newAcc.返金Amt += hasRefund.value === 'はい' ? +refundAmt.value : 0;
 
       return newAcc;
     },
@@ -81,4 +69,9 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       補助金Amt: 0,
     },
   );
+
+  result.追加金額税込 -= (result.減額Amt + result.返金Amt);
+  result.合計受注金額税込 += result.追加金額税込 + result.契約金額税込;
+
+  return result;
 };

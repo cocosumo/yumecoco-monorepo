@@ -12,7 +12,7 @@ export const IncludeContractPlanAmt = () => {
       spacing={2}
       alignItems={'center'}
     >
-      <Typography variant='body1' fontSize={14}>
+      <Typography fontSize={14}>
         「設計契約金」は含まれますか？
       </Typography>
       <Controller 
@@ -32,7 +32,6 @@ export const IncludeContractPlanAmt = () => {
               }}
             >
               <RadioGroup
-                aria-labelledby="demo-controlled-radio-buttons-group"
                 row
                 value={value}
                 onChange={onChange}

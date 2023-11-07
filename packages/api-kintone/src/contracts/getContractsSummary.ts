@@ -12,11 +12,12 @@ import { RecordType } from './config';
  */
 export const getContractsSummary = (contractRecs: RecordType[]) => {
 
-  return contractRecs.reduce(
+  const result = contractRecs.reduce(
     (
       acc,
       {
         contractType,
+        includePlanContractAmt,
         totalContractAmt, // 契約金額税込
         tax,
 
@@ -32,16 +33,30 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     ) => {
       const newAcc = { ...acc };
 
-      // TODO 設計契約用の計算処理を追加する
       if (
         contractType.value === '契約' ||
-        contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
+        contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみな
       ) {
+        newAcc.設計契約金込み = newAcc.設計契約金込み || includePlanContractAmt.value === '1';
         newAcc.契約金額税込 += +totalContractAmt.value;
+        newAcc.本契約件数 += 1;
+        newAcc.合計受注金額税込 += +totalContractAmt.value;
+
       } else if (contractType.value === '追加') {
         newAcc.追加金額税込 += +totalContractAmt.value;
+        newAcc.追加契約件数 += 1;
+        newAcc.合計受注金額税込 += +totalContractAmt.value;
+
+      } else if (contractType.value === '設計契約') {
+        newAcc.設計契約金額税込 += +totalContractAmt.value;
+        newAcc.設計契約件数 += 1;
+      } else {
+        // その他カテゴリーは無視する
+        return newAcc;
       }
-      newAcc.合計受注金額税込 += +totalContractAmt.value;
+      
+
+      // 設計契約を含むかどうか
 
       // 返金・減額・補助金がある場合は、各フラグをtrueにする
       newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい';
@@ -71,6 +86,8 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     {
       契約金額税込: 0,
       追加金額税込: 0,
+      設計契約金額税込: 0,
+      設計契約金込み: false,
       合計受注金額税込: 0,
       税率: 0.1,
       返金: false,
@@ -79,6 +96,16 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       減額Amt: 0,
       補助金: false,
       補助金Amt: 0,
+      本契約件数: 0,
+      追加契約件数: 0,
+      設計契約件数: 0,
     },
   );
+
+
+  if (!result.設計契約金込み) {
+    result.合計受注金額税込 += result.設計契約金額税込;
+  } 
+
+  return result;
 };

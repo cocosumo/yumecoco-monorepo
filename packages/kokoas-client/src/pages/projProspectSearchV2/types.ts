@@ -11,11 +11,20 @@ export interface ISearchResult {
   /** 電話番号 */
   tel: string,
 
+  /** 顧客郵便番号 */
+  custPostalCode: string,
+
   /** 顧客住所 */
   custAddress: string,
 
+  /** 工事郵便番号 */
+  projPostalCode: string,
+
   /** 工事住所　*/
   projAddress: string,
+
+  /** 工事確定郵便番号 */
+  projPostalCodeConfirmed: string,
 
   /** 工事確定住所 */
   projAddressConfirmed: string,

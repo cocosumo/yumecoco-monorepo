@@ -38,7 +38,7 @@ export const createInvoiceAlert = async () => {
 
 
   // 契約書の内容からアラート対象を取得する
-  const alertContractsJson = await createInvoiceAlertFromContracts({
+  const alertContractsJson = createInvoiceAlertFromContracts({
     allOrders: allOrders,
     andpadPayments: allAndpadPayments,
     employees: allMembers,

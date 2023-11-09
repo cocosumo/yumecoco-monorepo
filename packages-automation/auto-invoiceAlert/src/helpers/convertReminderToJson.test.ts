@@ -19,7 +19,7 @@ describe('convertReminderToJson', () => {
       allOrders,
     ] = await Promise.all([
       getAllAndpadPayments(),
-      getAllOrdersAfterContract(),
+      getAllOrdersAfterContract({ afterContractOnly: true }),
     ]);
 
     const result = await convertReminderToJson({

@@ -6,6 +6,7 @@ import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContrac
 import { getAllAndpadPayments, getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getAllInvoiceReminder } from './api-kintone';
+import { getAllOrdersAfterContract } from 'api-andpad/src/@get/getAllOrdersAfterContract';
 
 
 describe('createInvoiceAlertFromContracts', () => {
@@ -19,6 +20,7 @@ describe('createInvoiceAlertFromContracts', () => {
       tgtProjTypeContracts,
       allInvoiceReminder,
       allContracts,
+      allOrders,
     ] = await Promise.all([
       getAllProjects(),
       getAllAndpadPayments(),
@@ -27,6 +29,7 @@ describe('createInvoiceAlertFromContracts', () => {
       filterContractsByTargetProjType(),
       getAllInvoiceReminder(),
       getAllContracts(),
+      getAllOrdersAfterContract({ afterContractOnly: true }),
     ]);
 
 
@@ -38,6 +41,7 @@ describe('createInvoiceAlertFromContracts', () => {
       reminders: allInvoiceReminder,
       stores: allStores,
       tgtProjTypeContracts,
+      allOrders: allOrders,
     });
 
     const dir = path.join(__dirname, '__TEST__');

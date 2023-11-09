@@ -37,8 +37,8 @@ export const createInvoiceAlertFromContracts = ({
     projects: projects,
   });
 
-  //const consoleContracts = alertContracts.map(({ projName }) => projName.value);
-  //console.log('通知対象の契約', alertContracts.length, consoleContracts);
+  const consoleContracts = alertContracts.map(({ projName }) => projName.value);
+  console.log('通知対象の契約', alertContracts.length, consoleContracts);
 
 
   // ANDPAD案件一覧の取得処理

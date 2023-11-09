@@ -12,7 +12,7 @@ import { RecordType } from './config';
  */
 export const getContractsSummary = (contractRecs: RecordType[]) => {
 
-  return contractRecs.reduce(
+  const result = contractRecs.reduce(
     (
       acc,
       {
@@ -56,14 +56,10 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // 別々のプロパティにする
       if (hasReduction.value === 'はい') {
         newAcc.減額Amt += +reductionAmt.value;
-        newAcc.追加金額税込 -= +reductionAmt.value;
-        newAcc.合計受注金額税込 -= +reductionAmt.value;
       }
 
       if (hasRefund.value === 'はい') {
         newAcc.返金Amt += +refundAmt.value;
-        newAcc.追加金額税込 -= +refundAmt.value;
-        newAcc.合計受注金額税込 -= +refundAmt.value;
       }
 
       return newAcc;
@@ -81,4 +77,9 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       補助金Amt: 0,
     },
   );
+  
+  result.追加金額税込 -= (result.減額Amt + result.返金Amt);
+  result.合計受注金額税込 += result.追加金額税込 + result.契約金額税込;
+
+  return result;
 };

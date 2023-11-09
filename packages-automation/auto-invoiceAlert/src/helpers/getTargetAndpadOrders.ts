@@ -3,6 +3,8 @@ import { IContracts, IProjects } from 'types';
 
 
 
+export type GetTargetAndpadOrders = Awaited<ReturnType<typeof getTargetAndpadOrders>>;
+
 /**
  * 対象の契約書及びシステムIDの物のみANDPADの案件を取得する
  * @param param0 
@@ -28,28 +30,28 @@ export const getTargetAndpadOrders = async ({
 
 
   // 工事情報から強制接続しているシステムIDで取得する(対象：強制接続の案件)
-  const tgtSystemIds = projects.filter(({ forceLinkedAndpadSystemId, uuid }) => {
-    return contracts.find(({ projId }) => {
-      if (uuid.value === projId.value) {
-        return forceLinkedAndpadSystemId.value !== null;
-      }
-    });
+  const tgtProjects = projects.filter(({ uuid }) => {
+    return contracts.find(({ projId }) => uuid.value === projId.value);
   });
 
-  let orders = normalOrders.data.objects;
+  const tgtOrders = tgtProjects.filter(({ forceLinkedAndpadSystemId }) => forceLinkedAndpadSystemId.value !== '');
+  const consoleOrders = tgtOrders.map(({ projName }) => projName.value);
+  console.log('tgtSystemIds', tgtOrders.length, consoleOrders);
 
-  console.log('tgtSystemIds', tgtSystemIds.length/* , JSON.stringify(tgtSystemIds, null, 2) */);
 
-  const queyForce = tgtSystemIds.map(({ forceLinkedAndpadSystemId }) => {
-    `システムID = ${forceLinkedAndpadSystemId.value}`;
-  }).join(' OR ');
-
+  const queyForce = tgtOrders.map(({ forceLinkedAndpadSystemId }) => `システムID = ${forceLinkedAndpadSystemId.value}`);
   console.log('queyForce', queyForce);
 
+  // 通常接続と強制接続の案件をまとめる
+  let orders = normalOrders.data.objects;
   if (queyForce.length !== 0) {
 
-    const forceOrders = await getMyOrders({ q: queyForce, series: [additionalProperty] });
-    console.log('forceOrders', forceOrders);
+    const forceOrders = await getMyOrders({
+      q: queyForce.join(' OR '),
+      limit: queyForce.length,
+      series: [additionalProperty],
+    });
+    console.log('forceOrders', JSON.stringify(forceOrders.data.objects, null, 2));
 
     orders = normalOrders.data.objects.concat(forceOrders.data.objects);
   }

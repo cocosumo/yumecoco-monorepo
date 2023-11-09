@@ -4,7 +4,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getYumeAgNames } from './getYumeAgNames';
 import { calcContractInformation } from './calcContractInformation';
-import { getTargetAndpadOrders } from './getTargetAndpadOrders';
+import { GetTargetAndpadOrders } from './getTargetAndpadOrders';
 
 
 
@@ -26,7 +26,7 @@ export const convertContractsToJson = ({
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
-  tgtOrders: Awaited<ReturnType<typeof getTargetAndpadOrders>>
+  tgtOrders: GetTargetAndpadOrders
 }) => {
 
   

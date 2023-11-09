@@ -1,6 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { getContractById } from './getContractById';
 import { getContractsSummary } from './getContractsSummary';
+import { produce } from 'immer';
 
 
 describe('getContractsSummary', () => {
@@ -9,50 +10,49 @@ describe('getContractsSummary', () => {
 
     const contractDat = await getContractById('3bbf6f94-5958-4d7f-810c-a7891a722c36');
 
-    const formalContract = JSON.parse(JSON.stringify(contractDat));
-    {// 本契約レコードを作成
-      formalContract.contractType.value = '契約';
-      formalContract.contractAddType.value = '';
+    const formalContract = produce(contractDat, draft => {
+      // 本契約レコードを作成
+      draft.contractType.value = '契約';
+      draft.contractAddType.value = '';
 
       // 契約金額を設定
-      formalContract.totalContractAmt.value = '5000000';
+      draft.totalContractAmt.value = '5000000';
 
       // 返金を設定
-      formalContract.hasRefund.value = 'はい';
-      formalContract.refundAmt.value = '50000';
+      draft.hasRefund.value = 'はい';
+      draft.refundAmt.value = '50000';
 
       // 減額を設定
-      formalContract.hasReduction.value = 'はい';
-      formalContract.reductionAmt.value = '10000';
+      draft.hasReduction.value = 'はい';
+      draft.reductionAmt.value = '10000';
 
       // 補助金を設定
-      formalContract.hasSubsidy.value = 'はい';
-      formalContract.subsidyAmt.value = '33000';
-    }
+      draft.hasSubsidy.value = 'はい';
+      draft.subsidyAmt.value = '33000';
+    });
 
 
-    
-    const addtionalContract = JSON.parse(JSON.stringify(contractDat));
-    {// 追加契約を取得
+    const addtionalContract = produce(contractDat, draft => {
+    // 追加契約を取得
       // 契約書区分の修正
-      addtionalContract.contractType.value = '追加';
-      addtionalContract.contractAddType.value = '追加工事';
+      draft.contractType.value = '追加';
+      draft.contractAddType.value = '追加工事';
 
       // 契約金額を設定
-      addtionalContract.totalContractAmt.value = '50000';
+      draft.totalContractAmt.value = '50000';
 
       // 返金を設定
-      addtionalContract.hasRefund.value = 'いいえ';
-      addtionalContract.refundAmt.value = '0';
+      draft.hasRefund.value = 'いいえ';
+      draft.refundAmt.value = '0';
 
       // 減額を設定
-      addtionalContract.hasReduction.value = 'いいえ';
-      addtionalContract.reductionAmt.value = '0';
+      draft.hasReduction.value = 'いいえ';
+      draft.reductionAmt.value = '0';
 
       // 補助金を設定
-      addtionalContract.hasSubsidy.value = 'いいえ';
-      addtionalContract.subsidyAmt.value = '0';
-    }
+      draft.hasSubsidy.value = 'いいえ';
+      draft.subsidyAmt.value = '0';
+    });
 
     const contracts = [formalContract, addtionalContract];
 
@@ -74,55 +74,55 @@ describe('getContractsSummary', () => {
   }, 60000);
 
 
-  
+
   it('getContractsSummary', async () => {
 
     const contractDat = await getContractById('3bbf6f94-5958-4d7f-810c-a7891a722c36');
 
-    const formalContract = JSON.parse(JSON.stringify(contractDat));
-    {// 本契約レコードを作成
-      formalContract.contractType.value = '契約';
-      formalContract.contractAddType.value = '';
+    const formalContract = produce(contractDat, draft => {
+      // 本契約レコードを作成
+      draft.contractType.value = '契約';
+      draft.contractAddType.value = '';
 
       // 契約金額を設定
-      formalContract.totalContractAmt.value = '5000000';
+      draft.totalContractAmt.value = '5000000';
 
       // 返金を設定
-      formalContract.hasRefund.value = 'いいえ';
-      formalContract.refundAmt.value = '0';
+      draft.hasRefund.value = 'いいえ';
+      draft.refundAmt.value = '0';
 
       // 減額を設定
-      formalContract.hasReduction.value = 'いいえ';
-      formalContract.reductionAmt.value = '0';
+      draft.hasReduction.value = 'いいえ';
+      draft.reductionAmt.value = '0';
 
       // 補助金を設定
-      formalContract.hasSubsidy.value = 'いいえ';
-      formalContract.subsidyAmt.value = '0';
-    }
+      draft.hasSubsidy.value = 'いいえ';
+      draft.subsidyAmt.value = '0';
+    });
 
 
-    
-    const addtionalContract = JSON.parse(JSON.stringify(contractDat));
-    {// 追加契約を取得
+
+    const addtionalContract = produce(contractDat, draft => {
+    // 追加契約を取得
       // 契約書区分の修正
-      addtionalContract.contractType.value = '追加';
-      addtionalContract.contractAddType.value = '減額工事';
+      draft.contractType.value = '追加';
+      draft.contractAddType.value = '減額工事';
 
       // 契約金額を設定
-      addtionalContract.totalContractAmt.value = '-50000';
+      draft.totalContractAmt.value = '-50000';
 
       // 返金を設定
-      addtionalContract.hasRefund.value = 'いいえ';
-      addtionalContract.refundAmt.value = '0';
+      draft.hasRefund.value = 'いいえ';
+      draft.refundAmt.value = '0';
 
       // 減額を設定
-      addtionalContract.hasReduction.value = 'いいえ';
-      addtionalContract.reductionAmt.value = '0';
+      draft.hasReduction.value = 'いいえ';
+      draft.reductionAmt.value = '0';
 
       // 補助金を設定
-      addtionalContract.hasSubsidy.value = 'いいえ';
-      addtionalContract.subsidyAmt.value = '0';
-    }
+      draft.hasSubsidy.value = 'いいえ';
+      draft.subsidyAmt.value = '0';
+    });
 
     const contracts = [formalContract, addtionalContract];
 

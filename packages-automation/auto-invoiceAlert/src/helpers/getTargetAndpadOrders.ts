@@ -9,6 +9,7 @@ export type GetTargetAndpadOrders = Awaited<ReturnType<typeof getTargetAndpadOrd
  * 対象の契約書及びシステムIDの物のみANDPADの案件を取得する
  * @param param0 
  * @returns 
+ * @deprecated ループ内でasync/awaitのループが発生してしまうため
  */
 export const getTargetAndpadOrders = async ({
   contracts,
@@ -42,6 +43,7 @@ export const getTargetAndpadOrders = async ({
   let orders = normalOrders.data.objects;
   if (forceLinkedProjects.length !== 0) {
 
+    // システムIDは検索に利用できないため、1件ずつ取得
     for (const forceLinkedProject of forceLinkedProjects) {
       const forceLinkedOrder = await getOrderBySystemId({
         systemId: forceLinkedProject.forceLinkedAndpadSystemId.value,

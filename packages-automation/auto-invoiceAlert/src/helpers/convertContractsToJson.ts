@@ -4,7 +4,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getYumeAgNames } from './getYumeAgNames';
 import { calcContractInformation } from './calcContractInformation';
-import { GetTargetAndpadOrders } from './getTargetAndpadOrders';
+import { GetMyOrdersResponse } from 'api-andpad';
 
 
 
@@ -19,14 +19,14 @@ export const convertContractsToJson = ({
   projects,
   employees,
   stores,
-  tgtOrders,
+  allOrders,
 }: {
   contracts: ContractRecordType[]
   allContracts: ContractRecordType[]
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
-  tgtOrders: GetTargetAndpadOrders
+  allOrders: GetMyOrdersResponse
 }) => {
 
   
@@ -49,12 +49,10 @@ export const convertContractsToJson = ({
     const contractData = calcContractInformation({ tgtContracts: tgtContracts });
 
     // システムIDを取得する
-    const andpadProjct = tgtOrders.find(({ 案件管理ID }) => 案件管理ID === projId.value);
+    const andpadProjct = allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
 
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
-      || andpadProjct?.案件管理ID;
-
-    console.log('andpadSystemId', andpadSystemId ? andpadSystemId : 'undefined');
+      || andpadProjct?.システムID?.toString();
 
     const andpadInvoiceUrl = andpadSystemId ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`

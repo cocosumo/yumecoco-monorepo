@@ -2,6 +2,7 @@ import { kintoneBaseUrl } from 'api-kintone';
 import { IInvoiceReminder, reminderAppId } from '../../config';
 import { CwRoomIds, InvoiceReminder } from '../../types/InvoiceReminder';
 import { IAndpadpayments, Territory } from 'types';
+import { GetMyOrdersResponse } from 'api-andpad';
 
 
 
@@ -9,14 +10,17 @@ import { IAndpadpayments, Territory } from 'types';
  * リマインダーアプリのレコードを通知用のJSON型へ変換する
  * @param params.reminder 請求リマインダーアプリのレコード配列
  * @param params.andpadPayments andpad入金情報アプリのレコード配列
+ * @param params.orders andpad案件の配列
  * @returns InvoiceReminder[]
  */
 export const convertReminderToJson = ({
   reminder,
   andpadPayments,
+  allOrders,
 }: {
   reminder: IInvoiceReminder[]
   andpadPayments: IAndpadpayments[],
+  allOrders: GetMyOrdersResponse
 }) => {
 
   return reminder.map(({
@@ -60,8 +64,13 @@ export const convertReminderToJson = ({
       systemId,
     }) => ((systemIdReminder.value === systemId.value)));
 
+    // andpadと接続されているかを再確認する
+    const connectedAndpad = allOrders.data.objects
+      .some(({ 案件管理ID }) => 案件管理ID === projIdReminder.value);
+
+
     return ({
-      alertState: !hasInvoice,
+      alertState: connectedAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
       reminderUrl: reminderUrl,
       systemId: systemIdReminder.value,
       contractId: contractId.value,

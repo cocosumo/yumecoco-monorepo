@@ -4,6 +4,7 @@ import { registerReminders } from './helpers/registerReminders';
 import { getAllInvoiceReminder, getInvoiceRemindersByAlertDate } from './api-kintone';
 import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
+import { getAllOrdersAfterContract } from 'api-andpad/src/@get/getAllOrdersAfterContract';
 
 
 
@@ -23,6 +24,7 @@ export const createInvoiceAlert = async () => {
     tgtProjTypeContracts,
     allInvoiceReminder,
     allContracts,
+    allOrders,
   ] = await Promise.all([
     getAllProjects(),
     getAllAndpadPayments(),
@@ -31,11 +33,13 @@ export const createInvoiceAlert = async () => {
     filterContractsByTargetProjType(),
     getAllInvoiceReminder(),
     getAllContracts(),
+    getAllOrdersAfterContract({ afterContractOnly: false }),
   ]);
 
 
   // 契約書の内容からアラート対象を取得する
   const alertContractsJson = await createInvoiceAlertFromContracts({
+    allOrders: allOrders,
     andpadPayments: allAndpadPayments,
     employees: allMembers,
     projects: allProjects,
@@ -44,7 +48,7 @@ export const createInvoiceAlert = async () => {
     tgtProjTypeContracts: tgtProjTypeContracts,
     allContracts: allContracts,
   });
-  
+
   const consoleContracts = alertContractsJson.map(({ projName }) => projName);
   console.log('通知対象の契約:絞り込み後', alertContractsJson.length, consoleContracts);
 
@@ -61,6 +65,7 @@ export const createInvoiceAlert = async () => {
   const alertReminderJson = convertReminderToJson({
     reminder: alertReminder,
     andpadPayments: allAndpadPayments,
+    allOrders: allOrders,
   });
 
 

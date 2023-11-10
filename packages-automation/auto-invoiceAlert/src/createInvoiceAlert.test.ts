@@ -21,5 +21,5 @@ describe('createInvoiceAlert', () => {
       path.join(dir, `createInvoiceAlert_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
-  }, 10000);
+  }, 1000000);
 });

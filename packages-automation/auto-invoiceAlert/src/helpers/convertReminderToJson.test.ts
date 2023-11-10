@@ -22,7 +22,7 @@ describe('convertReminderToJson', () => {
       getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
-    const result = await convertReminderToJson({
+    const result = convertReminderToJson({
       reminder: reminders,
       andpadPayments: allAndpadPayments,
       allOrders: allOrders,

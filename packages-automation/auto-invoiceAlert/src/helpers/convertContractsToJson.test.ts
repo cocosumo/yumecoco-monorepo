@@ -28,7 +28,7 @@ describe('convertContractsToJson', () => {
       getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
-    const result = await convertContractsToJson({
+    const result = convertContractsToJson({
       allContracts: allContracts,
       contracts: contracts,
       projects: allProjects,

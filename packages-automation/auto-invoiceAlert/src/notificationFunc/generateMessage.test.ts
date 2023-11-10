@@ -12,7 +12,7 @@ describe('generateMessage', () => {
     const invoiceAlertPath = path.join(__dirname, '../__TEST__/createInvoiceAlert.json');
     const reminderDat = JSON.parse(fs.readFileSync(invoiceAlertPath, 'utf8')) as InvoiceReminder[];
 
-    const result = await generateMessage(reminderDat[0]);
+    const result = generateMessage(reminderDat[0]);
 
     console.log('message::', result);
 

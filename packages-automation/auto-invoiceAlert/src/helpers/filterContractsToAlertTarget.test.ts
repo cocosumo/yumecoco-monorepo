@@ -26,7 +26,7 @@ describe('filterContractsToAlertTarget', () => {
       filterContractsByTargetProjType(),
     ]);
 
-    const result = await filterContractsToAlertTarget({
+    const result = filterContractsToAlertTarget({
       contracts: tgtContracts,
       andpadPayments: allAndpadPayments,
       reminders: allInvoiceReminders,

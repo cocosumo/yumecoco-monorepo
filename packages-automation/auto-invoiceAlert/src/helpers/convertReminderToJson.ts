@@ -65,12 +65,12 @@ export const convertReminderToJson = ({
     }) => ((systemIdReminder.value === systemId.value)));
 
     // andpadと接続されているかを再確認する
-    const connectedAndpad = allOrders.data.objects
+    const connectedToAndpad = allOrders.data.objects
       .some(({ 案件管理ID }) => 案件管理ID === projIdReminder.value);
 
 
     return ({
-      alertState: connectedAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
+      alertState: connectedToAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
       reminderUrl: reminderUrl,
       systemId: systemIdReminder.value,
       contractId: contractId.value,

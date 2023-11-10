@@ -49,17 +49,17 @@ export const convertContractsToJson = ({
     const contractData = calcContractInformation({ tgtContracts: tgtContracts });
 
     // システムIDを取得する
-    const andpadProjct = allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
+    const andpadProject = allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
 
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
-      || andpadProjct?.システムID?.toString();
+      || andpadProject?.システムID?.toString();
 
     const andpadInvoiceUrl = andpadSystemId ?
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
       : undefined;
 
     // andpadと接続されていない案件と、失注の案件は除外する
-    if (!andpadInvoiceUrl || andpadProjct?.案件フロー === '失注') return acc;
+    if (!andpadInvoiceUrl || andpadProject?.案件フロー === '失注') return acc;
 
     const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 

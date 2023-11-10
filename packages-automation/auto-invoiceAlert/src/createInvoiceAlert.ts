@@ -68,6 +68,9 @@ export const createInvoiceAlert = async () => {
     allOrders: allOrders,
   });
 
+  
+  const consoleReminders = alertReminderJson.map(({ projName }) => projName);
+  console.log('通知対象の契約:リマインダー含む', alertReminderJson.length, consoleReminders);
 
   return alertReminderJson;
 

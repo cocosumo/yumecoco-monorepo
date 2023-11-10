@@ -13,7 +13,7 @@ export const IncludeContractPlanAmt = () => {
       alignItems={'center'}
     >
       <Typography fontSize={14}>
-        「設計契約金」は含まれますか？
+        この契約書には「設計契約金」は含まれますか？
       </Typography>
       <Controller 
         name='includePlanContractAmt'

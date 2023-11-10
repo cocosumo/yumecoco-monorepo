@@ -38,6 +38,8 @@ export const schema = z.object({
   cocoAG: z.array(agentSchema),
   cocoConst: z.array(agentSchema),
 
+  isNotCocoConstConfirmed: z.boolean(), // 未定かどうか
+
   postal: z.string(),
   address1: z.string().nonempty(),
   address2: z.string().nonempty(),

@@ -11,6 +11,7 @@ export const convertToKintone = (
     yumeAG,
     cocoAG,
     cocoConst,
+    isNotCocoConstConfirmed,
 
     projTypeId, 
     projName,
@@ -102,6 +103,7 @@ export const convertToKintone = (
         },
       })),
     },
+    isAgentConfirmed: { value: Number(!isNotCocoConstConfirmed).toString() }, //　isAgentConfirmedは肯定なので、isNotCocoConstConfirmedを反転させる
     status: {  value: status  },
     cancelStatus: { value: cancelStatus?.filter(Boolean).join(',') || '' },
     memo: { value: memo || '' },

@@ -143,4 +143,83 @@ describe('getContractsSummary', () => {
     expect(result.補助金Amt).toBe(0);
   }, 60000);
 
+  //　仕様参考 https://github.com/Lorenzras/yumecoco-monorepo/issues/817
+  it('本契約無しで、設計契約のみだったら、設計契約金を「合計受注金額税込」に足す', async () => {
+    const contractDat = await getContractById('3bbf6f94-5958-4d7f-810c-a7891a722c36');
+    const planContract = produce(contractDat, (draft) => {
+      draft.contractType.value = '設計契約';
+      draft.contractAddType.value = '';
+      draft.totalContractAmt.value = '100000';
+      draft.refundAmt.value = '0';
+      draft.reductionAmt.value = '0';
+      draft.subsidyAmt.value = '0';
+    });
+
+    const result = getContractsSummary([planContract]);
+
+    console.log(result);
+
+   
+    expect(result.契約金額税込).toBe(100000);  // K244 設計契約１つのみの工事は設計契約の金額を契約金額として計算してほしい
+    expect(result.合計受注金額税込).toBe(100000);
+
+  });
+
+  it('本契約ありで「設計契約金が含まれていない」という設定の場合、設計契約金を「合計受注金額税込」に足す', async () => {
+    const contractDat = await getContractById('3bbf6f94-5958-4d7f-810c-a7891a722c36');
+    const planContract = produce(contractDat, (draft) => {
+      draft.contractType.value = '設計契約';
+      draft.contractAddType.value = '';
+      draft.totalContractAmt.value = '100000';
+      draft.refundAmt.value = '0';
+      draft.reductionAmt.value = '0';
+      draft.subsidyAmt.value = '0';
+    });
+
+    const formalContract = produce(contractDat, (draft) => {
+      draft.contractType.value = '契約';
+      draft.contractAddType.value = '';
+      draft.totalContractAmt.value = '500000';
+      draft.refundAmt.value = '0';
+      draft.reductionAmt.value = '0';
+      draft.subsidyAmt.value = '0';
+      draft.includePlanContractAmt.value = '0'; // 「設計契約を含まない」
+    });
+
+    const result = getContractsSummary([planContract, formalContract]);
+
+    console.log(result);
+
+    expect(result.合計受注金額税込).toBe(600000);
+
+  });
+
+  it('本契約ありで「設計契約金が含まれている」という設定の場合、設計契約金を「合計受注金額税込」に足さない', async () => {
+    const contractDat = await getContractById('3bbf6f94-5958-4d7f-810c-a7891a722c36');
+    const planContract = produce(contractDat, (draft) => {
+      draft.contractType.value = '設計契約';
+      draft.contractAddType.value = '';
+      draft.totalContractAmt.value = '100000';
+      draft.refundAmt.value = '0';
+      draft.reductionAmt.value = '0';
+      draft.subsidyAmt.value = '0';
+    });
+
+    const formalContract = produce(contractDat, (draft) => {
+      draft.contractType.value = '契約';
+      draft.contractAddType.value = '';
+      draft.totalContractAmt.value = '500000';
+      draft.refundAmt.value = '0';
+      draft.reductionAmt.value = '0';
+      draft.subsidyAmt.value = '0';
+      draft.includePlanContractAmt.value = '1'; // 「設計契約金が含まれている」
+    });
+
+    const result = getContractsSummary([planContract, formalContract]);
+
+    console.log(result);
+
+    expect(result.合計受注金額税込).toBe(500000);
+
+  });
 });

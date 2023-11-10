@@ -66,6 +66,9 @@ export const createInvoiceAlert = async () => {
     reminder: alertReminder,
     andpadPayments: allAndpadPayments,
     allOrders: allOrders,
+    allProjects: allProjects,
+    employees: allMembers,
+    stores: allStores,
   });
 
   // デバッグ用

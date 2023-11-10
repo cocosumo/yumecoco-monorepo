@@ -37,7 +37,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
         contractType.value === '契約' ||
         contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
       ) {
-        newAcc.設計契約金込み = newAcc.設計契約金込み || includePlanContractAmt.value === '1';
+        newAcc.設計契約金含み = newAcc.設計契約金含み || includePlanContractAmt.value === '1';
         newAcc.契約金額税込 += +totalContractAmt.value;
         newAcc.本契約件数++;
 
@@ -46,6 +46,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
         newAcc.追加契約件数++;
 
       } else if (contractType.value === '設計契約') {
+
         newAcc.設計契約金額税込 += +totalContractAmt.value;
         newAcc.設計契約件数++;
 
@@ -69,14 +70,10 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // 別々のプロパティにする
       if (hasReduction.value === 'はい') {
         newAcc.減額Amt += +reductionAmt.value;
-        newAcc.追加金額税込 -= +reductionAmt.value;
-        newAcc.合計受注金額税込 -= +reductionAmt.value;
       }
 
       if (hasRefund.value === 'はい') {
         newAcc.返金Amt += +refundAmt.value;
-        newAcc.追加金額税込 -= +refundAmt.value;
-        newAcc.合計受注金額税込 -= +refundAmt.value;
       }
 
       return newAcc;
@@ -85,7 +82,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       契約金額税込: 0,
       追加金額税込: 0,
       設計契約金額税込: 0,
-      設計契約金込み: false, 
+      設計契約金含み: false, 
       合計受注金額税込: 0,
       税率: 0.1,
       返金: false,
@@ -100,7 +97,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     },
   );
 
-  if (!result.設計契約金込み) {
+  if (!result.設計契約金含み) {
 
     if (result.本契約件数 && result.設計契約件数) {
       // K244 原価管理表には、設計契約を追加契約金額として計算したい。
@@ -112,9 +109,12 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     }
   } 
 
-  result.合計受注金額税込 = result.契約金額税込 + result.追加金額税込;
+    
+  result.追加金額税込 -= (result.減額Amt + result.返金Amt);
+  result.合計受注金額税込 += result.追加金額税込 + result.契約金額税込;
 
   // 本契約の登録に設計契約が含まれていると設定した場合、設計契約金は追加契約金額と契約金額には計算しない。
+
 
 
   return result;

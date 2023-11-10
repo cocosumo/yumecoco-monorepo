@@ -68,7 +68,7 @@ export const createInvoiceAlert = async () => {
     allOrders: allOrders,
   });
 
-
+  // デバッグ用
   const consoleReminders = alertReminderJson.map(({ projName, alertState }) => {
     const state = alertState ? '【対象】' : '【対象外】';
     return `${state} : ${projName}`;

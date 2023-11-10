@@ -4,7 +4,7 @@ import { registerReminders } from './helpers/registerReminders';
 import { getAllInvoiceReminder, getInvoiceRemindersByAlertDate } from './api-kintone';
 import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
-import { getAllOrdersAfterContract } from 'api-andpad/src/@get/getAllOrdersAfterContract';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 
@@ -33,7 +33,7 @@ export const createInvoiceAlert = async () => {
     filterContractsByTargetProjType(),
     getAllInvoiceReminder(),
     getAllContracts(),
-    getAllOrdersAfterContract({ afterContractOnly: false }),
+    getAllAndpadOrders({ beforeInvoiceIssue: true }),
   ]);
 
 

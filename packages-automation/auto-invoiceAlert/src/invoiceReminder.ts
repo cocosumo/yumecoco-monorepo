@@ -11,6 +11,8 @@ export const invoiceReminder = async () => {
 
   const reminderJson = await createInvoiceAlert();
 
+  //throw new Error('抽出処理のみ完了');
+
   // chatworkへの通知処理
   notifyInvoiceAlertToChatwork({
     reminderJson: reminderJson,
@@ -21,4 +23,5 @@ export const invoiceReminder = async () => {
     reportedReminder: reminderJson,
   });
 
+  console.log('finish invoice reminder');
 };

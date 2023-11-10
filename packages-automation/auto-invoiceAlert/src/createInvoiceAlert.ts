@@ -1,10 +1,10 @@
 import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees, getAllContracts } from 'api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
-import { getMyOrders } from 'api-andpad';
 import { registerReminders } from './helpers/registerReminders';
 import { getAllInvoiceReminder, getInvoiceRemindersByAlertDate } from './api-kintone';
 import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 
@@ -21,19 +21,19 @@ export const createInvoiceAlert = async () => {
     allAndpadPayments,
     allMembers,
     allStores,
-    allOrders,
     tgtProjTypeContracts,
     allInvoiceReminder,
     allContracts,
+    allOrders,
   ] = await Promise.all([
     getAllProjects(),
     getAllAndpadPayments(),
     getEmployees(),
     getAllStores(),
-    getMyOrders(),
     filterContractsByTargetProjType(),
     getAllInvoiceReminder(),
     getAllContracts(),
+    getAllAndpadOrders({ beforeInvoiceIssue: true }),
   ]);
 
 
@@ -49,6 +49,11 @@ export const createInvoiceAlert = async () => {
     allContracts: allContracts,
   });
 
+  const consoleContracts = alertContractsJson.map(({ projName }) => projName);
+  console.log('通知対象の契約:絞り込み後', alertContractsJson.length, consoleContracts);
+
+  //throw new Error('アラート対象の抽出が完了しました');
+
   // 契約書から取得したアラート用データをリマインダーアプリへ登録する
   await registerReminders({
     reminderJson: alertContractsJson,
@@ -60,8 +65,15 @@ export const createInvoiceAlert = async () => {
   const alertReminderJson = convertReminderToJson({
     reminder: alertReminder,
     andpadPayments: allAndpadPayments,
+    allOrders: allOrders,
   });
 
+
+  const consoleReminders = alertReminderJson.map(({ projName, alertState }) => {
+    const state = alertState ? '【対象】' : '【対象外】';
+    return `${state} : ${projName}`;
+  });
+  console.log(`通知対象の契約:リマインダー含む: ${alertReminderJson.length}件 ${JSON.stringify(consoleReminders, null, 2)}`);
 
   return alertReminderJson;
 

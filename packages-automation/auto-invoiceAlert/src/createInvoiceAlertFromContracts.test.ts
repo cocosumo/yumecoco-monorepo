@@ -4,9 +4,9 @@ import path from 'path';
 import format from 'date-fns/format';
 import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContracts';
 import { getAllAndpadPayments, getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getAllInvoiceReminder } from './api-kintone';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 describe('createInvoiceAlertFromContracts', () => {
@@ -17,31 +17,31 @@ describe('createInvoiceAlertFromContracts', () => {
       allAndpadPayments,
       allMembers,
       allStores,
-      allOrders,
       tgtProjTypeContracts,
       allInvoiceReminder,
       allContracts,
+      allOrders,
     ] = await Promise.all([
       getAllProjects(),
       getAllAndpadPayments(),
       getEmployees(),
       getAllStores(),
-      getMyOrders(),
       filterContractsByTargetProjType(),
       getAllInvoiceReminder(),
       getAllContracts(),
+      getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
 
-    const result = await createInvoiceAlertFromContracts({
+    const result = createInvoiceAlertFromContracts({
       allContracts: allContracts,
-      allOrders: allOrders,
       andpadPayments: allAndpadPayments,
       employees: allMembers,
       projects: allProjects,
       reminders: allInvoiceReminder,
       stores: allStores,
       tgtProjTypeContracts,
+      allOrders: allOrders,
     });
 
     const dir = path.join(__dirname, '__TEST__');

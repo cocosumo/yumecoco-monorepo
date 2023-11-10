@@ -1,8 +1,9 @@
 import { filterContractsToAlertTarget } from './helpers/filterContractsToAlertTarget';
 import { convertContractsToJson } from './helpers/convertContractsToJson';
-import { getMyOrders } from 'api-andpad';
 import { ContractRecordType, IInvoiceReminder } from '../config';
 import { IAndpadpayments, IEmployees, IProjects, IStores } from 'types';
+//import { getTargetAndpadOrders } from './helpers/getTargetAndpadOrders';
+import { GetMyOrdersResponse } from 'api-andpad';
 
 
 
@@ -25,7 +26,7 @@ export const createInvoiceAlertFromContracts = ({
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
-  allOrders: Awaited<ReturnType<typeof getMyOrders>>
+  allOrders: GetMyOrdersResponse
   allContracts: ContractRecordType[]
 }) => {
 
@@ -35,6 +36,16 @@ export const createInvoiceAlertFromContracts = ({
     reminders: reminders,
     projects: projects,
   });
+
+  const consoleContracts = alertContracts.map(({ projName }) => projName.value);
+  console.log('通知対象の契約', alertContracts.length, consoleContracts);
+
+
+  // ANDPAD案件一覧の取得処理
+  /* const tgtOrders = await getTargetAndpadOrders({
+    contracts: alertContracts,
+    projects: projects,
+  }); */
 
 
   return convertContractsToJson({

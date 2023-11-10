@@ -16,7 +16,7 @@ export const initialForm : TypeOfForm = {
   projPeriod: 30,
   annotation: '建物面積により決定',
 
-  
+  includePlanContractAmt: false,
   totalContractAmtAfterTax: 0,
   totalContractAmtBeforeTax: 0, 
   totalProfit: 0,

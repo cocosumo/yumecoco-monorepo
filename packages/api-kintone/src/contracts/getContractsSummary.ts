@@ -35,7 +35,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
 
       if (
         contractType.value === '契約' ||
-        contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみな
+        contractType.value === '' // 古いデータには契約タイプがないので、空文字の場合も契約とみなす
       ) {
         newAcc.設計契約金込み = newAcc.設計契約金込み || includePlanContractAmt.value === '1';
         newAcc.契約金額税込 += +totalContractAmt.value;

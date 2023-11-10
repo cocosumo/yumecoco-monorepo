@@ -41,7 +41,6 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       } else if (contractType.value === '追加') {
         newAcc.追加金額税込 += +totalContractAmt.value;
       }
-      newAcc.合計受注金額税込 += +totalContractAmt.value;
 
       // 返金・減額・補助金がある場合は、各フラグをtrueにする
       newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい';

@@ -12,7 +12,6 @@ export const validateContractData = (data: TContractData) => {
     accountingEmail,
 
     signMethod,
-    contractType,
   } = data;
 
 

@@ -4,7 +4,7 @@ import path from 'path';
 import format from 'date-fns/format';
 import { convertReminderToJson } from './convertReminderToJson';
 import { getAllAndpadPayments } from 'api-kintone';
-import { getAllOrdersAfterContract } from 'api-andpad/src/@get/getAllOrdersAfterContract';
+import { getAllAndpadOrders } from 'api-andpad/src/@get/getAllAndpadOrders';
 
 
 describe('convertReminderToJson', () => {
@@ -19,7 +19,7 @@ describe('convertReminderToJson', () => {
       allOrders,
     ] = await Promise.all([
       getAllAndpadPayments(),
-      getAllOrdersAfterContract({ afterContractOnly: true }),
+      getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
     const result = await convertReminderToJson({

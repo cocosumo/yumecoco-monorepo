@@ -6,7 +6,7 @@ import { createInvoiceAlertFromContracts } from './createInvoiceAlertFromContrac
 import { getAllAndpadPayments, getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { filterContractsByTargetProjType } from './helpers/filterContractsByTargetProjType';
 import { getAllInvoiceReminder } from './api-kintone';
-import { getAllOrdersAfterContract } from 'api-andpad/src/@get/getAllOrdersAfterContract';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 describe('createInvoiceAlertFromContracts', () => {
@@ -29,11 +29,11 @@ describe('createInvoiceAlertFromContracts', () => {
       filterContractsByTargetProjType(),
       getAllInvoiceReminder(),
       getAllContracts(),
-      getAllOrdersAfterContract({ afterContractOnly: true }),
+      getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
 
-    const result = await createInvoiceAlertFromContracts({
+    const result = createInvoiceAlertFromContracts({
       allContracts: allContracts,
       andpadPayments: allAndpadPayments,
       employees: allMembers,

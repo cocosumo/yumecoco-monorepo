@@ -4,7 +4,7 @@ import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToJson } from './convertContractsToJson';
 import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getAllOrdersAfterContract } from 'api-andpad/src/@get/getAllOrdersAfterContract';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 describe('convertContractsToJson', () => {
@@ -25,7 +25,7 @@ describe('convertContractsToJson', () => {
       getEmployees(),
       getAllStores(),
       getAllContracts(),
-      getAllOrdersAfterContract({ afterContractOnly: true }),
+      getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
     const result = await convertContractsToJson({

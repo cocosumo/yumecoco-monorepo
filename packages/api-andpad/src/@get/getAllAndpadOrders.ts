@@ -5,15 +5,15 @@ import { getMyOrders } from './getMyOrders';
 
 
 interface GetAllAndpadOrders {
-  afterContractOnly: boolean,
+  beforeInvoiceIssue: boolean,
   offset?: number,
   cumm?: GetMyOrdersResponse,
 }
 
-export const getAllOrdersAfterContract = async (options?: GetAllAndpadOrders): Promise<GetMyOrdersResponse> => {
+export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<GetMyOrdersResponse> => {
 
   const {
-    afterContractOnly = true,
+    beforeInvoiceIssue = true,
     offset = 0,
     cumm,
   } = options || {};
@@ -21,7 +21,7 @@ export const getAllOrdersAfterContract = async (options?: GetAllAndpadOrders): P
 
   const params: GetMyOrders = {
     limit: 100,
-    q: afterContractOnly ? '案件フロー in (進行中, 完工（精算前）, 精算完了, 失注)' : '',
+    q: beforeInvoiceIssue ? '案件フロー in (契約前,着工前,進行中)' : '',
     series: ['案件フロー'],
     offset: offset,
   };
@@ -40,8 +40,8 @@ export const getAllOrdersAfterContract = async (options?: GetAllAndpadOrders): P
   if (result.data.last_flg) {
     return newData;
   } else {
-    return getAllOrdersAfterContract({
-      afterContractOnly,
+    return getAllAndpadOrders({
+      beforeInvoiceIssue,
       offset: newObjects.length,
       cumm: newData,
     });

@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { SearchDialogContent } from './SearchDialogContent';
 
 export const SearchDialog = ({
@@ -21,6 +21,13 @@ export const SearchDialog = ({
         OBを検索する
       </DialogTitle>
       <SearchDialogContent />
+      <DialogActions>
+        <Button
+          onClick={handleClose}
+        >
+          キャンセル
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 };

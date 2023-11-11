@@ -1,4 +1,4 @@
-import { DeepPartial, ICustgroups } from 'types';
+import { DeepPartial, ICustgroups, ICustomers } from 'types';
 import { AppIds } from 'config';
 import { KintoneClientBasicAuth } from './settings';
 import fs from 'fs';
@@ -23,7 +23,7 @@ export const updateCustGroup = async () => {
 
     const custRecords = await KintoneRecord.getAllRecords({
       app: custAppId,
-    }) as unknown as ICustgroups[];
+    }) as unknown as ICustomers[];
 
 
     const updatedRecords = cgRecords

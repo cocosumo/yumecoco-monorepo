@@ -37,6 +37,7 @@ export const ResultsTBody = ({
         store,
         yumeAG,
         cocoAG,
+        cocoConst,
         custName,
         contractDate,
 
@@ -81,6 +82,7 @@ export const ResultsTBody = ({
             store={store}
             yumeAG={yumeAG}
             cocoAG={cocoAG}
+            cocoConst={cocoConst}
             custName={custName}
             contractDate={contractDate}
             contractAmount={`${contractAmount.toLocaleString()} 円`}

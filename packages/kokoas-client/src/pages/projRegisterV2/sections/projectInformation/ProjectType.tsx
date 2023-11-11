@@ -55,10 +55,12 @@ export const ProjectType = () => {
         },
         fieldState: {
           error,
-          isTouched,
+        },
+        formState:{
+          isSubmitted,
         },
       }) => {
-        const showError = isTouched && !!error;
+        const showError = isSubmitted && !!error;
 
         return (
           <Stack
@@ -111,7 +113,7 @@ export const ProjectType = () => {
                   
                   if (!hasContract) {
                     // 契約がないときのみ、工事名称を変更する
-                    setValue('projName', `${custName}様邸　${newProjTypeName}`);
+                    setValue('projName', `${custName}様邸　${newProjTypeName}`, { shouldValidate: true });
                   }
                 
                   

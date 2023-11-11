@@ -30,13 +30,12 @@ export const OtherProjType = () => {
         },
         fieldState: {
           error,
-          isTouched,
         },
         formState: {
           isSubmitted,
         },
       }) => {
-        const showError = (isSubmitted || isTouched) && !!error;
+        const showError = isSubmitted && !!error?.message;
 
         return (
           <TextField 

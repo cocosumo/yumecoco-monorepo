@@ -1,7 +1,7 @@
 import { KForm, TForm } from '../../schema';
 import { Stack } from '@mui/material';
 import { TAgents } from 'types';
-import { ControlledEmpSelecField } from './ControlledEmpSelectField';
+import { ControlledEmpSelectField } from './ControlledEmpSelectField';
 import { useTypedFormContext } from '../../hooks';
 import { useFieldArray } from 'react-hook-form';
 import { getDefaultEmployee } from '../../form';
@@ -47,7 +47,7 @@ export const EmployeeSelectFields = ({
         }, index) => {
 
           return (
-            <ControlledEmpSelecField 
+            <ControlledEmpSelectField 
               key={key}
               label={`${empFieldLabels[agentType]}${index + 1}`}
               name={name}

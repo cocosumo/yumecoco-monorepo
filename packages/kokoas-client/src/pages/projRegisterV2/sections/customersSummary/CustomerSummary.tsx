@@ -58,8 +58,8 @@ export const CustomerSummary = () => {
     ];
 
     const officerData = [
-      { label: 'ゆめてつAG', value: yumeAG.map(({ value:{ employeeName } }) => employeeName.value ).join('、') },
-      { label: 'ここすも営業担当者', value: cocoAG.map(({ value:{ employeeName } }) => employeeName.value ).join('、')  },
+      { label: 'ゆめてつAG', value: yumeAG?.map(({ value:{ employeeName } }) => employeeName.value ).join('、') },
+      { label: 'ここすも営業担当者', value: cocoAG?.map(({ value:{ employeeName } }) => employeeName.value ).join('、')  },
       //{ label: '工事担当者', value: constructionOfficers || '' },
     ];
 

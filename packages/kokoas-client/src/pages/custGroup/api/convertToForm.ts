@@ -44,26 +44,27 @@ export const convertToForm = (
         $revision: custRevision,
         fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
         postalCode, address1, address2,
-        contacts : { value : contacts },
-      } = custRec as ICustomers;
+        contacts,
+      } = custRec || {};
 
-      const tels = contacts.filter(c => c.value.contactType.value === 'tel');
-      const email = contacts.find(c => c.value.contactType.value === 'email');
+
+      const tels = contacts?.value.filter(c => c.value.contactType.value === 'tel');
+      const email = contacts?.value.find(c => c.value.contactType.value === 'email');
 
       return {
         key: uuidV4(),
-        custId: custId.value,
-        index: cust.index.value,
-        revision: custRevision.value,
-        custName: fullName.value,
-        custNameReading: fullNameReading.value,
-        gender: gender.value || '',
-        birthYear: birthYear.value,
-        birthMonth: birthMonth.value,
-        birthDay: birthDay.value,
-        postal: postalCode.value,
-        address1: address1.value,
-        address2: address2.value,
+        custId: custId?.value || '',
+        index: cust.index.value || '',
+        revision: custRevision?.value  || '',
+        custName: fullName?.value || '',
+        custNameReading: fullNameReading?.value || '',
+        gender: gender?.value || '',
+        birthYear: birthYear?.value || '',
+        birthMonth: birthMonth?.value || '',
+        birthDay: birthDay?.value || '',
+        postal: postalCode?.value || '',
+        address1: address1?.value || '',
+        address2: address2?.value || '',
 
         phone1: tels?.[0].value.contactValue.value || '',
         phone1Rel: tels?.[0].value.relation.value || '',

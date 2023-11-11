@@ -9,6 +9,7 @@ export const TRowLayout = ({
   store,
   yumeAG,
   cocoAG,
+  cocoConst,
   custName,
   contractDate,
   contractAmount,
@@ -29,6 +30,7 @@ export const TRowLayout = ({
   store: ReactNode,
   yumeAG: ReactNode,
   cocoAG: ReactNode,
+  cocoConst: ReactNode,
   custName: ReactNode,
   contractDate: ReactNode,
   contractAmount: ReactNode,
@@ -76,6 +78,8 @@ export const TRowLayout = ({
         {yumeAG}
         <br />
         {cocoAG}
+        <br />
+        {cocoConst}
       </TableCell>
       
       <TableCell 

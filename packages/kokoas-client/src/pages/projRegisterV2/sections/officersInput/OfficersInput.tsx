@@ -29,7 +29,7 @@ export const OfficersInput = () => {
         direction={'row'}
         spacing={2}
       >
-        <EmployeeSelectFields name='cocoConst' agentType='cocoConst' />
+        <EmployeeSelectFields required name='cocoConst' agentType='cocoConst' />
         <IsNotCocoConstConfirmed />
       </Stack>
 

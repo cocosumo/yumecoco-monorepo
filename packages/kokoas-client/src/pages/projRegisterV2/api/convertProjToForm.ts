@@ -72,6 +72,7 @@ export const convertProjToForm = ({
     storeCode,
     store: storeName,
     territory,
+    
   } = projRec;
 
   const {

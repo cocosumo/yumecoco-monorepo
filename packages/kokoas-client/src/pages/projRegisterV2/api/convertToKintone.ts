@@ -7,7 +7,7 @@ export const convertToKintone = (
   rawValues: TForm,
 ): Partial<IProjects>  => {
   const {
-
+    projDataId,
     yumeAG,
     cocoAG,
     cocoConst,
@@ -58,6 +58,7 @@ export const convertToKintone = (
 
   } = rawValues;
 
+  console.log('SAVE', storeCode);
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
@@ -163,6 +164,7 @@ export const convertToKintone = (
     territory: { value: territory },
     store: { value: storeName },
     storeCode: { value: storeCode },
+    dataId: { value: `${storeCode}-${projDataId.slice(4)}`  },
 
     // 利益率
     profitRate: { value: String(profitRate) },

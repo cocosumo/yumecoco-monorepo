@@ -23,13 +23,13 @@ export const CustomerSummary = () => {
     const {
       storeName,
       members,
-      cocoAGNames,
-      yumeAGNames,
     } = data || {};
+
 
     const custNames = members.value
       .map(({ value: { customerName } }) => customerName.value )
-      .join(', ');
+      .join('、 ');
+
     const {
       postal,
       address1,
@@ -46,8 +46,6 @@ export const CustomerSummary = () => {
       { label: '店舗', value: storeName?.value },
       { label: '顧客名', value: custNames },
       { label: '現住所', value: address },
-      { label: 'ここすも営業担当者', value: cocoAGNames.value },
-      { label: 'ゆめてつAG', value: yumeAGNames.value },
     ];
 
   }, [

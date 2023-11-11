@@ -5,9 +5,10 @@ import { TypeOfForm } from '../schema';
 import { useAndpadOrderByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
 import { addressBuilder } from 'libs';
-import { TAgents } from 'types';
 import { pages } from '../../Router';
 import { Link } from '@mui/material';
+import { getAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
+
 
 export const ProjectSummary = () => {
   const projId = useWatch<TypeOfForm>({
@@ -31,14 +32,16 @@ export const ProjectSummary = () => {
       address2,
       agents,
       forceLinkedAndpadSystemId,
+      store: storeName,
     } = data;
 
     const parsedAndpadSystemId = forceLinkedAndpadSystemId.value || systemId;
 
-    const cocoConstNames = agents.value
+    /*    const cocoConstNames = agents.value
       .filter(({ value: { agentType } }) => (agentType.value as TAgents) === 'cocoConst')
       .map(({ value: { agentName } }) => agentName.value)
-      .join(', ');
+      .join(', '); */
+
     
     const address = addressBuilder({
       postal: postal.value,
@@ -48,7 +51,10 @@ export const ProjectSummary = () => {
  
     return [
       { label: '工事名', value: projName.value },
-      { label: '工事担当者', value: cocoConstNames },
+      { label: '店舗', value: storeName.value },
+      { label: 'ゆめてつAG', value: getAgentNamesByType(agents, 'yumeAG') || '-' },
+      { label: 'ここすも営業担当', value: getAgentNamesByType(agents, 'cocoAG') || '-' },
+      { label: '工事担当者', value: getAgentNamesByType(agents, 'cocoConst') || '-' },
       { label: '工事住所', value: address },
       { label: 'AndpadシステムID', value: parsedAndpadSystemId 
         ? ( 

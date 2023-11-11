@@ -9,6 +9,7 @@ import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
 import { useCallback } from 'react';
 import { parseISODateToFormat, parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { useTypedURLParams } from './useTypedHooks';
+import { groupAgentNamesByType } from 'api-kintone/src/custgroups/helpers/groupAgentNamesByType';
 
 export interface ContractRow {
   category: string,
@@ -78,7 +79,7 @@ export const useFilteredContracts = () => {
     enabled: !!projData && !!custGroupData && !!custData,
     select: useCallback((d) => {
 
-      if (!projData || !custGroupData) return;
+      if (!projData || !custGroupData || !projData) return;
 
       let minAmount = 0;
       let maxAmount = 0;
@@ -122,15 +123,19 @@ export const useFilteredContracts = () => {
           custGroupId,
           dataId,
           projTypeName,
+          store: storeName,
         } = projData.find((projRec) => projRec.uuid.value === projId.value ) || {};
 
         /* 顧客情報 */
         const {
-          cocoAGNames,
-          yumeAGNames,
-          storeName,
+          agents,
           members,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
+
+        const {
+          cocoAG,
+          yumeAG,
+        } = groupAgentNamesByType(agents);
 
         /* 顧客名 */
         const custIds = members?.value?.map(({ value: { custId } }) => custId.value) || [];
@@ -186,8 +191,8 @@ export const useFilteredContracts = () => {
           custGroupId: custGroupId?.value || '',
           projId: projId.value,
           projDataId: formatDataId(dataId?.value || ''),
-          cocoAG: cocoAGNames?.value || '-',
-          yumeAG: yumeAGNames?.value || '-',
+          cocoAG: cocoAG || '-',
+          yumeAG: yumeAG || '-',
           contractDate:  parseISODateToFormat(contractDate?.value)  || '-',
 
           refundAmt: +refundAmt.value,

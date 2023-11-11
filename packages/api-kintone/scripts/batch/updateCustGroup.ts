@@ -1,7 +1,11 @@
 import { DeepPartial, ICustgroups } from 'types';
 import { AppIds } from 'config';
 import { KintoneClientBasicAuth } from './settings';
+import fs from 'fs';
+import path from 'path';
 
+const testDir = path.resolve(__dirname, './__TEST__');
+if (!fs.existsSync(testDir)) fs.mkdirSync(testDir);
 
 export const updateCustGroup = async () => {
 
@@ -9,43 +13,33 @@ export const updateCustGroup = async () => {
   const KintoneRecord = KintoneClientBasicAuth.record;
 
 
-  const appId = AppIds.custGroups;
+  const cgAppId = AppIds.custGroups;
+
   try {
-    const records = await KintoneRecord.getAllRecords({
-      app: appId,
+    const cgRecords = await KintoneRecord.getAllRecords({
+      app: cgAppId,
     }) as unknown as ICustgroups[];
 
 
-    const updatedRecords = records
+    const updatedRecords = cgRecords
       .map<{
       id: string,
       record: DeepPartial<ICustgroups>
 
     }>(({
       $id,
-      agents,
       members,
-      storeId,
     })=>{
 
       return {
         id: $id.value,
         record: {
           $id: { value: $id.value },
-          storeId,
           members: {
             type: 'SUBTABLE',
-            value: members.value.map((row) => {
-              const { value } = row;
-              return {
-                ...row,
-                value: {
-                  ...value,
-                },
-              };
-            }),
+            value: members.value,
           },
-          custNames: {
+          /* custNames: {
             value: members.value
               .map(({ value: { customerName } })=>customerName.value)
               .join(','),
@@ -65,18 +59,22 @@ export const updateCustGroup = async () => {
               ) => !!employeeName.value && agentType.value === 'cocoAG' )
               .map(({ value: { employeeName } })=>employeeName.value)
               .join(', '),
-          },
+          }, */
         },
       };
     });
 
+    fs.writeFileSync(
+      path.resolve(testDir, `./${cgAppId}-updatedCustGroup${new Date().getTime()}.json`),
+      JSON.stringify(updatedRecords, null, 2),
+    );
 
     const updated = await KintoneRecord.updateAllRecords({
-      app: appId,
+      app: cgAppId,
       records: updatedRecords as any,
     });
 
-    return updated;
+    return updated; 
   } catch (err : any) {
     throw new Error(err.message);
   }

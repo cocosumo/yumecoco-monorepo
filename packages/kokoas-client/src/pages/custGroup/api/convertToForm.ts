@@ -14,6 +14,7 @@ export const convertToForm = (
     storeId,
     isDeleted,
     memo,
+    members,
   } = recCustGroup ;
 
   /* Group cocoAG and yumeAG */
@@ -36,14 +37,15 @@ export const convertToForm = (
     cocoAG2: Ags?.cocoAGs?.[1] || '',
     yumeAG1: Ags?.yumeAGs?.[0] || '',
     yumeAG2: Ags?.yumeAGs?.[1] || '',
-    customers: recsCustomers.map(cust => {
+    customers: members?.value.map(({ value: cust }) => {
+      const custRec = recsCustomers.find((c) => c.uuid.value === cust.custId.value);
       const {
         uuid: custId,
         $revision: custRevision,
         fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
-        postalCode, address1, address2, isSameAsMain, index,
+        postalCode, address1, address2,
         contacts : { value : contacts },
-      } = cust as unknown as ICustomers;
+      } = custRec as ICustomers;
 
       const tels = contacts.filter(c => c.value.contactType.value === 'tel');
       const email = contacts.find(c => c.value.contactType.value === 'email');
@@ -51,7 +53,7 @@ export const convertToForm = (
       return {
         key: uuidV4(),
         custId: custId.value,
-        index: +index.value,
+        index: cust.index.value,
         revision: custRevision.value,
         custName: fullName.value,
         custNameReading: fullNameReading.value,
@@ -76,7 +78,7 @@ export const convertToForm = (
         emailRel: email?.value.relation.value || '',
         emailName: email?.value.contactName.value || '',
 
-        isSameAddress: Boolean(+isSameAsMain.value),
+        isSameAddress: Boolean(+cust.isSameAsMain.value),
         
       };
     }),

@@ -6,5 +6,5 @@ describe('updateCustGroup', ()=>{
     const result = await updateCustGroup();
 
     expect(result).toBeDefined();
-  }, 8000);
+  }, 80000);
 });

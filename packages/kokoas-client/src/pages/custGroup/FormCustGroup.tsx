@@ -12,6 +12,7 @@ import { Actions } from './sections/actions/Actions';
 import { useEffect } from 'react';
 import { DeletedAlert } from './sections/DeletedAlert';
 import { OBSearch } from './sections/OBSearch/OBSearch';
+import { isProd } from 'config';
 
 export const FormCustGroup = () => {
   const formValues = useResolveParams();
@@ -48,8 +49,11 @@ export const FormCustGroup = () => {
           />
 
           <DeletedAlert />
-
-          <OBSearch />
+          {
+            !isProd && (
+              <OBSearch />
+            )
+          }
 
           <PageSubTitle3 label={'顧客情報'} />
           <CustomersInput />

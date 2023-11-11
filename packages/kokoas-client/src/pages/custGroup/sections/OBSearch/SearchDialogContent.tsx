@@ -1,4 +1,4 @@
-import { DialogContent, Stack, TextField } from '@mui/material';
+import { Alert, DialogContent, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 import { SearchResultList } from './SearchResult';
@@ -11,6 +11,10 @@ export const SearchDialogContent = () => {
   return (
     <DialogContent>
       <Stack mt={1}>
+        <Alert severity='info'>
+          開発段階です。しばらくお待ちください。
+          提案がありましたら、気楽にお声がけください。
+        </Alert>
         <TextField 
           value={value}
           onChange={(e) => {

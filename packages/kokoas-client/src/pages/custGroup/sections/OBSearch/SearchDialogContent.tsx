@@ -10,7 +10,7 @@ export const SearchDialogContent = () => {
 
   return (
     <DialogContent>
-      <Stack mt={1}>
+      <Stack mt={1} spacing={2}>
         <Alert severity='info'>
           開発段階です。しばらくお待ちください。
           提案がありましたら、気楽にお声がけください。

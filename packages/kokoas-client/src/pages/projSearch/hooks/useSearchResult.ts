@@ -257,7 +257,7 @@ export const useSearchResult = () => {
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
             custNames: fullNames.join('、'),
             custNameKana: `${fullNameReadings[0]}`,
-            custPostalCode: custPostalCode.value || '-',
+            custPostalCode: custPostalCode?.value || '-',
             custAddress: `${custAddress}`,
             tel: custTels[0],
             telRelation: custTelRelation[0],

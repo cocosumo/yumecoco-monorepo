@@ -35,11 +35,11 @@ describe('createInvoiceAlertFromContracts', () => {
 
     const result = createInvoiceAlertFromContracts({
       allContracts: allContracts,
-      andpadPayments: allAndpadPayments,
-      employees: allMembers,
-      projects: allProjects,
-      reminders: allInvoiceReminder,
-      stores: allStores,
+      allAndpadPayments: allAndpadPayments,
+      allMembers: allMembers,
+      allProjects: allProjects,
+      allInvoiceReminder: allInvoiceReminder,
+      allStores: allStores,
       tgtProjTypeContracts,
       allOrders: allOrders,
     });

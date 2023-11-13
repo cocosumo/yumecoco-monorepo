@@ -7,7 +7,7 @@ export const compileNotificationSettings = ({
   exsistingSettings,
   updateSettings,
 }: {
-  exsistingSettings: IInvoiceReminder['notificationSettings'],
+  exsistingSettings: IInvoiceReminder['notificationSettings'][],
   updateSettings: CwRoomIds[],
 }) => {
 

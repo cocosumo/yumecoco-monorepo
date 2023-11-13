@@ -30,7 +30,7 @@ export const convertReminderToJson = ({
   allProjects: IProjects[]
 }) => {
 
-  return reminder.map(({
+  const alertReminderJson = reminder.map(({
     $id,
     contractId,
     projId: projIdReminder,
@@ -43,7 +43,7 @@ export const convertReminderToJson = ({
     store,
   }): InvoiceReminder => {
 
-    const { 
+    const {
       andpadInvoiceUrl,
       chatworkRoomIds,
       conectedToAndpad,
@@ -90,5 +90,16 @@ export const convertReminderToJson = ({
       storeName: storeName || store.value,
     });
   });
+
+
+
+  // デバッグ用
+  const consoleReminders = alertReminderJson.map(({ projName, alertState }) => {
+    const state = alertState ? '【対象】' : '【対象外】';
+    return `${state} : ${projName}`;
+  });
+  console.log(`通知対象の契約:リマインダー含む: ${alertReminderJson.length}件 ${JSON.stringify(consoleReminders, null, 2)}`);
+
+  return alertReminderJson;
 
 };

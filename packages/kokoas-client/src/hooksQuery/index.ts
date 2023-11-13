@@ -69,6 +69,7 @@ export * from './useSaveEstimate';
 export * from './useSaveInvoice';
 export * from './useSaveProject';
 export * from './useSearchCustGroup';
+export * from './useSearchCustGroupByKeyword';
 export * from './useSearchProjects';
 export * from './useSendContract';
 export * from './useSoftDelCustGroupById';

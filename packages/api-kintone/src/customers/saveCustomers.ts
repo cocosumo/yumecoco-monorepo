@@ -26,8 +26,9 @@ export const saveCustomers = async (
   * aside from existing ones. So we filter the ones without
   * customerId, then add them to db.
   *********************************************************/
-  const newCusts = records.filter(cust => !cust.uuid?.value)
-    ?.map((recCust) => ({
+  const newCusts = records
+    .filter(cust => !cust.uuid?.value)
+    .map((recCust) => ({
       ...recCust,
       uuid: { value: uuidV4() },
     }));
@@ -39,7 +40,7 @@ export const saveCustomers = async (
     }).then(resp => resp.records);
   }
 
-  const oldCusts = records.filter(cust => !!cust.uuid?.value);
+  const oldCusts = records.filter(cust => !!cust.uuid?.value) || [];
 
   /*********************************
    * For those with existing customerId,
@@ -73,6 +74,6 @@ export const saveCustomers = async (
   return  [
     ...newCusts,
     ...oldCusts,
-  ].filter(Boolean).map(({ uuid }) => uuid?.value);
+  ];
 
 };

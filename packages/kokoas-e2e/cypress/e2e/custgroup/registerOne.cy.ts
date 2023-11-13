@@ -12,7 +12,7 @@ describe('registerOne', () => {
 
   it('新規登録', () => {
 
-    cy.visit('/custgroup/register');
+    cy.visit('/custgroup/edit/v2'); // 当面、新規でも,editにアクセスする
 
     /**
      * 顧客名入力とフリガナが自動入力されることを確認
@@ -36,29 +36,27 @@ describe('registerOne', () => {
       .click();
 
     // 生年を選択
-    cy.get('div[aria-labelledby*="birthYear"]').first()
-      .click();
-    cy.get(`li[data-value="${dt.birthYear}"]`)
-      .click();
+    cy.get('input[name*="birthYear"]').first()
+      .type('1991', { delay: 100 });
+
 
     // 生年を選択
-    cy.get('div[aria-labelledby*="birthMonth"]').first()
-      .click();
-    cy.get(`li[data-value="${dt.birthMonth}"]`)
-      .click();
+    cy.get('input[name*="birthMonth"]').first()
+      .type('10', { delay: 100 });
 
     // 生日を選択
-    cy.get('div[aria-labelledby*="birthDay"]').first()
-      .click();
-    cy.get(`li[data-value="${dt.birthDay}"]`)
-      .click();
+    cy.get('input[name*="birthDay"]').first()
+      .type('20', { delay: 100 });
 
     // 郵便番号を入力
     cy.get('input[name*="postal"]').first()
       .type(dt.postal);
 
     // 住所は自動入力されるので、確認
-    cy.get('input[name*="address1"', { timeout: 8000 }).should('have.value', dt.address1);
+    cy.get('input[name*="address1"', { timeout: 8000 })
+      .type(dt.address1, { delay: 100 });
+    cy.get('input[name*="address1"', { timeout: 8000 })
+      .should('have.value', dt.address1);
 
     ['phone1', 'phone2', 'email']
       .forEach((key: keyof typeof dt) => {
@@ -84,7 +82,7 @@ describe('registerOne', () => {
         cy.log(`${key}を選択する`);
 
         // **AGを選択
-        cy.get(`div[aria-labelledby*="${key}"]`).click();
+        cy.get(`input[name*="${key}"]`).click();
         cy.get('li').last()
           .click();
       });

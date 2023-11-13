@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
  * @param options - Additional options for the hook.
  * @template T - The type of data to select.
  */
-export const useSearchCustGroupByKeyword = <T = unknown>({
+export const useSearchCustGroupByKeyword = <T = ICustgroups[]>({
   keyword,
   options,
 }:{

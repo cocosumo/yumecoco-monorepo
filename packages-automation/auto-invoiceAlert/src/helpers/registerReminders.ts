@@ -19,7 +19,7 @@ export const registerReminders = async ({
   try {
     await addInvoiceReminder(kintoneRecords);
   } catch (error) {
-    console.error('kintoneへのリマインダーアプリ登録処理でエラーが発生しました。', error);
+    console.error('kintoneへのリマインダーアプリ登録処理でエラーが発生しました。', error, error.errors);
   }
 
 };

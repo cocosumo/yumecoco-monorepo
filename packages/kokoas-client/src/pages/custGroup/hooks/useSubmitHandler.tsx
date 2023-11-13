@@ -45,6 +45,9 @@ export const useSubmitHandler = () => {
         handleYes: ()=>navigate('projEditV2', {
           custGroupId: id,
         }),
+        handleNo: ()=>navigate('custGroupEditV2', {
+          custGroupId: id,
+        }),
       });
       
     },

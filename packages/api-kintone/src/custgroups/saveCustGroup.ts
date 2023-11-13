@@ -1,6 +1,6 @@
 import { appId, RecordType } from './config';
 import { ICustomers } from 'types';
-import { saveCustomers } from '../customers/saveCustomers';
+//import { saveCustomers } from '../customers/saveCustomers';
 
 import { getAgentNames } from './getAgentNames';
 import { updateRelatedToCustGroup } from './updateRelatedToCustGroup';
@@ -27,18 +27,25 @@ export const saveCustGroup = async (
     record: Partial<RecordType>,
     custGroupId?: string,
     revision?:string,
+    /** @deprecated save Customers prior to calling this function */
     customerRecords?: Partial<ICustomers>[]
   },
 ) => {
 
+  console.log('SAVING CUSTGROUP...');
   /** Create copy of record to populate aggregates. */
   const aggRecord = { ...record }; // avoid argument mutation.
 
 
 
   if (customerRecords) {
+    //console.log('SAVING customerRecords...');
+
+    /** THIS BLOCK IS DEPRECATED. */
     /** Save customer records to db.customers and retrieve customer ids */
-    const custIds = await saveCustomers({ records: customerRecords });
+    //const savedCustomers = await saveCustomers({ records: customerRecords });
+    /*  const custIds = savedCustomers.map(({ uuid }) => uuid?.value)
+      .filter(Boolean); */
 
     /**
      * Populate db.custGroup.members with the customerIds
@@ -46,9 +53,9 @@ export const saveCustGroup = async (
      * value: "auto" are copy fields. These are not required by kintone,
      * but for the sake of clarity, I include it here.
      * */
-    aggRecord.members = {
+    /*  aggRecord.members = {
       type: 'SUBTABLE',
-      value: custIds?.map((custId) => {
+      value: custIds?.map((custId, index) => {
         return {
           id: '', // this is auto-populated
           value: {
@@ -57,17 +64,20 @@ export const saveCustGroup = async (
             address2: { value: 'auto' },
             customerName: { value: 'auto' },
             custId: { value: custId || '' },
+            custNameReading: { value: 'auto' },
+            index: { value: String(index) },
+            isSameAsMain: { value: savedCustomers.find(({ uuid }) => uuid?.value === custId)?.isSameAsMain?.value || '0' },
           },
         };
       }),
-    };
+    }; */
 
-    aggRecord.custNames = {
+    /* aggRecord.custNames = {
       value: customerRecords
         .filter(({ fullName })=> !!fullName?.value)
         .map(({ fullName }) => `${fullName?.value}`)
         .join(', '),
-    };
+    }; */
   }
 
   aggRecord.cocoAGNames = {

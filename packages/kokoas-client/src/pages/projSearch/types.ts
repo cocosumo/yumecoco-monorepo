@@ -17,13 +17,16 @@ export interface SearchResult {
   /** 全顧客 */
   custNames: string;
   custNameKana: string;
+  custPostalCode: string;
   custAddress: string;
   tel: string;
   telRelation: string;
   storeName: string;
   contractDate: string;
   deliveryDate: string;
+  projPostalCode: string;
   projAddress: string;
+  projPostalCodeConfirmed: string;
   projAddressConfirmed: string;
   projFinDate: string;
   payFinDate: string;

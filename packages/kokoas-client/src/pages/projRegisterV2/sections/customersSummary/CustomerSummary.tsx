@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { StaticContentContainer } from 'kokoas-client/src/components/ui/information/StaticContentContainer';
 import { StaticContentInfos } from 'kokoas-client/src/components/ui/information/StaticContentInfos';
 import { StaticContentActions } from 'kokoas-client/src/components/ui/information/StaticContentActions';
+import { groupAgentsByType } from 'api-kintone/src/custgroups/helpers/groupAgentsByType';
 
 
 export const CustomerSummary = () => {
@@ -44,17 +45,21 @@ export const CustomerSummary = () => {
 
     const {
       storeName,
-      cocoAGNames,
-      yumeAGNames,
+      agents,
     } = data || {};
+
+    const {
+      yumeAG,
+      cocoAG,
+    } = groupAgentsByType(agents);
   
     const custData = [
       { label: '店舗', value: storeName?.value },
     ];
 
     const officerData = [
-      { label: 'ゆめてつAG', value: yumeAGNames.value },
-      { label: 'ここすも営業担当者', value: cocoAGNames.value },
+      { label: 'ゆめてつAG', value: yumeAG?.map(({ value:{ employeeName } }) => employeeName.value ).join('、') },
+      { label: 'ここすも営業担当者', value: cocoAG?.map(({ value:{ employeeName } }) => employeeName.value ).join('、')  },
       //{ label: '工事担当者', value: constructionOfficers || '' },
     ];
 

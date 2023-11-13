@@ -7,10 +7,11 @@ export const convertToKintone = (
   rawValues: TForm,
 ): Partial<IProjects>  => {
   const {
-
+    projDataId,
     yumeAG,
     cocoAG,
     cocoConst,
+    isNotCocoConstConfirmed,
 
     projTypeId, 
     projName,
@@ -57,6 +58,7 @@ export const convertToKintone = (
 
   } = rawValues;
 
+  console.log('SAVE', storeCode);
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
@@ -102,6 +104,7 @@ export const convertToKintone = (
         },
       })),
     },
+    isAgentConfirmed: { value: Number(!isNotCocoConstConfirmed).toString() }, //　isAgentConfirmedは肯定なので、isNotCocoConstConfirmedを反転させる
     status: {  value: status  },
     cancelStatus: { value: cancelStatus?.filter(Boolean).join(',') || '' },
     memo: { value: memo || '' },
@@ -161,6 +164,7 @@ export const convertToKintone = (
     territory: { value: territory },
     store: { value: storeName },
     storeCode: { value: storeCode },
+    dataId: { value: `${storeCode}-${projDataId.slice(4)}`  },
 
     // 利益率
     profitRate: { value: String(profitRate) },

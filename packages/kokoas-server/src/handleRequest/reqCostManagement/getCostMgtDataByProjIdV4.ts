@@ -40,8 +40,8 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
 
   const andpadSystemId = String(
     forceLinkedAndpadSystemId?.value ||
-      (await getOrderByProjId(projId))?.システムID ||
-      '',
+    (await getOrderByProjId(projId))?.システムID ||
+    '',
   );
 
   console.log(andpadSystemId);
@@ -61,15 +61,15 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     getProjTypeById(projTypeId.value),
     getEmployees(false),
     getBudgetBySystemId(andpadSystemId),
-    getAndpadProcurementByAndpadProjId(andpadSystemId), 
+    getAndpadProcurementByAndpadProjId(andpadSystemId),
     getAndpadPaymentsBySystemId(andpadSystemId),
     getContractsByProjId(projId),
   ]);
 
 
 
-  const { 
-    agents: custGroupAgents, 
+  const {
+    agents: custGroupAgents,
     storeId: custGroupStoreId,
   } = custGroupRec;
   const resolvedCommRate = resolveCommisionRate({
@@ -77,7 +77,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     projRec,
     projTypeRec,
     empRecs: employeesRec,
-    
+
   });
 
   // 工事データの店舗を保持できるように、顧客グループのルークアップに、店舗IDをコピーしないようにしました。
@@ -96,16 +96,16 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
 
   // 発注会社ごとにデータを整形する
   console.log('Converting andpadbudgets');
-  
+
   const costManagemenList = convertMonthlyProcurementV3(
     andpadBudgetExecution,
     andpadProcurements,
   );
 
-  const { 
-    months = [], 
-    maxPaymentDate = '', 
-    minPaymentDate = '', 
+  const {
+    months = [],
+    maxPaymentDate = '',
+    minPaymentDate = '',
   } = costManagemenList || {};
 
   console.log('Retrieving Payment Data...');
@@ -117,7 +117,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
 
   console.log('Retrieving Contracts Data...');
   const contracts = getContractsSummary(contractRecs);
-  
+
 
   console.log('Calculating Profitability...');
   const {
@@ -143,8 +143,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     補助金,
   } = calcProfitability({
     orderAmountAfterTax: contracts?.契約金額税込 ?? 0,
-    additionalAmountAfterTax:
-      contracts.追加金額税込 - (contracts.返金Amt + contracts.減額Amt),
+    additionalAmountAfterTax: contracts.追加金額税込,
     purchaseAmount: costManagemenList?.totalContractOrderCost ?? 0,
     paymentAmount: costManagemenList?.totalPaidAmount ?? 0,
     depositAmount: depositAmount,

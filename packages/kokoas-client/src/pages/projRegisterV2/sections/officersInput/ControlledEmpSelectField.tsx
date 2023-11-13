@@ -6,7 +6,7 @@ import { TAgents } from 'types';
 import { getDefaultEmployee } from '../../form';
 import { useUpdateCommRate } from '../../hooks/useUpdateCommRate';
 
-export const ControlledEmpSelecField = ({
+export const ControlledEmpSelectField = ({
   name,
   index,
   label,
@@ -46,10 +46,9 @@ export const ControlledEmpSelecField = ({
         },
         fieldState: {
           error,
-          isDirty,
         },
       }) => {
-        const hasError = Boolean(error) && isDirty;
+        const hasError = Boolean(error?.message);
         const errorMsg = error?.message || '';
 
         return (

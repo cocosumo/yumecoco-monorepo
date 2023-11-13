@@ -11,6 +11,8 @@ import { MemoInput } from './sections/memoInput/MemoInput';
 import { Actions } from './sections/actions/Actions';
 import { useEffect } from 'react';
 import { DeletedAlert } from './sections/DeletedAlert';
+import { OBSearch } from './sections/OBSearch/OBSearch';
+import { isProd } from 'config';
 
 export const FormCustGroup = () => {
   const formValues = useResolveParams();
@@ -31,6 +33,8 @@ export const FormCustGroup = () => {
     reset(formValues);
   }, [reset, formValues]);
 
+  const isEdit = custGroupId;
+
 
   return (
     <FormProvider {...formReturn}>
@@ -39,11 +43,17 @@ export const FormCustGroup = () => {
       >
         <Stack spacing={2}>
 
+
           <PageTitle3 
-            label={`顧客登録（個人）${custGroupId ? '編集' : '登録'}`}
+            label={`顧客登録（個人）${isEdit ? '編集' : '登録'}`}
           />
 
           <DeletedAlert />
+          {
+            !isProd && (
+              <OBSearch />
+            )
+          }
 
           <PageSubTitle3 label={'顧客情報'} />
           <CustomersInput />

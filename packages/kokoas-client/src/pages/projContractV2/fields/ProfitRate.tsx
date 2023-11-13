@@ -78,7 +78,9 @@ export const ProfitRate = ({
             placeholder={'12.34'}
             helperText={error?.message || '粗利率を入れても自動計算出来ます'}
             inputProps={{ 
-              style: { textAlign: 'right' }, 
+              style: { 
+                textAlign: 'right', 
+              }, 
             }}
             InputProps={{
               endAdornment: (
@@ -86,6 +88,9 @@ export const ProfitRate = ({
                   %
                 </InputAdornment>
               ),
+            }}
+            sx={{
+              width: 300,
             }}
           />
         );

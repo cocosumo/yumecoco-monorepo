@@ -9,6 +9,9 @@ import { getCurrentContractStep } from '../helpers/getCurrentContractStep';
 import { useCallback } from 'react';
 import { parseISODateToFormat, parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { useTypedURLParams } from './useTypedHooks';
+import { groupAgentNamesByType as projGroupAgentNamesByType } from 'api-kintone/src/projects/helpers/groupAgentNamesByType';
+import { groupAgentNamesByType as custGroupAgentNamesByType } from 'api-kintone/src/custgroups/helpers/groupAgentNamesByType';
+
 
 export interface ContractRow {
   category: string,
@@ -26,6 +29,7 @@ export interface ContractRow {
   store: string,
   yumeAG: string,
   cocoAG: string,
+  cocoConst: string,
   custName: string,
   contractDate: string,
   contractAmount: number,
@@ -78,7 +82,7 @@ export const useFilteredContracts = () => {
     enabled: !!projData && !!custGroupData && !!custData,
     select: useCallback((d) => {
 
-      if (!projData || !custGroupData) return;
+      if (!projData || !custGroupData || !projData) return;
 
       let minAmount = 0;
       let maxAmount = 0;
@@ -122,15 +126,28 @@ export const useFilteredContracts = () => {
           custGroupId,
           dataId,
           projTypeName,
+          store: storeName,
+          isAgentConfirmed,
+          agents,
         } = projData.find((projRec) => projRec.uuid.value === projId.value ) || {};
+        const isNotAgentConfirmed = !(Number(isAgentConfirmed?.value));
+        const { 
+          yumeAG,
+          cocoAG,
+          cocoConst,
+        } = projGroupAgentNamesByType(agents);
 
         /* 顧客情報 */
         const {
-          cocoAGNames,
-          yumeAGNames,
-          storeName,
+          agents: cgAgents,
           members,
         } = custGroupData.find((custGroupRec) => custGroupRec.uuid.value === custGroupId?.value ) || {};
+
+        const { 
+          yumeAG: cgYumeAG,
+          cocoAG: cgCocoAG,
+        } = custGroupAgentNamesByType(cgAgents);
+
 
         /* 顧客名 */
         const custIds = members?.value?.map(({ value: { custId } }) => custId.value) || [];
@@ -186,8 +203,11 @@ export const useFilteredContracts = () => {
           custGroupId: custGroupId?.value || '',
           projId: projId.value,
           projDataId: formatDataId(dataId?.value || ''),
-          cocoAG: cocoAGNames?.value || '-',
-          yumeAG: yumeAGNames?.value || '-',
+          cocoAG: cocoAG || cgCocoAG || '-',
+          yumeAG: yumeAG || cgYumeAG || '-',
+          cocoConst: cocoConst
+            ? `${cocoConst} ${isNotAgentConfirmed ? '(未定)' : ''}` 
+            : '-',
           contractDate:  parseISODateToFormat(contractDate?.value)  || '-',
 
           refundAmt: +refundAmt.value,

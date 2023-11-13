@@ -32,6 +32,7 @@ export const ResultsTHead = () => {
         store={<ResultsTHeadSortLabel headerLabel='store' />}
         yumeAG={<ResultsTHeadSortLabel headerLabel='yumeAG' />}
         cocoAG={<ResultsTHeadSortLabel headerLabel='cocoAG' />}
+        cocoConst={<ResultsTHeadSortLabel headerLabel='cocoConst' />}
         custName={<ResultsTHeadSortLabel headerLabel='custName' />}
         contractDate={<ResultsTHeadSortLabel headerLabel='contractDate' />}
         contractAmount={<ResultsTHeadSortLabel headerLabel='contractAmount' />}

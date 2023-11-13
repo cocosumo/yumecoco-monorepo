@@ -19,6 +19,7 @@ declare namespace DBContracts {
     hasReduction: kintone.fieldTypes.RadioButton;
     startDaysAfterContract: kintone.fieldTypes.Number;
     contractAddType: kintone.fieldTypes.SingleLineText;
+    includePlanContractAmt: kintone.fieldTypes.Number;
     contractAmt: kintone.fieldTypes.Number;
     startDate: kintone.fieldTypes.Date;
     signMethod: kintone.fieldTypes.SingleLineText;

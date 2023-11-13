@@ -111,7 +111,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
 
     
   result.追加金額税込 -= (result.減額Amt + result.返金Amt);
-  result.合計受注金額税込 += result.追加金額税込 + result.契約金額税込;
+  result.合計受注金額税込 = result.追加金額税込 + result.契約金額税込;
 
   // 本契約の登録に設計契約が含まれていると設定した場合、設計契約金は追加契約金額と契約金額には計算しない。
 

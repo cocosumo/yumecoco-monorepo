@@ -7,6 +7,9 @@ import { getAllCustGroups } from './getAllCustGroups';
  * @param params - The options object.
  * @param params.keyword - The keyword to search for.
  * @returns  A promise that resolves to an array of customer groups.
+ * 
+ * ただし、kintoneの制限により、一文字で検索するとヒットしない場合がある。
+ * @see https://www.ait-labo.com/kintone-basic/2690/
  */
 export const searchCustGroupByKeyword = async ({
   keyword,

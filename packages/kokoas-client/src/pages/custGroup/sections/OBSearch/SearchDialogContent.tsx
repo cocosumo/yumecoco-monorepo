@@ -1,12 +1,18 @@
-import { Alert, DialogContent, Stack, TextField } from '@mui/material';
+import { Alert, CircularProgress, DialogContent, InputAdornment, Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 import { SearchResultList } from './SearchResult';
+import { useSearchCustGroupByKeyword } from 'kokoas-client/src/hooksQuery';
 
 export const SearchDialogContent = () => {
   const [value, setValue] = useState('');
 
   const debouncedValue = useDebounce(value, 1500);
+
+  const { 
+    data = [], 
+    isLoading, 
+  } = useSearchCustGroupByKeyword({ keyword: debouncedValue });
 
   return (
     <DialogContent>
@@ -25,8 +31,16 @@ export const SearchDialogContent = () => {
           sx={{
             maxWidth: '300px',
           }}
+          InputProps={{
+            endAdornment: isLoading && (
+            <InputAdornment position='end'>
+              <CircularProgress size={20} />
+            </InputAdornment> ),
+          }}
         />
-        <SearchResultList value={debouncedValue} />
+        <SearchResultList value={`結果：${data.length} ${data
+          .map(({ members }) => members.value.map(({ value: { customerName, custNameReading } }) => `(${customerName.value}, ${custNameReading.value})`) )}`}
+        />
       </Stack>
     </DialogContent>
   );

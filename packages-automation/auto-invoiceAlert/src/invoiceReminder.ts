@@ -38,13 +38,13 @@ export const invoiceReminder = async () => {
 
 
   await createInvoiceAlertFromContracts({
-    allAndpadPayments: allAndpadPayments,
+    andpadPayments: allAndpadPayments,
     allContracts: allContracts,
-    allInvoiceReminder: allInvoiceReminder,
-    allMembers: allMembers,
+    reminders: allInvoiceReminder,
+    employees: allMembers,
     allOrders: allOrders,
-    allProjects: allProjects,
-    allStores: allStores,
+    projects: allProjects,
+    stores: allStores,
     tgtProjTypeContracts: tgtProjTypeContracts,
   });
 

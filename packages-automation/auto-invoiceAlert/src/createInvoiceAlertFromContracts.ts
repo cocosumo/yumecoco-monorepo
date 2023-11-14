@@ -13,20 +13,20 @@ import { convertContractsToJson } from './helpers/convertContractsToJson';
  */
 export const createInvoiceAlertFromContracts = async ({
   allOrders,
-  allAndpadPayments,
-  allMembers,
-  allProjects,
-  allInvoiceReminder,
-  allStores,
+  andpadPayments,
+  reminders,
+  projects,
+  employees,
+  stores,
   tgtProjTypeContracts,
   allContracts,
 }: {
   tgtProjTypeContracts: ContractRecordType[]
-  allAndpadPayments: IAndpadpayments[]
-  allInvoiceReminder: IInvoiceReminder[]
-  allProjects: IProjects[]
-  allMembers: IEmployees[]
-  allStores: IStores[]
+  andpadPayments: IAndpadpayments[]
+  reminders: IInvoiceReminder[]
+  projects: IProjects[]
+  employees: IEmployees[]
+  stores: IStores[]
   allOrders: GetMyOrdersResponse
   allContracts: ContractRecordType[]
 }) => {
@@ -34,9 +34,9 @@ export const createInvoiceAlertFromContracts = async ({
   // 契約書の内容からアラート対象を取得する
   const alertContracts = filterContractsToAlertTarget({
     contracts: tgtProjTypeContracts,
-    andpadPayments: allAndpadPayments,
-    reminders: allInvoiceReminder,
-    projects: allProjects,
+    andpadPayments: andpadPayments,
+    reminders: reminders,
+    projects: projects,
   });
 
   const consoleContracts1 = alertContracts.map(({ projName }) => projName.value);
@@ -46,9 +46,9 @@ export const createInvoiceAlertFromContracts = async ({
   const alertContractsJson = convertContractsToJson({
     contracts: alertContracts,
     allContracts: allContracts,
-    projects: allProjects,
-    employees: allMembers,
-    stores: allStores,
+    projects: projects,
+    employees: employees,
+    stores: stores,
     allOrders: allOrders,
   });
 

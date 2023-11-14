@@ -1,5 +1,7 @@
+import { IInvoiceReminder } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { UpdateInvoiceReminder } from '../api-kintone';
+import { compileNotificationSettings } from './compileNotificationSettings';
 
 
 
@@ -12,16 +14,18 @@ export const convertReminderToKintoneUpdate = ({
   invoiceReminderJson,
   lastAlertDate,
   alertDate,
+  existedReminder,
 }: {
   invoiceReminderJson: InvoiceReminder[]
   lastAlertDate: string
   alertDate: string
+  existedReminder: IInvoiceReminder[]
 }) => {
 
   const kintoneData: UpdateInvoiceReminder[] = invoiceReminderJson.map(({
     contractDate,
     contractId,
-    //cwRoomIds,
+    cwRoomIds,
     projId,
     projName,
     projType,
@@ -30,7 +34,20 @@ export const convertReminderToKintoneUpdate = ({
     alertState,
     yumeAG,
     systemId,
+    storeName,
+    andpadInvoiceUrl,
   }) => {
+
+    //リマインダーレコードから　notificationSettings　を取得する
+    const notificationSettingsRec = existedReminder.find(({
+      projId: reminderProjId,
+    }) => projId === reminderProjId.value) || {} as IInvoiceReminder;
+
+    const updateRooms = compileNotificationSettings({
+      exsistingSettings: notificationSettingsRec.notificationSettings,
+      updateSettings: cwRoomIds,
+    });
+
 
     return ({
       updateKey: {
@@ -45,13 +62,13 @@ export const convertReminderToKintoneUpdate = ({
         totalContractAmount: { value: totalContractAmount },
         scheduledAlertDate: { value: alertDate },
         alertState: { value: alertState ? '1' : '0' },
-        // reminderDate: { value: '' }, ユーザーがプルダウンから選択するため、対象外とする
-        // andpadDepositAmount: { value: '0' },
+        andpadUrl: { value: andpadInvoiceUrl },
+        store: { value: storeName },
         area: { value: territory },
         projName: { value: projName },
         lastAlertDate: { value: lastAlertDate },
         contractId: { value: contractId },
-        // notificationSettings: {}, // 通知対象の更新処理は不要？実装要検討
+        notificationSettings: updateRooms,
         systemId: { value: systemId },
       },
     });

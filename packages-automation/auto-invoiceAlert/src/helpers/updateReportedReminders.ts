@@ -3,6 +3,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 import addDays from 'date-fns/addDays';
 import { updateInvoiceReminder } from '../api-kintone';
 import { convertReminderToKintoneUpdate } from './convertReminderToKintoneUpdate';
+import { IInvoiceReminder } from '../../config';
 
 
 /**
@@ -10,8 +11,10 @@ import { convertReminderToKintoneUpdate } from './convertReminderToKintoneUpdate
  */
 export const updateReportedReminders = async ({
   reportedReminder,
+  existedReminder,
 }: {
-  reportedReminder: InvoiceReminder[],
+  reportedReminder: InvoiceReminder[]
+  existedReminder: IInvoiceReminder[]
 }) => {
 
   // 通知実施後のリマインダーレコード更新処理、通知日は今日、再通知日は仮に3日後を設定する
@@ -19,6 +22,7 @@ export const updateReportedReminders = async ({
     invoiceReminderJson: reportedReminder,
     alertDate: format(addDays(new Date(), 3), 'yyyy-MM-dd'),
     lastAlertDate: format(new Date(), 'yyyy-MM-dd'),
+    existedReminder: existedReminder,
   });
 
   await updateInvoiceReminder(kintoneRecords);

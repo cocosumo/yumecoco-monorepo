@@ -1,10 +1,9 @@
 import { IEmployees, IProjects, IStores, Territory } from 'types';
 import { ContractRecordType } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
-import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
-import { getYumeAgNames } from './getYumeAgNames';
 import { calcContractInformation } from './calcContractInformation';
 import { GetMyOrdersResponse } from 'api-andpad';
+import { compileInfoFromProjId } from './compileInfoFromProjId';
 
 
 
@@ -29,8 +28,8 @@ export const convertContractsToJson = ({
   allOrders: GetMyOrdersResponse
 }) => {
 
-  
-  
+
+
   const alertContracts: InvoiceReminder[] = contracts.reduce((acc, {
     projId,
     projType,
@@ -38,55 +37,43 @@ export const convertContractsToJson = ({
     storeName,
   }) => {
 
-    // 通知対象者を抽出する
-    const {
-      agents,
-      storeCode: storeCodeByProjct,
-      forceLinkedAndpadSystemId,
-    } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
 
-    const tgtContracts = allContracts.filter(({ projId: contractProjId }) => contractProjId.value === projId.value) || [];
+    const tgtContracts = allContracts
+      .filter(({ projId: contractProjId }) => contractProjId.value === projId.value) || [];
     const contractData = calcContractInformation({ tgtContracts: tgtContracts });
 
-    // システムIDを取得する
-    const andpadProject = allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value);
-
-    const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
-      || andpadProject?.システムID?.toString();
-
-    const andpadInvoiceUrl = andpadSystemId ?
-      `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
-      : undefined;
-
-    // andpadと接続されていない案件と、失注の案件は除外する
-    if (!andpadInvoiceUrl || andpadProject?.案件フロー === '失注') return acc;
-
-    const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
-
-    const chatworkRoomIds = chatworkRoomIdSetting({
-      agents: agents,
+    const {
+      andpadInvoiceUrl,
+      chatworkRoomIds,
+      conectedToAndpad,
+      territory,
+      systemId,
+      yumeAGs,
+    } = compileInfoFromProjId({
+      projId: projId.value,
+      allOrders: allOrders,
       employees: employees,
+      projects: projects,
+      stores: stores,
     });
 
-    const yumeAGs = getYumeAgNames({
-      agents: agents,
-    });
+    if (!conectedToAndpad) return acc;
 
 
     acc?.push({
       alertState: true,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      systemId: andpadSystemId ?? '',
+      systemId: systemId ?? '',
       contractId: contractData.contractId,
       projId: projId.value,
       projName: projName.value,
       projType: projType.value,
       contractDate: contractData.contractDate,
       totalContractAmount: contractData.totalContractAmt.toString(),
-      territory: store?.territory.value as Territory,
+      territory: territory as Territory,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,
-      andpadInvoiceUrl: andpadInvoiceUrl,
+      andpadInvoiceUrl: andpadInvoiceUrl ?? '',
       expectedCreateInvoiceDate: '',
       storeName: storeName.value,
     });

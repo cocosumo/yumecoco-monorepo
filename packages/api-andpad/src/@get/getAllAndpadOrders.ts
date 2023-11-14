@@ -21,7 +21,7 @@ export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<
 
   const params: GetMyOrders = {
     limit: 100,
-    q: beforeInvoiceIssue ? '案件フロー in (契約前,着工前,進行中)' : '',
+    q: beforeInvoiceIssue ? '案件フロー in (契約前,着工前,進行中,完工（精算前）' : '',
     series: ['案件フロー'],
     offset: offset,
   };

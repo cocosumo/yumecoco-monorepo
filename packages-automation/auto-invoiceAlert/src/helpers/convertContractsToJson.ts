@@ -45,7 +45,7 @@ export const convertContractsToJson = ({
     const {
       andpadInvoiceUrl,
       chatworkRoomIds,
-      conectedToAndpad,
+      connectedToAndpad,
       territory,
       systemId,
       yumeAGs,
@@ -57,7 +57,7 @@ export const convertContractsToJson = ({
       stores: stores,
     });
 
-    if (!conectedToAndpad) return acc;
+    if (!connectedToAndpad) return acc;
 
 
     acc?.push({

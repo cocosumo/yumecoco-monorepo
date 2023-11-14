@@ -25,11 +25,12 @@ export const ConstructionPeriods = ({
       <ControlledDatePicker label='引き渡し日' name={'deliveryDate'} variant='outlined' />
 
       <ControlledDatePicker 
-        disabled={disabled}
+        // disabled={disabled} // K258
         label='契約日(必須)' 
         name={'contractDate'} 
         variant='outlined'
         emphasized
+        helperText='契約後、編集しても書面に反映されません'
       />
 
     </Stack>

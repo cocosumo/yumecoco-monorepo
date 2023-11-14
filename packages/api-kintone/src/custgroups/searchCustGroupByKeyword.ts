@@ -33,7 +33,7 @@ export const searchCustGroupByKeyword = async ({
 
   return getAllCustGroups({
     condition:  condition,
-    orderBy: '作成日時 asc',
+    orderBy: '作成日時 desc',
   });
   
 };

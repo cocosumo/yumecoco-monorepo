@@ -1,6 +1,6 @@
-import { Stack } from '@mui/material';
 import { ICustgroups } from 'types';
 import { SearchResultItem } from './SearchResultItem';
+import { Box } from '@mui/material';
 
 export const SearchResultList = ({
   data = [],
@@ -9,16 +9,12 @@ export const SearchResultList = ({
 }) => {
   
   return (
-    <Stack
-      height={'100%'}
-      sx={{
-        overflow: 'auto',
-      }}
-      spacing={1}
-      p={1}
+    <Box
+      overflow={'auto'}
+      px={1}
       borderTop={1}
       borderBottom={1}
-      borderColor='grey.300'
+      borderColor={'divider'}
     >
       {data.map((item) => {
         return (
@@ -28,8 +24,9 @@ export const SearchResultList = ({
           />
         );
       })}
-
-    </Stack>
+      
+    </Box>
+ 
     
   );
 };

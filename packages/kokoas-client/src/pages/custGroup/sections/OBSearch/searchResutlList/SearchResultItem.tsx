@@ -1,70 +1,44 @@
-import { AccordionDetails, Typography, styled } from '@mui/material';
+import { FormControlLabel, Radio } from '@mui/material';
 import { ICustgroups } from 'types';
-import { ResultItemTitle } from './ResultItemTitle';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
-import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+
+import { VirtualItem } from '@tanstack/react-virtual';
+import { SearchResultItemContent } from './SearchResultItemContent';
 
 
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square
-    {...props}
-  />
-))(({ theme }) => ({
-  border: `1px solid ${theme.palette.divider}`,
-  '&:not(:last-child)': {
-    borderBottom: 0,
-  },
-  '&:before': {
-    display: 'none',
-  },
-}));
 
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
-  <MuiAccordionSummary
-    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
-    {...props}
-  />
-))(({ theme }) => ({
-  backgroundColor: 'grey.300',
-  flexDirection: 'row-reverse',
-  '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
-    transform: 'rotate(90deg)',
-  },
-  '& .MuiAccordionSummary-content': {
-    marginLeft: theme.spacing(1),
-  },
-}));
+
 
 export const SearchResultItem = ({
   item,
+  virtualItem,
 }:{
-  item: ICustgroups
+  item: ICustgroups,
+  virtualItem: VirtualItem,
 }) => {
-  const custNames = item.members.value.map((member) => {
-    return member.value.customerName.value;
-  }).join('、');
+
 
   return (
-    <Accordion>
-      <AccordionSummary
-        id={item.uuid.value}
-      >
-        
-        <ResultItemTitle 
-          custNames={custNames}
-          createDate={item.作成日時.value}
-        />
-      </AccordionSummary>
-      <AccordionDetails>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
-        </Typography>
-      </AccordionDetails>
-    </Accordion>
+
+    <FormControlLabel 
+      style={{
+        top: 0,
+        left: 0,
+        width: '100%',
+        position: 'absolute',
+        height: `${virtualItem.size}px`,
+        transform: `translateY(${virtualItem.start}px)`,
+        borderBottom: '1px solid #e0e0e0',
+      }}
+      sx={{
+        '& .MuiFormControlLabel-label': {
+          flexGrow: 1,
+        },
+      }}
+      value={item.uuid.value}
+      control={<Radio />}
+      label={(<SearchResultItemContent item={item} />)}
+    />
+   
 
   );
 };

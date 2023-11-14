@@ -1,13 +1,25 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Tooltip, Typography } from '@mui/material';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { Fragment } from 'react';
+
+
+export type Customers = Array<{
+  custId: string,
+  custName: string,
+  custKana: string,
+}>;
 
 export const ResultItemTitle = ({
-  custNames,
+  customers,
   createDate,
 }:{
   createDate: string, // ISO8601
-  custNames: string,
+  customers: Customers,
 }) => {
+
+  const custNames = customers.map((customer) => {
+    return customer.custName;
+  }).join('、'); 
 
   
   return (
@@ -15,11 +27,42 @@ export const ResultItemTitle = ({
       direction='row'
       justifyContent='space-between'
       alignItems='center'
-      width={'100%'}
+      flexGrow={1}
     >
-      <Typography>
-        {custNames}
-      </Typography>
+      <Tooltip 
+        title={(<Stack>
+          {customers.map((customer) => {
+            return (
+              <Fragment
+                key={customer.custId}
+              >
+                <Typography
+                  fontSize={'0.75rem'}
+                >
+                  {customer.custName}
+                </Typography>
+                <Typography
+                  fontSize={'0.6rem'}
+                  mb={1}
+                >
+                  {customer.custKana}
+                </Typography>
+              </Fragment>
+            );
+          })}
+        </Stack>)}
+      >
+        <Typography
+          sx={{
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            maxWidth: 300,
+          }}
+        >
+          {custNames}
+        </Typography>
+      </Tooltip>
       <span>
         <Typography
           sx={{

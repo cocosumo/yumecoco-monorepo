@@ -14,10 +14,9 @@ const DebouncedTextField = ({
 
   const [value, setValue] = useState('');
 
-  const debouncedValue = useDebounce(value, 1000);
+  const debouncedValue = useDebounce(value, 500);
 
   useEffect(() => handledDebouncedChange(debouncedValue), [handledDebouncedChange, debouncedValue]);
-
 
   return (
     <TextField 
@@ -53,7 +52,7 @@ export const SearchDialogContent = () => {
 
   const { 
     data = [], 
-    isLoading, 
+    isFetching, 
   } = useSearchCustGroupByKeyword({ keyword: debouncedValue });
 
   return (
@@ -75,7 +74,7 @@ export const SearchDialogContent = () => {
         
         <DebouncedTextField
           handledDebouncedChange={handleDebounceValue}
-          isLoading={isLoading}
+          isLoading={isFetching}
         />
 
         <SearchResultList data={data} />

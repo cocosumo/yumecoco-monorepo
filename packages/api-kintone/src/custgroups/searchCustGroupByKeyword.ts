@@ -21,12 +21,19 @@ export const searchCustGroupByKeyword = async ({
     'customerName',
     'custNameReading',
   ];
+  
+  let condition = '';
+  if (keyword) {
+    condition = keywordKeys
+      .map((field) => `${field} like "${keyword}"`)
+      .join(' or ');
+  
+  }
    
 
   return getAllCustGroups({
-    condition: keywordKeys
-      .map((field) => `${field} like "${keyword}"`)
-      .join(' or '),
+    condition:  condition,
+    orderBy: '作成日時 desc',
   });
   
 };

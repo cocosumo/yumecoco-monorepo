@@ -14,7 +14,7 @@ export const SearchDialog = ({
     <Dialog 
       open={open}
       onClose={handleClose}
-      maxWidth='md'
+      maxWidth='sm'
       fullWidth
     >
       <DialogTitle>

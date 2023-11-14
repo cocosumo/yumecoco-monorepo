@@ -3,17 +3,19 @@ import fs from 'fs';
 import path from 'path';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { updateReportedReminders } from './updateReportedReminders';
-import { getInvoiceRemindersByAlertDate } from '../api-kintone';
+import { IInvoiceReminder } from '../../config';
 
 
 describe('updateReportedReminders', () => {
   it('updateReportedReminders', async () => {
 
-    // set output file of createInvoiceAlert.test.ts
-    const invoiceAlertPath = path.join(__dirname, '../__TEST__/createInvoiceAlert.json');
+    // set output file of convertReminderToJson.test.ts
+    const invoiceAlertPath = path.join(__dirname, './__TEST__/convertReminderToJson.json');
     const reminderDat = JSON.parse(fs.readFileSync(invoiceAlertPath, 'utf8')) as InvoiceReminder[];
 
-    const alertReminder = await getInvoiceRemindersByAlertDate(new Date());
+    // set output file of getInvoiceRemindersByAlertDate.test.ts
+    const invReminderPath = path.join(__dirname, '../api-kintone/__TEST__/reminders.json');
+    const alertReminder = JSON.parse(fs.readFileSync(invReminderPath, 'utf8')) as IInvoiceReminder[];
 
     await updateReportedReminders({
       reportedReminder: reminderDat,

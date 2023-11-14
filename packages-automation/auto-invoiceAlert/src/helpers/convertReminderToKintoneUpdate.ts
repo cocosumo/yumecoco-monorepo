@@ -39,12 +39,13 @@ export const convertReminderToKintoneUpdate = ({
   }) => {
 
     //リマインダーレコードから　notificationSettings　を取得する
-    const notificationSettingsRec = existedReminder.map(({ notificationSettings }) => notificationSettings);
+    const notificationSettingsRec = existedReminder.find(({
+      projId: reminderProjId,
+    }) => projId === reminderProjId.value) || {} as IInvoiceReminder;
 
     const updateRooms = compileNotificationSettings({
-      exsistingSettings: notificationSettingsRec,
+      exsistingSettings: notificationSettingsRec.notificationSettings,
       updateSettings: cwRoomIds,
-
     });
 
 

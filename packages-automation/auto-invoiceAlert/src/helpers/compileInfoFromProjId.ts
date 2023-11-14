@@ -38,8 +38,8 @@ export const compileInfoFromProjId = ({
     : undefined;
 
   // andpadと接続されていない案件と、失注の案件は除外する
-  let conectedToAndpad = true;
-  if (!andpadInvoiceUrl || andpadProject?.案件フロー === '失注') conectedToAndpad = false;
+  let connectedToAndpad = true;
+  if (!andpadInvoiceUrl || andpadProject?.案件フロー === '失注') connectedToAndpad = false;
 
   const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
 
@@ -53,7 +53,7 @@ export const compileInfoFromProjId = ({
   });
 
   return {
-    conectedToAndpad: conectedToAndpad,
+    connectedToAndpad: connectedToAndpad,
     systemId: andpadSystemId,
     andpadInvoiceUrl: andpadInvoiceUrl,
     territory: store?.territory.value ?? '',

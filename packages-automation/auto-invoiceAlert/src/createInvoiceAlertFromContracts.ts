@@ -12,13 +12,13 @@ import { convertContractsToJson } from './helpers/convertContractsToJson';
  * kintoneのリマインダーアプリへ登録します
  */
 export const createInvoiceAlertFromContracts = async ({
-  allOrders,
+  tgtProjTypeContracts,
   andpadPayments,
   reminders,
   projects,
   employees,
   stores,
-  tgtProjTypeContracts,
+  allOrders,
   allContracts,
 }: {
   tgtProjTypeContracts: ContractRecordType[]

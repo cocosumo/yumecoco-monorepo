@@ -38,7 +38,6 @@ export const convertReminderToJson = ({
     projName,
     contractDate,
     totalContractAmount,
-    //notificationSettings,
     expectedCreateInvoiceDate,
     store,
   }): InvoiceReminder => {
@@ -46,7 +45,7 @@ export const convertReminderToJson = ({
     const {
       andpadInvoiceUrl,
       chatworkRoomIds,
-      conectedToAndpad,
+      connectedToAndpad,
       storeName,
       systemId,
       yumeAGs,
@@ -65,7 +64,7 @@ export const convertReminderToJson = ({
 
     // 請求書が発行されているかどうかを確認する
     let hasInvoice = false;
-    if (conectedToAndpad) {
+    if (connectedToAndpad) {
       hasInvoice = andpadPayments.some(({
         systemId: paymentSystemId,
       }) => ((systemId === paymentSystemId.value)));
@@ -73,7 +72,7 @@ export const convertReminderToJson = ({
 
 
     return ({
-      alertState: conectedToAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
+      alertState: connectedToAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
       reminderUrl: reminderUrl,
       systemId: systemId ?? '',
       contractId: contractId.value,

@@ -16,7 +16,6 @@ export const ContactName = ({
     name: `customers.${index}.${relFieldName}`,
   });
 
-  console.log(relField);
   if (!relField || relField === '契約者') return null;
 
   return (

@@ -30,7 +30,6 @@ export const Customer = ({
       birthYear,
       birthMonth,
       birthDay,
-      isSameAsMain,
     } = customer;
 
     const tels = getContactByType(contacts, 'tel');
@@ -73,18 +72,16 @@ export const Customer = ({
       },
       {
         label: '住所',
-        value: +isSameAsMain.value 
-          ? '顧客１と同じ' 
-          : (<>
-            <div>
-              {newPostal}
-            </div>
-            { addressBuilder({
-              address1: address1.value,
-              address2: address2.value,
-            })}
-          </>
-          ),
+        value: (<>
+          <div>
+            {newPostal}
+          </div>
+          { addressBuilder({
+            address1: address1.value,
+            address2: address2.value,
+          })}
+        </>
+        ),
       },
 
     ];

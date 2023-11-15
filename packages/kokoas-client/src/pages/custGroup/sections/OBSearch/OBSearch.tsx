@@ -1,4 +1,4 @@
-import { Button, FormHelperText, Stack } from '@mui/material';
+import { Button, Stack, Tooltip } from '@mui/material';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useState } from 'react';
 import { SearchDialog } from './SearchDialog';
@@ -15,28 +15,27 @@ export const OBSearch = () => {
   };
 
   return (
-    <Stack
-      spacing={1}
-      sx={{
-        maxWidth: '300px',
-      }}
-    >
-      <Button
-        variant='outlined'
-        color='secondary'
-        startIcon={<PersonSearchIcon />}
-        onClick={handleOpen}
+    <Tooltip title='以前登録した顧客を検索し、編集画面に移動します。ただし、契約後、その内容は契約書に反映されません。'>
+      <Stack
+        spacing={1}
+        sx={{
+          maxWidth: '300px',
+        }}
       >
-        OBを検索する
-      </Button>
-      <FormHelperText>
-        当面、ココアスで登録されているOBのみ検索できます。
-      </FormHelperText>
-      <SearchDialog 
-        open={open}
-        handleClose={handleClose}
-      />
+        <Button
+          variant='outlined'
+          color='secondary'
+          startIcon={<PersonSearchIcon />}
+          onClick={handleOpen}
+        >
+          OBを検索する
+        </Button>
+        <SearchDialog 
+          open={open}
+          handleClose={handleClose}
+        />
 
-    </Stack>
+      </Stack>
+    </Tooltip>
   );
 };

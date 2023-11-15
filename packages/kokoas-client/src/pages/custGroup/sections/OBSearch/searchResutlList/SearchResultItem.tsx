@@ -1,12 +1,17 @@
-import { FormControlLabel, Radio } from '@mui/material';
+import { ListItemButton, Stack, styled } from '@mui/material';
 import { ICustgroups } from 'types';
 
 import { VirtualItem } from '@tanstack/react-virtual';
-import { SearchResultItemContent } from './SearchResultItemContent';
+import { Customers, ResultItemTitle } from './ResultItemTitle';
+import { ResultItemRelatedProj } from './ResultItemRelatedProj';
 
-
-
-
+const ItemContainer = styled(ListItemButton)(({ theme }) => ({
+  width: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  borderBottom: `1px solid ${theme.palette.divider}`,
+}));
 
 export const SearchResultItem = ({
   item,
@@ -16,28 +21,32 @@ export const SearchResultItem = ({
   virtualItem: VirtualItem,
 }) => {
 
+  const customers: Customers = item.members.value
+    .map(({ value: member }) => {
+      return {
+        custId: member.custId.value,
+        custName: member.customerName.value,
+        custKana: member.custNameReading.value,
+      };
+    });
 
   return (
-
-    <FormControlLabel 
+    <ItemContainer
+      data-index={virtualItem.index}
       style={{
-        top: 0,
-        left: 0,
-        width: '100%',
-        position: 'absolute',
         height: `${virtualItem.size}px`,
         transform: `translateY(${virtualItem.start}px)`,
-        borderBottom: '1px solid #e0e0e0',
       }}
-      sx={{
-        '& .MuiFormControlLabel-label': {
-          flexGrow: 1,
-        },
-      }}
-      value={item.uuid.value}
-      control={<Radio />}
-      label={(<SearchResultItemContent item={item} />)}
-    />
+    >
+      <Stack>
+        <ResultItemTitle 
+          customers={customers}
+        />
+        <ResultItemRelatedProj item={item} />
+      </Stack>
+
+
+    </ItemContainer>
    
 
   );

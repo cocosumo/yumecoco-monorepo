@@ -1,6 +1,4 @@
-import { Stack, Tooltip, Typography } from '@mui/material';
-import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
-import { Fragment } from 'react';
+import { Typography } from '@mui/material';
 
 
 export type Customers = Array<{
@@ -11,9 +9,7 @@ export type Customers = Array<{
 
 export const ResultItemTitle = ({
   customers,
-  createDate,
 }:{
-  createDate: string, // ISO8601
   customers: Customers,
 }) => {
 
@@ -23,65 +19,18 @@ export const ResultItemTitle = ({
 
   
   return (
-    <Stack
-      direction='row'
-      justifyContent='space-between'
-      alignItems='center'
-      flexGrow={1}
+
+    <Typography
+      sx={{
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        maxWidth: 300,
+      }}
     >
-      <Tooltip 
-        title={(<Stack>
-          {customers.map((customer) => {
-            return (
-              <Fragment
-                key={customer.custId}
-              >
-                <Typography
-                  fontSize={'0.75rem'}
-                >
-                  {customer.custName}
-                </Typography>
-                <Typography
-                  fontSize={'0.6rem'}
-                  mb={1}
-                >
-                  {customer.custKana}
-                </Typography>
-              </Fragment>
-            );
-          })}
-        </Stack>)}
-      >
-        <Typography
-          sx={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-            maxWidth: 300,
-          }}
-        >
-          {custNames}
-        </Typography>
-      </Tooltip>
-      <span>
-        <Typography
-          sx={{
-            display: 'inline-block',
-            mr: 1,
-          }}
-          color={'text.secondary'}
-          fontSize={'0.6rem'}
-        >
-          作成日時
-        </Typography>
-        <Typography
-          fontSize={'0.75rem'}
-        >
-          {parseISOTimeToFormat(createDate) }
-        </Typography>
-      </span>
+      {custNames}
+    </Typography>
 
 
-    </Stack>
   );
 };

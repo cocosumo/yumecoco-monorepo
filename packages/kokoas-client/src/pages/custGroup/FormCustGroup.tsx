@@ -49,11 +49,9 @@ export const FormCustGroup = () => {
           />
 
           <DeletedAlert />
-          {
-            !isProd && (
-              <OBSearch />
-            )
-          }
+  
+          <OBSearch />
+  
 
           <PageSubTitle3 label={'顧客情報'} />
           <CustomersInput />

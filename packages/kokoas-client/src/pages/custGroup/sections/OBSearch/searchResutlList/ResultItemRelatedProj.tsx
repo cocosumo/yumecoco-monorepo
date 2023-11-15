@@ -28,11 +28,6 @@ export const ResultItemRelatedProj = ({
       {!!projRecs.length && (
         <CustomWidthTooltip 
           title={<ProjectsToolTipContent projects={projRecs} />}
-          sx={{
-            '& .MuiTooltip-tooltip': {
-              maxWidth: 1000,
-            },
-          }}
         >
           <Stack 
             direction={'row'}
@@ -43,6 +38,11 @@ export const ResultItemRelatedProj = ({
               fontSize={'0.75rem'}
               sx={{
                 mr: 1,
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                maxWidth: 360,
+             
               }}
             >
               {projRecs[0].projName.value}
@@ -52,7 +52,8 @@ export const ResultItemRelatedProj = ({
               color={'text.secondary'}
               fontSize={'0.6rem'}
               bgcolor={grey[50]}
-              padding={0.5}          
+              padding={0.5}
+              whiteSpace={'nowrap'}
             >
               {`+${projRecs.length}案件`}
             </Typography>

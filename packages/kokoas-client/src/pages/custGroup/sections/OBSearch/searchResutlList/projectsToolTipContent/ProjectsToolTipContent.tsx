@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Divider, Stack, Typography } from '@mui/material';
 import { IProjects } from 'types';
 import { ContractAmount } from './ContractAmount';
 
@@ -11,7 +11,10 @@ export const ProjectsToolTipContent = ({
 }) => {
 
   return (
-    <Stack width={300}>
+    <Stack
+      spacing={0.5}
+      divider={<Divider flexItem sx={{ borderColor: 'white' }}  />}
+    >
       {projects.map((project) => {
         return (
           <Stack
@@ -21,13 +24,8 @@ export const ProjectsToolTipContent = ({
             justifyContent={'space-between'}
           >
             <Typography
-              maxWidth={250}
+              maxWidth={'300px'}
               fontSize={'0.6rem'}
-              sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
             >
               {project.projName.value}
             </Typography>

@@ -25,7 +25,7 @@ export const ResultItemTitle = ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
-        maxWidth: 300,
+        maxWidth: 400,
         fontWeight: 600,
         letterSpacing: 0.5,
         color: 'text.primary',

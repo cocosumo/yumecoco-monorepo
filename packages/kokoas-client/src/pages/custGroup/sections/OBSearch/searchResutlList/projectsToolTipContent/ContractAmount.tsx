@@ -16,6 +16,8 @@ export const ContractAmount = ({
   return (
     <Typography
       fontSize={'0.6rem'}
+      whiteSpace={'nowrap'}
+      ml={2}
     >
       {`${合計受注金額税込.toLocaleString()} 円`}
     </Typography>

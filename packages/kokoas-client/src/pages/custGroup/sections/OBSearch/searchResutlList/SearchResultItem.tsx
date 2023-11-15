@@ -1,43 +1,68 @@
-import { FormControlLabel, Radio } from '@mui/material';
+import { ListItemButton, Stack, styled } from '@mui/material';
 import { ICustgroups } from 'types';
 
 import { VirtualItem } from '@tanstack/react-virtual';
-import { SearchResultItemContent } from './SearchResultItemContent';
+import { Customers, ResultItemTitle } from './ResultItemTitle';
+import { ResultItemRelatedProj } from './ResultItemRelatedProj';
+import { useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
 
-
-
-
+const ItemContainer = styled(ListItemButton)(({ theme }) => ({
+  width: '100%',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  borderBottom: `1px solid ${theme.palette.divider}`,
+}));
 
 export const SearchResultItem = ({
   item,
   virtualItem,
+  handleCloseDialog,
 }:{
   item: ICustgroups,
   virtualItem: VirtualItem,
+  handleCloseDialog: () => void,
 }) => {
+  const { setSnackState } = useSnackBar();
+  const customers: Customers = item.members.value
+    .map(({ value: member }) => {
+      return {
+        custId: member.custId.value,
+        custName: member.customerName.value,
+        custKana: member.custNameReading.value,
+      };
+    });
 
+  const navigate = useNavigateWithQuery();
+  
 
   return (
-
-    <FormControlLabel 
+    <ItemContainer
+      data-index={virtualItem.index}
       style={{
-        top: 0,
-        left: 0,
-        width: '100%',
-        position: 'absolute',
         height: `${virtualItem.size}px`,
         transform: `translateY(${virtualItem.start}px)`,
-        borderBottom: '1px solid #e0e0e0',
       }}
-      sx={{
-        '& .MuiFormControlLabel-label': {
-          flexGrow: 1,
-        },
+      onClick={() => {
+        navigate('custGroupEditV2', {
+          custGroupId: item.uuid.value,
+        });
+        setSnackState({
+          open: true,
+          message: `「${customers?.map(({ custName }) => custName ).join('、') }」を編集する画面に遷移しました`,
+        });
+        handleCloseDialog();
       }}
-      value={item.uuid.value}
-      control={<Radio />}
-      label={(<SearchResultItemContent item={item} />)}
-    />
+    >
+      <Stack>
+        <ResultItemTitle 
+          customers={customers}
+        />
+        <ResultItemRelatedProj item={item} />
+      </Stack>
+
+
+    </ItemContainer>
    
 
   );

@@ -14,13 +14,15 @@ export const SearchDialog = ({
     <Dialog 
       open={open}
       onClose={handleClose}
-      maxWidth='sm'
+      maxWidth='xs'
       fullWidth
     >
       <DialogTitle>
         OBを検索する
       </DialogTitle>
-      <SearchDialogContent />
+      <SearchDialogContent 
+        handleCloseDialog={handleClose}
+      />
       <DialogActions>
         <Button
           onClick={handleClose}

@@ -1,60 +1,69 @@
 import { ICustgroups } from 'types';
 import { SearchResultItem } from './SearchResultItem';
-import { RadioGroup } from '@mui/material';
 import { useRef } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Box } from '@mui/system';
+import { List, styled } from '@mui/material';
+
+const OuterScrollableContainer = styled(Box)(({ theme }) => ({
+  height: 400,
+  overflow: 'auto',
+  borderTop: `1px solid ${theme.palette.divider}`,
+  borderBottom: `1px solid ${theme.palette.divider}`,
+}));
+
+const InnerContainer = styled(List)(({ theme }) => ({
+  width: '100%',
+  position: 'relative',
+  backgroundColor: theme.palette.background.paper,
+}));
 
 export const SearchResultList = ({
   data = [],
+  handleCloseDialog,
 }:{
   data: ICustgroups[],
+  handleCloseDialog: () => void,
 }) => {
 
   const parentRef = useRef<HTMLDivElement>(null);
   const rowVirtualizer = useVirtualizer({
     count: data.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 80,
+    estimateSize: () => 65,
   });
 
-
+  const items = rowVirtualizer.getVirtualItems();
   
   return (
-    <Box
+    <OuterScrollableContainer
       ref={parentRef}
-      padding={2}
-      borderTop={1}
-      borderBottom={1}
-      borderColor={'divider'}
-      height={400}
-      overflow={'auto'}
     >
-      <Box
-        height={`${rowVirtualizer.getTotalSize()}px`}
-        width={'100%'}
-        position={'relative'}
-        display={'block'}
+      <InnerContainer
+        sx={{
+          height: `${rowVirtualizer.getTotalSize()}px`,
+        }}
+        
       >
-      
-        <RadioGroup>
-          {rowVirtualizer.getVirtualItems().map((virtualItem) => {
+        {items.map((virtualItem) => {
 
-            const item = data[virtualItem.index];
+          const item = data[virtualItem.index];
           
-            return (
-              <SearchResultItem 
-                key={virtualItem.key}
-                item={item}
-                virtualItem={virtualItem}
-              />
+          return (
+            
+            <SearchResultItem 
+              key={virtualItem.key}
+              item={item}
+              virtualItem={virtualItem}
+              handleCloseDialog={handleCloseDialog}
+            />
 
-            );
-          })}
+          );
+        })}
       
-        </RadioGroup>
-      </Box>
-    </Box>
+
+      </InnerContainer>
+    </OuterScrollableContainer>
     
   );
 };

@@ -1,8 +1,9 @@
-import { Alert, CircularProgress, DialogContent, InputAdornment, Stack, TextField } from '@mui/material';
+import { Box, CircularProgress, DialogContent, InputAdornment, TextField } from '@mui/material';
 import { useCallback, useEffect, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 import { useSearchCustGroupByKeyword } from 'kokoas-client/src/hooksQuery';
 import { SearchResultList } from './searchResutlList/SearchResultList';
+import SearchIcon from '@mui/icons-material/Search';
 
 const DebouncedTextField = ({
   handledDebouncedChange,
@@ -26,13 +27,14 @@ const DebouncedTextField = ({
       }}
       size='small'
       label='顧客名'
-      sx={{
-        maxWidth: '300px',
-      }}
+      fullWidth
       InputProps={{
-        endAdornment: isLoading && (
-        <InputAdornment position='end'>
-          <CircularProgress size={20} />
+        endAdornment: (<InputAdornment position='end'>
+
+          {isLoading 
+            ? <CircularProgress size={18} />
+            :   <SearchIcon />}
+
         </InputAdornment> ),
       }}
       placeholder='氏名・シメイ'
@@ -41,7 +43,11 @@ const DebouncedTextField = ({
   );
 };
 
-export const SearchDialogContent = () => {
+export const SearchDialogContent = ({
+  handleCloseDialog,
+}:{
+  handleCloseDialog: () => void,
+}) => {
   const [value, setValue] = useState('');
 
   const debouncedValue = useDebounce(value, 1500);
@@ -60,26 +66,26 @@ export const SearchDialogContent = () => {
       sx={{
         height: '70vh',
         overflow: 'hidden',
+        px: 0,
       }}
+      
     >
-      <Stack 
+      <Box 
         mt={1} 
-        spacing={2}
-        height={'100%'}
+        px={2}
+        pb={2}
       >
-        <Alert severity='info'>
-          開発段階です。しばらくお待ちください。
-          提案がありましたら、気楽にお声がけください。
-        </Alert>
         
         <DebouncedTextField
           handledDebouncedChange={handleDebounceValue}
           isLoading={isFetching}
         />
+      </Box>
+      <SearchResultList 
+        data={data}
+        handleCloseDialog={handleCloseDialog}
+      />
 
-        <SearchResultList data={data} />
-
-      </Stack>
     </DialogContent>
   );
 };

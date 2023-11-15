@@ -50,6 +50,7 @@ export const SearchResultItem = ({
         setSnackState({
           open: true,
           message: `「${customers?.map(({ custName }) => custName ).join('、') }」を編集する画面に遷移しました`,
+          autoHideDuration: 5000,
         });
         handleCloseDialog();
       }}

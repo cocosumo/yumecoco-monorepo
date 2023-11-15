@@ -1,47 +1,19 @@
-import { Box, CircularProgress, DialogContent, InputAdornment, TextField } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
-import { useSearchCustGroupByKeyword } from 'kokoas-client/src/hooksQuery';
+import { DialogContent, Stack, Typography } from '@mui/material';
+import { useCallback, useState } from 'react';
 import { SearchResultList } from './searchResutlList/SearchResultList';
-import SearchIcon from '@mui/icons-material/Search';
+import { SearchTextField } from '../../fields/SearchTextField';
+import { SearchFilter } from './SearchFilter';
+import { useFilteredCustGroup } from './useFilteredCustGroup';
 
-const DebouncedTextField = ({
-  handledDebouncedChange,
-  isLoading,
-}:{
-  handledDebouncedChange: (newValue: string) => void,
-  isLoading: boolean,
-}) => {
-
-  const [value, setValue] = useState('');
-
-  const debouncedValue = useDebounce(value, 500);
-
-  useEffect(() => handledDebouncedChange(debouncedValue), [handledDebouncedChange, debouncedValue]);
-
-  return (
-    <TextField 
-      value={value}
-      onChange={(e) => {
-        setValue(e.target.value);
-      }}
-      size='small'
-      label='顧客名'
-      fullWidth
-      InputProps={{
-        endAdornment: (<InputAdornment position='end'>
-
-          {isLoading 
-            ? <CircularProgress size={18} />
-            :   <SearchIcon />}
-
-        </InputAdornment> ),
-      }}
-      placeholder='氏名・シメイ'
-      helperText='2文字以上で検索できます'
-    />
-  );
+const initialStatusFilter = {
+  契約有: false,
+  案件有: false,
+  顧客登録のみ: false,
 };
+
+export type TStatusFilter = typeof initialStatusFilter;
+export type KStatusFilter = keyof TStatusFilter;
+
 
 export const SearchDialogContent = ({
   handleCloseDialog,
@@ -49,17 +21,29 @@ export const SearchDialogContent = ({
   handleCloseDialog: () => void,
 }) => {
   const [value, setValue] = useState('');
+  const [statusFilter, setStatusFilter] = useState(initialStatusFilter);
 
-  const debouncedValue = useDebounce(value, 1500);
+  const { 
+    data = [], 
+    isLoading, 
+  } = useFilteredCustGroup({ 
+    keyword: value,
+    filter: statusFilter,
+  });
+
 
   const handleDebounceValue = useCallback((newValue: string) => {
     setValue(newValue);
   }, []);
 
-  const { 
-    data = [], 
-    isFetching, 
-  } = useSearchCustGroupByKeyword({ keyword: debouncedValue });
+  const handeOnStatusFilterClick = useCallback((status: KStatusFilter) => {
+    setStatusFilter((prev) => ({
+      ...initialStatusFilter,
+      [status]: !prev[status],
+    }));
+  }, 
+  []);
+
 
   return (
     <DialogContent
@@ -70,17 +54,35 @@ export const SearchDialogContent = ({
       }}
       
     >
-      <Box 
-        mt={1} 
+      <Stack 
+        mt={2} 
         px={2}
         pb={2}
+        direction={'row'}
+        alignItems={'start'}
+        spacing={1}
       >
-        
-        <DebouncedTextField
+
+        <SearchTextField
           handledDebouncedChange={handleDebounceValue}
-          isLoading={isFetching}
+          isLoading={isLoading}
         />
-      </Box>
+        <SearchFilter 
+          statusFilter={statusFilter}
+          onStatusFilterClick={handeOnStatusFilterClick}
+        />
+      </Stack>
+
+      <Typography
+        sx={{
+          px: 2,
+          pb: 1,
+        }}
+        color={'text.secondary'}
+        fontSize={'0.75rem'}
+      >
+        {`検索結果: ${data.length}件`}
+      </Typography>
       <SearchResultList 
         data={data}
         handleCloseDialog={handleCloseDialog}

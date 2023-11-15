@@ -12,11 +12,9 @@ import { useProjsByCustGroupId } from './useProjsByCustGroupId';
 export const useContractsByCustGroupIdV2 = ({
   custGroupId,
   envStatus = 'completed',
-  enabled = true,
 }:{
   custGroupId: string,
   envStatus?: TEnvelopeStatus,
-  enabled?: boolean,
 }) => {
   const { data: projRecs = [] } = useProjsByCustGroupId(custGroupId);
   
@@ -24,7 +22,6 @@ export const useContractsByCustGroupIdV2 = ({
 
   return useContractsByProjIds({
     projIds,
-    enabled: !!projIds.length && enabled,
     envStatus: envStatus,
   });
 

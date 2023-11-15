@@ -1,4 +1,4 @@
-import { Chip, Stack, styled } from '@mui/material';
+import { Chip, Stack, Zoom, styled } from '@mui/material';
 import { useContractsByCustGroupIdV2 } from 'kokoas-client/src/hooksQuery';
 import { ICustgroups } from 'types';
 
@@ -35,18 +35,18 @@ export const ResultItemStatuses = ({
       <StatusChip
         label={item.storeName.value}
       />
-      {isDeleted && (
-      <StatusChip
-        label={'無効'}
-        color='error'
-      />
-      )}
-      {hasCompletedContracts && (
-      <StatusChip
-        label={'契約有'}
-        color='success'
-      />
-      )}
+      <Zoom in={isDeleted} unmountOnExit >
+        <StatusChip
+          label={'無効'}
+          color='error'
+        />
+      </Zoom>
+      <Zoom in={hasCompletedContracts} unmountOnExit >
+        <StatusChip
+          label={'契約有'}
+          color='success'
+        />
+      </Zoom>
 
 
 

@@ -1,8 +1,7 @@
 
-import { AppIds } from 'config';
-import { useQuery } from '@tanstack/react-query';
-import { getContractsByProjIds } from 'api-kintone/src/contracts/getContractsByProjIds';
 import { TEnvelopeStatus } from 'types';
+import { useAllContracts } from './useAllContracts';
+import { useCallback } from 'react';
 
 /**
  * 複数工事番号で契約一覧を取得する
@@ -10,21 +9,15 @@ import { TEnvelopeStatus } from 'types';
 export const useContractsByProjIds = ({
   projIds = [],
   envStatus,
-  enabled = true,
 }:{
   projIds: string[],
   envStatus?: TEnvelopeStatus,
-  enabled?: boolean,
 }) => {
 
-  return useQuery(
-    [AppIds.contracts, 'projIds', projIds],
-    () => getContractsByProjIds({
-      projIds,
-      envStatus,
-    }),
-    {
-      enabled: !!projIds.length && enabled,
-    },
-  );
+  return useAllContracts({
+    select: useCallback((data) => {
+      return data.filter((rec) => projIds.includes(rec.projId.value) && (rec.envelopeStatus.value as TEnvelopeStatus) === envStatus);
+    }, [envStatus, projIds]),
+  });
+
 };

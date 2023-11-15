@@ -26,6 +26,9 @@ export const ResultItemTitle = ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
         maxWidth: 300,
+        fontWeight: 600,
+        letterSpacing: 0.5,
+        color: 'text.primary',
       }}
     >
       {custNames}

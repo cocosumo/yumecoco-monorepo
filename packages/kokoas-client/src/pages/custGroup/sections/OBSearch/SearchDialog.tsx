@@ -18,7 +18,7 @@ export const SearchDialog = ({
       fullWidth
     >
       <DialogTitle>
-        OBを検索する
+        顧客を検索する
       </DialogTitle>
       <SearchDialogContent 
         handleCloseDialog={handleClose}

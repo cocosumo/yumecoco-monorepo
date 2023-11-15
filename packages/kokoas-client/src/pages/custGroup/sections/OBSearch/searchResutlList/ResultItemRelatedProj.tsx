@@ -1,9 +1,10 @@
 
-import { Chip, CircularProgress, Stack, Typography } from '@mui/material';
+import { CircularProgress, Stack, Typography } from '@mui/material';
 import { useProjsByCustGroupId } from 'kokoas-client/src/hooksQuery';
 import { ICustgroups } from 'types';
 import { ProjectsToolTipContent } from './projectsToolTipContent/ProjectsToolTipContent';
 import { CustomWidthTooltip } from './projectsToolTipContent/CustomTooltip';
+import { grey } from '@mui/material/colors';
 
 
 
@@ -47,11 +48,16 @@ export const ResultItemRelatedProj = ({
               {projRecs[0].projName.value}
             </Typography>
             {projRecs.length > 1 && (
-            <Chip 
-              label={`+ ${projRecs.length}件`}
-              size='small'
-            />
+            <Typography 
+              color={'text.secondary'}
+              fontSize={'0.6rem'}
+              bgcolor={grey[50]}
+              padding={0.5}          
+            >
+              {`+${projRecs.length}案件`}
+            </Typography>
             )}
+
           </Stack>
         </CustomWidthTooltip>
  

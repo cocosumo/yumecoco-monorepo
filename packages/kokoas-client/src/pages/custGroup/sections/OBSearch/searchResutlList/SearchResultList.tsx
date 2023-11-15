@@ -30,7 +30,7 @@ export const SearchResultList = ({
   const rowVirtualizer = useVirtualizer({
     count: data.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 65,
+    estimateSize: () => 80,
   });
 
   const items = rowVirtualizer.getVirtualItems();

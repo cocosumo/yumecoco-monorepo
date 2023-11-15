@@ -12,7 +12,6 @@ import { Actions } from './sections/actions/Actions';
 import { useEffect } from 'react';
 import { DeletedAlert } from './sections/DeletedAlert';
 import { OBSearch } from './sections/OBSearch/OBSearch';
-import { isProd } from 'config';
 
 export const FormCustGroup = () => {
   const formValues = useResolveParams();

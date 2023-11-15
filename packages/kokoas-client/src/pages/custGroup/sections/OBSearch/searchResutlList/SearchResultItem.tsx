@@ -5,6 +5,7 @@ import { VirtualItem } from '@tanstack/react-virtual';
 import { Customers, ResultItemTitle } from './ResultItemTitle';
 import { ResultItemRelatedProj } from './ResultItemRelatedProj';
 import { useNavigateWithQuery, useSnackBar } from 'kokoas-client/src/hooks';
+import { ResultItemStatuses } from './ResultItemStatuses';
 
 const ItemContainer = styled(ListItemButton)(({ theme }) => ({
   width: '100%',
@@ -55,12 +56,16 @@ export const SearchResultItem = ({
         handleCloseDialog();
       }}
     >
+
       <Stack>
         <ResultItemTitle 
           customers={customers}
         />
         <ResultItemRelatedProj item={item} />
+        <ResultItemStatuses item={item} />
+
       </Stack>
+
 
 
     </ItemContainer>

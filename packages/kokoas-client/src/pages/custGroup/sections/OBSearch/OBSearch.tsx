@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SearchDialog } from './SearchDialog';
 import { useTypedFormContext } from '../../hooks/useTypedHooks';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
-import HelpIcon from '@mui/icons-material/Help';
+import InfoIcon from '@mui/icons-material/Info';
 
 export const OBSearch = () => {
   const [open, setOpen] = useState(false);
@@ -59,13 +59,13 @@ export const OBSearch = () => {
           
         }}
       >
-        OBを検索する
+        顧客を検索する
       </Button>
       <Tooltip 
         title='以前登録した顧客を検索し、編集画面に移動します。ただし、契約後、その内容は契約書に反映されません。'
         arrow
       >
-        <HelpIcon sx={{
+        <InfoIcon sx={{
           cursor: 'help',
         }} color={'secondary'}
         />

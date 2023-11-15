@@ -1,4 +1,4 @@
-import { Button, Stack, Tooltip } from '@mui/material';
+import { Alert, Button, Stack, Tooltip } from '@mui/material';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { useState } from 'react';
 import { SearchDialog } from './SearchDialog';
@@ -42,8 +42,14 @@ export const OBSearch = () => {
           if (isDirty) {
             setDialogState({
               open: true,
-              title: '保存されていない変更があります。',
-              content: '保存されていない変更があります。OBを検索すると、変更内容は破棄されます。',
+              title: '保存されていない変更があります',
+              content: (
+                <Alert 
+                  severity='warning'
+                >
+                  遷移後、変更内容は破棄されます。このまま進みますか。
+                </Alert>
+              ),
               willCloseOnYes: true,
               handleYes: handleOpen,
             });

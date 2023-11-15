@@ -20,7 +20,9 @@ export const SearchDialog = ({
       <DialogTitle>
         OBを検索する
       </DialogTitle>
-      <SearchDialogContent />
+      <SearchDialogContent 
+        handleCloseDialog={handleClose}
+      />
       <DialogActions>
         <Button
           onClick={handleClose}

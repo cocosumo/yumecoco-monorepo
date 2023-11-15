@@ -20,8 +20,10 @@ const InnerContainer = styled(List)(({ theme }) => ({
 
 export const SearchResultList = ({
   data = [],
+  handleCloseDialog,
 }:{
   data: ICustgroups[],
+  handleCloseDialog: () => void,
 }) => {
 
   const parentRef = useRef<HTMLDivElement>(null);
@@ -53,6 +55,7 @@ export const SearchResultList = ({
               key={virtualItem.key}
               item={item}
               virtualItem={virtualItem}
+              handleCloseDialog={handleCloseDialog}
             />
 
           );

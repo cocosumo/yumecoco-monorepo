@@ -43,7 +43,11 @@ const DebouncedTextField = ({
   );
 };
 
-export const SearchDialogContent = () => {
+export const SearchDialogContent = ({
+  handleCloseDialog,
+}:{
+  handleCloseDialog: () => void,
+}) => {
   const [value, setValue] = useState('');
 
   const debouncedValue = useDebounce(value, 1500);
@@ -77,7 +81,10 @@ export const SearchDialogContent = () => {
           isLoading={isFetching}
         />
       </Box>
-      <SearchResultList data={data} />
+      <SearchResultList 
+        data={data}
+        handleCloseDialog={handleCloseDialog}
+      />
 
     </DialogContent>
   );

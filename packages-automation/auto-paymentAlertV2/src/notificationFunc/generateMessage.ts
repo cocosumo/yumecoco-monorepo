@@ -27,7 +27,12 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
 [hr]
 `;
 
-  const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
+  const contractDateMsg = contractDate === '' ?
+    '取得に失敗しました。' : `${format(parseISO(contractDate), 'yyyy年M月d日')}`;
+
+
+
+  const content = `契約日  : ${contractDateMsg}
 工事名  : ${projName}
 契約金額: ${(+totalContractAmount).toLocaleString()} 円
 請求金額: ${(+expectedPaymentAmt).toLocaleString()} 円

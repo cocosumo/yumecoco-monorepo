@@ -7,6 +7,7 @@ import { ICustgroups } from 'types';
 
 /**
  * 顧客グループを取得する
+ * @deprecated この関数は廃止予定です。代わりに useSearchCustGroupByKeyword を使用してください。
  */
 export const useSearchCustGroup = <T = unknown>(
   search: Parameters<typeof searchCustGroups>[0],

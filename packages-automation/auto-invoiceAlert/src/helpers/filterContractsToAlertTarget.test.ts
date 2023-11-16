@@ -3,30 +3,34 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { filterContractsToAlertTarget } from './filterContractsToAlertTarget';
-import { getAllAndpadPayments } from 'api-kintone';
-import { ContractRecordType } from '../../config';
+import { getAllAndpadPayments, getAllProjects } from 'api-kintone';
 //import addMonths from 'date-fns/addMonths';
 import { getAllInvoiceReminder } from '../api-kintone';
+import { filterContractsByTargetProjType } from './filterContractsByTargetProjType';
 
 
 describe('filterContractsToAlertTarget', () => {
   it('should return alert date', async () => {
 
-    const contractsPath = path.join(__dirname, './__TEST__/contracts.json');
-    const contracts = JSON.parse(fs.readFileSync(contractsPath, 'utf8')) as ContractRecordType[];
+    console.log('env_mode', process.env);
 
     const [
       allAndpadPayments,
       allInvoiceReminders,
+      allProjects,
+      tgtContracts,
     ] = await Promise.all([
       getAllAndpadPayments(),
       getAllInvoiceReminder(),
+      getAllProjects(),
+      filterContractsByTargetProjType(),
     ]);
 
-    const result = await filterContractsToAlertTarget({
-      contracts: contracts,
+    const result = filterContractsToAlertTarget({
+      contracts: tgtContracts,
       andpadPayments: allAndpadPayments,
       reminders: allInvoiceReminders,
+      projects: allProjects,
     });
 
     const dir = path.join(__dirname, '__TEST__');

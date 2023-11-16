@@ -25,9 +25,14 @@ export const DownloadResult = ({
         '顧客名（連名）': d.custNames,
         電話番号: d.tel,
         工事名: d.projName,
+        顧客郵便番号: d.custPostalCode,
         顧客住所: d.custAddress,
-        工事住所: d.projAddress,
-        工事確定住所: d.projAddressConfirmed,
+
+        // K246 工事確定住所が入力されている工事は、工事確定住所を工事住所として表示してほしい
+        工事郵便番号: d.projPostalCodeConfirmed ? d.projPostalCodeConfirmed :  d.projPostalCode,
+        工事住所: d.projAddressConfirmed || d.projAddress,
+        
+        
         夢てつAG: d.yumeAG,
         ここすも営業担当: d.cocoAG,
         ここすも工事担当: d.cocoConst,
@@ -35,7 +40,6 @@ export const DownloadResult = ({
         不動産決済日: d.estatePurchaseDate,
         設計申込日: d.planApplicationDate,
         契約予定日: d.schedContractDate,
-        リンク : `https://rdmuhwtt6gx7.cybozu.com/k/149/#/project/edit/v2?projId=${d.projId}`,
       });
     });
 

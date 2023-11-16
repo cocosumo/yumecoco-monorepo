@@ -38,10 +38,8 @@ export const ControlledTextField = ({
         },
         fieldState: {
           error,
-          isTouched,
         },
       }) => {
-
 
         return (
           <TextField 
@@ -53,7 +51,7 @@ export const ControlledTextField = ({
               width,
             }}
             size='small'
-            error={isTouched && !!error}
+            error={!!error}
             helperText={error?.message || helperText}
             disabled={disabled}
             required={required}

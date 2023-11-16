@@ -20,6 +20,7 @@ export const convertContractToForm = (
     projPeriod,
     annotation,
 
+    includePlanContractAmt,
     totalContractAmt,
     totalProfit,
 
@@ -93,6 +94,7 @@ export const convertContractToForm = (
     projPeriod: +(projPeriod?.value || 30),
     annotation: annotation?.value || '',
 
+    includePlanContractAmt: includePlanContractAmt.value === '1',
     totalContractAmtAfterTax: roundTo(+totalContractAmt.value),
     totalProfit: roundTo(+totalProfit.value),
     taxRate: +tax.value,

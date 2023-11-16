@@ -3,8 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { convertContractsToJson } from './convertContractsToJson';
-import { getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
+import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 describe('convertContractsToJson', () => {
@@ -18,15 +18,18 @@ describe('convertContractsToJson', () => {
       allProjects,
       allEmployees,
       allStores,
+      allContracts,
       allOrders,
     ] = await Promise.all([
       getAllProjects(),
       getEmployees(),
       getAllStores(),
-      getMyOrders(),
+      getAllContracts(),
+      getAllAndpadOrders({ beforeInvoiceIssue: true }),
     ]);
 
-    const result = await convertContractsToJson({
+    const result = convertContractsToJson({
+      allContracts: allContracts,
       contracts: contracts,
       projects: allProjects,
       employees: allEmployees,

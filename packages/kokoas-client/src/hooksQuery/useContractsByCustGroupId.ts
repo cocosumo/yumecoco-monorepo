@@ -6,6 +6,7 @@ import { useEstimates } from './useEstimates';
 
 /**
  * 顧客グループ番号で契約済み見積もり一覧を取得する
+ * @deprecated use useContractsByCustGroupIdV2 instead
  */
 export const useContractsByCustGroupId = (
   custGroupId = '',

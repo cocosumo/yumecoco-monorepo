@@ -56,9 +56,15 @@ const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** 工事種別のuuid */
+  projTypeId: z.string(),
+
   /** 契約のuuid */
   contractId: z.string().uuid()
     .optional(),
+
+  /** 設計契約金を含むかどうか */
+  includePlanContractAmt: z.boolean(),
 
   /** 契約合計金額（税込）*/
   totalContractAmtAfterTax: z.number(),

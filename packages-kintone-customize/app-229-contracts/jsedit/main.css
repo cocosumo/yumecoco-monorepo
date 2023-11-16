@@ -1,11 +1,16 @@
+/* カスタマイズ一覧メインCSS */
+
+/* kintoneのbottom menu */
 .contents-bottommenu-gaia {
   display: none;
 }
 
+/* カスタマイズ一覧画面（root） */
 #root {
   padding-bottom: 80px;
 }
 
+/* 印刷時 */
 @media print {
   html,
   body {
@@ -16,6 +21,7 @@
     padding-bottom: 12px;
   }
 
+  /* 印刷非表示 */
   .contents-actionmenu-gaia,
   .contents-bottommenu-gaia,
   .kintone-app-header-space,
@@ -28,12 +34,14 @@
     display: none !important;
   }
 
+  /* kintoneのindex下線 */
   .app-index-contents-gaia > .box-gaia {
     /* remove border */
     border: none !important;
   }
 
   /* page break before all .store_container except the first instance */
+  /* 店舗ごとにページを分ける場合に発生する 前後の空白ページを無くす */
   .store_container:not(:last-child) {
     page-break-before: always;
   }

@@ -18,7 +18,7 @@ describe('chatworkRoomIdSetting', () => {
       getEmployees(),
     ]);
 
-    const result = await chatworkRoomIdSetting({
+    const result = chatworkRoomIdSetting({
       agents: tgtProject.agents,
       employees: allEmployees,
     });

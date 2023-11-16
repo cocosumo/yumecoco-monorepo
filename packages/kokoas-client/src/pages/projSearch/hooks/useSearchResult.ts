@@ -11,6 +11,7 @@ import { getAgentsByType as getProjAgentsByType } from 'api-kintone/src/projects
 import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByType';
 import intersection from 'lodash/intersection';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
 
 
 
@@ -31,6 +32,10 @@ export const useSearchResult = () => {
     projTypes,
     cocoAG,
     yumeAG,
+
+    totalContractAmtIncTaxFrom,
+    totalContractAmtIncTaxTo,
+
     contractDateFrom,
     contractDateTo,
 
@@ -89,14 +94,15 @@ export const useSearchResult = () => {
         } = curr; // 工事情報;
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
+        
+        const projPostalCode = postal.value;
         const projAddress = addressBuilder({
-          postal: postal.value,
           address1: address1.value,
           address2: address2.value,
         });
 
+        const projPostalCodeConfirmed = finalPostal?.value;
         const projAddressConfirmed = addressBuilder({
-          postal: finalPostal?.value,
           address1: finalAddress1?.value,
           address2: finalAddress2?.value,
         });
@@ -107,6 +113,14 @@ export const useSearchResult = () => {
         if (!custGroup) return acc;
 
         const contracts = recContracts?.filter(({ projId: _prodId }) => projId.value === _prodId.value);
+        
+        const {
+          契約金額税込,
+          追加金額税込,
+        } = getContractsSummary(contracts || []);
+
+        const totalContractAmtIncTax = 契約金額税込 + 追加金額税込;
+        
         const firstContract = contracts?.[0];
 
         const {
@@ -151,6 +165,17 @@ export const useSearchResult = () => {
           fullNameReadings,
         } = groupCustContacts(relCustomers);
 
+        const {
+          postalCode: custPostalCode,
+          address1: custAddress1,
+          address2: custAddress2,
+        } = relCustomers?.[0] || {};
+
+        const custAddress = addressBuilder({
+          address1: custAddress1?.value,
+          address2: custAddress2?.value,
+        });
+
         /**　
          * 含めるかどうか判定。重くなったら、改修。
          * どうしても重いなら、サーバでキャッシュして処理する。
@@ -188,6 +213,9 @@ export const useSearchResult = () => {
         const isMatchCocoNames = !cocoAG?.length || !!intersection(cocoAG, [...cocoAGIds, ...cocoConstIds]).length;
         const isMatchYumeNames = !yumeAG?.length || !!intersection(yumeAG, yumeAGIds).length;
 
+        const isMatchContractAmtFrom = !totalContractAmtIncTaxFrom || (totalContractAmtIncTaxFrom && totalContractAmtIncTax >= totalContractAmtIncTaxFrom);
+        const isMatchContractAmtTo = !totalContractAmtIncTaxTo || (totalContractAmtIncTaxTo && totalContractAmtIncTax <= totalContractAmtIncTaxTo);
+
         const isMatchcontractDateFrom = !contractDateFrom || (contractDateFrom && contractDate?.value && contractDateFrom <= parseISO(contractDate?.value));
         const isMatchcontractDateTo = !contractDateTo || (contractDateTo && contractDate?.value && contractDateTo >= parseISO(contractDate?.value));
         const isMatchcompletionDateFrom = !completionDateFrom || (completionDateFrom && projFinDate?.value && completionDateFrom <= parseISO(projFinDate?.value));
@@ -209,6 +237,8 @@ export const useSearchResult = () => {
             && isMatchProjType
             && isMatchCocoNames
             && isMatchYumeNames
+            && isMatchContractAmtFrom
+            && isMatchContractAmtTo
             && isMatchcontractDateFrom
             && isMatchcontractDateTo
             && isMatchcompletionDateFrom
@@ -227,13 +257,16 @@ export const useSearchResult = () => {
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
             custNames: fullNames.join('、'),
             custNameKana: `${fullNameReadings[0]}`,
-            custAddress: `${addresses[0]}`,
+            custPostalCode: custPostalCode?.value || '-',
+            custAddress: `${custAddress}`,
             tel: custTels[0],
             telRelation: custTelRelation[0],
             storeName: `${storeName.value}`,
             uuid: projId.value,
             projName: projName.value,
+            projPostalCode: projPostalCode,
             projAddress: projAddress,
+            projPostalCodeConfirmed: projPostalCodeConfirmed,
             projAddressConfirmed: projAddressConfirmed,
             contractDate: contractDate?.value ? contractDate.value : '-',
             deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
@@ -246,7 +279,7 @@ export const useSearchResult = () => {
             yumeAG: yumeAGNames.join('、'),
             cocoAG: cocoAGNames.join('、'),
             cocoConst: cocoConstNames.join('、'),
-            
+            totalContractAmtIncTax: totalContractAmtIncTax,
           });
         }
 
@@ -259,6 +292,7 @@ export const useSearchResult = () => {
 
         switch (parseOrderBy) {
           case 'storeSortNumber':
+          case 'totalContractAmtIncTax':
             return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'contractDate':
           case 'createdAt':

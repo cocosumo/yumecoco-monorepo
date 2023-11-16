@@ -1,7 +1,9 @@
 import { getRecordPath } from 'api-kintone';
 import $ from 'jquery';
 import { appId } from '../../../../src/constants';
-
+/**
+ * 一覧の行をクリックすると詳細ページを開く
+*/
 export const handleClickRow = () => {
   $('.table_contracts_list tbody tr').off()
     .on('click', (event) => {

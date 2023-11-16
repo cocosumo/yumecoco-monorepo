@@ -30,7 +30,6 @@ const schema = z.object({
   /** 退職者 */
   includeRetired : z.boolean(),
   
-  
   /** ここすもAG */
   cocoAG : z.array(z.string()).nullable(),
 
@@ -45,6 +44,12 @@ const schema = z.object({
 
   /** 契約日　To */
   contractDateTo : dateType,
+
+  /** 合計契約金額 From */
+  totalContractAmtIncTaxFrom : z.number().nullable(),
+
+  /** 合計契約金額 To */
+  totalContractAmtIncTaxTo : z.number().nullable(),
 
   /** 引き渡し日　From */
   deliveryDateFrom : dateType,

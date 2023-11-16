@@ -21,22 +21,26 @@ export const DownloadResult = ({
       useKeysAsHeaders: true, 
       filename: `顧客一覧_${data.length}件`,
     });
-    const convertedData: Record<string, string>[] = data.map((d) => {
+    const convertedData: Record<string, string | number>[] = data.map((d) => {
       return ({
         店舗名: d.storeName,
         '顧客名（連名）': d.custNames,
         電話番号: d.tel,
         工事名: d.projName,
+        顧客郵便番号: d.custPostalCode,
         顧客住所: d.custAddress,
-        工事住所: d.projAddress,
-        工事確定住所: d.projAddressConfirmed,
+
+        // K246 工事確定住所が入力されている工事は、工事確定住所を工事住所として表示してほしい
+        工事郵便番号: d.projPostalCodeConfirmed? d.projPostalCodeConfirmed : d.projPostalCode,
+        工事住所: d.projAddressConfirmed || d.projAddress,
+
         夢てつAG: d.yumeAG,
         ここすも営業担当: d.cocoAG,
         ここすも工事担当: d.cocoConst,
+        '契約金額（税込）': d.totalContractAmtIncTax,
         契約日: d.contractDate,
         引渡日:d.deliveryDate,
         物件完了日: d.projFinDate,
-        リンク : `https://rdmuhwtt6gx7.cybozu.com/k/149/#/project/edit/v2?projId=${d.uuid}`,
       });
     });
 

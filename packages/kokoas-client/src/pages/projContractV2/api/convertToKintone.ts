@@ -15,6 +15,7 @@ export const convertToKintone = ({
   projPeriod,
   annotation,
 
+  includePlanContractAmt,
   totalContractAmtAfterTax,
   totalProfit,
   taxRate,
@@ -74,6 +75,8 @@ export const convertToKintone = ({
     contractType: { value: contractType },
     contractAddType: { value: contractAddType || '' },
 
+    includePlanContractAmt: { value: (+includePlanContractAmt).toString() },
+    
     totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },
     tax: { value: taxRate.toString() },

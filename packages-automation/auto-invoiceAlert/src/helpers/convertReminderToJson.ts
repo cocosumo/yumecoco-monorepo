@@ -1,7 +1,9 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IInvoiceReminder, reminderAppId } from '../../config';
-import { CwRoomIds, InvoiceReminder } from '../../types/InvoiceReminder';
-import { IAndpadpayments, Territory } from 'types';
+import { InvoiceReminder } from '../../types/InvoiceReminder';
+import { IAndpadpayments, IEmployees, IProjects, IStores, Territory } from 'types';
+import { GetMyOrdersResponse } from 'api-andpad';
+import { compileInfoFromProjId } from './compileInfoFromProjId';
 
 
 
@@ -9,71 +11,94 @@ import { IAndpadpayments, Territory } from 'types';
  * リマインダーアプリのレコードを通知用のJSON型へ変換する
  * @param params.reminder 請求リマインダーアプリのレコード配列
  * @param params.andpadPayments andpad入金情報アプリのレコード配列
+ * @param params.orders andpad案件の配列
  * @returns InvoiceReminder[]
  */
 export const convertReminderToJson = ({
   reminder,
   andpadPayments,
+  allOrders,
+  employees,
+  stores,
+  allProjects,
 }: {
   reminder: IInvoiceReminder[]
-  andpadPayments: IAndpadpayments[],
+  andpadPayments: IAndpadpayments[]
+  allOrders: GetMyOrdersResponse
+  employees: IEmployees[]
+  stores: IStores[]
+  allProjects: IProjects[]
 }) => {
 
-  return reminder.map(({
+  const alertReminderJson = reminder.map(({
     $id,
-    andpadUrl,
-    area,
     contractId,
     projId: projIdReminder,
     projType,
     projName,
     contractDate,
     totalContractAmount,
-    notificationSettings,
     expectedCreateInvoiceDate,
-    yumeAG,
     store,
   }): InvoiceReminder => {
 
-    // 通知先情報(chatwork)を設定する
-    const cwRoomIds: CwRoomIds[] = notificationSettings.value.map(({ value }) => {
-      const {
-        alertTargetId,
-        alertTargetName,
-        chatworkRoomId,
-      } = value;
-
-      return {
-        agentName: alertTargetName.value,
-        agentId: alertTargetId.value,
-        cwRoomId: chatworkRoomId.value,
-      };
+    const {
+      andpadInvoiceUrl,
+      chatworkRoomIds,
+      connectedToAndpad,
+      storeName,
+      systemId,
+      yumeAGs,
+      territory,
+    } = compileInfoFromProjId({
+      projId: projIdReminder.value,
+      allOrders: allOrders,
+      employees: employees,
+      projects: allProjects,
+      stores: stores,
     });
+
 
     // kintoneのリマインダーURLを設定する
     const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
     // 請求書が発行されているかどうかを確認する
-    const hasInvoice = andpadPayments.some(({
-      projId,
-    }) => ((projIdReminder.value === projId.value)));
+    let hasInvoice = false;
+    if (connectedToAndpad) {
+      hasInvoice = andpadPayments.some(({
+        systemId: paymentSystemId,
+      }) => ((systemId === paymentSystemId.value)));
+    }
+
 
     return ({
-      alertState: !hasInvoice,
+      alertState: connectedToAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
       reminderUrl: reminderUrl,
+      systemId: systemId ?? '',
       contractId: contractId.value,
       projId: projIdReminder.value,
       projName: projName.value,
       projType: projType.value,
       contractDate: contractDate.value,
       totalContractAmount: totalContractAmount.value,
-      territory: area.value as Territory,
-      yumeAG: yumeAG.value,
-      cwRoomIds: cwRoomIds,
-      andpadInvoiceUrl: andpadUrl.value,
+      territory: territory as Territory,
+      yumeAG: yumeAGs,
+      cwRoomIds: chatworkRoomIds,
+      andpadInvoiceUrl: andpadInvoiceUrl ?? '',
       expectedCreateInvoiceDate: expectedCreateInvoiceDate.value,
-      storeName: store.value,
+      storeName: storeName || store.value,
     });
   });
+
+
+
+  // デバッグ用
+  const consoleReminders = alertReminderJson.map(({ projName, alertState }) => {
+    const state = alertState ? '【対象】' : '【対象外】';
+    return `${state} : ${projName}`;
+  });
+  console.log(`通知対象の契約:リマインダー含む: ${alertReminderJson.length}件 ${JSON.stringify(consoleReminders, null, 2)}`);
+
+  return alertReminderJson;
 
 };

@@ -35,11 +35,10 @@ export const ControlledDatePicker = ({
         },
         fieldState: {
           error,
-          isTouched,
         },
       }) => {
 
-        const isShowError = isTouched && !!error;
+        const isShowError = !!error;
 
 
 

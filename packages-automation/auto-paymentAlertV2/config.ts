@@ -1,6 +1,10 @@
-import { AppIds, isProd } from 'config';
-import { IContracts, KContracts } from 'types';
+import { AppIds } from 'config';
 
+
+/**モードの設定 */
+export const isProd = process.env.NODE_ENV_PAYMENT === 'production';
+
+console.log('chk', process.env.NODE_ENV_PAYMENT);
 
 
 /**アラート対象の工事種別 */
@@ -28,5 +32,7 @@ export type KPaymentReminder = keyof IPaymentReminder;
 /**chatworkのルームID */
 export const chatworkRooms = {
   cocoasGroup: '335602129',
+  rpaChatGroup: '213232379',
+  testRoom: '225800073',
   test: '335600969',
 };

@@ -25,8 +25,12 @@ export const convertReminderToJson = ({
     totalContractAmount,
     notificationSettings,
     expectedPaymentDate,
+    expectedPaymentAmt,
     yumeAG,
     paymentId,
+    paymentType,
+    systemId,
+    store,
   }): PaymentReminder => {
 
     // 通知先情報(chatwork)を設定する
@@ -55,18 +59,23 @@ export const convertReminderToJson = ({
 
     return ({
       alertState: !paymentHistory,
-      expectedPaymentDate: expectedPaymentDate.value,
+      systemId: systemId.value,
+      paymentId: paymentId.value,
       andpadPaymentUrl: andpadUrl.value,
       reminderUrl: reminderUrl,
       contractId: contractId.value,
       projId: projId.value,
       projName: projName.value,
       projType: projType.value,
+      storeName: store.value,
       contractDate: contractDate.value,
-      totalContractAmount: totalContractAmount.value,
       territory: area.value as Territory,
+      expectedPaymentDate: expectedPaymentDate.value,
+      expectedPaymentAmt: expectedPaymentAmt.value,
+      paymentType: paymentType.value,
       yumeAG: yumeAG.value,
       cwRoomIds: cwRoomIds,
+      totalContractAmount: totalContractAmount.value,
     });
   });
 

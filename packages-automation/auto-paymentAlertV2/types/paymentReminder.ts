@@ -7,17 +7,22 @@ export interface CwRoomIds {
 }
 
 export interface PaymentReminder {
-  alertState: boolean,
-  andpadPaymentUrl: string,
-  reminderUrl: string,
-  contractId: string,
-  projId: string,
-  projName: string,
-  projType: string,
-  contractDate: string,
-  totalContractAmount: string,
-  territory: Territory,
-  expectedPaymentDate: string | null,
-  yumeAG: string,
-  cwRoomIds: CwRoomIds[],
+  alertState: boolean
+  systemId: string
+  paymentId: string
+  andpadPaymentUrl: string
+  reminderUrl: string
+  contractId: string
+  projId: string
+  projName: string
+  projType: string
+  storeName: string
+  contractDate: string
+  territory: Territory
+  expectedPaymentDate: string | null
+  expectedPaymentAmt: string
+  paymentType: string
+  yumeAG: string
+  cwRoomIds: CwRoomIds[]
+  totalContractAmount: string
 }

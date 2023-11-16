@@ -29,6 +29,11 @@ export const convertReminderToKintone = ({
     totalContractAmount,
     expectedPaymentDate,
     yumeAG,
+    expectedPaymentAmt,
+    paymentType,
+    storeName,
+    systemId,
+    paymentId,
   }) => {
 
     const cwRoomIdsKintone = cwRoomIds.map(({ agentName, agentId, cwRoomId }) => {
@@ -59,6 +64,11 @@ export const convertReminderToKintone = ({
       andpadUrl: { value: andpadPaymentUrl },
       contractId: { value: contractId },
       yumeAG: { value: yumeAG },
+      expectedPaymentAmt: { value: expectedPaymentAmt },
+      paymentId: { value: paymentId },
+      paymentType: { value: paymentType },
+      store: { value: storeName },
+      systemId: { value: systemId },
       notificationSettings: {
         type: 'SUBTABLE',
         value: cwRoomIdsKintone,

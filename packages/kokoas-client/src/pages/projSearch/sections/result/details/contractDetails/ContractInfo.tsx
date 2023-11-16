@@ -23,6 +23,7 @@ export const ContractInfo = ({
     envDocFileKeys,
     contractType,
     contractAddType,
+    memo,
   } = record ?? {};
 
   const { data: estData } = useEstimateById(projEstimateId.value || '');
@@ -76,6 +77,11 @@ export const ContractInfo = ({
         label: 'カテゴリ',
         value: parsedContractType || '-',
       },
+      {
+        label: '備考',
+        value: memo?.value || '-',
+      },
+      
 
     ];
 
@@ -92,6 +98,7 @@ export const ContractInfo = ({
     dataId,
     contractType,
     contractAddType,
+    memo,
   ]);
 
 

@@ -176,6 +176,9 @@ const schema = z.object({
   
   /** 署名手法 */
   signMethod: z.enum(signMethods),
+
+  /** メモ */
+  memo: z.string().optional(),
   
   
 })

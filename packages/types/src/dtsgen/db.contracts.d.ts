@@ -4,6 +4,7 @@ declare namespace DBContracts {
     envCompleteDate: kintone.fieldTypes.DateTime;
     contractType: kintone.fieldTypes.SingleLineText;
     projEstimateId: kintone.fieldTypes.SingleLineText;
+    memo: kintone.fieldTypes.MultiLineText;
     hasRefund: kintone.fieldTypes.RadioButton;
     uuid: kintone.fieldTypes.SingleLineText;
     initialAmt: kintone.fieldTypes.Number;

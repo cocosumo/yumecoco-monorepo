@@ -1,4 +1,4 @@
-declare namespace DB {
+declare namespace DBYasumi {
   interface Record {
     employeeName: kintone.fieldTypes.SingleLineText;
     reason: kintone.fieldTypes.SingleLineText;

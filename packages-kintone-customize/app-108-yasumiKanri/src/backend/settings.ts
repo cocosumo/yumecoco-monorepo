@@ -1,5 +1,5 @@
-import {fetchSettings} from '../../../kintone-api/fetchRecords';
-import {isNumberTuple} from '../helpers/isNumberTuple';
+import { isNumberTuple } from '../helpers/isNumberTuple';
+import { fetchSettings } from './fetchSettings';
 
 
 const prodAppId = '108';
@@ -12,9 +12,9 @@ const yasumiDaysReference = {
   28: 5,
 };
 
-const calcYasumiDays = (luxonDate) => {
+const calcYasumiDays = (luxonDate: any) => {
   const monthDays = luxonDate.endOf('month').day;
-  return yasumiDaysReference[monthDays];
+  return yasumiDaysReference[monthDays as keyof typeof yasumiDaysReference];
 };
 
 
@@ -25,10 +25,10 @@ const calcYasumiDays = (luxonDate) => {
  * @returns
  *
  */
-const findSettingInTable = (luxonDate, settingsTable) => {
-  const {year} = luxonDate;
-  const settings = settingsTable.filter(({value}) => {
-    const {設定名: {value: settingsName}} = value;
+const findSettingInTable = (luxonDate: any, settingsTable: any) => {
+  const { year } = luxonDate;
+  const settings = settingsTable.filter(({ value }: any) => {
+    const { 設定名: { value: settingsName } } = value;
 
     return settingsName === `休み数_${year}` || settingsName === '休み数';
   });
@@ -39,15 +39,15 @@ const findSettingInTable = (luxonDate, settingsTable) => {
 
 };
 
-const getYasumiCount = async (luxonDate) => {
-  const {month} = luxonDate;
+const getYasumiCount = async (luxonDate: any) => {
+  const { month } = luxonDate;
   console.log(luxonDate);
 
   const employeeRole = localStorage.getItem('employeeRole');
 
   const {
-    設定: {value: settingsTable},
-  } = (await fetchSettings(prodAppId)).records[0];
+    設定: { value: settingsTable },
+  } = (await fetchSettings(prodAppId))[0];
 
   const yasumiDaysSetting = findSettingInTable(luxonDate, settingsTable);
 
@@ -65,14 +65,14 @@ const getYasumiCount = async (luxonDate) => {
 
     // Just add 1 yasumi for support roles.
     const finalYasumiDays = (yasumiDays || calcYasumiDays(luxonDate)) + (isSupportRole ? 1 : 0);
-    console.log('simpleSettings:finalYasumiDays', employeeRole, finalYasumiDays,);
+    console.log('simpleSettings:finalYasumiDays', employeeRole, finalYasumiDays);
     return finalYasumiDays;
   }
 
   if (isNumberTuple(parsedYasumiDays)) {
     const [agentYasumiDays, supportYasumiDays] = parsedYasumiDays;
     const finalYasumiDays = (isSupportRole ? supportYasumiDays : agentYasumiDays) || calcYasumiDays(luxonDate);
-    console.log('tupleSettings:finalYasumiDays', employeeRole, finalYasumiDays,);
+    console.log('tupleSettings:finalYasumiDays', employeeRole, finalYasumiDays);
     return finalYasumiDays;
   }
 

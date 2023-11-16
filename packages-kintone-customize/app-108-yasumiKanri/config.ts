@@ -1,0 +1,1 @@
+export const kintoneAppId = kintone.app.getId() || kintone.mobile.app.getId() || 0;

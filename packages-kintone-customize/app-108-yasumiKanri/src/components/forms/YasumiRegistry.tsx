@@ -136,7 +136,11 @@ const YasumiRegistry = () => {
         yasumiRecords={yasumiRecords}
       />
 
-      <SimpleSnackbar open={snack.isOpen} setSnackOpen={setSnack} snackType={snack.type} />
+      <SimpleSnackbar 
+        open={snack.isOpen} 
+        setSnackOpen={setSnack as any} 
+        snackType={snack.type as any}
+      />
       <EditRecordSnackbar {...{ editRecordSnack, setEditRecordSnack }} />
       <Instructions />
     </Container>

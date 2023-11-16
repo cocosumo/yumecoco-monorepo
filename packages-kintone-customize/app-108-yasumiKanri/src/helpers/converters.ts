@@ -1,4 +1,4 @@
-import {getEmployeeNumber} from '../backend/user';
+import { getEmployeeNumber } from '../backend/user';
 
 export const normDuration = {
   一日: 'day-whole',
@@ -19,7 +19,7 @@ export const normType = {
   特別有休: 'day-leaveSpecial',
 };
 
-export const getYasumiWeight = (duration) => {
+export const getYasumiWeight = (duration: any) => {
   switch (duration) {
     case 'day-whole': return 1;
     case 'day-am': return 0.5;
@@ -28,7 +28,7 @@ export const getYasumiWeight = (duration) => {
   }
 };
 
-export const getKintoneYasumiWeight = (duration) => {
+export const getKintoneYasumiWeight = (duration: any) => {
   switch (duration) {
     case '一日': return 1;
     case '午前休み': return 0.5;
@@ -37,13 +37,13 @@ export const getKintoneYasumiWeight = (duration) => {
   }
 };
 
-const getKeyByValue = (object, value) => Object.keys(object).find((key) => object[key] === value);
+const getKeyByValue = (object: any, value: any) => Object.keys(object).find((key) => object[key] === value);
 
-export const getKintoneType = (type) => getKeyByValue(normType, type);
-export const getKintoneDuration = (duration) => getKeyByValue(normDuration, duration);
-export const getKintoneStatus = (status) => getKeyByValue(normStatus, status);
+export const getKintoneType = (type: any) => getKeyByValue(normType, type);
+export const getKintoneDuration = (duration: any) => getKeyByValue(normDuration, duration);
+export const getKintoneStatus = (status: any) => getKeyByValue(normStatus, status);
 
-export const shiftToNext = (duration, remainingYasumi, availableTime) => {
+export const shiftToNext = (duration: any, remainingYasumi: any, availableTime: any) => {
   if (availableTime === 'day-whole') {
     switch (duration) {
       case 'day-whole': return 'day-am';
@@ -63,19 +63,27 @@ export const shiftToNext = (duration, remainingYasumi, availableTime) => {
   }
 };
 
-export const resolveNewWeight = (prev, curr) => getYasumiWeight(curr) - getYasumiWeight(prev);
+export const resolveNewWeight = (prev:any, curr:any) => getYasumiWeight(curr) - getYasumiWeight(prev);
 
-const toKintoneRecord = ({date, type, duration}) => {
+const toKintoneRecord = ({ 
+  date, 
+  type, 
+  duration, 
+}:{
+  date: any;
+  type: any;
+  duration: any;
+}) => {
   const eid = getEmployeeNumber();
   return {
-    employeeNumber: {value: +eid},
-    type: {value: getKintoneType(type)},
-    duration: {value: getKintoneDuration(duration)},
-    yasumiDate: {value: date},
+    employeeNumber: { value: +eid },
+    type: { value: getKintoneType(type) },
+    duration: { value: getKintoneDuration(duration) },
+    yasumiDate: { value: date },
   };
 };
 
-export const getOrdinaryYasumi = (rawRecord) => rawRecord.filter(({type}) => type === 'day-ordinary');
+export const getOrdinaryYasumi = (rawRecord: any) => rawRecord.filter(({ type }: any) => type === 'day-ordinary');
 
 
 /**
@@ -85,17 +93,17 @@ export const getOrdinaryYasumi = (rawRecord) => rawRecord.filter(({type}) => typ
  * @param {object[]} savedRecords 保存されていないyasumi records
  * @returns {object[]} kintone records
  */
-export const toKintoneRecords = (unsavedRecords, savedRecords) => {
-  const fallbackId = (date, rid) => (rid || getOrdinaryYasumi(savedRecords[date])[0].id);
+export const toKintoneRecords = (unsavedRecords: any, savedRecords?: any) => {
+  const fallbackId = (date: any, rid: any) => (rid || getOrdinaryYasumi(savedRecords[date])[0].id);
 
-  const result = unsavedRecords.map((item) => {
+  const result = unsavedRecords.map((item: any) => {
     const kr = toKintoneRecord(item);
-    return savedRecords ? {id: fallbackId(item.date, item.id), record: kr} : kr;
+    return savedRecords ? { id: fallbackId(item.date, item.id), record: kr } : kr;
   });
   return result;
 };
 
-export const snackDetails = (snackType) => {
+export const snackDetails = (snackType: any) => {
   switch (snackType) {
     case 'aboveLimit':
       return {

@@ -11,7 +11,8 @@
     "build": "webpack",
     "build:prod": "webpack --mode production",
     "test": "jest",
-    "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 130 --type-name Record --namespace DB -o src/types/kintone.data.d.ts"
+    "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 130 --type-name Record --namespace DBYasumi -o src/types/kintone.data.d.ts",
+    "dtsgen:settings": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 82 --type-name Record --namespace DBSettings -o src/types/settings.data.d.ts"
 
   },
   "keywords": [

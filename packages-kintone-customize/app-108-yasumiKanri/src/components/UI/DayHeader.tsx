@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 
-const DayHeader = ({ isRenderDate, dayNumberText }) => (
+const DayHeader = ({ isRenderDate, dayNumberText }: any) => (
 
   <Typography sx={{ color: isRenderDate ? '' : '#fafafa' }}>
     {dayNumberText}

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,11 +7,21 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const Confirmation = ({question, open, setOpen, actionOnYes}) => {
+const Confirmation = ({ 
+  question, 
+  open, 
+  setOpen, 
+  actionOnYes,
+}: {
+  question: any,
+  open: boolean,
+  setOpen: any,
+  actionOnYes: any,
+}) => {
 
-  const handleClose = (isPressedYes) => () => {
+  const handleClose = (isPressedYes: boolean) => () => {
     console.log(isPressedYes);
-    setOpen(prev=>({...prev, ...{isOpen: false, isPressedYes}}));
+    setOpen((prev: any) =>({ ...prev, ...{ isOpen: false, isPressedYes } }));
     if (isPressedYes) {
       actionOnYes();
     }
@@ -25,7 +34,9 @@ const Confirmation = ({question, open, setOpen, actionOnYes}) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle>確認</DialogTitle>
+      <DialogTitle>
+        確認
+      </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           {question}
@@ -48,9 +59,3 @@ const Confirmation = ({question, open, setOpen, actionOnYes}) => {
 
 export default Confirmation;
 
-Confirmation.propTypes = {
-  question: PropTypes.node.isRequired,
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func,
-  actionOnYes: PropTypes.func
-};

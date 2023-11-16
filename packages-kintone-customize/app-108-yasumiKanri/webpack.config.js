@@ -1,8 +1,11 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
-
+  plugins: [
+    new Dotenv({ path: '../../.env' }),
+  ],
   entry: {
     customize: './src/app.ts',
   },
@@ -57,6 +60,10 @@ module.exports = {
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
         type: 'asset/inline',
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader',
       },
     ],
   },

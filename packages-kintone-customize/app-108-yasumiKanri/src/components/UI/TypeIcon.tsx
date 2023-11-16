@@ -13,10 +13,10 @@ import LeaveSpecialPM from '../../assets/day-leaveSpecial-pm.png';
 import OrdinaryAM from '../../assets/day-ordinary-am.png';
 import OrdinaryPM from '../../assets/day-ordinary-pm.png';
 import Ordinary from '../../assets/day-ordinary.png';
+import { isMobile } from 'api-kintone';
 
-import { isMobile } from '../../../../kintone-api/api';
 
-const resolveIcon = ({ type, duration, status = 'approved' }) => {
+const resolveIcon = ({ type, duration, status = 'approved' }: any) => {
   switch (type) {
     case 'day-ordinary':
       switch (status) {
@@ -72,7 +72,7 @@ const resolveIcon = ({ type, duration, status = 'approved' }) => {
   return Processing;
 };
 
-const TypeIcon = ({ record, siblings }) => {
+const TypeIcon = ({ record, siblings }: any) => {
   let size = '100%';
   if (siblings > 1) {
     size = isMobile() ? '72%' : '100%';

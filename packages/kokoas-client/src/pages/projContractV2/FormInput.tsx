@@ -6,6 +6,7 @@ import { ConstructionPeriods } from './sections/ConstructionPeriods';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from './schema';
 import { ContractType } from './sections/contractType/ContractType';
+import { Memo } from './sections/Memo';
 
 export const FormInput = () => {
 
@@ -29,6 +30,9 @@ export const FormInput = () => {
       <PageSubTitle3 label={'工期'} />
       <ConstructionPeriods disabled={hasContract} />
 
+      <PageSubTitle3 label={'備考'} />
+      <Memo />
+      
       <Divider />
 
     </>

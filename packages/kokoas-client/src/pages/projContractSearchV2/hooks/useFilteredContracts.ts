@@ -44,6 +44,8 @@ export interface ContractRow {
   signMethod: TSignMethod,
   createdAt: string,
   updatedAt: string,
+
+  memo: string,
 }
 
 export type KContractRow = keyof ContractRow;
@@ -108,6 +110,8 @@ export const useFilteredContracts = () => {
           subsidyAmt,
           contractType,
           signMethod,
+
+          memo,
         } = cur; // 契約のデータ;
 
         // 契約進捗の中に何も選択されていないかチェック
@@ -227,6 +231,8 @@ export const useFilteredContracts = () => {
           contractAmount: totalAmountAfterTax,
           grossProfit: +totalProfit.value,
           profitRate: calcProfitRate(totalCost, totalAmountBeforeTax ),
+
+          memo: memo?.value || '',
 
           createdAt: parseISOTimeToFormat(createdAt.value),
           updatedAt: parseISOTimeToFormat(updatedAt.value),

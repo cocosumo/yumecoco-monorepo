@@ -63,6 +63,7 @@ export const convertToKintone = ({
   deliveryDate,
   contractDate,
 
+  memo,
 
 }: TypeOfForm) => {
 
@@ -124,6 +125,8 @@ export const convertToKintone = ({
 
     deliveryDate: { value: toKintoneDateStr(deliveryDate) },
     contractDate: { value: toKintoneDateStr(contractDate) },
+
+    memo: { value: memo ?? '' },
     
   };
 

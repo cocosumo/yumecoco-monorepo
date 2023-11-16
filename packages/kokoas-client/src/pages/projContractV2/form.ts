@@ -69,6 +69,8 @@ export const initialForm : TypeOfForm = {
   envelopeStatus: '',
   envelopeId: '',
   signMethod: 'electronic',
+
+  memo: '',
 };
 
 

@@ -3,11 +3,11 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import jaLocale from '@fullcalendar/core/locales/ja';
-import {Box} from '@mui/material';
+import { Box } from '@mui/material';
 import './MonthCalendar.css';
 import DayCell from './DayCell';
 import Confirmation from '../dialogs/Confirmation';
-import {useState} from 'react';
+import { useState } from 'react';
 
 const MonthCalendar = ({
   remainingYasumi,
@@ -17,13 +17,28 @@ const MonthCalendar = ({
   yasumiRecords,
   currentMonth,
   isEditing,
-}) => {
-  const [confirmation, setConfirmation] = useState({isOpen: false, isPressedYes: false});
+}:{
+  remainingYasumi: number,
+  clickDayHandler: (arg0: any) => void,
+  clearHandler: () => void,
+  datesSetHandler: (arg0: any) => void,
+  yasumiRecords: any,
+  currentMonth: any,
+  isEditing: boolean,
 
-  const dayCellContentRender = (args) => <DayCell {...{args, yasumiRecords, currentMonth}} />;
+}) => {
+  const [confirmation, setConfirmation] = useState({ isOpen: false, isPressedYes: false });
+
+  const dayCellContentRender = (
+    args: {
+      date: Date,
+      dayNumberText: string,
+      dayNumberClassNames: string[],
+    },
+  ) => <DayCell {...{ args, yasumiRecords, currentMonth }} />;
 
   const onResetClickHandler = () => {
-    setConfirmation({...confirmation, ...{isOpen: true}});
+    setConfirmation({ ...confirmation, ...{ isOpen: true } });
   };
 
   return (
@@ -60,7 +75,11 @@ const MonthCalendar = ({
 
       />
       <Confirmation
-        question={<>当月、通常休みは全て削除されます。<br />本当にリセットしますか？</>}
+        question={<>
+          当月、通常休みは全て削除されます。
+          <br />
+          本当にリセットしますか？
+        </>}
         open={confirmation.isOpen}
         setOpen={setConfirmation}
         actionOnYes={clearHandler}

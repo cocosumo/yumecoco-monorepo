@@ -1,4 +1,4 @@
-import { fetchEmployeeById } from '../../../kintone-api/fetchRecords';
+import { getEmployeeByRecordId } from 'api-kintone';
 
 export const getUserInfo = () => kintone.getLoginUser();
 
@@ -18,5 +18,5 @@ export const isAdministrator = async () => {
 export const getEmployeeNumber = () => getUserInfo().employeeNumber;
 
 export const getEmployeeRole = async () => (
-  await fetchEmployeeById(getEmployeeNumber())
+  await getEmployeeByRecordId(getEmployeeNumber())
 ).record.役職.value;

@@ -1,9 +1,10 @@
-import {ThemeProvider, createTheme} from '@mui/material';
-import {isMobile} from '../../../../kintone-api/api';
+import { ThemeProvider, createTheme } from '@mui/material';
+import { isMobile } from 'api-kintone';
+import { ReactNode } from 'react';
 
 const theme = createTheme({
   typography: {
-    htmlFontSize: isMobile() ? 10 : 12
+    htmlFontSize: isMobile() ? 10 : 12,
   },
   components: {
     MuiSnackbar: {
@@ -19,7 +20,11 @@ const theme = createTheme({
   },
 });
 
-const GlobalTheme = ({children}) => (
+const GlobalTheme = ({
+  children,
+}:{
+  children: ReactNode
+}) => (
   <ThemeProvider theme={theme}>
     {children}
   </ThemeProvider>

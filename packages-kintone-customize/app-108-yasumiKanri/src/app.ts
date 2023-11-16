@@ -5,7 +5,14 @@ import onEditOrCreateSubmitHandler from './kintoneHandlers/eventHandlers/onEditO
 import onEditOrCreateHandler from './kintoneHandlers/onEditOrCreateHandler';
 import onTypeChangeHandler from './kintoneHandlers/eventHandlers/onTypeChangeHandler';
 import onEditSubmitHandler from './kintoneHandlers/eventHandlers/onEditSubmitHandler'; */
-import { onCreate, onEditOrCreate, onEditSubmitSuccess, onFieldChange, onIndexShow, onSubmit } from 'api-kintone';
+import { 
+  //onCreate, 
+  //onEditOrCreate, 
+  //onEditSubmitSuccess,
+  //onFieldChange, 
+  onIndexShow, 
+  //onSubmit, 
+} from 'api-kintone';
 
 (() => {
   kintone.events.on(onIndexShow, onIndexShowHandler);

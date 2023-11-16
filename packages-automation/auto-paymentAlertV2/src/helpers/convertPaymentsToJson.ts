@@ -4,6 +4,7 @@ import { getMyOrders } from 'api-andpad';
 import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
 import { getYumeAgNames } from './getYumeAgNames';
 import { calcPaymentDate } from './calcPaymentDate';
+import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
 
 
 
@@ -32,6 +33,8 @@ export const convertPaymentsToJson = ({
   const alertPaymentReminders: PaymentReminder[] = alertPayments.map(({
     projId,
     expectedPaymentDate,
+    expectedPaymentAmount,
+    paymentType,
     作成日時,
   }) => {
 
@@ -45,26 +48,12 @@ export const convertPaymentsToJson = ({
     } = projects.find(({ uuid }) => uuid.value === projId.value) || {};
 
     const tgtContracts = contracts.filter(({ projId: contractProjId }) => contractProjId.value === projId.value) || [];
-    const contractData = tgtContracts.reduce((acc, {
-      uuid: contractId,
-      contractType,
-      contractDate,
-      totalContractAmt,
-    }) => {
 
-      acc.contractId = `${acc.contractId}, ${contractId.value}`;
-      if (contractType.value === '契約') {
-        acc.contractDate = contractDate.value;
-      }
-      acc.totalContractAmt += +totalContractAmt.value;
+    const {
+      合計受注金額税込,
+    } = getContractsSummary((tgtContracts));
 
-      return acc;
-
-    }, {
-      contractId: '',
-      contractDate: '',
-      totalContractAmt: 0,
-    });
+    const mainContract = tgtContracts.find(({ contractType }) => contractType.value === '契約');
 
     // システムIDを取得する
     const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
@@ -97,14 +86,16 @@ export const convertPaymentsToJson = ({
       alertState: true,
       andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      contractId: contractData.contractId ?? '取得に失敗しました',
+      contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') ?? '取得に失敗しました',
       projId: projId.value,
       projName: projName?.value ?? '取得に失敗しました',
       projType: projTypeName?.value ?? '取得に失敗しました',
-      contractDate: contractData.contractDate ?? '取得に失敗しました',
-      totalContractAmount: contractData.totalContractAmt.toString() ?? '取得に失敗しました',
+      contractDate: mainContract?.contractDate.value ?? '取得に失敗しました',
+      totalContractAmount: 合計受注金額税込.toString() ?? '取得に失敗しました',
       territory: store?.territory.value as Territory,
       expectedPaymentDate: paymentDate,
+      expectedPaymentAmt: expectedPaymentAmount.value,
+      paymentType: paymentType.value,
       yumeAG: yumeAGs,
       cwRoomIds: chatworkRoomIds,
     });

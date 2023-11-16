@@ -30,7 +30,7 @@ export const filterAPPaymentsToAlertTarget = ({
     }
 
     // 支払情報が存在しないかつ、今日以前が通知日の場合
-    if (expectedPaymentDate.value <= todayStr) {
+    if (expectedPaymentDate.value < todayStr) {
       acc?.push(andpadPayment);
     }
 

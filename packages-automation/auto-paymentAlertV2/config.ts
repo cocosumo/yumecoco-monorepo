@@ -1,5 +1,10 @@
-import { AppIds, isProd } from 'config';
+import { AppIds } from 'config';
 
+
+/**モードの設定 */
+export const isProd = process.env.NODE_ENV_PAYMENT === 'production';
+
+console.log('chk', process.env.NODE_ENV_PAYMENT);
 
 
 /**アラート対象の工事種別 */

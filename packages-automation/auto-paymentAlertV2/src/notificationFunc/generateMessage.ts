@@ -12,6 +12,7 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
     reminderUrl,
     cwRoomIds,
     expectedPaymentDate,
+    expectedPaymentAmt,
     yumeAG,
   } = reminderJson;
 
@@ -21,7 +22,7 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
 
   const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 
-  const message = `入金予定日を経過しましたが、入金が確認できていない案件に対して案内しています。
+  const message = `ANDPADにて入金予定日を過ぎても入金が確認できていない請求に対して案内しています。
 本連絡と前後して、お客さまから入金がされている場合はご容赦ください。
 [hr]
 `;
@@ -29,7 +30,7 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
   const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
 工事名  : ${projName}
 契約金額: ${(+totalContractAmount).toLocaleString()} 円
-請求金額: 実装準備中
+請求金額: ${(+expectedPaymentAmt).toLocaleString()} 円
 担当者  : ${agentNames}
 夢てつAG: ${yumeAG}`;
 

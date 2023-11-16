@@ -1,0 +1,16 @@
+[NX Daemon Server] - 2023-11-16T05:19:09.771Z - Started listening on: \\.\pipe\nx\C:\Users\YUME10\AppData\Local\Temp\e599a738f55a7a550f58\d.sock
+[NX Daemon Server] - 2023-11-16T05:19:09.775Z - [WATCHER]: Subscribed to changes within: C:\Users\YUME10\Documents\GitHub\yumecoco-monorepo (native)
+[NX Daemon Server] - 2023-11-16T05:19:09.777Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2023-11-16T05:19:09.778Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2023-11-16T05:19:09.783Z - [REQUEST]: Client Request for Project Graph Received
+[NX Daemon Server] - 2023-11-16T05:19:10.505Z - [REQUEST]: Updated file-hasher based on watched changes, recomputing project graph...
+[NX Daemon Server] - 2023-11-16T05:19:10.506Z - [REQUEST]: 
+[NX Daemon Server] - 2023-11-16T05:19:10.506Z - [REQUEST]: 
+[NX Daemon Server] - 2023-11-16T05:19:10.795Z - [REQUEST]: Responding to the client. project-graph
+[NX Daemon Server] - 2023-11-16T05:19:10.797Z - Time taken for 'total for creating and serializing project graph' 1011.730800151825ms
+[NX Daemon Server] - 2023-11-16T05:19:10.798Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2023-11-16T05:19:10.798Z - Done responding to the client project-graph
+[NX Daemon Server] - 2023-11-16T05:19:10.798Z - Handled REQUEST_PROJECT_GRAPH. Handling time: 1012. Response time: 3.
+[NX Daemon Server] - 2023-11-16T05:19:10.949Z - [REQUEST]: Responding to the client. handleHashTasks
+[NX Daemon Server] - 2023-11-16T05:19:10.950Z - Done responding to the client handleHashTasks
+[NX Daemon Server] - 2023-11-16T05:19:10.950Z - Handled HASH_TASKS. Handling time: 50. Response time: 1.

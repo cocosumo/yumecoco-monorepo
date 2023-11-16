@@ -30,6 +30,7 @@ export const Detail = ({
       color={isSubtle ? grey[600] : undefined}
       fontSize={isSubtle ? 8 : fonstSize}
       component={'div'}
+      whiteSpace={'pre-wrap'}
     >
       {value}
     </Typography>

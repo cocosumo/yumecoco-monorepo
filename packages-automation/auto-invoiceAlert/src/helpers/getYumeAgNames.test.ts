@@ -6,7 +6,7 @@ import { getYumeAgNames } from './getYumeAgNames';
 describe('getYumeAgNames', () => {
   it('getYumeAgNames', async () => {
 
-    const projcts = await getProjById('1d5236c7-ee92-47dc-8a10-4db2055b2358');
+    const projcts = await getProjById('66bc6fc7-0ace-45b8-9b58-84ba5da195d0');
 
     const result = getYumeAgNames({
       agents: projcts.agents,

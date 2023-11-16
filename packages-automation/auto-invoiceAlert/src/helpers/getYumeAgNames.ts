@@ -10,9 +10,10 @@ export const getYumeAgNames = ({
   const yumeAgents = agents?.value.filter(({ value }) => {
     const {
       agentType,
+      agentName,
     } = value;
 
-    return agentType.value === 'yumeAG' as TAgents;
+    return (agentType.value === 'yumeAG' as TAgents) && agentName.value !== '';
   });
 
   if (yumeAgents?.length) {

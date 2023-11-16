@@ -52,6 +52,11 @@ export const PaymentFieldGroup = (
         label={label}
         name={chkFldName}
         disabled={hasContract}
+        sx={{
+          '& .MuiFormControlLabel-label': {
+            whiteSpace: 'nowrap',
+          },
+        }}
         control={(
           <Checkbox
             checked={isChecked as boolean}

@@ -10,7 +10,7 @@ describe('convertReminderToJson', () => {
   it('should convert reminder data to JSON data', async () => {
 
     // set output file of getAllPaymentReminder.test.ts
-    const remindersPath = path.join(__dirname, './__TEST__/reminders.json');
+    const remindersPath = path.join(__dirname, '../api-kintone/__TEST__/reminders.json');
     const reminders = JSON.parse(fs.readFileSync(remindersPath, 'utf8'));
 
     const allAndpadPayments = await getAllAndpadPayments();

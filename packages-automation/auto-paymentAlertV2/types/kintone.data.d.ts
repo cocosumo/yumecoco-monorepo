@@ -11,9 +11,10 @@ declare namespace DBPaymentreminder {
     paymentId: kintone.fieldTypes.SingleLineText;
     alertState: kintone.fieldTypes.SingleLineText;
     reminderDate: kintone.fieldTypes.DropDown;
-    andpadDepositAmount: kintone.fieldTypes.Number;
     area: kintone.fieldTypes.SingleLineText;
+    systemId: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
+    store: kintone.fieldTypes.SingleLineText;
     lastAlertDate: kintone.fieldTypes.Date;
     expectedPaymentAmt: kintone.fieldTypes.SingleLineText;
     andpadUrl: kintone.fieldTypes.Link;

@@ -22,8 +22,8 @@ export const generateMessage = (reminderJson: PaymentReminder) => {
 
   const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 
-  const message = `ANDPADにて入金予定日を過ぎても入金が確認できていない請求に対して案内しています。
-本連絡と前後して、お客さまから入金がされている場合はご容赦ください。
+  const message = `本メッセージは入金予定日を過ぎても入金が確認できていない請求に対して案内しています。
+本連絡と前後して、お客様から入金がされている場合はご容赦ください。
 [hr]
 `;
 

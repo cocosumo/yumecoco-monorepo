@@ -41,7 +41,8 @@ export const convertPaymentsToJson = ({
     // 通知対象者を抽出する
     const {
       agents,
-      storeCode: storeCodeByProjct,
+      storeCode: storeCodeByProject,
+      store: storeByProject,
       forceLinkedAndpadSystemId,
       projName,
       projTypeName,
@@ -64,7 +65,7 @@ export const convertPaymentsToJson = ({
       `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
       : '';
 
-    const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProjct?.value);
+    const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProject?.value);
 
     const chatworkRoomIds = chatworkRoomIdSetting({
       agents: agents,
@@ -84,13 +85,15 @@ export const convertPaymentsToJson = ({
 
     return ({
       alertState: true,
+      systemId: andpadSystemId,
       andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') ?? '取得に失敗しました',
       projId: projId.value,
       projName: projName?.value ?? '取得に失敗しました',
       projType: projTypeName?.value ?? '取得に失敗しました',
-      contractDate: mainContract?.contractDate.value ?? '取得に失敗しました',
+      storeName: store?.officialStoreName.value || storeByProject?.value || '取得に失敗しました',
+      contractDate: mainContract?.contractDate.value ?? '',
       totalContractAmount: 合計受注金額税込.toString() ?? '取得に失敗しました',
       territory: store?.territory.value as Territory,
       expectedPaymentDate: paymentDate,

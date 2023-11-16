@@ -48,6 +48,7 @@ export const convertProjToForm = ({
     isChkAddressKari,
 
     agents,
+    isAgentConfirmed,
 
     cancelStatus,
     projTypeName,
@@ -71,6 +72,7 @@ export const convertProjToForm = ({
     storeCode,
     store: storeName,
     territory,
+    
   } = projRec;
 
   const {
@@ -127,7 +129,7 @@ export const convertProjToForm = ({
 
     createdDate: format(parseISO(createTime.value), 'yyyy/MM/dd'),
     custGroupId: custGroupId.value || cgId.value,
-    //isAgentConfirmed: Boolean(+isAgentConfirmed.value),
+    isNotCocoConstConfirmed: !(+isAgentConfirmed.value), // isAgentConfirmedは肯定なので、isNotCocoConstConfirmedに格納の際、反転させる
     
     isAddressKari: Boolean(+isChkAddressKari.value),
     isShowFinalAddress: Boolean(+isShowFinalAddress.value),

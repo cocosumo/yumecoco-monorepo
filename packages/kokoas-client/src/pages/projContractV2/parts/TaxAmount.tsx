@@ -23,8 +23,9 @@ export const TaxAmount = () => {
         '& .MuiChip-label': {
           width: '100%',
         },
+        width: 300,
       }}
-      label={<Stack direction={'row'} justifyContent={'space-between'}>
+      label={<Stack direction={'row'} width={'100%'} justifyContent={'space-between'}>
         <div>
           消費税
         </div>

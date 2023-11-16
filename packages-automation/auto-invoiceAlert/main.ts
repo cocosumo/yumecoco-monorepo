@@ -9,3 +9,4 @@ import { invoiceReminder } from './src/invoiceReminder';
  * At 12:00 every day
  */
 cron.schedule('0 0 12 * * *', () => invoiceReminder());
+//invoiceReminder();

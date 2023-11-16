@@ -6,10 +6,10 @@ import './main.css';
 import { removeElements } from './initialize/removeElements';
 
 /** 紹介料一覧 */
-const commissionRates = 6343111; 
+const commissionRates = 6343111; // 一覧ページURL番号
 
 /** 紹介料一覧（開発用） */
-const commissionRatesDev = 6343125; 
+const commissionRatesDev = 6343125;  // 一覧ページURL番号
 
 (()=> {
   kintone.events.on('app.record.index.show', async  (event)=>{

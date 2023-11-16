@@ -8,6 +8,8 @@ import { getPayMethodX } from '../../../api/docusign/contracts/construction/help
 import { getContractDataV2 } from 'kokoas-server/src/handleRequest/reqSendContractDirectV2/getContractDataV2';
 import { ukeoiContractVersion } from 'config';
 
+// サービス工事
+const serviceProjTypeId = '3b450da3-19fe-45bd-2406-3ded7f44fe86';
 
 /**
  * 請負契約書
@@ -31,6 +33,7 @@ export const generateContractPdfV2 = async (
     projName,
     projLocation,
     projectLocationData,
+    projTypeId,
 
     dataId,
     tax,
@@ -63,6 +66,7 @@ export const generateContractPdfV2 = async (
     name: officerName,
   } = cocoAG?.[0] ?? {};
 
+  const isServiceProj = serviceProjTypeId === projTypeId;
 
   const pdfPath = getFilePath({
     fileName: '請負契約書',
@@ -431,12 +435,12 @@ export const generateContractPdfV2 = async (
   const signWidth = 240;
   const signGap = signWidth / customers.length;
   const signY = 229;
-  customers.forEach((_, idx) => {
+  customers.forEach((cust, idx) => {
     const signX = x2 + (signGap * idx);
   
     drawText(
       firstPage,
-      '署名',
+      isServiceProj ? '' : '署名',
       {
         x: signX,
         y: signY,
@@ -449,19 +453,36 @@ export const generateContractPdfV2 = async (
       },
     );
 
-    drawText(
-      firstPage,
-      `c${idx + 1}`,
-      {
-        x: signX + 40,
-        y: signY,
-        font: msChinoFont,
-        color: grayscale(0.96), // 白に近い色
-      },
-      {
-        weight: 0.1,
-      },
-    );
+    if (isServiceProj) {
+      drawText(
+        firstPage,
+        `株式会社　夢のおてつだい　　${storeNameShort}`,
+        {
+          x: signX + 20,
+          y: signY,
+          font: msChinoFont,
+        },
+        {
+          weight: 0.1,
+        },
+      );
+
+    } else {
+      drawText(
+        firstPage,
+        `c${idx + 1}`,
+        {
+          x: signX + 40,
+          y: signY,
+          font: msChinoFont,
+          color: grayscale(0.96), // 白に近い色
+        },
+        {
+          weight: 0.1,
+        },
+      );
+    }
+
   });
 
 

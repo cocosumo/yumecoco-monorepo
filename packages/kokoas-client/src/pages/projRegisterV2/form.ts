@@ -26,7 +26,7 @@ export const initialValues : TForm = {
   yumeAG: [getDefaultEmployee('yumeAG')],
   cocoAG: [],
   cocoConst: [],
-
+  isNotCocoConstConfirmed: false,
 
   postal: '',
   address1: '',

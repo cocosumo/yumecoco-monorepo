@@ -29,10 +29,13 @@ declare namespace DBCustgroups {
       value: Array<{
         id: string;
         value: {
+          custNameReading: kintone.fieldTypes.SingleLineText;
           address2: kintone.fieldTypes.SingleLineText;
           address1: kintone.fieldTypes.SingleLineText;
           custId: kintone.fieldTypes.SingleLineText;
+          index: kintone.fieldTypes.Number;
           postal: kintone.fieldTypes.SingleLineText;
+          isSameAsMain: kintone.fieldTypes.Number;
           customerName: kintone.fieldTypes.SingleLineText;
         };
       }>;

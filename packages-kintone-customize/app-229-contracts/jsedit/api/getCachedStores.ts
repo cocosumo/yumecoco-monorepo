@@ -22,7 +22,7 @@ export const getCachedStores = async () => {
  * uuid から店舗名を取得する
  * 
  * @param storeId 
- * @returns 
+ * @returns 豊田中央店 豊田大林店 豊田美里店 …
  */
 export const getStoreNameById = (storeId: string) => {
   const store = storeRecords.find((s) => s.uuid.value === storeId);

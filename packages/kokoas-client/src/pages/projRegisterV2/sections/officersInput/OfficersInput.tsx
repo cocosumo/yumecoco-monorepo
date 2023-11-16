@@ -2,6 +2,7 @@ import { Stack } from '@mui/material';
 import { EmployeeSelectFields } from './EmployeeSelectFields';
 import { Store } from './Store';
 import { CommissionRate } from './CommisionRate';
+import { IsNotCocoConstConfirmed } from './IsNotCocoConstConfirmed';
 
 export const OfficersInput = () => {
 
@@ -23,7 +24,14 @@ export const OfficersInput = () => {
         <CommissionRate />
       </Stack>
       <EmployeeSelectFields name='cocoAG' agentType='cocoAG' />
-      <EmployeeSelectFields name='cocoConst' agentType='cocoConst' />
+
+      <Stack
+        direction={'row'}
+        spacing={2}
+      >
+        <EmployeeSelectFields required name='cocoConst' agentType='cocoConst' />
+        <IsNotCocoConstConfirmed />
+      </Stack>
 
     </Stack>
   );

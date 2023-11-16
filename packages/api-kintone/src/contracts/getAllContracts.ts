@@ -9,3 +9,5 @@ export const getAllContracts = async (
   app: appId,
   orderBy: '作成日時 desc',
 });
+
+export type GetAllContractsParams = Parameters<typeof getAllContracts>[0];

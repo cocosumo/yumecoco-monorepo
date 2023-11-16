@@ -8,8 +8,8 @@ declare namespace DBInvoiceReminder {
     scheduledAlertDate: kintone.fieldTypes.Date;
     alertState: kintone.fieldTypes.SingleLineText;
     reminderDate: kintone.fieldTypes.DropDown;
-    andpadDepositAmount: kintone.fieldTypes.Number;
     area: kintone.fieldTypes.SingleLineText;
+    systemId: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     expectedCreateInvoiceDate: kintone.fieldTypes.Date;

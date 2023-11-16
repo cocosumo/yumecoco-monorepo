@@ -4,6 +4,7 @@ import { AdditionalContract } from './AdditionalContract';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { ProjPlanContract } from './projPlanContract/ProjPlanContract';
+import { SubInputContainer } from './SubInputContainer';
 
 export const ContractType = () => {
 
@@ -14,21 +15,28 @@ export const ContractType = () => {
 
   return (
     <Stack
-      spacing={2}
+      bgcolor={'white'}
+      borderRadius={2}
+      p={4}
     >
-      <Stack 
-        direction={'row'} 
-        spacing={2}
+
+      <ContractTypeField />
+
+  
+      <Collapse 
+        in={contractType === '追加'}
       >
-        <ContractTypeField />
-        {contractType === '追加' && (
-        <AdditionalContract />
-        )}
+        <SubInputContainer>
+          <AdditionalContract />
+        </SubInputContainer>
+      </Collapse>
 
-      </Stack>
-
-      <Collapse in={contractType === '設計契約'}>
-        <ProjPlanContract />
+      <Collapse 
+        in={contractType === '設計契約'}
+      >
+        <SubInputContainer>
+          <ProjPlanContract />
+        </SubInputContainer>
       </Collapse>
 
     </Stack>

@@ -64,13 +64,11 @@ export const useSearchResult =  () => {
         } = curr; // 工事情報;
 
         const projAddress = addressBuilder({
-          postal: postal.value,
           address1: address1.value,
           address2: address2.value,
         });
 
         const projAddressConfirmed = addressBuilder({
-          postal: finalPostal.value,
           address1: finalAddress1.value,
           address2: finalAddress2.value,
         });
@@ -139,9 +137,19 @@ export const useSearchResult =  () => {
           fullNames,
           fullNameReadings,
           custTels,
-          addresses,
-
         } = groupCustContacts(relCustomers);
+
+        const {
+          postalCode: custPostalCode,
+          address1: custAddress1,
+          address2: custAddress2,
+        } = relCustomers?.[0] || {};
+
+        const custAddress = addressBuilder({
+          address1: custAddress1?.value,
+          address2: custAddress2?.value,
+        });
+
 
         /**　
          * 含めるかどうか判定。重くなったら、改修。
@@ -224,8 +232,11 @@ export const useSearchResult =  () => {
             updateDate: format(parseISO(updateDate.value), 'yyyy-MM-dd HH:mm'),
 
             tel: custTels?.[0] || '-',
-            custAddress: addresses?.[0] || '-',
+            custPostalCode: custPostalCode?.value || '-',
+            custAddress: custAddress || '-',
+            projPostalCode: postal.value || '-',
             projAddress: projAddress,
+            projPostalCodeConfirmed: finalPostal.value || '-',
             projAddressConfirmed: projAddressConfirmed,
             
 

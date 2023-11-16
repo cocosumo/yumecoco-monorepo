@@ -7,12 +7,14 @@ export const ProspectContainer = ({
   children: ReactNode
 }) => {
   return (
-    <TableContainer 
-      component={Paper}
+    <TableContainer
       sx={{
-        width: '25%',
+        width: '28%',
       }}
+      component={Paper}
+    
     >
+
       <Table 
         size='small'
         sx={{
@@ -22,5 +24,6 @@ export const ProspectContainer = ({
         {children}
       </Table>
     </TableContainer>
+
   );
 };

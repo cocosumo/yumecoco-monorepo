@@ -29,6 +29,7 @@ export const convertReminderToKintone = ({
     totalContractAmount,
     yumeAG,
     storeName,
+    systemId,
   }) => {
 
     const cwRoomIdsKintone = cwRoomIds.map(({ agentName, agentId, cwRoomId }) => {
@@ -60,6 +61,7 @@ export const convertReminderToKintone = ({
       andpadUrl: { value: andpadInvoiceUrl },
       contractId: { value: contractId },
       yumeAG: { value: yumeAG },
+      systemId: { value: systemId },
       notificationSettings: {
         type: 'SUBTABLE',
         value: cwRoomIdsKintone,

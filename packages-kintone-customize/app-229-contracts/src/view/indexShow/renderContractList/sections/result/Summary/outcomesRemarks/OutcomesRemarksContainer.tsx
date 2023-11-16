@@ -8,16 +8,16 @@ export const OutcomesRemarksContainer = ({
 }) => {
   return (
     <TableContainer
-      sx={{
-        width: '30%',
-        
-      }}
       component={Paper}
+      sx={{
+        width: '28%',
+      }}
     >
       <Table
         size='small'
         sx={{
           fontSize: 12,
+          height: '100%',
         }}
       >
         <TableBody>
@@ -25,5 +25,6 @@ export const OutcomesRemarksContainer = ({
         </TableBody>
       </Table>
     </TableContainer>
+
   );
 };

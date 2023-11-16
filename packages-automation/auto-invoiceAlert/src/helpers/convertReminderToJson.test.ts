@@ -3,21 +3,38 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { convertReminderToJson } from './convertReminderToJson';
-import { getAllAndpadPayments } from 'api-kintone';
+import { getAllAndpadPayments, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
+import { getAllAndpadOrders } from 'api-andpad/src/@get/getAllAndpadOrders';
 
 
 describe('convertReminderToJson', () => {
   it('should convert reminder data to JSON data', async () => {
 
     // set output file of getAllInvoiceReminder.test.ts
-    const remindersPath = path.join(__dirname, './__TEST__/reminders.json');
+    const remindersPath = path.join(__dirname, '../api-kintone/__TEST__/reminders.json');
     const reminders = JSON.parse(fs.readFileSync(remindersPath, 'utf8'));
 
-    const allAndpadPayments = await getAllAndpadPayments();
+    const [
+      allAndpadPayments,
+      allOrders,
+      allProjects,
+      employees,
+      allStores,
+    ] = await Promise.all([
+      getAllAndpadPayments(),
+      getAllAndpadOrders({ beforeInvoiceIssue: true }),
+      getAllProjects(),
+      getEmployees(),
+      getAllStores(),
+    ]);
 
-    const result = await convertReminderToJson({
+    const result = convertReminderToJson({
       reminder: reminders,
       andpadPayments: allAndpadPayments,
+      allOrders: allOrders,
+      allProjects:allProjects,
+      employees: employees,
+      stores: allStores,
     });
 
     const dir = path.join(__dirname, '__TEST__');

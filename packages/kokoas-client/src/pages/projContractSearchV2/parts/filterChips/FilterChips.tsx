@@ -3,7 +3,6 @@ import { ReactNode, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { parseValueToLabel } from '../../helpers/parseValueToLabel';
-import { stepsKeys } from '../filterDialog/ContractStatusIncomplete';
 import { useNewValuesFromParams } from '../../hooks/useNewValuesFromParams';
 import { filterNonNull } from 'libs';
 import { KForm, TForm } from '../../schema';
@@ -27,16 +26,7 @@ export const FilterChips = () => {
 
     // keyがcontractで始まる場合は、falseをセット
     if (key.startsWith('contract')) {
-      if (key === 'contractIncomplete') {
-        // 未完了の場合は、細かい進捗もfalseにする
-        stepsKeys.forEach((stepKey) => {
-          newQuery = { ...newQuery, [stepKey]: false };
-        });
-
-      } else {
-        // それ以外の場合は、keyをfalseにする
-        newQuery = { ...query, [key]: false };
-      }
+      newQuery = { ...query, [key]: false };
     }
 
     navigate(`?${qs.stringify(filterNonNull(newQuery))}`);

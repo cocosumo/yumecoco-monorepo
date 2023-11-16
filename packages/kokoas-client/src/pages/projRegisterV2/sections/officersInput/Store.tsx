@@ -72,6 +72,8 @@ export const Store = () => {
                   label: newStoreName = '',
                 } = selectedStore || {};
 
+                console.log('storeCode', storeCode);
+
                 if (selectedStore) {
                   setValue('storeCode', storeCode);
                   setValue('territory', territory);

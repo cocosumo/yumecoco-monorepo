@@ -14,7 +14,7 @@ export const ControlledCurrencyInput = ({
   disabled = false,
   placeholder,
   startAdornment,
-  width,
+  width = 300,
 }: {
   name: keyof TypeOfForm,
   label?: string,

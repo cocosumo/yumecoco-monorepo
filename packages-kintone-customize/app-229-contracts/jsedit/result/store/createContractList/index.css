@@ -1,9 +1,13 @@
+/* ゆめてつ紹介料CSS
+   本体テーブル */
 
+/* 本体テーブル */
 table.table_contracts_list {
   width: 100%;
 }
 
 /* Common styles for table header and body */
+/* テーブルのヘッダーと一覧 */
 .table_contracts_list th,
 .table_contracts_list tbody td {
   padding: 3px 5px;
@@ -12,21 +16,25 @@ table.table_contracts_list {
 }
 
 /* Styles for table rows */
+/* 行にカーソルを合わせるとマウスポインタにする */
 .table_contracts_list tbody tr {
   cursor: pointer;
 }
 
 /* change bg on row hover */
+/* 行にカーソルを合わせると色を変える */
 .table_contracts_list tbody tr:hover {
   background-color: #f5f5f5;
 }
 
 /* Styles for table body cells */
+/* 一覧のテーブル枠 */
 .table_contracts_list tbody td {
   border: 1px solid #888;
 }
 
 /* Styles for table header cells */
+/* ヘッダー */
 .table_contracts_list thead th {
   font-size: 14px;
   color: #283618;
@@ -35,12 +43,15 @@ table.table_contracts_list {
   border: 1px solid #888;
 }
 
+/* 太陽光、蓄電池 ハイライトカラー */
 .highlight_solar {
   background-color: #b0d9fd;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
 }
+/* (ハイライト優先) 太陽光 > 該当週 */
 
+/* 該当週ハイライト */
 .highlight {
   background-color: #ffff99;
   -webkit-print-color-adjust: exact;

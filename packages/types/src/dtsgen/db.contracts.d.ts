@@ -24,6 +24,7 @@ declare namespace DBContracts {
     startDate: kintone.fieldTypes.Date;
     signMethod: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
+    note: kintone.fieldTypes.MultiLineText;
     refundMethod: kintone.fieldTypes.SingleLineText;
     totalProfit: kintone.fieldTypes.Number;
     purpose: kintone.fieldTypes.SingleLineText;

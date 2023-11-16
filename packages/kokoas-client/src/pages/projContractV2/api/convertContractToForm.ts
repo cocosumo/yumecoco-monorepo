@@ -66,6 +66,8 @@ export const convertContractToForm = (
     envelopeId,
     signMethod,
     tax,
+
+    memo,
   } = contract;
 
   const calcResult = calculateAmount({
@@ -151,6 +153,8 @@ export const convertContractToForm = (
     envelopeId: envelopeId.value,
     envelopeStatus: envelopeStatus.value as TypeOfForm['envelopeStatus'],
     signMethod: signMethod.value as TypeOfForm['signMethod'] || 'electronic',
+
+    memo: memo.value || '',
   };
 
 

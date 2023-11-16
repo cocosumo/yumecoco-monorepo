@@ -15,8 +15,8 @@ export const payMethods = ['持参', '集金', '振込'] as const;
 
 export const contractTypes = [ 
   '契約', 
-  '銀行用', 
-  '工事実行', 
+  //'銀行用', K252
+  //'工事実行',  K252
   '追加', 
   '設計契約',
 ] as const;

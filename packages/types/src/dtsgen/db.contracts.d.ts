@@ -4,6 +4,7 @@ declare namespace DBContracts {
     envCompleteDate: kintone.fieldTypes.DateTime;
     contractType: kintone.fieldTypes.SingleLineText;
     projEstimateId: kintone.fieldTypes.SingleLineText;
+    memo: kintone.fieldTypes.MultiLineText;
     hasRefund: kintone.fieldTypes.RadioButton;
     uuid: kintone.fieldTypes.SingleLineText;
     initialAmt: kintone.fieldTypes.Number;
@@ -24,7 +25,6 @@ declare namespace DBContracts {
     startDate: kintone.fieldTypes.Date;
     signMethod: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
-    note: kintone.fieldTypes.MultiLineText;
     refundMethod: kintone.fieldTypes.SingleLineText;
     totalProfit: kintone.fieldTypes.Number;
     purpose: kintone.fieldTypes.SingleLineText;

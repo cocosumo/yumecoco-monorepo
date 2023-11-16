@@ -62,8 +62,6 @@ export const ResultsTBody = ({
             : label;
         }
 
-        console.log('label', memo);
-
         return (
           <TRowLayout
             key={contractId}
@@ -75,14 +73,9 @@ export const ResultsTBody = ({
                 icon={memo 
                   ? (
                     <Tooltip
-                      open
-                      sx={{
-                        '& .MuiTooltip-tooltip': {
-                          whiteSpace: 'pre-line',
-
-                        },
-                      }}
-                      title={memo}
+                      title={<span style={{ whiteSpace: 'pre' }}>
+                        {memo}
+                      </span>}
                     >
                       <CommentIcon />
                     </Tooltip>

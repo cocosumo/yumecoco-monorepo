@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertTitle,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -7,13 +9,13 @@ import {
   RadioGroup,
 } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
-import { TypeOfForm, contractTypes } from '../../schema';
+import { ContractType, TypeOfForm, contractTypes } from '../../schema';
 import { useHasMainContract } from '../../hooks/useHasMainContract';
 
 
 export const ContractTypeField = () => {
 
-  const { control } = useFormContext<TypeOfForm>();
+  const { control  } = useFormContext<TypeOfForm>();
 
   const { data: hasMainContract } = useHasMainContract();
 
@@ -67,6 +69,23 @@ export const ContractTypeField = () => {
                     />    
                   );
                 })}
+
+              {!(contractTypes).includes(value as ContractType) && (
+              
+              <FormControlLabel
+                value={value}
+                control={<Radio />}
+                label={(
+                  <Alert severity="warning">
+                    <AlertTitle>
+                      {value}
+                    </AlertTitle>
+                    廃止されました。他のカテゴリを選択したら、この選択肢は消えます。戻したい場合、保存せずにページをリロードしてください。
+                  </Alert>)}
+              />    
+                
+              )}
+
 
             </RadioGroup>
             <FormHelperText>

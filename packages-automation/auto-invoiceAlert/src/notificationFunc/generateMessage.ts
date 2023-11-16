@@ -5,7 +5,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 export const generateMessage = (reminderJson: InvoiceReminder) => {
 
   const {
-    andpadInvoiceUrl,
+    andpadInvoiceUrl, 
     contractDate,
     projName,
     totalContractAmount,
@@ -25,12 +25,9 @@ export const generateMessage = (reminderJson: InvoiceReminder) => {
 本連絡と前後して処理されている場合はご容赦ください。
 `;
 
-  const contractAmtMsg = totalContractAmount === '' ?
-    '取得に失敗しました。' : `${(+totalContractAmount ?? 0).toLocaleString()} 円`;
-
   const content = `契約日  : ${format(parseISO(contractDate), 'yyyy年M月d日')}
 工事名  : ${projName}
-契約金額: ${contractAmtMsg}
+契約金額: ${(+totalContractAmount ?? 0).toLocaleString()} 円
 担当者  : ${agentNames}
 夢てつAG: ${yumeAG}`;
 

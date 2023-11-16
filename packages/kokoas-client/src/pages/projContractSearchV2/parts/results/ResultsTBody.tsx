@@ -6,6 +6,7 @@ import { docusignLocale } from 'kokoas-server/src/api/docusign/locale/docusign';
 import { useNavigate } from 'react-router-dom';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
+import CommentIcon from '@mui/icons-material/Comment';
 
 export const ResultsTBody = ({
   items,
@@ -42,6 +43,9 @@ export const ResultsTBody = ({
         contractDate,
 
         signMethod,
+
+        memo,
+
         createdAt,
         updatedAt,
       })=>{
@@ -58,19 +62,33 @@ export const ResultsTBody = ({
             : label;
         }
 
+        console.log('label', memo);
 
         return (
           <TRowLayout
             key={contractId}
             contractStatus={(
-              <Tooltip title={'契約へ移動'}>
-                <Chip
-                  label={label || '未処理'}
-                  size="small"
-                  color={isCompleted ? 'success' : 'default'}
-                  //onClick={() => navigate(`${pages.projContractPreviewV2}?${generateParams({ custGroupId, contractId })}`)}
-                />
-              </Tooltip>
+              <Chip
+                label={label || '未処理'}
+                size="small"
+                color={isCompleted ? 'success' : 'default'}
+                icon={memo 
+                  ? (
+                    <Tooltip
+                      open
+                      sx={{
+                        '& .MuiTooltip-tooltip': {
+                          whiteSpace: 'pre-line',
+
+                        },
+                      }}
+                      title={memo}
+                    >
+                      <CommentIcon />
+                    </Tooltip>
+                  )
+                  : undefined}
+              />
               )}
             category={category || '契約'}
             refundAmt={refundAmt ? refundAmt.toLocaleString() : '-'}

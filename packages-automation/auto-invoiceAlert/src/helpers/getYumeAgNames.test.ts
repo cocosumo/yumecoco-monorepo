@@ -4,7 +4,7 @@ import { getYumeAgNames } from './getYumeAgNames';
 
 
 describe('getYumeAgNames', () => {
-  it('getYumeAgNames', async () => {
+  it('should return \'取得に失敗しました\' when no names are resolved', async () => {
 
     const projcts = await getProjById('66bc6fc7-0ace-45b8-9b58-84ba5da195d0');
 

@@ -14,7 +14,11 @@ export const chatworkRoomIdSetting = ({
 }) => {
 
   const chatworkRoomIds = agents?.value.filter(({ value }) => {
-    return value.agentType.value === 'cocoAG';
+    const {
+      agentType,
+      agentName,
+    } = value;
+    return (agentType.value === 'cocoAG') && (agentName.value !== '');
   }).map(({ value: {
     agentId,
     agentName,
@@ -31,7 +35,7 @@ export const chatworkRoomIdSetting = ({
   });
 
 
-  return chatworkRoomIds || [{ 
+  return chatworkRoomIds || [{
     cwRoomId: chatworkRooms.cocoasGroup,
     agentId: '',
     agentName: '取得に失敗しました',

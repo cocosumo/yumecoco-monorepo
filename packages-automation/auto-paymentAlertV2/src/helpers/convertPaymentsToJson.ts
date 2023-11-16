@@ -36,6 +36,7 @@ export const convertPaymentsToJson = ({
     expectedPaymentAmount,
     paymentType,
     作成日時,
+    ID,
   }) => {
 
     // 通知対象者を抽出する
@@ -57,13 +58,12 @@ export const convertPaymentsToJson = ({
     const mainContract = tgtContracts.find(({ contractType }) => contractType.value === '契約');
 
     // システムIDを取得する
-    const andpadSystemId = String(forceLinkedAndpadSystemId?.value)
+    const andpadSystemId = forceLinkedAndpadSystemId?.value
       || allOrders.data.objects.find(({ 案件管理ID }) => 案件管理ID === projId.value)?.システムID?.toString()
       || '';
 
-    const andpadPaymentUrl = andpadSystemId !== '' ?
-      `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`
-      : '';
+    const andpadPaymentUrl = andpadSystemId === '' ? ''
+      : `https://andpad.jp/manager/my/orders/${andpadSystemId}/customer_agreement`;
 
     const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProject?.value);
 
@@ -86,6 +86,7 @@ export const convertPaymentsToJson = ({
     return ({
       alertState: true,
       systemId: andpadSystemId,
+      paymentId: ID.value,
       andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') ?? '取得に失敗しました',

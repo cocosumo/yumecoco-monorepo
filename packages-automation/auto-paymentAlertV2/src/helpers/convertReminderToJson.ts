@@ -60,6 +60,7 @@ export const convertReminderToJson = ({
     return ({
       alertState: !paymentHistory,
       systemId: systemId.value,
+      paymentId: paymentId.value,
       andpadPaymentUrl: andpadUrl.value,
       reminderUrl: reminderUrl,
       contractId: contractId.value,

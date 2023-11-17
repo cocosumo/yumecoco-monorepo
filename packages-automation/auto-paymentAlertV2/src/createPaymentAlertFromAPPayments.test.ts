@@ -4,7 +4,6 @@ import path from 'path';
 import format from 'date-fns/format';
 import { createPaymentAlertFromAPPayments } from './createPaymentAlertFromAPPayments';
 import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
 import { getAllPaymentReminder } from './api-kintone';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
 
@@ -17,7 +16,6 @@ describe('createPaymentAlertFromAPPayments', () => {
       unpaidAndpadPayments,
       allMembers,
       allStores,
-      allOrders,
       allContracts,
       allPaymentReminder,
     ] = await Promise.all([
@@ -25,15 +23,13 @@ describe('createPaymentAlertFromAPPayments', () => {
       getUnpaidAndpadPayments(),
       getEmployees(),
       getAllStores(),
-      getMyOrders(),
       getAllContracts(),
       getAllPaymentReminder(),
     ]);
 
 
-    // 契約書の内容からアラート対象を取得する
+    // ANDPAD入金一覧情報より、アラート対象を取得する
     const result = createPaymentAlertFromAPPayments({
-      allOrders: allOrders,
       unpaidAndpadPayments: unpaidAndpadPayments,
       employees: allMembers,
       projects: allProjects,
@@ -50,7 +46,7 @@ describe('createPaymentAlertFromAPPayments', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `paymentAlertContracts_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, `createPaymentAlertFromAPPayments_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
   }, 10000);

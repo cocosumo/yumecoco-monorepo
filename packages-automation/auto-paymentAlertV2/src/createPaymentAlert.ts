@@ -1,10 +1,10 @@
 import { getAllProjects, getAllAndpadPayments, getAllStores, getEmployees, getAllContracts } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
 import { registerReminders } from './helpers/registerReminders';
 import { getAllPaymentReminder, getPaymentRemindersByAlertDate } from './api-kintone';
 import { createPaymentAlertFromAPPayments } from './createPaymentAlertFromAPPayments';
 import { convertReminderToJson } from './helpers/convertReminderToJson';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
+import { getAllAndpadOrders } from 'api-andpad';
 
 
 
@@ -20,7 +20,7 @@ export const createPaymentAlert = async () => {
     allAndpadPayments,
     allMembers,
     allStores,
-    allOrders,
+    allAndpadOrders,
     tgtProjTypeContracts,
     allPaymentReminder,
   ] = await Promise.all([
@@ -29,7 +29,7 @@ export const createPaymentAlert = async () => {
     getAllAndpadPayments(),
     getEmployees(),
     getAllStores(),
-    getMyOrders(),
+    getAllAndpadOrders(),
     getAllContracts(),
     getAllPaymentReminder(),
   ]);
@@ -43,7 +43,6 @@ export const createPaymentAlert = async () => {
     projects: allProjects,
     employees: allMembers,
     stores: allStores,
-    allOrders: allOrders,
   });
 
 
@@ -54,12 +53,14 @@ export const createPaymentAlert = async () => {
 
 
   // 今日までに通知予定のリマインダーレコードを取得する(含：入金一覧から取得したアラート)
-  const alertReminder = await getPaymentRemindersByAlertDate(new Date());
+  const alertReminders = await getPaymentRemindersByAlertDate(new Date());
 
 
   const alertReminderJson = convertReminderToJson({
-    reminder: alertReminder,
+    reminders: alertReminders,
     andpadPayments: allAndpadPayments,
+    allAndpadOrders: allAndpadOrders,
+    allProjects: allProjects,
   });
 
 

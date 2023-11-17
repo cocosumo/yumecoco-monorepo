@@ -7,6 +7,9 @@ const deleteRecords = async ({
   /* Fix this */
   newYasumiRecords,
   savedRecords,
+}:{
+  newYasumiRecords: any;
+  savedRecords: any
 }) => {
   const datesToBeDeleted = [];
   Object.keys(savedRecords).forEach((key) => {
@@ -18,7 +21,7 @@ const deleteRecords = async ({
   return deleteRecordsByDates(datesToBeDeleted);
 };
 
-const pushToRecordsToSave = (recordsToSaveArray, unsavedRecord, key) => {
+const pushToRecordsToSave = (recordsToSaveArray: any, unsavedRecord: any, key: any) => {
   const dayOrdinary = getOrdinaryYasumi(unsavedRecord);
   if (dayOrdinary.length) {
     recordsToSaveArray.push({ ...{ date: key }, ...dayOrdinary[0] });
@@ -66,6 +69,19 @@ const yasumiSaveHandler = debounce(async ({
   setSnack,
   setIsSaving,
   seIsEditing,
+}:{
+  newYasumiRecords: any;
+  savedRecords: any;
+  maxYasumi: any;
+  currentMonth: any;
+  setSavedRecords: any;
+  setRemainingYasumi: any;
+  setYasumiRecords: any;
+  /* setSnackType: any;
+  setSnackOpen: any; */
+  setSnack: any;
+  setIsSaving: any;
+  seIsEditing: any;
 }) => {
   setIsSaving(true);
 

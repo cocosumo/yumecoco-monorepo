@@ -11,6 +11,15 @@ const deleteExcessYasumi = async ({
   setSavedRecords,
   setRemainingYasumi,
   setSnack,
+}:{
+  remainingYasumi: any;
+  yasumiRecords: any;
+  currentMonth: any;
+  maxYasumi: any;
+  setYasumiRecords: any;
+  setSavedRecords: any;
+  setRemainingYasumi: any;
+  setSnack: any;
 }) => {
   if (remainingYasumi < 0) {
     let excessYasumi = Math.abs(remainingYasumi);
@@ -18,7 +27,7 @@ const deleteExcessYasumi = async ({
 
     for (const key in yasumiRecords) {
       if (Object.prototype.hasOwnProperty.call(yasumiRecords, key)) {
-        const yasumiRecord = yasumiRecords[key].find(({ type }) => type === 'day-ordinary');
+        const yasumiRecord = yasumiRecords[key].find(({ type }: any) => type === 'day-ordinary');
         if (yasumiRecord) {
           const weight = getYasumiWeight(yasumiRecord.duration);
           datesToBeDeleted.push(key);

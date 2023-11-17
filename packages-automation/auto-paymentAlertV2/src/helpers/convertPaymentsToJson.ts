@@ -87,7 +87,7 @@ export const convertPaymentsToJson = ({
       paymentId: ID.value,
       andpadPaymentUrl: `https://andpad.jp/manager/my/orders/${systemId.value}/customer_agreement`,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') ?? '取得に失敗しました',
+      contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') || '取得に失敗しました',
       projId: projId?.value || '取得に失敗しました',
       projName: projName?.value || '取得に失敗しました',
       projType: projTypeName?.value || '取得に失敗しました',
@@ -98,7 +98,7 @@ export const convertPaymentsToJson = ({
       expectedPaymentDate: paymentDate,
       expectedPaymentAmt: expectedPaymentAmount.value,
       paymentType: paymentType.value,
-      yumeAG: yumeAGs,
+      yumeAG: yumeAGs || '取得に失敗しました',
       cwRoomIds: chatworkRoomIds,
     });
   });

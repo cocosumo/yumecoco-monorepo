@@ -113,7 +113,7 @@
     "@types/node": "^20.6.2",
     "@types/node-cron": "^3.0.8",
     "aws-sdk": "^2.1432.0",
-    "axios": "^1.6.0",
+    "axios": "^1.6.2",
     "big.js": "^6.2.1",
     "canvas": "^2.11.2",
     "cross-env": "^7.0.3",

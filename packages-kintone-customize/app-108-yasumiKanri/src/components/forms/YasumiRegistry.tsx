@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Container, Button, Grid } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 import MonthCalendar from '../UI/MonthCalendar';
@@ -15,6 +15,7 @@ import clearYasumi from '../../handlers/clearYasumi';
 import EditRecordSnackbar from '../UI/snackbars/EditRecordSnackbar';
 import { getLeaveInClickedDate, getOrdinaryInClickedDate } from '../../handlers/getInfoInClickedDate';
 import Instructions from '../paragraphs/Instructions';
+import { DateTime } from 'luxon';
 
 const YasumiRegistry = () => {
   const [yasumiRecords, setYasumiRecords] = useState<any>();
@@ -24,12 +25,16 @@ const YasumiRegistry = () => {
   const [savedRecords, setSavedRecords] = useState();
   const [isSaving, setIsSaving] = useState();
   const [isEditing, seIsEditing] = useState(false);
-  const currentMonth = useRef<any>();
-  const maxYasumi = useRef(0);
+  const [currentMonth, setCurrentMonth] = useState<DateTime | null>(null);
+  const [maxYasumi, setMaxYasumi] = useState(0);
+  //const currentMonth = useRef<any>();
+
+
 
   const clickDayHandler = (info: any) => {
+    console.log('info', info, yasumiRecords);
     const clickedLuxDate = ISOtoLux(info.dateStr);
-    if (!isSaving && isWithinMonth(currentMonth.current, clickedLuxDate)) {
+    if (!isSaving && isWithinMonth(currentMonth, clickedLuxDate)) {
       const leaveInClickedDate = getLeaveInClickedDate(yasumiRecords[info.dateStr]);
       if (isMonthNow(clickedLuxDate)) {
         const ordinaryClickedDate = getOrdinaryInClickedDate(yasumiRecords[info.dateStr]);
@@ -68,10 +73,14 @@ const YasumiRegistry = () => {
     }
   };
 
+
+
   const datesSetHandler = async ({ view }: any) => {
     const { currentStart } = view;
-    currentMonth.current = JSDToLux(currentStart);
-    maxYasumi.current = await getYasumiCount(currentMonth.current);
+    setCurrentMonth(JSDToLux(currentStart));
+    if (!currentMonth) return;
+
+    setMaxYasumi(await getYasumiCount(currentMonth));
     refetchData({
       currentMonth,
       maxYasumi,
@@ -129,7 +138,7 @@ const YasumiRegistry = () => {
       <MonthCalendar
         clearHandler={clearHandler}
         clickDayHandler={clickDayHandler}
-        currentMonth={currentMonth.current}
+        currentMonth={currentMonth}
         datesSetHandler={datesSetHandler}
         isEditing={isEditing}
         remainingYasumi={remainingYasumi || 0}

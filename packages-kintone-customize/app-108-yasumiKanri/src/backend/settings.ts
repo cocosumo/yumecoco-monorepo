@@ -1,6 +1,6 @@
 import { isNumberTuple } from '../helpers/isNumberTuple';
 import { fetchSettings } from './fetchSettings';
-
+import { DateTime } from 'luxon';
 
 const prodAppId = '108';
 
@@ -12,7 +12,7 @@ const yasumiDaysReference = {
   28: 5,
 };
 
-const calcYasumiDays = (luxonDate: any) => {
+const calcYasumiDays = (luxonDate: DateTime) => {
   const monthDays = luxonDate.endOf('month').day;
   return yasumiDaysReference[monthDays as keyof typeof yasumiDaysReference];
 };
@@ -39,9 +39,8 @@ const findSettingInTable = (luxonDate: any, settingsTable: any) => {
 
 };
 
-const getYasumiCount = async (luxonDate: any) => {
+const getYasumiCount = async (luxonDate: DateTime) => {
   const { month } = luxonDate;
-  console.log(luxonDate);
 
   const employeeRole = localStorage.getItem('employeeRole');
 

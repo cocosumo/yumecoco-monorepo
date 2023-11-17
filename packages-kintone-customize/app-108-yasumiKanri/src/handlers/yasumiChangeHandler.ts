@@ -4,8 +4,8 @@ import { defaultRecord, yasumiUsed } from '../backend/yasumiKanri';
 import { resolveNewWeight, shiftToNext } from '../helpers/converters';
 import yasumiSaveHandler from './yasumiSaveHandler';
 
-const getAvailableDayTime = (newArray) => {
-  const leaveDay = newArray.find(({ type }) => type.includes('leave'));
+const getAvailableDayTime = (newArray: any) => {
+  const leaveDay = newArray.find(({ type }: any) => type.includes('leave'));
 
   if (!leaveDay) return 'day-whole';
   if (leaveDay.duration.includes('whole')) return null;
@@ -26,12 +26,25 @@ const yasumiChangeHandler = ({
   setSnack,
   setIsSaving,
   seIsEditing,
+}:{
+  info: any;
+  yasumiRecords: any;
+  remainingYasumi: any;
+  savedRecords: any;
+  maxYasumi: any;
+  currentMonth: any;
+  setSavedRecords: any;
+  setRemainingYasumi: any;
+  setYasumiRecords: any;
+  setSnack: any;
+  setIsSaving: any;
+  seIsEditing: any;
 }) => {
   const { dateStr } = info;
   let newArray = yasumiRecords[dateStr] ? [...yasumiRecords[dateStr]] : [defaultRecord];
-  let weight;
+  let weight = 0;
   let newDuration;
-  let newYasumiRecords;
+  let newYasumiRecords: any;
 
   const availableTime = getAvailableDayTime(newArray);
   if (!availableTime) return;
@@ -60,13 +73,13 @@ const yasumiChangeHandler = ({
 
     ReactDOM.unstable_batchedUpdates(() => {
       if (newArray.length) {
-        setYasumiRecords((prev) => {
+        setYasumiRecords((prev: any) => {
           newYasumiRecords = { ...prev, [dateStr]: newArray };
 
           return newYasumiRecords;
         });
       } else {
-        setYasumiRecords((prev) => {
+        setYasumiRecords((prev: any) => {
           const state = { ...prev };
           delete state[dateStr];
           newYasumiRecords = state;

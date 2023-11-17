@@ -17,7 +17,7 @@ const DayCell = ({
   const { date, dayNumberText } = args;
   const luxDate = JSDToLux(date);
   const cellDate = luxDate.toISODate();
-  const isRenderDate = isWithinMonth(currentMonth.current, luxDate);
+  const isRenderDate = isWithinMonth(currentMonth?.current, luxDate);
   const isExist = yasumiRecords && cellDate && yasumiRecords[cellDate];
   let dayRecords;
 

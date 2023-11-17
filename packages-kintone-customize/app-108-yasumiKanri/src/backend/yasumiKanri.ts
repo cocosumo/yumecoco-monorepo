@@ -176,10 +176,13 @@ export const yasumiRecToObj = async (luxonDate: any) => (
 
 export const yasumiUsed = (yasumiRecords: any) => {
   let result = 0;
-  Object.values(yasumiRecords).forEach((val: any) => {
-    const { duration = null } = val.find(({ type }: any) => type === 'day-ordinary') || [];
-    result += duration ? getYasumiWeight(duration) : 0;
-  });
+  if (!yasumiRecords) return result;
+
+  Object?.values(yasumiRecords)
+    .forEach((val: any) => {
+      const { duration = null } = val.find(({ type }: any) => type === 'day-ordinary') || [];
+      result += duration ? getYasumiWeight(duration) : 0;
+    });
 
   return result;
 };

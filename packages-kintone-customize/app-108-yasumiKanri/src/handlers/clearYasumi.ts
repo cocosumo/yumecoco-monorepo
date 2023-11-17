@@ -10,6 +10,15 @@ const clearYasumi = async ({
   setRemainingYasumi,
   setSnack,
   setIsSaving,
+}:{
+  yasumiRecords: any;
+  currentMonth: any;
+  maxYasumi: any;
+  setSavedRecords: any;
+  setYasumiRecords: any;
+  setRemainingYasumi: any;
+  setSnack: any;
+  setIsSaving: any;
 }) => {
   setIsSaving(true);
 

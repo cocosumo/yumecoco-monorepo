@@ -6,6 +6,7 @@ import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useStableNavigate } from 'kokoas-client/src/hooks/useStableNavigate';
 import { useCallback } from 'react';
 import { Stack } from '@mui/material';
+import { formatDataId } from 'libs';
 
 
 export const RecordSelect = () => {
@@ -89,7 +90,7 @@ export const RecordSelect = () => {
       />
 
       <ModeInfo
-        recordId={projDataId || ''}
+        recordId={formatDataId(projDataId) || ''}
         dateStr={createdDate}
       />
 

@@ -7,17 +7,9 @@ export const getYumeAgNames = ({
   agents: RecordType['agents'] | undefined,
 }) => {
 
-  const yumeAgents = agents?.value.filter(({ value }) => {
-    const {
-      agentType,
-    } = value;
-
-    return agentType.value === 'yumeAG' as TAgents;
-  });
-
-  if (yumeAgents?.length) {
-    return yumeAgents.map(({ value }) => value.agentName.value).join(', ');
-  }
-
-  return '取得に失敗しました';
+  return agents?.value
+    .filter(({ value: { agentType, agentName } }) =>
+      (agentType.value === 'yumeAG' as TAgents) && (agentName.value !== ''))
+    .map(({ value }) => value.agentName.value)
+    .join(', ');
 };

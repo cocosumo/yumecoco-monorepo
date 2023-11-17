@@ -1,6 +1,5 @@
 import { filterAPPaymentsToAlertTarget } from './helpers/filterAPPaymentsToAlertTarget';
 import { convertPaymentsToJson } from './helpers/convertPaymentsToJson';
-import { getMyOrders } from 'api-andpad';
 import { IPaymentReminder } from '../config';
 import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores } from 'types';
 
@@ -16,7 +15,6 @@ export const createPaymentAlertFromAPPayments = ({
   projects,
   employees,
   stores,
-  allOrders,
 }: {
   contracts: IContracts[]
   unpaidAndpadPayments: IAndpadpayments[]
@@ -24,12 +22,12 @@ export const createPaymentAlertFromAPPayments = ({
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
-  allOrders: Awaited<ReturnType<typeof getMyOrders>>
 }) => {
 
   const alertPayments = filterAPPaymentsToAlertTarget({
     unpaidAndpadPayments: unpaidAndpadPayments,
     reminders: reminders,
+    allProjects: projects,
   });
 
 
@@ -39,7 +37,6 @@ export const createPaymentAlertFromAPPayments = ({
     projects: projects,
     employees: employees,
     stores: stores,
-    allOrders: allOrders,
   });
 
 

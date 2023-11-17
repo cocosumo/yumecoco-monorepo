@@ -92,12 +92,12 @@ export const ProjectDetails = ({
         value: deliveryDate.value || '-',
       },
       {
-        label: '物件完了日',
-        value: projFinDate.value || '-',
-      },
-      {
         label: '支払完了日',
         value: payFinDate.value || '-',
+      },
+      {
+        label: '物件完了日',
+        value: projFinDate.value || '-',
       },
     ];
 

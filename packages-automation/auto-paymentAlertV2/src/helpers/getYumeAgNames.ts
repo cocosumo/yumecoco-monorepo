@@ -9,7 +9,7 @@ export const getYumeAgNames = ({
 
   return agents?.value
     .filter(({ value: { agentType, agentName } }) =>
-      (agentType.value === 'yumeAG' as TAgents) && (agentName.value !== ''))
+      (agentType.value === 'yumeAG' as TAgents) && (agentName.value))
     .map(({ value }) => value.agentName.value)
     .join(', ');
 };

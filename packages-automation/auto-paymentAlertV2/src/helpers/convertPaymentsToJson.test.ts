@@ -4,7 +4,6 @@ import path from 'path';
 import format from 'date-fns/format';
 import { convertPaymentsToJson } from './convertPaymentsToJson';
 import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
-import { getMyOrders } from 'api-andpad';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
 
 
@@ -17,24 +16,21 @@ describe('convertPaymentsToJson', () => {
       allProjects,
       allEmployees,
       allStores,
-      allOrders,
       allContracts,
     ] = await Promise.all([
       getUnpaidAndpadPayments(),
       getAllProjects(),
       getEmployees(),
       getAllStores(),
-      getMyOrders(),
       getAllContracts(),
     ]);
 
-    const result = await convertPaymentsToJson({
+    const result = convertPaymentsToJson({
       alertPayments: alertPayments,
       contracts: allContracts,
       projects: allProjects,
       employees: allEmployees,
       stores: allStores,
-      allOrders: allOrders,
     });
 
     const dir = path.join(__dirname, '__TEST__');
@@ -49,5 +45,5 @@ describe('convertPaymentsToJson', () => {
       JSON.stringify(result, null, 2),
     );
 
-  }, 60000);
+  }, 100000);
 });

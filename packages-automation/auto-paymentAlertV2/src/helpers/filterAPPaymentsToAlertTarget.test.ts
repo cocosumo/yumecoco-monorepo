@@ -5,6 +5,7 @@ import format from 'date-fns/format';
 import { filterAPPaymentsToAlertTarget } from './filterAPPaymentsToAlertTarget';
 import { getAllPaymentReminder } from '../api-kintone';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
+import { getAllProjects } from 'api-kintone';
 
 
 describe('filterContractsToAlertTarget', () => {
@@ -13,14 +14,17 @@ describe('filterContractsToAlertTarget', () => {
     const [
       unpaidAndpadPayments,
       allPaymentReminders,
+      allProjects,
     ] = await Promise.all([
       getUnpaidAndpadPayments(),
       getAllPaymentReminder(),
+      getAllProjects(),
     ]);
 
-    const result = await filterAPPaymentsToAlertTarget({
+    const result = filterAPPaymentsToAlertTarget({
       unpaidAndpadPayments: unpaidAndpadPayments,
       reminders: allPaymentReminders,
+      allProjects: allProjects,
     });
 
     const dir = path.join(__dirname, '__TEST__');

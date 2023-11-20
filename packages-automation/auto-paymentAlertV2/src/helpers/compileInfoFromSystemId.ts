@@ -49,7 +49,7 @@ export const compileInfoFromSystemId = ({
 
   // 対象の契約書情報を取得する
   const tgtContracts = contracts
-    .filter(({ projId: contractProjId }) => contractProjId.value === projId?.value) || [];
+    .filter(({ projId: contractProjId }) => contractProjId.value === projId?.value);
 
   // 契約書情報を取得する
   const {

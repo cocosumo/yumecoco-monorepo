@@ -48,25 +48,21 @@ export const compileNotificationSettings = ({
 
 
   // 不要な通知対象者を削除
-  for (let i = 0; i < exsistingSettings?.value?.length; i++) {
+  for (let i = 0; i < updatedSettings?.length; i++) {
     let isExist = false;
     updateSettings.forEach(({ agentId }) => {
-      if (agentId === exsistingSettings.value[i].value.alertTargetId.value) {
+      if (agentId === updatedSettings[i].value.alertTargetId.value) {
         isExist = true;
       }
     });
 
     if (!isExist) {
-      exsistingSettings.value.splice(i, 1);
+      updatedSettings.splice(i, 1);
     }
   }
 
-  updatedSettings.filter(({ agentId }) => {
-
-  })
-
-  exsistingSettings?.value ?
-
-
-return exsistingSettings;
+  return ({
+    type: 'SUBTABLE',
+    value: updatedSettings,
+  }) as IInvoiceReminder['notificationSettings'];
 };

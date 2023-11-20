@@ -35,6 +35,8 @@ export const convertPaymentsToJson = ({
     // 対象の工事情報を取得する
 
     const {
+      andpadPaymentUrl,
+      connectedToAndpad,
       contractDate,
       contractId,
       cwRoomIds,
@@ -58,10 +60,10 @@ export const convertPaymentsToJson = ({
 
 
     return ({
-      alertState: true,
+      alertState: connectedToAndpad,
       systemId: systemId.value,
       paymentId: ID.value,
-      andpadPaymentUrl: `https://andpad.jp/manager/my/orders/${systemId.value}/customer_agreement`,
+      andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
       contractId: contractId,
       projId: projId,
@@ -79,6 +81,8 @@ export const convertPaymentsToJson = ({
     });
   });
 
-  return alertPaymentReminders;
+
+  // 削除データが残っている可能性があるため、ANDPADとの接続で一部を対策する
+  return alertPaymentReminders.filter(({ alertState }) => alertState);
 
 };

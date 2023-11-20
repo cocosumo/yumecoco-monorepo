@@ -1,7 +1,7 @@
 import { IPaymentReminder, reminderAppId } from '../../config';
-import { CwRoomIds, PaymentReminder } from '../../types/paymentReminder';
-import { IAndpadpayments, IProjects, Territory } from 'types';
-import { getAllAndpadOrders } from 'api-andpad';
+import { PaymentReminder } from '../../types/paymentReminder';
+import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores, Territory } from 'types';
+import { compileInfoFromSystemId } from './compileInfoFromSystemId';
 import { kintoneBaseUrl } from 'api-kintone';
 
 
@@ -9,13 +9,17 @@ import { kintoneBaseUrl } from 'api-kintone';
 export const convertRemindersToJson = ({
   reminders,
   andpadPayments,
-  allAndpadOrders,
   allProjects,
+  contracts,
+  employees,
+  stores,
 }: {
   reminders: IPaymentReminder[]
   andpadPayments: IAndpadpayments[],
-  allAndpadOrders: Awaited<ReturnType<typeof getAllAndpadOrders>>
   allProjects: IProjects[]
+  contracts: IContracts[]
+  employees: IEmployees[]
+  stores: IStores[]
 }) => {
 
   return reminders.map((reminder): PaymentReminder => {
@@ -23,83 +27,87 @@ export const convertRemindersToJson = ({
       $id,
       andpadUrl,
       area,
-      contractId,
-      projId,
-      projType,
-      projName,
-      contractDate,
-      totalContractAmount,
-      notificationSettings,
-      expectedPaymentDate,
+      projId: tgtProjId,
       expectedPaymentAmt,
-      yumeAG,
       paymentId,
       paymentType,
       systemId,
       store,
     } = reminder;
 
-    // リマインダーレコードから工事情報を取得する
-    const tgtProject = allProjects.find(({
-      forceLinkedAndpadSystemId,
-      uuid,
-    }) => (forceLinkedAndpadSystemId.value === systemId.value) || (projId.value === uuid.value));
+    const alertPayment = andpadPayments.find(({ ID }) => ID.value === paymentId.value);
 
+    // ANDPADの入金一覧から削除されていたら、アラート対象外として更新する
+    if (!alertPayment) {
+      return ({
+        alertState: false,
+        systemId: systemId.value,
+        paymentId: paymentId.value,
+        andpadPaymentUrl: andpadUrl.value,
+        reminderUrl: '',
+        contractId: reminder.contractId.value,
+        projId: tgtProjId.value,
+        projName: reminder.projName.value,
+        projType: reminder.projType.value,
+        storeName: store.value,
+        contractDate: reminder.contractDate.value,
+        territory: area.value as Territory,
+        expectedPaymentDate: reminder.expectedPaymentDate.value,
+        expectedPaymentAmt: expectedPaymentAmt.value,
+        paymentType: paymentType.value,
+        yumeAG: reminder.yumeAG.value,
+        cwRoomIds: [],
+        totalContractAmount: reminder.totalContractAmount.value,
+      });
+    }
 
-    // 通知先情報(chatwork)を設定する TODO 情報更新
-    const cwRoomIds: CwRoomIds[] = notificationSettings.value.map(({ value }) => {
-      const {
-        alertTargetId,
-        alertTargetName,
-        chatworkRoomId,
-      } = value;
-
-      return {
-        agentName: alertTargetName.value,
-        agentId: alertTargetId.value,
-        cwRoomId: chatworkRoomId.value,
-      };
+    // リマインダー情報の更新処理
+    const {
+      andpadPaymentUrl,
+      connectedToAndpad,
+      contractDate,
+      contractId,
+      cwRoomIds,
+      expectedPaymentDate,
+      hasPaymentHistory,
+      projId,
+      projName,
+      projType,
+      storeName,
+      territory,
+      totalContractAmount,
+      yumeAG,
+    } = compileInfoFromSystemId({
+      alertPayment: alertPayment,
+      contracts: contracts,
+      employees: employees,
+      projects: allProjects,
+      stores: stores,
+      tgtProjId: tgtProjId.value,
+      tgtSystemId: systemId.value,
     });
 
-    // kintoneのリマインダーURLを設定する
     const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
-
-    // 顧客からの入金情報を確認する
-    const hasPaymentHistory = andpadPayments.some(({
-      ID,
-      paymentDate,
-    }) => ((paymentId.value === ID.value) && (paymentDate.value !== '')));
-
-    // ANDPADとの接続確認
-    const connectedToAndpad = allAndpadOrders.data.objects
-      .some(({
-        システムID,
-        案件管理ID,
-      }) =>
-        (システムID?.toString() === tgtProject?.forceLinkedAndpadSystemId.value)
-        || (案件管理ID === tgtProject?.uuid.value));
-
-
 
     return ({
       alertState: connectedToAndpad && !hasPaymentHistory,
       systemId: systemId.value,
       paymentId: paymentId.value,
-      andpadPaymentUrl: andpadUrl.value,
+      andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: reminderUrl,
-      contractId: contractId.value,
-      projId: projId.value,
-      projName: projName.value,
-      projType: projType.value,
-      storeName: store.value,
-      contractDate: contractDate.value,
-      territory: area.value as Territory,
-      expectedPaymentDate: expectedPaymentDate.value,
+      contractId: contractId,
+      projId: projId,
+      projName: projName,
+      projType: projType,
+      storeName: storeName,
+      contractDate: contractDate,
+      territory: territory,
+      expectedPaymentDate: expectedPaymentDate,
       expectedPaymentAmt: expectedPaymentAmt.value,
       paymentType: paymentType.value,
-      yumeAG: yumeAG.value,
+      yumeAG: yumeAG,
       cwRoomIds: cwRoomIds,
-      totalContractAmount: totalContractAmount.value,
+      totalContractAmount: totalContractAmount,
     });
   });
 

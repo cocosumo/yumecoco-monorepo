@@ -29,6 +29,15 @@ export const compileInfoFromSystemId = ({
     作成日時,
   } = alertPayment;
 
+  const hasPaymentHistory = alertPayment.paymentDate.value !== '';
+
+  const tgtProject = projects.find(({
+    uuid, //projId
+    forceLinkedAndpadSystemId: systemIdForChk,
+  }) => {
+    return (systemIdForChk.value === tgtSystemId) || (uuid.value === tgtProjId);
+  });
+
   const {
     agents,
     storeCode: storeCodeByProject,
@@ -36,12 +45,7 @@ export const compileInfoFromSystemId = ({
     projName,
     store: storeByProject,
     projTypeName,
-  } = projects.find(({
-    uuid, //projId
-    forceLinkedAndpadSystemId: systemIdForChk,
-  }) => {
-    return (systemIdForChk.value === tgtSystemId) || (uuid.value === tgtProjId);
-  }) || {};
+  } = tgtProject || {};
 
   // 対象の契約書情報を取得する
   const tgtContracts = contracts
@@ -72,6 +76,9 @@ export const compileInfoFromSystemId = ({
   });
 
   return ({
+    connectedToAndpad: !!tgtProject,
+    hasPaymentHistory: hasPaymentHistory,
+    andpadPaymentUrl: `https://andpad.jp/manager/my/orders/${tgtSystemId}/customer_agreement`,
     contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') || '取得に失敗しました',
     projId: projId?.value || '取得に失敗しました',
     projName: projName?.value || '取得に失敗しました',

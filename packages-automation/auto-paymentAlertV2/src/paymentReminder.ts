@@ -4,7 +4,6 @@ import { convertRemindersToJson } from './helpers/convertRemindersToJson';
 import { updateReportedReminders } from './helpers/updateReportedReminders';
 import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
-import { getAllAndpadOrders } from 'api-andpad';
 import { createPaymentAlertFromAPPayments } from './createPaymentAlertFromAPPayments';
 import { registerReminders } from './helpers/registerReminders';
 
@@ -21,7 +20,6 @@ export const paymentReminder = async () => {
     allAndpadPayments,
     allMembers,
     allStores,
-    allAndpadOrders,
     allContracts,
     allPaymentReminders,
   ] = await Promise.all([
@@ -30,7 +28,6 @@ export const paymentReminder = async () => {
     getAllAndpadPayments(),
     getEmployees(),
     getAllStores(),
-    getAllAndpadOrders(),
     getAllContracts(),
     getAllPaymentReminder(),
   ]);
@@ -57,8 +54,10 @@ export const paymentReminder = async () => {
   const alertRemindersJson = convertRemindersToJson({
     reminders: alertReminders,
     andpadPayments: allAndpadPayments,
-    allAndpadOrders: allAndpadOrders,
     allProjects: allProjects,
+    contracts: allContracts,
+    employees: allMembers,
+    stores: allStores,
   });
 
 

@@ -37,7 +37,6 @@ export const getGroupByStore = async () => {
     const hasContract = contracts.some(({ projectId }: any) => {
       return projectId.value === pp.uuid.value;
     });
-    //console.log('hasContract', stores[i].custNames.value, hasContract);
 
     //契約済になっていた場合（一覧に入れない）
     if (hasContract) {

@@ -3,6 +3,7 @@ import { useContractsByFiscalYear } from '../../hooks/useContractsByFiscalYear';
 import { FiscalYearResult } from './fiscalYearResult/FiscalYearResult';
 import { FiscalMonths } from './fiscalMonths/FiscalMonths';
 import style from './Results.module.css';
+import { Total } from './total/Total';
 
 export const Results = () => {
 
@@ -23,6 +24,7 @@ export const Results = () => {
     >
       <FiscalYearResult fiscalYearQuery={fiscalYearQuery} />
       <FiscalMonths fiscalYearQuery={fiscalYearQuery} />
+      <Total />
     </Stack>
   );
 };

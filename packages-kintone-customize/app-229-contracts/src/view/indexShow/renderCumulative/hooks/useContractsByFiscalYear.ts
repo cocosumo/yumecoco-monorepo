@@ -72,6 +72,8 @@ export const useContractsByFiscalYear = () => {
             profit,
           } = contract;
 
+          const newAcc =  { ...acc };
+
           const month = format(new Date(contractDate.value), 'yyyy-MM');
 
           const fiscalMonth = acc.details?.[month] || {
@@ -86,15 +88,15 @@ export const useContractsByFiscalYear = () => {
           fiscalMonth.totalAmountExclTax += +contractAmountNotax.value;
           fiscalMonth.totalProfit += +profit.value;
 
-          acc.totalCount += 1;
-          acc.totalAmountInclTax += +contractAmountIntax.value;
-          acc.totalAmountExclTax += +contractAmountNotax.value;
-          acc.totalProfit += +profit.value;
+          newAcc.totalCount += 1;
+          newAcc.totalAmountInclTax += +contractAmountIntax.value;
+          newAcc.totalAmountExclTax += +contractAmountNotax.value;
+          newAcc.totalProfit += +profit.value;
           
           return {
-            ...acc,
+            ...newAcc,
             details: {
-              ...acc.details,
+              ...newAcc.details,
               [month]: fiscalMonth,
             },
           };

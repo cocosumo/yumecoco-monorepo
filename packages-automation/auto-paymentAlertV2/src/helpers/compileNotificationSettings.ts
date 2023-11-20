@@ -20,25 +20,22 @@ export const compileNotificationSettings = ({
 
   console.log('exsistingSettings', exsistingSettings);
 
+  const updatedSettings = exsistingSettings ? [...exsistingSettings.value] : [];
+
   for (const room of updateSettings) {
-    let chkFlg = false;
 
     // cocoasGroupが設定されている場合は、通知先の取得に失敗しているため、対象外
     if (room.cwRoomId === chatworkRooms.cocoasGroup) continue;
 
-    // 通知対象者情報の更新
-    exsistingSettings?.value?.forEach((item) => {
+    const existingSetting = updatedSettings.find(item => item.value.alertTargetId.value === room.agentId);
 
-      if (item.value.alertTargetId.value === room.agentId) {
-        item.value.alertTargetName.value = room.agentName;
-        item.value.chatworkRoomId.value = room.cwRoomId;
-        chkFlg = true;
-      }
-    });
-
-    // 通知対象者の追加
-    if (!chkFlg) {
-      exsistingSettings?.value?.push({
+    if (existingSetting) {
+      // Update existing setting
+      existingSetting.value.alertTargetName.value = room.agentName;
+      existingSetting.value.chatworkRoomId.value = room.cwRoomId;
+    } else {
+      // Add new setting
+      updatedSettings.push({
         id: '',
         value: {
           chatworkRoomId: { value: room.cwRoomId },
@@ -52,17 +49,24 @@ export const compileNotificationSettings = ({
 
   // 不要な通知対象者を削除
   for (let i = 0; i < exsistingSettings?.value?.length; i++) {
-    let chkFlg = false;
+    let isExist = false;
     updateSettings.forEach(({ agentId }) => {
       if (agentId === exsistingSettings.value[i].value.alertTargetId.value) {
-        chkFlg = true;
+        isExist = true;
       }
     });
 
-    if (!chkFlg) {
+    if (!isExist) {
       exsistingSettings.value.splice(i, 1);
     }
   }
 
-  return exsistingSettings;
+  updatedSettings.filter(({ agentId }) => {
+
+  })
+
+  exsistingSettings?.value ?
+
+
+return exsistingSettings;
 };

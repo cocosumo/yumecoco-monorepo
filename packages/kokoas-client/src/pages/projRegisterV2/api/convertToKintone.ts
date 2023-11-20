@@ -58,7 +58,9 @@ export const convertToKintone = (
 
   } = rawValues;
 
-  console.log('SAVE', storeCode);
+
+  const newDataId = `${storeCode}-${projDataId.slice(4)}`; 
+  console.log('newDataId', newDataId, projDataId);
 
   return {
     ...(custGroupId ? { custGroupId: { value: custGroupId } } : undefined),
@@ -164,7 +166,7 @@ export const convertToKintone = (
     territory: { value: territory },
     store: { value: storeName },
     storeCode: { value: storeCode },
-    dataId: { value: `${storeCode}-${projDataId.slice(4)}`  },
+    dataId: { value: newDataId  },
 
     // 利益率
     profitRate: { value: String(profitRate) },

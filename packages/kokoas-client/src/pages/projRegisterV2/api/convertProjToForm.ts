@@ -1,6 +1,5 @@
 import { BuildingType, ICustgroups, IEmployees, IProjects, RecordCancelStatus, Territory } from 'types';
 import { TForm } from '../schema';
-import { formatDataId } from 'libs';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { groupAgentsByType } from 'api-kintone/src/projects/helpers/groupAgentsByType';
@@ -140,7 +139,7 @@ export const convertProjToForm = ({
     otherProjType: otherProjType.value,
     
     projName: projName.value,
-    projDataId: formatDataId(dataId.value),
+    projDataId: dataId.value,
     postal: postal.value,
 
     memo: memo.value,

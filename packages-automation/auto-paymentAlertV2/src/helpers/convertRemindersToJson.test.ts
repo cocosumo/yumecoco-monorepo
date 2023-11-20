@@ -2,7 +2,7 @@ import { describe, it } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
-import { convertReminderToJson } from './convertReminderToJson';
+import { convertRemindersToJson } from './convertRemindersToJson';
 import { getAllAndpadPayments, getAllProjects } from 'api-kintone';
 
 
@@ -26,7 +26,7 @@ describe('convertReminderToJson', () => {
       getAllProjects(),
     ]);
 
-    const result = convertReminderToJson({
+    const result = convertRemindersToJson({
       reminders: reminders,
       andpadPayments: allAndpadPayments,
       allAndpadOrders: andpadOrders,

@@ -1,6 +1,6 @@
 import { getAllAndpadPayments, getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { getAllPaymentReminder, getPaymentRemindersByAlertDate } from './api-kintone';
-import { convertReminderToJson } from './helpers/convertReminderToJson';
+import { convertRemindersToJson } from './helpers/convertRemindersToJson';
 import { updateReportedReminders } from './helpers/updateReportedReminders';
 import { notifyPaymentAlertToChatwork } from './notifyPaymentAlertToChatwork';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
@@ -54,7 +54,7 @@ export const paymentReminder = async () => {
   // 今日以前が通知日のリマインダーレコードを取得する
   const alertReminders = await getPaymentRemindersByAlertDate(new Date());
 
-  const alertRemindersJson = convertReminderToJson({
+  const alertRemindersJson = convertRemindersToJson({
     reminders: alertReminders,
     andpadPayments: allAndpadPayments,
     allAndpadOrders: allAndpadOrders,

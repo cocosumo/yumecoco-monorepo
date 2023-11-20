@@ -1,3 +1,4 @@
+import { IPaymentReminder } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { UpdatePaymentReminder } from '../api-kintone';
 
@@ -12,10 +13,12 @@ export const convertReminderToKintoneUpdate = ({
   paymentReminderJson,
   lastAlertDate,
   alertDate,
+  //existedReminders,
 }: {
   paymentReminderJson: PaymentReminder[]
   lastAlertDate: string
   alertDate: string
+  existedReminders: IPaymentReminder[]
 }) => {
 
   const kintoneData: UpdatePaymentReminder[] = paymentReminderJson.map(({
@@ -32,6 +35,14 @@ export const convertReminderToKintoneUpdate = ({
     expectedPaymentDate,
     yumeAG,
   }) => {
+
+    // 通知先情報の更新
+    /* const existedReminder = existedReminders.find(({ }) =>)
+
+    const { } = compileNotificationSettings({
+      exsistingSettings: existedReminders,
+      updateSettings: cwRoomIds,
+    }); */
 
     return ({
       updateKey: {

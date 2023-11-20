@@ -22,10 +22,16 @@ export const convertReminderToKintoneUpdate = ({
     andpadPaymentUrl,
     contractDate,
     contractId,
-    //cwRoomIds,
+    cwRoomIds,
+    expectedPaymentAmt,
+    paymentId,
+    paymentType,
     projId,
     projName,
     projType,
+    reminderUrl,
+    storeName,
+    systemId,
     territory,
     totalContractAmount,
     alertState,
@@ -35,8 +41,8 @@ export const convertReminderToKintoneUpdate = ({
 
     return ({
       updateKey: {
-        field: 'projId',
-        value: projId,
+        field: 'paymentId',
+        value: paymentId,
       },
       record: {
         projId: { value: projId },

@@ -4,7 +4,7 @@ declare namespace DBProjects {
     lastBillingDate: kintone.fieldTypes.Date;
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
-    //custNames: kintone.fieldTypes.SingleLineText;
+    custNames: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
     finalPostal: kintone.fieldTypes.SingleLineText;
     schedContractPrice: kintone.fieldTypes.Number;

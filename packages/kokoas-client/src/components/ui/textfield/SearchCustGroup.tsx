@@ -45,12 +45,12 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
     {
       enabled: hadFocus,
       select: (d) => d.map((record)=>{
-        const { uuid, storeName, 作成日時, members, custNames } = record;
+        const { uuid, storeName, 作成日時, members } = record;
         const mainCust = members.value[0].value;
-        const mainCustName = mainCust.customerName.value;
+        const custNames = members.value.map((m) => m.value.customerName.value).join('、');
 
         return {
-          name: custNames.value || mainCustName,
+          name: custNames,
           id: uuid.value,
           subTitle: `${storeName.value} ${mainCust.address2.value}`,
           secondaryLabel: format(Date.parse(作成日時.value), 'yyyy-MM-dd' ),

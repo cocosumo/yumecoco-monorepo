@@ -4,7 +4,7 @@ import { describe, expect, it } from '@jest/globals';
 
 
 describe('getAllProcurementDetails', () => {
-  it('should get all procurement records with correct parameters', async () => {
+  it('should get all procurement records', async () => {
 
     // Act
     const result = await getAllProcurementDetails();

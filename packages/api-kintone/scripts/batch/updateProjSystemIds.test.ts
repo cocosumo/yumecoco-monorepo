@@ -5,9 +5,11 @@ import { AppIds } from 'config';
 import { IProjects } from 'types';
 
 /*
- システムIDを一括更新バッチです。
+ システムIDを一括更新処理です。
 
- 普段実行しませんが、修正や問題があったら、
+ 普段実行しませんが、andpadSystemIdに修正や問題があったら、
+ 当関数を必用に応じて、調整し、実行してください。
+
 */
 
 describe('updateProjSystemIds', () => {
@@ -19,10 +21,14 @@ describe('updateProjSystemIds', () => {
     ] = await Promise.all([
       getAllRecords<IProjects>({
         app: AppIds.projects,
-        condition: 'forceLinkedAndpadSystemId = ""',
+        condition: 'forceLinkedAndpadSystemId = ""', // Andpadへ強制接続以外の案件
       }),
-      getAllAndpadOrders({ beforeInvoiceIssue: false }),
+      getAllAndpadOrders({
+        q: '案件管理ID IS EXIST', // ココアスによって登録された案件のみ（標準接続）
+      }),
     ]);
+
+    
 
     
     console.log('Length', allAndpadOrders.data.objects.length, allAndpadOrders.data.total);

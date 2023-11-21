@@ -22,6 +22,7 @@ export const ForcedAndpadLink = ({
       projId,
       record: {
         forceLinkedAndpadSystemId: { value: systemId },
+        andpadSystemId: { value: '' }, // 標準接続解除
       },
     });
   };

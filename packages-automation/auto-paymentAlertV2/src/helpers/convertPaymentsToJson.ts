@@ -1,9 +1,6 @@
-import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores, Territory } from 'types';
+import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores } from 'types';
 import { PaymentReminder } from '../../types/paymentReminder';
-import { chatworkRoomIdSetting } from '../notificationFunc/chatworkRoomIdSetting';
-import { getYumeAgNames } from './getYumeAgNames';
-import { calcPaymentDate } from './calcPaymentDate';
-import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
+import { compileInfoFromSystemId } from './compileInfoFromSystemId';
 
 
 
@@ -27,82 +24,65 @@ export const convertPaymentsToJson = ({
 }) => {
 
 
-  const alertPaymentReminders: PaymentReminder[] = alertPayments.map(({
-    projId: projIdFromPayment,
-    expectedPaymentDate,
-    expectedPaymentAmount,
-    paymentType,
-    systemId,
-    作成日時,
-    ID,
-  }) => {
-
+  const alertPaymentReminders: PaymentReminder[] = alertPayments.map((alertPayment) => {
+    const {
+      expectedPaymentAmount,
+      paymentType,
+      systemId,
+      ID,
+      projId: tgtProjId,
+    } = alertPayment;
     // 対象の工事情報を取得する
+
     const {
-      agents,
-      storeCode: storeCodeByProject,
-      store: storeByProject,
+      andpadPaymentUrl,
+      connectedToAndpad,
+      contractDate,
+      contractId,
+      cwRoomIds,
+      expectedPaymentDate,
+      projId,
       projName,
-      projTypeName,
-      uuid: projId,
-    } = projects.find(({ 
-      uuid, //projId
-      forceLinkedAndpadSystemId: systemIdForChk,
-    }) => {
-      return (systemIdForChk.value === systemId.value) || (uuid.value === projIdFromPayment.value);
-    }) || {};
-
-    // 対象の契約書情報を取得する
-    const tgtContracts = contracts
-      .filter(({ projId: contractProjId }) => contractProjId.value === projId?.value) || [];
-
-    // 契約書情報を取得する
-    const {
-      合計受注金額税込,
-    } = getContractsSummary((tgtContracts));
-
-    const mainContract = tgtContracts.find(({ contractType }) => contractType.value === '契約');
-
-    const store = stores.find(({ storeCode }) => storeCode.value === storeCodeByProject?.value);
-
-    // 通知先情報を設定する
-    const chatworkRoomIds = chatworkRoomIdSetting({
-      agents: agents,
+      projType,
+      storeName,
+      territory,
+      totalContractAmount,
+      yumeAG,
+    } = compileInfoFromSystemId({
+      alertPayment: alertPayment,
+      contracts: contracts,
       employees: employees,
-    });
-
-    const paymentDate = calcPaymentDate({
-      expectedPaymentDate: expectedPaymentDate.value,
-      createDate: 作成日時.value,
-    });
-
-    const yumeAGs = getYumeAgNames({
-      agents: agents,
+      projects: projects,
+      stores: stores,
+      tgtProjId: tgtProjId.value,
+      tgtSystemId: systemId.value,
     });
 
 
     return ({
-      alertState: true,
+      alertState: connectedToAndpad,
       systemId: systemId.value,
       paymentId: ID.value,
-      andpadPaymentUrl: `https://andpad.jp/manager/my/orders/${systemId.value}/customer_agreement`,
+      andpadPaymentUrl: andpadPaymentUrl,
       reminderUrl: '', // 通知後に設定するため、ここでは省略する
-      contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') || '取得に失敗しました',
-      projId: projId?.value || '取得に失敗しました',
-      projName: projName?.value || '取得に失敗しました',
-      projType: projTypeName?.value || '取得に失敗しました',
-      storeName: store?.officialStoreName.value || storeByProject?.value || '取得に失敗しました',
-      contractDate: mainContract?.contractDate.value || '',
-      totalContractAmount: 合計受注金額税込.toString() || '取得に失敗しました',
-      territory: store?.territory.value as Territory,
-      expectedPaymentDate: paymentDate,
+      contractId: contractId,
+      projId: projId,
+      projName: projName,
+      projType: projType,
+      storeName: storeName,
+      contractDate: contractDate,
+      totalContractAmount: totalContractAmount,
+      territory: territory,
+      expectedPaymentDate: expectedPaymentDate,
       expectedPaymentAmt: expectedPaymentAmount.value,
       paymentType: paymentType.value,
-      yumeAG: yumeAGs || '取得に失敗しました',
-      cwRoomIds: chatworkRoomIds,
+      yumeAG: yumeAG,
+      cwRoomIds: cwRoomIds,
     });
   });
 
-  return alertPaymentReminders;
+
+  // 削除データが残っている可能性があるため、ANDPADとの接続で一部を対策する
+  return alertPaymentReminders.filter(({ alertState }) => alertState);
 
 };

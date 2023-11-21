@@ -1,4 +1,3 @@
-import { useTypedWatch } from './useTypedRHF';
 import { useContracts } from '../../../../hooks/useContracts';
 import format from 'date-fns/format';
 import endOfMonth from 'date-fns/endOfMonth';
@@ -28,29 +27,34 @@ interface FiscalYearData {
 const contractDateKey: keyof DB.SavedRecord = 'contractDate';
 
 
-export const useContractsByFiscalYear = () => {
-  const [
-    year,
-    stores,
-  ] = useTypedWatch({
-    name: [
-      'year',
-      'stores',
-    ],
-  }) as [
-    string,
-    string,
-  ];
+export const useContractsByFiscalYear = ({
+  year,
+  stores,
+}: {
+  year: string,
+  stores?: string,
+}) => {
+
 
   const minDateStr = format(new Date(+year - 1, 11, 1), 'yyyy-MM-dd');
   
   const maxDateteStr = format(endOfMonth(new Date(+year, 10, 1)), 'yyyy-MM-dd');
 
-  const condition = [
+
+  const conditionArr = [
     `${contractDateKey} >= "${minDateStr}"`,
     `${contractDateKey} <= "${maxDateteStr}"`,
-    stores ? `storeId = "${stores}"` : undefined,
-  ].filter(Boolean).join(' and ');
+  ];
+
+  if (stores) {
+    if (stores === '自社物件') {
+      conditionArr.push('自社物件 in ("自社物件")');
+    } else {
+      conditionArr.push(`storeId = "${stores}"`);
+    }
+  }
+
+  const condition = conditionArr.filter(Boolean).join(' and ');
   
   const {
     data: contracts,
@@ -72,6 +76,8 @@ export const useContractsByFiscalYear = () => {
             profit,
           } = contract;
 
+          const newAcc =  { ...acc };
+
           const month = format(new Date(contractDate.value), 'yyyy-MM');
 
           const fiscalMonth = acc.details?.[month] || {
@@ -86,15 +92,15 @@ export const useContractsByFiscalYear = () => {
           fiscalMonth.totalAmountExclTax += +contractAmountNotax.value;
           fiscalMonth.totalProfit += +profit.value;
 
-          acc.totalCount += 1;
-          acc.totalAmountInclTax += +contractAmountIntax.value;
-          acc.totalAmountExclTax += +contractAmountNotax.value;
-          acc.totalProfit += +profit.value;
+          newAcc.totalCount += 1;
+          newAcc.totalAmountInclTax += +contractAmountIntax.value;
+          newAcc.totalAmountExclTax += +contractAmountNotax.value;
+          newAcc.totalProfit += +profit.value;
           
           return {
-            ...acc,
+            ...newAcc,
             details: {
-              ...acc.details,
+              ...newAcc.details,
               [month]: fiscalMonth,
             },
           };

@@ -5,7 +5,6 @@ export const convertProjToForm = (
   recProj: IProjects,
 ) : Partial<TForm> => {
   const {
-    custNames,
     custGroupId,
     dataId,
     projName,
@@ -16,7 +15,7 @@ export const convertProjToForm = (
 
   return {
     custGroupId : custGroupId.value,
-    customerName : custNames.value,
+    // customerName : custNames .value,
     projDataId: dataId.value,
     projId: uuid.value,
     projName : projName.value,

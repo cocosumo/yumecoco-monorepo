@@ -1,6 +1,7 @@
 declare namespace DBProjects {
   interface Data {
     schedContractDate: kintone.fieldTypes.Date;
+    forceLinkedAndpadSystemId_0: kintone.fieldTypes.SingleLineText;
     lastBillingDate: kintone.fieldTypes.Date;
     cancelStatus: kintone.fieldTypes.SingleLineText;
     memo: kintone.fieldTypes.SingleLineText;
@@ -10,7 +11,6 @@ declare namespace DBProjects {
     schedContractPrice: kintone.fieldTypes.Number;
     otherProjType: kintone.fieldTypes.SingleLineText;
     cocoAGNames: kintone.fieldTypes.SingleLineText;
-    forceLinkedAndpadSystemId: kintone.fieldTypes.SingleLineText;
     rank: kintone.fieldTypes.SingleLineText;
     estatePurchaseDate: kintone.fieldTypes.Date;
     realEstateStatus: kintone.fieldTypes.SingleLineText;
@@ -30,6 +30,7 @@ declare namespace DBProjects {
     deliveryDate: kintone.fieldTypes.Date;
     payFinDate: kintone.fieldTypes.Date;
     isChkAddressKari: kintone.fieldTypes.Number;
+    andpadSystemId: kintone.fieldTypes.SingleLineText;
     planApplicationDate: kintone.fieldTypes.Date;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;

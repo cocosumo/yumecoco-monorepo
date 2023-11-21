@@ -5,23 +5,38 @@ import { getMyOrders } from './getMyOrders';
 
 
 interface GetAllAndpadOrders {
-  beforeInvoiceIssue: boolean,
+  beforeInvoiceIssue?: boolean,
   offset?: number,
   cumm?: GetMyOrdersResponse,
+  q?: string,
 }
 
 export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<GetMyOrdersResponse> => {
 
   const {
-    beforeInvoiceIssue = true,
+    beforeInvoiceIssue,
     offset = 0,
     cumm,
+    q,
   } = options || {};
 
+  const queryArr: string[] = [];
+
+  if (beforeInvoiceIssue) {
+    queryArr.push('案件フロー in (契約前,着工前,進行中,完工（精算前）)' );
+  }
+
+  if (q) {
+    queryArr.push(q);
+  }
+
+  const queryStr = queryArr.join(' AND ');
+
+  console.log(queryStr);
 
   const params: GetMyOrders = {
     limit: 100,
-    q: beforeInvoiceIssue ? '案件フロー in (契約前,着工前,進行中,完工（精算前）)' : '',
+    q: queryStr,
     series: ['案件フロー'],
     offset: offset,
   };
@@ -44,6 +59,7 @@ export const getAllAndpadOrders = async (options?: GetAllAndpadOrders): Promise<
       beforeInvoiceIssue,
       offset: newObjects.length,
       cumm: newData,
+      q,
     });
   }
 };

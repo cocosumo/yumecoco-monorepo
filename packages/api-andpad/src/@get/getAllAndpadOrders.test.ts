@@ -38,4 +38,18 @@ describe('getAllAndpadOrders', () => {
     expect(result.data.total).toBeDefined();
   }, 1000000);
 
+  it('should get orders registered through cocoas', async () => {
+    const result = await getAllAndpadOrders({
+      q: '案件管理ID IS EXIST',
+    });
+
+    expect(result.data.objects.length).toBeGreaterThan(0);
+    expect(
+      result.data.objects
+        .every(({ 案件管理ID }) => 案件管理ID ),
+    )
+      .toBeTruthy();
+  }, 80000);
+
+
 });

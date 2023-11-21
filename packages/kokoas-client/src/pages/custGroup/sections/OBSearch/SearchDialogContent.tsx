@@ -48,7 +48,7 @@ export const SearchDialogContent = ({
   return (
     <DialogContent
       sx={{
-        height: '70vh',
+        height: '550px',
         overflow: 'hidden',
         px: 0,
       }}

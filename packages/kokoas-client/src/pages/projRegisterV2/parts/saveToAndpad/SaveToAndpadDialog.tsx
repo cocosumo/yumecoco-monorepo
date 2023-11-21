@@ -25,31 +25,41 @@ export const SaveToAndpadDialog = ({
   );
 
   const { mutateAsync: mutateAndpad } = useSaveAndpadProject();
-  const { mutate: mutateLog } = useSaveProject();
+  const { mutate: mutateProj } = useSaveProject();
 
   const handleClick = async () => {
     if (data) {
       mutateAndpad(data)
-        .then(async () => {
+        .then(async ({
+          data:{
+            object: {
+              システムID: andpadSystemId,
+            },
+          },
+        }) => {
           const { 
             log,
           } = await getProjById(projId || '');
 
-          mutateLog({ projId, record: {
-            log: {
-              type: 'SUBTABLE',
-              value: [
-                {
-                  id: '',
-                  value: {
-                    logNote: { value: `Andpadへ${mode}` },
-                    logDateTime: { value: new Date().toISOString() },
+          mutateProj({ 
+            projId, 
+            record: {
+              andpadSystemId: { value: String(andpadSystemId) },
+              forceLinkedAndpadSystemId: { value: '' }, // 強制接続解除
+              log: {
+                type: 'SUBTABLE',
+                value: [
+                  {
+                    id: '',
+                    value: {
+                      logNote: { value: `Andpadへ${mode}` },
+                      logDateTime: { value: new Date().toISOString() },
+                    },
                   },
-                },
-                ...(log.value ?? []),
-              ],
-            },
-          } });
+                  ...(log.value ?? []),
+                ],
+              },
+            } });
 
         });
     }

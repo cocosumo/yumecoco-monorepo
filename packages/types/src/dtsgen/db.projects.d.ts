@@ -30,6 +30,7 @@ declare namespace DBProjects {
     deliveryDate: kintone.fieldTypes.Date;
     payFinDate: kintone.fieldTypes.Date;
     isChkAddressKari: kintone.fieldTypes.Number;
+    andpadSystemId: kintone.fieldTypes.SingleLineText;
     planApplicationDate: kintone.fieldTypes.Date;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;

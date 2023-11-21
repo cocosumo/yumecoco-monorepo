@@ -14,7 +14,6 @@ describe('search projects', () => {
       'store', 
       'address1', 
       'address2', 
-      'custNames',
     ]; 
 
     const results = await searchProjects(testData);

@@ -5,12 +5,19 @@ import { formatCurrency } from '../../../../jsedit/api/formatCurrency';
 import { calcFontSize } from '../../../../jsedit/api/calcFontSize';
 import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
-import { IProjects } from 'types';
+import { ICustgroups, IProjects } from 'types';
+import { getAllRecords } from 'api-kintone';
+import { prodAppIds } from 'config';
 
 //表の中身の生成
 
 export const displayResult = async (selectStoreName?: string) => {
   const groupStore = await getGroupByStore();
+  const custGrp = await getAllRecords<ICustgroups>({
+    app: prodAppIds.custGroups,
+  });
+
+  console.log('cg', custGrp.length);
 
   //console.log(groupStore);
 
@@ -71,6 +78,9 @@ export const displayResult = async (selectStoreName?: string) => {
         for (const ob of projByType) {
           //console.log('ob.estatePurchaseDate', ob.estatePurchaseDate?.value);
           //console.log('formattedDate', format(parseISO(ob.estatePurchaseDate?.value), 'yy.M.d'));
+
+          const custGrpRec = custGrp.find((cg) => cg.uuid.value === ob.custGroupId.value);
+          const custNames = custGrpRec?.members.value.map((m) => m.value.customerName.value).join('、') || '-';
   
           //小計の計算（契約予定金額を合計）
           const number = +(ob.schedContractPrice?.value || 0);
@@ -94,7 +104,7 @@ export const displayResult = async (selectStoreName?: string) => {
           contentsRows.push(`<tr class="prospect_dataContents" data-uuid="${ob.uuid?.value}">
                       <td id="prospect_number" style="text-align: center;">${index + 1}</td>
                       <td id="prospect_rank" style="text-align: center;">${ob.rank?.value || '-'}</td>
-                      <td id="prospect_custNamefield" style="font-size: ${calcFontSize(150, ob.custNames?.value)}px;">${ob.custNames?.value}</td>
+                      <td id="prospect_custNamefield" style="font-size: ${calcFontSize(150, custNames)}px;">${custNames}</td>
                       <td style="text-align: right;">${ob.schedContractPrice?.value ? formatCurrency(ob.schedContractPrice?.value) : '未定'}</td>
                       <td style="text-align: center;">${ob.paymentMethod?.value}</td>
                       <td class="prospect_agName" style="text-align: center;">${ob.cocoAGNames?.value}</td>

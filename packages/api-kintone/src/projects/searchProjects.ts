@@ -16,7 +16,6 @@ export const searchProjects = async (search: string) => {
     'store', 
     'address1', 
     'address2', 
-    'custNames',
   ]; 
 
   const query = searchFields

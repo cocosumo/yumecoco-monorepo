@@ -87,6 +87,10 @@ module.exports = {
         skipTemplates: true,
       },
     ],
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsFor: ['draft'] },
+    ],
   },
   overrides: [
     {

@@ -56,6 +56,7 @@ export const formToDBCustomers = (formData: TForm) => {
         birthMonth: { value: birthMonth },
         birthDay: { value: birthDay },
         isSameAsMain: { value: (index === 0 ? 0 : +isSameAddress).toString() }, // 0 or 1, mainCustomer always 0/false
+        
         contacts: {
           type: 'SUBTABLE',
           value: [

@@ -18,47 +18,55 @@ export const compileNotificationSettings = ({
   updateSettings: CwRoomIds[],
 }) => {
 
-  // Create a copy of existingSettings
-  const updatedSettings = existingSettings ? [...existingSettings.value] : [];
+  const newSettings = existingSettings.value.reduce((acc, cur) => {
 
-  for (const room of updateSettings) {
+    console.log('acc', acc);
+    const updateSetting = updateSettings.find(({ agentId }) => cur.value.alertTargetId.value === agentId);
+
+    if (updateSetting) {// 通知先情報の更新
+      acc.value.push({
+        id: cur.id,
+        value: {
+          chatworkRoomId: { value: updateSetting.cwRoomId },
+          alertTargetName: { value: updateSetting.agentName },
+          alertTargetId: { value: updateSetting.agentId },
+        },
+      });
+    } else {
+      // 通知先の削除 -> 処理なし      
+    }
+    return acc;
+
+  }, {
+    type: 'SUBTABLE',
+    value:[],
+  } as IInvoiceReminder['notificationSettings']);
+
+
+  // 追加されている通知先がないか確認する
+  updateSettings.forEach((updateSetting) => {
 
     // cocoasGroupが設定されている場合は、通知先の取得に失敗しているため、対象外
-    if (room.cwRoomId === chatworkRooms.cocoasGroup) continue;
+    if (updateSetting.cwRoomId === chatworkRooms.cocoasGroup) return newSettings;
 
-    const existingSetting = updatedSettings.find(item => item.value.alertTargetId.value === room.agentId);
+    const isExist = newSettings.value
+      .find(({ value: { alertTargetId } }) => alertTargetId.value === updateSetting.agentId);
 
-    if (existingSetting) {
-      // Update existing setting
-      existingSetting.value.alertTargetName.value = room.agentName;
-      existingSetting.value.chatworkRoomId.value = room.cwRoomId;
-    } else {
-      // Add new setting
-      updatedSettings.push({
+    if (!isExist) {
+      newSettings.value.push({
         id: '',
         value: {
-          chatworkRoomId: { value: room.cwRoomId },
-          alertTargetId: { value: room.agentName },
-          alertTargetName: { value: room.agentId },
+          alertTargetId: { value: updateSetting.agentId },
+          alertTargetName: { value: updateSetting.agentName },
+          chatworkRoomId: { value: updateSetting.cwRoomId },
         },
       });
     }
-  }
 
+    return newSettings;
 
-  // 不要な通知対象者を削除
-  for (const updatedSetting of updatedSettings) {
-    const isExist = updateSettings.some(({ agentId }) =>
-      agentId === updatedSetting.value.alertTargetId.value);
+  });
 
-    if (!isExist) {
-      updatedSetting.value.alertTargetId.value = '';
-    }
-  }
+  return newSettings;
 
-
-  return ({
-    type: 'SUBTABLE',
-    value: updatedSettings.filter(({ value: { alertTargetId } }) => alertTargetId.value !== ''),
-  }) as IInvoiceReminder['notificationSettings'];
 };

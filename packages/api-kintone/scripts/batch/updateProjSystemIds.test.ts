@@ -8,7 +8,7 @@ import fs from 'fs';
 import { KintoneClientBasicAuth } from './settings';
 
 /*
- システムIDを一括更新処理です。
+ 工事内容のandpadSystemIdを一括更新処理です。
 
  普段実行しませんが、andpadSystemIdに修正や問題があったら、
  当関数を必用に応じて、調整し、実行してください。

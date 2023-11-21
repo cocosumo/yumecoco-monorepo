@@ -32,7 +32,7 @@ export const useSearchResult = () => {
   const { data: recContracts } = useAllContracts();
   const { data: recProcurements } = useAllProcurements({
     params: {
-      orderBy: '支払日 asc', // sort on the server side to reduce the number of sort in the client
+      orderBy: '支払日 asc', // sort on the server side to aleviate some load on the client side 
     },
   });
 

@@ -19,6 +19,7 @@ import { getAgentsByType } from 'api-kintone/src/custgroups/helpers/getAgentsByT
 import intersection from 'lodash/intersection';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
+import { summarizeAndpadProcurementsBySystemId } from '../helpers/summarizeAndpadProcurements';
 
 
 
@@ -29,7 +30,11 @@ export const useSearchResult = () => {
   const { data: recCustomers } = useCustomers();
   const { data: recCustGroup } = useCustGroups();
   const { data: recContracts } = useAllContracts();
-  const { data: recProcurements } = useAllProcurements();
+  const { data: recProcurements } = useAllProcurements({
+    params: {
+      orderBy: '支払日 asc', // sort on the server side to reduce the number of sort in the client
+    },
+  });
 
   // クエリパラメーター
   const {
@@ -99,7 +104,17 @@ export const useSearchResult = () => {
           finalAddress1,
           finalAddress2,
 
+          forceLinkedAndpadSystemId,
+          andpadSystemId,
         } = curr; // 工事情報;
+
+        const linkedAndpadSystemId =  forceLinkedAndpadSystemId.value || andpadSystemId.value;
+
+        const {
+          paymentDateStart,
+          paymentDateEnd,
+        } = summarizeAndpadProcurementsBySystemId(linkedAndpadSystemId, recProcurements || []);
+
 
         const isProjectDeleted = projCancelStatus.value !== ''; // 削除、中止などあり
         
@@ -276,6 +291,8 @@ export const useSearchResult = () => {
             projAddress: projAddress,
             projPostalCodeConfirmed: projPostalCodeConfirmed,
             projAddressConfirmed: projAddressConfirmed,
+            procurementPaymentDateStart: paymentDateStart || '-',
+            procurementPaymentDateEnd: paymentDateEnd || '-',
             contractDate: contractDate?.value ? contractDate.value : '-',
             deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
             projFinDate: projFinDate?.value ? projFinDate.value : '-',
@@ -303,6 +320,8 @@ export const useSearchResult = () => {
           case 'totalContractAmtIncTax':
             return order === 'asc' ? a[parseOrderBy] - b[parseOrderBy] : b[parseOrderBy] - a[parseOrderBy];
           case 'contractDate':
+          case 'procurementPaymentDateStart':
+          case 'procurementPaymentDateEnd':
           case 'createdAt':
           case 'updatedAt':
           case 'projFinDate':

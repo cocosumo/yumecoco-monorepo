@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllProcurementDetails } from 'api-kintone';
+import { GetAllProcurementDetailsParams, getAllProcurementDetails } from 'api-kintone';
 import { AppIds } from 'config';
 
 type DefaultResult = Awaited<ReturnType<typeof getAllProcurementDetails>>;
@@ -15,15 +15,22 @@ type DefaultResult = Awaited<ReturnType<typeof getAllProcurementDetails>>;
  * @param options.onSuccess - The function to be called on successful data retrieval.
   */
 export const useAllProcurements = <T = DefaultResult>(options?: {
+  params?: GetAllProcurementDetailsParams,
   enabled?: boolean,
-  select: (data: DefaultResult) => T,
-  onSuccess?: (data: T) => void
+  select?: (data: DefaultResult) => T,
+  onSuccess?: (data: T) => void,
 }) => {
+
+  const { 
+    params, 
+    ...rest 
+  } = options || {};
+
   return useQuery(
-    [AppIds.andpadProcurements, 'procurements'],
-    () => getAllProcurementDetails(),
+    [AppIds.andpadProcurements, 'procurements', params],
+    () => getAllProcurementDetails(params),
     {
-      ...options,
+      ...rest,
     },
   );
 };

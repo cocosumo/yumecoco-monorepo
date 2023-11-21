@@ -87,6 +87,20 @@ export const ResultHead = () => {
             label='契約日'
           />
         )}
+        procurementPaymentDateStart={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='procurementPaymentDateStart'
+            label='支払開始日'
+          />
+        )}
+        procurementPaymentDateEnd={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='procurementPaymentDateEnd'
+            label='支払完了日'
+          />
+        )}
         deliveryDate={(
           <EnhancedTableCell
             existingQuery={query}

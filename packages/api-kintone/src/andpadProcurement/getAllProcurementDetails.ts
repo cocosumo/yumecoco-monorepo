@@ -1,6 +1,7 @@
 import { appId, RecordType } from './config';
 import { getAllRecords } from '../common';
 
+export type GetAllProcurementDetailsParams = Parameters<typeof getAllProcurementDetails>[0];
 
 /**
  * Retrieves all 発注情報。
@@ -12,5 +13,5 @@ export const getAllProcurementDetails = async (
 ) => getAllRecords<RecordType>({
   ...params,
   app: appId,
-  orderBy: '更新日時 desc',
 });
+

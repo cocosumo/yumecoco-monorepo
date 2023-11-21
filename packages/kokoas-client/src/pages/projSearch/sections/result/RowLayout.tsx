@@ -27,8 +27,10 @@ export const RowLayout = ({
   custName,
   projName,
   custNameKana,
+  procurementPaymentDateStart,
+  procurementPaymentDateEnd,
   deliveryDate,
-  payFinDate,
+  //payFinDate,
   projFinDate,
   storeName,
   tel,
@@ -90,14 +92,16 @@ export const RowLayout = ({
       >
         {contractDate}
       </TableCell>
-
       <TableCell
         sx={{
           whiteSpace: 'nowrap',
         }}
       >
-        {deliveryDate}
+        {procurementPaymentDateStart}
+        <br />
+        {procurementPaymentDateEnd}
       </TableCell>
+
 
       <TableCell
         sx={{
@@ -107,21 +111,14 @@ export const RowLayout = ({
         {lastBillDate}
       </TableCell>
 
-
-      <TableCell
-        sx={{
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {payFinDate}
-      </TableCell>
-
       <TableCell
         sx={{
           whiteSpace: 'nowrap',
         }}
       >
         {projFinDate}
+        <br />
+        {deliveryDate}
       </TableCell>
 
       <TableCell

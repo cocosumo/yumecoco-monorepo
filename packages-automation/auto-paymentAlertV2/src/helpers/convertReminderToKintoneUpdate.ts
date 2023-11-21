@@ -1,5 +1,7 @@
+import { IPaymentReminder } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { UpdatePaymentReminder } from '../api-kintone';
+import { compileNotificationSettings } from './compileNotificationSettings';
 
 
 
@@ -12,17 +14,20 @@ export const convertReminderToKintoneUpdate = ({
   paymentReminderJson,
   lastAlertDate,
   alertDate,
+  existedReminders,
 }: {
   paymentReminderJson: PaymentReminder[]
   lastAlertDate: string
   alertDate: string
+  existedReminders: IPaymentReminder[]
 }) => {
 
   const kintoneData: UpdatePaymentReminder[] = paymentReminderJson.map(({
     andpadPaymentUrl,
     contractDate,
     contractId,
-    //cwRoomIds,
+    cwRoomIds,
+    paymentId: tgtPaymentId,
     projId,
     projName,
     projType,
@@ -32,6 +37,15 @@ export const convertReminderToKintoneUpdate = ({
     expectedPaymentDate,
     yumeAG,
   }) => {
+
+    // 通知先情報の更新
+    const existedReminder = existedReminders
+      .find(({ paymentId }) => paymentId.value === tgtPaymentId) || {} as IPaymentReminder;
+
+    const exsistingSettings = compileNotificationSettings({
+      existingSettings: existedReminder.notificationSettings,
+      updateSettings: cwRoomIds,
+    });
 
     return ({
       updateKey: {
@@ -48,13 +62,12 @@ export const convertReminderToKintoneUpdate = ({
         scheduledAlertDate: { value: alertDate },
         alertState: { value: alertState ? '1' : '0' },
         // reminderDate: { value: '' }, ユーザーがプルダウンから選択するため、対象外とする
-        andpadDepositAmount: { value: '0' }, // TODO 入金金額の総額を取得する処理を実装する
         area: { value: territory },
         projName: { value: projName },
         lastAlertDate: { value: lastAlertDate },
         andpadUrl: { value: andpadPaymentUrl },
         contractId: { value: contractId },
-        // notificationSettings: {}, // 通知対象の更新処理は不要？実装要検討
+        notificationSettings: exsistingSettings,
       },
     });
   });

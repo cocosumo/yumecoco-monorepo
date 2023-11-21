@@ -1,6 +1,6 @@
 import { IAndpadpayments } from 'types';
 import { AndpadCsv } from '../types/types';
-import { produce } from 'immer';
+import { UpdateAndpadPayments } from 'api-kintone/src/andpadPayments/updateAndpadRecords';
 
 
 /**
@@ -16,17 +16,24 @@ export const chkRecordCondition = ({
   andpadPaymentsCsv: AndpadCsv
 }) => {
 
-  return unpaidBackupPayments.map((data) => {
-    const isExist = andpadPaymentsCsv.data.some(({ ID }) => ID === data.ID.value);
+  return unpaidBackupPayments.reduce((acc, cur) => {
+    const isExist = andpadPaymentsCsv.data.some(({ ID }) => ID.toString() === cur.ID.value);
 
-    if (isExist) return data;
+    if (!isExist) {
+      acc.push({
+        updateKey: {
+          field: 'ID',
+          value: cur.ID.value,
+        },
+        record: {
+          deleteStatus: { value: '削除' },
+        },
+      });
+    }
 
-    const newData = produce(data, (draft) =>{
-      draft.deleteStatus.value = '削除';
-    });
+    return acc;
 
-    return newData;
+  }, [] as UpdateAndpadPayments[]);
 
-  });
 
 };

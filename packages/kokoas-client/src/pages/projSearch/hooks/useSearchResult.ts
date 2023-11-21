@@ -1,5 +1,12 @@
 /* eslint-disable no-case-declarations */
-import { useAllContracts, useCustGroups, useCustomers, useProjects, useStores } from 'kokoas-client/src/hooksQuery';
+import { 
+  useAllContracts, 
+  useAllProcurements, 
+  useCustGroups, 
+  useCustomers, 
+  useProjects, 
+  useStores, 
+} from 'kokoas-client/src/hooksQuery';
 import { useParseQuery } from './useParseQuery';
 import { SearchResult } from '../types';
 import { groupCustContacts } from '../helpers/groupCustContacts';
@@ -22,6 +29,7 @@ export const useSearchResult = () => {
   const { data: recCustomers } = useCustomers();
   const { data: recCustGroup } = useCustGroups();
   const { data: recContracts } = useAllContracts();
+  const { data: recProcurements } = useAllProcurements();
 
   // クエリパラメーター
   const {

@@ -29,7 +29,7 @@ export const createPaymentAlert = async () => {
     getAllAndpadPayments(),
     getEmployees(),
     getAllStores(),
-    getAllAndpadOrders(),
+    getAllAndpadOrders({ beforeInvoiceIssue: true }),
     getAllContracts(),
     getAllPaymentReminder(),
   ]);

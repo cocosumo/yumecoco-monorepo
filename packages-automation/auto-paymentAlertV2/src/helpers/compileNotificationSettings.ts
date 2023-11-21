@@ -6,21 +6,20 @@ import { CwRoomIds } from '../../types/paymentReminder';
 
 /**
  * kintoneの通知対象者を更新します
- * @param param.exsistingSettings 既存の通知先
+ * @param param.existingSettings 既存の通知先
  * @param param.updateSettings 最新の通知先
  * @returns IInvoiceReminder['notificationSettings']型で最新の通知先を返す
  */
 export const compileNotificationSettings = ({
-  exsistingSettings,
+  existingSettings,
   updateSettings,
 }: {
-  exsistingSettings: IInvoiceReminder['notificationSettings'],
+  existingSettings: IInvoiceReminder['notificationSettings'],
   updateSettings: CwRoomIds[],
 }) => {
 
-  console.log('exsistingSettings', exsistingSettings);
-
-  const updatedSettings = exsistingSettings ? [...exsistingSettings.value] : [];
+  // Create a copy of existingSettings
+  const updatedSettings = existingSettings ? [...existingSettings.value] : [];
 
   for (const room of updateSettings) {
 
@@ -48,21 +47,18 @@ export const compileNotificationSettings = ({
 
 
   // 不要な通知対象者を削除
-  for (let i = 0; i < updatedSettings?.length; i++) {
-    let isExist = false;
-    updateSettings.forEach(({ agentId }) => {
-      if (agentId === updatedSettings[i].value.alertTargetId.value) {
-        isExist = true;
-      }
-    });
+  for (const updatedSetting of updatedSettings) {
+    const isExist = updateSettings.some(({ agentId }) =>
+      agentId === updatedSetting.value.alertTargetId.value);
 
     if (!isExist) {
-      updatedSettings.splice(i, 1);
+      updatedSetting.value.alertTargetId.value = '';
     }
   }
 
+
   return ({
     type: 'SUBTABLE',
-    value: updatedSettings,
+    value: updatedSettings.filter(({ value: { alertTargetId } }) => alertTargetId.value !== ''),
   }) as IInvoiceReminder['notificationSettings'];
 };

@@ -43,7 +43,7 @@ export const convertReminderToKintoneUpdate = ({
       .find(({ paymentId }) => paymentId.value === tgtPaymentId) || {} as IPaymentReminder;
 
     const exsistingSettings = compileNotificationSettings({
-      exsistingSettings: existedReminder.notificationSettings,
+      existingSettings: existedReminder.notificationSettings,
       updateSettings: cwRoomIds,
     });
 

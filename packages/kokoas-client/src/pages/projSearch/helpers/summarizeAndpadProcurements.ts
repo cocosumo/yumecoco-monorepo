@@ -15,9 +15,12 @@ export const summarizeAndpadProcurementsBySystemId = (
     && procurements
       .filter((procurement) => procurement.andpadProjId.value === systemId) || [];
 
+  // could have used the first element of the array, but there is no guarantee that the first element has a payment date
+  const firstOrderWithPaymentDate = andpadProcurement.find((procurement) => !!procurement.支払日.value);
+
   return {
     procurements: andpadProcurement,
-    paymentDateStart: andpadProcurement[0]?.支払日.value,
+    paymentDateStart: firstOrderWithPaymentDate?.支払日.value,
     paymentDateEnd: andpadProcurement.at(-1)?.支払日.value,
     
   };

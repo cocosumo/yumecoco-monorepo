@@ -19,7 +19,7 @@ export const Memo = () => {
           {...fieldsRest}
           inputRef={ref}
           fullWidth
-          label='備考'
+          //label='備考'
           placeholder='備考'
           multiline
           rows={3}

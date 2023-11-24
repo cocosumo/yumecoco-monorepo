@@ -29,7 +29,7 @@ export const compileInfoFromSystemId = ({
     作成日時,
   } = alertPayment;
 
-  const hasPaymentHistory = alertPayment.paymentDate.value !== '';
+  const hasPaymentHistory = alertPayment.paymentDate.value !== null;
 
   const tgtProject = projects.find(({
     uuid, //projId

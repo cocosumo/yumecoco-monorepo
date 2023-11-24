@@ -1,6 +1,6 @@
 import { IPaymentReminder } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
-import { UpdatePaymentReminder } from '../api-kintone';
+import { UpdatePaymentReminders } from '../api-kintone';
 import { compileNotificationSettings } from './compileNotificationSettings';
 
 
@@ -22,7 +22,7 @@ export const convertReminderToKintoneUpdate = ({
   existedReminders: IPaymentReminder[]
 }) => {
 
-  const kintoneData: UpdatePaymentReminder[] = paymentReminderJson.map(({
+  const kintoneData: UpdatePaymentReminders = paymentReminderJson.map(({
     andpadPaymentUrl,
     contractDate,
     contractId,
@@ -33,7 +33,7 @@ export const convertReminderToKintoneUpdate = ({
     projId,
     projName,
     projType,
-    reminderUrl,
+    //reminderUrl,
     storeName,
     systemId,
     territory,
@@ -47,10 +47,12 @@ export const convertReminderToKintoneUpdate = ({
     const existedReminder = existedReminders
       .find(({ paymentId }) => paymentId.value === tgtPaymentId) || {} as IPaymentReminder;
 
-    const exsistingSettings = compileNotificationSettings({
+    const existingSettings = compileNotificationSettings({
       existingSettings: existedReminder.notificationSettings,
       updateSettings: cwRoomIds,
     });
+
+    //console.log('通知先設定', JSON.stringify(existingSettings, null, 2));
 
     return ({
       updateKey: {
@@ -72,7 +74,12 @@ export const convertReminderToKintoneUpdate = ({
         lastAlertDate: { value: lastAlertDate },
         andpadUrl: { value: andpadPaymentUrl },
         contractId: { value: contractId },
-        notificationSettings: exsistingSettings,
+        //paymentId : {value: tgtPaymentId}, // updatekey
+        paymentType: { value: paymentType },
+        expectedPaymentAmt: { value: expectedPaymentAmt },
+        systemId: { value: systemId },
+        store: { value: storeName },
+        notificationSettings: existingSettings,
       },
     });
   });

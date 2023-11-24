@@ -28,7 +28,7 @@ export const Results = () => {
     
       return [
         ...storeIds,
-        '自社物件', // K Not a store, but as per spec, it should be displayed both as a store option, and as a result
+        '自社物件', // K268 Not a store, but as per spec, it should be displayed both as a store option, and as a result
       ];
     }
 

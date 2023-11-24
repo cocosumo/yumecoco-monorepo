@@ -38,8 +38,8 @@ export const CommonActions = () => {
       alignItems={'center'}
     >
       <Button
-        variant="outlined"
-        size="small"
+        variant="contained"
+        size='large'
         startIcon={<SaveIcon />}
         onClick={handleSubmit}
       >

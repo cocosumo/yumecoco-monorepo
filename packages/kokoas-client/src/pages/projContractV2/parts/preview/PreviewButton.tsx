@@ -16,7 +16,6 @@ export const PreviewButton = ({
     <>   
       <Button
         variant="outlined"
-        size="small"
         startIcon={<PreviewIcon />}
         disabled={disabled}
         onClick={() => setOpen(true)}

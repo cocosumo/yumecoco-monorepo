@@ -26,7 +26,6 @@ export const ReportButton = () => {
     <>
       {envelopeStatus === 'completed' && (
       <Button
-        size="small"
         variant="outlined"
         startIcon={<RedeemIcon />}
         onClick={handleOpen}

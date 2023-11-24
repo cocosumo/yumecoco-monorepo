@@ -1,52 +1,60 @@
-import { LinearProgress, Stack } from '@mui/material';
-import { useContractsByFiscalYear } from '../../hooks/useContractsByFiscalYear';
-import { FiscalYearResult } from './fiscalYearResult/FiscalYearResult';
-import { FiscalMonths } from './fiscalMonths/FiscalMonths';
+import { Stack } from '@mui/material';
+
 import style from './Results.module.css';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
-import { FiscalYearResultToltal } from './fiscalYearResult/FiscalYearResultToltal';
+import { useMemo } from 'react';
+import { useStores } from '../../../../../hooks/useStores';
+import { ResultPerStore } from './ResultPerStore';
 
 export const Results = () => {
   const [
-    year,
-    storeId,
+    selectedStoreId,
   ] = useTypedWatch({
     name: [
-      'year',
       'storeId',
     ],
   }) as [
     string,
-    string,
   ];
 
-  const fiscalYearQueryByStore = useContractsByFiscalYear({
-    year,
-    storeId,
-  });
+  const { data: storeRec } = useStores();
 
 
+  const storeIdsToDisplay = useMemo(() => {
+    if (!storeRec) return null;
 
-  const {
-    isLoading,
-  } = fiscalYearQueryByStore;
+    if (!selectedStoreId) {
+      const storeIds = storeRec.map((store) => store.uuid.value);
+    
+      return [
+        ...storeIds,
+        '自社物件', // K Not a store, but as per spec, it should be displayed both as a store option, and as a result
+      ];
+    }
 
-  if (isLoading) {
-    return <LinearProgress />;
-  }
+    return [selectedStoreId];
 
-  const isJishaBukken = storeId === '自社物件';
+  }, [selectedStoreId, storeRec]);
+
+
+  console.log('storeIdsToDisplay', storeIdsToDisplay);
+  
 
   return (
     <Stack 
-      spacing={2} 
+      spacing={8} 
       id={'printNode'} 
       className={style.print}
       mx={1}
     >
-      <FiscalYearResult fiscalYearQuery={fiscalYearQueryByStore} hasTitle />
-      <FiscalMonths fiscalYearQuery={fiscalYearQueryByStore} />
-      {isJishaBukken && <FiscalYearResultToltal />}
+      {storeIdsToDisplay?.map((storeId) => {
+        return (
+          <ResultPerStore 
+            key={storeId}
+            storeId={storeId}
+          />
+        );
+      })}
     </Stack>
   );
 };

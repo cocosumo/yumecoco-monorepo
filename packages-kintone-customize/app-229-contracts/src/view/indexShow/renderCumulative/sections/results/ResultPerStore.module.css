@@ -1,0 +1,5 @@
+@media print {
+  .storeResult {
+    page-break-after: always;
+  }
+}

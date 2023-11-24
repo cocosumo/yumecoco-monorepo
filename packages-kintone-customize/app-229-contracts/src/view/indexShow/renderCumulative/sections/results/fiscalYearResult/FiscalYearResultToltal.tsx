@@ -18,6 +18,6 @@ export const FiscalYearResultToltal = () => {
   });
 
   return (
-    <FiscalYearResult fiscalYearQuery={fiscalYearQuery} />
+    <FiscalYearResult fiscalYearQuery={fiscalYearQuery} hasTitle />
   );
 };

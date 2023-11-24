@@ -4,6 +4,7 @@ import { FiscalYearResultToltal } from './fiscalYearResult/FiscalYearResultTolta
 import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { useContractsByFiscalYear } from '../../hooks/useContractsByFiscalYear';
 import { FiscalMonths } from './fiscalMonths/FiscalMonths';
+import styles from './ResultPerStore.module.css';
 
 export const ResultPerStore = ({
   storeId,
@@ -24,7 +25,7 @@ export const ResultPerStore = ({
 
   const fiscalYearQueryByStore = useContractsByFiscalYear({
     year,
-    storeId: storeId,
+    storeId,
   });
 
   const isJishaBukken = storeId === '自社物件';
@@ -32,10 +33,18 @@ export const ResultPerStore = ({
 
   
   return (
-    <Stack>
-      <FiscalYearResult fiscalYearQuery={fiscalYearQueryByStore} hasTitle />
+    <Stack 
+      className={styles.storeResult}
+      spacing={2}
+    >
+      <FiscalYearResult fiscalYearQuery={fiscalYearQueryByStore} 
+        hasTitle 
+        storeId={storeId}
+      />
       <FiscalMonths fiscalYearQuery={fiscalYearQueryByStore} />
       {isJishaBukken && <FiscalYearResultToltal />}
     </Stack>
   );
 };
+
+// 2023年度 全店舗 契約累積表

@@ -13,19 +13,19 @@ export const FiscalYearResult = ({
   fiscalYearQuery,
   hasTitle,
   label,
+  storeId = '',
 }:{
   fiscalYearQuery: UseContractsByFiscalYearReturn
   hasTitle?: boolean
   label?: string
+  storeId?: string
 }) => {
 
   const [
     year,
-    storeId,
   ] = useTypedWatch({
     name: [
       'year',
-      'storeId',
     ],
   }) as [string, string];
 

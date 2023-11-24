@@ -29,10 +29,10 @@ const contractDateKey: keyof DB.SavedRecord = 'contractDate';
 
 export const useContractsByFiscalYear = ({
   year,
-  stores,
+  storeId,
 }: {
   year: string,
-  stores?: string,
+  storeId?: string,
 }) => {
 
 
@@ -46,11 +46,11 @@ export const useContractsByFiscalYear = ({
     `${contractDateKey} <= "${maxDateteStr}"`,
   ];
 
-  if (stores) {
-    if (stores === '自社物件') {
+  if (storeId) {
+    if (storeId === '自社物件') { // 自社物件はstoreIdないので、別の条件で絞り込む
       conditionArr.push('自社物件 in ("自社物件")');
     } else {
-      conditionArr.push(`storeId = "${stores}"`);
+      conditionArr.push(`storeId = "${storeId}"`);
     }
   }
 

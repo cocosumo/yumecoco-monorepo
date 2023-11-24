@@ -1,7 +1,7 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 
@@ -12,7 +12,7 @@ module.exports = (env) => {
     mode: environment,
     plugins: [
       new Dotenv({ path: `.env` }),
-      //new ForkTsCheckerWebpackPlugin(),
+      new ForkTsCheckerWebpackPlugin(),
       new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
@@ -76,8 +76,8 @@ module.exports = (env) => {
           test: /\.(ts|tsx)$/,
           loader: 'ts-loader',
           options: {
-            transpileOnly: true,
-          //  experimentalWatchApi: true,
+            //transpileOnly: true,
+            //experimentalWatchApi: true,
           },
         },
         {
@@ -128,6 +128,5 @@ module.exports = (env) => {
       new CssMinimizerPlugin(),
     ],
     },
-
   };
 };

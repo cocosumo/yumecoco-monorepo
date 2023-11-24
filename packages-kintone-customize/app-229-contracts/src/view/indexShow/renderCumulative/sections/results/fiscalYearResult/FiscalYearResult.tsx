@@ -21,17 +21,17 @@ export const FiscalYearResult = ({
 
   const [
     year,
-    stores,
+    storeId,
   ] = useTypedWatch({
     name: [
       'year',
-      'stores',
+      'storeId',
     ],
   }) as [string, string];
 
-  let storeName = useStoreNameById(stores);
+  let storeName = useStoreNameById(storeId);
 
-  if (stores === '自社物件') {
+  if (storeId === '自社物件') {
     storeName = '自社物件';
   }
   

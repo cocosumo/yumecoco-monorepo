@@ -1,19 +1,21 @@
-import { LinearProgress, Stack } from '@mui/material';
-import { useContractsByFiscalYear } from '../../hooks/useContractsByFiscalYear';
+import { Stack } from '@mui/material';
 import { FiscalYearResult } from './fiscalYearResult/FiscalYearResult';
-import { FiscalMonths } from './fiscalMonths/FiscalMonths';
-import style from './Results.module.css';
-import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { FiscalYearResultToltal } from './fiscalYearResult/FiscalYearResultToltal';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
+import { useContractsByFiscalYear } from '../../hooks/useContractsByFiscalYear';
+import { FiscalMonths } from './fiscalMonths/FiscalMonths';
 
-export const Results = () => {
+export const ResultPerStore = ({
+  storeId,
+}:{
+  storeId: string
+}) => {
+
   const [
     year,
-    storeId,
   ] = useTypedWatch({
     name: [
       'year',
-      'storeId',
     ],
   }) as [
     string,
@@ -22,28 +24,15 @@ export const Results = () => {
 
   const fiscalYearQueryByStore = useContractsByFiscalYear({
     year,
-    storeId,
+    storeId: storeId,
   });
-
-
-
-  const {
-    isLoading,
-  } = fiscalYearQueryByStore;
-
-  if (isLoading) {
-    return <LinearProgress />;
-  }
 
   const isJishaBukken = storeId === '自社物件';
 
+
+  
   return (
-    <Stack 
-      spacing={2} 
-      id={'printNode'} 
-      className={style.print}
-      mx={1}
-    >
+    <Stack>
       <FiscalYearResult fiscalYearQuery={fiscalYearQueryByStore} hasTitle />
       <FiscalMonths fiscalYearQuery={fiscalYearQueryByStore} />
       {isJishaBukken && <FiscalYearResultToltal />}

@@ -1,7 +1,7 @@
 import { filePath } from '../config';
 import fs from 'fs';
 import Papa from 'papaparse';
-import { AndpadCsv } from '../types/types';
+import { AndpadCsvData } from '../types/types';
 
 
 /**
@@ -10,12 +10,15 @@ import { AndpadCsv } from '../types/types';
 export const getAndpadPaymentsCsv = () => {
 
   const data = fs.readFileSync(filePath, 'utf8');
-  const result = Papa.parse(data, {
+  const result = Papa.parse<AndpadCsvData>(data, {
     header: true,
     dynamicTyping: true,
     skipEmptyLines: true,
-  }) as AndpadCsv;
-  
+  });
+
 
   return result;
 };
+
+
+export type GetAndpadPaymentsReturn = ReturnType<typeof getAndpadPaymentsCsv>;

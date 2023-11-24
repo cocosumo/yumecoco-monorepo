@@ -1,6 +1,6 @@
 {
   "name": "kokoas-client",
-  "version": "20231117",
+  "version": "20231121",
   "devDependencies": {},
   "scripts": {
     "dev": "npm run build -- --watch --mode development",

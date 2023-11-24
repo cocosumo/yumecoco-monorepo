@@ -1,5 +1,5 @@
 import { useURLParams } from 'kokoas-client/src/hooks/useURLParams';
-import { useContractsByEstId, useEstimateById, useProjById, useProjTypeById } from 'kokoas-client/src/hooksQuery';
+import { useContractsByEstId, useCustGroupById, useEstimateById, useProjById, useProjTypeById } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useState } from 'react';
 import { convertEstimateToForm, convertProjToForm, convertProjTypeToForm } from '../api';
 import { initialValues } from '../form';
@@ -23,21 +23,29 @@ export const useResolveParam = () => {
   const { data: recProj } = useProjById(recProjEstimate?.projId.value || projIdFromURL || '');
   const { data: recProjType } = useProjTypeById(recProj?.projTypeId?.value || '');
   const { data: recContract } = useContractsByEstId(projEstimateIdFromURL || '');
+  const { data: recCustGroupRec } = useCustGroupById(recProj?.custGroupId?.value || '');
 
 
   useEffect(() => {
 
-    if (projEstimateIdFromURL && recProjType && recProj && recProjEstimate && recContract) {
+    if (projEstimateIdFromURL && recProjType && recProj && recProjEstimate && recContract && recCustGroupRec) {
       const {
         envelopeStatus,
         uuid: contractId,
       } = recContract?.[0] || {};
+
+      const {
+        members,
+      } = recCustGroupRec;
+
+      const custNames = members.value.map(({ value }) => value.customerName.value).join('、');
 
       setNewFormVal((prev) => ({
         ...prev,
         hasOnProcessContract: !!envelopeStatus?.value,
         envStatus: envelopeStatus?.value || '',
         contractId: contractId?.value || '',
+        customerName: custNames,
         ...convertEstimateToForm(recProjEstimate),
         ...convertProjToForm(recProj),
         ...convertProjTypeToForm(recProjType),

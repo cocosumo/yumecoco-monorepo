@@ -47,7 +47,7 @@ export const useResolveParams = () => {
 
       const newValues = produce(initialValues, (draft) => {
         draft.custGroupId = custGroupIdFromURL;
-        draft.custName = custData.custNames.value;
+        draft.custName = '-'; // custData.custNames .value; custnamesは廃止されます
       });
 
       setNewFormVal(newValues);

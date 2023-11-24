@@ -44,6 +44,7 @@ export const formToDBCustGroup = ({
     isDeleted: { value: (+isDeleted).toString() },
     storeId: { value: store },
     memo: { value: memo },
+    custNames: { value: savedCustomers?.map(({ fullName }) => fullName?.value).join(',') || '' },
     members : {
       type: 'SUBTABLE',
       value: customers?.map(({ custName, isSameAddress }, index) => {

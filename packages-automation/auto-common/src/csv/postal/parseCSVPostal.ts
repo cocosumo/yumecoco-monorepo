@@ -1,6 +1,6 @@
 import path from 'path';
 import { parse } from 'csv-parse';
-import iconv = require('iconv-lite');
+import iconv from 'iconv-lite';
 import fs from 'fs';
 import { RecordType } from './config';
 

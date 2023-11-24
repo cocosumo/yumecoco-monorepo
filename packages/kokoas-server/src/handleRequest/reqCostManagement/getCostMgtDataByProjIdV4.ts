@@ -30,7 +30,6 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   const {
     dataId: projDataId,
     projName,
-    custNames,
     agents: projAgents,
     forceLinkedAndpadSystemId,
     projTypeId,
@@ -71,7 +70,11 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   const {
     agents: custGroupAgents,
     storeId: custGroupStoreId,
+    members: members,
   } = custGroupRec;
+
+  const custNames = members.value.map(({ value }) => value.customerName.value).join('、');
+
   const resolvedCommRate = resolveCommisionRate({
     custGroupRec,
     projRec,
@@ -162,7 +165,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     projName: projName.value,
     projId: projId,
     andpadSystemId: andpadSystemId,
-    custGroupName: custNames.value,
+    custGroupName: custNames,
     受注金額_税抜: orderAmountBeforeTax,
     追加金額_税抜: additionalAmountBeforeTax,
     発注金額_税抜: purchaseAmount,

@@ -26,9 +26,9 @@ export const UploadContainer = (props: useFileUploadHook & {
       bgcolor={'white'}
       sx={{
         background: isDragging ? yellow[100] : undefined,
-        border: isDragging ? 2 : undefined,
+        border: isDragging ? 4 : 1,
         borderRadius: 1,
-        borderStyle: isDragging ? 'dashed' : undefined,
+        borderStyle: 'dashed',
         borderColor: grey[200],
         transition: 'all 0.5s ease',
         '& > div ' : {

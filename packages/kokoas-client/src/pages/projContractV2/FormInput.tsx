@@ -30,8 +30,12 @@ export const FormInput = () => {
       <PageSubTitle3 label={'工期'} />
       <ConstructionPeriods disabled={hasContract} />
 
+      <PageSubTitle3 label={'添付'} />
+
       <PageSubTitle3 label={'備考'} />
       <Memo />
+
+      
       
       <Divider />
 

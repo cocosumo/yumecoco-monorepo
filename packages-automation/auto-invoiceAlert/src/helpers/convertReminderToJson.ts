@@ -60,7 +60,7 @@ export const convertReminderToJson = ({
 
 
     // kintoneのリマインダーURLを設定する
-    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
+    const reminderUrl = `${kintoneBaseUrl}k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
     // 請求書が発行されているかどうかを確認する
     let hasInvoice = false;

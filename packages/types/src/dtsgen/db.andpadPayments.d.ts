@@ -7,6 +7,7 @@ declare namespace DBAndpadpayments {
     paymentType: kintone.fieldTypes.SingleLineText;
     receiptIssueDate: kintone.fieldTypes.Date;
     inquiryId: kintone.fieldTypes.SingleLineText;
+    deleteStatus: kintone.fieldTypes.SingleLineText;
     mainOIC: kintone.fieldTypes.SingleLineText;
     ID: kintone.fieldTypes.SingleLineText;
     paymentStatus: kintone.fieldTypes.SingleLineText;

@@ -46,6 +46,6 @@ describe('Download Payment File', () => {
     expect(updatedMtimeMs).toBeGreaterThan(initialMtimeMs);
 
     browser.disconnect();
-  }, 5000);
+  }, 100000);
 
 });

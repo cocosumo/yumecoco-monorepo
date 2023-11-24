@@ -20,7 +20,7 @@ export const compileNotificationSettings = ({
 
   const newSettings = existingSettings.value.reduce((acc, cur) => {
 
-    console.log('acc', acc);
+    //console.log('acc', JSON.stringify(acc, null, 2));
     const updateSetting = updateSettings.find(({ agentId }) => cur.value.alertTargetId.value === agentId);
 
     if (updateSetting) {// 通知先情報の更新

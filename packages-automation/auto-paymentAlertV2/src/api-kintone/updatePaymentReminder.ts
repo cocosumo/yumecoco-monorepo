@@ -1,25 +1,15 @@
-import { RecordID, Revision, UpdateKey } from '@kintone/rest-api-client/lib/src/client/types';
-import { updateAllRecords } from 'api-kintone';
-import { IPaymentReminder, reminderAppId } from '../../config';
+import { updateRecords } from 'api-kintone';
+import { reminderAppId } from '../../config';
 
 
-export type UpdatePaymentReminder = {
-  id: RecordID
-  record?: Partial<IPaymentReminder> | undefined
-  revision?: Revision | undefined
-} | {
-  updateKey: UpdateKey
-  record?: Partial<IPaymentReminder> | undefined
-  revision?: Revision | undefined
-};
-
+export type UpdatePaymentReminders = Parameters<typeof updateRecords>[0]['records'];
 
 /**
  * 入金アラートレコードを一括更新する
  */
-export const updatePaymentReminder = (params: UpdatePaymentReminder[]) => {
+export const updatePaymentReminder = (params: UpdatePaymentReminders) => {
 
-  return updateAllRecords({
+  return updateRecords({
     records: params,
     app: reminderAppId,
   });

@@ -38,11 +38,12 @@ export const FormActions = () => {
       console.warn(errors); // 保存できない原因で、残す
       // summarize errors into string
       const errorString = Object.entries(errors).reduce((acc, [key, value]) => {
+        let newAcc = acc;
         if (value) {
           const keyJa = fieldMapJa[key as KForm];
-          acc += `${ keyJa ? `${fieldMapJa[key as KForm]}：` : ''} ${value.message}\n`;
+          newAcc += `${ keyJa ? `${fieldMapJa[key as KForm]}：` : ''} ${value.message}\n`;
         }
-        return acc;
+        return newAcc;
       }, '');
 
       setSnackState({
@@ -65,7 +66,7 @@ export const FormActions = () => {
         startIcon={<SaveIcon />}
         variant='contained'
         onClick={handleSave}
-        size='small'
+        size='large'
       >
         保存
       </Button>

@@ -89,7 +89,10 @@ module.exports = {
     ],
     'no-param-reassign': [
       'error',
-      { props: true, ignorePropertyModificationsFor: ['draft', 'acc'] },
+      { 
+        props: true, 
+        ignorePropertyModificationsFor: ['draft', 'acc'],
+      },
     ],
   },
   overrides: [

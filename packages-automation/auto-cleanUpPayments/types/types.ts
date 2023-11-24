@@ -19,17 +19,3 @@ export interface AndpadCsvData {
   '請求日': string | null
   '領収書発行日': string | null
 }
-
-
-export interface AndpadCsv {
-  'data': AndpadCsvData[],
-  'errors': [],
-  'meta': {
-    'delimiter': string
-    'linebreak': string
-    'aborted': boolean
-    'truncated': boolean
-    'cursor': number
-    'fields': string[]
-  }
-}

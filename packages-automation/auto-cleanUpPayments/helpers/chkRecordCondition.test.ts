@@ -3,8 +3,9 @@ import path from 'path';
 import format from 'date-fns/format';
 import { describe, it } from '@jest/globals';
 import { chkRecordCondition } from './chkRecordCondition';
-import { AndpadCsv } from '../types/types';
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
+import { ParseResult } from 'papaparse';
+import { AndpadCsvData } from '../types/types';
 
 
 describe('get andpad Payment File', () => {
@@ -12,7 +13,7 @@ describe('get andpad Payment File', () => {
 
     // set output file of getAndpadPaymentsCsv.test.ts
     const andpadCsvPath = path.join(__dirname, './__TEST__/andpadPaymentsCsv.json');
-    const andpadScvDat = JSON.parse(fs.readFileSync(andpadCsvPath, 'utf8')) as AndpadCsv;
+    const andpadScvDat = JSON.parse(fs.readFileSync(andpadCsvPath, 'utf8')) as ParseResult<AndpadCsvData>;
 
     const unpaidBackupPayments = await getUnpaidAndpadPayments();
 

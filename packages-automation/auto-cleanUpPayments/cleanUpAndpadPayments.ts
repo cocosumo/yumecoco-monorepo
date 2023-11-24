@@ -1,7 +1,7 @@
 import { getUnpaidAndpadPayments } from 'api-kintone/src/andpadPayments/getUnpaidAndpadPayments';
 import { getAndpadPaymentsCsv } from './helpers/getAndpadPaymentsCsv';
 import { chkRecordCondition } from './helpers/chkRecordCondition';
-import { updateAndpadRecords } from 'api-kintone/src/andpadPayments/updateAndpadRecords';
+import { updateAndpadPayments } from 'api-kintone/src/andpadPayments/updateAndpadPayments';
 
 
 
@@ -23,7 +23,7 @@ export const cleanupAndpadPayments = async () => {
     andpadPaymentsCsv: andpadPaymentsCsv,
   });
 
-  await updateAndpadRecords(kintoneUpdateRecords);
+  await updateAndpadPayments(kintoneUpdateRecords);
 
   
   console.log('finish cleanup andpad payments');

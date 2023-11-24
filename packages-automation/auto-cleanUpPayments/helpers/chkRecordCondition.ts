@@ -1,6 +1,6 @@
 import { IAndpadpayments } from 'types';
-import { AndpadCsv } from '../types/types';
-import { UpdateAndpadPayments } from 'api-kintone/src/andpadPayments/updateAndpadRecords';
+import { UpdateAndpadPayments } from 'api-kintone/src/andpadPayments/updateAndpadPayments';
+import { GetAndpadPaymentsReturn } from './getAndpadPaymentsCsv';
 
 
 /**
@@ -13,7 +13,7 @@ export const chkRecordCondition = ({
   andpadPaymentsCsv,
 }: {
   unpaidBackupPayments: IAndpadpayments[]
-  andpadPaymentsCsv: AndpadCsv
+  andpadPaymentsCsv: GetAndpadPaymentsReturn
 }) => {
 
   return unpaidBackupPayments.reduce((acc, cur) => {
@@ -33,7 +33,7 @@ export const chkRecordCondition = ({
 
     return acc;
 
-  }, [] as UpdateAndpadPayments[]);
+  }, [] as UpdateAndpadPayments);
 
 
 };

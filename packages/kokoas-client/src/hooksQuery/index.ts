@@ -5,6 +5,7 @@ export * from './useAddressPostalCode';
 export * from './useAddressTowns';
 export * from './useAllContracts';
 export * from './useAllEmployees';
+export * from './useAllProcurements';
 export * from './useAndpadByProjName';
 export * from './useAndpadBySystemId';
 export * from './useAndpadCostMgtDataByProjId';

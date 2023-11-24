@@ -22,6 +22,12 @@ export interface SearchResult {
   tel: string;
   telRelation: string;
   storeName: string;
+
+  /** 発注の支払開始日 */
+  procurementPaymentDateStart: string;
+  /** 発注の支払い完了日 */
+  procurementPaymentDateEnd: string;
+
   contractDate: string;
   deliveryDate: string;
   projPostalCode: string;

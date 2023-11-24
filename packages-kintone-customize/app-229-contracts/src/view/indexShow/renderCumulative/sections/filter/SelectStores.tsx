@@ -11,7 +11,7 @@ export const SelectStores = () => {
   
   return (
     <Controller 
-      name='stores'
+      name='storeId'
       control={control}
       render={({
         field: { onChange, value, ...otherField },

@@ -4,7 +4,7 @@
     "outDir": "./dist",
     "target": "es2016",
     "module": "ESNext",
-    "strict": true,
+    "strict": false,
     "isolatedModules": true,
     "lib": ["DOM", "ES2022"],
     "skipLibCheck": true

@@ -11,10 +11,10 @@
 
   /* Max width is A4 */
 
-  thead {
+  .print thead {
     display: table-row-group;
   }
-  tr {
+  .print tr {
     page-break-inside: avoid; /* fix overlapping content with header */
   }
 }

@@ -7,6 +7,9 @@ import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from './schema';
 import { ContractType } from './sections/contractType/ContractType';
 import { Memo } from './sections/Memo';
+import { AttachmentHelp } from './sections/atttachments/AttachmentHelp';
+import { Attachments } from './sections/atttachments/Attachments';
+import { isProd } from 'config';
 
 export const FormInput = () => {
 
@@ -29,13 +32,18 @@ export const FormInput = () => {
 
       <PageSubTitle3 label={'工期'} />
       <ConstructionPeriods disabled={hasContract} />
-
-      <PageSubTitle3 label={'添付'} />
-
+            
       <PageSubTitle3 label={'備考'} />
       <Memo />
 
-      
+      {!isProd && (
+        <>
+          <PageSubTitle3 label={<AttachmentHelp />} />
+          <Attachments />
+        </>
+      )}
+
+  
       
       <Divider />
 

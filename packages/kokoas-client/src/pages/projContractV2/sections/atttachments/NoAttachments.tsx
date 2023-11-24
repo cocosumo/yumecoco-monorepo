@@ -15,6 +15,7 @@ export const NoAttachments = () => {
           sx={{
             ml: 1,
           }}
+          size='small'
         >
           ファイルを選択
         </Button>

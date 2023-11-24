@@ -12,9 +12,11 @@ import { useStoreNameById } from '../../../hooks/useStoreNameById';
 export const FiscalYearResult = ({
   fiscalYearQuery,
   hasTitle,
+  label,
 }:{
   fiscalYearQuery: UseContractsByFiscalYearReturn
   hasTitle?: boolean
+  label?: string
 }) => {
 
   const [
@@ -45,13 +47,15 @@ export const FiscalYearResult = ({
     totalAmountExclTax = 0,
     totalProfit = 0,
   } = data || {};
+
+  const tableLabel = label ||  `${year}年度 ${storeName ? storeName : '全店舗'}	契約累積表`;
   
 
   return (
     <Stack spacing={1}>
       {hasTitle && (
       <Typography variant='h5'>
-        {`${year}年度 ${storeName ? storeName : '全店舗'}	契約累積表`}
+        {tableLabel}
       </Typography>
       )}
     

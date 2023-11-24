@@ -1,4 +1,4 @@
-import { Stack, Table, TableBody, TableHead, Typography } from '@mui/material';
+import { Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import style from './FiscalMonthTable.module.css';
 import { TableRowLayout } from './TableRowLayout';
@@ -71,6 +71,13 @@ export const FiscalMonthTable = ({
                 agent={<FitText content={agents.length ?  agents.join('、 ') : 'ここすも'} />}
               />);
           })}
+          {!records.length && (
+            <TableRow>
+              <TableCell colSpan={10} align='center'>
+                なし
+              </TableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </Stack>

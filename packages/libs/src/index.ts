@@ -10,6 +10,7 @@ export * from './convertObjNumValsToHalfWidth';
 export * from './convertToFullWidth';
 export * from './convertToHalfWidth';
 export * from './dateBuilder';
+export * from './downloadArrayBuffer';
 export * from './endpoints';
 export * from './filterNonNull';
 export * from './formatDataId';

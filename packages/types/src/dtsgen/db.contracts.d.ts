@@ -59,6 +59,7 @@ declare namespace DBContracts {
     envelopeStatus: kintone.fieldTypes.SingleLineText;
 
     envDocFileKeys: kintone.fieldTypes.File;
+    otherAttachments: kintone.fieldTypes.File;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

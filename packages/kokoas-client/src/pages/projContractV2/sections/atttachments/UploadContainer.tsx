@@ -1,18 +1,45 @@
-import { Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import { grey, yellow } from '@mui/material/colors';
-import { useSnackBar } from 'kokoas-client/src/hooks';
-import { ReactNode, useState } from 'react';
+import { useUploadContractOtherFiles } from 'kokoas-client/src/hooksQuery';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
 
 export const UploadContainer = (props: useFileUploadHook & {
   children: ReactNode,
 }) => {
-  const { setSnackState } = useSnackBar();
   const [isDragging, setIsDragging] = useState(false);
+  const { mutate } = useUploadContractOtherFiles();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const contractId = useTypedWatch({
+    name: 'contractId',
+  }) as string;
+
   const {
     handleDragDropEvent,
     children,
+    files,
+    setFiles,
+    clearAllFiles,
   } = props;
+
+
+  useEffect(() => {
+    if (!files.length || !contractId) return;
+
+    const documents = files.map((file) => ({
+      name: file.name,
+      data: file,
+    }));
+
+    mutate({
+      documents,
+      contractId,
+    });
+
+    clearAllFiles();
+  
+  }, [files, mutate, setFiles, clearAllFiles, contractId]);
 
   return (
     <Stack
@@ -48,22 +75,48 @@ export const UploadContainer = (props: useFileUploadHook & {
       }}
       onDrop={(e) => {
         handleDragDropEvent(e as unknown as Event);
-        const fileType = e.dataTransfer.files?.[0]?.type;
-
-        console.log('fileType', fileType);
-
-        setSnackState({
-          open: true,
-          severity: 'warning',
-          message: '当機能は開発中です。',
-
-        });
+        setFiles(e as unknown as Event);
 
         setIsDragging(false);
       }}
     >
 
       {children}
+      <Stack >
+        <Typography color={'GrayText'}>
+          ドラッグ＆ドロップ
+        </Typography>
+        <Typography color={'GrayText'}>
+          または 
+
+          <Button 
+            variant='outlined' 
+            color='secondary'
+            onClick={() => inputRef.current?.click()}
+            sx={{
+              ml: 1,
+            }}
+            size='small'
+          >
+            ファイルを選択
+          </Button>
+        </Typography>
+      </Stack>
+
+      {/* Hide the crappy looking default HTML input */}
+
+      <input
+        ref={inputRef}
+        type="file"
+        multiple
+        style={{ display: 'none' }}
+        onChange={(e) => {
+          setFiles(e as unknown as Event);
+          if (!inputRef.current) return;
+
+          inputRef.current.value = null as unknown as string;
+        }}
+      />
 
     </Stack>
   );

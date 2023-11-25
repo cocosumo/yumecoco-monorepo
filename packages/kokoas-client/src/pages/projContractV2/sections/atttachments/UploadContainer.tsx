@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Tooltip, Typography } from '@mui/material';
+import { Button, Stack, Tooltip, Typography } from '@mui/material';
 import {  green, grey, yellow } from '@mui/material/colors';
 import { useUploadContractOtherFiles } from 'kokoas-client/src/hooksQuery';
 import { ReactNode, useEffect, useRef, useState } from 'react';
@@ -72,8 +72,7 @@ export const UploadContainer = (props: useFileUploadHook & {
       }}
       onDragLeave={(e) => {
         handleDragDropEvent(e as unknown as Event);
-        setIsDragging(false);
-        if (e.currentTarget.classList.contains('dropzone')) {
+        if ((e.target as HTMLElement).classList.contains('dropzone')) {
           setIsDragging(false);
         }
 

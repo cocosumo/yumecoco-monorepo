@@ -24,7 +24,12 @@ export const Attachments = () => {
       </FormHelperText>
       <UploadContainer {...fileUploadReturn}>
         {!!otherAttachments?.value.length && (
-          <Grid container spacing={2}>
+          <Grid 
+            container 
+            spacing={2}
+            width={'100%'}
+            flexGrow={1}
+          >
             {otherAttachments.value.map((f) => (
               <Grid 
                 xs={12}

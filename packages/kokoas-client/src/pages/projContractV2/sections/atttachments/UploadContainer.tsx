@@ -1,11 +1,11 @@
 import { Button, Stack, Tooltip, Typography } from '@mui/material';
 import {  green, grey, yellow } from '@mui/material/colors';
-import { useUploadContractOtherFiles } from 'kokoas-client/src/hooksQuery';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { DraggingInfo } from './DraggingInfo';
+import { useUploadContractOtherFiles } from './useUploadContractOtherFiles';
 
 
 export const UploadContainer = (props: useFileUploadHook & {

@@ -1,16 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useCommonOptions } from './useCommonOptions';
+import { useCommonOptions } from '../../../../hooksQuery/useCommonOptions';
 import { uploadFilesToKintoneByAppId } from 'api-kintone';
 import { AppIds } from 'config';
 import { IContracts } from 'types';
-import { useSnackBar } from '../hooks/useSnackBar';
+import { useSnackBar } from '../../../../hooks/useSnackBar';
+
+
+// WIP Don't use this yet
 
 export type DocumentsParam = Array<{
   name: string,
   data: unknown,
 }>;
 
-export const useUploadContractOtherFiles = (params?: {
+export const useDeleteContractOtherFiles = (params?: {
   onSuccess?: (data: { revision: string }) => void
 }) => {
   const {

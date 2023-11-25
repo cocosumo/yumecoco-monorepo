@@ -13,11 +13,21 @@ import { isProd } from 'config';
 
 export const FormInput = () => {
 
-  const envelopeStatus = useWatch<TypeOfForm>({
-    name: 'envelopeStatus',
-  });
+  const [
+    envelopeStatus,
+    contractId,
+  ] = useWatch<TypeOfForm>({
+    name: [
+      'envelopeStatus',
+      'contractId',
+    ],
+  }) as [
+    TypeOfForm['envelopeStatus'],
+    TypeOfForm['contractId'],
+  ];
 
   const hasContract = !!envelopeStatus;
+  const isEditMode = !!contractId;
 
   return (
     <>
@@ -36,14 +46,12 @@ export const FormInput = () => {
       <PageSubTitle3 label={'備考'} />
       <Memo />
 
-      {!isProd && (
+      {!isProd && isEditMode && (
         <>
           <PageSubTitle3 label={<AttachmentHelp />} />
           <Attachments />
         </>
-      )}
-
-  
+      )} 
       
       <Divider />
 

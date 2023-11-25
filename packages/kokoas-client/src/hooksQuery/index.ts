@@ -81,6 +81,7 @@ export * from './useStoreOptions';
 export * from './useStores';
 export * from './useSystemUpdate';
 export * from './useUnits';
+export * from './useUploadContractOtherFiles';
 export * from './useUploadDaikokuEst';
 export * from './useUploadDaikokuGenka';
 export * from './useVoidContract';

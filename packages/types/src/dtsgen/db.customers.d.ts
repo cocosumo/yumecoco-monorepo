@@ -6,8 +6,8 @@ declare namespace DBCustomers {
     address1: kintone.fieldTypes.SingleLineText;
     postalCode: kintone.fieldTypes.SingleLineText;
     fullName: kintone.fieldTypes.SingleLineText;
-    //index: kintone.fieldTypes.Number;
-    //isSameAsMain: kintone.fieldTypes.Number;
+    index: kintone.fieldTypes.Number;
+    isSameAsMain: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
     fullNameReading: kintone.fieldTypes.SingleLineText;
     birthMonth: kintone.fieldTypes.Number;

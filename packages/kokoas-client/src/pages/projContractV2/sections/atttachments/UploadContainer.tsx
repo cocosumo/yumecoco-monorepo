@@ -1,9 +1,12 @@
-import { Button, Stack, Typography } from '@mui/material';
-import { grey, yellow } from '@mui/material/colors';
+import { Box, Button, Stack, Tooltip, Typography } from '@mui/material';
+import {  green, grey, yellow } from '@mui/material/colors';
 import { useUploadContractOtherFiles } from 'kokoas-client/src/hooksQuery';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import { DraggingInfo } from './DraggingInfo';
+
 
 export const UploadContainer = (props: useFileUploadHook & {
   children: ReactNode,
@@ -43,22 +46,23 @@ export const UploadContainer = (props: useFileUploadHook & {
 
   return (
     <Stack
+      className='dropzone'
       spacing={2}
-      justifyContent={'center'}
-      alignItems={'center'}
+      justifyContent={!children || isDragging ? 'center' : 'space-between'}
+      alignItems={!children || isDragging ? 'center' : undefined}
       height={'100%'}
       minHeight={150}
       width={'100%'} // needed when using alignItems
       overflow={'hidden'}
-      bgcolor={'white'}
+      bgcolor={isDragging ? green[100] : yellow[50]}
+      p={2}
       sx={{
-        background: isDragging ? yellow[100] : undefined,
-        border: isDragging ? 4 : 1,
+        border: 4,
         borderRadius: 1,
+        borderColor: isDragging ? green[500] : grey[300],
         borderStyle: 'dashed',
-        borderColor: grey[200],
-        transition: 'all 0.5s ease',
-        '& > div ' : {
+        transition: 'all 0.3s ease',
+        '& div, & p' : {
           pointerEvents: isDragging ? 'none' : undefined, // stop propagating events to child elements
         },
       }}
@@ -69,20 +73,57 @@ export const UploadContainer = (props: useFileUploadHook & {
       onDragLeave={(e) => {
         handleDragDropEvent(e as unknown as Event);
         setIsDragging(false);
+        if (e.currentTarget.classList.contains('dropzone')) {
+          setIsDragging(false);
+        }
+
       }}
       onDragOver={(e) => {
         handleDragDropEvent(e as unknown as Event);
+
+        //setIsDragging(true);
+
       }}
       onDrop={(e) => {
         handleDragDropEvent(e as unknown as Event);
         setFiles(e as unknown as Event);
-
         setIsDragging(false);
       }}
     >
+      
 
-      {children}
-      <Stack >
+
+      {!!children && (
+        <>
+          {children}
+    
+          {!isDragging && (
+          <Tooltip title={'ドラッグ＆ドロップまたはファイルを選択'}>
+            <Button
+              variant='outlined'
+              startIcon={<NoteAddIcon />}
+              onClick={() => inputRef.current?.click()}
+              size='small'
+              sx={{
+                width: 'fit-content',
+                height: 30, // prevent layout shift when dragging
+              }}
+            >
+              追加
+            </Button>
+          </Tooltip>
+          )}
+
+        </>
+      )}
+
+      {isDragging && (
+      <DraggingInfo  />
+
+      )}
+
+      {!children && !isDragging && (
+      <>
         <Typography color={'GrayText'}>
           ドラッグ＆ドロップ
         </Typography>
@@ -101,7 +142,9 @@ export const UploadContainer = (props: useFileUploadHook & {
             ファイルを選択
           </Button>
         </Typography>
-      </Stack>
+        </>
+      )}
+
 
       {/* Hide the crappy looking default HTML input */}
 
@@ -118,6 +161,7 @@ export const UploadContainer = (props: useFileUploadHook & {
         }}
       />
 
+      
     </Stack>
   );
 };

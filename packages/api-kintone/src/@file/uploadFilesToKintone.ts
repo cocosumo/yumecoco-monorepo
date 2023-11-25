@@ -15,7 +15,7 @@ export const uploadFilesToKintone = async (
 
   const uploadPromises = documents.map(async (doc) => {
     /* Re-assign no avoid mutating param */
-    const converted = doc;
+    const converted = { ...doc };
 
     if ('data' in converted) {
       converted.data = Buffer.from(converted.data as string, 'base64');

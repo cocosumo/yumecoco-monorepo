@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useCommonOptions } from './useCommonOptions';
 import { uploadFilesToKintoneByAppId } from 'api-kintone';
 import { AppIds } from 'config';
@@ -18,7 +18,8 @@ export const useUploadContractOtherFiles = (params?: {
   } = params || {};
 
   const { setSnackState } = useSnackBar();
-  
+  const queryClient = useQueryClient();
+
   const commonOptions = useCommonOptions();
 
   return useMutation(
@@ -43,6 +44,8 @@ export const useUploadContractOtherFiles = (params?: {
           message: 'ファイルをアップロードしました。',
           severity: 'success',
         });
+        queryClient.invalidateQueries({ queryKey: [AppIds.contracts] });
+
 
       },
     },

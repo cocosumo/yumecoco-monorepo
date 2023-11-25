@@ -6,8 +6,10 @@ import { MaskedPostal } from './MaskedPostal';
 
 export const Postal = ({
   disabled = false,
+  showButtons = true,
 }:{
-  disabled?: boolean;
+  disabled?: boolean,
+  showButtons?: boolean,
 }) => {
   return (
     <Stack 
@@ -19,7 +21,7 @@ export const Postal = ({
         disabled={disabled}
       /> 
 
-      {!disabled && (
+      {!disabled && showButtons && (
         <>
           <AddressByPostal />
           <PostalByAddress />

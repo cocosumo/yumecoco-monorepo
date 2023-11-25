@@ -16,7 +16,7 @@
     "@faker-js/faker": "^8.1.0",
     "@hookform/devtools": "^4.3.1",
     "@jest/globals": "^29.5.0",
-    "@kintone/customize-uploader": "^7.0.2",
+    "@kintone/customize-uploader": "^8.0.3",
     "@kintone/dts-gen": "^7.0.4",
     "@nrwl/nx-cloud": "latest",
     "@tsconfig/node16": "^16.1.1",

@@ -46,9 +46,12 @@ export const OtherProjType = () => {
               const newValue = e.target.value;
               onChange(newValue);
 
-              const custName = getValues('custName');              
+              const hasContract = getValues('hasContract');
+              const custName = getValues('custName');      
 
-              setValue('projName', `${custName}様邸　${newValue || projTypeName}`);
+              if (!hasContract) {
+                setValue('projName', `${custName}様邸　${newValue || projTypeName}`);
+              }
             }}
             {...otherField}
             //disabled={disabled}

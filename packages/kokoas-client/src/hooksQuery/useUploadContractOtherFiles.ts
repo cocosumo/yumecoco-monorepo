@@ -3,29 +3,46 @@ import { useCommonOptions } from './useCommonOptions';
 import { uploadFilesToKintoneByAppId } from 'api-kintone';
 import { AppIds } from 'config';
 import { IContracts } from 'types';
+import { useSnackBar } from '../hooks/useSnackBar';
 
-type DocumentsParam = Parameters<typeof uploadFilesToKintoneByAppId>[0]['documents'];
+export type DocumentsParam = Array<{
+  name: string,
+  data: unknown,
+}>;
 
-export const useUploadContractOtherFiles = ({
-  onSuccess,
-  documents,
-}: {
-  onSuccess?: (data: DocumentsParam) => Promise<DocumentsParam>
-  documents: DocumentsParam
+export const useUploadContractOtherFiles = (params?: {
+  onSuccess?: (data: { revision: string }) => void
 }) => {
+  const {
+    onSuccess,
+  } = params || {};
+
+  const { setSnackState } = useSnackBar();
+  
   const commonOptions = useCommonOptions();
 
   return useMutation(
-    () => uploadFilesToKintoneByAppId<IContracts>({
+    ({
+      documents,
+      contractId,
+    }:{
+      documents: DocumentsParam,
+      contractId: string,
+    }) => uploadFilesToKintoneByAppId<IContracts>({
       appId: AppIds.contracts,
       fieldCode: 'otherAttachments',
       documents: documents,
+      recordUuid: contractId,
     }),
     {
       ...commonOptions,
       onSuccess: (data) => {
-        commonOptions.onSuccess();
         onSuccess?.(data);
+        setSnackState({
+          open: true,
+          message: 'ファイルをアップロードしました。',
+          severity: 'success',
+        });
 
       },
     },

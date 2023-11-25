@@ -3,6 +3,8 @@ import { ktClient } from '../client';
 
 /**
  * 複数ファイルをKintoneにアップロード
+ * Server側でのみ使用
+ * 
  * @param documents
  * @returns ファイルキーの配列
  */

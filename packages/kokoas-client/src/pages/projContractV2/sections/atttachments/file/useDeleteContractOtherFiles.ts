@@ -1,16 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useCommonOptions } from './useCommonOptions';
-import { uploadFilesToKintoneByAppId } from 'api-kintone';
+import { deleteFilesFromKintoneByAppId } from 'api-kintone/src/@file/deleteFilesFromKintoneByAppId';
 import { AppIds } from 'config';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import { useCommonOptions } from 'kokoas-client/src/hooksQuery';
 import { IContracts } from 'types';
-import { useSnackBar } from '../hooks/useSnackBar';
 
-export type DocumentsParam = Array<{
-  name: string,
-  data: unknown,
-}>;
 
-export const useUploadContractOtherFiles = (params?: {
+export const useDeleteContractOtherFiles = (params?: {
   onSuccess?: (data: { revision: string }) => void
 }) => {
   const {
@@ -24,15 +20,15 @@ export const useUploadContractOtherFiles = (params?: {
 
   return useMutation(
     ({
-      documents,
+      fileKey,
       contractId,
     }:{
-      documents: DocumentsParam,
+      fileKey: string,
       contractId: string,
-    }) => uploadFilesToKintoneByAppId<IContracts>({
+    }) => deleteFilesFromKintoneByAppId<IContracts>({
       appId: AppIds.contracts,
       fieldCode: 'otherAttachments',
-      documents: documents,
+      fileKeys: fileKey,
       recordUuid: contractId,
     }),
     {
@@ -41,11 +37,10 @@ export const useUploadContractOtherFiles = (params?: {
         onSuccess?.(data);
         setSnackState({
           open: true,
-          message: 'ファイルをアップロードしました。',
+          message: 'ファイルを削除しました。',
           severity: 'success',
         });
         queryClient.invalidateQueries({ queryKey: [AppIds.contracts] });
-
 
       },
     },

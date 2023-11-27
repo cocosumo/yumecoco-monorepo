@@ -1,11 +1,10 @@
-import { Chip, Tooltip } from '@mui/material';
+import {  Badge, Button, Tooltip } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { downloadFile } from 'api-kintone';
 import { downloadArrayBuffer, roundTo } from 'libs';
-import AttachmentIcon from '@mui/icons-material/Attachment';
-import DownloadIcon from '@mui/icons-material/Download';
-
-
+import { StyledFileIcon } from './StyledFileIcon';
+import { DeleteButton } from './DeleteButton';
+import { FileName } from './FileName';
 
 export const File = ({
   fileName,
@@ -33,18 +32,35 @@ export const File = ({
 
   return (
     <Tooltip title={`${fileName} (${roundTo(sizeKb).toLocaleString()} KB)`}>
-      <Chip 
-        label={fileName}
-        size="small"
-        icon={mouseEnter ? <DownloadIcon /> :  <AttachmentIcon />}
-        onClick={handleDownload}
+      <Badge 
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}
-        sx={{
-          mr: 1,
-          mb: 1,
-        }}
-      />
+        variant='standard' 
+        overlap='circular' 
+        badgeContent={(
+          <DeleteButton 
+            show={mouseEnter}
+            fileName={fileName}
+            fileKey={fileKey}
+          />)}
+      >
+
+        <Button 
+          sx={{
+            mr: 1,
+            mb: 1,
+            display: 'inline-block',
+          }}
+          onClick={handleDownload}
+        >
+
+          <StyledFileIcon fileName={fileName} />
+
+          <FileName fileName={fileName} />
+      
+        </Button>
+      </Badge>
+
     </Tooltip>
   );
 };

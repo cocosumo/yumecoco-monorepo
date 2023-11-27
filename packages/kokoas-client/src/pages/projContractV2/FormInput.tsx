@@ -9,7 +9,6 @@ import { ContractType } from './sections/contractType/ContractType';
 import { Memo } from './sections/Memo';
 import { AttachmentHelp } from './sections/atttachments/AttachmentHelp';
 import { Attachments } from './sections/atttachments/Attachments';
-import { isProd } from 'config';
 
 export const FormInput = () => {
 

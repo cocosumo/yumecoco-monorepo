@@ -1,5 +1,6 @@
 export * from './addressBuilder';
 export * from './base64ToBlob';
+export * from './bytesToIEC';
 export * from './calcAfterTax';
 export * from './calcBeforeTax';
 export * from './calcProfitRate';

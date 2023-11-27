@@ -9,7 +9,6 @@ import { ContractType } from './sections/contractType/ContractType';
 import { Memo } from './sections/Memo';
 import { AttachmentHelp } from './sections/atttachments/AttachmentHelp';
 import { Attachments } from './sections/atttachments/Attachments';
-import { isProd } from 'config';
 
 export const FormInput = () => {
 
@@ -46,7 +45,7 @@ export const FormInput = () => {
       <PageSubTitle3 label={'備考'} />
       <Memo />
 
-      {!isProd && isEditMode && (
+      {isEditMode && (
         <>
           <PageSubTitle3 label={<AttachmentHelp />} />
           <Attachments />

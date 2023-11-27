@@ -1,48 +1,26 @@
 import { Button, Stack, Tooltip, Typography } from '@mui/material';
 import {  green, grey, yellow } from '@mui/material/colors';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { useFileUploadHook } from 'react-use-file-upload/dist/lib/types';
-import { useTypedWatch } from '../../hooks/useTypedRHF';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { DraggingInfo } from './DraggingInfo';
-import { useUploadContractOtherFiles } from './useUploadContractOtherFiles';
+import { useUploadFilesListener } from './useUploadFilesListener';
 
 
 export const UploadContainer = (props: useFileUploadHook & {
   children: ReactNode,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const { mutate } = useUploadContractOtherFiles();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const contractId = useTypedWatch({
-    name: 'contractId',
-  }) as string;
 
   const {
     handleDragDropEvent,
     children,
-    files,
     setFiles,
-    clearAllFiles,
   } = props;
 
 
-  useEffect(() => {
-    if (!files.length || !contractId) return;
-
-    const documents = files.map((file) => ({
-      name: file.name,
-      data: file,
-    }));
-
-    mutate({
-      documents,
-      contractId,
-    });
-
-    clearAllFiles();
-  
-  }, [files, mutate, setFiles, clearAllFiles, contractId]);
+  useUploadFilesListener({ props });
 
   return (
     <Stack

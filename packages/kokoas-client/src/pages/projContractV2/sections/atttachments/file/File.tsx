@@ -1,10 +1,11 @@
-import {  Badge, Button, Tooltip } from '@mui/material';
+import {  Badge, Button, Stack, Tooltip, Typography } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { downloadFile } from 'api-kintone';
-import { downloadArrayBuffer, roundTo } from 'libs';
+import { bytesToIEC, downloadArrayBuffer } from 'libs';
 import { StyledFileIcon } from './StyledFileIcon';
 import { DeleteButton } from './DeleteButton';
 import { FileName } from './FileName';
+
 
 export const File = ({
   fileName,
@@ -28,10 +29,21 @@ export const File = ({
   }, [fileKey, fileName, contentType]);
 
   // bytes to kb
-  const sizeKb = fileSize / 1024;
 
   return (
-    <Tooltip title={`${fileName} (${roundTo(sizeKb).toLocaleString()} KB)`}>
+    <Tooltip 
+      title={(
+        <Stack>
+          <Typography variant='inherit'>
+            {fileName}
+          </Typography>
+          <Typography variant='inherit'>
+            {bytesToIEC(fileSize)}
+          </Typography>
+          
+        </Stack>
+      )}
+    >
       <Badge 
         onMouseEnter={() => setMouseEnter(true)}
         onMouseLeave={() => setMouseEnter(false)}

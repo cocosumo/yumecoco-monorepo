@@ -3,7 +3,7 @@ import { UploadContainer } from './UploadContainer';
 import { Box, FormHelperText, Stack } from '@mui/material';
 import { useContractById } from 'kokoas-client/src/hooksQuery';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
-import { File } from './File';
+import { File } from './file/File';
 
 export const Attachments = () => {
   const fileUploadReturn = useFileUpload();

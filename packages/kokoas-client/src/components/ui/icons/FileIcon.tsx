@@ -1,10 +1,9 @@
-import { 
-  FaRegFilePdf, 
-  FaRegFileExcel, 
-  FaRegFileImage, 
-  FaRegFile, 
-} from 'react-icons/fa/';
 
+
+import { FaRegFilePdf } from '@react-icons/all-files/fa/FaRegFilePdf';
+import { FaRegFileExcel } from '@react-icons/all-files/fa/FaRegFileExcel';
+import { FaRegFileImage } from '@react-icons/all-files/fa/FaRegFileImage';
+import { FaRegFile } from '@react-icons/all-files/fa/FaRegFile';
 
 export const FileIcon = ({ 
   fileName, 

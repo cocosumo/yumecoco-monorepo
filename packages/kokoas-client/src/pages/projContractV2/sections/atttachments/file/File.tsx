@@ -38,10 +38,11 @@ export const File = ({
         variant='standard' 
         overlap='circular' 
         badgeContent={(
-          mouseEnter 
-            ? <DeleteButton />
-            : null
-      )}
+          <DeleteButton 
+            show={mouseEnter}
+            fileName={fileName}
+            fileKey={fileKey}
+          />)}
       >
 
         <Button 

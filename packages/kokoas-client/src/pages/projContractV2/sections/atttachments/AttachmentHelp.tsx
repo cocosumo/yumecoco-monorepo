@@ -11,7 +11,7 @@ export const AttachmentHelp = () => {
         spacing={1}
       >
         <Typography variant='inherit'>
-          覚書添付
+          添付
         </Typography>
       
         <HelpIcon color='secondary' sx={{ cursor: 'help' }} />

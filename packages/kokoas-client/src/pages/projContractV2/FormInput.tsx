@@ -46,7 +46,7 @@ export const FormInput = () => {
       <PageSubTitle3 label={'備考'} />
       <Memo />
 
-      {!isProd && isEditMode && (
+      {isEditMode && (
         <>
           <PageSubTitle3 label={<AttachmentHelp />} />
           <Attachments />

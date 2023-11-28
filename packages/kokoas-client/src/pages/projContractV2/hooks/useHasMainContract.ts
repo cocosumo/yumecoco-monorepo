@@ -20,9 +20,21 @@ export const useHasMainContract = () => {
     ...others
   } = useContractsByProjIdV2(projId);
 
+  const isNewContract = !contractId; // Check if it's a new contract
+
   return {
-    data: contracts
-      .some((contract) => contract.contractType.value === '契約' && contract.uuid.value !== contractId),
+    data: !!contracts?.length && contracts
+      .some((contract) => {
+
+        const isNotCurrentContract = contract.uuid.value !== contractId; // Check if it's a different contract than the one currently open
+
+        return contract.contractType.value === '契約' // Check if it's a main contract
+          && (
+            isNotCurrentContract
+            || isNewContract 
+          ) 
+        ;
+      }),
     ...others,
   };
 };

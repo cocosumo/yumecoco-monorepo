@@ -79,4 +79,8 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
     cy.get('@date').should('have.value', futureDate);
 
   });
+
+  it.only('本契約があって、新規契約の場合、', () => {
+    
+  });
 });

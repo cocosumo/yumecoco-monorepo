@@ -4,6 +4,7 @@ import { Box, FormHelperText, Stack } from '@mui/material';
 import { useContractById } from 'kokoas-client/src/hooksQuery';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { File } from './file/File';
+import { red } from '@mui/material/colors';
 
 export const Attachments = () => {
   const fileUploadReturn = useFileUpload();
@@ -18,7 +19,13 @@ export const Attachments = () => {
 
   return (
     <Stack>
-      <FormHelperText>
+      <FormHelperText
+        sx={{
+          fontSize: 14,
+          fontWeight: 600,
+          color: red[500],
+        }}
+      >
         ※ 電子契約書は添付しないでください。
       </FormHelperText>
       <UploadContainer {...fileUploadReturn}>

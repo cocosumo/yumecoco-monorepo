@@ -46,11 +46,9 @@ export const updateProjectsConstMembers = async () => {
           id: $id.value,
           record: {
             custGroupId: custGroupId,
-            cocoConstNames: {
-              value: agents.value
-                .map(({ value: { agentName } }) => agentName.value)
-                .filter(Boolean)
-                .join(', '),
+            agents: {
+              type: 'SUBTABLE',
+              value: agents.value,
             },
           },
         };
@@ -95,11 +93,9 @@ export const updateProjectsConstMembers = async () => {
         id: $id.value,
         record: {
           custGroupId: custGroupId,
-          cocoConstNames: {
-            value: newConstMembers
-              .map(({ value: { agentName } }) => agentName.value)
-              .filter(Boolean)
-              .join(', '),
+          agents: {
+            type: 'SUBTABLE',
+            value: newConstMembers,
           },
         },
       };

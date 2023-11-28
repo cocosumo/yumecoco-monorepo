@@ -91,7 +91,7 @@ module.exports = {
       'error',
       { 
         props: true, 
-        ignorePropertyModificationsFor: ['draft', 'acc'],
+        ignorePropertyModificationsFor: ['draft', 'acc', 'res'],
       },
     ],
   },

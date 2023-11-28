@@ -45,7 +45,7 @@ export const ContractDialog = ({
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
     revision: $revision?.value || '',
-    enabled: open && !envDocFileKeys?.value?.length, // Only fetch when there is no contract files
+    enabled: open, // Only fetch when there is no contract files
   });
 
   
@@ -78,7 +78,7 @@ export const ContractDialog = ({
       <PreviewContent 
         documentB64={envelopeStatus?.value 
           ? fileB64 || documents?.[selectedFileIndex]?.data || null 
-          : documents?.[selectedFileIndex]?.data || null}
+          : documents?.[selectedFileIndex]?.data || fileB64 || null}
       />
 
       <DialogActions>

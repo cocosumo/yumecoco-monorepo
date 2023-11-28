@@ -88,7 +88,9 @@ export const SigningFlow = ({
         <Button
           color={'primary'} 
           variant={'contained'}
-          onClick={handleSendContract}
+          onClick={() => {
+            handleSendContract();
+          }}
         >
           送信
         </Button> 

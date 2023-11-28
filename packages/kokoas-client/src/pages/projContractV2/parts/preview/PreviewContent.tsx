@@ -21,7 +21,7 @@ export const PreviewContent = ({
     >
       {isFetching && (<Loading />)}
 
-      {!isFetching && (
+      {!isFetching && documentB64 && (
         <object 
           data={pdfUrl} 
           type="application/pdf" 

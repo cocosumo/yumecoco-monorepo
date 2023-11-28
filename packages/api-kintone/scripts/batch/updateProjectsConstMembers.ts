@@ -1,6 +1,6 @@
 import { DeepPartial, ICustgroups, IEmployees, IProjects } from 'types';
 import { AppIds } from 'config';
-import { ktRecord } from 'api-kintone';
+import { KintoneClientBasicAuth } from './settings';
 
 
 /**
@@ -8,7 +8,7 @@ import { ktRecord } from 'api-kintone';
  * @returns 
  */
 export const updateProjectsConstMembers = async () => {
-  const KintoneRecord = await ktRecord();
+  const KintoneRecord = KintoneClientBasicAuth.record;
   const projAppId = AppIds.projects;
   const cGAppId = AppIds.custGroups;
   const empAppId = AppIds.employees;
@@ -109,6 +109,7 @@ export const updateProjectsConstMembers = async () => {
 
     return updated;
   } catch (err: any) {
+    console.log('errMsg::', err);
     throw new Error(err.message);
   }
 };

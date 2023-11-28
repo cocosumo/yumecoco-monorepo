@@ -45,7 +45,6 @@ export const updateProjectsConstMembers = async () => {
         return {
           id: $id.value,
           record: {
-            custGroupId: custGroupId,
             agents: {
               type: 'SUBTABLE',
               value: agents.value,
@@ -61,7 +60,7 @@ export const updateProjectsConstMembers = async () => {
         if (isExist) return acc;
 
         const {
-          value:{
+          value: {
             agentType,
             employeeId,
             employeeName,
@@ -92,7 +91,6 @@ export const updateProjectsConstMembers = async () => {
       return {
         id: $id.value,
         record: {
-          custGroupId: custGroupId,
           agents: {
             type: 'SUBTABLE',
             value: newConstMembers,
@@ -101,7 +99,8 @@ export const updateProjectsConstMembers = async () => {
       };
     });
 
-    console.log(updatedRecords);
+    //console.log(JSON.stringify(updatedRecords, null, 2));
+    console.log('update records length', updatedRecords.length, JSON.stringify(updatedRecords[updatedRecords.length - 1], null, 2));
 
     const updated = await KintoneRecord.updateAllRecords({
       app: projAppId,

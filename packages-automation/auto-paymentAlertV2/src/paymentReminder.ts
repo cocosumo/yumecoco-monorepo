@@ -32,7 +32,7 @@ export const paymentReminder = async () => {
     getAllPaymentReminder(),
   ]);
 
-  
+
   // ANDPAD入金一覧の内容からアラート対象を取得する
   const alertPaymentsJson = createPaymentAlertFromAPPayments({
     unpaidAndpadPayments: unpaidAndpadPayments,
@@ -60,6 +60,8 @@ export const paymentReminder = async () => {
     stores: allStores,
   });
 
+  console.log('通知レコード一覧:', alertRemindersJson.length, '件', JSON.stringify(alertRemindersJson, null, 2));
+  //throw new Error('通知対象者の抽出が完了しました');
 
   // chatworkへの通知処理
   await notifyPaymentAlertToChatwork({

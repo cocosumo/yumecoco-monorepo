@@ -12,7 +12,7 @@ describe('generateMessageForManager', () => {
     const paymentAlertPath = path.join(__dirname, '../__TEST__/createPaymentAlert.json');
     const reminderDat = JSON.parse(fs.readFileSync(paymentAlertPath, 'utf8')) as PaymentReminder[];
 
-    const result = await generateMessageForManager(reminderDat);
+    const result = generateMessageForManager(reminderDat);
 
     console.log('message::', result);
 

@@ -1,10 +1,36 @@
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import { Form, FormProvider, useForm } from 'react-hook-form';
+import { initialForm } from './form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { TForm, schema } from './schema';
+import { Toolbar } from './toolbar/Toolbar';
 
 export const FormGrossProfitTable = () => {
+  const formReturn = useForm<TForm>({
+    defaultValues: initialForm,
+    resolver: zodResolver(schema),
+  });
 
+  
+  
   return (
-    <Typography variant="h5">
-      粗利集計表
-    </Typography>
+    <FormProvider {...formReturn}>
+      <Form
+        noValidate
+      >
+        <Stack
+          spacing={2}
+          px={4}
+          pt={2}
+          pb={4}
+        >
+
+          <Toolbar />
+          {/* <Results /> */}
+        </Stack>
+
+      </Form>
+    </FormProvider>
   );
 };
+  

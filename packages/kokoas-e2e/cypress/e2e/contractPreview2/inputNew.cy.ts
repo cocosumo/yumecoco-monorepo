@@ -228,6 +228,8 @@ describe(
         .parent() // actual input element is hidden, so scroll to parent
         .scrollIntoView();
 
+      cy.screenshot();
+
       cy.getCheckboxesByLabel('返金').check();
 
 
@@ -279,12 +281,12 @@ describe(
     });
 
 
-    it.only('本契約がある場合、「追加」は有効状態にになる', () => {
+    it('本契約がある場合、「追加」は有効状態にになる', () => {
 
       checkContractAddStatus(true, true);
     });
 
-    it.only('本契約がない場合、「追加」は無効状態になる', () => {
+    it('本契約がない場合、「追加」は無効状態になる', () => {
 
       checkContractAddStatus(false, false);
 

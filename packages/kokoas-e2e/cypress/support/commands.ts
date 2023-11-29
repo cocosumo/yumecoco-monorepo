@@ -26,10 +26,7 @@ Cypress.Commands.add('login', () => {
   });
 
   Cypress.Commands.add('getCheckboxesByLabel', (label: string) => {
-    cy.contains('label', label).then(el => {
-      console.log('el', el);
-    });
-    
+
     cy.contains('label', label)
       .find('input[type="checkbox"]');
   });

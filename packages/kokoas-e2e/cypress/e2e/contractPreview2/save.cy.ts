@@ -9,7 +9,7 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
   const correctInput = correctInputData();
   beforeEach(() => {
     cy.login();
-    cy.visit(`/project/contract/preview/v2?projId=${testProjId}`);
+    cy.visit(`/project/contract/preview/v2?projId=${testProjId}`); 
   });
 
   it('新規保存できること', () => {
@@ -80,7 +80,5 @@ describe('保存処理', { scrollBehavior: 'center' }, () => {
 
   });
 
-  it.only('本契約があって、新規契約の場合、', () => {
-    
-  });
+ 
 });

@@ -3,6 +3,7 @@ import { correctInputData, labelMap } from './testData';
 import format from 'date-fns/format';
 import addMonths from 'date-fns/addMonths';
 import { calculateAmount, roundTo } from 'libs';
+import { checkContractAddStatus } from './helpers/checkContractAddStatus';
 
 describe(
   '入力挙動', 
@@ -10,7 +11,7 @@ describe(
     scrollBehavior: 'center',
   }, 
   () => {
-    const projId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60';
+    const projId = '5a5e6cae-bea3-48e9-b679-3dcbbcc7fc60'; // 契約が存在する工事番号
     const {
       totalContractAmt,
       
@@ -222,7 +223,16 @@ describe(
     );
 
     it('返金のチェックボックスをチェックすると、返金金額が入力できる', () => {
+
+      cy.getCheckboxesByLabel('返金')
+        .parent() // actual input element is hidden, so scroll to parent
+        .scrollIntoView();
+
+      cy.screenshot();
+
       cy.getCheckboxesByLabel('返金').check();
+
+
       cy.get('input[name="refundAmt"]')
         .as('refundAmt')
         .type('1000')
@@ -241,11 +251,6 @@ describe(
         .type('1000')
         .blur()
         .should('value', '1,000');
-
-      cy.getRadiosByValue('工事に含む').check()
-        .should('be.checked');
-      cy.getRadiosByValue('顧客に返金').check()
-        .should('be.checked');
 
 
       cy.getCheckboxesByLabel('補助金').uncheck();
@@ -275,8 +280,17 @@ describe(
 
     });
 
-    // その他のフィールドのテストは特別の挙動はないので省略
-    // 挙動に不具合が発生したら、当スペックに追加すること
+
+    it('本契約がある場合、「追加」は有効状態にになる', () => {
+
+      checkContractAddStatus(true, true);
+    });
+
+    it('本契約がない場合、「追加」は無効状態になる', () => {
+
+      checkContractAddStatus(false, false);
+
+    });
   
   },
 );

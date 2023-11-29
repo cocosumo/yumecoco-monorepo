@@ -25,6 +25,7 @@ export const ContractType = () => {
   
       <Collapse 
         in={contractType === '追加'}
+        unmountOnExit
       >
         <SubInputContainer>
           <AdditionalContract />

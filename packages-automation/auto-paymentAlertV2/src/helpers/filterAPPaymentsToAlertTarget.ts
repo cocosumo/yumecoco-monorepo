@@ -14,10 +14,12 @@ export const filterAPPaymentsToAlertTarget = ({
 }: {
   unpaidAndpadPayments: IAndpadpayments[]
   reminders: IPaymentReminder[]
-  allProjects:IProjects[]
+  allProjects: IProjects[]
 }) => {
 
   const todayStr = format(new Date(), 'yyyy-MM-dd');
+
+  console.log('unpaidAndpadPayments', unpaidAndpadPayments.length);
 
   return unpaidAndpadPayments.reduce((acc, andpadPayment) => {
     const {
@@ -39,6 +41,8 @@ export const filterAPPaymentsToAlertTarget = ({
       uuid,
     }) => (forceLinkedAndpadSystemId.value === systemId.value) || (projId.value === uuid.value));
 
+    console.log('対象工事の情報', systemId.value, projId.value, 'connectedToAndpad', connectedToAndpad);
+
     if (!connectedToAndpad) return acc;
 
 
@@ -46,6 +50,7 @@ export const filterAPPaymentsToAlertTarget = ({
     if (expectedPaymentDate.value < todayStr) {
       acc?.push(andpadPayment);
     }
+    console.log('通知対象？', expectedPaymentDate, expectedPaymentDate.value < todayStr);
 
     return acc;
 

@@ -3,8 +3,7 @@ import { PaymentReminder } from '../types/paymentReminder';
 import { sendMessage } from 'api-chatwork';
 import { generateMessage } from './notificationFunc/generateMessage';
 import { generateMessageForManager } from './notificationFunc/generateMessageForManager';
-import { isProd } from 'config';
-import { chatworkRooms } from '../config';
+import { chatworkRooms, isProd } from '../config';
 import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAreaMngrByTerritory';
 
 
@@ -31,7 +30,7 @@ export const notifyPaymentAlertToChatwork = async ({
 
         await sendMessage({
           body: message,
-          roomId: cwRoomId.cwRoomId,
+          roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
 

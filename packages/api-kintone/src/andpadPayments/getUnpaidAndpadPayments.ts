@@ -9,7 +9,8 @@ export const getUnpaidAndpadPayments = async (
   params?: Omit<Parameters<typeof getRecords>[0], 'app'>,
 ) => {
   const idField: RecordKey = 'paymentDate';
-  const query = `${idField}=""`;
+  const deleteStatus: RecordKey = 'deleteStatus';
+  const query = `${idField}="" and ${deleteStatus}=""`;
 
   return getRecords<RecordType>({
     ...params,

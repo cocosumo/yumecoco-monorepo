@@ -54,8 +54,12 @@ export const updateProjectsConstMembers = async () => {
       }
 
       const addConstMembers = cgRec.agents.value.reduce((acc, cur) => {
-        const isExist = agents.value.some(({ value: { agentId } }) =>
-          agentId.value === cur.value.employeeId.value);
+        const isExist = agents.value.some(({
+          value: {
+            agentId,
+            agentType,
+          },
+        }) => (agentId.value === cur.value.employeeId.value) && (agentType.value === cur.value.agentType.value));
 
         if (isExist) return acc;
 

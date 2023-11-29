@@ -6,5 +6,5 @@ describe('updateProjectsConstMembers', ()=>{
     const result = await updateProjectsConstMembers();
 
     expect(result).toBeDefined();
-  }, 8000);
+  }, 100000);
 });

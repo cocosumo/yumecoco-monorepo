@@ -1,8 +1,10 @@
-import { RowLayout, RowLayoutProps } from './RowLayout';
-import { ReactNode, useState } from 'react';
+import { RowLayout } from './RowLayout';
+import { MouseEventHandler, ReactNode, useState } from 'react';
 import { DetailsDialog } from './details/DetailsDialog';
 import { Stack, Tooltip, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { ReceivableCompleteDate } from './editables/ReceivableCompleteDate';
+import { SearchResult } from '../../types';
 
 
 const TooltipDetail = ({ label, value }:{
@@ -21,18 +23,33 @@ const TooltipDetail = ({ label, value }:{
 
 </Stack>);
 
-export const ResultRow = (props: RowLayoutProps) => {
+export const ResultRow = (props:  SearchResult) => {
 
   const {
     uuid: projId,
     projName,
     procurementPaymentDateEnd,
     payFinDate,
+    receivableCompleteDate,
   } = props;
 
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
+  const handleOpen: MouseEventHandler<HTMLElement> = (e) => {
+    const clickedEl = e.target as HTMLElement;
+    const tagName = (clickedEl).tagName;
+    if (tagName === 'INPUT') return; // if clicked element is input, do nothing
+    
+    if (tagName === 'TD') {
+      // If clicked cell has input, focus on it
+      const input = clickedEl.querySelector('input');
+      if (input) {
+        input.focus();
+        return;
+      }
+    } 
+
+    // Otherwise, open details dialog
     setOpen(true);
   };
 
@@ -63,6 +80,11 @@ export const ResultRow = (props: RowLayoutProps) => {
               {payFinDate}
             </Typography>
           </Tooltip>)}
+        receivableCompleteDate={(
+          <ReceivableCompleteDate 
+            projId={projId as string} 
+            receivableCompleteDate={receivableCompleteDate as string}
+          />)}
         onClick={handleOpen}
       />
   

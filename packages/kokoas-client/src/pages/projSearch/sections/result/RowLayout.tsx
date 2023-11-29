@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from '@mui/material';
-import { ReactNode } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 import { KeyOfSearchResult } from '../../types';
 import { styled } from '@mui/material/styles';
 import { blue, grey } from '@mui/material/colors';
@@ -39,14 +39,17 @@ export const RowLayout = ({
   createdAt,
   updatedAt,
   projDataId,
+  receivableCompleteDate,
   onClick,
 }: Partial<Record<KeyOfSearchResult, ReactNode>> & {
-  onClick?: () => void,
+  onClick?: MouseEventHandler<HTMLTableRowElement>,
 }) => {
   return (
-    <StyledTableRow onClick={onClick} sx={{
-      cursor: onClick ? 'pointer' : 'default',
-    }}
+    <StyledTableRow 
+      onClick={onClick} 
+      sx={{
+        cursor: onClick ? 'pointer' : 'default',
+      }}
     >
       <TableCell
         sx={{
@@ -116,9 +119,17 @@ export const RowLayout = ({
           whiteSpace: 'nowrap',
         }}
       >
-        {projFinDate}
-        <br />
         {deliveryDate}
+        <br />
+        {projFinDate}   
+      </TableCell>
+
+      <TableCell
+        sx={{
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {receivableCompleteDate}
       </TableCell>
 
       <TableCell

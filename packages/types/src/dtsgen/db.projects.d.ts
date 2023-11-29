@@ -41,6 +41,7 @@ declare namespace DBProjects {
     storeId: kintone.fieldTypes.SingleLineText;
     finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
+    receivableCompleteDate: kintone.fieldTypes.Date;
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;

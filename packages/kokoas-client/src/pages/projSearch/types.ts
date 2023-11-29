@@ -37,6 +37,10 @@ export interface SearchResult {
   projFinDate: string;
   payFinDate: string;
   lastBillDate: string;
+
+  /** 入金完了日 */
+  receivableCompleteDate: string;
+  
   projName: string;
   projDataId: string;
 

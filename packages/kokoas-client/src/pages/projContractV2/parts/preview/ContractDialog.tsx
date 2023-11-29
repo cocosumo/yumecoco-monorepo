@@ -4,7 +4,7 @@ import { PreviewHeader } from './PreviewHeader';
 import { useContractById, useContractFilesById, useKintoneFileBase64 } from 'kokoas-client/src/hooksQuery';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { ContractActionMenu } from './menu/ContractActionMenu';
 
@@ -27,7 +27,6 @@ export const ContractDialog = ({
   const {
     envDocFileKeys,
     $revision,
-    envelopeStatus,
   } = contractData || {};
 
 
@@ -45,11 +44,15 @@ export const ContractDialog = ({
   const { data: fileData } = useContractFilesById({ 
     id: contractId, 
     revision: $revision?.value || '',
-    enabled: open && !envDocFileKeys?.value?.length, // Only fetch when there is no contract files
+    enabled: open && !hasContractFiles, // Only fetch when there is no contract files
   });
 
-  
-
+  useEffect(() => {
+    // Reset selected file key when refreshing new contract
+    if (hasContractFiles && $revision?.value) {
+      setSelectedFileKey(envDocFileKeys?.value?.[0]?.fileKey || null);
+    }
+  }, [envDocFileKeys, $revision?.value, hasContractFiles]);
 
 
   const {
@@ -76,9 +79,9 @@ export const ContractDialog = ({
       </DialogTitle>
 
       <PreviewContent 
-        documentB64={envelopeStatus?.value 
+        documentB64={hasContractFiles 
           ? fileB64 || documents?.[selectedFileIndex]?.data || null 
-          : documents?.[selectedFileIndex]?.data || null}
+          : documents?.[selectedFileIndex]?.data || fileB64 || null}
       />
 
       <DialogActions>

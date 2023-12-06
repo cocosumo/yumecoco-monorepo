@@ -47,10 +47,11 @@ export const SearchResultItem = ({
       onClick={() => {
         navigate('custGroupEditV2', {
           custGroupId: item.uuid.value,
+          isNew: true,
         });
         setSnackState({
           open: true,
-          message: `「${customers?.map(({ custName }) => custName ).join('、') }」を編集する画面に遷移しました`,
+          message: `「${customers?.map(({ custName }) => custName ).join('、') }」を複写しました。`,
           autoHideDuration: 5000,
         });
         handleCloseDialog();

@@ -1,4 +1,4 @@
-import { useURLParamsV2 } from 'kokoas-client/src/hooks';
+import { NavigateWithQueryProps, useURLParamsV2 } from 'kokoas-client/src/hooks';
 import { initialValues } from '../form';
 import { useCustGroupById, useCustomersByIds } from 'kokoas-client/src/hooksQuery';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,7 +9,8 @@ export const useResolveParams = () => {
 
   const {
     custGroupId,
-  } = useURLParamsV2();
+    isNew,
+  } = useURLParamsV2<NavigateWithQueryProps>();
   
   const { data: recCustGroup } = useCustGroupById(custGroupId || '');
 
@@ -23,13 +24,18 @@ export const useResolveParams = () => {
   useEffect(() => {
 
     if (recCustGroup && recsCustomers) {
+
       const newForm = convertToForm(recCustGroup, recsCustomers);
-      setFormValues(newForm);
+      setFormValues({
+        ...newForm,
+        custGroupId: isNew ? '' : newForm.custGroupId,
+        isDeleted: isNew ? false : newForm.isDeleted,
+      });
     } else if (!custGroupId ) {
       setFormValues(initialValues);
     }
 
-  }, [recCustGroup, recsCustomers, custGroupId]);
+  }, [recCustGroup, recsCustomers, custGroupId, isNew]);
 
   
 

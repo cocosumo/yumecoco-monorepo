@@ -44,7 +44,7 @@ export const FormCustGroup = () => {
 
 
           <PageTitle3 
-            label={`顧客登録（個人）${isEdit ? '編集' : '登録'}`}
+            label={`顧客登録（個人）${isEdit ? '編集' : '新規登録'}`}
           />
 
           <DeletedAlert />

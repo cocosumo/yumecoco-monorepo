@@ -7,5 +7,7 @@ export const formatStores = (
 
   const targetStore = stores?.find(({ uuid }) => uuid.value === store);
 
+  if (!targetStore) return store;
+
   return targetStore?.storeNameShort.value ?? '';
 };

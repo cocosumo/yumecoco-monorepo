@@ -3,7 +3,6 @@ import { SelectMonths } from './SelectMonths';
 import { SelectStores } from './SelectStores';
 import { SelectYear } from './SelectYear';
 import { SelectPeriod } from './SelectPeriod';
-import { SelectArea } from './SelectArea';
 
 export const Filter = () => {
   
@@ -17,7 +16,6 @@ export const Filter = () => {
       <SelectYear />
       <SelectPeriod />
       <SelectMonths />
-      <SelectArea />
       <SelectStores />
 
     </Stack>

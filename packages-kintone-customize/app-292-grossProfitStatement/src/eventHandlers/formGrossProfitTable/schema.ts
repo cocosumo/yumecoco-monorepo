@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const schema = z.object({
   year: z.string(),
   months: z.array(z.string()),
-  storeId: z.array(z.string()).optional(),
+  storeIds: z.array(z.string()).optional(),
   period: z.string().optional(),
   area: z.string().optional(),
 });

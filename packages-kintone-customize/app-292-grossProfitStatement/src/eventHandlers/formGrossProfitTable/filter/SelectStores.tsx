@@ -4,16 +4,18 @@ import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { useStores } from '../../hooks/useStores';
 import { Box } from '@mui/system';
 import { formatStores } from '../../helpers/formatStores';
+import { getStoreList } from '../../helpers/getStoreList';
+import { allStoresLabel, eastAreaLabel, westAreaLabel } from '../config';
 
 export const SelectStores = () => {
-  const { control } = useTypedFormContext();
+  const { control, setValue } = useTypedFormContext();
 
   const { data: stores } = useStores();
 
 
   return (
     <Controller
-      name='storeId'
+      name='storeIds'
       control={control}
       render={({
         field: { onChange, value, ...otherField },
@@ -27,14 +29,17 @@ export const SelectStores = () => {
             }}
           >
             <InputLabel id="selectStoresLabel">
-              店舗
+              エリア/店舗
             </InputLabel>
             <Select
               labelId="selectStores"
               id="selectStores"
               value={value}
               label="店舗"
-              onChange={(e) => onChange(([] as string[]).concat(e.target.value).sort())}
+              onChange={(e) => {
+                onChange(([] as string[]).concat(e.target.value));
+                setValue('storeIds', getStoreList(([] as string[]).concat(e.target.value)));
+              }}
               multiple
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -45,6 +50,25 @@ export const SelectStores = () => {
               )}
               {...otherField}
             >
+              <MenuItem value={allStoresLabel}>
+                <em>
+                  {allStoresLabel}
+                </em>
+              </MenuItem>
+
+              <MenuItem value={westAreaLabel}>
+                <em>
+                  {westAreaLabel}
+                </em>
+              </MenuItem>
+
+              <MenuItem value={eastAreaLabel}>
+                <em>
+                  {eastAreaLabel}
+                </em>
+              </MenuItem>
+              <Divider />
+
               {stores?.map(({
                 uuid,
                 storeNameShort,

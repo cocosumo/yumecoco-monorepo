@@ -11,6 +11,6 @@ export const initialForm: TForm = {
   months: getLatestMonths(fiscalYear, 3),
   year: fiscalYear.toString(),
   period: '',
-  storeId: [],
+  storeIds: [],
   area: '',
 };

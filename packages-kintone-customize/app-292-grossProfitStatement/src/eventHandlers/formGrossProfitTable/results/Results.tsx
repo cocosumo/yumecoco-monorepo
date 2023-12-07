@@ -1,9 +1,15 @@
+import { CumulativeTableByArea } from './cumulativeTableByArea/CumulativeTableByArea';
+import { GrossProfitByPerson } from './grossProfitByPerson/GrossProfitByPerson';
+
+
+
 export const Results = () => {
 
 
   return (
     <>
-      結果を表示
+      <CumulativeTableByArea />
+      <GrossProfitByPerson />
     </>
   );
 };

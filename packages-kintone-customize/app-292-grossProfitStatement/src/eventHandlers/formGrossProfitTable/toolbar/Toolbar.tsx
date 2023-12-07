@@ -1,5 +1,6 @@
 import { Paper, Stack } from '@mui/material';
 import { PrintButton } from './PrintButton';
+import { Filter } from '../filter/Filter';
 
 export const Toolbar = () => {
 
@@ -12,7 +13,7 @@ export const Toolbar = () => {
       mb={2}
       component={Paper}
     >
-      {/* <Filter /> */}
+      <Filter />
       <Stack 
         spacing={2}
       >

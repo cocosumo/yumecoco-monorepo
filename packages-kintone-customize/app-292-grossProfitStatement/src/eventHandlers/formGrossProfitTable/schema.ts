@@ -3,7 +3,9 @@ import { z } from 'zod';
 export const schema = z.object({
   year: z.string(),
   months: z.array(z.string()),
-  storeId: z.string().optional(),
+  storeId: z.array(z.string()).optional(),
+  period: z.string().optional(),
+  area: z.string().optional(),
 });
 
 export type TForm = z.infer<typeof schema>;

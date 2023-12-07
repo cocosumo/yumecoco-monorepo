@@ -5,7 +5,7 @@ import { useStores } from '../../hooks/useStores';
 import { Box } from '@mui/system';
 import { formatStores } from '../../helpers/formatStores';
 import { getStoreList } from '../../helpers/getStoreList';
-import { areaLabelAll, areaLabelEast, areaLabelWest } from '../config';
+import { areaLabelList } from '../config';
 
 
 export const SelectStores = () => {
@@ -51,23 +51,18 @@ export const SelectStores = () => {
               )}
               {...otherField}
             >
-              <MenuItem value={areaLabelAll}>
-                <em>
-                  {areaLabelAll}
-                </em>
-              </MenuItem>
 
-              <MenuItem value={areaLabelWest}>
-                <em>
-                  {areaLabelWest}
-                </em>
-              </MenuItem>
-
-              <MenuItem value={areaLabelEast}>
-                <em>
-                  {areaLabelEast}
-                </em>
-              </MenuItem>
+              {areaLabelList.map((areaLabel) => {
+                return (
+                  <MenuItem
+                    key={areaLabel}
+                    value={areaLabel}
+                  >
+                    <em>
+                      {areaLabel}
+                    </em>
+                  </MenuItem>);
+              })}
               <Divider />
 
               {stores?.map(({

@@ -5,7 +5,8 @@ import { useStores } from '../../hooks/useStores';
 import { Box } from '@mui/system';
 import { formatStores } from '../../helpers/formatStores';
 import { getStoreList } from '../../helpers/getStoreList';
-import { allStoresLabel, eastAreaLabel, westAreaLabel } from '../config';
+import { areaLabelAll, areaLabelEast, areaLabelWest } from '../config';
+
 
 export const SelectStores = () => {
   const { control, setValue } = useTypedFormContext();
@@ -50,21 +51,21 @@ export const SelectStores = () => {
               )}
               {...otherField}
             >
-              <MenuItem value={allStoresLabel}>
+              <MenuItem value={areaLabelAll}>
                 <em>
-                  {allStoresLabel}
+                  {areaLabelAll}
                 </em>
               </MenuItem>
 
-              <MenuItem value={westAreaLabel}>
+              <MenuItem value={areaLabelWest}>
                 <em>
-                  {westAreaLabel}
+                  {areaLabelWest}
                 </em>
               </MenuItem>
 
-              <MenuItem value={eastAreaLabel}>
+              <MenuItem value={areaLabelEast}>
                 <em>
-                  {eastAreaLabel}
+                  {areaLabelEast}
                 </em>
               </MenuItem>
               <Divider />

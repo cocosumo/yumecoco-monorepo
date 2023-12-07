@@ -1,9 +1,10 @@
-import { allStoresLabel, eastAreaLabel, westAreaLabel } from '../formGrossProfitTable/config';
+import { areaLabelList } from '../formGrossProfitTable/config';
+
 
 
 const spliceLabel = (stores: string[], label: string) => {
-  
-  const result = stores;      
+
+  const result = stores;
   const indexOfLabel = result.indexOf(label);
   if (indexOfLabel !== -1) {
     result.splice(indexOfLabel, 1);
@@ -15,29 +16,16 @@ const spliceLabel = (stores: string[], label: string) => {
 
 
 export const getStoreList = (stores: string[]) => {
+  const latestLabel = stores[stores.length - 1];
 
-  switch (stores[stores.length - 1]) {
-    case allStoresLabel:
-      return [allStoresLabel];
-    case westAreaLabel:
-      return [westAreaLabel];
-    case eastAreaLabel:
-      return [eastAreaLabel];
-    default:
-      if ((stores.indexOf(allStoresLabel) === -1)
-        && (stores.indexOf(westAreaLabel) === -1)
-        && (stores.indexOf(eastAreaLabel) === -1))
-        return stores;
+  for (const areaLabel of areaLabelList) {
+    // 最新の選択がラベルの場合は、ラベルのみに更新する
+    if (latestLabel === areaLabel) return [areaLabel];
+
+    // 最新の選択が店舗(ラベルではない)場合は、ラベルを削除する
+    const labelChk = spliceLabel(stores, areaLabel);
+    if (labelChk) return labelChk;
   }
-
-  const labelChkAll = spliceLabel(stores, allStoresLabel);
-  if (labelChkAll) return labelChkAll;
-
-  const labelChkWest = spliceLabel(stores, westAreaLabel);
-  if (labelChkWest) return labelChkWest;
-
-  const labelChkEast = spliceLabel(stores, eastAreaLabel);
-  if (labelChkEast) return labelChkEast;
 
   return stores;
 };

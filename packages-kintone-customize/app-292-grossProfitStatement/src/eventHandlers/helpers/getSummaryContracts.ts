@@ -1,13 +1,12 @@
-import { getProjTypes } from 'api-kintone';
-import { useMemo } from 'react';
-import { IContracts, IProjects, TAgents } from 'types';
+import { Big } from 'big.js';
+import { IAndpadprocurements, IContracts, IProjects, IProjtypes, TAgents } from 'types';
 
 export interface SummaryContracts {
   storeName: string
   custName: string
   projType: string
   projTypeForTotalization: string
-  yumeAgName: string
+  yumeAgName: string[]
   cocoAgs: string[]
   cocoConst: string[]
   refund: boolean
@@ -29,24 +28,21 @@ const getAgents = ({
   return agents.value
     .filter(({ value: { agentType } }) => agentType.value === relation)
     .map(({ value: { agentName } }) => {
-      return agentName.value
-    }).join(', ');
+      return agentName.value;
+    });
 };
 
 export const getSummaryContracts = ({
+  projTypes,
   projects,
   contracts,
+  andpadProcurement,
 }: {
+  projTypes: IProjtypes[]
   projects: IProjects[]
   contracts: IContracts[]
+  andpadProcurement: IAndpadprocurements[]
 }) => {
-
-  const projTypeRec = useMemo(() => {
-    const projTypes = await getProjTypes()
-
-    return projTypes;
-  }, [])
-
 
   const summaryContracts: SummaryContracts[] = projects.map(({
     store,
@@ -54,50 +50,67 @@ export const getSummaryContracts = ({
     projTypeId,
     agents,
     projFinDate,
-    uuid,
+    uuid: projId,
+    andpadSystemId,
+    forceLinkedAndpadSystemId,
   }) => {
 
-    const filterContracts = contracts.filter(({ projId }) => projId.value === uuid.value);
+    const projSystemId = andpadSystemId.value || forceLinkedAndpadSystemId.value || '';
+
+    const filterContracts = contracts
+      .filter(({ projId: projIdContract }) => projIdContract.value === projId.value);
+
     const {
-      orderAmountBeforeTax,
+      orderAmountAfterTax,
       hasRefund,
-    } = filterContracts.reduce((acc, { 
+    } = filterContracts.reduce((acc, {
       totalContractAmt,
-      hasRefund,
-     }) => {
+      hasRefund: hasRefundContracts,
+    }) => {
 
       return {
-        orderAmountBeforeTax: acc.orderAmountBeforeTax + +totalContractAmt.value,
-        hasRefund: acc.hasRefund || hasRefund.value === 'はい',
-      }
+        orderAmountAfterTax: acc.orderAmountAfterTax + +totalContractAmt.value,
+        hasRefund: acc.hasRefund || hasRefundContracts.value === 'はい',
+      };
 
     }, {
-      orderAmountBeforeTax: 0,
+      orderAmountAfterTax: 0,
       hasRefund: false,
-    })
+    });
 
+    const orderAmountBeforeTax = Big(orderAmountAfterTax).div(1.1)
+      .toNumber();
 
     const {
       label: projTypeName,
       projTypeForTotalization,
-    } = projTypeRec.find(({ uuid }) => uuid.value === projTypeId.value) || {}
+    } = projTypes.find(({ uuid }) => uuid.value === projTypeId.value) || {};
+
+
+    const procurements = andpadProcurement.filter(({ andpadProjId }) => andpadProjId.value === projSystemId);
+    const procurementBeforeTax = procurements.reduce((acc, {
+      orderAmountBeforeTax: procurementAmt,
+    }) => {
+      return acc + +procurementAmt.value;
+    }, 0);
 
 
 
     return {
       storeName: store.value,
       custName: custNames.value,
-      projType: projTypeName?.value,
-      projTypeForTotalization: projTypeForTotalization?.value,
+      projType: projTypeName?.value || '',
+      projTypeForTotalization: projTypeForTotalization?.value || '',
       yumeAgName: getAgents({ agents: agents, relation: 'yumeAG' }),
       cocoAgs: getAgents({ agents: agents, relation: 'cocoAG' }),
       cocoConst: getAgents({ agents: agents, relation: 'cocoConst' }),
       refund: hasRefund,
       closingDate: projFinDate.value,
       orderAmountBeforeTax: orderAmountBeforeTax,
-      grossProfitAmount: 'number',
-      introFeeYume: 'number',
-      selfProjSection: ,
+      grossProfitAmount: Big(orderAmountBeforeTax).minus(procurementBeforeTax)
+        .toNumber(),
+      introFeeYume: 0,
+      selfProjSection: '', // 設定・確認方法を確認する
     };
 
   });

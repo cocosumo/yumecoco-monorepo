@@ -1,12 +1,13 @@
 
 
-
+/** 対象期間の一月当たりの平均表 */
 export const CumulativeTableAverage = () => {
 
 
   return (
     <>
-      一人当たりの累計表
+      対象期間の一月当たりの平均
+      <br />
     </>    
   );
 };

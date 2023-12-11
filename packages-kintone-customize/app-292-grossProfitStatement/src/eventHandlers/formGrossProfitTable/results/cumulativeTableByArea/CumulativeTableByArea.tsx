@@ -10,7 +10,7 @@ import { CumulativeTableTotal } from '../manthlyTableByArea/CumulativeTableTotal
  */
 export const CumulativeTableByArea = ({
   contractData,
-}:{
+}: {
   contractData: SummaryContracts[]
 }) => {
 
@@ -18,7 +18,6 @@ export const CumulativeTableByArea = ({
 
   return (
     <>
-      期間の累計表
       <CumulativeTableTotal />
       <CumulativeTableAverage />
     </>

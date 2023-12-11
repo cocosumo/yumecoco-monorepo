@@ -6,7 +6,7 @@ import { getProjTypes, getAllProjects, getAllContracts, getAllProcurementDetails
 describe('getSummaryContracts', () => {
   it('契約書のまとめデータが返ってくること', async () => {
 
-    const queryFrom = '2023-12-01';
+    const queryFrom = '2023-11-01';
     const queryTo = '2023-12-31';
 
     const [

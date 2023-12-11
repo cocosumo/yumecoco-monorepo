@@ -15,6 +15,6 @@ export const useAndpadProcurement = ({
 
   return useQuery(
     ['andpadProcurement', until],
-    () => getAllProcurementDetails({ condition: `${paymentDate} <= ${queryTo}` }),
+    () => getAllProcurementDetails({ condition: `${paymentDate} <= "${queryTo}"` }),
   );
 };

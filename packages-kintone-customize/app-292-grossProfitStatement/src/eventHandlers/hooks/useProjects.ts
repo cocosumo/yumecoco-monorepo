@@ -19,6 +19,6 @@ export const useProjects = ({
 
   return useQuery(
     ['contractsByCocoas', from, until],
-    () => getAllProjects({ condition: `${projFinDate} >= ${queryFrom} and ${projFinDate} <= ${queryTo}` }),
+    () => getAllProjects({ condition: `${projFinDate} >= "${queryFrom}" and ${projFinDate} <= "${queryTo}"` }),
   );
 };

@@ -25,12 +25,9 @@ export const useResolveParams = () => {
 
     if (recCustGroup && recsCustomers) {
 
-      const newForm = convertToForm(recCustGroup, recsCustomers);
-      setFormValues({
-        ...newForm,
-        custGroupId: isNew ? '' : newForm.custGroupId,
-        isDeleted: isNew ? false : newForm.isDeleted,
-      });
+      const newForm = convertToForm(recCustGroup, recsCustomers, !!isNew);
+      console.log('newForm', newForm);
+      setFormValues(newForm);
     } else if (!custGroupId ) {
       setFormValues(initialValues);
     }

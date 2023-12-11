@@ -5,6 +5,7 @@ import { TForm } from '../schema';
 export const convertToForm = (
   recCustGroup: ICustgroups,
   recsCustomers: ICustomers[],
+  isNew: boolean,
 ) : TForm => {
 
   /* Get main record */
@@ -30,58 +31,61 @@ export const convertToForm = (
   /* Map the result to the form */
   return {
     memo: memo.value,
-    custGroupId: uuid.value,
-    isDeleted: Boolean(+isDeleted.value),
+    custGroupId: isNew ? '' : uuid.value,
+    isDeleted: isNew ? false : Boolean(+isDeleted.value),
     store: storeId.value,
     cocoAG1: Ags?.cocoAGs?.[0] || '',
     cocoAG2: Ags?.cocoAGs?.[1] || '',
     yumeAG1: Ags?.yumeAGs?.[0] || '',
     yumeAG2: Ags?.yumeAGs?.[1] || '',
-    customers: members?.value.map(({ value: cust }) => {
-      const custRec = recsCustomers.find((c) => c.uuid.value === cust.custId.value);
-      const {
-        uuid: custId,
-        $revision: custRevision,
-        fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
-        postalCode, address1, address2,
-        contacts,
-      } = custRec || {};
+    customers: members?.value
+      .map(({ value: cust }) => {
+        const custRec = recsCustomers.find((c) => c.uuid.value === cust.custId.value);
 
 
-      const tels = contacts?.value.filter(c => c.value.contactType.value === 'tel');
-      const email = contacts?.value.find(c => c.value.contactType.value === 'email');
+        const {
+          uuid: custId,
+          $revision: custRevision,
+          fullName, fullNameReading, gender, birthYear, birthDay, birthMonth,
+          postalCode, address1, address2,
+          contacts,
+        } = custRec || {};
 
-      return {
-        key: uuidV4(),
-        custId: custId?.value || '',
-        index: cust.index.value || '',
-        revision: custRevision?.value  || '',
-        custName: fullName?.value || '',
-        custNameReading: fullNameReading?.value || '',
-        gender: gender?.value || '',
-        birthYear: birthYear?.value || '',
-        birthMonth: birthMonth?.value || '',
-        birthDay: birthDay?.value || '',
-        postal: postalCode?.value || '',
-        address1: address1?.value || '',
-        address2: address2?.value || '',
 
-        phone1: tels?.[0]?.value.contactValue.value || '',
-        phone1Rel: tels?.[0]?.value.relation.value || '',
-        phone1Name: tels?.[0]?.value.contactName.value || '',
+        const tels = contacts?.value.filter(c => c.value.contactType.value === 'tel');
+        const email = contacts?.value.find(c => c.value.contactType.value === 'email');
+
+        return {
+          key: uuidV4(),
+          custId: isNew ? '' : custId?.value || '',
+          index: cust.index.value || '',
+          revision: custRevision?.value  || '',
+          custName: fullName?.value || '',
+          custNameReading: fullNameReading?.value || '',
+          gender: gender?.value || '',
+          birthYear: birthYear?.value || '',
+          birthMonth: birthMonth?.value || '',
+          birthDay: birthDay?.value || '',
+          postal: postalCode?.value || '',
+          address1: address1?.value || '',
+          address2: address2?.value || '',
+
+          phone1: tels?.[0]?.value.contactValue.value || '',
+          phone1Rel: tels?.[0]?.value.relation.value || '',
+          phone1Name: tels?.[0]?.value.contactName.value || '',
         
 
-        phone2: tels?.[1]?.value.contactValue.value || '',
-        phone2Rel: tels?.[1]?.value.relation.value || '',
-        phone2Name: tels?.[1]?.value.contactName.value || '',
+          phone2: tels?.[1]?.value.contactValue.value || '',
+          phone2Rel: tels?.[1]?.value.relation.value || '',
+          phone2Name: tels?.[1]?.value.contactName.value || '',
 
-        email: email?.value.contactValue.value || '',
-        emailRel: email?.value.relation.value || '',
-        emailName: email?.value.contactName.value || '',
+          email: email?.value.contactValue.value || '',
+          emailRel: email?.value.relation.value || '',
+          emailName: email?.value.contactName.value || '',
 
-        isSameAddress: Boolean(+cust.isSameAsMain.value),
+          isSameAddress: Boolean(+cust.isSameAsMain.value),
         
-      };
-    }),
+        };
+      }),
   };
 };

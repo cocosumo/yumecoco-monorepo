@@ -17,8 +17,6 @@ export const useProjects = ({
   const queryFrom = format(from, 'yyyy-MM-dd');
   const queryTo = getLastDayOfMonth(until);
 
-  console.log('from', queryFrom, 'until', queryTo);
-
   return useQuery(
     ['contractsByCocoas', from, until],
     () => getAllProjects({ condition: `${projFinDate} >= ${queryFrom} and ${projFinDate} <= ${queryTo}` }),

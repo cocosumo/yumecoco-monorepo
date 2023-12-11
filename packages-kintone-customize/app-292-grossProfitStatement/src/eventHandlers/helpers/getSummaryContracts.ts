@@ -1,6 +1,6 @@
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
-import { Big, roundDown } from 'big.js';
 import { IAndpadprocurements, IContracts, IProjects, IProjtypes, TAgents, TEnvelopeStatus } from 'types';
+import { roundDownTo1000 } from './roundDownTo1000';
 
 export interface SummaryContracts {
   storeName: string
@@ -29,7 +29,7 @@ const getAgents = ({
   relation: TAgents,
 }) => {
   return agents.value
-    .filter(({ value: { 
+    .filter(({ value: {
       agentType,
       agentName,
     } }) => (agentType.value === relation) && (agentName.value !== ''))
@@ -63,13 +63,14 @@ export const getSummaryContracts = ({
   }) => {
 
     const projSystemId = andpadSystemId.value || forceLinkedAndpadSystemId.value || '';
+    const yumeAgNames = getAgents({ agents: agents, relation: 'yumeAG' });
 
     const filterContracts = contracts
       .filter(({
         projId: projIdContract,
         envelopeStatus,
       }) => (projIdContract.value === projId.value)
-        && (envelopeStatus as unknown as TEnvelopeStatus === 'completed'));
+        && (envelopeStatus.value as TEnvelopeStatus === 'completed'));
 
     const {
       orderAmountAfterTax,
@@ -115,38 +116,36 @@ export const getSummaryContracts = ({
 
     const {
       orderAmountBeforeTax,
-      実利益率,
+      実利益額,
       利益税抜_夢てつ,
+      実利益税抜_夢てつ,
     } = calcProfitability({
       orderAmountAfterTax: orderAmountAfterTax,
       additionalAmountAfterTax: 0, // 追加金額も契約金額に含めて処置
       purchaseAmount: procurementBeforeTax,
       paymentAmount: procurementBeforeTax, // 正しくは支払金額だが、粗利表表示が目的のため、発注金額を設定する
       depositAmount: orderAmountAfterTax,  // 正しくは入金金額だが、粗利表表示が目的のため、契約金額を設定する
-      yumeCommFeeRate: +commissionRate.value,
+      yumeCommFeeRate: (yumeAgNames.length === 1 && yumeAgNames[0] === 'ここすも') ? 0 : +commissionRate.value,
       tax: tax,
       hasRefund: hasRefund,
       subsidyAmt: subsidyAmt,
     });
 
-    // 夢てつ紹介料は1000円未満を切り捨てで計算する
-    const introFeeYume = Big(利益税抜_夢てつ).round(undefined, roundDown)
-      .toNumber();
 
     return {
       storeName: store.value,
       custName: custNames.value,
       projType: projTypeName?.value || '',
       projTypeForTotalization: projTypeForTotalization?.value || '',
-      yumeAgName: getAgents({ agents: agents, relation: 'yumeAG' }),
+      yumeAgName: yumeAgNames,
       cocoAgs: getAgents({ agents: agents, relation: 'cocoAG' }),
       cocoConst: getAgents({ agents: agents, relation: 'cocoConst' }),
       refund: hasRefund,
       closingDate: projFinDate.value,
       orderAmountBeforeTax: orderAmountBeforeTax,
-      grossProfitAmount: 実利益率,
-      introFeeYume: introFeeYume,
-      selfProjSection: '', // 設定・確認方法を確認する
+      grossProfitAmount: 実利益額,
+      introFeeYume: roundDownTo1000(利益税抜_夢てつ || 実利益税抜_夢てつ),
+      selfProjSection: '', // TODO 設定方法を確認する
     };
 
   });

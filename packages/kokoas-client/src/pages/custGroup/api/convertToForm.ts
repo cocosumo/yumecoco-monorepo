@@ -3,12 +3,12 @@ import { v4 as uuidV4 } from 'uuid';
 import { TForm } from '../schema';
 
 /**
- * Converts the given customer group data into a form object.
+ * Kintoneデータをフォームに変換する。
  * 
- * @param recCustGroup - The customer group data.
- * @param recsCustomers - The list of customers.
+ * @param recCustGroup - 顧客グループのレコード。
+ * @param recsCustomers - 顧客のレコードのリスト。
  * @param isNew - 新規として扱うかどうか。
- * @returns The form object.
+ * @returns フォームの値。
  */
 export const convertToForm = (
   recCustGroup: ICustgroups,
@@ -69,7 +69,7 @@ export const convertToForm = (
 
         return {
           key: uuidV4(),
-          
+
           // 複写又は新規の場合は、custIdを空にする
           custId: isNew ? '' : custId?.value || '',
           index: cust.index.value || '',

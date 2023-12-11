@@ -2,6 +2,14 @@ import { ICustgroups, ICustomers } from 'types';
 import { v4 as uuidV4 } from 'uuid';
 import { TForm } from '../schema';
 
+/**
+ * Converts the given customer group data into a form object.
+ * 
+ * @param recCustGroup - The customer group data.
+ * @param recsCustomers - The list of customers.
+ * @param isNew - 新規として扱うかどうか。
+ * @returns The form object.
+ */
 export const convertToForm = (
   recCustGroup: ICustgroups,
   recsCustomers: ICustomers[],
@@ -31,8 +39,12 @@ export const convertToForm = (
   /* Map the result to the form */
   return {
     memo: memo.value,
+
+    // 複写又は新規の場合は、uuidを空にする
     custGroupId: isNew ? '' : uuid.value,
-    isDeleted: isNew ? false : Boolean(+isDeleted.value),
+
+    // 削除フラグは、新規の場合はfalse、既存の場合はisDeletedの値をそのまま使う
+    isDeleted: isNew ? false : Boolean(+isDeleted.value), 
     store: storeId.value,
     cocoAG1: Ags?.cocoAGs?.[0] || '',
     cocoAG2: Ags?.cocoAGs?.[1] || '',
@@ -57,6 +69,8 @@ export const convertToForm = (
 
         return {
           key: uuidV4(),
+          
+          // 複写又は新規の場合は、custIdを空にする
           custId: isNew ? '' : custId?.value || '',
           index: cust.index.value || '',
           revision: custRevision?.value  || '',

@@ -1,6 +1,7 @@
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
 
 
+/** 担当者ごとの粗利表を表示する */
 export const GrossProfitByPerson = ({
   contractData,
 }:{
@@ -9,7 +10,8 @@ export const GrossProfitByPerson = ({
 
   return (
     <>
-      担当者累計一覧
+      担当者ごとの粗利表
+      <br />
     </>
   );
 

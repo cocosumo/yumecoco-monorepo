@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { getAllProcurementDetails } from 'api-kintone';
-import { KProjects } from 'types';
+import { KAndpadprocurements } from 'types';
 import { getLastDayOfMonth } from './helper/getLastDayOfMonth';
 
-const projFinDate: KProjects = 'projFinDate';
+const paymentDate: KAndpadprocurements = '支払日';
 
 export const useAndpadProcurement = ({
   until,
@@ -15,6 +15,6 @@ export const useAndpadProcurement = ({
 
   return useQuery(
     ['andpadProcurement', until],
-    () => getAllProcurementDetails({ condition: `${projFinDate} <= ${queryTo}` }),
+    () => getAllProcurementDetails({ condition: `${paymentDate} <= "${queryTo}"` }),
   );
 };

@@ -12,7 +12,7 @@ describe('roundDownTo1000', () => {
   
   it('1000円未満を切り捨てることパターン2', () => {
 
-    const result = roundDownTo1000(999);
+    const result = roundDownTo1000(2001);
 
     expect(result).toBe(2000);
   }, 10000);

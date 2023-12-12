@@ -4,6 +4,7 @@ import { initialForm } from './form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TForm, schema } from './schema';
 import { Toolbar } from './toolbar/Toolbar';
+import { Results } from './results/Results';
 
 export const FormGrossProfitTable = () => {
   const formReturn = useForm<TForm>({
@@ -26,7 +27,7 @@ export const FormGrossProfitTable = () => {
         >
 
           <Toolbar />
-          {/* <Results /> */}
+          <Results />
         </Stack>
 
       </Form>

@@ -20,7 +20,7 @@ export const useContractsByProjIds = ({
         .filter(
           (rec) => projIds
             .includes(rec.projId.value) 
-            && (typeof envStatus === 'undefined' || (rec.envelopeStatus.value as TEnvelopeStatus) === envStatus),
+            && (envStatus === undefined || (rec.envelopeStatus.value as TEnvelopeStatus) === envStatus),
         );
     }, [envStatus, projIds]),
   });

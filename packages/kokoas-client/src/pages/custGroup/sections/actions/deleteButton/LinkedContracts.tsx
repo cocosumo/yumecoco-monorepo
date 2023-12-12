@@ -19,16 +19,10 @@ import { DateChip } from './DateChip';
 import { CustomChip } from './CustomChip';
 
 
-
-
-// {`${pages.projContractPreviewV2}?${generateParams({ contractId: contract.uuid.value })}`}
-
 const LinkedContractsList = () => {
 
   const { data = [] } = useLinkedContracts();
-  
-  console.log(data.length, 'data.length');
-  
+    
   return (
     <List
       sx={{
@@ -66,14 +60,15 @@ const LinkedContractsList = () => {
                     <EnvStatusChip 
                       envStatus={contract.envelopeStatus.value}
                     />
-                    <DateChip 
-                      dateStr={contract.contractDate.value}
-                    />
                     <CustomChip 
                       label={contract.contractType.value}
                       color='secondary'
                       variant='outlined'
                     />
+                    <DateChip 
+                      dateStr={contract.contractDate.value}
+                    />
+           
 
                   </Stack>
                 )}

@@ -207,6 +207,8 @@ export const useSearchResult = () => {
          * 手間がかかるので、後回し。ras 20230611
         */
 
+        const formattedDataId = formatDataId(dataId.value);
+
         const isMatchedKeyword = !keyword || [
           ...fullNames,
           ...fullNameReadings,
@@ -219,7 +221,7 @@ export const useSearchResult = () => {
           ...cocoConstNames,
           storeName.value,
           projAddress,
-          dataId.value,
+          formattedDataId,
         ].join('').includes(keyword.trim());
 
         /*     cocoAG?.some((ag) => {
@@ -276,7 +278,7 @@ export const useSearchResult = () => {
           )
         ) {
           acc.push({
-            projDataId: formatDataId(dataId.value),
+            projDataId: formattedDataId,
             custName: `${fullNames[0]}${fullNames.length > 1 ? `${fullNames.length - 1}` : ''}`,
             custNames: fullNames.join('、'),
             custNameKana: `${fullNameReadings[0]}`,

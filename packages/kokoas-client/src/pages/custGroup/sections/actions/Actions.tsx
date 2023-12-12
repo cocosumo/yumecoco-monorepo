@@ -25,8 +25,6 @@ export const Actions = () => {
 
   const handleReset  = useReset();
 
-  console.log(custGroupId);
-
   return (
     <Stack
       spacing={1}

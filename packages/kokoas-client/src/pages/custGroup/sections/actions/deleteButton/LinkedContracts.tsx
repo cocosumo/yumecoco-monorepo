@@ -6,47 +6,56 @@ import {
   DialogContent, 
   DialogTitle, 
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   Stack,
-  styled,
 } from '@mui/material';
 import { useLinkedContracts } from '../../../hooks/useLinkedContracts';
 import { EnvStatusChip } from './EnvStatusChip';
+import { generateParams } from 'kokoas-client/src/helpers/url';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { DateChip } from './DateChip';
+import { CustomChip } from './CustomChip';
 
-const ItemContainer = styled(ListItemButton)(({ theme }) => ({
-  borderTop: `1px solid ${theme.palette.divider}`,
-}));
 
 
+
+// {`${pages.projContractPreviewV2}?${generateParams({ contractId: contract.uuid.value })}`}
 
 const LinkedContractsList = () => {
 
   const { data = [] } = useLinkedContracts();
   
+  console.log(data.length, 'data.length');
   
   return (
-    <List>
-      {data.map((contract, idx) => {
-        return (
-          <ListItem 
-            key={contract.uuid.value}
-            onClick={() => {
-              /* window.open(
-                `${kintoneBaseUrl}/k/${contract.app.value}/show#record=${contract.recordId.value}`,
-                '_blank',
-              ); */
-            
-            }}
-            disablePadding
-          >
-            <ItemContainer>
+    <List
+      sx={{
+        maxHeight: '300px',
+        overflow: 'auto',
+      }}
+    >
+      {data
+        .sort((a, b) => {
+          return Number(b.totalContractAmt.value) - Number(a.totalContractAmt.value);
+        })
+        .map((contract, idx) => {
+          return (
+            <ListItemButton
+              key={contract.uuid.value}
+              component={'a'}
+              href={`#${pages.projContractPreviewV2}?${generateParams({ contractId: contract.uuid.value })}`}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+
               <ListItemIcon>
                 {idx + 1}
               </ListItemIcon>
+
               <ListItemText 
+                disableTypography
                 primary={`${Number(contract.totalContractAmt.value).toLocaleString()} 円`}
                 secondary={(
                   <Stack
@@ -57,15 +66,24 @@ const LinkedContractsList = () => {
                     <EnvStatusChip 
                       envStatus={contract.envelopeStatus.value}
                     />
+                    <DateChip 
+                      dateStr={contract.contractDate.value}
+                    />
+                    <CustomChip 
+                      label={contract.contractType.value}
+                      color='secondary'
+                      variant='outlined'
+                    />
 
                   </Stack>
                 )}
               />
-
-            </ItemContainer>
-          </ListItem>
-        );
-      })}
+ 
+            </ListItemButton>
+           
+        
+          );
+        })}
 
     </List>);
 };

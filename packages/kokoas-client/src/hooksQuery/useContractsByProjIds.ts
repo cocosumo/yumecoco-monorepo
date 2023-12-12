@@ -16,7 +16,12 @@ export const useContractsByProjIds = ({
 
   return useAllContracts({
     select: useCallback((data) => {
-      return data.filter((rec) => projIds.includes(rec.projId.value) && (rec.envelopeStatus.value as TEnvelopeStatus) === envStatus);
+      return data
+        .filter(
+          (rec) => projIds
+            .includes(rec.projId.value) 
+            && (typeof envStatus === 'undefined' || (rec.envelopeStatus.value as TEnvelopeStatus) === envStatus),
+        );
     }, [envStatus, projIds]),
   });
 

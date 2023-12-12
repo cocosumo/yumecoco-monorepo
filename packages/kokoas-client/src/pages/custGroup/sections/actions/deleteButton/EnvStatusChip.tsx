@@ -8,7 +8,7 @@ const resolveColor = (status: string) => {
     case 'sent':
       return 'info';
     default:
-      return 'primary';
+      return 'secondary';
   }
 };
 

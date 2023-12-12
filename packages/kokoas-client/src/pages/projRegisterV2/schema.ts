@@ -26,6 +26,7 @@ export const schema = z.object({
   projTypeId: nonEmptyDropdown,
   projName: z.string().nonempty(),
   otherProjType: z.string().optional(),
+  inHouseProjType: z.string().optional(),
 
   projDataId: z.string(),
   createdDate: z.string(),

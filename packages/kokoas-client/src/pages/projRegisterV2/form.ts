@@ -16,6 +16,7 @@ export const initialValues : TForm = {
   projTypeId: '',
   projName: '',
   otherProjType: '',
+  inHouseProjType: '',
   
   projDataId: '',
 

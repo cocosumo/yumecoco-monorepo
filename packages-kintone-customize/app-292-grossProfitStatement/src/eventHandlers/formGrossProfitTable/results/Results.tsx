@@ -7,22 +7,28 @@ import { SummaryContracts, getSummaryContracts } from '../../helpers/getSummaryC
 import { useMemo } from 'react';
 import { useAndpadProcurement } from '../../hooks/useAndpadProcurement';
 import { useProjTypes } from '../../hooks/useProjTypes';
+import { getDatePeriod } from './helper/getDatePeriod';
 
 
 
 export const Results = () => {
   const [
     selectMonths,
+    year,
   ] = useTypedWatch({
     name: [
       'months',
+      'year',
     ],
-  }) as [string[]];
+  }) as [string[], string];
 
-  const finDate = new Date(selectMonths[selectMonths.length - 1]);
+  const {
+    finDate,
+    startDate,
+  } = getDatePeriod(selectMonths, year);
 
   const { data: projects } = useProjects({
-    from: new Date(selectMonths[0]),
+    from: startDate,
     until: finDate,
   });
 

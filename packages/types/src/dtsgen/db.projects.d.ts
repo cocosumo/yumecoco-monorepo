@@ -15,6 +15,7 @@ declare namespace DBProjects {
     estatePurchaseDate: kintone.fieldTypes.Date;
     realEstateStatus: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
+    inHouseProjType: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
     paymentMethod: kintone.fieldTypes.SingleLineText;
@@ -41,6 +42,7 @@ declare namespace DBProjects {
     storeId: kintone.fieldTypes.SingleLineText;
     finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
+    //receivableCompleteDate: kintone.fieldTypes.Date;
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;

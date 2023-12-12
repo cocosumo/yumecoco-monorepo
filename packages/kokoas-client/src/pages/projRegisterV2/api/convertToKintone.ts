@@ -16,6 +16,7 @@ export const convertToKintone = (
     projTypeId, 
     projName,
     otherProjType,
+    inHouseProjType,
 
     postal, 
     address1, 
@@ -68,6 +69,7 @@ export const convertToKintone = (
     projTypeId: { value: projTypeId || '' },
     projName: { value: projName },
     otherProjType: { value: otherProjType || '' },
+    inHouseProjType: { value: inHouseProjType || '' },
     
 
     postal: { value: postal },

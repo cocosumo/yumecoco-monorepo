@@ -30,6 +30,7 @@ export const convertProjToForm = ({
     projTypeId,
     projName,
     otherProjType,
+    inHouseProjType,
     custGroupId,
     dataId,
     uuid,
@@ -137,6 +138,7 @@ export const convertProjToForm = ({
     projTypeId: projTypeId.value,
     projTypeName: projTypeName.value,
     otherProjType: otherProjType.value,
+    inHouseProjType: inHouseProjType.value,
     
     projName: projName.value,
     projDataId: dataId.value,

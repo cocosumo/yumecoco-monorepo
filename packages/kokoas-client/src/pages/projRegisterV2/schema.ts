@@ -126,6 +126,7 @@ export const schema = z.object({
       
       projTypeName,
       otherProjType,
+      inHouseProjType,
 
       hasContract,
 
@@ -161,6 +162,16 @@ export const schema = z.object({
           code: z.ZodIssueCode.custom,
           message: '工事種別を入力してください。',
           path: ['otherProjType'],
+        });
+      }
+    } 
+
+    if (projTypeName.includes('自社物件')) {
+      if (!hasContract && !inHouseProjType) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '自社工事区分を入力してください。',
+          path: ['inHouseProjType'],
         });
       }
     } 

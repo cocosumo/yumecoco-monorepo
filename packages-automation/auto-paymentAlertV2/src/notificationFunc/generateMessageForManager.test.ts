@@ -6,10 +6,10 @@ import { generateMessageForManager } from './generateMessageForManager';
 
 
 describe('generateMessageForManager', () => {
-  it('should generate chatwork message', async () => {
+  it('should generate chatwork message', () => {
 
-    // set output file of createPaymentAlert.test.ts
-    const paymentAlertPath = path.join(__dirname, '../__TEST__/createPaymentAlert.json');
+    // set output file of createPaymentAlertFromAPPayments.test.ts
+    const paymentAlertPath = path.join(__dirname, '../__TEST__/createPaymentAlertFromAPPayments.json');
     const reminderDat = JSON.parse(fs.readFileSync(paymentAlertPath, 'utf8')) as PaymentReminder[];
 
     const result = generateMessageForManager(reminderDat);

@@ -87,7 +87,7 @@ export const convertRemindersToJson = ({
       tgtSystemId: systemId.value,
     });
 
-    const reminderUrl = `${kintoneBaseUrl}/k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
+    const reminderUrl = `${kintoneBaseUrl}k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
     return ({
       alertState: connectedToAndpad && !hasPaymentHistory,

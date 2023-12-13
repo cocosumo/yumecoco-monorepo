@@ -1,12 +1,12 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext, useTypedWatch } from '../../hooks';
-import { TextField } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { useInHouseProjTypes } from 'kokoas-client/src/hooksQuery';
 
 export const InHouseProjType = () => {
   const {
     control,
     setValue,
-    getValues,
   } = useTypedFormContext();
 
   const projTypeName = useTypedWatch({
@@ -14,19 +14,22 @@ export const InHouseProjType = () => {
     control,
   }) as string;
 
+  const { data: inHouseProjTypes } = useInHouseProjTypes();
+
   if (!projTypeName.includes('自社物件')) {
     return null;
   }
 
+
   return (
-    <Controller 
-      name='inHouseProjType'
+    <Controller
+      name='inHouseProjTypeId'
       control={control}
       render={({
         field: {
-          ref,
+          onBlur,
           onChange,
-          ...otherField
+          value: newValue,
         },
         fieldState: {
           error,
@@ -38,28 +41,54 @@ export const InHouseProjType = () => {
         const showError = isSubmitted && !!error?.message;
 
         return (
-          <TextField 
-            label='自社工事区分'
-            inputRef={ref}
-            required
-            onChange={(e) => {
-              const newValue = e.target.value;
-              onChange(newValue);
-
-              const hasContract = getValues('hasContract');
-              const custName = getValues('custName');      
-
-              if (!hasContract) {
-                setValue('projName', `${custName}様邸　${newValue || projTypeName}`);
-              }
-            }}
-            {...otherField}
-            //disabled={disabled}
+          <FormControl
             size='small'
-            error={showError} 
-            helperText={error?.message}
-            fullWidth
-          />
+            sx={{
+              width: 300,
+            }}
+            placeholder='自社工事区分'
+            error={showError}
+            //disabled={disabled}
+            required
+          >
+            <InputLabel>
+              自社工事区分
+            </InputLabel>
+            <Select
+              value={newValue}
+              label="自社工事区分"
+              onBlur={onBlur}
+              onChange={(e) => {
+                const newInHouseProjTypeId = e.target.value;
+
+                const {
+                  label: inHouseProjTypeName,
+                } = inHouseProjTypes?.find(({ uuid }) => uuid.value === newInHouseProjTypeId) || {};
+
+                setValue('inHouseProjTypeName', inHouseProjTypeName?.value || '');
+
+                onChange(newInHouseProjTypeId);
+              }}
+            >
+              <MenuItem value="">
+                ---
+              </MenuItem>
+              {inHouseProjTypes?.map(({
+                label,
+                uuid,
+              }) => {
+                return (
+                  <MenuItem key={uuid.value} value={uuid.value}>
+                    {label.value}
+                  </MenuItem>
+                );
+              })}
+
+            </Select>
+            <FormHelperText>
+              {error?.message}
+            </FormHelperText>
+          </FormControl>
         );
       }}
     />

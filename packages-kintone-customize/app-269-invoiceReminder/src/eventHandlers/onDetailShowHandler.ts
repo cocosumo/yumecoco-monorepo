@@ -7,7 +7,7 @@ import { setFieldShown } from 'api-kintone';
  */
 export const onDetailShowHandler = () => {
 
-  setFieldShown('notificationSettings', false);
+  //setFieldShown('notificationSettings', false);
   setFieldShown('reminderDate', false);
 
 };

@@ -1,7 +1,7 @@
 import { Alert, Button, Paper, Stack, Tooltip } from '@mui/material';
 import { SaveButton } from './SaveButton';
 import { RelatedProjButton } from './RelatedProjButton';
-import { DeleteButton } from './DeleteButton';
+import { DeleteButton } from './deleteButton/DeleteButton';
 import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedHooks';
 import { useReset } from '../../hooks/useReset';
 import { RestoreButton } from './RestoreButton';

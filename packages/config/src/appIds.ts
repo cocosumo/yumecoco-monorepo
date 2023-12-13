@@ -64,6 +64,9 @@ export const AppIds = {
   /** 工事種別 */
   projTypes: 190,
 
+  /** 自社工事区分 */
+  inHouseProjTypes: 296,
+
   /** 店舗 */
   stores: 19,
 

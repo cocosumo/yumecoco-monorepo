@@ -22,6 +22,9 @@ export type KMaterialsmid = keyof IMaterialsmid;
 export type IProjtypes = DBProjtypes.SavedData;
 export type KProjtypes = keyof IProjtypes;
 
+export type IInhouseprojtypes = DBInhouseprojtypes.SavedData;
+export type KInhouseprojtypes = keyof IInhouseprojtypes;
+
 export type IStores = DBStores.SavedData;
 export type KStores = keyof IStores;
 

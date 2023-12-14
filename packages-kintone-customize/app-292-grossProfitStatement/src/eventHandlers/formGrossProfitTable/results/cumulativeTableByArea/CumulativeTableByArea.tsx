@@ -18,7 +18,7 @@ export const CumulativeTableByArea = ({
 
   return (
     <>
-      <CumulativeTableTotal />
+      <CumulativeTableTotal contractData={contractData} />
       <CumulativeTableAverage />
     </>
   );

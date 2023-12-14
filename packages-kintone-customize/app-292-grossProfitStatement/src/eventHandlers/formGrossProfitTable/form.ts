@@ -10,7 +10,5 @@ const fiscalYear = getFiscalYear(today);
 export const initialForm: TForm = {
   months: getLatestMonths(fiscalYear, 3),
   year: fiscalYear.toString(),
-  period: '',
   storeIds: [],
-  area: '',
 };

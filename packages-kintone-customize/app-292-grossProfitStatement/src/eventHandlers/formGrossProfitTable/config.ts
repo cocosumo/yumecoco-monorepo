@@ -19,3 +19,12 @@ export const projSectionList = [
   'サービス工事',
 ] as const;
 export type ProjSectionList = typeof projSectionList[number];
+
+
+export type GrossProfitTableRows = {
+  orderAmtTotalBeforeTax: number
+  grossProfitCoco: number
+  grossProfitRateCoco: number
+  orderAmtMonthlyAve: number
+  grossProfitMonthlyAve: number
+};

@@ -144,7 +144,7 @@ export const useSearchResult = () => {
 
         const totalContractAmtIncTax = 契約金額税込 + 追加金額税込;
         
-        const firstContract = contracts?.[0];
+        const firstContract = contracts?.find(({ contractType }) => contractType.value === '契約' ) || contracts?.[0];
 
         const {
           contractDate,

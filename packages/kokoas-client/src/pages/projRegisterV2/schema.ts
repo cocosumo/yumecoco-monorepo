@@ -26,6 +26,8 @@ export const schema = z.object({
   projTypeId: nonEmptyDropdown,
   projName: z.string().nonempty(),
   otherProjType: z.string().optional(),
+  inHouseProjTypeId: z.string().optional(),
+  inHouseProjTypeName: z.string().optional(),
 
   projDataId: z.string(),
   createdDate: z.string(),
@@ -125,6 +127,7 @@ export const schema = z.object({
       
       projTypeName,
       otherProjType,
+      inHouseProjTypeName,
 
       hasContract,
 
@@ -160,6 +163,16 @@ export const schema = z.object({
           code: z.ZodIssueCode.custom,
           message: '工事種別を入力してください。',
           path: ['otherProjType'],
+        });
+      }
+    } 
+
+    if (projTypeName.includes('自社物件')) {
+      if (!hasContract && !inHouseProjTypeName) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '自社工事区分を入力してください。',
+          path: ['inHouseProjTypeName'],
         });
       }
     } 

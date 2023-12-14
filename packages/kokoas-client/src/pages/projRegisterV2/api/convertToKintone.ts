@@ -5,7 +5,7 @@ import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
 export const convertToKintone = (
   rawValues: TForm,
-): Partial<IProjects>  => {
+): Partial<IProjects> => {
   const {
     projDataId,
     yumeAG,
@@ -13,16 +13,18 @@ export const convertToKintone = (
     cocoConst,
     isNotCocoConstConfirmed,
 
-    projTypeId, 
+    projTypeId,
     projName,
     otherProjType,
+    inHouseProjTypeId,
+    inHouseProjTypeName,
 
-    postal, 
-    address1, 
+    postal,
+    address1,
     address2,
-    finalPostal, 
-    finalAddress1, 
-    finalAddress2, 
+    finalPostal,
+    finalAddress1,
+    finalAddress2,
     isAddressKari,
     isShowFinalAddress,
     buildingType, custGroupId, status,
@@ -59,7 +61,7 @@ export const convertToKintone = (
   } = rawValues;
 
 
-  const newDataId = `${storeCode}-${projDataId.slice(4)}`; 
+  const newDataId = `${storeCode}-${projDataId.slice(4)}`;
   console.log('newDataId', newDataId, projDataId);
 
   return {
@@ -68,7 +70,9 @@ export const convertToKintone = (
     projTypeId: { value: projTypeId || '' },
     projName: { value: projName },
     otherProjType: { value: otherProjType || '' },
-    
+    inHouseProjTypeId: { value: inHouseProjTypeId || '' },
+    inHouseProjTypeName: { value: inHouseProjTypeName || '' },
+
 
     postal: { value: postal },
     address1: { value: address1 },
@@ -107,7 +111,7 @@ export const convertToKintone = (
       })),
     },
     isAgentConfirmed: { value: Number(!isNotCocoConstConfirmed).toString() }, //　isAgentConfirmedは肯定なので、isNotCocoConstConfirmedを反転させる
-    status: {  value: status  },
+    status: { value: status },
     cancelStatus: { value: cancelStatus?.filter(Boolean).join(',') || '' },
     memo: { value: memo || '' },
 
@@ -166,7 +170,7 @@ export const convertToKintone = (
     territory: { value: territory },
     store: { value: storeName },
     storeCode: { value: storeCode },
-    dataId: { value: newDataId  },
+    dataId: { value: newDataId },
 
     // 利益率
     profitRate: { value: String(profitRate) },

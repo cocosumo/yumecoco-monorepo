@@ -11,7 +11,7 @@ import { useProjsByCustGroupId } from './useProjsByCustGroupId';
  */
 export const useContractsByCustGroupIdV2 = ({
   custGroupId,
-  envStatus = 'completed',
+  envStatus,
 }:{
   custGroupId: string,
   envStatus?: TEnvelopeStatus,

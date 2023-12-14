@@ -62,7 +62,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
 
       // 返金・減額・補助金がある場合は、各フラグをtrueにする
       newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい' || contractAddType.value === '返金';
-      newAcc.減額 = newAcc.減額 || hasReduction.value === 'はい';
+      newAcc.減額 = newAcc.減額 || hasReduction.value === 'はい' || contractAddType.value === '減額工事';
       newAcc.補助金 = newAcc.補助金 || hasSubsidy.value === 'はい';
 
 
@@ -73,14 +73,16 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // 別々のプロパティにする
       if (hasReduction.value === 'はい') {
         newAcc.減額Amt += +reductionAmt.value;
-      } else if (contractAddType.value === '減額工事') {
-        newAcc.減額Amt += +totalContractAmt.value;
+      }
+      if (contractAddType.value === '減額工事') {
+        newAcc.減額Amt -= +totalContractAmt.value;
       }
 
       if (hasRefund.value === 'はい') {
         newAcc.返金Amt += +refundAmt.value;
-      } else if (contractAddType.value === '返金') {
-        newAcc.返金Amt += +totalContractAmt.value;
+      }
+      if (contractAddType.value === '返金') {
+        newAcc.返金Amt -= +totalContractAmt.value;
       }
 
       return newAcc;

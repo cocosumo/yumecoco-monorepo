@@ -17,6 +17,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       acc,
       {
         contractType,
+        contractAddType,
         includePlanContractAmt,
         totalContractAmt, // 契約金額税込
         tax,
@@ -42,7 +43,9 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
         newAcc.本契約件数++;
 
       } else if (contractType.value === '追加') {
-        newAcc.追加金額税込 += +totalContractAmt.value;
+        if (contractAddType.value !== '減額工事' && contractAddType.value !== '返金') {
+          newAcc.追加金額税込 += +totalContractAmt.value;
+        }
         newAcc.追加契約件数++;
 
       } else if (contractType.value === '設計契約') {
@@ -58,7 +61,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // 設計契約を含むかどうか
 
       // 返金・減額・補助金がある場合は、各フラグをtrueにする
-      newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい';
+      newAcc.返金 = newAcc.返金 || hasRefund.value === 'はい' || contractAddType.value === '返金';
       newAcc.減額 = newAcc.減額 || hasReduction.value === 'はい';
       newAcc.補助金 = newAcc.補助金 || hasSubsidy.value === 'はい';
 
@@ -70,10 +73,14 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // 別々のプロパティにする
       if (hasReduction.value === 'はい') {
         newAcc.減額Amt += +reductionAmt.value;
+      } else if (contractAddType.value === '減額工事') {
+        newAcc.減額Amt += +totalContractAmt.value;
       }
 
       if (hasRefund.value === 'はい') {
         newAcc.返金Amt += +refundAmt.value;
+      } else if (contractAddType.value === '返金') {
+        newAcc.返金Amt += +totalContractAmt.value;
       }
 
       return newAcc;
@@ -82,7 +89,7 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       契約金額税込: 0,
       追加金額税込: 0,
       設計契約金額税込: 0,
-      設計契約金含み: false, 
+      設計契約金含み: false,
       合計受注金額税込: 0,
       税率: 0.1,
       返金: false,
@@ -103,13 +110,13 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // K244 原価管理表には、設計契約を追加契約金額として計算したい。
       result.追加金額税込 += result.設計契約金額税込;
 
-    } else if (!result.本契約件数 && result.設計契約件数) { 
+    } else if (!result.本契約件数 && result.設計契約件数) {
       // K244 ただし、設計契約１つのみの工事は設計契約の金額を契約金額として計算してほしい
       result.契約金額税込 += result.設計契約金額税込;
     }
-  } 
+  }
 
-    
+
   result.追加金額税込 -= (result.減額Amt + result.返金Amt);
   result.合計受注金額税込 = result.追加金額税込 + result.契約金額税込;
 

@@ -237,15 +237,6 @@ const schema = z.object({
     path: ['othersAmt'],
     message: 'その他の金額を入力してください。',
   })
-  .refine(({ hasRefund, refundAmt }) => {
-    if (hasRefund && !refundAmt) {
-      return false;
-    }
-    return true;
-  }, {
-    path: ['refundAmt'],
-    message: '返金額を入力してください。',
-  })
   .refine(({ hasReduction, reductionAmt }) => {
     if (hasReduction && !reductionAmt) {
       return false;

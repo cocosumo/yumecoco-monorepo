@@ -2,6 +2,7 @@ import { IPaymentReminder } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { UpdatePaymentReminders } from '../api-kintone';
 import { compileNotificationSettings } from './compileNotificationSettings';
+import { convAlertDate } from './convAlertDate';
 
 
 
@@ -52,6 +53,12 @@ export const convertReminderToKintoneUpdate = ({
       updateSettings: cwRoomIds,
     });
 
+    // 再通知日の更新
+    const newAlertDate = convAlertDate({
+      scheduledAlertDate: alertDate,
+      expectedPaymentDate: expectedPaymentDate,
+    });
+
     //console.log('通知先設定', JSON.stringify(existingSettings, null, 2));
 
     return ({
@@ -66,7 +73,7 @@ export const convertReminderToKintoneUpdate = ({
         expectedPaymentDate: { value: expectedPaymentDate ?? '' },
         projType: { value: projType },
         totalContractAmount: { value: totalContractAmount },
-        scheduledAlertDate: { value: alertDate },
+        scheduledAlertDate: { value: newAlertDate },
         alertState: { value: alertState ? '1' : '0' },
         // reminderDate: { value: '' }, ユーザーがプルダウンから選択するため、対象外とする
         area: { value: territory },

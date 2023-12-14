@@ -7,6 +7,7 @@ import { chatworkRooms, isProd } from '../config';
 import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAreaMngrByTerritory';
 
 
+
 /**
  * chatworkへ通知する
  * @param param0 
@@ -17,7 +18,12 @@ export const notifyPaymentAlertToChatwork = async ({
   reminderJson: PaymentReminder[]
 }) => {
 
-  const alertReminder = reminderJson.filter(({ alertState }) => alertState);
+  // 通知必要かつ、支払予定日を過ぎている請求を通知対象とする(通知予定日が更新された際の対策)
+  const alertReminder = reminderJson.filter(({
+    alertState,
+    expectedPaymentDate,
+  }) => alertState && (expectedPaymentDate && new Date() >= new Date(expectedPaymentDate)));
+
 
   // 営業担当者へアラートメッセージを送信する
   for (const reminderInfo of alertReminder) {

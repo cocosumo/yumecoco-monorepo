@@ -75,7 +75,7 @@ describe('getContractsSummary', () => {
 
 
 
-  it('getContractsSummary', async () => {
+  it('減額工事の契約書の要約ができること', async () => {
 
     const contractDat = await getContractById('3bbf6f94-5958-4d7f-810c-a7891a722c36');
 
@@ -137,8 +137,8 @@ describe('getContractsSummary', () => {
     expect(result.税率).toBe(0.1);
     expect(result.返金).toBe(false);
     expect(result.返金Amt).toBe(0);
-    expect(result.減額).toBe(false);
-    expect(result.減額Amt).toBe(0);
+    expect(result.減額).toBe(true);
+    expect(result.減額Amt).toBe(50000);
     expect(result.補助金).toBe(false);
     expect(result.補助金Amt).toBe(0);
   }, 60000);

@@ -8,6 +8,7 @@ import { convertCommRateByEmployee } from '../../api/convertCommRateByEmployee';
 import { convertCommRateByRole } from '../../api/convertCommRateByRole';
 import { useUpdateCommRate } from '../../hooks/useUpdateCommRate';
 import { ProjTypeHelp } from './projTypeHelp/ProjTypeHelp';
+import { InHouseProjType } from './InHouseProjType';
 
 export const ProjectType = () => {
   const { control, setValue, register, getValues } = useTypedFormContext();
@@ -147,6 +148,8 @@ export const ProjectType = () => {
 
             
             <OtherProjType />
+
+            <InHouseProjType />
             
   
           </Stack>

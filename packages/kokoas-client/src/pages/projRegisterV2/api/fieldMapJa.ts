@@ -29,6 +29,8 @@ export const fieldMapJa: Partial<Record<KForm, string>> = {
   projTypeId: '工事種別ID',
   projTypeName: '工事種別名',
   otherProjType: 'その他工事種別',
+  inHouseProjTypeId: '自社工事区分ID',
+  inHouseProjTypeName: '自社工事区分名',
 
   deliveryDate: '引渡日',
   projFinDate: '物件完了日',

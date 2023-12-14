@@ -15,12 +15,14 @@ declare namespace DBProjects {
     estatePurchaseDate: kintone.fieldTypes.Date;
     realEstateStatus: kintone.fieldTypes.SingleLineText;
     projTypeName: kintone.fieldTypes.SingleLineText;
+    inHouseProjTypeId: kintone.fieldTypes.SingleLineText;
     isAgentConfirmed: kintone.fieldTypes.SingleLineText;
     yumeAGNames: kintone.fieldTypes.SingleLineText;
     paymentMethod: kintone.fieldTypes.SingleLineText;
     postal: kintone.fieldTypes.SingleLineText;
     status: kintone.fieldTypes.SingleLineText;
     storeCode: kintone.fieldTypes.SingleLineText;
+    inHouseProjTypeName: kintone.fieldTypes.SingleLineText;
     commissionRate: kintone.fieldTypes.Number;
     addressKari: kintone.fieldTypes.SingleLineText;
     projFinDate: kintone.fieldTypes.Date;
@@ -41,6 +43,7 @@ declare namespace DBProjects {
     storeId: kintone.fieldTypes.SingleLineText;
     finalAddress1: kintone.fieldTypes.SingleLineText;
     cocoConstNames: kintone.fieldTypes.SingleLineText;
+    //receivableCompleteDate: kintone.fieldTypes.Date;
     projTypeId: kintone.fieldTypes.SingleLineText;
     buildingType: kintone.fieldTypes.SingleLineText;
     territory: kintone.fieldTypes.SingleLineText;

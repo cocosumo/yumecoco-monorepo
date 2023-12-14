@@ -44,6 +44,7 @@ export * from './useEstimatesByProjId';
 export * from './useExternalImg';
 export * from './useFilteredEmployees';
 export * from './useGenerateReading';
+export * from './useInHouseProjTypes';
 export * from './useInvoices';
 export * from './useInvoicesByCustGroupId';
 export * from './useInvoicesById';

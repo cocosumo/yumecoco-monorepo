@@ -7,6 +7,7 @@ declare namespace DBEmployees {
     入社日: kintone.fieldTypes.Date;
     mainStoreId: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
+    point: kintone.fieldTypes.Number;
     役職: kintone.fieldTypes.DropDown;
     affiliation: kintone.fieldTypes.DropDown;
     誕生日＿月日: kintone.fieldTypes.SingleLineText;

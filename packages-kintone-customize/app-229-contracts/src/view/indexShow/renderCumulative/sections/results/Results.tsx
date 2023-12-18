@@ -35,9 +35,6 @@ export const Results = () => {
     return [selectedStoreId];
 
   }, [selectedStoreId, storeRec]);
-
-
-  console.log('storeIdsToDisplay', storeIdsToDisplay);
   
 
   return (

@@ -28,7 +28,7 @@ export const ResultPerStore = ({
     storeId,
   });
 
-  const isJishaBukken = storeId === '自社物件';
+  const isSelStoreJishaBukken = storeId === '自社物件';
 
 
   
@@ -37,12 +37,15 @@ export const ResultPerStore = ({
       className={styles.storeResult}
       spacing={2}
     >
-      <FiscalYearResult fiscalYearQuery={fiscalYearQueryByStore} 
+      <FiscalYearResult 
+        fiscalYearQuery={fiscalYearQueryByStore} 
         hasTitle 
         storeId={storeId}
       />
-      <FiscalMonths fiscalYearQuery={fiscalYearQueryByStore} />
-      {isJishaBukken && <FiscalYearResultToltal />}
+      <FiscalMonths 
+        fiscalYearQuery={fiscalYearQueryByStore}
+      />
+      {isSelStoreJishaBukken && <FiscalYearResultToltal />}
     </Stack>
   );
 };

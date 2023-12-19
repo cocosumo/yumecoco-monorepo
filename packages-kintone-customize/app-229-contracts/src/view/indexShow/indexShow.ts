@@ -15,7 +15,6 @@ export const indexShow = (event: EventType) => {
     viewId,
   } = event;
 
-  console.log(event);
 
   switch (viewId) {
     case 6343120: // 契約累積表　開発環境

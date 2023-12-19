@@ -14,12 +14,10 @@ export const CumulativeTableTotal = ({
 }) => {
   const [
     year,
-    period,
     area,
   ] = useTypedWatch({
     name: [
       'year',
-      'months',
       'storeIds',
     ],
   }) as [

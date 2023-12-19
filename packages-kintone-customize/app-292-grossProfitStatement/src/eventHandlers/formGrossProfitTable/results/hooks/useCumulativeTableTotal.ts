@@ -1,12 +1,6 @@
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
 import { useStores } from '../../../hooks/useStores';
-import { AreaLabelList, ProjTypeList, areaLabelList } from '../../config';
-
-type CumulativeTableTotal = {
-  orderAmtTotalBeforeTax: number, // 受注金額計
-  grossprofitAmtTotal: number,    // 粗利
-  introFeeYume: number,           // 夢てつ紹介料
-};
+import { AreaLabelList, GrossProfitTableRows, ProjTypeList, areaLabelList, projTypeList } from '../../config';
 
 
 
@@ -65,6 +59,7 @@ export const useCumulativeTableTotal = ({
 
     if (typeof acc[projTypeForTotalization] === undefined) {
       acc[projTypeForTotalization] = {
+        ...acc[projTypeForTotalization],
         orderAmtTotalBeforeTax: +orderAmountBeforeTax,
         grossprofitAmtTotal: +grossProfitAmount,
         introFeeYume: +introFeeYume,
@@ -79,7 +74,26 @@ export const useCumulativeTableTotal = ({
     }
     return acc;
 
-  }, {} as Record<ProjTypeList[number], CumulativeTableTotal>);
+  }, {} as Record<ProjTypeList[number], GrossProfitTableRows>);
+
+  for (const projType of projTypeList) {
+    if (typeof formattingContracts[projType] === undefined) {
+      formattingContracts[projType] = {
+        ...formattingContracts[projType],
+      };
+    } else {
+
+      const grossProfitCoco = 0;
+
+      formattingContracts[projType] = {
+        ...formattingContracts[projType],
+        grossProfitCoco: grossProfitCoco,
+        grossProfitRateCoco: 0,
+        orderAmtMonthlyAve: 0,
+        grossProfitMonthlyAve: 0,
+      };
+    }
+  }
 
 
   return Object.entries(formattingContracts);

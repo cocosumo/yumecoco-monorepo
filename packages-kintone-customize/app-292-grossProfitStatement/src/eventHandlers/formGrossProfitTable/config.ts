@@ -22,10 +22,25 @@ export type ProjSectionList = typeof projSectionList[number];
 
 
 export type GrossProfitTableRows = {
-  orderAmtTotalBeforeTax: number  // 受注金額計
-  grossProfitCoco: number         // ここすも粗利
-  grossProfitRateCoco: number     // ここすも粗利率
-  orderAmtMonthlyAve: number      // 受注 月平均
-  grossProfitMonthlyAve: number   // 粗利 月平均
+  /** 受注金額計 */
+  orderAmtTotalBeforeTax: number,
+
+  /** 粗利 */
+  grossprofitAmtTotal: number,
+
+  /** 夢てつ紹介料 */
+  introFeeYume: number,
+
+  /** ここすも粗利 */
+  grossProfitCoco: number,
+
+  /** ここすも粗利率 */
+  grossProfitRateCoco: number,
+
+  /** 受注 月平均 */
+  orderAmtMonthlyAve: number,
+
+  /** 粗利 月平均 */
+  grossProfitMonthlyAve: number,
 };
 export type KGrossProfitTableRows = keyof GrossProfitTableRows;

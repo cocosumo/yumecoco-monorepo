@@ -1,4 +1,5 @@
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
+import { useStores } from '../../../hooks/useStores';
 import { AreaLabelList, ProjTypeList, areaLabelList } from '../../config';
 
 type CumulativeTableTotal = {
@@ -18,7 +19,7 @@ export const useCumulativeTableTotal = ({
   area: string[]
 }) => {
 
-  console.log('エリアを選択している?', areaLabelList.includes(area[0] as AreaLabelList), area[0]);
+  const { data: stores } = useStores();
 
   const filteredContracts = contractData.filter((contract) => {
     const {
@@ -28,7 +29,16 @@ export const useCumulativeTableTotal = ({
 
     if (!areaLabelList.includes(area[0] as AreaLabelList)) {
       // 各店舗が選択されている場合
-      return area.includes(storeName);
+      const storeNames = area.map((data) => {
+        const storeDat = stores?.find(({ uuid }) => uuid.value === data);
+        if (storeDat) {
+          return storeDat.店舗名.value;
+        } else {
+          return data;
+        }
+      });
+
+      return storeNames?.includes(storeName);
 
     } else {
       // エリアが選択されている場合
@@ -43,8 +53,8 @@ export const useCumulativeTableTotal = ({
     }
   });
 
-  console.log(`contractData: ${contractData.length}件, ${contractData}`);
-  console.log(`filteredContracts: ${filteredContracts.length}件, ${filteredContracts}`);
+  //console.log(`contractData: ${contractData.length}件, ${contractData}`);
+  //console.log(`filteredContracts: ${filteredContracts.length}件, ${filteredContracts}`);
 
   const formattingContracts = filteredContracts.reduce((acc, {
     projTypeForTotalization,

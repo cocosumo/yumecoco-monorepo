@@ -3,11 +3,11 @@ import { GrossProfitByPerson } from './grossProfitByPerson/GrossProfitByPerson';
 import { useContracts } from '../../hooks/useContracts';
 import { useProjects } from '../../hooks/useProjects';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
-import { SummaryContracts, getSummaryContracts } from '../../helpers/getSummaryContracts';
 import { useMemo } from 'react';
 import { useAndpadProcurement } from '../../hooks/useAndpadProcurement';
 import { useProjTypes } from '../../hooks/useProjTypes';
 import { getDatePeriod } from './helper/getDatePeriod';
+import { SummaryContracts, getSummaryContracts } from '../../helpers/getSummaryContracts';
 
 
 

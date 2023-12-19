@@ -22,9 +22,10 @@ export type ProjSectionList = typeof projSectionList[number];
 
 
 export type GrossProfitTableRows = {
-  orderAmtTotalBeforeTax: number
-  grossProfitCoco: number
-  grossProfitRateCoco: number
-  orderAmtMonthlyAve: number
-  grossProfitMonthlyAve: number
+  orderAmtTotalBeforeTax: number  // 受注金額計
+  grossProfitCoco: number         // ここすも粗利
+  grossProfitRateCoco: number     // ここすも粗利率
+  orderAmtMonthlyAve: number      // 受注 月平均
+  grossProfitMonthlyAve: number   // 粗利 月平均
 };
+export type KGrossProfitTableRows = keyof GrossProfitTableRows;

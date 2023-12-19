@@ -4,6 +4,7 @@ import { roundDownTo1000 } from './roundDownTo1000';
 
 export interface SummaryContracts {
   storeName: string
+  area: string
   custName: string
   projType: string
 
@@ -12,12 +13,12 @@ export interface SummaryContracts {
   yumeAgName: string[]
   cocoAgs: string[]
   cocoConst: string[]
-  refund: boolean
+  hasRefund: boolean
   closingDate: string
   orderAmountBeforeTax: number
   grossProfitAmount: number
   introFeeYume: number
-  selfProjSection: string
+  inHouseProjType: string
 }
 
 
@@ -52,6 +53,7 @@ export const getSummaryContracts = ({
 
   const summaryContracts: SummaryContracts[] = projects.map(({
     store,
+    territory,
     custNames,
     projTypeId,
     agents,
@@ -134,18 +136,19 @@ export const getSummaryContracts = ({
 
     return {
       storeName: store.value,
+      area: territory.value,
       custName: custNames.value,
       projType: projTypeName?.value || '',
       projTypeForTotalization: projTypeForTotalization?.value || '',
       yumeAgName: yumeAgNames,
       cocoAgs: getAgents({ agents: agents, relation: 'cocoAG' }),
       cocoConst: getAgents({ agents: agents, relation: 'cocoConst' }),
-      refund: hasRefund,
+      hasRefund: hasRefund,
       closingDate: projFinDate.value,
       orderAmountBeforeTax: orderAmountBeforeTax,
       grossProfitAmount: 実利益額,
       introFeeYume: roundDownTo1000(利益税抜_夢てつ || 実利益税抜_夢てつ),
-      selfProjSection: '', // TODO 設定方法を確認する
+      inHouseProjType: '', // TODO 設定方法を確認する
     };
 
   });

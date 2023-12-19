@@ -1,6 +1,6 @@
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
-import { CumulativeTableAverage } from '../manthlyTableByArea/CumulativeTableAverage';
-import { CumulativeTableTotal } from '../manthlyTableByArea/CumulativeTableTotal';
+import { CumulativeTableAverage } from './CumulativeTableAverage';
+import { CumulativeTableTotal } from './CumulativeTableTotal';
 
 
 

@@ -3,6 +3,7 @@ import { TableRowLayout } from './TableRowLayout';
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
 import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { useAreaNameById } from '../hooks/useAreaNameById';
+import { useCumulativeTableTotal } from '../hooks/useCumulativeTableTotal';
 
 
 /** 対象期間の累計表を表示する */
@@ -13,7 +14,7 @@ export const CumulativeTableTotal = ({
 }) => {
   const [
     year,
-    periods,
+    period,
     area,
   ] = useTypedWatch({
     name: [
@@ -31,12 +32,10 @@ export const CumulativeTableTotal = ({
 
   const tableLabel = `${year}年度 ${storeNames ? storeNames : ''}	契約累積表`;
 
-  const viewDate = useCumulativeTableTotal(
+  const viewDate = useCumulativeTableTotal({
     contractData,
-    year,
-    periods,
     area,
-  );
+  });
 
   return (
     <Stack spacing={1}>

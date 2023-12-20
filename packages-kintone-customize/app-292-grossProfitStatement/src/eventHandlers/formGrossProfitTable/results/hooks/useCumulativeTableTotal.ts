@@ -1,6 +1,19 @@
+import { Big } from 'big.js';
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
 import { useStores } from '../../../hooks/useStores';
 import { AreaLabelList, GrossProfitTableRows, ProjTypeList, areaLabelList, projTypeList } from '../../config';
+
+const grossProfitTblRowInit: GrossProfitTableRows = {
+  projType: '',
+  orderAmtTotalBeforeTax: 0,
+  grossprofitAmtTotal: 0,
+  introFeeYume: 0,
+  grossProfitCoco: 0,
+  grossProfitRateCoco: 0,
+  orderAmtMonthlyAve: 0,
+  grossProfitMonthlyAve: 0,
+};
+
 
 
 
@@ -8,9 +21,11 @@ import { AreaLabelList, GrossProfitTableRows, ProjTypeList, areaLabelList, projT
 export const useCumulativeTableTotal = ({
   contractData,
   area,
+  monthsNum,
 }: {
   contractData: SummaryContracts[]
   area: string[]
+  monthsNum: number
 }) => {
 
   const { data: stores } = useStores();
@@ -54,48 +69,70 @@ export const useCumulativeTableTotal = ({
     projTypeForTotalization,
     orderAmountBeforeTax,
     grossProfitAmount,
+    grossProfitAmtCoco,
     introFeeYume,
   }) => {
 
     if (typeof acc[projTypeForTotalization] === undefined) {
       acc[projTypeForTotalization] = {
-        ...acc[projTypeForTotalization],
+        ...grossProfitTblRowInit,
+        projType: projTypeForTotalization,
         orderAmtTotalBeforeTax: +orderAmountBeforeTax,
         grossprofitAmtTotal: +grossProfitAmount,
+        grossProfitCoco: +grossProfitAmtCoco,
         introFeeYume: +introFeeYume,
       };
     } else {
       acc[projTypeForTotalization] = {
-        ...acc[projTypeForTotalization],
-        orderAmtTotalBeforeTax: +orderAmountBeforeTax,
-        grossprofitAmtTotal: +grossProfitAmount,
-        introFeeYume: +introFeeYume,
+        ...grossProfitTblRowInit,
+        orderAmtTotalBeforeTax: acc[projTypeForTotalization].orderAmtTotalBeforeTax + +orderAmountBeforeTax,
+        grossprofitAmtTotal: acc[projTypeForTotalization].grossprofitAmtTotal + +grossProfitAmount,
+        grossProfitCoco: acc[projTypeForTotalization].grossProfitCoco + +grossProfitAmtCoco,
+        introFeeYume: acc[projTypeForTotalization].introFeeYume + +introFeeYume,
       };
     }
     return acc;
 
-  }, {} as Record<ProjTypeList[number], GrossProfitTableRows>);
+  }, {} as Record<ProjTypeList, GrossProfitTableRows>);
 
+
+  // 取得したデータから割合の計算をする
   for (const projType of projTypeList) {
     if (typeof formattingContracts[projType] === undefined) {
+
       formattingContracts[projType] = {
-        ...formattingContracts[projType],
+        ...grossProfitTblRowInit,
+        projType: projType,
       };
-    } else {
 
-      const grossProfitCoco = 0;
+    } else {
+      const orderAmtBfTax = formattingContracts[projType]?.orderAmtTotalBeforeTax ?? 0;
+      const grossProfitCoco = formattingContracts[projType]?.grossProfitCoco ?? 0;
+
+      const calcOrderAmtBfTax = orderAmtBfTax === 0 ? 1 : orderAmtBfTax;
+      const grossProfitRateCoco = Big(grossProfitCoco).div(calcOrderAmtBfTax)
+        .times(100)
+        .toNumber();
+      const orderAmtMonthlyAve = Big(orderAmtBfTax).div(monthsNum)
+        .round(0, Big.roundHalfUp)
+        .toNumber();
+      const grossProfitMonthlyAve = Big(grossProfitCoco).div(monthsNum)
+        .round(0, Big.roundHalfUp)
+        .toNumber();
 
       formattingContracts[projType] = {
         ...formattingContracts[projType],
-        grossProfitCoco: grossProfitCoco,
-        grossProfitRateCoco: 0,
-        orderAmtMonthlyAve: 0,
-        grossProfitMonthlyAve: 0,
+        grossProfitRateCoco: grossProfitRateCoco,
+        orderAmtMonthlyAve: orderAmtMonthlyAve,
+        grossProfitMonthlyAve: grossProfitMonthlyAve,
       };
     }
   }
 
 
-  return Object.entries(formattingContracts);
+  const newData = Object.values(formattingContracts);
+
+
+  return newData;
 
 };

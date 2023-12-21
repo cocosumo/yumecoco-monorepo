@@ -1,4 +1,3 @@
-import { CumulativeTableByArea } from './cumulativeTableByArea/CumulativeTableByArea';
 import { GrossProfitByPerson } from './grossProfitByPerson/GrossProfitByPerson';
 import { useContracts } from '../../hooks/useContracts';
 import { useProjects } from '../../hooks/useProjects';
@@ -8,6 +7,9 @@ import { useAndpadProcurement } from '../../hooks/useAndpadProcurement';
 import { useProjTypes } from '../../hooks/useProjTypes';
 import { getDatePeriod } from './helper/getDatePeriod';
 import { SummaryContracts, getSummaryContracts } from '../../helpers/getSummaryContracts';
+import { Stack } from '@mui/material';
+import { CumulativeTableTotal } from './cumulativeTableByArea/CumulativeTableTotal';
+import { CumulativeTableAverage } from './cumulativeTableByArea/CumulativeTableAverage';
 
 
 
@@ -54,9 +56,10 @@ export const Results = () => {
 
 
   return (
-    <>
-      <CumulativeTableByArea contractData={summaryContracts} />
+    <Stack spacing={2}>
+      <CumulativeTableTotal contractData={summaryContracts} />
+      <CumulativeTableAverage />
       <GrossProfitByPerson contractData={summaryContracts} />
-    </>
+    </Stack>
   );
 };

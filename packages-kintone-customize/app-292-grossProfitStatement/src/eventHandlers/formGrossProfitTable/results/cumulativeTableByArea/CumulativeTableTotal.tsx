@@ -46,15 +46,17 @@ export const CumulativeTableTotal = ({
   });
 
   const StyledTableHead = styled(TableHead)({
-    backgroundColor: 'aliceblue',    
+    backgroundColor: 'aliceblue',
     fontSize: '14px',
     border: '1px solid #ddd',
     borderCollapse: 'collapse',
     borderSpacing: '0',
   });
 
+
+
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <Typography variant='h5'>
         {cumulativeTableLabel}
       </Typography>

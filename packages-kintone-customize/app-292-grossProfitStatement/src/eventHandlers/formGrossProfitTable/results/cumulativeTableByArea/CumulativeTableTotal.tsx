@@ -11,7 +11,7 @@ import { getViewDataTotal } from '../helper/getViewDataTotal';
 import { KTableLabelList, projTypeList, tableLabelList } from '../../config';
 
 
-/** 対象期間の累計表を表示する */
+/** 対象期間の粗利集計表を表示する */
 export const CumulativeTableTotal = ({
   contractData,
 }: {

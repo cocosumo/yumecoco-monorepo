@@ -1,25 +1,14 @@
 import { Stack, Table, TableBody, TableHead, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { TableRowLayout } from './TableRowLayout';
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
 import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { useAreaNameById } from '../hooks/useAreaNameById';
 import { useCumulativeTableTotal } from '../hooks/useCumulativeTableTotal';
 import { getMonthsNum } from '../helper/getMonthsNum';
-import { GrossProfitTableRow, KGrossProfitTableRows, KTableLabelList, ProjTypeList, projTypeList, tableLabelList } from '../../config';
-
-const getViewData = ({
-  datas,
-  projTypeForTotalization,
-  tgtParam,
-}: {
-  datas: GrossProfitTableRow[]
-  projTypeForTotalization: ProjTypeList
-  tgtParam: KGrossProfitTableRows
-}) => {
-  const tgtObj = datas.find(({ projType }) => projType === projTypeForTotalization);
-
-  return tgtObj ? tgtObj[tgtParam] : 0;
-};
+import { getViewData } from '../helper/getViewData';
+import { getViewDataTotal } from '../helper/getViewDataTotal';
+import { KTableLabelList, projTypeList, tableLabelList } from '../../config';
 
 
 /** 対象期間の累計表を表示する */
@@ -55,7 +44,14 @@ export const CumulativeTableTotal = ({
     area,
     monthsNum,
   });
-  console.log('viewDate', viewDate);
+
+  const StyledTableHead = styled(TableHead)({
+    backgroundColor: 'aliceblue',    
+    fontSize: '14px',
+    border: '1px solid #ddd',
+    borderCollapse: 'collapse',
+    borderSpacing: '0',
+  });
 
   return (
     <Stack spacing={1}>
@@ -64,7 +60,7 @@ export const CumulativeTableTotal = ({
       </Typography>
 
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
+        <StyledTableHead>
           <TableRowLayout
             key={'CumulativeTableTotal.header'}
             label={'税抜'}
@@ -75,7 +71,7 @@ export const CumulativeTableTotal = ({
             others={projTypeList[4]}
             total={'合計'}
           />
-        </TableHead>
+        </StyledTableHead>
         <TableBody>
           {Object.keys(tableLabelList).map((tableLabel: KTableLabelList) => (
             <TableRowLayout
@@ -106,7 +102,10 @@ export const CumulativeTableTotal = ({
                 projTypeForTotalization: projTypeList[4],
                 tgtParam: tableLabel,
               })}
-              total
+              total={getViewDataTotal({
+                datas: viewDate,
+                tgtParam: tableLabel,
+              })}
             />
           ))}
         </TableBody>

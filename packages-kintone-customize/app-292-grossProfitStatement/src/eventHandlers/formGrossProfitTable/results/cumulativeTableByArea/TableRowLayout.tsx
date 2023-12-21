@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { ReactNode } from 'react';
 
 export interface TableRowLayoutProps {
@@ -10,6 +11,15 @@ export interface TableRowLayoutProps {
   others: ReactNode,
   total: ReactNode,
 }
+
+const StyledTableCell = styled(TableCell)({  
+  color: 'darkslategray',
+  fontSize: '14px',
+  border: '1px solid #ddd',
+  borderCollapse: 'collapse',
+  borderSpacing: '0',
+  padding: '6px 16px',
+});
 
 
 
@@ -27,27 +37,27 @@ export const TableRowLayout = (props: TableRowLayoutProps) => {
 
   return (
     <TableRow>
-      <TableCell align='left'>
+      <StyledTableCell align='left'>
         {label}
-      </TableCell>
-      <TableCell align='right'>
+      </StyledTableCell>
+      <StyledTableCell align='right'>
         {shinchiku}
-      </TableCell>
-      <TableCell align='right'>
+      </StyledTableCell>
+      <StyledTableCell align='right'>
         {reform}
-      </TableCell>
-      <TableCell align='right'>
+      </StyledTableCell>
+      <StyledTableCell align='right'>
         {shinchikuhutai}
-      </TableCell>
-      <TableCell align='right'>
+      </StyledTableCell>
+      <StyledTableCell align='right'>
         {taiyouko}
-      </TableCell>
-      <TableCell align='right'>
+      </StyledTableCell>
+      <StyledTableCell align='right'>
         {others}
-      </TableCell>
-      <TableCell align='right'>
+      </StyledTableCell>
+      <StyledTableCell align='right'>
         {total}
-      </TableCell>
+      </StyledTableCell>
     </TableRow>
   );
 };

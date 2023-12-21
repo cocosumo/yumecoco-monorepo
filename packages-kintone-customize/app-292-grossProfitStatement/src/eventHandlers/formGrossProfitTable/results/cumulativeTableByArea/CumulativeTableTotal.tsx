@@ -37,7 +37,7 @@ export const CumulativeTableTotal = ({
 
   const monthsNum = getMonthsNum(periods);
 
-  const cumulativeTableLabel = `${year}年度 ${storeNames ? storeNames : ''}	契約累積表`;
+  const cumulativeTableLabel = `${year}年度 ${storeNames ? storeNames : ''}	契約集計表`;
 
   const viewDate = useCumulativeTableTotal({
     contractData,

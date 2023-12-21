@@ -1,9 +1,9 @@
 import { Big } from 'big.js';
 import { SummaryContracts } from '../../../helpers/getSummaryContracts';
 import { useStores } from '../../../hooks/useStores';
-import { AreaLabelList, GrossProfitTableRows, ProjTypeList, areaLabelList, projTypeList } from '../../config';
+import { AreaLabelList, GrossProfitTableRow, ProjTypeList, areaLabelList, projTypeList } from '../../config';
 
-const grossProfitTblRowInit: GrossProfitTableRows = {
+const grossProfitTblRowInit: GrossProfitTableRow = {
   projType: '',
   orderAmtTotalBeforeTax: 0,
   grossprofitAmtTotal: 0,
@@ -62,9 +62,6 @@ export const useCumulativeTableTotal = ({
     }
   });
 
-  //console.log(`contractData: ${contractData.length}件, ${contractData}`);
-  //console.log(`filteredContracts: ${filteredContracts.length}件, ${filteredContracts}`);
-
   const formattingContracts = filteredContracts.reduce((acc, {
     projTypeForTotalization,
     orderAmountBeforeTax,
@@ -73,7 +70,7 @@ export const useCumulativeTableTotal = ({
     introFeeYume,
   }) => {
 
-    if (typeof acc[projTypeForTotalization] === undefined) {
+    if (acc[projTypeForTotalization] === undefined) {
       acc[projTypeForTotalization] = {
         ...grossProfitTblRowInit,
         projType: projTypeForTotalization,
@@ -84,7 +81,7 @@ export const useCumulativeTableTotal = ({
       };
     } else {
       acc[projTypeForTotalization] = {
-        ...grossProfitTblRowInit,
+        ...acc[projTypeForTotalization],
         orderAmtTotalBeforeTax: acc[projTypeForTotalization].orderAmtTotalBeforeTax + +orderAmountBeforeTax,
         grossprofitAmtTotal: acc[projTypeForTotalization].grossprofitAmtTotal + +grossProfitAmount,
         grossProfitCoco: acc[projTypeForTotalization].grossProfitCoco + +grossProfitAmtCoco,
@@ -93,12 +90,12 @@ export const useCumulativeTableTotal = ({
     }
     return acc;
 
-  }, {} as Record<ProjTypeList, GrossProfitTableRows>);
+  }, {} as Record<ProjTypeList, GrossProfitTableRow>);
 
 
   // 取得したデータから割合の計算をする
   for (const projType of projTypeList) {
-    if (typeof formattingContracts[projType] === undefined) {
+    if (formattingContracts[projType] === undefined) {
 
       formattingContracts[projType] = {
         ...grossProfitTblRowInit,
@@ -112,6 +109,7 @@ export const useCumulativeTableTotal = ({
       const calcOrderAmtBfTax = orderAmtBfTax === 0 ? 1 : orderAmtBfTax;
       const grossProfitRateCoco = Big(grossProfitCoco).div(calcOrderAmtBfTax)
         .times(100)
+        .round(2, Big.roundHalfUp)
         .toNumber();
       const orderAmtMonthlyAve = Big(orderAmtBfTax).div(monthsNum)
         .round(0, Big.roundHalfUp)
@@ -130,9 +128,6 @@ export const useCumulativeTableTotal = ({
   }
 
 
-  const newData = Object.values(formattingContracts);
-
-
-  return newData;
+  return Object.values(formattingContracts);
 
 };

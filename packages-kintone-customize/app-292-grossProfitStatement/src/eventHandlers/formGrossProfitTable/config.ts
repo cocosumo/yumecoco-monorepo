@@ -7,7 +7,7 @@ export type AreaLabelList = typeof areaLabelList[number];
 export const projTypeList = ['新築', 'リフォーム', '新築付帯', '太陽光', 'その他'] as const;
 export type ProjTypeList = typeof projTypeList[number] | '';
 
-export type GrossProfitTableRows = {
+export type GrossProfitTableRow = {
   /** 工事種別 */
   projType: ProjTypeList,
 
@@ -32,8 +32,8 @@ export type GrossProfitTableRows = {
   /** 粗利 月平均 */
   grossProfitMonthlyAve: number,
 };
-export type KGrossProfitTableRows = keyof GrossProfitTableRows;
-export type KTableLabelList = keyof Omit<GrossProfitTableRows, 'projType' | 'grossprofitAmtTotal' | 'introFeeYume'>;
+export type KGrossProfitTableRows = keyof GrossProfitTableRow;
+export type KTableLabelList = keyof Omit<GrossProfitTableRow, 'projType' | 'grossprofitAmtTotal' | 'introFeeYume'>;
 
 export const tableLabelList: Record<KTableLabelList, string> = {
   'orderAmtTotalBeforeTax': '受注金額計',

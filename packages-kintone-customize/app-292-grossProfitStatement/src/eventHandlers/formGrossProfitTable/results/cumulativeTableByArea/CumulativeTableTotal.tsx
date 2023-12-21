@@ -5,14 +5,14 @@ import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { useAreaNameById } from '../hooks/useAreaNameById';
 import { useCumulativeTableTotal } from '../hooks/useCumulativeTableTotal';
 import { getMonthsNum } from '../helper/getMonthsNum';
-import { GrossProfitTableRows, KGrossProfitTableRows, KTableLabelList, ProjTypeList, projTypeList, tableLabelList } from '../../config';
+import { GrossProfitTableRow, KGrossProfitTableRows, KTableLabelList, ProjTypeList, projTypeList, tableLabelList } from '../../config';
 
 const getViewData = ({
   datas,
   projTypeForTotalization,
   tgtParam,
 }: {
-  datas: GrossProfitTableRows[]
+  datas: GrossProfitTableRow[]
   projTypeForTotalization: ProjTypeList
   tgtParam: KGrossProfitTableRows
 }) => {
@@ -55,6 +55,7 @@ export const CumulativeTableTotal = ({
     area,
     monthsNum,
   });
+  console.log('viewDate', viewDate);
 
   return (
     <Stack spacing={1}>

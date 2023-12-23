@@ -2,31 +2,31 @@
 import { openai } from '../@common/config';
 
 
+
 export const askForReading = async (str: string, user?: string) => {
 
-  const { data } = await openai.createChatCompletion({
-    model: 'gpt-3.5-turbo',
-    max_tokens: 120,
-    temperature: 1,
-    top_p: 1,
-    n: 1,
-    frequency_penalty: 1,
+  const completion = await openai.chat.completions.create({
     messages: [
-      {
-        role: 'system',
-        content: [
-          'You are a Japanese who is an expert in converting user input into the most popular katakana reading while maintaining spaces of the input.',
+      { 
+        'role': 'system', 
+        'content': [
+          'You are a Japanese who is an expert in converting user input into the most popular katakana reading.',  
+          'The user will send names of people or places.', 
+          'Maintain spaces.',
           'Never explain.',
-        ].join(' '),
-      },
+        ].join(' ') },
       {
         role: 'user',
         content:  str,
       },
     ],
+    model: 'gpt-4-1106-preview',
+    max_tokens: 200,
     user,
   });
 
-  return data;
+  console.log('completion', JSON.stringify(completion, null, 2));
+
+  return completion;
 
 };

@@ -1,7 +1,7 @@
 
 import { kintoneProxyWrapper, openAIEndpoints } from 'libs';
 import { openAIBaseUrl } from './config';
-import { CreateChatCompletionResponse } from 'openai';
+import OpenAI from 'openai';
  
 export const askForReading = async (text: string) => {
 
@@ -29,7 +29,7 @@ export const askForReading = async (text: string) => {
     // eslint-disable-next-line no-console
     console.log('AI request', data);
 
-    return data as CreateChatCompletionResponse;
+    return data as OpenAI.Chat.ChatCompletion;
 
 
   } catch (error) {

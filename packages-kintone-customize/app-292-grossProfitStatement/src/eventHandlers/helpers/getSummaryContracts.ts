@@ -1,23 +1,53 @@
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
 import { IAndpadprocurements, IContracts, IProjects, IProjtypes, TAgents, TEnvelopeStatus } from 'types';
 import { roundDownTo1000 } from './roundDownTo1000';
+import { ProjTypeList } from '../formGrossProfitTable/config';
 
 export interface SummaryContracts {
+  /** 店舗名 */
   storeName: string
+
+  /** エリア(西/東) */
+  area: string
+
+  /** 顧客名 */
   custName: string
+
+  /** 工事種別 */
   projType: string
 
   /** 集計用の工事種別 */
-  projTypeForTotalization: string
+  projTypeForTotalization: ProjTypeList
+
+  /** 夢てつAG名 */
   yumeAgName: string[]
+
+  /** ここすもAG名 */
   cocoAgs: string[]
+
+  /** ここすも工事担当者 */
   cocoConst: string[]
-  refund: boolean
+
+  /** 返金有無 */
+  hasRefund: boolean
+
+  /** 物件完了日 */
   closingDate: string
+
+  /** 発注金額(税抜) */
   orderAmountBeforeTax: number
+
+  /** 粗利金額(税抜) */
   grossProfitAmount: number
+
+  /** ここすも実利益額(税抜) */
+  grossProfitAmtCoco: number
+
+  /** 夢てつ紹介料 */
   introFeeYume: number
-  selfProjSection: string
+
+  /** 自社工事区分 */
+  inHouseProjType: string
 }
 
 
@@ -38,6 +68,9 @@ const getAgents = ({
     });
 };
 
+
+
+
 export const getSummaryContracts = ({
   projTypes,
   projects,
@@ -52,6 +85,7 @@ export const getSummaryContracts = ({
 
   const summaryContracts: SummaryContracts[] = projects.map(({
     store,
+    territory,
     custNames,
     projTypeId,
     agents,
@@ -60,6 +94,7 @@ export const getSummaryContracts = ({
     andpadSystemId,
     forceLinkedAndpadSystemId,
     commissionRate,
+    inHouseProjTypeName,
   }) => {
 
     const projSystemId = andpadSystemId.value || forceLinkedAndpadSystemId.value || '';
@@ -119,6 +154,8 @@ export const getSummaryContracts = ({
       実利益額,
       利益税抜_夢てつ,
       実利益税抜_夢てつ,
+      利益税抜_ここすも,
+      実利益税抜_ここすも,
     } = calcProfitability({
       orderAmountAfterTax: orderAmountAfterTax,
       additionalAmountAfterTax: 0, // 追加金額も契約金額に含めて処置
@@ -134,18 +171,20 @@ export const getSummaryContracts = ({
 
     return {
       storeName: store.value,
+      area: territory.value,
       custName: custNames.value,
       projType: projTypeName?.value || '',
-      projTypeForTotalization: projTypeForTotalization?.value || '',
+      projTypeForTotalization: projTypeForTotalization?.value as ProjTypeList || '',
       yumeAgName: yumeAgNames,
       cocoAgs: getAgents({ agents: agents, relation: 'cocoAG' }),
       cocoConst: getAgents({ agents: agents, relation: 'cocoConst' }),
-      refund: hasRefund,
+      hasRefund: hasRefund,
       closingDate: projFinDate.value,
       orderAmountBeforeTax: orderAmountBeforeTax,
       grossProfitAmount: 実利益額,
+      grossProfitAmtCoco: 利益税抜_ここすも || 実利益税抜_ここすも,
       introFeeYume: roundDownTo1000(利益税抜_夢てつ || 実利益税抜_夢てつ),
-      selfProjSection: '', // TODO 設定方法を確認する
+      inHouseProjType: inHouseProjTypeName.value,
     };
 
   });

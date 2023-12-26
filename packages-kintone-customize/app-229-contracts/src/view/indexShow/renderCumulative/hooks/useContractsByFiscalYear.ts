@@ -51,6 +51,7 @@ export const useContractsByFiscalYear = ({
       conditionArr.push('自社物件 in ("自社物件")');
     } else {
       conditionArr.push(`storeId = "${storeId}"`);
+      conditionArr.push('自社物件 not in ("自社物件")');
     }
   }
 

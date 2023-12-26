@@ -5,6 +5,7 @@ declare namespace DBProjtypes {
     label: kintone.fieldTypes.SingleLineText;
     profitRate: kintone.fieldTypes.Number;
     uuid: kintone.fieldTypes.SingleLineText;
+    projTypeForTotalization: kintone.fieldTypes.SingleLineText;
     sortNum: kintone.fieldTypes.Number;
     projectName: kintone.fieldTypes.SingleLineText;
     commRateByRoleList: {

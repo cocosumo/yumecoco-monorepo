@@ -36,7 +36,7 @@ export const calcProfitability = (params: {
   subsidyAmt?: number // 補助金額
 }): CostManagement => {
 
-  console.log('CalcProfitability params', params);
+  //console.log('CalcProfitability params', params);
 
   const {
     orderAmountAfterTax,

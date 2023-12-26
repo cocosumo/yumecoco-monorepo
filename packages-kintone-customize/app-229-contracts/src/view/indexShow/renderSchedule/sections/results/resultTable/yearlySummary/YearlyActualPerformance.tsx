@@ -33,7 +33,7 @@ export const YearlyActualPerformance = ({
             color={color} 
             key={id}
             contracts={contractsByType?.[id]?.data || []}
-            value={contractsByType?.[id].totalAmtExclTax || 0}
+            value={contractsByType?.[id]?.totalAmtExclTax || 0}
           />
    
         );

@@ -48,7 +48,7 @@ export const YearlyTargetDifference = ({
               color: red[600],
             }}
           >
-            {diff}
+            {diff.toLocaleString()}
           </StyledSummaryCell>
   
         );

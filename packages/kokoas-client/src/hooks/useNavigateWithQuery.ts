@@ -7,6 +7,7 @@ export interface NavigateWithQueryProps {
   projEstimateId?: string;
   custGroupId?:  string;
   contractId?: string;
+  isNew?: boolean;
 }
 
 

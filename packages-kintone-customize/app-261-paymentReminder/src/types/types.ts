@@ -1,4 +1,4 @@
-import { IPaymentReminder, KPaymentReminder } from '../../../../packages-automation/auto-paymentAlert/config';
+import { IPaymentReminder, KPaymentReminder } from '../../../../packages-automation/auto-paymentAlertV2/config';
 
 export interface KintoneEvent {
   record: IPaymentReminder,

@@ -5,6 +5,7 @@ import { TypeOfForm } from '../../schema';
 export const choices = [ 
   '追加工事',
   '減額工事',
+  '返金',
   'その他',
 ] as const;
 

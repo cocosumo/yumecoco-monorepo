@@ -13,9 +13,6 @@ const resolvePostalByAddress = async (postal: string | undefined, address: strin
     parsedProjPostal = await getPostalByAddress(address);
   }
 
-  console.log('address', address, parsedProjPostal);
-
-
   return parsedProjPostal;
 
 };

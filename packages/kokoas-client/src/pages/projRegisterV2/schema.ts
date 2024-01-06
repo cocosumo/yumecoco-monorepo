@@ -1,4 +1,5 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
+import { addressHasPrefecture } from 'libs';
 import { agentTypes, buildingTypes, realEstateStatus, recordCancelStatuses, recordStatuses } from 'types';
 import { z } from 'zod';
 
@@ -117,6 +118,7 @@ export const schema = z.object({
 })
   .superRefine((
     {
+      address1,
 
       isShowFinalAddress,
       finalAddress1,
@@ -138,6 +140,14 @@ export const schema = z.object({
     },
     ctx,
   ) => {
+    if (!hasContract && !addressHasPrefecture(address1)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Andpadで必須のため、都道府県を入力してください。',
+        path: ['address1'],
+      });
+    }
+
     if (isShowFinalAddress) {
 
       if (!finalAddress1) {

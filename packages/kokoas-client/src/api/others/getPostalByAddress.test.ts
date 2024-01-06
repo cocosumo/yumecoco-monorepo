@@ -12,7 +12,7 @@ describe('getPostalByAddress.test', () => {
   });
 
   it('it should return postal code', async () => {
-    const address = '愛知県豊田市華園町前田14-3';
+    const address = '愛知県豊田市華園町前田';
     const result = await getPostalByAddress(address);
 
 

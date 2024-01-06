@@ -13,6 +13,9 @@ const resolvePostalByAddress = async (postal: string | undefined, address: strin
     parsedProjPostal = await getPostalByAddress(address);
   }
 
+  console.log('address', address, parsedProjPostal);
+
+
   return parsedProjPostal;
 
 };
@@ -52,6 +55,7 @@ export const convertProjToAndpad = async (projId: string) => {
     projRec?.postal.value, 
     projRec.address1.value + projRec.address2.value,
   );
+
 
   const parsedCustPostal = await resolvePostalByAddress(
     firstCust?.postalCode?.value,

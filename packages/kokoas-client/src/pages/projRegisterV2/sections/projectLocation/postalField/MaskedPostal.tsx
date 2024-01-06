@@ -43,7 +43,7 @@ export const MaskedPostal = ({
             value={(value as string).replace('-', '')} 
             format="###-####"
             onValueChange={(e) => {
-              console.log('onValueChanges', e);
+              console.log('onValueChange', e);
               onChange(e.value);
             }}
             onBlur={onBlur}

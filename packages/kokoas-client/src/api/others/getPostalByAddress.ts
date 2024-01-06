@@ -35,8 +35,6 @@ export const getPostalByAddress = async (
 
     return resolvedPostal;
 
-    
-
 
   } catch (err) {
     console.error(`Error: getPostalByAddress. Params: ${address}. ${err?.message} `);

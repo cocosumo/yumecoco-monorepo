@@ -5,6 +5,7 @@ import { useTypedFormContext, useTypedWatch } from '../../hooks/useTypedRHF';
 import { ControlledTextField } from '../../fields/ControlledTextField';
 import { CopyLocation } from './copyLocation/CopyLocation';
 import { FinalAddressFields } from './FinalAddressFields';
+import { AddressCheck } from './AddressCheck';
 
 export const ProjectLocation = () => {
 
@@ -41,14 +42,21 @@ export const ProjectLocation = () => {
 
       <Postal showButtons={!hasContract} />
   
-      <ControlledTextField
-        name='address1'
-        label='住所（県市区町村）'
-        placeholder='愛知県名古屋市中区'
-        disabled={hasContract}
-        width={600}
-        required
-      />
+      <Stack
+        direction={'row'}
+        spacing={2}
+      >
+
+        <ControlledTextField
+          name='address1'
+          label='住所（県市区町村）'
+          placeholder='愛知県名古屋市中区'
+          disabled={hasContract}
+          width={600}
+          required
+        />
+        <AddressCheck />
+      </Stack>
 
       <Stack direction={'row'} spacing={2}>
         <ControlledTextField

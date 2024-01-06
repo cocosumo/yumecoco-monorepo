@@ -140,7 +140,7 @@ export const schema = z.object({
     },
     ctx,
   ) => {
-    if (!addressHasPrefecture(address1)) {
+    if (!hasContract && !addressHasPrefecture(address1)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: 'Andpadで必須のため、都道府県を入力してください。',

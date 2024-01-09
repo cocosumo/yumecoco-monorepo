@@ -25,7 +25,7 @@ export const ContractList = ({
         bgcolor: 'background.paper',
         height: '100%',
         overflowY: 'auto',
-        minWidth: '200px',
+        minWidth: '250px',
         borderRight: '1px solid rgba(0, 0, 0, 0.12)',
       }}
     >
@@ -39,7 +39,7 @@ export const ContractList = ({
       <Divider />
 
 
-      {records?.map(({ uuid, contractDate, envelopeStatus, totalContractAmt }, index) => (
+      {records?.map(({ uuid, contractDate, envelopeStatus, totalContractAmt, otherAttachments }, index) => (
 
         <ListItem key={uuid.value} disablePadding>
           <ListItemButton 
@@ -48,6 +48,7 @@ export const ContractList = ({
             selected={selectedIndex === index}
           >
             <ListItemLayout 
+              hasOtherAttachments={otherAttachments?.value.length > 0}
               status={<ContractStatus envStatus={envelopeStatus.value as TEnvelopeStatus} />}
               contractDate={`${parseISODateToFormat(contractDate.value, 'yy/MM/dd')}`}
               contractAmount={(+totalContractAmt.value).toLocaleString()}

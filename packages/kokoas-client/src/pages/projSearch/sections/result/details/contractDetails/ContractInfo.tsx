@@ -23,6 +23,7 @@ export const ContractInfo = ({
     envDocFileKeys,
     contractType,
     contractAddType,
+    otherAttachments,
     memo,
   } = record ?? {};
 
@@ -52,8 +53,12 @@ export const ContractInfo = ({
         value: <ContractRecipients hasContract={hasContract} rawRecipients={envRecipients} />,
       },
       {
-        label: '書類',
+        label: '契約書類',
         value: envDocFileKeys.value.length ?  <Files files={envDocFileKeys}  /> : '-',
+      },
+      {
+        label: '添付',
+        value: otherAttachments.value.length ?  <Files files={otherAttachments}  /> : '-',
       },
       {
         label: '契約日',

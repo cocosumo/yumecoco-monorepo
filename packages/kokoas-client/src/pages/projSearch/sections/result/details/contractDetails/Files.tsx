@@ -1,5 +1,5 @@
-import { Button, CircularProgress, Stack, Tooltip } from '@mui/material';
-import {  useKintoneFile } from 'kokoas-client/src/hooksQuery';
+import { Button, Stack, Tooltip } from '@mui/material';
+import { downloadFile } from 'api-kintone';
 import { roundTo } from 'libs';
 import { IContracts } from 'types';
 
@@ -12,19 +12,21 @@ const PDFLink = ({
   fileName: string,
   fileSize: number,
 }) => {
-  const { data: fileData, isLoading } = useKintoneFile(fileKey);
 
-  if (!fileData || isLoading) return <CircularProgress size={16} />;
+  const handleDownload = async () => {
+    const fileData = await downloadFile(fileKey);
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([fileData], { type: 'application/pdf' }));
+    link.download = fileName;
+    link.click();
+  };
 
-  const url = URL.createObjectURL(new Blob([fileData], { type: 'application/pdf' }));
+
   
   return (
     <Tooltip title={`${fileName} (${roundTo((fileSize / 1024), 2)?.toLocaleString()} KB)`}>
       <Button
-        href={url}
-        download={fileName}
-        target="_blank"
-        rel="noopener noreferrer"
+        onClick={handleDownload}
         variant="outlined"
         size="small"
         sx={{

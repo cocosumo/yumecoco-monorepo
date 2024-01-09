@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ContractRow } from '../../hooks/useFilteredContracts';
 import { TRowLayout } from './TRowLayout';
 import CommentIcon from '@mui/icons-material/Comment';
+import AttachmentIcon from '@mui/icons-material/Attachment';
 
 export const ResultsTBody = ({
   items,
@@ -48,6 +49,7 @@ export const ResultsTBody = ({
 
         createdAt,
         updatedAt,
+        hasOtherAttachments,
       })=>{
 
         const isCompleted = contractStatus === 'completed';
@@ -70,17 +72,25 @@ export const ResultsTBody = ({
                 label={label || '未処理'}
                 size="small"
                 color={isCompleted ? 'success' : 'default'}
-                icon={memo 
-                  ? (
-                    <Tooltip
-                      title={<span style={{ whiteSpace: 'pre' }}>
-                        {memo}
-                      </span>}
-                    >
-                      <CommentIcon />
+                icon={(
+                  <>
+                    {memo && (
+                      <Tooltip
+                        title={<span style={{ whiteSpace: 'pre' }}>
+                          {memo}
+                        </span>}
+                      >
+                        <CommentIcon />
+                      </Tooltip>
+                    )}
+
+                    {hasOtherAttachments && (
+                    <Tooltip title="添付ファイルがあります">
+                      <AttachmentIcon />
                     </Tooltip>
-                  )
-                  : undefined}
+                    )}
+                  </>
+                )}
               />
               )}
             category={category || '契約'}

@@ -23,7 +23,9 @@ export const itemsSorter = ({
       case 'subsidyAmt':
       case 'profitRate':
         return sortNumber(a[orderBy] as number, b[orderBy] as number, !asc);
-
+      case 'hasOtherAttachments':
+        return sortNumber(a[orderBy] ? 1 : 0, b[orderBy] ? 1 : 0, !asc);
+        
       default :
         return asc
           ?  (a[orderBy]).localeCompare((b[orderBy]))

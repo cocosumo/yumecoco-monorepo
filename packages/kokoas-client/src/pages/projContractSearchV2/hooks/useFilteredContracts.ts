@@ -46,6 +46,7 @@ export interface ContractRow {
   updatedAt: string,
 
   memo: string,
+  hasOtherAttachments: boolean,
 }
 
 export type KContractRow = keyof ContractRow;
@@ -112,6 +113,7 @@ export const useFilteredContracts = () => {
           signMethod,
 
           memo,
+          otherAttachments,
         } = cur; // 契約のデータ;
 
         // 契約進捗の中に何も選択されていないかチェック
@@ -233,6 +235,7 @@ export const useFilteredContracts = () => {
           profitRate: calcProfitRate(totalCost, totalAmountBeforeTax ),
 
           memo: memo?.value || '',
+          hasOtherAttachments: otherAttachments?.value?.length > 0,
 
           createdAt: parseISOTimeToFormat(createdAt.value),
           updatedAt: parseISOTimeToFormat(updatedAt.value),

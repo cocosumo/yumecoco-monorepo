@@ -1,11 +1,15 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { ReactNode } from 'react';
+import { grey } from '@mui/material/colors';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 export const ListItemLayout = ({
+  hasOtherAttachments,
   status,
   contractDate,
   contractAmount,
 }:{
+  hasOtherAttachments?: boolean,
   status: ReactNode,
   contractDate: ReactNode,
   contractAmount: ReactNode,
@@ -25,6 +29,9 @@ export const ListItemLayout = ({
       <Typography variant='caption' textAlign={'right'} width={'50%'}>
         {contractAmount}
       </Typography>
+      <Box minWidth={20} color={grey[600]} ml={1}>
+        {hasOtherAttachments ? <AttachFileIcon /> : null}
+      </Box>
     </Stack>
   );
 };

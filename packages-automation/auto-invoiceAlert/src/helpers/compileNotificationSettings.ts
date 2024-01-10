@@ -27,10 +27,15 @@ export const compileNotificationSettings = ({
 
     // 通知対象者情報の更新
     exsistingSettings?.value?.forEach((item) => {
+      const {
+        alertTargetId,
+        alertTargetName,
+        chatworkRoomId,
+      } = item.value;
 
-      if (item.value.alertTargetId.value === room.agentId) {
-        item.value.alertTargetName.value = room.agentName;
-        item.value.chatworkRoomId.value = room.cwRoomId;
+      if (alertTargetId.value === room.agentId) {
+        alertTargetName.value = room.agentName;
+        chatworkRoomId.value = room.cwRoomId;
         chkFlg = true;
       }
     });

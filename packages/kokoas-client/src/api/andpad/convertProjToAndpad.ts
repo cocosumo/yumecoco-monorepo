@@ -53,6 +53,7 @@ export const convertProjToAndpad = async (projId: string) => {
     projRec.address1.value + projRec.address2.value,
   );
 
+
   const parsedCustPostal = await resolvePostalByAddress(
     firstCust?.postalCode?.value,
     firstCust?.address1?.value + firstCust?.address2?.value,

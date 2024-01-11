@@ -2,9 +2,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 
 
 
-export const generateMessageForManager = (invoiceReminder: InvoiceReminder[]) => {
-
-  console.log(invoiceReminder);
+export const generateMessageForAccountant = (invoiceReminder: InvoiceReminder[]) => {
 
   const contractSummary = invoiceReminder.map(({
     projName,
@@ -12,12 +10,14 @@ export const generateMessageForManager = (invoiceReminder: InvoiceReminder[]) =>
     storeName,
     contractDate,
     totalContractAmount,
+    andpadInvoiceUrl,
   }, idx) => {
     const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 
     return `${idx + 1}件目
 ${storeName}　${projName}
 契約日:${contractDate}　契約金額 ￥${(+totalContractAmount).toLocaleString()}　担当者:${agentNames}
+ANDPAD引合粗利管理[入金]　${andpadInvoiceUrl}
 `;
   });
 

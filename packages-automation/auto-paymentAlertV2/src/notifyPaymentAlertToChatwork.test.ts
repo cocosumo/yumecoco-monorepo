@@ -9,14 +9,13 @@ describe('notifyPaymentAlertToChatwork', () => {
   it('should alert chatwork', async () => {
 
 
-    // set output file of createPaymentAlert.test.ts
+    // set output file of createPaymentAlertFromAPPayments.test.ts
     const contractsPath = path.join(__dirname, './__TEST__/createPaymentAlert.json');
     const reminderDat = JSON.parse(fs.readFileSync(contractsPath, 'utf8')) as PaymentReminder[];
 
     await notifyPaymentAlertToChatwork({
       reminderJson: reminderDat,
     });
-
 
   });
 });

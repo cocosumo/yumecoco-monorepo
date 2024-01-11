@@ -2,9 +2,7 @@ import { PaymentReminder } from '../../types/paymentReminder';
 
 
 
-export const generateMessageForManager = (paymentReminder: PaymentReminder[]) => {
-
-  console.log(paymentReminder);
+export const generateMessageForAccountant = (paymentReminder: PaymentReminder[]) => {
 
   const contractSummary = paymentReminder.map(({
     projName,
@@ -12,12 +10,14 @@ export const generateMessageForManager = (paymentReminder: PaymentReminder[]) =>
     storeName,
     expectedPaymentAmt,
     expectedPaymentDate,
+    andpadPaymentUrl,
   }, idx) => {
     const agentNames = cwRoomIds.map(({ agentName }) => agentName).join(', ');
 
     return `${idx + 1}件目
 ${storeName}　${projName}
 入金予定日: ${expectedPaymentDate}　入金予定額 ￥${(+expectedPaymentAmt).toLocaleString()}　担当者:${agentNames}
+ANDPAD引合粗利管理[入金]　${andpadPaymentUrl}
 `;
   });
 

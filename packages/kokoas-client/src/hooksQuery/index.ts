@@ -59,6 +59,7 @@ export * from './useLogicalDeleteCustGroupById';
 export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';
+export * from './usePostalByAddress';
 export * from './useProjById';
 export * from './useProjContractSummary';
 export * from './useProjects';

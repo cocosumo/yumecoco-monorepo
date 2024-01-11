@@ -7,9 +7,9 @@ import { appId, RecordType } from './config';
  */
 export const getCocoAreaMngrByTerritory = async (territory: Territory) => {
 
-  const keyTerritory : KEmployees = 'territory_v2';
+  const keyTerritory: KEmployees = 'territory_v2';
   const affiliation: KEmployees = 'affiliation';
-  const role : KEmployees = '役職';
+  const role: KEmployees = '役職';
   const cocosumo: EmpAffiliations = 'ここすも';
 
   const { records } = await getRecords<RecordType>({
@@ -19,6 +19,7 @@ export const getCocoAreaMngrByTerritory = async (territory: Territory) => {
       `${keyTerritory} in ("${territory}")`,
       `${affiliation} in ("${cocosumo}")`,
       `${role} in ("店長")`,
+      '状態 in ("有効")',
     ].join(' and '),
   });
 

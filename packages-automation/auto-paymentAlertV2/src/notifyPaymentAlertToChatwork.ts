@@ -5,6 +5,8 @@ import { generateMessage } from './notificationFunc/generateMessage';
 import { generateMessageForManager } from './notificationFunc/generateMessageForManager';
 import { chatworkRooms, isProd } from '../config';
 import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAreaMngrByTerritory';
+import { getCocoAccountant } from 'api-kintone';
+import { generateMessageForAccountant } from './notificationFunc/generateMessageForAccountant';
 
 
 
@@ -98,4 +100,50 @@ export const notifyPaymentAlertToChatwork = async ({
     }
   }
 
+
+  
+  // 経理担当者へ、件数とメッセージを送信する
+  const accountants = await getCocoAccountant();
+  for (const accountant of accountants) {
+    let reminderDat = [] as PaymentReminder[];
+
+    if (accountant.territory_v2.value === '東') {
+      reminderDat = reminderJson.filter(({
+        territory,
+        alertState,
+      }) => (territory === '東') && alertState);
+    } else {
+      reminderDat = reminderJson.filter(({ alertState })=> alertState);
+    }
+
+
+    if (reminderDat.length === 0) continue;
+
+    const message = generateMessageForAccountant(reminderDat);
+
+
+    try {
+
+      await sendMessage({
+        body: message,
+        roomId: (isProd) ? accountant.chatworkRoomId.value : chatworkRooms.test,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+    } catch (error) {
+
+      await sendMessage({
+        body: message,
+        roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+      await sendMessage({
+        body: `${[`【送信エラー】経理${accountant.文字列＿氏名.value}宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
+        roomId: chatworkRooms.testRoom,
+        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+      });
+
+    }
+  }
 };

@@ -18,7 +18,7 @@ export const generateMessageForAccountant = (paymentReminder: PaymentReminder[])
 ${storeName}　${projName}
 入金予定日: ${expectedPaymentDate}　入金予定額 ￥${(+expectedPaymentAmt).toLocaleString()}　担当者:${agentNames}
 ANDPAD引合粗利管理[入金]　${andpadPaymentUrl}
-[hr]`;
+`;
   });
 
 
@@ -28,7 +28,7 @@ ANDPAD引合粗利管理[入金]　${andpadPaymentUrl}
 必要に応じて担当者へのフォローをお願いします。
 ※この連絡は入金予定日を過ぎてもお客さまからの入金がない請求に対して実施しています。`;
 
-  const content = `[info][title]概要[/title]${contractSummary.join('\n')}[/info]`;
+  const content = `[info][title]概要[/title]${contractSummary.join('[hr]\n')}[/info]`;
 
 
   return `[info]${[title, message, content].join('\n')}[/info]`;

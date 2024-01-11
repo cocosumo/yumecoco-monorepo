@@ -18,7 +18,10 @@ export const notifyInvoiceAlertToChatwork = async ({
   reminderJson: InvoiceReminder[]
 }) => {
 
-  const alertReminder = reminderJson.filter(({ alertState }) => alertState);
+  const alertReminder = reminderJson.filter(({ 
+    alertState,
+    expectedPaymentDate,
+  }) => alertState && (expectedPaymentDate && new Date() >= new Date(expectedPaymentDate)));
 
   // 各担当者への通知
   for (const reminderInfo of alertReminder) {

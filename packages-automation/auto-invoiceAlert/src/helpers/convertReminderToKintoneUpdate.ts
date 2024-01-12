@@ -46,7 +46,7 @@ export const convertReminderToKintoneUpdate = ({
     }) => projId === reminderProjId.value) || {} as IInvoiceReminder;
 
     const updateRooms = compileNotificationSettings({
-      exsistingSettings: notificationSettingsRec.notificationSettings,
+      existingSettings: notificationSettingsRec.notificationSettings,
       updateSettings: cwRoomIds,
     });
 

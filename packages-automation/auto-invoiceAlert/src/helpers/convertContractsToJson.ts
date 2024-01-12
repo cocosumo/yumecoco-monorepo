@@ -21,8 +21,8 @@ export const convertContractsToJson = ({
   stores,
   allOrders,
 }: {
-  contracts: ContractRecordTypeAndExPayDay[]
-  allContracts: ContractRecordType[]
+  contracts: ContractRecordTypeAndExPayDay[] // アラート対象の契約書
+  allContracts: ContractRecordType[] // 全契約書
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]

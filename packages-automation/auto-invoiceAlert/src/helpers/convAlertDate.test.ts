@@ -24,4 +24,15 @@ describe('convAlertDate', () => {
     expect(result).toBe('2024-04-30');
 
   }, 100000);
+
+  
+  it('同一の場合はその日付を返すこと', async () => {
+    const result = convAlertDate({
+      scheduledAlertDate: '2023-12-16',
+      expectedPaymentDate: '2023-12-16',
+    });
+
+    expect(result).toBe('2023-12-16');
+
+  }, 100000);
 });

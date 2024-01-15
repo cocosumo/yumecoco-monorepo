@@ -13,7 +13,8 @@ export const convAlertDate = ({
   expectedPaymentDate: string | null
 }) => {
 
-  if (expectedPaymentDate && new Date(scheduledAlertDate) <= new Date(expectedPaymentDate)) {
+  if (expectedPaymentDate 
+    && new Date(scheduledAlertDate).getTime() <= new Date(expectedPaymentDate).getTime()) {
     return expectedPaymentDate;
   }
 

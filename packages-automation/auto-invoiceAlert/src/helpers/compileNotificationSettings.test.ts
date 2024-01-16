@@ -26,7 +26,7 @@ describe('compileNotificationSettings', () => {
     console.log('既存の通知先', JSON.stringify(reminder, null, 2));
 
     const result = compileNotificationSettings({
-      exsistingSettings: reminder,
+      existingSettings: reminder,
       updateSettings: updateSettings,
     });
 

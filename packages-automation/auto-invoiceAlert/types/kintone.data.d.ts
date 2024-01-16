@@ -3,6 +3,7 @@ declare namespace DBInvoiceReminder {
     projId: kintone.fieldTypes.SingleLineText;
     contractDate: kintone.fieldTypes.Date;
     yumeAG: kintone.fieldTypes.SingleLineText;
+    expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
     totalContractAmount: kintone.fieldTypes.Number;
     scheduledAlertDate: kintone.fieldTypes.Date;

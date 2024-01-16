@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import format from 'date-fns/format';
 import { convertReminderToJson } from './convertReminderToJson';
-import { getAllAndpadPayments, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
+import { getAllAndpadPayments, getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { getAllAndpadOrders } from 'api-andpad/src/@get/getAllAndpadOrders';
 
 
@@ -20,12 +20,14 @@ describe('convertReminderToJson', () => {
       allProjects,
       employees,
       allStores,
+      allContracts,
     ] = await Promise.all([
       getAllAndpadPayments(),
       getAllAndpadOrders({ beforeInvoiceIssue: true }),
       getAllProjects(),
       getEmployees(),
       getAllStores(),
+      getAllContracts(),
     ]);
 
     const result = convertReminderToJson({
@@ -35,6 +37,7 @@ describe('convertReminderToJson', () => {
       allProjects:allProjects,
       employees: employees,
       stores: allStores,
+      contracts: allContracts,
     });
 
     const dir = path.join(__dirname, '__TEST__');

@@ -60,6 +60,7 @@ export const invoiceReminder = async () => {
     allProjects: allProjects,
     employees: allMembers,
     stores: allStores,
+    contracts: allContracts,
   });
 
 

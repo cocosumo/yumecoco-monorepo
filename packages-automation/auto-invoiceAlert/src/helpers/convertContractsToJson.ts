@@ -4,6 +4,7 @@ import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { calcContractInformation } from './calcContractInformation';
 import { GetMyOrdersResponse } from 'api-andpad';
 import { compileInfoFromProjId } from './compileInfoFromProjId';
+import { ContractRecordTypeAndExPayDay } from './filterContractsToAlertTarget';
 
 
 
@@ -20,8 +21,8 @@ export const convertContractsToJson = ({
   stores,
   allOrders,
 }: {
-  contracts: ContractRecordType[]
-  allContracts: ContractRecordType[]
+  contracts: ContractRecordTypeAndExPayDay[] // アラート対象の契約書
+  allContracts: ContractRecordType[] // 全契約書
   projects: IProjects[]
   employees: IEmployees[]
   stores: IStores[]
@@ -30,13 +31,13 @@ export const convertContractsToJson = ({
 
 
 
-  const alertContracts: InvoiceReminder[] = contracts.reduce((acc, {
-    projId,
-    projType,
-    projName,
-    storeName,
-  }) => {
-
+  const alertContracts: InvoiceReminder[] = contracts.reduce((acc, { contract, expectPaymentDate }) => {
+    const {
+      projId,
+      projType,
+      projName,
+      storeName,
+    } = contract;
 
     const tgtContracts = allContracts
       .filter(({ projId: contractProjId }) => contractProjId.value === projId.value) || [];
@@ -75,6 +76,7 @@ export const convertContractsToJson = ({
       cwRoomIds: chatworkRoomIds,
       andpadInvoiceUrl: andpadInvoiceUrl ?? '',
       expectedCreateInvoiceDate: '',
+      expectedPaymentDate: expectPaymentDate,
       storeName: storeName.value,
     });
 

@@ -30,6 +30,7 @@ export const convertReminderToKintone = ({
     yumeAG,
     storeName,
     systemId,
+    expectedPaymentDate,
   }) => {
 
     const cwRoomIdsKintone = cwRoomIds.map(({ agentName, agentId, cwRoomId }) => {
@@ -58,6 +59,7 @@ export const convertReminderToKintone = ({
       projName: { value: projName },
       store: { value: storeName },
       //lastAlertDate: { value: '' }, //このタイミングではまだ通知はしていないため登録しない
+      expectedPaymentDate:{ value: expectedPaymentDate },
       andpadUrl: { value: andpadInvoiceUrl },
       contractId: { value: contractId },
       yumeAG: { value: yumeAG },

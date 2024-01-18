@@ -78,6 +78,7 @@ export const convertContractsToJson = ({
       expectedCreateInvoiceDate: '',
       expectedPaymentDate: expectPaymentDate,
       storeName: storeName.value,
+      lastAlertDate: '',
     });
 
     return acc;

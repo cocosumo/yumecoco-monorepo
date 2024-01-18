@@ -44,6 +44,7 @@ export const convertReminderToJson = ({
     expectedCreateInvoiceDate,
     expectedPaymentDate,
     store,
+    lastAlertDate,
   }): InvoiceReminder => {
 
     const {
@@ -100,6 +101,7 @@ export const convertReminderToJson = ({
       expectedCreateInvoiceDate: expectedCreateInvoiceDate.value,
       expectedPaymentDate: updateExPaymentDate || '',
       storeName: storeName || store.value,
+      lastAlertDate: lastAlertDate.value,
     });
   });
 

@@ -1,3 +1,4 @@
+import { isPast } from 'date-fns';
 import { IInvoiceReminder } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { UpdateInvoiceReminder } from '../api-kintone';
@@ -38,6 +39,7 @@ export const convertReminderToKintoneUpdate = ({
     storeName,
     andpadInvoiceUrl,
     expectedPaymentDate,
+    lastAlertDate: lastAlertDatePrev,
   }) => {
 
     //リマインダーレコードから　notificationSettings　を取得する
@@ -55,6 +57,7 @@ export const convertReminderToKintoneUpdate = ({
       expectedPaymentDate: expectedPaymentDate,
     });
 
+    const isAlerted = alertState && (!!expectedPaymentDate && isPast(new Date(expectedPaymentDate)));
 
     return ({
       updateKey: {
@@ -73,7 +76,7 @@ export const convertReminderToKintoneUpdate = ({
         store: { value: storeName },
         area: { value: territory },
         projName: { value: projName },
-        lastAlertDate: { value: lastAlertDate },
+        lastAlertDate: { value: isAlerted ? lastAlertDate : lastAlertDatePrev },
         contractId: { value: contractId },
         notificationSettings: updateRooms,
         systemId: { value: systemId },

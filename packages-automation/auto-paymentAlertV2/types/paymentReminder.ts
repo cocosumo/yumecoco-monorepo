@@ -25,4 +25,5 @@ export interface PaymentReminder {
   yumeAG: string
   cwRoomIds: CwRoomIds[]
   totalContractAmount: string
+  lastAlertDate: string
 }

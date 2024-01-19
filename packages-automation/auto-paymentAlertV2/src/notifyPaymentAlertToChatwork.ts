@@ -7,6 +7,7 @@ import { chatworkRooms, isProd } from '../config';
 import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAreaMngrByTerritory';
 import { getCocoAccountant } from 'api-kintone';
 import { generateMessageForAccountant } from './notificationFunc/generateMessageForAccountant';
+import isPast from 'date-fns/isPast';
 
 
 
@@ -24,7 +25,7 @@ export const notifyPaymentAlertToChatwork = async ({
   const alertReminder = reminderJson.filter(({
     alertState,
     expectedPaymentDate,
-  }) => alertState && (expectedPaymentDate && new Date() > new Date(expectedPaymentDate)));
+  }) => alertState && (expectedPaymentDate && isPast(new Date(expectedPaymentDate))));
 
 
   // 営業担当者へアラートメッセージを送信する

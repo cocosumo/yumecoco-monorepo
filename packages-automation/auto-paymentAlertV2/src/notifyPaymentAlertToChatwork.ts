@@ -64,7 +64,7 @@ export const notifyPaymentAlertToChatwork = async ({
 
   // 各エリアの店長へ、件数とメッセージを送信する
   for (let i = 0; i < territories.length; i++) {
-    const reminderDat = reminderJson.filter(({
+    const reminderDat = alertReminder.filter(({
       territory,
       alertState,
     }) => (territory === territories[i]) && alertState);
@@ -109,12 +109,12 @@ export const notifyPaymentAlertToChatwork = async ({
     let reminderDat = [] as PaymentReminder[];
 
     if (accountant.territory_v2.value === '東') {
-      reminderDat = reminderJson.filter(({
+      reminderDat = alertReminder.filter(({
         territory,
         alertState,
       }) => (territory === '東') && alertState);
     } else {
-      reminderDat = reminderJson.filter(({ alertState })=> alertState);
+      reminderDat = alertReminder.filter(({ alertState })=> alertState);
     }
 
 

@@ -46,6 +46,15 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
         if (contractAddType.value !== '減額工事' && contractAddType.value !== '返金') {
           newAcc.追加金額税込 += +totalContractAmt.value;
         }
+        if (contractAddType.value === '減額工事') {
+          newAcc.減額Amt -= +totalContractAmt.value;
+          newAcc.追加金額税込 += +totalContractAmt.value;
+        }
+        if (contractAddType.value === '返金') {
+          newAcc.返金Amt -= +totalContractAmt.value;
+          newAcc.追加金額税込 += +totalContractAmt.value;
+        }
+
         newAcc.追加契約件数++;
 
       } else if (contractType.value === '設計契約') {
@@ -73,16 +82,12 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
       // 別々のプロパティにする
       if (hasReduction.value === 'はい') {
         newAcc.減額Amt += +reductionAmt.value;
-      }
-      if (contractAddType.value === '減額工事') {
-        newAcc.減額Amt -= +totalContractAmt.value;
+        newAcc.追加金額税込 -= +reductionAmt.value;
       }
 
       if (hasRefund.value === 'はい') {
         newAcc.返金Amt += +refundAmt.value;
-      }
-      if (contractAddType.value === '返金') {
-        newAcc.返金Amt -= +totalContractAmt.value;
+        newAcc.追加金額税込 -= +refundAmt.value;
       }
 
       return newAcc;
@@ -118,8 +123,6 @@ export const getContractsSummary = (contractRecs: RecordType[]) => {
     }
   }
 
-
-  result.追加金額税込 -= (result.減額Amt + result.返金Amt);
   result.合計受注金額税込 = result.追加金額税込 + result.契約金額税込;
 
   // 本契約の登録に設計契約が含まれていると設定した場合、設計契約金は追加契約金額と契約金額には計算しない。

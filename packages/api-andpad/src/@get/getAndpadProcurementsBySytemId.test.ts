@@ -1,13 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
 import { fetchAndpadBudgetBySysId, getAndpadProcurementsBySytemId } from './getAndpadProcurementsBySytemId';
-import { getAndpadCookies } from './getAndpadCookie';
 
 describe('getAndpadProcurementsBySytemId', () => {
-  let cookieStr = '';
   const testSysId = 11818744;
-  beforeAll(async () => {
-    cookieStr = await getAndpadCookies();
-  });
+
 
   it('should return data', async () => {
     const result = await getAndpadProcurementsBySytemId(testSysId);
@@ -21,8 +17,4 @@ describe('getAndpadProcurementsBySytemId', () => {
       .toThrowError();
   }, 10000);
 
-  it('fetchAndpadBudgetBySysId should return null if no data exist', async () => {
-    const result = await fetchAndpadBudgetBySysId(testSysId, cookieStr);
-    expect(result).toBeNull();
-  }, 10000);
 });

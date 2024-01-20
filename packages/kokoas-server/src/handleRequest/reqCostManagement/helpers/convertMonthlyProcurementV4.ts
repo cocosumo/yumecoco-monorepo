@@ -13,6 +13,11 @@ const exemptedStates = [
   '請負承認待ち',
 ];
 
+const includedStates = [
+  '請求確認済',
+  '支払確認済',
+];
+
 /**
  * 月ごとの発注履歴データの変換処理
  * 
@@ -122,12 +127,25 @@ export const convertMonthlyProcurementV4 = (
 
             const orderAmountBeforeTax = +procurement.delivery_cost_price;
 
+            // 「支払金額確認済」に含まれるかどうか
+            const isIncludedAsPayment = includedStates.includes(procurement.view_state);
+
+
             // 発注先ごとの支払い済み金額・未払い金額を更新する
-            const paidAmount = Big(result[parsedIdx].totalPaidAmount ?? 0)
-              .plus(orderAmountBeforeTax)
-              .toNumber();
+            const paidAmount = isIncludedAsPayment 
+              ? Big(result[parsedIdx].totalPaidAmount ?? 0)
+                .plus(orderAmountBeforeTax)
+                .toNumber()
+              : 0;
+
+            const totalUnpaidAmount = !isIncludedAsPayment
+              ? Big(result[parsedIdx].totalPaidAmount ?? 0)
+                .plus(orderAmountBeforeTax)
+                .toNumber()
+              : 0;
 
             result[parsedIdx].totalPaidAmount = paidAmount;
+            result[parsedIdx].totalUnpaidAmount = totalUnpaidAmount;
 
             // 支払日の設定が無い場合は実績に反映しない
             if (!procurement.pay_date) continue; 

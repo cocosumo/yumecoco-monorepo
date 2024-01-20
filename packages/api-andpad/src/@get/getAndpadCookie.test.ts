@@ -1,10 +1,11 @@
-import { describe } from '@jest/globals';
+import { describe, expect } from '@jest/globals';
 import { getAndpadCookies } from './getAndpadCookie';
 
 describe('getAndpadCookies', () => {
   it('should return andpad cookies', async () => {
     const result = await getAndpadCookies();
-    console.log('result', result);
+    expect(result.includes('session=')).toBeTruthy();
+
     
   });
 });

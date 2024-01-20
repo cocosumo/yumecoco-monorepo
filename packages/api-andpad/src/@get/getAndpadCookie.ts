@@ -1,6 +1,10 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { s3client } from 'api-aws/src/s3/config';
 
+/** 
+ * Retrieve cached cookies from S3
+ * 
+ */
 export const getAndpadCookies = async () => {
   const command = new GetObjectCommand({
     Bucket: 'sanpokoken-auth',

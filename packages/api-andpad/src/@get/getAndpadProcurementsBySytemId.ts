@@ -2,8 +2,12 @@ import axios, { AxiosHeaders } from 'axios';
 import UserAgent from 'user-agents';
 import { getAndpadCookies } from './getAndpadCookie';
 import { AndpadBudgetResult } from 'types/src/common/andpad.order.budget';
+import { AndpadProcurementResult } from 'types/src/common/andpad.order.procurement';
 
-const fetchAndpadProcBySysId = async (systemId: string | number, passedCookies: string) => {
+const fetchAndpadProcBySysId = async (
+  systemId: string | number, 
+  passedCookies: string,
+): Promise<AndpadProcurementResult> => {
   const result = await axios({
     method: 'GET',
     url: `https://andpad.jp/manager/my/orders/${systemId}/contract_orders?pp=1000`,
@@ -31,7 +35,7 @@ const fetchAndpadProcBySysId = async (systemId: string | number, passedCookies: 
   // parse the data
   console.log('data', JSON.parse(data));
 
-  return data;
+  return JSON.parse(data);
 };
 
 /** 実行予算のデータ */
@@ -58,7 +62,7 @@ export const getAndpadProcurementsBySytemId = async (systemId: string | number) 
   console.log('cookies', cookies);
 
   const fetchData = async (retryCount = 0) : Promise<{
-    procurements: any;
+    procurements: AndpadProcurementResult;
     andpadBudget: AndpadBudgetResult;
   }> => {
     try {
@@ -71,7 +75,7 @@ export const getAndpadProcurementsBySytemId = async (systemId: string | number) 
       ]);
 
       return {
-        procurements: procurements.data as any,
+        procurements: procurements,
         andpadBudget: andpadBudget,
       };
     } catch (err) {

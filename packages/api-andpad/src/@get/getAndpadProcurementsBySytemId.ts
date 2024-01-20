@@ -89,3 +89,5 @@ export const getAndpadProcurementsBySytemId = async (systemId: string | number) 
 
   return fetchData();
 };
+
+export type GetAndpadProcurementsBySytemIdReturn = Awaited<ReturnType<typeof getAndpadProcurementsBySytemId>>; 

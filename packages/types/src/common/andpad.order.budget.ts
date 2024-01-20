@@ -1,3 +1,4 @@
+/** 実行予算 */
 export interface AndpadBudgetResult {
   message: null;
   data: Datum[];

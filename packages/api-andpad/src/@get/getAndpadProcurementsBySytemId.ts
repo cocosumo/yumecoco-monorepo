@@ -6,7 +6,7 @@ import { AndpadBudgetResult } from 'types/src/common/andpad.order.budget';
 const fetchAndpadProcBySysId = async (systemId: string | number, passedCookies: string) => {
   const result = await axios({
     method: 'GET',
-    url: `https://andpad.jp/manager/my/orders/${systemId}/contract_orders`,
+    url: `https://andpad.jp/manager/my/orders/${systemId}/contract_orders?pp=1000`,
     withCredentials: true,
     headers: {
       'Cookie': passedCookies,
@@ -20,7 +20,18 @@ const fetchAndpadProcBySysId = async (systemId: string | number, passedCookies: 
     throw new Error('ログインしてください');
   }
 
-  return result;
+  // get value of gon.contract_orders until ; from the html inside the script tag
+  const data = result.data.match(/gon.contract_orders=(.*?);/)?.[1];
+
+  if (!data) {
+    console.error('No data');
+    return [];
+  }
+
+  // parse the data
+  console.log('data', JSON.parse(data));
+
+  return data;
 };
 
 /** 実行予算のデータ */

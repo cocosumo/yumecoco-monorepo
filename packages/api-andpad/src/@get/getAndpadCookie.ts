@@ -1,5 +1,5 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { s3client } from '../../../api-aws/src/s3/config';
+import { s3client } from 'api-aws/src/s3/config';
 
 export const getAndpadCookies = async () => {
   const command = new GetObjectCommand({

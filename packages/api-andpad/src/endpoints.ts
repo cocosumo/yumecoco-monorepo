@@ -29,5 +29,9 @@ export const endpoints = {
 
   updateMembers: getMembersBulkEndpoint,
 
+  /** @deprecated use yumecocolabsAPI instead */
   getDataByUrl : 'https://ga7mbwr93h.execute-api.ap-northeast-1.amazonaws.com/prod/andpad-api',
+  
+  /** Check AWS API Gateway implementation for more details */
+  yumecocolabsAPI: 'https://api.yumecocolabs.com',
 } as const;

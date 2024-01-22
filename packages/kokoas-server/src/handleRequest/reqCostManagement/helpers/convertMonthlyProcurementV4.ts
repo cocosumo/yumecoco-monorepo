@@ -3,27 +3,31 @@ import { createMonths } from './createMonths';
 import { ProcurementSupplierDetails, Status } from 'types';
 import { AndpadBudgetResult, Datum } from 'types/src/common/andpad.order.budget';
 import parseISO from 'date-fns/parseISO';
+import { AndpadProcurementResult } from 'types/src/common/andpad.order.procurement';
 
-const exemptedStates = [
+const exemptedStates: Status[] = [
   '見積依頼作成中',
   '見積作成中',
   '発注作成中',
   '発注済',
   '請負承認待ち',
+  '工事中',
+  '工事完了',
+  '工事完了確認待ち',
 ];
+
+
 
 /**
  * 月ごとの発注履歴データの変換処理
  * 
  * @param andpadBudget andpad実行予算データ (実行予算と発注実績を取得する)
- * @param andpadProcurements Andpadのデータエクスポートの発注をKintoneに格納したもの (支払い情報を取得する)
+ * @param andpadProcurements Andpadの発注データ　(支払い情報を取得する)
  * @returns 
- * 
- * @deprecated use convertMonthlyProcurementV4 instead
  */
-export const convertMonthlyProcurementV3 = (
+export const convertMonthlyProcurementV4 = (
   andpadBudget: AndpadBudgetResult | null,
-  andpadProcurements: DBAndpadprocurements.SavedData[] | null,
+  andpadProcurements: AndpadProcurementResult | null,
 ) => {
 
   if (!andpadBudget) return null;
@@ -114,27 +118,24 @@ export const convertMonthlyProcurementV3 = (
           for (const procurement of andpadProcurements) {
 
             // 発注先名が一致する発注実績を格納する
-            if (procurement.supplierName.value !== supplierName) continue;
+            if (procurement.contract_name !== supplierName) continue;
 
             // 発注状況が集計対象外の物は除外する
-            if (exemptedStates.includes(procurement.orderStatus.value)) {
+            if (exemptedStates.includes(procurement.view_state as Status)) {
               continue;
             }
 
-            const orderAmountBeforeTax = +procurement.orderAmountBeforeTax.value;
+            const orderAmountBeforeTax = +procurement.delivery_cost_price;
 
-            // 発注先ごとの支払い済み金額・未払い金額を更新する
-            const paidAmount = Big(result[parsedIdx].totalPaidAmount ?? 0)
+            result[parsedIdx].totalPaidAmount =  Big(result[parsedIdx].totalPaidAmount ?? 0)
               .plus(orderAmountBeforeTax)
               .toNumber();
 
-            result[parsedIdx].totalPaidAmount = paidAmount;
-
             // 支払日の設定が無い場合は実績に反映しない
-            if (!procurement.支払日.value) continue; 
+            if (!procurement.pay_date) continue; 
 
             // 支払日の最大値・最小値を更新する
-            const paymentDateISO = parseISO(procurement.支払日.value).toISOString();
+            const paymentDateISO = parseISO(procurement.pay_date).toISOString();
             
             if (paymentDateISO > maxPaymentDate || maxPaymentDate === '') {
               maxPaymentDate = paymentDateISO;
@@ -146,7 +147,7 @@ export const convertMonthlyProcurementV3 = (
             // 支払い履歴の更新
             result[parsedIdx].paymentHistory.push({
               paymentAmtBeforeTax: orderAmountBeforeTax,
-              state: procurement.orderStatus.value as Status,
+              state: procurement.view_state as Status,
               paymentDate: paymentDateISO,
             }); 
           }

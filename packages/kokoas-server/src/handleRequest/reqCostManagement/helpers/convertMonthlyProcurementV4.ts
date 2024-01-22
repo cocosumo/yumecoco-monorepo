@@ -131,20 +131,14 @@ export const convertMonthlyProcurementV4 = (
             // 主な理由は数字をAndpadと合わせるためですが、
             // エッジケースがあるかもしれません。その都度対応する必要があります。
             const isIncludedAsPayment = includedStates.includes(procurement.view_state);
-
+            const amount = Big(result[parsedIdx].totalPaidAmount ?? 0)
+              .plus(orderAmountBeforeTax)
+              .toNumber();
 
             // 発注先ごとの支払い済み金額・未払い金額を更新する
-            const paidAmount = isIncludedAsPayment 
-              ? Big(result[parsedIdx].totalPaidAmount ?? 0)
-                .plus(orderAmountBeforeTax)
-                .toNumber()
-              : 0;
+            const paidAmount = isIncludedAsPayment ? amount : 0;
 
-            const totalUnpaidAmount = !isIncludedAsPayment
-              ? Big(result[parsedIdx].totalPaidAmount ?? 0)
-                .plus(orderAmountBeforeTax)
-                .toNumber()
-              : 0;
+            const totalUnpaidAmount = !isIncludedAsPayment ? amount : 0;
 
             result[parsedIdx].totalPaidAmount = paidAmount;
             result[parsedIdx].totalUnpaidAmount = totalUnpaidAmount;

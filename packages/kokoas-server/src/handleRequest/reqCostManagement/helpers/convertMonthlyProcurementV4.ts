@@ -128,6 +128,8 @@ export const convertMonthlyProcurementV4 = (
             const orderAmountBeforeTax = +procurement.delivery_cost_price;
 
             // 「支払金額確認済」に含まれるかどうか
+            // 主な理由は数字をAndpadと合わせるためですが、
+            // エッジケースがあるかもしれません。その都度対応する必要があります。
             const isIncludedAsPayment = includedStates.includes(procurement.view_state);
 
 

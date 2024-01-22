@@ -5,18 +5,18 @@ import { AndpadBudgetResult, Datum } from 'types/src/common/andpad.order.budget'
 import parseISO from 'date-fns/parseISO';
 import { AndpadProcurementResult } from 'types/src/common/andpad.order.procurement';
 
-const exemptedStates = [
+const exemptedStates: Status[] = [
   '見積依頼作成中',
   '見積作成中',
   '発注作成中',
   '発注済',
   '請負承認待ち',
+  '工事中',
+  '工事完了',
+  '工事完了確認待ち',
 ];
 
-const includedStates = [
-  '請求確認済',
-  '支払確認済',
-];
+
 
 /**
  * 月ごとの発注履歴データの変換処理
@@ -121,27 +121,15 @@ export const convertMonthlyProcurementV4 = (
             if (procurement.contract_name !== supplierName) continue;
 
             // 発注状況が集計対象外の物は除外する
-            if (exemptedStates.includes(procurement.view_state)) {
+            if (exemptedStates.includes(procurement.view_state as Status)) {
               continue;
             }
 
             const orderAmountBeforeTax = +procurement.delivery_cost_price;
 
-            // 「支払金額確認済」に含まれるかどうか
-            // 主な理由は数字をAndpadと合わせるためですが、
-            // エッジケースがあるかもしれません。その都度対応する必要があります。
-            const isIncludedAsPayment = includedStates.includes(procurement.view_state);
-            const amount = Big(result[parsedIdx].totalPaidAmount ?? 0)
+            result[parsedIdx].totalPaidAmount =  Big(result[parsedIdx].totalPaidAmount ?? 0)
               .plus(orderAmountBeforeTax)
               .toNumber();
-
-            // 発注先ごとの支払い済み金額・未払い金額を更新する
-            const paidAmount = isIncludedAsPayment ? amount : 0;
-
-            const totalUnpaidAmount = !isIncludedAsPayment ? amount : 0;
-
-            result[parsedIdx].totalPaidAmount = paidAmount;
-            result[parsedIdx].totalUnpaidAmount = totalUnpaidAmount;
 
             // 支払日の設定が無い場合は実績に反映しない
             if (!procurement.pay_date) continue; 

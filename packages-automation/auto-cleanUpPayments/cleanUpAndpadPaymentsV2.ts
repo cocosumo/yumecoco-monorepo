@@ -23,7 +23,11 @@ export const cleanUpAndpadPaymentsV2 = async () => {
     andpadPaymentsCsv: andpadPaymentsCsv,
   });
 
-  await deleteAndpadPayments(deleteRecordIDs);
+  if (deleteRecordIDs.length) {
+    await deleteAndpadPayments(deleteRecordIDs);
+  } else {
+    console.log('削除対象のレコードはありませんでした。');
+  }
 
   
   console.log('finish cleanup andpad payments');

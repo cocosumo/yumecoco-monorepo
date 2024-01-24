@@ -1,0 +1,30 @@
+import { describe, it, expect } from '@jest/globals';
+import fs from 'fs';
+import path from 'path';
+import format from 'date-fns/format';
+import { getDaikokuContracts } from './getDaikokuContracts';
+
+
+describe('getDaikokuContracts', () => {
+  it('大黒さん案件の契約情報を取得します', async () => {
+    const result = await getDaikokuContracts();
+
+    expect(result).toBeInstanceOf(Array);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0].$id).toBeDefined();
+
+    console.log(`対象案件数：${result.length} 件`);
+
+    const dir = path.join(__dirname, '__TEST__');
+
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir);
+    }
+
+    // save json file
+    fs.writeFileSync(
+      path.join(dir, `getDaikokuContracts_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      JSON.stringify(result, null, 2),
+    );
+  });
+});

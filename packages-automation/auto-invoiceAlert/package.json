@@ -12,6 +12,7 @@
   "scripts": {
     "start:dev": "ts-node --files ./main.ts -T",
     "start:prod": "cross-env NODE_ENV=production ts-node --files ./main.ts -T",
-    "dtsgen": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 268 --type-name Data --namespace DBInvoiceReminder -o types/kintone.data.d.ts"
+    "dtsgen:invReminder": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 268 --type-name Data --namespace DBInvoiceReminder -o types/kintone.data.d.ts",
+    "dtsgen:confContracts": "npx @kintone/dts-gen --base-url https://rdmuhwtt6gx7.cybozu.com/ --app-id 229 --type-name Data --namespace DBConferenceContracts -o types/db.conferenceContracts.d.ts"
   }
 }

@@ -43,14 +43,14 @@ export const PayTableBody = ({
           paymentDate,
           paymentStatus,
           billingDate,
-          //expectedPaymentAmount,
+          expectedPaymentAmount,
         
         } = record;
 
         const parsedHandlingFee = +handlingFee.value;
         const parsedPaymentAmount = +paymentAmount.value;
 
-        const actualPaymentAmount = parsedPaymentAmount + parsedHandlingFee;
+        const actualPaymentAmount = parsedPaymentAmount;
 
         return {
           key: ID.value,
@@ -59,8 +59,8 @@ export const PayTableBody = ({
           paymentDate: paymentDate.value,
           paymentMethod: paymentMethod.value,
           billingDate: billingDate.value,
-          paymentAmount: parsedPaymentAmount,
-          actualPaymentAmount,
+          paymentAmount: +expectedPaymentAmount.value,
+          actualPaymentAmount: actualPaymentAmount,
           handlingFee: parsedHandlingFee,
           // random japanese string
           remarks: '-',

@@ -77,6 +77,8 @@ export const initialValues : TForm = {
   territory: '',
   storeCode: '',
 
+  // 台帳情報
+  ledgerInfo: 'ANDPAD',
 };
 
 

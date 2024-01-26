@@ -115,6 +115,8 @@ export const schema = z.object({
   storeCode: z.string(),
   territory: z.string(),
 
+  // 台帳情報
+  ledgerInfo: z.string(),
 })
   .superRefine((
     {

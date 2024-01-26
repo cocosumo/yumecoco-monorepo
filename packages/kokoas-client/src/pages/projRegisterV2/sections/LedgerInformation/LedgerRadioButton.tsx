@@ -33,7 +33,7 @@ export const LedgerRadioButton = ({
           <RadioGroup
             row
             {...otherValue}
-            value={value || 'ANDPAD'} // 初期値を'ANDPAD'とする
+            value={value}
           >
             {radioLabels.map((radioLabel) => {
               return (<FormControlLabel

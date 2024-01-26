@@ -185,7 +185,7 @@ export const convertProjToForm = ({
     territory: (territory?.value as Territory || cgTerritory.value) || '',
 
     // 管理台帳
-    ledgerInfo: ledgerInfo.value || '',
+    ledgerInfo: ledgerInfo.value || 'ANDPAD',
   };
 
 };

@@ -1,9 +1,10 @@
 import { kintoneBaseUrl } from 'api-kintone';
 import { IInvoiceReminder, reminderAppId } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
-import { IAndpadpayments, IEmployees, IProjects, IStores, Territory } from 'types';
+import { IAndpadpayments, IContracts, IEmployees, IProjects, IStores, Territory } from 'types';
 import { GetMyOrdersResponse } from 'api-andpad';
 import { compileInfoFromProjId } from './compileInfoFromProjId';
+import { updateExpectedPaymentDate } from './updateExpectedPaymentDate';
 
 
 
@@ -21,6 +22,7 @@ export const convertReminderToJson = ({
   employees,
   stores,
   allProjects,
+  contracts,
 }: {
   reminder: IInvoiceReminder[]
   andpadPayments: IAndpadpayments[]
@@ -28,6 +30,7 @@ export const convertReminderToJson = ({
   employees: IEmployees[]
   stores: IStores[]
   allProjects: IProjects[]
+  contracts: IContracts[]
 }) => {
 
   const alertReminderJson = reminder.map(({
@@ -39,7 +42,9 @@ export const convertReminderToJson = ({
     contractDate,
     totalContractAmount,
     expectedCreateInvoiceDate,
+    expectedPaymentDate,
     store,
+    lastAlertDate,
   }): InvoiceReminder => {
 
     const {
@@ -70,6 +75,14 @@ export const convertReminderToJson = ({
       }) => ((systemId === paymentSystemId.value)));
     }
 
+    // 支払予定日に更新がないかを確認する
+    const updateExPaymentDate = updateExpectedPaymentDate({
+      projId: projIdReminder.value,
+      projType: projType.value,
+      expectedPaymentDate: expectedPaymentDate.value,
+      contracts,
+    });
+
 
     return ({
       alertState: connectedToAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
@@ -86,7 +99,9 @@ export const convertReminderToJson = ({
       cwRoomIds: chatworkRoomIds,
       andpadInvoiceUrl: andpadInvoiceUrl ?? '',
       expectedCreateInvoiceDate: expectedCreateInvoiceDate.value,
+      expectedPaymentDate: updateExPaymentDate || '',
       storeName: storeName || store.value,
+      lastAlertDate: lastAlertDate.value,
     });
   });
 

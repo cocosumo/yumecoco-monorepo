@@ -7,6 +7,7 @@ import { chatworkRooms, isProd } from '../config';
 import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAreaMngrByTerritory';
 import { getCocoAccountant } from 'api-kintone';
 import { generateMessageForAccountant } from './notificationFunc/generateMessageForAccountant';
+import isPast from 'date-fns/isPast';
 
 
 
@@ -24,7 +25,7 @@ export const notifyPaymentAlertToChatwork = async ({
   const alertReminder = reminderJson.filter(({
     alertState,
     expectedPaymentDate,
-  }) => alertState && (expectedPaymentDate && new Date() >= new Date(expectedPaymentDate)));
+  }) => alertState && (expectedPaymentDate && isPast(new Date(expectedPaymentDate))));
 
 
   // 営業担当者へアラートメッセージを送信する
@@ -63,7 +64,7 @@ export const notifyPaymentAlertToChatwork = async ({
 
   // 各エリアの店長へ、件数とメッセージを送信する
   for (let i = 0; i < territories.length; i++) {
-    const reminderDat = reminderJson.filter(({
+    const reminderDat = alertReminder.filter(({
       territory,
       alertState,
     }) => (territory === territories[i]) && alertState);
@@ -108,12 +109,12 @@ export const notifyPaymentAlertToChatwork = async ({
     let reminderDat = [] as PaymentReminder[];
 
     if (accountant.territory_v2.value === '東') {
-      reminderDat = reminderJson.filter(({
+      reminderDat = alertReminder.filter(({
         territory,
         alertState,
       }) => (territory === '東') && alertState);
     } else {
-      reminderDat = reminderJson.filter(({ alertState })=> alertState);
+      reminderDat = alertReminder.filter(({ alertState })=> alertState);
     }
 
 

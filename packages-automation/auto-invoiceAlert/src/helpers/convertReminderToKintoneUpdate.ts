@@ -1,7 +1,9 @@
+import { isPast } from 'date-fns';
 import { IInvoiceReminder } from '../../config';
 import { InvoiceReminder } from '../../types/InvoiceReminder';
 import { UpdateInvoiceReminder } from '../api-kintone';
 import { compileNotificationSettings } from './compileNotificationSettings';
+import { convAlertDate } from './convAlertDate';
 
 
 
@@ -36,6 +38,8 @@ export const convertReminderToKintoneUpdate = ({
     systemId,
     storeName,
     andpadInvoiceUrl,
+    expectedPaymentDate,
+    lastAlertDate: lastAlertDatePrev,
   }) => {
 
     //リマインダーレコードから　notificationSettings　を取得する
@@ -44,10 +48,16 @@ export const convertReminderToKintoneUpdate = ({
     }) => projId === reminderProjId.value) || {} as IInvoiceReminder;
 
     const updateRooms = compileNotificationSettings({
-      exsistingSettings: notificationSettingsRec.notificationSettings,
+      existingSettings: notificationSettingsRec.notificationSettings,
       updateSettings: cwRoomIds,
     });
 
+    const updateAlertDate = convAlertDate({
+      scheduledAlertDate: alertDate,
+      expectedPaymentDate: expectedPaymentDate,
+    });
+
+    const isAlerted = alertState && (!!expectedPaymentDate && isPast(new Date(expectedPaymentDate)));
 
     return ({
       updateKey: {
@@ -60,13 +70,13 @@ export const convertReminderToKintoneUpdate = ({
         yumeAG: { value: yumeAG },
         projType: { value: projType },
         totalContractAmount: { value: totalContractAmount },
-        scheduledAlertDate: { value: alertDate },
+        scheduledAlertDate: { value: updateAlertDate },
         alertState: { value: alertState ? '1' : '0' },
         andpadUrl: { value: andpadInvoiceUrl },
         store: { value: storeName },
         area: { value: territory },
         projName: { value: projName },
-        lastAlertDate: { value: lastAlertDate },
+        lastAlertDate: { value: isAlerted ? lastAlertDate : lastAlertDatePrev },
         contractId: { value: contractId },
         notificationSettings: updateRooms,
         systemId: { value: systemId },

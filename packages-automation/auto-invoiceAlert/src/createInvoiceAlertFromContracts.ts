@@ -39,7 +39,7 @@ export const createInvoiceAlertFromContracts = async ({
     projects: projects,
   });
 
-  const consoleContracts1 = alertContracts.map(({ projName }) => projName.value);
+  const consoleContracts1 = alertContracts.map(({ contract }) => contract.projName.value);
   console.log('通知対象の契約', alertContracts.length, consoleContracts1);
 
 

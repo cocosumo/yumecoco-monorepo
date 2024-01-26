@@ -1,3 +1,4 @@
+import isPast from 'date-fns/isPast';
 import { IPaymentReminder } from '../../config';
 import { PaymentReminder } from '../../types/paymentReminder';
 import { UpdatePaymentReminders } from '../api-kintone';
@@ -42,6 +43,7 @@ export const convertReminderToKintoneUpdate = ({
     alertState,
     expectedPaymentDate,
     yumeAG,
+    lastAlertDate: lastAlertDatePrev,
   }) => {
 
     // 通知先情報の更新
@@ -58,6 +60,8 @@ export const convertReminderToKintoneUpdate = ({
       scheduledAlertDate: alertDate,
       expectedPaymentDate: expectedPaymentDate,
     });
+
+    const isAlerted = alertState && (!!expectedPaymentDate && isPast(new Date(expectedPaymentDate)));
 
     //console.log('通知先設定', JSON.stringify(existingSettings, null, 2));
 
@@ -78,7 +82,7 @@ export const convertReminderToKintoneUpdate = ({
         // reminderDate: { value: '' }, ユーザーがプルダウンから選択するため、対象外とする
         area: { value: territory },
         projName: { value: projName },
-        lastAlertDate: { value: lastAlertDate },
+        lastAlertDate: { value: isAlerted ? lastAlertDate : lastAlertDatePrev },
         andpadUrl: { value: andpadPaymentUrl },
         contractId: { value: contractId },
         //paymentId : {value: tgtPaymentId}, // updatekey

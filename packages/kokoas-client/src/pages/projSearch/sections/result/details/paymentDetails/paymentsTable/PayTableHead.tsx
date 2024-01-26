@@ -93,14 +93,14 @@ export const PayTableHead = (props : PayTableHeadProps) => {
         paymentAmount={(
           <EnhancedTableCell
             fieldName='paymentAmount'
-            label='金額'
+            label='入金予定額'
             {...props}
           />
         )}
         actualPaymentAmount={(
           <EnhancedTableCell
             fieldName='actualPaymentAmount'
-            label='金額'
+            label='入金額'
             {...props}
           />
         )}

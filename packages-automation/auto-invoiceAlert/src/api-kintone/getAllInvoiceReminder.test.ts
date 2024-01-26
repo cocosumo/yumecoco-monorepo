@@ -21,7 +21,7 @@ describe('getAllInvoiceReminder', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `invoiceReminder_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, `getAllInvoiceReminder_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
       JSON.stringify(result, null, 2),
     );
   });

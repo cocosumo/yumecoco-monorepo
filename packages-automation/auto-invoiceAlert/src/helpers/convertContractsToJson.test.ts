@@ -11,8 +11,8 @@ describe('convertContractsToJson', () => {
   it('should convert contract data to JSON data', async () => {
 
     // set output file of filterContractsByTargetProjType.test.ts
-    const contractsPath = path.join(__dirname, './__TEST__/contracts.json');
-    const contracts = JSON.parse(fs.readFileSync(contractsPath, 'utf8'));
+    const contractsPath = path.join(__dirname, './__TEST__/alertTargetList.json');
+    const alertTargetList = JSON.parse(fs.readFileSync(contractsPath, 'utf8'));
 
     const [
       allProjects,
@@ -30,7 +30,7 @@ describe('convertContractsToJson', () => {
 
     const result = convertContractsToJson({
       allContracts: allContracts,
-      contracts: contracts,
+      contracts: alertTargetList,
       projects: allProjects,
       employees: allEmployees,
       stores: allStores,

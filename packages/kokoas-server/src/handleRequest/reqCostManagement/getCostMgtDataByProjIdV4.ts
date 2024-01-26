@@ -1,6 +1,5 @@
 import {
   getAndpadPaymentsBySystemId,
-  getAndpadProcurementByAndpadProjId,
   getContractsByProjId,
   getCustGroupById,
   getEmployees,
@@ -9,13 +8,14 @@ import {
   getStoreById,
 } from 'api-kintone';
 import { calcProfitability } from 'api-kintone/src/andpadProcurement/calculation/calcProfitability';
-import { getBudgetBySystemId, getOrderByProjId } from 'api-andpad';
+import { getOrderByProjId } from 'api-andpad';
 import { getAgentNamesByType as custGetAgentsNamesByType } from 'api-kintone/src/custgroups/helpers/getAgentNamesByType';
 import { getAgentNamesByType as projGetAgentNamesByType } from 'api-kintone/src/projects/helpers/getAgentNamesByType';
 import type { GetCostMgtData } from 'types';
 import { formatDataId, resolveCommisionRate } from 'libs';
-import { convertMonthlyProcurementV3 } from './helpers/convertMonthlyProcurementV3';
 import { getContractsSummary } from 'api-kintone/src/contracts/getContractsSummary';
+import { convertMonthlyProcurementV4 } from './helpers/convertMonthlyProcurementV4';
+import { getAndpadProcurementsBySytemId } from 'api-andpad/src/@get/getAndpadProcurementsBySytemId';
 
 /**
  * 必要なファイルを取得する
@@ -51,7 +51,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     custGroupRec,
     projTypeRec,
     employeesRec,
-    andpadBudgetExecution, // 実行予算
+    //andpadBudgetExecution, // 実行予算
     andpadProcurements,
     andpadPayments, // andpad入金情報：入金額総額
     contractRecs, // 契約情報
@@ -59,8 +59,9 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     getCustGroupById(custGroupId.value),
     getProjTypeById(projTypeId.value),
     getEmployees(false),
-    getBudgetBySystemId(andpadSystemId),
-    getAndpadProcurementByAndpadProjId(andpadSystemId),
+    //getBudgetBySystemId(andpadSystemId),
+    //getAndpadProcurementByAndpadProjId(andpadSystemId),
+    getAndpadProcurementsBySytemId(andpadSystemId),
     getAndpadPaymentsBySystemId(andpadSystemId),
     getContractsByProjId(projId),
   ]);
@@ -100,9 +101,9 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   // 発注会社ごとにデータを整形する
   console.log('Converting andpadbudgets');
 
-  const costManagemenList = convertMonthlyProcurementV3(
-    andpadBudgetExecution,
-    andpadProcurements,
+  const costManagemenList = convertMonthlyProcurementV4(
+    andpadProcurements.andpadBudget,
+    andpadProcurements.procurements,
   );
 
   const {

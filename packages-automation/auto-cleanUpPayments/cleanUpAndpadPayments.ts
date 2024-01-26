@@ -8,6 +8,8 @@ import { updateAndpadPayments } from 'api-kintone/src/andpadPayments/updateAndpa
 /**
  * 未入金の請求書に対して、現在のANDPAD請求書との比較を行う
  * 既に削除された請求書に対しては、「削除」のステータスを付与する
+ * 
+ * @deprecated V2へ移行のため
  */
 export const cleanupAndpadPayments = async () => {
   console.log('start cleanup andpad payments');

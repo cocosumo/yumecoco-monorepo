@@ -5,6 +5,12 @@ import { getEarliestDateOfContract } from './getEarliestDateOfContract';
 
 
 
+export type ContractRecordTypeAndExPayDay = {
+  contract: ContractRecordType,
+  expectPaymentDate: string,
+};
+
+
 /**
  * 通知対象の契約のみに絞り込む
  */
@@ -88,11 +94,14 @@ export const filterContractsToAlertTarget = ({
 
     // 通知対象日を過ぎている場合
     if ((alertDate.getTime() <= new Date().getTime())) {
-      acc?.push(contract);
+      acc?.push({
+        contract: contract,
+        expectPaymentDate: contractAmtPaymentDate || '',
+      });
     }
 
     return acc;
 
-  }, [] as ContractRecordType[]);
+  }, [] as ContractRecordTypeAndExPayDay[]);
 
 };

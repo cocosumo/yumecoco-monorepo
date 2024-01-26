@@ -33,6 +33,7 @@ export const convertRemindersToJson = ({
       paymentType,
       systemId,
       store,
+      lastAlertDate,
     } = reminder;
 
     const alertPayment = andpadPayments.find(({ ID }) => ID.value === paymentId.value);
@@ -58,6 +59,7 @@ export const convertRemindersToJson = ({
         yumeAG: reminder.yumeAG.value,
         cwRoomIds: [],
         totalContractAmount: reminder.totalContractAmount.value,
+        lastAlertDate: lastAlertDate.value,
       });
     }
 
@@ -108,6 +110,7 @@ export const convertRemindersToJson = ({
       yumeAG: yumeAG,
       cwRoomIds: cwRoomIds,
       totalContractAmount: totalContractAmount,
+      lastAlertDate: lastAlertDate.value,
     });
   });
 

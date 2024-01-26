@@ -84,6 +84,8 @@ export const ProjectDetails = ({
       deliveryDate,
       projFinDate,
       payFinDate,
+
+      ledgerInfo,
     } = recProj;
 
     const projDates: IDetail[] = [
@@ -98,6 +100,13 @@ export const ProjectDetails = ({
       {
         label: '物件完了日',
         value: projFinDate.value || '-',
+      },
+    ];
+
+    const ledgerDetails: IDetail[] = [
+      {
+        label: '管理台帳',
+        value: ledgerInfo.value || 'ANDPAD',
       },
     ];
 
@@ -198,6 +207,7 @@ export const ProjectDetails = ({
       mainDetails,
       otherDetails,
       logDetails,
+      ledgerDetails,
     };
 
   }, [
@@ -227,6 +237,11 @@ export const ProjectDetails = ({
       />
 
       <AndpadDetails recProj={recProj} />
+
+      <DetailSection
+        title="台帳情報"
+        details={details.ledgerDetails}
+      />
 
       <DetailSection
         title="工事情報"

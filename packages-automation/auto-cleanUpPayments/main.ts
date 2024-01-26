@@ -1,3 +1,3 @@
-import { cleanupAndpadPayments } from './cleanUpAndpadPayments';
+import { cleanUpAndpadPaymentsV2 } from './cleanUpAndpadPaymentsV2';
 
-cleanupAndpadPayments();
+cleanUpAndpadPaymentsV2();

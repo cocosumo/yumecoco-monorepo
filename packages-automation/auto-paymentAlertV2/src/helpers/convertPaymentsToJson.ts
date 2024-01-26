@@ -78,6 +78,7 @@ export const convertPaymentsToJson = ({
       paymentType: paymentType.value,
       yumeAG: yumeAG,
       cwRoomIds: cwRoomIds,
+      lastAlertDate: '',
     });
   });
 

@@ -19,7 +19,9 @@ export interface InvoiceReminder {
   contractDate: string
   territory: Territory
   expectedCreateInvoiceDate: string | null
+  expectedPaymentDate: string
   yumeAG: string
   cwRoomIds: CwRoomIds[]
   totalContractAmount: string
+  lastAlertDate: string
 }

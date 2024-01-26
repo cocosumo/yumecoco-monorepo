@@ -73,6 +73,8 @@ export const convertProjToForm = ({
     storeCode,
     store: storeName,
     territory,
+
+    ledgerInfo,
     
   } = projRec;
 
@@ -181,6 +183,9 @@ export const convertProjToForm = ({
     storeName: storeName.value || cgStoreName.value,
     storeCode: storeCode.value || cgStoreCode.value,
     territory: (territory?.value as Territory || cgTerritory.value) || '',
+
+    // 管理台帳
+    ledgerInfo: ledgerInfo.value || '',
   };
 
 };

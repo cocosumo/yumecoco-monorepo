@@ -46,6 +46,9 @@ export const filterAPPaymentsToAlertTarget = ({
     if (!connectedToAndpad) return acc;
 
 
+    // 通知予定日を設定・取得する
+
+    
     // 今日より前が通知日の場合
     if (expectedPaymentDate.value < todayStr) {
       acc?.push(andpadPayment);

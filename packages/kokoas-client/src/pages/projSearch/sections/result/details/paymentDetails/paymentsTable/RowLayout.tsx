@@ -96,10 +96,8 @@ export const RowLayout = ({
       <TableCell width={100}>
         {paymentDate}
       </TableCell>
-      <TableCell width={100}>
-        {billingDate}
-      </TableCell>
 
+      
       <NumberCell width={100}>
         {actualPaymentAmount}
       </NumberCell>
@@ -108,6 +106,10 @@ export const RowLayout = ({
         {handlingFee}
       </NumberCell>
 
+      <TableCell width={100}>
+        {billingDate}
+      </TableCell>
+      
       <NumberCell width={100}>
         {paymentAmount}
       </NumberCell>

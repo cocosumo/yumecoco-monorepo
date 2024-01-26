@@ -10,6 +10,7 @@ import { ContractsSummary } from './sections/contractsSummary/ContractsSummary';
 import { OfficersInput } from './sections/officersInput/OfficersInput';
 import { ProjectDates } from './sections/projectDates/ProjectDates';
 import { Prospect } from './sections/prospect/Prospect';
+import { LedgerInformation } from './sections/LedgerInformation/LedgerInformation';
 
 export const Contents = () => {
   const projId = useTypedWatch({
@@ -24,6 +25,9 @@ export const Contents = () => {
         <>
           <PageSubTitle3 label={'Andpad情報'} />
           <AndpadSummary />
+          
+          <PageSubTitle3 label={'台帳情報'} />
+          <LedgerInformation />
 
           <PageSubTitle3 label={'契約情報'} />
           <ContractsSummary />

@@ -34,6 +34,7 @@ declare namespace DBProjects {
     isChkAddressKari: kintone.fieldTypes.Number;
     andpadSystemId: kintone.fieldTypes.SingleLineText;
     planApplicationDate: kintone.fieldTypes.Date;
+    ledgerInfo: kintone.fieldTypes.SingleLineText;
     address2: kintone.fieldTypes.SingleLineText;
     address1: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;

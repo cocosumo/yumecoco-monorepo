@@ -18,10 +18,9 @@ export const prodAppIds = 269;
 export const devAppIds = 268;
 export const reminderAppId = isProd ? prodAppIds : devAppIds;
 
-export const confContractAppId = 229;
-
 export const contractAppId = AppIds.contracts;
 export const andpadPaymentsAppId = AppIds.andpadPayments;
+
 
 
 /**kintoneレコードタイプ、レコードキーの設定 */
@@ -30,9 +29,6 @@ export type ContractRecordKeys = KContracts;
 
 export type IInvoiceReminder = DBInvoiceReminder.SavedData;
 export type KInvoiceReminder = keyof IInvoiceReminder;
-
-export type IConfContracts = DBConferenceContracts.SavedData;
-export type KIConfContracts = keyof IConfContracts;
 
 
 /**chatworkのルームID */

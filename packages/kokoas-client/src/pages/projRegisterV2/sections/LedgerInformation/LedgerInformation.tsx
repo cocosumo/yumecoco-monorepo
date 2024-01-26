@@ -5,7 +5,6 @@ import { Alert } from '@mui/material';
 
 
 export const LedgerInformation = () => {
-  // 見栄えを他のコンポーネントと合わせる
   return (
     <StaticContentContainer>
       <Alert severity='info'>

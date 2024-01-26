@@ -2,17 +2,16 @@ import { describe, it, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import { CwRoomIds } from '../../types/paymentReminder';
-import { IInvoiceReminder } from '../../../auto-invoiceAlert/config';
-import { chatworkRooms } from '../../config';
+import { IPaymentReminder, chatworkRooms } from '../../config';
 import { compileNotificationSettings } from './compileNotificationSettings';
 import { produce } from 'immer';
 
 
 
 describe('compileNotificationSettings', () => {
-  // set output file of getInvoiceRemindersByAlertDate.test.ts
+  // set output file of convertRemindersToJson.test.ts
   const remindersPath = path.join(__dirname, '../api-kintone/__TEST__/reminders.json');
-  const reminders = JSON.parse(fs.readFileSync(remindersPath, 'utf8')) as IInvoiceReminder[];
+  const reminders = JSON.parse(fs.readFileSync(remindersPath, 'utf8')) as IPaymentReminder[];
 
   const updateSettings: CwRoomIds[] = [{
     agentId: 'dummyId',

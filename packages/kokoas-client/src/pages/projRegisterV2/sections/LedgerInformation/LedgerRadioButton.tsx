@@ -2,6 +2,7 @@ import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { KForm } from '../../schema';
 import { useTypedFormContext } from '../../hooks';
+import { padding } from '@mui/system';
 
 
 
@@ -31,7 +32,8 @@ export const LedgerRadioButton = ({
       }) => {
 
         return (
-          <RadioGroup          
+          <RadioGroup
+            row
             {...otherValue}
             defaultValue={defaultValue}
             value={value || ''}
@@ -42,6 +44,7 @@ export const LedgerRadioButton = ({
                 value={radioLabel}
                 control={<Radio />}
                 label={radioLabel}
+                sx={{ px: '20px' }}
                       />);
             })}
           </RadioGroup>

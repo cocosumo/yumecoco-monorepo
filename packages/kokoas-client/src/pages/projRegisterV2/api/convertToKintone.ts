@@ -57,6 +57,7 @@ export const convertToKintone = (
     // 利益率
     profitRate,
 
+    ledgerInfo,
 
   } = rawValues;
 
@@ -175,6 +176,8 @@ export const convertToKintone = (
     // 利益率
     profitRate: { value: String(profitRate) },
 
+    // 台帳情報
+    ledgerInfo: { value: ledgerInfo },
 
   };
 

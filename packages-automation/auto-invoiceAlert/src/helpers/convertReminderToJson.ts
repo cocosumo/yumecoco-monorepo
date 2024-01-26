@@ -49,8 +49,10 @@ export const convertReminderToJson = ({
 
 
     // 大黒さん案件の場合は処理を行わない
-    const isDaikokuProj = allProjects.filter(({ uuid }) => uuid.value === projIdReminder.value)
-      .some(({ ledgerInfo }) => ledgerInfo.value === '大黒さん');
+    const isDaikokuProj = allProjects.some(({
+      uuid,
+      ledgerInfo,
+    }) => uuid.value === projIdReminder.value && ledgerInfo.value === '大黒さん');
 
     const {
       andpadInvoiceUrl,

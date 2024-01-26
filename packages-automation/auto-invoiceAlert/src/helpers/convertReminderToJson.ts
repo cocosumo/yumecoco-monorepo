@@ -47,6 +47,13 @@ export const convertReminderToJson = ({
     lastAlertDate,
   }): InvoiceReminder => {
 
+
+    // 大黒さん案件の場合は処理を行わない
+    const isDaikokuProj = allProjects.some(({
+      uuid,
+      ledgerInfo,
+    }) => uuid.value === projIdReminder.value && ledgerInfo.value === '大黒さん');
+
     const {
       andpadInvoiceUrl,
       chatworkRoomIds,
@@ -85,7 +92,8 @@ export const convertReminderToJson = ({
 
 
     return ({
-      alertState: connectedToAndpad && !hasInvoice, // ANDPADに接続かつ、請求書未発行の場合に通知する
+      // ANDPADに接続かつ、請求書未発行、かつ大黒さん案件ではない場合に通知する
+      alertState: connectedToAndpad && !hasInvoice && !isDaikokuProj,
       reminderUrl: reminderUrl,
       systemId: systemId ?? '',
       contractId: contractId.value,

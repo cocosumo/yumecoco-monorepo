@@ -65,6 +65,11 @@ export const filterContractsToAlertTarget = ({
     }
 
 
+    // 大黒さん案件の場合は処理を行わない
+    const isDaikokuProj = project.some(({ ledgerInfo }) => ledgerInfo.value === '大黒さん');
+    if (isDaikokuProj) return acc;
+
+
     // 契約書から一番過去の支払日を取得する
     const contractAmtPaymentDate = getEarliestDateOfContract({
       dates: [

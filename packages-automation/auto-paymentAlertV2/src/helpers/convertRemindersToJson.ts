@@ -91,8 +91,13 @@ export const convertRemindersToJson = ({
 
     const reminderUrl = `${kintoneBaseUrl}k/${reminderAppId}/show#record=${$id.value}&mode=edit`;
 
+    const isDaikokuProj = allProjects.some(({
+      uuid,
+      ledgerInfo,
+    }) => (uuid.value === tgtProjId.value && ledgerInfo.value === '大黒さん'));
+
     return ({
-      alertState: connectedToAndpad && !hasPaymentHistory,
+      alertState: connectedToAndpad && !hasPaymentHistory && !isDaikokuProj,
       systemId: systemId.value,
       paymentId: paymentId.value,
       andpadPaymentUrl: andpadPaymentUrl,

@@ -46,9 +46,13 @@ export const filterAPPaymentsToAlertTarget = ({
     if (!connectedToAndpad) return acc;
 
 
-    // 通知予定日を設定・取得する
+    // 大黒さん案件の場合は処理を行わない
+    const isDaikokuProj = allProjects.some(({
+      uuid,
+      ledgerInfo,
+    }) => (uuid.value === projId.value && ledgerInfo.value === '大黒さん'));
+    if (isDaikokuProj) return acc;
 
-    
     // 今日より前が通知日の場合
     if (expectedPaymentDate.value < todayStr) {
       acc?.push(andpadPayment);

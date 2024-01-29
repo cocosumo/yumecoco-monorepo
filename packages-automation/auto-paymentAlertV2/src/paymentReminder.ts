@@ -60,7 +60,12 @@ export const paymentReminder = async () => {
     stores: allStores,
   });
 
-  console.log('通知レコード一覧:', alertRemindersJson.length, '件', JSON.stringify(alertRemindersJson, null, 2));
+  // デバッグ用
+  const consoleReminders = alertRemindersJson.map(({ projName, alertState }) => {
+    const state = alertState ? '【対象】' : '【対象外】';
+    return `${state} : ${projName}`;
+  });
+  console.log(`通知対象の契約:リマインダー含む: ${alertRemindersJson.length}件 ${JSON.stringify(consoleReminders, null, 2)}`);
   //throw new Error('通知対象者の抽出が完了しました');
 
   // chatworkへの通知処理

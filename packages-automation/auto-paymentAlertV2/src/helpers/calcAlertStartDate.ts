@@ -22,6 +22,12 @@ export const calcAlertStartDate = ({
     return alertDateFromCreationDate;
   }
 
-  return addDays(new Date(expectedPaymentDate), numOfDaysUntilAlert.expectedPaymentDate);
+  const alertDateFromExPayDate = addDays(new Date(expectedPaymentDate), numOfDaysUntilAlert.expectedPaymentDate);
+
+  if (alertDateFromExPayDate.getTime() >= alertDateFromCreationDate.getTime()) {
+    return alertDateFromExPayDate;
+  }
+
+  return alertDateFromCreationDate;
 
 };

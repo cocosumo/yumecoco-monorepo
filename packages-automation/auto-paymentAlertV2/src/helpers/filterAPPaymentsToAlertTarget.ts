@@ -60,7 +60,7 @@ export const filterAPPaymentsToAlertTarget = ({
     });
 
     // 今日より前が通知日の場合
-    if (isPast(alertStartDate.getTime())) {
+    if (isPast(alertStartDate)) {
       acc?.push(andpadPayment);
     }
 

@@ -3,6 +3,7 @@ import { PayTable } from './paymentsTable/PayTable';
 import { useDetailedAndpadOrderByProjId } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
 import { Actions } from './actions/Actions';
+import { UnisssuedInvoiceAlert } from './actions/unissuedInvoiceAlert/UnisssuedInvoiceAlert';
 
 export const PaymentDetails  = ({
   projId,
@@ -36,6 +37,10 @@ export const PaymentDetails  = ({
     >
       {isLoading  && (
       <LinearProgress />
+      )}
+
+      {!isLoading && (
+        <UnisssuedInvoiceAlert />
       )}
 
       

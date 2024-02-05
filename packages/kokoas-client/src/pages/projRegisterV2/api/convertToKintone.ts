@@ -75,7 +75,7 @@ export const convertToKintone = (
     inHouseProjTypeName: { value: inHouseProjTypeName || '' },
 
 
-    postal: { value: postal },
+    postal: { value: postal || '' },
     address1: { value: address1 },
     address2: { value: address2 },
 

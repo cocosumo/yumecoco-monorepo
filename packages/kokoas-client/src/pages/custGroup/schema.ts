@@ -1,3 +1,4 @@
+import { postalSchema } from 'kokoas-client/src/lib/zodCustomSchema';
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 import { z } from 'zod';
 
@@ -20,7 +21,7 @@ const customerSchema = z.object({
   birthMonth: z.string(),
   birthDay: z.string(),
 
-  postal: z.string(),
+  postal: postalSchema,
   address1: z.string(),
   address2: z.string(),
 

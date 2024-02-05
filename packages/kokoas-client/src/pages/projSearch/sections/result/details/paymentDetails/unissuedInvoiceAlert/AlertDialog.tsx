@@ -1,5 +1,6 @@
 import { Dialog, DialogTitle, Typography } from '@mui/material';
 import { DialogCloseButton } from 'kokoas-client/src/components';
+import { AlertDialogContent } from './AlertDialogContent';
 
 export const AlertDialog = ({
   open,
@@ -26,14 +27,17 @@ export const AlertDialog = ({
     >
       <DialogTitle
         sx={{
-          pb: 0,
+          pb: 1,
           display: 'relative',
         }}
       >
-        <Typography variant='h6' >
-          調整中です
+        <Typography variant='h6'>
+          請求書未発行のアラートを担当者へ通知します
         </Typography>
+
       </DialogTitle>
+
+      <AlertDialogContent projId={projId} />
 
       <DialogCloseButton handleClose={handleClose} />
 

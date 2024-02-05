@@ -3,7 +3,7 @@ import { PayTable } from './paymentsTable/PayTable';
 import { useDetailedAndpadOrderByProjId } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
 import { Actions } from './actions/Actions';
-import { UnisssuedInvoiceAlert } from './actions/unissuedInvoiceAlert/UnisssuedInvoiceAlert';
+import { UnisssuedInvoiceAlert } from './unissuedInvoiceAlert/UnisssuedInvoiceAlert';
 import { isProd } from 'config';
 
 export const PaymentDetails  = ({
@@ -41,7 +41,7 @@ export const PaymentDetails  = ({
       )}
 
       {!isProd && !isLoading && (
-        <UnisssuedInvoiceAlert />
+        <UnisssuedInvoiceAlert projId={projId} />
       )}
 
       

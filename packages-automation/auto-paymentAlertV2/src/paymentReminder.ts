@@ -65,7 +65,7 @@ export const paymentReminder = async () => {
     const state = alertState ? '【対象】' : '【対象外】';
     return `${state} : ${projName}`;
   });
-  console.log(`通知対象の契約:リマインダー含む: ${alertRemindersJson.length}件 ${JSON.stringify(consoleReminders, null, 2)}`);
+  console.log(`通知対象:リマインダー含む: ${alertRemindersJson.length}件 ${JSON.stringify(consoleReminders, null, 2)}`);
   //throw new Error('通知対象者の抽出が完了しました');
 
   // chatworkへの通知処理

@@ -8,6 +8,8 @@ import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAre
 import { getCocoAccountant } from 'api-kintone';
 import { generateMessageForAccountant } from './notificationFunc/generateMessageForAccountant';
 import isPast from 'date-fns/isPast';
+import addDays from 'date-fns/addDays';
+import { numOfDaysUntilAlert } from './helpers/calcAlertStartDate';
 
 
 
@@ -21,11 +23,13 @@ export const notifyPaymentAlertToChatwork = async ({
   reminderJson: PaymentReminder[]
 }) => {
 
-  // 通知必要かつ、支払予定日を過ぎている請求を通知対象とする(通知予定日が更新された際の対策)
+  // 通知必要かつ、支払予定日から一定期間が過ぎている請求を通知対象とする(通知予定日が更新された際の対策)
   const alertReminder = reminderJson.filter(({
     alertState,
     expectedPaymentDate,
-  }) => alertState && (expectedPaymentDate && isPast(new Date(expectedPaymentDate))));
+  }) => alertState && (expectedPaymentDate ?
+    isPast(addDays(new Date(expectedPaymentDate), numOfDaysUntilAlert.expectedPaymentDate))
+    : true));
 
 
   // 営業担当者へアラートメッセージを送信する
@@ -33,7 +37,6 @@ export const notifyPaymentAlertToChatwork = async ({
     const message = generateMessage(reminderInfo);
 
     for (const cwRoomId of reminderInfo.cwRoomIds) {
-
 
       try {
 
@@ -66,8 +69,7 @@ export const notifyPaymentAlertToChatwork = async ({
   for (let i = 0; i < territories.length; i++) {
     const reminderDat = alertReminder.filter(({
       territory,
-      alertState,
-    }) => (territory === territories[i]) && alertState);
+    }) => (territory === territories[i]));
 
 
     if (reminderDat.length === 0) continue;
@@ -102,7 +104,7 @@ export const notifyPaymentAlertToChatwork = async ({
   }
 
 
-  
+
   // 経理担当者へ、件数とメッセージを送信する
   const accountants = await getCocoAccountant();
   for (const accountant of accountants) {
@@ -111,10 +113,9 @@ export const notifyPaymentAlertToChatwork = async ({
     if (accountant.territory_v2.value === '東') {
       reminderDat = alertReminder.filter(({
         territory,
-        alertState,
-      }) => (territory === '東') && alertState);
+      }) => (territory === '東'));
     } else {
-      reminderDat = alertReminder.filter(({ alertState })=> alertState);
+      reminderDat = alertReminder;
     }
 
 

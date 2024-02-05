@@ -1,3 +1,4 @@
+import { postalSchema } from 'kokoas-client/src/lib/zodCustomSchema';
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 import { addressHasPrefecture } from 'libs';
 import { agentTypes, buildingTypes, realEstateStatus, recordCancelStatuses, recordStatuses } from 'types';
@@ -8,6 +9,7 @@ z.setErrorMap(zodErrorMapJA());
 const nonEmptyDropdown = z.string().nonempty({
   message: '選択してください。',
 });
+
 
 
 
@@ -43,7 +45,8 @@ export const schema = z.object({
 
   isNotCocoConstConfirmed: z.boolean(), // 未定かどうか
 
-  postal: z.string(),
+  postal: postalSchema,
+
   address1: z.string().nonempty(),
   address2: z.string().nonempty(),
 
@@ -123,6 +126,9 @@ export const schema = z.object({
       address1,
 
       isShowFinalAddress,
+
+      finalPostal, 
+
       finalAddress1,
       finalAddress2,
 
@@ -151,6 +157,14 @@ export const schema = z.object({
     }
 
     if (isShowFinalAddress) {
+      // check finalPostal if it will pass the postalSchema
+      if (postalSchema.safeParse(finalPostal).success === false) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '郵便番号は7桁で入力してください。',
+          path: ['finalPostal'],
+        });
+      }
 
       if (!finalAddress1) {
         ctx.addIssue({

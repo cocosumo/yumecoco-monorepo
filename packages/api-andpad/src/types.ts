@@ -19,7 +19,23 @@ export type BuildingTypesAndpad = typeof buildingTypesAndpad[number];
 export const projectTypesAndpad = ['新築', '新築付帯', 'リフォーム', '太陽光', '外構', '解体', 'その他'] as const;
 export type ProjectTypesAndpad = typeof buildingTypesAndpad[number];
 
-export const storeNamesAndpad = ['豊田店', '中川店', '大林店', '美里店', '豊川店', '向山店', '八幡店', '高浜店', '千種店', '大垣店', '蒲郡店', '八熊店', '藤沢店', '岩田店'] as const;
+export const storeNamesAndpad = [
+  '豊田店', 
+  '中川店', 
+  '大林店', 
+  '美里店', 
+  '豊川店', 
+  '向山店',
+  '八幡店', 
+  '高浜店', 
+  '千種店', 
+  '大垣店', 
+  '蒲郡店', 
+  '八熊店', 
+  '藤沢店', 
+  '岩田店',
+  '日進店',
+] as const;
 export type StoreNamesAndpad = typeof storeNamesAndpad[number];
 
 export const storeMap : Record<string, StoreNamesAndpad> = {
@@ -36,6 +52,7 @@ export const storeMap : Record<string, StoreNamesAndpad> = {
   中川八熊店: '中川店',
   豊田美里店: '美里店',
   豊橋岩田店: '岩田店',
+  日進店: '日進店',
 
 };
 

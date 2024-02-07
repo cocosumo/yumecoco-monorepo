@@ -4,7 +4,6 @@ import { useDetailedAndpadOrderByProjId } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
 import { Actions } from './actions/Actions';
 import { UnisssuedInvoiceAlert } from './unissuedInvoiceAlert/UnisssuedInvoiceAlert';
-import { isProd } from 'config';
 
 export const PaymentDetails  = ({
   projId,
@@ -40,15 +39,14 @@ export const PaymentDetails  = ({
       <LinearProgress />
       )}
 
-      {!isProd && !isLoading && (
-        <UnisssuedInvoiceAlert projId={projId} />
-      )}
 
-      
       {!isLoading && !systemId && (
-        <EmptyBox>
-          Andpadと接続していないため、入金情報は取得出来ません。
-        </EmptyBox>
+        <>
+          <UnisssuedInvoiceAlert projId={projId} />
+          <EmptyBox>
+            Andpadと接続していないため、入金情報は取得出来ません。
+          </EmptyBox>
+        </>
       )}
 
 

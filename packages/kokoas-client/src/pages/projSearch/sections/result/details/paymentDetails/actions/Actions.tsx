@@ -4,6 +4,7 @@ import { UpdateLastBillingDate } from './UpdateLastBillingDate';
 import { Props } from './types';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
+import { UnisssuedInvoiceAlert } from '../unissuedInvoiceAlert/UnisssuedInvoiceAlert';
 
 
 
@@ -36,7 +37,8 @@ export const Actions = (props: Props) => {
       direction={'row'}
       justifyContent={'space-between'}
     >
-      <UpdateLastBillingDate {...props} projRec={projRec} />
+      <UpdateLastBillingDate {...props} projRec={projRec} />      
+      <UnisssuedInvoiceAlert projId={projId} />
       <ActionButton
         href={`https://andpad.jp/manager/my/orders/${systemId}/customer_agreement`}
         title='入金情報をAndpadで見る'

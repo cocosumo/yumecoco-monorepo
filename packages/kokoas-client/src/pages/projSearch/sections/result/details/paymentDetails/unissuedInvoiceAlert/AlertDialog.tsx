@@ -13,6 +13,8 @@ export const AlertDialog = ({
 }) => {
   const handleAlert = () => {
     handleClose();
+    // TODO リマインダーアプリ登録処理
+
     // TODO アラート通知処理
   };
 

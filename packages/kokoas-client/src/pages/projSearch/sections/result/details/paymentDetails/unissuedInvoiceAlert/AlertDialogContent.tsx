@@ -1,5 +1,4 @@
 import { DialogContent, Stack } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { AlertPurposeRadio } from './AlertPurposeRadio';
 import { ChangeEvent, useState } from 'react';
@@ -28,7 +27,6 @@ export const AlertDialogContent = ({
     <DialogContent
       dividers
       sx={{
-        bgcolor: grey[50],
         height: '80vh',
         overflow: 'hidden',
         p: 0,

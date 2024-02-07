@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { KAlertPurpose, alertMessages } from './alertConfig';
 
 export const AlertContent = ({
@@ -9,24 +9,27 @@ export const AlertContent = ({
 
 
   return (
-    <>
-      <Typography variant='body2'>
-        通知内容
-      </Typography>
-      <Box
-        component="section"
+    <Stack 
+      direction={'column'}
+      spacing={1}
+    >
+      <Typography
+        variant='body2'
         sx={{
-          p: 2,
-          border: '1px solid grey',
-          borderRadius: 1,
+          color: 'gray',
         }}
       >
+        通知内容 :
+      </Typography>
 
-        <Typography variant='body2'>
-          {alertMessages[purpose]}
-        </Typography>
-
-      </Box>
-    </>
+      <Typography
+        variant='body1'
+        sx={{
+          pl: '10px',
+        }}
+      >
+        {alertMessages[purpose]}
+      </Typography>
+    </Stack>
   );
 };

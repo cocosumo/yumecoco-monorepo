@@ -30,7 +30,7 @@ export const AlertButton = ({
           startIcon={<AddAlertIcon />}
           variant='outlined'
           size='small'
-          onClick={() => handleOpen()}
+          onClick={handleOpen}
         >
           アラート発行
         </Button>

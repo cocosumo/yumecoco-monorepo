@@ -1,11 +1,11 @@
 import { Button, Stack } from '@mui/material';
-import { MaskedPostal } from './postalField/MaskedPostal';
 import { ControlledTextField } from '../../fields/ControlledTextField';
 import { useTypedFormContext } from '../../hooks';
+import { NormalPostal } from 'kokoas-client/src/components/reactHookForm/NormalPostal';
 
 export const FinalAddressFields = () => {
   
-  const { getValues, setValue } = useTypedFormContext();
+  const { getValues, setValue, control } = useTypedFormContext();
 
   return (
     <>
@@ -13,8 +13,9 @@ export const FinalAddressFields = () => {
         direction={'row'} 
         spacing={2}
       >
-        <MaskedPostal 
+        <NormalPostal 
           name='finalPostal'
+          control={control}
           label="確定後郵便番号"
         /> 
         <Button
@@ -31,7 +32,7 @@ export const FinalAddressFields = () => {
               'address2',
             ]);
             
-            setValue('finalPostal', postal, { shouldValidate: true });
+            setValue('finalPostal', postal || '', { shouldValidate: true });
             setValue('finalAddress1', address1, { shouldValidate: true });
             setValue('finalAddress2', address2, { shouldValidate: true });
           }}

@@ -23,7 +23,7 @@ export const AlertButton = ({
   return (
     <>
       <Tooltip
-        title='請求書発行を担当者へ通知する'
+        title='担当者のchatworkへアラートを通知する'
         placement='top'
       >
         <Button

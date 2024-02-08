@@ -1,5 +1,6 @@
 import { Stack } from '@mui/material';
 import { AlertButton } from './AlertButton';
+import { isProd } from 'config';
 
 
 
@@ -8,6 +9,7 @@ export const UnisssuedInvoiceAlert = ({
 }:{
   projId: string
 }) => {
+  if (isProd) return;
 
   return (
     <Stack

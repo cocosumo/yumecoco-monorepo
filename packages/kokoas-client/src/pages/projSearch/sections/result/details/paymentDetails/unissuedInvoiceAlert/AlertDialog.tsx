@@ -1,6 +1,9 @@
 import { Button, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { AlertDialogContent } from './AlertDialogContent';
+import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { saveReminder } from './saveReminder/saveReminder';
+import { IProjects } from 'types';
 
 export const AlertDialog = ({
   open,
@@ -11,9 +14,13 @@ export const AlertDialog = ({
   handleClose: () => void
   projId: string
 }) => {
+
+  const { data: recProj } = useProjById(projId);
+
   const handleAlert = () => {
     handleClose();
-    // TODO リマインダーアプリ登録処理
+    saveReminder(recProj || {} as IProjects);
+
 
     // TODO アラート通知処理
   };
@@ -43,7 +50,7 @@ export const AlertDialog = ({
 
       </DialogTitle>
 
-      <AlertDialogContent projId={projId} />
+      <AlertDialogContent agents={recProj?.agents} />
 
       <DialogCloseButton handleClose={handleClose} />
       <DialogActions>

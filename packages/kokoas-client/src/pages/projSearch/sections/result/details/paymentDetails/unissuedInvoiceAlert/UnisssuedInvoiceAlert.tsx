@@ -14,7 +14,7 @@ export const UnisssuedInvoiceAlert = ({
   return (
     <Stack
       direction={'row'}
-      alignItems={'flex-start'}
+      alignItems={'flex-end'}
       justifyContent={'flex-end'}
     >
       <AlertButton projId={projId} />

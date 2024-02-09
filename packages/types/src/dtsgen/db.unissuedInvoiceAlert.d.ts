@@ -13,11 +13,11 @@ declare namespace DBUnissuedinvoicealert {
     systemId: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
+    cocoAGs: kintone.fieldTypes.SingleLineText;
     expectedCreateInvoiceDate: kintone.fieldTypes.Date;
     lastAlertDate: kintone.fieldTypes.Date;
     andpadUrl: kintone.fieldTypes.Link;
     contractId: kintone.fieldTypes.SingleLineText;
-    cocoConstMain: kintone.fieldTypes.SingleLineText;
     notificationSettings: {
       type: "SUBTABLE";
       value: Array<{

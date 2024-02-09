@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getAllUnissuedInvoiceAlerts } from 'api-kintone/src/unissuedInvoiceAlert/getAllUnissuedInvoiceAlerts';
+import { getAllUnissuedInvoiceAlerts } from 'api-kintone';
 import { AppIds } from 'config';
 
 type DefaultResult = Awaited<ReturnType<typeof getAllUnissuedInvoiceAlerts>>;

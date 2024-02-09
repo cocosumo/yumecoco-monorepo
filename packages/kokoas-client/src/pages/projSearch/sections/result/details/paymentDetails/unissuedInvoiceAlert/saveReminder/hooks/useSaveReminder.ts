@@ -1,16 +1,19 @@
 import { useSaveUnissuedInvoiceAlert } from 'kokoas-client/src/hooksQuery';
 import { IContracts, IEmployees, IProjects } from 'types';
 import { convertToKintone } from '../convertToKintone';
+import { KAlertPurpose } from '../../alertConfig';
 
 
 export const useSaveReminder = ({
   recProj,
   recContracts,
   recEmployees,
+  purpose,
 }:{
-  recProj: IProjects,
-  recContracts: IContracts[],
-  recEmployees: IEmployees[],
+  recProj: IProjects
+  recContracts: IContracts[]
+  recEmployees: IEmployees[]
+  purpose: KAlertPurpose
 }) => {
 
   const { mutateAsync } = useSaveUnissuedInvoiceAlert();
@@ -20,6 +23,7 @@ export const useSaveReminder = ({
     recProj,
     recContracts,
     recEmployees,
+    purpose,
   });
 
   // kintoneにレコード登録

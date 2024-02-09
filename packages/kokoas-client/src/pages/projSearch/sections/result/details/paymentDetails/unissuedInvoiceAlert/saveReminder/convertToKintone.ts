@@ -3,6 +3,9 @@ import { summarizeContracts } from './summarizeContracts';
 import { getNotificationSettings } from './getNotificationSettings';
 import format from 'date-fns/format';
 import addWeeks from 'date-fns/addWeeks';
+import { KAlertPurpose, alertPurposes } from '../alertConfig';
+
+
 
 const getAgentNames = (agents: IProjects['agents'], affiliation: string) => {
   return agents.value.filter(({ value: {
@@ -13,14 +16,18 @@ const getAgentNames = (agents: IProjects['agents'], affiliation: string) => {
     .join(', ');
 };
 
+
+
 export const convertToKintone = ({
   recProj,
   recContracts,
   recEmployees,
+  purpose,
 }: {
   recProj: IProjects
   recContracts: IContracts[]
   recEmployees: IEmployees[]
+  purpose: KAlertPurpose
 }) => {
 
   const {
@@ -78,6 +85,7 @@ export const convertToKintone = ({
     expectedCreateInvoiceDate: { value: earliestDate },
     scheduledAlertDate: { value: format(addWeeks(new Date(), 1), 'yyyy-MM-dd') },
     lastAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
+    alertType: { value: alertPurposes[purpose] },
 
   };
 

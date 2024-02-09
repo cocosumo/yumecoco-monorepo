@@ -11,6 +11,7 @@ declare namespace DBUnissuedinvoicealert {
     reminderDate: kintone.fieldTypes.DropDown;
     area: kintone.fieldTypes.SingleLineText;
     systemId: kintone.fieldTypes.SingleLineText;
+    alertType: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
     store: kintone.fieldTypes.SingleLineText;
     cocoAGs: kintone.fieldTypes.SingleLineText;

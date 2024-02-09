@@ -4,6 +4,8 @@ import { AlertDialogContent } from './AlertDialogContent';
 import { useContractsByProjIdV2, useEmployees, useProjById } from 'kokoas-client/src/hooksQuery';
 import { IContracts, IEmployees, IProjects } from 'types';
 import { useSaveReminder } from './saveReminder/hooks/useSaveReminder';
+import { ChangeEvent, useState } from 'react';
+import { KAlertPurpose } from './alertConfig';
 
 export const AlertDialog = ({
   open,
@@ -14,6 +16,11 @@ export const AlertDialog = ({
   handleClose: () => void
   projId: string
 }) => {
+  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
+
+  const handlePurposeChange = (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => {
+    setPurpose(value);
+  };
 
   const { data: recProj } = useProjById(projId);
   const { data: recContracts } = useContractsByProjIdV2(projId);
@@ -23,6 +30,7 @@ export const AlertDialog = ({
     recProj: recProj || {} as IProjects,
     recContracts: recContracts || [] as IContracts[],
     recEmployees: recEmployees || [] as IEmployees[],
+    purpose,
   });
 
   const handleAlert = () => {
@@ -59,7 +67,11 @@ export const AlertDialog = ({
 
       </DialogTitle>
 
-      <AlertDialogContent agents={recProj?.agents} />
+      <AlertDialogContent
+        purpose={purpose}
+        handlePurposeChange={handlePurposeChange}
+        agents={recProj?.agents}
+      />
 
       <DialogCloseButton handleClose={handleClose} />
       <DialogActions>

@@ -2,8 +2,8 @@ import format from 'date-fns/format';
 
 
 
-const parseDateString = (dateString: string) => {
-  if (dateString === '') {
+const parseDateString = (dateString: string | null) => {
+  if (dateString === '' || dateString === null) {
     return null;
   }
 
@@ -20,7 +20,7 @@ const parseDateString = (dateString: string) => {
 
 
 
-export const getEarliestDate = (dates: string[]) => {
+export const getEarliestDate = (dates: (string | null)[]) => {
   if (dates.length === 0) {
     return '';
   }

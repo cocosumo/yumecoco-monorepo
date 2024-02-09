@@ -36,7 +36,9 @@ export const convertToKintone = ({
 
   const systemId = andpadSystemId.value || forceLinkedAndpadSystemId.value || '';
 
-  const andpadInvoiceUrl = systemId ?? `https://andpad.jp/manager/my/orders/${systemId}/customer_agreement`;
+  const andpadInvoiceUrl = systemId ?
+    `https://andpad.jp/manager/my/orders/${systemId}/customer_agreement`
+    : null;
 
   const {
     mainContractDate,
@@ -54,7 +56,7 @@ export const convertToKintone = ({
     // recProj
     projName: { value: projName.value },
     systemId: { value: systemId },
-    andpadUrl: { value: andpadInvoiceUrl },
+    andpadUrl: { value: andpadInvoiceUrl || '' },
     projId: { value: uuid.value },
     store: { value: store.value },
     projType: { value: projTypeName.value },
@@ -77,8 +79,6 @@ export const convertToKintone = ({
     scheduledAlertDate: { value: format(addWeeks(new Date(), 1), 'yyyy-MM-dd') },
     lastAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
 
-    // ユーザ設定用フィールド
-    reminderDate: { value: '' },
   };
 
   return kintoneRecord;

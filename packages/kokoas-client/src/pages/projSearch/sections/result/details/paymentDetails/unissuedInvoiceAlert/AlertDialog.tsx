@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { AlertDialogContent } from './AlertDialogContent';
 import { useContractsByProjIdV2, useEmployees, useProjById } from 'kokoas-client/src/hooksQuery';
@@ -55,9 +55,7 @@ export const AlertDialog = ({
           display: 'relative',
         }}
       >
-        <Typography variant='h6'>
-          担当者へ請求書の発行要求を通知します
-        </Typography>
+        担当者へ請求書の発行要求を通知します
 
       </DialogTitle>
 

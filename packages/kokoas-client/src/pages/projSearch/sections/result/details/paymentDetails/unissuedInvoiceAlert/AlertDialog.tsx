@@ -35,7 +35,7 @@ export const AlertDialog = ({
 
   const handleAlert = () => {
     // 既に同内容でリマインダー登録されていないか確認する
-    // 登録されていたら、そのまま終了する
+    // 登録されていたら、メッセージを表示し、終了する
 
     handleSave();
 

@@ -67,7 +67,7 @@ export const formToDBCustomers = (formData: TForm) => {
             .map(([type, val, rel, name]) => ({
               id: '',
               value: {
-                contactValue: { value: val || '' },
+                contactValue: { value: val?.trim() || '' },
                 contactType: { value: type || '' },
                 relation: { value: rel || '' },
                 contactName: { value: name || '' },

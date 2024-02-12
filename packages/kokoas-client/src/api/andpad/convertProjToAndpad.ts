@@ -92,9 +92,9 @@ export const convertProjToAndpad = async (projId: string) => {
     '顧客郵便番号': parsedCustPostal || '',
     '顧客現住所': [firstCust.address1?.value.trim(), firstCust.address2?.value.trim()].filter(Boolean).join(',') || '',
     '顧客担当者名': firstAgent?.employeeName.value,
-    '顧客電話番号1': firstCustTel1.value.contactValue.value,
-    '顧客電話番号2': firstCustTel2.value.contactValue.value,
-    '顧客メールアドレス': firstCustEmail?.value.contactValue.value,
+    '顧客電話番号1': firstCustTel1.value.contactValue.value.trim(),
+    '顧客電話番号2': firstCustTel2.value.contactValue.value.trim(),
+    '顧客メールアドレス': firstCustEmail?.value.contactValue.value.trim(),
 
     '物件管理ID': projRec.uuid.value,
     '物件種別': bestStringMatch(projRec.buildingType.value, buildingTypesAndpad, { valueIfNoMatch: 'その他' }),

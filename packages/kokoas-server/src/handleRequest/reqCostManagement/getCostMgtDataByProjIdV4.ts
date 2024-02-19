@@ -113,11 +113,27 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
   } = costManagemenList || {};
 
   console.log('Retrieving Payment Data...');
+
   /** 入金 */
-  const depositAmount = andpadPayments // andpad入金情報：入金額総額
-    .reduce((acc, { paymentAmount }) => {
-      return acc + +paymentAmount.value;
-    }, 0);
+  const {
+    depositAmount,
+    depositAmountSubsidy,
+  } = andpadPayments // andpad入金情報：入金額総額
+    .reduce((acc, { paymentAmount, paymentType }) => {
+
+      acc.depositAmount += +paymentAmount.value;
+      
+      if (paymentType.value.includes('補助金')) {
+        acc.depositAmountSubsidy += +paymentAmount.value;
+      }
+
+      return acc;
+    }, {
+      depositAmount: 0,
+      depositAmountSubsidy: 0,
+    });
+
+  
 
   console.log('Retrieving Contracts Data...');
   const contracts = getContractsSummary(contractRecs);
@@ -151,6 +167,7 @@ export const getCostMgtDataByProjIdV4 = async (projId: string) => {
     purchaseAmount: costManagemenList?.totalContractOrderCost ?? 0,
     paymentAmount: costManagemenList?.totalPaidAmount ?? 0,
     depositAmount: depositAmount,
+    despositAmountSubsidy: depositAmountSubsidy,
     yumeCommFeeRate: resolvedCommRate,
     tax: contracts?.税率 ?? 0.1,
     hasRefund: contracts?.返金 ?? false,

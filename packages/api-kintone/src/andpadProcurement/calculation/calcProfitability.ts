@@ -30,7 +30,7 @@ export const calcProfitability = (params: {
   purchaseAmount: number // 実行予算金額
   paymentAmount: number // 支払金額
   depositAmount: number // 入金金額
-  despositAmountSubsidy: number // 入金金額(補助金)
+  despositAmountSubsidy?: number // 入金金額(補助金)
   yumeCommFeeRate: number // ゆめてつ紹介料率
   tax: number // 税率
   hasRefund: boolean // 返金有無(0: なし, 1: あり)
@@ -46,7 +46,7 @@ export const calcProfitability = (params: {
     purchaseAmount,
     paymentAmount,
     depositAmount,
-    despositAmountSubsidy,
+    despositAmountSubsidy = 0,
     yumeCommFeeRate,
     tax,
     hasRefund,

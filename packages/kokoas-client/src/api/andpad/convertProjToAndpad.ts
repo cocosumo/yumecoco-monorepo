@@ -39,6 +39,8 @@ export const convertProjToAndpad = async (projId: string) => {
 
   const firstCustId = members.value[0].value.custId.value;
   const firstCust = (await getCustomersByIds([firstCustId]))[0];
+  const custNames = members.value.map((row) => row.value.customerName.value).join('、');
+  const custNamesReading = members.value.map((row) => row.value.custNameReading.value).join('、');
 
   const cocoAGIds = agents.value
     .filter((row) => (row.value.agentType.value as TAgents) === 'cocoAG')
@@ -87,8 +89,8 @@ export const convertProjToAndpad = async (projId: string) => {
 
   const saveResult: SaveProjectData = {
     '顧客管理ID': custGroupRec.uuid.value,
-    '顧客名': firstCust.fullName.value,
-    '顧客名（カナ）': firstCust.fullNameReading?.value || '',
+    '顧客名': custNames || '',
+    '顧客名（カナ）': custNamesReading || '',
     '顧客郵便番号': parsedCustPostal || '',
     '顧客現住所': [firstCust.address1?.value.trim(), firstCust.address2?.value.trim()].filter(Boolean).join(',') || '',
     '顧客担当者名': firstAgent?.employeeName.value,

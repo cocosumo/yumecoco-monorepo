@@ -1,27 +1,20 @@
 import { DialogContent, Stack } from '@mui/material';
-import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { AlertPurposeRadio } from './AlertPurposeRadio';
-import { ChangeEvent, useState } from 'react';
-import { KAlertPurpose } from './alertConfig';
 import { AlertContent } from './AlertContent';
 import { AlertTarget } from './AlertTarget';
+import { IProjects } from 'types';
+import { KAlertPurpose } from './alertConfig';
+import { ChangeEvent } from 'react';
 
 export const AlertDialogContent = ({
-  projId,
+  purpose,
+  handlePurposeChange,
+  agents,
 }: {
-  projId: string
+  purpose: KAlertPurpose
+  handlePurposeChange: (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => void
+  agents: IProjects['agents'] | undefined
 }) => {
-  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
-
-  const { data: recProj } = useProjById(projId);
-
-  const {
-    agents,
-  } = recProj ?? {};
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => {
-    setPurpose(value);
-  };
 
   return (
     <DialogContent
@@ -39,7 +32,7 @@ export const AlertDialogContent = ({
       >
         <AlertPurposeRadio
           value={purpose}
-          handleChange={handleChange}
+          handleChange={handlePurposeChange}
         />
 
         <AlertContent purpose={purpose} />

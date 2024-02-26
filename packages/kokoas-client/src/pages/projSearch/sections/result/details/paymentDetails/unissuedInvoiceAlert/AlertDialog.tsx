@@ -1,11 +1,19 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { AlertDialogContent } from './AlertDialogContent';
-import { useContractsByProjIdV2, useEmployees, useProjById } from 'kokoas-client/src/hooksQuery';
+import {
+  useActiveUnissuedInvRemindersByProjId,
+  useContractsByProjIdV2,
+  useEmployees,
+  useProjById,
+} from 'kokoas-client/src/hooksQuery';
 import { IContracts, IEmployees, IProjects } from 'types';
-import { useSaveReminder } from './saveReminder/hooks/useSaveReminder';
+import { useSaveReminder } from './hooks/useSaveReminder';
 import { ChangeEvent, useState } from 'react';
-import { KAlertPurpose } from './alertConfig';
+import { KAlertPurpose, alertPurposes } from './alertConfig';
+import { NotificationButton } from './NotificationButton';
+
+
 
 export const AlertDialog = ({
   open,
@@ -18,13 +26,14 @@ export const AlertDialog = ({
 }) => {
   const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
 
-  const handlePurposeChange = (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => {
-    setPurpose(value);
-  };
-
   const { data: recProj } = useProjById(projId);
   const { data: recContracts } = useContractsByProjIdV2(projId);
   const { data: recEmployees } = useEmployees();
+  const { data: recUnissuedInvReminders } = useActiveUnissuedInvRemindersByProjId(projId);
+
+  const handlePurposeChange = (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => {
+    setPurpose(value);
+  };
 
   const handleSave = useSaveReminder({
     recProj: recProj || {} as IProjects,
@@ -34,16 +43,15 @@ export const AlertDialog = ({
   });
 
   const handleAlert = () => {
-    // 既に同内容でリマインダー登録されていないか確認する
-    // 登録されていたら、そのまま終了する
-
     handleSave();
-
     // TODO アラート通知処理
     handleClose();
-
   };
 
+  const isDuplication = Boolean(recUnissuedInvReminders &&
+    (recUnissuedInvReminders.some(({ alertType }) => alertPurposes[purpose] === alertType.value)));
+
+  const duplicateExplanation = isDuplication ? '同アラートが既に設定されています' : '';
 
   return (
     <Dialog
@@ -64,7 +72,6 @@ export const AlertDialog = ({
         }}
       >
         担当者へ請求書の発行要求を通知します
-
       </DialogTitle>
 
       <AlertDialogContent
@@ -78,9 +85,11 @@ export const AlertDialog = ({
         <Button onClick={handleClose}>
           キャンセル
         </Button>
-        <Button onClick={handleAlert} autoFocus>
-          chatworkに送信
-        </Button>
+        <NotificationButton
+          explanation={duplicateExplanation}
+          handleAlert={handleAlert}
+          isDuplication={isDuplication}
+        />
       </DialogActions>
 
     </Dialog>);

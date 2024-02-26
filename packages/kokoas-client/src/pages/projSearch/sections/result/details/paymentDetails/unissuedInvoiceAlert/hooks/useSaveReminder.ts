@@ -1,7 +1,7 @@
 import { useSaveUnissuedInvoiceAlert } from 'kokoas-client/src/hooksQuery';
 import { IContracts, IEmployees, IProjects } from 'types';
-import { convertToKintone } from '../convertToKintone';
-import { KAlertPurpose } from '../../alertConfig';
+import { convertToKintone } from '../saveReminder/convertToKintone';
+import { KAlertPurpose } from '../alertConfig';
 
 
 export const useSaveReminder = ({
@@ -9,7 +9,7 @@ export const useSaveReminder = ({
   recContracts,
   recEmployees,
   purpose,
-}:{
+}: {
   recProj: IProjects
   recContracts: IContracts[]
   recEmployees: IEmployees[]

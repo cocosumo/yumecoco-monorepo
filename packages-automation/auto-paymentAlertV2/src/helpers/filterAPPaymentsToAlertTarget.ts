@@ -1,6 +1,7 @@
 import { IAndpadpayments, IProjects } from 'types';
 import { IPaymentReminder } from '../../config';
-import format from 'date-fns/format';
+import { calcAlertStartDate } from './calcAlertStartDate';
+import isPast from 'date-fns/isPast';
 
 
 
@@ -17,8 +18,6 @@ export const filterAPPaymentsToAlertTarget = ({
   allProjects: IProjects[]
 }) => {
 
-  const todayStr = format(new Date(), 'yyyy-MM-dd');
-
   console.log('unpaidAndpadPayments', unpaidAndpadPayments.length);
 
   return unpaidAndpadPayments.reduce((acc, andpadPayment) => {
@@ -27,6 +26,7 @@ export const filterAPPaymentsToAlertTarget = ({
       expectedPaymentDate,
       systemId,
       projId,
+      作成日時,
     } = andpadPayment;
 
     // 既に同IDのリマインダーが存在する場合は処理を行わない
@@ -46,11 +46,23 @@ export const filterAPPaymentsToAlertTarget = ({
     if (!connectedToAndpad) return acc;
 
 
+    // 大黒さん案件の場合は処理を行わない
+    const isDaikokuProj = allProjects.some(({
+      uuid,
+      ledgerInfo,
+    }) => (uuid.value === projId.value && ledgerInfo.value === '大黒さん'));
+    if (isDaikokuProj) return acc;
+
+    // 通知予定日を設定・取得する
+    const alertStartDate = calcAlertStartDate({
+      createDate: 作成日時.value,
+      expectedPaymentDate: expectedPaymentDate.value,
+    });
+
     // 今日より前が通知日の場合
-    if (expectedPaymentDate.value < todayStr) {
+    if (isPast(alertStartDate)) {
       acc?.push(andpadPayment);
     }
-    console.log('通知対象？', expectedPaymentDate, expectedPaymentDate.value < todayStr);
 
     return acc;
 

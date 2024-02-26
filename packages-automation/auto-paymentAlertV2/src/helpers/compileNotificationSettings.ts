@@ -1,5 +1,4 @@
-import { IInvoiceReminder } from '../../../auto-invoiceAlert/config';
-import { chatworkRooms } from '../../config';
+import { IPaymentReminder, chatworkRooms } from '../../config';
 import { CwRoomIds } from '../../types/paymentReminder';
 
 
@@ -8,13 +7,13 @@ import { CwRoomIds } from '../../types/paymentReminder';
  * kintoneの通知対象者を更新します
  * @param param.existingSettings 既存の通知先
  * @param param.updateSettings 最新の通知先
- * @returns IInvoiceReminder['notificationSettings']型で最新の通知先を返す
+ * @returns IPaymentReminder['notificationSettings']型で最新の通知先を返す
  */
 export const compileNotificationSettings = ({
   existingSettings,
   updateSettings,
 }: {
-  existingSettings: IInvoiceReminder['notificationSettings'],
+  existingSettings: IPaymentReminder['notificationSettings'],
   updateSettings: CwRoomIds[],
 }) => {
 
@@ -40,7 +39,7 @@ export const compileNotificationSettings = ({
   }, {
     type: 'SUBTABLE',
     value:[],
-  } as IInvoiceReminder['notificationSettings']);
+  } as IPaymentReminder['notificationSettings']);
 
 
   // 追加されている通知先がないか確認する

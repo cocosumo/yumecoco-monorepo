@@ -25,11 +25,12 @@ export const compileInfoFromSystemId = ({
 }) => {
 
   const {
+    paymentDate: actualpaymentDate,
     expectedPaymentDate,
     作成日時,
   } = alertPayment;
 
-  const hasPaymentHistory = alertPayment.paymentDate.value !== null;
+  const hasPaymentHistory = actualpaymentDate.value !== null;
 
   const tgtProject = projects.find(({
     uuid, //projId
@@ -45,6 +46,7 @@ export const compileInfoFromSystemId = ({
     projName,
     store: storeByProject,
     projTypeName,
+    ledgerInfo,
   } = tgtProject || {};
 
   // 対象の契約書情報を取得する
@@ -76,7 +78,7 @@ export const compileInfoFromSystemId = ({
   });
 
   return ({
-    connectedToAndpad: !!tgtProject,
+    connectedToAndpad: !!tgtProject && ledgerInfo?.value !== '大黒さん',
     hasPaymentHistory: hasPaymentHistory,
     andpadPaymentUrl: `https://andpad.jp/manager/my/orders/${tgtSystemId}/customer_agreement`,
     contractId: tgtContracts.map(({ uuid }) => uuid.value).join(', ') || '取得に失敗しました',

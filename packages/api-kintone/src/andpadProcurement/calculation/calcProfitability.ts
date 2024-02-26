@@ -30,10 +30,12 @@ export const calcProfitability = (params: {
   purchaseAmount: number // 実行予算金額
   paymentAmount: number // 支払金額
   depositAmount: number // 入金金額
+  despositAmountSubsidy?: number // 入金金額(補助金)
   yumeCommFeeRate: number // ゆめてつ紹介料率
   tax: number // 税率
   hasRefund: boolean // 返金有無(0: なし, 1: あり)
   subsidyAmt?: number // 補助金額
+
 }): CostManagement => {
 
   //console.log('CalcProfitability params', params);
@@ -44,6 +46,7 @@ export const calcProfitability = (params: {
     purchaseAmount,
     paymentAmount,
     depositAmount,
+    despositAmountSubsidy = 0,
     yumeCommFeeRate,
     tax,
     hasRefund,
@@ -127,6 +130,11 @@ export const calcProfitability = (params: {
     .round(0, 1)
     .toNumber();
 
+  /** 
+   * 補助金 
+   * K236 補助金が入金されてたら、原価管理表には表示しない。
+  */
+  const parsedSubsidyAmt = subsidyAmt > 0 ? subsidyAmt - despositAmountSubsidy : 0;
 
   return {
     orderAmountBeforeTax: orderAmountBeforeTax,
@@ -148,6 +156,6 @@ export const calcProfitability = (params: {
     受注額計_税抜: orderTotalBeforeTax,
     入金額: depositAmount,
     未入金: unpaidAmount,
-    補助金: subsidyAmt,
+    補助金: parsedSubsidyAmt,
   };
 };

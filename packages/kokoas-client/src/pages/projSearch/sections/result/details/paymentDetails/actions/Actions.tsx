@@ -1,9 +1,9 @@
 import { LinearProgress, Stack, Typography } from '@mui/material';
-import { ActionButton } from '../../common/ActionButton';
 import { UpdateLastBillingDate } from './UpdateLastBillingDate';
 import { Props } from './types';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
 import { EmptyBox } from 'kokoas-client/src/components';
+import { ActionButtons } from './ActionButtons';
 
 
 
@@ -14,12 +14,12 @@ export const Actions = (props: Props) => {
     projId,
   } = props;
 
-  const { 
-    data: projRec, 
+  const {
+    data: projRec,
     isLoading: projRecIsLoading,
   } = useProjById(projId);
 
-  if (projRecIsLoading ) {
+  if (projRecIsLoading) {
     <LinearProgress />;
   }
 
@@ -37,14 +37,7 @@ export const Actions = (props: Props) => {
       justifyContent={'space-between'}
     >
       <UpdateLastBillingDate {...props} projRec={projRec} />
-      <ActionButton
-        href={`https://andpad.jp/manager/my/orders/${systemId}/customer_agreement`}
-        title='入金情報をAndpadで見る'
-        target='_blank'
-      >
-        入金情報
-      </ActionButton>
-
+      <ActionButtons projId={projId} systemId={systemId} />
     </Stack>
   );
 };

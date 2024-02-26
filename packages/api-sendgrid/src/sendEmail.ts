@@ -16,6 +16,7 @@ export const sendEmail = async (params: SendParams) => {
       return resp;
     })
     .catch((error) => {
-      console.error(error);
+      console.error(JSON.stringify(error));
+      throw new Error('Email failed to send');
     });
 };

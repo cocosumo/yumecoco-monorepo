@@ -63,3 +63,6 @@ export type KInvoices = keyof IInvoices;
 
 export type IContracts = DBContracts.SavedData;
 export type KContracts = keyof IContracts;
+
+export type IUnissuedinvoicealert = DBUnissuedinvoicealert.SavedData;
+export type KUnissuedinvoicealert = keyof IUnissuedinvoicealert;

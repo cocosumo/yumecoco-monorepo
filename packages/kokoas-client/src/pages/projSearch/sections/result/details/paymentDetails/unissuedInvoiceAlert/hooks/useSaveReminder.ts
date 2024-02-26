@@ -9,7 +9,7 @@ export const useSaveReminder = ({
   recContracts,
   recEmployees,
   purpose,
-}:{
+}: {
   recProj: IProjects
   recContracts: IContracts[]
   recEmployees: IEmployees[]

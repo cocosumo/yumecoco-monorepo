@@ -7,10 +7,11 @@ import {
   useEmployees,
   useProjById,
 } from 'kokoas-client/src/hooksQuery';
-import { IContracts, IEmployees, IProjects, IUnissuedinvoicealert } from 'types';
+import { IContracts, IEmployees, IProjects } from 'types';
 import { useSaveReminder } from './hooks/useSaveReminder';
 import { ChangeEvent, useState } from 'react';
-import { KAlertPurpose } from './alertConfig';
+import { KAlertPurpose, alertPurposes } from './alertConfig';
+import { NotificationButton } from './NotificationButton';
 
 
 
@@ -38,7 +39,6 @@ export const AlertDialog = ({
     recProj: recProj || {} as IProjects,
     recContracts: recContracts || [] as IContracts[],
     recEmployees: recEmployees || [] as IEmployees[],
-    recUnissuedInvReminders: recUnissuedInvReminders || [] as IUnissuedinvoicealert[],
     purpose,
   });
 
@@ -48,6 +48,10 @@ export const AlertDialog = ({
     handleClose();
   };
 
+  const isDuplication = Boolean(recUnissuedInvReminders &&
+    (recUnissuedInvReminders.some(({ alertType }) => alertPurposes[purpose] === alertType.value)));
+
+  const duplicateExplanation = isDuplication ? '同アラートが既に設定されています' : '';
 
   return (
     <Dialog
@@ -81,9 +85,11 @@ export const AlertDialog = ({
         <Button onClick={handleClose}>
           キャンセル
         </Button>
-        <Button onClick={handleAlert} autoFocus>
-          chatworkに送信
-        </Button>
+        <NotificationButton
+          explanation={duplicateExplanation}
+          handleAlert={handleAlert}
+          isDuplication={isDuplication}
+        />
       </DialogActions>
 
     </Dialog>);

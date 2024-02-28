@@ -10,7 +10,7 @@ import { useAlertNotification } from './hooks/useAlertNotification';
 
 
 
-export const AlertDialog = async ({
+export const AlertDialog = ({
   open,
   handleClose,
   projId,

@@ -2,7 +2,7 @@ import { useSaveProject } from 'kokoas-client/src/hooksQuery';
 import { RecordCancelStatus } from 'types';
 import { useTypedFormContext } from './useTypedRHF';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
-import { Alert, Typography } from '@mui/material';
+import { Alert, AlertTitle, Typography } from '@mui/material';
 
 export const useUpdateCancelStatus = () => {
   const { mutateAsync } = useSaveProject();
@@ -21,16 +21,26 @@ export const useUpdateCancelStatus = () => {
 
     setDialogState({
       title: '確認',
-      content: (
-        <Alert severity='warning'>
-          工事のキャンセルステータスを
-          <Typography fontWeight={'bold'} component={'span'}>
-            「
-            {newCancelStatuses.length ? newCancelStatuses.join('、') : '空'}
-            」
-          </Typography>
-          に更新しますか？
-        </Alert>),
+      content: newCancelStatuses.length 
+        ?  (
+          <Alert severity='warning'>
+            工事のキャンセルステータスを
+            <Typography fontWeight={'bold'} component={'span'}>
+              「
+              {newCancelStatuses.join('、')} 
+              」
+            </Typography>
+            に更新しますか？
+          </Alert>
+        )
+        : (
+          <Alert severity='warning'>
+            <AlertTitle>
+              復帰しますか。
+            </AlertTitle>
+            顧客一覧で検索できるようになります。
+          </Alert>
+        ),
       handleYes: () => mutateAsync({
         record: {
           cancelStatus: {

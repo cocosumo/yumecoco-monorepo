@@ -6,7 +6,7 @@ import subMonths from 'date-fns/subMonths';
 import isValid from 'date-fns/isValid';
 
 const normalizeDate = (isoDate: string) => {
-  const date = parseISO(isoDate);
+  const date = parseISO(isoDate).setDate(1);
   return isValid(date) ? date : new Date();
 };
 
@@ -24,6 +24,7 @@ export const createMonths = ({
 
   const startDate = normalizeDate(minPaymentISODate);
   const endDate = normalizeDate(maxPaymentISODate);
+  
 
   const difference = differenceInMonths(endDate, startDate);
   
@@ -33,8 +34,7 @@ export const createMonths = ({
   );
 
   console.log('numMonths', numMonths);
-  console;
-  
+
   return Array.from(
     { length: numMonths }, 
     (_, index) => {

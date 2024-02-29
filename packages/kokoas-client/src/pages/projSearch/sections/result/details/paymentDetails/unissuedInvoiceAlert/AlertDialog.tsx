@@ -1,12 +1,12 @@
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { AlertDialogContent } from './AlertDialogContent';
-import { useActiveUnissuedInvRemindersByProjId } from 'kokoas-client/src/hooksQuery';
 import { useSaveReminder } from './hooks/useSaveReminder';
 import { ChangeEvent, useState } from 'react';
 import { KAlertPurpose, alertPurposes } from './alertConfig';
 import { NotificationButton } from './NotificationButton';
 import { useAlertNotification } from './hooks/useAlertNotification';
+import { useActiveUnissuedInvRemindersByProjId } from './hooks/useActiveUnissuedInvRemindersByProjId';
 
 
 
@@ -21,7 +21,7 @@ export const AlertDialog = ({
 }) => {
   const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
 
-  const { data: recUnissuedInvReminders } = useActiveUnissuedInvRemindersByProjId(projId);
+  const recUnissuedInvReminders = useActiveUnissuedInvRemindersByProjId(projId);
 
   const handlePurposeChange = (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => {
     setPurpose(value);
@@ -32,7 +32,7 @@ export const AlertDialog = ({
     purpose,
   });
 
-  const handleNotification =  useAlertNotification({
+  const handleNotification = useAlertNotification({
     projId,
     purpose,
   });

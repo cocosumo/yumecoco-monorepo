@@ -1,8 +1,7 @@
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { IContracts, IProjects } from 'types';
+import { IContracts, IProjects, IUnissuedinvoicealert } from 'types';
 import { KAlertPurpose, alertMessages } from '../alertConfig';
-import { getActiveUnissuedInvoiceAlertsByProjId } from 'api-kintone/src/unissuedInvoiceAlert/getActiveUnissuedInvoiceAlertsByProjId';
 import { summarizeMessageInfo } from './summarizeMessageInfo';
 
 
@@ -11,15 +10,14 @@ export const createMessage = async ({
   recProj,
   recContracts,
   purpose,
-  projId,
+  recReminders,
 }: {
   recProj: IProjects
   recContracts: IContracts[]
   purpose: KAlertPurpose
-  projId: string
+  recReminders: IUnissuedinvoicealert[]
 }) => {
 
-  const recReminders = await getActiveUnissuedInvoiceAlertsByProjId(projId);
 
   const {
     contractDate,

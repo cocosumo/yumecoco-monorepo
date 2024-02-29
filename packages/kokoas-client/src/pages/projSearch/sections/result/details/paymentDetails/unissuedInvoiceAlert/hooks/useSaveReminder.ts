@@ -1,8 +1,6 @@
 import { useContractsByProjIdV2, useEmployees, useProjById, useSaveUnissuedInvoiceAlert } from 'kokoas-client/src/hooksQuery';
-import { IContracts, IEmployees, IProjects } from 'types';
 import { convertToKintone } from '../saveReminder/convertToKintone';
 import { KAlertPurpose } from '../alertConfig';
-import { useMemo } from 'react';
 
 
 export const useSaveReminder = ({
@@ -18,21 +16,19 @@ export const useSaveReminder = ({
   const { data: recEmployees } = useEmployees();
   const { mutateAsync } = useSaveUnissuedInvoiceAlert();
 
-
-
-  // kintoneレコード型にデータを編集
-  const record = useMemo(() => convertToKintone({
-    recProj: recProj || {} as IProjects,
-    recContracts: recContracts || [] as IContracts[],
-    recEmployees: recEmployees || [] as IEmployees[],
-    purpose,
-  }), [recProj, recContracts, recEmployees, purpose]);
-
-
   // kintoneにレコード登録
-  return async () => (
+  return async () => {
+    if (!recProj || !recContracts || !recEmployees) return;
+
+    const record = convertToKintone({
+      recProj: recProj,
+      recContracts: recContracts,
+      recEmployees: recEmployees,
+      purpose,
+    });
+
     mutateAsync({
       record: record,
-    })
-  );
+    });
+  };
 };

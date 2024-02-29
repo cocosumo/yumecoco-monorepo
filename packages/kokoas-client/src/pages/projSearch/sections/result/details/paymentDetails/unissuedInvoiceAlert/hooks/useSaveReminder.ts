@@ -1,35 +1,34 @@
-import { useSaveUnissuedInvoiceAlert } from 'kokoas-client/src/hooksQuery';
-import { IContracts, IEmployees, IProjects } from 'types';
+import { useContractsByProjIdV2, useEmployees, useProjById, useSaveUnissuedInvoiceAlert } from 'kokoas-client/src/hooksQuery';
 import { convertToKintone } from '../saveReminder/convertToKintone';
 import { KAlertPurpose } from '../alertConfig';
 
 
 export const useSaveReminder = ({
-  recProj,
-  recContracts,
-  recEmployees,
+  projId,
   purpose,
 }: {
-  recProj: IProjects
-  recContracts: IContracts[]
-  recEmployees: IEmployees[]
+  projId: string
   purpose: KAlertPurpose
 }) => {
 
+  const { data: recProj } = useProjById(projId);
+  const { data: recContracts } = useContractsByProjIdV2(projId);
+  const { data: recEmployees } = useEmployees();
   const { mutateAsync } = useSaveUnissuedInvoiceAlert();
 
-  // kintoneレコード型にデータを編集
-  const record = convertToKintone({
-    recProj,
-    recContracts,
-    recEmployees,
-    purpose,
-  });
-
   // kintoneにレコード登録
-  return async () => (
+  return async () => {
+    if (!recProj || !recContracts || !recEmployees) return;
+
+    const record = convertToKintone({
+      recProj: recProj,
+      recContracts: recContracts,
+      recEmployees: recEmployees,
+      purpose,
+    });
+
     mutateAsync({
       record: record,
-    })
-  );
+    });
+  };
 };

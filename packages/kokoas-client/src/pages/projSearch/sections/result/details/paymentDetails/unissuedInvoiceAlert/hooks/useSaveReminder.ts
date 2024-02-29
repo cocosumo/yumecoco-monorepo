@@ -20,8 +20,8 @@ export const useSaveReminder = ({
   // kintoneレコード型にデータを編集
   const record = convertToKintone({
     recProj: recProj || {} as IProjects,
-    recContracts: recContracts || {} as IContracts[],
-    recEmployees: recEmployees || {} as IEmployees[],
+    recContracts: recContracts || [] as IContracts[],
+    recEmployees: recEmployees || [] as IEmployees[],
     purpose,
   });
 

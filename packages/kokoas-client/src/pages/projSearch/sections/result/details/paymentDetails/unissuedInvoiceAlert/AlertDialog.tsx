@@ -37,7 +37,7 @@ export const AlertDialog = ({
     purpose,
   });
 
-  const handleAlert = async () => {
+  const handleAlert = () => {
     handleSave();
     handleNotification();
     handleClose();

@@ -24,20 +24,27 @@ export const useAlertNotification = ({
   const { data: recEmployees } = useEmployees();
 
 
-  // 担当者の情報から通知先のルームIDを取得する
-  const cwRoomIds = getCwRoomIds({
-    recProj: recProj || {} as IProjects,
-    recEmployees: recEmployees || [] as IEmployees[],
-  });
-
 
   const alertNotify = async () => {
     let sendCondition = false;
+
+    if (!recProj || !recContracts || !recEmployees) {
+
+
+      return;
+    }
+
     const message = await createMessage({
-      recProj: recProj || {} as IProjects,
-      recContracts: recContracts || [] as IContracts[],
+      recProj: recProj,
+      recContracts: recContracts,
       purpose,
       projId,
+    });
+    
+    // 担当者の情報から通知先のルームIDを取得する
+    const cwRoomIds = getCwRoomIds({
+      recProj: recProj,
+      recEmployees: recEmployees,
     });
 
     for (const cwRoomId of cwRoomIds) {

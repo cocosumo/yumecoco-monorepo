@@ -74,6 +74,6 @@ export const summarizeMessageInfo = ({
     contractAmt: contractInfo.contractAmt,
     cocoAGs: agentNames.cocoAG.join(', '),
     yumeAGs: agentNames.yumeAG.join(', '),
-    reminderUrl: reminderId ? undefined : reminderUrl,
+    reminderUrl: !reminderId ? undefined : reminderUrl,
   };
 };

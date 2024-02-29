@@ -14,7 +14,7 @@ export const getCwRoomIds = ({
   const cocoAgs = recProj.agents.value.filter(({ value: {
     agentName,
     agentType,
-  } }) => agentName.value !== '' && agentType.value === 'cocoAg');
+  } }) => agentName.value !== '' && agentType.value === 'cocoAG');
 
   // chatworkのルームIDを取得する
   const cwRoomId = [] as string[];

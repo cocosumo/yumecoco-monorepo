@@ -38,7 +38,7 @@ export const useAlertNotification = ({
       recContracts: recContracts || [] as IContracts[],
       purpose,
       projId,
-    })();
+    });
 
     for (const cwRoomId of cwRoomIds) {
       try {

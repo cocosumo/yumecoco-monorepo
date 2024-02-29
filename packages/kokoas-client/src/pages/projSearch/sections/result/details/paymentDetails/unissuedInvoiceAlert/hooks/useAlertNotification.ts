@@ -30,19 +30,15 @@ export const useAlertNotification = ({
     recEmployees: recEmployees || [] as IEmployees[],
   });
 
-  const sendAlertMessage = createMessage({
-    recProj: recProj || {} as IProjects,
-    recContracts: recContracts || [] as IContracts[],
-    purpose,
-    projId,
-  });
-
-
-  // console.log('send room ids :', cwRoomIds);
 
   const alertNotify = async () => {
     let sendCondition = false;
-    const message = await sendAlertMessage();
+    const message = await createMessage({
+      recProj: recProj || {} as IProjects,
+      recContracts: recContracts || [] as IContracts[],
+      purpose,
+      projId,
+    })();
 
     for (const cwRoomId of cwRoomIds) {
       try {

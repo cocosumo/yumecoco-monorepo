@@ -1,13 +1,26 @@
+import { getEmployees } from 'api-kintone';
+import { getUnissuedInvReminderRecByAlertDate } from './helper/getUnissuedInvReminderRecByAlertDate';
 
 
 
-export const unissuedInvoiceReminders = () => {
+export const unissuedInvoiceReminders = async () => {
   console.log('start unissued invoice reminder');
 
 
-  // 関連するレコード情報を取得する
-
+  // ※必要あれば：工事IDから、工事情報、契約情報を再取得し、変更があれば情報を更新する。現状対応見送り
+  // 通知先情報のみ取得しなおす
+  const [
+    recEmployees,
+  ] = await Promise.all([
+    getEmployees(),
+  ]);
+  
   // 今日通知予定のリマインダーレコードを取得する
+  const reminderRec = await getUnissuedInvReminderRecByAlertDate();
+
+  
+  // 通知メッセージの準備
+  console.log('リマインダーレコードと社員情報から通知メッセージを準備します', reminderRec, recEmployees);
 
   // chatworkへの通知処理
 

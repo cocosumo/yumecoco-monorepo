@@ -18,10 +18,9 @@ export const unissuedInvoiceReminders = async () => {
   // 今日通知予定のリマインダーレコードを取得する
   const reminderRec = await getUnissuedInvReminderRecByAlertDate();
 
-  console.log('reminderRec', reminderRec);
   
   // 通知メッセージの準備
-
+  console.log('リマインダーレコードと社員情報から通知メッセージを準備します', reminderRec, recEmployees);
 
   // chatworkへの通知処理
 

@@ -5,6 +5,7 @@ import { IContracts, IEmployees, IProjects } from 'types';
 import { getCwRoomIds } from '../notifyAlertToCharwork/getCwRoomIds';
 import { useContractsByProjIdV2, useEmployees, useProjById } from 'kokoas-client/src/hooksQuery';
 import { createMessage } from '../notifyAlertToCharwork/createMessage';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 
 
@@ -15,6 +16,8 @@ export const useAlertNotification = ({
   projId: string
   purpose: KAlertPurpose
 }) => {
+
+  const { setSnackState } = useSnackBar();
 
   const { data: recProj } = useProjById(projId);
   const { data: recContracts } = useContractsByProjIdV2(projId);
@@ -35,11 +38,12 @@ export const useAlertNotification = ({
   });
 
 
-  console.log('send room ids :', cwRoomIds);
-  // throw new Error('ルームID設定までを確認');
+  // console.log('send room ids :', cwRoomIds);
 
   const alertNotify = async () => {
+    let sendCondition = false;
     const message = await sendAlertMessage();
+
     for (const cwRoomId of cwRoomIds) {
       try {
 
@@ -48,22 +52,32 @@ export const useAlertNotification = ({
           roomId: (isProd) ? cwRoomId : chatworkRooms.test,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
-
+        sendCondition = true;
       } catch (error) {
 
         await sendMessage({
-          body: message,
-          roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
-          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-        });
-
-        await sendMessage({
           body: `${[`【送信エラー】ルームID:${cwRoomId} 宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
-          roomId: chatworkRooms.testRoom,
+          roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.testRoom,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
+        sendCondition = false;
       }
     }
+
+    if (sendCondition) {
+      setSnackState({
+        open: true,
+        severity: 'success',
+        message: '担当者のchatworkへ通知が完了しました。',
+      });
+    } else {
+      setSnackState({
+        open: true,
+        severity: 'warning',
+        message: '担当者のchatworkルームIDの取得に失敗したため、グループチャットへ通知しました。',
+      });
+    }
+
   };
 
   return alertNotify;

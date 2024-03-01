@@ -2,11 +2,10 @@ import { getActiveUnissuedInvoiceAlertsByAlertDate } from 'api-kintone/src/uniss
 
 
 /** 今日以前が通知予定日になっているリマインダーレコードを取得する */
-export const getUnissuedInvReminderRecByAlertDate = async () => {
+export const getRemindersScheduledForToday = async () => {
 
   const alertDate = new Date();
 
-  const reminderRec = await getActiveUnissuedInvoiceAlertsByAlertDate(alertDate);
+  return getActiveUnissuedInvoiceAlertsByAlertDate(alertDate);
 
-  return reminderRec;
 };

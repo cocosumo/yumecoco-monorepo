@@ -30,3 +30,5 @@ erDiagram
 ```
 
 ## 訳語
+
+- [ER図](https://www.draw.io/#G1)

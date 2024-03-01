@@ -1,24 +1,15 @@
-import { KAlertPurpose, alertPurposes } from '../alertConfig';
-import { IContracts, IProjects, IUnissuedinvoicealert } from 'types';
-
+import { IContracts, IProjects } from 'types';
 
 
 export const summarizeMessageInfo = ({
   recProj,
-  recReminders,
   recContracts,
-  purpose,
+  reminderRecId,
 }: {
   recProj: IProjects
-  recReminders: IUnissuedinvoicealert[]
   recContracts: IContracts[]
-  purpose: KAlertPurpose
+  reminderRecId: string
 }) => {
-
-  const reminderId = recReminders.find(({
-    alertType,
-  }) => alertType.value === alertPurposes[purpose])
-    ?.$id.value;
 
   const contractInfo = recContracts.reduce((acc, {
     includePlanContractAmt,
@@ -66,7 +57,7 @@ export const summarizeMessageInfo = ({
     yumeAG: [] as string[],
   });
 
-  const reminderUrl = `https://rdmuhwtt6gx7.cybozu.com/k/303/show#record=${reminderId}&mode=edit`;
+  const reminderUrl = `https://rdmuhwtt6gx7.cybozu.com/k/303/show#record=${reminderRecId}&mode=edit`;
 
 
   return {
@@ -74,6 +65,6 @@ export const summarizeMessageInfo = ({
     contractAmt: contractInfo.contractAmt,
     cocoAGs: agentNames.cocoAG.join(', '),
     yumeAGs: agentNames.yumeAG.join(', '),
-    reminderUrl: !reminderId ? undefined : reminderUrl,
+    reminderUrl: reminderUrl,
   };
 };

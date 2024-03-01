@@ -1,12 +1,12 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle, Typography } from '@mui/material';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { AlertDialogContent } from './AlertDialogContent';
 import { useSaveReminder } from './hooks/useSaveReminder';
 import { ChangeEvent, useState } from 'react';
 import { KAlertPurpose, alertPurposes } from './alertConfig';
 import { NotificationButton } from './NotificationButton';
-import { useAlertNotification } from './hooks/useAlertNotification';
 import { useActiveUnissuedInvRemindersByProjId } from './hooks/useActiveUnissuedInvRemindersByProjId';
+import { useAlertNotify } from './hooks/useAlertNotify';
 
 
 
@@ -27,19 +27,28 @@ export const AlertDialog = ({
     setPurpose(value);
   };
 
-  const handleSave = useSaveReminder({
+  const {
+    saveReminder,
+    isLoadingSaveReminder,
+  } = useSaveReminder({
     projId,
     purpose,
   });
 
-  const handleNotification = useAlertNotification({
+  const {
+    alertNotify,
+    isLoadingAlertNotify,
+  } = useAlertNotify({
     projId,
     purpose,
   });
 
-  const handleAlert = () => {
-    handleSave();
-    handleNotification();
+  const isLoading = isLoadingSaveReminder || isLoadingAlertNotify;
+
+  const handleAlert = async () => {
+    const saveRec = await saveReminder();
+    if (!saveRec) return;
+    alertNotify(saveRec.id);
     handleClose();
   };
 
@@ -77,14 +86,19 @@ export const AlertDialog = ({
 
       <DialogCloseButton handleClose={handleClose} />
       <DialogActions>
-        <Button onClick={handleClose}>
-          キャンセル
-        </Button>
-        <NotificationButton
-          explanation={duplicateExplanation}
-          handleAlert={handleAlert}
-          isDuplication={isDuplication}
-        />
+        {!isLoading && <>
+          <Button onClick={handleClose}>
+            キャンセル
+          </Button>
+          <NotificationButton
+            explanation={duplicateExplanation}
+            handleAlert={handleAlert}
+            isDuplication={isDuplication}
+          />
+        </>}
+        {isLoading && <Typography>
+          データ読み込み中です。しばらくお待ちください。
+        </Typography>}
       </DialogActions>
 
     </Dialog>);

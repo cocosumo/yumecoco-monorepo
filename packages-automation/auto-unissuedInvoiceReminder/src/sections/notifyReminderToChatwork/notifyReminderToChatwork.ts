@@ -1,4 +1,5 @@
 import { IEmployees, IUnissuedinvoicealert } from 'types';
+import { createReminderMessage } from './createReminderMessage';
 
 
 export const notifyReminderToChatwork = ({
@@ -10,7 +11,10 @@ export const notifyReminderToChatwork = ({
 }) => {
 
   // 通知メッセージの準備
-  console.log('リマインダーレコードと社員情報から通知メッセージを準備します', recReminders, recEmployees);
+  createReminderMessage({
+    recReminders,
+    recEmployees,
+  });
 
 
   // chatworkへの通知処理

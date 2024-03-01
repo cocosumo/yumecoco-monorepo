@@ -1,5 +1,6 @@
 import { getEmployees } from 'api-kintone';
 import { getUnissuedInvReminderRecByAlertDate } from './helper/getUnissuedInvReminderRecByAlertDate';
+import { notifyReminderToChatwork } from './helper/notifyReminderToChatwork/notifyReminderToChatwork';
 
 
 
@@ -15,14 +16,13 @@ export const unissuedInvoiceReminders = async () => {
     getEmployees(),
   ]);
   
-  // 今日通知予定のリマインダーレコードを取得する
-  const reminderRec = await getUnissuedInvReminderRecByAlertDate();
+  const recReminders = await getUnissuedInvReminderRecByAlertDate();
 
-  
-  // 通知メッセージの準備
-  console.log('リマインダーレコードと社員情報から通知メッセージを準備します', reminderRec, recEmployees);
+  notifyReminderToChatwork({ 
+    recReminders,
+    recEmployees,
+  });
 
-  // chatworkへの通知処理
 
   // リマインダーレコードの更新処理
 

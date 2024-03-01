@@ -43,10 +43,10 @@ export const getAlertTarget = ({
         return cocoAgsInfo;
       }
 
-      return {
+      return [{
         cwRoomId: chatworkRooms.cocoasGroup,
         agName: cocoAGs,
-      };
+      }];
     }
   } else {
     // アラート用情報から取得する

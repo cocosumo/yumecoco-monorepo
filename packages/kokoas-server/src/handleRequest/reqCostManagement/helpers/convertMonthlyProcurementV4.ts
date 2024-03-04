@@ -84,6 +84,8 @@ export const convertMonthlyProcurementV4 = (
 
         const existingSupplierIdx = result.findIndex((supplier) => supplier.supplierName === supplierName);
         
+        // 実行予算金額と発注金額が共に0円のものは除外する
+        if (!contractOrderCost) continue;
 
         if (existingSupplierIdx !== -1) {
           

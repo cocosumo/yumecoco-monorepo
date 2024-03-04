@@ -6,11 +6,11 @@ import { getUnissuedInvReminderRecByAlertDate } from './getUnissuedInvReminderRe
 describe('getUnissuedInvReminderRecByAlertDate', () => {
   it('should get reminder datas by alert date', async () => {
 
-    const alertDate = new Date();
+    //const alertDate = new Date();
 
-    const result = getUnissuedInvReminderRecByAlertDate(alertDate);
+    const result = await getUnissuedInvReminderRecByAlertDate();
 
-    expect(result.length).toBeGreaterThan(0);
+    expect(result).toBeGreaterThan(0);
     
   }, 1000000);
 });

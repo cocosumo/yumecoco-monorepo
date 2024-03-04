@@ -14,13 +14,24 @@ const CustomAlert = styled(Alert)({
 });
 
 export const AddressCheck = () => {
-  const address1 = useTypedWatch({
-    name: 'address1',
-  }) as TForm['address1'];
+  const [
+    address1,
+    address2,
+  ] = useTypedWatch({
+    name: [
+      'address1',
+      'address2',
+    ],
+  }) as [
+    TForm['address1'],
+    TForm['address2'],
+  ];
 
-  const debouncedAddress = useDebounce(address1, 1000);
 
-  const { data: postalId, isLoading } = usePostalByAddress(debouncedAddress);
+  const combinedAddress = `${address1}${address2}`;
+  const debouncedAddress = useDebounce(combinedAddress, 1000);
+
+  const { data: postalId, isLoading } = usePostalByAddress(combinedAddress);
 
   const shouldShow = !!debouncedAddress && !isLoading;
 

@@ -11,13 +11,24 @@ export const useSaveReminder = ({
   purpose: KAlertPurpose
 }) => {
 
-  const { data: recProj } = useProjById(projId);
-  const { data: recContracts } = useContractsByProjIdV2(projId);
-  const { data: recEmployees } = useEmployees();
+  const { 
+    data: recProj,
+    isLoading: isLoadingProj,
+  } = useProjById(projId);
+  const { 
+    data: recContracts,
+    isLoading: isLoadingContracts,
+  } = useContractsByProjIdV2(projId);
+  const { 
+    data: recEmployees,
+    isLoading: isLoadingEmployees,
+  } = useEmployees();
   const { mutateAsync } = useSaveUnissuedInvoiceAlert();
 
+  const isLoading = isLoadingProj || isLoadingContracts || isLoadingEmployees;
+
   // kintoneにレコード登録
-  return async () => {
+  const saveReminder = async () => {
     if (!recProj || !recContracts || !recEmployees) return;
 
     const record = convertToKintone({
@@ -27,8 +38,13 @@ export const useSaveReminder = ({
       purpose,
     });
 
-    mutateAsync({
+    return mutateAsync({
       record: record,
     });
+  };
+
+  return {
+    saveReminder,
+    isLoadingSaveReminder: isLoading,
   };
 };

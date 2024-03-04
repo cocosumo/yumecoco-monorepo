@@ -3,6 +3,7 @@ import { createReminderMessage } from './createReminderMessage';
 import { getAlertTarget } from './helper/getAlertTarget';
 
 
+/** chatworkへリマインダーを通知する */
 export const notifyReminderToChatwork = ({
   recReminders,
   recEmployees,
@@ -19,12 +20,12 @@ export const notifyReminderToChatwork = ({
     });
 
     // 通知メッセージの準備
-    createReminderMessage({
+    const message = createReminderMessage({
       recReminder,
     });
 
     // chatworkへの通知処理
-    console.log(alertTarget, 'を使用して通知する');
+    console.log(message, 'を使用して通知する');
 
   }
 };

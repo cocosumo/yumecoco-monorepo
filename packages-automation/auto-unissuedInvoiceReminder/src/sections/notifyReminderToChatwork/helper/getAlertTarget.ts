@@ -39,7 +39,7 @@ export const getAlertTarget = ({
           return acc;
         }, [] as AlertTarget[]);
       
-      if (!cocoAgsInfo.length) {
+      if (cocoAgsInfo.length) {
         return cocoAgsInfo;
       }
 

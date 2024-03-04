@@ -1,7 +1,6 @@
 import { sendMessage } from 'api-chatwork';
 import { isProd } from 'config';
 import { KAlertPurpose, chatworkRooms } from '../alertConfig';
-import { IContracts, IEmployees, IProjects } from 'types';
 import { getCwRoomIds } from '../notifyAlertToCharwork/getCwRoomIds';
 import { useContractsByProjIdV2, useEmployees, useProjById } from 'kokoas-client/src/hooksQuery';
 import { createMessage } from '../notifyAlertToCharwork/createMessage';
@@ -9,7 +8,7 @@ import { useSnackBar } from 'kokoas-client/src/hooks';
 
 
 
-export const useAlertNotification = ({
+export const useAlertNotify = ({
   projId,
   purpose,
 }: {
@@ -19,28 +18,34 @@ export const useAlertNotification = ({
 
   const { setSnackState } = useSnackBar();
 
-  const { data: recProj } = useProjById(projId);
-  const { data: recContracts } = useContractsByProjIdV2(projId);
-  const { data: recEmployees } = useEmployees();
+  const {
+    data: recProj,
+    isLoading: isLoadingProj,
+  } = useProjById(projId);
+  const {
+    data: recContracts,
+    isLoading: isLoadingContracts,
+  } = useContractsByProjIdV2(projId);
+  const {
+    data: recEmployees,
+    isLoading: isLoadingEmployees,
+  } = useEmployees();
+
+  const isLoading = isLoadingProj || isLoadingContracts || isLoadingEmployees;
 
 
-
-  const alertNotify = async () => {
+  const alertNotify = async (reminderRecId: string) => {
     let sendCondition = false;
 
-    if (!recProj || !recContracts || !recEmployees) {
-
-
-      return;
-    }
+    if (!recProj || !recContracts || !recEmployees) return;
 
     const message = await createMessage({
       recProj: recProj,
       recContracts: recContracts,
       purpose,
-      projId,
+      reminderRecId,
     });
-    
+
     // 担当者の情報から通知先のルームIDを取得する
     const cwRoomIds = getCwRoomIds({
       recProj: recProj,
@@ -83,5 +88,8 @@ export const useAlertNotification = ({
 
   };
 
-  return alertNotify;
+  return { 
+    alertNotify,
+    isLoadingAlertNotify :isLoading,
+  };
 };

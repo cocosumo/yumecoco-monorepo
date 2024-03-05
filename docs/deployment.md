@@ -19,6 +19,31 @@
 ## サーバ
 
 PuTTYで更新する。PuTTYの設定は、ここでは省略する
+stagingで動作確認をする
+
+1. PuTTYでココアス用の設定(※1)を選択し、[load]をクリックしてから[open]する
+2. IDとパスワードを入れる
+3. ディレクトリに移動する[cd cocosumo.net/publichtml/nodejs/yumecoco-monorepo-staging]
+4. git fetch
+5. git pull
+6. ※エラーになった場合のみ git reset --hard
+7. git pull
+8. git pull
+9. npm i
+10. forever list
+11. nx start kokoas-server
+12. エラーが出た場合は、競合しているポートを一旦止める
+
+```bash
+kill $(lsof -t -i:[port番号])
+```
+
+　　ex.) kill $(lsof -t -i:3011)
+13.  サーバに関わる操作をし、ログにエラー(無限ループ)がなければOK
+14.  最終行のTest server にアクセスして、「YEHEY」が表示されればOK
+15.  [ctrl]+cで終了
+
+prod環境へ反映する
 
 1. PuTTYでココアス用の設定(※1)を選択し、[load]をクリックしてから[open]する
 2. IDとパスワードを入れる
@@ -36,8 +61,9 @@ PuTTYで更新する。PuTTYの設定は、ここでは省略する
 14. nx forever kokoas-server
 15. forever logs
 16. forever logs 1 -f
-17. サーバに関わる操作をし、ログにエラー(無限ループ)がなければOK
-18. [ctrl]+cで終了
+17. ```Test server https://cocosumo.net/nodejs/yumecoco-monorepo```が表示されることを確認する
+18. サーバに関わる操作をし、ログにエラー(無限ループ)がなければOK
+19. [ctrl]+cで終了
 
 ## xserverのエラー等でローカルサーバにて代用する場合の対処方法
 

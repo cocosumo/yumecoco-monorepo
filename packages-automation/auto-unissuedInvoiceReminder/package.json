@@ -1,0 +1,16 @@
+{
+  "name": "autounissuedinvrem",
+  "version": "0.0.0",
+  "devDependencies": {},
+  "dependencies": {
+    "api-andpad": "*",
+    "api-kintone": "*",
+    "config": "*",
+    "types": "*",
+    "auto-common": "*"
+  },
+  "scripts": {
+    "start:dev": "ts-node --files ./main.ts -T",
+    "start:prod": "cross-env NODE_ENV=production ts-node --files ./main.ts -T"
+  }
+}

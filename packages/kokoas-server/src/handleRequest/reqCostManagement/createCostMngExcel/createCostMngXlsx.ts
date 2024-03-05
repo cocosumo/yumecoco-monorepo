@@ -84,7 +84,7 @@ export const createCostMngXlsx = async (costManagement: GetCostMgtData) => {
   // 支払処理済欄を反映する
   for (const procurement of costManagement.発注情報詳細) {
     // 発注金額0,支払い実績なしの場合は反映しない
-    if ((procurement.plannedBudgetCost === 0)
+    if ((procurement.totalPaidAmount === 0)
       && (procurement.paymentHistory.length === 0)) continue;
 
     if (currRowIdx > maxRows) {

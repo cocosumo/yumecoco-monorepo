@@ -12,7 +12,7 @@ describe('createCostMngXlsx', () => {
   it('should get andpad orders by AndpadProjId', async () => {
 
 
-    const testId = '8ba2ced0-11f4-4c36-8ece-ba9cde5e8600';
+    const testId = '055c2aca-cbdd-42ab-be2a-e4cd6dd362de';
     const testDataPath = path.join(__dirname, `./__TEST__/testData_${testId}.json`);
     let testData = Object.create(null);
 

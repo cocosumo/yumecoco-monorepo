@@ -2,13 +2,15 @@ import { IContracts } from 'types';
 import { getEarliestDate } from './getEarliestDate';
 
 
+
 export const summarizeContracts = ({
   contracts,
 }: {
   contracts: IContracts[]
 }) => {
+
   // メインの契約書を設定する
-  const hasKeiyakuCategory = contracts.some(({ contractType }) => contractType.value === '契約');
+  const hasKeiyakuCategory = contracts?.some(({ contractType }) => contractType.value === '契約');
   const mainCategoryName = hasKeiyakuCategory ? '契約' : '設計契約';
 
   const contractData = contracts.reduce((acc, {

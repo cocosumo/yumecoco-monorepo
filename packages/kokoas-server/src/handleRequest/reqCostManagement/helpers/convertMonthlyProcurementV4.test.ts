@@ -10,7 +10,7 @@ import { GetAndpadProcurementsBySytemIdReturn, getAndpadProcurementsBySytemId } 
 
 describe('convertMonthlyProcurementV4', () => {
   it('should convert monthly procurement', async () => {
-    const testSystemId = 10892561;
+    const testSystemId = 11487098;
 
     const testDataPath = path.join(__dirname, `./__TEST__/convertMonthlyProcurementV4_${testSystemId}.json`);
     let testData: GetAndpadProcurementsBySytemIdReturn = Object.create(null);

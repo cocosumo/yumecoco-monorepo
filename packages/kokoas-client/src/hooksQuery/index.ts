@@ -1,5 +1,5 @@
 export * from './keys';
-export * from './useActiveUnissuedInvRemindersByProjId';
+export * from './useActiveUnissuedInvReminders';
 export * from './useAddressAreas';
 export * from './useAddressCities';
 export * from './useAddressPostalCode';

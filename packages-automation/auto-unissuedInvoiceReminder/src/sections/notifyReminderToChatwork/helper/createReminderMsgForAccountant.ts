@@ -32,7 +32,8 @@ ${store.value}　${projName.value}
 必要に応じて担当者へのフォローや、アラートの停止をお願いします。
 ※この連絡はココアスからアラートを発行した案件を対象に実施しています。`;
 
-  const content = `[info][title]概要[/title]${reminderSummary.join('[hr]\n')}[/info]`;
+  const content = `[info][title]概要[/title]
+${reminderSummary.join('[hr]\n')}[/info]`;
 
 
   return `[info]${[title, message, content].join('\n')}[/info]`;

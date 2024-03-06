@@ -1,24 +1,25 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, it } from '@jest/globals';
 import path from 'path';
 import fs from 'fs';
 import { IUnissuedinvoicealert } from 'types';
-import { createReminderMsgForAccountant } from './createReminderMsgForAccountant';
+import { notifyReminderToAccountantCw } from './notifyReminderToAccountantCw';
 
 
 
-describe('createReminderMsgForAccountant', () => {
+/** 注：テスト実行前にauto-unissuedInvoiceReminder内の.envファイルの設定を確認すること
+ *  設定により通知先が変わるため、ご注意ください
+ */
+describe('notifyReminderToAccountantCw', () => {
   // set output file of getRemindersScheduledForToday.test.ts
-  const remindersPath = path.join(__dirname, '../../__TEST__/reminders.json');
+  const remindersPath = path.join(__dirname, '../__TEST__/reminders.json');
   const remindersDat = JSON.parse(fs.readFileSync(remindersPath, 'utf8')) as IUnissuedinvoicealert[];
 
   it('経理担当者用の通知メッセージを作成する', async () => {
-    const result = createReminderMsgForAccountant({
-      recReminder: remindersDat,
+    await notifyReminderToAccountantCw({
+      recReminders: remindersDat,
     });
 
-    console.log(result);
-
-    expect(result).toContain('【ココアス】お客さまへの請求書の作成が送れているようです');
+    console.log('chatworkにてご確認ください');
 
   }, 10000);
 

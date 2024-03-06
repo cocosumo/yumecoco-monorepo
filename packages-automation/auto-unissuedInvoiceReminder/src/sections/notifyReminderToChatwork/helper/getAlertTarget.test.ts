@@ -10,7 +10,7 @@ import { chatworkRooms } from '../../../../config';
 
 
 describe('getAlertTarget', () => {
-  // set output file of createInvoiceAlert.test.ts
+  // set output file of getRemindersScheduledForToday.test.ts
   const remindersPath = path.join(__dirname, '../../__TEST__/reminders.json');
   const remindersDat = JSON.parse(fs.readFileSync(remindersPath, 'utf8')) as IUnissuedinvoicealert[];
 

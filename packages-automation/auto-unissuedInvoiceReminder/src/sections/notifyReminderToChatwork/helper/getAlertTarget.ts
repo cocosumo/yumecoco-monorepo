@@ -5,7 +5,6 @@ import { chatworkRooms } from '../../../../config';
 export type AlertTarget = {
   cwRoomId: string,
   agName: string,
-  area: string,
 };
 
 export const getAlertTarget = ({
@@ -16,7 +15,6 @@ export const getAlertTarget = ({
   recEmployees: IEmployees[]
 }): AlertTarget[] => {
 
-  const area = recReminder.area.value;
   const alertTargets = recReminder.notificationSettings.value;
 
   if (alertTargets.length === 1 && alertTargets[0].value.chatworkRoomId.value === '') {
@@ -26,7 +24,6 @@ export const getAlertTarget = ({
       return [{
         cwRoomId: chatworkRooms.cocoasGroup,
         agName: cocoAGs,
-        area: area,
       }];
     } else {
       const cocoAgsInfo = cocoAGs.split(', ')
@@ -37,7 +34,6 @@ export const getAlertTarget = ({
             acc.push({
               cwRoomId: cocoAgInfo.chatworkRoomId.value,
               agName: cocoAgName,
-              area: area,
             });
           }
 
@@ -51,7 +47,6 @@ export const getAlertTarget = ({
       return [{
         cwRoomId: chatworkRooms.cocoasGroup,
         agName: cocoAGs,
-        area: area,
       }];
     }
 
@@ -64,7 +59,6 @@ export const getAlertTarget = ({
       return {
         cwRoomId: chatworkRoomId.value,
         agName: alertTargetName.value,
-        area: area,
       };
     });
   }

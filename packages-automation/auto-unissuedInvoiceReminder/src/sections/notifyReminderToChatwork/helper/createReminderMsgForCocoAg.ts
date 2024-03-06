@@ -1,5 +1,6 @@
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
+import { KAlertPurpose, alertMessages, alertPurposes } from 'kokoas-client/src/pages/projSearch/sections/result/details/paymentDetails/unissuedInvoiceAlert/alertConfig';
 import { IUnissuedinvoicealert } from 'types';
 
 
@@ -20,8 +21,12 @@ export const createReminderMsgForCocoAg = ({
     yumeAG,
   } = recReminder;
 
+  const alertPurposesReverse = Object.fromEntries(Object.entries(alertPurposes).map(val => val.reverse()));
+  const purpose = alertPurposesReverse[alertType.value] as KAlertPurpose;
+
+
   const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
-  const message0 = `${alertType.value}`;
+  const message0 = `下記工事に対して、${alertMessages[purpose]}`;
   const message1 = `請求書の発行をお願いします。
 `;
 
@@ -29,7 +34,7 @@ export const createReminderMsgForCocoAg = ({
 
   const content = `契約日  : ${contractDateStr}
 工事名  : ${projName.value}
-契約金額: ${(totalContractAmount).toLocaleString()} 円
+契約金額: ${(totalContractAmount.value).toLocaleString()} 円
 担当者  : ${cocoAGs.value}
 夢てつAG: ${yumeAG.value}`;
 

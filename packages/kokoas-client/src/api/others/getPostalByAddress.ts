@@ -7,7 +7,7 @@ export const getPostalByAddress = async (
   try {
 
     let resolvedPostal = '';
-    let normalizedAddress = address;
+    let normalizedAddress = address.trim();
     /** 
      * We have to loop through the address and remove the last character
      * to help google Api resolve the postal code.

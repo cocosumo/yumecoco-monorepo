@@ -39,7 +39,8 @@ export const createReminderMsgForCocoAg = ({
 夢てつAG: ${yumeAG.value}`;
 
   const reminder = `[info][title]再通知日設定[/title]
-リマインダーの間隔の変更や、アラートの停止は、下記リンク先よりご対応いただけます。
+リマインダーの間隔の変更は、下記リンク先よりご対応いただけます。
+アラートの停止は経理担当者へご依頼ください
 https://rdmuhwtt6gx7.cybozu.com/k/303/show#record=${$id.value}&mode=edit[/info]
 `;
   const message2 = '本連絡と前後して処理されている場合はご容赦ください。';

@@ -34,7 +34,7 @@ export const createReminderMsgForCocoAg = ({
 
   const content = `契約日  : ${contractDateStr}
 工事名  : ${projName.value}
-契約金額: ${(totalContractAmount.value).toLocaleString()} 円
+契約金額: ${(+totalContractAmount.value).toLocaleString()} 円
 担当者  : ${cocoAGs.value}
 夢てつAG: ${yumeAG.value}`;
 

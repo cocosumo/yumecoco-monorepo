@@ -1,10 +1,10 @@
 import { IEmployees, IUnissuedinvoicealert } from 'types';
-import { createReminderMessage } from './createReminderMessage';
-import { getAlertTarget } from './helper/getAlertTarget';
+import { notifyReminderToCocoAgCw } from './notifyReminderToCocoAgCw';
+import { notifyReminderToAccountantCw } from './notifyReminderToAccountantCw';
 
 
 /** chatworkへリマインダーを通知する */
-export const notifyReminderToChatwork = ({
+export const notifyReminderToChatwork = async ({
   recReminders,
   recEmployees,
 }: {
@@ -12,20 +12,12 @@ export const notifyReminderToChatwork = ({
   recEmployees: IEmployees[]
 }) => {
 
-  for (const recReminder of recReminders) {
-    // 通知対象者情報の取得
-    const alertTarget = getAlertTarget({
-      recReminder,
-      recEmployees,
-    });
+  await notifyReminderToCocoAgCw({
+    recReminders,
+    recEmployees,
+  });
 
-    // 通知メッセージの準備
-    const message = createReminderMessage({
-      recReminder,
-    });
-
-    // chatworkへの通知処理
-    console.log(message, 'を使用して通知する');
-
-  }
+  await notifyReminderToAccountantCw({
+    recReminders,
+  });
 };

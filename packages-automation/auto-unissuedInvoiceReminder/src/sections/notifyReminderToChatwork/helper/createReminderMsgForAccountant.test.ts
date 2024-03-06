@@ -18,7 +18,7 @@ describe('createReminderMsgForAccountant', () => {
 
     console.log(result);
 
-    expect(result).toContain('【ココアス】お客さまへの請求書の作成が送れているようです');
+    expect(result).toContain('【ココアス】お客さまへの請求書の作成が遅れているようです');
 
   }, 10000);
 

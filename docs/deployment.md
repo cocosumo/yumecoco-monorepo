@@ -23,7 +23,7 @@ stagingで動作確認をする
 
 1. PuTTYでココアス用の設定(※1)を選択し、[load]をクリックしてから[open]する
 2. IDとパスワードを入れる
-3. ディレクトリに移動する[cd cocosumo.net/publichtml/nodejs/yumecoco-monorepo-staging]
+3. ディレクトリに移動する[cd [domain]/publichtml/nodejs/yumecoco-monorepo-staging]
 4. git fetch
 5. git pull
 6. ※エラーになった場合のみ git reset --hard

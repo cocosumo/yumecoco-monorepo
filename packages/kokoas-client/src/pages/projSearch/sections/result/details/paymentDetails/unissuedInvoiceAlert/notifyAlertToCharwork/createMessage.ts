@@ -37,8 +37,6 @@ export const createMessage = async ({
   const message0 = `下記工事に対して、${alertMessages[purpose]}`;
   const message1 = '請求書の発行をお願いします。\n';
 
-  console.log('contractDate', contractDate);
-
   const content = [
     '【工事内容】',
     `契約日　 :  ${contractDate ? format(parseISO(contractDate), 'yyyy年M月d日') : ''}`,

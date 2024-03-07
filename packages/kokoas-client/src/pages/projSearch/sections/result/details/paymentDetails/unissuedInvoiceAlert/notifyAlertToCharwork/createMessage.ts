@@ -39,15 +39,17 @@ export const createMessage = async ({
 
   const content = [
     '【工事内容】',
-    `契約日　 :  ${contractDate ? format(parseISO(contractDate), 'yyyy年M月d日') : ''}`,
-    `工事名　 :  ${recProj.projName.value}`,
-    `契約金額 :  ${(contractAmt ?? 0).toLocaleString()} 円`,
-    `担当者　 :  ${cocoAGs}`,
+    `契約日　  :  ${contractDate ? format(parseISO(contractDate), 'yyyy年M月d日') : '-'}`,
+    `工事名　  :  ${recProj.projName.value}`,
+    `契約金額  :  ${(contractAmt ?? 0).toLocaleString()} 円`,
+    `担当者　  :  ${cocoAGs}`,
     `夢てつAG :  ${yumeAGs} `,
   ].join('\n');
 
   const reminder = [
-    '[info][title]下記リンク先より、再通知日を設定していただけます[/title]',
+    '[info][title]再通知日設定[/title]',
+    'リマインダーの間隔の変更は、下記リンク先よりご対応いただけます',
+    'アラートの停止は経理担当者へご依頼ください',
     `${reminderUrl ?? 'URLの取得に失敗しました'} [/info]`,
   ].join('\n');
 

@@ -13,7 +13,8 @@ export const getAlertTarget = ({
 }: {
   recReminder: IUnissuedinvoicealert
   recEmployees: IEmployees[]
-}) => {
+}): AlertTarget[] => {
+
   const alertTargets = recReminder.notificationSettings.value;
 
   if (alertTargets.length === 1 && alertTargets[0].value.chatworkRoomId.value === '') {
@@ -38,7 +39,7 @@ export const getAlertTarget = ({
 
           return acc;
         }, [] as AlertTarget[]);
-      
+
       if (cocoAgsInfo.length) {
         return cocoAgsInfo;
       }
@@ -48,6 +49,7 @@ export const getAlertTarget = ({
         agName: cocoAGs,
       }];
     }
+
   } else {
     // アラート用情報から取得する
     return alertTargets.map(({ value: {
@@ -58,7 +60,7 @@ export const getAlertTarget = ({
         cwRoomId: chatworkRoomId.value,
         agName: alertTargetName.value,
       };
-
     });
   }
+
 };

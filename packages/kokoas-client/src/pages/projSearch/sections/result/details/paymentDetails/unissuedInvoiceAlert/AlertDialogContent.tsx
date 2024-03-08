@@ -9,11 +9,15 @@ import { useProjById } from 'kokoas-client/src/hooksQuery';
 export const AlertDialogContent = ({
   purpose,
   handlePurposeChange,
+  handleDateChange,
   projId,
+  paymentDate,
 }: {
   purpose: KAlertPurpose
   handlePurposeChange: (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => void
+  handleDateChange: (v: Date) => void
   projId: string
+  paymentDate: Date | null
 }) => {
 
   const { data: recProj } = useProjById(projId);
@@ -37,7 +41,11 @@ export const AlertDialogContent = ({
           handleChange={handlePurposeChange}
         />
 
-        <AlertContent purpose={purpose} />
+        <AlertContent
+          purpose={purpose}
+          handleDateChange={handleDateChange}
+          paymentDate={paymentDate}
+        />
 
         <AlertTarget agents={recProj?.agents} />
 

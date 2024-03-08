@@ -19,7 +19,13 @@ export const AlertDialog = ({
   handleClose: () => void
   projId: string
 }) => {
-  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
+  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);  
+  const [paymentDate, setPaymentDate] = useState<Date | null>(null);
+
+  const handleDateChange = (value: Date) => {
+    setPaymentDate(value);
+  };
+
 
   const recUnissuedInvReminders = useActiveUnissuedInvRemindersByProjId(projId);
 
@@ -81,7 +87,9 @@ export const AlertDialog = ({
       <AlertDialogContent
         purpose={purpose}
         handlePurposeChange={handlePurposeChange}
+        handleDateChange={handleDateChange}
         projId={projId}
+        paymentDate={paymentDate}
       />
 
       <DialogCloseButton handleClose={handleClose} />

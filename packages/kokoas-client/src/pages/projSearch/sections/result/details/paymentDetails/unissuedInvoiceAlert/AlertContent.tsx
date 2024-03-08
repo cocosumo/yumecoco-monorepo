@@ -1,21 +1,19 @@
 import { Stack, Typography } from '@mui/material';
 import { KAlertPurpose, alertMessages } from './alertConfig';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { JADatePicker } from 'kokoas-client/src/components';
 import format from 'date-fns/format';
 
 
 export const AlertContent = ({
   purpose,
+  paymentDate,
+  handleDateChange,
 }: {
   purpose: KAlertPurpose
+  paymentDate: Date | null
+  handleDateChange: (v: Date) => void
 }) => {
-  const [paymentDate, setPaymentDate] = useState<Date | null>(null);
-
-  const handleChange = (value: Date) => {
-    setPaymentDate(value);
-  };
-
   const explanation = useMemo(() => {
     const defaultMessage = alertMessages[purpose];
     if (purpose === 'unissued') return defaultMessage;
@@ -48,7 +46,7 @@ export const AlertContent = ({
           </Typography>
 
           <JADatePicker
-            onChange={handleChange}
+            onChange={handleDateChange}
             value={paymentDate}
             slotProps={{
               textField: {

@@ -10,7 +10,7 @@ export const AlertContent = ({
 }: {
   purpose: KAlertPurpose
 }) => {
-  const [paymentDate, setPaymentDate] = useState<Date | undefined>(undefined);
+  const [paymentDate, setPaymentDate] = useState<Date | null>(null);
 
   const handleChange = (value: Date) => {
     setPaymentDate(value);

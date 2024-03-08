@@ -17,79 +17,31 @@ export const EstimateContent = (props: Partial<EstTableProps> & {
     record,
     results,
     summary,
-    projId,
     emptyNode,
   } = props;
-
-  const {
-    uuid: projEstimateId,
-  } = record ?? {};
 
 
 
   return (
-    <Box 
-      height={'100%'}
-      width={'100%'} 
-      py={2}
-      pr={2}
-      sx={{
-        overflowY: 'scroll',
-      }}
-    >
-      <Stack spacing={2}>
-
-        <Stack 
-          spacing={2} 
-          direction={'row'}
-          justifyContent={'flex-end'}
-        >
-          
-
-          {projEstimateId?.value && (
-            <>
-              <ContractButton
-                href={`${pages.projContractPreviewV2}?${generateParams({ projEstimateId: projEstimateId.value })}`}
-                title='見積を利用して契約を作成する。'
-              />
-
-              <ExportButton
-                projEstimateId={projEstimateId.value}
-              />
-            </>
-
-          )}
-
-          <NewButton 
-            href={`${pages.projEstimate}?${generateParams({ projId })}`}
-            title='見積を作成する'
-          />
-          
-          {projEstimateId?.value && (
-          <EditButton 
-            href={`${pages.projEstimate}?${generateParams({ projEstimateId: projEstimateId?.value })}`}
-            title='見積を編集する'
-          />
-          )}
+    <>
     
-        </Stack>
-     
-        {record && results && summary && (
+
+      {record && results && summary && (
         <EstimatesTable 
           record={record}
           results={results}
           summary={summary}
         />
-        )}
+      )}
 
-        {emptyNode}
+      {emptyNode}
 
  
-        {record && (
+      {record && (
         <OtherInfo record={record}  />
-        )}
+      )}
 
-      </Stack>
-    </Box>
+
+    </>
   );
 };

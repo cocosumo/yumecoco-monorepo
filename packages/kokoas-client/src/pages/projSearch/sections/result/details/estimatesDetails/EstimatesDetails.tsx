@@ -1,9 +1,11 @@
-import { LinearProgress, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { BranchList } from './BranchList';
 import { EstimateContent } from './EstimateContent';
 import { useEstimatesByProjId } from 'kokoas-client/src/hooksQuery';
 import { useState } from 'react';
 import { EmptyBox } from 'kokoas-client/src/components';
+import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
+import { EstimateActions } from './EstimateActions';
 
 export const EstimatesDetails = ({
   projId,
@@ -29,7 +31,9 @@ export const EstimatesDetails = ({
     setSelectedEstIdx(idx);
   };
 
-  
+  const {
+    uuid: projEstimateId,
+  } = selectedRecord ?? {};  
 
   return (
 
@@ -46,24 +50,52 @@ export const EstimatesDetails = ({
         selectedIndex={selectedEstIdx}
         projId={projId}
       />
-     
-      {isLoading && <LinearProgress />}
 
-      {!isLoading && (
-      <EstimateContent 
-        record={selectedRecord}
-        results={selectedRecordCal}
-        summary={selectedRecordSummary}
-        projId={projId}
-        emptyNode={!records?.length && (
-          <EmptyBox>
-            見積もりがありません
-          </EmptyBox>
-        )}
-      />
-      )}
+
+      <Box 
+        height={'100%'}
+        width={'100%'} 
+        py={2}
+        pr={2}
+        sx={{
+          overflowY: 'scroll',
+        }}
+      >
+
+        <Stack spacing={2}>
+          <EstimateActions 
+            projEstimateId={projEstimateId?.value}
+            projId={projId}
+          />
+
+          {isLoading && (
+          <Stack
+            justifyContent={'center'}
+            alignItems={'center'}
+            width={'100%'}
+          >
+            <Loading />
+          </Stack>)}
+
+          {!isLoading && (
+          <EstimateContent 
+            record={selectedRecord}
+            results={selectedRecordCal}
+            summary={selectedRecordSummary}
+            projId={projId}
+            emptyNode={!records?.length && (
+            <EmptyBox>
+              見積もりがありません
+            </EmptyBox>
+            )}
+          />
+          )}
+        </Stack>
+
+      </Box>
 
     </Stack>
+    
 
 
   );

@@ -12,7 +12,7 @@ type AlertMessages = {
 
 export const alertMessages: AlertMessages = {
   'unissued': '顧客からの入金がありましたが、請求書が発行されていません。',
-  'subsidy': '補助金の請求書が必要です。',
+  'subsidy': '補助金の入金予定があります。',
 };
 
 

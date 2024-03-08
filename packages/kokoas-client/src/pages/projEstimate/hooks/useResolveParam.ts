@@ -25,6 +25,7 @@ export const useResolveParam = () => {
   const { data: recContract } = useContractsByEstId(projEstimateIdFromURL || '');
   const { data: recCustGroupRec } = useCustGroupById(recProj?.custGroupId?.value || '');
 
+  
 
   useEffect(() => {
 
@@ -84,6 +85,7 @@ export const useResolveParam = () => {
     }
 
   }, [ 
+    recCustGroupRec,
     projIdFromURL, 
     projEstimateIdFromURL, 
     recProjType, 

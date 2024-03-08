@@ -12,16 +12,19 @@ const UnitsSelect = ({
 }: RenderEditCellProps<RowItem>) => {
   const [open, setOpen] = useState(true);
   const { data } = useUnits((u) => {
-    return u.map(({
+    return u?.map(({
       unit,
     }) => ({
       value: unit.value,
     }));
   });
 
+  // Prevent warning from MUI Select #https://github.com/mui/material-ui/issues/18494#issuecomment-782779777
+  if (!data) return null; 
+
   return (
     <Select
-      value={row.unit || undefined}
+      value={row.unit || ''}
       onChange={(event) => onRowChange({ ...row, unit: event.target.value }, true)}
       autoFocus
       size='small'

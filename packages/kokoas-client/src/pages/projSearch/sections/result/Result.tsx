@@ -4,6 +4,9 @@ import { ResultCount } from './ResultCount';
 import { ResultTable } from './ResultTable';
 import { NewCustomerButton } from './NewCustomerButton';
 import { DownloadResult } from './DownloadResult';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import jaLocale from 'date-fns/locale/ja';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 export const Result = () => {
 
@@ -13,7 +16,7 @@ export const Result = () => {
   } = useSearchResult();
   
   return (
-    <>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={jaLocale}>
       <Stack 
         justifyContent={'space-between'}
         alignItems={'center'}
@@ -38,6 +41,6 @@ export const Result = () => {
       {isLoading && <LinearProgress />}
      
     
-    </>
+    </LocalizationProvider>
   );
 };

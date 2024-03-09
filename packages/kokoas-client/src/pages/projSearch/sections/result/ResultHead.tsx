@@ -115,6 +115,13 @@ export const ResultHead = () => {
             label='支払完了日'
           />
         )}
+        receivableCompleteDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='receivableCompleteDate'
+            label='入金完了日'
+          />
+        )}
         projFinDate={(
           <EnhancedTableCell
             existingQuery={query}

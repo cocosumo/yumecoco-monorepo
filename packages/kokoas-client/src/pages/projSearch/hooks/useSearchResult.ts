@@ -99,6 +99,7 @@ export const useSearchResult = () => {
           payFinDate,
           projFinDate,
           lastBillingDate,
+          receivableCompleteDate,
 
           finalPostal,
           finalAddress1,
@@ -299,6 +300,7 @@ export const useSearchResult = () => {
             deliveryDate: deliveryDate?.value ? deliveryDate.value : '-',
             projFinDate: projFinDate?.value ? projFinDate.value : '-',
             lastBillDate: lastBillingDate?.value ? lastBillingDate.value : '-',
+            receivableCompleteDate: receivableCompleteDate.value, // don't use "-" for this field
             payFinDate: payFinDate?.value ? payFinDate.value : '-',
             storeSortNumber: +(sortNumber?.value || 0),
             createdAt: parseISOTimeToFormat(createdAt.value, 'yyyy-MM-dd HH:mm'),

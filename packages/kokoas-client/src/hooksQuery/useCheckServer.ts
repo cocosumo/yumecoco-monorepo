@@ -5,6 +5,10 @@ export const useCheckServer = () => {
   return useQuery({
     queryKey: ['checkServer'],
     queryFn: checkServer,
-    refetchInterval: 60 * 1000,
+    refetchInterval: 3000,
+    initialData: {
+      runtime: 0,
+      alive: false,
+    },
   });
 };

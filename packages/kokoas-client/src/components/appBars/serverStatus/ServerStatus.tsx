@@ -93,7 +93,7 @@ export const ServerStatus = () => {
     } else {
       borderColor = 'red';
     }
-  } 
+  }   
 
   const keepTooltipOpen = isFetchedAfterMount && !alive;
 
@@ -103,7 +103,18 @@ export const ServerStatus = () => {
       placement='right' 
       arrow
       title={<TooltipTitle {...data} isFetchedAfterMount={isFetchedAfterMount} />}
-      componentsProps={{ tooltip: { sx: { backgroundColor: keepTooltipOpen ? 'red' : undefined } } }}
+      // 直接 sx が使えないため、componentsProps を使ってスタイルを上書き
+      // #https://github.com/mui/material-ui/issues/28679#issuecomment-949277606
+      componentsProps={{ 
+        tooltip: { 
+          sx: { 
+            backgroundColor: keepTooltipOpen ? '#A70000' : undefined,
+          }, 
+        },
+        arrow: { 
+          sx: { color: keepTooltipOpen ? '#A70000' : undefined }, 
+        },
+      }}
     >
       <Stack
         direction="row"

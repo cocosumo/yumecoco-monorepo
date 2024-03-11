@@ -1,7 +1,8 @@
-import { Alert, Box, Button, Paper, Stack } from '@mui/material';
+import { Box, Button, Paper, Stack, Zoom } from '@mui/material';
 import { GoToContractButton } from '../navigationComponents/GoToContractButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { useFormState } from 'react-hook-form';
+import { CustomAlert } from './CustomAlert';
 
 export const ActionButtons = ({
   handleSubmit,
@@ -17,7 +18,8 @@ export const ActionButtons = ({
   return (
     <Box 
       component={Paper}
-      p={2} 
+      py={1}
+      px={2} 
       position={'sticky'}
       bottom={8}
       elevation={4}
@@ -33,6 +35,7 @@ export const ActionButtons = ({
       <Stack 
         direction="row" 
         spacing={2}
+        alignItems={'center'}
       >
         <Button
           variant='contained'
@@ -42,11 +45,15 @@ export const ActionButtons = ({
           保存
         </Button>
         <GoToContractButton  />
+   
+        <Zoom in={isDirty}>
+          <CustomAlert severity='warning'>
+            保存されていない変更があります。保存してください。
+          </CustomAlert>
+        </Zoom>
+       
       </Stack>
-      {isDirty && (
-      <Alert severity='warning'>
-        保存されていないデータがあります。保存してください。
-      </Alert>) }
+      
 
     </Box>
  

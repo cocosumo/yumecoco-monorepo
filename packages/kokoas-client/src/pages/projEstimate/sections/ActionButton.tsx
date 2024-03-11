@@ -1,4 +1,4 @@
-import { Alert, Button, Stack } from '@mui/material';
+import { Alert, Box, Button, Paper, Stack } from '@mui/material';
 import { GoToContractButton } from '../navigationComponents/GoToContractButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { useFormState } from 'react-hook-form';
@@ -15,13 +15,27 @@ export const ActionButtons = ({
   
 
   return (
-    <>
+    <Box 
+      component={Paper}
+      p={2} 
+      position={'sticky'}
+      bottom={8}
+      elevation={4}
+      zIndex={50}
+      sx={{
+        transition: 'all 0.3s ease-in-out',
+        opacity: 0.8,
+        '&:hover': {
+          opacity: 1,
+        },
+      }}
+    >
       <Stack 
         direction="row" 
         spacing={2}
       >
         <Button
-          variant='outlined'
+          variant='contained'
           startIcon={<SaveIcon />}
           onClick={handleSubmit}
         >
@@ -34,7 +48,7 @@ export const ActionButtons = ({
         保存されていないデータがあります。保存してください。
       </Alert>) }
 
-    </>
+    </Box>
  
   );
 };

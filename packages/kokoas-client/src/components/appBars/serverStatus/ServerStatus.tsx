@@ -1,9 +1,15 @@
-import { Alert, Box, Stack, Tooltip, Typography } from '@mui/material';
+import { Box, Stack, Tooltip, TooltipProps, Typography, tooltipClasses } from '@mui/material';
 import { useCheckServer } from 'kokoas-client/src/hooksQuery';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
-// Glowing CircleIcon
+const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 'none',
+  },
+});
 
 const GlowingCircleIcon = styled(Box)(({ borderColor }) => ({
   width: 25,
@@ -43,11 +49,11 @@ const TooltipTitle = ({
 
   if (isFetchedAfterMount && !alive) {
     return (
-      <Alert severity="error" variant='standard' >
-        処理サーバーに接続できません。
+      <Typography>
+        処理サーバーに接続出来なかったため、一部機能が制限されています。
         <br />
-        管理者にお知らせください
-      </Alert>
+        お手数ですが、管理者にお知らせください。
+      </Typography>
     );
   }
 
@@ -89,12 +95,15 @@ export const ServerStatus = () => {
     }
   } 
 
+  const keepTooltipOpen = isFetchedAfterMount && !alive;
+
   return (
-    <Tooltip
-      open={isFetchedAfterMount && !alive ? true : open}
+    <NoMaxWidthTooltip
+      open={keepTooltipOpen ? true : open}
       placement='right' 
       arrow
       title={<TooltipTitle {...data} isFetchedAfterMount={isFetchedAfterMount} />}
+      componentsProps={{ tooltip: { sx: { backgroundColor: keepTooltipOpen ? 'red' : undefined } } }}
     >
       <Stack
         direction="row"
@@ -109,6 +118,6 @@ export const ServerStatus = () => {
         </GlowingCircleIcon>
       
       </Stack>
-    </Tooltip>
+    </NoMaxWidthTooltip>
   );
 };

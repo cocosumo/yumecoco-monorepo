@@ -3,6 +3,8 @@ import { useCheckServer } from 'kokoas-client/src/hooksQuery';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 
+const latencyThreshold = 300;
+
 const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))({
@@ -85,7 +87,7 @@ export const ServerStatus = () => {
 
   if (isFetchedAfterMount) {
     if (alive) {
-      if (runtime < 200) {
+      if (runtime < latencyThreshold) {
         borderColor = 'green';
       } else {
         borderColor = 'orange';

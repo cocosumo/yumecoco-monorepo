@@ -29,10 +29,20 @@ export const kintoneProxyWrapper = async <D = unknown, S = unknown>(params: {
 
     if (status !== 200) throw new Error(body);
 
-    return {
-      data: JSON.parse(body) as D,
-      status: status as S,
-    };
+    try {
+      return {
+        data: JSON.parse(body) as D,
+        status: status as S,
+      };
+  
+    } catch (e) {
+      // Handle non-JSON response
+      return {
+        data: body as D,
+        status: status as S,
+      };
+    }
+  
   } else {
     const result = await axios({
       url,

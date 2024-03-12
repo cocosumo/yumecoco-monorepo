@@ -1,12 +1,9 @@
 /* eslint-disable import/named */
-// import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import CocoLogo from './../../assets/logo-cocosumo-system.png';
+
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { Stack, Typography, useMediaQuery } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { AppBarContent } from './AppBarContent';
 
 
 
@@ -37,35 +34,18 @@ export default function PersistentAppBar({ handleDrawerOpen }: AppBarProps) {
         direction="row"
         spacing={2}
         justifyContent="space-between"
+        alignItems={'center'}
         m={1}
       >
-        <Stack
-          direction="row"
-          spacing={2}
-        >
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mx: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Link to="/"> 
-            {' '}
-            <img height="40px" src={CocoLogo} alt="" />
-          </Link>
-
-        </Stack>
+        <AppBarContent 
+          handleDrawerOpen={handleDrawerOpen}
+        />
         {!isSmallScreen &&
-        <div>
-          {/* <SearchField /> */}
+          (
           <Typography>
             {kintone.getLoginUser().name}
           </Typography>
-
-        </div> }
+          )}
 
 
       </Stack>

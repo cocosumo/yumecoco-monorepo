@@ -22,7 +22,7 @@ export const ContractDialog = ({
     name: 'contractId',
   }) as string;
   
-  const { data: contractData } = useContractById(contractId);
+  const { data: contractData, isLoading } = useContractById(contractId);
   
   const {
     envDocFileKeys,
@@ -82,6 +82,7 @@ export const ContractDialog = ({
         documentB64={hasContractFiles 
           ? fileB64 || documents?.[selectedFileIndex]?.data || null 
           : documents?.[selectedFileIndex]?.data || fileB64 || null}
+        isLoading={isLoading}
       />
 
       <DialogActions>

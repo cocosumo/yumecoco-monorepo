@@ -18,17 +18,18 @@ import { TForm } from './schema';
 import { Summary } from './sections/Summary';
 import { DevTool } from '@hookform/devtools';
 import { ActionButtons } from './sections/ActionButton';
-import { useIsFetching } from '@tanstack/react-query';
 import { pages } from '../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 
 
 export const FormContents = ({
   handleSubmit,
+  isFetching,
 }: {
-  handleSubmit: UseSaveForm['handleSubmit']
+  handleSubmit: UseSaveForm['handleSubmit'],
+  isFetching: boolean,
 }) => {
-  const busy = !!useIsFetching();
+
   const {
     control,
   } = useFormContext<TForm>();
@@ -53,7 +54,7 @@ export const FormContents = ({
     ],
   });
 
-  const disabled = hasOnProcessContract || busy;
+  const disabled = hasOnProcessContract || isFetching;
   
   /* 保存ショートカット　CTRL+S */
   useSaveHotkey(

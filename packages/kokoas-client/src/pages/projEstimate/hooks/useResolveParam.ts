@@ -14,16 +14,36 @@ export const useResolveParam = () => {
   } = useURLParams();
 
 
-  const { data: dataProjEstimate } = useEstimateById(projEstimateIdFromURL || '');
+  const { 
+    data: dataProjEstimate, 
+    isLoading: isLoadingProjEstimate, 
+    isFetching: isFetchingProjEstimate,
+  } = useEstimateById(projEstimateIdFromURL || '');
 
   const {
     record: recProjEstimate,
   } = dataProjEstimate || {};
 
-  const { data: recProj } = useProjById(recProjEstimate?.projId.value || projIdFromURL || '');
-  const { data: recProjType } = useProjTypeById(recProj?.projTypeId?.value || '');
-  const { data: recContract } = useContractsByEstId(projEstimateIdFromURL || '');
-  const { data: recCustGroupRec } = useCustGroupById(recProj?.custGroupId?.value || '');
+  const { 
+    data: recProj, 
+    isLoading: isLoadingProj, 
+    isFetching: isFetchingProj,
+  } = useProjById(recProjEstimate?.projId.value || projIdFromURL || '');
+  const { 
+    data: recProjType, 
+    isLoading: isLoadingProjType,
+    isFetching: isFetchingProjType,
+  } = useProjTypeById(recProj?.projTypeId?.value || '');
+  const { 
+    data: recContract, 
+    isLoading: isLoadingContract,
+    isFetching: isFetchingContract,
+  } = useContractsByEstId(projEstimateIdFromURL || '');
+  const { 
+    data: recCustGroupRec,
+    isLoading: isLoadingCustGroupRec,
+    isFetching: isFetchingCustGroupRec,
+  } = useCustGroupById(recProj?.custGroupId?.value || '');
 
   
 
@@ -99,5 +119,15 @@ export const useResolveParam = () => {
     initialForm: newFormVal,
     projIdFromURL,
     projEstimateIdFromURL,
+    isLoading: isLoadingProjEstimate 
+      || isLoadingProj 
+      || isLoadingProjType 
+      || isLoadingContract 
+      || isLoadingCustGroupRec,
+    isFetching: isFetchingProjEstimate
+      || isFetchingProj
+      || isFetchingProjType
+      || isFetchingContract
+      || isFetchingCustGroupRec,
   };
 };

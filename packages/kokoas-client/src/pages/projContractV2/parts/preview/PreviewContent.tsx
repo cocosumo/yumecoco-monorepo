@@ -1,13 +1,13 @@
 import { Alert, AlertTitle, Button, DialogContent, List, ListItem } from '@mui/material';
 import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
-import { useIsFetching } from '@tanstack/react-query';
 
 export const PreviewContent = ({
   documentB64,
+  isFetching,
 }: {
-  documentB64: string | null,  
+  documentB64: string | null, 
+  isFetching: boolean,
 }) => {
-  const isFetching = !!useIsFetching();
   
   const pdfUrl = `data:application/pdf;base64,${documentB64}`;
 

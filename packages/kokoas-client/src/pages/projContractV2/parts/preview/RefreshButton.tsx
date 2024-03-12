@@ -3,13 +3,16 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { useWatch } from 'react-hook-form';
 import { TypeOfForm } from '../../schema';
 import { TSignMethod } from 'types';
-import { useIsFetching, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { AppIds } from 'config';
 
 
-export const RefreshButton = () => {
+export const RefreshButton = ({
+  isFetching,
+}:{
+  isFetching?: boolean,
+}) => {
   const queryClient = useQueryClient();
-  const isFetching = !!useIsFetching();
 
   const [
     signMethod,

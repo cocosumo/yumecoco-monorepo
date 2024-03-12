@@ -22,7 +22,10 @@ export const ContractDialog = ({
     name: 'contractId',
   }) as string;
   
-  const { data: contractData, isLoading } = useContractById(contractId);
+  const { 
+    data: contractData, 
+    isFetching: isFetchingContractData,
+  } = useContractById(contractId);
   
   const {
     envDocFileKeys,
@@ -36,12 +39,18 @@ export const ContractDialog = ({
   const hasContractFiles = !!envDocFileKeys?.value.length;
   const isFileKeyIncluded = envDocFileKeys?.value?.some(({ fileKey }) => fileKey === selectedFileKey);
 
-  const { data: fileB64 } = useKintoneFileBase64(
+  const { 
+    data: fileB64, 
+    isFetching: isFetchingFileB64, 
+  } = useKintoneFileBase64(
     selectedFileKey || '', 
     isFileKeyIncluded && open,
   );
 
-  const { data: fileData } = useContractFilesById({ 
+  const { 
+    data: fileData,
+    isFetching: isFetchingFileData,
+  } = useContractFilesById({ 
     id: contractId, 
     revision: $revision?.value || '',
     enabled: open && !hasContractFiles, // Only fetch when there is no contract files
@@ -54,6 +63,7 @@ export const ContractDialog = ({
     }
   }, [envDocFileKeys, $revision?.value, hasContractFiles]);
 
+  const isFetching = isFetchingFileB64 || isFetchingFileData || isFetchingContractData;
 
   const {
     documents,
@@ -74,7 +84,10 @@ export const ContractDialog = ({
       
     >
       <DialogTitle>
-        <PreviewHeader recipients={recipients} /> 
+        <PreviewHeader 
+          recipients={recipients} 
+          isFetching={isFetching}
+        /> 
         <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>
 
@@ -82,7 +95,7 @@ export const ContractDialog = ({
         documentB64={hasContractFiles 
           ? fileB64 || documents?.[selectedFileIndex]?.data || null 
           : documents?.[selectedFileIndex]?.data || fileB64 || null}
-        isLoading={isLoading}
+        isFetching={isFetching}
       />
 
       <DialogActions>

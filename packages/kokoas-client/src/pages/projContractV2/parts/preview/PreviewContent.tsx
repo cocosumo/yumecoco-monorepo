@@ -3,10 +3,10 @@ import { Loading } from 'kokoas-client/src/components/ui/loading/Loading';
 
 export const PreviewContent = ({
   documentB64,
-  isLoading,
+  isFetching,
 }: {
   documentB64: string | null, 
-  isLoading: boolean,
+  isFetching: boolean,
 }) => {
   
   const pdfUrl = `data:application/pdf;base64,${documentB64}`;
@@ -19,9 +19,9 @@ export const PreviewContent = ({
         p: 0,
       }}
     >
-      {isLoading && (<Loading />)}
+      {isFetching && (<Loading />)}
 
-      {!isLoading && documentB64 && (
+      {!isFetching && documentB64 && (
         <object 
           data={pdfUrl} 
           type="application/pdf" 
@@ -30,7 +30,7 @@ export const PreviewContent = ({
         />
       )}
 
-      {!isLoading && !documentB64 && (
+      {!isFetching && !documentB64 && (
         <Alert 
           severity={'error'}
           action={(

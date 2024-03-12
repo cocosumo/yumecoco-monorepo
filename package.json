@@ -114,7 +114,7 @@
     "@types/node": "^20.6.2",
     "@types/node-cron": "^3.0.8",
     "@types/papaparse": "^5.3.11",
-    "aws-sdk": "^2.1432.0",
+    "aws-sdk": "^2.1575.0",
     "axios": "^1.6.2",
     "big.js": "^6.2.1",
     "byte-size": "^8.1.1",

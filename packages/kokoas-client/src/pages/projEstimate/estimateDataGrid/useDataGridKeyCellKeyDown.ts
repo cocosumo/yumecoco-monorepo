@@ -114,7 +114,7 @@ export const useDataGridKeyCellKeyDown = (
 
     if (!shiftKey && key === 'Insert') {
       // 選択中のセルで、Insertキーを押した場合、行を追加する。
-      insert(rowIdx, getNewRow());
+      insert(rowIdx + 1, getNewRow());
       preventDefault();
       return;
     }

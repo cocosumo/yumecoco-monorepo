@@ -34,17 +34,14 @@ export const itemsSorter = ({
         return asc ? aa.localeCompare(bb) : bb.localeCompare(aa);
       }
 
-      default : {
-        const aa = a.contractStatus as string;
-        const bb = b.contractStatus as string;
 
-        console.log(aa, bb, orderBy);
-        const aIsCompleted = aa === 'completed';
-        const bIsCompleted = bb === 'completed';
-        
+      default : {
+        const aa = a.contractStatus as string === 'completed';
+        const bb = b.contractStatus as string === 'completed';
+
         // 完了 should be at the bottom, and empty should be at the top most
-        if (aIsCompleted && !bIsCompleted) return 1;
-        if (!aIsCompleted && bIsCompleted) return -1;
+        if (aa && !bb) return 1;
+        if (!aa && bb) return -1;
         return 0;
 
 

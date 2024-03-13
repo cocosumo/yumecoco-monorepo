@@ -25,11 +25,33 @@ export const itemsSorter = ({
         return sortNumber(a[orderBy] as number, b[orderBy] as number, !asc);
       case 'hasOtherAttachments':
         return sortNumber(a[orderBy] ? 1 : 0, b[orderBy] ? 1 : 0, !asc);
+
+        // 完了 should be at the bottom
+      case 'contractDate': {
+        // compare by string
+        const aa = a.contractDate as string;
+        const bb = b.contractDate as string;
+        return asc ? aa.localeCompare(bb) : bb.localeCompare(aa);
+      }
+
+      default : {
+        const aa = a.contractStatus as string;
+        const bb = b.contractStatus as string;
+
+        console.log(aa, bb, orderBy);
+        const aIsCompleted = aa === 'completed';
+        const bIsCompleted = bb === 'completed';
         
-      default :
-        return asc
-          ?  (a[orderBy]).localeCompare((b[orderBy]))
-          :  (b[orderBy]).localeCompare((a[orderBy]));
+        // 完了 should be at the bottom, and empty should be at the top most
+        if (aIsCompleted && !bIsCompleted) return 1;
+        if (!aIsCompleted && bIsCompleted) return -1;
+        return 0;
+
+
+
+
+
+      }
     }
   };
 

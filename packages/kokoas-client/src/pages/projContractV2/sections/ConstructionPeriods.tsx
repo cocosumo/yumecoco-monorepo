@@ -2,22 +2,16 @@ import { Stack } from '@mui/material';
 import { ConstructionDates } from '../parts/ConstructionDates';
 import { ControlledDatePicker } from '../fields/ControlledDatePicker';
 
-export const ConstructionPeriods = ({
-  disabled,
-}: {
-  disabled: boolean,
-}) => {
+export const ConstructionPeriods = () => {
 
   return (
     <Stack spacing={2} maxWidth={600}>
       <ConstructionDates
-        disabled={disabled}
         label='着手'
         dateFldName='startDate'
         daysFldName='startDaysAfterContractDate'
       />
       <ConstructionDates 
-        disabled={disabled}
         label='完成'
         dateFldName='finishDate'
         daysFldName='finishDaysAfterContractDate'

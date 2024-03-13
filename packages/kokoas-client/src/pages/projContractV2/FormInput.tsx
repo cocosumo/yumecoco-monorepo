@@ -40,7 +40,7 @@ export const FormInput = () => {
       <PaymentSchedule disabled={hasContract} />
 
       <PageSubTitle3 label={'工期'} />
-      <ConstructionPeriods disabled={hasContract} />
+      <ConstructionPeriods />
             
       <PageSubTitle3 label={'備考'} />
       <Memo />

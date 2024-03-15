@@ -35,7 +35,7 @@ export function DraggableRowRenderer<R, SR>({
     }),
   });
 
-  className = clsx(className, {
+  const parsedClassName = clsx(className, {
     ['row-dragging']: isDragging,
     ['row-over']: isOver,
   });
@@ -50,7 +50,7 @@ export function DraggableRowRenderer<R, SR>({
       }}
       rowIdx={rowIdx}
       isRowSelected={isRowSelected}
-      className={className}
+      className={parsedClassName}
       {...props}
     />
   );

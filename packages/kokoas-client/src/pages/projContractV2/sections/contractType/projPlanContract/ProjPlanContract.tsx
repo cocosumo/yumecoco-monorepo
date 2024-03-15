@@ -1,7 +1,6 @@
-import { Alert, Stack } from '@mui/material';
+import { Alert, Stack, StackProps } from '@mui/material';
 import { SelectWithOthers } from './SelectWithOthers';
 import { forwardRef } from 'react';
-import { StackProps } from '@mui/system';
 import { ProjPeriod } from './ProjPeriod';
 import { Annotation } from './Annotation';
 

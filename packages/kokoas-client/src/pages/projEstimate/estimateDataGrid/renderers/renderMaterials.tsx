@@ -43,6 +43,9 @@ const Materials = (props: RenderEditCellProps<RowItem>) => {
           sx={{
             pt: '4px',
           }}
+          onInput={(e) => {
+            console.log(e);
+          }}
         />
       )}
     />

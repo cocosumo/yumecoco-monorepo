@@ -83,7 +83,7 @@ export const EstimatesDataGrid = () => {
             resizable: true,
             width: 'max-content',
           }}
-          renderers={{ renderRow }}
+          renderers={{ renderRow  }}
           onFill={handleFill}
           onRowsChange={(rows, changedRow) => {
             const {
@@ -93,7 +93,7 @@ export const EstimatesDataGrid = () => {
             const {
               key,
             } = column;
-            console.log('onRowsChange', indexes, key, rows);
+
             handleRowChange(indexes, key as KItem, rows);
           }} 
           style={{ height: '100%' }}

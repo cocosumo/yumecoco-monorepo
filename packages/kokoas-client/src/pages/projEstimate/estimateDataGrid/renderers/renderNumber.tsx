@@ -17,11 +17,14 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
     [ref],
   );
 
+  const rawDefaultValue = row[key as keyof RowItem];
+  const defaultValue = rawDefaultValue ? Math.round(+rawDefaultValue) : '';
+
   return (
     <InputBase
       type="number"
       inputRef={ref}
-      defaultValue={row[key as keyof RowItem] ?? ''}
+      defaultValue={defaultValue}
       onKeyDown={(e) => {
         if (e.key === 'Tab'
           || e.key === 'Enter'

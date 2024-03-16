@@ -29,12 +29,6 @@ export const useDataGridKeyCellKeyDown = (
     getNewRow,
   } = useRowValues();
 
-  const persistedState = useRef({
-    rowIdx: 0,
-    idx: 0,
-    length: fields.length,
-  });
-
   const dataGridRef = useRef<DataGridHandle>(null);
   
   const fieldsLength = fields.length;
@@ -67,11 +61,6 @@ export const useDataGridKeyCellKeyDown = (
       event.preventDefault();
     };
     
-    persistedState.current = {
-      rowIdx,
-      length: fieldsLength,
-      idx,
-    };
     const isLastRow = rowIdx === fieldsLength - 1;
     const isLastCellOfRow = idx === columns.length - 1;
     //const isLastRowAndCell = isLastRow && isLastCellOfRow;
@@ -93,18 +82,11 @@ export const useDataGridKeyCellKeyDown = (
       || (!shiftKey && key === 'Tab')) {
         
 
-        console.log(key, args.rowIdx, 'ENTERED');
         // 編集中のセルで、Enterキーを押した場合、次のセルに移動する。
         if (isLastCellOfRow) {
           selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
         } else {
           selectCell({ rowIdx: args.rowIdx, idx: idx + 1 }, true);
-          // dispatch event to simulate blur
-          //const input = document.activeElement as HTMLInputElement;
-          setTimeout(() => {
-
-            console.log(document.activeElement, 'ACTIVE ELEMENT');
-          }, 1000);
           preventDefault();
         }
       } else if (shiftKey && key === 'Tab') {
@@ -122,6 +104,7 @@ export const useDataGridKeyCellKeyDown = (
     /*************
      * 選択モード 
      ************/
+
 
     if (shiftKey && key === 'Insert') {
       // 選択中のセルで、Shift + Insertキーを押した場合、行をコピーする。
@@ -142,7 +125,9 @@ export const useDataGridKeyCellKeyDown = (
       // 選択中のセルで、Shift + Deleteキーを押した場合、行を削除する。
       if (isHeadRow) return; // ヘッダーの場合、削除しない。
       remove(rowIdx);
-      selectCell({ rowIdx: rowIdx - 1, idx });
+
+      selectCell({ rowIdx: rowIdx - 1, idx }, true);
+
       preventDefault();
       return;
     }

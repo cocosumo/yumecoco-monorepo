@@ -1,16 +1,12 @@
 import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../useColumns';
 import { useMaterialsMajor } from 'kokoas-client/src/hooksQuery';
-import { Autocomplete, TextField } from '@mui/material';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback } from 'react';
+import { CustomAutomplete } from './CustomAutomplete';
 
 
 /** 大項目 */
-const MajorItemSelect = ({
-  row,
-  onRowChange,
-}: RenderEditCellProps<RowItem>) => {
-  const ref = useRef<HTMLInputElement>(null);
+const MajorItemSelect = (props: RenderEditCellProps<RowItem>) => {
 
   const { data } = useMaterialsMajor({
     select: useCallback(
@@ -20,51 +16,8 @@ const MajorItemSelect = ({
     ),
   });
 
-  useEffect(
-    () => {
-      if (ref.current) {
-        setTimeout(() => ref.current?.select(), 0); 
-      }
-    }, 
-    [ref],
-  );
-
   return (
-    <Autocomplete
-      value={row.majorItem ?? ''}
-      disableClearable
-      freeSolo
-      options={data ?? []}
-      //defaultValue={row.majorItem}
-      onChange={(_, value) => {
-        onRowChange({ ...row, majorItem: value || '' }, true);
-      }}
-      onBlur={(e) => {
-        onRowChange({ ...row, majorItem: (e.target as HTMLInputElement).value }, true);
-      }}
-      onKeyDown={(e) => {
-        if (e.key === 'Tab') {
-          onRowChange({ ...row, majorItem: (e.target as HTMLInputElement).value || '' }, true);
-        }
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          size='small'
-          fullWidth
-          inputRef={ref}
-          variant='standard'
-          InputProps={{
-            ...params.InputProps,
-            // type: 'search',
-            disableUnderline: true,
-          }}  
-          sx={{
-            pt: '4px',
-          }}
-        />
-      )}
-    />
+    <CustomAutomplete {...props} data={data} />
   );
 };
 

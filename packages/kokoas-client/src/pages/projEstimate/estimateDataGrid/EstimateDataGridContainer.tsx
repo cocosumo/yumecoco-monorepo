@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import { blue, grey, orange, red } from '@mui/material/colors';
 import { useAtomValue } from 'jotai';
 import { drawerWidthAtom, menuAtom } from 'kokoas-client/src/components/MainScreen';
@@ -16,7 +16,8 @@ export const EstimateDataGridContainer = ({
   const menuWidth = useAtomValue(drawerWidthAtom);
 
   return (
-    <Box
+    <Stack
+      spacing={1}
       sx={{
         maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`, 
         height: '60vh',
@@ -67,6 +68,6 @@ export const EstimateDataGridContainer = ({
     
     >
       {children}
-    </Box>
+    </Stack>
   );
 };

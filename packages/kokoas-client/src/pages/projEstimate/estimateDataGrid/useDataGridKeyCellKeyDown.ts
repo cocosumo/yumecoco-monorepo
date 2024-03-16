@@ -204,16 +204,40 @@ export const useDataGridKeyCellKeyDown = (
       }
 
       preventDefault();
-    } else if (key === 'ArrowLeft' && idx === 0) {
+      return;
+    }
+    
+    if (key === 'ArrowLeft' && idx === 0) {
       // 左端のセルで、左キーを押した場合、前の行の右端のセルに移動する。
       if (rowIdx === -1) return;
       selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 });
       preventDefault();
-    } else if (key === 'Enter' && !editable) {
+      return;
+    } 
+    
+    if (key === 'Enter' && !editable) {
       // 編集できないセルで、Enterキーを押した場合、次のセルに移動する。
       selectCell({ rowIdx, idx: idx + 1 });
+      return;
     }
-  
+
+    const allowedKeys = [
+      'ArrowDown',
+      'ArrowUp',
+      'ArrowRight',
+      'ArrowLeft',
+      'Tab',
+      'Enter',
+      'Delete',
+      'Insert',
+    ];
+
+    if (!allowedKeys.includes(key)) {
+      console.log(key);
+
+      preventDefault();
+    }
+
   };
 
   return {

@@ -21,7 +21,7 @@ export const EstimateTableLabel = () => {
       </Tooltip>
       <ArrowBackIcon />
       <Typography component={'span'} variant={'caption'}>
-        ショートカットキー
+        操作方法
       </Typography>
     </Stack>
 

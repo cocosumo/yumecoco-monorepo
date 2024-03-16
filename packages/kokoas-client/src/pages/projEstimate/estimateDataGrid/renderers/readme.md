@@ -21,6 +21,5 @@
 2. 通常の `textEditor` はありますが、どうして利用していないのですか？
   
   より高度な機能を提供するために、カスタムのコンポーネントを使っています。
-  例えば、全角数字を半角数字に変換する機能などがあります。- ras 2024.03.16
 
   参考：https://github.com/adazzle/react-data-grid/blob/main/website/demos/CommonFeatures.tsx

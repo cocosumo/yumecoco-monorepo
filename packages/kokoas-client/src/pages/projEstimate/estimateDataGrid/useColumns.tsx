@@ -72,6 +72,7 @@ export const useColumns = (): MyColumn[] => {
       resizable: true, 
       frozen: true,
       cellClass: 'select',
+      width: 150,
       renderEditCell: renderMajorItem,
     
     },
@@ -80,7 +81,7 @@ export const useColumns = (): MyColumn[] => {
       name: '中項目', 
       editable: isEnabled,
       frozen: true,
-      width: 200,
+      width: 150,
 
       editorOptions: {
         displayCellContent:false,

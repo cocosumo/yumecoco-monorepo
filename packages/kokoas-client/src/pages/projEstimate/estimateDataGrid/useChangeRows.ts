@@ -98,7 +98,7 @@ export const useChangeRows = () => {
       'items', 
       produce(rows, draft => {
         indexes.forEach((index) => {
-          draft[index] = calculatedRow(rows[index], fieldName);
+          draft[index] = calculatedRow(draft[index], fieldName);
         });
       }),
       {

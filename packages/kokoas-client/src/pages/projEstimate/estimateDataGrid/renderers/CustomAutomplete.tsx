@@ -14,7 +14,7 @@ export const CustomAutomplete = ({
   onRowChange,
 }: RenderEditCellProps<RowItem> & CustomProps) => {
   const ref = useRef<HTMLInputElement>(null);
-  
+ 
   const { key } = column;
   
   useEffect(
@@ -54,10 +54,19 @@ export const CustomAutomplete = ({
             ...params.InputProps,
             // type: 'search',
             disableUnderline: true,
-          }}  
-          sx={{
-            pt: '4px',
+            style: {
+              padding: '0',
+              height: '100%',
+            },
+            sx: {
+              height: '100%',
+              margin: '4px',
+            },
           }}
+          sx={{
+            height: '100%',
+            width: 'calc(100% - 8px)',
+          }}  
         />
       )}
     />

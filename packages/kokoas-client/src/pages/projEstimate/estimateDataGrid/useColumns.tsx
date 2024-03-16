@@ -73,6 +73,7 @@ export const useColumns = (): MyColumn[] => {
       frozen: true,
       cellClass: 'select',
       width: 150,
+      minWidth: 100,
       renderEditCell: renderMajorItem,
     
     },
@@ -82,11 +83,6 @@ export const useColumns = (): MyColumn[] => {
       editable: isEnabled,
       frozen: true,
       width: 150,
-
-      editorOptions: {
-        displayCellContent:false,
-        commitOnOutsideClick: true,
-      },
       renderEditCell: renderMiddleItem,
     },
     { 
@@ -95,10 +91,6 @@ export const useColumns = (): MyColumn[] => {
       editable: isEnabled,
       frozen: true,
       width: 150,
-      editorOptions: {
-        displayCellContent: false,
-        commitOnOutsideClick: true,
-      },
       renderEditCell: renderMaterials,
     },
     { 
@@ -106,10 +98,6 @@ export const useColumns = (): MyColumn[] => {
       name: '部材備考', 
       editable: isEnabled,
       width: 150,
-      editorOptions: {
-        displayCellContent: false,
-        commitOnOutsideClick: true,
-      },
       renderEditCell: renderText,
     },
     { 

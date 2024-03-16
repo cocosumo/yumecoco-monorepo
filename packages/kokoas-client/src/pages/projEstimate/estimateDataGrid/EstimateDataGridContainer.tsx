@@ -34,7 +34,7 @@ export const EstimateDataGridContainer = ({
         '& .rdg-row:nth-of-type(odd):not(:hover) .rdg-cell:not(:first-of-type):not(.rdg-editor-container)' : {
           bgcolor: orange[50],
         },
-        '& div[role="row"]:nth-of-type(odd):not(:hover) div[aria-readonly="true"]': {
+        '& div[role="row"]:not(:hover) div[aria-readonly="true"]': {
           // 読み取り専用セル
           bgcolor: `${grey[100]} !important`,
         },

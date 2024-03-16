@@ -20,6 +20,6 @@
 
 2. 通常の `textEditor` はありますが、どうして利用していないのですか？
   
-  より高度な機能を提供するために、カスタムのコンポーネントを使っています。
-
+  フォーカスの挙動に調整が必要だったため。
+  
   参考：https://github.com/adazzle/react-data-grid/blob/main/website/demos/CommonFeatures.tsx

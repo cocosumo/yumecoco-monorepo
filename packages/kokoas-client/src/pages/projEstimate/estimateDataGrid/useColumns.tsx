@@ -1,12 +1,14 @@
-import { DataGridProps, textEditor } from 'react-data-grid';
+import { DataGridProps } from 'react-data-grid';
 import { roundTo } from 'libs';
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { TForm, TItem } from '../schema';
 import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
 import { renderMaterials } from './renderers/renderMaterials';
 import { useFormState, useWatch } from 'react-hook-form';
+import { renderText } from './renderers/renderText';
+import { renderNumber } from './renderers/renderNumber';
 
 export type RowItem = TItem & { 
   id: string,
@@ -33,9 +35,6 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
     </div>);
 };
 
-
-
-
 export const useColumns = (): MyColumn[] => {
   const {
     errors,
@@ -52,7 +51,7 @@ export const useColumns = (): MyColumn[] => {
   const isEnabled = !contractId;
   
   
-  return [
+  return useMemo(() => [
     {
       key: 'index',
       name: 'No.',
@@ -72,6 +71,7 @@ export const useColumns = (): MyColumn[] => {
       sortable: true, 
       resizable: true, 
       frozen: true,
+      cellClass: 'select',
       renderEditCell: renderMajorItem,
     
     },
@@ -83,7 +83,7 @@ export const useColumns = (): MyColumn[] => {
       width: 200,
 
       editorOptions: {
-        displayCellContent: true,
+        displayCellContent:false,
         commitOnOutsideClick: true,
       },
       renderEditCell: renderMiddleItem,
@@ -95,7 +95,7 @@ export const useColumns = (): MyColumn[] => {
       frozen: true,
       width: 150,
       editorOptions: {
-        displayCellContent: true,
+        displayCellContent: false,
         commitOnOutsideClick: true,
       },
       renderEditCell: renderMaterials,
@@ -105,7 +105,11 @@ export const useColumns = (): MyColumn[] => {
       name: '部材備考', 
       editable: isEnabled,
       width: 150,
-      renderEditCell: textEditor,
+      editorOptions: {
+        displayCellContent: false,
+        commitOnOutsideClick: true,
+      },
+      renderEditCell: renderText,
     },
     { 
       key: 'costPrice', 
@@ -114,7 +118,7 @@ export const useColumns = (): MyColumn[] => {
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.costPrice ? 'error-cell' : '';
       },
-      renderEditCell: textEditor,
+      renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
           {column.name}
@@ -136,7 +140,7 @@ export const useColumns = (): MyColumn[] => {
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.quantity ? 'error-cell' : '';
       },
-      renderEditCell: textEditor,
+      renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
           {column.name}
@@ -166,7 +170,7 @@ export const useColumns = (): MyColumn[] => {
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.materialProfRate ? 'error-cell' : '';
       },
-      renderEditCell: textEditor,
+      renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
           {column.name}
@@ -190,7 +194,7 @@ export const useColumns = (): MyColumn[] => {
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.unitPrice ? 'error-cell' : '';
       },
-      renderEditCell: textEditor,
+      renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
           {column.name}
@@ -241,8 +245,8 @@ export const useColumns = (): MyColumn[] => {
       name: '備考', 
       width: 'auto',
       editable: isEnabled,
-      renderEditCell: textEditor,
+      renderEditCell: renderText,
     },
  
-  ];
+  ], [itemErrors, isEnabled]);
 };

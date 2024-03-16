@@ -12,7 +12,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
 
 
-
+function rowKeyGetter(row: RowItem) {
+  return row.id;
+}
 
 export const EstimatesDataGrid = () => {
   const {
@@ -51,22 +53,28 @@ export const EstimatesDataGrid = () => {
   );
 
   const renderRow = useCallback((key: React.Key, props: RenderRowProps<RowItem>) => {
+
     function onRowReorder(fromIndex: number, toIndex: number) {
 
-      const newRows = [...fields];
+      const newRows = [...fieldsWithIndex];
       newRows.splice(toIndex, 0, newRows.splice(fromIndex, 1)[0]);
 
       setValue('items', newRows);
     }
 
-    return <DraggableRowRenderer key={key} {...props} onRowReorder={onRowReorder} />;
-  }, [fields, setValue]);
+    return (
+      <DraggableRowRenderer 
+        key={key} {...props} 
+        onRowReorder={onRowReorder}
+        //contentEditable={!hasOnProcessContract}
+      />);
+  }, [fieldsWithIndex, setValue]);
 
   return (
     <EstimateDataGridContainer> 
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={HTML5Backend} >
         <DataGrid 
-          rowKeyGetter={(row: RowItem ) => row.id}
+          rowKeyGetter={rowKeyGetter}
           className='rdg-light' // enforce light theme 
           columns={columns} 
           ref={dataGridRef}
@@ -85,6 +93,7 @@ export const EstimatesDataGrid = () => {
             const {
               key,
             } = column;
+            console.log('onRowsChange', indexes, key, rows);
             handleRowChange(indexes, key as KItem, rows);
           }} 
           style={{ height: '100%' }}

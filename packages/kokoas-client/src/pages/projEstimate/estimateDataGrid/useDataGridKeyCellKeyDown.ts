@@ -47,7 +47,8 @@ export const useDataGridKeyCellKeyDown = (
   ) => {
 
     const { column, rowIdx, row } = args;
-    const { idx, editable } = column;
+    const { idx, editable  } = column;
+  
     const { 
       key, 
       shiftKey,
@@ -88,14 +89,32 @@ export const useDataGridKeyCellKeyDown = (
      * 編集モード
      ***********/
     if (args.mode === 'EDIT' ) {
-      if (key === 'Enter') {
+      if (key === 'Enter' 
+      || (!shiftKey && key === 'Tab')) {
+        
+
+        console.log(key, args.rowIdx, 'ENTERED');
         // 編集中のセルで、Enterキーを押した場合、次のセルに移動する。
         if (isLastCellOfRow) {
-          selectCell({ rowIdx: rowIdx + 1, idx: 0 });
+          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
         } else {
-          selectCell({ rowIdx: args.rowIdx, idx: idx + 1 });
+          selectCell({ rowIdx: args.rowIdx, idx: idx + 1 }, true);
+          // dispatch event to simulate blur
+          //const input = document.activeElement as HTMLInputElement;
+          setTimeout(() => {
+
+            console.log(document.activeElement, 'ACTIVE ELEMENT');
+          }, 1000);
           preventDefault();
         }
+      } else if (shiftKey && key === 'Tab') {
+        // 編集中のセルで、Shift + Tabキーを押した場合、前のセルに移動する。
+        if (idx === 0) {
+          selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 }, true);
+        } else {
+          selectCell({ rowIdx: rowIdx, idx: idx - 1 }, true);
+        }
+        preventDefault();
       }
       return;
     }
@@ -135,18 +154,19 @@ export const useDataGridKeyCellKeyDown = (
 
       if (editable) {
         update(rowIdx, { ...row, [column.key]: '' });
+        selectCell({ rowIdx, idx }, true);
       }
 
-      if (!isLastCellOfRow) {
-        selectCell({ rowIdx, idx: idx + 1 });
+      /* if (!isLastCellOfRow) {
+        selectCell({ rowIdx, idx: idx + 1 }, true);
       } else {
         if (!isLastRow) {
-          selectCell({ rowIdx: rowIdx + 1, idx: 0 });
+          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
         } else {
-          selectCell({ rowIdx, idx });
+          selectCell({ rowIdx, idx }, true);
         } 
         
-      }
+      } */
       
       preventDefault();
       return;
@@ -158,14 +178,14 @@ export const useDataGridKeyCellKeyDown = (
       if (fieldsLength === 0) return; // No rows
       if (isHeadRow) {
         // ヘッダーの場合、最初の行の左端のセルに移動する。
-        selectCell({ rowIdx: 0, idx: 0 });
+        selectCell({ rowIdx: 0, idx: 0 }, true);
       } else {
         // データの場合、次の行の左端のセルに移動する。
         if (isLastRow) {
           // 最後の行の場合、行を追加する。
           append(getNewRow()); 
         } else {
-          selectCell({ rowIdx: rowIdx + 1, idx: 0 });
+          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
         } 
       }
 

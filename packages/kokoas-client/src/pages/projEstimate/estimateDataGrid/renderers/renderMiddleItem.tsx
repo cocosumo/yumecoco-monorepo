@@ -2,7 +2,7 @@ import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../useColumns';
 import { useMaterialsMid } from 'kokoas-client/src/hooksQuery';
 import { Autocomplete, TextField } from '@mui/material';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 /** 中項目 */
 const MiddleItemSelect = ({
@@ -17,6 +17,15 @@ const MiddleItemSelect = ({
       .map(({ 中項目名: midItem }) => midItem.value ),
   });
 
+  useEffect(
+    () => {
+      if (ref.current) {
+        setTimeout(() => ref.current?.select(), 0); 
+      }
+    }, 
+    [ref],
+  );
+
   return (
     <Autocomplete
       value={row.middleItem ?? ''}
@@ -28,12 +37,16 @@ const MiddleItemSelect = ({
       onBlur={(e) => {
         onRowChange({ ...row, middleItem: (e.target as HTMLInputElement).value }, true);
       }}
+      onKeyDown={(e) => {
+        if (e.key === 'Tab') {
+          onRowChange({ ...row, middleItem: (e.target as HTMLInputElement).value || '' }, true);
+        }
+      }}
       renderInput={(params) => (
         <TextField
           {...params}
           size='small'
           fullWidth
-          autoFocus
           inputRef={ref}
           variant='standard'
           InputProps={{

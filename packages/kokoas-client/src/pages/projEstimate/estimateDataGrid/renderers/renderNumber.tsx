@@ -17,8 +17,6 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
     [ref],
   );
 
-  console.log(key, row[key as keyof RowItem] ?? '');
-
   return (
     <InputBase
       type="number"

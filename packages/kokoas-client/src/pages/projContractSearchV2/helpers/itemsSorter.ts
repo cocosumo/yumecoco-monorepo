@@ -15,6 +15,16 @@ export const itemsSorter = ({
   (a: ContractRow, b: ContractRow) => {
     const asc = order === 'asc';
 
+    if (!orderBy) {
+      const aa = a.contractStatus as string === 'completed';
+      const bb = b.contractStatus as string === 'completed';
+
+      // 完了 should be at the bottom, and empty should be at the top most
+      if (aa && !bb) return 1;
+      if (!aa && bb) return -1;
+      return 0;
+    }
+
     switch (orderBy) {
       case 'contractAmount':
       case 'grossProfit':
@@ -34,25 +44,11 @@ export const itemsSorter = ({
         return asc ? aa.localeCompare(bb) : bb.localeCompare(aa);
       }
 
-      case 'updatedAt':
-      case 'createdAt': {
+      default : {
         // compare by string
         const aa = a[orderBy] as string;
         const bb = b[orderBy] as string;
         return asc ? aa.localeCompare(bb) : bb.localeCompare(aa);
-      }
-      default : {
-        const aa = a.contractStatus as string === 'completed';
-        const bb = b.contractStatus as string === 'completed';
-
-        // 完了 should be at the bottom, and empty should be at the top most
-        if (aa && !bb) return 1;
-        if (!aa && bb) return -1;
-        return 0;
-
-
-
-
 
       }
     }

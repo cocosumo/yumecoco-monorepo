@@ -76,8 +76,6 @@ export function SearchProjects<T extends BaseFields>(
     }
   }, [projId, projName]);
 
-  console.log('projId', projId, projName);
-
   return (
     <Controller 
       {...controllerProps}

@@ -1,6 +1,6 @@
 import { Autocomplete, Chip, CircularProgress, TextField } from '@mui/material';
 import { useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { getRecordInstance, setFieldValue } from 'api-kintone';
 import { useSearchAndpadOrders } from '../hooks/useSearchAndpadOrders';
 import type { AutoCompleteOption } from '../../types/types';
@@ -21,7 +21,7 @@ export const ProjSearchField = ({
   const [value, setValue] = useState<ProjSearchFieldOption | null>(initialValue?.id ? initialValue : null);
   const [open, setOpen] = useState(false);
 
-  const debouncedValue = useDebounce(inputValue, 300);
+  const [debouncedValue] = useDebounceValue(inputValue, 300);
   
   const handleOpen = async () => {
     setOpen(true);

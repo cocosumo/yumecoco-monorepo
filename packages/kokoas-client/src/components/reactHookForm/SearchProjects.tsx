@@ -5,7 +5,7 @@ import { pages } from 'kokoas-client/src/pages/Router';
 import { useEffect, useState } from 'react';
 import { Control, Controller, UseControllerProps, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { Caption } from '../ui';
 
 
@@ -34,7 +34,7 @@ export function SearchProjects<T extends BaseFields>(
 
   const [inputVal, setInputVal] = useState('');
   const [options, setOptions] = useState<Array<Opt>>([]);
-  const debouncedInput = useDebounce(inputVal, 1000);
+  const [debouncedInput] = useDebounceValue(inputVal, 1000);
   const navigate = useNavigate();
   const {
     control,

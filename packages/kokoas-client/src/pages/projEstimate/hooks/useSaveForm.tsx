@@ -40,6 +40,12 @@ export const useSaveForm = ({
       estimateId,
     } = data;
 
+    const activeEl = document.activeElement as HTMLElement;
+    // add id to focusedEl
+    if (activeEl) {
+      activeEl.id = 'activeElement';
+    }
+
     const record = convertToKintone(data);
 
     const { id, revision } = await saveMutation({
@@ -53,6 +59,35 @@ export const useSaveForm = ({
       open: true,
       severity: 'success',
       message: `保存しました。 更新回数：${revision}`,
+
+      handleClose: () => {
+        // return focus to the element that was focused before
+        const returnFocusEl = document.getElementById('activeElement');
+        returnFocusEl?.focus();
+
+        if (returnFocusEl) {
+          returnFocusEl.removeAttribute('id');
+        } else {
+          // If it is grid cell, focus on the cell
+          const parentCell = activeEl.closest('div[role="gridcell"]');
+          const parentRow = parentCell?.closest('div[role="row"]');
+          // get aria-rowindex
+          const rowIndex = parentRow?.getAttribute('aria-rowindex');
+
+          // get aria-colindex
+          const colIndex = parentCell?.getAttribute('aria-colindex');
+
+          // select the cell
+          const cellEl = document.querySelector(`div[role="grid"] div[aria-rowindex="${rowIndex}"] div[aria-colindex="${colIndex}"]`) as HTMLElement;
+
+          if (cellEl) {
+            cellEl.focus();
+          }
+
+          console.log(cellEl);
+        }
+        
+      },
     });
 
     return {

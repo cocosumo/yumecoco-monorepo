@@ -66,7 +66,7 @@ export const EstimatesDataGrid = () => {
     <EstimateDataGridContainer> 
       <DndProvider backend={HTML5Backend}>
         <DataGrid 
-          rowKeyGetter={(row: RowItem ) => row.id}
+          rowKeyGetter={(row: RowItem ) => row.index}
           className='rdg-light' // enforce light theme 
           columns={columns} 
           ref={dataGridRef}

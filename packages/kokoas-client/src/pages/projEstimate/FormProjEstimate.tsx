@@ -38,7 +38,6 @@ export const FormProjEstimate = () => {
     control,
   } = formReturn;
 
-  if (isFetching) return (<LinearProgress />);
 
   return (
     <FormProvider {...formReturn}>
@@ -47,8 +46,8 @@ export const FormProjEstimate = () => {
           spacing={2}
         >
           <PageTitle3 label={`見積：${initialForm.estimateId ? '上書き編集中' : '新規作成中'}`} />
-          
           <HeadSection /> 
+          {isFetching && (<LinearProgress />)}
 
           <Divider />
 

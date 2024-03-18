@@ -34,17 +34,20 @@ export function SearchProjects<T extends BaseFields>(
 
   const [inputVal, setInputVal] = useState('');
   const [options, setOptions] = useState<Array<Opt>>([]);
+  const [value, setValue] = useState<Opt | null>();
   const [debouncedInput] = useDebounceValue(inputVal, 1000);
   const navigate = useNavigate();
   const {
-    control,
     name,
+    control,  
   } = controllerProps;
 
-  const projName = useWatch({
-    name: 'projName',
+  const [
+    projName,
+    projId,
+  ] = useWatch({
+    name: ['projName', 'projId'],
     control: (control as never) as Control<BaseFields>,
-    
   });
 
 
@@ -64,11 +67,22 @@ export function SearchProjects<T extends BaseFields>(
     }
   }, [recProjects]);
 
+  useEffect(() => {
+    if (projId && projName) {
+      setValue({
+        id: projId,
+        projName: projName,
+      });
+    }
+  }, [projId, projName]);
+
+  console.log('projId', projId, projName);
+
   return (
     <Controller 
       {...controllerProps}
       render={({ field }) => {
-    
+        
         return (
           <Autocomplete 
             {...field} 
@@ -77,10 +91,8 @@ export function SearchProjects<T extends BaseFields>(
               maxWidth: 400,
             }}
             size='small'
-            value={field.value ? {
-              id: field.value,
-              projName,
-            } : null}
+            inputValue={inputVal}
+            value={value || null} 
             options={options}
             getOptionLabel={(opt)=> opt.projName || ''}
             isOptionEqualToValue={(opt, v) => opt.id === v.id}
@@ -89,9 +101,12 @@ export function SearchProjects<T extends BaseFields>(
               setInputVal(val);
             }}
             onChange={(_, opt) => {
+              setValue(opt);
               navigate(`${navigateTo}?${generateParams({
-                projId: opt?.id,
+                projId: (opt as Opt)?.id,
               })}`);
+              
+    
             }}
             renderInput={(params) => (
               <TextField

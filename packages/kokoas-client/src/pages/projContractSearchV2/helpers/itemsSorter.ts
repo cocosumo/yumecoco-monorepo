@@ -34,7 +34,13 @@ export const itemsSorter = ({
         return asc ? aa.localeCompare(bb) : bb.localeCompare(aa);
       }
 
-
+      case 'updatedAt':
+      case 'createdAt': {
+        // compare by string
+        const aa = a[orderBy] as string;
+        const bb = b[orderBy] as string;
+        return asc ? aa.localeCompare(bb) : bb.localeCompare(aa);
+      }
       default : {
         const aa = a.contractStatus as string === 'completed';
         const bb = b.contractStatus as string === 'completed';

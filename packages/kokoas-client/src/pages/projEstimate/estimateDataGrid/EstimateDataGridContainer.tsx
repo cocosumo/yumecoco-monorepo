@@ -19,7 +19,7 @@ export const EstimateDataGridContainer = ({
     <Box
       sx={{
         maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`, 
-        height: '60vh',
+        height: 'calc(100vh - 180px)',
         '& .index' : {
           fontSize: 8,
           textAlign: 'center',

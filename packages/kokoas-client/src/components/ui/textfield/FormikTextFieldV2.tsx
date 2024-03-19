@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { useFieldFast } from '../../../hooks/useFieldFast';
 
 /**
@@ -27,7 +27,7 @@ export const FormikTextFieldV2 = (
   } = props;
   const [field, meta, helpers] = useFieldFast(name);
   const [inputValue, setInputValue] = useState<string>(field.value);
-  const debouncedValue = useDebounce<string>(inputValue, 800);
+  const [debouncedValue] = useDebounceValue<string>(inputValue, 800);
 
   const { error, touched } = meta;
   const { setValue, setTouched } = helpers;

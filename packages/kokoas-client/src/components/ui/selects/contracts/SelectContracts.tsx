@@ -2,12 +2,12 @@ import { FormControl, InputLabel, MenuItem, Select, SelectProps } from '@mui/mat
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { useNavigate } from 'react-router-dom';
 
-export interface SelectContractsProps extends SelectProps {
+export interface SelectContractsProps {
   projId: string,
 }
 
 export const SelectContracts = (
-  props: SelectContractsProps,
+  props: SelectContractsProps & SelectProps,
 ) => {
   const navigate = useNavigate();
 

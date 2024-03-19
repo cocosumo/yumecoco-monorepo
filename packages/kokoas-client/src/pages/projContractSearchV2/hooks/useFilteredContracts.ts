@@ -69,7 +69,7 @@ export const useFilteredContracts = () => {
     contractDateFrom,
     contractDateTo,
     order = initialValues.order,
-    orderBy = initialValues.orderBy || 'contractDate',
+    orderBy = initialValues.orderBy || '',
     contractCompleted,
     contractIncomplete,
 

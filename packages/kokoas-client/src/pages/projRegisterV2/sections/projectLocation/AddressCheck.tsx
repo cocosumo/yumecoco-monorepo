@@ -1,6 +1,6 @@
 import { Alert, Box, Button, CircularProgress, Tooltip, Zoom, styled } from '@mui/material';
 import { useTypedWatch } from '../../hooks';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { usePostalByAddress } from 'kokoas-client/src/hooksQuery';
 import { TForm } from '../../schema';
 import { postalBuilder } from 'libs';
@@ -29,7 +29,7 @@ export const AddressCheck = () => {
 
 
   const combinedAddress = `${address1}${address2}`;
-  const debouncedAddress = useDebounce(combinedAddress, 1000);
+  const debouncedAddress = useDebounceValue(combinedAddress, 1000);
 
   const { data: postalId, isLoading } = usePostalByAddress(combinedAddress);
 

@@ -102,7 +102,7 @@ export function FormikSelect(props : FormikSelecProps) {
           const newVal = e.target.value ;
           const newValText = options?.find((option) => option.value === newVal)?.label;
 
-          if (onChange) onChange(e, newValText?.toString() || '');
+          if (onChange) onChange(e as SelectChangeEvent, newValText?.toString() || '');
           if (multiple) {
             helpers.setValue(typeof newVal === 'string' ? newVal.split(',') : newVal);
           } else {

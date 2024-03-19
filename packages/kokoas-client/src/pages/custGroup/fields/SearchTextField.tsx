@@ -1,6 +1,6 @@
 import { CircularProgress, InputAdornment, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import SearchIcon from '@mui/icons-material/Search';
 
 
@@ -14,7 +14,7 @@ export const SearchTextField = ({
 
   const [value, setValue] = useState('');
 
-  const debouncedValue = useDebounce(value, 1000);
+  const [debouncedValue ] = useDebounceValue(value, 1000);
 
   useEffect(() => handledDebouncedChange(debouncedValue), [handledDebouncedChange, debouncedValue]);
 

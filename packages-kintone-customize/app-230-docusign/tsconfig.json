@@ -7,7 +7,7 @@
     "strict": true,
     "isolatedModules": true,
     "lib": ["DOM", "ES2022"],
-    "types": ["vite/client", "jest"],
+    "types": ["jest"],
     "allowJs": true
   },
   "files": [

@@ -2,7 +2,7 @@ import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../useColumns';
 import { useMaterialsMid } from 'kokoas-client/src/hooksQuery';
 import { useCallback } from 'react';
-import { CustomAutomplete } from './CustomAutomplete';
+import { CustomAutocomplete } from './CustomAutocomplete';
 
 /** 中項目 */
 const MiddleItemSelect = (props: RenderEditCellProps<RowItem>) => {
@@ -18,7 +18,7 @@ const MiddleItemSelect = (props: RenderEditCellProps<RowItem>) => {
   });
 
   return (
-    <CustomAutomplete {...props} data={data} />
+    <CustomAutocomplete {...props} data={data} />
   );
 };
 

@@ -7,7 +7,7 @@ type CustomProps = {
   data : string[] | undefined;
 };
 
-export const CustomAutomplete = ({
+export const CustomAutocomplete = ({
   row,
   data,
   column,

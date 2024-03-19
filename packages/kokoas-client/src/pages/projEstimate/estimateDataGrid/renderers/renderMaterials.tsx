@@ -2,7 +2,7 @@ import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../useColumns';
 import { useMaterialsItem } from 'kokoas-client/src/hooksQuery';
 import { useCallback } from 'react';
-import { CustomAutomplete } from './CustomAutomplete';
+import { CustomAutocomplete } from './CustomAutocomplete';
 
 
 /** 部材 */
@@ -15,7 +15,7 @@ const Materials = (props: RenderEditCellProps<RowItem>) => {
     [row.majorItem]),
   });
 
-  return (<CustomAutomplete {...props} data={data} />);
+  return (<CustomAutocomplete {...props} data={data} />);
 };
 
 export const renderMaterials = (props: RenderEditCellProps<RowItem>) => {

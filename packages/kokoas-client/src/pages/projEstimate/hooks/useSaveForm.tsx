@@ -15,6 +15,8 @@ import { convertToKintone } from '../api/convertToKintone';
 import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
 import { ja } from './utils/fieldTranslations';
 import { TForm } from '../schema';
+import { useLocalStorage } from 'usehooks-ts';
+import { localStorageFormRecoveryKey } from '../sections/UnsavedMitsumori';
 
 export type SaveButtonNames = 'temporary' | 'save';
 
@@ -32,6 +34,8 @@ export const useSaveForm = ({
   } = useConfirmDialog();
   const { mutateAsync: saveMutation } = useSaveEstimate();
   const navigate = useStableNavigate();
+
+  const [,setFormRecovery] = useLocalStorage(localStorageFormRecoveryKey, undefined);
 
   const handleSave = useCallback(async (
     data: TForm,
@@ -90,11 +94,13 @@ export const useSaveForm = ({
       },
     });
 
+    
+    setFormRecovery(undefined);
     return {
       id,
       revision,
     };
-  }, [saveMutation, setSnackState]);
+  }, [saveMutation, setSnackState, setFormRecovery]);
 
   const onSubmitValid: SubmitHandler<TForm> = useCallback(async (data) => {
     const { id } = await handleSave(data);

@@ -1,52 +1,24 @@
 import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../useColumns';
 import { useMaterialsMid } from 'kokoas-client/src/hooksQuery';
-import { Autocomplete, TextField } from '@mui/material';
-import { useRef } from 'react';
+import { useCallback } from 'react';
+import { CustomAutocomplete } from './CustomAutocomplete';
 
 /** 中項目 */
-const MiddleItemSelect = ({
-  row,
-  onRowChange,
-}: RenderEditCellProps<RowItem>) => {
-  const ref = useRef<HTMLInputElement>(null);
+const MiddleItemSelect = (props: RenderEditCellProps<RowItem>) => {
+  const { row } = props;
 
   const { data } = useMaterialsMid({
-    select: (d) => d
-      .filter(({ 大項目名: majorItem }) => !row.majorItem || row.majorItem === majorItem.value )
-      .map(({ 中項目名: midItem }) => midItem.value ),
+    select: useCallback(
+      (d) => d
+        .filter(({ 大項目名: majorItem }) => !row.majorItem || row.majorItem === majorItem.value )
+        .map(({ 中項目名: midItem }) => midItem.value ), 
+      [row.majorItem],
+    ),
   });
 
   return (
-    <Autocomplete
-      value={row.middleItem ?? ''}
-      freeSolo
-      options={data ?? []}
-      onChange={(_, value) => {
-        onRowChange({ ...row, middleItem: value || '' }, true);
-      }}
-      onBlur={(e) => {
-        onRowChange({ ...row, middleItem: (e.target as HTMLInputElement).value }, true);
-      }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          size='small'
-          fullWidth
-          autoFocus
-          inputRef={ref}
-          variant='standard'
-          InputProps={{
-            ...params.InputProps,
-            // type: 'search',
-            disableUnderline: true,
-          }}  
-          sx={{
-            pt: '4px',
-          }}
-        />
-      )}
-    />
+    <CustomAutocomplete {...props} data={data} />
   );
 };
 

@@ -1,19 +1,13 @@
-import { Box, Button, Paper, Stack, Zoom } from '@mui/material';
+import { Box, Button, Paper, Stack } from '@mui/material';
 import { GoToContractButton } from '../navigationComponents/GoToContractButton';
 import SaveIcon from '@mui/icons-material/Save';
-import { useFormState } from 'react-hook-form';
-import { CustomAlert } from './CustomAlert';
+import { UnsavedMitsumori } from './UnsavedMitsumori';
 
 export const ActionButtons = ({
   handleSubmit,
 }:{
   handleSubmit: () => void
 }) => {
-  const  {
-    isDirty,
-  } = useFormState();
-  
-  
 
   return (
     <Box 
@@ -45,13 +39,7 @@ export const ActionButtons = ({
           保存
         </Button>
         <GoToContractButton  />
-   
-        <Zoom in={isDirty}>
-          <CustomAlert severity='warning'>
-            保存されていない変更があります。保存してください。
-          </CustomAlert>
-        </Zoom>
-       
+        <UnsavedMitsumori />
       </Stack>
 
     </Box>

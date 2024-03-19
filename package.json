@@ -34,7 +34,7 @@
     "@types/react-text-mask": "^5.4.11",
     "@types/shortid": "^0.0.29",
     "@types/string-similarity": "^4.0.2",
-    "@types/uuid": "^9.0.2",
+    "@types/uuid": "^9.0.8",
     "@types/validator": "^13.11.1",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.2.0",

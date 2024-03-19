@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, Stack, TextField, TextFieldProps } from
 import { useSearchProjects } from 'kokoas-client/src/hooksQuery';
 import { formatDataId } from 'libs';
 import { ComponentProps, useEffect, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { Caption } from '../typographies';
 
 
@@ -35,7 +35,7 @@ export const SearchProjects = (props: Omit<ComponentProps<typeof Autocomplete<Op
   const [inputVal, setInputVal] = useState('');
   const [fieldVal, setFieldVal] = useState<typeof value>(value);
   const [options, setOptions] = useState<Array<Opt>>([]);
-  const debouncedInput = useDebounce(inputVal, 1000);
+  const [debouncedInput] = useDebounceValue(inputVal, 1000);
 
   const {
     data: recProjects = [],

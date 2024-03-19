@@ -47,8 +47,6 @@ export const UnsavedMidumoriModal = ({
   const { reset } = useFormContext<TForm>();
   const [open, setOpen] = useState(Boolean(formRecovery));
 
-  console.log('initialRender', isInitialRender);
-
   if (!formRecovery) return null;
 
   const handleClose = () => {

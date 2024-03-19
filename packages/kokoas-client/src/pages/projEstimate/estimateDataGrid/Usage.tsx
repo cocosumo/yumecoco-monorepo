@@ -1,7 +1,7 @@
 import { Chip, Stack, Typography, styled } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ReactNode } from 'react';
-import { MdOutlineKeyboardReturn } from 'react-icons/md';
+import { MdKeyboardReturn } from '@react-icons/all-files/md/MdKeyboardReturn';
 
 const CustomChip = styled(Chip)(() => ({
   backgroundColor: grey[600],
@@ -59,7 +59,7 @@ export const Usage = () => {
       <Info
         label='Enter'
         value='編集モード'
-        icon={<MdOutlineKeyboardReturn fontSize={16} />}
+        icon={<MdKeyboardReturn fontSize={16} />}
       />
 
       <Info

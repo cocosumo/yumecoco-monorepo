@@ -1,7 +1,7 @@
 import { Box, Button, Paper, Stack } from '@mui/material';
 import { GoToContractButton } from '../navigationComponents/GoToContractButton';
 import SaveIcon from '@mui/icons-material/Save';
-import { UnsavedMidumori } from './UnsavedMidumori';
+import { UnsavedMitsumori } from './UnsavedMitsumori';
 
 export const ActionButtons = ({
   handleSubmit,
@@ -39,7 +39,7 @@ export const ActionButtons = ({
           保存
         </Button>
         <GoToContractButton  />
-        <UnsavedMidumori />
+        <UnsavedMitsumori />
       </Stack>
 
     </Box>

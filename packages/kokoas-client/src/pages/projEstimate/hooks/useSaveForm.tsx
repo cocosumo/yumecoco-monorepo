@@ -16,7 +16,7 @@ import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
 import { ja } from './utils/fieldTranslations';
 import { TForm } from '../schema';
 import { useLocalStorage } from 'usehooks-ts';
-import { localStorageFormRecoveryKey } from '../sections/UnsavedMidumori';
+import { localStorageFormRecoveryKey } from '../sections/UnsavedMitsumori';
 
 export type SaveButtonNames = 'temporary' | 'save';
 

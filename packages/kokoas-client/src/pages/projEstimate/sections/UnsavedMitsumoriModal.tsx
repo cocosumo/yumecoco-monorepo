@@ -10,7 +10,7 @@ import {
   Typography, 
 } from '@mui/material';
 import { useState } from 'react';
-import { IUnsavedMidumori, localStorageFormRecoveryKey } from './UnsavedMidumori';
+import { IUnsavedMitsumori, localStorageFormRecoveryKey } from './UnsavedMitsumori';
 import { format, parseISO } from 'date-fns';
 import { useLocalStorage } from 'usehooks-ts';
 import { useFormContext } from 'react-hook-form';
@@ -36,14 +36,14 @@ const Info = ({
   );
 };
 
-export const UnsavedMidumoriModal = ({
+export const UnsavedMitsumoriModal = ({
   isInitialRender,
   setIsInitialRender,
 }:{
   isInitialRender: boolean,
   setIsInitialRender: (value: boolean) => void,
 }) => {
-  const [formRecovery, setFormRecovery] = useLocalStorage<IUnsavedMidumori | undefined>(localStorageFormRecoveryKey, undefined);
+  const [formRecovery, setFormRecovery] = useLocalStorage<IUnsavedMitsumori | undefined>(localStorageFormRecoveryKey, undefined);
   const { reset } = useFormContext<TForm>();
   const [open, setOpen] = useState(Boolean(formRecovery));
 

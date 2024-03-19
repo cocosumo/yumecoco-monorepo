@@ -4,19 +4,19 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { useEffect, useRef, useState } from 'react';
 import { useDebounce, useLocalStorage } from 'usehooks-ts';
 import { TForm } from '../schema';
-import { UnsavedMidumoriModal } from './UnsavedMidumoriModal';
+import { UnsavedMitsumoriModal } from './UnsavedMitsumoriModal';
 
-export interface IUnsavedMidumori {
+export interface IUnsavedMitsumori {
   data: TForm | null;
   date: string;
 }
 
 export  const localStorageFormRecoveryKey = 'formRecovery:midumori';
 
-export const UnsavedMidumori = () => {
+export const UnsavedMitsumori = () => {
   const [isInitialRender, setIsInitialRender] = useState(true);
   const isMount = useRef(false);
-  const [, setFormRecovery] = useLocalStorage<IUnsavedMidumori | undefined>(localStorageFormRecoveryKey, undefined);
+  const [, setFormRecovery] = useLocalStorage<IUnsavedMitsumori | undefined>(localStorageFormRecoveryKey, undefined);
   const {
     formState: { isDirty }, 
   } = useFormContext<TForm>();
@@ -56,7 +56,7 @@ export const UnsavedMidumori = () => {
           保存されていない変更があります。保存してください。
         </CustomAlert>
       </Zoom>
-      <UnsavedMidumoriModal 
+      <UnsavedMitsumoriModal 
         isInitialRender={isInitialRender}
         setIsInitialRender={setIsInitialRender}
       />

@@ -17,10 +17,13 @@ import { ja } from './utils/fieldTranslations';
 import { TForm } from '../schema';
 import { useLocalStorage } from 'usehooks-ts';
 import { localStorageFormRecoveryKey } from '../sections/UnsavedMitsumori';
+import { refocus } from './utils/refocus';
 
 export type SaveButtonNames = 'temporary' | 'save';
 
 export type UseSaveForm = ReturnType<typeof useSaveForm>;
+
+
 
 export const useSaveForm = ({
   handleSubmit,
@@ -59,43 +62,20 @@ export const useSaveForm = ({
         projDataId: data.projDataId,
       },
     });
+
     setSnackState({
       open: true,
       severity: 'success',
       message: `保存しました。 更新回数：${revision}`,
-
+      autoHideDuration: 500,
       handleClose: () => {
-        // return focus to the element that was focused before
-        const returnFocusEl = document.getElementById('activeElement');
-        returnFocusEl?.focus();
-
-        if (returnFocusEl) {
-          returnFocusEl.removeAttribute('id');
-        } else {
-          // If it is grid cell, focus on the cell
-          const parentCell = activeEl.closest('div[role="gridcell"]');
-          const parentRow = parentCell?.closest('div[role="row"]');
-          // get aria-rowindex
-          const rowIndex = parentRow?.getAttribute('aria-rowindex');
-
-          // get aria-colindex
-          const colIndex = parentCell?.getAttribute('aria-colindex');
-
-          // select the cell
-          const cellEl = document.querySelector(`div[role="grid"] div[aria-rowindex="${rowIndex}"] div[aria-colindex="${colIndex}"]`) as HTMLElement;
-
-          if (cellEl) {
-            cellEl.focus();
-          }
-
-          console.log(cellEl);
-        }
-        
+        refocus(activeEl, 'activeElement');
       },
+      
     });
 
-    
     setFormRecovery(undefined);
+
     return {
       id,
       revision,

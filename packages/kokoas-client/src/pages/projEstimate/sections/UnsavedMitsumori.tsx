@@ -2,7 +2,7 @@ import { Zoom } from '@mui/material';
 import { CustomAlert } from './CustomAlert';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { useEffect, useRef, useState } from 'react';
-import { useDebounce, useLocalStorage } from 'usehooks-ts';
+import { useDebounceValue, useLocalStorage } from 'usehooks-ts';
 import { TForm } from '../schema';
 import { UnsavedMitsumoriModal } from './UnsavedMitsumoriModal';
 
@@ -23,7 +23,7 @@ export const UnsavedMitsumori = () => {
   
   const values = useWatch<TForm>();
 
-  const debouncedValues = useDebounce(values, 2000);
+  const [debouncedValues] = useDebounceValue(values, 2000);
 
 
   useEffect(() => {

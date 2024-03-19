@@ -48,7 +48,7 @@ export const EstimatesInfo = () => {
           <LabeledInfo
             label={'作成日'}
             fontSize={14}
-            info={format(createdDate, 'yyyy/MM/dd')}
+            info={format(new Date(createdDate), 'yyyy/MM/dd')}
             direction={'row'}
           />
           )}

@@ -1,5 +1,5 @@
-import { CellKeyDownArgs, CellKeyboardEvent, DataGridHandle } from 'react-data-grid';
-import { RowItem, useColumns } from './useColumns';
+import { CellKeyDownArgs, CellKeyboardEvent, Column, DataGridHandle } from 'react-data-grid';
+import { RowItem } from './useColumns';
 import { useRef } from 'react';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TForm } from '../schema';
@@ -14,7 +14,7 @@ import { useRowValues } from '../hooks';
  */
 export const useDataGridKeyCellKeyDown = (
   fieldArrayHelpers: UseFieldArrayReturn<TForm>,
-  columns: ReturnType<typeof useColumns>,
+  columns: Column<RowItem>[],
 ) => {
 
   const { 
@@ -68,7 +68,7 @@ export const useDataGridKeyCellKeyDown = (
 
     const goToNextEditableCell = () => {
       for (let i = idx + 1; i < columns.length; i++) {
-        if (columns[i].editable) {
+        if (columns[i]?.editable) {
           selectCell({ rowIdx, idx: i }, true);
           return;
         }
@@ -77,7 +77,7 @@ export const useDataGridKeyCellKeyDown = (
 
     const goToPrevEditableCell = () => {
       for (let i = idx - 1; i > 0; i--) {
-        if (columns[i].editable) {
+        if (columns[i]?.editable) {
           selectCell({ rowIdx, idx: i }, true);
           return;
         }
@@ -233,7 +233,6 @@ export const useDataGridKeyCellKeyDown = (
     ];
 
     if (!allowedKeys.includes(key)) {
-      console.log(key);
 
       preventDefault();
     }

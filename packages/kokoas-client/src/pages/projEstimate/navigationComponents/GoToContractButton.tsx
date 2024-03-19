@@ -40,7 +40,7 @@ export const GoToContractButton = () => {
 
   return (
     <Button
-      variant={'contained'}
+      variant={'outlined'}
       disabled={!isEnabled}
       onClick={handleGoToContractPage}
     >

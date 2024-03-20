@@ -8,6 +8,7 @@ declare namespace DBUnissuedinvoicealert {
     totalContractAmount: kintone.fieldTypes.Number;
     scheduledAlertDate: kintone.fieldTypes.Date;
     alertState: kintone.fieldTypes.SingleLineText;
+    plannedDepositDate: kintone.fieldTypes.Date;
     reminderDate: kintone.fieldTypes.DropDown;
     area: kintone.fieldTypes.SingleLineText;
     systemId: kintone.fieldTypes.SingleLineText;

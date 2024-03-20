@@ -72,6 +72,8 @@ export const useAlertNotify = ({
       }
     }
 
+    // 経理担当者への通知処理を追加する
+
     if (sendCondition) {
       setSnackState({
         open: true,

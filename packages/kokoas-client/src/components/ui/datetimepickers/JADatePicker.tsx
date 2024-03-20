@@ -13,7 +13,11 @@ import { forwardRef, Ref } from 'react';
 export const JADatePicker = forwardRef(( datePickerProps: DatePickerProps<any>, ref) => {
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={jaLocale}>
+    <LocalizationProvider
+      dateAdapter={AdapterDateFns}
+      adapterLocale={jaLocale}
+      dateFormats={{ monthAndYear: 'yyyy年 MM月' }}
+    >
       <DatePicker
         {...datePickerProps}
         ref={ref as Ref<HTMLDivElement>}

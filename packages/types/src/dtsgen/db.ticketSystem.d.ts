@@ -7,7 +7,6 @@ declare namespace DBTicketsystem {
     priority: kintone.fieldTypes.DropDown;
     requestTime: kintone.fieldTypes.DateTime;
     scope: kintone.fieldTypes.DropDown;
-    文字列__複数行_: kintone.fieldTypes.MultiLineText;
     announcementTitle: kintone.fieldTypes.SingleLineText;
     details: kintone.fieldTypes.RichText;
     updateType: kintone.fieldTypes.DropDown;

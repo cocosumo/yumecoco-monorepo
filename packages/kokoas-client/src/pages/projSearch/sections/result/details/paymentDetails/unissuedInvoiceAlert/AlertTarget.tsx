@@ -37,7 +37,7 @@ export const AlertTarget = ({
         {alertTarget &&
           alertTarget?.map(({ value }) => value.agentName.value)
             .join(', ')}
-        {!alertTarget && '工事担当者の設定を見直してください'}
+        {!alertTarget && 'ここすも営業担当者を取得できません。設定を見直してください'}
       </Typography>
     </Stack>
   );

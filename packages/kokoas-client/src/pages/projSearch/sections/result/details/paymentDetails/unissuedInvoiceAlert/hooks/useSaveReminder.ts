@@ -6,9 +6,11 @@ import { KAlertPurpose } from '../alertConfig';
 export const useSaveReminder = ({
   projId,
   purpose,
+  paymentDate,
 }: {
   projId: string
   purpose: KAlertPurpose
+  paymentDate: Date | null
 }) => {
 
   const { 
@@ -36,6 +38,7 @@ export const useSaveReminder = ({
       recContracts: recContracts,
       recEmployees: recEmployees,
       purpose,
+      paymentDate,
     });
 
     return mutateAsync({

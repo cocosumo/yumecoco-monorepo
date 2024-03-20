@@ -19,14 +19,18 @@ export const createReminderMsgForCocoAg = ({
     totalContractAmount,
     cocoAGs,
     yumeAG,
+    plannedDepositDate,
   } = recReminder;
 
   const alertPurposesReverse = Object.fromEntries(Object.entries(alertPurposes).map(val => val.reverse()));
   const purpose = alertPurposesReverse[alertType.value] as KAlertPurpose;
 
+  const displayDate = purpose === 'subsidy' && plannedDepositDate.value ?
+    `${format(new Date(plannedDepositDate.value), 'yyyy年MM月dd日')}に` : '';
+
 
   const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
-  const message0 = `下記工事に対して、${alertMessages[purpose]}`;
+  const message0 = `下記工事に対して、${displayDate}${alertMessages[purpose]}`;
   const message1 = `請求書の発行をお願いします。
 `;
 

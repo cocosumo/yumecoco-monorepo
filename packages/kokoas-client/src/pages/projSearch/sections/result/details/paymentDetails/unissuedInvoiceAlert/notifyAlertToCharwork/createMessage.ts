@@ -33,7 +33,7 @@ export const createMessage = async ({
     recContracts,
   });
 
-  const displayDate = paymentDate ? `${format(paymentDate, 'yyyy年MM月dd日')}に` : '';
+  const displayDate = purpose === 'subsidy' && paymentDate ? `${format(paymentDate, 'yyyy年MM月dd日')}に` : '';
 
   const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
   const message0 = `下記工事に対して、${displayDate}${alertMessages[purpose]}`;

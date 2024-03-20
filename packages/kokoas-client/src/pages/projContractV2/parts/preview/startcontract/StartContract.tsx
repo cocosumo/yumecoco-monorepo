@@ -1,18 +1,17 @@
 import SendIcon from '@mui/icons-material/Send';
 import {  Button } from '@mui/material';
-import { useIsFetching } from '@tanstack/react-query';
 import { useState } from 'react';
 import { StartDialog } from './StartDialog';
 import { EnvelopeRecipients } from 'docusign-esign';
 
 export const StartContract = ({
   recipients,
+  isFetching,
 }:{
-  recipients?: EnvelopeRecipients
+  recipients?: EnvelopeRecipients,
+  isFetching?: boolean,
 })=>{
   const [open, setOpen] = useState(false);
-  const isFetching = !!useIsFetching();
-
 
   return (
     <>

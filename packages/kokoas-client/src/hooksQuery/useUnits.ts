@@ -7,7 +7,7 @@ type GetAllUnitsReturn = Awaited<ReturnType<typeof getAllUnits>>;
 export const useUnits = <K = GetAllUnitsReturn>(
   select?: (data: GetAllUnitsReturn) => K) => {
   return useQuery(
-    [AppIds.stores],
+    [AppIds.units, 'getAllUnits'],
     getAllUnits,
     { 
       select, 

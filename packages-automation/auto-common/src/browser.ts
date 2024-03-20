@@ -13,6 +13,6 @@ export const headFullBrowser = () => browser({
 });
 
 export const headLessBrowser = () => browser({
-  headless: 'new',
+  headless: true,
   defaultViewport: null,
 });

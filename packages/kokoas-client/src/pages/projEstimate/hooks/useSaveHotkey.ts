@@ -42,8 +42,9 @@ export const useSaveHotkey = (
 
     },
     {
-      // /enableOnFormTags: ['INPUT', 'textarea'],
+      enableOnFormTags: ['INPUT', 'textarea'],
       enabled: !options.disabled,
+      enableOnContentEditable: true,
     },
     [options]);
 

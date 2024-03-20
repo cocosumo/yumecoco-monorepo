@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import { useSearchCustGroup } from 'kokoas-client/src/hooksQuery/useSearchCustGroup';
 import { ComponentProps, useEffect, useState } from 'react';
 import { ICustgroups } from 'types';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 
 import { Caption } from '../typographies';
 
@@ -33,7 +33,7 @@ export const SearchCustGroup = (props: Omit<ComponentProps<typeof Autocomplete<S
   const [fieldVal, setFieldVal] = useState<typeof value>(value);
   const [options, setOptions] = useState<Array<SearchOption>>([]);
 
-  const debouncedInput = useDebounce(inputVal, 1000);
+  const [debouncedInput] = useDebounceValue(inputVal, 1000);
 
   const {
     data: newOptions,

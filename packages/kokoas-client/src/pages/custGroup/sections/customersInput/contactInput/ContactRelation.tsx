@@ -21,6 +21,7 @@ export const ContactRelation = ({
       render={({
         field: {
           onChange,
+          value,
           ...otherFields
         },
         fieldState: { 
@@ -47,6 +48,7 @@ export const ContactRelation = ({
               続柄
             </InputLabel>
             <Select
+              value={value as string || ''}
               onChange={(e) => {
                 onChange(e.target.value);
               }}

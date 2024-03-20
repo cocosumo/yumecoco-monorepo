@@ -1,4 +1,4 @@
-import { Chip, TableBody, Tooltip } from '@mui/material';
+import { Chip, ChipProps, TableBody, Tooltip } from '@mui/material';
 import { Big } from 'big.js';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { pages } from 'kokoas-client/src/pages/Router';
@@ -64,6 +64,17 @@ export const ResultsTBody = ({
             : label;
         }
 
+        let statusColor: ChipProps['color'] = 'default';
+
+        if (isCompleted) {
+          statusColor = 'success';
+        } else if (contractStatus === 'sent') {
+          statusColor = 'warning';
+        }
+
+
+
+
         return (
           <TRowLayout
             key={contractId}
@@ -71,7 +82,7 @@ export const ResultsTBody = ({
               <Chip
                 label={label || '未処理'}
                 size="small"
-                color={isCompleted ? 'success' : 'default'}
+                color={statusColor}
                 icon={(
                   <>
                     {memo && (

@@ -15,10 +15,15 @@ import { convertToKintone } from '../api/convertToKintone';
 import { BtnSaveChoices } from '../formActions/BtnSaveChoices';
 import { ja } from './utils/fieldTranslations';
 import { TForm } from '../schema';
+import { useLocalStorage } from 'usehooks-ts';
+import { localStorageFormRecoveryKey } from '../sections/UnsavedMitsumori';
+import { refocus } from './utils/refocus';
 
 export type SaveButtonNames = 'temporary' | 'save';
 
 export type UseSaveForm = ReturnType<typeof useSaveForm>;
+
+
 
 export const useSaveForm = ({
   handleSubmit,
@@ -33,12 +38,20 @@ export const useSaveForm = ({
   const { mutateAsync: saveMutation } = useSaveEstimate();
   const navigate = useStableNavigate();
 
+  const [,setFormRecovery] = useLocalStorage(localStorageFormRecoveryKey, undefined);
+
   const handleSave = useCallback(async (
     data: TForm,
   ) => {
     const {
       estimateId,
     } = data;
+
+    const activeEl = document.activeElement as HTMLElement;
+    // add id to focusedEl
+    if (activeEl) {
+      activeEl.id = 'activeElement';
+    }
 
     const record = convertToKintone(data);
 
@@ -49,17 +62,25 @@ export const useSaveForm = ({
         projDataId: data.projDataId,
       },
     });
+
     setSnackState({
       open: true,
       severity: 'success',
       message: `保存しました。 更新回数：${revision}`,
+      autoHideDuration: 500,
+      handleClose: () => {
+        refocus(activeEl, 'activeElement');
+      },
+      
     });
+
+    setFormRecovery(undefined);
 
     return {
       id,
       revision,
     };
-  }, [saveMutation, setSnackState]);
+  }, [saveMutation, setSnackState, setFormRecovery]);
 
   const onSubmitValid: SubmitHandler<TForm> = useCallback(async (data) => {
     const { id } = await handleSave(data);

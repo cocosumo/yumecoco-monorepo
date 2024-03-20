@@ -9,11 +9,13 @@ import { PageTitle3 } from 'kokoas-client/src/components/ui/labels/PageTitle3';
 import { HeadSection } from './sections/HeadSection';
 import schema, { TForm } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useIsFetching } from '@tanstack/react-query';
+
 
 export const FormProjEstimate = () => {
-  const { initialForm } = useResolveParam();
-  const isLoading = !!useIsFetching();
+  const { 
+    initialForm, 
+    isFetching,
+  } = useResolveParam();
 
   const formReturn = useForm<TForm>({
     defaultValues: initialForm,
@@ -32,12 +34,10 @@ export const FormProjEstimate = () => {
     //handleSubmitFinal,
   } = useSaveForm(formReturn);
 
-
   const {
     control,
   } = formReturn;
 
-  if (isLoading) (<LinearProgress />);
 
   return (
     <FormProvider {...formReturn}>
@@ -45,13 +45,15 @@ export const FormProjEstimate = () => {
         <Stack 
           spacing={2}
         >
-          <PageTitle3 label={'見積もり'} />
+          <PageTitle3 label={`見積：${initialForm.estimateId ? '上書き編集中' : '新規作成中'}`} />
           <HeadSection /> 
+          {isFetching && (<LinearProgress />)}
 
           <Divider />
 
           <FormContents 
             handleSubmit={handleSubmit}
+            isFetching={isFetching}
           />
           
         </Stack>

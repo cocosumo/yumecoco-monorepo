@@ -7,7 +7,7 @@ import {
   TextField,
   Typography, 
 } from '@mui/material';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 import { useState } from 'react';
 import { useAndpadByProjName } from 'kokoas-client/src/hooksQuery';
 import { grey } from '@mui/material/colors';
@@ -30,7 +30,7 @@ export const SearchProject = ({
   const [inputValue, setInputValue] = useState('');
   const [value, setValue] = useState<SaveProjectData | null>(null);
 
-  const debouncedValue = useDebounce(inputValue, 500);
+  const [debouncedValue] = useDebounceValue(inputValue, 500);
 
   const { data: options, isLoading } = useAndpadByProjName(debouncedValue, {
     select: (d) => {

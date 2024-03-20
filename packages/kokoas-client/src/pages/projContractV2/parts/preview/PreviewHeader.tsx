@@ -10,8 +10,10 @@ import { EnvelopeRecipients } from 'docusign-esign';
 
 export const PreviewHeader = ({
   recipients,
+  isFetching,
 }:{
   recipients?: EnvelopeRecipients
+  isFetching?: boolean,
 }) => {
   const envelopeStatus = useWatch<TypeOfForm>({
     name: 'envelopeStatus',
@@ -26,7 +28,7 @@ export const PreviewHeader = ({
     <Stack direction="row" spacing={2}>
 
       {envelopeStatus !== 'completed' && (
-        <RefreshButton />
+        <RefreshButton isFetching={isFetching} />
       )}
       {envelopeStatus === 'voiding' && (
         <Alert severity="info" >
@@ -35,7 +37,10 @@ export const PreviewHeader = ({
       )}
 
       {!isWithContract && (
-        <StartContract recipients={recipients} />
+        <StartContract 
+          recipients={recipients}
+          isFetching={isFetching}
+        />
       ) }
 
       {/* <ContractStatus /> */}

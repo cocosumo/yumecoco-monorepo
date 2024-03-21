@@ -2,6 +2,7 @@ import { RenderEditCellProps } from 'react-data-grid';
 import { RowItem } from '../useColumns';
 import { InputBase } from '@mui/material';
 import { useEffect, useRef } from 'react';
+import { convertToHalfWidth } from 'libs';
 
 const NumberInput = (props: RenderEditCellProps<RowItem>) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -22,7 +23,7 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
 
   return (
     <InputBase
-      type="number"
+      type="text"
       inputRef={ref}
       defaultValue={defaultValue}
       onKeyDown={(e) => {
@@ -30,7 +31,16 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
           || e.key === 'Enter'
         ) {
           const newValue = (e.target as HTMLInputElement).value;
-          onRowChange({ ...row, [key]: newValue ? Number((e.target as HTMLInputElement).value || '') : '' }, true);
+
+          const numberVal = +convertToHalfWidth(newValue);
+
+          let valueToSave = '';
+
+          if (!isNaN(numberVal)) {
+            valueToSave = numberVal.toString();
+          } 
+
+          onRowChange({ ...row, [key]: newValue ? valueToSave : '' }, true);
         }
       }}
     />

@@ -35,7 +35,7 @@ export const useAlertNotify = ({
 
 
   const alertNotify = async (reminderRecId: string, paymentDate: Date | null) => {
-    let sendCondition = false;
+    let hasError = false;
 
     if (!recProj || !recContracts || !recEmployees) return;
 
@@ -54,28 +54,29 @@ export const useAlertNotify = ({
     });
 
     for (const cwRoomId of cwRoomIds) {
+      const tgtempInfo = recEmployees.find(({ chatworkRoomId }) => chatworkRoomId.value === cwRoomId);
+      const empName = tgtempInfo ? tgtempInfo.文字列＿氏名.value : cwRoomId;
+
       try {
 
         await sendMessage({
-          body: message,
-          roomId: (isProd) ? cwRoomId : chatworkRooms.test,
+          body: (isProd) ? message : `【テスト送信】${empName}宛のメッセージです \n${message}`,
+          roomId: (isProd) ? cwRoomId : chatworkRooms.testRoom,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
-        sendCondition = true;
+        //hasError = false;
       } catch (error) {
 
         await sendMessage({
-          body: `${[`【送信エラー】ルームID:${cwRoomId} 宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
+          body: `${[`【送信エラー】${empName}(ルームID:${cwRoomId})宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
           roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.testRoom,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
-        sendCondition = false;
+        hasError = true;
       }
     }
 
-    // 経理担当者への通知処理を追加する
-
-    if (sendCondition) {
+    if (!hasError) {
       setSnackState({
         open: true,
         severity: 'success',
@@ -91,8 +92,8 @@ export const useAlertNotify = ({
 
   };
 
-  return { 
+  return {
     alertNotify,
-    isLoadingAlertNotify :isLoading,
+    isLoadingAlertNotify: isLoading,
   };
 };

@@ -49,6 +49,7 @@ export const AlertContent = ({
             onChange={handleDateChange}
             value={paymentDate}
             slotProps={{
+              popper: { placement: 'right' },
               textField: {
                 label: '入金予定日',
                 size: 'small',

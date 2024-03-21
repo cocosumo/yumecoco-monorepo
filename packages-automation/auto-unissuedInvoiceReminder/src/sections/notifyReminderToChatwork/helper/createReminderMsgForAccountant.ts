@@ -1,3 +1,4 @@
+import { alertPurposes } from 'kokoas-client/src/pages/projSearch/sections/result/details/paymentDetails/unissuedInvoiceAlert/alertConfig';
 import { IUnissuedinvoicealert } from 'types';
 
 
@@ -15,12 +16,18 @@ export const createReminderMsgForAccountant = ({
     store,
     contractDate,
     totalContractAmount,
+    plannedDepositDate,
   }, idx) => {
+
+    const isSubsidy = alertType.value === alertPurposes.subsidy;
+    const hasDepositDate = Boolean(plannedDepositDate.value);
+    const displayDate = (isSubsidy && hasDepositDate) ? `入金予定日: ${plannedDepositDate.value}` : '';
+
 
     return [
       `${idx + 1}件目`,
       `${store.value}　${projName.value}`,
-      `アラートの内容：${alertType.value}`,
+      `アラートの内容：${alertType.value} ${displayDate}`,
       `契約日：${contractDate.value} 　契約金額： ￥${(+totalContractAmount.value).toLocaleString()} 　担当者：${cocoAGs.value}`,
       `▶アラートの停止はこちらから：　https://rdmuhwtt6gx7.cybozu.com/k/303/show#record=${$id.value}&mode=edit`,
     ].join('\n');

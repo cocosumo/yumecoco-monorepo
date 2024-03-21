@@ -8,11 +8,10 @@ export const getPlannedDepositDate = ({
   purpose: KAlertPurpose
   paymentDate: Date | null
 }) => {
-  if (purpose !== 'subsidy') {
+  if (purpose !== 'subsidy' || !paymentDate) {
     return '';
-  } else {
-    if (!paymentDate) return '';
-
-    return format(paymentDate, 'yyyy-MM-dd');
   }
+
+  return format(paymentDate, 'yyyy-MM-dd');
+
 };

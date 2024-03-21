@@ -54,7 +54,7 @@ export const AlertDialog = ({
   const handleAlert = async () => {
     const saveRec = await saveReminder();
     if (!saveRec) return;
-    alertNotify(saveRec.id);
+    alertNotify(saveRec.id, paymentDate);
     handleClose();
   };
 

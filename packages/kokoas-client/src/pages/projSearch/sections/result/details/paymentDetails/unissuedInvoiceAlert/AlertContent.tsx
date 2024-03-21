@@ -20,7 +20,7 @@ export const AlertContent = ({
 
     if (!paymentDate) return defaultMessage;
 
-    const displayDate = format(paymentDate, 'yyyy/MM/dd');
+    const displayDate = format(paymentDate, 'yyyy年MM月dd日');
 
     return `${displayDate}に${defaultMessage}`;
 
@@ -49,6 +49,7 @@ export const AlertContent = ({
             onChange={handleDateChange}
             value={paymentDate}
             slotProps={{
+              popper: { placement: 'right' },
               textField: {
                 label: '入金予定日',
                 size: 'small',

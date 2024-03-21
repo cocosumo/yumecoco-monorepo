@@ -34,7 +34,7 @@ export const useAlertNotify = ({
   const isLoading = isLoadingProj || isLoadingContracts || isLoadingEmployees;
 
 
-  const alertNotify = async (reminderRecId: string) => {
+  const alertNotify = async (reminderRecId: string, paymentDate: Date | null) => {
     let sendCondition = false;
 
     if (!recProj || !recContracts || !recEmployees) return;
@@ -44,6 +44,7 @@ export const useAlertNotify = ({
       recContracts: recContracts,
       purpose,
       reminderRecId,
+      paymentDate,
     });
 
     // 担当者の情報から通知先のルームIDを取得する

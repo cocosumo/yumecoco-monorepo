@@ -11,7 +11,7 @@ import { AppIds } from 'config';
 export const useEstimateById = (projEstimateId: string ) => {
 
   return useQuery({
-    queryKey: ['estimate', AppIds.projEstimates, projEstimateId],
+    queryKey: [AppIds.projEstimates, projEstimateId],
     queryFn: async () => {
       const record = await getEstimateById(projEstimateId);
       return {

@@ -39,6 +39,7 @@ export const AlertDialog = ({
   } = useSaveReminder({
     projId,
     purpose,
+    paymentDate,
   });
 
   const {

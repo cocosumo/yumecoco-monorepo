@@ -15,7 +15,7 @@ import { FormProjectSearch } from './projSearch/FormProjectSearch';
 import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { FormCustGroup } from './custGroup/FormCustGroup';
 import { FormProspectSearch } from './projProspectSearchV2/FormProspectSearch';
-import { FormOrder } from './order/FormContract';
+import { FormOrder } from './order/FormOrder';
 
 
 

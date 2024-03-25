@@ -1,4 +1,6 @@
 
+export const alertIssuer = ['経理', 'システム'];
+
 export const alertPurposes = {
   'unissued': '請求書未発行(入金あり)',
   'subsidy': '補助金の請求書発行',

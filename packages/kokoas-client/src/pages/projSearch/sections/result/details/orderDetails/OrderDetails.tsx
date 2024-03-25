@@ -1,4 +1,5 @@
-import { Stack } from '@mui/material';
+import { Alert, AlertTitle, Stack } from '@mui/material';
+import { Actions } from './actions/Actions';
 
 export const OrderDetails = ({
   projId,
@@ -9,11 +10,16 @@ export const OrderDetails = ({
   return (
     <Stack
       spacing={2}
-    >
+      p={2}
       
-      <h1>
-        Order Details
-      </h1>
+    >
+      <Actions projId={projId} />
+      <Alert severity='warning'>
+        <AlertTitle>
+          お知らせ
+        </AlertTitle>
+        申し訳ございません。このページは現在開発中です。発注はAndpadで行ってください。ご提案は大歓迎です。
+      </Alert>
     </Stack>
   );
 };

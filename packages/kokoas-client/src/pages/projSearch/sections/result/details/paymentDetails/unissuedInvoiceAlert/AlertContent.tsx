@@ -16,7 +16,6 @@ export const AlertContent = ({
 }) => {
   const explanation = useMemo(() => {
     const defaultMessage = alertMessages[purpose];
-    if (purpose === 'unissued') return defaultMessage;
 
     if (!paymentDate) return defaultMessage;
 
@@ -31,35 +30,33 @@ export const AlertContent = ({
       direction={'row'}
       spacing={1}
     >
-      {purpose === 'subsidy' &&
-        <Stack
-          direction={'column'}
-          spacing={1}
+      <Stack
+        direction={'column'}
+        spacing={1}
+      >
+        <Typography
+          variant='body2'
+          sx={{
+            color: 'gray',
+          }}
         >
-          <Typography
-            variant='body2'
-            sx={{
-              color: 'gray',
-            }}
-          >
-            入金予定日 :
-          </Typography>
+          入金日 :
+        </Typography>
 
-          <JADatePicker
-            onChange={handleDateChange}
-            value={paymentDate}
-            slotProps={{
-              popper: { placement: 'right' },
-              textField: {
-                label: '入金予定日',
-                size: 'small',
-                sx: {
-                  width: 150,
-                },
+        <JADatePicker
+          onChange={handleDateChange}
+          value={paymentDate}
+          slotProps={{
+            popper: { placement: 'right' },
+            textField: {
+              size: 'small',
+              sx: {
+                width: 150,
               },
-            }}
-          />
-        </Stack>}
+            },
+          }}
+        />
+      </Stack>
 
       <Stack
         direction={'column'}

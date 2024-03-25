@@ -1,10 +1,11 @@
-import { IEmployees } from 'types';
-import { alertIssuer } from './alertConfig';
+import { alertIssuer } from '../alertConfig';
+import { useEmployees } from 'kokoas-client/src/hooksQuery';
 
 
 
 /** アラート発行の担当者かどうかを確認する */
-export const getAlertIssuer = (employees: IEmployees[] | undefined) => {
+export const useAlertIssuer = () => {
+  const { data: employees } = useEmployees();
 
   if (!employees) return false;
 

@@ -1,8 +1,7 @@
 import { Stack } from '@mui/material';
 import { AlertButton } from './AlertButton';
 import { isProd } from 'config';
-import { getAlertIssuer } from './getAlertIssuer';
-import { useEmployees } from 'kokoas-client/src/hooksQuery';
+import { useAlertIssuer } from './hooks/useAlertIssuer';
 
 
 
@@ -11,12 +10,10 @@ export const UnisssuedInvoiceAlert = ({
 }: {
   projId: string
 }) => {
-  const { data: employees } = useEmployees();
+  // アラート発行権限の確認
+  const isAlertIssuer = useAlertIssuer();
 
   if (isProd) return; // 開発中設定、機能実装時に削除すること
-
-  // アラート発行権限の確認
-  const isAlertIssuer = getAlertIssuer(employees);
   if (!isAlertIssuer) return;
 
   return (

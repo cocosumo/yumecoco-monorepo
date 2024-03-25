@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { ContractSearch } from './ContractSearch';
 import { CollapsibleList } from './common/CollapsibleList';
-import { ContractInputV2 } from './ContractInputV2';
+import { ContractInput } from './ContractInput';
 
 
 export default function ContractMenu() {
@@ -27,8 +27,7 @@ export default function ContractMenu() {
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <CollapsibleList open={open}>
-        <ContractInputV2 />
-        {/* <ContractInput /> */}
+        <ContractInput />
         <ContractSearch />
       </CollapsibleList>
     </>

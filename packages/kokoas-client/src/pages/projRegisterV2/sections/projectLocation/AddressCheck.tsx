@@ -31,15 +31,15 @@ export const AddressCheck = () => {
   const combinedAddress = `${address1}${address2}`;
   const debouncedAddress = useDebounceValue(combinedAddress, 1000);
 
-  const { data: postalId, isLoading } = usePostalByAddress(combinedAddress);
+  const { data: postalId, isFetching } = usePostalByAddress(combinedAddress);
 
-  const shouldShow = !!debouncedAddress && !isLoading;
+  const shouldShow = !!debouncedAddress && !isFetching && !!address1;
 
   return (
     <Box
       position={'relative'}
     >
-      {isLoading &&  <CircularProgress />}
+      {isFetching &&  <CircularProgress size={24} />}
     
       <Zoom in={shouldShow && !!postalId}>
         <CustomAlert

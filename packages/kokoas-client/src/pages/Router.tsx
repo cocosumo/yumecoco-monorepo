@@ -15,6 +15,7 @@ import { FormProjectSearch } from './projSearch/FormProjectSearch';
 import { FormProjEstimate } from './projEstimate/FormProjEstimate';
 import { FormCustGroup } from './custGroup/FormCustGroup';
 import { FormProspectSearch } from './projProspectSearchV2/FormProspectSearch';
+import { FormOrder } from './order/FormOrder';
 
 
 
@@ -51,6 +52,9 @@ export const pages = {
 
   /** 新契約 */
   projContractPreviewV2: '/project/contract/preview/v2',
+
+  /** 発注 */
+  projOrderInput: '/project/order/input',
 
   projInvoice: '/project/payment/invoice',
   projPaymentSearch: '/project/payment/search',
@@ -98,6 +102,9 @@ const Router = () => (
 
     {/* 新契約 */}
     <Route path={`${pages.projContractPreviewV2}`} element={<FormContract />} />
+
+    {/* 発注 */}
+    <Route path={pages.projOrderInput} element={<FormOrder />} />
 
 
     {/* 入金管理グループ */}

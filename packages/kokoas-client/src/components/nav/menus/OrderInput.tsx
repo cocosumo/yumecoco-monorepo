@@ -5,7 +5,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const OrderInput = () => {
   return (
-    <LinkListItemButton to={pages.projOrderInput} icon={<AddShoppingCartIcon />} text={'新規登録'}
+    <LinkListItemButton to={pages.projOrderInput} icon={<AddShoppingCartIcon />} text={'発注登録'}
       indented
     />
   );

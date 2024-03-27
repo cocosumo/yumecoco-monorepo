@@ -5,7 +5,7 @@ import { ApiNodes } from 'types';
   
 export const baseUrl = isProd ? process.env.BASE_URL : process.env.LOCAL_URL;
 
-export const isStaging = kintone.app.getId() === 177;
+export const isStaging = (typeof kintone !== 'undefined') ? kintone?.app.getId() === 177 : false;
 
 export const isShowDev = !isProd || isStaging;
 

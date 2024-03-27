@@ -7,21 +7,23 @@ export const useSaveReminder = ({
   projId,
   purpose,
   paymentDate,
+  paymentAmount,
 }: {
   projId: string
   purpose: KAlertPurpose
   paymentDate: Date | null
+  paymentAmount: string
 }) => {
 
-  const { 
+  const {
     data: recProj,
     isLoading: isLoadingProj,
   } = useProjById(projId);
-  const { 
+  const {
     data: recContracts,
     isLoading: isLoadingContracts,
   } = useContractsByProjIdV2(projId);
-  const { 
+  const {
     data: recEmployees,
     isLoading: isLoadingEmployees,
   } = useEmployees();
@@ -39,6 +41,7 @@ export const useSaveReminder = ({
       recEmployees: recEmployees,
       purpose,
       paymentDate,
+      paymentAmount,
     });
 
     return mutateAsync({

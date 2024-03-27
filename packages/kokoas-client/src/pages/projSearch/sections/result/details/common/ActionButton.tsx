@@ -5,6 +5,9 @@ import { ReactNode } from 'react';
 export interface ActionButtonProps {
   href?: string,
   title?: string
+  children?: ReactNode
+  disabled?: boolean
+
 }
 
 export interface ActionButtonBaseProps extends ActionButtonProps {
@@ -23,6 +26,7 @@ export const ActionButton = ({
   children,
   color,
   target,
+  disabled,
 } : ActionButtonBaseProps) => {
   return (
     <Tooltip 
@@ -40,8 +44,8 @@ export const ActionButton = ({
           startIcon={startIcon}
           variant='outlined'
           size='small'
-          disabled={!href}
           color={color}
+          disabled={disabled}
         >
           {children}
         </Button>

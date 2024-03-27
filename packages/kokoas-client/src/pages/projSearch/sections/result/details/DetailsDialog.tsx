@@ -8,6 +8,21 @@ import { DetailsContent } from './DetailsContent';
 import { SyntheticEvent, useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { DetailsDialogTitle } from './DetailsDialogTitle';
+import { isShowDev } from 'kokoas-client/src/config/settings';
+
+const tabs = [
+  '顧客',
+  '工事',
+  '見積',
+  '契約',
+  '発注',
+  '入金',
+  '原価管理表',
+] as const;
+
+export type DetailsTabs = typeof tabs[number];
+
+const prodTabs = tabs.filter((tab) => tab !== '発注'); 
 
 export const DetailsDialog = ({
   open,
@@ -20,10 +35,10 @@ export const DetailsDialog = ({
   projName: string
   handleClose: () => void
 }) => {
-  const [tabIdx, setTabIdx] = useState(0);
+  const [tabValue, setTabValue] = useState<DetailsTabs>('顧客');
 
-  const handleChange = (_: SyntheticEvent, newValue: number) => {
-    setTabIdx(newValue);
+  const handleChange = (_: SyntheticEvent, newValue: DetailsTabs) => {
+    setTabValue(newValue);
   };
 
   return (
@@ -48,20 +63,24 @@ export const DetailsDialog = ({
           projId={projId}
           projName={projName}
         />
-        <Tabs value={tabIdx} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="顧客" />
-          <Tab label="工事" />
-          <Tab label="見積"  />
-          <Tab label="契約"  />
-          <Tab label="入金"  />
-          <Tab label="原価管理表" />
+        <Tabs value={tabValue} onChange={handleChange}>
+          {
+            (isShowDev ?  tabs : prodTabs)
+              .map((tab) => (
+                <Tab 
+                  key={tab} 
+                  label={tab}
+                  value={tab}
+                />
+              ))
+          }
         </Tabs>
         <DialogCloseButton handleClose={handleClose} />
       </DialogTitle>
 
       <DetailsContent 
         projId={projId}
-        tabIdx={tabIdx}
+        tabValue={tabValue}
         
       />
     </Dialog>

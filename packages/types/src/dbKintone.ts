@@ -66,3 +66,9 @@ export type KContracts = keyof IContracts;
 
 export type IUnissuedinvoicealert = DBUnissuedinvoicealert.SavedData;
 export type KUnissuedinvoicealert = keyof IUnissuedinvoicealert;
+
+export type IOrderbudget = DBOrderbudget.SavedData;
+export type KOrderbudget = keyof IOrderbudget;
+
+export type IOrder = DBOrder.SavedData;
+export type KOrder = keyof IOrder;

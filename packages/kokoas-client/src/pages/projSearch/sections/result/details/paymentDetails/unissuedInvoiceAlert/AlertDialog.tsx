@@ -53,6 +53,7 @@ export const AlertDialog = ({
     projId,
     purpose,
     paymentDate,
+    paymentAmount,
   });
 
   const {

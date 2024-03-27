@@ -8,7 +8,7 @@ import { DetailsContent } from './DetailsContent';
 import { SyntheticEvent, useState } from 'react';
 import { DialogCloseButton } from 'kokoas-client/src/components';
 import { DetailsDialogTitle } from './DetailsDialogTitle';
-import { isProd } from 'config';
+import { isShowDev } from 'kokoas-client/src/config/settings';
 
 const tabs = [
   '顧客',
@@ -65,7 +65,7 @@ export const DetailsDialog = ({
         />
         <Tabs value={tabValue} onChange={handleChange}>
           {
-            (isProd ? prodTabs : tabs)
+            (isShowDev ?  tabs : prodTabs)
               .map((tab) => (
                 <Tab 
                   key={tab} 

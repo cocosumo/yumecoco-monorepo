@@ -11,6 +11,7 @@ import CustomerMenu from './menus/CustomerMenu';
 import ContractMenu from './menus/ContractMenu';
 import { ConstructionMenu } from './menus/ConstructionMenu';
 import OrderMenu from './menus/OrderMenu';
+import { isProd } from 'config';
 
 export default function MainMenu() {
   return (
@@ -18,7 +19,7 @@ export default function MainMenu() {
       <CustomerMenu />
       <ConstructionMenu />
       <ContractMenu />
-      <OrderMenu />
+      {!isProd && <OrderMenu />}
 
       <Divider />
       <SystemMenu />

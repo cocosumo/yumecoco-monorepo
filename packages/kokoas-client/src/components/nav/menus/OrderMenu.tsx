@@ -21,7 +21,7 @@ export default function OrderMenu() {
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="発注管理" />
+        <ListItemText primary="発注情報" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <CollapsibleList open={open}>

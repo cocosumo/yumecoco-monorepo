@@ -1,6 +1,7 @@
 declare namespace DBOrderbudget {
   interface Data {
     projId: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     items: {
       type: "SUBTABLE";
       value: Array<{
@@ -11,11 +12,11 @@ declare namespace DBOrderbudget {
           unitPrice: kintone.fieldTypes.Number;
           majorItem: kintone.fieldTypes.SingleLineText;
           unit: kintone.fieldTypes.SingleLineText;
+          quantity: kintone.fieldTypes.Number;
           orderAmount: kintone.fieldTypes.Number;
           material: kintone.fieldTypes.SingleLineText;
           orderId: kintone.fieldTypes.SingleLineText;
           tax: kintone.fieldTypes.Number;
-          数値_1: kintone.fieldTypes.Number;
         };
       }>;
     };

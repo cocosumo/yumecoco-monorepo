@@ -62,7 +62,7 @@ export const AlertDialog = ({
   const isDuplication = Boolean(recUnissuedInvReminders &&
     (recUnissuedInvReminders.some(({ alertType }) => alertPurposes[purpose] === alertType.value)));
 
-  const duplicateExplanation = isDuplication ? '同アラートが既に設定されています' : '';
+  const duplicateExplanation = isDuplication ? '注:同アラートが設定されています' : '';
 
   return (
     <Dialog
@@ -102,7 +102,6 @@ export const AlertDialog = ({
           <NotificationButton
             explanation={duplicateExplanation}
             handleAlert={handleAlert}
-            isDuplication={isDuplication}
           />
         </>}
         {isLoading && <Typography>

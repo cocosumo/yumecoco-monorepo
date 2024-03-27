@@ -4,11 +4,9 @@ import { Button, Tooltip } from '@mui/material';
 
 export const NotificationButton = ({
   explanation,
-  isDuplication,
   handleAlert,
 }: {
   explanation: string
-  isDuplication: boolean
   handleAlert: () => void
 }) => (
   <Tooltip
@@ -17,7 +15,6 @@ export const NotificationButton = ({
   >
     <span>
       <Button
-        disabled={isDuplication}
         onClick={handleAlert}
         autoFocus
       >

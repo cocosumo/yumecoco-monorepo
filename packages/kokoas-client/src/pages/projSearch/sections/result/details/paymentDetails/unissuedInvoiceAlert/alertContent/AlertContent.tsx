@@ -2,8 +2,8 @@ import { Stack } from '@mui/material';
 import { KAlertPurpose } from '../alertConfig';
 import { PaymentDate } from './PaymentDate';
 import { PaymentAmount } from './PaymentAmount';
-import { Explanation } from './Explanation';
 import { ChangeEventHandler } from 'react';
+import { Explanation } from './Explanation';
 
 
 export const AlertContent = ({
@@ -15,7 +15,7 @@ export const AlertContent = ({
 }: {
   purpose: KAlertPurpose
   paymentDate: Date | null
-  paymentAmount: number
+  paymentAmount: string
   handleDateChange: (v: Date) => void
   handleAmtChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
 }) => {

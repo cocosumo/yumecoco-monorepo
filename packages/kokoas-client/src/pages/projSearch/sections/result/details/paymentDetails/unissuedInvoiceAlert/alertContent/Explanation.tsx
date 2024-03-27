@@ -13,30 +13,28 @@ export const Explanation = ({
 }: {
   label?: string
   paymentDate: Date | null
-  paymentAmount: number | null
+  paymentAmount: string
   purpose: KAlertPurpose
 }) => {
-  const explanation = useMemo(() => {
-    const defaultMessage = alertMessages[purpose];
 
-    if (!paymentDate && !paymentAmount) {
+  const explanation = useMemo(() => {
+
+
+    const defaultMessage = alertMessages[purpose];
+    const displayAmount = !isNaN(+paymentAmount) ? (+paymentAmount).toLocaleString() : null;
+    const displayDate = paymentDate ? format(paymentDate, 'yyyy年MM月dd日') : '';
+
+    if (!paymentDate && !displayAmount) {
 
       return defaultMessage;
 
-    } else if (!paymentDate && !!paymentAmount) {
-
-      const displayAmount = paymentAmount.toLocaleString();
+    } else if (!paymentDate && !!displayAmount) {
       return `\xA5${displayAmount}-${defaultMessage}`;
 
-    } else if (!!paymentDate && !paymentAmount) {
-
-      const displayDate = format(paymentDate, 'yyyy年MM月dd日');
+    } else if (!!paymentDate && !displayAmount) {
       return `${displayDate}に${defaultMessage}`;
 
-    } else if (!!paymentDate && !!paymentAmount) {
-
-      const displayAmount = paymentAmount.toLocaleString();
-      const displayDate = format(paymentDate, 'yyyy年MM月dd日');
+    } else if (!!paymentDate && !!displayAmount) {
       return `${displayDate}に\xA5${displayAmount}-${defaultMessage}`;
 
     }

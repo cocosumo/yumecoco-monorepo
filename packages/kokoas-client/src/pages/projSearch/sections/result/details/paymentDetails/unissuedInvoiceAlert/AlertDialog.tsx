@@ -22,17 +22,22 @@ export const AlertDialog = ({
 }) => {
   const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
   const [paymentDate, setPaymentDate] = useState<Date | null>(null);
-  const [paymentAmount, setPaymentAmount] = useState<number>(0);
+  const [paymentAmount, setPaymentAmount] = useState<string>('0');
 
   const handleDateChange = (value: Date) => {
     setPaymentDate(value);
   };
 
   const handleAmtChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newVal = (e.target).value;
-    const numVal = +convertToHalfWidth(newVal);
+    const newVal = e.target.value;
+    const numVal = convertToHalfWidth(newVal);
 
-    setPaymentAmount(numVal);
+    if (!isNaN(+numVal)) {
+      setPaymentAmount(numVal);
+    } else {
+      setPaymentAmount(newVal);
+    }
+
   };
 
   const recUnissuedInvReminders = useActiveUnissuedInvRemindersByProjId(projId);

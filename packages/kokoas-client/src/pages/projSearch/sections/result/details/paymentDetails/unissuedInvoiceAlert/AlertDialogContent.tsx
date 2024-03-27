@@ -21,7 +21,7 @@ export const AlertDialogContent = ({
   handleAmtChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   projId: string
   paymentDate: Date | null
-  paymentAmount: number
+  paymentAmount: string
 }) => {
 
   const { data: recProj } = useProjById(projId);

@@ -8,13 +8,8 @@ export const PaymentAmount = ({
 }: {
   label?: string
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
-  paymentAmount: number
+  paymentAmount: string
 }) => {
-  const handleBlur = () => {
-
-    
-  };
-
 
   return (
     <>
@@ -31,9 +26,8 @@ export const PaymentAmount = ({
         size='small'
         value={paymentAmount}
         onChange={handleChange}
-        onBlur={handleBlur}
         InputProps={{
-          type: 'number',
+          type: 'text',
           endAdornment: (
             <InputAdornment position="end">
               円

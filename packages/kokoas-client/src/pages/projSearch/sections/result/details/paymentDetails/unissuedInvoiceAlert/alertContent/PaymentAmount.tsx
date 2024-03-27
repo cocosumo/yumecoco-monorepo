@@ -10,6 +10,10 @@ export const PaymentAmount = ({
   handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   paymentAmount: number
 }) => {
+  const handleBlur = () => {
+
+    
+  };
 
 
   return (
@@ -27,6 +31,7 @@ export const PaymentAmount = ({
         size='small'
         value={paymentAmount}
         onChange={handleChange}
+        onBlur={handleBlur}
         InputProps={{
           type: 'number',
           endAdornment: (

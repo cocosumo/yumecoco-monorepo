@@ -10,6 +10,9 @@ export const prodAppIds = {
   invoices: 226,
   contracts: 232,
   unissuedInvoiceAlert: 304,
+  orderBudget: 321,
+  order: 320,
+
 } as const;
 
 /* 開発環境 */
@@ -38,6 +41,11 @@ export const devAppIds = {
   /** 請求書未発行リマインダー */
   unissuedInvoiceAlert: 303,
 
+  /** 工事ごと発注一覧 */
+  orderBudget: 318,
+
+  /** 発注  */
+  order: 319,
 } as const;
 
 

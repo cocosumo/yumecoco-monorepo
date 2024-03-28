@@ -8,6 +8,8 @@ import { renderMiddleItem } from './renderers/renderMiddleItem';
 import { renderMaterials } from './renderers/renderMaterials';
 import { useFormState } from 'react-hook-form';
 import { renderNumber } from './renderers/renderNumber';
+import { renderCheckbox } from './renderers/renderCheckBox';
+import { renderText } from './renderers/renderText';
 
 export type RowItem = TItem & { 
   id: string,
@@ -46,15 +48,14 @@ export const useColumns = (): MyColumn[] => {
   return useMemo(() => [
     {
       key: 'index',
-      name: 'No.',
+      name: '',
       editable: false,
       frozen: true,
       resizable: false,
-      cellClass: 'index',
       headerCellClass: 'index-header',
       width: 35,
       minWidth: 35,
-      renderCell: ({ row }) => row.index + 1,
+      renderCell: renderCheckbox,
     },
     { 
       key: 'majorItem', 
@@ -83,25 +84,16 @@ export const useColumns = (): MyColumn[] => {
       renderEditCell: renderMaterials,
     },
     { 
-      key: 'costPrice', 
-      name: '原価', 
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.costPrice ? 'error-cell' : '';
-      },
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.costPrice;
-        if (isNaN(value)) {
-          return value;
-        }
-        return (<RightAlignedDiv>
-          {commaFormatter(value)}
-        </RightAlignedDiv>);
-      },
+      key: 'supplierName', 
+      name: '業者名', 
+      editable: false,
+      width: 150,
+    },
+    { 
+      key: 'orderId', 
+      name: '発注番号', 
+      editable: false,
+      width: 150,
     },
     { 
       key: 'quantity', 
@@ -134,47 +126,12 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'materialProfRate', 
       name: '粗利率', 
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.materialProfRate ? 'error-cell' : '';
-      },
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.materialProfRate;
-        if (isNaN(value)) {
-          return value;
-        }
-
-        return (
-          <RightAlignedDiv>
-            {`${roundTo(+(value || 0), 2).toFixed(2)} %`}
-          </RightAlignedDiv>);
-      },
+      editable: false,
     },
     { 
       key: 'unitPrice', 
       name: '単価', 
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.unitPrice ? 'error-cell' : '';
-      },
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.unitPrice;
-        if (isNaN(value)) {
-          return value;
-        }
-        return (
-          <RightAlignedDiv>
-            {commaFormatter(roundTo(value))}
-          </RightAlignedDiv>);
-      },
+      editable: false,
     },
     { 
       key: 'rowCostPriceBeforeTax', 
@@ -191,6 +148,7 @@ export const useColumns = (): MyColumn[] => {
           </RightAlignedDiv>);
       },
     },
+    // TODO 課税・非課税
     { 
       key: 'rowUnitPriceBeforeTax', 
       name: '税抜金額', 
@@ -205,6 +163,13 @@ export const useColumns = (): MyColumn[] => {
             {commaFormatter(roundTo(row.rowUnitPriceBeforeTax))}
           </RightAlignedDiv>);
       },
+    },
+    { 
+      key: 'rowRemarks', 
+      name: '備考', 
+      editable: true,
+      width: 200,
+      renderEditCell: renderText,
     },
 
   ], [itemErrors]);

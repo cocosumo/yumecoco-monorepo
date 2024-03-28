@@ -10,6 +10,8 @@ export const initialForm : TForm = {
       majorItem: '',
       middleItem: '',
       material: '',
+      supplierName: '',
+      orderId: '',
       quantity: 0,
       materialProfRate: 0,
       unit: '',
@@ -20,6 +22,7 @@ export const initialForm : TForm = {
       rowCostPriceBeforeTax: 0,
       taxRate: 0.1, // default 10%
       rowCostPriceAfterTax: 0,
+      rowRemarks: '',
     },
   ],
 };  

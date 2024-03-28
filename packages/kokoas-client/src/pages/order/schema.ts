@@ -27,6 +27,12 @@ export const schema = z.object({
     /** 部材 */
     material: z.string().optional(),
 
+    /** 業者名 */
+    supplierName: z.string().optional(),
+
+    /* 発注番号 */
+    orderId: z.string().optional(),
+
     /** 数量 */
     quantity: z.coerce.number(),
 
@@ -56,6 +62,9 @@ export const schema = z.object({
 
     /** 原価合計 / 発注金額税込 toB*/
     rowCostPriceAfterTax: z.number(),
+
+    /** 行備考 */
+    rowRemarks: z.string().optional(),
   })),
 });
 

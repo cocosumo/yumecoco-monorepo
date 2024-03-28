@@ -1,23 +1,27 @@
 import { DialogContent, Stack } from '@mui/material';
 import { AlertPurposeRadio } from './AlertPurposeRadio';
-import { AlertContent } from './AlertContent';
 import { AlertTarget } from './AlertTarget';
 import { KAlertPurpose } from './alertConfig';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, ChangeEventHandler } from 'react';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { AlertContent } from './alertContent/AlertContent';
 
 export const AlertDialogContent = ({
   purpose,
   handlePurposeChange,
   handleDateChange,
+  handleAmtChange,
   projId,
   paymentDate,
+  paymentAmount,
 }: {
   purpose: KAlertPurpose
   handlePurposeChange: (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => void
   handleDateChange: (v: Date) => void
+  handleAmtChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   projId: string
   paymentDate: Date | null
+  paymentAmount: string
 }) => {
 
   const { data: recProj } = useProjById(projId);
@@ -45,6 +49,8 @@ export const AlertDialogContent = ({
           purpose={purpose}
           handleDateChange={handleDateChange}
           paymentDate={paymentDate}
+          handleAmtChange={handleAmtChange}
+          paymentAmount={paymentAmount}
         />
 
         <AlertTarget agents={recProj?.agents} />

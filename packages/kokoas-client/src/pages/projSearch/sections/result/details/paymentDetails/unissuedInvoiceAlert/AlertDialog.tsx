@@ -7,6 +7,7 @@ import { KAlertPurpose, alertPurposes } from './alertConfig';
 import { NotificationButton } from './NotificationButton';
 import { useActiveUnissuedInvRemindersByProjId } from './hooks/useActiveUnissuedInvRemindersByProjId';
 import { useAlertNotify } from './hooks/useAlertNotify';
+import { convertToHalfWidth } from 'libs';
 
 
 
@@ -19,13 +20,25 @@ export const AlertDialog = ({
   handleClose: () => void
   projId: string
 }) => {
-  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);  
+  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
   const [paymentDate, setPaymentDate] = useState<Date | null>(null);
+  const [paymentAmount, setPaymentAmount] = useState<string>('0');
 
   const handleDateChange = (value: Date) => {
     setPaymentDate(value);
   };
 
+  const handleAmtChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newVal = e.target.value;
+    const numVal = convertToHalfWidth(newVal);
+
+    if (!isNaN(+numVal)) {
+      setPaymentAmount(numVal);
+    } else {
+      setPaymentAmount(newVal);
+    }
+
+  };
 
   const recUnissuedInvReminders = useActiveUnissuedInvRemindersByProjId(projId);
 
@@ -89,8 +102,10 @@ export const AlertDialog = ({
         purpose={purpose}
         handlePurposeChange={handlePurposeChange}
         handleDateChange={handleDateChange}
+        handleAmtChange={handleAmtChange}
         projId={projId}
         paymentDate={paymentDate}
+        paymentAmount={paymentAmount}
       />
 
       <DialogCloseButton handleClose={handleClose} />

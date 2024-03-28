@@ -1,6 +1,6 @@
 import { TForm } from './schema';
 
-export const intialForm : TForm = {
+export const initialForm : TForm = {
   projId: '',
   items: [
     {

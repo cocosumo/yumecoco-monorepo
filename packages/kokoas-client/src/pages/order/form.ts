@@ -2,6 +2,7 @@ import { TForm } from './schema';
 
 export const initialForm : TForm = {
   projId: '',
+  projName: '',
   items: [
     {
       itemId: '',

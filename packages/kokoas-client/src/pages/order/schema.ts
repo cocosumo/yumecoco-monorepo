@@ -6,6 +6,9 @@ export const schema = z.object({
   /** 工事番号 */
   projId: z.string().uuid(),
 
+  /** 工事名 */
+  projName: z.string(),
+
   /** 部材リスト */
   items: z.array(z.object({
     

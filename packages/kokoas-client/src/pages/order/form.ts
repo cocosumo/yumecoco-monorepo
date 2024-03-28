@@ -18,7 +18,11 @@ export const initialForm : TForm = {
       rowUnitPriceAfterTax: 0,
       costPrice: 0,
       rowCostPriceBeforeTax: 0,
+      taxRate: 0.1, // default 10%
       rowCostPriceAfterTax: 0,
     },
   ],
 };  
+
+
+export const initialRow = initialForm.items[0];

@@ -4,9 +4,9 @@ import { Form, FormProvider, useForm } from 'react-hook-form';
 import { TForm, schema } from './schema';
 import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UnderDevelopmentAlert } from './common/UnderdevelopmentAlert';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
+import { OrderBudgetDataGrid } from './inputGrid/OrderBudgetDataGrid';
 
 
 export const FormOrder = () => {
@@ -40,7 +40,7 @@ export const FormOrder = () => {
               control,
             }}
           />
-          <UnderDevelopmentAlert />
+          <OrderBudgetDataGrid />
         
         </Stack>
       </Form>

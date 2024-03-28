@@ -51,9 +51,16 @@ export const schema = z.object({
     /** 原価合計 / 発注金額税抜 toB*/
     rowCostPriceBeforeTax: z.number(),
 
+    /** 税 */
+    taxRate: z.coerce.number(),
+
     /** 原価合計 / 発注金額税込 toB*/
     rowCostPriceAfterTax: z.number(),
   })),
 });
 
 export type TForm = z.infer<typeof schema>;
+export type KForm = keyof TForm;
+export type TItems = TForm['items'];
+export type TItem = TItems[number];
+export type KItem = keyof TItem;

@@ -1,4 +1,4 @@
-import { PageTitle3 } from 'kokoas-client/src/components';
+import { PageSubTitle3, PageTitle3 } from 'kokoas-client/src/components';
 import { Stack } from '@mui/material';
 import { Form, FormProvider, useForm } from 'react-hook-form';
 import { TForm, schema } from './schema';
@@ -8,6 +8,7 @@ import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { OrderBudgetDataGrid } from './inputGrid/OrderBudgetDataGrid';
 import { ActionButtons } from './sections/ActionButton';
+import { OrderTableLabel } from './sections/inputGridLabel/OrderTableLabel';
 
 
 export const FormOrder = () => {
@@ -43,6 +44,9 @@ export const FormOrder = () => {
               control,
             }}
           />
+
+          <PageSubTitle3 label={<OrderTableLabel />} />
+
           <OrderBudgetDataGrid />
 
 

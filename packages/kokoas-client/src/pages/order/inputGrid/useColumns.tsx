@@ -10,6 +10,7 @@ import { useFormState } from 'react-hook-form';
 import { renderNumber } from './renderers/renderNumber';
 import { renderCheckbox } from './renderers/renderCheckBox';
 import { renderText } from './renderers/renderText';
+import { renderTaxType } from './renderers/renderTaxType';
 
 export type RowItem = TItem & { 
   id: string,
@@ -52,9 +53,8 @@ export const useColumns = (): MyColumn[] => {
       editable: false,
       frozen: true,
       resizable: false,
-      headerCellClass: 'index-header',
       width: 35,
-      minWidth: 35,
+      cellClass: 'no-ellipsis',
       renderCell: renderCheckbox,
     },
     { 
@@ -64,6 +64,7 @@ export const useColumns = (): MyColumn[] => {
       resizable: true, 
       frozen: true,
       cellClass: 'select',
+      editable: true,
       width: 150,
       minWidth: 100,
       renderEditCell: renderMajorItem,
@@ -73,6 +74,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'middleItem', 
       name: '中項目', 
       frozen: true,
+      editable: true,
       width: 150,
       renderEditCell: renderMiddleItem,
     },
@@ -80,6 +82,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'material', 
       name: '部材', 
       frozen: true,
+      editable: true,
       width: 150,
       renderEditCell: renderMaterials,
     },
@@ -98,6 +101,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'quantity', 
       name: '数量', 
+      editable: true,
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.quantity ? 'error-cell' : '';
       },
@@ -120,18 +124,30 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'unit', 
       name: '単位', 
+      editable: true,
+
       minWidth: 75,
       renderEditCell: renderUnits,
     },
     { 
-      key: 'materialProfRate', 
-      name: '粗利率', 
-      editable: false,
-    },
-    { 
-      key: 'unitPrice', 
-      name: '単価', 
-      editable: false,
+      key: 'costPrice', 
+      name: '発注単価', 
+      editable: true,
+      renderEditCell: renderNumber,
+      renderHeaderCell: ({ column }) => (
+        <RightAlignedDiv>
+          {column.name}
+        </RightAlignedDiv>),
+      renderCell: ({ row }) => {
+        const value = row.costPrice;
+        if (isNaN(value)) {
+          return value;
+        }
+        return (
+          <RightAlignedDiv>
+            {commaFormatter(value)}
+          </RightAlignedDiv>);
+      },
     },
     { 
       key: 'rowCostPriceBeforeTax', 
@@ -148,10 +164,23 @@ export const useColumns = (): MyColumn[] => {
           </RightAlignedDiv>);
       },
     },
-    // TODO 課税・非課税
+    {
+      key: 'taxRate',
+      name: '税区分',
+      editable: true,
+      minWidth: 70,
+      renderEditCell: renderTaxType,
+      renderCell: ({ row }) => {
+        return (
+          <>
+            {row.taxRate === 0 ? '非課税' : '課税'}
+          </>);
+      },
+
+    },
     { 
-      key: 'rowUnitPriceBeforeTax', 
-      name: '税抜金額', 
+      key: 'rowCostPriceAfterTax', 
+      name: '発注金額（税込）', 
       editable: false,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -160,7 +189,7 @@ export const useColumns = (): MyColumn[] => {
       renderCell: ({ row }) => {
         return (
           <RightAlignedDiv>
-            {commaFormatter(roundTo(row.rowUnitPriceBeforeTax))}
+            {commaFormatter(roundTo(row.rowCostPriceAfterTax))}
           </RightAlignedDiv>);
       },
     },

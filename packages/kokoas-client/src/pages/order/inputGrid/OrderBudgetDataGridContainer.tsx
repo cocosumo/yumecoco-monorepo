@@ -21,6 +21,12 @@ export const OrderBudgetDataGridContainer = ({
       sx={{
         maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`, 
         height: 'calc(100vh - 180px)',
+        '& .rdg-cell.no-ellipsis' : {
+          // Remove ellipsis from cell
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'unset',
+        },
         '& .index' : {
           fontSize: 8,
           textAlign: 'center',

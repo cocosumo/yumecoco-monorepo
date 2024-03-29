@@ -32,6 +32,13 @@ const UnitsSelect = ({
       fullWidth
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
+      MenuProps={{
+        PaperProps: {
+          style: {
+            maxHeight: '200px',
+          },
+        },
+      }}
     >
       {data?.map(({ value }) => (
         <MenuItem key={value} value={value}>

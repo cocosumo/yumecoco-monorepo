@@ -53,7 +53,7 @@ export const useColumns = (): MyColumn[] => {
       editable: false,
       frozen: true,
       resizable: false,
-      width: 35,
+      width: 30,
       cellClass: 'no-ellipsis',
       renderCell: renderCheckbox,
     },

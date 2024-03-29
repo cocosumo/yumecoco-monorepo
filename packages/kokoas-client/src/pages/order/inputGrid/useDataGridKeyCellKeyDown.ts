@@ -49,6 +49,8 @@ export const useDataGridKeyCellKeyDown = (
       ctrlKey,
     } = event;
 
+    console.log('key', key);
+
     const {
       selectCell,
     } = dataGridRef.current || {};
@@ -218,6 +220,20 @@ export const useDataGridKeyCellKeyDown = (
     if (key === 'Enter' && !editable) {
       // 編集できないセルで、Enterキーを押した場合、次のセルに移動する。
       selectCell({ rowIdx, idx: idx + 1 });
+      return;
+    }
+
+    if (key === 'Home') {
+      // Homeキーを押した場合、行の最初のセルに移動する。
+      selectCell({ rowIdx, idx: 1 });
+      preventDefault();
+      return;
+    }
+
+    if (key === 'End') {
+      // Endキーを押した場合、行の最後のセルに移動する。
+      selectCell({ rowIdx, idx: columns.length - 1 });
+      preventDefault();
       return;
     }
 

@@ -1,7 +1,8 @@
 import { TForm } from './schema';
 
-export const intialForm : TForm = {
+export const initialForm : TForm = {
   projId: '',
+  projName: '',
   items: [
     {
       itemId: '',
@@ -9,6 +10,8 @@ export const intialForm : TForm = {
       majorItem: '',
       middleItem: '',
       material: '',
+      supplierName: '',
+      orderId: '',
       quantity: 0,
       materialProfRate: 0,
       unit: '',
@@ -17,7 +20,12 @@ export const intialForm : TForm = {
       rowUnitPriceAfterTax: 0,
       costPrice: 0,
       rowCostPriceBeforeTax: 0,
+      taxRate: 0.1, // default 10%
       rowCostPriceAfterTax: 0,
+      rowRemarks: '',
     },
   ],
 };  
+
+
+export const initialRow = initialForm.items[0];

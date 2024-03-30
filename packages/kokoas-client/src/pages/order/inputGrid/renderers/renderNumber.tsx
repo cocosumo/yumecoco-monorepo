@@ -21,11 +21,21 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
   const rawDefaultValue = row[key as keyof RowItem];
   const defaultValue = rawDefaultValue ? Math.round(+rawDefaultValue) : '';
 
+  //const saveChange =
+
   return (
     <InputBase
       type="text"
       inputRef={ref}
       defaultValue={defaultValue}
+      onKeyDown={(e) => {
+        if (e.key === 'Tab'
+        || e.key === 'Enter'
+        ) {
+          onRowChange(row, true); // maintain on enter
+        }
+      
+      }} 
       onChange={(e) => {
         const newValue = (e.target as HTMLInputElement).value;
         const numberVal = +convertToHalfWidth(newValue);
@@ -37,6 +47,7 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
 
         onRowChange({ ...row, [key]: newValue ? valueToSave : '' }, false);
       }}
+
     />
   );
 };

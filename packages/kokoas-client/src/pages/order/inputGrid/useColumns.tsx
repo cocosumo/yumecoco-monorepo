@@ -76,10 +76,12 @@ export const useColumns = (): MyColumn[] => {
       sortable: true, 
       resizable: true, 
       frozen: true,
-      cellClass: 'select',
       editable: true,
       width: 150,
       minWidth: 100,
+      cellClass: ({ index }) => {
+        return itemErrors?.[index]?.majorItem ? 'error-cell' : '';
+      },
       renderEditCell: renderMajorItem,
     
     },

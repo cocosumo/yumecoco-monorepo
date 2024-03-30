@@ -48,7 +48,7 @@ export const OrderBudgetDataGridContainer = ({
         '& div[role="row"] > div[role="gridcell"].rdg-cell.error-cell': {
           // エラーがあるセル
           bgcolor: `${red[50]} !important`,
-          border: `1px solid ${red[300]}`,
+          border: `4px solid ${red[300]}`,
         },
         '& div[row="columnheader"]': {
           bgcolor: grey[600],

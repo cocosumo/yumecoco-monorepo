@@ -1,6 +1,8 @@
-//import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
+import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 //import { envelopeStatuses, signMethods } from 'types';
 import { z } from 'zod';
+
+z.setErrorMap(zodErrorMapJA());
 
 export const schema = z.object({
   /** 工事番号 */
@@ -22,7 +24,7 @@ export const schema = z.object({
     status: z.string().optional(),
 
     /** 大項目 */
-    majorItem: z.string().optional(),
+    majorItem: z.string().nonempty(),
 
     /** 中項目 */
     middleItem: z.string().optional(),
@@ -37,7 +39,7 @@ export const schema = z.object({
     orderId: z.string().optional(),
 
     /** 数量 */
-    quantity: z.coerce.number(),
+    quantity: z.number().gt(0),
     
     /** 単位 */
     unit: z.string(),

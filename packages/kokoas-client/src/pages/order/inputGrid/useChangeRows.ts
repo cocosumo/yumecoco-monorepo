@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { calculateRowAmount, roundTo } from 'libs';
+import { roundTo } from 'libs';
 import { KItem } from '../schema';
 import { FillEvent } from 'react-data-grid';
 import { RowItem } from './useColumns';
@@ -18,61 +18,28 @@ export const useChangeRows = () => {
     const {
       costPrice,
       quantity,
-      materialProfRate,
-      unitPrice,
-
+      taxRate,
     } = row;
 
-    const profitRate = materialProfRate / 100;
     let newRow = { ...row };
 
 
     switch (fieldName) {
-      case 'quantity': {
+      case 'taxRate': 
+      case 'quantity': 
+      case 'costPrice': {
 
-        const {
-          rowCostPrice: newRowCostPrice,
-          unitPrice: newUnitPrice,
-        } = calculateRowAmount({
-          costPrice,
-          quantity,
-          taxRate: newRow.taxRate,
-          profitRate,
-        });
-
+        const newRowCostPrice = roundTo(costPrice * quantity);
 
         newRow = {
           ...newRow,
-          rowCostPriceBeforeTax: newRowCostPrice,
-          unitPrice: newUnitPrice,
+          rowCostPriceBeforeTax: roundTo(newRowCostPrice),
+          rowCostPriceAfterTax: roundTo(newRowCostPrice * (1 + taxRate)),
         };
         
         break;
       }
-      case 'unitPrice':{
-        const {
-          rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
-          rowUnitPriceAfterTax: newUnitPriceAfterTax,
-          profitRate: newProfitRate,
-        } = calculateRowAmount({
-          unitPrice,
-          costPrice,
-          quantity,
-          taxRate: newRow.taxRate,
-        });
-
-
-        newRow = {
-          ...newRow,
-          rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
-          rowUnitPriceAfterTax: newUnitPriceAfterTax,
-          materialProfRate: roundTo(newProfitRate * 100, 2),
-        };
-
-        break;
-      }
-
-
+      // TODO: add more cases if needed
     }
 
     return  newRow;

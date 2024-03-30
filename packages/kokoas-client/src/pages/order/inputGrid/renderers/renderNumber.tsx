@@ -21,6 +21,8 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
   const rawDefaultValue = row[key as keyof RowItem];
   const defaultValue = rawDefaultValue ? Math.round(+rawDefaultValue) : '';
 
+  //const saveChange =
+
   return (
     <InputBase
       type="text"
@@ -28,21 +30,25 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
       defaultValue={defaultValue}
       onKeyDown={(e) => {
         if (e.key === 'Tab'
-          || e.key === 'Enter'
+        || e.key === 'Enter'
         ) {
-          const newValue = (e.target as HTMLInputElement).value;
-
-          const numberVal = +convertToHalfWidth(newValue);
-
-          let valueToSave = '';
-
-          if (!isNaN(numberVal)) {
-            valueToSave = numberVal.toString();
-          } 
-
-          onRowChange({ ...row, [key]: newValue ? valueToSave : '' }, true);
+          // maintain focus in the grid. Need to check if this is the correct behavior. 
+          onRowChange(row, true); 
         }
+      
+      }} 
+      onChange={(e) => {
+        const newValue = (e.target as HTMLInputElement).value;
+        const numberVal = +convertToHalfWidth(newValue);
+        let valueToSave = '';
+
+        if (!isNaN(numberVal)) {
+          valueToSave = numberVal.toString();
+        } 
+
+        onRowChange({ ...row, [key]: newValue ? valueToSave : '' }, false);
       }}
+
     />
   );
 };

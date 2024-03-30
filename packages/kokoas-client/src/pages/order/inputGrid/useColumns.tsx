@@ -11,6 +11,7 @@ import { renderNumber } from './renderers/renderNumber';
 import { renderCheckbox } from './renderers/renderCheckBox';
 import { renderText } from './renderers/renderText';
 import { renderTaxType } from './renderers/renderTaxType';
+import { Typography } from '@mui/material';
 
 export type RowItem = TItem & { 
   id: string,
@@ -53,9 +54,21 @@ export const useColumns = (): MyColumn[] => {
       editable: false,
       frozen: true,
       resizable: false,
-      width: 30,
+      width: 35,
+      minWidth: 40,
       cellClass: 'no-ellipsis',
       renderCell: renderCheckbox,
+    },
+    { 
+      key: 'status', 
+      name: '状態', 
+      sortable: true, 
+      resizable: true, 
+      frozen: true,
+      cellClass: 'select',
+      editable: false,
+      width: 70,
+      minWidth: 100,    
     },
     { 
       key: 'majorItem', 
@@ -96,7 +109,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'orderId', 
       name: '発注番号', 
       editable: false,
-      width: 150,
+      width: 100,
     },
     { 
       key: 'quantity', 
@@ -125,13 +138,17 @@ export const useColumns = (): MyColumn[] => {
       key: 'unit', 
       name: '単位', 
       editable: true,
-
-      minWidth: 75,
+      width: 68,
+      renderCell: ({ row }) => (
+        <Typography fontSize={10} height={'100%'} alignContent={'center'}>
+          {row.unit}
+        </Typography>),
       renderEditCell: renderUnits,
     },
     { 
       key: 'costPrice', 
-      name: '発注単価', 
+      name: '単価', 
+      width: 100,
       editable: true,
       renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
@@ -149,7 +166,7 @@ export const useColumns = (): MyColumn[] => {
           </RightAlignedDiv>);
       },
     },
-    { 
+    {     
       key: 'rowCostPriceBeforeTax', 
       name: '発注金額（税抜）', 
       editable: false,
@@ -172,9 +189,9 @@ export const useColumns = (): MyColumn[] => {
       renderEditCell: renderTaxType,
       renderCell: ({ row }) => {
         return (
-          <>
-            {row.taxRate === 0 ? '非課税' : '課税'}
-          </>);
+          <Typography fontSize={12} height={'100%'} alignContent={'center'}>
+            {row.taxRate === 0 ? '非課税' : `課税 (${row.taxRate * 100}%)`}
+          </Typography>);
       },
 
     },

@@ -30,7 +30,8 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
         if (e.key === 'Tab'
         || e.key === 'Enter'
         ) {
-          onRowChange(row, true); // maintain on enter
+          // maintain focus in the grid. Need to check if this is the correct behavior. 
+          onRowChange(row, true);
         }
       
       }} 

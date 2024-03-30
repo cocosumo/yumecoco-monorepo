@@ -9,23 +9,28 @@ import { pages } from '../Router';
 import { OrderBudgetDataGrid } from './inputGrid/OrderBudgetDataGrid';
 import { ActionButtons } from './sections/ActionButton';
 import { OrderTableLabel } from './sections/inputGridLabel/OrderTableLabel';
+import { useEffect } from 'react';
 
 
 export const FormOrder = () => {
 
   const {
-    initialForm,
+    newFormValues,
   } = useResolveParams();
 
   const formReturn = useForm<TForm>({
-    defaultValues: initialForm,
+    defaultValues: newFormValues,
     resolver: zodResolver(schema),
     
   });
 
-  const { control } = formReturn;
+  const { control, reset } = formReturn;
+  /* initialFormが変わったら、リセットする */
 
-  
+  useEffect(() => {
+    reset({ ...newFormValues });
+  }, [reset, newFormValues]);
+
 
 
   return (
@@ -50,7 +55,7 @@ export const FormOrder = () => {
           <OrderBudgetDataGrid />
 
 
-          <ActionButtons handleSubmit={() => console.log('save')} />
+          <ActionButtons />
             
         </Stack>
       </Form>

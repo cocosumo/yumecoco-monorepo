@@ -25,8 +25,8 @@ const TaxType = (props: RenderEditCellProps<RowItem>) => {
       open={open}
       size='small'
       value={taxRate || 0}
-      onChange={(_, value) => {
-        onRowChange({ ...row, taxRate: value as number }, true);
+      onChange={(e) => {
+        onRowChange({ ...row, taxRate:  +Number(e.target.value) }, true);
       }}
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}

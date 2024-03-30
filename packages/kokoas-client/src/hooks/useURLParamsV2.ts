@@ -7,7 +7,7 @@ import { parseBoolean } from 'libs';
 /**
   * This is the new version of useURLParams.
   * It uses qs instead of native URLSearchParams.
-  * The reason is that URLSearchParams inconsistently arrays.
+  * The reason is that URLSearchParams arrays inconsistently.
   * 
   **/
 export const useURLParamsV2 = <T = URLParams>() => {

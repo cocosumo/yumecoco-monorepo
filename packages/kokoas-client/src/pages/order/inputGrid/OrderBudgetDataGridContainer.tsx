@@ -25,7 +25,7 @@ export const OrderBudgetDataGridContainer = ({
           // Remove ellipsis from cell
           whiteSpace: 'nowrap',
           overflow: 'hidden',
-          textOverflow: 'unset',
+          textOverflow: 'clip',
         },
         '& .index' : {
           fontSize: 8,

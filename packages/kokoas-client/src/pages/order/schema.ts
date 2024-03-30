@@ -9,11 +9,14 @@ export const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** revision */
+  revision: z.string().optional(),
+
   /** 部材リスト */
   items: z.array(z.object({
     
     /** 部材のuuid */
-    itemId: z.string().uuid(),
+    itemId: z.string().optional(),
     
     /** 状態 */
     status: z.string().optional(),
@@ -35,21 +38,9 @@ export const schema = z.object({
 
     /** 数量 */
     quantity: z.coerce.number(),
-
-    /**利益率 */
-    materialProfRate: z.coerce.number(),
     
     /** 単位 */
-    unit: z.string().nullable(),
-
-    /** 単価 toC */
-    unitPrice: z.coerce.number(),
-
-    /** 金額税抜き toC */
-    rowUnitPriceBeforeTax: z.number(),
-
-    /** 金額税込み toC */
-    rowUnitPriceAfterTax: z.number(),
+    unit: z.string(),
 
     /** 原価 toB */
     costPrice: z.coerce.number(),

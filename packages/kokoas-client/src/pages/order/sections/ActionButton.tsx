@@ -1,12 +1,13 @@
 import { Box, Button, Paper, Stack } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import StoreIcon from '@mui/icons-material/Store';
+import { useSaveForm } from '../hooks/useSaveForm';
+import { useSaveHotkey } from '../hooks/useSaveHotkey';
 
-export const ActionButtons = ({
-  handleSubmit,
-}:{
-  handleSubmit: () => void
-}) => {
+export const ActionButtons = () => {
+
+  const { handleSubmit } = useSaveForm();
+  useSaveHotkey(handleSubmit, { disabled: false });
 
   return (
     <Box 

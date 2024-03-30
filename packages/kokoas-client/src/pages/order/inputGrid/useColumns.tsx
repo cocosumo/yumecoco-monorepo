@@ -138,7 +138,11 @@ export const useColumns = (): MyColumn[] => {
       key: 'unit', 
       name: '単位', 
       editable: true,
-      width: 60,
+      width: 68,
+      renderCell: ({ row }) => (
+        <Typography fontSize={10} height={'100%'} alignContent={'center'}>
+          {row.unit}
+        </Typography>),
       renderEditCell: renderUnits,
     },
     { 

@@ -9,14 +9,15 @@ declare namespace DBOrderbudget {
         value: {
           supplierName: kintone.fieldTypes.SingleLineText;
           middleItem: kintone.fieldTypes.SingleLineText;
-          unitPrice: kintone.fieldTypes.Number;
           majorItem: kintone.fieldTypes.SingleLineText;
           unit: kintone.fieldTypes.SingleLineText;
           quantity: kintone.fieldTypes.Number;
-          orderAmount: kintone.fieldTypes.Number;
           material: kintone.fieldTypes.SingleLineText;
           orderId: kintone.fieldTypes.SingleLineText;
-          tax: kintone.fieldTypes.Number;
+          costPrice: kintone.fieldTypes.Number;
+          taxRate: kintone.fieldTypes.Number;
+          orderAmountAfterTax: kintone.fieldTypes.Number;
+          orderAmountBeforeTax: kintone.fieldTypes.Number;
         };
       }>;
     };

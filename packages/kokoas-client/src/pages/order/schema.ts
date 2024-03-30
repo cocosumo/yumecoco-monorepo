@@ -35,21 +35,9 @@ export const schema = z.object({
 
     /** 数量 */
     quantity: z.coerce.number(),
-
-    /**利益率 */
-    materialProfRate: z.coerce.number(),
     
     /** 単位 */
     unit: z.string().nullable(),
-
-    /** 単価 toC */
-    unitPrice: z.coerce.number(),
-
-    /** 金額税抜き toC */
-    rowUnitPriceBeforeTax: z.number(),
-
-    /** 金額税込み toC */
-    rowUnitPriceAfterTax: z.number(),
 
     /** 原価 toB */
     costPrice: z.coerce.number(),

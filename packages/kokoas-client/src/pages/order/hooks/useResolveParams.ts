@@ -32,8 +32,6 @@ export const useResolveParams = () => {
     }
   }, [projData, orderBudgetData ]);
 
-  console.log('newFormVal', newFormVal);
-
   return {
     newFormValues: newFormVal, 
     isFetching: isFetchingOrderBudget || isFetchingProj,

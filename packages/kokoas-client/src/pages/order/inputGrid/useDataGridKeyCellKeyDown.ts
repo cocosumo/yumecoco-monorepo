@@ -49,8 +49,6 @@ export const useDataGridKeyCellKeyDown = (
       ctrlKey,
     } = event;
 
-    console.log('key', key);
-
     const {
       selectCell,
     } = dataGridRef.current || {};

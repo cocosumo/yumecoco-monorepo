@@ -26,22 +26,16 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
       type="text"
       inputRef={ref}
       defaultValue={defaultValue}
-      onKeyDown={(e) => {
-        if (e.key === 'Tab'
-          || e.key === 'Enter'
-        ) {
-          const newValue = (e.target as HTMLInputElement).value;
+      onChange={(e) => {
+        const newValue = (e.target as HTMLInputElement).value;
+        const numberVal = +convertToHalfWidth(newValue);
+        let valueToSave = '';
 
-          const numberVal = +convertToHalfWidth(newValue);
+        if (!isNaN(numberVal)) {
+          valueToSave = numberVal.toString();
+        } 
 
-          let valueToSave = '';
-
-          if (!isNaN(numberVal)) {
-            valueToSave = numberVal.toString();
-          } 
-
-          onRowChange({ ...row, [key]: newValue ? valueToSave : '' }, true);
-        }
+        onRowChange({ ...row, [key]: newValue ? valueToSave : '' }, false);
       }}
     />
   );

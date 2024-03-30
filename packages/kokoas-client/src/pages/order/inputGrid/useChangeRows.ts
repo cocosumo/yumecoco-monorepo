@@ -18,13 +18,14 @@ export const useChangeRows = () => {
     const {
       costPrice,
       quantity,
-
+      taxRate,
     } = row;
 
     let newRow = { ...row };
 
 
     switch (fieldName) {
+      case 'taxRate': 
       case 'quantity': 
       case 'costPrice': {
 
@@ -32,12 +33,13 @@ export const useChangeRows = () => {
 
         newRow = {
           ...newRow,
-          rowCostPriceBeforeTax: newRowCostPrice,
+          rowCostPriceBeforeTax: roundTo(newRowCostPrice),
+          rowCostPriceAfterTax: roundTo(newRowCostPrice * (1 + taxRate)),
         };
         
         break;
       }
-
+      // TODO: add more cases if needed
     }
 
     return  newRow;

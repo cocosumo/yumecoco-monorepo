@@ -11,6 +11,7 @@ import { renderNumber } from './renderers/renderNumber';
 import { renderCheckbox } from './renderers/renderCheckBox';
 import { renderText } from './renderers/renderText';
 import { renderTaxType } from './renderers/renderTaxType';
+import { Typography } from '@mui/material';
 
 export type RowItem = TItem & { 
   id: string,
@@ -184,9 +185,9 @@ export const useColumns = (): MyColumn[] => {
       renderEditCell: renderTaxType,
       renderCell: ({ row }) => {
         return (
-          <>
-            {row.taxRate === 0 ? '非課税' : '課税 (10%)'}
-          </>);
+          <Typography fontSize={12} height={'100%'} alignContent={'center'}>
+            {row.taxRate === 0 ? '非課税' : `課税 (${row.taxRate * 100}%)`}
+          </Typography>);
       },
 
     },

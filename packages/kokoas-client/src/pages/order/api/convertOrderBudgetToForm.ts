@@ -1,5 +1,6 @@
 import { IOrderbudget, IProjects } from 'types';
 import { TForm } from '../schema';
+import { initialRow } from '../form';
 
 export const convertOrderBudgetToForm = ({
   orderBudget,
@@ -33,7 +34,7 @@ export const convertOrderBudgetToForm = ({
       supplierName: row.supplierName.value,
       orderId: row.orderId.value,
       quantity: Number(row.quantity.value),
-      unit: row.unit.value,
+      unit: row.unit.value || initialRow.unit,
       costPrice: Number(row.costPrice.value),
       rowCostPriceBeforeTax: Number(row.orderAmountBeforeTax.value),
       taxRate: Number(row.taxRate.value),

@@ -40,7 +40,7 @@ export const schema = z.object({
     quantity: z.coerce.number(),
     
     /** 単位 */
-    unit: z.string().nullable(),
+    unit: z.string(),
 
     /** 原価 toB */
     costPrice: z.coerce.number(),

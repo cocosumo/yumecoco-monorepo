@@ -1,5 +1,6 @@
 import { IOrderbudget } from 'types';
 import { TForm } from '../schema';
+import { initialRow } from '../form';
 
 export const convertToKintone = ({
   items,
@@ -22,6 +23,8 @@ export const convertToKintone = ({
         rowCostPriceBeforeTax,
         rowCostPriceAfterTax,
         taxRate,
+        unit,
+        rowRemarks,
       },
     ) => {
 
@@ -29,16 +32,17 @@ export const convertToKintone = ({
       // The "orderId" is auto-generated upon order creation, so it should not be user-editable.
       // The necessity of this feature depends on how frequently the same record is edited simultaneously.
 
-      const converted : Partial<IOrderbudget['items']['value'][number]['value']> = {
+      const converted : Omit<IOrderbudget['items']['value'][number]['value'], 'orderId' | 'supplierName' | 'status'> = {
         majorItem: { value: majorItem ?? '' },
         middleItem: { value: middleItem ?? '' },
         material: { value: material ?? '' },
         quantity: { value: quantity.toString() },
+        unit: { value: unit ?? initialRow.unit },
         costPrice: { value: costPrice.toString() },
         orderAmountBeforeTax: { value: rowCostPriceBeforeTax.toString() },
         taxRate: { value: taxRate.toString() },
         orderAmountAfterTax: { value: rowCostPriceAfterTax.toString() },
-        
+        rowRemarks: { value: rowRemarks ?? '' },
       };
 
 

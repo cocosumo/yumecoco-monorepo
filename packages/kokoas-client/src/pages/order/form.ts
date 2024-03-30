@@ -14,7 +14,7 @@ export const initialValues : TForm = {
       supplierName: '',
       orderId: '',
       quantity: 0,
-      unit: '',
+      unit: '式',
       costPrice: 0,
       rowCostPriceBeforeTax: 0,
       taxRate: 0.1, // default 10%

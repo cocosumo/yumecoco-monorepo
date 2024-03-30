@@ -23,11 +23,14 @@ const TextInput = (props: RenderEditCellProps<RowItem>) => {
       type="text"
       inputRef={ref}
       defaultValue={row[key as keyof RowItem] ?? ''}
+      onChange={(e) => {
+        onRowChange({ ...row, [key]: (e.target as HTMLInputElement).value || '' }, false);
+      }}
       onKeyDown={(e) => {
         if (e.key === 'Tab'
           || e.key === 'Enter'
         ) {
-          onRowChange({ ...row, [key]: (e.target as HTMLInputElement).value || '' }, true);
+          onRowChange(row, true);
         }
       }}
     />

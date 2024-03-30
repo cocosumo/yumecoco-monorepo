@@ -140,7 +140,7 @@ export const useDataGridKeyCellKeyDown = (
     if (shiftKey && key === 'Insert') {
       // 選択中のセルで、Shift + Insertキーを押した場合、行をコピーする。
       if (isHeadRow) return;
-      insert(rowIdx, { ...row });
+      insert(rowIdx, { ...row, itemId: '' });
       preventDefault();
       return;
     }

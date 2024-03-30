@@ -9,6 +9,9 @@ export const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** revision */
+  revision: z.string().optional(),
+
   /** 部材リスト */
   items: z.array(z.object({
     

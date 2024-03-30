@@ -51,6 +51,8 @@ export function SearchProjects<T extends BaseFields>(
   });
 
 
+  console.log('projName', projName, projId);
+
   const {
     data: recProjects = [],
   } = useSearchProjects(debouncedInput);

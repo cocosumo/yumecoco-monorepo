@@ -11,6 +11,7 @@ describe('saveOrderBudget', () => {
 
   it('should save order budget with empty items', async () => {
     const result = await saveOrderBudget({
+      recordId: 'test',
       record:{
         uuid: { value: 'test' },
         items: { type: 'SUBTABLE', value: [] },

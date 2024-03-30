@@ -1,4 +1,4 @@
-import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
+import { ktRecord } from '../client';
 import { appId, RecordType } from './config';
 
 
@@ -15,24 +15,27 @@ export const saveOrderBudget = async ({
 }:{
 
   /** uuid  */
-  recordId?: string,
+  recordId: string,
 
   record: Partial<RecordType>
 
   revision?: string,
 }) => {
 
-  console.log('saveOrderBudget', record, recordId);
+  if (!recordId) throw new Error('recordId is required');
+  
+  console.log('saveOrderBudget', record, recordId, revision);
 
-  return saveRecordByUpdateKey({
+  const KintoneRecord = await ktRecord();
+  
+
+  return KintoneRecord.upsertRecord({
     app: appId,
     updateKey: {
       field: 'uuid',
-      value: recordId ?? '',
+      value: recordId,
     },
     record: record,
-    revision,
+    revision: revision,
   });
-
-  /* TODO: add function to update related record */
 };

@@ -3,7 +3,6 @@ import { TForm } from '../schema';
 
 export const convertToKintone = ({
   items,
-  projId,
 }: TForm) => {
 
   /*
@@ -62,7 +61,6 @@ export const convertToKintone = ({
 
   /* 変換処理 */
   const kintoneRecord: Partial<IOrderbudget> = {
-    projId: { value: projId },
     items: kintoneItems as IOrderbudget['items'],
   };
 

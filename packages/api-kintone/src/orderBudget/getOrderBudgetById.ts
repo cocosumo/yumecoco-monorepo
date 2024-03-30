@@ -11,4 +11,4 @@ export const getOrderBudgetById = async (
 ) => getRecords<RecordType>({
   app: appId,
   query: `${idField} = "${recordId}"`,
-}).then(({ records }) => records[0] );
+}).then(({ records }) => records[0] ?? null);

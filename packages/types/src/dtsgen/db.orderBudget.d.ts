@@ -1,6 +1,5 @@
 declare namespace DBOrderbudget {
   interface Data {
-    projId: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
     items: {
       type: "SUBTABLE";
@@ -10,14 +9,16 @@ declare namespace DBOrderbudget {
           supplierName: kintone.fieldTypes.SingleLineText;
           middleItem: kintone.fieldTypes.SingleLineText;
           majorItem: kintone.fieldTypes.SingleLineText;
+          taxRate: kintone.fieldTypes.Number;
           unit: kintone.fieldTypes.SingleLineText;
           quantity: kintone.fieldTypes.Number;
           material: kintone.fieldTypes.SingleLineText;
           orderId: kintone.fieldTypes.SingleLineText;
           costPrice: kintone.fieldTypes.Number;
-          taxRate: kintone.fieldTypes.Number;
           orderAmountAfterTax: kintone.fieldTypes.Number;
           orderAmountBeforeTax: kintone.fieldTypes.Number;
+          status: kintone.fieldTypes.SingleLineText;
+          rowRemarks: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

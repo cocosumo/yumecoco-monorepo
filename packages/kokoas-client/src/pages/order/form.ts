@@ -1,8 +1,9 @@
 import { TForm } from './schema';
 
-export const initialForm : TForm = {
+export const initialValues : TForm = {
   projId: '',
   projName: '',
+  revision: '',
   items: [
     {
       itemId: '',
@@ -24,4 +25,4 @@ export const initialForm : TForm = {
 };  
 
 
-export const initialRow = initialForm.items[0];
+export const initialRow = initialValues.items[0];

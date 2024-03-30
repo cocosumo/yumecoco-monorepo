@@ -49,6 +49,7 @@ export const useSaveForm = () => {
     const { id, revision } = await saveMutation({
       recordId: projId,
       record,
+      revision: data.revision,
     });
 
     setSnackState({
@@ -69,8 +70,8 @@ export const useSaveForm = () => {
   }, [saveMutation, setSnackState]);
 
   const onSubmitValid: SubmitHandler<TForm> = useCallback(async (data) => {
-    const { id } = await handleSave(data);
-    navigate(`?${generateParams({ projEstimateId: id })}`);
+    const { revision } = await handleSave(data);
+    navigate(`?${generateParams({ projId: data.projId, revision: revision ?? null  })}`);
   }, [handleSave, navigate]);
 
 

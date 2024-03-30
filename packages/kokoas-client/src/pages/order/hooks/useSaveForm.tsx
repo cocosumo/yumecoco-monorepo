@@ -24,7 +24,7 @@ export type UseSaveForm = ReturnType<typeof useSaveForm>;
 
 export const useSaveForm = () => {
 
-  const { handleSubmit } = useTypedFormContext();
+  const { handleSubmit, getValues } = useTypedFormContext();
   const { setSnackState } = useSnackBar();
 
   const { mutateAsync: saveMutation } = useSaveOrderBudget();
@@ -76,7 +76,6 @@ export const useSaveForm = () => {
 
 
   const onSubmitInvalid: SubmitErrorHandler<TForm> = async (errors) => {
-
     const itemErrors = Object
       .entries(errors)
       .reduce(
@@ -91,9 +90,8 @@ export const useSaveForm = () => {
                   .forEach(([itemKey, itemError]) => {
                     const { 
                       message,
-                      ref, 
                     } = itemError as FieldError;
-                    acc.push(`${idx + 1}行目の${ja[itemKey as keyof typeof ja]}：${message}。値：${ref?.value}`);
+                    acc.push(`${idx + 1}行目の【${ja[itemKey as keyof typeof ja]}】：${message}。値：${getValues(`items[${idx}].${itemKey}` as 'items.0.itemId') || '空'}`);
                   });
               });
           } else {

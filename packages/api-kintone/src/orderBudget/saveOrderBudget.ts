@@ -23,8 +23,6 @@ export const saveOrderBudget = async ({
 }) => {
 
   if (!recordId) throw new Error('recordId is required');
-  
-  console.log('saveOrderBudget', record, recordId, revision);
 
   const KintoneRecord = await ktRecord();
   

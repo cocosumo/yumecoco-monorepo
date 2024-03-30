@@ -93,6 +93,7 @@ describe('saveOrderBudget', () => {
     const latestRecord = await getOrderBudgetById(prepareTestRecord.id);
 
     // Update last item
+    // must copy existing items with their 'id' to avoid data loss 
     const updatedValues = [...latestRecord.items.value];
 
     updatedValues[updatedValues.length - 1] = {

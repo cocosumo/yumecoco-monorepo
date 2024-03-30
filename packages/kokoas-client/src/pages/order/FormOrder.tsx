@@ -25,9 +25,6 @@ export const FormOrder = () => {
 
   const { control } = formReturn;
 
-  
-
-
   return (
     <FormProvider {...formReturn}>
       <Form
@@ -50,7 +47,7 @@ export const FormOrder = () => {
           <OrderBudgetDataGrid />
 
 
-          <ActionButtons handleSubmit={() => console.log('save')} />
+          <ActionButtons />
             
         </Stack>
       </Form>

@@ -13,7 +13,7 @@ export const schema = z.object({
   items: z.array(z.object({
     
     /** 部材のuuid */
-    itemId: z.string().uuid(),
+    itemId: z.string().optional(),
     
     /** 状態 */
     status: z.string().optional(),

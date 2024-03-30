@@ -26,6 +26,10 @@ export const convertToKintone = ({
       },
     ) => {
 
+      // TODO: ignore conversion if "orderId" is present to prevent overwriting existing data.
+      // orderId is automatically generated on order, so it should not be editable by user.
+      // Whether we need this, depends on frequency of simulatanous editing of the same record
+
       const converted : Partial<IOrderbudget['items']['value'][number]['value']> = {
         majorItem: { value: majorItem ?? '' },
         middleItem: { value: middleItem ?? '' },
@@ -40,9 +44,9 @@ export const convertToKintone = ({
 
 
       acc.push({
-        id: itemId, // 自動生成
-        // force type conversion as kintone generated type makes all fields required
-        // this is to avoid overwriting values
+        id: itemId || '', // If not provided for existing item, it will be lost.
+
+        // force type conversion as kintone generates type that make all fields required.
         value: converted as unknown as IOrderbudget['items']['value'][number]['value'], 
       }); 
 

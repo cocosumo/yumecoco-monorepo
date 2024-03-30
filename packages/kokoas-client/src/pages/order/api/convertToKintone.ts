@@ -26,9 +26,9 @@ export const convertToKintone = ({
       },
     ) => {
 
-      // TODO: ignore conversion if "orderId" is present to prevent overwriting existing data.
-      // orderId is automatically generated on order, so it should not be editable by user.
-      // Whether we need this, depends on frequency of simulatanous editing of the same record
+      // TODO: If "orderId" is present, skip conversion but retain the item id to avoid overwriting existing data.
+      // The "orderId" is auto-generated upon order creation, so it should not be user-editable.
+      // The necessity of this feature depends on how frequently the same record is edited simultaneously.
 
       const converted : Partial<IOrderbudget['items']['value'][number]['value']> = {
         majorItem: { value: majorItem ?? '' },

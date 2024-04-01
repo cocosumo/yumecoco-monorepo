@@ -20,6 +20,7 @@ const TextInput = (props: RenderEditCellProps<RowItem>) => {
 
   return (
     <InputBase
+      fullWidth
       type="text"
       inputRef={ref}
       defaultValue={row[key as keyof RowItem] ?? ''}

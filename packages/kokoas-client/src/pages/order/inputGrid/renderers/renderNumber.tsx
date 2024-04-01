@@ -21,6 +21,8 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
   const rawDefaultValue = row[key as keyof RowItem];
   const defaultValue = rawDefaultValue ? Math.round(+rawDefaultValue) : '';
 
+  //const saveChange =
+
   return (
     <InputBase
       type="text"
@@ -31,7 +33,7 @@ const NumberInput = (props: RenderEditCellProps<RowItem>) => {
         || e.key === 'Enter'
         ) {
           // maintain focus in the grid. Need to check if this is the correct behavior. 
-          onRowChange(row, true);
+          onRowChange(row, true); 
         }
       
       }} 

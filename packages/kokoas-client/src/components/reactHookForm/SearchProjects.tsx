@@ -49,8 +49,7 @@ export function SearchProjects<T extends BaseFields>(
     name: ['projName', 'projId'],
     control: (control as never) as Control<BaseFields>,
   });
-
-
+  
   const {
     data: recProjects = [],
   } = useSearchProjects(debouncedInput);

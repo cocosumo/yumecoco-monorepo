@@ -19,7 +19,7 @@ export const AlertContent = ({
   handleDateChange: (v: Date) => void
   handleAmtChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
 }) => {
-  
+
   return (
     <Stack
       direction={'column'}
@@ -41,17 +41,12 @@ export const AlertContent = ({
         />
       </Stack >
 
-      <Stack
-        direction={'column'}
-        spacing={1}
-      >
-        <Explanation
-          label='通知内容'
-          purpose={purpose}
-          paymentDate={paymentDate}
-          paymentAmount={paymentAmount}
-        />
-      </Stack>
+      <Explanation
+        label='通知内容'
+        purpose={purpose}
+        paymentDate={paymentDate}
+        paymentAmount={paymentAmount}
+      />
     </Stack >
   );
 };

@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { KAlertPurpose, alertMessages } from '../alertConfig';
 import format from 'date-fns/format';
@@ -43,7 +43,10 @@ export const Explanation = ({
 
 
   return (
-    <>
+    <Stack
+      direction={'column'}
+      spacing={1}
+    >
       <Typography
         variant='body2'
         sx={{
@@ -61,6 +64,6 @@ export const Explanation = ({
       >
         {explanation}
       </Typography>
-    </>
+    </Stack>
   );
 };

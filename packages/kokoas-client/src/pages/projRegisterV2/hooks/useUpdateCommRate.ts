@@ -33,7 +33,6 @@ export const useUpdateCommRate = () => {
       value: TForm['yumeAG'][number]
     },
   }) => {
-    console.log('starting to calculate');
     
     // Deep copy, as we don't want to mutate the original value
     let selectedYumeAG: TForm['yumeAG'] = JSON.parse(JSON.stringify(getValues('yumeAG')));
@@ -49,7 +48,6 @@ export const useUpdateCommRate = () => {
     if (selectedYumeAG.some(({ empName }) => empName === 'ここすも')
     || selectedYumeAG.every(({ empId }) => !empId)) {
     // ここすも又は空の場合は、紹介料率を0にする
-      console.log('ここすも又は空の場合は、紹介料率を0にする');
       setValue('commissionRate', 0, {
         shouldValidate: true,
         shouldDirty: true,
@@ -73,20 +71,13 @@ export const useUpdateCommRate = () => {
 
     let newCommRate = 0;
 
-
-
     if (matchedEmp) {
-      console.log('matchedEmp', matchedEmp);
       newCommRate = Number(matchedEmp.value.commRateByEmp.value);
     } else if (matchedRole) {
-      console.log('matchedRole', matchedRole);
       newCommRate = Number(matchedRole.value.commRateByRole.value);
     } else {
-      console.log('yumeCommFeeRate', yumeCommFeeRate);
-      newCommRate = Number(yumeCommFeeRate?.value);
+      newCommRate = Number(yumeCommFeeRate?.value || 0);
     }
-
-    console.log('success', selectedYumeAG, newCommRate);
 
 
     setValue('commissionRate', 

@@ -1,10 +1,10 @@
-import { KForm, TForm } from '../../schema';
+import { KForm } from '../../schema';
 import { Stack } from '@mui/material';
 import { TAgents } from 'types';
 import { ControlledEmpSelectField } from './ControlledEmpSelectField';
 import { useTypedFormContext } from '../../hooks';
+
 import { useFieldArray } from 'react-hook-form';
-import { getDefaultEmployee } from '../../form';
 
 
 const empFieldLabels: Partial<Record<TAgents, string>> = {
@@ -25,15 +25,10 @@ export const EmployeeSelectFields = ({
 
   const { control } = useTypedFormContext();
 
-  const arrayHelpers = useFieldArray({
+  const fieldHelpers = useFieldArray({
     control,
-    name: name as 'yumeAG',
+    name: name as 'yumeAG' | 'cocoAG' | 'cocoConst',
   });
-
-  const {
-    fields,
-    append,
-  } = arrayHelpers;
 
 
   return (
@@ -41,21 +36,19 @@ export const EmployeeSelectFields = ({
       direction={'row'}
       spacing={2}
     >
-      {(fields as TForm['yumeAG'])
+      {(fieldHelpers.fields )
         .map(({
-          key,
+          id,
         }, index) => {
 
           return (
             <ControlledEmpSelectField 
-              key={key}
+              key={id}
               label={`${empFieldLabels[agentType]}${index + 1}`}
               name={name}
               index={index}
               agentType={agentType}
-              fields={fields}
               required={required}
-              appendNew={() => append(getDefaultEmployee(agentType))}
             />
           );
 

@@ -16,12 +16,12 @@ export const createReminderMsgForAccountant = ({
     store,
     contractDate,
     totalContractAmount,
-    plannedDepositDate,
+    paymentDate,
   }, idx) => {
 
     const isSubsidy = alertType.value === alertPurposes.subsidy;
-    const hasDepositDate = Boolean(plannedDepositDate.value);
-    const displayDate = (isSubsidy && hasDepositDate) ? `入金予定日: ${plannedDepositDate.value}` : '';
+    const hasDepositDate = Boolean(paymentDate.value);
+    const displayDate = (isSubsidy && hasDepositDate) ? `入金予定日: ${paymentDate.value}` : '';
 
 
     return [

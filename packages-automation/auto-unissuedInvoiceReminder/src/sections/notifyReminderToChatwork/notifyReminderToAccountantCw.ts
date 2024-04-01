@@ -35,7 +35,7 @@ export const notifyReminderToAccountantCw = async ({
 
       await sendMessage({
         body: (isProd) ? message : `${accountant.文字列＿氏名.value}宛の送信メッセージです\n${message} `,
-        roomId: (isProd) ? accountant.chatworkRoomId.value : chatworkRooms.test,
+        roomId: (isProd) ? accountant.chatworkRoomId.value : chatworkRooms.testRoom,
         cwToken: process.env.CW_TOKEN_COCOSYSTEM,
       });
 

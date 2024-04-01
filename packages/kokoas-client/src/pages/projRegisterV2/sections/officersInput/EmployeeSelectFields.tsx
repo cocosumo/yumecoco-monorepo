@@ -5,6 +5,8 @@ import { ControlledEmpSelectField } from './ControlledEmpSelectField';
 import { useTypedFormContext } from '../../hooks';
 import { useFieldArray } from 'react-hook-form';
 import { getDefaultEmployee } from '../../form';
+import { useEffect } from 'react';
+import { splitFieldInternalAndForwardedProps } from '@mui/x-date-pickers/internals';
 
 
 const empFieldLabels: Partial<Record<TAgents, string>> = {
@@ -32,8 +34,12 @@ export const EmployeeSelectFields = ({
 
   const {
     fields,
-    append,
   } = arrayHelpers;
+
+
+  useEffect(() => {
+    console.log('fields', fields);
+  }, [fields]);
 
 
   return (
@@ -55,7 +61,7 @@ export const EmployeeSelectFields = ({
               agentType={agentType}
               fields={fields}
               required={required}
-              appendNew={() => append(getDefaultEmployee(agentType))}
+              //appendNew={() => append(getDefaultEmployee(agentType))}
             />
           );
 

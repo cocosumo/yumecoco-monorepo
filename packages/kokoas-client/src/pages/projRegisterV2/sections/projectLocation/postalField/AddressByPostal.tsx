@@ -5,9 +5,11 @@ import { getAddressByPostal } from 'api-kintone';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 
 export const AddressByPostal = () => {
+  const queryClient = useQueryClient();
   const { setSnackState } = useSnackBar();
   const { getValues, setValue } = useTypedFormContext();
-  const queryClient = useQueryClient();
+  
+
 
 
   return (
@@ -17,7 +19,7 @@ export const AddressByPostal = () => {
         variant='outlined'
         onClick={() => {
           const postal = getValues('postal');
-
+          
           queryClient.fetchQuery(
             ['addressPostalCode', { postalCode: postal }],
             () => getAddressByPostal(postal as string),

@@ -11,18 +11,14 @@ export const ControlledEmpSelectField = ({
   index,
   label,
   agentType,
-  fields,
   required,
-  appendNew,
 }:{
   name: KForm,
   index: number,
   label: string,
   agentType: TAgents,
   fields: TForm['yumeAG'],
-  required?: boolean,
-  appendNew: () => void,
-}) => {
+  required?: boolean }) => {
 
   const {
     control,
@@ -31,7 +27,6 @@ export const ControlledEmpSelectField = ({
   const {
     handleUpdateCommRate,
   } = useUpdateCommRate();
-
 
   return (
     <Controller
@@ -75,12 +70,6 @@ export const ControlledEmpSelectField = ({
               };
 
               onChange(newAgent);
-
-              if (index === 0) {
-                if (selectedEmpId && fields.length === 1) {
-                  appendNew();
-                }
-              }
 
               if (agentType === 'yumeAG') {
                 handleUpdateCommRate({

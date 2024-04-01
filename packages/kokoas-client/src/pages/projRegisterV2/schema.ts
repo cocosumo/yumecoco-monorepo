@@ -214,6 +214,8 @@ export const schema = z.object({
 
     // K240 工事担当者を必須。決まってない場合にも工事登録できるように、「未定」というチェックができるようにしてほしい
     const hasSelectedCocoConst = cocoConst.some((ag) => ag.empId !== '');
+
+    console.log('isNotCocoConstConfirmed', isNotCocoConstConfirmed, hasSelectedCocoConst, cocoConst);
     if (!isNotCocoConstConfirmed && !hasSelectedCocoConst) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

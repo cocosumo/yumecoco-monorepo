@@ -35,20 +35,25 @@ export const FormActions = () => {
       })}`);
     },
     (errors) => {
-      console.warn(errors); // 保存できない原因で、残す
+      console.warn('ERRORS', errors); // 保存できない原因で、残す
       // summarize errors into string
       const errorString = Object.entries(errors).reduce((acc, [key, value]) => {
         let newAcc = acc;
-        if (value) {
+        if (Array.isArray(value)) {
+          newAcc += `${fieldMapJa[key as KForm]}：\n`;
+          value.forEach((v) => {
+            newAcc += `${v.message}\n`;
+          });
+        } else if (value) {
           const keyJa = fieldMapJa[key as KForm];
           newAcc += `${ keyJa ? `${fieldMapJa[key as KForm]}：` : ''} ${value.message}\n`;
-        }
+        } 
         return newAcc;
       }, '');
 
       setSnackState({
         open: true,
-        message: `「${errorString}」 。 不具合があれば、お手数ですが、管理者に連絡してください。`, 
+        message: `${errorString ? errorString : 'エラーが発生しました'} 。 不具合があれば、お手数ですが、管理者に連絡してください。`, 
         severity: 'error',
         
       });

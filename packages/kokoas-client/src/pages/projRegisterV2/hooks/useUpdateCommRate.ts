@@ -83,7 +83,7 @@ export const useUpdateCommRate = () => {
       newCommRate = Number(matchedRole.value.commRateByRole.value);
     } else {
       console.log('yumeCommFeeRate', yumeCommFeeRate);
-      newCommRate = Number(yumeCommFeeRate?.value);
+      newCommRate = Number(yumeCommFeeRate?.value || 0);
     }
 
     console.log('success', selectedYumeAG, newCommRate);

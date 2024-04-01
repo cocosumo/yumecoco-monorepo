@@ -3,7 +3,7 @@ import { useTypedFormContext } from '../../hooks';
 import { Checkbox, FormControlLabel, Tooltip } from '@mui/material';
 
 export const IsNotCocoConstConfirmed = () => {
-  const { control, trigger } = useTypedFormContext(); 
+  const { control } = useTypedFormContext(); 
   return (
     <Controller 
       name={'isNotCocoConstConfirmed'}
@@ -12,9 +12,10 @@ export const IsNotCocoConstConfirmed = () => {
         field: {
           value,
           onChange,
-          ...otherFieldProps
-        },
+          name        },
       }) => {
+
+        console.log('value-isNotCocoConstConfirmed', value);
 
         return (
           <Tooltip title={(<div>
@@ -24,13 +25,15 @@ export const IsNotCocoConstConfirmed = () => {
           </div>)}
           >
             <FormControlLabel 
-              onChange={(_, checked) => {
-                onChange(checked);
-                trigger('cocoConst.0');
-              }}
-              control={<Checkbox checked={value} />} 
+              name={name}
+              control={(
+                <Checkbox
+                  onChange={(_, checked) => {
+                    onChange(checked);
+                  }}
+                  checked={value}
+                />)} 
               label="未定"
-              {...otherFieldProps}
             />
           </Tooltip>
 

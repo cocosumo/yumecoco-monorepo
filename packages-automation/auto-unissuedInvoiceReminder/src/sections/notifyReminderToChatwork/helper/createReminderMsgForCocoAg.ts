@@ -26,7 +26,7 @@ export const createReminderMsgForCocoAg = ({
   const alertPurposesReverse = Object.fromEntries(Object.entries(alertPurposes).map(val => val.reverse()));
   const purpose = alertPurposesReverse[alertType.value] as KAlertPurpose;
 
-  const displayDate = purpose === 'subsidy' && paymentDate.value ?
+  const displayDate = paymentDate.value ?
     `${format(new Date(paymentDate.value), 'yyyy年MM月dd日')}に` : '';
   const hasPaymentAmount = !isNaN(+paymentAmount.value) && paymentAmount.value !== '' && paymentAmount.value !== '0';
   const displayAmount = hasPaymentAmount ? `\xA5${(+paymentAmount.value).toLocaleString()}-` : '';

@@ -1,9 +1,19 @@
 import { Controller } from 'react-hook-form';
-import { useTypedFormContext } from '../../hooks';
+import { useTypedFormContext, useTypedWatch } from '../../hooks';
 import { Checkbox, FormControlLabel, Tooltip } from '@mui/material';
+import { TForm } from '../../schema';
+import { useEffect } from 'react';
 
 export const IsNotCocoConstConfirmed = () => {
-  const { control } = useTypedFormContext(); 
+  const { control, trigger } = useTypedFormContext(); 
+
+  const isNotCocoConstConfirmed = useTypedWatch({
+    name: 'isNotCocoConstConfirmed',
+  }) as TForm['isNotCocoConstConfirmed'];
+
+  useEffect(() => {
+    trigger('cocoConst.0');
+  }, [isNotCocoConstConfirmed, trigger]);
   
   return (
     <Controller 

@@ -39,7 +39,7 @@ export const schema = z.object({
     orderId: z.string().optional(),
 
     /** 数量 */
-    quantity: z.number().gt(0),
+    quantity: z.coerce.number(),
     
     /** 単位 */
     unit: z.string(),

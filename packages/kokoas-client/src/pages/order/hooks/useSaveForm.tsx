@@ -91,7 +91,7 @@ export const useSaveForm = () => {
                     const { 
                       message,
                     } = itemError as FieldError;
-                    acc.push(`${idx + 1}行目の【${ja[itemKey as keyof typeof ja]}】：${message}。値：${getValues(`items[${idx}].${itemKey}` as 'items.0.itemId') || '空'}`);
+                    acc.push(`${idx + 1}行目の【${ja[itemKey as keyof typeof ja]}】：${message} 値：${getValues(`items[${idx}].${itemKey}` as 'items.0.itemId') || '空'}`);
                   });
               });
           } else {

@@ -1,19 +1,9 @@
 import { Controller } from 'react-hook-form';
-import { useTypedFormContext, useTypedWatch } from '../../hooks';
+import { useTypedFormContext } from '../../hooks';
 import { Checkbox, FormControlLabel, Tooltip } from '@mui/material';
-import { TForm } from '../../schema';
-import { useEffect } from 'react';
 
 export const IsNotCocoConstConfirmed = () => {
-  const { control, trigger } = useTypedFormContext(); 
-
-  const isNotCocoConstConfirmed = useTypedWatch({
-    name: 'isNotCocoConstConfirmed',
-  }) as TForm['isNotCocoConstConfirmed'];
-
-  useEffect(() => {
-    trigger('cocoConst.0');
-  }, [isNotCocoConstConfirmed, trigger]);
+  const { control } = useTypedFormContext(); 
   
   return (
     <Controller 
@@ -26,6 +16,7 @@ export const IsNotCocoConstConfirmed = () => {
           name },
       }) => {
   
+          
         return (
           <Tooltip title={(<div>
             {'工事担当者が未定の場合は、チェックを入れてください'}
@@ -40,7 +31,7 @@ export const IsNotCocoConstConfirmed = () => {
                   onChange={(_, checked) => {
                     onChange(checked);
                   }}
-                  checked={value}
+                  value={value}
                 />)} 
               label="未定"
             />

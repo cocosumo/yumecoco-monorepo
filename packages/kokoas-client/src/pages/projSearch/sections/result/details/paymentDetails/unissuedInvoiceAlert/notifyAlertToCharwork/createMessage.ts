@@ -12,12 +12,14 @@ export const createMessage = async ({
   purpose,
   reminderRecId,
   paymentDate,
+  paymentAmount,
 }: {
   recProj: IProjects
   recContracts: IContracts[]
   purpose: KAlertPurpose
   reminderRecId: string
   paymentDate: Date | null
+  paymentAmount: string
 }) => {
 
 
@@ -33,10 +35,12 @@ export const createMessage = async ({
     recContracts,
   });
 
-  const displayDate = purpose === 'subsidy' && paymentDate ? `${format(paymentDate, 'yyyy年MM月dd日')}に` : '';
+  const displayDate = paymentDate ? `${format(paymentDate, 'yyyy年MM月dd日')}に` : '';
+  const hasPaymentAmount = !isNaN(+paymentAmount) && paymentAmount !== '' && paymentAmount !== '0';
+  const displayAmount = hasPaymentAmount ? `\xA5${(+paymentAmount).toLocaleString()}-` : '';
 
   const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
-  const message0 = `下記工事に対して、${displayDate}${alertMessages[purpose]}`;
+  const message0 = `下記工事に対して、${displayDate}${displayAmount}${alertMessages[purpose]}`;
   const message1 = '請求書の発行をお願いします。\n';
   const content = [
     '【工事内容】',

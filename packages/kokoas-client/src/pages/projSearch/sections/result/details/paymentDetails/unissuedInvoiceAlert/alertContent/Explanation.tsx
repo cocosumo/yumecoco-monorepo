@@ -19,9 +19,9 @@ export const Explanation = ({
 
   const explanation = useMemo(() => {
 
-
     const defaultMessage = alertMessages[purpose];
-    const displayAmount = !isNaN(+paymentAmount) ? (+paymentAmount).toLocaleString() : null;
+    const displayAmount = !isNaN(+paymentAmount) && paymentAmount !== '0' && paymentAmount !== '' ?
+      (+paymentAmount).toLocaleString() : null;
     const displayDate = paymentDate ? format(paymentDate, 'yyyy年MM月dd日') : '';
 
     if (!paymentDate && !displayAmount) {

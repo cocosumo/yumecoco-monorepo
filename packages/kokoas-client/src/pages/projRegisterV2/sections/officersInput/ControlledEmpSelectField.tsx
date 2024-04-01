@@ -1,10 +1,11 @@
 import { Controller } from 'react-hook-form';
-import { KForm } from '../../schema';
+import { KForm, TAgent } from '../../schema';
 import { EmployeeSelector } from 'kokoas-client/src/components';
-import { useTypedFormContext } from '../../hooks';
+import { useTypedFormContext, useTypedWatch } from '../../hooks';
 import { TAgents } from 'types';
 import { getDefaultEmployee } from '../../form';
 import { useUpdateCommRate } from '../../hooks/useUpdateCommRate';
+import { useEffect } from 'react';
 
 export const ControlledEmpSelectField = ({
   name,
@@ -21,11 +22,25 @@ export const ControlledEmpSelectField = ({
 
   const {
     control,
+    setValue,
   } = useTypedFormContext();
 
   const {
     handleUpdateCommRate,
   } = useUpdateCommRate();
+
+  const fieldsValues = useTypedWatch({
+    name: name,
+  }) as TAgent[];
+
+  useEffect(() => {
+    if (fieldsValues.length === 1 && fieldsValues[0].empId !== '') {
+      setValue(name, [...fieldsValues, getDefaultEmployee(agentType)], { shouldValidate: true });
+    } else if (fieldsValues.length === 2 && fieldsValues.every(({ empId }) => !empId )) {
+      setValue(name, [getDefaultEmployee(agentType)]);
+    }
+
+  }, [fieldsValues, setValue, name, agentType]);
 
   return (
     <Controller
@@ -55,7 +70,6 @@ export const ControlledEmpSelectField = ({
             onBlur={onBlur}
             required={index === 0 ? required : false}
             onChange={(selectedEmpId, rec) => {
-                
               const {
                 役職: newEmpRole,
                 文字列＿氏名: newEmpName,
@@ -68,7 +82,9 @@ export const ControlledEmpSelectField = ({
                 empRole: newEmpRole?.value || '',
               };
 
+              // TODO: refactor this to use setValues and getValues, to remove useEffect
               onChange(newAgent);
+
               if (agentType === 'yumeAG') {
                 handleUpdateCommRate({
                   newYumeAG: {

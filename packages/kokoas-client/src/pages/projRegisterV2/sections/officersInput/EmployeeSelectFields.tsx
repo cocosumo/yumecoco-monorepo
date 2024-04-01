@@ -1,10 +1,10 @@
-import { KForm, TForm } from '../../schema';
+import { KForm } from '../../schema';
 import { Stack } from '@mui/material';
 import { TAgents } from 'types';
 import { ControlledEmpSelectField } from './ControlledEmpSelectField';
-import { useTypedFormContext, useTypedWatch } from '../../hooks';
-import { useEffect } from 'react';
-import { getDefaultEmployee } from '../../form';
+import { useTypedFormContext } from '../../hooks';
+
+import { useFieldArray } from 'react-hook-form';
 
 
 const empFieldLabels: Partial<Record<TAgents, string>> = {
@@ -23,34 +23,27 @@ export const EmployeeSelectFields = ({
   required?: boolean,
 }) => {
 
-  const { setValue } = useTypedFormContext();
+  const { control } = useTypedFormContext();
 
-  const fieldsValues = useTypedWatch({
-    name: name as 'yumeAG',
-  }) as TForm['yumeAG'];
+  const fieldHelpers = useFieldArray({
+    control,
+    name: name as 'yumeAG' | 'cocoAG' | 'cocoConst',
+  });
 
-  useEffect(() => {
-    if (fieldsValues.length === 1 && fieldsValues[0].empId !== '') {
-      setValue(name, [...fieldsValues, getDefaultEmployee(agentType)], { shouldValidate: true });
-    } else if (fieldsValues.length === 2 && fieldsValues.every(({ empId }) => !empId )) {
-      setValue(name, [getDefaultEmployee(agentType)]);
-    }
-
-  }, [fieldsValues, setValue, name, agentType]);
 
   return (
     <Stack
       direction={'row'}
       spacing={2}
     >
-      {(fieldsValues as TForm['yumeAG'])
+      {(fieldHelpers.fields )
         .map(({
-          key,
+          id,
         }, index) => {
 
           return (
             <ControlledEmpSelectField 
-              key={key}
+              key={id}
               label={`${empFieldLabels[agentType]}${index + 1}`}
               name={name}
               index={index}

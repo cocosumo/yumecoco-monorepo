@@ -239,4 +239,5 @@ export const schema = z.object({
 
 
 export type TForm = z.infer<typeof schema>;
+export type TAgent = z.infer<typeof agentSchema>;
 export type KForm = keyof TForm;

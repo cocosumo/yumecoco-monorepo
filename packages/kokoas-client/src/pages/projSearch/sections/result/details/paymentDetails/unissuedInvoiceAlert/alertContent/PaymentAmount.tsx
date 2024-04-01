@@ -15,9 +15,7 @@ export const PaymentAmount = ({
     <>
       <Typography
         variant='body2'
-        sx={{
-          color: 'gray',
-        }}
+        color='gray'
       >
         {`${label} :`}
       </Typography>

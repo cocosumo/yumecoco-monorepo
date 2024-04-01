@@ -20,7 +20,7 @@ export const AlertDialog = ({
   handleClose: () => void
   projId: string
 }) => {
-  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);
+  const [purpose, setPurpose] = useState<KAlertPurpose>('unissued');
   const [paymentDate, setPaymentDate] = useState<Date | null>(null);
   const [paymentAmount, setPaymentAmount] = useState<string>('0');
 

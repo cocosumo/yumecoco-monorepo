@@ -16,7 +16,7 @@ export const AlertTarget = ({
 
   return (
     <Stack 
-      direction={'column'}
+      direction={'row'}
       spacing={1}
     >
       <Typography

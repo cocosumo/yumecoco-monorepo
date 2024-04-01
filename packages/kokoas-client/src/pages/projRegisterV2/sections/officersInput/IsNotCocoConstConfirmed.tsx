@@ -4,6 +4,7 @@ import { Checkbox, FormControlLabel, Tooltip } from '@mui/material';
 
 export const IsNotCocoConstConfirmed = () => {
   const { control } = useTypedFormContext(); 
+  
   return (
     <Controller 
       name={'isNotCocoConstConfirmed'}
@@ -12,11 +13,9 @@ export const IsNotCocoConstConfirmed = () => {
         field: {
           value,
           onChange,
-          name        },
+          name },
       }) => {
-
-        console.log('value-isNotCocoConstConfirmed', value);
-
+  
         return (
           <Tooltip title={(<div>
             {'工事担当者が未定の場合は、チェックを入れてください'}

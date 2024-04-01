@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { KForm, TForm } from '../../schema';
+import { KForm } from '../../schema';
 import { EmployeeSelector } from 'kokoas-client/src/components';
 import { useTypedFormContext } from '../../hooks';
 import { TAgents } from 'types';
@@ -17,7 +17,6 @@ export const ControlledEmpSelectField = ({
   index: number,
   label: string,
   agentType: TAgents,
-  fields: TForm['yumeAG'],
   required?: boolean }) => {
 
   const {
@@ -70,7 +69,6 @@ export const ControlledEmpSelectField = ({
               };
 
               onChange(newAgent);
-
               if (agentType === 'yumeAG') {
                 handleUpdateCommRate({
                   newYumeAG: {

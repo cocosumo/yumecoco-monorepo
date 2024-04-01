@@ -2,11 +2,9 @@ import { KForm, TForm } from '../../schema';
 import { Stack } from '@mui/material';
 import { TAgents } from 'types';
 import { ControlledEmpSelectField } from './ControlledEmpSelectField';
-import { useTypedFormContext } from '../../hooks';
-import { useFieldArray } from 'react-hook-form';
-import { getDefaultEmployee } from '../../form';
+import { useTypedFormContext, useTypedWatch } from '../../hooks';
 import { useEffect } from 'react';
-import { splitFieldInternalAndForwardedProps } from '@mui/x-date-pickers/internals';
+import { getDefaultEmployee } from '../../form';
 
 
 const empFieldLabels: Partial<Record<TAgents, string>> = {
@@ -25,29 +23,27 @@ export const EmployeeSelectFields = ({
   required?: boolean,
 }) => {
 
-  const { control } = useTypedFormContext();
+  const { setValue } = useTypedFormContext();
 
-  const arrayHelpers = useFieldArray({
-    control,
+  const fieldsValues = useTypedWatch({
     name: name as 'yumeAG',
-  });
-
-  const {
-    fields,
-  } = arrayHelpers;
-
+  }) as TForm['yumeAG'];
 
   useEffect(() => {
-    console.log('fields', fields);
-  }, [fields]);
+    if (fieldsValues.length === 1 && fieldsValues[0].empId !== '') {
+      setValue(name, [...fieldsValues, getDefaultEmployee(agentType)], { shouldValidate: true });
+    } else if (fieldsValues.length === 2 && fieldsValues.every(({ empId }) => !empId )) {
+      setValue(name, [getDefaultEmployee(agentType)]);
+    }
 
+  }, [fieldsValues, setValue, name, agentType]);
 
   return (
     <Stack
       direction={'row'}
       spacing={2}
     >
-      {(fields as TForm['yumeAG'])
+      {(fieldsValues as TForm['yumeAG'])
         .map(({
           key,
         }, index) => {
@@ -59,9 +55,7 @@ export const EmployeeSelectFields = ({
               name={name}
               index={index}
               agentType={agentType}
-              fields={fields}
               required={required}
-              //appendNew={() => append(getDefaultEmployee(agentType))}
             />
           );
 

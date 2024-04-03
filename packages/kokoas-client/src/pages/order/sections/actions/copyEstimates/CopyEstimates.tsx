@@ -5,6 +5,7 @@ import { useTypedWatch } from '../../../hooks/useTypedRHF';
 import { TForm } from '../../../schema';
 import { LoadingButton } from '@mui/lab';
 import { ItemContent } from './ItemContents';
+import { useHandleCopyEstimates } from './useHandleCopyEstimates';
 
 
 
@@ -23,6 +24,8 @@ export const CopyEstimates = () => {
   }) as TForm['projId'];
   
   const { data, isFetching } = useEstimatesByProjId(projId);
+
+  const { handleCopyEstimates } = useHandleCopyEstimates();
 
 
   return (
@@ -49,24 +52,33 @@ export const CopyEstimates = () => {
           maxHeight: 300,
         }}
       >
-        {data?.records.map(({ 
-          dataId, 
-          uuid,
-          作成日時,
-          estimateStatus,
-        }, index) => {
+        {data?.records.map((record, index) => {
+          const { 
+            dataId, 
+            uuid,
+            作成日時,
+            estimateStatus,
+          } = record;
+          const { summary } = data.calculated[index];  
+
           return (
             <MenuItem 
               key={uuid.value}
               divider
+              onClick={() => {
+                handleCopyEstimates({
+                  summary,
+                  record,
+                });
+                handleClose();
+              }}
             >
         
-            
               <ItemContent 
                 sequenceId={dataId.value}
-                amountAfterTax={data.calculated[index].summary.totalAmountAfterTax}
-                amountBeforeTax={data.calculated[index].summary.totalAmountBeforeTax}
-                costAmount={data.calculated[index].summary.totalCostPrice}
+                amountAfterTax={summary.totalAmountAfterTax}
+                amountBeforeTax={summary.totalAmountBeforeTax}
+                costAmount={summary.totalCostPrice}
                 createDate={作成日時.value}
                 type={estimateStatus.value}
               />

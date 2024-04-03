@@ -38,7 +38,6 @@ export const convertOrderBudgetToForm = ({
       costPrice: Number(row.costPrice.value),
       rowCostPriceBeforeTax: Number(row.orderAmountBeforeTax.value),
       taxRate: Number(row.taxRate.value),
-      rowCostPriceAfterTax: Number(row.orderAmountAfterTax.value),
       rowRemarks: row.rowRemarks.value,
     })),
   };

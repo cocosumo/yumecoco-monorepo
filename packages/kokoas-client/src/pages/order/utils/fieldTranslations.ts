@@ -14,7 +14,6 @@ export const ja: Record<KForm | KItem, string> = {
   status: 'ステータス',
   unit: '単位',
   rowCostPriceBeforeTax: '発注金額税抜',
-  rowCostPriceAfterTax: '発注金額税込',
   rowRemarks: '行備考',
   supplierName: '業者名',
   orderId: '発注番号',

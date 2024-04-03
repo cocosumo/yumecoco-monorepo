@@ -3,4 +3,4 @@ import { TForm } from '../schema';
 
 export const useTypedFormContext = useFormContext<TForm>;
 
-export const useTypedWatched = useWatch<TForm>;
+export const useTypedWatch = useWatch<TForm>;

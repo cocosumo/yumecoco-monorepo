@@ -10,7 +10,6 @@ import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
-import { Usage } from './Usage';
 
 
 function rowKeyGetter(row: RowItem) {
@@ -73,7 +72,6 @@ export const OrderBudgetDataGrid = () => {
   
   return (
     <OrderBudgetDataGridContainer> 
-      <Usage />
       <DndProvider backend={HTML5Backend} >
         <DataGrid 
           rowKeyGetter={rowKeyGetter}

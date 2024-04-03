@@ -15,7 +15,6 @@ declare namespace DBOrderbudget {
           material: kintone.fieldTypes.SingleLineText;
           orderId: kintone.fieldTypes.SingleLineText;
           costPrice: kintone.fieldTypes.Number;
-          orderAmountAfterTax: kintone.fieldTypes.Number;
           orderAmountBeforeTax: kintone.fieldTypes.Number;
           status: kintone.fieldTypes.SingleLineText;
           rowRemarks: kintone.fieldTypes.SingleLineText;

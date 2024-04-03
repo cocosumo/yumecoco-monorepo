@@ -18,7 +18,6 @@ export const initialValues : TForm = {
       costPrice: 0,
       rowCostPriceBeforeTax: 0,
       taxRate: 0.1, // default 10%
-      rowCostPriceAfterTax: 0,
       rowRemarks: '',
     },
   ],

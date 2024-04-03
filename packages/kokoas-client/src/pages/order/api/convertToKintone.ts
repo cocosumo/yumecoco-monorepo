@@ -21,7 +21,6 @@ export const convertToKintone = ({
         costPrice,
         quantity,
         rowCostPriceBeforeTax,
-        rowCostPriceAfterTax,
         taxRate,
         unit,
         rowRemarks,
@@ -41,7 +40,6 @@ export const convertToKintone = ({
         costPrice: { value: costPrice.toString() },
         orderAmountBeforeTax: { value: rowCostPriceBeforeTax.toString() },
         taxRate: { value: taxRate.toString() },
-        orderAmountAfterTax: { value: rowCostPriceAfterTax.toString() },
         rowRemarks: { value: rowRemarks ?? '' },
       };
 

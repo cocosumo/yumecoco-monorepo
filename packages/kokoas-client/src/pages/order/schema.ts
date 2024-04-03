@@ -53,9 +53,6 @@ export const schema = z.object({
     /** 税 */
     taxRate: z.coerce.number(),
 
-    /** 原価合計 / 発注金額税込 toB*/
-    rowCostPriceAfterTax: z.number(),
-
     /** 行備考 */
     rowRemarks: z.string().optional(),
   })),

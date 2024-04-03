@@ -198,21 +198,6 @@ export const useColumns = (): MyColumn[] => {
 
     },
     { 
-      key: 'rowCostPriceAfterTax', 
-      name: '発注金額（税込）', 
-      editable: false,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        return (
-          <RightAlignedDiv>
-            {commaFormatter(roundTo(row.rowCostPriceAfterTax))}
-          </RightAlignedDiv>);
-      },
-    },
-    { 
       key: 'rowRemarks', 
       name: '備考', 
       editable: true,

@@ -78,7 +78,14 @@ export function SearchProjects<T extends BaseFields>(
   return (
     <Controller 
       {...controllerProps}
-      render={({ field }) => {
+      render={({ field, fieldState, formState }) => {
+        const {
+          error,
+        } = fieldState;
+
+        console.log('ERROR', error, formState.isSubmitted);
+
+        const showError = formState.isSubmitted && !!error;
         
         return (
           <Autocomplete 
@@ -112,6 +119,8 @@ export function SearchProjects<T extends BaseFields>(
                 name={name}
                 fullWidth
                 placeholder="山田　タロウ"
+                error={showError}
+                helperText={showError ? '工事を選択してください' : ''}
               />)}
             renderOption={(p, opt) => {
               const key = `listItem-${opt.id}`;

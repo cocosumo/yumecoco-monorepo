@@ -7,9 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { OrderBudgetDataGrid } from './inputGrid/OrderBudgetDataGrid';
-import { ActionButtons } from './sections/ActionButton';
+import { FooterActionButtons } from './sections/FooterActionButtons';
 import { OrderTableLabel } from './sections/inputGridLabel/OrderTableLabel';
 import { useEffect } from 'react';
+import { Actions } from './sections/actions/Actions';
 
 
 export const FormOrder = () => {
@@ -52,10 +53,11 @@ export const FormOrder = () => {
 
           <PageSubTitle3 label={<OrderTableLabel />} />
 
+          <Actions />
+
           <OrderBudgetDataGrid />
 
-
-          <ActionButtons />
+          <FooterActionButtons />
             
         </Stack>
       </Form>

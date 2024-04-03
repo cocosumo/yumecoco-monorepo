@@ -4,7 +4,7 @@ import StoreIcon from '@mui/icons-material/Store';
 import { useSaveForm } from '../hooks/useSaveForm';
 import { useSaveHotkey } from '../hooks/useSaveHotkey';
 
-export const ActionButtons = () => {
+export const FooterActionButtons = () => {
 
   const { handleSubmit } = useSaveForm();
   useSaveHotkey(handleSubmit, { disabled: false });
@@ -41,7 +41,7 @@ export const ActionButtons = () => {
         <Button
           variant='outlined'
           startIcon={<StoreIcon />}
-          onClick={handleSubmit}
+          onClick={() => alert('開発中です')}
           color='primary'
         >
           登録

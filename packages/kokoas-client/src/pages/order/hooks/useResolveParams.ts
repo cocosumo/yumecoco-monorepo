@@ -29,6 +29,12 @@ export const useResolveParams = () => {
     if (projData && orderBudgetData) {
       const newForm = convertOrderBudgetToForm({ project: projData, orderBudget: orderBudgetData });
       setNewFormVal(newForm);
+    } else if (projData && !orderBudgetData) {
+      setNewFormVal({
+        ...initialValues,
+        projId: projData.uuid.value || '',
+        projName: projData.projName.value,
+      });
     }
   }, [projData, orderBudgetData ]);
 

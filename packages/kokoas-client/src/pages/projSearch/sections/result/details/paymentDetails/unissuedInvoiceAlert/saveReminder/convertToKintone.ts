@@ -64,7 +64,7 @@ export const convertToKintone = ({
     recEmployees,
   });
 
-  const plannedDepositDate = (!paymentDate || isValid(paymentDate)) ?
+  const plannedDepositDate = (!paymentDate || !isValid(paymentDate)) ?
     '' : `${format(new Date(paymentDate), 'yyyy-MM-dd')}`;
 
   const kintoneRecord: Partial<IUnissuedinvoicealert> = {

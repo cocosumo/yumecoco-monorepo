@@ -23,7 +23,7 @@ export const OrderRequestDialog = ({
   storeName,
 }: OrderRequestDialogProps) => {
   
-  const formMethds = useForm({
+  const formMethods = useForm({
     defaultValues: {
       ...initialOrderForm,
       projId,

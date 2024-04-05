@@ -7,10 +7,17 @@ const CustomCheckbox = styled(Checkbox)({
   margin: 0,
 });
 
-const SelectRow = (_: RenderCellProps<RowItem>) => {
+const SelectRow = (props: RenderCellProps<RowItem>) => {
+  const { row, onRowChange, column } = props;
+  const { key } = column;
 
   return (
-    <CustomCheckbox defaultChecked />
+    <CustomCheckbox 
+      onChange={() => {
+        onRowChange({ ...row, [key]: !row.selected });
+      }} 
+      checked={row[key as keyof RowItem] as boolean}
+    />
   );
 };
 

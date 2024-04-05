@@ -21,18 +21,18 @@ export const OrderSelected = () => {
   };
 
   const selectedItems: TOrderItem[] = useMemo(() => {
-    if (!open) return [];
     return items.filter(item => item.selected);
-  }, [open, items]);
+  }, [items]);
+
 
   return (<>
     <Button 
       variant={'outlined'}
       color='primary'
       onClick={() => setOpen(true)}
-      disabled={!formValues.projId}
+      disabled={!formValues.projId || !selectedItems.length}
     >
-      発注書作成
+      {`発注書作成（${selectedItems.length}件）`}
     </Button>
     <OrderRequestDialog 
       open={open}

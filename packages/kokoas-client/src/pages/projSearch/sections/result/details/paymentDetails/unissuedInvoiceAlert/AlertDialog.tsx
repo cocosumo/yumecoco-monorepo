@@ -53,6 +53,7 @@ export const AlertDialog = ({
     projId,
     purpose,
     paymentDate,
+    paymentAmount,
   });
 
   const {
@@ -68,7 +69,7 @@ export const AlertDialog = ({
   const handleAlert = async () => {
     const saveRec = await saveReminder();
     if (!saveRec) return;
-    alertNotify(saveRec.id, paymentDate);
+    alertNotify(saveRec.id, paymentDate, paymentAmount);
     handleClose();
   };
 

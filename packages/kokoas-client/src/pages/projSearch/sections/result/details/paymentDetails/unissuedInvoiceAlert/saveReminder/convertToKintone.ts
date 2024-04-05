@@ -4,6 +4,7 @@ import { getNotificationSettings } from './getNotificationSettings';
 import format from 'date-fns/format';
 import addWeeks from 'date-fns/addWeeks';
 import { KAlertPurpose, alertPurposes } from '../alertConfig';
+import isValid from 'date-fns/isValid';
 
 
 
@@ -63,7 +64,7 @@ export const convertToKintone = ({
     recEmployees,
   });
 
-  const plannedDepositDate = (!paymentDate || isNaN(new Date(paymentDate).getDate())) ?
+  const plannedDepositDate = (!paymentDate || isValid(paymentDate)) ?
     '' : `${format(new Date(paymentDate), 'yyyy-MM-dd')}`;
 
   const kintoneRecord: Partial<IUnissuedinvoicealert> = {

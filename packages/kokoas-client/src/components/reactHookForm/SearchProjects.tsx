@@ -83,7 +83,6 @@ export function SearchProjects<T extends BaseFields>(
           error,
         } = fieldState;
 
-        console.log('ERROR', error, formState.isSubmitted);
 
         const showError = formState.isSubmitted && !!error;
         
@@ -110,7 +109,7 @@ export function SearchProjects<T extends BaseFields>(
                 projId: (opt as Opt)?.id,
               })}`);
               
-    
+              field.onChange(opt?.id);
             }}
             renderInput={(params) => (
               <TextField

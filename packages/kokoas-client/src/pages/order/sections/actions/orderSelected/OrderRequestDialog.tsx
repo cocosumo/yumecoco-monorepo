@@ -1,6 +1,8 @@
 import { Dialog } from '@mui/material';
 import { ORDialogTitle } from './ORDialogTitle';
 import { CloseButton } from './CloseButton';
+import { ORDialogContent } from './ORDialogContent';
+import { ORDialogActions } from './ORDialogActions';
 
 interface OrderRequestDialogProps {
   open: boolean,
@@ -15,6 +17,9 @@ export const OrderRequestDialog = ({
   storeName,
   projName,
 }: OrderRequestDialogProps) => {
+  
+
+
   return (
     <Dialog
       open={open}
@@ -27,6 +32,11 @@ export const OrderRequestDialog = ({
         projName={projName}
       />
       <CloseButton handleClose={handleClose} />
+
+      <ORDialogContent />
+
+      <ORDialogActions />
+
     </Dialog>
   ); 
 };

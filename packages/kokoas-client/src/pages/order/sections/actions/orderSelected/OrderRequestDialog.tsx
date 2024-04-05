@@ -3,21 +3,33 @@ import { ORDialogTitle } from './ORDialogTitle';
 import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './ORDialogContent';
 import { ORDialogActions } from './ORDialogActions';
+import { useForm } from 'react-hook-form';
+import { TOrderItem, initialOrderForm } from './schema';
 
 interface OrderRequestDialogProps {
   open: boolean,
   handleClose: () => void,
-  storeName: string,
+  projId: string,
   projName: string,
+  storeName: string,
+  selectedItems: TOrderItem[],
 }
 
 export const OrderRequestDialog = ({
   open,
   handleClose,
-  storeName,
+  projId,
   projName,
+  storeName,
 }: OrderRequestDialogProps) => {
   
+  const formMethds = useForm({
+    defaultValues: {
+      ...initialOrderForm,
+      projId,
+      projName,
+    },
+  });
 
 
   return (

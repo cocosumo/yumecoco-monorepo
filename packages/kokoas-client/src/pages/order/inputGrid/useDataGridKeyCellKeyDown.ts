@@ -47,6 +47,7 @@ export const useDataGridKeyCellKeyDown = (
       key, 
       shiftKey,
       ctrlKey,
+      altKey,
     } = event;
 
     const {
@@ -135,8 +136,8 @@ export const useDataGridKeyCellKeyDown = (
      ************/
 
 
-    if (shiftKey && key === 'Insert') {
-      // 選択中のセルで、Shift + Insertキーを押した場合、行をコピーする。
+    if (altKey && key === 'v') {
+      // 選択中のセルで、行をコピーする。
       if (isHeadRow) return;
       insert(rowIdx, { ...row, itemId: '' });
       preventDefault();
@@ -144,14 +145,14 @@ export const useDataGridKeyCellKeyDown = (
     }
 
     if (!shiftKey && key === 'Insert') {
-      // 選択中のセルで、Insertキーを押した場合、行を追加する。
+      // 選択中のセルで、行を追加する。
       insert(rowIdx + 1, getNewRow());
       preventDefault();
       return;
     }
 
-    if (shiftKey && key === 'Delete') {
-      // 選択中のセルで、Shift + Deleteキーを押した場合、行を削除する。
+    if (altKey && key === 'b') {
+      // 選択中のセルで、行を削除する。
       if (isHeadRow) return; // ヘッダーの場合、削除しない。
       remove(rowIdx);
 

@@ -1,8 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { KAlertPurpose, alertMessages } from '../alertConfig';
-import format from 'date-fns/format';
-import parseISO from 'date-fns/parseISO';
+import { getDisplayPaymentDate } from '../helper/getDisplayPaymentDate';
 
 
 
@@ -23,19 +22,19 @@ export const Explanation = ({
     const defaultMessage = alertMessages[purpose];
     const displayAmount = !isNaN(+paymentAmount) && paymentAmount !== '0' && paymentAmount !== '' ?
       (+paymentAmount).toLocaleString() : null;
-    const displayDate = paymentDate ? format(parseISO(paymentDate), 'yyyy年MM月dd日') : '';
+    const displayDate = getDisplayPaymentDate(paymentDate);
 
-    if (!paymentDate && !displayAmount) {
 
+    if (!displayDate && !displayAmount) {
       return defaultMessage;
 
-    } else if (!paymentDate && !!displayAmount) {
+    } else if (!displayDate && !!displayAmount) {
       return `\xA5${displayAmount}-${defaultMessage}`;
 
-    } else if (!!paymentDate && !displayAmount) {
+    } else if (!!displayDate && !displayAmount) {
       return `${displayDate}に${defaultMessage}`;
 
-    } else if (!!paymentDate && !!displayAmount) {
+    } else if (!!displayDate && !!displayAmount) {
       return `${displayDate}に\xA5${displayAmount}-${defaultMessage}`;
 
     }

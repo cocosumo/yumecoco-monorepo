@@ -3,6 +3,7 @@ import parseISO from 'date-fns/parseISO';
 import { IContracts, IProjects } from 'types';
 import { KAlertPurpose, alertMessages } from '../alertConfig';
 import { summarizeMessageInfo } from './summarizeMessageInfo';
+import { getDisplayPaymentDate } from '../helper/getDisplayPaymentDate';
 
 
 
@@ -35,7 +36,8 @@ export const createMessage = async ({
     recContracts,
   });
 
-  const displayDate = paymentDate ? `${format(parseISO(paymentDate), 'yyyy年MM月dd日')}に` : '';
+  const hasDisplayDate = getDisplayPaymentDate(paymentDate);
+  const displayDate = hasDisplayDate ? `${hasDisplayDate}に` : hasDisplayDate;
   const hasPaymentAmount = !isNaN(+paymentAmount) && paymentAmount !== '' && paymentAmount !== '0';
   const displayAmount = hasPaymentAmount ? `\xA5${(+paymentAmount).toLocaleString()}-` : '';
 

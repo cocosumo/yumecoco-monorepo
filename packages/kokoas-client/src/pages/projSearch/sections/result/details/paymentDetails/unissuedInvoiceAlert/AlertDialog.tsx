@@ -8,7 +8,6 @@ import { NotificationButton } from './NotificationButton';
 import { useActiveUnissuedInvRemindersByProjId } from './hooks/useActiveUnissuedInvRemindersByProjId';
 import { useAlertNotify } from './hooks/useAlertNotify';
 import { convertToHalfWidth } from 'libs';
-import parseISO from 'date-fns/parseISO';
 
 
 
@@ -26,12 +25,7 @@ export const AlertDialog = ({
   const [paymentAmount, setPaymentAmount] = useState<string>('0');
 
   const handleDateChange = (value: string) => {
-    if (!value || isNaN(parseISO(value).getDate())) {
-      // 日付データではない場合
-      setPaymentDate('');
-    } else {
-      setPaymentDate(value);
-    }
+    setPaymentDate(value);
   };
 
   const handleAmtChange = (e: ChangeEvent<HTMLInputElement>) => {

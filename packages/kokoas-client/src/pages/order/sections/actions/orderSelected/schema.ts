@@ -7,6 +7,8 @@ import { item } from '../../../schema';
 z.setErrorMap(zodErrorMapJA());
 
 export const schema = z.object({
+  projId: z.string().uuid(),
+  projName: z.string(),
   orderId: z.string().uuid(),
   supplierId: z.string().uuid(),
   supplierName: z.string(),
@@ -26,6 +28,8 @@ export type TOrderForm = z.infer<typeof schema>;
 export type TOrderItem = TOrderForm['selectedItems'][number];
 
 export const initialOrderForm: TOrderForm = {
+  projId: '',
+  projName: '',
   orderId: '',
   supplierId: '',
   supplierName: '',

@@ -4,7 +4,7 @@ import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './ORDialogContent';
 import { ORDialogActions } from './ORDialogActions';
 import { useForm } from 'react-hook-form';
-import { TOrderItem, initialOrderForm, schema } from './schema';
+import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 interface OrderRequestDialogProps {
@@ -25,7 +25,7 @@ export const OrderRequestDialog = ({
   selectedItems,
 }: OrderRequestDialogProps) => {
   
-  const formMethods = useForm({
+  const formMethods = useForm<TOrderForm>({
     defaultValues: {
       ...initialOrderForm,
       projId,

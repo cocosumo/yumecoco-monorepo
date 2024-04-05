@@ -25,13 +25,16 @@ export const CustomAutocomplete = ({
     }, 
     [ref],
   );
+
+  const uniqueData = Array.from(new Set(data));
+  
   
   return (
     <Autocomplete
       value={row[key as keyof RowItem] as string ?? ''}
       disableClearable
       freeSolo
-      options={data ?? []}
+      options={uniqueData ?? []}
       onChange={(_, value) => {
         onRowChange({ ...row, [key]: value || '' }, true);
       }}
@@ -63,6 +66,7 @@ export const CustomAutocomplete = ({
               margin: '4px',
             },
           }}
+          placeholder='選択 ↓'
           sx={{
             height: '100%',
             width: 'calc(100% - 8px)',

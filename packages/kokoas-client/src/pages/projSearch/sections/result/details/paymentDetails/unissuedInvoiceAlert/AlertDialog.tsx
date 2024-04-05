@@ -8,6 +8,7 @@ import { NotificationButton } from './NotificationButton';
 import { useActiveUnissuedInvRemindersByProjId } from './hooks/useActiveUnissuedInvRemindersByProjId';
 import { useAlertNotify } from './hooks/useAlertNotify';
 import { convertToHalfWidth } from 'libs';
+import parseISO from 'date-fns/parseISO';
 
 
 
@@ -21,11 +22,16 @@ export const AlertDialog = ({
   projId: string
 }) => {
   const [purpose, setPurpose] = useState<KAlertPurpose>('unissued');
-  const [paymentDate, setPaymentDate] = useState<Date | null>(null);
+  const [paymentDate, setPaymentDate] = useState<string | null>(null);
   const [paymentAmount, setPaymentAmount] = useState<string>('0');
 
-  const handleDateChange = (value: Date) => {
-    setPaymentDate(value);
+  const handleDateChange = (value: string) => {
+    if (!value || isNaN(parseISO(value).getDate())) {
+      // 日付データではない場合
+      setPaymentDate('');
+    } else {
+      setPaymentDate(value);
+    }
   };
 
   const handleAmtChange = (e: ChangeEvent<HTMLInputElement>) => {

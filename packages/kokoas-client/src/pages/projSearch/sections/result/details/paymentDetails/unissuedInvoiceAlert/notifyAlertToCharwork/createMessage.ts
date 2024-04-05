@@ -18,7 +18,7 @@ export const createMessage = async ({
   recContracts: IContracts[]
   purpose: KAlertPurpose
   reminderRecId: string
-  paymentDate: Date | null
+  paymentDate: string | null
   paymentAmount: string
 }) => {
 
@@ -35,7 +35,7 @@ export const createMessage = async ({
     recContracts,
   });
 
-  const displayDate = paymentDate ? `${format(paymentDate, 'yyyy年MM月dd日')}に` : '';
+  const displayDate = paymentDate ? `${format(parseISO(paymentDate), 'yyyy年MM月dd日')}に` : '';
   const hasPaymentAmount = !isNaN(+paymentAmount) && paymentAmount !== '' && paymentAmount !== '0';
   const displayAmount = hasPaymentAmount ? `\xA5${(+paymentAmount).toLocaleString()}-` : '';
 

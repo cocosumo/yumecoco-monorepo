@@ -2,6 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { KAlertPurpose, alertMessages } from '../alertConfig';
 import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 
 
 
@@ -12,7 +13,7 @@ export const Explanation = ({
   purpose,
 }: {
   label?: string
-  paymentDate: Date | null
+  paymentDate: string | null
   paymentAmount: string
   purpose: KAlertPurpose
 }) => {
@@ -22,7 +23,7 @@ export const Explanation = ({
     const defaultMessage = alertMessages[purpose];
     const displayAmount = !isNaN(+paymentAmount) && paymentAmount !== '0' && paymentAmount !== '' ?
       (+paymentAmount).toLocaleString() : null;
-    const displayDate = paymentDate ? format(paymentDate, 'yyyy年MM月dd日') : '';
+    const displayDate = paymentDate ? format(parseISO(paymentDate), 'yyyy年MM月dd日') : '';
 
     if (!paymentDate && !displayAmount) {
 

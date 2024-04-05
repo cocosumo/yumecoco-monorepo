@@ -14,9 +14,9 @@ export const AlertContent = ({
   handleAmtChange,
 }: {
   purpose: KAlertPurpose
-  paymentDate: Date | null
+  paymentDate: string | null
   paymentAmount: string
-  handleDateChange: (v: Date) => void
+  handleDateChange: (v: string) => void
   handleAmtChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
 }) => {
 

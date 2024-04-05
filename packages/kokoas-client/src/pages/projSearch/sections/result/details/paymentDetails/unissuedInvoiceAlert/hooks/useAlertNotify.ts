@@ -36,7 +36,7 @@ export const useAlertNotify = ({
 
   const alertNotify = async (
     reminderRecId: string,
-    paymentDate: Date | null,
+    paymentDate: string | null,
     paymentAmount: string,
   ) => {
     let hasError = false;

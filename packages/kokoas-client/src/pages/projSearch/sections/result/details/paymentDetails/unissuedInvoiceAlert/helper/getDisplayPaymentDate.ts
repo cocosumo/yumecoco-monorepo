@@ -2,7 +2,7 @@ import format from 'date-fns/format';
 
 
 
-export const getDisplayPaymentDate = (paymentDate: string | null) => {
+export const getDisplayPaymentDate = (paymentDate: Date | null) => {
 
   if (!paymentDate || isNaN(new Date(paymentDate).getDate())) {
     // 日付データではない場合

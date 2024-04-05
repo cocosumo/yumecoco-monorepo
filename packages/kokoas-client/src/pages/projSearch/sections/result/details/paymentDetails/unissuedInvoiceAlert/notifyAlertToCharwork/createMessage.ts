@@ -19,7 +19,7 @@ export const createMessage = async ({
   recContracts: IContracts[]
   purpose: KAlertPurpose
   reminderRecId: string
-  paymentDate: string | null
+  paymentDate: Date | null
   paymentAmount: string
 }) => {
 

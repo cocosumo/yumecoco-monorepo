@@ -9,8 +9,8 @@ export const PaymentDate = ({
   paymentDate,
 }: {
   label?: string
-  handleChange: (v: string) => void
-  paymentDate: string | null
+  handleChange: (v: Date) => void
+  paymentDate: Date | null
 }) => {
 
 

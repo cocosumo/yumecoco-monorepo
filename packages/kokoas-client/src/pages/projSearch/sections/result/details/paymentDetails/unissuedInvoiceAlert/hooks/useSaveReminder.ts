@@ -11,7 +11,7 @@ export const useSaveReminder = ({
 }: {
   projId: string
   purpose: KAlertPurpose
-  paymentDate: string | null
+  paymentDate: Date | null
   paymentAmount: string
 }) => {
 

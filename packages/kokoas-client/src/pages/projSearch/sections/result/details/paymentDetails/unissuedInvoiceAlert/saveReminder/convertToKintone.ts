@@ -30,7 +30,7 @@ export const convertToKintone = ({
   recContracts: IContracts[]
   recEmployees: IEmployees[]
   purpose: KAlertPurpose
-  paymentDate: string | null
+  paymentDate: Date | null
   paymentAmount: string
 }) => {
 

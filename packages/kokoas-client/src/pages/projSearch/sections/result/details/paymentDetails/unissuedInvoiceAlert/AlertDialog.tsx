@@ -21,10 +21,10 @@ export const AlertDialog = ({
   projId: string
 }) => {
   const [purpose, setPurpose] = useState<KAlertPurpose>('unissued');
-  const [paymentDate, setPaymentDate] = useState<string | null>(null);
+  const [paymentDate, setPaymentDate] = useState<Date | null>(null);
   const [paymentAmount, setPaymentAmount] = useState<string>('0');
 
-  const handleDateChange = (value: string) => {
+  const handleDateChange = (value: Date) => {
     setPaymentDate(value);
   };
 

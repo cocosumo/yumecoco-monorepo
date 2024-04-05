@@ -17,10 +17,10 @@ export const AlertDialogContent = ({
 }: {
   purpose: KAlertPurpose
   handlePurposeChange: (e: ChangeEvent<HTMLInputElement>, value: KAlertPurpose) => void
-  handleDateChange: (v: string) => void
+  handleDateChange: (v: Date) => void
   handleAmtChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>
   projId: string
-  paymentDate: string | null
+  paymentDate: Date | null
   paymentAmount: string
 }) => {
 

@@ -12,7 +12,7 @@ export const Explanation = ({
   purpose,
 }: {
   label?: string
-  paymentDate: string | null
+  paymentDate: Date | null
   paymentAmount: string
   purpose: KAlertPurpose
 }) => {

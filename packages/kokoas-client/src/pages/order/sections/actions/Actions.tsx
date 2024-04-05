@@ -1,13 +1,15 @@
 import { Stack } from '@mui/material';
 import { CopyEstimates } from './copyEstimates/CopyEstimates';
+import { OrderSelected } from './orderSelected/OrderSelected';
 
 export const Actions = () => {
   return (
     <Stack
       spacing={2}
       alignItems={'flex-start'}
+      direction={'row'}
     >
-      {/* TODO: ADD more Buttons */}
+      <OrderSelected  />
       <CopyEstimates />
 
     </Stack>

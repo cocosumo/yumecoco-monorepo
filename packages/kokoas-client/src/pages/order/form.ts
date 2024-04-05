@@ -3,6 +3,7 @@ import { TForm } from './schema';
 export const initialValues : TForm = {
   projId: '',
   projName: '',
+  storeName: '',
   revision: '',
   items: [
     {

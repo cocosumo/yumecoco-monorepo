@@ -3,6 +3,7 @@ import { KForm, KItem } from '../schema';
 /** hotfixで仮実装です。時間が空いたら、翻訳をシステム全体に共有出来るようにします。~RAS */
 export const ja: Record<KForm | KItem, string> = {
   projId: '工事番号',
+  storeName: '店舗名',
   costPrice: '原価',
   items: '項目',
   majorItem: '大項目',

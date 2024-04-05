@@ -18,6 +18,7 @@ export const convertOrderBudgetToForm = ({
 
   const {
     projName,
+    store,
   } = project;
 
 
@@ -25,6 +26,7 @@ export const convertOrderBudgetToForm = ({
     projId: projId.value || '',
     projName: projName.value || '',
     revision: revision.value,
+    storeName: store.value || '',
     items: items.value.map(({ id, value: row }) => ({
       itemId: id,
       status: row.status.value,

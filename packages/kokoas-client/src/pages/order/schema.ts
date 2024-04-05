@@ -11,6 +11,9 @@ export const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** 店舗名 */
+  storeName: z.string(),
+
   /** revision */
   revision: z.string().optional(),
 

@@ -4,7 +4,8 @@ import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './ORDialogContent';
 import { ORDialogActions } from './ORDialogActions';
 import { useForm } from 'react-hook-form';
-import { TOrderItem, initialOrderForm } from './schema';
+import { TOrderItem, initialOrderForm, schema } from './schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 interface OrderRequestDialogProps {
   open: boolean,
@@ -21,6 +22,7 @@ export const OrderRequestDialog = ({
   projId,
   projName,
   storeName,
+  selectedItems,
 }: OrderRequestDialogProps) => {
   
   const formMethods = useForm({
@@ -28,8 +30,13 @@ export const OrderRequestDialog = ({
       ...initialOrderForm,
       projId,
       projName,
+      selectedItems,
     },
+    resolver: zodResolver(schema),
+    
   });
+
+  const { control } = formMethods;
 
 
   return (
@@ -45,7 +52,7 @@ export const OrderRequestDialog = ({
       />
       <CloseButton handleClose={handleClose} />
 
-      <ORDialogContent />
+      <ORDialogContent control={control} />
 
       <ORDialogActions />
 

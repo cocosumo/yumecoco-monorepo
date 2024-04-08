@@ -13,10 +13,9 @@ import { renderText } from './renderers/renderText';
 import { renderTaxType } from './renderers/renderTaxType';
 import { Typography } from '@mui/material';
 
-export type RowItem = TItem & { 
-  id: string,
-  index: number,
-};
+export type RowItem = TItem & {
+  index: number;
+}; // TODO: Remove this type alias if not needed
 
 type MyColumn =  DataGridProps<RowItem>['columns'][number] & {
   key: keyof RowItem;

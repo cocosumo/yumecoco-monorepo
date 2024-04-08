@@ -6,7 +6,6 @@ import { TForm } from '../schema';
 import { useRowValues } from './useRowValues';
 
 
-
 /**
  * Handles the keydown event of the DataGrid
  * ここには、Datagridのkeydownイベントを処理する関数が入っている。
@@ -155,8 +154,7 @@ export const useDataGridKeyCellKeyDown = (
       // 選択中のセルで、行を削除する。
       if (isHeadRow) return; // ヘッダーの場合、削除しない。
       remove(rowIdx);
-
-      selectCell({ rowIdx: rowIdx - 1, idx }, true);
+      selectCell({ rowIdx: rowIdx - 1, idx });
 
       preventDefault();
       return;

@@ -31,8 +31,8 @@ export const notifyReminderToCocoAgCw = async ({
       try {
 
         await sendMessage({
-          body: message,
-          roomId: (isProd) ? alertTarget.cwRoomId : chatworkRooms.test,
+          body: (isProd) ? message : `【テスト送信】${alertTarget.agName}宛のメッセージです \n${message}`,
+          roomId: (isProd) ? alertTarget.cwRoomId : chatworkRooms.testRoom,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
 

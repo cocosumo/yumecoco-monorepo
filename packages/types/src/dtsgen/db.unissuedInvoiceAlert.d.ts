@@ -5,10 +5,10 @@ declare namespace DBUnissuedinvoicealert {
     yumeAG: kintone.fieldTypes.SingleLineText;
     expectedPaymentDate: kintone.fieldTypes.Date;
     projType: kintone.fieldTypes.SingleLineText;
+    paymentAmount: kintone.fieldTypes.SingleLineText;
     totalContractAmount: kintone.fieldTypes.Number;
     scheduledAlertDate: kintone.fieldTypes.Date;
     alertState: kintone.fieldTypes.SingleLineText;
-    plannedDepositDate: kintone.fieldTypes.Date;
     reminderDate: kintone.fieldTypes.DropDown;
     area: kintone.fieldTypes.SingleLineText;
     systemId: kintone.fieldTypes.SingleLineText;
@@ -20,6 +20,7 @@ declare namespace DBUnissuedinvoicealert {
     lastAlertDate: kintone.fieldTypes.Date;
     andpadUrl: kintone.fieldTypes.Link;
     contractId: kintone.fieldTypes.SingleLineText;
+    paymentDate: kintone.fieldTypes.Date;
     notificationSettings: {
       type: "SUBTABLE";
       value: Array<{

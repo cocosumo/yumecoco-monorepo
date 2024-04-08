@@ -43,7 +43,7 @@ kill $(lsof -t -i:[port番号])
 14.  最終行のTest server にアクセスして、「YEHEY」が表示されればOK
 15.  [ctrl]+cで終了
 
-prod環境へ反映する
+## prod環境へ反映する
 
 1. PuTTYでココアス用の設定(※1)を選択し、[load]をクリックしてから[open]する
 2. IDとパスワードを入れる

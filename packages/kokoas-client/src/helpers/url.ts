@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 
 
 export interface URLParams {
@@ -8,6 +9,7 @@ export interface URLParams {
   invoiceId?: string | null,
   clearFields?: string | null,
   contractId?: string | null,
+  revision?: number | string | null,
 }
 
 

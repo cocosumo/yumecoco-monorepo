@@ -51,5 +51,7 @@ export const fieldMapJa: Partial<Record<KForm, string>> = {
   commissionRate: '紹介料率',
   commRateByRole: '役職による紹介料率',
   profitRate: '利益率',
-
+  cocoConst: 'ここすも担当者',
+  cocoAG: '営業担当者',
+  yumeAG: 'ゆめてつAG',
 };

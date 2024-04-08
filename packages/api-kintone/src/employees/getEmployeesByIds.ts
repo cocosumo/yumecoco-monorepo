@@ -7,8 +7,19 @@ export const getEmployeesByIds = async (ids: string[]) => {
     return `${idField} = "${id}"`;
   }).join(' or ');
 
-  return getRecords<RecordType>({
+  const result = await getRecords<RecordType>({
     app: appId,
     query,
   });
+
+  const records = result.records;
+
+  const sortRecords = ids.map((id) => {
+    return records.find((record) => record.uuid.value === id) as RecordType;
+  });
+
+  return {
+    ...result,
+    records: sortRecords,
+  };
 };

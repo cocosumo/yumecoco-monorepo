@@ -7,6 +7,7 @@ import { KAlertPurpose, alertPurposes } from './alertConfig';
 import { NotificationButton } from './NotificationButton';
 import { useActiveUnissuedInvRemindersByProjId } from './hooks/useActiveUnissuedInvRemindersByProjId';
 import { useAlertNotify } from './hooks/useAlertNotify';
+import { convertToHalfWidth } from 'libs';
 
 
 
@@ -19,13 +20,25 @@ export const AlertDialog = ({
   handleClose: () => void
   projId: string
 }) => {
-  const [purpose, setPurpose] = useState('unissued' as KAlertPurpose);  
+  const [purpose, setPurpose] = useState<KAlertPurpose>('unissued');
   const [paymentDate, setPaymentDate] = useState<Date | null>(null);
+  const [paymentAmount, setPaymentAmount] = useState<string>('0');
 
   const handleDateChange = (value: Date) => {
     setPaymentDate(value);
   };
 
+  const handleAmtChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newVal = e.target.value;
+    const numVal = convertToHalfWidth(newVal);
+
+    if (!isNaN(+numVal)) {
+      setPaymentAmount(numVal);
+    } else {
+      setPaymentAmount(newVal);
+    }
+
+  };
 
   const recUnissuedInvReminders = useActiveUnissuedInvRemindersByProjId(projId);
 
@@ -40,6 +53,7 @@ export const AlertDialog = ({
     projId,
     purpose,
     paymentDate,
+    paymentAmount,
   });
 
   const {
@@ -55,14 +69,14 @@ export const AlertDialog = ({
   const handleAlert = async () => {
     const saveRec = await saveReminder();
     if (!saveRec) return;
-    alertNotify(saveRec.id, paymentDate);
+    alertNotify(saveRec.id, paymentDate, paymentAmount);
     handleClose();
   };
 
   const isDuplication = Boolean(recUnissuedInvReminders &&
     (recUnissuedInvReminders.some(({ alertType }) => alertPurposes[purpose] === alertType.value)));
 
-  const duplicateExplanation = isDuplication ? '同アラートが既に設定されています' : '';
+  const duplicateExplanation = isDuplication ? '注:同アラートが設定されています' : '';
 
   return (
     <Dialog
@@ -89,8 +103,10 @@ export const AlertDialog = ({
         purpose={purpose}
         handlePurposeChange={handlePurposeChange}
         handleDateChange={handleDateChange}
+        handleAmtChange={handleAmtChange}
         projId={projId}
         paymentDate={paymentDate}
+        paymentAmount={paymentAmount}
       />
 
       <DialogCloseButton handleClose={handleClose} />
@@ -102,7 +118,6 @@ export const AlertDialog = ({
           <NotificationButton
             explanation={duplicateExplanation}
             handleAlert={handleAlert}
-            isDuplication={isDuplication}
           />
         </>}
         {isLoading && <Typography>

@@ -303,9 +303,6 @@ const schema = z.object({
     path: ['structure'],
     message: '構造を入力してください。',
   });
-    
-  
-  
 
 
 export type TypeOfForm = z.infer<typeof schema>;

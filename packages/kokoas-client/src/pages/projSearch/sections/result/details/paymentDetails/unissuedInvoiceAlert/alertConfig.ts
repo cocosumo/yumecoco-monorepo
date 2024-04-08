@@ -1,4 +1,6 @@
 
+export const alertIssuer = ['経理', 'システム'];
+
 export const alertPurposes = {
   'unissued': '請求書未発行(入金あり)',
   'subsidy': '補助金の請求書発行',
@@ -11,7 +13,7 @@ type AlertMessages = {
 };
 
 export const alertMessages: AlertMessages = {
-  'unissued': '顧客からの入金がありましたが、請求書が発行されていません。',
+  'unissued': '入金されましたが、請求書が発行されていません。',
   'subsidy': '補助金の入金予定があります。',
 };
 

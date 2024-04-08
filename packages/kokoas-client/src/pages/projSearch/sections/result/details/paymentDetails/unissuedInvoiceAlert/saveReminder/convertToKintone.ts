@@ -4,7 +4,7 @@ import { getNotificationSettings } from './getNotificationSettings';
 import format from 'date-fns/format';
 import addWeeks from 'date-fns/addWeeks';
 import { KAlertPurpose, alertPurposes } from '../alertConfig';
-import { getPlannedDepositDate } from './getPlannedDepositDate';
+import { getDisplayPaymentDate } from '../helper/getDisplayPaymentDate';
 
 
 
@@ -25,12 +25,14 @@ export const convertToKintone = ({
   recEmployees,
   purpose,
   paymentDate,
+  paymentAmount,
 }: {
   recProj: IProjects
   recContracts: IContracts[]
   recEmployees: IEmployees[]
   purpose: KAlertPurpose
   paymentDate: Date | null
+  paymentAmount: string
 }) => {
 
   const {
@@ -62,10 +64,7 @@ export const convertToKintone = ({
     recEmployees,
   });
 
-  const plannedDepositDate = getPlannedDepositDate({
-    purpose,
-    paymentDate,
-  });
+  const plannedDepositDate = getDisplayPaymentDate(paymentDate, 'yyyy-MM-dd');
 
   const kintoneRecord: Partial<IUnissuedinvoicealert> = {
     // recProj
@@ -95,7 +94,8 @@ export const convertToKintone = ({
     lastAlertDate: { value: format(new Date(), 'yyyy-MM-dd') },
     alertType: { value: alertPurposes[purpose] },
 
-    plannedDepositDate: { value: plannedDepositDate },
+    paymentDate: { value: plannedDepositDate },
+    paymentAmount: { value: paymentAmount },
   };
 
   return kintoneRecord;

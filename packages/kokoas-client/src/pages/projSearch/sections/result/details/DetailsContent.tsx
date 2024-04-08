@@ -7,13 +7,15 @@ import { EstimatesDetails } from './estimatesDetails/EstimatesDetails';
 import { ContractDetails } from './contractDetails/ContractDetails';
 import { PaymentDetails } from './paymentDetails/PaymentDetails';
 import { CostMgtDetails } from './costMgtDetails/CostMgtDetails';
+import { DetailsTabs } from './DetailsDialog';
+import { OrderDetails } from './orderDetails/OrderDetails';
 
 export const DetailsContent = ({
   projId,
-  tabIdx,
+  tabValue,
 }:{
   projId: string
-  tabIdx: number,
+  tabValue: DetailsTabs,
 }) => {
 
 
@@ -34,29 +36,34 @@ export const DetailsContent = ({
         p: 0,
       }}
     >
-      {tabIdx === 0 && custGroupId?.value && (
+      {tabValue === '顧客' && custGroupId?.value && (
         <CustomerDetails 
           custGroupId={custGroupId.value}
         />
       )}
 
-      {tabIdx === 1 && recProj && (
+      {tabValue === '工事' && recProj && (
         <ProjectDetails recProj={recProj} />
       )}
 
-      {tabIdx === 2 && (
+      {tabValue === '見積' && (
         <EstimatesDetails projId={projId} />
       )}
 
-      {tabIdx === 3 && (
+      {tabValue === '契約' && (
         <ContractDetails projId={projId} />
       )}
 
-      {tabIdx === 4 && (
+      
+      {tabValue === '発注' && (
+        <OrderDetails projId={projId} />
+      )}
+
+      {tabValue === '入金' && (
         <PaymentDetails projId={projId} />
       )}
 
-      {tabIdx === 5 && (
+      {tabValue === '原価管理表' && (
       <CostMgtDetails projId={projId} />
       )}
 

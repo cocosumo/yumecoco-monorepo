@@ -34,7 +34,8 @@ export const convertCustGroupAgentsToForm = ({
   // 二つまで選択出来る。加減はこちららで行う。
   // よく変わるものなら、マスター設定に実装し、そこから取得する。
   const maxNumOfAgents = 2;
-  while (result.length < maxNumOfAgents) {
+
+  if (result.length < maxNumOfAgents) {
     result.push(getDefaultEmployee(agType));
   }
 

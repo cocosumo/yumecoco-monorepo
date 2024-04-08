@@ -29,11 +29,13 @@ export const RealEstateStatus = () => {
           onBlur,
           ref,
         },
+        fieldState: { error },
       }) => {
         return (
           <FormControl
             size='small'
             required
+            error={!!error}
           >
             <FormLabel id={name}>
               不動産決済

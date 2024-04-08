@@ -36,13 +36,13 @@ export const createMessage = async ({
     recContracts,
   });
 
-  const hasDisplayDate = getDisplayPaymentDate(paymentDate);
-  const displayDate = hasDisplayDate ? `${hasDisplayDate}に` : hasDisplayDate;
+  const displayDate = getDisplayPaymentDate(paymentDate);
+  const displayDate2 = displayDate ? `${displayDate}に` : displayDate;
   const hasPaymentAmount = !isNaN(+paymentAmount) && paymentAmount !== '' && paymentAmount !== '0';
   const displayAmount = hasPaymentAmount ? `\xA5${(+paymentAmount).toLocaleString()}-` : '';
 
   const title = '[title]【ココアス】お客さまへの請求書の作成が確認できていません[/title]';
-  const message0 = `下記工事に対して、${displayDate}${displayAmount}${alertMessages[purpose]}`;
+  const message0 = `下記工事に対して、${displayDate2}${displayAmount}${alertMessages[purpose]}`;
   const message1 = '請求書の発行をお願いします。\n';
   const content = [
     '【工事内容】',

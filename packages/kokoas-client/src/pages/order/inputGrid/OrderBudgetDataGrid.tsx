@@ -13,7 +13,7 @@ import { DraggableRowRenderer } from './DraggableRowRenderer';
 import { useTypedWatch } from '../hooks/useTypedRHF';
 import { produce } from 'immer';
 
-function rowKeyGetter(row: TForm['items'][number]) {
+function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
 }
 

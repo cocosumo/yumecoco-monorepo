@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TForm } from '../schema';
 import { useRowValues } from './useRowValues';
-
+import { useTypedFormContext } from '../hooks/useTypedRHF';
 
 
 /**
@@ -17,12 +17,13 @@ export const useDataGridKeyCellKeyDown = (
   columns: Column<RowItem>[],
 ) => {
 
+  const { setValue } = useTypedFormContext();
+
   const { 
     fields, 
     append, 
     remove,
     insert,
-    update,
   }  = fieldArrayHelpers;
 
   const {
@@ -155,8 +156,7 @@ export const useDataGridKeyCellKeyDown = (
       // 選択中のセルで、行を削除する。
       if (isHeadRow) return; // ヘッダーの場合、削除しない。
       remove(rowIdx);
-
-      selectCell({ rowIdx: rowIdx - 1, idx }, true);
+      selectCell({ rowIdx: rowIdx - 1, idx });
 
       preventDefault();
       return;
@@ -168,8 +168,9 @@ export const useDataGridKeyCellKeyDown = (
       if (isHeadRow) return; // ヘッダーの場合、クリアしない。
 
       if (editable) {
-        update(rowIdx, { ...row, [column.key]: '' });
-        selectCell({ rowIdx, idx }, true);
+        const rowItemKey = `items.${rowIdx}.${column.key}` as 'items.0.majorItem';
+        setValue(rowItemKey, '');
+        selectCell({ rowIdx, idx });
       }
 
       /* if (!isLastCellOfRow) {

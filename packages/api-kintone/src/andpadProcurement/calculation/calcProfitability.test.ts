@@ -12,6 +12,8 @@ describe('calcProfitability', () => {
     yumeCommFeeRate: 19,
     tax: 0.1,
     hasRefund: true,
+    subsidyAmt: 10000,
+    despositAmountSubsidy: 3000,
   };
 
   const {
@@ -33,6 +35,7 @@ describe('calcProfitability', () => {
     受注額計_税抜,
     入金額,
     未入金,
+    補助金,
   } = calcProfitability(testData);
 
 
@@ -109,5 +112,8 @@ describe('calcProfitability', () => {
     expect(未入金).toBe(0);
   });
 
+  it('正しい「補助金」を返す', () => {
+    expect(補助金).toBe(7000);
+  });
 
 });

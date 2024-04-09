@@ -134,7 +134,8 @@ export const calcProfitability = (params: {
    * 補助金 
    * K236 補助金が入金されてたら、原価管理表には表示しない。
   */
-  const parsedSubsidyAmt = subsidyAmt > 0 ? subsidyAmt - despositAmountSubsidy : 0;
+  const parsedSubsidyAmt = subsidyAmt > 0 ? Big(subsidyAmt).minus(despositAmountSubsidy)
+    .toNumber() : 0;
 
   return {
     orderAmountBeforeTax: orderAmountBeforeTax,

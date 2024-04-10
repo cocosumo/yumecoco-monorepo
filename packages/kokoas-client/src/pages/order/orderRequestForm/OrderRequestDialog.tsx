@@ -7,6 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { atom, useAtom } from 'jotai';
+import { useEffect } from 'react';
 
 interface OrderRequestDialogProps {
   open: boolean,
@@ -50,8 +51,20 @@ export const OrderRequestDialog = () => {
       selectedItems,
     },
     resolver: zodResolver(schema),
-    
   });
+
+  const { reset } = formMethods;
+
+  useEffect(() => {
+    if (open) {
+      reset({
+        ...initialOrderForm,
+        projId,
+        projName,
+        selectedItems,
+      });
+    }
+  }, [open, projId, projName, selectedItems, reset]);
 
   return (
     <Dialog

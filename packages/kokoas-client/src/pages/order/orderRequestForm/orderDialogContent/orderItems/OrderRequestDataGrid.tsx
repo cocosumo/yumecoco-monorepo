@@ -3,14 +3,18 @@ import DataGrid from 'react-data-grid';
 import { RowItem, useColumns } from './useColumns';
 
 import { OrderRequestDataGridContainer } from './OrderRequestDataGridContainer';
+import { useOrderWatch } from '../../hooks/useOrderRHF';
+import { TOrderItem } from '../../schema';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
 }
 
 export const OrderRequestDataGrid = () => {
- 
-
+  
+  const items = useOrderWatch({
+    name: 'selectedItems',
+  }) as TOrderItem[];
   const columns = useColumns();
 
   
@@ -20,7 +24,7 @@ export const OrderRequestDataGrid = () => {
         rowKeyGetter={rowKeyGetter}
         className='rdg-light' // enforce light theme 
         columns={columns} 
-        rows={[]}
+        rows={items}
         defaultColumnOptions={{
           resizable: true,
           width: 'max-content',

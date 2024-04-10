@@ -4,16 +4,17 @@ import { useCallback, useMemo } from 'react';
 import { RowItem, useColumns } from './useColumns';
 import { OrderBudgetDataGridContainer } from './OrderBudgetDataGridContainer';
 import { useChangeRows } from './useChangeRows';
-import { KItem, TForm } from '../schema';
+import { KItem, TForm, TItem } from '../schema';
 import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
-
+import { useTypedWatch } from '../hooks/useTypedRHF';
+import { produce } from 'immer';
 
 function rowKeyGetter(row: RowItem) {
-  return row.id;
+  return String(row.itemId);
 }
 
 export const OrderBudgetDataGrid = () => {
@@ -30,9 +31,20 @@ export const OrderBudgetDataGrid = () => {
     name: 'items',
     control,
   });
-  const {
-    fields,
-  } = fieldArrayHelpers;
+
+  const items = useTypedWatch({
+    name: 'items',
+  }) as TForm['items'];
+
+  const itemsWithIndex: RowItem[] = useMemo(() => {
+    return items.map((item, index) => {
+      return {
+        ...item,
+        index,
+      };
+    });
+    
+  }, [items]);
 
   const columns = useColumns();
 
@@ -45,19 +57,15 @@ export const OrderBudgetDataGrid = () => {
     handleFill,
   } = useChangeRows();
 
-  const fieldsWithIndex =  useMemo(
-    ()=>{
-      return fields.map((field, index) => ({ ...field, index }));
-    }, 
-    [fields],
-  );
 
-  const renderRow = useCallback((key: React.Key, props: RenderRowProps<RowItem>) => {
+
+  const renderRow = useCallback((key: React.Key, props: RenderRowProps<TItem>) => {
 
     function onRowReorder(fromIndex: number, toIndex: number) {
-
-      const newRows = [...fieldsWithIndex];
-      newRows.splice(toIndex, 0, newRows.splice(fromIndex, 1)[0]);
+      const newRows = produce(items, draft => {
+        const [removed] = draft.splice(fromIndex, 1);
+        draft.splice(toIndex, 0, removed);
+      }); 
 
       setValue('items', newRows);
     }
@@ -68,7 +76,7 @@ export const OrderBudgetDataGrid = () => {
         onRowReorder={onRowReorder}
         //contentEditable={!hasOnProcessContract}
       />);
-  }, [fieldsWithIndex, setValue]);
+  }, [setValue, items]);
   
   return (
     <OrderBudgetDataGridContainer> 
@@ -78,7 +86,7 @@ export const OrderBudgetDataGrid = () => {
           className='rdg-light' // enforce light theme 
           columns={columns} 
           ref={dataGridRef}
-          rows={fieldsWithIndex}
+          rows={itemsWithIndex}
           defaultColumnOptions={{
             resizable: true,
             width: 'max-content',
@@ -94,7 +102,7 @@ export const OrderBudgetDataGrid = () => {
               key,
             } = column;
 
-            handleRowChange(indexes, key as KItem, rows);
+            handleRowChange(indexes, key as KItem, rows as RowItem[]);
           }} 
           style={{ height: '100%' }}
           onCellKeyDown={hasOnProcessContract ? undefined : handleCellKeyDown}

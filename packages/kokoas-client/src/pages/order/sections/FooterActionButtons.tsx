@@ -1,6 +1,5 @@
-import { Box, Button, Paper, Stack } from '@mui/material';
+import { Box, Button, Paper } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-import StoreIcon from '@mui/icons-material/Store';
 import { useSaveForm } from '../hooks/useSaveForm';
 import { useSaveHotkey } from '../hooks/useSaveHotkey';
 
@@ -26,28 +25,16 @@ export const FooterActionButtons = () => {
         },
       }}
     >
-      <Stack 
-        direction="row" 
-        spacing={2}
-        alignItems={'center'}
-      >
-        <Button
-          variant='contained'
-          startIcon={<SaveIcon />}
-          onClick={handleSubmit}
-        >
-          保存
-        </Button>
-        <Button
-          variant='outlined'
-          startIcon={<StoreIcon />}
-          onClick={() => alert('開発中です')}
-          color='primary'
-        >
-          登録
-        </Button>
 
-      </Stack>
+      <Button
+        variant='contained'
+        startIcon={<SaveIcon />}
+        onClick={handleSubmit}
+      >
+        保存
+      </Button>
+
+     
 
     </Box>
  

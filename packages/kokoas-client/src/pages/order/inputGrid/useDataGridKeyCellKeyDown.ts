@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { TForm } from '../schema';
 import { useRowValues } from './useRowValues';
-
+import { useTypedFormContext } from '../hooks/useTypedRHF';
 
 
 /**
@@ -17,12 +17,13 @@ export const useDataGridKeyCellKeyDown = (
   columns: Column<RowItem>[],
 ) => {
 
+  const { setValue } = useTypedFormContext();
+
   const { 
     fields, 
     append, 
     remove,
     insert,
-    update,
   }  = fieldArrayHelpers;
 
   const {
@@ -47,6 +48,7 @@ export const useDataGridKeyCellKeyDown = (
       key, 
       shiftKey,
       ctrlKey,
+      altKey,
     } = event;
 
     const {
@@ -135,8 +137,8 @@ export const useDataGridKeyCellKeyDown = (
      ************/
 
 
-    if (shiftKey && key === 'Insert') {
-      // 選択中のセルで、Shift + Insertキーを押した場合、行をコピーする。
+    if (altKey && key === 'v') {
+      // 選択中のセルで、行をコピーする。
       if (isHeadRow) return;
       insert(rowIdx, { ...row, itemId: '' });
       preventDefault();
@@ -144,18 +146,17 @@ export const useDataGridKeyCellKeyDown = (
     }
 
     if (!shiftKey && key === 'Insert') {
-      // 選択中のセルで、Insertキーを押した場合、行を追加する。
+      // 選択中のセルで、行を追加する。
       insert(rowIdx + 1, getNewRow());
       preventDefault();
       return;
     }
 
-    if (shiftKey && key === 'Delete') {
-      // 選択中のセルで、Shift + Deleteキーを押した場合、行を削除する。
+    if (altKey && key === 'b') {
+      // 選択中のセルで、行を削除する。
       if (isHeadRow) return; // ヘッダーの場合、削除しない。
       remove(rowIdx);
-
-      selectCell({ rowIdx: rowIdx - 1, idx }, true);
+      selectCell({ rowIdx: rowIdx - 1, idx });
 
       preventDefault();
       return;
@@ -167,8 +168,9 @@ export const useDataGridKeyCellKeyDown = (
       if (isHeadRow) return; // ヘッダーの場合、クリアしない。
 
       if (editable) {
-        update(rowIdx, { ...row, [column.key]: '' });
-        selectCell({ rowIdx, idx }, true);
+        const rowItemKey = `items.${rowIdx}.${column.key}` as 'items.0.majorItem';
+        setValue(rowItemKey, '');
+        selectCell({ rowIdx, idx });
       }
 
       /* if (!isLastCellOfRow) {

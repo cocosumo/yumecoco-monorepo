@@ -1,29 +1,46 @@
 import { Dialog } from '@mui/material';
 import { ORDialogTitle } from './ORDialogTitle';
 import { CloseButton } from './CloseButton';
-import { ORDialogContent } from './ORDialogContent';
+import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { ORDialogActions } from './ORDialogActions';
 import { useForm } from 'react-hook-form';
 import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { atom, useAtom } from 'jotai';
 
 interface OrderRequestDialogProps {
   open: boolean,
-  handleClose: () => void,
   projId: string,
   projName: string,
   storeName: string,
   selectedItems: TOrderItem[],
 }
 
-export const OrderRequestDialog = ({
-  open,
-  handleClose,
-  projId,
-  projName,
-  storeName,
-  selectedItems,
-}: OrderRequestDialogProps) => {
+const initialDialogState : OrderRequestDialogProps = {
+  open: false,
+  projId: '',
+  projName: '',
+  storeName: '',
+  selectedItems: [],
+};
+
+export const orderRequestAtom = atom(initialDialogState);
+
+export const OrderRequestDialog = () => {
+
+  const [orderRequest, setOrderRequestAtom] = useAtom(orderRequestAtom);
+
+  const {
+    open,
+    projId,
+    projName,
+    storeName,
+    selectedItems,
+  } = orderRequest;
+
+  const handleClose = () => {
+    setOrderRequestAtom({ ...orderRequest, open: false });
+  };
   
   const formMethods = useForm<TOrderForm>({
     defaultValues: {

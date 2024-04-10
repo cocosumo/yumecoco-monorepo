@@ -4,8 +4,10 @@ import { TextField } from '@mui/material';
 
 export const CustomEmailField = ({
   label,
+  required,
 }:{
-  label: string
+  label: string,
+  required?: boolean,
 }) => {
 
   return (
@@ -14,6 +16,7 @@ export const CustomEmailField = ({
       fullWidth
       variant={'outlined'}
       size={'small'}
+      required={required}
       InputProps={{
         style: { maxWidth: '400px' },
       }}

@@ -7,7 +7,7 @@ export const EmailFields = () => {
       spacing={2}
       direction={'row'}
     >
-      <CustomEmailField label="宛先" />
+      <CustomEmailField label="宛先" required />
       <CustomEmailField label="CC" />
       <CustomEmailField label="BCC" />
 

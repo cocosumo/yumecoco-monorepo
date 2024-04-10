@@ -3,6 +3,7 @@ import { Form } from 'react-hook-form';
 import { SelectSupplier } from './SelectSupplier';
 import { OrderName } from './OrderName';
 import { OrderMethod } from './orderMethod/OrderMethod';
+import { OrderRequestDataGrid } from './orderItems/OrderRequestDataGrid';
 
 export const ORDialogContent = () => {
 
@@ -13,6 +14,7 @@ export const ORDialogContent = () => {
           <SelectSupplier />
           <OrderName />
           <OrderMethod /> 
+          <OrderRequestDataGrid />
         </Stack>
       </Form>
     </DialogContent>

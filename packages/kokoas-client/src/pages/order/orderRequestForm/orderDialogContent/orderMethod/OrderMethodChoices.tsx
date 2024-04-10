@@ -9,6 +9,7 @@ import {
 export const OrderMethodChoices = () => {
   return (
     <FormControl
+      required
       sx={{
         display: 'flex',
         flexDirection: 'row',

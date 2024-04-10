@@ -1,9 +1,6 @@
 import { Autocomplete, TextField } from '@mui/material';
-import { TControlledComponent } from '../schema';
 
-export const c: TControlledComponent = ({
-  control,
-}) => {
+export const SelectSupplier = () => {
   return (
     <Autocomplete
       options={[]}
@@ -13,12 +10,14 @@ export const c: TControlledComponent = ({
         return (
           <TextField
             {...params}
-            label={'仕入先'}
+            label={'業者'}
             size={'small'}
             fullWidth
-            variant={'standard'}
-            inputRef={control.register}
+            variant={'outlined'}
             name={'supplier'}
+            InputProps={{
+              style: { maxWidth: '400px' },
+            }}
             required
           />
         );

@@ -1,8 +1,7 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 //import { envelopeStatuses, signMethods } from 'types';
 import { z } from 'zod';
-import { Control } from 'react-hook-form';
-import { item } from '../../schema';
+import { item } from '../schema';
 
 
 z.setErrorMap(zodErrorMapJA());
@@ -27,12 +26,6 @@ export const schema = z.object({
 
 export type TOrderForm = z.infer<typeof schema>;
 export type TOrderItem = TOrderForm['selectedItems'][number];
-
-export interface TFormControl {
-  control: Control<TOrderForm>;
-} 
-
-export type TControlledComponent<T = unknown> = (props: TFormControl & T) => JSX.Element;
 
 export const initialOrderForm: TOrderForm = {
   projId: '',

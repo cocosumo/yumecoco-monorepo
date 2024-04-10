@@ -3,8 +3,9 @@ import { useMemo } from 'react';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { TForm } from '../../schema';
 import { useSetAtom } from 'jotai';
-import { orderRequestAtom } from '../orderSelected/OrderRequestDialog';
-import { TOrderItem } from '../orderSelected/schema';
+import { TOrderItem } from '../../orderRequestForm/schema';
+import { orderRequestAtom } from '../../orderRequestForm/OrderRequestDialog';
+
 
 export const OrderSelected = () => {
   const setOrderRequestAtom = useSetAtom(orderRequestAtom);

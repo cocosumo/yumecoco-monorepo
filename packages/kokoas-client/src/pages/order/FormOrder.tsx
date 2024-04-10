@@ -8,10 +8,10 @@ import { FooterActionButtons } from './sections/FooterActionButtons';
 import { OrderTableLabel } from './sections/inputGridLabel/OrderTableLabel';
 import { useEffect } from 'react';
 import { Actions } from './sections/actions/Actions';
-import { OrderRequestDialog } from './sections/orderSelected/OrderRequestDialog';
 import { FormOrderContainer } from './FormOrderContainer';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
+import { OrderRequestDialog } from './orderRequestForm/OrderRequestDialog';
 
 
 export const FormOrder = () => {

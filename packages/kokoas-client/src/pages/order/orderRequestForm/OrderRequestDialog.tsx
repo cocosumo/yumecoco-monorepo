@@ -3,7 +3,7 @@ import { ORDialogTitle } from './ORDialogTitle';
 import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { ORDialogActions } from './ORDialogActions';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { atom, useAtom } from 'jotai';
@@ -53,9 +53,6 @@ export const OrderRequestDialog = () => {
     
   });
 
-  const { control } = formMethods;
-
-
   return (
     <Dialog
       open={open}
@@ -63,15 +60,17 @@ export const OrderRequestDialog = () => {
       maxWidth={'lg'}
       fullWidth
     >
-      <ORDialogTitle 
-        storeName={storeName}
-        projName={projName}
-      />
-      <CloseButton handleClose={handleClose} />
+      <FormProvider {...formMethods}>
+        <ORDialogTitle 
+          storeName={storeName}
+          projName={projName}
+        />
+        <CloseButton handleClose={handleClose} />
+    
+        <ORDialogContent />
 
-      <ORDialogContent control={control} />
-
-      <ORDialogActions />
+        <ORDialogActions />
+      </FormProvider>
 
     </Dialog>
   ); 

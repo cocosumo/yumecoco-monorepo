@@ -4,13 +4,11 @@ import { OrderData } from 'types/src/common/order';
 
 export const getOrderData = async (orderId: string): Promise<OrderData> => {
 
-  const [
+  // TODO 各DBから必要な情報を取得する
 
-  ] = await Promise.all([
 
-  ]);
-
-  const variant = '';
+  
+  const variant = ''; // 仮データ
 
   return ({
     orderId: orderId,
@@ -26,7 +24,7 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     cocoConst: variant,
     store: variant,
     vendorAddress: variant,
-    vendorMng: variant,
+    vendorManeger: variant,
   });
 
 };

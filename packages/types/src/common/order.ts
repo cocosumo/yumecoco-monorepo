@@ -3,7 +3,7 @@
 export interface OrderData {
 
   /** 発注ids */
-  orderId: string
+  orderId: string,
 
   /** 発注番号 */
   purchaseOrderId: string,
@@ -42,7 +42,7 @@ export interface OrderData {
   vendorAddress: string,
 
   /** 業者担当者 */
-  vendorMng: string,
+  vendorManeger: string,
 }
 
 

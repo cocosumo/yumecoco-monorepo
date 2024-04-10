@@ -79,18 +79,6 @@ export const useColumns = (): MyColumn[] => {
       renderEditCell: renderMaterials,
     },
     { 
-      key: 'supplierName', 
-      name: '業者名', 
-      editable: false,
-      width: 150,
-    },
-    { 
-      key: 'orderId', 
-      name: '発注番号', 
-      editable: false,
-      width: 100,
-    },
-    { 
       key: 'quantity', 
       name: '数量', 
       editable: true,

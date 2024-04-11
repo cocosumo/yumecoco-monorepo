@@ -1,11 +1,17 @@
 import { Autocomplete, TextField } from '@mui/material';
+import { useAllSuppliers } from 'kokoas-client/src/hooksQuery';
 
 export const SelectSupplier = () => {
+
+
+  const { data = [] } = useAllSuppliers();
+
+  console.log(data);
+
   return (
     <Autocomplete
-      options={[]}
-      freeSolo
-      getOptionLabel={(option) => option}
+      options={data}
+      getOptionLabel={(option) => option.supplierName.value}
       renderInput={(params) => {
         return (
           <TextField

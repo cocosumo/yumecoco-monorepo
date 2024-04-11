@@ -37,7 +37,7 @@ declare namespace DBSuppliers {
     文字列__1行__1: kintone.fieldTypes.SingleLineText;
     membershipFeePar: kintone.fieldTypes.Number;
     online: kintone.fieldTypes.RadioButton;
-    ManagementID: kintone.fieldTypes.SingleLineText;
+    managementID: kintone.fieldTypes.SingleLineText;
     depositType: kintone.fieldTypes.DropDown;
     branchCord: kintone.fieldTypes.Number;
     bill: kintone.fieldTypes.Calc;

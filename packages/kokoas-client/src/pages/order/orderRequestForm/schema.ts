@@ -21,6 +21,7 @@ export const schema = z.object({
   emailBcc: z.string().email()
     .optional(),
   selectedItems: z.array(item),
+  expectedDeliveryDate: z.date().nullable(),
 });
 
 
@@ -39,6 +40,7 @@ export const initialOrderForm: TOrderForm = {
   emailTo: '',
   emailCc: '',
   emailBcc: '',
+  expectedDeliveryDate: null,
   selectedItems: [
     {
       selected: false,

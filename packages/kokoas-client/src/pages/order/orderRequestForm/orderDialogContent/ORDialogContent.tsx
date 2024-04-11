@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { SelectSupplier } from './selectSupplier/SelectSupplier';
+import ComboBox, { SelectSupplier } from './selectSupplier/SelectSupplier';
 import { OrderName } from './OrderName';
 import { OrderMethod } from './orderMethod/OrderMethod';
 import { OrderRequestDataGrid } from './orderItems/OrderRequestDataGrid';
@@ -13,6 +13,7 @@ export const ORDialogContent = () => {
   return (
     <ORDialogContentContainer>
       <SelectSupplier />
+      <ComboBox />
       <OrderName />
       <OrderMethod /> 
       <OrderRequestDataGrid />

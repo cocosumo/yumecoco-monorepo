@@ -15,12 +15,11 @@ export const EmailFields = () => {
       <Stack
         spacing={2}
         direction={'row'}
+        flex={1}
       >
-        
         <EmailToField />
         <CustomEmailField label="CC" name='emailCc' />
         <CustomEmailField label="BCC" name='emailBcc' />
-
       </Stack>
     </Fade>
   );

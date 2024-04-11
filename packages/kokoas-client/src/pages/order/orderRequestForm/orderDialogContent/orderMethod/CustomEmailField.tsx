@@ -9,13 +9,11 @@ type CustomEmailFieldProps = TextFieldProps & {
 };
 
 export const defaultEmailFieldProps: TextFieldProps = {
+  fullWidth: true,
   variant: 'outlined',
   size: 'small',
   placeholder: 'tantosha@company.com',
   type: 'email',
-  InputProps: {
-    style: { maxWidth: '400px' },
-  },
 };
 
 

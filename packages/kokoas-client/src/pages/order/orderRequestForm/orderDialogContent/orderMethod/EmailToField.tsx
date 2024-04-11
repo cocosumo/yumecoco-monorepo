@@ -44,7 +44,7 @@ export const EmailToField = () => {
           <Autocomplete
             value={selectedValue ?? null}
             options={supplierMemberOptions ?? []}
-            sx={{ width: 350 }}
+            fullWidth
             size={'small'}
             onChange={(_, newValue) => {
               onChange(newValue?.label);

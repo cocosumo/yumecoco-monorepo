@@ -20,6 +20,7 @@ export const schema = z.object({
     .optional(),
   emailBcc: z.string().email()
     .optional(),
+  remarks: z.string().optional(),
   selectedItems: z.array(item),
 });
 
@@ -39,6 +40,7 @@ export const initialOrderForm: TOrderForm = {
   emailTo: '',
   emailCc: '',
   emailBcc: '',
+  remarks: '',
   selectedItems: [
     {
       selected: false,

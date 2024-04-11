@@ -5,7 +5,7 @@ import { Controller } from 'react-hook-form';
 
 
 type CustomEmailFieldProps = TextFieldProps & {
-  name: 'emailTo' | 'emailCc' | 'emailBcc';
+  name: 'emailCc' | 'emailBcc';
 };
 
 export const defaultEmailFieldProps: TextFieldProps = {

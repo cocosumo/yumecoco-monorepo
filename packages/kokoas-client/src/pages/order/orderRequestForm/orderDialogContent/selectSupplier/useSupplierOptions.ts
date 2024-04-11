@@ -8,6 +8,7 @@ export const useSupplierOptions = () => {
         return data.map((supplier) => ({
           label: supplier.supplierName.value,
           id: supplier.managementID.value,
+          record: supplier,
         }));
       },
     },

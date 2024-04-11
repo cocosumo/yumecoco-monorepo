@@ -8,17 +8,18 @@ type CustomEmailFieldProps = TextFieldProps & {
   name: 'emailTo' | 'emailCc' | 'emailBcc';
 };
 
-
-export const CustomEmailField = forwardRef<HTMLInputElement, CustomEmailFieldProps>(({
-  label,
-  required,
-  variant = 'outlined',
-  size = 'small',
-  placeholder = 'tantosha@company.com',
-  type = 'email', 
-  InputProps = {
+export const defaultEmailFieldProps: TextFieldProps = {
+  variant: 'outlined',
+  size: 'small',
+  placeholder: 'tantosha@company.com',
+  type: 'email',
+  InputProps: {
     style: { maxWidth: '400px' },
   },
+};
+
+
+export const CustomEmailField = forwardRef<HTMLInputElement, CustomEmailFieldProps>(({
   name,
   ...props
 }, ref) => {
@@ -29,18 +30,17 @@ export const CustomEmailField = forwardRef<HTMLInputElement, CustomEmailFieldPro
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
+      render={({ 
+        field, 
+        fieldState: { error }, 
+      }) => (
         <TextField
           {...field}
-          label={label}
-          required={required}
-          variant={variant}
-          size={size}
-          placeholder={placeholder}
-          type={type}
-          InputProps={InputProps}
-          inputRef={ref}
+          {...defaultEmailFieldProps}
           {...props}
+          inputRef={ref}
+          error={!!error}
+          helperText={error?.message}
         />
       )}
 

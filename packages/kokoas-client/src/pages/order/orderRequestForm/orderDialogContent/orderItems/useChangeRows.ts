@@ -4,13 +4,22 @@ import { RowItem } from './useColumns';
 import { produce } from 'immer';
 import { KItem } from '../../../schema';
 import { useOrderFormContext } from '../../hooks/useOrderRHF';
+import { useController } from 'react-hook-form';
 
 
 
 
 
 export const useChangeRows = () => {
-  const { setValue } = useOrderFormContext();
+  const { setValue, control } = useOrderFormContext();
+  const { 
+    fieldState: {
+      error,
+    },
+  } = useController({
+    name: 'selectedItems',
+    control,
+  });
 
   const calculatedRow = useCallback((row: RowItem, fieldName: KItem) => {
 
@@ -71,6 +80,7 @@ export const useChangeRows = () => {
 
   return {
     handleRowChange,
+    error,
   };
 
 };

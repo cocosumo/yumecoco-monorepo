@@ -8,6 +8,7 @@ import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { atom, useAtom } from 'jotai';
 import { useEffect } from 'react';
+import { DevTool } from '@hookform/devtools';
 
 interface OrderRequestDialogProps {
   open: boolean,
@@ -84,7 +85,7 @@ export const OrderRequestDialog = () => {
 
         <ORDialogActions />
       </FormProvider>
-
+      <DevTool control={formMethods.control} />
     </Dialog>
   ); 
 };

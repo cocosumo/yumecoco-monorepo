@@ -11,6 +11,7 @@ export const useDataGridKeyCellKeyDown = (
 ) => {
 
   const { setValue, control } = useOrderFormContext();
+
   const selectedItems = useOrderWatch({
     name: 'selectedItems',
     control,
@@ -90,12 +91,15 @@ export const useDataGridKeyCellKeyDown = (
 
         // 編集中のセルで、Enterキーを押した場合、次のセルに移動する。
         if (isLastCellOfRow) {
-          selectCell({ rowIdx: rowIdx + 1, idx: 1 }, true);
+          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
+          preventDefault();
+
         } else {
           goToNextEditableCell();
           preventDefault();
 
         }
+
       } else if (shiftKey && key === 'Tab') {
 
         if (rowIdx > 0 && idx === 1 ) {
@@ -140,10 +144,10 @@ export const useDataGridKeyCellKeyDown = (
       if (fieldsLength === 0) return; // No rows
       if (isHeadRow) {
         // ヘッダーの場合、最初の行の左端のセルに移動する。
-        selectCell({ rowIdx: 0, idx: 0 }, true);
+        selectCell({ rowIdx: 0, idx: 0 });
       } else if (!isLastRow) {
         // データの場合、次の行の左端のセルに移動する
-        selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
+        selectCell({ rowIdx: rowIdx + 1, idx: 0 });
         
       }
 

@@ -73,6 +73,7 @@ export const OrderRequestDialog = () => {
       onClose={handleClose}
       maxWidth={'lg'}
       fullWidth
+      disableEscapeKeyDown
     >
       <FormProvider {...formMethods}>
         <ORDialogTitle 

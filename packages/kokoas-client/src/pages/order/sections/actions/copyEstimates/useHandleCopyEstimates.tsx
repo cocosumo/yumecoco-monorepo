@@ -94,6 +94,7 @@ export const useHandleCopyEstimates = () => {
         const copiedItems = estimateItems.value.map<TItem>(({ value: estRow }) => {
 
           return ({
+            selected: true,
             majorItem: estRow.大項目.value,
             middleItem: estRow.中項目.value,
             material: estRow.部材名.value,

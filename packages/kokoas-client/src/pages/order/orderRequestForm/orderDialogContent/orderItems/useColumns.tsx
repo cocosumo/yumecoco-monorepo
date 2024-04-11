@@ -1,17 +1,17 @@
 import { DataGridProps } from 'react-data-grid';
 import { roundTo } from 'libs';
 import { ReactNode, useMemo } from 'react';
-import { TForm, TItem } from '../schema';
-import { renderUnits } from './renderers/renderUnits';
-import { renderMajorItem } from './renderers/renderMajorItem';
-import { renderMiddleItem } from './renderers/renderMiddleItem';
-import { renderMaterials } from './renderers/renderMaterials';
 import { useFormState } from 'react-hook-form';
-import { renderNumber } from './renderers/renderNumber';
-import { renderCheckbox } from './renderers/renderCheckBox';
-import { renderText } from './renderers/renderText';
-import { renderTaxType } from './renderers/renderTaxType';
 import { Typography } from '@mui/material';
+import { TItem } from 'kokoas-client/src/pages/order/schema';
+import { renderMajorItem } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderMajorItem';
+import { renderMiddleItem } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderMiddleItem';
+import { renderMaterials } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderMaterials';
+import { renderNumber } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderNumber';
+import { renderUnits } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderUnits';
+import { renderTaxType } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderTaxType';
+import { renderText } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderText';
+import { TOrderForm } from '../../schema';
 
 export type RowItem = TItem & {
   index: number;
@@ -40,35 +40,13 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 export const useColumns = (): MyColumn[] => {
   const {
     errors,
-  } = useFormState<TForm>();
+  } = useFormState<TOrderForm>();
 
 
-  const itemErrors = errors?.items;
+  const itemErrors = errors?.selectedItems;
   
   
   return useMemo(() => [
-    {
-      key: 'selected',
-      name: '',
-      editable: false,
-      frozen: true,
-      resizable: false,
-      width: 35,
-      minWidth: 40,
-      cellClass: 'no-ellipsis',
-      renderCell: renderCheckbox,
-    },
-    { 
-      key: 'status', 
-      name: '状態', 
-      sortable: true, 
-      resizable: true, 
-      frozen: true,
-      cellClass: 'select',
-      editable: false,
-      width: 70,
-      minWidth: 100,    
-    },
     { 
       key: 'majorItem', 
       name: '大項目', 
@@ -99,18 +77,6 @@ export const useColumns = (): MyColumn[] => {
       editable: true,
       width: 150,
       renderEditCell: renderMaterials,
-    },
-    { 
-      key: 'supplierName', 
-      name: '業者名', 
-      editable: false,
-      width: 150,
-    },
-    { 
-      key: 'orderId', 
-      name: '発注番号', 
-      editable: false,
-      width: 100,
     },
     { 
       key: 'quantity', 

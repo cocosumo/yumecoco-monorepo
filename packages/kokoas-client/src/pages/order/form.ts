@@ -7,6 +7,7 @@ export const initialValues : TForm = {
   revision: '',
   items: [
     {
+      selected: false,
       itemId: '',
       status: '',
       majorItem: '',

@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { SelectSupplier } from './SelectSupplier';
+import { SelectSupplier } from './selectSupplier/SelectSupplier';
 import { OrderName } from './OrderName';
 import { OrderMethod } from './orderMethod/OrderMethod';
 import { OrderRequestDataGrid } from './orderItems/OrderRequestDataGrid';
@@ -16,11 +16,15 @@ export const ORDialogContent = () => {
       <OrderName />
       <OrderMethod /> 
       <OrderRequestDataGrid />
+     
       <Stack justifyContent={'space-between'} direction={'row'}>
-        <Remarks />
+        <Stack width={400} spacing={2} >
+          <ExpectedDeliveryDate />
+          <Remarks />
+        </Stack>
         <Summary />
       </Stack>
-      <ExpectedDeliveryDate />
+    
     </ORDialogContentContainer>
   );
 };

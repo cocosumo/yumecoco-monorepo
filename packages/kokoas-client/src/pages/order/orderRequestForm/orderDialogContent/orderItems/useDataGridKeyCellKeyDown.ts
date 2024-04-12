@@ -170,7 +170,7 @@ export const useDataGridKeyCellKeyDown = (
 
     if (key === 'Home') {
       // Homeキーを押した場合、行の最初のセルに移動する。
-      selectCell({ rowIdx, idx: 1 });
+      selectCell({ rowIdx, idx: 0 });
       preventDefault();
       return;
     }

@@ -5,6 +5,7 @@ export const getAllSuppliers = async (
   params?: Omit<Parameters<typeof getAllRecords>[0], 'app'>,
 ) => getAllRecords<RecordType>({
   ...params,
+  orderBy: 'supplierName_ruby asc',
   app: appId,
 });
 

@@ -16,11 +16,15 @@ export const ORDialogContent = () => {
       <OrderName />
       <OrderMethod /> 
       <OrderRequestDataGrid />
+     
       <Stack justifyContent={'space-between'} direction={'row'}>
-        <Remarks />
+        <Stack width={400} spacing={2} >
+          <ExpectedDeliveryDate />
+          <Remarks />
+        </Stack>
         <Summary />
       </Stack>
-      <ExpectedDeliveryDate />
+    
     </ORDialogContentContainer>
   );
 };

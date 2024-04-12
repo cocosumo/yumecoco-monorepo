@@ -5,7 +5,7 @@ import { Controller, useController } from 'react-hook-form';
 
 
 export const SelectSupplier = () => {
-  const { control } = useOrderFormContext();
+  const { control, setValue } = useOrderFormContext();
 
   // Dummy control to store supplier name
   // setValue of useForm also works, but it won't appear on devtools
@@ -47,6 +47,12 @@ export const SelectSupplier = () => {
           onChange={(_, value) => {
             onChange(value?.id);
             onChangeSupplierName(value?.label || '');
+
+            const newEmailTo = value?.record.memberTable.value?.[0].value.memberMail.value || '';
+
+            setValue('emailTo', newEmailTo);
+            setValue('emailCc', '');
+            setValue('emailBcc', '');
           }}
           renderInput={(params) => {
             return (

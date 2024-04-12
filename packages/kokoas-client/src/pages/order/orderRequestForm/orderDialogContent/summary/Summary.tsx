@@ -1,5 +1,7 @@
 import { Stack, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useSummary } from './useSummary';
+
 
 const LabeledInfo = ({
   label,
@@ -34,11 +36,28 @@ const LabeledInfo = ({
 };
 
 export const Summary = () => {
+
+  const {
+    groupedByTaxArray,
+    totalTaxAmount,
+    nonTaxableAmount,
+    totalAmount,
+  } = useSummary();
+
   return (
     <Stack spacing={1}>
-      <LabeledInfo label={'小計'} value={1000000} />
-      <LabeledInfo label={'消費税'} value={100000} />
-      <LabeledInfo label={'税込'} value={1100000} />
+      {groupedByTaxArray.length 
+        ? (
+          groupedByTaxArray.map(([taxRate, amount]) => (
+            <LabeledInfo key={taxRate} label={`小計 ${taxRate}%対象`} value={amount} />
+          ))
+        ) 
+        : (
+          <LabeledInfo label={'小計 課税'} value={0} />
+        )}
+      <LabeledInfo label={'消費税'} value={totalTaxAmount} />
+      <LabeledInfo label={'非課税'} value={nonTaxableAmount} />
+      <LabeledInfo label={'合計'} value={totalAmount} />
     </Stack>
   );
 };

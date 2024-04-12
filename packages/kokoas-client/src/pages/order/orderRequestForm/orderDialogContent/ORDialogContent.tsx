@@ -5,7 +5,7 @@ import { OrderMethod } from './orderMethod/OrderMethod';
 import { OrderRequestDataGrid } from './orderItems/OrderRequestDataGrid';
 import { Remarks } from './Remarks';
 import { ExpectedDeliveryDate } from './ExpectedDeliveryDate';
-import { Summary } from './Summary';
+import { Summary } from './summary/Summary';
 import { ORDialogContentContainer } from './ORDialogContentContainer';
 
 export const ORDialogContent = () => {

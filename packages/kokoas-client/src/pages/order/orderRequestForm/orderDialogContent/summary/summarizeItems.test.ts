@@ -87,7 +87,7 @@ describe('summarizeItems', () => {
     });
   });
 
-  it('should summarize where items all items are 0% tax', () => {
+  it('should summarize where all items are 0% tax', () => {
     const testData = [
       {
         rowCostPriceBeforeTax: 100,

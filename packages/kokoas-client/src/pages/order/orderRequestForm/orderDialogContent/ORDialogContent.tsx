@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { SelectSupplier } from './SelectSupplier';
+import { SelectSupplier } from './selectSupplier/SelectSupplier';
 import { OrderName } from './OrderName';
 import { OrderMethod } from './orderMethod/OrderMethod';
 import { OrderRequestDataGrid } from './orderItems/OrderRequestDataGrid';

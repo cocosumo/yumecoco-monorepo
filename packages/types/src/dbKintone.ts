@@ -43,6 +43,9 @@ export type KAndpadpayments = keyof IAndpadpayments;
 export type IAndpadprocurements = DBAndpadprocurements.SavedData;
 export type KAndpadprocurements = keyof IAndpadprocurements;
 
+export type ISuppliers = DBSuppliers.SavedData;
+export type KSuppliers = keyof ISuppliers;
+
 export type ICustomers = DBCustomers.SavedData;
 export type KCustomers = keyof ICustomers;
 

@@ -64,7 +64,7 @@ export const useDataGridKeyCellKeyDown = (
     };
 
     const goToPrevEditableCell = () => {
-      for (let i = idx - 1; i > 0; i--) {
+      for (let i = idx - 1; i >= 0; i--) {
         if (columns[i]?.editable) {
           selectCell({ rowIdx, idx: i }, true);
           return;
@@ -101,11 +101,10 @@ export const useDataGridKeyCellKeyDown = (
         }
 
       } else if (shiftKey && key === 'Tab') {
-
-        if (rowIdx > 0 && idx === 1 ) {
+        if (rowIdx > 0 && idx === 0 ) {
           // 行の最初のセルで、Shift + Tabキーを押した場合、前の行の最後のセルに移動する。
           selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 }, true);
-        } else if (rowIdx === 0 && idx === 1) {
+        } else if (rowIdx === 0 && idx === 0) {
           // 最初の行の場合、最後の行の最後のセルに移動する。
           selectCell({ rowIdx: fieldsLength - 1, idx: columns.length - 1 }, true);
         

@@ -85,7 +85,8 @@ export const OrderRequestDialog = () => {
 
         <ORDialogActions />
       </FormProvider>
-      <DevTool control={formMethods.control} />
+
+      <DevTool control={formMethods.control} placement='bottom-right' />
     </Dialog>
   ); 
 };

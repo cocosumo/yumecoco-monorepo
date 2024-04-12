@@ -97,6 +97,9 @@ export const AppIds = {
   /** Andpad発注データ */
   andpadProcurements: 253,
 
+  /** 取引先 */
+  suppliers: 308,
+
   ...(isProd ? prodAppIds : devAppIds),
 } as const;
 

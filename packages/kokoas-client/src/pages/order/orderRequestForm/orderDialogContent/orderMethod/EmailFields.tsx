@@ -1,16 +1,26 @@
-import { Stack } from '@mui/material';
+import { Fade, Stack } from '@mui/material';
 import { CustomEmailField } from './CustomEmailField';
+import { useOrderWatch } from '../../hooks/useOrderRHF';
+import { TOrderForm } from '../../schema';
+import { EmailToField } from './EmailToField';
 
 export const EmailFields = () => {
-  return (
-    <Stack
-      spacing={2}
-      direction={'row'}
-    >
-      <CustomEmailField label="宛先" required />
-      <CustomEmailField label="CC" />
-      <CustomEmailField label="BCC" />
+  const orderMethod = useOrderWatch({
+    name: 'orderMethod',
+  }) as TOrderForm['orderMethod'];
 
-    </Stack>
+
+  return (
+    <Fade in={orderMethod === 'email'} >
+      <Stack
+        spacing={2}
+        direction={'row'}
+        flex={1}
+      >
+        <EmailToField />
+        <CustomEmailField label="CC" name='emailCc' />
+        <CustomEmailField label="BCC" name='emailBcc' />
+      </Stack>
+    </Fade>
   );
 };

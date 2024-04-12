@@ -7,6 +7,7 @@ export * from './useAddressTowns';
 export * from './useAllContracts';
 export * from './useAllEmployees';
 export * from './useAllProcurements';
+export * from './useAllSuppliers';
 export * from './useAllUnissuedInvoiceAlerts';
 export * from './useAndpadByProjName';
 export * from './useAndpadBySystemId';

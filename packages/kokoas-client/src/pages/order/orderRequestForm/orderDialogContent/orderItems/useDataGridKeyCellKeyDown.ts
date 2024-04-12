@@ -146,7 +146,7 @@ export const useDataGridKeyCellKeyDown = (
         // ヘッダーの場合、最初の行の左端のセルに移動する。
         selectCell({ rowIdx: 0, idx: 0 });
       } else if (!isLastRow) {
-        // データの場合、次の行の左端のセルに移動する
+        
         selectCell({ rowIdx: rowIdx + 1, idx: 0 });
         
       }

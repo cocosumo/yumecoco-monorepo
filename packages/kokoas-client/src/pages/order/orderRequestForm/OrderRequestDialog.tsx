@@ -43,14 +43,9 @@ export const OrderRequestDialog = () => {
   const handleClose = () => {
     setOrderRequestAtom({ ...orderRequest, open: false });
   };
-  
+
   const formMethods = useForm<TOrderForm>({
-    defaultValues: {
-      ...initialOrderForm,
-      projId,
-      projName,
-      selectedItems,
-    },
+    defaultValues: initialOrderForm,
     resolver: zodResolver(schema),
   });
 
@@ -58,11 +53,16 @@ export const OrderRequestDialog = () => {
 
   useEffect(() => {
     if (open) {
+      const firstMajorItem = selectedItems[0]?.majorItem;
+
+      const isCommonMajorItem = selectedItems.every(item => item.majorItem === firstMajorItem);
+
       reset({
         ...initialOrderForm,
         projId,
         projName,
         selectedItems,
+        orderName: isCommonMajorItem ? firstMajorItem : '',
       });
     }
   }, [open, projId, projName, selectedItems, reset]);
@@ -85,6 +85,7 @@ export const OrderRequestDialog = () => {
 
         <ORDialogActions />
       </FormProvider>
+
       <DevTool control={formMethods.control} placement='bottom-right' />
     </Dialog>
   ); 

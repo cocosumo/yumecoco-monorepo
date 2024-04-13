@@ -107,10 +107,11 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
       return;
     } 
 
-    /************
+
+    if (args.mode === 'EDIT' ) {
+      /************
      * 編集モード
      ***********/
-    if (args.mode === 'EDIT' ) {
 
       if (shiftKey && key === 'Tab') {
         if (idx > firstEditableColIdx) {
@@ -133,113 +134,114 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
       }
       
       return;
-    }
 
-
-    
-    /*************
+    } else if (args.mode === 'SELECT') {
+      /*************
      * 選択モード 
      ************/
 
-    if (altKey && key === 'v') {
+      if (altKey && key === 'v') {
       // 選択中のセルで、行をコピーする。
-      if (isHeadRow) return;
-      insert(rowIdx, { ...row, itemId: v4() } as FieldArray<FieldValues, ArrayPath<T>>);
-      preventDefault();
-      return;
-    }
-
-    if (!shiftKey && key === 'Insert') {
-      // 選択中のセルで、行を追加する。
-      if (!getNewRow) return;
-      insert(rowIdx + 1, getNewRow() );
-      preventDefault();
-      return;
-    }
-
-    if (altKey && key === 'b') {
-      // 選択中のセルで、行を削除する。
-      if (isHeadRow) return; // ヘッダーの場合、削除しない。
-      remove(rowIdx);
-      selectCell({ rowIdx: rowIdx - 1, idx });
-
-      preventDefault();
-      return;
-    }
-
-
-    if (!shiftKey && key === 'Delete') {
-      // 選択中のセルで、Deleteキーを押した場合、値をクリアする。
-      if (isHeadRow) return; // ヘッダーの場合、クリアしない。
-
-      if (editable) {
-        const rowItemKey = `items.${rowIdx}.${column.key}` as 'items.0.majorItem';
-        setValue(rowItemKey, '');
-        selectCell({ rowIdx, idx });
+        if (isHeadRow) return;
+        insert(rowIdx, { ...row, itemId: v4() } as FieldArray<FieldValues, ArrayPath<T>>);
+        preventDefault();
+        return;
       }
 
-      preventDefault();
-      return;
-    }
+      if (!shiftKey && key === 'Insert') {
+      // 選択中のセルで、行を追加する。
+        if (!getNewRow) return;
+        insert(rowIdx + 1, getNewRow() );
+        preventDefault();
+        return;
+      }
+
+      if (altKey && key === 'b') {
+      // 選択中のセルで、行を削除する。
+        if (isHeadRow) return; // ヘッダーの場合、削除しない。
+        remove(rowIdx);
+        selectCell({ rowIdx: rowIdx - 1, idx });
+
+        preventDefault();
+        return;
+      }
+
+
+      if (!shiftKey && key === 'Delete') {
+      // 選択中のセルで、Deleteキーを押した場合、値をクリアする。
+        if (isHeadRow) return; // ヘッダーの場合、クリアしない。
+
+        if (editable) {
+          const rowItemKey = `items.${rowIdx}.${column.key}` as 'items.0.majorItem';
+          setValue(rowItemKey, '');
+          selectCell({ rowIdx, idx });
+        }
+
+        preventDefault();
+        return;
+      }
  
-    if ((key === 'ArrowRight') && isLastCellOfRow) {
+      if ((key === 'ArrowRight') && isLastCellOfRow) {
       // 右端のセルで、右キーを押した場合、次の行の左端のセルに移動する。
      
-      if (fieldsLength === 0) return; // No rows
-      if (isHeadRow) {
+        if (fieldsLength === 0) return; // No rows
+        if (isHeadRow) {
         // ヘッダーの場合、最初の行の左端のセルに移動する。
-        selectCell({ rowIdx: 0, idx: 0 }, true);
-      } else {
+          selectCell({ rowIdx: 0, idx: 0 }, true);
+        } else {
         // データの場合、次の行の左端のセルに移動する。
-        selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
+          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
+        }
+
+        preventDefault();
+        return;
+      }
+    
+      if (key === 'ArrowLeft' && idx === 0) {
+      // 左端のセルで、左キーを押した場合、前の行の右端のセルに移動する。
+        if (rowIdx === 0) return;
+        selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 });
+        preventDefault();
+        return;
+      } 
+    
+      if (key === 'Enter' && !editable) {
+      // 編集できないセルで、Enterキーを押した場合、次のセルに移動する。
+        selectCell({ rowIdx, idx: idx + 1 });
+        return;
       }
 
-      preventDefault();
-      return;
-    }
-    
-    if (key === 'ArrowLeft' && idx === 0) {
-      // 左端のセルで、左キーを押した場合、前の行の右端のセルに移動する。
-      if (rowIdx === 0) return;
-      selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 });
-      preventDefault();
-      return;
-    } 
-    
-    if (key === 'Enter' && !editable) {
-      // 編集できないセルで、Enterキーを押した場合、次のセルに移動する。
-      selectCell({ rowIdx, idx: idx + 1 });
-      return;
-    }
-
-    if (key === 'Home') {
+      if (key === 'Home') {
       // Homeキーを押した場合、行の最初のセルに移動する。
-      selectCell({ rowIdx, idx: firstEditableColIdx });
-      preventDefault();
-      return;
-    }
+        selectCell({ rowIdx, idx: firstEditableColIdx });
+        preventDefault();
+        return;
+      }
 
-    if (key === 'End') {
+      if (key === 'End') {
       // Endキーを押した場合、行の最後のセルに移動する。
-      selectCell({ rowIdx, idx: columns.length - 1 });
-      preventDefault();
-      return;
-    }
+        selectCell({ rowIdx, idx: columns.length - 1 });
+        preventDefault();
+        return;
+      }
 
-    const allowedKeys = [
-      'ArrowDown',
-      'ArrowUp',
-      'ArrowRight',
-      'ArrowLeft',
-      'Tab',
-      'Enter',
-      'Delete',
-      'Insert',
-    ];
+      // 選択モードで、押せるキーを制限する。
+      // 理由は全角で入力すると、上手くいかない。例えば、"さ"は、"sあ"になってしまうため。
+      // 時間があれば、モード関係なく、全角入力に対応する。
+      const allowedKeys = [
+        'ArrowDown',
+        'ArrowUp',
+        'ArrowRight',
+        'ArrowLeft',
+        'Tab',
+        'Enter',
+        'Delete',
+        'Insert',
+      ];
 
-    if (!allowedKeys.includes(key)) {
-
-      preventDefault();
+      if (!allowedKeys.includes(key)) {
+        preventDefault();
+      }
     }
 
   };

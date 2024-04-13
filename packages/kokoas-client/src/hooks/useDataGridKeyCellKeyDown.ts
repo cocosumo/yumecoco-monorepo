@@ -246,7 +246,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         
       ];
 
-      if (!allowedKeys.includes(key) || ctrlKey || shiftKey) {
+      if (!allowedKeys.includes(key)) {
         preventDefault();
       }
     }

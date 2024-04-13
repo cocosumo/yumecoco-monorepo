@@ -237,9 +237,10 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         'Enter',
         'Delete',
         'Insert',
+        
       ];
 
-      if (!allowedKeys.includes(key)) {
+      if (!allowedKeys.includes(key) || ctrlKey || shiftKey) {
         preventDefault();
       }
     }

@@ -4,17 +4,18 @@ import { useCallback, useMemo } from 'react';
 import { RowItem, useColumns } from './useColumns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from './useChangeRows';
-import { KItem, TForm } from '../schema';
-import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
+import { KItem, TForm, TItem } from '../schema';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
 import { Usage } from './Usage';
+import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
+import { useRowValues } from '../hooks';
 
 
 function rowKeyGetter(row: RowItem) {
-  return row.id;
+  return row.itemId;
 }
 
 export const EstimatesDataGrid = () => {
@@ -38,9 +39,17 @@ export const EstimatesDataGrid = () => {
   const columns = useColumns();
 
   const {
+    getNewRow,
+  } = useRowValues();
+
+  const {
     handleCellKeyDown,
     dataGridRef,
-  } = useDataGridKeyCellKeyDown(fieldArrayHelpers, columns);
+  } = useDataGridKeyCellKeyDown<TForm, TItem>({
+    columns,
+    itemsFieldName: 'items',
+    getNewRow,
+  });
   const {
     handleRowChange,
     handleFill,
@@ -96,7 +105,7 @@ export const EstimatesDataGrid = () => {
               key,
             } = column;
 
-            handleRowChange(indexes, key as KItem, rows);
+            handleRowChange(indexes, key as KItem, rows as RowItem[]);
           }} 
           style={{ height: '100%' }}
           onCellKeyDown={hasOnProcessContract ? undefined : handleCellKeyDown}

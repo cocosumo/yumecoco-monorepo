@@ -32,6 +32,7 @@ const schema = z.object({
   taxRate: z.number().max(100),
 
   items: z.array(z.object({
+    itemId: z.string(),
     majorItem: z.string().optional(),
     middleItem: z.string().optional(),
     material: z.string().optional(),

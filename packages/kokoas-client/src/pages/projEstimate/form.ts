@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { EstStatusChoices, TForm } from './schema';
 
 
@@ -27,6 +28,7 @@ export const initialValues : TForm = {
   taxRate: 10,
   items: [
     {
+      itemId: v4(),
       costPrice: 0,
       materialProfRate: 0,
       majorItem: '',

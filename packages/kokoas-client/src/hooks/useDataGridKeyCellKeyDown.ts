@@ -4,7 +4,7 @@ import { ArrayPath, FieldArray, FieldValues, useFieldArray, useFormContext } fro
 import { v4 } from 'uuid';
 
 interface TRowFields {
-  itemId: string;
+  itemId?: string;
 }
 
 export interface UseDataGridKeyCellKeyDownParams<T extends FieldValues, TRow = unknown> {

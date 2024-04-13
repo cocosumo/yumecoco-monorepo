@@ -37,9 +37,7 @@ export const CustomAutocomplete = ({
       options={uniqueData ?? []}
       onChange={(_, value) => {
         onRowChange({ ...row, [key]: value || '' }, true);
-      }}
-      onBlur={(e) => {
-        onRowChange({ ...row, [key]: (e.target as HTMLInputElement).value }, true);
+        console.log('CHANGED!');
       }}
       renderInput={(params) => (
         <TextField

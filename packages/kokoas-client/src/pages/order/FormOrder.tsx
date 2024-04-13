@@ -5,13 +5,13 @@ import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { OrderBudgetDataGrid } from './inputGrid/OrderBudgetDataGrid';
 import { FooterActionButtons } from './sections/FooterActionButtons';
-import { OrderTableLabel } from './sections/inputGridLabel/OrderTableLabel';
 import { useEffect } from 'react';
 import { Actions } from './sections/actions/Actions';
 import { FormOrderContainer } from './FormOrderContainer';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { OrderRequestDialog } from './orderRequestForm/OrderRequestDialog';
+import { OrderTableLabel } from 'kokoas-client/src/components/inputGridLabel/OrderTableLabel';
 
 
 export const FormOrder = () => {

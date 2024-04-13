@@ -9,7 +9,6 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
-import { Usage } from './Usage';
 import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
 import { useRowValues } from '../hooks';
 import { produce } from 'immer';
@@ -85,7 +84,6 @@ export const EstimatesDataGrid = () => {
   
   return (
     <EstimateDataGridContainer> 
-      <Usage />
       <DndProvider backend={HTML5Backend} >
         <DataGrid 
           rowKeyGetter={rowKeyGetter}

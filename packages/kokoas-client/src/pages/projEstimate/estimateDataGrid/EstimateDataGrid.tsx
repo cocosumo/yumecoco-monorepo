@@ -5,13 +5,14 @@ import { RowItem, useColumns } from './useColumns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from './useChangeRows';
 import { KItem, TForm, TItem } from '../schema';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
 import { Usage } from './Usage';
 import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
 import { useRowValues } from '../hooks';
+import { produce } from 'immer';
 
 
 function rowKeyGetter(row: RowItem) {
@@ -24,17 +25,22 @@ export const EstimatesDataGrid = () => {
     setValue,
   } = useFormContext<TForm>();
 
-  const hasOnProcessContract = useWatch({
-    name: 'hasOnProcessContract',
-  });
-
-  const fieldArrayHelpers = useFieldArray({
-    name: 'items',
+  const [hasOnProcessContract, items] = useWatch({
+    name: ['hasOnProcessContract', 'items'],
     control,
   });
-  const {
-    fields,
-  } = fieldArrayHelpers;
+
+
+  const itemsWithIndex: RowItem[] = useMemo(() => {
+    return items.map((item, index) => {
+      return {
+        ...item,
+        index,
+      };
+    });
+    
+  }, [items]);
+
 
   const columns = useColumns();
 
@@ -50,24 +56,21 @@ export const EstimatesDataGrid = () => {
     itemsFieldName: 'items',
     getNewRow,
   });
+
   const {
     handleRowChange,
     handleFill,
   } = useChangeRows();
 
-  const fieldsWithIndex =  useMemo(
-    ()=>{
-      return fields.map((field, index) => ({ ...field, index }));
-    }, 
-    [fields],
-  );
+
 
   const renderRow = useCallback((key: React.Key, props: RenderRowProps<RowItem>) => {
 
     function onRowReorder(fromIndex: number, toIndex: number) {
-
-      const newRows = [...fieldsWithIndex];
-      newRows.splice(toIndex, 0, newRows.splice(fromIndex, 1)[0]);
+      const newRows = produce(items, draft => {
+        const [removed] = draft.splice(fromIndex, 1);
+        draft.splice(toIndex, 0, removed);
+      }); 
 
       setValue('items', newRows);
     }
@@ -78,7 +81,7 @@ export const EstimatesDataGrid = () => {
         onRowReorder={onRowReorder}
         //contentEditable={!hasOnProcessContract}
       />);
-  }, [fieldsWithIndex, setValue]);
+  }, [items, setValue]);
   
   return (
     <EstimateDataGridContainer> 
@@ -89,7 +92,7 @@ export const EstimatesDataGrid = () => {
           className='rdg-light' // enforce light theme 
           columns={columns} 
           ref={dataGridRef}
-          rows={fieldsWithIndex}
+          rows={itemsWithIndex}
           defaultColumnOptions={{
             resizable: true,
             width: 'max-content',

@@ -82,7 +82,6 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
     const preventDefault = () => {
       event.preventDefault();
       event.preventGridDefault();
-      event.stopPropagation();
     };
 
     const getEditableCellIdx = (direction: 'next' | 'prev') => {
@@ -141,7 +140,9 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
      ************/
 
       if (altKey && key === 'v') {
-      // 選択中のセルで、行をコピーする。
+        console.log('args.mode INSERT', args.mode, row);
+
+        // 選択中のセルで、行をコピーする。
         if (isHeadRow) return;
         insert(rowIdx, { ...row, itemId: v4() } as FieldArray<FieldValues, ArrayPath<T>>);
         preventDefault();

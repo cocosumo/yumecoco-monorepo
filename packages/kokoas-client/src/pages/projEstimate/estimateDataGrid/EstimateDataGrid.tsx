@@ -1,6 +1,6 @@
 import 'react-data-grid/lib/styles.css';
 import DataGrid, { RenderRowProps } from 'react-data-grid';
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { RowItem, useColumns } from './useColumns';
 import { EstimateDataGridContainer } from './EstimateDataGridContainer';
 import { useChangeRows } from './useChangeRows';
@@ -28,17 +28,6 @@ export const EstimatesDataGrid = () => {
     name: ['hasOnProcessContract', 'items'],
     control,
   });
-
-
-  const itemsWithIndex: RowItem[] = useMemo(() => {
-    return items.map((item, index) => {
-      return {
-        ...item,
-        index,
-      };
-    });
-    
-  }, [items]);
 
 
   const columns = useColumns();
@@ -90,7 +79,7 @@ export const EstimatesDataGrid = () => {
           className='rdg-light' // enforce light theme 
           columns={columns} 
           ref={dataGridRef}
-          rows={itemsWithIndex}
+          rows={items}
           defaultColumnOptions={{
             resizable: true,
             width: 'max-content',

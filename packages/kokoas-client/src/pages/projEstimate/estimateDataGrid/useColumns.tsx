@@ -6,13 +6,11 @@ import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
 import { renderMaterials } from './renderers/renderMaterials';
-import { useFormState, useWatch } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 import { renderText } from './renderers/renderText';
 import { renderNumber } from './renderers/renderNumber';
 
-export type RowItem = TItem & { 
-  index: number,
-};
+export type RowItem = TItem;
 
 type MyColumn =  DataGridProps<RowItem>['columns'][number] & {
   key: keyof RowItem;
@@ -35,9 +33,7 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 };
 
 export const useColumns = (): MyColumn[] => {
-  const {
-    errors,
-  } = useFormState<TForm>();
+
   const [
     contractId,
   ] = useWatch<TForm>({
@@ -46,13 +42,12 @@ export const useColumns = (): MyColumn[] => {
     ],
   });
 
-  const itemErrors = errors?.items;
   const isEnabled = !contractId;
   
   
   return useMemo(() => [
     {
-      key: 'index',
+      key: 'itemId',
       name: 'No.',
       editable: false,
       frozen: true,
@@ -61,7 +56,7 @@ export const useColumns = (): MyColumn[] => {
       headerCellClass: 'index-header',
       width: 35,
       minWidth: 35,
-      renderCell: ({ row }) => row.index + 1,
+      renderCell: ({ rowIdx }) => rowIdx + 1,
     },
     { 
       key: 'majorItem', 
@@ -103,9 +98,6 @@ export const useColumns = (): MyColumn[] => {
       key: 'costPrice', 
       name: '原価', 
       editable: isEnabled,
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.costPrice ? 'error-cell' : '';
-      },
       renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -125,9 +117,6 @@ export const useColumns = (): MyColumn[] => {
       key: 'quantity', 
       name: '数量', 
       editable: isEnabled,
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.quantity ? 'error-cell' : '';
-      },
       renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -155,9 +144,6 @@ export const useColumns = (): MyColumn[] => {
       key: 'materialProfRate', 
       name: '粗利率', 
       editable: isEnabled,
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.materialProfRate ? 'error-cell' : '';
-      },
       renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -179,9 +165,6 @@ export const useColumns = (): MyColumn[] => {
       key: 'unitPrice', 
       name: '単価', 
       editable: isEnabled,
-      cellClass: ({ index }) => {
-        return itemErrors?.[index]?.unitPrice ? 'error-cell' : '';
-      },
       renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -236,5 +219,5 @@ export const useColumns = (): MyColumn[] => {
       renderEditCell: renderText,
     },
  
-  ], [itemErrors, isEnabled]);
+  ], [isEnabled]);
 };

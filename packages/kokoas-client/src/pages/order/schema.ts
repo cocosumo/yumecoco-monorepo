@@ -9,7 +9,7 @@ export const item = z.object({
   selected: z.boolean(),
 
   /** 部材のuuid */
-  itemId: z.string().optional(),
+  itemId: z.string(),
   
   /** 状態 */
   status: z.string().optional(),

@@ -23,13 +23,13 @@ export const calculateEstimateRecord = ({
   summary: ReturnType<typeof calculateEstimateSummary>
 } => {
   const {
-    内訳: { value: estimatesTable },
-    税: { value: tax },
-  } = record;
+    内訳: items,
+    税: tax,
+  } = record || {};
 
-  const taxRate = +tax / 100;
+  const taxRate = +tax.value / 100;
 
-  const calculatedEstimateTable = estimatesTable?.map(({
+  const calculatedEstimateTable = items?.value.map(({
     value: {
       原価: costPrice,
       単価: unitPrice,
@@ -43,7 +43,7 @@ export const calculateEstimateRecord = ({
       costPrice: +costPrice.value,
       isTaxable:  +(rowTaxRate.value) > 0,
       quantity: +quantity.value,
-      taxRate: taxRate,
+      taxRate,
       unitPrice: +unitPrice.value,
     });
 

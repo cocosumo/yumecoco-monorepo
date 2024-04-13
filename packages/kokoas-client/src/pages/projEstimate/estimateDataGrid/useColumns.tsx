@@ -11,7 +11,6 @@ import { renderText } from './renderers/renderText';
 import { renderNumber } from './renderers/renderNumber';
 
 export type RowItem = TItem & { 
-  id: string,
   index: number,
 };
 

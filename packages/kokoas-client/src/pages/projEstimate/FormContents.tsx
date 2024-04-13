@@ -8,8 +8,6 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
 import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
-import { EstimateTableLabel } from './staticComponents/EstimateTableLabel';
-
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import { Remarks } from './fields/Remarks';
 import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
@@ -20,6 +18,7 @@ import { DevTool } from '@hookform/devtools';
 import { ActionButtons } from './sections/ActionButton';
 import { pages } from '../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
+import { OrderTableLabel } from 'kokoas-client/src/components/inputGridLabel/OrderTableLabel';
 
 
 export const FormContents = ({
@@ -153,7 +152,7 @@ export const FormContents = ({
 
         </Stack>
 
-        <PageSubTitle3 label={<EstimateTableLabel />} />
+        <PageSubTitle3 label={<OrderTableLabel />} />
    
         <Stack>
           <EstimatesDataGrid />

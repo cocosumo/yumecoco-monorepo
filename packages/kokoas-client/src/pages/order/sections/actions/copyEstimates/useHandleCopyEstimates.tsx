@@ -8,10 +8,11 @@ import { ReactNode } from 'react';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { pages } from 'kokoas-client/src/pages/Router';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
-import { TItem } from '../../../schema';
 import { roundTo } from 'libs';
 import { initialRow } from '../../../form';
 import { produce } from 'immer';
+import { TItem } from '../../../schema';
+import { v4 } from 'uuid';
 
 const Info = ({
   title,
@@ -94,6 +95,7 @@ export const useHandleCopyEstimates = () => {
         const copiedItems = estimateItems.value.map<TItem>(({ value: estRow }) => {
 
           return ({
+            itemId: v4(),
             selected: true,
             majorItem: estRow.大項目.value,
             middleItem: estRow.中項目.value,

@@ -1,6 +1,6 @@
 import { CellKeyDownArgs, CellKeyboardEvent, Column, DataGridHandle } from 'react-data-grid';
-import { useRef } from 'react';
-import { ArrayPath, FieldArray, FieldValues, UseFieldArrayReturn, useFormContext } from 'react-hook-form';
+import { useMemo, useRef } from 'react';
+import { ArrayPath, FieldArray, FieldValues, useFieldArray, useFormContext } from 'react-hook-form';
 import { v4 } from 'uuid';
 
 interface TRowFields {
@@ -8,9 +8,9 @@ interface TRowFields {
 }
 
 export interface UseDataGridKeyCellKeyDownParams<T extends FieldValues, TRow = unknown> {
-  getNewRow: () =>  FieldArray<T, ArrayPath<T>>;
-  fieldArrayHelpers: UseFieldArrayReturn<T>,
+  itemsFieldName: ArrayPath<T>,
   columns: Column<TRow>[],
+  getNewRow?: () =>  FieldArray<FieldValues, ArrayPath<T>>;
 }
 
 
@@ -20,24 +20,36 @@ export interface UseDataGridKeyCellKeyDownParams<T extends FieldValues, TRow = u
  * 
  */
 export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TRowFields>({
-  fieldArrayHelpers,
+  itemsFieldName,
   columns,
   getNewRow,
 }: UseDataGridKeyCellKeyDownParams<T, TRow>) {
 
-  const { setValue } = useFormContext();
+  const { setValue, control } = useFormContext();
 
-  const { 
-    fields, 
-    append, 
+  const {
+    fields,  
     remove,
     insert,
-  }  = fieldArrayHelpers;
+  } = useFieldArray({
+    name: itemsFieldName,
+    control,
+  });
 
 
   const dataGridRef = useRef<DataGridHandle>(null);
   
   const fieldsLength = fields.length;
+
+  const {
+    firstEditableColIdx,
+  } = useMemo(() => {
+    return {
+      firstEditableColIdx: columns.findIndex((col) => col.editable),
+      lastEditableColIdx: columns.reduceRight((acc, col, i) => (col.editable ? i : acc), -1),
+    };
+  }, [columns]);
+ 
 
   
   const handleCellKeyDown =  (
@@ -61,34 +73,30 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
     } = dataGridRef.current || {};
 
     if (!selectCell) return; // Datagrid is not ready yet
-
-
-    const preventDefault = () => {
-      event.preventGridDefault();
-      event.preventDefault();
-    };
     
-    const isLastRow = rowIdx === fieldsLength - 1;
+    //const isLastRow = rowIdx === fieldsLength - 1;
     const isLastCellOfRow = idx === columns.length - 1;
     //const isLastRowAndCell = isLastRow && isLastCellOfRow;
     const isHeadRow = rowIdx === -1;
-
-    const goToNextEditableCell = () => {
-      for (let i = idx + 1; i < columns.length; i++) {
-        if (columns[i]?.editable) {
-          selectCell({ rowIdx, idx: i }, true);
-          return;
-        }
-      }
+    
+    const preventDefault = () => {
+      event.preventDefault();
+      event.preventGridDefault();
+      event.stopPropagation();
     };
 
-    const goToPrevEditableCell = () => {
-      for (let i = idx - 1; i > 0; i--) {
+    const getEditableCellIdx = (direction: 'next' | 'prev') => {
+      const start = direction === 'next' ? idx + 1 : idx - 1;
+      const end = direction === 'next' ? columns.length : 0;
+      const step = direction === 'next' ? 1 : -1;
+    
+      for (let i = start; direction === 'next' ? i < end : i > end; i += step) {
         if (columns[i]?.editable) {
-          selectCell({ rowIdx, idx: i }, true);
-          return;
+          return i;
         }
       }
+    
+      return idx;
     };
 
     /**********
@@ -104,54 +112,46 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
      ***********/
     if (args.mode === 'EDIT' ) {
 
-      if (key === 'Enter' 
-      || (!shiftKey && key === 'Tab')) {
-        
+      if (shiftKey && key === 'Tab') {
+        if (idx > firstEditableColIdx) {
+          // 編集中のセルで、前のセルに移動する。
+          selectCell({ rowIdx, idx: getEditableCellIdx('prev') }, true);
 
-        // 編集中のセルで、Enterキーを押した場合、次のセルに移動する。
-        if (isLastCellOfRow) {
-          selectCell({ rowIdx: rowIdx + 1, idx: 1 }, true);
-        } else {
-          goToNextEditableCell();
-          preventDefault();
-
-        }
-      } else if (shiftKey && key === 'Tab') {
-
-        if (rowIdx > 0 && idx === 1 ) {
-          // 行の最初のセルで、Shift + Tabキーを押した場合、前の行の最後のセルに移動する。
+        } else if (idx <= firstEditableColIdx && rowIdx > 0 ) {
+          // 行の最初のセルで、前の行の最後のセルに移動する。
           selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 }, true);
-        } else if (rowIdx === 0 && idx === 1) {
-          // 最初の行の場合、最後の行の最後のセルに移動する。
-          selectCell({ rowIdx: fieldsLength - 1, idx: columns.length - 1 }, true);
-        
+        } 
+        preventDefault();
+      } else if ( key === 'Enter' || key === 'Tab') {
+        // 編集中のセルで、次のセルに移動する。
+        if (isLastCellOfRow) {
+          selectCell({ rowIdx: rowIdx + 1, idx: firstEditableColIdx }, true);
         } else {
-          // 編集中のセルで、Shift + Tabキーを押した場合、前のセルに移動する。
-          goToPrevEditableCell();
-          preventDefault();
-
+          selectCell({ rowIdx, idx: getEditableCellIdx('next') }, true);
         }
-        
+        preventDefault();
       }
       
       return;
     }
 
+
+    
     /*************
      * 選択モード 
      ************/
 
-
     if (altKey && key === 'v') {
       // 選択中のセルで、行をコピーする。
       if (isHeadRow) return;
-      insert(rowIdx, { ...row, itemId: v4() } as FieldArray<T, ArrayPath<T>>);
+      insert(rowIdx, { ...row, itemId: v4() } as FieldArray<FieldValues, ArrayPath<T>>);
       preventDefault();
       return;
     }
 
     if (!shiftKey && key === 'Insert') {
       // 選択中のセルで、行を追加する。
+      if (!getNewRow) return;
       insert(rowIdx + 1, getNewRow() );
       preventDefault();
       return;
@@ -178,17 +178,6 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         selectCell({ rowIdx, idx });
       }
 
-      /* if (!isLastCellOfRow) {
-        selectCell({ rowIdx, idx: idx + 1 }, true);
-      } else {
-        if (!isLastRow) {
-          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
-        } else {
-          selectCell({ rowIdx, idx }, true);
-        } 
-        
-      } */
-      
       preventDefault();
       return;
     }
@@ -202,12 +191,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         selectCell({ rowIdx: 0, idx: 0 }, true);
       } else {
         // データの場合、次の行の左端のセルに移動する。
-        if (isLastRow) {
-          // 最後の行の場合、行を追加する。
-          append(getNewRow()); 
-        } else {
-          selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
-        } 
+        selectCell({ rowIdx: rowIdx + 1, idx: 0 }, true);
       }
 
       preventDefault();
@@ -216,7 +200,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
     
     if (key === 'ArrowLeft' && idx === 0) {
       // 左端のセルで、左キーを押した場合、前の行の右端のセルに移動する。
-      if (rowIdx === -1) return;
+      if (rowIdx === 0) return;
       selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 });
       preventDefault();
       return;
@@ -230,7 +214,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
 
     if (key === 'Home') {
       // Homeキーを押した場合、行の最初のセルに移動する。
-      selectCell({ rowIdx, idx: 1 });
+      selectCell({ rowIdx, idx: firstEditableColIdx });
       preventDefault();
       return;
     }
@@ -263,6 +247,5 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
   return {
     handleCellKeyDown, 
     dataGridRef,
-    fieldArrayHelpers,
   };
 }

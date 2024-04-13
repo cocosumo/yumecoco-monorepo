@@ -4,10 +4,10 @@ import { RowItem, useColumns } from './useColumns';
 
 import { OrderRequestDataGridContainer } from './OrderRequestDataGridContainer';
 import { useOrderWatch } from '../../hooks/useOrderRHF';
-import { TOrderItem } from '../../schema';
+import { TOrderForm, TOrderItem } from '../../schema';
 import { useChangeRows } from './useChangeRows';
 import { KItem } from '../../../schema';
-import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
+import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
@@ -23,10 +23,17 @@ export const OrderRequestDataGrid = () => {
 
   const { handleRowChange } = useChangeRows();
 
-  const { 
-    handleCellKeyDown,
+  const {
     dataGridRef,
-  } = useDataGridKeyCellKeyDown(columns);
+    handleCellKeyDown,
+  } = useDataGridKeyCellKeyDown<TOrderForm, TOrderItem>({
+    columns,
+    itemsFieldName: 'selectedItems',
+    enableDeleteRow: false,
+    enableInsertRow: false,
+    enableCopyRow: false,
+  });
+ 
 
   
   return (

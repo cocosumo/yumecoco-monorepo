@@ -10,7 +10,10 @@ interface TRowFields {
 export interface UseDataGridKeyCellKeyDownParams<T extends FieldValues, TRow = unknown> {
   itemsFieldName: ArrayPath<T>,
   columns: Column<TRow>[],
-  getNewRow?: () =>  FieldArray<FieldValues, ArrayPath<T>>;
+  getNewRow?: () =>  FieldArray<FieldValues, ArrayPath<T>>,
+  enableInsertRow?: boolean,
+  enableCopyRow?: boolean,
+  enableDeleteRow?: boolean,
 }
 
 
@@ -23,6 +26,9 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
   itemsFieldName,
   columns,
   getNewRow,
+  enableInsertRow = true,
+  enableCopyRow = true,
+  enableDeleteRow = true,
 }: UseDataGridKeyCellKeyDownParams<T, TRow>) {
 
   const { setValue, control } = useFormContext();
@@ -74,7 +80,6 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
 
     if (!selectCell) return; // Datagrid is not ready yet
     
-    //const isLastRow = rowIdx === fieldsLength - 1;
     const isLastCellOfRow = idx === columns.length - 1;
     //const isLastRowAndCell = isLastRow && isLastCellOfRow;
     const isHeadRow = rowIdx === -1;
@@ -120,27 +125,27 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         } else if (idx <= firstEditableColIdx && rowIdx > 0 ) {
           // 行の最初のセルで、前の行の最後のセルに移動する。
           selectCell({ rowIdx: rowIdx - 1, idx: columns.length - 1 }, true);
+        
         } 
         preventDefault();
       } else if ( key === 'Enter' || key === 'Tab') {
         // 編集中のセルで、次のセルに移動する。
         if (isLastCellOfRow) {
+
           selectCell({ rowIdx: rowIdx + 1, idx: firstEditableColIdx }, true);
+          
         } else {
           selectCell({ rowIdx, idx: getEditableCellIdx('next') }, true);
         }
         preventDefault();
       }
       
-      return;
-
     } else if (args.mode === 'SELECT') {
       /*************
      * 選択モード 
      ************/
 
-      if (altKey && key === 'v') {
-        console.log('args.mode INSERT', args.mode, row);
+      if (enableCopyRow && altKey && key === 'v') {
 
         // 選択中のセルで、行をコピーする。
         if (isHeadRow) return;
@@ -149,7 +154,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         return;
       }
 
-      if (!shiftKey && key === 'Insert') {
+      if (enableInsertRow && !shiftKey && key === 'Insert') {
       // 選択中のセルで、行を追加する。
         if (!getNewRow) return;
         insert(rowIdx + 1, getNewRow() );
@@ -157,7 +162,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         return;
       }
 
-      if (altKey && key === 'b') {
+      if ( enableDeleteRow && altKey && key === 'b') {
       // 選択中のセルで、行を削除する。
         if (isHeadRow) return; // ヘッダーの場合、削除しない。
         remove(rowIdx);

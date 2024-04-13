@@ -5,13 +5,14 @@ import { RowItem, useColumns } from './useColumns';
 import { OrderBudgetDataGridContainer } from './OrderBudgetDataGridContainer';
 import { useChangeRows } from './useChangeRows';
 import { KItem, TForm, TItem } from '../schema';
-import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
 import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
 import { useTypedWatch } from '../hooks/useTypedRHF';
 import { produce } from 'immer';
+import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
+import { useRowValues } from './useRowValues';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
@@ -47,11 +48,20 @@ export const OrderBudgetDataGrid = () => {
   }, [items]);
 
   const columns = useColumns();
+  
+  const {
+    getNewRow,
+  } = useRowValues();
 
   const {
     handleCellKeyDown,
     dataGridRef,
-  } = useDataGridKeyCellKeyDown(fieldArrayHelpers, columns);
+  } = useDataGridKeyCellKeyDown<TForm, TItem>({
+    fieldArrayHelpers,
+    columns,
+    getNewRow,
+  });
+
   const {
     handleRowChange,
     handleFill,

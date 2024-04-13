@@ -1,10 +1,17 @@
 import { CellKeyDownArgs, CellKeyboardEvent, Column, DataGridHandle } from 'react-data-grid';
-import { RowItem } from './useColumns';
 import { useRef } from 'react';
-import { UseFieldArrayReturn } from 'react-hook-form';
-import { TForm } from '../schema';
-import { useRowValues } from './useRowValues';
-import { useTypedFormContext } from '../hooks/useTypedRHF';
+import { ArrayPath, FieldArray, FieldValues, UseFieldArrayReturn, useFormContext } from 'react-hook-form';
+import { v4 } from 'uuid';
+
+interface TRowFields {
+  itemId: string;
+}
+
+export interface UseDataGridKeyCellKeyDownParams<T extends FieldValues, TRow = unknown> {
+  getNewRow: () =>  FieldArray<T, ArrayPath<T>>;
+  fieldArrayHelpers: UseFieldArrayReturn<T>,
+  columns: Column<TRow>[],
+}
 
 
 /**
@@ -12,12 +19,13 @@ import { useTypedFormContext } from '../hooks/useTypedRHF';
  * ここには、Datagridのkeydownイベントを処理する関数が入っている。
  * 
  */
-export const useDataGridKeyCellKeyDown = (
-  fieldArrayHelpers: UseFieldArrayReturn<TForm>,
-  columns: Column<RowItem>[],
-) => {
+export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TRowFields>({
+  fieldArrayHelpers,
+  columns,
+  getNewRow,
+}: UseDataGridKeyCellKeyDownParams<T, TRow>) {
 
-  const { setValue } = useTypedFormContext();
+  const { setValue } = useFormContext();
 
   const { 
     fields, 
@@ -26,9 +34,6 @@ export const useDataGridKeyCellKeyDown = (
     insert,
   }  = fieldArrayHelpers;
 
-  const {
-    getNewRow,
-  } = useRowValues();
 
   const dataGridRef = useRef<DataGridHandle>(null);
   
@@ -36,7 +41,7 @@ export const useDataGridKeyCellKeyDown = (
 
   
   const handleCellKeyDown =  (
-    args: CellKeyDownArgs<RowItem>, 
+    args: CellKeyDownArgs<TRow>, 
     event: CellKeyboardEvent,
 
   ) => {
@@ -140,14 +145,14 @@ export const useDataGridKeyCellKeyDown = (
     if (altKey && key === 'v') {
       // 選択中のセルで、行をコピーする。
       if (isHeadRow) return;
-      insert(rowIdx, { ...row, itemId: '' });
+      insert(rowIdx, { ...row, itemId: v4() } as FieldArray<T, ArrayPath<T>>);
       preventDefault();
       return;
     }
 
     if (!shiftKey && key === 'Insert') {
       // 選択中のセルで、行を追加する。
-      insert(rowIdx + 1, getNewRow());
+      insert(rowIdx + 1, getNewRow() );
       preventDefault();
       return;
     }
@@ -260,4 +265,4 @@ export const useDataGridKeyCellKeyDown = (
     dataGridRef,
     fieldArrayHelpers,
   };
-};
+}

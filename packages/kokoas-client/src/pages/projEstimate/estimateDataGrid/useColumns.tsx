@@ -32,7 +32,7 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
     </div>);
 };
 
-export const useColumns = (): MyColumn[] => {
+export const useColumns = (): MyColumn[] => {  
 
   const [
     contractId,
@@ -45,179 +45,179 @@ export const useColumns = (): MyColumn[] => {
   const isEnabled = !contractId;
   
   
-  return useMemo(() => [
-    {
-      key: 'itemId',
-      name: 'No.',
-      editable: false,
-      frozen: true,
-      resizable: false,
-      cellClass: 'index',
-      headerCellClass: 'index-header',
-      width: 35,
-      minWidth: 35,
-      renderCell: ({ rowIdx }) => rowIdx + 1,
-    },
-    { 
-      key: 'majorItem', 
-      name: '大項目', 
-      editable: isEnabled, 
-      sortable: true, 
-      resizable: true, 
-      frozen: true,
-      cellClass: 'select',
-      width: 150,
-      minWidth: 100,
-      renderEditCell: renderMajorItem,
-    
-    },
-    { 
-      key: 'middleItem', 
-      name: '中項目', 
-      editable: isEnabled,
-      frozen: true,
-      width: 150,
-      renderEditCell: renderMiddleItem,
-    },
-    { 
-      key: 'material', 
-      name: '部材', 
-      editable: isEnabled,
-      frozen: true,
-      width: 150,
-      renderEditCell: renderMaterials,
-    },
-    { 
-      key: 'materialDetails', 
-      name: '部材備考', 
-      editable: isEnabled,
-      width: 150,
-      renderEditCell: renderText,
-    },
-    { 
-      key: 'costPrice', 
-      name: '原価', 
-      editable: isEnabled,
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.costPrice;
-        if (isNaN(value)) {
-          return value;
-        }
-        return (<RightAlignedDiv>
-          {commaFormatter(value)}
-        </RightAlignedDiv>);
+  return useMemo(() => {
+
+    return [
+      {
+        key: 'itemId',
+        name: 'No.',
+        editable: false,
+        frozen: true,
+        resizable: false,
+        headerCellClass: 'index-header',
+        width: 35,
+        minWidth: 35,
+        renderCell: ({ rowIdx }) => rowIdx + 1,
       },
-    },
-    { 
-      key: 'quantity', 
-      name: '数量', 
-      editable: isEnabled,
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.quantity;
-        if (isNaN(value)) {
-          return value;
-        }
-        return (
+      { 
+        key: 'majorItem', 
+        name: '大項目', 
+        editable: isEnabled, 
+        sortable: true, 
+        resizable: true, 
+        frozen: true,
+        width: 150,
+        minWidth: 100,
+        renderEditCell: renderMajorItem,
+      },
+      { 
+        key: 'middleItem', 
+        name: '中項目', 
+        editable: isEnabled,
+        frozen: true,
+        width: 150,
+        renderEditCell: renderMiddleItem,
+      },
+      { 
+        key: 'material', 
+        name: '部材', 
+        editable: isEnabled,
+        frozen: true,
+        width: 150,
+        renderEditCell: renderMaterials,
+      },
+      { 
+        key: 'materialDetails', 
+        name: '部材備考', 
+        editable: isEnabled,
+        width: 150,
+        renderEditCell: renderText,
+      },
+      { 
+        key: 'costPrice', 
+        name: '原価', 
+        editable: isEnabled,
+        renderEditCell: renderNumber,
+        renderHeaderCell: ({ column }) => (
           <RightAlignedDiv>
+            {column.name}
+          </RightAlignedDiv>),
+        renderCell: ({ row }) => {
+          const value = row.costPrice;
+          if (isNaN(value)) {
+            return value;
+          }
+          return (<RightAlignedDiv>
             {commaFormatter(value)}
           </RightAlignedDiv>);
+        },
       },
-    },
-    { 
-      key: 'unit', 
-      name: '単位', 
-      editable: isEnabled,
-      minWidth: 75,
-      renderEditCell: renderUnits,
-    },
-    { 
-      key: 'materialProfRate', 
-      name: '粗利率', 
-      editable: isEnabled,
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.materialProfRate;
-        if (isNaN(value)) {
-          return value;
-        }
+      { 
+        key: 'quantity', 
+        name: '数量', 
+        editable: isEnabled,
+        renderEditCell: renderNumber,
+        renderHeaderCell: ({ column }) => (
+          <RightAlignedDiv>
+            {column.name}
+          </RightAlignedDiv>),
+        renderCell: ({ row }) => {
+          const value = row.quantity;
+          if (isNaN(value)) {
+            return value;
+          }
+          return (
+            <RightAlignedDiv>
+              {commaFormatter(value)}
+            </RightAlignedDiv>);
+        },
+      },
+      { 
+        key: 'unit', 
+        name: '単位', 
+        editable: isEnabled,
+        minWidth: 75,
+        renderEditCell: renderUnits,
+      },
+      { 
+        key: 'materialProfRate', 
+        name: '粗利率', 
+        editable: isEnabled,
+        renderEditCell: renderNumber,
+        renderHeaderCell: ({ column }) => (
+          <RightAlignedDiv>
+            {column.name}
+          </RightAlignedDiv>),
+        renderCell: ({ row }) => {
+          const value = row.materialProfRate;
+          if (isNaN(value)) {
+            return value;
+          }
 
-        return (
-          <RightAlignedDiv>
-            {`${roundTo(+(value || 0), 2).toFixed(2)} %`}
-          </RightAlignedDiv>);
+          return (
+            <RightAlignedDiv>
+              {`${roundTo(+(value || 0), 2).toFixed(2)} %`}
+            </RightAlignedDiv>);
+        },
       },
-    },
-    { 
-      key: 'unitPrice', 
-      name: '単価', 
-      editable: isEnabled,
-      renderEditCell: renderNumber,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        const value = row.unitPrice;
-        if (isNaN(value)) {
-          return value;
-        }
-        return (
+      { 
+        key: 'unitPrice', 
+        name: '単価', 
+        editable: isEnabled,
+        renderEditCell: renderNumber,
+        renderHeaderCell: ({ column }) => (
           <RightAlignedDiv>
-            {commaFormatter(roundTo(value))}
-          </RightAlignedDiv>);
+            {column.name}
+          </RightAlignedDiv>),
+        renderCell: ({ row }) => {
+          const value = row.unitPrice;
+          if (isNaN(value)) {
+            return value;
+          }
+          return (
+            <RightAlignedDiv>
+              {commaFormatter(roundTo(value))}
+            </RightAlignedDiv>);
+        },
       },
-    },
-    { 
-      key: 'rowCostPrice', 
-      name: '原価金額', 
-      editable: false,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        return (
+      { 
+        key: 'rowCostPrice', 
+        name: '原価金額', 
+        editable: false,
+        renderHeaderCell: ({ column }) => (
           <RightAlignedDiv>
-            {commaFormatter(roundTo(row.rowCostPrice))}
-          </RightAlignedDiv>);
+            {column.name}
+          </RightAlignedDiv>),
+        renderCell: ({ row }) => {
+          return (
+            <RightAlignedDiv>
+              {commaFormatter(roundTo(row.rowCostPrice))}
+            </RightAlignedDiv>);
+        },
       },
-    },
-    { 
-      key: 'rowUnitPriceBeforeTax', 
-      name: '税抜金額', 
-      editable: false,
-      renderHeaderCell: ({ column }) => (
-        <RightAlignedDiv>
-          {column.name}
-        </RightAlignedDiv>),
-      renderCell: ({ row }) => {
-        return (
+      { 
+        key: 'rowUnitPriceBeforeTax', 
+        name: '税抜金額', 
+        editable: false,
+        renderHeaderCell: ({ column }) => (
           <RightAlignedDiv>
-            {commaFormatter(roundTo(row.rowUnitPriceBeforeTax))}
-          </RightAlignedDiv>);
+            {column.name}
+          </RightAlignedDiv>),
+        renderCell: ({ row }) => {
+          return (
+            <RightAlignedDiv>
+              {commaFormatter(roundTo(row.rowUnitPriceBeforeTax))}
+            </RightAlignedDiv>);
+        },
       },
-    },
-    { 
-      key: 'rowDetails', 
-      name: '備考', 
-      width: 'auto',
-      editable: isEnabled,
-      renderEditCell: renderText,
-    },
+      { 
+        key: 'rowDetails', 
+        name: '備考', 
+        width: 'auto',
+        editable: isEnabled,
+        renderEditCell: renderText,
+      },
  
-  ], [isEnabled]);
+    ];
+  }, [isEnabled]);
 };

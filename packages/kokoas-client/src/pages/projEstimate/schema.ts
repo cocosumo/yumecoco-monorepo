@@ -33,7 +33,7 @@ const schema = z.object({
 
   items: z.array(z.object({
     itemId: z.string(),
-    majorItem: z.string().optional(),
+    majorItem: z.string().nonempty(),
     middleItem: z.string().optional(),
     material: z.string().optional(),
     materialDetails: z.string().optional(),

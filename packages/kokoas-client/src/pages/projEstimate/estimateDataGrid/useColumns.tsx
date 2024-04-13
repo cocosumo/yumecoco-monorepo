@@ -6,7 +6,7 @@ import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
 import { renderMaterials } from './renderers/renderMaterials';
-import { useWatch } from 'react-hook-form';
+import { useFormState, useWatch } from 'react-hook-form';
 import { renderText } from './renderers/renderText';
 import { renderNumber } from './renderers/renderNumber';
 
@@ -36,11 +36,32 @@ export const useColumns = (): MyColumn[] => {
 
   const [
     contractId,
+    items,
   ] = useWatch<TForm>({
     name: [
       'contractId',
+      'items',
     ],
-  });
+  }) as [string, TItem[]];
+
+  const {
+    errors,
+  } = useFormState<TForm>();
+
+  const itemsMap  = useMemo(() => {
+    
+    return items.reduce<Record<string, number>>((acc, item, index) => {
+      
+      if (!item.itemId) return acc;
+      
+      acc[item.itemId] = index;
+      return acc;
+    }
+    , {});
+  }, [items]);
+
+
+  const itemErrors = errors?.items;
 
   const isEnabled = !contractId;
   
@@ -68,6 +89,11 @@ export const useColumns = (): MyColumn[] => {
         frozen: true,
         width: 150,
         minWidth: 100,
+        cellClass: ({
+          itemId,
+        }) => {
+          return itemErrors?.[itemsMap[itemId]]?.majorItem ? 'error-cell' : '';
+        },
         renderEditCell: renderMajorItem,
       },
       { 
@@ -219,5 +245,5 @@ export const useColumns = (): MyColumn[] => {
       },
  
     ];
-  }, [isEnabled]);
+  }, [isEnabled, itemErrors, itemsMap]);
 };

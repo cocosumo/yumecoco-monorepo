@@ -6,28 +6,38 @@ import { item } from '../schema';
 
 z.setErrorMap(zodErrorMapJA());
 
+const emailOrEmptyString = z.string().email()
+  .optional()
+  .or(z.literal(''));
+
 export const schema = z.object({
-  projId: z.string().uuid(),
+  projId: z.string(),
   projName: z.string(),
-  orderId: z.string().uuid(),
+  orderId: z.string()
+    .optional(),
   orderDataId: z.string(),
-  supplierId: z.string().uuid(),
+  supplierId: z.string(),
   supplierName: z.string(),
   orderName: z.string().optional(),
   orderDate: z.date(),
   orderMethod: z.string(),
-  supplierOfficerId: z.string().nonempty(),
+  supplierOfficerId: z.string(),
   supplierOfficerName: z.string(),
   supplierOfficerTel: z.string(),
-  supplierOfficerEmail: z.string().email()
-    .nonempty(),
-  emailCc: z.string().email()
-    .optional(),
-  emailBcc: z.string().email()
-    .optional(),
+  supplierOfficerEmail: emailOrEmptyString,
+  emailCc: emailOrEmptyString,
+  emailBcc: emailOrEmptyString,
   remarks: z.string().optional(),
   selectedItems: z.array(item),
   expectedDeliveryDate: z.date().nullable(),
+}).refine(({ orderMethod, supplierOfficerId }) => {
+  if (orderMethod === 'email' && !supplierOfficerId) {
+    return false;
+  }
+  return true;
+}, {
+  path: ['supplierOfficerEmail'],
+  message: 'メールアドレスを入力してください',
 });
 
 

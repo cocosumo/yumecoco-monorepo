@@ -1,6 +1,6 @@
 import { useSaveOrder, useSaveOrderBudget } from 'kokoas-client/src/hooksQuery';
 import { useOrderFormContext } from './useOrderRHF';
-import { SubmitHandler } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler } from 'react-hook-form';
 import { TOrderForm } from '../schema';
 import { useCallback } from 'react';
 import { useSnackBar } from 'kokoas-client/src/hooks';
@@ -40,9 +40,12 @@ export const useSaveOrderRequest = () => {
     
   }, [saveOrderBudget, saveOrder, setSnackState]);
 
-  const onSubmitInvalid = useCallback(() => {
+  const onSubmitInvalid: SubmitErrorHandler<TOrderForm> = useCallback((errors) => {
     // TODO: 詳しいエラーを出す
-    
+
+    // 本番で保存出来ない原因を特定するため、残す。
+    console.warn('Validation Errors', errors);
+     
     setSnackState({
       open: true,
       severity: 'error',

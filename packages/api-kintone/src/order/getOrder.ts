@@ -1,10 +1,11 @@
 
+
 import { appId, RecordKey, RecordType } from './config';
 import { getRecords } from '../common';
 
 const idField: RecordKey = 'uuid';
 
-export const getOrderBudgetById = async (
+export const getOrder = async (
   recordId: string,
 ) => getRecords<RecordType>({
   app: appId,

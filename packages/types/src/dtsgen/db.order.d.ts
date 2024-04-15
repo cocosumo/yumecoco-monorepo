@@ -4,6 +4,7 @@ declare namespace DBOrder {
     supplierEmail: kintone.fieldTypes.SingleLineText;
     supplierId: kintone.fieldTypes.SingleLineText;
     orderId: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
     totalOrderAmount: kintone.fieldTypes.SingleLineText;
     officerName: kintone.fieldTypes.SingleLineText;
     orderDate: kintone.fieldTypes.SingleLineText;

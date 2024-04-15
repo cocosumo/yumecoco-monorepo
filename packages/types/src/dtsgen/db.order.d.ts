@@ -1,6 +1,7 @@
 declare namespace DBOrder {
   interface Data {
     supplierName: kintone.fieldTypes.SingleLineText;
+    projId: kintone.fieldTypes.SingleLineText;
     supplierEmail: kintone.fieldTypes.SingleLineText;
     supplierId: kintone.fieldTypes.SingleLineText;
     orderId: kintone.fieldTypes.SingleLineText;

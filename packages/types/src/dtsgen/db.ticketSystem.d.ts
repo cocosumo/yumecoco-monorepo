@@ -9,6 +9,7 @@ declare namespace DBTicketsystem {
     scope: kintone.fieldTypes.DropDown;
     announcementTitle: kintone.fieldTypes.SingleLineText;
     details: kintone.fieldTypes.RichText;
+    prevention: kintone.fieldTypes.MultiLineText;
     updateType: kintone.fieldTypes.DropDown;
 
     requestor: kintone.fieldTypes.UserSelect;

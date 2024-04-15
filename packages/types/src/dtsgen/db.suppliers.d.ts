@@ -31,13 +31,13 @@ declare namespace DBSuppliers {
     membershipFee: kintone.fieldTypes.RadioButton;
     supplierName: kintone.fieldTypes.SingleLineText;
     bankNumber: kintone.fieldTypes.Number;
+    managementID: kintone.fieldTypes.SingleLineText;
     branchName: kintone.fieldTypes.SingleLineText;
     ドロップダウン: kintone.fieldTypes.DropDown;
     businessNumber: kintone.fieldTypes.SingleLineText;
     文字列__1行__1: kintone.fieldTypes.SingleLineText;
     membershipFeePar: kintone.fieldTypes.Number;
     online: kintone.fieldTypes.RadioButton;
-    managementID: kintone.fieldTypes.SingleLineText;
     depositType: kintone.fieldTypes.DropDown;
     branchCord: kintone.fieldTypes.Number;
     bill: kintone.fieldTypes.Calc;

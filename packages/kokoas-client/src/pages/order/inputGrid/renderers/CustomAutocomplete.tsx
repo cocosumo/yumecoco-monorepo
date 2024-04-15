@@ -38,9 +38,6 @@ export const CustomAutocomplete = ({
       onChange={(_, value) => {
         onRowChange({ ...row, [key]: value || '' }, true);
       }}
-      onBlur={(e) => {
-        onRowChange({ ...row, [key]: (e.target as HTMLInputElement).value }, true);
-      }}
       renderInput={(params) => (
         <TextField
           {...params}

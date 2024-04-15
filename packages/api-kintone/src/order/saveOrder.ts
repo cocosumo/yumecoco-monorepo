@@ -1,6 +1,8 @@
 import { v4 } from 'uuid';
 import { ktRecord } from '../client';
 import { appId, RecordType } from './config';
+import { generateOrderDataId } from './generateOrderDataId';
+import { produce } from 'immer';
 
 
 /**
@@ -25,6 +27,19 @@ export const saveOrder = async ({
 
   const parsedRecordId = recordId || v4();
 
+  let parsedOrderDataId = record.orderDataId?.value;
+
+  if (!parsedOrderDataId) {
+    const { newOrderDataId } = await generateOrderDataId();
+    parsedOrderDataId = newOrderDataId;
+  }
+
+
+  const parsedRecord = produce(record, (draft) => {
+    
+    draft.orderDataId = { value: parsedOrderDataId };
+  });
+
   const KintoneRecord = await ktRecord();
 
   const result = await KintoneRecord.upsertRecord({
@@ -33,7 +48,7 @@ export const saveOrder = async ({
       field: 'uuid',
       value: parsedRecordId,
     },
-    record: record,
+    record: parsedRecord,
     revision: revision,
   });
 

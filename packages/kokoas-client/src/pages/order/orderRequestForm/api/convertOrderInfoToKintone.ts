@@ -1,5 +1,6 @@
 import { IOrder } from 'types';
 import { TOrderForm } from '../schema';
+import { toKintoneDateStr } from 'kokoas-client/src/lib';
 
 /**
  * 発注明細DB形に変換する。
@@ -7,19 +8,28 @@ import { TOrderForm } from '../schema';
 export const convertOrderInfoToKintone = (data: TOrderForm) => {
   const {
     supplierId,
-    supplierName,
     orderName,
     orderMethod,
-    
-    supplierOfficerEmail,
+    orderDataId,
+    supplierOfficerId,
     emailCc,
     emailBcc,
     projId,
+    expectedDeliveryDate,
+    remarks,
   } = data;
 
   const kintoneRecord: Partial<IOrder> = {
     projId: { value: projId },
     supplierId: { value: supplierId },
+    orderDataId: { value: orderDataId },
+    orderName: { value: orderName || '' },
+    orderMethod: { value: orderMethod },
+    supplierOfficerId: { value: supplierOfficerId },
+    emailCc: { value: emailCc || '' },
+    emailBcc: { value: emailBcc || '' },
+    expectedDeliveryDate: { value: toKintoneDateStr(expectedDeliveryDate) },
+    remarks: { value: remarks || '' },
   };
 
   return kintoneRecord;

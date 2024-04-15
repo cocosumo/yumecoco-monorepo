@@ -10,6 +10,7 @@ declare namespace DBOrder {
     orderDate: kintone.fieldTypes.SingleLineText;
     officerId: kintone.fieldTypes.SingleLineText;
     remarks: kintone.fieldTypes.MultiLineText;
+    orderName: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

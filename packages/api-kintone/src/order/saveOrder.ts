@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { ktRecord } from '../client';
 import { appId, RecordType } from './config';
 
@@ -15,25 +16,26 @@ export const saveOrder = async ({
 }:{
 
   /** uuid  */
-  recordId: string,
+  recordId?: string,
 
   record: Partial<RecordType>
 
   revision?: string,
 }) => {
 
-  if (!recordId) throw new Error('recordId is required');
+  const parsedRecordId = recordId || v4();
 
   const KintoneRecord = await ktRecord();
-  
 
-  return KintoneRecord.upsertRecord({
+  const result = await KintoneRecord.upsertRecord({
     app: appId,
     updateKey: {
       field: 'uuid',
-      value: recordId,
+      value: parsedRecordId,
     },
     record: record,
     revision: revision,
   });
+
+  return result;
 };

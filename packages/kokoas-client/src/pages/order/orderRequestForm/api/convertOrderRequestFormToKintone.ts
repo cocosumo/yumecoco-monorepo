@@ -1,9 +1,15 @@
 import { TOrderForm } from '../schema';
+import { convertOrderInfoToKintone } from './convertOrderInfoToKintone';
+import { convertOrderItemsToKintone } from './convertOrderItemsToKintone';
 
-export const convertOrderRequestFormToKintone = (data: TOrderForm) => {
-  const {
+export const convertOrderRequestFormToKintone = async (data: TOrderForm) => {
+  
+  const convertedOrderInfo = convertOrderInfoToKintone(data);
+  const convertedOrderItems = await convertOrderItemsToKintone(data);
 
-  } = data;
-
+  return {
+    convertedOrderInfo,
+    convertedOrderItems,
+  };
 
 };

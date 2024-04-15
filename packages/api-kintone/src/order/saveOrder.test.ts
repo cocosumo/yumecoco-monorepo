@@ -5,7 +5,7 @@ import { saveOrder } from './saveOrder';
 
 describe('saveOrder', () => {
 
-  it('should save order with minimum required fields', async () => {
+  it('should save order', async () => {
     const result = await saveOrder({
       recordId: 'test',
       record:{

@@ -3,6 +3,10 @@ import { AppIds } from 'config';
 import { useCommonOptions } from './useCommonOptions';
 import { saveOrderBudget } from 'api-kintone/src/orderBudget/saveOrderBudget';
 
+
+/**
+ * 発注一覧を保存する
+ */
 export const useSaveOrderBudget = () => {
   const commonOptions = useCommonOptions();
   const qc = useQueryClient();

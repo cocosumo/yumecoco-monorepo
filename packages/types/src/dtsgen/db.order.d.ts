@@ -7,7 +7,6 @@ declare namespace DBOrder {
     uuid: kintone.fieldTypes.SingleLineText;
     supplierOfficerTel: kintone.fieldTypes.SingleLineText;
     emailBcc: kintone.fieldTypes.SingleLineText;
-    officerId: kintone.fieldTypes.SingleLineText;
     orderDataId: kintone.fieldTypes.SingleLineText;
     orderName: kintone.fieldTypes.SingleLineText;
     supplierName: kintone.fieldTypes.SingleLineText;
@@ -15,7 +14,6 @@ declare namespace DBOrder {
     expectedDeliveryDate: kintone.fieldTypes.SingleLineText;
     orderMethod: kintone.fieldTypes.DropDown;
     supplierOfficerId: kintone.fieldTypes.SingleLineText;
-    officerName: kintone.fieldTypes.SingleLineText;
     orderDate: kintone.fieldTypes.SingleLineText;
     supplierOfficerEmail: kintone.fieldTypes.SingleLineText;
     remarks: kintone.fieldTypes.MultiLineText;

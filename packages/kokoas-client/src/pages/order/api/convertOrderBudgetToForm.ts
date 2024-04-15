@@ -30,7 +30,6 @@ export const convertOrderBudgetToForm = ({
     items: items.value.map(({ id, value: row }) => ({
       selected: false,
       itemId: id,
-      status: row.status.value,
       majorItem: row.majorItem.value,
       middleItem: row.middleItem.value,
       material: row.material.value,

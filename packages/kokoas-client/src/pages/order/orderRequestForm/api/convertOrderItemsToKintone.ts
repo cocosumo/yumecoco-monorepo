@@ -7,7 +7,7 @@ import { IOrderbudget } from 'types';
 /**
  * 発注品目DB形に変換する。
  */
-export const convertOrderItemsToKintone = async (data: TOrderForm) => {
+export const convertOrderItemsToKintone = async (data: TOrderForm, orderId: string) => {
   const {
     selectedItems,
   } = data;
@@ -28,6 +28,7 @@ export const convertOrderItemsToKintone = async (data: TOrderForm) => {
         // fill in the matching item with the new data from the form
         matchedItem.value = {
           ...matchedItem.value,
+          orderId: { value: orderId },
           majorItem: { value: item.majorItem },
           middleItem: { value: String(item.middleItem) },
           material: { value: String(item.material) },
@@ -37,6 +38,7 @@ export const convertOrderItemsToKintone = async (data: TOrderForm) => {
           orderAmountBeforeTax: { value: String(item.rowCostPriceBeforeTax) },
           taxRate: { value: String(item.taxRate) },
           rowRemarks: { value: String(item.rowRemarks) },
+          
         };
       }
     });

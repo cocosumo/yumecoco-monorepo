@@ -5,13 +5,14 @@ import { RowItem, useColumns } from './useColumns';
 import { OrderBudgetDataGridContainer } from './OrderBudgetDataGridContainer';
 import { useChangeRows } from './useChangeRows';
 import { KItem, TForm, TItem } from '../schema';
-import { useDataGridKeyCellKeyDown } from './useDataGridKeyCellKeyDown';
-import { useFieldArray, useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DraggableRowRenderer } from './DraggableRowRenderer';
 import { useTypedWatch } from '../hooks/useTypedRHF';
 import { produce } from 'immer';
+import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
+import { useRowValues } from './useRowValues';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
@@ -19,7 +20,6 @@ function rowKeyGetter(row: RowItem) {
 
 export const OrderBudgetDataGrid = () => {
   const {
-    control,
     setValue,
   } = useFormContext<TForm>();
 
@@ -27,10 +27,6 @@ export const OrderBudgetDataGrid = () => {
     name: 'hasOnProcessContract',
   });
 
-  const fieldArrayHelpers = useFieldArray({
-    name: 'items',
-    control,
-  });
 
   const items = useTypedWatch({
     name: 'items',
@@ -49,9 +45,18 @@ export const OrderBudgetDataGrid = () => {
   const columns = useColumns();
 
   const {
+    getNewRow,
+  } = useRowValues();
+
+  const {
     handleCellKeyDown,
     dataGridRef,
-  } = useDataGridKeyCellKeyDown(fieldArrayHelpers, columns);
+  } = useDataGridKeyCellKeyDown<TForm, TItem>({
+    itemsFieldName: 'items',
+    columns,
+    getNewRow,
+  });
+
   const {
     handleRowChange,
     handleFill,

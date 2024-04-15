@@ -24,6 +24,7 @@ export const convertToKintone = ({
     (
       acc,
       {
+        itemId,
         majorItem,
         middleItem,
         material,
@@ -38,7 +39,7 @@ export const convertToKintone = ({
 
 
       acc.push({
-        id: '', // 自動生成
+        id: itemId, // 自動生成
         value: {
           部材備考: { value: materialDetails ?? '' },
           備考: { value: rowDetails ?? '' },
@@ -56,7 +57,7 @@ export const convertToKintone = ({
       return acc;
 
     }, [] as Array<{
-      id: '', // 自動生成
+      id: string, // 自動生成
       value: {
         部材備考: { value: string },
         備考: { value: string },

@@ -48,7 +48,7 @@ export const useColumns = (): MyColumn[] => {
   
   return useMemo(() => [
     {
-      key: 'index',
+      key: 'selected',
       name: '',
       editable: false,
       frozen: true,

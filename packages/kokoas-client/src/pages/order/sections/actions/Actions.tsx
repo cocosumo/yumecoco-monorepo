@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
 import { CopyEstimates } from './copyEstimates/CopyEstimates';
-import { OrderSelected } from './orderSelected/OrderSelected';
+import { OrderSelected } from './OrderSelected';
 
 export const Actions = () => {
   return (

@@ -2,7 +2,7 @@ import { Dialog } from '@mui/material';
 import { ORDialogTitle } from './ORDialogTitle';
 import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
-import { ORDialogActions } from './ORDialogActions';
+import { OrderDialogActions } from './orderDialogActions/OrderDialogActions';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -84,7 +84,7 @@ export const OrderRequestDialog = () => {
     
         <ORDialogContent />
 
-        <ORDialogActions />
+        <OrderDialogActions />
       </FormProvider>
 
       <DevTool control={formMethods.control} placement='bottom-right' />

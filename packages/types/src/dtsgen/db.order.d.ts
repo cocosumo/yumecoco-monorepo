@@ -17,6 +17,7 @@ declare namespace DBOrder {
     orderDate: kintone.fieldTypes.SingleLineText;
     supplierOfficerEmail: kintone.fieldTypes.SingleLineText;
     remarks: kintone.fieldTypes.MultiLineText;
+    status: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

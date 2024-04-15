@@ -12,14 +12,13 @@ export const useSaveOrderBudget = () => {
   const qc = useQueryClient();
 
 
-  return useMutation(
-    saveOrderBudget,
-    {
-      ...commonOptions,
-      onSuccess: () => {
-        commonOptions.onSuccess();
-        qc.invalidateQueries({ queryKey: [AppIds.orderBudget] });
-      },
+  return useMutation({
+    mutationFn: saveOrderBudget,
+    ...commonOptions,
+    onSuccess: () => {
+      commonOptions.onSuccess();
+      qc.invalidateQueries({ queryKey: [AppIds.orderBudget] });
+      qc.invalidateQueries({ queryKey: [AppIds.order] });
     },
-  );
+  });
 };

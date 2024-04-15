@@ -4,7 +4,6 @@ import { appId, RecordType } from './config';
 import { generateOrderDataId } from './generateOrderDataId';
 import { produce } from 'immer';
 
-
 /**
  * 「発注明細」を保存する。
  *
@@ -52,5 +51,12 @@ export const saveOrder = async ({
     revision: revision,
   });
 
-  return result;
+  return {
+    ...result,
+    recordId: parsedRecordId,
+  };
 };
+
+
+// params
+export type SaveOrderParams = Parameters<typeof saveOrder>[0];

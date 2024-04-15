@@ -12,8 +12,9 @@ export const useSaveOrderRequest = () => {
   const { handleSubmit } = useOrderFormContext();
   const { 
     mutateAsync: saveOrderBudget, 
-    isLoading: saveOrderBudgetIsLoading, 
+    isLoading: saveOrderBudgetIsLoading,
   } = useSaveOrderBudget();
+
   const { 
     mutateAsync: saveOrder,
     isLoading: saveOrderIsLoading,
@@ -21,24 +22,22 @@ export const useSaveOrderRequest = () => {
 
   const onSubmitValid: SubmitHandler<TOrderForm> = useCallback(async (data) => {
 
-    const { id: orderId } = await saveOrder({
-      recordId: data.projId,
-      record: convertOrderInfoToKintone(data),
-    });
+    await saveOrder(
+      {
+        recordId: data.orderId,
+        record: convertOrderInfoToKintone(data),
+      }, 
+      {
+        onSuccess: async ({ recordId: orderId }) => {
+          saveOrderBudget({
+            recordId: data.projId,
+            record: await convertOrderItemsToKintone(data, orderId),
+          });
+        },
+      },
+    );
 
-    const { revision } = await saveOrderBudget({
-      recordId: data.projId,
-      record: await convertOrderItemsToKintone(data, orderId),
-    });
-
-    setSnackState({
-      open: true,
-      severity: 'success',
-      message: `保存しました。 更新回数：${revision} `,
-      autoHideDuration: 500,
-    });
-    
-  }, [saveOrderBudget, saveOrder, setSnackState]);
+  }, [saveOrderBudget, saveOrder]);
 
   const onSubmitInvalid: SubmitErrorHandler<TOrderForm> = useCallback((errors) => {
     // TODO: 詳しいエラーを出す

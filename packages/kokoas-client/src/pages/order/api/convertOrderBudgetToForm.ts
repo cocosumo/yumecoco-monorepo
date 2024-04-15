@@ -35,6 +35,7 @@ export const convertOrderBudgetToForm = ({
       material: row.material.value,
       supplierName: row.supplierName.value,
       orderId: row.orderId.value,
+      orderDataId: row.orderDataId.value,
       quantity: Number(row.quantity.value),
       unit: row.unit.value || initialRow.unit,
       costPrice: Number(row.costPrice.value),

@@ -1,21 +1,21 @@
 import { useDrag, useDrop } from 'react-dnd';
 import clsx from 'clsx';
 import { RenderRowProps, Row } from 'react-data-grid';
+import { TItem } from '../schema';
 
 
 
-interface DraggableRowRenderProps<R, SR> extends RenderRowProps<R, SR> {
+interface DraggableRowRenderProps<R> extends RenderRowProps<R> {
   onRowReorder: (sourceIndex: number, targetIndex: number) => void;
 }
 
-export function DraggableRowRenderer<R, SR>({
+export function DraggableRowRenderer<R extends TItem>({
   rowIdx,
   isRowSelected,
   className,
   onRowReorder,
   ...props
-}: DraggableRowRenderProps<R, SR>) {
-
+}: DraggableRowRenderProps<R>) {
   const [{ isDragging }, drag] = useDrag({
     type: 'ROW_DRAG',
     item: { index: rowIdx },
@@ -38,6 +38,7 @@ export function DraggableRowRenderer<R, SR>({
   const parsedClassName = clsx(className, {
     ['row-dragging']: isDragging,
     ['row-over']: isOver,
+    ['has-order']: props.row.orderId,
   });
  
   return (

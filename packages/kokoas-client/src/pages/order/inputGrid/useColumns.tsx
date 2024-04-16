@@ -12,6 +12,7 @@ import { renderCheckbox } from './renderers/renderCheckBox';
 import { renderText } from './renderers/renderText';
 import { renderTaxType } from './renderers/renderTaxType';
 import { Typography } from '@mui/material';
+import { renderOrderDataId } from './renderers/renderOrderDataId';
 
 export type RowItem = TItem & {
   index: number;
@@ -111,9 +112,7 @@ export const useColumns = (): MyColumn[] => {
       name: '発注管理番号', 
       editable: false,
       width: 100,
-      renderCell: ({ row }) => {
-        return `${row.orderDataId?.replace('-', '')}`;
-      }, 
+      renderCell: renderOrderDataId, 
     },
     { 
       key: 'quantity', 

@@ -47,6 +47,7 @@ const OrderDataId = (props: RenderCellProps<RowItem>) => {
       size={'small'}
       variant={'text'}
       onClick={handleClick}
+      fullWidth
     >
       {parsedOrderDataId}
     </Button>

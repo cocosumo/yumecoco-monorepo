@@ -100,6 +100,9 @@ export const AppIds = {
   /** 取引先 */
   suppliers: 308,
 
+  /** 社外メンバー */
+  externalMembers: 309,
+
   ...(isProd ? prodAppIds : devAppIds),
 } as const;
 

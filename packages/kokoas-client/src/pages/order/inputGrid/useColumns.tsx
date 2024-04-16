@@ -107,10 +107,13 @@ export const useColumns = (): MyColumn[] => {
       width: 150,
     },
     { 
-      key: 'orderId', 
-      name: '発注番号', 
+      key: 'orderDataId', 
+      name: '発注管理番号', 
       editable: false,
       width: 100,
+      renderCell: ({ row }) => {
+        return `${row.orderDataId?.replace('-', '')}`;
+      }, 
     },
     { 
       key: 'quantity', 

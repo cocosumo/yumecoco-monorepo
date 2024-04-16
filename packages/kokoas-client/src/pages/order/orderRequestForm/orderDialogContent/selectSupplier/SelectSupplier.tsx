@@ -48,9 +48,9 @@ export const SelectSupplier = () => {
             onChange(value?.id);
             onChangeSupplierName(value?.label || '');
 
-            const newEmailTo = value?.record.memberTable.value?.[0].value.memberMail.value || '';
+            const newOfficerId = value?.record.memberTable.value?.[0].value.memberUuid.value || '';
 
-            setValue('emailTo', newEmailTo);
+            setValue('supplierOfficerId', newOfficerId);
             setValue('emailCc', '');
             setValue('emailBcc', '');
           }}

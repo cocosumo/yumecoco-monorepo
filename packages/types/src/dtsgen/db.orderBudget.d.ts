@@ -17,7 +17,7 @@ declare namespace DBOrderbudget {
           costPrice: kintone.fieldTypes.Number;
           rowRemarks: kintone.fieldTypes.SingleLineText;
           orderAmountBeforeTax: kintone.fieldTypes.Number;
-          status: kintone.fieldTypes.SingleLineText;
+          orderDataId: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };

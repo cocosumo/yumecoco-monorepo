@@ -26,7 +26,6 @@ export const saveOrderBudget = async ({
 
   const KintoneRecord = await ktRecord();
   
-
   return KintoneRecord.upsertRecord({
     app: appId,
     updateKey: {

@@ -29,6 +29,9 @@ export const item = z.object({
   /* 発注番号 */
   orderId: z.string().optional(),
 
+  /** 発注管理番号 */
+  orderDataId: z.string().optional(),
+
   /** 数量 */
   quantity: z.coerce.number(),
   

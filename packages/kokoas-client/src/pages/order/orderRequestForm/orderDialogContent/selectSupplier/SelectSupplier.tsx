@@ -21,8 +21,8 @@ export const SelectSupplier = () => {
   const { data = [], isFetching } = useSupplierOptions();
 
   if (isFetching) {
-    // Prevent rendering of autocomplete until data is fetched
-    // This is prevent error when setting defaultValue.
+    // prevent error when setting defaultValue after AutoComplete is rendered.
+    // We may convert the component to controlled if Skeleton is undesirable.
     return <Skeleton variant={'rectangular'} width={300} height={40} />;
   }
 

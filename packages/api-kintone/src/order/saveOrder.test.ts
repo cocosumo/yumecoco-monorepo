@@ -10,7 +10,8 @@ describe('saveOrder', () => {
       recordId: 'test',
       record:{
         orderName: { value: 'test order name' },
-        orderDataId: { value: 'test' },
+        orderDataId: { value: 'test' },        
+        projId:{ value: 'test' },
       },
     });
 

@@ -17,8 +17,6 @@ export const generateOrderDataId = async () => {
 
   const latestRecord = records?.[0];
 
-  console.log('RECORDS:', query, records);
-
   const latestOrderDataId = latestRecord?.orderDataId?.value.slice(-orderDataIdmaxPadding);
   const incrementedId = Number(latestOrderDataId?.slice(-orderDataIdmaxPadding) ?? 0) + 1;
   const paddedId = incrementedId.toString().padStart(orderDataIdmaxPadding, '0');

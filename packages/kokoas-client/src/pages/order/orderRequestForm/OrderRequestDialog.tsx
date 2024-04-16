@@ -4,12 +4,12 @@ import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { OrderDialogActions } from './orderDialogActions/OrderDialogActions';
 import { FormProvider, useForm } from 'react-hook-form';
-import { TOrderForm, TOrderItem, schema } from './schema';
+import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { atom, useAtom } from 'jotai';
-import { useEffect } from 'react';
 import { DevTool } from '@hookform/devtools';
 import { useOrderRequestInitial } from './hooks/useOrderRequestInitial';
+import { useLazyEffect } from 'kokoas-client/src/hooks';
 
 interface OrderRequestDialogProps {
   open: boolean,
@@ -34,7 +34,6 @@ export const orderRequestAtom = atom(initialDialogState);
 export const OrderRequestDialog = () => {
   const { 
     initialValues,
-    isFetching,
   } = useOrderRequestInitial();
   const [orderRequest, setOrderRequestAtom] = useAtom(orderRequestAtom);
 
@@ -42,22 +41,26 @@ export const OrderRequestDialog = () => {
     open,
   } = orderRequest;
 
-  const handleClose = () => {
-    setOrderRequestAtom({ ...orderRequest, open: false });
-  };
-
   const formMethods = useForm<TOrderForm>({
     defaultValues: initialValues,
     resolver: zodResolver(schema),
   });
 
-  const { reset } = formMethods;
+  const {
+    reset, 
+  } = formMethods;
 
-  useEffect(() => {
-    if (isFetching) return;
+  const handleClose = () => {
+    setOrderRequestAtom({ ...orderRequest, open: false });
+    reset(initialOrderForm);
+  };
+
+  useLazyEffect(() => {
+    if (!open) return;
     reset(initialValues);
-  }, [open, initialValues, isFetching, reset]);
-  
+  }, [ open, initialValues, reset], 300);  
+
+  console.log('orderRequest', orderRequest);
 
   return (
     <Dialog
@@ -77,7 +80,7 @@ export const OrderRequestDialog = () => {
         <ORDialogContent />
 
         <OrderDialogActions />
-        
+
       </FormProvider>
 
       <DevTool control={formMethods.control} placement='bottom-right' />

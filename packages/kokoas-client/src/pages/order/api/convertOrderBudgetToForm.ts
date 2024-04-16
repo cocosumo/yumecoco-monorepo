@@ -30,12 +30,12 @@ export const convertOrderBudgetToForm = ({
     items: items.value.map(({ id, value: row }) => ({
       selected: false,
       itemId: id,
-      status: row.status.value,
       majorItem: row.majorItem.value,
       middleItem: row.middleItem.value,
       material: row.material.value,
       supplierName: row.supplierName.value,
       orderId: row.orderId.value,
+      orderDataId: row.orderDataId.value,
       quantity: Number(row.quantity.value),
       unit: row.unit.value || initialRow.unit,
       costPrice: Number(row.costPrice.value),

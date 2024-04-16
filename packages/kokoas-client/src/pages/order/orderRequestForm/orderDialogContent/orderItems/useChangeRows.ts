@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { roundTo } from 'libs';
 import { RowItem } from './useColumns';
-import { produce } from 'immer';
 import { KItem } from '../../../schema';
 import { useOrderFormContext } from '../../hooks/useOrderRHF';
 import { useController } from 'react-hook-form';
@@ -56,21 +55,17 @@ export const useChangeRows = () => {
     fieldName: KItem,
     rows: RowItem[],
   ) => {
-    //update(index, newRow);
 
-    setValue(
-      'selectedItems', 
-      produce(rows, draft => {
-        indexes.forEach((index) => {
-          draft[index] = calculatedRow(draft[index], fieldName);
-        });
-      }),
-      {
-        shouldValidate: true,
-        shouldDirty: true,
-        shouldTouch: true,
-      },
-    );
+    indexes.forEach((index) => {
+      setValue(
+        `selectedItems.${index}`, calculatedRow(rows[index], fieldName),
+        {
+          shouldValidate: true,
+          shouldDirty: true,
+          shouldTouch: true,
+        },
+      );
+    });
 
   }, [ 
     setValue, 

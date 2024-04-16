@@ -4,10 +4,6 @@ import { calculateRowAmount, roundTo } from 'libs';
 import { KItem, TForm } from '../schema';
 import { FillEvent } from 'react-data-grid';
 import { RowItem } from './useColumns';
-import { produce } from 'immer';
-
-
-
 
 
 export const useChangeRows = () => {
@@ -92,21 +88,18 @@ export const useChangeRows = () => {
     fieldName: KItem,
     rows: RowItem[],
   ) => {
-    //update(index, newRow);
 
-    setValue(
-      'items', 
-      produce(rows, draft => {
-        indexes.forEach((index) => {
-          draft[index] = calculatedRow(draft[index], fieldName);
-        });
-      }),
-      {
-        shouldValidate: true,
-        shouldDirty: true,
-        shouldTouch: true,
-      },
-    );
+    indexes.forEach((index) => {
+      setValue(
+        `items.${index}`, 
+        calculatedRow(rows[index], fieldName),
+        {
+          shouldValidate: true,
+          shouldDirty: true,
+          shouldTouch: true,
+        },
+      );
+    });
 
   }, [ 
     setValue, 

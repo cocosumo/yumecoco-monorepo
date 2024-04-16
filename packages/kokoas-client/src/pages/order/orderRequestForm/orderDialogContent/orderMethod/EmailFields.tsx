@@ -11,7 +11,7 @@ export const EmailFields = () => {
 
 
   return (
-    <Fade in={orderMethod === 'email'} >
+    <Fade in={orderMethod === 'メール'} >
       <Stack
         spacing={2}
         direction={'row'}

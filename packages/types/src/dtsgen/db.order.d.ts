@@ -1,14 +1,23 @@
 declare namespace DBOrder {
   interface Data {
+    projId: kintone.fieldTypes.SingleLineText;
+    emailCc: kintone.fieldTypes.SingleLineText;
+    supplierId: kintone.fieldTypes.SingleLineText;
+    supplicerOfficerName: kintone.fieldTypes.SingleLineText;
+    uuid: kintone.fieldTypes.SingleLineText;
+    supplierOfficerTel: kintone.fieldTypes.SingleLineText;
+    emailBcc: kintone.fieldTypes.SingleLineText;
+    orderDataId: kintone.fieldTypes.SingleLineText;
+    orderName: kintone.fieldTypes.SingleLineText;
     supplierName: kintone.fieldTypes.SingleLineText;
     supplierEmail: kintone.fieldTypes.SingleLineText;
-    supplierId: kintone.fieldTypes.SingleLineText;
-    orderId: kintone.fieldTypes.SingleLineText;
-    totalOrderAmount: kintone.fieldTypes.SingleLineText;
-    officerName: kintone.fieldTypes.SingleLineText;
+    expectedDeliveryDate: kintone.fieldTypes.SingleLineText;
+    orderMethod: kintone.fieldTypes.SingleLineText;
+    supplierOfficerId: kintone.fieldTypes.SingleLineText;
     orderDate: kintone.fieldTypes.SingleLineText;
-    officerId: kintone.fieldTypes.SingleLineText;
+    supplierOfficerEmail: kintone.fieldTypes.SingleLineText;
     remarks: kintone.fieldTypes.MultiLineText;
+    status: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {
     $id: kintone.fieldTypes.Id;

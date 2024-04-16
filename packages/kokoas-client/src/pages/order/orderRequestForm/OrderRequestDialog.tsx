@@ -1,5 +1,5 @@
 import { Dialog } from '@mui/material';
-import { ORDialogTitle } from './ORDialogTitle';
+import { OrderDialogTitle } from './orderDialogContent/orderDialogTitle/OrderDialogTitle';
 import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { OrderDialogActions } from './orderDialogActions/OrderDialogActions';
@@ -32,13 +32,14 @@ const initialDialogState : OrderRequestDialogProps = {
 export const orderRequestAtom = atom(initialDialogState);
 
 export const OrderRequestDialog = () => {
-  const { initialValues } = useOrderRequestInitial();
+  const { 
+    initialValues,
+    isFetching,
+  } = useOrderRequestInitial();
   const [orderRequest, setOrderRequestAtom] = useAtom(orderRequestAtom);
 
   const {
     open,
-    projName,
-    storeName,
   } = orderRequest;
 
   const handleClose = () => {
@@ -53,10 +54,10 @@ export const OrderRequestDialog = () => {
   const { reset } = formMethods;
 
   useEffect(() => {
-    if (open) {
-      reset(initialValues);
-    }
-  }, [open, initialValues, reset]);
+    if (isFetching) return;
+    reset(initialValues);
+  }, [open, initialValues, isFetching, reset]);
+  
 
   return (
     <Dialog
@@ -66,16 +67,17 @@ export const OrderRequestDialog = () => {
       fullWidth
       disableEscapeKeyDown
     >
+
       <FormProvider {...formMethods}>
-        <ORDialogTitle 
-          storeName={storeName}
-          projName={projName}
-        />
+
+        <OrderDialogTitle />
+
         <CloseButton handleClose={handleClose} />
     
         <ORDialogContent />
 
         <OrderDialogActions />
+        
       </FormProvider>
 
       <DevTool control={formMethods.control} placement='bottom-right' />

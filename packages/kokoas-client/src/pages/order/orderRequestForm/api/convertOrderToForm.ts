@@ -5,6 +5,8 @@ import parseISO from 'date-fns/parseISO';
 export const convertOrderToForm = (data: IOrder): Partial<TOrderForm> => {
 
   const {
+    uuid,
+    projId,
     orderDataId,
     supplierId,
     supplierName,
@@ -22,7 +24,9 @@ export const convertOrderToForm = (data: IOrder): Partial<TOrderForm> => {
   } = data;
 
   return {
+    orderId: uuid.value,
     orderDataId:  orderDataId.value,
+    projId: projId.value,
     supplierId: supplierId.value,
     supplierName: supplierName.value,
     orderName: orderName.value || '',

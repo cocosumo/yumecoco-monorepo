@@ -11,11 +11,12 @@ export const useOrderRequestInitial = () => {
     projId,
     projName,
     selectedItems,
+    storeName,
   }  = useAtomValue(orderRequestAtom);
   
   const [initialValues, setInitialValues] = useState<TOrderForm>(initialOrderForm);
 
-  const { data } = useOrderById({ orderId });
+  const { data, isFetching } = useOrderById({ orderId });
 
   useEffect(() => {
     if (orderId && data) {
@@ -23,7 +24,10 @@ export const useOrderRequestInitial = () => {
       setInitialValues(prev => ({
         ...prev,
         ...convertedOrder,
+        projId,
+        projName,
         selectedItems,
+        storeName,
       }));
     } else if (!orderId) {
       const firstMajorItem = selectedItems[0]?.majorItem;
@@ -36,12 +40,14 @@ export const useOrderRequestInitial = () => {
         projName,
         orderName: isCommonMajorItem ? firstMajorItem : '',
         selectedItems,
+        storeName,
       });
     }
 
-  }, [data, selectedItems, projId, projName, orderId]);
+  }, [data, selectedItems, projId, projName, storeName, orderId]);
 
   return {
     initialValues,
+    isFetching,
   };
 };

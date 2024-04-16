@@ -64,6 +64,7 @@ export * from './useMaterialsItem';
 export * from './useMaterialsMajor';
 export * from './useMaterialsMid';
 export * from './useOrderBudgetById';
+export * from './useOrderById';
 export * from './usePostalByAddress';
 export * from './useProjById';
 export * from './useProjContractSummary';

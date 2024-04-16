@@ -56,7 +56,7 @@ export const useColumns = (): MyColumn[] => {
       width: 35,
       minWidth: 40,
       cellClass: 'no-ellipsis',
-      renderCell: renderCheckbox,
+      renderCell: (props) => props.row.orderId ? null : renderCheckbox(props),
     },
     { 
       key: 'status', 

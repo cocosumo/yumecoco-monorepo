@@ -38,12 +38,12 @@ export const OrderBudgetDataGridContainer = ({
           px: 0,
         },
         // select odd rows, except the first column
-        '& .rdg-row:nth-of-type(odd):not(:hover) .rdg-cell:not(:first-of-type):not(.rdg-editor-container)' : {
+        '& .rdg-row:nth-of-type(odd):not(:hover):not(.has-order) .rdg-cell:not(:first-of-type):not(.rdg-editor-container):not(div[aria-readonly="true"])' : {
           bgcolor: orange[50],
         },
         '& div[role="row"]:not(:hover) div[aria-readonly="true"]': {
           // 読み取り専用セル
-          bgcolor: `${grey[100]} !important`,
+          bgcolor: `${grey[100]}`,
         },
         '& div[role="row"] > div[role="gridcell"].rdg-cell.error-cell': {
           // エラーがあるセル
@@ -64,10 +64,13 @@ export const OrderBudgetDataGridContainer = ({
           cursor: 'grab',
         },
         '& div[role="row"]:not(.rdg-header-row):hover' :{
-          bgcolor: blue[50],
+          bgcolor: `${blue[50]} `,
+        },
+        '& div[role="row"].has-order:not(:hover) div[role="gridcell"]' :{
+          bgcolor: '#F0F2FA',
         },
         '& .rdg-cell-dragged-over': {
-          bgcolor: `${blue[100]} !important`,
+          bgcolor: `${blue[100]} `,
           border: `1px dashed ${blue[500]}`,
         },
       }}

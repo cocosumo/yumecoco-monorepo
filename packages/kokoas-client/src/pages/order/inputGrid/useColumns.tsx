@@ -50,13 +50,13 @@ export const useColumns = (): MyColumn[] => {
     {
       key: 'selected',
       name: '',
-      editable: false,
+      editable: ({ orderId }) => !orderId,
       frozen: true,
       resizable: false,
       width: 35,
       minWidth: 40,
       cellClass: 'no-ellipsis',
-      renderCell: renderCheckbox,
+      renderCell: (props) => props.row.orderId ? null : renderCheckbox(props),
     },
     { 
       key: 'status', 
@@ -75,7 +75,7 @@ export const useColumns = (): MyColumn[] => {
       sortable: true, 
       resizable: true, 
       frozen: true,
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       width: 150,
       minWidth: 100,
       cellClass: ({ index }) => {
@@ -88,7 +88,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'middleItem', 
       name: '中項目', 
       frozen: true,
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       width: 150,
       renderEditCell: renderMiddleItem,
     },
@@ -96,7 +96,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'material', 
       name: '部材', 
       frozen: true,
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       width: 150,
       renderEditCell: renderMaterials,
     },
@@ -118,7 +118,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'quantity', 
       name: '数量', 
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       cellClass: ({ index }) => {
         return itemErrors?.[index]?.quantity ? 'error-cell' : '';
       },
@@ -141,7 +141,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'unit', 
       name: '単位', 
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       width: 68,
       renderCell: ({ row }) => (
         <Typography fontSize={10} height={'100%'} alignContent={'center'}>
@@ -153,7 +153,7 @@ export const useColumns = (): MyColumn[] => {
       key: 'costPrice', 
       name: '単価', 
       width: 100,
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       renderEditCell: renderNumber,
       renderHeaderCell: ({ column }) => (
         <RightAlignedDiv>
@@ -188,7 +188,7 @@ export const useColumns = (): MyColumn[] => {
     {
       key: 'taxRate',
       name: '税区分',
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       minWidth: 70,
       renderEditCell: renderTaxType,
       renderCell: ({ row }) => {
@@ -202,7 +202,7 @@ export const useColumns = (): MyColumn[] => {
     { 
       key: 'rowRemarks', 
       name: '備考', 
-      editable: true,
+      editable: ({ orderId }) => !orderId,
       width: 200,
       renderEditCell: renderText,
     },

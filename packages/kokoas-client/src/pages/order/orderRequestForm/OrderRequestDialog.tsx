@@ -60,8 +60,6 @@ export const OrderRequestDialog = () => {
     reset(initialValues);
   }, [ open, initialValues, reset], 300);  
 
-  console.log('orderRequest', orderRequest);
-
   return (
     <Dialog
       open={open}

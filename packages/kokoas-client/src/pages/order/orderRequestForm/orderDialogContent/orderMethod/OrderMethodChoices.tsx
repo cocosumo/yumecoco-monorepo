@@ -1,12 +1,14 @@
 import { 
   FormControl, 
   FormControlLabel, 
+  FormHelperText, 
   FormLabel, 
   Radio, 
   RadioGroup, 
 } from '@mui/material';
 import { useOrderFormContext } from '../../hooks/useOrderRHF';
 import { Controller } from 'react-hook-form';
+import { orderMethodChoices } from '../../schema';
 
 export const OrderMethodChoices = () => {
   const { control } = useOrderFormContext();
@@ -15,7 +17,10 @@ export const OrderMethodChoices = () => {
     <Controller
       name={'orderMethod'}
       control={control}
-      render={({ field }) => (
+      render={({ 
+        field,
+        fieldState: { error },
+      }) => (
         <FormControl
           required
           sx={{
@@ -24,6 +29,7 @@ export const OrderMethodChoices = () => {
             alignItems: 'center',
             gap: '16px',
           }}
+          error={!!error}
         >
           <FormLabel>
             発注方法
@@ -32,9 +38,18 @@ export const OrderMethodChoices = () => {
             row
             {...field}
           >
-            <FormControlLabel value="print" control={<Radio />} label="印刷" />
-            <FormControlLabel value="email" control={<Radio />} label="メール" />
+            {orderMethodChoices.map((choice) => (
+              <FormControlLabel
+                key={choice}
+                value={choice}
+                control={<Radio />}
+                label={choice}
+              />
+            ))}
           </RadioGroup>
+          <FormHelperText>
+            {error?.message}
+          </FormHelperText>
         </FormControl>
       )}
 

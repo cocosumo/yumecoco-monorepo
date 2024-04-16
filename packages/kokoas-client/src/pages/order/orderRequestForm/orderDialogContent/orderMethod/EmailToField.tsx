@@ -54,7 +54,7 @@ export const EmailToField = () => {
             onChange={(_, newValue) => {
               setValue('supplierOfficerId', newValue?.officerId ?? '');
               setValue('supplierOfficerName', newValue?.officerName ?? '');
-              setValue('supplierOfficerEmail', newValue?.officerTel ?? '');
+              setValue('supplierOfficerEmail', newValue?.label ?? '');
               setValue('supplierOfficerTel', newValue?.officerTel ?? '');
             }}
             renderInput={(params) => (

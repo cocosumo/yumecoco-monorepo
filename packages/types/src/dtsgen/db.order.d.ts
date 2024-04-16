@@ -12,7 +12,7 @@ declare namespace DBOrder {
     supplierName: kintone.fieldTypes.SingleLineText;
     supplierEmail: kintone.fieldTypes.SingleLineText;
     expectedDeliveryDate: kintone.fieldTypes.SingleLineText;
-    orderMethod: kintone.fieldTypes.DropDown;
+    orderMethod: kintone.fieldTypes.SingleLineText;
     supplierOfficerId: kintone.fieldTypes.SingleLineText;
     orderDate: kintone.fieldTypes.SingleLineText;
     supplierOfficerEmail: kintone.fieldTypes.SingleLineText;

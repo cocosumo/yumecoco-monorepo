@@ -23,7 +23,6 @@ export const OrderName = () => {
           fullWidth
           variant={'outlined'}
           size={'small'}
-          required
           InputProps={{
             style: { maxWidth: '400px' },
           }}

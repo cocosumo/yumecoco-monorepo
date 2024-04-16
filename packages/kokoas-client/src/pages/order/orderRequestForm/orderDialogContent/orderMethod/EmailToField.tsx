@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { Controller } from 'react-hook-form';
 
 export const EmailToField = () => {
-  const { control } = useOrderFormContext();
+  const { control, setValue } = useOrderFormContext();
   const supplierId = useOrderWatch({
     name: 'supplierId',
   });
@@ -17,7 +17,12 @@ export const EmailToField = () => {
     return data
       .find((supplier) => supplier.managementID.value === supplierId)
       ?.memberTable.value.map(({ value: member }) => ({
+        officerId: member.memberUuid.value,
+        officerName: member.memberName.value,
+        officerTel: member.memberTel.value,
         name: member.memberName.value,
+
+        /** メール */
         label: member.memberMail.value,
       }) );
 
@@ -25,12 +30,11 @@ export const EmailToField = () => {
 
   return (   
     <Controller
-      name={'emailTo'}
+      name={'supplierOfficerId'}
       control={control}
       render={({ 
         field: {
           value,
-          onChange,
           ref,
         },
         fieldState: {
@@ -38,7 +42,8 @@ export const EmailToField = () => {
         },
       }) => {
 
-        const selectedValue = supplierMemberOptions?.find((s) => s.label === value);
+        
+        const selectedValue = supplierMemberOptions?.find((s) => s.officerId === value);
 
         return (
           <Autocomplete
@@ -47,7 +52,10 @@ export const EmailToField = () => {
             fullWidth
             size={'small'}
             onChange={(_, newValue) => {
-              onChange(newValue?.label);
+              setValue('supplierOfficerId', newValue?.officerId ?? '');
+              setValue('supplierOfficerName', newValue?.officerName ?? '');
+              setValue('supplierOfficerEmail', newValue?.officerTel ?? '');
+              setValue('supplierOfficerTel', newValue?.officerTel ?? '');
             }}
             renderInput={(params) => (
               <Tooltip 

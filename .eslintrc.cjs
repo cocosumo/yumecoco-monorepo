@@ -91,7 +91,7 @@ module.exports = {
       'error',
       { 
         props: true, 
-        ignorePropertyModificationsFor: ['draft', 'acc', 'res'],
+        ignorePropertyModificationsForRegex: ['^draft', 'acc', 'res'],
       },
     ],
   },

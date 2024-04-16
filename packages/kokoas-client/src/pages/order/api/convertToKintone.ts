@@ -31,7 +31,7 @@ export const convertToKintone = ({
       // The "orderId" is auto-generated upon order creation, so it should not be user-editable.
       // The necessity of this feature depends on how frequently the same record is edited simultaneously.
 
-      const converted : Omit<IOrderbudget['items']['value'][number]['value'], 'orderId' | 'supplierName' | 'status'> = {
+      const converted : Omit<IOrderbudget['items']['value'][number]['value'], 'orderId' | 'orderDataId' | 'supplierName' | 'status' > = {
         majorItem: { value: majorItem ?? '' },
         middleItem: { value: middleItem ?? '' },
         material: { value: material ?? '' },

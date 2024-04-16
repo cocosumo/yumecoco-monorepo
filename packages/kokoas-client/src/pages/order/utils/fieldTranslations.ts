@@ -19,6 +19,7 @@ export const ja: Record<KForm | KItem, string> = {
   rowRemarks: '行備考',
   supplierName: '業者名',
   orderId: '発注番号',
+  orderDataId: '発注管理番号',
   itemId: '部材のID',
   revision: 'リビジョン',
 };

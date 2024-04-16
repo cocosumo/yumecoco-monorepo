@@ -1,10 +1,11 @@
 import { getTemplate } from 'api-aws/src/s3/getTemplate';
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import { OrderData } from 'types/src/common/order';
 import fontkit from '@pdf-lib/fontkit';
 import fs from 'fs/promises';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
+import { getConstPeriod } from './helper/getConstPeriod';
 
 
 
@@ -23,21 +24,29 @@ export const createOrderDocument = async (
 
   const {
     orderId,
-    //purchaseOrderId,
+    purchaseOrderId,
     orderDate,
 
-    /* projId,
+    projId,
     projNum,
     projNumJa,
     projName,
     custGroupName,
     constAddress,
-    constPeriod, */
+    constStartDate,
+    constFinishDate,
     cocoConst,
-    /* store,
 
-    vendorAddress,
-    vendorManeger, */
+    companyName,
+    store,
+    storeAddress,
+    storeTel,
+    storeFax,
+    buildingLicenseNumber,
+
+    vendorAddress1,
+    vendorAddress2,
+    vendorManeger,
   } = data;
 
 
@@ -81,7 +90,7 @@ export const createOrderDocument = async (
   // 発注番号
   drawText(
     firstPage,
-    orderId,
+    purchaseOrderId,
     {
       x: 700,
       y: 524,
@@ -99,7 +108,7 @@ export const createOrderDocument = async (
     cocoConst,
     {
       x: 700,
-      y: 535,
+      y: 534,
       font: msChinoFont,
       size: 9,
     },
@@ -108,7 +117,6 @@ export const createOrderDocument = async (
     },
   );
 
-  
   // 発注書発行日
   drawText(
     firstPage,
@@ -123,7 +131,104 @@ export const createOrderDocument = async (
       weight: 0.1,
     },
   );
-  
+
+
+  // 業者住所
+  drawText(
+    firstPage,
+    vendorAddress1,
+    {
+      x: 80,
+      y: 502,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  drawText(
+    firstPage,
+    vendorAddress2,
+    {
+      x: 80,
+      y: 487,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 業者担当者
+  drawText(
+    firstPage,
+    `${vendorManeger}　　御中`,
+    {
+      x: 80,
+      y: 465,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+
+  // 工事名([工事番号]　工事名)
+  drawText(
+    firstPage,
+    `[${projNumJa}] ${projName}`,
+    {
+      x: 100,
+      y: 392,
+      font: msChinoFont,
+      size: 10,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 工事場所住所
+  drawText(
+    firstPage,
+    constAddress,
+    {
+      x: 100,
+      y: 379,
+      font: msChinoFont,
+      size: 10,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 工事期間
+  const constPeriod = getConstPeriod({
+    startDate: constStartDate,
+    finishDate: constFinishDate,
+  });
+  drawText(
+    firstPage,
+    `${constPeriod}`,
+    {
+      x: 100,
+      y: 367,
+      font: msChinoFont,
+      size: 10,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+
+
 
 
   switch (contentType) {

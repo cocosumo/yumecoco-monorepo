@@ -12,6 +12,7 @@ import { DevTool } from '@hookform/devtools';
 
 interface OrderRequestDialogProps {
   open: boolean,
+  orderId?: string,
   projId: string,
   projName: string,
   storeName: string,
@@ -20,6 +21,7 @@ interface OrderRequestDialogProps {
 
 const initialDialogState : OrderRequestDialogProps = {
   open: false,
+  orderId: '',
   projId: '',
   projName: '',
   storeName: '',

@@ -9,7 +9,7 @@ import { convertOrderInfoToKintone } from '../api/convertOrderInfoToKintone';
 
 export const useSaveOrderRequest = () => {
   const { setSnackState } = useSnackBar();
-  const { handleSubmit } = useOrderFormContext();
+  const { handleSubmit, reset } = useOrderFormContext();
   const { 
     mutateAsync: saveOrderBudget, 
     isLoading: saveOrderBudgetIsLoading,
@@ -21,7 +21,7 @@ export const useSaveOrderRequest = () => {
   } = useSaveOrder();
 
   const onSubmitValid: SubmitHandler<TOrderForm> = useCallback(async (data) => {
-
+    console.log('dataSave', data);
     await saveOrder(
       {
         recordId: data.orderId,
@@ -29,18 +29,19 @@ export const useSaveOrderRequest = () => {
       }, 
       {
         onSuccess: async ({ recordId: orderId }) => {
-          saveOrderBudget({
+          await saveOrderBudget({
             recordId: data.projId,
             record: await convertOrderItemsToKintone(data, orderId),
           });
+          reset({ ...data, orderId });
         },
       },
     );
 
-  }, [saveOrderBudget, saveOrder]);
+  }, [saveOrderBudget, saveOrder, reset]);
 
   const onSubmitInvalid: SubmitErrorHandler<TOrderForm> = useCallback((errors) => {
-    // TODO: 詳しいエラーを出す
+    // TODO: 依頼により、詳しいエラーを出す。エラーのある行が多いとどう表示するか、検討が必要。
 
     // 本番で保存出来ない原因を特定するため、残す。
     console.warn('Validation Errors', errors);

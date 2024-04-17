@@ -7,8 +7,6 @@ import { InsertRow } from './insertRow/InsertRow';
 export const Actions = () => {
   return (
     <Stack
-      alignItems={'flex-start'}
-      justifyContent={'space-between'}
       direction={'row'}
     >
       <Stack 

@@ -1,7 +1,7 @@
 declare namespace DBOrder {
   interface Data {
-    projId: kintone.fieldTypes.SingleLineText;
     emailCc: kintone.fieldTypes.SingleLineText;
+    projId: kintone.fieldTypes.SingleLineText;
     supplierId: kintone.fieldTypes.SingleLineText;
     supplicerOfficerName: kintone.fieldTypes.SingleLineText;
     uuid: kintone.fieldTypes.SingleLineText;
@@ -11,11 +11,11 @@ declare namespace DBOrder {
     orderName: kintone.fieldTypes.SingleLineText;
     supplierName: kintone.fieldTypes.SingleLineText;
     supplierEmail: kintone.fieldTypes.SingleLineText;
-    expectedDeliveryDate: kintone.fieldTypes.SingleLineText;
+    expectedDeliveryDate: kintone.fieldTypes.Date;
     orderMethod: kintone.fieldTypes.SingleLineText;
     supplierOfficerId: kintone.fieldTypes.SingleLineText;
-    orderDate: kintone.fieldTypes.SingleLineText;
     supplierOfficerEmail: kintone.fieldTypes.SingleLineText;
+    orderDate: kintone.fieldTypes.Date;
     remarks: kintone.fieldTypes.MultiLineText;
     status: kintone.fieldTypes.SingleLineText;
   }

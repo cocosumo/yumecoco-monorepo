@@ -35,7 +35,7 @@ export const SaveButton = () => {
 
       <Fade in={isDirty}>
         <Alert severity={'warning'}>
-          未保存の変更があります
+          保存されていない変更があります。
         </Alert>
       </Fade>
 

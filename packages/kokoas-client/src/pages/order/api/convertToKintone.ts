@@ -45,7 +45,7 @@ export const convertToKintone = ({
 
 
       acc.push({
-        id: itemId || '', // If not provided for existing item, it will be lost.
+        id: !isNaN(Number(itemId)) ? itemId : '', // If empty string, it will be a new item.
 
         // force type conversion as kintone generates type that make all fields required.
         value: converted as unknown as IOrderbudget['items']['value'][number]['value'], 

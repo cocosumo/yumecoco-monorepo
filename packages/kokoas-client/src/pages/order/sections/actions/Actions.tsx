@@ -7,6 +7,7 @@ import { InsertRow } from './insertRow/InsertRow';
 export const Actions = () => {
   return (
     <Stack
+      justifyContent={'space-between'}
       direction={'row'}
     >
       <Stack 

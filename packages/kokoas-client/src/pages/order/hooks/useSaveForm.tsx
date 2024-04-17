@@ -24,7 +24,7 @@ export type UseSaveForm = ReturnType<typeof useSaveForm>;
 
 export const useSaveForm = () => {
 
-  const { handleSubmit, getValues } = useTypedFormContext();
+  const { handleSubmit, getValues, control } = useTypedFormContext();
   const { setSnackState } = useSnackBar();
 
   const { mutateAsync: saveMutation } = useSaveOrderBudget();
@@ -113,6 +113,7 @@ export const useSaveForm = () => {
   };
 
   return {
+    control,
     onSubmitValid,
     onSubmitInvalid,
     handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),

@@ -15,6 +15,7 @@ const emailOrEmptyString = z.string().email()
 export const schema = z.object({
   projId: z.string(),
   projName: z.string(),
+  storeName: z.string(),
   orderId: z.string()
     .optional(),
   orderDataId: z.string(),
@@ -58,6 +59,7 @@ export const initialOrderForm: TOrderForm = {
   supplierId: '',
   supplierName: '',
   orderName: '',
+  storeName: '',
   orderDate: new Date(),
   orderMethod: '' as TOrderMethod,
   supplierOfficerId: '',

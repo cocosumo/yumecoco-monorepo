@@ -6,10 +6,13 @@ import { useCallback } from 'react';
 import { useSnackBar } from 'kokoas-client/src/hooks';
 import { convertOrderItemsToKintone } from '../api/convertOrderItemsToKintone';
 import { convertOrderInfoToKintone } from '../api/convertOrderInfoToKintone';
+import { useSetAtom } from 'jotai';
+import { orderRequestAtom } from '../OrderRequestDialog';
 
 export const useSaveOrderRequest = () => {
+  const setOrderRequestAtom = useSetAtom(orderRequestAtom);
   const { setSnackState } = useSnackBar();
-  const { handleSubmit, reset } = useOrderFormContext();
+  const { handleSubmit } = useOrderFormContext();
   const { 
     mutateAsync: saveOrderBudget, 
     isLoading: saveOrderBudgetIsLoading,
@@ -33,12 +36,19 @@ export const useSaveOrderRequest = () => {
             recordId: data.projId,
             record: await convertOrderItemsToKintone(data, orderId),
           });
-          reset({ ...data, orderId });
+          setOrderRequestAtom({
+            open: true,
+            orderId,
+            projId: data.projId,
+            projName: data.projName,
+            selectedItems: data.selectedItems,
+            storeName: data.storeName,
+          });
         },
       },
     );
 
-  }, [saveOrderBudget, saveOrder, reset]);
+  }, [saveOrderBudget, setOrderRequestAtom, saveOrder]);
 
   const onSubmitInvalid: SubmitErrorHandler<TOrderForm> = useCallback((errors) => {
     // TODO: 依頼により、詳しいエラーを出す。エラーのある行が多いとどう表示するか、検討が必要。

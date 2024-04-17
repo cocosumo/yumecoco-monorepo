@@ -5,7 +5,7 @@ import { getRecords } from '../common';
 
 const idField: RecordKey = 'uuid';
 
-export const getOrderByRecordId = async (
+export const getOrderById = async (
   recordId: string,
 ) => getRecords<RecordType>({
   app: appId,

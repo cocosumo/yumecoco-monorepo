@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField } from '@mui/material';
+import { Autocomplete, Box, Skeleton, TextField } from '@mui/material';
 import { useSupplierOptions } from './useSupplierOptions';
 import { useOrderFormContext } from '../../hooks/useOrderRHF';
 import { Controller, useController } from 'react-hook-form';
@@ -6,7 +6,7 @@ import { Controller, useController } from 'react-hook-form';
 
 export const SelectSupplier = () => {
   const { control, setValue } = useOrderFormContext();
-
+  
   // Dummy control to store supplier name
   // setValue of useForm also works, but it won't appear on devtools
   const { 
@@ -18,58 +18,71 @@ export const SelectSupplier = () => {
     control,
   });
 
-  const { data = [] } = useSupplierOptions();
+  const { data = [], isFetching } = useSupplierOptions();
+
+  if (isFetching) {
+    // prevent error when setting defaultValue after AutoComplete is rendered.
+    // We may convert the component to controlled if Skeleton is undesirable.
+    return <Skeleton variant={'rectangular'} width={300} height={40} />;
+  }
 
   return (
-    <Controller
+    <Controller 
       name={'supplierId'}
       control={control}
       render={({ 
         field: {
+          value,
           onChange,
         }, 
         fieldState: { 
           error, 
         },
-      }) => (
-        <Autocomplete
-          options={data}
-          getOptionLabel={(option) => option.label}
-          renderOption={(props, option) => (
-            <Box 
-              component="li" 
-              {...props}
-            >
-              {option.label}
-            </Box>
-          )}
-          sx={{ width: 300 }}
-          onChange={(_, value) => {
-            onChange(value?.id);
-            onChangeSupplierName(value?.label || '');
+      }) => {
+        
+        return (
+          <Autocomplete
+            key={value}
+            options={data}
+            getOptionLabel={(option) => option.label}
+            defaultValue={data.find((d) => d.id === value)}
+            renderOption={(props, option) => (
+              <Box 
+                component="li" 
+                {...props}
+              >
+                {option.label}
+              </Box>
+            )}
+            sx={{ width: 300 }}
+            onChange={(_, newValue) => {
 
-            const newOfficerId = value?.record.memberTable.value?.[0].value.memberUuid.value || '';
+              onChange(newValue?.id);
+              onChangeSupplierName(newValue?.label || '');
 
-            setValue('supplierOfficerId', newOfficerId);
-            setValue('emailCc', '');
-            setValue('emailBcc', '');
-          }}
-          renderInput={(params) => {
-            return (
-              <TextField
-                {...params}
-                label={'業者名'}
-                size={'small'}
-                fullWidth
-                variant={'outlined'}
-                required
-                error={!!error}
-                helperText={error?.message}
-              />
-            );
-          }}
-        />
-      )}
+              const newOfficerId = newValue?.record.memberTable.value?.[0].value.memberUuid.value || '';
+
+              setValue('supplierOfficerId', newOfficerId);
+              setValue('emailCc', '');
+              setValue('emailBcc', '');
+            }}
+            renderInput={(params) => {
+              return (
+                <TextField
+                  {...params}
+                  label={'業者名'}
+                  size={'small'}
+                  fullWidth
+                  variant={'outlined'}
+                  required
+                  error={!!error}
+                  helperText={error?.message}
+                />
+              );
+            }}
+          />
+        );
+      }}
     />
 
     

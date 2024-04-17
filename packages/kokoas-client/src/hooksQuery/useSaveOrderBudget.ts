@@ -18,7 +18,6 @@ export const useSaveOrderBudget = () => {
     onSuccess: () => {
       commonOptions.onSuccess();
       qc.invalidateQueries({ queryKey: [AppIds.orderBudget] });
-      qc.invalidateQueries({ queryKey: [AppIds.order] });
     },
   });
 };

@@ -19,7 +19,7 @@ export const DeleteRows = () => {
     setSnackState({
       open: true,
       severity: 'info',
-      message: `${selectedItems.length}行削除しました。適用するように保存してください。`,
+      message: `${selectedItems.length}行削除しました。まだ保存されていません。\n削除を確定するには保存してください。`,
       autoHideDuration: 10000,
     });
   };

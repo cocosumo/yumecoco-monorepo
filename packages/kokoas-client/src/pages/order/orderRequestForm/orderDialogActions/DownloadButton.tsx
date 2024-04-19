@@ -1,14 +1,26 @@
 import { Button, Tooltip } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import { useOrderFormContext, useOrderWatch } from '../hooks/useOrderRHF';
-import { TOrderForm } from '../schema';
+import { useOrderFormContext } from '../hooks/useOrderRHF';
+import { useWatch } from 'react-hook-form';
+import { useSaveOrderRequest } from '../hooks/useSaveOrderRequest';
 
 export const DownloadButton = () => {
   const {
     formState: { isDirty },
+    control,
   } = useOrderFormContext();
 
-  const orderId = useOrderWatch({ name: 'orderId' }) as TOrderForm['orderId'];
+  const orderId = useWatch({ 
+    control,
+    name: 'orderId',
+  });
+
+
+  const {
+    handleSubmit,
+  } = useSaveOrderRequest();
+  
+      
   const hasUnsavedChange = isDirty || !orderId;
 
 
@@ -21,7 +33,13 @@ export const DownloadButton = () => {
           color={'info'} 
           disabled={hasUnsavedChange}
           variant={'contained'}
-          onClick={() => alert('未実装です。もうしばらくお待ちください。')}
+          value='発注済'
+          onClick={async (e) => {
+            if (!orderId) return;
+            await handleSubmit(e);
+            alert('ステータスは更新しましたが、発注書の発行はまだ実装されていません。');
+
+          }}
           startIcon={<FileDownloadIcon />}
         >
           発注書発行

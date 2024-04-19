@@ -5,7 +5,7 @@ import { toKintoneDateStr } from 'kokoas-client/src/lib';
 /**
  * 発注明細DB形に変換する。
  */
-export const convertOrderInfoToKintone = (data: TOrderForm) => {
+export const convertOrderInfoToKintone = (data: TOrderForm, status?: string) => {
   const {
     supplierId,
     orderName,
@@ -30,6 +30,7 @@ export const convertOrderInfoToKintone = (data: TOrderForm) => {
     emailBcc: { value: emailBcc || '' },
     expectedDeliveryDate: { value: toKintoneDateStr(expectedDeliveryDate) },
     remarks: { value: remarks || '' },
+    status: status ? { value: status } : undefined, // undefinedの場合は更新しない
   };
 
   return kintoneRecord;

@@ -35,7 +35,6 @@ export const DeleteRows = () => {
         setDialogState({
           open: true,
           title: `${selectedItems.length}行削除しますか？`,
-          content: '削除を適用するように保存してください。',
           handleYes: handleDelete,
         });
       }}

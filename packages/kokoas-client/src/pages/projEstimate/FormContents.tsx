@@ -4,10 +4,10 @@ import {
   PercentField,
 } from 'kokoas-client/src/components/reactHookForm';
 
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext, useFormState, useWatch } from 'react-hook-form';
 import { MismatchedProfit } from './fields/MismatchedProfit';
 import { StatusSelect } from './fields/StatusSelect';
-import { useConfirmBeforeClose, UseSaveForm, useSaveHotkey } from './hooks';
+import { UseSaveForm, useSaveHotkey } from './hooks';
 import { SubTotalTable } from './tables/SubTotalTable/SubTotalTable';
 import { Remarks } from './fields/Remarks';
 import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
@@ -19,6 +19,7 @@ import { ActionButtons } from './sections/ActionButton';
 import { pages } from '../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { OrderTableLabel } from 'kokoas-client/src/components/inputGridLabel/OrderTableLabel';
+import { useConfirmBeforeClose } from 'kokoas-client/src/hooks/useConfirmBeforeClose';
 
 
 export const FormContents = ({
@@ -33,8 +34,12 @@ export const FormContents = ({
     control,
   } = useFormContext<TForm>();
 
+  const { isDirty } = useFormState({ control });
+
   /* 閉じるまえに、確認アラートを表示する */
-  useConfirmBeforeClose();
+  useConfirmBeforeClose({
+    open: isDirty,
+  });
 
   const [
     projId,

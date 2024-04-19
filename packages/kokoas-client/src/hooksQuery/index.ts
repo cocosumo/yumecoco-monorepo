@@ -92,7 +92,6 @@ export * from './useStoreOptions';
 export * from './useStores';
 export * from './useSystemUpdate';
 export * from './useUnits';
-export * from './useUpdateOrderStatus';
 export * from './useUploadDaikokuEst';
 export * from './useUploadDaikokuGenka';
 export * from './useVoidContract';

@@ -1,14 +1,16 @@
 import { Button } from '@mui/material';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
 import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { TForm } from '../../schema';
-import { useSetAtom } from 'jotai';
+import { atom, useAtom, useSetAtom } from 'jotai';
 import { TOrderItem } from '../../orderRequestForm/schema';
 import { orderRequestAtom } from '../../orderRequestForm/OrderRequestDialog';
 
+export const selectedItemsAtom = atom<TOrderItem[]>([]);
 
 export const OrderSelected = () => {
   const setOrderRequestAtom = useSetAtom(orderRequestAtom);
+  const [selectedItems, setSelectedItems] = useAtom(selectedItemsAtom);
   const formValues  = useTypedWatch();
 
   const { 
@@ -18,9 +20,9 @@ export const OrderSelected = () => {
     items,
   } = formValues as TForm;
 
-  const selectedItems: TOrderItem[] = useMemo(() => {
-    return items.filter(item => item.selected);
-  }, [items]);
+  useEffect(() => {
+    setSelectedItems(items.filter(item => item.selected));
+  }, [items, setSelectedItems]);
 
 
   return (

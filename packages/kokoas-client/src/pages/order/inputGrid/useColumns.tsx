@@ -69,6 +69,15 @@ export const useColumns = (): MyColumn[] => {
       editable: false,
       width: 70,
       minWidth: 100,    
+      renderCell : ({ row }) => {
+        
+        if (row.orderId) {
+          return row.status || '未発注';
+        }
+
+        return row.status;
+    
+      },
     },
     { 
       key: 'majorItem', 

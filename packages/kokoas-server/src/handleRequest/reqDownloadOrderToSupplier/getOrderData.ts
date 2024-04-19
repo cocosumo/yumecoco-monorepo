@@ -2,7 +2,7 @@ import { OrderData } from 'types/src/common/order';
 
 
 
-export const getOrderData = async (orderId: string): Promise<OrderData> => {
+export const getOrderData = async (orderId: string) => {
 
   // TODO 各DBから必要な情報を取得する
 
@@ -10,7 +10,7 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
   
   const variant = ''; // 仮データ
 
-  return ({
+  const orderData: OrderData = {
     orderId: orderId,
     purchaseOrderId: variant,
     orderDate: variant,
@@ -20,11 +20,21 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     projName: variant,
     custGroupName: variant,
     constAddress: variant,
-    constPeriod: variant,
+    constStartDate: variant,
+    constFinishDate: variant,
     cocoConst: variant,
     store: variant,
-    vendorAddress: variant,
+    vendorAddress1: variant,
+    vendorAddress2: variant,
     vendorManeger: variant,
-  });
+    buildingLicenseNumber: variant,
+    companyName: variant,
+    storeAddress: variant,
+    storeTel: variant,
+    storeFax: variant,
+    invoiceSystemNumber: variant,
+  };
+
+  return orderData;
 
 };

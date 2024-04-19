@@ -67,6 +67,9 @@ export interface OrderData {
 
   /** 業者担当者 */
   vendorManeger: string,
+
+  /** 適格請求書発行事業者番号 */
+  invoiceSystemNumber: string,
 }
 
 

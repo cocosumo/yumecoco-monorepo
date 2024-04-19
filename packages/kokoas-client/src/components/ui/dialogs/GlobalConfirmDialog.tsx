@@ -5,7 +5,7 @@ import { AlertProps } from '@mui/material';
 export interface IDialogState {
   open?: boolean,
   title: ReactNode,
-  content: ReactNode,
+  content?: ReactNode,
   yesText?: string,
   noText?:string,
   withYes?: boolean,

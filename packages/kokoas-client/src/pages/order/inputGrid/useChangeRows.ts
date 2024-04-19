@@ -53,9 +53,9 @@ export const useChangeRows = () => {
         `items.${index}`, 
         calculatedRow(rows[index], fieldName),
         {
-          shouldValidate: true,
+          shouldValidate: fieldName !== 'selected',
           shouldDirty: true,
-          shouldTouch: true,
+          shouldTouch: fieldName !== 'selected',
         },
       );
     });

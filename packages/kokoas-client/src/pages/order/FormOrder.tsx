@@ -4,7 +4,7 @@ import { TForm, schema } from './schema';
 import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { OrderBudgetDataGrid } from './inputGrid/OrderBudgetDataGrid';
-import { FooterActionButtons } from './sections/FooterActionButtons';
+import { FooterActionButtons } from './sections/footerActions/FooterActionButtons';
 import { useEffect } from 'react';
 import { Actions } from './sections/actions/Actions';
 import { FormOrderContainer } from './FormOrderContainer';

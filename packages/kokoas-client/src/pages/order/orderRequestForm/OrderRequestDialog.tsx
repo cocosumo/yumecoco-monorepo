@@ -1,5 +1,5 @@
 import { Dialog } from '@mui/material';
-import { ORDialogTitle } from './ORDialogTitle';
+import { OrderDialogTitle } from './orderDialogContent/orderDialogTitle/OrderDialogTitle';
 import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { OrderDialogActions } from './orderDialogActions/OrderDialogActions';
@@ -7,11 +7,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { TOrderForm, TOrderItem, initialOrderForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { atom, useAtom } from 'jotai';
-import { useEffect } from 'react';
 import { DevTool } from '@hookform/devtools';
+import { useOrderRequestInitial } from './hooks/useOrderRequestInitial';
+import { useLazyEffect } from 'kokoas-client/src/hooks';
 
 interface OrderRequestDialogProps {
   open: boolean,
+  orderId?: string,
   projId: string,
   projName: string,
   storeName: string,
@@ -20,6 +22,7 @@ interface OrderRequestDialogProps {
 
 const initialDialogState : OrderRequestDialogProps = {
   open: false,
+  orderId: '',
   projId: '',
   projName: '',
   storeName: '',
@@ -29,43 +32,33 @@ const initialDialogState : OrderRequestDialogProps = {
 export const orderRequestAtom = atom(initialDialogState);
 
 export const OrderRequestDialog = () => {
-
+  const { 
+    initialValues,
+  } = useOrderRequestInitial();
   const [orderRequest, setOrderRequestAtom] = useAtom(orderRequestAtom);
 
   const {
     open,
-    projId,
-    projName,
-    storeName,
-    selectedItems,
   } = orderRequest;
 
-  const handleClose = () => {
-    setOrderRequestAtom({ ...orderRequest, open: false });
-  };
-
   const formMethods = useForm<TOrderForm>({
-    defaultValues: initialOrderForm,
+    defaultValues: initialValues,
     resolver: zodResolver(schema),
   });
 
-  const { reset } = formMethods;
+  const {
+    reset, 
+  } = formMethods;
 
-  useEffect(() => {
-    if (open) {
-      const firstMajorItem = selectedItems[0]?.majorItem;
+  const handleClose = () => {
+    setOrderRequestAtom({ ...orderRequest, open: false });
+    reset(initialOrderForm);
+  };
 
-      const isCommonMajorItem = selectedItems.every(item => item.majorItem === firstMajorItem);
-
-      reset({
-        ...initialOrderForm,
-        projId,
-        projName,
-        selectedItems,
-        orderName: isCommonMajorItem ? firstMajorItem : '',
-      });
-    }
-  }, [open, projId, projName, selectedItems, reset]);
+  useLazyEffect(() => {
+    if (!open) return;
+    reset(initialValues);
+  }, [ open, initialValues, reset], 300);  
 
   return (
     <Dialog
@@ -75,16 +68,17 @@ export const OrderRequestDialog = () => {
       fullWidth
       disableEscapeKeyDown
     >
+
       <FormProvider {...formMethods}>
-        <ORDialogTitle 
-          storeName={storeName}
-          projName={projName}
-        />
+
+        <OrderDialogTitle />
+
         <CloseButton handleClose={handleClose} />
     
         <ORDialogContent />
 
         <OrderDialogActions />
+
       </FormProvider>
 
       <DevTool control={formMethods.control} placement='bottom-right' />

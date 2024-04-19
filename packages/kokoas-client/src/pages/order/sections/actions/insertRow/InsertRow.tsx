@@ -11,7 +11,7 @@ export const InsertRow = () => {
   
   const handleInsert = () => {
     const items = getValues('items');
-    // I didn't find a built-in way in react-data-grid get selected cell so I will use querySelector,
+    // I didn't find a built-in way in react-data-grid to get selected cell so I will use querySelector,
     // however, this might break if the specifications of the grid changes.
     const selectedCell = document.querySelector('div[role="grid"] div[aria-selected="true"]');
     let parsedRowIdx = items.length;

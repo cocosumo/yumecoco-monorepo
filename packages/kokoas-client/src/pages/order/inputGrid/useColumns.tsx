@@ -13,6 +13,7 @@ import { renderText } from './renderers/renderText';
 import { renderTaxType } from './renderers/renderTaxType';
 import { Typography } from '@mui/material';
 import { renderOrderDataId } from './renderers/renderOrderDataId';
+import { renderStatus } from './renderers/renderStatus';
 
 export type RowItem = TItem & {
   index: number;
@@ -69,15 +70,7 @@ export const useColumns = (): MyColumn[] => {
       editable: false,
       width: 70,
       minWidth: 100,    
-      renderCell : ({ row }) => {
-        
-        if (row.orderId) {
-          return row.status || '未発注';
-        }
-
-        return row.status;
-    
-      },
+      renderCell : renderStatus,
     },
     { 
       key: 'majorItem', 

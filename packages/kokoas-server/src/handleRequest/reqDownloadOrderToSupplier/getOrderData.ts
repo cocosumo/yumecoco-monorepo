@@ -1,4 +1,4 @@
-import { OrderData } from 'types/src/common/order';
+import { OrderData, OrderDetails } from 'types/src/common/order';
 
 
 
@@ -9,6 +9,7 @@ export const getOrderData = async (orderId: string) => {
 
   
   const variant = ''; // 仮データ
+  const orderDetails = [] as OrderDetails[];
 
   const orderData: OrderData = {
     orderId: orderId,
@@ -27,13 +28,15 @@ export const getOrderData = async (orderId: string) => {
     postCode: variant,
     vendorAddress1: variant,
     vendorAddress2: variant,
-    vendorManeger: variant,
+    vendorManager1: variant,
+    vendorManager2: variant,
     buildingLicenseNumber: variant,
     companyName: variant,
     storeAddress: variant,
     storeTel: variant,
     storeFax: variant,
     invoiceSystemNumber: variant,
+    orderDetails: orderDetails,
   };
 
   return orderData;

@@ -1,5 +1,35 @@
 /** 発注に関わるデータ型定義 */
 
+export interface OrderDetails {
+  /** 大項目 */
+  majorItem: string,
+
+  /** 中項目 */
+  middleItem: string,
+
+  /** 部材 */
+  material: string,
+
+  /** 単位 */
+  unit: string,
+
+  /** 数量 */
+  quantity: number,
+
+  /** 単価 */
+  costPrice: number,
+
+  /** 発注金額(税抜) */
+  orderAmountBeforeTax: number,
+
+  /** 税率 */
+  taxRate: number,
+
+  /** 備考 */
+  rowRemarks: string,
+
+}
+
 export interface OrderData {
 
   /** 発注ids */
@@ -69,13 +99,16 @@ export interface OrderData {
   vendorAddress2: string,
 
   /** 業者担当者1 */
-  vendorManeger1: string,
+  vendorManager1: string,
 
   /** 業者担当者2 */
   vendorManager2: string,
 
   /** 適格請求書発行事業者番号 */
   invoiceSystemNumber: string,
+
+  /** 発注詳細 */
+  orderDetails: OrderDetails[],
 }
 
 

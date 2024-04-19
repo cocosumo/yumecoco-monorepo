@@ -48,8 +48,8 @@ export const createOrderDocument = async (
 
     vendorAddress1,
     vendorAddress2,
-    vendorManeger1,
-    vendorManeger2,
+    vendorManager1,
+    vendorManager2,
   } = data;
 
 
@@ -168,7 +168,7 @@ export const createOrderDocument = async (
   // 業者担当者1
   drawText(
     firstPage,
-    vendorManeger1,
+    vendorManager1,
     {
       x: 80,
       y: 478,
@@ -183,7 +183,7 @@ export const createOrderDocument = async (
   // 業者担当者2
   drawText(
     firstPage,
-    vendorManeger2,
+    vendorManager2,
     {
       x: 80,
       y: 465,

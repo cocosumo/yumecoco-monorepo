@@ -12,6 +12,7 @@ import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { OrderRequestDialog } from './orderRequestForm/OrderRequestDialog';
 import { OrderTableLabel } from 'kokoas-client/src/components/inputGridLabel/OrderTableLabel';
+import { InvoiceFormDialog } from './invoiceForm/InvoiceFormDialog';
 
 
 export const FormOrder = () => {
@@ -54,7 +55,8 @@ export const FormOrder = () => {
         <OrderBudgetDataGrid />
         <FooterActionButtons />
       </FormOrderContainer>
-
+      
+      <InvoiceFormDialog />
       <OrderRequestDialog />
     </>
   );

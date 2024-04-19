@@ -3,6 +3,10 @@ import { Chip, styled } from '@mui/material';
 import { RowItem } from '../useColumns';
 import { KOrderProgress } from 'types/src/common/order';
 import { blueGrey, green, lightGreen, orange, blue, yellow } from '@mui/material/colors';
+import { useSetAtom } from 'jotai';
+import { invoiceDialogAtom } from '../../invoiceForm/InvoiceFormDialog';
+import { useTypedFormContext } from '../../hooks/useTypedRHF';
+import { useCallback } from 'react';
 
 const statusBGcolorMap: Record<KOrderProgress, string> = {
   未発注: blueGrey[50],
@@ -39,14 +43,25 @@ const CustomChip = styled(Chip)(({ label, onClick }) => ({
 }));
 
 const RenderStatus = (props: RenderCellProps<RowItem>) => {
+  const { getValues } = useTypedFormContext();
+  const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
+  
   const { row } = props;
-  if (!row.status) {
-    return null;
-  }
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (row.status) return;
-  };
+  const handleClick =  useCallback(() => {
+    setInvoiceDialogAtom({ 
+      open: true,
+      orderId: row.orderId, 
+      projId: getValues('projId'), 
+      projName: getValues('projName'),
+      storeName: getValues('storeName'),
+    });
+
+  }, [
+    row,
+    getValues,
+    setInvoiceDialogAtom,
+  ]);
 
   const isProcessingOrder = row.status !== '未発注';
 
@@ -61,9 +76,10 @@ const RenderStatus = (props: RenderCellProps<RowItem>) => {
 
 export const renderStatus = (props: RenderCellProps<RowItem>) => {
 
-  // if (!props.row.status) {
-  //   return null;
-  // }
+  if (!props.row.status) {
+    return null;
+  }
+
   return (
     <RenderStatus {...props} />
   );

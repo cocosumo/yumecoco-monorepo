@@ -46,6 +46,9 @@ export interface OrderData {
   /** 担当店舗 */
   store: string,
 
+  /** 店舗郵便番号 */
+  postCode: string,
+
   /** 店舗住所 */
   storeAddress: string,
 
@@ -65,8 +68,11 @@ export interface OrderData {
   /** 業者住所2 */
   vendorAddress2: string,
 
-  /** 業者担当者 */
-  vendorManeger: string,
+  /** 業者担当者1 */
+  vendorManeger1: string,
+
+  /** 業者担当者2 */
+  vendorManager2: string,
 
   /** 適格請求書発行事業者番号 */
   invoiceSystemNumber: string,

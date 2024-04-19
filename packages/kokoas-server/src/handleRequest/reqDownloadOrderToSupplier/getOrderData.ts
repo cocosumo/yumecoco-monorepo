@@ -24,6 +24,7 @@ export const getOrderData = async (orderId: string) => {
     constFinishDate: variant,
     cocoConst: variant,
     store: variant,
+    postCode: variant,
     vendorAddress1: variant,
     vendorAddress2: variant,
     vendorManeger: variant,

@@ -39,14 +39,17 @@ export const createOrderDocument = async (
 
     companyName,
     store,
+    postCode,
     storeAddress,
     storeTel,
     storeFax,
     buildingLicenseNumber,
+    invoiceSystemNumber,
 
     vendorAddress1,
     vendorAddress2,
-    vendorManeger,
+    vendorManeger1,
+    vendorManeger2,
   } = data;
 
 
@@ -139,7 +142,7 @@ export const createOrderDocument = async (
     vendorAddress1,
     {
       x: 80,
-      y: 502,
+      y: 513,
       font: msChinoFont,
       size: 9,
     },
@@ -153,7 +156,7 @@ export const createOrderDocument = async (
     vendorAddress2,
     {
       x: 80,
-      y: 487,
+      y: 497,
       font: msChinoFont,
       size: 9,
     },
@@ -162,10 +165,25 @@ export const createOrderDocument = async (
     },
   );
 
-  // 業者担当者
+  // 業者担当者1
   drawText(
     firstPage,
-    `${vendorManeger}　　御中`,
+    vendorManeger1,
+    {
+      x: 80,
+      y: 478,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+  
+  // 業者担当者2
+  drawText(
+    firstPage,
+    vendorManeger2,
     {
       x: 80,
       y: 465,
@@ -227,6 +245,98 @@ export const createOrderDocument = async (
     },
   );
 
+
+  // 会社情報
+  // 会社名
+  const companyNameArray = companyName.split(' ');
+  drawText(
+    firstPage,
+    `${companyNameArray[0]} ${companyNameArray[1]}`,
+    {
+      x: 594,
+      y: 502,
+      font: msChinoFont,
+      size: 12,
+    },
+    {
+      weight: 0.4,
+    },
+  );
+
+  // 会社名 2行目
+  drawText(
+    firstPage,
+    `${companyNameArray[2]} ${store}`,
+    {
+      x: 594,
+      y: 489,
+      font: msChinoFont,
+      size: 12,
+    },
+    {
+      weight: 0.4,
+    },
+  );
+
+  // 適格請求書発行事業者番号
+  drawText(
+    firstPage,
+    invoiceSystemNumber,
+    {
+      x: 640,
+      y: 478,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 郵便番号 + 住所
+  drawText(
+    firstPage,
+    `〒${postCode} ${storeAddress}`,
+    {
+      x: 595,
+      y: 466,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // TEL + FAX
+  drawText(
+    firstPage,
+    `TEL：${storeTel}  FAX：${storeFax}`,
+    {
+      x: 595,
+      y: 454,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
+
+  // 建築業許可番号
+  drawText(
+    firstPage,
+    buildingLicenseNumber,
+    {
+      x: 595,
+      y: 443,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+    },
+  );
 
 
 

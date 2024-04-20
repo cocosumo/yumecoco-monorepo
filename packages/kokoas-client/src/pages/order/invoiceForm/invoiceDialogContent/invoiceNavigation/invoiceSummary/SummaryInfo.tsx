@@ -13,7 +13,7 @@ export const SummaryInfo = ({
   return (
     <Stack>
       <Typography 
-        fontSize={10} 
+        variant='caption'
         color={grey[500]} 
         component={'span'}
         textAlign={'right'}

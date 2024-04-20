@@ -1,9 +1,12 @@
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog } from '@mui/material';
 import { atom, useAtom } from 'jotai';
 import { FormProvider, useForm } from 'react-hook-form';
 import { initialInvoiceForm, schema } from './schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DevTool } from '@hookform/devtools';
+import { InvoiceDialogContent } from './invoiceDialogContent/InvoiceDialogContent';
+import { InvoiceDialogTitle } from './invoiceDialogTitle/InvoiceDialogTitle';
+import { CloseButton } from '../common/CloseButton';
 
 interface InvoiceDialogProps {
   open: boolean,
@@ -15,7 +18,7 @@ interface InvoiceDialogProps {
 }
 
 const initialDialogState : InvoiceDialogProps = {
-  open: false,
+  open: true,
   orderId: '',
   projId: '',
   projName: '',
@@ -37,8 +40,11 @@ export const InvoiceFormDialog = () => {
     resolver: zodResolver(schema),
   });
 
+  const { reset } = formMethods;
+
   const handleClose = () => {
-    setInvoiceDialogAtom({ ...invoiceDialog, open: false });
+    setInvoiceDialogAtom((prev) => ({ ...prev, open: false }) );
+    reset(initialInvoiceForm);
   };
 
   return (
@@ -50,17 +56,14 @@ export const InvoiceFormDialog = () => {
     >
       <FormProvider {...formMethods}>
 
-        <DialogTitle>
-          TODO: Form
-        </DialogTitle>
-        <DialogContent>
-          HELLO
+        <InvoiceDialogTitle />
+        
+        <InvoiceDialogContent />
 
-        </DialogContent>
-
-      
       </FormProvider>
     
+      <CloseButton handleClose={handleClose} />
+
       <DevTool control={formMethods.control} placement='bottom-right' />
 
     </Dialog>

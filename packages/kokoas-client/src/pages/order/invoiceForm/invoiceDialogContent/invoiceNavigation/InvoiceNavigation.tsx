@@ -8,7 +8,7 @@ export const InvoiceNavigation = () => {
   return (
     <Stack 
       height={'100%'} 
-      minWidth={'180px'}
+      minWidth={'200px'}
       borderRight={'1px solid #e0e0e0'}
     >
       <InvoiceList />

@@ -7,6 +7,7 @@ import { DevTool } from '@hookform/devtools';
 import { InvoiceDialogContent } from './invoiceDialogContent/InvoiceDialogContent';
 import { InvoiceDialogTitle } from './invoiceDialogTitle/InvoiceDialogTitle';
 import { CloseButton } from '../common/CloseButton';
+import { InvoiceDialogActions } from './invoiceDialogActions/InvoiceDialogActions';
 
 interface InvoiceDialogProps {
   open: boolean,
@@ -59,6 +60,8 @@ export const InvoiceFormDialog = () => {
         <InvoiceDialogTitle />
         
         <InvoiceDialogContent />
+
+        <InvoiceDialogActions />
 
       </FormProvider>
     

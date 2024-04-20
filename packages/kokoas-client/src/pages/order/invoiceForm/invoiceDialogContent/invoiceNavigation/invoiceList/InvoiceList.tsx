@@ -2,8 +2,8 @@ import { List, ListItem, ListItemButton, ListSubheader } from '@mui/material';
 import { ListItemLayout } from './ListItemLayout';
 import { v4 } from 'uuid';
 
-const sampleData = Array.from({ length: 30 }, (_, i) => ({
-  invoiceDeadlineDate: `2022/10/${i + 1}`,
+const sampleData = Array.from({ length: 100 }, (_, i) => ({
+  invoiceDeadlineDate: '2022/10/01',
   invoiceAmount: 1000000 * (i + 1),
 }));
 
@@ -12,7 +12,7 @@ export const InvoiceList = () => {
     <List
       sx={{
         flexGrow: 1,
-        overflowY: 'auto',
+        overflowY: 'scroll',
         p: 0,
       }}
     >

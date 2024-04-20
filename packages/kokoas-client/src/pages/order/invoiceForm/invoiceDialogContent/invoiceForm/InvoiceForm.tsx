@@ -1,9 +1,10 @@
-import { Stack } from '@mui/material';
+import { InvoiceInputGrid } from '../../InvoiceInputGrid/InvoiceInputGrid';
+import { InvoiceFormContainer } from './InvoiceFormContainer';
 
 export const InvoiceForm = () => {
   return (
-    <Stack spacing={2} height={'100%'}>
-      Hello
-    </Stack>
+    <InvoiceFormContainer>
+      <InvoiceInputGrid />
+    </InvoiceFormContainer>
   );
 };

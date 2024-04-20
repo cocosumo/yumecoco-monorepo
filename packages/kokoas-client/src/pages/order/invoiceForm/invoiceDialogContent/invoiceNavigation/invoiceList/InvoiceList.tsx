@@ -4,7 +4,7 @@ export const InvoiceList = () => {
   return (
     <List
       sx={{
-        flex: 1,
+        flexGrow: 1,
       }}
     >
       Hello

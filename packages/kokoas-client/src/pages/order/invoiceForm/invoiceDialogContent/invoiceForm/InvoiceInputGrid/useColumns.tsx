@@ -11,7 +11,7 @@ import { renderNumber } from 'kokoas-client/src/pages/order/inputGrid/renderers/
 import { renderUnits } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderUnits';
 import { renderTaxType } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderTaxType';
 import { renderText } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderText';
-import { TInvoiceForm } from '../schema';
+import { TInvoiceForm } from '../../../schema';
 
 
 export type RowItem = TItem & {

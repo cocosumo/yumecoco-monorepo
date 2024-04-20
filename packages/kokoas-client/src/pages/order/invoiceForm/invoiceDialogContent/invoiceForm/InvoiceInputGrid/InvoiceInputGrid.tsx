@@ -1,10 +1,10 @@
 import DataGrid from 'react-data-grid';
 import { InputGridContainer } from './InputGridContainer';
 import { useDataGridKeyCellKeyDown } from 'kokoas-client/src/hooks/useDataGridKeyCellKeyDown';
-import { TInvoiceForm, TInvoiceItem } from '../schema';
+import { TInvoiceForm, TInvoiceItem } from '../../../schema';
 import { RowItem, useColumns } from './useColumns';
-import { useChangeRows } from '../../inputGrid/useChangeRows';
-import { KItem } from '../../schema';
+import { useChangeRows } from '../../../../inputGrid/useChangeRows';
+import { KItem } from '../../../../schema';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);

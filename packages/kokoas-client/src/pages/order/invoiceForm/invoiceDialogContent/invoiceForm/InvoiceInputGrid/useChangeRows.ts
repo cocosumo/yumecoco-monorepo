@@ -2,8 +2,8 @@ import { useCallback } from 'react';
 import { roundTo } from 'libs';
 import { RowItem } from './useColumns';
 import { useController } from 'react-hook-form';
-import { useInvoiceFormContext } from '../hooks/useInvoiceRHF';
-import { KItem } from '../../schema';
+import { useInvoiceFormContext } from '../../../hooks/useInvoiceRHF';
+import { KItem } from '../../../../schema';
 
 
 

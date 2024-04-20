@@ -22,7 +22,7 @@ export const InvoiceInputGrid = () => {
     handleCellKeyDown,
   } = useDataGridKeyCellKeyDown<TInvoiceForm, TInvoiceItem>({
     columns,
-    itemsFieldName: 'selectedItems',
+    itemsFieldName: 'items',
     enableDeleteRow: false,
     enableInsertRow: false,
     enableCopyRow: false,

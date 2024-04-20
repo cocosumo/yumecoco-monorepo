@@ -19,7 +19,7 @@ interface InvoiceDialogProps {
 }
 
 const initialDialogState : InvoiceDialogProps = {
-  open: true,
+  open: false,
   orderId: '',
   projId: '',
   projName: '',

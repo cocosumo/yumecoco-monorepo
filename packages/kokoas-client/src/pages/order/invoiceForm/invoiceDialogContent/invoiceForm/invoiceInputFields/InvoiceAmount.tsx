@@ -6,7 +6,7 @@ export const InvoiceAmount = () => {
   return (
     <Stack 
       direction={'row'} 
-      spacing={2}
+      spacing={4}
       alignItems={'center'}
     >
       <Typography 

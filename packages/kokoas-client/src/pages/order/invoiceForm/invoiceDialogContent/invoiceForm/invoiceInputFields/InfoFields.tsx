@@ -35,9 +35,9 @@ export const InfoFields = ({
       
       <Typography 
         color={grey[500]} 
-        ml={2} 
-        component={'span'}
+        ml={'6px'} 
         my={'auto'}
+        component={'span'}
       >
         円
       </Typography>

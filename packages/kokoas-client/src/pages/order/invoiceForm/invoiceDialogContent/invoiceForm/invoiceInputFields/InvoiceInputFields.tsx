@@ -19,7 +19,7 @@ export const InvoiceInputFields = () => {
         <InputDate label='支払日' />
       </Stack>
 
-      <Stack width={300} spacing={2}>
+      <Stack width={250} spacing={2}>
         <InfoFields label='発注合計金額' />
         <InvoiceAmount />
         <InfoFields label='消費税' />

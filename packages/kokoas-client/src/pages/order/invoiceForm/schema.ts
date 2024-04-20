@@ -54,9 +54,14 @@ export const initialInvoiceForm: TInvoiceForm = {
   orderId: '',
   orderDataId: '',
   storeName: '',
+
+  // default to null so MUI date field is controlled.
+  // The type is casted to date to avoid type errors. 
+  // TODO: check if zod implemented a native way to handle defaults: https://github.com/colinhacks/zod/discussions/1953#discussioncomment-5639176
   deliveryDate: null as unknown as Date,
   invoiceDeadlineDate: null as unknown as Date,
   paymentDate: null as unknown as Date,
+  
   invoicePaymentAmount: 0,
   items: [
     {

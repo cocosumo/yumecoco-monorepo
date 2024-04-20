@@ -36,7 +36,7 @@ export const schema = z.object({
   paymentDate: z.date(),
 
   /** 支払金額 (税抜) */
-  invoicePaymentAmount: z.number(),
+  invoiceAmount: z.number(),
 
   /** 項目 */
   items: z.array(item),
@@ -62,7 +62,7 @@ export const initialInvoiceForm: TInvoiceForm = {
   invoiceDeadlineDate: null as unknown as Date,
   paymentDate: null as unknown as Date,
   
-  invoicePaymentAmount: 0,
+  invoiceAmount: 0,
   items: [
     {
       selected: false,

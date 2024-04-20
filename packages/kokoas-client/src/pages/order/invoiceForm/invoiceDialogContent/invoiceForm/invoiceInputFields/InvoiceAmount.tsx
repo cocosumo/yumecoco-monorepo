@@ -1,39 +1,83 @@
-import { InputAdornment, OutlinedInput, Stack, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { 
+  FormControl, 
+  FormHelperText, 
+  FormLabel, 
+  InputAdornment, 
+  Stack,
+  TextField,
+} from '@mui/material';
+import { useInvoiceFormContext } from '../../../hooks/useInvoiceRHF';
+import { useController } from 'react-hook-form';
+import { useNumberCommaField } from 'kokoas-client/src/hooks';
+
 
 export const InvoiceAmount = () => {
 
+  const { control } = useInvoiceFormContext();
+  
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    control,
+    name: 'invoiceAmount',
+  
+  });
+
+  const textProps = useNumberCommaField({
+    ...field,
+    shouldSelectOnFocus: false,
+  });
+
+
+
   return (
-    <Stack 
-      direction={'row'} 
-      spacing={4}
-      alignItems={'center'}
-    >
-      <Typography 
-        color={grey[600]} 
-        component={'span'} 
-        whiteSpace={'nowrap'}
+
+    <FormControl 
+      fullWidth
+      error={!!error}
+    > 
+      <Stack
+        direction='row'
+        alignItems='center'
+        spacing={2}
       >
-        請求金額
-      </Typography>
+
+        <FormLabel
+          sx={{
+            whiteSpace: 'nowrap',
+          }}
+        >
+          請求金額
+        </FormLabel>
+
+        <TextField
+          inputRef={field.ref} 
+          size='small'
+          variant='outlined'
+          sx={{
+            flexGrow: 1,
+          }}
+          inputProps={{
+            style: { 
+              textAlign: 'right', 
+            },
+          }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                円
+              </InputAdornment>),
+          }}
+          {...textProps}
+        />
+      </Stack>
+          
+      <FormHelperText>
+        {error?.message}
+      </FormHelperText>
+  
+    </FormControl>
     
-      <OutlinedInput 
-        size='small'
-        sx={{
-          flexGrow: 1,
-        }}
-        inputProps={{
-          style: { 
-            textAlign: 'right', 
-          },
-        }}
-        endAdornment={(
-          <InputAdornment position="end">
-            円
-          </InputAdornment>
-        )}
-        fullWidth
-      />
-    </Stack>
   );
 };

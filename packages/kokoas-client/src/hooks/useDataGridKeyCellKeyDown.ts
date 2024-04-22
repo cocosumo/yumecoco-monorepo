@@ -145,16 +145,16 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
      * 選択モード 
      ************/
 
-      if (enableCopyRow && altKey && key === 'v') {
+      if (enableCopyRow && altKey && key === 'e') {
 
-        // 選択中のセルで、行をコピーする。
+        // 選択中のセルで、下に行ごとコピーする。
         if (isHeadRow) return;
         insert(rowIdx, { ...row, itemId: v4() } as FieldArray<FieldValues, ArrayPath<T>>);
         preventDefault();
         return;
       }
 
-      if (enableInsertRow && !shiftKey && key === 'Insert') {
+      if (enableInsertRow && ctrlKey && key === '+') {
       // 選択中のセルで、行を追加する。
         if (!getNewRow) return;
         insert(rowIdx + 1, getNewRow() );
@@ -162,7 +162,7 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
         return;
       }
 
-      if ( enableDeleteRow && altKey && key === 'b') {
+      if ( enableDeleteRow && ctrlKey && key === '-') {
       // 選択中のセルで、行を削除する。
         if (isHeadRow) return; // ヘッダーの場合、削除しない。
         remove(rowIdx);

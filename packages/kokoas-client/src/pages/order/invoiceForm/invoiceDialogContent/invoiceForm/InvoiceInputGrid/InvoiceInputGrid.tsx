@@ -5,6 +5,8 @@ import { TInvoiceForm, TInvoiceItem } from '../../../schema';
 import { RowItem, useColumns } from './useColumns';
 import { useChangeRows } from '../../../../inputGrid/useChangeRows';
 import { KItem } from '../../../../schema';
+import { useTypedFormContext } from 'kokoas-client/src/pages/order/hooks/useTypedRHF';
+import { useController } from 'react-hook-form';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
@@ -12,6 +14,14 @@ function rowKeyGetter(row: RowItem) {
 
 
 export const InvoiceInputGrid = () => {
+  const { control } = useTypedFormContext();
+
+  const {
+    field: { value: items },
+  } = useController({
+    control,
+    name: 'items',
+  });
 
   const columns = useColumns();
   const { handleRowChange } = useChangeRows();
@@ -22,13 +32,11 @@ export const InvoiceInputGrid = () => {
     handleCellKeyDown,
   } = useDataGridKeyCellKeyDown<TInvoiceForm, TInvoiceItem>({
     columns,
-    itemsFieldName: 'selectedItems',
+    itemsFieldName: 'items',
     enableDeleteRow: false,
     enableInsertRow: false,
     enableCopyRow: false,
   });
-
- 
 
   return (
     <InputGridContainer>
@@ -52,7 +60,7 @@ export const InvoiceInputGrid = () => {
 
           handleRowChange(indexes, key as KItem, rows as RowItem[]);
         }}
-        rows={[]}
+        rows={items}
         style={{ height: '100%' }}
         onCellKeyDown={handleCellKeyDown}
       />

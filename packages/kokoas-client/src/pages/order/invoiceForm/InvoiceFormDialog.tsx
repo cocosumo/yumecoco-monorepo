@@ -8,6 +8,8 @@ import { InvoiceDialogContent } from './invoiceDialogContent/InvoiceDialogConten
 import { InvoiceDialogTitle } from './invoiceDialogTitle/InvoiceDialogTitle';
 import { CloseButton } from '../common/CloseButton';
 import { InvoiceDialogActions } from './invoiceDialogActions/InvoiceDialogActions';
+import { useResolveParams } from './hooks/useResolveParams';
+import { useLazyEffect } from 'kokoas-client/src/hooks';
 
 interface InvoiceDialogProps {
   open: boolean,
@@ -24,12 +26,14 @@ const initialDialogState : InvoiceDialogProps = {
   projId: '',
   projName: '',
   storeName: '',
-  //selectedItems: [],
 };
 
 export const invoiceDialogAtom = atom(initialDialogState);
 
 export const InvoiceFormDialog = () => {
+  const {
+    initialValues,
+  } = useResolveParams();
 
   const [invoiceDialog, setInvoiceDialogAtom] = useAtom(invoiceDialogAtom);
   const {
@@ -37,11 +41,17 @@ export const InvoiceFormDialog = () => {
   } = invoiceDialog;
 
   const formMethods = useForm({
-    defaultValues: initialInvoiceForm,
+    defaultValues: initialValues,
     resolver: zodResolver(schema),
   });
 
   const { reset } = formMethods;
+
+  useLazyEffect(() => {
+    if (open) {
+      reset(initialValues);
+    }
+  }, [open, initialValues], 100);
 
   const handleClose = () => {
     setInvoiceDialogAtom((prev) => ({ ...prev, open: false }) );

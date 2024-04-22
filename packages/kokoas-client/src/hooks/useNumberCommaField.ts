@@ -6,12 +6,14 @@ export interface UseNumberCommaFieldProps {
   value?: number | string
   onChange?: (value: number | string) => void,
   onBlur?: ChangeEventHandler,
+  shouldSelectOnFocus?: boolean,
 }
 
 export const useNumberCommaField = ({
   value,
   onChange,
   onBlur,
+  shouldSelectOnFocus = true,
 } : UseNumberCommaFieldProps) : TextFieldProps => {
   const inputRef = useRef<HTMLInputElement>(null);
   const shouldChange = useRef(true); 
@@ -37,9 +39,11 @@ export const useNumberCommaField = ({
   }, [ value ]);
 
   return {
-    onFocus: ({ target }) => {
-      target.value = target.value.replace(/,/g, '');
-      target.select(); // ダブって原因でした。
+    onFocus: (_e) => {
+      _e.target.value = _e.target.value.replace(/,/g, '');
+      if (shouldSelectOnFocus) {
+        _e.target.select(); // ダブって原因でした。
+      }
     },
     onCompositionStart : () => {
       //const el = e.target as HTMLInputElement;   
@@ -52,8 +56,11 @@ export const useNumberCommaField = ({
       const halfWidth = convertToHalfWidth(el.value);
       // console.log('COMPOSITION_END', e.nativeEvent, el.value, halfWidth);
       const halfWidthNumber = +halfWidth;
-      if (isNaN(halfWidthNumber)) return;
-      onChange?.(halfWidthNumber);
+      if (isNaN(halfWidthNumber)) {
+        onChange?.(el.value);
+      } else {
+        onChange?.(halfWidthNumber);
+      }
     },
     onInput: (e) => {
 

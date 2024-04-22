@@ -43,7 +43,7 @@ export const useColumns = (): MyColumn[] => {
   } = useFormState<TInvoiceForm>();
 
 
-  const itemErrors = errors?.selectedItems;
+  const itemErrors = errors?.items;
   
   
   return useMemo(() => [

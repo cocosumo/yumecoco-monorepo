@@ -1,8 +1,13 @@
 import { Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
 
 export const ProjectName = () => {
-  
+  const projId = useInvoiceWatch({
+    name: 'projId',
+  }) as string;
+  const { data } = useProjById(projId);
 
   return (
     <Typography 
@@ -10,7 +15,7 @@ export const ProjectName = () => {
       component={'span'} 
       color={grey[600]}
     >
-      山田太郎豪邸 新築付帯
+      {data?.projName.value}
     </Typography>
   );
 };

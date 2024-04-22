@@ -8,7 +8,7 @@ export const useActiveUnissuedInvRemindersByProjId = (projId: string) => {
     ?.filter(({ 
       projId: projIdReminder,
       alertState,
-    }) => (alertState.value !== '0' && projIdReminder.value === projId));
+    }) => (alertState?.value !== '0' && projIdReminder?.value === projId));
 
   return recUnissuedInvReminders;
 };

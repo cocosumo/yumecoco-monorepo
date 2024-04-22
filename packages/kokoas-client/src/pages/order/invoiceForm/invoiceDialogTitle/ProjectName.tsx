@@ -1,10 +1,10 @@
 import { Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { useProjById } from 'kokoas-client/src/hooksQuery';
+import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
 
 export const ProjectName = () => {
-  const projId = useTypedWatch({
+  const projId = useInvoiceWatch({
     name: 'projId',
   }) as string;
   const { data } = useProjById(projId);

@@ -2,6 +2,7 @@ import { CircularProgress, DialogTitle } from '@mui/material';
 import { SupplierName } from './SupplierName';
 import { ProjectName } from './ProjectName';
 import { useIsFetching } from '@tanstack/react-query';
+import { OrderDataId } from './OrderDataId';
 
 export const InvoiceDialogTitle = () => {
   const isFetching = useIsFetching();
@@ -17,6 +18,7 @@ export const InvoiceDialogTitle = () => {
     >
       <SupplierName /> 
       <ProjectName />
+      <OrderDataId />
       {Boolean(isFetching) && (
         <CircularProgress size={16} />
       )}

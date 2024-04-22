@@ -51,7 +51,7 @@ export const InvoiceFormDialog = () => {
     if (open) {
       reset(initialValues);
     }
-  }, [open], 500);
+  }, [open, initialValues], 100);
 
   const handleClose = () => {
     setInvoiceDialogAtom((prev) => ({ ...prev, open: false }) );

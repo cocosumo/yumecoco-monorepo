@@ -5,7 +5,6 @@ import { TForm, TItem } from '../schema';
 import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
-import { renderMaterials } from './renderers/renderMaterials';
 import { useFormState } from 'react-hook-form';
 import { renderNumber } from './renderers/renderNumber';
 import { renderCheckbox } from './renderers/renderCheckBox';
@@ -101,7 +100,7 @@ export const useColumns = (): MyColumn[] => {
       frozen: true,
       editable: ({ orderId }) => !orderId,
       width: 150,
-      renderEditCell: renderMaterials,
+      renderEditCell: renderText,
     },
     { 
       key: 'supplierName', 

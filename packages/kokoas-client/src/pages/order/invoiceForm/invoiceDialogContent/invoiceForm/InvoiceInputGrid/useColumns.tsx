@@ -6,7 +6,6 @@ import { Typography } from '@mui/material';
 import { TItem } from 'kokoas-client/src/pages/order/schema';
 import { renderMajorItem } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderMajorItem';
 import { renderMiddleItem } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderMiddleItem';
-import { renderMaterials } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderMaterials';
 import { renderNumber } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderNumber';
 import { renderUnits } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderUnits';
 import { renderTaxType } from 'kokoas-client/src/pages/order/inputGrid/renderers/renderTaxType';
@@ -77,7 +76,7 @@ export const useColumns = (): MyColumn[] => {
       frozen: true,
       editable: true,
       width: 150,
-      renderEditCell: renderMaterials,
+      renderEditCell: renderText,
     },
     { 
       key: 'quantity', 

@@ -1,6 +1,5 @@
 import { Dialog } from '@mui/material';
 import { OrderDialogTitle } from './orderDialogContent/orderDialogTitle/OrderDialogTitle';
-import { CloseButton } from './CloseButton';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { OrderDialogActions } from './orderDialogActions/OrderDialogActions';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -10,6 +9,7 @@ import { atom, useAtom } from 'jotai';
 import { DevTool } from '@hookform/devtools';
 import { useOrderRequestInitial } from './hooks/useOrderRequestInitial';
 import { useLazyEffect } from 'kokoas-client/src/hooks';
+import { CloseButton } from '../common/CloseButton';
 
 interface OrderRequestDialogProps {
   open: boolean,
@@ -67,19 +67,21 @@ export const OrderRequestDialog = () => {
       maxWidth={'lg'}
       fullWidth
       disableEscapeKeyDown
+      
     >
 
       <FormProvider {...formMethods}>
 
         <OrderDialogTitle />
 
-        <CloseButton handleClose={handleClose} />
     
         <ORDialogContent />
 
         <OrderDialogActions />
 
       </FormProvider>
+
+      <CloseButton handleClose={handleClose} />
 
       <DevTool control={formMethods.control} placement='bottom-right' />
     </Dialog>

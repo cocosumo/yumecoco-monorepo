@@ -23,12 +23,13 @@ export const useSaveOrderRequest = () => {
     isLoading: saveOrderIsLoading,
   } = useSaveOrder();
 
-  const onSubmitValid: SubmitHandler<TOrderForm> = useCallback(async (data) => {
+  const onSubmitValid: SubmitHandler<TOrderForm> = useCallback(async (data, e) => {
+    const buttonValue = (e?.target as HTMLButtonElement)?.value;
 
     await saveOrder(
       {
         recordId: data.orderId,
-        record: convertOrderInfoToKintone(data),
+        record: convertOrderInfoToKintone(data, buttonValue),
       }, 
       {
         onSuccess: async ({ recordId: orderId }) => {

@@ -8,7 +8,7 @@ export const ORDialogContentContainer = ({
   children: ReactNode;
 }) => {
   return (
-    <DialogContent dividers>
+    <DialogContent dividers sx={{ height: '80vh' }}>
       <Form noValidate>
         <Stack spacing={2}>
           {children}

@@ -50,6 +50,7 @@ export const createOrderDocument = async (
     vendorAddress2,
     vendorManager1,
     vendorManager2,
+    orderDetails,
   } = data;
 
 
@@ -179,7 +180,7 @@ export const createOrderDocument = async (
       weight: 0.1,
     },
   );
-  
+
   // 業者担当者2
   drawText(
     firstPage,
@@ -337,6 +338,29 @@ export const createOrderDocument = async (
       weight: 0.1,
     },
   );
+
+
+  // 発注明細の反映
+  for (const oderDetail of orderDetails) {
+    // 部材
+    drawText(
+      firstPage,
+      oderDetail.majorItem,
+      {
+        x: 595,
+        y: 443,
+        font: msChinoFont,
+        size: 9,
+        color: rgb(1, 0, 0),
+      },
+      {
+        weight: 0.1,
+      },
+    );
+  }
+
+
+
 
 
 

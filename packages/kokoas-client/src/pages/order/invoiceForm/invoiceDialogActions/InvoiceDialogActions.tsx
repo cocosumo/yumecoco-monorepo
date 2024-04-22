@@ -1,6 +1,11 @@
 import { Button, DialogActions } from '@mui/material';
+import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
 
 export const InvoiceDialogActions = () => {
+  const {
+    handleSubmit,
+  } = useSaveInvoiceForm();
+
   return (
     <DialogActions
       sx={{
@@ -11,7 +16,7 @@ export const InvoiceDialogActions = () => {
         color='info'   
         variant='contained' 
         onClick={() => {
-          alert('請求確認はまだ実装されていません。');
+          handleSubmit();
         }}
       >
         請求確認

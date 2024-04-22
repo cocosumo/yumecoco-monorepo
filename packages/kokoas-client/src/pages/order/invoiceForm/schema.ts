@@ -5,6 +5,10 @@ import { item } from '../schema';
 
 z.setErrorMap(zodErrorMapJA());
 
+const requiredDateType = z.date({
+  required_error: '日付を入力してください。',
+  invalid_type_error: '日付を入力してください。',
+});
 
 export const schema = z.object({
   /** 請求番号 uuid */
@@ -27,16 +31,18 @@ export const schema = z.object({
   orderDataId: z.string(),
 
   /** 納品日 */
-  deliveryDate: z.date(),
+  deliveryDate: requiredDateType,
 
   /** 請求締め日 */
-  invoiceDeadlineDate: z.date(),
+  invoiceDeadlineDate: requiredDateType,
 
   /** 支払日 */
-  paymentDate: z.date(),
+  paymentDate: requiredDateType,
 
   /** 支払金額 (税抜) */
-  invoiceAmount: z.number(),
+  invoiceAmount: z.number({
+    invalid_type_error: '数値を入力してください。',
+  }),
 
   /** 項目 */
   items: z.array(item),

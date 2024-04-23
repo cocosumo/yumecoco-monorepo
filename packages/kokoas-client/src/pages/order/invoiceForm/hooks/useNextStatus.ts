@@ -4,12 +4,19 @@ import { getNextInvoiceStatus } from 'api-kintone/src/invoiceB2B/helpers/getNext
 
 export const useNextInvoiceStatus = () => {
   const { control } = useInvoiceFormContext();
-  const invoiceStatus = useWatch({
+  const [
+    invoiceStatus,
+  ] = useWatch({
     control,
-    name: 'invoiceStatus',
+    name: [
+      'invoiceStatus',
+    ],
   });
 
   const nextInvoiceStatus = getNextInvoiceStatus(invoiceStatus);
 
-  return nextInvoiceStatus;
+  return {
+    current: invoiceStatus,
+    next: nextInvoiceStatus,
+  };
 };

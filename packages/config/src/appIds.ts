@@ -12,7 +12,7 @@ export const prodAppIds = {
   unissuedInvoiceAlert: 304,
   orderBudget: 321,
   order: 320,
-
+  invoiceB2B: 323,
 } as const;
 
 /* 開発環境 */
@@ -46,6 +46,9 @@ export const devAppIds = {
 
   /** 発注  */
   order: 319,
+
+  /** 請求B2B */
+  invoiceB2B: 322,
 } as const;
 
 

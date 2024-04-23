@@ -1,4 +1,4 @@
-import { useSaveOrder, useSaveOrderBudget } from 'kokoas-client/src/hooksQuery';
+import { useSaveInvoiceB2B, useSaveOrder, useSaveOrderBudget } from 'kokoas-client/src/hooksQuery';
 import { SubmitErrorHandler, SubmitHandler } from 'react-hook-form';
 // import { TOrderForm } from '../schema';
 import { useCallback } from 'react';
@@ -9,6 +9,9 @@ import { useSetAtom } from 'jotai';
 import { invoiceDialogAtom } from '../InvoiceFormDialog';
 import { TInvoiceForm } from '../schema';
 import { useInvoiceFormContext } from './useInvoiceRHF';
+import { convertOrderInfoToKintone } from '../api/convertOrderInfoToKintone';
+import { convertOrderItemsToKintone } from '../api/convertOrderItemsToKintone';
+import { convertInvoiceToKintone } from '../api/convertInvoiceToKintone';
 
 
 export const useSaveInvoiceForm = () => {
@@ -23,36 +26,43 @@ export const useSaveInvoiceForm = () => {
   const { 
     mutateAsync: saveOrder,
     isLoading: saveOrderIsLoading,
-  } = useSaveOrder();
+  } = useSaveOrder({
+    enabledOnSuccess: false,
+  });
+
+  const {
+    mutateAsync: saveInvoiceB2B,
+    isLoading: saveInvoiceIsLoading,
+  } = useSaveInvoiceB2B();
 
   const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data) => {
-    alert('Save not yet implemented.');
+    await saveOrder({
+      recordId: data.orderId,
+      record: convertOrderInfoToKintone(data),
+    });
 
-    // const buttonValue = (e?.target as HTMLButtonElement)?.value;
+    await   saveOrderBudget({
+      recordId: data.projId,
+      record: await convertOrderItemsToKintone(data),
+    });
 
-    /*  await saveOrder(
-      {
-        recordId: data.orderId,
-        record: convertOrderInfoToKintone(data, buttonValue),
-      }, 
-      {
-        onSuccess: async ({ recordId: orderId }) => {
-          await saveOrderBudget({
-            recordId: data.projId,
-            record: await convertOrderItemsToKintone(data, orderId),
-          });
-          setInvoiceAtom({
-            open: true,
-            orderId,
-            projId: data.projId,
-            projName: data.projName,
-            storeName: data.storeName,
-          });
-        },
-      },
-    ); */
+    const { recordId } = await saveInvoiceB2B({
+      recordId: data.invoiceId,
+      record: convertInvoiceToKintone(data),
+    });
 
-  }, []);
+    setInvoiceAtom((prev) => ({
+      ...prev,
+      invoiceId: recordId,
+    }));
+
+
+  }, [
+    saveOrderBudget,
+    saveOrder,
+    saveInvoiceB2B,
+    setInvoiceAtom,
+  ]);
 
   const onSubmitInvalid: SubmitErrorHandler<TInvoiceForm> = useCallback((errors) => {
     // TODO: 依頼により、詳しいエラーを出す。エラーのある行が多いとどう表示するか、検討が必要。
@@ -70,6 +80,6 @@ export const useSaveInvoiceForm = () => {
 
   return {
     handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),
-    isLoading: saveOrderBudgetIsLoading || saveOrderIsLoading,
+    isLoading: saveOrderBudgetIsLoading || saveOrderIsLoading || saveInvoiceIsLoading,
   };
 };

@@ -2,8 +2,11 @@ import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 //import { envelopeStatuses, signMethods } from 'types';
 import { z } from 'zod';
 import { item } from '../schema';
+import { invoiceProgress } from 'types/src/common/order';
 
 z.setErrorMap(zodErrorMapJA());
+
+
 
 const requiredDateType = z.date({
   required_error: '日付を入力してください。',
@@ -20,12 +23,14 @@ export const schema = z.object({
   /** 工事名 */
   projName: z.string(),
 
+  /** 請求番号  */
+  supplierId: z.string(),
+
   /** 店舗名 */
   storeName: z.string(),
 
   /** 発注番号 uuid */
-  orderId: z.string()
-    .optional(),
+  orderId: z.string().nonempty(),
 
   /** 発注管理番号 */
   orderDataId: z.string(),
@@ -34,7 +39,7 @@ export const schema = z.object({
   deliveryDate: requiredDateType,
 
   /** 請求締め日 */
-  invoiceDeadlineDate: requiredDateType,
+  invoiceDueDate: requiredDateType,
 
   /** 支払日 */
   paymentDate: requiredDateType,
@@ -43,6 +48,9 @@ export const schema = z.object({
   invoiceAmount: z.number({
     invalid_type_error: '数値を入力してください。',
   }),
+
+  /** 請求ステータス */
+  invoiceStatus: z.enum(invoiceProgress).nullable(),
 
   /** 項目 */
   items: z.array(item),
@@ -57,6 +65,7 @@ export const initialInvoiceForm: TInvoiceForm = {
   invoiceId: '',
   projId: '',
   projName: '',
+  supplierId: '',
   orderId: '',
   orderDataId: '',
   storeName: '',
@@ -65,10 +74,13 @@ export const initialInvoiceForm: TInvoiceForm = {
   // The type is casted to date to avoid type errors. 
   // TODO: check if zod implemented a native way to handle defaults: https://github.com/colinhacks/zod/discussions/1953#discussioncomment-5639176
   deliveryDate: null as unknown as Date,
-  invoiceDeadlineDate: null as unknown as Date,
+  invoiceDueDate: null as unknown as Date,
   paymentDate: null as unknown as Date,
   
   invoiceAmount: 0,
+
+  invoiceStatus: null,
+
   items: [
     {
       selected: false,

@@ -1,11 +1,12 @@
 import { getTemplate } from 'api-aws/src/s3/getTemplate';
-import { PDFDocument, rgb } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib';
 import { OrderData } from 'types/src/common/order';
 import fontkit from '@pdf-lib/fontkit';
 import fs from 'fs/promises';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
 import { getConstPeriod } from './helper/getConstPeriod';
+import Big from 'big.js';
 
 
 
@@ -23,15 +24,15 @@ export const createOrderDocument = async (
 ) => {
 
   const {
-    orderId,
+    //orderId,
     purchaseOrderId,
     orderDate,
 
-    projId,
-    projNum,
+    //projId,
+    //projNum,
     projNumJa,
     projName,
-    custGroupName,
+    //custGroupName,
     constAddress,
     constStartDate,
     constFinishDate,
@@ -341,27 +342,182 @@ export const createOrderDocument = async (
 
 
   // 発注明細の反映
-  for (const oderDetail of orderDetails) {
-    // 部材
+  for (let i = 0; i < orderDetails.length; i++) {
+    const posOffset = 10.8 * i;
+    const posY = 341 - posOffset;
+
+    // 番号
     drawText(
       firstPage,
-      oderDetail.majorItem,
+      (i + 1).toString(),
       {
-        x: 595,
-        y: 443,
+        x: -10,
+        y: posY,
         font: msChinoFont,
         size: 9,
-        color: rgb(1, 0, 0),
+      },
+      {
+        weight: 0.1,
+        align: 'center',
+      },
+    );
+
+    // 大項目
+    drawText(
+      firstPage,
+      orderDetails[i].majorItem,
+      {
+        x: 54,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
       },
       {
         weight: 0.1,
       },
     );
-  }
+
+    // 中項目
+    drawText(
+      firstPage,
+      orderDetails[i].middleItem,
+      {
+        x: 172,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
+
+    // 部材
+    drawText(
+      firstPage,
+      orderDetails[i].material,
+      {
+        x: 291,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
+
+    // 単位
+    drawText(
+      firstPage,
+      orderDetails[i].unit,
+      {
+        x: 378,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+        align: 'center',
+      },
+    );
+
+    // 数量
+    drawText(
+      firstPage,
+      orderDetails[i].quantity.toString(),
+      {
+        x: 419,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+        align: 'right',
+      },
+    );
+
+    // 単価
+    drawText(
+      firstPage,
+      orderDetails[i].costPrice.toLocaleString(),
+      {
+        x: 490,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+        align: 'right',
+      },
+    );
+
+    // 発注金額
+    drawText(
+      firstPage,
+      orderDetails[i].orderAmountBeforeTax.toLocaleString(),
+      {
+        x: 584,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+        align: 'right',
+      },
+    );
+
+    // 備考
+    drawText(
+      firstPage,
+      orderDetails[i].rowRemarks,
+      {
+        x: 690,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
 
 
+  } // 発注明細 ここまで
 
 
+  // summary
+  // 小計
+  const summary = orderDetails.reduce((acc, {
+    taxRate,
+    orderAmountBeforeTax,
+  }) => {
+    acc.subtotal += orderAmountBeforeTax;
+    if (taxRate === 0) {
+      acc.taxExemptSubtotal += orderAmountBeforeTax;
+    } else {
+      acc.taxRate = taxRate;
+      acc.taxableSubtotal += orderAmountBeforeTax;
+    }
+
+    return acc;
+  }, {
+    subtotal: 0,
+    taxableSubtotal: 0,
+    taxExemptSubtotal: 0,
+    taxAmount: 0,
+    totalAmount: 0,
+    taxRate: 0.1,
+  });
+
+  summary.taxAmount = Big(summary.taxableSubtotal).mul(summary.taxRate)
+    .toNumber();
+  summary.totalAmount = Big(summary.subtotal).plus(summary.taxAmount)
+    .toNumber();
 
 
 

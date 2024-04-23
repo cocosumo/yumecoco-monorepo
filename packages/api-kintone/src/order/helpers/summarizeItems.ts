@@ -1,4 +1,3 @@
-import { TOrderForm } from '../../schema';
 import { Big } from 'big.js';
 
 
@@ -13,17 +12,32 @@ export interface ReturnType {
   /** 非課税 */
   nonTaxableAmount: number;
   
-  /** 合計 */
-  totalAmount: number; 
+  /** 合計 (税抜) */
+  totalAmountBeforeTax: number;
+
+  /** 合計 (税込) */
+  totalAmountAfterTax: number;
+  
 }
 
 
 type GroupByTaxRate = Record<number, Big>;
 
-export const summarizeItems = (selectedItems: TOrderForm['selectedItems']): ReturnType => {
+export type SummarizeItemsParams = Array<{
+  rowCostPriceBeforeTax: number;
+  taxRate: number
+}>;
+
+
+/**
+ * 発注明細の合計金額を計算する。
+ * 
+ * @param items 項目
+ */
+export const summarizeItems = (items: SummarizeItemsParams): ReturnType => {
 
   // 各税率ごとに合計金額を計算
-  const groupedByTaxRate  = selectedItems.reduce<GroupByTaxRate>((acc, item) => {
+  const groupedByTaxRate  = items.reduce<GroupByTaxRate>((acc, item) => {
     const {
       rowCostPriceBeforeTax,
       taxRate,
@@ -71,6 +85,7 @@ export const summarizeItems = (selectedItems: TOrderForm['selectedItems']): Retu
     groupedByTaxArray,
     totalTaxAmount: totalTaxAmount.toNumber(),
     nonTaxableAmount: nonTaxableAmount.toNumber(),
-    totalAmount: totalAmount.toNumber(),
+    totalAmountBeforeTax: totalAmount.sub(totalTaxAmount).toNumber(),
+    totalAmountAfterTax: totalAmount.toNumber(),
   };
 };

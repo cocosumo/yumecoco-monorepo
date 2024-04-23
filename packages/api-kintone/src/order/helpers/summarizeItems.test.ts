@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
-import { TOrderForm } from '../../schema';
+import { TOrderForm } from '../../../../kokoas-client/src/pages/order/orderRequestForm/schema';
 import { summarizeItems } from './summarizeItems';
 
 /**
@@ -30,7 +30,8 @@ describe('summarizeItems', () => {
       ],
       totalTaxAmount: 60,
       nonTaxableAmount: 0,
-      totalAmount: 660,
+      totalAmountBeforeTax: 600,
+      totalAmountAfterTax: 660,
     });
   });
 
@@ -56,7 +57,8 @@ describe('summarizeItems', () => {
       ],
       totalTaxAmount: 10,
       nonTaxableAmount: 500,
-      totalAmount: 610,
+      totalAmountBeforeTax: 600,
+      totalAmountAfterTax: 610,
     });
   });
 
@@ -83,7 +85,8 @@ describe('summarizeItems', () => {
       ],
       totalTaxAmount: 50,
       nonTaxableAmount: 0,
-      totalAmount: 650,
+      totalAmountBeforeTax: 600,
+      totalAmountAfterTax: 650,
     });
   });
 
@@ -107,7 +110,8 @@ describe('summarizeItems', () => {
       groupedByTaxArray: [],
       totalTaxAmount: 0,
       nonTaxableAmount: 600,
-      totalAmount: 600,
+      totalAmountBeforeTax: 600,
+      totalAmountAfterTax: 600,
     });
   });
 

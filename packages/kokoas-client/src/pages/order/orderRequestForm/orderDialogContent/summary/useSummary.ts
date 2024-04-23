@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useOrderWatch } from '../../hooks/useOrderRHF';
 import { TOrderForm } from '../../schema';
-import { summarizeItems } from './summarizeItems';
+import { summarizeItems } from 'api-kintone/src/order/helpers/summarizeItems';
 
 
 export const useSummary = () => {

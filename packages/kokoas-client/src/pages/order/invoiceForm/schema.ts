@@ -24,8 +24,7 @@ export const schema = z.object({
   storeName: z.string(),
 
   /** 発注番号 uuid */
-  orderId: z.string()
-    .optional(),
+  orderId: z.string().nonempty(),
 
   /** 発注管理番号 */
   orderDataId: z.string(),

@@ -9,6 +9,8 @@ import { useSetAtom } from 'jotai';
 import { invoiceDialogAtom } from '../InvoiceFormDialog';
 import { TInvoiceForm } from '../schema';
 import { useInvoiceFormContext } from './useInvoiceRHF';
+import { convertOrderInfoToKintone } from '../api/convertOrderInfoToKintone';
+import { convertOrderItemsToKintone } from '../api/convertOrderItemsToKintone';
 
 
 export const useSaveInvoiceForm = () => {
@@ -26,33 +28,21 @@ export const useSaveInvoiceForm = () => {
   } = useSaveOrder();
 
   const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data) => {
-    alert('Save not yet implemented.');
 
-    // const buttonValue = (e?.target as HTMLButtonElement)?.value;
+    await saveOrder({
+      recordId: data.orderId,
+      record: convertOrderInfoToKintone(data),
+    });
 
-    /*  await saveOrder(
-      {
-        recordId: data.orderId,
-        record: convertOrderInfoToKintone(data, buttonValue),
-      }, 
-      {
-        onSuccess: async ({ recordId: orderId }) => {
-          await saveOrderBudget({
-            recordId: data.projId,
-            record: await convertOrderItemsToKintone(data, orderId),
-          });
-          setInvoiceAtom({
-            open: true,
-            orderId,
-            projId: data.projId,
-            projName: data.projName,
-            storeName: data.storeName,
-          });
-        },
-      },
-    ); */
+    await saveOrderBudget({
+      recordId: data.projId,
+      record: await convertOrderItemsToKintone(data),
+    });
 
-  }, []);
+  }, [
+    saveOrderBudget,
+    saveOrder,
+  ]);
 
   const onSubmitInvalid: SubmitErrorHandler<TInvoiceForm> = useCallback((errors) => {
     // TODO: 依頼により、詳しいエラーを出す。エラーのある行が多いとどう表示するか、検討が必要。

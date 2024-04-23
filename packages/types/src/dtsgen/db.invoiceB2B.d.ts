@@ -6,8 +6,9 @@ declare namespace DBInvoiceb2b {
     cocoAG: kintone.fieldTypes.SingleLineText;
     orderId: kintone.fieldTypes.SingleLineText;
     projName: kintone.fieldTypes.SingleLineText;
-    invoiceAmount: kintone.fieldTypes.Date;
     businessNumber: kintone.fieldTypes.SingleLineText;
+    invoiceAmount: kintone.fieldTypes.Number;
+    uuid: kintone.fieldTypes.SingleLineText;
     invoiceDueDate: kintone.fieldTypes.Date;
     orderAmount: kintone.fieldTypes.Number;
     storeName: kintone.fieldTypes.SingleLineText;

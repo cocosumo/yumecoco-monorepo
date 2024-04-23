@@ -1,4 +1,4 @@
-import { describe, it } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import { generateMessage } from './generateMessage';
@@ -15,6 +15,8 @@ describe('generateMessage', () => {
     const result = generateMessage(reminderDat[0]);
 
     console.log('message::', result);
+
+    expect(result.includes('お客さまからの入金が確認できていません')).toBeTruthy();
 
   }, 60000);
 });

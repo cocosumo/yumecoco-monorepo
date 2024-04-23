@@ -1,7 +1,6 @@
-import { describe, it/* , expect */ } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
-import format from 'date-fns/format';
 import { createPaymentAlertFromAPPayments } from './createPaymentAlertFromAPPayments';
 import { getAllContracts, getAllProjects, getAllStores, getEmployees } from 'api-kintone';
 import { getAllPaymentReminder } from './api-kintone';
@@ -46,8 +45,12 @@ describe('createPaymentAlertFromAPPayments', () => {
 
     // save json file
     fs.writeFileSync(
-      path.join(dir, `createPaymentAlertFromAPPayments_${format(new Date(), 'yyyyMMddHHmmss')}.json`),
+      path.join(dir, 'createPaymentAlertFromAPPayments.json'),
       JSON.stringify(result, null, 2),
     );
+
+    expect(result.length).toBeGreaterThan(0);
+
   }, 10000);
+
 });

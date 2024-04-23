@@ -10,12 +10,14 @@ describe('notifyPaymentAlertToChatwork', () => {
 
 
     // set output file of createPaymentAlertFromAPPayments.test.ts
-    const contractsPath = path.join(__dirname, './__TEST__/createPaymentAlert.json');
+    const contractsPath = path.join(__dirname, './__TEST__/createPaymentAlertFromAPPayments.json');
     const reminderDat = JSON.parse(fs.readFileSync(contractsPath, 'utf8')) as PaymentReminder[];
 
     await notifyPaymentAlertToChatwork({
       reminderJson: reminderDat,
     });
+
+    console.log('結果をchatworkで確認してください');
 
   });
 });

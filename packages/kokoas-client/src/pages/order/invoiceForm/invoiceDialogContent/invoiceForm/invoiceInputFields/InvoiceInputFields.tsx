@@ -15,7 +15,7 @@ export const InvoiceInputFields = () => {
         width={200}
       >
         <InputDate label='納品日' name={'deliveryDate'} />
-        <InputDate label='請求締め日' name={'invoiceDeadlineDate'} />
+        <InputDate label='請求締め日' name={'invoiceDueDate'} />
         <InputDate label='支払日' name={'paymentDate'} />
       </Stack>
 

@@ -78,6 +78,7 @@ export * from './useSaveCustGroup';
 export * from './useSaveCustomers';
 export * from './useSaveEstimate';
 export * from './useSaveInvoice';
+export * from './useSaveInvoiceB2B';
 export * from './useSaveOrder';
 export * from './useSaveOrderBudget';
 export * from './useSaveProject';

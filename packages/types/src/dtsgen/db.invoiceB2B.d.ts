@@ -14,6 +14,7 @@ declare namespace DBInvoiceb2b {
     storeName: kintone.fieldTypes.SingleLineText;
     deliveryDate: kintone.fieldTypes.Date;
     invoiceStatus: kintone.fieldTypes.SingleLineText;
+    paymentDate: kintone.fieldTypes.Date;
     status: kintone.fieldTypes.SingleLineText;
   }
   interface SavedData extends Data {

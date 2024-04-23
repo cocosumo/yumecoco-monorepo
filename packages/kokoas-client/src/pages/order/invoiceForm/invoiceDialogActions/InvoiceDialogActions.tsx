@@ -15,9 +15,7 @@ export const InvoiceDialogActions = () => {
       <Button
         color='info'   
         variant='contained' 
-        onClick={() => {
-          handleSubmit();
-        }}
+        onClick={handleSubmit}
       >
         請求確認
       </Button>

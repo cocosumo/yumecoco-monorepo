@@ -3,6 +3,7 @@ import { SupplierName } from './SupplierName';
 import { ProjectName } from './ProjectName';
 import { useIsFetching } from '@tanstack/react-query';
 import { OrderDataId } from './OrderDataId';
+import { InvoiceStatus } from './InvoiceStatus';
 
 export const InvoiceDialogTitle = () => {
   const isFetching = useIsFetching();
@@ -19,6 +20,7 @@ export const InvoiceDialogTitle = () => {
       <SupplierName /> 
       <ProjectName />
       <OrderDataId />
+      <InvoiceStatus />
       {Boolean(isFetching) && (
         <CircularProgress size={16} />
       )}

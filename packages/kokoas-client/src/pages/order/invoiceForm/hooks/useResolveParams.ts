@@ -64,24 +64,39 @@ export const useResolveParams = () => {
 
       } else if (!invoiceId && invoiceData?.length) {
 
-        const firstInvoiceInOrder = invoiceData.find((data) => data.orderId.value === orderId);
+        if (typeof invoiceId === 'undefined') {
+
+          const firstInvoiceInOrder = invoiceData.find((data) => data.orderId.value === orderId);
         
-        if (firstInvoiceInOrder) {
+          if (firstInvoiceInOrder) {
           // 発注に請求がある場合、初回請求
-          setInitialValues(prev => ({
-            ...prev,
-            ...convertedOrder,
-            ...convertInvoiceToForm(firstInvoiceInOrder),
-            items: convertedItems,
-          }));
-        } else {
+            setInitialValues(prev => ({
+              ...prev,
+              ...convertedOrder,
+              ...convertInvoiceToForm(firstInvoiceInOrder),
+              items: convertedItems,
+            }));
+          } else {
           // 発注に請求がない場合、新規請求
-          setInitialValues(prev => ({
-            ...prev,
+            setInitialValues({
+              ...initialInvoiceForm,
+              ...convertedOrder,
+              items: convertedItems,
+            });
+          }
+  
+
+        } else {
+          //invoiceIdがundefinedではなく、falsyの場合、新規請求
+          console.log('entered');
+
+          setInitialValues({
+            ...initialInvoiceForm,
             ...convertedOrder,
             items: convertedItems,
-          }));
+          });
         }
+        
 
 
       } else {

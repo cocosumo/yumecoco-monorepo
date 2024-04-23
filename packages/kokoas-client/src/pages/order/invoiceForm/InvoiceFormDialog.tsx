@@ -17,7 +17,7 @@ export interface InvoiceDialogProps {
   projId: string,
   projName: string,
   storeName: string,
-  invoiceId?: string,
+  invoiceId?: string | null,
 }
 
 export const initialDialogState : InvoiceDialogProps = {

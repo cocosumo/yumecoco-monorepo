@@ -1,4 +1,4 @@
-import { List, ListItemButton, ListSubheader } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
 import { ListItemLayout } from './ListItemLayout';
 import { v4 } from 'uuid';
 import { useInvoiceFormContext } from '../../../hooks/useInvoiceRHF';
@@ -7,6 +7,7 @@ import { useInvoiceB2BByProjId } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';
 import { invoiceDialogAtom } from '../../../InvoiceFormDialog';
 import { useSetAtom } from 'jotai';
+import AddIcon from '@mui/icons-material/Add';
 
 export const InvoiceList = () => {
   const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
@@ -74,10 +75,17 @@ export const InvoiceList = () => {
         divider
         selected={!invoiceId}
         onClick={() => {
-          alert('unimplemented');
+          setInvoiceDialogAtom((prev) => ({
+            ...prev,
+            open: true,
+            invoiceId: '',
+          }));
         }}
       >
-        新規請求書を作成
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="新規請求書" />
       </ListItemButton>
 
     </List>

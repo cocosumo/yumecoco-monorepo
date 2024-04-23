@@ -49,6 +49,7 @@ export * from './useExternalImg';
 export * from './useFilteredEmployees';
 export * from './useGenerateReading';
 export * from './useInHouseProjTypes';
+export * from './useInvoicB2BByProjId';
 export * from './useInvoices';
 export * from './useInvoicesByCustGroupId';
 export * from './useInvoicesById';

@@ -9,7 +9,7 @@ export const convertInvoiceToKintone = (data: TInvoiceForm ) : Partial<IInvoiceb
     
     projId,
     orderId,
-
+    supplierId,
     deliveryDate,
     invoiceDueDate,
     paymentDate,
@@ -20,7 +20,7 @@ export const convertInvoiceToKintone = (data: TInvoiceForm ) : Partial<IInvoiceb
   return ({
     projId: { value: projId },
     orderId: { value: orderId },
-    
+    supplierId: { value: supplierId },
     deliveryDate: { value: toKintoneDateStr(deliveryDate) },
     invoiceDueDate: { value: toKintoneDateStr(invoiceDueDate) },
     paymentDate: { value: toKintoneDateStr(paymentDate) },

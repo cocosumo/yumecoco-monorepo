@@ -26,7 +26,9 @@ export const useSaveInvoiceForm = () => {
   const { 
     mutateAsync: saveOrder,
     isLoading: saveOrderIsLoading,
-  } = useSaveOrder();
+  } = useSaveOrder({
+    enabledOnSuccess: false,
+  });
 
   const {
     mutateAsync: saveInvoiceB2B,

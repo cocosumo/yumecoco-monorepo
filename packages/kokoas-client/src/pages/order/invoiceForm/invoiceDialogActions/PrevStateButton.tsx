@@ -1,44 +1,89 @@
 import { Button, Fade } from '@mui/material';
-import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
+import { useInvoiceFormContext } from '../hooks/useInvoiceRHF';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
-import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
 import { useInvoiceStatus } from '../hooks/useInvoiceStatus';
 import { useIsFormIdle } from 'kokoas-client/src/hooks/useIsFormIdle';
+import { useDeleteInvoiceB2BBy$Id, useInvoiceB2BByProjId } from 'kokoas-client/src/hooksQuery';
+import { useWatch } from 'react-hook-form';
+import { IInvoiceb2b } from 'types';
+import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
+import { invoiceDialogAtom } from '../InvoiceFormDialog';
+import { useSetAtom } from 'jotai';
 
 export const PrevStateButton = () => {
+  const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
+
   const { setDialogState } = useConfirmDialog();
+  const { control } = useInvoiceFormContext();
   const isFormIdle = useIsFormIdle();
 
-  const invoiceId = useInvoiceWatch({
-    name: 'invoiceId',
-  }) as string;
+  const [
+    invoiceId,
+    projId,
+  ] = useWatch({
+    control,
+    name: [
+      'invoiceId',
+      'projId',
+    ],
+  });
+
+  const { data: invoiceData, isLoading } = useInvoiceB2BByProjId<IInvoiceb2b | undefined>({ 
+    projId, 
+    select: (recs) => recs.find((d) => d.uuid.value === invoiceId),
+  });
+  
+  const { mutateAsync } = useDeleteInvoiceB2BBy$Id();
+  const {
+    $id,
+  } = invoiceData || {};
 
   const {
     handleSubmit,
   } = useSaveInvoiceForm();
 
   const {
-    current,
-    next,
+    prev,
   } = useInvoiceStatus();
 
   return (
-    <Fade in={isFormIdle && current !== '支払済'}>
+    <Fade in={isFormIdle && !!$id?.value}>
       <Button
-        color='info'   
+        disabled={isLoading}
+        color={prev ? 'info' : 'error'}   
         variant='contained' 
         value={'prev'}
         onClick={(e) => {
-          setDialogState({
-            open: true,
-            title: `ステータスは【${next}】に更新しますか？`,
-            handleYes: () => handleSubmit(e),
-          });
+          if (!$id?.value) return;
+
+          if (prev) {
+            setDialogState({
+              open: true,
+              title: `ステータスは【${prev}】に差し戻しますか？`,
+              handleYes: () => handleSubmit(e),
+            });
+
+          } else {
+            setDialogState({
+              open: true,
+              title: 'この請求は削除しますか？',
+              content: '削除すると元に戻すことはできません。',
+              handleYes: async () => {
+                await mutateAsync($id?.value);
+                setInvoiceDialogAtom((prevDialog) => ({
+                  ...prevDialog,
+                  open: true,
+                  invoiceId: '',
+                }));
+            
+              },
+            });
+          }
                       
         }}
       >
-        {!!invoiceId && next}
-        {invoiceId === '' && '請求確認済'}
+        {!!prev && '差し戻し'}
+        {!prev && '削除'}
       </Button>
     </Fade>
   );

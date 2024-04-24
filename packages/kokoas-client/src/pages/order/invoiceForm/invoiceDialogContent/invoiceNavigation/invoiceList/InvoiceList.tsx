@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { invoiceDialogAtom } from '../../../InvoiceFormDialog';
 import { useSetAtom } from 'jotai';
 import AddIcon from '@mui/icons-material/Add';
+import { IInvoiceb2b } from 'types';
 
 export const InvoiceList = () => {
   const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
@@ -21,7 +22,7 @@ export const InvoiceList = () => {
     name: ['projId', 'orderId', 'invoiceId'],
   });
 
-  const { data } = useInvoiceB2BByProjId({ projId });
+  const { data } = useInvoiceB2BByProjId<IInvoiceb2b[]>({ projId });
 
   const invoiceList = useMemo(() => {
     if (!data || !orderId) return [];

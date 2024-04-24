@@ -2,12 +2,12 @@ import { Stack, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 
 export interface ListItemLayoutProps {
-  invoiceDeadlineDate: ReactNode;
+  invoiceDueDate: ReactNode;
   invoiceAmount: ReactNode;
 }
 
 export const ListItemLayout = ({
-  invoiceDeadlineDate,
+  invoiceDueDate,
   invoiceAmount,
 }: ListItemLayoutProps) => {
 
@@ -18,7 +18,7 @@ export const ListItemLayout = ({
       width={'100%'}
     >
       <Typography fontSize={10} textAlign={'left'} width={'35%'}>
-        {invoiceDeadlineDate}
+        {invoiceDueDate}
       </Typography>
       <Typography fontSize={10} textAlign={'right'} width={'65%'}>
         {invoiceAmount}

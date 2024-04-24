@@ -29,12 +29,10 @@ export const convertProjToAndpad = async (projId: string) => {
 
   const {
     agents: projAgents,
-
   } = projRec;
 
   const {
     members,
-    agents,
   } = custGroupRec;
 
   const firstCustId = members.value[0].value.custId.value;
@@ -42,9 +40,9 @@ export const convertProjToAndpad = async (projId: string) => {
   const custNames = members.value.map((row) => row.value.customerName.value).join('、');
   const custNamesReading = members.value.map((row) => row.value.custNameReading.value).join('、');
 
-  const cocoAGIds = agents.value
+  const cocoAGIds = projAgents.value
     .filter((row) => (row.value.agentType.value as TAgents) === 'cocoAG')
-    .map((row) => row.value.employeeId.value);
+    .map((row) => row.value.agentId.value);
 
   const cocoAGConstIds = projAgents.value.map((row) => row.value.agentId.value);
 
@@ -74,8 +72,7 @@ export const convertProjToAndpad = async (projId: string) => {
   //if (!custPrefecture) throw new Error('顧客の都道府県の取得が失敗しました。');
 
 
-  const firstAgent = custGroupRec
-    .agents
+  const firstAgent = projAgents
     .value
     .find((row) => (row.value.agentType.value as TAgents) === 'cocoAG')
     ?.value;
@@ -93,7 +90,7 @@ export const convertProjToAndpad = async (projId: string) => {
     '顧客名（カナ）': custNamesReading || '',
     '顧客郵便番号': parsedCustPostal || '',
     '顧客現住所': [firstCust.address1?.value.trim(), firstCust.address2?.value.trim()].filter(Boolean).join(',') || '',
-    '顧客担当者名': firstAgent?.employeeName.value,
+    '顧客担当者名': firstAgent?.agentName.value,
     '顧客電話番号1': firstCustTel1.value.contactValue.value.trim(),
     '顧客電話番号2': firstCustTel2.value.contactValue.value.trim(),
     '顧客メールアドレス': firstCustEmail?.value.contactValue.value.trim(),
@@ -121,7 +118,7 @@ export const convertProjToAndpad = async (projId: string) => {
 
   const dataToBeSaved : SaveProjectParams = {
     projData: saveResult,
-    members: [...new Set([...cocoAGIds, ...cocoAGConstIds])],
+    members: [...new Set([...cocoAGIds, ...cocoAGConstIds])].filter(Boolean),
   };
 
   

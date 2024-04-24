@@ -31,7 +31,7 @@ export const IsNotCocoConstConfirmed = () => {
                   onChange={(_, checked) => {
                     onChange(checked);
                   }}
-                  value={value}
+                  checked={value}
                 />)} 
               label="未定"
             />

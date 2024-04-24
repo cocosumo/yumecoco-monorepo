@@ -6,10 +6,10 @@ import { generateMessageForManager } from './notificationFunc/generateMessageFor
 import { chatworkRooms, isProd } from '../config';
 import { getCocoAreaMngrByTerritory } from 'api-kintone/src/employees/getCocoAreaMngrByTerritory';
 import { getCocoAccountant } from 'api-kintone';
-import { generateMessageForAccountant } from './notificationFunc/generateMessageForAccountant';
 import isPast from 'date-fns/isPast';
 import addDays from 'date-fns/addDays';
 import { numOfDaysUntilAlert } from './helpers/calcAlertStartDate';
+import { generateMessageForAccountant } from './notificationFunc/generateMessageForAccountant';
 
 
 
@@ -41,7 +41,7 @@ export const notifyPaymentAlertToChatwork = async ({
       try {
 
         await sendMessage({
-          body: message,
+          body: (isProd) ? message : `【テスト送信】${cwRoomId.agentName}宛のメッセージです \n${message}`,
           roomId: (isProd) ? cwRoomId.cwRoomId : chatworkRooms.test,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
@@ -49,7 +49,7 @@ export const notifyPaymentAlertToChatwork = async ({
       } catch (error) {
 
         await sendMessage({
-          body: message,
+          body: (isProd) ? message : `【テスト送信】${cwRoomId.agentName}宛のメッセージです \n${message}`,
           roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
           cwToken: process.env.CW_TOKEN_COCOSYSTEM,
         });
@@ -61,6 +61,9 @@ export const notifyPaymentAlertToChatwork = async ({
         });
 
       }
+
+      // TODO API利用制限対策
+
     }
   }
 
@@ -75,30 +78,39 @@ export const notifyPaymentAlertToChatwork = async ({
     if (reminderDat.length === 0) continue;
 
     const managerDat = await getCocoAreaMngrByTerritory(territories[i]);
-    const message = generateMessageForManager(reminderDat);
+    const messages = generateMessageForManager(reminderDat);
 
+    for (const message of messages) {
 
-    try {
+      try {
 
-      await sendMessage({
-        body: message,
-        roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
+        await sendMessage({
+          body: (isProd) ? message : `【テスト送信】${managerDat.文字列＿氏名.value}宛のメッセージです \n${message}`,
+          roomId: (isProd) ? managerDat.chatworkRoomId.value : chatworkRooms.test,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
 
-    } catch (error) {
+      } catch (error) {
 
-      await sendMessage({
-        body: message,
-        roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
+        await sendMessage({
+          body: (isProd) ? message
+            : `【テスト送信】${managerDat.文字列＿氏名.value}宛のメッセージです \n${message}`,
+          roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
 
-      await sendMessage({
-        body: `${[`【送信エラー】${territories[i]}店長宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
-        roomId: chatworkRooms.testRoom,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
+        await sendMessage({
+          body: `${[
+            `【送信エラー】${territories[i]}店長 ${managerDat.文字列＿氏名.value}宛メッセージ`,
+            message,
+            JSON.stringify(error.message)].join('\n')}`,
+          roomId: chatworkRooms.testRoom,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+
+      }
+
+      // TODO API利用制限対策
 
     }
   }
@@ -121,30 +133,40 @@ export const notifyPaymentAlertToChatwork = async ({
 
     if (reminderDat.length === 0) continue;
 
-    const message = generateMessageForAccountant(reminderDat);
+    const messages = generateMessageForAccountant(reminderDat);
 
 
-    try {
+    for (const message of messages) {
+      try {
 
-      await sendMessage({
-        body: message,
-        roomId: (isProd) ? accountant.chatworkRoomId.value : chatworkRooms.test,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
+        await sendMessage({
+          body: (isProd) ? message
+            : `【テスト送信】${accountant.文字列＿氏名.value}宛のメッセージです \n${message}`,
+          roomId: (isProd) ? accountant.chatworkRoomId.value : chatworkRooms.test,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
 
-    } catch (error) {
+      } catch (error) {
 
-      await sendMessage({
-        body: message,
-        roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
+        await sendMessage({
+          body: (isProd) ? message
+            : `【テスト送信】${accountant.文字列＿氏名.value}宛のメッセージです \n${message}`,
+          roomId: (isProd) ? chatworkRooms.cocoasGroup : chatworkRooms.rpaChatGroup,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
 
-      await sendMessage({
-        body: `${[`【送信エラー】経理${accountant.文字列＿氏名.value}宛メッセージ`, message, JSON.stringify(error.message)].join('\n')}`,
-        roomId: chatworkRooms.testRoom,
-        cwToken: process.env.CW_TOKEN_COCOSYSTEM,
-      });
+        await sendMessage({
+          body: `${[
+            `【送信エラー】経理${accountant.文字列＿氏名.value}宛メッセージ`,
+            message,
+            JSON.stringify(error.message)].join('\n')}`,
+          roomId: chatworkRooms.testRoom,
+          cwToken: process.env.CW_TOKEN_COCOSYSTEM,
+        });
+
+      }
+
+      // TODO API利用制限対策
 
     }
   }

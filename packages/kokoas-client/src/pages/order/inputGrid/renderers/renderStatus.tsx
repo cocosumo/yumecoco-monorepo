@@ -2,29 +2,12 @@ import { RenderCellProps } from 'react-data-grid';
 import { Chip, styled } from '@mui/material';
 import { RowItem } from '../useColumns';
 import { KOrderProgress } from 'types/src/common/order';
-import { blueGrey, green, lightGreen, orange, blue, yellow } from '@mui/material/colors';
 import { useSetAtom } from 'jotai';
 import { invoiceDialogAtom } from '../../invoiceForm/InvoiceFormDialog';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { useCallback } from 'react';
+import { statusBGcolorMap, statusFGcolorMap } from 'kokoas-client/src/lib/progressColors';
 
-const statusBGcolorMap: Record<KOrderProgress, string> = {
-  未発注: blueGrey[50],
-  発注済: blue[600],
-  請求済: orange[600],
-  請求承認済: yellow[600],
-  請求確認済: lightGreen[600],
-  支払済: green[600],
-};
-
-const statusFGcolorMap: Record<KOrderProgress, string> = {
-  未発注: blueGrey[600],
-  発注済: blue[50],
-  請求済: orange[50],
-  請求承認済: yellow[50],
-  請求確認済: lightGreen[50],
-  支払済: green[50],
-};
 
 const CustomChip = styled(Chip)(({ label, onClick }) => ({
   backgroundColor: statusBGcolorMap[label as KOrderProgress],

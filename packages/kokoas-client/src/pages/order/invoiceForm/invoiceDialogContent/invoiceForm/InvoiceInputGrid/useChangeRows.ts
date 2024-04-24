@@ -16,7 +16,7 @@ export const useChangeRows = () => {
       error,
     },
   } = useController({
-    name: 'selectedItems',
+    name: 'items',
     control,
   });
 
@@ -58,7 +58,7 @@ export const useChangeRows = () => {
 
     indexes.forEach((index) => {
       setValue(
-        `selectedItems.${index}`, calculatedRow(rows[index], fieldName),
+        `items.${index}`, calculatedRow(rows[index], fieldName),
         {
           shouldValidate: true,
           shouldDirty: true,

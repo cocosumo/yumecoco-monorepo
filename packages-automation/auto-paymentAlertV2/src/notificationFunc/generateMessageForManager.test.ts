@@ -1,4 +1,4 @@
-import { describe, it } from '@jest/globals';
+import { describe, it, expect } from '@jest/globals';
 import fs from 'fs';
 import path from 'path';
 import { PaymentReminder } from '../../types/paymentReminder';
@@ -15,6 +15,9 @@ describe('generateMessageForManager', () => {
     const result = generateMessageForManager(reminderDat);
 
     console.log('message::', result);
+    console.log('messege length::', result.length);
+
+    expect(result.length).toBeGreaterThan(0);
 
   }, 60000);
 });

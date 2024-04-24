@@ -8,28 +8,34 @@ import { InvoiceDialogContent } from './invoiceDialogContent/InvoiceDialogConten
 import { InvoiceDialogTitle } from './invoiceDialogTitle/InvoiceDialogTitle';
 import { CloseButton } from '../common/CloseButton';
 import { InvoiceDialogActions } from './invoiceDialogActions/InvoiceDialogActions';
+import { useResolveParams } from './hooks/useResolveParams';
+import { useLazyEffect } from 'kokoas-client/src/hooks';
 
-interface InvoiceDialogProps {
+export interface InvoiceDialogProps {
   open: boolean,
   orderId?: string,
   projId: string,
   projName: string,
   storeName: string,
-  //selectedItems: TOrderItem[],
+  invoiceId?: string | null,
 }
 
-const initialDialogState : InvoiceDialogProps = {
+export const initialDialogState : InvoiceDialogProps = {
   open: false,
   orderId: '',
   projId: '',
   projName: '',
   storeName: '',
-  //selectedItems: [],
+  invoiceId: '',
 };
 
 export const invoiceDialogAtom = atom(initialDialogState);
 
 export const InvoiceFormDialog = () => {
+  const {
+    initialValues,
+    isFetching,
+  } = useResolveParams();
 
   const [invoiceDialog, setInvoiceDialogAtom] = useAtom(invoiceDialogAtom);
   const {
@@ -37,11 +43,23 @@ export const InvoiceFormDialog = () => {
   } = invoiceDialog;
 
   const formMethods = useForm({
-    defaultValues: initialInvoiceForm,
+    defaultValues: initialValues,
     resolver: zodResolver(schema),
   });
 
-  const { reset } = formMethods;
+  const { 
+    reset,
+    formState: {
+      isSubmitting,
+    },
+  } = formMethods;
+
+  useLazyEffect(() => {
+    if (open && !isFetching && !isSubmitting  ) {
+
+      reset(initialValues);
+    }
+  }, [open, initialValues, isFetching, isSubmitting], 300);
 
   const handleClose = () => {
     setInvoiceDialogAtom((prev) => ({ ...prev, open: false }) );

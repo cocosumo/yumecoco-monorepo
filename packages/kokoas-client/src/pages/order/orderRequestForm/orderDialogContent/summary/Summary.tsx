@@ -41,7 +41,7 @@ export const Summary = () => {
     groupedByTaxArray,
     totalTaxAmount,
     nonTaxableAmount,
-    totalAmount,
+    totalAmountAfterTax,
   } = useSummary();
 
   return (
@@ -57,7 +57,7 @@ export const Summary = () => {
         )}
       <LabeledInfo label={'消費税'} value={totalTaxAmount} />
       <LabeledInfo label={'非課税'} value={nonTaxableAmount} />
-      <LabeledInfo label={'合計'} value={totalAmount} />
+      <LabeledInfo label={'合計'} value={totalAmountAfterTax} />
     </Stack>
   );
 };

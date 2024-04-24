@@ -1,13 +1,34 @@
-import { List, ListItem, ListItemButton, ListSubheader } from '@mui/material';
+import { List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
 import { ListItemLayout } from './ListItemLayout';
 import { v4 } from 'uuid';
-
-const sampleData = Array.from({ length: 100 }, (_, i) => ({
-  invoiceDeadlineDate: '2022/10/01',
-  invoiceAmount: 1000000 * (i + 1),
-}));
+import { useInvoiceFormContext } from '../../../hooks/useInvoiceRHF';
+import { useWatch } from 'react-hook-form';
+import { useInvoiceB2BByProjId } from 'kokoas-client/src/hooksQuery';
+import { useMemo } from 'react';
+import { invoiceDialogAtom } from '../../../InvoiceFormDialog';
+import { useSetAtom } from 'jotai';
+import AddIcon from '@mui/icons-material/Add';
 
 export const InvoiceList = () => {
+  const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
+  const { control } = useInvoiceFormContext();
+  const [
+    projId,
+    orderId,
+    invoiceId,
+  ] = useWatch({
+    control,
+    name: ['projId', 'orderId', 'invoiceId'],
+  });
+
+  const { data } = useInvoiceB2BByProjId({ projId });
+
+  const invoiceList = useMemo(() => {
+    if (!data || !orderId) return [];
+
+    return data.filter((d) => d.orderId.value === orderId);
+  }, [data, orderId]);
+
   return (
     <List
       sx={{
@@ -24,21 +45,48 @@ export const InvoiceList = () => {
         }}
       >
         <ListItemLayout
-          invoiceDeadlineDate={'請求締め日'}
+          invoiceDueDate={'請求締め日'}
           invoiceAmount={'請求金額 (税抜)'}
         />
       </ListSubheader>
 
-      {sampleData.map((data) => (
-        <ListItem key={v4()} disablePadding>
-          <ListItemButton divider>
-            <ListItemLayout
-              invoiceDeadlineDate={data.invoiceDeadlineDate}
-              invoiceAmount={data.invoiceAmount.toLocaleString()}
-            />
-          </ListItemButton>
-        </ListItem>
+      {invoiceList.map((d) => (
+
+        <ListItemButton
+          key={d.uuid.value || v4()}
+          selected={d.uuid.value === invoiceId}
+          onClick={() => {
+            setInvoiceDialogAtom((prev) => ({
+              ...prev,
+              open: true,
+              invoiceId: d.uuid.value,
+            }));
+          }} 
+          divider
+        >
+          <ListItemLayout
+            invoiceDueDate={d.invoiceDueDate.value}
+            invoiceAmount={Number(d.invoiceAmount.value).toLocaleString()}
+          />
+        </ListItemButton>
       ))}
+
+      <ListItemButton
+        divider
+        selected={!invoiceId}
+        onClick={() => {
+          setInvoiceDialogAtom((prev) => ({
+            ...prev,
+            open: true,
+            invoiceId: '',
+          }));
+        }}
+      >
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        <ListItemText primary="新規請求書" />
+      </ListItemButton>
 
     </List>
   );

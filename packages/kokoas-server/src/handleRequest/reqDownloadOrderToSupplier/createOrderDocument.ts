@@ -10,7 +10,7 @@ import { Big } from 'big.js';
 
 
 
-const isTest = true;
+const isTest = false;
 
 /** 
  * 発注書を作成する
@@ -56,7 +56,7 @@ export const createOrderDocument = async (
 
 
   let template;
-  const templateName = '工事依頼書_20240401.pdf';
+  const templateName = '工事依頼書_20240424.pdf';
   if (!isTest) {
 
     console.log('template from S3');
@@ -71,7 +71,7 @@ export const createOrderDocument = async (
     const pdfPath = getFilePath({
       fileName: '工事依頼書',
       fileType: 'pdf',
-      version: '20240401',
+      version: '20240424',
     });
     template = await fs.readFile(pdfPath);
 

@@ -55,14 +55,9 @@ export const PrevStateButton = () => {
         value={'prev'}
         onClick={(e) => {
           if (!$id?.value) return;
-
+          
           if (prev) {
-            setDialogState({
-              open: true,
-              title: `ステータスは【${prev}】に差し戻しますか？`,
-              handleYes: () => handleSubmit(e),
-            });
-
+            handleSubmit(e);
           } else {
             setDialogState({
               open: true,

@@ -38,15 +38,16 @@ export const useSaveInvoiceForm = () => {
 
   const {
     next,
+    prev,
   } = useInvoiceStatus();
 
   const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data, e) => {
+    const buttonValue = (e?.target as HTMLButtonElement)?.value as 'next' | 'prev';
 
     setDialogState({
       open: true,
-      title: `ステータスは【${next}】に更新しますか？`,
+      title: `ステータスは【${ buttonValue === 'next' ? next : prev}】に${buttonValue ? '更新' : '差しも度'}しますか？`,
       handleYes: async () => {
-        const buttonValue = (e?.target as HTMLButtonElement)?.value as 'next' | 'prev';
 
         await saveOrder({
           recordId: data.orderId,
@@ -63,14 +64,15 @@ export const useSaveInvoiceForm = () => {
           record: convertInvoiceToKintone(data, buttonValue),
         });
 
-        setInvoiceAtom((prev) => ({
-          ...prev,
+        setInvoiceAtom((prevDialog) => ({
+          ...prevDialog,
           invoiceId: recordId,
         }));
       },
     });
   }, [
     next,
+    prev,
     setDialogState,
     saveOrderBudget,
     saveOrder,

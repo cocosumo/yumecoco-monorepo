@@ -5,13 +5,13 @@ import { useLazyEffect } from './useLazyEffect';
 
 
 /**
- * Helps to determine if a form, and global cache is busy or not.
+ * Helps to determine if a form, and global cache is idle or not.
  * Inspiration from waitForNetworkIdle of puppeteer. 
  *  
- * @param wait - The time to wait before determining if the form is busy or not.
+ * @param wait - The time to wait before determining if the form is idle or not.
  */
-export const useIsFormBusy = (wait = 1000) => {
-  const [isBusy, setIsBusy] = useState(true);
+export const useIsFormIdle = (wait = 1000) => {
+  const [isIdle, setIsIdle] = useState(false);
 
   const { formState: {
     isSubmitting,
@@ -23,10 +23,10 @@ export const useIsFormBusy = (wait = 1000) => {
   useLazyEffect(() => {
     if (isSubmitting || Boolean(isFetching)) return;
 
-    setIsBusy(false);
+    setIsIdle(true);
   
   }, [isSubmitting, isFetching], wait);
 
-  return isBusy; 
+  return isIdle; 
 };
 

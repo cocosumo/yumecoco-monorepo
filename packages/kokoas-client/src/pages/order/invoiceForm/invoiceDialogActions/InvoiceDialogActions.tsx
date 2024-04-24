@@ -4,11 +4,11 @@ import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
 import { useNextInvoiceStatus } from '../hooks/useNextStatus';
 import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
-import { useIsFormBusy } from 'kokoas-client/src/hooks/useIsFormBusy';
+import { useIsFormIdle } from 'kokoas-client/src/hooks/useIsFormIdle';
 
 export const InvoiceDialogActions = () => {
   const { setDialogState } = useConfirmDialog();
-  const isBusy = useIsFormBusy();
+  const isFormIdle = useIsFormIdle();
   const invoiceId = useInvoiceWatch({
     name: 'invoiceId',
   }) as string;
@@ -28,7 +28,7 @@ export const InvoiceDialogActions = () => {
         height: '50px',
       }}
     >
-      <Fade in={!isBusy && current === '支払済'}>
+      <Fade in={isFormIdle && current !== '支払済'}>
         <Button
           color='info'   
           variant='contained' 
@@ -46,7 +46,7 @@ export const InvoiceDialogActions = () => {
         </Button>
       </Fade>
       
-      {isBusy && (
+      {!isFormIdle && (
         <CircularProgress size={16} />
       )}
     </DialogActions>

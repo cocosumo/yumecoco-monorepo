@@ -11,6 +11,7 @@ export const InvoiceStatus = () => {
   return (
     <Zoom in={!!invoiceStatus}>
       <Chip 
+        key={invoiceStatus}
         label={invoiceStatus}
         size={'small'}
         sx={invoiceStatus 

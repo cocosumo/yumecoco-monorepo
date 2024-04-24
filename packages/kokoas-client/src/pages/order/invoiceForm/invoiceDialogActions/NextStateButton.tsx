@@ -1,12 +1,10 @@
 import { Button, Fade } from '@mui/material';
 import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
-import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
 import { useInvoiceStatus } from '../hooks/useInvoiceStatus';
 import { useIsFormIdle } from 'kokoas-client/src/hooks/useIsFormIdle';
 
 export const NextStateButton = () => {
-  const { setDialogState } = useConfirmDialog();
   const isFormIdle = useIsFormIdle();
 
   const invoiceId = useInvoiceWatch({
@@ -28,14 +26,7 @@ export const NextStateButton = () => {
         color='info'   
         variant='contained' 
         value={'next'}
-        onClick={(e) => {
-          setDialogState({
-            open: true,
-            title: `ステータスは【${next}】に更新しますか？`,
-            handleYes: () => handleSubmit(e),
-          });
-                      
-        }}
+        onClick={handleSubmit}
       >
         {!!invoiceId && next}
         {invoiceId === '' && '請求確認済'}

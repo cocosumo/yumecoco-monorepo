@@ -6,7 +6,7 @@ import { useLazyEffect } from './useLazyEffect';
 
 /**
  * Helps to determine if a form, and global cache is idle or not.
- * Inspiration from waitForNetworkIdle of puppeteer. 
+ * ※ Inspired by waitForNetworkIdle of puppeteer. 
  *  
  * @param wait - The time to wait before determining if the form is idle or not.
  */

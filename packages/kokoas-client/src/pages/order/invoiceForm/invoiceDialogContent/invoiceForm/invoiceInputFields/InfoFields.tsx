@@ -3,11 +3,14 @@ import { grey } from '@mui/material/colors';
 
 export interface InfoFieldsProps {
   label: string;
+  value: number;
 }
 
 export const InfoFields = ({ 
   label, 
+  value,
 }: InfoFieldsProps) => {
+
 
   return (
     <Stack 
@@ -30,7 +33,7 @@ export const InfoFields = ({
         component={'span'}
         my={'auto'}
       >
-        1,000,000
+        {value.toLocaleString()}
       </Typography>
       
       <Typography 

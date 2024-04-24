@@ -6,7 +6,7 @@ import { RowItem, useColumns } from './useColumns';
 import { useChangeRows } from '../../../../inputGrid/useChangeRows';
 import { KItem } from '../../../../schema';
 import { useTypedFormContext } from 'kokoas-client/src/pages/order/hooks/useTypedRHF';
-import { useController } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 
 function rowKeyGetter(row: RowItem) {
   return String(row.itemId);
@@ -16,16 +16,14 @@ function rowKeyGetter(row: RowItem) {
 export const InvoiceInputGrid = () => {
   const { control } = useTypedFormContext();
 
-  const {
-    field: { value: items },
-  } = useController({
+  const items = useWatch({
     control,
     name: 'items',
   });
 
+
   const columns = useColumns();
   const { handleRowChange } = useChangeRows();
-
 
   const {
     dataGridRef,

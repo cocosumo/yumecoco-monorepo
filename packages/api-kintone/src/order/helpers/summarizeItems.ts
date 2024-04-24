@@ -83,9 +83,11 @@ export const summarizeItems = (items: SummarizeItemsParams): ReturnType => {
 
   return {
     groupedByTaxArray,
-    totalTaxAmount: totalTaxAmount.toNumber(),
-    nonTaxableAmount: nonTaxableAmount.toNumber(),
-    totalAmountBeforeTax: totalAmount.sub(totalTaxAmount).toNumber(),
-    totalAmountAfterTax: totalAmount.toNumber(),
+    totalTaxAmount: totalTaxAmount.round().toNumber(),
+    nonTaxableAmount: nonTaxableAmount.round().toNumber(),
+    totalAmountBeforeTax: totalAmount.sub(totalTaxAmount)
+      .round()
+      .toNumber(),
+    totalAmountAfterTax: totalAmount.round().toNumber(),
   };
 };

@@ -6,7 +6,7 @@ import fs from 'fs/promises';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
 import { getConstPeriod } from './helper/getConstPeriod';
-import Big from 'big.js';
+import { Big } from 'big.js';
 
 
 
@@ -341,9 +341,9 @@ export const createOrderDocument = async (
   );
 
 
-  // 発注明細の反映
+  // 発注明細の反映 明細行数分繰り返す
   for (let i = 0; i < orderDetails.length; i++) {
-    const posOffset = 10.8 * i;
+    const posOffset = 10.3 * i;
     const posY = 341 - posOffset;
 
     // 番号
@@ -382,7 +382,7 @@ export const createOrderDocument = async (
       firstPage,
       orderDetails[i].middleItem,
       {
-        x: 172,
+        x: 173,
         y: posY,
         font: msChinoFont,
         size: 9,
@@ -412,7 +412,7 @@ export const createOrderDocument = async (
       firstPage,
       orderDetails[i].unit,
       {
-        x: 378,
+        x: 375,
         y: posY,
         font: msChinoFont,
         size: 9,
@@ -424,11 +424,13 @@ export const createOrderDocument = async (
     );
 
     // 数量
+    const quentity = orderDetails[i].quantity.toFixed(2);
+
     drawText(
       firstPage,
-      orderDetails[i].quantity.toString(),
+      quentity,
       {
-        x: 419,
+        x: 388,
         y: posY,
         font: msChinoFont,
         size: 9,
@@ -444,7 +446,7 @@ export const createOrderDocument = async (
       firstPage,
       orderDetails[i].costPrice.toLocaleString(),
       {
-        x: 490,
+        x: 458,
         y: posY,
         font: msChinoFont,
         size: 9,
@@ -460,7 +462,7 @@ export const createOrderDocument = async (
       firstPage,
       orderDetails[i].orderAmountBeforeTax.toLocaleString(),
       {
-        x: 584,
+        x: 552,
         y: posY,
         font: msChinoFont,
         size: 9,
@@ -471,12 +473,33 @@ export const createOrderDocument = async (
       },
     );
 
+    
+    // 税区分
+    const taxRate = orderDetails[i].taxRate === 0 ? '非課税' 
+      : `課税(${Big(orderDetails[i].taxRate).mul(100)
+        .toNumber()
+        .toString()}%)`;
+
+    drawText(
+      firstPage,
+      taxRate,
+      {
+        x: 660,
+        y: posY,
+        font: msChinoFont,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
+
     // 備考
     drawText(
       firstPage,
       orderDetails[i].rowRemarks,
       {
-        x: 690,
+        x: 707,
         y: posY,
         font: msChinoFont,
         size: 9,
@@ -491,7 +514,7 @@ export const createOrderDocument = async (
 
 
   // summary
-  // 小計
+  const summaryPosY = 31;
   const summary = orderDetails.reduce((acc, {
     taxRate,
     orderAmountBeforeTax,
@@ -518,6 +541,55 @@ export const createOrderDocument = async (
     .toNumber();
   summary.totalAmount = Big(summary.subtotal).plus(summary.taxAmount)
     .toNumber();
+
+  // 小計
+  drawText(
+    firstPage,
+    summary.subtotal.toLocaleString(),
+    {
+      x: 182,
+      y: summaryPosY,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+      align: 'right',
+    },
+  );
+
+  // 消費税額
+  drawText(
+    firstPage,
+    summary.taxAmount.toLocaleString(),
+    {
+      x: 388,
+      y: summaryPosY,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+      align: 'right',
+    },
+  );
+
+  // 合計
+  drawText(
+    firstPage,
+    summary.totalAmount.toLocaleString(),
+    {
+      x: 600,
+      y: summaryPosY,
+      font: msChinoFont,
+      size: 9,
+    },
+    {
+      weight: 0.1,
+      align: 'right',
+    },
+  );
+
 
 
 

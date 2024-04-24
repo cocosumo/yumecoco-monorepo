@@ -35,20 +35,22 @@ export const useSaveInvoiceForm = () => {
     isLoading: saveInvoiceIsLoading,
   } = useSaveInvoiceB2B();
 
-  const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data) => {
+  const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data, e) => {
+    const buttonValue = (e?.target as HTMLButtonElement)?.value as 'next' | 'prev';
+
     await saveOrder({
       recordId: data.orderId,
       record: convertOrderInfoToKintone(data),
     });
 
-    await   saveOrderBudget({
+    await saveOrderBudget({
       recordId: data.projId,
       record: await convertOrderItemsToKintone(data),
     });
 
     const { recordId } = await saveInvoiceB2B({
       recordId: data.invoiceId,
-      record: convertInvoiceToKintone(data),
+      record: convertInvoiceToKintone(data, buttonValue),
     });
 
     setInvoiceAtom((prev) => ({

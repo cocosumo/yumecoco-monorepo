@@ -1,25 +1,12 @@
-import { Button, CircularProgress, DialogActions, Fade } from '@mui/material';
-import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
-
-import { useNextInvoiceStatus } from '../hooks/useNextStatus';
-import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
-import { useConfirmDialog } from 'kokoas-client/src/hooks';
+import { CircularProgress, DialogActions } from '@mui/material';
 import { useIsFormIdle } from 'kokoas-client/src/hooks/useIsFormIdle';
+import { NextStateButton } from './NextStateButton';
+import { PrevStateButton } from './PrevStateButton';
 
 export const InvoiceDialogActions = () => {
-  const { setDialogState } = useConfirmDialog();
   const isFormIdle = useIsFormIdle();
-  const invoiceId = useInvoiceWatch({
-    name: 'invoiceId',
-  }) as string;
-  const {
-    handleSubmit,
-  } = useSaveInvoiceForm();
 
-  const {
-    current,
-    next,
-  } = useNextInvoiceStatus();
+
 
   return (
     <DialogActions
@@ -28,23 +15,8 @@ export const InvoiceDialogActions = () => {
         height: '50px',
       }}
     >
-      <Fade in={isFormIdle && current !== '支払済'}>
-        <Button
-          color='info'   
-          variant='contained' 
-          onClick={(e) => {
-            setDialogState({
-              open: true,
-              title: `ステータスは【${next}】に更新しますか？`,
-              handleYes: () => handleSubmit(e),
-            });
-                      
-          }}
-        >
-          {!!invoiceId && next}
-          {invoiceId === '' && '請求確認済'}
-        </Button>
-      </Fade>
+      <NextStateButton />
+      <PrevStateButton />
       
       {!isFormIdle && (
         <CircularProgress size={16} />

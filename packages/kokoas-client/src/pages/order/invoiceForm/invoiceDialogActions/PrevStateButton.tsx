@@ -1,4 +1,4 @@
-import { Button, Fade } from '@mui/material';
+import { Fade } from '@mui/material';
 import { useInvoiceFormContext } from '../hooks/useInvoiceRHF';
 import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { useInvoiceStatus } from '../hooks/useInvoiceStatus';
@@ -9,6 +9,7 @@ import { IInvoiceb2b } from 'types';
 import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
 import { invoiceDialogAtom } from '../InvoiceFormDialog';
 import { useSetAtom } from 'jotai';
+import { LoadingButton } from '@mui/lab';
 
 export const PrevStateButton = () => {
   const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
@@ -28,18 +29,19 @@ export const PrevStateButton = () => {
     ],
   });
 
-  const { data: invoiceData, isLoading } = useInvoiceB2BByProjId<IInvoiceb2b | undefined>({ 
+  const { data: invoiceData } = useInvoiceB2BByProjId<IInvoiceb2b | undefined>({ 
     projId, 
     select: (recs) => recs.find((d) => d.uuid.value === invoiceId),
   });
   
-  const { mutateAsync } = useDeleteInvoiceB2BBy$Id();
+  const { mutateAsync, isLoading } = useDeleteInvoiceB2BBy$Id();
   const {
     $id,
   } = invoiceData || {};
 
   const {
     handleSubmit,
+    isSaving,
   } = useSaveInvoiceForm();
 
   const {
@@ -48,14 +50,14 @@ export const PrevStateButton = () => {
 
   return (
     <Fade in={isFormIdle && !!$id?.value}>
-      <Button
-        disabled={isLoading}
+      <LoadingButton
         color={prev ? 'info' : 'error'}   
         variant='contained' 
         value={'prev'}
+        loading={isSaving || isLoading}
         onClick={(e) => {
           if (!$id?.value) return;
-          
+
           if (prev) {
             handleSubmit(e);
           } else {
@@ -79,7 +81,7 @@ export const PrevStateButton = () => {
       >
         {!!prev && '差し戻し'}
         {!prev && '削除'}
-      </Button>
+      </LoadingButton>
     </Fade>
   );
 };

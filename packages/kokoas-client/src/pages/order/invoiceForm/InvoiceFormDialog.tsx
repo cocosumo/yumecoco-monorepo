@@ -49,17 +49,13 @@ export const InvoiceFormDialog = () => {
 
   const { 
     reset,
-    formState: {
-      isSubmitting,
-    },
   } = formMethods;
 
   useLazyEffect(() => {
-    if (open && !isFetching && !isSubmitting  ) {
-
+    if (open && !isFetching) {
       reset(initialValues);
     }
-  }, [open, initialValues, isFetching, isSubmitting], 300);
+  }, [open, initialValues, isFetching], 300);
 
   const handleClose = () => {
     setInvoiceDialogAtom((prev) => ({ ...prev, open: false }) );

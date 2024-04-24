@@ -3,11 +3,9 @@ import { useSaveInvoiceForm } from '../hooks/useSaveInvoiceForm';
 
 import { useNextInvoiceStatus } from '../hooks/useNextStatus';
 import { useInvoiceWatch } from '../hooks/useInvoiceRHF';
-import { useConfirmDialog } from 'kokoas-client/src/hooks';
 import { useIsFormIdle } from 'kokoas-client/src/hooks/useIsFormIdle';
 
 export const InvoiceDialogActions = () => {
-  const { setDialogState } = useConfirmDialog();
   const isFormIdle = useIsFormIdle();
   const invoiceId = useInvoiceWatch({
     name: 'invoiceId',
@@ -33,12 +31,7 @@ export const InvoiceDialogActions = () => {
           color='info'   
           variant='contained' 
           onClick={(e) => {
-            setDialogState({
-              open: true,
-              title: `ステータスは【${next}】に更新しますか？`,
-              handleYes: () => handleSubmit(e),
-            });
-                      
+            handleSubmit(e);     
           }}
         >
           {!!invoiceId && next}

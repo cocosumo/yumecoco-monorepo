@@ -1,7 +1,8 @@
-import { Box, CircularProgress, DialogActions } from '@mui/material';
+import {  CircularProgress, DialogActions, Stack } from '@mui/material';
 import { useIsFormIdle } from 'kokoas-client/src/hooks/useIsFormIdle';
 import { NextStateButton } from './NextStateButton';
 import { PrevStateButton } from './PrevStateButton';
+import { Checker } from './Checker';
 
 export const InvoiceDialogActions = () => {
   const isFormIdle = useIsFormIdle();
@@ -17,9 +18,20 @@ export const InvoiceDialogActions = () => {
     >
       <PrevStateButton />
 
-      <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center' }}>
-        <NextStateButton />
-      </Box>
+      {isFormIdle && (
+        <Stack 
+          justifyContent={'center'}
+          alignItems={'center'}
+          flexGrow={1}
+          direction={'row'}
+          spacing={2}
+        >
+
+          <NextStateButton />
+          <Checker />
+        </Stack>
+
+      )}
       
       {!isFormIdle && (
         <CircularProgress size={16} />

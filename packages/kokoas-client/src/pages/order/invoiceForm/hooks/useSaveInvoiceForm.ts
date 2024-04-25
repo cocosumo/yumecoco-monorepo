@@ -1,7 +1,7 @@
 import { useSaveInvoiceB2B, useSaveOrder, useSaveOrderBudget } from 'kokoas-client/src/hooksQuery';
 import { SubmitErrorHandler, SubmitHandler } from 'react-hook-form';
 // import { TOrderForm } from '../schema';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useConfirmDialog, useSnackBar } from 'kokoas-client/src/hooks';
 // import { convertOrderItemsToKintone } from '../api/convertOrderItemsToKintone';
 // import { convertOrderInfoToKintone } from '../api/convertOrderInfoToKintone';
@@ -12,10 +12,10 @@ import { useInvoiceFormContext } from './useInvoiceRHF';
 import { convertOrderInfoToKintone } from '../api/convertOrderInfoToKintone';
 import { convertOrderItemsToKintone } from '../api/convertOrderItemsToKintone';
 import { convertInvoiceToKintone } from '../api/convertInvoiceToKintone';
-import { useNextInvoiceStatus } from './useNextStatus';
-
+import { useInvoiceStatus } from './useInvoiceStatus';
 
 export const useSaveInvoiceForm = () => {
+  const [isSaving, setIsSaving] = useState(false);
   const setInvoiceAtom = useSetAtom(invoiceDialogAtom);
   const { setDialogState } = useConfirmDialog();
   const { setSnackState } = useSnackBar();
@@ -39,38 +39,53 @@ export const useSaveInvoiceForm = () => {
 
   const {
     next,
-  } = useNextInvoiceStatus();
+    prev,
+  } = useInvoiceStatus();
 
-  const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data) => {
+  const onSubmitValid: SubmitHandler<TInvoiceForm> = useCallback(async (data, e) => {
+    const buttonValue = (e?.target as HTMLButtonElement)?.value as 'next' | 'prev';
 
-    setDialogState({
-      open: true,
-      title: `ステータスは【${next}】に更新しますか？`,
-      handleYes: async () => {
-        await saveOrder({
-          recordId: data.orderId,
-          record: convertOrderInfoToKintone(data),
-        });
-    
-        await   saveOrderBudget({
-          recordId: data.projId,
-          record: await convertOrderItemsToKintone(data),
-        });
-    
-        const { recordId } = await saveInvoiceB2B({
-          recordId: data.invoiceId,
-          record: convertInvoiceToKintone(data),
-        });
-    
-        setInvoiceAtom((prev) => ({
-          ...prev,
-          invoiceId: recordId,
-        }));
-      },
-    });
-   
+    const saveProcess  = async () => {
+      setIsSaving(true);
+      await saveOrder({
+        recordId: data.orderId,
+        record: convertOrderInfoToKintone(data),
+      });
+
+      await saveOrderBudget({
+        recordId: data.projId,
+        record: await convertOrderItemsToKintone(data),
+      });
+
+      const { recordId } = await saveInvoiceB2B({
+        recordId: data.invoiceId,
+        record: convertInvoiceToKintone(data, buttonValue),
+      });
+
+      setInvoiceAtom((prevDialog) => ({
+        ...prevDialog,
+        invoiceId: recordId,
+      }));
+      setIsSaving(false);
+    };
+
+
+    // Display prompt except for the case of '支払済'
+    // always display on prev button
+    if (buttonValue === 'next' && next === '支払済') {
+      saveProcess();
+    } else {
+      setDialogState({
+        open: true,
+        title: `ステータスは【${ buttonValue === 'next' ? next : prev}】に${buttonValue === 'next' ? '更新' : '差し戻'}しますか？`,
+        handleYes: saveProcess,
+      });
+    }
+
+
   }, [
     next,
+    prev,
     setDialogState,
     saveOrderBudget,
     saveOrder,
@@ -95,5 +110,6 @@ export const useSaveInvoiceForm = () => {
   return {
     handleSubmit: handleSubmit(onSubmitValid, onSubmitInvalid),
     isLoading: saveOrderBudgetIsLoading || saveOrderIsLoading || saveInvoiceIsLoading,
+    isSaving: isSaving,
   };
 };

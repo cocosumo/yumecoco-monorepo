@@ -6,6 +6,7 @@ import { useInvoiceB2BByProjId, useOrderBudgetById, useOrderById } from 'kokoas-
 import { convertOrderToForm } from '../api/convertOrderToForm';
 import { convertOrderBudgetItemsToForm } from '../api/convertOrderBudgetItemsToForm';
 import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
+import { IInvoiceb2b } from 'types';
 
 export const useResolveParams = () => {
   const [initialValues, setInitialValues] = useState(initialInvoiceForm);
@@ -30,7 +31,7 @@ export const useResolveParams = () => {
   const {
     data: invoiceData,
     isFetching: isFetchingInvoice,
-  } = useInvoiceB2BByProjId({ projId });
+  } = useInvoiceB2BByProjId<IInvoiceb2b[]>({ projId });
 
   useEffect(() => {
     if (orderId && orderData && orderBudgetData) {

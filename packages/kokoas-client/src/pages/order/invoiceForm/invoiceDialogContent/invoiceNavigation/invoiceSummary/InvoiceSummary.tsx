@@ -5,6 +5,7 @@ import { useInvoiceFormContext } from '../../../hooks/useInvoiceRHF';
 import { useWatch } from 'react-hook-form';
 import { useMemo } from 'react';
 import { useItemsSummary } from '../../../hooks/useItemsSummary';
+import { IInvoiceb2b } from 'types';
 
 
 export const InvoiceSummary = () => {
@@ -18,7 +19,7 @@ export const InvoiceSummary = () => {
     name: ['projId', 'orderId', 'items'],
   });
 
-  const { data } = useInvoiceB2BByProjId({ projId });
+  const { data } = useInvoiceB2BByProjId<IInvoiceb2b[]>({ projId });
 
   const {
     totalInvoiceAmountBeforeTax,

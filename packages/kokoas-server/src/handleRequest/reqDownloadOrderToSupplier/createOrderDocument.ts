@@ -7,10 +7,11 @@ import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
 import { getConstPeriod } from './helper/getConstPeriod';
 import { Big } from 'big.js';
+import { chkStrLength } from './helper/chkStrLength';
 
 
 
-const isTest = false;
+const isTest = true;
 
 /** 
  * 発注書を作成する
@@ -283,9 +284,9 @@ export const createOrderDocument = async (
   // 適格請求書発行事業者番号
   drawText(
     firstPage,
-    invoiceSystemNumber,
+    `登録番号：${invoiceSystemNumber}`,
     {
-      x: 640,
+      x: 594,
       y: 478,
       font: msChinoFont,
       size: 9,
@@ -370,7 +371,11 @@ export const createOrderDocument = async (
         x: 54,
         y: posY,
         font: msChinoFont,
-        size: 9,
+        size: chkStrLength({
+          text: orderDetails[i].majorItem,
+          maxlen: 24,
+          fontSize: 9,
+        }),
       },
       {
         weight: 0.1,
@@ -385,7 +390,11 @@ export const createOrderDocument = async (
         x: 173,
         y: posY,
         font: msChinoFont,
-        size: 9,
+        size: chkStrLength({
+          text: orderDetails[i].middleItem,
+          maxlen: 24,
+          fontSize: 9,
+        }),
       },
       {
         weight: 0.1,
@@ -400,7 +409,11 @@ export const createOrderDocument = async (
         x: 291,
         y: posY,
         font: msChinoFont,
-        size: 9,
+        size: chkStrLength({
+          text: orderDetails[i].material,
+          maxlen: 24,
+          fontSize: 9,
+        }),
       },
       {
         weight: 0.1,
@@ -502,7 +515,11 @@ export const createOrderDocument = async (
         x: 707,
         y: posY,
         font: msChinoFont,
-        size: 9,
+        size: chkStrLength({
+          text: orderDetails[i].rowRemarks,
+          maxlen: 22,
+          fontSize: 9,
+        }),
       },
       {
         weight: 0.1,

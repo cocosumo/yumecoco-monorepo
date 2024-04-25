@@ -85,7 +85,7 @@ export interface OrderData {
   /** 工事期間 開始日 */
   constStartDate: string,
 
-  /** 工事期間 開始日 */
+  /** 工事期間 終了日 */
   constFinishDate: string,
 
   /** 工事担当者 */

@@ -2,8 +2,12 @@ import { IInvoiceb2b } from 'types';
 import { TInvoiceForm } from '../schema';
 import { toKintoneDateStr } from 'kokoas-client/src/lib';
 import { getNextInvoiceStatus } from 'api-kintone/src/invoiceB2B/helpers/getNextInvoiceStatus';
+import { getPrevInvoiceStatus } from 'api-kintone/src/invoiceB2B/helpers/getPrevInvoiceStatus';
 
-export const convertInvoiceToKintone = (data: TInvoiceForm ) : Partial<IInvoiceb2b> => {
+export const convertInvoiceToKintone = (
+  data: TInvoiceForm,
+  statusDirection: 'next' | 'prev' = 'next',
+) : Partial<IInvoiceb2b> => {
 
   const {
     
@@ -13,9 +17,13 @@ export const convertInvoiceToKintone = (data: TInvoiceForm ) : Partial<IInvoiceb
     deliveryDate,
     invoiceDueDate,
     paymentDate,
-
     invoiceStatus,
+
   } = data;
+
+  const resolvedStatus = statusDirection === 'next' 
+    ? getNextInvoiceStatus(invoiceStatus) 
+    : getPrevInvoiceStatus(invoiceStatus);
 
   return ({
     projId: { value: projId },
@@ -25,8 +33,7 @@ export const convertInvoiceToKintone = (data: TInvoiceForm ) : Partial<IInvoiceb
     invoiceDueDate: { value: toKintoneDateStr(invoiceDueDate) },
     paymentDate: { value: toKintoneDateStr(paymentDate) },
     invoiceAmount: { value: String(data.invoiceAmount) },
-    invoiceStatus: { value: getNextInvoiceStatus(invoiceStatus) },
-
+    invoiceStatus: { value: resolvedStatus || '未請求' },
 
   });
 

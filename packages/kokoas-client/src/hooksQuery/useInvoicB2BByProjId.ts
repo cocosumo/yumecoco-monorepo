@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { getInvoiceB2BByProjId } from 'api-kintone/src/invoiceB2B/getInvoiceB2BByProjId';
 import { AppIds } from 'config';
-import { IInvoiceb2b } from 'types';
 
-export interface UseInvoiceB2BByProjIdParams<T = IInvoiceb2b[]> {
+export interface UseInvoiceB2BByProjIdParams<T> {
   projId: string;
-  select?: (data: IInvoiceb2b[]) => T;
+  select?: (data: UseInvoiceB2BByProjIdReturn) => T;
 }
 
-export function useInvoiceB2BByProjId(params: UseInvoiceB2BByProjIdParams) {
+export function useInvoiceB2BByProjId<T = UseInvoiceB2BByProjIdReturn>(params: UseInvoiceB2BByProjIdParams<T>) {
 
   return useQuery({
     queryKey: [AppIds.invoiceB2B, params.projId],
@@ -16,3 +15,5 @@ export function useInvoiceB2BByProjId(params: UseInvoiceB2BByProjIdParams) {
     select: params.select,
   });
 }
+
+export type UseInvoiceB2BByProjIdReturn = Awaited<ReturnType<typeof getInvoiceB2BByProjId>>;

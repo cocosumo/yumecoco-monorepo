@@ -4,8 +4,7 @@ import { OrderData, OrderDetails } from 'types/src/common/order';
 
 export const getOrderData = async (orderId: string) => {
 
-  // TODO 各DBから必要な情報を取得する
-
+  
 
   
   const variant = ''; // 仮データ

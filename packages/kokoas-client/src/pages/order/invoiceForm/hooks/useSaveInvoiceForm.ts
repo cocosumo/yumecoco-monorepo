@@ -77,7 +77,7 @@ export const useSaveInvoiceForm = () => {
     } else {
       setDialogState({
         open: true,
-        title: `ステータスは【${ buttonValue === 'next' ? next : prev}】に${buttonValue ? '更新' : '差しも度'}しますか？`,
+        title: `ステータスは【${ buttonValue === 'next' ? next : prev}】に${buttonValue === 'next' ? '更新' : '差し戻'}しますか？`,
         handleYes: saveProcess,
       });
     }

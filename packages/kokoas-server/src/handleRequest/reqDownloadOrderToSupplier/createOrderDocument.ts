@@ -1,5 +1,5 @@
 import { getTemplate } from 'api-aws/src/s3/getTemplate';
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import { OrderData } from 'types/src/common/order';
 import fontkit from '@pdf-lib/fontkit';
 import fs from 'fs/promises';
@@ -12,6 +12,7 @@ import { chkStrLength } from './helper/chkStrLength';
 
 
 const isTest = false;
+
 
 /** 
  * 発注書を作成する
@@ -457,6 +458,7 @@ export const createOrderDocument = async (
           y: posY,
           font: msChinoFont,
           size: 9,
+          color: orderDetails[i].quantity >= 0 ? rgb(0, 0, 0) : rgb(1, 0, 0),
         },
         {
           weight: 0.1,
@@ -473,6 +475,7 @@ export const createOrderDocument = async (
           y: posY,
           font: msChinoFont,
           size: 9,
+          color: orderDetails[i].costPrice >= 0 ? rgb(0, 0, 0) : rgb(1, 0, 0),
         },
         {
           weight: 0.1,
@@ -489,6 +492,7 @@ export const createOrderDocument = async (
           y: posY,
           font: msChinoFont,
           size: 9,
+          color: orderDetails[i].orderAmountBeforeTax >= 0 ? rgb(0, 0, 0) : rgb(1, 0, 0),
         },
         {
           weight: 0.1,

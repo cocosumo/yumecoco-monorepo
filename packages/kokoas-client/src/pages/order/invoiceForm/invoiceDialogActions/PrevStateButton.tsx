@@ -63,7 +63,7 @@ export const PrevStateButton = () => {
           } else {
             setDialogState({
               open: true,
-              title: 'この請求は削除しますか？',
+              title: 'この請求を削除しますか？',
               content: '削除すると元に戻すことはできません。',
               handleYes: async () => {
                 await mutateAsync($id?.value);

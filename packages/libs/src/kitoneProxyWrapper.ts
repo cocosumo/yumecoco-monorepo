@@ -21,9 +21,19 @@ export const kintoneProxyWrapper = async <D = unknown, S = unknown>(params: {
     data,
   } = params;
 
+  const resolvedHeaders = {
+    ...headers,
+    'kokoas-api-key': process.env.KOKOAS_API_KEY,
+  };
+
   if (typeof(kintone) !== 'undefined') {
   
-    const result = await kintone.proxy(url, method, headers, data || {});
+    const result = await kintone.proxy(
+      url, 
+      method, 
+      resolvedHeaders, 
+      data || {},
+    );
 
     const [body, status] = result;
 
@@ -47,7 +57,7 @@ export const kintoneProxyWrapper = async <D = unknown, S = unknown>(params: {
     const result = await axios({
       url,
       method,
-      headers,
+      headers: resolvedHeaders,
       data,
     });
 

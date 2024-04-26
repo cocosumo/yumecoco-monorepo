@@ -138,7 +138,8 @@ export interface OrderData {
  * REQUESTS HANDLER TYPES
  */
 
-export type GetCostMgtExcelByDataResult = {
+export type GetDownloadOrderSlipResult = {
   fileName: string;
   fileB64: string;
+  data: OrderData;
 } | Error;

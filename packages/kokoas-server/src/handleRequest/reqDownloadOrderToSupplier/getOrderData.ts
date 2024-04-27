@@ -3,14 +3,14 @@ import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDe
 import { getExternalMemberById } from 'api-kintone/src/externalMembers/getExternalMemberById';
 import { getOrderById } from 'api-kintone/src/order/getOrderById';
 import { getOrderBudgetById } from 'api-kintone/src/orderBudget/getOrderBudgetById';
-import { OrderData, OrderDetails } from 'types/src/common/order';
+import { OrderData, OrderDetails, TOrderMethod } from 'types/src/common/order';
 
 
 
-export const getOrderData = async (orderId: string) => {
+export const getOrderData = async (orderId: string): Promise<OrderData> => {
 
   const orderRecord = await getOrderById(orderId);
-  if (!orderRecord) return {} as OrderData;
+  if (!orderRecord) return Object.create(null);
 
 
   const {
@@ -18,6 +18,9 @@ export const getOrderData = async (orderId: string) => {
     orderDate,
     projId,
     supplierOfficerId,
+    supplierOfficerEmail,
+    emailCc,
+    emailBcc,
   } = orderRecord;
 
   const [
@@ -68,27 +71,31 @@ export const getOrderData = async (orderId: string) => {
     orderId: orderId,
     purchaseOrderId: orderDataId.value,
     orderDate: orderDate.value,
+    orderMethod: orderRecord.orderMethod.value as TOrderMethod,
     projId: projId.value,
     projNum: projRec.dataId.value,
-    projNumJa: variant,
+    projNumJa: '',
     projName: projRec.projName.value,
-    custGroupName: variant,
-    constAddress: variant,
-    constStartDate: variant,
-    constFinishDate: variant,
-    cocoConst: variant,
-    store: variant,
-    postCode: variant,
-    vendorAddress1: variant,
-    vendorAddress2: variant,
-    vendorManager1: variant,
-    vendorManager2: variant,
-    buildingLicenseNumber: variant,
-    companyName: variant,
-    storeAddress: variant,
-    storeTel: variant,
-    storeFax: variant,
-    invoiceSystemNumber: variant,
+    custGroupName: '',
+    constAddress: '',
+    constStartDate: '',
+    constFinishDate: '',
+    cocoConst: '',
+    store: '',
+    postCode: '',
+    supplierAddress1: '',
+    supplierAddress2: '',
+    supplierOfficer1: '',
+    supplierOfficer2: '',
+    supplierOfficerEmail: '',
+    emailCc: '',
+    emailBcc: '',
+    buildingLicenseNumber: '',
+    companyName: '',
+    storeAddress: '',
+    storeTel: '',
+    storeFax: '',
+    invoiceSystemNumber: '',
     orderDetails: orderDetails,
   };
 

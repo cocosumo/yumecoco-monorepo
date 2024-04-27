@@ -2,6 +2,7 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       NODE_ENV_FORCED: string;
+      NX_CLOUD_AUTH_TOKEN: string;
       KT_BASE_URL: string;
       KT_PORTAL: string;
       KT_CUSTOMER: string;
@@ -31,14 +32,26 @@ declare global {
       NX_CLOUD_AUTH_TOKEN: string;
       CW_TOKEN_RAS: string;
       CW_TOKEN_REPORTER: string;
+      CW_CHATWORK_TICKET: string;
+      CW_TOKEN_COCOSYSTEM: string;
       ANDPAD_CLIENT_ID: string;
       ANDPAD_CLIENT_SECRET: string;
+      ANDPAD_USER_ID: string;
+      ANDPAD_USER_PASS: string;
       ANDPAD_CODE: string;
-      BASE_URL: string;
+      KT_BASE_URL: string;
       LOCAL_URL: string;
+      COCO_BASE_URL: string;
+      GOOGLE_MAPS_KEY: string;
+      OPENAI_API_KEY: string;
+      AWS_API_KEY: string;
+      AWS_S3_ACCESS_KEY: string;
+      AWS_S3_SECRET_ACCESS_KEY: string;
+      SENDGRID_API_KEY: string;
+      SERVER_API_KEY: string;
+      KOKOAS_API_KEY: string;
     }
   }
-
 }
 
 export {}

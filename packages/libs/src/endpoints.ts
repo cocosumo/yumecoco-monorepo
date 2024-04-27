@@ -56,6 +56,9 @@ export const kokoasEndpoints = {
 
   /** 契約報告書 */
   // downloadContractReport: 'download/contract/report',
+
+  /** 発注書ダウンロード　*/
+  downloadOrderSlip: 'download/order',
 } as const;
 
 export type TKokoasEndpointKey = keyof typeof kokoasEndpoints;

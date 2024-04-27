@@ -9,6 +9,9 @@ import { invoiceDialogAtom } from '../../../InvoiceFormDialog';
 import { useSetAtom } from 'jotai';
 import AddIcon from '@mui/icons-material/Add';
 import { IInvoiceb2b } from 'types';
+import { statusBGcolorMap } from 'kokoas-client/src/lib/progressColors';
+import { KProgress } from 'types/src/common/order';
+
 
 export const InvoiceList = () => {
   const setInvoiceDialogAtom = useSetAtom(invoiceDialogAtom);
@@ -63,6 +66,9 @@ export const InvoiceList = () => {
               invoiceId: d.uuid.value,
             }));
           }} 
+          sx={{
+            borderLeft: `6px solid ${statusBGcolorMap[d.invoiceStatus.value as KProgress]}`,
+          }}
           divider
         >
           <ListItemLayout

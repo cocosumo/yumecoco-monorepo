@@ -122,6 +122,7 @@ export const drawText = async (
           x: boxX + boxWidth - textWidth + i,
           y: boxY,
           font,
+          color: color,
           size: parsedFontSize,
           ...otherOptions,
         });
@@ -131,6 +132,7 @@ export const drawText = async (
           x: (boxX + (boxWidth / 2 )) - (textWidth / 2) + i,
           y: boxY,
           font,
+          color: color,
           size: parsedFontSize,
           ...otherOptions,
         });

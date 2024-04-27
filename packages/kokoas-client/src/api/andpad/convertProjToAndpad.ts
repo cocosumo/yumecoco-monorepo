@@ -44,7 +44,9 @@ export const convertProjToAndpad = async (projId: string) => {
     .filter((row) => (row.value.agentType.value as TAgents) === 'cocoAG')
     .map((row) => row.value.agentId.value);
 
-  const cocoAGConstIds = projAgents.value.map((row) => row.value.agentId.value);
+  const cocoAGConstIds = projAgents.value
+    .filter((row) => (row.value.agentType.value as TAgents) === 'cocoConst')
+    .map((row) => row.value.agentId.value);
 
   if (!firstCust) throw new Error('顧客情報の取得が失敗しました。');
 

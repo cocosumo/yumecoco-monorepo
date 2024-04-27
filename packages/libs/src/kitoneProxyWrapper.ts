@@ -8,11 +8,11 @@ import axios from 'axios';
  * 
  * @see https://cybozu.dev/ja/kintone/docs/js-api/proxy/kintone-proxy/
  */
-export const kintoneProxyWrapper = async <D = unknown, S = unknown>(params: {
+export const kintoneProxyWrapper = async <D = unknown, S = unknown, B = object>(params: {
   url: string,
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   headers: Record<string, string>,
-  data?: object
+  data?: B
 }) => {
   const {
     url,

@@ -62,7 +62,7 @@ export const createOrderDocument = async (
     console.log('template from S3');
     template = await getTemplate(templateName);
 
-    console.log('templateS3', template);
+    // console.log('templateS3', template);
 
   } else {
 

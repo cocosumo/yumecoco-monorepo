@@ -40,6 +40,7 @@ export * from './useDeleteContractById';
 export * from './useDeleteInvoiceB2BBy$Id';
 export * from './useDetailedAndpadOrderByProjId';
 export * from './useDownloadInvoiceId';
+export * from './useDownloadOrderSlipById';
 export * from './useEmployeeByIds';
 export * from './useEmployeeOptions';
 export * from './useEmployees';

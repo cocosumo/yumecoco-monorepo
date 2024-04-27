@@ -41,7 +41,7 @@ export const createOrderDocument = async (
     cocoConst,
 
     companyName,
-    store,
+    agStore,
     postCode,
     storeAddress,
     storeTel,
@@ -278,7 +278,7 @@ export const createOrderDocument = async (
     // 会社名 2行目
     drawText(
       tgtPage,
-      `${companyNameArray[2]} ${store}`,
+      `${companyNameArray[2]} ${agStore}`,
       {
         x: 594,
         y: 489,

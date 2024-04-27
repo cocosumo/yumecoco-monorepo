@@ -11,7 +11,6 @@ export const convertToKintone = ({
   projTypeProfit,
   status,
   taxRate,
-  estimateRevision,
   remarks,
 }: TForm) => {
 
@@ -24,7 +23,7 @@ export const convertToKintone = ({
     (
       acc,
       {
-        itemId,
+        //itemId,
         majorItem,
         middleItem,
         material,
@@ -39,13 +38,13 @@ export const convertToKintone = ({
 
 
       acc.push({
-        id: itemId, // 自動生成
+        id: '', // 自動生成
         value: {
-          部材備考: { value: materialDetails ?? '' },
-          備考: { value: rowDetails ?? '' },
-          大項目: { value: majorItem ?? '' },
-          中項目: { value: middleItem ?? '' },
-          部材名: { value: material ?? '' },
+          部材備考: { value: materialDetails || '' },
+          備考: { value: rowDetails || '' },
+          大項目: { value: majorItem || '' },
+          中項目: { value: middleItem || '' },
+          部材名: { value: material || '' }, 
           原価 : { value: costPrice.toString() },
           数量 : { value: quantity.toString() },
           単位: { value: unit || '' },
@@ -90,10 +89,7 @@ export const convertToKintone = ({
     estimateStatus : { value: status || '' },
     内訳: kintoneItems,
     remarks: { value: remarks || '' },
-    $revision: {
-      type: '__REVISION__',
-      value: estimateRevision || '',
-    },
+
   };
 
   return kintoneRecord;

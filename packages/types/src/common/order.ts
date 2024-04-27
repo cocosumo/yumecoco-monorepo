@@ -96,12 +96,20 @@ export interface OrderData {
   /** 工事担当者 */
   cocoConst: string,
 
+  /** 営業担当者 */
+  cocoAG: string,
 
   /** 会社名 */
   companyName: string,
 
   /** 担当店舗 */
-  store: string,
+  agStore: string,
+
+  /** 店舗エリア　東・西 */
+  storeArea: string,
+
+  /** 店舗 （東：豊川中央店、西：豊田中央店） */
+  storeName: string, // 豊川中央店
 
   /** 店舗郵便番号 */
   postCode: string,
@@ -118,6 +126,8 @@ export interface OrderData {
   /** 建築業許可番号 */
   buildingLicenseNumber: string,
 
+  /** 業者名 */
+  supplierName: string,
 
   /** 業者住所1 */
   supplierAddress1: string,

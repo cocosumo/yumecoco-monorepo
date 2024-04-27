@@ -77,8 +77,12 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     constAddress: '',
     constStartDate: '',
     constFinishDate: '',
+    cocoAG: '',
     cocoConst: '',
-    store: '',
+    agStore: '',
+    storeArea: '東', // 変更してください
+    storeName: '豊川中央店', //変更してください
+    supplierName: '',
     postCode: '',
     supplierAddress1: '',
     supplierAddress2: '',

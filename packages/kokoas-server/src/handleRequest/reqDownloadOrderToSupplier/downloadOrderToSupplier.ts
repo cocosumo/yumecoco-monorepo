@@ -3,6 +3,7 @@ import validator from 'validator';
 import { getOrderData } from './getOrderData';
 import { createOrderDocument } from './createOrderDocument';
 import { GetDownloadOrderSlipResult } from 'types/src/common/order';
+import { emailOrderToSupplier } from './emailOrderToSupplier';
 
 
 
@@ -25,6 +26,10 @@ GetDownloadOrderSlipResult | Error,
       fileName: `発注書-${dataResult.orderId}.pdf`,
       fileB64: fileB64 as string,
     };
+
+    if (dataResult.orderMethod === 'メール') {
+      await emailOrderToSupplier(response);
+    }
 
     res.json(response); 
   } catch (err) {

@@ -143,3 +143,7 @@ export type GetDownloadOrderSlipResult = {
   fileB64: string;
   data: OrderData;
 } | Error;
+
+export type GetDownloadOrderSlipBody = {
+  orderId: string;
+};

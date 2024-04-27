@@ -117,6 +117,7 @@ route.put(
   reqDownloadInvoice,
 );
 
+/** TODO: Add middleware to log this call */
 route.post(
   `/${kokoasEndpoints.downloadOrderSlip}`,
   bodyParser.json({ limit: '1mb' }),

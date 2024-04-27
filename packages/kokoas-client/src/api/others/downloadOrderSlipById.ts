@@ -1,5 +1,7 @@
 import { kokoasAPIBaseUrl } from 'config';
 import { kokoasEndpoints } from 'libs';
+import { kintoneProxyWrapper } from 'libs/src/kitoneProxyWrapper';
+import { GetDownloadOrderSlipBody, GetDownloadOrderSlipResult } from 'types/src/common/order';
 
 /** 
  * 発注書をダウンロードする 
@@ -9,7 +11,17 @@ export const downloadOrderSlipById = async (orderId: string) => {
     kokoasAPIBaseUrl,
     kokoasEndpoints.downloadOrderSlip,
   ].join('/');
+  
 
-  console.log('downloadOrderSlipById', endpoint, orderId);
+  const result = await kintoneProxyWrapper<GetDownloadOrderSlipResult, unknown, GetDownloadOrderSlipBody>({
+    url: `${endpoint}`,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    data: {
+      orderId,
+    },
+  });
+
+  return result.data;
 
 };

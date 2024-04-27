@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import { SelectSupplier } from './selectSupplier/SelectSupplier';
 import { OrderName } from './OrderName';
 import { OrderMethod } from './orderMethod/OrderMethod';
@@ -12,6 +12,15 @@ export const ORDialogContent = () => {
 
   return (
     <ORDialogContentContainer>
+      <Alert 
+        severity={'warning'}
+      >
+        開発中です。
+        宛先は、テスト用メールに送信されます。
+        CCとBCCは入力したメールアドレスに送信されます。
+        確認したい場合は、メールアドレスを入力してください。
+      </Alert>
+
       <SelectSupplier />
       <OrderName />
       <OrderMethod /> 

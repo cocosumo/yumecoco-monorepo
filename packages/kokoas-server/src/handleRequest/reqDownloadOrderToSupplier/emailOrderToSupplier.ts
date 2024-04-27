@@ -30,7 +30,7 @@ export const emailOrderToSupplier = async (orderSlipResult: GetDownloadOrderSlip
     from: 'system@cocosumo.co.jp',
     subject: isProd 
       ? `㈱山豊工建より／ 【${data.projName}】 工事依頼書を送付します。`
-      : `【テストです。業者は無視してください】㈱山豊工建より／ 【${data.projName}】 工事依頼書を送付します。`,
+      : `【テストです】㈱山豊工建より／ 【${data.projName}】 工事依頼書を送付します。`,
     text: [
       `${data.supplierName} 御中\n`,
       'いつも大変お世話になっております。',

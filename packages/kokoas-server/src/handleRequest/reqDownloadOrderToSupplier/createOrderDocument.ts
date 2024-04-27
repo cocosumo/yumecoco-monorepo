@@ -47,10 +47,10 @@ export const createOrderDocument = async (
     buildingLicenseNumber,
     invoiceSystemNumber,
 
-    vendorAddress1,
-    vendorAddress2,
-    vendorManager1,
-    vendorManager2,
+    supplierAddress1,
+    supplierAddress2,
+    supplierOfficer1,
+    supplierOfficer2,
     orderDetails,
   } = data;
 
@@ -141,7 +141,7 @@ export const createOrderDocument = async (
   // 業者住所
   drawText(
     firstPage,
-    vendorAddress1,
+    supplierAddress1,
     {
       x: 80,
       y: 513,
@@ -155,7 +155,7 @@ export const createOrderDocument = async (
 
   drawText(
     firstPage,
-    vendorAddress2,
+    supplierAddress2,
     {
       x: 80,
       y: 497,
@@ -170,7 +170,7 @@ export const createOrderDocument = async (
   // 業者担当者1
   drawText(
     firstPage,
-    vendorManager1,
+    supplierOfficer1,
     {
       x: 80,
       y: 478,
@@ -185,7 +185,7 @@ export const createOrderDocument = async (
   // 業者担当者2
   drawText(
     firstPage,
-    vendorManager2,
+    supplierOfficer2,
     {
       x: 80,
       y: 465,

@@ -446,7 +446,7 @@ export const createOrderDocument = async (
       );
 
       // 数量
-      const quentity = orderDetails[i].quantity.toFixed(2);
+      const quantity = orderDetails[i].quantity.toFixed(2);
 
       drawText(
         tgtPage,

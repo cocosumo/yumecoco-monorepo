@@ -18,9 +18,6 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     orderDate,
     projId,
     supplierOfficerId,
-    supplierOfficerEmail,
-    emailCc,
-    emailBcc,
   } = orderRecord;
 
   const [
@@ -85,11 +82,11 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     postCode: '',
     supplierAddress1: '',
     supplierAddress2: '',
-    supplierOfficer1: '',
+    supplierOfficer1: orderRecord.supplicerOfficerName.value,
     supplierOfficer2: '',
-    supplierOfficerEmail: '',
-    emailCc: '',
-    emailBcc: '',
+    supplierOfficerEmail: orderRecord.supplierOfficerEmail.value,
+    emailCc: orderRecord.emailCc.value,
+    emailBcc: orderRecord.emailBcc.value,
     buildingLicenseNumber: '',
     companyName: '',
     storeAddress: '',

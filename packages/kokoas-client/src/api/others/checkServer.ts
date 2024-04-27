@@ -6,6 +6,9 @@ export const checkServer = async () => {
   const startTime = performance.now();
 
   try {
+    if (!baseUrl) {
+      throw new Error('baseUrl is not defined');
+    }
     
     const serverResponse = await kintoneProxyWrapper({
       url: baseUrl,

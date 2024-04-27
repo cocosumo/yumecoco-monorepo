@@ -8,7 +8,7 @@ import { GetDownloadOrderSlipResult } from 'types/src/common/order';
 
 export const downloadOrderToSupplier:  RequestHandler<
 unknown,
-GetDownloadOrderSlipResult,
+GetDownloadOrderSlipResult | Error,
 { orderId: string }
 > = async (req, res) => {
   
@@ -20,11 +20,13 @@ GetDownloadOrderSlipResult,
     const dataResult = await getOrderData(orderId);
     const fileB64 = await createOrderDocument(dataResult, 'base64');
 
-    res.json({
+    const response: GetDownloadOrderSlipResult = {
       data: dataResult,
       fileName: `発注書-${dataResult.orderId}.pdf`,
       fileB64: fileB64 as string,
-    }); 
+    };
+
+    res.json(response); 
   } catch (err) {
     console.error(err?.message);
     res.status(400)

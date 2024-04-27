@@ -40,7 +40,6 @@ export const kintoneProxyWrapper = async <D = unknown, S = unknown, B = object>(
     if (status !== 200) throw new Error(body);
 
     try {
-      console.log('enntered try block');
       return {
         data: JSON.parse(body) as D,
         status: status as S,

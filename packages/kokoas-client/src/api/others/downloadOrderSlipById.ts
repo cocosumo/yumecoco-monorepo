@@ -12,6 +12,9 @@ export const downloadOrderSlipById = async (orderId: string) => {
     kokoasEndpoints.downloadOrderSlip,
   ].join('/');
   
+  if (!orderId) {
+    throw new Error('orderId is required');
+  }
 
   const result = await kintoneProxyWrapper<GetDownloadOrderSlipResult, unknown, GetDownloadOrderSlipBody>({
     url: `${endpoint}`,

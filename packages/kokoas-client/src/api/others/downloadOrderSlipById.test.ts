@@ -6,7 +6,7 @@ describe('downloadOrderSlipById', () => {
     const tesOrderId =  '0feb1da1-30fd-4ac9-99be-0dbf316de916';
     const result = await downloadOrderSlipById(tesOrderId);
 
-    console.log(result.data);
+    console.log(result);
 
     expect(result).toHaveProperty('data');
 

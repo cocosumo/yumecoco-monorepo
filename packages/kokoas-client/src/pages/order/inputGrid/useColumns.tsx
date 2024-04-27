@@ -1,11 +1,11 @@
 import { DataGridProps } from 'react-data-grid';
 import { roundTo } from 'libs';
 import { ReactNode, useMemo } from 'react';
-import { TForm, TItem } from '../schema';
+import { TItem } from '../schema';
 import { renderUnits } from './renderers/renderUnits';
 import { renderMajorItem } from './renderers/renderMajorItem';
 import { renderMiddleItem } from './renderers/renderMiddleItem';
-import { useFormState } from 'react-hook-form';
+import { useFormState, useWatch } from 'react-hook-form';
 import { renderNumber } from './renderers/renderNumber';
 import { renderCheckbox } from './renderers/renderCheckBox';
 import { renderText } from './renderers/renderText';
@@ -13,6 +13,8 @@ import { renderTaxType } from './renderers/renderTaxType';
 import { Typography } from '@mui/material';
 import { renderOrderDataId } from './renderers/renderOrderDataId';
 import { renderStatus } from './renderers/renderStatus';
+import { useInvoiceB2BStatusMapByProjId } from 'kokoas-client/src/hooksQuery';
+import { useTypedFormContext } from '../hooks/useTypedRHF';
 
 export type RowItem = TItem & {
   index: number;
@@ -39,9 +41,22 @@ const RightAlignedDiv = ({ children }:{ children: ReactNode }) => {
 };
 
 export const useColumns = (): MyColumn[] => {
+
+  const { control } = useTypedFormContext();
   const {
     errors,
-  } = useFormState<TForm>();
+  } = useFormState({
+    control,
+  });
+
+  const projId = useWatch({
+    control,
+    name: 'projId',
+  });
+
+  const {
+    data: invoiceStatusMap,
+  } = useInvoiceB2BStatusMapByProjId(projId);
 
 
   const itemErrors = errors?.items;
@@ -69,7 +84,7 @@ export const useColumns = (): MyColumn[] => {
       editable: false,
       width: 70,
       minWidth: 100,    
-      renderCell : renderStatus,
+      renderCell : (props) => renderStatus({ ...props, invoiceStatusMap }),
     },
     { 
       key: 'majorItem', 
@@ -207,5 +222,8 @@ export const useColumns = (): MyColumn[] => {
       renderEditCell: renderText,
     },
 
-  ], [itemErrors]);
+  ], [
+    itemErrors,
+    invoiceStatusMap,
+  ]);
 };

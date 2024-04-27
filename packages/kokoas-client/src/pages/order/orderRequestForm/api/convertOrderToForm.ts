@@ -1,6 +1,7 @@
 import { IOrder } from 'types';
-import { TOrderForm, TOrderMethod } from '../schema';
+import { TOrderForm } from '../schema';
 import parseISO from 'date-fns/parseISO';
+import { TOrderMethod } from 'types/src/common/order';
 
 export const convertOrderToForm = (data: IOrder): Partial<TOrderForm> => {
 

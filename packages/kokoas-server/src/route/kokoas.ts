@@ -19,12 +19,14 @@ import { reqImageToBase64 } from '../handleRequest/reqImageToBase64';
 //import { reqCostMgtDataByProjIdV2 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV2';
 import { reqCostMgtExcelByData } from '../handleRequest/reqCostManagement/reqCostMgtExcelByData';
 import { reqCostMgtDataByProjIdV4 } from '../handleRequest/reqCostManagement/reqCostMgtDataByProjIdV4';
+import { downloadOrderToSupplier } from '../handleRequest/reqDownloadOrderToSupplier';
+import { kokoasMiddleWare } from '../middlewares/kokoasMiddleWare';
 //import { reqAndpadApi } from '../handleRequest/reqAndpadApi/reqAndpadApi';
 //import { reqContractReport } from '../handleRequest/reqContractReport/reqContractReport';
 
 
 const route = router();
-
+route.use(kokoasMiddleWare);
 
 route.post(
   `/${kokoasEndpoints.uploadEstimates}/:projId?`,
@@ -113,6 +115,13 @@ route.put(
   `/${kokoasEndpoints.downloadInvoice}`,
   bodyParser.json({ limit: '50mb' }),
   reqDownloadInvoice,
+);
+
+/** TODO: Add middleware to log this call */
+route.post(
+  `/${kokoasEndpoints.downloadOrderSlip}`,
+  bodyParser.json({ limit: '1mb' }),
+  downloadOrderToSupplier,
 );
 
 // endpoints using browser won't work on xserver

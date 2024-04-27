@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useOrderFormContext } from '../../hooks/useOrderRHF';
 import { Controller } from 'react-hook-form';
-import { orderMethodChoices } from '../../schema';
+import { orderMethodChoices } from 'types/src/common/order';
 
 export const OrderMethodChoices = () => {
   const { control } = useOrderFormContext();

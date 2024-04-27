@@ -2,9 +2,8 @@ import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 //import { envelopeStatuses, signMethods } from 'types';
 import { z } from 'zod';
 import { item } from '../schema';
+import { TOrderMethod, orderMethodChoices } from 'types/src/common/order';
 
-export const orderMethodChoices = ['印刷', 'メール'] as const;
-export type TOrderMethod = typeof orderMethodChoices[number];
 
 z.setErrorMap(zodErrorMapJA());
 

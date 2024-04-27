@@ -12,6 +12,8 @@ export const invoiceProgress = [
   '支払済',
 ] as const;
 
+export const orderMethodChoices = ['印刷', 'メール'] as const;
+export type TOrderMethod = typeof orderMethodChoices[number];
 
 
 export type KOrderProgress = typeof orderProgress[number];
@@ -62,6 +64,9 @@ export interface OrderData {
 
   /** 発注日 */
   orderDate: string,
+
+  /**発注方法 */
+  orderMethod: TOrderMethod,
 
 
   /** 工事id */
@@ -115,16 +120,26 @@ export interface OrderData {
 
 
   /** 業者住所1 */
-  vendorAddress1: string,
+  supplierAddress1: string,
 
   /** 業者住所2 */
-  vendorAddress2: string,
+  supplierAddress2: string,
 
   /** 業者担当者1 */
-  vendorManager1: string,
+  supplierOfficer1: string,
 
   /** 業者担当者2 */
-  vendorManager2: string,
+  supplierOfficer2: string,
+
+  /** 業者Email */
+  supplierOfficerEmail?: string,
+  
+  /** 宛先CC */
+  emailBcc?: string,
+
+  /** 宛先BCC */
+  emailCc?: string,
+
 
   /** 適格請求書発行事業者番号 */
   invoiceSystemNumber: string,
@@ -138,7 +153,12 @@ export interface OrderData {
  * REQUESTS HANDLER TYPES
  */
 
-export type GetCostMgtExcelByDataResult = {
+export type GetDownloadOrderSlipResult = {
   fileName: string;
   fileB64: string;
-} | Error;
+  data: OrderData;
+};
+
+export type GetDownloadOrderSlipBody = {
+  orderId: string;
+};

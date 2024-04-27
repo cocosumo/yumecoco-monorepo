@@ -451,7 +451,7 @@ export const createOrderDocument = async (
 
       drawText(
         tgtPage,
-        quentity,
+        quantity,
         {
           x: 388,
           y: posY,

@@ -1,8 +1,9 @@
-import { getCustGroupById, getCustGroupByProjName, getProjById } from 'api-kintone';
+import { getProjById } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getExternalMemberById } from 'api-kintone/src/externalMembers/getExternalMemberById';
 import { getOrderById } from 'api-kintone/src/order/getOrderById';
 import { getOrderBudgetById } from 'api-kintone/src/orderBudget/getOrderBudgetById';
+import { IOrderbudget } from 'types';
 import { OrderData, OrderDetails, TOrderMethod } from 'types/src/common/order';
 
 
@@ -25,11 +26,13 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     projRec,
     companyDetails,
     externalMemberRec,
+    //custGroupRec,
   ] = await Promise.all([
     getOrderBudgetById(projId.value),
     getProjById(projId.value),
     getCocosumoDetails(),
     getExternalMemberById(supplierOfficerId.value),
+    //getCustGroup(), // TODO 関数名修正
   ]);
 
   const orderDetails = orderBudgetRec.items.value.reduce((acc, {

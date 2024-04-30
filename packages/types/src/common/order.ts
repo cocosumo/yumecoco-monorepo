@@ -1,5 +1,11 @@
 /* 発注関連 */
 
+export const areaBaseStores = {
+  '西': '豊田中央店',
+  '東': '豊川中央店',
+  default: '豊田中央店',
+};
+
 export const orderProgress = [
   '未発注',
   '発注済',

@@ -1,10 +1,10 @@
-import { getProjById } from 'api-kintone';
+import { getAllStores, getCustGroupById, getProjById } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
 import { getExternalMemberById } from 'api-kintone/src/externalMembers/getExternalMemberById';
 import { getOrderById } from 'api-kintone/src/order/getOrderById';
 import { getOrderBudgetById } from 'api-kintone/src/orderBudget/getOrderBudgetById';
-import { IOrderbudget } from 'types';
-import { OrderData, OrderDetails, TOrderMethod } from 'types/src/common/order';
+import { OrderData, OrderDetails, TOrderMethod, areaBaseStores } from 'types/src/common/order';
+import { getConstAddress } from './helper/getConstAddress';
 
 
 
@@ -15,8 +15,6 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
 
 
   const {
-    orderDataId,
-    orderDate,
     projId,
     supplierOfficerId,
   } = orderRecord;
@@ -26,18 +24,23 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     projRec,
     companyDetails,
     externalMemberRec,
-    //custGroupRec,
+    stores,
   ] = await Promise.all([
     getOrderBudgetById(projId.value),
     getProjById(projId.value),
     getCocosumoDetails(),
     getExternalMemberById(supplierOfficerId.value),
-    //getCustGroup(), // TODO 関数名修正
+    getAllStores(),
   ]);
 
-  const orderDetails = orderBudgetRec.items.value.reduce((acc, {
+  if (!projRec) return Object.create(null);
+
+  const custGroupRec = await getCustGroupById(projRec.uuid.value);
+  const store = stores.find(({ uuid }) => uuid.value === projRec.storeId.value);
+
+  const orderDetails = orderBudgetRec?.items.value.reduce((acc, {
     value: {
-      orderId: orderIdByorderBudgetRec,
+      orderId: orderIdByOrderBudgetRec,
       majorItem,
       middleItem,
       material,
@@ -49,7 +52,7 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
       rowRemarks,
     },
   }) => {
-    if (orderIdByorderBudgetRec.value !== orderId) return acc;
+    if (orderIdByOrderBudgetRec.value !== orderId) return acc;
 
     acc.push({
       majorItem: majorItem.value,
@@ -66,25 +69,26 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     return acc;
   }, [] as OrderDetails[]);
 
+  const storeAreaBase = store?.area.value === '東' ? areaBaseStores['東'] : areaBaseStores['西'];
+  const constAddress = getConstAddress(projRec);
 
   const orderData: OrderData = {
     orderId: orderId,
-    purchaseOrderId: orderDataId.value,
-    orderDate: orderDate.value,
-    orderMethod: orderRecord.orderMethod.value as TOrderMethod,
-    projId: projId.value,
+    purchaseOrderId: orderRecord.orderDataId.value,
+    orderDate: orderRecord.orderDate.value,
+    orderMethod: orderRecord.orderMethod?.value as TOrderMethod,
+    projId: projId?.value,
+
+    custGroupName: custGroupRec.custNames.value,
+
     projNum: projRec.dataId.value,
     projNumJa: '',
     projName: projRec.projName.value,
-    custGroupName: '',
-    constAddress: '',
+    constAddress: projRec.,
     constStartDate: '',
     constFinishDate: '',
     cocoAG: '',
     cocoConst: '',
-    agStore: '',
-    storeArea: '東', // 変更してください
-    storeName: '豊川中央店', //変更してください
     supplierName: '',
     postCode: '',
     supplierAddress1: '',
@@ -94,12 +98,18 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     supplierOfficerEmail: orderRecord.supplierOfficerEmail.value,
     emailCc: orderRecord.emailCc.value,
     emailBcc: orderRecord.emailBcc.value,
-    buildingLicenseNumber: '',
-    companyName: '',
-    storeAddress: '',
-    storeTel: '',
-    storeFax: '',
-    invoiceSystemNumber: '',
+
+    agStore: store?.店舗名.value || '',
+    storeArea: store?.area.value || '',
+    storeName: storeAreaBase,
+    storeAddress: store?.住所.value || '',
+    storeTel: store?.TEL.value || '',
+    storeFax: store?.FAX.value || '',
+
+    buildingLicenseNumber: companyDetails?.kensetsugyoKyoka.value,
+    companyName: companyDetails?.companyName.value,
+    invoiceSystemNumber: companyDetails?.invoiceSystemNumber.value,
+
     orderDetails: orderDetails,
   };
 

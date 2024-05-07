@@ -19,7 +19,7 @@ const exemptedStates = [
  * @param andpadProcurements Andpadのデータエクスポートの発注をKintoneに格納したもの (支払い情報を取得する)
  * @returns 
  * 
- * @deprecated use convertMonthlyProcurementV4 instead
+ * kintoneへ格納しているデータ(ANDPADから取得)を使用する場合はこちらの関数を使う
  */
 export const convertMonthlyProcurementV3 = (
   andpadBudget: AndpadBudgetResult | null,

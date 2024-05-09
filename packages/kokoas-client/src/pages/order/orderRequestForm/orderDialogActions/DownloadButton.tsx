@@ -4,9 +4,13 @@ import { useOrderFormContext } from '../hooks/useOrderRHF';
 import { useWatch } from 'react-hook-form';
 import { useDownloadOrderSlipById } from '../../../../hooksQuery';
 import { LoadingButton } from '@mui/lab';
+import { useSnackBar } from 'kokoas-client/src/hooks';
+import { useSaveOrderRequest } from '../hooks/useSaveOrderRequest';
 
 export const DownloadButton = () => {
-
+  const {
+    setSnackState,
+  } = useSnackBar();
   const {
     formState: { isDirty },
     control,
@@ -18,7 +22,9 @@ export const DownloadButton = () => {
   });
 
   const { isFetching, refetch } = useDownloadOrderSlipById(orderId);
-  
+  const {
+    handleSubmit,
+  } = useSaveOrderRequest();
       
   const hasUnsavedChange = isDirty || !orderId;
 
@@ -34,15 +40,24 @@ export const DownloadButton = () => {
           loading={isFetching}
           variant={'contained'}
           value='発注済'
-          onClick={async () => {
-            const { data } = await refetch();
+          onClick={async (e) => {
+            const { data, error } = await refetch();
+
+            if (error) {
+              setSnackState({
+                open: true,
+                message: `エラーが発生しました。お手数ですが、管理者にお問い合わせください。${(error as Error)?.message}`,
+                severity: 'error',
+              });
+              return;
+            }
 
             if (data) {
               const {
                 fileB64,
                 fileName,
               } = data;
-
+              handleSubmit(e);
               const link = document.createElement('a');
               link.href = `data:application/pdf;base64,${fileB64}`;
               link.download = fileName;

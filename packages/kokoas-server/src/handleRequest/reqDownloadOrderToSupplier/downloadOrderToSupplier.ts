@@ -33,7 +33,7 @@ GetDownloadOrderSlipResult | Error,
 
     res.json(response); 
   } catch (err) {
-    console.error(err?.message);
+    console.error('ERROR', err?.message);
     res.status(400)
       .json({
         message: validator.escape(err?.message || 'Error in getDownloadOrderToSupplier'),

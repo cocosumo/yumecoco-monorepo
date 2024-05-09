@@ -1,4 +1,5 @@
 /* 発注関連 */
+
 export const orderProgress = [
   '未発注',
   '発注済',
@@ -142,7 +143,7 @@ export interface OrderData {
 
   /** 業者Email */
   supplierOfficerEmail?: string,
-  
+
   /** 宛先CC */
   emailBcc?: string,
 

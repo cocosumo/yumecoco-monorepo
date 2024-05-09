@@ -143,7 +143,7 @@ export interface OrderData {
 
   /** 業者Email */
   supplierOfficerEmail?: string,
-  
+
   /** 宛先CC */
   emailBcc?: string,
 

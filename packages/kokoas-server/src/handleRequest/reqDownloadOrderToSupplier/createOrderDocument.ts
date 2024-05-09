@@ -260,10 +260,10 @@ export const createOrderDocument = async (
 
     // 会社情報
     // 会社名
-    const companyNameArray = companyName.split(' ');
+    const [companyInfo, companyMainName, companySubName] = companyName.split(' ');
     drawText(
       tgtPage,
-      `${companyNameArray[0]} ${companyNameArray[1]}`,
+      `${companyInfo} ${companyMainName}`,
       {
         x: 594,
         y: 502,
@@ -278,7 +278,7 @@ export const createOrderDocument = async (
     // 会社名 2行目
     drawText(
       tgtPage,
-      `${companyNameArray[2]} ${agStore}`,
+      `${companySubName} ${agStore}`,
       {
         x: 594,
         y: 489,

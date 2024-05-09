@@ -15,7 +15,7 @@ export const statusBGcolorMap: Record<KProgress, string> = {
 };
 
 export const statusFGcolorMap: Record<KProgress, string> = {
-  未発注: blueGrey[600],
+  未発注: blueGrey[50],
   発注済: blue[50],
   請求済: orange[50],
   請求確認済: orange[50],

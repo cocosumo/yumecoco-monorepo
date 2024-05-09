@@ -5,6 +5,7 @@ import { useWatch } from 'react-hook-form';
 import { useDownloadOrderSlipById } from '../../../../hooksQuery';
 import { LoadingButton } from '@mui/lab';
 import { useSnackBar } from 'kokoas-client/src/hooks';
+import { useSaveOrderRequest } from '../hooks/useSaveOrderRequest';
 
 export const DownloadButton = () => {
   const {
@@ -21,7 +22,9 @@ export const DownloadButton = () => {
   });
 
   const { isFetching, refetch } = useDownloadOrderSlipById(orderId);
-  
+  const {
+    handleSubmit,
+  } = useSaveOrderRequest();
       
   const hasUnsavedChange = isDirty || !orderId;
 
@@ -37,7 +40,7 @@ export const DownloadButton = () => {
           loading={isFetching}
           variant={'contained'}
           value='発注済'
-          onClick={async () => {
+          onClick={async (e) => {
             const { data, error } = await refetch();
 
             if (error) {
@@ -54,7 +57,7 @@ export const DownloadButton = () => {
                 fileB64,
                 fileName,
               } = data;
-
+              handleSubmit(e);
               const link = document.createElement('a');
               link.href = `data:application/pdf;base64,${fileB64}`;
               link.download = fileName;

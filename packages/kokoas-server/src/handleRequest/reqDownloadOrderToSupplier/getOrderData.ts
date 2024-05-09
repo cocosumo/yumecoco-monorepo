@@ -1,14 +1,17 @@
-import { getAllStores, getCustGroupById, getProjById } from 'api-kintone';
+import { getAllStores, getContractsByProjId, getCustGroupById, getProjById } from 'api-kintone';
 import { getCocosumoDetails } from 'api-kintone/src/companyDetails/getCocosumoDetails';
-import { getExternalMemberById } from 'api-kintone/src/externalMembers/getExternalMemberById';
 import { getOrderById } from 'api-kintone/src/order/getOrderById';
 import { getOrderBudgetById } from 'api-kintone/src/orderBudget/getOrderBudgetById';
-import { OrderData, OrderDetails, TOrderMethod, areaBaseStores } from 'types/src/common/order';
+import { OrderData, OrderDetails, TOrderMethod } from 'types/src/common/order';
 import { getConstAddress } from './helper/getConstAddress';
+import { formatDataId } from 'libs';
+import { getProjNumJa } from './helper/getProjNumJa';
+import { getSupplierById } from 'api-kintone/src/suppliers/getSupplierById';
 
 
 
 export const getOrderData = async (orderId: string): Promise<OrderData> => {
+  if (!orderId) return Object.create(null);
 
   const orderRecord = await getOrderById(orderId);
   if (!orderRecord) return Object.create(null);
@@ -16,21 +19,23 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
 
   const {
     projId,
-    supplierOfficerId,
+    supplierId,
   } = orderRecord;
 
   const [
     orderBudgetRec,
     projRec,
     companyDetails,
-    externalMemberRec,
+    supplierRec,
     stores,
+    contractsRec,
   ] = await Promise.all([
     getOrderBudgetById(projId.value),
     getProjById(projId.value),
     getCocosumoDetails(),
-    getExternalMemberById(supplierOfficerId.value),
+    getSupplierById(supplierId.value),
     getAllStores(),
+    getContractsByProjId(projId.value),
   ]);
 
   if (!projRec) return Object.create(null);
@@ -69,8 +74,19 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     return acc;
   }, [] as OrderDetails[]);
 
-  const storeAreaBase = store?.area.value === '東' ? areaBaseStores['東'] : areaBaseStores['西'];
   const constAddress = getConstAddress(projRec);
+  const projNumJa = getProjNumJa(store?.storeNameShort.value, projRec.dataId.value);
+  const contractMainRec = contractsRec.find(({ contractType }) => contractType.value === '契約');
+
+  const cocoAG = projRec.agents.value.find(({ value: { agentName, agentType } }) => {
+    return agentName.value !== '' && agentType.value === 'cocoAG';
+  })?.value.agentName.value || '';
+  const cocoConst = projRec.agents.value.filter(({ value: { agentName, agentType } }) => {
+    return agentName.value !== '' && agentType.value === 'cocoConst';
+  }).map(({ value: { agentName } }) => agentName.value)
+    .join(', ');
+
+
 
   const orderData: OrderData = {
     orderId: orderId,
@@ -79,29 +95,31 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     orderMethod: orderRecord.orderMethod?.value as TOrderMethod,
     projId: projId?.value,
 
-    custGroupName: custGroupRec.custNames.value,
+    custGroupName: custGroupRec?.custNames.value,
 
-    projNum: projRec.dataId.value,
-    projNumJa: '',
+    projNum: formatDataId(projRec.dataId.value),
+    projNumJa: projNumJa,
     projName: projRec.projName.value,
-    constAddress: projRec.,
-    constStartDate: '',
-    constFinishDate: '',
-    cocoAG: '',
-    cocoConst: '',
-    supplierName: '',
-    postCode: '',
-    supplierAddress1: '',
-    supplierAddress2: '',
-    supplierOfficer1: orderRecord.supplicerOfficerName.value,
-    supplierOfficer2: '',
+    constAddress: constAddress,
+    cocoAG: cocoAG,
+    cocoConst: cocoConst,
+
+    constStartDate: contractMainRec?.startDate.value || '', // TODO #1385
+    constFinishDate: contractMainRec?.finishDate.value || '', // TODO #1385
+
+    supplierName: supplierRec.supplierName.value,
+    postCode: supplierRec.postCode.value,
+    supplierAddress1: `${supplierRec.prefectures.value} ${supplierRec.addressFirst.value}`,
+    supplierAddress2: supplierRec.addressSecond.value,
+    supplierOfficer1: supplierRec.supplierName.value,
+    supplierOfficer2: orderRecord.supplicerOfficerName.value,
     supplierOfficerEmail: orderRecord.supplierOfficerEmail.value,
     emailCc: orderRecord.emailCc.value,
     emailBcc: orderRecord.emailBcc.value,
 
     agStore: store?.店舗名.value || '',
     storeArea: store?.area.value || '',
-    storeName: storeAreaBase,
+    storeName: store?.店舗名.value || '',
     storeAddress: store?.住所.value || '',
     storeTel: store?.TEL.value || '',
     storeFax: store?.FAX.value || '',

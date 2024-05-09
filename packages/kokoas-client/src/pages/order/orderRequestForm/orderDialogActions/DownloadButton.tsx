@@ -4,9 +4,12 @@ import { useOrderFormContext } from '../hooks/useOrderRHF';
 import { useWatch } from 'react-hook-form';
 import { useDownloadOrderSlipById } from '../../../../hooksQuery';
 import { LoadingButton } from '@mui/lab';
+import { useSnackBar } from 'kokoas-client/src/hooks';
 
 export const DownloadButton = () => {
-
+  const {
+    setSnackState,
+  } = useSnackBar();
   const {
     formState: { isDirty },
     control,
@@ -35,7 +38,16 @@ export const DownloadButton = () => {
           variant={'contained'}
           value='発注済'
           onClick={async () => {
-            const { data } = await refetch();
+            const { data, error } = await refetch();
+
+            if (error) {
+              setSnackState({
+                open: true,
+                message: `エラーが発生しました。お手数ですが、管理者にお問い合わせください。${(error as Error)?.message}`,
+                severity: 'error',
+              });
+              return;
+            }
 
             if (data) {
               const {

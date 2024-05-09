@@ -18,7 +18,7 @@ export interface SearchResult {
   /** 発注金額 （税抜） */
   orderAmount: number;
 
-  /** 支払金額 */
+  /** 支払金額 (請求金額) */
   paymentAmount: number;
 
   /** 請求日 */

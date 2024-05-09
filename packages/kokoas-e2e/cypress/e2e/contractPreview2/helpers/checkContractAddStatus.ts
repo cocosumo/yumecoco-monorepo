@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+import { cy } from 'local-cypress';
 import { IContracts } from 'types';
 
 export const checkContractAddStatus = (mockHasContract: boolean, shouldBeEnabled: boolean) => {

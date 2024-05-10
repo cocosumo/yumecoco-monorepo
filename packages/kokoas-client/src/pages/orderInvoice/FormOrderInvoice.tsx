@@ -8,6 +8,7 @@ import { PageTitle3 } from 'kokoas-client/src/components';
 //import { FormOrderContainer } from './FormOrderContainer';
 //import { OrderRequestDialog } from './orderRequestForm/OrderRequestDialog';
 import { FormOrderInvoiceContainer } from './FormOrderInvoiceContainer';
+import { Result } from './sections/result/Result';
 import UnderConstruction from '../UnderConstruction';
 //import { InvoiceFormDialog } from './invoiceForm/InvoiceFormDialog';
 
@@ -39,6 +40,7 @@ export const FormOrderInvoice = () => {
         <PageTitle3 
           label={'請求一覧'}
         />
+        <Result />
         <UnderConstruction />
       </FormOrderInvoiceContainer>
       

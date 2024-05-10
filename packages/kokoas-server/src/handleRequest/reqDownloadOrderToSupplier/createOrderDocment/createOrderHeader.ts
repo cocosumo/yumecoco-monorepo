@@ -171,7 +171,7 @@ export const createOrderHeader = (
     constAddress,
     {
       x: 100,
-      y: 377,
+      y: 378,
       font: font,
       size: 9,
     },

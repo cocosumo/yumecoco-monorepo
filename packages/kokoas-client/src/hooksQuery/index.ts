@@ -6,6 +6,7 @@ export * from './useAddressPostalCode';
 export * from './useAddressTowns';
 export * from './useAllContracts';
 export * from './useAllEmployees';
+export * from './useAllInvoiceB2B';
 export * from './useAllProcurements';
 export * from './useAllSuppliers';
 export * from './useAllUnissuedInvoiceAlerts';

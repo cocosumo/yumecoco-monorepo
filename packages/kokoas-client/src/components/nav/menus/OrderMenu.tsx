@@ -7,6 +7,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { CollapsibleList } from './common/CollapsibleList';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { OrderInput } from './OrderInput';
+import { OrderInvoiceSearch } from './OrderInvoiceSearch';
 
 export default function OrderMenu() {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function OrderMenu() {
       </ListItemButton>
       <CollapsibleList open={open}>
         <OrderInput />
+        <OrderInvoiceSearch />
       </CollapsibleList>
     </>
   );

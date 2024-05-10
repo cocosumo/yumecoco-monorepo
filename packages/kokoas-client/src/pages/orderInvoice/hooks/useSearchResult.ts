@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { SearchResult } from '../types';
 import { KInvoiceProgress } from 'types/src/common/order';
 import { useSuppliersMap } from './useSuppliersMap';
+import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
 
 export const useSearchResult = () => {
 
@@ -34,8 +35,8 @@ export const useSearchResult = () => {
           orderAmount: Number(d.orderAmount.value),
           paymentAmount: Number(d.invoiceAmount.value),
           invoiceDate: d.invoiceDueDate.value,
-          createdAt: d.作成日時.value,
-          updatedAt: d.更新日時.value,
+          createdAt: parseISOTimeToFormat(d.作成日時.value),
+          updatedAt: parseISOTimeToFormat(d.更新日時.value),
           
         });
       });

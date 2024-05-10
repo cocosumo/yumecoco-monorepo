@@ -5,9 +5,9 @@ import fontkit from '@pdf-lib/fontkit';
 import fs from 'fs/promises';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
-import { getConstPeriod } from './helper/getConstPeriod';
 import { Big } from 'big.js';
-import { chkStrLength } from './helper/chkStrLength';
+import { chkStrLength } from '../helper/chkStrLength';
+import { createOrderHeader } from './createOrderHeader';
 
 
 
@@ -23,42 +23,16 @@ const isTest = true;
 export const createOrderDocument = async (
   data: OrderData,
   contentType: 'base64' | 'Uint8Array' = 'base64',
+  hasOrderContract: boolean = true,
 ) => {
 
   const {
-    //orderId,
-    purchaseOrderId,
-    orderDate,
-
-    //projId,
-    //projNum,
-    projNumJa,
-    projName,
-    //custGroupName,
-    constAddress,
-    constStartDate,
-    constFinishDate,
-    cocoConst,
-
-    companyName,
-    agStore,
-    postCode,
-    storeAddress,
-    storeTel,
-    storeFax,
-    buildingLicenseNumber,
-    invoiceSystemNumber,
-
-    supplierAddress1,
-    supplierAddress2,
-    supplierOfficer1,
-    supplierOfficer2,
     orderDetails,
   } = data;
 
 
   let template;
-  const templateName = '工事依頼書_20240424.pdf';
+  const templateName = hasOrderContract ? '工事依頼書請負書_20240510.pdf' : '工事依頼書_20240424.pdf';
   if (!isTest) {
 
     console.log('template from S3');
@@ -70,12 +44,23 @@ export const createOrderDocument = async (
 
     console.log('template from local');
 
-    const pdfPath = getFilePath({
-      fileName: '工事依頼書',
-      fileType: 'pdf',
-      version: '20240510',
-    });
-    template = await fs.readFile(pdfPath);
+    if (templateName) {
+      const pdfPath = getFilePath({
+        fileName: '工事依頼書請負書',
+        fileType: 'pdf',
+        version: '20240510',
+      });
+      template = await fs.readFile(pdfPath);
+
+    } else {
+      const pdfPath = getFilePath({
+        fileName: '工事依頼書',
+        fileType: 'pdf',
+        version: '20240424',
+      });
+      template = await fs.readFile(pdfPath);
+
+    }
 
     console.log('templateLocal', template);
   }
@@ -90,272 +75,33 @@ export const createOrderDocument = async (
 
   const msChinoFont = await pdfDoc.embedFont(fontData, { subset: true });
   const pages = pdfDoc.getPages();
-  const maxPageNum = Math.ceil(orderDetails.length / 30);
+
+  const rowNum = 20;
+  const maxPageNum = Math.ceil(orderDetails.length / rowNum);
 
   // 不要なページを削除する
   for (let i = maxPageNum; i < pages.length; i++) {
     pdfDoc.removePage(maxPageNum);
   }
 
+
   // PDFに情報転記する ここから
   for (let pageNum = 0; pageNum < maxPageNum; pageNum++) {
     const tgtPage = pages[pageNum];
+    const isFirstPage = pageNum === 0;
 
-
-    // 発注番号
-    drawText(
-      tgtPage,
-      purchaseOrderId,
-      {
-        x: 700,
-        y: 524,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 工事担当者
-    drawText(
-      tgtPage,
-      cocoConst,
-      {
-        x: 700,
-        y: 534,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 発注書発行日
-    drawText(
-      tgtPage,
-      orderDate,
-      {
-        x: 700,
-        y: 545,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-
-    // 業者住所
-    drawText(
-      tgtPage,
-      supplierAddress1,
-      {
-        x: 80,
-        y: 513,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    drawText(
-      tgtPage,
-      supplierAddress2,
-      {
-        x: 80,
-        y: 497,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 業者担当者1
-    drawText(
-      tgtPage,
-      supplierOfficer1,
-      {
-        x: 80,
-        y: 478,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 業者担当者2
-    drawText(
-      tgtPage,
-      supplierOfficer2,
-      {
-        x: 80,
-        y: 465,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-
-    // 工事名([工事番号]　工事名)
-    drawText(
-      tgtPage,
-      `[${projNumJa}] ${projName}`,
-      {
-        x: 100,
-        y: 392,
-        font: msChinoFont,
-        size: 10,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 工事場所住所
-    drawText(
-      tgtPage,
-      constAddress,
-      {
-        x: 100,
-        y: 379,
-        font: msChinoFont,
-        size: 10,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 工事期間
-    const constPeriod = getConstPeriod({
-      startDate: constStartDate,
-      finishDate: constFinishDate,
-    });
-    drawText(
-      tgtPage,
-      `${constPeriod}`,
-      {
-        x: 100,
-        y: 367,
-        font: msChinoFont,
-        size: 10,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-
-    // 会社情報
-    // 会社名
-    const [companyInfo, companyMainName, companySubName] = companyName.split(' ');
-    drawText(
-      tgtPage,
-      `${companyInfo} ${companyMainName}`,
-      {
-        x: 594,
-        y: 502,
-        font: msChinoFont,
-        size: 12,
-      },
-      {
-        weight: 0.4,
-      },
-    );
-
-    // 会社名 2行目
-    drawText(
-      tgtPage,
-      `${companySubName} ${agStore}`,
-      {
-        x: 594,
-        y: 489,
-        font: msChinoFont,
-        size: 12,
-      },
-      {
-        weight: 0.4,
-      },
-    );
-
-    // 適格請求書発行事業者番号
-    drawText(
-      tgtPage,
-      `登録番号：${invoiceSystemNumber}`,
-      {
-        x: 594,
-        y: 478,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 郵便番号 + 住所
-    drawText(
-      tgtPage,
-      `〒${postCode} ${storeAddress}`,
-      {
-        x: 595,
-        y: 466,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // TEL + FAX
-    drawText(
-      tgtPage,
-      `TEL：${storeTel}  FAX：${storeFax}`,
-      {
-        x: 595,
-        y: 454,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
-
-    // 建築業許可番号
-    drawText(
-      tgtPage,
-      buildingLicenseNumber,
-      {
-        x: 595,
-        y: 443,
-        font: msChinoFont,
-        size: 9,
-      },
-      {
-        weight: 0.1,
-      },
-    );
+    // 1枚目のみに記載する情報の反映
+    if (isFirstPage) {
+      createOrderHeader(data, tgtPage, msChinoFont);
+    }
 
 
     // 発注明細の反映 明細行数分繰り返す
-    const maxI = pageNum >= (maxPageNum - 1) ? orderDetails.length : (pageNum + 1) * 30;
-    for (let i = pageNum * 30; i < maxI; i++) {
-      const posOffset = 10.3 * (i - (pageNum * 30));
-      const posY = 341 - posOffset;
+    const maxI = pageNum >= (maxPageNum - 1) ? orderDetails.length : (pageNum + 1) * rowNum;
+    for (let i = pageNum * rowNum; i < maxI; i++) {
+      const posOffset =  14.9 * (i - (pageNum * rowNum));
+      const posYTop = isFirstPage ? 334 : 543;
+      const posY = posYTop - posOffset;
 
       // 番号
       drawText(

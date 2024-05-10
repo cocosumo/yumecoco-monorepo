@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import path from 'path';
 import fs from 'fs';
 import { OrderData } from 'types/src/common/order';
-import { getOrderData } from './getOrderData';
+import { getOrderData } from '../getOrderData';
 import { createOrderDocument } from './createOrderDocument';
 
 

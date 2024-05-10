@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import validator from 'validator';
 import { getOrderData } from './getOrderData';
-import { createOrderDocument } from './createOrderDocument';
+import { createOrderDocument } from './createOrderDocment/createOrderDocument';
 import { GetDownloadOrderSlipResult } from 'types/src/common/order';
 import { emailOrderToSupplier } from './emailOrderToSupplier';
 

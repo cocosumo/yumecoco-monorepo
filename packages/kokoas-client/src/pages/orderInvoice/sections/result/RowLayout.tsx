@@ -46,7 +46,7 @@ export const RowLayout = ({
       </TableCell>
 
       <TableCell sx={{
-        minWidth: '150px',
+        minWidth: '200px',
       }}
       >
         {projName}
@@ -69,6 +69,7 @@ export const RowLayout = ({
       <TableCell sx={{
         whiteSpace: 'nowrap',
         maxWidth: '200px',
+        textAlign: 'right',
       }}
       >
         {orderAmount}

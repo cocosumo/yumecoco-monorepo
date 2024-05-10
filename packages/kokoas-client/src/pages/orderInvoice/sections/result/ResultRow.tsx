@@ -11,8 +11,8 @@ export const ResultRow = (props: RowLayoutProps) => {
   return (
     <RowLayout 
       {...props}
-      orderAmount={orderAmount?.toLocaleString()}
-      paymentAmount={paymentAmount?.toLocaleString()}
+      orderAmount={`${orderAmount?.toLocaleString()}円`}
+      paymentAmount={`${paymentAmount?.toLocaleString()}円`}
     />
   );
 };

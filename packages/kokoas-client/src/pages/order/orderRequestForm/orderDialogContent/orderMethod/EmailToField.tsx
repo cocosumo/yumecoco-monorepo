@@ -4,6 +4,7 @@ import { useOrderFormContext, useOrderWatch } from '../../hooks/useOrderRHF';
 import { useAllSuppliers } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';
 import { Controller } from 'react-hook-form';
+import { ISuppliers } from 'types';
 
 export const EmailToField = () => {
   const { control, setValue } = useOrderFormContext();
@@ -11,7 +12,7 @@ export const EmailToField = () => {
     name: 'supplierId',
   });
 
-  const { data = [] } = useAllSuppliers();
+  const { data = [] } = useAllSuppliers<ISuppliers[]>();
 
   const supplierMemberOptions = useMemo(() => {
     return data

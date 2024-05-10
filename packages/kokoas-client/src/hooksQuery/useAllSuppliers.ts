@@ -5,7 +5,7 @@ import { ISuppliers } from 'types';
 
 
 interface QueryOptions <T = ISuppliers> {
-  select: (data: ISuppliers[]) => T[];
+  select: (data: ISuppliers[]) => T;
 }
 interface UseAllSuppliersParams<T = ISuppliers> {
   queryParams?: GetAllSuppliersParams;

@@ -10,7 +10,7 @@ describe('getAllInvoiceB2B', () => {
     // each record should have $id field
     expect(result).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ $id: expect.any(String) }),
+        expect.objectContaining({ $id: expect.any(Object) }),
       ]),
     );
   

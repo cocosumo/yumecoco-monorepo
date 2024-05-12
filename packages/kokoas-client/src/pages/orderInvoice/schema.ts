@@ -15,6 +15,10 @@ const schema = z.object({
   invoiceAmount: z.number().optional(),
   invoiceDateFrom: z.date().nullable(),
   invoiceDateTo: z.date().nullable(),
+  
+  order: z.enum(['asc', 'desc']),
+
+  orderBy: z.string().nullable(),
 });
 
 

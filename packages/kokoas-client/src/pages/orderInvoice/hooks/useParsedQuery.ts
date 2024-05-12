@@ -4,6 +4,7 @@ import qs from 'qs';
 import { initialValues } from '../form';
 import { useMemo } from 'react';
 import parseISO from 'date-fns/parseISO';
+import { Order } from 'types';
 
 
 export const useParsedQuery = () => {
@@ -17,6 +18,8 @@ export const useParsedQuery = () => {
       projName,
       invoiceDateFrom,
       invoiceDateTo,
+      order,
+      orderBy,
     } = parsedQuery;
 
     return {
@@ -24,6 +27,8 @@ export const useParsedQuery = () => {
       projName: projName ?? initialValues.projName,
       invoiceDateFrom: invoiceDateFrom ? parseISO(invoiceDateFrom) : initialValues.invoiceDateFrom,
       invoiceDateTo: invoiceDateTo ? parseISO(invoiceDateTo) : initialValues.invoiceDateTo,
+      order: order as Order,
+      orderBy: orderBy as KeyOfForm ?? initialValues.orderBy,
     };
   }
   , [search]);

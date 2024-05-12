@@ -12,7 +12,7 @@ import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { OrderRequestDialog } from './orderRequestForm/OrderRequestDialog';
 import { OrderTableLabel } from 'kokoas-client/src/components/inputGridLabel/OrderTableLabel';
-import { InvoiceFormDialog } from './invoiceForm/InvoiceFormDialog';
+import { InvoiceFormDialog } from 'kokoas-client/src/components/ui/dialogs/invoiceForm/InvoiceFormDialog';
 
 
 export const FormOrder = () => {

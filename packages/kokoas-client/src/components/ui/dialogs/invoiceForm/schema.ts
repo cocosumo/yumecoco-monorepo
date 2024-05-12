@@ -1,7 +1,6 @@
 import { zodErrorMapJA } from 'kokoas-client/src/lib/zodErrorMapJA';
 //import { envelopeStatuses, signMethods } from 'types';
 import { z } from 'zod';
-import { item } from '../schema';
 import { invoiceProgress } from 'types/src/common/order';
 
 z.setErrorMap(zodErrorMapJA());
@@ -11,6 +10,53 @@ z.setErrorMap(zodErrorMapJA());
 const requiredDateType = z.date({
   required_error: '日付を入力してください。',
   invalid_type_error: '日付を入力してください。',
+});
+
+export const item = z.object({
+  /** 選択されているかどうか */
+  selected: z.boolean(),
+
+  /** 部材のID*/
+  itemId: z.string(),
+  
+  /** 状態 */
+  status: z.string().optional(),
+
+  /** 大項目 */
+  majorItem: z.string().nonempty(),
+
+  /** 中項目 */
+  middleItem: z.string().optional(),
+  
+  /** 部材 */
+  material: z.string().optional(),
+
+  /** 業者名 */
+  supplierName: z.string().optional(),
+
+  /* 発注番号 */
+  orderId: z.string().optional(),
+
+  /** 発注管理番号 */
+  orderDataId: z.string().optional(),
+
+  /** 数量 */
+  quantity: z.coerce.number(),
+  
+  /** 単位 */
+  unit: z.string(),
+
+  /** 原価 toB */
+  costPrice: z.coerce.number(),
+
+  /** 原価合計 / 発注金額税抜 toB*/
+  rowCostPriceBeforeTax: z.number(),
+
+  /** 税 */
+  taxRate: z.coerce.number(),
+
+  /** 行備考 */
+  rowRemarks: z.string().optional(),
 });
 
 export const schema = z.object({
@@ -60,6 +106,7 @@ export const schema = z.object({
 
 export type TInvoiceForm = z.infer<typeof schema>;
 export type TInvoiceItem = TInvoiceForm['items'][number];
+export type KItem = keyof TInvoiceItem;
 
 export const initialInvoiceForm: TInvoiceForm = {
   invoiceId: '',

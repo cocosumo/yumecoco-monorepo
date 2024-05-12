@@ -58,6 +58,8 @@ export const useSearchResult = () => {
         ) {
           acc.push({
             invoiceId: d.uuid.value,
+            projId: d.projId.value,
+            orderId: d.orderId.value,
             invoiceStatus: parsedInvoiceStatus,
             projName: d.projName.value,
             storeName: d.storeName.value,

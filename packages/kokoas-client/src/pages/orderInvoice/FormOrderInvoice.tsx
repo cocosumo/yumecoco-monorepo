@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DevTool } from '@hookform/devtools';
 import { useParsedQuery } from './hooks/useParsedQuery';
+import { InvoiceFormDialog } from 'kokoas-client/src/components/ui/dialogs/invoiceForm/InvoiceFormDialog';
 
 
 export const FormOrderInvoice = () => {
@@ -31,8 +32,8 @@ export const FormOrderInvoice = () => {
       />
       <Filter />
       <Result />
+      <InvoiceFormDialog />
       <DevTool control={control} />
-
     </FormOrderInvoiceContainer>
   );
 };

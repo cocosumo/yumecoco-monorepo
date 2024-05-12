@@ -6,13 +6,12 @@ export const Result = () => {
 
   const { data, isLoading } = useSearchResult();
   
-  return (
-    <>
 
-      {!isLoading &&  <ResultTable data={data} />}
-      {isLoading && <LinearProgress />}
-     
-    
-    </>
+  if (isLoading) {
+    return <LinearProgress />;
+  }
+
+  return (
+    <ResultTable data={data} />
   );
 };

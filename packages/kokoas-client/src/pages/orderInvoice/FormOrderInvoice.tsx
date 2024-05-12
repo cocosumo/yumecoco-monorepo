@@ -1,51 +1,38 @@
 import { PageTitle3 } from 'kokoas-client/src/components';
-//import { useForm } from 'react-hook-form';
-//import { TForm, schema } from './schema';
-//import { useResolveParams } from './hooks/useResolveParams';
-//import { zodResolver } from '@hookform/resolvers/zod';
-//import { FooterActionButtons } from './sections/footerActions/FooterActionButtons';
-//import { useEffect } from 'react';
-//import { FormOrderContainer } from './FormOrderContainer';
-//import { OrderRequestDialog } from './orderRequestForm/OrderRequestDialog';
 import { FormOrderInvoiceContainer } from './FormOrderInvoiceContainer';
 import { Result } from './sections/result/Result';
-import UnderConstruction from '../UnderConstruction';
-//import { InvoiceFormDialog } from './invoiceForm/InvoiceFormDialog';
+import { Filter } from './sections/filter/Filter';
+import schema, { TypeOfForm } from './schema';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { DevTool } from '@hookform/devtools';
+import { useParsedQuery } from './hooks/useParsedQuery';
 
 
 export const FormOrderInvoice = () => {
 
-  /*   const {
-    newFormValues,
-  } = useResolveParams();
+  const parsedQuery = useParsedQuery();
 
-  const formReturn = useForm<TForm>({
-    defaultValues: newFormValues,
+  const formReturn = useForm<TypeOfForm>({
+    defaultValues: parsedQuery,
     resolver: zodResolver(schema),
     
   });
 
-  const { control, reset } = formReturn;
-
-  useEffect(() => {
-    reset({ ...newFormValues });
-  }, [reset, newFormValues]);
- */
+  const { control } = formReturn;
 
 
   return (
-    <>
+    <FormOrderInvoiceContainer
+      formReturn={formReturn}
+    >
+      <PageTitle3 
+        label={'請求一覧'}
+      />
+      <Filter />
+      <Result />
+      <DevTool control={control} />
 
-      <FormOrderInvoiceContainer >
-        <PageTitle3 
-          label={'請求一覧'}
-        />
-        <Result />
-        <UnderConstruction />
-      </FormOrderInvoiceContainer>
-      
-      {/* <InvoiceFormDialog /> */}
-      {/* <OrderRequestDialog /> */}
-    </>
+    </FormOrderInvoiceContainer>
   );
 };

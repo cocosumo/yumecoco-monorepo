@@ -1,9 +1,10 @@
 import { Button, Tooltip } from '@mui/material';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
-import { initialValues } from '../../form';
+import { useNavigateWithQuery } from 'kokoas-client/src/hooks';
 
 export const ResetButton = () => {
   const { reset } = useTypedFormContext();
+  const navigate = useNavigateWithQuery();
 
   return (
     <Tooltip title="検索条件をリセットします">
@@ -12,7 +13,8 @@ export const ResetButton = () => {
         color={'primary'}
         size='small'
         onClick={() => {
-          reset(initialValues);
+          reset();
+          navigate('projOrderInvoiceSearch');
         }}
       >
         リセット

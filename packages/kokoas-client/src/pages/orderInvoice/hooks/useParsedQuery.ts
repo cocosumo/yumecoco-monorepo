@@ -27,7 +27,7 @@ export const useParsedQuery = () => {
       projName: projName ?? initialValues.projName,
       invoiceDateFrom: invoiceDateFrom ? parseISO(invoiceDateFrom) : initialValues.invoiceDateFrom,
       invoiceDateTo: invoiceDateTo ? parseISO(invoiceDateTo) : initialValues.invoiceDateTo,
-      order: order as Order,
+      order: order as Order ?? initialValues.order,
       orderBy: orderBy as KeyOfForm ?? initialValues.orderBy,
     };
   }

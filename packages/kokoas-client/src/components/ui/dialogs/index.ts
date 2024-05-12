@@ -1,3 +1,4 @@
+export * from './CloseButton';
 export * from './ConfirmDialog';
 export * from './ConfirmDialogV2';
 export * from './ContentWarning';

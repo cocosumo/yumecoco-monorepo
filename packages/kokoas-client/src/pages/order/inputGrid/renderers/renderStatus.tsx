@@ -3,11 +3,11 @@ import { Chip, styled } from '@mui/material';
 import { RowItem } from '../useColumns';
 import { KInvoiceProgress, KOrderProgress, KProgress, invoiceProgress } from 'types/src/common/order';
 import { useSetAtom } from 'jotai';
-import { invoiceDialogAtom } from '../../invoiceForm/InvoiceFormDialog';
 import { useTypedFormContext } from '../../hooks/useTypedRHF';
 import { useCallback, useMemo } from 'react';
 import { statusBGcolorMap } from 'kokoas-client/src/lib/progressColors';
 import { InvoiceB2BStatusMapByProjIdReturn } from 'kokoas-client/src/hooksQuery';
+import { invoiceDialogAtom } from 'kokoas-client/src/components/ui/dialogs/invoiceForm/InvoiceFormDialog';
 
 
 const CustomChip = styled(Chip)(({ label, onClick }) => ({

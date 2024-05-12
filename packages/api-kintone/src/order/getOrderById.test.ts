@@ -3,7 +3,7 @@ import { getOrderById } from './getOrderById';
 
 describe('getOrderById', () => {
   it('should return all orderById', async () => {
-    const result = await getOrderById('23b4d208-e587-46f8-8d0f-fbb35d4a68cf');
+    const result = await getOrderById('ef398608-b68a-4cc6-8bdc-fc40747d8cbd');
 
     console.log('result: ', result);
 

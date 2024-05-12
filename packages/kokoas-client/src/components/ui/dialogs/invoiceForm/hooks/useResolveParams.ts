@@ -121,10 +121,7 @@ export const useResolveParams = () => {
     invoiceId,
     invoiceData,
   ]);
-  /* 
-  console.log('projId', projId);
-  console.log('invoiceId', invoiceId, invoiceData);
-  console.log('orderId', orderId, orderData); */
+
   
   return {
     initialValues,

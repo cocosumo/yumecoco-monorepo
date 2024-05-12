@@ -7,7 +7,7 @@ export const CustomDate = ({
   error,
   label,
 }:{
-  value?: Date,
+  value: Date | null,
   onChange: (date: Date) => void,
   error?: FieldError,
   label?: string,
@@ -15,7 +15,7 @@ export const CustomDate = ({
 
   return (
     <JADatePicker
-      value={value}
+      value={value || null}
       onChange={onChange}
       label={label}
       slotProps={{

@@ -13,8 +13,8 @@ const schema = z.object({
   invoiceSystemNumber: z.string().optional(),
   orderAmount: z.number().optional(),
   invoiceAmount: z.number().optional(),
-  invoiceDateFrom: z.date().optional(),
-  invoiceDateTo: z.date().optional(),
+  invoiceDateFrom: z.date().nullable(),
+  invoiceDateTo: z.date().nullable(),
 });
 
 

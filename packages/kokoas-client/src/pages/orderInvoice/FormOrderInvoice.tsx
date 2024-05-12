@@ -6,14 +6,15 @@ import schema, { TypeOfForm } from './schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DevTool } from '@hookform/devtools';
-import { initialValues } from './form';
+import { useParsedQuery } from './hooks/useParsedQuery';
 
 
 export const FormOrderInvoice = () => {
 
- 
+  const parsedQuery = useParsedQuery();
+
   const formReturn = useForm<TypeOfForm>({
-    defaultValues: initialValues,
+    defaultValues: parsedQuery,
     resolver: zodResolver(schema),
     
   });

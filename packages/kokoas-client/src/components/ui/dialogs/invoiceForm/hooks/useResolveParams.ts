@@ -89,7 +89,6 @@ export const useResolveParams = () => {
 
         } else {
           //invoiceIdがundefinedではなく、falsyの場合、新規請求
-          console.log('entered');
 
           setInitialValues({
             ...initialInvoiceForm,
@@ -122,8 +121,11 @@ export const useResolveParams = () => {
     invoiceId,
     invoiceData,
   ]);
-
-
+  /* 
+  console.log('projId', projId);
+  console.log('invoiceId', invoiceId, invoiceData);
+  console.log('orderId', orderId, orderData); */
+  
   return {
     initialValues,
     isFetching: isFetchingOrder || isFetchingOrderBudget || isFetchingInvoice,

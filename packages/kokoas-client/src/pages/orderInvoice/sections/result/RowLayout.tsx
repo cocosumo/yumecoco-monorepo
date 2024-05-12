@@ -40,6 +40,7 @@ export const RowLayout = ({
       <TableCell
         sx={{
           whiteSpace: 'nowrap',
+          width: '120px',
         }}
       >
         {invoiceStatus}

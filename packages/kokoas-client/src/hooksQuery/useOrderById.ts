@@ -16,6 +16,8 @@ export const useOrderById = ({
   return useQuery({
     queryKey: [AppIds.order, orderId],
     queryFn: async () => {
+      console.log('getOrderById', orderId);
+
       if (orderId) {
         return getOrderById(orderId);
       }

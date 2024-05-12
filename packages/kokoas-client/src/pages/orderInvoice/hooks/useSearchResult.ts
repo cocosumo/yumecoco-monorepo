@@ -1,6 +1,6 @@
 import { useAllInvoiceB2B } from 'kokoas-client/src/hooksQuery';
 import { useMemo } from 'react';
-import { SearchResult } from '../types';
+import { KeyOfSearchResult, SearchResult } from '../types';
 import { KInvoiceProgress } from 'types/src/common/order';
 import { useSuppliersMap } from './useSuppliersMap';
 import { parseISOTimeToFormat, toKintoneDateStr } from 'kokoas-client/src/lib';
@@ -16,7 +16,12 @@ export const useSearchResult = () => {
   const {
     invoiceDateFrom,
     invoiceDateTo,
+    projName,
+    order,
+    orderBy,
   } = parsedQuery;
+
+  const parsedOrderBy = orderBy as KeyOfSearchResult;
 
 
   const {
@@ -36,11 +41,7 @@ export const useSearchResult = () => {
   return useAllInvoiceB2B({
     condition: queryConditions.join(' and '),
     select: useMemo(() => (data) => {
-      const {
-        projName,
-      } = parsedQuery;
     
-
       if (!suppliersMap 
         || !data
       ) return [];
@@ -74,10 +75,27 @@ export const useSearchResult = () => {
 
    
         return acc;
-      }, []);
+      }, 
+      [])
+        .sort((a, b) => {
+          switch (parsedOrderBy) {
+            case 'orderAmount':
+            case 'paymentAmount':
+              return order === 'asc' ? a[parsedOrderBy] - b[parsedOrderBy] : b[parsedOrderBy] - a[parsedOrderBy];
+            case 'invoiceDate':
+            case 'createdAt':
+            case 'updatedAt':
+              return order === 'asc' ? new Date(a[parsedOrderBy]).getTime() - new Date(b[parsedOrderBy]).getTime() : new Date(b[parsedOrderBy]).getTime() - new Date(a[parsedOrderBy]).getTime();
+            default:
+              return 0;
+          }
+        });
 
     }, [
       suppliersMap,
+      order,
+      parsedOrderBy,
+      projName,
       parsedQuery,
     ]),
   });

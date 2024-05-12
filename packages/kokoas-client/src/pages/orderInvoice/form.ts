@@ -1,11 +1,14 @@
 import subYears from 'date-fns/subYears';
 import { TypeOfForm } from './schema';
 import addYears from 'date-fns/addYears';
+import { KeyOfSearchResult } from './types';
 
 
 
 
 export const initialValues: TypeOfForm = {
+  orderBy: 'invoiceDate' as KeyOfSearchResult,
+  order: 'desc',
   status: undefined,
   projName: '',
   storeName: '',

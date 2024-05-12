@@ -13,8 +13,10 @@ const schema = z.object({
   invoiceSystemNumber: z.string().optional(),
   orderAmount: z.number().optional(),
   invoiceAmount: z.number().optional(),
-  invoiceDate: z.date().optional(),
+  invoiceDateFrom: z.date().optional(),
+  invoiceDateTo: z.date().optional(),
 });
+
 
 export type TypeOfForm = z.infer<typeof schema>;
 export type KeyOfForm = keyof TypeOfForm;

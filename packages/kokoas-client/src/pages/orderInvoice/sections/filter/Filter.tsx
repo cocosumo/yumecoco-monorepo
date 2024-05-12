@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import { ProjName } from './ProjName';
 import { InvoiceDate } from './invoiceDate/InvoiceDate';
+import { SearchButton } from './SearchButton';
 
 export const Filter = () => {  
 
@@ -12,6 +13,7 @@ export const Filter = () => {
     >
       <ProjName />
       <InvoiceDate />
+      <SearchButton />
     </Stack>
   );
 };      

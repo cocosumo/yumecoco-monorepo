@@ -5,6 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { pages } from '../../Router';
 import { useTypedFormContext } from './useTypedRHF';
 
+
+/**
+ * 他の検索画面と共通のものなで、
+ * 時間あまったら、改修・リファクタリングください。
+ * */ 
 export const useStartSearch = () => {
   const {
     handleSubmit,
@@ -18,7 +23,7 @@ export const useStartSearch = () => {
         removeNullFalsyEmptyFromObject(data), 
         { arrayFormat: 'comma', encode: false },
       );
-      navigate(`${pages.projSearch}?${queryStr}`);
+      navigate(`${pages.projOrderInvoiceSearch}?${queryStr}`);
     },
     (err) => {
       // 管理者用で残す

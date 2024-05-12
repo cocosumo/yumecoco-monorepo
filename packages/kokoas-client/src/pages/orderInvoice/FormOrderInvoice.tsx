@@ -3,31 +3,22 @@ import { FormOrderInvoiceContainer } from './FormOrderInvoiceContainer';
 import { Result } from './sections/result/Result';
 import { Filter } from './sections/filter/Filter';
 import schema, { TypeOfForm } from './schema';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DevTool } from '@hookform/devtools';
-import { useResolveParams } from './hooks/useResolveParams';
+import { initialValues } from './form';
 
 
 export const FormOrderInvoice = () => {
 
-  const {
-    initialForm,
-  } = useResolveParams();
  
   const formReturn = useForm<TypeOfForm>({
-    defaultValues: initialForm,
+    defaultValues: initialValues,
     resolver: zodResolver(schema),
     
   });
 
-  const { control, reset } = formReturn;
-
-  useEffect(() => {
-    reset({ ...initialForm });
-  }, [reset, initialForm]);
-
+  const { control } = formReturn;
 
 
   return (

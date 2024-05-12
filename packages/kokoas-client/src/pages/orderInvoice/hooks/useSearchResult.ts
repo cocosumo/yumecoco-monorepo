@@ -4,8 +4,11 @@ import { SearchResult } from '../types';
 import { KInvoiceProgress } from 'types/src/common/order';
 import { useSuppliersMap } from './useSuppliersMap';
 import { parseISOTimeToFormat } from 'kokoas-client/src/lib';
+import { useParsedQuery } from './useParsedQuery';
 
 export const useSearchResult = () => {
+
+  const parsedQuery = useParsedQuery();
 
   const {
     data: suppliersMap,
@@ -13,6 +16,8 @@ export const useSearchResult = () => {
 
   return useAllInvoiceB2B({
     select: useMemo(() => (data) => {
+
+      console.log(parsedQuery);
 
       if (!suppliersMap 
         || !data
@@ -41,7 +46,10 @@ export const useSearchResult = () => {
         });
       });
 
-    }, [suppliersMap]),
+    }, [
+      suppliersMap,
+      parsedQuery,
+    ]),
   });
 
 

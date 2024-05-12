@@ -12,8 +12,8 @@ export const initialValues: TypeOfForm = {
   cocoAgName: '',
   supplierName: '',
   invoiceSystemNumber: '',
-  orderAmount: 0,
-  invoiceAmount: 0,
+  orderAmount: undefined,
+  invoiceAmount: undefined,
 
   // データ多くなる見込みで、全てのデータを表示すると重くなるため、初期値は1年前から1年後までに設定
   // 必要に応じて調整。

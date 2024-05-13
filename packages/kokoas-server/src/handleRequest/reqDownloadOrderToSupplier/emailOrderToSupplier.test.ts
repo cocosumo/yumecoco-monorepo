@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { GetDownloadOrderSlipResult } from 'types/src/common/order';
 import { getOrderData } from './getOrderData';
-import { createOrderDocument } from './createOrderDocment/createOrderDocument';
+import { createOrderDocument } from './createOrderDocument/createOrderDocument';
 import { emailOrderToSupplier } from './emailOrderToSupplier';
 
 describe('emailOrderToSupplier', () => {

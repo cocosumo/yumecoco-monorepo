@@ -12,6 +12,7 @@ import { createOrderDetails } from './createOrderDetails';
 
 
 const isTest = false;
+const maxPageTempNum = 3;
 
 
 /** 
@@ -35,7 +36,7 @@ export const createOrderDocument = async (
 
 
   let template;
-  const templateName = hasOrderContract ? '工事依頼書請負書_20240510.pdf' : '工事依頼書_20240424.pdf';
+  const templateName = hasOrderContract ? '工事依頼書請負書_20240513.pdf' : '工事依頼書_20240513.pdf';
   if (!isTest) {
 
     console.log('template from S3');
@@ -86,8 +87,23 @@ export const createOrderDocument = async (
 
 
   // 不要なページを削除する
-  for (let i = maxPageNum; i < pages.length; i++) {
-    pdfDoc.removePage(maxPageNum);
+  if (maxPageTempNum > maxPageNum) {
+    if (hasOrderContract) {
+      // 工事依頼書の不要ページを削除
+      for (let i = maxPageNum; i < maxPageTempNum; i++) {
+        pdfDoc.removePage(maxPageNum);
+      }
+
+      // 工事依頼請書の不要ページを削除
+      const lastPage = maxPageNum * 2;
+      for (let i = lastPage; i < maxPageTempNum + maxPageNum; i++) {        
+        pdfDoc.removePage(lastPage);
+      }
+    } else {
+      for (let i = maxPageNum; i < pages.length; i++) {
+        pdfDoc.removePage(maxPageNum);
+      }
+    }
   }
 
 

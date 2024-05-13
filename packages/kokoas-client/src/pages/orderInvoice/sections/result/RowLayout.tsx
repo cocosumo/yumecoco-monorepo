@@ -40,6 +40,7 @@ export const RowLayout = ({
       <TableCell
         sx={{
           whiteSpace: 'nowrap',
+          width: '120px',
         }}
       >
         {invoiceStatus}
@@ -66,11 +67,11 @@ export const RowLayout = ({
         {invoiceSystemNumber}
       </TableCell>
 
-      <TableCell sx={{
-        whiteSpace: 'nowrap',
-        maxWidth: '200px',
-        textAlign: 'right',
-      }}
+      <TableCell align='right' 
+        sx={{
+          whiteSpace: 'nowrap',
+          maxWidth: '200px',
+        }}
       >
         {orderAmount}
         <br />

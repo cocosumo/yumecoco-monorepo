@@ -1,25 +1,23 @@
 import { 
-//   Box, 
-  TableHead, 
-//   TableSortLabel, 
+  TableHead,
+  TableSortLabel, 
 } from '@mui/material';
 import { RowLayout } from './RowLayout';
-// import { SearchResult } from '../../types';
-// import { Order } from 'types';
-// import { visuallyHidden } from '@mui/utils';
-// import { useParseQuery } from '../../hooks/useParseQuery';
-// import { useNavigate } from 'react-router-dom';
-// import qs from 'qs';
-// import { removeNullFalsyEmptyFromObject } from 'libs';
-// import { pages } from 'kokoas-client/src/pages/Router';
-// import { TypeOfForm } from '../../schema';
+import { KeyOfSearchResult } from '../../types';
+import { TypeOfForm } from '../../schema';
+import { useNavigate } from 'react-router-dom';
+import { removeNullFalsyEmptyFromObject } from 'libs';
+import { Order } from 'types';
+import qs from 'qs';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { useParsedQuery } from '../../hooks/useParsedQuery';
 
-/* const EnhancedTableCell = ({
+const EnhancedTableCell = ({
   fieldName,
   label,
   existingQuery,
 }: {
-  fieldName: keyof SearchResult,
+  fieldName: KeyOfSearchResult,
   label: string,
   existingQuery: TypeOfForm
 }) => {
@@ -30,7 +28,7 @@ import { RowLayout } from './RowLayout';
   } = existingQuery;
   const navigate = useNavigate();
 
-  const isActive = (orderBy as keyof SearchResult) === fieldName;
+  const isActive = (orderBy as KeyOfSearchResult) === fieldName;
 
   return (
     <TableSortLabel
@@ -45,21 +43,16 @@ import { RowLayout } from './RowLayout';
           }),
           { arrayFormat: 'comma', encode: false },
         );
-        navigate(`${pages.projSearch}?${queryStr}`);
+        navigate(`${pages.projOrderInvoiceSearch}?${queryStr}`);
       }}
     >
       {label}
-      {(orderBy as keyof SearchResult) === 'storeSortNumber' ? (
-        <Box component="span" sx={visuallyHidden}>
-          {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-        </Box>
-      ) : null}
     </TableSortLabel>
   );
-}; */
+}; 
 
 export const ResultHead = () => {
-  // const query = useParseQuery();
+  const query = useParsedQuery();
 
   return (
     <TableHead>
@@ -70,11 +63,41 @@ export const ResultHead = () => {
         cocoAgName={'ここすもAG'}
         supplierName={'業者名'}
         invoiceSystemNumber={'適格番号'}
-        orderAmount={'発注金額'}
-        paymentAmount={'支払金額'}
-        invoiceDate={'請求日'}
-        createdAt={'作成日時'}
-        updatedAt={'更新日時'}
+        orderAmount={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='orderAmount'
+            label='発注金額'
+          />
+        )}
+        paymentAmount={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='paymentAmount'
+            label='支払金額'
+          />
+        )}
+        invoiceDate={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='invoiceDate'
+            label='請求日'
+          />
+        )}
+        createdAt={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='createdAt'
+            label='作成日時'
+          />
+        )}
+        updatedAt={(
+          <EnhancedTableCell
+            existingQuery={query}
+            fieldName='updatedAt'
+            label='更新日時'
+          />
+        )}
       />
     </TableHead>
   );

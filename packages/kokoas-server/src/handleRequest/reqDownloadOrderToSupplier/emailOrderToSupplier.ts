@@ -2,7 +2,7 @@ import { SendParams, sendEmail } from 'api-sendgrid';
 import { isProd } from 'config';
 import { GetDownloadOrderSlipResult } from 'types/src/common/order';
 
-const testEmail = 'cocosumo.rpa03@gmail.com';
+const testEmail = 'system@cocosumo.co.jp';
 
 export const emailOrderToSupplier = async (orderSlipResult: GetDownloadOrderSlipResult) => {
   const {

@@ -6,10 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DevTool } from '@hookform/devtools';
 import { InvoiceDialogContent } from './invoiceDialogContent/InvoiceDialogContent';
 import { InvoiceDialogTitle } from './invoiceDialogTitle/InvoiceDialogTitle';
-import { CloseButton } from '../common/CloseButton';
 import { useResolveParams } from './hooks/useResolveParams';
 import { useLazyEffect } from 'kokoas-client/src/hooks';
 import { InvoiceDialogActions } from './invoiceDialogActions/InvoiceDialogActions';
+import { CloseButton } from '../CloseButton';
 
 export interface InvoiceDialogProps {
   open: boolean,

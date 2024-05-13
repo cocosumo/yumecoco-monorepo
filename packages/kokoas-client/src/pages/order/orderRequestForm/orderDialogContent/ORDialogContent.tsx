@@ -15,10 +15,8 @@ export const ORDialogContent = () => {
       <Alert 
         severity={'warning'}
       >
-        開発中です。
-        宛先は、テスト用メールに送信されます。
+        検証中です。取引先を設定しても、system@cocosumo.co.jpに送信されます。
         CCとBCCは入力したメールアドレスに送信されます。
-        確認したい場合は、メールアドレスを入力してください。
       </Alert>
 
       <SelectSupplier />

@@ -4,6 +4,9 @@ export interface SearchResult {
   /** uuid */
   invoiceId: string;
 
+  projId: string;
+  orderId: string;
+
   invoiceStatus: KInvoiceProgress;
   projName: string;
   storeName: string;

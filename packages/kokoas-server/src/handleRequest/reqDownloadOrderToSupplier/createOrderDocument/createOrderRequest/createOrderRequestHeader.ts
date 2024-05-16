@@ -55,53 +55,51 @@ export const createOrderRequestHeader = ({
 
 
   if (!isFirstPage) {
-    if (isLastPage) {
-      // 2枚目以降に記載する情報
-      // 発注番号
-      drawText(
-        tgtPage,
-        purchaseOrderId,
-        {
-          x: 695,
-          y: 550,
-          font: font,
-          size: 9,
-        },
-        {
-          weight: 0.1,
-        },
-      );
+    // 2枚目以降に記載する情報
+    // 発注番号
+    drawText(
+      tgtPage,
+      purchaseOrderId,
+      {
+        x: 695,
+        y: 550,
+        font: font,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
 
-      // 工事名([工事番号]　工事名)
-      drawText(
-        tgtPage,
-        `[${projNumJa}] ${projName}`,
-        {
-          x: 90,
-          y: 550,
-          font: font,
-          size: 9,
-        },
-        {
-          weight: 0.1,
-        },
-      );
+    // 工事名([工事番号]　工事名)
+    drawText(
+      tgtPage,
+      `[${projNumJa}] ${projName}`,
+      {
+        x: 90,
+        y: 550,
+        font: font,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
 
-      // ページ番号
-      drawText(
-        tgtPage,
-        `${pageNum + 1} / ${maxPageNum}`,
-        {
-          x: 790,
-          y: 570,
-          font: font,
-          size: 9,
-        },
-        {
-          weight: 0.1,
-        },
-      );
-    }
+    // ページ番号
+    drawText(
+      tgtPage,
+      `${pageNum + 1} / ${maxPageNum}`,
+      {
+        x: 790,
+        y: 570,
+        font: font,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+      },
+    );
   } else {
     if (!isLastPage) {
       // ページ番号

@@ -4,14 +4,21 @@ import { OrderDetails } from 'types/src/common/order';
 import { chkStrLength } from '../helper/chkStrLength';
 import { Big } from 'big.js';
 
-export const createOrderDetails = (
+export const createOrderDetails = ({
+  orderDetails,
+  tgtPage,
+  font,
+  isFirstPage,
+  startI,
+  maxI,
+}:{
   orderDetails: OrderDetails[],
   tgtPage: PDFPage,
   font: PDFFont,
   isFirstPage: boolean,
   startI: number,
   maxI: number,
-) => {
+}) => {
   for (let i = startI; i < maxI; i++) {
     const posOffset = 14.9 * (i - startI);
     const posYTop = isFirstPage ? 334 : 517;

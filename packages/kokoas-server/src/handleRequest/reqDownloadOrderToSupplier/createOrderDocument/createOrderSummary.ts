@@ -3,8 +3,9 @@ import { PDFFont, PDFPage } from 'pdf-lib';
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
 import { Big } from 'big.js';
 
-/** 工事依頼書を作成する */
-export const createOrderRequestSummary = ({
+
+
+export const createOrderSummary = ({
   orderData,
   tgtPage,
   font,

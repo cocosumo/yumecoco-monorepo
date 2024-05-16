@@ -6,7 +6,8 @@ import fs from 'fs/promises';
 import { getFilePath, getFont } from 'kokoas-server/src/assets';
 import { createOrderRequestHeader } from './createOrderRequest/createOrderRequestHeader';
 import { createOrderDetails } from './createOrderDetails';
-import { createOrderRequestSummary } from './createOrderRequest/createOrderRequestSummary';
+import { createOrderSummary } from './createOrderSummary';
+import { createOrderContractHeader } from './createOrderContract/createOrderContractHeader';
 
 
 
@@ -128,16 +129,18 @@ export const createOrderDocument = async (
     const maxI = isLastPage ? orderDetails.length : startI + rowNum;
 
 
-    createOrderDetails({
-      orderDetails,
-      tgtPage,
-      font: msChinoFont,
-      isFirstPage,
-      startI,
-      maxI,
-    });
+    for (let i = startI; i < maxI; i++) {
+      createOrderDetails({
+        orderDetails: orderDetails[i],
+        tgtPage,
+        font: msChinoFont,
+        isFirstPage,
+        posOfs: (i - startI),
+        rowNum: i,
+      });
+    }
 
-    createOrderRequestSummary({
+    createOrderSummary({
       orderData: data,
       tgtPage,
       font: msChinoFont,
@@ -149,6 +152,57 @@ export const createOrderDocument = async (
 
   } // 工事依頼書を作成する ここまで
 
+  // 工事依頼請書を作成する　ここから  
+  if (hasOrderContract) {
+    for (let pageNum = maxPageTempNum; pageNum < maxPageTempNum + maxPageNum; pageNum++) {
+      const tgtPage = pages[pageNum];
+      const isFirstPage = pageNum === maxPageTempNum;
+      const isLastPage = pageNum >= maxPageTempNum + maxPageNum - 1;
+
+      console.log('maxPageNum', maxPageNum, 'pageNum', pageNum, 'isFirstPage', isFirstPage, 'isLastPage', isLastPage);
+
+
+
+      createOrderContractHeader({
+        orderData: data,
+        tgtPage,
+        font: msChinoFont,
+        isFirstPage,
+        isLastPage,
+        pageNum: pageNum - maxPageTempNum,
+        maxPageNum,
+      });
+
+
+      // 発注明細の反映 明細行数分繰り返す
+      const rowNum = isFirstPage ? rowNumFirstPage : rowNumSecondPageAfter;
+      const startI = isFirstPage ? 0 : 20 + (pageNum - maxPageTempNum - 1) * rowNum;
+      const maxI = isLastPage ? orderDetails.length : startI + rowNum;
+
+
+      for (let i = startI; i < maxI; i++) {
+        createOrderDetails({
+          orderDetails: orderDetails[i],
+          tgtPage,
+          font: msChinoFont,
+          isFirstPage,
+          posOfs: (i - startI),
+          rowNum: i,
+        });
+      }
+
+      createOrderSummary({
+        orderData: data,
+        tgtPage,
+        font: msChinoFont,
+        isFirstPage,
+        isLastPage,
+        startI,
+        maxI,
+      });
+
+    }
+  } // 工事依頼請書を作成する　ここまで
 
 
   switch (contentType) {

@@ -7,6 +7,8 @@ import { LinkListItemButton } from './common/LinkListItemButton';
 export default function Invoice() {
 
   return (
-    <LinkListItemButton to={pages.projInvoice} icon={<MoneyIcon />} text={'請求入力'} />
+    <LinkListItemButton to={pages.projInvoice} icon={<MoneyIcon />} text={'請求入力'}
+      indented
+    />
   );
 }

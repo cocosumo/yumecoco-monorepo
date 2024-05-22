@@ -7,6 +7,8 @@ import { LinkListItemButton } from './common/LinkListItemButton';
 export default function PaymentInput() {
 
   return (
-    <LinkListItemButton to={pages.projPaymentInput} icon={<FactCheckIcon />} text={'入金情報入力'} />
+    <LinkListItemButton to={pages.projPaymentInput} icon={<FactCheckIcon />} text={'入金入力'}
+      indented
+    />
   );
 }

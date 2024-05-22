@@ -12,6 +12,7 @@ import ContractMenu from './menus/ContractMenu';
 import { ConstructionMenu } from './menus/ConstructionMenu';
 import OrderMenu from './menus/OrderMenu';
 import { isShowDev } from 'kokoas-client/src/config/settings';
+import PaymentMenu from './menus/PaymentMenu';
 
 export default function MainMenu() {
   return (
@@ -20,6 +21,7 @@ export default function MainMenu() {
       <ConstructionMenu />
       <ContractMenu />
       {isShowDev && <OrderMenu />}
+      {isShowDev && <PaymentMenu />}
 
       <Divider />
       <SystemMenu />

@@ -17,6 +17,7 @@ import { FormCustGroup } from './custGroup/FormCustGroup';
 import { FormProspectSearch } from './projProspectSearchV2/FormProspectSearch';
 import { FormOrder } from './order/FormOrder';
 import { FormOrderInvoice } from './orderInvoice/FormOrderInvoice';
+import { UnderDevelopment } from './UnderDevelopment';
 
 
 
@@ -60,7 +61,7 @@ export const pages = {
 
   /** BtoC */
   projInvoice: '/project/payment/invoice',
-  projPaymentSearch: '/project/payment/search',
+  projInvoiceSearch: '/project/payment/invoicesearch',
   projPaymentInput: '/project/payment/input',
 
   settings: '/settings',
@@ -112,9 +113,9 @@ const Router = () => (
 
 
     {/* 入金管理グループ */}
-    {/* <Route path={`${pages.projInvoice}`} element={<FormikInvoice />} /> */}
-    {/* <Route path={`${pages.projPaymentSearch}`} element={<UnderDevelopment />} /> */}
-    {/* <Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} /> */}
+    {<Route path={`${pages.projInvoice}`} element={<UnderDevelopment />} />}
+    {<Route path={`${pages.projInvoiceSearch}`} element={<UnderDevelopment />} />}
+    {<Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} />}
 
     {/* 設定 */}
     <Route path={`${pages.settings}/*`} element={<SettingsPage />} />

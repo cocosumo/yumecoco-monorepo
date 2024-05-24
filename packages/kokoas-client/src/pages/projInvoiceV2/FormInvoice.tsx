@@ -5,6 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { InvoiceFormDialog } from 'kokoas-client/src/components/ui/dialogs/invoiceForm/InvoiceFormDialog';
 import { FormInvoiceContainer } from './FormInvoiceContainer';
 import { TForm, schema } from './schema';
+import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
+import { pages } from '../Router';
+import { useEffect } from 'react';
 
 
 export const FormInvoice = () => {
@@ -18,30 +21,29 @@ export const FormInvoice = () => {
     resolver: zodResolver(schema),
   });
 
-  //const { control, reset } = formReturn;
-  /* initialFormが変わったら、リセットする */
+  const { control, reset } = formReturn;
 
-  /* useEffect(() => {
+  /* initialFormが変わったら、リセットする */
+  useEffect(() => {
     reset({ ...newFormValues });
-  }, [reset, newFormValues]); */
+  }, [reset, newFormValues]);
 
 
 
   return (
     <>
-
       <FormInvoiceContainer formReturn={formReturn}>
         <PageTitle3
           label={'顧客請求書作成'}
         />
 
-        {/* <SearchProjects
-          navigateTo={pages.projOrderInput}
+        <SearchProjects
+          navigateTo={pages.projInvoiceV2}
           controllerProps={{
             name: 'projId',
             control,
           }}
-        /> */}
+        />
 
         {/* <Actions />
         <OrderBudgetDataGrid />

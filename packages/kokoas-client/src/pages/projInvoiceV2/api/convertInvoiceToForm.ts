@@ -29,9 +29,9 @@ export const convertInvoiceToForm = ({
 
 
   return {
-    invoiceId: invoiceRec?.uuid.value || '',
-    invoiceStatus: invoiceRec?.invoiceStatus.value || '',
-    invoiceDataId: invoiceRec?.invoiceDataId.value || '',
+    invoiceId: invoiceRec?.uuid?.value || '',
+    invoiceStatus: invoiceRec?.invoiceStatus?.value || '',
+    invoiceDataId: invoiceRec?.invoiceDataId?.value || '',
     contractIds: contractIds,
     custGroupId: custGroupId.value,
     projId: uuid.value || '',
@@ -44,10 +44,10 @@ export const convertInvoiceToForm = ({
     billingTotalAmount: 0,
     invoiceIssueDate: null,
     scheduledPayDate: null,
-    payMethodPlan: invoiceRec?.payMethodPlan.value || '',
-    remarks: invoiceRec?.remarks.value || '',
+    payMethodPlan: invoiceRec?.payMethodPlan?.value || '',
+    remarks: invoiceRec?.remarks?.value || '',
 
-    invoiceDetails: invoiceRec.invoiceDetails.value.map(({
+    invoiceDetails: invoiceRec?.invoiceDetails?.value.map(({
       value: {
         billingAmountAfterTax,
         inovoiceItem,

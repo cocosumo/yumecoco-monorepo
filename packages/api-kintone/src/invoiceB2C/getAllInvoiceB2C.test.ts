@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import { getAllInvoiceB2C } from './getAllInvoiceB2C';
 
 describe('getAllInvoiceB2C', () => {
-  it('should return all invoiceB2B', async () => {
+  it('should return all invoiceB2C', async () => {
     const result = await getAllInvoiceB2C();
 
     console.log('result: ', result.length);

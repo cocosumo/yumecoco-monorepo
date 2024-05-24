@@ -8,6 +8,7 @@ import { TForm, schema } from './schema';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { useEffect } from 'react';
+import { ContractInfo } from './sections/contractInfo/ContractInfo';
 
 
 export const FormInvoice = () => {
@@ -45,10 +46,11 @@ export const FormInvoice = () => {
           }}
         />
 
+        <ContractInfo />
+
         {/* <Actions />
         <OrderBudgetDataGrid />
         <FooterActionButtons /> */}
-        工事中
       </FormInvoiceContainer>
 
       <InvoiceFormDialog />

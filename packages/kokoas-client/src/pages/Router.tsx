@@ -18,6 +18,7 @@ import { FormProspectSearch } from './projProspectSearchV2/FormProspectSearch';
 import { FormOrder } from './order/FormOrder';
 import { FormOrderInvoice } from './orderInvoice/FormOrderInvoice';
 import { UnderDevelopment } from './UnderDevelopment';
+import { FormInvoice } from './projInvoiceV2/FormInvoice';
 
 
 
@@ -61,6 +62,7 @@ export const pages = {
 
   /** BtoC */
   projInvoice: '/project/payment/invoice',
+  projInvoiceV2: '/project/payment/invoice/v2',
   projInvoiceSearch: '/project/payment/invoicesearch',
   projPaymentInput: '/project/payment/input',
 
@@ -113,7 +115,7 @@ const Router = () => (
 
 
     {/* 入金管理グループ */}
-    {<Route path={`${pages.projInvoice}`} element={<UnderDevelopment />} />}
+    {<Route path={`${pages.projInvoiceV2}`} element={<FormInvoice />} />}
     {<Route path={`${pages.projInvoiceSearch}`} element={<UnderDevelopment />} />}
     {<Route path={`${pages.projPaymentInput}`} element={<UnderDevelopment />} />}
 

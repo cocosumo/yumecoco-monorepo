@@ -81,3 +81,6 @@ export type KOrder = keyof IOrder;
 
 export type IInvoiceb2b = DBInvoiceb2b.SavedData;
 export type KInvoiceb2b = keyof IInvoiceb2b;
+
+export type IInvoiceb2c = DBInvoiceb2c.SavedData;
+export type KInvoiceb2c = keyof IInvoiceb2c;

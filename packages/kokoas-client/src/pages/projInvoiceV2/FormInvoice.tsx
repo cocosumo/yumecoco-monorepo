@@ -1,4 +1,4 @@
-import { PageTitle3 } from 'kokoas-client/src/components';
+import { EmptyBox, PageSubTitle3, PageTitle3 } from 'kokoas-client/src/components';
 import { useForm } from 'react-hook-form';
 import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -46,15 +46,27 @@ export const FormInvoice = () => {
           }}
         />
 
-        <ContractInfo />
+        {newFormValues.projId && (
+          <>
+            <PageSubTitle3 label={'契約情報'} />
+            <ContractInfo />
 
-        {/* <Actions />
+            {/* <Actions />
         <OrderBudgetDataGrid />
         <FooterActionButtons /> */}
+            {/* <OrderRequestDialog /> */}
+          </>
+        )}
+
+        {!newFormValues.projId && (
+          <EmptyBox>
+            工事を選択してください
+          </EmptyBox>
+
+        )}
       </FormInvoiceContainer>
 
       <InvoiceFormDialog />
-      {/* <OrderRequestDialog /> */}
     </>
   );
 };

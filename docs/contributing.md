@@ -6,5 +6,4 @@ TODO
 
 - NodeJS 18
 - ReactJS 18
-- Liveserver
 - Kintone

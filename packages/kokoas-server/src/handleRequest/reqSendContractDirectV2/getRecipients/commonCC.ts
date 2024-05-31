@@ -38,7 +38,7 @@ export const commonCC = (data: TContractData) => {
   });
 
   // 依頼番号：K118 -> k336
-  if (subAccountingEmail !== accountingEmail) {
+  if (subAccountingName !== accountingName) {
     ccs.push({
       email: accountingEmail,
       name: accountingName,

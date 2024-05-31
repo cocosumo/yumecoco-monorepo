@@ -14,27 +14,27 @@ import { appId, RecordType } from './config';
 export const getContractCheckers = async ({
   territory, // エリア
   storeId, // 店舗番号
-}:{
+}: {
   storeId: string,
   territory: string,
 }) => {
 
   const hqStoreId = '17212652-df2a-4616-ba51-8907947f9782';
-  const subAccountingId = '44e0d1ae-752e-4ef4-8542-c91495b52b52';
+  const subAccountingId = 'c606e9ef-22c9-4dac-a064-556708811d99';
 
   /*   const {
     territory, // エリア
   } =  await getStoreById(storeId); */
 
 
-  const keyStoreId : KEmployeeStores = 'affStoreId';
+  const keyStoreId: KEmployeeStores = 'affStoreId';
   const affiliation: KEmployees = 'affiliation';
-  const role : KEmployees = '役職';
+  const role: KEmployees = '役職';
   const empTerritory: KEmployees = 'territory_v2';
   const empStoreId: KEmployees = 'mainStoreId_v2';
   const cocosumo: EmpAffiliations = 'ここすも';
 
-  const storeMgrQuery =  [
+  const storeMgrQuery = [
     `${keyStoreId} in ("${storeId}")`,
     `${affiliation} in ("${cocosumo}")`,
     `${role} in ("店長")`,
@@ -74,10 +74,11 @@ export const getContractCheckers = async ({
   });
 
 
-  const storeMgr = records.find(({ 役職 }) => 役職.value === '店長' );
-  const accounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value !== hqStoreId );
-  const mainAccounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value === hqStoreId );
-  const subAccounting = records.find(({ uuid }) => uuid.value === subAccountingId );
+  const storeMgr = records.find(({ 役職 }) => 役職.value === '店長');
+  const accounting = records.find(({ mainStoreId_v2: mainStoreId, 役職, territory_v2: territoryV2 }) =>
+    役職.value === '経理' && mainStoreId.value !== hqStoreId && territoryV2.value === territory);
+  const mainAccounting = records.find(({ mainStoreId_v2: mainStoreId, 役職 }) => 役職.value === '経理' && mainStoreId.value === hqStoreId);
+  const subAccounting = records.find(({ uuid }) => uuid.value === subAccountingId);
 
   if (!records.length) throw new Error(`確認者の情報取得ができませんでした。店舗番号：${storeId}`);
   if (!storeMgr) throw new Error(`店長の情報取得ができませんでした。${storeMgr}`);

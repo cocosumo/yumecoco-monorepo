@@ -7,7 +7,7 @@ describe('getContractCheckers', () => {
     const {
       uuid: storeId,
       territory,
-    } = await getStoreById('df176cb7-b731-466b-a354-a1cd5cc8f748');
+    } = await getStoreById('83128853-98af-47af-9e5a-9d711bee4a43');
     const result = await getContractCheckers({
       storeId: storeId.value,
       territory: territory.value,
@@ -15,5 +15,6 @@ describe('getContractCheckers', () => {
     console.log(result);
 
     expect(result.mainAccounting.mainStore_v2.value).toBe('本社');
+    expect(result.accounting.territory_v2.value).toBe(territory.value);
   });
 });

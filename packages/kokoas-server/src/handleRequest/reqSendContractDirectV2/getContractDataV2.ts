@@ -15,11 +15,11 @@ import { isProd } from 'config';
 
 export type TContractData = Awaited<ReturnType<typeof getContractDataV2>>;
 
-const testTantouEmail = 'cocosumo.rpa03@gmail.com'; // 担当
-const testCustEmail = 'cocosumo.rpa03@gmail.com'; // 顧客
-const testTenchoEmail = 'cocosumo.rpa03@gmail.com'; // 店長
-const testKeiriEmail = 'cocosumo.rpa03@gmail.com'; // 経理
-const testHonKeiriEmail = 'cocosumo.rpa03@gmail.com'; //　本経理
+const testTantouEmail = 'cocosumo.cloud@gmail.com'; // 担当
+const testCustEmail = 'cocosumo.cloud@gmail.com'; // 顧客
+const testTenchoEmail = 'cocosumo.cloud@gmail.com'; // 店長
+const testKeiriEmail = 'cocosumo.cloud@gmail.com'; // 経理
+const testHonKeiriEmail = 'cocosumo.cloud@gmail.com'; //　本経理
 
 /**
  * Get Contract data across all involved database

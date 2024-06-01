@@ -1,7 +1,7 @@
 import { DialogActions, Stack } from '@mui/material';
 import { SaveButton } from './SaveButton';
 import { DownloadButton } from './DownloadButton';
-import { ReturnButton } from './returnButton.tsx/ReturnButton';
+import { ReturnButton } from './returnButton/ReturnButton';
 import { useOrderStatus } from '../hooks/useOrderStatus';
 
 export const OrderDialogActions = () => {

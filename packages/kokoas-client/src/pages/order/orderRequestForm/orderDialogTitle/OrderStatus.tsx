@@ -1,6 +1,6 @@
 import { Chip, Zoom } from '@mui/material';
-import { useOrderWatch } from '../../hooks/useOrderRHF';
-import { TOrderForm } from '../../schema';
+import { useOrderWatch } from '../hooks/useOrderRHF';
+import { TOrderForm } from '../schema';
 import { statusBGcolorMap, statusFGcolorMap } from 'kokoas-client/src/lib/progressColors';
 import { useOrderById } from 'kokoas-client/src/hooksQuery';
 import { KProgress } from 'types/src/common/order';

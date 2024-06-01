@@ -1,5 +1,5 @@
 import { Dialog } from '@mui/material';
-import { OrderDialogTitle } from './orderDialogContent/orderDialogTitle/OrderDialogTitle';
+import { OrderDialogTitle } from './orderDialogTitle/OrderDialogTitle';
 import { ORDialogContent } from './orderDialogContent/ORDialogContent';
 import { OrderDialogActions } from './orderDialogActions/OrderDialogActions';
 import { FormProvider, useForm } from 'react-hook-form';

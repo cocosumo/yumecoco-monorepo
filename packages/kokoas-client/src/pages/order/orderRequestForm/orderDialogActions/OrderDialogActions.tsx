@@ -2,19 +2,17 @@ import { DialogActions, Stack } from '@mui/material';
 import { SaveButton } from './SaveButton';
 import { DownloadButton } from './DownloadButton';
 import { ReturnButton } from './returnButton.tsx/ReturnButton';
-import { useOrderWatch } from '../hooks/useOrderRHF';
-import { TOrderForm } from '../schema';
+import { useOrderStatus } from '../hooks/useOrderStatus';
 
 export const OrderDialogActions = () => {
-  const orderId = useOrderWatch({
-    name: 'orderId',
-  }) as TOrderForm['orderId'];
+  const {
+    orderStatus,
+  } = useOrderStatus();
 
-  const hasOrder = !!orderId;
 
   return (
     <DialogActions>
-      {hasOrder && <ReturnButton />}
+      {orderStatus === '発注済' && <ReturnButton />}
       
       <Stack
         spacing={2}

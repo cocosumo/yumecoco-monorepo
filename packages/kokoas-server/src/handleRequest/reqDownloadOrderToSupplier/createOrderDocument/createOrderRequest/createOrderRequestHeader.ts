@@ -1,7 +1,7 @@
 import { drawText } from 'kokoas-server/src/api/docusign/contracts/helpers/pdf';
 import { PDFFont, PDFPage } from 'pdf-lib';
 import { OrderData } from 'types/src/common/order';
-import { getConstPeriod } from '../../helper/getConstPeriod';
+import { formatDate, getConstPeriod } from '../../helper/getConstPeriod';
 
 
 
@@ -46,6 +46,8 @@ export const createOrderRequestHeader = ({
     storeFax,
     buildingLicenseNumber,
     invoiceSystemNumber,
+    expectedDeliveryDate,
+    remarks,
 
     supplierAddress1,
     supplierAddress2,
@@ -366,6 +368,45 @@ export const createOrderRequestHeader = ({
       },
       {
         weight: 0.1,
+      },
+    );
+
+    let posYRemarksTop = 415;
+    if (expectedDeliveryDate) {
+      // 希望納期
+      drawText(
+        tgtPage,
+        `希望納期：${formatDate(expectedDeliveryDate)}`,
+        {
+          x: 520,
+          y: posYRemarksTop,
+          font: font,
+          size: 9,
+        },
+        {
+          weight: 0.1,
+        },
+      );
+
+      posYRemarksTop = 400;
+    }
+
+    // 特記事項
+    if (remarks.includes('\n')) {
+      posYRemarksTop = posYRemarksTop - 5;
+    }
+    drawText(
+      tgtPage,
+      `特記事項：${remarks ? remarks : ''}`,
+      {
+        x: 520,
+        y: posYRemarksTop,
+        font: font,
+        size: 9,
+      },
+      {
+        weight: 0.1,
+
       },
     );
   }

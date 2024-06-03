@@ -154,6 +154,12 @@ export interface OrderData {
   /** 適格請求書発行事業者番号 */
   invoiceSystemNumber: string,
 
+  /** 希望納期 */
+  expectedDeliveryDate: string,
+
+  /** 特記事項 */
+  remarks: string,
+
   /** 発注詳細 */
   orderDetails: OrderDetails[],
 }

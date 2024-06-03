@@ -116,6 +116,8 @@ export const getOrderData = async (orderId: string): Promise<OrderData> => {
     supplierOfficerEmail: orderRecord.supplierOfficerEmail.value,
     emailCc: orderRecord.emailCc.value,
     emailBcc: orderRecord.emailBcc.value,
+    expectedDeliveryDate: orderRecord.expectedDeliveryDate.value,
+    remarks: orderRecord.remarks.value,
 
     agStore: store?.店舗名.value || '',
     storeArea: store?.area.value || '',

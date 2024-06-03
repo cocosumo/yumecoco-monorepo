@@ -4,6 +4,7 @@ import { ArrayPath, FieldArray, FieldValues, useFieldArray, useFormContext } fro
 import { v4 } from 'uuid';
 
 interface TRowFields {
+  orderId?: string;
   itemId?: string;
 }
 
@@ -163,7 +164,10 @@ export function useDataGridKeyCellKeyDown<T extends FieldValues, TRow extends TR
       }
 
       if ( enableDeleteRow && ctrlKey && key === '-') {
-      // 選択中のセルで、行を削除する。
+        // 選択中のセルで、行を削除する。
+        
+        if (row.orderId) return; // 発注がある場合、行削除できない。
+        
         if (isHeadRow) return; // ヘッダーの場合、削除しない。
         remove(rowIdx);
         selectCell({ rowIdx: rowIdx - 1, idx });

@@ -33,7 +33,7 @@ export const createOrderDocument = async (
 
 
   let template;
-  const templateName = hasOrderContract ? '工事依頼書請負書_20240513.pdf' : '工事依頼書_20240513.pdf';
+  const templateName = hasOrderContract ? '工事依頼書請負書_20240603.pdf' : '工事依頼書_20240603.pdf';
   if (!isTest) {
 
     console.log('template from S3');
@@ -49,7 +49,7 @@ export const createOrderDocument = async (
       const pdfPath = getFilePath({
         fileName: '工事依頼書請負書',
         fileType: 'pdf',
-        version: '20240513',
+        version: '20240603',
       });
       template = await fs.readFile(pdfPath);
 

@@ -33,23 +33,27 @@ export const getContractCheckers = async ({
   const empTerritory: KEmployees = 'territory_v2';
   const empStoreId: KEmployees = 'mainStoreId_v2';
   const cocosumo: EmpAffiliations = 'ここすも';
+  const condition: KEmployees = '状態';
 
   const storeMgrQuery = [
     `${keyStoreId} in ("${storeId}")`,
     `${affiliation} in ("${cocosumo}")`,
     `${role} in ("店長")`,
+    `${condition} in ("有効")`,
   ].join(' and ');
 
   const accountingQuery = [
     `${role} in ("経理")`,
     `${affiliation} in ("${cocosumo}")`,
     `${empTerritory} = "${territory}"`,
+    `${condition} in ("有効")`,
   ].join(' and ');
 
   const accountingHQQuery = [
     `${role} in ("経理")`,
     `${affiliation} in ("山豊")`,
     `${empStoreId} = "${hqStoreId}"`,
+    `${condition} in ("有効")`,
   ].join(' and ');
 
   // https://rdmuhwtt6gx7.cybozu.com/k/34/show#record=152
@@ -57,6 +61,7 @@ export const getContractCheckers = async ({
     `${role} in ("経理")`,
     `${affiliation} in ("${cocosumo}")`,
     `uuid = "${subAccountingId}"`,
+    `${condition} in ("有効")`,
   ].join(' and ');
 
   const finalQuery = [

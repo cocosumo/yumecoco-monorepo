@@ -65,7 +65,7 @@ const schema = z.object({
     .optional(),
 
   /** 設計契約金を含むかどうか */
-  includePlanContractAmt: z.boolean(),
+  includePlanContractAmt: z.string(),
 
   /** 契約合計金額（税込）*/
   totalContractAmtAfterTax: z.number(),

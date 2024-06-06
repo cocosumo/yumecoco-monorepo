@@ -43,7 +43,7 @@ export const IncludeContractPlanAmt = () => {
 
                     <FormControlLabel
                       key={label}
-                      value={label === 'はい'}
+                      value={label}
                       control={<Radio />}
                       label={label}
                     />

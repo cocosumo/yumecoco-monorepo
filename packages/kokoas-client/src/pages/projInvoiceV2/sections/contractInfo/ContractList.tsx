@@ -8,12 +8,14 @@ import { IContracts } from 'types';
 
 export const ContractList = ({
   contracts,
+  maxWidth = '100%',
 }: {
   contracts: IContracts[]
+  maxWidth?: string
 }) => {
 
   return (
-    <Typography variant='body1' component={'span'}>
+    <Typography variant='body1' component={'span'} maxWidth={maxWidth}>
       {contracts.length
         ? (
           contracts
@@ -25,7 +27,7 @@ export const ContractList = ({
                 <Button
                   size='small'
                   variant='outlined'
-                  color='secondary'
+                  color={c.envelopeStatus.value === 'completed' ? 'success' : 'secondary'}
                   endIcon={<OpenInNewIcon />}
                   sx={{
                     mr: 1,

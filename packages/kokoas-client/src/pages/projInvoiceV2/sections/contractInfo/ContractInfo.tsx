@@ -5,6 +5,7 @@ import { grey } from '@mui/material/colors';
 import { PlanContractInfo } from './PlanContractInfo';
 import { ContractList } from './ContractList';
 import { IContracts } from 'types';
+import { TotalContractAmt } from './TotalContractAmt';
 
 
 
@@ -20,14 +21,16 @@ export const ContractInfo = () => {
 
   const { data = [] } = useContractsByProjIdV2(projId);
 
-  const hasPlanContractAmt = data.some(({ includePlanContractAmt }) => includePlanContractAmt.value === '1');
+  const hasExcludedPlanContractAmt = data.some(({ includePlanContractAmt, contractType }) =>
+    (includePlanContractAmt.value === '1') && (contractType.value === '契約'));
 
   let validContracts = data;
   let planContract = [] as IContracts[];
-  if (hasPlanContractAmt) {
+  if (hasExcludedPlanContractAmt) {
     validContracts = data.filter(({ contractType }) => contractType.value !== '設計契約');
     planContract = data.filter(({ contractType }) => contractType.value === '設計契約');
   }
+
 
   return (
 
@@ -42,11 +45,12 @@ export const ContractInfo = () => {
         direction={'row'}
         justifyContent={'justifyContent'}
       >
-        <ContractList contracts={validContracts} />
-        {planContract.length !== 0 &&
-        <PlanContractInfo contract={planContract} />}
+        <ContractList contracts={validContracts} maxWidth={'50%'} />
+        {hasExcludedPlanContractAmt &&
+          <PlanContractInfo excludedPlanContract={planContract} />}
 
       </Stack>
+      <TotalContractAmt contracts={validContracts} />
     </Stack>
   );
 };

@@ -18,9 +18,12 @@ export const useOrderStatus = () => {
     status,
   } = data || {};
 
-  const orderStatus = (orderId 
-    ? status?.value || '未発注'
-    : '新規') as KProgress | undefined;
+
+  let orderStatus = status?.value as KProgress | undefined;
+
+  if (orderId && status?.value === '') {
+    orderStatus = '未発注';
+  }
 
   return {
     orderStatus,

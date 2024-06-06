@@ -7,7 +7,7 @@ describe('getContractCheckers', () => {
     const {
       uuid: storeId,
       territory,
-    } = await getStoreById('83128853-98af-47af-9e5a-9d711bee4a43');
+    } = await getStoreById('df176cb7-b731-466b-a354-a1cd5cc8f748');
     const result = await getContractCheckers({
       storeId: storeId.value,
       territory: territory.value,

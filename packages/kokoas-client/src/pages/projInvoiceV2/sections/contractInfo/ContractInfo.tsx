@@ -17,7 +17,7 @@ export const ContractInfo = () => {
     name: [
       'projId',
     ],
-  }) as [string, string[]];
+  }) as [string];
 
   const { data = [] } = useContractsByProjIdV2(projId);
 

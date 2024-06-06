@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Tooltip, Typography } from '@mui/material';
 import { IContracts } from 'types';
 import { ContractList } from './ContractList';
 import { grey } from '@mui/material/colors';
@@ -27,9 +27,14 @@ export const PlanContractInfo = ({
         spacing={1}
         minWidth={'230px'}
       >
-        <Typography variant='body1' component={'span'}>
-          以下の契約書は請求に含みません
-        </Typography>
+
+        <Tooltip
+          title={'設計契約を請求に含めたい場合は、"カテゴリ=契約"の契約書の設定を修正してください'}
+        >
+          <Typography variant='body1' component={'span'}>
+            以下の契約書は請求に含みません
+          </Typography>
+        </Tooltip>
         <ContractList contracts={excludedPlanContract} />
       </Stack>
     </Stack>

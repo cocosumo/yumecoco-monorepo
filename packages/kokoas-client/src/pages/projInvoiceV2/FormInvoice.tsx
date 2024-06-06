@@ -10,6 +10,7 @@ import { pages } from '../Router';
 import { Fragment, useEffect } from 'react';
 import { ContractInfo } from './sections/contractInfo/ContractInfo';
 import { CustomerInfo } from './sections/CustomerInfo/CustomerInfo';
+import { ProjInfo } from './sections/ProjInfo/ProjInfo';
 
 
 export const FormInvoice = () => {
@@ -54,6 +55,9 @@ export const FormInvoice = () => {
 
             <PageSubTitle3 label={'顧客情報'} />
             <CustomerInfo />
+            
+            <PageSubTitle3 label={'工事情報'} />
+            <ProjInfo />
             
 
             {/* <Actions />

@@ -1,10 +1,66 @@
-import { Fragment } from 'react';
+import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
+import { ComponentProps, useMemo } from 'react';
+import { StaticContents } from '../../parts/StaticContents';
+import { addressBuilder } from 'libs';
+import { pages } from 'kokoas-client/src/pages/Router';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
+
+
 
 export const CustomerInfo = () => {
 
+  const [
+    custGroupId,
+  ] = useTypedWatch({
+    name: [
+      'custGroupId',
+    ],
+  }) as [string];
+
+  const { data, isLoading } = useCustGroupById(custGroupId);
+
+  const parsedData: ComponentProps<typeof StaticContents>['data'] = useMemo(() => {
+
+    if (!data) return [];
+
+    const {
+      storeName,
+      members,
+    } = data || {};
+
+    const custNames = members.value
+      .map(({ value: { customerName } }) => customerName.value)
+      .join('、 ');
+
+    const {
+      postal,
+      address1,
+      address2,
+    } = members.value[0].value;
+
+    const address = addressBuilder({
+      postal: postal.value,
+      address1: address1.value,
+      address2: address2.value,
+    });
+
+    return [
+      { label: '店舗', value: storeName?.value },
+      { label: '顧客名', value: custNames },
+      { label: '現住所', value: address },
+    ];
+
+  }, [
+    data,
+  ]);
+
+
   return (
-    <Fragment>
-      顧客情報
-    </Fragment>
+    <StaticContents
+      buttonLabel='顧客情報を編集する'
+      data={parsedData}
+      isLoading={isLoading}
+      pageUrl={pages.custGroupEditV2}
+    />
   );
 };

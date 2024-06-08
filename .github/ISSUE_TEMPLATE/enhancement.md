@@ -1,6 +1,7 @@
 ---
 name: 新機能・変更
 description: 機能や変更の依頼
+about: 機能や変更の依頼
 title: feat-
 labels: enhancement
 assignees: ''

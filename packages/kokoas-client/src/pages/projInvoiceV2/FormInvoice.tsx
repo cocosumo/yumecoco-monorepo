@@ -1,4 +1,4 @@
-import { PageTitle3 } from 'kokoas-client/src/components';
+import { EmptyBox, PageSubTitle3, PageTitle3 } from 'kokoas-client/src/components';
 import { useForm } from 'react-hook-form';
 import { useResolveParams } from './hooks/useResolveParams';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +7,9 @@ import { FormInvoiceContainer } from './FormInvoiceContainer';
 import { TForm, schema } from './schema';
 import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
+import { ContractInfo } from './sections/contractInfo/ContractInfo';
+import { CustomerInfo } from './sections/CustomerInfo/CustomerInfo';
 
 
 export const FormInvoice = () => {
@@ -45,14 +47,31 @@ export const FormInvoice = () => {
           }}
         />
 
-        {/* <Actions />
+        {newFormValues.projId && (
+          <Fragment>
+            <PageSubTitle3 label={'契約情報'} />
+            <ContractInfo />
+
+            <PageSubTitle3 label={'顧客情報'} />
+            <CustomerInfo />
+            
+
+            {/* <Actions />
         <OrderBudgetDataGrid />
         <FooterActionButtons /> */}
-        工事中
+            {/* <OrderRequestDialog /> */}
+          </Fragment>
+        )}
+
+        {!newFormValues.projId && (
+          <EmptyBox>
+            工事を選択してください
+          </EmptyBox>
+
+        )}
       </FormInvoiceContainer>
 
       <InvoiceFormDialog />
-      {/* <OrderRequestDialog /> */}
     </>
   );
 };

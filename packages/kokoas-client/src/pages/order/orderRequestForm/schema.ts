@@ -12,11 +12,18 @@ const emailOrEmptyString = z.string().email()
   .or(z.literal(''));
 
 export const schema = z.object({
+  /** kintone record Id */
+  orderRecordId: z.string()
+    .optional(),
+    
   projId: z.string(),
   projName: z.string(),
   storeName: z.string(),
+
+  /** order uuid */
   orderId: z.string()
     .optional(),
+
   orderDataId: z.string(),
   supplierId: z.string().nonempty({
     message: '業者を選択してください',

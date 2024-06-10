@@ -39,6 +39,7 @@ export * from './useCustomersById';
 export * from './useCustomersByIds';
 export * from './useDeleteContractById';
 export * from './useDeleteInvoiceB2BBy$Id';
+export * from './useDeleteOrderBy$Id';
 export * from './useDetailedAndpadOrderByProjId';
 export * from './useDownloadInvoiceId';
 export * from './useDownloadOrderSlipById';

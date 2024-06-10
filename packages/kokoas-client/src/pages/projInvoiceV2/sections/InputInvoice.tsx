@@ -1,10 +1,21 @@
 import { Fragment } from 'react';
+import { DisplaySection } from './InputInvoice/DisplaySection';
+import { InputSection } from './InputInvoice/InputSection';
+import { Remarks } from './InputInvoice/Remarks';
+import { Summary } from './InputInvoice/Summary';
+import { Divider } from '@mui/material';
+
+
 
 export const InputInvoice = () => {
 
   return (
     <Fragment>
-      入力フォーム
+      <Divider />
+      <DisplaySection />
+      <InputSection />
+      <Remarks />
+      <Summary />
     </Fragment>
   );
 };

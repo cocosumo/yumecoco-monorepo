@@ -6,6 +6,8 @@ export const initialValues: TForm = {
   invoiceDataId: '',
   projId: '',
   contractIds: [],
+  excludedPlanContracts: [],
+  hasExcludedPlanContractAmt: false,
   custGroupId: '',
   projName: '',
   projDataId: '',

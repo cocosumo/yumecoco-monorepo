@@ -1,24 +1,15 @@
 import { Button } from '@mui/material';
-import { useConfirmDialog } from 'kokoas-client/src/hooks';
+import { useDeleteOrder } from './useDeleteOrder';
 
 export const DeleteButton = () => {
 
-  const { setDialogState } = useConfirmDialog();
+  const { handleConfirmDeleteOrder } = useDeleteOrder();
 
   return (
     <Button
       variant="contained"
       color="error"
-      onClick={() => {
-        setDialogState({
-          open: true,
-          title: '削除確認',
-          content: '削除するとデータは完全に消え復元できません。削除しますか？',
-          handleYes: () => {
-            alert('開発中です。');
-          },
-        });
-      }}
+      onClick={handleConfirmDeleteOrder}
     >
       削除
     </Button>

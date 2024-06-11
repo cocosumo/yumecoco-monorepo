@@ -1,9 +1,9 @@
 import { useCustGroupById } from 'kokoas-client/src/hooksQuery';
 import { ComponentProps, useMemo } from 'react';
-import { StaticContents } from '../../parts/StaticContents';
+import { StaticContents } from '../parts/StaticContents';
 import { addressBuilder } from 'libs';
 import { pages } from 'kokoas-client/src/pages/Router';
-import { useTypedWatch } from '../../hooks/useTypedRHF';
+import { useTypedWatch } from '../hooks/useTypedRHF';
 
 
 

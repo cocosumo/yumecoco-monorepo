@@ -21,11 +21,12 @@ export const convertOrderToForm = (data: IOrder): Partial<TOrderForm> => {
     emailBcc,
     remarks,
     expectedDeliveryDate,
-
+    $id,
   } = data;
 
   return {
     orderId: uuid.value,
+    orderRecordId: $id.value,
     orderDataId:  orderDataId.value,
     projId: projId.value,
     supplierId: supplierId.value,

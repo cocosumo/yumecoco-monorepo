@@ -50,6 +50,7 @@ export const SelectSupplier = () => {
               <Box 
                 component="li" 
                 {...props}
+                key={option.id}
               >
                 {option.label}
               </Box>

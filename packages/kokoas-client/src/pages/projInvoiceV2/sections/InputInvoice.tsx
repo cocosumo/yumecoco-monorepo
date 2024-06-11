@@ -1,22 +1,21 @@
-import { Fragment } from 'react';
 import { DisplaySection } from './InputInvoice/DisplaySection';
 import { InputSection } from './InputInvoice/InputSection/InputSection';
-import { Remarks } from './InputInvoice/Remarks';
+import { RemarksGroup } from './InputInvoice/RemarksGroup/RemarksGroup';
 import { Summary } from './InputInvoice/Summary';
-import { Divider } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 
 
 
 export const InputInvoice = () => {
 
   return (
-    <Fragment>
+    <Stack direction='column' spacing={2}>
       <Divider />
 
       <DisplaySection />
       <InputSection />
-      <Remarks />
+      <RemarksGroup />
       <Summary />
-    </Fragment>
+    </Stack>
   );
 };

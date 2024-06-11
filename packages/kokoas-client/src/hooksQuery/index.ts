@@ -28,7 +28,6 @@ export * from './useContractsByCustGroupId';
 export * from './useContractsByCustGroupIdV2';
 export * from './useContractsByEstId';
 export * from './useContractsByIds';
-export * from './useContractsByProjIds';
 export * from './useContractsByProjIdV2';
 export * from './useContractsByProjIds';
 export * from './useConvertToAndpadByProjId';

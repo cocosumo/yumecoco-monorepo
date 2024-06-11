@@ -1,15 +1,23 @@
 import { Stack, Tooltip, Typography } from '@mui/material';
-import { IContracts } from 'types';
 import { ContractList } from './ContractList';
 import { grey } from '@mui/material/colors';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
+import { useContractsByIds } from 'kokoas-client/src/hooksQuery';
 
 
 /** 請求に含まない設計契約書を表示します */
-export const PlanContractInfo = ({
-  excludedPlanContract,
-}: {
-  excludedPlanContract: IContracts[]
-}) => {
+export const PlanContractInfo = () => {
+
+  const [
+    excludedPlanContracts,
+  ] = useTypedWatch({
+    name: [
+      'excludedPlanContracts',
+    ],
+  }) as [string[]];
+
+
+  const { data: excludedPlanContract = [] } = useContractsByIds({ contractIds: excludedPlanContracts });
 
 
 

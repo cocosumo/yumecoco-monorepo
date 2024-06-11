@@ -3,6 +3,9 @@ import { z } from 'zod';
 
 z.setErrorMap(zodErrorMapJA());
 
+
+export const payMethods = ['持参', '集金', '振込'] as const;
+
 const invoiceDetail = z.object({
   /** 請求項目 */
   invoiceItem: z.string(),
@@ -29,6 +32,12 @@ export const schema = z.object({
 
   /** 契約のuuid */
   contractIds: z.array(z.string().uuid()),
+
+  /** 契約のuuid */
+  excludedPlanContracts: z.array(z.string().uuid()),
+  
+  /** 請求対象外の設計契約の有無 */
+  hasExcludedPlanContractAmt: z.boolean(),
 
   /** 顧客グループ番号 */
   custGroupId: z.string(),

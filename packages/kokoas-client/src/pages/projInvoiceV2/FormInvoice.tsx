@@ -9,7 +9,9 @@ import { SearchProjects } from 'kokoas-client/src/components/reactHookForm';
 import { pages } from '../Router';
 import { Fragment, useEffect } from 'react';
 import { ContractInfo } from './sections/contractInfo/ContractInfo';
-import { CustomerInfo } from './sections/CustomerInfo/CustomerInfo';
+import { CustomerInfo } from './sections/CustomerInfo';
+import { ProjInfo } from './sections/ProjInfo';
+import { InputInvoice } from './sections/InputInvoice';
 
 
 export const FormInvoice = () => {
@@ -49,12 +51,16 @@ export const FormInvoice = () => {
 
         {newFormValues.projId && (
           <Fragment>
+            <PageSubTitle3 label={'顧客情報'} />
+            <CustomerInfo />
+
+            <PageSubTitle3 label={'工事情報'} />
+            <ProjInfo />
+
             <PageSubTitle3 label={'契約情報'} />
             <ContractInfo />
 
-            <PageSubTitle3 label={'顧客情報'} />
-            <CustomerInfo />
-            
+            <InputInvoice />
 
             {/* <Actions />
         <OrderBudgetDataGrid />

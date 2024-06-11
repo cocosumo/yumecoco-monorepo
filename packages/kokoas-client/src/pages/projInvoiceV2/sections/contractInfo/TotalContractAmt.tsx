@@ -1,25 +1,26 @@
-import { Typography } from '@mui/material';
-import { IContracts } from 'types';
+import { useTypedWatch } from '../../hooks/useTypedRHF';
+import { AmountInfo } from '../../parts/AmountInfo';
+
 
 
 /** 合計契約金額を表示します */
-export const TotalContractAmt = ({
-  contracts,
-}: {
-  contracts: IContracts[]
-}) => {
+export const TotalContractAmt = () => {
 
-  const totalContractAmt = contracts.reduce((acc, { totalContractAmt: contractAmt }) => {
-    return acc + +contractAmt.value;
-  }, 0);
+  const [
+    totalContractAmt,
+  ] = useTypedWatch({
+    name: [
+      'totalContractAmtAfterTax',
+    ],
+  }) as [string];
+
 
   return (
-    <Typography
-      variant='h6'
-      component={'span'}
-      style={{ textDecoration: 'underline' }}
-    >
-      {`合計契約金額  ${totalContractAmt.toLocaleString()} 円`}
-    </Typography>
+    <AmountInfo
+      label={'合計契約金額'}
+      value={`${totalContractAmt.toLocaleString()} 円`}
+      labelVariant='body1'
+      valueVariant='h6'
+    />
   );
 };

@@ -1,21 +1,16 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
-import { KTInvoiceDetail } from '../../../schema';
-import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
 import { BillingItems } from './InputSection';
-
 
 
 
 export const InvoiceItem = ({
   index,
-  name,
   required,
   billingItems,
 }: {
   index: number,
-  name: KTInvoiceDetail,
   required?: boolean
   billingItems: BillingItems[]
 }) => {
@@ -25,7 +20,7 @@ export const InvoiceItem = ({
   return (
 
     <Controller
-      name={`invoiceDetails.${index}.${name}`}
+      name={`invoiceDetails.${index}.invoiceItem`}
       control={control}
       render={({
         field: {
@@ -44,11 +39,9 @@ export const InvoiceItem = ({
         const showError = !!error && (isTouched || isSubmitted);
 
         return (
-          <Box
-            bgcolor='white'
-            p={2}
-            border={1}
-            borderColor={grey[300]}
+          <Stack
+            direction={'row'}
+            spacing={2}
           >
             <FormControl
               size='small'
@@ -87,8 +80,9 @@ export const InvoiceItem = ({
               <FormHelperText>
                 {showError && error.message}
               </FormHelperText>
+
             </FormControl>
-          </Box>
+          </Stack>
         );
       }}
     />

@@ -1,10 +1,16 @@
-import { Fragment } from 'react';
-//import { BillingAmount } from './BillingAmount';
-//import { InvoiceItem } from './InvoiceItem';
+import { Box, Stack } from '@mui/material';
+import { InvoiceItem } from './InvoiceItem';
+import { grey } from '@mui/material/colors';
+import { BillingAmount } from './BillingAmount';
 
 
+export type BillingItems = {
+  contractType: string;
+  label: string;
+  amount: number;
+};
 
-const billingItems = [{
+const billingItems: BillingItems[] = [{
   contractType: '契約',
   label: '着工金',
   amount: 600000,
@@ -20,20 +26,31 @@ const billingItems = [{
   amount: -500000,
 }];
 
-export type BillingItems = typeof billingItems[0];
 
 
 export const InputSection = () => {
 
+  const index = 0; // TODO仮
 
   return (
-    <Fragment>
-      {/* <InvoiceItem
-        index={0} // 仮
-        name="invoiceItem"
-        billingItems={billingItems}
-      />
-      <BillingAmount /> */}
-    </Fragment>
+    <Box
+      bgcolor='white'
+      p={2}
+      border={1}
+      borderColor={grey[300]}
+    >
+      <Stack direction={'column'}>
+        <InvoiceItem
+          index={index}
+          billingItems={billingItems}
+        />
+        <BillingAmount
+          index={index}
+          billingItems={billingItems}
+        />
+        {/* TODO 行追加ボタンの配置 */}
+        {/* TODO 複数行表示されている場合のみ、行削除ボタンの配置 */}
+      </Stack>
+    </Box>
   );
 };

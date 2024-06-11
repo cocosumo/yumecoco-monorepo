@@ -3,6 +3,7 @@ import { calculateRowAmount, formatDataId, roundTo } from 'libs';
 import { IProjestimates } from 'types';
 import { TunitChoices } from '../validationSchema';
 import { TForm } from '../schema';
+import { initialRow } from '../form';
 
 export const convertEstimateToForm = (
   recEstimate: IProjestimates,
@@ -69,6 +70,7 @@ export const convertEstimateToForm = (
       }
 
       return {
+        ...initialRow,
         itemId: String(itemId),
         costPrice,
         quantity,

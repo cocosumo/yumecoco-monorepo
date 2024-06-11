@@ -28,6 +28,7 @@ export const initialValues : TForm = {
   taxRate: 10,
   items: [
     {
+      selected: false,
       itemId: v4(),
       costPrice: 0,
       materialProfRate: 0,

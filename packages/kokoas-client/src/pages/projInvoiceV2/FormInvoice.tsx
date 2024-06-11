@@ -11,6 +11,7 @@ import { Fragment, useEffect } from 'react';
 import { ContractInfo } from './sections/contractInfo/ContractInfo';
 import { CustomerInfo } from './sections/CustomerInfo';
 import { ProjInfo } from './sections/ProjInfo';
+import { InputInvoice } from './sections/InputInvoice';
 
 
 export const FormInvoice = () => {
@@ -59,6 +60,7 @@ export const FormInvoice = () => {
             <PageSubTitle3 label={'契約情報'} />
             <ContractInfo />
 
+            <InputInvoice />
 
             {/* <Actions />
         <OrderBudgetDataGrid />

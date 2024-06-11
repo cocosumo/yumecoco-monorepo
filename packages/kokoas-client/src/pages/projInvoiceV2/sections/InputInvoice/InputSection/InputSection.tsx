@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
-import { BillingAmount } from './BillingAmount';
-import { InvoiceItem } from './InvoiceItem';
+//import { BillingAmount } from './BillingAmount';
+//import { InvoiceItem } from './InvoiceItem';
 
 
 
@@ -28,12 +28,12 @@ export const InputSection = () => {
 
   return (
     <Fragment>
-      <InvoiceItem
+      {/* <InvoiceItem
         index={0} // 仮
         name="invoiceItem"
         billingItems={billingItems}
       />
-      <BillingAmount />
+      <BillingAmount /> */}
     </Fragment>
   );
 };

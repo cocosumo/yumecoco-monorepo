@@ -12,6 +12,7 @@ export const InputInvoice = () => {
   return (
     <Fragment>
       <Divider />
+
       <DisplaySection />
       <InputSection />
       <Remarks />

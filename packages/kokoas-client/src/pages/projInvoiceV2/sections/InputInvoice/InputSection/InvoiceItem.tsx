@@ -1,21 +1,40 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
-import { BillingItems } from './InputSection';
 
 
+
+export type BillingItems = {
+  contractType: string;
+  label: string;
+  amount: number;
+};
+
+const billingItems: BillingItems[] = [{
+  contractType: '契約',
+  label: '着工金',
+  amount: 600000,
+},
+{
+  contractType: '契約',
+  label: '最終金',
+  amount: 400000,
+},
+{
+  contractType: '追加',
+  label: 'その他',
+  amount: -500000,
+}];
 
 export const InvoiceItem = ({
   index,
   required,
-  billingItems,
 }: {
   index: number,
   required?: boolean
-  billingItems: BillingItems[]
 }) => {
 
-  const { control } = useTypedFormContext();
+  const { control, setValue } = useTypedFormContext();
 
   return (
 
@@ -57,7 +76,15 @@ export const InvoiceItem = ({
               <Select
                 value={value as string || ''}
                 onChange={(e) => {
-                  onChange(e.target.value);
+
+                  const newItemLabel = e.target.value;
+                  const newBillingAmt = billingItems.find(({ contractType, label }) =>
+                    (`${contractType}-${label}`) === newItemLabel)?.amount || 0;
+
+                  setValue(`invoiceDetails.${index}.billingAmount`, newBillingAmt);
+
+                  onChange(newItemLabel);
+
                 }}
                 label='項目'
                 size='small'
@@ -82,7 +109,7 @@ export const InvoiceItem = ({
               </FormHelperText>
 
             </FormControl>
-          </Stack>
+          </Stack >
         );
       }}
     />

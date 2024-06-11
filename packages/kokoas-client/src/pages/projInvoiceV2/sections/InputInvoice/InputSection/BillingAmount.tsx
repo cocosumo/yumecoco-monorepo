@@ -1,21 +1,47 @@
-import { Fragment } from 'react';
-import { BillingItems } from './InputSection';
+import { TextField } from '@mui/material';
+import { Controller } from 'react-hook-form';
+import { useTypedFormContext } from '../../../hooks/useTypedRHF';
 
 
 
 export const BillingAmount = ({
   index,
-  required,
-  billingItems,
+  required = false,
 }: {
   index: number,
   required?: boolean
-  billingItems: BillingItems[]
 }) => {
 
+  const {
+    control,
+  } = useTypedFormContext();
+
   return (
-    <Fragment>
-      {/* InvoiceItemで選択した項目の金額をデフォルト表示し、編集も可能とする */}
-    </Fragment>
+    <Controller
+      control={control}
+      name={`invoiceDetails.${index}.billingAmount`}
+      render={({
+        field: {
+          value,
+          ...otherValue
+        },
+        fieldState: {
+          error,
+        },
+      }) => {
+
+        return (
+          <TextField
+            {...otherValue}
+            value={value || ''}
+            label={'請求金額(税込)'}
+            size='small'
+            error={!!error}
+            helperText={error?.message}
+            required={required}
+          />
+        );
+      }}
+    />
   );
 };

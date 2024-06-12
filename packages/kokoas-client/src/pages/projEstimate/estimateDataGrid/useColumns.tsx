@@ -9,6 +9,7 @@ import { renderMaterials } from './renderers/renderMaterials';
 import { useFormState, useWatch } from 'react-hook-form';
 import { renderText } from './renderers/renderText';
 import { renderNumber } from './renderers/renderNumber';
+import { renderCheckbox } from './renderers/renderCheckBox';
 
 export type RowItem = TItem;
 
@@ -69,6 +70,16 @@ export const useColumns = (): MyColumn[] => {
   return useMemo(() => {
 
     return [
+      {
+        key: 'selected',
+        name: '',
+        frozen: true,
+        resizable: false,
+        width: 35,
+        minWidth: 40,
+        cellClass: 'no-ellipsis',
+        renderCell: renderCheckbox,
+      },
       {
         key: 'itemId',
         name: 'No.',

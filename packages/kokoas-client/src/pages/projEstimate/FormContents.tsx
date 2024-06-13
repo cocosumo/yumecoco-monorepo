@@ -162,7 +162,6 @@ export const FormContents = ({
    
         <Stack 
           spacing={2}
-          justifyContent={'flex-start'}
         >
           <GridActions />
           <EstimatesDataGrid />

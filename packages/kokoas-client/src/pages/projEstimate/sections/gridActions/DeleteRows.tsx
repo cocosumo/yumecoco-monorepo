@@ -15,7 +15,7 @@ export const DeleteRows = () => {
   const { setSnackState } = useSnackBar();
 
   const selectedItems = useMemo(() => {
-    return items.filter((item) => !item.selected);
+    return items.filter((item) => item.selected);
 
   }, [items]);
   
@@ -26,7 +26,7 @@ export const DeleteRows = () => {
     setSnackState({
       open: true,
       severity: 'info',
-      message: `${newItems.length}行削除しました。まだ保存されていません。\n削除を確定するには保存してください。`,
+      message: `${selectedItems.length}行削除しました。まだ保存されていません。\n削除を確定するには保存してください。`,
       autoHideDuration: 10000,
     });
   };

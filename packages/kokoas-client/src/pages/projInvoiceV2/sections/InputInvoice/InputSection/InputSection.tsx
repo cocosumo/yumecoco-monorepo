@@ -1,13 +1,31 @@
-import { Box, Stack } from '@mui/material';
+import { Alert, Box, Stack } from '@mui/material';
 import { InvoiceItem } from './InvoiceItem';
 import { grey } from '@mui/material/colors';
 import { BillingAmount } from './BillingAmount';
+import { useTypedFormContext } from '../../../hooks/useTypedRHF';
+import { useFieldArray } from 'react-hook-form';
+import { AddButton } from './AddButton';
+import { initInvDetailsValue } from '../../../form';
+import { DeleteButton } from './DeleteButton';
 
 
 
 export const InputSection = () => {
+  const { control } = useTypedFormContext();
 
-  const index = 0; // TODO仮
+  const {
+    fields: invoiceDetails,
+    insert,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'invoiceDetails',
+  });
+
+  const invDetailsLen = invoiceDetails.length;
+  const isMaxInv = invDetailsLen >= 7;
+  const isMinInv = invDetailsLen <= 1;
+
 
   return (
     <Box
@@ -16,16 +34,51 @@ export const InputSection = () => {
       border={1}
       borderColor={grey[300]}
     >
-      <Stack direction={'column'}>
-        <InvoiceItem
-          index={index}
-        />
-        <BillingAmount
-          index={index}
-        />
-        {/* TODO 行追加ボタンの配置 */}
-        {/* TODO 複数行表示されている場合のみ、行削除ボタンの配置 */}
+      <Stack
+        spacing={1}
+        direction={'column'}
+      >
+        {invoiceDetails.map((invoiceDetail, index) => {
+          return (
+            <Stack
+              spacing={2}
+              direction={'row'}
+              alignItems={'center'}
+              key={invoiceDetail.id}
+            >
+              <InvoiceItem
+                index={index}
+              />
+              <BillingAmount
+                index={index}
+              />
+
+              <AddButton
+                disabled={isMaxInv}
+                handleClick={() => {
+                  insert(index + 1, {
+                    ...initInvDetailsValue,
+                    invoiceItem: '',
+                  });
+                }}
+              />
+
+              <DeleteButton
+                disabled={isMinInv}
+                handleClick={() => remove(index)}
+              />
+            </Stack>
+          );
+        })}
       </Stack>
+
+      {isMaxInv && (
+        <Alert>
+          一度に請求できる項目は最大7件までです。
+        </Alert>
+      )}
+
+
     </Box>
   );
 };

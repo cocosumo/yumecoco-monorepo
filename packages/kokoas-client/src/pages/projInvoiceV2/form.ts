@@ -1,4 +1,10 @@
-import { TForm } from './schema';
+import { TForm, TInvoiceDetail } from './schema';
+
+
+export const initInvDetailsValue: TInvoiceDetail = {
+  invoiceItem: '',
+  billingAmount: 0,
+};
 
 export const initialValues: TForm = {
   invoiceId: '',
@@ -19,11 +25,6 @@ export const initialValues: TForm = {
   invoiceIssueDate: null,
   scheduledPayDate: null,
   payMethodPlan: '',
-  invoiceDetails: [
-    {
-      invoiceItem: '',
-      billingAmount: 0,
-    },
-  ],
+  invoiceDetails: [initInvDetailsValue],
   remarks: '',
 };

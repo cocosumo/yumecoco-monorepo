@@ -1,9 +1,15 @@
-import { Button } from '@mui/material';
+import { Stack } from '@mui/material';
+import { InsertRow } from './InsertRow';
 
 export const GridActions = () => {
   return (
-    <Button>
-      追加
-    </Button>
+    <Stack 
+      direction="row"
+      spacing={2}
+    >
+      <InsertRow />
+      
+      {/* More functionalities here */}
+    </Stack>
   );
 };

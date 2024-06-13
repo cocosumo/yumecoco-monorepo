@@ -160,7 +160,10 @@ export const FormContents = ({
 
         <PageSubTitle3 label={<OrderTableLabel />} />
    
-        <Stack>
+        <Stack 
+          spacing={2}
+          justifyContent={'flex-start'}
+        >
           <GridActions />
           <EstimatesDataGrid />
           <Summary />

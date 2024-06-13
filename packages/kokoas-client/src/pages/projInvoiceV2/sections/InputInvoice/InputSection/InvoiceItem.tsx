@@ -1,30 +1,9 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
+import { useBillingItems } from '../../../hooks/useBillingItems';
 
 
-
-export type BillingItems = {
-  contractType: string;
-  label: string;
-  amount: number;
-};
-
-const billingItems: BillingItems[] = [{
-  contractType: '契約',
-  label: '着工金',
-  amount: 600000,
-},
-{
-  contractType: '契約',
-  label: '最終金',
-  amount: 400000,
-},
-{
-  contractType: '追加',
-  label: 'その他',
-  amount: -500000,
-}];
 
 export const InvoiceItem = ({
   index,
@@ -35,6 +14,9 @@ export const InvoiceItem = ({
 }) => {
 
   const { control, setValue } = useTypedFormContext();
+
+  const billingItems = useBillingItems();
+
 
   return (
 

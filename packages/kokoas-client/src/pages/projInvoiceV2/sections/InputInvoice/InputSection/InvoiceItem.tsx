@@ -15,7 +15,9 @@ export const InvoiceItem = ({
 
   const { control, setValue } = useTypedFormContext();
 
-  const billingItems = useBillingItems();
+  const {
+    billingItems,
+  } = useBillingItems();
 
 
   return (

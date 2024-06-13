@@ -5,7 +5,7 @@ import { getInvoiceB2CByProjId } from './getInvoiceB2CByProjId';
 
 describe('getInvoiceB2CByProjId', () => {
   it('should return invoiceB2C with matching projId', async () => {
-    const tesiId = '99dafcde-88ef-4bc2-a1ac-008ff62a6c7a';
+    const tesiId = '66bc6fc7-0ace-45b8-9b58-84ba5da195d0';
     const result = await getInvoiceB2CByProjId(tesiId);
 
     console.log('result: ', result.length);

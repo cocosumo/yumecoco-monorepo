@@ -20,6 +20,7 @@ import { pages } from '../Router';
 import { generateParams } from 'kokoas-client/src/helpers/url';
 import { OrderTableLabel } from 'kokoas-client/src/components/inputGridLabel/OrderTableLabel';
 import { useConfirmBeforeClose } from 'kokoas-client/src/hooks/useConfirmBeforeClose';
+import { GridActions } from './sections/gridActions/GridActions';
 
 
 export const FormContents = ({
@@ -159,7 +160,11 @@ export const FormContents = ({
 
         <PageSubTitle3 label={<OrderTableLabel />} />
    
-        <Stack>
+        <Stack 
+          spacing={2}
+          justifyContent={'flex-start'}
+        >
+          <GridActions />
           <EstimatesDataGrid />
           <Summary />
         </Stack>

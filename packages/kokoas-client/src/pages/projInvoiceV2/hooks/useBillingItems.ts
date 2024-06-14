@@ -28,7 +28,10 @@ export const useBillingItems = () => {
   // 請求書から請求済みの請求項目リストを作成する
   const billedItems = getBilledItems({ invoices });
 
-  const billingItems = getBillingItems({ contracts });
+  const billingItems = getBillingItems({
+    contracts,
+    billedItems,
+  });
 
   return {
     billingItems: billingItems,

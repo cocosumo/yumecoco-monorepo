@@ -1,5 +1,6 @@
 import { ContractType } from 'kokoas-client/src/pages/projContractV2/schema';
 import { IContracts } from 'types';
+import { BilledItem } from './getBilledItems';
 
 
 
@@ -12,12 +13,14 @@ export type BillingItem = {
 
 export const getBillingItems = ({
   contracts,
+  billedItems,
 }: {
   contracts: IContracts[] | undefined
+  billedItems: BilledItem[]
 }) => {
   if (!contracts) return [] as BillingItem[];
 
-  
+
   const contractNum = contracts.reduce((acc, { contractType }) => {
     if (contractType.value === '契約') {
       acc.formalContractsNum += 1;
@@ -39,9 +42,23 @@ export const getBillingItems = ({
     amount: string,
     hasAmt?: boolean,
   ): BillingItem | null => {
-    return (amount !== '0' || hasAmt) ? { contractType, label, amount: +amount, disabled: false } : null;
+
+    if (amount !== '0' || hasAmt) {
+      const hasInvoice = billedItems.some(({ contractType: pastContType, label: pastLabel }) => {
+        return (pastContType === contractType) && (pastLabel === label);
+      });
+
+      return {
+        contractType,
+        label,
+        amount: +amount,
+        disabled: hasInvoice,
+      };
+    } else {
+      return null;
+    }
   };
-  
+
   const getContractName = (contractType: string, index: number) => {
     if ((contractType === '契約' && contractNum.formalContractsNum > 1)
       || (contractType === '追加' && contractNum.addContractsNum > 1)) {

@@ -2,6 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { getContractById } from 'api-kintone';
 import { produce } from 'immer';
 import { getBillingItems } from './getBillingItems';
+import { BilledItem } from './getBilledItems';
 
 
 describe('getBillingItems', () => {
@@ -98,8 +99,15 @@ describe('getBillingItems', () => {
     });
     const contracts = [formalContract, addtionalContract, addtionalContract2];
 
+    const billedItems: BilledItem[] = [{
+      contractType: '契約',
+      label: '契約金',
+      amount: 1000000,
+    }];
+
     const result = getBillingItems({
       contracts,
+      billedItems,
     });
 
     console.log('結果', result);

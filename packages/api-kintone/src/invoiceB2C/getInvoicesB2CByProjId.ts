@@ -3,7 +3,7 @@ import { RecordKey, RecordType, appId } from './config';
 
 const idField: RecordKey = 'projId';
 
-export const getInvoiceB2CByProjId = async (
+export const getInvoicesB2CByProjId = async (
   projId: string,
 ) => getRecords<RecordType>({
   app: appId,

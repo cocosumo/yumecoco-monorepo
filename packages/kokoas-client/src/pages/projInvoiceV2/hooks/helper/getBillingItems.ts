@@ -1,3 +1,4 @@
+import { ContractType } from 'kokoas-client/src/pages/projContractV2/schema';
 import { IContracts } from 'types';
 
 
@@ -16,6 +17,22 @@ export const getBillingItems = ({
 }) => {
   if (!contracts) return [] as BillingItem[];
 
+  
+  const contractNum = contracts.reduce((acc, { contractType }) => {
+    if (contractType.value === '契約') {
+      acc.formalContractsNum += 1;
+    } else if (contractType.value === '追加') {
+      acc.addContractsNum += 1;
+    }
+
+    return acc;
+
+  }, {
+    formalContractsNum: 0,
+    addContractsNum: 0,
+  });
+
+
   const createBillingItem = (
     contractType: string,
     label: string,
@@ -23,6 +40,28 @@ export const getBillingItems = ({
     hasAmt?: boolean,
   ): BillingItem | null => {
     return (amount !== '0' || hasAmt) ? { contractType, label, amount: +amount, disabled: false } : null;
+  };
+  
+  const getContractName = (contractType: string, index: number) => {
+    if ((contractType === '契約' && contractNum.formalContractsNum > 1)
+      || (contractType === '追加' && contractNum.addContractsNum > 1)) {
+      return `${contractType}${index}`;
+    }
+    return contractType;
+  };
+
+  const contractCounters = {
+    設計契約: 0,
+    契約: 0,
+    追加: 0,
+  };
+
+  const getContractIndex = (contractType: ContractType) => {
+    if (Object.prototype.hasOwnProperty.call(contractCounters, contractType)) {
+      contractCounters[contractType]++;
+      return contractCounters[contractType];
+    }
+    return 0;
   };
 
   const billingItems = contracts?.reduce((acc, {
@@ -38,9 +77,9 @@ export const getBillingItems = ({
     reductionAmt,
     //hasSubsidy,
     //subsidyAmt,
-  }, index) => {
-
-    const contractName = `${contractType.value}${index}`;
+  }) => {
+    const index = getContractIndex(contractType.value as ContractType);
+    const contractName = getContractName(contractType.value, index);
 
     const itemsToAdd = [
       createBillingItem(contractName, '契約金', contractAmt.value),

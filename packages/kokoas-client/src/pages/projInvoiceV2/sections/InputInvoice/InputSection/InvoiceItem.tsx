@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack, Tooltip } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select, Stack, Tooltip } from '@mui/material';
 import { useBillingItems } from '../../../hooks/useBillingItems';
 
 
@@ -17,6 +17,7 @@ export const InvoiceItem = ({
 
   const {
     billingItems,
+    isFetching,
   } = useBillingItems();
 
 
@@ -41,6 +42,7 @@ export const InvoiceItem = ({
       }) => {
         const showError = !!error && (isTouched || isSubmitted);
 
+
         return (
           <Stack
             direction={'row'}
@@ -57,7 +59,9 @@ export const InvoiceItem = ({
               <InputLabel>
                 項目
               </InputLabel>
-              <Select
+
+              {isFetching && (<LinearProgress />)}
+              {!isFetching && <Select
                 value={value as string || ''}
                 onChange={(e) => {
 
@@ -73,7 +77,7 @@ export const InvoiceItem = ({
                 label='項目'
                 size='small'
                 {...otherFields}
-              >
+                              >
                 {
                   billingItems.map((billingItem) => {
                     const itemLabel = `${billingItem.contractType}-${billingItem.label}`;
@@ -95,14 +99,14 @@ export const InvoiceItem = ({
                     );
                   })
                 }
-                
+
                 <MenuItem
                   key={'その他'}
                   value={'other'}
                 >
                   その他
                 </MenuItem>
-              </Select>
+              </Select>}
               <FormHelperText>
                 {showError && error.message}
               </FormHelperText>

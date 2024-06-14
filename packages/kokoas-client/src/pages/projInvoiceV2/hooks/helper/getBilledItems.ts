@@ -11,8 +11,10 @@ export type BilledItem = {
 export const getBilledItems = ({
   invoices,
 }: {
-  invoices: IInvoiceb2c[]
+  invoices: IInvoiceb2c[] | undefined
 }) => {
+
+  if (!invoices) return [] as BilledItem[];
 
   const billedItems = invoices.reduce((acc, invoice) => {
     const { invoiceDetails: {

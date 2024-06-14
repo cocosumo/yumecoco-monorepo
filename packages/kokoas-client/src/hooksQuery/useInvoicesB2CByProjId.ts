@@ -3,18 +3,17 @@ import { getInvoicesB2CByProjId } from 'api-kintone/src/invoiceB2C/getInvoicesB2
 import { AppIds } from 'config';
 
 
-
-export const useInvoicesB2CByProjId = <T>(
+/** 工事番号で請求一覧（B2C）を取得する */
+export const useInvoicesB2CByProjId = (
   projId = '',
-  options?: { select: (data: Awaited<ReturnType<typeof getInvoicesB2CByProjId>>) => T },
+  enabled = true,
 ) => {
 
   return useQuery(
     [AppIds.invoiceB2C, { projId }],
     () => getInvoicesB2CByProjId(projId),
     {
-      enabled: !!projId,
-      ...options,
+      enabled: !!projId && enabled,
     },
   );
 };

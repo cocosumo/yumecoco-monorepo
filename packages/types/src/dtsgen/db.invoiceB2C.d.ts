@@ -1,5 +1,6 @@
 declare namespace DBInvoiceb2c {
   interface Data {
+    scheduledPayDate: kintone.fieldTypes.Date;
     payMethodPlan: kintone.fieldTypes.SingleLineText;
     projId: kintone.fieldTypes.SingleLineText;
     projDataId: kintone.fieldTypes.SingleLineText;
@@ -15,7 +16,6 @@ declare namespace DBInvoiceb2c {
     custName: kintone.fieldTypes.SingleLineText;
     PersonInCharge: kintone.fieldTypes.SingleLineText;
     invoiceStatus: kintone.fieldTypes.SingleLineText;
-    scheduledPaymentDate: kintone.fieldTypes.Date;
     remarks: kintone.fieldTypes.MultiLineText;
     invoiceDetails: {
       type: "SUBTABLE";
@@ -23,8 +23,7 @@ declare namespace DBInvoiceb2c {
         id: string;
         value: {
           billingAmountAfterTax: kintone.fieldTypes.Number;
-          otherDetails: kintone.fieldTypes.SingleLineText;
-          inovoiceItem: kintone.fieldTypes.SingleLineText;
+          invoiceItem: kintone.fieldTypes.SingleLineText;
         };
       }>;
     };
@@ -34,9 +33,9 @@ declare namespace DBInvoiceb2c {
         id: string;
         value: {
           itemRemarks: kintone.fieldTypes.SingleLineText;
-          paymentAmountAfterTax: kintone.fieldTypes.SingleLineText;
-          paymentDate: kintone.fieldTypes.Date;
+          payAmountAfterTax: kintone.fieldTypes.SingleLineText;
           payMethodActual: kintone.fieldTypes.SingleLineText;
+          payDate: kintone.fieldTypes.Date;
         };
       }>;
     };

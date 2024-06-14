@@ -1,4 +1,3 @@
-
 import { getContractsByProjId } from 'api-kintone';
 import { AppIds } from 'config';
 import { useQuery } from '@tanstack/react-query';

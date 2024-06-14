@@ -81,11 +81,11 @@ export const convertInvoiceToForm = ({
     invoiceDetails: invoiceRec?.invoiceDetails?.value.map(({
       value: {
         billingAmountAfterTax,
-        inovoiceItem,
+        invoiceItem,
       },
     }) => {
       return ({
-        invoiceItem: inovoiceItem.value,
+        invoiceItem: invoiceItem.value,
         billingAmount: +billingAmountAfterTax.value,
       });
     }),

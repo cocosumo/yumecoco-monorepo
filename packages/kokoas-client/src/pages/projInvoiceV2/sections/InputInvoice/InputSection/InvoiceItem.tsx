@@ -1,30 +1,9 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select, Stack, Tooltip } from '@mui/material';
+import { useBillingItems } from '../../../hooks/useBillingItems';
 
 
-
-export type BillingItems = {
-  contractType: string;
-  label: string;
-  amount: number;
-};
-
-const billingItems: BillingItems[] = [{
-  contractType: '契約',
-  label: '着工金',
-  amount: 600000,
-},
-{
-  contractType: '契約',
-  label: '最終金',
-  amount: 400000,
-},
-{
-  contractType: '追加',
-  label: 'その他',
-  amount: -500000,
-}];
 
 export const InvoiceItem = ({
   index,
@@ -35,6 +14,12 @@ export const InvoiceItem = ({
 }) => {
 
   const { control, setValue } = useTypedFormContext();
+
+  const {
+    billingItems,
+    isFetching,
+  } = useBillingItems();
+
 
   return (
 
@@ -57,6 +42,7 @@ export const InvoiceItem = ({
       }) => {
         const showError = !!error && (isTouched || isSubmitted);
 
+
         return (
           <Stack
             direction={'row'}
@@ -73,7 +59,9 @@ export const InvoiceItem = ({
               <InputLabel>
                 項目
               </InputLabel>
-              <Select
+
+              {isFetching && (<LinearProgress />)}
+              {!isFetching && <Select
                 value={value as string || ''}
                 onChange={(e) => {
 
@@ -89,21 +77,36 @@ export const InvoiceItem = ({
                 label='項目'
                 size='small'
                 {...otherFields}
-              >
+                              >
                 {
                   billingItems.map((billingItem) => {
                     const itemLabel = `${billingItem.contractType}-${billingItem.label}`;
                     return (
-                      <MenuItem
+                      <Tooltip
+                        title={billingItem.disabled ? '請求済み' : ''}
                         key={itemLabel}
-                        value={itemLabel}
                       >
-                        {itemLabel}
-                      </MenuItem>
+                        <span>
+                          <MenuItem
+                            key={itemLabel}
+                            value={itemLabel}
+                            disabled={billingItem.disabled}
+                          >
+                            {itemLabel}
+                          </MenuItem>
+                        </span>
+                      </Tooltip>
                     );
                   })
                 }
-              </Select>
+
+                <MenuItem
+                  key={'その他'}
+                  value={'other'}
+                >
+                  その他
+                </MenuItem>
+              </Select>}
               <FormHelperText>
                 {showError && error.message}
               </FormHelperText>

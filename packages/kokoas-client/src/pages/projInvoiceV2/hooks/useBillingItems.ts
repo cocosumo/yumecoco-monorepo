@@ -1,31 +1,7 @@
-import { useContractsByProjIdV2, useInvoiceB2CByProjId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByProjIdV2, useInvoicesB2CByProjId } from 'kokoas-client/src/hooksQuery';
 import { useTypedWatch } from './useTypedRHF';
 import { getBillingItems } from './helper/getBillingItems';
-import { IContracts } from 'types';
-
-
-
-/* const billingItems: BillingItems[] = [{
-    contractType: '契約',
-    label: '着工金',
-    amount: 600000,
-    disabled: false,
-  },
-  {
-    contractType: '契約',
-    label: '最終金',
-    amount: 400000,
-    disabled: false,
-  },
-  {
-    contractType: '追加',
-    label: 'その他',
-    amount: -500000,
-    disabled: false,
-  }]; */
-
-
-
+import { getBilledItems } from './helper/getBilledItems';
 
 
 
@@ -47,10 +23,12 @@ export const useBillingItems = () => {
   const {
     data: invoices,
     isFetching: isFetchingInvoice,
-  } = useInvoiceB2CByProjId(projId || '');
+  } = useInvoicesB2CByProjId(projId || '');
 
+  // 請求書から請求済みの請求項目リストを作成する
+  const billedItems = getBilledItems({ invoices });
 
-  const billingItems = getBillingItems({ contracts: contracts });
+  const billingItems = getBillingItems({ contracts });
 
   return {
     billingItems: billingItems,

@@ -3,6 +3,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { produce } from 'immer';
 import { useTypedFormContext } from '../../hooks';
 import { initialRow } from '../../form';
+import { v4 } from 'uuid';
 
 /**
  * 
@@ -16,6 +17,7 @@ export const InsertRow = () => {
   
   const handleInsert = () => {
     const items = getValues('items');
+    const profitRate = getValues('projTypeProfit');
 
     const selectedCell = document.querySelector('div[role="grid"] div[aria-selected="true"]');
     let parsedRowIdx = items.length;
@@ -28,7 +30,15 @@ export const InsertRow = () => {
     }
 
     setValue('items', produce(items, draft => {
-      draft.splice(parsedRowIdx, 0, { ...initialRow });
+      draft.splice(
+        parsedRowIdx, 
+        0, 
+        { 
+          ...initialRow, 
+          itemId: v4(),
+          materialProfRate: profitRate,
+        },
+      );
     }));
     
 

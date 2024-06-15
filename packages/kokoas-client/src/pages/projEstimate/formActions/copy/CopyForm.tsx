@@ -19,8 +19,9 @@ export const CopyForm = () => {
           variant="outlined"
           size="large"
           onClick={() => setOpen(true)}
+          startIcon={<ContentCopyIcon />}
         >
-          <ContentCopyIcon />
+          コピー
         </Button>
 
       </Tooltip>

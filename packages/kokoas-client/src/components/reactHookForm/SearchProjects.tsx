@@ -72,6 +72,8 @@ export function SearchProjects<T extends BaseFields>(
         id: projId,
         projName: projName,
       });
+    } else {
+      setValue(null);
     }
   }, [projId, projName]);
 

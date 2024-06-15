@@ -14,10 +14,9 @@ export const CopyForm = () => {
 
   return (
     <>
-      <Tooltip title={'当レコードをコピーし、新なレコードを作成します'}>
+      <Tooltip title={'当見積をコピーし、新な見積を作成します'}>
         <Button
           variant="outlined"
-          size="large"
           onClick={() => setOpen(true)}
           startIcon={<ContentCopyIcon />}
         >

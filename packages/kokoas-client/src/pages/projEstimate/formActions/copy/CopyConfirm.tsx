@@ -25,8 +25,8 @@ export const CopyConfirm = ({
       handleClose();
       setSnackState({
         open: true,
-        autoHideDuration: 2000,
-        message: 'コピーしました。',
+        autoHideDuration: 5000,
+        message: 'コピーしました。工事を選択してください。',
         severity: 'success',
         handleClose: () => {
           setBackdropState({ open: false });

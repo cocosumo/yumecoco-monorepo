@@ -76,7 +76,7 @@ export const convertToKintone = ({
     contractType: { value: contractType || '契約' },
     contractAddType: { value: contractAddType || '' },
 
-    includePlanContractAmt: { value: (+(includePlanContractAmt === 'はい')).toString() },
+    includePlanContractAmt: { value: (+includePlanContractAmt).toString() },
     
     totalContractAmt: { value: totalContractAmtAfterTax.toString() },
     totalProfit: { value: totalProfit.toString() },

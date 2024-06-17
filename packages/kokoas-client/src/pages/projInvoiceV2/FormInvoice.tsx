@@ -32,10 +32,12 @@ export const FormInvoice = () => {
     reset({ ...newFormValues });
   }, [reset, newFormValues]);
 
+  const { projId } = newFormValues;
 
+  console.log('projId', projId);
 
   return (
-    <>
+    <Fragment>
       <FormInvoiceContainer formReturn={formReturn}>
         <PageTitle3
           label={'顧客請求書作成'}
@@ -49,7 +51,7 @@ export const FormInvoice = () => {
           }}
         />
 
-        {newFormValues.projId && (
+        {projId && (
           <Fragment>
             <PageSubTitle3 label={'顧客情報'} />
             <CustomerInfo />
@@ -69,7 +71,7 @@ export const FormInvoice = () => {
           </Fragment>
         )}
 
-        {!newFormValues.projId && (
+        {!projId && (
           <EmptyBox>
             工事を選択してください
           </EmptyBox>
@@ -78,6 +80,6 @@ export const FormInvoice = () => {
       </FormInvoiceContainer>
 
       <InvoiceFormDialog />
-    </>
+    </Fragment>
   );
 };

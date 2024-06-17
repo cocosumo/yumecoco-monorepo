@@ -8,12 +8,14 @@ export const AmountInfo = ({
   justifyContent,
   labelVariant = 'body2',
   valueVariant = 'body1',
+  hasUnderLine = true,
 }: {
   label: string,
   value: string,
   justifyContent?: StackProps['justifyContent']
   labelVariant?: TypographyVariant
   valueVariant?: TypographyVariant
+  hasUnderLine?: boolean
 }) => {
 
   return (
@@ -37,15 +39,16 @@ export const AmountInfo = ({
         }}
       >
         {value}
-        <span
-          style={{
-            position: 'absolute',
-            bottom: '-2px', // Adjust this value as needed
-            left: '0',
-            width: '100%',
-            borderBottom: '1px solid black',
-          }}
-        />
+        {hasUnderLine &&
+          <span
+            style={{
+              position: 'absolute',
+              bottom: '-2px', // Adjust this value as needed
+              left: '0',
+              width: '100%',
+              borderBottom: '1px solid black',
+            }}
+          />}
       </Typography>
     </Stack>
   );

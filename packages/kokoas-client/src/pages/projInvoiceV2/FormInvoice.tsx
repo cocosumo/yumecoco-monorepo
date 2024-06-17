@@ -34,7 +34,6 @@ export const FormInvoice = () => {
 
   const { projId } = newFormValues;
 
-  console.log('projId', projId);
 
   return (
     <Fragment>

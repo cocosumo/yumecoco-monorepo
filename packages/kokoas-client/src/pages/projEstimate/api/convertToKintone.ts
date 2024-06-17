@@ -23,7 +23,7 @@ export const convertToKintone = ({
     (
       acc,
       {
-        //itemId,
+        itemId,
         majorItem,
         middleItem,
         material,
@@ -38,7 +38,7 @@ export const convertToKintone = ({
 
 
       acc.push({
-        id: '', // 自動生成
+        id: !isNaN(Number(itemId)) ? itemId : '', // 自動生成
         value: {
           部材備考: { value: materialDetails || '' },
           備考: { value: rowDetails || '' },

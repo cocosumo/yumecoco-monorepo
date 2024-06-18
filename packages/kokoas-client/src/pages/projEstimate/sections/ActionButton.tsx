@@ -3,6 +3,8 @@ import { GoToContractButton } from '../navigationComponents/GoToContractButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { UnsavedMitsumori } from './UnsavedMitsumori';
 import { Summary } from './Summary';
+import { CopyForm } from '../formActions/copy/CopyForm';
+
 
 export const ActionButtons = ({
   handleSubmit,
@@ -41,6 +43,7 @@ export const ActionButtons = ({
           保存
         </Button>
         <GoToContractButton  />
+        <CopyForm />
         <UnsavedMitsumori />
       </Stack>
 

@@ -1,4 +1,4 @@
-import { Alert, Box, Stack } from '@mui/material';
+import { Alert, Box, Stack, Typography } from '@mui/material';
 import { InvoiceItem } from './InvoiceItem';
 import { grey } from '@mui/material/colors';
 import { BillingAmount } from './BillingAmount';
@@ -34,6 +34,10 @@ export const InputSection = () => {
       border={1}
       borderColor={grey[300]}
     >
+      <Typography variant='caption'>
+        ※請求済み項目は選択できません
+      </Typography>
+
       <Stack
         spacing={1}
         direction={'column'}

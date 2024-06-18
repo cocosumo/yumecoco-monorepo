@@ -1,6 +1,6 @@
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
-import { FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select, Stack, Tooltip } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select, Stack } from '@mui/material';
 import { useBillingItems } from '../../../hooks/useBillingItems';
 
 
@@ -82,20 +82,13 @@ export const InvoiceItem = ({
                   billingItems.map((billingItem) => {
                     const itemLabel = `${billingItem.contractType}-${billingItem.label}`;
                     return (
-                      <Tooltip
-                        title={billingItem.disabled ? '請求済み' : ''}
+                      <MenuItem
                         key={itemLabel}
+                        value={itemLabel}
+                        disabled={billingItem.disabled}
                       >
-                        <span>
-                          <MenuItem
-                            key={itemLabel}
-                            value={itemLabel}
-                            disabled={billingItem.disabled}
-                          >
-                            {itemLabel}
-                          </MenuItem>
-                        </span>
-                      </Tooltip>
+                        {itemLabel}
+                      </MenuItem>
                     );
                   })
                 }

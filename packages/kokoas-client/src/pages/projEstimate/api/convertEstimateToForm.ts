@@ -51,14 +51,13 @@ export const convertEstimateToForm = (
 
       const {
         costPrice,
-        quantity,
         profitRate,
         rowCostPrice,
         rowUnitPriceBeforeTax,
         rowUnitPriceAfterTax,
       } = calculateRowAmount({
         costPrice: +原価.value,
-        quantity: +数量.value,
+        quantity: +数量.value || 1, //　K324 evaluate 0 to 1 to preserved　粗利 and　単価 
         taxRate: parsedTaxRate,
         unitPrice: +単価.value,
       });
@@ -73,7 +72,7 @@ export const convertEstimateToForm = (
         ...initialRow,
         itemId: String(itemId),
         costPrice,
-        quantity,
+        quantity: +数量.value,
         rowCostPrice,
         majorItem: 大項目.value,
         middleItem: 中項目.value,

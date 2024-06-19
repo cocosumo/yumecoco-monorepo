@@ -20,7 +20,6 @@ export const useChangeRows = () => {
 
     } = row;
 
-    const parsedQuatity = Number(quantity) || 1;
     const profitRate = materialProfRate / 100;
     let newRow = { ...row };
 
@@ -29,7 +28,7 @@ export const useChangeRows = () => {
       case 'quantity':
       case 'materialProfRate':
       case 'costPrice': {
-        
+
         const {
           rowCostPrice: newRowCostPrice,
           unitPrice: newUnitPrice,
@@ -38,7 +37,7 @@ export const useChangeRows = () => {
           
         } = calculateRowAmount({
           costPrice,
-          quantity: parsedQuatity,
+          quantity,
           taxRate,
           profitRate,
         });
@@ -62,7 +61,7 @@ export const useChangeRows = () => {
         } = calculateRowAmount({
           unitPrice,
           costPrice,
-          quantity: parsedQuatity,
+          quantity,
           taxRate,
         });
 

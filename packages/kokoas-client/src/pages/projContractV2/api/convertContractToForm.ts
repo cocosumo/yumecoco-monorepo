@@ -5,7 +5,7 @@ import { calculateAmount, roundTo } from 'libs';
 
 export const convertContractToForm = (
   contract: IContracts,
-) : Partial<TypeOfForm> => {
+): Partial<TypeOfForm> => {
 
   const {
     uuid,
@@ -103,11 +103,11 @@ export const convertContractToForm = (
     profitRate: roundTo(+(profitRate || 0) * 100, 2),
     totalContractAmtBeforeTax: roundTo(+(amountBeforeTax || 0)),
     costPrice: roundTo(+(costPrice || 0)),
-    
+
 
     hasContractAmt: !!+contractAmt.value,
     contractAmt: +contractAmt.value,
-    contractAmtDate:  parseKintoneDate(contractAmtDate.value, null),
+    contractAmtDate: parseKintoneDate(contractAmtDate.value, null),
 
     hasInitialAmt: !!+initialAmt.value,
     initialAmt: +initialAmt.value,

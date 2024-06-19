@@ -5,9 +5,9 @@ import { Stack } from '@mui/system';
 
 export const IncludeContractPlanAmt = () => {
   const { control } = useTypedFormContext();
-   
+
   return (
-    <Stack 
+    <Stack
       direction={'row'}
       spacing={2}
       alignItems={'center'}
@@ -15,11 +15,11 @@ export const IncludeContractPlanAmt = () => {
       <Typography fontSize={14}>
         この契約書には「設計契約金」は含まれますか？
       </Typography>
-      <Controller 
+      <Controller
         name='includePlanContractAmt'
         control={control}
-        render={({ 
-          field:{
+        render={({
+          field: {
             value,
             onChange,
             ...otherFieldProps
@@ -28,29 +28,26 @@ export const IncludeContractPlanAmt = () => {
           return (
             <FormControl
               sx={{
-                ml:2, // avoid croppping the radio button
+                ml: 2, // avoid croppping the radio button
               }}
             >
               <RadioGroup
                 row
-                value={value}
-                onChange={onChange}
+                value={value ? 'はい' : 'いいえ'}
+                onChange={(_, newValue) => onChange(newValue === 'はい')}
                 {...otherFieldProps}
               >
                 {(['はい', 'いいえ'] as const).map((label) => {
-                
                   return (
-
                     <FormControlLabel
                       key={label}
-                      value={label === 'はい'}
+                      value={label}
                       control={<Radio />}
                       label={label}
                     />
                   );
                 })}
 
-            
               </RadioGroup>
             </FormControl>);
         }}

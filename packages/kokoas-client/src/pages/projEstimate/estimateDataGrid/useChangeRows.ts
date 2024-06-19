@@ -55,6 +55,7 @@ export const useChangeRows = () => {
       }
       case 'unitPrice':{
         const {
+          rowCostPrice: newRowCostPrice,
           rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
           rowUnitPriceAfterTax: newUnitPriceAfterTax,
           profitRate: newProfitRate,
@@ -70,6 +71,7 @@ export const useChangeRows = () => {
           ...newRow,
           rowUnitPriceBeforeTax: newUnitPriceBeforeTax,
           rowUnitPriceAfterTax: newUnitPriceAfterTax,
+          rowCostPrice: newRowCostPrice,
           materialProfRate: roundTo(newProfitRate * 100, 2),
         };
 

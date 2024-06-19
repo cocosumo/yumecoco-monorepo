@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { useTypedFormContext } from '../../../hooks/useTypedRHF';
+import { useTypedFormContext, useTypedWatch } from '../../../hooks/useTypedRHF';
+import { TInvoiceDetails } from '../../../schema';
 
 
 
@@ -14,7 +15,28 @@ export const BillingAmount = ({
 
   const {
     control,
+    setValue,
   } = useTypedFormContext();
+
+  const [
+    invoiceDetails,
+  ] = useTypedWatch({
+    name: [
+      'invoiceDetails',
+    ],
+  }) as [TInvoiceDetails];
+
+  const handleChange = () => {
+    const billingTotal = invoiceDetails.reduce((acc, {
+      billingAmount,
+    }) => {
+      const total = acc + billingAmount;
+      return total;
+    }, 0);
+
+    setValue('billingTotalAmount', billingTotal);
+  };
+
 
   return (
     <Controller
@@ -38,6 +60,7 @@ export const BillingAmount = ({
             size='small'
             error={!!error}
             helperText={error?.message}
+            onChange={handleChange}
             required={required}
           />
         );

@@ -20,7 +20,7 @@ export const EstimateDataGridContainer = ({
       spacing={1}
       sx={{
         maxWidth: `calc(100vw - ${menuOpen ? menuWidth + menuOffsetWidth : menuOffsetWidth}px)`, 
-        height: 'calc(100vh - 180px)',
+        height: 'calc(100vh - 300px)',
         '& .index' : {
           fontSize: 8,
           textAlign: 'center',

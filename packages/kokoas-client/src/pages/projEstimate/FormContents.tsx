@@ -13,7 +13,6 @@ import { Remarks } from './fields/Remarks';
 import { PageSubTitle3 } from 'kokoas-client/src/components/ui/labels/PageSubTitle3';
 import { EstimatesDataGrid } from './estimateDataGrid/EstimateDataGrid';
 import { TForm } from './schema';
-import { Summary } from './sections/Summary';
 import { DevTool } from '@hookform/devtools';
 import { ActionButtons } from './sections/ActionButton';
 import { pages } from '../Router';
@@ -160,14 +159,9 @@ export const FormContents = ({
 
         <PageSubTitle3 label={<OrderTableLabel />} />
    
-        <Stack 
-          spacing={2}
-        >
-          <GridActions />
-          <EstimatesDataGrid />
-          <Summary />
-        </Stack>
+        <GridActions />
 
+        <EstimatesDataGrid />
       
         <PageSubTitle3 label={'大項目小計欄'} />
       

@@ -79,6 +79,10 @@ export const useResolveParam = () => {
         ...prev,
         ...convertProjToForm(recProj),
         ...convertProjTypeToForm(recProjType),
+        items: prev.items.map((item) => ({
+          ...item,
+          materialProfRate: profRate,
+        })),
         projTypeProfit: profRate,
       }));
       

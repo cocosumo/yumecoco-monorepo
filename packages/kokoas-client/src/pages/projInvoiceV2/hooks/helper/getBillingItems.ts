@@ -8,6 +8,7 @@ export const getBillingItems = ({
 }: {
   invoiceDetails: TInvoiceDetails
 }) => {
+  if (!invoiceDetails) return [] as BilledItem[];
 
   const billingItems = invoiceDetails.reduce((acc, {
     invoiceItem,

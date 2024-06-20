@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { useTypedFormContext, useTypedWatch } from '../../../hooks/useTypedRHF';
-import { TInvoiceDetails } from '../../../schema';
+import { useTypedFormContext } from '../../../hooks/useTypedRHF';
+import { useBillingTotal } from '../../../hooks/useBillingTotal';
 
 
 
@@ -13,33 +13,8 @@ export const BillingAmount = ({
   required?: boolean
 }) => {
 
-  const {
-    control,
-    setValue,
-  } = useTypedFormContext();
-
-  const [
-    invoiceDetails,
-  ] = useTypedWatch({
-    name: [
-      'invoiceDetails',
-    ],
-  }) as [TInvoiceDetails];
-
-  const handleChange = (newVal: string) => {
-    const billingTotal = invoiceDetails.reduce((acc, {
-      billingAmount,
-    }, idx) => {
-      if (index === idx) {
-        return acc + +newVal;
-      }
-      const total = acc + +billingAmount;
-      return total;
-    }, 0);
-
-    setValue('billingTotalAmount', billingTotal);
-  };
-
+  const { control } = useTypedFormContext();
+  const { handleChange } = useBillingTotal();
 
   return (
     <Controller
@@ -66,7 +41,7 @@ export const BillingAmount = ({
             helperText={error?.message}
             onChange={(e) => {
               onChange(e.target.value);
-              handleChange(e.target.value);
+              handleChange(+e.target.value, index);
             }}
             required={required}
           />

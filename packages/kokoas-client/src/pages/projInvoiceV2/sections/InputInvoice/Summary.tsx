@@ -10,45 +10,45 @@ import { ComponentProps, useMemo } from 'react';
 export const Summary = () => {
 
   const [
-    billingTotalAmount,
+    billingAmount,
   ] = useTypedWatch({
     name: [
-      'billingTotalAmount',
+      'billingAmount',
     ],
   }) as [number];
 
   const summary: ComponentProps<typeof AmountInfo>[] = useMemo(() => {
 
-    const billingTotalBeforeTax = Big(billingTotalAmount).div(1.1)
+    const billingTotalBeforeTax = Big(billingAmount).div(1.1)
       .round()
       .toNumber();
 
-    const taxAmount = Big(billingTotalAmount).minus(billingTotalBeforeTax)
+    const taxAmount = Big(billingAmount).minus(billingTotalBeforeTax)
       .toNumber();
 
     return (
       [
         {
           label: '合計金額',
-          value: billingTotalAmount.toString(),
+          value: `${billingAmount.toLocaleString()} 円`,
           labelVariant: 'h6',
           valueVariant: 'h5',
         },
         {
           label: '税抜金額',
-          value: billingTotalBeforeTax.toString(),
+          value: `${billingTotalBeforeTax.toLocaleString()} 円`,
           labelVariant: 'body2',
           valueVariant: 'body1',
         },
         {
           label: '消費税額(10%)',
-          value: taxAmount.toString(),
+          value: `${taxAmount.toLocaleString()} 円`,
           labelVariant: 'body2',
           valueVariant: 'body1',
         },
       ]
     );
-  }, [billingTotalAmount]);
+  }, [billingAmount]);
 
 
 
@@ -75,6 +75,7 @@ export const Summary = () => {
               valueVariant={item.valueVariant}
               justifyContent={'space-evenly'}
               hasUnderLine={false}
+              width='60%'
             />
           );
         })}

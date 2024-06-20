@@ -104,9 +104,9 @@ export const getAllBillingItems = ({
       createBillingItem(contractName, '中間金', interimAmt.value),
       createBillingItem(contractName, '最終金', finalAmt.value),
       createBillingItem(contractName, 'その他', othersAmt.value),
-      createBillingItem(contractName, '返金', refundAmt.value, hasRefund.value === 'はい'),
-      createBillingItem(contractName, '減額', reductionAmt.value, hasReduction.value === 'はい'),
-      //createBillingItem(contractName, '補助金', subsidyAmt.value, hasSubsidy.value === 'はい'),
+      createBillingItem(contractName, '返金', (-refundAmt.value).toString(), hasRefund.value === 'はい'),
+      createBillingItem(contractName, '減額', (-reductionAmt.value).toString(), hasReduction.value === 'はい'),
+      //createBillingItem(contractName, '補助金', (-subsidyAmt.value).toString(), hasSubsidy.value === 'はい'),
     ];
 
     return acc.concat(itemsToAdd.filter(item => item !== null) as BillingItem[]);

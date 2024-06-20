@@ -1,6 +1,7 @@
 import { IContracts, IInvoiceb2c, IProjects } from 'types';
 import { TForm } from '../schema';
 import { Big } from 'big.js';
+import { initInvDetailsValue } from '../form';
 
 
 
@@ -56,6 +57,18 @@ export const convertInvoiceToForm = ({
 
   const invoiceRec = {} as IInvoiceb2c;
 
+  const invoiceDetails = invoiceRec?.invoiceDetails?.value.map(({
+    value: {
+      billingAmountAfterTax,
+      invoiceItem,
+    },
+  }) => {
+    return ({
+      invoiceItem: invoiceItem.value,
+      billingAmount: +billingAmountAfterTax.value,
+    });
+  }) || [initInvDetailsValue];
+
 
   return {
     invoiceId: invoiceRec?.uuid?.value || '',
@@ -78,16 +91,6 @@ export const convertInvoiceToForm = ({
     payMethodPlan: invoiceRec?.payMethodPlan?.value || '',
     remarks: invoiceRec?.remarks?.value || '',
 
-    invoiceDetails: invoiceRec?.invoiceDetails?.value.map(({
-      value: {
-        billingAmountAfterTax,
-        invoiceItem,
-      },
-    }) => {
-      return ({
-        invoiceItem: invoiceItem.value,
-        billingAmount: +billingAmountAfterTax.value,
-      });
-    }),
+    invoiceDetails: invoiceDetails,
   };
 };

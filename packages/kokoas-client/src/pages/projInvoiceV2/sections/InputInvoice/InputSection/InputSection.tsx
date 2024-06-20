@@ -7,6 +7,7 @@ import { useFieldArray } from 'react-hook-form';
 import { AddButton } from './AddButton';
 import { initInvDetailsValue } from '../../../form';
 import { DeleteButton } from './DeleteButton';
+import { useBillingTotal } from '../../../hooks/useBillingTotal';
 
 
 
@@ -21,12 +22,14 @@ export const InputSection = () => {
     control,
     name: 'invoiceDetails',
   });
+  
+  const { handleChange } = useBillingTotal();
 
   const invDetailsLen = invoiceDetails.length;
   const isMaxInv = invDetailsLen >= 7;
   const isMinInv = invDetailsLen <= 1;
 
-
+  
   return (
     <Box
       bgcolor='white'
@@ -69,7 +72,10 @@ export const InputSection = () => {
 
               <DeleteButton
                 disabled={isMinInv}
-                handleClick={() => remove(index)}
+                handleClick={() => {
+                  remove(index);
+                  handleChange(0, index);
+                }}
               />
             </Stack>
           );

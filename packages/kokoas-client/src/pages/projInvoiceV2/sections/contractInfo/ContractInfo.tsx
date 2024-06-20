@@ -5,6 +5,7 @@ import { grey } from '@mui/material/colors';
 import { PlanContractInfo } from './PlanContractInfo';
 import { ContractList } from './ContractList';
 import { TotalContractAmt } from './TotalContractAmt';
+import { sortContracts } from '../../helper/sortContracts';
 
 
 
@@ -21,6 +22,9 @@ export const ContractInfo = () => {
   }) as [boolean, string[]];
 
   const { data: validContracts = [] } = useContractsByIds({ contractIds: contractIds });
+  
+  const sortedContracts = sortContracts(validContracts);
+
 
 
   return (
@@ -36,7 +40,7 @@ export const ContractInfo = () => {
         direction={'row'}
         justifyContent={'justifyContent'}
       >
-        <ContractList contracts={validContracts} maxWidth={'50%'} />
+        <ContractList contracts={sortedContracts} maxWidth={'50%'} />
         {hasExcludedPlanContractAmt &&
           <PlanContractInfo />}
 

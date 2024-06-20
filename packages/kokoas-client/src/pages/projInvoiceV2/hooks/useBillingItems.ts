@@ -1,9 +1,10 @@
-import { useContractsByProjIdV2, useInvoicesB2CByProjId } from 'kokoas-client/src/hooksQuery';
+import { useContractsByIds, useInvoicesB2CByProjId } from 'kokoas-client/src/hooksQuery';
 import { useTypedWatch } from './useTypedRHF';
 import { getBilledItems } from './helper/getBilledItems';
 import { TInvoiceDetails } from '../schema';
 import { getAllBillingItems } from './helper/getAllBillingItems';
 import { getBillingItems } from './helper/getBillingItems';
+import { sortContracts } from '../helper/sortContracts';
 
 
 
@@ -12,17 +13,20 @@ export const useBillingItems = () => {
   const [
     projId,
     invoiceDetails,
+    contractIds,
   ] = useTypedWatch({
     name: [
       'projId',
       'invoiceDetails',
+      'contractIds',
     ],
-  }) as [string, TInvoiceDetails];
+  }) as [string, TInvoiceDetails, string[]];
 
   const {
     data: contracts,
     isFetching: isFetchingContract,
-  } = useContractsByProjIdV2(projId || '');
+  } = useContractsByIds({ contractIds });
+  const sortedContracts = sortContracts(contracts || []);
 
   const {
     data: invoices,
@@ -36,7 +40,7 @@ export const useBillingItems = () => {
   const billingItems = getBillingItems({ invoiceDetails });
 
   const allBillingItems = getAllBillingItems({
-    contracts,
+    contracts: sortedContracts,
     billedItems: billedItems.concat(billingItems),
   });
 

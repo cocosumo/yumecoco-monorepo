@@ -26,11 +26,14 @@ export const BillingAmount = ({
     ],
   }) as [TInvoiceDetails];
 
-  const handleChange = () => {
+  const handleChange = (newVal: string) => {
     const billingTotal = invoiceDetails.reduce((acc, {
       billingAmount,
-    }) => {
-      const total = acc + billingAmount;
+    }, idx) => {
+      if (index === idx) {
+        return acc + +newVal;
+      }
+      const total = acc + +billingAmount;
       return total;
     }, 0);
 
@@ -45,6 +48,7 @@ export const BillingAmount = ({
       render={({
         field: {
           value,
+          onChange,
           ...otherValue
         },
         fieldState: {
@@ -60,7 +64,10 @@ export const BillingAmount = ({
             size='small'
             error={!!error}
             helperText={error?.message}
-            onChange={handleChange}
+            onChange={(e) => {
+              onChange(e.target.value);
+              handleChange(e.target.value);
+            }}
             required={required}
           />
         );

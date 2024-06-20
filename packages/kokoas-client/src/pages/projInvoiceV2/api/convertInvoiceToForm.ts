@@ -2,6 +2,7 @@ import { IContracts, IInvoiceb2c, IProjects } from 'types';
 import { TForm } from '../schema';
 import { Big } from 'big.js';
 import { initInvDetailsValue } from '../form';
+import { sortContracts } from '../helper/sortContracts';
 
 
 
@@ -32,7 +33,10 @@ export const convertInvoiceToForm = ({
   const hasExcludedPlanContractAmt = contractRec.some(({ includePlanContractAmt, contractType }) =>
     (includePlanContractAmt.value === '1') && (contractType.value === '契約'));
 
-  const contractDatas = contractRec.reduce((acc, {
+  
+  const sortedContracts = sortContracts(contractRec);
+
+  const contractDatas = sortedContracts.reduce((acc, {
     contractType,
     uuid: contractId,
     totalContractAmt: contractAmt,

@@ -46,7 +46,7 @@ export const initialValues : TForm = {
     },
   ],
 
-  remarks: null,
+  remarks: '',
 };
 
 export const initialRow = initialValues.items[0];

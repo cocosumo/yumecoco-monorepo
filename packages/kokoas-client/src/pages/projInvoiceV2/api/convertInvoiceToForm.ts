@@ -1,6 +1,6 @@
 import { IContracts, IInvoiceb2c, IProjects } from 'types';
 import { TForm } from '../schema';
-import Big from 'big.js';
+import { Big } from 'big.js';
 
 
 

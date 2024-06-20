@@ -27,7 +27,8 @@ export const useResolveParams = () => {
     isFetching: isFetchingContract,
   } = useContractsByProjIdV2(projId || '');
 
-  /* const {
+  /*TODO
+   const {
     data: invoiceData,
     isFetching: isFetchingInvoice,
   } = useInvoiceById(invoiceId); */

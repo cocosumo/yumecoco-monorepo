@@ -6,13 +6,15 @@ import { initInvDetailsValue } from '../form';
 
 
 export const convertInvoiceToForm = ({
-  //invoiceRec,
+  invoiceRec,
   projectRec,
   contractRec,
+  invoiceId,
 }: {
-  //invoiceRec: TInvoice,
-  projectRec: IProjects,
-  contractRec: IContracts[],
+  invoiceRec: IInvoiceb2c[]
+  projectRec: IProjects
+  contractRec: IContracts[]
+  invoiceId: string | undefined
 }): TForm => {
 
   const {
@@ -55,25 +57,46 @@ export const convertInvoiceToForm = ({
     .toNumber();
 
 
-  const invoiceRec = {} as IInvoiceb2c;
 
-  const invoiceDetails = invoiceRec?.invoiceDetails?.value.map(({
-    value: {
-      billingAmountAfterTax,
-      invoiceItem,
+  const tgtInvRec = (() => {
+    if (!invoiceId) return {} as IInvoiceb2c;
+    invoiceRec.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
+  })();
+
+  const invoiceDetails = (() => {
+    if (!tgtInvRec) return [initInvDetailsValue];
+
+    return tgtInvRec?.invoiceDetails?.value.map(({
+      value: {
+        billingAmountAfterTax,
+        invoiceItem,
+      },
+    }) => {
+      return ({
+        invoiceItem: invoiceItem.value,
+        billingAmount: +billingAmountAfterTax.value,
+      });
+    }) || [initInvDetailsValue];
+  })();
+
+  const billedAmount = invoiceRec.reduce((acc, {
+    invoiceDetails: {
+      value: invDetailsVal,
     },
   }) => {
-    return ({
-      invoiceItem: invoiceItem.value,
-      billingAmount: +billingAmountAfterTax.value,
-    });
-  }) || [initInvDetailsValue];
+    let amount = 0;
+    for (let i = 0; i < invDetailsVal.length; i++) {
+      amount += +invDetailsVal[i].value.billingAmountAfterTax.value;
+    }
+
+    return acc + amount;
+  }, 0);
 
 
   return {
-    invoiceId: invoiceRec?.uuid?.value || '',
-    invoiceStatus: invoiceRec?.invoiceStatus?.value || '',
-    invoiceDataId: invoiceRec?.invoiceDataId?.value || '',
+    invoiceId: tgtInvRec?.uuid?.value || '',
+    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '',
+    invoiceDataId: tgtInvRec?.invoiceDataId?.value || '',
     contractIds: contractDatas.validContracts,
     excludedPlanContracts: contractDatas.planContract,
     hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
@@ -85,11 +108,13 @@ export const convertInvoiceToForm = ({
     personInCharge: personInCharge?.value.agentName.value || '',
     totalContractAmtAfterTax: contractDatas.totalContractAmt,
     totalContractAmtBeforeTax: totalContractAmtBFTax,
-    billingTotalAmount: 0,
+    billedAmount: billedAmount,
+    billingAmount: 0,
+    billingTotalAmount: billedAmount,
     invoiceIssueDate: null,
     scheduledPayDate: null,
-    payMethodPlan: invoiceRec?.payMethodPlan?.value || '',
-    remarks: invoiceRec?.remarks?.value || '',
+    payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',
+    remarks: tgtInvRec?.remarks?.value || '',
 
     invoiceDetails: invoiceDetails,
   };

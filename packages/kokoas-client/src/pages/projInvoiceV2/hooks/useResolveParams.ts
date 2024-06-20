@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initialValues } from '../form';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks';
-import { useContractsByProjIdV2, useProjById } from 'kokoas-client/src/hooksQuery';
+import { useContractsByProjIdV2, useInvoicesB2CByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
 import { TForm } from '../schema';
 
@@ -9,6 +9,7 @@ import { TForm } from '../schema';
 export const useResolveParams = () => {
   const {
     projId,
+    invoiceId,
   } = useURLParamsV2();
 
   const [newFormVal, setNewFormVal] = useState<TForm>({
@@ -27,14 +28,19 @@ export const useResolveParams = () => {
     isFetching: isFetchingContract,
   } = useContractsByProjIdV2(projId || '');
 
-  /* const {
-    data: invoiceData,
-    isFetching: isFetchingInvoice,
-  } = useInvoiceById(invoiceId); */
+  const {
+    data: invoicesB2CData,
+    isFetching: isFetchingInvoices,
+  } = useInvoicesB2CByProjId(projId || '');
 
   useEffect(() => {
-    if (projData && contractData) {
-      const newForm = convertInvoiceToForm({ projectRec: projData, contractRec: contractData/* , invoiceRec: invoiceData */ });
+    if (projData && contractData && invoicesB2CData) {
+      const newForm = convertInvoiceToForm({
+        projectRec: projData,
+        contractRec: contractData,
+        invoiceRec: invoicesB2CData,
+        invoiceId: invoiceId || undefined,
+      });
       setNewFormVal(newForm);
     } else if (projData && !contractData) {
       setNewFormVal({
@@ -43,10 +49,10 @@ export const useResolveParams = () => {
         projName: projData.projName.value,
       });
     }
-  }, [projData, contractData]);
+  }, [projData, contractData, invoicesB2CData, invoiceId]);
 
   return {
     newFormValues: newFormVal,
-    isFetching: isFetchingProj || isFetchingContract,
+    isFetching: isFetchingProj || isFetchingContract || isFetchingInvoices,
   };
 };

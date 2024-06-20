@@ -35,7 +35,7 @@ export const schema = z.object({
 
   /** 契約のuuid */
   excludedPlanContracts: z.array(z.string().uuid()),
-  
+
   /** 請求対象外の設計契約の有無 */
   hasExcludedPlanContractAmt: z.boolean(),
 
@@ -59,6 +59,12 @@ export const schema = z.object({
 
   /** 契約合計金額（税抜）*/
   totalContractAmtBeforeTax: z.number(),
+
+  /** 請求済み金額(税込) */
+  billedAmount: z.number(),
+
+  /** 今回の請求金額 */
+  billingAmount: z.number(),
 
   /** 請求合計金額(税込) */
   billingTotalAmount: z.number(),

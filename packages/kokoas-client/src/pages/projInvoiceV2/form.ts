@@ -21,6 +21,8 @@ export const initialValues: TForm = {
   personInCharge: '',
   totalContractAmtAfterTax: 0,
   totalContractAmtBeforeTax: 0,
+  billedAmount: 0,
+  billingAmount: 0,
   billingTotalAmount: 0,
   invoiceIssueDate: null,
   scheduledPayDate: null,

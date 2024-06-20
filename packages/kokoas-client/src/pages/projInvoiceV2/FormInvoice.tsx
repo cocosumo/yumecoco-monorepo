@@ -32,7 +32,7 @@ export const FormInvoice = () => {
     reset({ ...newFormValues });
   }, [reset, newFormValues]);
 
-  const { projId } = newFormValues;
+  const { projId } = newFormValues; // URLからの取得に変更する
 
 
   return (

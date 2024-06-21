@@ -1,18 +1,28 @@
 import { Stack } from '@mui/material';
+import { SaveInvoice } from './SaveInvoice';
+import { IssueInvoice } from './IssueInvoice';
+import { ReissueInvoice } from './ReissueInvoice';
+import { DeleteInvoice } from './DeleteInvoice';
 
 export const Actions = () => {
+
 
 
   return (
     <Stack
       direction={'row'}
-      spacing={2}
       justifyContent={'space-between'}
     >
-      保存
-      請求書発行
-      再発行
-      破棄
+      <Stack
+        spacing={2}
+        direction={'row'}
+      >
+        <SaveInvoice />
+        <IssueInvoice />
+        <ReissueInvoice />
+      </Stack>
+
+      <DeleteInvoice />
     </Stack>
   );
 };

@@ -8,48 +8,52 @@ import { TForm } from '../schema';
 
 export const useResolveParams = () => {
   const {
-    projId,
-    invoiceId,
+    projId: projIdFromURL,
+    invoiceId: invIdFromURL,
   } = useURLParamsV2();
+
 
   const [newFormVal, setNewFormVal] = useState<TForm>({
     ...initialValues,
-    projId: projId || '',
+    projId: projIdFromURL || '',
   });
-
-
-  const {
-    data: projData,
-    isFetching: isFetchingProj,
-  } = useProjById(projId || '');
 
   const {
     data: contractData,
     isFetching: isFetchingContract,
-  } = useContractsByProjIdV2(projId || '');
+  } = useContractsByProjIdV2(projIdFromURL || '');
 
   const {
-    data: invoicesB2CData,
+    data: invoicesB2CByProjId,
     isFetching: isFetchingInvoices,
-  } = useInvoicesB2CByProjId(projId || '');
+  } = useInvoicesB2CByProjId(projIdFromURL || '');
+
+  const {
+    data: projData,
+    isFetching: isFetchingProj,
+  } = useProjById(projIdFromURL || '');
+
 
   useEffect(() => {
-    if (projData && contractData && invoicesB2CData) {
+    if (projIdFromURL && projData && contractData) {
+      // 新規 or 見積編集
       const newForm = convertInvoiceToForm({
         projectRec: projData,
         contractRec: contractData,
-        invoiceRec: invoicesB2CData,
-        invoiceId: invoiceId || undefined,
+        invoiceRec: invoicesB2CByProjId,
+        invoiceId: invIdFromURL || undefined,
       });
       setNewFormVal(newForm);
-    } else if (projData && !contractData) {
-      setNewFormVal({
-        ...initialValues,
-        projId: projData.uuid.value || '',
-        projName: projData.projName.value,
-      });
+    } else {
+      setNewFormVal(initialValues);
     }
-  }, [projData, contractData, invoicesB2CData, invoiceId]);
+  }, [
+    projData,
+    contractData,
+    invoicesB2CByProjId,
+    invIdFromURL,
+    projIdFromURL,
+  ]);
 
   return {
     newFormValues: newFormVal,

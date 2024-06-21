@@ -11,7 +11,7 @@ export const convertInvoiceToForm = ({
   contractRec,
   invoiceId,
 }: {
-  invoiceRec: IInvoiceb2c[]
+  invoiceRec: IInvoiceb2c[] | undefined
   projectRec: IProjects
   contractRec: IContracts[]
   invoiceId: string | undefined
@@ -60,7 +60,7 @@ export const convertInvoiceToForm = ({
 
   const tgtInvRec = (() => {
     if (!invoiceId) return {} as IInvoiceb2c;
-    invoiceRec.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
+    invoiceRec?.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
   })();
 
   const invoiceDetails = (() => {
@@ -79,7 +79,7 @@ export const convertInvoiceToForm = ({
     }) || [initInvDetailsValue];
   })();
 
-  const billedAmount = invoiceRec.reduce((acc, {
+  const billedAmount = invoiceRec?.reduce((acc, {
     invoiceDetails: {
       value: invDetailsVal,
     },
@@ -101,16 +101,16 @@ export const convertInvoiceToForm = ({
     excludedPlanContracts: contractDatas.planContract,
     hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
     custGroupId: custGroupId.value,
-    projId: uuid.value || '',
+    projId: uuid.value,
     projName: projName.value || '',
     storeName: store.value || '',
     projDataId: dataId.value || '',
     personInCharge: personInCharge?.value.agentName.value || '',
     totalContractAmtAfterTax: contractDatas.totalContractAmt,
     totalContractAmtBeforeTax: totalContractAmtBFTax,
-    billedAmount: billedAmount,
+    billedAmount: billedAmount || 0,
     billingAmount: 0,
-    billingTotalAmount: billedAmount,
+    billingTotalAmount: billedAmount || 0,
     invoiceIssueDate: null,
     scheduledPayDate: null,
     payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',

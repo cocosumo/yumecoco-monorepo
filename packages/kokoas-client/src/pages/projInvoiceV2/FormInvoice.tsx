@@ -12,7 +12,7 @@ import { ContractInfo } from './sections/contractInfo/ContractInfo';
 import { CustomerInfo } from './sections/CustomerInfo';
 import { ProjInfo } from './sections/ProjInfo';
 import { InputInvoice } from './sections/InputInvoice';
-import { Actions } from './sections/Actions/Actions';
+import { Actions } from './sections/actions/Actions';
 
 
 export const FormInvoice = () => {

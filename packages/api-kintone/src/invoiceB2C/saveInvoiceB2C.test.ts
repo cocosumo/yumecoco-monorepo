@@ -5,8 +5,8 @@ describe('saveInvoiceB2C', () => {
   it('新規の顧客請求書を保存される', async () => {
     const result = await saveInvoiceB2C({
       record: {
-        // https://rdmuhwtt6gx7.cybozu.com/k/176/#/project/edit?projId=adebcd51-aaea-4150-8b21-7373710408e2
-        projId: { value: 'adebcd51-aaea-4150-8b21-7373710408e2' },
+        // https://rdmuhwtt6gx7.cybozu.com/k/176/#/project/edit/v2?projId=e777ec83-ea81-470e-ac31-d26e159362ae
+        projId: { value: 'e777ec83-ea81-470e-ac31-d26e159362ae' },
       },
     }).catch(e => {
       return e;

@@ -1,4 +1,3 @@
-import { v4 } from 'uuid';
 import { saveRecordByUpdateKey } from '../common/saveRecordByUpdateKey';
 import { appId, RecordType } from './config';
 import { generateInvoiceB2CDataId } from './generateInvoiceB2CDataId';
@@ -29,7 +28,7 @@ export const saveInvoiceB2C = async ({
     app: appId,
     updateKey: {
       field: 'uuid',
-      value: recordId ?? v4(),
+      value: recordId ?? '',
     },
     record: aggRecord,
     revision,

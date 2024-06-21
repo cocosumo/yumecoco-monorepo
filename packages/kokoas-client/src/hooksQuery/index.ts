@@ -56,6 +56,7 @@ export * from './useGenerateReading';
 export * from './useInHouseProjTypes';
 export * from './useInvoiceB2BByProjId';
 export * from './useInvoiceB2BStatusMapByProjId';
+export * from './useInvoiceB2CById';
 export * from './useInvoices';
 export * from './useInvoicesB2CByProjId';
 export * from './useInvoicesByCustGroupId';

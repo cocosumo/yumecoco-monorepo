@@ -2,6 +2,7 @@ import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
 import { FormControl, FormHelperText, InputLabel, LinearProgress, MenuItem, Select, Stack } from '@mui/material';
 import { useBillingItems } from '../../../hooks/useBillingItems';
+import { useBillingTotal } from '../../../hooks/useBillingTotal';
 
 
 
@@ -20,9 +21,10 @@ export const InvoiceItem = ({
     isFetching,
   } = useBillingItems();
 
+  const { handleChange } = useBillingTotal();
+
 
   return (
-
     <Controller
       name={`invoiceDetails.${index}.invoiceItem`}
       control={control}
@@ -64,15 +66,15 @@ export const InvoiceItem = ({
               {!isFetching && <Select
                 value={value as string || ''}
                 onChange={(e) => {
-
+                  // 選択した項目に対応した請求金額を設定する
                   const newItemLabel = e.target.value;
                   const newBillingAmt = billingItems.find(({ contractType, label }) =>
                     (`${contractType}-${label}`) === newItemLabel)?.amount || 0;
-
                   setValue(`invoiceDetails.${index}.billingAmount`, newBillingAmt);
 
+                  // ラベルと請求合計金額を変更する
+                  handleChange(newBillingAmt, index);
                   onChange(newItemLabel);
-
                 }}
                 label='項目'
                 size='small'

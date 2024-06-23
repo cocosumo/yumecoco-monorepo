@@ -1,6 +1,7 @@
 import { TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 import { useTypedFormContext } from '../../../hooks/useTypedRHF';
+import { useBillingTotal } from '../../../hooks/useBillingTotal';
 
 
 
@@ -12,9 +13,8 @@ export const BillingAmount = ({
   required?: boolean
 }) => {
 
-  const {
-    control,
-  } = useTypedFormContext();
+  const { control } = useTypedFormContext();
+  const { handleChange } = useBillingTotal();
 
   return (
     <Controller
@@ -23,6 +23,7 @@ export const BillingAmount = ({
       render={({
         field: {
           value,
+          onChange,
           ...otherValue
         },
         fieldState: {
@@ -38,6 +39,10 @@ export const BillingAmount = ({
             size='small'
             error={!!error}
             helperText={error?.message}
+            onChange={(e) => {
+              onChange(e.target.value);
+              handleChange(+e.target.value, index);
+            }}
             required={required}
           />
         );

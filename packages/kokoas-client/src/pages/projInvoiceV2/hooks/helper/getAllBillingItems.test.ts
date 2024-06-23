@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { getContractById } from 'api-kintone';
 import { produce } from 'immer';
-import { getBillingItems } from './getBillingItems';
+import { getAllBillingItems } from './getAllBillingItems';
 import { BilledItem } from './getBilledItems';
 
 
@@ -105,7 +105,7 @@ describe('getBillingItems', () => {
       amount: 1000000,
     }];
 
-    const result = getBillingItems({
+    const result = getAllBillingItems({
       contracts,
       billedItems,
     });

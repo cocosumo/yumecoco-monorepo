@@ -1,17 +1,21 @@
 import { IContracts, IInvoiceb2c, IProjects } from 'types';
 import { TForm } from '../schema';
-import Big from 'big.js';
+import { Big } from 'big.js';
+import { initInvDetailsValue } from '../form';
+import { sortContracts } from '../helper/sortContracts';
 
 
 
 export const convertInvoiceToForm = ({
-  //invoiceRec,
+  invoiceRec,
   projectRec,
   contractRec,
+  invoiceId,
 }: {
-  //invoiceRec: TInvoice,
-  projectRec: IProjects,
-  contractRec: IContracts[],
+  invoiceRec: IInvoiceb2c[] | undefined
+  projectRec: IProjects
+  contractRec: IContracts[]
+  invoiceId: string | undefined
 }): TForm => {
 
   const {
@@ -29,7 +33,10 @@ export const convertInvoiceToForm = ({
   const hasExcludedPlanContractAmt = contractRec.some(({ includePlanContractAmt, contractType }) =>
     (includePlanContractAmt.value === '1') && (contractType.value === '契約'));
 
-  const contractDatas = contractRec.reduce((acc, {
+  
+  const sortedContracts = sortContracts(contractRec);
+
+  const contractDatas = sortedContracts.reduce((acc, {
     contractType,
     uuid: contractId,
     totalContractAmt: contractAmt,
@@ -54,31 +61,16 @@ export const convertInvoiceToForm = ({
     .toNumber();
 
 
-  const invoiceRec = {} as IInvoiceb2c;
 
+  const tgtInvRec = (() => {
+    if (!invoiceId) return {} as IInvoiceb2c;
+    invoiceRec?.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
+  })();
 
-  return {
-    invoiceId: invoiceRec?.uuid?.value || '',
-    invoiceStatus: invoiceRec?.invoiceStatus?.value || '',
-    invoiceDataId: invoiceRec?.invoiceDataId?.value || '',
-    contractIds: contractDatas.validContracts,
-    excludedPlanContracts: contractDatas.planContract,
-    hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
-    custGroupId: custGroupId.value,
-    projId: uuid.value || '',
-    projName: projName.value || '',
-    storeName: store.value || '',
-    projDataId: dataId.value || '',
-    personInCharge: personInCharge?.value.agentName.value || '',
-    totalContractAmtAfterTax: contractDatas.totalContractAmt,
-    totalContractAmtBeforeTax: totalContractAmtBFTax,
-    billingTotalAmount: 0,
-    invoiceIssueDate: null,
-    scheduledPayDate: null,
-    payMethodPlan: invoiceRec?.payMethodPlan?.value || '',
-    remarks: invoiceRec?.remarks?.value || '',
+  const invoiceDetails = (() => {
+    if (!tgtInvRec) return [initInvDetailsValue];
 
-    invoiceDetails: invoiceRec?.invoiceDetails?.value.map(({
+    return tgtInvRec?.invoiceDetails?.value.map(({
       value: {
         billingAmountAfterTax,
         invoiceItem,
@@ -88,6 +80,46 @@ export const convertInvoiceToForm = ({
         invoiceItem: invoiceItem.value,
         billingAmount: +billingAmountAfterTax.value,
       });
-    }),
+    }) || [initInvDetailsValue];
+  })();
+
+  const billedAmount = invoiceRec?.reduce((acc, {
+    invoiceDetails: {
+      value: invDetailsVal,
+    },
+  }) => {
+    let amount = 0;
+    for (let i = 0; i < invDetailsVal.length; i++) {
+      amount += +invDetailsVal[i].value.billingAmountAfterTax.value;
+    }
+
+    return acc + amount;
+  }, 0);
+
+
+  return {
+    invoiceId: tgtInvRec?.uuid?.value || '',
+    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '',
+    invoiceDataId: tgtInvRec?.invoiceDataId?.value || '',
+    contractIds: contractDatas.validContracts,
+    excludedPlanContracts: contractDatas.planContract,
+    hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
+    custGroupId: custGroupId.value,
+    projId: uuid.value,
+    projName: projName.value || '',
+    storeName: store.value || '',
+    projDataId: dataId.value || '',
+    personInCharge: personInCharge?.value.agentName.value || '',
+    totalContractAmtAfterTax: contractDatas.totalContractAmt,
+    totalContractAmtBeforeTax: totalContractAmtBFTax,
+    billedAmount: billedAmount || 0,
+    billingAmount: 0,
+    billingTotalAmount: billedAmount || 0,
+    invoiceIssueDate: null,
+    scheduledPayDate: null,
+    payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',
+    remarks: tgtInvRec?.remarks?.value || '',
+
+    invoiceDetails: invoiceDetails,
   };
 };

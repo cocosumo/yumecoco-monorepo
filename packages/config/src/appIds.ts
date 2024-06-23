@@ -13,7 +13,7 @@ export const prodAppIds = {
   orderBudget: 321,
   order: 320,
   invoiceB2B: 323,
-  invoiceB2C: 326, // 仮
+  invoiceB2C: 328,
 } as const;
 
 /* 開発環境 */

@@ -9,6 +9,7 @@ export const AmountInfo = ({
   labelVariant = 'body2',
   valueVariant = 'body1',
   hasUnderLine = true,
+  width = '15%',
 }: {
   label: string,
   value: string,
@@ -16,6 +17,7 @@ export const AmountInfo = ({
   labelVariant?: TypographyVariant
   valueVariant?: TypographyVariant
   hasUnderLine?: boolean
+  width?: string
 }) => {
 
   return (
@@ -25,13 +27,13 @@ export const AmountInfo = ({
       justifyContent={justifyContent}
       alignItems={'flex-end'}
     >
-      <Typography variant={labelVariant} width={'100Px'}>
+      <Typography variant={labelVariant} width={'100px'}>
         {label}
       </Typography>
       <Typography
         variant={valueVariant}
         component={'span'}
-        width={'15%'}
+        width={width}
         align={'right'}
         style={{
           position: 'relative',

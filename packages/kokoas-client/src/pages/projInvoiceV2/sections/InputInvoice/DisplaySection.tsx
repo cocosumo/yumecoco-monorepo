@@ -2,6 +2,7 @@ import { useTypedWatch } from '../../hooks/useTypedRHF';
 import { Stack } from '@mui/material';
 import { Big } from 'big.js';
 import { AmountInfo } from '../../parts/AmountInfo';
+import { useMemo } from 'react';
 
 
 
@@ -17,10 +18,13 @@ export const DisplaySection = () => {
     ],
   }) as [number, number];
 
+  const billingBalance = useMemo(() => {
+    return Big(totalContractAmtAfterTax).minus(billingTotalAmount)
+      .round()
+      .toNumber();
+  }, [totalContractAmtAfterTax, billingTotalAmount]);
 
-  const billingBalance = Big(totalContractAmtAfterTax).minus(billingTotalAmount)
-    .round()
-    .toNumber();
+
 
   return (
     <Stack spacing={1}>

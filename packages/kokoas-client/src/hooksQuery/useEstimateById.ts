@@ -19,7 +19,6 @@ export const useEstimateById = (projEstimateId: string ) => {
         calculated: calculateEstimateRecord({ record }),
       };
     },
-    enabled: !!projEstimateId,
   });
 
 };

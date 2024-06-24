@@ -1,6 +1,7 @@
 import { IInvoiceb2c } from 'types';
 import { TForm } from '../schema';
 import format from 'date-fns/format';
+import { Big } from 'big.js';
 
 
 
@@ -37,10 +38,16 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
     billingAmount: detailBillAmt,
     invoiceItem,
   }) => {
+
+    const detailBillAmtBFTax = Big(detailBillAmt).div(1.1)
+      .round()
+      .toNumber();
+
     return ({
       id: '',
       value: {
         billingAmountAfterTax: { value: detailBillAmt.toString() },
+        billingAmountBeforeTax: { value: detailBillAmtBFTax.toString() },
         invoiceItem: { value: invoiceItem },
       },
     });

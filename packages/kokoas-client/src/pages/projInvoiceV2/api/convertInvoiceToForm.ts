@@ -99,9 +99,9 @@ export const convertInvoiceToForm = ({
 
 
   return {
-    invoiceId: tgtInvRec?.uuid?.value || '',
-    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '新規作成',
-    invoiceDataId: tgtInvRec?.invoiceDataId?.value || '',
+    invoiceId: undefined,
+    invoiceStatus: '新規作成',
+    invoiceDataId: '',
     contractIds: contractDatas.validContracts,
     excludedPlanContracts: contractDatas.planContract,
     hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
@@ -119,9 +119,9 @@ export const convertInvoiceToForm = ({
     billingTotalAmount: billedAmount || 0,
     invoiceIssueDate: null,
     scheduledPayDate: null,
-    payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',
-    remarks: tgtInvRec?.remarks?.value || '',
-    paymentStatus: tgtInvRec?.paymentStatus.value || '',
+    payMethodPlan: '',
+    remarks: '',
+    paymentStatus: '',
 
     invoiceDetails: invoiceDetails,
   };

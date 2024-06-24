@@ -7,7 +7,7 @@ export const initInvDetailsValue: TInvoiceDetail = {
 };
 
 export const initialValues: TForm = {
-  invoiceId: '',
+  invoiceId: undefined,
   invoiceStatus: '',
   invoiceDataId: '',
   projId: '',

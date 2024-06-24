@@ -26,7 +26,7 @@ export const useSaveHandler = () => {
           ...kintoneRecord,
           invoiceStatus: { value: '作成済' },
         },
-        recordId: data.invoiceId ?? '',
+        recordId: data.invoiceId,
       });
 
       navigate(`${pages.projInvoiceV2}?${generateParams({

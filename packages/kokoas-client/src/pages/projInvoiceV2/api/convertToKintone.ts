@@ -8,7 +8,7 @@ import { Big } from 'big.js';
 export const convertToKintone = (invoiceB2CData: TForm) => {
 
   const {
-    invoiceId,
+    //invoiceId,
     invoiceStatus,
     invoiceDataId,
     projId,
@@ -59,7 +59,6 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
     payMethodPlan: { value: payMethodPlan || '' },
     projId: { value: projId },
     projDataId: { value: projDataId },
-    uuid: { value: invoiceId || '' },
     invoiceDataId: { value: invoiceDataId || '' },
     billingTotalAmount: { value: billingAmount.toString() },
     custGroupId: { value: custGroupId },

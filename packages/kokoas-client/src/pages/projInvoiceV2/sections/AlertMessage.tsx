@@ -19,7 +19,7 @@ export const AlertMessage = () => {
   return (
     <Fragment>
       {hasPayment &&
-        <Alert variant='outlined' severity='error'>
+        <Alert severity='error'>
           入金情報が存在するため、変更できません。
         </Alert>}
     </Fragment>

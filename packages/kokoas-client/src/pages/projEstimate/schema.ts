@@ -49,7 +49,7 @@ const schema = z.object({
     rowDetails: z.string().nullable(),
   })),
 
-  remarks: z.string().nullable(),
+  remarks: z.string(),
 });
 
 export type TForm = z.infer<typeof schema>;

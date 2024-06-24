@@ -24,6 +24,7 @@ export const convertInvoiceToForm = ({
     dataId,
     uuid,
     custGroupId,
+    custNames,
     agents,
   } = projectRec;
   const personInCharge = agents.value.find(({ value: { agentName, agentType } }) => {
@@ -33,7 +34,7 @@ export const convertInvoiceToForm = ({
   const hasExcludedPlanContractAmt = contractRec.some(({ includePlanContractAmt, contractType }) =>
     (includePlanContractAmt.value === '1') && (contractType.value === '契約'));
 
-  
+
   const sortedContracts = sortContracts(contractRec);
 
   const contractDatas = sortedContracts.reduce((acc, {
@@ -105,6 +106,7 @@ export const convertInvoiceToForm = ({
     excludedPlanContracts: contractDatas.planContract,
     hasExcludedPlanContractAmt: hasExcludedPlanContractAmt,
     custGroupId: custGroupId.value,
+    custName: custNames.value,
     projId: uuid.value,
     projName: projName.value || '',
     storeName: store.value || '',

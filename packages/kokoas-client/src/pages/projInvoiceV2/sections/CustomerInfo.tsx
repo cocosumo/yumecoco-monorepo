@@ -11,11 +11,13 @@ export const CustomerInfo = () => {
 
   const [
     custGroupId,
+    custName,
   ] = useTypedWatch({
     name: [
       'custGroupId',
+      'custName',
     ],
-  }) as [string];
+  }) as [string, string];
 
   const { data, isLoading } = useCustGroupById(custGroupId);
 
@@ -27,10 +29,6 @@ export const CustomerInfo = () => {
       storeName,
       members,
     } = data || {};
-
-    const custNames = members.value
-      .map(({ value: { customerName } }) => customerName.value)
-      .join('、 ');
 
     const {
       postal,
@@ -46,12 +44,13 @@ export const CustomerInfo = () => {
 
     return [
       { label: '店舗', value: storeName?.value },
-      { label: '顧客名', value: custNames },
+      { label: '顧客名', value: custName },
       { label: '現住所', value: address },
     ];
 
   }, [
     data,
+    custName,
   ]);
 
 

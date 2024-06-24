@@ -15,6 +15,7 @@ export const initialValues: TForm = {
   excludedPlanContracts: [],
   hasExcludedPlanContractAmt: false,
   custGroupId: '',
+  custName: '',
   projName: '',
   projDataId: '',
   storeName: '',

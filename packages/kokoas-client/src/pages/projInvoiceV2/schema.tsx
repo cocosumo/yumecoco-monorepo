@@ -42,6 +42,9 @@ export const schema = z.object({
   /** 顧客グループ番号 */
   custGroupId: z.string(),
 
+  /** 顧客名 */
+  custName: z.string(),
+
   /** 工事名 */
   projName: z.string(),
 

@@ -10,9 +10,8 @@ export const saveInvoiceB2C = async ({
   recordId,
   revision,
 }: {
-  /** uuid  */
-  recordId?: string,
   record: Partial<RecordType>
+  recordId?: string,
   revision?: string,
 }) => {
   const aggRecord = { ...record };

@@ -88,6 +88,9 @@ export const schema = z.object({
   /** 備考 */
   remarks: z.string(),
 
+  /** 入金状態(ステータス) */
+  paymentStatus: z.string(),
+
 });
 
 export type TForm = z.infer<typeof schema>;

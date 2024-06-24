@@ -30,6 +30,7 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
     payMethodPlan,
     invoiceDetails,
     remarks,
+    paymentStatus,
   } = invoiceB2CData;
 
   const convertInvoiceDetails = invoiceDetails.map(({
@@ -56,7 +57,7 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
     billingTotalAmount: { value: billingAmount.toString() },
     custGroupId: { value: custGroupId },
     custName: { value: custName },
-    paymentStatus: { value: '' },
+    paymentStatus: { value: paymentStatus },
     invoiceIssueDate: { value: invoiceIssueDate ? format(invoiceIssueDate, 'yyyy-MM-dd') : '' },
     projName: { value: projName },
     contractIds: { value: contractIds.join(',') },

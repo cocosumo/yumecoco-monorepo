@@ -30,4 +30,5 @@ export const initialValues: TForm = {
   payMethodPlan: '',
   invoiceDetails: [initInvDetailsValue],
   remarks: '',
+  paymentStatus: '',
 };

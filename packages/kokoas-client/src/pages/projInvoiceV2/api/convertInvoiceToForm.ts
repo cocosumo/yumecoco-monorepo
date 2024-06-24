@@ -100,7 +100,7 @@ export const convertInvoiceToForm = ({
 
   return {
     invoiceId: tgtInvRec?.uuid?.value || '',
-    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '',
+    invoiceStatus: tgtInvRec?.invoiceStatus?.value || '新規作成',
     invoiceDataId: tgtInvRec?.invoiceDataId?.value || '',
     contractIds: contractDatas.validContracts,
     excludedPlanContracts: contractDatas.planContract,
@@ -121,6 +121,7 @@ export const convertInvoiceToForm = ({
     scheduledPayDate: null,
     payMethodPlan: tgtInvRec?.payMethodPlan?.value || '',
     remarks: tgtInvRec?.remarks?.value || '',
+    paymentStatus: tgtInvRec?.paymentStatus.value || '',
 
     invoiceDetails: invoiceDetails,
   };

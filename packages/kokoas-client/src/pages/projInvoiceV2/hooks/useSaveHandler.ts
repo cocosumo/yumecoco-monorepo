@@ -15,24 +15,36 @@ export const useSaveHandler = () => {
   const { mutateAsync } = useSaveInvoiceB2C();
   const navigate = useNavigate();
 
-  
+
   return () => handleSubmit(
     async (data) => {
       // 成功の時
       const kintoneRecord = convertToKintone(data);
 
-      const result = await mutateAsync({
-        record: {
-          ...kintoneRecord,
-          invoiceStatus: { value: '作成済' },
-        },
-        recordId: data.invoiceId,
-      });
+      if (kintoneRecord.invoiceDetails?.value.length === 0) {
+        setSnackState({
+          open: true,
+          message: '請求金額が入力されていません',
+          severity: 'error',
+        });
 
-      navigate(`${pages.projInvoiceV2}?${generateParams({
-        projId: data.projId,
-        invoiceId: result.id,
-      })}`);
+      } else {
+
+        const result = await mutateAsync({
+          record: {
+            ...kintoneRecord,
+            invoiceStatus: { value: '作成済' },
+          },
+          recordId: data.invoiceId,
+        });
+
+        navigate(`${pages.projInvoiceV2}?${generateParams({
+          projId: data.projId,
+          invoiceId: result.id,
+        })}`);
+
+      }
+
     },
     (errors) => {
       const [key, errorField] = Object.entries(errors)[0]; // Show first validation error instance

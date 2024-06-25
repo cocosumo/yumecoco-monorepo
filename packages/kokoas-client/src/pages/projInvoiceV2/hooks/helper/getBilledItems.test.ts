@@ -35,6 +35,7 @@ describe('getBilledItems', () => {
 
     const result = getBilledItems({
       invoices,
+      invoiceId: '',
     });
 
     console.log('結果', result);

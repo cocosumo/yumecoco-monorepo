@@ -2,6 +2,7 @@ import { TForm, TInvoiceDetail } from './schema';
 
 
 export const initInvDetailsValue: TInvoiceDetail = {
+  invoiceDetailId: '',
   invoiceItem: '',
   billingAmount: 0,
 };

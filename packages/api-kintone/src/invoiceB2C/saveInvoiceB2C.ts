@@ -21,6 +21,7 @@ export const saveInvoiceB2C = async ({
   if (!parsedInvoiceB2CDataId) {
     const { newInvoiceDataId } = await generateInvoiceB2CDataId();
     parsedInvoiceB2CDataId = newInvoiceDataId;
+    aggRecord.invoiceDataId = { value : parsedInvoiceB2CDataId };
   }
 
   return saveRecordByUpdateKey({

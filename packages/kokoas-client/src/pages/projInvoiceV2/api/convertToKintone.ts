@@ -35,6 +35,7 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
   } = invoiceB2CData;
 
   const convertInvoiceDetails = invoiceDetails.reduce((acc, {
+    invoiceDetailId,
     billingAmount: detailBillAmt,
     invoiceItem,
   }) => {
@@ -45,7 +46,7 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
       .toNumber();
 
     acc.push({
-      id: '',
+      id: invoiceDetailId,
       value: {
         billingAmountAfterTax: { value: detailBillAmt.toString() },
         billingAmountBeforeTax: { value: detailBillAmtBFTax.toString() },

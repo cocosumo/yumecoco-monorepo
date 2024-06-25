@@ -7,6 +7,9 @@ z.setErrorMap(zodErrorMapJA());
 export const payMethods = ['持参', '集金', '振込'] as const;
 
 const invoiceDetail = z.object({
+  /** 項目ID */
+  invoiceDetailId: z.string(),
+
   /** 請求項目 */
   invoiceItem: z.string(),
 

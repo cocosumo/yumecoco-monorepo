@@ -3,7 +3,7 @@ import { initialValues } from '../form';
 import { useURLParamsV2 } from 'kokoas-client/src/hooks';
 import { useContractsByProjIdV2, useInvoiceB2CById, useInvoicesB2CByProjId, useProjById } from 'kokoas-client/src/hooksQuery';
 import { convertInvoiceToForm } from '../api/convertInvoiceToForm';
-import { TForm } from '../schema';
+import { TForm, TInvoiceDetails } from '../schema';
 
 
 
@@ -58,6 +58,18 @@ export const useResolveParams = () => {
       setNewFormVal(newForm);
 
     } else if (projIdFromURL && projData && contractData && invoiceB2CById) {
+      const newInVoiceDetails: TInvoiceDetails = invoiceB2CById.invoiceDetails.value.map(({
+        id,
+        value: invoiceDetail,
+      }) => {
+        return ({
+          invoiceDetailId: id,
+          billingAmount: +invoiceDetail.billingAmountAfterTax.value,
+          invoiceItem: invoiceDetail.invoiceItem.value,
+        });
+      });
+
+
       // 請求書編集
       const newForm = convertInvoiceToForm({
         projectRec: projData,
@@ -76,6 +88,7 @@ export const useResolveParams = () => {
         payMethodPlan: invoiceB2CById?.payMethodPlan?.value,
         remarks: invoiceB2CById?.remarks?.value,
         paymentStatus: invoiceB2CById?.paymentStatus?.value,
+        invoiceDetails: newInVoiceDetails,
       });
     } else {
       // 工事非選択時

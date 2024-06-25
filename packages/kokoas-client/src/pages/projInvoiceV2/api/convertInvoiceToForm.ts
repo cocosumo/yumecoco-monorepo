@@ -1,5 +1,5 @@
 import { IContracts, IInvoiceb2c, IProjects } from 'types';
-import { TForm } from '../schema';
+import { TForm, TInvoiceDetails } from '../schema';
 import { Big } from 'big.js';
 import { initInvDetailsValue } from '../form';
 import { sortContracts } from '../helper/sortContracts';
@@ -68,16 +68,18 @@ export const convertInvoiceToForm = ({
     invoiceRec?.find(({ uuid: invRecId }) => invRecId.value === invoiceId);
   })();
 
-  const invoiceDetails = (() => {
+  const invoiceDetails: TInvoiceDetails = (() => {
     if (!tgtInvRec) return [initInvDetailsValue];
 
     return tgtInvRec?.invoiceDetails?.value.map(({
+      id,
       value: {
         billingAmountAfterTax,
         invoiceItem,
       },
     }) => {
       return ({
+        invoiceDetailId: id,
         invoiceItem: invoiceItem.value,
         billingAmount: +billingAmountAfterTax.value,
       });

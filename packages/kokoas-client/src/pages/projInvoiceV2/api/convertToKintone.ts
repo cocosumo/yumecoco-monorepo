@@ -34,16 +34,17 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
     paymentStatus,
   } = invoiceB2CData;
 
-  const convertInvoiceDetails = invoiceDetails.map(({
+  const convertInvoiceDetails = invoiceDetails.reduce((acc, {
     billingAmount: detailBillAmt,
     invoiceItem,
   }) => {
+    if (!detailBillAmt && !invoiceItem) return acc; 
 
     const detailBillAmtBFTax = Big(detailBillAmt).div(1.1)
       .round()
       .toNumber();
 
-    return ({
+    acc.push({
       id: '',
       value: {
         billingAmountAfterTax: { value: detailBillAmt.toString() },
@@ -51,7 +52,10 @@ export const convertToKintone = (invoiceB2CData: TForm) => {
         invoiceItem: { value: invoiceItem },
       },
     });
-  });
+
+    return acc;
+
+  }, [] as IInvoiceb2c['invoiceDetails']['value']);
 
 
   const kintoneRecord: Partial<IInvoiceb2c> = {

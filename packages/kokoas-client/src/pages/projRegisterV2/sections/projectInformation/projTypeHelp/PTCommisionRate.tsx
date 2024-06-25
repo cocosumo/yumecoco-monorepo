@@ -10,6 +10,7 @@ export const PTCommisionRate = () => {
 
   const { data } = useProjTypeById(projTypeId);
 
+  // k343:2024.06以降の新築物件のみ、紹介料率を変更
   const {
     yumeCommFeeRate,
   } = data || {};
